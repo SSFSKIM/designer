@@ -1,0 +1,32 @@
+EEF
+======================================================================
+ERROR: test_external_png_is_snapshotted_without_rewriting_blind_reference (test_preparation.PreparationTests.test_external_png_is_snapshotted_without_rewriting_blind_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/test_preparation.py", line 55, in test_external_png_is_snapshotted_without_rewriting_blind_reference
+    p.baseline_map(out,**options)
+TypeError: baseline_map() got an unexpected keyword argument 'sources'
+
+======================================================================
+ERROR: test_snapshot_rejects_existing_payload_collision (test_preparation.PreparationTests.test_snapshot_rejects_existing_payload_collision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/test_preparation.py", line 78, in test_snapshot_rejects_existing_payload_collision
+    p.baseline_map(out,sources=(cal,blind),root=root,candidate_dir=candidate,
+TypeError: baseline_map() got an unexpected keyword argument 'sources'
+
+======================================================================
+FAIL: test_structured_rendered_diagnostic_is_not_numerical_s0 (test_boundary.BoundaryTests.test_structured_rendered_diagnostic_is_not_numerical_s0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/test_boundary.py", line 105, in test_structured_rendered_diagnostic_is_not_numerical_s0
+    self.assertEqual(rendered['diagnostic'],'rendered structured deep')
+AssertionError: 'S0' != 'rendered structured deep'
+- S0
++ rendered structured deep
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.649s
+
+FAILED (failures=1, errors=2)

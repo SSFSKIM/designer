@@ -1,0 +1,2078 @@
+{
+  "light-inactive": {
+    "status": "NOT_REJECTED_BY_RELAXATION",
+    "regimes": [
+      {
+        "regime": [
+          0,
+          0
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            109
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          1
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            110
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          2
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            111
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            112
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            113
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 354,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            114
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 355,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            115
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 356,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.4454545454545458,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            117,
+            165,
+            260
+          ],
+          "weights": [
+            "8/55",
+            "39/110",
+            "1/2"
+          ],
+          "weightedRhs": "-49/110",
+          "labels": [
+            "row48:lower",
+            "row72:lower",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          1
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            109
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          2
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            110
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            111
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            112
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            113
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 354,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            114
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          7
+        ],
+        "status": "FEASIBLE_OR_UNPROVED",
+        "constraints": 355,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.0,
+        "exactAttempts": 0,
+        "floatingPointCandidate": [
+          0.3330745341614907,
+          0.1591614906832298,
+          -8.91304347826087
+        ]
+      },
+      {
+        "regime": [
+          2,
+          2
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            109
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            110
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            111
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            112
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 23.375,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            113
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-187/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          7
+        ],
+        "status": "FEASIBLE_OR_UNPROVED",
+        "constraints": 354,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.0,
+        "exactAttempts": 0,
+        "floatingPointCandidate": [
+          0.30357142857142855,
+          0.1296583850931677,
+          -8.913043478260873
+        ]
+      },
+      {
+        "regime": [
+          3,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 25.88135593220339,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            109,
+            253
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1527/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 25.88135593220339,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            110,
+            254
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1527/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 25.88135593220339,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            111,
+            255
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1527/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 25.88135593220339,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            112,
+            256
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1527/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          7
+        ],
+        "status": "FEASIBLE_OR_UNPROVED",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.0,
+        "exactAttempts": 0,
+        "floatingPointCandidate": [
+          0.30357142857142855,
+          0.13507326007326004,
+          -9.725274725274723
+        ]
+      },
+      {
+        "regime": [
+          4,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 28.10362694300518,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            109,
+            301
+          ],
+          "weights": [
+            "88/193",
+            "105/193"
+          ],
+          "weightedRhs": "-5424/193",
+          "labels": [
+            "row48:upper",
+            "row144:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          4,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 28.10362694300518,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            110,
+            302
+          ],
+          "weights": [
+            "88/193",
+            "105/193"
+          ],
+          "weightedRhs": "-5424/193",
+          "labels": [
+            "row48:upper",
+            "row144:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          4,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 28.10362694300518,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            111,
+            303
+          ],
+          "weights": [
+            "88/193",
+            "105/193"
+          ],
+          "weightedRhs": "-5424/193",
+          "labels": [
+            "row48:upper",
+            "row144:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          4,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.27777777777777724,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            208,
+            305
+          ],
+          "weights": [
+            "11/18",
+            "7/18"
+          ],
+          "weightedRhs": "-5/18",
+          "labels": [
+            "row96:upper",
+            "row144:lower"
+          ]
+        }
+      },
+      {
+        "regime": [
+          5,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 29.985645933014354,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            13,
+            109
+          ],
+          "weights": [
+            "105/209",
+            "104/209"
+          ],
+          "weightedRhs": "-6267/209",
+          "labels": [
+            "row0:upper",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          5,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 29.985645933014354,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            14,
+            110
+          ],
+          "weights": [
+            "105/209",
+            "104/209"
+          ],
+          "weightedRhs": "-6267/209",
+          "labels": [
+            "row0:upper",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          5,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.9000000000000012,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            16,
+            207
+          ],
+          "weights": [
+            "7/20",
+            "13/20"
+          ],
+          "weightedRhs": "-9/10",
+          "labels": [
+            "row0:lower",
+            "row96:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          6,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 32.09871244635193,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            61,
+            109
+          ],
+          "weights": [
+            "105/233",
+            "128/233"
+          ],
+          "weightedRhs": "-7479/233",
+          "labels": [
+            "row24:upper",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          6,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 1.7826086956521747,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            63,
+            206
+          ],
+          "weights": [
+            "7/23",
+            "16/23"
+          ],
+          "weightedRhs": "-41/23",
+          "labels": [
+            "row24:lower",
+            "row96:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          7,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 2.8640776699029127,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            110,
+            205
+          ],
+          "weights": [
+            "28/103",
+            "75/103"
+          ],
+          "weightedRhs": "-295/103",
+          "labels": [
+            "row48:lower",
+            "row96:upper"
+          ]
+        }
+      }
+    ],
+    "qualification": "Necessary Jensen bin-mean cut only; feasible or unproved is not survival, and not rejection. No optimizer outcome replaced.",
+    "geometryRivals": [
+      "device",
+      "css",
+      "curvature"
+    ],
+    "binsUsed": "1x member0 straight top exterior shell0; 7 neutral cells",
+    "bounds": [
+      "1"
+    ]
+  },
+  "dark-inactive": {
+    "status": "CERTIFIED_INFEASIBLE_RELAXATION",
+    "regimes": [
+      {
+        "regime": [
+          0,
+          0
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            109
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          1
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            110
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          2
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            111
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            112
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            113
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 354,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            114
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 355,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            115
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          0,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 356,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.46153846153846156,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            69,
+            116,
+            260
+          ],
+          "weights": [
+            "1/2",
+            "14/39",
+            "11/78"
+          ],
+          "weightedRhs": "-6/13",
+          "labels": [
+            "row24:lower",
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          1
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            109
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          2
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            110
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            111
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            112
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            113
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 354,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            114
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          1,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 355,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.46153846153846156,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            68,
+            115,
+            259
+          ],
+          "weights": [
+            "1/2",
+            "14/39",
+            "11/78"
+          ],
+          "weightedRhs": "-6/13",
+          "labels": [
+            "row24:lower",
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          2
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            109
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            110
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            111
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            112
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 27.625,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            4,
+            5,
+            113
+          ],
+          "weights": [
+            "7/48",
+            "7/48",
+            "17/24"
+          ],
+          "weightedRhs": "-221/8",
+          "labels": [
+            "v<=255c",
+            "v>=-255c",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          2,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 354,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.46153846153846156,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            67,
+            114,
+            258
+          ],
+          "weights": [
+            "1/2",
+            "14/39",
+            "11/78"
+          ],
+          "weightedRhs": "-6/13",
+          "labels": [
+            "row24:lower",
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          3
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 28.322033898305083,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            109,
+            253
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1671/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 28.322033898305083,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            110,
+            254
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1671/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 28.322033898305083,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            111,
+            255
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1671/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 28.322033898305083,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            112,
+            256
+          ],
+          "weights": [
+            "24/59",
+            "35/59"
+          ],
+          "weightedRhs": "-1671/59",
+          "labels": [
+            "row48:upper",
+            "row120:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          3,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 353,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.493023255813954,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            8,
+            66,
+            113,
+            209
+          ],
+          "weights": [
+            "77/645",
+            "91/215",
+            "196/645",
+            "33/215"
+          ],
+          "weightedRhs": "-106/215",
+          "labels": [
+            "b=72:low",
+            "row24:lower",
+            "row48:upper",
+            "row96:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          4,
+          4
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 30.83937823834197,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            109,
+            301
+          ],
+          "weights": [
+            "88/193",
+            "105/193"
+          ],
+          "weightedRhs": "-5952/193",
+          "labels": [
+            "row48:upper",
+            "row144:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          4,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 30.83937823834197,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            110,
+            302
+          ],
+          "weights": [
+            "88/193",
+            "105/193"
+          ],
+          "weightedRhs": "-5952/193",
+          "labels": [
+            "row48:upper",
+            "row144:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          4,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 30.83937823834197,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            111,
+            303
+          ],
+          "weights": [
+            "88/193",
+            "105/193"
+          ],
+          "weightedRhs": "-5952/193",
+          "labels": [
+            "row48:upper",
+            "row144:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          4,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 352,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.641441441441442,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            9,
+            65,
+            112,
+            208
+          ],
+          "weights": [
+            "77/555",
+            "217/555",
+            "28/111",
+            "121/555"
+          ],
+          "weightedRhs": "-356/555",
+          "labels": [
+            "b=88:low",
+            "row24:lower",
+            "row48:upper",
+            "row96:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          5,
+          5
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 32.97129186602871,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            13,
+            109
+          ],
+          "weights": [
+            "105/209",
+            "104/209"
+          ],
+          "weightedRhs": "-6891/209",
+          "labels": [
+            "row0:upper",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          5,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 32.97129186602871,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            14,
+            110
+          ],
+          "weights": [
+            "105/209",
+            "104/209"
+          ],
+          "weightedRhs": "-6891/209",
+          "labels": [
+            "row0:upper",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          5,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 351,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 0.9000000000000012,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            16,
+            207
+          ],
+          "weights": [
+            "7/20",
+            "13/20"
+          ],
+          "weightedRhs": "-9/10",
+          "labels": [
+            "row0:lower",
+            "row96:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          6,
+          6
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 35.39484978540773,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            61,
+            109
+          ],
+          "weights": [
+            "105/233",
+            "128/233"
+          ],
+          "weightedRhs": "-8247/233",
+          "labels": [
+            "row24:upper",
+            "row48:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          6,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 350,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 1.782608695652172,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            63,
+            206
+          ],
+          "weights": [
+            "7/23",
+            "16/23"
+          ],
+          "weightedRhs": "-41/23",
+          "labels": [
+            "row24:lower",
+            "row96:upper"
+          ]
+        }
+      },
+      {
+        "regime": [
+          7,
+          7
+        ],
+        "status": "EXACT_INFEASIBLE",
+        "constraints": 349,
+        "solverSuccess": true,
+        "solverMessage": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "phaseISlack": 1.782608695652172,
+        "exactAttempts": 1,
+        "certificate": {
+          "indices": [
+            62,
+            205
+          ],
+          "weights": [
+            "7/23",
+            "16/23"
+          ],
+          "weightedRhs": "-41/23",
+          "labels": [
+            "row24:lower",
+            "row96:upper"
+          ]
+        }
+      }
+    ],
+    "qualification": "Necessary Jensen bin-mean cut only; feasible or unproved is not survival, and not rejection. No optimizer outcome replaced.",
+    "geometryRivals": [
+      "device",
+      "css",
+      "curvature"
+    ],
+    "binsUsed": "1x member0 straight top exterior shell0; 7 neutral cells",
+    "bounds": [
+      "1"
+    ]
+  }
+}

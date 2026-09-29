@@ -1,0 +1,14 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "verdict": "correct; no material findings",
+  "scope": [
+    "inactive_runner.py",
+    "start_partition.py",
+    "inactiveauthorityrulings",
+    "conditionaltop savedoutput"
+  ],
+  "checks": "Two partitiontests; independent syntheticinterception verifiedall144originalseed4100indexvectors across9family/geometry combinations and unchanged initialsolver bounds/tolerances/budget; no optimizerexecuted. Conditionaltop120rows retainssevenrepeats,0binding/railfailures,worst0.359802codes.",
+  "nativeArchiveReads": false,
+  "nativeFits": false,
+  "concurrencyCondition": "Each of three partition workers launched exactlyonce; each executes its starts sequentially."
+}

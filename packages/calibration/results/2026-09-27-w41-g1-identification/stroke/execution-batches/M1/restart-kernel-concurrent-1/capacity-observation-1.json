@@ -1,0 +1,52 @@
+{
+  "kind": "M1_CONCURRENT_CAPACITY_OBSERVATION",
+  "sampledUTC": "2026-09-28T09:12:55.004136+00:00",
+  "controllerSourceSha256": "fc768f12deb46c60ed9b514135b67d7875281b7b5fb0468979b7965b5ec5488e",
+  "launch09AtUTC": "2026-09-28T08:38:03.732086+00:00",
+  "launch09PreflightMode": "normal",
+  "launch09EffectiveConcurrency": 2,
+  "launch09LiveFits": [
+    {
+      "adopted": true,
+      "phase": "fit",
+      "pid": 45682,
+      "task": [
+        "M1",
+        "curvature",
+        8
+      ]
+    },
+    {
+      "adopted": false,
+      "phase": "handshake",
+      "pid": 6016,
+      "task": [
+        "M1",
+        "curvature",
+        9
+      ]
+    }
+  ],
+  "claim09": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/claims/curvature-M1-start-09.json",
+    "sha256": "87d73cec70f839f97ba9a7c691c346e5fff2524fdc6d4620d0fe82cf03b173b6",
+    "claimedUTC": "2026-09-28T08:38:04.361477+00:00",
+    "pid": 6016
+  },
+  "deferral09": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/deferrals/curvature-M1-start-09.json",
+    "sha256": "b92e751b8183665ec4d9039657401c9872ef3534f781df60ad9cc78f3b57b946",
+    "solverStarted": false,
+    "mode": "degraded"
+  },
+  "adopted08Started": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/started/curvature-M1-start-08.json",
+    "sha256": "72ec8a87d32b51b82117d3b89f2dea52007fc6364c5a3d1af65c7076b7fe65af"
+  },
+  "adopted08Result": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-08.json",
+    "sha256": "eabb6fd76b3c5e8eca3271933f75a46a77e045a70b007b039e2433063e58eb55",
+    "auditedAtUTC": "2026-09-28T09:11:24.793137+00:00"
+  },
+  "conclusion": "Two live scheduler slots overlapped during curvature09 preparation, but only curvature08 reached solver start; curvature09 fresh pre-fit gate deferred. No measured two-solver overlap."
+}

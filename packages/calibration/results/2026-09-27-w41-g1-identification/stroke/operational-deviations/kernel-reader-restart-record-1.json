@@ -1,0 +1,19 @@
+{
+  "kind": "STROKE_KERNEL_READER_RESTART",
+  "restartUTC": "2026-09-28T01:51:04.833158+00:00",
+  "sourceCommit": "9668d819",
+  "runRecord": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-1/run.jsonl",
+  "initialSnapshot": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/kernel-restart-initial-records-1.jsonl",
+    "sha256": "45820cfe2d611c7f03c34fed8130ac5c5f35465d020328ab2ccda5921beed2ab"
+  },
+  "manifest": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-1.json",
+  "initialLaunches": 1,
+  "initialClaims": 1,
+  "actualMemoryReader": "scheduler_v3.kernel_memory",
+  "receiptVersion": 4,
+  "scientificChanges": false,
+  "completedStartsRerun": 0,
+  "queueOrder": "M1 device15 then curvature00..15; M2 remains paused until M1 verdict.",
+  "sourceHoldHonored": true
+}

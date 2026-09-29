@@ -1,0 +1,12 @@
+/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/recovery-core.ts:41
+    throw Error('input must match committed full hash: ' + path);
+          ^
+
+Error: input must match committed full hash: /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/authority.json
+    at pinCommitted (/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/recovery-core.ts:41:11)
+    at pin (/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/recovery.ts:75:15)
+    at inputs (/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/recovery.ts:99:21)
+    at prepare (/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/recovery.ts:164:17)
+    at <anonymous> (/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/recovery.ts:266:59)
+
+Node.js v24.18.0

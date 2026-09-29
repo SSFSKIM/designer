@@ -1,0 +1,28 @@
+{
+  "kind": "STROKE_STOPPED_RESOURCE_WAIT",
+  "source": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memo-wrapped-v3-resource-wait.jsonl",
+    "sha256": "7a6aee0efd2700c0b4f157d46ddf1653a63972ade572265b1d28012f2fc96d90"
+  },
+  "observations": 22,
+  "firstUTC": "2026-09-27T12:59:37.022613+00:00",
+  "lastUTC": "2026-09-27T13:10:08.602160+00:00",
+  "availableBytesRange": [
+    2831089664,
+    4182999040
+  ],
+  "pressureLevels": [
+    1,
+    2
+  ],
+  "requiredAvailableBytes": [
+    4709384192
+  ],
+  "allPreflightRefusals": true,
+  "verificationLeaseCreated": false,
+  "nativeReads": 0,
+  "optimizerRuns": 0,
+  "stop": "wrapped-v3-waiter-stop.json",
+  "replacementPolicy": "scheduler-memory-parent-direction-v3.json",
+  "interpretation": "Historical normal-gate refusals, not evidence of scientific failure or degraded admission."
+}

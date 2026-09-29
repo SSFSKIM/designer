@@ -1,0 +1,194 @@
+{
+  "endpoints": {
+    "E3": {
+      "dark-active": {
+        "status": "certified calibration rejection",
+        "colourSurvives": false,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "certified-infeasible",
+        "method": "globalMinimax",
+        "source": "dark-active-E3-fit.json",
+        "sourceSha256": "8d23ff0bb08a5458d45fbf2217e35d298955d487435dfc4e72728bf1ef422430"
+      },
+      "dark-inactive": {
+        "status": "certified calibration rejection",
+        "colourSurvives": false,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "certified-infeasible",
+        "method": "globalMinimax",
+        "source": "dark-inactive-E3-fit.json",
+        "sourceSha256": "2024f3a4baa070288145ab1095d29fd7495510e81c07a7b40ed717aae1fd2b2e"
+      },
+      "light-active": {
+        "status": "colour endpoint survives; thick transfer fails",
+        "colourSurvives": true,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "forward-feasible",
+        "method": "globalMinimax",
+        "source": "light-active-E3-fit.json",
+        "sourceSha256": "a66a709adc3a85176a4ab7a7a02a8d8f02445ad9281fcccafb8f9cb7c7e192cc"
+      },
+      "light-inactive": {
+        "status": "endpoint survives both colour and thick transfer",
+        "colourSurvives": true,
+        "thickTransferPasses": true,
+        "fullEndpointSurvives": true,
+        "calibrationAuthority": "forward-feasible",
+        "method": "globalMinimax",
+        "source": "light-inactive-E3-fit.json",
+        "sourceSha256": "fef8045e611ade02184e091350cd89ebcb32a6eff86d82bea39f2aefa7100fd6"
+      }
+    },
+    "EH6": {
+      "dark-active": {
+        "status": "certified calibration rejection",
+        "colourSurvives": false,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "certified-infeasible",
+        "method": "globalMinimax",
+        "source": "dark-active-EH6-fit.json",
+        "sourceSha256": "8fd7cf79e3cedb1d9592bafdeefcf07e35f0840a839ca928af0e147274494624"
+      },
+      "dark-inactive": {
+        "status": "certified calibration rejection",
+        "colourSurvives": false,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "certified-infeasible",
+        "method": "globalMinimax",
+        "source": "dark-inactive-EH6-fit.json",
+        "sourceSha256": "24510ab0ef90593ccfcc65018308491107da5b91d2aaebdfe67c1e8d7335e212"
+      },
+      "light-active": {
+        "status": "colour endpoint survives; thick transfer fails",
+        "colourSurvives": true,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "forward-feasible",
+        "method": "globalMinimax",
+        "source": "light-active-EH6-fit.json",
+        "sourceSha256": "053fa797b50da037cfbfc94826c97d17e18b84631a96fe2decd6500f7e644312"
+      },
+      "light-inactive": {
+        "status": "endpoint survives both colour and thick transfer",
+        "colourSurvives": true,
+        "thickTransferPasses": true,
+        "fullEndpointSurvives": true,
+        "calibrationAuthority": "forward-feasible",
+        "method": "globalMinimax",
+        "source": "light-inactive-EH6-fit.json",
+        "sourceSha256": "d3cab731b759d18f0221317a154846b4ca08b3f01d8a67bab4518feb6dceac6b"
+      }
+    },
+    "O12": {
+      "dark-active": {
+        "status": "LOCAL candidate fails; no global nonlinear negative",
+        "colourSurvives": false,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "LOCAL only",
+        "method": "localMinimax",
+        "source": "dark-active-O12-fit.json",
+        "sourceSha256": "0210fc67c7e1a2d0e863cf1432aef509c7fc7db3d44f4b79367c6090a4bfd16d"
+      },
+      "dark-inactive": {
+        "status": "LOCAL candidate fails; no global nonlinear negative",
+        "colourSurvives": false,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "LOCAL only",
+        "method": "localMinimax",
+        "source": "dark-inactive-O12-fit.json",
+        "sourceSha256": "b22a00d9061c6856cc0b6003f9599e53e168eaafbbf2ca318edd7da6cf2c5a62"
+      },
+      "light-active": {
+        "status": "LOCAL candidate fails; no global nonlinear negative",
+        "colourSurvives": false,
+        "thickTransferPasses": false,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "LOCAL only",
+        "method": "localMinimax",
+        "source": "light-active-O12-fit.json",
+        "sourceSha256": "366503e1092f310f88e1ad2bb3a9bdc20b0910a9a1819e50d62976f060de5dd6"
+      },
+      "light-inactive": {
+        "status": "LOCAL candidate fails; no global nonlinear negative",
+        "colourSurvives": false,
+        "thickTransferPasses": true,
+        "fullEndpointSurvives": false,
+        "calibrationAuthority": "LOCAL only",
+        "method": "localMinimax",
+        "source": "light-inactive-O12-fit.json",
+        "sourceSha256": "ac825baa9eac203946b4a9df11a24f7cc11a851875be82bff27e5fa5f046176e"
+      }
+    }
+  },
+  "completeFourEndpointFamilies": {
+    "E3": false,
+    "EH6": false,
+    "O12": false
+  },
+  "explanation": "Light colour endpoints can survive without a complete four-endpoint family; thick transfer is independently tabled.",
+  "correctionToAttemptSummary": "Linear light-active endpoint label LOCAL candidate failure means thick-transfer failure; it is forward feasible on calibration and colour validation.",
+  "resolution": [
+    {
+      "scope": "colour",
+      "endpoint": "light-active",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 340,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+        "channel": "B",
+        "separationCodes": 0.5010548802260075,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    },
+    {
+      "scope": "colour",
+      "endpoint": "light-inactive",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 340,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+        "channel": "R",
+        "separationCodes": 1.1902015706554323,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    },
+    {
+      "scope": "colour-and-thick-transfer",
+      "endpoint": "light-inactive",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 370,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+        "channel": "R",
+        "separationCodes": 1.1902015706554323,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    }
+  ],
+  "exposureEligibleBodyFamilies": []
+}

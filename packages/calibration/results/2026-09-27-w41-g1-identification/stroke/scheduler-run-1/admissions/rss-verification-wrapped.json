@@ -1,0 +1,18 @@
+{
+  "kind": "STROKE_RSS_OBSERVATION",
+  "sampledUTC": "2026-09-27T13:35:08.859897+00:00",
+  "source": "resource.getrusage(RUSAGE_SELF).ru_maxrss",
+  "platform": "Darwin",
+  "unit": "bytes",
+  "lease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/verification/wrapped/lease.json",
+    "sha256": "84980afa25b00accdb8f33c520929a03abbb3c8dc839a4dc210c88be04449f1b"
+  },
+  "samples": [
+    {
+      "pid": 22185,
+      "owner": "verification-wrapped",
+      "rssBytes": 4124164096
+    }
+  ]
+}

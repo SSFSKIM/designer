@@ -1,0 +1,20 @@
+{
+  "kind": "STROKE_PID_REUSE_IDLE_ACCOUNTING",
+  "controllerSnapshot": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/m1-controller-through-pause-1.jsonl",
+    "sha256": "52ee5534f8c63e0e72fdc853882714d847d75a00eae4bfbdea6d6e748b501c80"
+  },
+  "lastFitFinishedUTC": "2026-09-27T17:54:42.603813+00:00",
+  "controllerPausedUTC": "2026-09-28T00:43:09.131276+00:00",
+  "noFitIntervalSeconds": 24506.527463,
+  "directPhantomRefusalInterval": {
+    "startUTC": "2026-09-27T17:58:15.852650+00:00",
+    "endUTC": "2026-09-28T00:43:00.421442+00:00",
+    "seconds": 24284.568792,
+    "refusals": 799
+  },
+  "preFirstPhantomWaitSeconds": 213.248837,
+  "costClassification": "Scheduler idle/refusal time is separate from solver time. The short interval before the first phantom refusal is not causally attributed to PID reuse. Repair pause continues until an explicit restart record.",
+  "completedM1ProcessSeconds": 4850.54034137493,
+  "restart": "pending separate record"
+}

@@ -1,0 +1,91 @@
+{
+  "kind": "STROKE_REQUESTED_LIVE_COUNTER_AND_CPU_AUDIT",
+  "recordedUTC": "2026-09-28T19:11:17.842970+00:00",
+  "partitionB": {
+    "pid": 42753,
+    "task": [
+      "M2",
+      "device",
+      1
+    ],
+    "availableFiles": [
+      "calibration-admission.json",
+      "execution.json"
+    ],
+    "liveSolverCalls": null,
+    "liveCallbackEvaluations": null,
+    "liveCacheHitRate": null,
+    "reason": "SolverMemo trace=None; counters live only in process memory and are serialized by memo.summary after the start returns. No live trace or checkpoint file exists. lsof shows B.stdout only.",
+    "currentOSSnapshot": {
+      "cpuSecondsCumulative": 36196.97,
+      "elapsedSeconds": 34786,
+      "cpuPercent": 98.2
+    },
+    "nearBudget": null,
+    "remainingWallTimeBound": null,
+    "action": "No abort or restart. Do not infer a near-zero hit rate from unavailable counters."
+  },
+  "lastThreeStaticA": [
+    {
+      "startIndex": 13,
+      "wallSeconds": 3142.273992334027,
+      "cpuSeconds": null,
+      "cpuStatus": "UNRECORDED; driver writes per-start perf_counter elapsed only. No retrospective per-start CPU split available.",
+      "solverCalls": 9,
+      "cachedCallbackRequests": 54394,
+      "cacheHits": 37471,
+      "cacheMisses": 16923,
+      "hitRate": 0.688881126594845,
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/curvature-M1-start-13.json",
+        "sha256": "b1e0214e42fd8696192093ef3bc6c34f85eee25d663e6bb26e4ce6cc178ad602"
+      }
+    },
+    {
+      "startIndex": 14,
+      "wallSeconds": 3333.3802957499865,
+      "cpuSeconds": null,
+      "cpuStatus": "UNRECORDED; driver writes per-start perf_counter elapsed only. No retrospective per-start CPU split available.",
+      "solverCalls": 19,
+      "cachedCallbackRequests": 62695,
+      "cacheHits": 43244,
+      "cacheMisses": 19451,
+      "hitRate": 0.6897519738416141,
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/curvature-M1-start-14.json",
+        "sha256": "19c540d905af1fdd9c1b684011fb5ac8e71c2adef45b2065d8c2cbc5eb80be5b"
+      }
+    },
+    {
+      "startIndex": 15,
+      "wallSeconds": 6957.508250582963,
+      "cpuSeconds": null,
+      "cpuStatus": "UNRECORDED; driver writes per-start perf_counter elapsed only. No retrospective per-start CPU split available.",
+      "solverCalls": 21,
+      "cachedCallbackRequests": 147648,
+      "cacheHits": 103092,
+      "cacheMisses": 44556,
+      "hitRate": 0.6982282184655396,
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/curvature-M1-start-15.json",
+        "sha256": "f2e871534a1a77df6e77c4479fa91f916281dc6e9a865678221e8dfd03a9c5cb"
+      }
+    }
+  ],
+  "sealedPerStartWorkLimits": {
+    "leastSquaresCallsAtMost": 9,
+    "leastSquaresMaxNfevPerCall": 3000,
+    "slsqpCallsAtMost": 20,
+    "slsqpMaxIterationsPerCall": 3000,
+    "totalSolverCallsAtMost": 29,
+    "widthSearchTrialPositionsAtMost": 1632,
+    "qualification": "These are total count ceilings, not a wall-time bound or live remaining-work measure. Finite-difference/constraint callback requests and uncached width/report evaluations are not one-for-one with optimizer nfev or iteration counts."
+  },
+  "fitterSource": {
+    "path": "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py",
+    "sha256": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887"
+  },
+  "staticACumulativeCPUAtPause": 33544.48,
+  "cpuQualification": "Aggregate process CPU includes preparation and other work; it cannot be distributed among the last three starts from saved evidence.",
+  "intervention": false
+}

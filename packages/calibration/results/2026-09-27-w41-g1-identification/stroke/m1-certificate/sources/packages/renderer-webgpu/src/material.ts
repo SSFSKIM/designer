@@ -1,0 +1,5522 @@
+/**
+ * The optical constants, and the two foldings that decide what the shader
+ * actually gets: the dual cap, and the size-parameterised lens.
+ *
+ * **Every number here is advisory and calibration-delegated (C7).** They are
+ * chosen so the material is coherent out of the box — a plausible glass, not a
+ * measured one — and §Calibration names exactly this kind of value as a delegated
+ * unknown. They live in one profile object (`MaterialProfile`) so replacing them
+ * with fitted values is a data change (`withMaterialOverrides`), and no shader
+ * carries a literal of its own. The named constants below are re-exports of that
+ * profile's defaults, kept because a reader wants a name for σ = 8 more often
+ * than a whole profile.
+ *
+ * ## The dual cap (Decision Log #19)
+ *
+ * Two independent things cap refraction: the accessibility policy's regime
+ * (`nominal | reduced | none`) and the group's resolved capability state
+ * (`true | approximate | none` — what the sampling backend can actually deliver).
+ * **The lower of the two wins**, and this module folds them into one scalar before
+ * anything reaches a uniform, so the shader has no way to honour the wrong one.
+ *
+ * The ordering is `@vitrea/policy`'s, and so is the fold. It used to be restated
+ * here — this package sits *below* core in the dependency graph and platform-web
+ * sits above it, so for most of v1 there was no module both tiers could see and
+ * the CSS tier carried a second copy. Decision Log #23(d) closed that seam by
+ * putting the ladder in a pure leaf underneath everything, which the renderer can
+ * depend on directly (alongside `@vitrea/geometry`) with no cycle to close. The
+ * two copies can no longer disagree because there is only one.
+ */
+
+import {
+  accessibilityRefractionCap,
+  DEFAULT_REFRACTION_SCALE,
+  REFRACTION_LADDER,
+  type RefractionQuality,
+} from "@vitrea/policy";
+
+import type { Rgb } from "./color";
+import { linearToSrgbChannel, relativeLuminance, srgbToLinear, srgbToLinearChannel } from "./color";
+
+// Re-exported under the names this package and its tests already know them by,
+// so nothing downstream has to learn where the ladder went.
+export {
+  accessibilityRefractionCap,
+  effectiveRefraction,
+  REFRACTION_LADDER,
+  refractionRank,
+  type RefractionQuality,
+} from "@vitrea/policy";
+
+/**
+ * The slice of core's `ResolvedAccessibilityPolicy["material"]` the renderer
+ * reads. core's type is assignable to this; a test pins that.
+ */
+export interface MaterialPolicyView {
+  readonly glass: "material" | "none";
+  readonly frost: "nominal" | "increased" | "none";
+  readonly refraction: "nominal" | "reduced" | "none";
+  readonly occlusion: "nominal" | "increased" | "opaque";
+  readonly border: "nominal" | "strong";
+  readonly ambientTint: "nominal" | "reduced" | "none";
+  readonly foreground: "adaptive" | "near-monochrome";
+}
+
+/** Nominal accessibility material policy — nothing capped. Mirrors core's. */
+export const NOMINAL_MATERIAL_POLICY: MaterialPolicyView = {
+  glass: "material",
+  frost: "nominal",
+  refraction: "nominal",
+  occlusion: "nominal",
+  border: "nominal",
+  ambientTint: "nominal",
+  foreground: "adaptive",
+};
+
+/** The two variants, declared as data so a profile merge can walk them. */
+export const MATERIAL_VARIANTS = ["regular", "clear"] as const;
+
+export type MaterialVariant = (typeof MATERIAL_VARIANTS)[number];
+
+export interface MaterialOptics {
+  /** Body blur σ in CSS px. Matches `platform-web`'s `MATERIAL_OPTICS.blurRadius`. */
+  readonly blurSigma: number;
+  /** Tint over the blurred backdrop, linear light. */
+  readonly tint: Rgb;
+  readonly tintAlpha: number;
+  /** Rim band half-width in CSS px, and its ambient brightness. */
+  readonly rimWidth: number;
+  readonly rimAlpha: number;
+  /**
+   * **The rim band's half-width at dpr 2** (W23; claims §5.100 §5, Decision
+   * Log 2 (d)) — `rimWidth`'s second reading, on the precedent of
+   * `sizeScatterGainMax2x` and its siblings and interpolated by the same
+   * `rampAtScale`.
+   *
+   * The rim's amplitude below is one law for both scales, and it cannot be: read
+   * at the contour, vitrea's per-CSS-px band integral RISES 19 % between 1x and
+   * 2x (0.068 → 0.081) while the reference's FALLS 10 % (0.229 → 0.205), so the
+   * same amplitude that lands the 1x dark-backdrop solids at −0.003…−0.007 lands
+   * the 2x rows at +0.037…+0.051. The mismatch is the band's shape and not its
+   * height: at 1x over a dark backdrop the two rims are already the same
+   * one-pixel line (the reference's second contour row carries 8 % of the peak
+   * and vitrea's −7 %), and at 2x vitrea spreads 35 % of its peak onto the second
+   * row where the reference puts 55 % of a NARROWER line. So `rimWidth` does not
+   * move — the 1x rows do not ask it to — and the 2x band narrows instead.
+   *
+   * At dpr ≤ 1 this constant is not read at all (`rimWidthAtScale`), so a profile
+   * that carries it renders the 1x material unchanged by construction.
+   */
+  readonly rimWidth2x: number;
+  /**
+   * Specular exponent and gain on the rim — **RETIRED from the rim (W24 G2;
+   * claims §5.108 §1, W24 Decision Log 2 (a)), and the note is set beside the
+   * W22 fit below rather than over it.**
+   *
+   * The term was `max(dot(normal, lightDirection), 0)^specularPower ×
+   * specularGain`, one-sided, added to the rim's amplitude. W24 read the
+   * reference's rim around the whole contour instead of per side and found the
+   * variation it was reaching for — but symmetric about the diagonal, not
+   * one-sided: the two ends of that diagonal are drawn EQUAL to a thousandth
+   * (2x dark tl 0.0418 against br 0.0418; 2x light 0.2786 against 0.2823), and
+   * over the nineteen untinted solid rows the one-sided form reaches a
+   * normalised RMS of 0.288 against the symmetric form's 0.148, degenerating in
+   * the fit to the ceiling of both its exponent and its floor trying to become
+   * symmetric. So the shape was wrong, which is the deeper reason W22 G1 rightly
+   * fitted the gain to 0 on the regular variant (claims §5.94 §3): no amount of
+   * a term with the wrong shape helps. `rimLitExponent` below is the shape the
+   * rows chose, and it replaces this one.
+   *
+   * Nothing on either canonical bed moves: the shipped profiles carry
+   * `specularGain` 0 on `regular` since W21/W22, and no scene on either bed or in
+   * the golden suite declares `clear`. What DOES change is the `clear` variant's
+   * unfitted structural 0.45, which drew a one-sided highlight this material is
+   * now measured not to have; it is recorded rather than replaced, because the
+   * lit factor is inert on `clear` for want of rows.
+   *
+   * The two constants stay on the profile so that the W22 fit's record and the
+   * profile documents that carry it remain readable, and so that removing them
+   * is one reviewable change of the profile's SHAPE rather than a side effect of
+   * a material gate. Nothing reads them.
+   */
+  readonly specularPower: number;
+  readonly specularGain: number;
+  /**
+   * **The rim's amplitude law (W23; claims §5.100 §4, Decision Log 2 (a))** — the
+   * term that lets the rim depend on what it is drawn over, which `rimAlpha`
+   * alone cannot.
+   *
+   * `rimAlpha` was an additive constant: the shader added `rimWeight × rimAlpha`
+   * and nothing scaled it. The reference's rim is not a constant. Read at the
+   * contour (claims §5.99, §5.100 §2; W23 X1) the light reference's rim is
+   * +0.23…0.26 of linear luminance over a dark solid, +0.13…0.21 over a
+   * structured backdrop and clipped to white over `light-solid`, while vitrea
+   * drew the same +0.060…0.078 everywhere; and the dark reference's rim GROWS
+   * with what is behind it, +0.026 over `dark-solid` and +0.103 over
+   * `light-solid`, at a body that moves by only a twelfth as much.
+   *
+   * `rimLevelGain` is the coefficient of the surface's OWN rendered level: the
+   * rim becomes `rimAlpha + rimLevelGain × luminance(surface)`. Four candidate
+   * forms were fitted on the reference's own solid, unclipped, uncollapsed sides
+   * — 44 in light and 36 in dark, from both canonical scales and both probe grids
+   * — and this one wins in both schemes on mean |residual|: 0.0081 / 0.0013
+   * against 0.0249 / 0.0253 for the additive constant, 0.0168 / 0.0259 for a pure
+   * screen and 0.0105 / 0.0042 for screen plus an environment term.
+   *
+   * The gain is SIGNED, and its sign is the whole finding. A negative gain is the
+   * screen form — a white line composited source-over at a fraction of the body's
+   * headroom, which is what the CSS tier's inset `box-shadow` already is — and
+   * the light material's rows want one. A positive gain is a rim that rides its
+   * own body up, and the dark material's rows want that, strongly.
+   *
+   * **The environment term is not here, and its absence is a measurement.** W23
+   * chartered `rimEnvGain` — a coefficient on the backdrop source's own average
+   * luminance — as the candidate (L3) for what makes the reference's rim clip
+   * over a bright backdrop while its body is nowhere near white. It is declined
+   * and REMOVED rather than shipped at 0: it is worse than this law on the
+   * reference in both schemes, and no row of either bed separates it on vitrea's
+   * side (a rendered ladder point at +0.10 of gain moved every solid cell by 0 or
+   * 0.0005, because `light-solid` clips and the dark solids have no environment
+   * to speak of). C9a §6.2's rule is that a constant whose rows do not separate
+   * it is not carried. What the reference does there is real and is recorded in
+   * the wave's Deferred list with its numbers: a bed with a mid-bright solid
+   * backdrop under a light-scheme thick surface would tell the environment apart
+   * from the body, and no bed that exists can.
+   */
+  readonly rimLevelGain: number;
+  /**
+   * **The lit edge (W24; claims §5.107)** — the exponent of the directional
+   * factor `(√2 · |n · L|)^rimLitExponent` the rim's whole amplitude is
+   * multiplied by, with `L` the profile's `rimLitAxis`.
+   *
+   * W23 gave the rim the right AMOUNT and the wrong SHAPE. Read around the whole
+   * contour rather than per side (`results/2026-09-09-w24-lit-edge/g0/
+   * read-angular.py`), Apple's rim is not constant: on the 2x dark
+   * `dark-solid__rrect-md` the bins whose normal points north-west and
+   * south-east read 0.0408 and 0.0418 against 0.0016 for north-east and
+   * south-west, with the four straight sides at 0.0312–0.0328; the same cell in
+   * the light scheme reads 0.284 / 0.286 against 0.038, sides 0.233–0.247.
+   * vitrea drew one number everywhere — a drawn line, which is what the user's
+   * eye called an aesthetic regression on the W23 landing sheet.
+   *
+   * No per-side reader could see it, and the reason is geometric: a light on the
+   * 45° diagonal projects EQUALLY on all four straight sides, so `L−R` and
+   * `T−B` are 0 for the reference exactly as they are for vitrea. The variation
+   * lives in the corner arcs, which W23's contour reader excludes by
+   * construction and W21's band reader averages into its corner overshoot.
+   *
+   * **The form is symmetric and it is not a Lambert.** Fitted on the reference's
+   * own bins over the 19 untinted solid cells of both canonical beds and both
+   * probe grids, `(√2 · |n · L|)^p` reaches an RMS of 0.148 of each cell's own
+   * peak against 0.288 for the one-sided `max(n · L, 0)^p` that W22's `spec`
+   * term draws and 0.312 for the flat rim vitrea ships. The one-sided form
+   * cannot reach both ends of a diagonal whose two corners the reference draws
+   * equal to a thousandth, and that — not its gain — is why W22 rightly fitted
+   * `specularGain` to 0.
+   *
+   * **There is no ambient floor.** The wave chartered `a + (1 − a)|n · L|^p` with
+   * `a` expected around 0.15 dark and 0.25 light. Every grouping of the rows fits
+   * `a` to 0.000 (the search ran 0…0.6 in steps of 0.005), because the bin mean
+   * of `|cos|^p` over the 22.5° straddling the null is already 0.10–0.16 and
+   * supplies everything the null bins carry. A constant every row fits to zero is
+   * a constant the material does not have (C9a §6.2), so it is not here.
+   *
+   * **The `√2` is the amplitude's re-expression, in closed form.** W23 fitted
+   * `rimAlpha` and `rimLevelGain` on the STRAIGHT SPANS, which under this factor
+   * sit at `(cos 45°)^p` of the peak. Normalising the dot product by `cos 45°`
+   * inside the power makes the factor exactly 1 wherever the normal is
+   * horizontal or vertical, at every exponent — so no fitted amplitude moves,
+   * W23's straight-span reads hold identically rather than approximately, and
+   * only the corners and the arcs change. It is why the CSS tier, whose inset
+   * shadow cannot vary around a contour, needs no re-fit either.
+   *
+   * At 0 the factor is `pow(x, 0)` = 1 for every normal, so a profile that does
+   * not carry this constant renders the W23 material byte for byte.
+   */
+  readonly rimLitExponent: number;
+  /**
+   * **The lit edge's along-side field (W25; claims §5.113, W25 Decision Log 3
+   * (c))** — the slope of the position field the rim's amplitude is graded by
+   * across the surface, riding `sizeThickness`.
+   *
+   * W24 gave the rim a factor of the NORMAL, which is one number on a whole
+   * straight side. W25 G0 read the rim's peak excess by POSITION along each
+   * straight side instead and found it graded on every thick cell of both probe
+   * grids, on flat solid backdrops where a lens has no gradient to refract: the
+   * 1x dark `dark-solid__rrect-md` reads slopes of −0.000192 (top), +0.000192
+   * (bottom), −0.000379 (left) and +0.000379 (right) luma per CSS px, and the
+   * corner-to-corner range 0.0187 / 0.0226 / 0.0345 on `light-solid` /
+   * `dark-solid` / `mid-dark-solid` at span 96 falls to 0.0000 / 0.0016 at spans
+   * 32 and 44 and saturates above 96 — the signature of a term on
+   * `sizeThickness` and not of the lens.
+   *
+   * **The field is the product of the two normalised coordinates, and that is
+   * what the four slopes say.** A field linear in position — `a·x + b·y` — gives
+   * the top and the bottom side the SAME slope in x; the reference's are equal
+   * and opposite. `(x / halfWidth) · (y / halfHeight)` gives exactly the measured
+   * antisymmetry, is +1 at the top-left and bottom-right corners and −1 at the
+   * other two — the same diagonal `rimLitAxis` is symmetric about, which is why
+   * this is the position half of one light and not a second one — and predicts
+   * the two sides' slope ratio as the box's aspect: 160/96 = 1.67 against the
+   * measured 0.000379 / 0.000192 = 1.97, where a metric diagonal would predict
+   * 1.0. Reading the reference's two sides through it gives 0.62 (top) and 0.73
+   * (left) for this constant, which is the agreement a 56 CSS px straight side
+   * on a six-code contrast supports.
+   *
+   * The factor is `1 + rimAlongSideSlope · sizeThickness(span) · field`, applied
+   * beside W24's `lit` factor and outside W23's amplitude bracket. Two
+   * consequences are exact rather than approximate. **The field's mean over every
+   * straight side is zero**, because the product is odd in the coordinate that
+   * runs along the side, so W23's and W24's straight-span amplitudes keep their
+   * fitted meaning and the CSS tier — whose one inset shadow cannot vary around a
+   * contour — is coherent with the GPU tier's side mean without carrying the term
+   * at all. **It is exactly 0 at or below `sizeSpanMin`**, so `rrect-sm` and every
+   * thin control are untouched by construction; the capsule's span of 44 takes
+   * 0.0923 of it, which is the thin end's whole exposure.
+   *
+   * At 0 the factor is exactly 1 everywhere, so a profile that does not carry
+   * this constant renders the W24 material byte for byte.
+   */
+  readonly rimAlongSideSlope: number;
+  /** Inner-shadow depth (0..1) and how much of it is applied. */
+  readonly shadowDepth: number;
+  readonly shadowAlpha: number;
+  /** Highlight colour for the sweep and press glow, linear light. */
+  readonly highlight: Rgb;
+}
+
+/** The rim a `border: "strong"` policy substitutes, whatever the variant asked for. */
+export interface MaterialRim {
+  readonly rimWidth: number;
+  readonly rimAlpha: number;
+}
+
+/**
+ * The outer shadow (W8) — the material's own occlusion of the backdrop *outside*
+ * its contour, and the largest single facet the project has measured.
+ *
+ * Not the same quantity as `MaterialOptics.shadowDepth`/`shadowAlpha`, which are
+ * the *inner* shadow: that one darkens the material's own body near its contour,
+ * this one darkens what is behind and beside the surface. Profile-level rather
+ * than per-variant, because the bed measures it per profile and never varied the
+ * variant.
+ *
+ * ## The mechanism, as measured
+ *
+ * The reference's shadow is the component's OWN rounded silhouette, outset by
+ * `spreadPx`, translated down by `offsetPx`, blurred by a Gaussian of standard
+ * deviation `sigmaPx`, and applied MULTIPLICATIVELY: the backdrop keeps
+ * `1 − occlusion·falloff` of its own light. Fitted in two dimensions against the
+ * active bed, that model reproduces the reference to an RMS of 0.0021 in
+ * occlusion over 142,550 pixels on the finest cell, and the same three lengths
+ * describe every profile, backdrop, span and scale in the bed.
+ *
+ * ## Two terms on ONE falloff (W14 G0, claims §5.62)
+ *
+ * The description above holds where W8 measured it and misses two things the bed
+ * has since shown, both of which live in the AMPLITUDE and neither of which
+ * moves a length. Outside the coverage, in the compositing (encoded) domain:
+ *
+ *     out = bg · (1 − α_b(backdrop, span) · F(d))  +  A_v(span) · F(d) · V
+ *
+ * with **one** falloff `F` — W8's own, at 15.55 / 7.95 / 3.1, re-read free and
+ * unmoved on both terms (σ 14.8–16.2 and offset 7.93–8.00 for the black term,
+ * σ 14.1–17.1 and offset 7.6–8.4 for the lift) — and `V` the backdrop's own
+ * light blurred at `liftBlurSigmaCss`.
+ *
+ * The first term's amplitude ADAPTS below the knee: the reference's fill alpha
+ * is 0.33 over the mid backdrops, 0.127 over `light-solid` and nothing over
+ * black, keyed on the SAME backdrop luminance statistic W9's face response uses
+ * (the ENCODED-space mean, decoded — `backdropToneAnchorX`'s own axis), through
+ * the same thickness curve that gates that regime. Above the knee it is the
+ * composite's transmission by span. The second term is the lift, GPU-tier only,
+ * and it is exactly zero below the knee. It is also zero over a UNIFORMLY black
+ * backdrop, not necessarily over a locally black pixel: its source is the
+ * sigma-40 blurred backdrop chain sampled at that pixel's position, so nearby
+ * light can survive the blur and be added over black (W14 S6, claims §5.65).
+ * W33 G1b (§5.172) corrects the earlier "exactly zero over black" wording; no
+ * runtime value changes with this comment. The macOS 27 documents declare the
+ * lift at zero under Decision Log 1 (a), while the frozen macOS 26.5 material
+ * keeps the lift its native bed measures.
+ *
+ * The layer tree's `inputShadowAmount` and `inputShadowHeight` are NOT either
+ * term's spatial extent — the charter's advisory was wrong there, and G0's free
+ * fits overturned it. Only `inputShadowBlurRadius` 40 belongs to the lift, as
+ * the blur of the backdrop it copies.
+ *
+ * **Multiplicative, and not additively.** Mirrored pixel pairs either side of a
+ * capsule over the `photo` backdrop see the same shadow over different backdrop
+ * luminances: the darkening's ratio tracks the backdrop's ratio to 4.5% while a
+ * constant-subtraction model misses by 79% of the signal. So the shadow is
+ * analytically INVISIBLE over black — `dark-solid` cells are byte-identical to
+ * their background — and that property is what both tiers reproduce exactly,
+ * because a fully transparent black composited over anything leaves it alone and
+ * black times anything is black.
+ *
+ * ## Lengths, in points
+ *
+ * Every length below is in CSS px and the 2× bed proves it: `sigmaPx` measures
+ * 15.5 at 1× and 31.0 at 2× device px, `offsetPx` 7.9 and 15.8. A shadow
+ * specified in points is what doubles that way.
+ *
+ * They are also SPAN-INVARIANT, which is a positive measurement rather than an
+ * absence: across spans of 32, 44, 96 and 160 px the fitted σ stays within
+ * 15.4…15.9 and the offset within 6.9…8.1. The size law reaches the amplitude
+ * (`sizeGain`) and nothing else.
+ */
+export interface MaterialOuterShadow {
+  /** Downward translation of the shadow's silhouette, CSS px. */
+  readonly offsetPx: number;
+  /**
+   * Gaussian σ the silhouette is blurred by, CSS px. A `box-shadow` blur is 2σ.
+   *
+   * Since W30 G2 this is the σ at the reference span rather than the σ full
+   * stop: the three leaves below grade it with the casting span, and at their
+   * inert defaults the law returns exactly this number for every span. The
+   * header above records the macOS 26.5 material's own span-invariance as a
+   * positive measurement, which is why that material can go on expressing
+   * itself with three zeros.
+   */
+  readonly sigmaPx: number;
+  /**
+   * The σ law's slope: CSS px of σ per CSS px of casting span, dimensionless.
+   *
+   * macOS 27 blurs the outer shadow wider under a wider surface. Over spans 96
+   * to 160 the measured σ is linear in the span on every bed of the macOS 27
+   * capture — slope 0.128 to 0.134, holding to 2 % on the median and scale-
+   * invariant in CSS px to 11 % at its worst cell (claims §5.156 §2) — while
+   * the shipped single σ draws 4.2 to 7.2 times too wide below span 96 and
+   * about a third too narrow at 128 and above. The whole law is
+   *
+   *     σ_css(span) = sigmaPx + max(sigmaThinOffsetPx,
+   *                                 sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+   *
+   * evaluated PER CASTER: the GPU tier reads the casting surface's own span per
+   * pixel from the field pass's `shadowAux.z`, and the CSS tier writes one blur
+   * radius per surface from `surface.spanPx`. It takes no device ratio, because
+   * the cut rejected the device-px reading of the thin regime in both directions
+   * (§5.156 §2's two signatures) — one function of CSS span is one mirror fewer
+   * for the CSS tier to keep.
+   *
+   * **Ships at 0, which is a multiplied zero**: the whole span term is
+   * `0 · (span − sigmaSpanRefPx)`, so the `max` sees two zeros and σ is
+   * `sigmaPx` identically, at every span and every scale. Fitted in the macOS 27
+   * documents by claims §5.159; the frozen macOS 26.5 material keeps the zero,
+   * where it is the measurement.
+   */
+  readonly sigmaSlopePerSpan: number;
+  /**
+   * The casting span, CSS px, at which σ equals `sigmaPx` — the span the line
+   * pivots about.
+   *
+   * The law has one flat direction: shifting `sigmaPx`, `sigmaThinOffsetPx` and
+   * this constant together leaves σ unchanged at every span, so a fit has to
+   * hold one of the three. **The fit holds this one, at 96** (W30 Decision Log
+   * 3 (c)) — the span every bed carries sixteen cells at, and the span the
+   * amplitude's own anchor `thickOcclusionAt96` is keyed to — and fits the slope
+   * and the offset around it, refitting `sigmaPx` as the σ at span 96.
+   *
+   * **Ships at 0**, which is unreachable while the slope is 0 and which the
+   * identity does not depend on: a pivot multiplied by a zero slope contributes
+   * nothing whatever its value. 96 is the fit's value in claims §5.159, not the
+   * default's.
+   */
+  readonly sigmaSpanRefPx: number;
+  /**
+   * The width the thin regime holds, CSS px, SIGNED, stated as an offset from
+   * `sigmaPx` — the floor the line is clamped below at.
+   *
+   * A floor is structurally necessary rather than a fit of the thin cells: the
+   * measured line crosses zero at a span of 23.6 to 30.4 on every bed and the
+   * smallest declared span in the bed is 32, so without one the law emits
+   * 0.27 CSS px on a 32 px surface and a negative σ on a 24 px one
+   * (claims §5.156 §2).
+   *
+   * **Its unit is CSS px and its value is a declared reading rather than a fit**
+   * (W30 Decision Log 2 (b)). The thin cells are a position on the instrument's
+   * valley, not a measurement of Apple's blur: the reader's (amplitude, σ) pair
+   * trades at a nearly constant product there, and the thin σ bifurcates on the
+   * author's TINT — untinted cells read a 1x/2x ratio of 1.86–2.57 and their
+   * tinted siblings 0.51–0.56 on the same geometry, which the material's blur
+   * cannot depend on. So no order statistic over those cells is a measurement,
+   * and §5.159 sets this by declaration with the statistic it is checked
+   * against named.
+   *
+   * **Ships at 0**, an added zero under a `max` whose other arm is also zero.
+   * The knee — where the floor gives way to the line — is DERIVED from the three
+   * (`sigmaSpanRefPx + sigmaThinOffsetPx / sigmaSlopePerSpan`) rather than being
+   * a fourth leaf, because a knee stated beside a slope and a floor is a third
+   * name for a quantity two of them already fix.
+   */
+  readonly sigmaThinOffsetPx: number;
+  /** Outward spread of the silhouette before the blur, CSS px. */
+  readonly spreadPx: number;
+  /**
+   * The black term's peak occlusion below the knee, over a backdrop the material
+   * cannot see (linear luminance ≤ `OUTER_SHADOW_THIN_L.inert`): zero. Inert
+   * over `dark-solid` and `impulse`, which is what the reference does — it
+   * removes at most one or two of 255 codes there (claims §5.62 §5).
+   */
+  readonly thinOcclusionDark: number;
+  /**
+   * The black term's peak occlusion below the knee over the MID plateau —
+   * backdrop linear luminance `OUTER_SHADOW_THIN_L.midFrom` … `midTo`.
+   *
+   * MEASURED (claims §5.62 §5): linear occlusion 0.347 over `mid-dark-solid`,
+   * 0.334–0.339 over `photo`, 0.327–0.328 over the checkerboard and 0.329 over
+   * `hc-text` — flat across a backdrop luminance range of 0.06…0.74, and a
+   * constant 1.16–1.19× the fill alpha §5.50 §2 read off the layer tree.
+   */
+  readonly thinOcclusionMid: number;
+  /**
+   * The black term's peak occlusion below the knee over a BRIGHT backdrop, at
+   * `OUTER_SHADOW_THIN_L.bright` and above.
+   *
+   * MEASURED (claims §5.62 §5): 0.127 over `light-solid` (linear luminance
+   * 0.891), against the layer tree's tabulated 0.05 — so the reference's shadow
+   * there is 0.39 of its shadow over the checkerboard, not one sixth. W8's
+   * single 0.285 everywhere is 2.24× this, which is the whole of the user's
+   * by-eye "the shadow is darker on the light-solid capsule" and, by the free
+   * geometry fit on that cell (σ 14.81 / offset 7.97 / spread 3.17), no part of
+   * it is shape.
+   */
+  readonly thinOcclusionBright: number;
+  /**
+   * The COMPOSITE occlusion above the knee at a casting span of 96 CSS px.
+   *
+   * FITTED in the renderer (claims §5.65), from G0's measurement of the
+   * composite's transmission (0.379 on the checkerboard at span 96) to **0.370**.
+   * It had to be fitted rather than adopted, because what G0 could identify at
+   * the bed's noise floor is the composite transmission and the lift's peak
+   * amplitude, not the split into (black alpha, vibrant alpha, vibrant colour):
+   * both terms ride one falloff and their shapes correlate at 0.9998. So this
+   * constant is the BLACK term of a two-term composite whose second term
+   * (`liftAmplitude`) was fitted beside it, on X7's affine pair, and the pair is
+   * what the referee reads.
+   */
+  readonly thickOcclusionAt96: number;
+  /** The same at a casting span of 128 CSS px — FITTED to 0.448 from G0's
+   * measured 0.497, for `thickOcclusionAt96`'s reason (claims §5.65). */
+  readonly thickOcclusionAt128: number;
+  /**
+   * The same at a casting span of 160 CSS px — **UNFITTED**, and the one anchor
+   * in this block that no calibration cell reaches.
+   *
+   * Every span above 128 in the bed is holdout, so 0.479 is carried by the stated
+   * derivation from the two fitted anchors and not by a fit. The holdout, read
+   * once and fitted to nothing, says it is 15% heavy (band `1 − a` 0.2436 against
+   * the reference's 0.2117) and implies about 0.437 — which is BELOW the fitted
+   * At128 and which no extrapolation from the calibration cells would have
+   * produced. That reading is recorded and deliberately not adopted (claims §5.65
+   * §4(b) and §6(iv)); closing it needs a calibration cell above span 128.
+   */
+  readonly thickOcclusionAt160: number;
+  /**
+   * **The lift (W14)** — the peak amplitude of the second term, in LINEAR light,
+   * as a fraction of the backdrop's own blurred luminance. GPU tier only.
+   *
+   * The reference's thick shadow does not only remove light: on the
+   * checkerboard's black squares, where a multiply is inert by construction, it
+   * ADDS 7.4 of 255 (claims §5.62 §2). Pooled over six backdrops the addition
+   * regresses on the σ-40 blurred backdrop at slope 0.0444 with intercept
+   * −0.0042 and R² 0.983 — it is the backdrop's own light, blurred, composited
+   * under the shadow, with no fixed colour left over. Zero over `impulse`, zero
+   * over `dark-solid`, and zero below the knee, so the facet stays exactly inert
+   * over black the way W8's multiply is.
+   *
+   * FITTED to **0.0100** in the renderer over seventeen sweep passes, read on
+   * X7's affine pair together with the three thick anchors (claims §5.65). The
+   * provisional 0.0073 was G0's +0.0038 of LINEAR lift at span 160 divided by
+   * the ≈ 0.52 linear luminance the checkerboard's σ-40 blur sits at, and the fit
+   * is 37% larger. The space matters and this wave names it everywhere (claims
+   * §5.62 §3): §5.60's +0.039 is the same lift read in ENCODED luma.
+   */
+  readonly liftAmplitude: number;
+  /**
+   * Where the lift starts, in casting span, CSS px — the thin/thick knee, and it
+   * is exact: the lift reads 0.0000 at spans 32 and 44 and is present at 96
+   * (claims §5.62 §2). The layer tree's own `VibrancyContribution` clamps from
+   * the same 64.
+   */
+  readonly liftSpanMin: number;
+  /**
+   * Where the lift saturates, in casting span, CSS px.
+   *
+   * FITTED to **118** (claims §5.65), from a provisional 128. The measured rise
+   * is 0.52 / 0.96 / 1.00 of the span-160 value at spans 96 / 128 / 160, against
+   * the layer tree's clamp((span − 64)/96) = 0.33 / 0.67 / 1.00 — so the lift is
+   * NOT proportional to `VibrancyContribution`; it rises and saturates, reaching
+   * 96% by span 128 (claims §5.62 §2), which a smoothstep from `liftSpanMin`
+   * reproduces and the clamp does not. The holdout says the reach saturates a
+   * little early — the lift's own residual there is one-signed and small, 5% low
+   * at span 130 and 9% at 160 (claims §5.65 §4(d)) — and it was not refitted
+   * after that reading.
+   */
+  readonly liftSpanFull: number;
+  /**
+   * The σ, in CSS px, of the blur the lift copies the backdrop through.
+   *
+   * MEASURED at 40 ± 8 CSS px on `rrect-lg` at both scales and in two rings, by
+   * the probes' pitch axis — the pooled residual has a real minimum there, 12%
+   * below the flat-copy residual (claims §5.62 §3). It is the layer tree's
+   * `inputShadowBlurRadius` 40 read as a Gaussian standard deviation. NOT
+   * identifiable on the mid spans (flat to 0.7%), and reported as such rather
+   * than fitted there.
+   */
+  readonly liftBlurSigmaCss: number;
+  /**
+   * The shadow's amplitude UNDER reduced transparency — one absolute linear
+   * occlusion that replaces both regimes, not a factor on either. MEASURED,
+   * which is what the charter asked for before the fold was written.
+   *
+   * **0.197 (measured 0.192–0.202).** W14 G0 read the preference on the wider
+   * bed and what it found is a flat number: the reference's exterior is
+   * 0.192–0.202 under increased contrast and reduced transparency alike, **thin
+   * and thick together** and over every backdrop it can be read on (claims §5.62
+   * §5). The preference removes the material's adaptation, so the shadow it
+   * leaves has neither the thin regime's backdrop keying nor the thick regime's
+   * span law in it — one amplitude for every surface over every backdrop, which
+   * is what `outerShadowUnderPolicy` writes into all six anchors. The lift goes
+   * with it: a composite whose two regimes read the same number has no second
+   * term left in it.
+   *
+   * It is stated as an ABSOLUTE occlusion rather than as a ratio because W8's
+   * 0.70 multiplier was fitted when the amplitude was one span-flat number and a
+   * ratio was the same thing as a level. It is not any more: multiplying six
+   * unequal anchors keeps exactly the backdrop and span variation the preference
+   * removes, and a span-160 surface over a mid-tone backdrop folded to 0.38
+   * against the reference's 0.20. The number the reference states is a level, so
+   * this constant is a level.
+   *
+   * Nothing is special-cased for a dark backdrop and nothing needs to be: an
+   * occlusion is a fraction of the backdrop's own light, so a flat 0.197 over
+   * black still removes nothing, and the facet stays as inert there as the thin
+   * regime's own zero anchor makes it without the preference.
+   *
+   * The `increased contrast` reference reproduces the reduced-transparency
+   * amplitude to four decimals (0.1830, 0.1884, 0.1882 on the three structured
+   * backdrops at a 44 px span, with σ, offset and spread unmoved), which is
+   * Decision Log 8's finding again: macOS force-couples the two toggles, so the
+   * contrast reference IS the reduced-transparency state and the bed cannot
+   * separate them. The fold therefore keys on `frost`, the axis reduced
+   * transparency alone sets, rather than on the contrast axes it would be
+   * indistinguishable on here.
+   */
+  readonly reducedTransparencyOcclusion: number;
+  /**
+   * The size law's grip on the amplitude: the fraction of the REMAINING
+   * transparency a full-thickness surface's shadow closes, on
+   * `sizeOcclusionGain`'s relative form.
+   *
+   * Ships at 0 — the identity — and the reason is a measurement rather than an
+   * absence of one. Fitted per scene at a frozen geometry, the amplitude's span
+   * dependence points in OPPOSITE directions in the two colour schemes: light
+   * standard falls from 0.326 to 0.196 between a 44 px and a 96 px span over
+   * `photo` (and 0.331 → 0.285 over `checkerboard`, 0.331 → 0.245 over
+   * `hc-text`), while dark standard RISES from 0.060 to 0.177 to 0.274 across 44,
+   * 96 and 160 px. Under reduced transparency it is flat (0.183, 0.192, 0.165).
+   * One monotone gain on one thickness curve cannot be all three, and any
+   * non-zero value fitted to one scheme is wrong in the other — the same shape of
+   * finding Decision Log 13 recorded for W7's curve ("surface size is its own
+   * axis"). The seam ships so the cascade can fit it if a two-axis rework lands;
+   * the value stays at the identity until something can identify it.
+   */
+  readonly sizeGain: number;
+}
+
+/**
+ * Every number the material runs on, in one place.
+ *
+ * The same seam `@vitrea/motion`'s `MotionProfile` opens for the drivers, for the
+ * optics: C7's harness measures these against `apple-macos-26.5-*` fixtures and
+ * replaces what is here, so nothing downstream may hard-code an optical constant
+ * of its own. A profile overrides every one of them (`withMaterialOverrides`),
+ * which makes landing a calibrated set a data change rather than a code change.
+ *
+ * Units: CSS px for distance, linear light for colour, viewport coordinates with
+ * y pointing down for direction.
+ */
+export type BackdropToneKnotRow =
+  | readonly [number, number, number]
+  | readonly [number, number, number, number];
+
+export interface MaterialOcclusionLiftByPolicy {
+  readonly reduceTransparency: number;
+  readonly increaseContrast: number;
+}
+
+export interface MaterialProfile {
+  /** Per-variant optics. `clear` is persistently more transparent than `regular`. */
+  readonly optics: Readonly<Record<MaterialVariant, MaterialOptics>>;
+
+  /** The two ends of adaptation: what the tint becomes over a dark and a light backdrop. */
+  readonly adaptiveTintDark: Rgb;
+  readonly adaptiveTintLight: Rgb;
+  /** Luminance band the tint crosses over. Hysteresis in time is the driver's job. */
+  readonly adaptiveLuminanceLow: number;
+  readonly adaptiveLuminanceHigh: number;
+
+  /**
+   * How much of the lens the shader is allowed to apply, per rung.
+   *
+   * `approximate` is not "half of true": it is the rim-lensing approximation, a
+   * shallower bend confined nearer the edge, which is what a group sampling a CSS
+   * proxy can honestly claim. Reduced transparency lands here too, which is the
+   * point of the ladder having three rungs and not two.
+   */
+  readonly refractionScale: Readonly<Record<RefractionQuality, number>>;
+
+  /**
+   * **The size law's one curve** — the span band over which the material stops
+   * reading as a thin sheet and starts reading as a thick slab (W2).
+   *
+   * Apple states one mechanism and lists its consequences: as glass "morphs to
+   * larger sizes… its material characteristics change to simulate a thicker, more
+   * substantial material. It casts deeper, richer shadows, has more pronounced
+   * lensing and refraction effects, and a softer scattering of light" (S219). One
+   * mechanism means one curve: `sizeThickness(span)` is a smoothstep from
+   * `sizeSpanMin` to `sizeSpanMax`, and the thickness-derived facets are gains
+   * on it — the lens (`lensSizeGainMax`), the occlusion (`sizeOcclusionGain`)
+   * and the inner shadow (`sizeShadowGainMax`). The scattering was one of them
+   * until W11c measured its curve to be a different one (a floor at small
+   * spans, a rise past 96) and W13 measured that curve to be the projection of a
+   * ramp in depth — see `sizeScatterFloor` and `sizeScatterRampStartThin1x`; the
+   * scattering now rides its own law entirely, and this band is untouched by it.
+   *
+   * A smoothstep rather than a straight ratio, so two surfaces of nearly the same
+   * size never read as differently thick, and so every gain saturates instead of
+   * growing without bound on a full-width platter. Below `sizeSpanMin` the whole
+   * law is **exactly inert**: a small control renders as it did before the law
+   * existed, which is what makes the law additive rather than a global retune.
+   *
+   * MEASURED (W2, on the settled bed): the band is where the reference's own
+   * size-dependence happens. Over a fixed checkerboard backdrop the light-standard
+   * reference passes 0.244 of the backdrop's contrast at a 32 px span, 0.230 at
+   * 44 px and 0.144 at 96 px, and its backdrop correlation falls 0.634 → 0.606 →
+   * 0.475 across the same three — so the movement is essentially complete by 96 px
+   * and has barely started at 32. See the claims doc's size-law section.
+   */
+  readonly sizeSpanMin: number;
+  readonly sizeSpanMax: number;
+
+  /**
+   * The inner shadow's depth gain on the size curve — and, until W12 G2, the
+   * lens's too.
+   *
+   * The inner shadow's depth is `thickness × (1 + (lensSizeGainMax − 1) ×
+   * sizeThickness)`, clamped to the shorter *half* extent, and its profile is
+   * `(1 − depth)²` on that depth: the landed law of W2, kept byte-for-byte for the
+   * occlusion because nothing measured it as wrong. The LENS no longer reads it —
+   * the reference's own lens height is a clamped linear function of the span
+   * (`lensHeightPerSpan`, `lensHeightMax`), read straight from its layer tree
+   * (claims §5.50), and the lens takes that law from W12 G2 on. The name stays so
+   * the profile documents keep naming the constant they measured.
+   */
+  readonly lensSizeGainMax: number;
+
+  /**
+   * The scattering gain — "a softer scattering of light". How many times wider
+   * the material's body blur runs at full size.
+   *
+   * **The facet the settled bed identifies most directly.** Two backdrops
+   * disagree in exactly the way a widening kernel predicts and an opacity change
+   * does not. Over the checkerboard — all of whose structure sits at one 16 px
+   * period, and whose surroundings carry the same mean as its interior — the
+   * reference's retained contrast falls 41% from a 32 px span to a 96 px one while
+   * its interior *level* stays put (0.607 → 0.641). Over the synthetic photo —
+   * broadband, and with surroundings whose mean differs from the mask's — the
+   * retained contrast barely moves between 44 px and 96 px (0.546 → 0.544) while
+   * the level converges toward the neighbourhood (0.585 → 0.628). A larger alpha
+   * would have moved both backdrops' contrast together and pulled both levels
+   * toward the tint; a wider kernel moves exactly what moved.
+   *
+   * Both tiers carry it, from one function (`sizeScatterSigma`): the CSS tier
+   * multiplies its `blur()` σ, and the GPU tier lerps its body sample toward the
+   * chain level whose blur is that σ.
+   *
+   * MEASURED (W11c G1, claims §5.41), and no longer a gain on `sizeThickness`
+   * alone — see `sizeScatterFloor` and `sizeScatterRampStartThin1x` below for the
+   * law it rides. 8: the heavy component of the reference's interior sits near
+   * σ 10 device px against a body σ of 1.25, and the gain sweep has a clear
+   * minimum at 8 (RMS 0.0164 against 0.0180 at 6 and 0.0191 at 10 on the probe
+   * bed).
+   *
+   * **INERT on the GPU tier at any material that names a heavy width** (W26;
+   * claims §5.122 §6a). This constant reaches the deep sample only through
+   * `scatterLod`, and where `sizeHeavyTapSigma` is non-zero the optics pass
+   * overwrites that sample with the heavy texture — measured, not argued: fifty
+   * rows byte-identical between `sizeScatterGainFar2x` 9.9 and 4.8 at the landed
+   * width. It is KEPT and not retired because retiring it means deciding what a
+   * profile naming NO heavy width draws, which is a code-removal wave with no
+   * fidelity content (W26 Decision Log 6 (b)); the tracker carries it. The CSS
+   * tier still reads it for the same reason — the collapsed single-`blur()` form
+   * and the sampling-padding projection, where no heavy width applies.
+   */
+  readonly sizeScatterGainMax: number;
+
+  /**
+   * **The scattering facet's frost** (W11c G1, claims §5.41; re-read by W13 G1).
+   *
+   * The reference's interior over structured content is two components, read
+   * off the W9 probe bed across four checkerboard pitches and five spans: a
+   * sharp one near σ 1.25 device px and a heavy one near σ 10, mixed by a share
+   * that is already ≈ 0.4 at spans of 32–44 and still rising at 160. W11c
+   * carried that mix as one number per span, a floor rising by a smoothstep to
+   * a band top (`sizeScatterSpanMax`); W13 G0 measured the mix **per depth** on
+   * both probes and found a ramp under the contour that the span law had been
+   * summarising (claims §5.61 §2). W13 G1's first form replaced the span law
+   * with the ramp outright and its runtime sweep refuted that: the ramp's own
+   * projection onto one number per surface runs 0.43–0.56 where the span law it
+   * replaced runs 0.41–1.00, so a ramp with a start and a reach is nearly
+   * span-flat where the bed is strongly span-graded, and no point in 81 reached
+   * the wave's stops (`results/2026-09-03-w13-ramp/g1/sweep/g1-sweep.md` §4,
+   * §7). So the two are kept **together**: the span law is the ramp's DEEP
+   * value and the ramp is a near-contour excursion above it. This floor is
+   * unchanged in value and in meaning under either: the mix a surface carries
+   * at any size, the material's own frost.
+   *
+   * It keeps its fold semantics, and they are now written on the ramp rather
+   * than on a span curve:
+   *
+   * ```
+   * kScatter(u) = floor + (k(u) − floor) · fold
+   * ```
+   *
+   * — so at fold 1 the ramp is rendered exactly and at fold 0 the material sits
+   * at this floor exactly, which is what the landed law did at fold 0 too. The
+   * floor is the frost the material has whatever its size, and is **not**
+   * folded under an accessibility preference; the excursion away from it is
+   * depth, and is. Fitted with `rrect-lg` held out (W11c G1): 0.40 (0.0175 at
+   * 0.3, 0.0174 at 0.45).
+   */
+  readonly sizeScatterFloor: number;
+
+  /**
+   * **The scattering facet's span curve** (W11c G1, claims §5.41) — the top of
+   * the band the frost rises to, and, since W13 G1's re-forming, the span law
+   * that supplies the depth ramp's DEEP value:
+   *
+   * ```
+   * kDeep(span) = floor + (1 − floor) · smoothstep(sizeSpanMin, sizeScatterSpanMax, span)
+   * ```
+   *
+   * — byte for byte the curve W11c fitted and W13 G1's first form retired. It
+   * came back because the sweep measured what retiring it cost (§4 of
+   * `results/2026-09-03-w13-ramp/g1/sweep/g1-sweep.md`): the span dependence of
+   * the bed is real and strong, and the ramp's four constants cannot carry it
+   * at the same time as the band's near-contour excursion. What the ramp adds
+   * is what this curve never could — the depth structure inside one surface —
+   * and it now adds it on top of this rather than instead of it, so the deep
+   * interior of every span is exactly where W11c and W12 put it.
+   *
+   * `sizeThickness` — zero at `sizeSpanMin` and saturated at `sizeSpanMax` = 96
+   * — can express neither the floor nor a band top past 96, and moving
+   * `sizeSpanMax` would move the lens, the occlusion, the inner shadow and W9's
+   * thin/thick response rows with it, which is why the scatter mix has its own
+   * curve at all. Fitted with `rrect-lg` held out (W11c G1): band top 256
+   * (0.0182 at 224, 0.0174 at 320); the held-out cell's residual 0.0366 →
+   * 0.0174.
+   */
+  readonly sizeScatterSpanMax: number;
+
+  /**
+   * **The body's second scale** (W15 G1, from the measurement of claims §5.69
+   * §1–§2) — the heavy width's gain, the deep value's floor and the deep
+   * value's span top, each read again at dpr 2.
+   *
+   * At 2x the reference's body is a different object from the one the three
+   * constants above describe, and §5.69 measured all of it: the deep interior
+   * is FULLY heavy on the two largest spans and 0.90–0.95 heavy on `rrect-md`
+   * (§2), where the 1x span curve leaves a sharp share of 0.24–0.36 there, and
+   * the heavy component's own width is 8–11 device px against the 1x law's 10
+   * CSS px (§1). One curve fitted at 1x cannot be both, so the deep value's two
+   * constants and the gain get a second reading rather than a scale factor —
+   * the same shape the ramp's anchors already have.
+   *
+   * Each is interpolated by `rampAtScale`: held at the 1x constant at dpr ≤ 1,
+   * at this one from dpr 2 up, linear between. **At dpr 1 every one of them is
+   * inert by construction, whatever it says** — W15's binding rule — so the 1x
+   * material is byte-identical to the W13 bed and the landing's confirmation
+   * measured exactly that: 49 of 49 1x GPU cells identical to the bed with
+   * every capture byte-identical (claims §5.70 §8).
+   *
+   * Consumed at draw time, not folded into a constant: `scatterDeepThickness`
+   * takes the ratio for the floor and the span top, the renderer resolves all
+   * three from the viewport's own ratio and hands them to the optics pass
+   * through the uniforms the shader already reads (`scatter.x`, `lensOval.w`
+   * and `size.x`), and `scatterThickness`, `scatterSharpShare` and the ramp's
+   * area-average projection read the resolved deep value.
+   *
+   * **FITTED** by W15 G1's runtime sweep at
+   * `--profile apple-macos-26.5-2x-light-standard` on the calibration set, the
+   * holdout untouched, and landed at the values below (claims §5.70 §2 and §8;
+   * the four sweeps `results/2026-09-04-w15-body-2x/g1/stage1..stage3` and the
+   * confirmation `confirm-3`, whose 2x holdout was read once for this
+   * configuration). The rule W13 wrote after the paper model over-credited the
+   * mip chain's heavy tap (§5.58 §1) held: no constant here lands on a paper
+   * prediction, and the sweep contradicted the paper estimate.
+   *
+   * **The gain, 4.8.** Stage 2c swept it over 4.0 / 4.4 / 4.8 / 5.2 at the
+   * chosen base and found an INTERIOR MINIMUM at 4.8 — the interior spread
+   * against native reading 0.0335 / 0.0214 / 0.0120 / 0.0217 with the band's
+   * rise at its top too. Through `bodySigmaCssFor` that is a heavy width of
+   * **6 device px** at dpr 2, NARROWER than the 8–11 device px §5.69 §1
+   * bounded as a Gaussian: the estimator carries ±40% on a real capture of a
+   * known law (§5.69 §3) and the mip chain's tap is not a Gaussian, so the
+   * renderer is the fitting instrument and 6 is the width it draws best.
+   *
+   * **The floor, 1.0** — the deep value FULLY heavy at dpr 2, which is what
+   * G0's deep windows read on the two largest spans (§5.69 §2). `kDeep` is
+   * therefore 1 at every span at this ratio, and the depth ramp above it is the
+   * whole body (§5.70 §1).
+   *
+   * **The span top, 256** — the 1x value, unchanged, because a floor of 1
+   * leaves the deep value nothing to rise to and the top has no work at this
+   * ratio. Stage 1 swept it against 128 and the bed did not ask for the change.
+   *
+   * **The gain is INERT on the GPU tier at any material that names a heavy
+   * width** (W26; claims §5.122 §6a), for `sizeScatterGainMax`'s reason and with
+   * the same measurement behind it. The floor and the span top above are NOT —
+   * they grade the deep value's SHARE, which the heavy texture does not touch.
+   */
+  readonly sizeScatterGainMax2x: number;
+  readonly sizeScatterFloor2x: number;
+  readonly sizeScatterSpanMax2x: number;
+
+  /**
+   * **The heavy width's gain at the TOP of the scatter span curve, at dpr 2**
+   * (W15 G1's re-form, from claims §5.70 §4 and §7 and the measurement of
+   * §5.69 §1) — the second-scale term that lets the 2x heavy width GROW with
+   * the span instead of being one number for the whole bed.
+   *
+   * `sizeScatterGainMax2x` above is one gain at dpr 2, and the sweep that fitted
+   * it read the calibration cells, whose spans are 32–128. The reference's heavy
+   * kernel is not one width: §5.69 §1's bounded per-span fit reads 8.0 / 7.5 /
+   * 8.0 / 9.0 / 11.0 device px across the bed's spans, a ratio of 1.375 between
+   * span 160 and span 96. Landing the single gain accordingly left the largest
+   * span's deep interior about 40% too structured (`rrect-lg` at 2x, spread
+   * 0.1134 against the reference's 0.0810, claims §5.70 §4) while every smaller
+   * cell rose. So the gain takes a second grading, in SPAN:
+   *
+   * ```
+   * gain(span, dpr) = gainAtScale(dpr)
+   *                 + (gainFar(dpr) − gainAtScale(dpr))
+   *                   · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+   * ```
+   *
+   * with `gainAtScale` the existing `scatterGainAtScale` and `gainFar` this
+   * constant interpolated by `rampAtScale` from `sizeScatterGainMax`. The curve
+   * is not a new span statistic: it is the same smoothstep the fourth form's
+   * far-anchor decline already rides (`scatterRampStart`), so the width and the
+   * ramp's start move along one curve above the thickness knee.
+   *
+   * **Inert at dpr 1 by construction.** `gainFar` interpolates from
+   * `sizeScatterGainMax` — the 1x gain, not this constant — so at dpr ≤ 1 the
+   * far gain IS the base gain and the whole term is a flat no-op whatever this
+   * says. That is W15's binding rule (the 1x material does not move) discharged
+   * by the shape of the formula rather than by a capture.
+   *
+   * **LANDED at 9.9** (claims §5.70 §8; W15 Decision Log 3, the user's landing
+   * "the re-form"), and the value is G0's rather than the holdout row's: §5.69
+   * §1's bounded per-span reading is 8 device px at span 96 and 11 at 160, a
+   * ratio of 1.375, and this curve reads 0.352 at span 160, so 4.8 + (9.9 −
+   * 4.8) · 0.352 reproduces that ratio over the base gain of 6 device px. The
+   * heavy width at dpr 2 is therefore 6.0 device px at spans ≤ 96, 6.7 at 128,
+   * 8.2 at 160 and 12.4 at 256 and beyond. The calibration cells neither chose
+   * the value nor rejected it — `stage3` swept 4.8 / 7.5 / 9.9 / 12.5 and only
+   * `rrect-ml` (span 128, a tenth of the grading) moves, its interior spread
+   * 0.1125 → 0.0993 against native 0.1018 at 9.9, which is the sweep's best on
+   * its own objective. The confirmation's holdout `rrect-lg` rose 0.9661 →
+   * 0.9762 with its interior spread 0.0721 against native 0.0810.
+   *
+   * **INERT on the GPU tier at any material that names a heavy width**, and this
+   * is the one of the three whose silence costs something (W26; claims §5.122
+   * §§3, 6a). It is the constant that graded the 2x heavy width with the span,
+   * and the heavy texture is one width per SOURCE, so where a heavy width is
+   * named there is nothing left for it to grade: fifty rows byte-identical
+   * between 9.9 and 4.8 at the landed width. What that gives up is measured on
+   * the instrument of record rather than estimated — the reference wants **1.66
+   * device px more heavy width at span 160 than at span 96 at dpr 2**, 20 % of
+   * the smaller, and W26 lands one number inside 11 % of each instead. That is
+   * W26 Decision Log 2 (f)'s recorded gap, now with a size; the constant is kept
+   * against the profile that names no heavy width and against the wave that
+   * makes the width per surface.
+   */
+  readonly sizeScatterGainFar2x: number;
+
+  /**
+   * **The body's depth ramp** (W13 G1, from the measurement of claims §5.61 §2
+   * and the re-forming its runtime sweep forced) — a near-contour excursion on
+   * the sharp component's share, riding on top of the span law
+   * `sizeScatterSpanMax` supplies rather than replacing it.
+   *
+   * ```
+   * kDeep(span) = sizeScatterFloor + (1 − sizeScatterFloor)
+   *               · smoothstep(sizeSpanMin, sizeScatterSpanMax, span)
+   * sDeep(span) = 1 − kDeep(span)
+   * s₀(span)    = startThin + (startThick − startThin) · sizeThickness(span)
+   * s(u, span)  = sDeep + max(0, s₀(span) − sDeep) · max(0, 1 − u / U(dpr))
+   * k(u, span)  = 1 − s(u, span)
+   * ```
+   *
+   * with `u` the pixel's depth under the contour and `U` the reach, both in
+   * DEVICE px. `s₀` is the sharp share **at the contour** and `U` is where the
+   * excursion vanishes into the deep value — not where a line from the start
+   * would hit zero, which is what the first form's reach meant. Deep inside any
+   * surface the body is exactly the W11c/W12 material; within `U` of the
+   * contour the sharp component is lifted toward `s₀`, which is the band the
+   * reference has and the uniform share does not.
+   *
+   * **Why the start grades with the span, in the third form.** The second form
+   * gave the excursion one start per scale and its runtime sweep refuted that
+   * too, arithmetically rather than for want of a better point (claims §5.64
+   * §2): `rrect-sm`'s span is exactly `sizeSpanMin`, so its deep sharp share is
+   * exactly `1 − sizeScatterFloor` = 0.600 and no start at or below 0.600 can
+   * touch it, while `rrect-ml`'s band only improves below a start near 0.583.
+   * The window where both hold is empty, and the reach cannot open it — the
+   * reach decides how much of a surface the excursion covers, never which
+   * surfaces it touches, because `max(0, s₀ − sDeep(span))` has no reach in it.
+   * G0 read the reference's start as strongly graded by span (0.637 / 0.642 on
+   * the thin cells against 0.512 / 0.501 / 0.410 on the thick ones at 1x), so
+   * the start is given exactly that grading — across `sizeThickness`, the
+   * material's OWN thin/thick curve with its knee at 64, the one the face's
+   * tone response and the outer shadow already blend across. Reusing it is the
+   * point: it introduces no new span statistic, and `sizeSpanMax` stays where
+   * every other facet reads it.
+   *
+   * **Why this form and not the ramp alone.** W13 G0 measured a ramp with a
+   * free start, reach and floor (H2) and the first implementation took the free
+   * start and reach with a floor of zero, retiring the span law. Its runtime
+   * sweep — 81 points, both scales, the real renderer — could not reach the
+   * wave's stops at any point, and named the mechanism: the ramp's projection
+   * onto one number per surface runs 0.43–0.56 at 1x where the retired span law
+   * ran 0.41–1.00, so the family is nearly span-flat and the bed is strongly
+   * span-graded; small spans want a high start and large spans a low one and no
+   * pair can be both (`.../g1/sweep/g1-sweep.md` §4). §7 of the same report
+   * asked for exactly this: "the ramp's DEEP value wants to be the span-graded
+   * heavy share the retired law supplied, and its near-contour excursion the
+   * sharp term the band asks for." The floor H2 left free is therefore not one
+   * more constant but the span law itself, which is already fitted.
+   *
+   * The reach stays a LENGTH in device pixels, which is the reading that did
+   * survive the sweep: the free fits' reaches in absolute depth spread by 1.3×
+   * across the spans (108 / 115 / 144 CSS px at 1x on `rrect-lg` / `-ml` /
+   * `-md`) where the reaches as a fraction of the half-span spread by 2.2×, and
+   * between the two scales that length roughly halves in CSS px — one length in
+   * device pixels, the same reading as the widths (§5.55 §1, §5.56 §1).
+   *
+   * The start and the reach are anchored at the two scales the reference was
+   * measured at rather than given a scale term: `…1x` is the value at dpr 1,
+   * `…2x` at dpr 2, the pair interpolated linearly in dpr and held constant
+   * outside [1, 2] (`scatterRampStart`, `scatterRampReachDevicePx`).
+   *
+   * **The FOURTH form: the start keeps falling past the thickness knee (W13
+   * Decision Log 6; claims §5.67 §4, §6).** The third form's holdout failed on
+   * one row for the form's own arithmetic: `sizeThickness` saturates at
+   * `sizeSpanMax` 96, so spans 96, 128, 130 and 160 all received the identical
+   * thick start while G0 read the reference's start FALLING across exactly
+   * those spans (0.512 → 0.501 → 0.410), and because the deep value keeps
+   * falling to `sizeScatterSpanMax` the excursion GREW with span (0.039 →
+   * 0.156 → 0.284) where the reference's shrinks — `rrect-lg` overshot its
+   * interior by 33%. So the start gets a slow decline along the scatter
+   * facet's own curve above the knee, `startFar` being its value at span ≥
+   * `sizeScatterSpanMax`:
+   *
+   *   s₀(span) = thin + (thick − thin) · sizeThickness(span)
+   *            + (far − thick) · smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
+   *
+   * Two curves the material already has, one more constant per scale, and no
+   * new span statistic. At 2x the decline is switched off rather than inverted:
+   * `far` and `thick` carry the same number since W15 G1, because G0 read the
+   * reference's 2x start FLAT across the thick spans (claims §5.69 §2, §5.70 §6
+   * (iv)) — the decline is a 1x feature of this form.
+   *
+   * The 1x three are FITTED (W13 G1's third and fourth sweeps) and the 2x four
+   * are FITTED or read from G0 by W15 G1 (claims §5.70 §2 and §8); no constant
+   * here lands on a paper prediction, because the paper model over-credited the
+   * mip chain's heavy tap once already (§5.58 §1). What they carry:
+   *
+   * **1x — thin 0.64, thick 0.52, reach 120 device px.** G0's own start
+   * readings are 0.637 on `rrect-sm` and 0.642 on the capsule at the thin end
+   * and 0.512 / 0.501 / 0.410 on `rrect-md` / `-ml` / `-lg` at the thick end.
+   * A thick anchor fitted to all three thick cells jointly comes out near 0.47,
+   * and 0.47 sits 0.011 *below* `rrect-md`'s own deep sharp share of 0.481,
+   * which would clamp the excursion to zero on that one cell. 0.52 is above it
+   * and is also G0's reading on that cell, so the fit is not traded against the
+   * form's own arithmetic.
+   *
+   * **2x — thin 0.46, thick 0.21, far 0.21, reach 100 device px, and the ramp
+   * is now the WHOLE body above the deep value** (W15 G1, claims §5.70 §1–§2).
+   * W13 left these inert for the deep value's sake: at `sizeScatterFloor2x` 0.4
+   * every anchor sat below its cell's deep sharp share and `max(0, s₀ − sDeep)`
+   * was bit-exactly zero on the whole bed. W15 G1 fitted that deep value fully
+   * heavy (`sizeScatterFloor2x` 1.0), so the deep sharp share at dpr 2 is 0 and
+   * the anchors act on the numbers they were carrying — which is why the wave's
+   * three gaps turned out to be one gap (§5.70 §6 (i)).
+   *
+   * The values are G0's readings where the sweep was flat and the sweep's where
+   * it was not. **Thin 0.46** is G0's u 6 reading exactly (0.494 / 0.468 on the
+   * thin cells) and stage 2b's best, over a top nine points within 0.002 of
+   * each other. **Thick and far 0.21**: G0's 2x starts on the thick cells are
+   * 0.163 / 0.199 / 0.210 at their own widths and 0.192 / 0.199 / 0.195 at one
+   * common width — flat with span, not declining — so the two anchors take one
+   * number and the fourth form's decline is off at this scale; stage 2a
+   * measured the objective flat over 0.17–0.25 and worse at 0.33. **Reach 100
+   * device px** = 50 CSS px against G0's measured 49 / 53 / 56, and stage 2b
+   * found 100 and 130 indifferent.
+   *
+   * **far — 0.20 at 1x (FITTED on the W14 bed), 0.21 at 2x.** The fourth
+   * sweep (`results/2026-09-03-w13-ramp/g1/sweep-4/`) swept far over eight
+   * points from 0.52 (the third form) down to 0.15: S1 and S4 pass at every
+   * one, only `rrect-ml`'s rows move and they improve monotonically as far
+   * falls, and the band is flat within the bed's noise below 0.30. The cell
+   * the constant exists for is holdout, so the tie inside the noise is broken
+   * by the reference's own reading — G0's `rrect-lg` start of 0.410 at span 160
+   * is far = 0.207 through this form — and 0.20 is the measured grid point that
+   * carries it. The confirmation read `rrect-lg` at `ssimMean` +0.0056 against
+   * the W14 bed (the third form: −0.0026) with its interior 12% over the
+   * reference (from 33% over). At 2x far equals the thick anchor, so the start
+   * is flat past the knee at that scale — G0's own reading (§5.69 §2), and the
+   * holdout's band supports it (`rrect-lg` +0.0106, claims §5.70 §8).
+   *
+   * At dpr 1 none of the 2x four is read at all: `rampAtScale` holds every one
+   * of them at its 1x anchor below dpr 1, so the 1x material is byte-identical
+   * to the W13 bed and the landing's confirmation measured that on 49 of 49 1x
+   * GPU cells (claims §5.70 §8).
+   */
+  readonly sizeScatterRampStartThin1x: number;
+  readonly sizeScatterRampStartThick1x: number;
+  readonly sizeScatterRampStartFar1x: number;
+  readonly sizeScatterRampStartThin2x: number;
+  readonly sizeScatterRampStartThick2x: number;
+  readonly sizeScatterRampStartFar2x: number;
+  readonly sizeScatterRampReach1xPx: number;
+  readonly sizeScatterRampReach2xPx: number;
+
+  /**
+   * **The heavy share's thick end** (W25; claims §5.113, W25 Decision Log 3 (a))
+   * — how much heavier the deep value runs on a thick surface than the span
+   * curve above makes it, riding `sizeThickness` and read once per scale.
+   *
+   * W25 G0 measured the reference's kernel as TWO components and found that what
+   * separates the thick surface from the thin one is neither width: read on the
+   * same cell at 1x the reference's single-Gaussian width is 1.30 device px
+   * against a 16 CSS px checkerboard, 4.75 against 32 and 6.25 against 64, where
+   * one Gaussian returns one number at every pitch. The dot's own two-component
+   * fit on `impulse__rrect-md` reads sharp σ 2.79 and heavy σ 19.52 device px at
+   * 1x and 1.40 / 11.29 at 2x — both components HALVING in device px — with the
+   * heavy SHARE moving 0.47 → 0.69 the other way, and 0.00 on the collapsed
+   * capsule. vitrea's own pair on the landed material reaches 0.69 at 2x and
+   * carries 0.23 at 1x. So the share is the quantity, and this is where the wave
+   * puts it.
+   *
+   * ```
+   * kDeep(span, dpr) = floor(dpr) + (1 − floor(dpr))
+   *                    · smoothstep(sizeSpanMin, sizeScatterSpanMax(dpr), span)
+   *                  + heavyShareThick(dpr) · sizeThickness(span)      ← this
+   * ```
+   *
+   * **What stays, and why the thin capsule cannot move.** `sizeScatterFloor`,
+   * `sizeScatterSpanMax` and the ramp's start anchors are NOT re-derived: the
+   * W11c curve stays as the law's thin end and this constant is the lift the
+   * thick end takes above it. That is X5 discharged by the form rather than by a
+   * capture — `sizeThickness` is exactly 0 at and below `sizeSpanMin`, so
+   * `rrect-sm` and every smaller control are bit-identical whatever this says,
+   * and the capsule at span 44 takes 0.0923 of it, which is the whole of the
+   * thin end's exposure and is what the ladder's thin-invariance rung reads. The
+   * alternative — re-expressing the whole curve on a thin/thick anchor pair —
+   * would have made the capsule's own share a fitted quantity of this wave, and
+   * the reference does not ask for that: its sharp σ is 2.62 device px on the
+   * collapsed capsule against 2.79 on the thick rrect, span-flat to 6 %.
+   *
+   * **Inert at 0**, which is what ships until G3 declares the fit: the term is
+   * one multiplication by zero added to the curve W11c fitted, so the resolved
+   * material and every golden are byte-identical to the W24 bed.
+   *
+   * At dpr 2 the 2x anchor is additionally inert on the landed material for a
+   * second reason: `sizeScatterFloor2x` is 1, so `kDeep` is already 1 at every
+   * span and the clamp absorbs any lift. The 2x share is therefore not a
+   * quantity this bed can carry, and it waits for G1's 2x probe fixtures.
+   */
+  readonly sizeScatterHeavyShareThick1x: number;
+  readonly sizeScatterHeavyShareThick2x: number;
+
+  /**
+   * **The body's level above the thickness knee** (W25; claims §5.113, W25
+   * Decision Log 3 (b)) — an OFFSET on the interior level a surface settles at,
+   * in the tone response's own encoded units, reached at `sizeScatterSpanMax`.
+   *
+   * W25 G0 answered clause 4 in the landed law's favour and found one residual
+   * it cannot carry. `sizeThickness(short side)` at knee 96 scores r 0.95–0.998
+   * against 0.68–0.96 for the long side, the area, √area and the radius, on the
+   * width and on the level, in both probe grids and both schemes — so the
+   * argument and the knee stay. But the reference's body LEVEL keeps grading
+   * above 96: on the W9 light grid over `checkerboard` it reads 0.61484 /
+   * 0.61299 / 0.67915 / 0.69083 / 0.70458 across spans 32 / 44 / 96 / 128 / 160,
+   * where `sizeThickness` has been flat since 96. The width does not grade there
+   * on any pitch; only the level does.
+   *
+   * ```
+   * R(x, span, dpr) = R₀(x, sizeK)
+   *                 + sizeToneLevelFar · smoothstep(sizeSpanMax,
+   *                                                sizeScatterSpanMax(dpr), span)
+   * ```
+   *
+   * **Where it enters.** On the tone response's OUTPUT — the settled interior
+   * level `backdropToneResponse` returns, which is the law that owns the
+   * interior mean (claims §5.33) — and not in the blur, not on a gain on the
+   * mix, and not (this is the correction) on the response's own thin-to-thick
+   * blend.
+   *
+   * **Why not on the blend, which is what the wave chartered.** G0's reading
+   * that the residual's "sign follows the backdrop" is a reading of the
+   * REFERENCE's absolute grading, and the quantity a term has to close is the
+   * residual AGAINST vitrea, whose own deep value keeps rising to
+   * `sizeScatterSpanMax` over the same spans. G2's ladder measured both shapes
+   * on the same rows (`fit-level.txt`): carrying the blend past the thick row
+   * explains 0.3 % of the above-knee residual and its per-row gains run
+   * −1.13 … +0.24 with the two grids disagreeing in sign, because the blend's
+   * direction is different at every backdrop level and the residual's is not. An
+   * offset explains 11 % of it and the light grid's rows agree: `resid(160) −
+   * resid(96)` is +2.2 … +4.2 codes over `checkerboard` at four pitches,
+   * `dark-solid`, `mid-dark-solid`, `hc-text` at two pitches and `photo`, over
+   * backdrops spanning 0.012 to 0.89 linear. Backdrop-independent is what the
+   * rows say, so backdrop-independent is the shape.
+   *
+   * The curve is the one the ramp's far anchor declines along and the 2x heavy
+   * gain rises along, so no new span statistic enters the material, and it is
+   * **exactly 0 at and below `sizeSpanMax`** — nothing at or under span 96 moves
+   * at any value of this constant, which is what let G2 probe it against the
+   * frozen bed with 77 control rows reading a lever of 0.000000 codes per unit.
+   *
+   * Folded with `sizeK`, like the response it offsets: under reduced
+   * transparency the material has stopped transmitting and the level it settles
+   * at is the preference's, not the size law's.
+   *
+   * **Inert at 0**, which is what ships until G3 declares the fit. What G2's
+   * ladder read is in `fit-level.txt`; the constant is weakly conditioned on the
+   * bed as it stands and G1's probe set at both scales is what would condition
+   * it (G0 §6: 118 level rows on the 1x grids, 202–238 with the 2x captures).
+   */
+  readonly sizeToneLevelFar: number;
+
+  /**
+   * **The heavy blur's width, in device px per scale** (W26; W26 Decision Log 1
+   * and 2, from the measured cause in claims §5.116 §2) — the constant that makes
+   * the deep sample's width a continuous parameter instead of a chain level.
+   *
+   * W25 could not raise the heavy share because vitrea's heavy component is
+   * 13.3 device px at 1x against the reference's 19.5, and raising the share at
+   * the wrong width adds narrow structure the reference does not have. The width
+   * was not a lever: `sizeScatterGainMax` 8 → 10.3 left reader A at 13.29. W26 G0
+   * measured why, and it is arithmetic rather than material
+   * (`results/2026-09-10-w26-heavy-width/g0/tap-today.txt`). The body's deep
+   * sample is
+   *
+   * ```
+   * scatterLod = clamp(bodyChainLod + log2(gain), 0, chainMaxLod)
+   * ```
+   *
+   * `chainMaxLod` is `planPyramid`'s `levelCount − 1`, and the chain stops when
+   * the shorter side would fall below `MIN_LEVEL_EXTENT` = 8. On the bed's
+   * 320 × 200 backdrop raster the chain is five levels, so `chainMaxLod` is **4**
+   * at dpr 1, and `bodyChainLod + log2(8)` is 4.06 — **already past the clamp**.
+   * Every gain at or above 7.5 draws the same level 4, whose own kernel is
+   * 13.4 level-0 texels wide (`CHAIN_LEVEL_SIGMA`) — which is the 13.3 the ledger
+   * recorded. G0 rendered the three impulse rows at gains 8, 10.3, 16 and 32 and
+   * read them identical to the last digit, moving only at gain 4, which asks for
+   * level 3.06 and gets it. So `sizeScatterGainMax`, `sizeScatterGainMax2x` and
+   * `sizeScatterGainFar2x` grade a quantity the clamp then discards, and a
+   * fractional level or a blend of two levels cannot widen anything at dpr 1 —
+   * G0 measured both **inert to the bit** there and removed them again (W26
+   * Decision Log 2 (a); the branch and `results/…/g0/` are their record).
+   *
+   * What widens is a Gaussian, and it is built where the chain is built. The
+   * pyramid takes the chain level whose own blur is nearest below this σ and runs
+   * the two separable passes it already runs for the body until the total is this
+   * σ exactly (`heavyTapPlan`, `PyramidResources.heavy`), so the width is
+   * continuous and is bounded by nothing the chain's depth decides — the residual
+   * carries whatever octave the chain lacks. The optics pass then reads that
+   * texture in place of the chain tap.
+   *
+   * **Per scale**, resolved by `rampAtScale` on the pattern `sizeScatterGainMax2x`
+   * established, because the reference's heavy component is a device-px quantity
+   * that does not simply halve between the scales (19.52 at 1x, 11.29 at 2x;
+   * claims §5.113 §2) — so a profile naming only the 1x end drags the 2x end
+   * toward the 2x constant's own default, and a document that means both names
+   * both.
+   *
+   * **At 0 the mechanism does not exist**: no texture is allocated, no pass is
+   * encoded, and the optics pass takes the single `textureSampleLevel` of the
+   * chain the material has always taken. That is what makes the landed 0.14.0
+   * goldens byte-identical.
+   *
+   * **What it costs, and what it gives up.** One texture and two passes per
+   * source per frame — 0.070 ms on the mobile bench row, against +1.1 ms for the
+   * in-shader grid G0 measured (W26 Decision Log 2 (b)). The width is then one
+   * per SOURCE rather than one per pixel, so the span grading `sizeScatterGainFar2x`
+   * carried does not reach the deep sample where this is on. The reference's heavy
+   * width does not grade with the span at 1x (claims §5.113 §4), which is what
+   * says the material can afford that; at 2x it does (the `-lg` row reads 16.92
+   * against `-md`'s 11.29), and that is a recorded gap rather than an answered
+   * one (W26 Decision Log 2 (f)).
+   *
+   * ---
+   *
+   * **WHAT WAS THEN MEASURED, and it moved the target as well as the width**
+   * (W26 G1b and G1c; claims §5.121 and §5.122; W26 Decision Log 5 and 6 (a)).
+   * The readings quoted above — 19.52 at 1x, 11.29 and 16.92 at 2x — are
+   * two-Gaussian fits to ONE backdrop each, and the same reference reads 8.4
+   * through `checkerboard-64` where it reads 19.5 through the impulse tile. They
+   * stand as recorded, with these beside them.
+   *
+   * The instrument of record is the family reader: the composite this renderer
+   * actually computes, fitted to the pixels jointly across every thick untinted
+   * backdrop of one surface, with a per-backdrop gain. It is the only reader in
+   * this wave that was held against a control — it returns vitrea's OWN drawn
+   * width to 0.6 % — and on it **Apple's heavy width is 8.6–9.2 device px at
+   * dpr 1 and 8.7–9.6 at dpr 2**, on both surfaces and in both schemes, with the
+   * share already right to 0.07. So the 13.418 the clamped tap drew at dpr 1 was
+   * half again too wide, and the reason two waves could not raise the share is
+   * that more of a too-wide heavy component is more of the wrong thing.
+   *
+   * **The landed 9 and 9**, fitted through a ladder the reader sees one for one
+   * (slope 0.995–1.111, rms 0.03–0.06 device px over seven rungs from 8 to
+   * 13.418), inverted per cell: 9.48 / 8.63 / 9.19 at dpr 1 and 8.13 / 9.79 /
+   * 8.37 at dpr 2. At dpr 1 the spread is 9.8 % and one number serves both spans;
+   * at dpr 2 it is 20.4 % and one number does not, which is the span grading of
+   * the paragraph above, now measured at 1.66 device px.
+   *
+   * **The mechanism has no small values** (W26 Decision Log 6 (c)). The paragraph
+   * above says the mechanism does not exist at 0; the counterpart is that it does
+   * exist at 0.001, where `heavyTapPlan` selects chain level 0 with a residual of
+   * a thousandth of a texel and the deep sample becomes the UNBLURRED backdrop.
+   * A near-zero σ is therefore the opposite of "almost off" — it is the widest
+   * possible departure from the material — and a profile must name 0 or a real
+   * width and nothing between. The domain is 0 or at least the chain's level-1
+   * width; a floor in `heavyTapPlan` would make it continuous, and the tracker
+   * carries it.
+   */
+  readonly sizeHeavyTapSigma: number;
+  readonly sizeHeavyTapSigma2x: number;
+
+  /*
+   * ## W30's spanning set: the diffusion, made selective in the backdrop's scale
+   *
+   * The five leaves below are the wave's second operator, landed at inert values
+   * before anything is fitted (W30 Decision Log 1 (b) and 2 (d); claims §5.156
+   * §3, §5.158). They exist because the residual the operator has to move is
+   * **non-monotone in the backdrop's pitch** — vitrea passes 1.21× the native
+   * structure over a 16 px checkerboard and 0.76–0.83× over 4 and 8 px ones and
+   * over a photograph, on the same material and the same span — and a positive
+   * mix of two Gaussians, which is monotone in frequency, cannot do that. Its
+   * sign also turns on the colour scheme and, on structured backdrops only, on
+   * the device ratio.
+   *
+   * Two mechanisms can express a notch and G0's cut could not choose between
+   * them, because the macOS 27 generation of the matrix carries **no probe row**
+   * and the pitch ladder is entirely probe — so the curve the operator fits is
+   * not in committed evidence and the one discriminator the bed does carry is
+   * confounded by the tone response (§5.156 §3). Rather than spend a second
+   * exemption mid-fit, the wave lands a set that SPANS both and turns on
+   * whichever the ladder, once read, supports:
+   *
+   *   (i)  a second heavy tap at its own width with a SIGNED weight
+   *        (`sizeHeavySecondSigma`, `…2x`, `sizeHeavySecondShare`), which makes
+   *        the kernel non-monotone in frequency — a negative weight subtracts a
+   *        wider Gaussian, which is the notch;
+   *   (ii) a mix conditioned on the SOURCE's own measured spatial scale
+   *        (`sizeScatterScaleGain`, `sizeScatterScaleRef`), keyed on the
+   *        analysis pass's per-source `stats` — `[encoded mean, linear variance,
+   *        edge density, sample count]` — of which edge density is a reciprocal
+   *        length and therefore the scale statistic, in the only place a
+   *        per-source quantity can be read.
+   *
+   * The two SIGNED amounts are the scheme-conditioned leaves, which on this
+   * project means two values of one leaf across the light and the dark document:
+   * the dark document is a patch and the renderer has no scheme input. The
+   * widths and the reference are not scheme-conditioned, because a spatial scale
+   * is a property of the source raster and that is the same raster in both
+   * schemes.
+   *
+   * `sizeToneLevelFar` is NOT part of this set and stays at 0: its sign is
+   * stable per scheme but the two light backdrops disagree by 5.5× on its
+   * magnitude, so it is declined rather than fitted (W30 Decision Log 2 (d)).
+   */
+  /**
+   * The second heavy tap's Gaussian width in CSS px, per scale — candidate (i)'s
+   * width, on `sizeHeavyTapSigma`'s own pattern and resolved by the same
+   * `rampAtScale`.
+   *
+   * It is a second `PyramidResources` texture and a second separable pair, not a
+   * uniform the optics pass evaluates, for `sizeHeavyTapSigma`'s measured
+   * reason: a grid of taps at the fragment costs +1.1 ms on the mobile bench row
+   * against 0.070 ms for two separable passes the chain already runs (W26
+   * Decision Log 2 (b)). So the width, like the first one, is one per SOURCE.
+   *
+   * **Ships at 0, and the width is not what makes it inert** —
+   * `sizeHeavySecondShare` is. At share 0 no texture is allocated, no pass is
+   * encoded and the optics pass never reads one, so this width is unread
+   * whatever it holds; 0 is chosen because it is the value at which
+   * `heavyTapPlan` would also decline. A profile that names a width and leaves
+   * the share at 0 gets nothing, deliberately: the share is the single gate, so
+   * that the off path has exactly one condition.
+   */
+  readonly sizeHeavySecondSigma: number;
+  readonly sizeHeavySecondSigma2x: number;
+  /**
+   * The second heavy sample's weight in the deep mix — a SIGNED fraction, and
+   * the scheme-conditioned leaf of candidate (i).
+   *
+   * The deep sample becomes `heavy + share · (heavy2 − heavy)`, so a positive
+   * share widens the deep component toward the second width and a NEGATIVE one
+   * subtracts it — an unsharp mask on the backdrop, which is a kernel that
+   * passes the middle pitch less than both ends and is the only shape on offer
+   * that can do what the residual asks. The sign is what the colour scheme
+   * flips: on the gated 16 px cell vitrea passes 1.57× the native structure in
+   * 1x light and 0.75× in 1x dark, so the light document wants structure removed
+   * at that pitch and the dark document wants it added (claims §5.156 §3, §6).
+   *
+   * **It is also the GATE.** The second heavy texture is built, bound and read
+   * only where this is non-zero, so at 0 the mechanism costs no allocation, no
+   * pass and no sample, and the deep mix is the expression W26 left — which is
+   * what the 34 renderer goldens prove, since they render an explicit patch over
+   * the default and every one of them is byte-identical across this commit.
+   *
+   * **Ships at 0, a multiplied zero**: the lerp's second term is
+   * `0 · (heavy2 − heavy)`, and the branch that would read `heavy2` at all is
+   * not taken.
+   */
+  readonly sizeHeavySecondShare: number;
+  /**
+   * The gain on `kScatter` per unit of the source's measured scale statistic
+   * about `sizeScatterScaleRef` — candidate (ii)'s scheme-conditioned leaf, a
+   * fraction per unit of statistic, signed.
+   *
+   * `kScatter` is the share of the deep component in the body's mix, and this
+   * adds `sizeScatterScaleGain · (stat − sizeScatterScaleRef)` to it before the
+   * clamp — so a backdrop whose structure sits at a finer scale than the
+   * reference takes a different share of the heavy component from one whose
+   * structure is coarser, which is a transmission that depends on the backdrop's
+   * scale rather than only on the surface's span. The statistic is the analysis
+   * pass's per-source EDGE DENSITY (mean luminance-gradient magnitude per texel,
+   * a reciprocal length), resolved on the CPU where the readback is and handed
+   * to the optics pass as one number per group.
+   *
+   * The sign is the scheme's, for `sizeHeavySecondShare`'s reason and read off
+   * the same cell.
+   *
+   * **Ships at 0, a multiplied zero**: the added term is
+   * `0 · (stat − sizeScatterScaleRef)` and `kScatter` is already clamped to
+   * [0, 1], so the clamp that follows is the identity on it.
+   */
+  readonly sizeScatterScaleGain: number;
+  /**
+   * The reference value of the per-source scale statistic the gain above is
+   * measured about — the backdrop scale at which the operator does nothing.
+   *
+   * Not scheme-conditioned: a spatial scale is a property of the source raster
+   * and the raster is the same in both schemes. Fitted in §5.159 as the edge
+   * density of the pitch the two sides of the residual straddle, once the ladder
+   * has a macOS 27 reading.
+   *
+   * **Ships at 0**, and the argument for its inertness is not a multiplied zero
+   * but a different one and sufficient on its own: the gain that multiplies the
+   * difference from it is 0, so no value of this constant can reach the mix.
+   */
+  readonly sizeScatterScaleRef: number;
+
+  /**
+   * The occlusion gain — "a larger size is more opaque. A smaller size is
+   * clearer" (S284). The fraction of the *remaining* transparency the size law
+   * closes at full size.
+   *
+   * Relative rather than absolute, for `increasedOcclusionLift`'s reason: a floor
+   * dies silently the moment nominal passes it, and a fraction of the headroom
+   * cannot. It also composes correctly with the accessibility lift — under reduced
+   * transparency nominal is already near 1, so the size law has almost no headroom
+   * left to close, which is exactly what the reference does there (its transmission
+   * reads 0.011 at a 44 px span and 0.014 at 96 px — no size dependence, because
+   * there is none left to have).
+   */
+  readonly sizeOcclusionGain: number;
+
+  /**
+   * The inner shadow's gain — "casts deeper, richer shadows". A multiplier on
+   * `shadowDepth` at full size.
+   *
+   * **Coupled by construction, not fitted, and the difference is stated rather
+   * than hidden.** The fixtures cannot identify it: the reference's peak darkening
+   * outside its contour measures 0.0000–0.0001 on almost every calibration scene
+   * and vitrea's measures the same order (C9a, `shadowFalloff`), so there is no
+   * measured gap for a sweep to close, and what this renderer's `shadowDepth`
+   * scales is an *inner* shadow whose contribution to the interior level is
+   * degenerate with the tint's — two constants, one observable. So the direction
+   * comes from Apple's sentence and the magnitude is held to what the objective is
+   * flat over, with that flatness recorded. GPU tier only: the CSS tier's shadow is
+   * an outer `box-shadow` the reference does not cast at all (Decision Log #32(c)).
+   */
+  readonly sizeShadowGainMax: number;
+
+  /**
+   * The lens (W12 G2, claims §5.51) — one steep power on the reference's own
+   * span law, along a direction the reference ovalizes.
+   *
+   * The reference's `glassBackground` filter takes an inner refraction *amount*
+   * and *height* that are clamped linear functions of the shape's shorter side
+   * (claims §5.50: amount −min(0.8·span, 60), height min(0.25·span, 20)). What
+   * those two numbers do spatially is not in the tree; measured as a field on
+   * the captures (§5.49) and ranked on the pixels (§5.51), the band is
+   *
+   *   D(u) = S · max(0, 1 − u / L′)^p,   S = lensRefractionGain · A(span),
+   *                                       L′ = lensExtentGain · lensDepth,
+   *
+   * with `lensDepth = (thickness / lensThicknessReference) × H(span)` the
+   * reference's height law scaled by the author's thickness (8 is the default
+   * and the reference's unit — at 8 the depth IS Apple's height, 8 / 11 / 20 on
+   * spans 32 / 44 / ≥ 80), `A(span)` the amount law scaled the same way, and
+   * `p = lensProfileExponent`. Apple's own two-term profile at its literal
+   * amounts was ranked too and lost on the pixels and the holdout; its span law
+   * is adopted, its shape is not (§5.51 §2).
+   *
+   * `lensRefractionGain` is therefore re-based: it was 1.6 lens depths on the
+   * W11c square profile (S = 1.6 × 20.8 = 33.3 at saturation), it is now the
+   * scale on the reference's amount (S = 0.745 × 60 = 44.7), fitted on
+   * `rrect-md` + `-ml` at 1x with `rrect-lg` held out.
+   */
+  readonly lensRefractionGain: number;
+  /** The reference's inner refraction height law: `min(lensHeightPerSpan · span, lensHeightMax)`. */
+  readonly lensHeightPerSpan: number;
+  readonly lensHeightMax: number;
+  /** The reference's inner refraction amount law: `min(lensAmountPerSpan · span, lensAmountMax)`. */
+  readonly lensAmountPerSpan: number;
+  readonly lensAmountMax: number;
+  /**
+   * The author `thickness` at which the lens depth equals the reference's own
+   * height — the host's default, and what the bed was captured at. A thicker
+   * authoring scales the depth and the magnitude together.
+   */
+  readonly lensThicknessReference: number;
+  /** The profile's extent over the lens depth: D reaches zero at `lensExtentGain × lensDepth`. */
+  readonly lensExtentGain: number;
+  /** The profile's exponent — the square of W11c became a steeper power (§5.49 §2). */
+  readonly lensProfileExponent: number;
+  /**
+   * The direction's ovalization (§5.49 §3, §5.50): the reference's SDF element
+   * carries `gradientOvalization`, and the band is magnified *along* the edge by
+   * up to 1.31× as a result. The shader displaces along the gradient of the
+   * blended field `(1 − ω)·d_rrect + ω·d_oval`, `d_oval` the signed distance of
+   * the ellipse inscribed in the surface's box, with the magnitude fixed. The
+   * reference's value is 0.5 on thick shapes and 0 on thin ones; 0.6 is what the
+   * pixels want on the box-inscribed ellipse (Apple's oval is more curved at the
+   * edge midpoint than that ellipse). The switch is a step in the reference
+   * between spans 64 and 72; here it is a smoothstep over that band, the same at
+   * both ends and continuous through a morph.
+   */
+  readonly lensOvalization: number;
+  readonly lensOvalizationSpanMin: number;
+  readonly lensOvalizationSpanMax: number;
+
+  /**
+   * What each accessibility regime does to the numbers above. The multipliers
+   * match `platform-web`'s CSS tier so the two renderers degrade the same way
+   * under the same preference.
+   */
+  readonly reducedTransparencyFrost: number;
+  /**
+   * How much of the *remaining* transparency reduced transparency closes.
+   *
+   * **Relative, not absolute (Decision Log #32(d)).** This was
+   * `increasedOcclusionAlpha`, an absolute floor of 0.62 applied as
+   * `Math.max(nominal, floor)` — a real lift while nominal was the advisory 0.28,
+   * and a no-op from the moment C9a measured nominal at 0.62. The policy died
+   * without being touched and nothing noticed for a whole child. A fraction of the
+   * headroom cannot die that way: it lifts strictly for every nominal below 1,
+   * whatever a later tuning pass moves nominal to.
+   *
+   * The fraction is the pre-C9a lift, restored rather than invented:
+   * (0.62 − 0.28) / (1 − 0.28) = 0.4722, which reproduces the old floor exactly at
+   * the old nominal. At today's nominal it reads 0.62 → 0.799.
+   *
+   * Mirrored by `@vitreajs/vitrea-web`'s `INCREASED_OCCLUSION_LIFT`, and pinned in
+   * both directions by `packages/calibration/test/tier-coherence.test.ts`.
+   */
+  readonly increasedOcclusionLift: number;
+  /** Optional policy-specific levels. Absent keeps the shared lift exactly. */
+  readonly increasedOcclusionLiftByPolicy?: MaterialOcclusionLiftByPolicy;
+  readonly strongBorderRim: MaterialRim;
+  readonly reducedTintAdaptation: number;
+
+  /**
+   * The author tint's shade law (W10) — Apple's "range of tones **mapped to
+   * content brightness underneath**" (S219), measured per pixel on the frozen
+   * bed and the W9 probe (claims §5.36).
+   *
+   * The tinted material is an OPAQUE, hue-preserving shade of the seed: the seed
+   * times a scalar, and the scalar is linear in the luminance the untinted
+   * material shows at the same pixel — `mix(tintShadeDark, tintShadeLight, u)`,
+   * clamped so a shade is never brighter than the seed. Over black content the
+   * reference shows about half the seed's light; over white it shows the seed
+   * itself; over a checkerboard it shows both, cell by cell, with the seed's
+   * chromaticity intact to three decimals at every pitch measured. That layer
+   * composites over the material at the AUTHOR's opacity (the colour's alpha) in
+   * the encoded space — the half-strength cell is the 0.501 encoded-space mix
+   * of its untinted and full-tinted twins, per channel — so the material's own
+   * alpha is not what a tinted surface shows.
+   *
+   * `tintShadeStrength` is the law's provenance gate: 1 where the constants were
+   * measured (the light scheme), 0 where they were not — the dark scheme
+   * renders the pure seed over every backdrop it was measured on, which is
+   * consistent with "a shade relative to the material's own body level" but is
+   * not yet separable from "no shading in the dark scheme". The collapse (W7)
+   * folds the shade out the same way, because a collapsed material IS a dark
+   * body and the reference renders the pure seed there too.
+   *
+   * MEASURED, both scales, twelve light-standard cells across three pitches:
+   * fitted on the five probe cells only (17 700 px, RMS 0.0035) and refereed by
+   * every canonical tinted row. Mirrored by `@vitreajs/vitrea-web`'s
+   * `TINT_SHADE`, pinned in both directions by
+   * `packages/calibration/test/tier-coherence.test.ts`.
+   */
+  readonly tintShadeDark: number;
+  readonly tintShadeLight: number;
+  readonly tintShadeStrength: number;
+
+  /**
+   * The fraction of the author's seed saturation retained before the shade law.
+   * The neutral endpoint is the seed's maximum linear channel, not its luminance:
+   * W27c's orange and blue checkerboard capsules at both 1x and 2x lose their hue
+   * to the SAME grey, despite the seeds having different luminances (§5.130).
+   * Strength still composites the resulting layer; it is not discarded.
+   * Absence means 1, the identity. Identity values are omitted from resolved
+   * documents so the frozen active profiles keep their existing fingerprints.
+   */
+  readonly tintChromaScale?: number;
+
+  /**
+   * The fraction of the tint shade retained when backdrop adaptation collapses
+   * the body. W27c's 1x light dark-solid tinted capsule requires Y 0.03678 while
+   * its checkerboard counterpart requires Y 0.45128. A chroma-only seed change
+   * cannot supply both: collapse forces the old shade to 1. Retention lets the
+   * same shade law follow the collapsed body's level instead of exposing the
+   * unshaded seed. Absence means 0, preserving the active law and its fingerprint.
+   */
+  readonly tintShadeCollapseRetention?: number;
+
+  /**
+   * **Backdrop tone adaptation (W7)** — the axis Apple's material has and this
+   * one did not: over a dark enough backdrop the material stops being a lighter
+   * thing in front of it and takes the backdrop's own tone.
+   *
+   * The mechanism is one mix, and it is deliberately the *tint colour* rather
+   * than the tint alpha: `backdropToneMax` at full strength makes the tint equal
+   * the sampled backdrop, so `mix(backdrop, tint, tintAlpha)` collapses to the
+   * backdrop exactly and the surface is left with its rim, its inner shadow and
+   * its lensing and nothing else. That is what the settled reference does —
+   * `dark-solid__capsule-button__rest` is byte-identical to its own background
+   * in every standard profile, at both scales, in both colour schemes.
+   *
+   * `backdropToneLow`/`backdropToneHigh` are the backdrop luminances (linear)
+   * the two ends are reached at, crossed with a smoothstep for the same reason
+   * `tintToneLow`/`High` are.
+   *
+   * `backdropToneSizeBias` is the size gate, and it is not decoration: the same
+   * backdrop moves a small surface and a large one by very different amounts.
+   * Over `dark-solid` the reference's 44 px capsule adapts completely while its
+   * 96 px rrect keeps three quarters of its own appearance, measured on both
+   * scales independently and agreeing to three decimals. The bias enters the
+   * curve's *argument* rather than its amplitude — a thicker surface behaves as
+   * though its backdrop were brighter, which is what more material between the
+   * viewer and the backdrop means — because an amplitude gate cannot reproduce
+   * the second dark backdrop (`impulse`) and this does.
+   *
+   * The axis is WITHIN a colour scheme. The scheme picks the neutral; this moves
+   * the material away from that neutral toward what is actually behind it. So the
+   * dark profile runs the same law with the same constants and does not
+   * double-adapt: over `dark-solid` its capsule collapses onto the backdrop too,
+   * and the light and dark references become the same pixels there.
+   */
+  readonly backdropToneMax: number;
+  readonly backdropToneLow: number;
+  readonly backdropToneHigh: number;
+  readonly backdropToneSizeBias: number;
+
+  /**
+   * **The transmission the collapse keeps (W24 G1)** — and the correction, set
+   * BESIDE the paragraph above rather than over it, of what "texture collapse"
+   * was measured on.
+   *
+   * W7 fitted the collapse on `dark-solid`, a backdrop with no texture in it,
+   * and the paragraph above therefore says the collapse converges the interior
+   * on the backdrop's mean COLOUR. On a solid backdrop the mean and the pixel
+   * are the same number, so the fit could not tell the two apart; the impulse
+   * bed can, and it says they are not the same. Through the reference's
+   * collapsed `impulse__capsule-button` the centre dot still comes through at
+   * +0.0065 linear over a body of 0.0065 at 1x and +0.0254 over 0.0065 at 2x,
+   * where vitrea's collapsed capsule passes exactly 0.0000 (claims §5.107 §2).
+   * The reference's collapsed material is a dark glass that still transmits what
+   * lies beneath it, blurred — it collapses the LEVEL, not the structure.
+   *
+   * The arithmetic the collapse already has makes the correction one constant.
+   * Writing `M` for the unadapted composite this pass would otherwise produce,
+   * the (colour, alpha) pair the shader solves reduces exactly to
+   * `colour = (1 − k)·M + k·target`, and `target` is today the group's mean
+   * backdrop colour — one number for the whole surface, which is precisely what
+   * flattens the dot away at `k` 1. So `collapseTransmission` lerps the TARGET
+   * from that mean (0) to the per-pixel blurred backdrop sample the refraction
+   * path already computed (1):
+   *
+   *     target = mix(toneColour.rgb, backdrop, collapseTransmission)
+   *
+   * The tone axis's ARGUMENT is untouched — `k` is still read from the group's
+   * mean luminance and the size bias, and the response law still solves against
+   * `toneAnchor.w` — so the collapse collapses exactly as far as it did and
+   * only stops flattening what is under it. The blurred sample's mean under the
+   * surface is the group's mean to within the difference between a local and a
+   * global average, so the body's LEVEL moves by less than a code where the
+   * backdrop is anything like uniform, and not at all where it is solid: over
+   * `dark-solid` the sample IS the mean and every collapsed cell of that bed is
+   * byte-identical at any value of this constant. That is the stop the fit is
+   * checked against.
+   *
+   * At 0 the target is the mean and the shader's arithmetic is W7's to the bit,
+   * which is why this can be added without moving a pixel anywhere.
+   *
+   * What it cannot carry is the reference's WIDTH. Fitted on the reference's own
+   * dot the transmitted profile is a 4 CSS px box convolved with σ 2.63 device
+   * px at 1x and σ 1.38 device px at 2x — the same kernel the reference's
+   * UNCOLLAPSED cells show (σ 2.86 / 1.40 device px on `impulse__rrect-md`), so
+   * the collapse does not change Apple's blur, but that kernel is neither
+   * CSS-invariant nor device-invariant and vitrea's is neither of those numbers.
+   * This constant sets how MUCH comes through; how WIDE it arrives is the
+   * material's own scatter law and is recorded as a gap, not fitted here
+   * (W24 G1 findings).
+   */
+  readonly collapseTransmission: number;
+
+  /**
+   * **The collapse's transmission at dpr 2** (W24 G1), the second anchor of the
+   * constant above, on the pattern `sizeScatterGainMax2x` established for the
+   * body's own second scale (claims §5.69 §1).
+   *
+   * It is a per-scale reading and not a per-scheme one, and the evidence is the
+   * fixtures': the light and dark captures of the collapsed cells are the same
+   * bytes, so the collapsed appearance is one appearance in both schemes, while
+   * the width the reference transmits through is a different number at each
+   * scale. Fitted on the reference's own dot, its kernel is a 4 CSS px box
+   * convolved with σ 2.63 device px at 1x and σ 1.38 device px at 2x — a width
+   * that is invariant in neither CSS nor device pixels — so the SHARE that comes
+   * through cannot be one number over a kernel that is two.
+   *
+   * Defaults to the 1x constant, so a profile that names only that one renders
+   * it at every ratio and this anchor is the identity on the landed material.
+   */
+  readonly collapseTransmission2x: number;
+
+  /**
+   * **How much of the blurred backdrop's CHROMATICITY the body restores** (W31;
+   * claims §5.161 §5, fitted in §5.164) — a fraction in [0, 1], inert at 0.
+   *
+   * The body is a neutral plate composited over the blurred backdrop, so what a
+   * photograph's hues survive the composite at is `1 − sizedAlpha` — 0.513 on the
+   * macOS 27 light document and 0.095 on the dark one, against a reference that
+   * reads 0.90–0.97 of its own backdrop's chroma on the same cells. Apple's body
+   * at the same LEVEL keeps the hue, which is what a darkening acting on the
+   * backdrop's luma while leaving its chromaticity alone does and what a plate
+   * does not. No constant the material had could close that (W29 Decision Log
+   * 6 (c)): it is a mechanism, and this is the one leaf that adds it.
+   *
+   * Applied immediately after `colour = mix(backdrop, adapted, presentAlpha)`
+   * and before the tint composition, so an author's tint still displaces the
+   * result. The colour is mixed toward `backdrop · (Y / Y_backdrop)` — the
+   * backdrop's chromaticity carried to the colour's OWN linear luma — by this
+   * fraction, so **luma is preserved by construction rather than by
+   * correction**: both endpoints of the mix have linear luma exactly `Y`,
+   * `dot(rgb, (0.2126, 0.7152, 0.0722))` is a linear functional, and the mix has
+   * luma `Y` in exact arithmetic. (OKLab `L` is NOT linear luma, which is why the
+   * formulation is in linear RGB: holding `L` while moving toward a saturated
+   * chromaticity moves `Y` by −22 % at sRGB blue and +10 % at green.) Gamut is
+   * taken by scaling chroma toward the neutral at fixed luma, never by clipping
+   * per channel.
+   *
+   * **No `toneAdapt` gate**, and the reason is measured rather than assumed
+   * (claims §5.161 §11, finding N1). A retention toward the backdrop's
+   * chromaticity is the identity wherever the backdrop is achromatic, and the
+   * only region `backdropToneAdaptation` can fire in on the macOS 27 documents
+   * is `x < backdropToneHigh` = 1e-4 of linear light — achromatic to within the
+   * capture's own quantisation. A future document that re-opens
+   * `backdropToneHigh` must re-examine that, and must read it at a span at or
+   * below `sizeSpanMin` where `backdropToneSizeBias` is not there to help.
+   *
+   * Conditioned by SCHEME (two values across the light and dark documents) and
+   * by POSE: each receded document carries its own, read on the inactive cells,
+   * because the recede's untinted body has no chroma law at all otherwise —
+   * W27c's collapse acts on the tint SEED inside `if (tintK > 0.0)`. The
+   * accessibility documents inherit the light value.
+   *
+   * **Ships at 0, a multiplied zero**: the mix's second term is `0 · (target −
+   * colour)` and `colour` leaves the composite exactly as
+   * `mix(backdrop, adapted, presentAlpha)` produced it, which is why the 34
+   * renderer goldens are byte-identical across the commit that added it and why
+   * `MATERIAL_IDENTITY_TABLE` can drop it from the fingerprint.
+   *
+   * One place it cannot act, declared rather than discovered: on the unsampled
+   * layer path (`flags.x <= 0.5` and not `domMaterial`) the shader overwrites
+   * `colour` with `adapted` and writes a layer for the browser to composite, so
+   * there is no backdrop in hand and no chromaticity to restore toward. The
+   * retention is silently the identity there.
+   */
+  readonly bodyChromaRetention: number;
+
+  /**
+   * **The rim that survives the collapse (W23)** — the one mark the collapsed
+   * appearance keeps.
+   *
+   * The paragraph above is right about the body and wrong about the rim. W7 read
+   * the settled reference's `dark-solid__capsule-button` as "byte-identical to
+   * its own background, rim included", and at the contour it never was: the
+   * fixture carries a body one code BELOW its backdrop and a contour rim of
+   * +0.020 linear per CSS px (55/255 on a 28/255 backdrop at 2x), in every
+   * standard profile, at both scales, in both schemes (claims §5.99). vitrea
+   * folds that rim out with everything else through the shader's one
+   * `present = 1 − toneAdapt`, and the user's eye named the result: "not one of
+   * our glasses is visible on black, where Apple's clearly show their presence."
+   *
+   * So the shader's rim becomes
+   * `rimWeight × (rimAmplitude × present + rimCollapsed × toneAdapt)`: the
+   * scheme's own rim fading out with the adaptation as it does now, and an
+   * absolute rim the collapsed appearance owns rising with it. At `toneAdapt` 0
+   * nothing changes at all, which is why this constant can be added without
+   * moving a single uncollapsed pixel.
+   *
+   * It lives on the profile and NOT in the dark patch, because the collapsed
+   * appearance is scheme-independent and the fixtures say so: the light and dark
+   * fixtures of `dark-solid__capsule-button` are byte-identical at both scales
+   * (W23 X4). A reading that separates the schemes under collapse is a finding
+   * about the wave, not a second constant. G0 strengthened the evidence: the
+   * identity survives an AUTHOR TINT — `dark-solid__capsule-button__rest-tint-
+   * orange` is the same bytes in both schemes at both scales — so what the
+   * collapse draws is one appearance however the surface was painted.
+   *
+   * It is expressed in its own units and not in the dark rim's, because the two
+   * were measured apart: see the value's own note on the default profile.
+   */
+  readonly rimCollapsed: number;
+
+  /**
+   * **The rim a PAINTED surface keeps under the collapse** (W23 G1; claims
+   * §5.100 §5, Decision Log 2 (c)) — `rimCollapsed`'s sibling, at the author
+   * tint's full coverage, with the two lerped by the coverage between them.
+   *
+   * The reference's collapsed capsules keep +0.020 of contour rim bare and
+   * **+0.115 painted** (`dark-solid` and `impulse` `capsule-button`
+   * `rest-tint-orange`, both schemes, both scales, on fixtures that are the same
+   * bytes in the two schemes). An author tint over black is painted, not
+   * adapted: the tone collapse takes the material's own appearance to its
+   * backdrop and the colour the author put on it does not go with it.
+   *
+   * It is ABSOLUTE, in its own units, for the same reason `rimCollapsed` is and
+   * on the same evidence — and G1 measured what the alternative would have cost.
+   * Decision Log 2 (c) proposed gating the collapse itself on the tint's
+   * coverage, so that a painted surface keeps its APPEARANCE's own rim; rendered,
+   * that mechanism needs a gate of 0.534 on the light bed and 0.294 on the dark
+   * one to reach +0.115 on a cell whose reference fixture is byte-identical
+   * between the schemes, because it makes the kept rim proportional to each
+   * scheme's own amplitude law and those differ by 1.8× there. A proportional
+   * form cannot draw one appearance from two materials; an absolute one does,
+   * which is X4 again and the reason this constant has the shape it has.
+   *
+   * It is fitted on orange alone, and that is a stated limit: the reference's
+   * collapsed tint-blue capsule reads +0.176 against orange's +0.115, so the
+   * quantity depends on the tint's own colour, and every collapsed blue cell on
+   * the bed is holdout. What lands here is the orange rows' answer with the
+   * colour dependence recorded as future work.
+   */
+  readonly rimCollapsedTinted: number;
+
+  /**
+   * **How much of an author tint's own colour the rim's light is spent in**
+   * (W23 G3; claims §5.102) — 0…1, multiplied by the surface's tint coverage.
+   *
+   * Apple's rim on a painted surface is the paint LIFTED, not white added over
+   * it. Read on the contour row's straight-span mean colour at 2x in light, an
+   * orange paint of (255, 148, 0) rises to (254, 188, 0) with its blue channel
+   * still at 0, and a blue paint of (8, 120, 236) to (59, 199, 248); vitrea drew
+   * (255, 192, 130) and (145, 183, 255) — the same rim in white, which turns an
+   * orange edge peach and a blue edge lilac. No luminance clause sees it: the
+   * rim's amplitude is right and its colour is not.
+   *
+   * So the rim's light is spent in `mix(white, paint / max(paint), chroma × s)`.
+   * The paint is normalised by its own brightest channel rather than by its
+   * luminance, so a dark paint darkens the rim's HUE and not its amount, and the
+   * factor is the pixel's own tint strength, so an untinted surface keeps a white
+   * rim at every value of this constant — which is what makes the mechanism reach
+   * painted pixels only and every untinted capture byte-identical (W23 S10).
+   */
+  readonly rimTintChroma: number;
+
+  /**
+   * **The backdrop tone response (W9)** — the law that owns the interior MEAN,
+   * where the four constants above own texture collapse and nothing else.
+   *
+   * The W9 probe falsified the mix-toward-backdrop form outright (claims
+   * §5.33): six cells need mix strengths outside [0, 1], because the
+   * reference adapts toward the material's own light/dark appearance, which
+   * coincides with the backdrop's tone only over `dark-solid` — the one
+   * background the mix was fitted on. What the probe measured instead is a
+   * LAW: at equal encoded-space backdrop mean the reference's settled
+   * interior is the same number regardless of the backdrop's structure
+   * (checker vs text rows, 0.81 both at input 0.69), so the interior level is
+   * a function `R(encodedMean, thickness)` and these constants are that
+   * function's anchors.
+   *
+   * `backdropToneAnchorX` is the three solid anchors' encoded-space means —
+   * measured backdrop luminances, not tuned. `backdropToneResponseThin` and
+   * `...Thick` are the reference's settled interior levels at those anchors
+   * for a thin surface (`sizeThickness` 0, the 32 px rrect) and a thick one
+   * (saturated, the 96 px+ rrects pooled — their residual spread ±0.012 is
+   * the accepted cost of `sizeSpanMax` saturation, claims §5.33). Between
+   * the rows: smoothstep in thickness; between the anchors: monotone
+   * (Fritsch–Carlson) interpolation in the ENCODED input, the space the
+   * probe validated to RMS 0.034 with zero fitting.
+   *
+   * Below the dark anchor the surface has no data (the probe's grid floor
+   * is `dark-solid`), and the one validation cell down there —
+   * `impulse__rrect-md`, backdrop 0.0039, reference 0.4358 — reads DARKER
+   * than the dark anchor's thick row, so clamping would regress it. The
+   * solve's authority fades to zero from the dark anchor downward
+   * (smoothstep over the anchor's own lower half, no new constant); the
+   * extreme-dark region stays with the collapse constants that were fitted
+   * on it.
+   */
+  /** W28: absent/source preserves the source solve; silhouette reduces raw pixels per surface. */
+  readonly backdropToneAbscissa?: "source" | { readonly kind: "silhouette" };
+  readonly backdropToneAnchorX: BackdropToneKnotRow;
+  readonly backdropToneResponseThin: BackdropToneKnotRow;
+  readonly backdropToneResponseThick: BackdropToneKnotRow;
+
+  /**
+   * How much authority the response law has in THIS profile, 0…1 (W9).
+   *
+   * The anchors above are measurements of the LIGHT reference's settled
+   * appearance. The dark scheme's material settles at its own levels over the
+   * same backdrops (0.809 light against 0.055 dark over one checkerboard,
+   * §5.8), so a dark profile running the light response surface brightens the
+   * dark material toward the wrong scheme's appearance — measured on the
+   * canonical dark bed as ΔE p95 0.08 → 0.58 before this constant existed.
+   * The dark profiles set it to 0: the collapse (whose target is the
+   * backdrop, not a scheme's appearance) still runs there, and a dark
+   * response surface is follow-up work that needs the dark reference probed,
+   * not an assumption.
+   */
+  readonly backdropToneResponseStrength: number;
+  /**
+   * W36's low-end branch (§5.179, Decision Log 5). At identity 0 the old solve
+   * executes exactly. Below encoded input 0.003, smoothstep weight from black
+   * blends both its response and authority to the old solve; at and above the
+   * join neither changes. This is not a Hermite knot and changes no slope.
+   * Thin/thick black ordinates are linear output levels, unread at gate 0.
+   * The thick ordinate is an explicit extrapolation until a thick black exists.
+   */
+  readonly backdropToneBlackStrength: number;
+  readonly backdropToneBlackThin: number;
+  readonly backdropToneBlackThick: number;
+
+  /** The outer shadow (W8) — see `MaterialOuterShadow`. */
+  readonly outerShadow: MaterialOuterShadow;
+
+  /**
+   * Advisory light direction, in viewport coordinates with y pointing down: a
+   * little left of straight overhead, which is where Apple's material reads its
+   * specular from.
+   */
+  readonly lightDirection: readonly [number, number];
+  /**
+   * **The lit edge's axis (W24; claims §5.107)** — the unit direction `L` the
+   * rim's directional factor is symmetric about, in the same viewport
+   * coordinates as `lightDirection`, y pointing down.
+   *
+   * It is a SEPARATE constant from `lightDirection` and not a second reading of
+   * it, for two reasons the rows give. First, they are measured to differ: the
+   * rim's axis fits at 136° of compass bearing over the 19 solid rows (135.0° ±
+   * 0.7° over the dark rows alone, 137.7° ± 1.5° over the light ones), where
+   * `lightDirection` [−0.3714, −0.9285] is a bearing of 338.2°, an axis of
+   * 158.2° — 22° away, and it was fitted for the inner shadow and the sweep, not
+   * for the contour. Second, `light.xy` reaches the one-sided `spec` term this
+   * factor replaces, and re-pointing it to fit the contour would move the
+   * shadow's own light with it; a constant of its own keeps that seam where W2
+   * and W22 left it.
+   *
+   * The default is the exact diagonal (−1, −1)/√2 — a bearing of 135° — and not
+   * the fitted 136°: the rows do not separate the two (the joint fit's RMS moves
+   * by less than a thousandth between them), and only the exact diagonal makes
+   * the factor equal on all four straight sides, which is what lets the
+   * amplitude's re-expression be exact rather than a 2 % trade against W23's
+   * straight-span reads. `rimLitExponent` is 0, so the axis draws nothing until a
+   * profile carries an exponent.
+   */
+  readonly rimLitAxis: readonly [number, number];
+  /** Specular sweep band width in radians, and the press glow's reach in CSS px. */
+  readonly sweepBandRadians: number;
+  readonly glowRadiusCss: number;
+  readonly glowGain: number;
+  readonly sweepGain: number;
+}
+
+/*
+ * There is no longer a dark counterpart to this constant. The old
+ * `SRGB_DARK_TINT` ([0.09, 0.09, 0.1]) existed only as the light-backdrop end of
+ * the adaptive crossover, and C9a measured that the reference does not invert its
+ * tint against the backdrop at all — see `adaptiveTintLight` below. The
+ * dark-SCHEME tint is a different quantity and lives with the profile that
+ * carries it: packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json.
+ */
+const SRGB_WHITE_TINT: Rgb = [1, 1, 1];
+
+/**
+ * How much of the remaining transparency an `occlusion: "increased"` policy
+ * closes. **FITTED (round two, 2026-08-31) — 0.4722 → 0.75.**
+ *
+ * The old number was never a measurement. It was the pre-C9a lift re-expressed as
+ * a fraction, (0.62 − 0.28) / (1 − 0.28), chosen so the derivation reproduced the
+ * old floor exactly at the old nominal — and no stage of the recalibration
+ * cascade had refitted it, which is the gap claims §5.14 records against itself.
+ * Against the active bed it under-occluded badly: the reference's interior sits
+ * at 0.893 under reduced transparency and 0.957 under increased contrast where
+ * vitrea reached 0.777 and 0.783.
+ *
+ * ## One constant, two references that want different things
+ *
+ * macOS force-couples the accessibility toggles (Decision Log 8), so BOTH
+ * accessibility profiles resolve to `occlusion: "increased"` and both are served
+ * by this one number. Fitted on each profile's own untinted calibration cells
+ * against the declared objective, they disagree: increased contrast wants 0.80
+ * (0.36045 → 0.23366 across the grid, a 1.54× spread) and reduced transparency
+ * wants 0.70 (0.10940 → 0.04875, 2.76×). Their implied alphas differ too — 0.945
+ * and 0.864 — which is a property of the two references, not of the fit.
+ *
+ * 0.75 is the minimiser of the two profiles' objectives summed at equal weight,
+ * which is the honest tie-break when one constant serves two equally-gated
+ * profiles: 0.70 → 0.31022, **0.75 → 0.29742**, 0.80 → 0.30347. Both checks agree
+ * (ΔE 0.01087 and 0.00279 at the chosen point) and both profiles improve enormously
+ * against the shipped 0.4722, which reads 0.46985 on the same sum.
+ *
+ * Mirrored by `@vitreajs/vitrea-web`'s `INCREASED_OCCLUSION_LIFT`, and pinned in
+ * both directions by `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export const INCREASED_OCCLUSION_LIFT = 0.75;
+
+/**
+ * The occlusion alpha a resolved policy asks for, given whatever nominal the
+ * material carries. Mirrors `@vitreajs/vitrea-web`'s `occlusionAlphaUnderPolicy`.
+ */
+export function occlusionAlphaUnderPolicy(
+  nominal: number,
+  occlusion: MaterialPolicyView["occlusion"],
+  lift: number = INCREASED_OCCLUSION_LIFT,
+): number {
+  switch (occlusion) {
+    case "nominal":
+      return nominal;
+    case "increased":
+      return nominal + lift * (1 - nominal);
+    case "opaque":
+      return 1;
+  }
+}
+
+export function occlusionLiftForPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  if (policy.occlusion !== "increased") return profile.increasedOcclusionLift;
+  const levels = profile.increasedOcclusionLiftByPolicy;
+  return policy.ambientTint === "reduced"
+    ? levels?.increaseContrast ?? profile.increasedOcclusionLift
+    : levels?.reduceTransparency ?? profile.increasedOcclusionLift;
+}
+
+/**
+ * **The retention stands down under an occlusion lift** — W31 Decision Log 3 (d),
+ * the fix for the regression claims §5.164 §8 (b) recorded and §5.164 §13
+ * measures.
+ *
+ * `bodyChromaRetention` restores a fraction of the backdrop's chromaticity into
+ * a body that lost it to a neutral plate, and the amount the plate took is `α`.
+ * Under an accessibility occlusion lift the plate takes more —
+ * `occlusionAlphaUnderPolicy` sends `α` to `α + lift·(1 − α)`, so what is left
+ * of the backdrop is `1 − α_eff = (1 − α)·(1 − lift)` — and the leaf as W31 G3
+ * shipped it was applied at its nominal value there, restoring a fraction of a
+ * chromaticity the preference had just asked to have covered up. Measured on
+ * the untinted `photo` beds of the two light accessibility profiles, `R` went
+ * 0.9096 → 3.0514 (reduced transparency, active), 0.8294 → 2.1195 (reduced
+ * transparency, inactive) and 0.8147 → 3.1700 (increased contrast, active),
+ * three beds that sat inside the wave's own 0.80–1.20 band before the leaf.
+ *
+ * **The rule here is the HARD GATE, and that is a measurement rather than a
+ * preference** (claims §5.164 §13). Decision Log 3 (d) ruled the smaller rule
+ * first — the retention acting on the plate's un-lifted share,
+ * `r_eff = r · (1 − lift)` — and ruled the hard gate as its fallback if the
+ * measured `R` did not come back inside the band. It did not: under the lift
+ * rule the same three beds read **1.7897**, **1.1507** and **1.8324**, two of
+ * them still nearly twice the reference. `1 − α` is so small under a lift of
+ * 0.75–0.98 that even a retention scaled by `(1 − lift)` is a large relative
+ * gain on what little chroma the plate leaves, which is the same reading
+ * Decision Log 3 (b) records as the operator's structural defect: the retention
+ * restores a constant fraction of the FULL backdrop chromaticity regardless of
+ * what the plate transmits.
+ *
+ * So under any lifted occlusion the operator is the identity — which restores
+ * 0.20.0's rendering on those beds EXACTLY, not approximately, because the
+ * retention is the only thing this wave moved there. Decision Log 3 (c) defers
+ * giving the two accessibility documents retentions of their own; until a wave
+ * measures them, an inherited constant is not applied to a plate it was not
+ * fitted against.
+ *
+ * Two properties, and each of them is why this is a rule rather than a tuning:
+ *
+ *  - **It is an EXACT identity where no preference is set**, which is what lets
+ *    every standard row, every golden and every document digest be unmoved
+ *    across the fold.
+ *  - **It is written as an exhaustive switch on the occlusion axis**, not an
+ *    `if (increased)`. `occlusion: "opaque"` is `α_eff = 1` and arrives only
+ *    with `glass: "none"`, so it draws nothing either way today — but the branch
+ *    that is unreachable now is the one a later policy row makes reachable
+ *    silently, and a new axis value should surface here as a missing branch.
+ *
+ * It is folded HERE, on the CPU at the uniform's pack site, and not in the
+ * shader: the optics pass's uniform carries no policy at all — `opticsUnderPolicy`
+ * has already folded the lift into `tintAlpha` — so the shader could learn it
+ * only from a new lane, and W30's rule forbids packing an operator into a
+ * neighbour's padding. A whole vec4 for a factor the CPU already holds is a
+ * layout change for nothing.
+ */
+export function bodyChromaRetentionUnderPolicy(
+  retention: number,
+  policy: MaterialPolicyView,
+): number {
+  switch (policy.occlusion) {
+    case "nominal":
+      return retention;
+    case "increased":
+    case "opaque":
+      return 0;
+  }
+}
+
+export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
+  optics: {
+    // σ = 8 for the regular variant, which keeps this package's blur and
+    // `platform-web`'s CSS-tier blur on the same number — and makes core's 24 px
+    // `samplingPadding` advisory exactly the 3σ S1 measured.
+    regular: {
+      /*
+       * REFITTED (recalibration cascade, 2026-08-31) against the ACTIVE-pose bed.
+       * C9a's 0.62 and σ = 8 were fitted against the inactive material and are
+       * kept in git history, not here.
+       *
+       * `blurSigma` 3 is the first value this constant has ever had that the
+       * fixtures could identify. §6.1 called it unidentifiable because the
+       * inactive reference passed almost no backdrop structure; the active one
+       * passes a great deal (interior standard deviation 0.1358 over the
+       * checkerboard against vitrea's 0.0176 at σ = 8), so the objective's spread
+       * term now bites — it triples from σ = 3 to σ = 6 at a fixed alpha.
+       *
+       * `tintAlpha` 0.46 is the minimiser over the eight tone-inert untinted rest
+       * calibration cells, a genuine interior optimum (0.38 → 0.16945, 0.46 →
+       * 0.15704, 0.54 → 0.17248) with ΔE and SSIM agreeing. It remains true that
+       * no single value is right for every scene: a lerp toward one tint colour
+       * implies an alpha of 0.24 over the checkerboard and 0.47 over the photo at
+       * the same 44 px span, which is the lerp-versus-multiply question C9a
+       * recorded and nobody has acted on. Claims §5.13.
+       */
+      // 1.25 since W11c G1 (claims §5.41): the reference's interior over
+      // structured content is a sharp component near σ 1.25 plus a heavy one
+      // the scatter facet now supplies (`sizeScatterFloor`); the cascade's 3
+      // (claims §5.16) was the one Gaussian that best split the difference on
+      // a bed with no pitch axis to tell the two apart.
+      blurSigma: 1.25,
+      tint: srgbToLinear(SRGB_WHITE_TINT),
+      tintAlpha: 0.46,
+      rimWidth: 1.5,
+      /*
+       * REFITTED 0.18 → 0.844 (W23 G1; claims §5.100 §4, W23 Decision Log 2 (a)),
+       * as the intercept of the amplitude law below rather than as the whole rim.
+       *
+       * It is not the same quantity it was. Before W23 this constant WAS the rim,
+       * and 0.18 drew the same +0.060…0.078 of linear luminance at the contour on
+       * every cell of the light bed against a reference of +0.10…+0.26; now it is
+       * one of two terms, and on a light surface whose own level is 0.48 the pair
+       * draws `0.844 − 0.628 × 0.48 = 0.542` of amplitude — three times the old
+       * constant, for a rim about a third brighter than the old one at the
+       * contour, because the amplitude is not the rim: the band weight `W` the
+       * first two CSS px carry is 0.38…0.46 (claims §5.100 §4).
+       *
+       * Fitted on vitrea's OWN captures, not on a prediction: the shader's rim is
+       * linear in each constant, so a base capture at the shipped `rimAlpha`
+       * gives each cell's band weight and one rendered `rimLevelGain` point gives
+       * `W × L`, and the pair is solved by least squares over 40 rendered solid
+       * rows on 10 cells. **The canonical bed cannot fit it** — over a solid
+       * backdrop, unclipped, uncollapsed and outside the holdout the light bed
+       * leaves exactly two cells at bodies 0.48 and 0.43, and two nearly collinear
+       * rows separate no slope from an intercept (solved on 1x alone they give
+       * (0.302, +0.569) and on 2x alone (0.383, +0.183), a factor of three apart
+       * and both with the wrong sign) — so W9's light probe grid, whose bodies
+       * span 0.43…0.93, is what conditions the solve (9.7). That the routine
+       * harness captures no probe grid is recorded as a gap, not fixed here.
+       *
+       * Rendered, on the rows the wave's acceptance names: the light 1x solid
+       * cells go from 0.087 to 0.016 mean |rim − reference| per side (worst 0.168
+       * → 0.033) and `dark-solid__rrect-md` from 0.068 to 0.227 against the
+       * reference's 0.229.
+       *
+       * W22 G1 declined this constant on the same rows and that decline is not
+       * rewritten (claims §5.94 §3): it was read through the declared box's 3 CSS
+       * px band, whose peak-row mean over a dark backdrop carries the corners'
+       * backdrop and dilutes a one-pixel line, and it was the right answer to the
+       * question that instrument asked. The contour read is a different question.
+       */
+      rimAlpha: 0.844,
+      /*
+       * FITTED 1.35 (W23 G1; claims §5.100 §5, Decision Log 2 (d)) — the band at
+       * dpr 2, about 10 % narrower than at dpr 1.
+       *
+       * Two clauses of the wave meet on this constant and they pull opposite
+       * ways, which is why it is not simply the minimiser of one of them. The
+       * uncollapsed 2x solids want the band NARROW: at 1.5 `dark-solid__rrect-md`
+       * reads +0.2467 against the reference's +0.2052 on the light bed, and the
+       * rendered ladder point at 1.2 reads +0.1883, so the row's own answer is
+       * 1.29. The COLLAPSED cells want it wide, because `rimCollapsed` was
+       * fitted through this same band: at 1.5 they read −0.0017 from the
+       * reference and at 1.2 −0.0059, which is outside the wave's 0.005.
+       *
+       * 1.35 leaves the solids at +0.0123 against a bound of 0.03 and the
+       * collapsed sides at 0.0038 against a bound of 0.005 — each clause inside
+       * its own bound with margin in proportion to how tight that bound is. The
+       * joint minimiser over the twelve rows is 1.30, and it is not taken: at
+       * 1.30 the collapsed sides read 0.0045 against a 0.005 bound, a margin of
+       * 0.0005 on an instrument whose 8-bit resolution at that level is 0.00067.
+       *
+       * The dark bed does not identify it — its one 2x solid row moves by 0.0061
+       * across the whole ladder and is inside the bound at every value — so this
+       * is the light bed's constant, checked against the dark bed rather than
+       * fitted on it.
+       */
+      rimWidth2x: 1.35,
+      specularPower: 6,
+      /*
+       * FITTED 0.55 → 0 (W22 G1; claims §5.94 §3, W22 Decision Log 2 (b)). The
+       * light reference's rim has no vertical light in it, and the constant that
+       * said it did had been fitting a defect.
+       *
+       * What was measured: the declared-geometry rim per side (the box's outer
+       * 3 CSS px, a peak per side) on the five untinted solid calibration cells
+       * of the light bed — `light-solid__{capsule-button,rrect-md,rrect-ml}` and
+       * `dark-solid__{capsule-button,rrect-md}` — at both backing scales, over
+       * eight rendered documents differing in this constant alone.
+       *
+       * Why per contrast rather than per side: a side's peak under the declared
+       * box mixes rim with the background the rounded shape leaves inside a
+       * rectangle's band, and the mixture's weight differs between the horizontal
+       * and the vertical pair, so only `T−B` and `L−R` — two sides of identical
+       * geometry — are clean. A mean pooled over sides is worse than unclean: it
+       * PREFERS 0.55, because the specular lifts `dark-solid__rrect-md`'s top row
+       * from −0.061 to +0.062 against a reference of +0.047 while leaving its
+       * bottom at −0.061 against the same +0.047. It buys one side of a pair by
+       * breaking the other, and only the contrast can see that.
+       *
+       * The rows, and what they say: eleven of the twenty contrast rows separate
+       * the constant, and every one of them minimises at 0. The objective is
+       * monotone in the gain on both contrasts — mean |Δ| over the separating
+       * rows 0.00097 at 0 rising to 0.03102 at 0.55 — and the separating row is
+       * `dark-solid__rrect-md` `T−B` at both scales, where the reference splits
+       * top from bottom by +0.0002 and this constant at 0.55 splits them by
+       * +0.1237 (1x) and +0.1817 (2x).
+       *
+       * Why it survived three waves of rim work: until W22 gated the specular
+       * sweep on a shimmer amplitude, the highlight pass parked a stationary band
+       * on the left edge of every resting surface, so `L−R` was unreadable and
+       * `T−B` was being fitted beside a defect worth 0.12–0.15 of luminance. With
+       * the band gone the reference's own structure is legible — left equal to
+       * right to 0.0002, top over bottom by +0.0002 over a dark backdrop and
+       * +0.0086…+0.0162 over a bright one — and this term is an order of
+       * magnitude larger than anything it was supposed to be reproducing.
+       *
+       * The `clear` variant's 0.45 does not move: no scene on the calibration bed
+       * declares that variant, so it has no rows and nothing to be fitted on.
+       * `lightDirection` and `rimAlpha` were read on the same rows and declined
+       * (claims §5.94 §3); the direction still feeds the inner shadow through
+       * `platform-web`'s `light.xy`, and it is only on the RIM that this fit
+       * makes it inert.
+       */
+      specularGain: 0,
+      /*
+       * FITTED −0.628 (W23 G1; claims §5.100 §4, W23 Decision Log 2 (a)) — the
+       * light rim is a fraction of the body's HEADROOM, and the negative sign is
+       * the measurement.
+       *
+       * On the reference's own solid, unclipped, uncollapsed light sides — 44 of
+       * them, bodies 0.4287…0.9326, from both canonical scales and W9's probe
+       * grid — the rim falls as the surface brightens: `0.3559 − 0.2752 × base`,
+       * mean |residual| 0.0081 where an additive constant reads 0.0249 and a pure
+       * screen 0.0168. A pure screen would need the slope to be exactly −α; it is
+       * −0.275 against the −0.43 the screen form requires, which the canonical
+       * bed's two cells at 0.43 and 0.48 could not have told apart and the probe
+       * grid's range can. So the light rim is a white line composited source-over
+       * — the form the CSS tier's inset `box-shadow` has always drawn — with an
+       * additive part beside it, and this is that composite written once.
+       *
+       * The gain is steeper here (−0.628) than on the reference (−0.2752) for the
+       * same reason `rimAlpha` is larger than the rim: this constant multiplies
+       * the shader's per-pixel `rimLuma` before the band weight, and the fit is
+       * the one solved on rendered rows.
+       */
+      rimLevelGain: -0.628,
+      /*
+       * ADOPTED 1.15 (W24 G2, on G0's fit; claims §5.108 §1, W24 Decision Log 2
+       * (a)) — one exponent for both schemes and both scales, and the value at
+       * which the most rows meet the wave's clause.
+       *
+       * The rows, and what they separate. Fitted on the reference's own angular
+       * bins over the nineteen untinted solid cells of both canonical beds and
+       * both probe grids (285 bins, each cell normalised by its own brightest
+       * bin), the joint minimiser is 1.05; the 2x rows — whose arcs the raster
+       * actually resolves — give 1.10 light and 1.30 dark, and vitrea's own
+       * rendered rows read against the reference give 1.10 ± 0.22 light and
+       * 1.24 ± 0.17 dark. The schemes OVERLAP, so what the rows separate is one
+       * constant and not two, and 1.15 is where four of the twelve solid rows
+       * meet both halves of clause 1 against two at 1.00, two at 1.30 and none
+       * at 1.45.
+       *
+       * What it is not. It is not a per-scale pair: every 2x row wants 1.30–1.45
+       * and every 1x row 0.85–1.10, which is a real scale dependence in the
+       * reference's own angular contrast (its lit-diagonal bins over its
+       * straight-side bins read 1.07 at 1x against 1.39 at 2x on the dark
+       * `dark-solid` capsule). A `rimLitExponent2x` sibling on the precedent of
+       * `rimWidth2x` would be a third constant fitted on four rows, so the
+       * dependence is recorded (W24's Deferred list) rather than carried.
+       *
+       * The `clear` variant keeps 0 below: no scene on either bed declares it, so
+       * it has no rows and nothing to be fitted on (C9a §6.2).
+       *
+       * RE-FITTED 1.15 → 0.85 (W25 G3b, on the parent's ruling; claims §5.115,
+       * W25 Decision Log 6), JOINTLY with `rimAlongSideSlope` below and not
+       * separately, because the two multiply the same rim amplitude and both peak
+       * on this same diagonal. W24 fitted this exponent with the position term
+       * ABSENT, over 285 bins that include the corner arcs, so it absorbed part of
+       * a grading that is not a function of the normal at all — and W25 G0's
+       * along-side reader, which walks only the STRAIGHT part of a side where this
+       * factor is exactly 1, could not see the overlap from its side either.
+       * W25 G3's dry run measured the consequence: at slope 0.45 under exponent
+       * 1.15 the NW and SE bins of the 1x light `dark-solid__rrect-md` went 0.142
+       * → 0.203 against a reference of 0.122, and the thick solids' mean bin error
+       * rose on 26 rows of 28.
+       *
+       * The joint fit is a rendered GRID over the plane — 46 points, each a real
+       * render of the solid rows of all four standard profiles, read by W24's
+       * angular reader and W25's along-side reader together
+       * (`results/2026-09-09-w25-thick-span-composite/g3/g3b-fit.txt`). The pair
+       * below is the joint objective's minimum among the pairs that keep the thick
+       * solids' angular error at or under the 0.13.0 bed's — the ruling's own
+       * acceptance condition — AND that leave every cell of the bed measurable:
+       * thick bin error 0.17527 → 0.17208 and thick range error 0.43269 → 0.37472,
+       * on 16 rows improving against 12. The objective's own minimum over the
+       * allowed set is (0.70, 0.15), and it is refused for a reason no metric
+       * carries: at that pair the collapsed `dark-solid__capsule-button` loses its
+       * contour on the GPU tier at 1x in both schemes — the capsule's band is
+       * entirely corner arc, which is where both of these factors dim it, and the
+       * extractor reads a 0.00 px contour and drops two calibration cells out of
+       * the bed. A change that narrows the instrument is not a fidelity gain.
+       */
+      rimLitExponent: 0.85,
+      /*
+       * W25's along-side field, FITTED (claims §5.113 and §5.115; W25 Decision
+       * Log 3 (c), landed at G3's declaration).
+       *
+       * Its own readers want more of it: G2 fitted 0.45 on the 64 straight sides
+       * of the two 1x probe grids' flat solids and G3 re-fitted 0.425–0.479 on the
+       * probe set's 64 sides at both scales in both schemes, and at 0.45 the
+       * corner-to-corner range reaches 0.743 of the reference's against 0.227
+       * without it. What the along-side reader cannot see is the corner ARCS,
+       * where this factor multiplies a rim that `rimLitExponent` has already
+       * brightened on the same diagonal — so the value here is not that fit's, it
+       * is the JOINT one (W25 G3b; W25 Decision Log 6): the minimum over a
+       * rendered grid of the two readers' errors together, among the pairs that
+       * keep the thick solids' angular error at or under the 0.13.0 bed's.
+       *
+       * At (0.70, 0.15) the thick solids' bin error falls 0.17527 → 0.17000 and
+       * their range error 0.43269 → 0.34919 — a fifth of the grading, where 0.45
+       * under the old exponent bought three quarters of it and cost half again as
+       * much bin error. The remaining four fifths are not this constant's to buy:
+       * the arcs' amplitude is W23's rim law, fitted on the straight spans both of
+       * these factors leave alone, and until it moves the two of them are trading
+       * against each other rather than against Apple.
+       *
+       * The `clear` variant keeps 0 below, as the lit edge does: no scene on
+       * either bed declares it, so it has no rows (C9a §6.2).
+       */
+      rimAlongSideSlope: 0.1,
+      shadowDepth: 0.35,
+      /*
+       * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
+       * improvement in the cascade: the objective falls 0.14615 → 0.09333 with
+       * ΔE and SSIM both improving.
+       *
+       * The active reference's contour is BRIGHTER than its own body — a rim peak
+       * of 0.025…0.129 above baseline, always at one pixel deep. vitrea's read
+       * 0.0000 with its peak 8-12 px in, meaning it had no edge feature at all:
+       * the inner shadow at 0.55 was darkening the contour faster than the rim lit
+       * it. The rim constants themselves did not move; the thing suppressing them
+       * did. On the inactive bed the reference's rim was 0.0000…0.0041 and this
+       * was invisible, which is what §6.2 recorded as "below quantisation".
+       */
+      shadowAlpha: 0.05,
+      highlight: srgbToLinear(SRGB_WHITE_TINT),
+    },
+    // Persistently more transparent, so it frosts less and tints less.
+    clear: {
+      blurSigma: 4,
+      tint: srgbToLinear(SRGB_WHITE_TINT),
+      tintAlpha: 0.1,
+      rimWidth: 1.25,
+      rimAlpha: 0.14,
+      // No scene on the calibration bed declares this variant, so its rim has no
+      // rows: the amplitude law stays at the additive form and the band stays
+      // ungraded across the scales (W22's rule for `clear`, C9a §6.2).
+      rimWidth2x: 1.25,
+      specularPower: 8,
+      specularGain: 0.45,
+      rimLevelGain: 0,
+      // No scene declares this variant, so the lit edge has no rows here either
+      // and the factor stays inert (C9a §6.2, as `rimLevelGain` above).
+      rimLitExponent: 0,
+      // Nor does the along-side field have rows here, for the same reason.
+      rimAlongSideSlope: 0,
+      shadowDepth: 0.22,
+      shadowAlpha: 0.4,
+      highlight: srgbToLinear(SRGB_WHITE_TINT),
+    },
+  },
+
+  /*
+   * MEASURED (C9a): both ends are the same tint, which makes the crossover inert
+   * by default. That is a finding, not a shortcut.
+   *
+   * The two ends used to straddle the backdrop — white over a dark backdrop,
+   * near-black over a light one — so the material always contrasted with what was
+   * behind it. Apple's Regular material does not do that. Its interior rises
+   * monotonically with the backdrop across the whole canonical range (0.680 at a
+   * backdrop of 0.003, 0.932 at 0.891, light scheme), which is a fixed tint at
+   * partial transmission. What it keys on instead is the COLOUR SCHEME: over the
+   * same bright checkerboard the reference sits at 0.809 in light and 0.055 in
+   * dark. Leaving the inversion on cost more than the whole tint tune was worth —
+   * it drove the light-scheme error from 0.348 to 0.449 on the interior-level
+   * term alone.
+   *
+   * So the scheme picks the tint, and the calibration profiles carry one set of
+   * numbers per scheme (packages/calibration/profiles/). The crossover mechanism
+   * is untouched and still available to a profile that wants it; the default
+   * simply no longer claims a behaviour the reference does not have.
+   *
+   * Two limits worth naming. The ends are global rather than per-variant, so the
+   * clear variant inherits this — and clear has no calibration scenes at all, so
+   * it is uncalibrated either way. And nothing yet selects a profile from the
+   * scheme; that is C9a's parent-impact item.
+   */
+  adaptiveTintDark: srgbToLinear(SRGB_WHITE_TINT),
+  adaptiveTintLight: srgbToLinear(SRGB_WHITE_TINT),
+  adaptiveLuminanceLow: 0.12,
+  adaptiveLuminanceHigh: 0.42,
+
+  // Authored in `@vitrea/policy` alongside the ladder it is keyed by, because the
+  // CSS tier needs the same table and used to hold two more copies of it
+  // (Decision Log #23(d)). The profile is still what the shaders read and still
+  // what `withMaterialOverrides` replaces — only the *default* literal moved, and
+  // it moved unchanged.
+  refractionScale: DEFAULT_REFRACTION_SCALE,
+
+  /*
+   * MEASURED (W2), against the settled apple-macos-26.5 bed, and set from the
+   * REFERENCE's own size-dependence rather than from the objective's minimum.
+   *
+   * The band was 28…420 while it served the lens alone and nothing had measured
+   * it, which put the whole canonical range (32…160 px) inside the first 17% of
+   * the curve. What the settled reference actually does, over a fixed checkerboard
+   * backdrop: it passes 0.244 of the backdrop's contrast at a 32 px span, 0.230 at
+   * 44 px and 0.144 at 96 px. So 6% of the movement happens between 32 and 44 and
+   * the rest between 44 and 96, and it is finished by 96 — which is what these two
+   * numbers are. `sizeSpanMin` is also the smallest canonical component's span, so
+   * that component is the law's exact zero by construction.
+   *
+   * The tuning objective would rather have 64 (0.1568 against 0.1637 on the rest
+   * cells, a 4% win inside a grid that spans 1.07×). Declined, and the reason is
+   * recorded rather than the win taken: the gain comes entirely from the interior
+   * *level* term, whose residual is the backdrop tone-adaptation gap that wave
+   * child W7 is chartered to close — so a band fitted to 64 would be using the
+   * size law as a proxy for a mechanism vitrea does not have yet, against the
+   * reference's own measurement of where its size-dependence lives, and W7 would
+   * have to unpick it. See the claims doc's size-law section.
+   */
+  sizeSpanMin: 32,
+  sizeSpanMax: 96,
+  // The inner shadow's depth gain since W12 G2 (the lens reads its own law
+  // below); the value is W2's, unchanged.
+  lensSizeGainMax: 2.6,
+
+  /*
+   * MEASURED (W2), each with its own status — see the fields' notes.
+   *
+   * `sizeScatterGainMax` = 1: implemented on both tiers and inert, because the
+   * canonical fixtures cannot resolve it. The objective is flat to 1.00× over
+   * gains 1…6, and that is not the backdrop chain's depth talking: re-run with the
+   * chain deepened (MIN_LEVEL_EXTENT 8 → 4, which lifts the reachable σ on the
+   * 320×200 canvas from 1.2× to 2.4×) the grid is still flat to 1.00× and still
+   * best at 1. A number the fixtures cannot see is a number that will be met by
+   * accident, so this ships at the identity with the mechanism in place.
+   *
+   * `sizeOcclusionGain` = 0: fitted, and the fit is a boundary optimum with real
+   * leverage against it — the objective rises monotonically, 0.168 → 0.224 across
+   * 0…0.5, a 1.33× spread. The diagnosis is not a tuning failure: vitrea's
+   * interior sits 0.16–0.19 above the reference's at every span because the
+   * reference's level is set by backdrop tone adaptation toward roughly 0.63 while
+   * vitrea lerps toward a white tint, so making a large surface *more* opaque can
+   * only take it further from the reference. The facet is Apple's ("a larger size
+   * is more opaque"); the axis that would let it fit is W7's.
+   *
+   * `sizeShadowGainMax` = 1.4: fitted on the calibration REST cells, where the
+   * grid 1.0/1.2/1.4/1.6/1.8/2.2 reads 0.1577/0.1551/0.1533/0.1530/0.1529/0.1531.
+   * 1.4 through 2.2 are one flat region (0.25% apart); 1.4 is the point inside it
+   * that costs the checks least (ΔE 0.01282 against the baseline's 0.01290, SSIM
+   * 0.9671 against 0.9689) and it is the per-cell minimum on both well-conditioned
+   * span-96 rest cells. The pressed cells prefer 2.4 monotonically and are
+   * excluded from the fit on §6.3's grounds — their native side carries no press
+   * pose, so they compare two different states and cannot arbitrate a material
+   * constant.
+   *
+   * ## Re-fitted against the ACTIVE bed (2026-08-31)
+   *
+   * `sizeScatterGainMax` stays 1 and is now POSITIVELY identified rather than
+   * flat: with `blurSigma` refitted to 3 the objective rises 6-7% at gains 2 and
+   * 4, so the identity is the optimum instead of a tie.
+   *
+   * `sizeOcclusionGain` stays 0, a boundary result for the fourth time and for a
+   * fourth distinct reason. The reasoning above is retired: the per-cell residual
+   * now points the gain's way in every backdrop (web − reference falls with span
+   * — checkerboard +0.105/+0.112/+0.046 at 32/44/96 px, photo −0.004/−0.087,
+   * light-solid −0.028/+0.001), so the facet finally has the right sign. What it
+   * does not have is magnitude: over 0/0.05/0.10/0.15 × spans ending 96/128/160
+   * the whole grid is flat to 1.04×, and a 0.2% preference is not evidence. It
+   * ships at the identity because the bed cannot identify it, not because the
+   * mechanism is wrong.
+   *
+   * ## Re-fitted against the FROZEN bed (2026-09-01)
+   *
+   * `sizeOcclusionGain` 0 → **0.05**, and this is the first time the bed could
+   * see it. Every earlier fit was a boundary result because calibration held no
+   * span above `sizeSpanMax`, so the curve this gain rides was saturated at every
+   * cell that could vote. The frozen bed adds three span-128 `rrect-ml`
+   * calibration cells, and with them the grid stops being flat: 0.05 is the
+   * optimum at **both** backing scales independently — 1× 0.08288 against the
+   * identity's 0.08374, 2× 0.09338 against 0.09557 — and ΔE and SSIM move the
+   * same way at both.
+   *
+   * It is still a small number and it is reported as one: a 1.0% preference at
+   * 1×, against the 0.2% this doc rightly refused a round ago. What changed is
+   * not the margin's size but that it now reproduces on an independent profile
+   * instead of resting on one flat grid.
+   *
+   * `sizeSpanMax` stays 96, and that is now a measurement rather than an
+   * assumption. With a span-128 cell voting, the grid rises monotonically —
+   * 96/112/128/144/160/192 reading 0.0837/0.0858/0.0943/0.1060/0.1171/0.1300 —
+   * so the band's top is where it was, and the suspicion that the bed simply
+   * could not see above it is answered rather than inherited.
+   *
+   * `sizeShadowGainMax` 1.4 → 1. Its evidence dissolved rather than reversing:
+   * this is a gain on the INNER SHADOW, and the inner shadow was refitted from
+   * `shadowAlpha` 0.55 to 0.05, so there is almost nothing left for it to gain
+   * on. The grid 1.0/1.4/2.2 is flat to 0.2%. Carrying a fitted-looking 1.4 whose
+   * measurement no longer exists would be the worse of the two errors.
+   */
+  // MEASURED (W11c G1, claims §5.41): the scatter facet off the identity, on
+  // its own curve — see `MaterialProfile.sizeScatterFloor`. The paragraph
+  // above records why the identity was the right answer while `blurSigma`
+  // was 3 and the bed had no pitch axis; the W9 probe's pitch axis is what
+  // identified the two-component interior this expresses.
+  sizeScatterGainMax: 8,
+  sizeScatterFloor: 0.4,
+  sizeScatterSpanMax: 256,
+  // The second scale, FITTED by W15 G1's runtime sweep at dpr 2 and landed
+  // (claims §5.70 §2 and §8): the gain 4.8 — a heavy width of 6 device px, the
+  // sweep's own interior minimum and narrower than G0's Gaussian estimate — the
+  // deep value fully heavy, and the span top left at the 1x value because a
+  // floor of 1 leaves it nothing to rise to. Read only above dpr 1, so the 1x
+  // material is byte-identical to the W13 bed (see
+  // `MaterialProfile.sizeScatterFloor2x`).
+  sizeScatterGainMax2x: 4.8,
+  sizeScatterFloor2x: 1,
+  sizeScatterSpanMax2x: 256,
+  // The 2x gain's own span grading (W15 G1's re-form, claims §5.70 §8; W15
+  // Decision Log 3), set from G0's independent per-span reading — 8 device px
+  // at span 96 and 11 at 160 — and not from the holdout row it fixes.
+  sizeScatterGainFar2x: 9.9,
+  // The 1x three FITTED in the renderer (W13 G1's third sweep, 44 points over
+  // the calibration bed: `results/2026-09-03-w13-ramp/g1/sweep-3/g1-sweep-3.md`
+  // §3); the 2x three PROVISIONAL still, because at them the excursion is
+  // bit-exactly zero on the whole bed and a sweep cannot fit what does not
+  // move (§4). The thin anchor 0.72 is above G0's read-off of 0.637–0.642: the
+  // grid runs 0.60 / 0.64 / 0.68 and the refinement 0.72 / 0.76, and 0.72 is an
+  // interior optimum of both the interior objective and the interior gap. The
+  // thick anchor 0.52 is G0's `rrect-md` reading and is above that cell's deep
+  // sharp share of 0.481, where the joint thick fit of 0.47 would have clamped
+  // it to nothing. The 2x three are G0's readings, LANDED by W15 G1 (claims
+  // §5.70 §2): thin is G0's u 6 reading and stage 2b's best, thick and far are
+  // one number because G0 read the 2x start flat across the thick spans, and
+  // with the deep value now fully heavy at that ratio the ramp is the whole
+  // body above it rather than the null W13 recorded. See
+  // `MaterialProfile.sizeScatterRampStartThin1x`.
+  sizeScatterRampStartThin1x: 0.72,
+  sizeScatterRampStartThick1x: 0.52,
+  sizeScatterRampStartFar1x: 0.2,
+  sizeScatterRampStartThin2x: 0.46,
+  sizeScatterRampStartThick2x: 0.21,
+  sizeScatterRampStartFar2x: 0.21,
+  sizeScatterRampReach1xPx: 80,
+  sizeScatterRampReach2xPx: 100,
+
+  // W25's three mechanisms, all INERT at the defaults (claims §5.113; W25
+  // Decision Log 3). The heavy share's thick lift and the level term above the
+  // knee are zero, so `kDeep` and the tone response's blend are the curves W11c
+  // and W9 fitted, to the bit; the along-side field's slope lives on the optics
+  // beside `rimLitExponent` and is zero there. G2 fits them and G3 declares
+  // them; what the fits read is recorded in
+  // `results/2026-09-09-w25-thick-span-composite/g2/`.
+  sizeScatterHeavyShareThick1x: 0,
+  sizeScatterHeavyShareThick2x: 0,
+  sizeToneLevelFar: 0,
+
+  // The heavy blur, FITTED (W26; claims §5.121 for the identification and §5.122
+  // for the fit; W26 Decision Log 6 (a)). Apple's heavy width is 8.6–9.5 device px
+  // at BOTH scales, read by the family reader — the one instrument in this wave
+  // that passed a control, reproducing vitrea's own drawn width to 0.6 % — and
+  // inverted through a ladder whose slope is 0.995–1.111 at an rms of 0.03–0.06
+  // device px. What the 0.14.0 material drew at dpr 1 was `CHAIN_LEVEL_SIGMA[4]` =
+  // 13.418, the pyramid's LAST level, because `scatterLod` was clamped there: half
+  // again too wide, and the share the two previous waves tried to raise was already
+  // right to within 0.07. The reference asks 9.48 / 8.63 / 9.19 at dpr 1 (spread
+  // 9.8 %, so one number serves both spans) and 8.13 / 9.79 / 8.37 at dpr 2 (spread
+  // 20.4 %, so one number does not — the 1.66 device px between spans 96 and 160 is
+  // the grading `sizeScatterGainFar2x` used to carry, and one width per source
+  // cannot; W26 Decision Log 2 (f) chose that knowingly). Nine is within 1.1 % of
+  // the 1x mean and 0.4 % of the 2x light pair's, and it takes
+  // |log(read / reference)| from 0.275 to 0.069 over six cells.
+  //
+  // THE MECHANISM HAS NO SMALL VALUES (W26 Decision Log 6 (c)). `pyramid.ts` builds
+  // the heavy texture whenever `heavySigmaCss > 0`, and at σ 0.001 `heavyTapPlan`
+  // selects chain level 0 with a residual of a thousandth of a texel — which makes
+  // the deep sample the RAW backdrop and moves every 2x row. So 0.001 is not
+  // "almost off"; it is the opposite of off. The inert value is exactly 0, and
+  // neither anchor may ever carry a small non-zero. The domain is 0 or at least the
+  // chain's level-1 width, and the tracker carries the floor that would close it.
+  sizeHeavyTapSigma: 9,
+  sizeHeavyTapSigma2x: 9,
+  // W30 G2's spanning set for the scale-selective scatter, at the values that
+  // make every term of it exactly zero (claims §5.156 §3, §5.158). The share is
+  // the single gate: at 0 no second heavy texture is allocated, no pass is
+  // encoded and no sample is taken, so the two widths are unread and the
+  // reference is unreachable behind its own zero gain. The two signed amounts
+  // are the scheme-conditioned leaves §5.159 fits; the widths and the reference
+  // are one raster's property and are not.
+  sizeHeavySecondSigma: 0,
+  sizeHeavySecondSigma2x: 0,
+  sizeHeavySecondShare: 0,
+  sizeScatterScaleGain: 0,
+  sizeScatterScaleRef: 0,
+  sizeOcclusionGain: 0.05,
+  sizeShadowGainMax: 1,
+
+  /*
+   * The lens (W12 G2, claims §5.51; Decision Log 3 of the W12 spec).
+   *
+   * MEASURED from the reference's own layer tree (§5.50): the inner refraction
+   * amount and height laws, verified on spans 32 / 44 / 48 … 112 / 128 / 160
+   * and the nested base at 130, and the ovalization's knee (0 through span 64,
+   * 0.5 from 72). FITTED on the pixels (§5.51, a 2-D band renderer validated on
+   * this renderer's own capture): the gain, the extent and the exponent, on
+   * `rrect-md` + `-ml` at 1x pitches 16 and 32 with `rrect-lg` held out at both
+   * scales; the ovalization's effective value on the box-inscribed ellipse.
+   * Predicted before the landing capture: checkerboard SSIM 1x md / ml / lg
+   * 0.954 / 0.931 / 0.929 → 0.970 / 0.946 / 0.942, 2x 0.939 / 0.902 / 0.901 →
+   * 0.950 / 0.918 / 0.918, the capsule 0.977 → 0.985.
+   *
+   * What W11c G2 recorded here — 1.6 lens depths on the square profile, fitted
+   * per depth shell — was the band's mean, not its shape (§5.48, §5.49); it is
+   * kept in git history and in claims §5.43.
+   */
+  lensRefractionGain: 0.745,
+  lensHeightPerSpan: 0.25,
+  lensHeightMax: 20,
+  lensAmountPerSpan: 0.8,
+  lensAmountMax: 60,
+  lensThicknessReference: 8,
+  lensExtentGain: 1.337,
+  lensProfileExponent: 3.69,
+  // 0.8 by eye (W12 Decision Log 6). The pixels preferred 0.6 by a hair — every
+  // texture row that can see ω scores 0.001–0.002 lower at 0.8 (claims §5.54) —
+  // but the field's measured tilt sits at 0.8–1.0 (§5.49 §3) and the user read
+  // the 0.8 sheet as much closer to macOS; the eye overrides a margin that small,
+  // and §5.54 §1's rows are the recorded cost.
+  lensOvalization: 0.8,
+  lensOvalizationSpanMin: 64,
+  lensOvalizationSpanMax: 72,
+
+  reducedTransparencyFrost: 1.75,
+  increasedOcclusionLift: INCREASED_OCCLUSION_LIFT,
+  strongBorderRim: { rimWidth: 2, rimAlpha: 0.95 },
+  reducedTintAdaptation: 0.35,
+
+  /*
+   * MEASURED (W10, 2026-09-02) — per-pixel least squares of the reference's
+   * tinted pixel against its own untinted pixel on the five W9-probe tinted
+   * checkerboard cells (pitch 4…64 px, 17 700 px): shade = 0.5289 + 0.4886·u,
+   * RMS 0.0035. Out of sample on the canonical bed the orange cells fit at
+   * RMS 0.003 with zero bias; blue sits 0.011 darker (the second hue's
+   * residual, recorded and unmodelled). The light end extrapolates past 1 and
+   * is clamped in `tintShade`. Claims §5.36.
+   *
+   * §5.13's earlier "the curve is the identity" fit was made on the material's
+   * MEAN over solid backdrops, where u is either ~0.97 (shade 1.0) or the
+   * collapse has already folded the shade out — the identity was the law's
+   * two endpoints, seen without anything between them.
+   */
+  tintShadeDark: 0.5289,
+  tintShadeLight: 1.0175,
+  tintShadeStrength: 1,
+
+  /*
+   * MEASURED (W7), against the settled apple-macos-26.5 bed, on the light and
+   * dark standard profiles jointly and at both scales.
+   *
+   * The observable these four are set from is the one quantity in this bed that
+   * isolates adaptation from everything else: the *separation* between the light
+   * and dark references over the same backdrop, on the same component. Under this
+   * mechanism that separation is `(1 − tintAlpha)(1 − a)(tintLight − tintDark)`,
+   * so the material's transmission, the backdrop's structure and each scheme's
+   * own tint all cancel and what is left is `a`. Normalised at the checkerboard,
+   * where nothing adapts, it reads:
+   *
+   *   span 44: 0.000 at backdrop 0.500, 0.030 at 0.205, 1.000 at 0.0117, 1.000 at 0.0049
+   *   span 96: 0.000 at backdrop 0.500, 0.028 at 0.216, 0.256 at 0.0117
+   *
+   * and the 2× bed reproduces every one of those to three decimals (0.2553
+   * against 0.2556 on the one that is not a boundary). Two facts follow. The
+   * adaptation is off across the whole ordinary range and turns on only below
+   * roughly a fifth of the backdrop scale — so it cannot disturb a cell that
+   * already passes. And it is size-gated hard: same backdrop, same material, 1.000
+   * against 0.256.
+   *
+   * The band's dark end is not identifiable from this bed and the fit says so:
+   * the reference's backdrops jump from 0.0117 to 0.205 with nothing in between,
+   * so `backdropToneLow` is bounded only by "at or below the darkest calibration
+   * backdrop". What the two dark backdrops DO pin is the curve's slope near zero —
+   * the 96 px surface reads 0.256 at 0.0117 and 0.356 at 0.0039, which is a
+   * measured intermediate rather than a step, and it is what fixes
+   * `backdropToneSizeBias` against `backdropToneHigh`. `impulse__rrect-md__rest`
+   * is a VALIDATION cell and was not fitted to: the calibration set predicts
+   * 0.34 there and the cell reads 0.356.
+   */
+  /*
+   * RE-SCOPED (W9, claims §5.33). The four mix constants now own TEXTURE
+   * COLLAPSE alone — the interior mean moved to the response law below — and
+   * their band contracts to the one domain the collapse is real in: full at
+   * `dark-solid` (0.0117) for thin surfaces including the 44 px capsule
+   * (byte-identical collapse, arg 0.0164 ≤ low with margin), zero by
+   * `mid-dark-solid` (0.0595), where the reference's small surface keeps a
+   * textured body at 0.4561 and the old band's partial collapse (k = 0.81)
+   * was the measured 0.1375-vs-0.4561 overshoot. `impulse__rrect-md`
+   * (arg 0.0539) keeps k ≈ 0.003 against the old band's 0.008 — the same
+   * unadapted render that cell validated.
+   */
+  backdropToneMax: 1,
+  backdropToneLow: 0.02,
+  backdropToneHigh: 0.055,
+  /*
+   * REFITTED 0.09 → 0.13 (2026-08-31, active bed). The law's SHAPE is untouched
+   * (Decision Log 13 stands; the two-axis rework is next wave) and `max`, `low`
+   * and `high` are unmoved — only the size gate widened.
+   *
+   * What it changes is one cell: a 96 pt surface over the darkest backdrop now
+   * barely adapts, where at 0.09 it adapted by a quarter. Two independent reads
+   * of the reference disagreed about that and the validation set broke the tie.
+   * The light-versus-dark separation estimator §5.8 fitted on says the 96 pt
+   * surface adapts by 0.30; the reference's own interior LEVEL says it does not
+   * (0.4844, against 0.466 for an unadapted surface at the refitted tint alpha
+   * and 0.3566 for an adapted one). Measured once on
+   * `impulse__rrect-md__rest`, which is validation and was fitted to by
+   * neither: 0.09 renders 0.2858 against a reference of 0.4358 at ΔE 0.02344;
+   * 0.13 renders 0.4594 at ΔE 0.00378, six times better. The separation
+   * estimator's algebra assumes the two colour schemes share one tint alpha,
+   * and this profile pair does not (0.46 against 0.97) — recorded in §5.13 as
+   * the reason it is no longer the primary evidence for this constant.
+   *
+   * RE-SCOPED 0.13 → 0.05 with the band above (W9): the bias's one remaining
+   * job is keeping the thick surface's collapse argument above `high` at the
+   * dark anchor (0.0117 + 0.05 = 0.0617 > 0.055) while the thin capsule's
+   * stays below `low` — the near-binary size snap the probe measured
+   * (claims §5.33). The smooth size trend on structured backdrops, which the
+   * old wide band tried and failed to carry, belongs to the response law's
+   * thickness axis now.
+   */
+  backdropToneSizeBias: 0.05,
+
+  /*
+   * FITTED 0.017 at dpr 1 and 0.070 at dpr 2 (W24 G1, landed by G2; claims
+   * §5.108 §2, W24 Decision Log 2 (b) and (d)) — one pair for both schemes, on
+   * the peak of the collapsed `impulse__capsule-button`'s centre dot.
+   *
+   * At `k` 1 the composite is exactly `(1 − c)·toneColour + c·backdrop`, so the
+   * dot's excess is LINEAR in this constant and one non-zero rendered rung fixes
+   * it: at c 0.10 vitrea's collapsed capsule passes +0.0386 at 1x and +0.0363 at
+   * 2x where the reference passes +0.0066 and +0.0254, which gives 0.0171 and
+   * 0.0700. Rendered back at the fit the dot lands +0.0067 and +0.0256 —
+   * clause 2's peak met to ±0.0002 against a bound of 0.005 — and the structure
+   * that had been passing 0.0000 passes 0.0066 at 1x and 0.0250 at 2x against
+   * the reference's 0.0104 and 0.0205.
+   *
+   * The light and dark rungs read the same numbers to four decimals on that
+   * cell, which is why this is one pair in both schemes and lives on the shared
+   * default rather than in a per-scheme patch. What separates the two ANCHORS is
+   * the kernel and not the scheme: the reference transmits through σ 2.63 device
+   * px at 1x and 1.30 at 2x — invariant in neither CSS nor device pixels — where
+   * vitrea's runs 1.68 → 4.86, so the SHARE that comes through cannot be one
+   * number over a width that is two. How wide the dot ARRIVES is the material's
+   * own scatter law and is a recorded gap, not a fit (the dot's FWHM lands 4.99
+   * CSS px at 1x against the reference's 7.57, and 4.64 against 3.80 at 2x).
+   *
+   * What it costs the bed is two cells. `impulse__capsule-button` at 2x pays
+   * ΔE +0.00006 and `ssimMean` −0.00096 while its `ssimMin` improves by 0.068
+   * and its interior level closes 68 % of its gap; `impulse__rrect-md` at 1x
+   * improves; every other capture on both beds is byte-identical, including
+   * `dark-solid__capsule-button`, the collapsed stop, where a solid backdrop
+   * makes the target's lerp the identity by construction.
+   *
+   * The correction this constant carries is set beside W7's paragraph above, not
+   * over it: "texture collapse" was fitted on `dark-solid`, where a mean and a
+   * pixel are the same number and no fit could have told them apart. Every
+   * figure W7 recorded stands; what it did not measure is what happens over a
+   * backdrop that HAS texture, and the impulse bed says the reference keeps it.
+   */
+  collapseTransmission: 0.017,
+  collapseTransmission2x: 0.07,
+
+  /*
+   * **SHIPS AT 0** (W31 G3; claims §5.164). The identity, and a post-seal leaf's
+   * default IS its identity, forever: `MATERIAL_IDENTITY_TABLE` is append-only
+   * and the fingerprint drops this leaf while it holds this value, so a default
+   * that moved off 0 would move every shipped document's digest at once.
+   *
+   * The macOS 27 documents carry their fitted values as patches; the two frozen
+   * macOS 26.5 documents carry none, which is what makes their recorded digests
+   * reproduce under the rule (claims §5.161 §7b).
+   */
+  bodyChromaRetention: 0,
+
+  /*
+   * FITTED 0.038 (W23 G1; claims §5.100 §3, W23 Decision Log 2 (b)) — and it is
+   * NOT the dark material's rim, which is the one thing the charter thought it
+   * might be.
+   *
+   * The reference's collapsed rim, read at the contour over 11 cells and 28
+   * sides of both beds at both scales, is +0.0189 mean (+0.0196…+0.0204 over
+   * `dark-solid`, +0.0149…+0.0168 over `impulse` — the spread is the backdrop,
+   * not noise). The dark material's OWN rim over the same backdrop, uncollapsed,
+   * is +0.0256…+0.0258. The two are 0.0068 apart, nine 8-bit codes at that level
+   * on an instrument that is exact in float and resolves 0.00067 there, so the
+   * collapsed rim is an absolute constant in its own units and the charter's
+   * conditional resolves to no.
+   *
+   * 0.038 is the minimiser over every collapsed side: the worst residual reads
+   * 0.0042 at 0.035, **0.0031 at 0.038**, 0.0041 at 0.040 and 0.0065 at 0.045,
+   * and it is the only value that leaves every untinted collapsed side inside
+   * the wave's clause 1 (0.005) with margin. Rendered, the collapsed sides go
+   * from 0.0180 to 0.0021 mean |rim − reference|.
+   *
+   * The per-row answers span 0.0317…0.0441, which under a rule that refuses a
+   * constant its rows do not separate (C9a §6.2) needs a stated reason: the rows
+   * disagree because the REFERENCE's own collapsed rim differs by backdrop —
+   * +0.0200 over `dark-solid` against +0.0158 over `impulse` — and not because
+   * the constant is unidentified on vitrea's side, where the leverage is exactly
+   * linear and every row reads the same slope.
+   *
+   * The collapsed BODY is read and not chased: 0.01103 native against 0.01171
+   * web over `dark-solid` (+1.05 codes) and 0.00664 against 0.00367 over
+   * `impulse` (−6.2 codes). This constant does not touch it.
+   */
+  rimCollapsed: 0.038,
+
+  /*
+   * REFITTED 0.337 → 0.520 (W23 G3; claims §5.102) under the painted rim's own
+   * composition. The reference's collapsed tint-orange capsule keeps +0.1149 of
+   * contour rim at 1x and +0.1179 at 2x where the bare one keeps +0.0200, and
+   * the drawn rim is linear in this constant, so one rendered point per scale
+   * gives each row its own answer.
+   *
+   * It moved because the LIGHT is now spent differently, not because the reading
+   * did. `rimTintChroma` spends a painted surface's rim in the paint's own
+   * chromaticity, and an orange paint's red channel is already at 255, so the
+   * share of the light that goes there is lost to the raster: at 0.337 the
+   * collapsed painted rim fell from +0.115 to +0.072 against a reference of
+   * +0.118. The constant carries what the composition costs, which is what an
+   * absolute constant is for.
+   *
+   * The per-side answers are 0.510 at 1x and 0.544 at 2x — the difference is the
+   * band, which is scale-graded and this constant is not — and 0.520 is the
+   * minimiser over all twelve sides, worst residual 0.0055. The three non-holdout
+   * cells that carry it (`dark-solid__capsule-button__rest-tint-orange` and
+   * `impulse__capsule-button__rest-tint-orange` on the light bed and
+   * `dark-solid__capsule-button__rest-tint-orange` on the dark one) answer the
+   * same value in both schemes, because the constant is absolute (X4).
+   */
+  rimCollapsedTinted: 0.52,
+
+  /*
+   * FITTED 1 (W23 G3; claims §5.102) — the rim's light on a painted surface is
+   * spent ENTIRELY in the paint's own chromaticity.
+   *
+   * The rows do not merely prefer it, they ask for more than the constant can be:
+   * over 52 tinted sides of both beds at both scales the per-side answer is
+   * 0.921…1.732 with a mean of 1.154, and the objective is monotone up to the
+   * bound. A mix weight cannot exceed 1, so 1 is both the fit and the ceiling,
+   * and what the rows are really saying past it is that the tinted rows' AMOUNT
+   * is short in the dark scheme — which is the amplitude law's residual and not
+   * this constant's (see below).
+   *
+   * Rendered, mean |Δ| of the contour row's OKLab against the reference's, over
+   * every tinted side of both beds at both scales: **b 0.0554 → 0.0093** and
+   * **a 0.0399 → 0.0222**, with the sides outside the wave's 0.02 falling from
+   * 52 of 52 to 36. The whole of the remaining 36 is `a` on the dark bed's tinted
+   * rows, where vitrea's rim is 0.031 against a reference of 0.127: a rim that
+   * dim cannot move its row's hue whatever colour it is spent in, so that
+   * residual is the dark law's amount and is recorded as one.
+   */
+  rimTintChroma: 1,
+
+  /*
+   * MEASURED (W9 probe, claims §5.30–§5.33): the anchors are the probe bed's
+   * settled reference levels, frequency-settled over seven attested runs,
+   * under the probe's own native-mask interior. Thick rows pool the 96 px
+   * and 160 px rrects (±0.012). Not tuned; re-measured only by a new probe.
+   */
+  backdropToneAnchorX: [0.1104, 0.2706, 0.9505],
+  backdropToneResponseThin: [0.0126, 0.4561, 0.9713],
+  backdropToneResponseThick: [0.4953, 0.5744, 0.9358],
+  backdropToneResponseStrength: 1,
+  backdropToneBlackStrength: 0,
+  backdropToneBlackThin: 0,
+  backdropToneBlackThick: 0,
+
+  /*
+   * FITTED (recalibration cascade, 2026-08-31). W8's geometry SURVIVES the fit
+   * unchanged — `sigmaPx` 15.55, `offsetPx` 7.95, `spreadPx` 3.10 — and only the
+   * two amplitudes moved: `occlusion` 0.33 → 0.285 and
+   * `reducedTransparencyOcclusion` 0.566 → 0.70. The dark scheme's amplitude
+   * (0.09) lands as a profile patch, not as a branch here.
+   *
+   * The fit is `scripts/sweep.ts --objective shadow`, whose term is the mean over
+   * calibration cells of |Δ meanDeparture| — the light each side removes from the
+   * whole exterior, in linear light, which is the one commensurate quantity the
+   * facet has. The amplitude is a genuine interior optimum over 0.18…0.44 (a
+   * 2.23× spread) and flat to 1.04% across 0.255…0.315, which is exactly the
+   * scene-to-scene amplitude spread the reference itself shows. The geometry is
+   * NOT identifiable against this objective — σ ∈ {13.5, 15.55, 17.5} × offset ∈
+   * {6.5, 7.95, 9.4} spans 1.04× with 15.55 the argmin — because an integral over
+   * the exterior is insensitive to how the darkening is distributed within it.
+   * W8's own two-dimensional fit against the occlusion field measures the
+   * geometry far more powerfully (RMS 0.0021 over 142,550 pixels), and the
+   * instrument's independent shadow axis agrees, so the geometry stands on those
+   * two and this objective is not asked to re-decide it.
+   *
+   * `reducedTransparencyOcclusion` 0.70 was sharp where the amplitude was flat: a
+   * 3.83× spread over 0.45…0.95 with a clear minimum. It also reconciled two
+   * routes — 0.285 × 0.70 = 0.1995 against the reference's directly measured
+   * reduce-transparency amplitude of 0.203 at a 44 px span. W8's 0.566 was the
+   * ratio of the reference's two amplitudes; that was the ratio that made
+   * vitrea's shadow match the reference's under the preference, and the two
+   * differed because the base amplitude is a compromise across scenes whose
+   * spread is much wider in the standard profile than under reduced transparency.
+   * **W14 G1 re-forms the constant as the LEVEL those routes were reconciling
+   * to** — 0.197 absolute, replacing both regimes rather than scaling them — for
+   * the reason its doc comment gives: a ratio and a level stopped being the same
+   * thing when the single amplitude became six unequal anchors.
+   *
+   * Extracted from the active bed's native fixtures directly —
+   * `results/2026-08-31-active-bed-stage0.json` measured the gap, these numbers
+   * measure the facet — and left provisional deliberately: X1 gives the fit to
+   * the recalibration cascade, which owns the holdout discipline. This child owns
+   * the mechanism.
+   *
+   * Method: for each `rest` fixture, the occlusion field `1 − L_capture/L_background`
+   * in linear Rec.709 luminance, over every pixel outside the declared component
+   * geometry with a backdrop bright enough to carry a signal; fitted in two
+   * dimensions against `occlusion · Φ(−sd/σ)`, where `sd` is the signed distance
+   * to the component's own rounded silhouette translated down by `offsetPx` and
+   * outset by `spreadPx`.
+   *
+   * The fit and its residual, on `1x-light-standard` and `2x-light-standard`:
+   *
+   *   backdrop      span   occlusion   σ (1×/2×)   offset (1×/2×)   RMS
+   *   photo           44     0.323     15.5/31.1     7.9/15.8     0.0021
+   *   checkerboard    44     0.338     15.7/31.0     8.0/15.9     0.0016
+   *   hc-text         44     0.339     15.7/31.1     8.0/15.9     0.0014
+   *   photo           32     0.321     15.5/30.9     8.1/16.2     0.0018
+   *   mid-dark-solid  44     0.310        —            —          0.0079
+   *
+   * — against a peak occlusion of 0.24, so the model carries the facet to under
+   * 1% of its own amplitude, over up to 142,550 pixels per cell. The three
+   * lengths are the consensus across every well-conditioned cell; `occlusion` is
+   * the light-standard amplitude at a span the size law leaves alone.
+   *
+   * What the amplitude does NOT yet have is a mechanism for its scene-to-scene
+   * spread. Over the flat near-white `light-solid` backdrop the same fit reads
+   * 0.123 rather than 0.33, reproducibly and at both scales, while the other flat
+   * backdrop (`mid-dark-solid`, linear 0.0595) reads 0.310 — so it is not a
+   * function of the backdrop's luminance, its structure, or the material's
+   * interior level, and no compositing model in either colour space produces both.
+   * The dark-scheme profile is a separate amplitude entirely (0.046…0.061 at a
+   * 44 px span — the dark material's shadow is nearly invisible) and lands as a
+   * profile patch, not as a branch here. Both are stated in the claims doc as the
+   * open question the cascade's fit inherits.
+   *
+   * **W14 G1 answers that open question and replaces `occlusion`.** "Over the
+   * flat near-white `light-solid` backdrop the same fit reads 0.123 rather than
+   * 0.33 … it is not a function of the backdrop's luminance" was read on a bed
+   * that had no backdrop between `hc-text` (linear 0.74) and `light-solid`
+   * (0.891): it IS a function of the backdrop's luminance, and the whole factor
+   * of 2.6 happens inside the gap the bed cannot see (claims §5.62 §5). The
+   * single amplitude becomes six anchors on two regimes — three in backdrop
+   * luminance below the knee, three in span above it — plus the lift's four
+   * constants. The three lengths are untouched; G0 re-read them free on both
+   * terms and they came back at W8's values.
+   */
+  outerShadow: {
+    offsetPx: 7.95,
+    sigmaPx: 15.55,
+    // W30 G2's σ law, at the three zeros that make it the identity (claims
+    // §5.156 §2, §5.158): σ(span) = sigmaPx + max(0, 0 · (span − 0)) = sigmaPx,
+    // at every span and every scale. The macOS 26.5 material's σ genuinely is
+    // span-invariant — 15.4…15.9 CSS px across spans 32…160 — so these zeros are
+    // that measurement and not a placeholder for it.
+    sigmaSlopePerSpan: 0,
+    sigmaSpanRefPx: 0,
+    sigmaThinOffsetPx: 0,
+    spreadPx: 3.1,
+    thinOcclusionDark: 0,
+    thinOcclusionMid: 0.33,
+    thinOcclusionBright: 0.127,
+    thickOcclusionAt96: 0.37,
+    thickOcclusionAt128: 0.448,
+    thickOcclusionAt160: 0.479,
+    liftAmplitude: 0.01,
+    liftSpanMin: 64,
+    liftSpanFull: 118,
+    liftBlurSigmaCss: 40,
+    reducedTransparencyOcclusion: 0.197,
+    sizeGain: 0,
+  },
+
+  lightDirection: [-0.3714, -0.9285],
+  rimLitAxis: [-0.7071, -0.7071],
+  sweepBandRadians: 0.55,
+  glowRadiusCss: 44,
+  glowGain: 0.6,
+  sweepGain: 0.85,
+};
+
+/**
+ * One entry of the inert-identity table the material's fingerprint is taken
+ * under (W31 Decision Log 1 (a), ruled 2026-09-21; claims §5.161 §7b, §5.164).
+ *
+ * A gate leaf is a leaf with a declared inert identity. `gated` names the leaves
+ * that entry makes UNREAD while every gate leaf holds its identity — leaves with
+ * no identity of their own to be at, because what makes them inert is the gate
+ * and not their own value.
+ */
+export interface MaterialIdentityEntry {
+  /** The wave that added the entry. */
+  readonly wave: string;
+  /** Gate leaf (dotted path into the resolved material) → its inert identity. */
+  readonly gate: Readonly<Record<string, number>>;
+  /** The leaves the gate makes unread; empty for a plain value drop. */
+  readonly gated: readonly string[];
+  /** The law the entry is an identity of, as the material's own doc comment states it. */
+  readonly law: string;
+  /** The committed unit case that proves the drop, named file and case. */
+  readonly inertLawCase: string;
+  /** Why the gated leaves cannot reach the pixels while the gate is held. */
+  readonly whyGated: string;
+  /** The ledger sections the entry executes. */
+  readonly claims: string;
+  /**
+   * Where the entry's prose was declared BEFORE the operator existed, kept
+   * verbatim (the `$comment-superseded` idiom of `identity-table.json`).
+   *
+   * The gate, the gated leaves and the identity values are append-only and are
+   * never edited. `law` and `inertLawCase` are prose about them, and W31's
+   * declaration could not name a case for a leaf that did not exist yet; where
+   * such a line is sharpened the first wording is preserved here rather than
+   * overwritten, and `w31-identity-table.test.ts` requires exactly that.
+   */
+  readonly declaredFirstAs?: { readonly law: string; readonly inertLawCase: string };
+}
+
+/**
+ * **The version of the digest rule, recorded in every document sealed under it.**
+ *
+ * Rule **1** is the plain fingerprint of the fully resolved material: every leaf
+ * hashed, whatever it holds. Every document sealed before W31 G3 carries a rule-1
+ * digest and `profiles/digest-supersessions.json` is rule 1's history.
+ *
+ * Rule **2** is this one — the same fingerprint with `MATERIAL_IDENTITY_TABLE`'s
+ * entries dropped where their gates hold. A document sealed under it records
+ * `resolvedMaterialSha256Rule: 2` beside its digest, so a recorded digest names
+ * the function that produced it and a reader never has to guess which.
+ */
+export const MATERIAL_DIGEST_RULE_VERSION = 2;
+
+/**
+ * **The inert-identity table the material's fingerprint is taken under** — a
+ * committed, tested, APPEND-ONLY constant (W31 Decision Log 1 (a); claims
+ * §5.161 §7b).
+ *
+ * ## The rule
+ *
+ * The fingerprint is taken over the fully resolved material with every entry
+ * below removed whose gate leaves ALL hold their declared identity values. An
+ * entry with no gated leaves is an ordinary value drop: the leaf goes when it
+ * holds its identity. An entry WITH gated leaves is a **gate-group** and goes as
+ * one unit; a gated leaf's own value is never dropped on its own, because a
+ * gated leaf has no identity of its own to be at.
+ *
+ * ## Why it exists
+ *
+ * Every profile document's `resolvedMaterialSha256` is a digest over the fully
+ * resolved material, so a material that GAINS a key moves every document's
+ * digest whatever that key holds — including the two frozen macOS 26.5
+ * documents, whose pixels do not move at all. W30 spent the one X1 exemption W29
+ * Decision Log 7 (a) granted on exactly that, for eight leaves at algebraic
+ * identities (claims §5.158). Under this rule an operator landing at its
+ * identity moves no document's digest, the two frozen documents' recorded
+ * digests are the live fingerprint again, and no wave spends an exemption for an
+ * inert leaf.
+ *
+ * ## Why the table is append-only, and what that costs
+ *
+ * A post-seal leaf's default IS its identity, forever: the digests recorded
+ * against this table are computed with these leaves dropped at these values, so
+ * moving a default off its identity here would move every shipped document's
+ * digest at once. Removing an entry would do the same. So entries are added and
+ * never edited, and a leaf's DEFAULT is the thing that may not move rather than
+ * the documents' patches — a document is free to carry any value it measures.
+ *
+ * ## Why only the gate-group needs the unit case
+ *
+ * A plain value drop is injective for free: every resolved material carries
+ * every key, so two materials with the same post-drop object agree on the
+ * dropped leaves too (both hold the identity) and therefore agree everywhere. A
+ * gate-group drop is NOT free — it merges every material that shares a gate at
+ * its identity whatever the gated leaves hold — and it is sound only because the
+ * gated leaves provably cannot reach the PIXELS while the gate is at its
+ * identity. That is what `inertLawCase` names, per entry.
+ *
+ * The pixels, and not the uniform bytes: a gated leaf still travels to the GPU
+ * (the scatter reference occupies two lanes of the optics uniform), so two
+ * materials the digest merges do not write identical uniform bytes. They draw
+ * identical pixels, and the digest is over what draws.
+ *
+ * ## The holes, named rather than discovered
+ *
+ * (a) A **mis-declared identity** is the one with teeth, and it is the
+ * gate-group's; mitigated by the `inertLawCase` each entry is required to name.
+ * (b) A **default that moves to a value some document explicitly carried** drops
+ * out of that document's digest if the identity moved with it; narrow, because
+ * the identity is this append-only constant and not the default. (c) A **leaf
+ * added without a table entry** is carried at whatever it holds, so every digest
+ * moves — the loud failure, and the one W30 actually hit. (d) The **rule's own
+ * version**, closed by construction through `MATERIAL_DIGEST_RULE_VERSION`.
+ */
+export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
+  {
+    wave: "W30",
+    /*
+     * A TWO-LEAF gate, and the second leaf is in it rather than gated by it.
+     * `sigmaThinOffsetPx` is not gated by the slope — at slope 0 a non-zero
+     * offset moves σ at every span — and it is not inert on its own at a
+     * non-zero slope either, where it is a real floor on the line. What the
+     * committed case proves is the pair TOGETHER, and the grouping that would
+     * put the offset under the slope's gate merges a macOS 26.5 light material
+     * carrying `sigmaThinOffsetPx` 5 — five CSS px of extra blur on every outer
+     * shadow, on both tiers — into the frozen digest itself (claims §5.161 §11,
+     * finding B4 (b)).
+     */
+    gate: { "outerShadow.sigmaSlopePerSpan": 0, "outerShadow.sigmaThinOffsetPx": 0 },
+    gated: ["outerShadow.sigmaSpanRefPx"],
+    law: "σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan·(span − sigmaSpanRefPx))",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "gate-group 1 — ' +
+      '{sigmaSlopePerSpan 0, sigmaThinOffsetPx 0} gates sigmaSpanRefPx"; with the ' +
+      "shipped-value half in w30-inert-laws.test.ts",
+    whyGated:
+      "The pivot is multiplied by the slope, so at slope 0 no value of it can reach σ. " +
+      "The offset is NOT gated by the slope and is in the gate for that reason.",
+    claims: "c9a §5.156 §2, §5.158, §5.161 §7b",
+  },
+  {
+    wave: "W30",
+    gate: { sizeHeavySecondShare: 0 },
+    gated: ["sizeHeavySecondSigma", "sizeHeavySecondSigma2x"],
+    law: "deep = heavy + sizeHeavySecondShare·(heavy2 − heavy), heavy2 at sizeHeavySecondSigma{,2x}",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "gate-group 2 — ' +
+      '{sizeHeavySecondShare 0} gates the two second-heavy widths"; with the ' +
+      "shipped-value half in w30-inert-laws.test.ts",
+    whyGated:
+      "At share 0 the second heavy texture is not allocated, no pass is encoded and the " +
+      "optics pass never samples one, so the widths are unread whatever they hold.",
+    claims: "c9a §5.156 §3, §5.158, §5.161 §7b",
+  },
+  {
+    wave: "W30",
+    gate: { sizeScatterScaleGain: 0 },
+    gated: ["sizeScatterScaleRef"],
+    law: "kScatter += sizeScatterScaleGain·(stat − sizeScatterScaleRef)",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "gate-group 3 — ' +
+      '{sizeScatterScaleGain 0} gates sizeScatterScaleRef"; with the shipped-value ' +
+      "half in w30-inert-laws.test.ts",
+    whyGated:
+      "The reference is only ever read as a difference the gain multiplies, so at gain 0 no " +
+      "value of it can reach the mix. The macOS 27 LIGHT document exercises this entry: it " +
+      "declines the scatter with the gain at 0 and ships the reference at 0.03.",
+    claims: "c9a §5.156 §3, §5.158, §5.161 §7b",
+  },
+  {
+    wave: "W31",
+    /*
+     * A plain value drop, and injective for free. The retention multiplies the
+     * mix's second term, so at 0 the composite is bit-identical to the one W30
+     * left — which is what the goldens and the composite-identity case below
+     * assert, and what lets this leaf land without an exemption.
+     */
+    gate: { bodyChromaRetention: 0 },
+    gated: [],
+    law: "colour = gamutAtLuma(mix(colour, backdrop·(Y/Y_backdrop), bodyChromaRetention), Y)",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-body-chroma.test.ts — "the composite is ' +
+      'bit-identical at retention 0", "linear luma is held at every retention" and "is the ' +
+      'shader\'s expression, term for term"; the drawn half in ' +
+      'packages/renderer-webgpu/e2e/gpu/w31-body-chroma.spec.ts — "is bit-identical at the ' +
+      'shipped identity, named explicitly" and "ON draws differently from OFF"; the CSS ' +
+      "tier's half in packages/platform-web/test/w30-css-declaration-identity.test.ts, " +
+      "which compares every declaration against bytes recorded before any leaf existed",
+    whyGated:
+      "Not gated — a plain value drop. At retention 0 the mix's second term is multiplied " +
+      "by zero and `colour` leaves the composite exactly as mix(backdrop, adapted, " +
+      "presentAlpha) produced it.",
+    claims: "c9a §5.161 §5, §5.164",
+    declaredFirstAs: {
+      law:
+        "colour = renormaliseToLinearLuma(mix(colour, chromaticityOf(backdrop) at colour's " +
+        "luma, bodyChromaRetention))",
+      inertLawCase:
+        "TO BE COMMITTED BY W31 G3 — the leaf does not exist yet. G0 names the shape and its " +
+        "identity (W31 X2); the case that proves the composite is bit-identical at 0, and the " +
+        "`test:gpu` case that the on state draws differently from off, land with the leaf.",
+    },
+  },
+  {
+    wave: "W36",
+    gate: { backdropToneBlackStrength: 0 },
+    gated: ["backdropToneBlackThin", "backdropToneBlackThick"],
+    law: "Below x=0.003 blend response and authority toward the black endpoint by " +
+      "strength*(1-smoothstep(0,0.003,x)); elsewhere execute the old solve exactly.",
+    inertLawCase: 'packages/renderer-webgpu/test/w31-gate-groups.test.ts — ' +
+      '"gate-group 4 — black strength 0 gates both black ordinates"; drawn identity in ' +
+      'packages/renderer-webgpu/e2e/gpu/w36-black-branch.spec.ts',
+    whyGated: "The strength-0 branch never reads either ordinate, preserving the old solve.",
+    claims: "c9a §5.179; W36 Decision Log 5",
+  },
+];
+
+/**
+ * A value at a dotted path of a resolved material, or `undefined`.
+ *
+ * Exported because every reader of the rule needs it and three copies of a path
+ * walk is three places a gate can be read from the wrong node.
+ */
+export function materialLeafAt(resolved: unknown, path: string): unknown {
+  return path.split(".").reduce<unknown>(
+    (node, key) =>
+      node !== null && typeof node === "object" ? (node as Record<string, unknown>)[key] : undefined,
+    resolved,
+  );
+}
+
+/**
+ * The dotted leaf paths `MATERIAL_IDENTITY_TABLE` drops from this material's
+ * fingerprint, sorted.
+ *
+ * A gate leaf the material does not HAVE is not "at its identity" — it is
+ * absent, and an entry naming it is a table that has drifted from the material.
+ * Such an entry is not dropped, so the drift shows as a moved digest rather than
+ * as a silent merge.
+ */
+export function materialDigestDroppedLeaves(resolved: unknown): readonly string[] {
+  const dropped: string[] = [];
+  for (const entry of MATERIAL_IDENTITY_TABLE) {
+    const held = Object.entries(entry.gate).every(([path, identity]) => {
+      const value = materialLeafAt(resolved, path);
+      return value !== undefined && value === identity;
+    });
+    if (held) dropped.push(...Object.keys(entry.gate), ...entry.gated);
+  }
+  return dropped.sort();
+}
+
+/**
+ * **The digest rule's input**: a copy of the resolved material with the dropped
+ * leaves removed. Hash this, not the material.
+ *
+ * The one implementation of the rule. The HASH itself stays duplicated at each
+ * pin site on purpose — an algorithm restated is an algorithm two places can
+ * check, and the sorted-key SHA-256 has been read three ways since W7 — but the
+ * rule is a table walk whose drift would be silent, so it lives here and is
+ * imported.
+ *
+ * Removal rather than substitution, so a dropped leaf cannot be confused with a
+ * leaf that happens to hold a sentinel, and so a table naming a leaf the
+ * material does not have shows up as a key-set difference.
+ */
+export function materialDigestInput(resolved: unknown): unknown {
+  const dropped = materialDigestDroppedLeaves(resolved);
+  const strip = (value: unknown, prefix = ""): unknown => {
+    if (value === null || typeof value !== "object" || Array.isArray(value)) return value;
+    return Object.fromEntries(
+      Object.entries(value)
+        .map(([key, child]) => [prefix === "" ? key : `${prefix}.${key}`, key, child] as const)
+        .filter(([path]) => !dropped.includes(path))
+        .map(([path, key, child]) => [key, strip(child, path)]),
+    );
+  };
+  return strip(resolved);
+}
+
+// The default profile's numbers, under the names the rest of the package and its
+// tests already know them by. Derived rather than duplicated: a re-tuned default
+// moves both at once, and there is no second place for the two to disagree.
+export const REFRACTION_SCALE = DEFAULT_MATERIAL_PROFILE.refractionScale;
+export const MATERIAL_OPTICS = DEFAULT_MATERIAL_PROFILE.optics;
+export const ADAPTIVE_TINT_DARK = DEFAULT_MATERIAL_PROFILE.adaptiveTintDark;
+export const ADAPTIVE_TINT_LIGHT = DEFAULT_MATERIAL_PROFILE.adaptiveTintLight;
+export const ADAPTIVE_LUMINANCE_LOW = DEFAULT_MATERIAL_PROFILE.adaptiveLuminanceLow;
+export const ADAPTIVE_LUMINANCE_HIGH = DEFAULT_MATERIAL_PROFILE.adaptiveLuminanceHigh;
+export const SIZE_SPAN_MIN = DEFAULT_MATERIAL_PROFILE.sizeSpanMin;
+export const SIZE_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeSpanMax;
+export const LENS_SIZE_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.lensSizeGainMax;
+export const SIZE_SCATTER_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax;
+export const SIZE_SCATTER_FLOOR = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor;
+export const SIZE_SCATTER_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax;
+export const SIZE_SCATTER_GAIN_MAX_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax2x;
+export const SIZE_SCATTER_GAIN_FAR_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterGainFar2x;
+export const SIZE_SCATTER_FLOOR_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor2x;
+export const SIZE_SCATTER_SPAN_MAX_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax2x;
+export const SIZE_SCATTER_RAMP_START_THIN_1X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin1x;
+export const SIZE_SCATTER_RAMP_START_THICK_1X =
+  DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick1x;
+export const SIZE_SCATTER_RAMP_START_THIN_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin2x;
+export const SIZE_SCATTER_RAMP_START_THICK_2X =
+  DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick2x;
+export const SIZE_SCATTER_RAMP_START_FAR_1X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar1x;
+export const SIZE_SCATTER_RAMP_START_FAR_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar2x;
+export const SIZE_SCATTER_RAMP_REACH_1X_PX = DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach1xPx;
+export const SIZE_SCATTER_RAMP_REACH_2X_PX = DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach2xPx;
+export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
+export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
+export const LENS_REFRACTION_GAIN = DEFAULT_MATERIAL_PROFILE.lensRefractionGain;
+export const LENS_HEIGHT_PER_SPAN = DEFAULT_MATERIAL_PROFILE.lensHeightPerSpan;
+export const LENS_HEIGHT_MAX = DEFAULT_MATERIAL_PROFILE.lensHeightMax;
+export const LENS_AMOUNT_PER_SPAN = DEFAULT_MATERIAL_PROFILE.lensAmountPerSpan;
+export const LENS_AMOUNT_MAX = DEFAULT_MATERIAL_PROFILE.lensAmountMax;
+export const LENS_THICKNESS_REFERENCE = DEFAULT_MATERIAL_PROFILE.lensThicknessReference;
+export const LENS_EXTENT_GAIN = DEFAULT_MATERIAL_PROFILE.lensExtentGain;
+export const LENS_PROFILE_EXPONENT = DEFAULT_MATERIAL_PROFILE.lensProfileExponent;
+export const LENS_OVALIZATION = DEFAULT_MATERIAL_PROFILE.lensOvalization;
+export const BACKDROP_TONE_MAX = DEFAULT_MATERIAL_PROFILE.backdropToneMax;
+export const BACKDROP_TONE_LOW = DEFAULT_MATERIAL_PROFILE.backdropToneLow;
+export const BACKDROP_TONE_HIGH = DEFAULT_MATERIAL_PROFILE.backdropToneHigh;
+export const BACKDROP_TONE_SIZE_BIAS = DEFAULT_MATERIAL_PROFILE.backdropToneSizeBias;
+export const COLLAPSE_TRANSMISSION = DEFAULT_MATERIAL_PROFILE.collapseTransmission;
+export const COLLAPSE_TRANSMISSION_2X = DEFAULT_MATERIAL_PROFILE.collapseTransmission2x;
+export const BACKDROP_TONE_ANCHOR_X = DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX;
+export const BACKDROP_TONE_RESPONSE_THIN = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThin;
+export const BACKDROP_TONE_RESPONSE_THICK = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThick;
+export const BACKDROP_TONE_RESPONSE_STRENGTH =
+  DEFAULT_MATERIAL_PROFILE.backdropToneResponseStrength;
+export const OUTER_SHADOW = DEFAULT_MATERIAL_PROFILE.outerShadow;
+
+/**
+ * A profile patch: any subset, to any depth, of what a profile holds.
+ *
+ * A colour is one leaf, not three: patching a tint means naming the whole triple,
+ * because two channels of a fitted colour and one of the default is not a colour
+ * anybody measured.
+ */
+export interface MaterialProfilePatch {
+  readonly optics?: Readonly<Partial<Record<MaterialVariant, Readonly<Partial<MaterialOptics>>>>>;
+  readonly adaptiveTintDark?: Rgb;
+  readonly adaptiveTintLight?: Rgb;
+  readonly adaptiveLuminanceLow?: number;
+  readonly adaptiveLuminanceHigh?: number;
+  readonly refractionScale?: Readonly<Partial<Record<RefractionQuality, number>>>;
+  readonly sizeSpanMin?: number;
+  readonly sizeSpanMax?: number;
+  readonly lensSizeGainMax?: number;
+  readonly sizeScatterGainMax?: number;
+  readonly sizeScatterFloor?: number;
+  readonly sizeScatterSpanMax?: number;
+  readonly sizeScatterGainMax2x?: number;
+  readonly sizeScatterFloor2x?: number;
+  readonly sizeScatterSpanMax2x?: number;
+  readonly sizeScatterGainFar2x?: number;
+  readonly sizeScatterRampStartThin1x?: number;
+  readonly sizeScatterRampStartThick1x?: number;
+  readonly sizeScatterRampStartFar1x?: number;
+  readonly sizeScatterRampStartThin2x?: number;
+  readonly sizeScatterRampStartThick2x?: number;
+  readonly sizeScatterRampStartFar2x?: number;
+  readonly sizeScatterRampReach1xPx?: number;
+  readonly sizeScatterRampReach2xPx?: number;
+  readonly sizeScatterHeavyShareThick1x?: number;
+  readonly sizeScatterHeavyShareThick2x?: number;
+  readonly sizeToneLevelFar?: number;
+  readonly sizeHeavyTapSigma?: number;
+  readonly sizeHeavyTapSigma2x?: number;
+  readonly sizeHeavySecondSigma?: number;
+  readonly sizeHeavySecondSigma2x?: number;
+  readonly sizeHeavySecondShare?: number;
+  readonly sizeScatterScaleGain?: number;
+  readonly sizeScatterScaleRef?: number;
+  readonly sizeOcclusionGain?: number;
+  readonly sizeShadowGainMax?: number;
+  readonly lensRefractionGain?: number;
+  readonly lensHeightPerSpan?: number;
+  readonly lensHeightMax?: number;
+  readonly lensAmountPerSpan?: number;
+  readonly lensAmountMax?: number;
+  readonly lensThicknessReference?: number;
+  readonly lensExtentGain?: number;
+  readonly lensProfileExponent?: number;
+  readonly lensOvalization?: number;
+  readonly lensOvalizationSpanMin?: number;
+  readonly lensOvalizationSpanMax?: number;
+  readonly reducedTransparencyFrost?: number;
+  readonly increasedOcclusionLift?: number;
+  readonly increasedOcclusionLiftByPolicy?: Readonly<Partial<MaterialOcclusionLiftByPolicy>>;
+  readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
+  readonly reducedTintAdaptation?: number;
+  readonly tintShadeDark?: number;
+  readonly tintShadeLight?: number;
+  readonly tintShadeStrength?: number;
+  readonly tintChromaScale?: number;
+  readonly tintShadeCollapseRetention?: number;
+  readonly backdropToneMax?: number;
+  readonly backdropToneLow?: number;
+  readonly backdropToneHigh?: number;
+  readonly backdropToneSizeBias?: number;
+  readonly collapseTransmission?: number;
+  readonly collapseTransmission2x?: number;
+  readonly bodyChromaRetention?: number;
+  readonly rimCollapsed?: number;
+  readonly rimCollapsedTinted?: number;
+  readonly rimTintChroma?: number;
+  readonly backdropToneAbscissa?: MaterialProfile["backdropToneAbscissa"];
+  readonly backdropToneAnchorX?: BackdropToneKnotRow;
+  readonly backdropToneResponseThin?: BackdropToneKnotRow;
+  readonly backdropToneResponseThick?: BackdropToneKnotRow;
+  readonly backdropToneResponseStrength?: number;
+  readonly backdropToneBlackStrength?: number;
+  readonly backdropToneBlackThin?: number;
+  readonly backdropToneBlackThick?: number;
+  readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
+  readonly lightDirection?: readonly [number, number];
+  readonly rimLitAxis?: readonly [number, number];
+  readonly sweepBandRadians?: number;
+  readonly glowRadiusCss?: number;
+  readonly glowGain?: number;
+  readonly sweepGain?: number;
+}
+
+/**
+ * The names `outerShadow` no longer answers to, and what each was replaced by.
+ *
+ * `occlusion` was W8's single span-flat amplitude, and it is the leaf a caller
+ * reaches for to stand the facet down (`{ outerShadow: { occlusion: 0 } }`).
+ * W14 G1 retired it: the amplitude is a two-regime law now, and a patch naming
+ * the retired leaf would type-check nowhere but pass through JSON, get hashed
+ * into a capture cell as the configuration that ran, and render the DEFAULT
+ * shadow — a silently-measured-the-defaults failure of exactly the shape
+ * `capture-web.ts`'s unknown-key guard exists for, one level deeper.
+ *
+ * It is refused rather than mapped. A span-flat scalar is the material the
+ * measurement retired: there is no value of it that reproduces 0.33 below the
+ * knee and 0.544 above it, so translating one would be inventing a reading, and
+ * the project carries no compatibility shims.
+ */
+const RETIRED_OUTER_SHADOW_LEAVES: Readonly<Record<string, string>> = {
+  occlusion:
+    "the six amplitude anchors (thinOcclusionDark, thinOcclusionMid, " +
+    "thinOcclusionBright, thickOcclusionAt96, thickOcclusionAt128, " +
+    "thickOcclusionAt160) and liftAmplitude for the second term",
+};
+
+/** Throw if an `outerShadow` patch names a leaf W14 G1 retired (claims §5.62). */
+function rejectRetiredOuterShadowLeaves(patch: object | undefined): void {
+  if (patch === undefined) return;
+  for (const [leaf, replacement] of Object.entries(RETIRED_OUTER_SHADOW_LEAVES)) {
+    if (!(leaf in patch)) continue;
+    throw new Error(
+      `outerShadow.${leaf} was retired by W14 G1 (claims §5.62) and is replaced by ` +
+        `${replacement}. Applying this patch would have rendered the default shadow ` +
+        `while recording itself as configured. It is refused rather than mapped: a ` +
+        `single span-flat amplitude is the material the measurement retired.`,
+    );
+  }
+}
+
+/**
+ * Throw if the resolved backdrop tone response's three rows disagree about how
+ * many knots the curve has.
+ *
+ * The rows are one curve — `backdropToneAnchorX` is its knots and the two
+ * response rows are that curve's levels at the thin and the thick end — but they
+ * are three separate patch keys, so a patch naming one of them at four knots
+ * over a three-knot base used to resolve to a triplet with no single reading.
+ * The CPU curve branches on the ANCHORS' length and then indexes the level rows
+ * at that arity, so a four-knot anchor row over three-knot levels reads past the
+ * end and returns NaN for the whole interior. The shader keys the same flag off
+ * the anchors (`passes.ts`, `d[115]`) but pads the level rows with a repeat of
+ * their last knot, so it draws a fourth segment nobody fitted. The CSS tier's
+ * mirror in `@vitreajs/vitrea-web` reads the third of those. A patch that would
+ * make the tiers draw different materials is refused here rather than resolved,
+ * which is the same stance `rejectRetiredOuterShadowLeaves` takes above: a
+ * configuration that cannot be rendered honestly does not get to be measured.
+ *
+ * The rows may move to four knots — that is what the dark receded endpoint does
+ * — but only together, and the message names each row's resolved arity so it
+ * says which of the three the patch left behind.
+ */
+function rejectMixedBackdropToneArity(
+  anchorX: BackdropToneKnotRow,
+  thin: BackdropToneKnotRow,
+  thick: BackdropToneKnotRow,
+): void {
+  /*
+   * Each row is an array of one of the curve's two lengths, checked before the
+   * three are compared to each other.
+   *
+   * Equal arity alone is not enough, because the readers do not agree on what
+   * "not three" means. A profile document is JSON cast to the patch type with
+   * nothing between, so three FIVE-knot rows arrive with their arities equal: the
+   * CPU curve and the CSS mirror branch on `length === 3`, fail it and run the
+   * four-knot arithmetic, while the shader's gate is `length === 4` (`passes.ts`
+   * `d[115]`), fails THAT and runs the three-knot branch. One document, two
+   * different curves, and the fifth knot dropped by every reader. Two knots is
+   * the same trap from the other end, where each branch indexes past the row.
+   */
+  for (const [name, row] of [
+    ["backdropToneAnchorX", anchorX],
+    ["backdropToneResponseThin", thin],
+    ["backdropToneResponseThick", thick],
+  ] as const) {
+    if (Array.isArray(row) && (row.length === 3 || row.length === 4)) continue;
+    throw new Error(
+      `The backdrop tone response's ${name} is ${JSON.stringify(row) ?? String(row)}, which ` +
+        `is not an array of three or four knots. The curve has exactly those two forms, and ` +
+        `anything else is read as a different one by each tier: the CPU curve and the CSS ` +
+        `mirror take the four-knot branch for any length but three, where the shader takes ` +
+        `the three-knot branch for any length but four.`,
+    );
+  }
+  if (anchorX.length === thin.length && thin.length === thick.length) return;
+  throw new Error(
+    `The backdrop tone response's three rows resolved to different knot counts — ` +
+      `backdropToneAnchorX ${anchorX.length}, backdropToneResponseThin ${thin.length}, ` +
+      `backdropToneResponseThick ${thick.length}. They are one curve's knots and that ` +
+      `curve's levels at its two thickness ends, and the shader reads the knot count off ` +
+      `the anchors alone, so a mixed triplet renders as NaN on the CPU curve and as a ` +
+      `fabricated segment on the GPU. A patch moving the response to a new knot count has ` +
+      `to name all three rows.`,
+  );
+}
+
+/**
+ * Apply a patch. This is how a calibration profile lands: C7 emits the measured
+ * numbers, the host passes them here, and every constant above is replaceable
+ * without touching this file.
+ *
+ * The nested records merge per field and per rung, so a patch naming one tint
+ * alpha keeps that variant's blur, rim and specular rather than dropping them.
+ */
+export function withMaterialOverrides(
+  base: MaterialProfile,
+  patch: MaterialProfilePatch,
+): MaterialProfile {
+  rejectRetiredOuterShadowLeaves(patch.outerShadow);
+  const backdropToneAbscissa = patch.backdropToneAbscissa === undefined
+    ? base.backdropToneAbscissa : patch.backdropToneAbscissa;
+  if (backdropToneAbscissa !== undefined && backdropToneAbscissa !== "source" &&
+      (backdropToneAbscissa === null || typeof backdropToneAbscissa !== "object" ||
+       backdropToneAbscissa.kind !== "silhouette" ||
+       Object.keys(backdropToneAbscissa).some((key) => key !== "kind"))) {
+    throw new TypeError("backdropToneAbscissa must be source or { kind: silhouette }");
+  }
+
+
+  const optics = {} as Record<MaterialVariant, MaterialOptics>;
+  for (const variant of MATERIAL_VARIANTS) {
+    optics[variant] = { ...base.optics[variant], ...patch.optics?.[variant] };
+  }
+
+  const refractionScale = {} as Record<RefractionQuality, number>;
+  for (const rung of REFRACTION_LADDER) {
+    refractionScale[rung] = patch.refractionScale?.[rung] ?? base.refractionScale[rung];
+  }
+
+  // Resolved before the profile is built rather than merged inline below, so the
+  // three rows of one curve can be checked against each other while they are
+  // still three things. See `rejectMixedBackdropToneArity`.
+  const backdropToneAnchorX = patch.backdropToneAnchorX ?? base.backdropToneAnchorX;
+  const backdropToneResponseThin =
+    patch.backdropToneResponseThin ?? base.backdropToneResponseThin;
+  const backdropToneResponseThick =
+    patch.backdropToneResponseThick ?? base.backdropToneResponseThick;
+  rejectMixedBackdropToneArity(
+    backdropToneAnchorX, backdropToneResponseThin, backdropToneResponseThick,
+  );
+
+  return {
+    optics,
+    adaptiveTintDark: patch.adaptiveTintDark ?? base.adaptiveTintDark,
+    adaptiveTintLight: patch.adaptiveTintLight ?? base.adaptiveTintLight,
+    adaptiveLuminanceLow: patch.adaptiveLuminanceLow ?? base.adaptiveLuminanceLow,
+    adaptiveLuminanceHigh: patch.adaptiveLuminanceHigh ?? base.adaptiveLuminanceHigh,
+    refractionScale,
+    sizeSpanMin: patch.sizeSpanMin ?? base.sizeSpanMin,
+    sizeSpanMax: patch.sizeSpanMax ?? base.sizeSpanMax,
+    lensSizeGainMax: patch.lensSizeGainMax ?? base.lensSizeGainMax,
+    sizeScatterGainMax: patch.sizeScatterGainMax ?? base.sizeScatterGainMax,
+    sizeScatterFloor: patch.sizeScatterFloor ?? base.sizeScatterFloor,
+    sizeScatterSpanMax: patch.sizeScatterSpanMax ?? base.sizeScatterSpanMax,
+    sizeScatterGainMax2x: patch.sizeScatterGainMax2x ?? base.sizeScatterGainMax2x,
+    sizeScatterFloor2x: patch.sizeScatterFloor2x ?? base.sizeScatterFloor2x,
+    sizeScatterSpanMax2x: patch.sizeScatterSpanMax2x ?? base.sizeScatterSpanMax2x,
+    sizeScatterGainFar2x: patch.sizeScatterGainFar2x ?? base.sizeScatterGainFar2x,
+    sizeScatterRampStartThin1x:
+      patch.sizeScatterRampStartThin1x ?? base.sizeScatterRampStartThin1x,
+    sizeScatterRampStartThick1x:
+      patch.sizeScatterRampStartThick1x ?? base.sizeScatterRampStartThick1x,
+    sizeScatterRampStartThin2x:
+      patch.sizeScatterRampStartThin2x ?? base.sizeScatterRampStartThin2x,
+    sizeScatterRampStartThick2x:
+      patch.sizeScatterRampStartThick2x ?? base.sizeScatterRampStartThick2x,
+    sizeScatterRampStartFar1x: patch.sizeScatterRampStartFar1x ?? base.sizeScatterRampStartFar1x,
+    sizeScatterRampStartFar2x: patch.sizeScatterRampStartFar2x ?? base.sizeScatterRampStartFar2x,
+    sizeScatterRampReach1xPx: patch.sizeScatterRampReach1xPx ?? base.sizeScatterRampReach1xPx,
+    sizeScatterRampReach2xPx: patch.sizeScatterRampReach2xPx ?? base.sizeScatterRampReach2xPx,
+    sizeScatterHeavyShareThick1x:
+      patch.sizeScatterHeavyShareThick1x ?? base.sizeScatterHeavyShareThick1x,
+    sizeScatterHeavyShareThick2x:
+      patch.sizeScatterHeavyShareThick2x ?? base.sizeScatterHeavyShareThick2x,
+    sizeToneLevelFar: patch.sizeToneLevelFar ?? base.sizeToneLevelFar,
+    sizeHeavyTapSigma: patch.sizeHeavyTapSigma ?? base.sizeHeavyTapSigma,
+    sizeHeavyTapSigma2x: patch.sizeHeavyTapSigma2x ?? base.sizeHeavyTapSigma2x,
+    // W30 G2's spanning set. One line each, because this merge is explicit per
+    // leaf and a leaf without its own line resolves silently to the base —
+    // which for a leaf a document is meant to fit is a fit that does nothing.
+    sizeHeavySecondSigma: patch.sizeHeavySecondSigma ?? base.sizeHeavySecondSigma,
+    sizeHeavySecondSigma2x: patch.sizeHeavySecondSigma2x ?? base.sizeHeavySecondSigma2x,
+    sizeHeavySecondShare: patch.sizeHeavySecondShare ?? base.sizeHeavySecondShare,
+    sizeScatterScaleGain: patch.sizeScatterScaleGain ?? base.sizeScatterScaleGain,
+    sizeScatterScaleRef: patch.sizeScatterScaleRef ?? base.sizeScatterScaleRef,
+    sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
+    sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
+    lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
+    lensHeightPerSpan: patch.lensHeightPerSpan ?? base.lensHeightPerSpan,
+    lensHeightMax: patch.lensHeightMax ?? base.lensHeightMax,
+    lensAmountPerSpan: patch.lensAmountPerSpan ?? base.lensAmountPerSpan,
+    lensAmountMax: patch.lensAmountMax ?? base.lensAmountMax,
+    lensThicknessReference: patch.lensThicknessReference ?? base.lensThicknessReference,
+    lensExtentGain: patch.lensExtentGain ?? base.lensExtentGain,
+    lensProfileExponent: patch.lensProfileExponent ?? base.lensProfileExponent,
+    lensOvalization: patch.lensOvalization ?? base.lensOvalization,
+    lensOvalizationSpanMin: patch.lensOvalizationSpanMin ?? base.lensOvalizationSpanMin,
+    lensOvalizationSpanMax: patch.lensOvalizationSpanMax ?? base.lensOvalizationSpanMax,
+    reducedTransparencyFrost: patch.reducedTransparencyFrost ?? base.reducedTransparencyFrost,
+    increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
+    ...((patch.increasedOcclusionLiftByPolicy ?? base.increasedOcclusionLiftByPolicy) === undefined
+      ? {}
+      : { increasedOcclusionLiftByPolicy: {
+          ...base.increasedOcclusionLiftByPolicy,
+          ...patch.increasedOcclusionLiftByPolicy,
+        } as MaterialOcclusionLiftByPolicy }),
+    strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
+    reducedTintAdaptation: patch.reducedTintAdaptation ?? base.reducedTintAdaptation,
+    tintShadeDark: patch.tintShadeDark ?? base.tintShadeDark,
+    tintShadeLight: patch.tintShadeLight ?? base.tintShadeLight,
+    tintShadeStrength: patch.tintShadeStrength ?? base.tintShadeStrength,
+    ...((patch.tintChromaScale ?? base.tintChromaScale ?? 1) === 1 ? {} : {
+      tintChromaScale: patch.tintChromaScale ?? base.tintChromaScale,
+    }),
+    ...((patch.tintShadeCollapseRetention ?? base.tintShadeCollapseRetention ?? 0) === 0 ? {} : {
+      tintShadeCollapseRetention: patch.tintShadeCollapseRetention ?? base.tintShadeCollapseRetention,
+    }),
+    backdropToneMax: patch.backdropToneMax ?? base.backdropToneMax,
+    backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
+    backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
+    backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
+    collapseTransmission: patch.collapseTransmission ?? base.collapseTransmission,
+    collapseTransmission2x:
+      patch.collapseTransmission2x ?? patch.collapseTransmission ?? base.collapseTransmission2x,
+    bodyChromaRetention: patch.bodyChromaRetention ?? base.bodyChromaRetention,
+    rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
+    rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
+    rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,
+    ...(backdropToneAbscissa === undefined ? {} : { backdropToneAbscissa }),
+    backdropToneAnchorX,
+    backdropToneResponseThin,
+    backdropToneResponseThick,
+    backdropToneResponseStrength:
+      patch.backdropToneResponseStrength ?? base.backdropToneResponseStrength,
+    backdropToneBlackStrength: patch.backdropToneBlackStrength ?? base.backdropToneBlackStrength,
+    backdropToneBlackThin: patch.backdropToneBlackThin ?? base.backdropToneBlackThin,
+    backdropToneBlackThick: patch.backdropToneBlackThick ?? base.backdropToneBlackThick,
+    outerShadow: { ...base.outerShadow, ...patch.outerShadow },
+    lightDirection: patch.lightDirection ?? base.lightDirection,
+    rimLitAxis: patch.rimLitAxis ?? base.rimLitAxis,
+    sweepBandRadians: patch.sweepBandRadians ?? base.sweepBandRadians,
+    glowRadiusCss: patch.glowRadiusCss ?? base.glowRadiusCss,
+    glowGain: patch.glowGain ?? base.glowGain,
+    sweepGain: patch.sweepGain ?? base.sweepGain,
+  };
+}
+
+/**
+ * Fold core's resolved material *regime* onto this package's numbers.
+ *
+ * core decides which regime applies and nothing here re-decides it. One branch
+ * per axis of `MaterialPolicyView`, so a new axis in core surfaces as a missing
+ * branch here rather than as silence.
+ */
+export function opticsUnderPolicy(
+  optics: MaterialOptics,
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): MaterialOptics {
+  let next = optics;
+
+  if (policy.frost === "increased") {
+    next = { ...next, blurSigma: next.blurSigma * profile.reducedTransparencyFrost };
+  } else if (policy.frost === "none") {
+    next = { ...next, blurSigma: 0 };
+  }
+
+  next = {
+    ...next,
+    tintAlpha: occlusionAlphaUnderPolicy(
+      next.tintAlpha,
+      policy.occlusion,
+      occlusionLiftForPolicy(policy, profile),
+    ),
+  };
+
+  /*
+   * The accessibility border SUBSTITUTES the rim; it does not tune it (W23 G1's
+   * review fix). A spread of `strongBorderRim`'s two numbers leaves every other
+   * constant the rim now reads at the variant's own value, and after W23 the rim
+   * reads three more: the band's second anchor and the amplitude law's gain, and
+   * they carried the substitution away from what it declares. `rimWidth2x` 1.35
+   * narrowed a 2 CSS px border to 1.35 at dpr 2, and `rimLevelGain` −0.628 turned
+   * an alpha of 0.95 into 0.64 on a surface of level 0.5 and 0.35 on a bright one
+   * — a border that fades exactly where a preference asked for one. So the fold
+   * takes BOTH width anchors to the declared width and the gain to 0: under this
+   * policy the border is one width and one brightness at every scale and over
+   * every backdrop, which is what `border: "strong"` means.
+   *
+   * The specular is left where the variant has it, as it always was: it is gated
+   * to nothing at rest (W22) and this fold has no reading on it.
+   */
+  if (policy.border === "strong") {
+    next = {
+      ...next,
+      rimWidth: profile.strongBorderRim.rimWidth,
+      rimWidth2x: profile.strongBorderRim.rimWidth,
+      rimAlpha: profile.strongBorderRim.rimAlpha,
+      rimLevelGain: 0,
+      // And the lit edge stands down with it (W24): a border a preference asked
+      // for is one brightness the whole way round, and a directional factor
+      // would take it to nothing on two of its four corners.
+      rimLitExponent: 0,
+      // The along-side field stands down for the same reason (W25): a border a
+      // preference asked for is one brightness the whole way round, and a
+      // position field would grade it corner to corner.
+      rimAlongSideSlope: 0,
+    };
+  }
+
+  return next;
+}
+
+/**
+ * The rim a COLLAPSED surface keeps, under the accessibility regime (W23 G1's
+ * review fix) — `mix(rimCollapsed, rimCollapsedTinted, tintStrength)`, except
+ * where a preference has asked for a border.
+ *
+ * The collapse trades the appearance's own rim for an absolute one, and the
+ * absolute one is 0.038 bare and 0.520 painted: what Apple's collapsed capsule
+ * keeps. Under `border: "strong"` that trade would take a border the user's
+ * preference asked for and hand back a mark a twenty-fifth as bright, on the one
+ * surface that is already the hardest to see — a material that has taken its
+ * backdrop's tone. The substitution therefore reaches the collapsed rim too, and
+ * the border is the same on a collapsed surface as on any other.
+ *
+ * **No cell of any bed exercises this branch**: the two accessibility profiles
+ * declare no scene over `dark-solid` or `impulse`, so nothing on the calibration
+ * bed both collapses and carries a strong border. It is a correctness statement
+ * about the policy rather than a fitted constant, and it is written here rather
+ * than left implicit because the alternative is a preference that silently stops
+ * being honoured on one class of surface.
+ */
+export function collapsedRimUnderPolicy(
+  policy: MaterialPolicyView,
+  tintStrength: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  if (policy.border === "strong") return profile.strongBorderRim.rimAlpha;
+  const strength = Math.min(1, Math.max(0, tintStrength));
+  return profile.rimCollapsed + (profile.rimCollapsedTinted - profile.rimCollapsed) * strength;
+}
+
+/** How much of the analysis-driven tint is applied, under the contrast regime. */
+export function adaptationStrength(
+  policy: MaterialPolicyView,
+  analysisExact: boolean,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  if (!analysisExact) return 0;
+  switch (policy.ambientTint) {
+    case "nominal":
+      return 1;
+    case "reduced":
+      return profile.reducedTintAdaptation;
+    case "none":
+      return 0;
+  }
+}
+
+/**
+ * How much of the tint's tone excursion survives the contrast regime.
+ *
+ * The tone map is the tinted material's response to what is behind it, so it
+ * rides the axis that already governs exactly that — `ambientTint` — rather
+ * than inventing a second one. Under increased contrast the range narrows
+ * toward the bare seed, which is the direction W1 measured Apple's own
+ * accessibility material moving (its interior "has all but stopped
+ * transmitting the backdrop"); under forced colours there is no material to
+ * tint at all and the caller never reaches here.
+ *
+ * The author's colour is never changed by a policy. Only how far the material
+ * is allowed to move it is.
+ */
+export function tintToneAdaptation(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  switch (policy.ambientTint) {
+    case "nominal":
+      return 1;
+    case "reduced":
+      return profile.reducedTintAdaptation;
+    case "none":
+      return 0;
+  }
+}
+
+/**
+ * The shade the seed is shown at over a material of luminance `u` (W10) — the
+ * CPU statement of what `WGSL_OPTICS_PASS` evaluates per pixel.
+ *
+ * `u` is the linear luminance of the UNTINTED material at the pixel — what the
+ * surface would show with no author tint, backdrop included. `grip` is how much
+ * of the excursion is allowed: the contrast regime's `tintToneAdaptation`, the
+ * profile's provenance gate `tintShadeStrength`, and `(1 − collapse)` for W7's
+ * axis, multiplied by the caller; at 0 the shade is 1 and the layer is the bare
+ * seed. Clamped at 1 because a shade brighter than the seed is not a shade — the
+ * fitted light end sits just past 1 (claims §5.36).
+ *
+ * Exported because two other things have to agree with the shader without being
+ * it: the CSS tier folds this layer into its one `rgba()`, and the foreground
+ * decision has to be taken against the material the surface actually shows. A
+ * second implementation is how those two drift, so there is one, here.
+ */
+export function tintShade(
+  materialLuminance: number,
+  grip: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const u = Math.min(1, Math.max(0, materialLuminance));
+  const shade = Math.min(1, Math.max(0, profile.tintShadeDark + (profile.tintShadeLight - profile.tintShadeDark) * u));
+  const k = Math.min(1, Math.max(0, grip));
+  return 1 + (shade - 1) * k;
+}
+
+/** The opaque layer an author tint paints: the seed at its shade, linear light. */
+export function tintShadeLayer(
+  seed: Rgb,
+  materialLuminance: number,
+  grip: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): Rgb {
+  const shade = tintShade(materialLuminance, grip, profile);
+  const chroma = Math.min(1, Math.max(0, profile.tintChromaScale ?? 1));
+  if (chroma === 1) return [seed[0] * shade, seed[1] * shade, seed[2] * shade];
+  const neutral = Math.max(...seed);
+  return [
+    (neutral + (seed[0] - neutral) * chroma) * shade,
+    (neutral + (seed[1] - neutral) * chroma) * shade,
+    (neutral + (seed[2] - neutral) * chroma) * shade,
+  ];
+}
+
+/**
+ * The tinted material's colour once the author's layer composites over it.
+ *
+ * The layer is opaque and lands at the AUTHOR's opacity (`strength`), in the
+ * encoded space — a `CALayer` with `opacity` over the material, which is how the
+ * reference's half-strength cell measures (claims §5.36 finding 3). `material`
+ * is the untinted composite at this pixel, linear; the result is linear too.
+ * At strength 0 the material is returned untouched, so an untinted surface is
+ * byte-identical to before this axis existed.
+ */
+export function tintedMaterialColour(
+  material: Rgb,
+  tint: { readonly color: Rgb; readonly strength: number } | undefined,
+  grip: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): Rgb {
+  if (tint === undefined || tint.strength <= 0) return material;
+  const s = Math.min(1, Math.max(0, tint.strength));
+  const layer = tintShadeLayer(tint.color, relativeLuminance(material), grip, profile);
+  const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
+  const channel = (index: 0 | 1 | 2): number => {
+    const from = linearToSrgbChannel(clamp01(material[index]));
+    const to = linearToSrgbChannel(clamp01(layer[index]));
+    return srgbToLinearChannel(from + (to - from) * s);
+  };
+  return [channel(0), channel(1), channel(2)];
+}
+
+/**
+ * **Backdrop tone adaptation, the curve** — how far this surface's tint is pulled
+ * onto the backdrop it is looking at, 0…1, before any accessibility fold.
+ *
+ * `thickness` is the size law's own factor (`sizeThickness`), and it enters the
+ * curve's argument rather than scaling its result: a thicker surface reads its
+ * backdrop as brighter than it is, so it holds its own appearance longer. See
+ * `MaterialProfile.backdropToneSizeBias` for the measurement that shape came from.
+ *
+ * Exported for the same reason `tintTone` is: the CSS tier evaluates it at one
+ * backdrop level, the foreground decision has to be taken against the material the
+ * surface actually shows, and `WGSL_OPTICS_PASS` mirrors it per pixel. One curve,
+ * three consumers, no second implementation.
+ */
+export function backdropToneAdaptation(
+  backdropLuminance: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const x = backdropLuminance + profile.backdropToneSizeBias * Math.min(1, Math.max(0, thickness));
+  const span = Math.max(profile.backdropToneHigh - profile.backdropToneLow, 1e-6);
+  const t = Math.min(1, Math.max(0, (x - profile.backdropToneLow) / span));
+  return Math.min(1, Math.max(0, profile.backdropToneMax)) * (1 - t * t * (3 - 2 * t));
+}
+
+/**
+ * How much of the backdrop adaptation survives an accessibility regime.
+ *
+ * Two folds, each with its own reason, and the product is what the material gets.
+ *
+ * `ambientTint` is the axis the wave's composition contract names for "how far
+ * the material may move its colour", and it is what carries increased contrast
+ * (narrowed toward the scheme's own neutral) and forced colours (no material to
+ * adapt — the optics pass stands down before it reaches here).
+ *
+ * The refraction ladder read at the **accessibility cap** carries reduced
+ * transparency, which touches no tint axis at all and would otherwise get the
+ * adaptation at full strength — and adaptation at full strength dissolves the
+ * surface into its backdrop, which is precisely the occlusion that preference
+ * asked to be *raised*. A policy has to win against a material law, so it does.
+ * The same cap, for the same reason, that `sizeThicknessUnderPolicy` reads.
+ *
+ * Deliberately unmeasured rather than fitted: neither accessibility profile's
+ * scene set contains a backdrop dark enough for this axis to act on, so the fold
+ * is a statement about which way to be wrong, not a number the bed chose. It is
+ * named in the claims doc with the capture that would close it.
+ */
+export function backdropToneUnderPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return tintToneAdaptation(policy, profile) * profile.refractionScale[accessibilityRefractionCap(policy)];
+}
+
+/**
+ * The size bias to hand a consumer that will multiply it by a **policy-folded**
+ * thickness (`sizeThicknessUnderPolicy`) — the shader and the CSS tier both do.
+ *
+ * The gate is geometric: it says how much material stands between the viewer and
+ * the backdrop, which no preference changes. But there is one thickness in the
+ * pipeline and it is the folded one (it rides `aux.z` through the field pass's
+ * union, and widening `aux` for a second copy of the same quantity would be a
+ * per-pixel channel spent on arithmetic). Dividing the bias by the same cap
+ * restores the geometric product exactly: `bias' * thickness_folded ===
+ * bias * thickness_raw`, pinned as a test rather than promised here.
+ *
+ * At `cap = none` the fold above is already 0, so the adaptation is off and the
+ * bias is not read; 0 is returned rather than an infinity.
+ */
+export function backdropToneSizeBiasUnderPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const cap = profile.refractionScale[accessibilityRefractionCap(policy)];
+  return cap <= 0 ? 0 : profile.backdropToneSizeBias / cap;
+}
+
+/**
+ * The neutral tint after the backdrop has had its say — step two of the wave's
+ * composition contract (colour scheme → **backdrop adaptation** → author tint).
+ *
+ * `backdrop` is the **averaged** light the surface's body transmits, not one
+ * pixel's lens-displaced sample: a fully adapted material shows its backdrop's
+ * tone, and a tone is a mean. Over a flat backdrop the two are the same value and
+ * the surface disappears into it exactly, which is what the reference's capsule
+ * over `dark-solid` does — byte-identical to its own background.
+ */
+export function adaptedTintColour(
+  neutral: Rgb,
+  backdrop: Rgb,
+  adaptation: number,
+  tintAlpha: number,
+): Rgb {
+  const k = Math.min(1, Math.max(0, adaptation));
+  if (k === 0) return neutral;
+  // The pair (colour, alpha) that makes the interior composite CONVERGE on the
+  // backdrop's tone: mix(mix(b, T, α), M, k) === mix(b, T', α') exactly, with α'
+  // from `adaptedTintAlpha`. Solving it here rather than lerping the two
+  // parameters separately is the difference between an adaptation and a
+  // brightening — a lerped alpha over a still-mostly-neutral tint makes a
+  // partially adapted surface *lighter* than the one it started from, which the
+  // 96 px cells caught immediately (interior 0.4545 → 0.5179 against a reference
+  // of 0.4542).
+  const alpha = adaptedTintAlpha(tintAlpha, k);
+  if (alpha <= 0) return neutral;
+  const wNeutral = (1 - k) * tintAlpha;
+  return [
+    (neutral[0] * wNeutral + backdrop[0] * k) / alpha,
+    (neutral[1] * wNeutral + backdrop[1] * k) / alpha,
+    (neutral[2] * wNeutral + backdrop[2] * k) / alpha,
+  ];
+}
+
+/**
+ * The material's occlusion once the backdrop has had its say — the second half of
+ * the adaptation, and the half a cross-tier measurement forced.
+ *
+ * An adapting material does not merely take its backdrop's colour, it stops
+ * transmitting: the settled reference's capsule over the `impulse` backdrop is a
+ * flat body at its backdrop's own mean, with the impulse grid *hidden* behind it
+ * (interior standard deviation 0.0008 against the backdrop's 0.056), not a
+ * transparent pane showing it through.
+ *
+ * Adapting the colour alone made the material fully transparent at full strength,
+ * and that is where the two tiers part company: this one blurs its backdrop in
+ * linear light and the CSS tier's `backdrop-filter` blurs in the encoded space, so
+ * over a high-dynamic-range backdrop a transparent material renders *different
+ * pixels* on the two tiers by construction. Measured on that cell, GPU over CSS
+ * interior ratio 23.5 against a gated band of 0.80…1.25 — a hard failure of the
+ * cross-tier bound, and the reason this exists. A material that shows its
+ * backdrop's mean is a colour, and a colour is tier-independent.
+ *
+ * The same "fraction of what is left" shape as `increasedOcclusionLift`, and for
+ * the same reason: it lifts strictly for every nominal below 1, whatever a later
+ * tuning pass moves nominal to.
+ *
+ * This is the one place a colour axis reaches the alpha, and it is not an
+ * exception to the composition contract's rule that an author's tint may not:
+ * that rule is about an *author's* choice not moving the material's occlusion.
+ * This is the material's own response to its surroundings, which is what the
+ * occlusion axis is for.
+ */
+export function adaptedTintAlpha(tintAlpha: number, adaptation: number): number {
+  const k = Math.min(1, Math.max(0, adaptation));
+  return tintAlpha + k * (1 - tintAlpha);
+}
+
+const smoothstep = (edge0: number, edge1: number, x: number): number => {
+  if (edge1 <= edge0) return x < edge0 ? 0 : 1;
+  const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
+  return t * t * (3 - 2 * t);
+};
+
+/**
+ * **The size law's one input**: how thick a surface of this span reads, 0…1.
+ *
+ * Every thickness-derived facet is a gain on this number and on nothing else —
+ * see `MaterialProfile.sizeSpanMin`. Exactly 0 at or below `sizeSpanMin`, so the
+ * whole law is inert on a small control, and exactly 1 at or above `sizeSpanMax`,
+ * so nothing keeps growing off the end of the canonical range.
+ *
+ * Mirrored by `@vitreajs/vitrea-web`'s `sizeThickness`, pinned in both directions
+ * by `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export function sizeThickness(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return smoothstep(profile.sizeSpanMin, profile.sizeSpanMax, spanPx);
+}
+
+/**
+ * The backdrop tone response `R(encodedInput, thickness)` (W9) — the settled
+ * interior level the reference shows over a backdrop whose ENCODED-space mean
+ * is `encodedInput`, for a surface of the given (unfolded) thickness. See
+ * `MaterialProfile.backdropToneAnchorX` for what the anchors are and where the
+ * law's authority ends.
+ *
+ * Monotone (Fritsch–Carlson) interpolation through the three anchors, clamped
+ * to their span; smoothstep between the thin and thick rows. Mirrored by
+ * `@vitreajs/vitrea-web` and by the optics shader, pinned by
+ * `tier-coherence.test.ts`.
+ */
+export function backdropToneResponse(
+  encodedInput: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  levelFar = 0,
+): number {
+  const xs = profile.backdropToneAnchorX;
+  const f = smoothstep(0, 1, thickness);
+  const ys = [0, 1, 2].map(
+    (i) =>
+      (profile.backdropToneResponseThin[i] ?? 0) +
+      ((profile.backdropToneResponseThick[i] ?? 0) - (profile.backdropToneResponseThin[i] ?? 0)) *
+        f,
+  ) as [number, number, number];
+
+  let x: number, h: number, t: number, y0: number, y1: number, s0: number, s1: number;
+  if (xs.length === 3) {
+    // Kept as the original arithmetic, not routed through the four-knot branch:
+    // every existing three-knot document must resolve and render bit-identically.
+    x = Math.min(xs[2], Math.max(xs[0], encodedInput));
+    const h0 = xs[1] - xs[0];
+    const h1 = xs[2] - xs[1];
+    const d0 = (ys[1] - ys[0]) / h0;
+    const d1 = (ys[2] - ys[1]) / h1;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const seg = x <= xs[1] ? 0 : 1;
+    h = seg === 0 ? h0 : h1;
+    t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
+    y0 = seg === 0 ? ys[0] : ys[1];
+    y1 = seg === 0 ? ys[1] : ys[2];
+    s0 = seg === 0 ? d0 : m1;
+    s1 = seg === 0 ? m1 : d1;
+  } else {
+    const ys4 = [ys[0], ys[1], ys[2],
+      profile.backdropToneResponseThin[3]!
+      + (profile.backdropToneResponseThick[3]! - profile.backdropToneResponseThin[3]!) * f,
+    ] as const;
+    x = Math.min(xs[3], Math.max(xs[0], encodedInput));
+    const h0 = xs[1] - xs[0], h1 = xs[2] - xs[1], h2 = xs[3] - xs[2];
+    const d0 = (ys4[1] - ys4[0]) / h0;
+    const d1 = (ys4[2] - ys4[1]) / h1;
+    const d2 = (ys4[3] - ys4[2]) / h2;
+    const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+    const m2 = d1 * d2 <= 0 ? 0 : (2 * d1 * d2) / (d1 + d2);
+    const seg = x <= xs[1] ? 0 : x <= xs[2] ? 1 : 2;
+    const hs = [h0, h1, h2] as const;
+    const slopes = [d0, m1, m2, d2] as const;
+    h = hs[seg]!;
+    t = (x - xs[seg]!) / h;
+    y0 = ys4[seg]!;
+    y1 = ys4[seg + 1]!;
+    s0 = slopes[seg]!;
+    s1 = slopes[seg + 1]!;
+  }
+  // `levelFar` is W25's level term above the thickness knee (claims §5.113; W25
+  // Decision Log 3 (b)) — an OFFSET on the settled level this curve returns, in
+  // the curve's own encoded units, and not a continuation of its thin-to-thick
+  // blend. The rows chose the shape: see `MaterialProfile.sizeToneLevelFar`.
+  // It is 0 at and below span 96 by the shape of its span curve, and 0 at every
+  // span on the landed material.
+  const response = (
+    y0 * (1 + 2 * t) * (1 - t) * (1 - t) +
+    s0 * h * t * (1 - t) * (1 - t) +
+    y1 * t * t * (3 - 2 * t) +
+    s1 * h * t * t * (t - 1)
+    + levelFar
+  );
+  const black = backdropToneBlackWeight(encodedInput, profile);
+  if (black === 0) return response;
+  const level = profile.backdropToneBlackThin +
+    (profile.backdropToneBlackThick - profile.backdropToneBlackThin) * f;
+  return response + (level - response) * black;
+}
+
+/** W36's compact support, below every admitted canonical impulse input (§5.179). */
+export const BACKDROP_TONE_BLACK_JOIN = 0.003;
+
+/** Gate zero and the identified domain take the old arithmetic without a blend. */
+export function backdropToneBlackWeight(encodedInput: number, profile: MaterialProfile): number {
+  if (profile.backdropToneBlackStrength <= 0 || encodedInput >= BACKDROP_TONE_BLACK_JOIN) return 0;
+  return Math.min(1, Math.max(0, profile.backdropToneBlackStrength)) *
+    (1 - smoothstep(0, BACKDROP_TONE_BLACK_JOIN, encodedInput));
+}
+
+/**
+ * How much authority the response law has at this input, 0…1 (W9).
+ *
+ * At the default identity: full on its measured domain (the dark anchor upward), fading to zero over
+ * the dark anchor's own lower half — below it the only evidence is
+ * `impulse__rrect-md`, which the collapse constants were fitted on and the
+ * response surface would contradict. Derived from the anchor, not a constant.
+ * W36's selected black branch restores authority only within its separate support;
+ * the fade and every old response slope remain unchanged at and above that join.
+ */
+export function backdropToneSolveWeight(
+  encodedInput: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const anchor = profile.backdropToneAnchorX[0];
+  const authority = smoothstep(anchor * 0.5, anchor, encodedInput);
+  const black = backdropToneBlackWeight(encodedInput, profile);
+  return black === 0 ? authority : authority + (1 - authority) * black;
+}
+
+/**
+ * The size law under an accessibility regime — the fold every other optic gets,
+ * and the law does not get to skip it.
+ *
+ * **MEASURED (W2), and it was measured the hard way.** The law was first landed
+ * unfolded, and the regeneration caught it: under both accessibility profiles the
+ * large-span cells' ΔE p95 rose past their adopted bounds while every
+ * light-standard cell improved. The reason is legible in the reference. Under
+ * reduce-transparency Apple's material is nearly opaque and its interior level is
+ * *flat* in span (0.9465 at a 44 px span, 0.9526 at 96), where in the standard
+ * profile it is not — so a size term that deepens the material's own shadow is
+ * modelling something the accessibility reference does not do, and vitrea's
+ * accessibility fold already under-occludes against it (W1's Surprise), so the
+ * extra depth compounds an error instead of closing one.
+ *
+ * The scale is the profile's own refraction ladder rather than a new constant,
+ * read at the **accessibility** cap alone: 1 nominal, 0.45 reduced, 0 none. That
+ * is the number that already means "how much depth this preference allows", and
+ * the law is nothing but a depth simulation. Deliberately not the *resolved* cap,
+ * which also carries the group's sampling capability — a group demoted to a CSS
+ * proxy should still look as thick as it is, because being demoted is not a
+ * statement about the material.
+ *
+ * One consequence, stated rather than hidden: the lens displacement is scaled by
+ * `refractionScale` again in the shader, so under a reduced regime the size
+ * gain's contribution to it is scaled twice. That is the safe direction — a
+ * preference asking for less refraction gets less — and the base thickness, which
+ * is most of the depth, is scaled exactly once.
+ */
+export function sizeThicknessUnderPolicy(
+  spanPx: number,
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return (
+    sizeThickness(spanPx, profile) * profile.refractionScale[accessibilityRefractionCap(policy)]
+  );
+}
+
+/**
+ * The inner shadow's size gain — see `MaterialProfile.lensSizeGainMax`. The
+ * name is the constant's; the lens has read its own law since W12 G2.
+ */
+export function lensSizeGain(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return 1 + (profile.lensSizeGainMax - 1) * sizeThickness(spanPx, profile);
+}
+
+/** `lensSizeGain` for a surface whose thickness factor the policy has already folded. */
+export function lensSizeGainFromThickness(
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return 1 + (profile.lensSizeGainMax - 1) * thickness;
+}
+
+/**
+ * The inner shadow's depth in CSS px — the law the lens ran on until W12 G2,
+ * kept for the occlusion exactly as it was: the thickness times the size gain,
+ * clamped to the shorter half extent. `thickness` here is the policy-folded
+ * factor (`sizeThicknessUnderPolicy`), as the shader's `sizeK` is.
+ */
+export function shadowDepthPx(
+  thicknessPx: number,
+  spanPx: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(
+    Math.max(thicknessPx, 0) * lensSizeGainFromThickness(thickness, profile),
+    spanPx * 0.5,
+  );
+}
+
+/** The reference's inner refraction height for a span: `min(lensHeightPerSpan · span, lensHeightMax)`. */
+export function lensHeightBasePx(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(profile.lensHeightPerSpan * Math.max(spanPx, 0), profile.lensHeightMax);
+}
+
+/** The reference's inner refraction amount for a span: `min(lensAmountPerSpan · span, lensAmountMax)`. */
+export function lensAmountBasePx(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(profile.lensAmountPerSpan * Math.max(spanPx, 0), profile.lensAmountMax);
+}
+
+/**
+ * The lens's ovalization for a span (W12 G2): `lensOvalization` on a thick
+ * surface, 0 on a thin one, a smoothstep over the reference's knee between.
+ */
+export function lensOvalizationAt(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return profile.lensOvalization * smoothstep(profile.lensOvalizationSpanMin, profile.lensOvalizationSpanMax, spanPx);
+}
+
+/**
+ * The lens's magnitude at the contour, in CSS px (W12 G2): the reference's
+ * amount law scaled by the author's thickness and by `lensRefractionGain`,
+ * under the same accessibility fold and half-extent clamp the depth takes —
+ * see `lensDepthPx`. 44.7 at saturation on the default thickness.
+ */
+export function lensMagnitudePx(
+  thicknessPx: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
+): number {
+  const thick = Math.max(thicknessPx, 0);
+  if (thick <= 0) return 0;
+  const scale = thick / profile.lensThicknessReference;
+  // The height and the amount are scaled together; a clamped depth scales the
+  // amount by the same ratio so the profile's shape survives the clamp.
+  const unclamped = thick + (lensHeightBasePx(spanPx, profile) * scale - thick) * fold;
+  const depth = lensDepthPx(thicknessPx, spanPx, profile, fold);
+  const amount = thick + (lensAmountBasePx(spanPx, profile) * scale - thick) * fold;
+  return profile.lensRefractionGain * amount * (unclamped > 0 ? depth / unclamped : 0);
+}
+
+/** The lens profile's extent: D reaches zero `lensExtentGain` lens depths in. */
+export function lensExtentPx(
+  thicknessPx: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
+): number {
+  return profile.lensExtentGain * lensDepthPx(thicknessPx, spanPx, profile, fold);
+}
+
+/**
+ * The direction the lens displaces along at a pixel (W12 G2): the gradient of
+ * the blended field `(1 − ω)·d_rrect + ω·d_oval`, where `d_oval` is the signed
+ * distance of the ellipse inscribed in the surface's box —
+ * `min(a, b)·(√((x/a)² + (y/b)²) − 1)` — and the rounded rectangle's gradient is
+ * the field pass's unit normal. `offset` is the pixel relative to the surface's
+ * centre and `half` the half-extents, both in CSS px. Returns a unit vector;
+ * the shader's arithmetic, on the CPU for the tests.
+ */
+export function lensDirection(
+  normal: readonly [number, number],
+  offset: readonly [number, number],
+  half: readonly [number, number],
+  ovalization: number,
+): [number, number] {
+  const a = Math.max(half[0], 1e-6);
+  const b = Math.max(half[1], 1e-6);
+  const ex = offset[0] / (a * a);
+  const ey = offset[1] / (b * b);
+  const r = Math.max(Math.hypot(offset[0] / a, offset[1] / b), 1e-6);
+  const scale = Math.min(a, b) / r;
+  const gx = (1 - ovalization) * normal[0] + ovalization * ex * scale;
+  const gy = (1 - ovalization) * normal[1] + ovalization * ey * scale;
+  const len = Math.hypot(gx, gy);
+  return len > 1e-9 ? [gx / len, gy / len] : [normal[0], normal[1]];
+}
+
+/**
+ * The body blur σ a surface of this span actually runs at — the scattering facet.
+ *
+ * One function for both tiers, which is what stops them scattering differently:
+ * `platform-web` calls its mirror of this to write `blur()`, and this package
+ * calls it to derive the chain level the optics pass lerps its body sample
+ * toward. It is also what a group's `samplingPadding` floor must be taken over —
+ * a wider blur needs a wider proxy, and the group's floor is set by its *largest*
+ * member (S1's 3σ rule, applied to the σ the material will really use).
+ *
+ * `devicePixelRatio` reaches the ramp's projection — the ramp's start and reach
+ * and, since W15 G1, the deep value's floor and span top are per-scale
+ * constants — and the heavy width's gain, but never the width itself, which is
+ * CSS px at every scale in this shared projection (see `sizeScatterSigmaAt`).
+ * It defaults to 1, where the whole expression is the 1x law.
+ *
+ * The span reaches the gain as well as the mix since W15 G1's re-form (claims
+ * §5.70 §4 and §7): the reference's heavy kernel grows with the span, so this
+ * hands `spanPx` on to `sizeScatterSigmaAt`. At dpr ≤ 1 that grading is flat and
+ * the σ is what it always was.
+ */
+export function sizeScatterSigma(
+  sigmaPx: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
+): number {
+  return sizeScatterSigmaAt(
+    sigmaPx,
+    scatterThickness(spanPx, 1, profile, devicePixelRatio, extentsCssPx),
+    profile,
+    devicePixelRatio,
+    spanPx,
+  );
+}
+
+/**
+ * **The depth ramp's start at a device scale and a span** — s₀(span, dpr), the
+ * sharp component's share at the contour (W13 G1, claims §5.61 §2, §5.64 §5).
+ *
+ * ```
+ * s₀(span, dpr) = startThin(dpr) + (startThick(dpr) − startThin(dpr)) · sizeThickness(span)
+ * ```
+ *
+ * Two gradings, and they are different quantities. **In dpr**: the reference
+ * was read at dpr 1 and dpr 2 and nowhere between, so each anchor is
+ * interpolated linearly between its two readings and held outside [1, 2],
+ * because an extrapolation of a two-point fit past its own anchors would be an
+ * invention rather than a measurement. **In span**: G0 read the start much
+ * higher on the thin surfaces than on the thick ones, and the curve it grades
+ * along is `sizeThickness` — the material's existing knee at 64, not a new
+ * statistic. A single start per scale was the second form and its sweep refuted
+ * it (claims §5.64 §2). And past that knee the start keeps FALLING, along the
+ * scatter facet's own curve to `far` at `sizeScatterSpanMax` — the fourth form,
+ * from the third's one holdout failure (claims §5.67 §4).
+ *
+ * `scatterRampReachDevicePx` carries the dpr rule on the reach; the two are
+ * separate functions so a sweep can move one without the other, and the reach
+ * has no span grading because it measured as one length (§5.61 §2).
+ */
+export function scatterRampStart(
+  devicePixelRatio: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  spanPx = 0,
+): number {
+  const thin = rampAtScale(
+    profile.sizeScatterRampStartThin1x,
+    profile.sizeScatterRampStartThin2x,
+    devicePixelRatio,
+  );
+  const thick = rampAtScale(
+    profile.sizeScatterRampStartThick1x,
+    profile.sizeScatterRampStartThick2x,
+    devicePixelRatio,
+  );
+  const far = rampAtScale(
+    profile.sizeScatterRampStartFar1x,
+    profile.sizeScatterRampStartFar2x,
+    devicePixelRatio,
+  );
+  // The fourth form (W13 Decision Log 6): past the thickness knee the start keeps
+  // falling along the scatter facet's own curve, from the thick anchor at
+  // `sizeSpanMax` to `far` at `sizeScatterSpanMax`. Same curve the deep value
+  // rises along, so the two are one span statistic read twice.
+  const decline = smoothstep(
+    profile.sizeSpanMax,
+    scatterSpanMaxAtScale(profile, devicePixelRatio),
+    spanPx,
+  );
+  return thin + (thick - thin) * sizeThickness(spanPx, profile) + (far - thick) * decline;
+}
+
+/**
+ * **The depth ramp's reach at a device scale**, in DEVICE px — U(dpr), the depth
+ * at which the sharp share would reach zero if it started at 1 (W13 G1).
+ *
+ * In device pixels because that is how it measured: the per-span reaches in
+ * absolute depth spread by 1.3× where the reaches as a fraction of the half-span
+ * spread by 2.2×, and between the two scales the length roughly halves in CSS px
+ * — one length in device pixels fits both beds where one in CSS px does not
+ * (claims §5.61 §2). Callers working in CSS px divide by the same dpr.
+ */
+export function scatterRampReachDevicePx(
+  devicePixelRatio: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return rampAtScale(
+    profile.sizeScatterRampReach1xPx,
+    profile.sizeScatterRampReach2xPx,
+    devicePixelRatio,
+  );
+}
+
+/**
+ * Linear in dpr between the 1x and 2x anchors, held outside [1, 2]. The two
+ * anchors are returned exactly rather than through the interpolation, because
+ * they are the values the reference was measured at and a profile that names
+ * one should render it, not a float one ulp away from it.
+ */
+function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): number {
+  const t = devicePixelRatio - 1;
+  if (t <= 0) return at1x;
+  if (t >= 1) return at2x;
+  return at1x + (at2x - at1x) * t;
+}
+
+/**
+ * **The rim band's half-width at a device scale** (W23 G1, claims §5.100 §5;
+ * W23 Decision Log 2 (d)).
+ *
+ * The rim's amplitude is one law for both scales and its band is not: read at
+ * the contour, vitrea's per-CSS-px band integral rises 19 % between 1x and 2x
+ * while the reference's falls 10 %, and no amplitude constant can absorb a
+ * mismatch that is across the scale axis. So the band takes a second anchor at
+ * dpr 2 through the same `rampAtScale` the body's second-scale constants use,
+ * and at dpr ≤ 1 it returns `rimWidth` exactly — a variant whose two anchors
+ * are equal renders identically at every ratio, which is what the `clear`
+ * variant and the strong-border rim both do.
+ */
+export function rimWidthAtScale(optics: MaterialOptics, devicePixelRatio = 1): number {
+  return rampAtScale(optics.rimWidth, optics.rimWidth2x, devicePixelRatio);
+}
+
+/**
+ * **The heavy width's gain at a device scale** (W15 G1, claims §5.69 §1).
+ *
+ * The gain multiplies the sharp width to give the heavy component's σ, and the
+ * reference's heavy component is a different width at 2x than the 1x gain of 8
+ * makes it once the sharp width is read in device pixels. Interpolated by
+ * `rampAtScale`, so a profile that names only the 1x gain returns it at every
+ * ratio and this function is the identity on the landed material.
+ */
+/**
+ * **The collapse's transmission at a device scale** (W24 G1).
+ *
+ * Interpolated by `rampAtScale`, so a profile that names only the 1x constant
+ * returns it at every ratio and this function is the identity on the landed
+ * material — where both anchors are 0 and the collapse is W7's to the bit.
+ */
+export function collapseTransmissionAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(
+    profile.collapseTransmission,
+    profile.collapseTransmission2x,
+    devicePixelRatio,
+  );
+}
+
+export function scatterGainAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeScatterGainMax, profile.sizeScatterGainMax2x, devicePixelRatio);
+}
+
+/**
+ * **The heavy width's gain at the top of the scatter span curve, at a device
+ * scale** (W15 G1's re-form, claims §5.70 §4 and §7).
+ *
+ * The far end of `scatterGainAt`'s span grading. Interpolated from
+ * `sizeScatterGainMax` — the 1x gain — rather than from the 2x one, which is
+ * what makes the whole grading inert at dpr 1: there the far gain and the base
+ * gain are the same number, so the curve between them is flat whatever
+ * `sizeScatterGainFar2x` says.
+ */
+export function scatterGainFarAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeScatterGainMax, profile.sizeScatterGainFar2x, devicePixelRatio);
+}
+
+/**
+ * **The heavy width's gain at a span and a device scale** (W15 G1's re-form,
+ * claims §5.70 §4 and §7) — the width law the body's heavy component actually
+ * runs at.
+ *
+ * ```
+ * gain(span, dpr) = gainAtScale(dpr)
+ *                 + (gainFar(dpr) − gainAtScale(dpr))
+ *                   · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+ * ```
+ *
+ * The reference's heavy kernel GROWS with the span — 8.0 / 7.5 / 8.0 / 9.0 /
+ * 11.0 device px across the bed (claims §5.69 §1) — and W15 G1's first landing
+ * carried one number for it, which left the largest span's deep interior 40%
+ * too structured (§5.70 §4). The curve the gain grades along is the one the
+ * fourth form's far anchor already declines along, from `sizeSpanMax` to
+ * `sizeScatterSpanMax` at scale, so the width and the ramp's start are one span
+ * statistic read twice and no new knee enters the material.
+ *
+ * At dpr ≤ 1 both ends are `sizeScatterGainMax` and this is that constant at
+ * every span, which is the binding rule of the wave expressed as arithmetic.
+ */
+export function scatterGainAt(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  const near = scatterGainAtScale(profile, devicePixelRatio);
+  const far = scatterGainFarAtScale(profile, devicePixelRatio);
+  if (far === near) return near;
+  return (
+    near
+    + (far - near)
+      * smoothstep(
+        profile.sizeSpanMax,
+        scatterSpanMaxAtScale(profile, devicePixelRatio),
+        spanPx,
+      )
+  );
+}
+
+/**
+ * **The scatter facet's frost at a device scale** (W15 G1, claims §5.69 §2) —
+ * the deep value's floor, and the value the whole facet folds to.
+ *
+ * One function rather than two reads of the profile, because the floor is read
+ * in three places that must agree: the deep curve below, the fold in
+ * `scatterThickness`, and the uniform the shader takes for both.
+ */
+export function scatterFloorAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return clampUnit(
+    rampAtScale(profile.sizeScatterFloor, profile.sizeScatterFloor2x, devicePixelRatio),
+  );
+}
+
+/**
+ * **The deep value's span top at a device scale** (W15 G1, claims §5.69 §2) —
+ * the span at which the deep value reaches 1, fully heavy.
+ *
+ * It is one span statistic read twice, here as at 1x: the deep curve rises to
+ * it and the ramp's start declines to `far` along the same smoothstep, so a
+ * sweep that moves the top at 2x moves both together, which is the relation the
+ * fourth form was built on (`scatterRampStart`).
+ */
+export function scatterSpanMaxAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeScatterSpanMax, profile.sizeScatterSpanMax2x, devicePixelRatio);
+}
+
+/**
+ * **The span law that supplies the ramp's deep value** — kDeep(span), the heavy
+ * share the body mixes by everywhere deeper than the ramp's reach (W11c G1,
+ * claims §5.41; kept underneath the ramp by W13 G1).
+ *
+ * `sizeScatterFloor` + (1 − floor) · smoothstep(`sizeSpanMin`,
+ * `sizeScatterSpanMax`, span), unfolded — exactly the curve W11c fitted and W12
+ * landed. The accessibility fold is applied once, by `scatterThickness` and by
+ * the shader, on the whole mix rather than on this term alone.
+ *
+ * `devicePixelRatio` reaches the floor and the span top, which are per-scale
+ * constants since W15 G1 (claims §5.69 §2: the reference's 2x deep interior is
+ * fully heavy on the two largest spans where this curve leaves a sharp share of
+ * 0.24–0.36). It defaults to 1, where the whole expression is the 1x law, and
+ * the two anchors are equal on the landed material, so every ratio returns that
+ * law until the sweep fits the second scale.
+ */
+export function scatterDeepThickness(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  const floor = scatterFloorAtScale(profile, devicePixelRatio);
+  // W25's share law (claims §5.113; W25 Decision Log 3 (a)): the thick end's lift
+  // on the material's OWN thin/thick curve, added to the W11c span curve rather
+  // than replacing it. `sizeThickness` is exactly 0 at and below `sizeSpanMin`,
+  // so the thin controls are bit-identical whatever the lift says, and at 0 the
+  // whole term is one multiplication by zero — see
+  // `MaterialProfile.sizeScatterHeavyShareThick1x` for why the thin end stays.
+  const lift =
+    scatterHeavyShareThickAtScale(profile, devicePixelRatio) * sizeThickness(spanPx, profile);
+  return clampUnit(
+    floor
+    + (1 - floor)
+      * smoothstep(profile.sizeSpanMin, scatterSpanMaxAtScale(profile, devicePixelRatio), spanPx)
+    + lift,
+  );
+}
+
+/**
+ * **The heavy share's thick-end lift at a device scale** (W25; claims §5.113).
+ *
+ * Interpolated by `rampAtScale`, so a profile that names only the 1x lift
+ * returns it at every ratio, and on the landed material both anchors are 0 and
+ * this is the constant zero — which is what makes the whole mechanism inert
+ * before G3 declares the fit.
+ */
+export function scatterHeavyShareThickAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(
+    profile.sizeScatterHeavyShareThick1x,
+    profile.sizeScatterHeavyShareThick2x,
+    devicePixelRatio,
+  );
+}
+
+/**
+ * **The heavy blur's Gaussian σ at a device scale, in device px** (W26) — the
+ * one constant of `MaterialProfile.sizeHeavyTapSigma`, resolved per scale.
+ *
+ * Per scale because the reference's heavy component is a device-px quantity whose
+ * two readings do not halve into each other (19.52 at 1x, 11.29 at 2x; claims
+ * §5.113 §2), so one number cannot serve both. Interpolated by `rampAtScale` on
+ * the pattern `sizeScatterGainMax2x` established, which means a profile naming
+ * only the 1x σ drags the 2x end toward the 2x constant's own default — so a
+ * document that means both names both.
+ *
+ * **On the landed material both anchors are 9** (W26; claims §5.122 §4), so this
+ * is the constant 9 device px at every ratio and the ramp between the anchors is
+ * flat. That the two scales agree is a reading and not a simplification: the
+ * family reader asks 9.48 / 8.63 / 9.19 at dpr 1 and 8.13 / 9.79 / 8.37 at dpr 2,
+ * and one number is within 11 % of every one of the six. It stays a per-scale pair
+ * because the two scales are separately measured and separately movable — the two
+ * off-diagonal rungs of W26 G1c's ladder read each scale's anchor and nothing of
+ * the other's — not because they happen to be equal today.
+ */
+export function heavyTapSigmaAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeHeavyTapSigma, profile.sizeHeavyTapSigma2x, devicePixelRatio);
+}
+
+/**
+ * **The SECOND heavy blur's Gaussian σ at a device scale, in CSS px** (W30 G2) —
+ * the width of `MaterialProfile.sizeHeavySecondSigma`, resolved per scale by
+ * `heavyTapSigmaAtScale`'s own `rampAtScale`, and **zero wherever the share that
+ * gates it is zero**.
+ *
+ * The gate is in here rather than at every caller so that the mechanism has
+ * exactly one off condition: the pyramid asks this function for a width, gets 0
+ * where the material declines the operator, and allocates nothing. A profile
+ * that names a width and leaves `sizeHeavySecondShare` at 0 therefore gets
+ * nothing, which is deliberate — a width is not a switch, and W26 Decision Log
+ * 6 (c) records what happens when a near-zero width is read as one.
+ *
+ * In CSS px rather than device px because the second tap is a difference from the
+ * first at a scale the fit chooses, and nothing yet says its two readings fail to
+ * halve into each other the way `sizeHeavyTapSigma`'s do; §5.159 records what the
+ * ladder says when it is fitted. The pyramid converts to source texels with the
+ * placed density, exactly as it does for the body and the first heavy tap.
+ */
+export function heavySecondTapSigmaAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  if (profile.sizeHeavySecondShare === 0) return 0;
+  return rampAtScale(
+    profile.sizeHeavySecondSigma,
+    profile.sizeHeavySecondSigma2x,
+    devicePixelRatio,
+  );
+}
+
+/**
+ * **The level term above the thickness knee** (W25; claims §5.113, W25 Decision
+ * Log 3 (b)) — the offset on the settled interior level a surface of this span
+ * takes, in the tone response's own encoded units, resolved at a device scale.
+ *
+ * `sizeToneLevelFar · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)`,
+ * which is **exactly 0 at and below `sizeSpanMax`** at every value of the
+ * constant — a smoothstep is zero at and below its own low edge — so nothing at
+ * or under span 96 can move on this term. The curve is the one the ramp's far
+ * anchor declines along and the 2x heavy gain rises along, so the wave adds no
+ * new span statistic. `fold` is the accessibility fold the response it offsets
+ * already takes.
+ */
+export function sizeToneLevelFar(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  fold = 1,
+): number {
+  return (
+    profile.sizeToneLevelFar
+    * smoothstep(profile.sizeSpanMax, scatterSpanMaxAtScale(profile, devicePixelRatio), spanPx)
+    * fold
+  );
+}
+
+/**
+ * **The along-side position field** (W25; claims §5.113, W25 Decision Log 3 (c))
+ * — the surface's own normalised diagonal coordinate at a pixel, +1 at the
+ * top-left and bottom-right corners and −1 at the other two, 0 on both axes
+ * through the centre.
+ *
+ * `offset` is the pixel relative to the surface's centre and `half` its
+ * half-extents, both in CSS px, viewport coordinates with y down — the shader's
+ * `aux2`. The product of the two normalised coordinates rather than a projection
+ * onto a metric diagonal, because the reference's four sides read equal and
+ * OPPOSITE slopes and a field linear in position gives the top and the bottom
+ * side the same one; see `MaterialOptics.rimAlongSideSlope`.
+ *
+ * Its mean over any straight side is exactly zero, which is what leaves W23's and
+ * W24's straight-span amplitudes and the CSS tier's single inset alone.
+ */
+export function rimAlongSideField(
+  offset: readonly [number, number],
+  half: readonly [number, number],
+): number {
+  const x = offset[0] / Math.max(Math.abs(half[0]), 1e-6);
+  const y = offset[1] / Math.max(Math.abs(half[1]), 1e-6);
+  return Math.max(-1, Math.min(1, x * y));
+}
+
+/**
+ * **The rim amplitude's along-side factor** (W25; claims §5.113) —
+ * `1 + rimAlongSideSlope · sizeThickness(span) · field`, the position half of the
+ * light whose direction half W24 landed.
+ *
+ * At slope 0 this is exactly 1 at every position and every span, and at span ≤
+ * `sizeSpanMin` it is exactly 1 whatever the slope. The shader's arithmetic, on
+ * the CPU for the tests.
+ */
+export function rimAlongSideFactor(
+  field: number,
+  spanPx: number,
+  optics: MaterialOptics,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.max(0, 1 + optics.rimAlongSideSlope * sizeThickness(spanPx, profile) * field);
+}
+
+/**
+ * **The sharp component's share at a depth** — s(u, span), the law the GPU
+ * tier's optics pass evaluates per pixel (W13 G1, claims §5.61 §2).
+ *
+ * ```
+ * s(u, span) = sDeep(span) + max(0, s₀(span) − sDeep(span)) · max(0, 1 − u / U)
+ * ```
+ *
+ * with `sDeep = 1 − scatterDeepThickness(span)` and `s₀` the span-graded start
+ * `scatterRampStart` resolves. Deeper than the reach the
+ * surface reads its span law exactly; within it the sharp component is lifted
+ * toward the contour value `s₀`. `max(0, s₀ − sDeep)` rather than a signed
+ * difference: the excursion is the band the reference has *above* the body, and
+ * on a span whose deep sharp share already exceeds `s₀` there is nothing to add
+ * — the alternative would quietly make the small spans heavier at the contour
+ * than in their own middle, which is the opposite of what §5.61 §2 measured.
+ *
+ * `uDevicePx` is the pixel's depth under the contour in DEVICE pixels, which is
+ * the field's own signed distance (negative inside) read in CSS px and
+ * multiplied by the ratio the tier draws at. Zero and negative depths — the
+ * contour and everything outside it — read the start value, because the body
+ * outside the silhouette is not drawn at all.
+ *
+ * The heavy share the body mixes by is 1 − s(u, span), before the accessibility
+ * fold `scatterThickness` and the shader apply.
+ */
+export function scatterSharpShare(
+  uDevicePx: number,
+  devicePixelRatio: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  spanPx = 0,
+): number {
+  const deepSharp = 1 - scatterDeepThickness(spanPx, profile, devicePixelRatio);
+  const start = scatterRampStart(devicePixelRatio, profile, spanPx);
+  const reach = Math.max(scatterRampReachDevicePx(devicePixelRatio, profile), 1e-6);
+  const excursion = Math.max(start - deepSharp, 0) * Math.max(1 - Math.max(uDevicePx, 0) / reach, 0);
+  return clampUnit(deepSharp + excursion);
+}
+
+/**
+ * **The scattering facet's input** — how far toward its heavy blur a surface of
+ * this span mixes ON AVERAGE, 0…1: the depth ramp's projection onto one number
+ * per surface (W13 G1; the binding rule "the span law is the ramp's projection,
+ * on both tiers").
+ *
+ * The GPU tier mixes per pixel and needs no projection; every other consumer
+ * does — the CSS tier's single `blur()` σ, the sampling proxy's 3σ padding
+ * floor, the demo's law readout — and if each of them invented its own the two
+ * tiers would scatter differently. So this is the area average of the ramp over
+ * the surface. Because the ramp now rides on the span law rather than replacing
+ * it, the average is that law minus the excursion's average, and on a surface
+ * far larger than the reach it is the span law almost exactly — which is what
+ * keeps the CSS tier's large spans where W11c and W12 put them.
+ *
+ * `fold` is the accessibility fold every facet takes (the refraction ladder read
+ * at the preference's cap, `sizeThicknessUnderPolicy`'s factor). It scales the
+ * excursion away from `sizeScatterFloor` and NOT the floor itself: the floor is
+ * the frost the material has at any size, the rest is depth a preference is
+ * entitled to remove. At fold 1 this is the ramp's own average and at fold 0 it
+ * is the floor exactly.
+ *
+ * Mirrored by `@vitreajs/vitrea-web`'s `scatterThickness`, pinned by
+ * `packages/calibration/test/tier-coherence.test.ts` over spans, folds and dpr.
+ */
+export function scatterThickness(
+  spanPx: number,
+  fold: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
+): number {
+  const floor = scatterFloorAtScale(profile, devicePixelRatio);
+  const mean = scatterRampAreaMean(spanPx, profile, devicePixelRatio, extentsCssPx);
+  return clampUnit(floor + (mean - floor) * fold);
+}
+
+/**
+ * The unfolded area average of the heavy share over a surface — the integral
+ * `scatterThickness` documents, separated so a reader can check the closed form
+ * against a quadrature and so the fold stays one multiplication.
+ *
+ * The average is exact rather than sampled. The heavy share at depth u is
+ * `kDeep(span) − A · T(u)` with `A = max(0, s₀ − sDeep)` the excursion's
+ * amplitude and `T(u) = max(0, 1 − u / R)` its triangle in depth, so the area
+ * average is `kDeep − A · T̄` and only `T̄` has to be integrated — the amplitude
+ * is one number per surface even though the start grades with span, because a
+ * surface has one span. On a rectangle
+ * the area at depth ≥ u is `(W − 2u)(H − 2u)`, so the area *at* depth u has
+ * measure `P − 8u` with `P = 2(W + H)`, and
+ *
+ * ```
+ * T̄ = (1 / WH) ∫₀^{min(R, min(W,H)/2)} (1 − u / R) · (P − 8u) du
+ *    = (1 / WH) · [ P·m − 4m² − P·m² / (2R) + (8/3)·m³ / R ]
+ * ```
+ *
+ * with `m` that upper limit: a surface shallower than the reach integrates only
+ * the depth it has. The corners are ignored — a rounded rect's erosion keeps the
+ * corner radius shrinking with the depth and the exact measure differs from
+ * `P − 8u` only inside the corner quarter-disks — which is the same
+ * approximation the spec's design states and costs less than the ramp's own
+ * measurement error.
+ *
+ * `extentsCssPx` is the surface's own width and height where the caller has
+ * them. Where it does not — and most callers do not, because a group's law is
+ * taken over its *widest member's span* and a span is one number — the surface
+ * is taken to be a square of the span, which is the honest reading of "a
+ * surface of this span" and is exactly right on the calibration bed's square
+ * components.
+ */
+export function scatterRampAreaMean(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
+): number {
+  const deep = scatterDeepThickness(spanPx, profile, devicePixelRatio);
+  const amplitude = Math.max(scatterRampStart(devicePixelRatio, profile, spanPx) - (1 - deep), 0);
+  if (amplitude <= 0) return clampUnit(deep);
+  const width = Math.max(extentsCssPx?.[0] ?? spanPx, 0);
+  const height = Math.max(extentsCssPx?.[1] ?? spanPx, 0);
+  const area = width * height;
+  if (area <= 0) return clampUnit(deep - amplitude);
+  // The reach in CSS px, which is the unit the depth arrives in: u_device / U =
+  // u_css · dpr / U, so the CSS-space reach is U / dpr and the ratio is the same
+  // number the shader computes.
+  const reach = Math.max(
+    scatterRampReachDevicePx(devicePixelRatio, profile) / Math.max(devicePixelRatio, 1e-3),
+    1e-6,
+  );
+  const perimeter = 2 * (width + height);
+  const limit = Math.min(reach, Math.min(width, height) / 2);
+  const triangleMean =
+    (perimeter * limit
+      - 4 * limit * limit
+      - (perimeter * limit * limit) / (2 * reach)
+      + (8 * limit * limit * limit) / (3 * reach))
+    / area;
+  return clampUnit(deep - amplitude * triangleMean);
+}
+
+/**
+ * The same, for a caller that has already resolved the scatter thickness — which
+ * is every caller with a policy to fold under.
+ *
+ * The two-function shape is deliberate and it is mirrored on the CSS tier: the
+ * thickness form is the law, the span form is the convenience that computes an
+ * unfolded thickness for it. One formula, so a policy fold cannot end up applied
+ * to one facet and not another.
+ *
+ * **The ratio never divides this σ.** W12 G3 read the widths as device-pixel
+ * quantities (claims §5.56 §1) and this form divided by the ratio; W13 Decision
+ * Log 8 (user-decided, 2026-09-04) retired that on the bed, and W15 G1 restores
+ * the device-pixel reading on the GPU tier alone, where the renderer's
+ * `bodySigmaCssFor` divides the sharp width by the viewport's own ratio. This
+ * function is the SHARED projection — the CSS tier's single `blur()` σ, a
+ * group's 3σ padding floor, the demo's readout — and W15 Decision Log 2 leaves
+ * W13 Decision Log 5 in force until G1 predicts the CSS tier's 2x σ, so a
+ * division here would move the CSS tier the way claims §5.69 §4 says is wrong
+ * (its own measured 2x ceiling is 3–5 CSS px, LARGER than the 1x reading, not
+ * half of it).
+ *
+ * What the ratio does reach is the GAIN: `sizeScatterGainMax2x` is the heavy
+ * width's multiplier at dpr 2 (claims §5.69 §1), so at mix 0 this returns
+ * `sigmaPx` at every ratio and at mix 1 it returns the ratio's own heavy width.
+ * On the landed material the two gains are equal and every ratio returns the 1x
+ * σ, which is what `tier-coherence` pins.
+ *
+ * `spanPx` is OPTIONAL and it selects which gain: given, the span-graded one
+ * `scatterGainAt` resolves (W15 G1's re-form, claims §5.70 §4 and §7); omitted,
+ * the flat `scatterGainAtScale`. The two are the same number at every span at
+ * dpr ≤ 1 and on any profile whose far gain equals its base gain, so a caller
+ * that has no span — `css-tier.ts`'s single `blur()`, the demo's readout —
+ * keeps exactly the meaning it had, and a caller that has one gets the width
+ * the reference's own kernel has at that span. The parameter rather than a
+ * second function because this is the mix's own end point and there is one of
+ * it.
+ */
+export function sizeScatterSigmaAt(
+  sigmaPx: number,
+  scatter: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  spanPx?: number,
+): number {
+  const mix = clampUnit(scatter);
+  const gain =
+    spanPx === undefined
+      ? scatterGainAtScale(profile, devicePixelRatio)
+      : scatterGainAt(spanPx, profile, devicePixelRatio);
+  return sigmaPx * (1 + (gain - 1) * mix);
+}
+
+/** 0…1, the clamp every share in this facet takes. */
+function clampUnit(value: number): number {
+  return Math.min(1, Math.max(0, value));
+}
+
+/**
+ * The occlusion alpha a surface of this span carries — the opacity facet.
+ *
+ * Composes with `occlusionAlphaUnderPolicy` rather than replacing it: both close
+ * a fraction of whatever transparency is left, so the order they are applied in
+ * changes the result by less than either term and neither can cancel the other.
+ * The accessibility policy is applied first, because a preference outranks a
+ * material law.
+ */
+export function sizeOcclusionAlpha(
+  alpha: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sizeOcclusionAlphaAt(alpha, sizeThickness(spanPx, profile), profile);
+}
+
+/** The same, for a caller that has already resolved the thickness factor. */
+export function sizeOcclusionAlphaAt(
+  alpha: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(1, alpha + profile.sizeOcclusionGain * thickness * (1 - alpha));
+}
+
+/** The inner shadow's depth at this span — see `MaterialProfile.sizeShadowGainMax`. */
+export function sizeShadowDepth(
+  shadowDepth: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sizeShadowDepthAt(shadowDepth, sizeThickness(spanPx, profile), profile);
+}
+
+/** The same, for a caller that has already resolved the thickness factor. */
+export function sizeShadowDepthAt(
+  shadowDepth: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return shadowDepth * (1 + (profile.sizeShadowGainMax - 1) * thickness);
+}
+
+/**
+ * The outer shadow's peak occlusion at this span — see
+ * `MaterialOuterShadow.sizeGain`. At the shipped gain of 0 this is the identity,
+ * exactly, which is the point.
+ */
+export function sizeOuterShadowOcclusion(
+  occlusion: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sizeOuterShadowOcclusionAt(occlusion, sizeThickness(spanPx, profile), profile);
+}
+
+/** The same, for a caller that has already resolved the thickness factor. */
+export function sizeOuterShadowOcclusionAt(
+  occlusion: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(1, occlusion + profile.outerShadow.sizeGain * thickness * (1 - occlusion));
+}
+
+/**
+ * Where the thin regime's three amplitude anchors sit on the backdrop luminance
+ * axis, and where the two interpolations between them run (W14 G1).
+ *
+ * The axis is the SAME statistic W9's face response keys on — the backdrop's
+ * ENCODED-space mean, decoded to a linear luminance — which is the charter's
+ * third binding rule ("no second luminance statistic is introduced for the
+ * shadow"). `MaterialProfile.backdropToneAnchorX` names the same three solids in
+ * the encoded space: 0.1104 / 0.2706 / 0.9505 encoded are 0.0117 / 0.0595 /
+ * 0.891 linear, which is `inert` / `midFrom` / `bright` below.
+ *
+ * `midFrom` … `midTo` is a plateau the bed MEASURED at four backdrops
+ * (`mid-dark-solid` 0.06, checkerboard and `photo` in between, `hc-text` 0.74),
+ * flat to 0.02 in occlusion. The two interpolations either side of it are
+ * **declared choices, not measurements**, and the bed does not constrain either:
+ *
+ *  - `midTo` → `bright` (0.74 → 0.891) is taken LINEAR in luminance. The bed
+ *    jumps straight from `hc-text` to `light-solid` with nothing between, and
+ *    the whole factor-of-2.6 drop happens in that gap (claims §5.62, W14
+ *    Deferred: "one backdrop between them would pin it"). A linear ramp is the
+ *    least-committed curve through two endpoints; a smoothstep would assert a
+ *    knee at each end that nothing measured.
+ *  - `inert` → `midFrom` (0.02 → 0.06) is taken by SMOOTHSTEP. Below `inert` the
+ *    reference removes at most one or two of 255 codes and the compare's shadow
+ *    axis reports nothing at all (its backdrop floor is 0.05), so this ramp is
+ *    unmeasured over its whole length; it is a smoothstep so that the facet
+ *    arrives with a zero derivative at the black end and a scene fading from
+ *    `dark-solid` to `mid-dark-solid` does not show the shadow switching on.
+ */
+export const OUTER_SHADOW_THIN_L = {
+  /** At and below this backdrop luminance the black term is `thinOcclusionDark`. */
+  inert: 0.02,
+  /** From here the mid plateau holds. */
+  midFrom: 0.06,
+  /** To here — `hc-text`'s own linear luminance. */
+  midTo: 0.74,
+  /** `light-solid`'s linear luminance, where 0.127 was measured; held above. */
+  bright: 0.891,
+} as const;
+
+/**
+ * The backdrop luminance the law reads where the host measured none.
+ *
+ * Neither tier can adapt a shadow to a backdrop nobody declared or sampled, and
+ * guessing black would delete the facet on every unsampled surface while
+ * guessing white would halve it. The mid plateau is what four of the bed's seven
+ * backdrops sit on and what W8's single amplitude was a compromise across, so an
+ * unmeasured group keeps the closest thing to the shadow it had.
+ */
+export const OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE = 0.3;
+
+/**
+ * The black term's peak occlusion below the knee, at a backdrop luminance — see
+ * `OUTER_SHADOW_THIN_L` for the anchors and for which parts of this curve are
+ * measured and which are declared.
+ */
+export function outerShadowThinOcclusion(
+  backdropLuminance: number | undefined,
+  shadow: MaterialOuterShadow,
+): number {
+  const l = backdropLuminance ?? OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE;
+  const { inert, midFrom, midTo, bright } = OUTER_SHADOW_THIN_L;
+  if (l <= inert) return shadow.thinOcclusionDark;
+  if (l < midFrom) {
+    const t = (l - inert) / (midFrom - inert);
+    const s = t * t * (3 - 2 * t);
+    return shadow.thinOcclusionDark + (shadow.thinOcclusionMid - shadow.thinOcclusionDark) * s;
+  }
+  if (l <= midTo) return shadow.thinOcclusionMid;
+  if (l >= bright) return shadow.thinOcclusionBright;
+  const t = (l - midTo) / (bright - midTo);
+  return shadow.thinOcclusionMid + (shadow.thinOcclusionBright - shadow.thinOcclusionMid) * t;
+}
+
+/** The three spans the thick regime's anchors were read at, CSS px (claims §5.62 §4). */
+export const OUTER_SHADOW_THICK_SPANS = [96, 128, 160] as const;
+
+/**
+ * The composite's peak occlusion above the knee, at a casting span — piecewise
+ * linear through the three measured anchors and held flat outside them.
+ *
+ * Held rather than extrapolated at both ends: below 96 the thin regime is what
+ * the blend is walking away from and an extrapolated line would cross it, and
+ * above 160 the bed has no cell at all, where the measured rise is already
+ * flattening (0.379 → 0.497 → 0.544 costs 0.118 over the first 32 px of span and
+ * 0.047 over the next 32).
+ *
+ * Not keyed on the backdrop, unlike the thin regime: the anchors are the
+ * composite's transmission measured on the checkerboard, and the bed has no
+ * thick cell over a dark backdrop to key against (claims §5.62 §4 — a span-128
+ * or 160 surface over `impulse` would separate the composite's two terms, and
+ * that scene does not exist). The dark PROFILE carries its own three anchors.
+ *
+ * **What it costs where it is wrong, measured.** An earlier form of this comment
+ * claimed it costs nothing visible, on the argument that a multiply over a
+ * near-black backdrop removes near-nothing whatever its amplitude. X7's affine
+ * pair contradicts that argument on the one calibration cell that tests it:
+ * `dark-solid__rrect-md`, a span-96 surface over a backdrop of linear 0.0117,
+ * where vitrea now removes 0.1645 at the `3-6` band against the reference's
+ * 0.1094 and against the 0.1260 the W12 close removed — the thick path over a
+ * near-black backdrop went from 15% light to **50% heavy** (claims §5.65 §5).
+ * In absolute terms it is 0.7 of a code and no perceptual row in the matrix
+ * notices, so it is a small error, not an invisible one; it is recorded as a gap
+ * and it closes with a thick cell over a dark backdrop to key against.
+ */
+export function outerShadowThickOcclusion(
+  spanPx: number,
+  shadow: MaterialOuterShadow,
+): number {
+  const [s0, s1, s2] = OUTER_SHADOW_THICK_SPANS;
+  const y0 = shadow.thickOcclusionAt96;
+  const y1 = shadow.thickOcclusionAt128;
+  const y2 = shadow.thickOcclusionAt160;
+  if (spanPx <= s0) return y0;
+  if (spanPx >= s2) return y2;
+  if (spanPx <= s1) return y0 + ((y1 - y0) * (spanPx - s0)) / (s1 - s0);
+  return y1 + ((y2 - y1) * (spanPx - s1)) / (s2 - s1);
+}
+
+/**
+ * The outer shadow's peak LINEAR occlusion for one casting surface (W14 G1) —
+ * the thin regime's backdrop-keyed amplitude, the thick regime's span law, and
+ * the size law's gain, in that order.
+ *
+ * `thickness` is the size law's own curve for the casting surface, folded under
+ * the accessibility policy exactly as every other span-dependent facet folds it
+ * (`sizeThicknessUnderPolicy`); the blend between the two regimes is the
+ * smoothstep of it — the SAME curve `backdropToneResponse` blends its thin and
+ * thick rows across, so the shadow's knee and the face's knee are one knee.
+ *
+ * `backdropLuminance` is the statistic W9's response keys on, and `undefined`
+ * means the host measured no backdrop — see
+ * `OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE`.
+ */
+export function outerShadowOcclusionAt(
+  shadow: MaterialOuterShadow,
+  backdropLuminance: number | undefined,
+  spanPx: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const thin = outerShadowThinOcclusion(backdropLuminance, shadow);
+  const thick = outerShadowThickOcclusion(spanPx, shadow);
+  const k = Math.min(1, Math.max(0, thickness));
+  const blend = k * k * (3 - 2 * k);
+  return sizeOuterShadowOcclusionAt(thin + (thick - thin) * blend, thickness, profile);
+}
+
+/**
+ * The lift's span rise, 0…1 — the fraction of `liftAmplitude` a surface of this
+ * casting span adds. Zero at and below `liftSpanMin`, one at and above
+ * `liftSpanFull`, a smoothstep between; see `MaterialOuterShadow.liftSpanFull`
+ * for why a smoothstep rather than the layer tree's own linear clamp.
+ */
+export function outerShadowLiftRise(spanPx: number, shadow: MaterialOuterShadow): number {
+  return smoothstep(shadow.liftSpanMin, shadow.liftSpanFull, spanPx);
+}
+
+/**
+ * The outer shadow under an accessibility regime.
+ *
+ * One branch per axis that can reach it, on `opticsUnderPolicy`'s rule. `frost`
+ * is the axis reduced transparency alone sets, and the amplitude it lands on is
+ * measured — see `MaterialOuterShadow.reducedTransparencyOcclusion`. Under
+ * forced colours the material is gone, so its shadow goes with it rather than
+ * outliving the surface that cast it.
+ *
+ * The fold writes ONE amplitude into all six anchors rather than scaling them,
+ * because that is what the reference does: under the preference its exterior is
+ * flat at 0.192–0.202 thin and thick together and over every backdrop, so the
+ * law's two regimes collapse onto one level and neither the backdrop keying nor
+ * the span rise survives (claims §5.62 §5). Flattening the anchors here keeps
+ * one folded `MaterialOuterShadow` as the single value every caller resolves
+ * from, and the resolved occlusion is then that level for any span, any backdrop
+ * and any thickness, since a blend between equal ends is the end. The LIFT
+ * stands down with them — a composite whose two regimes read the same number has
+ * no second term in it.
+ */
+export function outerShadowUnderPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): MaterialOuterShadow {
+  const shadow = profile.outerShadow;
+  if (policy.glass === "none" || policy.frost === "none") return flatOuterShadow(shadow, 0);
+  if (policy.frost === "increased") {
+    return flatOuterShadow(shadow, shadow.reducedTransparencyOcclusion);
+  }
+  return shadow;
+}
+
+/** Every amplitude anchor set to `amplitude`, with the lift stood down. */
+function flatOuterShadow(shadow: MaterialOuterShadow, amplitude: number): MaterialOuterShadow {
+  return {
+    ...shadow,
+    thinOcclusionDark: amplitude,
+    thinOcclusionMid: amplitude,
+    thinOcclusionBright: amplitude,
+    thickOcclusionAt96: amplitude,
+    thickOcclusionAt128: amplitude,
+    thickOcclusionAt160: amplitude,
+    liftAmplitude: 0,
+  };
+}
+
+/**
+ * The Gaussian CDF the shadow's edge falls off by, at a signed distance OUTSIDE
+ * the shadow's own silhouette: 1 deep inside, 0.5 exactly on it, 0 far outside.
+ *
+ * A Gaussian-blurred silhouette is what `box-shadow` specifies and what the
+ * reference measures, so this is the one curve, evaluated identically by both
+ * tiers and by the shader. Written as the tanh form rather than as `erf` because
+ * WGSL has no `erf` and a curve the shader cannot evaluate is not one shape: the
+ * approximation's worst error is 1.8e-4 across the whole line, which at the
+ * shipped occlusion is 0.015 of one 8-bit code.
+ */
+/** sRGB's power-law exponent — the one `outerShadowAlpha` inverts. */
+export const SRGB_ENCODING_EXPONENT = 2.4;
+
+export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): number {
+  const x = -signedDistancePx / Math.max(sigmaPx, 1e-4);
+  /*
+   * The argument is clamped so that this and the shader stay one function
+   * (W30 G3b; claims §5.159b). `Math.tanh` is exact at every magnitude, so here
+   * the clamp does nothing an f64 reader can observe — `tanh` returns exactly
+   * 1.0 from |t| = 19.0615 up, measured, and not from 18.2, which this comment
+   * said until the review closure corrected it (§5.159b §10) — and it is
+   * written all the same, because the WGSL
+   * mirror needs it: a backend that lowers `tanh` through `exp(2t)` overflows
+   * f32 past |t| = 44.36 and returns NaN, and a guard that lived on one side of
+   * the mirror would be a difference between the tiers rather than a fix. ±20
+   * is the smallest round bound above f64's own saturation point, so the two
+   * implementations return the same bits at every argument.
+   */
+  const t = Math.min(20, Math.max(-20, 0.7978845608028654 * (x + 0.044715 * x * x * x)));
+  return 0.5 * (1 + Math.tanh(t));
+}
+
+/**
+ * **The outer shadow's σ at a casting span**, CSS px (W30 G2; claims §5.156 §2):
+ *
+ *     σ(span) = sigmaPx + max(sigmaThinOffsetPx,
+ *                             sigmaSlopePerSpan · (span − sigmaSpanRefPx))
+ *
+ * One function of the CSS span with no device ratio in it, because the cut
+ * rejected the device-px reading of the thin regime in both directions — which
+ * is one mirror fewer for the CSS tier to keep and one reach for both scales.
+ *
+ * It is evaluated PER CASTER on both tiers and nowhere per group: the GPU tier
+ * reads the casting surface's own span per pixel from the field pass's aux
+ * target, and the CSS tier writes one `box-shadow` blur radius per surface. The
+ * two GROUP-level readers — the optics pass's scissor pad and the CSS tier's
+ * group-shadow clip — take the law at the widest span any member casts at, which
+ * is a bound on every member's own σ rather than any member's value.
+ *
+ * At the shipped defaults the three leaves are 0, so this returns `shadow.sigmaPx`
+ * identically: the span term is a multiplied zero and the offset an added zero
+ * under a `max` whose other arm is that same zero. The identity is algebraic and
+ * holds at every argument, including a negative or absent span.
+ */
+export function outerShadowSigmaPx(shadow: MaterialOuterShadow, spanPx: number): number {
+  return (
+    shadow.sigmaPx +
+    Math.max(shadow.sigmaThinOffsetPx, shadow.sigmaSlopePerSpan * (spanPx - shadow.sigmaSpanRefPx))
+  );
+}
+
+/**
+ * The compositing-space alpha that reproduces a linear-light occlusion.
+ *
+ * Both tiers paint the shadow the same way — a pure BLACK layer at some alpha,
+ * composited source-over — and that is already a multiplicative occlusion by
+ * compositing algebra alone: `out = (1 − α)·backdrop + α·0 = backdrop·(1 − α)`.
+ * The shadow's colour being zero is what collapses source-over onto multiply, and
+ * it is also why the facet is exactly inert over black on both tiers, with no
+ * special case anywhere.
+ *
+ * What does NOT come free is the space. The reference removes a fraction of the
+ * backdrop's LINEAR light; a browser composites a `box-shadow` — and a
+ * premultiplied canvas — in ENCODED sRGB. So the same visual result needs a
+ * different alpha, and the conversion is exact under sRGB's power law:
+ * `enc(L(1−occ)) = enc(L)·(1−α)` gives `α = 1 − (1−occ)^(1/2.4)`, independent of
+ * the backdrop, which is the same conversion `cssTintAlpha` performs for the tint
+ * and the same reason it exists.
+ *
+ * The residual is the transfer function's linear toe, and it is small and stated:
+ * across every backdrop level from 0.004 to 1.0 the worst departure from the
+ * reference's own composite is 2.1 of 255 at the shipped occlusion, against a bed
+ * whose own reproducibility is ±4 of 255 (Decision Log 10). A per-pixel exact
+ * conversion is not available to either tier — `box-shadow` takes one alpha, and
+ * the canvas composites outside the shader — so this is the honest floor rather
+ * than a shortcut.
+ */
+export function outerShadowAlpha(occlusion: number): number {
+  const occ = Math.min(1, Math.max(0, occlusion));
+  return 1 - Math.pow(1 - occ, 1 / SRGB_ENCODING_EXPONENT);
+}
+
+/**
+ * How far past a surface's own contour the shadow can still change a pixel, CSS
+ * px — the margin the GPU tier has to rasterise into, since a scissor rect that
+ * stops at the contour would slice the facet off.
+ *
+ * The cut-off is where the shadow stops moving an 8-bit code over a white
+ * backdrop, and it is taken against the **compositing-space alpha** rather than
+ * against the linear occlusion, because the alpha is what the canvas actually
+ * writes: `page × (1 − α·falloff)` moves one code when `α·falloff` reaches
+ * 1/255. Thresholding the linear occlusion instead over-allocated by about 5 CSS
+ * px on every edge at the shipped constants — pure cost on a facet already
+ * measured at 3.2× the frame's GPU time.
+ *
+ * `occlusion` must be the EFFECTIVE amplitude — after the accessibility fold,
+ * after the backdrop key and the span law, and after the size law — which is the
+ * caller's to resolve, because only it knows the group's membership and the
+ * backdrop it sits over. A pad taken from the base amplitude while the shader
+ * emits an amplified one slices the deepest surface's shadow off at the scissor,
+ * while the CSS tier, which has no scissor, goes on drawing it. It is a separate
+ * argument since W14 G1, because a `MaterialOuterShadow` no longer carries one
+ * amplitude to read.
+ *
+ * The solve runs over the signed distance to the shadow's OWN silhouette, which
+ * may be negative — a pixel just outside the contour is already inside the
+ * offset, spread silhouette — so `occlusion = 0`, and any amplitude too faint to
+ * move a code anywhere, both fall out as a reach of zero rather than needing a
+ * case of their own.
+ *
+ * `spanPx` is the CASTING span the σ law is read at (W30 G2; see
+ * `outerShadowSigmaPx`), and it is the second quantity a caller now owes for the
+ * amplitude's reason: since macOS 27 the blur is a function of the caster, so a
+ * reach taken at one span while the shader draws another is the same slice at
+ * the scissor that a reach taken from the base amplitude was.
+ *
+ * It is **required**, with no default. A default of 0 would read as "no span to
+ * give" and resolve as the thinnest caster there is, which is an UNDER-bound the
+ * moment the slope is non-zero — and it would be a silent one, because at the
+ * inert leaves it is exactly right (W30 G2 review closure, claims §5.158 §8,
+ * finding 4). A caller with no span states the span it means.
+ *
+ * **A group's caller passes the largest occlusion and the largest span among its
+ * members, and `reach(max occlusion, max span)` bounds every member's own reach
+ * exactly while `sigmaSlopePerSpan ≥ 0`** — σ non-decreasing in span. The reach
+ * is monotone in σ (a wider Gaussian moves a code further out) and monotone in
+ * the amplitude, and the two maxima are taken independently, so the pair
+ * dominates every member's pair. A NEGATIVE slope would make the widest member's
+ * σ the smallest, and the bound would have to be taken at the thinnest span
+ * instead; the law's shape is a blur that grows with the caster, and
+ * `w30-inert-laws.test.ts` asserts the monotonicity at the shape §5.159 fits so
+ * that a fit inheriting a negative slope fails there rather than at a scissor.
+ */
+export function outerShadowReachPx(
+  shadow: MaterialOuterShadow,
+  occlusion: number,
+  spanPx: number,
+): number {
+  const alpha = outerShadowAlpha(occlusion);
+  if (!(alpha > 0)) return 0;
+  const cutoff = 1 / 255 / alpha;
+  // Even a pixel the silhouette covers outright cannot move a code.
+  if (cutoff >= 1) return 0;
+
+  const sigma = Math.max(outerShadowSigmaPx(shadow, spanPx), 1e-4);
+  // Bisected on the falloff itself, so the reach cannot disagree with what the
+  // shader draws.
+  let lo = -(8 * sigma + Math.abs(shadow.offsetPx) + Math.abs(shadow.spreadPx));
+  let hi = 8 * sigma;
+  for (let i = 0; i < 48; i += 1) {
+    const mid = (lo + hi) / 2;
+    if (outerShadowFalloff(mid, sigma) > cutoff) lo = mid;
+    else hi = mid;
+  }
+
+  /*
+   * Back to a distance from the COMPONENT's contour, in whichever direction
+   * reaches furthest — the pad is applied to all four edges, so one bound has to
+   * cover them all. The offset enters by magnitude (downward when positive,
+   * upward when negative) and the spread carries its own sign, because a
+   * negative spread pulls every direction in together.
+   */
+  return Math.max(0, hi + Math.abs(shadow.offsetPx) + shadow.spreadPx);
+}
+
+/**
+ * The lens depth in CSS px (W12 G2): the reference's own height law,
+ * `min(lensHeightPerSpan · span, lensHeightMax)`, scaled by the author's
+ * thickness over `lensThicknessReference`, clamped to the shorter half extent.
+ * 8 / 11 / 20 on spans 32 / 44 / ≥ 80 at the default thickness — the numbers
+ * read from the reference's layer tree (claims §5.50).
+ *
+ * `fold` is the accessibility regime's factor on the size-dependent part (the
+ * refraction ladder at the preference's cap, `sizeThicknessUnderPolicy`'s
+ * factor): at 1 the depth is the law's, at 0 it is the authored thickness and
+ * nothing more — the same shape the W2 law folded by, so a reduced regime
+ * keeps the lens it had.
+ */
+export function lensDepthPx(
+  thicknessPx: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
+): number {
+  const thick = Math.max(thicknessPx, 0);
+  const scale = thick / profile.lensThicknessReference;
+  const depth = thick + (lensHeightBasePx(spanPx, profile) * scale - thick) * fold;
+  return Math.min(Math.max(depth, 0), spanPx * 0.5);
+}
+
+/**
+ * How far inside the surface the shader reads the body for a pixel `depthPx`
+ * in from the contour (W12 G2), in CSS px — `S · max(0, 1 − depthPx / L′)^p`
+ * with `S = lensMagnitudePx`, `L′ = lensExtentPx` and `p` the profile's
+ * exponent, times the refraction scale the policy resolved. At the default
+ * thickness on a 96 px span: 33.7 / 24.3 / 11.9 at 2 / 4 / 8 px in, zero from
+ * 26.7 px in — the reference's crossings read 34 / 24 / 12 (claims §5.49).
+ */
+export function lensDisplacementPx(
+  depthPx: number,
+  spanPx: number,
+  thicknessPx: number,
+  refractionScale: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
+): number {
+  const extent = lensExtentPx(thicknessPx, spanPx, profile, fold);
+  if (extent <= 0) return 0;
+  const t = Math.max(0, 1 - Math.max(depthPx, 0) / extent);
+  return (
+    lensMagnitudePx(thicknessPx, spanPx, profile, fold) *
+    Math.pow(t, profile.lensProfileExponent) *
+    refractionScale
+  );
+}

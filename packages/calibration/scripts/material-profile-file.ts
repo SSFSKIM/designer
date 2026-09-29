@@ -11,6 +11,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { relative } from "node:path";
+import { validateBodyE3Patch } from "@vitrea/renderer-webgpu";
 
 /**
  * Every top-level key a `MaterialProfilePatch` may carry.
@@ -157,6 +158,9 @@ export const MATERIAL_PATCH_KEYS = new Set([
   // it would measure a body with no hues in it and say the document had been
   // applied. Which is this allowlist's own founding failure, one leaf along.
   "bodyChromaRetention",
+  "bodyE3Strength",
+  "bodyE3Gains",
+  "bodyE3Neutral",
   // The rim that survives the collapse (W23): a profile-level constant, because
   // the collapsed appearance is one appearance in both schemes (the reference's
   // light and dark fixtures of the collapsed cells are byte-identical).
@@ -334,6 +338,8 @@ export function readMaterialProfileFile(path: string): MaterialProfileSections {
     );
   };
   reject("the renderer's MaterialProfilePatch", Object.keys(patch), MATERIAL_PATCH_KEYS);
+  // Share the scalar/whole-tuple contract with the renderer instead of drifting ranges.
+  validateBodyE3Patch(patch);
   // A locality descriptor is a tagged branch, not an open numeric patch. Refuse
   // an unrecognised scale instead of recording a parameter the renderer ignores.
   if ("backdropToneAbscissa" in patch) {

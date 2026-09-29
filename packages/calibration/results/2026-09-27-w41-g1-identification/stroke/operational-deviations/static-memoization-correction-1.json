@@ -1,0 +1,46 @@
+{
+  "kind": "STROKE_STATIC_MEMOIZATION_RULING_CORRECTION",
+  "recordedUTC": "2026-09-28T19:08:13.296892+00:00",
+  "determination": "Static A/B have been memoized from their launch; no unmemoized live static start exists to abort.",
+  "evidence": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py",
+      "sha256": "60bcbbb8c42ccbbf01c221e3bbeafcb76ca3dfec7ed15586191908d4a0abcbef"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/execution.json",
+      "sha256": "8e4eeb2157581d1af92ae8b0165e204f49f6443949f863112438044acaead66a"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/B/execution.json",
+      "sha256": "db67eea5d749655b2299e2a22c35c456bda3975fcc6e6b51be22d530dcab9473"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/memoization-proof-citations-1.json",
+      "sha256": "0351da9d09bd6b10d304a5f2bca61242c073ba8ced256fb60e0344ac9f048cad"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/test_static_driver_memo.py",
+      "sha256": "9f278d8c1c6c10f196ef786229043b62d80e854c518e184c4b85fcf49afff398"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/test_static_driver_memo-1.txt",
+      "sha256": "f9769ebc782f49138a32c479c2c4d1515887d3bca0e715e3225945c07fbb38e9"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/B-computation-sample-1.txt",
+      "sha256": "b0c1b996d54a667e470cf1091092f59c11419cf82c8c4d6529322742d8d4d671"
+    }
+  ],
+  "test": "1 actual-driver-main synthetic test PASS: original fitter calls traverse SolverMemo with correct family/curvature/exact observations and compact forward active; hits>0 and emitted cache summary matches. Temporary outside-context mutation fails. No native archive reads.",
+  "liveDiagnostic": {
+    "pid": 42753,
+    "cpuPercent": 100.0,
+    "kernelMemoryLevelPercent": 67,
+    "pressureLevel": 1,
+    "sample": "One-second native sample shows active Python/NumPy computation, physical footprint1.9G and recorded peak7.2G. This does not locate the Python optimizer phase or establish cause of long seed cost."
+  },
+  "timingQualification": "The6957.5s M1curvature15 observation includes103092cachehits/44556misses. Random M2seed1 and baseline seed0 are different optimization paths, not a paired memoization benchmark. No13hour completion estimate established.",
+  "action": "Preserve B running; no abort, refit, live source edit or budget change. Add proof citations without rewriting result files.",
+  "unresolved": "Why M2seed1 consumes substantially more computation than seed0 remains unexplained pending completed solver counters or new evidence."
+}

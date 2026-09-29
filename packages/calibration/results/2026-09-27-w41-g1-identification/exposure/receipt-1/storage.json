@@ -1,0 +1,49 @@
+{
+ "schema": "w41-receipt-1-storage-1",
+ "policy": "No committed file exceeds 50 MB. Full files stay outside git (or untracked at the runner-owned path) with size and hash; gzip copies are committed because both are far below 50 MB. Publication as a release asset is decided at the landing.",
+ "scores": {
+  "raw": {
+   "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave-identification-receipt-scores.json",
+   "bytes": 111640287,
+   "sha256": "7479b38835bfebe90a204ab1fede88049500662cfe0f89ffb9dc2aa43bf074bb",
+   "retained": true,
+   "committed": false
+  },
+  "gzip": {
+   "path": "wave-identification-receipt-scores.json.gz",
+   "bytes": 1609000,
+   "sha256": "783ae339ac71483da8135acdcffecfcf9f93dcc0de5d95e06568f66f401f0848",
+   "mtime": 0,
+   "compresslevel": 9,
+   "roundTripIdentical": true
+  }
+ },
+ "result": {
+  "raw": {
+   "path": "/Users/new/vitrea-w41/g1-exposure/attempt-2/result.json",
+   "bytes": 222690690,
+   "sha256": "26631fbe20adf40ade119103cd3cb9902c228d685f26e056442ff588d7203ea1",
+   "retained": true,
+   "committed": false
+  },
+  "gzip": {
+   "path": "result.json.gz",
+   "bytes": 3155436,
+   "sha256": "2b6b3d947ba9c092f375dd39ed8c979f21a6edec1b875c16561d8c5756b87114",
+   "mtime": 0,
+   "compresslevel": 9,
+   "roundTripIdentical": true
+  }
+ },
+ "attemptTrees": {
+  "attempt-1": {
+   "path": "/Users/new/vitrea-w41/g1-exposure/attempt-1",
+   "committedCopy": "attempt-1/"
+  },
+  "attempt-2": {
+   "path": "/Users/new/vitrea-w41/g1-exposure/attempt-2",
+   "committedCopy": "attempt-2/"
+  }
+ },
+ "attempt2ResultNotCopiedRaw": "attempt-2/result.json is represented by result.json.gz only."
+}

@@ -1,0 +1,5806 @@
+{
+  "light-active": {
+    "body": {
+      "family": "E3",
+      "coefficients": [
+        0.953047529687212,
+        0.946839919336861,
+        0.943761135432624
+      ],
+      "neutral": [
+        152,
+        160,
+        168,
+        176,
+        183,
+        195,
+        205
+      ],
+      "status": "colour endpoint survives; thick transfer fails",
+      "colourSurvives": true,
+      "fullEndpointSurvives": false,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-active-E3-fit.json",
+      "sourceSha256": "a66a709adc3a85176a4ab7a7a02a8d8f02445ad9281fcccafb8f9cb7c7e192cc"
+    },
+    "fits": {
+      "S0": {
+        "classification": "fixed null",
+        "starts": [],
+        "leastSquares": {
+          "coefficients": [],
+          "maximumCodes": 4.181818181818159,
+          "weightedSquaredError": 2.919685132575739,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        },
+        "minimax": {
+          "coefficients": [],
+          "maximumCodes": 4.181818181818159,
+          "weightedSquaredError": 2.919685132575739,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        }
+      },
+      "S1": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338283226175
+              ],
+              "maximumCodes": 3.945198544662844,
+              "weightedSquaredError": 2.896899053424753,
+              "rank": 1,
+              "singularValues": [
+                48.7088669615058
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999972
+              ],
+              "maximumCodes": 3.799999999999983,
+              "weightedSquaredError": 2.9054791666666318,
+              "rank": 1,
+              "singularValues": [
+                48.708866956052695
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -9.769962616701378e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338505605036
+              ],
+              "maximumCodes": 3.945198615419798,
+              "weightedSquaredError": 2.896899053424767,
+              "rank": 1,
+              "singularValues": [
+                48.7088669402059
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999504
+              ],
+              "maximumCodes": 3.800000000000125,
+              "weightedSquaredError": 2.9054791666666446,
+              "rank": 1,
+              "singularValues": [
+                48.70886694063954
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": 8.43769498715119e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.893799108298383
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338454644565
+              ],
+              "maximumCodes": 3.9451985992050993,
+              "weightedSquaredError": 2.8968990534247703,
+              "rank": 1,
+              "singularValues": [
+                48.708866954068576
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8800000000000003
+              ],
+              "maximumCodes": 3.799999999999983,
+              "weightedSquaredError": 2.905479166666627,
+              "rank": 1,
+              "singularValues": [
+                48.70886694535678
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -2.6645352591003757e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.5939870091585048
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338799195966
+              ],
+              "maximumCodes": 3.9451987088350506,
+              "weightedSquaredError": 2.8968990534247734,
+              "rank": 1,
+              "singularValues": [
+                48.70886697033584
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999979
+              ],
+              "maximumCodes": 3.799999999999983,
+              "weightedSquaredError": 2.9054791666666318,
+              "rank": 1,
+              "singularValues": [
+                48.708866950087156
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 28,
+              "iterations": 5,
+              "epigraphGapCodes": 1.5987211554602254e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.5773523045402574
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256340067834746
+              ],
+              "maximumCodes": 3.9451991124928725,
+              "weightedSquaredError": 2.8968990534248813,
+              "rank": 1,
+              "singularValues": [
+                48.70886694824757
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999972
+              ],
+              "maximumCodes": 3.799999999999983,
+              "weightedSquaredError": 2.9054791666666318,
+              "rank": 1,
+              "singularValues": [
+                48.708866956052695
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 18,
+              "iterations": 6,
+              "epigraphGapCodes": 2.6645352591003757e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.6963895656832217
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.925633847290186
+              ],
+              "maximumCodes": 3.9451986050142125,
+              "weightedSquaredError": 2.896899053424769,
+              "rank": 1,
+              "singularValues": [
+                48.70886692492416
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.880000000000004
+              ],
+              "maximumCodes": 3.8000000000000114,
+              "weightedSquaredError": 2.9054791666666366,
+              "rank": 1,
+              "singularValues": [
+                48.70886693692093
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 14,
+              "iterations": 4,
+              "epigraphGapCodes": 4.973799150320701e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.916058226085668
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339437945246
+              ],
+              "maximumCodes": 3.9451989120734936,
+              "weightedSquaredError": 2.8968990534248196,
+              "rank": 1,
+              "singularValues": [
+                48.70886693719687
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999958
+              ],
+              "maximumCodes": 3.8000000000000114,
+              "weightedSquaredError": 2.905479166666637,
+              "rank": 1,
+              "singularValues": [
+                48.70886694012707
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 4.529709940470639e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.3199882947477044
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338415003607
+              ],
+              "maximumCodes": 3.945198586592028,
+              "weightedSquaredError": 2.8968990534247565,
+              "rank": 1,
+              "singularValues": [
+                48.70886695346416
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8800000059101983
+              ],
+              "maximumCodes": 3.80000001880515,
+              "weightedSquaredError": 2.905479164444152,
+              "rank": 1,
+              "singularValues": [
+                48.708866940403034
+              ],
+              "optimizerSuccess": false,
+              "message": "Positive directional derivative for linesearch",
+              "evaluations": 97,
+              "iterations": 15,
+              "epigraphGapCodes": 3.3580667135879594e-08,
+              "converged": false
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.20822507772708732
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339055458
+              ],
+              "maximumCodes": 3.945198790373013,
+              "weightedSquaredError": 2.8968990534247747,
+              "rank": 1,
+              "singularValues": [
+                48.708866930167
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 11,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999909
+              ],
+              "maximumCodes": 3.8000000000000114,
+              "weightedSquaredError": 2.9054791666666326,
+              "rank": 1,
+              "singularValues": [
+                48.708866948746895
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 16,
+              "iterations": 6,
+              "epigraphGapCodes": 1.199040866595169e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7478080547177596
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339741925912
+              ],
+              "maximumCodes": 3.9451990087945887,
+              "weightedSquaredError": 2.8968990534248285,
+              "rank": 1,
+              "singularValues": [
+                48.708866943359524
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8800000040341759
+              ],
+              "maximumCodes": 3.8000000128359943,
+              "weightedSquaredError": 2.905479165149609,
+              "rank": 1,
+              "singularValues": [
+                48.708866932190546
+              ],
+              "optimizerSuccess": false,
+              "message": "Positive directional derivative for linesearch",
+              "evaluations": 61,
+              "iterations": 11,
+              "epigraphGapCodes": 2.2921456288571562e-08,
+              "converged": false
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.3082912550513318
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256337759226337
+              ],
+              "maximumCodes": 3.9451983779356397,
+              "weightedSquaredError": 2.8968990534247716,
+              "rank": 1,
+              "singularValues": [
+                48.70886694077094
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 12,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999965
+              ],
+              "maximumCodes": 3.8000000000000114,
+              "weightedSquaredError": 2.905479166666637,
+              "rank": 1,
+              "singularValues": [
+                48.70886694446327
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 18,
+              "iterations": 5,
+              "epigraphGapCodes": 4.3076653355456074e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.8946579936546443
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256337123366347
+              ],
+              "maximumCodes": 3.945198175616582,
+              "weightedSquaredError": 2.8968990534248364,
+              "rank": 1,
+              "singularValues": [
+                48.70886695705135
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8799999999999996
+              ],
+              "maximumCodes": 3.799999999999983,
+              "weightedSquaredError": 2.905479166666627,
+              "rank": 1,
+              "singularValues": [
+                48.708866950087156
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -1.4210854715202004e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.3305686714187773
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256337794633173
+              ],
+              "maximumCodes": 3.9451983892014653,
+              "weightedSquaredError": 2.896899053424785,
+              "rank": 1,
+              "singularValues": [
+                48.7088669461452
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 11,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.880000000000002
+              ],
+              "maximumCodes": 3.8000000000000114,
+              "weightedSquaredError": 2.905479166666637,
+              "rank": 1,
+              "singularValues": [
+                48.708866939838
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 27,
+              "iterations": 9,
+              "epigraphGapCodes": 2.6201263381153694e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.4671930872324881
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.925633694137412
+              ],
+              "maximumCodes": 3.9451981177099356,
+              "weightedSquaredError": 2.8968990534248604,
+              "rank": 1,
+              "singularValues": [
+                48.70886693247963
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8800000020745649
+              ],
+              "maximumCodes": 3.800000006600868,
+              "weightedSquaredError": 2.905479165886522,
+              "rank": 1,
+              "singularValues": [
+                48.70886695508036
+              ],
+              "optimizerSuccess": false,
+              "message": "Positive directional derivative for linesearch",
+              "evaluations": 9,
+              "iterations": 7,
+              "epigraphGapCodes": 1.178731690032464e-08,
+              "converged": false
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.935208353741071
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256337794277135
+              ],
+              "maximumCodes": 3.9451983890881763,
+              "weightedSquaredError": 2.896899053424766,
+              "rank": 1,
+              "singularValues": [
+                48.70886694146734
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8800000000000008
+              ],
+              "maximumCodes": 3.8000000000000114,
+              "weightedSquaredError": 2.9054791666666313,
+              "rank": 1,
+              "singularValues": [
+                48.70886694535678
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.6201263381153694e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.8745012492668992
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339164059239
+              ],
+              "maximumCodes": 3.945198824927928,
+              "weightedSquaredError": 2.896899053424785,
+              "rank": 1,
+              "singularValues": [
+                48.70886695691994
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.8800000010722833
+              ],
+              "maximumCodes": 3.800000003411782,
+              "weightedSquaredError": 2.905479166263415,
+              "rank": 1,
+              "singularValues": [
+                48.70886695138802
+              ],
+              "optimizerSuccess": false,
+              "message": "Positive directional derivative for linesearch",
+              "evaluations": 10,
+              "iterations": 7,
+              "epigraphGapCodes": 6.092510052013722e-09,
+              "converged": false
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.9256338283226175
+          ],
+          "maximumCodes": 3.945198544662844,
+          "weightedSquaredError": 2.896899053424753,
+          "rank": 1,
+          "singularValues": [
+            48.7088669615058
+          ],
+          "optimizerSuccess": true,
+          "message": "`ftol` termination condition is satisfied.",
+          "evaluations": 6,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 0
+        },
+        "minimax": {
+          "coefficients": [
+            0.8799999999999972
+          ],
+          "maximumCodes": 3.799999999999983,
+          "weightedSquaredError": 2.9054791666666318,
+          "rank": 1,
+          "singularValues": [
+            48.708866956052695
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 9,
+          "iterations": 3,
+          "epigraphGapCodes": -9.769962616701378e-15,
+          "converged": true,
+          "startIndex": 0
+        }
+      },
+      "S2": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0,
+              0.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338176370575,
+                5.764687917298659
+              ],
+              "maximumCodes": 2.2774973852036737,
+              "weightedSquaredError": 1.4330381679953776,
+              "rank": 2,
+              "singularValues": [
+                48.7088669542394,
+                5.03746295791548
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360789695,
+                5.6516811484532825
+              ],
+              "maximumCodes": 2.221382697399946,
+              "weightedSquaredError": 1.4382217690679746,
+              "rank": 2,
+              "singularValues": [
+                48.70886695433138,
+                5.037462958935336
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 24,
+              "iterations": 6,
+              "epigraphGapCodes": 2.2608581673466688e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504,
+              200.83754523217536
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338169812897,
+                5.764687848162356
+              ],
+              "maximumCodes": 2.2774974037343725,
+              "weightedSquaredError": 1.4330381679953783,
+              "rank": 2,
+              "singularValues": [
+                48.70886693341257,
+                5.0374629586613375
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.748299319729145,
+                182.6515495086815
+              ],
+              "maximumCodes": 63.0000000000005,
+              "weightedSquaredError": 1359.0123388587103,
+              "rank": 2,
+              "singularValues": [
+                45.608188211661115,
+                4.704232506484634
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 29,
+              "iterations": 7,
+              "epigraphGapCodes": 4.39825953435502e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.5939870091585048,
+              39.44967531553129
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339032402057,
+                5.7646878362124605
+              ],
+              "maximumCodes": 2.277497191006688,
+              "weightedSquaredError": 1.4330381679953883,
+              "rank": 2,
+              "singularValues": [
+                48.70886695732728,
+                5.037462958684317
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360785851,
+                5.651681148471474
+              ],
+              "maximumCodes": 2.221382697393693,
+              "weightedSquaredError": 1.4382217690676915,
+              "rank": 2,
+              "singularValues": [
+                48.708866937210026,
+                5.037462957177553
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 36,
+              "iterations": 9,
+              "epigraphGapCodes": -7.327471962526033e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.6963895656832217,
+              212.18969530369068
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338454917978,
+                5.764687867240831
+              ],
+              "maximumCodes": 2.2774973277968797,
+              "weightedSquaredError": 1.4330381679953768,
+              "rank": 2,
+              "singularValues": [
+                48.70886695573735,
+                5.037462958683503
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.748299319727899,
+                182.65154745235623
+              ],
+              "maximumCodes": 63.0,
+              "weightedSquaredError": 1359.0123109831459,
+              "rank": 2,
+              "singularValues": [
+                45.60818817503351,
+                4.704232506501515
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 24,
+              "iterations": 6,
+              "epigraphGapCodes": 1.9895196601282805e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.3199882947477044,
+              -148.80521035918548
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339140197664,
+                5.764687910247621
+              ],
+              "maximumCodes": 2.277497145969619,
+              "weightedSquaredError": 1.433038167995399,
+              "rank": 2,
+              "singularValues": [
+                48.70886693494993,
+                5.037462958386838
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360785775,
+                5.6516811484699945
+              ],
+              "maximumCodes": 2.2213826973932953,
+              "weightedSquaredError": 1.4382217690676957,
+              "rank": 2,
+              "singularValues": [
+                48.70886694061329,
+                5.037462958984448
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 37,
+              "iterations": 10,
+              "epigraphGapCodes": 3.6415315207705135e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.7478080547177596,
+              -97.77145992382077
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.925633915821136,
+                5.764687853957105
+              ],
+              "maximumCodes": 2.277497155218981,
+              "weightedSquaredError": 1.4330381679953994,
+              "rank": 2,
+              "singularValues": [
+                48.70886695807627,
+                5.0374629581464
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360823069,
+                5.651681148506564
+              ],
+              "maximumCodes": 2.221382697413844,
+              "weightedSquaredError": 1.438221769068361,
+              "rank": 2,
+              "singularValues": [
+                48.708866955724226,
+                5.037462957933472
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 32,
+              "iterations": 8,
+              "epigraphGapCodes": 3.178257657054928e-11,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.8946579936546443,
+              -86.40997757642356
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338212278841,
+                5.764687615615296
+              ],
+              "maximumCodes": 2.2774974499333496,
+              "weightedSquaredError": 1.4330381679953725,
+              "rank": 2,
+              "singularValues": [
+                48.7088669368421,
+                5.037462958392786
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 12,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.959123536078578,
+                5.651681148469967
+              ],
+              "maximumCodes": 2.221382697393267,
+              "weightedSquaredError": 1.4382217690676908,
+              "rank": 2,
+              "singularValues": [
+                48.708866937853884,
+                5.037462958754022
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 33,
+              "iterations": 9,
+              "epigraphGapCodes": 1.5987211554602254e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.4671930872324881,
+              221.95626040794622
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339089717392,
+                5.764687956302616
+              ],
+              "maximumCodes": 2.2774971473376127,
+              "weightedSquaredError": 1.433038167995384,
+              "rank": 2,
+              "singularValues": [
+                48.70886693330744,
+                5.037462958623394
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.7482993197278529,
+                182.65154950864405
+              ],
+              "maximumCodes": 63.0,
+              "weightedSquaredError": 1359.0123388582115,
+              "rank": 2,
+              "singularValues": [
+                45.60818818242989,
+                4.704232506499456
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 25,
+              "iterations": 6,
+              "epigraphGapCodes": -5.968558980384842e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.8745012492668992,
+              -23.97964680559644
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256339588876082,
+                5.7646878108940545
+              ],
+              "maximumCodes": 2.277497058073891,
+              "weightedSquaredError": 1.4330381679954174,
+              "rank": 2,
+              "singularValues": [
+                48.70886692855077,
+                5.037462958622142
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360785053,
+                5.651681148459114
+              ],
+              "maximumCodes": 2.2213826973965354,
+              "weightedSquaredError": 1.4382217690677888,
+              "rank": 2,
+              "singularValues": [
+                48.708866938537184,
+                5.037462958517973
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 28,
+              "iterations": 7,
+              "epigraphGapCodes": 2.540190280342358e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7192068424489817,
+              149.2276313106143
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.925633867642071,
+                5.76468781465252
+              ],
+              "maximumCodes": 2.277497285269476,
+              "weightedSquaredError": 1.4330381679953839,
+              "rank": 2,
+              "singularValues": [
+                48.7088669524655,
+                5.037462958912545
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360784905,
+                5.651681148476646
+              ],
+              "maximumCodes": 2.2213826973949153,
+              "weightedSquaredError": 1.4382217690676076,
+              "rank": 2,
+              "singularValues": [
+                48.70886695228153,
+                5.037462958442101
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 40,
+              "iterations": 11,
+              "epigraphGapCodes": 4.298783551348606e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.9981323593718431,
+              -97.72879283524364
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338153109613,
+                5.764687556630796
+              ],
+              "maximumCodes": 2.2774974791366276,
+              "weightedSquaredError": 1.4330381679953752,
+              "rank": 2,
+              "singularValues": [
+                48.70886694933818,
+                5.037462957935829
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360785787,
+                5.651681148469997
+              ],
+              "maximumCodes": 2.2213826973932953,
+              "weightedSquaredError": 1.4382217690676895,
+              "rank": 2,
+              "singularValues": [
+                48.708866932335106,
+                5.037462958720297
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 59,
+              "iterations": 12,
+              "epigraphGapCodes": 3.9968028886505635e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.4096031524888597,
+              216.75033540596033
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338637562851,
+                5.7646878876244765
+              ],
+              "maximumCodes": 2.2774972771555895,
+              "weightedSquaredError": 1.4330381679953734,
+              "rank": 2,
+              "singularValues": [
+                48.708866930140715,
+                5.037462958320781
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.7482993197273492,
+                182.65154950869288
+              ],
+              "maximumCodes": 63.00000000000193,
+              "weightedSquaredError": 1359.0123388588763,
+              "rank": 2,
+              "singularValues": [
+                45.608188209822,
+                4.704232506479179
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 29,
+              "iterations": 7,
+              "epigraphGapCodes": 2.0605739337042905e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.23911566853409116,
+              -114.75998630526927
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338415794744,
+                5.764687842725987
+              ],
+              "maximumCodes": 2.2774973435670915,
+              "weightedSquaredError": 1.4330381679953694,
+              "rank": 2,
+              "singularValues": [
+                48.7088669289844,
+                5.0374629582683115
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360785693,
+                5.651681148469918
+              ],
+              "maximumCodes": 2.221382697393267,
+              "weightedSquaredError": 1.4382217690676975,
+              "rank": 2,
+              "singularValues": [
+                48.708866944712945,
+                5.03746295925984
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 37,
+              "iterations": 9,
+              "epigraphGapCodes": -7.061018436615996e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.6107064871019711,
+              36.75075668906421
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338180432729,
+                5.76468791504856
+              ],
+              "maximumCodes": 2.2774973847378703,
+              "weightedSquaredError": 1.4330381679953668,
+              "rank": 2,
+              "singularValues": [
+                48.7088669499295,
+                5.037462959183788
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 13,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.959123536078296,
+                5.651681148475672
+              ],
+              "maximumCodes": 2.221382697394091,
+              "weightedSquaredError": 1.4382217690675594,
+              "rank": 2,
+              "singularValues": [
+                48.70886693497623,
+                5.037462958079597
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 36,
+              "iterations": 9,
+              "epigraphGapCodes": 1.5827339439056232e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.13828988439747414,
+              213.48764532124892
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256338096338929,
+                5.764687634886763
+              ],
+              "maximumCodes": 2.27749747420998,
+              "weightedSquaredError": 1.4330381679953792,
+              "rank": 2,
+              "singularValues": [
+                48.70886695033685,
+                5.037462958727582
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.7482993197242586,
+                182.65154950881475
+              ],
+              "maximumCodes": 63.000000000055365,
+              "weightedSquaredError": 1359.012338860549,
+              "rank": 2,
+              "singularValues": [
+                45.60818820046753,
+                4.704232506495758
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 29,
+              "iterations": 7,
+              "epigraphGapCodes": -5.8975047068088315e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.1134283727635973,
+              -121.56872685604726
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9256337834891298,
+                5.764687984925024
+              ],
+              "maximumCodes": 2.2774974540511437,
+              "weightedSquaredError": 1.4330381679953872,
+              "rank": 2,
+              "singularValues": [
+                48.708866949548444,
+                5.037462958221349
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9591235360785788,
+                5.651681148470007
+              ],
+              "maximumCodes": 2.2213826973932953,
+              "weightedSquaredError": 1.4382217690676948,
+              "rank": 2,
+              "singularValues": [
+                48.70886694337267,
+                5.037462958838325
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 37,
+              "iterations": 10,
+              "epigraphGapCodes": 3.108624468950438e-14,
+              "converged": true
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.9256338180432729,
+            5.76468791504856
+          ],
+          "maximumCodes": 2.2774973847378703,
+          "weightedSquaredError": 1.4330381679953668,
+          "rank": 2,
+          "singularValues": [
+            48.7088669499295,
+            5.037462959183788
+          ],
+          "optimizerSuccess": true,
+          "message": "`xtol` termination condition is satisfied.",
+          "evaluations": 13,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 13
+        },
+        "minimax": {
+          "coefficients": [
+            0.959123536078578,
+            5.651681148469967
+          ],
+          "maximumCodes": 2.221382697393267,
+          "weightedSquaredError": 1.4382217690676908,
+          "rank": 2,
+          "singularValues": [
+            48.708866937853884,
+            5.037462958754022
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 33,
+          "iterations": 9,
+          "epigraphGapCodes": 1.5987211554602254e-14,
+          "converged": true,
+          "startIndex": 6
+        }
+      }
+    }
+  },
+  "light-inactive": {
+    "body": {
+      "family": "E3",
+      "coefficients": [
+        0.929205829365914,
+        0.9597570955316058,
+        0.9383102545096953
+      ],
+      "neutral": [
+        150,
+        157,
+        164,
+        171,
+        178,
+        188,
+        197
+      ],
+      "status": "endpoint survives both colour and thick transfer",
+      "colourSurvives": true,
+      "fullEndpointSurvives": true,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-inactive-E3-fit.json",
+      "sourceSha256": "fef8045e611ade02184e091350cd89ebcb32a6eff86d82bea39f2aefa7100fd6"
+    },
+    "fits": {
+      "S0": {
+        "classification": "fixed null",
+        "starts": [],
+        "leastSquares": {
+          "coefficients": [],
+          "maximumCodes": 1.9166666666666856,
+          "weightedSquaredError": 0.7429618450126169,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        },
+        "minimax": {
+          "coefficients": [],
+          "maximumCodes": 1.9166666666666856,
+          "weightedSquaredError": 0.7429618450126169,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        }
+      },
+      "S1": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389015774579
+              ],
+              "maximumCodes": 1.0143981692957595,
+              "weightedSquaredError": 0.27172528445093513,
+              "rank": 1,
+              "singularValues": [
+                42.09111363891474
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559762
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353235,
+              "rank": 1,
+              "singularValues": [
+                42.09111362220094
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": -2.4646951146678475e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388962591527
+              ],
+              "maximumCodes": 1.0143981604319094,
+              "weightedSquaredError": 0.27172528445093336,
+              "rank": 1,
+              "singularValues": [
+                42.091113640901625
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155911
+              ],
+              "maximumCodes": 1.0091743119266994,
+              "weightedSquaredError": 0.27175550993532716,
+              "rank": 1,
+              "singularValues": [
+                42.091113621085846
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": 2.353672812205332e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.893799108298383
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388828514422
+              ],
+              "maximumCodes": 1.0143981380857383,
+              "weightedSquaredError": 0.2717252844509366,
+              "rank": 1,
+              "singularValues": [
+                42.091113627332916
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559411
+              ],
+              "maximumCodes": 1.0091743119266425,
+              "weightedSquaredError": 0.27175550993532593,
+              "rank": 1,
+              "singularValues": [
+                42.09111362010508
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.8199664825478976e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.5939870091585048
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388581597243
+              ],
+              "maximumCodes": 1.0143980969328652,
+              "weightedSquaredError": 0.2717252844509472,
+              "rank": 1,
+              "singularValues": [
+                42.09111361571563
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045881636703
+              ],
+              "maximumCodes": 1.0091743136061098,
+              "weightedSquaredError": 0.2717555099158897,
+              "rank": 1,
+              "singularValues": [
+                42.09111362410929
+              ],
+              "optimizerSuccess": false,
+              "message": "Positive directional derivative for linesearch",
+              "evaluations": 6,
+              "iterations": 6,
+              "epigraphGapCodes": 7.322677575416492e-09,
+              "converged": false
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.5773523045402574
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389308735601
+              ],
+              "maximumCodes": 1.0143982181226079,
+              "weightedSquaredError": 0.27172528445093325,
+              "rank": 1,
+              "singularValues": [
+                42.091113613779406
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155964
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532216,
+              "rank": 1,
+              "singularValues": [
+                42.09111361251478
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.4424906541753444e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.6963895656832217
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389886768875
+              ],
+              "maximumCodes": 1.0143983144614594,
+              "weightedSquaredError": 0.271725284450946,
+              "rank": 1,
+              "singularValues": [
+                42.091113625956794
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559639
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532216,
+              "rank": 1,
+              "singularValues": [
+                42.09111361251478
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 24,
+              "iterations": 6,
+              "epigraphGapCodes": 2.2870594307278225e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.916058226085668
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389508951919
+              ],
+              "maximumCodes": 1.0143982514919685,
+              "weightedSquaredError": 0.2717252844509408,
+              "rank": 1,
+              "singularValues": [
+                42.09111360800118
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155964
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532216,
+              "rank": 1,
+              "singularValues": [
+                42.09111361251478
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -8.881784197001252e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.3199882947477044
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389387900634
+              ],
+              "maximumCodes": 1.0143982313167612,
+              "weightedSquaredError": 0.27172528445093375,
+              "rank": 1,
+              "singularValues": [
+                42.09111360646285
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155936
+              ],
+              "maximumCodes": 1.0091743119266425,
+              "weightedSquaredError": 0.2717555099353244,
+              "rank": 1,
+              "singularValues": [
+                42.091113622984054
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -1.3433698597964394e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.20822507772708732
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389375130208
+              ],
+              "maximumCodes": 1.014398229188373,
+              "weightedSquaredError": 0.2717252844509384,
+              "rank": 1,
+              "singularValues": [
+                42.09111361311543
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559745
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993531983,
+              "rank": 1,
+              "singularValues": [
+                42.091113617183005
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -2.4802382370125997e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7478080547177596
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389434514876
+              ],
+              "maximumCodes": 1.014398239085807,
+              "weightedSquaredError": 0.271725284450936,
+              "rank": 1,
+              "singularValues": [
+                42.09111361253759
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559126
+              ],
+              "maximumCodes": 1.009174311926671,
+              "weightedSquaredError": 0.27175550993532493,
+              "rank": 1,
+              "singularValues": [
+                42.091113613315635
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.192379528447418e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.3082912550513318
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388734490003
+              ],
+              "maximumCodes": 1.0143981224150025,
+              "weightedSquaredError": 0.2717252844509378,
+              "rank": 1,
+              "singularValues": [
+                42.09111362249494
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559502
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353238,
+              "rank": 1,
+              "singularValues": [
+                42.09111361491731
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -8.149037000748649e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.8946579936546443
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389522359082
+              ],
+              "maximumCodes": 1.0143982537265117,
+              "weightedSquaredError": 0.27172528445093086,
+              "rank": 1,
+              "singularValues": [
+                42.091113612507186
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559551
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353246,
+              "rank": 1,
+              "singularValues": [
+                42.09111361974517
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -6.150635556423367e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.3305686714187773
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.608638940685454
+              ],
+              "maximumCodes": 1.014398234475749,
+              "weightedSquaredError": 0.2717252844509335,
+              "rank": 1,
+              "singularValues": [
+                42.091113618485636
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559481
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353238,
+              "rank": 1,
+              "singularValues": [
+                42.09111360896676
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -6.88338275267597e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.4671930872324881
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389251746412
+              ],
+              "maximumCodes": 1.0143982086243852,
+              "weightedSquaredError": 0.2717252844509278,
+              "rank": 1,
+              "singularValues": [
+                42.09111362074879
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559528
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353246,
+              "rank": 1,
+              "singularValues": [
+                42.09111363163618
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.3314683517128287e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.935208353741071
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389229707916
+              ],
+              "maximumCodes": 1.0143982049513056,
+              "weightedSquaredError": 0.2717252844509396,
+              "rank": 1,
+              "singularValues": [
+                42.09111360552769
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871558484
+              ],
+              "maximumCodes": 1.0091743119267846,
+              "weightedSquaredError": 0.27175550993532693,
+              "rank": 1,
+              "singularValues": [
+                42.09111362217812
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.7200464103316335e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.8745012492668992
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389167500301
+              ],
+              "maximumCodes": 1.0143981945833787,
+              "weightedSquaredError": 0.27172528445092914,
+              "rank": 1,
+              "singularValues": [
+                42.09111362349597
+              ],
+              "optimizerSuccess": true,
+              "message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+              "evaluations": 11,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559783
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532355,
+              "rank": 1,
+              "singularValues": [
+                42.091113611328744
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.0835776720341528e-13,
+              "converged": true
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.6086389251746412
+          ],
+          "maximumCodes": 1.0143982086243852,
+          "weightedSquaredError": 0.2717252844509278,
+          "rank": 1,
+          "singularValues": [
+            42.09111362074879
+          ],
+          "optimizerSuccess": true,
+          "message": "`ftol` termination condition is satisfied.",
+          "evaluations": 9,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 13
+        },
+        "minimax": {
+          "coefficients": [
+            0.6055045871559762
+          ],
+          "maximumCodes": 1.009174311926614,
+          "weightedSquaredError": 0.2717555099353235,
+          "rank": 1,
+          "singularValues": [
+            42.09111362220094
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 12,
+          "iterations": 4,
+          "epigraphGapCodes": -2.4646951146678475e-14,
+          "converged": true,
+          "startIndex": 0
+        }
+      },
+      "S2": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389015774579
+              ],
+              "maximumCodes": 1.0143981692957595,
+              "weightedSquaredError": 0.27172528445093513,
+              "rank": 1,
+              "singularValues": [
+                42.09111363891474
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559762
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353235,
+              "rank": 1,
+              "singularValues": [
+                42.09111362220094
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": -2.4646951146678475e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388962591527
+              ],
+              "maximumCodes": 1.0143981604319094,
+              "weightedSquaredError": 0.27172528445093336,
+              "rank": 1,
+              "singularValues": [
+                42.091113640901625
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155911
+              ],
+              "maximumCodes": 1.0091743119266994,
+              "weightedSquaredError": 0.27175550993532716,
+              "rank": 1,
+              "singularValues": [
+                42.091113621085846
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": 2.353672812205332e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.893799108298383
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388828514422
+              ],
+              "maximumCodes": 1.0143981380857383,
+              "weightedSquaredError": 0.2717252844509366,
+              "rank": 1,
+              "singularValues": [
+                42.091113627332916
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559411
+              ],
+              "maximumCodes": 1.0091743119266425,
+              "weightedSquaredError": 0.27175550993532593,
+              "rank": 1,
+              "singularValues": [
+                42.09111362010508
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.8199664825478976e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.5939870091585048
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388581597243
+              ],
+              "maximumCodes": 1.0143980969328652,
+              "weightedSquaredError": 0.2717252844509472,
+              "rank": 1,
+              "singularValues": [
+                42.09111361571563
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045881636703
+              ],
+              "maximumCodes": 1.0091743136061098,
+              "weightedSquaredError": 0.2717555099158897,
+              "rank": 1,
+              "singularValues": [
+                42.09111362410929
+              ],
+              "optimizerSuccess": false,
+              "message": "Positive directional derivative for linesearch",
+              "evaluations": 6,
+              "iterations": 6,
+              "epigraphGapCodes": 7.322677575416492e-09,
+              "converged": false
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.5773523045402574
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389308735601
+              ],
+              "maximumCodes": 1.0143982181226079,
+              "weightedSquaredError": 0.27172528445093325,
+              "rank": 1,
+              "singularValues": [
+                42.091113613779406
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155964
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532216,
+              "rank": 1,
+              "singularValues": [
+                42.09111361251478
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.4424906541753444e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.6963895656832217
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389886768875
+              ],
+              "maximumCodes": 1.0143983144614594,
+              "weightedSquaredError": 0.271725284450946,
+              "rank": 1,
+              "singularValues": [
+                42.091113625956794
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559639
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532216,
+              "rank": 1,
+              "singularValues": [
+                42.09111361251478
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 24,
+              "iterations": 6,
+              "epigraphGapCodes": 2.2870594307278225e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.916058226085668
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389508951919
+              ],
+              "maximumCodes": 1.0143982514919685,
+              "weightedSquaredError": 0.2717252844509408,
+              "rank": 1,
+              "singularValues": [
+                42.09111360800118
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155964
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532216,
+              "rank": 1,
+              "singularValues": [
+                42.09111361251478
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -8.881784197001252e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.3199882947477044
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389387900634
+              ],
+              "maximumCodes": 1.0143982313167612,
+              "weightedSquaredError": 0.27172528445093375,
+              "rank": 1,
+              "singularValues": [
+                42.09111360646285
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.605504587155936
+              ],
+              "maximumCodes": 1.0091743119266425,
+              "weightedSquaredError": 0.2717555099353244,
+              "rank": 1,
+              "singularValues": [
+                42.091113622984054
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -1.3433698597964394e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.20822507772708732
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389375130208
+              ],
+              "maximumCodes": 1.014398229188373,
+              "weightedSquaredError": 0.2717252844509384,
+              "rank": 1,
+              "singularValues": [
+                42.09111361311543
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559745
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993531983,
+              "rank": 1,
+              "singularValues": [
+                42.091113617183005
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -2.4802382370125997e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7478080547177596
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389434514876
+              ],
+              "maximumCodes": 1.014398239085807,
+              "weightedSquaredError": 0.271725284450936,
+              "rank": 1,
+              "singularValues": [
+                42.09111361253759
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559126
+              ],
+              "maximumCodes": 1.009174311926671,
+              "weightedSquaredError": 0.27175550993532493,
+              "rank": 1,
+              "singularValues": [
+                42.091113613315635
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.192379528447418e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.3082912550513318
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086388734490003
+              ],
+              "maximumCodes": 1.0143981224150025,
+              "weightedSquaredError": 0.2717252844509378,
+              "rank": 1,
+              "singularValues": [
+                42.09111362249494
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559502
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353238,
+              "rank": 1,
+              "singularValues": [
+                42.09111361491731
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -8.149037000748649e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.8946579936546443
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389522359082
+              ],
+              "maximumCodes": 1.0143982537265117,
+              "weightedSquaredError": 0.27172528445093086,
+              "rank": 1,
+              "singularValues": [
+                42.091113612507186
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559551
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353246,
+              "rank": 1,
+              "singularValues": [
+                42.09111361974517
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -6.150635556423367e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.3305686714187773
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.608638940685454
+              ],
+              "maximumCodes": 1.014398234475749,
+              "weightedSquaredError": 0.2717252844509335,
+              "rank": 1,
+              "singularValues": [
+                42.091113618485636
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559481
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353238,
+              "rank": 1,
+              "singularValues": [
+                42.09111360896676
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -6.88338275267597e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.4671930872324881
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389251746412
+              ],
+              "maximumCodes": 1.0143982086243852,
+              "weightedSquaredError": 0.2717252844509278,
+              "rank": 1,
+              "singularValues": [
+                42.09111362074879
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559528
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.2717555099353246,
+              "rank": 1,
+              "singularValues": [
+                42.09111363163618
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.3314683517128287e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.935208353741071
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389229707916
+              ],
+              "maximumCodes": 1.0143982049513056,
+              "weightedSquaredError": 0.2717252844509396,
+              "rank": 1,
+              "singularValues": [
+                42.09111360552769
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871558484
+              ],
+              "maximumCodes": 1.0091743119267846,
+              "weightedSquaredError": 0.27175550993532693,
+              "rank": 1,
+              "singularValues": [
+                42.09111362217812
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.7200464103316335e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.8745012492668992
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.6086389167500301
+              ],
+              "maximumCodes": 1.0143981945833787,
+              "weightedSquaredError": 0.27172528445092914,
+              "rank": 1,
+              "singularValues": [
+                42.09111362349597
+              ],
+              "optimizerSuccess": true,
+              "message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+              "evaluations": 11,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6055045871559783
+              ],
+              "maximumCodes": 1.009174311926614,
+              "weightedSquaredError": 0.27175550993532355,
+              "rank": 1,
+              "singularValues": [
+                42.091113611328744
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.0835776720341528e-13,
+              "converged": true
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.6086389251746412
+          ],
+          "maximumCodes": 1.0143982086243852,
+          "weightedSquaredError": 0.2717252844509278,
+          "rank": 1,
+          "singularValues": [
+            42.09111362074879
+          ],
+          "optimizerSuccess": true,
+          "message": "`ftol` termination condition is satisfied.",
+          "evaluations": 9,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 13
+        },
+        "minimax": {
+          "coefficients": [
+            0.6055045871559762
+          ],
+          "maximumCodes": 1.009174311926614,
+          "weightedSquaredError": 0.2717555099353235,
+          "rank": 1,
+          "singularValues": [
+            42.09111362220094
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 12,
+          "iterations": 4,
+          "epigraphGapCodes": -2.4646951146678475e-14,
+          "converged": true,
+          "startIndex": 0
+        }
+      }
+    }
+  },
+  "dark-active": {
+    "body": {
+      "family": "E3",
+      "coefficients": [
+        1.1887451017973973,
+        1.1957520666860317,
+        1.0754352621843033
+      ],
+      "neutral": [
+        69,
+        83,
+        96,
+        108,
+        119,
+        134,
+        146
+      ],
+      "status": "certified calibration rejection",
+      "colourSurvives": false,
+      "fullEndpointSurvives": false,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-active-E3-fit.json",
+      "sourceSha256": "8d23ff0bb08a5458d45fbf2217e35d298955d487435dfc4e72728bf1ef422430"
+    },
+    "fits": {
+      "S0": {
+        "classification": "fixed null",
+        "starts": [],
+        "leastSquares": {
+          "coefficients": [],
+          "maximumCodes": 3.2727272727272805,
+          "weightedSquaredError": 1.6973950935132633,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        },
+        "minimax": {
+          "coefficients": [],
+          "maximumCodes": 3.2727272727272805,
+          "weightedSquaredError": 1.6973950935132633,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        }
+      },
+      "S1": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849610734615
+              ],
+              "maximumCodes": 3.136609496645434,
+              "weightedSquaredError": 1.653878048995788,
+              "rank": 1,
+              "singularValues": [
+                59.79636156953092
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001682
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.796361551193094
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.0080825063596421e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849626747387
+              ],
+              "maximumCodes": 3.136609491641451,
+              "weightedSquaredError": 1.6538780489957983,
+              "rank": 1,
+              "singularValues": [
+                59.796361574082596
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001775
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275865,
+              "rank": 1,
+              "singularValues": [
+                59.79636154200412
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 5,
+              "epigraphGapCodes": 1.3322676295501878e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.893799108298383
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.916284980207867
+              ],
+              "maximumCodes": 3.1366094368503923,
+              "weightedSquaredError": 1.653878048995784,
+              "rank": 1,
+              "singularValues": [
+                59.79636157939422
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001791
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.79636154769304
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.3092638912203256e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.5939870091585048
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849364992969
+              ],
+              "maximumCodes": 3.1366095734396993,
+              "weightedSquaredError": 1.6538780489957903,
+              "rank": 1,
+              "singularValues": [
+                59.796361555230995
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001804
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.7963615682679
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": 2.7533531010703882e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.5773523045402574
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849221429629
+              ],
+              "maximumCodes": 3.136609618303254,
+              "weightedSquaredError": 1.6538780489957867,
+              "rank": 1,
+              "singularValues": [
+                59.79636156272347
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001676
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.79636154759672
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 22,
+              "iterations": 5,
+              "epigraphGapCodes": -3.410072224596661e-11,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.6963895656832217
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849753117338
+              ],
+              "maximumCodes": 3.1366094521508217,
+              "weightedSquaredError": 1.6538780489957952,
+              "rank": 1,
+              "singularValues": [
+                59.796361551241255
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001766
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.656761214227584,
+              "rank": 1,
+              "singularValues": [
+                59.79636154200412
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 29,
+              "iterations": 5,
+              "epigraphGapCodes": -3.9968028886505635e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.916058226085668
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849014084948
+              ],
+              "maximumCodes": 3.136609683098442,
+              "weightedSquaredError": 1.6538780489958063,
+              "rank": 1,
+              "singularValues": [
+                59.79636155131349
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 3,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001792
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.79636155348097
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.3092638912203256e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.3199882947477044
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849373554601
+              ],
+              "maximumCodes": 3.1366095707641932,
+              "weightedSquaredError": 1.6538780489957872,
+              "rank": 1,
+              "singularValues": [
+                59.79636156804314
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373002239
+              ],
+              "maximumCodes": 3.069271758437111,
+              "weightedSquaredError": 1.6567612142275985,
+              "rank": 1,
+              "singularValues": [
+                59.79636153536257
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": 2.851052727237402e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.20822507772708732
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849633142608
+              ],
+              "maximumCodes": 3.1366094896429217,
+              "weightedSquaredError": 1.6538780489957865,
+              "rank": 1,
+              "singularValues": [
+                59.79636156259235
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373002114
+              ],
+              "maximumCodes": 3.069271758437054,
+              "weightedSquaredError": 1.6567612142275825,
+              "rank": 1,
+              "singularValues": [
+                59.796361548014175
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": 2.091660178393795e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7478080547177596
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849208413975
+              ],
+              "maximumCodes": 3.1366096223706563,
+              "weightedSquaredError": 1.6538780489957972,
+              "rank": 1,
+              "singularValues": [
+                59.79636155682852
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001794
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.79636155348097
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 83,
+              "iterations": 10,
+              "epigraphGapCodes": 4.707345624410664e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.3082912550513318
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849396640821
+              ],
+              "maximumCodes": 3.1366095635497686,
+              "weightedSquaredError": 1.6538780489957843,
+              "rank": 1,
+              "singularValues": [
+                59.79636155454062
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001856
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275816,
+              "rank": 1,
+              "singularValues": [
+                59.79636154520178
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 12,
+              "iterations": 4,
+              "epigraphGapCodes": 2.353672812205332e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.8946579936546443
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849067089139
+              ],
+              "maximumCodes": 3.136609666534639,
+              "weightedSquaredError": 1.653878048995805,
+              "rank": 1,
+              "singularValues": [
+                59.796361567331346
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001689
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.79636154589485
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.708944180085382e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.3305686714187773
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849620601785
+              ],
+              "maximumCodes": 3.1366094935619344,
+              "weightedSquaredError": 1.6538780489957914,
+              "rank": 1,
+              "singularValues": [
+                59.79636158464699
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001865
+              ],
+              "maximumCodes": 3.0692717584369973,
+              "weightedSquaredError": 1.6567612142275863,
+              "rank": 1,
+              "singularValues": [
+                59.796361557807856
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 50,
+              "iterations": 11,
+              "epigraphGapCodes": 6.661338147750939e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.4671930872324881
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.916285003118665
+              ],
+              "maximumCodes": 3.1366093652541736,
+              "weightedSquaredError": 1.6538780489958103,
+              "rank": 1,
+              "singularValues": [
+                59.79636155111549
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001809
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.6567612142275787,
+              "rank": 1,
+              "singularValues": [
+                59.796361556692034
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 16,
+              "iterations": 6,
+              "epigraphGapCodes": -5.773159728050814e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.935208353741071
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162850056272569
+              ],
+              "maximumCodes": 3.136609357414841,
+              "weightedSquaredError": 1.6538780489958116,
+              "rank": 1,
+              "singularValues": [
+                59.79636155085326
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9378330373001754
+              ],
+              "maximumCodes": 3.069271758436969,
+              "weightedSquaredError": 1.656761214227584,
+              "rank": 1,
+              "singularValues": [
+                59.796361535319754
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 37,
+              "iterations": 7,
+              "epigraphGapCodes": 2.7533531010703882e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.8745012492668992
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849688276548
+              ],
+              "maximumCodes": 3.136609472413568,
+              "weightedSquaredError": 1.6538780489957923,
+              "rank": 1,
+              "singularValues": [
+                59.79636155698639
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.937833065106818
+              ],
+              "maximumCodes": 3.0692718494404687,
+              "weightedSquaredError": 1.656761221668705,
+              "rank": 1,
+              "singularValues": [
+                59.79636156001014
+              ],
+              "optimizerSuccess": false,
+              "message": "Positive directional derivative for linesearch",
+              "evaluations": 114,
+              "iterations": 15,
+              "epigraphGapCodes": 1.7789929884770572e-07,
+              "converged": false
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.916284980207867
+          ],
+          "maximumCodes": 3.1366094368503923,
+          "weightedSquaredError": 1.653878048995784,
+          "rank": 1,
+          "singularValues": [
+            59.79636157939422
+          ],
+          "optimizerSuccess": true,
+          "message": "`ftol` termination condition is satisfied.",
+          "evaluations": 5,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 2
+        },
+        "minimax": {
+          "coefficients": [
+            0.9378330373001682
+          ],
+          "maximumCodes": 3.069271758436969,
+          "weightedSquaredError": 1.6567612142275787,
+          "rank": 1,
+          "singularValues": [
+            59.796361551193094
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 9,
+          "iterations": 3,
+          "epigraphGapCodes": 1.0080825063596421e-13,
+          "converged": true,
+          "startIndex": 0
+        }
+      },
+      "S2": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0,
+              0.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849871439487,
+                4.113747542512693
+              ],
+              "maximumCodes": 2.0614253983820845,
+              "weightedSquaredError": 0.9084195904560222,
+              "rank": 2,
+              "singularValues": [
+                59.79636157582726,
+                5.037462958841763
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797547835,
+                3.9365870012928434
+              ],
+              "maximumCodes": 2.007615307246624,
+              "weightedSquaredError": 0.9161750512408419,
+              "rank": 2,
+              "singularValues": [
+                59.79636155756705,
+                5.037462958198243
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 24,
+              "iterations": 6,
+              "epigraphGapCodes": 1.1146639167236572e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504,
+              200.83754523217536
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162848784143448,
+                4.1137472051783375
+              ],
+              "maximumCodes": 2.061425826329014,
+              "weightedSquaredError": 0.908419590456055,
+              "rank": 2,
+              "singularValues": [
+                59.79636155956861,
+                5.037462958078404
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797547774,
+                3.9365870012909485
+              ],
+              "maximumCodes": 2.0076153072471072,
+              "weightedSquaredError": 0.9161750512408763,
+              "rank": 2,
+              "singularValues": [
+                59.796361569009136,
+                5.03746295676199
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 87,
+              "iterations": 14,
+              "epigraphGapCodes": 4.008793297316515e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.5939870091585048,
+              39.44967531553129
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849452499463,
+                4.1137475301179105
+              ],
+              "maximumCodes": 2.061425532540369,
+              "weightedSquaredError": 0.9084195904560153,
+              "rank": 2,
+              "singularValues": [
+                59.79636155450851,
+                5.037462958835711
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797546451,
+                3.9365870012956705
+              ],
+              "maximumCodes": 2.0076153072469083,
+              "weightedSquaredError": 0.9161750512407462,
+              "rank": 2,
+              "singularValues": [
+                59.796361563686794,
+                5.037462958190173
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 36,
+              "iterations": 9,
+              "epigraphGapCodes": 1.5409895581797173e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.6963895656832217,
+              212.18969530369068
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849072537802,
+                4.113747404851666
+              ],
+              "maximumCodes": 2.0614256840184453,
+              "weightedSquaredError": 0.9084195904560427,
+              "rank": 2,
+              "singularValues": [
+                59.7963615766113,
+                5.037462957841238
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797547771,
+                3.9365870012932245
+              ],
+              "maximumCodes": 2.0076153072465104,
+              "weightedSquaredError": 0.9161750512408406,
+              "rank": 2,
+              "singularValues": [
+                59.796361569009136,
+                5.037462958230517
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 41,
+              "iterations": 11,
+              "epigraphGapCodes": 8.881784197001252e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.3199882947477044,
+              -148.80521035918548
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.916284996006382,
+                4.113747407041886
+              ],
+              "maximumCodes": 2.061425406094088,
+              "weightedSquaredError": 0.9084195904560153,
+              "rank": 2,
+              "singularValues": [
+                59.79636156706644,
+                5.037462957710588
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 13,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797534165,
+                3.9365870012824726
+              ],
+              "maximumCodes": 2.007615307253559,
+              "weightedSquaredError": 0.916175051240474,
+              "rank": 2,
+              "singularValues": [
+                59.79636155745733,
+                5.037462958577476
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 37,
+              "iterations": 9,
+              "epigraphGapCodes": 3.2032154706485017e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.7478080547177596,
+              -97.77145992382077
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.916284974265441,
+                4.113747627387642
+              ],
+              "maximumCodes": 2.0614254164441945,
+              "weightedSquaredError": 0.9084195904560259,
+              "rank": 2,
+              "singularValues": [
+                59.79636155315987,
+                5.037462958184925
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797525605,
+                3.9365870013406723
+              ],
+              "maximumCodes": 2.007615307254781,
+              "weightedSquaredError": 0.9161750512392121,
+              "rank": 2,
+              "singularValues": [
+                59.7963615537004,
+                5.0374629582173585
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 33,
+              "iterations": 8,
+              "epigraphGapCodes": 1.9602541811991614e-11,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.8946579936546443,
+              -86.40997757642356
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849294080623,
+                4.113747477664772
+              ],
+              "maximumCodes": 2.061425595755594,
+              "weightedSquaredError": 0.9084195904560134,
+              "rank": 2,
+              "singularValues": [
+                59.796361566432246,
+                5.037462958550547
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797461783,
+                3.9365870014161684
+              ],
+              "maximumCodes": 2.007615307256998,
+              "weightedSquaredError": 0.9161750512354847,
+              "rank": 2,
+              "singularValues": [
+                59.79636155045721,
+                5.037462958922328
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 30,
+              "iterations": 7,
+              "epigraphGapCodes": 3.40465433623649e-11,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.4671930872324881,
+              221.95626040794622
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.916284956303828,
+                4.113747335427394
+              ],
+              "maximumCodes": 2.0614255488819992,
+              "weightedSquaredError": 0.9084195904560091,
+              "rank": 2,
+              "singularValues": [
+                59.79636155200391,
+                5.037462959830447
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 8,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797547759,
+                3.936587001293162
+              ],
+              "maximumCodes": 2.007615307246539,
+              "weightedSquaredError": 0.916175051240843,
+              "rank": 2,
+              "singularValues": [
+                59.796361569009136,
+                5.037462957520461
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 52,
+              "iterations": 15,
+              "epigraphGapCodes": 1.2434497875801753e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.8745012492668992,
+              -23.97964680559644
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849692323796,
+                4.113747477034248
+              ],
+              "maximumCodes": 2.06142547146942,
+              "weightedSquaredError": 0.9084195904560131,
+              "rank": 2,
+              "singularValues": [
+                59.796361552070785,
+                5.037462958732348
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 11,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797550935,
+                3.936587001305821
+              ],
+              "maximumCodes": 2.0076153072521947,
+              "weightedSquaredError": 0.9161750512407737,
+              "rank": 2,
+              "singularValues": [
+                59.79636155663584,
+                5.037462958375756
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 28,
+              "iterations": 7,
+              "epigraphGapCodes": 4.032774114648419e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7192068424489817,
+              149.2276313106143
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849997807084,
+                4.113747421163408
+              ],
+              "maximumCodes": 2.061425390608491,
+              "weightedSquaredError": 0.9084195904560273,
+              "rank": 2,
+              "singularValues": [
+                59.79636155599629,
+                5.037462959393138
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797547714,
+                3.936587001293153
+              ],
+              "maximumCodes": 2.007615307246539,
+              "weightedSquaredError": 0.9161750512408307,
+              "rank": 2,
+              "singularValues": [
+                59.796361564569835,
+                5.037462958706579
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 59,
+              "iterations": 12,
+              "epigraphGapCodes": 1.687538997430238e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.9981323593718431,
+              -97.72879283524364
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849373968237,
+                4.1137472427560855
+              ],
+              "maximumCodes": 2.0614256321873086,
+              "weightedSquaredError": 0.9084195904560223,
+              "rank": 2,
+              "singularValues": [
+                59.7963615673233,
+                5.037462959144652
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.948321279755094,
+                3.936587001292848
+              ],
+              "maximumCodes": 2.0076153072476757,
+              "weightedSquaredError": 0.9161750512409725,
+              "rank": 2,
+              "singularValues": [
+                59.79636155663584,
+                5.037462958198242
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 33,
+              "iterations": 8,
+              "epigraphGapCodes": 4.260147790091651e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.4096031524888597,
+              216.75033540596033
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.916284956278179,
+                4.11374771892863
+              ],
+              "maximumCodes": 2.0614254487288974,
+              "weightedSquaredError": 0.9084195904560123,
+              "rank": 2,
+              "singularValues": [
+                59.796361558757816,
+                5.037462962392351
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 15,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797545666,
+                3.936587001327842
+              ],
+              "maximumCodes": 2.007615307257936,
+              "weightedSquaredError": 0.9161750512402109,
+              "rank": 2,
+              "singularValues": [
+                59.7963615565288,
+                5.037462958338391
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 44,
+              "iterations": 12,
+              "epigraphGapCodes": -1.2350120925930241e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.23911566853409116,
+              -114.75998630526927
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162848661807863,
+                4.1137476969937765
+              ],
+              "maximumCodes": 2.0614257360162185,
+              "weightedSquaredError": 0.9084195904560669,
+              "rank": 2,
+              "singularValues": [
+                59.796361560491775,
+                5.037462958106569
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 11,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797419822,
+                3.936587001688792
+              ],
+              "maximumCodes": 2.0076153073370335,
+              "weightedSquaredError": 0.9161750512295821,
+              "rank": 2,
+              "singularValues": [
+                59.79636156553047,
+                5.037462958398725
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 36,
+              "iterations": 9,
+              "epigraphGapCodes": 9.036682513396954e-11,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.6107064871019711,
+              36.75075668906421
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849514838873,
+                4.1137472753836235
+              ],
+              "maximumCodes": 2.0614255796375858,
+              "weightedSquaredError": 0.908419590456015,
+              "rank": 2,
+              "singularValues": [
+                59.796361566052276,
+                5.037462959561428
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797547893,
+                3.936587001291929
+              ],
+              "maximumCodes": 2.0076153072469083,
+              "weightedSquaredError": 0.9161750512408684,
+              "rank": 2,
+              "singularValues": [
+                59.79636155739044,
+                5.037462958210346
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 36,
+              "iterations": 10,
+              "epigraphGapCodes": 7.989164885202626e-13,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.13828988439747414,
+              213.48764532124892
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849939284419,
+                4.113747592785687
+              ],
+              "maximumCodes": 2.0614253640409856,
+              "weightedSquaredError": 0.9084195904560246,
+              "rank": 2,
+              "singularValues": [
+                59.796361560660365,
+                5.037462958614863
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797542491,
+                3.9365870013734323
+              ],
+              "maximumCodes": 2.0076153072728005,
+              "weightedSquaredError": 0.9161750512393815,
+              "rank": 2,
+              "singularValues": [
+                59.796361556528815,
+                5.037462958870934
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 44,
+              "iterations": 12,
+              "epigraphGapCodes": -3.2445157671645575e-12,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.1134283727635973,
+              -121.56872685604726
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.9162849420501789,
+                4.113747247623779
+              ],
+              "maximumCodes": 2.0614256163733273,
+              "weightedSquaredError": 0.9084195904560107,
+              "rank": 2,
+              "singularValues": [
+                59.79636156028039,
+                5.037462958792366
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.9483212797547755,
+                3.9365870012932125
+              ],
+              "maximumCodes": 2.0076153072465104,
+              "weightedSquaredError": 0.9161750512408403,
+              "rank": 2,
+              "singularValues": [
+                59.79636157209978,
+                5.037462958601683
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 53,
+              "iterations": 12,
+              "epigraphGapCodes": -3.9968028886505635e-15,
+              "converged": true
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.916284956303828,
+            4.113747335427394
+          ],
+          "maximumCodes": 2.0614255488819992,
+          "weightedSquaredError": 0.9084195904560091,
+          "rank": 2,
+          "singularValues": [
+            59.79636155200391,
+            5.037462959830447
+          ],
+          "optimizerSuccess": true,
+          "message": "`ftol` termination condition is satisfied.",
+          "evaluations": 8,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 7
+        },
+        "minimax": {
+          "coefficients": [
+            0.9483212797547771,
+            3.9365870012932245
+          ],
+          "maximumCodes": 2.0076153072465104,
+          "weightedSquaredError": 0.9161750512408406,
+          "rank": 2,
+          "singularValues": [
+            59.796361569009136,
+            5.037462958230517
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 41,
+          "iterations": 11,
+          "epigraphGapCodes": 8.881784197001252e-15,
+          "converged": true,
+          "startIndex": 3
+        }
+      }
+    }
+  },
+  "dark-inactive": {
+    "body": {
+      "family": "E3",
+      "coefficients": [
+        1.1923789226024093,
+        1.2094180220044135,
+        1.0776457626058156
+      ],
+      "neutral": [
+        60,
+        74,
+        87,
+        100,
+        111,
+        127,
+        140
+      ],
+      "status": "certified calibration rejection",
+      "colourSurvives": false,
+      "fullEndpointSurvives": false,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-inactive-E3-fit.json",
+      "sourceSha256": "2024f3a4baa070288145ab1095d29fd7495510e81c07a7b40ed717aae1fd2b2e"
+    },
+    "fits": {
+      "S0": {
+        "classification": "fixed null",
+        "starts": [],
+        "leastSquares": {
+          "coefficients": [],
+          "maximumCodes": 2.666666666666657,
+          "weightedSquaredError": 1.4652580492424305,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        },
+        "minimax": {
+          "coefficients": [],
+          "maximumCodes": 2.666666666666657,
+          "weightedSquaredError": 1.4652580492424305,
+          "rank": 0,
+          "singularValues": [],
+          "converged": true
+        }
+      },
+      "S1": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.572246790407265
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762942,
+              "rank": 1,
+              "singularValues": [
+                64.21556758422226
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571428571533
+              ],
+              "maximumCodes": 1.0000000000000426,
+              "weightedSquaredError": 0.19066431615260754,
+              "rank": 1,
+              "singularValues": [
+                64.21556757039815
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 10,
+              "iterations": 3,
+              "epigraphGapCodes": -1.687538997430238e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467962551465
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076283,
+              "rank": 1,
+              "singularValues": [
+                64.21556756073684
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641027219836615
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543500240389674,
+              "rank": 1,
+              "singularValues": [
+                64.21556757379189
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.7755575615628914e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.893799108298383
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467742206111
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076275,
+              "rank": 1,
+              "singularValues": [
+                64.21556755880661
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571271678651
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066430028596415,
+              "rank": 1,
+              "singularValues": [
+                64.21556756300934
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -4.440892098500626e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.5939870091585048
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722468058488788
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076308,
+              "rank": 1,
+              "singularValues": [
+                64.2155675674147
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5939870091585048
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15834466476386636,
+              "rank": 1,
+              "singularValues": [
+                64.2155675571006
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": 0.0,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.5773523045402574
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467774279221
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762575,
+              "rank": 1,
+              "singularValues": [
+                64.2155675575325
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5773523045402574
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15514669767802677,
+              "rank": 1,
+              "singularValues": [
+                64.21556756891638
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": 0.0,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.6963895656832217
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467933766371
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762942,
+              "rank": 1,
+              "singularValues": [
+                64.21556756016705
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571428571405
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066431615259857,
+              "rank": 1,
+              "singularValues": [
+                64.21556757509587
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": -6.661338147750939e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.916058226085668
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467695716975
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260763164,
+              "rank": 1,
+              "singularValues": [
+                64.21556757495298
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571335488681
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1906643067390965,
+              "rank": 1,
+              "singularValues": [
+                64.21556758886024
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.7763568394002505e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.3199882947477044
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467902771733
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762597,
+              "rank": 1,
+              "singularValues": [
+                64.2155675620442
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641025641025303
+              ],
+              "maximumCodes": 1.0000000000000568,
+              "weightedSquaredError": 0.15543502081963953,
+              "rank": 1,
+              "singularValues": [
+                64.21556758763762
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": 5.5067062021407764e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.20822507772708732
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467891665672
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762592,
+              "rank": 1,
+              "singularValues": [
+                64.21556757290317
+              ],
+              "optimizerSuccess": true,
+              "message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641025641026047
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543502081963026,
+              "rank": 1,
+              "singularValues": [
+                64.21556757219385
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 10,
+              "iterations": 3,
+              "epigraphGapCodes": -3.042011087472929e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7478080547177596
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467952739732
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076269,
+              "rank": 1,
+              "singularValues": [
+                64.21556756638147
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571428571394
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066431615259538,
+              "rank": 1,
+              "singularValues": [
+                64.2155675761358
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": 3.219646771412954e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.3082912550513318
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467821094641
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762392,
+              "rank": 1,
+              "singularValues": [
+                64.2155675819116
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641026016349788
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543501644170993,
+              "rank": 1,
+              "singularValues": [
+                64.21556758514255
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": 4.440892098500626e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.8946579936546443
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467868127561
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762928,
+              "rank": 1,
+              "singularValues": [
+                64.21556756901107
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571364644206
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066430968761003,
+              "rank": 1,
+              "singularValues": [
+                64.21556757383674
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -2.220446049250313e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.3305686714187773
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.57224678235363
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076276,
+              "rank": 1,
+              "singularValues": [
+                64.21556757369719
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641025641026199
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543502081962918,
+              "rank": 1,
+              "singularValues": [
+                64.21556757436666
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": 9.992007221626409e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.4671930872324881
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467889173296
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762703,
+              "rank": 1,
+              "singularValues": [
+                64.215567569732
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641026304554797
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1554350130799864,
+              "rank": 1,
+              "singularValues": [
+                64.2155675655791
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": -2.220446049250313e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.935208353741071
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722468004644481
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260763042,
+              "rank": 1,
+              "singularValues": [
+                64.2155675864615
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.642857130939871
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066430410060853,
+              "rank": 1,
+              "singularValues": [
+                64.215567572051
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -7.993605777301127e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.8745012492668992
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467850361724
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762817,
+              "rank": 1,
+              "singularValues": [
+                64.21556756556747
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.642857139210545
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066431246477666,
+              "rank": 1,
+              "singularValues": [
+                64.21556756716888
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.099120794378905e-14,
+              "converged": true
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.5722467821094641
+          ],
+          "maximumCodes": 1.0,
+          "weightedSquaredError": 0.15496003260762392,
+          "rank": 1,
+          "singularValues": [
+            64.2155675819116
+          ],
+          "optimizerSuccess": true,
+          "message": "`ftol` termination condition is satisfied.",
+          "evaluations": 6,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 10
+        },
+        "minimax": {
+          "coefficients": [
+            0.5641027219836615
+          ],
+          "maximumCodes": 1.0,
+          "weightedSquaredError": 0.15543500240389674,
+          "rank": 1,
+          "singularValues": [
+            64.21556757379189
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 9,
+          "iterations": 3,
+          "epigraphGapCodes": 2.7755575615628914e-15,
+          "converged": true,
+          "startIndex": 1
+        }
+      },
+      "S2": {
+        "classification": "LOCAL; not a certified family negative",
+        "starts": [
+          {
+            "startIndex": 0,
+            "initial": [
+              1.0
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.572246790407265
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762942,
+              "rank": 1,
+              "singularValues": [
+                64.21556758422226
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571428571533
+              ],
+              "maximumCodes": 1.0000000000000426,
+              "weightedSquaredError": 0.19066431615260754,
+              "rank": 1,
+              "singularValues": [
+                64.21556757039815
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 10,
+              "iterations": 3,
+              "epigraphGapCodes": -1.687538997430238e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 1,
+            "initial": [
+              0.128636642645504
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467962551465
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076283,
+              "rank": 1,
+              "singularValues": [
+                64.21556756073684
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 7,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641027219836615
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543500240389674,
+              "rank": 1,
+              "singularValues": [
+                64.21556757379189
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 2.7755575615628914e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 2,
+            "initial": [
+              0.893799108298383
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467742206111
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076275,
+              "rank": 1,
+              "singularValues": [
+                64.21556755880661
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571271678651
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066430028596415,
+              "rank": 1,
+              "singularValues": [
+                64.21556756300934
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -4.440892098500626e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 3,
+            "initial": [
+              0.5939870091585048
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722468058488788
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076308,
+              "rank": 1,
+              "singularValues": [
+                64.2155675674147
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5939870091585048
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15834466476386636,
+              "rank": 1,
+              "singularValues": [
+                64.2155675571006
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": 0.0,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 4,
+            "initial": [
+              0.5773523045402574
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467774279221
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762575,
+              "rank": 1,
+              "singularValues": [
+                64.2155675575325
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 4,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5773523045402574
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15514669767802677,
+              "rank": 1,
+              "singularValues": [
+                64.21556756891638
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": 0.0,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 5,
+            "initial": [
+              0.6963895656832217
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467933766371
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762942,
+              "rank": 1,
+              "singularValues": [
+                64.21556756016705
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571428571405
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066431615259857,
+              "rank": 1,
+              "singularValues": [
+                64.21556757509587
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": -6.661338147750939e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 6,
+            "initial": [
+              0.916058226085668
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467695716975
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260763164,
+              "rank": 1,
+              "singularValues": [
+                64.21556757495298
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571335488681
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1906643067390965,
+              "rank": 1,
+              "singularValues": [
+                64.21556758886024
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.7763568394002505e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 7,
+            "initial": [
+              0.3199882947477044
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467902771733
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762597,
+              "rank": 1,
+              "singularValues": [
+                64.2155675620442
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641025641025303
+              ],
+              "maximumCodes": 1.0000000000000568,
+              "weightedSquaredError": 0.15543502081963953,
+              "rank": 1,
+              "singularValues": [
+                64.21556758763762
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": 5.5067062021407764e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 8,
+            "initial": [
+              0.20822507772708732
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467891665672
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762592,
+              "rank": 1,
+              "singularValues": [
+                64.21556757290317
+              ],
+              "optimizerSuccess": true,
+              "message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+              "evaluations": 9,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641025641026047
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543502081963026,
+              "rank": 1,
+              "singularValues": [
+                64.21556757219385
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 10,
+              "iterations": 3,
+              "epigraphGapCodes": -3.042011087472929e-14,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 9,
+            "initial": [
+              0.7478080547177596
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467952739732
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076269,
+              "rank": 1,
+              "singularValues": [
+                64.21556756638147
+              ],
+              "optimizerSuccess": true,
+              "message": "`xtol` termination condition is satisfied.",
+              "evaluations": 10,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571428571394
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066431615259538,
+              "rank": 1,
+              "singularValues": [
+                64.2155675761358
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": 3.219646771412954e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 10,
+            "initial": [
+              0.3082912550513318
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467821094641
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762392,
+              "rank": 1,
+              "singularValues": [
+                64.2155675819116
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641026016349788
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543501644170993,
+              "rank": 1,
+              "singularValues": [
+                64.21556758514255
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": 4.440892098500626e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 11,
+            "initial": [
+              0.8946579936546443
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467868127561
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762928,
+              "rank": 1,
+              "singularValues": [
+                64.21556756901107
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.6428571364644206
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066430968761003,
+              "rank": 1,
+              "singularValues": [
+                64.21556757383674
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -2.220446049250313e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 12,
+            "initial": [
+              0.3305686714187773
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.57224678235363
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1549600326076276,
+              "rank": 1,
+              "singularValues": [
+                64.21556757369719
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641025641026199
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15543502081962918,
+              "rank": 1,
+              "singularValues": [
+                64.21556757436666
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 7,
+              "iterations": 2,
+              "epigraphGapCodes": 9.992007221626409e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 13,
+            "initial": [
+              0.4671930872324881
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467889173296
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762703,
+              "rank": 1,
+              "singularValues": [
+                64.215567569732
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 5,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.5641026304554797
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.1554350130799864,
+              "rank": 1,
+              "singularValues": [
+                64.2155675655791
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 6,
+              "iterations": 2,
+              "epigraphGapCodes": -2.220446049250313e-16,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 14,
+            "initial": [
+              0.935208353741071
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722468004644481
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260763042,
+              "rank": 1,
+              "singularValues": [
+                64.2155675864615
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.642857130939871
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066430410060853,
+              "rank": 1,
+              "singularValues": [
+                64.215567572051
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": -7.993605777301127e-15,
+              "converged": true
+            }
+          },
+          {
+            "startIndex": 15,
+            "initial": [
+              0.8745012492668992
+            ],
+            "leastSquares": {
+              "coefficients": [
+                0.5722467850361724
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.15496003260762817,
+              "rank": 1,
+              "singularValues": [
+                64.21556756556747
+              ],
+              "optimizerSuccess": true,
+              "message": "`ftol` termination condition is satisfied.",
+              "evaluations": 6,
+              "iterations": 0,
+              "epigraphGapCodes": null,
+              "converged": true
+            },
+            "minimax": {
+              "coefficients": [
+                0.642857139210545
+              ],
+              "maximumCodes": 1.0,
+              "weightedSquaredError": 0.19066431246477666,
+              "rank": 1,
+              "singularValues": [
+                64.21556756716888
+              ],
+              "optimizerSuccess": true,
+              "message": "Optimization terminated successfully",
+              "evaluations": 9,
+              "iterations": 3,
+              "epigraphGapCodes": 1.099120794378905e-14,
+              "converged": true
+            }
+          }
+        ],
+        "leastSquares": {
+          "coefficients": [
+            0.5722467821094641
+          ],
+          "maximumCodes": 1.0,
+          "weightedSquaredError": 0.15496003260762392,
+          "rank": 1,
+          "singularValues": [
+            64.2155675819116
+          ],
+          "optimizerSuccess": true,
+          "message": "`ftol` termination condition is satisfied.",
+          "evaluations": 6,
+          "iterations": 0,
+          "epigraphGapCodes": null,
+          "converged": true,
+          "startIndex": 10
+        },
+        "minimax": {
+          "coefficients": [
+            0.5641027219836615
+          ],
+          "maximumCodes": 1.0,
+          "weightedSquaredError": 0.15543500240389674,
+          "rank": 1,
+          "singularValues": [
+            64.21556757379189
+          ],
+          "optimizerSuccess": true,
+          "message": "Optimization terminated successfully",
+          "evaluations": 9,
+          "iterations": 3,
+          "epigraphGapCodes": 2.7755575615628914e-15,
+          "converged": true,
+          "startIndex": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "schema": "w41-neutral-ratio-worker-seal-1",
+  "status": "NOT_DETERMINING",
+  "appliesSeparatelyToEndpoints": [
+    "light-inactive",
+    "dark-inactive"
+  ],
+  "models": [
+    "M1",
+    "M2"
+  ],
+  "geometryRivals": [
+    "device",
+    "css",
+    "curvature"
+  ],
+  "scalesPooled": false,
+  "populations": {
+    "1": {
+      "requiredBins": 80,
+      "admittedBins": 64,
+      "deficientBins": 16,
+      "exactBars": [
+        "1/2"
+      ]
+    },
+    "2": {
+      "requiredBins": 160,
+      "admittedBins": 144,
+      "deficientBins": 16,
+      "exactBars": [
+        "1/2"
+      ]
+    }
+  },
+  "python": "3.12.3 (v3.12.3:f6650f9ad7, Apr  9 2024, 08:18:47) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "executable": "/private/tmp/w39-g2-wgpu/bin/python",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "artifactHashes": {
+    "directed-1.txt": "468ec942c17a223da83b514ec69ad0c6993501617ab0af24a466be444eea3048",
+    "directed-manifest.json": "57db35d9d26589d75d735a4f50bca67cf413d5fe86932722f56c74ae9614fcd8",
+    "directed-outcomes.json": "468ec942c17a223da83b514ec69ad0c6993501617ab0af24a466be444eea3048",
+    "directed-screens.json.gz": "9295f3515350a2b75ae81a4c2215c7b2f62fc28312fc20085f49be5a248c65ec",
+    "execute.py": "aa0ba9b3812335c0481d549a7800527692a445bb7174bea3379ed683fed60be2",
+    "geometry.npz": "31aeff954973d0044ac32a9cf302e728cc3ba8586b8226d0afa6ca80a251c2bb",
+    "manifest.json": "fbca873e3257c8fff27328809e114b7260bb464ebef27415bd880d71bb644f6a",
+    "observations.json.gz": "3118d04a63abebd83dc31d75ada4ff671bddb2365a79272340cab654c3ac4971",
+    "outcomes.json": "dfc39b80cc1a41e647df533069fc09dcbd3ff68871bbfe5c23340a7cf32a9c40",
+    "population.json": "91f6d88229d3a094a51a488ae48ea6cd807a967ebd35445a92f9215c9f6006c4",
+    "produce-1.txt": "dfc39b80cc1a41e647df533069fc09dcbd3ff68871bbfe5c23340a7cf32a9c40",
+    "ratios.py": "0c451c90a08fa9c155ccadc50ef44b28d2a544d320372d9ea0f4c519a1cdf8bc",
+    "replay-1.json": "e7709892878159ab07fa752ce0e7ab39e23e357f603db9bccde956423351afd0",
+    "replay-scale2-1.json": "9a4cd7b19ae52e432395c393cf63c8389cbedc15175abed30baf72f64c971fc2",
+    "scale2/geometry.npz": "46d0f408425b8a81c26b7ff684d02aa55b0e111f3cb0e37e2660217d4a818eb6",
+    "scale2/manifest.json": "b7868018335cfbac95fb0de18e236af661c6166e7d0b28e5828007109cd01e2a",
+    "scale2/observations.json.gz": "288bc223a4413c1a6a991cee45f4d6d0d97a44be54affbc0f069b207e888c3dd",
+    "scale2/outcomes.json": "2265c6a26f08c0d3e2a199adc4ffe28db7155830e78dc399307dca4893517c92",
+    "scale2/population.json": "2f6f67633ee920a8b5a9504be0b94f3aecac6b0fb25628fbb84faefa3ee10909",
+    "scale2/saved/dark-inactive-104.bundle": "af3e8a7b2ad15006a3dcbb51f12af9f63485724704a059ee18f31812208eff64",
+    "scale2/saved/dark-inactive-128.bundle": "f6bdf846c822bb82c450c2c9fbe10deb3cc0a57b2c518c216d650d3a77710c38",
+    "scale2/saved/dark-inactive-150.bundle": "a8a24cf8b31b51d3a3ba2e36fa6835ef1a711127798c4072065c4e6148f78015",
+    "scale2/saved/dark-inactive-255.bundle": "584e9294df55857fdde87e84de381182e1518449d2484bc186f1cde68687118e",
+    "scale2/saved/dark-inactive-40.bundle": "8f6a7db89e1001a16f0582071a03ad08cb238526a71728d7e9776cc9e1355f35",
+    "scale2/saved/dark-inactive-56.bundle": "a5364f4d0de3f23fe95460f98ec554b0091c3f7c04e10e883a2f09c66fcd6a0d",
+    "scale2/saved/dark-inactive-72.bundle": "5b44ab4b80552902d94c6ea13cd7f19cbc4ba8e5a6d0d1d1d5c06b98349e3ead",
+    "scale2/saved/dark-inactive-88.bundle": "18a84e1bf7476f303520c29a9d1cfe949c13a9238e56d5cb4f19a95ec40cbd9e",
+    "scale2/saved/light-inactive-104.bundle": "639936c40550de620c1690765d91b0dfddf837b9adad9ae3b743cc7d4d1ea39e",
+    "scale2/saved/light-inactive-128.bundle": "58c2451f62c6709768d2b5276d12d24d747ae551987d605380bdbaacceae8c89",
+    "scale2/saved/light-inactive-150.bundle": "a99663da4f54847997172a6a9182a601f0801153852b7ba6d142d0754684da1d",
+    "scale2/saved/light-inactive-255.bundle": "d4e886ff29bcffe722202b20e1074de25f4a6c54234885331f62c37c103a37bb",
+    "scale2/saved/light-inactive-40.bundle": "1b09f71a10cb613e2c488eb688a7fbc1c96b538a3b6d13b1c7c6a33723cdf125",
+    "scale2/saved/light-inactive-56.bundle": "ef96f7f533ff287c859ce580318c62c432b7aff4e094430b18c5d8bf361edd38",
+    "scale2/saved/light-inactive-72.bundle": "c6653e3f63a29da941fdfde1112b8f9a0fa9e33f417b6951c557e4f372858be9",
+    "scale2/saved/light-inactive-88.bundle": "234f381580acef2f45424da53ae23c773be35da34adb6f65c13a34ae2aa815cd",
+    "scale2/screens.json.gz": "16a0eeb40fd35fc0286573ad83c9c503490788cf6d4c69c3706dd0148f88fd71",
+    "scale2-collect-1.txt": "2265c6a26f08c0d3e2a199adc4ffe28db7155830e78dc399307dca4893517c92",
+    "scale2.py": "fca0637b2d5f686a40fbb8f44b616fa92680bb8534e285d0bd3e9087c309dce3",
+    "screens.json.gz": "db48c95228bfbb2c165e9364ba1db8fbe558de8957c557ce5cc96b8f160d6a0d",
+    "source-history/1x-execute.py": "b47615eee0cb56e1e40d8afde786f82cd9db1e26eb90a18d78614eb25b00396e",
+    "source-history/1x-test_saved.py": "2b3ff02e1d0de1076b4ca5f5e9eb6bf43818be74776c0029bf9c40ba9e81ec02",
+    "test-all-1.txt": "04f89578c4fd8c518aa4eb085f8b87daa4d3a8f3d353f2e323688c14f400287c",
+    "test-all-2.txt": "15d31c82ba30b4fa9592d4c0648d528738f0f6619de2ba753dd7edc2153a8816",
+    "test-green-1.txt": "83166b089fbcb82fac63f22522fa6ae99bb5e46368cd35d756277fd463dd6346",
+    "test-red.txt": "d2c8de6a227117296175f4cfe2ace46b7db151d7a01404fd67c81fc30449cd0c",
+    "test_ratios.py": "78e2ffbcbec9cd8f5c61cd32dad2f19e9b0d4d3e672d8f80ec6fec135a74b2cc",
+    "test_saved.py": "f12186af226954bd1c908585125ef4af81727637bcc804dd98912ebbe457851a",
+    "worker-seal-1x.json": "f83776af284782e3f748776f6f82bd3ca137a4efaf583afc5ebed232e5850d97"
+  },
+  "initialSaved1xManifestSha256": "cf536394ad212b87469b97e4b11ca34f0b5be1fe2d13bfdd3becb322d5d3b686",
+  "scope": "Reused16saved1x calibration bundles; added only16same-level2x calibration bundles through inherited guarded Reader. No validation/holdout, nativecapture, browser, canonicalCLI, optimizer, fitstop, budgetchange, or commit.",
+  "interpretation": "No empty common-ratio interval was found at either scale. This necessary relaxation therefore rejects NO additional model-endpoint and establishes NO survival.",
+  "tests": "17passed in test-all-2.txt; saved replay reconstructs both scales independently with fetched archive and raw tree denied.",
+  "independentReview": "Evidence readiness notified to caller; no review dispatched or claimed completed.",
+  "termination": "Stop after2x as directed; no further native search or new levels proposed."
+}

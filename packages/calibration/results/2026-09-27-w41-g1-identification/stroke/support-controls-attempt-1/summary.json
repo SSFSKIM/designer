@@ -1,0 +1,615 @@
+{
+  "strata": {
+    "light-inactive/1x": {
+      "requiredBins": 1550,
+      "admittedBins": 1550,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 1550,
+      "bindingFailedBins": 0,
+      "allChannelFailedBins": 0,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 36048,
+        "censored-bound-satisfied": 1152
+      },
+      "survives": true,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "light-inactive",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 2,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "light-inactive",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 2,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      }
+    },
+    "light-inactive/2x": {
+      "requiredBins": 3640,
+      "admittedBins": 3640,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 3640,
+      "bindingFailedBins": 0,
+      "allChannelFailedBins": 0,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 84672,
+        "censored-bound-satisfied": 2688
+      },
+      "survives": true,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "light-inactive",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 5,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "light-inactive",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 5,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      }
+    },
+    "dark-inactive/1x": {
+      "requiredBins": 1550,
+      "admittedBins": 1550,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 1550,
+      "bindingFailedBins": 0,
+      "allChannelFailedBins": 0,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 36048,
+        "censored-bound-satisfied": 1152
+      },
+      "survives": true,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "dark-inactive",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 2,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "dark-inactive",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 2,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      }
+    },
+    "dark-inactive/2x": {
+      "requiredBins": 3640,
+      "admittedBins": 3640,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 3640,
+      "bindingFailedBins": 0,
+      "allChannelFailedBins": 0,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 84672,
+        "censored-bound-satisfied": 2688
+      },
+      "survives": true,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "dark-inactive",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 5,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v270-c-c44__inactive",
+        "endpoint": "dark-inactive",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 5,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.125,
+        "bound": 1.0,
+        "excess": -0.875,
+        "status": "measured"
+      }
+    },
+    "light-active/1x": {
+      "requiredBins": 1550,
+      "admittedBins": 1550,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 1550,
+      "bindingFailedBins": 12,
+      "allChannelFailedBins": 12,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 36048,
+        "censored-bound-satisfied": 1152
+      },
+      "survives": false,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "light-active",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 2,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 1.700191855437808,
+        "bound": 1.0,
+        "excess": 0.7001918554378079,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "light-active",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 2,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 1.700191855437808,
+        "bound": 1.0,
+        "excess": 0.7001918554378079,
+        "status": "measured"
+      }
+    },
+    "light-active/2x": {
+      "requiredBins": 3640,
+      "admittedBins": 3640,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 3640,
+      "bindingFailedBins": 32,
+      "allChannelFailedBins": 32,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 84672,
+        "censored-bound-satisfied": 2688
+      },
+      "survives": false,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "light-active",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 4,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 1.7291626999622594,
+        "bound": 1.0,
+        "excess": 0.7291626999622594,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "light-active",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 4,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 1.7291626999622594,
+        "bound": 1.0,
+        "excess": 0.7291626999622594,
+        "status": "measured"
+      }
+    },
+    "dark-active/1x": {
+      "requiredBins": 1550,
+      "admittedBins": 1550,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 1550,
+      "bindingFailedBins": 22,
+      "allChannelFailedBins": 22,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 36048,
+        "censored-bound-satisfied": 1152
+      },
+      "survives": false,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 2,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 2.083171143572301,
+        "bound": 1.0,
+        "excess": 1.0831711435723008,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 2,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 2.083171143572301,
+        "bound": 1.0,
+        "excess": 1.0831711435723008,
+        "status": "measured"
+      }
+    },
+    "dark-active/2x": {
+      "requiredBins": 3640,
+      "admittedBins": 3640,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 3640,
+      "bindingFailedBins": 60,
+      "allChannelFailedBins": 60,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 84672,
+        "censored-bound-satisfied": 2688
+      },
+      "survives": false,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 4,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 2.1073214459603946,
+        "bound": 1.0,
+        "excess": 1.1073214459603946,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "shell": 4,
+        "bin": 4,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 2.1073214459603946,
+        "bound": 1.0,
+        "excess": 1.1073214459603946,
+        "status": "measured"
+      }
+    }
+  },
+  "overall": {
+    "requiredBins": 20760,
+    "admittedBins": 20760,
+    "populationDeficientBins": 0,
+    "shadowControlBins": 20760,
+    "bindingFailedBins": 126,
+    "allChannelFailedBins": 126,
+    "railFailedBins": 0,
+    "statusComparisons": {
+      "measured": 482880,
+      "censored-bound-satisfied": 15360
+    },
+    "survives": false,
+    "worstMeasured": {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "endpoint": "dark-active",
+      "scale": 2,
+      "member": 0,
+      "part": "straight",
+      "side": "bottom",
+      "shell": 4,
+      "bin": 4,
+      "channel": "R",
+      "repeat": "median",
+      "codes": 2.1073214459603946,
+      "bound": 1.0,
+      "excess": 1.1073214459603946,
+      "status": "measured"
+    },
+    "worstBoundExcess": {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "endpoint": "dark-active",
+      "scale": 2,
+      "member": 0,
+      "part": "straight",
+      "side": "bottom",
+      "shell": 4,
+      "bin": 4,
+      "channel": "R",
+      "repeat": "median",
+      "codes": 2.1073214459603946,
+      "bound": 1.0,
+      "excess": 1.1073214459603946,
+      "status": "measured"
+    }
+  },
+  "columnUnionChecks": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-column__inactive",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-column__inactive",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-column__rest",
+      "member": 0,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-column__rest",
+      "member": 1,
+      "maximumSubpixelAlphaDifference": 0.0,
+      "nearestMemberEqualsFullHeldUnion": true
+    }
+  ],
+  "nativeFits": 0,
+  "support": "each admitted bin: min(all pixel subpixel distances)>=2*scale",
+  "conclusion": "Any binding row is independent of all declared stroke coefficients; this does not stand in for the declared optimizer outcomes."
+}

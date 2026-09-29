@@ -1,0 +1,1 @@
+The original close-check shell exits after its test brace, so its chained lint clause cannot run. Lint and TypeScript checks are invoked separately; no missing phase is claimed as passed.

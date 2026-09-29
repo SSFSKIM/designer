@@ -1,0 +1,43 @@
+{
+  "sampledUTC": "2026-09-27T12:02:20.739442+00:00",
+  "policyRevision": 2,
+  "memoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v2.json",
+    "sha256": "8b5c81d8bb8ca08a07d85f57eb77d309ad91da1dfcf267fbbcdd92312bfc32f2"
+  },
+  "metric": "(free+inactive+purgeable pages)*page size; parent-v2 estimate",
+  "rawVmStat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    14862.\nPages active:                                 348903.\nPages inactive:                               346701.\nPages speculative:                              1374.\nPages throttled:                                   0.\nPages wired down:                             167332.\nPages purgeable:                                8199.\n\"Translation faults\":                    15174335323.\nPages copy-on-write:                       846688728.\nPages zero filled:                        6939133314.\nPages reactivated:                        2040851145.\nPages purged:                              245163564.\nFile-backed pages:                            226734.\nAnonymous pages:                              470244.\nPages stored in compressor:                   283574.\nPages occupied by compressor:                 123074.\nDecompressions:                          12121220975.\nCompressions:                            12757435807.\nPageins:                                   246375884.\nPageouts:                                     544604.\nSwapins:                                    15423713.\nSwapouts:                                   19845657.\n",
+  "pageSizeBytes": 16384,
+  "pages": {
+    "free": 14862,
+    "inactive": 346701,
+    "purgeable": 8199
+  },
+  "availableBytes": 6058180608,
+  "pressure": {
+    "sampledUTC": "2026-09-27T12:02:20.739153+00:00",
+    "pressureLevel": 1,
+    "rawSysctl": "1\n",
+    "periodic": false,
+    "blocked": false,
+    "normalStreak": 0,
+    "policy": "parent-v2; no process is killed on pressure changes"
+  },
+  "ownRSSBytes": 0,
+  "observedPeakBytes": 3078144000,
+  "reservedBytes": 3078144000,
+  "floorBytes": 1073741824,
+  "effectiveConcurrency": 1,
+  "maxConcurrency": 3,
+  "resource": "one unwrapped verification, not a candidate",
+  "prepared": false,
+  "admitted": true,
+  "kind": "STROKE_VERIFICATION_ADMISSION",
+  "mode": "unwrapped",
+  "stage": "before-preparation",
+  "pid": 36271,
+  "lease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/verification/unwrapped/lease.json",
+    "sha256": "e6a98fddcb4bd00465c6d64a01127c1d9af16734d4a27f94d8bcc279e9a77ebe"
+  }
+}

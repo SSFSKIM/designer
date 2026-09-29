@@ -1,0 +1,35 @@
+{
+  "method": "Stream existing reports through original entries; observe raw_decode end for successful top-level keys/values, excluding leading whitespace. Unicode characters, not compressed or UTF-8 bytes.",
+  "reports": [
+    {
+      "path": "candidate-e3/calval-2/scores.json.gz",
+      "sha256": "c6d2da66125c81912fb31ca3eaf319ab9a4bf3fa76d3774fbfa298fa574ece3a",
+      "cells": 576,
+      "maxValueCharacters": 41113,
+      "seconds": 0.08272981643676758
+    },
+    {
+      "path": "candidate-e3/calval-2/numerical-admission.json.gz",
+      "sha256": "2fea6690c967a3e76e24c92d8017b47908c7810828a3b7d3dece4f7b47a4de91",
+      "cells": 576,
+      "maxValueCharacters": 44632,
+      "seconds": 0.06946015357971191
+    },
+    {
+      "path": "candidate-e3/rendered-calval-1/scores.json.gz",
+      "sha256": "42c4fbeb727ca49d2f2c6270e4c870c2ce0e90e8c3127d097239890076aab65b",
+      "cells": 536,
+      "maxValueCharacters": 7940307,
+      "seconds": 47.57900285720825
+    },
+    {
+      "path": "candidate-e3/rendered-calval-1/rendered-admission.json.gz",
+      "sha256": "bde051345254851e4db42793cfc791728feb0825fa37646fa5cee11d957ecf41",
+      "cells": 536,
+      "maxValueCharacters": 8627814,
+      "seconds": 38.56271314620972
+    }
+  ],
+  "nativeReads": 0,
+  "assemblerRun": false
+}

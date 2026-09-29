@@ -1,0 +1,67 @@
+{
+  "blindWebCellsPending": 64,
+  "browsersLaunched": 0,
+  "cells": 536,
+  "declaredFullCells": 600,
+  "exposureOpened": false,
+  "fullFreezeCreated": false,
+  "nativePayloadReads": 0,
+  "note": "Additive CPU-only projection of completed attempt1 records. Driver/source/seal unchanged; four blind batches remain for the owner to resume. Scores belong to the existing offline calval scorer.",
+  "recordedAt": "2026-09-27T10:10:51.708483+00:00",
+  "renderedMap": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/calval-checkpoint-1/rendered.json",
+    "sha256": "a642015018c1660bf1678c24671ae7c9c886d470f2f5eaf811fe8281c43da362"
+  },
+  "roles": {
+    "calibration": 464,
+    "validation": 72
+  },
+  "rootWitness": {
+    "branch": "w41-g1-identification",
+    "driverPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/driver.py",
+    "gitCommonDirectory": "/Users/new/Developer/GitHub/designer/.git",
+    "head": "25444b11c088e9e638e74df509aec3c221053661",
+    "pythonExecutable": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+    "requestedRoot": "/Users/new/vitrea-w41/g1",
+    "resolvedRoot": "/Users/new/vitrea-w41/g1"
+  },
+  "schema": "w41-e3-calval-web-checkpoint-1",
+  "seal": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/seal.json",
+    "sha256": "c0fa108a1b87739d10bffbf74db902c9c5dd78207ce5697a85ce4901be8a7f21"
+  },
+  "sourceCompleteRecords": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-1x-dark-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "773f2e1072ad9da1951fe56c343b771f0b101e6e54e3b91e2ea87d4ee432f996"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-1x-light-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "b52a215f095ee9912ef038297569d34806d91823ca1e54f7b6801edf1701baef"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-2x-dark-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "26a74a5a6d801e1c2bdbd2b70adbab627f07f1ce0319bbac4272bc7ec9c3b35f"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-2x-light-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "8e4f415a2a2cff0da8b8e1e9a7d6311ad83cfcbbe2d2d1eeef1d3b2d0a91bbdc"
+    }
+  },
+  "sourceWitness": {
+    "checks": [
+      "current driver.verify(attempt-1) before and after checkpoint construction",
+      "current driver.validate_batch for all four complete profile records",
+      "exact536 admitted calibration/validation membership independently read from public archive inventory and split",
+      "all referenced PNG/projection/descriptor/report hashes; actual raw origin and original process projections equal snapshots",
+      "no blind started marker and no full600 frozen.json"
+    ],
+    "driver": {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/driver.py",
+      "sha256": "1f9020ea7a6bf59528e29f3fb3e23020a6f13fd8141aabc8c933892ff594d24b"
+    },
+    "sourceInventorySha256": "cf004d5c18b970c552baad222e3da582252c3fc9f85266957b6472a8ca16d0db",
+    "sourceRevision": "39af4831b4e14f9f5f5ba5de36dc8c1752359d28"
+  },
+  "status": "PARTIAL 536 OF 600; not a full candidate freeze or survival result"
+}

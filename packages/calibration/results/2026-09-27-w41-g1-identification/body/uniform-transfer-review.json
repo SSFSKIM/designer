@@ -1,0 +1,28 @@
+{
+  "reviewer": "doperpowers:reviewer-medium",
+  "verdict": "correct",
+  "materialFindings": [],
+  "scope": ["uniform-transfer.py", "uniform-transfer-1/", "uniform-resolution.py", "uniform-resolution-1.json"],
+  "verified": {
+    "publicCensusCells": 1440,
+    "uniformGlassCells": 552,
+    "uniformGlassMembers": 560,
+    "addedCalibrationCells": 56,
+    "addedCalibrationMembers": 64,
+    "addedValidationCells": 0,
+    "unchangedFrozenFits": 12,
+    "unchangedFitPopulation": 408,
+    "frozenCandidateRecords": 28,
+    "medianScores": 3920,
+    "repeatScores": 27440,
+    "summaryStrata": 168,
+    "resolutionMeasuredChannels": 418
+  },
+  "originalAttemptAndReportHashesUnchanged": true,
+  "survivingEndpoints": ["E3 light-inactive", "EH6 light-inactive"],
+  "completeFamilySurvives": false,
+  "newGlobalFamilyNegativeAsserted": false,
+  "nativePayloadReads": false,
+  "holdoutOpened": false,
+  "optimizersRerun": false
+}

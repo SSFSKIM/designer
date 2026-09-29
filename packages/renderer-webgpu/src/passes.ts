@@ -19,6 +19,7 @@
 import { OUTPUT_TEXTURE_FORMAT, WORKING_TEXTURE_FORMAT } from "./color";
 import { type GpuContext, createUniformSlot, createStorageSlot, type StorageSlot, type UniformSlot } from "./gpu-context";
 import type { FieldFamily } from "./governor";
+import type { BodyE3Gains, BodyE3Neutral } from "./material";
 import { INSTANCE_BYTES } from "./instances";
 import { pipelineKey } from "./pipeline-cache";
 import { poolKey } from "./texture-pool";
@@ -250,6 +251,10 @@ export interface OpticsPassArgs {
    * W30 left, bit for bit.
    */
   readonly bodyChromaRetention: number;
+  /** W41 sampled E3 replacement, policy/variant-folded on the CPU; identity at 0. */
+  readonly bodyE3Strength: number;
+  readonly bodyE3Gains: BodyE3Gains;
+  readonly bodyE3Neutral: BodyE3Neutral;
   /** W36 black branch: strength and linear thin/thick ordinates, identity-gated. */
   readonly backdropToneBlackStrength: number;
   readonly backdropToneBlackThin: number;
@@ -778,7 +783,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 140);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 152);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -996,6 +1001,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[137] = args.backdropToneBlackThin;
       d[138] = args.backdropToneBlackThick;
       d[139] = 0;
+      // W41 owns three appended vec4s. The seven encoded neutral ordinates
+      // and three gains are one gate-group; no older padding changes owner.
+      d[140] = args.bodyE3Strength;
+      d.set(args.bodyE3Gains, 141);
+      d.set(args.bodyE3Neutral, 144);
+      d[151] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

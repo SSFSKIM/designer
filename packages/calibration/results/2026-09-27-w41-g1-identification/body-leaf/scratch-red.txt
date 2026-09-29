@@ -1,0 +1,27 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/e3-implementation/packages/calibration
+
+ ❯ test/w41-body-e3-scratch.test.ts (2 tests | 1 failed) 11ms
+     × copies unclaimed endpoints byte-for-byte and adds E3 only to the full light-receded patch 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/w41-body-e3-scratch.test.ts > W41 scratch-only E3 endpoint selection > copies unclaimed endpoints byte-for-byte and adds E3 only to the full light-receded patch
+Error: Scratch candidate generation is not implemented
+ ❯ generateScratchCandidate results/2026-09-27-w41-g1-identification/body-leaf/generate-scratch.ts:3:9
+      1| /** W41 isolated scratch writer. Never targets canonical profiles or g…
+      2| export function generateScratchCandidate(_outDir: string): void {
+      3|   throw new Error("Scratch candidate generation is not implemented");
+       |         ^
+      4| }
+      5|
+ ❯ test/w41-body-e3-scratch.test.ts:66:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  17:47:52
+   Duration  386ms (transform 235ms, setup 0ms, import 283ms, tests 11ms, environment 0ms)
+

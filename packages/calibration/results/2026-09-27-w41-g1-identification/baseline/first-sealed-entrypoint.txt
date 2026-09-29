@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 393, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 390, in main
+    {'prepare': prepare, 'capture': capture, 'transfer': transfer}[args.operation]()
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 339, in capture
+    if not check['verdict']['passes']: raise PermissionError('X6 refused; no browser launched')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: X6 refused; no browser launched

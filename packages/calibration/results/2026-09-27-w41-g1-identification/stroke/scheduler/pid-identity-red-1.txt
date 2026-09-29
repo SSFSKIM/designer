@@ -1,0 +1,102 @@
+EEFEEE
+======================================================================
+ERROR: test_registered_handoff_retires_its_old_owner_even_if_the_pid_is_reissued (test_scheduler.SchedulerTests.test_registered_handoff_retires_its_old_owner_even_if_the_pid_is_reissued)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler.py", line 592, in test_registered_handoff_retires_its_old_owner_even_if_the_pid_is_reissued
+    decision = self.claim()
+               ^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler.py", line 136, in claim
+    return self.store.claim(launch or self.launch(), pid=pid, alive=self.live.__contains__,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 399, in claim
+    handoff, remaining = self.validate_handoff(handoff_ref, alive)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 229, in validate_handoff
+    raise ValueError('old owner is still live; ownership cannot transfer')
+ValueError: old owner is still live; ownership cannot transfer
+
+======================================================================
+ERROR: test_settled_claim_reserves_only_while_its_claimant_process_lives (test_scheduler.SchedulerTests.test_settled_claim_reserves_only_while_its_claimant_process_lives)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler.py", line 615, in test_settled_claim_reserves_only_while_its_claimant_process_lives
+    decision = self.claim(self.launch(('M1', 'device', 3)), pid=201)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler.py", line 136, in claim
+    return self.store.claim(launch or self.launch(), pid=pid, alive=self.live.__contains__,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 409, in claim
+    decision = self.admission(launch, pid, alive, memory, rss)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 278, in admission
+    return self._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 369, in _admission
+    raise refusal
+scheduler.Deferred: {"admitted": false, "effectiveConcurrency": 4, "maxConcurrency": 3, "memory": {"availableBytes": 34359738368, "metric": "macOS (vm_stat Pages free + Pages inactive) * page size; reclaimable-headroom estimate", "pressureLevel": 1}, "observedPeakBytes": 1073741824, "ownRSSBytes": 0, "peakEvidence": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpspv41ty6/peak.json", "sha256": "42dd042ca9067dea9a0b43711eea01c08cc13c71761ff846ce40cca39262ee8e"}, "processes": [{"owner": "old-1", "peakBytes": 1073741824, "pid": 102, "remainingBytes": 1073741824, "rssBytes": 0}, {"owner": "old-2", "peakBytes": 1073741824, "pid": 103, "remainingBytes": 1073741824, "rssBytes": 0}, {"owner": "device-M1-start-00.json", "peakBytes": 1073741824, "pid": 200, "remainingBytes": 1073741824, "rssBytes": 0}], "prospectivePeakBytes": 1073741824, "requiredAvailableBytes": 7516192768, "reservedBytes": 4294967296, "sampledUTC": "2026-09-28T00:57:15.361837+00:00"}
+
+======================================================================
+ERROR: test_reissued_pid_of_a_handed_off_old_owner_reserves_nothing (test_scheduler_v3.AdaptivePolicyTests.test_reissued_pid_of_a_handed_off_old_owner_reserves_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler_v3.py", line 277, in test_reissued_pid_of_a_handed_off_old_owner_reserves_nothing
+    decision = self.claim(('M1', 'device', 1))  # partition 1's own task claims too
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler_v3.py", line 75, in claim
+    return self.store.claim(launch or self.launch(task), pid=pid, alive=self.live.__contains__,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler_v2.py", line 107, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 399, in claim
+    handoff, remaining = self.validate_handoff(handoff_ref, alive)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 229, in validate_handoff
+    raise ValueError('old owner is still live; ownership cannot transfer')
+ValueError: old owner is still live; ownership cannot transfer
+
+======================================================================
+ERROR: test_claim_pid_reissued_with_the_same_command_reserves_nothing (test_scheduler_v3.AdaptivePolicyTests.test_claim_pid_reissued_with_the_same_command_reserves_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler_v3.py", line 289, in test_claim_pid_reissued_with_the_same_command_reserves_nothing
+    self.assertEqual([(p['pid'], p['processIdentity']) for p in refusal['processes']],
+                                 ~^^^^^^^^^^^^^^^^^^^
+KeyError: 'processIdentity'
+
+======================================================================
+ERROR: test_claims_recorded_before_identities_use_start_time_and_receipt (test_scheduler_v3.AdaptivePolicyTests.test_claims_recorded_before_identities_use_start_time_and_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler_v3.py", line 321, in test_claims_recorded_before_identities_use_start_time_and_receipt
+    decision = self.claim(task, pid=401 + index)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler_v3.py", line 75, in claim
+    return self.store.claim(launch or self.launch(task), pid=pid, alive=self.live.__contains__,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler_v2.py", line 107, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 409, in claim
+    decision = self.admission(launch, pid, alive, memory, rss)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 278, in admission
+    return self._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler_v3.py", line 254, in _admission
+    raise refusal
+scheduler.Deferred: {"adaptiveMemoryPolicy": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmphwipv5s9/adaptive-direction.json", "sha256": "b882327b80c4bbb7953b7ec68adaf2939393e9766f4408ef317374eeb76c7b32"}, "admitted": false, "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum", "disk": {"freeBytes": 107374182400, "sampledUTC": "2026-09-28T00:57:15.393241+00:00", "source": "synthetic", "volumes": {"/": 107374182400}}, "diskFloorBytes": 21474836480, "diskFreeBytes": 107374182400, "effectiveConcurrency": 2, "freshestPressure": {"id": "418f4657e44b4f52a671cef1ec56a88b", "pressureLevel": 1, "sampledUTC": "2026-09-28T00:57:15.398530+00:00", "source": "admission"}, "headroomAfterReservationBytes": 32212254720, "maxConcurrency": 3, "memory": {"availableBytes": 34359738368, "metric": "macOS (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * page size; reclaimable-headroom heuristic, not a free-memory guarantee", "pressureLevel": 1}, "modeConcurrencyLimit": 1, "normalGate": {"fiveSpacedNormal": false, "floorClears": true, "pressureNormal": true}, "observedPeakBytes": 1073741824, "ownRSSBytes": 0, "peakEvidence": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmphwipv5s9/peak.json", "sha256": "42dd042ca9067dea9a0b43711eea01c08cc13c71761ff846ce40cca39262ee8e"}, "policyCounter": "free + max(inactive, purgeable)", "policyVersion": 3, "pressureState": {"admissionsOpen": true, "lastAbnormalUTC": null, "readings": 1, "requiredNormalReadings": 5, "spacedNormalReadings": 0}, "processes": [{"owner": "device-M1-start-00.json", "peakBytes": 1073741824, "pid": 400, "remainingBytes": 1073741824, "rssBytes": 0}], "prospectivePeakBytes": 1073741824, "requiredAvailableBytes": 2147483648, "reservedBytes": 2147483648, "resourceMode": "degraded", "resourcePolicy": "stroke-adaptive-v3", "sampledUTC": "2026-09-28T00:57:15.399077+00:00", "spacedNormalRun": 1, "swap": {"raw": "synthetic swap"}, "swapExpectation": "degraded gate: no headroom floor, one fit at a time; paging to swap is expected and accepted, bounded by the 20 GiB disk floor"}
+
+======================================================================
+FAIL: test_claim_lifecycle_is_bound_to_the_claimant_process_identity (test_scheduler.SchedulerTests.test_claim_lifecycle_is_bound_to_the_claimant_process_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/test_scheduler.py", line 624, in test_claim_lifecycle_is_bound_to_the_claimant_process_identity
+    with self.assertRaisesRegex(ValueError, 'identity is unreadable'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.058s
+
+FAILED (failures=1, errors=5)

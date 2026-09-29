@@ -1,0 +1,27 @@
+{
+  "kind": "STROKE_ADAPTIVE_OPERATIONAL_REVIEW",
+  "reviewer": "a23b6dd5dfbadda00",
+  "verdict": "correct; no material findings",
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": "2bbbd2454e2392056412251852a15acba9641c29009fd2705fc186b647b9021b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py": "54208ba5a530942e6d8ea518f9a857983190d25f2fb2d2efc0365260a7c745e8",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py": "5d371e48c5600c85552868210874d0e31058473393639a480c57379005babc42"
+  },
+  "tests": {
+    "scheduler": 74,
+    "verification": 69
+  },
+  "logs": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/adaptive-review-scheduler-1.txt",
+      "sha256": "817373b54216060833f75663563ef399f375676e9833dba8f0fcf3355aaf567d"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/adaptive-review-verification-1.txt",
+      "sha256": "2e5f2e7c2e2babc270cbd152dc8b50d8fa6bd4e7172b1e9246650fa0c5c2ff25"
+    }
+  ],
+  "scope": "Adaptive operational chain only; scientific logic not re-reviewed.",
+  "nativeReads": 0,
+  "optimizerRuns": 0
+}

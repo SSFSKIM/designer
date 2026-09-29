@@ -1,0 +1,53 @@
+{
+  "kind": "STROKE_M2_PROVENANCE_CORRECTION",
+  "recordedUTC": "2026-09-28T19:23:11.239118+00:00",
+  "corrects": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-unfinished-search-1.json",
+    "sha256": "ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46"
+  },
+  "correctsCommit": "047b7861",
+  "source": "G1 owner a08bf7ec9936c8644 relayed coordinator correction: no user M2 ruling exists; previous coordinator final-ruling relay was erroneous.",
+  "correction": "The earlier assertion of a final user ruling and wave-final UNMEASURED disposition was false. Actual authority is HOLD pending the user answer among three options. Recommendations or coordinator relays are not human approval.",
+  "effectiveStatus": "HOLD_PENDING_USER_DECISION",
+  "searchStatus": "Incomplete; no final user disposition established. Not a family rejection.",
+  "partitionA": {
+    "pid": 42722,
+    "task": [
+      "M2",
+      "device",
+      2
+    ],
+    "state": "Stopped in flight and unscored. No termination signal was sent to this fit. The previous ABORTED_UNSCORED label was a mistaken disposition, not evidence of an actual abort.",
+    "originalSeedRetained": true,
+    "authority": "Do not resume or abort without a valid subsequent direction consistent with user decision."
+  },
+  "partitionB": {
+    "pid": 42753,
+    "task": [
+      "M2",
+      "device",
+      1
+    ],
+    "authority": "Existing HOLD lets current start finish, then park with no next M2 start. The earlier instruction to abort at final freeze is withdrawn; no such irreversible action is authorized by the false relay."
+  },
+  "completedStartsAtCorrection": [
+    {
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M2-start-00.json",
+        "sha256": "75effb478c56d3cfa8f2b9f77ee36fc031c2fd947915bbfea9fe12e536721f8c"
+      },
+      "family": "M2",
+      "curvature": false,
+      "startIndex": 0
+    }
+  ],
+  "psSnapshot": "  PID  PPID STARTED                      STAT COMMAND\n41231 23134 Mon Sep 28 19:01:51 2026     Ts   /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-M1-transfer-wrapper-iWDeXc -\n41248 41231 Mon Sep 28 19:01:51 2026     R    /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-transfer-fyj95jxi /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_complete.py --family M1 --out /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-1 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A\n42722 23134 Mon Sep 28 09:30:07 2026     Ts   /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-A-IX5ygX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition A\n42753 23134 Mon Sep 28 09:30:07 2026     Rs   /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-B-BZm0QX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition B\n",
+  "psReturnCode": 0,
+  "downstreamRestriction": "No final candidate freeze, preflight, exposure, or wave-final M2 disposition may rely on the purported user ruling. M1 transfer continues unchanged under existing scope.",
+  "unchangedEvidence": [
+    "Original result hashes, budget arithmetic, CPU observations, memo proof, endpoint equivalence and retained seed vectors remain historical evidence; only authority/disposition is corrected.",
+    "Prior files and commits are preserved verbatim; this supplement supersedes their false user-ruling provenance."
+  ],
+  "notifications": "Execution worker instructed to retain HOLD only and not infer abort/resume authority; G1 owner receives this committed supplement.",
+  "processSignalsSentByCorrection": []
+}

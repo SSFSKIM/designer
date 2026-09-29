@@ -1,0 +1,35 @@
+{
+  "kind": "M1_PAGING_STATIC_PARTITION_SWAP",
+  "atUTC": "2026-09-28T10:32:45.935089+00:00",
+  "pause": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/coordinator-paging-pause-09-1.json",
+    "sha256": "a7a7f251754787d4fef61b0f883047ce76a38d50138fea80929f7886494e1377"
+  },
+  "completedStaticStart": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/curvature-M1-start-10.json",
+    "sha256": "bc276b37d6cc1dc620b6fcaf0dc41e8abbda7a47b9209b27058c2c21febf58d8",
+    "mtimeUTC": "2026-09-28T10:32:45.881328+00:00",
+    "partition": "A",
+    "task": [
+      "M1",
+      "curvature",
+      10
+    ]
+  },
+  "parkedPartition": "A",
+  "parkedPID": 42722,
+  "parkedProcessIdentity": {
+    "pid": 42722,
+    "startedUTC": "2026-09-28T09:30:07+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-A-IX5ygX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition A"
+  },
+  "parkedStatusAfter": "Ts",
+  "resumed09PID": 39062,
+  "resumed09ProcessIdentity": {
+    "pid": 39062,
+    "startedUTC": "2026-09-28T09:25:05+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature09-readmit1-_11vvo8p /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-3/curvature-M1-start-09.readmit-01.json --sha256 6a2c10944dcf45b5d3085771b8e67975d15bce72bbf24915cdb34c9811b7ab40"
+  },
+  "resumed09StatusAfter": "Rs",
+  "qualification": "SIGSTOP retains RSS, not a memory release; stops one execution slot before continuing 09"
+}

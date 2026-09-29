@@ -1,0 +1,19 @@
+{
+  "kind": "STROKE_PRESSURE_READING",
+  "id": "import-5f193bd315dae823-000019",
+  "sampledUTC": "2026-09-27T12:10:20.876165+00:00",
+  "pressureLevel": 1,
+  "error": null,
+  "source": "manual-import",
+  "pid": null,
+  "sysctl": "kern.memorystatus_vm_pressure_level",
+  "imported": {
+    "snapshot": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/manual-pressure-completed-snapshot.jsonl",
+      "sha256": "5f193bd315dae8238197582a34513dcc8f8b6a7878b555618fa19cf824c0de0a"
+    },
+    "line": 19,
+    "periodic": true,
+    "rawSysctl": "1\n"
+  }
+}

@@ -1,0 +1,81 @@
+test_artifact_hash_changes_fail_even_when_source_bridge_is_allowed (test_bridge.TransitionTests.test_artifact_hash_changes_fail_even_when_source_bridge_is_allowed) ... ERROR
+test_historical_runner_exception_does_not_exempt_other_source_changes (test_bridge.TransitionTests.test_historical_runner_exception_does_not_exempt_other_source_changes) ... ERROR
+test_only_declared_guard_functions_can_change (test_bridge.TransitionTests.test_only_declared_guard_functions_can_change) ... ERROR
+test_published_bridge_is_exclusive (test_bridge.TransitionTests.test_published_bridge_is_exclusive) ... ERROR
+test_unapproved_top_level_execution_is_not_hidden_by_function_identity (test_bridge.TransitionTests.test_unapproved_top_level_execution_is_not_hidden_by_function_identity) ... ERROR
+test_wrong_old_runner_hash_cannot_be_relabelled_as_transition (test_bridge.TransitionTests.test_wrong_old_runner_hash_cannot_be_relabelled_as_transition) ... ERROR
+
+======================================================================
+ERROR: test_artifact_hash_changes_fail_even_when_source_bridge_is_allowed (test_bridge.TransitionTests.test_artifact_hash_changes_fail_even_when_source_bridge_is_allowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/test_bridge.py", line 52, in test_artifact_hash_changes_fail_even_when_source_bridge_is_allowed
+    self.assertEqual(bridge.check_artifacts(root,pins),1)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/bridge.py", line 4, in check_artifacts
+    def check_artifacts(*args): raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_historical_runner_exception_does_not_exempt_other_source_changes (test_bridge.TransitionTests.test_historical_runner_exception_does_not_exempt_other_source_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/test_bridge.py", line 35, in test_historical_runner_exception_does_not_exempt_other_source_changes
+    result=bridge.check_witnesses(root,pins,'runner.py',sha(b'old guard'),sha(b'new guard'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/bridge.py", line 3, in check_witnesses
+    def check_witnesses(*args): raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_only_declared_guard_functions_can_change (test_bridge.TransitionTests.test_only_declared_guard_functions_can_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/test_bridge.py", line 17, in test_only_declared_guard_functions_can_change
+    result=bridge.function_transition(old,new,{'guard'},{'wait'},{})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/bridge.py", line 2, in function_transition
+    def function_transition(*args): raise NotImplementedError
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_published_bridge_is_exclusive (test_bridge.TransitionTests.test_published_bridge_is_exclusive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/test_bridge.py", line 58, in test_published_bridge_is_exclusive
+    path=Path(name)/'reading.json';bridge.save(path,{'one':1})
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/bridge.py", line 5, in save
+    def save(*args): raise NotImplementedError
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_unapproved_top_level_execution_is_not_hidden_by_function_identity (test_bridge.TransitionTests.test_unapproved_top_level_execution_is_not_hidden_by_function_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/test_bridge.py", line 28, in test_unapproved_top_level_execution_is_not_hidden_by_function_identity
+    bridge.function_transition(old,new,set(),set(),{})
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/bridge.py", line 2, in function_transition
+    def function_transition(*args): raise NotImplementedError
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_wrong_old_runner_hash_cannot_be_relabelled_as_transition (test_bridge.TransitionTests.test_wrong_old_runner_hash_cannot_be_relabelled_as_transition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/test_bridge.py", line 45, in test_wrong_old_runner_hash_cannot_be_relabelled_as_transition
+    bridge.check_witnesses(root,{'runner.py':'f'*64},'runner.py','a'*64,
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/bridge.py", line 3, in check_witnesses
+    def check_witnesses(*args): raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.004s
+
+FAILED (errors=6)

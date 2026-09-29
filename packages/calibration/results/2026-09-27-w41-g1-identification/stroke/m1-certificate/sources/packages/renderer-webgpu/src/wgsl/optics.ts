@@ -1,0 +1,1684 @@
+/**
+ * The optics pass: refraction, adaptive tint, inner shadow, rim and specular —
+ * the glass body.
+ *
+ * Reads the group's two field targets (value + unit normal + coverage, and the
+ * per-surface optical scalars) and the backdrop pyramid; writes premultiplied sRGB
+ * into the optics canvas over the group's rect. Everything optical happens in
+ * linear light and is encoded exactly once, on the way out (X5).
+ *
+ * The pass is scoped, not fullscreen: the render pass sets its viewport *and* its
+ * scissor to the group's device-pixel rect, so `in.uv` runs 0..1 over the group
+ * and indexes the group's own field textures one-to-one, while `in.position.xy`
+ * stays in canvas device pixels and gives the backdrop coordinate. Nothing outside
+ * the group's bounds is touched — §Performance envelope prices the field and
+ * optics passes on exactly that assumption.
+ *
+ * ## The size law, and the four things it moves
+ *
+ * Parent acceptance #2 asks for the *mechanism*, not a look: "a larger surface
+ * shows deeper shadow and stronger lensing than a small button over the same
+ * backdrop." Apple states it as one mechanism with four consequences — a larger
+ * surface "casts deeper, richer shadows, has more pronounced lensing and
+ * refraction effects, and a softer scattering of light" (S219), and "a larger
+ * size is more opaque. A smaller size is clearer" (S284) — so this pass reads one
+ * per-pixel number and applies four gains to it.
+ *
+ * The number is `aux.z`, the surface's span in CSS px, carried **per pixel**
+ * through the field pass's union; this pass evaluates `material.ts`'s
+ * `sizeThickness(span)` from it, and the scatter facet's own span curve beside
+ * it. Since W13 the scattering reads the pixel's own depth under the contour as
+ * well (`scatterSharpShare`, claims §5.61 §2): the span curve is the mix deep
+ * inside the surface and the ramp is an excursion on it near the contour. The
+ * span is what lets a 40 px button and a 320 px platter share one group's field
+ * pass and still read as different thicknesses. The occlusion and the inner shadow
+ * are applied below, each multiplied by `sizeK`, so both are exactly inert at
+ * `sizeK = 0`; the scattering is applied by `kScatter`, which is per pixel and
+ * whose floor keeps it at the material's own frost rather than at nothing. The inner
+ * shadow's depth is W2's law, kept: `min(thickness * (1 + (gain − 1) * sizeK),
+ * span / 2)`, with a square profile on it.
+ *
+ * ## The lens (W12 G2, claims §5.51)
+ *
+ * The lens reads its own law since W12 G2 — the reference's, taken from its
+ * layer tree (§5.50) and fitted on the pixels (§5.51). Two clamped linear
+ * functions of the span give the depth and the magnitude, scaled by the author's
+ * thickness over the reference's unit of 8:
+ *
+ * ```
+ * lensDepth = min((thickness / 8) * min(0.25 * span, 20), span / 2)     8 / 11 / 20 on 32 / 44 / ≥ 80
+ * S         = lensRefractionGain * (thickness / 8) * min(0.8 * span, 60)  44.7 at saturation
+ * D(u)      = S * max(0, 1 − u / (lensExtentGain * lensDepth)) ^ lensProfileExponent
+ * ```
+ *
+ * One steep power (26.7 px extent, exponent 3.69 on a saturated span): the
+ * reference's band is the plate folded from 34 / 24 / 12 px in at 2 / 4 / 8 px
+ * from the contour (§5.49). It is the SAME two-component body the interior
+ * shows, read at the displaced position — blur before displacement, measured.
+ * The direction is not the field's normal alone: the reference ovalizes its SDF
+ * gradient (`gradientOvalization`, 0.5 on thick shapes), which magnifies the
+ * band *along* the edge by up to 1.31×; so the displacement runs along the
+ * gradient of the field blended toward the oval inscribed in the surface's box,
+ * `(1 − ω)·n̂ + ω·∇d_oval`, with the magnitude fixed. ω is `lensOvalization` on a
+ * thick surface, 0 on a thin one, a smoothstep over the reference's knee at
+ * 64–72 px between. The half-extent clamp is what keeps a small control from
+ * being all lens: a 24 px-tall button cannot bend more than 12 px of backdrop
+ * however thick it is authored — and the magnitude is clamped by the same
+ * ratio, so the profile keeps its shape.
+ *
+ * Every coefficient is advisory and calibration-delegated (C7), named on the CPU.
+ *
+ * ## The dual cap
+ *
+ * `refractionScale` arrives as one number the CPU already resolved through
+ * `effectiveRefraction(accessibilityCap, stateQuality)` — Decision Log #19's rule
+ * that renderers honour the lower of the two caps. The shader never sees them
+ * separately, so it cannot honour the wrong one.
+ */
+
+export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
+  /// viewport size in device px (xy), CSS px per device px (z), coverage ramp px (w)
+  screen : vec4f,
+  /// backdrop uv transform on viewport-normalised coords: scale (xy), offset (zw)
+  fit : vec4f,
+  /// refractionScale, lensRefractionGain (W12 G2: the gain on the reference's
+  /// amount law), the inner shadow's depth gain (W2's lensSizeGainMax, which the
+  /// shadow keeps), chainMaxLod
+  lens : vec4f,
+  /// fixed tint colour, linear light (xyz), tint alpha (w)
+  tint : vec4f,
+  /// adapted tint colour, linear light (xyz), adaptation strength (w)
+  adapt : vec4f,
+  /// author tint seed, linear light (xyz), tone adaptation under the contrast regime (w)
+  seed : vec4f,
+  /// the author tint's shade law (W10): tintShadeDark, tintShadeLight,
+  /// tintShadeStrength (the profile's provenance gate); and (w) the size law's
+  /// accessibility fold — the refraction ladder read at the preference's cap,
+  /// which every facet's span-dependent rise is multiplied by (W11c)
+  tone : vec4f,
+  /// rimWidthPx, rimAlpha; the slots retired by W24 now carry W27c's
+  /// tintChromaScale (z) and tintShadeCollapseRetention (w).
+  rim : vec4f,
+  /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
+  light : vec4f,
+  /// hasBackdrop, fieldSize.xy, fieldUpsampled
+  flags : vec4f,
+  /// the size law's gains (W2): scatterGainMax — resolved at the group's device
+  /// ratio since W15 G1, claims 5.69 section 1 — occlusionGain, shadowGainMax,
+  /// bodyChainLod — the last being the chain level whose blur already matches the
+  /// body texture, which is what the scattering term measures its octaves from
+  size : vec4f,
+  /// backdrop tone adaptation (W7): backdropToneLow, backdropToneHigh, the size
+  /// bias ALREADY divided by the accessibility refraction cap (so that it may be
+  /// multiplied by the policy-folded 'sizeK' below and still mean the geometric
+  /// thickness), and the strength the accessibility policy resolved — zero where
+  /// the host could not measure a backdrop tone, which stands the axis down
+  toneAdapt : vec4f,
+  /// the backdrop source's own average colour, linear (xyz), and its luminance (w)
+  toneColour : vec4f,
+  /// the outer shadow (W8, amplitude re-read by W14 G1): the THIN regime's peak
+  /// LINEAR occlusion, already resolved at this group's backdrop luminance and
+  /// already folded under the accessibility policy (x) — a linear occlusion and
+  /// no longer a compositing alpha, because the shader now blends two regimes
+  /// before it converts; the blur's sigma in group-local CSS px (y), the
+  /// silhouette's outward spread in the same units (z), and the downward offset
+  /// expressed in field-texture UV (w) — a UV so the offset silhouette is one
+  /// texture read rather than a gradient extrapolation, which is exact only on a
+  /// straight edge and a capsule is mostly not one
+  shadow : vec4f,
+  /// the outer shadow's size-law gain (x), read against the casting surface's own
+  /// thickness, and the field rect's height in CSS px (y) — the conversion the
+  /// shadow's shift needs when it lands outside the texture; the body depth
+  /// ramp's THICK start (z, W13 G1's third form — the thin end is scatter.y and
+  /// this pass mixes the two by the pixel's own sizeThickness), and (w) the
+  /// heavy width's gain at the TOP of the scatter span curve, resolved at this
+  /// group's device ratio (W15 G1's re-form, claims §5.70 §4 and §7) — the
+  /// padding slot this vec4's alignment already required, taken because the
+  /// gain's near end (size.x) has no free neighbour and this vec4 already
+  /// carries the body ramp's other span-graded end; at dpr 1 it equals size.x
+  /// and the grading is flat
+  shadowSize : vec4f,
+  /// the backdrop tone response's anchors (W9): the three solid anchors'
+  /// ENCODED-space means (xyz), and the backdrop's linear-space mean (w) — the
+  /// quantity the response solve composites against
+  toneAnchor : vec4f,
+  /// the response law's thin row: the reference's settled interior levels at the
+  /// three anchors for a surface of sizeThickness 0 (xyz); w is the law's
+  /// per-profile authority — 0 on dark profiles, whose response is unmeasured
+  toneRowThin : vec4f,
+  /// the thick row (sizeThickness saturated), xyz as the thin row's; w is the
+  /// collapse's transmission (W24 G1), in the padding slot this vec4's alignment
+  /// already required — it belongs to the tone block and the tone block's other
+  /// three vec4s are full. At 0 the collapse's target is the group's mean
+  /// backdrop colour and this pass is W7's to the bit.
+  toneRowThick : vec4f,
+  /// the size law's bands: the scatter facet's floor (x, resolved at the
+  /// group's device ratio since W15 G1 — the deep value is per-scale, claims
+  /// 5.69 section 2 — and read here for both the deep curve and the fold) and
+  /// the depth ramp's
+  /// THIN start s0 at the ratio this group draws at (y, W13 G1 — the CPU has
+  /// already interpolated it between the profile's 1x and 2x anchors; the thick
+  /// end is shadowSize.z), and the
+  /// thickness curve's sizeSpanMin (z) and sizeSpanMax (w); the fold both
+  /// multiply by is tone.w. The scatter span curve's own band top is lensOval.w,
+  /// and it starts at the same z.
+  scatter : vec4f,
+  /// the lens law (W12 G2): the reference's height law (lensHeightPerSpan,
+  /// lensHeightMax) and amount law (lensAmountPerSpan, lensAmountMax)
+  lensLaw : vec4f,
+  /// the lens profile (W12 G2): lensExtentGain, lensProfileExponent,
+  /// lensOvalization, lensThicknessReference
+  lensShape : vec4f,
+  /// the ovalization's knee (W12 G2): spanMin (x), spanMax (y); the body depth
+  /// ramp's reach in group-local CSS px (z, W13 G1) — the profile names it in
+  /// device px and the CPU divides by the ratio, so that this shader can read
+  /// the field's own CSS-px depth without a second conversion; the scatter span
+  /// curve's band top sizeScatterSpanMax (w, W11c, resolved at the group's
+  /// device ratio since W15 G1), which W13 G1 keeps underneath the ramp as its
+  /// deep value
+  lensOval : vec4f,
+  /// the outer shadow's THICK regime (W14 G1): the composite's peak linear
+  /// occlusion at casting spans 96, 128 and 160 CSS px (xyz), already folded
+  /// under the accessibility policy, piecewise-linear between and held outside;
+  /// and (w) the body depth ramp's FAR start (W13 G1's fourth form) — the start
+  /// at span >= sizeScatterSpanMax, which the ramp declines to from the thick
+  /// end along the scatter span curve, in the slot W14 left free
+  shadowThick : vec4f,
+  /// the lift (W14 G1), the shadow's second term and GPU-tier only: its peak
+  /// amplitude in LINEAR light as a fraction of the blurred backdrop's own
+  /// luminance (x), the span rise's foot and top in CSS px (yz), and the chain
+  /// LOD whose blur is the profile's liftBlurSigmaCss — resolved on the CPU,
+  /// which is the only place the CSS-px-to-texel conversion is knowable, and
+  /// already clamped to chainMaxLod (w)
+  shadowLift : vec4f,
+  /// the rim's amplitude law (W23): the gain on the surface's own rendered
+  /// luminance (x), the rim the COLLAPSED appearance keeps — bare (y) and at the
+  /// author tint's full coverage (z) — which rises with the adaptation the
+  /// scheme's own rim falls with, and how much of an author tint's own colour
+  /// the rim's light is spent in (w)
+  rimLaw : vec4f,
+  /// the lit edge (W24): the axis the rim's directional factor is symmetric
+  /// about, unit, viewport coordinates with y down (xy), and the factor's
+  /// exponent (z) — 0 leaves the factor at 1 for every normal and the rim
+  /// exactly as W23 left it. (w) is the along-side field's slope (W25), in the
+  /// slot W24 left free — 0 leaves the factor at 1 at every position.
+  rimLit : vec4f,
+  /// the thick-span composite (W25; claims 5.113): the heavy share's thick-end
+  /// lift on 'sizeThickness', resolved at this group's device ratio (x), and the
+  /// level term's gain above the thickness knee (y). Both 0 on the landed
+  /// material, so both terms are one multiplication by zero. (z) and (w) free.
+  thickSpan : vec4f,
+  /// the heavy blur's enable (W26; 'MaterialProfile.sizeHeavyTapSigma', and the
+  /// measured cause in claims 5.116 section 2) — 1 where this group's source
+  /// carries a heavy texture, 0 where it does not. The WIDTH is not here: the
+  /// pyramid blurred it into 'backdropHeavy' before any group was drawn, so all
+  /// this pass decides is which of two textures the deep sample comes from.
+  /// (y) is the DOM material mode (0 off, 1 unknown tone, 2 measured tone);
+  /// (z) and (w) carry its reference level and minimum tint contrast.
+  /// Texture draws keep those lanes zero, so their input bytes do not move.
+  heavyTap : vec4f,
+  /// Decision Log 18's optional fourth response knot: encoded x, thin y,
+  /// thick z, and a length gate w. Appended so every three-knot field keeps its
+  /// byte offset and its original shader branch.
+  toneExtra : vec4f,
+  /// W28: whether the per-surface reference field is present (x).
+  localTone : vec4f,
+  /// W30's span-graded shadow sigma (claims 5.156 section 2): the law's slope
+  /// in CSS px of sigma per CSS px of casting span (x), the reference span it
+  /// pivots about (y) and the signed floor it is clamped below at, as an offset
+  /// from 'shadow.y' (z). (w) free. At the shipped zeros this evaluates to
+  /// 'shadow.y' at every span, identically, which is why the 34 goldens do not
+  /// move. No device ratio: the cut rejected the device-px reading of the thin
+  /// regime, so the law is one function of CSS span on both tiers.
+  shadowSigma : vec4f,
+  /// W30's scale-selective scatter, candidate (ii) (claims 5.156 section 3): the
+  /// gain on 'kScatter' per unit of the source's measured scale statistic (x),
+  /// the reference that statistic is measured about (y), and the statistic
+  /// itself for THIS group's source (z) — the analysis pass's edge density,
+  /// resolved on the CPU because it arrives by readback. (w) free.
+  scatterScale : vec4f,
+  /// W30's scale-selective scatter, candidate (i) (claims 5.156 section 3): the
+  /// second heavy sample's SIGNED share in the deep mix (x), and whether this
+  /// group's source carries a second heavy texture at all (y) — 1 where the
+  /// pyramid built one, 0 where the share declined it. A vec4 of its own rather
+  /// than two lanes in the layout above, on 'heavyTap's precedent: a width's
+  /// switch living in another facet's spare lane is a layout nobody could read
+  /// back. (z) and (w) free.
+  scatterHeavy2 : vec4f,
+  /// W31's body chroma retention (claims 5.161 section 5, 5.164): how much of
+  /// the blurred backdrop's CHROMATICITY the body restores, at the luma the
+  /// tone solve produced (x). A vec4 of its own on W30's rule — 132 is the next
+  /// vec4 boundary and an operator packed into the block above would read two
+  /// of its neighbour's lanes. (y), (z) and (w) free. At the shipped 0 the mix
+  /// below is multiplied by zero and the composite is bit-identical to the one
+  /// W30 left, which is why the 34 goldens do not move.
+  bodyChroma : vec4f,
+  /// W36: strength, linear thin/thick black ordinates, padding. Gate 0 is identity.
+  toneBlack : vec4f,
+};
+
+@group(0) @binding(0) var<uniform> ou : OpticsUniforms;
+@group(0) @binding(1) var fieldTexture : texture_2d<f32>;
+@group(0) @binding(2) var auxTexture : texture_2d<f32>;
+@group(0) @binding(3) var backdropSampler : sampler;
+@group(0) @binding(4) var backdropChain : texture_2d<f32>;
+@group(0) @binding(5) var backdropBody : texture_2d<f32>;
+@group(0) @binding(6) var fieldSampler : sampler;
+/// The owning surface's box per pixel (W12 G2): the pixel's offset from its
+/// centre (xy) and its half-extents (zw), group-local CSS px — the lens's oval.
+@group(0) @binding(7) var aux2Texture : texture_2d<f32>;
+
+/// The heavy blur (W26) — the backdrop taken to the profile's heavy width by the
+/// pyramid's own separable passes, at the extent of the chain level it was built
+/// from. Bound at every draw; read only where 'heavyTap.x' says there is one.
+@group(0) @binding(8) var backdropHeavy : texture_2d<f32>;
+
+/// The surface's PRESENCE per pixel (W27d; contract X6): the 'materialization'
+/// channel, unioned in the field pass like every other per-surface scalar. One
+/// channel, in the field pass's fourth target — see 'wgsl/field.ts'.
+@group(0) @binding(9) var presenceTexture : texture_2d<f32>;
+@group(0) @binding(10) var localToneTexture : texture_2d<f32>;
+
+/// The SECOND heavy blur (W30 G2) — the same construction one width along, and
+/// read only where 'scatterHeavy2.y' says the pyramid built one. A bind group's
+/// layout is one layout, so the slot exists at every draw and the placeholder
+/// view stands in it where the material declined the operator; what costs
+/// nothing at the inert share is the allocation and the two separable passes,
+/// which is where the price of this mechanism actually is (W26 Decision Log
+/// 2 (b)).
+@group(0) @binding(11) var backdropHeavy2 : texture_2d<f32>;
+
+/// One encoded sRGB channel from a linear one — the space the backdrop tone
+/// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
+fn srgb_encode(c : f32) -> f32 {
+  let x = clamp(c, 0.0, 1.0);
+  return select(1.055 * pow(x, 1.0 / 2.4) - 0.055, x * 12.92, x <= 0.0031308);
+}
+
+/// The backdrop tone response R(encodedInput, sizeK) (W9): monotone
+/// (Fritsch–Carlson) interpolation through the three anchors, clamped to their
+/// span; smoothstep between the thin and thick rows. Mirrors material.ts's
+/// 'backdropToneResponse' term for term — the constants are authored there.
+fn tone_response(x : f32, sizeK : f32, levelFar : f32) -> f32 {
+  let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
+  let ys = mix(ou.toneRowThin.xyz, ou.toneRowThick.xyz, vec3f(f));
+  let xs = ou.toneAnchor.xyz;
+  if (ou.toneExtra.w > 0.5) {
+    let ys4 = vec4f(ys, mix(ou.toneExtra.y, ou.toneExtra.z, f));
+    let xs4 = vec4f(xs, ou.toneExtra.x);
+    let xc4 = clamp(x, xs4.x, xs4.w);
+    let h0 = max(xs4.y - xs4.x, 1e-4);
+    let h1 = max(xs4.z - xs4.y, 1e-4);
+    let h2 = max(xs4.w - xs4.z, 1e-4);
+    let d0 = (ys4.y - ys4.x) / h0;
+    let d1 = (ys4.z - ys4.y) / h1;
+    let d2 = (ys4.w - ys4.z) / h2;
+    var m1 = 0.0; var m2 = 0.0;
+    if (d0 * d1 > 0.0) { m1 = 2.0 * d0 * d1 / (d0 + d1); }
+    if (d1 * d2 > 0.0) { m2 = 2.0 * d1 * d2 / (d1 + d2); }
+    var h = h0; var t = (xc4 - xs4.x) / h0;
+    var y0 = ys4.x; var y1 = ys4.y; var s0 = d0; var s1 = m1;
+    if (xc4 > xs4.y) {
+      h = h1; t = (xc4 - xs4.y) / h1;
+      y0 = ys4.y; y1 = ys4.z; s0 = m1; s1 = m2;
+    }
+    if (xc4 > xs4.z) {
+      h = h2; t = (xc4 - xs4.z) / h2;
+      y0 = ys4.z; y1 = ys4.w; s0 = m2; s1 = d2;
+    }
+    return y0 * (1.0 + 2.0 * t) * (1.0 - t) * (1.0 - t)
+         + s0 * h * t * (1.0 - t) * (1.0 - t)
+         + y1 * t * t * (3.0 - 2.0 * t)
+         + s1 * h * t * t * (t - 1.0)
+         + levelFar;
+  }
+  let xc = clamp(x, xs.x, xs.z);
+  let h0 = max(xs.y - xs.x, 1e-4);
+  let h1 = max(xs.z - xs.y, 1e-4);
+  let d0 = (ys.y - ys.x) / h0;
+  let d1 = (ys.z - ys.y) / h1;
+  // The interior slope: the harmonic mean where the secants agree, 0 across a
+  // sign change — what keeps the curve monotone between monotone anchors.
+  var m1 = 0.0;
+  if (d0 * d1 > 0.0) { m1 = 2.0 * d0 * d1 / (d0 + d1); }
+  var h = h0; var t = (xc - xs.x) / h0;
+  var y0 = ys.x; var y1 = ys.y; var s0 = d0; var s1 = m1;
+  if (xc > xs.y) {
+    h = h1; t = (xc - xs.y) / h1;
+    y0 = ys.y; y1 = ys.z; s0 = m1; s1 = d1;
+  }
+  // 'levelFar' is W25's level term above the thickness knee (claims 5.113; W25
+  // Decision Log 3 (b)) - an OFFSET on the settled level this curve returns, in
+  // its own encoded units, and not a continuation of the thin-to-thick blend
+  // above. The rows chose the shape: the residual against vitrea above span 96
+  // is backdrop-INDEPENDENT where the blend's direction is different at every
+  // backdrop level (G2 'fit-level.txt'). Exactly 0 at and below sizeSpanMax by
+  // the shape of its span curve, and 0 at every span on the landed material.
+  return y0 * (1.0 + 2.0 * t) * (1.0 - t) * (1.0 - t)
+       + s0 * h * t * (1.0 - t) * (1.0 - t)
+       + y1 * t * t * (3.0 - 2.0 * t)
+       + s1 * h * t * t * (t - 1.0)
+       + levelFar;
+}
+
+/// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
+/// side. Symmetric, so the rim is a band on the boundary rather than a plateau
+/// that keeps burning outward where coverage has already faded.
+fn rim_weight(d : f32, width : f32) -> f32 {
+  let t = clamp(1.0 - abs(d) / max(width, 1e-4), 0.0, 1.0);
+  return t * t;
+}
+
+/// The Gaussian CDF the outer shadow's edge falls off by: 1 deep inside the
+/// shadow's silhouette, 0.5 exactly on it, 0 far outside. The tanh form of the
+/// normal CDF — WGSL has no erf, and this is within 1.8e-4 of it everywhere,
+/// which is 0.015 of one 8-bit code at the shipped occlusion. Mirrors
+/// material.ts's 'outerShadowFalloff' term for term.
+///
+/// THE ARGUMENT IS CLAMPED, AND THE CLAMP IS THE IDENTITY (W30 G3b; claims
+/// 5.159b, corrected at 5.159b section 10). 'tanh' saturates to exactly 1.0 in
+/// f32 by |t| = 9.011 and in f64 by |t| = 19.061547465398498 — measured, not
+/// 18.2, which the first recording of this comment said and which is the last
+/// magnitude that still returns 1 - 1e-16. Either way 20 is above both, so
+/// replacing every |t| > 20 with 20 returns the same bits in both precisions at
+/// every input the unclamped form evaluates finitely; the bound has 0.94 of
+/// margin over f64 rather than 1.8, which is what the corrected reading
+/// changes. What it
+/// removes is a NaN: a backend that lowers 'tanh' to (exp(2t) - 1)/(exp(2t) + 1)
+/// — which Metal's fast-math path does — overflows f32's 'exp' at 2t > 88.72 and
+/// hands back Inf/Inf. The cubic makes that threshold reachable at a modest
+/// distance: t passes 44.36 at x ~ 10.06, so any pixel more than about 10 sigma
+/// inside the shadow's silhouette returned NaN, and the NaN travelled into the
+/// composite's alpha through 'shadowAlpha * (1 - coverage)', where a coverage of
+/// exactly 1 does not stop it (NaN times 0 is NaN). At every sigma the project
+/// had shipped, 10 sigma was further than any caster is deep and nothing reached
+/// it; macOS 27's thin regime draws sigma 2.13 at a span-44 caster, where 10
+/// sigma is 21.4 CSS px and a 44 px capsule's own centre line is 25 CSS px
+/// inside its silhouette — which is the strip 5.159 section 6 measured.
+fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
+  let x = -signedDistance / max(sigma, 1e-4);
+  let t = clamp(0.7978845608028654 * (x + 0.044715 * x * x * x), -20.0, 20.0);
+  return 0.5 * (1.0 + tanh(t));
+}
+
+/// The outer shadow's sigma at a casting span, CSS px (W30 G2; claims 5.156
+/// section 2). Mirrors material.ts's 'outerShadowSigmaPx' term for term:
+///
+///   sigma(span) = shadow.y + max(shadowSigma.z, shadowSigma.x * (span - shadowSigma.y))
+///
+/// Read PER PIXEL from the CASTING surface's own span, which the field pass has
+/// already unioned into the aux target — the span this shader has been reading
+/// the thick regime's amplitude from since W14 G1, now read twice. At the
+/// shipped zeros both arms of the max are zero and this is 'ou.shadow.y'
+/// exactly, for every span, which makes the law's landing a no-op on every
+/// existing pixel by construction rather than by measurement.
+fn outer_shadow_sigma(spanCss : f32) -> f32 {
+  return ou.shadow.y
+    + max(ou.shadowSigma.z, ou.shadowSigma.x * (spanCss - ou.shadowSigma.y));
+}
+
+/// What one pixel's outer shadow is made of: the compositing-space alpha the
+/// black term composites at, the falloff BOTH terms ride, and the span of the
+/// surface that cast it — which the lift's own rise is read from.
+///
+/// One struct rather than three calls because there is one falloff (W14 G0,
+/// claims §5.62 §4): the black term's free fit and the lift's free fit return
+/// the same sigma, offset and spread, so evaluating a second geometry for the
+/// second term would be asserting a difference the measurement denies.
+struct ShadowSample {
+  alpha : f32,
+  falloff : f32,
+  castSpanCss : f32,
+  /// The presence of the surface that CAST the shadow (W27d), read at the offset
+  /// position beside its span. A shadow belongs to the surface above it, so it
+  /// fades with that surface's materialization and not with the one under this
+  /// pixel — which is a real difference wherever a dissolving surface's shadow
+  /// falls across a present one.
+  castMat : f32,
+};
+
+/// The composite's peak linear occlusion above the knee, at a casting span —
+/// piecewise linear through the three measured anchors (96 / 128 / 160 CSS px)
+/// and held flat outside them. Mirrors material.ts's
+/// 'outerShadowThickOcclusion'.
+fn outer_shadow_thick(spanCss : f32) -> f32 {
+  let y = ou.shadowThick.xyz;
+  if (spanCss <= 96.0) { return y.x; }
+  if (spanCss >= 160.0) { return y.z; }
+  if (spanCss <= 128.0) { return y.x + (y.y - y.x) * (spanCss - 96.0) / 32.0; }
+  return y.y + (y.z - y.y) * (spanCss - 128.0) / 32.0;
+}
+
+/// The outer shadow's alpha at this pixel (W8, amplitude W14 G1).
+///
+/// The shadow is the group's OWN field, translated down by 'shadow.w' in field
+/// UV and outset by 'shadow.z', then blurred. Reading the offset silhouette from
+/// the field texture rather than extrapolating the local distance along the
+/// normal is what keeps a corner a corner: the first-order estimate is exact only
+/// on a straight edge, and a capsule is mostly not one.
+///
+/// The value is an ALPHA on pure black, so what it composites to is the backdrop
+/// times '1 - alpha' — multiplicative occlusion, and exactly zero over black,
+/// with no branch for it.
+fn outer_shadow(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> ShadowSample {
+  var out : ShadowSample;
+  out.alpha = 0.0;
+  out.falloff = 0.0;
+  out.castSpanCss = 0.0;
+  out.castMat = 1.0;
+  if (ou.shadow.x <= 0.0 && ou.shadowThick.x <= 0.0) {
+    return out;
+  }
+  /*
+   * The shift can leave the field texture, and clamping alone reads a lie there.
+   *
+   * Two ways it happens, and the second is not an edge case: the rect is clipped
+   * to the canvas, so a surface within the shadow's reach of the viewport's TOP
+   * has no rows above it to shift into; and even unclipped, the rect's pad is the
+   * shadow's reach, so the topmost band of every group needs rows a further
+   * 'offset' above that. Clamped, both repeat the edge texel — a distance that is
+   * too SMALL, which reads as a flat, too-dark falloff exactly where the shadow
+   * should be fading out, and diverges from the CSS tier, which has no texture to
+   * run out of.
+   *
+   * Reconstructed instead of clamped. A signed distance field is 1-Lipschitz, and
+   * in the region this happens in — directly above the surface — moving away from
+   * it increases the distance by exactly the displacement. So adding back the
+   * distance that was clamped off is exact there, and past the surface's corners
+   * it over-estimates, which errs toward LESS shadow rather than more.
+   */
+  let shiftedY = uv.y - ou.shadow.w;
+  let clampedOffCss =
+    (max(0.0, -shiftedY) + max(0.0, shiftedY - 1.0)) * ou.shadowSize.y;
+  let shadowUv = clamp(vec2f(uv.x, shiftedY), vec2f(0.0), vec2f(1.0));
+  var shadowField : vec4f;
+  var shadowAux : vec4f;
+  var shadowPresence : vec4f;
+  if (upsampled > 0.5) {
+    shadowField = textureSampleLevel(fieldTexture, fieldSampler, shadowUv, 0.0);
+    shadowAux = textureSampleLevel(auxTexture, fieldSampler, shadowUv, 0.0);
+    shadowPresence = textureSampleLevel(presenceTexture, fieldSampler, shadowUv, 0.0);
+  } else {
+    let texel = clamp(vec2i(shadowUv * fieldSize), vec2i(0), vec2i(fieldSize) - vec2i(1));
+    shadowField = textureLoad(fieldTexture, texel, 0);
+    shadowAux = textureLoad(auxTexture, texel, 0);
+    shadowPresence = textureLoad(presenceTexture, texel, 0);
+  }
+  let castMat = clamp(shadowPresence.x, 0.0, 1.0);
+
+  // The size law reaches the amplitude and nothing else — the reference's three
+  // lengths are span-invariant across 32…160 px. Every span-keyed quantity here
+  // rides the thickness and the span of the surface that CAST the shadow, which
+  // is the one read at the offset position rather than the one under the pixel
+  // being shaded.
+  //
+  // The thickness curve off the casting surface's span (W11c: the span rides
+  // the field), written as the body's own is below.
+  let castT = clamp(
+    (shadowAux.z - ou.scatter.z) / max(ou.scatter.w - ou.scatter.z, 1e-6),
+    0.0,
+    1.0,
+  );
+  let sizeK = clamp(castT * castT * (3.0 - 2.0 * castT) * clamp(ou.tone.w, 0.0, 1.0), 0.0, 1.0);
+
+  // The two regimes and the knee between them (W14 G1). The thin amplitude is
+  // resolved on the CPU because its key — the backdrop's luminance — is one
+  // number for the whole group; the thick one is a span law and has to be per
+  // pixel. The blend is the smoothstep of 'sizeK', which is exactly the curve
+  // 'tone_response' blends its own thin and thick rows across: one knee for the
+  // face and the shadow, which is the charter's third binding rule read from
+  // the other side.
+  let blend = sizeK * sizeK * (3.0 - 2.0 * sizeK);
+  let regime = mix(ou.shadow.x, outer_shadow_thick(shadowAux.z), blend);
+  // The size gain, on the relative form 'sizeOuterShadowOcclusionAt' uses, in
+  // LINEAR light; then the one conversion to the canvas's compositing space,
+  // which is where the black term is actually composited.
+  let occ = clamp(regime + ou.shadowSize.x * sizeK * (1.0 - regime), 0.0, 1.0);
+  // Times the casting surface's presence (W27d): a material that is not there
+  // occludes nothing. At presence 1 this is the alpha the bed measures.
+  out.alpha = (1.0 - pow(1.0 - occ, 1.0 / 2.4)) * castMat;
+  out.falloff = outer_shadow_falloff(
+    shadowField.x + clampedOffCss - ou.shadow.z,
+    outer_shadow_sigma(shadowAux.z),
+  );
+  out.castSpanCss = shadowAux.z;
+  out.castMat = castMat;
+  return out;
+}
+
+/// The lift (W14 G1) — the shadow's second term, in LINEAR light, premultiplied
+/// by nothing yet: a blurred copy of the backdrop's own light, at an amplitude
+/// that is zero below the knee and saturating above it, on the SAME falloff the
+/// black term rides.
+///
+/// 'V' is the backdrop chain read at the pixel's OWN position — the copy is of
+/// the backdrop beneath the shadow, not of the backdrop under the surface — at
+/// the LOD whose blur is the profile's 40 CSS px. The chain's uv transform is on
+/// viewport-normalised coordinates, so every pixel this pass draws has a valid
+/// sample: unlike the field texture, which the offset shift can walk off the top
+/// of, the chain covers the whole viewport and there is nothing to reconstruct.
+///
+/// Zero over black by construction (V = 0), zero below the knee by the rise, and
+/// zero where the group has no backdrop to copy — so 'dark-solid', 'impulse',
+/// every thin cell and every unsampled group stay byte-for-byte what they were.
+fn outer_shadow_lift(viewport01 : vec2f, shadow : ShadowSample) -> vec3f {
+  if ((ou.flags.x <= 0.5 && ou.heavyTap.y < 1.5) ||
+      ou.shadowLift.x <= 0.0 || shadow.falloff <= 0.0) {
+    return vec3f(0.0);
+  }
+  // Written out rather than through WGSL's 'smoothstep', which is undefined
+  // where the two edges coincide — a profile is entitled to set the rise's foot
+  // and top to one number, and material.ts's own 'smoothstep' degrades that to a
+  // step rather than to a NaN. Same rule as the tone band's divide above.
+  let riseT = clamp(
+    (shadow.castSpanCss - ou.shadowLift.y) / max(ou.shadowLift.z - ou.shadowLift.y, 1e-6),
+    0.0,
+    1.0,
+  );
+  let rise = riseT * riseT * (3.0 - 2.0 * riseT);
+  if (rise <= 0.0) {
+    return vec3f(0.0);
+  }
+  if (ou.flags.x <= 0.5) {
+    // A DOM page has no exterior texture: this is the law at the stated tone,
+    // not a claim to reproduce the colour or structure beyond the silhouette.
+    return ou.toneColour.rgb * (ou.shadowLift.x * rise * shadow.falloff);
+  }
+  let uv = clamp(viewport01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
+  let chainSample = textureSampleLevel(backdropChain, backdropSampler, uv, ou.shadowLift.w);
+  // Premultiplied linear in, straight colour out — the same unpremultiply the
+  // body's own samples take, for the same reason: a partially transparent
+  // backdrop must not darken what the material adds back.
+  let v = chainSample.rgb / max(chainSample.a, 1e-6);
+  // The black term's presence, on the shadow's second term: the two are one
+  // shadow with one falloff (W14 G0), so one channel fades both.
+  return v * (ou.shadowLift.x * rise * shadow.falloff * shadow.castMat);
+}
+
+/// The DOM branch is the per-pixel mirror of platform-web's materialAtBackdrop.
+/// It evaluates the linear response, collapse, paint and rim at the stated tone,
+/// then solves the encoded layer the browser composites. A union's span stays
+/// per pixel, and the conversion reference never enables an unknown tone.
+fn dom_material_backdrop() -> vec3f {
+  if (ou.heavyTap.y > 1.5) { return ou.toneColour.rgb; }
+  return vec3f(ou.heavyTap.z);
+}
+
+/// The cssTintAlpha secant, at the actual tone rather than before the response.
+fn dom_material_alpha(composite : vec3f, backdrop : vec3f, alpha : f32) -> f32 {
+  if (alpha <= 1e-6) { return 0.0; }
+  let weights = vec3f(0.2126, 0.7152, 0.0722);
+  let neutral = max((composite - backdrop * (1.0 - alpha)) / alpha, vec3f(0.0));
+  let b = srgb_encode(dot(backdrop, weights));
+  let span = srgb_encode(dot(neutral, weights)) - b;
+  if (abs(span) < ou.heavyTap.w) { return alpha; }
+  return clamp((srgb_encode(dot(composite, weights)) - b) / span, 0.0, 1.0);
+}
+
+/// The final encoded solve, including paint and contour light. The least opacity
+/// needed to keep every channel in gamut is an algebraic constraint, not a fit.
+/// At the reference B this returns E(C) exactly after browser source-over; away
+/// from B the scalar layer cannot reproduce the sampled path's local structure.
+fn dom_material_output(encodedComposite : vec3f, encodedBackdrop : vec3f, alpha : f32) -> vec4f {
+  let c = clamp(encodedComposite, vec3f(0.0), vec3f(1.0));
+  let b = clamp(encodedBackdrop, vec3f(0.0), vec3f(1.0));
+  let need = select((b - c) / max(b, vec3f(1e-6)),
+    (c - b) / max(vec3f(1.0) - b, vec3f(1e-6)), c >= b);
+  let a = clamp(max(alpha, max(need.x, max(need.y, need.z))), 0.0, 1.0);
+  return vec4f(clamp(c - b * (1.0 - a), vec3f(0.0), vec3f(a)), a);
+}
+
+/// W31 — the body's chroma retention, at a held linear luma (claims 5.161
+/// section 5, fitted in 5.164).
+///
+/// The body is a neutral plate over the blurred backdrop, so what a
+/// photograph's hues survive the composite at is '1 - sizedAlpha'. This
+/// restores the colour's CHROMATICITY toward the blurred backdrop's, carried to
+/// the colour's OWN linear luma, by the material's retention.
+///
+/// **Luma is held by construction rather than by correction.** Both endpoints
+/// of the mix have linear luma exactly 'Y' — 'colour' by definition and
+/// 'target' because it is the backdrop scaled to 'Y' — and linear luma is a
+/// linear functional, so the mix has luma 'Y' in exact arithmetic. The
+/// renormalisation afterwards is an f32 rounding guard and nothing else.
+///
+/// Gamut by scaling chroma toward the neutral AT that luma, never by clipping
+/// per channel: a per-channel clamp moves the level, which is the one thing
+/// this operator may not do.
+///
+/// The retention is the identity outside 'Y' in (1e-6, 1], which is a
+/// finiteness guard rather than a restriction: 'backdrop' and 'adapted' are both
+/// in [0, 1] and 'presentAlpha' is in [0, 1], so their mix is too. Writing it as
+/// a branch on the retention as well makes the identity at 0 EXACT — no
+/// division, no rounding, the composite left as it arrived.
+fn gamut_at_luma(c : vec3f, Y : f32) -> vec3f {
+  var t = 1.0;
+  for (var i = 0u; i < 3u; i = i + 1u) {
+    let d = c[i] - Y;
+    if (d > 1e-7) { t = min(t, (1.0 - Y) / d); }
+    else if (d < -1e-7) { t = min(t, -Y / d); }
+  }
+  return mix(vec3f(Y), c, clamp(t, 0.0, 1.0));
+}
+
+fn body_chroma_retention(colour : vec3f, backdrop : vec3f, retention : f32) -> vec3f {
+  if (retention <= 0.0) { return colour; }
+  let W = vec3f(0.2126, 0.7152, 0.0722);
+  let Y = dot(colour, W);
+  if (!(Y > 1e-6 && Y <= 1.0)) { return colour; }
+  let Yb = dot(backdrop, W);
+  if (Yb <= 1e-6) { return colour; }
+  // 'toward' and not 'target': WGSL reserves the latter.
+  let toward = backdrop * (Y / Yb);
+  var restored = mix(colour, toward, clamp(retention, 0.0, 1.0));
+  let Yr = dot(restored, W);
+  if (Yr > 1e-6) { restored = restored * (Y / Yr); }
+  return gamut_at_luma(restored, Y);
+}
+
+@fragment
+fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
+  // Nominally the field is one texel per device pixel, so the read is an exact
+  // load and no filter touches the distance or the normal. Under the governor's
+  // 'refractionResolutionScale' the field was rasterised smaller than the group's
+  // rect, and then it has to be filtered: a nearest read would quantise the
+  // contour to the coarse grid and the rim would step along it.
+  var field : vec4f;
+  var aux : vec4f;
+  var aux2 : vec4f;
+  var presence : vec4f;
+  if (ou.flags.w > 0.5) {
+    field = textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0);
+    aux = textureSampleLevel(auxTexture, fieldSampler, in.uv, 0.0);
+    aux2 = textureSampleLevel(aux2Texture, fieldSampler, in.uv, 0.0);
+    presence = textureSampleLevel(presenceTexture, fieldSampler, in.uv, 0.0);
+  } else {
+    let texel = vec2i(in.uv * ou.flags.yz);
+    field = textureLoad(fieldTexture, texel, 0);
+    aux = textureLoad(auxTexture, texel, 0);
+    aux2 = textureLoad(aux2Texture, texel, 0);
+    presence = textureLoad(presenceTexture, texel, 0);
+  }
+
+  // The complete reference changes together: response, collapse colour and
+  // compensation, nominal composition, opacity solve, and the tint/rim readouts.
+  // The source branch retains the old uniforms and arithmetic exactly.
+  var toneStrength = ou.toneAdapt.w;
+  var toneColour = ou.toneColour;
+  var toneLinearMean = ou.toneAnchor.w;
+  if (ou.localTone.x > 0.5) {
+    if (ou.flags.w > 0.5) {
+      toneColour = textureSampleLevel(localToneTexture, fieldSampler, in.uv, 0.0);
+    } else {
+      toneColour = textureLoad(localToneTexture, vec2i(in.uv * ou.flags.yz), 0);
+    }
+    toneLinearMean = dot(toneColour.rgb, vec3f(0.2126, 0.7152, 0.0722));
+    // A fully transparent mask measured no colour and has no local authority.
+    if (toneColour.w < 0.0) {
+      toneStrength = 0.0;
+      toneColour = ou.toneColour;
+      toneLinearMean = ou.toneAnchor.w;
+    }
+  }
+
+  let d = field.x;
+  let normal = field.yz;
+  let coverage = field.w;
+  /*
+   * The surface's PRESENCE at this pixel (W27d; contract X6) — the
+   * 'materialization' channel, 1 on a surface nobody is driving.
+   *
+   * It multiplies every term the material ADDS to what is behind it: the lens's
+   * depth and magnitude, the body's mix away from the unblurred backdrop, the
+   * material's own alpha, the author tint's coverage, the inner shadow, the rim,
+   * the outer shadow and the highlight pass's light. It does NOT multiply the
+   * coverage: a presence spent there would be a crossfade of the whole composite,
+   * which is the alpha Apple's rule rules out ("prefer setting the effect
+   * property over the alpha") and which the runtime cannot afford either — the
+   * host that wrote it would form a Backdrop Root and lose the group's sampling.
+   *
+   * Not to be confused with 'present' below, which is what survives the backdrop
+   * COLLAPSE. The two multiply many of the same terms and mean different things:
+   * one is the author's presence, the other is the material having taken its
+   * backdrop's tone. Both are one multiplication by one on the resting bed.
+   *
+   * The channel is strictly ABOVE zero here. Exactly 0 is 'Glass.identity' and is
+   * resolved on the CPU by dropping the member before this pass ever runs
+   * ('instances.ts'), so a surface that is not there has no silhouette to draw a
+   * faded material into and no shape to union with its neighbours. What this
+   * shader owns is the continuum between the endpoints.
+   */
+  let mat = clamp(presence.x, 0.0, 1.0);
+
+  /*
+   * The outer shadow (W8) sits UNDER the material, so it is resolved before the
+   * body and carried into the output's alpha rather than into its colour: the
+   * pass writes premultiplied black there, and premultiplied black over the page
+   * IS the multiplication. Outside the contour that is the whole of what this
+   * pixel is; inside it the surface covers the shadow, exactly as a 'box-shadow'
+   * is clipped out of its own border box, and the two meet across the coverage
+   * ramp with no seam because it is one expression.
+   */
+  let shadowSample = outer_shadow(in.uv, ou.flags.w, ou.flags.yz);
+  let shadowAlpha = shadowSample.alpha * shadowSample.falloff;
+  let viewport01 = in.position.xy / ou.screen.xy;
+  // Resolved once, for both sides of the coverage ramp: the lift fills exactly
+  // what the surface's coverage leaves, on the same rule and in the same
+  // expression as the black term's alpha at the bottom of this function, so the
+  // two meet across the ramp with no seam. At full coverage it is not computed
+  // at all and the chain read is not taken.
+  var liftEncoded = vec3f(0.0);
+  if (coverage < 1.0) {
+    let lift = outer_shadow_lift(viewport01, shadowSample);
+    liftEncoded = min(linear_to_srgb(max(lift, vec3f(0.0))), vec3f(shadowAlpha));
+  }
+  if (coverage <= 0.0) {
+    /*
+     * The lift (W14 G1) makes this a premultiplied COMPOSITE rather than an
+     * alpha on black: the compositor produces 'page·(1 − shadowAlpha) + lift',
+     * which is the reference's own two-term form outside the coverage.
+     *
+     * The added light is computed in linear light and encoded on its own before
+     * it is emitted, because it IS its own light — over the checkerboard's black
+     * squares, where the multiply is inert, what the reference adds is exactly
+     * this term and nothing else, and encoding it alone reproduces G0's measured
+     * +0.048 encoded at span 160 from its +0.0038 linear (claims §5.62 §2, §3).
+     * Where the backdrop is bright the encoding of a sum and the sum of the
+     * encodings differ, and this term is the second: the residual is bounded by
+     * the term's own size and is well inside the bed's ±4/255, on the same
+     * honest-floor argument 'outerShadowAlpha' makes for the black term's space.
+     *
+     * A premultiplied layer may not carry a channel above its own alpha, so the
+     * emitted light is capped at 'shadowAlpha'. At the profile's constants the
+     * cap is inert everywhere on the falloff: both terms are proportional to the
+     * same F, and the lift's encoded value stays at about a sixth of the black
+     * term's alpha from the deepest ring out to where the shadow stops moving a
+     * code. It is here so that a swept amplitude produces a valid layer rather
+     * than an implementation-defined one.
+     */
+    return vec4f(liftEncoded, shadowAlpha);
+  }
+
+  let viewportCss = ou.screen.xy * ou.screen.z;
+
+  // Per-pixel, unioned through the field pass. See the module note. 'aux.x' is
+  // the authored thickness times the lensStrength channel (W12 G2); the lens's
+  // depth and the inner shadow's are both evaluated from it and the span below.
+  //
+  // Times the presence (W27d), because this is the one number Apple's own
+  // description of materializing names — "by gradually modulating the light
+  // bending and lensing" — and both depths are functions of it, so the lens
+  // shallows and weakens together and the inner shadow's depth follows the same
+  // channel rather than a second statement of it.
+  let lensThick = max(aux.x, 0.0) * mat;
+  // The thickness curve off the span of whichever surface owns this pixel
+  // (W11c). 'sizeK' is the thickness factor, 0..1: zero on anything at or below
+  // the profile's 'sizeSpanMin', saturated at 'sizeSpanMax', folded under the
+  // preference — the occlusion, the inner shadow and the tone response multiply
+  // by it, so a small control takes the pre-law path exactly. Written out as a
+  // smoothstep with a guarded denominator, so a profile that collapses the band
+  // degrades to a step rather than to NaN.
+  let span = aux.z;
+  let fold = clamp(ou.tone.w, 0.0, 1.0);
+  let thickT = clamp((span - ou.scatter.z) / max(ou.scatter.w - ou.scatter.z, 1e-6), 0.0, 1.0);
+  // The unfolded curve, which the depth ramp's start grades along below, and the
+  // folded factor every other facet multiplies by. One smoothstep, two readings.
+  let sizeThick = thickT * thickT * (3.0 - 2.0 * thickT);
+  let sizeK = clamp(sizeThick * fold, 0.0, 1.0);
+  /*
+   * The body's mix is the span curve W11c fitted with a ramp in DEPTH riding on
+   * top of it near the contour (W13 G1, from the measurement of claims §5.61 §2
+   * and the re-forming its first runtime sweep forced):
+   *
+   *   kDeep = floor + (1 - floor) * smoothstep(sizeSpanMin, sizeScatterSpanMax, span)
+   *   s0    = startThin + (startThick - startThin) * sizeThickness(span)
+   *         + (startFar - startThick) * smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
+   *   s(u)  = (1 - kDeep) + max(0, s0 - (1 - kDeep)) * max(0, 1 - u / U)
+   *   k(u)  = 1 - s(u)
+   *
+   * The first form of the ramp replaced the span curve outright and its sweep
+   * measured what that cost: the ramp's own projection onto one number per
+   * surface runs 0.43-0.56 where the curve it replaced runs 0.41-1.00, so the
+   * family is nearly span-flat where the bed is strongly span-graded and no
+   * point in 81 reached the wave's stops. So the curve stays as the deep value
+   * and the ramp is what it always measured as - a near-contour excursion.
+   *
+   * The SECOND form gave that excursion one start per scale, and its own sweep
+   * refuted that arithmetically (claims §5.64 §2): the smallest cell's span is
+   * exactly sizeSpanMin, so its deep sharp share is exactly 1 - floor and no
+   * start at or below it can touch that cell, while the next span up only
+   * improves BELOW a start lower still. So the start grades with span too, and
+   * along the material's own thin/thick curve rather than a new one - the same
+   * smoothstep 'sizeK' is built from above, unfolded, because s0 is a share the
+   * reference has and not a rise a preference removes. The fold below still
+   * applies once, on the composed mix.
+   *
+   * The THIRD form stopped there and its holdout failed on one row for the
+   * form's own arithmetic (claims §5.67 §4): sizeThickness saturates at
+   * sizeSpanMax, so every thick span got the same start while the reference's
+   * start keeps FALLING across the thick spans, and because kDeep keeps rising
+   * to sizeScatterSpanMax the excursion grew with span where the reference's
+   * shrinks. So the FOURTH form declines the start past the knee along the
+   * scatter span curve itself — the same smoothstep 'deepT' is built from, on
+   * the band above the thickness knee — from the thick anchor to startFar at
+   * sizeScatterSpanMax. Same curve read twice, no new span statistic.
+   *
+   * '-d' is the depth, in group-local CSS px and unclamped - the same quantity
+   * the lens's 'lensT' and the inner shadow's 'shadowT' are evaluated from,
+   * except that those two divide it by a depth of their own while this reads it
+   * absolutely, because the reach measured as a LENGTH rather than as a fraction
+   * of the span. The reach reaches this shader already divided by the device
+   * ratio ('lensOval.z'), so the ratio 'u / U' is the same number in CSS px as
+   * it is in the device px the profile names.
+   *
+   * 'max(s0 - sDeep, 0)' rather than a signed difference: the excursion is the
+   * band the reference has ABOVE the body, and a span whose deep sharp share
+   * already exceeds s0 has nothing to add rather than something to subtract.
+   *
+   * The floor and the span top arrive resolved at the ratio this group draws at
+   * (W15 G1, claims 5.69 section 2): the reference's 2x deep interior is fully
+   * heavy on the largest spans where this curve fitted at 1x leaves a sharp
+   * share of 0.24-0.36, so kDeep is a per-scale law. Nothing about the
+   * arithmetic here changes - the uniforms carry a different number, not a
+   * different shape - and on the landed material the two anchors are equal.
+   *
+   * The fold keeps its W11c semantics on the composed law: the floor is the
+   * frost the material has at any size and is not folded, everything above it -
+   * the span curve's rise and the ramp's excursion alike - is depth and is, so
+   * fold 1 renders the law and fold 0 sits at the floor exactly.
+   */
+  let scatterFloor = clamp(ou.scatter.x, 0.0, 1.0);
+  let deepT = clamp((span - ou.scatter.z) / max(ou.lensOval.w - ou.scatter.z, 1e-6), 0.0, 1.0);
+  // W25's share law (claims 5.113; W25 Decision Log 3 (a)): the thick end's lift
+  // on the material's own thin/thick curve, ADDED to the W11c span curve rather
+  // than replacing it, so the thin end keeps the constants it was fitted with and
+  // 'sizeThick' being exactly 0 at sizeSpanMin makes the thin controls
+  // bit-identical whatever the lift says.
+  let kDeep = clamp(
+    scatterFloor + (1.0 - scatterFloor) * deepT * deepT * (3.0 - 2.0 * deepT)
+      + ou.thickSpan.x * sizeThick,
+    0.0,
+    1.0,
+  );
+  let sDeep = 1.0 - kDeep;
+  let rampT = max(1.0 - max(-d, 0.0) / max(ou.lensOval.z, 1e-6), 0.0);
+  let farT = clamp((span - ou.scatter.w) / max(ou.lensOval.w - ou.scatter.w, 1e-6), 0.0, 1.0);
+  let farS = farT * farT * (3.0 - 2.0 * farT);
+  // W25's level term rides the very same curve (claims 5.113): one span
+  // statistic, now read three times — the ramp's far decline, the 2x heavy
+  // gain's rise and the body's level above the knee. Folded like the response it
+  // extends, because a preference that has stopped the material transmitting has
+  // no thin-to-thick step left to continue.
+  let toneLevelFar = ou.thickSpan.y * farS * fold;
+  let rampStart = ou.scatter.y + (ou.shadowSize.z - ou.scatter.y) * sizeThick
+    + (ou.shadowThick.w - ou.shadowSize.z) * farS;
+  let sharpShare = clamp(sDeep + max(rampStart - sDeep, 0.0) * rampT, 0.0, 1.0);
+  let kScatterSpan = clamp(scatterFloor + ((1.0 - sharpShare) - scatterFloor) * fold, 0.0, 1.0);
+  /*
+   * W30's scale conditioning, candidate (ii) (claims 5.156 section 3): the deep
+   * component's share moves with the BACKDROP's own spatial scale and not only
+   * with the surface's span, which is what a residual that changes sign between
+   * a 4 px pitch and a 16 px one needs. The statistic is the analysis pass's
+   * per-source edge density, a reciprocal length; it arrives by readback, so the
+   * CPU puts it in 'scatterScale.z' and the law is evaluated here.
+   *
+   * At the shipped gain of 0 the added term is a multiplied zero and the clamp
+   * is the identity on a value already clamped to the same interval, so this is
+   * 'kScatterSpan' to the bit.
+   */
+  let kScatter = clamp(
+    kScatterSpan + ou.scatterScale.x * (ou.scatterScale.z - ou.scatterScale.y),
+    0.0,
+    1.0,
+  );
+  // The inner shadow's depth and profile: W2's law, byte for byte — the
+  // thickness times the size gain (folded through 'sizeK'), clamped to the
+  // shorter half extent, and a square on it. The lens ran on this until W12 G2;
+  // the occlusion keeps it, because nothing measured it as wrong, and every
+  // solid-backdrop cell renders exactly as it did.
+  let shadowLensDepth = max(min(lensThick * (1.0 + (ou.lens.z - 1.0) * sizeK), span * 0.5), 1e-4);
+  let shadowT = clamp(-d / shadowLensDepth, 0.0, 1.0);
+  let shadowProfile = (1.0 - shadowT) * (1.0 - shadowT);
+
+  // The lens (W12 G2, claims §5.51) — see the module note. The reference's
+  // height and amount laws off the span, scaled by the thickness over the
+  // reference's unit, folded like the W2 law (at fold 0 the depth is the
+  // authored thickness and nothing more), and clamped to the shorter half
+  // extent with the magnitude clamped by the same ratio.
+  let thickScale = lensThick / max(ou.lensShape.w, 1e-4);
+  let heightBase = min(ou.lensLaw.x * span, ou.lensLaw.y);
+  let amountBase = min(ou.lensLaw.z * span, ou.lensLaw.w);
+  let depthUnclamped = mix(lensThick, heightBase * thickScale, fold);
+  let lensDepth = clamp(depthUnclamped, 0.0, span * 0.5);
+  let clampRatio = select(0.0, lensDepth / depthUnclamped, depthUnclamped > 1e-6);
+  let magnitude = ou.lens.y * mix(lensThick, amountBase * thickScale, fold) * clampRatio;
+  let extent = max(ou.lensShape.x * lensDepth, 1e-4);
+  // One steep power over the extent; '-d' is depth inside the surface.
+  let lensT = max(1.0 - max(-d, 0.0) / extent, 0.0);
+  let displacementCss = magnitude * pow(lensT, ou.lensShape.y) * ou.lens.x;
+
+  // The direction: the field's gradient blended toward the oval inscribed in
+  // the surface's box (the reference's 'gradientOvalization'), on from the
+  // knee, with the magnitude fixed — which tilts the displacement toward the
+  // edge's midpoint and magnifies the band along the edge.
+  let ovalT = clamp((span - ou.lensOval.x) / max(ou.lensOval.y - ou.lensOval.x, 1e-6), 0.0, 1.0);
+  let omega = ou.lensShape.z * ovalT * ovalT * (3.0 - 2.0 * ovalT);
+  let halfExt = max(aux2.zw, vec2f(1e-4));
+  let rel = aux2.xy;
+  let unitR = max(length(rel / halfExt), 1e-6);
+  let ovalGrad = (rel / (halfExt * halfExt)) * (min(halfExt.x, halfExt.y) / unitR);
+  let blended = (1.0 - omega) * normal + omega * ovalGrad;
+  let blendLen = length(blended);
+  let direction = select(normal, blended / blendLen, blendLen > 1e-6);
+  let displaceCss = -direction * displacementCss;
+  let refracted01 = viewport01 + displaceCss / viewportCss;
+
+  let refractedUv = clamp(refracted01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
+
+  /*
+   * The scattering facet of the size law: "a softer scattering of light".
+   *
+   * The body texture is one blur for the whole backdrop source — it is built once
+   * per source per frame, so it cannot be per-surface. The chain beside it can:
+   * 'size.w' is the chain level whose blur already matches that body, so
+   * 'size.w + log2(sizeScatterGainMax)' is the level whose blur is the gain times
+   * wider — the HEAVY component, at one fixed level — and lerping the body toward
+   * it by 'kScatter' is what the reference's interior measures (W11c, claims
+   * §5.41): a sharp component near the body's σ and a heavy one near σ 10, mixed
+   * by a share that is ≈ 0.4 on a small control and rises with the span. The
+   * mix, not the level, is what the span moves.
+   */
+  // The gain is per PIXEL and not one number per group since W15 G1's re-form
+  // (claims §5.70 §4 and §7): the reference's heavy kernel grows with the span,
+  // so the gain rises from its near end 'size.x' to its far end 'shadowSize.w'
+  // along 'farS' — the very smoothstep the ramp's far anchor already declines
+  // along, computed above with the share. One curve, two quantities.
+  let gainEff = ou.size.x + (ou.shadowSize.w - ou.size.x) * farS;
+  /*
+   * Everything above this point grades the GAIN, and claims §5.116 §2 measured
+   * that the gain stops being a width: 'ou.lens.w' is the chain's own last level,
+   * 4 on the bed's 320 × 200 backdrop, and 'ou.size.w + log2(8)' is 4.06, so the
+   * clamp has been absorbing the gain since the material was fitted. This is the
+   * path a material that names no heavy width still takes, and the heavy blur
+   * below is what replaces it where one is named.
+   */
+  let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)), 0.0, ou.lens.w);
+
+  var backdrop = vec3f(0.0);
+  let domMaterial = ou.heavyTap.y > 0.5;
+  if (domMaterial) { backdrop = dom_material_backdrop(); }
+  if (ou.flags.x > 0.5) {
+    // Both components at the refracted position (W11c G2): the band and the
+    // interior are one body, and the displacement alone is the lens.
+    let bodySample = textureSampleLevel(backdropBody, backdropSampler, refractedUv, 0.0);
+    var scatterSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, scatterLod);
+    /*
+     * The heavy blur (W26). Where the profile named a heavy width the deep sample
+     * is not a chain level at all: the pyramid took the chain level whose own
+     * blur is nearest below the target up to the target exactly, with the two
+     * separable passes it already runs for the body, and this pass reads the
+     * result at the same refracted uv the chain tap used.
+     *
+     * That is the whole mechanism, and it is here rather than in a grid of taps
+     * for two measured reasons. The width the chain can reach is bounded by
+     * 'chainMaxLod' — the pyramid stops when a level's shorter side would fall
+     * under eight texels — so at dpr 1 on a 320 x 200 backdrop the deep sample
+     * saturates at 13.4 device px against the reference's 19.5, and a residual
+     * Gaussian is the only thing that carries the octave the chain does not have
+     * (claims §5.119). And a 9 x 9 grid at the tap costs +1.1 ms on the optics
+     * pass against 0.070 ms for the separable pair (W26 Decision Log 2 (b)).
+     *
+     * The price is that the width is one per SOURCE, not one per pixel: the
+     * texture is built before any group is drawn, so the span grading the gain
+     * carried above no longer reaches the deep sample where this is on. The
+     * reference's heavy width does not grade with the span at 1x (claims
+     * §5.113 §4), which is what says the material can afford it.
+     */
+    if (ou.heavyTap.x > 0.5) {
+      scatterSample = textureSampleLevel(backdropHeavy, backdropSampler, refractedUv, 0.0);
+    }
+    // Premultiplied linear in, straight colour out: the material composites over
+    // whatever is behind it, so a partially transparent backdrop must not darken
+    // the glass.
+    var scatterColour = scatterSample.rgb / max(scatterSample.a, 1e-6);
+    /*
+     * W30's second heavy tap, candidate (i) (claims 5.156 section 3): a second
+     * texture at its own width, mixed into the deep sample by a SIGNED share.
+     * A positive share widens the deep component toward that width; a negative
+     * one subtracts it, which is an unsharp mask on the backdrop and the only
+     * shape on offer that passes the middle pitch LESS than both ends — a mix of
+     * two positive Gaussians is monotone in frequency and cannot.
+     *
+     * Gated on whether the pyramid built one, which it does only where
+     * 'sizeHeavySecondShare' is non-zero. At the inert share the branch is not
+     * taken, nothing is allocated and nothing is sampled, which is the state the
+     * 34 goldens render.
+     */
+    if (ou.scatterHeavy2.y > 0.5) {
+      let second = textureSampleLevel(backdropHeavy2, backdropSampler, refractedUv, 0.0);
+      let secondColour = second.rgb / max(second.a, 1e-6);
+      scatterColour = scatterColour + ou.scatterHeavy2.x * (secondColour - scatterColour);
+    }
+    backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
+    /*
+     * The body's own half of the presence (W27d): a material at half presence
+     * shows half the BLUR, not half the surface. What a surface at presence 0
+     * stands over is the page as it is, so the two components' composite lerps
+     * back to the unblurred backdrop — the chain's own level 0, which is the
+     * texture before any of the pyramid's widths were applied.
+     *
+     * Read at 'refractedUv' rather than at this pixel's own position: the lens is
+     * scaled by the same channel, so the sample walks back to the pixel as the
+     * presence falls and arrives exactly there at 0. One uv, one read, and no
+     * discontinuity between the two ends.
+     *
+     * The branch is what keeps the resting material byte-identical — at presence
+     * 1 the extra tap is not taken at all — and it is also what keeps a present
+     * surface from paying for a channel it is not using.
+     */
+    if (mat < 1.0) {
+      let sharpSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, 0.0);
+      backdrop = mix(sharpSample.rgb / max(sharpSample.a, 1e-6), backdrop, mat);
+    }
+  }
+
+  // Adaptive tint. 'adapt.w' is the strength the accessibility policy and the
+  // group's analysis quality already agreed on; at 0 the fixed tint stands, which
+  // is what a 'hint' or 'none' group gets.
+  let neutral = mix(ou.tint.rgb, ou.adapt.rgb, ou.adapt.w);
+
+  /*
+   * Backdrop tone adaptation (W7) — step two of the composition contract, between
+   * the colour scheme's neutral and the author's tint.
+   *
+   * Read against 'toneColour': the backdrop SOURCE's own average, measured by the
+   * host from the pixels it supplied and handed to both tiers as one number. Not a
+   * per-pixel sample, and that is the load-bearing choice — see
+   * 'GroupRenderInput.backdropTone' for the cross-tier measurement that settled
+   * it, and note that the reference agrees: its capsule over a sparse bright grid
+   * is a flat body rather than a window onto the grid.
+   *
+   * 'sizeK' is still per pixel, so a container holding a small control and a large
+   * platter adapts each of them by its own thickness out of one pass.
+   *
+   * Strength is zero where the host measured no tone, and that strength is the
+   * WHOLE gate (W22 G3). It used to be read together with 'hasBackdrop', because
+   * a group with no pyramid to sample had no measured tone either and the pair
+   * said one thing twice — until a group stacked over other glass acquired a
+   * backdrop the host can state without a texture to sample ('backdrop-stack.ts').
+   * The concern the flag stood in for is the zero vector being read as a black
+   * backdrop, and 'toneAdapt.w' answers exactly that: it is zero wherever nothing
+   * was measured, and zero wherever the policy has stood the axis down. Reading
+   * the flag as well is what left a nested pane drawing its unadapted body over
+   * glass it had measured — 0.0493 against the law's 0.0245 (claims 5.94 section 5).
+   *
+   * Written out instead of calling smoothstep() so that a profile patched with
+   * low >= high degrades to a step rather than to NaN.
+   */
+  var toneAdapt = 0.0;
+  if (ou.toneAdapt.w > 0.0) {
+    let toneX = toneColour.w + ou.toneAdapt.z * sizeK;
+    let toneT = clamp(
+      (toneX - ou.toneAdapt.x) / max(ou.toneAdapt.y - ou.toneAdapt.x, 1e-6),
+      0.0,
+      1.0,
+    );
+    toneAdapt = clamp(toneStrength, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
+  }
+  /*
+   * Both the colour and the alpha move, together and not separately. What the
+   * adaptation means is that the INTERIOR converges on the backdrop's tone —
+   * mix(interior, tone, k) — and this is the (colour, alpha) pair that composites
+   * to exactly that. Lerping the two independently makes a partially adapted
+   * surface lighter than it started (more opaque toward a tint still mostly
+   * neutral), which the 96 px cells caught at once: interior 0.4545 → 0.5179
+   * against a reference of 0.4542. The alpha half is not a colour axis reaching
+   * the occlusion axis — an adapting material stops transmitting, which is what
+   * the reference's flat body over the impulse grid is. See 'adaptedTintColour'
+   * and 'adaptedTintAlpha' in material.ts.
+   */
+  let sizedAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
+
+  /*
+   * The backdrop tone response solve (W9) — the law that owns the interior
+   * MEAN, where the collapse below owns texture and nothing else (claims
+   * §5.33). The composite under this mechanism reduces exactly to
+   * mean = (1 − k)·M₀ + k·toneLuma with M₀ = (1 − α)·bgLinear + α·L(neutral),
+   * so the neutral's tone is solved in closed form: shift its luma so the
+   * post-collapse mean lands on R(encodedInput, sizeK), the reference's own
+   * measured response. Chroma is untouched — the shift is achromatic — and
+   * the author tint still displaces the result per the composition contract.
+   *
+   * The solve reads the backdrop as 'toneAnchor.w' — the group's own linear mean
+   * — and never as the per-pixel sample, so it is the same closed form whether
+   * this pass composites the backdrop itself or writes a layer for the browser to
+   * composite over a proxy carrying the same mean (W22 G3).
+   *
+   * Three stand-downs, each measured rather than defensive: the whole axis is
+   * off where no backdrop tone was measured (same gate as the collapse); the
+   * default solve's authority fades to zero below the dark anchor, where W9
+   * had only its impulse evidence (W36's selected black branch restores that
+   * authority within its separate support); and
+   * at k → 1 the collapse owns the pixel outright, so the solve's
+   * extrapolation is never evaluated against a vanishing (1 − k).
+   */
+  var solvedNeutral = neutral;
+  var solvedAlpha = sizedAlpha;
+  if (toneStrength > 0.0 && ou.toneRowThin.w > 0.0 &&
+      sizedAlpha > 1e-3 && toneAdapt < 0.995) {
+    let encodedInput = srgb_encode(toneColour.w);
+    let anchor = max(ou.toneAnchor.x, 1e-4);
+    var authority =
+      smoothstep(anchor * 0.5, anchor, encodedInput) * clamp(ou.toneRowThin.w, 0.0, 1.0);
+    var blackWeight = 0.0;
+    // Compact support rejoins before the smallest packed impulse input. Keep
+    // the gate-0 and above-join arithmetic exact; no Hermite slope is touched.
+    if (ou.toneBlack.x > 0.0 && encodedInput < 0.003) {
+      blackWeight = clamp(ou.toneBlack.x, 0.0, 1.0) *
+        (1.0 - smoothstep(0.0, 0.003, encodedInput));
+      authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), blackWeight);
+    }
+    if (authority > 0.0) {
+      var response = tone_response(encodedInput, sizeK, toneLevelFar);
+      if (blackWeight > 0.0) {
+        let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
+        response = mix(response, mix(ou.toneBlack.y, ou.toneBlack.z, f), blackWeight);
+      }
+      // The collapse's mean pull is toward L(toneColour.rgb) — the LINEAR
+      // mean, which toneAnchor.w carries — not toward the encoded level.
+      let preCollapse = (response - toneAdapt * toneLinearMean) / (1.0 - toneAdapt);
+      let neutralLuma = dot(neutral, vec3f(0.2126, 0.7152, 0.0722));
+      let nominal = (1.0 - sizedAlpha) * toneLinearMean + sizedAlpha * neutralLuma;
+      let shift = (preCollapse - nominal) / sizedAlpha * authority * toneStrength;
+      solvedNeutral = clamp(neutral + vec3f(shift), vec3f(0.0), vec3f(1.0));
+      /*
+       * The light attractor needs OPACITY. The light scheme's neutral is
+       * already at white, so an upward shift clamps to nothing — and the
+       * reference's light-adapted state is the material gone opaque-bright,
+       * the same "an adapting material stops transmitting" the collapse's
+       * alpha half was measured on. Whatever the clamp truncated is carried
+       * by the alpha, solved against the same composite and folded by the
+       * same authority. One-sided by design: darkward opacity is the
+       * collapse's own axis with its own fitted constants.
+       */
+      let solvedLuma = dot(solvedNeutral, vec3f(0.2126, 0.7152, 0.0722));
+      let achieved = (1.0 - sizedAlpha) * toneLinearMean + sizedAlpha * solvedLuma;
+      if (preCollapse > achieved + 1e-4 && solvedLuma > toneLinearMean + 1e-3) {
+        let alphaTarget = clamp(
+          (preCollapse - toneLinearMean) / (solvedLuma - toneLinearMean),
+          sizedAlpha,
+          1.0,
+        );
+        solvedAlpha = mix(sizedAlpha, alphaTarget, authority * toneStrength);
+      }
+    }
+  }
+
+  /*
+   * The collapse's TARGET (W24 G1) — what the material converges on where it has
+   * adapted, and the one place the transmission was lost.
+   *
+   * The pair below reduces exactly to 'colour = (1 − k)·M + k·target', with 'M'
+   * the unadapted composite '(1 − α)·backdrop + α·neutral'. At 'target' =
+   * 'toneColour.rgb', the group's MEAN backdrop colour, a fully collapsed
+   * surface is one flat number and nothing under it comes through — which is
+   * exactly what the reference's collapsed capsule over the impulse grid does
+   * NOT do (claims §5.107 §2: it passes the centre dot at four times its own
+   * body). So the target lerps toward the per-pixel blurred backdrop the
+   * refraction path above already sampled, by the profile's own constant.
+   *
+   * Only the target moves. The tone axis's argument is still the group's mean
+   * luminance and the response solve still composites against 'toneAnchor.w',
+   * so 'k' and the law's level are the numbers W7 and W9 fitted: the collapse
+   * still collapses the level, and stops flattening the structure.
+   *
+   * The alpha solve above needs no gate of its own, and this is arithmetic
+   * rather than a choice: on a fully collapsed surface it never runs (its own
+   * 'toneAdapt < 0.995' stands it down where the collapse owns the pixel), and
+   * below that it is the (1 − k) half of the same lerp, which transmits already.
+   *
+   * Gated on 'flags.x': with no pyramid to sample 'backdrop' is the zero vector
+   * and this pass writes a layer for the browser to composite, so a target
+   * lerped toward it would be a black surface rather than a transmitting one.
+   * There the CSS tier's own 'backdrop-filter' is what carries the transmission.
+   */
+  var toneTarget = toneColour.rgb;
+  if (ou.flags.x > 0.5 || domMaterial) {
+    toneTarget = mix(toneTarget, backdrop, clamp(ou.toneRowThick.w, 0.0, 1.0));
+  }
+
+  let adaptedAlpha = solvedAlpha + toneAdapt * (1.0 - solvedAlpha);
+  var adapted = solvedNeutral;
+  if (toneAdapt > 0.0 && adaptedAlpha > 0.0) {
+    adapted =
+      (solvedNeutral * ((1.0 - toneAdapt) * solvedAlpha) + toneTarget * toneAdapt) /
+      adaptedAlpha;
+  }
+
+  // The material, untinted: the adapted neutral over what this pixel looks
+  // through, at the material's own occlusion. That alpha is what reduced
+  // transparency lifts and what the size law thickens ("a larger size is more
+  // opaque" is a statement about how much material there is), and the backdrop
+  // adaptation moved it above. The author's colour never touches it — but not
+  // for the reason the composition contract first gave (claims §5.36).
+  /*
+   * The material's alpha, times the presence (W27d) — and applied HERE rather
+   * than to 'adaptedAlpha' above, which is load-bearing: that alpha is the
+   * divisor the collapse's own composite is un-premultiplied by, so scaling it
+   * there would move the adapted COLOUR as well as the amount of it. Presence is
+   * how much of the material is there, not what the material is.
+   */
+  let presentAlpha = adaptedAlpha * mat;
+  var colour = mix(backdrop, adapted, presentAlpha);
+  /*
+   * W31's chroma retention, HERE and not later (claims 5.161 section 5).
+   *
+   * Immediately after the composite, because the composite is where the
+   * chroma is lost — the plate is neutral and the backdrop's chromaticity
+   * survives it scaled by '1 - presentAlpha'. Before the tint composition
+   * below, so an author's tint still displaces the result per the composition
+   * contract; the tint's shade law reads the untinted material's LUMINANCE,
+   * which this preserves exactly, so 'shade', 'layer' and 'rimTintColour' are
+   * bit-identical whatever the retention holds.
+   *
+   * Before the DOM branch as well, so the secant that solves an unsampled DOM
+   * group's layer alpha solves it from the material the page will actually
+   * show. That branch is NOT luma-transparent — 'dom_material_alpha' clamps per
+   * channel inside a luma computation — so an unsampled DOM GROUP'S layer alpha
+   * may move with the retention where a sampled composite does not (claims
+   * 5.161 section 11, the second reading carried forward).
+   *
+   * That sentence said "the 'dom' tier", which is a different thing and is the
+   * thing a reader will think of first (W31 G3c review closure; claims 5.164
+   * section 13, finding N7). The 'dom' tier is the CSS tier, the one the
+   * calibration matrix keys under that name, and it does not run this shader at
+   * all; what is meant here is THIS shader's unsampled-material path, where a
+   * group with no sampled backdrop writes a layer for the browser to composite.
+   *
+   * And on that path what the operator restores TOWARD is not the page's
+   * backdrop, because nothing sampled it. 'dom_material_backdrop()' fabricates
+   * one, and it has two modes. Mode 1, which a group with no declared
+   * 'backdropTone' takes, returns 'vec3f(ou.heavyTap.z)' — a neutral at the
+   * declared reference luminance — so the mix target is
+   * 'backdrop * (Y / Yb)' = 'vec3f(Y)', the neutral at the colour's own luma.
+   * That reads as a desaturation and is the IDENTITY in effect: on that path
+   * 'adapted' is 'solvedNeutral' and the fabricated backdrop is a grey, so the
+   * composite has no chromaticity for the target to differ from. Measured at
+   * three retentions up to 1: zero bytes moved
+   * ('e2e/gpu/w31-unsampled-dom-chroma.spec.ts').
+   *
+   * Mode 2 hands the DECLARED tone colour, which can be chromatic, and there
+   * the operator runs — the body takes the hue the page STATED is behind it
+   * rather than the hue that is. That is the residual, recorded in claims 5.164
+   * section 10, and it is a statement about the target rather than about the
+   * amount: the same spec reads the interior's chroma from 0.066 to 0.334 and
+   * finds the gamut clamp binding at the shipped retention already.
+   *
+   * On the unsampled LAYER path ('flags.x <= 0.5' and not 'domMaterial')
+   * 'colour' is overwritten with 'adapted' a few lines below: there is no
+   * backdrop in hand and no chromaticity to restore toward, and the retention is
+   * silently the identity. That is a declared residual, not an oversight.
+   */
+  colour = body_chroma_retention(colour, backdrop, ou.bodyChroma.x);
+  /*
+   * How much of this pixel the SURFACE owns, as the canvas will composite it.
+   *
+   * With a backdrop the composite above is the whole pixel — the pass sampled
+   * what is behind the surface and mixed it in, so the output is opaque inside
+   * the contour and the page beneath the canvas never shows. With no backdrop
+   * the composite is not here to make: a 'css-backdrop' group's blurred
+   * backdrop is a DOM proxy under this canvas, a 'none' group's is the page
+   * itself, and the browser is the compositor. So the material leaves as a
+   * LAYER — the adapted colour at the material's own alpha, premultiplied on
+   * the way out — and every term below that would have shaped the composite
+   * shapes the layer instead, in the form that composites to the same thing.
+   *
+   * Before W11a this path mixed the material over a black backdrop and wrote
+   * it opaque: a nested surface over glass rendered as a flat 0.468 where the
+   * reference reads 0.89 (claims §5.38 §5). The rows that floored were that
+   * grey. The pair the layer is written at is the host's
+   * ('GroupRenderInput.unsampledMaterial'): the browser composites this canvas
+   * in encoded sRGB, so the alpha is the CSS tier's, not the linear profile's.
+   */
+  var bodyAlpha = 1.0;
+  var domAlpha = 1.0;
+  if (domMaterial) {
+    // The collapse transmits k*c of the DOM proxy as well. Solve the secant
+    // after the linear material, never feed its encoded alpha back into R.
+    /*
+     * Times the presence (W27d), on the same factor 'presentAlpha' carries into
+     * 'colour' just above — this branch's body is a SOLVED layer rather than a
+     * composite, so the secant's own input is where the channel reaches it.
+     *
+     * It has to be here rather than on the result. The secant divides the
+     * composite by this alpha to recover the material's own neutral, so scaling
+     * both together leaves that neutral (and the span it spans) at exactly what
+     * presence 1 solves, and only the returned coverage travels. Left unscaled,
+     * the neutral would walk toward the backdrop as the surface thins, the span
+     * would fall under 'heavyTap.w', and the guard would hand back the FULL
+     * alpha — a flat tone painted over a page the surface has left.
+     *
+     * At presence 1 the factor is exactly 1.0 and the expression is bit-identical
+     * to the resting one; at 0 the secant's own '<= 1e-6' guard returns 0.
+     */
+    let transmission = toneAdapt * clamp(ou.toneRowThick.w, 0.0, 1.0);
+    domAlpha = dom_material_alpha(colour, backdrop,
+      clamp(adaptedAlpha - transmission, 0.0, 1.0) * mat);
+  } else if (ou.flags.x <= 0.5) {
+    colour = adapted;
+    bodyAlpha = presentAlpha;
+  }
+  /*
+   * One gap this tier cannot close from here, named rather than left to be
+   * discovered (W27d): on an unsampled group the blurred backdrop is a DOM proxy
+   * beneath this canvas, so the body's mix toward the unblurred backdrop above
+   * has no texture to mix with. A layer that fades to alpha 0 there reveals the
+   * PROXY's blur rather than the page — presence takes the tint, the rim and the
+   * shadows out, and the blur is the host's to fade with it.
+   */
+
+  // The author tint (W10). 'aux.w' is the per-pixel strength, unioned in the
+  // field pass, so a toolbar can carry one tinted control among plain ones; the
+  // seed is a group uniform. At strength 0 this is the identity and the material
+  // is the one the calibration bed measures, byte for byte.
+  //
+  // Apple's mechanism, measured per pixel: the tinted material is an OPAQUE
+  // layer of the seed at a shade that is linear in the luminance the untinted
+  // material shows at this pixel — about half the seed's light over black
+  // content, the seed itself over white, the seed's chromaticity intact
+  // throughout. That layer composites over the material at the AUTHOR's
+  // opacity in the encoded space, which is what a CALayer with 'opacity' does
+  // and how the reference's half-strength cell measures. So a tinted surface
+  // over a checkerboard shows the checker as light and dark ORANGE, not as
+  // orange glass with the checker behind it — the material's own alpha is not
+  // what a tinted surface shows.
+  //
+  // 'seed.w' is the contrast regime's grip on the excursion, never on the hue;
+  // 'tone.z' is the profile's provenance gate (the dark scheme renders the pure
+  // seed); and '1 − toneAdapt' folds the shade out where the collapse has made
+  // the material a dark body, where the reference renders the pure seed too.
+  // At zero grip the layer is the bare seed — the author's colour, flat.
+  /*
+   * The material's own composite, kept beside the tinted one (W23; claims §5.100
+   * §5). The rim is the MATERIAL's mark and the author's colour is painted over
+   * it, so the amplitude law below reads the level the material reached and not
+   * the level the paint left — which is what the reference does: its tinted rows
+   * read +0.13…+0.17 of contour rim in BOTH colour schemes, where the two
+   * materials' own laws on the PAINTED level differ by a factor of five and land
+   * the dark bed's tinted rows 0.216 over.
+   *
+   * For an untinted pixel these carry exactly 'colour' and 'bodyAlpha', so the
+   * rim below is bit-identical to the law without them.
+   */
+  var materialColour = colour;
+  var materialAlpha = bodyAlpha;
+  /*
+   * The colour the rim's light is spent in (W23 G3; claims §5.102). White on a
+   * bare surface, and on a PAINTED one the author's own CHROMATICITY: the
+   * reference's rim on a tinted capsule is the paint lifted rather than white
+   * added over it — orange (255, 148, 0) rises to (254, 188, 0) with its blue
+   * channel still at 0, where vitrea drew (255, 192, 130).
+   *
+   * The layer is normalised by its own LUMINANCE and not by its brightest
+   * channel, which is what the rows chose: on the collapsed orange capsule at 2x
+   * the reference lifts the green channel by 0.213 of linear light where a white
+   * rim of the same amount lifts it by 0.304, and 0.213 / 0.304 = 0.70 is exactly
+   * the green coefficient of that orange divided by its luminance. Normalising by
+   * the brightest channel instead reproduces the hue and loses the AMOUNT — it
+   * divides the rim's luminance by the paint's, which on the same cell took the
+   * contour rim from 0.115 to 0.030 against a reference of 0.118. Chromaticity is
+   * unbounded as a paint darkens, so the divisor has a floor of 0.05: below that
+   * the paint has no readable hue and the normalisation would be a colour cast of
+   * arbitrary size rather than a rim.
+   *
+   * 'rimTintChroma' (rimLaw.w) is how much of that is taken, and it is
+   * multiplied by the pixel's own tint strength, so an UNTINTED pixel keeps a
+   * white rim at every value of the constant — which is what makes the mechanism
+   * reach painted pixels only (W23 S10).
+   */
+  var rimTintColour = vec3f(1.0);
+  /*
+   * The author tint's coverage at this pixel, times the presence (W27d). The
+   * paint is part of the material and not a thing painted onto the page, so a
+   * dissolving surface takes its colour with it — at presence 0 the pixel is the
+   * backdrop and not a flat orange over it. At presence 1 this is
+   * 'clamp(aux.w, 0, 1)' exactly, which is what the tint's own law was fitted on.
+   */
+  let tintK = clamp(aux.w, 0.0, 1.0) * mat;
+  if (tintK > 0.0) {
+    // The untinted material's luminance at this pixel. Over a backdrop that is
+    // the composite; as a layer it is the layer over the tone the host measured
+    // for the group — zero where nothing was measured, the same reference-level
+    // convention the CSS tier's 'materialLuminance' takes (within its 0.02).
+    let u = bodyAlpha * dot(colour, vec3f(0.2126, 0.7152, 0.0722)) + (1.0 - bodyAlpha) * toneColour.w;
+    let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) *
+      (1.0 - toneAdapt * (1.0 - clamp(ou.rim.w, 0.0, 1.0)));
+    let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
+    // The identity branch preserves the active seed's arithmetic bit for bit.
+    var seed = ou.seed.rgb;
+    if (ou.rim.z < 1.0) {
+      let neutral = max(seed.r, max(seed.g, seed.b));
+      seed = mix(vec3f(neutral), seed, clamp(ou.rim.z, 0.0, 1.0));
+    }
+    let layer = seed * shade;
+    /*
+     * The recede's chroma collapse (W27c) shapes WHAT the paint is; presence
+     * (W27d) is how much of it is there. They compose on this one strength and
+     * each reaches it once: the collapse through 'seed', the presence through
+     * 'tintK'. 's' is the coverage every consumer below reads — the rim's tint
+     * mix, the encoded fold, and the DOM branch's own alpha — so folding the
+     * presence in here is what keeps it from being applied twice downstream.
+     */
+    let s = tintK;
+    if (domMaterial) { domAlpha = 1.0 - (1.0 - s) * (1.0 - domAlpha); }
+    let layerLuma = max(dot(layer, vec3f(0.2126, 0.7152, 0.0722)), 0.05);
+    rimTintColour = mix(vec3f(1.0), layer / layerLuma, clamp(ou.rimLaw.w, 0.0, 1.0) * s);
+    let encodedMaterial = linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0)));
+    let encodedLayer = linear_to_srgb(layer);
+    if (ou.flags.x > 0.5) {
+      colour = srgb_to_linear(mix(encodedMaterial, encodedLayer, vec3f(s)));
+    } else {
+      // The opaque layer at the author's opacity over the material's own layer,
+      // premultiplied: the fold 'tintedCssOptics' makes into one rgba.
+      let premultiplied = (1.0 - s) * bodyAlpha * encodedMaterial + s * encodedLayer;
+      bodyAlpha = 1.0 - (1.0 - s) * (1.0 - bodyAlpha);
+      colour = srgb_to_linear(premultiplied / max(bodyAlpha, 1e-6));
+    }
+  }
+
+  /*
+   * Everything below is the surface's own APPEARANCE — the marks that say a
+   * surface is here rather than what is behind it — and all of it fades with the
+   * adaptation, on the one factor.
+   *
+   * That is not symmetry for its own sake; it is what the reference does, and it
+   * is a calibration cell rather than an inference: the reference's capsule over
+   * the dark-solid backdrop is byte-identical to that background, rim included. A
+   * material that has taken its backdrop's tone has no lit edge to show, because
+   * there is no light in front of it to show one with.
+   *
+   * The gap was invisible until this axis existed. A rim of up to 130/255 sat
+   * unnoticed inside a bright capsule body; with the body gone it is a white
+   * outline around a surface that should not be there at all — 595 pixels past
+   * 2/255 on that one cell, and OKLab ΔE max 0.47 where p95 already read 0.0000.
+   * The same lesson W3 recorded from the other direction: a term that happens to
+   * be hidden is one feature away from being visible.
+   */
+  let present = 1.0 - toneAdapt;
+
+  // Inner shadow: the material's own occlusion, deepest where the lens is
+  // strongest, which is what makes a thicker surface read as heavier — and the
+  // shadow facet of the size law deepens it further with the span.
+  let shadowDepth = ou.light.z * (1.0 + (ou.size.z - 1.0) * sizeK);
+  // A multiplicative occlusion of the whole composite. As a layer that is the
+  // colour scaled and the alpha raised — (k·a·c, 1 − k·(1 − a)) composites to
+  // k times what (a·c, a) would — and at bodyAlpha 1 it is the plain product.
+  // Times the presence (W27d) on the AMPLITUDE, beside the depth the same channel
+  // already shallowed through 'lensThick': the occlusion is the material's own,
+  // and a material that is half there occludes half as much of what is behind it.
+  let shadowKeep = 1.0 - shadowProfile * shadowDepth * ou.light.w * present * mat;
+  if (domMaterial) { domAlpha = 1.0 - shadowKeep * (1.0 - domAlpha); }
+  let shadowedAlpha = 1.0 - shadowKeep * (1.0 - bodyAlpha);
+  colour = colour * (shadowKeep * bodyAlpha / max(shadowedAlpha, 1e-6));
+  bodyAlpha = shadowedAlpha;
+  // The same occlusion on the material's own composite, so that the rim's law
+  // reads a level the inner shadow has reached exactly as it always did.
+  let materialShadowedAlpha = 1.0 - shadowKeep * (1.0 - materialAlpha);
+  materialColour = materialColour * (shadowKeep * materialAlpha / max(materialShadowedAlpha, 1e-6));
+  materialAlpha = materialShadowedAlpha;
+
+  /*
+   * The rim from the gradient. Its amplitude law is below and the direction it
+   * is LIT from is the factor after it.
+   *
+   * The one-sided specular that used to be added here — 'pow(clamp(dot(normal,
+   * light.xy), 0, 1), rim.z) * rim.w' — is retired (W24; claims §5.108 §1). Read
+   * around the whole contour the reference's rim is symmetric about the diagonal
+   * rather than one-sided, and a term that can only reach one end of it fits at
+   * 0.288 of normalised RMS where the symmetric factor fits at 0.148. 'rim.z'
+   * and 'rim.w' are written by the pass and no longer read.
+   */
+  let rw = rim_weight(d, ou.rim.x);
+  /*
+   * The rim's amplitude law, and the rim that survives the collapse (W23;
+   * claims §5.100 §§3-4).
+   *
+   * - The amplitude is affine in the MATERIAL's own rendered luminance, taken
+   *   exactly as the tint shade takes it above — the composite where this layer
+   *   covers the pixel, the group's measured backdrop tone where it does not,
+   *   and in both cases before the author's colour is painted over it —
+   *   so that a rim fitted as 'a fraction of the body's headroom' (a negative
+   *   gain, the screen form the CSS tier's inset shadow already is) and a rim
+   *   fitted as 'a line that rides its own body up' (a positive one, which is
+   *   what the dark reference's rows read as) are the same expression with the
+   *   sign the rows chose. The environment term the wave chartered beside it is
+   *   not here: it is worse than this law on the reference in both schemes and
+   *   no row of either bed separates it, so it is not carried (C9a §6.2).
+   * - 'rimCollapsed' rises with 'toneAdapt' exactly as the rest of the
+   *   appearance falls with it. At toneAdapt 1 the surface draws its backdrop
+   *   with this rim and nothing else, which is what the reference's collapsed
+   *   capsule does; at 0 it contributes nothing at all.
+   *   The collapsed rim it rises to is the AUTHOR TINT's coverage lerped between
+   *   two absolute constants: the reference's collapsed capsule keeps +0.020 of
+   *   contour rim bare and +0.115 painted, and both are absolutes rather than
+   *   fractions of the appearance's own rim, because the reference draws one
+   *   collapsed appearance out of two materials whose amplitude laws differ by
+   *   1.8× (claims §5.100 §5). 'aux.w' is the same per-pixel tint strength the
+   *   author tint layer composites with sixty lines above.
+   */
+  let rimLuma = materialAlpha * dot(materialColour, vec3f(0.2126, 0.7152, 0.0722))
+    + (1.0 - materialAlpha) * toneColour.w;
+  let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma;
+  let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, tintK);
+  /*
+   * The lit edge (W24; claims §5.107) — the directional factor the whole rim is
+   * multiplied by, symmetric about 'rimLit.xy'.
+   *
+   * Apple's rim is not one number around the contour. Read at 720 or more points
+   * of the declared boundary and binned by the NORMAL's angle, the reference's
+   * north-west and south-east bins are five to twenty-five times its north-east
+   * and south-west ones on every untinted solid cell of both beds, while every
+   * per-side reader in three waves read it flat — a light on the diagonal
+   * projects equally on all four straight sides. This is the shape of that.
+   *
+   * '1.4142135' is the amplitude's re-expression and not a scale: it normalises
+   * the dot product by 'cos 45 deg', so at the default axis the factor is exactly
+   * 1 wherever the normal is horizontal or vertical, at EVERY exponent. W23
+   * fitted 'rimAlpha' and 'rimLevelGain' on those straight spans, so they keep
+   * their meaning untouched and only the corners and the arcs move — which is
+   * also why the CSS tier, whose one inset layer cannot vary around a contour,
+   * needs no counterpart and no re-fit.
+   *
+   * The factor multiplies the COLLAPSED rim as well as the appearance's own. That
+   * is a measurement and not a symmetry: the reference's collapsed cells — the
+   * 'dark-solid' capsule at both scales and the probe grids' 'dark-solid'
+   * rrect-sm and rrect-lg — fit the same axis (136.0 deg) and the same exponent
+   * (1.15 against 1.00) as the uncollapsed rows, so one factor outside the
+   * bracket is what the rows say and two constants would be one more than they
+   * separate.
+   *
+   * The floor is 1e-6 and not 0 so that 'pow' is defined where the normal is
+   * exactly perpendicular to the axis; at exponent 0 it returns 1 there as it
+   * does everywhere else, which is what makes this term inert at the defaults.
+   */
+  let lit = pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z);
+  /*
+   * The along-side field (W25; claims 5.113, W25 Decision Log 3 (c)) — the
+   * POSITION half of the light whose direction half W24 landed.
+   *
+   * W24's factor is a function of the normal, so it is one number on a whole
+   * straight side. Read by position along the side instead, on flat solid
+   * backdrops where a lens has no gradient to refract, the reference's rim is
+   * graded on every thick cell of both probe grids and flat at spans 32 and 44 —
+   * a term on the thickness curve. Its four slopes are equal and OPPOSITE across
+   * opposite sides, which a field linear in position cannot be and the product of
+   * the two normalised coordinates is exactly: +1 at the top-left and
+   * bottom-right corners, -1 at the other two, the same diagonal 'rimLit.xy' is
+   * symmetric about.
+   *
+   * 'aux2.xy' is the pixel's offset from its own surface's centre in CSS px and
+   * 'aux2.zw' its half-extents, so the field is the surface's own coordinate and
+   * a container of differently sized members grades each of them by its own box
+   * out of one pass. The field's mean over any straight side is exactly zero, so
+   * W23's and W24's straight-span amplitudes keep the meaning they were fitted
+   * with and the CSS tier's single inset needs no counterpart.
+   *
+   * 'sizeThick' is the unfolded thickness curve, exactly 0 at sizeSpanMin, so
+   * rrect-sm and every thinner control are untouched by construction; at slope 0
+   * the factor is exactly 1 everywhere.
+   */
+  let alongSide = clamp((rel.x / halfExt.x) * (rel.y / halfExt.y), -1.0, 1.0);
+  let alongFactor = max(1.0 + ou.rimLit.w * sizeThick * alongSide, 0.0);
+  // The whole rim — both the appearance's own and the one the collapse keeps —
+  // times the presence (W27d). The rim is the mark that says a surface is HERE,
+  // which is the first thing a surface that is not there stops saying; the same
+  // argument the collapse's 'present' makes, from the author's side.
+  let rim = rw * lit * alongFactor * (rimAmplitude * present + rimCollapsed * toneAdapt) * mat;
+  let rimLight = rim * rimTintColour;
+  if (ou.flags.x > 0.5 || domMaterial) {
+    colour = colour + rimLight;
+    if (domMaterial) { domAlpha = clamp(domAlpha + rim, 0.0, 1.0); }
+  } else {
+    // Added light has no premultiplied form of its own — a canvas colour may
+    // not exceed its alpha — so the layer carries the light in its opacity:
+    // (a·c + rim, a + rim) composites to dst·(1 − a) + a·c + rim − rim·dst,
+    // the additive term short of rim × dst. Exact wherever the layer is
+    // opaque (an author tint at full strength, or a lit contour pixel whose
+    // alpha the rim fills), and never further off than the rim times what
+    // shows through — where the mix form ("white over the layer at the rim's
+    // weight") is short by the rim times the whole composite, which halved
+    // the rim on a tinted panel.
+    // The alpha the rim carries is its LIGHT and not its colour: a coloured rim
+    // spends the same light through a narrower set of channels, so the layer's
+    // opacity is still 'rim' and only the colour it carries is tinted.
+    let carried = clamp(bodyAlpha + rim, 0.0, 1.0);
+    colour = min((colour * bodyAlpha + rimLight) / max(carried, 1e-6), vec3f(1.0));
+    bodyAlpha = carried;
+  }
+
+  // The material over its own shadow over the page, in one premultiplied vector:
+  // the colour is the surface's, weighted by its coverage and by however much of
+  // the pixel the layer owns, and the alpha is what the two of them together
+  // leave the page. The shadow fills only what the surface's COVERAGE leaves —
+  // clipped out of the silhouette exactly as a 'box-shadow' is clipped out of
+  // its border box — never what the layer's own transparency leaves: a
+  // translucent surface shows the page through it, not its own shadow. (With
+  // an opaque body the two are the same quantity, which is how the shadow was
+  // first written and why the difference only surfaced with the layer form.)
+  if (domMaterial) {
+    // Coverage precedes the gamut solve. The sampled rim may exceed white
+    // before antialiasing; clipping it first would dim the half-covered edge.
+    // Include the exterior shadow in the same target so its light and opacity
+    // remain one valid premultiplied layer at that edge too.
+    let b = linear_to_srgb(backdrop);
+    let compositeEncoded = linear_to_srgb(max(colour, vec3f(0.0))) * coverage
+      + (b * (1.0 - shadowAlpha) + liftEncoded) * (1.0 - coverage);
+    let alpha = domAlpha * coverage + shadowAlpha * (1.0 - coverage);
+    return dom_material_output(compositeEncoded, b, alpha);
+  }
+  let body = encode_output(max(colour, vec3f(0.0)), coverage * bodyAlpha);
+  return vec4f(
+    body.rgb + liftEncoded * (1.0 - coverage),
+    body.a + shadowAlpha * (1.0 - coverage),
+  );
+}`;

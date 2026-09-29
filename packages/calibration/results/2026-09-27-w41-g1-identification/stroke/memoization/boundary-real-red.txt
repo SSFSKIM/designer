@@ -1,0 +1,104 @@
+EEEEEEEEEEE
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (change=<function BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail.<locals>.<lambda> at 0x10148de40>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 50, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'changed value')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (change=<function BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail.<locals>.<lambda> at 0x10148e0c0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 50, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'changed value')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (change=<function BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail.<locals>.<lambda> at 0x10550cd60>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 50, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'changed value')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (change=<function BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail.<locals>.<lambda> at 0x10550cb80>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 50, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'changed value')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (change=<function BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail.<locals>.<lambda> at 0x10550ce00>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 50, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'changed value')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (change=<function BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail.<locals>.<lambda> at 0x10550cea0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 50, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'changed value')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (invalid=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 55, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'invalid numeric field')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (invalid='0.0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 55, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'invalid numeric field')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (invalid=nan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 55, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'invalid numeric field')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail (test_boundary.BoundaryTests.test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail) (invalid=inf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 55, in test_numeric_bit_changes_and_nonnumeric_type_changes_still_fail
+    proof.identical_result_boundary(baseline, changed, 'invalid numeric field')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+======================================================================
+ERROR: test_six_live_numpy_gaps_match_reloaded_json_at_exact_float64_bits (test_boundary.BoundaryTests.test_six_live_numpy_gaps_match_reloaded_json_at_exact_float64_bits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_boundary.py", line 27, in test_six_live_numpy_gaps_match_reloaded_json_at_exact_float64_bits
+    proof.identical_result_boundary(live, reloaded, 'live versus reloaded JSON')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'proof' has no attribute 'identical_result_boundary'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (errors=11)

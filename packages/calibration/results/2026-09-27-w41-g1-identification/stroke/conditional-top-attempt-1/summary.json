@@ -1,0 +1,144 @@
+{
+  "summary": {
+    "requiredBins": 120,
+    "admittedBins": 120,
+    "populationDeficientBins": 0,
+    "shadowControlBins": 120,
+    "bindingFailedBins": 0,
+    "allChannelFailedBins": 0,
+    "railFailedBins": 0,
+    "statusComparisons": {
+      "measured": 2304,
+      "censored-bound-satisfied": 576
+    },
+    "survives": true,
+    "worstMeasured": {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "endpoint": "dark-active",
+      "scale": 2,
+      "member": 0,
+      "part": "straight",
+      "side": "top",
+      "shell": 0,
+      "bin": 12,
+      "channel": "R",
+      "repeat": "median",
+      "codes": 0.35980163626574324,
+      "bound": 1.0,
+      "excess": -0.6401983637342568,
+      "status": "measured"
+    },
+    "worstBoundExcess": {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "endpoint": "dark-active",
+      "scale": 2,
+      "member": 0,
+      "part": "straight",
+      "side": "top",
+      "shell": 0,
+      "bin": 12,
+      "channel": "R",
+      "repeat": "median",
+      "codes": 0.35980163626574324,
+      "bound": 1.0,
+      "excess": -0.6401983637342568,
+      "status": "measured"
+    }
+  },
+  "coefficientIndependent": false,
+  "nativeFits": 0,
+  "strata": {
+    "dark-active/1x": {
+      "requiredBins": 40,
+      "admittedBins": 40,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 40,
+      "bindingFailedBins": 0,
+      "allChannelFailedBins": 0,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 768,
+        "censored-bound-satisfied": 192
+      },
+      "survives": true,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 0,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.33156672029414835,
+        "bound": 1.0,
+        "excess": -0.6684332797058516,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 1,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 0,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.33156672029414835,
+        "bound": 1.0,
+        "excess": -0.6684332797058516,
+        "status": "measured"
+      }
+    },
+    "dark-active/2x": {
+      "requiredBins": 80,
+      "admittedBins": 80,
+      "populationDeficientBins": 0,
+      "shadowControlBins": 80,
+      "bindingFailedBins": 0,
+      "allChannelFailedBins": 0,
+      "railFailedBins": 0,
+      "statusComparisons": {
+        "measured": 1536,
+        "censored-bound-satisfied": 384
+      },
+      "survives": true,
+      "worstMeasured": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 0,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.35980163626574324,
+        "bound": 1.0,
+        "excess": -0.6401983637342568,
+        "status": "measured"
+      },
+      "worstBoundExcess": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+        "endpoint": "dark-active",
+        "scale": 2,
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "shell": 0,
+        "bin": 12,
+        "channel": "R",
+        "repeat": "median",
+        "codes": 0.35980163626574324,
+        "bound": 1.0,
+        "excess": -0.6401983637342568,
+        "status": "measured"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "reviews": [
+    {
+      "commit": "826f89a9",
+      "reviewer": "doperpowers:reviewer-high",
+      "verdict": "correct; no material findings",
+      "checks": "Eight synthetic tests; additional random-RGB, shared-kernel endpoint reuse and16x16/32x32 checks matched dense predictor within7.3e-12 codes; seal/execution hashes verified",
+      "scope": "Preparation only; no native payloads or fitting"
+    },
+    {
+      "commit": "2e54e8f7",
+      "reviewer": "doperpowers:reviewer-high",
+      "verdict": "correct; no material findings",
+      "checks": "Three scoring tests and additional16-stratum synthetic integration:1920 required bins,544 shadow-control rows, inactive validation repeat veto,136 fixed-coefficient32 sensitivity bins",
+      "scope": "Scoring and execution orchestration; no native payloads or fitting"
+    }
+  ]
+}

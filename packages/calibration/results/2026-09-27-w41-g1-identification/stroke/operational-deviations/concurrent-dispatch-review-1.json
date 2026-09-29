@@ -1,0 +1,53 @@
+{
+  "kind": "STROKE_CONCURRENT_DISPATCH_REVIEW",
+  "reviewer": "a1c557ee93146abd9",
+  "receivedUTC": "2026-09-28T08:17:13.776574+00:00",
+  "verdict": "CLEAN",
+  "blockers": [],
+  "artifacts": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-1/controller.py",
+      "sha256": "fc768f12deb46c60ed9b514135b67d7875281b7b5fb0468979b7965b5ec5488e"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-1/test_controller.py",
+      "sha256": "210d27e866b790f608535a8de25721bfd67039b6725f0c5da06452523be194d9"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-1/synthetic-test.stdout",
+      "sha256": "ae76d632c7e5ce30748c968e16a517ad1f12dfd2055739765c776e4372e40659"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-1/full-test.stdout",
+      "sha256": "bbc7d294c0ca14f7f9440fbb7a444ef59819ca39ae7aa4f8670a41eeed4d8705"
+    }
+  ],
+  "independentChecks": {
+    "syntheticTests": 20,
+    "fullTest": "PASS: live adopted08, stopped old controller, pending09..15",
+    "fileCountBefore": 7880,
+    "fileCountAfter": 7880,
+    "nativeReads": false,
+    "claimsOrFits": false
+  },
+  "verified": [
+    "Admission reconsidered after 30s refusal while existing fits continue; start/terminal events reopen evaluation.",
+    "No controller cap replaces v4 gate; identity-enumerated claims reserve adopted and newly claimed fit peaks.",
+    "Test admits09 alongside08 and10 alongside08/09; refuses11 at effective4 until capacity frees.",
+    "Handshake waits through solver-start marker and blocks duplicate/overlapping-preparation dispatch.",
+    "Adoption validates claim/start/receipt hashes, PID creation identity and command; terminal audit binds exact-once result schedulerClaim.",
+    "No-claim v4 Deferred may requeue; claimed deferral or bad outcome halts new dispatch and drains live fits.",
+    "Pinned completed04 readmission result permits dropping only obsolete task-level04-result absence check; generation0 start/failure exclusion retained.",
+    "Children start in own sessions and are never signalled by controller."
+  ],
+  "deferred": [
+    {
+      "item": "Exceptional process-identity or journal failure can leave running fits unaudited",
+      "disposition": "Fail-closed operational limitation, not a science/result acceptance gap. Recovery requires new identity-bound handoff; carry forward existing exception-cleanup debt at closure."
+    }
+  ],
+  "executionConditions": [
+    "Old serial controller never resumed; after adopted08 terminal audit identity-check and terminate only that old controller PID.",
+    "Unexpected controller exit never authorizes automatic fit retry."
+  ]
+}

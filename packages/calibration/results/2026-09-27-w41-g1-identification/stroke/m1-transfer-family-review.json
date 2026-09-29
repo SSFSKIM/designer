@@ -1,0 +1,24 @@
+{
+  "kind": "STROKE_M1_TRANSFER_REVIEW",
+  "direction": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-first-queue-direction.json",
+    "sha256": "c8f7e21842d46ead7a53fd33b8e1577dbc57086921839a772725b7f96265a654"
+  },
+  "source": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_complete.py",
+    "sha256": "f3b55b639ce630d88ed4e59b64a0f33f40ae7d05443c4583ec852ad045a84d52"
+  },
+  "tests": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/test_survivor_complete.py",
+    "sha256": "882055be1125a7e194706ed96a0a6f8d678ed6f8275e5f7d59d29facd79a110c"
+  },
+  "reviewer": "a9afcf312c635fa93",
+  "initialFinding": "P2: unconverged diagnostic objective had no startIndex in family-specific serialization.",
+  "fix": "Use unchanged selection once and recover its enclosing original start by object identity; no selection/tie/coefficient/status change.",
+  "verdict": "correct; focused finding closed",
+  "independentTargetedRegressions": 2,
+  "workerFullSyntheticSuite": 36,
+  "scope": "M1-only32-start frozen light-inactive transfer; default64 behavior retained. Metadata filter excludes dark/active before native payload reads.",
+  "nativeReads": 0,
+  "transferExecuted": false
+}

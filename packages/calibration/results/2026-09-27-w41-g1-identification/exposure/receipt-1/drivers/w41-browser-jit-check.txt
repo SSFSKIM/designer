@@ -1,0 +1,47 @@
+import hashlib, json, os, plistlib, stat, sys
+from pathlib import Path
+sys.dont_write_bytecode = True
+G1 = Path('/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification')
+R = G1 / 'exposure/readiness-2026-09-29'
+att = json.loads((R / 'browser-attestation.json').read_text())['browser']
+man = json.loads((R / 'chromium-1234-original-manifest-1.json').read_text())
+def sha(p):
+    h = hashlib.sha256()
+    with open(p, 'rb') as f:
+        for block in iter(lambda: f.read(1 << 20), b''):
+            h.update(block)
+    return h.hexdigest()
+out, ok = {}, True
+for key in ('executable', 'frameworkBinary', 'infoPlist'):
+    p = Path(att[key]['path'])
+    got = dict(exists=p.is_file(), bytes=p.stat().st_size if p.is_file() else None,
+               sha256=sha(p) if p.is_file() else None)
+    match = got['bytes'] == att[key]['bytes'] and got['sha256'] == att[key]['sha256']
+    out[key] = dict(path=str(p), match=match, **got); ok &= match
+plist = Path(att['infoPlist']['path'])
+version = plistlib.loads(plist.read_bytes()).get('CFBundleShortVersionString') if plist.is_file() else None
+out['version'] = version; ok &= version == att['versionFromPlist'] == '151.0.7922.34'
+root = Path(man['root'])
+live = []
+if root.is_dir():
+    for dirpath, dirnames, filenames in os.walk(root):
+        for name in ['.'] if Path(dirpath) == root else []:
+            live.append(dict(kind='directory', mode='%04o' % stat.S_IMODE(os.lstat(root).st_mode), path='.'))
+        for name in sorted(dirnames + filenames):
+            p = Path(dirpath) / name
+            st = os.lstat(p); rel = str(p.relative_to(root)); mode = '%04o' % stat.S_IMODE(st.st_mode)
+            if stat.S_ISLNK(st.st_mode):
+                live.append(dict(kind='symlink', mode=mode, path=rel, target=os.readlink(p)))
+            elif stat.S_ISDIR(st.st_mode):
+                live.append(dict(kind='directory', mode=mode, path=rel))
+            else:
+                live.append(dict(kind='file', mode=mode, path=rel, bytes=st.st_size, sha256=sha(p)))
+        dirnames[:] = [d for d in dirnames if not (Path(dirpath) / d).is_symlink()]
+key = lambda e: e['path']
+a = {e['path']: e for e in man['entries']}; b = {e['path']: e for e in live}
+diff = sorted(p for p in set(a) | set(b) if a.get(p) != b.get(p))
+out['recursive'] = dict(root=str(root), expected=len(a), live=len(b), differing=len(diff), sample=diff[:10])
+ok &= not diff
+out['result'] = 'MATCH' if ok else 'MISMATCH'
+print(json.dumps(out, indent=1))
+sys.exit(0 if ok else 1)

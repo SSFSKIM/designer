@@ -40262,3 +40262,1164 @@ native fit, native/web capture, browser suite, matrix publication operation, mat
 release or push occurred. W39’s production receipt remains absent and its holdout sealed.
 No new capture tree exists to copy or supersede. G1 is the next authorized child after the
 parent’s gate merge, not work silently begun by this declaration gate.
+
+## 5.192 W41 G1: identification checkpoint — X6 refusal and a recorded ordering deviation (2026-09-27)
+
+**In progress, not a survival or closure claim.** Evidence is
+`results/2026-09-27-w41-g1-identification/`. The preparation checkpoint `44589189`
+records the fresh worktree from main `3d13f039`, successful install and recursive build,
+the unchanged **1,818-entry** freeze, the verified W39 release cache, and the public
+calibration/validation web plan. That plan was not executed by its metadata command.
+
+### 1. Parent rulings before fitting: the baseline is blocked, not silently substituted
+
+The first X6 reading at **2026-09-27T07:59:59.817968Z** found Reduce Transparency **0**,
+Increase Contrast **0**, `NSGlassTintAmount` **0.5**, and HID idle **956.893493833 s**.
+It also found **48 foreign browser/capture processes**, so the baseline browser did not
+launch. `x6-initial-refusal.json` retains their executable names and PIDs, including the
+user's Chrome **6993** and the other session's testing browsers. No process was terminated.
+A bounded wait may observe a quiet window; it cannot waive these four facts.
+
+The sealed declaration **850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759**
+literally orders the rendered baseline before uniform body, spatial and stroke identification.
+The parent ruled at charter v2.4, main **`ba02f1a5`**:
+
+> the numerical steps (uniform body, spatial finding, stroke receded then active) may run
+> before the baseline capture, because they read Apple's pixels and the baseline reads
+> vitrea's, so its timing cannot influence them; the baseline MUST be captured and frozen
+> before any candidate operator is rendered (steps 5–6), which is what the order protects.
+
+That charter commit also directed an ordering amendment to the declaration. The worker
+refused the edit under the dispatch's immutability rule; the parent then expressly withdrew
+it in the dispatch conversation: **“do not amend it. Keep 850747c1… byte-for-byte as the sealed
+declaration”**, **“Record the deviation instead”**, and **“Proceed with steps 2–4 now under
+that recorded deviation.”** The evidence README records both directions rather than pretending
+the first never existed. This is a parent-directed **execution-order deviation**, not literal
+baseline-first execution and not an amended numerical declaration. All families, parameter
+bounds, optimizer budgets, roles, required populations, tolerances and exposure rules remain.
+
+At preparation, baseline freeze timestamp/hash: **not yet captured**. First candidate-render
+timestamp/hash: **not run**. Those witnesses must be placed side by side when they exist;
+a candidate render before the baseline freeze is still forbidden. The parent's quiet-window
+request and this ordering ruling authorize no holdout read, native capture or canonical
+publication. Subsequent sections will record measured findings only after they exist.
+
+**Ruling-source correction, before spatial fitting:** main commit **`ce56b105`**,
+“W41 charter v2.4 (corrected)”, records the parent's later direction in the charter
+itself. It supersedes `ba02f1a5`'s amendment sentence with: **“The declaration is NOT
+amended (its worker's standing instruction, kept): 850747c1… stays byte-for-byte, and
+the executed order is recorded as a deviation under the parent's ruling in the README
+and §5.192”**. The prior wording survives in git history. The worker retains both
+citations here; the sealed declaration was never edited.
+
+### 2. Uniform body: certified dark failures, light-colour survival, thick transfer separate
+
+Step2 is committed at `d64e5220`; `body/replay.py` reads only the fetched archive
+through the guarded reader, fits calibration only, and writes/hashes every fit before
+constructing the validation reader. The **408-cell** fit has **1,220 uncensored channels
+plus four hard rail constraints**; the historical H3 population remains **404 cells /
+1,212 channels**, not retrospectively changed. Both scales and every one of seven repeats
+are scored separately. The sealed neutral knots reproduce exactly.
+
+| endpoint | E3 LS / certified minimax upper | EH6 LS / certified minimax upper | O12 LS / local minimax |
+| --- | ---: | ---: | ---: |
+| light active | 0.708921 / 0.618292 | 0.681295 / 0.615167 | 1.451401 / 1.335838 |
+| light inactive | 0.925234 / 0.832355 | 0.963317 / 0.832589 | 2.671198 / 2.327215 |
+| dark active | 1.087557 / 1.010390 | 2.909609 / 2.393977 | 26.216800 / 22.000000 |
+| dark inactive | 1.537943 / 1.425524 | 2.126602 / 1.677351 | 29.653547 / 25.283014 |
+
+All eight linear brackets have width below **1e−5 code** and independently verified rational
+lower certificates. Dark E3 and EH6 are certified infeasible at the survival bound; O12's
+four failures are **local candidate failures**, not global exclusions. Selected ranks are
+3/6/12; all starts, convergence results and singular values remain. B0/H3 is reported at
+its historical upper brackets **3.919083 /4.185392 /20.138850 /17.470862**, without refitting
+or claiming a W41 certificate.
+
+E3/EH6 pass light colour calibration and validation, but light-active span96 transfer
+misses by **3 codes**, all three validation geometry rows at each scale. Dark span96
+transfer misses by **13 codes**, separately from the chromatic rejection. Light-inactive
+passes the initial colour/thick transfer table. E3/EH6 light-colour separations are
+**0.501055 active /1.190202 inactive**, below three: insufficient resolution of those
+instances, not licence to choose a uniquely identified hue/level law. No complete
+four-endpoint body family survives. An additive census of the remaining uniform controls
+and placements is pending; it cannot change the frozen coefficients or erase these rows.
+
+`body/report-1/survival-table.csv` retains every role/scale/population, worst cell/channel,
+rail count and repeat result. For example, E3's dark-active calibration worst is
+`factor-y2-c24-h60-colour__rest` **B**, while its dark-inactive worst is the corresponding
+inactive cell **R**. The initial report's generic light-active failure label is qualified
+additively by `endpoint-verdicts.json`: a **transfer failure**, not certified calibration
+infeasibility. Independent review replayed 24 certificate/forward checks and all **3,472
+candidate-cell /24,304 repeat-cell** scores with no material finding; 15 sealed synthetic
+tests and the 1,818-entry freeze pass.
+
+### 3. Spatial finding: the active residual remains and the bed still cannot referee a leaf
+
+Because no complete body family survived, the spatial read uses **diagnostic B1/E3**, not
+a nominated material. The original reader stopped before fitting on the archive's `rest`
+versus declaration's `active` pose vocabulary; its source and failure transcript remain.
+The additive `read-spatial-v2.py` supplies an explicit checked translation, with two
+regressions; `spatial/attempt-2/` is the successful reading. No mask, reference domain,
+body coefficient, parameter bound or optimizer budget changed.
+
+The fixed 16 calibration gradient cells supply **768 separate device rows**, each over
+48·scale pixels, with all seven repeats. The maxima below are minimax-instance errors in
+encoded codes over every admitted row/channel/repeat; both scales have the same verdict.
+LS results, parameters, ranks and all local starts remain beside them.
+
+| endpoint | S0 local | S1 blend | S2 blend + signed active position |
+| --- | ---: | ---: | ---: |
+| light active | 4.181818 | 3.800000 | 2.221383 |
+| light inactive | 1.916667 | 1.009174 | 1.009174 |
+| dark active | 3.272727 | 3.069272 | 2.007615 |
+| dark inactive | 2.666667 | 1.000000 | 1.000000 |
+
+Only dark-inactive S1/S2 meet every per-row calibration bound. Light-inactive **1.009174
+remains a miss**, not a rounded one-code pass. S0 is a fixed null; the fitted negatives
+are local, not certified family theorems. Equal-input reflected native rows differ by up
+to **4 codes light active /3 dark active** over the whole ≥6px strip, at both scales;
+inactive differences remain ≤1. These observations are not fitted-family separations:
+the largest fitted pair separation is **2.299977** (light-active S1/S2), below three.
+Inactive S0/S1 separations **1.150612 /2.034187** are also below resolution, even though
+the null itself fails. All 12 instance comparisons retain that distinction.
+
+One mean and amplitude still confound the blend with a wide blur. The active signed term
+is positional, not an identified lighting frame; a long boundary tail remains an alternative
+reading. No structured backdrop is held out, so **zero spatial held-out coverage** means
+**no spatial closure or leaf**, as Decision Log6 ruled. The next identifying bed needs
+varying group means/frequencies and structured held-out backdrops. Independent review
+reconstructed all **96** saved score records, **12** resolution comparisons and **8**
+reflected pairs, plus provenance hashes, without re-opening native payloads: no finding.
+
+### 4. Complete uniform transfer and the parent's endpoint-scoped nomination
+
+The owner's coverage check found that the initial body wrapper inherited a narrower
+colour/thick selection and omitted other admitted uniform controls, placements and column
+members. The bounded additive correction **`2e4e0a9`** reads **56 additional calibration
+cells /64 members**, leaving every coefficient and the 408-cell fitting population unchanged.
+`body/uniform-transfer-1/census.json` accounts for all **1,440 public identities**, their roles,
+admission and exclusions. The complete uniform union is **552 cells /560 glass members**;
+validation coverage had already been complete. Independent review reproduces all **3,920
+median /27,440 repeat** scores, 168 strata and unchanged fit hashes; five synthetic coverage,
+member and rail tests pass.
+
+The omitted grey255 controls expose another gap: E3/EH6's declared neutral continuation
+misses by **19.272727 dark active /22.045455 dark inactive**, both scales; O12's local
+candidates read **17.672672 /20.591927** there. These are not the earlier chromatic rejection
+renamed. Light-inactive E3/EH6 still pass **complete uniform transfer**, with maximum mutual
+separation **1.190202** against three over **138 cells /140 members /418 measured channels**.
+
+**The parent ruled partial-endpoint adoption**, preserved in
+`parent-ruling-partial-endpoint.json`: carry **E3 on the light receded endpoint only**, choosing
+three gains rather than EH6's six while retaining their insufficient-resolution finding for
+Decision Log2. The no-complete-four-endpoint-family finding stands; it does not discard a
+surviving endpoint. Only the light receded scratch document enables the operator; the other
+three stay at the identity. The rendered check and per-bin veto still cover every web-plannable
+cell, with **byte equality to the pre-W41 baseline** required on unclaimed endpoints.
+
+The receipt still binds and scores the complete **72 numerical /64 rendered** held-out
+membership. Closure is assessed on the claimed light-inactive stratum at both scales;
+unclaimed rows keep their actual scores and are labelled **“not claimed (identity)”**, counted
+as neither passes nor candidate failures. A separately versioned G1 runner/schema binds scope,
+domain and baseline payloads; G0's runner, schema and declaration remain unchanged. The blind
+shipped web baseline also needs all64 public held-out web cells for identity witnesses, without
+opening one Apple held-out pixel. **No candidate render or exposure has occurred at this ruling.**
+
+### 5. The candidate's domain and pre-G2 continuation, declared before implementation
+
+`parent-ruling-renderer-domain.json` preserves the next parent ruling. E3's enabled domain is
+**nominal accessibility policy, regular variant, actual sampled texture**. Its effective strength
+is zero under RT/IC/forced-colors, for clear material, and for fabricated DOM/none backdrops.
+It uses the existing post-refraction/blur sampled backdrop in encoded space; no spatial gain,
+blur or group/local coefficient is fitted or added. A single identity gate-group contains
+strength (identity zero), F's seven ordinates and g's three. Only the light receded scratch
+document enables it, with frozen26.5 and the other three macOS27 digests required unchanged.
+
+At presence one, **E3 REPLACES the tone solve, chroma retention and black-branch output** at
+that endpoint; it is not another retention mixed onto them. The result goes through the
+unchanged author tint and rim. At intermediate presence, the bounded extension is the
+linear-light mix `mix(backdrop, decode(E3(encode(backdrop))), presence)`, explicitly **unmeasured
+interpolation**; at zero presence the branch is skipped exactly. Other policy/presence behavior
+and existing purity/policy tests remain untouched. Domain and endpoint scope belong together
+in the freeze manifest. CSS must be derived and measured or explicitly declined with its
+residual at step9; no parity claim follows from the numerical E3 fit.
+
+The replacement therefore also takes over the old black branch when enabled. These are
+**predictions before G2**, bound in `e3-continuation-predictions.json`, not new canonical reads:
+
+| input | light-receded E3 prediction, encoded codes | comparison |
+| --- | ---: | --- |
+| neutral0 | 132.5 | W36's published native receded-light black133; not reread here |
+| neutral32 | 146.5 | declared first-segment continuation; not a fitted neutral knot |
+| neutral192 | 214.181818 | declared last-segment continuation; not a fitted neutral knot |
+| red bridge192/32/32 | 255 /129.669657 /129.669657 | native255/129/129; R is a one-sided rail, not exact255 accuracy |
+| green bridge32/192/32 | 88.167645 /238.297285 /88.167645 | native89/239/89 |
+
+The bridge uses F of **encoded luma** plus radial chroma, not F applied separately to its32
+and192 channels. Canonical X1 and L1 still referee the resulting material at G2; the132.5
+prediction does not inherit W36's exact-black closure. Implementation is isolated from the
+primary capture worktree so both baseline freezes genuinely name the pre-W41 renderer.
+
+### 6. Numerical uniform domain versus the binding rendered structured check
+
+A final metric-applicability ruling is preserved in `parent-ruling-structured-domain.json`.
+The body families were declared on uniform input x; their **numerical claim domain is
+uniform backdrops**, derived from public background metadata, not a chosen cell allowlist.
+The **24 structured-gradient calibration/validation cells** remain in full membership.
+The six at the claimed light-inactive endpoint are **“not claimed (structured backdrop)”**
+numerically, retaining an S0 diagnostic deep score: apply E3 per local reference pixel,
+then take the declared deep median. That diagnostic is neither admission nor failure of
+the uniform-body candidate. It cannot be replaced by a fabricated `true` survival flag.
+
+This numerical domain is **not a shader enable condition**. The leaf will operate on every
+sampled backdrop in its enabled renderer domain, so structured web cells remain full members
+of the rendered check, and the W38 per-channel-bin veto is binding on them. A gradient bin
+worsened beyond the declared veto rejects the candidate; a mean improvement cannot hide it.
+Canonical photo cells at G2 still face M1, M2 and L1. The held-out archive contains no
+structured backdrop, so this ruling changes no held-out membership or closure tolerance.
+
+**Deferred:** a spatial holdout, with independently varied group mean and backdrop frequency,
+is what would extend the uniform numerical domain into an identified spatial claim. Neither
+the diagnostic S0 reading nor the absence of a held-out gradient supplies that evidence.
+
+**Rendered-domain clarification (parent ruling, retained in
+`parent-ruling-rendered-structured.json`):** the absolute rendered deep max(1,bar)
+is diagnostic on structured backdrops too, reported as **“not claimed (structured
+backdrop)”**. The numerical claim and the absolute rendered deep claim are uniform-only;
+the shader enable-domain is not. W38's worsening veto remains binding on **every admitted
+bin, channel and repeat**, explicitly including the structured cells' deep body. A deep
+residual worsened by more than one code on a gradient rejects the candidate. Claimed
+uniform rendered cells must pass both the absolute bound and the veto. All **600 rendered
+memberships /536 pre-veto calibration-validation cells /64 blind held-out cells** remain;
+`renderedDeepDomain: 'uniform-backdrop'` records applicability without dropping rows.
+
+### 7. CSS: a second algebraic route to measure, not a premature carry
+
+The parent approved a second measured projection beside the brief's saturate+plate mirror,
+retained in `parent-ruling-css-second-route.json`. For a uniform backdrop and the frozen
+E3 tuple, in normalized encoded units,
+
+`y = clip(g·x + k)`, `k = F(L) − gL`, `b = g + 2k`, `c = g/b`.
+
+Where **k≥0 and b>0**, applying **contrast(c) then brightness(b)** reproduces this affine
+map algebraically. The contrast step compresses into gamut before brightness, so the
+saturation-before-plate clipping of the earlier mirror is not inherited automatically.
+The excluded k<0 or b≤0 range must be reported, not assigned a fabricated filter. No new
+parameter is fitted. Chromium's actual order and encoded-space behavior must first be
+proved on a synthetic page, then both projections measured on the same uniform cells at
+both scales; no browser result is claimed here.
+
+Reading `optics.ts` and `css-tier.ts` reveals a separate **carry constraint**: the real tier
+has sharp and heavy blur layers plus an RGBA overlay that supplies a contrast floor even
+when backdrop-filter silently no-ops. Color applied before the second blur also has a
+measured boundary residual. A transparent one-filter prototype can demonstrate uniform
+algebra, but does not yet satisfy that fallback-floor/two-blur contract. Both measured
+residuals and this limitation belong to Decision Log4. **No CSS production source changes
+in G1**, and neither an exact formula nor a future prototype pass is an adoption decision.
+
+### 8. The scoped exposure instrument and the actual numerical candidate payloads
+
+The additive G1 runner **`9b6d1bf7`**, schema2, preserves all648/600 predictions and72/64
+held-out raw scores while binding the parent's endpoint/domain rulings. It proves endpoint
+identity against committed baseline PNG/projection payloads for **450 cells**, including
+**48 blind held-out** web cells. Actual producer report nesting, profile/scale/scheme/document
+provenance, root-active receding and empty-active-patch semantics were independently reviewed
+and corrected in bounded waves; **65 synthetic tests** pass. The single inherited receipt,
+durable scores-before-verdict, runtime/source hashes and fresh-to-frozen recapture equality
+remain. All **177 G0 files** remain byte-identical. This is instrument proof, not real-browser
+integration or an exposure. A surviving stroke may need a same-wave adapter before the shared
+freeze; E3 cannot spend the receipt early and leave other candidates for another attempt.
+
+`candidate-e3/public-2/` carries **648** public-metadata numerical predictions, including all
+**72 unopened held-out** cells (18 in the light-inactive claim), without native held-out input.
+The final-runner reproduction at **`6b0109cc`** retains the earlier artifacts and proves their
+prediction/parameter/raw-score/admission bytes unchanged. Guarded calibration/validation
+scoring covers **576 cells /592 members**, all seven normal repeats. The **138 claimed uniform
+cells /140 members** meet constraints: **136 measured cells and two censored-satisfied**, worst
+uncensored **0.8323554077 code**. Six structured cells/eight members retain S0 diagnostics,
+worst **0.9090909091**, not admission. **432 identity cells /444 members** retain raw shipped-H2
+misses up to **125.2967141814** without being called E3 passes or failures. Twenty-five synthetic
+scorer tests and independent high review pass after bounded evidence-binding/diagnostic-label
+fixes. Real rendered scores, composite survival and production freeze remain absent.
+
+The external dry preflight **`89fd6f77`** is mandatory immediately before eventual exposure:
+first compare every manifest-pinned file to committed bytes/frozen hashes, including the
+preflight itself, runtime, runner and boundary; then compare live **Python3.12 /NumPy2.3.5 /
+Pillow12.3.0**; then call the inspected read-only runner verification. It imports no scorer and
+opens no receipt or native Reader. Eight scratch tests and independent review pass. Its
+Python files and runtime.json must be in the freeze. A missing final manifest is a refusal,
+not a preliminary success; the real dated preflight output belongs immediately before the
+exposure evidence, because a runtime failure first found inside receipt would spend the wave.
+
+### 9. The E3 operator is implemented separately; drawn survival is still outstanding
+
+To preserve a genuine pre-W41 baseline source inventory, the implementation lives on
+**`w41-g1-e3-implementation`** at **`64dbad42`**, worktree
+`/Users/new/vitrea-w41/e3-implementation`, not integrated into the primary capture branch.
+Implementation **`775a1f26`** and its review-evidence successor may be cherry-picked only after
+the536 calibration/validation and64 blind shipped web baseline freezes. One strength-zero
+rule2 gate-group carries F7/g3; uniform lanes140–151 and the before-tint replacement implement
+the ruled domain without changing CSS, other leaves or shipped documents. Motion alone does
+not gate E3: MaterialPolicyView carries optical accessibility axes, not the motion axis.
+
+The isolated branch passes **651 renderer /302 core /634 web** tests,141 targeted calibration
+tests, lint/TypeScript and the workspace build. Actual-Metal **synthetic compute** checks
+**4,144 cases**, including **1,776 exact gate0/unsampled/presence0 identities**, with maximum
+encoded discrepancy **0.0000825898 code**. This proves arithmetic, **not drawn fidelity or
+browser identity**. Independent reviewer-high runs174 targeted tests in11files and finds no
+material issue. Scratch light-receded document digest **7b3d327de9cc81c2**, file SHA
+**d34ebe3a73f281e542734737db6bbb92dbe4b432368307de067200eb31d571bd**, preserves the full old
+patch and adds only E3; the other three candidate documents are byte copies. Actual rendered
+survival, all-bin veto, unclaimed byte identity, CSS measurements and the single exposure
+remain required. No numerical fit, unit suite or compute proof substitutes for them.
+
+### 10. The shipped rendered baselines are frozen before candidate implementation
+
+The bounded X6 observer found a quiet window after **141 observations**:140 refusals and
+one pass, retained losslessly with full census and hashes. It did not close another session's
+browser or waive a setting. The actual baseline processes each performed their own fresh
+check. The resulting order witness is `integration/order-witness-before-render.json`:
+
+| artifact | membership | frozen UTC | SHA-256 |
+| --- | ---: | --- | --- |
+| shipped calibration/validation baseline, `0421fdd6` | 536 | 2026-09-27 09:26:46.190966 | c921d671819fb6c07269b74e3470ee53fed37319f7ba2da1ff58094b343f8bd8 |
+| blind shipped web held-out baseline, `8f09b2c3` | 64 | 2026-09-27 09:29:56.538721 | 5df39d23a6052ecf5afe2a0a13ef6d0cc7dcb4f31ae7bac6a5150753bd953ca5 |
+
+Each has four fresh X6 passes, real Chromium/WebGPU, no fallback, and deterministic captures.
+The immutable preparation records source **`014e4104`**; the worker's early `44589189` progress
+shorthand was corrected beside the record, not substituted into it. Runtime bytes are the same
+pre-W41 source. Primary captures remain under `/Users/new/vitrea-w41/g1-captures/`; committed
+PNG/projection payloads preserve their bytes. The blind64 uses only public backdrops/geometry:
+**zero Apple held-out payload reads**, no receipt, no closure.
+
+Only then were reviewed E3 commits integrated as **`5e994fc7` /`6b953172`**, with workspace
+build and freeze1,818 passing. `446c5217` commits the full600 shipped veto map and ordering
+witness, with **first candidate render still absent** at that checkpoint. Its actual timestamp
+and hashes will be appended beside these witnesses; implementation alone is not rendered
+survival. No canonical capture tree, matrix or generation was touched.
+
+The first offline baseline-native transfer stopped after24 cells because it counted admitted
+long-sentinel entries beside the seven normal runs. That is a reader-integration failure,
+not a capture failure or changed repeat bar. The partial reports remain. An additive transfer
+reader filters `protocol == 'normal'`, keeps all seven run entries even when pixel states
+are deduplicated, and retains excluded sentinel counts. The frozen536 web PNGs and their
+pre-W41 authority are unaffected; corrected transfer results will be a separate artifact.
+
+### 11. The active stroke is rejected beyond every rival's support; inactive fits remain live
+
+The required shadow-only cut, reviewed and committed **`39af4831`**, admits a bin only when
+**every 16×16 subpixel of every member pixel** is at device distance ≥2·scale. That lies
+beyond the maximal support of both declared width units (device≤2px and CSS≤2CSSpx), so
+coverage is exactly zero for every M0/M1/M2, β/γ and nominal-curvature coefficient. The
+prediction there is the held pre-W41 shadow, independent of every stroke coefficient.
+Residuals remain absolute **before** spatial aggregation, with all seven normal repeats
+and one-sided rails retained.
+
+| endpoint | failed / required control bins1x | failed / required2x | worst1x /2x, codes |
+| --- | ---: | ---: | ---: |
+| light active | 12 /1550 | 32 /3640 | 1.700192 /1.729163 |
+| dark active | 22 /1550 | 60 /3640 | 2.083171 /2.107321 |
+| light inactive | 0 /1550 | 0 /3640 | 0.125 /0.125 |
+| dark inactive | 0 /1550 | 0 /3640 | 0.125 /0.125 |
+
+The four decisive witnesses are grey128, circular120×64, bottom straight, shell2 at1x /
+shell4 at2x, with56/112 pixels and minimum quadrature distances **2.03125 /4.03125 devicepx**.
+Apple reads127 on every run/channel. The held shadow predicts **125.299808 /125.270837 light**
+and **124.916829 /124.892679 dark**, so all seven repeats and all RGB channels miss the one-code
+bound. A separate dense proof executes the **unchanged sealed loader and shadow.at** in
+`/Users/new/vitrea-w41/pre-w41-proof` at **`d35b4cbf43f1fcdda55063b3b8e0fa178d720a78`**;
+its sources/documents match the original pins and it agrees with the compact forward within
+4e−13 code. This avoids silently treating the newly integrated E3 source as the old shadow's
+historical provenance. `stroke/support-controls-attempt-1/` retains all20,760 control rows
+and the dense witnesses;32 column checks reproduce the full shifted-union shadow exactly.
+Independent reviewer-high verifies the cut/proof/chronology with no material finding.
+
+**The coefficient-independent rejection is per ACTIVE endpoint**, not a rejection of the
+inactive endpoints or of a hypothetical refitted shadow. The shadow was declared held, so
+the miss cannot be absorbed by an exterior stroke with no support there. Dark-active top
+straight is separately conditional against G's freeγ, **not** part of this certificate:
+its40/80 control bins pass, worst **0.331567 /0.359802**. Every gap remains named.
+
+Under the parent's ruling, the active joint multistart stopped **after** the dense certificate
+was written. Partial61–112-code maxima and solver checkpoints remain labelled partial, not
+final minima. The remaining budget was not consumed because the required control determined
+the active verdict, not because a tolerance or optimizer cap was reduced.
+
+The parent then explicitly promoted a **fresh inactive-only run** to endpoint-candidate
+survival authority, recorded as a deviation from the declaration's joint-fit authority,
+without editing declaration850747c1. The same sealed fitter, bounds, domains and budgets
+operate on light/dark inactive observations only, sharing width/ρ across those endpoints.
+Active vector slots remain internally as unobserved dummy dimensions because removing them
+would change the sealed parameterization/start box; no active observation enters and no
+active coefficient is interpreted. Original seed4100 vectors are preserved by index. The
+previously proposed inactive-only diagnostic **had not run**, so no diagnostic result is
+relabelled. Review checks all144 original family/rival start vectors and budgets before the
+three fresh partitions launch at **`5e32e7bf`**, at most three concurrent starts. Inactive
+survival, validation transfer and sensitivity remain pending, not inferred from the passing
+outer-support controls.
+
+### 12. The shipped transfer is complete; candidate calval captures precede a peer-browser pause
+
+The additive baseline transfer is now complete (`c2a075d2`, verified `07fbf6c1`), rather
+than pending as §10's checkpoint says. `baseline/transfer-v2-summary.json` SHA-256
+**25d2bc89ee9e9e18cb6f32c46e2f0ce5ae93a6bd3ed67d4cb6d92f15c0627dc4** binds inventory
+**5fdb12ad85dd3c7b036214a49f0235a3ae09ac12776bd6c8ec6d7ccdce7fffc9**: all536 cells,
+464 calibration /72 validation, 3,752 normal run entries, 536 deep members, 64,320 exterior
+bins, 225,120 interior bins and768 strip rows. Forty-eight long sentinels on16 cells are
+counted separately, not scored. Shared pixel hashes do not erase independent normal runs.
+The original24 partial readings, source epoch and failure remain unchanged beside this
+complete result. No native holdout was read.
+
+`integration/order-witness-first-render.json` (`19281815`) records the first actual candidate
+process at **09:40:11.770276Z**, after both shipped freezes. All four calibration/validation
+batches subsequently completed, 134 cells per profile, with fresh passing X6 checks before
+each launch. At09:44:03Z an idle reading of4.764s refused the next unlaunched profile; it
+was resumed only after a fresh passing check. At10:02:51Z all536 calval captures were complete,
+but the first blind web profile was refused for eight foreign browser processes despite
+RT0/IC0/tint0.5 and idle1,132.744s. These were another session's `baseline.mjs` browser, not
+failed candidate renders. No process was killed to satisfy X6.
+
+A new readiness observation passed at10:06:54Z, but the parent then reserved the browser for
+that peer's user-requested30–40 minute continuation. The pending candidate launcher was
+stopped while re-verifying the completed536 cells; a subsequent check found no blind
+`started.json` and no driver process. The unlaunched frontier is therefore retained, not
+recaptured. A bounded60-minute,30-second observation log records the peer window without
+launching between its processes; the parent will relay the ownership release, followed by a
+fresh X6 gate. CPU-only fits, proofs and a committed536-only scoring checkpoint can continue.
+This checkpoint is **not** the600-cell freeze, rendered survival, or the single exposure.
+
+### 13. Exposure waiting policy and additional necessary cuts are explicit parent steering
+
+The parent authorized additional M0/M1 necessary-bound cuts beside the continuing inactive
+fits. Each must be a proven relaxation of the sealed criterion, preserving the declared
+bound, bins, absolute-before-bin aggregation, censor rule and gauge. M0 must enumerate the
+ordered neutral-input clipping regimes in `(c,u=c·t,v=c·k)` with `t≥0` and carry an exact
+rational infeasibility certificate for every regime before rejection. M1 may use matched
+channel equality only after saved pixel/bin/coverage/reference equality and the repeat bar
+are verified. Independent replay uses the unchanged loader, as for the active cut. Only a
+certified model-endpoint determination may stop that endpoint's budget; M2 and uncertified
+endpoints continue. This authorizes proof work, **not a result**, and does not amend the
+immutable declaration or relabel partial fits.
+
+The exposure runner's missing per-profile fresh X6 gate was corrected and independently
+reviewed in an isolated branch (`2d94ccaa`,72 synthetic tests); it has **not** been applied to
+the source-pinned measurements. The parent's subsequent steering changes that isolated
+fail-fast behavior: inside the one begun exposure, bad measured facts wait at30-second
+intervals with one **cumulative60-minute waiting budget for the whole exposure**, capture
+time excluded. Every observation is durable, and the frozen snapshot is reverified before
+launch. Deadline expiry spends the attempt; observer errors and snapshot mutation fail
+closed rather than masquerading as measured facts. The fresh pre-begin gate must pass on
+its own. No capture or native read occurs during a wait, no begun attempt is retried, and
+X26 is not narrowed. Revised implementation and review remain pending at this checkpoint.
+
+Application remains behind completion of candidate, CSS and canonical diagnostic captures
+**and their source-bound offline scoring**. The final freeze will bind the revised runner,
+external preflight and scorer. Before begin, the parent will obtain the user's explicit
+untouched-Mac confirmation against a duration estimate; no such confirmation or exposure
+is claimed here. These are parent task directions, not user Decision Log2 conclusions.
+
+The CPU-only capture checkpoint is committed as **`9e328b6d`**:
+`candidate-capture/calval-checkpoint-1/rendered.json`, SHA-256
+**a642015018c1660bf1678c24671ae7c9c886d470f2f5eaf811fe8281c43da362**. Its536 cells are
+464 calibration /72 validation. The unchanged driver verifies the seal before/after,
+validates all four actual producer batches, and checks the committed payloads against their
+scratch originals and projections. The checkpoint explicitly remains536 of600; its complete
+calval membership permits the unchanged scorer to run offline while blind web captures wait.
+Scoring was dispatched only after that commit; no score is inferred here.
+
+### 14. Inactive M0 is certified impossible; M1 dark-inactive has a matched-channel obstruction
+
+The necessary cuts authorized in §13 now have independently reviewed determinations. M0's
+initial seven-neutral-level screen rejected dark-inactive in36/36 ordered clipping regimes
+but left three light-inactive regimes feasible; that original nondetermination remains.
+The additive grey255 control completes eight matched neutral levels, each with76 top-shell0
+pixels and seven normal repeats. The relaxation replaces the geometric coverage by a free
+`c∈[0,1]`, with `u=c·t`, `v=c·k` and the declared bounds. Jensen's inequality makes its
+bin-mean constraints necessary for the sealed absolute-before-bin criterion; it is not a
+replacement scorer. Every ordered low/middle/high clipping regime is enumerated, including
+boundary cases, and **45/45 exact rational Farkas certificates at EACH inactive endpoint**
+prove infeasibility at the unchanged bound. Because coverage was relaxed rather than fitted,
+the result rejects M0 under all three geometry rivals, without claiming an optimizer minimum.
+
+`stroke/m0-certificate/white-extension/certificates.json` SHA-256
+**dbccefb87e02e7c80965100d8ef712d81000d72c1ef4d2b6f6d92d2a432dc9f5** is committed in
+**`0da706b1`** with saved observations and the retained partial fits. Independent reviewer-high
+reconstructs all90 rational certificates with both native access and LP calls blocked, checks
+23 proof-source hashes,16 saved bundles, all9 tests and8 seal hashes, and finds no material
+issue. Geometry and per-pixel evidence are recomputed, not taken on the certificate's word.
+Only after this review did the three remaining M0 fit processes stop; their outputs remain
+partial local results, while rejection is attributed to the separate exact certificate.
+
+For **M1 dark-inactive**, the red/green bridge pair has identical exterior pixel geometry,
+quadrature and encoded blue reference32 under a provenance-verified zero shadow. M1 must
+therefore predict the same blue output on both, under any declared geometry rival. Apple
+instead reads **21 versus14**, on all76/152 pixels at1x/2x and every one of the seven repeats.
+Each allowed mean absolute error is1, so their intervals cannot meet: the best possible
+worst MAE is **7/2=3.5 codes**. The repeat bars remain separately applied and no censored
+channel supplies the contradiction. Light-inactive reads21 versus21 and is **not rejected**;
+M2's declared dark correction is outside this equality proof.
+
+`stroke/m1-certificate/proof/certificate.json` SHA-256
+**d7f98d9635f90533dbf3f1b439fc4cafc8ffcde4a126c47b50b16557cbfd5600**, committed **`54e21884`**,
+was independently reviewed through the parent: saved-only replay, nine tests with external
+pixel roots denied,16 historical dependency snapshots matching `d35b4cbf`, and no material
+finding. The parent relayed permission to stop only M1 dark-inactive's budget. A duplicate
+review dispatch was stopped before proof inspection and produced no correctness conclusion.
+
+With BOTH reviews complete, the parent ruled the same explicit endpoint-authority deviation
+as §11: **M1 now fits light-inactive observations alone**, retaining dark-inactive and active
+vector slots as unobserved dummies, the original16 seed4100 vectors, full sealed budgets and
+all three geometry rivals. A certified-rejected endpoint cannot remain in the shared
+objective and pull width/ρ for the surviving endpoint. **M2 still fits both inactive endpoints
+jointly.** No M1/M2 start had run before this ruling; no result was relabelled. Commit
+**`829806d5`** binds the independently reviewed scope wrapper, committed receipt/certificate
+preflight and freeze1,818 before the three fresh partitions launch. Their survival and
+validation transfer remain pending. The declaration is unchanged.
+
+A further parent-approved neutral-bin separability screen is a necessary-cut diagnostic only:
+on matched neutral backdrops, mean departures factor into bin coverage times an intrinsic
+colour departure; M2's neutral identity is stated by the declaration. Exact signed interval
+constraints use `max(1,bar)`, not a sum of allowances. The initial1x screen is nondetermining;
+a bounded same-eight-level2x screen is being checked separately, without pooling or fitting.
+No new rejection or budget action is inferred from that pending screen.
+
+### 15. The light-inactive E3 candidate survives the actual calval render and complete veto
+
+The complete600 web predictions are frozen at **10:47:44.843878Z**, committed **`a0d33bbd`**.
+`candidate-capture/attempt-1/frozen.json` SHA-256
+**ef6483f61264a33e20d7a3f23a64646ad29704d886b09b3655d92f584bbeb491** binds4,212 files;
+`rendered.json` is **949d13c955e1b6345fd7fb4e8da0ebd433ad7be10baea8c0ec66156550d13934**.
+The independent completion audit verifies all600 actual producer/domain records and primary
+scratch captures against their snapshots, all eight completed batches, and **450 unclaimed
+PNG AND projection identities**, including48 blind web identities. The earlier536 checkpoint
+is unchanged. All64 held-out WEB predictions use public geometry/backdrops only: native
+held-out payload reads remain **zero**. This is a web-prediction freeze, not the final exposure
+manifest or a closure claim.
+
+The unchanged guarded scorer's536-cell calval read, committed **`46f5c167`**, has no claimed
+deep failure, veto failure or identity-byte failure. Its complete576 numerical /536 rendered
+raw memberships also pass the unchanged runner's claim-aware aggregate, without a receipt.
+
+| claimed light-inactive domain | cells | measured | censored constraints satisfied | worst deep error |
+| --- | ---: | ---: | ---: | ---: |
+| numerical uniform calval | 138 | 136 | 2 | 0.832355 code |
+| actual rendered uniform calval | 130 | 128 | 2 | 1.000000 code |
+| actual rendered structured calval, diagnostic only | 4 | not a uniform claim | not folded into closure | 0 code |
+
+The130 uniform rendered cells retain both scales and both roles separately; each stratum's
+maximum is1 code. The two censored cells meet constraints, never count as measured accuracy.
+The402 other-endpoint calval PNGs are byte-identical to shipped. Numerical structured and
+identity cells remain unclaimed, as do rendered structured and identity cells; a passing
+aggregate does not convert them into E3 passes.
+
+The W38 worsening veto passes **246,632 admitted bins**:536 deep,190,376 interior and55,720
+exterior, across **5,919,168 median/repeat/channel comparisons**. The43,344 population-deficient
+bins (34,744 interior /8,600 exterior) remain explicit exclusions. Worsening maxima are
+**0 deep /1 interior /0 exterior codes**. The exact boundary case is light-inactive2x,
+`v270-c-c44__inactive`, top straight, shell−1, bin12, R: worsening **exactly1**, not a rounded
+smaller value, and the rule rejects only worsening>1. All16 claimed hard-rail comparisons
+pass. Seven normal repeats remain seven even where their pixel hashes coincide.
+
+Independent reviewer-high streams the retained raw records and reproduces all24 strata,
+536 memberships, repeats, deep bars, rails, pass flags, PNG hashes and28 source witnesses,
+with no material finding and no new native read. The full score gzip is retained; the
+2,455,641,994-byte duplicate-detail admission JSON is losslessly compressed with original
+and compressed hashes plus round-trip verification. The original scorer summary, complete
+raw scores and exact per-stratum worst witnesses live under `candidate-e3/rendered-calval-1/`.
+The observed directory-creation-to-last-output interval is **28m41.466s**; final CPU time was
+not instrumented and is not invented.
+
+**Survival is not an edge repair.** The candidate's light-inactive absolute edge residual
+still reaches **55.5 codes** at1x `g255-c-c44__inactive`, arc bin0/shell0/R, **52** at2x, and
+**48** on validation's grey128 continuous rectangle side. These absolute edge scores are
+diagnostic for this body-only candidate; their worsening veto remains binding. The382 raw
+deep misses at unclaimed endpoints remain, worst **125 codes** on dark-inactive red/R,
+unchanged from shipped. Structured deep error0 on four cells establishes no spatial law;
+the missing structured holdout and the wider body/edge gaps remain future work.
+
+No exposure runs yet. The one receipt must bind every surviving wave candidate, so it waits
+until every remaining stroke model-endpoint has a fit/transfer verdict or a reviewed
+certificate. CSS reach and the actual canonical/W39 eye sheets also remain required. The
+reviewed E3 calval result is a candidate for that single exposure, not permission to spend a
+body-only receipt and forfeit a later stroke survivor's held-out test.
+
+### 16. CSS tooling recovery is recorded before any empirical proof
+
+The first intended CSS browser open passed fresh X6 but failed because an unpinned CLI
+wrapper resolved0.1.21, which expected absent Chromium1246. No proof, screenshot or native
+payload was requested. During environment diagnosis, the suggested command
+`playwright-cli install-browser chromium` unexpectedly opened a default Chrome session
+before rejecting its argument. The worker closed that exact session immediately. This
+unintended launch **had no separate fresh four-facts gate**; the record does not retrofit one.
+Original command/version/time/open/error/close logs and their hashes remain in
+`css-projection/cli/unexpected-launch-deviation.json`; the CSS scratch tree had zero PNGs.
+
+The parent ruled this an **environment-control deviation**, not a contaminated measurement
+or a failed pixel proof: no experimental pixels existed. The install-if-needed authorization
+was withdrawn entirely—**no browser installation/download in this wave**. Recovery uses the
+pinned, already-cached CLI0.1.19 with installed **full Chromium1243**, unchanged public-3 inputs,
+recorded tool/browser hashes and versions, and a fresh X6 check before each intended launch.
+Its empirical1x/2x proof will therefore be the first proof attempt; a failed proof will still
+stop measurement without a retry or waiver. The declaration and the candidate's source-pinned
+renderer are unchanged. CSS capture/reach is pending at this checkpoint.
+
+### 17. The declared CSS-width stroke rival is rejected; neutral-bin separability is nondetermining
+
+This is a **stroke geometry-rival result**, not a statement about the platform's CSS tier.
+The saved matched straight bins execute the charter's declared1x/2x occupancy discriminator:
+for a shared CSS width `w`, their departures are `f(w)·z`, `f(2w)·z` and `f(2w−1)·z` for
+1x shell0,2x shell0 and2x shell1. Here `f` is the exact sealed16-sample occupancy, and
+`z=A(top)·(S(b)−b)`. Actual normals, distances, references, sample grids and the scale law
+are verified from saved observations; mean intervals are only a necessary Jensen relaxation
+of the unchanged absolute-before-bin criterion.
+
+The arbitrary-real-`z` relaxation is **nondetermining**, and its alias is retained:
+`w∈(1/32,3/64]` produces occupancies1/16,1/16,0. Such a tiny width can imitate equal first-shell
+contrasts if the intrinsic departure is allowed to become unphysical. The separate bounded
+extension retains an existing sealed constraint, not a new fit restriction: `A∈[0,1]` and
+material output in0…255 imply **`−b≤z≤255−b`**. All **99 width states**—50 boundary points and49
+open intervals over[0,2]—are then exactly infeasible at **both inactive endpoints for M0/M1/M2**.
+No width, material parameter, tolerance, support or gauge changed. On the independent grey128
+dark witness, Apple reads96 on both first shells and128 on2x shell1, every pixel/repeat;
+the deciding pixels are uncensored and their allowance remains1 code.
+
+`stroke/css-width-certificate/bounded/certificate.json`, SHA-256
+**72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d**, is committed in
+**`93c49abf`** beside the original unbounded certificate. Independent reviewer-high verifies
+enumeration completeness, strict support, the common-product relaxation, signed exact
+intervals, censoring and the deciding range constraint;13 tests, both saved replays and an
+independent four-bundle grey128 replay pass. No native holdout or new fit supplies this proof.
+Only the CSS-width rival's remaining budgets are determined; device-width and nominal
+curvature remain untouched. Together with §14's material exclusions, the outstanding fits
+are M1 light-inactive and joint M2 inactive under device-width/curvature,64 original starts
+before subtracting completed ones. Partial local results are still not final negatives.
+
+The separate neutral-bin coverage-ratio screen finishes **NOT DETERMINING**, committed
+**`08c47b15`**: zero contradictions among4,032 directed bin pairs per endpoint at1x (64 admitted
+bins), and20,592 per endpoint at2x (144 bins), with scales kept separate. Exact sign/zero-
+denominator handling, censor and population relaxations,16 saved bundles per scale and24
+source witnesses replay with archive/Reader/optimizers blocked;17 tests and independent high
+review pass. It certifies no survivor, rejects no endpoint and changes no budget. The bounded
+screen ends there rather than searching indefinitely for a favorable witness.
+
+### 18. CSS has a measured affine body projection, not an adopted runtime counterpart
+
+Step9's browser/native measurement is complete in **`112dbc63`**. Both20-probe pages pass
+before the matched-cell captures, maximum **0.55 code at each DPR**, establishing the actual
+filter order and encoded-colour behavior on installed full Chromium **153.0.8010.12**,
+revision1243, pinned cached CLI0.1.19. All four intended measurement sessions have fresh
+passing X6 records with zero foreign processes. The environment-control deviation in §16
+remains recorded; a later shell cleanup error after the successful1x proof required an
+immediate separate close, not a recapture. Original logs are not prettified or replaced.
+
+The frozen E3 tuple supplies both routes with no fit. The130 uniform light-inactive calval
+cells are112 calibration /18 validation,65 at each scale;260 route-cell screenshots are
+bound to their producing runs, scripts, public configuration and exact browser/tool bytes.
+
+| standalone BODY projection | uncensored passes | uncensored failures | censored constraints met | worst native | worst frozen-E3 difference |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| contrast then brightness | 128 | 0 | 2 | 1.000000 | 0.499795 |
+| saturate then minimum-alpha neutral plate | 126 | 2 | 2 | 26.000000 | 26.832355 |
+
+Each scale has half those counts. The plate's two failures are green at1x and2x: nativeR89
+versus webR115. Its own algebra is realized within **0.931423 code**, so the26-code miss is
+not a failure to draw the declared CSS prototype. The affine route's own-algebra maximum is
+**0.499795 code**. The two red cells meet one-sided constraints but provide neither measured
+accuracy nor held-out coverage. Every median and all seven normal-repeat readings are retained.
+
+Independent result verification re-derives membership,260 screenshot hashes/body values,
+40 proof rows,37 original/copied log pairs, and **1,040 median/repeat comparisons per route**,
+including bars and rails, with no material finding. `css-projection/calval-1/scores.json.gz`
+is lossless over all **116,048,143 original JSON bytes**, decoded SHA-256
+**481cf7ae7be27a00f8248371b7bd3d68f6f6bea0e1a9a6e5515b1b9d04f0682f**; no raw field was
+trimmed. Primaries and original logs remain under `/Users/new/vitrea-w41/g1-captures/css-projection/`.
+
+**Recommendation for Decision Log4:** take the measured affine route to G2's production
+integration check; decline the saturate/plate route on its green residual. Neither is an
+adopted CSS counterpart yet. The prototypes omit the unconditional RGBA legibility floor
+when filters silently do nothing, sharp/heavy blur and spatial sharing, border stacking,
+rim/shadow and native supplied-path geometry. Nonuniform backdrops, policy, intermediate
+presence and author tint remain unvalidated; placement before L2 has boundary residuals.
+No platform CSS source or shipped document moved. The mirror table's historical step9-pending
+wording must be corrected to this scoped measurement after the remaining source-pin barrier
+clears, rather than preserved as an assertion that no CSS projection has been measured.
+
+### 19. The canonical diagnostic captures are complete; the eye read is next
+
+The browser sequence ends with **330 canonical calibration/validation diagnostic cells in
+12 profiles**, each with a fresh X6 pass, no refusal and no capture failure. The direct-capture
+path writes no matrix row, opens no native glass payload or canonical holdout, and includes
+no probe. Commit **`65bd9fbe`** freezes
+`canonical-diagnostic/attempt-1/frozen.json`, SHA-256
+**c7feb13235bcca869fca1821d840e35de999c29ea3aad860cf7f81e6ad49a4bc**. Its release census at
+**11:08:46.880178Z** is usable with zero foreign browser processes. Peers may resume; no further
+browser is needed for the current candidate's sheet export.
+
+The existing26.5 active-document/runtime-inactive semantics and27 active/receded document
+pairs are retained; only27 light-receded selects scratch E3. These are **candidate web pixels
+for the eye, not a canonical read, material seal or G2 referee**. The536 W39 candidate sheet
+map is separately derived and committed as **`43780f63`**, SHA-256
+**a61b2be5cb95bdbdae35993f897ad6a043ce47a1ed980db7fe32c9c333e3e36b**.
+
+Before actual native-sheet pixels were opened, **`52b998c2`** declares nine representative
+identities and normal-repeat ordinal0, choosing a real captured run rather than a median
+image. The full scope remains866 admitted sheets plus8 explicit UNMEASURED memberships;
+the nine examples do not replace it. CPU/Pillow-only rendering now carries both actual
+candidate columns, with W39 native pixels through the guarded calval reader. Its inventory,
+representative exports and visual findings remain pending at this checkpoint. No eye verdict
+is inferred from the passed numerical bounds.
+
+### 20. The full eye sheets are complete; the photo's spatial trade is explicitly deferred
+
+Step10 completes in **`64419bc3`**:874 inventory records, **866 rendered Native/Shipped/Candidate
+sheets** (330 canonical /536 W39) and8 explicit UNMEASURED memberships. Every admitted sheet
+has its actual candidate column;866 HTML and866 PNG hashes are verified. The full83,939,696-
+byte inventory has SHA-256 **f52dbcb03a9b164fbafb916a400c14e79c8d8405d1ae4a6b83a487e62064f44e**,
+losslessly stored as3,068,451 gzip bytes with SHA-256
+**94be7f7023736712219e4d0c6a5fa3c789ee72c43f5a5c97056d9c0452b8aa02**. Nine predeclared PNG/HTML
+examples are committed, and all536 W39 native panels select actual normal-repeat ordinal0
+with the complete seven-run protocol provenance; none is a synthetic median image.
+
+The first export run genuinely stalled after124 PNGs/125 HTMLs. Stack/FD evidence shows
+Python waiting for stdin EOF and Node's synchronous process runner waiting on its pipe,
+not expensive native reading or PNG computation. All249 existing files were hashed and
+preserved before stopping only that job. The additive recovery in **`b5054fca`** uses regular
+file descriptors, bounded child execution and per-cell checkpoints through unchanged G0
+rendering/export and native-reader code. Independent review closed a provenance gap by
+checking embedded Shipped display pixels against the current web capture and labelling
+recovered/current-byte provenance separately. A metadata-only preparation also refused an
+old authority pathname before any pixel read; only the new wrapper was corrected to the
+actual sealed authority-v2. Fourteen tests, strict TypeScript and the unchanged original
+seal plus the new44-pin recovery declaration pass before continuation. The pending125th
+PNG and741 remaining admitted cells are produced without regenerating any completed PNG or
+rereading native inputs for the125 preserved HTMLs. Every preserved hash still matches.
+
+The G1 owner **directly inspected all nine static sheets**, recorded separately in
+`sheets/owner-eye-reading.json`; the sheet worker's own reading is also retained. The
+light-inactive uniform example02 visibly improves body hue/level and nearly removes the
+amplified interior difference, while Apple's dark contour remains absent. Gradient example05
+reduces interior difference bands without closing the contour or identifying a spatial law.
+The active/dark controls and frozen26.5 example remain visually unchanged, with their existing
+chroma, rim, contour and body-structure gaps. Visual identity here is an observation; the
+machine byte identities are independently established in §15, not inferred by looking.
+
+**Photo-body texture is a named trade, not silently accepted.**
+[Sheet06](../../../packages/calibration/results/2026-09-27-w41-g1-identification/sheets/examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png)
+shows the1x light-inactive candidate removing the shipped body's broad hue/level band,
+especially across the green/yellow region, but introducing a mottled pattern at the backdrop's
+texture period that the smoother native body does not show. On sheet07's2x small photo, some
+local amplified residual patches are brighter than shipped: this is **not** a blanket photo
+improvement. The parent independently viewed02/06/07 and concurred in retaining E3 for the one
+exposure within its uniform-body claim, not in declaring a whole-material closure.
+
+**Mechanism hypothesis, not tested now:** `body_e3_codes` computes encoded luma per pixel and
+interpolates `g(L)` at63/93/118 on the existing post-refraction/blur backdrop. Local luma
+variation can therefore become chroma variation through the gain, whereas Apple's smoother
+body reads as if the law's argument were smoother—a larger blur scale or group-level luma.
+That is precisely the S1 blend-versus-blur question left as a finding under Decision Log6,
+not evidence identifying Apple's internal algorithm. The wave's Deferred list now names
+this exhibit and the next identifying spatial bed: independently varied group means and
+backdrop frequencies, with structured holdout declared before fitting. No new fit or test
+of that hypothesis is performed in G1.
+
+**Decision Log2 material:** retain light-inactive E3 for the one exposure once the remaining
+stroke verdicts are settled; retain the spatial finding and the proven stroke negatives
+without converting local searches into certificates. Uniform-body success is not permission
+to ignore the photo trade: **G2's M1/M2/L1 referees on the canonical bed remain load-bearing
+for any landing.** The affine CSS prototype establishes scoped reach, not production parity.
+Native holdout, G2 adoption, canonical publication and release are still pending; the eye
+read does not stand in for any of them.
+
+### 21. The exposure guards and reusable body inputs are ready; no exposure has run
+
+After the capture, scoring and sheet source barriers cleared, **`a47bf1ca` / `16977f4b`**
+landed the reviewed X6 launch guards. The runner now records a fresh pre-begin observation
+and checks each intended candidate/profile browser launch, sharing one cumulative 60-minute
+waiting budget across the exposure. Capture time is excluded; observations are durable,
+30 seconds apart while waiting, and the frozen snapshot is reverified before launch.
+Observation errors, changed snapshots and expiry fail closed. This is an execution guard,
+not a new scientific admission or permission to repeat a begun exposure.
+
+The source bridge in **`4e3ac173` / `5d7c37ee`** preserves the old source witnesses rather
+than resealing them. It checks all 4,212 frozen capture files and 600 domain records, and
+reproduces all 648 public numerical predictions byte-for-byte. Among the 191 capture-source
+witnesses and each 28-source numerical/rendered witness, only `exposure/runner.py` changes:
+SHA-256 **02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96** becomes
+**5ae591ad6ea2098613e75dfb6377875314fcc2280d7526bf80e139f206436c08**. The pre-existing
+assessment, aggregation, membership and scoring functions remain unchanged. The historical
+capture verifier intentionally still pins the old runner; its refusal at the new revision
+would not authorize overwriting that seal. The final execution manifest must name the new
+runner separately and retain this bridge. No native payload or browser was opened by it.
+
+The CSS counterpart table's stale wording is corrected in **`5d492c15`**: the measured
+prototypes in §18 are no longer called unmeasured, while the production counterpart remains
+`none:`. This test-comment change is outside the runtime/capture source inventories; it
+claims neither a shipped CSS mirror nor parity. Its 65 tests and independent review pass.
+
+**`4b9c384b` / `40f436b7`** prepare the reusable BODY-E3 candidate inputs under
+`exposure/assembly/body-e3-2/`. There are 600 exact `{png, projection}` rendered records,
+450 endpoint-identity records including 48 blind WEB identities, and ordinary-JSON survival
+maps with 576 numerical, 536 rendered and 536 veto admissions. The four enabled structured
+light-inactive rendered diagnostics are not misclassified as identity cells. Full raw and
+admission reports remain unchanged, hash-bound instruments; cell-addressed pointers retain
+the detail removed only from the duplicated compact view. This is not a replacement of raw
+evidence by a pass flag.
+
+The reducer streams one cell at a time. It preserves all 1,112 raw-versus-compact assessments
+and the existing coverage: numerical 136 measured plus 2 censored constraints, 438 unclaimed;
+rendered 128 measured plus 2 censored constraints, 406 unclaimed. Independent review checks
+all 5,777 input hashes, all four retained reports, all 1,112 cells, 1,128 deep members and
+7,896 repeat rows, with no remaining finding. The actual reduction takes **200.39 seconds**
+and peaks at **283,246,592 bytes RSS**. The roughly 15 MB survival file avoids duplicating
+2.45 GB of detail without deleting it. Fourteen assembly and six bridge tests pass; the
+reviewed parser bounds malformed-input buffering and binds the historical bridge before
+import, rather than trusting whatever artifacts happen to occupy those paths now.
+
+The first reduction refused publication because a concurrent stroke commit moved HEAD;
+its log remains and no output directory was created. The unchanged reducer then ran under
+a coordinated commit hold, naming source revision **`2b4b4563`**. Its survival SHA-256 is
+**09dd28ca1d52914c001598becc1ee3711580a560471205d705796abde7f77c0d**. Neither attempt opened
+a native payload, launched a browser, froze the final wave or wrote a receipt. These inputs
+contribute one candidate to the eventual complete configuration; **all remaining stroke
+verdicts still precede the one shared exposure**.
+
+### 22. Current E3 checks pass; the absent canonical tree is explicitly UNMEASURED
+
+`close-checks/current-e3-1/` records the current E3-only frontier, not final wave closure.
+The complete calibration suite passes **60 files, 768 tests, one skip**, in 358.82 seconds;
+ESLint and all four TypeScript projects pass separately. The skipped adopted X1 assertion
+reports **“UNMEASURED X1: canonical capture tree absent; no pixel assertion passed.”** The
+worktree has no canonical `web-captures` tree and no `VITREA_WEB_CAPTURES` override. The W34
+side harness exists and is not the skip cause. Commit `d43954e1`'s mistaken skip attribution
+is corrected additively in **`6482f939`**, retaining both the valid test logs and the reporting
+error; no test result or scientific reading is rewritten.
+
+The frozen 1,818-entry verification passes, and the protected-path diff against `3d13f039`
+is empty for native fixtures, shipped profiles, matrices/generations/archives, adopted
+thresholds and goldens. The G0 declaration tree remains unchanged. If a later stroke leaf
+changes runtime behavior, its affected checks must run before closure; this checkpoint is
+not an exemption. The native exposure receipt remains absent.
+
+### 23. M2 ends as an unfinished search, UNMEASURED by user decision
+
+The user ends the remaining device-width/nominal-curvature M2 search in this wave as
+**UNMEASURED, not rejected**. Commit **`047b7861`** records the disposition in
+`stroke/M2-unfinished-search-1.json`, SHA-256
+**ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46**. The independent
+active-endpoint and CSS-width certificates remain their own results; this unfinished search
+neither weakens those certificates nor supplies a new negative for the other M2 scopes.
+
+At that record, original device start00 is complete, with local calibration minimax maximum
+**11.88340887316462 codes** and least-squares maximum **17.898092708080235**. Those are one
+start's optimizer readings, not all-repeat calibration/validation survival or a global
+minimum. Device start02 is stopped and **ABORTED_UNSCORED**, with its original seed vector
+and execution records retained; no completed coefficient checkpoint exists. Device start01
+may finish only its already-running start before the final wave freeze, otherwise it is
+stopped and recorded ABORTED_UNSCORED in an additive terminal supplement. The other 29
+original indices are unstarted. No new M2 start follows, and no M2 validation or holdout
+reading is made. The final terminal supplement must precede the exposure freeze.
+
+The reason is the observed cost of executing the sealed nested budgets on this machine,
+not a relaxed stopping criterion. `stroke/operational-deviations/M2-budget-arithmetic-for-owner-1.json`
+retains the actual `max_nfev=3000`, SLSQP `maxiter=3000`, and up-to-eight width rounds. Across
+the nested path this permits at most 29 optimizer calls (nine least-squares and twenty
+SLSQP), before numerical-Jacobian and constraint-callback multiplicity. These are permitted
+counts, not measured callback counts or a duration bound. Completed device00 takes about
+49.8 minutes wall time, whereas unfinished device01 has already accumulated **36,683.08
+CPU seconds** against **35,274 process-wall seconds** at the disposition snapshot. Thus
+“30 unfinished starts × about ten CPU-hours ÷ two concurrent ≈150 hours, or6.25 days” is a
+**conditional planning scenario from an unfinished seed**, not a measured per-start forecast.
+The user judged finishing the search infeasible within this wave; seeds, budgets, populations
+and the sealed survival criterion are not shortened to manufacture a completed verdict.
+
+The source also establishes **M2 equals M1 on light-inactive inputs**: both use the same
+eight-knot monotone response, and M2's contextual correction is dark-gated. This is forward-
+family equivalence, not proof that a finite M1 search excludes every M2 joint-fit coefficient
+vector. The shared-width joint optimization remains unfinished, and the new dark-inactive
+material expressivity remains unmeasured. The remaining M1 light-inactive transfer verdict
+will determine whether any stroke reaches scratch-leaf and rendered admission; a numerical
+survivor still needs those checks. The body candidate may proceed alone only after that
+disposition and final configuration review. No exposure has run at this checkpoint.
+
+
+### 23. M2 is an unfinished search, UNMEASURED by decision, not a negative result
+
+The user ends the remaining inactive device-width/nominal-curvature **M2 search as
+UNMEASURED in this wave**, relayed by the coordinator on 2026-09-29 local time. The
+scientific declaration is not amended and no per-start budget is shortened; the unexecuted
+search remains unexecuted. Commit **`047b7861`** records the disposition in
+`stroke/M2-unfinished-search-1.json`, SHA-256
+**ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46**. Independent active
+support and CSS-width certificates retain their own scopes; they do not turn this unfinished
+inactive search into a family rejection.
+
+At that checkpoint, original device start00 is complete: local calibration minimax maximum
+**11.88340887316462 codes**, least-squares maximum **17.898092708080235**. This is one
+optimizer start, not an all-repeat calibration/validation verdict. Device start02 is
+**ABORTED_UNSCORED**, stopped with its original seed vector and execution records retained;
+no completed coefficient checkpoint exists. Device start01 may finish only its current
+start before the final exposure freeze; otherwise it is stopped and recorded as
+ABORTED_UNSCORED. Twenty-nine original indices remain unstarted. A terminal supplement must
+record start01's actual disposition before freezing; no new M2 start follows this ruling.
+M2 validation and native holdout remain unread.
+
+The cost argument is measured but its extrapolation is conditional. Start00 took about
+49.8 minutes, whereas the still-unfinished start01 had consumed **36,683.08 CPU seconds**
+over 35,274 process-wall seconds at the disposition reading. The sealed nested budget can
+invoke up to nine least-squares calls (`max_nfev=3000`) and twenty SLSQP calls
+(`maxiter=3000`), including up to eight width rounds per objective. These distinct counters
+are not summed as actual forward evaluations. The owner's planning scenario—30 unfinished
+starts at about ten CPU-hours each on two concurrent processes, approximately **150 hours
+or 6.25 days**—is not a measured per-start constant, completion forecast or worst-case bound.
+The exact effect of historical contention and the unfinished start's remaining work are
+unmeasured. The record links the actual CPU observations, completed cache counters and
+budget arithmetic rather than attributing scheduler idle gaps to solver time.
+
+**M2 equals M1 on the light-inactive forward response**, because M2's contextual correction
+is gated by the dark scheme. Its additional material expressivity is therefore untested on
+dark inactive. This identity does not make a finite M1 multistart failure a global M2
+exclusion: the shared-width joint optimization is unfinished, and no theorem excludes all
+its coefficient vectors. The wave's Deferred list carries the unresolved search with that
+qualification. The single exposure may proceed with light-inactive E3 and only an M1
+candidate that clears its full numerical and actual rendered gates; M2 supplies no candidate
+and no holdout claim in this wave.
+
+
+**Provenance correction — 2026-09-28T19:23:18+00:00 (2026-09-29 local).** No user ruling on M2
+has been received. The coordinator corrected the earlier relay: ending M2 as an unfinished,
+UNMEASURED search and proceeding toward a body-only exposure was the coordinator's
+recommendation, awaiting the user's answer among three options, not a user decision.
+The “user ruling relayed by the coordinator” provenance recorded in `047b7861`, `53743321`
+and the M2 entries above was recorded in error. This correction applies to all copies of
+that claim, including both section23 entries; the historical text and JSON are retained,
+not rewritten. The measured partial results and budget observations remain evidence, but
+they establish no consent or final disposition. **M2 is on HOLD pending the actual user
+ruling; final configuration freeze, external preflight and exposure do not proceed on this
+recommendation.** M1 transfer continues. If the user chooses differently, the proposed
+UNMEASURED disposition will be superseded additively; even if the user agrees, that later
+ruling must be recorded as a new event rather than backdated to these erroneous entries.
+
+
+**Process-state supplement to the provenance correction — 2026-09-28T19:23:11Z
+(2026-09-29 local), committed as `22e103ca`.** The stroke lead's pinned process reading
+also corrects the asserted abort: device start02 in partitionA is stopped **in flight**,
+with its process and original seed intact; no termination signal was sent. The earlier
+ABORTED_UNSCORED designation was false, not evidence of an actual abort. PartitionB may
+finish current device start01 and then park under the existing HOLD; the purported
+abort-at-final-freeze instruction is withdrawn. Only device start00 is complete at this
+reading. Neither resume nor abort of the held start is authorized by the false ruling.
+`stroke/M2-provenance-correction-1.json`, SHA-256
+**b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a**, retains the
+process snapshot and sends no process signals. M1 transfer continues unchanged.
+
+
+**Authority supersession — 2026-09-28T19:29:05+00:00 (2026-09-29 local).** The current coordinator
+explains that two live processes of its same session existed. The user's M2 answer reached
+only the current process; the other process incorrectly concluded that no answer existed
+and caused `0eb8f6ca`, `fe775bba` and the stroke supplement `22e103ca` to deny the ruling.
+Those denials are now superseded, not erased. The current coordinator relays the actual
+user answer, given to its question containing the sealed-budget arithmetic:
+
+> “Record M2 as unfinished (UNMEASURED) and expose the body candidate now”.
+
+The **unfinished/UNMEASURED M2 ruling is restored as authoritative**. The earlier
+`047b7861` / `53743321` attribution was not invalid merely because the duplicate process
+had not received that answer. This is a dated restoration of the authority chain, not a
+newly invented answer or a backdated replacement of the intervening error. Per the current
+coordinator, the other process has stood down and the user is closing it; only the current
+process's instructions govern the continuation. The stroke lead is appending a matching
+supersession to its provenance chain. All old entries and hashes remain findable.
+
+Actual process facts are not changed retroactively: device02 was paused in flight, not
+terminated, at `22e103ca`'s recorded observation. Its later terminal disposition must be
+recorded separately; restored authority cannot make the prior ABORTED label factual. No new
+M2 start is admitted. The remaining M1 numerical transfer and any necessary leaf/render/veto
+requirements still govern whether a stroke can join the complete candidate configuration.
+The body may proceed through reviewed configuration assembly and freeze under the restored
+ruling; the ONE receipt still requires the explicit hands-off window confirmation and the
+unchanged X6/preflight chain. No exposure has occurred as part of this supersession.
+
+
+### 24. The complete M1 light-inactive search has no survivor; this is a local negative
+
+The remaining M1 transfer is complete and independently reviewed: raw 31 outputs and the
+child-terminal receipt land in **`fdae0526`**, the final measured-witness verdict and review
+closure in **`33718e2e`**. The verdict of record is
+`stroke/M1-light-inactive-verdict-2.json`, SHA-256
+**e13aaec279526818b5104e7b0e9840d14482b24b602744e3628d130769c138bc**; its clean review is
+`M1-light-inactive-review-closure-1.json`, SHA-256
+**8678a18032262f45ec041140c7de1a42ebcce8ebcad4bde3016f4e3d294c4ec0**.
+
+All **32 original starts** complete their unchanged declared budgets and seed4100 vectors:
+16 device-width and16 nominal-curvature. The frozen selected least-squares and minimax
+candidate from each geometry is converged, rank10, with zero rail deficit. Selection is
+frozen before validation; the transfer reads **144 light-inactive cells,126 calibration
+and18 validation, seven normal repeats each**, with no holdout. All four candidates fail
+both roles at both scales. **No surviving fitted stroke reaches implementation or exposure.**
+This is a completed sealed **LOCAL search failure**, not a coefficient-independent or global
+M1-family rejection.
+
+The table uses the largest measured-only median excess whose seven repeats are also all
+measured and failed, rather than silently treating a mixed censored-status row as pure
+accuracy evidence. Every listed channel has bar0.5 and bound1.0code. “Failed bins” is the
+saved full binding-failure count, not just the witness count. For every candidate, admitted
+bins are4,158/9,348 for calibration1x/2x and606/1,332 for validation1x/2x; population-deficient
+bins remain explicit exclusions, never fabricated successes.
+
+| Selected local candidate | Stratum | Witness error (codes) | Failed bins | Measured median witness (same channel fails all7 repeats) |
+| --- | --- | ---: | ---: | --- |
+| curvature-M1 / leastSquares | calibration / 1x | 4.426918 | 1043 | g128-c-rrect-120x64__inactive, arc, shell0, bin8, R |
+| curvature-M1 / leastSquares | calibration / 2x | 8.050676 | 1226 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| curvature-M1 / leastSquares | validation / 1x | 5.310006 | 164 | g128-c-rrect-120x96__inactive, arc, shell0, bin0, R |
+| curvature-M1 / leastSquares | validation / 2x | 9.406079 | 204 | g128-c-rrect-120x96__inactive, arc, shell0, bin8, R |
+| curvature-M1 / minimax | calibration / 1x | 5.324812 | 1208 | v270-c-c44__inactive, arc, shell0, bin12, R |
+| curvature-M1 / minimax | calibration / 2x | 5.324908 | 1546 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| curvature-M1 / minimax | validation / 1x | 5.153982 | 180 | g128-c-capsule-circular-120x96__inactive, straight top, shell0, bin12, R |
+| curvature-M1 / minimax | validation / 2x | 6.729426 | 220 | g128-c-rrect-120x96__inactive, arc, shell0, bin8, R |
+| device-M1 / leastSquares | calibration / 1x | 4.558767 | 1149 | green-colour__inactive, arc, shell0, bin2, G |
+| device-M1 / leastSquares | calibration / 2x | 7.467718 | 1328 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| device-M1 / leastSquares | validation / 1x | 4.875137 | 158 | g128-c-rrect-120x96__inactive, arc, shell0, bin0, R |
+| device-M1 / leastSquares | validation / 2x | 8.904934 | 192 | g128-c-rrect-120x96__inactive, arc, shell0, bin8, R |
+| device-M1 / minimax | calibration / 1x | 5.403075 | 1232 | g128-b-c44__inactive, straight top, shell0, bin12, R |
+| device-M1 / minimax | calibration / 2x | 5.403075 | 1496 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| device-M1 / minimax | validation / 1x | 7.824260 | 166 | g128-c-rrect-120x96__inactive, straight left, shell0, bin8, R |
+| device-M1 / minimax | validation / 2x | 7.824260 | 194 | g128-c-rrect-120x96__inactive, straight left, shell0, bin8, R |
+
+The fixed-coefficient **16→32 quadrature sensitivity** reaches1.988735codes at worst; it
+is not claimed negligible. Instead, the saved replay takes each stratum's maximum pixel
+changeD and applies the triangle inequality, `MAE32 >= MAE16 - D`. Every one of the16
+measured witnesses still exceeds its unchanged1-code bound; the smallest remaining excess
+is **2.016885637698188codes**. No32-point coefficient was refitted. Saved-only independent
+replay reproduces all32 input hashes,31 output hashes, populations, witness channels,
+seven-repeat failures and those bounds; a changed-witness negative control refuses.
+
+The first verdict is retained. Its device least-squares calibration1x “worst” was a mixed
+channel at `g255-c-c44__inactive`, arc/shell1/bin2/R: two rail pixels satisfy their constraints,
+while five uncensored pixels have a5.133836-code mean error. That **is a binding failure**
+under the declared rule that an uncensored failure remains binding beside censoring; the
+problem was unqualified presentation of its `censored-bound-satisfied` status as a measured
+witness, not a change to the scientific failure criterion. V2 selects the fully measured
+`green-colour__inactive` arc/shell0/bin2/G witness at4.558767codes instead. The other15
+witnesses and every candidate verdict remain unchanged; no raw reading was rewritten and
+no native read or fit was repeated for the correction.
+
+Resolution does not select a winner among failed candidates. The fitted device/curvature
+minimax instances differ by4.509438/4.078050codes on calibration1x/2x and4.780489/4.741115 on
+validation1x/2x, above the three-code resolution line in some bins; these are differences
+between available local instances, not a family theorem or a surviving material. The
+max-normal gauge remains a convention, not an identified physical opacity or stroke width.
+
+**Stroke disposition across the36 geometry/material/endpoint combinations:**30 are excluded
+by the reviewed coefficient-independent controls/relaxations (all active endpoints, M0 both
+inactive endpoints, M1 dark inactive, and the remaining CSS-width cases); two M1 light-
+inactive device/curvature cases now have this completed local negative; four M2 inactive
+device/curvature cases remain **unfinished/UNMEASURED by the restored user ruling**, not
+rejected. Consequently the complete exposure candidate list is **light-inactive E3 body
+only**. Actual M2 process termination/disposition is still recorded separately before the
+final freeze; no stroke operator or stroke holdout claim is introduced. The one native
+receipt has not run.
+
+
+**Population transcription correction to §24, 2026-09-29 local.** The preceding prose's
+validation admitted-bin counts606/1,332 are incorrect. The reviewed verdict's saved strata
+state **588 at1x and1,292 at2x**, from720/1,440 required bins with132/148 population-deficient
+bins excluded. Calibration4,158/9,348 is correct. This corrects only the coordinator's prose
+transcription in `5ea44868`; the generated16-row witness table, raw output files, reviewed
+verdict, failure counts and scientific conclusions do not change.
+
+
+### 25. The one exposure: light-inactive E3 meets the bound on every claimed held-out cell
+
+**The configuration and freeze.** Before the freeze, the M2 terminal record was committed
+(**`afed9dc3`**, `stroke/M2-terminal-record-1.json`). The host restarted at
+**2026-09-28T22:24:32Z** (`kern.boottime` 1790634272, `kern.shutdownreason`
+“wdog,reset_in1 ap_restart”). That restart ended device start01, last observed running at
+19:23Z, and device start02, stopped in flight since 19:01:51Z. Neither start had completed.
+Both are **ABORTED_UNSCORED**, dated to the restart rather than backdated; their seeds are
+retained and their in-memory state is lost. No M2 start follows. The six partial records
+the disposition rests on are pinned, since no writer remains.
+
+The reviewed configuration (**`becb2fde`**; reviewer-high, no material findings) binds
+**body-e3 only**, with 6,411 instruments. `runner.freeze`, run by the recorded command,
+wrote `exposure/final-configuration/manifest-1.json` in **`52f62227`**:
+- SHA-256 **77f93ba2166e83a8e31bb5f26a1c5ffb9e6d2be35fa5ec5509a0a19e72ba95a7**;
+- revision `becb2fde`;
+- 6,575 pinned files and 418 automatic sources;
+- production mode.
+
+**The exposure run.** Immediately before the receipt, three checks passed:
+- the browser's executable, framework and Info.plist hashes, its version
+  **151.0.7922.34**, and all 655 recursive chromium-1234 entries matched their
+  attestations, without a launch;
+- the external preflight passed (`runner.verify` in 181 s);
+- the user confirmed the hands-off window through the coordinator.
+
+**Attempt-1's pre-begin X6 gate refused**, and the receipt was not begun. The refusal came
+at 23:30:31Z on `foreignProcessCountZero`. The one foreign process was the exposure owner's
+own progress watcher: its shell command line carried a token that the FOREIGN census
+matches. The coordinator had already ruled that a pre-begin refusal is not a begun attempt,
+so a rerun into a new directory was admitted; the refusal record stays as it stands.
+
+**Attempt-2** ran as follows:
+- Its pre-begin gate and all four profile gates passed. The four gates used 538 s of the
+  cumulative 3,600 s X6 budget, including the in-guard manifest re-verification.
+- It captured 64 cells, each byte-identical over two loads, with no CSS fallback.
+- Every recapture equals its frozen PNG and projection. The 48 unclaimed rendered cells
+  are byte-identical to the identity baseline.
+- The receipt log (`2026-09-26-w39-g0-colour-edge-bed/wave-identification-receipt.jsonl`)
+  records **begin at 23:35:33.849Z and complete at 23:53:22.306Z**.
+
+**The W39 holdout is now spent.** This was W41's one begun attempt.
+
+**Result, on the claimed stratum** (light-inactive, uniform backdrop, both scales; bound
+max(1 code, bar) = 1.0 code on every claimed channel):
+
+| kind | claimed held-out | measured, passing | censored (UNMEASURED) | worst median error |
+| --- | ---: | ---: | ---: | --- |
+| numerical | 18 | **18** | 0 | **0.666 codes**, held-y0.08-h150 G, both scales |
+| rendered | 16 | **16** | 0 | **1.0 code**, at the bound: G 170 against native 171 on held-y0.08-h150 and -h270, both scales |
+
+> **Corrected 2026-09-29 (review closure).** The rendered row's witness gives held-y0.08-h270
+> the h150 values. `exposure/receipt-1/summary.json` records h270 as drawn **G 167 against
+> native G 168**, at both scales; h150's G 170 against native 171 stands. The margin paragraph
+> below already reads this correctly. **The verdict does not move**: both cells are one-code
+> errors, exactly at the 1.0-code bound, and both pass.
+
+**The veto.** The per-bin veto passes on **all 64** rendered held-out cells. Of its 34,624
+bins, **29,584 pass**, 5,040 are UNMEASURED at a population below four pixels, and the
+largest worsening against the shipped baseline is **0.0 codes**.
+
+**Coverage and closure.** Measured coverage is **all claimed held-out cells**: 18/18
+numerical and 16/16 rendered. That is **18/72 and 16/64 of the whole held-out set**. The
+remaining 54 numerical and 48 rendered cells belong to the three unclaimed endpoints, which
+draw the shipped identity. Their scores are kept as diagnostics of the shipped material,
+with worst measured errors of 10.5 (light active), 15.1 (dark active) and 13.0 (dark
+inactive) codes; they are not candidate claims. **Under clause 11 and X31, E3 therefore
+CLOSES for the light receded body on uniform backdrops**: every measured held-out cell of
+its claim meets the bound, both numerically and as the renderer that would ship draws it.
+
+The closure does not extend beyond that claim:
+- **No other endpoint.** Dark E3/EH6 remain certified infeasible, and light-active E3 fails
+  its span-96 transfer by 3 codes (§2, §4).
+- **No structured backdrop.** Structured backdrops stay a diagnostic domain.
+- **Nothing further on the WebGPU tier.** The WebGPU tier's claim is exactly this; the CSS
+  tier's carry is Decision Log 4's, measured in G2.
+
+**Margin.** The rendered margin is **zero on two colour cells at both scales**: the drawn
+8-bit value sits one code from native where the numerical prediction is within one
+(held-y0.08-h150 G: 170.33 predicted, 170 drawn, 171 native; -h270 G: 167.49, 167, 168).
+Any later change that moves a rendered prediction therefore stops the landing (X26) rather
+than inheriting this closure. G2's canonical referees remain load-bearing before any
+shipping: M1/M2/L1/X1, the photo-body texture trade of §20, the canonical holdout by
+artifact, and the eye sheets.
+
+**Evidence.** `exposure/receipt-1/` holds:
+- both runner output trees and the drivers;
+- gzip copies of the runner's 111,640,287-byte scores file and the 222,690,690-byte
+  `result.json`, at 1.6 and 3.2 MB and round-trip identical;
+- `storage.json`, recording every full file's size and SHA-256 (scores **7479b388…**,
+  result **26631fbe…**);
+- `summary.json`, derived by `summarize.py.txt`.
+
+This was committed in **`fc157275`**. The full files stay untracked at the runner path or
+outside git, and no committed file exceeds 50 MB.

@@ -1,0 +1,25 @@
+{
+  "kind": "STROKE_EXECUTION_BATCH_OWNERS",
+  "batches": {
+    "M1": {
+      "worker": "a66da8592b83590a9",
+      "starts": 22,
+      "manifest": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1.json"
+    },
+    "M2-device": {
+      "worker": "affa18413fdc256bf",
+      "starts": 15,
+      "manifest": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M2-device.json"
+    },
+    "M2-curvature": {
+      "worker": "aa5fb82b69db2363f",
+      "starts": 16,
+      "manifest": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M2-curvature.json"
+    }
+  },
+  "scope": "Execute only predeclared original starts through reviewed adaptive runner; no edits, commits, validation, holdout or new native capture.",
+  "progressRule": "Per-start progress stays in owned run records. Owner/coordinator notified only on verdict, decision need or all remaining starts complete.",
+  "policy": "All workers share the authoritative allocation lock and adaptive admission; concurrency is not promised by the number of workers.",
+  "completedBeforeDispatch": 11,
+  "remaining": 53
+}

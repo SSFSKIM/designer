@@ -1,0 +1,33 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/e3-implementation/packages/calibration
+
+ ❯ test/capture-integrity.test.ts (22 tests | 1 failed | 20 skipped) 9ms
+     × refuses malformed E3 values instead of recording an unapplied or nonfinite tune 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/capture-integrity.test.ts > the material profile document's key admission > refuses malformed E3 values instead of recording an unapplied or nonfinite tune
+AssertionError: bodyE3Strength=null: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ test/capture-integrity.test.ts:122:14
+    120|         for (const reader of [readMaterialProfileFile, readRecededProf…
+    121|           expect(() => reader(write({ patch: { [key]: value } })), `${…
+    122|             .toThrow(new RegExp(key));
+       |              ^
+    123|         }
+    124|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 20 skipped (22)
+   Start at  17:45:57
+   Duration  148ms (transform 33ms, setup 0ms, import 49ms, tests 9ms, environment 0ms)
+

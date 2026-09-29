@@ -1,0 +1,261 @@
+{
+  "body": "DIAGNOSTIC B1/E3; no complete body family survived",
+  "cells": 16,
+  "rows": 768,
+  "results": [
+    {
+      "endpoint": "light-active",
+      "family": "S0",
+      "objective": "leastSquares",
+      "maximumCodes": 4.181818181818159,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "light-active",
+      "family": "S0",
+      "objective": "minimax",
+      "maximumCodes": 4.181818181818159,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "light-active",
+      "family": "S1",
+      "objective": "leastSquares",
+      "maximumCodes": 3.945198544662844,
+      "coefficients": [
+        0.9256338283226175
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "light-active",
+      "family": "S1",
+      "objective": "minimax",
+      "maximumCodes": 3.799999999999983,
+      "coefficients": [
+        0.8799999999999972
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "light-active",
+      "family": "S2",
+      "objective": "leastSquares",
+      "maximumCodes": 2.2774973847378703,
+      "coefficients": [
+        0.9256338180432729,
+        5.76468791504856
+      ],
+      "rank": 2,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "light-active",
+      "family": "S2",
+      "objective": "minimax",
+      "maximumCodes": 2.221382697393267,
+      "coefficients": [
+        0.959123536078578,
+        5.651681148469967
+      ],
+      "rank": 2,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "light-inactive",
+      "family": "S0",
+      "objective": "leastSquares",
+      "maximumCodes": 1.9166666666666856,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "light-inactive",
+      "family": "S0",
+      "objective": "minimax",
+      "maximumCodes": 1.9166666666666856,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "light-inactive",
+      "family": "S1",
+      "objective": "leastSquares",
+      "maximumCodes": 1.0143982086243852,
+      "coefficients": [
+        0.6086389251746412
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "light-inactive",
+      "family": "S1",
+      "objective": "minimax",
+      "maximumCodes": 1.009174311926614,
+      "coefficients": [
+        0.6055045871559762
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "light-inactive",
+      "family": "S2",
+      "objective": "leastSquares",
+      "maximumCodes": 1.0143982086243852,
+      "coefficients": [
+        0.6086389251746412
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "light-inactive",
+      "family": "S2",
+      "objective": "minimax",
+      "maximumCodes": 1.009174311926614,
+      "coefficients": [
+        0.6055045871559762
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-active",
+      "family": "S0",
+      "objective": "leastSquares",
+      "maximumCodes": 3.2727272727272805,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "dark-active",
+      "family": "S0",
+      "objective": "minimax",
+      "maximumCodes": 3.2727272727272805,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "dark-active",
+      "family": "S1",
+      "objective": "leastSquares",
+      "maximumCodes": 3.1366094368503923,
+      "coefficients": [
+        0.916284980207867
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-active",
+      "family": "S1",
+      "objective": "minimax",
+      "maximumCodes": 3.069271758436969,
+      "coefficients": [
+        0.9378330373001682
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-active",
+      "family": "S2",
+      "objective": "leastSquares",
+      "maximumCodes": 2.0614255488819992,
+      "coefficients": [
+        0.916284956303828,
+        4.113747335427394
+      ],
+      "rank": 2,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-active",
+      "family": "S2",
+      "objective": "minimax",
+      "maximumCodes": 2.0076153072465104,
+      "coefficients": [
+        0.9483212797547771,
+        3.9365870012932245
+      ],
+      "rank": 2,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-inactive",
+      "family": "S0",
+      "objective": "leastSquares",
+      "maximumCodes": 2.666666666666657,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "dark-inactive",
+      "family": "S0",
+      "objective": "minimax",
+      "maximumCodes": 2.666666666666657,
+      "coefficients": [],
+      "rank": 0,
+      "classification": "fixed null"
+    },
+    {
+      "endpoint": "dark-inactive",
+      "family": "S1",
+      "objective": "leastSquares",
+      "maximumCodes": 1.0,
+      "coefficients": [
+        0.5722467821094641
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-inactive",
+      "family": "S1",
+      "objective": "minimax",
+      "maximumCodes": 1.0,
+      "coefficients": [
+        0.5641027219836615
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-inactive",
+      "family": "S2",
+      "objective": "leastSquares",
+      "maximumCodes": 1.0,
+      "coefficients": [
+        0.5722467821094641
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    },
+    {
+      "endpoint": "dark-inactive",
+      "family": "S2",
+      "objective": "minimax",
+      "maximumCodes": 1.0,
+      "coefficients": [
+        0.5641027219836615
+      ],
+      "rank": 1,
+      "classification": "LOCAL; not a certified family negative"
+    }
+  ],
+  "spatialHoldoutCells": 0,
+  "spatialLeaf": false
+}

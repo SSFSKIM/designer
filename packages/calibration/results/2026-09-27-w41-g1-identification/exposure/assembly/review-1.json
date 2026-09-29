@@ -1,0 +1,26 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "verdict": "incorrect",
+  "checkpoint": "Initial7synthetic-test reducer, before actual assembly",
+  "findings": [
+    {
+      "priority": "P2",
+      "finding": "Current Git hashes did not verify reused predictions/reports and source witnesses against transition/reading-1.json historical pins.",
+      "verified": true,
+      "disposition": "bounded fix worker"
+    },
+    {
+      "priority": "P2",
+      "finding": "Imported transition/bridge.py omitted from assembly-local committed/hash-checked source set.",
+      "verified": true,
+      "disposition": "bounded fix worker"
+    },
+    {
+      "priority": "P2",
+      "finding": "Malformed streamed JSON could cause whole remaining report buffering; finite per-value bound or irreparable-error detection required.",
+      "verified": true,
+      "disposition": "bounded fix worker"
+    }
+  ],
+  "limits": "No actualassembly/native/browser/receipt/freeze performed."
+}

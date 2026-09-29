@@ -1,0 +1,124 @@
+{
+  "excluded": "Initial x6/bounded-observations.jsonl is already historically compressed; untouched and excluded. No frozen-pinned attempt record was compressed or changed.",
+  "note": "External logs and completed observer/scheduling records retained without normalization. Empty capture-resume-2.txt is preserved as empty; it makes no success claim. Only capture-resume-3.txt prints complete600. Raw JSONL remains on disk; committed gzip decodes to its recorded SHA256.",
+  "records": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-attempt-1.txt": {
+      "encoding": "unchanged raw",
+      "rawBytes": 1106,
+      "rawCommitted": true,
+      "rawSha256": "b3d14f158049fd579e664770a12ecaa777ef91cd828ffa8cb0b478f448fd02a1",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-attempt-1.txt",
+      "storedBytes": 1106,
+      "storedSha256": "b3d14f158049fd579e664770a12ecaa777ef91cd828ffa8cb0b478f448fd02a1"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-resume-1.txt": {
+      "encoding": "unchanged raw",
+      "rawBytes": 1106,
+      "rawCommitted": true,
+      "rawSha256": "b3d14f158049fd579e664770a12ecaa777ef91cd828ffa8cb0b478f448fd02a1",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-resume-1.txt",
+      "storedBytes": 1106,
+      "storedSha256": "b3d14f158049fd579e664770a12ecaa777ef91cd828ffa8cb0b478f448fd02a1"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-resume-2.txt": {
+      "encoding": "unchanged raw",
+      "rawBytes": 0,
+      "rawCommitted": true,
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-resume-2.txt",
+      "storedBytes": 0,
+      "storedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-resume-3.txt": {
+      "encoding": "unchanged raw",
+      "rawBytes": 180,
+      "rawCommitted": true,
+      "rawSha256": "2a49e68f941adb35deb08df542c9570347a72864957196a2a247cd26f5c359e8",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/capture-resume-3.txt",
+      "storedBytes": 180,
+      "storedSha256": "2a49e68f941adb35deb08df542c9570347a72864957196a2a247cd26f5c359e8"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-1.jsonl": {
+      "encoding": "gzip; lossless byte roundtrip verified",
+      "rawBytes": 347207,
+      "rawCommitted": false,
+      "rawSha256": "0e899537d67ee33f2074ca3d55c598de6bd73b20897faabefa6d4aa483db64f5",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-1.jsonl.gz",
+      "storedBytes": 44994,
+      "storedSha256": "d3f78d809e6541c6fa8478ba40f96cf830e547605b4336f3ff5fd3d773ff62d3"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-1.summary.json": {
+      "encoding": "unchanged raw",
+      "rawBytes": 160,
+      "rawCommitted": true,
+      "rawSha256": "064f14fb1cb55573104131e87459867231872bea9bf572589b692a216111ddc4",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-1.summary.json",
+      "storedBytes": 160,
+      "storedSha256": "064f14fb1cb55573104131e87459867231872bea9bf572589b692a216111ddc4"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-1.txt": {
+      "encoding": "unchanged raw",
+      "rawBytes": 256,
+      "rawCommitted": true,
+      "rawSha256": "a5eaca201502450243f0630b089035c70941998b508afe999afb90d44e8e0f34",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-1.txt",
+      "storedBytes": 256,
+      "storedSha256": "a5eaca201502450243f0630b089035c70941998b508afe999afb90d44e8e0f34"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-2.jsonl": {
+      "encoding": "gzip; lossless byte roundtrip verified",
+      "rawBytes": 181995,
+      "rawCommitted": false,
+      "rawSha256": "1688ef1a998184bace5f5ab291364394fb4a97f3c14cf2cb02df804593cbaa42",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-2.jsonl.gz",
+      "storedBytes": 24233,
+      "storedSha256": "f257dfca5e790554e5e4cc6b7bc2182053480ab6d877333e1303bed3d4c31c17"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-2.summary.json": {
+      "encoding": "unchanged raw",
+      "rawBytes": 164,
+      "rawCommitted": true,
+      "rawSha256": "42f10433f48b52998866ef2aec7afa48645e39fb3927a49ef90f7e8371652d19",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-2.summary.json",
+      "storedBytes": 164,
+      "storedSha256": "42f10433f48b52998866ef2aec7afa48645e39fb3927a49ef90f7e8371652d19"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-2.txt": {
+      "encoding": "unchanged raw",
+      "rawBytes": 209,
+      "rawCommitted": true,
+      "rawSha256": "4b44307fcc509365caa7f48d3f7bc09c1e6bafeffab87d25cf66f84253c03fd3",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/candidate-resume-2.txt",
+      "storedBytes": 209,
+      "storedSha256": "4b44307fcc509365caa7f48d3f7bc09c1e6bafeffab87d25cf66f84253c03fd3"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/peer-window-1.jsonl": {
+      "encoding": "gzip; lossless byte roundtrip verified",
+      "rawBytes": 9113318,
+      "rawCommitted": false,
+      "rawSha256": "219579db4382ee1fe0b0f0f4a8913d46b8e4945c177875ac93ad7b5596146fff",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/peer-window-1.jsonl.gz",
+      "storedBytes": 1248052,
+      "storedSha256": "ab5f81f6b870d54aaa0c860046a6bf47b793cc49a7705f7b45e0560dbf2d9efd"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/peer-window-1.summary.json": {
+      "encoding": "unchanged raw",
+      "rawBytes": 553,
+      "rawCommitted": true,
+      "rawSha256": "f4d349586736e6f2828a8eee822c2f95a5c442af2021b97992eae4ed77f7a87e",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/peer-window-1.summary.json",
+      "storedBytes": 553,
+      "storedSha256": "f4d349586736e6f2828a8eee822c2f95a5c442af2021b97992eae4ed77f7a87e"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/peer-window-1.txt": {
+      "encoding": "unchanged raw",
+      "rawBytes": 1968,
+      "rawCommitted": true,
+      "rawSha256": "888d05c294c40acad829b8c1cac222170ba17753d1640ff24b80b1cecd88a651",
+      "storage": "packages/calibration/results/2026-09-27-w41-g1-identification/x6/peer-window-1.txt",
+      "storedBytes": 1968,
+      "storedSha256": "888d05c294c40acad829b8c1cac222170ba17753d1640ff24b80b1cecd88a651"
+    }
+  },
+  "schema": "w41-e3-capture-scheduling-storage-1"
+}

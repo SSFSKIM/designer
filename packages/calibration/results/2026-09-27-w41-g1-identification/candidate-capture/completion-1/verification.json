@@ -1,0 +1,83 @@
+{
+  "blindIdentityCells": 48,
+  "browsersLaunched": 0,
+  "cells": 600,
+  "checks": [
+    "current immutable driver.verify before and after",
+    "every frozen file hash and exact file inventory",
+    "exact600 public admitted scope",
+    "all8 complete records equal raw inventory",
+    "all600 snapshot hashes and actual domain reports",
+    "domain source-derived attestation with current runner.freeze_domain",
+    "all600 raw primary PNG/descriptor/report hashes",
+    "all450 identity PNG and projection byteequalities independently recomputed, including48blind",
+    "partial536checkpoint unchanged"
+  ],
+  "completeBatches": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-1x-dark-standard-glass0.5/complete.json": {
+      "cells": 16,
+      "sha256": "1c04522f8ef448a643c80a40a5339a06e439a535fa171d0408e648d5449f02c7"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-1x-light-standard-glass0.5/complete.json": {
+      "cells": 16,
+      "sha256": "539b3455f998c30e974544596693b360614be63e73718dc70cad836837e0241f"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-2x-dark-standard-glass0.5/complete.json": {
+      "cells": 16,
+      "sha256": "56636d2aadf0d25f2d5133fd8a8498f5a15475556768e44859868df88f812b5c"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-2x-light-standard-glass0.5/complete.json": {
+      "cells": 16,
+      "sha256": "c22882aaa8cf674a1c70e53e6731011fea40381dcc02d1ab9e3c2e4ace9582cd"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-1x-dark-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "773f2e1072ad9da1951fe56c343b771f0b101e6e54e3b91e2ea87d4ee432f996"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-1x-light-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "b52a215f095ee9912ef038297569d34806d91823ca1e54f7b6801edf1701baef"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-2x-dark-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "26a74a5a6d801e1c2bdbd2b70adbab627f07f1ce0319bbac4272bc7ec9c3b35f"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-2x-light-standard-glass0.5/complete.json": {
+      "cells": 134,
+      "sha256": "8e4f415a2a2cff0da8b8e1e9a7d6311ad83cfcbbe2d2d1eeef1d3b2d0a91bbdc"
+    }
+  },
+  "exposureOpened": false,
+  "frozen": {
+    "frozenAt": "2026-09-27T10:47:44.843878+00:00",
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/frozen.json",
+    "sha256": "ef6483f61264a33e20d7a3f23a64646ad29704d886b09b3655d92f584bbeb491"
+  },
+  "frozenFiles": 4212,
+  "head": "08c47b15c0bbbfbd1484b0529e0044db8f639698",
+  "identityCells": 450,
+  "identityFailures": [],
+  "mapHashes": {
+    "domain-evidence.json": "94779e8a9ac1805c7a0395d9b2f3769c89f2fe9156abd45d26d2e49b7e99372a",
+    "identity-equality.json": "bf71f783e147f71d532b97f94457ce70ea86384e6a87a41d539ab58aa5403f4d",
+    "raw-inventory.json": "a1e831ee9bd2cdf5485554190e1f51c825f3ae32c3aa5d7a0c4b8fb09ce1295a",
+    "rendered.json": "949d13c955e1b6345fd7fb4e8da0ebd433ad7be10baea8c0ec66156550d13934"
+  },
+  "nativePayloadReads": 0,
+  "partialCheckpoint": {
+    "all536RowsEqualFullMap": true,
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/calval-checkpoint-1/rendered.json",
+    "sha256": "a642015018c1660bf1678c24671ae7c9c886d470f2f5eaf811fe8281c43da362"
+  },
+  "qualification": "Complete web evidence only, not native survival, closure, scoring or exposure. No sealed record changed.",
+  "roles": {
+    "calibration": 464,
+    "holdout": 64,
+    "validation": 72
+  },
+  "root": "/Users/new/vitrea-w41/g1",
+  "schema": "w41-e3-web-completion-verification-1",
+  "scoresRead": 0,
+  "sealSha256": "c0fa108a1b87739d10bffbf74db902c9c5dd78207ce5697a85ce4901be8a7f21",
+  "verifiedAt": "2026-09-27T10:51:08.498275+00:00"
+}

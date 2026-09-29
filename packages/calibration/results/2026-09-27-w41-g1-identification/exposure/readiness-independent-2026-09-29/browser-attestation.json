@@ -1,0 +1,63 @@
+{
+  "basis": "Delegated general-purpose/opus read-only audit; no browser executable or --version launched. These are current/prospective hashes, never retroactive capture pins.",
+  "browser": {
+    "bundleBuild": "7922.34",
+    "bundleIdentifier": "com.google.chrome.for.testing",
+    "codeSignature": "ad-hoc; no Team ID; not an independent historical identity proof",
+    "executable": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+    "executableBytes": 52112,
+    "executableSha256": "a596b1cfc6353e987fcec8d71a23a28cd6a9e7a6b4e20b908e4c4fcffe51158e",
+    "framework": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Google Chrome for Testing Framework",
+    "frameworkSha256": "269114cf695f1c50b54e0816a1442e41dc468d28672e2dedc2036105fb5a8dbe",
+    "infoPlist": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Info.plist",
+    "infoPlistSha256": "ab9c30716b623d8dc87232115e618ae116311fa28290fe2d9f59e65451a99ef3",
+    "kind": "full Chromium / Chrome for Testing, not headless shell",
+    "regularFileListDigest": "bec27db83039778292cf61879e41cc6f1d64fc7200e2ac91ed455b4a830ffa2f",
+    "regularFileListDigestScope": "SHA256 of sorted per-file SHA256 listing,334files; distinct from canonical full layout/mode manifest digest.",
+    "revision": "1234",
+    "version": "151.0.7922.34"
+  },
+  "cssPrototype": {
+    "driver": "playwright-cli0.1.19",
+    "evidence": "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/execution-1/cli/recovery-direction-and-browser.json",
+    "qualification": "Separate prototype environment; not pooled into WebGPU151 provenance or production CSS parity.",
+    "revision": "1243",
+    "version": "153.0.8010.12"
+  },
+  "futureRequirement": "After actual exposure authorization, fail before receipt if expected current browser path/hash/version is missing or changed. No automatic install, cache registration, restore or repair authorized by this audit.",
+  "historicalTiming": {
+    "basis": "Recorded startedAt and last freeze/log filesystem timestamp, not instrumented per-process wall time.",
+    "blind64StartedAt": "2026-09-27T09:28:27.061041+00:00",
+    "qualification": "Past run only, not future duration promise. No new browser run timed.",
+    "wholeRunApproxSeconds": 89
+  },
+  "originalCaptureEvidence": {
+    "baselineLogVersion": "151.0.7922.34",
+    "blindBaselineLogVersion": "151.0.7922.34",
+    "candidateCells": 600,
+    "engine": "chromium",
+    "engineVersion": "151.0.7922.34",
+    "gpuAdapter": "apple/metal-3",
+    "historicalBinaryByteIdentityProved": false,
+    "matchingEngineVersionCells": 600,
+    "originalExecutableHashRecorded": false,
+    "originalExecutablePathRecorded": false,
+    "qualification": "Recorded versions match. File timestamps support continuity but do not prove historical byte identity; channel text is produced by the capture script."
+  },
+  "otherInstallations": {
+    "full1243ExecutableSha256": "8319963f6625accf51c0dd4f55091ceaf9f09ed39e7a52fed4fae12b2a6b668a",
+    "full1243Version": "153.0.8010.12",
+    "headless1234Sha256": "7687bff7cb2db075f250e6d5848bbc8838cac3802ac3952a899c574f8eccab45"
+  },
+  "playwright": {
+    "PLAYWRIGHT_BROWSERS_PATH": "unset at audit",
+    "browsersJsonSha256": "f306eed529599b1eaf2f8a85db9de2b23e1a3fe36c2b66434b7c9434fb627a99",
+    "channelInCaptureDriver": "chromium",
+    "coreBundleSha256": "9393fa79e1c67c74edc26b610d65a4f7ed73d345a762465cc88340a33a2454ac",
+    "expectedBrowserVersion": "151.0.7922.34",
+    "expectedChromiumRevision": "1234",
+    "package": "/Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core",
+    "version": "1.62.1"
+  },
+  "schema": "w41-prospective-browser-identity-audit-1"
+}

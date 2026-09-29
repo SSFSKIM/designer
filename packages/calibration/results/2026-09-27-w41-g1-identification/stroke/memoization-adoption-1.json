@@ -1,0 +1,37 @@
+{
+  "kind": "STROKE_MEMOIZATION_ADOPTION",
+  "scope": "Only new scheduler starts launched after this verified gate; old completed results and aborted-start records untouched.",
+  "nativeComparison": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-bit-identity-1.json",
+    "sha256": "76c614a34c8fe7fa2f8ae3e8af37e0c5d428d11a209f6207fe9c1bab6fa4c046"
+  },
+  "wrappedProof": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-wrapped-1/completed-start-proof.json",
+    "sha256": "37794eed7e092defd1a6b504ea3d14973431b4f311c0bfbd5265e2aa851ec98d"
+  },
+  "reviewClosure": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memo-and-bridge-parent-closure.json",
+    "sha256": "c6d6b3834fc5fe1ed96e0be8f1bb29a62221a52bcd6b75024cdde6a0c2c7448b"
+  },
+  "runnerReview": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-execution-preparation-reviews.json",
+    "sha256": "a4bf32555c9205550866bc74efce20f71d1ceef63966729941ead97c2b87cd8f"
+  },
+  "adaptiveReview": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/adaptive-operational-review-1.json",
+    "sha256": "178d575c2dce2ce641273e8fb21acb05202b77b6c99a680a51193cf3691ac3e6"
+  },
+  "sourceSha256": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py",
+    "sha256": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b"
+  },
+  "unchanged": "Original vectors, domains, solver options/budgets, populations, reductions, ranks and trace.",
+  "firstTask": [
+    "M2",
+    "device",
+    0
+  ],
+  "firstTaskSolo": true,
+  "validationRead": false,
+  "holdoutRead": false
+}

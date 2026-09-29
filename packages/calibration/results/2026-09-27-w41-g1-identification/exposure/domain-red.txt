@@ -1,0 +1,14 @@
+test_claim_domain_is_mandatory_not_an_implicit_default (test_domain.DomainTests.test_claim_domain_is_mandatory_not_an_implicit_default) ... FAIL
+
+======================================================================
+FAIL: test_claim_domain_is_mandatory_not_an_implicit_default (test_domain.DomainTests.test_claim_domain_is_mandatory_not_an_implicit_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 52, in test_claim_domain_is_mandatory_not_an_implicit_default
+    with self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.595s
+
+FAILED (failures=1)

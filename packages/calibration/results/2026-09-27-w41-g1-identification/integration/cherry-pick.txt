@@ -1,0 +1,50 @@
+[w41-g1-identification 5e994fc7] W41 G1: implement inert E3 body leaf for the light-receded scratch candidate
+ Date: Sun Sep 27 17:56:19 2026 +0900
+ 51 files changed, 3942 insertions(+), 5 deletions(-)
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/calibration-lint.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/calibration-targeted-green.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/candidate/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/candidate/apple-macos-27.0-1x-dark-standard-glass0.5.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/candidate/apple-macos-27.0-1x-light-standard-glass0.5-receded.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/candidate/apple-macos-27.0-1x-light-standard-glass0.5.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/candidate/evidence.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/core-web-tests.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/e3-gpu-proof.py
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/generate-scratch.ts
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/gpu-attempt-1.err
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/gpu-attempt-1.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/gpu-attempt-2.err
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/gpu-attempt-2.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/gpu-red.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/implementation-freeze.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/implementation.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-build.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-compute-green.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-compute-red.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-green.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-lint.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-red.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-regression.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/material-typecheck.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/parser-red.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/parser-values-red.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/primary-isolation-check.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/renderer-lint-1.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/renderer-lint-2.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/renderer-tests-1.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/scratch-final-green.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/scratch-red.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/source-document-pins.json
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/uniform-green.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/uniform-red.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/workspace-build-e3.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/workspace-build.txt
+ create mode 100644 packages/calibration/test/w41-body-e3-scratch.test.ts
+ create mode 100644 packages/renderer-webgpu/test/w41-body-e3.test.ts
+ create mode 100644 packages/renderer-webgpu/test/w41-e3-uniform.test.ts
+[w41-g1-identification 6b953172] W41 G1 E3: record independent review and gated integration handoff
+ Date: Sun Sep 27 17:59:52 2026 +0900
+ 3 files changed, 51 insertions(+)
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/integration.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/review-freeze.txt
+ create mode 100644 packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/review-high.json

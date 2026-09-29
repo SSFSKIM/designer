@@ -1,0 +1,32 @@
+{
+  "adapter": {
+    "vendor": "",
+    "architecture": "",
+    "device": "Apple M2 Pro",
+    "description": "",
+    "stackgroup_min_size": 4,
+    "stackgroup_max_size": 128,
+    "vendor_id": 0,
+    "device_id": 0,
+    "adapter_type": "IntegratedGPU",
+    "backend_type": "Metal"
+  },
+  "cases": 4144,
+  "rawCases": 592,
+  "identityCases": 1776,
+  "maximumEncodedCodes": 8.258978348862911e-05,
+  "maximumCompositeLinear": 1.824281466888955e-06,
+  "fullOpticsModuleCompiled": true,
+  "exactOffUnsampledZeroPresence": true,
+  "nativePayloadReads": 0,
+  "browserRuns": 0,
+  "candidateRenders": 0,
+  "scope": "synthetic compute arithmetic, not rendered texture reconstruction or composite survival",
+  "sources": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/e3-gpu-proof.py": "f65123ea1ad376af4939a6337bb0395966ee512b666c7de33a59a42ddf021dae",
+    "packages/renderer-webgpu/src/wgsl/optics.ts": "67bcfd1e96a5cdc2dfbaee5c459ce4ff32c5cd8f5623a5b8a19bb2109ece9078",
+    "packages/renderer-webgpu/src/wgsl/prelude.ts": "beb2fb3c03c61e00f6a24d1c1dee55c22b63830dc415e1e95d34a43a6e8981f6",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/body-instrument/body41.py": "663a4f7401e3e5a3f36519be18c6edf79b25baac8333ede5673aa7db5991fd72"
+  },
+  "wrapperSha256": "07e0267c05ce9ae225de9adfd8328896c07b95410048cd84417059b8c93fddc0"
+}

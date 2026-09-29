@@ -1,0 +1,46 @@
+{
+  "kind": "STROKE_PID_IDENTITY_FINAL_CLOSURE",
+  "priorReview": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/pid-identity-review-closure-1.json",
+    "sha256": "3712839fcdd28edc6da937d1e4c07fe117087bd734d2dd3f5e22ac79082d8b22"
+  },
+  "reviewer": "a1c557ee93146abd9",
+  "verdict": "clean; all findings including explicit self-PID premise closed",
+  "tests": {
+    "scheduler": 85,
+    "verification": 70
+  },
+  "logs": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/pid-guard-scheduler-1.txt",
+      "sha256": "5bd15760b7a501eba78eecea260a83e6b55c2fc8e3428064cddb54278fc06598"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/pid-guard-verification-1.txt",
+      "sha256": "ee9fd56bd4335f714f35cc918f9e7feb6108f6c23d2be480a8e877fbd9542d60"
+    }
+  ],
+  "operationalSourceTransitions": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py": {
+      "oldSha256": "b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c",
+      "newSha256": "2c0fba175bf26f38fd436d3a42edaae9bc9c4b8dce428b37ed1a06630e825e33"
+    },
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py": {
+      "oldSha256": "d5785897b480a176545295cbe25144817b41c314fe9cbe683699bb4d46aa4678",
+      "newSha256": "8b291118d7463f4adc06cee70b4d10c3e5755a9e4edff2fdd1a1c1dd126ce438"
+    },
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": {
+      "oldSha256": "2bbbd2454e2392056412251852a15acba9641c29009fd2705fc186b647b9021b",
+      "newSha256": "f8d549641cf585ccba1dcbfe8911b7f8bf8731fd6f39e7a878877bd7b4dbf7df"
+    }
+  },
+  "scientificChange": false,
+  "guard": "Claim receipt command + PID/start-time identity; owning process/store and claim PID must agree; no process-table spawn after solve.",
+  "oldWatcherStopped": {
+    "pid": 71037,
+    "task": "bzhj182rx",
+    "recordedUTC": "2026-09-28T01:19:01.278706+00:00",
+    "reason": "Retire owned observer running old v2 bytes before starting new source epoch; unrelated OS80133 untouched."
+  },
+  "restart": "pending new watcher/receipts/controller"
+}

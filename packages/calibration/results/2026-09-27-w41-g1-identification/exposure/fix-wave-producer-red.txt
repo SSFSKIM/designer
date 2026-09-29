@@ -1,0 +1,943 @@
+test_scope_is_explicit_committed_and_schema_bound (test_claims.PartialScopeTests.test_scope_is_explicit_committed_and_schema_bound) ... ERROR
+test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints (test_claims.PartialScopeTests.test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints) ... ERROR
+test_unclaimed_misses_retained_but_never_passes_or_candidate_failures (test_claims.PartialScopeTests.test_unclaimed_misses_retained_but_never_passes_or_candidate_failures) ... ERROR
+test_claimed_failure_still_spends_and_preserves_all_scores (test_claims.PartialScopeTests.test_claimed_failure_still_spends_and_preserves_all_scores) ... ERROR
+test_claimed_censor_constraint_failure_cannot_hide_behind_scope (test_claims.PartialScopeTests.test_claimed_censor_constraint_failure_cannot_hide_behind_scope) ... ERROR
+test_identity_baseline_payload_and_projection_must_equal_candidate (test_claims.PartialScopeTests.test_identity_baseline_payload_and_projection_must_equal_candidate) ... ERROR
+test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto (test_claims.PartialScopeTests.test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto) ... ERROR
+test_unclaimed_heldout_veto_is_independent_of_fidelity_claim (test_claims.PartialScopeTests.test_unclaimed_heldout_veto_is_independent_of_fidelity_claim) ... ERROR
+test_added_g1_import_source_refuses_before_begin (test_claims.PartialScopeTests.test_added_g1_import_source_refuses_before_begin) ... ERROR
+test_changed_schema_refuses_before_begin (test_claims.PartialScopeTests.test_changed_schema_refuses_before_begin) ... ERROR
+test_unclaimed_scores_still_require_complete_valid_measurements (test_claims.PartialScopeTests.test_unclaimed_scores_still_require_complete_valid_measurements) ... ERROR
+test_numerical_uniform_domain_is_explicit_not_assumed (test_claims.FullMembershipClaimsTests.test_numerical_uniform_domain_is_explicit_not_assumed) ... ok
+test_structured_numerical_diagnostic_is_not_admission_or_shader_disable (test_claims.FullMembershipClaimsTests.test_structured_numerical_diagnostic_is_not_admission_or_shader_disable) ... ERROR
+test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity (test_claims.FullMembershipClaimsTests.test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity) ... ERROR
+test_claim_domain_is_mandatory_not_an_implicit_default (test_domain.DomainTests.test_claim_domain_is_mandatory_not_an_implicit_default) ... ERROR
+test_actual_domain_failure_on_unclaimed_endpoint_refuses_freeze (test_domain.DomainTests.test_actual_domain_failure_on_unclaimed_endpoint_refuses_freeze) ... ERROR
+test_missing_or_unbound_source_chain_is_not_presence_proof (test_domain.DomainTests.test_missing_or_unbound_source_chain_is_not_presence_proof) ... ERROR
+test_missing_frozen_capture_domain_record_cannot_reduce_membership (test_domain.DomainTests.test_missing_frozen_capture_domain_record_cannot_reduce_membership) ... ERROR
+test_fresh_capture_policy_and_backend_are_checked (test_domain.DomainTests.test_fresh_capture_policy_and_backend_are_checked) ... ERROR
+test_added_compiled_policy_module_refused_before_begin (test_runner.ExposureTests.test_added_compiled_policy_module_refused_before_begin) ... ERROR
+test_added_renderer_source_refused_before_begin (test_runner.ExposureTests.test_added_renderer_source_refused_before_begin) ... ERROR
+test_backend_failure_spends_scratch_and_retry_never_captures (test_runner.ExposureTests.test_backend_failure_spends_scratch_and_retry_never_captures) ... ERROR
+test_candidate_mapping_mutation_cannot_erase_required_scores (test_runner.ExposureTests.test_candidate_mapping_mutation_cannot_erase_required_scores) ... ERROR
+test_capture_and_callback_expected_hash_mutation_cannot_complete (test_runner.ExposureTests.test_capture_and_callback_expected_hash_mutation_cannot_complete) ... ERROR
+test_capture_and_score_are_inside_authorization_and_receipt_binds_renderer (test_runner.ExposureTests.test_capture_and_score_are_inside_authorization_and_receipt_binds_renderer) ... ERROR
+test_capture_backend_cannot_rewrite_manifest_hash (test_runner.ExposureTests.test_capture_backend_cannot_rewrite_manifest_hash) ... ERROR
+test_capture_mapping_mutation_cannot_replace_scored_image (test_runner.ExposureTests.test_capture_mapping_mutation_cannot_replace_scored_image) ... ERROR
+test_censored_holdout_summary_is_excluded_and_coverage_reported (test_runner.ExposureTests.test_censored_holdout_summary_is_excluded_and_coverage_reported) ... ERROR
+test_censoring_cannot_hide_an_uncensored_or_rail_failure (test_runner.ExposureTests.test_censoring_cannot_hide_an_uncensored_or_rail_failure) ... ERROR
+test_changed_compiled_policy_refused_before_begin (test_runner.ExposureTests.test_changed_compiled_policy_refused_before_begin) ... ERROR
+test_changed_render_refuses_even_if_projection_would_hide_it (test_runner.ExposureTests.test_changed_render_refuses_even_if_projection_would_hide_it) ... ERROR
+test_compiled_policy_bytes_are_bound_separately_from_sources (test_runner.ExposureTests.test_compiled_policy_bytes_are_bound_separately_from_sources) ... ERROR
+test_deleted_compiled_policy_module_refused_before_begin (test_runner.ExposureTests.test_deleted_compiled_policy_module_refused_before_begin) ... ERROR
+test_freeze_rejects_missing_predictions_and_nonfinite_payload (test_runner.ExposureTests.test_freeze_rejects_missing_predictions_and_nonfinite_payload) ... ERROR
+test_freeze_verification_failure_preserves_returned_score (test_runner.ExposureTests.test_freeze_verification_failure_preserves_returned_score) ... ERROR
+test_full_failed_score_is_fsynced_before_aggregation (test_runner.ExposureTests.test_full_failed_score_is_fsynced_before_aggregation) ... ERROR
+test_missing_native_score_is_not_closure (test_runner.ExposureTests.test_missing_native_score_is_not_closure) ... ERROR
+test_mutation_during_scoring_cannot_change_successful_capture (test_runner.ExposureTests.test_mutation_during_scoring_cannot_change_successful_capture) ... ERROR
+test_policy_mutated_in_capture_refused_before_projection (test_runner.ExposureTests.test_policy_mutated_in_capture_refused_before_projection) ... ERROR
+test_policy_mutated_in_projection_refused_before_scoring (test_runner.ExposureTests.test_policy_mutated_in_projection_refused_before_scoring) ... ERROR
+test_policy_mutated_in_score_preserves_returned_evidence (test_runner.ExposureTests.test_policy_mutated_in_score_preserves_returned_evidence) ... ERROR
+test_process_kill_after_score_persistence_retains_authoritative_report (test_runner.ExposureTests.test_process_kill_after_score_persistence_retains_authoritative_report) ... ERROR
+test_projection_mismatch_spends_attempt (test_runner.ExposureTests.test_projection_mismatch_spends_attempt) ... ERROR
+test_real_backend_launches_web_only_driver_inside_receipt (test_runner.ExposureTests.test_real_backend_launches_web_only_driver_inside_receipt) ... ERROR
+test_scorer_exception_has_failed_verdict_without_invented_scores (test_runner.ExposureTests.test_scorer_exception_has_failed_verdict_without_invented_scores) ... ERROR
+test_source_config_and_prediction_mutations_refused_before_begin (test_runner.ExposureTests.test_source_config_and_prediction_mutations_refused_before_begin) ... ERROR
+test_synthetic_mode_cannot_open_production_log (test_runner.ExposureTests.test_synthetic_mode_cannot_open_production_log) ... ERROR
+test_uncommitted_runtime_snapshot_refused (test_runner.ExposureTests.test_uncommitted_runtime_snapshot_refused) ... ERROR
+test_unmeasured_or_failed_score_never_closes (test_runner.ExposureTests.test_unmeasured_or_failed_score_never_closes) ... ERROR
+test_wrong_numerical_prediction_fails_even_with_matching_render (test_runner.ExposureTests.test_wrong_numerical_prediction_fails_even_with_matching_render) ... ERROR
+test_wrong_or_missing_capture_cells_spend_attempt (test_runner.ExposureTests.test_wrong_or_missing_capture_cells_spend_attempt) ... ERROR
+test_committed_inventory_tampering_cannot_redefine_admission (test_runner.ProductionScopeTests.test_committed_inventory_tampering_cannot_redefine_admission) ... ok
+test_incomplete_policy_module_inventory_refuses_production_freeze (test_runner.ProductionScopeTests.test_incomplete_policy_module_inventory_refuses_production_freeze) ... ok
+test_missing_inventory_refuses_production_freeze (test_runner.ProductionScopeTests.test_missing_inventory_refuses_production_freeze) ... ok
+test_missing_policy_build_refuses_production_freeze (test_runner.ProductionScopeTests.test_missing_policy_build_refuses_production_freeze) ... ok
+test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) ... 
+  test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='predictions.json', kind='numerical') ... FAIL
+  test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='rendered.json', kind='rendered') ... FAIL
+  test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='survival.json', kind='numerical') ... FAIL
+  test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='survival.json', kind='rendered') ... FAIL
+test_production_scope_intersects_fixed_inventory_without_recutting_split (test_runner.ProductionScopeTests.test_production_scope_intersects_fixed_inventory_without_recutting_split) ... ERROR
+test_source_only_production_freeze_cannot_omit_runtime_mapping (test_runner.ProductionScopeTests.test_source_only_production_freeze_cannot_omit_runtime_mapping) ... ok
+test_stale_policy_build_refuses_production_freeze (test_runner.ProductionScopeTests.test_stale_policy_build_refuses_production_freeze) ... ok
+test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) ... 
+  test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='predictions.json', kind='numerical') ... FAIL
+  test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='rendered.json', kind='rendered') ... FAIL
+  test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='survival.json', kind='numerical') ... FAIL
+  test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='survival.json', kind='rendered') ... FAIL
+
+======================================================================
+ERROR: test_scope_is_explicit_committed_and_schema_bound (test_claims.PartialScopeTests.test_scope_is_explicit_committed_and_schema_bound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints (test_claims.PartialScopeTests.test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_unclaimed_misses_retained_but_never_passes_or_candidate_failures (test_claims.PartialScopeTests.test_unclaimed_misses_retained_but_never_passes_or_candidate_failures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_claimed_failure_still_spends_and_preserves_all_scores (test_claims.PartialScopeTests.test_claimed_failure_still_spends_and_preserves_all_scores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_claimed_censor_constraint_failure_cannot_hide_behind_scope (test_claims.PartialScopeTests.test_claimed_censor_constraint_failure_cannot_hide_behind_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_identity_baseline_payload_and_projection_must_equal_candidate (test_claims.PartialScopeTests.test_identity_baseline_payload_and_projection_must_equal_candidate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto (test_claims.PartialScopeTests.test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_unclaimed_heldout_veto_is_independent_of_fidelity_claim (test_claims.PartialScopeTests.test_unclaimed_heldout_veto_is_independent_of_fidelity_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_added_g1_import_source_refuses_before_begin (test_claims.PartialScopeTests.test_added_g1_import_source_refuses_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_changed_schema_refuses_before_begin (test_claims.PartialScopeTests.test_changed_schema_refuses_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_unclaimed_scores_still_require_complete_valid_measurements (test_claims.PartialScopeTests.test_unclaimed_scores_still_require_complete_valid_measurements)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_structured_numerical_diagnostic_is_not_admission_or_shader_disable (test_claims.FullMembershipClaimsTests.test_structured_numerical_diagnostic_is_not_admission_or_shader_disable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_claims.py", line 179, in test_structured_numerical_diagnostic_is_not_admission_or_shader_disable
+    manifest=self.freeze()
+             ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 665, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, config='config.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity (test_claims.FullMembershipClaimsTests.test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_claims.py", line 215, in test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity
+    manifest=self.freeze()
+             ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 665, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, config='config.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_claim_domain_is_mandatory_not_an_implicit_default (test_domain.DomainTests.test_claim_domain_is_mandatory_not_an_implicit_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_actual_domain_failure_on_unclaimed_endpoint_refuses_freeze (test_domain.DomainTests.test_actual_domain_failure_on_unclaimed_endpoint_refuses_freeze)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_missing_or_unbound_source_chain_is_not_presence_proof (test_domain.DomainTests.test_missing_or_unbound_source_chain_is_not_presence_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_missing_frozen_capture_domain_record_cannot_reduce_membership (test_domain.DomainTests.test_missing_frozen_capture_domain_record_cannot_reduce_membership)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_fresh_capture_policy_and_backend_are_checked (test_domain.DomainTests.test_fresh_capture_policy_and_backend_are_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_added_compiled_policy_module_refused_before_begin (test_runner.ExposureTests.test_added_compiled_policy_module_refused_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_added_renderer_source_refused_before_begin (test_runner.ExposureTests.test_added_renderer_source_refused_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_backend_failure_spends_scratch_and_retry_never_captures (test_runner.ExposureTests.test_backend_failure_spends_scratch_and_retry_never_captures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_candidate_mapping_mutation_cannot_erase_required_scores (test_runner.ExposureTests.test_candidate_mapping_mutation_cannot_erase_required_scores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_capture_and_callback_expected_hash_mutation_cannot_complete (test_runner.ExposureTests.test_capture_and_callback_expected_hash_mutation_cannot_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_capture_and_score_are_inside_authorization_and_receipt_binds_renderer (test_runner.ExposureTests.test_capture_and_score_are_inside_authorization_and_receipt_binds_renderer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_capture_backend_cannot_rewrite_manifest_hash (test_runner.ExposureTests.test_capture_backend_cannot_rewrite_manifest_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_capture_mapping_mutation_cannot_replace_scored_image (test_runner.ExposureTests.test_capture_mapping_mutation_cannot_replace_scored_image)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_censored_holdout_summary_is_excluded_and_coverage_reported (test_runner.ExposureTests.test_censored_holdout_summary_is_excluded_and_coverage_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_censoring_cannot_hide_an_uncensored_or_rail_failure (test_runner.ExposureTests.test_censoring_cannot_hide_an_uncensored_or_rail_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_changed_compiled_policy_refused_before_begin (test_runner.ExposureTests.test_changed_compiled_policy_refused_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_changed_render_refuses_even_if_projection_would_hide_it (test_runner.ExposureTests.test_changed_render_refuses_even_if_projection_would_hide_it)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_compiled_policy_bytes_are_bound_separately_from_sources (test_runner.ExposureTests.test_compiled_policy_bytes_are_bound_separately_from_sources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_deleted_compiled_policy_module_refused_before_begin (test_runner.ExposureTests.test_deleted_compiled_policy_module_refused_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_freeze_rejects_missing_predictions_and_nonfinite_payload (test_runner.ExposureTests.test_freeze_rejects_missing_predictions_and_nonfinite_payload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_freeze_verification_failure_preserves_returned_score (test_runner.ExposureTests.test_freeze_verification_failure_preserves_returned_score)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_full_failed_score_is_fsynced_before_aggregation (test_runner.ExposureTests.test_full_failed_score_is_fsynced_before_aggregation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_missing_native_score_is_not_closure (test_runner.ExposureTests.test_missing_native_score_is_not_closure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_mutation_during_scoring_cannot_change_successful_capture (test_runner.ExposureTests.test_mutation_during_scoring_cannot_change_successful_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_policy_mutated_in_capture_refused_before_projection (test_runner.ExposureTests.test_policy_mutated_in_capture_refused_before_projection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_policy_mutated_in_projection_refused_before_scoring (test_runner.ExposureTests.test_policy_mutated_in_projection_refused_before_scoring)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_policy_mutated_in_score_preserves_returned_evidence (test_runner.ExposureTests.test_policy_mutated_in_score_preserves_returned_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_process_kill_after_score_persistence_retains_authoritative_report (test_runner.ExposureTests.test_process_kill_after_score_persistence_retains_authoritative_report)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_projection_mismatch_spends_attempt (test_runner.ExposureTests.test_projection_mismatch_spends_attempt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_real_backend_launches_web_only_driver_inside_receipt (test_runner.ExposureTests.test_real_backend_launches_web_only_driver_inside_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_scorer_exception_has_failed_verdict_without_invented_scores (test_runner.ExposureTests.test_scorer_exception_has_failed_verdict_without_invented_scores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_source_config_and_prediction_mutations_refused_before_begin (test_runner.ExposureTests.test_source_config_and_prediction_mutations_refused_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_synthetic_mode_cannot_open_production_log (test_runner.ExposureTests.test_synthetic_mode_cannot_open_production_log)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_uncommitted_runtime_snapshot_refused (test_runner.ExposureTests.test_uncommitted_runtime_snapshot_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_unmeasured_or_failed_score_never_closes (test_runner.ExposureTests.test_unmeasured_or_failed_score_never_closes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_wrong_numerical_prediction_fails_even_with_matching_render (test_runner.ExposureTests.test_wrong_numerical_prediction_fails_even_with_matching_render)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_wrong_or_missing_capture_cells_spend_attempt (test_runner.ExposureTests.test_wrong_or_missing_capture_cells_spend_attempt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 67, in setUp
+    self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+ERROR: test_production_scope_intersects_fixed_inventory_without_recutting_split (test_runner.ProductionScopeTests.test_production_scope_intersects_fixed_inventory_without_recutting_split)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 669, in test_production_scope_intersects_fixed_inventory_without_recutting_split
+    manifest = self.freeze()
+               ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 665, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, config='config.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 403, in freeze
+    freeze_domain(root, wave, candidate, rendered, source_list, files)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 253, in freeze_domain
+    validate_domain(wave, cell, record['descriptor'], record['report'])
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 241, in validate_domain
+    raise ValueError('capture domain is not nominal actual sampled texture: ' + identity)
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+======================================================================
+FAIL: test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='predictions.json', kind='numerical')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 720, in test_production_rejects_admitted_prediction_or_survival_omissions
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "numerical .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+======================================================================
+FAIL: test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='rendered.json', kind='rendered')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 720, in test_production_rejects_admitted_prediction_or_survival_omissions
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "rendered .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+======================================================================
+FAIL: test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='survival.json', kind='numerical')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 720, in test_production_rejects_admitted_prediction_or_survival_omissions
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "numerical .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+======================================================================
+FAIL: test_production_rejects_admitted_prediction_or_survival_omissions (test_runner.ProductionScopeTests.test_production_rejects_admitted_prediction_or_survival_omissions) (name='survival.json', kind='rendered')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 720, in test_production_rejects_admitted_prediction_or_survival_omissions
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "rendered .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+======================================================================
+FAIL: test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='predictions.json', kind='numerical')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 739, in test_unadmitted_phase_probe_cannot_enter_predictions_or_survival
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "numerical .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+======================================================================
+FAIL: test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='rendered.json', kind='rendered')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 739, in test_unadmitted_phase_probe_cannot_enter_predictions_or_survival
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "rendered .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+======================================================================
+FAIL: test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='survival.json', kind='numerical')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 739, in test_unadmitted_phase_probe_cannot_enter_predictions_or_survival
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "numerical .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+======================================================================
+FAIL: test_unadmitted_phase_probe_cannot_enter_predictions_or_survival (test_runner.ProductionScopeTests.test_unadmitted_phase_probe_cannot_enter_predictions_or_survival) (name='survival.json', kind='rendered')
+----------------------------------------------------------------------
+ValueError: capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 739, in test_unadmitted_phase_probe_cannot_enter_predictions_or_survival
+    with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+AssertionError: "rendered .*coverage mismatch" does not match "capture domain is not nominal actual sampled texture: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive"
+
+----------------------------------------------------------------------
+Ran 60 tests in 11.382s
+
+FAILED (failures=8, errors=51)

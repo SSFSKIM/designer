@@ -1,0 +1,111 @@
+{
+  "schema": "w41-css-body-calval-summary-1",
+  "scope": "130 admitted uniform light-inactive calval cells,65per scale; BODY-only standalone",
+  "browserVersion": "153.0.8010.12",
+  "roles": {
+    "calibration": 112,
+    "validation": 18
+  },
+  "routes": {
+    "plate": {
+      "counts": {
+        "measured-pass": 126,
+        "measured-fail": 2,
+        "censored-bound-satisfied": 2
+      },
+      "byScale": {
+        "1x": {
+          "measured-pass": 63,
+          "measured-fail": 1,
+          "censored-bound-satisfied": 1
+        },
+        "2x": {
+          "measured-pass": 63,
+          "measured-fail": 1,
+          "censored-bound-satisfied": 1
+        }
+      },
+      "failedCells": [
+        "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive"
+      ],
+      "censoredCells": [
+        "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive",
+        "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive"
+      ],
+      "worst": {
+        "nativeUncensored": {
+          "codes": 26.0,
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+          "member": 0,
+          "reading": "median",
+          "channel": "R",
+          "native": 89.0,
+          "web": 115.0
+        },
+        "frozenE3": {
+          "codes": 26.832355407689818,
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+          "channel": "R",
+          "web": 115.0,
+          "predicted": 88.16764459231018
+        },
+        "ownCSSAlgebra": {
+          "codes": 0.9314225926054291,
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h120-colour__inactive",
+          "channel": "R",
+          "web": 183.0,
+          "predicted": 182.06857740739457
+        }
+      }
+    },
+    "affine": {
+      "counts": {
+        "measured-pass": 128,
+        "censored-bound-satisfied": 2
+      },
+      "byScale": {
+        "1x": {
+          "measured-pass": 64,
+          "censored-bound-satisfied": 1
+        },
+        "2x": {
+          "measured-pass": 64,
+          "censored-bound-satisfied": 1
+        }
+      },
+      "failedCells": [],
+      "censoredCells": [
+        "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive",
+        "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive"
+      ],
+      "worst": {
+        "nativeUncensored": {
+          "codes": 1.0,
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h0-colour__inactive",
+          "member": 0,
+          "reading": "median",
+          "channel": "G",
+          "native": 159.0,
+          "web": 158.0
+        },
+        "frozenE3": {
+          "codes": 0.4997954239137812,
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+          "channel": "R",
+          "web": 166.0,
+          "predicted": 166.49979542391378
+        },
+        "ownCSSAlgebra": {
+          "codes": 0.4997954239138096,
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+          "channel": "R",
+          "web": 166.0,
+          "predicted": 166.4997954239138
+        }
+      }
+    }
+  },
+  "scoresDecodedSha256": "481cf7ae7be27a00f8248371b7bd3d68f6f6bea0e1a9a6e5515b1b9d04f0682f",
+  "qualification": "Censored-bound-satisfied is not accuracy or heldout coverage. No production-tier parity/adoption; no holdout read."
+}

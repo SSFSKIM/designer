@@ -1,0 +1,33 @@
+{
+  "recordedAt": "2026-09-27T09:35:30.892138+00:00",
+  "shippedFreezes": [
+    {
+      "kind": "calibration-validation",
+      "freeze": "packages/calibration/results/2026-09-27-w41-g1-identification/baseline/frozen-baseline.json",
+      "sha256": "c921d671819fb6c07269b74e3470ee53fed37319f7ba2da1ff58094b343f8bd8",
+      "frozenAt": "2026-09-27T09:26:46.190966+00:00",
+      "cells": 536,
+      "sourceRevision": "014e4104428abe8fc53d32b674e4126426142a0d"
+    },
+    {
+      "kind": "blind-web-heldout",
+      "freeze": "packages/calibration/results/2026-09-27-w41-g1-identification/blind-baseline/frozen-blind-baseline.json",
+      "sha256": "5df39d23a6052ecf5afe2a0a13ef6d0cc7dcb4f31ae7bac6a5150753bd953ca5",
+      "frozenAt": "2026-09-27T09:29:56.538721+00:00",
+      "cells": 64,
+      "sourceRevision": "014e4104428abe8fc53d32b674e4126426142a0d"
+    }
+  ],
+  "integratedCommits": [
+    "5e994fc7",
+    "6b953172"
+  ],
+  "isolatedOriginalCommits": [
+    "775a1f2665b94c4024ae569946e63b75507af915",
+    "64dbad42fbbcd6962049363012e125612cb9a0ac"
+  ],
+  "firstCandidateRender": null,
+  "candidateStatus": "not yet rendered; append actual first-render timestamp/hash beside this witness",
+  "declarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+  "nativeHoldoutOpened": false
+}

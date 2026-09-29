@@ -1,0 +1,94 @@
+{
+  "sampledUTC": "2026-09-28T09:25:06.480500+00:00",
+  "policyVersion": 4,
+  "resourcePolicy": "stroke-adaptive-v4-kernel-level",
+  "kernelMemoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v4.json",
+    "sha256": "70553bb9a3d1b09eb09595131f7754ed5a41134c39de4ef3c6f9fee847e54841"
+  },
+  "resourceMode": "normal",
+  "normalGate": {
+    "pressureNormal": true,
+    "fiveSpacedNormal": true,
+    "floorClears": true
+  },
+  "policyCounter": "floor(levelPercent * physicalBytes /100)",
+  "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)",
+  "memory": {
+    "availableBytes": 8933531975,
+    "pressureLevel": 1,
+    "levelPercent": 52,
+    "physicalBytes": 17179869184,
+    "rawSysctl": {
+      "kern.memorystatus_level": "52\n",
+      "hw.memsize": "17179869184\n",
+      "kern.memorystatus_vm_pressure_level": "1\n"
+    },
+    "counter": "floor(levelPercent * physicalBytes /100)",
+    "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)",
+    "metric": "kernel memorystatus free-level percent times physical memory",
+    "sampledUTC": "2026-09-28T09:25:06.310243+00:00"
+  },
+  "pressureState": {
+    "admissionsOpen": true,
+    "spacedNormalReadings": 0,
+    "requiredNormalReadings": 5,
+    "lastAbnormalUTC": "2026-09-28T08:35:39.021463+00:00",
+    "readings": 4580
+  },
+  "spacedNormalRun": 96,
+  "freshestPressure": {
+    "id": "85ef8819cd714b708110ea3549a03941",
+    "sampledUTC": "2026-09-28T09:25:06.310243+00:00",
+    "pressureLevel": 1,
+    "source": "admission"
+  },
+  "disk": {
+    "freeBytes": 78640533504,
+    "volumes": {
+      "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1": 78640533504,
+      "/System/Volumes/VM": 78640533504
+    },
+    "sampledUTC": "2026-09-28T09:25:06.477463+00:00",
+    "source": "shutil.disk_usage free bytes (statvfs)"
+  },
+  "diskFreeBytes": 78640533504,
+  "diskFloorBytes": 21474836480,
+  "swap": {
+    "raw": "total = 3072.00M  used = 1482.62M  free = 1589.38M  (encrypted)\n",
+    "sampledUTC": "2026-09-28T09:25:06.480481+00:00"
+  },
+  "swapExpectation": "normal gate: 1 GiB headroom floor kept after reservations",
+  "processes": [],
+  "excludedProcesses": [
+    {
+      "pid": 80101,
+      "owner": "old-0",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80133,
+      "owner": "old-1",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80167,
+      "owner": "old-2",
+      "reason": "registered stop handoff"
+    }
+  ],
+  "effectiveConcurrency": 1,
+  "maxConcurrency": 3,
+  "modeConcurrencyLimit": 3,
+  "reservedBytes": 4780818432,
+  "ownRSSBytes": 0,
+  "observedPeakBytes": 4780818432,
+  "prospectivePeakBytes": 4780818432,
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-4.json",
+    "sha256": "40de867951c6e62516b507972e19b249fd2bc4bb67631eaac5c6bffe1b15a661"
+  },
+  "requiredAvailableBytes": 5854560256,
+  "headroomAfterReservationBytes": 4152713543,
+  "admitted": true
+}

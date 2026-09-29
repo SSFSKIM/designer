@@ -1,0 +1,25 @@
+..E.E....
+======================================================================
+ERROR: test_equal_luma_has_no_plate_at_both_endpoints (test_projection.Algebra.test_equal_luma_has_no_plate_at_both_endpoints)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/test_projection.py", line 54, in test_equal_luma_has_no_plate_at_both_endpoints
+    self.assertEqual(route['side'],'none')
+                     ~~~~~^^^^^^^^
+KeyError: 'side'
+
+======================================================================
+ERROR: test_minimum_black_plate_carries_downward_shift (test_projection.Algebra.test_minimum_black_plate_carries_downward_shift)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/test_projection.py", line 44, in test_minimum_black_plate_carries_downward_shift
+    route=p.plate_route(1.,.94,.938)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/projection.py", line 33, in plate_route
+    raise ValueError('minimum white plate requires 0<=L<=F<1, g>=0')
+ValueError: minimum white plate requires 0<=L<=F<1, g>=0
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.033s
+
+FAILED (errors=2)

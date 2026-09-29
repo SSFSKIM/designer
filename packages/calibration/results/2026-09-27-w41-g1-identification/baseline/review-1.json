@@ -1,0 +1,23 @@
+{
+  "reviewedCommit": "fdaa44be",
+  "recordedAt": "2026-09-27T08:17:32.778643+00:00",
+  "findings": [
+    {
+      "priority": "P1",
+      "topic": "Unbound manifest, supplied geometry and G1 projection authority",
+      "status": "verified; dispatched fix wave"
+    },
+    {
+      "priority": "P1",
+      "topic": "Failed process census could pass zero-foreign gate",
+      "status": "verified; dispatched fix wave"
+    },
+    {
+      "priority": "P2",
+      "topic": "Unlaunched X6 refusal prevented a later fresh attempt",
+      "status": "verified; dispatched fix wave"
+    }
+  ],
+  "captureState": "No browser, native baseline read or exposure has run. Preparation is not capture readiness.",
+  "fixScope": "baseline/ and x6/ only; append provenance beside committed evidence"
+}

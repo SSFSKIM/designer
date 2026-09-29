@@ -1,0 +1,32 @@
+{
+  "kind": "STROKE_LINKED_READMISSION_REVIEW",
+  "reviewer": "a1c557ee93146abd9",
+  "receivedUTC": "2026-09-28T02:57:45.954116+00:00",
+  "verdict": "CLEAN",
+  "blockers": [],
+  "artifacts": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/m1-curvature02-claimed-deferral-readmission-1.json",
+      "sha256": "3de5a3789d0ee8b38fcbd1fb776869f806cf19cca275fa9cf814309e1cb50cc8"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-1/curvature-M1-start-02.readmit-01.json",
+      "sha256": "4f37c28c4a68dfa0629bde743096beba655568693382b00bad32ed4fb2c27d18"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-1.json",
+      "sha256": "70b437813878ae7f8f5e947262858b9636379b0992b202e0d27ef22fdf2ab40a"
+    }
+  ],
+  "verified": [
+    "Predecessor claim and no-fit deferral hashes valid; solverStarted false; prior process gone.",
+    "No start, failure or exact-once result; generation1 claim absent.",
+    "Read-only Store.readmission returns generation1; partition membership retains task.",
+    "Receipt differs only predecessor, fresh prefix, purpose and authorization provenance; all eight source pins valid.",
+    "Manifest preserves 17 entries/order and changes only curvature02 receipt/argv plus provenance.",
+    "Both prefixes empty; read-only review left scheduler file count unchanged at 6856."
+  ],
+  "executionCondition": "Verify and skip completed device15 and curvature00/01; generation-aware current claim paths, unchanged exact-once result path. Any further claimed deferral requires another explicit linked receipt.",
+  "reviewNativeReads": false,
+  "sourceChanges": false
+}

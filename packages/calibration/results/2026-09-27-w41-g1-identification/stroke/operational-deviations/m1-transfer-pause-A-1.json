@@ -1,0 +1,34 @@
+{
+  "kind": "STROKE_M1_TRANSFER_RESOURCE_HANDOFF",
+  "pausedUTC": "2026-09-28T19:01:51.439690+00:00",
+  "staticPartitionPID": 42722,
+  "processIdentity": {
+    "pid": 42722,
+    "startedUTC": "2026-09-28T09:30:07+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-A-IX5ygX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition A"
+  },
+  "status": "Ts",
+  "reason": "M1 has32 completed starts; park A while read-only transfer executes beside B to retain two active memory-heavy processes. Count-only fit budgets unchanged.",
+  "argv": [
+    "/private/tmp/w39-g2-wgpu/bin/python",
+    "-B",
+    "-X",
+    "pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-transfer-fyj95jxi",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_complete.py",
+    "--family",
+    "M1",
+    "--out",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1",
+    "--partition",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0",
+    "--partition",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-1",
+    "--partition",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2",
+    "--partition",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results",
+    "--partition",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A"
+  ],
+  "frontierSha256": "20d4b2d2039260a7e96a5c1ef309d0cd68bd3bed325691633926d21d13934966"
+}

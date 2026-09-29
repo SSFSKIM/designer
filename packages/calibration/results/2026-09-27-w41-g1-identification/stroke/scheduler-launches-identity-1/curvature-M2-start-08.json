@@ -1,0 +1,95 @@
+{
+  "captureRelease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/capturesrelease.json",
+    "sha256": "b77df35006fc32571e3171a5f375aad844300a5ef9adb09c34fd71fb51275e77"
+  },
+  "memoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v2.json",
+    "sha256": "8b5c81d8bb8ca08a07d85f57eb77d309ad91da1dfcf267fbbcdd92312bfc32f2"
+  },
+  "memoryCounterDirection": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-counter-clarification.json",
+    "sha256": "a11daa8ccc67c6979739a77153fafeac43db063be1375eab3f32486f8f0eca31"
+  },
+  "pressureSnapshot": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/manual-pressure-completed-snapshot.jsonl",
+    "sha256": "5f193bd315dae8238197582a34513dcc8f8b6a7878b555618fa19cf824c0de0a"
+  },
+  "pressureImport": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure-import.json",
+    "sha256": "db73d5683b9dfeb788d309d99ff31110d291f6fc343eea0d3984d5e8f2eb1268"
+  },
+  "pressureWatcher": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-pressure-watcher-2.json",
+    "sha256": "06de87252413a8b66b088cb7b9ca9bdfe027a615bf168c15e5d93342ab0869b3"
+  },
+  "adaptiveMemoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v3.json",
+    "sha256": "77cadc2730c1fd41e909fb329bf3b6dbb0bae49907fc6b8b6ca7983745f13e1f"
+  },
+  "kind": "STROKE_LAUNCH",
+  "receiptVersion": 3,
+  "task": [
+    "M2",
+    "curvature",
+    8
+  ],
+  "rosterSha256": "ae5bb5418fcb27e50c7f584765196b78e2e1bd6a2e7c70c4cc825c2d8655bd9b",
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-4.json",
+    "sha256": "40de867951c6e62516b507972e19b249fd2bc4bb67631eaac5c6bffe1b15a661"
+  },
+  "reservationBytes": 4594515968,
+  "oldWorkerReservationBytes": 4594515968,
+  "maxConcurrency": 3,
+  "deferredPredecessor": null,
+  "memoization": {
+    "comparison": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-bit-identity-1.json",
+      "sha256": "76c614a34c8fe7fa2f8ae3e8af37e0c5d428d11a209f6207fe9c1bab6fa4c046"
+    },
+    "wrappedProof": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-wrapped-1/completed-start-proof.json",
+      "sha256": "37794eed7e092defd1a6b504ea3d14973431b4f311c0bfbd5265e2aa851ec98d"
+    }
+  },
+  "resourceSourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py": "5d371e48c5600c85552868210874d0e31058473393639a480c57379005babc42",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py": "54208ba5a530942e6d8ea518f9a857983190d25f2fb2d2efc0365260a7c745e8",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": "f8d549641cf585ccba1dcbfe8911b7f8bf8731fd6f39e7a878877bd7b4dbf7df",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner.py": "ff8c69ec9f60fabeef70b14eb10ad7c96ad634a28bb942f0773a15b3b15845c5",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v2.py": "6cbf66a25444d8449ee1492769159cbab68a2f44d00d79ee188ed17bdeb48e84",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py": "e212dddeff1e22b28e89b859a72d1b07fa6cca2166d8d1849949b9ef91126646",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py": "8b291118d7463f4adc06cee70b4d10c3e5755a9e4edff2fdd1a1c1dd126ce438",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py": "2c0fba175bf26f38fd436d3a42edaae9bc9c4b8dce428b37ed1a06630e825e33"
+  },
+  "adoption": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization-adoption-1.json",
+    "sha256": "419569d38e35e496f61888bd6be5d6a361a76e08e20574d5f51edb1e611a69d5"
+  },
+  "purpose": "Remaining original sealed start after solo M2 scope measurement; adaptive gate owns actual concurrency.",
+  "operationalImportPolicy": {
+    "dontWriteBytecode": true,
+    "pycachePrefix": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-identity-M2-curvature-08-gluzv5vk",
+    "initiallyEmpty": true
+  },
+  "firstSoloResult": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M2-start-00.json",
+    "sha256": "75effb478c56d3cfa8f2b9f77ee36fc031c2fd947915bbfea9fe12e536721f8c"
+  },
+  "operationalSupersession": {
+    "previousReceipt": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches/curvature-M2-start-08.json",
+      "sha256": "1b053a289bfdf3c9ebef279cc3c801cfe44781ae7951cbf227dcdf977d4ac875"
+    },
+    "reason": "Identity-bound liveness source epoch; no prior claim or solve for this task.",
+    "deviation": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/pid-reuse-stall-1.json",
+      "sha256": "e68f56c50e4cda7d1996f3559afd4dda17ddf01acee3b3371d85f22b4c52c847"
+    },
+    "review": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/pid-identity-final-closure-1.json",
+      "sha256": "dc2a569999f91af23b05826cb451d01a0a9b570bf9886d2d6b0c05b3299901e8"
+    }
+  }
+}

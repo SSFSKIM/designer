@@ -1,0 +1,39 @@
+{
+  "sampledUTC": "2026-09-27T13:06:38.112827+00:00",
+  "policyVersion": 2,
+  "policyCounter": "free + max(inactive, purgeable)",
+  "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum",
+  "memory": {
+    "availableBytes": 2831089664,
+    "pressureLevel": 1,
+    "pageSizeBytes": 16384,
+    "freePages": 3286,
+    "inactivePages": 169510,
+    "purgeablePages": 180,
+    "countedPages": 172796,
+    "counter": "free + max(inactive, purgeable)",
+    "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum",
+    "metric": "macOS (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * page size; reclaimable-headroom heuristic, not a free-memory guarantee",
+    "sampledUTC": "2026-09-27T13:06:38.095688+00:00"
+  },
+  "pressureState": {
+    "admissionsOpen": true,
+    "spacedNormalReadings": 0,
+    "requiredNormalReadings": 5,
+    "lastAbnormalUTC": "2026-09-27T12:59:15.532635+00:00",
+    "readings": 91
+  },
+  "processes": [],
+  "effectiveConcurrency": 1,
+  "maxConcurrency": 3,
+  "reservedBytes": 3635642368,
+  "ownRSSBytes": 0,
+  "observedPeakBytes": 3635642368,
+  "prospectivePeakBytes": 3635642368,
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-2.json",
+    "sha256": "4285ea327f011ad8b530e22be8e65e3f8c51ebb242a5afdb7b5206d9bc09452d"
+  },
+  "requiredAvailableBytes": 4709384192,
+  "admitted": false
+}

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/driver.py", line 346, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/driver.py", line 343, in main
+    {'assemble': assemble, 'verify': verify, 'capture': capture}[args.operation](args.attempt)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/driver.py", line 295, in capture
+    launch(batch, command, env, guard)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/driver.py", line 245, in launch
+    if not check['verdict']['passes']: raise PermissionError('X6 refused; no process launched; may recheck')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: X6 refused; no process launched; may recheck

@@ -1,0 +1,137 @@
+{
+  "bridgeSources": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/bridge.py": "6db943f723721e07b88379656d398af83c6a7f07d0300f45f6fa071cfcee5fd9",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/transition/test_bridge.py": "f7108c85c3426226ed6d0f2533a482dad7b788e498a8055d37656c6d97fc40e9"
+  },
+  "browsersLaunched": 0,
+  "captureFrozen": {
+    "files": 4212,
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/frozen.json",
+    "sha256": "ef6483f61264a33e20d7a3f23a64646ad29704d886b09b3655d92f584bbeb491"
+  },
+  "captureSourceWitness": {
+    "changed": [
+      "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py"
+    ],
+    "count": 191
+  },
+  "domainRecordsValidated": 600,
+  "functionIdentity": {
+    "addedFunctions": [
+      "X6WaitBudget",
+      "observe_x6",
+      "prebegin_x6",
+      "prelaunch_x6",
+      "x6_record"
+    ],
+    "changedFunctions": [
+      "CaptureRequest",
+      "_run",
+      "capture_web",
+      "freeze"
+    ],
+    "preexistingAssignmentsUnchanged": true,
+    "unchangedFunctions": [
+      "ScoreRequest",
+      "admitted_scope",
+      "aggregate",
+      "cells_for",
+      "claim_scope",
+      "committed",
+      "coverage",
+      "dimension",
+      "domain_documents",
+      "endpoint",
+      "freeze_domain",
+      "git",
+      "load",
+      "local",
+      "merge_patch",
+      "observation",
+      "persist",
+      "png",
+      "run_production",
+      "run_synthetic",
+      "scratch_path",
+      "sha",
+      "sources",
+      "stable",
+      "unclaimed_reason",
+      "validate_domain",
+      "verify",
+      "verify_runtime_artifacts"
+    ]
+  },
+  "head": "4e3ac173de1c27dabc6d8a18c865565cf6601ae5",
+  "historicalSourceWitnesses": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/calval-2/summary.json": {
+      "changed": [
+        "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py"
+      ],
+      "count": 28,
+      "sha256": "3fe76ae0554812210ba62a3255d93ff7e89c484799a58ffeab408cad38e0e5d1"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/public-2/provenance.json": {
+      "changed": [
+        "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py"
+      ],
+      "count": 28,
+      "sha256": "f4577abc8b13a5c8e5213188b3e461ca069c959cabd853e39d15943d0af2afae"
+    },
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/rendered-calval-1/summary.json": {
+      "changed": [
+        "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py"
+      ],
+      "count": 28,
+      "sha256": "ce4b3e130a9c470108aa9f52fc1df819947b0d157ba3549c23bf7e2e17417aa8"
+    }
+  },
+  "limitation": "Source transition and public/domain checks, not new native scores or closure. Old driver.verify intentionally retains old source pin; no seal rewritten. Full final-wave source inventory remains for a later authorized freeze.",
+  "manifestFreezeAttempted": false,
+  "membership": {
+    "numerical": {
+      "holdout": 72,
+      "total": 648
+    },
+    "rendered": {
+      "holdout": 64,
+      "total": 600
+    }
+  },
+  "nativePayloadReads": 0,
+  "newRunner": {
+    "sha256": "5ae591ad6ea2098613e75dfb6377875314fcc2280d7526bf80e139f206436c08"
+  },
+  "oldRunner": {
+    "commit": "9b6d1bf7d34410927cb75556e0317569dd98c339",
+    "sha256": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96"
+  },
+  "publicPredictions": {
+    "byteIdentical": true,
+    "cells": 648,
+    "sha256": "ba018dfd1277ca5f112bc68ac702f0beb5fdf1ae13109643fe63ad86dfcba76c"
+  },
+  "receiptAttempted": false,
+  "retainedArtifacts": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/calval-2/admission-storage.json": "dde1e17f61a5980695def06a221c0213aa672dcb07686b11890514120c0b897a",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/calval-2/numerical-admission.json.gz": "2fea6690c967a3e76e24c92d8017b47908c7810828a3b7d3dece4f7b47a4de91",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/calval-2/scores.json.gz": "c6d2da66125c81912fb31ca3eaf319ab9a4bf3fa76d3774fbfa298fa574ece3a",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/public-2/numerical.json": "ba018dfd1277ca5f112bc68ac702f0beb5fdf1ae13109643fe63ad86dfcba76c",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/public-2/parameters.json": "0b1a53ae88280353680e79625d3ab86b9abf165b3d1489d222b17aeca50d2b73",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/rendered-calval-1/admission-storage.json": "da18c7c663f3a107c99db49fac7c7100bc26cb77529e35867f6af60fdc141b79",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/rendered-calval-1/independent-replay.json": "749c045d99e9eb634dfdbcb9df99dc0d95f2d6f524cf3aa64a986f81cfd50e62",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/rendered-calval-1/rendered-admission.json.gz": "bde051345254851e4db42793cfc791728feb0825fa37646fa5cee11d957ecf41",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/rendered-calval-1/scores.json.gz": "42c4fbeb727ca49d2f2c6270e4c870c2ce0e90e8c3127d097239890076aab65b",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/rendered-calval-1/veto.json": "5b77c8804c8500c1e9c562c61db245dedba514c45c2872c92713d455154cbe2c",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/shipped-baseline.json": "0fb6f010388c001aad6ae5b6f76463f18a3b2a83c8d98830cb61aeb157d83062"
+  },
+  "schema": "w41-guard-source-transition-1",
+  "textOnlyTestFix": {
+    "afterSha256": "363bb5dcf3be43cd284cfb16f7e64d6538955d27aac7de84bc412786f80cfe24",
+    "beforeSha256": "c155b293cc2829b7beb2e04cc8cd9690d103799b087a953b9cda026be6577512",
+    "commit": "5d492c15023ef475d729ef68397589e53dbf44fd",
+    "outsideRuntimeAndCaptureSourceInventories": true,
+    "path": "packages/calibration/test/tier-coherence.test.ts",
+    "qualification": "Test wording-only classification requires the separate worker review; no runtime CSS parity inferred."
+  }
+}

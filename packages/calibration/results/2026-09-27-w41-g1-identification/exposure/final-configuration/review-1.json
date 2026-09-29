@@ -1,0 +1,20 @@
+{
+ "kind": "W41_FINAL_CONFIGURATION_INDEPENDENT_REVIEW",
+ "recordedUTC": "2026-09-28T23:08:02.153597+00:00",
+ "reviewer": "doperpowers:reviewer-high (read-only; no freeze, verify, preflight, scorer, receipt, browser, native read, worktree write or commit)",
+ "head": "afed9dc3ccc9117351ae670765a42aaa05bd1d6c",
+ "reviewed": {
+  "configuration.json": "04cba3338375e0b4516da099137358f966fd3b5e0b5211984bbd84b8ac3eda46",
+  "instruments.json": "1174baf6dea4769331ee34390e5c5a99af26196c81d4a5170a4a93cfb6d0b969",
+  "static-check.py.txt": "0d573bd8782166d624384c9d31f110e67da22bb111df065fc93ab46bdae6eba6",
+  "static-check-2.txt": "150b06ebb7075906a66beed1c973eb369673227a65845e7d40112d8ebdf38bf3",
+  "commits": [
+   "52b1a6b4 (1,500 stroke evidence files)",
+   "afed9dc3 (stroke/M2-terminal-record-1.json)"
+  ]
+ },
+ "findings": [],
+ "verdict": "No material findings. (1) verify survival through the receipt: capture writes to the external destination; Vite cache and temporary config live under packages/calibration/node_modules outside the enumerated source roots; no capture step rebuilds policy dist; the scorer import adds no enumerated file; receipt/scores/lock outputs are neither pinned nor enumerated; committing the manifest is compatible with the source-revision check. (2) BODY-E3-only content matches the cited dispositions and recorded hashes; the 6,411 instruments equal the sorted union; runtime/scorer inputs are directly or transitively bound. (3) The M2 terminal record agrees with its chain, hashes, stdout tails, missing completion files, kern.boottime/kern.shutdownreason and absent PIDs; it neither backdates the earlier label nor promotes M2 to a rejection; pinning the six stable partial records is sound. (4) The static check independently returned READY exit 0 at afed9dc3 (418 automatic sources, 6,575 prospective pinned files) and mirrors freeze's production branch; the README's freeze command maps its arguments correctly, checks committed inputs, protects its transcript with noclobber and creates the manifest exclusively.",
+ "qualification": "A static gate assessment, not a promise of capture equality or holdout success.",
+ "loop": "One round; no finding to fix, log or dismiss, so the review has converged."
+}

@@ -1,0 +1,98 @@
+EEEF
+======================================================================
+ERROR: test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter (test_scheduler_v3.AdaptivePolicyTests.test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter) (foreign={'availableBytes': 32768000000, 'pressureLevel': 1, 'pageSizeBytes': 16384, 'freePages': 1000000, 'inactivePages': 1000000, 'purgeablePages': 0, 'countedPages': 2000000, 'counter': 'free + max(inactive, purgeable)', 'counterEpoch': 'policy-v2 counter correction: max, not the superseded inactive + purgeable sum', 'metric': 'macOS (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * page size; reclaimable-headroom heuristic, not a free-memory guarantee', 'sampledUTC': '2026-09-28T01:41:30.925753+00:00'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 417, in test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter
+    self.claim(('M1', 'device', 3), pid=201, memory=lambda: foreign)
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 99, in claim
+    return self.store.claim(launch, pid=pid, alive=self.live.__contains__,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 94, in claimed
+    return claim(reference, pid=pid, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py", line 159, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py", line 108, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 550, in claim
+    decision = self.admission(launch, pid, alive, memory, rss)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 343, in admission
+    return self._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py", line 314, in _admission
+    raise refusal
+scheduler.Deferred: {"admitted": false, "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)", "disk": {"freeBytes": 107374182400, "sampledUTC": "2026-09-28T01:41:30.916312+00:00", "source": "synthetic", "volumes": {"/": 107374182400}}, "diskFloorBytes": 21474836480, "diskFreeBytes": 107374182400, "effectiveConcurrency": 1, "excludedProcesses": [{"owner": "old-0", "pid": 101, "reason": "registered stop handoff"}, {"owner": "old-1", "pid": 102, "reason": "registered stop handoff"}, {"owner": "old-2", "pid": 103, "reason": "registered stop handoff"}], "freshestPressure": {"id": "b254cf30f85546a0a26c9d9f0b52450c", "pressureLevel": 1, "sampledUTC": "2026-09-28T01:41:30.925753+00:00", "source": "admission"}, "headroomAfterReservationBytes": 31694258176, "kernelMemoryPolicy": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp9kp3jovh/adaptive-direction.json", "sha256": "da2d6bee473e2caac0679275377d33a79117e4e0cddfcefb295f73e3a8ddbd66"}, "maxConcurrency": 3, "memory": {"availableBytes": 32768000000, "countedPages": 2000000, "counter": "free + max(inactive, purgeable)", "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum", "freePages": 1000000, "inactivePages": 1000000, "metric": "macOS (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * page size; reclaimable-headroom heuristic, not a free-memory guarantee", "pageSizeBytes": 16384, "pressureLevel": 1, "purgeablePages": 0, "sampledUTC": "2026-09-28T01:41:30.925753+00:00"}, "modeConcurrencyLimit": 1, "normalGate": {"fiveSpacedNormal": false, "floorClears": true, "pressureNormal": true}, "observedPeakBytes": 1073741824, "ownRSSBytes": 0, "peakEvidence": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp9kp3jovh/peak.json", "sha256": "42dd042ca9067dea9a0b43711eea01c08cc13c71761ff846ce40cca39262ee8e"}, "policyCounter": "floor(levelPercent * physicalBytes /100)", "policyVersion": 4, "pressureState": {"admissionsOpen": true, "lastAbnormalUTC": null, "readings": 3, "requiredNormalReadings": 5, "spacedNormalReadings": 0}, "processes": [], "prospectivePeakBytes": 1073741824, "requiredAvailableBytes": 1073741824, "reservedBytes": 1073741824, "resourceMode": "degraded", "resourcePolicy": "stroke-adaptive-v4-kernel-level", "sampledUTC": "2026-09-28T01:41:30.927553+00:00", "spacedNormalRun": 1, "swap": {"raw": "synthetic swap"}, "swapExpectation": "degraded gate: no headroom floor, one fit at a time; paging to swap is expected and accepted, bounded by the 20 GiB disk floor"}
+
+======================================================================
+ERROR: test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter (test_scheduler_v3.AdaptivePolicyTests.test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter) (foreign={'availableBytes': 34359738368, 'pressureLevel': 1, 'metric': 'other'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 417, in test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter
+    self.claim(('M1', 'device', 3), pid=201, memory=lambda: foreign)
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 99, in claim
+    return self.store.claim(launch, pid=pid, alive=self.live.__contains__,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 94, in claimed
+    return claim(reference, pid=pid, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py", line 159, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py", line 108, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 550, in claim
+    decision = self.admission(launch, pid, alive, memory, rss)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 343, in admission
+    return self._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py", line 314, in _admission
+    raise refusal
+scheduler.Deferred: {"admitted": false, "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)", "disk": {"freeBytes": 107374182400, "sampledUTC": "2026-09-28T01:41:30.916312+00:00", "source": "synthetic", "volumes": {"/": 107374182400}}, "diskFloorBytes": 21474836480, "diskFreeBytes": 107374182400, "effectiveConcurrency": 1, "excludedProcesses": [{"owner": "old-0", "pid": 101, "reason": "registered stop handoff"}, {"owner": "old-1", "pid": 102, "reason": "registered stop handoff"}, {"owner": "old-2", "pid": 103, "reason": "registered stop handoff"}], "freshestPressure": {"id": "2d970febe942454d8e649c3d0d69c196", "pressureLevel": 1, "sampledUTC": "2026-09-28T01:41:30.930006+00:00", "source": "admission"}, "headroomAfterReservationBytes": 33285996544, "kernelMemoryPolicy": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp9kp3jovh/adaptive-direction.json", "sha256": "da2d6bee473e2caac0679275377d33a79117e4e0cddfcefb295f73e3a8ddbd66"}, "maxConcurrency": 3, "memory": {"availableBytes": 34359738368, "metric": "other", "pressureLevel": 1}, "modeConcurrencyLimit": 1, "normalGate": {"fiveSpacedNormal": false, "floorClears": true, "pressureNormal": true}, "observedPeakBytes": 1073741824, "ownRSSBytes": 0, "peakEvidence": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp9kp3jovh/peak.json", "sha256": "42dd042ca9067dea9a0b43711eea01c08cc13c71761ff846ce40cca39262ee8e"}, "policyCounter": "floor(levelPercent * physicalBytes /100)", "policyVersion": 4, "pressureState": {"admissionsOpen": true, "lastAbnormalUTC": null, "readings": 4, "requiredNormalReadings": 5, "spacedNormalReadings": 0}, "processes": [], "prospectivePeakBytes": 1073741824, "requiredAvailableBytes": 1073741824, "reservedBytes": 1073741824, "resourceMode": "degraded", "resourcePolicy": "stroke-adaptive-v4-kernel-level", "sampledUTC": "2026-09-28T01:41:30.930689+00:00", "spacedNormalRun": 1, "swap": {"raw": "synthetic swap"}, "swapExpectation": "degraded gate: no headroom floor, one fit at a time; paging to swap is expected and accepted, bounded by the 20 GiB disk floor"}
+
+======================================================================
+ERROR: test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter (test_scheduler_v3.AdaptivePolicyTests.test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter) (foreign=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 417, in test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter
+    self.claim(('M1', 'device', 3), pid=201, memory=lambda: foreign)
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 99, in claim
+    return self.store.claim(launch, pid=pid, alive=self.live.__contains__,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 94, in claimed
+    return claim(reference, pid=pid, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py", line 159, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py", line 108, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 550, in claim
+    decision = self.admission(launch, pid, alive, memory, rss)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 343, in admission
+    return self._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py", line 249, in _admission
+    level = reading.get('pressureLevel')
+            ^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+
+======================================================================
+FAIL: test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter (test_scheduler_v3.AdaptivePolicyTests.test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red2-ENNJVd/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 418, in test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter
+    self.assertEqual(len(self.store.pressure_readings()), rows)
+AssertionError: 4 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.022s
+
+FAILED (failures=1, errors=3)

@@ -1,0 +1,69 @@
+W41 G1 — parent-ruling revision to the isolated X6 guard
+======================================================
+
+This supersedes the fail-fast machine-fact policy in x6-addendum.txt/2d94ccaa,
+not its historical evidence. Those files and the72-test checkpoint remain as
+recorded. The coordinator relayed this exact parent clarification:
+
+"one CUMULATIVE 60-minute waiting budget for the whole begun exposure, 30 s observations, capture time excluded, exactly as you recommend. The fresh pre-begin gate must pass on its own. Observer errors and frozen-snapshot mutation fail closed (refuse), never become facts."
+
+The one-begun-attempt clause and all scientific membership/closure/veto rules stay
+unchanged. Waiting for machine facts before any browser process is not a capture
+retry or another exposure. No native read, scorer import, or capture occurs while
+a gate waits. All work remains isolated pending explicit RUNNEREDITGO after
+candidate/CSS/canonical captures and source-bound offline scoring finish.
+
+Before begin
+------------
+After frozen-input verification, production creates the attempt output directory
+and obtains ONE fresh X6 reading. x6-prebegin.json durably records it. A failed
+fact or observer error returns without constructing a Receipt. There is no wait
+here and no browser or native access. A failed prebegin attempt leaves its output
+evidence intact; use a new output destination for a later preflight, never overwrite
+that reading. The original production receipt path is not changed.
+
+Inside the single receipt
+-------------------------
+One X6WaitBudget instance is shared by every candidate/profile CaptureRequest.
+Elapsed time inside X6 guards—including observation, snapshot verification,
+evidence persistence and bounded sleep—is accumulated. Browser capture and
+subsequent projection/scoring time between guards are not included. Each failed
+facts reading is persisted as waiting, followed by a sleep of at most30seconds
+and another fresh reading. Sleep is shortened to the remaining shared budget.
+Passing facts never reset the budget for the next profile or candidate.
+
+Every observation has its own exclusive, file-and-directory-fsynced record:
+  <candidate-output>/x6-<profile>-observation-0001.json
+The record retains raw facts, recomputed verdict, observation sequence and elapsed
+cumulative guard time. The terminal x6-<profile>.json summarizes the last passing,
+deadline or snapshot-error observation; it never overwrites an earlier observation.
+The output remains inside the existing attempt directory, never the source tree.
+
+When facts pass within the budget, the full frozen manifest/source/runtime/payload
+snapshot is reverified before launch. Mutation refuses, with a snapshot-error
+record; it is not converted into a failed machine fact or another polling cycle.
+Observer exceptions retain raw error details and unknown observation/verdict when
+nothing returned, then fail closed. Persistence errors prevent launch. Failed
+machine facts can wait only until the shared3600-second budget is exhausted;
+then the attempt refuses/spends under the existing receipt path. No failed browser
+capture or native score is retried by this waiting mechanism.
+
+Duration for the untouched-Mac reservation
+------------------------------------------
+Reserve the measured blind64 capture/projection/native-scoring duration, PLUS at
+most60minutes of cumulative gate time for the whole exposure. It is not60minutes
+per profile or candidate. Synthetic tests cannot supply the empirical capture/
+scoring duration; use this machine's recorded600-cell candidate and64-cell blind
+baseline timings. A fresh prebegin gate must already pass, and human confirmation
+of the untouched-machine interval belongs to the coordinator before exposure.
+
+Proof and scope
+---------------
+The new test_x6_wait.py uses fake monotonic time and sleep, synthetic observations
+and process output. It proves fail-then-pass launches once with all readings kept,
+shared budget across profiles with a7200-second fake capture excluded, a mutation
+during waiting blocking launch, and bad prebegin facts never constructing Receipt.
+Earlier X6 failure tests now advance a fake clock through the shared deadline
+rather than asserting the superseded immediate-failure behavior. Old transcripts
+are untouched. All original admission/durability/source/domain tests remain.
+No actual OS observation, browser, native payload or production receipt was used.

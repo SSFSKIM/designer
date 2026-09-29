@@ -1,0 +1,22 @@
+{
+  "schema": "w41-browser-backup-origin-supplement-1",
+  "recordedAt": "2026-09-28T19:38:49.557095+00:00",
+  "source": "Current coordinator relay; not independently established process ownership.",
+  "probableOrigin": "A worker of the duplicate coordinator process probably created the backup while acting on the same environment concerns in parallel.",
+  "certainty": "Probable, not proven; actual creator PID/session is not established by this supplement.",
+  "preservedReadinessCommits": [
+    "000712840621907c1f9cd5b8c3e7c64855c2d9de",
+    "beeb896b266df31e7e7be8135aba6cad56153585"
+  ],
+  "backup": "/Users/new/vitrea-w41/browser-backup/chromium-1234",
+  "originalManifestSha256": "32207459ceb9312cc17aa7afafb3987bf0288031823fc9fb2010aa74bd0d02d6",
+  "independentlyVerifiedTreeSha256": "dab093bb2a4a5340ea8a3a40d3d2799d947aea52a0bd28c5c645899f1558d783",
+  "planningBasis": "Rely on independently verified existing-backup byte/layout identity, not inferred creator identity. Both readiness records remain unchanged; future execution requires its own just-in-time verification.",
+  "activity": {
+    "copy": false,
+    "restore": false,
+    "browserLaunch": false,
+    "freeze": false,
+    "receipt": false
+  }
+}

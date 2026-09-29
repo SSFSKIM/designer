@@ -1,0 +1,14 @@
+test_numerical_uniform_domain_is_explicit_not_assumed (test_claims.FullMembershipClaimsTests.test_numerical_uniform_domain_is_explicit_not_assumed) ... FAIL
+
+======================================================================
+FAIL: test_numerical_uniform_domain_is_explicit_not_assumed (test_claims.FullMembershipClaimsTests.test_numerical_uniform_domain_is_explicit_not_assumed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_claims.py", line 175, in test_numerical_uniform_domain_is_explicit_not_assumed
+    with self.assertRaisesRegex(ValueError,'numericalDomain'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 1.186s
+
+FAILED (failures=1)

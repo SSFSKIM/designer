@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/e3-implementation/packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/e3-gpu-proof.py", line 93, in <module>
+    device.create_shader_module(code=full_module)
+  File "/private/tmp/w39-g2-wgpu/lib/python3.12/site-packages/wgpu/backends/wgpu_native/_api.py", line 1890, in create_shader_module
+    id = libf.wgpuDeviceCreateShaderModule(self._internal, struct)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w39-g2-wgpu/lib/python3.12/site-packages/wgpu/backends/wgpu_native/_helpers.py", line 373, in proxy_func
+    raise wgpu_error
+  File "/private/tmp/w39-g2-wgpu/lib/python3.12/site-packages/wgpu/backends/wgpu_native/_api.py", line 1890, in create_shader_module
+    id = libf.wgpuDeviceCreateShaderModule(self._internal, struct)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+wgpu._classes.GPUValidationError: Validation Error
+
+Caused by:
+  In wgpuDeviceCreateShaderModule
+
+Shader '' parsing error: name `target` is a reserved keyword
+    ┌─ wgsl:322:7
+    │
+322 │   let target = srgb_to_linear(body_e3_codes(linear_to_srgb(backdrop) * 255.0) / 255.0);
+    │       ^^^^^^ definition of `target`
+
+

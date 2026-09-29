@@ -1,0 +1,15 @@
+.E.....
+======================================================================
+ERROR: test_held_shadow_factorization_matches_sealed_supplied_path_predictor (__main__.PreparationTests.test_held_shadow_factorization_matches_sealed_supplied_path_predictor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/test_preparation.py", line 82, in test_held_shadow_factorization_matches_sealed_supplied_path_predictor
+    fall = replay.held_falloff(g, self.shape, material)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'replay' has no attribute 'held_falloff'
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.198s
+
+FAILED (errors=1)
+maximum compact/dense difference codes 1.5916157281026244e-12

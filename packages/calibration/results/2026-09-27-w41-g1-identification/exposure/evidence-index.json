@@ -1,0 +1,76 @@
+{
+  "instrument": "w41-renderer-exposure-2 (G1 additive scoped body instrument)",
+  "scope": "body-e3-claim-scope.json",
+  "metadataProof": "scope-membership-rendered-domain.json",
+  "implementationSha256": {
+    "runner.py": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96",
+    "manifest.schema.json": "8bad49fec2c85382fce097c766a05c76cf2bb439d210b20bb713453084d2bab2",
+    "test_runner.py": "abe2be4504cd48b8bd6b0f250de64c808b7429f60816c2c5399fcea4f422920c",
+    "test_claims.py": "036c2c8c5f936d86bb811ec46d234bdd6393e808fde20d695229f546698e1e83",
+    "test_domain.py": "271108ef9aa0552f6d5c8c106934b25b208fc2f167eed84e5f4ccfce53ec8d17"
+  },
+  "finalChecks": {
+    "syntheticTests": {
+      "count": 65,
+      "evidence": "fix-wave-empty-active-patch-green.txt",
+      "status": "passed"
+    },
+    "freeze1818": {
+      "evidence": "freeze-final-1818.txt",
+      "status": "intact"
+    },
+    "g0": {
+      "trackedFiles": 177,
+      "evidence": "g0-byte-equality-final.json",
+      "status": "byte-identical"
+    },
+    "independentReview": {
+      "initial": "review-1.json",
+      "followup": "review-2.json",
+      "closure": "review-3.json",
+      "status": "no material finding remaining in reviewed changes"
+    }
+  },
+  "historicalCheckpoints": "Earlier RED/GREEN and failed/setup transcripts retain their original observations. scope-membership.json is the numerical-only structured-domain checkpoint, not the final rendered-deep scope. Final implementation hashes do not relabel older checkpoints as runs of this exact version.",
+  "authority": "Synthetic scratch only; no production freeze, W39 native payload, browser or production receipt used. No material/renderer/declaration edits.",
+  "files": {
+    "README.txt": "178dd3cbba33d2d9388b4b692dfae2357ceb3b2a778a248c1c156581bd423eeb",
+    "body-e3-claim-scope.json": "d4c3f57075d7c3af18a3c6efae527693006e4e6933f2689e635580dde4dfdaa4",
+    "claims-attempt-1.txt": "22a5bd23e9a99bf68b0d62b60a32d851e55144b3633fd488f9eb86673d62afba",
+    "claims-green-2.txt": "23af0473b088c032978eaa15e5dc2bc77c84ecf35a1fbd313b6c18612584ee77",
+    "claims-green.txt": "81782bc02b830986acddc270e42731743f0df16e9c865d7a0eb8b06e1e48ea20",
+    "claims-red.txt": "29e484282f711034845ee05d7c1e384327aaed0bac97163dbeac13bc1799eda5",
+    "claims-setup-red.txt": "971d3dfbb96530575ed2f9d3da311f8e9ca82875e5fe1d75fd8e21b7649623cc",
+    "domain-green.txt": "e4a8fc540fe7d55c06c3138990165162494296583a4ad3f4e7e922e9d09a6e1d",
+    "domain-red.txt": "d61664a4244d6fdd36ab69824187e31dad0145e6b60efc2e7580869cda90576d",
+    "fix-wave-associations-attempt-1.txt": "5c42490071f9c799df2e468a93b195f755f66bae22366d8b276f4f4fc016cc82",
+    "fix-wave-associations-green-2.txt": "fd52b95aa1030b8bf0d8a50079b4293c5068d35036a5d16eed44d8e6c7f1ef6c",
+    "fix-wave-associations-green.txt": "1a05715ae73aaefe6e529f3d2e583a8dfe5b9ea8ed8ffd766a98cb5e0e33bcc4",
+    "fix-wave-associations-red.txt": "b8fa4585380038bebd060983ca81e52ba3c71a69d6183c787b4c9c2cca0e0d00",
+    "fix-wave-empty-active-patch-green.txt": "bc0b13ccd441b825a984244fb032d9d2e2192dbe74a63ac74f92cd8aff84a547",
+    "fix-wave-empty-active-patch-red.txt": "16642dc4467c8e2149bb6edc7cf62165612ac5938254d7aa0c26878a73b43b23",
+    "fix-wave-producer-green.txt": "00dddfe7299824a440145219f3c86a6f695ff38b45205585f5bf52ed6f9a335f",
+    "fix-wave-producer-red.txt": "fb8f6ecdbd3d722de998788730e470b07580573ee09da554ba91ba6fa5bc5d12",
+    "fix-wave-rendered-deep-green.txt": "a540f16b19bed7a1749557fcec82935fe7d35f297ea8afd653744a2970c969d7",
+    "fix-wave-rendered-deep-red.txt": "6d1b5c4e67b903b98a40293cfc9aa55e7e9c58c9c420b725b7b4d8e9b6890705",
+    "freeze-1818.txt": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36",
+    "freeze-final-1818.txt": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36",
+    "g0-byte-equality-final.json": "d1f249d470aa76dbda6cc2aecc0eba22030079f888af2c89e6d25c0ac159cb81",
+    "g0-byte-equality.json": "33e6a422c990625935f0750fb33513a996d766d72fb81984d0c42283e5f8daf6",
+    "manifest.schema.json": "8bad49fec2c85382fce097c766a05c76cf2bb439d210b20bb713453084d2bab2",
+    "rendered-domain-ruling.txt": "136e03ce8650a326f9866c63826d3c8c229d962db5abd22af8f7ff9d9a499880",
+    "review-1.json": "e68708b3884c1ae00bc02cd63bedcd077f23a28381165855318b1e5e37b0029f",
+    "review-2.json": "3f79e5aefdbcb830b03299dee2f90a4e8d6987901bb0453f46458ab0bf6aa16b",
+    "review-3.json": "19f7e3410e7f3d75d61078ceaab641476e743ac2755746c17ce37342fe6ef15e",
+    "runner.py": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96",
+    "scope-membership-rendered-domain.json": "637bd61c15d2143d9b119891069e5ff2a722bec554bda07e7877be9f81e481b5",
+    "scope-membership.json": "ae0e776c9ab9304202ecbd7256c53a344b614c74a77cb4eed641c35862121377",
+    "test_claims.py": "036c2c8c5f936d86bb811ec46d234bdd6393e808fde20d695229f546698e1e83",
+    "test_domain.py": "271108ef9aa0552f6d5c8c106934b25b208fc2f167eed84e5f4ccfce53ec8d17",
+    "test_runner.py": "abe2be4504cd48b8bd6b0f250de64c808b7429f60816c2c5399fcea4f422920c",
+    "uniform-domain-green.txt": "c03d079f37e2b488b30719d000d0e785cface4151f682d786fe84f2d9d45c809",
+    "uniform-domain-red.txt": "5ad8b7512596d59558dff61d10db80990875399415e503bddc559b4518e2b886",
+    "veto-red.txt": "699fa7f8ecedf0b10503f1f8ede346d064b2554e740662adbfaafd6d837cb034"
+  },
+  "formattingCheck": "Source/schema/JSON/README diff check passed; raw unittest failure transcript whitespace retained verbatim."
+}

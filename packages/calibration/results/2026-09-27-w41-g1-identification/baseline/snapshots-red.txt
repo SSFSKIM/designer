@@ -1,0 +1,30 @@
+test_changed_source_refuses_before_copying (test_snapshots.SnapshotTests.test_changed_source_refuses_before_copying) ... ERROR
+test_copies_exact_bytes_deduplicates_and_keeps_scratch (test_snapshots.SnapshotTests.test_copies_exact_bytes_deduplicates_and_keeps_scratch) ... ERROR
+
+======================================================================
+ERROR: test_changed_source_refuses_before_copying (test_snapshots.SnapshotTests.test_changed_source_refuses_before_copying)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_snapshots.py", line 46, in test_changed_source_refuses_before_copying
+    snapshots.copy_payloads(root, root / 'evidence', captures)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/snapshots.py", line 1, in copy_payloads
+    def copy_payloads(*args): raise NotImplementedError('preserve committed baseline payload bytes')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: preserve committed baseline payload bytes
+
+======================================================================
+ERROR: test_copies_exact_bytes_deduplicates_and_keeps_scratch (test_snapshots.SnapshotTests.test_copies_exact_bytes_deduplicates_and_keeps_scratch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_snapshots.py", line 30, in test_copies_exact_bytes_deduplicates_and_keeps_scratch
+    result = snapshots.copy_payloads(root, root / 'evidence', captures)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/snapshots.py", line 1, in copy_payloads
+    def copy_payloads(*args): raise NotImplementedError('preserve committed baseline payload bytes')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: preserve committed baseline payload bytes
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.008s
+
+FAILED (errors=2)

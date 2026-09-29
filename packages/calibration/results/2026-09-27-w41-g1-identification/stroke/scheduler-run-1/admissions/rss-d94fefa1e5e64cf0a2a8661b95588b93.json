@@ -1,0 +1,17 @@
+{
+  "kind": "STROKE_RSS_OBSERVATION",
+  "sampledUTC": "2026-09-27T13:42:59.290373+00:00",
+  "task": [
+    "M2",
+    "device",
+    0
+  ],
+  "source": "/bin/ps -o rss= KiB * 1024",
+  "samples": [
+    {
+      "pid": 30144,
+      "owner": "device-M2-start-00.json",
+      "rssBytes": 1043103744
+    }
+  ]
+}

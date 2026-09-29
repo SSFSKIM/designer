@@ -1,0 +1,41 @@
+{
+  "kind": "STROKE_M1_LIGHT_INACTIVE_REVIEW_CLOSURE",
+  "recordedUTC": "2026-09-28T19:52:00.349416+00:00",
+  "reviewer": "a1c557ee93146abd9",
+  "verdict": "CLEAN",
+  "remainingBlockers": [],
+  "currentVerdict": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M1-light-inactive-verdict-2.json",
+    "sha256": "e13aaec279526818b5104e7b0e9840d14482b24b602744e3628d130769c138bc"
+  },
+  "supersededVerdictRetained": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M1-light-inactive-verdict-1.json",
+    "sha256": "90a47fdc9932260068c6367de505ea087426c7af555fcc58cea24d90f77e056d"
+  },
+  "savedDataReplay": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verdict2_witness_replay.py",
+    "sha256": "50f6297b3975f0f84705128361e7089d36bf5aaec3843e7195ca335e8b15d3d3"
+  },
+  "independentLogs": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verdict2-independent-review-check-1.txt",
+      "sha256": "6eb2feaf39b24a287cd439aa841e5b62bb512c2f6558da7f2882080faf68f5a2"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verdict2-independent-recompute-1.txt",
+      "sha256": "6046e183dc16ffe5c55d43d9cae19b614da1e37e5cc274cf2848c604eda018ad"
+    }
+  ],
+  "checks": [
+    "Saved-only replay --check returns exactMATCH; changedwitness negativecontrol exits1.",
+    "All16 measured-witness quadrature robustness margins match independent recompute; minimum2.016885637698188codes.",
+    "OnlydeviceLS/cal1x witness changes, togreen-colour arcbin2G; other15unchanged.",
+    "Oldg255row remainsbinding viauncensoredsubset despitecensored-status label; no scientificfailurecriterion or candidateverdict changed.",
+    "Full32 originalseed result hashes and31terminaloutputhashes verified; selectedcoefficients unchanged.",
+    "144LIcells:126calibration18validation,7repeats each; noholdout.",
+    "Allfour selectedconverged candidates fail allfour strata; rank10/raildeficit0."
+  ],
+  "classification": "LOCAL fitted failure, not coefficient-independent/global M1 rejection. No surviving stroke candidate for implementation or exposure.",
+  "nativeArchiveReads": 0,
+  "fitReruns": 0
+}

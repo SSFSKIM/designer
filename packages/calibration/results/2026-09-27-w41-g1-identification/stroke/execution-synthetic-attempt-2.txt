@@ -1,0 +1,13 @@
+.F..
+======================================================================
+FAIL: test_boundary_reports_only_stroke_increment_without_accuracy_claim (__main__.ExecutionTests.test_boundary_reports_only_stroke_increment_without_accuracy_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/test_execution.py", line 54, in test_boundary_reports_only_stroke_increment_without_accuracy_claim
+    self.assertEqual(result['maximumPixelStrokeIncrementCodes'], 0.)
+AssertionError: 1.4210854715202004e-14 != 0.0
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.505s
+
+FAILED (failures=1)

@@ -1,0 +1,37 @@
+{
+  "kind": "STROKE_PEAK_RSS",
+  "largestObservedPeakRSSBytes": 3078144000,
+  "samples": [
+    {
+      "pid": 80101,
+      "peakRSSBytes": 1175994368,
+      "sampledUTC": "2026-09-27T10:53:47.669313+00:00",
+      "source": "maximum of1201Hz psRSSKiB observations; KiB convertedby1024",
+      "qualification": "sampled observed high-water, not process lifetime ru_maxrss"
+    },
+    {
+      "pid": 80133,
+      "peakRSSBytes": 2997469184,
+      "sampledUTC": "2026-09-27T10:53:57.074272+00:00",
+      "source": "maximum of1201Hz psRSSKiB observations; KiB convertedby1024",
+      "qualification": "sampled observed high-water, not process lifetime ru_maxrss"
+    },
+    {
+      "pid": 80167,
+      "peakRSSBytes": 3078144000,
+      "sampledUTC": "2026-09-27T10:55:21.617594+00:00",
+      "source": "maximum of1201Hz psRSSKiB observations; KiB convertedby1024",
+      "qualification": "sampled observed high-water, not process lifetime ru_maxrss"
+    },
+    {
+      "pid": 61407,
+      "peakRSSBytes": 916930560,
+      "sampledUTC": null,
+      "source": "Earlier tool-result ps sample in this same session: PID61407 elapsed35:15 RSS895440KiB; that stoppedM0fit has no persisted ru_maxrss and no exact sampleUTC was recorded",
+      "qualification": "single documented observedRSS; timestamp unavailable, not invented"
+    }
+  ],
+  "historicalLifetimeRSSPeakAvailable": false,
+  "metric": "actualresidentRSS, sampledobservedhighwater; excludes physicalfootprint/non-fitpreparation peaks",
+  "operationalLimit": "reservation estimate plus3GiBheadroom/pressuregate, not an absolute futureRSSbound"
+}

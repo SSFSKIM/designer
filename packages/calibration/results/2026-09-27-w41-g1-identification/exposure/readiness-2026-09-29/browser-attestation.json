@@ -1,0 +1,119 @@
+{
+  "activity": {
+    "browserLaunched": false,
+    "cacheChanged": false,
+    "configurationChanged": false,
+    "futureAutomaticRestoreAuthorized": false,
+    "nativePayloadRead": false,
+    "registrationChanged": false,
+    "versionExecutableRun": false
+  },
+  "backupVerification": {
+    "committedCopy": "chromium-1234-backup-verification-1.json",
+    "path": "/Users/new/vitrea-w41/browser-backup/chromium-1234-backup-verification-1.json",
+    "sha256": "15bcda9a59ebe7e8e877bd978e1119dc1fb6613d7f5d6d2ed39434be2c978151"
+  },
+  "browser": {
+    "bundleIdentifier": "com.google.chrome.for.testing",
+    "bundleVersion": "7922.34",
+    "executable": {
+      "bytes": 52112,
+      "path": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "sha256": "a596b1cfc6353e987fcec8d71a23a28cd6a9e7a6b4e20b908e4c4fcffe51158e"
+    },
+    "frameworkBinary": {
+      "bytes": 237813488,
+      "path": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Google Chrome for Testing Framework",
+      "sha256": "269114cf695f1c50b54e0816a1442e41dc468d28672e2dedc2036105fb5a8dbe"
+    },
+    "infoPlist": {
+      "bytes": 18239,
+      "path": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Info.plist",
+      "sha256": "ab9c30716b623d8dc87232115e618ae116311fa28290fe2d9f59e65451a99ef3"
+    },
+    "versionFromPlist": "151.0.7922.34"
+  },
+  "cssPrototypeSeparation": {
+    "browserVersion": "153.0.8010.12",
+    "evidence": {
+      "bytes": 952,
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/execution-1/cli/recovery-direction-and-browser.json",
+      "sha256": "32d160089ffc2595ac9bae75791e07c94270e2cf03a85dd681c85b9ef328adbb"
+    },
+    "qualification": "Standalone CSS prototype used a distinct full browser via CLI; not pooled into WebGPU identity or native closure.",
+    "revision": "1243"
+  },
+  "environment": {
+    "PLAYWRIGHT_BROWSERS_PATH": null,
+    "PLAYWRIGHT_SKIP_BROWSER_GC": null
+  },
+  "executionRoute": {
+    "basis": "Frozen driver source plus installed Playwright registry channel mapping; executable was not launched.",
+    "channel": "chromium",
+    "headlessShellSelected": false,
+    "script": "/Users/new/vitrea-w41/g1/packages/calibration/scripts/capture-web.ts"
+  },
+  "historicalComparison": {
+    "candidateCells": 600,
+    "candidateDomainEvidence": {
+      "bytes": 10519073,
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/domain-evidence.json",
+      "sha256": "94779e8a9ac1805c7a0395d9b2f3769c89f2fe9156abd45d26d2e49b7e99372a"
+    },
+    "engineVersions": [
+      {
+        "cells": 600,
+        "engine": "chromium",
+        "version": "151.0.7922.34"
+      }
+    ],
+    "historicalExactBinaryByteIdentity": "UNPROVEN. Matching recorded version is not a historical binary hash witness.",
+    "historicalExecutableHashRecorded": false,
+    "historicalExecutablePathRecorded": false,
+    "versionMatches": true
+  },
+  "observedAt": "2026-09-28T19:30:34.849786+00:00",
+  "playwright": {
+    "files": [
+      {
+        "bytes": 876,
+        "path": "/Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core/package.json",
+        "sha256": "07c47543631fef9508760365dee9fbe958c562093ec8d122543949ed231f233f"
+      },
+      {
+        "bytes": 1780,
+        "path": "/Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core/browsers.json",
+        "sha256": "f306eed529599b1eaf2f8a85db9de2b23e1a3fe36c2b66434b7c9434fb627a99"
+      },
+      {
+        "bytes": 3425603,
+        "path": "/Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core/lib/coreBundle.js",
+        "sha256": "9393fa79e1c67c74edc26b610d65a4f7ed73d345a762465cc88340a33a2454ac"
+      }
+    ],
+    "package": "/Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core",
+    "registryRecord": {
+      "browserVersion": "151.0.7922.34",
+      "installByDefault": true,
+      "name": "chromium",
+      "revision": "1234",
+      "title": "Chrome for Testing"
+    },
+    "version": "1.62.1"
+  },
+  "retentionRegistration": {
+    "createdByThisWorker": false,
+    "link": {
+      "bytes": 95,
+      "path": "/Users/new/Library/Caches/ms-playwright/.links/7a27018f56c42e7a750ce5f911e2e8bb605b9501",
+      "sha256": "9bf41a348fd1052a55e9afa3e37b39cd1446982f9ce07a190d625d24d5a3c825"
+    },
+    "origin": "Coordinator relayed that another coordinator process created this registration; this worker only read and verified it.",
+    "owner": "/Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core",
+    "ownerExists": true,
+    "ownerMatchesWorkspacePlaywright": true,
+    "qualification": "Reduces earlier stale-owner GC concern; does not establish a global browser-cache freeze."
+  },
+  "schema": "w41-current-browser-attestation-1",
+  "sourceHead": "c76f949d3b31dcc24d9612979c95e05b4092173f"
+}

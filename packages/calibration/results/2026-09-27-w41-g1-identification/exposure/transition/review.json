@@ -1,0 +1,8 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "verdict": "correct",
+  "findings": [],
+  "scope": "bridge.py andtest_bridge.py source-transition proof only",
+  "verification": "Six synthetic tests independently passed with bytecodewritesdisabled; fixed runnerdigests, ASTallowlist, historicalwitness/capture checks, publicprediction/domain verification reviewed.",
+  "limits": "Actualbridge notrunbyreviewer; no native reader/browser/receipt/freeze."
+}

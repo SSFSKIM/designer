@@ -87,6 +87,56 @@ describe("the material profile document's key admission", () => {
     return path;
   };
 
+  it("admits W41 E3 whole tuples through both active and receded JSON boundaries", () => {
+    const patch = {
+      bodyE3Strength: 1,
+      bodyE3Gains: [0.929205829365914, 0.9597570955316058, 0.9383102545096953],
+      bodyE3Neutral: [150, 157, 164, 171, 178, 188, 197],
+    };
+    for (const reader of [readMaterialProfileFile, readRecededProfileFile]) {
+      expect(reader(write({ patch })).patch).toEqual(patch);
+      expect(reader(write({ bodyE3Strength: 0 })).patch).toEqual({ bodyE3Strength: 0 });
+      // Backing tuples are independently optional; no undeclared monotonicity constraint.
+      expect(reader(write({ bodyE3Gains: [0, 3, 1] })).patch)
+        .toEqual({ bodyE3Gains: [0, 3, 1] });
+      expect(reader(write({ bodyE3Neutral: [255, 0, 128, 0, 255, 0, 255] })).patch)
+        .toEqual({ bodyE3Neutral: [255, 0, 128, 0, 255, 0, 255] });
+    }
+    expect(() => readRecededProfileFile(write({ patch, cssTierMapping: { saturation: 1 } })))
+      .toThrow(/carries a cssTierMapping/);
+  });
+
+  it("refuses malformed E3 values instead of recording an unapplied or nonfinite tune", () => {
+    const invalid: Record<string, readonly unknown[]> = {
+      bodyE3Strength: [null, "1", [], {}, -0.01, 1.01],
+      bodyE3Gains: [null, "1,1,1", {}, [], [1, 1], [1, 1, 1, 1],
+        [1, null, 1], [1, "1", 1], [-0.01, 1, 1], [1, 3.01, 1]],
+      bodyE3Neutral: [null, {}, [], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6, 7, 8],
+        [0, 1, 2, null, 4, 5, 6], [0, 1, 2, "3", 4, 5, 6],
+        [-1, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5, 256]],
+    };
+    for (const [key, values] of Object.entries(invalid)) {
+      for (const value of values) {
+        for (const reader of [readMaterialProfileFile, readRecededProfileFile]) {
+          expect(() => reader(write({ patch: { [key]: value } })), `${key}=${JSON.stringify(value)}`)
+            .toThrow(new RegExp(key));
+        }
+      }
+    }
+    // JSON has no NaN/sparse notation; nulls above cover their serialised form.
+    // Overflow is legal JSON and parses to Infinity, so exercise that input directly.
+    for (const [key, literal] of Object.entries({
+      bodyE3Strength: "1e999",
+      bodyE3Gains: "[1,1e999,1]",
+      bodyE3Neutral: "[0,1,2,3,4,5,1e999]",
+    })) {
+      const path = write({});
+      writeFileSync(path, `{ "patch": { "${key}": ${literal} } }`);
+      expect(() => readMaterialProfileFile(path)).toThrow(new RegExp(key));
+      expect(() => readRecededProfileFile(path)).toThrow(new RegExp(key));
+    }
+  });
+
   it("admits the black branch tune without silently measuring the old fallback", () => {
     const patch = { backdropToneBlackStrength: 1,
       backdropToneBlackThin: 0.2, backdropToneBlackThick: 0.3 };

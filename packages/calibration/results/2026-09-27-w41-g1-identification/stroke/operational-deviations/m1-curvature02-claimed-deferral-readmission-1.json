@@ -1,0 +1,31 @@
+{
+  "kind": "STROKE_PARENT_NO_FIT_READMISSION",
+  "checkedUTC": "2026-09-28T02:55:46.808720+00:00",
+  "predecessor": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/deferrals/curvature-M1-start-02.json",
+    "sha256": "65806438e0783c42dc059a06fba6e65bef47860fce149cfb845396484252fab8"
+  },
+  "claim": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/claims/curvature-M1-start-02.json",
+    "sha256": "11a899cecf1d44454a183b686924511ce4b5228f1e911c79bde0ee6449a9ccef"
+  },
+  "generation": 1,
+  "checks": {
+    "schedulerReadmission": 1,
+    "predecessorProcessIdentityNoLongerLive": true,
+    "oldPrefixEmpty": true,
+    "startFailureResultAbsent": true,
+    "remaining03Through15Unclaimed": true,
+    "operationalSourcePinsValid": true
+  },
+  "receipt": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-1/curvature-M1-start-02.readmit-01.json",
+    "sha256": "4f37c28c4a68dfa0629bde743096beba655568693382b00bad32ed4fb2c27d18"
+  },
+  "manifest": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-1.json",
+    "sha256": "70b437813878ae7f8f5e947262858b9636379b0992b202e0d27ef22fdf2ab40a"
+  },
+  "scientificChange": false,
+  "reason": "Resource state changed between claim and fresh pre-fit gate. Preparation is not solver work. Preserve prior claim/deferral and require a new linked claim under the unchanged gate."
+}

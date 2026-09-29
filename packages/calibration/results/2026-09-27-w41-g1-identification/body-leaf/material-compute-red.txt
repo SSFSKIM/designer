@@ -1,0 +1,55 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/e3-implementation/packages/renderer-webgpu
+
+ ❯ test/w41-body-e3.test.ts (79 tests | 3 failed) 26ms
+     × returns the original colour at gate zero across all policy and sampling states 2ms
+     × does not evaluate either tuple behind zero strength or zero presence 0ms
+     × replaces the old body at full presence and blends both controls in linear light 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/w41-body-e3.test.ts > E3 compute identity and presence extension > returns the original colour at gate zero across all policy and sampling states
+TypeError: applyBodyE3 is not a function
+ ❯ test/w41-body-e3.test.ts:188:26
+    186|                 };
+    187|                 for (const presence of [0, 0.4, 1]) {
+    188|                   expect(applyBodyE3(original, backdrop, presence, fie…
+       |                          ^
+    189|                 }
+    190|               }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/w41-body-e3.test.ts > E3 compute identity and presence extension > does not evaluate either tuple behind zero strength or zero presence
+TypeError: applyBodyE3 is not a function
+ ❯ test/w41-body-e3.test.ts:206:14
+    204|     for (const [bodyE3Strength, presence] of [[0, 1], [1, 0]]) {
+    205|       const fields = Object.assign(Object.create(unread) as typeof unr…
+    206|       expect(applyBodyE3(original, [1, 0, 1], presence!, fields)).toBe…
+       |              ^
+    207|     }
+    208|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/w41-body-e3.test.ts > E3 compute identity and presence extension > replaces the old body at full presence and blends both controls in linear light
+TypeError: applyBodyE3 is not a function
+ ❯ test/w41-body-e3.test.ts:217:17
+    215|       bodyE3Neutral: [255, 255, 255, 255, 255, 255, 255] as const,
+    216|     };
+    217|     expectCodes(applyBodyE3(original, backdrop, 1, fields), [1, 1, 1]);
+       |                 ^
+    218|     expectCodes(applyBodyE3(original, backdrop, 0.25, fields), [0.25, …
+    219|     expectCodes(applyBodyE3(original, backdrop, 0.25, { ...fields, bod…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 76 passed (79)
+   Start at  17:52:21
+   Duration  198ms (transform 69ms, setup 12ms, import 75ms, tests 26ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w41/e3-implementation/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/w41-body-e3.test.ts

@@ -1,0 +1,68 @@
+{
+  "kind": "STROKE_PEAK_RSS",
+  "largestObservedPeakRSSBytes": 4124164096,
+  "samples": [
+    {
+      "pid": 80101,
+      "peakRSSBytes": 1175994368,
+      "sampledUTC": "2026-09-27T10:53:47.669313+00:00",
+      "source": "maximum of1201Hz psRSSKiB observations; KiB convertedby1024",
+      "qualification": "sampled observed high-water, not process lifetime ru_maxrss"
+    },
+    {
+      "pid": 80133,
+      "peakRSSBytes": 2997469184,
+      "sampledUTC": "2026-09-27T10:53:57.074272+00:00",
+      "source": "maximum of1201Hz psRSSKiB observations; KiB convertedby1024",
+      "qualification": "sampled observed high-water, not process lifetime ru_maxrss"
+    },
+    {
+      "pid": 80167,
+      "peakRSSBytes": 3078144000,
+      "sampledUTC": "2026-09-27T10:55:21.617594+00:00",
+      "source": "maximum of1201Hz psRSSKiB observations; KiB convertedby1024",
+      "qualification": "sampled observed high-water, not process lifetime ru_maxrss"
+    },
+    {
+      "pid": 36271,
+      "peakRSSBytes": 3635642368,
+      "sampledUTC": "2026-09-27T12:13:39.992097+00:00",
+      "source": "Darwin resource.getrusage(RUSAGE_SELF).ru_maxrss in retained verification terminal",
+      "qualification": "whole completed verification process lifetime high-water, including preparation, solve and comparison"
+    },
+    {
+      "pid": 22185,
+      "peakRSSBytes": 4124164096,
+      "sampledUTC": "2026-09-27T13:35:08.860769+00:00",
+      "source": "Darwin resource.getrusage(RUSAGE_SELF).ru_maxrss in verified wrapped terminal",
+      "qualification": "Whole completed verification process high-water, not a guaranteed future peak."
+    }
+  ],
+  "historicalLifetimeRSSPeakAvailable": false,
+  "metric": "actualresidentRSS, sampledobservedhighwater; excludes physicalfootprint/non-fitpreparation peaks",
+  "operationalLimit": "reservation estimate plus3GiBheadroom/pressuregate, not an absolute futureRSSbound",
+  "historicalPriorObservations": [
+    {
+      "pid": 61407,
+      "peakRSSBytes": 916930560,
+      "sampledUTC": null,
+      "source": "Earlier tool-result ps sample in this same session: PID61407 elapsed35:15 RSS895440KiB; that stoppedM0fit has no persisted ru_maxrss and no exact sampleUTC was recorded",
+      "qualification": "single documented observedRSS; timestamp unavailable, not invented"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-2.json",
+      "sha256": "4285ea327f011ad8b530e22be8e65e3f8c51ebb242a5afdb7b5206d9bc09452d"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/verification/wrapped/terminal.json",
+      "sha256": "773158fad09d5d3a60042f96f29ff479ea8d2443e64a28d68131661653ffbf2d"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/admissions/rss-verification-wrapped.json",
+      "sha256": "630865831f4c9d453293e636822a739fb517d532adfe6daeca21e5776c206faf"
+    }
+  ],
+  "supplement": "Only fullytimestamped observations are in schedulermeasurementlist; olderdocumenteduntimestampedRSS retainedseparately. Largest acrossbothsets equalscurrentmax, so no historicalpeakisdiscardedorreplaced."
+}

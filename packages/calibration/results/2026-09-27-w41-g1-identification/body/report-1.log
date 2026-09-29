@@ -1,0 +1,63 @@
+{
+  "completeFamilies": {
+    "E3": false,
+    "EH6": false,
+    "O12": false
+  },
+  "resolution": [
+    {
+      "scope": "colour",
+      "endpoint": "light-active",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 340,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+        "channel": "B",
+        "separationCodes": 0.5010548802260075,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    },
+    {
+      "scope": "colour",
+      "endpoint": "light-inactive",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 340,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+        "channel": "R",
+        "separationCodes": 1.1902015706554323,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    },
+    {
+      "scope": "colour-and-thick-transfer",
+      "endpoint": "light-inactive",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 370,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+        "channel": "R",
+        "separationCodes": 1.1902015706554323,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "scope": "Final followup limited to remaining empty-active-patch finding; earlier findings and rendered-deep scope closed in review-2.",
+  "verdict": "correct",
+  "findings": [],
+  "verification": "Independently ran the targeted producer-shaped empty-active-patch regression. Explicit null required for active empty patch; inactive exact merged object required; missing/contradictory fields rejected.",
+  "limits": "Synthetic tests/source inspection only; no browser, W39 native payload or production receipt."
+}

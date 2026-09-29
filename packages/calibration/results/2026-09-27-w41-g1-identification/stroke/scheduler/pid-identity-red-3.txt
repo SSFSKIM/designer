@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_a_controller_that_claimed_for_its_child_owns_no_lifecycle (test_scheduler.SchedulerTests.test_a_controller_that_claimed_for_its_child_owns_no_lifecycle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red3-g63FRa/scheduler/test_scheduler.py", line 762, in test_a_controller_that_claimed_for_its_child_owns_no_lifecycle
+    with self.assertRaisesRegex(ValueError, 'not this process'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+FAILED (failures=1)

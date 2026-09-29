@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-certificate/replay_certificate.py", line 279, in <module>
+    main()
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-certificate/replay_certificate.py", line 261, in main
+    result, arrays = evaluate()
+                     ^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-certificate/replay_certificate.py", line 221, in evaluate
+    checks.append(dict(order=order, **forward_checks(m, a, b, scheme == 'dark')))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-certificate/replay_certificate.py", line 197, in forward_checks
+    assert contextual > 0
+           ^^^^^^^^^^^^^^
+AssertionError

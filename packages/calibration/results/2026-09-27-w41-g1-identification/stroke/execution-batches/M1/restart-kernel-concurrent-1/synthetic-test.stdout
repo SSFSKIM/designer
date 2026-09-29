@@ -1,0 +1,25 @@
+test_adopted_claim_bytes_must_match_the_handoff (test_controller.Adoption.test_adopted_claim_bytes_must_match_the_handoff) ... ok
+test_adopted_identity_mismatch_without_result_fails_closed (test_controller.Adoption.test_adopted_identity_mismatch_without_result_fails_closed) ... ok
+test_plan_refuses_a_pending_start_whose_generation_is_used (test_controller.Adoption.test_plan_refuses_a_pending_start_whose_generation_is_used) ... ok
+test_plan_refuses_a_reordered_partition (test_controller.Adoption.test_plan_refuses_a_reordered_partition) ... ok
+test_plan_refuses_changed_completed_result (test_controller.Adoption.test_plan_refuses_changed_completed_result) ... ok
+test_plan_refuses_handoff_identity_that_the_claim_does_not_record (test_controller.Adoption.test_plan_refuses_handoff_identity_that_the_claim_does_not_record) ... ok
+test_plan_skips_completed_adopts_live_and_verifies_pending (test_controller.Adoption.test_plan_skips_completed_adopts_live_and_verifies_pending) ... ok
+test_admission_exception_halts_but_the_live_fit_finishes_and_is_audited (test_controller.Cleanup.test_admission_exception_halts_but_the_live_fit_finishes_and_is_audited) ... ok
+test_health_failure_halts_new_dispatch_only (test_controller.Cleanup.test_health_failure_halts_new_dispatch_only) ... ok
+test_journal_is_never_overwritten (test_controller.Cleanup.test_journal_is_never_overwritten) ... ok
+test_unexpected_exception_records_and_leaves_fits_running (test_controller.Cleanup.test_unexpected_exception_records_and_leaves_fits_running) ... ok
+test_cap_one_holds_every_start_until_the_adopted_fit_ends (test_controller.ConcurrentDispatch.test_cap_one_holds_every_start_until_the_adopted_fit_ends) ... ok
+test_closed_gate_waits_then_admits_when_it_opens (test_controller.ConcurrentDispatch.test_closed_gate_waits_then_admits_when_it_opens) ... ok
+test_handshake_blocks_admission_until_solver_start (test_controller.ConcurrentDispatch.test_handshake_blocks_admission_until_solver_start) ... ok
+test_two_starts_admitted_concurrently_beside_the_adopted_fit (test_controller.ConcurrentDispatch.test_two_starts_admitted_concurrently_beside_the_adopted_fit) ... ok
+test_claimed_deferral_halts_dispatch_and_drains_the_live_fit (test_controller.Deferrals.test_claimed_deferral_halts_dispatch_and_drains_the_live_fit) ... ok
+test_crash_without_claim_is_not_retried (test_controller.Deferrals.test_crash_without_claim_is_not_retried) ... ok
+test_no_claim_cli_deferral_is_retried_as_a_new_attempt (test_controller.Deferrals.test_no_claim_cli_deferral_is_retried_as_a_new_attempt) ... ok
+test_cli_deferral_parse_requires_policy_v4_kernel_metric (test_controller.Reuse.test_cli_deferral_parse_requires_policy_v4_kernel_metric) ... ok
+test_serial_driver_is_the_reviewed_bytes (test_controller.Reuse.test_serial_driver_is_the_reviewed_bytes) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 7.920s
+
+OK

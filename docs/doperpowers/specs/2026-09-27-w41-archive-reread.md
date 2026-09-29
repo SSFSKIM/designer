@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191): declaration 850747c1…, instrument proved on synthetic data, the single-exposure runner and the standing eye sheets landed; nothing fitted to native pixels. G1 (identification, the scratch leaves, the rendered check, the single exposure) is next.**
+**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191). G1's one exposure is spent and complete (`fc157275`, §5.192.25): light-inactive E3 meets the bound on every claimed held-out cell, 18/18 numerical and 16/16 rendered. Decision Log 2 now awaits the user; G2 is conditional on it.**
 
 ## Purpose
 
@@ -347,7 +347,16 @@ opening; the archive complete and cited; one canvas, attested positions). W34's 
 carry where they concern the archive, the split and the ledger; **X5 is not invoked** (no native
 capture). W37's **X15–X17** and W38's **X18** carry. X9's routing carries the 2026-09-26 note
 (workers on `opus` or `astra` medium/high; reviews through the review-code agents,
-`reviewer-high` at gate merges). New:
+`reviewer-high` at gate merges). That is the historical routing note; the following update
+supersedes its model choice for new dispatches.
+
+**X9 update, 2026-09-28 (user direction relayed by the coordinator):** every new sub-worker
+uses the default `opus` model, with no `subagent_type` or with `general-purpose`, never
+`astra`. Pass this routing rule to workers that themselves dispatch workers. Already-running
+`astra` workers finish their current assignment. Independent review is still required; this
+changes routing, not the scientific declaration, budgets or review obligations.
+
+New contracts:
 
 - **X26 — one exposure for the wave, scoring the renderer too.** The W39 holdout opens at most
   once, for W41, on one receipt binding every W41 candidate — numerical AND rendered (the
@@ -407,6 +416,43 @@ needed: the publisher, the generation store and the release-asset readers exist.
 
 ## Deferred / Out of Scope
 
+**Dated correction — 2026-09-28T19:23:18+00:00 (2026-09-29 local).** The M2 deferred entries below
+incorrectly attribute the coordinator's recommendation to a user ruling. No user answer has
+been received; M2 is on HOLD and its proposed unfinished/UNMEASURED disposition awaits that
+answer. The earlier entries are retained as erroneous provenance, not authority. Nothing
+downstream—final freeze, external preflight or exposure—proceeds on them. A different user
+choice will supersede the proposal additively; any actual ruling will receive its own dated
+record. M1 transfer continues. See the correction appended to §5.192.23.
+
+- **M2 inactive device-width/nominal-curvature search: UNMEASURED, unfinished by user
+  decision (2026-09-29 local; §5.192.23).** The sealed full budgets remain intact, but the
+  wave does not finish this search: one completed local start, an aborted-unscored start,
+  one current start permitted only until the final freeze, and 29 unstarted indices are
+  retained in `stroke/M2-unfinished-search-1.json` at `047b7861`. Its terminal supplement
+  must close the current start before freezing. An unfinished start consumed roughly ten
+  CPU-hours; the 30-start/two-process estimate of about150hours is conditional planning,
+  not a measured lower bound or universal duration (the first start took about50minutes).
+  No M2 validation or holdout result is claimed. M2's light-inactive response equals M1's,
+  but finite M1 search failure cannot globally exclude M2's unfinished shared-width joint
+  fit; its new dark-inactive material response remains unidentified. Revisit the full
+  search in a separately scoped continuation, without promoting partial fits to a rejection
+  or silently shortening the sealed budget. The existing active-support and CSS-width
+  certificates remain separate, bounded findings.
+
+- **M2 device-width/nominal-curvature stroke search: UNMEASURED this wave** (user ruling,
+  §5.192.23; committed record `047b7861`). The original multistart search is unfinished,
+  not a family rejection: one completed local start, one aborted/unscored start, one
+  already-running start allowed to finish only before the final freeze, and29 unstarted
+  indices at that checkpoint. A terminal supplement will retain the running start's outcome.
+  The sealed nested budgets permit up to29 optimizer calls; unfinished seed01 had consumed
+  about ten CPU-hours, versus about50 wall minutes for completed seed00. The roughly150-hour
+  two-process continuation is conditional planning arithmetic, not a validated forecast.
+  The user chose to defer rather than shorten any budget or change the criterion. M2 equals
+  M1 on light-inactive inputs, but a finite M1 failure would not globally exclude its joint
+  fit; dark-inactive contextual expressivity and the shared-width search remain unfinished.
+  Resume only under an explicit future declaration/disposition retaining the original
+  completed and aborted evidence; do not present UNMEASURED as a fitted negative.
+
 - A dense hue sweep and C above 0.024; inputs below 40 and above 150; the black branch below
   encoded 0.003 (W36's, untouched).
 - A textured, frequency or chromatic-gradient control that separates the group/local blend
@@ -418,6 +464,42 @@ needed: the publisher, the generation store and the release-asset readers exist.
   solve's argument): needs a bed whose holdout carries structured backdrops and whose
   calibration varies the group mean and the backdrop frequency, with the strip pinned before
   capture.
+
+
+- **Photo-body texture under the local E3 argument (G1 eye finding, §5.192.20).**
+  [Sheet06](../../../packages/calibration/results/2026-09-27-w41-g1-identification/sheets/examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png)
+  shows the light-inactive candidate removing the shipped body's broad hue/level band but
+  introducing mottling at the backdrop's texture period that the smoother native body does
+  not show; sheet07's2x small photo also has local residual patches brighter than shipped.
+  **Hypothesis only, not tested here:** per-pixel `g(L)` on vitrea's blurred backdrop turns
+  local luma variation into chroma variation, while the native body behaves as if the law's
+  argument were smoother (a larger blur scale or group-level luma). This is the S1 blend
+  question left as a finding under Decision Log6, not a newly identified Apple mechanism.
+  The next spatial wave needs independently varied group means/frequencies and structured
+  holdout. G2's M1/M2/L1 referees on the canonical bed remain load-bearing for any landing;
+  uniform-body survival is not permission to accept the photographic residual silently.
+
+**M2 process-state correction (2026-09-29 local; `22e103ca`):** the deferred entries'
+“aborted” device02 is actually stopped in flight, process/seed intact, not terminated.
+Only device00 is complete; device01 may finish then park under HOLD. The alleged
+abort-at-final-freeze instruction is withdrawn. No resume/abort authority follows from
+the nonexistent user ruling; §5.192.23 links the dated process-state supplement.
+
+**Supersession of the M2 HOLD correction — 2026-09-28T19:29:05+00:00 (2026-09-29 local).** The current
+coordinator reports that a duplicate live process of its session lacked the user's answer
+and wrongly denied its existence. The genuine answer, now relayed explicitly, is
+“Record M2 as unfinished (UNMEASURED) and expose the body candidate now”. Accordingly the
+M2 unfinished/UNMEASURED deferral above stands; the intervening no-ruling/HOLD authority
+claims are retained but superseded. This does not rewrite actual process-state history or
+turn incomplete local searches into global negatives. A matching dated stroke-record
+supersession preserves the full provenance chain; only the current coordinator process
+continues directing the wave.
+
+- **M1 family beyond the sealed local search (§5.192.24):** no selected candidate survives
+  the full32-start calibration/validation transfer. A global impossibility claim remains
+  unproved; pursuing one requires a new certificate or separately scoped identification,
+  not treating optimizer convergence as exhaustive coverage. The native dark contour is
+  still absent from vitrea; the local negative does not accept that visual gap.
 
 ## Tracking Map
 
@@ -440,6 +522,102 @@ the held-out cells at one code, G2 ships it through the identity table, the CSS 
 the canonical holdout once, the eye sheets and a release.
 
 ### Decision Log 2 — a law or the negative, per question (after G1; the user's)
+
+
+**G1 interim material, not a user ruling (§5.192.20; native holdout still sealed).**
+
+- **Body:** retain light-inactive E3 for the one exposure after all stroke candidates are
+  determined; its numerical and actual rendered uniform calval constraints and full
+  worsening veto pass. EH6 is not resolved from it at three codes; use the simpler E3.
+  This is not whole-material closure: the photo-body texture trade below and G2's canonical
+  M1/M2/L1 referees remain load-bearing before any landing.
+- **Spatial:** keep S0–S2 as a finding, with no leaf. Sheet06's new mottling and sheet07's
+  mixed local residuals give the next spatial wave a concrete question: does a smoother
+  argument for `g(L)`—a broader blur or group-level luma—remove texture-period chroma
+  modulation without losing the uniform-body gain? That mechanism is a hypothesis, not
+  tested now; the next declaration needs a structured held-out referee.
+- **Stroke:** accept the reviewed held-shadow, M0, M1 dark-inactive and CSS-width exclusions,
+  but do not call the remaining device-width/curvature local searches final negatives.
+  Their sealed starts and validation transfers are still running or pending, and all
+  survivors must share the same native exposure receipt.
+- **CSS reach:** the contrast-then-brightness standalone uniform-body projection meets the
+  measured bound; the saturate/plate route fails green by26 codes. Carry only that measured
+  affine feasibility to Decision Log4, not a production-parity claim: the fallback floor,
+  blur, geometry, policy/presence and tint contracts are unvalidated.
+
+**2026-09-29 local, user ruling relayed by the coordinator:** M2 ends this wave as an
+unfinished search, UNMEASURED for the reason recorded in §5.192.23 and Deferred above.
+This supersedes the interim requirement to finish every remaining M2 start before exposure;
+it does not declare M2 rejected. The complete exposure configuration contains light-inactive
+E3 and, only if it clears numerical transfer plus scratch-leaf/render/veto checks, M1
+light-inactive. The one receipt still waits for the coordinator's explicit confirmation of
+the user's hands-off window. No holdout verdict or G2 adoption is implied by this ruling.
+
+**Decision Log2 provenance correction — 2026-09-28T19:23:18+00:00 (2026-09-29 local).** The preceding
+M2 “user ruling” was recorded in error from an incorrect coordinator relay. It is only the
+coordinator's recommendation awaiting the user's ruling; the user has not answered. M2
+remains on HOLD. Neither `047b7861` nor `53743321` supplies user approval to omit M2 from a
+final configuration, freeze that configuration, run external preflight or begin exposure.
+M1 transfer continues; the user's actual answer will be recorded additively and will
+supersede the proposal if different. No historical entry is rewritten or backdated.
+
+The additive `22e103ca` process-state supplement also rescinds the alleged abort of M2
+device02: it is paused in flight, not terminated. The current device01 may finish then
+park; no abort-at-freeze instruction stands. This clarifies actual state, not user consent.
+
+**Decision Log2 authority supersession — 2026-09-28T19:29:05+00:00 (2026-09-29 local).** The user did
+answer the sealed-budget question: “Record M2 as unfinished (UNMEASURED) and expose the body
+candidate now”, explicitly relayed by the current coordinator. A duplicate live process
+of that same coordinator session had not received the answer and issued the false no-ruling
+correction. The unfinished-M2 ruling is restored; `0eb8f6ca`, `fe775bba` and `22e103ca` are
+superseded only where they deny that authority, and remain unchanged history. The other
+coordinator process has stood down per the current process's report. Actual paused-process
+facts remain dated facts, not retroactive aborts. Complete candidate review/freeze and the
+M1 disposition still precede the ONE receipt, which additionally waits for explicit
+hands-off-window confirmation. This ruling is not itself an exposure result or G2 adoption.
+
+**M1 disposition, 2026-09-29 local (§5.192.24):** the full32-start search and frozen
+calibration/validation transfer produce no survivor: all four selected converged device-
+width/nominal-curvature candidates fail both roles at1x/2x. This is LOCAL, not a global
+exclusion. Saved-only independent review closes the measured-witness report correction;
+all16 fixed32-quadrature lower bounds still fail. No stroke leaf is implemented. Under the
+restored unfinished-M2 ruling, the complete exposure candidate list is light-inactive E3
+body only; its final freeze and one receipt still await the remaining execution gates.
+
+**G1 closing material after the one exposure, 2026-09-29 (§5.192.25). These are the G1
+owner's recommendations; the rulings are the user's.** Background:
+- M2's two in-flight starts were ended by the host restart and recorded as ABORTED_UNSCORED
+  (`afed9dc3`).
+- manifest-1 `77f93ba2…` was frozen in `52f62227` (body-e3 only).
+- The receipt ran once and completed (`fc157275`). Attempt-1 was refused at its pre-begin
+  X6 gate before the receipt began; the cause was the owner's own watcher process.
+- The W39 holdout is now spent.
+
+- **Body — recommend a law, scoped to what closed.** Land light-inactive E3 in G2 as the
+  uniform-backdrop body of the light receded material, through its existing zero-gated
+  identity-table group, with only the light receded document enabling it. It met the bound
+  on every claimed held-out cell: 18/18 numerical (worst 0.666 codes) and 16/16 rendered
+  (worst 1.0 code, at the bound), and no rendered held-out cell showed any veto worsening.
+  The other three endpoints are this wave's negative: dark E3/EH6 are certified infeasible, and
+  light-active misses its span-96 transfer by 3 codes. The rendered margin is zero on two
+  colour cells, so G2 must move no rendered prediction; M1/M2/L1/X1, the photo-body texture
+  trade (§5.192.20), the canonical holdout and the eye sheets remain the landing's gates, and
+  the CSS carry is Decision Log 4's.
+- **Spatial — recommend the negative for a leaf, as Decision Log 6 ruled.** S0–S2 stay a
+  calibration finding with their residuals and resolution verdict. The W39 holdout is spent
+  and never held a structured backdrop, so no further reading of this archive can close a
+  spatial law. The next spatial wave needs a new native capture whose sealed holdout
+  includes structured backdrops and independently varied group means and blur. It should
+  test the smoother-g(L) hypothesis from sheets 06/07 first.
+- **Stroke — recommend the negative for this wave: no stroke leaf.** Thirty of 36
+  combinations are certified excluded independent of coefficients, and M1 light-inactive is
+  a completed local negative, with its smallest excess 2.02 codes over the bound. M2's four
+  inactive combinations stay UNMEASURED by the user's ruling, not rejected: one start
+  complete, two aborted by the restart, 29 unstarted. With the W39 holdout spent, finishing
+  M2 or declaring a successor family on this archive can reach calibration/validation
+  survival at most, so closure needs a native capture under X5 with a new sealed holdout
+  and a fitter fast enough for the sealed budgets. Apple's dark exterior contour
+  stays a named gap.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 
@@ -483,6 +661,27 @@ Decision Log 2 material.
 
 ## Revision Notes
 
+- 2026-09-29 (G1's one exposure, the G1 owner):
+  - M2's terminal record is committed (`afed9dc3`).
+  - The configuration was reviewed (`becb2fde`, reviewer-high, no material findings) and
+    manifest-1 frozen (`52f62227`).
+  - Attempt-1 was refused at its pre-begin X6 gate, with no receipt begun, because the
+    owner's own watcher matched the FOREIGN census. The coordinator ruled that such a
+    refusal is not a begun attempt.
+  - Attempt-2's receipt ran and completed (`fc157275`), and light-inactive E3 closes on
+    its claimed held-out cells (§5.192.25).
+  - Decision Log 2 carries the owner's per-question recommendations for the user's ruling.
+    The Status line is updated.
+
+- 2026-09-28 (G1 operational steering, user direction relayed by the coordinator): X9 now
+  routes every new sub-worker to default `opus`; already-running `astra` assignments finish.
+  The user chose to free memory and retain the full sealed fitting budgets. The coordinator
+  reports stopping `jellyfin` and `n5replay-pg-1`; quitting Docker Desktop and closing idle
+  sessions remain actions the user will take, not completed actions asserted by this wave.
+  No additional process shutdown is delegated here. The existing measured adaptive admission
+  gate determines concurrency as headroom recovers; no seed, population, solver budget or
+  scientific bound changes. The routing and full-budget instruction were passed to the
+  active stroke lead for propagation to its future sub-workers.
 - 2026-09-27 (Decision Log 7, the parent, in G1): partial-endpoint adoption with a claim scope;
   light-inactive E3 carried to the scratch leaf, the other endpoints at identity.
 - 2026-09-27 (v2.4, the parent, on G1's stop): the declaration fixes G1's order with the pre-W41
@@ -531,3 +730,12 @@ Decision Log 2 material.
   bins). Second adversarial round requested on the re-cut.
 - 2026-09-27 (v1, the parent): chartered from grounding memos A (body) and B (stroke) on the
   W39 calibration cells; Decision Log 1 put to the user; adversarial review requested.
+
+- 2026-09-29 (G1, user ruling relayed by the coordinator): end the remaining M2 search
+  as UNMEASURED unfinished, with its actual completed/aborted starts and budget arithmetic
+  retained beside the evidence (§5.192.23). No new M2 start; its last in-flight start has a
+  terminal supplement before final freeze. M1's calibration/validation transfer still decides
+  whether a stroke proceeds to scratch rendering; numerical survival alone cannot admit it.
+  The final exposure uses the complete admitted candidate set and awaits explicit hands-off
+  window confirmation. This is an operational disposition, not an amendment to G0's sealed
+  declaration, a shorter optimizer budget or a changed scientific survival bound.

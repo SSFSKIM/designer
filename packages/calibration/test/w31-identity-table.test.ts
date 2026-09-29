@@ -124,6 +124,7 @@ describe("the material identity table (claims §5.161 §7b, §5.164)", () => {
       sizeScatterScaleGain: 0,
       bodyChromaRetention: 0,
       backdropToneBlackStrength: 0,
+      bodyE3Strength: 0,
     };
     const gates = MATERIAL_IDENTITY_TABLE.flatMap((entry) => Object.entries(entry.gate));
     for (const [path, identity] of gates) {

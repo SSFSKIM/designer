@@ -298,6 +298,12 @@ export {
   tintShade,
   tintShadeLayer,
   tintToneAdaptation,
+  applyBodyE3,
+  bodyE3Encoded,
+  bodyE3StrengthUnderPolicy,
+  validateBodyE3Patch,
+  type BodyE3Gains,
+  type BodyE3Neutral,
   withMaterialOverrides,
   // W31's digest rule (Decision Log 1 (a); claims §5.161 §7b, §5.164). The
   // TABLE and the leaves it drops live beside `DEFAULT_MATERIAL_PROFILE`

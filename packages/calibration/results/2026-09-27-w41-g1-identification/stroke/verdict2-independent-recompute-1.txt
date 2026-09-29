@@ -1,0 +1,52 @@
+== device-M1-leastSquares cells {'calibration': 126, 'validation': 18} 7runs True
+  light-inactive/calibration/1x {'required': 5200, 'admitted': 4158, 'failedBins': 1149, 'deficient': 1042} summaryBindingFailed 1149 qmax 1.541881 summaryQ 1.5418812730759441
+    measured witness excess=3.558767 margin_stratum=2.016886 margin_bin=3.382092 green-colour__inactive arc bin 2 G e=4.558767 bound=1.0000
+    any-status witness excess=4.133836 status=censored-bound-satisfied g255-c-c44__inactive arc 2 R
+  light-inactive/calibration/2x {'required': 10400, 'admitted': 9348, 'failedBins': 1328, 'deficient': 1052} summaryBindingFailed 1328 qmax 1.827579 summaryQ 1.8275790794944555
+    measured witness excess=6.467718 margin_stratum=4.640139 margin_bin=6.004278 g128-c-rrect-120x64__inactive arc bin 0 R e=7.467718 bound=1.0000
+    any-status witness excess=6.467718 status=measured g128-c-rrect-120x64__inactive arc 0 R
+  light-inactive/validation/1x {'required': 720, 'admitted': 588, 'failedBins': 158, 'deficient': 132} summaryBindingFailed 158 qmax 1.349284 summaryQ 1.3492836656344593
+    measured witness excess=3.875137 margin_stratum=2.525853 margin_bin=3.665318 g128-c-rrect-120x96__inactive arc bin 0 R e=4.875137 bound=1.0000
+    any-status witness excess=3.875137 status=measured g128-c-rrect-120x96__inactive arc 0 R
+  light-inactive/validation/2x {'required': 1440, 'admitted': 1292, 'failedBins': 192, 'deficient': 148} summaryBindingFailed 192 qmax 1.349284 summaryQ 1.3492836656344593
+    measured witness excess=7.904934 margin_stratum=6.555651 margin_bin=7.483511 g128-c-rrect-120x96__inactive arc bin 8 R e=8.904934 bound=1.0000
+    any-status witness excess=7.904934 status=measured g128-c-rrect-120x96__inactive arc 8 R
+== device-M1-minimax cells {'calibration': 126, 'validation': 18} 7runs True
+  light-inactive/calibration/1x {'required': 5200, 'admitted': 4158, 'failedBins': 1232, 'deficient': 1042} summaryBindingFailed 1232 qmax 1.541904 summaryQ 1.5419044926159131
+    measured witness excess=4.403075 margin_stratum=2.861170 margin_bin=4.403075 g128-b-c44__inactive straight bin 12 R e=5.403075 bound=1.0000
+    any-status witness excess=4.403075 status=measured g128-b-c44__inactive straight 12 R
+  light-inactive/calibration/2x {'required': 10400, 'admitted': 9348, 'failedBins': 1496, 'deficient': 1052} summaryBindingFailed 1496 qmax 1.827617 summaryQ 1.8276172210679533
+    measured witness excess=4.403075 margin_stratum=2.575458 margin_bin=3.971872 g128-c-rrect-120x64__inactive arc bin 0 R e=5.403075 bound=1.0000
+    any-status witness excess=4.403075 status=measured g128-c-rrect-120x64__inactive arc 0 R
+  light-inactive/validation/1x {'required': 720, 'admitted': 588, 'failedBins': 166, 'deficient': 132} summaryBindingFailed 166 qmax 1.255492 summaryQ 1.2554918870440872
+    measured witness excess=6.824260 margin_stratum=5.568768 margin_bin=6.824260 g128-c-rrect-120x96__inactive straight bin 8 R e=7.824260 bound=1.0000
+    any-status witness excess=6.824260 status=measured g128-c-rrect-120x96__inactive straight 8 R
+  light-inactive/validation/2x {'required': 1440, 'admitted': 1292, 'failedBins': 194, 'deficient': 148} summaryBindingFailed 194 qmax 1.255492 summaryQ 1.2554918870440872
+    measured witness excess=6.824260 margin_stratum=5.568768 margin_bin=6.824260 g128-c-rrect-120x96__inactive straight bin 8 R e=7.824260 bound=1.0000
+    any-status witness excess=6.824260 status=measured g128-c-rrect-120x96__inactive straight 8 R
+== curvature-M1-leastSquares cells {'calibration': 126, 'validation': 18} 7runs True
+  light-inactive/calibration/1x {'required': 5200, 'admitted': 4158, 'deficient': 1042, 'failedBins': 1043} summaryBindingFailed 1043 qmax 1.342802 summaryQ 1.3428023519375643
+    measured witness excess=3.426918 margin_stratum=2.084115 margin_bin=3.227225 g128-c-rrect-120x64__inactive arc bin 8 R e=4.426918 bound=1.0000
+    any-status witness excess=3.426918 status=measured g128-c-rrect-120x64__inactive arc 8 R
+  light-inactive/calibration/2x {'required': 10400, 'admitted': 9348, 'deficient': 1052, 'failedBins': 1226} summaryBindingFailed 1226 qmax 1.342802 summaryQ 1.3428023519375643
+    measured witness excess=7.050676 margin_stratum=5.707874 margin_bin=6.810827 g128-c-rrect-120x64__inactive arc bin 0 R e=8.050676 bound=1.0000
+    any-status witness excess=7.050676 status=measured g128-c-rrect-120x64__inactive arc 0 R
+  light-inactive/validation/1x {'required': 720, 'admitted': 588, 'deficient': 132, 'failedBins': 164} summaryBindingFailed 164 qmax 1.562576 summaryQ 1.5625762348741432
+    measured witness excess=4.310006 margin_stratum=2.747429 margin_bin=4.270044 g128-c-rrect-120x96__inactive arc bin 0 R e=5.310006 bound=1.0000
+    any-status witness excess=4.310006 status=measured g128-c-rrect-120x96__inactive arc 0 R
+  light-inactive/validation/2x {'required': 1440, 'admitted': 1292, 'deficient': 148, 'failedBins': 204} summaryBindingFailed 204 qmax 1.562576 summaryQ 1.5625762348741432
+    measured witness excess=8.406079 margin_stratum=6.843503 margin_bin=8.126249 g128-c-rrect-120x96__inactive arc bin 8 R e=9.406079 bound=1.0000
+    any-status witness excess=8.406079 status=measured g128-c-rrect-120x96__inactive arc 8 R
+== curvature-M1-minimax cells {'calibration': 126, 'validation': 18} 7runs True
+  light-inactive/calibration/1x {'required': 5200, 'admitted': 4158, 'failedBins': 1208, 'deficient': 1042} summaryBindingFailed 1208 qmax 1.429311 summaryQ 1.4293108677698285
+    measured witness excess=4.324812 margin_stratum=2.895501 margin_bin=4.299314 v270-c-c44__inactive arc bin 12 R e=5.324812 bound=1.0000
+    any-status witness excess=4.324812 status=measured v270-c-c44__inactive arc 12 R
+  light-inactive/calibration/2x {'required': 10400, 'admitted': 9348, 'failedBins': 1546, 'deficient': 1052} summaryBindingFailed 1546 qmax 1.988735 summaryQ 1.9887348803046336
+    measured witness excess=4.324908 margin_stratum=2.336173 margin_bin=4.088476 g128-c-rrect-120x64__inactive arc bin 0 R e=5.324908 bound=1.0000
+    any-status witness excess=4.324908 status=measured g128-c-rrect-120x64__inactive arc 0 R
+  light-inactive/validation/1x {'required': 720, 'admitted': 588, 'failedBins': 180, 'deficient': 132} summaryBindingFailed 180 qmax 1.404882 summaryQ 1.4048821736441823
+    measured witness excess=4.153982 margin_stratum=2.749100 margin_bin=4.153982 g128-c-capsule-circular-120x96__inactive straight bin 12 R e=5.153982 bound=1.0000
+    any-status witness excess=4.153982 status=measured g128-c-capsule-circular-120x96__inactive straight 12 R
+  light-inactive/validation/2x {'required': 1440, 'admitted': 1292, 'failedBins': 220, 'deficient': 148} summaryBindingFailed 220 qmax 1.404882 summaryQ 1.4048821736441823
+    measured witness excess=5.729426 margin_stratum=4.324544 margin_bin=5.493220 g128-c-rrect-120x96__inactive arc bin 8 R e=6.729426 bound=1.0000
+    any-status witness excess=5.729426 status=measured g128-c-rrect-120x96__inactive arc 8 R

@@ -1,0 +1,91 @@
+{
+  "activity": {
+    "browserLaunched": false,
+    "browserRecopied": false,
+    "freezeOrPreflightExecuted": false,
+    "nativeRead": false,
+    "oldArtifactRewritten": false,
+    "receiptOpened": false,
+    "scientificReauditPerformed": false
+  },
+  "coordinatorReportedConflict": {
+    "earlierStatementAsReported": "Writer said unknown6files under readiness-2026-09-29 would not be edited/staged and that it owned readiness-independent; later same agent identity reported committing10files in readiness-2026-09-29.",
+    "independentlyObservedByThisThread": false,
+    "source": "Coordinator message to this worker after00071284"
+  },
+  "currentThreadRecord": {
+    "observedToolResults": [
+      "Successful explicit ditto backup command and source-before/source-after/backup byte+layout verification",
+      "Creation of readiness-2026-09-29 attestation/audit files and successful scoped commit00071284",
+      "Postcommit verification of10-file scope,9indexedfilehashes and external originalmanifest-copy equality"
+    ],
+    "qualification": "These are statements about the tool trace available to this worker, not an independently authenticated OS process identity or cross-process writer map."
+  },
+  "exactScope": [
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/README.txt",
+      "sha256": "d129cdcac98ef0348e5f909ddc7a3a19bd06ad6cd220f802333d8295786b58c9",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/browser-attestation.json",
+      "sha256": "37cb1e666bce27c4ce132edb2153ab591acd45cddf43bab0dd56ef11dbb6a683",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/chromium-1234-backup-verification-1.json",
+      "sha256": "15bcda9a59ebe7e8e877bd978e1119dc1fb6613d7f5d6d2ed39434be2c978151",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/chromium-1234-original-manifest-1.json",
+      "sha256": "32207459ceb9312cc17aa7afafb3987bf0288031823fc9fb2010aa74bd0d02d6",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/conditional-readiness.json",
+      "sha256": "f3d073d378a63a588405ecf4eb9787b75071a12c67390cbb07f628611f173e2e",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/coordination-relay.json",
+      "sha256": "7f5b471e299d1d406cbd0cfedbdb1aa211c50a349f0ff3b3b8e043efed272ad1",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/disposition-chain.json",
+      "sha256": "a2b3717fd4b56a2080883d1048b0ff46f02d056d6c9e9fedba1dbeee1fbec91b",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/duration-basis.json",
+      "sha256": "5d3c47fa3ab75ba5089ee64fb54578d3a6f3c4f419f22ebf5d133626936dd28e",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/freeze-1818.txt",
+      "sha256": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36",
+      "unchangedFromCommit": true
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/readiness-2026-09-29/index.json",
+      "sha256": "38ab4fbfb27a37a64c4042b9e4452385046fc5a27e0c66b6ec5f23750be8f36f",
+      "unchangedFromCommit": true
+    }
+  ],
+  "ownershipCaveat": {
+    "duplicateOrParallelWriter": "Possible explanation of the conflicting declarations; not proved here.",
+    "meaningOfFirstPersonInOriginalAttestation": "Retained as the original writer assertion at that checkpoint, not newly promoted into proved cross-process attribution.",
+    "readinessIndependentDirectory": "No claim is made here about its creation, ownership or contents.",
+    "whichProcessCreatedWhichCopyOrCommit": "UNKNOWN where no process-specific execution witness is available. Git author/committer identity is not an agent/process identity."
+  },
+  "preservedCommit": "000712840621907c1f9cd5b8c3e7c64855c2d9de",
+  "recordedAt": "2026-09-28T19:39:14.845536+00:00",
+  "schema": "w41-readiness-ownership-clarification-1",
+  "scopeFileCount": 10,
+  "unchangedConclusions": [
+    "Committed artifact byte hashes and independent backup/layout verification remain valid content evidence.",
+    "Browser versionmatch does not prove historicalbinarybyteidentity.",
+    "The M2 relay/correction/supersession chain remains attributed evidence, not primary human consent observed by this worker."
+  ]
+}

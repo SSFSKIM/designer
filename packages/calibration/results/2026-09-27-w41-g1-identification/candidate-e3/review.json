@@ -1,0 +1,26 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "date": "2026-09-27",
+  "scope": [
+    "scorer.py",
+    "prepare.py",
+    "test_candidate.py",
+    "test_preparation.py"
+  ],
+  "initialVerdict": "incorrect: two bounded integration/reporting findings",
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "P2",
+      "finding": "External frozen calval baseline PNGs need repository-relative content-addressed snapshots before they can join the committed freeze."
+    },
+    {
+      "id": "R2",
+      "severity": "P2",
+      "finding": "Actual rendered structured deep scores must not be labelled as the numerical S0 diagnostic."
+    }
+  ],
+  "otherMaterialFindings": [],
+  "reviewerVerification": "16 synthetic tests passed; no native payload, holdout, browser, fitting or exposure",
+  "response": "Verified both; dispatched a separate bounded fix worker. Fix transcript and tests recorded beside this review."
+}

@@ -1,0 +1,113 @@
+Additive policy-v2 verification driver
+=====================================
+
+  python -B verification_policy_v2.py --root ROOT --receipt RECEIPT --sha256 SHA
+
+One externally admitted mode in one process, using the unchanged adapter CLI and
+native proof body. No candidate claim, automatic scheduling, watcher launch,
+pressure import, retry, process control or numerical policy is implemented here.
+The parent must complete the source/recovery reviews and author the receipt.
+
+The ordinary STROKE_VERIFICATION_ADMIT fields, comparisonRecovery direction and
+scientific sourceSha256 contract are unchanged. In particular, the old manual
+bridge pin remains historical in sourceSha256; do not add the new operational
+files to that scientific map or remove old members to make the hashes agree.
+
+Additional receipt fields:
+  receiptVersion: 2
+  resourceSourceSha256: absolute-path -> SHA256 map containing BOTH
+    verification-slot/verification_policy_v2.py and scheduler/scheduler_v2.py.
+    Additional operational dependencies are allowed, and every pin is checked.
+  memoryPolicy: {path, sha256} naming stroke/scheduler-memory-parent-direction-v2.json
+  memoryCounterDirection: {path, sha256} naming
+    stroke/scheduler-memory-counter-clarification.json
+  pressureSnapshot: {path, sha256} of the completed manual pressure JSONL snapshot
+  pressureImport: {path, sha256} of ROOT/pressure-import.json AFTER the parent
+    imports that exact snapshot with StoreV2.import_pressure/the scheduler CLI
+  pressureWatcher: {path, sha256} of the parent-authored watcher declaration
+
+Watcher declaration:
+  kind: STROKE_PRESSURE_WATCH
+  schedulerRoot: canonical ROOT
+  pid: actual live watcher PID
+  startedUTC: timezone-qualified start timestamp
+  intervalSeconds: 30
+  readings: integer 1..2880 (the actual bounded scheduler_v2 watch invocation)
+  schedulerSourceSha256: operational pin for scheduler/scheduler_v2.py
+
+At both existing gates the driver verifies the source/direction pins and the
+import's exact snapshot reference, then uses StoreV2.import_pressure to re-check
+all imported bytes. It first requires the existing manifest and every imported
+row, so this check cannot silently initiate an import or repair a missing row.
+No readings are resampled or added by this integrity check.
+
+The watcher must be live with at least one source=watch row from its declared PID
+at or after startedUTC. Its most recent reading must be no more than 60 seconds
+old (two declared intervals). Future history timestamps, more rows than declared,
+and a declared observation window expired by more than 60 seconds fail closed.
+This allows bounded sampling jitter, not an indefinite stale observer. Start a
+new watcher/declaration externally if the old bounded observer has ended; the
+driver does not do so. Pressure levels are NOT reinterpreted by these checks.
+
+StoreV2 alone implements the revised free + max(inactive, purgeable) counter,
+1 GiB remaining-headroom floor, cap 3, monotonic observed-peak reservations,
+resident RSS credit, unreadable-pressure stop and five spaced NORMAL readings
+needed to resume. All gates use v2.mac_memory_v2, never the v1 sampler. The
+watcher logs without the allocation lock and continues during a long proof.
+
+Composition and private module attributes
+  verification_policy_v2 imports the unchanged verification_slot adapter. It
+  privately loads scheduler_v2 while temporarily binding sys.modules['scheduler']
+  to adapter.s, then restores the import table. This makes v2.v1 and adapter.s
+  the same private v1 module, with no scheduler file or other process changed.
+  v2.claim_name is assigned adapter.owner_name because v2 captured that function
+  by from-import. VerificationOwner still has no task/generation; its label can
+  never skip a real candidate. Ordinary claims delegate to the original name.
+  PolicyStore subclasses this exact v2.StoreV2 and wraps only _admission with
+  source/import/watcher checks before super()._admission. It contains no memory
+  arithmetic or pressure-resumption state machine.
+  CLI main temporarily dispatches adapter.run through this driver's run(), which
+  calls the ORIGINAL adapter.run function with PolicyStore and the v2 memory
+  sampler. The original adapter main owns the native import and proof call;
+  neither that function nor any adapter source is replaced on disk. Dispatch is
+  restored on exit. No native proof is imported by importing this driver.
+
+API for bounded synthetic tests and explicit composition
+  PolicyStore(root, clock=<timezone-aware datetime callable>)
+  store.check_resources(receipt_dict, alive) -> pinned latest watcher reading
+  run(root, receipt_ref, *, proof_body, memory=v2.mac_memory_v2, clock=...,
+      **adapter_process_readings) -> original adapter terminal
+  preflight(root, receipt_ref, *, alive=..., memory=v2.mac_memory_v2, rss=...,
+            clock=...) -> one real gate reading, marked preflight/reservationHeld=false
+  resource_sources() -> the two required operational source paths
+  Module v2 exposes the exact private StoreV2 module; v2.v1 (also s) is its v1.
+
+Preflight is a one-shot call under the same allocation lock: it validates the
+full adapter receipt and runs the actual operational validation + StoreV2 gate,
+then releases the lock WITHOUT creating verification/<mode>/ or a candidate
+claim. It persists the scheduler's usual pressure/RSS/admission observations,
+including a refusal, but does not consume the immutable mode identity. A success
+is only a snapshot, not a reservation or execution authorization. The real CLI
+must still run both fresh gates and may refuse. There is no polling or automatic
+retry. Example from a process with verification-slot/ on sys.path:
+
+  import verification_policy_v2 as driver
+  decision = driver.preflight(ROOT, {'path': RECEIPT, 'sha256': SHA})
+
+PolicyStore also accepts ordinary STROKE_LAUNCH candidate receipts containing
+these operational fields. Candidate clients must retain the existing Store
+allocation-lock protocol and may add their own required operational source pins.
+No separate lease enumeration is needed: verification holds root/.lock for its
+ENTIRE mode, blocking new candidate admissions/handovers while older fits remain
+counted by StoreV2. The existing resource-only ru_maxrss and terminal behavior is
+unchanged. Successful per-mode gate records include operational source pins,
+policy/counter directions, snapshot/import/watcher refs and the observed watcher
+row. The immutable lease pins the full external receipt on failure as well.
+
+Operational source pins are rechecked after the body returns, before the original
+adapter can publish a successful terminal. This is an integrity check, not a
+third pressure gate; running fits are never killed when pressure changes.
+
+Synthetic tests use tiny temporary stores, real StoreV2, fake OS observations and
+fake proof bodies. They perform no native reads, fits or process controls:
+  python -B -m unittest discover -s /absolute/stroke/verification-slot -p 'test_*.py'

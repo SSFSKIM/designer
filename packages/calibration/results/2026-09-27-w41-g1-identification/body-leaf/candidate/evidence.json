@@ -1,0 +1,101 @@
+{
+  "status": "scratch only; no browser render, native reread, fit replay or publication",
+  "sourceDocuments": {
+    "apple-macos-26.5-1x-dark-standard.json": {
+      "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12",
+      "resolvedMaterialSha256": "874be66ea501621b"
+    },
+    "apple-macos-26.5-1x-light-standard.json": {
+      "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+      "resolvedMaterialSha256": "b2b570e4adcea8fb"
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": {
+      "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+      "resolvedMaterialSha256": "7c454858a3cbad5b"
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5.json": {
+      "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+      "resolvedMaterialSha256": "2a4323f33df8d799"
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": {
+      "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd",
+      "resolvedMaterialSha256": "b0d0d8dacc6a03af"
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5.json": {
+      "sha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936",
+      "resolvedMaterialSha256": "be13dae45098fc89"
+    }
+  },
+  "documents": {
+    "apple-macos-27.0-1x-light-standard-glass0.5.json": {
+      "sha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936",
+      "captureSha256": "85ad7f7e3e0d",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "bodyE3Strength": 0,
+      "byteEqualBaseline": true
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": {
+      "sha256": "d34ebe3a73f281e542734737db6bbb92dbe4b432368307de067200eb31d571bd",
+      "captureSha256": "d34ebe3a73f2",
+      "resolvedMaterialSha256": "7b3d327de9cc81c2",
+      "bodyE3Strength": 1,
+      "byteEqualBaseline": false
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5.json": {
+      "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+      "captureSha256": "0eac5b294cc2",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "bodyE3Strength": 0,
+      "byteEqualBaseline": true
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": {
+      "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+      "captureSha256": "5cec8c961201",
+      "resolvedMaterialSha256": "7c454858a3cbad5b",
+      "bodyE3Strength": 0,
+      "byteEqualBaseline": true
+    }
+  },
+  "domain": {
+    "endpoint": "light-receded only; the other three endpoints are byte-equal baseline documents",
+    "materialPolicy": "fully nominal material axes; Reduced Motion alone does not disable E3",
+    "variant": "regular only",
+    "sampling": "actual sampled texture only; post-refraction blurred/scatter backdrop, not group mean",
+    "input": "encoded sRGB cube; selected document's convex mix, no signed unsharp/HDR extension",
+    "presence1": "identified E3 replaces old tone-solve, retention and black-branch body output",
+    "presenceIntermediate": "linear-light mix(backdrop, decode(E3(encode(backdrop))), presence); unmeasured extension",
+    "presence0": "exact skip",
+    "fractionalStrength": "linear-light interpolation from old body to replacement; unmeasured extension",
+    "placement": "before author tint; rim, alpha, coverage, lens and shadow unchanged"
+  },
+  "css": "unchanged; step 9 projection and residual measurement deferred, not a measured E3 decline",
+  "bridgeInputs": [
+    [
+      192,
+      32,
+      32
+    ],
+    [
+      32,
+      192,
+      32
+    ]
+  ],
+  "neutralContinuation": [
+    {
+      "input": 0,
+      "output": 132.5,
+      "w36Native": 133
+    },
+    {
+      "input": 32,
+      "output": 146.5
+    },
+    {
+      "input": 192,
+      "output": 214.1818181818182
+    }
+  ],
+  "continuationContext": "Pre-G2 algebra, not new native readings. F(0)=132.5 beside W36 receded-light native 133. Bridge channel inputs 32/192 have neutral continuations F(32)=146.5 and F(192)=214.1818181818182; E3 evaluates F at each full RGB input's encoded weighted L, not independently at its channel values.",
+  "digestConvention": "resolved: sorted-key materialDigestInput, array order retained, SHA256 first16hex, rule2; capture: complete file SHA256 first12hex; full SHA256 also recorded"
+}

@@ -1,0 +1,11 @@
+Independent reviewer-medium, before native spatial execution, 2026-09-27
+
+Verdict: correct; no material findings.
+Scope: spatial.py, read-spatial.py, test-spatial.py against sealed declaration,
+closure metadata, charter clause6/DL6, imported strip reader and body forward.
+Reviewed calibration-only fixed strip, equal-cell LS weights, seven-repeat scores,
+S0/S1/S2 formulas/bounds, deterministic local multistarts, reflected comparisons,
+resolution threshold, retained observations/fit records.
+Reviewer reran all three synthetic tests: pass, bytecode disabled.
+No archive or raw payload read by reviewer. Native execution/results remain
+unverified by this pre-fit review, which is not a whole-gate review.

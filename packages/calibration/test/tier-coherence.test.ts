@@ -3179,6 +3179,22 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   sweepBandRadians: "none: the resting sweep is a highlight-pass animation; this tier has none.",
   sweepGain: "none: as `sweepBandRadians`.",
   bodyChromaRetention: W31_BODY_CHROMA_CSS_COUNTERPART,
+  // Step 9 has since measured a standalone CSS BODY projection (`112dbc63`;
+  // claims §5.192.18), light-receded-only: a contrast-then-brightness prototype
+  // passes all 128 uncensored light-inactive calval cells at <=1 code, with the
+  // remaining 2 censored cells' bounds also met (130 total), while a
+  // saturate+minimum-alpha neutral-plate prototype is green on its own algebra
+  // but fails native by ~26 codes. Neither prototype is adopted as a production
+  // counterpart: the runtime CSS tier is unchanged, and the RGBA legibility
+  // floor, blur/fallback-floor geometry, nonuniform backdrops, policy,
+  // intermediate presence and author tint all remain unvalidated. This is a
+  // scoped measurement, not a production-parity or blanket E3-decline claim.
+  bodyE3Strength: "none: step 9 measured a standalone CSS BODY projection (112dbc63; claims " +
+    "§5.192.18), not adopted as a production counterpart; runtime CSS is unchanged.",
+  bodyE3Gains: "none: as `bodyE3Strength` — the measured standalone projection carries no " +
+    "pixel-local encoded-luma gain wired into production CSS.",
+  bodyE3Neutral: "none: as `bodyE3Strength` — the measured projection's neutral ordinates are " +
+    "not an adopted CSS counterpart.",
 
   /*
    * The four OPTIONAL keys, which no bed above reaches because the default does

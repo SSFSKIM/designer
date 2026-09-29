@@ -1,0 +1,183 @@
+{
+  "mode": "wrapped",
+  "rawResultBitsSha256": "e184beee88de38a0077cb7349183692be860786e7bef82191ef3d032a2e6d4ef",
+  "trace": {
+    "sha256": "f4e57677fe561685d0f78c066a953a52bb9532d7022fca45063f787393bc4185",
+    "events": 19666,
+    "counts": {
+      "solver-input": 9,
+      "callback-input": 9824,
+      "callback-output": 9824,
+      "solver-output": 9
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "hits": 5627,
+    "misses": 2320,
+    "maxEntriesPerCallback": 2,
+    "maxActiveCaches": 2,
+    "cachePayloadUpperBoundBytes": 17635184,
+    "memoryQualification": "key and result payloads; excludes Python object overhead, uncached evaluation temporaries and the returned array copy",
+    "solvers": [
+      {
+        "kind": "least_squares",
+        "fixedWidth": false,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 1120,
+            "misses": 480,
+            "maxEntries": 2,
+            "peakPayloadBytes": 17635184
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 28,
+            "misses": 12,
+            "maxEntries": 2,
+            "peakPayloadBytes": 192
+          },
+          {
+            "hits": 30,
+            "misses": 12,
+            "maxEntries": 2,
+            "peakPayloadBytes": 477872
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": true,
+        "caches": [
+          {
+            "hits": 813,
+            "misses": 365,
+            "maxEntries": 2,
+            "peakPayloadBytes": 1111584
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": true,
+        "caches": [
+          {
+            "hits": 204,
+            "misses": 92,
+            "maxEntries": 2,
+            "peakPayloadBytes": 1111584
+          }
+        ]
+      },
+      {
+        "kind": "least_squares",
+        "fixedWidth": true,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 1400,
+            "misses": 550,
+            "maxEntries": 2,
+            "peakPayloadBytes": 17635184
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": true,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 28,
+            "misses": 14,
+            "maxEntries": 2,
+            "peakPayloadBytes": 192
+          },
+          {
+            "hits": 30,
+            "misses": 14,
+            "maxEntries": 2,
+            "peakPayloadBytes": 477872
+          }
+        ]
+      },
+      {
+        "kind": "least_squares",
+        "fixedWidth": true,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 1596,
+            "misses": 627,
+            "maxEntries": 2,
+            "peakPayloadBytes": 17635184
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": true,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 28,
+            "misses": 11,
+            "maxEntries": 2,
+            "peakPayloadBytes": 192
+          },
+          {
+            "hits": 30,
+            "misses": 11,
+            "maxEntries": 2,
+            "peakPayloadBytes": 477872
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": true,
+        "epigraph": true,
+        "caches": [
+          {
+            "hits": 320,
+            "misses": 132,
+            "maxEntries": 2,
+            "peakPayloadBytes": 1111584
+          }
+        ]
+      }
+    ]
+  },
+  "seconds": 388.338322666008,
+  "peakRSSBytes": 4124164096,
+  "peakRSSUnit": "bytes on macOS; whole process observed high-water, not a future bound",
+  "environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "threads": {
+      "OPENBLAS_NUM_THREADS": null,
+      "OMP_NUM_THREADS": null,
+      "VECLIB_MAXIMUM_THREADS": null
+    }
+  },
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py": "b42e03a5c46b5b977df4aee3eebf0e6628c799aa098ba1d50c3e58244667bca4",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/fixtures.py": "e500464fc13449881e24b4e5805461699ffa0899351020366b9b62d9278ccd66",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950"
+  }
+}

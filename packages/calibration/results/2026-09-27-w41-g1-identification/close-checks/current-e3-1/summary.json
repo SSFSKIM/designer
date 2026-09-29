@@ -1,0 +1,67 @@
+{
+  "schema": "w41-g1-current-e3-close-checks-1",
+  "scope": "Current E3-only runtime; affected checks must repeat if a later stroke leaf changes it. Not final wave closure.",
+  "tests": {
+    "filesPassed": 60,
+    "passed": 768,
+    "skipped": 1,
+    "total": 769,
+    "durationSeconds": 358.82,
+    "exitCode": 0
+  },
+  "skip": {
+    "test": "re-derives every figure from the matrix-named captures, or reports unmeasured",
+    "conditionSource": "packages/calibration/test/adopted-thresholds.test.ts:4718-4721",
+    "message": "UNMEASURED X1: canonical capture tree absent; no pixel assertion passed",
+    "captureRoot": "/Users/new/vitrea-w41/g1/packages/calibration/web-captures",
+    "captureRootExists": false,
+    "VITREA_WEB_CAPTURES": null
+  },
+  "numericAvailability": {
+    "python": [
+      3,
+      12
+    ],
+    "numpy": "2.3.5",
+    "pillow": "12.3.0"
+  },
+  "historicalW34Harness": {
+    "path": "/Users/new/vitrea-w34/side/harness",
+    "exists": true,
+    "qualification": "Present; not the skip cause."
+  },
+  "lintAndTypes": {
+    "exitCode": 0,
+    "includes": [
+      "eslint .",
+      "tsc --noEmit",
+      "tsc --noEmit -p tsconfig.cli.json",
+      "tsc --noEmit -p web/tsconfig.json",
+      "tsc --noEmit -p scripts/tsconfig.json"
+    ]
+  },
+  "protectedDiff": {
+    "base": "3d13f039",
+    "paths": [
+      "apps/reference-apple",
+      "packages/calibration/profiles",
+      "packages/calibration/results/matrix.json",
+      "packages/calibration/results/generations",
+      "packages/calibration/results/superseded",
+      "packages/calibration/test/adopted-thresholds.test.ts",
+      "packages/renderer-webgpu/e2e/golden"
+    ],
+    "changedPaths": []
+  },
+  "logs": {
+    "calibration-lint-types.txt": "4070d967a2f707ac71e5ed5b2afa2a7d90cb8d066293a3b691cd5ef8d488fe8e",
+    "freeze.txt": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36",
+    "calibration-test.txt": "c324d2e1a28ee2ccf78f4a9e792e4b144bc8b16cc13b906ea437dee562f11d5d",
+    "diag-fork-timeline.txt": "1c09fc3994f270ce835576b62c54ee744d77e258226922de3b4d173a0e9d41ee",
+    "diag-lsof-78893.txt": "9dca01df8a00f844c0a48aa3bb4e35d6c0cf0598088a134d84fc79b2383013e6",
+    "diag-fork-pid.txt": "3045ab0d31957e4e13c8a662a3c9b87f0cca1a1777c7830420293200b36484f9",
+    "diag-sample-78893.txt": "719340a1fec484fb130bc01942faa269e2d0c25dd5e677b40e10796e14177501",
+    "orchestration-note.txt": "eed42ebdbf3267f2c47cfaf2579b4c6b780a9beaec451048837385cfa4ef0f3d"
+  },
+  "orchestration": "The initial test shell exited after its test brace; lint/types ran separately. A quiet-output diagnostic found normal per-file worker turnover, not a stall."
+}

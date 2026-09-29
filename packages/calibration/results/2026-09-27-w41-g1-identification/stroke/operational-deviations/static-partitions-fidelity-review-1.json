@@ -1,0 +1,32 @@
+{
+  "kind": "STROKE_STATIC_PARTITIONS_FIDELITY_REVIEW",
+  "reviewer": "a1c557ee93146abd9",
+  "recordedUTC": "2026-09-28T09:34:07.595358+00:00",
+  "artifacts": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py",
+      "sha256": "60bcbbb8c42ccbbf01c221e3bbeafcb76ca3dfec7ed15586191908d4a0abcbef"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/declaration.json",
+      "sha256": "863a14b60f4aaec1aba42655346cfee13397267863a4074f9167a0c487d63c01"
+    }
+  ],
+  "verified": [
+    "Same original survivor-scope per-task loop, calibration-only observations, seed4100/full budgets, held compact-forward and original-start identity check.",
+    "Standalone proven SolverMemo context uses same fitter globals and arguments.",
+    "Seven source pins valid;64-start population covered disjointly by26completed+1inflight+21A+16B.",
+    "Only resource guard is kernel level>=25 at launch; no admission store or resource polling."
+  ],
+  "finding": "Old stopped controller could duplicate static tasks if resumed.",
+  "closure": {
+    "action": "Identity-checked SIGKILL to old39035 PID only; no SIGCONT or group/fit signal. Grandfathered09 identity remained live before and after.",
+    "evidence": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-2/static-controller-retired-1.json",
+      "sha256": "cef5b7e5058cf278ee0862b140215097bb740add4d55b4df5bff56f4c173ecb5"
+    }
+  },
+  "remainingBlockers": [],
+  "nativeReads": false,
+  "fitRuns": false
+}

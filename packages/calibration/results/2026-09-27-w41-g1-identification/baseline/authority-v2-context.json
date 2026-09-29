@@ -1,0 +1,15 @@
+{
+  "recordedAt": "2026-09-27T08:40:03.066378+00:00",
+  "predecessor": {
+    "path": "authority.json",
+    "sha256": "a9830b476d84c35ac2446e04a68779d355fb48ec3979a5e657980edf4f4ab461"
+  },
+  "successor": {
+    "path": "authority-v2.json",
+    "sha256": "c3150b74cee44ec8780ad43230434f0ae0d61df433ab21290e3735c814f38d1a"
+  },
+  "reason": "Bind live scenes/split bytes, not only import-time Wave pins. Existing authority and preparation remain unchanged; correction precedes any browser/native baseline reading.",
+  "accessor": "baseline.authority_path()",
+  "capture": "NOT RUN",
+  "transfer": "NOT RUN"
+}

@@ -1,0 +1,40 @@
+{
+  "reviewer": "independent doperpowers:reviewer-medium",
+  "scope": "completed BODY-only CSS measurement evidence; offline verification only",
+  "verdict": "correct",
+  "materialFindings": [],
+  "checks": [
+    "Independently derived130cellmembership112calibration+18validation,56+9perDPR from publicmetadata/inventory identities.",
+    "Checked all260screenshot hashes, producing-run bindings, routeidentities/dimensions and centralbodyRGB against scorepayload.",
+    "Recomputed all1040median+7repeatcomparisons perroute, repeatbars and one-sidedrailconstraints, not counting censoredchannels as accuracy.",
+    "Reconstructed bothprojections from frozenE3tuple independently of reportedresiduals.",
+    "Recomputed all40empiricalproofrows; maximum0.55code.",
+    "Verified37original/copiedlogpairs and publicartifacthashes.",
+    "Verified full116048143byte decodedscorepayload SHA481cf7ae7be27a00f8248371b7bd3d68f6f6bea0e1a9a6e5515b1b9d04f0682f byte-equal to externaloriginal; no trimming."
+  ],
+  "results": {
+    "plate": {
+      "measuredPass": 126,
+      "measuredFail": 2,
+      "censoredBoundsSatisfied": 2,
+      "worstNativeCodes": 26,
+      "worstE3Codes": 26.832355407689818,
+      "worstOwnCSSCodes": 0.9314225926054291
+    },
+    "affine": {
+      "measuredPass": 128,
+      "measuredFail": 0,
+      "censoredBoundsSatisfied": 2,
+      "worstNativeCodes": 1,
+      "worstE3Codes": 0.4997954239137812,
+      "worstOwnCSSCodes": 0.4997954239138096
+    }
+  },
+  "qualifications": [
+    "Unexpecteddefaultlaunch had no separate freshX6, no measurementrequested, immediateclosure/recoveryrecorded; not retroactivelygated.",
+    "Allfouractualmeasurement sessions freshX6passed and Chromium153.0.8010.12 undercachedCLI0.1.19/full1243 recorded.",
+    "Firstproof readonly-zsh-status cleanupfailure separatelyclosed withoutrecapture.",
+    "StandaloneBODY-onlydeepreading, not productionparity/adoption; blur/floor/geometrycontracts remainmissing."
+  ],
+  "reviewerActivity": "No browser/CLI/nativeReader/nativepayload/archive opened; no edits or commits."
+}

@@ -1,0 +1,35 @@
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/adapter' imported from /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/adapter.test.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at resolveBase (file:///Users/new/vitrea-w41/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790501305268:2:3744)
+    at async resolveDirectory (file:///Users/new/vitrea-w41/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790501305268:2:4237)
+    at async resolve (file:///Users/new/vitrea-w41/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790501305268:2:5355)
+    at async nextResolve (node:internal/modules/esm/hooks:785:22)
+    at async AsyncLoaderHooksOnLoaderHookWorker.resolve (node:internal/modules/esm/hooks:269:24)
+    at async handleMessage (node:internal/modules/esm/worker:251:18) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/adapter'
+}
+
+Node.js v24.18.0
+✖ results/2026-09-27-w41-g1-identification/sheets/adapter.test.ts (185.040792ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 191.497541
+
+✖ failing tests:
+
+test at results/2026-09-27-w41-g1-identification/sheets/adapter.test.ts:1:1
+✖ results/2026-09-27-w41-g1-identification/sheets/adapter.test.ts (185.040792ms)
+  'test failed'

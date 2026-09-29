@@ -1,0 +1,102 @@
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477 sections=renderer+cssTierMapping
+accessibility=reducedTransparency (others explicitly off)
+
+checkerboard__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__inactive/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest/
+
+checkerboard__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__inactive/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest/
+
+photo__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__inactive/
+
+photo__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__inactive-tint-orange/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest-tint-orange/
+
+photo__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__inactive/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest/
+
+photo__toolbar-group__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__inactive/
+
+photo__toolbar-group__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__rest/
+
+12 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.

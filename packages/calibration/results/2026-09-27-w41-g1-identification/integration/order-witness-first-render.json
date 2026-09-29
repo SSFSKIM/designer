@@ -1,0 +1,25 @@
+{
+  "shippedFreezes": [
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/baseline/frozen-baseline.json",
+      "sha256": "c921d671819fb6c07269b74e3470ee53fed37319f7ba2da1ff58094b343f8bd8",
+      "frozenAt": "2026-09-27T09:26:46.190966+00:00"
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/blind-baseline/frozen-blind-baseline.json",
+      "sha256": "5df39d23a6052ecf5afe2a0a13ef6d0cc7dcb4f31ae7bac6a5150753bd953ca5",
+      "frozenAt": "2026-09-27T09:29:56.538721+00:00"
+    }
+  ],
+  "firstCandidateProcess": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/calval-apple-macos-27.0-1x-dark-standard-glass0.5/started.json",
+    "sha256": "ef27b2e185f3cdce19d395d7b520e7006a5af66df989dfe518a6183bfd2adaf8",
+    "startedAt": "2026-09-27T09:40:11.770276+00:00"
+  },
+  "candidateCaptureSeal": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/seal.json",
+    "sha256": "c0fa108a1b87739d10bffbf74db902c9c5dd78207ce5697a85ce4901be8a7f21"
+  },
+  "bothFreezesPrecedeFirstCandidateProcess": true,
+  "scope": "processlaunch order, not a completed600capture or rendered-survival claim"
+}

@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-27",
+  "reviewer": "doperpowers:reviewer-medium",
+  "scope": ["preflight.py", "test_preflight.py"],
+  "verdict": "correct",
+  "findings": [],
+  "verification": "Independent reviewer ran all eight scratch-only tests under Python 3.12; all passed.",
+  "limits": "Patched loader exercises real synthetic verification, not production domain/runtime checks. No final production manifest existed. Production preflight, scorer, receipt, native payload and browser execution were not performed."
+}

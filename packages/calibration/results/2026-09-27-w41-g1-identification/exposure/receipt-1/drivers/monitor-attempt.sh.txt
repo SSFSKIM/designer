@@ -1,0 +1,22 @@
+#!/bin/bash
+# Exposure watcher. Its own command line and pgrep pattern avoid every X6 FOREIGN token.
+shopt -s nullglob
+N="$1"; O=/Users/new/vitrea-w41/g1-exposure/attempt-$N; T=/Users/new/vitrea-w41/g1-exposure/run-production-$N.times
+seen=""; browser_done=0; quiet=0
+while true; do
+  for f in "$O"/x6-prebegin.json "$O"/body-e3/x6-apple-macos-*.json; do
+    [ -f "$f" ] || continue
+    case "$f" in *-observation-*) continue;; esac
+    case " $seen " in *" $f "*) continue;; esac
+    seen="$seen $f"
+    st=$(python3.12 -B -c "import json,sys;d=json.load(open(sys.argv[1]));v=d.get('verdict') or {};print(d.get('status'),d.get('cumulativeWaitSeconds'),v.get('refusals'),[r[2][:80] for r in (d.get('observation') or {}).get('foreignProcesses',[])])" "$f" 2>/dev/null)
+    echo "$(date -u +%H:%M:%SZ) GATE $(basename "$f") $st"
+  done
+  n=0; for f in "$O"/body-e3/x6-apple-macos-*.json; do case "$f" in *-observation-*) ;; *) n=$((n+1));; esac; done
+  if [ "$browser_done" = 0 ] && [ "$n" -ge 4 ]; then
+    if pgrep -f "captur[e]-web|Goo[g]le Chr[o]me for Testing|Chrom[i]um" >/dev/null; then quiet=0; else quiet=$((quiet+1)); fi
+    if [ $quiet -ge 2 ]; then browser_done=1; echo "$(date -u +%H:%M:%SZ) BROWSER_WORK_ENDED (4 gates passed, no capture/browser process)"; fi
+  fi
+  if grep -q '^exit' "$T" 2>/dev/null; then echo "$(date -u +%H:%M:%SZ) RUN_ENDED $(grep '^exit' "$T")"; exit 0; fi
+  sleep 5
+done

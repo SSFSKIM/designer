@@ -1,0 +1,88 @@
+test_failed_facts_wait_then_capture_once_with_all_observations_durable (test_x6_wait.WaitTests.test_failed_facts_wait_then_capture_once_with_all_observations_durable) ... ERROR
+test_budget_is_shared_between_profiles_and_excludes_capture_time (test_x6_wait.WaitTests.test_budget_is_shared_between_profiles_and_excludes_capture_time) ... FAIL
+test_snapshot_mutation_while_waiting_blocks_launch (test_x6_wait.WaitTests.test_snapshot_mutation_while_waiting_blocks_launch) ... ERROR
+test_prebegin_bad_facts_never_open_receipt_or_wait (test_x6_wait.WaitTests.test_prebegin_bad_facts_never_open_receipt_or_wait) ... ERROR
+
+======================================================================
+ERROR: test_failed_facts_wait_then_capture_once_with_all_observations_durable (test_x6_wait.WaitTests.test_failed_facts_wait_then_capture_once_with_all_observations_durable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 41, in test_failed_facts_wait_then_capture_once_with_all_observations_durable
+    result=self.invoke([bad,reading(),reading()])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 37, in invoke
+    return self.run_exposure(capture=capture)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 131, in run_exposure
+    return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 835, in run_synthetic
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 764, in _run
+    captured = capture(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 32, in capture
+    return runner.capture_web(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 676, in capture_web
+    prelaunch_x6(request, profile)
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 645, in prelaunch_x6
+    raise PermissionError('X6 refused before browser launch: ' + profile)
+PermissionError: X6 refused before browser launch: apple-macos-27.0-1x-dark-standard-glass0.5
+
+======================================================================
+ERROR: test_snapshot_mutation_while_waiting_blocks_launch (test_x6_wait.WaitTests.test_snapshot_mutation_while_waiting_blocks_launch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 63, in test_snapshot_mutation_while_waiting_blocks_launch
+    self.invoke([bad,reading()],mutate_sleep=mutate)
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 37, in invoke
+    return self.run_exposure(capture=capture)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 131, in run_exposure
+    return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 835, in run_synthetic
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 764, in _run
+    captured = capture(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 32, in capture
+    return runner.capture_web(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 676, in capture_web
+    prelaunch_x6(request, profile)
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 645, in prelaunch_x6
+    raise PermissionError('X6 refused before browser launch: ' + profile)
+PermissionError: X6 refused before browser launch: apple-macos-27.0-1x-dark-standard-glass0.5
+
+======================================================================
+ERROR: test_prebegin_bad_facts_never_open_receipt_or_wait (test_x6_wait.WaitTests.test_prebegin_bad_facts_never_open_receipt_or_wait)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 75, in test_prebegin_bad_facts_never_open_receipt_or_wait
+    runner._run(self.root,self.wave,self.root/'frozen.json',self.log,self.output,
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 755, in _run
+    coverage({c.split('/', 1)[1] for c in rendered}, planned, 'authorized web plan')
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 105, in coverage
+    raise ValueError(label + ' coverage mismatch: missing=' + str(sorted(set(expected) - set(actual)))
+ValueError: authorized web plan coverage mismatch: missing=['g128-c-capsule-circular-160x96__inactive', 'g128-c-capsule-circular-160x96__rest', 'g255-c-circular-200x44__inactive', 'g255-c-circular-200x44__rest', 'held-y0.08-h150-colour__inactive', 'held-y0.08-h150-colour__rest', 'held-y0.08-h270-colour__inactive', 'held-y0.08-h270-colour__rest', 'held-y0.08-h30-colour__inactive', 'held-y0.08-h30-colour__rest', 'held-y0.145-h150-colour__inactive', 'held-y0.145-h150-colour__rest', 'held-y0.145-h270-colour__inactive', 'held-y0.145-h270-colour__rest', 'held-y0.145-h30-colour__inactive', 'held-y0.145-h30-colour__rest'], extra=[]
+
+======================================================================
+FAIL: test_budget_is_shared_between_profiles_and_excludes_capture_time (test_x6_wait.WaitTests.test_budget_is_shared_between_profiles_and_excludes_capture_time)
+----------------------------------------------------------------------
+PermissionError: X6 refused before browser launch: apple-macos-27.0-1x-dark-standard-glass0.5
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6_wait.py", line 52, in test_budget_is_shared_between_profiles_and_excludes_capture_time
+    with self.assertRaisesRegex(PermissionError,'budget'):
+AssertionError: "budget" does not match "X6 refused before browser launch: apple-macos-27.0-1x-dark-standard-glass0.5"
+
+----------------------------------------------------------------------
+Ran 4 tests in 6.714s
+
+FAILED (failures=1, errors=3)

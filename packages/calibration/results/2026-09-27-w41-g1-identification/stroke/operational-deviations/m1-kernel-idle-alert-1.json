@@ -1,0 +1,25 @@
+{
+  "kind": "STROKE_KERNEL_QUEUE_IDLE_ALERT",
+  "utc": "2026-09-28T09:21:24.580953+00:00",
+  "idleSeconds": 600.2347025419585,
+  "pending": 7,
+  "identityValidLiveProcesses": [],
+  "excludedProcesses": [
+    {
+      "pid": 80101,
+      "owner": "old-0",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80133,
+      "owner": "old-1",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80167,
+      "owner": "old-2",
+      "reason": "registered stop handoff"
+    }
+  ],
+  "meaning": "Ten minutes with pending M1 work but no identity-valid fit or completed entry. Inspect actual admission reason; no process controlled."
+}

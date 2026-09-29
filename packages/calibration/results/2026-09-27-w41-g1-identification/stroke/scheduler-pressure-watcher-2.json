@@ -1,0 +1,21 @@
+{
+  "kind": "STROKE_PRESSURE_WATCH",
+  "schedulerRoot": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1",
+  "pid": 55508,
+  "startedUTC": "2026-09-28T01:19:18.936481+00:00",
+  "intervalSeconds": 30,
+  "readings": 2880,
+  "schedulerSourceSha256": "8b291118d7463f4adc06cee70b4d10c3e5755a9e4edff2fdd1a1c1dd126ce438",
+  "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-pressure-identity-s0xHAC /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py watch --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --readings 2880",
+  "processIdentity": {
+    "pid": 55508,
+    "startedUTC": "2026-09-28T01:19:18+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-pressure-identity-s0xHAC /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py watch --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --readings 2880"
+  },
+  "backgroundTask": "btor6l9hc",
+  "supersedes": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-pressure-watcher-1.json",
+    "sha256": "b68d2a97d8db86273dd35b97eb5a79ae2703cd013385bcd3a0070a9b41d5fe6a"
+  },
+  "reason": "New process loaded corrected source epoch; previous pressure history retained unchanged."
+}

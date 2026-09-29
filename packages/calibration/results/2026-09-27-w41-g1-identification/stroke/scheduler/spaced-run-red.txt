@@ -1,0 +1,21 @@
+F
+======================================================================
+FAIL: test_fresh_history_needs_five_proven_spaced_normals (test_scheduler_v3.AdaptivePolicyTests.test_fresh_history_needs_five_proven_spaced_normals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/v3red.di5n/test_scheduler_v3.py", line 189, in test_fresh_history_needs_five_proven_spaced_normals
+    self.assertEqual((first['resourceMode'], first['spacedNormalRun']), ('degraded', 1))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('normal', 1) != ('degraded', 1)
+
+First differing element 0:
+'normal'
+'degraded'
+
+- ('normal', 1)
++ ('degraded', 1)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.021s
+
+FAILED (failures=1)

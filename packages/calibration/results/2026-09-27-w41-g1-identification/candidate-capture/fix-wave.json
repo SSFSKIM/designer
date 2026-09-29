@@ -1,0 +1,18 @@
+{
+  "scope": "Preparation only; no assembly, candidate pixels, browser, native read or exposure.",
+  "initialReview": "review-1.json",
+  "fixWave": {
+    "tests": "tests-green-3.txt",
+    "passingTests": 8,
+    "changes": [
+      "Pre-capture transitive import frontier excludes unrelated instrument work; final exposure frontier unchanged.",
+      "Full verification precedes fresh X6 observation.",
+      "Attestation cites toSurfaceInput and WGSL instance mat at byte68/lane17."
+    ]
+  },
+  "preflights": [
+    "input-preflight.txt",
+    "producer-domain-preflight.txt",
+    "freeze-final-1818.txt"
+  ]
+}

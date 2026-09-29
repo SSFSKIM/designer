@@ -1,0 +1,253 @@
+{
+  "kind": "M1_CONCURRENT_ADOPTION_HANDOFF",
+  "sampledUTC": "2026-09-28T08:04:45.359733+00:00",
+  "schedulerRoot": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1",
+  "manifest": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-2.json",
+    "sha256": "66c9e489452a686fc52aba642ccba79fa0559ff855993915063243d4ea937167"
+  },
+  "controller": {
+    "pid": 10224,
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-M1-readmit2-controller-guWnDn /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-2/driver.py --run --manifest-sha256 66c9e489452a686fc52aba642ccba79fa0559ff855993915063243d4ea937167",
+    "status": "T",
+    "source": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-2/driver.py",
+      "sha256": "d914997a5995fd596b061ebb87d30b241cad72164fd6c1172008cc36291cb787"
+    },
+    "journalPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-2/run.jsonl",
+    "pausedAtUTC": "2026-09-28T08:03:43.200981+00:00"
+  },
+  "liveChild": {
+    "task": [
+      "M1",
+      "curvature",
+      8
+    ],
+    "pid": 45682,
+    "processIdentity": {
+      "pid": 45682,
+      "startedUTC": "2026-09-28T07:37:25+00:00",
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-08-1zqt_lm_ /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-08.json --sha256 84775fa52cc8fafd1dc8024183b7fbc96f0d4efa00f74db5df1a48c837d24e3d"
+    },
+    "receipt": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-08.json",
+      "sha256": "84775fa52cc8fafd1dc8024183b7fbc96f0d4efa00f74db5df1a48c837d24e3d"
+    },
+    "claim": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/claims/curvature-M1-start-08.json",
+      "sha256": "f7d21a10c7bc85260e71bc6053b78921bd043c5d96c5f0c0fca73c96096cb8a4"
+    },
+    "solverStarted": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/started/curvature-M1-start-08.json",
+      "sha256": "72ec8a87d32b51b82117d3b89f2dea52007fc6364c5a3d1af65c7076b7fe65af"
+    },
+    "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-08.json",
+    "resultAbsent": true
+  },
+  "completed": [
+    {
+      "task": [
+        "M1",
+        "curvature",
+        4
+      ],
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-04.json",
+        "sha256": "7e14122f9d31aba169ce72abc73c07c1f473a8f3b2e7c569cc5b6db2b8a953b0"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        5
+      ],
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-05.json",
+        "sha256": "963d406594f7c0b3a01d0aa24bd489e3e51e50d9a54a8b28089922f54f5d9340"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        6
+      ],
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-06.json",
+        "sha256": "1c44239996c76ad7d2cf8a946f3a061b63bd83bcc62325503edf2428455fe2ef"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        7
+      ],
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-07.json",
+        "sha256": "ad33f347c4213f5989ae8676a89b5e9864bc02b8932b95719fc8a2a775aa0a0b"
+      }
+    }
+  ],
+  "pending": [
+    {
+      "task": [
+        "M1",
+        "curvature",
+        9
+      ],
+      "receipt": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-09.json",
+        "sha256": "8b146bf6829b294683830d745b9852cdf81832f29f919c0ea75146b85c10d0aa"
+      },
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-09.json",
+      "lifecycleAbsent": [
+        "claims",
+        "started",
+        "deferrals",
+        "failures",
+        "results"
+      ],
+      "prefixPath": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-09-pihjkh12",
+      "prefixEmpty": true
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        10
+      ],
+      "receipt": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-10.json",
+        "sha256": "8ce90762d1363f44fed858fc6ae614af0f5163f6a2fec7d0a53a46f9fc4f80c5"
+      },
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-10.json",
+      "lifecycleAbsent": [
+        "claims",
+        "started",
+        "deferrals",
+        "failures",
+        "results"
+      ],
+      "prefixPath": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-10-2vrb74zy",
+      "prefixEmpty": true
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        11
+      ],
+      "receipt": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-11.json",
+        "sha256": "3fd0254c34e0160343393409649f2798790c368a4a282ed9978927e3756f88b9"
+      },
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-11.json",
+      "lifecycleAbsent": [
+        "claims",
+        "started",
+        "deferrals",
+        "failures",
+        "results"
+      ],
+      "prefixPath": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-11-3yeoeirj",
+      "prefixEmpty": true
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        12
+      ],
+      "receipt": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-12.json",
+        "sha256": "6a26b3c2bebad0e0d3f551eff68d8ca6f590d5b729798510c31768898456c806"
+      },
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-12.json",
+      "lifecycleAbsent": [
+        "claims",
+        "started",
+        "deferrals",
+        "failures",
+        "results"
+      ],
+      "prefixPath": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-12-x553icmr",
+      "prefixEmpty": true
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        13
+      ],
+      "receipt": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-13.json",
+        "sha256": "b3817b59188f88d1cc739f3ce8d2ce41384ed1221dede7e9199ebbcfcd06a689"
+      },
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-13.json",
+      "lifecycleAbsent": [
+        "claims",
+        "started",
+        "deferrals",
+        "failures",
+        "results"
+      ],
+      "prefixPath": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-13-a1mbpkok",
+      "prefixEmpty": true
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        14
+      ],
+      "receipt": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-14.json",
+        "sha256": "fe1fa439af8f3187e993f3f2f0cab1c1d34be79174854309d6fb2749f578730f"
+      },
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-14.json",
+      "lifecycleAbsent": [
+        "claims",
+        "started",
+        "deferrals",
+        "failures",
+        "results"
+      ],
+      "prefixPath": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-14-meilrj54",
+      "prefixEmpty": true
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        15
+      ],
+      "receipt": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-15.json",
+        "sha256": "4d616049bf54a671cab56cd8a3b99c0af9e2251b5d172db7d1bf563d171467da"
+      },
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-15.json",
+      "lifecycleAbsent": [
+        "claims",
+        "started",
+        "deferrals",
+        "failures",
+        "results"
+      ],
+      "prefixPath": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-15-auffvzco",
+      "prefixEmpty": true
+    }
+  ],
+  "oldControllerResumeForbidden": true,
+  "policySourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py": "dd38c6f2590ed32f0cac2816850f79f65a629a37d6f514e660e7414532462c01",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py": "96ecd7ebd099a66ffe155860b23e2189801b30db67598ee6955d9b42750d664c",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": "2a668929c13323c4d93cb9533ecc8943839939e90a4fff1f5c89bbf9ee0e7604",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner.py": "ff8c69ec9f60fabeef70b14eb10ad7c96ad634a28bb942f0773a15b3b15845c5",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v2.py": "6cbf66a25444d8449ee1492769159cbab68a2f44d00d79ee188ed17bdeb48e84",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py": "e212dddeff1e22b28e89b859a72d1b07fa6cca2166d8d1849949b9ef91126646",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py": "8b291118d7463f4adc06cee70b4d10c3e5755a9e4edff2fdd1a1c1dd126ce438",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py": "2c0fba175bf26f38fd436d3a42edaae9bc9c4b8dce428b37ed1a06630e825e33"
+  }
+}

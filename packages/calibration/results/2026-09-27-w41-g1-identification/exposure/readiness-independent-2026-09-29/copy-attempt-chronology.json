@@ -1,0 +1,39 @@
+{
+  "finalClaim": "Independently verified EXISTING backup, not attributed creation; no overwrite or recopy occurred.",
+  "observations": [
+    {
+      "basis": "this worker tool result",
+      "event": "Initial destination check reported lexists false and parent absent.",
+      "order": 1,
+      "timestamp": "not recorded by that command"
+    },
+    {
+      "attribution": "Not an execution observed in this transcript; creator remains unverified.",
+      "basis": "coordinator relay",
+      "event": "Coordinator reported an earlier BackupDONE message from the same worker address.",
+      "order": 2
+    },
+    {
+      "basis": "this worker actual tool result",
+      "completeCommandReproduced": false,
+      "event": "Exclusive Python copy command stopped at the first destination-exists guard before any write.",
+      "exitCode": 1,
+      "guardExcerpt": "if os.path.lexists(destination): raise FileExistsError(\"Backup destination already exists; refusing overwrite\")",
+      "order": 3,
+      "stderr": "Traceback (most recent call last):\n  File \"<stdin>\", line 5, in <module>\nFileExistsError: Backup destination already exists; refusing overwrite"
+    },
+    {
+      "attribution": "Recorded command is not claimed as this worker execution; no creator/PID independently known.",
+      "basis": "read existing verification record",
+      "event": "Existing record names /usr/bin/ditto --rsrc --extattr --acl, started2026-09-28T19:28:15.489329+00:00 and finished19:28:16.512814+00:00.",
+      "order": 4
+    },
+    {
+      "basis": "this worker independent read-only SHA/layout verification",
+      "event": "Manifest equals source-before, backup, and source-after across655entries,334files/316directories/5symlinks.",
+      "order": 5,
+      "timestamp": "2026-09-28T19:30:14.992714+00:00"
+    }
+  ],
+  "schema": "w41-backup-ownership-chronology-1"
+}

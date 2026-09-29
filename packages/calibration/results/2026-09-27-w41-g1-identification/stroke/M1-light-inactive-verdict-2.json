@@ -1,0 +1,2709 @@
+{
+ "kind": "STROKE_M1_LIGHT_INACTIVE_FINAL_LOCAL_VERDICT",
+ "revision": 2,
+ "recordedUTC": "2026-09-28T19:49:08.407725+00:00",
+ "supersedes": {
+  "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M1-light-inactive-verdict-1.json",
+  "sha256": "90a47fdc9932260068c6367de505ea087426c7af555fcc58cea24d90f77e056d",
+  "retained": true,
+  "scope": "Supersedes verdict-1 only as the verdict of record for per-stratum witnesses, the fixed-32 margins derived from them and the minimum margin. Candidate verdicts, counts, budget, scope and classification are carried unchanged."
+ },
+ "status": "NO_SURVIVOR_FOUND_IN_SEALED_LOCAL_SEARCH",
+ "endpoint": "light-inactive",
+ "models": [
+  "device-width M1",
+  "nominal-curvature M1"
+ ],
+ "classification": "All four frozen selected converged candidates fail calibration and validation at1x/2x. Local fitted failure, NOT coefficient-independent/global family rejection; no surviving stroke candidate for implementation/exposure.",
+ "correction": {
+  "what": "Verdict-1 copied each saved summary's worstBoundExcess as its decidingWitness. That scoring.summarize label ranges over every non-null channel reading, censored status included. For device-M1/leastSquares light-inactive/calibration/1x it names g255-c-c44__inactive arc shell 1 bin 2 R median, status censored-bound-satisfied: 2 rail pixels (satisfied) and 5.133836 codes over its 5 uncensored pixels.",
+  "scientificStatus": "The verdict-1 row was not a false failure. instrument.score_bin sets failed=true when the uncensored-pixel mean exceeds max(1,bar) even beside a satisfied rail, and bounds-declaration.txt line 163 declares that \"an uncensored failure remains binding beside any censored channel\"; the saved row carries failed=true in the median and all seven repeats. The flaw is reporting: a censored-status channel was presented as the deciding witness without its status qualification, and its fixed-32 margin mixed a censored-status reading into a measured-accuracy statement.",
+  "fix": "Verdict-2 cites, on every stratum, a conservative measured-only witness: a median channel with status measured and failed=true whose seven repeats are also all measured and failed, with the largest median excess over max(1,bar). Only the device-M1/leastSquares calibration/1x witness changes; the other fifteen equal verdict-1's (location, channel, repeat and codes identical). No candidate verdict changes: all four selected candidates still fail both roles at both scales.",
+  "changedWitnesses": [
+   {
+    "candidate": "device-M1/leastSquares",
+    "stratum": "light-inactive/calibration/1x",
+    "verdict1Witness": {
+     "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+     "endpoint": "light-inactive",
+     "scale": 1,
+     "member": 0,
+     "part": "arc",
+     "side": null,
+     "shell": 1,
+     "bin": 2,
+     "channel": "R",
+     "repeat": "median",
+     "codes": 5.133835831831357,
+     "bound": 1.0,
+     "excess": 4.133835831831357,
+     "status": "censored-bound-satisfied"
+    },
+    "verdict1RemainingExcessLowerBoundCodes": 2.591954558755413,
+    "verdict2Witness": {
+     "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+     "endpoint": "light-inactive",
+     "scale": 1,
+     "member": 0,
+     "part": "arc",
+     "side": null,
+     "shell": 0,
+     "bin": 2,
+     "channel": "G",
+     "repeat": "median",
+     "status": "measured",
+     "codes": 4.558766910774132,
+     "bound": 1.0,
+     "excess": 3.558766910774132
+    },
+    "verdict2RemainingExcessLowerBoundCodes": 2.016885637698188
+   }
+  ]
+ },
+ "boundRule": {
+  "bound": "max(1, bar[channel]); bar = 0.5 + 0.5 * range over the seven repeats of the bin's per-repeat channel mean (instrument.score_bin; declaration line 20 \"Bar per channel/bin is 0.5 + half the run-to-run range\"; W39 clause 8 and the V2 addendum \"max(1,bar)\"). scoring.summarize reports the same bound.",
+  "observed": "Every one of the sixteen witnesses has bar 0.5 on its channel, so bound 1.0.",
+  "measuredFailed": "status \"measured\" means no rail pixel in that channel of that reading, so failed=true there is exactly error > max(1,bar); the replay asserts it."
+ },
+ "fixed32BoundDerivation": "For a fixed prediction, per-pixel |p32-p16| <= D, D the stratum maximum of the saved per-bin maximumPixelDifferenceRGB over all channels (recomputed from *-quadrature.jsonl.gz and required to equal the summary's recorded value). On a measured channel every pixel is uncensored and the target (median or repeat) is prediction-independent, so the triangle inequality gives MAE32 >= MAE16 - D, and remaining excess >= MAE16 - D - max(1,bar). No 32-point coefficients were fitted.",
+ "allSixteenWitnessesPositiveFixed32Margin": true,
+ "minimumRemainingExcessAfterWorstQuadratureChangeCodes": 2.016885637698188,
+ "verdict1MinimumRemainingExcessCodes": 2.084115248403428,
+ "fullOriginalBudgetCompleted": {
+  "device": 16,
+  "curvature": 16,
+  "seed": 4100
+ },
+ "originalStartsVerified": {
+  "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/frozen-optimizer-inputs.json",
+  "sha256": "aeeaf158e9a95afe81210d7bdf3f87c1dce9b11b580b5e28b93069bee313adbe",
+  "starts": 32,
+  "device": 16,
+  "curvature": 16,
+  "allStartHashesMatch": true
+ },
+ "admittedCells": 144,
+ "calibrationCells": 126,
+ "validationCells": 18,
+ "repeatsPerCell": 7,
+ "scope": "Only light inactive archive payloads admitted by metadata before reading; M2 remains unfrozen/unavailable and certified endpoint scopes are not fitted.",
+ "holdoutRead": false,
+ "selectedCandidates": [
+  {
+   "model": "curvature-M1",
+   "objective": "leastSquares",
+   "status": "selected local candidate",
+   "optimizerConverged": true,
+   "rank": 10,
+   "railDeficitCodes": 0.0,
+   "survives": false
+  },
+  {
+   "model": "curvature-M1",
+   "objective": "minimax",
+   "status": "selected local candidate",
+   "optimizerConverged": true,
+   "rank": 10,
+   "railDeficitCodes": 0.0,
+   "survives": false
+  },
+  {
+   "model": "device-M1",
+   "objective": "leastSquares",
+   "status": "selected local candidate",
+   "optimizerConverged": true,
+   "rank": 10,
+   "railDeficitCodes": 0.0,
+   "survives": false
+  },
+  {
+   "model": "device-M1",
+   "objective": "minimax",
+   "status": "selected local candidate",
+   "optimizerConverged": true,
+   "rank": 10,
+   "railDeficitCodes": 0.0,
+   "survives": false
+  }
+ ],
+ "authority": "LOCAL fitted failure of the four frozen selected converged candidates; NOT a coefficient-independent or global rejection of the M1 family.",
+ "frontier": {
+  "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-complete-frontier-1.json",
+  "sha256": "20d4b2d2039260a7e96a5c1ef309d0cd68bd3bed325691633926d21d13934966"
+ },
+ "frozenPredictions": {
+  "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/frozen-selected-predictions.json",
+  "sha256": "e1b63c1bd216ef35a2acc758cac4a03abe0405ddd1f28d2d84f3196edc27b2cc"
+ },
+ "terminal": {
+  "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/M1-transfer-child-terminal-1.json",
+  "sha256": "d93ee39f6edf8e1dc3624f25eff33c24f20e3c047824c6394208c38e4347b0ce"
+ },
+ "complete": {
+  "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/complete.json",
+  "sha256": "0947fd652adf7e830ab41b4c7c6f86f4c6f282112ea46a6a4a650e1112d4107d"
+ },
+ "integrity": {
+  "verdict1ReferencedHashesMatch": true,
+  "terminalReceiptOutputFiles": 31,
+  "terminalReceiptOutputHashesMatch": true,
+  "savedSummaryStrataReproducedFromSavedRows": true
+ },
+ "replayScript": {
+  "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verdict2_witness_replay.py",
+  "sha256": "50f6297b3975f0f84705128361e7089d36bf5aaec3843e7195ca335e8b15d3d3",
+  "check": "/tmp/w39-g2-wgpu/bin/python -B -X pycache_prefix=<fresh empty dir> verdict2_witness_replay.py --check M1-light-inactive-verdict-2.json",
+  "reads": "the four saved *-bins.jsonl.gz, *-quadrature.jsonl.gz, *-summary.json only; standard library; no archive, native, instrument or replay import"
+ },
+ "witnessReplay": {
+  "candidates": [
+   {
+    "model": "curvature-M1",
+    "objective": "leastSquares",
+    "files": {
+     "bins.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+      "sha256": "1021163292549c0e81e330259587f2cb59583b0c5a2d0c26393b7528c02d66ce"
+     },
+     "quadrature.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-quadrature.jsonl.gz",
+      "sha256": "3790ce98ee6e4bd9ea59451bbf7322751787267f9d9ae0bbce214bb1438e48b2"
+     },
+     "summary.json": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-summary.json",
+      "sha256": "25145770fbd895e4c411ec74f6a73e1766b52b70a4a679e52d18c5bf2a30d471"
+     }
+    },
+    "optimizerConverged": true,
+    "rank": 10,
+    "railDeficitCodes": 0.0,
+    "status": "selected local candidate",
+    "survives": false,
+    "cells": {
+     "calibration": 126,
+     "validation": 18
+    },
+    "strata": [
+     {
+      "stratum": "light-inactive/calibration/1x",
+      "requiredBins": 5200,
+      "admittedBins": 4158,
+      "populationDeficientBins": 1042,
+      "bindingFailedBins": 1043,
+      "allChannelFailedBins": 951,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 97200,
+       "censored-bound-satisfied": 2592
+      },
+      "savedRows": 5200,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 2909,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "role": "calibration",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 4.4269176003409925,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 3.4269176003409925,
+       "pixels": 6,
+       "median": {
+        "status": "measured",
+        "errorCodes": 4.4269176003409925,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 6
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 4.4269176003409925,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.4269176003409925,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.4269176003409925,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.4269176003409925,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.4269176003409925,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.4269176003409925,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.4269176003409925,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 3213
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 2567,
+        "maximumPixelDifferenceRGB": [
+         0.19969268486435965,
+         0.19969268486435965,
+         0.19969268486435965
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.3428023519375643,
+      "fixed32ErrorLowerBoundCodes": 3.084115248403428,
+      "remainingExcessLowerBoundCodes": 2.084115248403428,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 4.4269176003409925,
+       "bound": 1.0,
+       "excess": 3.4269176003409925,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 3213
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 6,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/calibration/2x",
+      "requiredBins": 10400,
+      "admittedBins": 9348,
+      "populationDeficientBins": 1052,
+      "bindingFailedBins": 1226,
+      "allChannelFailedBins": 1036,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 218304,
+       "censored-bound-satisfied": 6048
+      },
+      "savedRows": 10400,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 3296,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "role": "calibration",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 8.050676256655825,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 7.050676256655825,
+       "pixels": 12,
+       "median": {
+        "status": "measured",
+        "errorCodes": 8.050676256655825,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 12
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 8.050676256655825,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.050676256655825,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.050676256655825,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.050676256655825,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.050676256655825,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.050676256655825,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.050676256655825,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 11605
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 9917,
+        "maximumPixelDifferenceRGB": [
+         0.2398494195106764,
+         0.2398494195106764,
+         0.2398494195106764
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.3428023519375643,
+      "fixed32ErrorLowerBoundCodes": 6.7078739047182605,
+      "remainingExcessLowerBoundCodes": 5.7078739047182605,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 8.050676256655825,
+       "bound": 1.0,
+       "excess": 7.050676256655825,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 11605
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 12,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/1x",
+      "requiredBins": 720,
+      "admittedBins": 588,
+      "populationDeficientBins": 132,
+      "bindingFailedBins": 164,
+      "allChannelFailedBins": 148,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 14112
+      },
+      "savedRows": 720,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 464,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 5.31000562828731,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 4.31000562828731,
+       "pixels": 6,
+       "median": {
+        "status": "measured",
+        "errorCodes": 5.31000562828731,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 6
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 5.31000562828731,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.31000562828731,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.31000562828731,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.31000562828731,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.31000562828731,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.31000562828731,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.31000562828731,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 15765
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 13647,
+        "maximumPixelDifferenceRGB": [
+         0.03996149609625377,
+         0.03996149609625377,
+         0.03996149609625377
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.5625762348741432,
+      "fixed32ErrorLowerBoundCodes": 3.7474293934131664,
+      "remainingExcessLowerBoundCodes": 2.7474293934131664,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 5.31000562828731,
+       "bound": 1.0,
+       "excess": 4.31000562828731,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 15765
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 6,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/2x",
+      "requiredBins": 1440,
+      "admittedBins": 1292,
+      "populationDeficientBins": 148,
+      "bindingFailedBins": 204,
+      "allChannelFailedBins": 176,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 31008
+      },
+      "savedRows": 1440,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 568,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 9.406079260399357,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 8.406079260399357,
+       "pixels": 14,
+       "median": {
+        "status": "measured",
+        "errorCodes": 9.406079260399357,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 14
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 9.406079260399357,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 9.406079260399357,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 9.406079260399357,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 9.406079260399357,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 9.406079260399357,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 9.406079260399357,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 9.406079260399357,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 16653
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 14377,
+        "maximumPixelDifferenceRGB": [
+         0.27982988318204605,
+         0.27982988318204605,
+         0.27982988318204605
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.5625762348741432,
+      "fixed32ErrorLowerBoundCodes": 7.843503025525214,
+      "remainingExcessLowerBoundCodes": 6.843503025525214,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 9.406079260399357,
+       "bound": 1.0,
+       "excess": 8.406079260399357,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+        "line": 16653
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 14,
+       "isMeasuredWitness": true
+      }
+     }
+    ]
+   },
+   {
+    "model": "curvature-M1",
+    "objective": "minimax",
+    "files": {
+     "bins.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+      "sha256": "e01174d3cdd8fd6b605dd9bee0cb465e9ae63f8f14b222c488a28e75bc17ab3c"
+     },
+     "quadrature.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-quadrature.jsonl.gz",
+      "sha256": "4daf0f5f629e8649b8243fad20dc3c2aff253755bce602bef61d88da78c804da"
+     },
+     "summary.json": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-summary.json",
+      "sha256": "fa0d823ca98f94aaa5e3db5559f81f715297213190ca69e21b4188f530743e34"
+     }
+    },
+    "optimizerConverged": true,
+    "rank": 10,
+    "railDeficitCodes": 0.0,
+    "status": "selected local candidate",
+    "survives": false,
+    "cells": {
+     "calibration": 126,
+     "validation": 18
+    },
+    "strata": [
+     {
+      "stratum": "light-inactive/calibration/1x",
+      "requiredBins": 5200,
+      "admittedBins": 4158,
+      "populationDeficientBins": 1042,
+      "bindingFailedBins": 1208,
+      "allChannelFailedBins": 1062,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 97200,
+       "censored-bound-satisfied": 2592
+      },
+      "savedRows": 5200,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 3336,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v270-c-c44__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 12,
+       "role": "calibration",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 5.324812139663335,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 4.324812139663335,
+       "pixels": 8,
+       "median": {
+        "status": "measured",
+        "errorCodes": 5.324812139663335,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 8
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 5.324812139663335,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 8
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324812139663335,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 8
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324812139663335,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 8
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324812139663335,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 8
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324812139663335,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 8
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324812139663335,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 8
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324812139663335,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 8
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 4897
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-quadrature.jsonl.gz",
+        "line": 3911,
+        "maximumPixelDifferenceRGB": [
+         0.025498549858383512,
+         0.025498549858383512,
+         0.025498549858383512
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.4293108677698285,
+      "fixed32ErrorLowerBoundCodes": 3.8955012718935063,
+      "remainingExcessLowerBoundCodes": 2.8955012718935063,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v270-c-c44__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 12,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 5.324812139663335,
+       "bound": 1.0,
+       "excess": 4.324812139663335,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 4897
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 8,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/calibration/2x",
+      "requiredBins": 10400,
+      "admittedBins": 9348,
+      "populationDeficientBins": 1052,
+      "bindingFailedBins": 1546,
+      "allChannelFailedBins": 1116,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 218304,
+       "censored-bound-satisfied": 6048
+      },
+      "savedRows": 10400,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 3950,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "role": "calibration",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 5.324907671507752,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 4.324907671507752,
+       "pixels": 12,
+       "median": {
+        "status": "measured",
+        "errorCodes": 5.324907671507752,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 12
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 5.324907671507752,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324907671507752,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324907671507752,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324907671507752,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324907671507752,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324907671507752,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.324907671507752,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 11605
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-quadrature.jsonl.gz",
+        "line": 9917,
+        "maximumPixelDifferenceRGB": [
+         0.23643131097853143,
+         0.23643131097853143,
+         0.23643131097853143
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.9887348803046336,
+      "fixed32ErrorLowerBoundCodes": 3.3361727912031185,
+      "remainingExcessLowerBoundCodes": 2.3361727912031185,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 5.324907671507752,
+       "bound": 1.0,
+       "excess": 4.324907671507752,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 11605
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 12,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/1x",
+      "requiredBins": 720,
+      "admittedBins": 588,
+      "populationDeficientBins": 132,
+      "bindingFailedBins": 180,
+      "allChannelFailedBins": 168,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 14112
+      },
+      "savedRows": 720,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 524,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "straight",
+       "side": "top",
+       "shell": 0,
+       "bin": 12,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 5.153981701283072,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 4.153981701283072,
+       "pixels": 24,
+       "median": {
+        "status": "measured",
+        "errorCodes": 5.153981701283072,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 24
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 5.153981701283072,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 24
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.153981701283072,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 24
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.153981701283072,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 24
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.153981701283072,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 24
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.153981701283072,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 24
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.153981701283072,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 24
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.153981701283072,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 24
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 15601
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-quadrature.jsonl.gz",
+        "line": 13507,
+        "maximumPixelDifferenceRGB": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.4048821736441823,
+      "fixed32ErrorLowerBoundCodes": 3.74909952763889,
+      "remainingExcessLowerBoundCodes": 2.74909952763889,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "straight",
+       "side": "top",
+       "shell": 0,
+       "bin": 12,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 5.153981701283072,
+       "bound": 1.0,
+       "excess": 4.153981701283072,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 15601
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 24,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/2x",
+      "requiredBins": 1440,
+      "admittedBins": 1292,
+      "populationDeficientBins": 148,
+      "bindingFailedBins": 220,
+      "allChannelFailedBins": 192,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 31008
+      },
+      "savedRows": 1440,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 624,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 6.72942586078666,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 5.72942586078666,
+       "pixels": 14,
+       "median": {
+        "status": "measured",
+        "errorCodes": 6.72942586078666,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 14
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 6.72942586078666,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 6.72942586078666,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 6.72942586078666,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 6.72942586078666,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 6.72942586078666,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 6.72942586078666,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 6.72942586078666,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 16653
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-quadrature.jsonl.gz",
+        "line": 14377,
+        "maximumPixelDifferenceRGB": [
+         0.23620593152170954,
+         0.23620593152170954,
+         0.23620593152170954
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.4048821736441823,
+      "fixed32ErrorLowerBoundCodes": 5.324543687142477,
+      "remainingExcessLowerBoundCodes": 4.324543687142477,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 6.72942586078666,
+       "bound": 1.0,
+       "excess": 5.72942586078666,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+        "line": 16653
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 14,
+       "isMeasuredWitness": true
+      }
+     }
+    ]
+   },
+   {
+    "model": "device-M1",
+    "objective": "leastSquares",
+    "files": {
+     "bins.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+      "sha256": "f1661cce721c4b0dcccd26195567972122c78cc01b12e9170695e5f17cbe18af"
+     },
+     "quadrature.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-quadrature.jsonl.gz",
+      "sha256": "0e62f73252dafaa6e3971cf1980598cf47b668308f13b556acbeab7d8595ee4f"
+     },
+     "summary.json": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-summary.json",
+      "sha256": "055fd111f218209a0b73afdd21e0814f058694df462213d0c69bf534c19c16f4"
+     }
+    },
+    "optimizerConverged": true,
+    "rank": 10,
+    "railDeficitCodes": 0.0,
+    "status": "selected local candidate",
+    "survives": false,
+    "cells": {
+     "calibration": 126,
+     "validation": 18
+    },
+    "strata": [
+     {
+      "stratum": "light-inactive/calibration/1x",
+      "requiredBins": 5200,
+      "admittedBins": 4158,
+      "populationDeficientBins": 1042,
+      "bindingFailedBins": 1149,
+      "allChannelFailedBins": 1003,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 97200,
+       "censored-bound-satisfied": 2592
+      },
+      "savedRows": 5200,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 3137,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 2,
+       "role": "calibration",
+       "channel": "G",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 4.558766910774132,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 3.558766910774132,
+       "pixels": 4,
+       "median": {
+        "status": "measured",
+        "errorCodes": 4.558766910774132,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 4
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 4.558766910774132,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 4
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.558766910774132,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 4
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.558766910774132,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 4
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.558766910774132,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 4
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.558766910774132,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 4
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.558766910774132,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 4
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.558766910774132,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 4
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 3687
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 2946,
+        "maximumPixelDifferenceRGB": [
+         0.05163127687975333,
+         0.17667535045453064,
+         0.05163127687975333
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.5418812730759441,
+      "fixed32ErrorLowerBoundCodes": 3.016885637698188,
+      "remainingExcessLowerBoundCodes": 2.016885637698188,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 1,
+       "bin": 2,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 5.133835831831357,
+       "bound": 1.0,
+       "excess": 4.133835831831357,
+       "status": "censored-bound-satisfied",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 3547
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 2,
+       "uncensoredPixels": 5,
+       "isMeasuredWitness": false
+      }
+     },
+     {
+      "stratum": "light-inactive/calibration/2x",
+      "requiredBins": 10400,
+      "admittedBins": 9348,
+      "populationDeficientBins": 1052,
+      "bindingFailedBins": 1328,
+      "allChannelFailedBins": 1212,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 218304,
+       "censored-bound-satisfied": 6048
+      },
+      "savedRows": 10400,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 3698,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "role": "calibration",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 7.46771844679354,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 6.46771844679354,
+       "pixels": 12,
+       "median": {
+        "status": "measured",
+        "errorCodes": 7.46771844679354,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 12
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 7.46771844679354,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.46771844679354,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.46771844679354,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.46771844679354,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.46771844679354,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.46771844679354,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.46771844679354,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 11605
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 9917,
+        "maximumPixelDifferenceRGB": [
+         0.4634399487337646,
+         0.4634399487337646,
+         0.4634399487337646
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.8275790794944555,
+      "fixed32ErrorLowerBoundCodes": 5.640139367299084,
+      "remainingExcessLowerBoundCodes": 4.640139367299084,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 7.46771844679354,
+       "bound": 1.0,
+       "excess": 6.46771844679354,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 11605
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 12,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/1x",
+      "requiredBins": 720,
+      "admittedBins": 588,
+      "populationDeficientBins": 132,
+      "bindingFailedBins": 158,
+      "allChannelFailedBins": 152,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 14112
+      },
+      "savedRows": 720,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 464,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 4.875136711251945,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 3.875136711251945,
+       "pixels": 6,
+       "median": {
+        "status": "measured",
+        "errorCodes": 4.875136711251945,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 6
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 4.875136711251945,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.875136711251945,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.875136711251945,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.875136711251945,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.875136711251945,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.875136711251945,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        },
+        {
+         "status": "measured",
+         "errorCodes": 4.875136711251945,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 6
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 15765
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 13647,
+        "maximumPixelDifferenceRGB": [
+         0.20981910042617358,
+         0.20981910042617358,
+         0.20981910042617358
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.3492836656344593,
+      "fixed32ErrorLowerBoundCodes": 3.5258530456174855,
+      "remainingExcessLowerBoundCodes": 2.5258530456174855,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 4.875136711251945,
+       "bound": 1.0,
+       "excess": 3.875136711251945,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 15765
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 6,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/2x",
+      "requiredBins": 1440,
+      "admittedBins": 1292,
+      "populationDeficientBins": 148,
+      "bindingFailedBins": 192,
+      "allChannelFailedBins": 192,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 31008
+      },
+      "savedRows": 1440,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 576,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 8.904934449906198,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 7.904934449906198,
+       "pixels": 14,
+       "median": {
+        "status": "measured",
+        "errorCodes": 8.904934449906198,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 14
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 8.904934449906198,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.904934449906198,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.904934449906198,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.904934449906198,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.904934449906198,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.904934449906198,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        },
+        {
+         "status": "measured",
+         "errorCodes": 8.904934449906198,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 14
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 16653
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-quadrature.jsonl.gz",
+        "line": 14377,
+        "maximumPixelDifferenceRGB": [
+         0.42142333608606464,
+         0.42142333608606464,
+         0.42142333608606464
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.3492836656344593,
+      "fixed32ErrorLowerBoundCodes": 7.555650784271739,
+      "remainingExcessLowerBoundCodes": 6.555650784271739,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 8,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 8.904934449906198,
+       "bound": 1.0,
+       "excess": 7.904934449906198,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+        "line": 16653
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 14,
+       "isMeasuredWitness": true
+      }
+     }
+    ]
+   },
+   {
+    "model": "device-M1",
+    "objective": "minimax",
+    "files": {
+     "bins.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+      "sha256": "1aca6c72b8a1e138fd96fe8db3ab524400e16e21af60966322488600d75ae2b9"
+     },
+     "quadrature.jsonl.gz": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-quadrature.jsonl.gz",
+      "sha256": "36bc1f490c70e2bd295323f6e2d9fb875a6d6fd950d4a47abb4a7981bb1f8d4c"
+     },
+     "summary.json": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-summary.json",
+      "sha256": "b1ed61c6700b146cb4e9dbf9b441aa10dc744e25dcf9e35db6f0ddcbf533bfc6"
+     }
+    },
+    "optimizerConverged": true,
+    "rank": 10,
+    "railDeficitCodes": 0.0,
+    "status": "selected local candidate",
+    "survives": false,
+    "cells": {
+     "calibration": 126,
+     "validation": 18
+    },
+    "strata": [
+     {
+      "stratum": "light-inactive/calibration/1x",
+      "requiredBins": 5200,
+      "admittedBins": 4158,
+      "populationDeficientBins": 1042,
+      "bindingFailedBins": 1232,
+      "allChannelFailedBins": 1062,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 97200,
+       "censored-bound-satisfied": 2592
+      },
+      "savedRows": 5200,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 3356,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-b-c44__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "straight",
+       "side": "top",
+       "shell": 0,
+       "bin": 12,
+       "role": "calibration",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 5.403074815977307,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 4.403074815977307,
+       "pixels": 76,
+       "median": {
+        "status": "measured",
+        "errorCodes": 5.403074815977307,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 76
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977307,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 76
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977307,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 76
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977307,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 76
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977307,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 76
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977307,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 76
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977307,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 76
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977307,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 76
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 2881
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-quadrature.jsonl.gz",
+        "line": 2305,
+        "maximumPixelDifferenceRGB": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.5419044926159131,
+      "fixed32ErrorLowerBoundCodes": 3.861170323361394,
+      "remainingExcessLowerBoundCodes": 2.861170323361394,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-b-c44__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "straight",
+       "side": "top",
+       "shell": 0,
+       "bin": 12,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 5.403074815977307,
+       "bound": 1.0,
+       "excess": 4.403074815977307,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 2881
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 76,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/calibration/2x",
+      "requiredBins": 10400,
+      "admittedBins": 9348,
+      "populationDeficientBins": 1052,
+      "bindingFailedBins": 1496,
+      "allChannelFailedBins": 1178,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 218304,
+       "censored-bound-satisfied": 6048
+      },
+      "savedRows": 10400,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 3930,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "role": "calibration",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 5.403074815977675,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 4.403074815977675,
+       "pixels": 12,
+       "median": {
+        "status": "measured",
+        "errorCodes": 5.403074815977675,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 12
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977675,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977675,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977675,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977675,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977675,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977675,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        },
+        {
+         "status": "measured",
+         "errorCodes": 5.403074815977675,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 12
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 11605
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-quadrature.jsonl.gz",
+        "line": 9917,
+        "maximumPixelDifferenceRGB": [
+         0.4312025458406765,
+         0.4312025458406765,
+         0.4312025458406765
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.8276172210679533,
+      "fixed32ErrorLowerBoundCodes": 3.5754575949097216,
+      "remainingExcessLowerBoundCodes": 2.5754575949097216,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "arc",
+       "side": null,
+       "shell": 0,
+       "bin": 0,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 5.403074815977675,
+       "bound": 1.0,
+       "excess": 4.403074815977675,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 11605
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 12,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/1x",
+      "requiredBins": 720,
+      "admittedBins": 588,
+      "populationDeficientBins": 132,
+      "bindingFailedBins": 166,
+      "allChannelFailedBins": 148,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 14112
+      },
+      "savedRows": 720,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 472,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "straight",
+       "side": "left",
+       "shell": 0,
+       "bin": 8,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 7.824259614589209,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 6.824259614589209,
+       "pixels": 28,
+       "median": {
+        "status": "measured",
+        "errorCodes": 7.824259614589209,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 28
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614589209,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 28
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614589209,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 28
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614589209,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 28
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614589209,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 28
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614589209,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 28
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614589209,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 28
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614589209,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 28
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 15763
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-quadrature.jsonl.gz",
+        "line": 13645,
+        "maximumPixelDifferenceRGB": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.2554918870440872,
+      "fixed32ErrorLowerBoundCodes": 6.568767727545122,
+      "remainingExcessLowerBoundCodes": 5.568767727545122,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 1,
+       "member": 0,
+       "part": "straight",
+       "side": "left",
+       "shell": 0,
+       "bin": 8,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 7.824259614589209,
+       "bound": 1.0,
+       "excess": 6.824259614589209,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 15763
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 28,
+       "isMeasuredWitness": true
+      }
+     },
+     {
+      "stratum": "light-inactive/validation/2x",
+      "requiredBins": 1440,
+      "admittedBins": 1292,
+      "populationDeficientBins": 148,
+      "bindingFailedBins": 194,
+      "allChannelFailedBins": 188,
+      "railFailedBins": 0,
+      "statusComparisons": {
+       "measured": 31008
+      },
+      "savedRows": 1440,
+      "measuredFailedMedianChannels": {
+       "sevenRepeatsAlsoMeasuredAndFailed": 572,
+       "medianOnly": 0
+      },
+      "largerMedianOnlyExcessExcluded": null,
+      "measuredWitness": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "straight",
+       "side": "left",
+       "shell": 0,
+       "bin": 8,
+       "role": "validation",
+       "channel": "R",
+       "repeat": "median",
+       "status": "measured",
+       "failed": true,
+       "codes": 7.824259614616866,
+       "barRGB": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "bound": 1.0,
+       "excess": 6.824259614616866,
+       "pixels": 58,
+       "median": {
+        "status": "measured",
+        "errorCodes": 7.824259614616866,
+        "failed": true,
+        "boundFailure": false,
+        "railPixels": 0,
+        "uncensoredPixels": 58
+       },
+       "repeats": [
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614616866,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 58
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614616866,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 58
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614616866,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 58
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614616866,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 58
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614616866,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 58
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614616866,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 58
+        },
+        {
+         "status": "measured",
+         "errorCodes": 7.824259614616866,
+         "failed": true,
+         "boundFailure": false,
+         "railPixels": 0,
+         "uncensoredPixels": 58
+        }
+       ],
+       "sevenRepeatsMeasuredAndFailed": true,
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 16643
+       },
+       "binQuadrature": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-quadrature.jsonl.gz",
+        "line": 14369,
+        "maximumPixelDifferenceRGB": [
+         0.0,
+         0.0,
+         0.0
+        ]
+       }
+      },
+      "maxFixed16To32PixelDifferenceCodes": 1.2554918870440872,
+      "fixed32ErrorLowerBoundCodes": 6.568767727572779,
+      "remainingExcessLowerBoundCodes": 5.568767727572779,
+      "positiveFixed32Margin": true,
+      "rawSummaryLabel": {
+       "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+       "endpoint": "light-inactive",
+       "scale": 2,
+       "member": 0,
+       "part": "straight",
+       "side": "left",
+       "shell": 0,
+       "bin": 8,
+       "channel": "R",
+       "repeat": "median",
+       "codes": 7.824259614616866,
+       "bound": 1.0,
+       "excess": 6.824259614616866,
+       "status": "measured",
+       "source": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+        "line": 16643
+       },
+       "instrumentFailed": true,
+       "boundFailure": false,
+       "railPixels": 0,
+       "uncensoredPixels": 58,
+       "isMeasuredWitness": true
+      }
+     }
+    ]
+   }
+  ],
+  "witnesses": 16,
+  "allPositiveFixed32Margin": true,
+  "minimumRemainingExcessLowerBoundCodes": 2.016885637698188
+ },
+ "shipOrExposureAction": "none; this finding supplies no stroke operator",
+ "nativeReads": 0,
+ "nativeFitReruns": 0,
+ "sourceEdits": 0
+}

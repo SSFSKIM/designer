@@ -1,0 +1,12 @@
+{
+  "verdict": "fix required before continuation",
+  "finding": {
+    "priority": "P2",
+    "summary": "Recovered shipped provenance must bind to the preserved HTML, not merely current capture metadata",
+    "verified": "recoverRecord called columns(), which assigned the current canonical shipped PNG hash without checking the preserved Shipped WebGPU panel. Document/pose matching alone cannot detect a recapture.",
+    "disposition": "bounded additive fix wave: verify embedded shipped pixels against the claimed current web capture and distinguish recovered display/current-file hashes; retain all pinned originals unchanged."
+  },
+  "testsBeforeFix": 12,
+  "actualResumePerformed": false,
+  "nativeReadsPerformedByReview": 0
+}

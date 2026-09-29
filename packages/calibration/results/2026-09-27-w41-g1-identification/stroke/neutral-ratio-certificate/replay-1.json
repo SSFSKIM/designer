@@ -1,0 +1,56 @@
+{
+  "savedEvidenceReconstructed": true,
+  "allExactRatioProofsRecomputed": true,
+  "nativeArchiveReads": 0,
+  "optimizerCalls": 0,
+  "sourceHashesVerified": 24,
+  "archiveAndRawDenied": true,
+  "savedBundlesVerified": 16,
+  "endpoints": {
+    "light-inactive": {
+      "models": {
+        "M1": {
+          "status": "NOT_DETERMINING",
+          "geometryRivals": [
+            "device",
+            "css",
+            "curvature"
+          ]
+        },
+        "M2": {
+          "status": "NOT_DETERMINING",
+          "geometryRivals": [
+            "device",
+            "css",
+            "curvature"
+          ]
+        }
+      },
+      "witnessPairs": 0,
+      "screenedPairs": 4032
+    },
+    "dark-inactive": {
+      "models": {
+        "M1": {
+          "status": "NOT_DETERMINING",
+          "geometryRivals": [
+            "device",
+            "css",
+            "curvature"
+          ]
+        },
+        "M2": {
+          "status": "NOT_DETERMINING",
+          "geometryRivals": [
+            "device",
+            "css",
+            "curvature"
+          ]
+        }
+      },
+      "witnessPairs": 0,
+      "screenedPairs": 4032
+    }
+  },
+  "manifestSha256": "fbca873e3257c8fff27328809e114b7260bb464ebef27415bd880d71bb644f6a"
+}

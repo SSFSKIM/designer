@@ -1,0 +1,12 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "initialVerdict": "incorrect",
+  "initialFinding": "P2: live scenes/split omitted from seal while capture subprocess rereads disk and projection uses cached Wave",
+  "fixWave": "separate bounded worker; sealed metadata inputs plus baseline live-metadata validator and authority-v2 accessor",
+  "reReviewVerdict": "correct",
+  "remainingMaterialFindings": [],
+  "testsPassed": 5,
+  "nativePayloadReads": false,
+  "browserRuns": false,
+  "realSealOrCaptureExecutedByReview": false
+}

@@ -1,0 +1,40 @@
+{
+  "kind": "STROKE_ADAPTIVE_MEMORY_DIRECTION",
+  "recordedUTC": "2026-09-27T13:13:15.326341+00:00",
+  "authority": "G1 owner relays parent operational task direction and subsequent adaptive-mode confirmation; not a human Decision Log ruling or permission/configuration change.",
+  "direction": "Degraded mode admits ONE fit/proof at a time when pressure NORMAL or WARNING (never CRITICAL), free+max(inactive,purgeable)>=remaining observed-peak reservation with NO1GiBfloor, disk free>=20GiB. Record expected swapping, wall time and pressure history. Wrapped proof first, then fits.",
+  "adaptiveConfirmation": "Each admission evaluates normal gate first: five consecutive NORMAL readings spaced at least30s AND normal floor clear. Otherwise use degraded. Reversible both directions; degraded cap1 prevents another admission alongside existing fits. Running work is never killed.",
+  "normal": {
+    "pressureLevels": [
+      1
+    ],
+    "spacedNormalReadings": 5,
+    "intervalSeconds": 30,
+    "floorBytes": 1073741824,
+    "maxConcurrency": 3
+  },
+  "degraded": {
+    "pressureLevels": [
+      1,
+      2
+    ],
+    "floorBytes": 0,
+    "maxConcurrency": 1,
+    "diskFreeMinimumBytes": 21474836480
+  },
+  "counter": "free + max(inactive, purgeable)",
+  "reservations": "Observed high-water minus each live fit RSS; retain every valid observation, including refusals.",
+  "failClosed": [
+    "critical pressure4",
+    "unreadable required values",
+    "insufficient headroom",
+    "insufficient disk",
+    "concurrency cap"
+  ],
+  "swappingExpected": true,
+  "noScientificChange": true,
+  "noPermissionsOrConfigurationChange": true,
+  "priorRefusalsRetained": true,
+  "oldWaiterStop": "wrapped-v3-waiter-stop.json",
+  "commitHold": "Do not commit until G1 owner releases assembly frontier; actual admission follows reviewed committed preparation."
+}

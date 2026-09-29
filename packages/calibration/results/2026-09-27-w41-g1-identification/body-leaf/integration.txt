@@ -1,0 +1,26 @@
+Reviewed isolated branch: w41-g1-e3-implementation
+Implementation commit: 775a1f2665b94c4024ae569946e63b75507af915
+Base shared with primary G1: 466d36c3 (preparation only, no runtime edits).
+The following evidence-only commit records the independent reviewer-high result
+and final freeze; it changes no reviewed runtime or candidate byte.
+
+INTEGRATION IS THE COORDINATOR'S ACT, only after its pre-W41 baseline and blind
+baseline freezes. No integration, browser launch, candidate render or exposure
+has been performed by this worker. Once those gates permit it, cherry-pick this
+branch's commits after 466d36c3 onto w41-g1-identification (implementation first,
+then the review-evidence commit); do not merge stale primary history or overwrite
+its concurrent baseline/spatial/stroke work. The branch has no capture tree to
+copy and no node_modules/dist artifact to transfer.
+
+Rebuild after integration. For candidate runs, use the isolated four-document
+set under G1/body-leaf/candidate/; only light receded enables E3. Its complete
+receded patch must remain intact. The claim-aware runner must score all endpoint
+pixels and require unclaimed endpoints to equal the frozen baseline. Nominal
+material policy, regular variant and actual texture sampling define this claim;
+Reduced Motion alone does not turn it off. CSS remains unchanged until step9.
+
+Independent reviewer-high found no material issues and ran174targeted tests in
+11files. All earlier TDD, unit, build, lint, digest and synthetic-Metal checks
+remain recorded in implementation.txt and their raw logs. Browser-rendered
+identity, calibration/validation survival, per-bin veto and any single exposure
+remain pending; numerical endpoint survival alone licenses none of those claims.

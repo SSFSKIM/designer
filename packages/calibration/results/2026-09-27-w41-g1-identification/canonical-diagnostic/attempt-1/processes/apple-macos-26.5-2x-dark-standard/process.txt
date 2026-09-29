@@ -1,0 +1,165 @@
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json sha256:950ce1c3e917 sections=renderer
+
+checkerboard__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__inactive/
+
+checkerboard__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__inactive-tint-orange/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest/
+
+checkerboard__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest-tint-orange/
+
+checkerboard__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__inactive/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest/
+
+dark-solid__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__inactive/
+
+dark-solid__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__inactive-tint-orange/
+
+dark-solid__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest/
+
+dark-solid__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest-tint-orange/
+
+dark-solid__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__inactive/
+
+dark-solid__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest/
+
+impulse__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/impulse__capsule-button__inactive/
+
+impulse__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/impulse__capsule-button__rest/
+
+photo__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/photo__capsule-button__inactive/
+
+photo__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/photo__capsule-button__inactive-tint-orange/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest-tint-orange/
+
+photo__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/photo__rrect-md__inactive/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest/
+
+20 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.

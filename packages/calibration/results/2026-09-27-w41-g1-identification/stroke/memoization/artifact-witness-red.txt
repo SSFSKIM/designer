@@ -1,0 +1,16 @@
+E..
+======================================================================
+ERROR: test_comparison_rejects_changed_persisted_trace_before_publishing (test_proof.ProofTests.test_comparison_rejects_changed_persisted_trace_before_publishing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 34, in test_comparison_rejects_changed_persisted_trace_before_publishing
+    proof.compare_native(left, right, root/'must-not-publish.json')
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py", line 180, in compare_native
+    identical(left[field], right[field], field)
+              ~~~~^^^^^^^
+KeyError: 'schema'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.016s
+
+FAILED (errors=1)

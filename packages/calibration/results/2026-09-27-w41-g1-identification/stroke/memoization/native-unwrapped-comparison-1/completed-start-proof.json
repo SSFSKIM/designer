@@ -1,0 +1,75 @@
+{
+  "schema": "w41-memoization-native-one-mode-1",
+  "mode": "unwrapped",
+  "verified": true,
+  "completedArtifact": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0/device-M1-start-00.json",
+  "completedSha256": "e361f0a5e6b7e8ca3b9982b21426bac0fb1ca0a5f50b6887eb6d802129dd1187",
+  "jsonBoundaryResultBitsSha256": "622bdf08b5b00c08406251d9355179d109998bcf7942d64f39816ebf187c9846",
+  "completedExceptSecondsBitsSha256": "83e0a04563737d4759038aeac3855246246ad4eafcee03cef346a2dfd25ac571",
+  "partitionProvenance": {
+    "originalStartIndices": [
+      0
+    ],
+    "originalSeed": 4100,
+    "originalSourceSha256": "86ef98f0d153d2694a397acfb242dff11753972b8fd744edc1fe2ae4778d6670",
+    "transformedSourceSha256": "d13f9589a7fef13b314763e2f4e987df2f131b09f26989fbefc288ef6cea7cc8",
+    "transform": "skip unassigned original indices at outer-loop entry only",
+    "budgetsChanged": false,
+    "parameterizationChanged": false
+  },
+  "nativeScope": "calibration only; device M1 original start 0",
+  "classification": "verification replay, not a new candidate",
+  "rawResultBitsSha256": "e184beee88de38a0077cb7349183692be860786e7bef82191ef3d032a2e6d4ef",
+  "trace": {
+    "sha256": "f4e57677fe561685d0f78c066a953a52bb9532d7022fca45063f787393bc4185",
+    "events": 19666,
+    "counts": {
+      "solver-input": 9,
+      "callback-input": 9824,
+      "callback-output": 9824,
+      "solver-output": 9
+    }
+  },
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py": "db880447f485fe88ad7ff01caae9857a378f6b147bae5c774ed9bac79627cd93",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/fixtures.py": "e500464fc13449881e24b4e5805461699ffa0899351020366b9b62d9278ccd66",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "threads": {
+      "OPENBLAS_NUM_THREADS": null,
+      "OMP_NUM_THREADS": null,
+      "VECLIB_MAXIMUM_THREADS": null
+    }
+  },
+  "artifactDirectory": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-unwrapped-1",
+  "artifacts": {
+    "trace.jsonl.gz": "a498fd68bf0c7254c992348a6dc5d19b158cf24be1ac9d55e388e36f3e6015a6",
+    "raw-result.json": "15b13774940617290d722f5192e6ddc868133f670f72eb635b74c5b94ddd33bf",
+    "replay.json": "e695857a38807c49eedbcebbe6aafbdc4ed921d5653276503623001e15733a87"
+  },
+  "comparisonRerun": {
+    "action": "solve reused, comparison rerun",
+    "optimizerRuns": 0,
+    "nativeArchiveReads": 0,
+    "priorFailure": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/verification/unwrapped/terminal.json",
+      "sha256": "5520e9729111411a1f14f6e2805753bee199a4a3325826a6718fc729c56ee90b"
+    },
+    "driverCompatibility": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof-driver-comparison-amendment-1.json",
+      "sha256": "997b04a20a7dd2708ec30989133cd4ee95860f083b1a9fcea907388419d814dd"
+    },
+    "comparatorSourceSha256": "b42e03a5c46b5b977df4aee3eebf0e6628c799aa098ba1d50c3e58244667bca4",
+    "originalInMemoryResultBitsSha256": "e184beee88de38a0077cb7349183692be860786e7bef82191ef3d032a2e6d4ef",
+    "jsonBoundaryResultBitsSha256": "622bdf08b5b00c08406251d9355179d109998bcf7942d64f39816ebf187c9846"
+  }
+}

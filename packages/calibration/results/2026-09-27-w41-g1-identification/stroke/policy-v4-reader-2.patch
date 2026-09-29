@@ -1,0 +1,778 @@
+diff --git a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py
+index f952230..3d46e11 100644
+--- a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py
++++ b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py
+@@ -1,7 +1,8 @@
+ """Additive adaptive-resource dispatch; the reviewed memo proof gate/hook are reused.
+ 
+-The original hash-pinned STROKE_LAUNCH has receiptVersion 3 and the explicit
+-adaptiveMemoryPolicy reference, alongside its inherited operational fields.
++The original hash-pinned STROKE_LAUNCH has receiptVersion 4 (policy v4: the kernel
++memory level) with the explicit kernelMemoryPolicy reference and the historical
++adaptiveMemoryPolicy one, alongside its inherited operational fields.
+ Only the legacy memo proof checker receives a metadata-only receiptVersion 2
+ view. That view changes no scientific field, proof reference or source pin and
+ never reaches resource admission, the scheduler claim or result publication.
+@@ -46,8 +47,8 @@ def run(store, reference, *, bridge=None):
+             or type(store).finish is not bridge.v3.StoreV3.finish:
+         raise ValueError('actual adaptive PolicyStore, private engine and StoreV3.finish are required')
+     launch = engine.record(reference)
+-    if launch.get('kind') != 'STROKE_LAUNCH' or launch.get('receiptVersion') != 3:
+-        raise ValueError('adaptive memoization requires an explicit policy-v3 candidate launch')
++    if launch.get('kind') != 'STROKE_LAUNCH' or launch.get('receiptVersion') != 4:
++        raise ValueError('adaptive memoization requires an explicit policy-v4 candidate launch')
+     bridge.verify_resource_receipt(launch)
+     engine.verify_sources(launch['resourceSourceSha256'], operational_sources(bridge))
+     # Compatibility concerns only the legacy checker's version discriminator.
+diff --git a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/policy-v3-interface.txt b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/policy-v3-interface.txt
+index 35b571f..54e502a 100644
+--- a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/policy-v3-interface.txt
++++ b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/policy-v3-interface.txt
+@@ -83,3 +83,34 @@ Library API
+ Synthetic verification (never writes bytecode)
+   python -B -X pycache_prefix=<new empty dir> -m unittest discover \
+     -s /absolute/path/to/stroke/scheduler -p 'test_scheduler*.py'
++
++Policy v4: kernel memory level (appended; everything above describes policy v3 as it was)
++  Direction: ../scheduler-memory-parent-direction-v4.json, kind
++  STROKE_KERNEL_MEMORY_DIRECTION. The code refuses a direction whose availability
++  reader ({levelSysctl, physicalBytesSysctl, formula, percentRange, metric}),
++  pressureSysctl or normal/degraded numbers differ from what it enforces.
++  Receipt: receiptVersion 4 with kernelMemoryPolicy: REF to that direction (the
++  selector). adaptiveMemoryPolicy stays as the historical policy-v3 REF: the composed
++  driver checks its path, hash and numbers, but no gate uses them. receiptVersion 3
++  receipts are refused by StoreV3, the composed driver and memo_runner_v3.
++  Availability = floor(kern.memorystatus_level * hw.memsize / 100), read by
++  scheduler_v3.kernel_memory as three `sysctl -n` calls. Each value must be one
++  decimal integer; the level must be in 0..100 and hw.memsize positive; a missing,
++  malformed or out-of-range value raises, so the admission fails closed as an
++  error and logs an unreadable pressure row. The pressure level is
++  kern.memorystatus_vm_pressure_level as before, recorded as read; the gates admit
++  only the levels they name. The reading carries levelPercent, physicalBytes,
++  rawSysctl, counter, counterEpoch and metric. A reading with any other metric
++  (v2's counter included) is a misconfigured driver, not a resource shortage: the
++  admission raises ValueError before choosing a mode and before logging that
++  reading's pressure, so no caller can wait on it as if it were a Deferred refusal.
++  Unchanged: the reservations (observed-peak high-water, resident credit), the
++  process-identity enumeration, the pressure log and freshest-row rule, the normal
++  gate (NORMAL now, five spaced NORMAL readings, 1 GiB floor, cap 3) and the
++  degraded gate (NORMAL or WARNING, no floor, 20 GiB disk, cap 1).
++  StoreV3.claim / check_before_fit, and the composed driver's run / preflight,
++  default to kernel_memory; v1.run passes no reader, so candidate fits read the kernel level.
++  Decisions and results carry policyVersion 4, resourcePolicy
++  "stroke-adaptive-v4-kernel-level", policyCounter "floor(levelPercent *
++  physicalBytes /100)", its counterEpoch, and kernelMemoryPolicy (REF). A driver
++  that calls admission itself must pass scheduler_v3.kernel_memory.
+diff --git a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py
+index 6572796..a6bf2e0 100644
+--- a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py
++++ b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py
+@@ -1,4 +1,4 @@
+-"""Stroke scheduler adaptive resource policy: an additive source epoch over v1 and v2.
++"""Stroke scheduler adaptive resource policy (policy v4, kernel memory level) over v1 and v2.
+ 
+ This module reuses v1's and v2's claim, handoff, owner enumeration (process identity,
+ not bare PIDs, since the W41 G1 PID-reuse fix), RSS high-water, NO-FIT deferral,
+@@ -13,12 +13,18 @@ time, so it is reversible in both directions and nothing running is touched.
+   degraded: pressure 1 or 2 (never 4 or unreadable), counter >= reservations (no
+             floor), >= 20 GiB free disk, and this is the ONLY live fit.
+ 
+-The counter is v2's free + max(inactive, purgeable), a reclaimable-headroom
+-heuristic, not a free-memory guarantee. See policy-v3-interface.txt.
++Availability (policy v4, ../scheduler-memory-parent-direction-v4.json) is the kernel's
++own free level: floor(kern.memorystatus_level percent * hw.memsize / 100). Through
++policy v3 it was v2's free + max(inactive, purgeable), which undercounts reclaimable
++file-backed cache and kept every fit waiting on a machine with GiBs to spare. Every
++number above, the reservations and the pressure reader are unchanged; only the
++availability reading, its metric and the receipt selector moved. A v3 receipt (or a
++v3 counter reading) is refused. See policy-v3-interface.txt, "Policy v4".
+ """
+ from pathlib import Path
+ import hashlib
+ import json
++import re
+ import shutil
+ import subprocess
+ import uuid
+@@ -26,11 +32,18 @@ import uuid
+ import scheduler as v1
+ import scheduler_v2 as v2
+ from scheduler import Deferred, RSS_OBSERVATION, claim_name, filename, immutable, now, record
+-from scheduler_v2 import (COUNTER, COUNTER_EPOCH, FLOOR_BYTES, MAX_CONCURRENT_FITS,
+-                          MEMORY_METRIC_V2, pressure_state)
++from scheduler_v2 import COUNTER, FLOOR_BYTES, MAX_CONCURRENT_FITS, pressure_state
+ 
+-POLICY_VERSION = 3
+-RESOURCE_POLICY = 'stroke-adaptive-v3'
++POLICY_VERSION = 4
++RESOURCE_POLICY = 'stroke-adaptive-v4-kernel-level'
++LEVEL_SYSCTL = 'kern.memorystatus_level'
++PHYSICAL_SYSCTL = 'hw.memsize'
++PRESSURE_SYSCTL = 'kern.memorystatus_vm_pressure_level'
++COUNTER_V4 = 'floor(levelPercent * physicalBytes /100)'
++COUNTER_EPOCH_V4 = 'policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)'
++MEMORY_METRIC_V4 = 'kernel memorystatus free-level percent times physical memory'
++AVAILABILITY = {'levelSysctl': LEVEL_SYSCTL, 'physicalBytesSysctl': PHYSICAL_SYSCTL,
++                'formula': COUNTER_V4, 'percentRange': [0, 100], 'metric': MEMORY_METRIC_V4}
+ DEGRADED_CAP = 1
+ DEGRADED_PRESSURE_LEVELS = (1, 2)
+ DISK_FLOOR_BYTES = 20 * v1.GIB
+@@ -55,19 +68,64 @@ def spaced_normal_run(readings):
+     return run
+ 
+ 
++NORMAL_GATE = {'pressureLevels': [1], 'spacedNormalReadings': v2.RESUME_NORMAL_READINGS,
++               'intervalSeconds': v2.WATCH_INTERVAL_SECONDS, 'floorBytes': FLOOR_BYTES,
++               'maxConcurrency': MAX_CONCURRENT_FITS}
++DEGRADED_GATE = {'pressureLevels': list(DEGRADED_PRESSURE_LEVELS), 'floorBytes': 0,
++                 'maxConcurrency': DEGRADED_CAP, 'diskFreeMinimumBytes': DISK_FLOOR_BYTES}
++
++
+ def check_direction(direction):
+-    """The pinned parent direction must state exactly the numbers this code enforces."""
+-    normal, degraded = direction.get('normal'), direction.get('degraded')
++    """Policy v3's direction (free + max(inactive, purgeable)); history since policy v4."""
+     if direction.get('kind') != 'STROKE_ADAPTIVE_MEMORY_DIRECTION' \
+-            or direction.get('counter') != COUNTER or normal != {
+-                'pressureLevels': [1], 'spacedNormalReadings': v2.RESUME_NORMAL_READINGS,
+-                'intervalSeconds': v2.WATCH_INTERVAL_SECONDS, 'floorBytes': FLOOR_BYTES,
+-                'maxConcurrency': MAX_CONCURRENT_FITS} or degraded != {
+-                'pressureLevels': list(DEGRADED_PRESSURE_LEVELS), 'floorBytes': 0,
+-                'maxConcurrency': DEGRADED_CAP, 'diskFreeMinimumBytes': DISK_FLOOR_BYTES}:
++            or direction.get('counter') != COUNTER or direction.get('normal') != NORMAL_GATE \
++            or direction.get('degraded') != DEGRADED_GATE:
+         raise ValueError('resource direction does not state the adaptive policy this code enforces')
+ 
+ 
++def check_kernel_direction(direction):
++    """The pinned v4 direction must state exactly the reader and numbers enforced here."""
++    if direction.get('kind') != 'STROKE_KERNEL_MEMORY_DIRECTION' \
++            or direction.get('availability') != AVAILABILITY \
++            or direction.get('pressureSysctl') != PRESSURE_SYSCTL \
++            or direction.get('normal') != NORMAL_GATE \
++            or direction.get('degraded') != DEGRADED_GATE:
++        raise ValueError('kernel memory direction does not state the policy this code enforces')
++
++
++def sysctl_value(name):
++    return subprocess.check_output(['/usr/sbin/sysctl', '-n', name], text=True)
++
++
++def parse_kernel_memory(level, memsize, pressure):
++    """One availability reading from the three raw sysctl texts; anything else fails closed.
++
++    Each value must be one decimal integer (sysctl -n prints it with a newline). The
++    level is a percent in [0, 100], physical memory is positive and the pressure
++    level is recorded as read: the gates admit only the levels they name.
++    """
++    raw = {LEVEL_SYSCTL: level, PHYSICAL_SYSCTL: memsize, PRESSURE_SYSCTL: pressure}
++    values = {}
++    for name, text in raw.items():
++        if type(text) is not str or not re.fullmatch(r'-?[0-9]+\n?', text):
++            raise ValueError(f'unreadable {name}: {text!r}')
++        values[name] = int(text)
++    percent, physical = values[LEVEL_SYSCTL], values[PHYSICAL_SYSCTL]
++    if not 0 <= percent <= 100:
++        raise ValueError(f'{LEVEL_SYSCTL} outside 0..100: {percent}')
++    if physical <= 0:
++        raise ValueError(f'{PHYSICAL_SYSCTL} must be positive: {physical}')
++    return {'availableBytes': percent * physical // 100,
++            'pressureLevel': values[PRESSURE_SYSCTL], 'levelPercent': percent,
++            'physicalBytes': physical, 'rawSysctl': raw, 'counter': COUNTER_V4,
++            'counterEpoch': COUNTER_EPOCH_V4, 'metric': MEMORY_METRIC_V4, 'sampledUTC': now()}
++
++
++def kernel_memory(read=sysctl_value):
++    """The policy-v4 availability reader: every admission's memory() by default."""
++    return parse_kernel_memory(read(LEVEL_SYSCTL), read(PHYSICAL_SYSCTL), read(PRESSURE_SYSCTL))
++
++
+ def disk_free(paths):
+     """Free bytes on each volume (statvfs via shutil); the gate uses the minimum."""
+     volumes = {str(path): shutil.disk_usage(path).free for path in paths}
+@@ -85,7 +143,7 @@ def swap_usage():
+ 
+ 
+ class StoreV3(v2.StoreV2):
+-    """v2 Store whose admission gate is the adaptive normal/degraded policy."""
++    """v2 Store whose admission gate is the adaptive normal/degraded policy (v4 reader)."""
+ 
+     def __init__(self, root, *, disk=None, swap=swap_usage):
+         super().__init__(root)
+@@ -95,6 +153,14 @@ class StoreV3(v2.StoreV2):
+             [self.root] + ([VM_VOLUME] if VM_VOLUME.exists() else [])))
+         self.read_swap = swap
+ 
++    # v1.run claims and pre-fit checks without naming a reader: default to the v4
++    # kernel reader here, never to v2's counter (whose metric this gate rejects as an error).
++    def claim(self, reference, *, pid, alive=v1.alive, memory=kernel_memory, rss=None):
++        return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
++
++    def check_before_fit(self, claim, *, alive=v1.alive, memory=kernel_memory, rss=None):
++        return super().check_before_fit(claim, alive=alive, memory=memory, rss=rss)
++
+     def finish(self, claim, result):
+         # Bypass v2's finish, which would label the result policyVersion 2.
+         admitted = self.root / 'admissions' / claim_name(claim)
+@@ -102,17 +168,17 @@ class StoreV3(v2.StoreV2):
+         sources = {str(Path(path).resolve()): hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                    for path in (v2.__file__, __file__)}
+         result = dict(result, policyVersion=POLICY_VERSION, resourcePolicy=RESOURCE_POLICY,
+-                      admissionMode=mode, policyCounter=COUNTER, counterEpoch=COUNTER_EPOCH,
+-                      policySourceSha256=sources)
++                      admissionMode=mode, policyCounter=COUNTER_V4,
++                      counterEpoch=COUNTER_EPOCH_V4, policySourceSha256=sources)
+         return v1.Store.finish(self, claim, result)
+ 
+     def _admission(self, launch, pid, alive, memory, rss, *, own_claim=None):
+-        # receiptVersion 3 selects this policy; StoreV2 refuses it, so a v3 receipt is
+-        # never admitted under the v2 gate, and a v2 receipt never reaches this one.
++        # receiptVersion 4 selects this policy; StoreV2 refuses it, so it is never
++        # admitted under the v2 gate, and a v2 or v3 receipt never reaches this one.
+         if launch.get('receiptVersion') != POLICY_VERSION:
+-            raise ValueError('adaptive admission requires receiptVersion 3')
+-        selector = launch['adaptiveMemoryPolicy']
+-        check_direction(record(selector))
++            raise ValueError('adaptive admission requires receiptVersion 4')
++        selector = launch['kernelMemoryPolicy']
++        check_kernel_direction(record(selector))
+         roster_ref, roster = self.roster()
+         release = self.release(launch['captureRelease'])
+         cap = launch['maxConcurrency']
+@@ -180,6 +246,13 @@ class StoreV3(v2.StoreV2):
+             # admissions until five spaced NORMAL readings, and still fails closed.
+             self.log_pressure(None, error=repr(error), source='admission')
+             raise
++        # A reader other than policy v4's is a misconfigured driver, not a resource
++        # shortage: fail loudly, before any mode is chosen and before its pressure
++        # joins the shared history, so no caller waits on it as if it were a refusal.
++        metric = reading.get('metric') if isinstance(reading, dict) else reading
++        if metric != MEMORY_METRIC_V4:
++            raise ValueError('policy v4 admission requires the kernel memory reader '
++                             f'(scheduler_v3.kernel_memory); got metric {metric!r}')
+         level = reading.get('pressureLevel')
+         self.log_pressure(level if type(level) is int else None,
+                           sampled=reading.get('sampledUTC'), source='admission',
+@@ -203,12 +276,11 @@ class StoreV3(v2.StoreV2):
+         swap = self.read_swap()
+         effective = len(processes) + 1
+         available = reading['availableBytes']
+-        metric = reading['metric'] == MEMORY_METRIC_V2
+         # Every admission evaluates the normal gate first (reversible both ways).
+         normal_gate = {'pressureNormal': level == 1,
+                        'fiveSpacedNormal': normal_run >= v2.RESUME_NORMAL_READINGS,
+                        'floorClears': available >= FLOOR_BYTES + reserved}
+-        if metric and all(normal_gate.values()):
++        if all(normal_gate.values()):
+             mode, limit, required = 'normal', cap, FLOOR_BYTES + reserved
+             admitted = effective <= cap
+             expectation = 'normal gate: 1 GiB headroom floor kept after reservations'
+@@ -216,15 +288,16 @@ class StoreV3(v2.StoreV2):
+             if 'error' in disk:
+                 raise ValueError('degraded admission requires a readable disk: ' + disk['error'])
+             mode, limit, required = 'degraded', DEGRADED_CAP, reserved
+-            admitted = metric and level in DEGRADED_PRESSURE_LEVELS \
++            admitted = level in DEGRADED_PRESSURE_LEVELS \
+                 and available >= reserved and disk['freeBytes'] >= DISK_FLOOR_BYTES \
+                 and effective <= DEGRADED_CAP
+             expectation = ('degraded gate: no headroom floor, one fit at a time; paging to '
+                            'swap is expected and accepted, bounded by the 20 GiB disk floor')
+         decision = {'sampledUTC': now(), 'policyVersion': POLICY_VERSION,
+-                    'resourcePolicy': RESOURCE_POLICY, 'adaptiveMemoryPolicy': selector,
++                    'resourcePolicy': RESOURCE_POLICY, 'kernelMemoryPolicy': selector,
+                     'resourceMode': mode, 'normalGate': normal_gate,
+-                    'policyCounter': COUNTER, 'counterEpoch': COUNTER_EPOCH, 'memory': reading,
++                    'policyCounter': COUNTER_V4, 'counterEpoch': COUNTER_EPOCH_V4,
++                    'memory': reading,
+                     'pressureState': state, 'spacedNormalRun': normal_run,
+                     'freshestPressure': {key: freshest[key] for key in
+                                          ('id', 'sampledUTC', 'pressureLevel', 'source')},
+diff --git a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_memo_runner_v3.py b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_memo_runner_v3.py
+index 49d3980..927a61f 100644
+--- a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_memo_runner_v3.py
++++ b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_memo_runner_v3.py
+@@ -41,17 +41,18 @@ class MemoV3Tests(unittest.TestCase):
+         self.policy_calls = []
+         def verify_resource_receipt(launch):
+             self.policy_calls.append(copy.deepcopy(launch))
+-            if launch['receiptVersion'] != 3:
+-                raise ValueError('resource gate requires original v3 receipt')
+-            self.engine.record(launch['adaptiveMemoryPolicy'])
++            if launch['receiptVersion'] != 4:
++                raise ValueError('resource gate requires original v4 receipt')
++            self.engine.record(launch['kernelMemoryPolicy'])
+         self.bridge = types.SimpleNamespace(__file__=str(bridge_path), legacy=self.legacy,
+             s=self.engine, v2=self.legacy.v2,
+             v3=types.SimpleNamespace(__file__=str(policy_path), v1=self.engine, StoreV3=StoreV3),
+             PolicyStore=PolicyStore, verify_resource_receipt=verify_resource_receipt,
+             resource_sources=lambda: [bridge_path, policy_path, *self.legacy.resource_sources()])
+         self.store = PolicyStore(self.root/'state')
+-        self.launch = dict(kind='STROKE_LAUNCH', receiptVersion=3, task=['M1', 'device', 3],
++        self.launch = dict(kind='STROKE_LAUNCH', receiptVersion=4, task=['M1', 'device', 3],
+             adaptiveMemoryPolicy=artifact(self.root/'adaptive.json', {'syntheticPolicy': 3}),
++            kernelMemoryPolicy=artifact(self.root/'kernel.json', {'syntheticPolicy': 4}),
+             memoization=self.proof_fixture(), resourceSourceSha256={
+                 str(p): ref(p)['sha256'] for p in runner.operational_sources(self.bridge)})
+         self.reference = artifact(self.root/'launch.json', self.launch)
+@@ -91,7 +92,8 @@ class MemoV3Tests(unittest.TestCase):
+             str(p): ref(p)['sha256'] for p in runner.operational_sources(bridge)},
+             memoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v2.json'),
+             memoryCounterDirection=ref(memo.STROKE/'scheduler-memory-counter-clarification.json'),
+-            adaptiveMemoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v3.json'))
++            adaptiveMemoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v3.json'),
++            kernelMemoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v4.json'))
+         reference = artifact(self.root/'actual-v3-launch.json', launch)
+         engine = bridge.s
+         original = engine.selected_fit
+@@ -100,7 +102,7 @@ class MemoV3Tests(unittest.TestCase):
+             self.assertIs(received_reference, reference)
+             self.assertIsInstance(received_store, bridge.v3.StoreV3)
+             self.assertIs(received_store.finish.__func__, bridge.v3.StoreV3.finish)
+-            self.assertEqual(engine.record(received_reference)['receiptVersion'], 3)
++            self.assertEqual(engine.record(received_reference)['receiptVersion'], 4)
+             return 'actual store accepted; no claim or fit executed'
+         with patch.object(engine, 'run', side_effect=delegate), \
+                 patch.object(memo, 'load_wrapper', side_effect=AssertionError('no wrapper import')):
+@@ -114,7 +116,7 @@ class MemoV3Tests(unittest.TestCase):
+         def delegate(store, reference):
+             self.assertIs(store, self.store)
+             self.assertIs(reference, self.reference)
+-            self.assertEqual(self.engine.record(reference)['receiptVersion'], 3)
++            self.assertEqual(self.engine.record(reference)['receiptVersion'], 4)
+             self.assertIsNot(self.engine.selected_fit, self.original)
+             return 'delegated without a fit'
+         with patch.object(self.engine, 'run', side_effect=delegate), \
+@@ -142,13 +144,14 @@ class MemoV3Tests(unittest.TestCase):
+         self.assertIs(self.engine.selected_fit, self.original)
+ 
+     def test_v2_or_implicit_adaptive_receipt_cannot_enter_v3_dispatch(self):
+-        for change in (dict(receiptVersion=2), dict(kind='STROKE_VERIFICATION')):
++        for change in (dict(receiptVersion=2), dict(receiptVersion=3),
++                       dict(kind='STROKE_VERIFICATION')):
+             self.launch.update(change); self.save_launch()
+             with patch.object(self.engine, 'run') as delegate:
+                 with self.assertRaises(ValueError): runner.run(self.store, self.reference, bridge=self.bridge)
+                 delegate.assert_not_called()
+-        self.launch.update(kind='STROKE_LAUNCH', receiptVersion=3)
+-        del self.launch['adaptiveMemoryPolicy']; self.save_launch()
++        self.launch.update(kind='STROKE_LAUNCH', receiptVersion=4)
++        del self.launch['kernelMemoryPolicy']; self.save_launch()
+         with patch.object(self.engine, 'run') as delegate:
+             with self.assertRaises(KeyError): runner.run(self.store, self.reference, bridge=self.bridge)
+             delegate.assert_not_called()
+diff --git a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py
+index d1dc41e..0aa888a 100644
+--- a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py
++++ b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py
+@@ -3,6 +3,7 @@ import json
+ from pathlib import Path
+ import tempfile
+ import unittest
++from unittest import mock
+ 
+ import scheduler
+ import scheduler_v2
+@@ -11,12 +12,34 @@ from test_scheduler import artifact, example, fake_processes, ref, run_as_claima
+ from test_scheduler_v2 import at
+ 
+ GIB = scheduler.GIB
+-DIRECTION = {
++V3_DIRECTION = {
+     'kind': 'STROKE_ADAPTIVE_MEMORY_DIRECTION', 'counter': 'free + max(inactive, purgeable)',
+     'normal': {'pressureLevels': [1], 'spacedNormalReadings': 5, 'intervalSeconds': 30,
+                'floorBytes': 1073741824, 'maxConcurrency': 3},
+     'degraded': {'pressureLevels': [1, 2], 'floorBytes': 0, 'maxConcurrency': 1,
+                  'diskFreeMinimumBytes': 21474836480}}
++# The parent's policy-v4 direction, as literals (not the module's constants).
++DIRECTION = {
++    'kind': 'STROKE_KERNEL_MEMORY_DIRECTION',
++    'availability': {'levelSysctl': 'kern.memorystatus_level',
++                     'physicalBytesSysctl': 'hw.memsize',
++                     'formula': 'floor(levelPercent * physicalBytes /100)',
++                     'percentRange': [0, 100],
++                     'metric': 'kernel memorystatus free-level percent times physical memory'},
++    'pressureSysctl': 'kern.memorystatus_vm_pressure_level',
++    'normal': V3_DIRECTION['normal'], 'degraded': V3_DIRECTION['degraded']}
++SIXTEEN_GIB = 17179869184
++
++
++def sysctl(values):
++    """Fake subprocess.check_output for `sysctl -n NAME`: raw text per name, or an error."""
++    def check_output(argv, text):
++        assert argv[:2] == ['/usr/sbin/sysctl', '-n'] and len(argv) == 3 and text is True
++        value = values[argv[2]]
++        if isinstance(value, Exception):
++            raise value
++        return value
++    return check_output
+ 
+ 
+ class AdaptivePolicyTests(unittest.TestCase):
+@@ -60,14 +83,14 @@ class AdaptivePolicyTests(unittest.TestCase):
+                 'captureRelease': self.release, 'direction': direction}),
+                 alive=self.live.__contains__)
+         self.memory = {'availableBytes': 32 * GIB, 'pressureLevel': 1,
+-                       'metric': scheduler_v2.MEMORY_METRIC_V2}
++                       'metric': scheduler_v3.MEMORY_METRIC_V4}
+ 
+     def launch(self, task=('M1', 'device', 0), **changes):
+         value = {'kind': 'STROKE_LAUNCH', 'rosterSha256': self.roster['sha256'],
+-                 'receiptVersion': 3, 'task': list(task), 'captureRelease': self.release,
++                 'receiptVersion': 4, 'task': list(task), 'captureRelease': self.release,
+                  'maxConcurrency': 3, 'peakEvidence': self.peak,
+                  'reservationBytes': GIB, 'oldWorkerReservationBytes': GIB,
+-                 'adaptiveMemoryPolicy': self.policy}
++                 'kernelMemoryPolicy': self.policy}
+         value.update(changes)
+         return artifact(self.base / f'launch-{len(list(self.base.glob("launch-*")))}.json', value)
+ 
+@@ -96,7 +119,7 @@ class AdaptivePolicyTests(unittest.TestCase):
+     def test_normal_gate_is_v2_and_allows_three_fits(self):
+         self.normal_history()
+         decision = self.claim()
+-        self.assertEqual((decision['resourceMode'], decision['policyVersion']), ('normal', 3))
++        self.assertEqual((decision['resourceMode'], decision['policyVersion']), ('normal', 4))
+         self.assertEqual(decision['requiredAvailableBytes'], GIB + GIB)
+         for pid, index in ((201, 3), (202, 6)):
+             self.live.add(pid - 1)
+@@ -216,11 +239,17 @@ class AdaptivePolicyTests(unittest.TestCase):
+     def test_receipt_selector_and_direction_numbers_are_required(self):
+         wrong = artifact(self.base / 'wrong-direction.json',
+                          dict(DIRECTION, degraded=dict(DIRECTION['degraded'], floorBytes=1)))
+-        for launch in (self.launch(adaptiveMemoryPolicy=None), self.launch(receiptVersion=2),
+-                       self.launch(adaptiveMemoryPolicy=wrong)):
++        reader = artifact(self.base / 'wrong-reader.json', dict(DIRECTION, availability=dict(
++            DIRECTION['availability'], levelSysctl='vm.page_free_count')))
++        historical = artifact(self.base / 'v3-direction.json', V3_DIRECTION)
++        v3_receipt = self.launch(receiptVersion=3, adaptiveMemoryPolicy=historical)
++        for launch in (self.launch(kernelMemoryPolicy=None), self.launch(receiptVersion=2),
++                       self.launch(kernelMemoryPolicy=wrong),
++                       self.launch(kernelMemoryPolicy=reader),
++                       self.launch(kernelMemoryPolicy=historical), v3_receipt):
+             with self.assertRaises((ValueError, TypeError)):
+                 self.claim(launch=launch)
+-        # The v2 gate refuses a v3 receipt rather than admitting it under v2 numbers.
++        # The v2 gate refuses a v4 receipt rather than admitting it under v2 numbers.
+         with self.assertRaisesRegex(ValueError, 'receiptVersion 2'):
+             scheduler_v2.StoreV2(self.root).claim(self.processes.spawn(200, self.launch()), pid=200,
+                 alive=self.live.__contains__, memory=lambda: dict(self.memory))
+@@ -262,7 +291,7 @@ class AdaptivePolicyTests(unittest.TestCase):
+         result, _ = scheduler.selected_fit(example, [], second['task'])
+         self.store.finish(second, result)
+         published = json.loads((self.root / 'results' / scheduler.filename(second['task'])).read_text())
+-        self.assertEqual((published['policyVersion'], published['admissionMode']), (3, 'degraded'))
++        self.assertEqual((published['policyVersion'], published['admissionMode']), (4, 'degraded'))
+         self.assertEqual(set(published['policySourceSha256']),
+                          {str(Path(m.__file__).resolve()) for m in (scheduler_v2, scheduler_v3)})
+ 
+@@ -325,6 +354,78 @@ class AdaptivePolicyTests(unittest.TestCase):
+                 self.assertEqual(decision['processes'], [])
+                 self.assertIn(reason, [p['reason'] for p in decision['excludedProcesses']])
+ 
++    def test_kernel_reader_is_level_percent_of_physical_memory(self):
++        parse = scheduler_v3.parse_kernel_memory
++        reading = parse('45\n', f'{SIXTEEN_GIB}\n', '1\n')
++        self.assertEqual((reading['availableBytes'], reading['levelPercent'],
++                          reading['physicalBytes'], reading['pressureLevel']),
++                         (7730941132, 45, SIXTEEN_GIB, 1))  # floor(0.45 * 16 GiB)
++        availability = DIRECTION['availability']
++        self.assertEqual((reading['metric'], reading['counter']),
++                         (availability['metric'], availability['formula']))
++        self.assertEqual(reading['rawSysctl'], {'kern.memorystatus_level': '45\n',
++            'hw.memsize': f'{SIXTEEN_GIB}\n', 'kern.memorystatus_vm_pressure_level': '1\n'})
++        self.assertEqual(parse('0', str(SIXTEEN_GIB), '1')['availableBytes'], 0)
++        self.assertEqual(parse('100', str(SIXTEEN_GIB), '1')['availableBytes'], SIXTEEN_GIB)
++        # The pressure level is recorded as read; the gates, not the reader, refuse 2 or 4.
++        self.assertEqual([parse('45', str(SIXTEEN_GIB), level)['pressureLevel']
++                          for level in ('2', '4')], [2, 4])
++        memsize = str(SIXTEEN_GIB)
++        for level, physical, pressure in (
++                ('', memsize, '1'), (None, memsize, '1'), ('4.5', memsize, '1'),
++                ('45%', memsize, '1'), (' 45', memsize, '1'), ('-1', memsize, '1'),
++                ('101', memsize, '1'), ('45', '0', '1'), ('45', '-1', '1'),
++                ('45', '16G', '1'), ('45', '', '1'), ('45', memsize, ''),
++                ('45', memsize, 'normal'), ('45', memsize, None)):
++            with self.assertRaises(ValueError, msg=(level, physical, pressure)):
++                parse(level, physical, pressure)
++
++    def test_kernel_reader_reads_exactly_the_three_directed_sysctls(self):
++        values = {'kern.memorystatus_level': '61\n', 'hw.memsize': f'{SIXTEEN_GIB}\n',
++                  'kern.memorystatus_vm_pressure_level': '1\n'}
++        with mock.patch.object(scheduler_v3.subprocess, 'check_output', sysctl(values)):
++            self.assertEqual(scheduler_v3.kernel_memory()['availableBytes'], 10479720202)
++        for name in values:
++            broken = dict(values, **{name: OSError('sysctl failed')})
++            with mock.patch.object(scheduler_v3.subprocess, 'check_output', sysctl(broken)), \
++                    self.assertRaises(OSError):
++                scheduler_v3.kernel_memory()
++
++    def test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter(self):
++        values = {'kern.memorystatus_level': '61\n', 'hw.memsize': f'{SIXTEEN_GIB}\n',
++                  'kern.memorystatus_vm_pressure_level': '1\n'}
++        launch = self.processes.spawn(200, self.launch())
++        # v1.run passes no reader: the claim and pre-fit gates must read the kernel level.
++        with mock.patch.object(scheduler_v3.subprocess, 'check_output', sysctl(values)):
++            claim = self.store.claim(launch, pid=200, alive=self.live.__contains__)
++            decision = self.store.check_before_fit(claim, alive=self.live.__contains__)
++        for gate in (claim, decision):
++            self.assertEqual((gate['memory']['metric'], gate['memory']['availableBytes'],
++                              gate['policyCounter'], gate['kernelMemoryPolicy']),
++                             (scheduler_v3.MEMORY_METRIC_V4, 10479720202,
++                              scheduler_v3.COUNTER_V4, self.policy))
++        # A reading from the superseded v2 counter (or any foreign reader) is a driver
++        # misconfiguration: a loud ValueError before mode selection, never a Deferred a
++        # waiting controller could retry forever, and its pressure is not logged.
++        v2_reading = scheduler_v2.parse_memory_v2(
++            'Mach Virtual Memory Statistics: (page size of 16384 bytes)\n'
++            'Pages free: 1000000.\nPages inactive: 1000000.\nPages purgeable: 0.\n', '1')
++        rows = len(self.store.pressure_readings())
++        for foreign in (dict(v2_reading), dict(self.memory, metric='other'), None):
++            with self.subTest(foreign=foreign), self.assertRaisesRegex(
++                    ValueError, 'requires the kernel memory reader'):
++                self.claim(('M1', 'device', 3), pid=201, memory=lambda: foreign)
++        self.assertEqual(len(self.store.pressure_readings()), rows)
++        records = [json.loads(path.read_text()) for path in
++                   (self.root / 'admissions').glob('*.json')]
++        records = [r for r in records if r.get('task') == ['M1', 'device', 3]
++                   and r.get('kind') != scheduler.RSS_OBSERVATION]
++        self.assertEqual(len(records), 3)  # v1's error records, one per attempt
++        for record in records:
++            self.assertNotIn('resourceMode', record)
++            self.assertIn('kernel memory reader', record['error'])
++        self.assertFalse((self.root / 'claims' / 'device-M1-start-03.json').exists())
++
+ 
+ if __name__ == '__main__':
+     unittest.main()
+diff --git a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/test_policy_v3.py b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/test_policy_v3.py
+index 39914e2..b64221d 100644
+--- a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/test_policy_v3.py
++++ b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/test_policy_v3.py
+@@ -1,5 +1,7 @@
+ """Adaptive composition uses actual StoreV3, fake OS readings and fake proof body."""
+ from datetime import timedelta
++import json
++import os
+ from pathlib import Path
+ import unittest
+ from unittest.mock import patch
+@@ -14,9 +16,17 @@ class AdaptiveDriverTests(unittest.TestCase):
+     body = previous.PolicyDriverTests.body
+     terminal = previous.PolicyDriverTests.terminal
+     at = previous.PolicyDriverTests.at
+-    reading = previous.PolicyDriverTests.reading
+     watch = previous.PolicyDriverTests.watch
+ 
++    def reading(self, inactive, purgeable, level=1):
++        """A policy-v4 kernel reading whose availability equals what the v2 fixture's
++        free 0 + max(inactive, purgeable) was, so each gate boundary stays where it was."""
++        available = max(inactive, purgeable)
++        percent, physical = (100, available) if available else (0, 16*v.s.GIB)
++        reading = driver.v3.parse_kernel_memory(f'{percent}\n', f'{physical}\n', f'{level}\n')
++        reading['sampledUTC'] = self.at(0)
++        return reading
++
+     def setUp(self):
+         previous.PolicyDriverTests.setUp(self)
+         self.live = {self.watcher_pid}
+@@ -27,9 +37,21 @@ class AdaptiveDriverTests(unittest.TestCase):
+                 spacedNormalReadings=5, intervalSeconds=30, floorBytes=v.s.GIB, maxConcurrency=3),
+             degraded=dict(pressureLevels=[1, 2], floorBytes=0, maxConcurrency=1,
+                           diskFreeMinimumBytes=20*v.s.GIB)))
++        self.kernel = self.base/'kernel-policy.json'
++        artifact(self.kernel, dict(kind='STROKE_KERNEL_MEMORY_DIRECTION',
++            availability=dict(levelSysctl='kern.memorystatus_level',
++                physicalBytesSysctl='hw.memsize',
++                formula='floor(levelPercent * physicalBytes /100)', percentRange=[0, 100],
++                metric='kernel memorystatus free-level percent times physical memory'),
++            pressureSysctl='kern.memorystatus_vm_pressure_level',
++            normal=dict(pressureLevels=[1], spacedNormalReadings=5, intervalSeconds=30,
++                        floorBytes=v.s.GIB, maxConcurrency=3),
++            degraded=dict(pressureLevels=[1, 2], floorBytes=0, maxConcurrency=1,
++                          diskFreeMinimumBytes=20*v.s.GIB)))
+         self.adaptive_source = self.base/'scheduler_v3.py'
+         self.adaptive_source.write_text('# adaptive policy fixture\n')
+         for target, name, value in ((driver, 'ADAPTIVE_POLICY', self.adaptive),
++                                   (driver, 'KERNEL_POLICY', self.kernel),
+                                    (driver.v3, '__file__', str(self.adaptive_source))):
+             p = patch.object(target, name, value); p.start(); self.addCleanup(p.stop)
+         self.store = driver.PolicyStore(self.root, clock=lambda: self.clock,
+@@ -41,7 +63,8 @@ class AdaptiveDriverTests(unittest.TestCase):
+         previous.PolicyDriverTests.setUpBase(self)
+ 
+     def receipt(self, **changes):
+-        fields = dict(receiptVersion=3, adaptiveMemoryPolicy=ref(self.adaptive),
++        fields = dict(receiptVersion=4, adaptiveMemoryPolicy=ref(self.adaptive),
++            kernelMemoryPolicy=ref(self.kernel),
+             resourceSourceSha256={str(p): ref(p)['sha256'] for p in driver.resource_sources()})
+         fields.update(changes)
+         return previous.PolicyDriverTests.receipt(self, **fields)
+@@ -60,7 +83,7 @@ class AdaptiveDriverTests(unittest.TestCase):
+         self.memory = self.reading(v.s.GIB, 0, level=2)
+         self.run_slot()
+         first, second = self.stage_calls
+-        self.assertEqual(first['policyVersion'], 3)
++        self.assertEqual(first['policyVersion'], 4)
+         self.assertEqual(first['resourceMode'], 'degraded')
+         self.assertEqual(first['memory']['pressureLevel'], 2)
+         self.assertEqual(first['requiredAvailableBytes'], v.s.GIB)
+@@ -173,8 +196,11 @@ class AdaptiveDriverTests(unittest.TestCase):
+             pins = {key: value for key, value in original.items() if key != str(path)}
+             with self.subTest(path=path), self.assertRaises(ValueError):
+                 self.run_slot(self.receipt(resourceSourceSha256=pins))
+-        with self.assertRaises(ValueError):
+-            self.run_slot(self.receipt(adaptiveMemoryPolicy=ref(self.policy)))
++        for wrong in (dict(adaptiveMemoryPolicy=ref(self.policy)),
++                      dict(kernelMemoryPolicy=ref(self.adaptive)),
++                      dict(receiptVersion=3)):
++            with self.subTest(wrong=wrong), self.assertRaises(ValueError):
++                self.run_slot(self.receipt(**wrong))
+         receipt = self.receipt(); self.adaptive_source.write_text('# changed adaptive source\n')
+         with self.assertRaises(ValueError): self.run_slot(receipt)
+         self.assertFalse((self.root/'verification').exists())
+@@ -218,7 +244,7 @@ class AdaptiveDriverTests(unittest.TestCase):
+             return actual_gate(store, launch, *args, **kwargs)
+         with patch.object(driver.v3.StoreV3, '_admission', autospec=True, side_effect=observe_gate):
+             self.run_slot(receipt)
+-        self.assertEqual(versions, [3, 3])
++        self.assertEqual(versions, [4, 4])
+         self.assertEqual(Path(receipt['path']).read_bytes(), original_bytes)
+         terminal = self.terminal()
+         self.assertEqual(v.s.record(terminal['lease'])['receipt'], receipt)
+@@ -250,6 +276,51 @@ class AdaptiveDriverTests(unittest.TestCase):
+             v.resource_admission(self.store, launch, 999, self.live.__contains__,
+                 lambda: dict(self.memory), lambda pid: v.s.GIB//2, prepared=False)
+ 
++    def test_composed_store_runs_a_candidate_on_the_kernel_reader_by_default(self):
++        # The production composition's own claim / pre-fit / start / finish, as v1.run
++        # calls them: no memory reader passed, so the store's default must be policy v4.
++        direction = artifact(self.base/'handoff-direction.json', {'ruling': 'explicit handoff'})
++        self.store.transfer(artifact(self.base/'handoff-1.json', dict(kind='STROKE_HANDOFF',
++            rosterSha256=self.roster['sha256'], partition=1, oldPid=102, oldTaskId='old-1',
++            stoppedUTC='2026-09-27T11:40:42+00:00', boundaryTask=None, completed=[],
++            aborted=[], excluded=[], captureRelease=self.release, direction=direction)),
++            alive=self.live.__contains__)
++        launch = artifact(self.base/'candidate-launch.json', dict(v.s.record(self.receipt()),
++            kind='STROKE_LAUNCH', rosterSha256=self.roster['sha256'], task=['M1', 'device', 1],
++            deferredPredecessor=None))
++        pid = os.getpid()
++        self.processes[pid] = dict(pid=pid, startedUTC='2026-09-28T01:00:00+00:00',
++            command=f"python -B memo_runner_v3.py --receipt {launch['path']} "
++                    f"--sha256 {launch['sha256']}")
++        values = {'kern.memorystatus_level': '45\n', 'hw.memsize': f'{16*v.s.GIB}\n',
++                  'kern.memorystatus_vm_pressure_level': '1\n'}
++        def sysctl(argv, text):
++            return values[argv[2]]
++        rss = lambda process: v.s.GIB//2
++        # The reader stamps its own sample; pin that stamp to this fixture's clock.
++        with patch.object(driver.v3.subprocess, 'check_output', sysctl), \
++                patch.object(driver.v3, 'now', lambda: self.at(0)):
++            claim = self.store.claim(launch, pid=pid, alive=self.live.__contains__, rss=rss)
++            decision = self.store.check_before_fit(claim, alive=self.live.__contains__, rss=rss)
++        for gate in (claim, decision):
++            self.assertEqual((gate['memory']['metric'], gate['memory']['availableBytes'],
++                              gate['policyVersion'], gate['kernelMemoryPolicy'],
++                              gate['adaptiveMemoryPolicy'], gate['resourceMode']),
++                             (driver.v3.MEMORY_METRIC_V4, 7730941132, 4, ref(self.kernel),
++                              ref(self.adaptive), 'degraded'))
++        self.assertEqual(claim['processIdentity'], self.processes[pid])
++        # Identity semantics are unchanged: another process's store owns no lifecycle.
++        with self.assertRaisesRegex(ValueError, 'did not make this claim'):
++            driver.PolicyStore(self.root, clock=lambda: self.clock).start_solver(claim)
++        self.store.start_solver(claim)
++        self.store.finish(claim, dict(family='M1', cssWidth=False, curvature=False,
++            starts=[dict(startIndex=1)], fittedEndpoints=['light-inactive'], peakRSSBytes=v.s.GIB))
++        published = json.loads((self.root/'results/device-M1-start-01.json').read_text())
++        self.assertEqual((published['policyVersion'], published['policyCounter'],
++                          published['admissionMode']), (4, driver.v3.COUNTER_V4, 'degraded'))
++        for entry in (driver.run, driver.preflight):
++            self.assertIs(entry.__kwdefaults__['memory'], driver.v3.kernel_memory)
++
+     def test_private_modules_share_identity_and_cli_uses_original_native_entry(self):
+         self.assertIs(driver.v3.v2, driver.legacy.v2)
+         self.assertIs(driver.s, driver.legacy.v2.v1)
+diff --git a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py
+index 6645875..b7b0d26 100644
+--- a/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py
++++ b/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py
+@@ -3,17 +3,22 @@
+ CLI: python -B -X pycache_prefix=FRESH_EMPTY_DIR verification_policy_v3.py
+        --root ROOT --receipt RECEIPT --sha256 SHA
+ 
+-Receipt version 3 retains all scientific/recovery pins and the legacy observer
+-fields (memoryPolicy, memoryCounterDirection, pressureSnapshot, pressureImport,
+-pressureWatcher). Add adaptiveMemoryPolicy pointing to the new parent direction.
+-resourceSourceSha256 must pin this driver, scheduler_v3.py, the reviewed v2
++Receipt version 4 (policy v4, kernel memory level) retains all scientific/recovery
++pins and the legacy observer fields (memoryPolicy, memoryCounterDirection,
++pressureSnapshot, pressureImport, pressureWatcher) and the policy-v3
++adaptiveMemoryPolicy reference as HISTORY (path and hash checked, numbers not
++used). kernelMemoryPolicy must point to the v4 parent direction and selects the
++gate. resourceSourceSha256 must pin this driver, scheduler_v3.py, the reviewed v2
+ composition and scheduler_v2.py; additional operational pins are also checked.
++Version 3 receipts are refused: their counter reading is superseded.
+ 
+ The frozen v2 observer checker receives a NEW metadata-only dict with version 2.
+ It checks sources, completed imported history and the existing live v2 watcher;
+ it does not admit work. The original version-3 receipt and actual memory/disk
+-readings reach StoreV3 unchanged. Its resourceMode is retained beside the original
+-adapter's verification mode. No synthetic NORMAL reading or headroom is supplied.
++readings reach StoreV3 unchanged; run and preflight default to StoreV3's kernel
++reader (v3.kernel_memory), never to v2's counter. Its resourceMode is retained beside
++the original adapter's verification mode. No synthetic NORMAL reading or headroom is
++supplied.
+ 
+ PolicyStore(root, clock=..., disk=None, swap=...) exposes the actual StoreV3 with
+ those observer checks. Module aliases v3, v2=legacy.v2, s=v3.v1 expose the exact
+@@ -35,6 +40,7 @@ import verification_policy_v2 as legacy
+ 
+ adapter, s, v2 = legacy.adapter, legacy.s, legacy.v2
+ ADAPTIVE_POLICY = adapter.STROKE/'scheduler-memory-parent-direction-v3.json'
++KERNEL_POLICY = adapter.STROKE/'scheduler-memory-parent-direction-v4.json'
+ _spec = importlib.util.spec_from_file_location('verification_scheduler_v3',
+                                               adapter.STROKE/'scheduler/scheduler_v3.py')
+ v3 = importlib.util.module_from_spec(_spec)
+@@ -56,13 +62,14 @@ def resource_sources():
+ 
+ 
+ def verify_resource_receipt(receipt):
+-    if receipt.get('receiptVersion') != 3:
+-        raise ValueError('adaptive composition requires receiptVersion 3')
++    if receipt.get('receiptVersion') != 4:
++        raise ValueError('kernel-level adaptive composition requires receiptVersion 4')
+     s.verify_sources(receipt['resourceSourceSha256'], resource_sources())
+-    direction = receipt['adaptiveMemoryPolicy']
+-    if direction['path'] != str(ADAPTIVE_POLICY):
+-        raise ValueError('explicit adaptive parent direction is required')
+-    v3.check_direction(s.record(direction))
++    for field, path, check in (('adaptiveMemoryPolicy', ADAPTIVE_POLICY, v3.check_direction),
++                               ('kernelMemoryPolicy', KERNEL_POLICY, v3.check_kernel_direction)):
++        if receipt[field]['path'] != str(path):
++            raise ValueError('explicit historical v3 and authoritative v4 directions are required')
++        check(s.record(receipt[field]))
+     # Compatibility is only for frozen source/direction validation, never for
+     # an admission or persisted receipt. The original mapping is not mutated.
+     legacy.verify_resource_receipt(dict(receipt, receiptVersion=2))
+@@ -82,10 +89,11 @@ class PolicyStore(v3.StoreV3):
+         decision = super()._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+         return dict(decision, **{key: launch[key] for key in (
+             'resourceSourceSha256', 'memoryPolicy', 'memoryCounterDirection',
+-            'pressureSnapshot', 'pressureImport', 'pressureWatcher')}, watcherReading=latest)
++            'pressureSnapshot', 'pressureImport', 'pressureWatcher',
++            'adaptiveMemoryPolicy')}, watcherReading=latest)
+ 
+ 
+-def run(root, reference, *, proof_body, memory=v2.mac_memory_v2, disk=None, swap=v3.swap_usage,
++def run(root, reference, *, proof_body, memory=v3.kernel_memory, disk=None, swap=v3.swap_usage,
+         clock=lambda: v2.timestamp(s.now()), **process_readings):
+     receipt = s.record(reference)
+     verify_resource_receipt(receipt)
+@@ -99,7 +107,7 @@ def run(root, reference, *, proof_body, memory=v2.mac_memory_v2, disk=None, swap
+                               proof_body=checked_body, memory=memory, **process_readings)
+ 
+ 
+-def preflight(root, reference, *, alive=s.alive, memory=v2.mac_memory_v2, rss=s.process_rss,
++def preflight(root, reference, *, alive=s.alive, memory=v3.kernel_memory, rss=s.process_rss,
+               disk=None, swap=v3.swap_usage, clock=lambda: v2.timestamp(s.now())):
+     store = PolicyStore(root, clock=clock, disk=disk, swap=swap)
+     with store.locked():

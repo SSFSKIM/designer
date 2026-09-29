@@ -1,0 +1,28 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/e3-implementation/packages/calibration
+
+ ❯ test/capture-integrity.test.ts (22 tests | 1 failed | 20 skipped) 22ms
+     × admits W41 E3 whole tuples through both active and receded JSON boundaries 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/capture-integrity.test.ts > the material profile document's key admission > admits W41 E3 whole tuples through both active and receded JSON boundaries
+Error: --material-profile /var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-profile-rq1BNY/profile.json names 3 key(s) the renderer's MaterialProfilePatch does not have: bodyE3Strength, bodyE3Gains, bodyE3Neutral. Applying it would have silently measured the defaults. Known keys: optics, adaptiveTintDark, adaptiveTintLight, adaptiveLuminanceLow, adaptiveLuminanceHigh, refractionScale, sizeSpanMin, sizeSpanMax, lensSizeGainMax, sizeScatterGainMax, sizeOcclusionGain, sizeShadowGainMax, sizeScatterFloor, sizeScatterSpanMax, sizeScatterGainMax2x, sizeScatterFloor2x, sizeScatterSpanMax2x, sizeScatterGainFar2x, sizeScatterRampStartThin1x, sizeScatterRampStartThick1x, sizeScatterRampStartThin2x, sizeScatterRampStartThick2x, sizeScatterRampStartFar1x, sizeScatterRampStartFar2x, sizeScatterRampReach1xPx, sizeScatterRampReach2xPx, sizeScatterHeavyShareThick1x, sizeScatterHeavyShareThick2x, sizeToneLevelFar, sizeHeavyTapSigma, sizeHeavyTapSigma2x, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeHeavySecondShare, sizeScatterScaleGain, sizeScatterScaleRef, lensRefractionGain, lensHeightPerSpan, lensHeightMax, lensAmountPerSpan, lensAmountMax, lensThicknessReference, lensExtentGain, lensProfileExponent, lensOvalization, lensOvalizationSpanMin, lensOvalizationSpanMax, reducedTransparencyFrost, increasedOcclusionLift, increasedOcclusionLiftByPolicy, strongBorderRim, reducedTintAdaptation, tintShadeDark, tintShadeLight, tintShadeStrength, tintChromaScale, tintShadeCollapseRetention, backdropToneMax, backdropToneLow, backdropToneHigh, backdropToneSizeBias, collapseTransmission, collapseTransmission2x, bodyChromaRetention, rimCollapsed, rimCollapsedTinted, rimTintChroma, backdropToneAbscissa, backdropToneAnchorX, backdropToneResponseThin, backdropToneResponseThick, backdropToneResponseStrength, backdropToneBlackStrength, backdropToneBlackThin, backdropToneBlackThick, outerShadow, lightDirection, rimLitAxis, sweepBandRadians, glowRadiusCss, glowGain, sweepGain.
+ ❯ reject scripts/material-profile-file.ts:330:11
+    328|     const unknown = keys.filter((key) => !allowed.has(key));
+    329|     if (unknown.length === 0) return;
+    330|     throw new Error(
+       |           ^
+    331|       `--material-profile ${path} names ${unknown.length} key(s) ${sec…
+    332|         `${unknown.join(", ")}. Applying it would have silently measur…
+ ❯ readMaterialProfileFile scripts/material-profile-file.ts:336:3
+ ❯ test/capture-integrity.test.ts:97:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 20 skipped (22)
+   Start at  17:45:47
+   Duration  167ms (transform 31ms, setup 0ms, import 42ms, tests 22ms, environment 0ms)
+

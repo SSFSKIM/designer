@@ -1,0 +1,61 @@
+{
+  "schema": "w41-body-e3-input-assembly-1",
+  "sourceRevision": "2b4b4563a799ef2866d97beec990c81eabcf19df",
+  "runnerSha256": "5ae591ad6ea2098613e75dfb6377875314fcc2280d7526bf80e139f206436c08",
+  "renderedCells": 600,
+  "identityCells": 450,
+  "blindIdentityCells": 48,
+  "numericalAdmissionCells": 576,
+  "renderedAdmissionCells": 536,
+  "vetoCells": 536,
+  "rawCompactAssessmentEquivalenceCells": {
+    "numerical": 576,
+    "rendered": 536
+  },
+  "aggregateCoverage": {
+    "body-e3": {
+      "numerical": {
+        "measured": 136,
+        "censored": 2,
+        "total": 138,
+        "fraction": 0.9855072463768116,
+        "scoredTotal": 576,
+        "notClaimed": 438
+      },
+      "rendered": {
+        "measured": 128,
+        "censored": 2,
+        "total": 130,
+        "fraction": 0.9846153846153847,
+        "scoredTotal": 536,
+        "notClaimed": 406
+      }
+    }
+  },
+  "retainedDeepRepeatReadings": true,
+  "fullReportsRetainedAsInstruments": true,
+  "peakRSSBytes": 283246592,
+  "nativePayloadReads": 0,
+  "browsersLaunched": 0,
+  "manifestFreezeAttempted": false,
+  "receiptAttempted": false,
+  "qualification": "BODY-E3 input preparation only; await all stroke verdicts and final-wave authorization before freeze/exposure."
+}
+      200.39 real       191.82 user         5.64 sys
+           283246592  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              314763  page reclaims
+                 763  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+               13150  voluntary context switches
+               16675  involuntary context switches
+       1937262004456  instructions retired
+        685475998489  cycles elapsed
+           185205672  peak memory footprint

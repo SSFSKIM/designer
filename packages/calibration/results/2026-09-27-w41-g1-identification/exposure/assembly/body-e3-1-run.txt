@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 385, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 382, in main
+    args=parser.parse_args();assemble(args.out)
+                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 357, in assemble
+    if bridge.git(ROOT,'rev-parse','HEAD').decode().strip()!=head:raise ValueError('HEAD moved during assembly; preserve inputs and rerun')
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: HEAD moved during assembly; preserve inputs and rerun

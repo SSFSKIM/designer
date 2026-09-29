@@ -1,0 +1,41 @@
+{
+  "kind": "STROKE_PARENT_NO_FIT_READMISSION",
+  "checkedUTC": "2026-09-28T04:25:13.111502+00:00",
+  "predecessor": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/deferrals/curvature-M1-start-04.json",
+    "sha256": "a287359ad2ec7ecf18e209f8c90876f3b08d55411c831967e9fde4c88b613575"
+  },
+  "claim": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/claims/curvature-M1-start-04.json",
+    "sha256": "079292f274311030909eadb5b45b3bdcb871ebd276c603cf8519da3b13d69b55"
+  },
+  "generation": 1,
+  "checks": {
+    "schedulerReadmission": 1,
+    "predecessorProcessIdentityNoLongerLive": true,
+    "oldPrefixEmpty": true,
+    "startFailureResultAbsent": true,
+    "remaining05Through15Unclaimed": true,
+    "operationalSourcePinsValid": true
+  },
+  "receipt": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-2/curvature-M1-start-04.readmit-01.json",
+    "sha256": "4574a2bf08755d196c00028bbbe084a5f4c00429544e7f99d767fdc17efd0856"
+  },
+  "manifest": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-2.json",
+    "sha256": "66c9e489452a686fc52aba642ccba79fa0559ff855993915063243d4ea937167"
+  },
+  "completedResults": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-02.json",
+      "sha256": "b95bb1fb0d380eae4cdce9d4c5445e0eb37b54876236d48647994b9b8b8e3dff"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-03.json",
+      "sha256": "65e10ac4b1d35719cda1967393cce1b81e918321ad5df5db089e848051f3a019"
+    }
+  ],
+  "scientificChange": false,
+  "dispatchDecision": "One fit at a time for this pending tail, awaiting terminal result before next claim. This is below the unchanged v4 concurrency cap and avoids repeated overlapping-preparation pre-fit refusals; every gate/budget remains unchanged."
+}

@@ -1,0 +1,18 @@
+usage: execute.py [-h] --fit-start-signal {steps-2-3-complete} --family
+                  {M0,M1,M2} --geometry {device,css,curvature} --mode
+                  {joint,inactive-diagnostic} --out OUT
+
+Authorized W41 step4 only. Outputs are additive and no path is canonical. Use
+a fresh attempt directory beneath stroke/. The CLI requires an explicit
+steps2/3 completion signal; it is not preparation's default command. Every
+native payload is admitted by the recorded fetched-cache Reader. The sealed
+optimizer remains the only fitting implementation and runs at its full
+budgets.
+
+options:
+  -h, --help            show this help message and exit
+  --fit-start-signal {steps-2-3-complete}
+  --family {M0,M1,M2}
+  --geometry {device,css,curvature}
+  --mode {joint,inactive-diagnostic}
+  --out OUT

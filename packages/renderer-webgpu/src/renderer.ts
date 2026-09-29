@@ -78,6 +78,7 @@ import {
   backdropToneSizeBiasUnderPolicy,
   backdropToneUnderPolicy,
   bodyChromaRetentionUnderPolicy,
+  bodyE3StrengthUnderPolicy,
   collapsedRimUnderPolicy,
   collapseTransmissionAtScale,
   DEFAULT_MATERIAL_PROFILE,
@@ -1262,6 +1263,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // exactly `material.bodyChromaRetention` where no preference is set,
         // which is why every standard row is bit-identical across this fold.
         bodyChromaRetention: bodyChromaRetentionUnderPolicy(material.bodyChromaRetention, policy),
+        // W41 is identified only for nominal regular material with a real
+        // sampled texture. In particular IC-only is not nominal despite its
+        // unchanged occlusion axis; DOM's fabricated reference is not a sample.
+        bodyE3Strength: bodyE3StrengthUnderPolicy(
+          material.bodyE3Strength, policy, variant, pyramid !== undefined,
+        ),
+        bodyE3Gains: material.bodyE3Gains,
+        bodyE3Neutral: material.bodyE3Neutral,
         ...(pyramid === undefined && input.unsampledMaterial !== undefined
           ? { domMaterial: {
               ...input.unsampledMaterial,

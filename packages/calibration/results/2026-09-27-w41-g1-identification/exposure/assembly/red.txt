@@ -1,0 +1,73 @@
+test_admission_equivalence_requires_original_unclaimed_wrapper (test_assemble.AssemblyTests.test_admission_equivalence_requires_original_unclaimed_wrapper) ... ERROR
+test_exact_maps_validate_hashes_identity_and_membership (test_assemble.AssemblyTests.test_exact_maps_validate_hashes_identity_and_membership) ... ERROR
+test_reducer_preserves_deep_repeats_rails_and_unclaimed_status (test_assemble.AssemblyTests.test_reducer_preserves_deep_repeats_rails_and_unclaimed_status) ... ERROR
+test_short_repeat_list_cannot_inherit_survival (test_assemble.AssemblyTests.test_short_repeat_list_cannot_inherit_survival) ... ERROR
+test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing (test_assemble.AssemblyTests.test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing) ... ERROR
+
+======================================================================
+ERROR: test_admission_equivalence_requires_original_unclaimed_wrapper (test_assemble.AssemblyTests.test_admission_equivalence_requires_original_unclaimed_wrapper)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 75, in test_admission_equivalence_requires_original_unclaimed_wrapper
+    self.assertEqual(a.check_admission('not claimed (structured backdrop)',raw,expected),expected)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 5, in check_admission
+    def check_admission(*args): raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_exact_maps_validate_hashes_identity_and_membership (test_assemble.AssemblyTests.test_exact_maps_validate_hashes_identity_and_membership)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 60, in test_exact_maps_validate_hashes_identity_and_membership
+    candidate={'claimed':row('candidate.png'),'identity':row('candidate.png')}
+                         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 58, in row
+    def row(png):return dict(png=png,pngSha256=a.sha(root/png),projection='projection.json',
+                                               ^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 6, in sha
+    def sha(*args): raise NotImplementedError
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_reducer_preserves_deep_repeats_rails_and_unclaimed_status (test_assemble.AssemblyTests.test_reducer_preserves_deep_repeats_rails_and_unclaimed_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 36, in test_reducer_preserves_deep_repeats_rails_and_unclaimed_status
+    reduced=a.compact('rendered',raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 3, in compact
+    def compact(*args): raise NotImplementedError
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_short_repeat_list_cannot_inherit_survival (test_assemble.AssemblyTests.test_short_repeat_list_cannot_inherit_survival)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 52, in test_short_repeat_list_cannot_inherit_survival
+    with self.assertRaisesRegex(ValueError,'seven'):a.compact('numerical',raw)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 3, in compact
+    def compact(*args): raise NotImplementedError
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing (test_assemble.AssemblyTests.test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 20, in test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing
+    self.assertEqual(list(a.entries(path,chunk_size=3)),[('one',{'value':[1,2,3]}),('two',True)])
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 2, in entries
+    def entries(*args,**kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+FAILED (errors=5)

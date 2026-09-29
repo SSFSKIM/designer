@@ -1,0 +1,43 @@
+{
+  "gates": {
+    "browserAndReceipt": "Still require explicit hands-off-window confirmation and fresh X6 gates. No such execution occurred in this audit.",
+    "staticFinalFreeze": "Requires completed candidate facts/dispositions and coordinator final-configuration authorization; no additional hands-off confirmation prerequisite imposed on static freeze."
+  },
+  "interpretation": "The old UNMEASURED record, the HOLD correction, and the newer supersession all remain historical bytes. Latest committed supersession is reported as the coordinator-relayed record, not independently authenticated human consent. A recorded paused in-flight state is not an abort.",
+  "latestCoordinatorRelay": {
+    "claim": "Current coordinator says duplicate live coordinator lacked the actual answer and falsely issued HOLD correction. Supersession is additive.",
+    "primaryHumanMessageObservedByThisWorker": false,
+    "quotedUserTextAsRelayed": "Record M2 as unfinished (UNMEASURED) and expose the body candidate now",
+    "source": "a08bf7ec9936c8644"
+  },
+  "pending": [
+    "Actual committed M1 transfer/verdict",
+    "Actual M2 terminal record consistent with the coordinator-led disposition chain"
+  ],
+  "recordedAt": "2026-09-28T19:31:39.629266+00:00",
+  "records": [
+    {
+      "declaredStatus": "UNMEASURED",
+      "kind": "STROKE_M2_UNFINISHED_SEARCH",
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-unfinished-search-1.json",
+      "recordedCommit": "047b7861",
+      "sha256": "ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46"
+    },
+    {
+      "declaredStatus": "HOLD_PENDING_USER_DECISION",
+      "kind": "STROKE_M2_PROVENANCE_CORRECTION",
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-correction-1.json",
+      "recordedCommit": "22e103ca",
+      "sha256": "b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a"
+    },
+    {
+      "declaredStatus": "UNMEASURED: unfinished M2 search for this wave; not a family rejection. No new M2 start.",
+      "kind": "STROKE_M2_PROVENANCE_SUPERSESSION",
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-supersession-2.json",
+      "recordedCommit": "c76f949d",
+      "sha256": "b25087ea0eb2406f2e387ad905b0287fad74901ddc49ddc8013adea95ab4a705"
+    }
+  ],
+  "schema": "w41-conditional-disposition-chain-1",
+  "thisAuditAuthorizesExposure": false
+}

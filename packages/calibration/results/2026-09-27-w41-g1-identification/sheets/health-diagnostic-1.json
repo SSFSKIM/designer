@@ -1,0 +1,57 @@
+{
+  "at": "2026-09-27T11:48:15.678018+00:00",
+  "processes": [
+    "86012 23134   0.0       37:09   0:00.02 Ss   /bin/zsh -c source /Users/new/.claude/shell-snapshots/snapshot-zsh-1790480195312-a1rahy.sh 2>/dev/null || true && setopt NO_EXTENDED_GLOB NO_BARE_GLOB_QUAL 2>/dev/null || true && { \\builtin unalias -- 'unsetenv'; \\builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'pnpm --dir /Users/new/vitrea-w41/g1/packages/calibration exec tsx results/2026-09-27-w41-g1-identification/sheets/adapter.ts render /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/render-options.json > /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/render-run-1.txt 2>&1' < /dev/null && pwd -P >| /tmp/claude-5694-cwd",
+    "86019 86012   0.0       37:09   0:00.54 S    node /usr/local/bin/pnpm --dir /Users/new/vitrea-w41/g1/packages/calibration exec tsx results/2026-09-27-w41-g1-identification/sheets/adapter.ts render /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/render-options.json",
+    "86044 86019   0.0       37:09   0:00.17 S    node ./node_modules/.bin/../tsx/dist/cli.mjs results/2026-09-27-w41-g1-identification/sheets/adapter.ts render /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/render-options.json",
+    "86055 86044   0.0       37:09   0:11.84 S    /Users/new/.nvm/versions/node/v24.18.0/bin/node --require /Users/new/vitrea-w41/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/preflight.cjs --import file:///Users/new/vitrea-w41/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/loader.mjs results/2026-09-27-w41-g1-identification/sheets/adapter.ts render /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/sheets/render-options.json",
+    "91680 86055   0.0       36:39   0:00.06 S    /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/export-png.py"
+  ],
+  "html": 125,
+  "png": 124,
+  "inventoryExists": false,
+  "latest": [
+    {
+      "ageSeconds": 2198.93,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__rrect-sm__inactive.html",
+      "bytes": 67100
+    },
+    {
+      "ageSeconds": 2199.09,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__rrect-ml__rest.png",
+      "bytes": 201182
+    },
+    {
+      "ageSeconds": 2199.27,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__rrect-ml__rest.html",
+      "bytes": 673732
+    },
+    {
+      "ageSeconds": 2199.47,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__rrect-md__rest.png",
+      "bytes": 140374
+    },
+    {
+      "ageSeconds": 2199.67,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__rrect-md__rest.html",
+      "bytes": 411344
+    },
+    {
+      "ageSeconds": 2199.87,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__rrect-md__inactive.png",
+      "bytes": 88160
+    },
+    {
+      "ageSeconds": 2200.1,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__rrect-md__inactive.html",
+      "bytes": 225484
+    },
+    {
+      "ageSeconds": 2200.28,
+      "name": "canonical__apple-macos-26.5-2x-light-standard__checkerboard__capsule-button__rest-tint-orange.png",
+      "bytes": 80141
+    }
+  ],
+  "totalOutputBytes": 36873010,
+  "logTail": ""
+}

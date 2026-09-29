@@ -1,0 +1,209 @@
+{
+  "kind": "STROKE_M2_UNFINISHED_SEARCH",
+  "recordedUTC": "2026-09-28T19:18:47.980334+00:00",
+  "status": "UNMEASURED",
+  "scope": "Remaining device/nominal-curvature M2 inactive endpoint search; independently certified CSS and active-endpoint rejections remain separate.",
+  "authority": "Final user ruling as relayed by coordinator: this wave ends M2 as an unfinished search; no new M2 start. Not a family rejection.",
+  "completedStarts": [
+    {
+      "task": [
+        "M2",
+        "device",
+        0
+      ],
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M2-start-00.json",
+        "sha256": "75effb478c56d3cfa8f2b9f77ee36fc031c2fd947915bbfea9fe12e536721f8c"
+      },
+      "localCalibrationMinimaxMaximumCodes": 11.88340887316462,
+      "minimaxConverged": true,
+      "leastSquaresMaximumCodes": 17.898092708080235,
+      "qualification": "Completed original optimization start, not endpoint survival or full all-repeat calibration/validation closure."
+    }
+  ],
+  "abortedUnscoredStarts": [
+    {
+      "task": [
+        "M2",
+        "device",
+        2
+      ],
+      "partition": "A",
+      "pid": 42722,
+      "processState": "stopped; never resume under this ruling",
+      "status": "ABORTED_UNSCORED",
+      "originalSeed": 4100,
+      "originalStartVector": [
+        1.804469243812073,
+        0.8616340824787851,
+        0.9678956486619184,
+        0.42995339456740345,
+        0.021160745714858153,
+        -0.011845655695777335,
+        0.2373220826119693,
+        26.244460722217653,
+        207.62614576271037,
+        201.87294850034408,
+        46.841933368626265,
+        74.00194083674847,
+        119.356396053286,
+        251.94167936742033,
+        222.9033224392446,
+        90.26014839410917,
+        27.253573981415254,
+        194.98127118441013,
+        49.21455511342611,
+        172.45203889646115,
+        171.51007679052236,
+        69.31893749769337,
+        43.29744261543789,
+        126.60438930265173,
+        76.60266884835578,
+        195.62021808815953,
+        154.768451140221,
+        218.81598230366654,
+        45.44996981560495,
+        207.24570141889305,
+        26.650826477449023,
+        6.864607340354247,
+        0.5316999765401659,
+        124.96626327679222,
+        103.93471058962713,
+        191.18590168609228,
+        242.33235204724016,
+        121.50602305696891,
+        212.94715375527133,
+        89.71041919943657,
+        160.83339602221548,
+        11.566805311465739,
+        0.7350755345398841
+      ],
+      "partialDirectory": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A",
+      "partialQualification": "Retain execution/admission/log records. No completed optimizer result or serialized coefficient checkpoint exists; in-memory progress is not scored evidence."
+    }
+  ],
+  "inFlightUntilFinalFreeze": [
+    {
+      "task": [
+        "M2",
+        "device",
+        1
+      ],
+      "partition": "B",
+      "pid": 42753,
+      "status": "UNFINISHED_RUNNING; may complete only this start before final freeze",
+      "originalSeed": 4100,
+      "originalStartVector": [
+        0.257273285291008,
+        0.893799108298383,
+        0.5939870091585048,
+        0.5773523045402574,
+        0.6963895656832217,
+        0.832116452171336,
+        -0.3600234105045912,
+        53.09739482040727,
+        190.6910539530287,
+        78.61427003808961,
+        228.13778838193429,
+        84.29501121178822,
+        119.13423724428446,
+        238.4781302039731,
+        222.9978185630593,
+        115.51017659720178,
+        183.39774482449033,
+        202.11381565530715,
+        254.52375163981998,
+        78.63560358237818,
+        104.44880388465923,
+        235.87516770298015,
+        60.97449547619325,
+        70.12000684736536,
+        155.73015421100263,
+        145.8753783445321,
+        35.26392052135591,
+        234.24382266062446,
+        28.92423505471731,
+        66.71563657197638,
+        31.130877229905906,
+        6.561093107647265,
+        0.020624457805945018,
+        9.944610194305945,
+        206.70534391498774,
+        42.400283785159864,
+        222.9040206918885,
+        75.11158094705686,
+        36.88055111159518,
+        168.3007969465716,
+        19.239320572216744,
+        6.224799110424451,
+        0.361789375407895
+      ],
+      "partialDirectory": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/B",
+      "terminalRule": "If completion precedes final freeze, preserve completed result under unfinished search and hold dispatch. Otherwise stop and append ABORTED_UNSCORED terminal record, retaining partial records. No new start follows."
+    }
+  ],
+  "unstartedOriginalIndices": {
+    "device": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "curvature": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "sealedBudgetArithmetic": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/M2-budget-arithmetic-for-owner-1.json",
+    "sha256": "5c1189010778a84268d9aeaa7b07e779c36cab702fd8a78aa60e346db8456fa1"
+  },
+  "measuredCost": {
+    "task": [
+      "M2",
+      "device",
+      1
+    ],
+    "cumulativeCPUSeconds": 36683.08,
+    "processWallSeconds": 35274,
+    "observedCPUToWallRatio": 1.0399467029540173,
+    "source": "ps snapshot at this recording; no completed start1 result",
+    "conclusion": "Substantial actual CPU work under the unchanged sealed budget, not just elapsed waiting. User judged full remaining multistart search infeasible within this wave on this machine. Exact contention contribution and remaining per-start work are unmeasured.",
+    "planningScenario": "30 unfinished starts \u00d7 about10 CPUhours/start \u00f72 concurrent \u2248150hours (~6.25days). Conditional extrapolation from unfinished seed1, not a validated forecast or worst-case bound."
+  },
+  "lightInactiveStructure": {
+    "statement": "M2 reduces exactly to M1 on the light inactive endpoint: both use the same eight-knot monotone response; M2 contextual correction is gated by dark. New material expressivity remains untested only on dark inactive.",
+    "source": {
+      "path": "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py",
+      "sha256": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950"
+    },
+    "qualification": "This is forward-family equivalence, not a global exclusion theorem. A finite M1 multistart failure does not certify every possible M2 joint-fit coefficient vector; shared-width joint optimization remains unfinished."
+  },
+  "holdoutRead": false,
+  "M2ValidationRead": false,
+  "noShippedStrokeOperator": true,
+  "finalTerminalSupplementRequired": true
+}

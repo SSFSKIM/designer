@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-09-27T10:54:33.904196+00:00",
+  "status": "STOPPED awaiting recovery direction",
+  "sequence": [
+    "Fresh X6 passed before intended CLI proof1x open; open failed because unpinned CLI0.1.21 required absent Chromium1246. No proof image.",
+    "Under earlier install-if-needed direction, invoked suggested playwright-cli install-browser chromium before later cachedCLI selection was received.",
+    "Installer-like command unexpectedly opened default chrome session reported PID46891, then rejected argument count. There was NO separate fresh X6 for this unexpected browser launch; prior intended-open X6 is NOT claimed as its gate.",
+    "Immediately closed exact default session; close log confirms Browser default closed.",
+    "No experimental proof/cell pixels or native payload were requested/read. Further launches stopped; existing records retained without deletion/relabeling."
+  ],
+  "sources": {
+    "x6-proof-1x.json": "7dce207e831f7bc30ac72574b586d4f7812d667673ba1e41d81ec1729d144213",
+    "open-proof-1x.txt": "2fb820d2888f743ded3b480610361708d84e3752d42671e7302b6618481ce020",
+    "install-chromium-1246.txt": "ec6d4dc7be48edb0c58a81971f0c78aa79272af07575564501cd2e98b44f2715",
+    "close-unexpected-default.txt": "a18caf0e55421fcc6dfe9f30fcc105f45eb82e30df86883f225c9610d685edca",
+    "environment-repair.json": "4bff2d3e474a3528a5c6262c4112097e825777cb9d18e1dcd3ea2ba3a2bbb4b4"
+  }
+}
