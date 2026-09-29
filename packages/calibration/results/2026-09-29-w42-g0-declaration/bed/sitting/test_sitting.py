@@ -203,9 +203,10 @@ class Plan(unittest.TestCase):
         t = value['totals']
         # The charter's v2.1 bed plus the s = 32 receded rows the parent ruled from the gate
         # rehearsal, then the cells ruled from the instrument stream's separation proof (depth 34,
-        # corner and end, the dark 16 / 112 twins): 2x 89 / 92 / 102 / 107, 1x 15 / 16 / 15 / 16.
-        self.assertEqual((t['dumpLaunches'], t['dumpScenes'], t['captureLaunches']), (8, 452, 80))
-        self.assertEqual((t['glass'], t['references'], t['sentinels'], t['captures']), (3164, 282, 48, 3494))
+        # corner and end, the dark 16 / 112 twins) and ruling 3's active guard rows:
+        # 2x 95 / 92 / 109 / 107, 1x 15 / 16 / 15 / 16.
+        self.assertEqual((t['dumpLaunches'], t['dumpScenes'], t['captureLaunches']), (8, 465, 80))
+        self.assertEqual((t['glass'], t['references'], t['sentinels'], t['captures']), (3255, 282, 48, 3585))
         names = [p['name'] for p in value['passes']]
         self.assertEqual(names[:8], [f'dump-{s}x-{c}-{p}' for s in (2, 1) for c in ('light', 'dark')
                                      for p in ('active', 'receded')])

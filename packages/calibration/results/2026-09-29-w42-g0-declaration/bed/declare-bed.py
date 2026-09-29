@@ -388,6 +388,20 @@ def build():
                   uitems=('U1', 'U4', 'one k or two', 'dark level pair', 'U7'),
                   note=('validation: C\'s size transfer at s = 128, ' if size == 32 else '') +
                        'dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent\'s ruling)')
+    # Active guard rows, continued: rrect-lg's mid-depth S 8 at depth 60 (content 56-64, beyond
+    # the 53.6-pt W mask; o-law ratio 0.87 of the centre), in the passing polarity, giving the
+    # gated fitters a graded pair with the centre cell (depth 80). The single impulse at
+    # (116, 84) with rrect-lg offset (0, +4), the d80 cell's shape: rel (-44, -20). Calibration.
+    for scheme, pol in (('light', 'hi'), ('dark', 'lo')):
+        fg, bg = POLARITY[pol]
+        patch(f'c-s8-{pol}-d60-rrect-lg', fg, bg, 8, 232, 'rrect-lg', (0, 4), 60,
+              everywhere(2, ('active',), (scheme,)), uitems=('depth', 'active guard (ruling 3)'),
+              note='mid-depth on rrect-lg beyond the W mask (the parent\'s ruling from the instrument stream)')
+    # And the dark d34 patch at 16 / 112 on rrect-md, the twin of c-s8-lo-d34-rrect-md: dark md's
+    # grading for the descriptive reader. Dark active only; calibration.
+    fg, bg = POLARITY_P4['lo']
+    patch('c-s8-lo-p4-d34-rrect-md', fg, bg, 8, 232, 'rrect-md', (-44, -2), 34, everywhere(2, ('active',), ('dark',)),
+          uitems=('depth', 'dark level pair'), note='the dark 16 / 112 twin of c-s8-lo-d34-rrect-md (the parent\'s ruling)')
     for pol in STEP_P4:
         step(f'd-d0-{pol}-p4-rrect-md', 160, pol, 'rrect-md', dark2, levels=STEP_P4,
              uitems=('U1', 'U3', 'dark level pair'), note='the dark 16 / 112 twin (the parent\'s ruling)')
@@ -403,6 +417,32 @@ def build():
                      role='validation' if (pair, cell) == ('by', 64) else 'calibration', passes=two,
                      uitems=('U6',), geometry=dict(pitch=cell, colours=[a, b], luma709OnCodes=128),
                      note='validation: hue transfer at pitch 64' if (pair, cell) == ('by', 64) else None)
+
+    # The active guard rows (the parent's ruling from the instrument stream's resume, "New bed
+    # questions from ruling 3"): the primary active reading reads at the narrow kernel's support,
+    # but its declared rival, refraction before the blur, forces the wide-kernel mask (53.6 pt),
+    # which leaves only rrect-ml and rrect-lg readable when active. These rows keep the active
+    # identifications alive under either hypothesis, in both active 2x passes, on the centred
+    # rrect-lg (the canonical placement and checker phase).
+    active2 = everywhere(2, ('active',))
+    # R1 in the active pose: B's P5 at pitch 16 and 64 and P3 at 16. P3 at 64 on rrect-lg is H's
+    # own cell (h-p3-c64-rrect-lg) and is not duplicated; P3 keeps B's level-pair transfer role.
+    for name, (a, b), cell in (('p5', (144, 240), 16), ('p5', (144, 240), 64), ('p3', (96, 160), 16)):
+        role = 'validation' if name == 'p3' else 'calibration'
+        bed.cell(f'b-{name}-c{cell}-rrect-lg', 'B', bed.bg(checker(cell, a, b)), 'rrect-lg', role=role,
+                 passes=active2, uitems=('R1', 'active guard (ruling 3)'),
+                 geometry=dict(pitch=cell, levels=[a, b]),
+                 note=('validation: level-pair transfer (P3) at s = 160; ' if role == 'validation' else '') +
+                      'an active guard row under the wide-kernel mask (the parent\'s ruling)')
+    # The per-channel knee in the active pose: E's two hue pairs at pitch 16 (the pitch whose
+    # per-channel structure fills the 53.6-pt mask's core); `by` is validation, the hue transfer.
+    for pair, (a, b) in E_PAIRS.items():
+        name = bed.bg((f'checker-16-{pair}', dict(kind='checkerboard', cell=16, a=a, b=b)))
+        bed.cell(f'e-{pair}-c16-rrect-lg', 'E', name, 'rrect-lg', role='validation' if pair == 'by' else 'calibration',
+                 passes=active2, uitems=('U6', 'active guard (ruling 3)'),
+                 geometry=dict(pitch=16, colours=[a, b], luma709OnCodes=128),
+                 note=('validation: hue transfer at s = 160; ' if pair == 'by' else '') +
+                      'an active guard row under the wide-kernel mask (the parent\'s ruling)')
 
     # F: bridges to the canonical and probe sittings (bar tie only; `probe` role).
     for sid, pair, base, passes, canonical in (
@@ -452,7 +492,8 @@ def profile_key(scale, scheme):
 # Then the instrument-stream rulings: the depth-34 patch (+1 per 2x active pass), the corner
 # and end patches (+2 per 2x receded pass), the dark 16 / 112 twins (+10 dark active, +12 dark
 # receded).
-EXPECTED = {pass_key(2, 'light', 'active'): 88 + 1, pass_key(2, 'dark', 'active'): 91 + 1 + 10,
+# Then the active guard rows of ruling 3 (+6 per 2x active pass, +1 more dark active).
+EXPECTED = {pass_key(2, 'light', 'active'): 88 + 1 + 6, pass_key(2, 'dark', 'active'): 91 + 1 + 10 + 7,
             pass_key(2, 'light', 'receded'): 86 + 4 + 2, pass_key(2, 'dark', 'receded'): 89 + 4 + 2 + 12,
             pass_key(1, 'light', 'active'): 15, pass_key(1, 'dark', 'active'): 15,
             pass_key(1, 'light', 'receded'): 15 + 1, pass_key(1, 'dark', 'receded'): 15 + 1}
@@ -582,6 +623,14 @@ def audit(bed, spec):
         if c['family'] == 'F' and not any(m['source'] == 'canonical' and m['scene'].startswith(c['bridge'] + '__')
                                           for m in matches):
             problems.append(f'{cid}: bridge does not twin its canonical scene {c["bridge"]}')
+    # Inside the bed: no calibration, validation or bridge cell may repeat an H cell's geometry
+    # and backdrop (H would then be read before its receipt).
+    held = {(json.dumps(semantic(spec['components'][c['component']]), sort_keys=True), c['background'])
+            for c in bed.cells.values() if c['role'] == 'holdout'}
+    for cid, c in sorted(bed.cells.items()):
+        key = (json.dumps(semantic(spec['components'][c['component']]), sort_keys=True), c['background'])
+        if c['role'] != 'holdout' and key in held:
+            problems.append(f'{cid} ({c["role"]}) repeats an H cell of this bed')
     if problems:
         raise ValueError('twin audit: ' + '; '.join(problems))
     return dict(schema='w42-twin-audit-1',
@@ -592,7 +641,8 @@ def audit(bed, spec):
                        'no bed cell twins a canonical recorded scene in a state the bed captures (rest, '
                        'inactive); the recorded set is the pressed poses',
                        'no validation or H cell twins any canonical, W34 or W39 scene',
-                       'every F bridge twins its canonical scene'],
+                       'every F bridge twins its canonical scene',
+                       'no non-H cell of this bed repeats an H cell\'s geometry and backdrop'],
                 holdoutPixelsOpened=False, rows=rows)
 
 
@@ -614,6 +664,8 @@ U_ITEMS = {
     'units': "C's rrect-ml / rrect-lg pair (the canonical impulse)",
     'W-shape against K2 and W-tails': "receded S 16 patches within 16 pt of rrect-md's corner (calibration) and "
                                       "the capsule's end (validation): the parent's ruling from the instrument stream",
+    'active guard (ruling 3)': "rows that stay readable under the wide-kernel active mask: B's P5 / P3 and E's hue "
+                               "pairs on rrect-lg (R1 and the per-channel knee, active), rrect-lg's S 8 at depth 60",
     'dark level pair': "the dark passes' 16 / 112 twins of C S 8 / S 32 on rrect-md and rrect-ml and D delta 0 / 12 "
                        "on rrect-md, beside the 48 / 208 cells; family A says which pair carries slope",
     'M2 at s = 32': "the s = 32 receded rows on rrect-sm (P1 pitch 8 and 16, the S 8 centre patch, the step at "

@@ -19,7 +19,8 @@
     "no bed cell twins a canonical holdout scene",
     "no bed cell twins a canonical recorded scene in a state the bed captures (rest, inactive); the recorded set is the pressed poses",
     "no validation or H cell twins any canonical, W34 or W39 scene",
-    "every F bridge twins its canonical scene"
+    "every F bridge twins its canonical scene",
+    "no non-H cell of this bed repeats an H cell's geometry and backdrop"
   ],
   "holdoutPixelsOpened": false,
   "rows": [
@@ -276,6 +277,12 @@
       "matches": []
     },
     {
+      "cell": "b-p3-c16-rrect-lg",
+      "role": "validation",
+      "family": "B",
+      "matches": []
+    },
+    {
       "cell": "b-p3-c16-rrect-md",
       "role": "validation",
       "family": "B",
@@ -300,7 +307,19 @@
       "matches": []
     },
     {
+      "cell": "b-p5-c16-rrect-lg",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
       "cell": "b-p5-c16-rrect-md",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p5-c64-rrect-lg",
       "role": "calibration",
       "family": "B",
       "matches": []
@@ -692,6 +711,12 @@
       "matches": []
     },
     {
+      "cell": "c-s8-hi-d60-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
       "cell": "c-s8-hi-d80-rrect-lg",
       "role": "calibration",
       "family": "C",
@@ -752,7 +777,19 @@
       "matches": []
     },
     {
+      "cell": "c-s8-lo-d60-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
       "cell": "c-s8-lo-d80-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-lo-p4-d34-rrect-md",
       "role": "calibration",
       "family": "C",
       "matches": []
@@ -896,6 +933,12 @@
       "matches": []
     },
     {
+      "cell": "e-by-c16-rrect-lg",
+      "role": "validation",
+      "family": "E",
+      "matches": []
+    },
+    {
       "cell": "e-by-c16-rrect-md",
       "role": "calibration",
       "family": "E",
@@ -904,6 +947,12 @@
     {
       "cell": "e-by-c64-rrect-md",
       "role": "validation",
+      "family": "E",
+      "matches": []
+    },
+    {
+      "cell": "e-rg-c16-rrect-lg",
+      "role": "calibration",
       "family": "E",
       "matches": []
     },

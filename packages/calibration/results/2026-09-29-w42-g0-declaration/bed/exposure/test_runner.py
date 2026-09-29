@@ -587,9 +587,10 @@ class RealDeclarationScope(unittest.TestCase):
         self.assertEqual(len(excluded), 4 * 4 + 4 * 2)          # F: 4 per 2x pass, 2 per 1x pass
         self.assertTrue(all('probe' in reason for reason in excluded.values()))
         self.assertEqual({runner.endpoint_of(wave, c) for c in holdout}, set(runner.ENDPOINTS))
-        # 2x 89 / 92 / 102 / 107 and 1x 15 / 16 / 15 / 16: the charter's bed plus the s = 32
-        # receded rows (gate rehearsal) and the instrument stream's ruled cells.
-        self.assertEqual(len(numerical), 390 + 62 - len(excluded))
+        # 2x 95 / 92 / 109 / 107 and 1x 15 / 16 / 15 / 16: the charter's bed plus the s = 32
+        # receded rows (gate rehearsal), the instrument stream's ruled cells and ruling 3's
+        # active guard rows.
+        self.assertEqual(len(numerical), 403 + 62 - len(excluded))
 
 
 if __name__ == '__main__':

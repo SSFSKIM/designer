@@ -1,0 +1,39 @@
+test_a_failed_gate_quarantines_before_launch (test_sitting.Capture.test_a_failed_gate_quarantines_before_launch) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpdra3n5q2/root/1x-light-active/QUARANTINE-run-1-1790694795567446000
+ok
+test_a_later_pass_blocks_an_earlier_one (test_sitting.Capture.test_a_later_pass_blocks_an_earlier_one) ... ok
+test_an_existing_run_is_never_overwritten (test_sitting.Capture.test_an_existing_run_is_never_overwritten) ... ok
+test_idle_never_reached_refuses_without_launch (test_sitting.Capture.test_idle_never_reached_refuses_without_launch) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpbuhmc2ht/root/1x-light-active/QUARANTINE-run-1-1790694795671880000
+ok
+test_offset_origin_is_attested (test_sitting.Capture.test_offset_origin_is_attested) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp2dzwssdy/root/1x-light-active/QUARANTINE-run-1-1790694795859504000
+ok
+test_per_capture_idle_quarantines_and_blocks_successors (test_sitting.Capture.test_per_capture_idle_quarantines_and_blocks_successors) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpcsg8879l/root/1x-light-active/QUARANTINE-run-1-1790694796053363000
+ok
+test_rehearsal_expects_the_tcc_refusal (test_sitting.Capture.test_rehearsal_expects_the_tcc_refusal) ... rehearsal-1x-light-active: refused by the TCC gate as expected; no manifest, no fixture
+REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpy7qhccap/rehearsal-root/rehearsal-1x-dark-active/QUARANTINE-run-1-1790694796492223000
+ok
+test_run_one_carries_references_and_is_admitted (test_sitting.Capture.test_run_one_carries_references_and_is_admitted) ... 1x-light-active run 1: admitted cells=25
+1x-light-active run 2: admitted cells=15
+ok
+test_sentinel_waits_for_every_bed_pass_of_its_scale (test_sitting.Capture.test_sentinel_waits_for_every_bed_pass_of_its_scale) ... ok
+test_a_conforming_dump_is_admitted (test_sitting.DumpStep.test_a_conforming_dump_is_admitted) ... dump-1x-light-active: dumped and checked 15 scenes; unpredicted fields 0
+ok
+test_a_departure_stops_the_sitting_before_any_capture (test_sitting.DumpStep.test_a_departure_stops_the_sitting_before_any_capture) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmptp781eo0/root/dump-1x-light-active/QUARANTINE-run-1-1790694797275944000
+ok
+test_dry_env_is_refused (test_sitting.Gates.test_dry_env_is_refused) ... usage: python3.12 -m unittest [-h] {plan,dump,capture,wait-idle} ...
+python3.12 -m unittest: error: DRY is W34's harness --dry-run, which never reaches ScreenCaptureKit. W42 has no such path: the dry mode is `plan`, and the TCC rehearsal is `capture --rehearse-refusal`.
+ok
+test_every_failing_gate_is_named_in_one_refusal (test_sitting.Gates.test_every_failing_gate_is_named_in_one_refusal) ... ok
+test_idle_wait_is_bounded_logged_and_stops_on_a_prompt (test_sitting.Gates.test_idle_wait_is_bounded_logged_and_stops_on_a_prompt) ... ok
+test_outputs_never_inside_a_checkout_or_documents (test_sitting.Gates.test_outputs_never_inside_a_checkout_or_documents) ... ok
+test_stop_and_restore (test_sitting.Orchestrator.test_stop_and_restore) ... ok
+test_per_pass_counts_match_bed_json (test_sitting.Plan.test_per_pass_counts_match_bed_json) ... ok
+test_plan_executes_nothing_and_counts_the_bed (test_sitting.Plan.test_plan_executes_nothing_and_counts_the_bed) ... ok
+test_references_only_in_run_one_and_roles_preserved (test_sitting.Plan.test_references_only_in_run_one_and_roles_preserved) ... ok
+test_sentinel_argv_is_the_long_protocol (test_sitting.Plan.test_sentinel_argv_is_the_long_protocol) ... ok
+test_every_pass_document_loads (test_sitting.SideHarnessLoadsEveryDerivedDocument.test_every_pass_document_loads) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 22.676s
+
+OK
+exit=0
