@@ -75,3 +75,31 @@ Paused on the parent's instruction, partial output kept on their own branches:
   by the floor's reach. Unit tests, the browser measurement and the memo are not done.
 - R1 fixture-less e2e spec: w41-g2-r1 4d3a0366 (worktree /Users/new/vitrea-w41/g2-r1),
   ten cases (one must-differ discriminator, nine must-be-identical), lint-clean, NOT run.
+
+Close — the user's ruling and the revert (c9a §5.193 §5)
+--------------------------------------------------------
+The user ruled 2026-09-29: "Don't land; close W41." 15478e0f reverses the seal's shipped
+effects with a new commit: the light receded document is back at 30fbe05986ae, and
+macos27-profile.ts, the activation pin, the two E3 digest tests and material.ts are back to
+main's bytes. retired-documents/ keeps both receded byte-exact copies: pre-seal 30fbe059…
+and sealed 003940b4…. The stage captures name the sealed bytes, and W37's generation check
+and W38's E2 resolve a moved hash only to such a copy.
+
+Kept as the negative's evidence:
+- seal.ts, seal.txt, sealed-manifest.json: the seal as it was made;
+- identity/: 600/600 byte-identical;
+- canonical/: the stage read driver, runs.jsonl, logs, quicklook and preview;
+- stop/: triptychs and the preview reading;
+- referees/: the cut port to W40's store, its reproduction of W36, and the formal stage
+  reading in stop-reading/;
+- sheets/: 208 full and 80 now-only canonical sheets, the W39 check, 17 examples, the
+  worker's eye draft and owner-eye-reading.txt.
+
+Outside git, hashed in the committed inventories:
+- /Users/new/vitrea-w41/g2-captures/canonical-stage/: the 288 stage captures,
+  matrix.json 3558cee9… and membership.json;
+- /Users/new/vitrea-w41/g2-captures/identity/;
+- /Users/new/vitrea-w41/g2-captures/sheets/canonical-1/.
+
+No generation was published and no canonical capture tree moved, so check-capture-tree
+has nothing new to check. Close checks are in close/.
