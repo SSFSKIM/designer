@@ -226,14 +226,18 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
       not referees.
     - *Bar:* the adopted rows as they stand when G2 opens.
       - L1 ≤ 0.055 absolute, with growth ≤ 0.005 against its W33 baseline. The tinted photo
-        inactive growth (+0.0131 / +0.0136 under E3, §5.193 §3) is read as written.
+        inactive growth (+0.0131 / +0.0136 under E3, §5.193 §3) is read as written. *Ruled
+        2026-09-30 (Decision Log 5d): the light tinted photo rrect-md and dark tinted capsule
+        inactive cells are named misses, the bound unchanged.*
       - M1 median in [0.8, 1.2], cells in [0.6, 1.4].
       - M2 as Decision Log 5a ruled: the 2 % stays; a cell that moves toward Apple's own texture
         reading, and not past it, is a named miss with Apple's value beside it; a cell that moves
         away from Apple, or past it by more than 2 %, fails. The reference re-baselines at the
         adopting gate (W32 Decision Log 4).
       - C1 ≤ 0.0042 per bed × span. X1 zero pixels above native black. E2: no measured bin worse
-        than its frozen baseline by more than one code, and UNMEASURED never a pass.
+        than its frozen baseline by more than one code, and UNMEASURED never a pass. *Ruled
+        2026-09-30 (Decision Log 5e): E2 reads per cell in absolute codes, and its worse bins
+        are listed as named misses.*
       - The two directional stops: no cell farther from Apple than the shipped render at the
         statistic's declared resolution.
       - The owner test: no failure that the base's own scratch union at the same membership does
@@ -970,6 +974,10 @@ sheets → changeset → release checklist → the user's `pnpm release`) → cl
 
 ## Deferred / Out of Scope
 
+- **vitrea's receded (unfocused) tint layer** (Decision Log 5d). The receded tint composite carries
+  any correction of the untinted body into the tinted cell (light 0.0288 + 0.7312u, a grey
+  layer already 0.033 over Apple; dark 0.0202 + 1.4398u). The four tinted cell-profiles of
+  Decision Log 5d are named L1 misses until it is fixed.
 - **The level misses under candidate 1.** W36's grey middle and chroma stay named whenever the
   landed T is the shipped solve; candidate 2 is the route that could close them. F above 150 is
   extended only through family A's measured ordinates (X35), and falls back to the shipped solve
@@ -1087,6 +1095,49 @@ light, +10.7 to +15.1 dark over native T; the dark compression above the floor i
 it is recorded as a light-only partial explanation. The user's ruling is unchanged, and the
 native curve is its words' plainest reading: "Apple's grey tone curve from the new capture".
 
+#### 5c — chroma in candidate 2 (G0, from the rehearsal; the user's)
+
+Put to the user after rehearsal round 3 (§5.194 §7): candidate 2's T as declared at v2.1 is luma
+only, so it keeps the shipped solve's chroma, about a tenth of the backdrop's. That fails dark M1
+and Stop P's M band by construction. W41 G1's E3-form g was the only chroma that passed M1 in all
+four endpoints under candidate 2; the literal face-matrix saturation was the wrong amount in
+every endpoint. The question: whether candidate 2 carries W41 G1's E3-form g in all four
+endpoints, re-fitted and checked on the new bed's colour cells.
+
+**RULED 2026-09-30 by the user: "Yes, add it."** Candidate 2 carries W41 G1's E3-form g in all
+four endpoints, re-fitted and checked on the new bed's colour cells. The declaration counts it:
+3 parameters per endpoint beside candidate 2's ordinates (G0 declaration, item
+`candidate2Chroma`).
+
+#### 5d — L1 on the tinted receded cells (G0, from the rehearsal; the user's)
+
+Put to the user after rehearsal rounds 2 and 3: L1's growth clause fails on the two light tinted
+photo rrect-md inactive cells and on the dark tinted capsule inactive cell, 1x and 2x, in every
+candidate that corrects the untinted body. The cause is vitrea's receded tint composite, which
+carries the body's correction into the tinted cell (light 0.0288 + 0.7312u, dark
+0.0202 + 1.4398u). W42's law does not govern it. Clause 10 had said the tinted photo inactive
+growth is "read as written". The parent recommended named misses, with the tint layer deferred.
+
+**RULED 2026-09-30 by the user: "Named misses."** The cells are recorded as named misses caused
+by vitrea's unfocused tint layer. The bound is unchanged, and fixing the tint layer goes on W42's
+Deferred list. The cells are exactly r3-2pgb's receded tinted L1 failures: light
+`photo__rrect-md__inactive-tint-orange` and dark `photo__capsule-button__inactive-tint-orange`,
+at 1x and 2x (G0 declaration, item `l1TintedReceded`).
+
+#### 5e — the active band and E2's reading (G0, from the rehearsal; the user's)
+
+Put to the user after rehearsal round 3. Held byte-identical to shipped, the 20-pt active band
+leaves E2 reading nothing, and its seam fails Stop H and Stop P. Blended, E2's adopted reading
+fails every active combination, because its deep-median reference moves by design. Read
+absolutely, 70 of 7,728 bins are worse than shipped by more than a code, all under vitrea's lens,
+while 838 improve. The blend also changes spans ≤ 44 (capsule mean weight 0.48). The options:
+per cell in absolute codes, with worse bins listed as named misses; per bin; or the band held.
+
+**RULED 2026-09-30 by the user: "Per cell, list the worse ones."** The law is eased in across the
+band with coverage × smoothstep(0, 20 pt, depth). E2 fails a cell only if its edge moves farther
+from Apple overall, in absolute codes, and every bin that worsens by more than 1 code is listed as
+a named miss (G0 declaration, item `activeBandAndE2`).
+
 #### 5 (remainder) — bounds and floors if the law lands (in G3; the user's)
 
 Open.
@@ -1147,14 +1198,14 @@ X5 by their own hand, and restores both after the sitting.
 - 2026-09-30 (G0 integration, ledger §5.194; the charter's text is unchanged). The bed,
   instrument and gate streams were merged into `w42-g0-declaration`, and the declaration was
   assembled in `results/2026-09-29-w42-g0-declaration/declaration.json`, with `declaration.md`
-  as its readable twin. It holds 30 items and pins 74 source files, this charter among them at
-  `0736ed64`. It is **not hashed**: `declare.py hash` refuses while three items wait on the user.
-  - **PENDING (user) (i):** whether candidate 2 carries W41 G1's E3-form g in all four
-    endpoints, re-fitted and checked on the new bed's colour cells.
-  - **PENDING (user) (ii):** the reading of L1 on the two light tinted photo rrect-md inactive
-    cells and the dark tinted capsule inactive cell.
-  - **PENDING (user) (iii):** blending the active band by coverage × smoothstep(0, 20 pt,
-    depth), and how E2 reads.
+  as its readable twin. It holds 30 items and pins every source file it points at. It is **not
+  hashed**: the hash follows the independent review and its fixes.
+  - **The three items that waited on the user were RULED on 2026-09-30** (Decision Logs 5c,
+    5d, 5e above): candidate 2 carries W41 G1's E3-form g ("Yes, add it."); the tinted receded
+    cells are named misses and the tint layer is deferred ("Named misses."); the band is eased in
+    with coverage × smoothstep(0, 20 pt, depth), and E2 reads per cell in absolute codes with its
+    worse bins listed ("Per cell, list the worse ones."). Clause 10 carries a pointer to 5d and
+    5e, and the Deferred list gains the tint layer.
   - **The bed's growth.** It grew from the charter's 414 glass cell-passes to 465, and the
     sitting from about 10.1 h to about 10.73 h (9.63 h of capture, 1.06 h of dumps). Three sets
     were added: the s = 32 receded rows, the parent's ruling from the rehearsal; the
@@ -1173,8 +1224,16 @@ X5 by their own hand, and restores both after the sitting.
     - the literal face-matrix saturation rejected as chroma.
   - **Candidate 2's T is counted by its ordinates** at 27 / 27 / 30 / 30 (light active / light
     receded / dark active / dark receded).
-  - **Three declarations made at integration** go to the parent's review: the superseded shipped
-    leaves, a knee-form tie carried as per-channel, and the F extension read on the capsule.
+  - **The parent's rulings on the integration's proposals (2026-09-30).**
+    - The superseded shipped leaves are kept as proposed, for the review to read.
+    - A knee-form tie is carried as per-channel, because Apple's Lighten / Darken is per-channel;
+      the three streams' labels name one discrete choice.
+    - The F extension is read on the capsule: accepted.
+    - A closing named miss in the owner-run comparison is a pass, and its list shrinks at the seal
+      (floors come off by fix). It is implemented in `gate/owner/run-owner.py` with a seeded
+      red / green proof.
+    - Stale prose fixed in three stream files. `bed.json` stays byte-identical, because the split
+      binds it, and its stale phrase is in the declaration's errata.
 - 2026-09-29 (v2.1, drafted for the parent). Folds:
   - **memo E** (`w42-grounding-refit.txt`), the literal tree re-fitted on memo C's cells: all
     thirteen "pending memo E" marks resolved (Design, "Memo E's answers").

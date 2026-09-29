@@ -41570,8 +41570,9 @@ entry.
 `packages/calibration/results/2026-09-29-w42-g0-declaration/` on `w42-g0-declaration`. Three
 streams built it in parallel from main `0736ed64` (charter v2.1), each in its own subfolder, and
 were merged no-ff: bed (`e06dd368`, head `764217e1`), instrument (`f7c85f4f`, head `a489cc02`)
-and gate (`85acde2c`, head `75f244ec`). The declaration (§9) holds 30 items and pins 74 stream
-files. Three of its items wait on the user, so `declare.py hash` refuses. The freeze reads
+and gate (`85acde2c`, head `75f244ec`). The declaration (§9) holds 30 items and pins every stream
+file it points at. The user ruled its three open items on 2026-09-30 (Decision Logs 5c–5e, §8);
+it is hashed after the independent review and its fixes. The freeze reads
 **1,818**. The protected-path diff against main is empty except the one ruled exception, the M2
 named-miss derivation in `adopted-thresholds.test.ts` (§6; clause 12). Each stream's README is
 its own index; this section is the G0 record.
@@ -41738,7 +41739,12 @@ bound was widened to 9 for that null only.
   in a disposable worktree, once on the base's union and once on the candidate's. Kept rows are
   relocated to side copies of their documents; without that, 11 new failures appear on an
   identity candidate. The holdout is carried. M2's named misses are inserted as the seal would
-  record them. Ten proof runs behaved as declared, and the base read 108 / 108.
+  record them. Ten proof runs behaved as declared, and the base read 108 / 108. **Closures**
+  were added at integration, on the parent's ruling of 2026-09-30 (§8). The runner logs each
+  named-miss list the test derives and records, drops every recorded entry no longer derived
+  from its copy as the seal would, and runs the test again. Three seeded runs prove it: two
+  closures pass with the step (108 / 108), fail as two new failures without it, and a closure
+  beside a new L1 miss still fails.
 - **Stop H and Stop P** (`cee3e4b5`) are declared in `stops-declaration.json`. Stop H reads 16
   impulse cells at a resolution of 1 code. Stop P reads 26 untinted photo cells, with its
   resolution frozen per cell (0.12–0.28 ×1e-3 on F, 0.032–0.074 ×1e-3 on M). The proof passes
@@ -41852,17 +41858,31 @@ The parent's, with the reasons the running record gives; none is the user's.
     record.
   - **The capture floor** stays a declared constant.
 
-**Pending the user**, each written into the declaration with the options as the parent put
-them:
-- (i) whether candidate 2 carries W41 G1's E3-form g in all four endpoints, re-fitted and checked
-  on the new bed's colour cells;
-- (ii) how L1 reads on the two light tinted photo rrect-md inactive cells and the dark tinted
-  capsule inactive cell. The parent recommends reading them as named misses and deferring the
-  tint layer;
-- (iii) the active band, blended by coverage × smoothstep(0, 20 pt, depth), and how E2 reads.
-  The options are per cell in absolute codes with the worse bins listed as named misses, per
-  bin, or the band held. The correction that the blend changes spans ≤ 44 is owed to the user
-  with it.
+**Put to the user after the rehearsal, and RULED on 2026-09-30** (charter Decision Logs 5c–5e):
+- **(i) Chroma in candidate 2, Decision Log 5c: "Yes, add it."** Candidate 2 carries W41 G1's
+  E3-form g in all four endpoints, re-fitted and checked on the new bed's colour cells. The
+  declaration counts it as 3 parameters per endpoint beside the ordinates.
+- **(ii) The tinted receded cells, Decision Log 5d: "Named misses."** The cells are named misses
+  caused by vitrea's unfocused tint layer: light `photo__rrect-md__inactive-tint-orange` and dark
+  `photo__capsule-button__inactive-tint-orange`, at 1x and 2x. The L1 bound is unchanged, and
+  fixing the tint layer goes on W42's Deferred list. The four cell-profiles are exactly r3-2pgb's
+  receded tinted L1 failures, and every candidate-2 combination's lie within them. Round 3's
+  light-active tinted failures occur only under candidate 1, which is [T1].
+- **(iii) The active band and E2, Decision Log 5e: "Per cell, list the worse ones."** The law is
+  eased in across the band with coverage × smoothstep(0, 20 pt, depth). E2 fails a cell only if
+  its edge moves farther from Apple overall, in absolute codes, and every bin that worsens by more
+  than 1 code is listed as a named miss. The correction that the blend changes spans ≤ 44 went to
+  the user with the question.
+
+**The parent's rulings on the integration's proposals (2026-09-30):**
+- The superseded shipped leaves are kept as proposed, for the independent review to read.
+- A knee-form tie is carried as per-channel, because Apple's Lighten / Darken is per-channel. The
+  three streams' labels name one discrete choice.
+- Candidate 1's F extension is read on the capsule: accepted.
+- **A closing named miss in the owner-run comparison is a pass**, and its list shrinks at the seal,
+  because floors come off by fix (§6).
+- The stale prose in three stream files is fixed. `bed.json` stays byte-identical, because the
+  split binds it; its stale phrase is listed in the declaration's errata.
 
 ### 9. Integration and the declaration
 
@@ -41882,33 +41902,51 @@ None of those files or their subjects changed in G0. All three pass on rerun. Li
 every tsc configuration) passes. The freeze reads 1,818.
 
 The declaration (`d9a57702`) is `declaration.json` with `declaration.md` as its readable twin.
-It has 30 items, each declared once and pointing at the stream file that defines it, and 74
-pinned sources, the charter among them at `0736ed64`. Candidate 2 is counted by its ordinates:
-27 / 27 / 30 / 30, derived from `bed.json`. Candidate 1's light-receded F keeps E3's seven
-ordinates and gains seven family-A ordinates at 160–255, as its own gate-group.
-`declare.py check` re-derives every count and list from the stream files and passes. `hash`
-refuses while any `pendingUser` ruling is null. `declare-proof.txt` records 12 seeded mutations,
-each failing `check`, and the hash path exercised on synthetically filled rulings, with its
+It has 30 items, each declared once and pointing at the stream file that defines it. Candidate 2
+is counted by its ordinates, 27 / 27 / 30 / 30, derived from `bed.json`, plus 3 chroma-gain
+parameters per endpoint (Decision Log 5c). Candidate 1's light-receded F keeps E3's seven
+ordinates and gains seven family-A ordinates at 160–255, as its own gate-group. `hash` refuses
+while any `pendingUser` ruling is null. `declare-proof.txt` records the seeded mutations that
+each fail `check`, and the hash path exercised once on synthetically filled rulings, with its
 outputs removed afterwards.
+
+After the rulings (2026-09-30):
+- The three items carry the user's words and Decision Logs 5c–5e, and `declaration.md` marks
+  them RULED.
+- `check` re-derives the tinted named misses from r3-2pgb's receded tinted L1 failures, the
+  closure step's two anchors in the committed test, and E3's g form from W41 G0's closure.
+- The declaration re-pins 76 sources, the charter among them at the commit that records
+  Decision Logs 5c–5e.
+- **It is not hashed**: the hash follows the independent review and its fixes.
+
+Reruns under a load average of 17 to 136, from other work on the machine:
+- **The calibration suite:** 775 passed, 1 skipped. `w41-instrument` was killed at its 90 s
+  budget; W41's `test_runner.py` run directly passes 41 / 41 in 113 s.
+- **The bed exposure suite:** 27 / 27.
+- **The freeze:** 1,818.
 
 ### 10. Disclosures
 
-- **Declared at integration, for the parent's review:**
-  - the superseded shipped leaves and their reading positions (the charter asks G0 for them,
-    and no stream owned them), taken from the charter's list and the rehearsal's `landed_T`;
-  - a knee-form tie carried as per-channel;
-  - the F extension's ordinates read on the capsule, E3's own span.
-- **The knee is named two ways.** The charter lists the per-channel knee as the rival of a knee
+- **Declared at integration, then ruled by the parent (§8):** the superseded shipped leaves and
+  their reading positions, which the charter asks G0 for and no stream owned (kept for the
+  review); the knee-form tie (per-channel); the F extension's ordinates read on the capsule
+  (accepted).
+- **The knee is named three ways.** The charter lists the per-channel knee as the rival of a knee
   on luma. The instrument's LT carries per-channel and names the luma form its rival. The gate's
   on-luma variant takes its chroma from W. The declaration names all three as one discrete
   choice.
-- **Stale prose left unedited**, because each file is pinned or is another stream's record:
-  - `bed.json` still reads "flagged for the parent's ruling" on the two substitutions the
-    parent accepted; its hash is the split;
-  - `bed/README.md`'s sitting paragraph says 414 dump scenes, where the plan and the sitting
-    README say 465;
-  - a comment in `instrument/forward.py` still describes the first form of ruling 3;
-  - `gate/README.txt`'s index stops at round 2.
+- **Stale prose.** Three passages are fixed at integration:
+  - the bed README's dump count (414 → 465 scenes);
+  - the comment in `instrument/forward.py`, which described the first form of ruling 3;
+  - the index in `gate/README.txt`, which now reaches round 3.
+  `bed.json` still reads "flagged for the parent's ruling" on the two substitutions the parent
+  accepted. It stays byte-identical because its hash is the split, and the phrase is in the
+  declaration's errata.
+- **Open for the review:**
+  - Decision Log 5d's four cell-profiles have no named L1-growth list in the committed owner
+    test, so the owner-run comparison reads them as new failures until one is recorded.
+  - Decision Log 5e's per-cell E2 bar is declared at zero tolerance, the ruling's words taken
+    literally.
 - **Descriptive readers and nulls.** The descriptive readers miss their bars on vitrea's
   captures, as §3 records. The unit nulls and R2 miss the declared pooled bar and are refused
   on their worst cells.
@@ -41918,7 +41956,8 @@ outputs removed afterwards.
   in the outermost half CSS px. C1 and X1 are unmoved by it. Family A's ordinates are memo C's
   stand-ins, and the chroma g is W41 G1's committed fit on W39 uniform cells; nothing new was
   fitted to a native pixel.
-- **The owner test reads a closing named miss as a change.** The tinted impulse capsule closing
-  is therefore a failure the seal must record rather than a regression.
+- **The owner test read a closing named miss as a change** until the closure step. The tinted
+  impulse capsule's closure under r3-2pgb was counted among its 103 / 108. Under the ruling it is
+  a pass, and the list shrinks at the seal.
 - **The remaining open items:** U3's active half is recorded, not captured. The eye sheets have
   no grey-middle uniform stratum.
