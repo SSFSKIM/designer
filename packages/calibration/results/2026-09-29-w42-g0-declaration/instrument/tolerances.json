@@ -1,0 +1,67 @@
+{
+  "$comment": [
+    "W42 G0 instrument: the tolerances clause 2 requires G0 to declare BEFORE the proofs run.",
+    "Committed before any proof output exists (git history is the timestamp). Each bar is no looser than",
+    "what the grounding readers achieved (charter clause 2): memo C recovered lam and w to +-0.03 and widths",
+    "to +-0.05 CSS px at the quantisation floor (rms 0.40-0.42); memo B recovered widths within 3-10 % and",
+    "the share within 0.03-0.1 at 2x on vitrea's captures; memo E recovered k to three decimals at rms",
+    "0.40-0.42 and separated the wrong reading by >= 2.60 codes and the wrong unit by >= 4.65; memo C's",
+    "two-sided control read the mirror statistic <= 0.024 at p >= 8.",
+    "A reader that misses its bar in proof 1 or proof 3 does not read Apple (clause 2's stop). A parameter",
+    "proof 1 cannot recover to its bar is declared NON-IDENTIFIABLE on this bed before any fit, never",
+    "silently loosened."
+  ],
+  "synthetic_render": {
+    "T": "memo C's native-T table (tone.memo_c_T), per endpoint and span, applied per channel",
+    "quantisation": "y = round(T(M) + U(-0.5, 0.5)), clipped to 0..255 (memo C / memo E's convention)",
+    "floor_rms_codes": [0.40, 0.42],
+    "fit_reaches_floor_if_pooled_rms_at_most": 0.45
+  },
+  "proof1_family_recovery": {
+    "k (every nesting level: global, per scheme, per endpoint)": {"abs": 0.005},
+    "k_n, k_w (LT-2k)": {"abs": 0.005, "note": "k_n is identified only by cells with t > 0 in the active pose"},
+    "lam (per endpoint, every family)": {"abs": 0.03},
+    "sigma_n(span) ordinates (free Gaussian rival)": {"abs_pt": 0.05},
+    "mu (W on the rounded shape, margin)": {"abs_pt": 1.0},
+    "tails: a (weight of the second Gaussian)": {"abs": 0.03},
+    "tails: sigma2 (pt)": {"abs_pt": 2.0},
+    "K2: sk (the knee fill's width, pt)": {"abs_pt": 0.25},
+    "LT + bleed (own scale): k_b": {"abs": 0.05},
+    "discrete choices (support, edge mode, C-linear, per-channel knee, order)": "the true choice's pooled rms at the floor (<= 0.45) and every wrong choice >= 0.10 code worse pooled"
+  },
+  "proof1_statistic_readers": {
+    "model reader (memo C)": {"lam": 0.03, "w": 0.03, "sigma_n_pt": 0.05, "sigma_w_pt": 0.05,
+      "scope": "cells whose narrow width is flat in depth (receded, and active t = 0); on depth-graded cells it reads an effective width, reported, not gated"},
+    "mirror statistic S": {"s1/gain vs lam(1-w)": 0.03, "two-sided linear control |s1/gain|": 0.024, "pitches": ">= 8 pt"},
+    "pitch-64 heavy reader": {"sigma_w": "within 5 %", "support call": "the true support ranks first wherever the supports differ by > 0.05 code rms", "group mean": "rejected"},
+    "ESF reader (memo B)": {"sigma": "within 3 % of the rendered effective narrow width"},
+    "impulse reader (memo B)": {"sigma": "within 3 %", "share": 0.03},
+    "step reader (family D)": {"sigma_w": "within 5 %", "support and edge-mode call": "the true one ranks first wherever they differ by > 0.05 code rms"},
+    "patch and annulus reader (family C)": {"sigma_n": "within 5 %", "sigma_w": "within 5 %"},
+    "depth-graded radius reader": {"sigma_n(edge) / sigma_n(centre)": 0.05, "receded control": "flat within 0.05"},
+    "per-cell lam reader (memo E)": {"lam": 0.03, "interval": "contains the truth", "scope": "knee-identified cells, pitch 16-64"},
+    "hinge-gap reader (memo E)": {"lam per bin": 0.05, "scope": "bins of >= 200 px"}
+  },
+  "proof2_separation": {
+    "rule": [
+      "For a truth family A and a fitted family B: B is fitted to A's quantised synthetic render by least",
+      "squares, then refined by minimax on the region statistics (regions.py) of A's exact render.",
+      "s = max over cells and region statistics of |B's statistic - A's statistic| at that optimum.",
+      "DISTINGUISHED if s > 1.5 codes (B fails clause 6's max(1 code, bar) with room for the median's own",
+      "0.5-code quantisation); UNRESOLVED if s < 0.5 (B survives on A's truth); MARGINAL between, where the",
+      "verdict depends on the measured bar. An unresolved or marginal pair is a bed question and is",
+      "reported with the cell or family that would separate it."
+    ],
+    "rejected nulls against LT (memo E's control, on the new bed's geometry)": {"mixture reading pooled rms": ">= 2.60", "texel or device-px units pooled rms": ">= 4.65", "R2 pooled rms": ">= 4.65"}
+  },
+  "proof3_vitrea": {
+    "T": "tone.SrgbAffineT (vitrea's body is affine in linear light, then encoded)",
+    "truth": "the code's kernels: memo B's code-map (kernels.json, SHA-256 9c684eb9...) and its float64 replica (kernel_sim.py 98d00dc9..., verify.py 45f54862...)",
+    "mirror statistic S |s1/gain|": {"max": 0.024, "pitches": ">= 8 pt"},
+    "model reader, linear space": {"lam": "|lam| <= 0.12", "sigma_n": "within 20 % of the body kernel's sigma_RMS", "sigma_w": "within 25 % (the platykurtic L4 reads low or wide as a Gaussian)"},
+    "pitch-64 heavy reader": {"group mean": "rejected", "canvas vs footprint": "no false footprint call: within 0.04 code rms"},
+    "ESF and impulse readers": {"narrow sigma": "within 10 %", "share": "within 0.1 at 2x", "deep sigma": "within 25 %"},
+    "every other reader": "reads the code's two-sided linear body: lam within 0.12 of 0 in the linear reading, a flat narrow width in depth, the canvas-wide W",
+    "known-space control": "the ENCODED reading of vitrea's linear captures is reported (memo C: lam 1.4-1.5); the knee is established by S and by every linear fit's loss, never by lam alone"
+  }
+}
