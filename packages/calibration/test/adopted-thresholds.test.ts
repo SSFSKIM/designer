@@ -4503,9 +4503,10 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
   /**
    * The clause's own population, restated here and taken from nowhere else. The cut script
    * drops only holdout, so the recorded role is dropped here, as the gated bed drops it.
+   * Stated over any rows so that a guard can seed one through it.
    */
-  const readingsAt = (bed: string, span: number) =>
-    CUT.rows.filter(
+  const readingsIn = (rows: typeof CUT.rows, bed: string, span: number) =>
+    rows.filter(
       (row) =>
         row.bed === bed &&
         row.span === span &&
@@ -4517,6 +4518,7 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
         row.T !== null &&
         row.bandsUsed.join("/") === row.admitted.join("/"),
     );
+  const readingsAt = (bed: string, span: number) => readingsIn(CUT.rows, bed, span);
 
   it("reads the cut at the declared quantity, band rule and provenance", () => {
     expect(CUT.candidateII.quantity).toContain("slopeAWeb");
@@ -4539,83 +4541,69 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
     }
   });
 
+  const BAND_WIDTH_CSS_PX: Readonly<Record<string, number>> = {
+    "3-6": 3,
+    "6-12": 6,
+    "12-24": 12,
+    "24-48": 24,
+  };
+  /** The axis's own floor on the backdrop's spread; below it the row has no `T`. */
+  const MIN_BACKDROP_SUPPORT = 0.1;
+
+  interface AffineEntry {
+    readonly direction: string;
+    readonly ringLabel: string;
+    readonly slopeALinear?: number;
+  }
+  interface ShadowAxis {
+    readonly affineNative?: readonly AffineEntry[];
+    readonly affineWeb?: readonly AffineEntry[];
+    readonly [field: string]: unknown;
+  }
+  const axisValue = (axis: ShadowAxis, field: string): number | undefined => {
+    const entry = axis[field];
+    return typeof entry === "object" && entry !== null && "value" in entry
+      ? ((entry as { value: number }).value)
+      : undefined;
+  };
+
+  const components = readJson<{
+    readonly components: Readonly<
+      Record<
+        string,
+        {
+          readonly kind: string;
+          readonly size?: readonly number[];
+          readonly base?: { readonly size: readonly number[] };
+          readonly items?: readonly { readonly size: readonly number[] }[];
+        }
+      >
+    >;
+  }>(resolve(PACKAGE_ROOT, "..", "..", "apps", "reference-apple", "scenes.json")).components;
+  /** The casting span: the declared component's shorter side (W30 G0's rule). */
+  const spanOf = (component: string): number | undefined => {
+    const spec = components[component];
+    if (spec === undefined) return undefined;
+    if (spec.kind === "capsule" || spec.kind === "rrect") return Math.min(...(spec.size ?? []));
+    if (spec.kind === "stack") return Math.min(...(spec.base?.size ?? []));
+    if (spec.kind === "group") {
+      return Math.min(...(spec.items ?? []).map((item) => Math.min(...item.size)));
+    }
+    return undefined;
+  };
+
   /**
-   * Every figure the clause reads, re-derived from `results/matrix.json` — the
-   * other half of the snapshot hole, and the half a path alone cannot close.
-   *
-   * M1 and M2 carry the same case one row over and for the same reason (W31 G4,
-   * claims §5.165 §1): a cut committed at a gate is a record of what was
-   * adopted, and if it is also the only copy then a canonical read that moves a
-   * row leaves the bound gating yesterday's bed in silence. So the statistic is
-   * computed here from the axis's own entries — the admitted-band rule applied
-   * to the row's own `clearance*`, the width-weighted mean of `|Δa|` over the
-   * bands that survive it — in BOTH directions over the population, and a cut
-   * that disagrees with the matrix fails rather than being believed.
-   *
-   * The selection is restated rather than taken from `MATRIX`, which drops the
-   * probe set: span 160's cells are the pitch ladder's alone and span 128's are
-   * mostly probe, so gating C1 through `MATRIX` would read two of its three
-   * spans off an empty bed.
-   *
-   * It drops the recorded role as `MATRIX` does (2026-09-29). C1 was counted and
-   * adopted over rest-state rows, and W41 G2's full-recipe stage would have added
-   * the two recorded `rrect-md__pressed` rows to each light bed at span 96
-   * (`CONTRIBUTING_CELLS` 10 → 12; claims §5.193 §3).
+   * The re-derivation's own selection and statistic, over any rows: the case below states
+   * why it exists. Each entry keeps its source row so that a guard can seed one through it.
    */
-  it("re-derives every reading of the clause from results/matrix.json", () => {
-    const BAND_WIDTH_CSS_PX: Readonly<Record<string, number>> = {
-      "3-6": 3,
-      "6-12": 6,
-      "12-24": 12,
-      "24-48": 24,
-    };
-    /** The axis's own floor on the backdrop's spread; below it the row has no `T`. */
-    const MIN_BACKDROP_SUPPORT = 0.1;
-
-    interface AffineEntry {
-      readonly direction: string;
-      readonly ringLabel: string;
-      readonly slopeALinear?: number;
-    }
-    interface ShadowAxis {
-      readonly affineNative?: readonly AffineEntry[];
-      readonly affineWeb?: readonly AffineEntry[];
-      readonly [field: string]: unknown;
-    }
-    const axisValue = (axis: ShadowAxis, field: string): number | undefined => {
-      const entry = axis[field];
-      return typeof entry === "object" && entry !== null && "value" in entry
-        ? ((entry as { value: number }).value)
-        : undefined;
-    };
-
-    const components = readJson<{
-      readonly components: Readonly<
-        Record<
-          string,
-          {
-            readonly kind: string;
-            readonly size?: readonly number[];
-            readonly base?: { readonly size: readonly number[] };
-            readonly items?: readonly { readonly size: readonly number[] }[];
-          }
-        >
-      >;
-    }>(resolve(PACKAGE_ROOT, "..", "..", "apps", "reference-apple", "scenes.json")).components;
-    /** The casting span: the declared component's shorter side (W30 G0's rule). */
-    const spanOf = (component: string): number | undefined => {
-      const spec = components[component];
-      if (spec === undefined) return undefined;
-      if (spec.kind === "capsule" || spec.kind === "rrect") return Math.min(...(spec.size ?? []));
-      if (spec.kind === "stack") return Math.min(...(spec.base?.size ?? []));
-      if (spec.kind === "group") {
-        return Math.min(...(spec.items ?? []).map((item) => Math.min(...item.size)));
-      }
-      return undefined;
-    };
-
-    const derived = new Map<string, { readonly T: number; readonly bandsUsed: string }>();
-    for (const cell of MATRIX_FILE.cells) {
+  const deriveClause = (cells: readonly Cell[]) => {
+    const derived: {
+      readonly key: string;
+      readonly cell: Cell;
+      readonly T: number;
+      readonly bandsUsed: string;
+    }[] = [];
+    for (const cell of cells) {
       const profileKey = cell.key.profileKey;
       if (!profileKey.startsWith("apple-macos-27.0-")) continue;
       if (cell.fixtureSet === "holdout") continue;
@@ -4669,8 +4657,38 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
               ),
           0,
         ) / total;
-      derived.set(`${profileKey} ${cell.key.sceneId}`, { T, bandsUsed: usable.join("/") });
+      derived.push({ key: `${profileKey} ${cell.key.sceneId}`, cell, T, bandsUsed: usable.join("/") });
     }
+    return derived;
+  };
+
+  /**
+   * Every figure the clause reads, re-derived from `results/matrix.json` — the
+   * other half of the snapshot hole, and the half a path alone cannot close.
+   *
+   * M1 and M2 carry the same case one row over and for the same reason (W31 G4,
+   * claims §5.165 §1): a cut committed at a gate is a record of what was
+   * adopted, and if it is also the only copy then a canonical read that moves a
+   * row leaves the bound gating yesterday's bed in silence. So the statistic is
+   * computed here from the axis's own entries — the admitted-band rule applied
+   * to the row's own `clearance*`, the width-weighted mean of `|Δa|` over the
+   * bands that survive it — in BOTH directions over the population, and a cut
+   * that disagrees with the matrix fails rather than being believed.
+   *
+   * The selection is restated rather than taken from `MATRIX`, which drops the
+   * probe set: span 160's cells are the pitch ladder's alone and span 128's are
+   * mostly probe, so gating C1 through `MATRIX` would read two of its three
+   * spans off an empty bed.
+   *
+   * It drops the recorded role as `MATRIX` does (2026-09-29). C1 was counted and
+   * adopted over rest-state rows, and W41 G2's full-recipe stage would have added
+   * the two recorded `rrect-md__pressed` rows to each light bed at span 96
+   * (`CONTRIBUTING_CELLS` 10 → 12; claims §5.193 §3).
+   */
+  it("re-derives every reading of the clause from results/matrix.json", () => {
+    const derived = new Map(
+      deriveClause(MATRIX_FILE.cells).map((entry) => [entry.key, entry] as const),
+    );
 
     const fromCut = new Map(
       C1_SPANS.flatMap((span) =>
@@ -4692,6 +4710,42 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
       expect(row.bandsUsed.join("/"), `${key}: the bands the cut used`).toBe(here.bandsUsed);
       expect(row.T ?? Number.NaN, `${key}: T against the matrix`).toBeCloseTo(here.T, 12);
     }
+  });
+
+  it("drops a seeded recorded row on both sides of the clause", () => {
+    // No committed generation carries a recorded row, so the bed never exercises either
+    // drop. Seed them: the rest twin of a recorded pressed scene is in the clause on both
+    // sides, and the same row relabelled, re-scened or both must leave each side.
+    const profileKey = "apple-macos-27.0-1x-light-standard-glass0.5";
+    const rest = "checkerboard__rrect-md__rest";
+    const pressed = "checkerboard__rrect-md__pressed";
+    expect(RECORDED_SCENES.has(pressed)).toBe(true);
+
+    const row = readingsAt("1x light", 96).find(
+      (candidate) => candidate.profile === profileKey && candidate.scene === rest,
+    );
+    expect(row).toBeDefined();
+    const rows = [
+      { ...row!, set: "recorded", state: "pressed", scene: pressed },
+      { ...row!, set: "recorded" },
+      { ...row!, scene: pressed },
+    ];
+    expect(readingsIn(rows, "1x light", 96).map((seed) => `${seed.set} ${seed.scene}`)).toEqual([]);
+
+    const cell = MATRIX_FILE.cells.find(
+      (candidate) =>
+        candidate.key.profileKey === profileKey &&
+        candidate.tier === "texture" &&
+        candidate.key.sceneId === rest,
+    );
+    expect(cell).toBeDefined();
+    expect(deriveClause([cell!]).map((entry) => entry.key)).toEqual([`${profileKey} ${rest}`]);
+    const cells: readonly Cell[] = [
+      { ...cell!, fixtureSet: "recorded", state: "pressed", key: { ...cell!.key, sceneId: pressed } },
+      { ...cell!, fixtureSet: "recorded" },
+      { ...cell!, key: { ...cell!.key, sceneId: pressed } },
+    ];
+    expect(deriveClause(cells).map((entry) => name(entry.cell))).toEqual([]);
   });
 
   for (const bed of Object.keys(CONTRIBUTING_CELLS)) {

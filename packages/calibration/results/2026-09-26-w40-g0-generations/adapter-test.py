@@ -144,6 +144,7 @@ def main():
         grouped.extend(rows)
         print(f"{pair[0]}: {len(rows)} rows")
     assert legacy_envelope_digest(grouped) == EXPECTED
+    # Pins W40 G0's current union (1,893 rows, EXPECTED); fails by construction after a publication.
     current = load_current_rows()
     assert len(current) == 1893
     case_alias = pathlib.Path(__file__).resolve().parents[1] / "MATRIX.JSON"

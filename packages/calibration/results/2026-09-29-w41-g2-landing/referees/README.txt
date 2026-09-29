@@ -124,4 +124,7 @@ python-adapter-string-alias.patch the adapter reads a bare-string alias as a one
 Applied 2026-09-29 (b83fec16): publisher-list-alias.patch, with the adapter run placed before
 the list-shape assertion, and generation-stage.test.ts.patch. The other two stay unapplied.
 The string-alias adapter patch is not needed once the publisher writes lists. The
-adopted-thresholds pointers name cuts of the E3 read, which was not landed.
+adopted-thresholds pointers name cuts of the E3 read, which was not landed. That draft's
+chroma-reference half (M2's reference loaded by its active/receded pair) is still needed,
+and is tracked in tech-debt-tracker.md under "M2's chroma reference is loaded by its active
+hash alone".

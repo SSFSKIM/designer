@@ -41557,3 +41557,9 @@ assertion, and `python-adapter-string-alias.patch`. Neither is applied here.
 The recipe's full membership also puts recorded (pressed-state) rows into the current union,
 and the gated-bed filter does not drop them. Whether recorded rows belong in the gated bed
 has to be ruled before a full light publication.
+
+**Settled 2026-09-29 (`b83fec16`).** Ruled: recorded rows do not belong in the gated bed,
+because Decision Log 19 ruling 1 (§5.19) made the role to be read by no bound. The gated
+bed and C1's restated population drop the role. The publisher patch above is applied in the
+same commit. W20's conformance reading on the pressed cells is kept as its own tracker
+entry.
