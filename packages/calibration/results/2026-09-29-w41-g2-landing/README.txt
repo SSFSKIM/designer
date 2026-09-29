@@ -55,3 +55,23 @@ every scene byte-identical over two loads and no CSS fallback. comparison.json:
 rendered.json); moved 0, absent 0. The projection is a pure function of the PNG, so the
 frozen projections hold too. Verdict: NO PREDICTION MOVED; the closure is inherited.
 The PNGs stay outside git at /Users/new/vitrea-w41/g2-captures/identity/.
+
+Step 3 — the canonical read, and the STOP (canonical/, stop/)
+-------------------------------------------------------------
+See stop/README.txt and c9a §5.193 §3. The stage /Users/new/vitrea-w41/g2-stage-light
+declares 780 cells; the WebGPU rows of the two light standard profiles (288) were read.
+X6 refused the RT/IC WebGPU and every CSS launch on a foreign Playwright session
+(`terminal-review`, not this gate's) and nothing was launched for them. The canonical L1
+and M2 referees fail on structured light-inactive backdrops; the parent recommended not
+landing (option A) to the user, whose ruling is pending.
+
+Paused on the parent's instruction, partial output kept on their own branches:
+- Decision Log 4 CSS candidate: w41-g2-css-candidate 78c4b854 (worktree
+  /Users/new/vitrea-w41/g2-css). Derivation done: with L3's floor (alpha, p) kept, the
+  sharp layer's filter solves S = G x + K, G = g/(1-alpha), K = (k - alpha p)/(1-alpha),
+  as contrast then brightness for K >= 0 and brightness then contrast for K < 0; on
+  G1's 130 uniform light-inactive cells 128 reproduce E3 within 0.05 code (derived from
+  the declarations, not measured) and the two red bridge cells are capped at 244.3 codes
+  by the floor's reach. Unit tests, the browser measurement and the memo are not done.
+- R1 fixture-less e2e spec: w41-g2-r1 4d3a0366 (worktree /Users/new/vitrea-w41/g2-r1),
+  ten cases (one must-differ discriminator, nine must-be-identical), lint-clean, NOT run.
