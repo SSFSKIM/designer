@@ -1,0 +1,14 @@
+# python3.12 -m unittest -v test_archive  (2026-09-29T08:47:18Z); bed pins: {"scenes-w42-body.json":"02da410cccd789be549fa4fe90bcbd5b640ecff9a0078ec105e1020d3f412c9a","bed.json":"f4793aaeee78f4784330a578f1e8336d7d98b6de2ca57c13d3940ee50eb0fd4b","twin-audit.json":"16a90ca2647ac44002d76262d18c2026057ec72862a377a808fc77ba9e5bd582"}; zstd *** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***
+test_frames_are_the_captured_png_bytes (test_archive.Archive.test_frames_are_the_captured_png_bytes) ... ok
+test_inventory_names_the_pinned_declaration_and_roles (test_archive.Archive.test_inventory_names_the_pinned_declaration_and_roles) ... ok
+test_losing_state_is_kept (test_archive.Archive.test_losing_state_is_kept) ... ok
+test_reference_travels_inside_its_dependent_role (test_archive.Archive.test_reference_travels_inside_its_dependent_role) ... ok
+test_refusals (test_archive.Archive.test_refusals) ... ok
+test_sentinel_dependencies_come_from_the_bed_pass_run_one (test_archive.Archive.test_sentinel_dependencies_come_from_the_bed_pass_run_one) ... ok
+test_tampering_is_refused (test_archive.Archive.test_tampering_is_refused) ... ok
+test_tree_pack_fetch_replay (test_archive.Archive.test_tree_pack_fetch_replay) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 4.108s
+
+OK

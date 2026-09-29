@@ -1,0 +1,30 @@
+W42 sitting dry plan (sitting.py plan): executed nothing; every document and argv was written
+under a scratch directory. Per pass: display mode, runs, cells per run (glass + references).
+bed pins: scenes e2c532d98ed5, bed 9047c8da871f
+
+dump-2x-light-active         mode 68  1 dump launch  95 scenes  (timeout 992 s)
+dump-2x-light-receded        mode 68  1 dump launch  92 scenes  (timeout 964 s)
+dump-2x-dark-active          mode 68  1 dump launch  109 scenes  (timeout 1125 s)
+dump-2x-dark-receded         mode 68  1 dump launch  107 scenes  (timeout 1106 s)
+dump-1x-light-active         mode 69  1 dump launch  15 scenes  (timeout 232 s)
+dump-1x-light-receded        mode 69  1 dump launch  16 scenes  (timeout 242 s)
+dump-1x-dark-active          mode 69  1 dump launch  15 scenes  (timeout 232 s)
+dump-1x-dark-receded         mode 69  1 dump launch  16 scenes  (timeout 242 s)
+2x-light-active              mode 68  7 runs  cells/run 149 95 95 95 95 95 95  protocol normal
+2x-light-receded             mode 68  7 runs  cells/run 148 92 92 92 92 92 92  protocol normal
+2x-dark-active               mode 68  7 runs  cells/run 173 109 109 109 109 109 109  protocol normal
+2x-dark-receded              mode 68  7 runs  cells/run 175 107 107 107 107 107 107  protocol normal
+2x-light-active-sentinel     mode 68  3 runs  cells/run 2 2 2  protocol long
+2x-light-receded-sentinel    mode 68  3 runs  cells/run 2 2 2  protocol long
+2x-dark-active-sentinel      mode 68  3 runs  cells/run 2 2 2  protocol long
+2x-dark-receded-sentinel     mode 68  3 runs  cells/run 2 2 2  protocol long
+1x-light-active              mode 69  7 runs  cells/run 25 15 15 15 15 15 15  protocol normal
+1x-light-receded             mode 69  7 runs  cells/run 26 16 16 16 16 16 16  protocol normal
+1x-dark-active               mode 69  7 runs  cells/run 25 15 15 15 15 15 15  protocol normal
+1x-dark-receded              mode 69  7 runs  cells/run 26 16 16 16 16 16 16  protocol normal
+1x-light-active-sentinel     mode 69  3 runs  cells/run 2 2 2  protocol long
+1x-light-receded-sentinel    mode 69  3 runs  cells/run 2 2 2  protocol long
+1x-dark-active-sentinel      mode 69  3 runs  cells/run 2 2 2  protocol long
+1x-dark-receded-sentinel     mode 69  3 runs  cells/run 2 2 2  protocol long
+
+totals: {"dumpLaunches": 8, "dumpScenes": 465, "captureLaunches": 80, "glass": 3255, "references": 282, "sentinels": 48, "captures": 3585}

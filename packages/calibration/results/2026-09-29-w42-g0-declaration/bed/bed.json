@@ -1,0 +1,6965 @@
+{
+  "schema": "w42-bed-1",
+  "charter": "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md v2.1 (main 0736ed64)",
+  "scenesFile": "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json",
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "levels": {
+    "patchAndStep": [
+      48,
+      208
+    ],
+    "polarity": {
+      "hi": "208 patch on 48",
+      "lo": "48 patch on 208"
+    },
+    "step": {
+      "lohi": "48 left of the step, 208 right",
+      "hilo": "208 left, 48 right"
+    },
+    "isoluminant": {
+      "luma": "Rec.709 on codes",
+      "value": 128,
+      "pairs": {
+        "rg": [
+          [
+            202,
+            106,
+            128
+          ],
+          [
+            54,
+            150,
+            128
+          ]
+        ],
+        "by": [
+          [
+            121,
+            122,
+            208
+          ],
+          [
+            135,
+            134,
+            48
+          ]
+        ]
+      }
+    }
+  },
+  "singlePatchGeometry": {
+    "232": {
+      "patchCentre": [
+        116,
+        84
+      ]
+    },
+    "248": {
+      "patchCentre": [
+        124,
+        76
+      ]
+    },
+    "256": {
+      "patchCentre": [
+        128,
+        72
+      ]
+    },
+    "300": {
+      "patchCentre": [
+        150,
+        50
+      ]
+    },
+    "336": {
+      "patchCentre": [
+        168,
+        32
+      ]
+    }
+  },
+  "passes": {
+    "2x-light-active": {
+      "scale": 2,
+      "scheme": "light",
+      "pose": "active",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "state": "rest",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g096-rrect-lg",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-64",
+        "a-g160-rrect-lg",
+        "a-g160-rrect-md",
+        "a-g160-rrect-ml",
+        "a-g176-capsule-button",
+        "a-g176-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-64",
+        "a-g208-rrect-lg",
+        "a-g208-rrect-md",
+        "a-g208-rrect-ml",
+        "a-g224-capsule-button",
+        "a-g224-rrect-md",
+        "a-g240-capsule-button",
+        "a-g240-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-64",
+        "a-g255-rrect-lg",
+        "a-g255-rrect-md",
+        "a-g255-rrect-ml",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-lg",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c16-rrect-lg",
+        "b-p5-c16-rrect-md",
+        "b-p5-c64-rrect-lg",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c32-rrect-64",
+        "bp-p1-c32-rrect-80",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c32-rrect-ml",
+        "bp-p1-c64-capsule-button",
+        "bp-p1-c64-rrect-ml",
+        "bp-p1-c8-capsule-button",
+        "bp-p1-c8-rrect-lg",
+        "bp-p1-c8-rrect-ml",
+        "c-impulse-rrect-lg",
+        "c-impulse-rrect-ml",
+        "c-s16-hi-capsule-button",
+        "c-s16-lo-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "c-s8-hi-d24-rrect-md",
+        "c-s8-hi-d34-rrect-md",
+        "c-s8-hi-d4-rrect-lg",
+        "c-s8-hi-d4-rrect-md",
+        "c-s8-hi-d40-rrect-lg",
+        "c-s8-hi-d60-rrect-lg",
+        "c-s8-hi-d80-rrect-lg",
+        "c-s8-hi-rrect-md",
+        "c-s8-lo-rrect-md",
+        "d-d0-hilo-rrect-lg",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-capsule-button",
+        "d-d0-lohi-rrect-lg",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md",
+        "d-out16-hilo-rrect-md",
+        "d-out16-lohi-rrect-md",
+        "d-out8-hilo-rrect-md",
+        "d-out8-lohi-rrect-md",
+        "e-by-c16-rrect-lg",
+        "e-by-c16-rrect-md",
+        "e-by-c64-rrect-md",
+        "e-rg-c16-rrect-lg",
+        "e-rg-c16-rrect-md",
+        "e-rg-c64-rrect-md",
+        "f-checker16-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "f-photo-rrect-md",
+        "h-d20-lohi-rrect-md",
+        "h-g184-rrect-md",
+        "h-g232-rrect-md",
+        "h-lc-c64-capsule-button",
+        "h-p1-c24-rrect-112",
+        "h-p3-c64-rrect-lg",
+        "h-p6-c32-rrect-md",
+        "h-s24-hi-rrect-md"
+      ],
+      "references": [
+        "checker-16-000-255",
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-16-144-240",
+        "checker-16-by",
+        "checker-16-rg",
+        "checker-24-000-255",
+        "checker-32-000-255",
+        "checker-32-032-176",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-128-229",
+        "checker-64-144-240",
+        "checker-64-by",
+        "checker-64-rg",
+        "checker-8-000-255",
+        "grey-000",
+        "grey-064",
+        "grey-096",
+        "grey-128",
+        "grey-160",
+        "grey-176",
+        "grey-184",
+        "grey-192",
+        "grey-208",
+        "grey-224",
+        "grey-232",
+        "grey-240",
+        "grey-255",
+        "impulse-048-on-208-s16-g232",
+        "impulse-048-on-208-s32-g232",
+        "impulse-048-on-208-s8-g232",
+        "impulse-208-on-048-s16-g232",
+        "impulse-208-on-048-s24-g232",
+        "impulse-208-on-048-s32-g232",
+        "impulse-208-on-048-s8-g232",
+        "impulse-208-on-048-s8-g256",
+        "impulse-208-on-048-s8-g300",
+        "impulse-208-on-048-s8-g336",
+        "impulse-208-on-048-s8-g64",
+        "impulse-255-on-000-s4-g64",
+        "photo",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x180-048-208",
+        "split-x192-048-208",
+        "split-x192-208-048",
+        "split-x248-048-208",
+        "split-x248-208-048",
+        "split-x256-048-208",
+        "split-x256-208-048"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    },
+    "2x-light-receded": {
+      "scale": 2,
+      "scheme": "light",
+      "pose": "receded",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "state": "inactive",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g096-rrect-lg",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-64",
+        "a-g160-rrect-lg",
+        "a-g160-rrect-md",
+        "a-g160-rrect-ml",
+        "a-g176-capsule-button",
+        "a-g176-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-64",
+        "a-g208-rrect-lg",
+        "a-g208-rrect-md",
+        "a-g208-rrect-ml",
+        "a-g224-capsule-button",
+        "a-g224-rrect-md",
+        "a-g240-capsule-button",
+        "a-g240-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-64",
+        "a-g255-rrect-lg",
+        "a-g255-rrect-md",
+        "a-g255-rrect-ml",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c16-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c16-rrect-sm",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c32-rrect-64",
+        "bp-p1-c32-rrect-80",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c32-rrect-ml",
+        "bp-p1-c64-capsule-button",
+        "bp-p1-c64-rrect-ml",
+        "bp-p1-c8-rrect-sm",
+        "c-impulse-rrect-lg",
+        "c-impulse-rrect-ml",
+        "c-s16-hi-capsule-button",
+        "c-s16-lo-capsule-button",
+        "c-s16-lo-corner-rrect-md",
+        "c-s16-lo-end-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "c-s8-hi-d24-rrect-md",
+        "c-s8-hi-d4-rrect-lg",
+        "c-s8-hi-d4-rrect-md",
+        "c-s8-hi-d40-rrect-lg",
+        "c-s8-hi-d80-rrect-lg",
+        "c-s8-hi-rrect-md",
+        "c-s8-hi-rrect-sm",
+        "c-s8-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-capsule-button",
+        "d-d0-lohi-rrect-md",
+        "d-d0-lohi-rrect-sm",
+        "d-d12-hilo-rrect-md",
+        "d-d12-lohi-capsule-button",
+        "d-d12-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md",
+        "d-out16-hilo-rrect-md",
+        "d-out16-lohi-rrect-md",
+        "d-out8-hilo-rrect-md",
+        "d-out8-lohi-rrect-md",
+        "e-by-c16-rrect-md",
+        "e-by-c64-rrect-md",
+        "e-rg-c16-rrect-md",
+        "e-rg-c64-rrect-md",
+        "f-checker16-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "f-photo-rrect-md",
+        "h-d20-lohi-rrect-md",
+        "h-g184-rrect-md",
+        "h-g232-rrect-md",
+        "h-lc-c64-capsule-button",
+        "h-p1-c24-rrect-112",
+        "h-p3-c64-rrect-lg",
+        "h-p6-c32-rrect-md",
+        "h-s24-hi-rrect-md"
+      ],
+      "references": [
+        "checker-16-000-255",
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-16-144-240",
+        "checker-16-by",
+        "checker-16-rg",
+        "checker-24-000-255",
+        "checker-32-000-255",
+        "checker-32-032-176",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-128-229",
+        "checker-64-144-240",
+        "checker-64-by",
+        "checker-64-rg",
+        "checker-8-000-255",
+        "grey-000",
+        "grey-064",
+        "grey-096",
+        "grey-128",
+        "grey-160",
+        "grey-176",
+        "grey-184",
+        "grey-192",
+        "grey-208",
+        "grey-224",
+        "grey-232",
+        "grey-240",
+        "grey-255",
+        "impulse-048-on-208-s16-g232",
+        "impulse-048-on-208-s32-g232",
+        "impulse-048-on-208-s8-g232",
+        "impulse-208-on-048-s16-g232",
+        "impulse-208-on-048-s24-g232",
+        "impulse-208-on-048-s32-g232",
+        "impulse-208-on-048-s8-g232",
+        "impulse-208-on-048-s8-g256",
+        "impulse-208-on-048-s8-g300",
+        "impulse-208-on-048-s8-g336",
+        "impulse-208-on-048-s8-g64",
+        "impulse-255-on-000-s4-g64",
+        "photo",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x172-048-208",
+        "split-x172-208-048",
+        "split-x180-048-208",
+        "split-x192-048-208",
+        "split-x192-208-048",
+        "split-x248-048-208",
+        "split-x248-208-048",
+        "split-x256-048-208",
+        "split-x256-208-048"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    },
+    "2x-dark-active": {
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "active",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "state": "rest",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g096-rrect-lg",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-64",
+        "a-g160-rrect-80",
+        "a-g160-rrect-lg",
+        "a-g160-rrect-md",
+        "a-g160-rrect-ml",
+        "a-g176-capsule-button",
+        "a-g176-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-64",
+        "a-g208-rrect-80",
+        "a-g208-rrect-lg",
+        "a-g208-rrect-md",
+        "a-g208-rrect-ml",
+        "a-g224-capsule-button",
+        "a-g224-rrect-md",
+        "a-g240-capsule-button",
+        "a-g240-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-64",
+        "a-g255-rrect-80",
+        "a-g255-rrect-lg",
+        "a-g255-rrect-md",
+        "a-g255-rrect-ml",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-lg",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c16-rrect-lg",
+        "b-p5-c16-rrect-md",
+        "b-p5-c64-rrect-lg",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c32-rrect-64",
+        "bp-p1-c32-rrect-80",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c32-rrect-ml",
+        "bp-p1-c64-capsule-button",
+        "bp-p1-c64-rrect-ml",
+        "bp-p1-c8-capsule-button",
+        "bp-p1-c8-rrect-lg",
+        "bp-p1-c8-rrect-ml",
+        "c-impulse-rrect-lg",
+        "c-impulse-rrect-ml",
+        "c-s16-hi-capsule-button",
+        "c-s16-lo-capsule-button",
+        "c-s32-hi-p4-rrect-md",
+        "c-s32-hi-p4-rrect-ml",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-p4-rrect-md",
+        "c-s32-lo-p4-rrect-ml",
+        "c-s32-lo-rrect-md",
+        "c-s8-hi-p4-rrect-md",
+        "c-s8-hi-p4-rrect-ml",
+        "c-s8-hi-rrect-md",
+        "c-s8-lo-d24-rrect-md",
+        "c-s8-lo-d34-rrect-md",
+        "c-s8-lo-d4-rrect-lg",
+        "c-s8-lo-d4-rrect-md",
+        "c-s8-lo-d40-rrect-lg",
+        "c-s8-lo-d60-rrect-lg",
+        "c-s8-lo-d80-rrect-lg",
+        "c-s8-lo-p4-d34-rrect-md",
+        "c-s8-lo-p4-rrect-md",
+        "c-s8-lo-p4-rrect-ml",
+        "c-s8-lo-rrect-md",
+        "d-d0-hilo-p4-rrect-md",
+        "d-d0-hilo-rrect-lg",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-capsule-button",
+        "d-d0-lohi-p4-rrect-md",
+        "d-d0-lohi-rrect-lg",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md",
+        "d-out16-hilo-rrect-md",
+        "d-out16-lohi-rrect-md",
+        "d-out8-hilo-rrect-md",
+        "d-out8-lohi-rrect-md",
+        "e-by-c16-rrect-lg",
+        "e-by-c16-rrect-md",
+        "e-by-c64-rrect-md",
+        "e-rg-c16-rrect-lg",
+        "e-rg-c16-rrect-md",
+        "e-rg-c64-rrect-md",
+        "f-checker16-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "f-photo-rrect-md",
+        "h-d20-lohi-rrect-md",
+        "h-g184-rrect-md",
+        "h-g232-rrect-md",
+        "h-lc-c64-capsule-button",
+        "h-p1-c24-rrect-112",
+        "h-p3-c64-rrect-lg",
+        "h-p6-c32-rrect-md",
+        "h-s24-hi-rrect-md"
+      ],
+      "references": [
+        "checker-16-000-255",
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-16-144-240",
+        "checker-16-by",
+        "checker-16-rg",
+        "checker-24-000-255",
+        "checker-32-000-255",
+        "checker-32-032-176",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-128-229",
+        "checker-64-144-240",
+        "checker-64-by",
+        "checker-64-rg",
+        "checker-8-000-255",
+        "grey-000",
+        "grey-064",
+        "grey-096",
+        "grey-128",
+        "grey-160",
+        "grey-176",
+        "grey-184",
+        "grey-192",
+        "grey-208",
+        "grey-224",
+        "grey-232",
+        "grey-240",
+        "grey-255",
+        "impulse-016-on-112-s32-g232",
+        "impulse-016-on-112-s32-g248",
+        "impulse-016-on-112-s8-g232",
+        "impulse-016-on-112-s8-g248",
+        "impulse-048-on-208-s16-g232",
+        "impulse-048-on-208-s32-g232",
+        "impulse-048-on-208-s8-g232",
+        "impulse-048-on-208-s8-g256",
+        "impulse-048-on-208-s8-g300",
+        "impulse-048-on-208-s8-g336",
+        "impulse-048-on-208-s8-g64",
+        "impulse-112-on-016-s32-g232",
+        "impulse-112-on-016-s32-g248",
+        "impulse-112-on-016-s8-g232",
+        "impulse-112-on-016-s8-g248",
+        "impulse-208-on-048-s16-g232",
+        "impulse-208-on-048-s24-g232",
+        "impulse-208-on-048-s32-g232",
+        "impulse-208-on-048-s8-g232",
+        "impulse-255-on-000-s4-g64",
+        "photo",
+        "split-x160-016-112",
+        "split-x160-048-208",
+        "split-x160-112-016",
+        "split-x160-208-048",
+        "split-x180-048-208",
+        "split-x192-048-208",
+        "split-x192-208-048",
+        "split-x248-048-208",
+        "split-x248-208-048",
+        "split-x256-048-208",
+        "split-x256-208-048"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    },
+    "2x-dark-receded": {
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "receded",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "state": "inactive",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g096-rrect-lg",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-64",
+        "a-g160-rrect-80",
+        "a-g160-rrect-lg",
+        "a-g160-rrect-md",
+        "a-g160-rrect-ml",
+        "a-g176-capsule-button",
+        "a-g176-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-64",
+        "a-g208-rrect-80",
+        "a-g208-rrect-lg",
+        "a-g208-rrect-md",
+        "a-g208-rrect-ml",
+        "a-g224-capsule-button",
+        "a-g224-rrect-md",
+        "a-g240-capsule-button",
+        "a-g240-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-64",
+        "a-g255-rrect-80",
+        "a-g255-rrect-lg",
+        "a-g255-rrect-md",
+        "a-g255-rrect-ml",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c16-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c16-rrect-sm",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c32-rrect-64",
+        "bp-p1-c32-rrect-80",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c32-rrect-ml",
+        "bp-p1-c64-capsule-button",
+        "bp-p1-c64-rrect-ml",
+        "bp-p1-c8-rrect-sm",
+        "c-impulse-rrect-lg",
+        "c-impulse-rrect-ml",
+        "c-s16-hi-capsule-button",
+        "c-s16-hi-corner-rrect-md",
+        "c-s16-hi-end-capsule-button",
+        "c-s16-lo-capsule-button",
+        "c-s32-hi-p4-rrect-md",
+        "c-s32-hi-p4-rrect-ml",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-p4-rrect-md",
+        "c-s32-lo-p4-rrect-ml",
+        "c-s32-lo-rrect-md",
+        "c-s8-hi-p4-rrect-md",
+        "c-s8-hi-p4-rrect-ml",
+        "c-s8-hi-rrect-md",
+        "c-s8-lo-d24-rrect-md",
+        "c-s8-lo-d4-rrect-lg",
+        "c-s8-lo-d4-rrect-md",
+        "c-s8-lo-d40-rrect-lg",
+        "c-s8-lo-d80-rrect-lg",
+        "c-s8-lo-p4-rrect-md",
+        "c-s8-lo-p4-rrect-ml",
+        "c-s8-lo-rrect-md",
+        "c-s8-lo-rrect-sm",
+        "d-d0-hilo-p4-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-capsule-button",
+        "d-d0-lohi-p4-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d0-lohi-rrect-sm",
+        "d-d12-hilo-p4-rrect-md",
+        "d-d12-hilo-rrect-md",
+        "d-d12-lohi-capsule-button",
+        "d-d12-lohi-p4-rrect-md",
+        "d-d12-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md",
+        "d-out16-hilo-rrect-md",
+        "d-out16-lohi-rrect-md",
+        "d-out8-hilo-rrect-md",
+        "d-out8-lohi-rrect-md",
+        "e-by-c16-rrect-md",
+        "e-by-c64-rrect-md",
+        "e-rg-c16-rrect-md",
+        "e-rg-c64-rrect-md",
+        "f-checker16-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "f-photo-rrect-md",
+        "h-d20-lohi-rrect-md",
+        "h-g184-rrect-md",
+        "h-g232-rrect-md",
+        "h-lc-c64-capsule-button",
+        "h-p1-c24-rrect-112",
+        "h-p3-c64-rrect-lg",
+        "h-p6-c32-rrect-md",
+        "h-s24-hi-rrect-md"
+      ],
+      "references": [
+        "checker-16-000-255",
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-16-144-240",
+        "checker-16-by",
+        "checker-16-rg",
+        "checker-24-000-255",
+        "checker-32-000-255",
+        "checker-32-032-176",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-128-229",
+        "checker-64-144-240",
+        "checker-64-by",
+        "checker-64-rg",
+        "checker-8-000-255",
+        "grey-000",
+        "grey-064",
+        "grey-096",
+        "grey-128",
+        "grey-160",
+        "grey-176",
+        "grey-184",
+        "grey-192",
+        "grey-208",
+        "grey-224",
+        "grey-232",
+        "grey-240",
+        "grey-255",
+        "impulse-016-on-112-s32-g232",
+        "impulse-016-on-112-s32-g248",
+        "impulse-016-on-112-s8-g232",
+        "impulse-016-on-112-s8-g248",
+        "impulse-048-on-208-s16-g232",
+        "impulse-048-on-208-s32-g232",
+        "impulse-048-on-208-s8-g232",
+        "impulse-048-on-208-s8-g256",
+        "impulse-048-on-208-s8-g300",
+        "impulse-048-on-208-s8-g336",
+        "impulse-048-on-208-s8-g64",
+        "impulse-112-on-016-s32-g232",
+        "impulse-112-on-016-s32-g248",
+        "impulse-112-on-016-s8-g232",
+        "impulse-112-on-016-s8-g248",
+        "impulse-208-on-048-s16-g232",
+        "impulse-208-on-048-s24-g232",
+        "impulse-208-on-048-s32-g232",
+        "impulse-208-on-048-s8-g232",
+        "impulse-255-on-000-s4-g64",
+        "photo",
+        "split-x160-016-112",
+        "split-x160-048-208",
+        "split-x160-112-016",
+        "split-x160-208-048",
+        "split-x172-016-112",
+        "split-x172-048-208",
+        "split-x172-112-016",
+        "split-x172-208-048",
+        "split-x180-048-208",
+        "split-x192-048-208",
+        "split-x192-208-048",
+        "split-x248-048-208",
+        "split-x248-208-048",
+        "split-x256-048-208",
+        "split-x256-208-048"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    },
+    "1x-light-active": {
+      "scale": 1,
+      "scheme": "light",
+      "pose": "active",
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "state": "rest",
+      "cells": [
+        "a-g128-rrect-md-1x",
+        "a-g255-rrect-md-1x",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c4-capsule-button",
+        "bp-p1-c4-capsule-button-odd",
+        "bp-p1-c4-rrect-lg",
+        "bp-p1-c4-rrect-md",
+        "bp-p1-c8-capsule-button",
+        "bp-p1-c8-rrect-lg",
+        "c-impulse-rrect-lg",
+        "d-out8-lohi-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "h-g232-rrect-md",
+        "h-p3-c64-rrect-lg"
+      ],
+      "references": [
+        "checker-32-000-255",
+        "checker-4-000-255",
+        "checker-64-000-255",
+        "checker-64-096-160",
+        "checker-8-000-255",
+        "grey-128",
+        "grey-232",
+        "grey-255",
+        "impulse-255-on-000-s4-g64",
+        "split-x248-048-208"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    },
+    "1x-light-receded": {
+      "scale": 1,
+      "scheme": "light",
+      "pose": "receded",
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "state": "inactive",
+      "cells": [
+        "a-g128-rrect-md-1x",
+        "a-g255-rrect-md-1x",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c4-capsule-button",
+        "bp-p1-c4-capsule-button-odd",
+        "bp-p1-c4-rrect-lg",
+        "bp-p1-c4-rrect-md",
+        "bp-p1-c8-capsule-button",
+        "bp-p1-c8-rrect-lg",
+        "bp-p1-c8-rrect-sm",
+        "c-impulse-rrect-lg",
+        "d-out8-lohi-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "h-g232-rrect-md",
+        "h-p3-c64-rrect-lg"
+      ],
+      "references": [
+        "checker-32-000-255",
+        "checker-4-000-255",
+        "checker-64-000-255",
+        "checker-64-096-160",
+        "checker-8-000-255",
+        "grey-128",
+        "grey-232",
+        "grey-255",
+        "impulse-255-on-000-s4-g64",
+        "split-x248-048-208"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    },
+    "1x-dark-active": {
+      "scale": 1,
+      "scheme": "dark",
+      "pose": "active",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "state": "rest",
+      "cells": [
+        "a-g128-rrect-md-1x",
+        "a-g255-rrect-md-1x",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c4-capsule-button",
+        "bp-p1-c4-capsule-button-odd",
+        "bp-p1-c4-rrect-lg",
+        "bp-p1-c4-rrect-md",
+        "bp-p1-c8-capsule-button",
+        "bp-p1-c8-rrect-lg",
+        "c-impulse-rrect-lg",
+        "d-out8-lohi-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "h-g232-rrect-md",
+        "h-p3-c64-rrect-lg"
+      ],
+      "references": [
+        "checker-32-000-255",
+        "checker-4-000-255",
+        "checker-64-000-255",
+        "checker-64-096-160",
+        "checker-8-000-255",
+        "grey-128",
+        "grey-232",
+        "grey-255",
+        "impulse-255-on-000-s4-g64",
+        "split-x248-048-208"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    },
+    "1x-dark-receded": {
+      "scale": 1,
+      "scheme": "dark",
+      "pose": "receded",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "state": "inactive",
+      "cells": [
+        "a-g128-rrect-md-1x",
+        "a-g255-rrect-md-1x",
+        "bp-p1-c32-rrect-lg",
+        "bp-p1-c4-capsule-button",
+        "bp-p1-c4-capsule-button-odd",
+        "bp-p1-c4-rrect-lg",
+        "bp-p1-c4-rrect-md",
+        "bp-p1-c8-capsule-button",
+        "bp-p1-c8-rrect-lg",
+        "bp-p1-c8-rrect-sm",
+        "c-impulse-rrect-lg",
+        "d-out8-lohi-rrect-md",
+        "f-checker64-rrect-lg",
+        "f-impulse-rrect-md",
+        "h-g232-rrect-md",
+        "h-p3-c64-rrect-lg"
+      ],
+      "references": [
+        "checker-32-000-255",
+        "checker-4-000-255",
+        "checker-64-000-255",
+        "checker-64-096-160",
+        "checker-8-000-255",
+        "grey-128",
+        "grey-232",
+        "grey-255",
+        "impulse-255-on-000-s4-g64",
+        "split-x248-048-208"
+      ],
+      "sentinels": [
+        "f-impulse-rrect-md",
+        "f-checker64-rrect-lg"
+      ]
+    }
+  },
+  "counts": {
+    "2x-light-active": {
+      "glass": 95,
+      "references": 54,
+      "byFamily": {
+        "A": 30,
+        "B": 11,
+        "B'": 10,
+        "C": 15,
+        "D": 11,
+        "E": 6,
+        "F": 4,
+        "H": 8
+      },
+      "byRole": {
+        "calibration": 71,
+        "validation": 12,
+        "holdout": 8,
+        "probe": 4
+      }
+    },
+    "2x-light-receded": {
+      "glass": 92,
+      "references": 56,
+      "byFamily": {
+        "A": 30,
+        "B": 8,
+        "B'": 9,
+        "C": 16,
+        "D": 13,
+        "E": 4,
+        "F": 4,
+        "H": 8
+      },
+      "byRole": {
+        "calibration": 68,
+        "validation": 12,
+        "holdout": 8,
+        "probe": 4
+      }
+    },
+    "2x-dark-active": {
+      "glass": 109,
+      "references": 64,
+      "byFamily": {
+        "A": 33,
+        "B": 11,
+        "B'": 10,
+        "C": 24,
+        "D": 13,
+        "E": 6,
+        "F": 4,
+        "H": 8
+      },
+      "byRole": {
+        "calibration": 83,
+        "validation": 14,
+        "holdout": 8,
+        "probe": 4
+      }
+    },
+    "2x-dark-receded": {
+      "glass": 107,
+      "references": 68,
+      "byFamily": {
+        "A": 33,
+        "B": 8,
+        "B'": 9,
+        "C": 24,
+        "D": 17,
+        "E": 4,
+        "F": 4,
+        "H": 8
+      },
+      "byRole": {
+        "calibration": 81,
+        "validation": 14,
+        "holdout": 8,
+        "probe": 4
+      }
+    },
+    "1x-light-active": {
+      "glass": 15,
+      "references": 10,
+      "byFamily": {
+        "A": 2,
+        "B": 0,
+        "B'": 7,
+        "C": 1,
+        "D": 1,
+        "E": 0,
+        "F": 2,
+        "H": 2
+      },
+      "byRole": {
+        "calibration": 9,
+        "validation": 2,
+        "holdout": 2,
+        "probe": 2
+      }
+    },
+    "1x-light-receded": {
+      "glass": 16,
+      "references": 10,
+      "byFamily": {
+        "A": 2,
+        "B": 0,
+        "B'": 8,
+        "C": 1,
+        "D": 1,
+        "E": 0,
+        "F": 2,
+        "H": 2
+      },
+      "byRole": {
+        "calibration": 10,
+        "validation": 2,
+        "holdout": 2,
+        "probe": 2
+      }
+    },
+    "1x-dark-active": {
+      "glass": 15,
+      "references": 10,
+      "byFamily": {
+        "A": 2,
+        "B": 0,
+        "B'": 7,
+        "C": 1,
+        "D": 1,
+        "E": 0,
+        "F": 2,
+        "H": 2
+      },
+      "byRole": {
+        "calibration": 9,
+        "validation": 2,
+        "holdout": 2,
+        "probe": 2
+      }
+    },
+    "1x-dark-receded": {
+      "glass": 16,
+      "references": 10,
+      "byFamily": {
+        "A": 2,
+        "B": 0,
+        "B'": 8,
+        "C": 1,
+        "D": 1,
+        "E": 0,
+        "F": 2,
+        "H": 2
+      },
+      "byRole": {
+        "calibration": 10,
+        "validation": 2,
+        "holdout": 2,
+        "probe": 2
+      }
+    }
+  },
+  "sentinels": [
+    "f-impulse-rrect-md",
+    "f-checker64-rrect-lg"
+  ],
+  "runs": {
+    "normal": 7,
+    "sentinel": 3,
+    "referencesIn": "run 1 of each pass"
+  },
+  "cells": {
+    "a-g000-capsule-button": {
+      "id": "a-g000-capsule-button",
+      "family": "A",
+      "background": "grey-000",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g000-rrect-md": {
+      "id": "a-g000-rrect-md",
+      "family": "A",
+      "background": "grey-000",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g064-capsule-button": {
+      "id": "a-g064-capsule-button",
+      "family": "A",
+      "background": "grey-064",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g064-rrect-md": {
+      "id": "a-g064-rrect-md",
+      "family": "A",
+      "background": "grey-064",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g096-rrect-lg": {
+      "id": "a-g096-rrect-lg",
+      "family": "A",
+      "background": "grey-096",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g128-capsule-button": {
+      "id": "a-g128-capsule-button",
+      "family": "A",
+      "background": "grey-128",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g128-rrect-md": {
+      "id": "a-g128-rrect-md",
+      "family": "A",
+      "background": "grey-128",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g128-rrect-md-1x": {
+      "id": "a-g128-rrect-md-1x",
+      "family": "A",
+      "background": "grey-128",
+      "component": "rrect-md",
+      "role": "validation",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "1x small body referee: validation of T measured at 2x",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g160-capsule-button": {
+      "id": "a-g160-capsule-button",
+      "family": "A",
+      "background": "grey-160",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g160-rrect-64": {
+      "id": "a-g160-rrect-64",
+      "family": "A",
+      "background": "grey-160",
+      "component": "rrect-64",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-64",
+        "shortSide": 64,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "validation: t = 0 stratum transfer (capsule -> rrect-64)",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g160-rrect-80": {
+      "id": "a-g160-rrect-80",
+      "family": "A",
+      "background": "grey-160",
+      "component": "rrect-80",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-80",
+        "shortSide": 80,
+        "t": 0.166667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "dark only: memo D's MaxLuma transition (the parent's call on v2)",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g160-rrect-lg": {
+      "id": "a-g160-rrect-lg",
+      "family": "A",
+      "background": "grey-160",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g160-rrect-md": {
+      "id": "a-g160-rrect-md",
+      "family": "A",
+      "background": "grey-160",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g160-rrect-ml": {
+      "id": "a-g160-rrect-ml",
+      "family": "A",
+      "background": "grey-160",
+      "component": "rrect-ml",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g176-capsule-button": {
+      "id": "a-g176-capsule-button",
+      "family": "A",
+      "background": "grey-176",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g176-rrect-md": {
+      "id": "a-g176-rrect-md",
+      "family": "A",
+      "background": "grey-176",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g192-capsule-button": {
+      "id": "a-g192-capsule-button",
+      "family": "A",
+      "background": "grey-192",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g192-rrect-md": {
+      "id": "a-g192-rrect-md",
+      "family": "A",
+      "background": "grey-192",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g208-capsule-button": {
+      "id": "a-g208-capsule-button",
+      "family": "A",
+      "background": "grey-208",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g208-rrect-64": {
+      "id": "a-g208-rrect-64",
+      "family": "A",
+      "background": "grey-208",
+      "component": "rrect-64",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-64",
+        "shortSide": 64,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "validation: t = 0 stratum transfer (capsule -> rrect-64)",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g208-rrect-80": {
+      "id": "a-g208-rrect-80",
+      "family": "A",
+      "background": "grey-208",
+      "component": "rrect-80",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-80",
+        "shortSide": 80,
+        "t": 0.166667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "dark only: memo D's MaxLuma transition (the parent's call on v2)",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g208-rrect-lg": {
+      "id": "a-g208-rrect-lg",
+      "family": "A",
+      "background": "grey-208",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g208-rrect-md": {
+      "id": "a-g208-rrect-md",
+      "family": "A",
+      "background": "grey-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g208-rrect-ml": {
+      "id": "a-g208-rrect-ml",
+      "family": "A",
+      "background": "grey-208",
+      "component": "rrect-ml",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g224-capsule-button": {
+      "id": "a-g224-capsule-button",
+      "family": "A",
+      "background": "grey-224",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g224-rrect-md": {
+      "id": "a-g224-rrect-md",
+      "family": "A",
+      "background": "grey-224",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g240-capsule-button": {
+      "id": "a-g240-capsule-button",
+      "family": "A",
+      "background": "grey-240",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g240-rrect-md": {
+      "id": "a-g240-rrect-md",
+      "family": "A",
+      "background": "grey-240",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g255-capsule-button": {
+      "id": "a-g255-capsule-button",
+      "family": "A",
+      "background": "grey-255",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g255-rrect-64": {
+      "id": "a-g255-rrect-64",
+      "family": "A",
+      "background": "grey-255",
+      "component": "rrect-64",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-64",
+        "shortSide": 64,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "validation: t = 0 stratum transfer (capsule -> rrect-64)",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g255-rrect-80": {
+      "id": "a-g255-rrect-80",
+      "family": "A",
+      "background": "grey-255",
+      "component": "rrect-80",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-80",
+        "shortSide": 80,
+        "t": 0.166667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "dark only: memo D's MaxLuma transition (the parent's call on v2)",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g255-rrect-lg": {
+      "id": "a-g255-rrect-lg",
+      "family": "A",
+      "background": "grey-255",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g255-rrect-md": {
+      "id": "a-g255-rrect-md",
+      "family": "A",
+      "background": "grey-255",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5",
+        "R1"
+      ]
+    },
+    "a-g255-rrect-md-1x": {
+      "id": "a-g255-rrect-md-1x",
+      "family": "A",
+      "background": "grey-255",
+      "component": "rrect-md",
+      "role": "validation",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "note": "1x small body referee: validation of T measured at 2x",
+      "uItems": [
+        "U5"
+      ]
+    },
+    "a-g255-rrect-ml": {
+      "id": "a-g255-rrect-ml",
+      "family": "A",
+      "background": "grey-255",
+      "component": "rrect-ml",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "U5"
+      ]
+    },
+    "b-p2-c16-rrect-md": {
+      "id": "b-p2-c16-rrect-md",
+      "family": "B",
+      "background": "checker-16-048-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          48,
+          208
+        ]
+      },
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "b-p2-c64-rrect-md": {
+      "id": "b-p2-c64-rrect-md",
+      "family": "B",
+      "background": "checker-64-048-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          48,
+          208
+        ]
+      },
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "b-p3-c16-rrect-lg": {
+      "id": "b-p3-c16-rrect-lg",
+      "family": "B",
+      "background": "checker-16-096-160",
+      "component": "rrect-lg",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          96,
+          160
+        ]
+      },
+      "note": "validation: level-pair transfer (P3) at s = 160; an active guard row under the wide-kernel mask (the parent's ruling)",
+      "uItems": [
+        "R1",
+        "active guard (ruling 3)"
+      ]
+    },
+    "b-p3-c16-rrect-md": {
+      "id": "b-p3-c16-rrect-md",
+      "family": "B",
+      "background": "checker-16-096-160",
+      "component": "rrect-md",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          96,
+          160
+        ]
+      },
+      "note": "validation: level-pair transfer (P3, contrast 64 at mean 128)",
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "b-p3-c64-rrect-md": {
+      "id": "b-p3-c64-rrect-md",
+      "family": "B",
+      "background": "checker-64-096-160",
+      "component": "rrect-md",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          96,
+          160
+        ]
+      },
+      "note": "validation: level-pair transfer (P3, contrast 64 at mean 128)",
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "b-p4-c16-rrect-md": {
+      "id": "b-p4-c16-rrect-md",
+      "family": "B",
+      "background": "checker-16-016-112",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          16,
+          112
+        ]
+      },
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "b-p4-c64-rrect-md": {
+      "id": "b-p4-c64-rrect-md",
+      "family": "B",
+      "background": "checker-64-016-112",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          16,
+          112
+        ]
+      },
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "b-p5-c16-rrect-lg": {
+      "id": "b-p5-c16-rrect-lg",
+      "family": "B",
+      "background": "checker-16-144-240",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          144,
+          240
+        ]
+      },
+      "note": "an active guard row under the wide-kernel mask (the parent's ruling)",
+      "uItems": [
+        "R1",
+        "active guard (ruling 3)"
+      ]
+    },
+    "b-p5-c16-rrect-md": {
+      "id": "b-p5-c16-rrect-md",
+      "family": "B",
+      "background": "checker-16-144-240",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          144,
+          240
+        ]
+      },
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "b-p5-c64-rrect-lg": {
+      "id": "b-p5-c64-rrect-lg",
+      "family": "B",
+      "background": "checker-64-144-240",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          144,
+          240
+        ]
+      },
+      "note": "an active guard row under the wide-kernel mask (the parent's ruling)",
+      "uItems": [
+        "R1",
+        "active guard (ruling 3)"
+      ]
+    },
+    "b-p5-c64-rrect-md": {
+      "id": "b-p5-c64-rrect-md",
+      "family": "B",
+      "background": "checker-64-144-240",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          144,
+          240
+        ]
+      },
+      "uItems": [
+        "U1",
+        "R1"
+      ]
+    },
+    "bp-p1-c16-rrect-sm": {
+      "id": "bp-p1-c16-rrect-sm",
+      "family": "B'",
+      "background": "checker-16-000-255",
+      "component": "rrect-sm",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "s = 32 receded row (the parent's ruling); twins canonical calibration checkerboard__rrect-sm",
+      "uItems": [
+        "U1",
+        "U2",
+        "M2 at s = 32"
+      ]
+    },
+    "bp-p1-c32-capsule-button": {
+      "id": "bp-p1-c32-capsule-button",
+      "family": "B'",
+      "background": "checker-32-000-255",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 32,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2"
+      ]
+    },
+    "bp-p1-c32-rrect-64": {
+      "id": "bp-p1-c32-rrect-64",
+      "family": "B'",
+      "background": "checker-32-000-255",
+      "component": "rrect-64",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-64",
+        "shortSide": 64,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 32,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2",
+        "span knot at 64"
+      ]
+    },
+    "bp-p1-c32-rrect-80": {
+      "id": "bp-p1-c32-rrect-80",
+      "family": "B'",
+      "background": "checker-32-000-255",
+      "component": "rrect-80",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-80",
+        "shortSide": 80,
+        "t": 0.166667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 32,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "validation: span transfer at t = 1/6, between the knot (64) and rrect-md (96)",
+      "uItems": [
+        "U2"
+      ]
+    },
+    "bp-p1-c32-rrect-lg": {
+      "id": "bp-p1-c32-rrect-lg",
+      "family": "B'",
+      "background": "checker-32-000-255",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 32,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "also at 1x, in place of the charter's P1 pitch 16 on rrect-lg, which is a twin of the canonical HOLDOUT checkerboard__rrect-lg (bed.json charterDeviations)",
+      "uItems": [
+        "U2",
+        "U7",
+        "rrect-lg narrow"
+      ]
+    },
+    "bp-p1-c32-rrect-ml": {
+      "id": "bp-p1-c32-rrect-ml",
+      "family": "B'",
+      "background": "checker-32-000-255",
+      "component": "rrect-ml",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 32,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2"
+      ]
+    },
+    "bp-p1-c4-capsule-button": {
+      "id": "bp-p1-c4-capsule-button",
+      "family": "B'",
+      "background": "checker-4-000-255",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 4,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "1x sampling"
+      ]
+    },
+    "bp-p1-c4-capsule-button-odd": {
+      "id": "bp-p1-c4-capsule-button-odd",
+      "family": "B'",
+      "background": "checker-4-000-255",
+      "component": "capsule-button-o+1+1",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          1,
+          1
+        ],
+        "shapeCentre": [
+          161.0,
+          101.0
+        ],
+        "pitch": 4,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "the review's odd-offset cell: 1 CSS px = half a backdrop texel of phase at 1x",
+      "uItems": [
+        "1x sampling"
+      ]
+    },
+    "bp-p1-c4-rrect-lg": {
+      "id": "bp-p1-c4-rrect-lg",
+      "family": "B'",
+      "background": "checker-4-000-255",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 4,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "1x sampling",
+        "rrect-lg 0.25 scale"
+      ]
+    },
+    "bp-p1-c4-rrect-md": {
+      "id": "bp-p1-c4-rrect-md",
+      "family": "B'",
+      "background": "checker-4-000-255",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 4,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "1x sampling",
+        "memo E worst 1x cells"
+      ]
+    },
+    "bp-p1-c64-capsule-button": {
+      "id": "bp-p1-c64-capsule-button",
+      "family": "B'",
+      "background": "checker-64-000-255",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2"
+      ]
+    },
+    "bp-p1-c64-rrect-ml": {
+      "id": "bp-p1-c64-rrect-ml",
+      "family": "B'",
+      "background": "checker-64-000-255",
+      "component": "rrect-ml",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2"
+      ]
+    },
+    "bp-p1-c8-capsule-button": {
+      "id": "bp-p1-c8-capsule-button",
+      "family": "B'",
+      "background": "checker-8-000-255",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 8,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2"
+      ]
+    },
+    "bp-p1-c8-rrect-lg": {
+      "id": "bp-p1-c8-rrect-lg",
+      "family": "B'",
+      "background": "checker-8-000-255",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 8,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2",
+        "U7",
+        "rrect-lg narrow"
+      ]
+    },
+    "bp-p1-c8-rrect-ml": {
+      "id": "bp-p1-c8-rrect-ml",
+      "family": "B'",
+      "background": "checker-8-000-255",
+      "component": "rrect-ml",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 8,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "uItems": [
+        "U2"
+      ]
+    },
+    "bp-p1-c8-rrect-sm": {
+      "id": "bp-p1-c8-rrect-sm",
+      "family": "B'",
+      "background": "checker-8-000-255",
+      "component": "rrect-sm",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-receded",
+        "1x-light-receded",
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 8,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "s = 32 receded row (the parent's ruling); canonical probe twin",
+      "uItems": [
+        "U1",
+        "U2",
+        "M2 at s = 32"
+      ]
+    },
+    "c-impulse-rrect-lg": {
+      "id": "c-impulse-rrect-lg",
+      "family": "C",
+      "background": "impulse-255-on-000-s4-g64",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "patchSize": 4,
+        "impulseSpacing": 64,
+        "levels": {
+          "foreground": 255,
+          "background": 0
+        },
+        "patchesInCanvas": "grid"
+      },
+      "uItems": [
+        "U4",
+        "units",
+        "rrect-lg narrow"
+      ]
+    },
+    "c-impulse-rrect-ml": {
+      "id": "c-impulse-rrect-ml",
+      "family": "C",
+      "background": "impulse-255-on-000-s4-g64",
+      "component": "rrect-ml",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "patchSize": 4,
+        "impulseSpacing": 64,
+        "levels": {
+          "foreground": 255,
+          "background": 0
+        },
+        "patchesInCanvas": "grid"
+      },
+      "uItems": [
+        "U4",
+        "units",
+        "rrect-lg narrow"
+      ]
+    },
+    "c-s16-hi-capsule-button": {
+      "id": "c-s16-hi-capsule-button",
+      "family": "C",
+      "background": "impulse-208-on-048-s16-g232",
+      "component": "capsule-button-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 22,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "uItems": [
+        "U1",
+        "U4"
+      ]
+    },
+    "c-s16-hi-corner-rrect-md": {
+      "id": "c-s16-hi-corner-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s16-g232",
+      "component": "rrect-md-o+20+16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          20,
+          16
+        ],
+        "shapeCentre": [
+          180.0,
+          116.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -64.0,
+          -32.0
+        ],
+        "depth": 14.34,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "S 16 within 16 pt of rrect-md's top-left corner (patch centre 5.7 pt from the corner arc's centre, box depth 16); the parent's ruling from the instrument stream",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
+    "c-s16-hi-end-capsule-button": {
+      "id": "c-s16-hi-end-capsule-button",
+      "family": "C",
+      "background": "impulse-208-on-048-s16-g232",
+      "component": "capsule-button-o+4-16",
+      "role": "validation",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          4,
+          -16
+        ],
+        "shapeCentre": [
+          164.0,
+          84.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -48.0,
+          0.0
+        ],
+        "depth": 12,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
+    "c-s16-lo-capsule-button": {
+      "id": "c-s16-lo-capsule-button",
+      "family": "C",
+      "background": "impulse-048-on-208-s16-g232",
+      "component": "capsule-button-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 22,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "uItems": [
+        "U1",
+        "U4"
+      ]
+    },
+    "c-s16-lo-corner-rrect-md": {
+      "id": "c-s16-lo-corner-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s16-g232",
+      "component": "rrect-md-o+20+16",
+      "role": "calibration",
+      "passes": [
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          20,
+          16
+        ],
+        "shapeCentre": [
+          180.0,
+          116.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -64.0,
+          -32.0
+        ],
+        "depth": 14.34,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "S 16 within 16 pt of rrect-md's top-left corner (patch centre 5.7 pt from the corner arc's centre, box depth 16); the parent's ruling from the instrument stream",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
+    "c-s16-lo-end-capsule-button": {
+      "id": "c-s16-lo-end-capsule-button",
+      "family": "C",
+      "background": "impulse-048-on-208-s16-g232",
+      "component": "capsule-button-o+4-16",
+      "role": "validation",
+      "passes": [
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          4,
+          -16
+        ],
+        "shapeCentre": [
+          164.0,
+          84.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -48.0,
+          0.0
+        ],
+        "depth": 12,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
+    "c-s32-hi-p4-rrect-md": {
+      "id": "c-s32-hi-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-112-on-016-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s32-hi-p4-rrect-ml": {
+      "id": "c-s32-hi-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-112-on-016-s32-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
+      ]
+    },
+    "c-s32-hi-rrect-md": {
+      "id": "c-s32-hi-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two"
+      ]
+    },
+    "c-s32-lo-p4-rrect-md": {
+      "id": "c-s32-lo-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-016-on-112-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s32-lo-p4-rrect-ml": {
+      "id": "c-s32-lo-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-016-on-112-s32-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
+      ]
+    },
+    "c-s32-lo-rrect-md": {
+      "id": "c-s32-lo-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two"
+      ]
+    },
+    "c-s8-hi-d24-rrect-md": {
+      "id": "c-s8-hi-d24-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-md-o-44+8",
+      "role": "validation",
+      "passes": [
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          8
+        ],
+        "shapeCentre": [
+          116.0,
+          108.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -24.0
+        ],
+        "depth": 24,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: depth transfer (s/4 between the centre and 4 pt)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-hi-d34-rrect-md": {
+      "id": "c-s8-hi-d34-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-md-o-44-2",
+      "role": "calibration",
+      "passes": [
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -2
+        ],
+        "shapeCentre": [
+          116.0,
+          98.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -14.0
+        ],
+        "depth": 34,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the second readable depth on rrect-md, active: beyond the 25.6-pt deep mask (the parent's ruling from the instrument stream)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-hi-d4-rrect-lg": {
+      "id": "c-s8-hi-d4-rrect-lg",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g336",
+      "component": "rrect-lg-o+8+8",
+      "role": "calibration",
+      "passes": [
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          8,
+          8
+        ],
+        "shapeCentre": [
+          168.0,
+          108.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          168,
+          32
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -76.0
+        ],
+        "depth": 4,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 336,
+        "patchesInCanvas": 1
+      },
+      "note": "inside the active inner-refraction band (20 pt, memo D §3)",
+      "uItems": [
+        "depth",
+        "rrect-lg narrow"
+      ]
+    },
+    "c-s8-hi-d4-rrect-md": {
+      "id": "c-s8-hi-d4-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g256",
+      "component": "rrect-md-o-32+16",
+      "role": "calibration",
+      "passes": [
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -32,
+          16
+        ],
+        "shapeCentre": [
+          128.0,
+          116.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          128,
+          72
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -44.0
+        ],
+        "depth": 4,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 256,
+        "patchesInCanvas": 1
+      },
+      "note": "inside the active inner-refraction band (height min(s/4, 20) = 20 pt, memo D §3)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-hi-d40-rrect-lg": {
+      "id": "c-s8-hi-d40-rrect-lg",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g300",
+      "component": "rrect-lg-o-10-10",
+      "role": "validation",
+      "passes": [
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          -10,
+          -10
+        ],
+        "shapeCentre": [
+          150.0,
+          90.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          150,
+          50
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -40.0
+        ],
+        "depth": 40,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 300,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: depth transfer on rrect-lg",
+      "uItems": [
+        "depth",
+        "rrect-lg narrow"
+      ]
+    },
+    "c-s8-hi-d60-rrect-lg": {
+      "id": "c-s8-hi-d60-rrect-lg",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-lg-o+0+4",
+      "role": "calibration",
+      "passes": [
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          4
+        ],
+        "shapeCentre": [
+          160.0,
+          104.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -44.0,
+          -20.0
+        ],
+        "depth": 60,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "mid-depth on rrect-lg beyond the W mask (the parent's ruling from the instrument stream)",
+      "uItems": [
+        "depth",
+        "active guard (ruling 3)"
+      ]
+    },
+    "c-s8-hi-d80-rrect-lg": {
+      "id": "c-s8-hi-d80-rrect-lg",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g64",
+      "component": "rrect-lg-o+0+4",
+      "role": "calibration",
+      "passes": [
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          4
+        ],
+        "shapeCentre": [
+          160.0,
+          104.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          160.0,
+          104.0
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 80,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 64,
+        "patchesInCanvas": "grid"
+      },
+      "note": "NOT single: no single-impulse spacing reaches rrect-lg's centre with its box inside the canvas; the 64-pt grid (the canonical impulse's) puts one patch at the centre, its neighbours 64 pt away (bed.json charterDeviations)",
+      "uItems": [
+        "depth",
+        "rrect-lg narrow",
+        "units"
+      ]
+    },
+    "c-s8-hi-p4-rrect-md": {
+      "id": "c-s8-hi-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-112-on-016-s8-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s8-hi-p4-rrect-ml": {
+      "id": "c-s8-hi-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-112-on-016-s8-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
+      ]
+    },
+    "c-s8-hi-rrect-md": {
+      "id": "c-s8-hi-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two"
+      ]
+    },
+    "c-s8-hi-rrect-sm": {
+      "id": "c-s8-hi-rrect-sm",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 16,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "s = 32 receded row (the parent's ruling): the centre patch in the passing polarity",
+      "uItems": [
+        "U1",
+        "U4",
+        "M2 at s = 32"
+      ]
+    },
+    "c-s8-lo-d24-rrect-md": {
+      "id": "c-s8-lo-d24-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-md-o-44+8",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          8
+        ],
+        "shapeCentre": [
+          116.0,
+          108.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -24.0
+        ],
+        "depth": 24,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: depth transfer (s/4 between the centre and 4 pt)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-lo-d34-rrect-md": {
+      "id": "c-s8-lo-d34-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-md-o-44-2",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -2
+        ],
+        "shapeCentre": [
+          116.0,
+          98.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -14.0
+        ],
+        "depth": 34,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the second readable depth on rrect-md, active: beyond the 25.6-pt deep mask (the parent's ruling from the instrument stream)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-lo-d4-rrect-lg": {
+      "id": "c-s8-lo-d4-rrect-lg",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g336",
+      "component": "rrect-lg-o+8+8",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          8,
+          8
+        ],
+        "shapeCentre": [
+          168.0,
+          108.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          168,
+          32
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -76.0
+        ],
+        "depth": 4,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 336,
+        "patchesInCanvas": 1
+      },
+      "note": "inside the active inner-refraction band (20 pt, memo D §3)",
+      "uItems": [
+        "depth",
+        "rrect-lg narrow"
+      ]
+    },
+    "c-s8-lo-d4-rrect-md": {
+      "id": "c-s8-lo-d4-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g256",
+      "component": "rrect-md-o-32+16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -32,
+          16
+        ],
+        "shapeCentre": [
+          128.0,
+          116.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          128,
+          72
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -44.0
+        ],
+        "depth": 4,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 256,
+        "patchesInCanvas": 1
+      },
+      "note": "inside the active inner-refraction band (height min(s/4, 20) = 20 pt, memo D §3)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-lo-d40-rrect-lg": {
+      "id": "c-s8-lo-d40-rrect-lg",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g300",
+      "component": "rrect-lg-o-10-10",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          -10,
+          -10
+        ],
+        "shapeCentre": [
+          150.0,
+          90.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          150,
+          50
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -40.0
+        ],
+        "depth": 40,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 300,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: depth transfer on rrect-lg",
+      "uItems": [
+        "depth",
+        "rrect-lg narrow"
+      ]
+    },
+    "c-s8-lo-d60-rrect-lg": {
+      "id": "c-s8-lo-d60-rrect-lg",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-lg-o+0+4",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          4
+        ],
+        "shapeCentre": [
+          160.0,
+          104.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -44.0,
+          -20.0
+        ],
+        "depth": 60,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "mid-depth on rrect-lg beyond the W mask (the parent's ruling from the instrument stream)",
+      "uItems": [
+        "depth",
+        "active guard (ruling 3)"
+      ]
+    },
+    "c-s8-lo-d80-rrect-lg": {
+      "id": "c-s8-lo-d80-rrect-lg",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g64",
+      "component": "rrect-lg-o+0+4",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          4
+        ],
+        "shapeCentre": [
+          160.0,
+          104.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          160.0,
+          104.0
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 80,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 64,
+        "patchesInCanvas": "grid"
+      },
+      "note": "NOT single: no single-impulse spacing reaches rrect-lg's centre with its box inside the canvas; the 64-pt grid (the canonical impulse's) puts one patch at the centre, its neighbours 64 pt away (bed.json charterDeviations)",
+      "uItems": [
+        "depth",
+        "rrect-lg narrow",
+        "units"
+      ]
+    },
+    "c-s8-lo-p4-d34-rrect-md": {
+      "id": "c-s8-lo-p4-d34-rrect-md",
+      "family": "C",
+      "background": "impulse-016-on-112-s8-g232",
+      "component": "rrect-md-o-44-2",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -2
+        ],
+        "shapeCentre": [
+          116.0,
+          98.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -14.0
+        ],
+        "depth": 34,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of c-s8-lo-d34-rrect-md (the parent's ruling)",
+      "uItems": [
+        "depth",
+        "dark level pair"
+      ]
+    },
+    "c-s8-lo-p4-rrect-md": {
+      "id": "c-s8-lo-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-016-on-112-s8-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s8-lo-p4-rrect-ml": {
+      "id": "c-s8-lo-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-016-on-112-s8-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
+      ]
+    },
+    "c-s8-lo-rrect-md": {
+      "id": "c-s8-lo-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two"
+      ]
+    },
+    "c-s8-lo-rrect-sm": {
+      "id": "c-s8-lo-rrect-sm",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 16,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "s = 32 receded row (the parent's ruling): the centre patch in the passing polarity",
+      "uItems": [
+        "U1",
+        "U4",
+        "M2 at s = 32"
+      ]
+    },
+    "d-d0-hilo-p4-rrect-md": {
+      "id": "d-d0-hilo-p4-rrect-md",
+      "family": "D",
+      "background": "split-x160-112-016",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 112,
+          "right": 16
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
+      ]
+    },
+    "d-d0-hilo-rrect-lg": {
+      "id": "d-d0-hilo-rrect-lg",
+      "family": "D",
+      "background": "split-x160-208-048",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "note": "the review's bleed rows (active only)",
+      "uItems": [
+        "U7"
+      ]
+    },
+    "d-d0-hilo-rrect-md": {
+      "id": "d-d0-hilo-rrect-md",
+      "family": "D",
+      "background": "split-x160-208-048",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "uItems": [
+        "U1",
+        "U3"
+      ]
+    },
+    "d-d0-lohi-capsule-button": {
+      "id": "d-d0-lohi-capsule-button",
+      "family": "D",
+      "background": "split-x160-048-208",
+      "component": "capsule-button",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "note": "validation: span transfer of the step (s 96 -> 44)",
+      "uItems": [
+        "U3"
+      ]
+    },
+    "d-d0-lohi-p4-rrect-md": {
+      "id": "d-d0-lohi-p4-rrect-md",
+      "family": "D",
+      "background": "split-x160-016-112",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 16,
+          "right": 112
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
+      ]
+    },
+    "d-d0-lohi-rrect-lg": {
+      "id": "d-d0-lohi-rrect-lg",
+      "family": "D",
+      "background": "split-x160-048-208",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "note": "the review's bleed rows (active only)",
+      "uItems": [
+        "U7"
+      ]
+    },
+    "d-d0-lohi-rrect-md": {
+      "id": "d-d0-lohi-rrect-md",
+      "family": "D",
+      "background": "split-x160-048-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "uItems": [
+        "U1",
+        "U3"
+      ]
+    },
+    "d-d0-lohi-rrect-sm": {
+      "id": "d-d0-lohi-rrect-sm",
+      "family": "D",
+      "background": "split-x160-048-208",
+      "component": "rrect-sm",
+      "role": "validation",
+      "passes": [
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "note": "validation: span transfer of the step below 44 (s 96 -> 32); the parent's s = 32 ruling",
+      "uItems": [
+        "U1",
+        "U3",
+        "M2 at s = 32"
+      ]
+    },
+    "d-d12-hilo-p4-rrect-md": {
+      "id": "d-d12-hilo-p4-rrect-md",
+      "family": "D",
+      "background": "split-x172-112-016",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 172,
+        "stepFromShapeCentre": 12.0,
+        "levels": {
+          "left": 112,
+          "right": 16
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
+      ]
+    },
+    "d-d12-hilo-rrect-md": {
+      "id": "d-d12-hilo-rrect-md",
+      "family": "D",
+      "background": "split-x172-208-048",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 172,
+        "stepFromShapeCentre": 12.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "uItems": [
+        "U1",
+        "U3"
+      ]
+    },
+    "d-d12-lohi-capsule-button": {
+      "id": "d-d12-lohi-capsule-button",
+      "family": "D",
+      "background": "split-x172-048-208",
+      "component": "capsule-button",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 172,
+        "stepFromShapeCentre": 12.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "uItems": [
+        "U1",
+        "U3"
+      ]
+    },
+    "d-d12-lohi-p4-rrect-md": {
+      "id": "d-d12-lohi-p4-rrect-md",
+      "family": "D",
+      "background": "split-x172-016-112",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 172,
+        "stepFromShapeCentre": 12.0,
+        "levels": {
+          "left": 16,
+          "right": 112
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
+      ]
+    },
+    "d-d12-lohi-rrect-md": {
+      "id": "d-d12-lohi-rrect-md",
+      "family": "D",
+      "background": "split-x172-048-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 172,
+        "stepFromShapeCentre": 12.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "uItems": [
+        "U1",
+        "U3"
+      ]
+    },
+    "d-d32-hilo-rrect-md": {
+      "id": "d-d32-hilo-rrect-md",
+      "family": "D",
+      "background": "split-x192-208-048",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 192,
+        "stepFromShapeCentre": 32.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "uItems": [
+        "U1",
+        "U3"
+      ]
+    },
+    "d-d32-lohi-rrect-md": {
+      "id": "d-d32-lohi-rrect-md",
+      "family": "D",
+      "background": "split-x192-048-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 192,
+        "stepFromShapeCentre": 32.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "uItems": [
+        "U1",
+        "U3"
+      ]
+    },
+    "d-out16-hilo-rrect-md": {
+      "id": "d-out16-hilo-rrect-md",
+      "family": "D",
+      "background": "split-x256-208-048",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 256,
+        "stepFromShapeCentre": 96.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "note": "16 CSS px outside the rrect-md edge (x = 240); the receded margin is 1 dev",
+      "uItems": [
+        "U3"
+      ]
+    },
+    "d-out16-lohi-rrect-md": {
+      "id": "d-out16-lohi-rrect-md",
+      "family": "D",
+      "background": "split-x256-048-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 256,
+        "stepFromShapeCentre": 96.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "note": "16 CSS px outside the rrect-md edge (x = 240); the receded margin is 1 dev",
+      "uItems": [
+        "U3"
+      ]
+    },
+    "d-out8-hilo-rrect-md": {
+      "id": "d-out8-hilo-rrect-md",
+      "family": "D",
+      "background": "split-x248-208-048",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 248,
+        "stepFromShapeCentre": 88.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "note": "8 CSS px outside the rrect-md edge (x = 240); the receded margin is 1 dev",
+      "uItems": [
+        "U3"
+      ]
+    },
+    "d-out8-lohi-rrect-md": {
+      "id": "d-out8-lohi-rrect-md",
+      "family": "D",
+      "background": "split-x248-048-208",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 248,
+        "stepFromShapeCentre": 88.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "note": "8 CSS px outside the rrect-md edge (x = 240); the receded margin is 1 dev",
+      "uItems": [
+        "U3"
+      ]
+    },
+    "e-by-c16-rrect-lg": {
+      "id": "e-by-c16-rrect-lg",
+      "family": "E",
+      "background": "checker-16-by",
+      "component": "rrect-lg",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "colours": [
+          [
+            121,
+            122,
+            208
+          ],
+          [
+            135,
+            134,
+            48
+          ]
+        ],
+        "luma709OnCodes": 128
+      },
+      "note": "validation: hue transfer at s = 160; an active guard row under the wide-kernel mask (the parent's ruling)",
+      "uItems": [
+        "U6",
+        "active guard (ruling 3)"
+      ]
+    },
+    "e-by-c16-rrect-md": {
+      "id": "e-by-c16-rrect-md",
+      "family": "E",
+      "background": "checker-16-by",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "colours": [
+          [
+            121,
+            122,
+            208
+          ],
+          [
+            135,
+            134,
+            48
+          ]
+        ],
+        "luma709OnCodes": 128
+      },
+      "uItems": [
+        "U6"
+      ]
+    },
+    "e-by-c64-rrect-md": {
+      "id": "e-by-c64-rrect-md",
+      "family": "E",
+      "background": "checker-64-by",
+      "component": "rrect-md",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "colours": [
+          [
+            121,
+            122,
+            208
+          ],
+          [
+            135,
+            134,
+            48
+          ]
+        ],
+        "luma709OnCodes": 128
+      },
+      "note": "validation: hue transfer at pitch 64",
+      "uItems": [
+        "U6"
+      ]
+    },
+    "e-rg-c16-rrect-lg": {
+      "id": "e-rg-c16-rrect-lg",
+      "family": "E",
+      "background": "checker-16-rg",
+      "component": "rrect-lg",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "colours": [
+          [
+            202,
+            106,
+            128
+          ],
+          [
+            54,
+            150,
+            128
+          ]
+        ],
+        "luma709OnCodes": 128
+      },
+      "note": "an active guard row under the wide-kernel mask (the parent's ruling)",
+      "uItems": [
+        "U6",
+        "active guard (ruling 3)"
+      ]
+    },
+    "e-rg-c16-rrect-md": {
+      "id": "e-rg-c16-rrect-md",
+      "family": "E",
+      "background": "checker-16-rg",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "colours": [
+          [
+            202,
+            106,
+            128
+          ],
+          [
+            54,
+            150,
+            128
+          ]
+        ],
+        "luma709OnCodes": 128
+      },
+      "uItems": [
+        "U6"
+      ]
+    },
+    "e-rg-c64-rrect-md": {
+      "id": "e-rg-c64-rrect-md",
+      "family": "E",
+      "background": "checker-64-rg",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "colours": [
+          [
+            202,
+            106,
+            128
+          ],
+          [
+            54,
+            150,
+            128
+          ]
+        ],
+        "luma709OnCodes": 128
+      },
+      "uItems": [
+        "U6"
+      ]
+    },
+    "f-checker16-rrect-md": {
+      "id": "f-checker16-rrect-md",
+      "family": "F",
+      "background": "checker-16-000-255",
+      "component": "rrect-md",
+      "role": "probe",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "bridge": "checkerboard__rrect-md",
+      "uItems": [
+        "bar across sittings"
+      ]
+    },
+    "f-checker64-rrect-lg": {
+      "id": "f-checker64-rrect-lg",
+      "family": "F",
+      "background": "checker-64-000-255",
+      "component": "rrect-lg",
+      "role": "probe",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "bridge": "checkerboard-64__rrect-lg",
+      "uItems": [
+        "bar across sittings"
+      ]
+    },
+    "f-impulse-rrect-md": {
+      "id": "f-impulse-rrect-md",
+      "family": "F",
+      "background": "impulse-255-on-000-s4-g64",
+      "component": "rrect-md",
+      "role": "probe",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "bridge": "impulse__rrect-md",
+      "uItems": [
+        "bar across sittings"
+      ]
+    },
+    "f-photo-rrect-md": {
+      "id": "f-photo-rrect-md",
+      "family": "F",
+      "background": "photo",
+      "component": "rrect-md",
+      "role": "probe",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "bridge": "photo__rrect-md",
+      "uItems": [
+        "bar across sittings"
+      ]
+    },
+    "h-d20-lohi-rrect-md": {
+      "id": "h-d20-lohi-rrect-md",
+      "family": "H",
+      "background": "split-x180-048-208",
+      "component": "rrect-md",
+      "role": "holdout",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 180,
+        "stepFromShapeCentre": 20,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "uItems": [
+        "referee"
+      ]
+    },
+    "h-g184-rrect-md": {
+      "id": "h-g184-rrect-md",
+      "family": "H",
+      "background": "grey-184",
+      "component": "rrect-md",
+      "role": "holdout",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "referee"
+      ]
+    },
+    "h-g232-rrect-md": {
+      "id": "h-g232-rrect-md",
+      "family": "H",
+      "background": "grey-232",
+      "component": "rrect-md",
+      "role": "holdout",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "uItems": [
+        "referee"
+      ]
+    },
+    "h-lc-c64-capsule-button": {
+      "id": "h-lc-c64-capsule-button",
+      "family": "H",
+      "background": "checker-64-128-229",
+      "component": "capsule-button",
+      "role": "holdout",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          128,
+          229
+        ]
+      },
+      "uItems": [
+        "referee"
+      ]
+    },
+    "h-p1-c24-rrect-112": {
+      "id": "h-p1-c24-rrect-112",
+      "family": "H",
+      "background": "checker-24-000-255",
+      "component": "rrect-112",
+      "role": "holdout",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-112",
+        "shortSide": 112,
+        "t": 0.5,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 24,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "the unseen span s = 112 (t = 0.5), subject to the side bundle accepting rrect-112",
+      "uItems": [
+        "referee"
+      ]
+    },
+    "h-p3-c64-rrect-lg": {
+      "id": "h-p3-c64-rrect-lg",
+      "family": "H",
+      "background": "checker-64-096-160",
+      "component": "rrect-lg",
+      "role": "holdout",
+      "passes": [
+        "1x-dark-active",
+        "1x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-lg",
+        "shortSide": 160,
+        "t": 1,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          96,
+          160
+        ]
+      },
+      "uItems": [
+        "referee"
+      ]
+    },
+    "h-p6-c32-rrect-md": {
+      "id": "h-p6-c32-rrect-md",
+      "family": "H",
+      "background": "checker-32-032-176",
+      "component": "rrect-md",
+      "role": "holdout",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 32,
+        "levels": [
+          32,
+          176
+        ]
+      },
+      "uItems": [
+        "referee"
+      ]
+    },
+    "h-s24-hi-rrect-md": {
+      "id": "h-s24-hi-rrect-md",
+      "family": "H",
+      "background": "impulse-208-on-048-s24-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "holdout",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 24,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0,
+          0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "uItems": [
+        "referee"
+      ]
+    }
+  },
+  "roles": {
+    "calibration": [
+      "a-g000-capsule-button",
+      "a-g000-rrect-md",
+      "a-g064-capsule-button",
+      "a-g064-rrect-md",
+      "a-g096-rrect-lg",
+      "a-g128-capsule-button",
+      "a-g128-rrect-md",
+      "a-g160-capsule-button",
+      "a-g160-rrect-80",
+      "a-g160-rrect-lg",
+      "a-g160-rrect-md",
+      "a-g160-rrect-ml",
+      "a-g176-capsule-button",
+      "a-g176-rrect-md",
+      "a-g192-capsule-button",
+      "a-g192-rrect-md",
+      "a-g208-capsule-button",
+      "a-g208-rrect-80",
+      "a-g208-rrect-lg",
+      "a-g208-rrect-md",
+      "a-g208-rrect-ml",
+      "a-g224-capsule-button",
+      "a-g224-rrect-md",
+      "a-g240-capsule-button",
+      "a-g240-rrect-md",
+      "a-g255-capsule-button",
+      "a-g255-rrect-80",
+      "a-g255-rrect-lg",
+      "a-g255-rrect-md",
+      "a-g255-rrect-ml",
+      "b-p2-c16-rrect-md",
+      "b-p2-c64-rrect-md",
+      "b-p4-c16-rrect-md",
+      "b-p4-c64-rrect-md",
+      "b-p5-c16-rrect-lg",
+      "b-p5-c16-rrect-md",
+      "b-p5-c64-rrect-lg",
+      "b-p5-c64-rrect-md",
+      "bp-p1-c16-rrect-sm",
+      "bp-p1-c32-capsule-button",
+      "bp-p1-c32-rrect-64",
+      "bp-p1-c32-rrect-lg",
+      "bp-p1-c32-rrect-ml",
+      "bp-p1-c4-capsule-button",
+      "bp-p1-c4-capsule-button-odd",
+      "bp-p1-c4-rrect-lg",
+      "bp-p1-c4-rrect-md",
+      "bp-p1-c64-capsule-button",
+      "bp-p1-c64-rrect-ml",
+      "bp-p1-c8-capsule-button",
+      "bp-p1-c8-rrect-lg",
+      "bp-p1-c8-rrect-ml",
+      "bp-p1-c8-rrect-sm",
+      "c-impulse-rrect-lg",
+      "c-impulse-rrect-ml",
+      "c-s16-hi-capsule-button",
+      "c-s16-hi-corner-rrect-md",
+      "c-s16-lo-capsule-button",
+      "c-s16-lo-corner-rrect-md",
+      "c-s32-hi-p4-rrect-md",
+      "c-s32-hi-rrect-md",
+      "c-s32-lo-p4-rrect-md",
+      "c-s32-lo-rrect-md",
+      "c-s8-hi-d34-rrect-md",
+      "c-s8-hi-d4-rrect-lg",
+      "c-s8-hi-d4-rrect-md",
+      "c-s8-hi-d60-rrect-lg",
+      "c-s8-hi-d80-rrect-lg",
+      "c-s8-hi-p4-rrect-md",
+      "c-s8-hi-p4-rrect-ml",
+      "c-s8-hi-rrect-md",
+      "c-s8-hi-rrect-sm",
+      "c-s8-lo-d34-rrect-md",
+      "c-s8-lo-d4-rrect-lg",
+      "c-s8-lo-d4-rrect-md",
+      "c-s8-lo-d60-rrect-lg",
+      "c-s8-lo-d80-rrect-lg",
+      "c-s8-lo-p4-d34-rrect-md",
+      "c-s8-lo-p4-rrect-md",
+      "c-s8-lo-p4-rrect-ml",
+      "c-s8-lo-rrect-md",
+      "c-s8-lo-rrect-sm",
+      "d-d0-hilo-p4-rrect-md",
+      "d-d0-hilo-rrect-lg",
+      "d-d0-hilo-rrect-md",
+      "d-d0-lohi-p4-rrect-md",
+      "d-d0-lohi-rrect-lg",
+      "d-d0-lohi-rrect-md",
+      "d-d12-hilo-p4-rrect-md",
+      "d-d12-hilo-rrect-md",
+      "d-d12-lohi-capsule-button",
+      "d-d12-lohi-p4-rrect-md",
+      "d-d12-lohi-rrect-md",
+      "d-d32-hilo-rrect-md",
+      "d-d32-lohi-rrect-md",
+      "d-out16-hilo-rrect-md",
+      "d-out16-lohi-rrect-md",
+      "d-out8-hilo-rrect-md",
+      "d-out8-lohi-rrect-md",
+      "e-by-c16-rrect-md",
+      "e-rg-c16-rrect-lg",
+      "e-rg-c16-rrect-md",
+      "e-rg-c64-rrect-md"
+    ],
+    "validation": [
+      "a-g128-rrect-md-1x",
+      "a-g160-rrect-64",
+      "a-g208-rrect-64",
+      "a-g255-rrect-64",
+      "a-g255-rrect-md-1x",
+      "b-p3-c16-rrect-lg",
+      "b-p3-c16-rrect-md",
+      "b-p3-c64-rrect-md",
+      "bp-p1-c32-rrect-80",
+      "c-s16-hi-end-capsule-button",
+      "c-s16-lo-end-capsule-button",
+      "c-s32-hi-p4-rrect-ml",
+      "c-s32-lo-p4-rrect-ml",
+      "c-s8-hi-d24-rrect-md",
+      "c-s8-hi-d40-rrect-lg",
+      "c-s8-lo-d24-rrect-md",
+      "c-s8-lo-d40-rrect-lg",
+      "d-d0-lohi-capsule-button",
+      "d-d0-lohi-rrect-sm",
+      "e-by-c16-rrect-lg",
+      "e-by-c64-rrect-md"
+    ],
+    "holdout": [
+      "h-d20-lohi-rrect-md",
+      "h-g184-rrect-md",
+      "h-g232-rrect-md",
+      "h-lc-c64-capsule-button",
+      "h-p1-c24-rrect-112",
+      "h-p3-c64-rrect-lg",
+      "h-p6-c32-rrect-md",
+      "h-s24-hi-rrect-md"
+    ],
+    "probe": [
+      "f-checker16-rrect-md",
+      "f-checker64-rrect-lg",
+      "f-impulse-rrect-md",
+      "f-photo-rrect-md"
+    ]
+  },
+  "validationAxes": {
+    "a-g128-rrect-md-1x": "1x small body referee: validation of T measured at 2x",
+    "a-g160-rrect-64": "validation: t = 0 stratum transfer (capsule -> rrect-64)",
+    "a-g208-rrect-64": "validation: t = 0 stratum transfer (capsule -> rrect-64)",
+    "a-g255-rrect-64": "validation: t = 0 stratum transfer (capsule -> rrect-64)",
+    "a-g255-rrect-md-1x": "1x small body referee: validation of T measured at 2x",
+    "b-p3-c16-rrect-lg": "validation: level-pair transfer (P3) at s = 160; an active guard row under the wide-kernel mask (the parent's ruling)",
+    "b-p3-c16-rrect-md": "validation: level-pair transfer (P3, contrast 64 at mean 128)",
+    "b-p3-c64-rrect-md": "validation: level-pair transfer (P3, contrast 64 at mean 128)",
+    "bp-p1-c32-rrect-80": "validation: span transfer at t = 1/6, between the knot (64) and rrect-md (96)",
+    "c-s16-hi-end-capsule-button": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+    "c-s16-lo-end-capsule-button": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+    "c-s32-hi-p4-rrect-ml": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+    "c-s32-lo-p4-rrect-ml": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+    "c-s8-hi-d24-rrect-md": "validation: depth transfer (s/4 between the centre and 4 pt)",
+    "c-s8-hi-d40-rrect-lg": "validation: depth transfer on rrect-lg",
+    "c-s8-lo-d24-rrect-md": "validation: depth transfer (s/4 between the centre and 4 pt)",
+    "c-s8-lo-d40-rrect-lg": "validation: depth transfer on rrect-lg",
+    "d-d0-lohi-capsule-button": "validation: span transfer of the step (s 96 -> 44)",
+    "d-d0-lohi-rrect-sm": "validation: span transfer of the step below 44 (s 96 -> 32); the parent's s = 32 ruling",
+    "e-by-c16-rrect-lg": "validation: hue transfer at s = 160; an active guard row under the wide-kernel mask (the parent's ruling)",
+    "e-by-c64-rrect-md": "validation: hue transfer at pitch 64"
+  },
+  "uItems": {
+    "U1": "the receded one-sided algebra; W reference 16-48 pt: C (S 32 both polarities on rrect-md, S 16 on capsule), D (delta 0 and 12 on capsule; 0, 12, 32 on rrect-md), B (P2 and P4 at pitch 64 beside 16)",
+    "U2": "the receded narrow span law: B', with C's depth sweep as its flat-in-depth control",
+    "U3": "the footprint support and edge mode: D (inside and outside steps), both poses",
+    "U4": "the heavy kernel tails: C, D",
+    "U5": "T at 150-255 per endpoint and span: A",
+    "U6": "per-channel against on-luma knee, chroma kernel: E",
+    "U7": "the active bleed: D (rrect-md and rrect-lg active steps), B' (spans >= 80, rrect-lg beside rrect-ml), C (S 32 on rrect-md)",
+    "R1": "T before the fill composite: B's P5 and P3 at pitch 16 and 64 in both receded endpoints, with A's greys 160-255",
+    "one k or two": "C's S 8 against S 32 on rrect-md, both poses",
+    "depth": "C's depth sweep on rrect-md and rrect-lg",
+    "rrect-lg": "B' on rrect-lg beside rrect-ml; C on rrect-lg",
+    "units": "C's rrect-ml / rrect-lg pair (the canonical impulse)",
+    "W-shape against K2 and W-tails": "receded S 16 patches within 16 pt of rrect-md's corner (calibration) and the capsule's end (validation): the parent's ruling from the instrument stream",
+    "active guard (ruling 3)": "rows that stay readable under the wide-kernel active mask: B's P5 / P3 and E's hue pairs on rrect-lg (R1 and the per-channel knee, active), rrect-lg's S 8 at depth 60",
+    "dark level pair": "the dark passes' 16 / 112 twins of C S 8 / S 32 on rrect-md and rrect-ml and D delta 0 / 12 on rrect-md, beside the 48 / 208 cells; family A says which pair carries slope",
+    "M2 at s = 32": "the s = 32 receded rows on rrect-sm (P1 pitch 8 and 16, the S 8 centre patch, the step at delta 0; P1 pitch 8 also at 1x): the parent's ruling from the gate rehearsal"
+  },
+  "charterDeviations": [
+    {
+      "item": "1x rrect-lg row: \"P1 at pitch 4, 8 and 16 on rrect-lg\"",
+      "finding": "P1 pitch 16 on rrect-lg is checkerboard (cell 16, 0/255) on rrect-lg: a semantic twin of the canonical HOLDOUT scenes checkerboard__rrect-lg__rest and __inactive (scenes.json split). Capturing and fitting it in W42 would read the canonical holdout's geometry before G3 (clause 14; W39 declare-bed.py's twin rule).",
+      "declared": "P1 pitch 32 on rrect-lg at 1x (bp-p1-c32-rrect-lg), a canonical probe twin (calibration evidence under X34) that pairs 1x with the 2x B' cell of the same id; the count stays 15.",
+      "status": "substituted, flagged for the parent's ruling"
+    },
+    {
+      "item": "C: \"S 8 ... at the centre ... on rrect-lg\" as a single square",
+      "finding": "Background.swift draws impulses at (g/2 + kg, g/2 + mg). One patch in the 320x200 canvas needs g >= 214, placing it at (g/2, g/2); rrect-lg's centre can only lie in [140,180] x [80,120] with its box inside the canvas, and the single patch sits at (g/2, 200 - g/2) with g/2 >= 107: x = g/2 >= 140 forces y = 200 - g/2 <= 60.",
+      "declared": "c-s8-*-d80-rrect-lg uses the 64-pt grid (the canonical impulse's spacing) with rrect-lg offset (0,+4): one patch exactly at the centre, neighbours 64 pt away (about 4 sigma_w at memo E's 16-17 pt).",
+      "status": "declared as a grid; the forward model renders the whole raster"
+    },
+    {
+      "item": "C depth sweep and D outside steps in the active pose",
+      "finding": "The patch 4 pt from the edge sits inside the declared active inner-refraction band (InnerRefractionHeight min(s/4, 20) = 20 pt on rrect-md and rrect-lg), and D's steps 8 and 16 pt outside rrect-md lie within its declared outer-refraction reach (OuterRefractionHeight max(16, s/5) = 19.2 pt, amount 24; memo D §3). LT models neither (memo E §5).",
+      "declared": "the cells stand as the charter lists them; the reader must model or exclude refraction there. Receded (RefractionOpacity 0) is unaffected.",
+      "status": "flagged for the instrument stream"
+    }
+  ],
+  "webPlacement": {
+    "a-g000-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g000-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g064-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g064-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g128-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g128-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g160-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g160-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g176-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g176-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g192-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g192-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g208-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g208-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g224-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g224-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g240-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g240-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g255-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g255-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g096-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g160-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g208-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g255-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g160-rrect-64": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g160-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g160-rrect-80": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g208-rrect-64": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g208-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g208-rrect-80": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g255-rrect-64": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g255-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g255-rrect-80": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g128-rrect-md-1x": "web-plannable: a single shape, centred plus an integer offset",
+    "a-g255-rrect-md-1x": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p2-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p2-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p3-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p3-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p4-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p4-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p5-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p5-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c8-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c32-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c64-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c8-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c32-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c64-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c32-rrect-64": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c32-rrect-80": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c8-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c32-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c4-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c4-capsule-button-odd": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c4-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-hi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-hi-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-lo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-lo-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d24-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d80-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d40-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d4-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d24-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d80-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d40-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d4-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-impulse-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-impulse-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-lohi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d32-lohi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d12-lohi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-out8-lohi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-out16-lohi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-lohi-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-hilo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d32-hilo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d12-hilo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-out8-hilo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-out16-hilo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-hilo-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-lohi-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d12-lohi-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c8-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c16-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-lohi-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d34-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d34-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-lo-corner-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-lo-end-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-hi-corner-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-hi-end-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-hi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-hi-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-lo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-lo-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d60-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d60-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-p4-d34-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-lohi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d12-lohi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-hilo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d12-hilo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "e-rg-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "e-rg-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "e-by-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "e-by-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p5-c16-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p5-c64-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "b-p3-c16-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "e-rg-c16-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "e-by-c16-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "f-checker16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "f-impulse-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "f-photo-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "f-checker64-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "h-p1-c24-rrect-112": "web-plannable: a single shape, centred plus an integer offset",
+    "h-p6-c32-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "h-d20-lohi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "h-s24-hi-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "h-p3-c64-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
+    "h-lc-c64-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "h-g184-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "h-g232-rrect-md": "web-plannable: a single shape, centred plus an integer offset"
+  },
+  "recordedNotCaptured": [
+    {
+      "item": "U3's active half: canvas against R_fp, and R_fp's active edge mode",
+      "status": "non-identifiable on this bed; recorded, not captured (the parent's ruling from the instrument stream's separation proof)",
+      "why": "the active margin keeps R_fp's edge >= 45 pt from every readable pixel, and the answering rows (D's steps outside the edge) sit inside the 19.2-pt outer-refraction reach; no cell inside the canvas and outside that reach answers it"
+    }
+  ],
+  "dumpList": {
+    "2x-light-active": [
+      "a-g000-capsule-button__rest",
+      "a-g000-rrect-md__rest",
+      "a-g064-capsule-button__rest",
+      "a-g064-rrect-md__rest",
+      "a-g096-rrect-lg__rest",
+      "a-g128-capsule-button__rest",
+      "a-g128-rrect-md__rest",
+      "a-g160-capsule-button__rest",
+      "a-g160-rrect-64__rest",
+      "a-g160-rrect-lg__rest",
+      "a-g160-rrect-md__rest",
+      "a-g160-rrect-ml__rest",
+      "a-g176-capsule-button__rest",
+      "a-g176-rrect-md__rest",
+      "a-g192-capsule-button__rest",
+      "a-g192-rrect-md__rest",
+      "a-g208-capsule-button__rest",
+      "a-g208-rrect-64__rest",
+      "a-g208-rrect-lg__rest",
+      "a-g208-rrect-md__rest",
+      "a-g208-rrect-ml__rest",
+      "a-g224-capsule-button__rest",
+      "a-g224-rrect-md__rest",
+      "a-g240-capsule-button__rest",
+      "a-g240-rrect-md__rest",
+      "a-g255-capsule-button__rest",
+      "a-g255-rrect-64__rest",
+      "a-g255-rrect-lg__rest",
+      "a-g255-rrect-md__rest",
+      "a-g255-rrect-ml__rest",
+      "b-p2-c16-rrect-md__rest",
+      "b-p2-c64-rrect-md__rest",
+      "b-p3-c16-rrect-lg__rest",
+      "b-p3-c16-rrect-md__rest",
+      "b-p3-c64-rrect-md__rest",
+      "b-p4-c16-rrect-md__rest",
+      "b-p4-c64-rrect-md__rest",
+      "b-p5-c16-rrect-lg__rest",
+      "b-p5-c16-rrect-md__rest",
+      "b-p5-c64-rrect-lg__rest",
+      "b-p5-c64-rrect-md__rest",
+      "bp-p1-c32-capsule-button__rest",
+      "bp-p1-c32-rrect-64__rest",
+      "bp-p1-c32-rrect-80__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c32-rrect-ml__rest",
+      "bp-p1-c64-capsule-button__rest",
+      "bp-p1-c64-rrect-ml__rest",
+      "bp-p1-c8-capsule-button__rest",
+      "bp-p1-c8-rrect-lg__rest",
+      "bp-p1-c8-rrect-ml__rest",
+      "c-impulse-rrect-lg__rest",
+      "c-impulse-rrect-ml__rest",
+      "c-s16-hi-capsule-button__rest",
+      "c-s16-lo-capsule-button__rest",
+      "c-s32-hi-rrect-md__rest",
+      "c-s32-lo-rrect-md__rest",
+      "c-s8-hi-d24-rrect-md__rest",
+      "c-s8-hi-d34-rrect-md__rest",
+      "c-s8-hi-d4-rrect-lg__rest",
+      "c-s8-hi-d4-rrect-md__rest",
+      "c-s8-hi-d40-rrect-lg__rest",
+      "c-s8-hi-d60-rrect-lg__rest",
+      "c-s8-hi-d80-rrect-lg__rest",
+      "c-s8-hi-rrect-md__rest",
+      "c-s8-lo-rrect-md__rest",
+      "d-d0-hilo-rrect-lg__rest",
+      "d-d0-hilo-rrect-md__rest",
+      "d-d0-lohi-capsule-button__rest",
+      "d-d0-lohi-rrect-lg__rest",
+      "d-d0-lohi-rrect-md__rest",
+      "d-d32-hilo-rrect-md__rest",
+      "d-d32-lohi-rrect-md__rest",
+      "d-out16-hilo-rrect-md__rest",
+      "d-out16-lohi-rrect-md__rest",
+      "d-out8-hilo-rrect-md__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "e-by-c16-rrect-lg__rest",
+      "e-by-c16-rrect-md__rest",
+      "e-by-c64-rrect-md__rest",
+      "e-rg-c16-rrect-lg__rest",
+      "e-rg-c16-rrect-md__rest",
+      "e-rg-c64-rrect-md__rest",
+      "f-checker16-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "f-photo-rrect-md__rest",
+      "h-d20-lohi-rrect-md__rest",
+      "h-g184-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-lc-c64-capsule-button__rest",
+      "h-p1-c24-rrect-112__rest",
+      "h-p3-c64-rrect-lg__rest",
+      "h-p6-c32-rrect-md__rest",
+      "h-s24-hi-rrect-md__rest"
+    ],
+    "2x-light-receded": [
+      "a-g000-capsule-button__rest",
+      "a-g000-rrect-md__rest",
+      "a-g064-capsule-button__rest",
+      "a-g064-rrect-md__rest",
+      "a-g096-rrect-lg__rest",
+      "a-g128-capsule-button__rest",
+      "a-g128-rrect-md__rest",
+      "a-g160-capsule-button__rest",
+      "a-g160-rrect-64__rest",
+      "a-g160-rrect-lg__rest",
+      "a-g160-rrect-md__rest",
+      "a-g160-rrect-ml__rest",
+      "a-g176-capsule-button__rest",
+      "a-g176-rrect-md__rest",
+      "a-g192-capsule-button__rest",
+      "a-g192-rrect-md__rest",
+      "a-g208-capsule-button__rest",
+      "a-g208-rrect-64__rest",
+      "a-g208-rrect-lg__rest",
+      "a-g208-rrect-md__rest",
+      "a-g208-rrect-ml__rest",
+      "a-g224-capsule-button__rest",
+      "a-g224-rrect-md__rest",
+      "a-g240-capsule-button__rest",
+      "a-g240-rrect-md__rest",
+      "a-g255-capsule-button__rest",
+      "a-g255-rrect-64__rest",
+      "a-g255-rrect-lg__rest",
+      "a-g255-rrect-md__rest",
+      "a-g255-rrect-ml__rest",
+      "b-p2-c16-rrect-md__rest",
+      "b-p2-c64-rrect-md__rest",
+      "b-p3-c16-rrect-md__rest",
+      "b-p3-c64-rrect-md__rest",
+      "b-p4-c16-rrect-md__rest",
+      "b-p4-c64-rrect-md__rest",
+      "b-p5-c16-rrect-md__rest",
+      "b-p5-c64-rrect-md__rest",
+      "bp-p1-c16-rrect-sm__rest",
+      "bp-p1-c32-capsule-button__rest",
+      "bp-p1-c32-rrect-64__rest",
+      "bp-p1-c32-rrect-80__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c32-rrect-ml__rest",
+      "bp-p1-c64-capsule-button__rest",
+      "bp-p1-c64-rrect-ml__rest",
+      "bp-p1-c8-rrect-sm__rest",
+      "c-impulse-rrect-lg__rest",
+      "c-impulse-rrect-ml__rest",
+      "c-s16-hi-capsule-button__rest",
+      "c-s16-lo-capsule-button__rest",
+      "c-s16-lo-corner-rrect-md__rest",
+      "c-s16-lo-end-capsule-button__rest",
+      "c-s32-hi-rrect-md__rest",
+      "c-s32-lo-rrect-md__rest",
+      "c-s8-hi-d24-rrect-md__rest",
+      "c-s8-hi-d4-rrect-lg__rest",
+      "c-s8-hi-d4-rrect-md__rest",
+      "c-s8-hi-d40-rrect-lg__rest",
+      "c-s8-hi-d80-rrect-lg__rest",
+      "c-s8-hi-rrect-md__rest",
+      "c-s8-hi-rrect-sm__rest",
+      "c-s8-lo-rrect-md__rest",
+      "d-d0-hilo-rrect-md__rest",
+      "d-d0-lohi-capsule-button__rest",
+      "d-d0-lohi-rrect-md__rest",
+      "d-d0-lohi-rrect-sm__rest",
+      "d-d12-hilo-rrect-md__rest",
+      "d-d12-lohi-capsule-button__rest",
+      "d-d12-lohi-rrect-md__rest",
+      "d-d32-hilo-rrect-md__rest",
+      "d-d32-lohi-rrect-md__rest",
+      "d-out16-hilo-rrect-md__rest",
+      "d-out16-lohi-rrect-md__rest",
+      "d-out8-hilo-rrect-md__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "e-by-c16-rrect-md__rest",
+      "e-by-c64-rrect-md__rest",
+      "e-rg-c16-rrect-md__rest",
+      "e-rg-c64-rrect-md__rest",
+      "f-checker16-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "f-photo-rrect-md__rest",
+      "h-d20-lohi-rrect-md__rest",
+      "h-g184-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-lc-c64-capsule-button__rest",
+      "h-p1-c24-rrect-112__rest",
+      "h-p3-c64-rrect-lg__rest",
+      "h-p6-c32-rrect-md__rest",
+      "h-s24-hi-rrect-md__rest"
+    ],
+    "2x-dark-active": [
+      "a-g000-capsule-button__rest",
+      "a-g000-rrect-md__rest",
+      "a-g064-capsule-button__rest",
+      "a-g064-rrect-md__rest",
+      "a-g096-rrect-lg__rest",
+      "a-g128-capsule-button__rest",
+      "a-g128-rrect-md__rest",
+      "a-g160-capsule-button__rest",
+      "a-g160-rrect-64__rest",
+      "a-g160-rrect-80__rest",
+      "a-g160-rrect-lg__rest",
+      "a-g160-rrect-md__rest",
+      "a-g160-rrect-ml__rest",
+      "a-g176-capsule-button__rest",
+      "a-g176-rrect-md__rest",
+      "a-g192-capsule-button__rest",
+      "a-g192-rrect-md__rest",
+      "a-g208-capsule-button__rest",
+      "a-g208-rrect-64__rest",
+      "a-g208-rrect-80__rest",
+      "a-g208-rrect-lg__rest",
+      "a-g208-rrect-md__rest",
+      "a-g208-rrect-ml__rest",
+      "a-g224-capsule-button__rest",
+      "a-g224-rrect-md__rest",
+      "a-g240-capsule-button__rest",
+      "a-g240-rrect-md__rest",
+      "a-g255-capsule-button__rest",
+      "a-g255-rrect-64__rest",
+      "a-g255-rrect-80__rest",
+      "a-g255-rrect-lg__rest",
+      "a-g255-rrect-md__rest",
+      "a-g255-rrect-ml__rest",
+      "b-p2-c16-rrect-md__rest",
+      "b-p2-c64-rrect-md__rest",
+      "b-p3-c16-rrect-lg__rest",
+      "b-p3-c16-rrect-md__rest",
+      "b-p3-c64-rrect-md__rest",
+      "b-p4-c16-rrect-md__rest",
+      "b-p4-c64-rrect-md__rest",
+      "b-p5-c16-rrect-lg__rest",
+      "b-p5-c16-rrect-md__rest",
+      "b-p5-c64-rrect-lg__rest",
+      "b-p5-c64-rrect-md__rest",
+      "bp-p1-c32-capsule-button__rest",
+      "bp-p1-c32-rrect-64__rest",
+      "bp-p1-c32-rrect-80__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c32-rrect-ml__rest",
+      "bp-p1-c64-capsule-button__rest",
+      "bp-p1-c64-rrect-ml__rest",
+      "bp-p1-c8-capsule-button__rest",
+      "bp-p1-c8-rrect-lg__rest",
+      "bp-p1-c8-rrect-ml__rest",
+      "c-impulse-rrect-lg__rest",
+      "c-impulse-rrect-ml__rest",
+      "c-s16-hi-capsule-button__rest",
+      "c-s16-lo-capsule-button__rest",
+      "c-s32-hi-p4-rrect-md__rest",
+      "c-s32-hi-p4-rrect-ml__rest",
+      "c-s32-hi-rrect-md__rest",
+      "c-s32-lo-p4-rrect-md__rest",
+      "c-s32-lo-p4-rrect-ml__rest",
+      "c-s32-lo-rrect-md__rest",
+      "c-s8-hi-p4-rrect-md__rest",
+      "c-s8-hi-p4-rrect-ml__rest",
+      "c-s8-hi-rrect-md__rest",
+      "c-s8-lo-d24-rrect-md__rest",
+      "c-s8-lo-d34-rrect-md__rest",
+      "c-s8-lo-d4-rrect-lg__rest",
+      "c-s8-lo-d4-rrect-md__rest",
+      "c-s8-lo-d40-rrect-lg__rest",
+      "c-s8-lo-d60-rrect-lg__rest",
+      "c-s8-lo-d80-rrect-lg__rest",
+      "c-s8-lo-p4-d34-rrect-md__rest",
+      "c-s8-lo-p4-rrect-md__rest",
+      "c-s8-lo-p4-rrect-ml__rest",
+      "c-s8-lo-rrect-md__rest",
+      "d-d0-hilo-p4-rrect-md__rest",
+      "d-d0-hilo-rrect-lg__rest",
+      "d-d0-hilo-rrect-md__rest",
+      "d-d0-lohi-capsule-button__rest",
+      "d-d0-lohi-p4-rrect-md__rest",
+      "d-d0-lohi-rrect-lg__rest",
+      "d-d0-lohi-rrect-md__rest",
+      "d-d32-hilo-rrect-md__rest",
+      "d-d32-lohi-rrect-md__rest",
+      "d-out16-hilo-rrect-md__rest",
+      "d-out16-lohi-rrect-md__rest",
+      "d-out8-hilo-rrect-md__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "e-by-c16-rrect-lg__rest",
+      "e-by-c16-rrect-md__rest",
+      "e-by-c64-rrect-md__rest",
+      "e-rg-c16-rrect-lg__rest",
+      "e-rg-c16-rrect-md__rest",
+      "e-rg-c64-rrect-md__rest",
+      "f-checker16-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "f-photo-rrect-md__rest",
+      "h-d20-lohi-rrect-md__rest",
+      "h-g184-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-lc-c64-capsule-button__rest",
+      "h-p1-c24-rrect-112__rest",
+      "h-p3-c64-rrect-lg__rest",
+      "h-p6-c32-rrect-md__rest",
+      "h-s24-hi-rrect-md__rest"
+    ],
+    "2x-dark-receded": [
+      "a-g000-capsule-button__rest",
+      "a-g000-rrect-md__rest",
+      "a-g064-capsule-button__rest",
+      "a-g064-rrect-md__rest",
+      "a-g096-rrect-lg__rest",
+      "a-g128-capsule-button__rest",
+      "a-g128-rrect-md__rest",
+      "a-g160-capsule-button__rest",
+      "a-g160-rrect-64__rest",
+      "a-g160-rrect-80__rest",
+      "a-g160-rrect-lg__rest",
+      "a-g160-rrect-md__rest",
+      "a-g160-rrect-ml__rest",
+      "a-g176-capsule-button__rest",
+      "a-g176-rrect-md__rest",
+      "a-g192-capsule-button__rest",
+      "a-g192-rrect-md__rest",
+      "a-g208-capsule-button__rest",
+      "a-g208-rrect-64__rest",
+      "a-g208-rrect-80__rest",
+      "a-g208-rrect-lg__rest",
+      "a-g208-rrect-md__rest",
+      "a-g208-rrect-ml__rest",
+      "a-g224-capsule-button__rest",
+      "a-g224-rrect-md__rest",
+      "a-g240-capsule-button__rest",
+      "a-g240-rrect-md__rest",
+      "a-g255-capsule-button__rest",
+      "a-g255-rrect-64__rest",
+      "a-g255-rrect-80__rest",
+      "a-g255-rrect-lg__rest",
+      "a-g255-rrect-md__rest",
+      "a-g255-rrect-ml__rest",
+      "b-p2-c16-rrect-md__rest",
+      "b-p2-c64-rrect-md__rest",
+      "b-p3-c16-rrect-md__rest",
+      "b-p3-c64-rrect-md__rest",
+      "b-p4-c16-rrect-md__rest",
+      "b-p4-c64-rrect-md__rest",
+      "b-p5-c16-rrect-md__rest",
+      "b-p5-c64-rrect-md__rest",
+      "bp-p1-c16-rrect-sm__rest",
+      "bp-p1-c32-capsule-button__rest",
+      "bp-p1-c32-rrect-64__rest",
+      "bp-p1-c32-rrect-80__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c32-rrect-ml__rest",
+      "bp-p1-c64-capsule-button__rest",
+      "bp-p1-c64-rrect-ml__rest",
+      "bp-p1-c8-rrect-sm__rest",
+      "c-impulse-rrect-lg__rest",
+      "c-impulse-rrect-ml__rest",
+      "c-s16-hi-capsule-button__rest",
+      "c-s16-hi-corner-rrect-md__rest",
+      "c-s16-hi-end-capsule-button__rest",
+      "c-s16-lo-capsule-button__rest",
+      "c-s32-hi-p4-rrect-md__rest",
+      "c-s32-hi-p4-rrect-ml__rest",
+      "c-s32-hi-rrect-md__rest",
+      "c-s32-lo-p4-rrect-md__rest",
+      "c-s32-lo-p4-rrect-ml__rest",
+      "c-s32-lo-rrect-md__rest",
+      "c-s8-hi-p4-rrect-md__rest",
+      "c-s8-hi-p4-rrect-ml__rest",
+      "c-s8-hi-rrect-md__rest",
+      "c-s8-lo-d24-rrect-md__rest",
+      "c-s8-lo-d4-rrect-lg__rest",
+      "c-s8-lo-d4-rrect-md__rest",
+      "c-s8-lo-d40-rrect-lg__rest",
+      "c-s8-lo-d80-rrect-lg__rest",
+      "c-s8-lo-p4-rrect-md__rest",
+      "c-s8-lo-p4-rrect-ml__rest",
+      "c-s8-lo-rrect-md__rest",
+      "c-s8-lo-rrect-sm__rest",
+      "d-d0-hilo-p4-rrect-md__rest",
+      "d-d0-hilo-rrect-md__rest",
+      "d-d0-lohi-capsule-button__rest",
+      "d-d0-lohi-p4-rrect-md__rest",
+      "d-d0-lohi-rrect-md__rest",
+      "d-d0-lohi-rrect-sm__rest",
+      "d-d12-hilo-p4-rrect-md__rest",
+      "d-d12-hilo-rrect-md__rest",
+      "d-d12-lohi-capsule-button__rest",
+      "d-d12-lohi-p4-rrect-md__rest",
+      "d-d12-lohi-rrect-md__rest",
+      "d-d32-hilo-rrect-md__rest",
+      "d-d32-lohi-rrect-md__rest",
+      "d-out16-hilo-rrect-md__rest",
+      "d-out16-lohi-rrect-md__rest",
+      "d-out8-hilo-rrect-md__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "e-by-c16-rrect-md__rest",
+      "e-by-c64-rrect-md__rest",
+      "e-rg-c16-rrect-md__rest",
+      "e-rg-c64-rrect-md__rest",
+      "f-checker16-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "f-photo-rrect-md__rest",
+      "h-d20-lohi-rrect-md__rest",
+      "h-g184-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-lc-c64-capsule-button__rest",
+      "h-p1-c24-rrect-112__rest",
+      "h-p3-c64-rrect-lg__rest",
+      "h-p6-c32-rrect-md__rest",
+      "h-s24-hi-rrect-md__rest"
+    ],
+    "1x-light-active": [
+      "a-g128-rrect-md-1x__rest",
+      "a-g255-rrect-md-1x__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c4-capsule-button-odd__rest",
+      "bp-p1-c4-capsule-button__rest",
+      "bp-p1-c4-rrect-lg__rest",
+      "bp-p1-c4-rrect-md__rest",
+      "bp-p1-c8-capsule-button__rest",
+      "bp-p1-c8-rrect-lg__rest",
+      "c-impulse-rrect-lg__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-p3-c64-rrect-lg__rest"
+    ],
+    "1x-light-receded": [
+      "a-g128-rrect-md-1x__rest",
+      "a-g255-rrect-md-1x__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c4-capsule-button-odd__rest",
+      "bp-p1-c4-capsule-button__rest",
+      "bp-p1-c4-rrect-lg__rest",
+      "bp-p1-c4-rrect-md__rest",
+      "bp-p1-c8-capsule-button__rest",
+      "bp-p1-c8-rrect-lg__rest",
+      "bp-p1-c8-rrect-sm__rest",
+      "c-impulse-rrect-lg__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-p3-c64-rrect-lg__rest"
+    ],
+    "1x-dark-active": [
+      "a-g128-rrect-md-1x__rest",
+      "a-g255-rrect-md-1x__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c4-capsule-button-odd__rest",
+      "bp-p1-c4-capsule-button__rest",
+      "bp-p1-c4-rrect-lg__rest",
+      "bp-p1-c4-rrect-md__rest",
+      "bp-p1-c8-capsule-button__rest",
+      "bp-p1-c8-rrect-lg__rest",
+      "c-impulse-rrect-lg__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-p3-c64-rrect-lg__rest"
+    ],
+    "1x-dark-receded": [
+      "a-g128-rrect-md-1x__rest",
+      "a-g255-rrect-md-1x__rest",
+      "bp-p1-c32-rrect-lg__rest",
+      "bp-p1-c4-capsule-button-odd__rest",
+      "bp-p1-c4-capsule-button__rest",
+      "bp-p1-c4-rrect-lg__rest",
+      "bp-p1-c4-rrect-md__rest",
+      "bp-p1-c8-capsule-button__rest",
+      "bp-p1-c8-rrect-lg__rest",
+      "bp-p1-c8-rrect-sm__rest",
+      "c-impulse-rrect-lg__rest",
+      "d-out8-lohi-rrect-md__rest",
+      "f-checker64-rrect-lg__rest",
+      "f-impulse-rrect-md__rest",
+      "h-g232-rrect-md__rest",
+      "h-p3-c64-rrect-lg__rest"
+    ]
+  }
+}

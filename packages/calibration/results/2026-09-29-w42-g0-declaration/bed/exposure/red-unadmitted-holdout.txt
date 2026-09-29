@@ -1,0 +1,26 @@
+test_a_quarantined_held_out_capture_is_excluded_not_a_procedural_failure (test_runner.UnadmittedHeldOutCell.test_a_quarantined_held_out_capture_is_excluded_not_a_procedural_failure) ... ERROR
+
+======================================================================
+ERROR: test_a_quarantined_held_out_capture_is_excluded_not_a_procedural_failure (test_runner.UnadmittedHeldOutCell.test_a_quarantined_held_out_capture_is_excluded_not_a_procedural_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 428, in test_a_quarantined_held_out_capture_is_excluded_not_a_procedural_failure
+    result = self.run_exposure()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 222, in run_exposure
+    return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json', self.log, self.output,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 486, in run_synthetic
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 426, in _run
+    coverage({c.split('/', 1)[1] for c in rendered}, planned, 'authorized web plan')
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-27-w41-g0-declaration/exposure/runner.py", line 96, in coverage
+    raise ValueError(label + ' coverage mismatch: missing=' + str(sorted(set(expected) - set(actual)))
+ValueError: authorized web plan coverage mismatch: missing=['h1__rest'], extra=[]
+
+----------------------------------------------------------------------
+Ran 1 test in 3.651s
+
+FAILED (errors=1)
+exit=1

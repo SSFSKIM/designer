@@ -1,0 +1,4593 @@
+{
+ "schema": "w42-web-plan-1",
+ "scenesSha256": "e2c532d98ed55dff1a37825bd4717957c71f827184af9fa9fc9a26dbe2465478",
+ "bedSha256": "9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176",
+ "derivedFrom": [
+  "packages/calibration/web/scene.ts (backgrounds are fixture rasters of any kind; scene.state inactive -> runtime receded pose; texture sampling)",
+  "packages/calibration/web/scenes.ts + src/component-region.ts (single shapes, Math.round centring plus offset; position ignored; none/opaque native-only)"
+ ],
+ "rule": "a glass cell is web-plannable iff it is a single capsule/rrect whose native frame (centred + offset) equals the web frame (Math.round centred + offset)",
+ "passTotals": {
+  "2x-light-active": {
+   "declared": 95,
+   "plannable": 95
+  },
+  "2x-light-receded": {
+   "declared": 92,
+   "plannable": 92
+  },
+  "2x-dark-active": {
+   "declared": 109,
+   "plannable": 109
+  },
+  "2x-dark-receded": {
+   "declared": 107,
+   "plannable": 107
+  },
+  "1x-light-active": {
+   "declared": 15,
+   "plannable": 15
+  },
+  "1x-light-receded": {
+   "declared": 16,
+   "plannable": 16
+  },
+  "1x-dark-active": {
+   "declared": 15,
+   "plannable": 15
+  },
+  "1x-dark-receded": {
+   "declared": 16,
+   "plannable": 16
+  }
+ },
+ "familyTotals": {
+  "A": {
+   "declared": 134,
+   "plannable": 134
+  },
+  "B": {
+   "declared": 38,
+   "plannable": 38
+  },
+  "B'": {
+   "declared": 68,
+   "plannable": 68
+  },
+  "C": {
+   "declared": 83,
+   "plannable": 83
+  },
+  "D": {
+   "declared": 58,
+   "plannable": 58
+  },
+  "E": {
+   "declared": 20,
+   "plannable": 20
+  },
+  "F": {
+   "declared": 24,
+   "plannable": 24
+  },
+  "H": {
+   "declared": 40,
+   "plannable": 40
+  }
+ },
+ "passes": {
+  "2x-light-active": {
+   "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+   "cells": {
+    "a-g000-capsule-button": {
+     "scene": "a-g000-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g000-rrect-md": {
+     "scene": "a-g000-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g064-capsule-button": {
+     "scene": "a-g064-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g064-rrect-md": {
+     "scene": "a-g064-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g096-rrect-lg": {
+     "scene": "a-g096-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g128-capsule-button": {
+     "scene": "a-g128-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g128-rrect-md": {
+     "scene": "a-g128-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-capsule-button": {
+     "scene": "a-g160-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g160-rrect-64": {
+     "scene": "a-g160-rrect-64__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g160-rrect-lg": {
+     "scene": "a-g160-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g160-rrect-md": {
+     "scene": "a-g160-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-rrect-ml": {
+     "scene": "a-g160-rrect-ml__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g176-capsule-button": {
+     "scene": "a-g176-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g176-rrect-md": {
+     "scene": "a-g176-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g192-capsule-button": {
+     "scene": "a-g192-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g192-rrect-md": {
+     "scene": "a-g192-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-capsule-button": {
+     "scene": "a-g208-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g208-rrect-64": {
+     "scene": "a-g208-rrect-64__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g208-rrect-lg": {
+     "scene": "a-g208-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g208-rrect-md": {
+     "scene": "a-g208-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-rrect-ml": {
+     "scene": "a-g208-rrect-ml__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g224-capsule-button": {
+     "scene": "a-g224-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g224-rrect-md": {
+     "scene": "a-g224-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g240-capsule-button": {
+     "scene": "a-g240-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g240-rrect-md": {
+     "scene": "a-g240-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-capsule-button": {
+     "scene": "a-g255-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g255-rrect-64": {
+     "scene": "a-g255-rrect-64__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g255-rrect-lg": {
+     "scene": "a-g255-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g255-rrect-md": {
+     "scene": "a-g255-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-ml": {
+     "scene": "a-g255-rrect-ml__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "b-p2-c16-rrect-md": {
+     "scene": "b-p2-c16-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p2-c64-rrect-md": {
+     "scene": "b-p2-c64-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c16-rrect-lg": {
+     "scene": "b-p3-c16-rrect-lg__rest",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "b-p3-c16-rrect-md": {
+     "scene": "b-p3-c16-rrect-md__rest",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c64-rrect-md": {
+     "scene": "b-p3-c64-rrect-md__rest",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c16-rrect-md": {
+     "scene": "b-p4-c16-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c64-rrect-md": {
+     "scene": "b-p4-c64-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c16-rrect-lg": {
+     "scene": "b-p5-c16-rrect-lg__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "b-p5-c16-rrect-md": {
+     "scene": "b-p5-c16-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c64-rrect-lg": {
+     "scene": "b-p5-c64-rrect-lg__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "b-p5-c64-rrect-md": {
+     "scene": "b-p5-c64-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c32-capsule-button": {
+     "scene": "bp-p1-c32-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c32-rrect-64": {
+     "scene": "bp-p1-c32-rrect-64__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "bp-p1-c32-rrect-80": {
+     "scene": "bp-p1-c32-rrect-80__rest",
+     "family": "B'",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c32-rrect-ml": {
+     "scene": "bp-p1-c32-rrect-ml__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c64-capsule-button": {
+     "scene": "bp-p1-c64-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c64-rrect-ml": {
+     "scene": "bp-p1-c64-rrect-ml__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c8-capsule-button": {
+     "scene": "bp-p1-c8-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c8-rrect-lg": {
+     "scene": "bp-p1-c8-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c8-rrect-ml": {
+     "scene": "bp-p1-c8-rrect-ml__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "c-impulse-rrect-ml": {
+     "scene": "c-impulse-rrect-ml__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-hi-capsule-button": {
+     "scene": "c-s16-hi-capsule-button__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s16-lo-capsule-button": {
+     "scene": "c-s16-lo-capsule-button__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s32-hi-rrect-md": {
+     "scene": "c-s32-hi-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-rrect-md": {
+     "scene": "c-s32-lo-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-d24-rrect-md": {
+     "scene": "c-s8-hi-d24-rrect-md__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-d34-rrect-md": {
+     "scene": "c-s8-hi-d34-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-d4-rrect-lg": {
+     "scene": "c-s8-hi-d4-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-hi-d4-rrect-md": {
+     "scene": "c-s8-hi-d4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-d40-rrect-lg": {
+     "scene": "c-s8-hi-d40-rrect-lg__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 10.0
+    },
+    "c-s8-hi-d60-rrect-lg": {
+     "scene": "c-s8-hi-d60-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 16.0
+    },
+    "c-s8-hi-d80-rrect-lg": {
+     "scene": "c-s8-hi-d80-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 16.0
+    },
+    "c-s8-hi-rrect-md": {
+     "scene": "c-s8-hi-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-rrect-md": {
+     "scene": "c-s8-lo-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "d-d0-hilo-rrect-lg": {
+     "scene": "d-d0-hilo-rrect-lg__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-d0-hilo-rrect-md": {
+     "scene": "d-d0-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-capsule-button": {
+     "scene": "d-d0-lohi-capsule-button__rest",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "d-d0-lohi-rrect-lg": {
+     "scene": "d-d0-lohi-rrect-lg__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-d0-lohi-rrect-md": {
+     "scene": "d-d0-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-hilo-rrect-md": {
+     "scene": "d-d32-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-lohi-rrect-md": {
+     "scene": "d-d32-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-hilo-rrect-md": {
+     "scene": "d-out16-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-lohi-rrect-md": {
+     "scene": "d-out16-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-hilo-rrect-md": {
+     "scene": "d-out8-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c16-rrect-lg": {
+     "scene": "e-by-c16-rrect-lg__rest",
+     "family": "E",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "e-by-c16-rrect-md": {
+     "scene": "e-by-c16-rrect-md__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c64-rrect-md": {
+     "scene": "e-by-c64-rrect-md__rest",
+     "family": "E",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c16-rrect-lg": {
+     "scene": "e-rg-c16-rrect-lg__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "e-rg-c16-rrect-md": {
+     "scene": "e-rg-c16-rrect-md__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c64-rrect-md": {
+     "scene": "e-rg-c64-rrect-md__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker16-rrect-md": {
+     "scene": "f-checker16-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-photo-rrect-md": {
+     "scene": "f-photo-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-d20-lohi-rrect-md": {
+     "scene": "h-d20-lohi-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g184-rrect-md": {
+     "scene": "h-g184-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-lc-c64-capsule-button": {
+     "scene": "h-lc-c64-capsule-button__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "h-p1-c24-rrect-112": {
+     "scene": "h-p1-c24-rrect-112__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 44.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "h-p6-c32-rrect-md": {
+     "scene": "h-p6-c32-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-s24-hi-rrect-md": {
+     "scene": "h-s24-hi-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 30,
+     "plannable": 30
+    },
+    "B": {
+     "declared": 11,
+     "plannable": 11
+    },
+    "B'": {
+     "declared": 10,
+     "plannable": 10
+    },
+    "C": {
+     "declared": 15,
+     "plannable": 15
+    },
+    "D": {
+     "declared": 11,
+     "plannable": 11
+    },
+    "E": {
+     "declared": 6,
+     "plannable": 6
+    },
+    "F": {
+     "declared": 4,
+     "plannable": 4
+    },
+    "H": {
+     "declared": 8,
+     "plannable": 8
+    }
+   },
+   "declared": 95,
+   "plannable": 95,
+   "belowSamplingPadding": [
+    "a-g096-rrect-lg",
+    "a-g160-rrect-lg",
+    "a-g208-rrect-lg",
+    "a-g255-rrect-lg",
+    "b-p3-c16-rrect-lg",
+    "b-p5-c16-rrect-lg",
+    "b-p5-c64-rrect-lg",
+    "bp-p1-c32-rrect-lg",
+    "bp-p1-c8-rrect-lg",
+    "c-impulse-rrect-lg",
+    "c-s8-hi-d4-rrect-lg",
+    "c-s8-hi-d40-rrect-lg",
+    "c-s8-hi-d60-rrect-lg",
+    "c-s8-hi-d80-rrect-lg",
+    "d-d0-hilo-rrect-lg",
+    "d-d0-lohi-rrect-lg",
+    "e-by-c16-rrect-lg",
+    "e-rg-c16-rrect-lg",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  },
+  "2x-light-receded": {
+   "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+   "cells": {
+    "a-g000-capsule-button": {
+     "scene": "a-g000-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g000-rrect-md": {
+     "scene": "a-g000-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g064-capsule-button": {
+     "scene": "a-g064-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g064-rrect-md": {
+     "scene": "a-g064-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g096-rrect-lg": {
+     "scene": "a-g096-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g128-capsule-button": {
+     "scene": "a-g128-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g128-rrect-md": {
+     "scene": "a-g128-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-capsule-button": {
+     "scene": "a-g160-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g160-rrect-64": {
+     "scene": "a-g160-rrect-64__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g160-rrect-lg": {
+     "scene": "a-g160-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g160-rrect-md": {
+     "scene": "a-g160-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-rrect-ml": {
+     "scene": "a-g160-rrect-ml__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g176-capsule-button": {
+     "scene": "a-g176-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g176-rrect-md": {
+     "scene": "a-g176-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g192-capsule-button": {
+     "scene": "a-g192-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g192-rrect-md": {
+     "scene": "a-g192-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-capsule-button": {
+     "scene": "a-g208-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g208-rrect-64": {
+     "scene": "a-g208-rrect-64__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g208-rrect-lg": {
+     "scene": "a-g208-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g208-rrect-md": {
+     "scene": "a-g208-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-rrect-ml": {
+     "scene": "a-g208-rrect-ml__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g224-capsule-button": {
+     "scene": "a-g224-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g224-rrect-md": {
+     "scene": "a-g224-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g240-capsule-button": {
+     "scene": "a-g240-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g240-rrect-md": {
+     "scene": "a-g240-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-capsule-button": {
+     "scene": "a-g255-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g255-rrect-64": {
+     "scene": "a-g255-rrect-64__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g255-rrect-lg": {
+     "scene": "a-g255-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g255-rrect-md": {
+     "scene": "a-g255-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-ml": {
+     "scene": "a-g255-rrect-ml__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "b-p2-c16-rrect-md": {
+     "scene": "b-p2-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p2-c64-rrect-md": {
+     "scene": "b-p2-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c16-rrect-md": {
+     "scene": "b-p3-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c64-rrect-md": {
+     "scene": "b-p3-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c16-rrect-md": {
+     "scene": "b-p4-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c64-rrect-md": {
+     "scene": "b-p4-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c16-rrect-md": {
+     "scene": "b-p5-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c64-rrect-md": {
+     "scene": "b-p5-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c16-rrect-sm": {
+     "scene": "bp-p1-c16-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "bp-p1-c32-capsule-button": {
+     "scene": "bp-p1-c32-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c32-rrect-64": {
+     "scene": "bp-p1-c32-rrect-64__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "bp-p1-c32-rrect-80": {
+     "scene": "bp-p1-c32-rrect-80__inactive",
+     "family": "B'",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c32-rrect-ml": {
+     "scene": "bp-p1-c32-rrect-ml__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c64-capsule-button": {
+     "scene": "bp-p1-c64-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c64-rrect-ml": {
+     "scene": "bp-p1-c64-rrect-ml__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "c-impulse-rrect-ml": {
+     "scene": "c-impulse-rrect-ml__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-hi-capsule-button": {
+     "scene": "c-s16-hi-capsule-button__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s16-lo-capsule-button": {
+     "scene": "c-s16-lo-capsule-button__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s16-lo-corner-rrect-md": {
+     "scene": "c-s16-lo-corner-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-lo-end-capsule-button": {
+     "scene": "c-s16-lo-end-capsule-button__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 62.0
+    },
+    "c-s32-hi-rrect-md": {
+     "scene": "c-s32-hi-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-rrect-md": {
+     "scene": "c-s32-lo-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-d24-rrect-md": {
+     "scene": "c-s8-hi-d24-rrect-md__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-d4-rrect-lg": {
+     "scene": "c-s8-hi-d4-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-hi-d4-rrect-md": {
+     "scene": "c-s8-hi-d4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-d40-rrect-lg": {
+     "scene": "c-s8-hi-d40-rrect-lg__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 10.0
+    },
+    "c-s8-hi-d80-rrect-lg": {
+     "scene": "c-s8-hi-d80-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 16.0
+    },
+    "c-s8-hi-rrect-md": {
+     "scene": "c-s8-hi-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-rrect-sm": {
+     "scene": "c-s8-hi-rrect-sm__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "c-s8-lo-rrect-md": {
+     "scene": "c-s8-lo-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "d-d0-hilo-rrect-md": {
+     "scene": "d-d0-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-capsule-button": {
+     "scene": "d-d0-lohi-capsule-button__inactive",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "d-d0-lohi-rrect-md": {
+     "scene": "d-d0-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-rrect-sm": {
+     "scene": "d-d0-lohi-rrect-sm__inactive",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "d-d12-hilo-rrect-md": {
+     "scene": "d-d12-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d12-lohi-capsule-button": {
+     "scene": "d-d12-lohi-capsule-button__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "d-d12-lohi-rrect-md": {
+     "scene": "d-d12-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-hilo-rrect-md": {
+     "scene": "d-d32-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-lohi-rrect-md": {
+     "scene": "d-d32-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-hilo-rrect-md": {
+     "scene": "d-out16-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-lohi-rrect-md": {
+     "scene": "d-out16-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-hilo-rrect-md": {
+     "scene": "d-out8-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c16-rrect-md": {
+     "scene": "e-by-c16-rrect-md__inactive",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c64-rrect-md": {
+     "scene": "e-by-c64-rrect-md__inactive",
+     "family": "E",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c16-rrect-md": {
+     "scene": "e-rg-c16-rrect-md__inactive",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c64-rrect-md": {
+     "scene": "e-rg-c64-rrect-md__inactive",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker16-rrect-md": {
+     "scene": "f-checker16-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-photo-rrect-md": {
+     "scene": "f-photo-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-d20-lohi-rrect-md": {
+     "scene": "h-d20-lohi-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g184-rrect-md": {
+     "scene": "h-g184-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-lc-c64-capsule-button": {
+     "scene": "h-lc-c64-capsule-button__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "h-p1-c24-rrect-112": {
+     "scene": "h-p1-c24-rrect-112__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 44.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "h-p6-c32-rrect-md": {
+     "scene": "h-p6-c32-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-s24-hi-rrect-md": {
+     "scene": "h-s24-hi-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 30,
+     "plannable": 30
+    },
+    "B": {
+     "declared": 8,
+     "plannable": 8
+    },
+    "B'": {
+     "declared": 9,
+     "plannable": 9
+    },
+    "C": {
+     "declared": 16,
+     "plannable": 16
+    },
+    "D": {
+     "declared": 13,
+     "plannable": 13
+    },
+    "E": {
+     "declared": 4,
+     "plannable": 4
+    },
+    "F": {
+     "declared": 4,
+     "plannable": 4
+    },
+    "H": {
+     "declared": 8,
+     "plannable": 8
+    }
+   },
+   "declared": 92,
+   "plannable": 92,
+   "belowSamplingPadding": [
+    "a-g096-rrect-lg",
+    "a-g160-rrect-lg",
+    "a-g208-rrect-lg",
+    "a-g255-rrect-lg",
+    "bp-p1-c32-rrect-lg",
+    "c-impulse-rrect-lg",
+    "c-s8-hi-d4-rrect-lg",
+    "c-s8-hi-d40-rrect-lg",
+    "c-s8-hi-d80-rrect-lg",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  },
+  "2x-dark-active": {
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+   "cells": {
+    "a-g000-capsule-button": {
+     "scene": "a-g000-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g000-rrect-md": {
+     "scene": "a-g000-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g064-capsule-button": {
+     "scene": "a-g064-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g064-rrect-md": {
+     "scene": "a-g064-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g096-rrect-lg": {
+     "scene": "a-g096-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g128-capsule-button": {
+     "scene": "a-g128-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g128-rrect-md": {
+     "scene": "a-g128-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-capsule-button": {
+     "scene": "a-g160-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g160-rrect-64": {
+     "scene": "a-g160-rrect-64__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g160-rrect-80": {
+     "scene": "a-g160-rrect-80__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "a-g160-rrect-lg": {
+     "scene": "a-g160-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g160-rrect-md": {
+     "scene": "a-g160-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-rrect-ml": {
+     "scene": "a-g160-rrect-ml__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g176-capsule-button": {
+     "scene": "a-g176-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g176-rrect-md": {
+     "scene": "a-g176-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g192-capsule-button": {
+     "scene": "a-g192-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g192-rrect-md": {
+     "scene": "a-g192-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-capsule-button": {
+     "scene": "a-g208-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g208-rrect-64": {
+     "scene": "a-g208-rrect-64__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g208-rrect-80": {
+     "scene": "a-g208-rrect-80__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "a-g208-rrect-lg": {
+     "scene": "a-g208-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g208-rrect-md": {
+     "scene": "a-g208-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-rrect-ml": {
+     "scene": "a-g208-rrect-ml__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g224-capsule-button": {
+     "scene": "a-g224-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g224-rrect-md": {
+     "scene": "a-g224-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g240-capsule-button": {
+     "scene": "a-g240-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g240-rrect-md": {
+     "scene": "a-g240-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-capsule-button": {
+     "scene": "a-g255-capsule-button__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g255-rrect-64": {
+     "scene": "a-g255-rrect-64__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g255-rrect-80": {
+     "scene": "a-g255-rrect-80__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "a-g255-rrect-lg": {
+     "scene": "a-g255-rrect-lg__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g255-rrect-md": {
+     "scene": "a-g255-rrect-md__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-ml": {
+     "scene": "a-g255-rrect-ml__rest",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "b-p2-c16-rrect-md": {
+     "scene": "b-p2-c16-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p2-c64-rrect-md": {
+     "scene": "b-p2-c64-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c16-rrect-lg": {
+     "scene": "b-p3-c16-rrect-lg__rest",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "b-p3-c16-rrect-md": {
+     "scene": "b-p3-c16-rrect-md__rest",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c64-rrect-md": {
+     "scene": "b-p3-c64-rrect-md__rest",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c16-rrect-md": {
+     "scene": "b-p4-c16-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c64-rrect-md": {
+     "scene": "b-p4-c64-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c16-rrect-lg": {
+     "scene": "b-p5-c16-rrect-lg__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "b-p5-c16-rrect-md": {
+     "scene": "b-p5-c16-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c64-rrect-lg": {
+     "scene": "b-p5-c64-rrect-lg__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "b-p5-c64-rrect-md": {
+     "scene": "b-p5-c64-rrect-md__rest",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c32-capsule-button": {
+     "scene": "bp-p1-c32-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c32-rrect-64": {
+     "scene": "bp-p1-c32-rrect-64__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "bp-p1-c32-rrect-80": {
+     "scene": "bp-p1-c32-rrect-80__rest",
+     "family": "B'",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c32-rrect-ml": {
+     "scene": "bp-p1-c32-rrect-ml__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c64-capsule-button": {
+     "scene": "bp-p1-c64-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c64-rrect-ml": {
+     "scene": "bp-p1-c64-rrect-ml__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c8-capsule-button": {
+     "scene": "bp-p1-c8-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c8-rrect-lg": {
+     "scene": "bp-p1-c8-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c8-rrect-ml": {
+     "scene": "bp-p1-c8-rrect-ml__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "c-impulse-rrect-ml": {
+     "scene": "c-impulse-rrect-ml__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-hi-capsule-button": {
+     "scene": "c-s16-hi-capsule-button__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s16-lo-capsule-button": {
+     "scene": "c-s16-lo-capsule-button__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s32-hi-p4-rrect-md": {
+     "scene": "c-s32-hi-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-hi-p4-rrect-ml": {
+     "scene": "c-s32-hi-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s32-hi-rrect-md": {
+     "scene": "c-s32-hi-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-p4-rrect-md": {
+     "scene": "c-s32-lo-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-p4-rrect-ml": {
+     "scene": "c-s32-lo-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s32-lo-rrect-md": {
+     "scene": "c-s32-lo-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-md": {
+     "scene": "c-s8-hi-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-ml": {
+     "scene": "c-s8-hi-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-hi-rrect-md": {
+     "scene": "c-s8-hi-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d24-rrect-md": {
+     "scene": "c-s8-lo-d24-rrect-md__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d34-rrect-md": {
+     "scene": "c-s8-lo-d34-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d4-rrect-lg": {
+     "scene": "c-s8-lo-d4-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-lo-d4-rrect-md": {
+     "scene": "c-s8-lo-d4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d40-rrect-lg": {
+     "scene": "c-s8-lo-d40-rrect-lg__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 10.0
+    },
+    "c-s8-lo-d60-rrect-lg": {
+     "scene": "c-s8-lo-d60-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 16.0
+    },
+    "c-s8-lo-d80-rrect-lg": {
+     "scene": "c-s8-lo-d80-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 16.0
+    },
+    "c-s8-lo-p4-d34-rrect-md": {
+     "scene": "c-s8-lo-p4-d34-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-p4-rrect-md": {
+     "scene": "c-s8-lo-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-p4-rrect-ml": {
+     "scene": "c-s8-lo-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-lo-rrect-md": {
+     "scene": "c-s8-lo-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "d-d0-hilo-p4-rrect-md": {
+     "scene": "d-d0-hilo-p4-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-hilo-rrect-lg": {
+     "scene": "d-d0-hilo-rrect-lg__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-d0-hilo-rrect-md": {
+     "scene": "d-d0-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-capsule-button": {
+     "scene": "d-d0-lohi-capsule-button__rest",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "d-d0-lohi-p4-rrect-md": {
+     "scene": "d-d0-lohi-p4-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-rrect-lg": {
+     "scene": "d-d0-lohi-rrect-lg__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-d0-lohi-rrect-md": {
+     "scene": "d-d0-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-hilo-rrect-md": {
+     "scene": "d-d32-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-lohi-rrect-md": {
+     "scene": "d-d32-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-hilo-rrect-md": {
+     "scene": "d-out16-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-lohi-rrect-md": {
+     "scene": "d-out16-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-hilo-rrect-md": {
+     "scene": "d-out8-hilo-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c16-rrect-lg": {
+     "scene": "e-by-c16-rrect-lg__rest",
+     "family": "E",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "e-by-c16-rrect-md": {
+     "scene": "e-by-c16-rrect-md__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c64-rrect-md": {
+     "scene": "e-by-c64-rrect-md__rest",
+     "family": "E",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c16-rrect-lg": {
+     "scene": "e-rg-c16-rrect-lg__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "e-rg-c16-rrect-md": {
+     "scene": "e-rg-c16-rrect-md__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c64-rrect-md": {
+     "scene": "e-rg-c64-rrect-md__rest",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker16-rrect-md": {
+     "scene": "f-checker16-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-photo-rrect-md": {
+     "scene": "f-photo-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-d20-lohi-rrect-md": {
+     "scene": "h-d20-lohi-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g184-rrect-md": {
+     "scene": "h-g184-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-lc-c64-capsule-button": {
+     "scene": "h-lc-c64-capsule-button__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "h-p1-c24-rrect-112": {
+     "scene": "h-p1-c24-rrect-112__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 44.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "h-p6-c32-rrect-md": {
+     "scene": "h-p6-c32-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-s24-hi-rrect-md": {
+     "scene": "h-s24-hi-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 33,
+     "plannable": 33
+    },
+    "B": {
+     "declared": 11,
+     "plannable": 11
+    },
+    "B'": {
+     "declared": 10,
+     "plannable": 10
+    },
+    "C": {
+     "declared": 24,
+     "plannable": 24
+    },
+    "D": {
+     "declared": 13,
+     "plannable": 13
+    },
+    "E": {
+     "declared": 6,
+     "plannable": 6
+    },
+    "F": {
+     "declared": 4,
+     "plannable": 4
+    },
+    "H": {
+     "declared": 8,
+     "plannable": 8
+    }
+   },
+   "declared": 109,
+   "plannable": 109,
+   "belowSamplingPadding": [
+    "a-g096-rrect-lg",
+    "a-g160-rrect-lg",
+    "a-g208-rrect-lg",
+    "a-g255-rrect-lg",
+    "b-p3-c16-rrect-lg",
+    "b-p5-c16-rrect-lg",
+    "b-p5-c64-rrect-lg",
+    "bp-p1-c32-rrect-lg",
+    "bp-p1-c8-rrect-lg",
+    "c-impulse-rrect-lg",
+    "c-s32-hi-p4-rrect-ml",
+    "c-s32-lo-p4-rrect-ml",
+    "c-s8-hi-p4-rrect-ml",
+    "c-s8-lo-d4-rrect-lg",
+    "c-s8-lo-d40-rrect-lg",
+    "c-s8-lo-d60-rrect-lg",
+    "c-s8-lo-d80-rrect-lg",
+    "c-s8-lo-p4-rrect-ml",
+    "d-d0-hilo-rrect-lg",
+    "d-d0-lohi-rrect-lg",
+    "e-by-c16-rrect-lg",
+    "e-rg-c16-rrect-lg",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  },
+  "2x-dark-receded": {
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+   "cells": {
+    "a-g000-capsule-button": {
+     "scene": "a-g000-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g000-rrect-md": {
+     "scene": "a-g000-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g064-capsule-button": {
+     "scene": "a-g064-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g064-rrect-md": {
+     "scene": "a-g064-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g096-rrect-lg": {
+     "scene": "a-g096-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g128-capsule-button": {
+     "scene": "a-g128-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g128-rrect-md": {
+     "scene": "a-g128-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-capsule-button": {
+     "scene": "a-g160-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g160-rrect-64": {
+     "scene": "a-g160-rrect-64__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g160-rrect-80": {
+     "scene": "a-g160-rrect-80__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "a-g160-rrect-lg": {
+     "scene": "a-g160-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g160-rrect-md": {
+     "scene": "a-g160-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g160-rrect-ml": {
+     "scene": "a-g160-rrect-ml__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g176-capsule-button": {
+     "scene": "a-g176-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g176-rrect-md": {
+     "scene": "a-g176-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g192-capsule-button": {
+     "scene": "a-g192-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g192-rrect-md": {
+     "scene": "a-g192-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-capsule-button": {
+     "scene": "a-g208-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g208-rrect-64": {
+     "scene": "a-g208-rrect-64__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g208-rrect-80": {
+     "scene": "a-g208-rrect-80__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "a-g208-rrect-lg": {
+     "scene": "a-g208-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g208-rrect-md": {
+     "scene": "a-g208-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g208-rrect-ml": {
+     "scene": "a-g208-rrect-ml__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "a-g224-capsule-button": {
+     "scene": "a-g224-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g224-rrect-md": {
+     "scene": "a-g224-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g240-capsule-button": {
+     "scene": "a-g240-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g240-rrect-md": {
+     "scene": "a-g240-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-capsule-button": {
+     "scene": "a-g255-capsule-button__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "a-g255-rrect-64": {
+     "scene": "a-g255-rrect-64__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "a-g255-rrect-80": {
+     "scene": "a-g255-rrect-80__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "a-g255-rrect-lg": {
+     "scene": "a-g255-rrect-lg__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "a-g255-rrect-md": {
+     "scene": "a-g255-rrect-md__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-ml": {
+     "scene": "a-g255-rrect-ml__inactive",
+     "family": "A",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "b-p2-c16-rrect-md": {
+     "scene": "b-p2-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p2-c64-rrect-md": {
+     "scene": "b-p2-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c16-rrect-md": {
+     "scene": "b-p3-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p3-c64-rrect-md": {
+     "scene": "b-p3-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c16-rrect-md": {
+     "scene": "b-p4-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p4-c64-rrect-md": {
+     "scene": "b-p4-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c16-rrect-md": {
+     "scene": "b-p5-c16-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "b-p5-c64-rrect-md": {
+     "scene": "b-p5-c64-rrect-md__inactive",
+     "family": "B",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c16-rrect-sm": {
+     "scene": "bp-p1-c16-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "bp-p1-c32-capsule-button": {
+     "scene": "bp-p1-c32-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c32-rrect-64": {
+     "scene": "bp-p1-c32-rrect-64__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "bp-p1-c32-rrect-80": {
+     "scene": "bp-p1-c32-rrect-80__inactive",
+     "family": "B'",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 60.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c32-rrect-ml": {
+     "scene": "bp-p1-c32-rrect-ml__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c64-capsule-button": {
+     "scene": "bp-p1-c64-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c64-rrect-ml": {
+     "scene": "bp-p1-c64-rrect-ml__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "c-impulse-rrect-ml": {
+     "scene": "c-impulse-rrect-ml__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-hi-capsule-button": {
+     "scene": "c-s16-hi-capsule-button__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s16-hi-corner-rrect-md": {
+     "scene": "c-s16-hi-corner-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-hi-end-capsule-button": {
+     "scene": "c-s16-hi-end-capsule-button__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 62.0
+    },
+    "c-s16-lo-capsule-button": {
+     "scene": "c-s16-lo-capsule-button__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 56.0
+    },
+    "c-s32-hi-p4-rrect-md": {
+     "scene": "c-s32-hi-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-hi-p4-rrect-ml": {
+     "scene": "c-s32-hi-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s32-hi-rrect-md": {
+     "scene": "c-s32-hi-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-p4-rrect-md": {
+     "scene": "c-s32-lo-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-p4-rrect-ml": {
+     "scene": "c-s32-lo-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s32-lo-rrect-md": {
+     "scene": "c-s32-lo-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-md": {
+     "scene": "c-s8-hi-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-ml": {
+     "scene": "c-s8-hi-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-hi-rrect-md": {
+     "scene": "c-s8-hi-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d24-rrect-md": {
+     "scene": "c-s8-lo-d24-rrect-md__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d4-rrect-lg": {
+     "scene": "c-s8-lo-d4-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-lo-d4-rrect-md": {
+     "scene": "c-s8-lo-d4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d40-rrect-lg": {
+     "scene": "c-s8-lo-d40-rrect-lg__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 10.0
+    },
+    "c-s8-lo-d80-rrect-lg": {
+     "scene": "c-s8-lo-d80-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 16.0
+    },
+    "c-s8-lo-p4-rrect-md": {
+     "scene": "c-s8-lo-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-p4-rrect-ml": {
+     "scene": "c-s8-lo-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
+    "c-s8-lo-rrect-md": {
+     "scene": "c-s8-lo-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-rrect-sm": {
+     "scene": "c-s8-lo-rrect-sm__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
+    "d-d0-hilo-p4-rrect-md": {
+     "scene": "d-d0-hilo-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-hilo-rrect-md": {
+     "scene": "d-d0-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-capsule-button": {
+     "scene": "d-d0-lohi-capsule-button__inactive",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "d-d0-lohi-p4-rrect-md": {
+     "scene": "d-d0-lohi-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-rrect-md": {
+     "scene": "d-d0-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d0-lohi-rrect-sm": {
+     "scene": "d-d0-lohi-rrect-sm__inactive",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "d-d12-hilo-p4-rrect-md": {
+     "scene": "d-d12-hilo-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d12-hilo-rrect-md": {
+     "scene": "d-d12-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d12-lohi-capsule-button": {
+     "scene": "d-d12-lohi-capsule-button__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "d-d12-lohi-p4-rrect-md": {
+     "scene": "d-d12-lohi-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d12-lohi-rrect-md": {
+     "scene": "d-d12-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-hilo-rrect-md": {
+     "scene": "d-d32-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-d32-lohi-rrect-md": {
+     "scene": "d-d32-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-hilo-rrect-md": {
+     "scene": "d-out16-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out16-lohi-rrect-md": {
+     "scene": "d-out16-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-hilo-rrect-md": {
+     "scene": "d-out8-hilo-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c16-rrect-md": {
+     "scene": "e-by-c16-rrect-md__inactive",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-by-c64-rrect-md": {
+     "scene": "e-by-c64-rrect-md__inactive",
+     "family": "E",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c16-rrect-md": {
+     "scene": "e-rg-c16-rrect-md__inactive",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "e-rg-c64-rrect-md": {
+     "scene": "e-rg-c64-rrect-md__inactive",
+     "family": "E",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker16-rrect-md": {
+     "scene": "f-checker16-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-photo-rrect-md": {
+     "scene": "f-photo-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-d20-lohi-rrect-md": {
+     "scene": "h-d20-lohi-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g184-rrect-md": {
+     "scene": "h-g184-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-lc-c64-capsule-button": {
+     "scene": "h-lc-c64-capsule-button__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "h-p1-c24-rrect-112": {
+     "scene": "h-p1-c24-rrect-112__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 44.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "h-p6-c32-rrect-md": {
+     "scene": "h-p6-c32-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-s24-hi-rrect-md": {
+     "scene": "h-s24-hi-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 33,
+     "plannable": 33
+    },
+    "B": {
+     "declared": 8,
+     "plannable": 8
+    },
+    "B'": {
+     "declared": 9,
+     "plannable": 9
+    },
+    "C": {
+     "declared": 24,
+     "plannable": 24
+    },
+    "D": {
+     "declared": 17,
+     "plannable": 17
+    },
+    "E": {
+     "declared": 4,
+     "plannable": 4
+    },
+    "F": {
+     "declared": 4,
+     "plannable": 4
+    },
+    "H": {
+     "declared": 8,
+     "plannable": 8
+    }
+   },
+   "declared": 107,
+   "plannable": 107,
+   "belowSamplingPadding": [
+    "a-g096-rrect-lg",
+    "a-g160-rrect-lg",
+    "a-g208-rrect-lg",
+    "a-g255-rrect-lg",
+    "bp-p1-c32-rrect-lg",
+    "c-impulse-rrect-lg",
+    "c-s32-hi-p4-rrect-ml",
+    "c-s32-lo-p4-rrect-ml",
+    "c-s8-hi-p4-rrect-ml",
+    "c-s8-lo-d4-rrect-lg",
+    "c-s8-lo-d40-rrect-lg",
+    "c-s8-lo-d80-rrect-lg",
+    "c-s8-lo-p4-rrect-ml",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  },
+  "1x-light-active": {
+   "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+   "cells": {
+    "a-g128-rrect-md-1x": {
+     "scene": "a-g128-rrect-md-1x__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-md-1x": {
+     "scene": "a-g255-rrect-md-1x__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-capsule-button": {
+     "scene": "bp-p1-c4-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c4-capsule-button-odd": {
+     "scene": "bp-p1-c4-capsule-button-odd__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 77.0
+    },
+    "bp-p1-c4-rrect-lg": {
+     "scene": "bp-p1-c4-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-rrect-md": {
+     "scene": "bp-p1-c4-rrect-md__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c8-capsule-button": {
+     "scene": "bp-p1-c8-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c8-rrect-lg": {
+     "scene": "bp-p1-c8-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "B'": {
+     "declared": 7,
+     "plannable": 7
+    },
+    "C": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "D": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "F": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "H": {
+     "declared": 2,
+     "plannable": 2
+    }
+   },
+   "declared": 15,
+   "plannable": 15,
+   "belowSamplingPadding": [
+    "bp-p1-c32-rrect-lg",
+    "bp-p1-c4-rrect-lg",
+    "bp-p1-c8-rrect-lg",
+    "c-impulse-rrect-lg",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  },
+  "1x-light-receded": {
+   "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+   "cells": {
+    "a-g128-rrect-md-1x": {
+     "scene": "a-g128-rrect-md-1x__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-md-1x": {
+     "scene": "a-g255-rrect-md-1x__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-capsule-button": {
+     "scene": "bp-p1-c4-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c4-capsule-button-odd": {
+     "scene": "bp-p1-c4-capsule-button-odd__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 77.0
+    },
+    "bp-p1-c4-rrect-lg": {
+     "scene": "bp-p1-c4-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-rrect-md": {
+     "scene": "bp-p1-c4-rrect-md__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c8-capsule-button": {
+     "scene": "bp-p1-c8-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c8-rrect-lg": {
+     "scene": "bp-p1-c8-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "B'": {
+     "declared": 8,
+     "plannable": 8
+    },
+    "C": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "D": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "F": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "H": {
+     "declared": 2,
+     "plannable": 2
+    }
+   },
+   "declared": 16,
+   "plannable": 16,
+   "belowSamplingPadding": [
+    "bp-p1-c32-rrect-lg",
+    "bp-p1-c4-rrect-lg",
+    "bp-p1-c8-rrect-lg",
+    "c-impulse-rrect-lg",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  },
+  "1x-dark-active": {
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+   "cells": {
+    "a-g128-rrect-md-1x": {
+     "scene": "a-g128-rrect-md-1x__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-md-1x": {
+     "scene": "a-g255-rrect-md-1x__rest",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-capsule-button": {
+     "scene": "bp-p1-c4-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c4-capsule-button-odd": {
+     "scene": "bp-p1-c4-capsule-button-odd__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 77.0
+    },
+    "bp-p1-c4-rrect-lg": {
+     "scene": "bp-p1-c4-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-rrect-md": {
+     "scene": "bp-p1-c4-rrect-md__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c8-capsule-button": {
+     "scene": "bp-p1-c8-capsule-button__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c8-rrect-lg": {
+     "scene": "bp-p1-c8-rrect-lg__rest",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__rest",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__rest",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "B'": {
+     "declared": 7,
+     "plannable": 7
+    },
+    "C": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "D": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "F": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "H": {
+     "declared": 2,
+     "plannable": 2
+    }
+   },
+   "declared": 15,
+   "plannable": 15,
+   "belowSamplingPadding": [
+    "bp-p1-c32-rrect-lg",
+    "bp-p1-c4-rrect-lg",
+    "bp-p1-c8-rrect-lg",
+    "c-impulse-rrect-lg",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  },
+  "1x-dark-receded": {
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+   "cells": {
+    "a-g128-rrect-md-1x": {
+     "scene": "a-g128-rrect-md-1x__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "a-g255-rrect-md-1x": {
+     "scene": "a-g255-rrect-md-1x__inactive",
+     "family": "A",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c32-rrect-lg": {
+     "scene": "bp-p1-c32-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-capsule-button": {
+     "scene": "bp-p1-c4-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c4-capsule-button-odd": {
+     "scene": "bp-p1-c4-capsule-button-odd__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 77.0
+    },
+    "bp-p1-c4-rrect-lg": {
+     "scene": "bp-p1-c4-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c4-rrect-md": {
+     "scene": "bp-p1-c4-rrect-md__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "bp-p1-c8-capsule-button": {
+     "scene": "bp-p1-c8-capsule-button__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 78.0
+    },
+    "bp-p1-c8-rrect-lg": {
+     "scene": "bp-p1-c8-rrect-lg__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
+    "c-impulse-rrect-lg": {
+     "scene": "c-impulse-rrect-lg__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "d-out8-lohi-rrect-md": {
+     "scene": "d-out8-lohi-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "f-checker64-rrect-lg": {
+     "scene": "f-checker64-rrect-lg__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    },
+    "f-impulse-rrect-md": {
+     "scene": "f-impulse-rrect-md__inactive",
+     "family": "F",
+     "role": "probe",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-g232-rrect-md": {
+     "scene": "h-g232-rrect-md__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
+    "h-p3-c64-rrect-lg": {
+     "scene": "h-p3-c64-rrect-lg__inactive",
+     "family": "H",
+     "role": "holdout",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 20.0
+    }
+   },
+   "byFamily": {
+    "A": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "B'": {
+     "declared": 8,
+     "plannable": 8
+    },
+    "C": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "D": {
+     "declared": 1,
+     "plannable": 1
+    },
+    "F": {
+     "declared": 2,
+     "plannable": 2
+    },
+    "H": {
+     "declared": 2,
+     "plannable": 2
+    }
+   },
+   "declared": 16,
+   "plannable": 16,
+   "belowSamplingPadding": [
+    "bp-p1-c32-rrect-lg",
+    "bp-p1-c4-rrect-lg",
+    "bp-p1-c8-rrect-lg",
+    "c-impulse-rrect-lg",
+    "f-checker64-rrect-lg",
+    "h-p3-c64-rrect-lg"
+   ]
+  }
+ },
+ "preExposureLaunch": {
+  "roles": [
+   "calibration",
+   "validation",
+   "probe"
+  ],
+  "scenes": [
+   "a-g000-capsule-button__inactive",
+   "a-g000-capsule-button__rest",
+   "a-g000-rrect-md__inactive",
+   "a-g000-rrect-md__rest",
+   "a-g064-capsule-button__inactive",
+   "a-g064-capsule-button__rest",
+   "a-g064-rrect-md__inactive",
+   "a-g064-rrect-md__rest",
+   "a-g096-rrect-lg__inactive",
+   "a-g096-rrect-lg__rest",
+   "a-g128-capsule-button__inactive",
+   "a-g128-capsule-button__rest",
+   "a-g128-rrect-md-1x__inactive",
+   "a-g128-rrect-md-1x__rest",
+   "a-g128-rrect-md__inactive",
+   "a-g128-rrect-md__rest",
+   "a-g160-capsule-button__inactive",
+   "a-g160-capsule-button__rest",
+   "a-g160-rrect-64__inactive",
+   "a-g160-rrect-64__rest",
+   "a-g160-rrect-80__inactive",
+   "a-g160-rrect-80__rest",
+   "a-g160-rrect-lg__inactive",
+   "a-g160-rrect-lg__rest",
+   "a-g160-rrect-md__inactive",
+   "a-g160-rrect-md__rest",
+   "a-g160-rrect-ml__inactive",
+   "a-g160-rrect-ml__rest",
+   "a-g176-capsule-button__inactive",
+   "a-g176-capsule-button__rest",
+   "a-g176-rrect-md__inactive",
+   "a-g176-rrect-md__rest",
+   "a-g192-capsule-button__inactive",
+   "a-g192-capsule-button__rest",
+   "a-g192-rrect-md__inactive",
+   "a-g192-rrect-md__rest",
+   "a-g208-capsule-button__inactive",
+   "a-g208-capsule-button__rest",
+   "a-g208-rrect-64__inactive",
+   "a-g208-rrect-64__rest",
+   "a-g208-rrect-80__inactive",
+   "a-g208-rrect-80__rest",
+   "a-g208-rrect-lg__inactive",
+   "a-g208-rrect-lg__rest",
+   "a-g208-rrect-md__inactive",
+   "a-g208-rrect-md__rest",
+   "a-g208-rrect-ml__inactive",
+   "a-g208-rrect-ml__rest",
+   "a-g224-capsule-button__inactive",
+   "a-g224-capsule-button__rest",
+   "a-g224-rrect-md__inactive",
+   "a-g224-rrect-md__rest",
+   "a-g240-capsule-button__inactive",
+   "a-g240-capsule-button__rest",
+   "a-g240-rrect-md__inactive",
+   "a-g240-rrect-md__rest",
+   "a-g255-capsule-button__inactive",
+   "a-g255-capsule-button__rest",
+   "a-g255-rrect-64__inactive",
+   "a-g255-rrect-64__rest",
+   "a-g255-rrect-80__inactive",
+   "a-g255-rrect-80__rest",
+   "a-g255-rrect-lg__inactive",
+   "a-g255-rrect-lg__rest",
+   "a-g255-rrect-md-1x__inactive",
+   "a-g255-rrect-md-1x__rest",
+   "a-g255-rrect-md__inactive",
+   "a-g255-rrect-md__rest",
+   "a-g255-rrect-ml__inactive",
+   "a-g255-rrect-ml__rest",
+   "b-p2-c16-rrect-md__inactive",
+   "b-p2-c16-rrect-md__rest",
+   "b-p2-c64-rrect-md__inactive",
+   "b-p2-c64-rrect-md__rest",
+   "b-p3-c16-rrect-lg__rest",
+   "b-p3-c16-rrect-md__inactive",
+   "b-p3-c16-rrect-md__rest",
+   "b-p3-c64-rrect-md__inactive",
+   "b-p3-c64-rrect-md__rest",
+   "b-p4-c16-rrect-md__inactive",
+   "b-p4-c16-rrect-md__rest",
+   "b-p4-c64-rrect-md__inactive",
+   "b-p4-c64-rrect-md__rest",
+   "b-p5-c16-rrect-lg__rest",
+   "b-p5-c16-rrect-md__inactive",
+   "b-p5-c16-rrect-md__rest",
+   "b-p5-c64-rrect-lg__rest",
+   "b-p5-c64-rrect-md__inactive",
+   "b-p5-c64-rrect-md__rest",
+   "bp-p1-c16-rrect-sm__inactive",
+   "bp-p1-c32-capsule-button__inactive",
+   "bp-p1-c32-capsule-button__rest",
+   "bp-p1-c32-rrect-64__inactive",
+   "bp-p1-c32-rrect-64__rest",
+   "bp-p1-c32-rrect-80__inactive",
+   "bp-p1-c32-rrect-80__rest",
+   "bp-p1-c32-rrect-lg__inactive",
+   "bp-p1-c32-rrect-lg__rest",
+   "bp-p1-c32-rrect-ml__inactive",
+   "bp-p1-c32-rrect-ml__rest",
+   "bp-p1-c4-capsule-button-odd__inactive",
+   "bp-p1-c4-capsule-button-odd__rest",
+   "bp-p1-c4-capsule-button__inactive",
+   "bp-p1-c4-capsule-button__rest",
+   "bp-p1-c4-rrect-lg__inactive",
+   "bp-p1-c4-rrect-lg__rest",
+   "bp-p1-c4-rrect-md__inactive",
+   "bp-p1-c4-rrect-md__rest",
+   "bp-p1-c64-capsule-button__inactive",
+   "bp-p1-c64-capsule-button__rest",
+   "bp-p1-c64-rrect-ml__inactive",
+   "bp-p1-c64-rrect-ml__rest",
+   "bp-p1-c8-capsule-button__inactive",
+   "bp-p1-c8-capsule-button__rest",
+   "bp-p1-c8-rrect-lg__inactive",
+   "bp-p1-c8-rrect-lg__rest",
+   "bp-p1-c8-rrect-ml__rest",
+   "bp-p1-c8-rrect-sm__inactive",
+   "c-impulse-rrect-lg__inactive",
+   "c-impulse-rrect-lg__rest",
+   "c-impulse-rrect-ml__inactive",
+   "c-impulse-rrect-ml__rest",
+   "c-s16-hi-capsule-button__inactive",
+   "c-s16-hi-capsule-button__rest",
+   "c-s16-hi-corner-rrect-md__inactive",
+   "c-s16-hi-end-capsule-button__inactive",
+   "c-s16-lo-capsule-button__inactive",
+   "c-s16-lo-capsule-button__rest",
+   "c-s16-lo-corner-rrect-md__inactive",
+   "c-s16-lo-end-capsule-button__inactive",
+   "c-s32-hi-p4-rrect-md__inactive",
+   "c-s32-hi-p4-rrect-md__rest",
+   "c-s32-hi-p4-rrect-ml__inactive",
+   "c-s32-hi-p4-rrect-ml__rest",
+   "c-s32-hi-rrect-md__inactive",
+   "c-s32-hi-rrect-md__rest",
+   "c-s32-lo-p4-rrect-md__inactive",
+   "c-s32-lo-p4-rrect-md__rest",
+   "c-s32-lo-p4-rrect-ml__inactive",
+   "c-s32-lo-p4-rrect-ml__rest",
+   "c-s32-lo-rrect-md__inactive",
+   "c-s32-lo-rrect-md__rest",
+   "c-s8-hi-d24-rrect-md__inactive",
+   "c-s8-hi-d24-rrect-md__rest",
+   "c-s8-hi-d34-rrect-md__rest",
+   "c-s8-hi-d4-rrect-lg__inactive",
+   "c-s8-hi-d4-rrect-lg__rest",
+   "c-s8-hi-d4-rrect-md__inactive",
+   "c-s8-hi-d4-rrect-md__rest",
+   "c-s8-hi-d40-rrect-lg__inactive",
+   "c-s8-hi-d40-rrect-lg__rest",
+   "c-s8-hi-d60-rrect-lg__rest",
+   "c-s8-hi-d80-rrect-lg__inactive",
+   "c-s8-hi-d80-rrect-lg__rest",
+   "c-s8-hi-p4-rrect-md__inactive",
+   "c-s8-hi-p4-rrect-md__rest",
+   "c-s8-hi-p4-rrect-ml__inactive",
+   "c-s8-hi-p4-rrect-ml__rest",
+   "c-s8-hi-rrect-md__inactive",
+   "c-s8-hi-rrect-md__rest",
+   "c-s8-hi-rrect-sm__inactive",
+   "c-s8-lo-d24-rrect-md__inactive",
+   "c-s8-lo-d24-rrect-md__rest",
+   "c-s8-lo-d34-rrect-md__rest",
+   "c-s8-lo-d4-rrect-lg__inactive",
+   "c-s8-lo-d4-rrect-lg__rest",
+   "c-s8-lo-d4-rrect-md__inactive",
+   "c-s8-lo-d4-rrect-md__rest",
+   "c-s8-lo-d40-rrect-lg__inactive",
+   "c-s8-lo-d40-rrect-lg__rest",
+   "c-s8-lo-d60-rrect-lg__rest",
+   "c-s8-lo-d80-rrect-lg__inactive",
+   "c-s8-lo-d80-rrect-lg__rest",
+   "c-s8-lo-p4-d34-rrect-md__rest",
+   "c-s8-lo-p4-rrect-md__inactive",
+   "c-s8-lo-p4-rrect-md__rest",
+   "c-s8-lo-p4-rrect-ml__inactive",
+   "c-s8-lo-p4-rrect-ml__rest",
+   "c-s8-lo-rrect-md__inactive",
+   "c-s8-lo-rrect-md__rest",
+   "c-s8-lo-rrect-sm__inactive",
+   "d-d0-hilo-p4-rrect-md__inactive",
+   "d-d0-hilo-p4-rrect-md__rest",
+   "d-d0-hilo-rrect-lg__rest",
+   "d-d0-hilo-rrect-md__inactive",
+   "d-d0-hilo-rrect-md__rest",
+   "d-d0-lohi-capsule-button__inactive",
+   "d-d0-lohi-capsule-button__rest",
+   "d-d0-lohi-p4-rrect-md__inactive",
+   "d-d0-lohi-p4-rrect-md__rest",
+   "d-d0-lohi-rrect-lg__rest",
+   "d-d0-lohi-rrect-md__inactive",
+   "d-d0-lohi-rrect-md__rest",
+   "d-d0-lohi-rrect-sm__inactive",
+   "d-d12-hilo-p4-rrect-md__inactive",
+   "d-d12-hilo-rrect-md__inactive",
+   "d-d12-lohi-capsule-button__inactive",
+   "d-d12-lohi-p4-rrect-md__inactive",
+   "d-d12-lohi-rrect-md__inactive",
+   "d-d32-hilo-rrect-md__inactive",
+   "d-d32-hilo-rrect-md__rest",
+   "d-d32-lohi-rrect-md__inactive",
+   "d-d32-lohi-rrect-md__rest",
+   "d-out16-hilo-rrect-md__inactive",
+   "d-out16-hilo-rrect-md__rest",
+   "d-out16-lohi-rrect-md__inactive",
+   "d-out16-lohi-rrect-md__rest",
+   "d-out8-hilo-rrect-md__inactive",
+   "d-out8-hilo-rrect-md__rest",
+   "d-out8-lohi-rrect-md__inactive",
+   "d-out8-lohi-rrect-md__rest",
+   "e-by-c16-rrect-lg__rest",
+   "e-by-c16-rrect-md__inactive",
+   "e-by-c16-rrect-md__rest",
+   "e-by-c64-rrect-md__inactive",
+   "e-by-c64-rrect-md__rest",
+   "e-rg-c16-rrect-lg__rest",
+   "e-rg-c16-rrect-md__inactive",
+   "e-rg-c16-rrect-md__rest",
+   "e-rg-c64-rrect-md__inactive",
+   "e-rg-c64-rrect-md__rest",
+   "f-checker16-rrect-md__inactive",
+   "f-checker16-rrect-md__rest",
+   "f-checker64-rrect-lg__inactive",
+   "f-checker64-rrect-lg__rest",
+   "f-impulse-rrect-md__inactive",
+   "f-impulse-rrect-md__rest",
+   "f-photo-rrect-md__inactive",
+   "f-photo-rrect-md__rest"
+  ],
+  "excluded": {
+   "bp-p1-c16-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "bp-p1-c8-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-hi-corner-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-hi-end-capsule-button__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-lo-corner-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-lo-end-capsule-button__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-hi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-lo-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "d-d0-lohi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "d-d12-hilo-p4-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "d-d12-hilo-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "d-d12-lohi-capsule-button__rest": "dump-only rest twin: captured in no pass",
+   "d-d12-lohi-p4-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "d-d12-lohi-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "ref-checker-16-000-255__inactive": "native-only (no-glass reference)",
+   "ref-checker-16-000-255__rest": "native-only (no-glass reference)",
+   "ref-checker-16-016-112__inactive": "native-only (no-glass reference)",
+   "ref-checker-16-016-112__rest": "native-only (no-glass reference)",
+   "ref-checker-16-048-208__inactive": "native-only (no-glass reference)",
+   "ref-checker-16-048-208__rest": "native-only (no-glass reference)",
+   "ref-checker-16-096-160__inactive": "native-only (no-glass reference)",
+   "ref-checker-16-096-160__rest": "native-only (no-glass reference)",
+   "ref-checker-16-144-240__inactive": "native-only (no-glass reference)",
+   "ref-checker-16-144-240__rest": "native-only (no-glass reference)",
+   "ref-checker-16-by__inactive": "native-only (no-glass reference)",
+   "ref-checker-16-by__rest": "native-only (no-glass reference)",
+   "ref-checker-16-rg__inactive": "native-only (no-glass reference)",
+   "ref-checker-16-rg__rest": "native-only (no-glass reference)",
+   "ref-checker-32-000-255__inactive": "native-only (no-glass reference)",
+   "ref-checker-32-000-255__rest": "native-only (no-glass reference)",
+   "ref-checker-4-000-255__inactive": "native-only (no-glass reference)",
+   "ref-checker-4-000-255__rest": "native-only (no-glass reference)",
+   "ref-checker-64-000-255__inactive": "native-only (no-glass reference)",
+   "ref-checker-64-000-255__rest": "native-only (no-glass reference)",
+   "ref-checker-64-016-112__inactive": "native-only (no-glass reference)",
+   "ref-checker-64-016-112__rest": "native-only (no-glass reference)",
+   "ref-checker-64-048-208__inactive": "native-only (no-glass reference)",
+   "ref-checker-64-048-208__rest": "native-only (no-glass reference)",
+   "ref-checker-64-096-160__inactive": "native-only (no-glass reference)",
+   "ref-checker-64-096-160__rest": "native-only (no-glass reference)",
+   "ref-checker-64-144-240__inactive": "native-only (no-glass reference)",
+   "ref-checker-64-144-240__rest": "native-only (no-glass reference)",
+   "ref-checker-64-by__inactive": "native-only (no-glass reference)",
+   "ref-checker-64-by__rest": "native-only (no-glass reference)",
+   "ref-checker-64-rg__inactive": "native-only (no-glass reference)",
+   "ref-checker-64-rg__rest": "native-only (no-glass reference)",
+   "ref-checker-8-000-255__inactive": "native-only (no-glass reference)",
+   "ref-checker-8-000-255__rest": "native-only (no-glass reference)",
+   "ref-grey-000__inactive": "native-only (no-glass reference)",
+   "ref-grey-000__rest": "native-only (no-glass reference)",
+   "ref-grey-064__inactive": "native-only (no-glass reference)",
+   "ref-grey-064__rest": "native-only (no-glass reference)",
+   "ref-grey-096__inactive": "native-only (no-glass reference)",
+   "ref-grey-096__rest": "native-only (no-glass reference)",
+   "ref-grey-128__inactive": "native-only (no-glass reference)",
+   "ref-grey-128__rest": "native-only (no-glass reference)",
+   "ref-grey-160__inactive": "native-only (no-glass reference)",
+   "ref-grey-160__rest": "native-only (no-glass reference)",
+   "ref-grey-176__inactive": "native-only (no-glass reference)",
+   "ref-grey-176__rest": "native-only (no-glass reference)",
+   "ref-grey-192__inactive": "native-only (no-glass reference)",
+   "ref-grey-192__rest": "native-only (no-glass reference)",
+   "ref-grey-208__inactive": "native-only (no-glass reference)",
+   "ref-grey-208__rest": "native-only (no-glass reference)",
+   "ref-grey-224__inactive": "native-only (no-glass reference)",
+   "ref-grey-224__rest": "native-only (no-glass reference)",
+   "ref-grey-240__inactive": "native-only (no-glass reference)",
+   "ref-grey-240__rest": "native-only (no-glass reference)",
+   "ref-grey-255__inactive": "native-only (no-glass reference)",
+   "ref-grey-255__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g248__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g248__rest": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s16-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s16-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s32-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s32-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g256__inactive": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g256__rest": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g300__inactive": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g300__rest": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g336__inactive": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g336__rest": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g64__inactive": "native-only (no-glass reference)",
+   "ref-impulse-048-on-208-s8-g64__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g248__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g248__rest": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s16-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s16-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s32-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s32-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g256__inactive": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g256__rest": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g300__inactive": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g300__rest": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g336__inactive": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g336__rest": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g64__inactive": "native-only (no-glass reference)",
+   "ref-impulse-208-on-048-s8-g64__rest": "native-only (no-glass reference)",
+   "ref-impulse-255-on-000-s4-g64__inactive": "native-only (no-glass reference)",
+   "ref-impulse-255-on-000-s4-g64__rest": "native-only (no-glass reference)",
+   "ref-photo__inactive": "native-only (no-glass reference)",
+   "ref-photo__rest": "native-only (no-glass reference)",
+   "ref-split-x160-016-112__inactive": "native-only (no-glass reference)",
+   "ref-split-x160-016-112__rest": "native-only (no-glass reference)",
+   "ref-split-x160-048-208__inactive": "native-only (no-glass reference)",
+   "ref-split-x160-048-208__rest": "native-only (no-glass reference)",
+   "ref-split-x160-112-016__inactive": "native-only (no-glass reference)",
+   "ref-split-x160-112-016__rest": "native-only (no-glass reference)",
+   "ref-split-x160-208-048__inactive": "native-only (no-glass reference)",
+   "ref-split-x160-208-048__rest": "native-only (no-glass reference)",
+   "ref-split-x172-016-112__inactive": "native-only (no-glass reference)",
+   "ref-split-x172-048-208__inactive": "native-only (no-glass reference)",
+   "ref-split-x172-112-016__inactive": "native-only (no-glass reference)",
+   "ref-split-x172-208-048__inactive": "native-only (no-glass reference)",
+   "ref-split-x192-048-208__inactive": "native-only (no-glass reference)",
+   "ref-split-x192-048-208__rest": "native-only (no-glass reference)",
+   "ref-split-x192-208-048__inactive": "native-only (no-glass reference)",
+   "ref-split-x192-208-048__rest": "native-only (no-glass reference)",
+   "ref-split-x248-048-208__inactive": "native-only (no-glass reference)",
+   "ref-split-x248-048-208__rest": "native-only (no-glass reference)",
+   "ref-split-x248-208-048__inactive": "native-only (no-glass reference)",
+   "ref-split-x248-208-048__rest": "native-only (no-glass reference)",
+   "ref-split-x256-048-208__inactive": "native-only (no-glass reference)",
+   "ref-split-x256-048-208__rest": "native-only (no-glass reference)",
+   "ref-split-x256-208-048__inactive": "native-only (no-glass reference)",
+   "ref-split-x256-208-048__rest": "native-only (no-glass reference)"
+  },
+  "environment": {
+   "VITREA_SCENES": "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json",
+   "VITREA_FIXTURES": "<the G1 materialised W42 fixture root, outside the repository>"
+  }
+ },
+ "holdout": "H cells are posed only inside the one receipt (clause 11); their plannability above is declaration metadata, and their blind rendered predictions are frozen before it"
+}
