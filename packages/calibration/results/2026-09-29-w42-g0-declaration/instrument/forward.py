@@ -22,6 +22,7 @@ preserves a constant, the hinge reads max(0, 0) = 0, the bleed and the tails are
 blurs, and R1's composite of T(C) = T(W) = T(g) returns T(g). That is clause 7's invariance, and
 `uniform_invariance()` checks it on every family.
 """
+import itertools
 from dataclasses import dataclass, replace
 
 import numpy as np
@@ -96,11 +97,18 @@ class Family:
         return replace(self, **kw)
 
 
+_TOKENS = itertools.count()
+
+
 class Cell:
     """One cell: backdrop, shape, scale, endpoint, the footprint crop and the deep evaluation mask."""
 
     def __init__(self, cid, background, component, scale, scheme, pose, d_in=None, rgb=False, T=None, kernel='n'):
         self.id, self.scale, self.scheme, self.pose = cid, scale, scheme, pose
+        # A token never reused in the process: the shared blur store is keyed by it. Keying by id(self), as the
+        # first byte-bounded store did, let a new cell that reused a freed cell's id read that cell's blurs
+        # when a window, width and mode coincided exactly.
+        self.token = next(_TOKENS)
         self.ep = endpoint(scheme, pose)
         self.active = pose == 'rest'
         self.bg_spec = G.BACKGROUNDS[background] if isinstance(background, str) else background
@@ -171,7 +179,7 @@ class Cell:
     def blur(self, src_key, X, sig_dev, mode, weight=None):
         """Cached Gaussian of a window image. mode 'clamp' | 'norm' (normalised zero padding, or normalised over
         `weight`, a support mask on the window)."""
-        key = (id(self), src_key, round(float(sig_dev), 4), mode, None if weight is None else id(weight))
+        key = (self.token, src_key, round(float(sig_dev), 4), mode, None if weight is None else id(weight))
         hit = _BLURS.get(key)
         if hit is not None:
             _BLURS.move_to_end(key)

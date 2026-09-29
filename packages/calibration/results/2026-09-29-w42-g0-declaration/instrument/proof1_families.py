@@ -205,11 +205,12 @@ def part_c(pool):
 
 
 def part_aw(pool):
-    """Aw: part A's active recoveries re-read under the parent's ruling 3 (every family fitter reads W, so its
-    active mask adds 2 sigma_w: 53.6 pt, rrect-ml and rrect-lg only). Needs W42_KERNEL=w in the environment
-    before the pool starts, so the spawned workers read it."""
-    assert PC.KERNEL == 'w', 'run with W42_KERNEL=w'
-    jobs = [(n, ep) for n, (_, _, _, _, status) in FA.FAMILIES.items() if status != 'null'
+    """Aw / An: part A's ACTIVE recoveries at the final bed pin, at the kernel support W42_KERNEL names ('w': the
+    first ruling 3, now the fallback's record, mask 53.6 pt, rrect-ml and -lg only; 'n': the revised ruling 3's
+    primary, refraction after the blur, mask 20 + 2 sigma_n,ref). The environment is read by the spawned workers."""
+    key = ('Aw' if PC.KERNEL == 'w' else 'An') + os.environ.get('W42_PART_SUFFIX', '')
+    only = [f for f in os.environ.get('W42_FAMILIES', '').split(',') if f]
+    jobs = [(n, ep) for n, (_, _, _, _, status) in FA.FAMILIES.items() if status != 'null' and (not only or n in only)
             for ep in ('light-rest', 'dark-rest')]
     rows = pool.map(part_a_one, jobs, chunksize=1)
     floor = TOL['synthetic_render']['fit_reaches_floor_if_pooled_rms_at_most']
@@ -222,8 +223,9 @@ def part_aw(pool):
             v['ok'] = abs(v['err']) <= v['tol']
             ok &= v['ok']
         r['pass'] = bool(ok)
-        r['kernel'] = 'w'
-    OUT['Aw'] = rows
+        r['kernel'] = PC.KERNEL
+        r['bed'] = bed.BED_COMMIT[:8]
+    OUT[key] = rows
 
 
 def part_e_one(job):
@@ -320,9 +322,12 @@ def write():
                      for pn, v in r['recovered'].items()]
             L.append(f"  {r['family']:13s} {r['ep']:15s} {'PASS' if r['pass'] else 'FAIL'} pooled {r['pooled']:.3f} "
                      f"max {r['max_cell']:.3f} n {r['n_cells']} | " + ' | '.join(parts))
-    if 'Aw' in OUT:
-        L += ['', "Aw  part A's ACTIVE recoveries under ruling 3 (W readers add 2 sigma_w: mask 53.6 pt, rrect-ml and -lg)"]
-        for r in OUT['Aw']:
+    for key, head in (('Aw', "Aw  part A's ACTIVE recoveries at the W support (the first ruling 3; now the fallback's record)"),
+                      ('An', "An  part A's ACTIVE recoveries at the narrow support (the revised ruling 3's primary), final pin")):
+        if key not in OUT:
+            continue
+        L += ['', head]
+        for r in OUT[key]:
             if 'skipped' in r:
                 continue
             parts = [f"{pn} {v['truth']:.3f}->{v['read']:.3f} ({v['err']:+.4f}; {v['tol']})" for pn, v in r['recovered'].items()]
@@ -383,6 +388,6 @@ if __name__ == '__main__':
             if part == 'D':
                 part_d()
             else:
-                {'A': part_a, 'Aw': part_aw, 'B': part_b, 'C': part_c, 'E': part_e}[part](pool)
+                {'A': part_a, 'Aw': part_aw, 'An': part_aw, 'B': part_b, 'C': part_c, 'E': part_e}[part](pool)
             log(f'part {part} done in {time.time() - t:.0f}s')
             write()

@@ -1,0 +1,13 @@
+W42 G0 refraction-order test (tolerances.json refraction_order_test, statistic_v2): synthetic renders of
+both orders. D_tail = mean of the 3 largest Delta_c (structured) - the same (uniform); BEFORE > 0.30,
+AFTER < 0.15. v1 = the first, median form (no power; refraction_order.v1.txt).
+  light-rest  after  A None  D_tail +0.031 (v1 +0.003)  call AFTER     (33 structured / 17 uniform cells vote) LT pooled 0.406; top c-s8-lo-rrect-md 0.05, c-s8-hi-d24-rrect-md 0.03, c-s8-hi-d34-rrect-md 0.03
+  light-rest  before A 2.0   D_tail +0.033 (v1 +0.004)  call AFTER     (33 structured / 17 uniform cells vote) LT pooled 0.409; top c-s8-lo-rrect-md 0.04, b-p3-c64-rrect-md 0.03, b-p2-c64-rrect-md 0.03
+  light-rest  before A 4.0   D_tail +0.053 (v1 +0.005)  call AFTER     (33 structured / 17 uniform cells vote) LT pooled 0.420; top b-p2-c64-rrect-md 0.08, bp-p1-c32-rrect-ml 0.05, c-s8-lo-rrect-md 0.04
+  light-rest  before A 8.0   D_tail +0.170 (v1 +0.003)  call undecided (33 structured / 17 uniform cells vote) LT pooled 0.464; top b-p2-c64-rrect-md 0.30, b-p4-c64-rrect-md 0.12, b-p5-c64-rrect-md 0.10
+  light-rest  before A 16.0  D_tail +1.348 (v1 +0.022)  call BEFORE    (33 structured / 17 uniform cells vote) LT pooled 0.640; top b-p2-c64-rrect-md 1.95, b-p4-c64-rrect-md 1.13, b-p5-c64-rrect-md 0.96
+  dark-rest   after  A None  D_tail +0.032 (v1 -0.001)  call AFTER     (43 structured / 17 uniform cells vote) LT pooled 0.384; top c-s8-lo-rrect-md 0.05, c-s32-lo-p4-rrect-md 0.04, e-by-c64-rrect-md 0.03
+  dark-rest   before A 2.0   D_tail +0.031 (v1 +0.003)  call AFTER     (43 structured / 17 uniform cells vote) LT pooled 0.387; top c-s8-lo-rrect-md 0.05, c-s32-lo-p4-rrect-md 0.03, e-by-c64-rrect-md 0.03
+  dark-rest   before A 4.0   D_tail +0.029 (v1 +0.002)  call AFTER     (43 structured / 17 uniform cells vote) LT pooled 0.396; top c-s8-lo-rrect-md 0.05, e-by-c64-rrect-md 0.03, c-s32-lo-p4-rrect-md 0.03
+  dark-rest   before A 8.0   D_tail +0.130 (v1 -0.005)  call AFTER     (43 structured / 17 uniform cells vote) LT pooled 0.437; top b-p4-c64-rrect-md 0.20, b-p2-c64-rrect-md 0.16, bp-p1-c32-rrect-ml 0.06
+  dark-rest   before A 16.0  D_tail +1.159 (v1 -0.007)  call BEFORE    (43 structured / 17 uniform cells vote) LT pooled 0.579; top b-p4-c64-rrect-md 1.86, b-p2-c64-rrect-md 1.20, b-p3-c64-rrect-md 0.45

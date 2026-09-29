@@ -13,7 +13,8 @@ Pairs, per endpoint:
   U1 set           W-shape, W-tails, K2 and W-canvas against each other, receded endpoints (U1's candidates)
   nulls            LT -> each rejected null, pooled rms against memo E's bars (2.60 reading, 4.65 unit)
 
-Usage: python3.12 proof2_separation.py [set ...] with set in {rivals, lt, u1, reread}; writes
+Usage: python3.12 proof2_separation.py [set ...] with set in {rivals, lt, active, touch-R1, touch-knee-luma,
+touch-free-sn, u1, reread}; a pair is re-run when it has no row at the current pin and kernel; writes
 proof2_separation.json / .txt (merging with an earlier run's rows).
 """
 import json
@@ -105,6 +106,11 @@ def run_null(args):
                 x=r['x'], lam=r['lam'], kernel=PC.KERNEL if ep.endswith('rest') else 'receded (no band)')
 
 
+# U3's active half (the parent's ruling 4: non-identifiable, recorded) and LT against W-shape when active (the
+# fitted family contains the truth): not re-read in the active pose.
+U3_ACTIVE = {('W-canvas', 'LT'), ('LT', 'W-canvas'), ('edge-swap', 'LT'), ('LT', 'edge-swap'), ('LT', 'W-shape')}
+
+
 def jobs_for(which):
     J = []
     if 'rivals' in which:
@@ -115,6 +121,11 @@ def jobs_for(which):
                 if not applicable(r, ep) or r in NESTED or (r == 'free-sn' and ep.endswith('inactive')):
                     continue
                 J.append(('LT', r, ep, False))
+    if 'active' in which:   # the active pairs of 'rivals' and 'lt', re-read at the current pin and kernel
+        J += [j for j in jobs_for(['rivals', 'lt']) if j[2].endswith('rest') and (j[0], j[1]) not in U3_ACTIVE]
+    for fam in ('R1', 'knee-luma', 'free-sn'):   # the new pin's active rows (R1, the knee, depth grading)
+        if f'touch-{fam}' in which:
+            J += [j for j in jobs_for(['rivals', 'lt']) if j[2].endswith('rest') and fam in (j[0], j[1])]
     if 'u1' in which:
         J += [(a, b, ep, False) for ep in ('light-inactive', 'dark-inactive') for a in U1SET for b in U1SET
               if a != b and not (b in NESTED and a == 'LT')]
@@ -144,7 +155,10 @@ if __name__ == '__main__':
         rows, nulls = prev['pairs'], prev['nulls']
     except FileNotFoundError:
         rows, nulls = [], []
-    done = {(r['truth'], r['fit'], r['ep'], r['whole']) for r in rows}
+    # a pair is done at the CURRENT pin and kernel (a row records both; rows before either field are 5ba68aeb, 'n')
+    here = lambda ep: (bed.BED_COMMIT[:8], PC.KERNEL if ep.endswith('rest') else 'receded (no band)')
+    tag = lambda r: (r.get('bed', '5ba68aeb'), r.get('kernel', 'n' if r['ep'].endswith('rest') else 'receded (no band)'))
+    done = {(r['truth'], r['fit'], r['ep'], r['whole']) for r in rows if tag(r) == here(r['ep'])}
     with Pool(int(os.environ.get('W42_POOL', '2'))) as pool:
         J = [j for j in jobs_for(which) if j not in done]
         for r in pool.imap_unordered(run_pair, J):
@@ -158,7 +172,7 @@ if __name__ == '__main__':
         skip = {('W-canvas', 'LT', 'rest'), ('LT', 'W-canvas', 'rest'), ('edge-swap', 'LT', 'rest'),
                 ('LT', 'edge-swap', 'rest'), ('LT', 'W-shape', 'rest'), ('W-canvas', 'W-shape', 'inactive')}
         again = [] if 'reread' not in which else [(r['truth'], r['fit'], r['ep'], True) for r in rows if not r['whole'] and r['verdict'] != 'DISTINGUISHED'
-                 and (r['truth'], r['fit'], r['ep'], True) not in done
+                 and tag(r) == here(r['ep']) and (r['truth'], r['fit'], r['ep'], True) not in done
                  and (r['truth'], r['fit'], r['ep'].split('-')[1]) not in skip]
         for r in pool.imap_unordered(run_pair, again):
             rows.append(r)

@@ -9,9 +9,10 @@ refraction, misfits there more the nearer the band is.
 
 The statistic (`statistic()`): fit the law on the active cells at the narrow-support mask, bin each cell's luma
 residual by depth ([d_in, 30), [30, 38), [38, 46), [46, 54), [54, inf) pt), take Delta_c = rms(NEAR) - rms(FAR)
-per cell (NEAR the shallowest bin with >= 200 px, FAR the deepest, at least 16 pt deeper), and D = median over
-the structured cells minus median over the uniform cells. BEFORE above 0.30 code (carried by >= 3 structured
-cells above 0.30), AFTER below 0.15, undecided between.
+per cell (NEAR the shallowest bin with >= 200 px, FAR the deepest, at least 16 pt deeper), and D = the mean of
+the 3 largest Delta_c over the structured cells minus the same over the uniform cells (the tail form, declared
+in cb490956 after the median form of 17da5c7d proved powerless). BEFORE above 0.30 code, AFTER below 0.15,
+undecided between.
 
 The proof renders both orders. AFTER is the law's own render (the displacement after the blur never reaches a
 pixel beyond the band). BEFORE displaces the floored capture along the SDF normal by A (1 - |d| / h)^2, pointing
@@ -92,16 +93,19 @@ def delta_c(cell, resid):
 
 
 def statistic(cells, resids):
-    struct = [delta_c(c, e) for c, e in zip(cells, resids) if c.letter != 'A']
-    unif = [delta_c(c, e) for c, e in zip(cells, resids) if c.letter == 'A']
-    struct = [v for v in struct if v is not None]
-    unif = [v for v in unif if v is not None]
-    D = (float(np.median(struct)) if struct else float('nan')) - (float(np.median(unif)) if unif else 0.0)
-    carried = sum(v > BEFORE_BAR for v in struct)
-    call = ('BEFORE' if D > BEFORE_BAR and carried >= CARRY else 'AFTER' if D < AFTER_BAR else 'undecided')
-    return dict(D=D, n_struct=len(struct), n_unif=len(unif), carried=carried, call=call,
-                struct_median=float(np.median(struct)) if struct else None,
-                unif_median=float(np.median(unif)) if unif else None)
+    """v2 (the declared statistic since cb490956): D_tail, the mean of the 3 largest Delta_c over structured
+    cells minus the same over uniform cells. v1 (the median form, 17da5c7d) is reported beside it."""
+    per = {c.id: delta_c(c, e) for c, e in zip(cells, resids)}
+    struct = sorted(v for c in cells if c.letter != 'A' and (v := per[c.id]) is not None)
+    unif = sorted(v for c in cells if c.letter == 'A' and (v := per[c.id]) is not None)
+    tail = lambda xs: float(np.mean(xs[-3:])) if xs else 0.0
+    D_tail = tail(struct) - tail(unif)
+    D_v1 = (float(np.median(struct)) if struct else float('nan')) - (float(np.median(unif)) if unif else 0.0)
+    call = 'BEFORE' if D_tail > BEFORE_BAR else 'AFTER' if D_tail < AFTER_BAR else 'undecided'
+    top = sorted(((v, cid) for cid, v in per.items() if v is not None and not cid.split('|')[1].startswith('a-')),
+                 reverse=True)[:3]
+    return dict(D=D_tail, D_v1=D_v1, n_struct=len(struct), n_unif=len(unif), call=call,
+                carried=sum(v > BEFORE_BAR for v in struct), top_cells=top, per_cell=per)
 
 
 def run(ep, order, A=None, seed=0):
@@ -131,14 +135,15 @@ if __name__ == '__main__':
         for order, A in [('after', None)] + [('before', a) for a in STRENGTHS]:
             r = run(ep, order, A)
             rows.append(r)
-            print(f"{ep:11s} {order:6s} A {A} D {r['D']:+.3f} (struct {r['struct_median']}, unif {r['unif_median']}; "
-                  f"{r['n_struct']}/{r['n_unif']} cells, {r['carried']} carry) call {r['call']} pooled {r['pooled']:.3f} "
+            print(f"{ep:11s} {order:6s} A {A} D_tail {r['D']:+.3f} (v1 {r['D_v1']:+.3f}; {r['n_struct']}/{r['n_unif']} "
+                  f"cells; top {[(round(v, 2), c) for v, c in r['top_cells']]}) call {r['call']} pooled {r['pooled']:.3f} "
                   f"k {list(r['k'].values())[0]:.4f}", flush=True)
             json.dump(rows, open('refraction_order.json', 'w'), indent=1, default=float)
-    L = ['W42 G0 refraction-order test (tolerances.json refraction_order_test): synthetic renders of both orders',
-         'D = median(Delta_c | structured) - median(Delta_c | uniform); BEFORE > 0.30 (>= 3 cells carry), AFTER < 0.15']
+    L = ['W42 G0 refraction-order test (tolerances.json refraction_order_test, statistic_v2): synthetic renders of',
+         'both orders. D_tail = mean of the 3 largest Delta_c (structured) - the same (uniform); BEFORE > 0.30,',
+         'AFTER < 0.15. v1 = the first, median form (no power; refraction_order.v1.txt).']
     for r in rows:
-        L.append(f"  {r['ep']:11s} {r['order']:6s} A {str(r['A']):5s} D {r['D']:+.3f}  call {r['call']:9s} "
-                 f"({r['n_struct']} structured / {r['n_unif']} uniform cells vote; {r['carried']} carry) "
-                 f"LT pooled {r['pooled']:.3f}")
+        L.append(f"  {r['ep']:11s} {r['order']:6s} A {str(r['A']):5s} D_tail {r['D']:+.3f} (v1 {r['D_v1']:+.3f})  "
+                 f"call {r['call']:9s} ({r['n_struct']} structured / {r['n_unif']} uniform cells vote) "
+                 f"LT pooled {r['pooled']:.3f}; top {', '.join(f'{c.split(chr(124))[1]} {v:.2f}' for v, c in r['top_cells'])}")
     open('refraction_order.txt', 'w').write('\n'.join(L) + '\n')

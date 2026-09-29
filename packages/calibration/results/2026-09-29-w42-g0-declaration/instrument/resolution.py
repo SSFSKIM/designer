@@ -92,20 +92,22 @@ def family_rows(p1):
                              vitrea=None,
                              notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells" +
                                    (f"; excluded {r['excluded']}" if r.get('excluded') else '')))
-    for r in p1.get('Aw', []):
-        if 'skipped' in r:
-            rows.append(dict(reader=f"family fitter: {r['family']} (ruling 3)", quantity='all', endpoints=[r['ep']],
-                             band='outside (d_in 53.6 pt, W support)', gated=True,
-                             synthetic=dict(resolution='no answering cell', tolerance='-', verdict='NON-IDENTIFIABLE'),
-                             vitrea=None, notes=r['skipped']))
-            continue
-        for pn, v in r['recovered'].items():
-            rows.append(dict(reader=f"family fitter: {r['family']} (ruling 3)", quantity=pn, endpoints=[r['ep']],
-                             band='outside (d_in 53.6 pt, W support)', gated=True,
-                             synthetic=dict(resolution=f"{v['err']:+.4f} (read {v['read']:.4f}, truth {v['truth']:.4f})",
-                                            tolerance=f"+-{v['tol']}",
-                                            verdict='PASS' if v['ok'] else ('NON-IDENTIFIABLE' if abs(v['err']) > 5 else 'FAIL')),
-                             vitrea=None, notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells (rrect-ml and -lg only)"))
+    for key, label, band in (('Aw', 'W support: the fallback record', 'outside (d_in 53.6 pt, W support)'),
+                             ('An', 'narrow support, final pin', 'outside (d_in 20 + 2 sigma_n,ref)')):
+        for r in p1.get(key, []):
+            if 'skipped' in r:
+                rows.append(dict(reader=f"family fitter: {r['family']} ({label})", quantity='all', endpoints=[r['ep']],
+                                 band=band, gated=key == 'An',
+                                 synthetic=dict(resolution='no answering cell', tolerance='-', verdict='NON-IDENTIFIABLE'),
+                                 vitrea=None, notes=r['skipped']))
+                continue
+            for pn, v in r['recovered'].items():
+                rows.append(dict(reader=f"family fitter: {r['family']} ({label})", quantity=pn, endpoints=[r['ep']],
+                                 band=band, gated=key == 'An',
+                                 synthetic=dict(resolution=f"{v['err']:+.4f} (read {v['read']:.4f}, truth {v['truth']:.4f})",
+                                                tolerance=f"+-{v['tol']}",
+                                                verdict='PASS' if v['ok'] else ('NON-IDENTIFIABLE' if abs(v['err']) > 5 else 'FAIL')),
+                                 vitrea=None, notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells, bed {r.get('bed', '5d719b60')}"))
     for r in p1.get('C', []):
         band = 'outside' if r['ep'].endswith('rest') else 'receded (no band)'
         rows.append(dict(reader='family fitter: LT (survival resolution)', quantity='k', endpoints=[r['ep']],
@@ -154,14 +156,25 @@ def estimate_rows(table):
     return rows
 
 
+FALLBACK = []
+
+
 def separation(p2):
     if not p2:
         return [], []
-    best = {}
+    # One row per pair: the latest bed pin, the whole-bed read over the subset, and for an ACTIVE pair the
+    # narrow-support read (the revised ruling 3's primary); active reads at the W support are the fallback's
+    # record and are listed apart (fallback_table).
+    order = {'5ba68aeb': 0, '07b45391': 1, '5d719b60': 2, '764217e1': 3}
+    rank = lambda r: (order.get(r.get('bed', '5ba68aeb'), 9), bool(r.get('whole')))
+    best, fallback = {}, {}
     for r in p2['pairs']:
         key = (r['truth'], r['fit'], r['ep'])
-        if key not in best or r.get('whole'):
-            best[key] = r
+        target = fallback if (r['ep'].endswith('rest') and r.get('kernel') == 'w') else best
+        if key not in target or rank(r) > rank(target[key]):
+            target[key] = r
+    global FALLBACK
+    FALLBACK = sorted(fallback.values(), key=lambda r: (r['truth'], r['fit'], r['ep']))
     table, open_pairs = [], []
     for (t, f, ep), r in sorted(best.items()):
         import proof_common as PC
@@ -183,7 +196,11 @@ def separation(p2):
 def main():
     rows = family_rows(load('proof1_families.json'))
     for f in ('resolution_rows_a.json', 'resolution_rows_b.json'):
-        rows += load(f) or []
+        for r in load(f) or []:
+            # the parent's gating (2026-09-29 revision): the family fitters and the step reader's support call
+            # are the gated instrument; every other statistic reader is descriptive
+            r['gated'] = bool(r['reader'].startswith('step') and 'support' in r['quantity'])
+            rows.append(r)
     table, open_pairs = separation(load('proof2_separation.json'))
     nulls = load('proof2_nulls.json') or []
     rows += estimate_rows(table)
@@ -230,6 +247,11 @@ def main():
                            for k, v in r['x'].items())
             verdict = 'VOID: the fit sat on the k bound (4.0); widened for the resume' if at_bound else r['verdict']
             L.append(f"  {r['fit']:14s} {r['ep']:15s} pooled {r['pooled']:6.2f} max cell {r['max_cell']:6.2f}  {verdict}")
+    if FALLBACK:
+        L += ['', "ACTIVE PAIRS AT THE W SUPPORT (the first ruling 3; the fallback's record if refraction acts before the blur)"]
+        for r in FALLBACK:
+            L.append(f"  {r['truth']:>12s} -> {r['fit']:<13s} {r['ep']:15s} s {r['s']:6.2f}  {r['verdict']}"
+                     f"{' (whole bed)' if r.get('whole') else ''}  bed {r.get('bed')}")
     L += ['', 'PAIRS NOT DISTINGUISHED, AND WHAT WOULD SEPARATE THEM']
     for r in open_pairs:
         L.append(f"- {r['truth']} -> {r['fit']} ({r['ep']}): s {r['s']:.2f} {r['verdict']}")
