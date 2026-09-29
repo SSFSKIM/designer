@@ -10,17 +10,16 @@ The workflow is a from-scratch reconstruction of the method observed in Figma Ma
 
 ## Install
 
-```
-/plugin marketplace add SSFSKIM/designer
-/plugin install designer@designer
-```
-
-Or from the command line:
+From the command line:
 
 ```bash
-claude plugin marketplace add SSFSKIM/designer
+claude plugin marketplace add SSFSKIM/designer --sparse .claude-plugin skills
 claude plugin install designer@designer
 ```
+
+The repository also holds vitrea and its calibration evidence, about 600 MB packed, and the plugin needs only its manifest and `skills/`. `--sparse` checks out just those two directories, about 10 MB, where a full clone can run past the 120 seconds Claude Code allows a marketplace clone and fail; an update re-clones whenever there are new commits, so the limit applies every time. The in-session `/plugin marketplace add` has no `--sparse`, so add the marketplace from the shell.
+
+If you added it earlier without `--sparse`, run `claude plugin marketplace remove designer` first: `add` refuses a source that differs from the one already declared, and the removal uninstalls the plugin, which the `install` line puts back. Where an SSH key for GitHub is configured but GitHub does not accept it, prefix the `add` with `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`.
 
 ## Usage
 
