@@ -1,0 +1,246 @@
+W42 GROUNDING MEMO C: the probe series, the W29 dump, and the smallest capture that still identifies
+2026-09-29. Offline and read-only on the repository. Scratch and full outputs: ~/vitrea-w42/grounding/probe/
+(python3.12). Units are CSS px unless marked "dev" (device px). One code is the resolution.
+
+0. ANSWERS
+- Heavy component W: a LOCAL blur, not a group mean. The group mean loses by 5-10x rms on every pitch-64
+  cell. W sits in ENCODED space with sigma_w 12-13 (active) and 14-19 (receded), identical at 1x and 2x,
+  so it is a CSS-px quantity. In the receded pose W is limited to the footprint, and the layer's bounding
+  box fits best: on the W34 receded capsule the footprint blur reads rms 0.35 against 1.5-2.2 for a
+  canvas blur. In the active pose, big shapes cannot tell the two apart and the capsule prefers a canvas
+  blur. That capsule is all refraction, so the active footprint question stays open.
+- Narrow component C: its width is set by span and pose, and at 2x it is flat across pitch (8-64),
+  consistent with a Gaussian.
+  - Active, spans 32-44: no blur at all. sigma_n is 0.8 at 1x and 0.4 at 2x at every pitch from 4 to 64,
+    i.e. 0.8 dev at both scales. That is the resampling floor of a half-resolution backdrop, which
+    matches the dump's backdrop scale of 0.5.
+  - Active, spans 96 / 128 / 160: sigma_n is 2.0 / 4.0 / 4.5, the same at both scales.
+  - Receded: sigma_n is 4-4.5 at spans 32-44 and 5.5-9 at spans 96-160 (noisy).
+  - At 1x only, pitches 4 and 8 pass more contrast than any Gaussian allows (aliasing, section 2e).
+- One-sided term, active pose: a lighten (light) or darken (dark) at opacity lam 0.88-0.91 followed by a
+  normal mix at w 0.48-0.51. The same algebra holds in both schemes and both scales.
+  - A hard max (lam = 1) is rejected by +0.6 to +1.2 codes rms.
+  - A soft knee adds nothing.
+  - The dump's own numbers (0.9 / 0.546) cost +0.3 to +0.7 rms, entirely through w.
+- One-sided term, receded pose: the knee is present, but no family I tried closes it.
+  - Pitch-16 knee sides are exactly flat at W, which requires lam >= 0.98 locally.
+  - Pitch-64 cores want lam 0.6-0.8.
+  - A shared-parameter fit across pitches leaves 0.9-1.5 codes per cell.
+  - Hard, lighten-at-lam, soft-knee and two-fill variants all fail the same way.
+  - The receded one-sided form is the main thing still unidentified.
+- Averaging space on non-binary structure: ENCODED. With parameters carried over from the binary
+  checkers (no refit), lc16 is predicted within 0-2 codes; the linear-light alternative misses by
+  +3.6 to +4.2. hc-text (three row heights) reads 0.6-6 codes encoded against 16-48 linear. The lc16
+  verdict depends on T being straight to within about 3 codes on its unmeasured 160-242 segment.
+- Shipped defect: vitrea fixes both widths in DEVICE px (section 6), which halves the heavy width at 2x.
+  Both tiers also blur and mix in linear light, on a premise the probes contradict.
+
+1. EVIDENCE, T, AND READER PROOFS
+- Native evidence, all admitted:
+  - Canonical cal/val and PROBE cells: checker 4/8/16/32/64, lc16 and hc-text(-7/-28), across 5 shapes
+    (active) and md/lg/ml/capsule (receded), in 4 endpoints x 2 scales.
+  - The spent W34 archive's checkers: 4/16/64 on circular-120, 7-run plurality, bar <= 0.5 code.
+  - No holdout or recorded native pixel was opened.
+  - Canonical cells are single captures (repeatNoise 0).
+- T, the uniform response: W34/W39 committed deep medians at span 44, plus canonical solids (28, 69, 140,
+  242.4) at spans 32-160.
+  - light-inactive: span-invariant. 28->145.1, 69->163.0 and 242.4->235.3 at every span.
+  - light-active: rises with span. +2 to +6.5 codes from span 44 to 160 (69 -> 165 / 169 / 173 at spans
+    32 / 96 / 160).
+  - dark: clamps at span >= 96. dark-inactive 242.4 reads 177.4 at span 44 but 117.2 at span 160;
+    dark-active 242.4 reads 180.3 at span 32 but 124.2 at span 160. The dark knee side (bright cells) is
+    therefore unreadable at spans >= 96, and dark readings there use the dark side only.
+- Model read (the dump's algebra; memo B's F3):
+  - C = G(sn)*B and W = G(sw)*B, on a canvas, shape or box footprint.
+  - light: M = (1-w)C + (1-w)lam*max(0, W-C) + wW. dark: the mirror, darken.
+  - y = T(M), fitted in output codes over the deep mask.
+- Reader proofs:
+  | control | truth | reader returns |
+  | vitrea WebGPU, full model, lin space; p64 lg/md, p32 lg, p16 md | lam 0; sn 1.58 dev; sw 13.8 dev (1x), 20 dev (lr 2x), 13.8 dev (li 2x) | lam 0.00-0.12; sn 1.7-1.9 (1x), 0.9 (2x); sw 15-17.6 (1x, platykurtic L4 reads wide), 10.2 (lr 2x), 7.1 (li 2x); lin beats enc by 0.7-2.1 codes |
+  | vitrea WebGPU, core heavy reader, p64 md/lg | canvas-wide W | group rejected (1.9-4.9 vs 0.3-1.2 rms); canvas = footprint within 0.04 (no false footprint call) |
+  | synthetic dump model (sn 5, sw 15 footprint, lam 0.9, w 0.546, enc) through native T, quantised +-0.5, on 16 native geometries p8-p64, 1x/2x | known | recovered to +-0.03 in lam and w and +-0.05 in widths at rms 0.40-0.42 (the quantisation floor). Canvas misfit visible on p64/p32/capsule (0.9-3.9). A hard knee separates at p16-p64 (+0.06-0.14), not at p8. Linear rejected (10-21) |
+  | mirror statistic S = M(x)+M(x+pitch) (zero for any two-sided linear system) | vitrea: none | vitrea: abs(s1/gain) <= 0.024 at p >= 8; Apple: 0.2-0.5 |
+- Limit: a wrong mixing space can manufacture a knee. The enc fit on vitrea returns lam 1.4-1.5. Apple's
+  knee is therefore established by S and by the 5-25 code loss of every linear fit, not by lam alone.
+
+2. PROBE READINGS
+2a Heavy W: pitch-64 cores >= 14 from every checker edge; per side, M = a + b*W. Entries are best sw
+   [5% interval] and rms.
+| cell | canvas | shape footprint | box footprint | group mean |
+| lr md 1x / 2x | 13 [12,15] 0.42 / 13 0.43 | 12 0.46 / 12 0.47 | 12 0.45 / 12 0.46 | 3.46 / 3.45 |
+| lr lg 1x / 2x | 12 [12,13] 0.49 / 12 0.51 | 12 0.49 / 12 0.51 | 12 0.49 / 12 0.51 | 4.29 / 4.33 |
+| dr md / lg 1x | 13 0.45 / 10 0.39 | 12 0.51 / 10 0.39 | 12 0.48 / 10 0.39 | 3.79 / 3.39 |
+| li md 1x / 2x | 15 [12,28] 1.41 / 15 1.43 | 14 0.61 / 15 0.60 | 15 [15,16] 0.58 / 16 0.55 | 4.58 / 4.38 |
+| li lg 1x / 2x | 16 1.43 / 16 1.53 | 17 1.01 / 17 1.13 | 19 [18,20] 0.69 / 19 0.81 | 4.08 / 4.36 |
+| di md 1x / 2x | 13 2.03 / 15 2.05 | 13 0.81 / 14 0.76 | 14 0.79 / 15 0.70 | 7.53 / 6.13 |
+| di lg 1x / 2x | 13 2.02 / 13 2.16 | 15 1.46 / 14 1.44 | 16 1.27 / 15 1.33 | 6.70 / 7.56 |
+| W34 li capsule 1x / 2x | 10 [8,12] 1.45 / 1.53 | 15 0.35 / 0.37 | 15 0.35 / 0.37 | 3.30 / 3.43 |
+| W34 di capsule 1x / 2x | 8 2.07 / 2.22 | 12 0.36 / 13 0.34 | 12 0.36 / 13 0.32 | 4.76 / 4.94 |
+| W34 lr / dr capsule | 24 1.25-1.27 / 17 0.99-1.04 | 14 2.06 / 13 2.06 | same | 3.5 / 4.5 |
+- Encoded beats linear for W: on active cores 0.43-0.50 vs 0.56-0.95; on receded cores roughly a tie.
+- Per-side widths, receded light: the knee side reads 16-20, the far side 12-16. One kernel does not
+  serve both sides. That is the first sign of the receded misfit in section 0.
+- Active rrect-ml/lg knee sides carry 19-36% weight at sigma 48 (NNLS kernel). That fits the dump's
+  bleed (radius 28-33.6, opacity 0.08-0.27, spans >= 80). The receded bleed opacity is 0.
+
+2b Narrow sigma_n by pitch, with sw, lam and w held at the endpoint's joint values; p4 p8 p16 p32 p64.
+| light-active | 1x | 2x |
+| capsule, sm (32-44) | 0.8 at every pitch | 0.4 at every pitch |
+| md (96) | 1.25* 2.5 2.5 2.0 2.0 | 2.5 2.0 2.0 1.75 2.0 |
+| ml (128) | 1.5* 4.0 3.5 3.5 3.0 | 2.5 4.0 4.0 4.0 4.0 |
+| lg (160) | 1.5* 2.5 - 5.0 4.5 | 1.75 4.5 - 4.5 4.5 |
+- *1x fine pitches read narrow: aliasing, see 2e.
+- dark-active agrees on capsule and sm (0.8 / 0.4) and on md 2x (2.0 at every pitch). Dark ml and lg drift
+  (4-10) under the T clamp.
+- Receded light: capsule and sm p16 4.0 / 4.5; md 5.5-9; ml p16 6-8; lg 6-9 (8-9 at 2x). Dark is similar.
+  Receded p4/p8 at 2x are flat within 1 code, so there sigma_n only has a lower bound (>= ~5).
+
+2c Knee form: joint fits with SHARED (sn, sw, lam, w) across pitches; per-cell rms range.
+| set | free fit | lam=1 (hard) | dump 0.9/0.546 | soft tau .03 | linear |
+| lr capsule 1x p4-64 | lam .88 w .506 sn .77 sw 15.6: 1.22-1.58 | 2.19-2.46 | 1.61-1.88 | = free | 9.2-17.7 |
+| dr capsule 1x p4-64 | lam .91 w .497 sn .76 sw 14.8: 1.11-1.55 | 1.96-2.24 | 1.90-3.12 | = free | 4.4-7.5 |
+| lr md 2x p4-64 | lam .88 w .483 sn 2.04 sw 16.9: 1.31-1.58 | 1.45-2.35 | 1.45-2.28 | = free | 10.5-25 |
+| li rrects 1x (lg 64/32/8, md 64/16/8/4) | lam .72 w .50 sn 6.9 sw 17.2: 0.94-1.54 (lg p8 3.9) | p16 0.58, p64 1.64-1.87 | 0.56-1.72 | 0.71-1.54 | 14-24 |
+| li W34 capsule 1x p64/16/4 | lam .89 w .60 sn 3.1 sw 14.5: 1.43 / 1.47 / 3.39 | 2.09 / 2.53 / 1.50 | 1.49 / 1.41 / 3.42 | 1.52 / 1.39 / 2.94 | 8.8-23 |
+- Receded per cell, d_in 16, box footprint: lam 0.60 (p64 lg), 0.78 (p64 md), 1.20 (p32 lg), 1.07 (p16 md).
+  The synthetic control shows no such drift, so the drift is a model inadequacy.
+- Two-fill variant (knee fill and normal fill as separate blurs): 0.51-1.54. It does not close either.
+- Pitch-16 knee side, li 2x md: M reads 127-128 from the cell core to 0.8 px from the edge. A lighten at lam
+  would rise by (1-lam)*46 codes there, so lam >= 0.98 at that point.
+- Mirror S gives lam(1-w): lr capsule 0.35-0.50 at every pitch 4-64 (0.44 predicted); lr md 0.19-0.56;
+  li md 0.2-0.5.
+
+2d Space on non-binary structure. Parameters carried over from 2b-2c, no refit. Knee-side / far-side core
+   medians, in codes.
+| cell | observed | enc | lin | refit rms enc / lin |
+| li lc16 capsule, md (1x, 2x) | 209.0 / 211-215 | 208.9-209.0 / 211.3 | 212.6 / 214.8 | 0.31-0.37 / 2.10-3.35 |
+| lr lc16 sm / capsule / md | 215.0 / 217.3 / 221.0 | 215.2 / 217.0 / 219.3 | 219.3 / 221.2 / 223.2 | 0.73-1.46 / 1.26-1.92 |
+| dr lc16 sm / capsule | 146.5 / 148.0 (high 159-161) | 147.2 / 147.5 (158) | 151.1 / 151.4 (161) | 1.0-1.2 / 0.8-1.0 |
+| hc-text, -7, -28: light both poses, dark span 32 | - | rms 0.6-6.1 | rms 15.8-48 | - |
+- lc16 lr ml/lg and dark spans >= 96 are T-limited; neither space fits them.
+- The light lc16 verdict needs T's 160-242 segment straight within ~3 codes. Uniform greys at 160-240 are
+  still unmeasured (W41 Deferred 1).
+
+2e 1x-only fine-pitch aliasing. Deep p2-p98 range, 1x vs 2x:
+| cell | 1x | 2x |
+| lr md p4 | 196-216 | 196-202 |
+| li lg p8 | 186-198 | 188-189 |
+| di lg p8 | 100-113 | 109-111 |
+| lr lg p8 | 199-218 | 202-207 |
+- li lg p8 1x shows one-sided 12-code blobs at the checker period over a 186 floor
+  (view/zoom_li1_p8_lg.png).
+- Together with the 0.8-dev floor this points to a decimated backdrop at 1x (2 CSS px per texel). No
+  Gaussian of any width reproduces it.
+
+3. THE W29 DUMP (pointer, uncommitted). macOS 27 26A428, 2x only. 9 scenes: light and dark active on
+   capsule(44), sm(32), rrect-80, md(96); light receded on photo md only.
+- Layer order: ImageLayer (backdrop), then SDFLayer, then CABackdropLayer. The CABackdropLayer has
+  bounds = the shape's bounding box, scale 0.5, and one DLCAFilter glassBackground. Above it, masked by a
+  CASDFLayer (CASDFOutputEffect): a portal, then the highlight CASDFLayer (vibrantColorMatrix +
+  KeyFillHighlight), opacity 1 active and 0 receded.
+| input | active light | active dark | receded light | pixels agree? |
+| BlurRadius | 5 | 5 | 5 | - |
+| BlurOpacity at centre / -1 px / edge / outside | 0, 0, .133, .267 by span 32/44/80/96; then /2, .5, 1 | same | .533 .533 1 1; distances 0 | orders sigma_n 0.4 texel / 2.0 / 4-4.5 (2b); receded 4-9 is not visibly flat in span |
+| BlurFill radius; Lighten; Darken; Normal | 8; .9; 0; .546 | 8; 0; .9; .546 | 8; .9; 0; .546 | active lam .88-.91 yes; w .48-.51 not .546; receded no closure |
+| backdrop layer scale; bounds | 0.5; shape box | same | same | 0.8-dev floor and 1x aliasing yes; receded box footprint yes; active capsule prefers canvas (refraction confound) |
+| Refraction opacity; inner amount / height | .6; -span/2 / 8-20 | same | 0 | receded body has no lens band beyond ~16 |
+| Bleed opacity; radius | 0/0/.083/.167; 28-33.6 | 0/0/.133/.267 | 0 | sigma-48 weight on large active spans; light-active T rises with span |
+| Face black / white / sat; fill | .4/1.03/1.2; white .2275 | .125/1.125/1.3; black .046 | .4/.96/1.2 | enters T only; T is read from uniforms |
+| MaxLuma(SDR); Clamp | .94; 1.07 | .6/.6/.5/.4 by span; 1.31 | .94; 1 | dark T clamp at spans >= 96 yes |
+- BlurFill radius 8 against measured sigma_w 12-19 is a factor of ~1.5-2.4. The radius-to-sigma mapping
+  is unknown.
+- What a dump series would add (no Screen Recording grant needed):
+  - active BlurOpacity at spans 48/64/128/160/200, giving the narrow span law I read at 3 spans;
+  - receded dumps at every span and in DARK, to test whether .533 and the fill opacities are span- and
+    scheme-flat (receded is dumped once);
+  - whether BlurFill radius 8 ever moves (my sigma_w differs by pose: 12-13 vs 14-19);
+  - 1x dumps: the backdrop scale at 1x and whether radii are in points;
+  - backdropRect decoded, to find the footprint's extent and margin;
+  - bleed and MaxLuma per span, to pin the dark clamp.
+- Run it before the sitting. It could shrink the receded span axis below.
+
+4. CANDIDATE FAMILIES (parameters per endpoint; working space enc; T read from uniforms)
+| family | params | status on existing cells |
+| K1 dump algebra: C=G(sn), W=G(sw) canvas, lighten/darken lam, normal w | 4 + sn(span) | active: 1.1-1.6 rms, both schemes and scales; receded fails |
+| K1b as K1 with W box-limited | 4 + sn(span) | receded cores 0.35-0.8, but lam drifts across pitch |
+| K2 two fills (knee Wk, normal Wn) | 5 | receded 0.5-1.5; no gain |
+| open: kernel tails (non-Gaussian W), a different receded composite order, per-channel vs luma knee | - | not identifiable here |
+- CSS carry (memo A): encoded blur() layers; lighten/darken via mix-blend-mode at opacity; box footprint
+  comes free in backdrop-filter.
+
+5. WHAT THE EXISTING CELLS CANNOT IDENTIFY
+- U1: the receded one-sided algebra. lam drifts 0.6-1.1 and per-side kernels differ.
+- U2: the receded narrow span law. Only capsule/sm/ml at p16, plus md/lg series.
+- U3: the footprint support: box vs rounded shape vs margin, the edge normalisation, and whether the
+  active W is footprint-limited.
+- U4: the heavy kernel's tails.
+- U5: T at 150-242 in every endpoint, and dark T at spans >= 96. The lc16 verdict and the dark large-span
+  readings wait on it.
+- U6: a per-channel vs on-luma knee, and the chroma kernel.
+- U7: the active bleed as a third component.
+
+6. THE SMALLEST CAPTURE THAT STILL IDENTIFIES. Existing JSON kinds only, so no Swift rebuild. X5 must be
+   lifted.
+   Full set at 2x; reduced set at 1x, because the widths are CSS-invariant and 1x adds only the resampling
+   floor and aliasing. Four passes per scale (scheme x pose); dump-layers on every scene.
+| family | cells per 2x pass | answers |
+| A uniform greys 0,64,128,160,176,192,208,224,240,255 x {capsule, md}; 96,160,208,255 x lg | 24 | U5 |
+| B two-level checkers P2 48/208, P3 96/160, P4 16/112, P5 144/240 at pitch 16, 64 on md | 8 | U1 (hinge reference vs mean/contrast), space on non-binary |
+| B' P1 0/255 at pitch 8, 32, 64 on capsule and rrect-ml | 6 | U2 (active already covered by probes) |
+| C single square S 8, 32 x 2 polarities on md; S 16 x 2 on capsule | 6 | U4, U1 (which level the one-sided term hinges on) |
+| D step under interior (split) at shape offsets delta 0, 12, 32 x 2 polarities on md; delta 0, 12 on capsule | 8 | U3, both poses |
+| E isoluminant chroma checkers, 2 hue pairs, p16, md | 2 | U6 |
+| F bridges: canonical checker16 md, impulse md, photo md, probe checker64 lg | 4 | ties to the canonical and probe sittings |
+| H structured holdout, declared before fitting | 8 | referee |
+- H contents: P1 pitch 24 on rrect-80 (a new span); P6 32/176 p32 md; step delta 20; patch S 24;
+  P3 p64 on lg; 128/229 p64 capsule; greys 184 and 232 on md.
+- 1x pass, 22 cells: greys 0/128/192/255 x {capsule, md}; P1 p4/8/16 x {capsule, lg}; F; H subset of 4.
+- Size, on W39's model (9.53 s per capture, 16.3 s per sentinel, 13 s per run, 25 s per pass):
+  - glass captures: 2x 4 x 66 x 7 = 1848; 1x 4 x 22 x 7 = 616;
+  - no-glass references ~230; sentinels 48;
+  - total ~7.6 h of capture, ~8 h wall. One sitting, against memo B's 121 cells and 21-22 h.
+  - Levers: full 1x adds ~3.5 h (~11 h); 3 runs instead of 7 brings it to ~3.7 h. The repeat count is the
+    user's call (W39 ruled 7).
+- Dropped against B, and why:
+  - B: 31 -> 14 (B + B').
+  - C: 34 -> 6. The pitch-64 cores and the W34 capsule already give sigma_w and local vs group.
+  - B's P1 pitch sweeps on md and capsule: dropped. The probes read all 5 shapes x 5 pitches in the
+    active pose, and sigma_n is pitch-flat at 2x.
+  - D: 21 -> 8. Local vs group is settled; footprint support is what remains.
+  - A: 26 -> 24. rrect-lg added, because dark T clamps with span.
+  - E: 6 -> 2.
+  - Full 1x: dropped, because widths are CSS-invariant.
+  - Holdout: 16 -> 8 (6 structured).
+- Still out of scope: edge and rim bands, tint, clear material, glass-over-glass, accessibility, the recede
+  transition, spans above 160, non-sRGB content.
+
+7. SHIPPED DEFECTS (not missing laws)
+- D1. The body widths are fixed in DEVICE px, so the CSS scale is ignored.
+  - packages/renderer-webgpu/src/renderer.ts:600-605: bodySigmaCssFor = optics.blurSigma / dpr.
+  - renderer.ts:638-644: heavySigmaCssFor = heavyTapSigmaAtScale(..) / dpr.
+  - material.ts:4873-4878: heavyTapSigmaAtScale returns device px.
+  - Document values: profiles/apple-macos-27.0-1x-light-standard-glass0.5.json:151-152 set
+    sizeHeavyTapSigma 14 / 2x 20; ...-receded.json:89 sets 2x 14.
+  - Effect: the heavy width is 13.8 CSS at 1x but 6.9 (receded) or 10 (light active) at 2x. The vitrea
+    control reads 13-19 at 1x and 6-10 at 2x.
+  - Apple on the same cells: 12-13 (active) and 14-19 (receded) at BOTH scales, and narrow md 2.0 at both.
+  - The justification at renderer.ts:582-586 cites §5.55-5.58 ("one kernel in device pixels at both
+    scales"). The pitch series contradicts it.
+- D2. Both tiers blur and mix in linear light, on a premise the evidence contradicts.
+  - WebGPU decodes before the pyramid: wgsl/backdrop.ts:86.
+  - The CSS tier picks linearRGB, stating "the reference's body ... is linear in luminance"
+    (packages/platform-web/src/css-tier.ts:2136-2150).
+  - Every full-linear fit on Apple loses: 5-25 codes on checkers, 16-48 on hc-text, 3.6-4.2 on lc16.
+  - This settles the heavy and level argument. For the narrow term alone, the space is not separately
+    identified.
+- Not defects, but missing laws on the same line: pose- and span-graded narrow width (vitrea sharp is
+  1.58 dev everywhere); knee; footprint limit; the 0.5-scale resampling floor.
+
+8. LIMITS
+- Deep bodies only; rims and lenses are excluded.
+- Every fit is exploratory and sizes an effect. None is a proposed coefficient set.
+- Canonical cells are single captures; no cross-sitting bar was measured here.
+- Dark readings at spans >= 96 rest on T below input 128-140.
+- Scratch: common.py and reader.py (loaders, T); heavy.py and heavy2.py (2a); fullfit.py, jointfit.py and
+  twofill.py (2c); run_snpitch.py (2b); run_oos.py (2d); survey.py (2e); dump_table.py (3); plus
+  *.txt/*.json outputs.

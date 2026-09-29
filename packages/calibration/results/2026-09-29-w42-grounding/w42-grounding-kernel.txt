@@ -1,0 +1,230 @@
+W42 GROUNDING MEMO B — Apple's body blur: kernel, space, pose, and the capture that identifies it
+2026-09-29. Read-only on the repository; scratch ~/vitrea-w42/grounding/kernel/. Units: CSS px unless
+"dev" (device px). Codes = 8-bit encoded. Canonical cells are single captures: resolution 1 code; the
+W39/W34 7-run repeat bar is <= 0.5 code (575/576 W39 glass cells byte-identical), not measured here.
+
+0. ANSWERS
+- Apple's body is TWO spatial scales composited ONE-SIDEDLY. A narrow "content" kernel carries the
+  visible detail. A wide component (sigma >= 9, photo reads ~15) sets a floor (light) or ceiling (dark)
+  that the detail can only rise above (light) or fall below (dark). The whole checkerboard shows it: in
+  light the black cells are flat and only the white cells ramp; dark is the mirror. vitrea has no such
+  knee.
+- The receded body IS blurred more, in its narrow component only: rrect-md 2.0-2.4 -> 5.0-5.8;
+  capsule <= 0.8 (device-limited) -> 3.8-4.7. The wide component is present in both poses, and no
+  difference between poses is visible on existing cells. The width change, times the dump's face slope,
+  predicts the receded checkerboard swing within 1-2 codes on 3 of 4 light cells.
+- Space: the wide component averages ENCODED values before the tone. That is the only order within
+  ~3 codes in all four endpoints; linear averaging misses by >= 12 codes. The narrow component's
+  space is NOT identified: binary backdrops cannot show it, and the photo discriminator failed its
+  CSS control.
+- Size and scale: the active narrow width is strongly span-graded (thin ~sharp, span 96 ~2.2). The
+  receded one grows mildly (4.3 -> 5.4 from span 44 to 96). Widths are close to scale-invariant in
+  CSS px (1x vs 2x within ~15%). vitrea's deep width is fixed in DEVICE px (14 dev = 14 CSS at 1x,
+  7-10 at 2x), and its sharp component does not widen when the window recedes.
+
+1. EVIDENCE, AND THE READER PROVED ON vitrea FIRST
+Read: canonical CAL/VAL natives for the macOS 27 standard profiles; the canonical web tree (pre-W41,
+receded 30fbe05986ae); the W41 G1/G2 evidence. Uniform native levels come from committed derived
+files: the W39 archive calibration fits and W36 G0 deep-cut.json (W34 archive). No holdout, recorded
+or probe native pixel was opened, and no W39 holdout was read.
+Ground truth from code (code-map/; a float64 replica of the WGSL reproduces 11 web cores at RMS
+0.27-0.38 and max <= 0.81 code): the body centre is
+  enc( R + B·((1-k)·Ksharp*b + k·Kdeep*b - Lbar) ), b = LINEAR-light backdrop,
+  Ksharp = chain L1 bilinear, sigma_RMS 1.58 dev at both scales,
+  Kdeep = chain L4, ~14 dev and platykurtic (2x light active: L4+0.927, ~20 dev; 2x dark active:
+  LOD 3.32, 9.7 dev),
+  k per span, scale, depth and pose (dark endpoints add -2·(edge density - 0.03)).
+CSS tier: feGaussianBlur in linearRGB, sharp 3.80/4.08 dev and heavy 30.4/19.6 dev (1x/2x), share m = k.
+
+Proof table. Reader: impulse = one- or two-Gaussian ⊛ 4x4 box, affine; ESF = ramp-side Gaussian,
+affine, 52 edges on rrect-md.
+| control (vitrea)                  | truth sharp / deep / k      | read                       |
+| WebGPU light rrect-md rest 2x     | 1.58 dev / 20 dev / 0.99    | 1.56 / 16.6 / 0.97         |
+| WebGPU light rrect-md inact 2x    | - / 13.8 dev / 0.998        | single 13.1 dev            |
+| WebGPU light capsule inact 2x     | 1.58 / 13.8 / 0.642         | 1.70 / 13.1 / 0.61         |
+| WebGPU dark capsule inact 2x      | 1.58 / 13.8 / 0.54          | 1.96 / 11.6 / 0.48         |
+| WebGPU light rrect-md rest 1x     | 1.58 / 14 / 0.40            | 1.66 / 10.3 / 0.49         |
+| CSS light rrect-md rest 1x / 2x   | 3.80 dev; heavy invisible / 19.6 dev heavy | 3.91 / 20.2 dev |
+| ESF WebGPU 1x / CSS 1x (checker)  | 1.58 dev / 3.80 dev         | 1.70 / 3.75 (both halves)  |
+Verdict: widths are recovered within 3-10%, the share within 0.03-0.1 at 2x, and the deep width within
+5-25% (a Gaussian reads a platykurtic L4 low). BLIND SPOT: a component whose impulse peak is < ~1 code
+is invisible. That means sigma >~ 7 CSS at 1x and >~ 10 CSS at 2x. At 1x the impulse reader sees
+only the narrow component.
+
+2. READINGS ON APPLE (native, calibration/validation)
+2a Impulse PSF (4x4 white on black; window: interior within r 40/30 of the impulse). sigma in CSS px.
+| endpoint, cell            | 1x single (rms/max)   | 2x single (rms/max)   | 2x two-Gaussian (rms)        |
+| light act  rrect-md (v)   | 1.31 (.55/2.8)        | 2.36 (.38/2.2)        | 2.14 + 9.78, k .47 (.29)     |
+| light inact rrect-md (v)  | 5.84 (.12/0.6)        | 5.03 (.13/0.9)        | collapses to single          |
+| light act  capsule (v)    | 0.78 (1.1/2.4) square | 0.37 (1.1/2.5) square | not fitted: crisp square     |
+| light inact capsule (v)   | 3.83 (.51/5.0)        | 4.71 (.26/1.1)        | 2.74 + 6.07, k .80 (.21)     |
+| dark act   capsule (v)    | 1.09 (.54)            | 0.45 (.55)            | 0.39 + 10.6, k .81 (.43)     |
+| dark inact capsule (v)    | 7.36 (.31/1.6)        | 7.37 (.28/1.2)        | collapses to single          |
+The floors y0 (133.0 light-inactive, 20.9 dark-inactive, 132.4-134.1 light-active, 32.4 dark-active)
+equal F(0). They are local black and cannot tell the averaging space apart. In dark, the min-side
+composite suppresses the core, so dark 7.4 is a blend of narrow and wide.
+
+2b Checkerboard 16 (0/255). ESF on the side the knee leaves linear; sigma is the minimum and
+[interval] is rms within min + 0.1.
+| endpoint        | rrect-md 1x      | rrect-md 2x      | capsule 1x / 2x          |
+| light active    | 2.40 [2.0,2.9]   | 2.00 [1.9,2.1]   | <= 0.6 / <= 0.3 (grid floor) |
+| light receded   | >= 6.5 (to 25)   | >= 4.0           | >= 3.75 / >= 3.5         |
+| dark active     | 2.70 [2.3,3.25]  | 2.10 [2.1,2.2]   | <= 0.6 / <= 0.3          |
+| dark receded    | >= 5.25          | >= 6.25          | >= 4.75 / >= 4.25        |
+Cell-core levels, medians at >= 4 CSS px from any cell edge (codes; knee side first; swing 1x/2x):
+| endpoint        | rrect-md knee / far / swing | capsule knee / far / swing | vitrea WebGPU swing md / caps |
+| light active    | 195-196 / 221-226 / 25/31   | 192 / 224 / 32/32          | 47/8 ; 62/27                  |
+| light receded   | 187-188 / 194-201 / 6/14    | 187 / 204-208 / 21/17      | 24/16 ; 43/49                 |
+| dark active     | 122 / 86-93 / 29/36         | 136 / 90 / 46/46           | 25/23 ; 28/24                 |
+| dark receded    | 113-114 / 99-107 / 6/15     | 128-129 / 94-101 / 35/27   | 20/14 ; 31/30                 |
+Receded light rrect-sm and toolbar swing 22/17 and 20/16 native, against 46/57 and 44/53 vitrea.
+
+2c The wide component. Knee-side cell cores are flat: the p2-p98 range is 0-1 code on rrect-md in all
+four endpoints. With T's uniform slope, that needs a wide sigma >= 9-11 CSS at both scales and both
+poses. The capsule interior is too small to bound it (>= 2 only).
+
+2d Photo, rrect-md, per-channel affine on G_sigma*B. All 8 native cells read sigma 15 [12-20] with rms
+5.0-6.7 (enc). The fit is misspecified but tightly placed. Gains are (1.01-1.18, 0.71-0.75, 1.06-1.25) RGB,
+so the photo's chroma is carried nearly whole at a large scale. vitrea reads 4-12 (WebGPU) and 12-20
+(CSS), with gains 0.2-0.7. The two-Gaussian photo reader FAILED its control: on WebGPU it drives the
+wide width to its bound (37-60) instead of 14 dev. It is not used.
+
+2e Cross-backdrop check. The impulse widths predict the checkerboard swing drop through
+(one-sided core contrast of G*B) x (face slope 0.56/0.63):
+| cell (light)   | predicted | native |
+| rrect-md 2x    | 14        | 14     |
+| capsule 2x     | 16        | 17     |
+| capsule 1x     | 21        | 21     |
+| rrect-md 1x    | 8         | 6      |
+The narrower-share alternative (a same-width core at lower weight) would have to show a crisp core
+in the receded impulse. It shows none: the single Gaussian fits to rms 0.12.
+
+3. SPACE
+The wide level on the 0/255 checkerboard, against uniform native readings (W39/W34):
+F_li(128)=188, F_li(160)=202, F_li(242)=235, F_li(255)=240 (light inactive); dark span 44/96 differ.
+| cell (knee level)             | encavg->T | linavg->T   | T->encavg | T->linavg |
+| light act rrect-md 2x (195)   | 198       | >= 210      | ~193      | ~204      |
+| light act capsule 2x (192)    | 195       | >= 210      | 192.5     | 207       |
+| light inact md/caps 2x (187)  | 188       | >= 202      | 186.5     | 196       |
+| dark act capsule 2x (136)     | 134       | >= 151      | 108       | 137       |
+| dark inact capsule 2x (128.3) | 127       | >= 146      | 100       | 132.5     |
+| dark act / inact md (122/114) | 121 / 114 | [121,134] / [114,127]: not decisive at span 96 | | |
+Only encavg->T is within ~3 codes everywhere; each alternative fails in at least one scheme by >= 8.
+The dump's lighten/normal weights shift a knee level by about -2 (light) or +3 (dark). The ranking
+holds.
+Narrow component: NOT identified. A linear-light blur composited in linear light over a large plate
+is ESF-symmetric: vitrea's WebGPU halves read 1.70/1.75, even though its blur is linear. Symmetry
+separates only "linear blur, then F on the encoded value": that predicts black-half/white-half 1.9
+at sigma 2 in a synthetic control, and native light-white vs dark-black halves read 2.00/2.15 (2x) and
+2.40/2.70 (1x). That excludes this sub-case only if the kernel is the same across schemes, which the
+dump states. The native photo prefers enc by 1.0-1.3 rms. That discriminator is unvalidated: correct on
+WebGPU (lin by 0.02-0.15), wrong on CSS (lin blur read as enc).
+
+4. STRUCTURE, AND ONE POINTER FROM APPLE'S LAYER TREE
+Pointer, not evidence of record: /Users/new/vitrea-w29-g0-scratch/c/dump-sdk27/ is uncommitted W29 G0
+scratch. It holds the macOS 27 26A428 glassBackground DLCAFilter at 2x: light and dark active on 4
+scenes, light receded on photo rrect-md only.
+- inputBlurRadius is 5 in every dump.
+- Blur opacity is graded by SDF distance. Active: 0 at spans 32/44, 0.133 at 80 and 0.267 at 96 at
+  the centre. Receded: 0.533 flat, and its distances are zeroed.
+- BlurFill radius 8 with Lighten 0.9 (light) or Darken 0.9 (dark), and Normal 0.546, in every dump.
+- Face colour matrix black/white: 0.40/1.03 light active, 0.40/0.96 light receded, saturation 1.2.
+- The receded pose zeroes refraction, bleed and shadow. Backdrop layer scale 0.5.
+The blur-opacity ordering (0 / 0.267 / 0.533) matches the measured narrow widths (<= 0.8 / 2.2 /
+5.0-5.8), roughly sigma ≈ 10·opacity: arithmetic on 3 points. Lighten/darken is the knee in 2b.
+"Opacity" cannot mean a sharp/blur mix: the receded impulse has no sharp core.
+
+5. CANDIDATE FAMILIES
+The argument M goes through the endpoint's uniform response T (E3's F for light receded).
+| family                                           | params / endpoint | space   | existing cells         |
+| F1 single blur: M = G_s*B                        | 1 (+span law)     | enc/lin | rejected: two-sided ESF, no knee |
+| F2 linear two-scale: (1-k)G_n*B + k·G_w*B        | 3                 | enc/lin | rejected: same (linear => two-sided) |
+| F4 vitrea form: T(group) + b·(K*B - group)       | 2                 | lin     | rejected: no knee; texture swing 2-3.5x native |
+| F3 knee: C=G_n*B, W=G_w*B, N=C+λ(max|min(C,W)-C), M=N+w(W-N) | 4 (+span law on s_n) | enc (W) | consistent; s_n read; s_w >= 9 only |
+F3 variants to keep open: max/min per channel or on luma; W a group mean versus a local wide blur;
+λ and w pose-invariant (the dump) or not. Memo A's blend m·local + (1-m)·group is F2's special case.
+On a binary texture it cannot draw the one-sided floor.
+On existing cells: s_n is identified (impulse at 2x, ESF when active). s_w has only a lower bound.
+λ and w trade with s_w, and 7-code max residuals remain on the knee fits. W as group versus local is
+unidentifiable, because every centred periodic pattern has local mean = group mean.
+
+6. vitrea SHIPPED AGAINST APPLE
+- WebGPU:
+  - Its sharp component is 1.58 dev in every pose: 0.8 CSS at 2x, 1.6 at 1x. Apple's narrow is 2-2.7
+    active at span 96 and 3.8-5.8 receded.
+  - Its deep width is L4: 14 CSS at 1x but 7-10 CSS at 2x. Apple's wide is >= 9 at both scales.
+  - It blurs and mixes in LINEAR light. The tone argument is group-level: the source mean when active,
+    the silhouette encoded mean when receded.
+  - The receded level is right because Rbar sits at the encoded mean. The texture is wrong because
+    the sharp share (1-k) passes 0.26-0.46 at 1x at B = 0.51-0.54.
+  - E3 per pixel on this linear narrow blur lands on F(188): the 210-code failure.
+- No knee on either tier: vitrea's black- and white-side ESFs are equal.
+- CSS could carry: an encoded-space Gaussian through plain blur() (css-tier.ts:2135-2157 per the code
+  read); two blur layers with a mask/opacity (already L1/L2); a one-sided layer through mix-blend-mode
+  lighten/darken. The last is unmeasured on backdrop-filter layers and needs a Chromium proof.
+- WebGPU would need an encoded chain for the argument; the import currently decodes (backdrop.ts:86).
+
+7. WHAT EXISTING EVIDENCE CANNOT IDENTIFY, AND CHEAPER EVIDENCE THAT ALREADY EXISTS
+Not identifiable: s_w's value and shape; λ, w; the narrow component's space; W group versus local; the
+knee per channel versus on luma; F_li on 160-240 (160/242/255 are read); dark F above 128 at span 96
+(only 255 is read); a receded span law beyond two spans; distance-from-edge grading.
+Unread but existing, and outside this memo's admitted evidence:
+- Canonical PROBE cells: checkerboard-4/8/32/64 and lc16 (128/229), rrect-md/lg receded;
+  hc-text-7/28; impulse rrect-ml/lg. lc16 is the only non-binary structured cell: encavg vs linavg
+  separate by F(178.5) vs F(188), about 4 codes.
+- The in-tree W34 archive: checkerboard pitches 4/16/64 on the circular capsule, all 4 endpoints x 2
+  scales x 7 runs, calibration.
+- `dump-layers --inactive` over spans: needs no Screen Recording grant, and would say whether the
+  receded blur opacity is span-flat.
+Admitting these could narrow the capture below.
+
+8. THE NATIVE CAPTURE
+All scenes use existing JSON kinds (solid, checkerboard(a,b,cell), impulse(bg,fg,size,spacing),
+split, shape `position`), so no Swift rebuild is needed. The canvas is 320x200, as canonical. X5 must
+be lifted by the user. Run dump-layers for every scene in both poses.
+Per scheme x pose x scale (8 combinations). Holdout (H) is declared before fitting and stratified:
+| family                                  | calibration cells                                 | H  |
+| A uniform (F >150)                      | 0,64,128,150,160,176,192,208,224,240,255 x {capsule, rrect-md} = 22 | 184,232 x 2 = 4 |
+| B two-level checkerboards, varying mean | P1 0/255, P2 48/208 x cells 2,4,8,16,32 on rrect-md (10); P3 96/160, P4 16/112, P5 144/240 x cells 4,16 (6); P1,P2 x 2,4,8 on capsule (6); P1,P2 x 16,32 on rrect-lg (4) = 26 | P1,P2 cell 12; P6 32/176 cell 8; P4 cell 8; P2 cell 8 on rrect-80 = 5 |
+|   and contrast independently            |                                                   |    |
+| C single patch (impulse, spacing 200 => one square at (100,100); shape moved onto it) | S 2,4,8,16,32,64 x {64->192, 192->64, 0->255} on rrect-md (18); S 2-16 x 2 on capsule (8); S 4,16 x 2 on rrect-64 (4) = 30 | S 12, 24 x 2 = 4 |
+| D step under the interior (split at x=160; shape offset δ) | {64/192, 0/255} x 2 polarities x δ 0,±12,±32 on rrect-md = 20 | δ +20 = 1 |
+| E isoluminant chroma checkerboards      | 2 hue pairs in [40,150] x cells 4,16 = 4           | cell 8 x 2 = 2 |
+| F bridges (canonical checker, impulse, photo; rrect-md) | 3                                  | -  |
+Per pass: 121 glass cells, 16 held out (13%), 12 of them structured. The canonical structured holdout
+stays sealed for any landing.
+How the families separate the questions:
+- Contrast at fixed encoded mean 128 (P1/P2/P3): linear averaging moves W by +60/+27/+2 input codes.
+- Mean at fixed contrast (P4/P5 against P3) moves the knee.
+- The patch sweep gives encircled energy to 64 px. A bright patch reads the knee-passed C and a dark
+  patch reads W (swapped in dark).
+- δ separates local from group.
+- Pitches cover the MTF; four spans and both scales give the laws.
+Size (W39 model: 9.53 s per capture, sentinels 16.3 s, 13 s per run, 25 s per pass):
+- 121 x 8 x 7 runs = 6,776 glass captures;
+- no-glass references for ~66 backdrops in run 1 of each pass = 528;
+- ~48 sentinels.
+That is about 19.7 h of capture. With W39's quarantine rate (~1 run lost per 10 h) it is about 21-22 h
+of wall clock, against W39's 18.7 h for 6,360 captures. Recommended: two sittings by pose, receded
+first (~10.5 h each). The levers are the 6 s reset and the repeat count, which W39 ruled at 7. That is
+the user's call. Dropping E and the capsule rows of B and C gives 101 cells, ~17.5 h: one
+W39-length sitting.
+What it identifies that memo A cannot:
+- the narrow component's width and shape against pitch and span, separately from its share (A has one
+  pitch per backdrop);
+- s_w itself and its shape, from the patch sweep (A only bounds it);
+- the knee algebra (λ, w), and whether W is a group mean or a local wide blur (δ, patch size);
+- the averaging space for W on non-binary structure (A's cells are binary), and for C through
+  intermediate-level steps;
+- F_li on 160-240, both schemes' span-96 response above 128, and the chroma kernel (E);
+- and a structured holdout to referee all of these.
+Still unidentified: the private filter semantics beyond effective transfer; the rim zone and
+distance-to-edge grading (centre-only reads; this needs edge strips); tinted, clear and
+glass-over-glass material; accessibility modes; the recede transition in time; spans > 160; and
+non-sRGB content.
+
+9. SCRATCH (~/vitrea-w42/grounding/kernel/)
+common.py (loaders; refuses non-calval scenes), impulse_fit.py -> impulse_fits.json, esf.py, levels.py,
+knee.py (F3 grid fits, exploratory), photo.py, photo_mix.py (failed control, unused), view/*.png,
+code-map/ (vitrea ground truth: resolved.json, kernels.json, tone_affine.json, css_affine.json),
+archive-map/native-body-readings.csv (863 uniform native readings with sources).

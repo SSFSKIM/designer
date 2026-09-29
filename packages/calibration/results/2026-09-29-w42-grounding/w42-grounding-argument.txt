@@ -1,0 +1,260 @@
+W42 GROUNDING MEMO A — the argument E3's F and g are evaluated at (light unfocused body)
+Offline reading of existing evidence, 2026-09-29. No fit to closure, no commit, repo read-only.
+Scripts and full per-cell outputs: ~/vitrea-w42/grounding/argument/ (python3.12, NumPy 2.3.5).
+
+ANSWER IN BRIEF
+- Space: sRGB-ENCODED, not linear. Checker black cells and impulse sit at F(encoded mean); every
+  linear-light family is out by 19-23 codes (checker) and ~4 (impulse) at any width. F above 150
+  cannot rescue the linear mean: F(150) = 197 already exceeds every native checker body.
+- Local, not group-level: photo rejects a group mean in luma (RMS 5-9) and chroma (14-46).
+- Not a canvas-wide blur alone: the W39 gradients are flattened 0.61x, which a Gaussian cannot do;
+  a group blend or a footprint-limited blur can.
+- NONE of the six listed candidates closes the checker. Apple's fine-detail transfer is ONE-SIDED
+  (bright detail only in light, dark only in dark, both poses); every listed family is two-sided
+  and stalls at 5-9 codes. A reading (encoded heavy blur + k*max(0, sharp - heavy), a lighten)
+  sizes it: worst-cell luma RMS 1.3 (2x) / 3.9 (1x) checker, <= 0.6 impulse, <= 1.5 photo;
+  L1 0 absolute misses, 2 growth fails (+0.007). Not a proposed coefficient set.
+- Luma and chroma differ: chroma takes the heavy argument only (s ~10-12 CSS, footprint-limited
+  better on small glass); luma adds the one-sided sharp term.
+- hc-text fits the encoded-mean pointer at its own footprint mean (177.6, not 128) to
+  +0.2/-0.1 codes, on F's unmeasured 150-242 segment.
+- Question 2: yes. In every endpoint the shipped body draws the half-wave Apple removes, and its
+  two-sided heavy part is too weak in dark and at light 2x.
+
+EVIDENCE AND DISCIPLINE
+- Native: canonical macOS 27 CALIBRATION/VALIDATION fixtures only (the loader refuses other roles).
+  Core set, 20 cells: untinted light-inactive checkerboard {capsule, rrect-md, rrect-sm, toolbar},
+  impulse {capsule, rrect-md}, photo {capsule, rrect-md, rrect-sm, toolbar}, 1x and 2x. Tinted
+  pairs: L1 only. Light-active and dark cells: question 2.
+- hc-text has no cal/val inactive cell. No probe/holdout/recorded native PNG was opened; hc-text
+  and the pitch series use native body means G2 COMMITTED (sheets/body-texture.json), over G2's
+  mask rebuilt from web captures (pixel counts match; cal/val native means re-derive exactly).
+- Gradients: W39 light-inactive v90/v270-c-c44 calibration rows (W39 holdout spent), from G1's
+  committed spatial/attempt-2/observations.json.gz; archive not re-opened.
+- Web: pre-W41 = canonical tree (main); E3 per pixel = G2 stage captures.
+- Repeat bar: fixtures repeatNoise 0, runsPerCell 1; cross-sitting bar unmeasured (W39 <= 0.5).
+- Censoring: 6,171/519,372 deep channels at 255 (photo rrect-md R/B); one-sided scoring changes
+  nothing.
+- Deep body = depth >= max(6, min(16, half max depth)) CSS px (16 rrect-md, 11 capsule/toolbar,
+  8 rrect-sm), past vitrea's lens reach. Luma = Rec.709 on codes. Group = declared footprint.
+
+READER PROOFS
+- Metric port. interiorMean, interiorStdDev and chromaToStructure over the extracted native
+  silhouette reproduce the matrix rows to 6 decimals: native, pre-W41 and E3, on 3 backdrops at
+  both scales.
+- Known kernel. E3 inverts exactly (luma(y) = F(L), so L = F^-1(luma), v = chroma/g). On vitrea's
+  OWN E3 captures, a fit of (1-k)G_s1 + k G_s2 recovers the code's kernel in LINEAR light, on two
+  backdrops. The encoded-space fit of the same captures reads argument RMS 54-61 codes on the
+  checker and 9.5-17 on impulse.
+    cell                      k (code-derived*)          s1 CSS (1.25)  s2 dev px (14)  arg RMS
+    impulse rrect-md 1x/2x    0.75/1.00 (0.72-0.74/0.96) 1.5/-          14/14           1.27/1.37
+    impulse capsule 1x/2x     0.52-0.56/0.55-0.61        1.5/0.75       14/14           1.25-1.84
+                              (0.50-0.54/0.46-0.64)
+    photo rrect-md, capsule   0.72/1.00, 0.53/0.60       2.0, 1.5/1.25  14 all          0.60-0.78
+    checker rrect-md 1x/2x    0.75/0.81                  1.5/2.5        10/28 (!)       0.79/1.03
+  *From optics.ts with the receded document; the thickSpan lift is omitted.
+  One pitch does not identify a heavy width.
+- Synthetic control for the one-sided reading. A known (sh, ss, k) is rendered through E3 on the
+  real backdrops, then quantised with +-0.5 noise. It is returned on 20/20 draws. Near-ties
+  within 0.05 code: checker sh 12 against 16; photo 4-8 triples; impulse 8-12.
+
+MODEL-FREE READINGS OF APPLE'S BODY
+1. Level and space. Checker black cells (away from edges) read 186.8-188.1 on all 8 cells,
+   against F(enc mean 127.5) = 187.8; impulse between dots reads 133.0 against F(0.8) = 132.9.
+   The linear-light mean predicts 212.3 / 137.9. For monotone F, F(188) >= F(150) = 197, above
+   every native checker body (186.8-193.2). A mean in (code/255)^g reaches the floor only for
+   g in [0.97, 1.03] (if the black cells carry the average).
+2. One-sided, mirrored by scheme, in both poses. Checker domes per colour class:
+   centre (>= 5 CSS px from the class edge) minus edge (<= 1.5 px).
+     endpoint          native black / white dome (ratio)        shipped main (ratio)
+     light inactive    -2.2..+0.0 / +5.2..+16.1 (-0.13..+0.01)   -6.8..-19.4 / +6.3..+16.4 (-1.07..-1.31)
+     light active      -2.6..+0.1 / +2.9..+19.4 (-0.21..+0.02)*  -1.8..-27.9 / +1.7..+21.7 (-1.04..-1.29)
+     dark active       -7.4..-24.6 / -0.4..+1.1                  -7.0..-12.3 / +6.0..+9.6 (-1.11..-1.27)
+     dark inactive     -5.7..-26.3 / -0.5..+1.4                  -4.0..-12.6 / +3.6..+11.3 (-1.11..-1.20)
+   - E3 per pixel reads -1.16..-1.75. Any linear filter in encoded space reads -1.
+   - *light-active rrect-sm 2x reads -0.59.
+   Photo, the second backdrop, agrees. Fit native luma = a + b*L16 + c+*max(0,x) + c-*min(0,x),
+   with x = L4 - L16 (encoded blurs):
+     light rest c+ .214 c- .038-.041 | light inactive c+ .142-.184 c- .019-.024
+     dark rest  c+ -.054..-.056 c- .316-.343 | dark inactive c+ -.023..-.029 c- .195-.255
+   On light-inactive photo against E3(heavy 16), the residual below the heavy level has slope
+   +0.003/+0.005 and above it +0.145/+0.190.
+   Where Apple passes detail (bright in light), its dome is comparable to vitrea's. The other
+   half is what Apple removes.
+3. W39 gradients. Native slope is 0.114-0.117 codes/CSS px against 0.189 per pixel (ratio 0.61;
+   G1 S1 m = 0.61). A canvas blur preserves a ramp and reads max 1.95-2.00 there. A blend with
+   the group mean at m 0.6 reads 0.93-1.02. A footprint-normalised blur, blur(b*M)/blur(M) at
+   s = 12, reads 0.85-1.01.
+4. Pitch (probe; G2's means). Native minus F(footprint enc mean) grows with pitch: p4 +0.3/+0.7,
+   p8 +0.5..+1.9, p16 +1.1..+5.4, p32 +3.2/+4.1, p64 +3.5..+10.3. A two-sided argument keeps the
+   mean at F(mean) at every pitch. The growing excess is the one-sided signature (table D).
+
+CANDIDATES (F, g held at W41's light-inactive selection; free parameters are READINGS)
+- Every family is uniform-invariant by construction: a constant backdrop maps to itself under a
+  blur, a normalised blur, a group mean, a blend and the hinge (max(0, 0)). E3's uniform closure
+  is untouched.
+- Parameter counts: C0-C2 0; C3/C4/C6 s; C5 m; C5b s, m; C7/C7f sh, ss, k per scale.
+A. Per stratum: mean deep luma bias / worst-cell luma RMS (codes). Photo adds the worst
+   full-colour RMS in brackets. grad = W39 strip max.
+                                     chk 1x      chk 2x      imp 1x / 2x        photo 1x          photo 2x          grad
+ C0 per pixel, vitrea blur (control) +19.0/23.2  +18.7/22.7  +3.7/7.0 +3.0/8.1  +0.1/1.8 (5.9)    -0.4/2.6 (8.6)    ~2 (G1 S0 1.92)
+ C1 group mean, encoded              -4.3/9.1    -3.8/7.4    -0.5/1.6 -0.5/1.4  -0.8/9.3 (40.8)   -0.8/9.3 (40.9)   2.00
+ C2 group mean, linear               +20.3/23.0  +20.7/21.9  +3.8/4.0 +3.8/4.0  +3.2/9.9 (41.0)   +3.2/10.0 (41.0)  1.94
+ C3 encoded blur s=8                 -4.3/6.7    -3.9/5.3    -0.3/0.9 -0.3/0.6  -1.1/2.0 (5.7)    -1.1/2.0 (5.4)    2.00
+ C4 linear blur s=8 (best)           +20.2/22.9  +20.7/21.5  +3.8/7.7 +3.8/7.8  +0.0/1.8 (5.0)    +0.0/1.6 (4.6)    1.97
+ C5 .3 vitrea-local + enc group      +2.7/5.8    +2.9/5.3    +0.8/1.3 +0.6/1.6  -0.5/6.4 (28.4)   -0.7/6.2 (27.7)   -
+ C5 .5 vitrea-local + lin group      +19.6/22.8  +19.7/21.5  +3.7/4.5 +3.4/4.8  +1.6/4.7 (20.3)   +1.4/4.6 (19.2)   -
+ C5b .6 enc blur 6 + enc group       -4.3/6.0    -3.9/5.0    -0.3/0.8 -0.3/0.6  -0.9/3.3 (14.4)   -0.9/3.2 (14.4)   1.02
+ C6 footprint enc blur s=12          -4.3/9.1    -3.8/7.6    -0.3/1.2 -0.3/1.0  -1.1/1.8 (4.8)    -1.1/1.7 (4.7)    1.01
+ C7 enc heavy + k*max(0,sharp-heavy) -1.5/3.9    -0.1/1.3    -0.2/0.6 -0.2/0.4  -0.8/1.5 (4.3)    -0.7/1.1 (4.5)    2.00
+ C7f C7 with footprint heavy         -1.6/3.8    -0.3/1.8    -0.2/0.7 -0.2/0.5  -0.8/1.5 (4.7)    -0.7/1.5 (4.6)    1.19 (0.88 sh16)
+   C7 (sh/ss/k): 1x 10/4/.3, 2x 12/4/.4. C7f: 1x 10/4/.3, 2x 10/4/.4.
+   - C3's per-cell best s is 6-10. No s rescues C4: impulse is best at s = 48 and still +4.4.
+   - C7 per-cell bests are 0.25-1.28 on every cell. One shared triple gives worst 1.32 at 2x but
+     3.48 at 1x, where rrect-md (span 96) wants a weaker sharp term than span 32/44.
+B. Per cell, luma bias / RMS. C3 at s = 8, C6 at s = 12, C7 per scale; all 20 cells are in
+   percell.json.
+ cell         C0          C1          C2          C3          C6          C7
+ chk caps 1x  +17.7/19.5  -5.3/8.8    +19.3/20.5  -5.3/6.6    -5.3/8.7    -2.5/3.5
+ chk caps 2x  +18.1/21.8  -4.2/7.1    +20.4/21.2  -4.2/5.1    -4.2/7.1    -0.3/0.7
+ chk md 1x    +22.4/23.2  -1.6/2.6    +22.9/23.0  -1.7/2.8    -1.6/2.5    +1.1/2.9
+ chk md 2x    +21.2/21.3  -3.1/5.4    +21.4/21.9  -3.2/3.8    -3.1/5.3    +0.6/1.3
+ chk sm 1x    +17.8/19.7  -5.1/9.1    +19.5/20.9  -5.1/6.7    -5.1/8.3    -2.3/3.9
+ chk sm 2x    +17.2/22.7  -4.0/7.4    +20.5/21.4  -4.1/5.3    -4.0/6.7    -0.3/1.3
+ chk tb 1x/2x +17.9/19.7  -5.1/8.5    +19.5/20.7  -5.1/6.4    -5.1/9.1    -2.4/3.4
+              +18.1/22.1  -4.0/6.9    +20.6/21.3  -4.0/5.0    -4.0/7.6    -0.3/0.8
+ imp caps 1x/2x +3.9/7.0 +3.4/8.1 | -0.6/1.6 -0.6/1.4 | +3.7/4.0 +3.8/4.0 | -0.3/0.9 -0.3/0.6 | C7 -0.2/0.6 -0.1/0.3
+ imp md 1x/2x   +3.5/5.4 +2.6/6.3 | -0.3/0.7 -0.4/0.9 | +3.9/4.0 +3.9/4.0 | -0.2/0.5 -0.3/0.5 | C7 -0.2/0.5 -0.2/0.4
+ pho caps 1x  -0.3/1.5    -0.3/5.0    +3.3/6.0    -1.5/1.9    -1.4/1.6    -1.2/1.5
+ pho caps 2x  -0.7/2.5    -0.2/5.0    +3.5/6.1    -1.3/1.8    -1.3/1.5    -0.9/1.1
+ pho md 1x    +0.8/1.4    -1.2/7.7    +4.4/8.8    -0.7/2.0    -0.8/1.0    -0.4/1.5
+ pho md 2x    +0.1/1.9    -1.5/7.9    +4.1/8.8    -1.0/2.0    -1.1/1.3    -0.6/1.1
+ pho sm 1x/2x -0.0/1.8    -0.4/1.3    +1.3/1.8    -1.2/1.6    -1.2/1.3    -0.7/1.2
+              -1.1/2.6    -0.3/1.3    +1.4/1.9    -1.1/1.6    -1.2/1.3    -0.3/0.9
+ pho tb 1x/2x -0.2/1.3    -1.3/9.3    +3.8/9.9    -1.1/1.8    -1.1/1.8    -1.0/1.4
+              -0.1/2.3    -1.2/9.3    +3.9/10.0   -1.0/1.7    -1.0/1.7    -1.0/1.1
+C. Referees. The web image is the E3 stage capture with only the body argument swapped; C0
+   reproduces the stage exactly. Tinted cells use vitrea's own measured tint transfer, and C0
+   reproduces the stage's tinted L1 through it (0.121/0.122, 0.064/0.060, +0.013).
+   Bounds: L1 <= 0.055, growth <= 0.005 against W33; M2 photo sd within 2 % of pre-W41; M1
+   median in [0.8, 1.2], cells in [0.6, 1.4].
+ cand     L1 abs (20 + 14 tinted)  growth fails (max)   M2 fail / toward native / sd vs native   M1 median (cells out)
+ pre-W41  0 + 2 (named impulse)    -                    - / - / 0.68-0.80                        1.023 (2 named)
+ C0       8 + 6                    8 + 6 (+0.140)       8 / 8 / 0.78-1.09                        1.047 (2)
+ C1       0 + 0                    13 + 2 (+0.026)      8 / 0 / 0.04-0.20                        0.507 (8)
+ C2       8 (tinted not read)      8 (+0.140)           8 / 0 / 0.04-0.21                        0.424 (8)
+ C3 s8    0 + 0                    7 + 2 (+0.024)       8 / 8 / 0.75-1.16                        1.060 (2)
+ C3 s12   0                        10 (+0.023)          8 / 6 / 0.62-1.05                        1.151 (2)
+ C4 s10   8                        8 (+0.142)           8 / 8 / 0.73-1.09                        1.080 (2)
+ C5 .3    0 + 1                    13 + 6 (+0.028)      8 / 0 / 0.25-0.35                        1.241 (0), median fails
+ C5b      0                        13 (+0.023)          8 / 0 / 0.48-0.60                        1.231 (2), median fails
+ C6 s12   0                        7 (+0.024)           8 / 6 / 0.44-1.04                        1.110 (2)
+ C7       0 + 0                    2 + 2 (+0.007)       8 / 8 / 0.72-1.12                        1.102 (2)
+ C7f      0 + 0                    3 + 2 (+0.007)       8 / 6 / 0.60-1.12                        1.055 (2)
+   - M2 is a regression stop: anything that restores photo structure fails it, so read the
+     "toward" column.
+   - The 2 tinted growth fails shared by C1, C3, C6, C7 and C7f are photo rrect-md tint-orange
+     (+0.007..+0.011; the stage has them too). They are tint and level composition, not the
+     argument.
+   - M1 cells out of window on local candidates are only the named photo rrect-sm misses.
+
+LUMA AND CHROMA (photo; luma held at C7; chroma RMS in codes, by chroma argument)
+ encoded blur s 2/4/6/8/10/12/16/24: 12.6-15.9 / 9.2-12.2 / 5.9-8.6 / 4.5-6.0 / 3.8-4.6 / 2.5-4.9 / 2.8-6.9 / 8.9-12.7
+ footprint blur s12: 2.2-5.2. rrect-sm improves 4.9 -> 2.35/2.16 and the capsule 3.9 -> 3.2/3.0;
+   the toolbar gets worse, 4.2 -> 5.2.
+ vitrea per pixel: 3.9-9.3.   group chroma: 13.8-45.8.
+- Chroma takes the heavy argument only. It carries no sharp or one-sided component.
+- The chroma gain slope, native on predicted, is 0.951-0.985.
+- The toolbar reversal suggests Apple's support is per surface or per bounding box, not the
+  group union.
+
+HC-TEXT (probe; G2's native means)
+The pointer must be taken at hc-text's footprint encoded mean. The raster's ink is about 30 %,
+not the bar geometry's 43 %; at 43 % the mean would be 145.7 and F = 195.
+ cell               enc mean  F(mean)  native 1x/2x  C2 lin  E3 per pixel  C7
+ hc-text rrect-lg   177.6     208.3    208.5/208.2   224.6   223.0/222.7    208.5
+ hc-text-7 rrect-md 156.5     199.6    200.6/200.8   219.7   219.6/219.8    201.2
+ hc-text-28 rrect-md 171.6    205.8    206.1/207.4   223.2   217.2/216.8    206.6
+- Residuals are +0.2/-0.1, +1.0/+1.1 and +0.3/+1.5. The positive part is the checker's one-sided
+  excess over a white majority.
+- I could reproduce a "miss" only by taking the mean from the bar geometry or as 128. This is
+  inferred: G2's working is not in the record.
+- 156-178 lies on F's unmeasured 150-242 segment. That segment is attested only at its ends
+  (light-solid 242.4 -> native 235, F 234.8). The checker needs no such assumption.
+D. Pitch series (probe; G2's native means; C7 was fitted at pitch 16 only)
+ cell 1x/2x             native       F(enc mean)  C3 s8        C7 12/4/.4   C7 16/6/.3
+ checker-4 rrect-md     188.5/188.1  187.8        187.8        187.8        187.8
+ checker-8 md/lg        188.3-189.7  187.8        187.8        188.4        187.8
+ checker-16 (cal)       189.3-193.2  187.8        187.8        191.6-191.7  189.1-189.2
+ checker-32 rrect-lg    191.9/191.0  187.8        187.4        192.6/192.5  191.1
+ checker-64 rrect-lg    191.6/197.2  188.1        187.5/195.8  190.9/198.4  190.6/196.5
+ checker-64 rrect-md    186.9/193.3  183.0        182.4/189.2  186.5/192.5  186.9/191.5
+ lc16 capsule 128/229   217.5/215.9  208.7        211.2        214.9/214.8  210.9 (175/986 px)
+ impulse rrect-ml/lg    133.2-133.3  132.9-133.1  132.9-133.0  133.0-133.1  133.0-133.1
+
+WHAT THE CELLS CANNOT TELL APART, AND WHAT WOULD
+Already separated: space (checker, impulse); group vs local (photo); canvas blur vs flattening
+(gradient); two-sided vs one-sided (domes, photo split).
+1. Group blend (C5b/S1) vs footprint-limited blur (C6/C7f): strip 0.93-1.02 vs 0.85-1.01,
+   canonical cells <1 code apart. Separator: a gradient or step under spans 32/44/96/160; a blend
+   keeps the slope ratio fixed, a footprint blur lets it climb toward 1 with span.
+2. The one-sided term's form: hinge at the heavy level or at the group mean, max against the
+   plate, or a soft rectifier. On the checker heavy is about group; photo prefers the heavy
+   reference (per-cell 0.53-0.92 vs 0.97-1.69). Separator: two-level checkers at matched encoded
+   mean and different contrast, and at several means (96/160, 64/192, 0/128, 128/255), plus an
+   inverted impulse (black dots on white) in light, mirrored in dark.
+3. Sharp width vs share (ss, k), and span vs device-px scaling: flat on photo and impulse, pinned
+   by the checker at pitch 16 only (rrect-md dome 5.2 -> 11.4 from 1x to 2x; capsule 15.4 ->
+   13.6). Separator: checkers at pitches 4-64, both scales, 2+ spans, read per pixel.
+   THESE EXIST as unread canonical probe cells: inactive checker-4/8/64 rrect-md, checker-8/32/64
+   rrect-lg, lc16 capsule/rrect-md, hc-text rrect-sm/lg, hc-text-7/-28 rrect-md, impulse
+   rrect-ml/lg, photo rrect-ml. Parent's call: read them now for the kernel, OR keep them as the
+   structured holdout; not both. G2 has already viewed some.
+4. Heavy width and shape: the checker cannot (sh 12 vs 16 flat); photo puts the chroma minimum at
+   10-12 and the flat below-side at 16, so the kernel may not be Gaussian.
+5. Whether the one-sided term carries hue: photo hints no. Separator: a chromatic checker at
+   matched luma.
+6. F on 150-242: uniform greys 160-230 (W41 Deferred 1), needed for hc-text's bright majority.
+
+QUESTION 2 — ACTIVE POSE AND DARK SCHEME (shipped main against native)
+In every endpoint the shipped body draws the half-wave Apple removes (dark detail in light, bright
+in dark): shipped dome ratios -1.04..-1.31; native's suppressed side within 2.6 codes of 0.
+- Checker white-black contrast, shipped/native: light active 1x 1.6-2.2x, 2x 0.3-0.9x (under);
+  light inactive 1.5-6.2x; dark active 0.4-0.9x; dark inactive rrect-md 1x 5.7x, others 1.2-1.7x.
+- Impulse halo peak, shipped/native: light inactive 7-48/3-14; light active 13-49/33-63; dark
+  active 21-23/15; dark inactive 41-47/4-6. Dark level: 53.5 vs 32.4 (active), 30.7 vs 21.3.
+- Photo luma sd, shipped/native: light inactive 0.86-1.08 (rrect-sm 1.69-1.91); light active
+  0.66-1.02; dark 0.25-0.37 both poses (the W31 X3 deficit). Light-inactive fine chroma 1.1-2.5x
+  native (the mottling).
+So E3's failure is one instance of a material-wide gap: the one-sided transfer is missing
+everywhere, and the two-sided heavy part is too weak in dark and at light 2x.
+
+SHIPPED OPERATORS AND CARRY
+WebGPU (main):
+- The argument is a LINEAR-light pyramid (sharp optics.blurSigma 1.25 CSS + heavy tap
+  sizeHeavyTapSigma 14 dev px, mixed by kScatter: sizeScatterFloor*, RampStart*, RampReach*).
+  Wrong space for this law.
+- The encoded group mean already exists: W28's silhouette-tone reduction (per surface, RGB encoded
+  before Rec.709) and the analysis pass's source encoded mean (W9 §5.31); the receded document
+  already selects backdropToneAbscissa: silhouette. The collapse/tone solve
+  (collapseTransmission 0.017/0.07) gets the level but is two-sided.
+- Missing: an encoded heavy blur (encode, separable passes, decode), a footprint-normalised
+  variant from the silhouette field, one max()/min() in optics.ts, then E3's zero-gated F/g.
+CSS:
+- backdrop-filter blur() already blurs ENCODED values; the tier's linear-light reference filter
+  on Chromium matches WebGPU, the wrong space here. backdrop-filter reads only the element's box,
+  a natural footprint (Chromium's edge mode unmeasured).
+- The one-sided term maps to a sharp sibling layer with mix-blend-mode lighten (dark: darken) at
+  opacity k over the heavy layer: heavy + k*max(0, sharp - heavy) per channel, commuting with a
+  monotone affine F. Unmeasured: blend modes on backdrop-filter layers per engine.
+- F/g: G2's affine contrast->brightness route (w41-g2-css-candidate 78c4b854).
+- To verify before designing the capture: Core Animation's gaussianBlur may have a
+  normalise-edges input (a footprint-normalised blur in the layer's encoded space).
+
+LIMITS
+- Deep bodies only: the lens and edge bands are excluded, and the synthetic web images swap only
+  the body argument.
+- C7/C7f are per-scale readings on 20 cells at one checker pitch, not a coefficient set. The 1x
+  span conflict (3.8-3.9) is unexplained.
+- Photo full-colour residuals of 4.3-4.7 remain on every candidate. The chroma kernel shape is a
+  separate question.
