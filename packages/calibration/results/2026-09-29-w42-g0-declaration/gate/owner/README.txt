@@ -15,6 +15,7 @@ Files
                     disposable worktree so that referee_source resolves every path there).
   proof-inputs.py   builds the proof's stages, identity documents, seeds and capture root.
   proof.txt         the proof: what was run, what each run read and showed.
+  run-closure.sh, run-fixgate.sh  the batches behind proof.txt's closure and fix-wave sections.
 
 What one invocation does
 ------------------------
@@ -64,31 +65,64 @@ What one invocation does
     VITREA_L1_CUT / VITREA_X1_CUT. M2's reference is the generation current at the commit, per
     scheme, from generations/index.json (W32 Decision Log 4). black-cut.py asserts X1 after it
     writes its cut; its exit is recorded and the test reads the failure.
- 6. M2 named misses as the seal would record them (Decision Log 5a; on by default,
-    --no-m2-named-misses to disable). Every M2 miss on the regenerated cut is classed as the
-    test's structureVerdict classes it and reported (summary.json m2Misses); a NAMED miss is
-    inserted into the worktree's copy of MISSED_27_ROWS as
+ 6. Named misses added as the seal would add them, and ONLY through the two ruled paths.
+    M2's (Decision Log 5a; on by default, --no-m2-named-misses to disable): every M2 miss on
+    the regenerated cut is classed as the test's structureVerdict classes it and reported
+    (summary.json m2Misses); a NAMED miss is inserted into the worktree's copy of MISSED_27_ROWS as
       "<tier> / <set> / <scene> / <profile> :: interiorStdDevStructureDelta":
           { measured: <|Δ|>, bound: "≤ 0.02", native: <interiorStdDevNative> },
     each line logged in <run>/m2-insertions.txt. Only when the test at the commit carries the
     derivation (MissedRow.native and chromaStructureNamedMisses, landed at 0ce4294e); the
     owner case then checks every insertion against its own derivation, and a FAILURE-class miss
     is never inserted.
+    L1 growth's (Decision Log 5d; the fix wave's item A1; --no-l1-growth-named-misses to
+    disable): a growth miss (> 0.005) on the regenerated L1 cut at one of the ruling's four
+    cell-profiles (light photo__rrect-md__inactive-tint-orange and dark
+    photo__capsule-button__inactive-tint-orange, 1x and 2x) is inserted into GROWTH_MISSES as
+      "<profile>/<scene>": { measured: <growth>, bound: "≤ 0.005" },
+    logged in <run>/l1-growth-insertions.txt (summary.json l1GrowthNamedMisses). Only when the
+    test at the commit carries the path (GROWTH_RULED, growthVerdict, GROWTH_MISSES); its owner
+    case checks every insertion, and a growth miss on any other cell is never inserted, so it
+    fails the growth case as a new failure.
  7. `pnpm exec vitest run test/adopted-thresholds.test.ts --reporter=json` with
     VITREA_MATRIX_PATH, VITREA_WEB_CAPTURES, VITREA_L1_CUT and VITREA_X1_CUT set.
- 7a. Closures (default on; --no-closures for evidence), the parent's ruling of 2026-09-30: a
-    CLOSING named miss is a pass and its list shrinks at the seal. Before the test's two
-    named-miss assertions (MISSED_27_ROWS, L1's MISSES) the worktree copy logs the derived and
-    recorded lists (one added line each, no assertion changed); every recorded entry no longer
-    derived is a closure, dropped from the copy as the seal would drop it, and the test runs
-    again: that run is the run's result. Closures are reported (summary.json closures) and never
-    block; a closure never excuses a new miss (proof.txt, "Closures").
+ 7a. The seal's recording edits (default on; --no-closures for evidence): the parent's closing-
+    miss ruling of 2026-09-30, extended by the gate review of b151aff4, finding 2. The test
+    compares three named-miss lists with the lists it derives in both directions
+    (MISSED_27_ROWS, L1's MISSES, L1's GROWTH_MISSES) and pins each entry's reading to five
+    decimals, so a candidate that closes a named miss, or moves one that still misses, fails the
+    owner case as a new miss would, and vitest stops the case there. Before each of the three
+    assertions the worktree copy logs the derived list, the recorded list, each derived entry's
+    pinned readings (a table row's reading, an M1 miss's R, an M2 miss's |Δ| and Apple's
+    reading, an L1 growth miss's growth) and the recorded entries: one added line each, no
+    assertion changed. Then, as the seal would:
+      - every recorded entry no longer derived is a CLOSURE and is dropped (a MISSED_27_ROWS or
+        GROWTH_MISSES line deleted; a MISSES member filtered where it is asserted and logged);
+      - every recorded entry still derived whose reading no longer pins (|Δ| >= 5e-6) is
+        RE-RECORDED at its new reading, in its own line; a field the entry does not carry is
+        never added;
+      - nothing is added: an entry derived and not recorded still fails, unless one of step 6's
+        two paths inserted it.
+    The test runs again, and that run is the run's result; it must show no closure and no
+    unpinned reading, or the runner stops. Every edit, step 6's insertions included, is logged
+    in <run>/edits.txt. Closures (summary.json closures, one list per run) and re-records
+    (summary.json reRecorded) never block (proof.txt, "Closures" and "The fix wave").
  8. The comparison, case by case, on each failure's message with stack frames and the worktree
     path removed (inserted lines move line numbers): new (fails in the candidate only), changed
     (fails in both, differently), unmeasuredInCandidate (skipped where the base passed), and,
     non-blocking, fixed and shared. The base and candidate unions must hold the same replaced
     pairs, staged members and kept rows, or the run refuses. Exit 0 only when new, changed and
     unmeasuredInCandidate are all empty; 1 otherwise; 2 on a refusal.
+    Two refusals added by the fix wave (the gate review of b151aff4):
+      - finding 1: before either run, a run whose candidate documents replace a document that one
+        of the six gated profiles' WebGPU pairs was drawn at, and whose stages do not render that
+        pair, refuses. Unstaged, those rows are read at a side copy of the old document in both
+        runs and gate nothing for the candidate. (keptWebgpuPairsOfGatedProfiles no longer counts
+        carried holdout rows as kept, which made it name every staged pair.)
+      - finding 8: after both runs, a base that fails any case refuses, with summary.json written
+        (refused, the verdict for evidence). A case failing in both runs is compared on vitest's
+        message, which truncates arrays ("[ …(30) ] to deeply equal [ …(31) ]"), so two different
+        failures could read as one shared failure that blocks nothing.
 
 Outputs (--out): summary.json (the verdict), manifest.json (the commit, runner and referee
 hashes, the test's committed SHA-256 and fixed cut paths, M2's references, the shipped documents,
@@ -108,14 +142,17 @@ Run command
     --base-stage BASE_LIGHT --base-stage BASE_DARK --base-captures BASE_CAPTURE_ROOT \
     --out /tmp/w42-gate-owner/<name>
 A base at the shipped documents needs no --base-candidate. Clause 10 wants the candidate stages to
-hold the WebGPU pair of all six gated profiles; summary.json keptWebgpuPairsOfGatedProfiles names
-any it does not (those pairs are then read at their current rows in both runs).
+hold the WebGPU pair of all six gated profiles: a light candidate's light stage holds 1x and 2x
+standard, reduced transparency and increased contrast. A pair drawn at a replaced document and
+not staged refuses (step 8); summary.json keptWebgpuPairsOfGatedProfiles names the gated pairs
+kept at documents the run does not replace (a dark-only candidate keeps the light ones).
 
 What it cannot see
 ------------------
-- A case failing in both runs with the same message is shared, and vitest stops a case at its
-  first failed assertion, so anything later in that case is unread in both runs. Read
-  summary.json shared: every entry there is a case that gated nothing for the candidate.
+- vitest stops a case at its first failed assertion, so anything later in a failing case is
+  unread. A base that fails any case now refuses (step 8), so no case is "shared" in a passing
+  verdict. Evidence runs whose base fails (--no-carry-holdout on a G2-shaped stage, a seeded
+  base) exit 2 with their verdict written.
 - Kept and carried rows say nothing about the candidate: the CSS tier, any unrendered pair and
   the holdout cells are gated at the rows and documents that drew them, identically in both
   runs. The side copies appear in SHIPPED_DOCUMENT_HASHES and in the chroma cut's
