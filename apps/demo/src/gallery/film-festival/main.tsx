@@ -295,7 +295,11 @@ function Page(props: PageProps): ReactNode {
     setInks(next);
   }, [root]);
 
-  useEffect(() => ticker.subscribe(chooseInks), [chooseInks, ticker]);
+  // Re-chosen on every frame the runtime draws, and never the reason one is drawn.
+  useEffect(() => ticker.subscribe(() => {
+    chooseInks();
+    return false;
+  }), [chooseInks, ticker]);
 
   /*
    * Every group's hint, measured off what the page displays under the group's footprint

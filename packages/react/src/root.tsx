@@ -384,11 +384,19 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
    */
   useEffect(() => {
     if (root === null) return;
-    const unsubscribePoll = ticker.subscribe(() => store.poll());
+    // Frames are drawn on demand: a binding that retargets a spring asks the
+    // ticker, and the ticker asks the root. The poll reads what a frame produced,
+    // so it never needs a frame of its own.
+    const unbind = ticker.bind(() => root.requestFrame());
+    const unsubscribePoll = ticker.subscribe(() => {
+      store.poll();
+      return false;
+    });
     const unsubscribeFrames = autoStart
       ? root.subscribe(({ deltaMs }) => ticker.advance(deltaMs))
       : undefined;
     return () => {
+      unbind();
       unsubscribePoll();
       unsubscribeFrames?.();
     };

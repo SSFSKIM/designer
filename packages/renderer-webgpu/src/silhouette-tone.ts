@@ -106,6 +106,8 @@ export function createSilhouetteTonePass(context: GpuContext) {
     encodedFallback: undefined as SourceFallback | undefined,
     queued: undefined as Reduction | undefined,
     pending: undefined as Promise<void> | undefined,
+    /** A rebuilt pyramid whose reduction the cadence has deferred to a later frame. */
+    owed: false,
   });
   const entries = new Map<string, ReturnType<typeof createEntry>>();
   const destroyEntry = (entry: ReturnType<typeof createEntry>) => {
@@ -181,6 +183,8 @@ export function createSilhouetteTonePass(context: GpuContext) {
         pass.dispatchWorkgroups(field.instanceCount);
         pass.end();
       }
+      entry.owed = args.cadenceHz > 0 && entry.reduced !== undefined &&
+        entry.reduced.builtEpoch !== pyramid.builtEpoch;
       entry.instances.write(field.instances, field.instanceCount * 18);
       entry.encodedFallback = args.fallbackTone;
 
@@ -256,6 +260,20 @@ export function createSilhouetteTonePass(context: GpuContext) {
     },
     async collect() {
       await Promise.all([...entries.values()].map((entry) => entry.pending));
+    },
+    /**
+     * Whether a reading is still on its way: a reduction the cadence deferred, a
+     * copy queued or mapping, or a reduction whose observation has not landed.
+     * Only later frames finish any of them.
+     */
+    get pending(): boolean {
+      for (const entry of entries.values()) {
+        if (entry.owed || entry.queued !== undefined || entry.pending !== undefined) return true;
+        if (entry.reduced !== undefined && entry.observation?.reduction !== entry.reduced) {
+          return true;
+        }
+      }
+      return false;
     },
     readings(groupId: string): readonly SurfaceBackdropToneAbscissa[] {
       return [...entries.values()].filter((entry) => entry.groupId === groupId)

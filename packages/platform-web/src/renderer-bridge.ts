@@ -98,6 +98,17 @@ export type GlassBackdropTexture =
       readonly kind: "canvas";
       readonly canvas: HTMLCanvasElement | OffscreenCanvas;
       readonly placement?: BackdropTexturePlacement;
+      /**
+       * Whether the canvas may change on any frame without saying so. `true`, the
+       * default, re-imports it on every frame and so keeps the root drawing for as
+       * long as it is supplied — the right contract for a canvas animated by
+       * something that never tells vitrea.
+       *
+       * `false` says the owner marks each repaint with
+       * `root.markBackdropSourceDirty(sourceId)`, and nothing is re-read between
+       * marks: a page whose backdrop has stopped changing draws nothing at all.
+       */
+      readonly live?: boolean;
     }
   | {
       readonly kind: "image";
@@ -193,16 +204,23 @@ export interface GlassRendererBridge {
    */
   hasBackdropTexture(sourceId: string): boolean;
   /**
-   * The source ids whose content changes every frame by kind — video and live
-   * canvas (§GPU device ownership).
+   * The source ids whose content can change on any frame without a mark — a
+   * playing video and a live canvas (§GPU device ownership;
+   * `backdropTextureIsLive`).
    *
    * The bridge is the only side that knows a source's kind, and the kind is what
-   * decides this: an imported external texture expires at task end and a canvas
-   * is repainted by its owner, so both are dirty on every frame that samples
-   * them, whereas a decoded image never changes and must not be re-imported at
-   * all.
+   * decides this: a playing video advances on its own and a live canvas is
+   * repainted by its owner, so both are dirty on every frame, whereas a decoded
+   * image, a paused video and a canvas supplied `live: false` change only when
+   * something says so, and are re-imported then and not otherwise. Marking one of
+   * these each frame is also what keeps a root drawing for as long as it lives.
    */
   perFrameBackdropSources(): readonly string[];
+  /**
+   * Whether the renderer has work only later frames can finish — see
+   * `GlassRenderer.framesPending`. False while the bridge is not drawing.
+   */
+  framesPending(): boolean;
   /**
    * Replace the renderer's optical tunables. A patch replaces rather than
    * accumulates — that is the renderer's rule, and this only forwards it.
@@ -578,10 +596,11 @@ export function createGlassRendererBridge(
             device,
             source: texture.kind === "canvas" ? texture.canvas : texture.image,
             ...sourceExtent(texture),
-            // A canvas is repainted by its owner and a decoded image never
-            // changes; that difference is what lets a static backdrop rebuild
-            // nothing at all (§Core model's invariant).
-            live: texture.kind === "canvas",
+            // A live canvas is repainted by its owner behind vitrea's back and a
+            // decoded image never changes; that difference is what lets a static
+            // backdrop rebuild nothing at all (§Core model's invariant). A canvas
+            // supplied `live: false` is copied when its owner marks it instead.
+            live: texture.kind === "canvas" && texture.live !== false,
             generation,
           });
 
@@ -830,8 +849,12 @@ export function createGlassRendererBridge(
 
     perFrameBackdropSources() {
       return [...textures]
-        .filter(([, texture]) => texture.kind !== "image")
+        .filter(([, texture]) => backdropTextureIsLive(texture))
         .map(([sourceId]) => sourceId);
+    },
+
+    framesPending() {
+      return active() && renderer?.framesPending === true;
     },
 
     setMaterialProfile(profile) {
@@ -855,6 +878,21 @@ export function createGlassRendererBridge(
       device = undefined;
     },
   };
+}
+
+/**
+ * Whether a supplied texture's pixels can change on any frame without anyone
+ * saying so: a canvas supplied live, and a video while it plays.
+ *
+ * A paused video is not live. Its pyramid was built from the frame it shows and
+ * still describes it; seeking, loading or resizing it is an event, and the root
+ * marks the source on those. Re-importing a paused frame sixty times a second
+ * rebuilt the same pyramid and kept the page awake for nothing.
+ */
+export function backdropTextureIsLive(texture: GlassBackdropTexture): boolean {
+  if (texture.kind === "canvas") return texture.live !== false;
+  if (texture.kind === "video") return !texture.video.paused && !texture.video.ended;
+  return false;
 }
 
 /**

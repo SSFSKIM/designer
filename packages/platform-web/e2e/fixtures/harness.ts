@@ -30,6 +30,13 @@ import {
   type ProxyRequest,
   type VitreaDiagnostic,
 } from "../../src/index";
+import {
+  createBackdropSnapshotReader,
+  releaseBackdropToneScratch,
+  silhouetteBackdropTone,
+  type BackdropSilhouette,
+  type BackdropToneSample,
+} from "../../src/backdrop-tone";
 
 /** What `canvasPixels` reports about one region of a plane's own canvas. */
 export interface CanvasReading {
@@ -899,6 +906,53 @@ const api = {
     // One task, so the lifecycle's own `lost` handler has published the loss and
     // the bridge's device sync has run.
     await new Promise((resolve) => setTimeout(resolve, 50));
+  },
+
+  /**
+   * The CSS tier's windowed tone read against a whole-source read of the same
+   * canvas, in this engine's own `drawImage` and `getImageData`: every geometry,
+   * both readings. A noisy, partly transparent canvas, so a window off by one
+   * pixel or a crop that resampled would show in the numbers.
+   */
+  toneWindowParity(geometries: readonly BackdropSilhouette[]): {
+    readonly whole: readonly (BackdropToneSample | undefined)[];
+    readonly windowed: readonly (BackdropToneSample | undefined)[];
+    readonly windowPixels: readonly number[];
+    readonly sourcePixels: number;
+  } {
+    const canvas = document.createElement("canvas");
+    canvas.width = 997;
+    canvas.height = 613;
+    const context = canvas.getContext("2d");
+    if (context === null) throw new Error("no 2d context");
+    const noise = context.createImageData(canvas.width, canvas.height);
+    let seed = 1;
+    for (let i = 0; i < noise.data.length; i += 1) {
+      seed = (seed * 1103515245 + 12345) >>> 0;
+      noise.data[i] = i % 4 === 3 ? 96 + ((seed >>> 16) % 160) : (seed >>> 16) & 255;
+    }
+    context.putImageData(noise, 0, 0);
+
+    releaseBackdropToneScratch();
+    const whole: (BackdropToneSample | undefined)[] = [];
+    const windowed: (BackdropToneSample | undefined)[] = [];
+    const windowPixels: number[] = [];
+    // The whole-source reference: every pixel, read once.
+    const full = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (const geometry of geometries) {
+      whole.push(silhouetteBackdropTone(full, canvas.width, canvas.height, geometry));
+      // A fresh reader per geometry, so each read is that surface's own window.
+      const reader = createBackdropSnapshotReader();
+      const { snapshot } = reader(
+        { kind: "canvas", canvas, live: false }, 0, 0, "marked", geometry, geometry.bounds,
+      );
+      windowPixels.push(snapshot === undefined ? 0 : snapshot.window.width * snapshot.window.height);
+      windowed.push(snapshot === undefined ? undefined : silhouetteBackdropTone(
+        snapshot.data, snapshot.width, snapshot.height, geometry, snapshot.window,
+      ));
+    }
+    releaseBackdropToneScratch();
+    return { whole, windowed, windowPixels, sourcePixels: canvas.width * canvas.height };
   },
 
   reset(): void {

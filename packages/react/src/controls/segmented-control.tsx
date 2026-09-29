@@ -145,8 +145,9 @@ export function GlassSegmentedControl<T extends string = string>(
     (patch: Partial<InteractionFlags>) => {
       flags.current = { ...flags.current, ...patch };
       machine.applyFlags(flags.current);
+      ticker.requestFrame();
     },
-    [machine],
+    [machine, ticker],
   );
 
   /**
@@ -165,6 +166,8 @@ export function GlassSegmentedControl<T extends string = string>(
 
     machine.driver("position").retarget(x);
     machine.driver("size").retarget(width);
+    // A new target is only drawn if a frame comes, and frames come on demand.
+    ticker.requestFrame();
     if (placed.current) return;
 
     // The first measurement places the indicator rather than sliding it in from
@@ -173,7 +176,7 @@ export function GlassSegmentedControl<T extends string = string>(
     machine.driver("position").jumpTo(x, 0);
     machine.driver("size").jumpTo(width, 0);
     placed.current = true;
-  }, [indicatorInset, machine, track, value]);
+  }, [indicatorInset, machine, ticker, track, value]);
 
   useLayoutEffect(retarget, [retarget]);
 
@@ -220,6 +223,7 @@ export function GlassSegmentedControl<T extends string = string>(
       indicator.style.setProperty(GLASS_CHANNEL_PROPERTIES.press, num(press));
       indicator.style.setProperty(GLASS_CHANNEL_PROPERTIES.glow, num(machine.value("glow")));
       indicator.style.setProperty(GLASS_CHANNEL_PROPERTIES.lensStrength, num(machine.value("lensStrength")));
+      return !machine.settled;
     });
   }, [indicator, machine, motionProfile.pressCompressionScale, ticker]);
 
