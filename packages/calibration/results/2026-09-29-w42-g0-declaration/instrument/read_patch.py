@@ -113,7 +113,7 @@ def radial_profile(cell, img, pix, which=None):
 def _parts(cells_pix, reading, sn, sw, support, edge, mu, kn=None, s2=None, a=0.0):
     parts = []
     for cell, pix in cells_pix:
-        key = ('_rp', reading, id(pix))
+        key = ('_rp', reading, id(pix), id(cell.y))
         if key not in cell._cache:
             b = L.Basis(cell, pix, reading)
             cell._cache[key] = (b, L.observed(cell, pix, reading))

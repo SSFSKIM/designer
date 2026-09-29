@@ -112,7 +112,7 @@ def hinge_gap(cell, fam, p, bins=GAP_BINS):
 
 def _linear_parts(cell, sn, sw, support='canvas', edge='clamp'):
     pix = cell.mask
-    key = ('_rlam', id(pix), round(sn, 4), round(sw, 4), support, edge)
+    key = ('_rlam', id(pix), id(cell.y), round(sn, 4), round(sw, 4), support, edge)
     if key not in cell._cache:
         b = L.Basis(cell, pix, 'linear')
         M, wt, ok = L.observed(cell, pix, 'linear')

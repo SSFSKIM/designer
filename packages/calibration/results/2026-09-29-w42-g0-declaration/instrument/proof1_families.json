@@ -2144,5 +2144,775 @@
    },
    "bed": "07b45391"
   }
+ ],
+ "Aw": [
+  {
+   "family": "LT",
+   "ep": "light-rest",
+   "n_cells": 15,
+   "excluded": [],
+   "pooled": 0.42478930614987787,
+   "max_cell": 0.44240448410656846,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9831014411151326,
+     "err": 0.00010144111513255005,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8798696608187271,
+     "err": -0.00013033918127292043,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 15.438865184783936,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "LT",
+   "ep": "dark-rest",
+   "n_cells": 19,
+   "excluded": [],
+   "pooled": 0.42450947555427404,
+   "max_cell": 0.4994786376064148,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.093976038640636,
+     "err": -2.3961359363777746e-05,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.8999373391035556,
+     "err": -6.266089644446637e-05,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 22.00447988510132,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "LT-2k",
+   "ep": "light-rest",
+   "n_cells": 9,
+   "excluded": [],
+   "pooled": 0.42410879282403774,
+   "max_cell": 0.45193165846268085,
+   "recovered": {
+    "k_n": {
+     "truth": 1.75,
+     "read": 1.7501648199813133,
+     "err": 0.00016481998131334663,
+     "tol": 0.005,
+     "ok": true
+    },
+    "k_w": {
+     "truth": 2.1,
+     "read": 2.099916890040188,
+     "err": -8.310995981197777e-05,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8800942837704839,
+     "err": 9.428377048392722e-05,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 59.58053112030029,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "LT-2k",
+   "ep": "dark-rest",
+   "n_cells": 13,
+   "excluded": [],
+   "pooled": 0.4214631631102752,
+   "max_cell": 0.49948534919224397,
+   "recovered": {
+    "k_n": {
+     "truth": 1.75,
+     "read": 1.7501965425474668,
+     "err": 0.00019654254746681588,
+     "tol": 0.005,
+     "ok": true
+    },
+    "k_w": {
+     "truth": 2.1,
+     "read": 2.0998781247395537,
+     "err": -0.0001218752604463802,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.8997454881987953,
+     "err": -0.0002545118012047265,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 112.07849669456482,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "free-sn",
+   "ep": "light-rest",
+   "n_cells": 9,
+   "excluded": [],
+   "pooled": 0.429216089251639,
+   "max_cell": 0.44318919785155486,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9805112540015384,
+     "err": -0.0024887459984617166,
+     "tol": 0.005,
+     "ok": true
+    },
+    "sn_rest_64": {
+     "truth": 0.3,
+     "read": 13.999036275984306,
+     "err": 13.699036275984305,
+     "tol": 0.05,
+     "ok": false
+    },
+    "sn_rest_80": {
+     "truth": 1.5,
+     "read": 13.999106553585609,
+     "err": 12.499106553585609,
+     "tol": 0.05,
+     "ok": false
+    },
+    "sn_rest_96": {
+     "truth": 2.2,
+     "read": 13.999176831186912,
+     "err": 11.799176831186912,
+     "tol": 0.05,
+     "ok": false
+    },
+    "sn_rest_128": {
+     "truth": 4.0,
+     "read": 4.000489033544347,
+     "err": 0.0004890335443468175,
+     "tol": 0.05,
+     "ok": true
+    },
+    "sn_rest_160": {
+     "truth": 4.5,
+     "read": 4.609881124967458,
+     "err": 0.10988112496745828,
+     "tol": 0.05,
+     "ok": false
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8808211789116752,
+     "err": 0.0008211789116752133,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 36.74294400215149,
+   "pass": false,
+   "kernel": "w"
+  },
+  {
+   "family": "free-sn",
+   "ep": "dark-rest",
+   "n_cells": 13,
+   "excluded": [],
+   "pooled": 0.4211815689504351,
+   "max_cell": 0.4994866574651797,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.0908964454629335,
+     "err": -0.003103554537066344,
+     "tol": 0.005,
+     "ok": true
+    },
+    "sn_rest_64": {
+     "truth": 0.3,
+     "read": 13.999949881286769,
+     "err": 13.699949881286768,
+     "tol": 0.05,
+     "ok": false
+    },
+    "sn_rest_80": {
+     "truth": 1.5,
+     "read": 13.999949881286174,
+     "err": 12.499949881286174,
+     "tol": 0.05,
+     "ok": false
+    },
+    "sn_rest_96": {
+     "truth": 2.2,
+     "read": 13.999508257258968,
+     "err": 11.799508257258967,
+     "tol": 0.05,
+     "ok": false
+    },
+    "sn_rest_128": {
+     "truth": 4.0,
+     "read": 4.003390590655256,
+     "err": 0.0033905906552558207,
+     "tol": 0.05,
+     "ok": true
+    },
+    "sn_rest_160": {
+     "truth": 4.5,
+     "read": 4.5823254524063515,
+     "err": 0.08232545240635147,
+     "tol": 0.05,
+     "ok": false
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.9013381031000172,
+     "err": 0.0013381031000171406,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 48.38040494918823,
+   "pass": false,
+   "kernel": "w"
+  },
+  {
+   "family": "R1",
+   "ep": "light-rest",
+   "skipped": "no answering cell (B) survives the mask (kernel w): a bed question under ruling 3"
+  },
+  {
+   "family": "R1",
+   "ep": "dark-rest",
+   "skipped": "no answering cell (B) survives the mask (kernel w): a bed question under ruling 3"
+  },
+  {
+   "family": "W-shape",
+   "ep": "light-rest",
+   "n_cells": 6,
+   "excluded": [],
+   "pooled": 0.43105077850720325,
+   "max_cell": 0.4412988097735533,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9822443976618243,
+     "err": -0.0007556023381758425,
+     "tol": 0.005,
+     "ok": true
+    },
+    "mu": {
+     "truth": 4.0,
+     "read": 6.000973340435086,
+     "err": 2.0009733404350856,
+     "tol": 1.0,
+     "ok": false
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8795920115810492,
+     "err": -0.00040798841895084426,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 62.06147575378418,
+   "pass": false,
+   "kernel": "w"
+  },
+  {
+   "family": "W-shape",
+   "ep": "dark-rest",
+   "n_cells": 10,
+   "excluded": [],
+   "pooled": 0.42550461933951916,
+   "max_cell": 0.49962474035470744,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.0936468750401,
+     "err": -0.00035312495989980874,
+     "tol": 0.005,
+     "ok": true
+    },
+    "mu": {
+     "truth": 4.0,
+     "read": 7.501307104404007,
+     "err": 3.501307104404007,
+     "tol": 1.0,
+     "ok": false
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.9001619620553123,
+     "err": 0.00016196205531227026,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 83.95318675041199,
+   "pass": false,
+   "kernel": "w"
+  },
+  {
+   "family": "W-canvas",
+   "ep": "light-rest",
+   "n_cells": 6,
+   "excluded": [],
+   "pooled": 0.4310450895973493,
+   "max_cell": 0.44129885368548766,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9822391800364287,
+     "err": -0.0007608199635713575,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8795920115810492,
+     "err": -0.00040798841895084426,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 4.914110898971558,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "W-canvas",
+   "ep": "dark-rest",
+   "n_cells": 10,
+   "excluded": [],
+   "pooled": 0.42553579142606174,
+   "max_cell": 0.49962827488884676,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.0937401252762418,
+     "err": -0.0002598747237581023,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.9001619620553123,
+     "err": 0.00016196205531227026,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 11.66447401046753,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "W-tails",
+   "ep": "light-rest",
+   "n_cells": 6,
+   "excluded": [],
+   "pooled": 0.4281105850308316,
+   "max_cell": 0.45504029052955264,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9813037222450796,
+     "err": -0.0016962777549205388,
+     "tol": 0.005,
+     "ok": true
+    },
+    "s2": {
+     "truth": 40.0,
+     "read": 39.97581776376249,
+     "err": -0.024182236237507482,
+     "tol": 2.0,
+     "ok": true
+    },
+    "a": {
+     "truth": 0.25,
+     "read": 0.25080921660419003,
+     "err": 0.0008092166041900328,
+     "tol": 0.03,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8797838624858094,
+     "err": -0.00021613751419058413,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 110.46228623390198,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "W-tails",
+   "ep": "dark-rest",
+   "n_cells": 10,
+   "excluded": [],
+   "pooled": 0.42952646491767466,
+   "max_cell": 0.499717839080158,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.09313757546901,
+     "err": -0.000862424530990058,
+     "tol": 0.005,
+     "ok": true
+    },
+    "s2": {
+     "truth": 40.0,
+     "read": 39.99724302911569,
+     "err": -0.002756970884313148,
+     "tol": 2.0,
+     "ok": true
+    },
+    "a": {
+     "truth": 0.25,
+     "read": 0.2500249657439146,
+     "err": 2.4965743914584504e-05,
+     "tol": 0.03,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.8997985144847165,
+     "err": -0.0002014855152835393,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 170.59114003181458,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "K2",
+   "ep": "light-rest",
+   "n_cells": 6,
+   "excluded": [],
+   "pooled": 0.42354330652911243,
+   "max_cell": 0.43179270833079375,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.982326255317428,
+     "err": -0.0006737446825721971,
+     "tol": 0.005,
+     "ok": true
+    },
+    "sk": {
+     "truth": 12.0,
+     "read": 11.985252667848794,
+     "err": -0.014747332151205939,
+     "tol": 0.25,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8816338723857844,
+     "err": 0.001633872385784385,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 108.02097272872925,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "K2",
+   "ep": "dark-rest",
+   "n_cells": 10,
+   "excluded": [],
+   "pooled": 0.42449273172081403,
+   "max_cell": 0.49964687347108017,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.0933791102136268,
+     "err": -0.0006208897863730911,
+     "tol": 0.005,
+     "ok": true
+    },
+    "sk": {
+     "truth": 12.0,
+     "read": 12.009843950048607,
+     "err": 0.009843950048606942,
+     "tol": 0.25,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.8989327947246861,
+     "err": -0.0010672052753138983,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 104.65954184532166,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "C-linear",
+   "ep": "light-rest",
+   "n_cells": 7,
+   "excluded": [],
+   "pooled": 0.42324868068678745,
+   "max_cell": 0.461312669522354,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9828572138430667,
+     "err": -0.00014278615693341656,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8803189067222406,
+     "err": 0.00031890672224055283,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 5.381633996963501,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "C-linear",
+   "ep": "dark-rest",
+   "n_cells": 7,
+   "excluded": [],
+   "pooled": 0.4334554631047261,
+   "max_cell": 0.49530628268554133,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.093941699647568,
+     "err": -5.8300352431928104e-05,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.8995208652470386,
+     "err": -0.00047913475296146313,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 5.475855827331543,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "knee-luma",
+   "ep": "light-rest",
+   "skipped": "no answering cell (E) survives the mask (kernel w): a bed question under ruling 3"
+  },
+  {
+   "family": "knee-luma",
+   "ep": "dark-rest",
+   "skipped": "no answering cell (E) survives the mask (kernel w): a bed question under ruling 3"
+  },
+  {
+   "family": "LT+bleed",
+   "ep": "light-rest",
+   "n_cells": 11,
+   "excluded": [],
+   "pooled": 0.4177651279329717,
+   "max_cell": 0.4453025366011106,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9828512091531243,
+     "err": -0.00014879084687580146,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8800084854375662,
+     "err": 8.485437566152498e-06,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 40.73033881187439,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "LT+bleed",
+   "ep": "dark-rest",
+   "n_cells": 15,
+   "excluded": [],
+   "pooled": 0.4220129053867772,
+   "max_cell": 0.4998758563370148,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.093585086164813,
+     "err": -0.00041491383518676983,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.8994350669141209,
+     "err": -0.0005649330858791268,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 54.36277890205383,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "LT+bleed-own",
+   "ep": "light-rest",
+   "n_cells": 11,
+   "excluded": [],
+   "pooled": 0.4176662756885756,
+   "max_cell": 0.4452991711769045,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.9828731631414316,
+     "err": -0.00012683685856851312,
+     "tol": 0.005,
+     "ok": true
+    },
+    "k_b": {
+     "truth": 2.0,
+     "read": 1.9993191964136576,
+     "err": -0.0006808035863423711,
+     "tol": 0.05,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8800084854375662,
+     "err": 8.485437566152498e-06,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 255.39786505699158,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "LT+bleed-own",
+   "ep": "dark-rest",
+   "n_cells": 15,
+   "excluded": [],
+   "pooled": 0.42186409221866294,
+   "max_cell": 0.4998740978003225,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.0937873107048923,
+     "err": -0.00021268929510753765,
+     "tol": 0.005,
+     "ok": true
+    },
+    "k_b": {
+     "truth": 2.0,
+     "read": 1.9998813934875688,
+     "err": -0.00011860651243122966,
+     "tol": 0.05,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.8992104439623642,
+     "err": -0.0007895560376358635,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 230.31412720680237,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "edge-swap",
+   "ep": "light-rest",
+   "n_cells": 6,
+   "excluded": [],
+   "pooled": 0.4310450895972326,
+   "max_cell": 0.4412988536875691,
+   "recovered": {
+    "k": {
+     "truth": 1.983,
+     "read": 1.982239180718485,
+     "err": -0.0007608192815151682,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.88,
+     "read": 0.8795920115810492,
+     "err": -0.00040798841895084426,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 8.816232919692993,
+   "pass": true,
+   "kernel": "w"
+  },
+  {
+   "family": "edge-swap",
+   "ep": "dark-rest",
+   "n_cells": 10,
+   "excluded": [],
+   "pooled": 0.425535762882087,
+   "max_cell": 0.4996282724427437,
+   "recovered": {
+    "k": {
+     "truth": 2.094,
+     "read": 2.0937403648721347,
+     "err": -0.0002596351278651987,
+     "tol": 0.005,
+     "ok": true
+    },
+    "lam": {
+     "truth": 0.9,
+     "read": 0.9001619620553123,
+     "err": 0.00016196205531227026,
+     "tol": 0.03,
+     "ok": 1.0
+    }
+   },
+   "seconds": 21.03636598587036,
+   "pass": true,
+   "kernel": "w"
+  }
  ]
 }

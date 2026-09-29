@@ -111,6 +111,126 @@ STEP READER on checker-64 edges: no call against the canvas (vitrea's W is canva
   dark 1x checkerboard-64__rrect-lg__inactive  call None         gap 0.004 PASS sw@canvas 16.98/14.44 (within) lam@canvas -0.098 PASS
   dark 2x checkerboard-64__rrect-lg__inactive  call None         gap 0.000 PASS sw@canvas 7.31/6.77 (within) lam@canvas 0.220 MISS
 
+RE-PROOF AGAINST THE FLOAT64 REPLICA (the parent's ruling 1; tolerances.json "proof3_vitrea",
+b223600a): reading(capture) against reading(replica) on one mask, at the proof-1 bars. Replica fast path vs original: max |difference| 5.7e-14.
+Identifiability flags (the same call on both images): patch sn and depth bins, the profile interval strictly inside its scan and 0 <= w <= 0.9 (patch sn also != sw); patch sw, the interval inside its scan and 0.1 <= w <= 1; step sw, the interval inside its scan; step lam, 0 <= w <= 0.9; per-cell lam, interval <= 0.4 wide and off the grid bound; hinge-gap bin, interval <= 0.4 wide.
+  patch  light 1x impulse__capsule-button__rest         sn 2.046/1.674 MISS (identifiable on one image only); sw 2.05/21.27 reported (non-identifiable on both)
+  patch  light 2x impulse__capsule-button__rest         sn 0.818/0.835 PASS; sw 7.87/10.29 reported (non-identifiable on both)
+  patch  dark 1x impulse__capsule-button__rest          sn 1.557/1.672 MISS; sw 8.06/19.77 reported (non-identifiable on both)
+  patch  dark 2x impulse__capsule-button__rest          sn 1.151/0.932 MISS (identifiable on one image only); sw 5.02/4.07 MISS
+  patch  light 1x impulse__capsule-button__inactive     sn 1.625/1.667 PASS; sw 14.14/17.78 reported (non-identifiable on both)
+  patch  light 2x impulse__capsule-button__inactive     sn 0.820/0.822 PASS; sw 6.65/7.04 MISS
+  patch  dark 1x impulse__capsule-button__inactive      sn 2.024/1.658 MISS (identifiable on one image only); sw 2.02/17.77 reported (non-identifiable on both)
+  patch  dark 2x impulse__capsule-button__inactive      sn 0.812/0.820 PASS; sw 5.95/7.01 MISS
+  patch  light 1x impulse__rrect-md__rest               sn 1.585/1.667 PASS; sw 10.18/15.78 reported (non-identifiable on both)
+  patch  light 2x impulse__rrect-md__rest               sn 0.777/0.818 reported (non-identifiable on both); sw 8.24/10.03 MISS
+  patch  light 1x impulse__rrect-md__inactive           sn 1.502/1.656 MISS; sw 7.78/14.59 reported (non-identifiable on both)
+  patch  light 2x impulse__rrect-md__inactive           sn 4.836/2.587 reported (non-identifiable on both); sw 4.84/6.77 reported (non-identifiable on both)
+  patch  light 1x impulse__rrect-ml__inactive           sn 1.599/1.649 PASS; sw 13.68/14.26 reported (non-identifiable on both)
+  patch  light 2x impulse__rrect-ml__inactive           sn 2.567/2.343 reported (non-identifiable on both); sw 6.68/6.79 reported (non-identifiable on both)
+  patch  dark 1x impulse__rrect-ml__inactive            sn 1.706/1.625 MISS (identifiable on one image only); sw 21.51/14.11 reported (non-identifiable on both)
+  patch  dark 2x impulse__rrect-ml__inactive            sn 7.092/2.208 reported (non-identifiable on both); sw 9.89/6.81 reported (non-identifiable on both)
+  step   light 1x checkerboard-64__capsule-button__rest sw 22.21/22.99 reported (non-identifiable on both); call None/None PASS; lam -0.044/-0.006 MISS
+  step   light 2x checkerboard-64__capsule-button__rest sw 10.41/10.38 PASS; call None/None PASS; lam 0.038/0.035 PASS
+  step   dark 1x checkerboard-64__capsule-button__rest  sw 15.77/24.09 reported (non-identifiable on both); call None/None PASS; lam 0.005/0.003 PASS
+  step   dark 2x checkerboard-64__capsule-button__rest  sw 5.60/4.78 MISS (identifiable on one image only); call None/None PASS; lam -0.019/0.033 MISS
+  step   light 1x checkerboard-64__rrect-sm__rest       sw 9.13/8.12 reported (non-identifiable on both); call None/None PASS; lam -0.000/-2.012 reported (non-identifiable on both)
+  step   light 2x checkerboard-64__rrect-sm__rest       sw 36.21/7.98 reported (non-identifiable on both); call None/None PASS; lam 0.000/5.307 reported (non-identifiable on both)
+  step   dark 1x checkerboard-64__rrect-sm__rest        sw 7.38/8.88 reported (non-identifiable on both); call None/None PASS; lam -1.759/-1.693 reported (non-identifiable on both)
+  step   dark 2x checkerboard-64__rrect-sm__rest        sw 29.84/8.89 reported (non-identifiable on both); call None/None PASS; lam -0.500/-0.499 PASS
+  step   light 1x checkerboard-64__rrect-md__rest       sw 32.95/32.68 reported (non-identifiable on both); call None/None PASS; lam 0.023/0.001 PASS
+  step   light 2x checkerboard-64__rrect-md__rest       sw 10.15/10.15 PASS; call None/None PASS; lam 0.037/0.074 reported (non-identifiable on both)
+  step   dark 1x checkerboard-64__rrect-md__rest        sw 32.19/32.65 reported (non-identifiable on both); call None/None PASS; lam -0.021/-0.001 PASS
+  step   dark 2x checkerboard-64__rrect-md__rest        sw 4.93/4.91 PASS; call None/None PASS; lam 0.032/0.032 PASS
+  step   light 1x checkerboard-64__rrect-ml__rest       sw 16.78/16.62 reported (non-identifiable on both); call None/None PASS; lam 0.008/0.001 PASS
+  step   light 2x checkerboard-64__rrect-ml__rest       sw 10.39/10.39 PASS; call None/None PASS; lam 0.046/0.052 reported (non-identifiable on both)
+  step   dark 1x checkerboard-64__rrect-ml__rest        sw 16.78/17.55 reported (non-identifiable on both); call None/None PASS; lam -0.031/-0.002 PASS
+  step   dark 2x checkerboard-64__rrect-ml__rest        sw 5.59/5.64 PASS; call None/None PASS; lam 0.007/-0.001 PASS
+  step   light 1x checkerboard-64__rrect-md__inactive   sw 17.54/17.45 reported (non-identifiable on both); call None/None PASS; lam -0.091/-0.078 PASS
+  step   light 2x checkerboard-64__rrect-md__inactive   sw 8.63/8.64 reported (non-identifiable on both); call None/None PASS; lam -0.021/-0.027 reported (non-identifiable on both)
+  step   dark 1x checkerboard-64__rrect-md__inactive    sw 16.72/32.48 reported (non-identifiable on both); call None/None PASS; lam 0.042/-0.002 MISS (identifiable on one image only)
+  step   dark 2x checkerboard-64__rrect-md__inactive    sw 7.30/7.22 PASS; call None/None PASS; lam -0.032/-0.163 reported (non-identifiable on both)
+  depth  light 1x impulse__rrect-ml__inactive           32-40 reported (non-identifiable on both) 40-48 PASS 48-56 PASS 56-64 PASS
+  depth  light 2x impulse__rrect-ml__inactive           32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  dark 1x impulse__rrect-ml__inactive            32-40 reported (non-identifiable on both) 40-48 MISS (identifiable on one image only) 48-56 MISS (identifiable on one image only) 56-64 MISS (identifiable on one image only)
+  depth  dark 2x impulse__rrect-ml__inactive            32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  light 1x checkerboard-32__rrect-ml__rest       32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  light 2x checkerboard-32__rrect-ml__rest       32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  dark 1x checkerboard-32__rrect-ml__rest        32-40 MISS (identifiable on one image only) 40-48 MISS (identifiable on one image only) 48-56 MISS (identifiable on one image only) 56-64 MISS (identifiable on one image only)
+  depth  dark 2x checkerboard-32__rrect-ml__rest        32-40 MISS (identifiable on one image only) 40-48 MISS (identifiable on one image only) 48-56 reported (non-identifiable on both) 56-64 MISS (identifiable on one image only)
+  depth  light 1x checkerboard__rrect-ml__rest          32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  light 2x checkerboard__rrect-ml__rest          32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  light 1x checkerboard__rrect-ml__inactive      32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  light 2x checkerboard__rrect-ml__inactive      32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  dark 1x checkerboard__rrect-ml__inactive       32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  depth  dark 2x checkerboard__rrect-ml__inactive       32-40 reported (non-identifiable on both) 40-48 reported (non-identifiable on both) 48-56 reported (non-identifiable on both) 56-64 reported (non-identifiable on both)
+  lambda light 1x checkerboard__capsule-button__rest    lam 0.015/-0.009 PASS; gap bins 
+  lambda light 2x checkerboard__capsule-button__rest    lam -0.010/-0.006 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 1x checkerboard__capsule-button__rest     lam 0.066/0.006 MISS; gap bins 
+  lambda dark 2x checkerboard__capsule-button__rest     lam 0.037/0.012 reported (non-identifiable on both); gap bins [0.1, 0.2]: MISS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 1x checkerboard__capsule-button__inactive lam -0.025/-0.004 PASS; gap bins 
+  lambda light 2x checkerboard__capsule-button__inactive lam -0.022/-0.020 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 1x checkerboard__capsule-button__inactive lam -0.082/0.007 MISS; gap bins 
+  lambda dark 2x checkerboard__capsule-button__inactive lam 0.019/0.012 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 1x checkerboard__rrect-md__rest          lam -0.036/-0.007 PASS; gap bins [0.1, 0.2]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 2x checkerboard__rrect-md__rest          lam -0.066/-0.013 reported (non-identifiable on both); gap bins [0.1, 0.2]: reported (non-identifiable on both), [0.3, 0.45]: MISS (identifiable on one image only), [0.45, 1.0]: PASS
+  lambda dark 1x checkerboard__rrect-md__rest           lam -0.025/0.006 MISS; gap bins [0.1, 0.2]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 2x checkerboard__rrect-md__rest           lam 0.069/0.016 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 1x checkerboard__rrect-md__inactive      lam 0.013/-0.004 PASS; gap bins [0.1, 0.2]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 2x checkerboard__rrect-md__inactive      lam -0.013/-0.056 reported (non-identifiable on both); gap bins [0.1, 0.2]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: MISS (identifiable on one image only)
+  lambda dark 1x checkerboard__rrect-md__inactive       lam -0.001/0.005 PASS; gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 2x checkerboard__rrect-md__inactive       lam 0.118/0.012 reported (non-identifiable on both); gap bins [0.1, 0.2]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 1x checkerboard__rrect-ml__rest          lam -0.025/-0.005 PASS; gap bins [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 2x checkerboard__rrect-ml__rest          lam 0.075/-0.033 reported (non-identifiable on both); gap bins [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: reported (non-identifiable on both)
+  lambda light 1x checkerboard__rrect-ml__inactive      lam 0.003/-0.004 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 2x checkerboard__rrect-ml__inactive      lam -0.026/-0.062 reported (non-identifiable on both); gap bins [0.05, 0.1]: MISS (identifiable on one image only), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: MISS (identifiable on one image only), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: reported (non-identifiable on both)
+  lambda dark 1x checkerboard__rrect-ml__inactive       lam -0.005/0.005 MISS (identifiable on one image only); gap bins [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 2x checkerboard__rrect-ml__inactive       lam 0.123/0.012 reported (non-identifiable on both); gap bins [0.05, 0.1]: MISS, [0.1, 0.2]: MISS, [0.2, 0.3]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 1x checkerboard-8__capsule-button__rest  lam -0.008/-0.022 PASS; gap bins 
+  lambda light 2x checkerboard-8__capsule-button__rest  lam -0.010/-0.007 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 1x checkerboard-8__capsule-button__rest   lam 0.044/0.014 PASS; gap bins 
+  lambda dark 2x checkerboard-8__capsule-button__rest   lam -0.026/0.007 MISS (identifiable on one image only); gap bins [0.1, 0.2]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 1x checkerboard-8__rrect-md__rest        lam -0.032/-0.016 PASS; gap bins [0.05, 0.1]: MISS, [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 2x checkerboard-8__rrect-md__rest        lam 0.030/-0.012 reported (non-identifiable on both); gap bins [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: MISS (identifiable on one image only)
+  lambda dark 1x checkerboard-8__rrect-md__rest         lam 0.008/0.018 PASS; gap bins [0.05, 0.1]: MISS, [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda dark 2x checkerboard-8__rrect-md__rest         lam 0.047/0.006 reported (non-identifiable on both); gap bins [0.05, 0.1]: PASS, [0.1, 0.2]: MISS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 1x checkerboard-8__rrect-md__inactive    lam -0.011/-0.008 PASS; gap bins [0.05, 0.1]: MISS, [0.1, 0.2]: MISS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 2x checkerboard-8__rrect-md__inactive    lam -0.477/-0.003 reported (non-identifiable on both); gap bins [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: MISS (identifiable on one image only)
+  lambda dark 1x checkerboard-8__rrect-md__inactive     lam -0.012/0.015 PASS; gap bins [0.05, 0.1]: MISS, [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda dark 2x checkerboard-8__rrect-md__inactive     lam -0.130/0.004 MISS (identifiable on one image only); gap bins [0.05, 0.1]: MISS, [0.1, 0.2]: MISS, [0.2, 0.3]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 1x checkerboard-8__rrect-ml__rest        lam -0.014/-0.012 PASS; gap bins [0.0, 0.05]: MISS, [0.05, 0.1]: MISS, [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 2x checkerboard-8__rrect-ml__rest        lam -0.006/-0.035 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: reported (non-identifiable on both)
+  lambda dark 1x checkerboard-8__rrect-ml__rest         lam 0.034/0.016 PASS; gap bins [0.0, 0.05]: MISS, [0.05, 0.1]: PASS, [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 2x checkerboard-8__rrect-ml__rest         lam 0.012/0.006 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: PASS, [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 1x checkerboard-32__capsule-button__rest lam -0.009/-0.015 PASS; gap bins [0.3, 0.45]: PASS
+  lambda light 2x checkerboard-32__capsule-button__rest lam 0.012/-0.003 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 1x checkerboard-32__capsule-button__rest  lam -0.004/0.008 PASS; gap bins [0.3, 0.45]: PASS
+  lambda dark 2x checkerboard-32__capsule-button__rest  lam 0.019/0.014 reported (non-identifiable on both); gap bins [0.05, 0.1]: MISS (identifiable on one image only), [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 1x checkerboard-32__rrect-md__rest       lam -0.001/-0.016 PASS; gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 2x checkerboard-32__rrect-md__rest       lam 0.010/-0.023 reported (non-identifiable on both); gap bins [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: reported (non-identifiable on both)
+  lambda dark 1x checkerboard-32__rrect-md__rest        lam 0.028/0.010 reported (non-identifiable on both); gap bins [0.1, 0.2]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 2x checkerboard-32__rrect-md__rest        lam 0.031/0.030 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 1x checkerboard-32__rrect-ml__rest       lam -0.019/-0.013 PASS; gap bins [0.1, 0.2]: PASS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda light 2x checkerboard-32__rrect-ml__rest       lam 0.059/0.015 reported (non-identifiable on both); gap bins [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both), [0.45, 1.0]: reported (non-identifiable on both)
+  lambda dark 1x checkerboard-32__rrect-ml__rest        lam -0.003/0.009 reported (non-identifiable on both); gap bins [0.1, 0.2]: MISS, [0.3, 0.45]: PASS, [0.45, 1.0]: PASS
+  lambda dark 2x checkerboard-32__rrect-ml__rest        lam 0.091/0.028 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 1x checkerboard-64__capsule-button__rest lam -0.021/-0.005 PASS; gap bins 
+  lambda light 2x checkerboard-64__capsule-button__rest lam -0.023/-0.021 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda dark 1x checkerboard-64__capsule-button__rest  lam -0.008/-0.004 reported (non-identifiable on both); gap bins [0.05, 0.1]: PASS, [0.1, 0.2]: PASS
+  lambda dark 2x checkerboard-64__capsule-button__rest  lam 0.043/0.009 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: PASS, [0.2, 0.3]: PASS
+  lambda light 1x checkerboard-64__rrect-md__rest       lam 0.035/-0.049 MISS (identifiable on one image only); gap bins [0.1, 0.2]: MISS (identifiable on one image only), [0.2, 0.3]: MISS (identifiable on one image only), [0.3, 0.45]: PASS, [0.45, 1.0]: MISS (identifiable on one image only)
+  lambda light 2x checkerboard-64__rrect-md__rest       lam -0.008/0.054 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: MISS (identifiable on one image only), [0.45, 1.0]: MISS (identifiable on one image only)
+  lambda dark 1x checkerboard-64__rrect-md__rest        lam 0.052/0.049 reported (non-identifiable on both); gap bins [0.05, 0.1]: MISS (identifiable on one image only), [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda dark 2x checkerboard-64__rrect-md__rest        lam 0.051/0.043 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: MISS (identifiable on one image only), [0.3, 0.45]: PASS
+  lambda light 1x checkerboard-64__rrect-md__inactive   lam -0.190/-0.180 reported (non-identifiable on both); gap bins [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 2x checkerboard-64__rrect-md__inactive   lam -0.500/-0.500 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: reported (non-identifiable on both)
+  lambda dark 1x checkerboard-64__rrect-md__inactive    lam 0.082/0.120 reported (non-identifiable on both); gap bins [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda dark 2x checkerboard-64__rrect-md__inactive    lam 0.385/-0.032 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: MISS (identifiable on one image only)
+  lambda light 1x checkerboard-64__rrect-ml__rest       lam 0.006/0.000 PASS; gap bins [0.05, 0.1]: PASS, [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda light 2x checkerboard-64__rrect-ml__rest       lam -0.500/0.188 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: MISS (identifiable on one image only), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: MISS (identifiable on one image only), [0.45, 1.0]: MISS
+  lambda dark 1x checkerboard-64__rrect-ml__rest        lam -0.029/-0.004 reported (non-identifiable on both); gap bins [0.05, 0.1]: MISS (identifiable on one image only), [0.1, 0.2]: PASS, [0.2, 0.3]: PASS, [0.3, 0.45]: PASS
+  lambda dark 2x checkerboard-64__rrect-ml__rest        lam 0.041/0.019 reported (non-identifiable on both); gap bins [0.0, 0.05]: reported (non-identifiable on both), [0.05, 0.1]: reported (non-identifiable on both), [0.1, 0.2]: reported (non-identifiable on both), [0.2, 0.3]: reported (non-identifiable on both), [0.3, 0.45]: PASS
+
 LAM READERS, linear reading at the code's widths: lam within 0.12 of 0 per cell and per gap bin;
 the encoded reading (the known-space control) beside it.
   light 1x checkerboard__capsule-button__rest  lam 0.015 [-0.06,0.08] PASS gaps [] PASS | encoded lam -0.27

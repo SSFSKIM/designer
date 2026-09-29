@@ -30,7 +30,7 @@ def section_of(r):
 def load(prefix):
     """Every run file of a proof; a section re-run in a later file ('<ep>.<sections>.json') replaces that
     section of the endpoint's 'all' run (a re-run after a fix; the replaced rows are not read)."""
-    files = sorted(glob.glob(f'{prefix}.*.json'))
+    files = sorted(f for f in glob.glob(f'{prefix}.*.json') if not f.endswith('.replica.json'))
     by = {}
     for f in files:
         parts = f[len(prefix) + 1:-5].split('.')
@@ -339,6 +339,204 @@ def vitrea_rows(P3):
     return out
 
 
+# ---------------------------------------------------------------- ruling 1: proof 3 against the replica
+
+BARS = TOL['proof3_vitrea']
+
+
+def _nar_ok(r):
+    return 1 - r['k_mean'] >= 0.25
+
+
+def _deep_ok(r):
+    return r['k_mean'] >= 0.25 and (r.get('pitch') or 0) >= 32
+
+
+def _score(pairs, bar):
+    """pairs: [(label, id_cap, id_rep, diff)]. Returns (resolution over scored, n scored, misses, one-only,
+    both-refused) with diff None where a reading is missing."""
+    scored = [(l, d) for l, a, b, d in pairs if a and b and d is not None]
+    one = [l for l, a, b, d in pairs if a != b]
+    none = [l for l, a, b, d in pairs if not a and not b]
+    over = [f'{l} {d:.4f}' for l, d in scored if d > bar]
+    res = max((d for _, d in scored), default=None)
+    return res, len(scored), over, one, none
+
+
+def _row(reader, quantity, gated, res, unit, bar_txt, bar, n, over, one, none, extra=''):
+    ok = n > 0 and not over and not one
+    verdict = 'NON-IDENTIFIABLE' if n == 0 and not one else ('PASS' if ok else 'FAIL')
+    notes = (f'{n} cells scored' + (f'; over the bar: {"; ".join(over)}' if over else '')
+             + (f'; identifiable on one image only (a miss): {"; ".join(one)}' if one else '')
+             + (f'; not identifiable on either image (reported, not scored): {len(none)}' if none else '') + extra)
+    return dict(reader=reader, quantity=quantity, endpoints='all', band='n/a (vitrea: lens core x replica core)',
+                synthetic=None, gated=gated,
+                vitrea=dict(resolution=('n/a' if res is None else (f'{100 * res:.1f} %' if unit == '%' else f'+-{res:.3f}{unit}')),
+                            tolerance=bar_txt, verdict=verdict,
+                            measure='|reading(capture) - reading(replica)|, same cell, same call (ruling 1)'),
+                notes=notes)
+
+
+def replica_rows(R):
+    """R: rows of proof3_readers_a.<ep>.replica.json. Each reader is scored on the capture-replica difference
+    at its proof-1 bar; only S is gated (ruling 2)."""
+    out = []
+    lab = lambda r: f"{r['ep']} {r['scale']}x {r['cell'].split('__')[0]}/{r['cell'].split('__')[1]}"
+    ck = [r for r in R if r['kind'] == 'checkerboard']
+    im = [r for r in R if r['kind'] == 'impulse']
+    # model reader (descriptive)
+    for q, unit, bar, need in (('sn', ' pt', 0.05, _nar_ok), ('sw', ' pt', 0.05, _deep_ok), ('lam', '', 0.03, _deep_ok),
+                               ('w', '', 0.03, _deep_ok)):
+        pairs = []
+        for r in ck:
+            a, b = r['cap'].get('model'), r['rep'].get('model')
+            ident = bool(need(r) and (q == 'sn' and r['pitch'] >= 8 or q != 'sn'))
+            d = None if (a is None or b is None) else abs(a[q] - b[q])
+            pairs.append((lab(r), ident and a is not None, ident and b is not None, d))
+        res, n, over, one, none = _score(pairs, bar)
+        out.append(_row('model reader (memo C)', f'{q} (capture vs replica)', False, res, unit, f'{bar}{unit}', bar, n,
+                        over, one, none, '; identifiable by the code\'s own share on the cell (narrow share >= 0.25 for sn; '
+                        'deep share >= 0.25 and pitch >= 32 for sw, lam, w), the same on both images'))
+    # S (gated): flag per image
+    pairs = []
+    flags_differ = []
+    for r in ck:
+        a, b = r['cap'].get('mirror'), r['rep'].get('mirror')
+        if r['pitch'] < 8 or a is None or b is None:
+            continue
+        d = abs(a['s1_gain'] - b['s1_gain'])
+        pairs.append((lab(r), a['identified'], b['identified'], d))
+        if a['identified'] != b['identified']:
+            flags_differ.append(f"{lab(r)} capture {'identified' if a['identified'] else 'refused (' + ','.join(k for k, v in a['checks'].items() if not v) + ')'}"
+                                f" / replica {'identified' if b['identified'] else 'refused (' + ','.join(k for k, v in b['checks'].items() if not v) + ')'}")
+    res, n, over, one, none = _score(pairs, 0.024)
+    out.append(_row('mirror statistic S', '|S(capture) - S(replica)| and the same flag call (single-width path)', True,
+                    res, '', '0.024 and the same identifiability call', 0.024, n, over, flags_differ, none))
+    # heavy (descriptive)
+    pairs, calls = [], []
+    for r in ck:
+        a, b = r['cap'].get('heavy'), r['rep'].get('heavy')
+        if not a or not b:
+            continue
+        fa, fb = a['best'], b['best']
+        d = abs(a[fa]['sw'] / b[fb]['sw'] - 1)
+        pairs.append((lab(r), True, True, d))
+        same = fa == fb or abs(a[fb]['rms'] - a[fa]['rms']) <= 0.01 or abs(b[fa]['rms'] - b[fb]['rms']) <= 0.01
+        grp = lambda x, f: x['group']['rms'] > x[f]['rms'] + 0.3 if 'group' in x else True
+        if not same or grp(a, fa) != grp(b, fb):
+            calls.append(f"{lab(r)} capture {fa} (group rejected {grp(a, fa)}) / replica {fb} (group rejected {grp(b, fb)})")
+    res, n, over, one, none = _score(pairs, 0.05)
+    out.append(_row('pitch-64 heavy reader', 'best-family sigma_w, support and group calls (capture vs replica)', False,
+                    res, '%', '5 %; identical calls', 0.05, n, over + [f'call differs: {c}' for c in calls], [], none))
+    # ESF (descriptive)
+    pairs = []
+    for r in ck:
+        for side in ('esf_bright', 'esf_dark'):
+            a, b = r['cap'].get(side), r['rep'].get(side)
+            if a is None and b is None:
+                continue
+            ia, ib = bool(a and a['identified']), bool(b and b['identified'])
+            d = abs(a['sigma'] / b['sigma'] - 1) if (a and b) else None
+            pairs.append((f'{lab(r)} {side[4:]}', ia, ib, d))
+    res, n, over, one, none = _score(pairs, 0.03)
+    out.append(_row('ESF reader (memo B)', 'sigma (capture vs replica)', False, res, '%', '3 %', 0.03, n, over, one, none,
+                    '; identifiable by the reader\'s own interval flag on each image'))
+    # impulse (descriptive)
+    pairs, pk = [], []
+    for r in im:
+        a, b = r['cap'].get('impulse'), r['rep'].get('impulse')
+        if not a or not b:
+            continue
+        ok = _nar_ok(r)
+        pairs.append((lab(r), ok, ok, abs(a['single']['sigma'] / b['single']['sigma'] - 1)))
+        pk.append((lab(r), ok, ok, abs(a['mix']['k'] - b['mix']['k'])))
+    res, n, over, one, none = _score(pairs, 0.03)
+    out.append(_row('impulse reader (memo B)', 'single sigma (capture vs replica)', False, res, '%', '3 %', 0.03, n, over,
+                    one, none, '; identifiable where the narrow share 1 - k >= 0.25'))
+    res, n, over, one, none = _score(pk, 0.03)
+    out.append(_row('impulse reader (memo B)', 'two-Gaussian share k (capture vs replica)', False, res, '', '0.03', 0.03, n,
+                    over, one, none))
+    le = [r['cap']['model_enc']['lam'] for r in ck if r['cap'].get('model_enc')]
+    lr = [r['rep']['model_enc']['lam'] for r in ck if r['rep'].get('model_enc')]
+    out.append(dict(reader='known-space control', quantity='lam from the ENCODED reading (capture; replica)', endpoints='all',
+                    band='n/a', synthetic=None, gated=False,
+                    vitrea=dict(resolution=f'capture {min(le):+.2f}..{max(le):+.2f}; replica {min(lr):+.2f}..{max(lr):+.2f}',
+                                tolerance='reported, not gated', verdict='N/A'),
+                    notes='the wrong-space reading manufactures lam on both images alike: it is the model, not the pixels'))
+    return out
+
+
+def as_old(R):
+    """The replica run's capture reads in the old proof-3 row format, for the superseded sigma_RMS verdicts."""
+    out = []
+    for r in R:
+        a = r['cap']
+        o = dict(ep=r['ep'], cell=r['cell'], scale=r['scale'], pitch=r.get('pitch'), src='capture', truth=r['truth'],
+                 k_mean_replica=r['k_mean'])
+        if r['kind'] == 'checkerboard':
+            if a.get('model') is None:
+                continue
+            o.update(model_lin=a['model'], model_enc_known_space=a['model_enc'] or {'lam': float('nan')},
+                     mirror=a.get('mirror'), heavy=a.get('heavy'), esf_bright=a.get('esf_bright'), esf_dark=a.get('esf_dark'))
+        else:
+            if not a.get('impulse'):
+                continue
+            o.update(impulse_single=a['impulse']['single'], impulse_mix=a['impulse']['mix'])
+        out.append(o)
+    return out
+
+
+def band_rows(P1):
+    """Ruling 3: the active result of a reader of W (model sw/lam/w, S, heavy) is the band pass, every region at
+    least 20 pt + 2 sigma_w inside the edge; S there is gated."""
+    B = [r for r in P1 if r.get('reader') == 'W-readers' and r.get('band') == 'outside']
+    X = [f"{r['ep']} {r['cell']}" for r in P1 if r.get('reader') == 'W-readers' and r.get('band') == 'excluded']
+    out = []
+    sm = [(r, r['mirror']) for r in B if r.get('mirror')]
+    idn = [(r, m) for r, m in sm if m['identified']]
+    ref = [f"{r['ep']} {r['cell']} read {m['s1_gain']:+.3f} ({','.join(k for k, v in m.get('checks', {}).items() if not v)})" for r, m in sm if not m['identified']]
+    none = [f"{r['ep']} {r['cell']}" for r in B if not r.get('mirror')]
+    res = max((abs(m['s1_gain'] - r['truth']['s1_gain']) for r, m in idn), default=None)
+    out.append(dict(reader='mirror statistic S', quantity='s1/gain, active, beyond 20 pt + 2 sigma_w (LT narrow, k_w fixed from the heavy reader)',
+                    endpoints='active', band='outside', gated=True,
+                    synthetic=dict(resolution=fmt(res, ''), tolerance='+-0.03', verdict=verdict(res is not None and res <= 0.03, len(idn))),
+                    vitrea=None, notes=f"{len(idn)} identified: " + '; '.join(f"{r['ep']} {r['cell']} {m['s1_gain']:+.3f}/{r['truth']['s1_gain']:.3f}" for r, m in idn)
+                    + f"; refused: {'; '.join(ref)}" + (f"; no model-trusted pairs: {', '.join(none)}" if none else '')
+                    + f"; excluded (no pixel beyond the band + support): {', '.join(X)}"))
+    for q, unit, bar in (('sw', ' pt', 0.05), ('lam', '', 0.03), ('w', '', 0.03)):
+        e = [(r, abs(r['model'][q] - r['truth'][q])) for r in B if r.get('model')]
+        res = max((d for _, d in e), default=None)
+        out.append(dict(reader='model reader (memo C)', quantity=f'{q}, active, beyond 20 pt + 2 sigma_w', endpoints='active',
+                        band='outside', gated=False,
+                        synthetic=dict(resolution=fmt(res, unit), tolerance=f'+-{bar}{unit}', verdict='PASS' if res is not None and res <= bar else ('NON-IDENTIFIABLE' if res is None else 'FAIL')),
+                        vitrea=None, notes='; '.join(f"{r['ep']} {r['cell']} {r['model'][q]:.3f}/{r['truth'][q]:.3f}" for r, _ in e)
+                        + '; depth-graded cells: the single-width model is misspecified there (descriptive)'))
+    hv = [r for r in B if r.get('heavy') and r['heavy'].get('Rfp') and np.isfinite(r['heavy']['Rfp']['rms'])]
+    res = max((abs(r['heavy']['Rfp']['sw'] / r['truth']['sw'] - 1) for r in hv), default=None)
+    out.append(dict(reader='pitch-64 heavy reader', quantity='sigma_w, active, beyond 20 pt + 2 sigma_w', endpoints='active',
+                    band='outside', gated=False,
+                    synthetic=dict(resolution=fmt(res, '', pct=True), tolerance='5 %', verdict='PASS' if res is not None and res <= 0.05 else ('NON-IDENTIFIABLE' if res is None else 'FAIL')),
+                    vitrea=None, notes='; '.join(f"{r['ep']} {r['cell']} Rfp {r['heavy']['Rfp']['sw']:.2f}/{r['truth']['sw']:.2f}" for r in hv)
+                    or 'no readable pitch-64 core beyond the band'))
+    return out
+
+
+def gate_and_attach(rows, superseded):
+    """Every row gets 'gated' (ruling 2: only S); default-mask active rows of W readers are marked superseded
+    by the band pass (ruling 3); proof 3's old sigma_RMS verdicts are attached beside the replica ones."""
+    for r in rows:
+        r.setdefault('gated', r['reader'] == 'mirror statistic S')
+        if r['reader'] in ('model reader (memo C)', 'mirror statistic S', 'pitch-64 heavy reader') and r.get('band') == 'across':
+            r['gated'] = False
+            r['band'] = 'across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w)'
+    for r in rows:
+        if r.get('vitrea') and 'measure' in r['vitrea']:
+            old = [x for x in superseded if x['reader'] == r['reader']]
+            r['vitrea_superseded'] = [dict(quantity=x['quantity'], **{k: x['vitrea'][k] for k in ('resolution', 'tolerance', 'verdict')})
+                                      for x in old]
+    return rows
+
+
 if __name__ == '__main__':
     P1 = load('proof1_readers_a')
     P3 = load('proof3_readers_a')
@@ -348,14 +546,21 @@ if __name__ == '__main__':
         key = (r['ep'], r['cell'], r['scale'], r['src'])
         if key in mo and 'model_lin' in r:
             r['mirror'] = mo[key]['mirror']
-    rows = synthetic_rows(P1) + vitrea_rows(P3)
+    RR = []
+    for f in sorted(glob.glob('proof3_readers_a.*.replica.json')):
+        RR += json.load(open(f))['rows']
+    superseded = vitrea_rows(as_old(RR)) if RR else vitrea_rows(P3)
+    rows = synthetic_rows(P1) + band_rows(P1) + (replica_rows(RR) if RR else [])
+    rows = gate_and_attach(rows, superseded)
     json.dump(rows, open('resolution_rows_a.json', 'w'), indent=1, default=float)
     with open('resolution_rows_a.txt', 'w') as fh:
         for r in rows:
             s = r['synthetic'] or {}
             v = r['vitrea'] or {}
-            fh.write(f"{r['reader']} | {r['quantity']} | {r['endpoints']} | band {r['band']}\n"
+            fh.write(f"{r['reader']} | {r['quantity']} | {r['endpoints']} | band {r['band']} | gated {r['gated']}\n"
                      f"   synthetic: {s.get('resolution', '-')} (tol {s.get('tolerance', '-')}) {s.get('verdict', '-')}\n"
                      f"   vitrea:    {v.get('resolution', '-')} (tol {v.get('tolerance', '-')}) {v.get('verdict', '-')}\n"
-                     f"   notes: {r['notes']}\n")
+                     + ''.join(f"   superseded sigma_RMS bar: {x['quantity']}: {x['resolution']} (tol {x['tolerance']}) {x['verdict']}\n"
+                               for x in r.get('vitrea_superseded', []))
+                     + f"   notes: {r['notes']}\n")
     print(open('resolution_rows_a.txt').read())

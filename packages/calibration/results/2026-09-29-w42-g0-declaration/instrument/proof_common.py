@@ -8,6 +8,8 @@ separation: adding cells can only raise the best misfit a wrong family can reach
 subset is separated on the whole bed, and a pair unresolved on the subset is re-read on the whole bed before
 it is reported unresolved.
 """
+import os
+
 import numpy as np
 
 import bed
@@ -78,7 +80,9 @@ def starts_for(name, ep, n_outer):
     return [base] if n_outer > 2 else [base, alt]
 
 
-KERNEL = 'n'   # the proofs of 7efe4ce8 ran at 'n'; ruling 3 puts every family fitter at 'w' (set by the caller)
+# The proofs of 7efe4ce8 ran at 'n'; ruling 3 puts every family fitter at 'w'. Read from the environment so that
+# spawned pool workers, which re-import this module, see the caller's choice.
+KERNEL = os.environ.get('W42_KERNEL', 'n')
 
 
 def cells_for(name, ep, scales=(2,), rgb=False, kernel=None):

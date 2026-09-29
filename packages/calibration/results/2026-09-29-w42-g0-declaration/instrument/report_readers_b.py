@@ -84,7 +84,12 @@ def p1_text(r):
             L.append(f"  {x['ep']:15s} {x['truth']:9s} LT k {q(x['k_fit'])} pooled {q(x['pooled'])} max {q(x['max_cell'])}"
                      f" | {d} | gap spread max {q(max(sp) if sp else None)}")
             L.append('      ' + ' '.join(f"{c['cell'].split('|')[1]}:{q(c['lam'], 2)}" for c in x['cells']))
-    return '\n'.join(L) + '\n'
+    out = '\n'.join(L) + '\n'
+    rw = {k[:-2]: v for k, v in r.items() if k.endswith('_w')}
+    if rw:
+        out += ('\n==== KERNEL w RE-RUN (the parent\'s ruling 3): the ACTIVE endpoints of the W readers on '
+                'bed.cells(kernel=\'w\'), d_in 53.6 pt ====\n\n') + p1_text(rw).split('\n', 3)[-1]
+    return out
 
 
 def p3_text(r):
@@ -118,6 +123,31 @@ def p3_text(r):
             L.append(f"  {x['cell']:44s} call {str(x['call']):12s} gap {q(x['call_gap'])} {x['verdict_support']} "
                      f"sw@canvas {q(x['sw_canvas'], 2)}/{q(x['truth']['sw'], 2)} ({x['ref_sw_25pct']}) "
                      f"lam@canvas {q(x['lam_canvas'])} {x['verdict_lam']}")
+        L.append('')
+    if 'replica' in r:
+        rep = r['replica']
+        L += ['RE-PROOF AGAINST THE FLOAT64 REPLICA (the parent\'s ruling 1; tolerances.json "proof3_vitrea",',
+              f"b223600a): reading(capture) against reading(replica) on one mask, at the proof-1 bars. Replica fast "
+              f"path vs original: max |difference| {rep['equivalence']:.1e}.",
+              'Identifiability flags (the same call on both images): patch sn and depth bins, the profile '
+              'interval strictly inside its scan and 0 <= w <= 0.9 (patch sn also != sw); patch sw, the interval '
+              'inside its scan and 0.1 <= w <= 1; step sw, the interval inside its '
+              'scan; step lam, 0 <= w <= 0.9; per-cell lam, interval <= 0.4 wide and off the grid bound; hinge-gap '
+              'bin, interval <= 0.4 wide.']
+        for x in rep['rows']:
+            a, b = x['cap'], x['rep']
+            if x['reader'] == 'patch':
+                s_ = (f"sn {q(a['sn'])}/{q(b['sn'])} {x['score_sn'][0]}; sw {q(a['sw'], 2)}/{q(b['sw'], 2)} "
+                      f"{x['score_sw'][0]}")
+            elif x['reader'] == 'step':
+                s_ = (f"sw {q(a['sw'], 2)}/{q(b['sw'], 2)} {x['score_sw'][0]}; call {a['call']}/{b['call']} "
+                      f"{x['score_call'][0]}; lam {q(a['lam'])}/{q(b['lam'])} {x['score_lam'][0]}")
+            elif x['reader'] == 'depth':
+                s_ = ' '.join(f"{lb} {v[0]}" for lb, v in x['scores'].items())
+            else:
+                s_ = (f"lam {q(a['cell']['lam'])}/{q(b['cell']['lam'])} {x['score_lam'][0]}; gap bins "
+                      + ', '.join(f"{g[0]}: {g[1]}" for g in x['score_gaps']))
+            L.append(f"  {x['reader']:6s} {x['cell']:46s} {s_}")
         L.append('')
     if 'lambda' in r:
         L += ['LAM READERS, linear reading at the code\'s widths: lam within 0.12 of 0 per cell and per gap bin;',
@@ -309,6 +339,157 @@ def rows(p1, p3):
     return R
 
 
+# ---------------------------------------------------------------- rows v2 (the parent's rulings 1-3)
+BAND_N = 'outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)'
+BAND_W = 'outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only'
+
+
+def _rep(p3, reader):
+    return [r for r in p3.get('replica', {}).get('rows', []) if r['reader'] == reader]
+
+
+def _tally(scores):
+    """[(status, value)] -> (verdict, resolution string)."""
+    st = [x[0] for x in scores]
+    npass = sum(x == 'PASS' for x in st)
+    nrep = sum(x.startswith('reported') for x in st)
+    nmiss = len(st) - npass - nrep
+    vals = [x[1] for x in scores if x[1] is not None]
+    worst = max(vals) if vals else None
+    verdict = 'N/A' if npass + nmiss == 0 else ('PASS' if nmiss == 0 else 'FAIL')
+    return verdict, worst, f'{npass} pass / {nmiss} miss / {nrep} non-identifiable on both'
+
+
+def _sup(old, reader, quantity):
+    for r in old:
+        if r['reader'] == reader and r['quantity'] == quantity and r.get('vitrea'):
+            return dict(r['vitrea'], basis='against the code\'s sigma_RMS (bars superseded 2026-09-29)')
+    return None
+
+
+def rows_v2(p1, p3):
+    old = rows(p1, p3)
+    R = []
+
+    def add(reader, quantity, gated, band, synthetic, vitrea, superseded, notes=''):
+        R.append(dict(reader=reader, quantity=quantity, gated=gated, band=band, synthetic=synthetic,
+                      vitrea=vitrea, vitrea_superseded=superseded, notes=notes))
+
+    # ---- patch
+    P = [x for x in p1.get('patch', []) if 'sn_rel' in x]
+    Pw = [x for x in p1.get('patch_w', []) if 'sn_rel' in x]
+    rp = _rep(p3, 'patch')
+    for sel, band in ((('light-rest', 'dark-rest'), BAND_N + '; S8/S32 md outside, impulse lattices across'),
+                      (('light-inactive', 'dark-inactive'), 'receded (no band)')):
+        f = [x for x in P if x['truth'] == 'free-sn' and x['ep'] in sel]
+        sn = _mx([x['sn_rel'] if not x['floor_dominated'] else abs(x['eff_dev'] - x['eff_dev_truth']) /
+                  x['eff_dev_truth'] for x in f])
+        fails = [f"{x['ep']} {x['group']}" for x in f if x['verdict_sn'] != 'PASS']
+        v, worst, tally = _tally([tuple(x['score_sn']) for x in rp if x['cell'].split('__')[2] ==
+                                  ('rest' if sel[0].endswith('rest') else 'inactive')])
+        add('patch and annulus (family C)', 'sigma_n (lam given in the protocol)', True, band,
+            dict(resolution=None if sn is None else f'{100 * sn:.1f} % (flat-in-depth truth)', tolerance='5 %',
+                 verdict='PASS' if not fails else 'FAIL'),
+            dict(resolution=(f'max |cap - rep| {100 * worst:.1f} %; ' if worst is not None else '') + tally,
+                 tolerance='5 %', verdict=v),
+            _sup(old, 'patch and annulus (family C)', 'sigma_n with lam given (linear reading)'),
+            'misses: ' + '; '.join(fails) if fails else '')
+    for sel, src, band in ((('light-rest', 'dark-rest'), Pw, BAND_W), (('light-inactive', 'dark-inactive'), P,
+                                                                        'receded (no band)')):
+        xs = [x for x in src if x['ep'] in sel]
+        sw = _mx([x['sw_rel'] for x in xs])
+        fails = [f"{x['ep']} {x['truth']} {x['group']} {x['sw']:.2f}/{x['sw_truth']:.2f}" for x in xs
+                 if x['verdict_sw'] != 'PASS']
+        v, worst, tally = _tally([tuple(x['score_sw']) for x in rp if x['cell'].split('__')[2] ==
+                                  ('rest' if sel[0].endswith('rest') else 'inactive')])
+        add('patch and annulus (family C)', 'sigma_w (lam given in the protocol)', True, band,
+            dict(resolution=None if sw is None else f'{100 * sw:.1f} %', tolerance='5 %',
+                 verdict='PASS' if not fails else 'FAIL'),
+            dict(resolution=(f'max |cap - rep| {100 * worst:.1f} %; ' if worst is not None else '') + tally,
+                 tolerance='5 %', verdict=v),
+            None, 'misses: ' + '; '.join(fails) if fails else '')
+    add('patch and annulus (family C)', 'lam, free', False, 'as above',
+        dict(resolution='recovered within 0.03 on every synthetic group', tolerance='reported', verdict='N/A'),
+        None, _sup(old, 'patch and annulus (family C)', 'lam, free (linear reading)'),
+        'not part of the protocol: on real pixels a sparse lattice leaves lam collinear with C and W; widths are '
+        'read with lam given, lam comes from the per-cell lam reader')
+    # ---- depth (descriptive)
+    for r in old:
+        if r['reader'] == 'depth-graded radius' and r.get('synthetic'):
+            d = dict(r)
+            d.update(gated=False, band=('per row: outside / across / receded; ' + BAND_N),
+                     vitrea=None, vitrea_superseded=None)
+            R.append(d)
+    rd = _rep(p3, 'depth')
+    v, worst, tally = _tally([tuple(sc) for x in rd for sc in x['scores'].values()])
+    add('depth-graded radius', 'ratio sigma_n(d)/sigma_n(ref), vitrea bins', False, 'vitrea lens band excluded', None,
+        dict(resolution=(f'max |cap - rep| {worst:.3f}; ' if worst is not None else '') + tally, tolerance='0.05',
+             verdict=v),
+        _sup(old, 'depth-graded radius', 'flat narrow width in depth (vitrea, bins, lam given)'))
+    # ---- step
+    S = [x for x in p1.get('step', []) if x['ep'].endswith('inactive')] + p1.get('step_w', [])
+    rs = _rep(p3, 'step')
+    if S:
+        sw = _mx([abs(x['sw_true_support'] - x['sw_truth']) / x['sw_truth'] for x in S])
+        v, worst, tally = _tally([tuple(x['score_sw']) for x in rs])
+        add('step (family D)', 'sigma_w on the true support', True, BAND_W + ' (d-d0 on rrect-lg); receded no band',
+            dict(resolution=f'{100 * sw:.2f} %', tolerance='5 %', verdict=_verdict(sw, 0.05)),
+            dict(resolution=(f'max |cap - rep| {100 * worst:.1f} %; ' if worst is not None else '') + tally,
+                 tolerance='5 %', verdict=v), None)
+        v, _, tally = _tally([tuple(x['score_call']) for x in rs])
+        add('step (family D)', 'support / edge-mode call', True, 'as above',
+            dict(resolution='; '.join(f"{x['ep']} {x['truth']} {x['mode']}: {x['call'] or 'no call'} (gap "
+                                      f"{x['call_gap']:.3f}; region gap {x['region_gap']:.2f})" for x in S),
+                 tolerance='the true support first wherever supports differ by > 0.05',
+                 verdict='PASS' if all(x['verdict_support'] == 'PASS' for x in S) else 'FAIL'),
+            dict(resolution='identical call on capture and replica: ' + tally, tolerance='identical', verdict=v),
+            None, 'canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) '
+                  'are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; '
+                  'active: every support ties at 0.00 at both kernels')
+        v, worst, tally = _tally([tuple(x['score_lam']) for x in rs])
+        add('step (family D)', 'lam (free)', False, 'as above', None,
+            dict(resolution=(f'max |cap - rep| {worst:.3f}; ' if worst is not None else '') + tally,
+                 tolerance='0.03', verdict=v),
+            _sup(old, 'step (family D)', 'lam on the canvas support; no false footprint call'))
+    # ---- per-cell lam and hinge-gap
+    Lm = [x for x in p1.get('lambda', []) if x['ep'].endswith('inactive')] + p1.get('lambda_w', [])
+    rl = _rep(p3, 'lambda')
+    for sch in ('light', 'dark'):
+        xs = [x for x in Lm if x['ep'].startswith(sch)]
+        idf = [x for x in xs if x.get('identified')]
+        err = _mx([abs(x['lam'] - x['lam_truth']) for x in idf])
+        ge = _mx([abs(g['lam'] - x['lam_truth']) for x in xs for g in x['gaps']
+                  if g['lam'] is not None and g['hi'] - g['lo'] <= 0.4])
+        v, worst, tally = _tally([tuple(x['score_lam']) for x in rl if x['cell'].startswith(sch)])
+        add('per-cell lam (memo E)', 'lam', True, BAND_W + '; receded no band',
+            dict(resolution=None if err is None else f'max |err| {err:.3f} on {len(idf)}/{len(xs)} identified cells',
+                 tolerance='0.03, truth inside the interval',
+                 verdict='PASS' if all(x['verdict'] == 'PASS' for x in idf) else 'FAIL'),
+            dict(resolution=(f'max |cap - rep| {worst:.3f}; ' if worst is not None else '') + tally,
+                 tolerance='0.03, each interval contains the other\'s point', verdict=v),
+            _sup(old, 'per-cell lam (linear reading)', 'lam'),
+            'not identified: ' + ', '.join(x['cell'].split('|')[1] + f" ({x['ep']})" for x in xs
+                                           if not x.get('identified')))
+        v, worst, tally = _tally([(g[1], g[2]) for x in rl if x['cell'].startswith(sch) for g in x['score_gaps']])
+        add('hinge-gap (memo E)', 'lam per gap bin', False, BAND_W + '; receded no band',
+            dict(resolution=None if ge is None else f'max |err| {ge:.3f}', tolerance='0.05', verdict=_verdict(ge, 0.05)),
+            dict(resolution=(f'max |cap - rep| {worst:.3f}; ' if worst is not None else '') + tally,
+                 tolerance='0.05', verdict=v),
+            _sup(old, 'hinge-gap (linear reading)', 'lam per gap bin (every cell)'))
+    add('U1 diagnostic (lam readers on rival truths)', 'drift lam(p64) - lam(p16), light receded', False,
+        'receded (no band)', None, None, None,
+        'LT 0.00; W-shape mu4 +-0.03 (NOT told apart from LT by the lam readers); W-tails +0.15..+0.18 (opposite '
+        'sign to Apple); K2 sk12 -0.17..-0.18 on capsule AND md (Apple\'s sign); edge-swap -0.21 on the capsule '
+        'only; W-canvas mixed, separated by misfit. At kernel w no active capsule remains, so the dark-active U1 '
+        'rows (capsule, t = 0) have no cell.')
+    add('depth-graded radius', 'does the bed resolve the grading law beyond the band?', False, BAND_N, None, None,
+        None, 'light active: yes on rrect-lg only (80 vs 40 pt: 0.749 against the o-law 0.750; flat would be 1.0); '
+              'rrect-md d24 is cut by the mask (0.811 vs 0.749); the 0.4t-at-1-pt end is never read (nothing '
+              'readable shallower than 36.8 pt on lg, 25.6 on md). Dark active: no, under memo C\'s T (the 208 '
+              'side untrusted). Bed questions: an md patch at ~34 pt; a dark level pair inside dark T\'s slope.')
+    return R
+
+
 if __name__ == '__main__':
     p1, p3 = load('proof1_readers_b'), load('proof3_readers_b')
-    json.dump(rows(p1, p3), open('resolution_rows_b.json', 'w'), indent=1, default=float)
+    json.dump(rows_v2(p1, p3), open('resolution_rows_b.json', 'w'), indent=1, default=float)

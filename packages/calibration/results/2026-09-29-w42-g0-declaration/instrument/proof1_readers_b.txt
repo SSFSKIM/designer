@@ -188,3 +188,39 @@ intervals disjoint; gap spread = max - min of the per-bin lam within one cell.
       bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.90 x-p1-c16-capsule-button:0.90
   dark-rest       edge-swap LT k 2.014 pooled 0.459 max 0.496 | capsule P1 p64-p16:-0.006 | gap spread max 0.029
       bp-p1-c32-capsule-button:0.91 bp-p1-c64-capsule-button:0.89 x-p1-c16-capsule-button:0.90
+
+==== KERNEL w RE-RUN (the parent's ruling 3): the ACTIVE endpoints of the W readers on bed.cells(kernel='w'), d_in 53.6 pt ====
+
+PATCH AND ANNULUS READER (family C). sn/sw read (lam, w free, supports box/clamp and box/norm)
+truth free-sn: sigma_n flat in depth (gated: sn within 5 %, or the effective width sqrt((sn s)^2 +
+F^2) within 5 % where the floor dominates); truth LT: sigma_n depth-graded, the read is an effective
+width reported against the o-law at the patch depth; sw gated within 5 % for both.
+  light-rest      free-sn  impulse ml   sn 4.016 truth 4.000 (rel 0.004; eff 8.07/8.04 dev) PASS                   sw 15.15/15.86 (rel 0.045) PASS lam 0.911/0.88 w 0.440 rms 0.435
+  light-rest      free-sn  impulse lg   sn 4.528 truth 4.500 (rel 0.006; eff 9.20/9.14 dev) PASS                   sw 15.97/15.86 (rel 0.007) PASS lam 0.956/0.88 w 0.490 rms 0.439
+  light-rest      LT       impulse ml   sn 5.174 truth 5.110 (rel 0.013; eff 10.38/10.25 dev) report (depth-graded)  sw 14.74/15.86 (rel 0.071) MISS lam 0.995/0.88 w 0.373 rms 0.440
+  light-rest      LT       impulse lg   sn 7.643 truth 7.719 (rel 0.010; eff 15.37/15.52 dev) report (depth-graded)  sw 15.94/15.86 (rel 0.005) PASS lam 0.898/0.88 w 0.504 rms 0.440
+  dark-rest       free-sn  impulse ml   sn 3.966 truth 4.000 (rel 0.009; eff 7.97/8.04 dev) PASS                   sw 16.77/16.75 (rel 0.001) PASS lam 0.902/0.90 w 0.519 rms 0.440
+  dark-rest       free-sn  impulse lg   sn 4.437 truth 4.500 (rel 0.014; eff 9.02/9.14 dev) PASS                   sw 16.89/16.75 (rel 0.008) PASS lam 0.907/0.90 w 0.508 rms 0.444
+  dark-rest       LT       impulse ml   sn 5.412 truth 5.396 (rel 0.003; eff 10.85/10.82 dev) report (depth-graded)  sw 16.30/16.75 (rel 0.027) PASS lam 0.894/0.90 w 0.515 rms 0.435
+  dark-rest       LT       impulse lg   sn 7.496 truth 8.151 (rel 0.080; eff 15.08/16.38 dev) report (depth-graded)  sw 17.84/16.75 (rel 0.065) MISS lam 0.902/0.90 w 0.506 rms 0.438
+
+STEP READER (family D, joint over the endpoint's D cells). support call by pooled rms (a call only
+where first and second differ by > 0.05 code, tolerances.json), sw on the true support within 5 %;
+the region ranking (max |median| misfit over the step populations) beside it.
+  light-rest      LT        given truth box/clamp    call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
+  light-rest      W-canvas  given truth canvas/clamp call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
+  light-rest      edge-swap given truth box/norm     call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
+  dark-rest       LT        given truth box/clamp    call None         gap 0.000 PASS | sw@true 16.75/16.75 PASS | region rank ['box/norm', 'canvas/clamp'] gap 0.00 | lam 0.900 kn 2.094
+
+PER-CELL LAM AND HINGE-GAP READERS (LT truth at the truth k). identified = interval <= 0.4 wide and
+not at the grid bound; bar lam within 0.03 with the truth inside the interval; gap bins within 0.05.
+  light-rest      cells 5 identified 3 pass 3 max |err| 0.000 gap pass 5
+      not identified: 2x|bp-p1-c8-rrect-lg lam 0.704 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c8-rrect-ml lam 0.874 [0.06, 1.60]
+  dark-rest       cells 5 identified 0 pass 0 max |err| - gap pass 5
+      not identified: 2x|bp-p1-c32-rrect-lg lam 0.935 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c32-rrect-ml lam 0.486 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c64-rrect-ml lam -0.480 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c8-rrect-lg lam 1.600 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c8-rrect-ml lam 0.841 [-0.50, 1.60]
+

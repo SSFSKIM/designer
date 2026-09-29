@@ -54,7 +54,7 @@ def run_pair(args):
         letters = ['B', "B'", 'C', 'D', 'E']
     cells = []
     for s in ((2, 1) if whole else (2,)):
-        cells += bed.cells(ep, s, letters=letters)
+        cells += bed.cells(ep, s, letters=letters, kernel=PC.KERNEL)
     tfam, ffam = FA.FAMILIES[truth_name][0], FA.FAMILIES[fit_name][0]
     exact = PC.render_truth(cells, tfam, PC.truth(truth_name, ep))
     prob = Fi.Problem(cells, ffam, PC.layout_for(fit_name, ep), PC.bounds_for(fit_name))
@@ -76,7 +76,8 @@ def run_pair(args):
         x, lams, s, where = PC.minimax_refine(prob, ls['xvec'], ls['lam'], tstats, maxfev=60)
         out['minimax'] = 'Nelder-Mead from the LS point, 60 evaluations'
     out.update(s=s, where=where, mm_x={f'{k[0][0]}@{k[0][1]}': float(v) for k, v in zip(prob.keys, x)},
-               mm_lam=lams, verdict=PC.verdict(s), seconds=time.time() - t0, bed=bed.BED_COMMIT[:8])
+               mm_lam=lams, verdict=PC.verdict(s), seconds=time.time() - t0, bed=bed.BED_COMMIT[:8],
+               kernel=PC.KERNEL if ep.endswith('rest') else 'receded (no band)')
     # which cells carry the separation at the minimax point
     per = []
     for c, st in zip(cells, tstats):
@@ -152,8 +153,13 @@ if __name__ == '__main__':
                   flush=True)
             write(rows, nulls)
         # re-read on the whole bed every pair not distinguished on its subset (only when asked: 'reread')
+        # not re-read: U3's active half (the parent's ruling 4: non-identifiable, recorded) and the pairs where
+        # the fitted family contains the truth (W-shape with a large margin reaches LT's box and the canvas)
+        skip = {('W-canvas', 'LT', 'rest'), ('LT', 'W-canvas', 'rest'), ('edge-swap', 'LT', 'rest'),
+                ('LT', 'edge-swap', 'rest'), ('LT', 'W-shape', 'rest'), ('W-canvas', 'W-shape', 'inactive')}
         again = [] if 'reread' not in which else [(r['truth'], r['fit'], r['ep'], True) for r in rows if not r['whole'] and r['verdict'] != 'DISTINGUISHED'
-                 and (r['truth'], r['fit'], r['ep'], True) not in done]
+                 and (r['truth'], r['fit'], r['ep'], True) not in done
+                 and (r['truth'], r['fit'], r['ep'].split('-')[1]) not in skip]
         for r in pool.imap_unordered(run_pair, again):
             rows.append(r)
             print(f"WHOLE {r['truth']} -> {r['fit']} {r['ep']}: s {r['s']:.2f} ({r['verdict']})", flush=True)

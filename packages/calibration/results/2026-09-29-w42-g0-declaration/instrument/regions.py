@@ -40,9 +40,11 @@ def _edges_distance(levels, scale):
 
 
 def populations(cell):
-    """[(name, kind, boolean mask over the canvas)] for a cell, deep-mask restricted (cached on the cell)."""
+    """[(name, kind, flat pixel indices into the canvas)] for a cell, deep-mask restricted (cached on the cell).
+    Indices, not canvas-sized boolean masks: a checker cell carries up to ~300 populations, and as masks they
+    held tens of MB per cell, several GB over a whole-bed fit."""
     if getattr(cell, '_pops', None) is None:
-        cell._pops = _populations(cell)
+        cell._pops = [(nm, kind, np.flatnonzero(r).astype(np.int32)) for nm, kind, r in _populations(cell)]
     return cell._pops
 
 
@@ -124,8 +126,9 @@ def statistics(cell, img, pops=None):
     """{name: median} per population (per channel for RGB images: name|c)."""
     pops = pops if pops is not None else populations(cell)
     res = {}
+    flat = img.reshape(-1, img.shape[2]) if img.ndim == 3 else img.reshape(-1)
     for name, kind, r in pops:
-        v = img[r]
+        v = flat[r]
         if img.ndim == 3:
             for c in range(img.shape[2]):
                 res[f'{name}|{"RGB"[c]}'] = float(np.nanmedian(v[:, c]))

@@ -1,0 +1,20 @@
+# replica fast path against the original functions: max |difference| 5.68e-14 (1x md checker)
+light-inactive 1x checkerboard__rrect-md__inactive         k 0.73 | model sn 1.691/1.675 sw 21.34/22.93 lam +0.017/-0.000 w 0.007/0.012 | S -0.0001/+0.0000 | ESF 1.675/1.698
+light-inactive 1x checkerboard__capsule-button__inactive   k 0.53 | model sn 1.701/1.682 sw 4.85/23.36 lam -0.041/+0.000 w 0.000/0.013 | S +0.0000/+0.0000 | ESF 1.683/1.693
+light-inactive 1x checkerboard__rrect-ml__inactive         k 0.77 | model sn 1.663/1.668 sw 24.76/20.41 lam +0.006/-0.001 w 0.011/0.054 | S +0.0325/-0.0004 | ESF 1.709/1.7
+light-inactive 1x checkerboard-8__rrect-md__inactive       k 0.73 | model sn 1.866/0.556 sw 8.37/2.10 lam -0.001/-0.010 w 0.060/0.959 | S +0.0000/-0.0000 | ESF 1.933/2.031
+light-inactive 1x checkerboard-64__rrect-md__inactive      k 0.73 | model sn 2.020/2.023 sw 32.13/32.24 lam -0.016/+0.002 w 0.938/0.938 | S -0.0011/-0.0000 | ESF 3.41/3.472 | heavy canvas 12.47 / canvas 12.44
+light-inactive 1x checkerboard-4__rrect-md__inactive       k 0.73 | model sn 3.019/0.852 sw 4.12/9.14 lam -0.000/-0.000 w 0.980/0.814 | S - | ESF 0.352/2.302
+light-inactive 1x impulse__rrect-md__inactive              k 0.73 | impulse single 1.811/1.792 s1 1.487/1.635 k 0.606/0.780
+light-inactive 1x impulse__capsule-button__inactive        k 0.53 | impulse single 1.724/1.707 s1 1.628/1.660 k 0.828/0.763
+light-inactive 1x impulse__rrect-ml__inactive              k 0.77 | impulse single 1.825/1.835 s1 1.581/1.632 k 0.926/0.821
+light-inactive 2x checkerboard__rrect-md__inactive         k 0.99 | model sn 2.631/2.611 sw 2.88/29.01 lam +0.123/-0.003 w 0.000/0.000 | S +0.0000/+0.0000 | ESF 2.406/2.532
+light-inactive 2x checkerboard__capsule-button__inactive   k 0.60 | model sn 0.879/0.883 sw 12.88/12.44 lam -0.001/-0.001 w 0.987/0.979 | S +0.0000/-0.0000 | ESF 1.174/1.132
+light-inactive 2x checkerboard__rrect-ml__inactive         k 0.99 | model sn 2.680/2.693 sw 3.67/3.56 lam -0.104/-0.131 w 0.000/0.000 | S -0.0000/+0.0000 | ESF 2.483/2.553
+light-inactive 2x checkerboard-8__rrect-md__inactive       k 0.99 | model sn 0.284/0.774 sw 34.57/2.69 lam -0.500/-0.001 w 0.992/0.111 | S +0.0000/-0.0000 | ESF 0.73/0.864
+light-inactive 2x checkerboard-64__rrect-md__inactive      k 0.99 | model sn 7.068/7.066 sw 7.32/7.32 lam +0.327/+0.295 w 0.000/0.000 | S -0.0013/-0.0002 | ESF 4.903/5.093 | heavy canvas 7.68 / canvas 7.83
+light-inactive 2x checkerboard-4__rrect-md__inactive       k 0.99 | model sn 0.367/0.440 sw 6.84/2.94 lam -0.500/-0.002 w 0.690/0.998 | S - | ESF 0.466/1.022
+light-inactive 2x impulse__rrect-md__inactive              k 0.99 | impulse single 6.535/7.046 s1 6.529/7.042 k 0.455/0.387
+light-inactive 2x impulse__capsule-button__inactive        k 0.60 | impulse single 1.041/1.041 s1 0.817/0.817 k 0.581/0.605
+light-inactive 2x impulse__rrect-ml__inactive              k 0.99 | impulse single 7.134/7.160 s1 7.134/7.160 k 0.000/0.955
+# light-inactive done in 240 s

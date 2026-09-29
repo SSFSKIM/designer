@@ -70,7 +70,7 @@ def statistics(cell, img):
 def _parts(cells_pix, reading, sn, kn, sw, support, edge, mu):
     parts = []
     for cell, pix in cells_pix:
-        key = ('_rs', reading, id(pix))
+        key = ('_rs', reading, id(pix), id(cell.y))
         if key not in cell._cache:
             cell._cache[key] = (L.Basis(cell, pix, reading), L.observed(cell, pix, reading))
         b, (M, wt, ok) = cell._cache[key]

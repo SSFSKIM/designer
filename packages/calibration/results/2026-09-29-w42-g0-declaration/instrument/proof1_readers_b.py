@@ -2,7 +2,13 @@
 declared before this ran): synthetic renders of the declared families through the known T (memo C's table),
 quantised +-0.5, on the bed's geometry (bed.py), read back and scored against the declared bars.
 
-    python3.12 proof1_readers_b.py <section> [...]     sections: patch depth step lambda u1 report
+    python3.12 proof1_readers_b.py [--kernel w] <section> [...]    sections: patch depth step lambda u1 report
+
+--kernel w (the parent's ruling 3): readers of W add 2 sigma_w beyond the active band (forward.band_d_in(s,
+'w') = 53.6 pt), which leaves rrect-ml and rrect-lg in the active passes. With it, the ACTIVE endpoints of the
+W-reading sections (patch sigma_w, step, lambda and hinge-gap) are re-run on bed.cells(..., kernel='w') and
+written as proof1_readers_b.<section>_w.json; receded cells are unchanged by the ruling and not re-run. The
+narrow reads (patch sigma_n, depth) stay at the default kernel 'n'.
 
 Each section writes proof1_readers_b.<section>.json; `report` gathers them into proof1_readers_b.json/.txt.
 Also the U1 diagnostic (section u1): rival truths that move W's far reference (W-shape, W-tails, K2, the
@@ -29,8 +35,20 @@ EPS = F.ENDPOINTS
 OUT = 'proof1_readers_b'
 
 
+KERNEL = 'n'
+SUFFIX = ''
+
+
+def active_only():
+    return KERNEL == 'w'
+
+
+def eps():
+    return [e for e in EPS if e.endswith('rest')] if active_only() else list(EPS)
+
+
 def save(sec, out):
-    json.dump(out, open(f'{OUT}.{sec}.json', 'w'), indent=1, default=float)
+    json.dump(out, open(f'{OUT}.{sec}{SUFFIX}.json', 'w'), indent=1, default=float)
 
 
 def seed(c):
@@ -95,10 +113,10 @@ def olaw_sn(c, k, depth):
 
 def patch_section():
     out = []
-    for ep in EPS:
+    for ep in eps():
         for tname in ('free-sn', 'LT'):
             for gname, ids in PATCH_GROUPS:
-                cs = bed.cells(ep, 2, ids=ids)
+                cs = bed.cells(ep, 2, ids=ids, kernel=KERNEL)
                 if not cs:
                     continue
                 p = synth_all(cs, tname, ep)
@@ -139,6 +157,8 @@ def patch_section():
                 print(f"{ep:15s} {tname:8s} {gname:12s} sn {b['sn']:.3f} (truth {sn_t:.3f} rel {rec['sn_rel']:.3f} "
                       f"{rec['verdict_sn']}) sw {b['sw']:.2f} ({sw_t:.2f} {rec['verdict_sw']}) lam {b['lam']:.3f} "
                       f"w {b['w']:.3f} rms {b['rms']:.3f} [{rec['support']}]", flush=True)
+    if active_only():
+        return out
     # the optional tail read on a W-tails truth (light receded, S32 pair)
     ep = 'light-inactive'
     cs = bed.cells(ep, 2, ids=['c-s32-hi-rrect-md', 'c-s32-lo-rrect-md'])
@@ -239,11 +259,14 @@ STEP_PLAN = [('light-inactive', ('LT', 'W-canvas', 'edge-swap', 'W-shape'), True
 
 def step_section():
     import os
-    out = json.load(open(f'{OUT}.step.json')) if os.path.exists(f'{OUT}.step.json') else []
+    fn = f'{OUT}.step{SUFFIX}.json'
+    out = json.load(open(fn)) if os.path.exists(fn) else []
     done = {(x['ep'], x['truth'], x['mode']) for x in out}
     for ep, truths, free_mode in STEP_PLAN:
+        if ep not in eps():
+            continue
         for tname in truths:
-            cs = bed.cells(ep, 2, letters=['D'])
+            cs = bed.cells(ep, 2, letters=['D'], kernel=KERNEL)
             excluded = [dict(cell=k, reason=v) for k, v in bed.refraction_exclusions(ep, 2).items()
                         if k.startswith('d-')]
             p = synth_all(cs, tname, ep)
@@ -282,7 +305,7 @@ def step_section():
 
 # ---------------------------------------------------------------- lam readers
 def lam_cells(ep):
-    return bed.cells(ep, 2, letters=['B', "B'"])
+    return bed.cells(ep, 2, letters=['B', "B'"], kernel=KERNEL)
 
 
 def identified(r):
@@ -291,7 +314,7 @@ def identified(r):
 
 def lambda_section():
     out = []
-    for ep in EPS:
+    for ep in eps():
         cs = lam_cells(ep)
         p = synth_all(cs, 'LT', ep)
         for c in cs:
@@ -398,11 +421,17 @@ def report():
 
 
 if __name__ == '__main__':
-    for sec in sys.argv[1:]:
+    args = sys.argv[1:]
+    if '--kernel' in args:
+        i = args.index('--kernel')
+        KERNEL = args[i + 1]
+        SUFFIX = '' if KERNEL == 'n' else f'_{KERNEL}'
+        del args[i:i + 2]
+    for sec in args:
         if sec == 'report':
             report()
             continue
         fn = {'patch': patch_section, 'depth': depth_section, 'step': step_section, 'lambda': lambda_section,
               'u1': u1_section}[sec]
         res = fn()
-        json.dump(res, open(f'{OUT}.{sec}.json', 'w'), indent=1, default=float)
+        save(sec, res)

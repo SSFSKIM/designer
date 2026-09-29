@@ -18,8 +18,9 @@ def _void(r):
 
 if __name__ == '__main__':
     import os
+    os.environ['W42_KERNEL'] = 'w'     # ruling 3: an LT fit reads W, so its active mask adds 2 sigma_w
     import proof_common as PC
-    PC.KERNEL = 'w'     # ruling 3: an LT fit reads W, so its active mask adds 2 sigma_w
+    PC.KERNEL = 'w'
     try:
         rows = [r for r in json.load(open('proof2_nulls.json')) if not _void(r)]
     except FileNotFoundError:

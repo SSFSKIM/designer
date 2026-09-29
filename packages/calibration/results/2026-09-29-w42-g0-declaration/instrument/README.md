@@ -198,21 +198,30 @@ its reason (`bed.refraction_exclusions`): the d4 depth patches and the capsule S
 the inner band) and D's steps 8 and 16 pt outside rrect-md (inside the 19.2-pt outer reach). The band
 column of the resolution table says, per active reader, whether it reads outside, across or inside.
 
-**The support in "20 pt plus the kernel's support" is read two ways, and the parent should rule.** The
-engine and the narrow readers add the NARROW kernel's support (2σn). Fork A's W readers (model σw, S,
-heavy) add the WIDE kernel's (2σw, 51.7–53.5 pt), which leaves active W readable only on rrect-ml and
-rrect-lg. Which is right depends on whether Apple refracts the capture before the blur (then deep pixels
-integrate refracted content over W's reach) or displaces the output after it (then only the band's own
-pixels are confounded); the dumps give an input order, not an algebra.
+**Kernel support, the parent's ruling 3: each reader adds the support of the kernel it reads.** A narrow
+reader adds 2σn (d_in = 20 + 16.8 t pt); a reader of W adds 2σw (2 × 2.1 × 8 = 33.6 pt, d_in = 53.6 pt),
+because whether Apple refracts before or after the blur is unknown and this covers both. Every family
+fitter reads W (it fits k and λ against W at every pixel), so its active mask is 53.6 pt: only rrect-ml
+and rrect-lg stay readable when active (18 of the 68 / 71 active 2x cells), and the receded pose carries W
+fully. Two consequences the ruling makes explicit: **in the active pose R1 and the per-channel knee have no
+answering cell** (B's level pairs and E's hue pairs sit on rrect-md only), and **no active rrect-md cell
+reaches a gated reader**, so a patch there (the requested ~34-pt depth patch included) serves only the
+descriptive depth reader. The proofs of `7efe4ce8` ran the family fitters' active fits at 2σn; part Aw of
+proof 1 re-reads their active recoveries at 2σw, and the active separation pairs are re-read with the
+whole-bed re-reads once the bed's next pin lands.
 
-## What clause 2's stop means for G2
+**U3's active half, the parent's ruling 4:** W-canvas against edge-swap (and both against R_fp's box) is
+non-identifiable on this bed and recorded so; the tie-break keeps the declared box support in the active
+pose.
+
+## What clause 2's stop means for G2 (with the parent's ruling 2)
 
 - **Read Apple, gated:** every family fitter (LT and every rival, every parameter at its bar); S with its
   identifiability flag (synthetic ±0.002–0.010 on every path; ≤ 0.022 on the vitrea cells the flag
   accepts); the per-cell λ reader; the patch reader's widths with λ given; the step reader's σw and its
   support call (no false call on vitrea).
-- **Do not read Apple as gated readers** (a proof-1 or proof-3 miss, clause 2's stop; their quantities are
-  carried by the family fitters, which pass): the model reader (its synthetic reads pass on receded and
+- **Descriptive, not gated** (the parent's ruling 2; a proof-1 or proof-3 miss, clause 2's stop; their
+  quantities are carried by the family fitters, which pass): the model reader (its synthetic reads pass on receded and
   t = 0 cells, but proof 3 misses λ on 10 of 58 cells and its widths against σ_RMS); the heavy reader
   (receded σw 5.4–7.1 %; proof 3 leaves the group unrejected on 5 cells); the hinge-gap reader (fails its
   vitrea control; memo E's "flat 0.68–0.72" lies within its synthetic spread); the ESF reader (4.9–8.7 %

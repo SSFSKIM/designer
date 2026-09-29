@@ -1,115 +1,104 @@
 [
  {
   "reader": "patch and annulus (family C)",
-  "quantity": "sigma_n (flat-in-depth truth)",
-  "endpoints": [
-   "light-rest",
-   "dark-rest"
-  ],
-  "band": "outside (S8/S32 md); across (impulse lattices)",
+  "quantity": "sigma_n (lam given in the protocol)",
+  "gated": true,
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); S8/S32 md outside, impulse lattices across",
   "synthetic": {
-   "resolution": "0.6 %",
+   "resolution": "0.6 % (flat-in-depth truth)",
    "tolerance": "5 %",
    "verdict": "PASS"
   },
-  "vitrea": null,
+  "vitrea": {
+   "resolution": "max |cap - rep| 6.9 %; 2 pass / 3 miss / 1 non-identifiable on both",
+   "tolerance": "5 %",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": {
+   "resolution": "3 % max over 6/20 cells with a narrow share >= 0.2",
+   "tolerance": "10 % (the impulse reader's bar, reference)",
+   "verdict": "PASS",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
+  },
   "notes": ""
  },
  {
   "reader": "patch and annulus (family C)",
-  "quantity": "sigma_w",
-  "endpoints": [
-   "light-rest",
-   "dark-rest"
-  ],
-  "band": "outside (S8/S32 md); across (impulse lattices)",
-  "synthetic": {
-   "resolution": "5.0 %",
-   "tolerance": "5 %",
-   "verdict": "PASS"
-  },
-  "vitrea": null,
-  "notes": ""
- },
- {
-  "reader": "patch and annulus (family C)",
-  "quantity": "sigma_n (flat-in-depth truth)",
-  "endpoints": [
-   "light-inactive",
-   "dark-inactive"
-  ],
+  "quantity": "sigma_n (lam given in the protocol)",
+  "gated": true,
   "band": "receded (no band)",
   "synthetic": {
-   "resolution": "1.6 %",
+   "resolution": "1.6 % (flat-in-depth truth)",
    "tolerance": "5 %",
    "verdict": "PASS"
   },
-  "vitrea": null,
+  "vitrea": {
+   "resolution": "max |cap - rep| 9.3 %; 4 pass / 3 miss / 3 non-identifiable on both",
+   "tolerance": "5 %",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": {
+   "resolution": "3 % max over 6/20 cells with a narrow share >= 0.2",
+   "tolerance": "10 % (the impulse reader's bar, reference)",
+   "verdict": "PASS",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
+  },
   "notes": ""
  },
  {
   "reader": "patch and annulus (family C)",
-  "quantity": "sigma_w",
-  "endpoints": [
-   "light-inactive",
-   "dark-inactive"
-  ],
+  "quantity": "sigma_w (lam given in the protocol)",
+  "gated": true,
+  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only",
+  "synthetic": {
+   "resolution": "7.1 %",
+   "tolerance": "5 %",
+   "verdict": "FAIL"
+  },
+  "vitrea": {
+   "resolution": "max |cap - rep| 23.2 %; 0 pass / 2 miss / 4 non-identifiable on both",
+   "tolerance": "5 %",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": null,
+  "notes": "misses: light-rest LT impulse ml 14.74/15.86; dark-rest LT impulse lg 17.84/16.75"
+ },
+ {
+  "reader": "patch and annulus (family C)",
+  "quantity": "sigma_w (lam given in the protocol)",
+  "gated": true,
   "band": "receded (no band)",
   "synthetic": {
    "resolution": "4.8 %",
    "tolerance": "5 %",
    "verdict": "PASS"
   },
-  "vitrea": null,
+  "vitrea": {
+   "resolution": "max |cap - rep| 15.1 %; 0 pass / 2 miss / 8 non-identifiable on both",
+   "tolerance": "5 %",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": null,
   "notes": ""
  },
  {
   "reader": "patch and annulus (family C)",
-  "quantity": "sigma_n (LT, depth-graded: effective width)",
-  "endpoints": [
-   "dark-inactive",
-   "dark-rest",
-   "light-inactive",
-   "light-rest"
-  ],
+  "quantity": "lam, free",
+  "gated": false,
   "band": "as above",
   "synthetic": {
-   "resolution": "13.2 % from the o-law at the patch depth",
-   "tolerance": "reported, not gated",
+   "resolution": "recovered within 0.03 on every synthetic group",
+   "tolerance": "reported",
    "verdict": "N/A"
   },
   "vitrea": null,
-  "notes": "the reader assumes a flat width over its window"
- },
- {
-  "reader": "patch and annulus (family C)",
-  "quantity": "lam, free (linear reading)",
-  "endpoints": [
-   "all four"
-  ],
-  "band": "vitrea lens band excluded",
-  "synthetic": null,
-  "vitrea": {
+  "vitrea_superseded": {
    "resolution": "|lam| up to 46.1",
    "tolerance": "0.12",
-   "verdict": "FAIL"
+   "verdict": "FAIL",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
   },
-  "notes": "NOT IDENTIFIED on real pixels: on a sparse impulse lattice the hinge column is nearly collinear with C and W, so kernel misfit lands in lam. The protocol reads widths with lam given (row below) and takes lam from the per-cell lam reader"
- },
- {
-  "reader": "patch and annulus (family C)",
-  "quantity": "sigma_n with lam given (linear reading)",
-  "endpoints": [
-   "all four"
-  ],
-  "band": "vitrea lens band excluded",
-  "synthetic": null,
-  "vitrea": {
-   "resolution": "3 % max over 6/20 cells with a narrow share >= 0.2",
-   "tolerance": "10 % (the impulse reader's bar, reference)",
-   "verdict": "PASS"
-  },
-  "notes": "the other cells carry no narrow component to read (vitrea's 2x deep bodies are ~all deep kernel) or collapse to sn = sw; no false footprint call on 20/20"
+  "notes": "not part of the protocol: on real pixels a sparse lattice leaves lam collinear with C and W; widths are read with lam given, lam comes from the per-cell lam reader"
  },
  {
   "reader": "depth-graded radius",
@@ -117,14 +106,16 @@
   "endpoints": [
    "light-rest"
   ],
-  "band": "outside / across (per row)",
+  "band": "per row: outside / across / receded; outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
   "synthetic": {
    "resolution": "max |ratio - expected| 0.062",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
   "vitrea": null,
-  "notes": "misses: light-rest c-s8-hi-d24-rrect-md (across) 0.811 vs 0.749"
+  "notes": "misses: light-rest c-s8-hi-d24-rrect-md (across) 0.811 vs 0.749",
+  "gated": false,
+  "vitrea_superseded": null
  },
  {
   "reader": "depth-graded radius",
@@ -132,14 +123,16 @@
   "endpoints": [
    "dark-rest"
   ],
-  "band": "outside / across (per row)",
+  "band": "per row: outside / across / receded; outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
   "synthetic": {
    "resolution": "max |ratio - expected| 0.709",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
   "vitrea": null,
-  "notes": "misses: dark-rest c-s8-lo-d24-rrect-md (across) 0.661 vs 0.749; dark-rest c-s8-lo-d40-rrect-lg (outside) 0.041 vs 0.750"
+  "notes": "misses: dark-rest c-s8-lo-d24-rrect-md (across) 0.661 vs 0.749; dark-rest c-s8-lo-d40-rrect-lg (outside) 0.041 vs 0.750",
+  "gated": false,
+  "vitrea_superseded": null
  },
  {
   "reader": "depth-graded radius",
@@ -148,14 +141,16 @@
    "light-inactive",
    "light-rest"
   ],
-  "band": "per row",
+  "band": "per row: outside / across / receded; outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
   "synthetic": {
    "resolution": "max |ratio - expected| 0.059",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
   "vitrea": null,
-  "notes": "misses: light-inactive c-s8-hi-d4-rrect-lg (receded (no band)) 1.059 vs 1.000"
+  "notes": "misses: light-inactive c-s8-hi-d4-rrect-lg (receded (no band)) 1.059 vs 1.000",
+  "gated": false,
+  "vitrea_superseded": null
  },
  {
   "reader": "depth-graded radius",
@@ -164,14 +159,16 @@
    "dark-inactive",
    "dark-rest"
   ],
-  "band": "per row",
+  "band": "per row: outside / across / receded; outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
   "synthetic": {
    "resolution": "max |ratio - expected| 0.991",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
   "vitrea": null,
-  "notes": "misses: dark-rest c-s8-lo-d24-rrect-md (across) 0.550 vs 1.000; dark-inactive c-s8-lo-d4-rrect-md (receded (no band)) 0.010 vs 1.000; dark-inactive c-s8-lo-d4-rrect-lg (receded (no band)) 0.009 vs 1.000"
+  "notes": "misses: dark-rest c-s8-lo-d24-rrect-md (across) 0.550 vs 1.000; dark-inactive c-s8-lo-d4-rrect-md (receded (no band)) 0.010 vs 1.000; dark-inactive c-s8-lo-d4-rrect-lg (receded (no band)) 0.009 vs 1.000",
+  "gated": false,
+  "vitrea_superseded": null
  },
  {
   "reader": "depth-graded radius",
@@ -180,14 +177,16 @@
    "light-inactive",
    "light-rest"
   ],
-  "band": "outside (declared mask)",
+  "band": "per row: outside / across / receded; outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
   "synthetic": {
    "resolution": "max |ratio - expected| 0.071",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
   "vitrea": null,
-  "notes": "misses: light-rest 48-64 () 0.822 vs 0.893"
+  "notes": "misses: light-rest 48-64 () 0.822 vs 0.893",
+  "gated": false,
+  "vitrea_superseded": null
  },
  {
   "reader": "depth-graded radius",
@@ -196,188 +195,201 @@
    "dark-inactive",
    "dark-rest"
   ],
-  "band": "outside (declared mask)",
+  "band": "per row: outside / across / receded; outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
   "synthetic": {
    "resolution": "max |ratio - expected| 0.344",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
   "vitrea": null,
-  "notes": "misses: dark-rest 32-48 () 1.031 vs 0.806; dark-rest 48-64 () 0.549 vs 0.893"
+  "notes": "misses: dark-rest 32-48 () 1.031 vs 0.806; dark-rest 48-64 () 0.549 vs 0.893",
+  "gated": false,
+  "vitrea_superseded": null
  },
  {
   "reader": "depth-graded radius",
-  "quantity": "flat narrow width in depth (vitrea, bins, lam given)",
-  "endpoints": [
-   "all four"
-  ],
+  "quantity": "ratio sigma_n(d)/sigma_n(ref), vitrea bins",
+  "gated": false,
   "band": "vitrea lens band excluded",
   "synthetic": null,
   "vitrea": {
-   "resolution": "max |ratio - 1| 0.071 on 10/40 bins",
+   "resolution": "max |cap - rep| 0.023; 3 pass / 10 miss / 43 non-identifiable on both",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
-  "notes": "identified = sigma_n interval <= 0.6 sigma_n and narrow share >= 0.2: only vitrea's 1x bodies qualify; the per-bin sigma_n interval is +-20-30 %, which bounds the ratio's own resolution on real pixels"
+  "vitrea_superseded": {
+   "resolution": "max |ratio - 1| 0.071 on 10/40 bins",
+   "tolerance": "0.05",
+   "verdict": "FAIL",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
+  },
+  "notes": ""
  },
  {
   "reader": "step (family D)",
   "quantity": "sigma_w on the true support",
-  "endpoints": [
-   "dark-inactive",
-   "dark-rest",
-   "light-inactive",
-   "light-rest"
-  ],
-  "band": "outside (declared mask; active out-steps excluded)",
+  "gated": true,
+  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only (d-d0 on rrect-lg); receded no band",
   "synthetic": {
    "resolution": "0.07 %",
    "tolerance": "5 %",
    "verdict": "PASS"
   },
-  "vitrea": null,
+  "vitrea": {
+   "resolution": "max |cap - rep| 1.1 %; 6 pass / 1 miss / 13 non-identifiable on both",
+   "tolerance": "5 %",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": null,
   "notes": ""
  },
  {
   "reader": "step (family D)",
-  "quantity": "support / edge-mode call (pooled rms margin 0.05)",
-  "endpoints": [
-   "dark-inactive",
-   "dark-rest",
-   "light-inactive",
-   "light-rest"
-  ],
+  "quantity": "support / edge-mode call",
+  "gated": true,
   "band": "as above",
   "synthetic": {
-   "resolution": "light-inactive LT: no call (gap 0.000; region gap 0.02); light-inactive W-canvas: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap: no call (gap 0.001; region gap 0.01); light-inactive W-shape: no call (gap 0.000; region gap 0.07); light-rest LT: no call (gap 0.000; region gap 0.00); light-rest W-canvas: no call (gap 0.000; region gap 0.00); light-rest edge-swap: no call (gap 0.000; region gap 0.00); dark-inactive LT: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap: no call (gap 0.002; region gap 0.01); dark-rest LT: no call (gap 0.000; region gap 0.00)",
+   "resolution": "light-inactive LT given: no call (gap 0.000; region gap 0.02); light-inactive LT free: no call (gap 0.002; region gap 0.16); light-inactive W-canvas given: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap given: no call (gap 0.001; region gap 0.01); light-inactive W-shape given: no call (gap 0.000; region gap 0.07); dark-inactive LT given: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap given: no call (gap 0.002; region gap 0.01); light-rest LT given: no call (gap 0.000; region gap 0.00); light-rest W-canvas given: no call (gap 0.000; region gap 0.00); light-rest edge-swap given: no call (gap 0.000; region gap 0.00); dark-rest LT given: no call (gap 0.000; region gap 0.00)",
    "tolerance": "the true support first wherever supports differ by > 0.05",
    "verdict": "PASS"
   },
-  "vitrea": null,
-  "notes": "canvas against footprint is called in the receded pose; box-normalised, box-clamp and the rounded shape (+mu) differ by < 0.05 code pooled and < 0.5 code on every region: NON-IDENTIFIABLE on family D as declared"
+  "vitrea": {
+   "resolution": "identical call on capture and replica: 20 pass / 0 miss / 0 non-identifiable on both",
+   "tolerance": "identical",
+   "verdict": "PASS"
+  },
+  "vitrea_superseded": null,
+  "notes": "canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; active: every support ties at 0.00 at both kernels"
  },
  {
   "reader": "step (family D)",
-  "quantity": "lam on the canvas support; no false footprint call",
-  "endpoints": [
-   "all four"
-  ],
-  "band": "vitrea lens band excluded",
+  "quantity": "lam (free)",
+  "gated": false,
+  "band": "as above",
   "synthetic": null,
   "vitrea": {
-   "resolution": "|lam| <= 0.220; false calls 0/20",
-   "tolerance": "0.12; none",
+   "resolution": "max |cap - rep| 0.052; 10 pass / 3 miss / 7 non-identifiable on both",
+   "tolerance": "0.03",
    "verdict": "FAIL"
   },
-  "notes": "lam misses: light 2x checkerboard-64__rrect-lg__rest +0.154 (w 0.97); dark 2x checkerboard-64__rrect-lg__inactive +0.220 (w 0.92) (2x rrect-lg: vitrea draws no narrow share there, lam = a2/a1 with a1 ~ 0). sw within 25 % of the code on 11/20 (1x reads 16-42 pt against 14.4: the platykurtic L4 and the share ramp)"
+  "vitrea_superseded": {
+   "resolution": "|lam| <= 0.220; false calls 0/20",
+   "tolerance": "0.12; none",
+   "verdict": "FAIL",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
+  },
+  "notes": ""
  },
  {
   "reader": "per-cell lam (memo E)",
   "quantity": "lam",
-  "endpoints": [
-   "light-inactive",
-   "light-rest"
-  ],
-  "band": "outside (declared mask)",
+  "gated": true,
+  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
   "synthetic": {
-   "resolution": "max |err| 0.001 on 30/33 identified cells",
+   "resolution": "max |err| 0.001 on 17/20 identified cells",
    "tolerance": "0.03, truth inside the interval",
    "verdict": "PASS"
   },
-  "vitrea": null,
-  "notes": "not identified: bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest), b-p3-c16-rrect-md (light-inactive)"
+  "vitrea": {
+   "resolution": "max |cap - rep| 0.029; 14 pass / 1 miss / 19 non-identifiable on both",
+   "tolerance": "0.03, each interval contains the other's point",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": {
+   "resolution": "|lam| <= 0.082 on 27/90 identified cells",
+   "tolerance": "0.12",
+   "verdict": "PASS",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
+  },
+  "notes": "not identified: b-p3-c16-rrect-md (light-inactive), bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest)"
  },
  {
   "reader": "hinge-gap (memo E)",
   "quantity": "lam per gap bin",
-  "endpoints": [
-   "light-inactive",
-   "light-rest"
-  ],
-  "band": "outside (declared mask)",
+  "gated": false,
+  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
   "synthetic": {
-   "resolution": "max |err| 0.012",
+   "resolution": "max |err| 0.010",
    "tolerance": "0.05",
    "verdict": "PASS"
   },
-  "vitrea": null,
-  "notes": "bins of >= 200 px whose interval is <= 0.4 wide"
+  "vitrea": {
+   "resolution": "max |cap - rep| 0.320; 52 pass / 21 miss / 45 non-identifiable on both",
+   "tolerance": "0.05",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": {
+   "resolution": "|lam| <= 0.712 over 195 bins",
+   "tolerance": "0.12",
+   "verdict": "FAIL",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
+  },
+  "notes": ""
  },
  {
   "reader": "per-cell lam (memo E)",
   "quantity": "lam",
-  "endpoints": [
-   "dark-inactive",
-   "dark-rest"
-  ],
-  "band": "outside (declared mask)",
+  "gated": true,
+  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
   "synthetic": {
-   "resolution": "max |err| 0.001 on 11/33 identified cells",
+   "resolution": "max |err| 0.001 on 5/20 identified cells",
    "tolerance": "0.03, truth inside the interval",
    "verdict": "PASS"
   },
-  "vitrea": null,
-  "notes": "not identified: b-p2-c16-rrect-md (dark-rest), b-p2-c64-rrect-md (dark-rest), b-p3-c16-rrect-md (dark-rest), b-p3-c64-rrect-md (dark-rest), b-p5-c16-rrect-md (dark-rest), b-p5-c64-rrect-md (dark-rest), bp-p1-c32-rrect-80 (dark-rest), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest), b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive), bp-p1-c32-rrect-80 (dark-inactive), bp-p1-c32-rrect-lg (dark-inactive), bp-p1-c32-rrect-ml (dark-inactive), bp-p1-c64-rrect-ml (dark-inactive)"
+  "vitrea": {
+   "resolution": "max |cap - rep| 0.089; 6 pass / 6 miss / 20 non-identifiable on both",
+   "tolerance": "0.03, each interval contains the other's point",
+   "verdict": "FAIL"
+  },
+  "vitrea_superseded": {
+   "resolution": "|lam| <= 0.082 on 27/90 identified cells",
+   "tolerance": "0.12",
+   "verdict": "PASS",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
+  },
+  "notes": "not identified: b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive), bp-p1-c32-rrect-80 (dark-inactive), bp-p1-c32-rrect-lg (dark-inactive), bp-p1-c32-rrect-ml (dark-inactive), bp-p1-c64-rrect-ml (dark-inactive), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest)"
  },
  {
   "reader": "hinge-gap (memo E)",
   "quantity": "lam per gap bin",
-  "endpoints": [
-   "dark-inactive",
-   "dark-rest"
-  ],
-  "band": "outside (declared mask)",
+  "gated": false,
+  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
   "synthetic": {
    "resolution": "max |err| 0.030",
    "tolerance": "0.05",
    "verdict": "PASS"
   },
-  "vitrea": null,
-  "notes": "bins of >= 200 px whose interval is <= 0.4 wide"
- },
- {
-  "reader": "per-cell lam (linear reading)",
-  "quantity": "lam",
-  "endpoints": [
-   "all four"
-  ],
-  "band": "vitrea lens band excluded",
-  "synthetic": null,
   "vitrea": {
-   "resolution": "|lam| <= 0.082 on 27/90 identified cells",
-   "tolerance": "0.12",
-   "verdict": "PASS"
+   "resolution": "max |cap - rep| 0.295; 72 pass / 21 miss / 21 non-identifiable on both",
+   "tolerance": "0.05",
+   "verdict": "FAIL"
   },
-  "notes": "a cell identifies lam when its interval is <= 0.4 wide and off the grid bound; the rest carry almost no narrow share (vitrea's 2x deep bodies are ~all deep kernel) or too fine a pitch for W. Known-space control: the ENCODED reading returns lam -3.42 to 2.65"
- },
- {
-  "reader": "hinge-gap (linear reading)",
-  "quantity": "lam per gap bin (every cell)",
-  "endpoints": [
-   "all four"
-  ],
-  "band": "vitrea lens band excluded",
-  "synthetic": null,
-  "vitrea": {
+  "vitrea_superseded": {
    "resolution": "|lam| <= 0.712 over 195 bins",
    "tolerance": "0.12",
-   "verdict": "FAIL"
+   "verdict": "FAIL",
+   "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
   },
-  "notes": "vitrea draws no knee: per-bin lam is the reader manufacturing a hinge from the misfit of Gaussian C and W to vitrea's chain kernels and depth-graded share"
+  "notes": ""
  },
  {
-  "reader": "hinge-gap (linear reading)",
-  "quantity": "lam per gap bin (cells whose narrow share 1 - w >= 0.5)",
-  "endpoints": [
-   "all four"
-  ],
-  "band": "vitrea lens band excluded",
+  "reader": "U1 diagnostic (lam readers on rival truths)",
+  "quantity": "drift lam(p64) - lam(p16), light receded",
+  "gated": false,
+  "band": "receded (no band)",
   "synthetic": null,
-  "vitrea": {
-   "resolution": "|lam| <= 0.156 over 25 bins",
-   "tolerance": "0.12",
-   "verdict": "FAIL"
-  },
-  "notes": "vitrea draws no knee: per-bin lam is the reader manufacturing a hinge from the misfit of Gaussian C and W to vitrea's chain kernels and depth-graded share"
+  "vitrea": null,
+  "vitrea_superseded": null,
+  "notes": "LT 0.00; W-shape mu4 +-0.03 (NOT told apart from LT by the lam readers); W-tails +0.15..+0.18 (opposite sign to Apple); K2 sk12 -0.17..-0.18 on capsule AND md (Apple's sign); edge-swap -0.21 on the capsule only; W-canvas mixed, separated by misfit. At kernel w no active capsule remains, so the dark-active U1 rows (capsule, t = 0) have no cell."
+ },
+ {
+  "reader": "depth-graded radius",
+  "quantity": "does the bed resolve the grading law beyond the band?",
+  "gated": false,
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
+  "synthetic": null,
+  "vitrea": null,
+  "vitrea_superseded": null,
+  "notes": "light active: yes on rrect-lg only (80 vs 40 pt: 0.749 against the o-law 0.750; flat would be 1.0); rrect-md d24 is cut by the mask (0.811 vs 0.749); the 0.4t-at-1-pt end is never read (nothing readable shallower than 36.8 pt on lg, 25.6 on md). Dark active: no, under memo C's T (the 208 side untrusted). Bed questions: an md patch at ~34 pt; a dark level pair inside dark T's slope."
  }
 ]

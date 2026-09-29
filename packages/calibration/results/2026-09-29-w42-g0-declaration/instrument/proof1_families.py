@@ -14,6 +14,7 @@ Parts:
 Usage: python3.12 proof1_families.py [A|B|C|D ...]   (default: all). Writes proof1_families.json / .txt.
 """
 import json
+import os
 import sys
 import time
 from multiprocessing import Pool
@@ -46,6 +47,9 @@ def part_a_one(args):
         cells = PC.cells_for(name, ep, scales=(2, 1))
     else:
         cells = PC.cells_for(name, ep)
+    if not cells:
+        return dict(family=name, ep=ep, skipped=f'no answering cell ({"/".join(PC.LETTERS[name])}) survives the '
+                                                f'mask (kernel {PC.KERNEL}): a bed question under ruling 3')
     p = PC.truth(name, ep)
     t0 = time.time()
     PC.render_truth(cells, fam, p)
@@ -200,6 +204,28 @@ def part_c(pool):
     OUT['C'] = pool.map(part_c_one, EPS, chunksize=1)
 
 
+def part_aw(pool):
+    """Aw: part A's active recoveries re-read under the parent's ruling 3 (every family fitter reads W, so its
+    active mask adds 2 sigma_w: 53.6 pt, rrect-ml and rrect-lg only). Needs W42_KERNEL=w in the environment
+    before the pool starts, so the spawned workers read it."""
+    assert PC.KERNEL == 'w', 'run with W42_KERNEL=w'
+    jobs = [(n, ep) for n, (_, _, _, _, status) in FA.FAMILIES.items() if status != 'null'
+            for ep in ('light-rest', 'dark-rest')]
+    rows = pool.map(part_a_one, jobs, chunksize=1)
+    floor = TOL['synthetic_render']['fit_reaches_floor_if_pooled_rms_at_most']
+    for r in rows:
+        if 'skipped' in r:
+            continue
+        ok = r['pooled'] <= floor
+        for pn, v in r['recovered'].items():
+            v['tol'] = tol_for(pn)
+            v['ok'] = abs(v['err']) <= v['tol']
+            ok &= v['ok']
+        r['pass'] = bool(ok)
+        r['kernel'] = 'w'
+    OUT['Aw'] = rows
+
+
 def part_e_one(job):
     """E: on the bed at its final pin (07b45391: the s = 32 receded rrect-sm rows added), (i) LT recovered on the
     receded endpoints with the new rows in; (ii) memo E's per-endpoint k read at the global and per-scheme
@@ -294,6 +320,14 @@ def write():
                      for pn, v in r['recovered'].items()]
             L.append(f"  {r['family']:13s} {r['ep']:15s} {'PASS' if r['pass'] else 'FAIL'} pooled {r['pooled']:.3f} "
                      f"max {r['max_cell']:.3f} n {r['n_cells']} | " + ' | '.join(parts))
+    if 'Aw' in OUT:
+        L += ['', "Aw  part A's ACTIVE recoveries under ruling 3 (W readers add 2 sigma_w: mask 53.6 pt, rrect-ml and -lg)"]
+        for r in OUT['Aw']:
+            if 'skipped' in r:
+                continue
+            parts = [f"{pn} {v['truth']:.3f}->{v['read']:.3f} ({v['err']:+.4f}; {v['tol']})" for pn, v in r['recovered'].items()]
+            L.append(f"  {r['family']:13s} {r['ep']:15s} {'PASS' if r['pass'] else 'FAIL'} pooled {r['pooled']:.3f} "
+                     f"max {r['max_cell']:.3f} n {r['n_cells']} | " + ' | '.join(parts))
     if 'B' in OUT:
         L += ['', 'B  k nesting (all four endpoints together): truth, level -> k read, pooled (per endpoint)']
         for r in OUT['B']:
@@ -343,12 +377,12 @@ if __name__ == '__main__':
         OUT.update(json.load(open('proof1_families.json')))
     except FileNotFoundError:
         pass
-    with Pool(2) as pool:
+    with Pool(int(os.environ.get('W42_POOL', '2'))) as pool:
         for part in parts:
             t = time.time()
             if part == 'D':
                 part_d()
             else:
-                {'A': part_a, 'B': part_b, 'C': part_c, 'E': part_e}[part](pool)
+                {'A': part_a, 'Aw': part_aw, 'B': part_b, 'C': part_c, 'E': part_e}[part](pool)
             log(f'part {part} done in {time.time() - t:.0f}s')
             write()

@@ -1,6 +1,6 @@
 """W42 G0 instrument: the bed the clause-2 proofs render on — the DECLARED bed of the bed stream
 (`../bed/scenes-w42-body.json` and `../bed/bed.json`, pinned by SHA-256 as `../bed/pins.json` records them at
-w42-g0-bed 07b45391), so every synthetic render sits on the exact ids, levels, pitches, offsets and depths G1 captures.
+w42-g0-bed 5d719b60), so every synthetic render sits on the exact ids, levels, pitches, offsets and depths G1 captures.
 
 `cells(ep, scale)` returns the calibration and validation cells of one pass (the split's H and the F bridges
 are left out: the instrument is never tuned on the holdout's geometry, and the bridges are not under clause
@@ -22,13 +22,14 @@ import geometry as G
 import forward as F
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-# The declaration this instrument's proofs rendered on: w42-g0-bed 07b45391 (the s = 32 receded rrect-sm rows
-# added to 5ba68aeb's bed, no cell changed). After G0's integration the files sit beside this folder; before
-# it, they are read from the bed branch's commit itself, so an uncommitted edit in the bed stream's worktree
-# can never be read as the declaration.
-BED_COMMIT = '07b453915fa653a2a7110d67d3a09531abffecf1'
-PINS = {'scenes-w42-body.json': 'd8adbaac4b35d2fcded103861828b35dcb86d4f11cddd202846f00a757773e51',
-        'bed.json': 'a4e9640ef89f8f2ec7625c28d15901ba96f50e9fced2108a6458c462ae63d4b1'}
+# The declaration this instrument reads: w42-g0-bed 5d719b60 (452 glass cells: the cells the parent ruled from
+# this stream's separation proof, added to 07b45391's bed, no cell changed). Earlier proofs rendered on
+# 5ba68aeb and 07b45391; every output row records the pin it ran on. After G0's integration the files sit
+# beside this folder; before it, they are read from the bed branch's commit itself, so an uncommitted edit
+# in the bed stream's worktree can never be read as the declaration.
+BED_COMMIT = '5d719b60961a000cc2eeaa203834e933c7c7330c'
+PINS = {'scenes-w42-body.json': '231d80d43ce6a47ce15e464270bae041cfdecfd28b0493d1a6138bcc9c668768',
+        'bed.json': 'a4707171cbefcf1890719ae3dcd76db8d97224e4d7237c8021220ad009753fb4'}
 REL = 'packages/calibration/results/2026-09-29-w42-g0-declaration/bed'
 SIBLING = os.path.join(HERE, '..', 'bed')
 

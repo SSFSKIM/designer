@@ -81,12 +81,26 @@ def family_rows(p1):
             continue
         band = 'outside (d_in = 20 + 2 sigma_n,ref)' if r['ep'].endswith('rest') else 'receded (no band)'
         for pn, v in r['recovered'].items():
-            rows.append(dict(reader=f"family fitter: {r['family']}", quantity=pn, endpoints=[r['ep']], band=band,
+            rows.append(dict(reader=f"family fitter: {r['family']}", quantity=pn, endpoints=[r['ep']], band=band, gated=True,
                              synthetic=dict(resolution=f"{v['err']:+.4f} (read {v['read']:.4f}, truth {v['truth']:.4f})",
                                             tolerance=f"+-{v['tol']}", verdict='PASS' if v['ok'] else 'FAIL'),
                              vitrea=None,
                              notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells" +
                                    (f"; excluded {r['excluded']}" if r.get('excluded') else '')))
+    for r in p1.get('Aw', []):
+        if 'skipped' in r:
+            rows.append(dict(reader=f"family fitter: {r['family']} (ruling 3)", quantity='all', endpoints=[r['ep']],
+                             band='outside (d_in 53.6 pt, W support)', gated=True,
+                             synthetic=dict(resolution='no answering cell', tolerance='-', verdict='NON-IDENTIFIABLE'),
+                             vitrea=None, notes=r['skipped']))
+            continue
+        for pn, v in r['recovered'].items():
+            rows.append(dict(reader=f"family fitter: {r['family']} (ruling 3)", quantity=pn, endpoints=[r['ep']],
+                             band='outside (d_in 53.6 pt, W support)', gated=True,
+                             synthetic=dict(resolution=f"{v['err']:+.4f} (read {v['read']:.4f}, truth {v['truth']:.4f})",
+                                            tolerance=f"+-{v['tol']}",
+                                            verdict='PASS' if v['ok'] else ('NON-IDENTIFIABLE' if abs(v['err']) > 5 else 'FAIL')),
+                             vitrea=None, notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells (rrect-ml and -lg only)"))
     for r in p1.get('C', []):
         band = 'outside' if r['ep'].endswith('rest') else 'receded (no band)'
         rows.append(dict(reader='family fitter: LT (survival resolution)', quantity='k', endpoints=[r['ep']],
@@ -175,13 +189,20 @@ def main():
     L = ['W42 G0 instrument: resolution of every reader (clause 2), the separation table and the open pairs', '']
     L.append('READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on the canonical web tree)')
     for r in rows:
-        eps = r['endpoints'] if isinstance(r['endpoints'], str) else ','.join(r['endpoints'])
+        e = r.get('endpoints', 'all four')
+        eps = e if isinstance(e, str) else ','.join(e)
         s, v = r.get('synthetic'), r.get('vitrea')
-        L.append(f"- {r['reader']} | {r['quantity']} | {eps} | band: {r['band']}")
+        g = r.get('gated')
+        L.append(f"- {r['reader']} | {r['quantity']} | {eps} | band: {r['band']}"
+                 + ('' if g is None else f" | {'GATED' if g else 'descriptive'}"))
         if s:
             L.append(f"    synthetic {s['resolution']} (tol {s['tolerance']}) {s['verdict']}")
         if v:
             L.append(f"    vitrea    {v['resolution']} (tol {v['tolerance']}) {v['verdict']}")
+        vs = r.get('vitrea_superseded')
+        for x in ([vs] if isinstance(vs, dict) else (vs or [])):
+            q = f"{x['quantity']}: " if x.get('quantity') else ''
+            L.append(f"    vitrea, superseded sigma_RMS bar: {q}{x.get('resolution')} (tol {x.get('tolerance')}) {x.get('verdict')}")
         if r.get('notes'):
             L.append(f"    notes: {r['notes'][:600]}")
     if p1.get('B'):
@@ -198,7 +219,10 @@ def main():
     if nulls:
         L += ['', "REJECTED NULLS fitted to an LT truth (memo E's bars: mixture >= 2.60, units and R2 >= 4.65)"]
         for r in sorted(nulls, key=lambda r: (r['fit'], r['ep'])):
-            at_bound = any(abs(v - 4.0) < 1e-3 for v in r['x'].values())
+            import proof_common as PC
+            b = PC.bounds_for(r['fit'])
+            at_bound = any(min(abs(v - b[k.split('@')[0]][0]), abs(v - b[k.split('@')[0]][1])) < 1e-3
+                           for k, v in r['x'].items())
             verdict = 'VOID: the fit sat on the k bound (4.0); widened for the resume' if at_bound else r['verdict']
             L.append(f"  {r['fit']:14s} {r['ep']:15s} pooled {r['pooled']:6.2f} max cell {r['max_cell']:6.2f}  {verdict}")
     L += ['', 'PAIRS NOT DISTINGUISHED, AND WHAT WOULD SEPARATE THEM']

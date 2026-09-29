@@ -213,6 +213,153 @@ def lambda_section():
     return out
 
 
+# ---------------------------------------------------------------- the re-proof against the replica (ruling 1)
+# Each reader reads vitrea's CAPTURE and memo B's float64 REPLICA of the same cell on one mask (fork A's
+# proof3_readers_a.pair_cells: vitrea's lens core intersected with the replica's own core), with the same call,
+# and is scored on the difference at its proof-1 bar (tolerances.json "proof3_vitrea", b223600a). Each reader's
+# own identifiability flag is applied to both readings: non-identifiable on both is reported and not scored,
+# on one only is a miss.
+REP_PATCH = [f'impulse__{c}__{p}' for c in ('capsule-button', 'rrect-sm', 'rrect-md', 'rrect-ml') for p in ('rest', 'inactive')]
+REP_STEP = [f'checkerboard-64__{c}__rest' for c in ('capsule-button', 'rrect-sm', 'rrect-md', 'rrect-ml')] + \
+    ['checkerboard-64__rrect-md__inactive']
+REP_DEPTH = ['impulse__rrect-ml__rest', 'impulse__rrect-ml__inactive', 'checkerboard-32__rrect-ml__rest',
+             'checkerboard__rrect-ml__rest', 'checkerboard__rrect-ml__inactive']
+REP_LAM = [sc for sc in LAM_CELLS if '__rrect-lg__' not in sc]
+
+
+def _bounded(iv, x, rel):
+    """A profile interval is an identification when both its ends sit strictly inside the scanned range."""
+    if not iv or x is None or not np.all(np.isfinite(iv)):
+        return False
+    lo, hi = max(0.0, x * rel[0] - 0.05), x * rel[1] + 0.05
+    return iv[0] > lo + 1e-9 and iv[1] < hi - 1e-9
+
+
+def _share_ok(w):
+    return w is not None and np.isfinite(w) and 0.0 <= w <= 0.9
+
+
+def read_patch_given(c):
+    r = RP.read([(c, c.mask)], 'linear', lam=0.0, supports=(('canvas', 'clamp', None), ('box', 'clamp', None),
+                                                             ('box', 'norm', None)))
+    b = r['best']
+    return dict(sn=b['sn'], sn_iv=b.get('sn_iv'), sw=b['sw'], sw_iv=b.get('sw_iv'), w=b['w'], rms=b['rms'],
+                support=r['ranking'][0],
+                id_sn=bool(_bounded(b.get('sn_iv'), b['sn'], (0.6, 1.6)) and _share_ok(b['w'])
+                           and abs(b['sn'] - b['sw']) > 0.5),
+                id_sw=bool(_bounded(b.get('sw_iv'), b['sw'], (0.6, 1.6)) and b['w'] is not None and 0.1 <= b['w'] <= 1))
+
+
+def read_step_rep(c):
+    r = RS.read([(c, None)], 'linear', narrow='flat')
+    b = r['best']
+    return dict(call=r['call'], call_gap=r['call_gap'], best=r['ranking'][0], sw=b['sw'], sw_iv=b.get('sw_iv'),
+                lam=b['lam'], w=b['w'],
+                id_sw=bool(_bounded(b.get('sw_iv'), b['sw'], (0.8, 1.25))), id_lam=bool(_share_ok(b['w'])))
+
+
+def read_depth_rep(c):
+    comp = c.comp_name
+    r = RD.read_bins(c, 'linear', lam=0.0, d_min=LENS[comp] + 1.0, bins=(24.0, 32.0, 40.0, 48.0, 56.0, 64.0, 80.0))
+    rows = {}
+    for lb, x in r['rows'].items():
+        rows[lb] = dict(depth=x['depth'], sn=x['sn'], ratio=x['ratio'], w=x['w'],
+                        identified=bool(_bounded(x.get('sn_iv'), x['sn'], (0.6, 1.6)) and _share_ok(x['w'])))
+    ref = r.get('ref')
+    return dict(ref=ref, rows=rows)
+
+
+def read_lam_rep(c, t):
+    r = RL.per_cell_linear(c, t['sn'], t['sw'])
+    g = RL.hinge_gap_linear(c, t['sn'], t['sw'])
+    r['identified'] = bool(r['hi'] - r['lo'] <= 0.4 and -0.5 < r['lam'] < 1.6)
+    return dict(cell=r, gaps=[dict(bin=x['bin'], lam=x['lam'], lo=x.get('lo'), hi=x.get('hi'),
+                                   identified=bool(x['lam'] is not None and x['hi'] - x['lo'] <= 0.4)) for x in g])
+
+
+def _score_rel(a, b, ida, idb, bar):
+    if not ida and not idb:
+        return 'reported (non-identifiable on both)', None
+    if ida != idb:
+        return 'MISS (identifiable on one image only)', None
+    d = abs(a - b) / abs(b) if b else float('inf')
+    return ('PASS' if d <= bar else 'MISS'), d
+
+
+def _score_abs(a, b, ida, idb, bar):
+    if not ida and not idb:
+        return 'reported (non-identifiable on both)', None
+    if ida != idb:
+        return 'MISS (identifiable on one image only)', None
+    d = abs(a - b)
+    return ('PASS' if d <= bar else 'MISS'), d
+
+
+def replica_section():
+    import proof3_readers_a as PA
+    eq = PA.replica_equivalence()
+    out = dict(equivalence=eq, rows=[])
+    plan = [(sc, 'patch') for sc in REP_PATCH] + [(sc, 'step') for sc in REP_STEP] + \
+        [(sc, 'depth') for sc in REP_DEPTH] + [(sc, 'lambda') for sc in REP_LAM]
+    for sc, what in plan:
+        if canon.ROLE.get(sc) not in canon.ADMIT:
+            continue
+        for sch in SCHEMES:
+            for s in SCALES:
+                pc = PA.pair_cells(sc, sch, s)
+                if pc is None:
+                    continue
+                c, r, k = pc
+                t = truth(sch, sc, s)
+                row = dict(reader=what, cell=f'{sch} {s}x {sc}', k_mean=k, npx=int(c.mask.sum()), truth=t)
+                if what == 'patch':
+                    a, b = read_patch_given(c), read_patch_given(r)
+                    row.update(cap=a, rep=b)
+                    row['score_sn'] = _score_rel(a['sn'], b['sn'], a['id_sn'], b['id_sn'], 0.05)
+                    row['score_sw'] = _score_rel(a['sw'], b['sw'], a['id_sw'], b['id_sw'], 0.05)
+                    msg = f"sn {a['sn']:.3f}/{b['sn']:.3f} {row['score_sn'][0]} sw {a['sw']:.2f}/{b['sw']:.2f} {row['score_sw'][0]}"
+                elif what == 'step':
+                    a, b = read_step_rep(c), read_step_rep(r)
+                    row.update(cap=a, rep=b)
+                    row['score_sw'] = _score_rel(a['sw'], b['sw'], a['id_sw'], b['id_sw'], 0.05)
+                    row['score_call'] = ('PASS' if a['call'] == b['call'] else 'MISS', None)
+                    row['score_lam'] = _score_abs(a['lam'], b['lam'], a['id_lam'], b['id_lam'], 0.03)
+                    msg = (f"sw {a['sw']:.2f}/{b['sw']:.2f} {row['score_sw'][0]} call {a['call']}/{b['call']} "
+                           f"{row['score_call'][0]} lam {a['lam']:+.3f}/{b['lam']:+.3f} {row['score_lam'][0]}")
+                elif what == 'depth':
+                    a, b = read_depth_rep(c), read_depth_rep(r)
+                    row.update(cap=a, rep=b, scores={})
+                    for lb in sorted(set(a['rows']) | set(b['rows'])):
+                        xa, xb = a['rows'].get(lb), b['rows'].get(lb)
+                        if xa is None or xb is None:
+                            row['scores'][lb] = ('MISS (bin read on one image only)', None)
+                            continue
+                        ida = xa['identified'] and a['rows'][a['ref']]['identified']
+                        idb = xb['identified'] and b['rows'][b['ref']]['identified']
+                        row['scores'][lb] = _score_abs(xa['ratio'], xb['ratio'], ida, idb, 0.05)
+                    msg = ' '.join(f"{lb}:{v[0].split(' ')[0]}" for lb, v in row['scores'].items())
+                else:
+                    a, b = read_lam_rep(c, t), read_lam_rep(r, t)
+                    row.update(cap=a, rep=b)
+                    ca, cb = a['cell'], b['cell']
+                    st, d = _score_abs(ca['lam'], cb['lam'], ca['identified'], cb['identified'], 0.03)
+                    if st == 'PASS' and not (ca['lo'] <= cb['lam'] <= ca['hi'] and cb['lo'] <= ca['lam'] <= cb['hi']):
+                        st = 'MISS (intervals do not contain each other\'s point)'
+                    row['score_lam'] = (st, d)
+                    row['score_gaps'] = []
+                    for ga, gb in zip(a['gaps'], b['gaps']):
+                        if ga['lam'] is None and gb['lam'] is None:
+                            continue
+                        row['score_gaps'].append((ga['bin'], *_score_abs(ga['lam'] or 0, gb['lam'] or 0,
+                                                                         ga['identified'], gb['identified'], 0.05)))
+                    msg = (f"lam {ca['lam']:+.3f}/{cb['lam']:+.3f} {st} | gaps "
+                           + ' '.join(x[1].split(' ')[0] for x in row['score_gaps']))
+                out['rows'].append(row)
+                json.dump(out, open(f'{OUT}.replica.json', 'w'), indent=1, default=float)
+                print(f"{what:6s} {row['cell']:46s} {msg}", flush=True)
+    return out
+
+
 def report():
     import glob
     res = {}
@@ -226,5 +373,6 @@ if __name__ == '__main__':
         if sec == 'report':
             report()
             continue
-        fn = {'patch': patch_section, 'patch_given': patch_given_section, 'depth': depth_section, 'step': step_section, 'lambda': lambda_section}[sec]
+        fn = {'patch': patch_section, 'patch_given': patch_given_section, 'depth': depth_section,
+              'replica': replica_section, 'step': step_section, 'lambda': lambda_section}[sec]
         json.dump(fn(), open(f'{OUT}.{sec}.json', 'w'), indent=1, default=float)

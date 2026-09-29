@@ -51,8 +51,48 @@ def replica():
         sys.path.insert(0, canon.CODE_MAP)
         ns = {'__file__': p, '__name__': 'w42_replica'}
         exec(compile(src, p, 'exec'), ns)
+        _speed_up(ns)
         _replica = ns['render']
     return _replica
+
+
+def _speed_up(ns):
+    """Two arithmetic-preserving substitutions in the replica's namespace (its source file is not touched):
+    `upsample` computes the same separable bilinear upsampling as two matrix products per channel instead
+    of one three-operand einsum (O(H W h w) per channel, minutes at 2x), and `Chain` is built once per
+    canvas size instead of once per render. `replica_equivalence()` checks the result against the original
+    functions to float64 rounding."""
+    orig_up, orig_chain = ns['upsample'], ns['Chain']
+    bilinear_row = ns['bilinear_row']
+
+    def upsample(level, W, H):
+        hl, wl = level.shape[:2]
+        Sx = np.stack([bilinear_row((x + 0.5) / W, wl) for x in range(W)])
+        Sy = np.stack([bilinear_row((y + 0.5) / H, hl) for y in range(H)])
+        return np.stack([Sy @ level[..., c] @ Sx.T for c in range(level.shape[2])], -1)
+    chains = {}
+
+    def Chain(W, H):
+        if (W, H) not in chains:
+            chains[(W, H)] = orig_chain(W, H)
+        return chains[(W, H)]
+    ns['_orig'] = (orig_up, orig_chain)
+    ns['upsample'], ns['Chain'] = upsample, Chain
+    ns['_ns'] = ns
+
+
+def replica_equivalence(ep='light-active', scale=1, bg='checkerboard', comp='rrect-md'):
+    """Max |fast - original| over the replica's render of one cell (the original einsum path at 1x)."""
+    render = replica()
+    ns = render.__globals__
+    fast = render(ep, scale, bg, comp)[0]
+    up, ch = ns['upsample'], ns['Chain']
+    ns['upsample'], ns['Chain'] = ns['_orig']
+    try:
+        slow = render(ep, scale, bg, comp)[0]
+    finally:
+        ns['upsample'], ns['Chain'] = up, ch
+    return float(np.abs(fast - slow).max())
 
 
 def lens_core(c):
@@ -190,7 +230,115 @@ def main(eps, use_replica):
         json.dump(rows, open(f'proof3_readers_a.{ep}{suffix}.json', 'w'), indent=1, default=float)
 
 
+# ---------------------------------------------------------------- the re-proof against the replica (ruling 1)
+
+def pair_cells(scene, scheme, scale):
+    """The capture cell and the replica cell of one scene on ONE mask: vitrea's lens core (depth beyond
+    lensExtent + 1 device px) intersected with the replica's own core. Apple's refraction band does not
+    apply to vitrea's pixels, so the mask is the code's own lens core, not the band rule."""
+    if not canon.exists(scene, scheme, scale):
+        return None
+    c = canon.web_cell(scene, scheme, scale, d_in=0.0)
+    core = lens_core(c)
+    if core is None:
+        return None
+    code_ep, comp = canon.CODE_EP[c.ep], canon.CODE_COMP[c.comp_name]
+    out, rcore, kmap, _ = replica()(code_ep, scale, scene.split('__')[0], comp)
+    m = c.mask & core & rcore
+    if m.sum() < 200:
+        return None
+    y_cap = c.y
+    c.mask = m
+    c.y = np.where(m, y_cap, np.nan)
+    c.T = type('NoT', (), {'trust_below': None})()
+    c._rm = {}
+    import copy
+    r = copy.copy(c)
+    r._rm = {}
+    r.y = np.where(m, G.luma(out), np.nan)
+    k = float(np.mean(kmap[m]))
+    return c, r, k
+
+
+def read_set(c):
+    """Every reader of this fork on one image, in vitrea's linear reading (canvas kernels, no capture floor,
+    the sRGB-affine T); the same call on the capture and on the replica."""
+    out = {}
+    if c.bg_spec['kind'] == 'checkerboard':
+        p = c.bg_spec['cell']
+        m = RM.read(c, kind='canvas', space='lin', floor=False, Tkind='srgb')
+        out['model'] = None if m is None else {q: m[q] for q in ('sn', 'sw', 'lam', 'w', 'rms')}
+        me = RM.read(c, kind='canvas', space='enc', floor=False, Tkind='enc-affine')
+        out['model_enc'] = None if me is None else {q: me[q] for q in ('lam', 'w', 'rms')}
+        mi = RMi.read(c, kind='canvas', space='lin', floor=False, Tkind='srgb') if p >= 8 else None
+        out['mirror'] = None if mi is None else {q: mi[q] for q in ('s1_gain', 's1_gain_range', 'identified', 'checks', 'rmsD', 'rmsS', 'n')}
+        if p >= 32:
+            hv = RH.read(c, d_core=min(14.0, p / 4.5), space='lin', floor=False, Tkind='srgb')
+            out['heavy'] = None if not hv else {'best': hv['best'], **{f: {q: hv[f][q] for q in ('sw', 'iv', 'rms')}
+                                                                       for f in RH.FAMILIES if f in hv}}
+        for side, sg in (('esf_bright', 1), ('esf_dark', -1)):
+            e = RE.read(c, Tkind='srgb', space='lin', side=sg, margin_pt=0.0)
+            out[side] = None if e is None else {q: e[q] for q in ('sigma', 'iv', 'identified', 'n_edges')}
+    else:
+        im = RI.read(c, margin_pt=0.0, R_pt=28.0, Tkind='srgb')
+        out['impulse'] = None if im is None else {'single': {q: im['single'][q] for q in ('sigma', 'rms')},
+                                                  'mix': {q: im['mix'][q] for q in ('s1', 's2', 'k', 'rms')}}
+    return out
+
+
+def replica_main(eps):
+    """ruling 1: every proof-3 cell the replica covers, both scales, all four endpoints, read on the capture
+    and on the replica with the same call; scored in summarize_a.py at the proof-1 bars."""
+    eq = replica_equivalence()
+    for scheme, pose in eps:
+        ep = f'{scheme}-{pose}'
+        rows = []
+        fh = open(f'proof3_readers_a.{ep}.replica.txt', 'w')
+
+        def log(s):
+            print(s, flush=True)
+            fh.write(s + '\n')
+            fh.flush()
+        log(f'# replica fast path against the original functions: max |difference| {eq:.2e} (1x md checker)')
+        t0 = time.time()
+        for scale in (1, 2):
+            for bg, comp in CHECKERS[pose] + IMPULSES[pose]:
+                scene = f'{bg}__{comp}__{pose}'
+                if canon.ROLE.get(scene) not in canon.ADMIT or canon.CODE_COMP.get(comp) is None:
+                    continue
+                pc = pair_cells(scene, scheme, scale)
+                if pc is None:
+                    log(f'{ep:14s} {scale}x {scene:40s} no capture or fewer than 200 px on the joint core')
+                    continue
+                c, r, k = pc
+                row = dict(ep=ep, cell=scene, scale=scale, pitch=c.bg_spec.get('cell'), kind=c.bg_spec['kind'],
+                           k_mean=k, npx=int(c.mask.sum()), truth=truth(c), cap=read_set(c), rep=read_set(r))
+                rows.append(row)
+                a, b = row['cap'], row['rep']
+                if 'model' in a:
+                    f = lambda x, q: float('nan') if x is None else x[q]
+                    log(f"{ep:14s} {scale}x {scene:40s} k {k:.2f} | model sn {f(a['model'],'sn'):.3f}/{f(b['model'],'sn'):.3f} "
+                        f"sw {f(a['model'],'sw'):.2f}/{f(b['model'],'sw'):.2f} lam {f(a['model'],'lam'):+.3f}/{f(b['model'],'lam'):+.3f} "
+                        f"w {f(a['model'],'w'):.3f}/{f(b['model'],'w'):.3f} | S "
+                        + ('-' if a['mirror'] is None or b['mirror'] is None else
+                           f"{a['mirror']['s1_gain']:+.4f}{'*' if a['mirror']['identified'] else ''}/{b['mirror']['s1_gain']:+.4f}{'*' if b['mirror']['identified'] else ''}")
+                        + f" | ESF {a['esf_bright'] and round(a['esf_bright']['sigma'], 3)}/{b['esf_bright'] and round(b['esf_bright']['sigma'], 3)}"
+                        + ('' if 'heavy' not in a or not a['heavy'] or not b.get('heavy') else
+                           f" | heavy {a['heavy']['best']} {a['heavy']['canvas']['sw']:.2f} / {b['heavy']['best']} {b['heavy']['canvas']['sw']:.2f}"))
+                else:
+                    ia, ib = a['impulse'], b['impulse']
+                    log(f"{ep:14s} {scale}x {scene:40s} k {k:.2f} | impulse "
+                        + ('-' if not ia or not ib else
+                           f"single {ia['single']['sigma']:.3f}/{ib['single']['sigma']:.3f} s1 {ia['mix']['s1']:.3f}/{ib['mix']['s1']:.3f} "
+                           f"k {ia['mix']['k']:.3f}/{ib['mix']['k']:.3f}"))
+        log(f'# {ep} done in {time.time() - t0:.0f} s')
+        json.dump(dict(equivalence=eq, rows=rows), open(f'proof3_readers_a.{ep}.replica.json', 'w'), indent=1, default=float)
+
+
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     eps = [tuple(a.split('-')) for a in args] or ENDS
-    main(eps, '--replica' in sys.argv)
+    if '--replica-all' in sys.argv:
+        replica_main(eps)
+    else:
+        main(eps, '--replica' in sys.argv)
