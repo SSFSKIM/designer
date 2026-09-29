@@ -1,0 +1,930 @@
+{
+  "schema": "w42-declaration-1",
+  "what": "W42 G0's declaration (charter clause 1): every item the law, the two candidates, the instrument, the bed, the split, the gate and the one exposure are held to, declared once and pointing at the stream file that defines it. Hashed by declare.py before any native pixel of the new bed exists; a capture before the hash, or a change after the first capture, voids the sitting as the bed (clause 1's stop).",
+  "charter": {
+    "path": "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md",
+    "revision": "v2.1",
+    "commit": "0736ed64"
+  },
+  "ledger": "docs/doperpowers/specs/c9a-fidelity-claims.md §5.194",
+  "streams": {
+    "bed": {
+      "branch": "w42-g0-bed",
+      "head": "764217e1",
+      "folder": "bed/"
+    },
+    "instrument": {
+      "branch": "w42-g0-instrument",
+      "head": "a489cc02",
+      "folder": "instrument/"
+    },
+    "gate": {
+      "branch": "w42-g0-gate",
+      "head": "75f244ec",
+      "folder": "gate/"
+    }
+  },
+  "units": "codes are 8-bit encoded sRGB output levels; lengths are CSS px (= points) unless marked device px; s is the surface's short side, t = clamp((s - 64) / 96, 0, 1), clamped at t = 1 above s = 160; d is the SDF depth in points, negative inside; endpoints are light active, light receded, dark active, dark receded",
+  "items": [
+    {
+      "id": "law",
+      "title": "LT, Apple's layer tree with the declared opacity scaling the narrow radius",
+      "clause": "1; Design, 'The law' (MARKED)",
+      "declared": {
+        "space": "every average in ENCODED sRGB",
+        "capture": "S = F * B on R_fp, the shape's bounding box plus the declared margin (active 0.35 s if s > 64, else 16 pt; receded one device px); F is memo C's Gaussian floor of 0.8 device px (1.6 on rrect-lg), applied before the knee. A declared constant, never fitted (the parent's ruling on the capture floor).",
+        "narrow": "C = G(sigma_n) * S with sigma_n = k * 5 pt * o(s, d, pose); o active: 0.8 t at d = -s/2, falling linearly in d to 0.4 t at 1 pt inside the edge; o receded: 0.4 + 0.4 t, flat in depth",
+        "wide": "W = G(sigma_w) * S on R_fp with sigma_w = k * 8 pt and the same k; clamp-to-edge at R_fp's edge when active, normalised when receded",
+        "composite": "light N = C + lambda * max(0, W - C); dark N = C - lambda * max(0, C - W); M = 0.5 N + 0.5 W (w fixed at 0.5, the attested slider position)",
+        "output": "y = T(M), T per item nativeT (identification) or per candidate (candidate1, candidate2)",
+        "parametersPerEndpoint": [
+          "k",
+          "lambda"
+        ],
+        "count": 2,
+        "declaredNotFitted": [
+          "the radii 5 and 8",
+          "o(s, d, pose)",
+          "w = 0.5",
+          "R_fp and its margin",
+          "the half-resolution capture and its floor",
+          "the edge modes",
+          "native T in identification"
+        ],
+        "search": "outer parameters (k and any rival's widths) by bounded Powell from the declared starts, the best local optimum kept (LOCAL); lambda inner, per endpoint, golden section on [-0.5, 1.6]; k bounded to [0.8, 4.0]; least squares with equal weight per cell, refined by minimax on the region statistics",
+        "uniformInvariance": "every family maps a constant backdrop to T(level) (the engine: to 1e-13), so clause 7 holds by construction"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/forward.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/fitting.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof_common.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/ref_check.json"
+      ]
+    },
+    {
+      "id": "kNesting",
+      "title": "k at its nested levels, global k first",
+      "clause": "1, 6; Design, 'The law' (the Drafter's note on one k)",
+      "declared": {
+        "levels": [
+          {
+            "layout": "k@global",
+            "what": "one k for all four endpoints",
+            "parametersInTotal": 5
+          },
+          {
+            "layout": "k@scheme",
+            "what": "one k per scheme, shared by both poses (the rival 'k shared across poses')",
+            "parametersInTotal": 6
+          },
+          {
+            "layout": "k@endpoint",
+            "what": "one k per endpoint shared by both radii (memo E's LT-1k)",
+            "parametersInTotal": 8
+          },
+          {
+            "layout": "k2@endpoint",
+            "what": "k_n and k_w per endpoint (LT-2k)",
+            "parametersInTotal": 12
+          }
+        ],
+        "order": "fitted from the most restricted level outward; a less restricted level is taken only where it beats the more restricted one at an admitted discriminator by more than max(3, sum of bars) (item tieBreak)",
+        "resolutionOnSynthetic": "a global-k truth recovers at every level (2.0497-2.0507 against 2.05); memo E's per-endpoint readings (1.983-2.094) read with one k miss region statistics by 1.23 codes (MARGINAL), with one k per scheme by 0.43 (UNRESOLVED): the bed separates endpoint k values more than about 0.05 apart"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof1_families.txt"
+      ]
+    },
+    {
+      "id": "rivals",
+      "title": "The rival families and their counts",
+      "clause": "1, 6; Design, 'The rival families' (MARKED)",
+      "declared": {
+        "countsArePerEndpoint": true,
+        "families": [
+          {
+            "name": "LT-2k",
+            "count": 3,
+            "differs": "k_n and k_w"
+          },
+          {
+            "name": "free-sn",
+            "count": 7,
+            "differs": "sigma_n a free span law per pose: ordinates at s <= 64, 80, 96, 128, 160, linear in s between and clamped outside, flat in depth"
+          },
+          {
+            "name": "R1",
+            "count": 2,
+            "differs": "T applied to C and W before the fill composite (the receded composite-order rival; read in both poses)"
+          },
+          {
+            "name": "W-shape",
+            "count": 3,
+            "differs": "W normalised on the rounded shape expanded by a margin mu in [-8, 40] pt"
+          },
+          {
+            "name": "W-canvas",
+            "count": 2,
+            "differs": "W (and C) on the whole canvas, clamp-to-edge at the canvas"
+          },
+          {
+            "name": "W-tails",
+            "count": 4,
+            "differs": "W = (1 - a) G(k * 8) + a G(s2), s2 in [17, 80] pt, a in [0, 0.6]"
+          },
+          {
+            "name": "K2",
+            "count": 3,
+            "differs": "the knee against Wk = G(sk) * S, sk in [2, 40] pt; the Normal mix toward W"
+          },
+          {
+            "name": "C-linear",
+            "count": 2,
+            "differs": "the narrow term averaged in linear light, W encoded (a discrete choice)"
+          },
+          {
+            "name": "knee form",
+            "count": 2,
+            "differs": "a discrete choice; item kneeForms"
+          },
+          {
+            "name": "LT+bleed",
+            "count": 2,
+            "differs": "the dump's active bleed layer, radius k * 0.35 s, opacity 0.5 t light / 0.8 t dark for s > 64, its matrix entering as a structural weight"
+          },
+          {
+            "name": "LT+bleed-own",
+            "count": 3,
+            "differs": "as LT+bleed with the bleed radius on its own scale k_b"
+          },
+          {
+            "name": "edge-swap",
+            "count": 2,
+            "differs": "R_fp's edge modes swapped (a discrete choice)"
+          },
+          {
+            "name": "k shared across poses",
+            "count": "one fewer per scheme",
+            "differs": "k@scheme (item kNesting)"
+          }
+        ],
+        "noFamilyAfterFirstRead": "no family is added after the bed's first read (clause 6)"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt"
+      ]
+    },
+    {
+      "id": "rejectedNulls",
+      "title": "The rejected nulls: no bed budget, refereed on the new bed's geometry",
+      "clause": "1; Design, 'The rival families', rejected nulls (memo E §4)",
+      "declared": {
+        "nulls": [
+          {
+            "name": "null-mix",
+            "what": "C = (1 - o) S + o G(k * 5) * S, the mixture reading",
+            "onLTTruth": "pooled 2.68-4.61, passes memo E's >= 2.60"
+          },
+          {
+            "name": "null-texel",
+            "what": "radii in backdrop texels",
+            "onLTTruth": "pooled 1.85-2.77 against the declared >= 4.65 (FAIL as a pooled bar), refused on its worst cells 9.8-12.7"
+          },
+          {
+            "name": "null-dev",
+            "what": "radii in device px",
+            "onLTTruth": "pooled 1.26-2.98 (FAIL as a pooled bar), worst cells 8.5-11.1"
+          },
+          {
+            "name": "null-R2",
+            "what": "the fill on the sharp capture, the narrow blur last",
+            "onLTTruth": "pooled 1.28-2.29 (FAIL as a pooled bar), worst cells 2.7-6.2"
+          },
+          {
+            "name": "null-boxfloor",
+            "what": "a literal box decimation of the capture",
+            "onLTTruth": "0.42-0.44 at the W support; at the narrow support 2.1 / 3.1 pooled on the active fine-pitch cells (6.0 / 8.9 worst), 0.41-0.43 receded: descriptive, the floor stays a declared constant"
+          }
+        ],
+        "alsoRejected": "memo A's C7 (lambda = 1); memo B's F1 (one blur) and F2 (linear two-scale); F4, vitrea's shipped form T(group) + b (K * B - group), is the baseline the referees read against",
+        "unitsReading": "at 2x a point is two device px and, off rrect-lg, one texel, so only the 1x pass referees the unit, on its worst cells rather than a pooled rms"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof2_nulls.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof2_floor_check.txt"
+      ]
+    },
+    {
+      "id": "kneeForms",
+      "title": "The knee forms",
+      "clause": "1; Design, 'The rival families' (the per-channel knee row), U6",
+      "declared": {
+        "forms": [
+          {
+            "name": "per-channel",
+            "what": "N and M per channel: N_c = C_c + lambda max(0, W_c - C_c) (dark the mirror); the chroma argument of the output is M_rgb",
+            "whereImplemented": "the instrument's forward model default (knee = 'channel'); the gate's '*p*' rehearsal variants (A = M_rgb)"
+          },
+          {
+            "name": "on-luma, whole colour",
+            "what": "the hinge decided on encoded luma and applied to the whole colour",
+            "whereImplemented": "the instrument's rival 'knee-luma'"
+          },
+          {
+            "name": "on-luma, chroma from W",
+            "what": "the knee on encoded luma gives M's luma; the chroma argument is W's (memo A: chroma takes the heavy argument only): A = M_L + (W - L(W))",
+            "whereImplemented": "the gate's '*l*' rehearsal variants; the charter's candidate-1 light-receded form y = F(L(M)) + g(L(W)) v(W)"
+          }
+        ],
+        "naming": "the charter lists the per-channel knee as the rival of a knee on encoded luma; the instrument's LT carries the per-channel form and names the luma form its rival. They are one discrete choice, fitted on the bed with equal counts and decided by clause 6's survival rule, family E and every RGB-read cell answering it",
+        "separationOnSynthetic": "knee-luma against the per-channel LT: 9.6-18.5 codes at the narrow support, 2.6-3.2 at the W support (DISTINGUISHED)",
+        "rehearsal": "per-channel is the knee of round 3's best combination (r3-2pgb); on-luma leaves Stop P's F band too low (round 3's [KL])",
+        "tie": "if two forms survive within resolution, cost and count do not separate them; the form carried is per-channel, which is what the dump's declared Lighten / Darken composites compute (integration proposal, for the parent's review)"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/forward.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/body.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/README.txt"
+      ]
+    },
+    {
+      "id": "accessibility",
+      "title": "The law's accessibility behaviour",
+      "clause": "1; Design, 'T', Accessibility",
+      "declared": {
+        "reduceTransparency": "returns every W42 gate to its identity, as bodyChromaRetentionUnderPolicy stands down",
+        "forcedColors": "draws no body",
+        "increaseContrastAlone": "does not stand the law down",
+        "measured": "the bed measures neither mode"
+      },
+      "source": [
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@0736ed64"
+      ]
+    },
+    {
+      "id": "supersededLeaves",
+      "title": "The shipped leaves the law supersedes, and where the shipped operators read once C, W and M exist",
+      "clause": "1; Design, 'T', 'Where the shipped operators take their argument'; X36",
+      "declared": {
+        "superseded": [
+          "the linear pyramid's share (sizeScatter*)",
+          "sizeHeavyTapSigma / sizeHeavyTapSigma2x",
+          "the dark heavy's scatterLod path",
+          "collapseTransmission's group / local mix",
+          "the scatter's spatial-scale conditioning (sizeScatterScaleGain / sizeScatterScaleRef), which conditions only the superseded share"
+        ],
+        "readingPositions": "candidate 1's landed T is the shipped solve's uniform response evaluated per pixel at the law's argument (M's luma; the chroma argument per item kneeForms): every shipped operator inside that response, body chroma retention included, reads the argument as it reads a uniform backdrop of that colour. This is the composition the gate's rehearsal implemented (landed_T); G2 implements it on both tiers' code paths behind zero gates",
+        "gateGroups": "D1 (device-px widths), D2 (linear-light blur) and the F extension are each a gate-group appended to the identity table; at the identity they draw exactly what ships; the frozen macOS 26.5 pair never leaves it",
+        "provenance": "no G0 stream owned this item; it is declared at integration from the charter's list and the rehearsal's construction"
+      },
+      "source": [
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@0736ed64",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/body.py"
+      ]
+    },
+    {
+      "id": "nativeT",
+      "title": "Native T: identification inverts through it",
+      "clause": "X35; Design, 'T'",
+      "declared": {
+        "what": "per endpoint and span stratum, the monotone piecewise-linear curve through family A's measured ordinates (input encoded level, output code), with its inverse (tone.TableT)",
+        "ordinates": "each ordinate is a 2x family-A CALIBRATION cell's deep median per channel under clause 5's statistic; the 2x rrect-64 and 1x rrect-md greys are validation (t = 0 stratum transfer; T at 2x predicting 1x)",
+        "spanStrata": "t = 0 (every s <= 64, read on the capsule, s = 44), s = 80 (dark only), 96, 128, 160",
+        "trust": "an input above the highest measured ordinate of a stratum carries no information (a clamp), as memo C's trust limits did",
+        "role": "identification only: a level miss never leaks into a structural parameter"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tone.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json"
+      ]
+    },
+    {
+      "id": "candidate1",
+      "title": "Candidate 1: the structure composed with the LANDED T",
+      "clause": "9, 11; X35; Decision Log 5b",
+      "declared": {
+        "lightActive": "the shipped solve's uniform response, evaluated per pixel at the law's argument",
+        "darkActive": "the shipped solve's uniform response, per pixel",
+        "darkReceded": "the shipped solve's uniform response, per pixel",
+        "lightReceded": {
+          "form": "y = F(L(M)) * 1 + g(L(W)) * v(W) on encoded luma",
+          "F": "E3's F: its seven neutral ordinates [150, 157, 164, 171, 178, 188, 197] at encoded inputs [40, 56, 72, 88, 104, 128, 150] unchanged, EXTENDED above 150 by family A's measured light-receded ordinates at [160, 176, 192, 208, 224, 240, 255]",
+          "extensionFamily": {
+            "name": "F extension",
+            "count": 7,
+            "gateGroup": "its own, appended to the identity table",
+            "readOn": "the 2x light-receded family-A calibration greys on the capsule (t = 0, the span E3's F was identified at); the same levels on rrect-md, rrect-ml and rrect-lg referee its span invariance (memo C) and are not fitted (integration proposal, for the parent's review)"
+          },
+          "g": "W41 G1's E3 gain g(L), knots 63 / 93 / 118, evaluated on W with W's chroma vector v(W)"
+        },
+        "scoring": "its structure is scored against the identified law composed with this T (clause 9); its gap to Apple's level is the existing named level miss, recorded and never gating",
+        "rulings": [
+          "the parent, on rehearsal round 1: L1 reads as written, so candidate 1 cannot land in light active (the landed T sits 6-9 codes above native T at inputs 64-160: W36's grey-middle miss, which the group argument hid and a per-pixel argument exposes); candidate 2 is the route there",
+          "the parent, on rehearsal round 1: Decision Log 3's fallback (the spatial law over the shipped light-receded solve) is STRUCK (17 L1 growth failures, 5 M2, Stop H 6/6, Stop P 8/8); light receded lands with the extended F or candidate 2's T, or stays at the identity",
+          "the runner requires candidate 1 in every manifest (Decision Log 5b's 'lands instead' presupposes it)"
+        ]
+      },
+      "source": [
+        "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-inactive-E3-fit.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/README.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/body.py"
+      ]
+    },
+    {
+      "id": "candidate2",
+      "title": "Candidate 2: the structure composed with Apple's native grey curve from family A",
+      "clause": "9, 11; X35, X40; Decision Log 5b",
+      "declared": {
+        "T": "per endpoint, native T (item nativeT) from family A's greys, all four endpoints",
+        "countedByOrdinates": {
+          "rule": "one ordinate per family-A level and span stratum it is read on, on the 2x calibration cells",
+          "light-active": 27,
+          "light-receded": 27,
+          "dark-active": 30,
+          "dark-receded": 30,
+          "why": "10 levels at t = 0 (capsule), 10 at s = 96 (rrect-md), 3 at s = 128 (rrect-ml), 4 at s = 160 (rrect-lg); the dark passes add 3 at s = 80 (rrect-80)"
+        },
+        "chroma": "pendingUser in item candidate2Chroma",
+        "landing": "lands instead of candidate 1 only if it passes every check candidate 1 faces (X40); may then close W36's grey-middle miss"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tone.py"
+      ]
+    },
+    {
+      "id": "candidate2Chroma",
+      "title": "(i) Chroma in candidate 2",
+      "clause": "9, 10; Decision Log 5b",
+      "pendingUser": {
+        "question": "whether candidate 2 carries W41 G1's E3-form g in all four endpoints, re-fitted and checked on the new bed's colour cells",
+        "options": [
+          "it carries W41 G1's E3-form g in all four endpoints, re-fitted and checked on the new bed's colour cells",
+          "it does not"
+        ],
+        "evidence": "rehearsal round 3 (b): g on encoded luma, knots 63 / 93 / 118, fitted on 102 W39 uniform calibration cells per endpoint (max residual 0.71 / 0.93 / 1.09 / 1.54 codes); the only chroma that passes M1 in all four endpoints under candidate 2 (1.03-1.05 / 1.10-1.11 / 0.97-1.10 / 1.05). Without it (round 3's [C0]) the shipped solve's chroma is about a tenth of the backdrop's: dark M1 0.32-0.46 receded and 0.63-0.77 active, Stop P's M band 4/4 dark and 6-10/10 light active. The literal face-matrix saturation is the wrong amount in every endpoint (rejected).",
+        "ruling": null
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/README.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/swap.py",
+        "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-active-E3-fit.json",
+        "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-inactive-E3-fit.json",
+        "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-active-E3-fit.json",
+        "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-inactive-E3-fit.json"
+      ]
+    },
+    {
+      "id": "regionStatistics",
+      "title": "The region statistics clause 6 gates on, and their populations",
+      "clause": "1, 6",
+      "declared": {
+        "statistic": "a MEDIAN of output codes per channel over a declared population of deep-mask pixels; per-cell deep-body rms is reported beside it and never gated",
+        "populations": {
+          "uniform (A)": "the deep median",
+          "two-level checker (B, B', E, checker bridges)": "one median per square over its core (at least min(4, pitch / 4) pt from every checker edge), labelled knee side or far side (light: the darker level is the knee side; dark: the brighter; an isoluminant pair a / b), plus the pooled knee-side and far-side core medians",
+          "single patch (C, impulse bridges)": "the patch core (at least min(1, size / 4) pt inside the square) and surround annuli at 0, 2, 4, 8, 16, 32, 48 pt from the patch's edge",
+          "step (D)": "two plateaus beyond 48 pt from the step and transition bins at -48, -32, -24, -16, -8, -4, -2, 0, 2, 4, 8, 16, 24, 32, 48 pt",
+          "photo, text": "the deep median only"
+        },
+        "minimumPopulation": "12 pixels; a smaller population is not a statistic",
+        "deepMask": "receded: d <= -8 pt; active: item refractionOrder"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/forward.py"
+      ]
+    },
+    {
+      "id": "refractionOrder",
+      "title": "The refraction-order test, its tail statistic and bars, and the fallback mask",
+      "clause": "2, 6; the parent's revised ruling 3",
+      "declared": {
+        "primary": "in the ACTIVE pose refraction acts AFTER the blur (vitrea's own order): a pixel beyond the band is the law's own value whatever the kernel's reach",
+        "primaryMask": "every active reader and family fitter reads d <= -(20 + 2 sigma_n,ref) pt, sigma_n,ref = 2.1 * 5 * 0.8 t: 20 on the capsule, rrect-sm and rrect-64, 22.8 on rrect-80, 25.6 on rrect-md, 28.4 on rrect-112, 31.2 on rrect-ml, 36.8 on rrect-lg; receded d <= -8 pt (no refraction)",
+        "exclusions": "active cells whose informative content lies only inside the 20-pt inner band or the 19.2-pt outer reach leave the active fit set, each with its reason (bed.refraction_exclusions): the d4 patches, the capsule S 16 patches and D's steps 8 and 16 pt outside rrect-md",
+        "rival": "refraction BEFORE the blur (the capture displaced, then blurred)",
+        "statistic": "fit the law on the active cells at the primary mask; bin each cell's luma residual by depth [d_in, 30), [30, 38), [38, 46), [46, 54), [54, inf) pt; per cell NEAR is the shallowest bin with >= 200 px and FAR the deepest, at least 16 pt deeper (a cell without such a pair does not vote); Delta_c = rms(NEAR) - rms(FAR); D_tail = the mean of the 3 largest Delta_c over the structured cells (B, B', C, D, E) minus the mean of the 3 largest over the uniform cells (A)",
+        "decision": {
+          "BEFORE": "D_tail > 0.30 code",
+          "AFTER": "D_tail < 0.15 code",
+          "undecided": "between: reported, the fallback not triggered"
+        },
+        "escalation": "a BEFORE or undecided call on Apple's pixels goes to the parent before the fallback is taken",
+        "fallbackMask": "d <= -(20 + 2 sigma_w,ref) = -53.6 pt, sigma_w,ref = 2.1 * 8: rrect-ml and rrect-lg only readable when active",
+        "proof": "on synthetic renders of the final bed: AFTER reads D_tail +0.05 in both active endpoints; BEFORE reads AFTER up to a 4-pt lens, 0.13-0.17 at 8 pt, BEFORE at 16 pt (1.15-1.35); the test's resolution is between an 8- and a 16-pt lens; below it the before-the-blur bias is k -0.017 / -0.018 and lambda -0.009 at 8 pt, inside LT's survival resolution",
+        "revision": "the first statistic (the MEDIAN of Delta_c, declared 17da5c7d) proved powerless (D <= 0.022 up to a 16-pt lens) and was superseded before its successor's proof ran (cb490956); its record is refraction_order.v1.*"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/forward.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/bed.py"
+      ]
+    },
+    {
+      "id": "instrumentGating",
+      "title": "The gated instrument and the descriptive readers",
+      "clause": "2",
+      "declared": {
+        "gated": [
+          "every family fitter (LT and each rival)",
+          "the step reader's support / edge-mode call"
+        ],
+        "descriptive": [
+          "the mirror statistic S",
+          "per-cell lambda",
+          "the step reader's sigma_w",
+          "the patch and annulus widths",
+          "the ESF reader",
+          "the single-width impulse reader",
+          "the depth-graded radius reader",
+          "the pitch-64 heavy reader",
+          "memo C's model reader",
+          "the hinge-gap reader"
+        ],
+        "descriptiveMeans": "reported against its declared bar, its misses on record, never a gate",
+        "familyFitterRecovery": "every family and endpoint at the quantisation floor: k within 0.001 (bar 0.005), lambda 0.0008 (0.03), free sigma_n ordinates 0.004 pt (0.05), mu 0.20 pt (1.0), s2 0.04 pt (2.0), a 0.0005 (0.03), sk 0.013 pt (0.25), k_b 0.0011 (0.05)",
+        "stepCall": "identical on the capture and on memo B's float64 replica on 20 / 20 cells",
+        "survivalResolutionLT": "k +-0.037-0.068, lambda +-0.029-0.044 by endpoint",
+        "captureFloor": "memo E's 0.8-device-px pre-blur (1.6 on rrect-lg) stays a declared constant, re-read descriptively (item rejectedNulls, null-boxfloor)",
+        "proof3Bars": "re-declared by the parent's ruling 1 against the float64 replica before the re-proof ran; the superseded sigma_RMS bars and their misses stay on record"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof1_families.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/read_step.py"
+      ]
+    },
+    {
+      "id": "nonIdentifiable",
+      "title": "Non-identifiable on this bed, declared before any fit",
+      "clause": "2's stop",
+      "declared": [
+        "U3's active half: canvas against R_fp, and R_fp's active edge mode (the parent's ruling 4; bed.json recordedNotCaptured); the tie-break keeps the declared box support",
+        "the box / rounded-shape / edge-mode call from D's centred steps (the family fitters do separate W-shape at mu 4 on the whole bed)",
+        "the depth law's 0.4 t-at-1-pt end: nothing is readable shallower than the band plus 2 sigma_n",
+        "R1 in light, unless family A finds T curved over 144-255 (an affine T commutes with the fill)",
+        "dark readings on the 48 / 208 levels at spans >= 96 under the stand-in T (the 16 / 112 twins read instead)",
+        "under the fallback mask only: the free sigma_n ordinates at s <= 96 and the active rrect-md cells"
+      ],
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/README.md",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json"
+      ]
+    },
+    {
+      "id": "survivalBars",
+      "title": "Clause 5's bars and clause 6's survival",
+      "clause": "5, 6; X31, X21",
+      "declared": {
+        "repeats": 7,
+        "bar": "per cell, region statistic and channel: 0.5 + 0.5 * (the largest pairwise separation of the seven run medians), computed before plurality and published before G2 opens; a zero observed spread buys no tolerance",
+        "survival": "a family SURVIVES in an endpoint only at max(1 code, bar) on every required channel of every calibration AND validation cell and region statistic, with the structure inverted through native T (item nativeT)",
+        "resolution": "survivors within max(3, sum of bars) at every admitted discriminator are 'insufficient resolution'; item tieBreak chooses among them",
+        "statuses": "X31: measured, censored-bound-satisfied, UNMEASURED",
+        "censoring": "X21: a native channel >= 250 or <= 5 is a one-sided bound; a censored held-out cell is UNMEASURED",
+        "fits": "least squares and minimax, equal weight per cell; bounded deterministic multistart, stated LOCAL (item law, search)",
+        "bridges": "family F is bridge-only: it ties the bar across sittings and is not under the survival rule",
+        "negative": "an endpoint with no survivor is this wave's negative at its resolution; Decision Log 3 then applies"
+      },
+      "source": [
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@0736ed64",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/fitting.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py"
+      ]
+    },
+    {
+      "id": "tieBreak",
+      "title": "The tie-break",
+      "clause": "6; Design, 'The tie-break' (MARKED)",
+      "declared": {
+        "order": [
+          "resolution first: a family that beats another at an admitted discriminator by more than max(3, sum of bars) wins",
+          "within resolution, runtime cost: passes and texture reads on the WebGPU tier, including K1b's pyramid cost (a per-surface support breaks the per-source pyramid sharing the shipped heavy blur relies on, renderer.ts:632-637; LT's box-plus-margin support is per-surface too, so the cost is priced for LT and for its support rivals alike)",
+          "then parameter count"
+        ],
+        "kNesting": "the most restricted k level the bed cannot reject, global k first (item kNesting)",
+        "recordedOutcomesOnSynthetic": [
+          "U3's active half: the declared box support is kept",
+          "LT against LT+bleed-own in light (1.28, marginal): LT is kept by count",
+          "the knee forms: item kneeForms"
+        ]
+      },
+      "source": [
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@0736ed64",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt"
+      ]
+    },
+    {
+      "id": "bed",
+      "title": "The bed: families A, B, B', C, D, E, F and H with exact ids, and each U-item's family",
+      "clause": "1, 4; Design, 'The bed' (MARKED)",
+      "declared": {
+        "cells": "bed.json cells (every id, level, pitch, offset and depth) and scenes-w42-body.json, generated by declare-bed.py",
+        "glassCells": 465,
+        "perPass": {
+          "2x-light-active": 95,
+          "2x-light-receded": 92,
+          "2x-dark-active": 109,
+          "2x-dark-receded": 107,
+          "1x-light-active": 15,
+          "1x-light-receded": 16,
+          "1x-dark-active": 15,
+          "1x-dark-receded": 16
+        },
+        "references": 282,
+        "uItems": "bed.json uItems",
+        "growth": "the charter's 414 glass cell-passes, then + 10 s = 32 receded rows (07b45391), + 28 separation-proof rows (5d719b60), + 13 ruling-3 active guard rows (764217e1)",
+        "deviations": [
+          {
+            "what": "1x P1 at pitch 16 on rrect-lg is a canonical holdout twin; declared P1 at pitch 32 on rrect-lg at 1x, count 15",
+            "ruling": "ACCEPTED by the parent"
+          },
+          {
+            "what": "rrect-lg's centre S 8 cannot be a single square; declared as the 64-pt grid with one patch at the centre",
+            "ruling": "ACCEPTED by the parent"
+          },
+          {
+            "what": "the active 4-pt cells and D's outside steps lie in the refraction zones",
+            "ruling": "to the instrument (item refractionOrder) and to the gate (the active body swap keeps vitrea's band; band-dominated referees named)"
+          }
+        ],
+        "recordedNotCaptured": "U3's active half (item nonIdentifiable)",
+        "sideBundleChecks": "backgrounds (73, byte-stable at both scales), the independent raster read-back and self-check (82 ok) pass; dump-layers over every new shape departs from memo D's configuration nowhere"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/declare-bed.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/README.md"
+      ]
+    },
+    {
+      "id": "split",
+      "title": "The split, by bed.json's SHA-256, with H and the unseen s = 112",
+      "clause": "1, 11; Design, 'The split and the holdouts' (MARKED)",
+      "declared": {
+        "splitSha256": "9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176",
+        "scenesSha256": "e2c532d98ed55dff1a37825bd4717957c71f827184af9fa9fc9a26dbe2465478",
+        "twinAuditSha256": "a7f2682e771f0ecf1725120c698c4cd6588e972b7c3d4dbe37308cc8fa05a06a",
+        "roles": "the scenes file's own split: calibration (fit support), validation (read-only transfer axes, bed.json validationAxes), holdout (H), probe (family F's bridges and references whose only dependents are bridges), recorded empty",
+        "perPass": "2x: 68-83 calibration, 12-14 validation, 8 H, 4 F; 1x: 9-10 calibration, 2 validation, 2 H, 2 F",
+        "H": {
+          "cells": [
+            "h-p1-c24-rrect-112",
+            "h-p6-c32-rrect-md",
+            "h-d20-lohi-rrect-md",
+            "h-s24-hi-rrect-md",
+            "h-p3-c64-rrect-lg",
+            "h-lc-c64-capsule-button",
+            "h-g184-rrect-md",
+            "h-g232-rrect-md"
+          ],
+          "at1x": [
+            "h-p3-c64-rrect-lg",
+            "h-g232-rrect-md"
+          ],
+          "cellPasses": 40,
+          "structured": "6 of the 8 per 2x pass"
+        },
+        "unseenSpan": "P1 at pitch 24 on rrect-112 (s = 112, t = 0.5): no calibration or validation cell has s = 112; the side bundle loads rrect-112 from the wave-local file with no rebuild and dump-layers reads memo D's law there in all four endpoints (active opacity 0.4 at the centre and 0.2 at 1 pt inside the edge, receded 0.6 flat)",
+        "twinAudit": "no bed cell twins a canonical holdout scene; no validation or H cell twins any canonical, W34 or W39 scene; no non-H cell repeats an H cell",
+        "enforcement": "wave.py (the W42 boundary: reader, launcher, receipt reuse); split_sha is the whole bed.json's SHA-256, so any later edit, prose included, is a changed declaration"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/twin-audit.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/pins.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/wave.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-light-active/check.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-light-inactive/check.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-dark-active/check.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-dark-inactive/check.json"
+      ]
+    },
+    {
+      "id": "webPlan",
+      "title": "The W42 web plan",
+      "clause": "1, 9",
+      "declared": {
+        "rule": "a glass cell is web-plannable iff its native frame equals the web frame the calibration page poses (a lone shape centred with Math.round plus an integer offset)",
+        "result": "all 465 glass cells are web-plannable, so every H cell has a rendered prediction and none referees the numerical structure only",
+        "caveat": "every rrect-lg box lies closer to the canvas edge than the 24-px sampling padding (20, 16, 12, 10 px): a property of vitrea's render, not of posing"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/web-plan.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/wave.py"
+      ]
+    },
+    {
+      "id": "sitting",
+      "title": "The sitting's order and protocol",
+      "clause": "4, 5; G1",
+      "declared": {
+        "order": "dump-layers over the whole declared bed first (8 launches, 465 scenes; a departure from memo D's configuration stops the sitting before its first capture), then the four 2x passes and their sentinels at mode 68, then the four 1x passes and theirs at mode 69",
+        "captures": "3,255 glass + 282 references + 48 sentinel = 3,585 captures in 80 launches, seven runs, references in run 1",
+        "gates": "before every launch a bounded wait for >= 75 s of HID idle, then every X6 and W34 X4 gate named in one refusal; each capture admitted only with hidIdleSeconds >= 60 and its pose, frame and offset attested; any refusal quarantines the run under its own name and stops the pass; never a retry",
+        "length": "9.63 h of capture + 1.06 h of dumps, about 10.73 h, from W39 G1's and memo D's real timings",
+        "archive": "w42_archive.py produce / pack / fetch / replay; operational logs and dumps inside the archive, never in git"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/pass-spec.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/dry-plan.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/timing.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/dumpcheck.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/dump-reference.json"
+      ]
+    },
+    {
+      "id": "runtimeBase",
+      "title": "The runtime-base sample",
+      "clause": "8; X37",
+      "declared": {
+        "cells": "40 WebGPU cells: light-solid / dark-solid, checkerboard, photo and the probe hc-text-7 on rrect-md, and impulse on the capsule, x the four macOS 27 standard profiles x both poses; canonical calibration, validation and probe roles only",
+        "bar": "G2 runs check-capture-tree, renders the sample with the shipped documents at its base and requires PNG byte identity with the canonical capture tree before any candidate render"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/runtime-base-sample.json"
+      ]
+    },
+    {
+      "id": "gateReferees",
+      "title": "The gate's referee readings",
+      "clause": "10; X33; Decision Log 5a",
+      "declared": {
+        "mode": "W41 G2's ported cuts in candidate-admission mode: --candidate PATH[=SHA12] admits a declared scratch document by its hash and stamps every output 'candidate'; red / green 75 checks",
+        "population": "each referee's adopted non-holdout population, WebGPU tier, 1x and 2x, rendered by the candidate into a scratch stage that is never published",
+        "L1": "as written: <= 0.055 absolute, growth <= 0.005 against its W33 baseline (the parent's ruling on rehearsal round 1: Decision Log 5b's named miss governs the new bed's rendered-against-Apple bar, not canonical L1); the tinted receded cells are item l1TintedReceded",
+        "M1": "as adopted: median in [0.8, 1.2], cells in [0.6, 1.4]",
+        "M2": "directional (Decision Log 5a): the 2 % stays; a miss that moves toward Apple's interiorStdDevNative, and not past it by more than 2 %, is a named miss recorded with Apple's value beside it; a move away from Apple, past it by more than 2 %, or any move where Apple sits on the reference, fails. structureVerdict and chromaStructureNamedMisses in adopted-thresholds.test.ts, pinned by the owner case; the reference re-baselines at the adopting gate (W32 Decision Log 4)",
+        "C1": "<= 0.0042 per bed x span (the body swap cannot reach the exterior; G2's real renders read it)",
+        "X1": "zero pixels above native black",
+        "E2": "item activeBandAndE2",
+        "namedMisses": "named misses stay named and none is added except through M2's named-miss path"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/referee_source.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/l1-cut.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/chroma-cut.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/m2-rebaseline.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/exterior-cut.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/black-cut.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/e2-regression.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/admission-test.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/m2-named-miss/red-green.txt",
+        "packages/calibration/test/adopted-thresholds.test.ts"
+      ]
+    },
+    {
+      "id": "l1TintedReceded",
+      "title": "(ii) L1 on the tinted receded cells",
+      "clause": "10",
+      "pendingUser": {
+        "question": "the reading of L1 on the two light tinted photo rrect-md inactive cells and the dark tinted capsule inactive cell, which are named misses caused by vitrea's receded tint composite",
+        "cells": [
+          "apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__inactive-tint-orange",
+          "apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__inactive-tint-orange",
+          "apple-macos-27.0-1x-dark-standard-glass0.5 photo__capsule-button__inactive-tint-orange",
+          "apple-macos-27.0-2x-dark-standard-glass0.5 photo__capsule-button__inactive-tint-orange"
+        ],
+        "options": [
+          "read as named misses, the tint layer deferred",
+          "read as written: they fail"
+        ],
+        "recommendation": "the parent's: named misses, the tint layer deferred",
+        "evidence": "vitrea's receded tint composite scales the untinted body's change into the tinted cell: light 0.0288 + 0.7312 u (a grey layer at full strength, already 0.033 over Apple), dark 0.0202 + 1.4398 u while u < 0.681. Under r3-2pgb the untinted twins come to within 0.004-0.005 of Apple and the tinted cells grow +0.0108 / +0.0100 (light 1x / 2x) and +0.0138 / +0.0133 (dark 1x / 2x); passing needs the untinted body to stay about 0.004 below Apple (light) or rise at most +0.0045 / +0.0052 (dark). W42's law does not govern the tint layer.",
+        "ruling": null
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round2/tint.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/tint-dark.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/rehearsal-r3-detail.txt"
+      ]
+    },
+    {
+      "id": "activeBandAndE2",
+      "title": "(iii) The active band, and how E2 reads",
+      "clause": "3, 10",
+      "pendingUser": {
+        "question": "blending by coverage x smoothstep(0, 20 pt, depth), and how E2 reads",
+        "options": [
+          "per cell in absolute codes, with worse bins listed as named misses",
+          "per bin",
+          "the band held"
+        ],
+        "definitions": {
+          "blend": "the law's body enters the active body at weight coverage x smoothstep(0, 20 pt, depth): 0 at the contour, 1 at the band's inner edge; the receded pose is unchanged",
+          "held": "the 20-pt active band byte-identical to the shipped render",
+          "E2 absolute": "per bin, mean |web - native| per channel against Apple; candidate minus shipped <= 1 code on every channel; E2's own bins and population; UNMEASURED never a pass"
+        },
+        "evidence": "E2's adopted reading fails every active combination (109-1,872 bins) because the law moves the deep median E2 subtracts. Held, 0 of 7,728 bins change, so the absolute reading passes by construction and reads nothing, and the 20-pt seam fails Stop H on the dark active impulse capsule and Stop P's F band once the chroma is right. Blended (r3-2pgb), 70 of 7,728 bins are worse than shipped by more than one code (23 cells; worst 3.27, median of the failing bins 1.42), all at depth 2.25-5.75 CSS px under vitrea's lens where the blend's weight is 0.035-0.20, and 838 improve by more than a code. The blend does change spans <= 44: mean weight over the covered body 0.48 on the capsule, 0.31 rrect-sm, 0.34 toolbar (a correction owed to the user).",
+        "ruling": null
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/README.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/e2abs.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/swap.py"
+      ]
+    },
+    {
+      "id": "stops",
+      "title": "Stop H and Stop P, with their resolutions",
+      "clause": "10; X33",
+      "declared": {
+        "bar": "per statistic S: dShip = |S_ship - S_nat|, dCand = |S_cand - S_nat|; pass iff dCand <= dShip + res; a cell passes only if every statistic passes; a statistic with no support, or a population cell the candidate lacks, is UNMEASURED and never a pass; a stop passes only if every cell passes",
+        "stopH": {
+          "population": "16 cells: every calibration / validation impulse scene in the four standard macOS 27 profiles, tinted included, WebGPU",
+          "reading": "Rec.709 luma of encoded codes around each admitted dot's backdrop centroid: peak = mean(r < 2) - median(8 <= r < 10), annulus = mean(2 <= r < 8) - median(8 <= r < 10) CSS px; the median over admitted dots",
+          "admission": "the whole r < 10 disc at depth >= 2 CSS px and the centroid past the lens extent 1.337 min(0.25 span, 20): one dot per shape, (160, 104) on the capsule and rrect-md",
+          "resolution": "1 code"
+        },
+        "stopP": {
+          "population": "26 cells: every untinted calibration / validation photo scene in the four standard profiles, WebGPU (M1 / M2's bed)",
+          "reading": "OKLab (a, b) of the encoded image over the deep body, depth >= max(6, min(16, half the inradius)); bands F = G(1) - G(4) and M = G(4) - G(16) CSS px, Gaussians normalised to the region; E = sqrt(mean(Da^2 + Db^2))",
+          "resolution": "per cell, frozen in the declaration: the band energy of the difference of two independent one-code roundings at the native image's colours, 0.12-0.28 x 1e-3 on F and 0.032-0.074 x 1e-3 on M"
+        },
+        "proof": "30 / 30 checks",
+        "baseline": "native against shipped on every population cell (baseline.txt)"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/proof.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/baseline.txt"
+      ]
+    },
+    {
+      "id": "ownerTest",
+      "title": "The owner test on the candidate's scratch union",
+      "clause": "10",
+      "declared": {
+        "runner": "run-owner.py runs adopted-thresholds.test.ts unmodified in a disposable worktree, once on the base's stages and once on the candidate's, over all six gated macOS 27 profiles",
+        "bar": "no failure that the base's own scratch union at the same membership does not show (new, changed and unmeasuredInCandidate all empty)",
+        "construction": "kept rows (the CSS tier and any unrendered pair) relocated to side copies of the documents that drew them; the holdout carried at its current rows; M2 named misses inserted into MISSED_27_ROWS as the seal would record them, a FAILURE-class miss never inserted",
+        "knownReading": "a named miss that CLOSES (the light receded tinted impulse capsule under the candidates) reads as a change in L1's named-miss list and in MISSED_27_ROWS; the rehearsal counts it among the owner failures and names it a closure the seal must record"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/owner/run-owner.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/owner/proof.txt"
+      ]
+    },
+    {
+      "id": "eyeStrata",
+      "title": "The eye sheets by stratum",
+      "clause": "10",
+      "declared": {
+        "strata": {
+          "uniform": 40,
+          "binary": 38,
+          "text": 48,
+          "impulse": 16,
+          "photo": 46,
+          "gradient": 16
+        },
+        "total": 204,
+        "sheet": "native | shipped | candidate with OKLab Delta E x 8, WebGPU, both poses, the four standard profiles",
+        "looks": "the text stratum (the canonical probe hc-text cells) and the gradient stratum (the W39 archive's web-plannable gradient cells) are looks, not referees",
+        "bar": "the parent's verdict per stratum is recorded, and no stratum reads visibly further from native than the shipped render",
+        "strataSha256": "59532bf1425f68e04b26aa1e8cab068195e15aad050cd02d7af1878d33caff23",
+        "gap": "the uniform stratum holds light-solid and dark-solid only; the grey middle (W36's named miss, candidate 2's T) has no uniform sheet unless the mid-* probe cells are admitted as looks (the parent's call, not taken)"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/sheets/strata.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/sheets/sheets.ts"
+      ]
+    },
+    {
+      "id": "rehearsal",
+      "title": "The rehearsal of every landing referee, and what fails by construction",
+      "clause": "3; X39",
+      "declared": {
+        "method": "memo A's body swap on the canonical shipped captures, offline, every referee in all four endpoints; only the difference of two bodies enters the capture",
+        "rounds": "round 1 (18909444), round 2 (bd4b2e86), round 3 (75f244ec); none rewrites an earlier one",
+        "bestCombination": "r3-2pgb: candidate 2, the per-channel knee, the E3-form chroma g, the blended band. Dark active passes every referee but E2",
+        "stillFailingByConstruction": {
+          "lightActive": "[U7] L1 on 1x checkerboard rrect-ml rest (+0.0105 blended), which the bed's U7 rows identify; [P1] Stop P 1 / 10 on 2x photo rrect-sm rest, 0.000006 over on a 0.00014 resolution",
+          "lightReceded": "[LT] the tinted photo rrect-md inactive L1 (item l1TintedReceded); M2 on rrect-sm at s = 32 (the bed now carries s = 32 receded rows); Stop P 2 / 8",
+          "darkReceded": "[DT] the tinted capsule L1 (item l1TintedReceded)",
+          "allActive": "[E2] (item activeBandAndE2)"
+        },
+        "toTheUser": "clause 3's stop: items candidate2Chroma, l1TintedReceded and activeBandAndE2"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/README.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round2/README.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/README.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/rehearsal-r3.txt"
+      ]
+    },
+    {
+      "id": "exposureRunner",
+      "title": "The one-exposure runner's binding and the closure on H",
+      "clause": "11; X26 as carried, X33, X40; Decision Log 3",
+      "declared": {
+        "runner": "bed/exposure/runner.py imports W41's X26 runner unchanged and derives the W42 boundary, scope, pins, freeze, verify and verdict",
+        "binding": "ONE receipt binds the identified law (the structure through native T: parameters, numerical predictions, calibration / validation survival), candidate 1 (landed T, required) and at most one candidate 2 (native T), each with its numerical composition and blind rendered H predictions (PNG and projection) frozen by hash before the receipt and recaptured equal inside it",
+        "scope": "every declared glass cell of calibration, validation and H admitted by G1's archive inventory, the probe bridges excluded: 441 of 465, 40 of them H, all web-plannable",
+        "closure": "the law closes iff every measured H cell of every claimed endpoint passes at max(1 code, bar), with at least one measured H cell per claimed endpoint; a censored H cell is UNMEASURED and counts toward neither pass nor coverage, the measured coverage reported; candidate 2 is scored against Apple's H pixels, candidate 1 against its own frozen structure-with-landed-T prediction with levelMiss recorded; a candidate is landable only if the law closes and its own check passes; X40 selects candidate 2 if landable, else candidate 1, else none",
+        "claimedEndpoints": "frozen, a nonempty subset; unclaimed endpoints scored and reported 'not claimed (identity)' (Decision Log 3)",
+        "spend": "any fault after begin spends H; nothing changes after the receipt",
+        "productionPins": "production-pin.json: G1 pins the archive inventory; declare.py hash pins this declaration and its closure (closure.json, written from items survivalBars and exposureRunner)",
+        "proof": "26 red against a stub, 27 green on a synthetic H in temporary repositories"
+      },
+      "source": [
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/README.md",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/green-guard.txt"
+      ]
+    }
+  ],
+  "sources": {
+    "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@0736ed64": "7bd48a3021d007c2b3e8433840a28736b2c1ed9028a25538613cb483a4f0b350",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-active-E3-fit.json": "8d23ff0bb08a5458d45fbf2217e35d298955d487435dfc4e72728bf1ef422430",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-inactive-E3-fit.json": "2024f3a4baa070288145ab1095d29fd7495510e81c07a7b40ed717aae1fd2b2e",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-active-E3-fit.json": "a66a709adc3a85176a4ab7a7a02a8d8f02445ad9281fcccafb8f9cb7c7e192cc",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-inactive-E3-fit.json": "fef8045e611ade02184e091350cd89ebcb32a6eff86d82bea39f2aefa7100fd6",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/README.md": "b0cdb8792b97a620f5f15dfce43eca5f3fef3831fc7d5cb0081059fb6a9b017d",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json": "9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/declare-bed.py": "746e126a7c8aa1f060d45403b8490f4a421581527d436848cc43aeb59a49d926",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/dump-reference.json": "ce4fdf56333756d2a0275d5bac5153c8ebdcb2b80442658e72a489609e16bd2a",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/dumpcheck.py": "6294f1128c47c446c345cca159db75d193134ef599cdbc0b67040e257dde09c2",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-dark-active/check.json": "1736f21794d3a7a07d98e835b4f66d16c39617651a3ada3467114572ffd5de2e",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-dark-inactive/check.json": "2b4f2c2cb0e79f8a61194e435132bb1c6c50ac665c8817dfb8db3702b76f35f5",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-light-active/check.json": "ee2c23ac40dc69ed1982655d10fef978f94aa28c7d89fdbebd7b17250eba47da",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-light-inactive/check.json": "ec82d6d43b262285d36fc308762edb53bf6237190b61dc5783e99cf812a41343",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/README.md": "65d664644692ca898e3013b02f41cca69d606e7380e862f844b7943a7c842419",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/green-guard.txt": "752cd58d0e2fcfcd2bebf5d5b868c4609e71088c4c097ae93f0d2fcb60add32f",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py": "33ce239f4668334ea7b633a217e721ef93834bf4d94cd46a1ac5fc82c8f9395d",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/pins.json": "2d9b6b9459ea0bd039d70c6ff6d72a6e3c39555f54ec00758c62539e36972c98",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/runtime-base-sample.json": "e22b24ddb6f517930b2996882ecb96b5a5a39414d4f88856db403a2590f26ae5",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json": "e2c532d98ed55dff1a37825bd4717957c71f827184af9fa9fc9a26dbe2465478",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/dry-plan.txt": "3eb50c11d7af0dce124ac59d10e3a217ca068220b2202093b80047f2bd7dbe09",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/pass-spec.py": "31858d7dc9f8e3fcb705894c6471f100845a01efa947adb5d0f43185990d5283",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py": "80813fdaf046e687cdb204f086c0425cfff7cbfe9683997529f86a1719ca308d",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/timing.txt": "cdf513425b407753a599701b9b3a0acd07e4e456737259285e0b1e1c1ad1d23f",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py": "b46780631086a594e0f0c587dccf9cec9b1992debbd7db50cfcd66eb129da211",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/twin-audit.json": "a7f2682e771f0ecf1725120c698c4cd6588e972b7c3d4dbe37308cc8fa05a06a",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/wave.py": "24acdb0cd6b1138b92b80725b5c4d6296def9e614fec044b5297a07f73de7f11",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/web-plan.json": "f4872f179e511a1e3e0d6efdd987698199a77b641b85f3b3fa1fb210aa965f01",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/m2-named-miss/red-green.txt": "acc710208f915786d8b5a1a9712b1612aec377a5c65f57b7b396d5fc4f90316f",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/owner/proof.txt": "a650edbd2be4e82e30dd5d04d0c364edf58e244ef16908c3e9d8cf4af184300b",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/owner/run-owner.py": "4fba8f7109e478ffb644fbaa31d200255e8b7394eca86f2d026e7373e7269f47",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/admission-test.txt": "f6a59bec2844d119965e3c785304c81914c6449c7a92518d9fcc6bf97a67c902",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/black-cut.py": "8ec2ae6ca6d69aeb40b886e0f2ddbb44f900b073a5953d50f815997c3eb61ee0",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/chroma-cut.py": "6bb1729ec0133845099a6aad2eed4e7f3adcc4bfd001b28b6e086aa188070a24",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/e2-regression.py": "9d5113372bbbb0918277120d44098fec76af2d86dd1215b84bcaa1d148cf79fe",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/exterior-cut.py": "16a2c989398aaabb3ab5b90ff3e4f609e1ee4844d13291abc2b5bf16ff118e1d",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/l1-cut.py": "a185d63782bd4fa0117da81aaa2512883b74875c17626fc28b49de644225e219",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/m2-rebaseline.py": "49d794b248aedfeb689c4d581acc484ff1a94cfdad1c0ed192b3dffd5b638374",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/referee_source.py": "36c5d27657936d60d3b01780e2c6e632a2b5bf3c9073fba418659b97bc09a78c",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/README.txt": "1f7122b2e69d10915567e7532f76742831fadfc8625e1d0aced760e309a64634",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/body.py": "c402d5d60cc69cbc9c5175fbf42a11409d8c321d3cc3503b18b228b84f152776",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/e2abs.py": "2d870eb8ca8107bbb3b019441c7ec5b702ecac136535be4359b2672de1d86ba1",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round2/README.txt": "4e3fa6100cf458d4dd47110df6b25131485cdcd930a6e29321a2484269d85da9",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round2/tint.txt": "c6081821c049807257e5f826f2357c73f34ddd6abc6a8922930ff3c8579e48c6",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/README.txt": "4f839e1777ad5c7c7a41e6e1db6b9a0a07cf53ba666ec4f97ce45fdab4260dbc",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/rehearsal-r3-detail.txt": "8c969405d6d772dc45de16637460dc8027074db0e84cf37a263c8c39dd2b9a5b",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/rehearsal-r3.txt": "39f2e21c8d360ad3783240fc08c26223799cf6dcbb75ded7c0df17d29880ab2e",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/round3/tint-dark.txt": "0e2c84d6024089be7aaead6ea5f61345520ddfb67a83fac5f4ad8a94333c016b",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/swap.py": "da34529e0bc6c102793969e2bc3bd91fd04c3414404dcfc1d922bc916e2fbc64",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/sheets/sheets.ts": "23c24e79d756837e20a12057761fb9510050a8b2a0178a498f258193d653fec9",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/sheets/strata.json": "59532bf1425f68e04b26aa1e8cab068195e15aad050cd02d7af1878d33caff23",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/baseline.txt": "311496c6253078fedb9f486a6947cb8b20ad467146f02d2f6abe53d3e24e34b1",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/proof.txt": "a70dd5de46abeb4b6f38358008c5fbe3cf1c6ba3cf1928b97e97e20af330fe2d",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json": "0f907bfee62ae07f5ad68b1f8d7679b35abeae14a2077bb6bc5127d80a68809e",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops.py": "0e3e3c839d2264f5cdd773b1331b6a3a3a63119af06e598041db9c8a43890a28",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/README.md": "948f7705e39073ac77e96f9dd6e83632129e8fe43e26cc24ecc81d662140f769",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/bed.py": "30460d574b03006b97fae27901a987cc89ce3aa27ac569ffe81df879d0009ff7",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py": "22a7843e131a4e054310449a65d4866bf8531d9864f197a4dd5e79000d7534cc",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/fitting.py": "ecd9efccc52fbffe59ea003344ac372c92db7f8add7a6c857d778a257af2e055",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/forward.py": "c84c21ae72fe0fbfe6e9a0f75f68a2746db7fd1cd975785e1bb4f4fd5232df28",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof1_families.txt": "a64e2e69b295f188a29dd466d4f34d6c0a3516fe0fd29a961d5328f6743f9723",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof2_floor_check.txt": "87b2174b3098400be6a1db0e5ec502b66297a8ff087fb7f053ac5aad7442d165",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof2_nulls.txt": "d0bd01bccf0f91ac1cb20c2835cca56ceda0738fcf3e6e4551b930b7e28e77ca",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof_common.py": "6851780959099b2e6a95cf1724fbe17a7112236b7b0c3d9b6f599f062e0d4a9e",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/read_step.py": "69b4a72763e2b8db7dfc031a14724c5379cc7d05a532b994e51262c574aa02ce",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/ref_check.json": "ee4271247c7a5d95d533aae9ea8323406a158d1c7411e8004a3d75baac510a41",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.py": "ae2e31b1620081bc4a02f57536dd0d7d88ddcce14c85bc6b985b251b9fd8e7e7",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.txt": "29747cf7a3d5ab01f4cb7f215de9c9356dde6e816db6d06586e5b0e10da13487",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py": "d7744b2753c9801dc91bac62cce61d90112e4f5e56460e1507d02ad1b0b97e42",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.json": "f4d32cf10f26f8b31f94d24167b563f3318773408e7aa3e6c50b2f48d1687ef5",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt": "c05d25edadfbd21f92b2bf8ba64cf819aa122b12cba249d5fed13923a0cbef11",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json": "74293175791789df87ebf15400b43606a6f79db045ec4a19b6347ad5c980d92c",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tone.py": "e08912b66fe6369cdc057ca7229b67f3f015bb081ccbf7350c9f098aa74fe37c",
+    "packages/calibration/test/adopted-thresholds.test.ts": "92f2a45793017dc1c6946e0e53c243b747076c0440627acbfc35a25637ef8d6b"
+  }
+}

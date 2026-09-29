@@ -1,0 +1,52 @@
+W42 G0 declare.py proof (integration, 2026-09-29T20:38Z). Each seed mutates declaration.json or
+declaration.md in place, runs 'declare.py check' and restores the bytes; the hash path ran on a copy whose
+three pendingUser rulings were filled with synthetic text, and its outputs were deleted and production-pin.json
+restored afterwards (git status clean). Nothing here is a ruling.
+
+$ declare.py check
+W42 G0 declaration: 30 items, 74 pinned sources
+  PENDING (user) candidate2Chroma: whether candidate 2 carries W41 G1's E3-form g in all four endpoints, re-fitted and checked on the new bed's colour cells
+  PENDING (user) l1TintedReceded: the reading of L1 on the two light tinted photo rrect-md inactive cells and the dark tinted capsule inactive cell, which are named misses caused by vitrea's receded tint composite
+  PENDING (user) activeBandAndE2: blending by coverage x smoothstep(0, 20 pt, depth), and how E2 reads
+check: consistent with the stream files; 3 item(s) pending the user
+exit 0
+
+$ declare.py hash
+hash REFUSES: candidate2Chroma, l1TintedReceded, activeBandAndE2 wait on the user; write each ruling into declaration.json and declaration.md, then hash
+
+RED: seeded mutations, each must exit 1
+  candidate 2 light-active ordinates 27 -> 28: exit 1; MISMATCH candidate2: ordinates per endpoint: found {'light-active': 27, 'light-receded': 27, 'dark-active': 30, 'dark-receded': 30}, declared {'light-active': 28, 'light-receded': 27, 'dark-active': 30, 'dark-receded': 3
+  LT-2k count 3 -> 4: exit 1; MISMATCH rivals: LT-2k count: found 3, declared 4
+  a source pin altered: exit 1; MISMATCH pin docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@0736ed64: found '7bd48a3021d007c2b3e8433840a28736b2c1ed9028a25538613cb483a4f0b350', declared '0000000000000000000000000000000000000000000000000
+  bed.json SHA-256 wrong: exit 1; MISMATCH split: bed.json SHA-256: found '9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176', declared '0000000000000000000000000000000000000000000000000000000000000000'
+  an H cell dropped: exit 1; MISMATCH split: H cells: found ['h-d20-lohi-rrect-md', 'h-g184-rrect-md', 'h-g232-rrect-md', 'h-lc-c64-capsule-button', 'h-p1-c24-rrect-112', 'h-p3-c64-rrect-lg', 'h-p6-c32-rrect-md', 'h-s24-hi-rrect-md'], declared ['h-d
+  the BEFORE bar 0.30 -> 0.25: exit 1; MISMATCH refractionOrder: the declared decision: found {'BEFORE': 'D_tail > 0.30 code', 'AFTER': 'D_tail < 0.15 code', 'undecided': 'between: reported, the fallback not triggered'}, declared {'BEFORE': 'D_tail > 0.25 cod
+  k nesting reordered: exit 1; MISMATCH kNesting: layouts and totals, most restricted first: found [('k@global', 5), ('k@scheme', 6), ('k@endpoint', 8), ('k2@endpoint', 12)], declared [('k2@endpoint', 12), ('k@endpoint', 8), ('k@scheme', 6), ('k@globa
+  a null added: exit 1; MISMATCH rejectedNulls: the null set: found {'null-R2', 'null-boxfloor', 'null-dev', 'null-texel', 'null-mix'}, declared {'null-R2', 'null-boxfloor', 'null-dev', 'null-texel', 'null-mix', 'null-x'}
+  an unpinned source: exit 1; MISMATCH law: source packages/calibration/package.json is not pinned in 'sources'
+  E3 extension count 7 -> 6: exit 1; MISMATCH candidate1: the extension count: found 7, declared 6
+  an md heading removed: exit 1; MISMATCH declaration.md: its item headings, in order: found ['law', 'kNesting', 'rivals', 'rejectedNulls', 'kneeForms', 'accessibility', 'supersededLeaves', 'nativeT', 'candidate1', 'candidate2', 'candidate2Chroma', 'reg
+  an md PENDING marker removed: exit 1; MISMATCH declaration.md, l1TintedReceded: not marked PENDING (user)
+
+GREEN: the hash path on synthetically filled rulings (outputs deleted afterwards)
+  W42 G0 declaration: 30 items, 74 pinned sources
+  check: consistent with the stream files
+  declaration.json sha256 94d2c28876beedff4edc818c554e77a777c2309f2e8bc2b55ea8830eab31de1c; closure.json sha256 52f19423d6adcd75d42f0d251d54e8e0eb7a9278640c4c48fa9279895f36b2f3; pinned in packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/production-pin.json; commit all three before the first capture
+  exit 0
+  $ declare.py check (after hash)
+  check: consistent with the stream files
+  $ declare.py hash (again)
+  hash REFUSES: a declaration is already hashed and pinned; a changed declaration after the first capture voids the sitting (clause 1), and this tool never overwrites one
+  $ production-pin.json
+  {
+    "inventoryPath": null,
+    "inventorySha256": null,
+    "declarationPath": "packages/calibration/results/2026-09-29-w42-g0-declaration/declaration.json",
+    "declarationSha256": "94d2c28876beedff4edc818c554e77a777c2309f2e8bc2b55ea8830eab31de1c",
+    "closurePath": "packages/calibration/results/2026-09-29-w42-g0-declaration/closure.json",
+    "closureSha256": "52f19423d6adcd75d42f0d251d54e8e0eb7a9278640c4c48fa9279895f36b2f3"
+  }
+  $ closure.json keys
+  ['declaration', 'declarationSha256', 'items', 'rulings', 'schema'] ['exposureRunner', 'nativeT', 'regionStatistics', 'survivalBars']
+  94d2c28876beedff4edc818c554e77a777c2309f2e8bc2b55ea8830eab31de1c  declaration.json
+  94d2c28876beedff4edc818c554e77a777c2309f2e8bc2b55ea8830eab31de1c  declaration.json
