@@ -208,3 +208,45 @@ nothing: 2,898 glass + 258 references + 48 sentinel captures = 3,204 in 80 launc
 D's dump runs): 8.62 h of capture + 0.95 h of dumps ≈ **9.61 h**, against the charter's model
 of 8.71 h + about 0.96 h. Idle waits beyond the measured gaps, quarantines, the grant switch
 and the rehearsal are excluded. 29 tests (`sitting/test-sitting.txt`, `test-archive.txt`).
+
+## The one-exposure runner (`exposure/`; clause 11, X26 as carried, X40)
+
+W41's X26 runner imported as a module, none of its globals rebound: its wave-independent
+functions (the committed-file checks, `persist`, `png`, `capture_web`, the request dataclasses)
+run unchanged, and W39's `Receipt` and `Reader` come through `wave.py`. What W41 hard-binds
+to W39's bed and W41's declaration is derived for W42 (scope, pins, freeze, verify, the
+verdict, the run), keeping W41's lifecycle: nothing before `begin`, the blind rendered H
+predictions recaptured and required byte- and projection-equal inside the receipt, the full
+scores fsynced before any aggregation, `result.json` before `complete`, any fault after
+`begin` spending H.
+
+The one receipt binds the identified law (numerical, the structure through native T) and
+both T candidates' renders. The verdict follows clause 11 rather than W41's all-must-pass:
+the law closes iff every measured H cell of every claimed endpoint passes; candidate 2 is
+its render against Apple, candidate 1 its render against its own frozen
+structure-with-landed-T prediction with the gap to Apple recorded as the named level miss; a
+candidate is landable only where the law closes, one candidate's failure never fails the
+other, and X40 selects candidate 2 only if it is landable. Unclaimed endpoints are scored and
+reported "not claimed (identity)" (Decision Log 3). The real declaration's scope is 390 glass
+cells (414 less the 24 bridge cell-passes), 40 of them H, all web-plannable.
+
+Production refuses until `exposure/production-pin.json` names G1's archive inventory and the
+integrated G0 declaration and closure (all null now). Proved on a synthetic H built through
+`wave.py`'s `Wave` in temporary repositories: 26 RED against a stub, 27 GREEN
+(`exposure/red.txt`, `green.txt`, `red-unadmitted-holdout.txt`).
+
+Two readings for the parent (the runner enforces them; the charter does not say): a manifest
+with only a native-T candidate is refused, reading "lands instead" as presupposing candidate
+1; and a claimed endpoint must have at least one MEASURED H cell to close, so an endpoint
+whose H cells are all censored does not close.
+
+## Integration notes
+
+- `split_sha` is the SHA-256 of the whole `bed.json`, so the archive's Reader and the receipt
+  bind it byte for byte: `bed.json` (and `scenes-w42-body.json`) must be frozen at the
+  declaration's hash before G1's first capture. A later edit, even a prose one, is a changed
+  declaration (clause 1's stop).
+- `wave.py` shares its name with the standard library's `wave`, as W39's did; every tool here
+  loads it by file path.
+- Freeze at hand-back: `python3.12 packages/calibration/results/2026-09-16-w29-freeze/freeze.py
+  verify` reads 1,818 entries.
