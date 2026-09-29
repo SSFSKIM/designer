@@ -17,14 +17,48 @@
  *
  * `advance` is the manual entry point. A test with no animation frames, and a
  * root configured `autoStart={false}`, steps time by hand through it.
+ *
+ * ## Frames on demand
+ *
+ * The root draws a frame only when something asks for one (`GlassRoot.requestFrame`),
+ * and a listener here is part of that demand. Returning `false` says it needs no
+ * further frame; anything else — including returning nothing — keeps frames
+ * coming on every frame, which is what every listener written before
+ * demand-driven frames expects, so an animation that never heard of this keeps
+ * animating. A listener whose work is done until something changes returns
+ * `false` and calls `requestFrame()` when it has work again: a spring that was
+ * retargeted, a canvas that went stale.
  */
 
-export type GlassTickListener = (dtMs: number, timeMs: number) => void;
+/**
+ * A per-frame callback. The return value is read for one thing: `false` means no
+ * further frame is needed on this listener's account. Typed `unknown` so that an
+ * expression-bodied listener — `(dt) => (elapsed += dt)` — still type-checks and
+ * keeps the per-frame behaviour it was written for.
+ */
+export type GlassTickListener = (dtMs: number, timeMs: number) => unknown;
 
 export interface GlassTicker {
+  /** Subscribing asks for a frame, so a new listener is always called at least once. */
   subscribe(listener: GlassTickListener): () => void;
-  /** Step every listener by hand. The path a test without rAF takes. */
-  advance(dtMs: number): void;
+  /**
+   * Step every listener by hand. The path a test without rAF takes, and the one
+   * `GlassRoot` drives from the root's frames. Returns whether any listener wants
+   * another frame (see the module note); a zero step calls no listener and
+   * reports that they are still owed one.
+   */
+  advance(dtMs: number): boolean;
+  /**
+   * Ask for a frame: the root's, when a `GlassRoot` drives this ticker, and this
+   * ticker's own `requestAnimationFrame` when it runs by itself.
+   */
+  requestFrame(): void;
+  /**
+   * Hand frame requests to whatever drives this ticker — `GlassRoot` passes its
+   * root's `requestFrame`. Returns the unbind; unbound, requests arm this
+   * ticker's own loop while it is started.
+   */
+  bind(requestFrame: () => void): () => void;
   start(): void;
   stop(): void;
   readonly running: boolean;
@@ -42,13 +76,16 @@ export function createGlassTicker(options: GlassTickerOptions = {}): GlassTicker
   let handle: number | undefined;
   let previousMs: number | undefined;
   let clock = 0;
+  let started = false;
+  let driver: (() => void) | undefined;
 
-  const notify = (dtMs: number, timeMs: number): void => {
+  const notify = (dtMs: number, timeMs: number): boolean => {
+    let wantsMore = false;
     // Copied before iterating: a listener that unsubscribes itself mid-tick —
     // a surface unmounting on a click — must not skip the listener after it.
     for (const listener of [...listeners]) {
       try {
-        listener(dtMs, timeMs);
+        if (listener(dtMs, timeMs) !== false) wantsMore = true;
       } catch (error) {
         // One subscriber must not take the bus down with it. Every surface,
         // indicator and morph in a tree shares this loop, so a throw here would
@@ -61,47 +98,80 @@ export function createGlassTicker(options: GlassTickerOptions = {}): GlassTicker
         });
       }
     }
+    return wantsMore;
   };
 
+  /** A zero step calls nobody, so whoever is subscribed is still owed a frame. */
+  const step = (dtMs: number, timeMs: number): boolean =>
+    dtMs > 0 ? notify(dtMs, timeMs) : listeners.size > 0;
+
   const loop = (timeMs: number): void => {
-    handle = view.requestAnimationFrame(loop);
+    handle = undefined;
     const dtMs = previousMs === undefined ? 0 : timeMs - previousMs;
     previousMs = timeMs;
     clock = timeMs;
-    if (dtMs > 0) notify(dtMs, timeMs);
+    if (step(dtMs, timeMs) && started && handle === undefined) {
+      handle = view.requestAnimationFrame(loop);
+    } else if (handle === undefined) {
+      // Idle: the next frame is a wake, and reports no delta rather than the
+      // whole pause, for the same reason a restart does.
+      previousMs = undefined;
+    }
+  };
+
+  const requestFrame = (): void => {
+    if (driver !== undefined) {
+      driver();
+      return;
+    }
+    if (!started || handle !== undefined) return;
+    handle = view.requestAnimationFrame(loop);
   };
 
   return {
     subscribe(listener) {
       listeners.add(listener);
+      requestFrame();
       return () => listeners.delete(listener);
     },
 
     advance(dtMs) {
       clock += dtMs;
-      if (dtMs > 0) notify(dtMs, clock);
+      return step(dtMs, clock);
+    },
+
+    requestFrame,
+
+    bind(next) {
+      driver = next;
+      return () => {
+        if (driver === next) driver = undefined;
+      };
     },
 
     start() {
-      if (handle !== undefined) return;
+      if (started) return;
+      started = true;
       // Cleared so the first frame after a restart reports no delta rather than
       // the whole pause: the drivers would resolve the stall in one step.
       previousMs = undefined;
-      handle = view.requestAnimationFrame(loop);
+      if (handle === undefined) handle = view.requestAnimationFrame(loop);
     },
 
     stop() {
+      started = false;
       if (handle === undefined) return;
       view.cancelAnimationFrame(handle);
       handle = undefined;
     },
 
     get running() {
-      return handle !== undefined;
+      return started;
     },
 
     destroy() {
       this.stop();
+      driver = undefined;
       listeners.clear();
     },
   };

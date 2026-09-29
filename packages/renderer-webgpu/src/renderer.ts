@@ -302,6 +302,18 @@ export interface GlassRenderer {
   collectAdaptation(): Promise<number>;
   /** Actual GPU reduction, resolved asynchronously after the submitted draw. */
   backdropToneAbscissae(groupId: string): readonly SurfaceBackdropToneAbscissa[];
+  /**
+   * Whether drawing another frame would change anything this renderer owns, with
+   * nothing new handed to it: an adaptation filter still travelling, a readback
+   * still on its way, or a rebuilt pyramid whose stats have not been read yet.
+   *
+   * A host that draws on demand keeps drawing while this is true and may stop
+   * once it is false. Each of those only finishes if frames keep coming — a map
+   * resolves after the queue drains and is collected after a frame, and a filter
+   * moves by the frame delta — which is the C9a lesson (pace on
+   * `requestAnimationFrame`) read the other way round.
+   */
+  readonly framesPending: boolean;
   destroy(): void;
 }
 
@@ -321,6 +333,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   const groups = new Map<string, GroupEntry>();
   const adaptation = new Map<string, AdaptationState>();
   const lastReadbackAt = new Map<string, number>();
+  /**
+   * The pyramid each source's last stats readback was taken from. A pyramid is a
+   * new object on every build and the same object on a clean skip, so identity
+   * is exactly "has this source been rebuilt since its stats were read". An
+   * unchanged pyramid reduces to unchanged stats, so reading it again only costs
+   * a copy, a map and the frames that wait for it.
+   */
+  const statsReadFor = new Map<string, PyramidResources>();
   const hintedTones = new Map<string, {
     groupId: string; readings: readonly SurfaceBackdropToneAbscissa[];
   }>();
@@ -422,6 +442,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     dropContext();
     adaptation.clear();
     lastReadbackAt.clear();
+    statsReadFor.clear();
   });
 
   const ensureContext = (): { context: GpuContext; store: PyramidStore; runner: PassRunner } => {
@@ -785,13 +806,19 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     }
 
     // Analysis readback, cadence-gated by the governor. Every source with a
-    // pyramid is eligible, whether or not it rebuilt this frame — a static
-    // backdrop still needs its stats read once.
+    // pyramid it has not read yet is eligible, whether or not it rebuilt this
+    // frame — a static backdrop still needs its stats read once, and a rebuild
+    // the cadence deferred is read on a later frame. A pyramid already read is
+    // not read again: its stats cannot have moved.
     const cadence = governor.knobs.adaptationCadenceHz;
     for (const sourceId of providers.keys()) {
-      if (pyramids.resources(sourceId) === undefined) continue;
+      const resources = pyramids.resources(sourceId);
+      if (resources === undefined || statsReadFor.get(sourceId) === resources) continue;
       if (!readbackDue(lastReadbackAt.get(sourceId), frameTimeMs, cadence)) continue;
-      if (pyramids.requestStats(sourceId, encoder)) lastReadbackAt.set(sourceId, frameTimeMs);
+      if (pyramids.requestStats(sourceId, encoder)) {
+        lastReadbackAt.set(sourceId, frameTimeMs);
+        statsReadFor.set(sourceId, resources);
+      }
     }
 
     return { built, unbuilt };
@@ -1565,6 +1592,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       store?.forget(sourceId);
       adaptation.delete(sourceId);
       lastReadbackAt.delete(sourceId);
+      statsReadFor.delete(sourceId);
     },
 
     backdrop(sourceId) {
@@ -1786,6 +1814,20 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       ];
     },
 
+    get framesPending() {
+      for (const state of adaptation.values()) if (!state.settled) return true;
+      if (store?.readbacksPending === true || silhouetteTone?.pending === true) return true;
+      // Owed only where a readback could be taken at all: a governor that turned
+      // the cadence to 0 has disabled adaptation, and nothing is waiting on it.
+      if (store !== undefined && governor.knobs.adaptationCadenceHz > 0) {
+        for (const sourceId of providers.keys()) {
+          const resources = store.resources(sourceId);
+          if (resources !== undefined && statsReadFor.get(sourceId) !== resources) return true;
+        }
+      }
+      return false;
+    },
+
     async collectAdaptation() {
       await silhouetteTone?.collect();
       if (store === undefined) return 0;
@@ -1807,6 +1849,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       groups.clear();
       adaptation.clear();
       lastReadbackAt.clear();
+      statsReadFor.clear();
       pendingUnbuilt = [];
       unbuiltFrameId = undefined;
       builtGeneration = undefined;

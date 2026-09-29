@@ -150,8 +150,10 @@ export function useGlassInteraction(options: GlassInteractionOptions): GlassInte
       machine.applyFlags(next);
       setState(machine.state);
       handle?.update({ interaction: machine.state });
+      // The springs have somewhere to go, and frames are drawn on demand.
+      ticker.requestFrame();
     },
-    [handle, machine],
+    [handle, machine, ticker],
   );
 
   useEffect(() => {
@@ -229,6 +231,11 @@ export function useGlassInteraction(options: GlassInteractionOptions): GlassInte
         write(host, GLASS_CHANNEL_PROPERTIES.pressX, `${num(point[0])}px`, last);
         write(host, GLASS_CHANNEL_PROPERTIES.pressY, `${num(point[1])}px`, last);
       }
+
+      // Another frame only while a spring is still travelling. The channels this
+      // tick wrote are drawn on the next frame whatever this returns: a write to a
+      // host's inline style schedules one.
+      return !machine.settled;
     });
   }, [handle, host, machine, profile.pressCompressionScale, ticker]);
 

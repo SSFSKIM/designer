@@ -356,13 +356,16 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
   useEffect(() => {
     if (!capsule || root === null || handle === null) return;
     let applied = -1;
+    // Reads what a frame measured, so it never needs a frame of its own: a new
+    // box arrives on a frame, and the update below schedules the one that draws it.
     return ticker.subscribe(() => {
       const bounds = root.scene.glassNode(handle.nodeId)?.bounds;
-      if (bounds === undefined) return;
+      if (bounds === undefined) return false;
       const next = capsuleRadius(bounds.width, bounds.height);
-      if (Math.abs(next - applied) < 0.5) return;
+      if (Math.abs(next - applied) < 0.5) return false;
       applied = next;
       handle.update({ radii: radiiFor(next) });
+      return false;
     });
   }, [capsule, handle, root, ticker]);
 

@@ -580,16 +580,21 @@ describe("what the bridge knows about a source's pixels", () => {
     expect(bridge.hasBackdropTexture("src")).toBe(false);
   });
 
-  it("names video and canvas as per-frame, and a decoded image as not", () => {
+  it("names a live canvas and a playing video as per-frame, and nothing that changes only when marked", () => {
     const bridge = createGlassRendererBridge({
       layers: createGlassLayerManager({ document }),
       diagnostics: createPlatformDiagnosticsChannel(),
       onRendererUnavailable: () => {},
       load: async () => stubModule().module,
     });
+    const playing = document.createElement("video");
+    Object.defineProperty(playing, "paused", { value: false });
     bridge.setBackdropTexture("live-canvas", canvas);
+    bridge.setBackdropTexture("marked-canvas", { ...canvas, live: false });
     bridge.setBackdropTexture("still", image);
-    bridge.setBackdropTexture("clip", video);
+    // jsdom's video starts paused, as a real one does until it is played.
+    bridge.setBackdropTexture("paused-clip", video);
+    bridge.setBackdropTexture("clip", { kind: "video", video: playing });
 
     expect([...bridge.perFrameBackdropSources()].sort()).toEqual(["clip", "live-canvas"]);
   });

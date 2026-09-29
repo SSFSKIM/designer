@@ -83,6 +83,12 @@ export interface GeometrySyncOptions {
   readonly meter: LayoutReadMeter;
   /** Called after a read phase that measured at least one host. */
   readonly onMeasured?: (nodeIds: readonly string[], viewport: ViewportReading) => void;
+  /**
+   * Called whenever something is marked dirty, whatever marked it. Bookkeeping
+   * only, like the marking itself — it is how a root that draws on demand learns
+   * that the next read phase has something to measure.
+   */
+  readonly onDirty?: () => void;
   readonly window?: Window;
 }
 
@@ -117,11 +123,13 @@ export interface GeometrySync {
   /** Last measured viewport, or `undefined` before the first read. */
   readonly viewport: ViewportReading | undefined;
   readonly dirtyCount: number;
+  /** Whether the next read phase has anything to measure: a host, a source or the viewport. */
+  readonly pending: boolean;
   destroy(): void;
 }
 
 export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
-  const { scene, meter, onMeasured } = options;
+  const { scene, meter, onMeasured, onDirty } = options;
   const view = options.window ?? window;
 
   const tracked = new Map<string, TrackedHost>();
@@ -140,19 +148,27 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
   const placements = new Map<string, Rect>();
 
   const markDirty = (nodeId: string): void => {
-    if (tracked.has(nodeId)) dirty.add(nodeId);
+    if (!tracked.has(nodeId)) return;
+    dirty.add(nodeId);
+    onDirty?.();
   };
 
   const markAllDirty = (): void => {
     for (const nodeId of tracked.keys()) dirty.add(nodeId);
     for (const sourceId of sources.keys()) dirtySources.add(sourceId);
     viewportDirty = true;
+    onDirty?.();
   };
 
-  const sourcesByElement = (element: Element): void => {
+  const sourcesByElement = (element: Element): boolean => {
+    let marked = false;
     for (const [sourceId, candidate] of sources) {
-      if (candidate === element) dirtySources.add(sourceId);
+      if (candidate === element) {
+        dirtySources.add(sourceId);
+        marked = true;
+      }
     }
+    return marked;
   };
 
   const byElement = (element: Element): string | undefined => {
@@ -166,11 +182,16 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
    * resizing a toolbar dirties it, a vitrea-owned transform does not.
    */
   const resizeObserver = new ResizeObserver((entries) => {
+    let marked = false;
     for (const entry of entries) {
       const nodeId = byElement(entry.target);
-      if (nodeId !== undefined) dirty.add(nodeId);
-      sourcesByElement(entry.target);
+      if (nodeId !== undefined) {
+        dirty.add(nodeId);
+        marked = true;
+      }
+      if (sourcesByElement(entry.target)) marked = true;
     }
+    if (marked) onDirty?.();
   });
 
   /**
@@ -185,12 +206,20 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
       return;
     }
     if (!(target instanceof Element)) return;
+    let marked = false;
     for (const [nodeId, host] of tracked) {
-      if (target.contains(host.element)) dirty.add(nodeId);
+      if (target.contains(host.element)) {
+        dirty.add(nodeId);
+        marked = true;
+      }
     }
     for (const [sourceId, element] of sources) {
-      if (target.contains(element)) dirtySources.add(sourceId);
+      if (target.contains(element)) {
+        dirtySources.add(sourceId);
+        marked = true;
+      }
     }
+    if (marked) onDirty?.();
   };
 
   /**
@@ -258,6 +287,7 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
       // A re-registration under the same id may sit somewhere else entirely.
       clipChains.delete(host.nodeId);
       resizeObserver.observe(host.element);
+      onDirty?.();
     },
 
     untrack(nodeId) {
@@ -315,6 +345,7 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
       placements.delete(sourceId);
       dirtySources.add(sourceId);
       resizeObserver.observe(element);
+      onDirty?.();
     },
 
     untrackSource(sourceId) {
@@ -342,6 +373,10 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
 
     get dirtyCount() {
       return dirty.size;
+    },
+
+    get pending() {
+      return dirty.size > 0 || dirtySources.size > 0 || viewportDirty;
     },
 
     destroy() {

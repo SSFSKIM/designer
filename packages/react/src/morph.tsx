@@ -404,8 +404,10 @@ function MatchedGeometryMorph(props: GlassMorphProps): ReactNode {
         settledRef.current = false;
         setMorphing(true);
       }
+      // Frames are drawn on demand, and the drivers now have somewhere to go.
+      ticker.requestFrame();
     },
-    [anchorRect, contentSize, drivers, gap, openProfile, openRadius, openThickness, placement, profile, radius, thickness],
+    [anchorRect, contentSize, drivers, gap, openProfile, openRadius, openThickness, placement, profile, radius, thickness, ticker],
   );
 
   /**
@@ -423,9 +425,11 @@ function MatchedGeometryMorph(props: GlassMorphProps): ReactNode {
     return ticker.subscribe(() => {
       const width = content.offsetWidth;
       const height = content.offsetHeight;
-      if (width === 0 || height === 0) return;
+      // Not laid out yet: try again on the next frame.
+      if (width === 0 || height === 0) return true;
       setClosedSize({ width, height });
       setPinned(true);
+      return false;
     });
   }, [content, pinned, ticker]);
 
@@ -515,9 +519,11 @@ function MatchedGeometryMorph(props: GlassMorphProps): ReactNode {
       // the shape drivers, and a predicate blind to them calls it settled on the
       // frame it starts.
       const settled = Object.values(drivers).every((driver) => driver.settled);
-      if (settled === settledRef.current) return;
+      // Frames on demand: another one while any channel is still travelling.
+      const travelling = !settled || !machine.settled;
+      if (settled === settledRef.current) return travelling;
       settledRef.current = settled;
-      if (!settled) return;
+      if (!settled) return true;
 
       setMorphing(false);
       machine.applyFlags({
@@ -531,6 +537,8 @@ function MatchedGeometryMorph(props: GlassMorphProps): ReactNode {
       // mid-flight is the seam the overlay plane exists to avoid.
       if (!openRef.current && handle.plane !== plane) handle.promoteTo(plane);
       onMorphEndRef.current?.(openRef.current);
+      // The flags just sent the machine back to rest, which is travel of its own.
+      return !machine.settled;
     });
   }, [drivers, handle, machine, pinned, plane, ticker, writeGeometry]);
 
@@ -982,7 +990,8 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
     else fade.retarget(target);
     setMorphing(!arrived());
     writeContent();
-  }, [arrived, fade, instant, materialized, open, writeContent]);
+    ticker.requestFrame();
+  }, [arrived, fade, instant, materialized, open, ticker, writeContent]);
 
   /**
    * Measure each end once, on a frame.
@@ -999,14 +1008,19 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
     const pending = closedSize === null || (mounted && openSize === null);
     if (!pending) return;
     return ticker.subscribe(() => {
+      let waiting = false;
       if (closedSize === null) {
         const size = sizeOf(sourceContent);
         if (size !== null) setClosedSize(size);
+        else waiting = true;
       }
       if (mounted && openSize === null) {
         const size = sizeOf(openContent);
         if (size !== null) setOpenSize(size);
+        else waiting = true;
       }
+      // An end not laid out yet is measured on a later frame.
+      return waiting;
     });
   }, [closedSize, mounted, openContent, openSize, sourceContent, ticker]);
 
@@ -1021,7 +1035,7 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
 
       if (!arrived()) {
         setMorphing(true);
-        return;
+        return true;
       }
       setMorphing(false);
 
@@ -1040,6 +1054,7 @@ function MaterializeMorph(props: GlassMorphProps): ReactNode {
         pendingEnd.current = null;
         onMorphEndRef.current?.(end);
       }
+      return false;
     });
   }, [arrived, fade, motionProfile, ticker, writeContent]);
 

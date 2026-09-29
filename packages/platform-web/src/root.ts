@@ -190,10 +190,12 @@ import {
 } from "./optics";
 import {
   BACKDROP_TONE_CADENCE_MS,
+  backdropReadingDue,
   sampleBackdropTone,
   createBackdropSnapshotReader,
   silhouetteBackdropTone,
   type BackdropSnapshot,
+  type BackdropSourceLiveness,
   type BackdropToneSample,
   type BackdropSilhouette,
 } from "./backdrop-tone";
@@ -213,6 +215,7 @@ import {
 } from "./probe";
 import { accessibilityRefractionCap, effectiveRefraction } from "./refraction";
 import {
+  backdropTextureIsLive,
   createGlassRendererBridge,
   type GlassBackdropTexture,
   type GlassRendererBridge,
@@ -531,12 +534,29 @@ export interface GlassRoot {
    * pyramid is rebuilt from the dirty-epoch ledger and nothing else, and a supply
    * that did not raise the epoch would sit unimported until something else
    * happened to. That covers the one-shot case — a decoded image handed over
-   * once. A **video or canvas** source changes every frame by kind, and the frame
-   * loop re-marks those itself, so an app does not re-mark them per frame either.
+   * once, including one still decoding, which is marked again when it loads.
    *
-   * A no-op on a CSS-tier root, so an app can call it unconditionally.
+   * A **playing video** and a **live canvas** (the default) change on any frame by
+   * kind, so the frame loop re-marks those itself and keeps drawing while they
+   * are supplied. A paused video is marked on its own events (seeked, loaded,
+   * resized, played). A canvas supplied `live: false` is marked by its owner
+   * through `markBackdropSourceDirty` after each repaint, and costs nothing
+   * between repaints.
+   *
+   * The GPU tier's import is a no-op on a CSS-tier root, so an app can call this
+   * unconditionally; the CSS tier still reads the pixels for the backdrop tone.
    */
   setBackdropTexture(sourceId: string, texture: GlassBackdropTexture | undefined): void;
+  /**
+   * Declare that a supplied texture's pixels changed: the next frame re-imports
+   * them on the GPU tier and re-reads the backdrop tone on both, and a frame is
+   * scheduled to do it.
+   *
+   * The owner's half of `live: false`. A canvas repainted only when something on
+   * it moves marks once per repaint, so a still page stops drawing. Marking a
+   * source this root has not been told about is a no-op.
+   */
+  markBackdropSourceDirty(sourceId: string): void;
   registerGroup(descriptor: Omit<GlassGroupDescriptor, "backdropSourceId"> & {
     readonly backdropSourceId?: string;
   }): void;
@@ -610,6 +630,24 @@ export interface GlassRoot {
 
   /** Run one frame by hand. `start()` runs them from rAF instead. */
   runFrame(timeMs?: number): FrameReport;
+  /**
+   * Ask for a frame. Frames are drawn on demand: a started root schedules one
+   * when something it can see changes — the scene, a host's box or channels, a
+   * backdrop source, the material, a preference — keeps drawing while a driver
+   * travels, a readback is on its way or a live source is supplied, and stops
+   * when none of that is true. An unchanged page therefore costs nothing.
+   *
+   * This is the way in for everything else: state an adapter keeps of its own,
+   * written somewhere the root does not watch. Idempotent, cheap, and safe to call
+   * from anywhere, including inside a frame (the next one is scheduled).
+   */
+  requestFrame(): void;
+  /**
+   * Whether another frame has work to do — the demand the loop acts on. On a
+   * started root it is true exactly while a frame is scheduled; on a root stepped
+   * by hand it says whether the next `runFrame` would change anything.
+   */
+  readonly framePending: boolean;
   renderInput(): GlassFrameRenderInput | undefined;
   /**
    * Join this root's frame loop. Returns the unsubscribe.
@@ -627,7 +665,18 @@ export interface GlassRoot {
    * observe is the frame's settled result rather than a half-run scene. `deltaMs`
    * is the gap since this root's previous frame and is `0` on the first one; a
    * caller that integrates motion should cap it rather than trust it, because a
-   * backgrounded tab delivers an arbitrarily large first step on return.
+   * backgrounded tab delivers an arbitrarily large first step on return. A frame
+   * drawn after the loop has been idle reports one frame's interval rather than
+   * the whole idle gap, so motion that starts then takes the step it would have
+   * taken on a loop that never stopped.
+   *
+   * Frames are drawn on demand (`requestFrame`), and a listener is part of the
+   * demand: returning `false` says it needs no further frame, and anything else —
+   * including returning nothing — keeps the root drawing on every frame, which is
+   * what every listener written before demand-driven frames expects. A listener
+   * whose work is done until something changes returns `false`, and calls
+   * `requestFrame` when it has something to do again. Subscribing schedules a
+   * frame, so a new listener is always called at least once.
    *
    * A listener that throws is reported as `frame-listener-failed` and
    * unsubscribed — one adapter's bad frame must not stop the material from
@@ -646,8 +695,13 @@ export interface GlassRoot {
  * account of its own phases, and a listener that read it would be coupled to
  * core's phase model rather than to the passage of time. Everything else a
  * listener needs is already reachable from the root it subscribed to.
+ *
+ * The return value is read for one thing: `false` means this listener needs no
+ * further frame (see `GlassRoot.subscribe`). It is typed `unknown` rather than
+ * `boolean | void` so that a listener written as an expression — `() => count++`
+ * — still type-checks and keeps the per-frame behaviour it was written for.
  */
-export type GlassFrameListener = (frame: GlassFrameTick) => void;
+export type GlassFrameListener = (frame: GlassFrameTick) => unknown;
 
 export interface GlassFrameTick {
   /** The frame's ordinal on this root, from 1. */
@@ -1003,7 +1057,57 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     deviceHealth: "ok",
   };
 
-  const scene = createGlassScene({ platform: probe, diagnostics: coreDiagnostics, devMode });
+  /*
+   * Frames on demand (#48; the demand-driven frames spec).
+   *
+   * The loop used to re-arm `requestAnimationFrame` unconditionally, so a page
+   * whose glass had not changed in minutes still ran all five phases, re-imported
+   * its canvas backdrop and redrew every plane sixty times a second — 36–49 % of a
+   * core on the GPU tier and 8–12 % on the CSS tier, measured on a static page.
+   * Now a frame runs because something asked for one:
+   *
+   * - the scene changed (`onChange` below), outside the part of a frame that
+   *   already covers it;
+   * - a host's box, a source's box or the viewport was marked (`geometry`), a
+   *   host's inline channels were written (`hostStyles`), the window's focus
+   *   moved, a preference or the material changed, a source's pixels were marked,
+   *   a readback's cadence ran out (`scheduleToneRefresh`);
+   * - or the last frame left work only a later one can finish — a driver still
+   *   travelling, a readback on its way, a live source, a listener that did not
+   *   return `false` (the participant's `pending` and `runFrame`).
+   *
+   * `demand` is that one bit. It is set by anything that asks, cleared when a
+   * frame starts, and set again at the end of the frame if the frame left work.
+   * A started root keeps exactly one frame scheduled while it is set and none
+   * while it is not.
+   */
+  let demand = true;
+  let running = false;
+  let inFrame = false;
+  let rafHandle: number | undefined;
+  /** Set when the loop went idle, so the next frame knows it is a wake rather than a continuation. */
+  let idle = true;
+  const requestFrame = (): void => {
+    demand = true;
+    if (inFrame || !running || rafHandle !== undefined) return;
+    rafHandle = view.requestAnimationFrame(loop);
+  };
+
+  const scene = createGlassScene({
+    platform: probe,
+    diagnostics: coreDiagnostics,
+    devMode,
+    // The collect and read phases are covered by the frame they happen in — the
+    // scene resolves at the top of `update`, after both — so a bound measured in
+    // `read` is not a reason for another frame. Everything else is: a change
+    // from `update` on lands after this frame resolved, and one outside a frame
+    // lands before the next.
+    onChange: () => {
+      const phase = scene.framePhase;
+      if (phase === "collect" || phase === "read") return;
+      requestFrame();
+    },
+  });
   scene.registerBackdropSource({ id: DEFAULT_DOM_SOURCE_ID, kind: "dom" });
 
   const scheduler = createFrameScheduler({ scene });
@@ -1027,9 +1131,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   let staleProbes: Set<string> | "all" = "all";
   let renderInput: GlassFrameRenderInput | undefined;
   let frameId = 0;
-  let rafHandle: number | undefined;
 
-  const geometry: GeometrySync = createGeometrySync({ scene, meter, window: view });
+  const geometry: GeometrySync = createGeometrySync({
+    scene,
+    meter,
+    window: view,
+    onDirty: requestFrame,
+  });
 
   const accessibilityFeed: AccessibilityFeed = observeAccessibilityPreferences({
     matcher: options.matcher ?? browserMediaMatcher(view),
@@ -1195,7 +1303,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   let schemeSetting: GlassColorScheme = options.colorScheme ?? "light";
   let hostProfile: RendererMaterialProfile | undefined = options.materialProfile;
   let activationSetting: GlassWindowActivation = options.windowActivation ?? "auto";
-  const activationFeed = observeWindowActivation(view);
+  const activationFeed = observeWindowActivation(view, requestFrame);
   let resolvedActivation = resolveWindowActivation(activationSetting, activationFeed.read());
   const colorSchemeFeed: ColorSchemeFeed = observeColorScheme({
     // On the SUPPLIED window, for the reason the device-ratio feed states: a root
@@ -1328,9 +1436,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * alpha would be re-opening K5's gap by hand.
    *
    * Nothing is marked dirty afterwards, and nothing needs to be: the write phase
-   * rebuilds every host's declarations from these bindings on every frame and
-   * writes what its serialised diff says has changed. A scheme flip therefore
-   * lands on the next frame, on whichever tier is drawing.
+   * rebuilds every host's declarations from these bindings on every frame it runs
+   * and writes what its serialised diff says has changed. A frame is requested,
+   * so a scheme flip lands on the next one, on whichever tier is drawing.
    */
   const applyMaterialProfile = (profile: RendererMaterialProfile | undefined): void => {
     /*
@@ -1358,6 +1466,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     sizeConstants = sourceSize(profile);
     outerShadowConstants = sourceOuterShadow(profile);
     rimTintChromaConstant = resolvedRimTintChroma(profile);
+    // Both tiers re-derive on the next frame, so there has to be one.
+    requestFrame();
     /*
      * The renderer's own patch takes the *resolved* profile too, so the GPU tier
      * and this one are always drawing the same material.
@@ -1387,24 +1497,57 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     { readonly epoch: number; readonly atMs: number; readonly sample: BackdropToneSample | undefined }
   >();
   /**
+   * How a supplied source's pixels can change (`BackdropSourceLiveness`): an
+   * image only when marked, a live canvas or a playing video on any frame, and a
+   * canvas supplied `live: false` or a paused video when marked.
+   */
+  const livenessOf = (texture: GlassBackdropTexture): BackdropSourceLiveness =>
+    texture.kind === "image" ? "static" : backdropTextureIsLive(texture) ? "live" : "marked";
+
+  /**
+   * A frame at `atMs`, for a tone reading the cadence held back.
+   *
+   * A reading that is not due yet may still be stale — a live source moved on, or
+   * a mark landed inside the cadence — and on a root drawing on demand nothing
+   * else would draw the frame that takes it. One timer, for the earliest reading
+   * owed; a frame that runs before it simply takes the reading early.
+   */
+  let toneRefresh: { readonly atMs: number; readonly handle: ReturnType<Window["setTimeout"]> } | undefined;
+  const scheduleToneRefresh = (atMs: number): void => {
+    if (toneRefresh !== undefined && toneRefresh.atMs <= atMs) return;
+    if (toneRefresh !== undefined) view.clearTimeout(toneRefresh.handle);
+    const delay = Math.max(0, atMs - (view.performance?.now() ?? 0));
+    toneRefresh = {
+      atMs,
+      handle: view.setTimeout(() => {
+        toneRefresh = undefined;
+        requestFrame();
+      }, delay),
+    };
+  };
+
+  /**
    * The source's tone, re-read when its content can have changed and no more
    * often than `BACKDROP_TONE_CADENCE_MS`.
    *
-   * **"Can have changed" is a property of the source kind, not of the ledger**,
+   * **"Can have changed" is a property of the source, not of the ledger alone**,
    * and that distinction is a defect this got wrong once. An `image` source is
    * one decode: it changes only when the app hands over a different texture,
    * which clears this cache directly, so the dirty epoch is a complete account of
-   * it. A `canvas` or `video` source is *content the app is drawing*, and on a
-   * CSS-tier root nothing marks its epoch at all — there is no pyramid to rebuild
-   * — so an epoch-only rule read the tone once at first paint and froze it there
-   * forever. Measured on the demo: three surfaces stuck on the tone of a section
-   * the reader had already scrolled past.
+   * it. A live `canvas` or a playing `video` is *content the app is drawing*
+   * without saying so, and on a CSS-tier root nothing marks its epoch at all —
+   * there is no pyramid to rebuild — so an epoch-only rule read the tone once at
+   * first paint and froze it there forever. Measured on the demo: three surfaces
+   * stuck on the tone of a section the reader had already scrolled past. A canvas
+   * supplied `live: false` does say so, through `markBackdropSourceDirty`, and is
+   * re-read only when marked.
    *
-   * So a live source is re-read on the cadence regardless of its epoch, and that
-   * cadence is what keeps it affordable: a per-frame `getImageData` of a
-   * page-sized backdrop would be a real cost for a number that moves slowly, and
-   * the GPU tier's own analysis readback makes the same judgement about the same
-   * quantity.
+   * So a live source is re-read on the cadence regardless of its epoch, a marked
+   * one on a new epoch but no more often than the cadence, and the cadence is
+   * what keeps either affordable: a per-frame `getImageData` of a page-sized
+   * backdrop would be a real cost for a number that moves slowly, and the GPU
+   * tier's own analysis readback makes the same judgement about the same
+   * quantity. A reading the cadence holds back schedules the frame that takes it.
    *
    * The first read is never delayed either way: a surface must not paint
    * unadapted and change its mind a quarter of a second later.
@@ -1416,11 +1559,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const held = backdropTones.get(sourceId);
     const now = view.performance?.now() ?? 0;
     if (held !== undefined) {
-      const stale = texture.kind === "image" ? held.epoch !== epoch : true;
-      if (!stale || now - held.atMs < BACKDROP_TONE_CADENCE_MS) return held.sample;
+      const reading = backdropReadingDue(livenessOf(texture), held, epoch, now);
+      if (reading.retryAtMs !== undefined) scheduleToneRefresh(reading.retryAtMs);
+      if (!reading.due) return held.sample;
     }
     const sample = sampleBackdropTone(texture);
     backdropTones.set(sourceId, { epoch, atMs: now, sample });
+    // A live source is owed its next reading a cadence from now, whether or not
+    // anything else draws a frame by then.
+    if (livenessOf(texture) === "live") scheduleToneRefresh(now + BACKDROP_TONE_CADENCE_MS);
     return sample;
   };
   const sourceSnapshots = new Map<string, ReturnType<typeof createBackdropSnapshotReader>>();
@@ -1431,9 +1578,35 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     readonly sample: BackdropToneSample | undefined;
   }>();
   const cssBackdropAbscissae = new Map<string, readonly SurfaceBackdropToneAbscissa[]>();
-  /** Geometry invalidation reuses shared pixels without adding any layout reads. */
+  /**
+   * Where each source's surfaces sit this frame, for the one read that serves
+   * them all: the union of the measured boxes of every host whose group samples
+   * the source. Rebuilt per frame (`write`), on first use per source.
+   */
+  let surfaceRegions = new Map<string, Rect | undefined>();
+  const surfaceRegionOf = (sourceId: string): Rect | undefined => {
+    if (surfaceRegions.has(sourceId)) return surfaceRegions.get(sourceId);
+    let region: Rect | undefined;
+    for (const record of hosts.values()) {
+      if (scene.glassGroup(record.groupId)?.descriptor.backdropSourceId !== sourceId) continue;
+      const bounds = scene.glassNode(record.nodeId)?.bounds;
+      if (bounds === undefined || bounds.width <= 0 || bounds.height <= 0) continue;
+      region = region === undefined ? bounds : unionRect(region, bounds);
+    }
+    surfaceRegions.set(sourceId, region);
+    return region;
+  };
+
+  /**
+   * Geometry invalidation reuses shared pixels without adding any layout reads.
+   * The pixels are the part of the source under the surfaces — their bounding
+   * rect plus the group's sampling padding (`createBackdropSnapshotReader`) — not
+   * the whole source, which on a board canvas was 2880×1800 device px read back
+   * four times a second for a toolbar.
+   */
   const silhouetteToneFor = (
     sourceId: string, surfaceId: string, silhouette: BackdropSilhouette, now: number,
+    paddingCss: number,
   ): BackdropToneSample | undefined => {
     const texture = suppliedTextures.get(sourceId);
     if (texture === undefined) return undefined;
@@ -1442,13 +1615,25 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       reader = createBackdropSnapshotReader();
       sourceSnapshots.set(sourceId, reader);
     }
-    const snapshot = reader(texture, scene.backdropSource(sourceId)?.dirtyEpoch ?? 0, now);
+    const surfaces = surfaceRegionOf(sourceId);
+    const around = surfaces === undefined ? silhouette.bounds : unionRect(surfaces, silhouette.bounds);
+    const region: Rect = {
+      x: around.x - paddingCss,
+      y: around.y - paddingCss,
+      width: around.width + 2 * paddingCss,
+      height: around.height + 2 * paddingCss,
+    };
+    const { snapshot, retryAtMs } = reader(
+      texture, scene.backdropSource(sourceId)?.dirtyEpoch ?? 0, now, livenessOf(texture),
+      silhouette, region,
+    );
+    if (retryAtMs !== undefined) scheduleToneRefresh(retryAtMs);
     const geometryKey = JSON.stringify(silhouette);
     const held = surfaceBackdropTones.get(surfaceId);
     if (held !== undefined && held.sourceId === sourceId && held.snapshot === snapshot &&
         held.geometryKey === geometryKey) return held.sample;
     const sample = snapshot === undefined ? undefined : silhouetteBackdropTone(
-      snapshot.data, snapshot.width, snapshot.height, silhouette,
+      snapshot.data, snapshot.width, snapshot.height, silhouette, snapshot.window,
     );
     surfaceBackdropTones.set(surfaceId, { sourceId, snapshot, geometryKey, sample });
     return sample;
@@ -1734,6 +1919,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     );
     if (!external) return;
     staleProbes = "all";
+    // The re-audit happens inside a frame, where its reads are counted.
+    requestFrame();
     /*
      * The geometry clip chain goes stale on exactly the same events (Decision
      * Log #41(k)): an app style change can add or remove an `overflow` on an
@@ -1761,6 +1948,24 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     attributeFilter: ["style", "class"],
     subtree: true,
   });
+
+  /**
+   * Every write to a registered host's inline style, as a request for a frame.
+   *
+   * The channels are the host's inline custom properties (`channels.ts`), read in
+   * the write phase, and they are a documented styling surface: a binding's
+   * spring, or an app driving its own motion, reaches the compositor by writing
+   * them, and neither has any other way to tell the root. The probe's observer
+   * above deliberately ignores everything inside the glass root, which is where
+   * hosts live, so this one watches the hosts themselves — the element only, not
+   * its subtree, and only `style`.
+   *
+   * The root's own writes during a frame — presence, the CSS tier's declarations
+   * — are taken off the queue at the end of the frame (`runFrame`), so a frame
+   * never schedules its successor by drawing. A listener's writes after the frame
+   * are not taken, and schedule the frame that draws them.
+   */
+  const hostStyles = new MutationObserver(() => requestFrame());
 
   /** The element that shows a supplied texture's pixels, where the texture is one. */
   const sourceElementOf = (texture: GlassBackdropTexture): Element | undefined => {
@@ -1814,9 +2019,51 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     });
   };
 
+  /**
+   * The owner's mark (`GlassRoot.markBackdropSourceDirty`). The scene's epoch is
+   * the whole of it: the GPU tier rebuilds from that ledger, the CSS tier's tone
+   * readings compare against it, and raising it schedules the frame that does
+   * both.
+   */
+  const markBackdropSourceDirty = (sourceId: string): void => {
+    if (scene.backdropSource(sourceId) === undefined) return;
+    scene.markBackdropSourceDirty(sourceId);
+  };
+
+  /**
+   * The events on which a supplied element's pixels change without anyone
+   * marking them: an image finishing its decode, a paused video seeking, loading
+   * or resizing, and a video starting or stopping — the edges of the stretch in
+   * which the frame loop marks it itself (`backdropTextureIsLive`).
+   *
+   * Before frames were drawn on demand the loop found all of these by drawing
+   * every frame; an idle root has to be told.
+   */
+  const TEXTURE_EVENTS: Readonly<Record<"image" | "video", readonly string[]>> = {
+    image: ["load"],
+    video: ["loadeddata", "seeked", "resize", "play", "playing", "pause", "ended", "emptied"],
+  };
+  const textureWatches = new Map<string, () => void>();
+  const watchTextureElement = (sourceId: string, texture: GlassBackdropTexture | undefined): void => {
+    textureWatches.get(sourceId)?.();
+    textureWatches.delete(sourceId);
+    if (texture === undefined || texture.kind === "canvas") return;
+    const element: unknown = texture.kind === "image" ? texture.image : texture.video;
+    // An `ImageBitmap` is decoded by construction and has no events.
+    if (typeof element !== "object" || element === null || !("addEventListener" in element)) return;
+    const target = element as EventTarget;
+    const onEvent = (): void => markBackdropSourceDirty(sourceId);
+    const events = TEXTURE_EVENTS[texture.kind];
+    for (const type of events) target.addEventListener(type, onEvent);
+    textureWatches.set(sourceId, () => {
+      for (const type of events) target.removeEventListener(type, onEvent);
+    });
+  };
+
   const write = (frame: FrameInfo, resolution: FrameReport["resolution"]): void => {
     // All silhouettes in this frame share the same source-cadence boundary.
     const toneSampleTime = view.performance?.now() ?? 0;
+    surfaceRegions = new Map();
     const viewport = geometry.viewport;
     if (viewport !== undefined) {
       layers.resizeCanvases(viewport.width, viewport.height, viewport.devicePixelRatio);
@@ -2381,7 +2628,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           ? silhouetteToneFor(sourceId, record.nodeId, {
               bounds, radius: record.radii[0], viewport,
               ...(placement === undefined ? {} : { placement }),
-            }, toneSampleTime) ?? groupBackdropTone
+            }, toneSampleTime, sampling.samplingPadding) ?? groupBackdropTone
           : groupBackdropTone;
         if (silhouetteAbscissa && declaredLuminance !== undefined && backdropTone !== undefined) {
           cssAbscissae.push({
@@ -3229,14 +3476,18 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // (§Core model's invariant). Consuming it on a CSS root would be pointless
       // work, so only a wired bridge asks.
       if (bridge !== undefined && renderInput !== undefined) {
-        // A video's imported external texture expires at task end and a live
-        // canvas is repainted by its owner, so both are stale by the time the
-        // next frame samples them. Nothing else marks them: the app is not
-        // required to re-mark a source per frame, and before this a video froze
-        // on its first imported frame forever.
-        for (const sourceId of bridge.perFrameBackdropSources()) {
-          if (scene.backdropSource(sourceId) !== undefined) {
-            scene.markBackdropSourceDirty(sourceId);
+        // A playing video advances and a live canvas is repainted by its owner, so
+        // both are stale by the time the next frame samples them. Nothing else
+        // marks them: the app is not required to re-mark a source per frame, and
+        // before this a video froze on its first imported frame forever. Marked
+        // only while the bridge is drawing — there is nothing to import into
+        // before that — and the mark is also what keeps a root with a live source
+        // drawing: it is a change after this frame resolved.
+        if (bridge.active) {
+          for (const sourceId of bridge.perFrameBackdropSources()) {
+            if (scene.backdropSource(sourceId) !== undefined) {
+              scene.markBackdropSourceDirty(sourceId);
+            }
           }
         }
         // The thunk, not the set: consuming commits `builtEpoch`, so the decision
@@ -3260,6 +3511,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         }
       }
     },
+    /*
+     * What this frame left for a later one: a host's presence or ink still in
+     * transit, something marked for the next read phase, or the renderer's own
+     * work in flight. A change is not asked about here — changes schedule frames
+     * as they happen.
+     */
+    pending: () => {
+      if (geometry.pending) return true;
+      for (const record of hosts.values()) {
+        if (!record.presence.settled || !record.foregroundTone.settled) return true;
+      }
+      return bridge?.framesPending() === true;
+    },
   });
 
   const frameListeners = new Set<GlassFrameListener>();
@@ -3268,44 +3532,98 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const runFrame = (timeMs?: number): FrameReport => {
     frameId += 1;
     const at = timeMs ?? 0;
-    const report = scheduler.runFrame({ id: frameId, timeMs: at });
+    // Cleared at the top: anything that asks from here on — a change after the
+    // frame resolved, a listener's write — asks for the NEXT frame.
+    demand = false;
+    inFrame = true;
+    let listenersWantMore = false;
+    try {
+      const report = scheduler.runFrame({ id: frameId, timeMs: at });
+      // This frame's own writes to its hosts are what it drew, not a request to
+      // draw again (`hostStyles`).
+      hostStyles.takeRecords();
 
-    // After the frame, so a listener observes a settled scene. Snapshotted
-    // because a listener may unsubscribe itself or another one mid-notify.
-    const deltaMs = lastFrameTimeMs === undefined ? 0 : at - lastFrameTimeMs;
-    lastFrameTimeMs = at;
-    const tick: GlassFrameTick = { id: frameId, timeMs: at, deltaMs };
-    for (const listener of [...frameListeners]) {
-      if (!frameListeners.has(listener)) continue;
-      try {
-        listener(tick);
-      } catch (error) {
-        /*
-         * Drop it rather than let it stop the loop. A listener that throws on
-         * one frame throws on every frame, so keeping it subscribed turns one
-         * adapter's bug into an unbounded diagnostic storm and — where the
-         * caller drives frames by hand rather than from rAF — into a thrown
-         * `runFrame`, which stops the material drawing entirely.
-         */
-        frameListeners.delete(listener);
-        platformDiagnostics.report({
-          code: "frame-listener-failed",
-          severity: "error",
-          subjects: [`frame-${String(frameId)}`],
-          message:
-            `A frame listener threw and was unsubscribed: ${describeError(error)}. ` +
-            "Frame listeners run after the scene has settled and must not throw — " +
-            "catch inside the listener and report through your own channel.",
-        });
+      // After the frame, so a listener observes a settled scene. Snapshotted
+      // because a listener may unsubscribe itself or another one mid-notify.
+      const deltaMs = lastFrameTimeMs === undefined ? 0 : at - lastFrameTimeMs;
+      lastFrameTimeMs = at;
+      const tick: GlassFrameTick = { id: frameId, timeMs: at, deltaMs };
+      for (const listener of [...frameListeners]) {
+        if (!frameListeners.has(listener)) continue;
+        try {
+          if (listener(tick) !== false) listenersWantMore = true;
+        } catch (error) {
+          /*
+           * Drop it rather than let it stop the loop. A listener that throws on
+           * one frame throws on every frame, so keeping it subscribed turns one
+           * adapter's bug into an unbounded diagnostic storm and — where the
+           * caller drives frames by hand rather than from rAF — into a thrown
+           * `runFrame`, which stops the material drawing entirely.
+           */
+          frameListeners.delete(listener);
+          platformDiagnostics.report({
+            code: "frame-listener-failed",
+            severity: "error",
+            subjects: [`frame-${String(frameId)}`],
+            message:
+              `A frame listener threw and was unsubscribed: ${describeError(error)}. ` +
+              "Frame listeners run after the scene has settled and must not throw — " +
+              "catch inside the listener and report through your own channel.",
+          });
+        }
       }
-    }
 
-    return report;
+      if (listenersWantMore || scheduler.pending()) demand = true;
+      return report;
+    } catch (error) {
+      // A frame that threw still owes the page a drawn frame; the loop keeps
+      // trying, as it did before frames were drawn on demand.
+      demand = true;
+      throw error;
+    } finally {
+      inFrame = false;
+      // A frame stepped by hand on a started root, outside the loop, leaves its
+      // demand with nobody to act on it unless it arms the loop itself. Inside the
+      // loop this is a no-op: the loop has already armed.
+      if (demand) requestFrame();
+    }
   };
 
+  /**
+   * One frame's interval, as the loop last measured it, for the first frame after
+   * the loop has been idle. That frame's real gap is however long nothing
+   * happened; handed to the drivers, a press or a morph starting then would take
+   * its first step capped at the frame policy's limit instead of the step it
+   * takes on a loop that never stopped.
+   */
+  let frameIntervalMs = 1000 / 60;
+
   const loop = (timeMs: number): void => {
-    rafHandle = view.requestAnimationFrame(loop);
-    runFrame(timeMs);
+    /*
+     * Re-armed before the frame runs and withdrawn after it if the frame left no
+     * demand, rather than armed only once the answer is known. Callbacks run in
+     * the order they were requested, so arming first keeps this root's frame
+     * ahead of whatever the page requests from inside it — the order an app's
+     * own rAF work saw against a loop that re-armed unconditionally, and one a
+     * per-frame trace of a channel depends on.
+     */
+    rafHandle = running ? view.requestAnimationFrame(loop) : undefined;
+    if (idle) {
+      if (lastFrameTimeMs !== undefined) lastFrameTimeMs = timeMs - frameIntervalMs;
+    } else if (lastFrameTimeMs !== undefined) {
+      const interval = timeMs - lastFrameTimeMs;
+      if (interval > 0 && interval <= 100) frameIntervalMs = interval;
+    }
+    idle = false;
+    try {
+      runFrame(timeMs);
+    } finally {
+      if ((!demand || !running) && rafHandle !== undefined) {
+        view.cancelAnimationFrame(rafHandle);
+        rafHandle = undefined;
+      }
+      if (rafHandle === undefined) idle = true;
+    }
   };
 
   const root: GlassRoot = {
@@ -3341,6 +3659,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     setBackdropTexture(sourceId, texture) {
       bridge?.setBackdropTexture(sourceId, texture);
+      watchTextureElement(sourceId, texture);
       sourceSnapshots.delete(sourceId);
       for (const [surfaceId, held] of surfaceBackdropTones) {
         if (held.sourceId === sourceId) surfaceBackdropTones.delete(surfaceId);
@@ -3365,7 +3684,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       if (texture !== undefined && scene.backdropSource(sourceId) !== undefined) {
         scene.markBackdropSourceDirty(sourceId);
       }
+      // A withdrawal, or a source the scene has not been told about yet, marks
+      // nothing — and still changes what the next frame draws.
+      requestFrame();
     },
+
+    markBackdropSourceDirty,
 
     registerGroup(descriptor) {
       scene.registerGlassGroup({
@@ -3521,6 +3845,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         ...(hostOptions.foreground === undefined ? {} : { foreground: hostOptions.foreground }),
       });
       geometry.track({ nodeId, element: hostOptions.host });
+      hostStyles.observe(hostOptions.host, { attributes: true, attributeFilter: ["style"] });
 
       const handle: GlassHostHandle = {
         nodeId,
@@ -3648,6 +3973,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         release() {
           geometry.untrack(nodeId);
           hosts.delete(nodeId);
+          // A MutationObserver cannot let go of one target, so it lets go of all of
+          // them and takes back the hosts still registered. Nothing it drops is
+          // lost: the removal below is itself a change, and schedules a frame.
+          hostStyles.disconnect();
+          for (const other of hosts.values()) {
+            hostStyles.observe(other.host, { attributes: true, attributeFilter: ["style"] });
+          }
           surfaceBackdropTones.delete(nodeId);
           scene.removeGlassNode(nodeId);
           for (const attribute of Object.values(HOST_ATTRIBUTES)) {
@@ -3730,6 +4062,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     setWindowActivation(value) {
       activationSetting = value;
+      // Invalidating the reading requests the frame that re-reads it.
       activationFeed.invalidate();
     },
 
@@ -3767,27 +4100,41 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     runFrame,
     renderInput: () => renderInput,
+    requestFrame,
+
+    get framePending() {
+      return demand;
+    },
 
     subscribe(listener) {
       frameListeners.add(listener);
+      // A new listener is owed a frame, whatever else is going on.
+      requestFrame();
       return () => {
         frameListeners.delete(listener);
       };
     },
 
     start() {
-      if (rafHandle === undefined) rafHandle = view.requestAnimationFrame(loop);
+      running = true;
+      if (demand) requestFrame();
     },
 
     stop() {
+      running = false;
       if (rafHandle !== undefined) {
         view.cancelAnimationFrame(rafHandle);
         rafHandle = undefined;
       }
+      idle = true;
     },
 
     destroy() {
       root.stop();
+      if (toneRefresh !== undefined) view.clearTimeout(toneRefresh.handle);
+      toneRefresh = undefined;
+      for (const sourceId of [...textureWatches.keys()]) watchTextureElement(sourceId, undefined);
+      hostStyles.disconnect();
       styleObserver.disconnect();
       accessibilityFeed.stop();
       devicePixelRatioFeed.stop();

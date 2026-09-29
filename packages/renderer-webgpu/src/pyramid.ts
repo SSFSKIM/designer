@@ -241,6 +241,12 @@ export interface PyramidStore {
   requestStats(sourceId: string, encoder: GPUCommandEncoder): boolean;
   /** Resolve any completed stats readbacks. Returns what arrived. */
   collectStats(): Promise<ReadonlyMap<string, BackdropStats>>;
+  /**
+   * Whether a stats readback is queued, mapping, or mapped and not yet collected.
+   * Each of those resolves only if frames keep coming: the map needs the queue to
+   * drain, and the collection runs after a frame.
+   */
+  readonly readbacksPending: boolean;
   forget(sourceId: string): void;
   destroy(): void;
 }
@@ -816,6 +822,14 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         return { status: "duplicate" };
       }
 
+      // A newer epoch is the owner saying the pixels changed. A provider holding
+      // its own copy would otherwise rebuild the pyramid from the copy it already
+      // had — right for a decoded image nobody repaints, wrong for a canvas that
+      // is not `live` and is marked on each repaint instead.
+      if (existing === undefined || existing.builtEpoch < request.epoch) {
+        provider.markContentChanged?.();
+      }
+
       let frame: BackdropFrame;
       try {
         frame = provider.acquire({ id: frameId, timeMs: 0 });
@@ -981,6 +995,12 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       // `afterSubmit`.
       pendingMaps.push(sourceId);
       return true;
+    },
+
+    get readbacksPending() {
+      if (pendingMaps.length > 0 || pendingStats.size > 0) return true;
+      for (const slot of readbacks.values()) if (slot.inFlight) return true;
+      return false;
     },
 
     async collectStats() {

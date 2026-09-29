@@ -68,6 +68,16 @@ export interface FrameParticipant {
   readonly update?: (context: FrameContext) => void;
   readonly write?: (context: FrameContext) => void;
   readonly render?: (context: FrameContext) => void;
+  /**
+   * Whether this participant has work that only another frame can finish — a
+   * driver still travelling, a readback still in flight, a live source that
+   * changes by kind. Asked between frames, never during one.
+   *
+   * Absent means "nothing of mine is pending". A host that drives frames on
+   * demand stops when every participant says so and nothing else has changed,
+   * which is what lets an unchanged scene cost nothing at all.
+   */
+  readonly pending?: () => boolean;
 }
 
 export interface FrameReport {
@@ -103,6 +113,14 @@ export interface FrameScheduler {
   removeParticipant(id: string): void;
   readonly participants: readonly FrameParticipant[];
   runFrame(frame: FrameInfo): FrameReport;
+  /**
+   * Whether any participant reports work pending (`FrameParticipant.pending`).
+   *
+   * This is half of "should another frame run". The other half is whether the
+   * scene changed since the last one, which the scene reports through
+   * `GlassSceneOptions.onChange`; core schedules neither.
+   */
+  pending(): boolean;
 }
 
 export interface FrameSchedulerOptions {
@@ -124,6 +142,13 @@ export function createFrameScheduler(options: FrameSchedulerOptions): FrameSched
 
     get participants() {
       return [...participants.values()];
+    },
+
+    pending() {
+      for (const participant of participants.values()) {
+        if (participant.pending?.() === true) return true;
+      }
+      return false;
     },
 
     runFrame(frame) {

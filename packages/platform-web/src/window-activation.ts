@@ -25,14 +25,20 @@ export function setWindowActivation(root: GlassRoot, value: GlassWindowActivatio
  * separate fact: a visible window can be unfocused. All handles come from the
  * supplied window, so importing this module never needs a browser global.
  */
-export function observeWindowActivation(view: Window): {
+export function observeWindowActivation(view: Window, onInvalidate?: () => void): {
   read(): boolean;
   invalidate(): void;
   stop(): void;
 } {
   let dirty = true;
   let focused = false;
-  const invalidate = (): void => { dirty = true; };
+  // The callback is how a root that draws on demand hears that there is a
+  // reading to take: focus and blur arrive between frames, and nothing else
+  // would schedule the read phase that consumes them.
+  const invalidate = (): void => {
+    dirty = true;
+    onInvalidate?.();
+  };
   view.addEventListener("focus", invalidate);
   view.addEventListener("blur", invalidate);
   return {
