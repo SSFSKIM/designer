@@ -537,6 +537,15 @@ continues directing the wave.
    used it (`w41-g2-css-candidate` `78c4b854`, `css-dl4/STATUS.txt`). Of the routes that
    separate luma slope from chroma gain, a colour matrix inside the reference SVG filter was
    named and not measured.
+   *Next:* only in the wave that lands a light receded-body law on the WebGPU tier (item 1),
+   because the CSS tier derives its carry from the law that lands, in the same wave. Re-derive
+   the solve against that law, then do what `css-dl4/STATUS.txt` lists as not done: the unit
+   tests, with the fallback floor pinned byte-identical; a Chromium CSS capture of G1's 130
+   uniform cells and of the canonical light profiles, scored against native and against the
+   WebGPU tier; and the memo. The capture must include structured backdrops: the candidate
+   evaluates at each surface's luma, so there its luma slope is g where E3's is F′. Measure the
+   reference-filter colour matrix beside the filter-function form before choosing, and record
+   the red bridges' floor cap as a named CSS residual unless the chosen route clears it.
 6. **Evidence volume.** W41 G1 committed about 84 MB packed of operational logs (tracker,
    "A fitting wave's operational logs went into git"). G2 kept its bulk outside git: 288 stage
    captures and matrix at `/Users/new/vitrea-w41/g2-captures/canonical-stage/`, and the full

@@ -6734,14 +6734,18 @@ needed only if a publication lands first.
 ## The full stage recipe adds recorded pressed-state rows that the gated bed does not drop (W41 G2, 2026-09-29)
 
 CLAUDE.md's light recipe (`--set calibration,validation,holdout,recorded,probe`, both tiers,
-four profiles) declares 780 cells. The retired light generation has 509 rows. The extra 271
-are 64 probe and 16 recorded cells per tier that W36's ladder never read, plus the RT/IC probe
-and recorded cells.
+four profiles) declares 780 cells. The retired light generation has 509 rows. The extra 271,
+which W36's ladder never read, are 88 probe and 20 recorded cells on WebGPU and 143 probe and
+20 recorded on CSS. CSS has 55 more probe cells because the retired generation carries the 2x
+standard profile's probe rows on WebGPU only.
 
-Run against the W41 G2 stage, `adopted-thresholds.test.ts` fails four cases on membership,
-not on material:
-- the light gated count (72 → 66) and the texture tier (36 → 30), because the gated-bed filter
-  drops probe and inactive rows but not recorded ones;
+Run against the W41 G2 stage, `adopted-thresholds.test.ts` fails six cases on membership and
+the unread holdout, not on material:
+- the light gated count (72 → 66) and the two texture-tier lengths (36 → 30). Ten unread
+  holdout rows leave each light standard texture tier, and four recorded pressed rows enter
+  it, because the gated-bed filter drops probe and inactive rows but not recorded ones:
+  30 = 20 calibration rest + 6 validation rest + 4 recorded pressed, against main's 20 + 6 +
+  10 holdout rest. Reading the holdout restores the ten; the four are this entry's defect;
 - W20 conformance on recorded `checkerboard__capsule-button__pressed` 1x
   (`declaredContourMaxWeb` 2 > 1);
 - one extra conditioning-predicate exclusion (recorded `photo__rrect-md__pressed` 2x);

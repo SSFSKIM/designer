@@ -43,8 +43,20 @@ from (referee_source.py), plus the inputs the brief names:
 Run commands (from this directory; export OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1)
 ------------------------------------------------------------------------------------------
 STAGE=/Users/new/vitrea-w41/g2-stage-light
-G2=/Users/new/vitrea-w41/g2/packages/calibration/web-captures
+G2=/Users/new/vitrea-w41/g2-captures/canonical-stage/
 CAN=/Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+
+$G2 is the stage captures' archive. They were read from this worktree's web-captures/,
+which was removed at the close (../close/). Every --stage command refuses at the branch head:
+the stage declares the sealed receded document 003940b4c7da, the revert 15478e0f put
+30fbe05986ae back on disk, and referee_source.py refuses a declared document that is not the
+file on disk. Replay stop-reading/ from the pre-revert commit ee859b5a instead:
+  git worktree add --detach /tmp/w41-g2-replay ee859b5a
+  cd /tmp/w41-g2-replay/packages/calibration/results/2026-09-29-w41-g2-landing/referees
+  python3.12 -B black-cut.py --stage $STAGE --captures $G2 --captures $CAN --out OUT/black-cut.json
+black-cut.json comes out byte-identical to stop-reading/'s (fa1c50df…). So do l1-cut.json and
+exterior-cut.txt with the commands below; chroma-cut.json differs only in generatedAt, and
+e2-regression.json only in the captures root it records.
 
 Stage (before publication):
   python3.12 -B chroma-cut.py    --stage $STAGE --out OUT/chroma-cut.json

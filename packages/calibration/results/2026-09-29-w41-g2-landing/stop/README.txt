@@ -6,8 +6,9 @@ Brief step 3: "If a referee fails, stop and report it with the evidence." They f
 What was read. The stage /Users/new/vitrea-w41/g2-stage-light (declared 780 cells, the
 CLAUDE.md recipe; ../canonical/read.py) holds 288 WebGPU rows: the two light standard
 profiles (1x 144, 2x 144), calibration/validation/recorded/probe, at the sealed pair
-85ad7f7e3e0d / 003940b4c7da, captured 2026-09-29T01:20-01:58Z, each launch after a fresh
-X6 pass (../canonical/runs.jsonl). Stage matrix SHA-256
+85ad7f7e3e0d / 003940b4c7da. Launched 2026-09-29T01:20:27Z (1x) and 01:23:56Z (2x), each
+after a fresh X6 pass (../canonical/runs.jsonl); rows captured 01:23:40-01:28:17Z; matrix
+written 01:28:18Z. Stage matrix SHA-256
 3558cee9f7549beb3d502ea1ff5d581cf2ce2498e04ac5cbc7ee4248a162f69a (not committed; scratch
 until publication). The RT and IC WebGPU profiles and the whole CSS tier were refused by
 X6 (a foreign Playwright session, `terminal-review`, launched 10:24 local from the main

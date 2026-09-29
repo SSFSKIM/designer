@@ -82,8 +82,11 @@ def population(native, matrix):
     return dict(sorted(cells.items()))
 
 
-# W41 G2 (c9a §5.193): the pre-W38 light receded document now lives as a retired copy;
-# the one resolver W37's generation check uses binds it here too.
+# W41 G2 (c9a §5.193): W37's generation check resolves a document hash to the live file or a
+# byte-exact copy under a gate's retired-documents/, and E2 binds the same resolver. Since the
+# revert (15478e0f) the live light receded document is main's again, so the pre-W38 cells read
+# it; the resolver is kept so that the archived stage captures, which name the sealed
+# document, can be read.
 document_bytes = repaired.old.document_bytes
 
 

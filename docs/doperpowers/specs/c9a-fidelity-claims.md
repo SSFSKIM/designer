@@ -41464,15 +41464,18 @@ cell: their Candidate column is these shipped pixels.
 ### 3. The canonical read, and the referees that failed
 
 The stage `/Users/new/vitrea-w41/g2-stage-light` declares the CLAUDE.md recipe's **780**
-cells. That is a superset of the retired light generation's 509 rows: it adds 64 probe cells
-and 16 recorded (pressed-state) cells per tier across the four profiles, which W36's read
-never took.
+cells. That is a superset of the retired light generation's 509 rows. The extra **271**,
+across the four profiles, are 88 probe and 20 recorded (pressed-state) cells on WebGPU and
+143 probe and 20 recorded on CSS, which W36's read never took. CSS has 55 more probe cells
+because the retired generation carries the 2x standard profile's probe rows on WebGPU only.
 
-The WebGPU rows of the two light standard profiles were read, **288 cells**, at 01:20–01:58Z.
-The stage matrix's SHA-256 is **3558cee9…**. The captures and matrix are archived outside git
-at `/Users/new/vitrea-w41/g2-captures/canonical-stage/`. X6 then refused the RT/IC WebGPU
-profiles and the whole CSS tier on a foreign Playwright session belonging to another session,
-so nothing was launched for them. No holdout row was read and no generation was published.
+The WebGPU rows of the two light standard profiles were read, **288 cells**. The two
+launches were at 01:20:27Z (1x) and 01:23:56Z (2x), the rows were captured 01:23:40–01:28:17Z,
+and the stage matrix was written at 01:28:18Z. Its SHA-256 is **3558cee9…**. X6 then refused
+the RT/IC WebGPU profiles and the whole CSS tier on a foreign Playwright session belonging to
+another session, so nothing was launched for them. No holdout row was read and no generation
+was published. The captures and matrix were copied at 01:56:55Z to
+`/Users/new/vitrea-w41/g2-captures/canonical-stage/`, outside git.
 
 The referee cuts were ported to W40's generation store (`referees/`). Every port reproduces
 its W36 predecessor at the pre-W41 union: byte-identical for X1 and L1, and otherwise
@@ -41489,10 +41492,14 @@ replaces only the (profile, tier) pairs the stage holds (`referees/stop-reading/
 | **E2** | 212/212 PNGs byte-identical to the pre-W41 baseline, and all 7,728 measured bins at Δ 0. The 42 new probe cells are UNMEASURED, not counted as passes. |
 
 Running `adopted-thresholds.test.ts` itself against a scratch union of the stage gives
-**91 pass, 10 fail**. Six failures are E3's (M2, L1 and their named-miss owners). Four come
-from the stage's larger membership and the unread holdout: gated counts, W20 conformance on
-a recorded pressed cell, one extra conditioning-predicate exclusion, and C1's counts. Every
-case that re-derives a cut from its rows and pixels agrees with the cut.
+**91 pass, 10 fail**. Four failures are E3's: M2, the `MISSED_27_ROWS` names check (the
+same eight light-inactive photo cells), L1 absolute and L1 growth. Six come from the stage's
+larger membership and the unread holdout: the settled-bed count and the two
+`TEXTURE_TIER_27_*` lengths (72 → 66 and 36 → 30: ten unread holdout rows out, four recorded
+pressed rows in), one extra conditioning-predicate exclusion (recorded
+`photo__rrect-md__pressed` 2x), W20 conformance on a recorded pressed cell, and C1's
+contributing-cell counts. Every case that re-derives a cut from its rows and pixels agrees
+with the cut.
 
 ### 4. What the failure is
 
