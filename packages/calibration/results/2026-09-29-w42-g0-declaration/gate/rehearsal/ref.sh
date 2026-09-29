@@ -13,7 +13,9 @@ CAP=()
 IFS=':' read -ra TS <<< "$TREES"
 for t in "${TS[@]}"; do CAP+=(--captures "$t"); done
 CAP+=(--captures /Users/new/Developer/GitHub/designer/packages/calibration/web-captures)
-cd /Users/new/vitrea-w42/g0-gate/packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees
+# The referees beside this script, in whatever checkout holds it (the candidate paths above are
+# repo-relative, and the referees resolve them against their own checkout's root).
+cd "$(dirname "${BASH_SOURCE[0]}")/../referees"
 mkdir -p "$OUT"; rm -f "$OUT"/l1-cut.json "$OUT"/chroma-cut.json "$OUT"/black-cut.json "$OUT"/e2-regression*.json* "$OUT"/exterior-cut.json "$OUT"/m2-rebaseline.json
 python3.12 -B l1-cut.py "${SRC[@]}" --out "$OUT/l1-cut.json" > "$OUT/l1-cut.txt" 2>&1
 python3.12 -B chroma-cut.py "${SRC[@]}" --out "$OUT/chroma-cut.json" > "$OUT/chroma-cut.txt" 2>&1
