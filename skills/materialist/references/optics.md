@@ -173,7 +173,9 @@ dark page can honestly hand a light hint to a surface over a white card.
 
 ## 10. Two variants
 
-`regular` is the answer for reading surfaces. `clear` has a lower nominal tint alpha (0.1)
+`regular` is the answer for reading surfaces, save `SKILL.md` spatial condition 8's reading
+exception, whose measured floor this file's constants do not guarantee. `clear` has a lower
+nominal tint alpha (0.1)
 against the calibrated regular body, but a different, uncalibrated blur (σ 4 against regular's
 1.25). Its rim and specular constants are unfitted; it implements none of Apple's adaptive clear
 contract. Core requires a dimming policy or falls back to regular, and resolves
@@ -183,7 +185,7 @@ fields. The policy alone paints nothing. `DEFAULT_CLEAR_DIMMING` is advisory
 layer into its plane and measures the result. HIG Materials conditionally suggests **dark at 35%**
 over bright content; the `Glass.clear` API example uses **black at 30%**. WWDC25 219 supplies the
 three media/acceptable-dimming/bold-bright-foreground conditions, not a percentage. Never mix
-variants on one page.
+variants on one page at once.
 
 ## 11. A tint is a shade of its seed
 

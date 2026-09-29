@@ -588,5 +588,6 @@ windows: <each window or module, job, span, fixed radius and content; each ornam
   use the role words window, module, ornament, platter, control; environment visible around each>
 fidelity: Apple's macOS material composed in Apple's visionOS way; spans beyond 160 extrapolate
   the fitted laws, not visionOS calibration; any clear optics and page-painted dimming uncalibrated;
+  reading text on clear named as condition 8's exception, with the brief's reason;
   nearest Apple surface and the comparison, or that no native comparison was available
 ```

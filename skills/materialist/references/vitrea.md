@@ -80,7 +80,11 @@ choice is the largest single decision about how real the material can be.
   are two steps because core may hold no `HTMLImageElement`: the prop declares the source, and
   `root.setBackdropTexture(id, { kind: "image" | "canvas" | "video", … })` supplies it, in either
   order. A decoded image is imported once; a canvas or video is re-imported every frame that
-  samples it, which is what makes a painted plane live. **Where the texture lands** is the source
+  samples it, which is what makes a painted plane live. Supply a canvas in the frame that first
+  paints it: one supplied earlier has no pixels, Chromium's WebGPU logs
+  `CopyExternalImageToTexture()` every frame until it does, and no diagnostic names the cause.
+  A new root holds no texture, so after a rebuild or a remount supply it again from the next
+  painted frame. **Where the texture lands** is the source
   element's own box: an in-document `<img>`, `<canvas>` or `<video>` is measured every read phase
   like a host, and the whole texture is fitted to that box, stretched, with no crop and no aspect
   preservation (`uv = (viewport − box.xy) / box.wh`, clamped outside it). So paint and sample agree
@@ -243,7 +247,8 @@ does not.
   here.
 - **Four ink tokens, and what each promises.** Every host publishes `--vitrea-foreground` and its
   `-secondary`, `-tertiary` and `-quaternary`, macOS's label ladder through Apple's vibrancy
-  operator: pure black or pure white at a fixed alpha per level, never a hex. The primary is a
+  operator: pure black or pure white at a fixed alpha per level (under Increase Contrast a solid
+  `light-dark(#000, #fff)`, under forced colours `CanvasText`). The primary is a
   two-token pick and promises no ratio. The secondary holds WCAG 4.5 against the surface the group
   is actually drawing wherever the primary can, and collapses onto the primary where it cannot.
   Tertiary and quaternary carry no body-text floor; quaternary is for separators and decoration.
@@ -251,6 +256,18 @@ does not.
   0.49); these are DRAWN surface levels, not source averages. Grade the plane or author ink
   on a child, then measure; a hint must remain the true input and thickness alone is no guarantee. Read the tokens with your own value as fallback: `color: var(--vitrea-foreground,
   var(--my-ink))`.
+- **Ink for content CSS does not colour.** The tokens are custom properties on the host, inherited
+  by its CSS children and by nothing drawn another way: a canvas, a terminal emulator's theme, a
+  chart's palette, fixed SVG fills. The runtime writes the tokens inline on the host (the handle
+  from `onHost`, or `registerHost`'s return on the vanilla path), so a `MutationObserver` on
+  `handle.host`'s `style` attribute announces every change and draws no frame; a
+  `root.subscribe` listener that returns nothing keeps the root drawing every frame. The raw
+  token is not always a colour: it can be `light-dark(…)` before a level is known and under
+  Increase Contrast, `CanvasText`, or a blend mid-transition. Read it resolved, as the computed
+  `color` of a child styled `color: var(--vitrea-foreground)`, and take the pole by that colour's
+  luminance; under forced colours there is no glass, and the content uses system colours. Design
+  one palette per pole, each colour held to the floor against the body that pole implies at its
+  worst phase, and measure every colour as a text line.
 - **Who owns the label.** vitrea's controls set `vibrant` for themselves. On a `GlassSurface
   asChild` the author opts in with `foreground="vibrant"` (`vibrant: true` on the vanilla handle),
   which raises the ink rule's precedence so it survives a reset such as `button { color: … }`; it
@@ -263,7 +280,9 @@ does not.
   publishes `--vitrea-materialization` in 0..1 on a monotonic 220 ms ease that reverses from its
   current value when interrupted. Fading the host's `opacity` instead creates a backdrop root and
   cuts off sampling. A surface first mounted absent starts at identity with no entrance; keep it
-  mounted and flip `present` to animate one.
+  mounted and flip `present` to animate one. `GlassSegmentedControl` takes no `present` and cannot
+  materialise: on a page whose glass waits absent for its backdrop, mount it once the rest is
+  present, where it appears without the ease rather than drawing early over nothing (tracker).
 - **A morph is one host for the pair's whole life.** `GlassMorph open={…}` with a render prop
   interpolates centre, size, radii, smoothing and thickness on interruptible springs, promoting the
   surface as a unit from `plane` to `openPlane` (defaults `base` to `overlay`). Defaults: radius 14
@@ -463,7 +482,11 @@ texture path the plane's source canvas paints that layer directly, so the glass 
 dimmed pixels the page shows, not an independent CSS overlay it cannot see. HIG Materials suggests
 dark 35% conditionally; the API example uses black 30%; core's default 28% is advisory. Choose and
 measure, record the uncalibrated choice, and do not mix regular windows with clear ornaments.
-Modal dimming is separately painted below a modal task (WWDC25 356), never onto its glass host.
+Under spatial condition 8's reading exception the layer is set per footprint rather than once:
+measure the plane's level under each host, dim toward the ground its text was designed against
+by as much as that level needs, and re-measure as the window moves; feathering the layer inward
+from the edge leaves the rim structure to bend. Modal dimming is separately painted below a modal
+task (WWDC25 356), never onto its glass host.
 
 Read `useGlassCapabilities(id)?.cssBody` or `root.capabilities(id)?.cssBody` on the CSS pass and
 record `two-layer` or `collapsed`, the DPR and the present-host area; a window is not automatically
@@ -493,11 +516,11 @@ Asking for a tier is not getting it, and the readout is how a page finds out whi
 
 ## 8. What the runtime does not catch
 
-The runtime refuses nesting, overlap, tint and variant mixing, non-uniform radii, padding floors,
-proxy overlap, hosts outside their plane, inline transforms, unparseable tints and backdrop-root
-breaks (`filter`, `backdrop-filter`, `opacity` below 1, `mask-image`, `mask-border-source`,
+The runtime refuses nesting, overlap, tint mixing, variant mixing within a group, non-uniform
+radii, padding floors, proxy overlap, hosts outside their plane, inline transforms, unparseable
+tints and backdrop-root breaks (`filter`, `backdrop-filter`, `opacity` below 1, `mask-image`, `mask-border-source`,
 `clip-path`, `mix-blend-mode`, a `will-change` naming any of them; `transform`, `contain`,
-`isolation` and `z-index` were measured harmless). These sixteen it does not catch, re-checked
+`isolation` and `z-index` were measured harmless). These seventeen it does not catch, re-checked
 against 0.24.0, and each breaks the look:
 
 1. A flat backdrop. The lens has nothing to bend; no diagnostic infers it.
@@ -528,6 +551,8 @@ against 0.24.0, and each breaks the look:
     passing average; source luminance and a true hint are not rendered contrast evidence.
 15. An ornament straddling a texture-path window, sampling environment instead of the glass below.
 16. A clear group with a declared dimming policy but no layer actually painted into its plane.
+17. Text drawn outside CSS on glass: it inherits no ink token and keeps whatever colours it was
+    given, whichever pole the runtime picks (§5).
 
 ```ts
 import { createGlassRoot, GLASS_CHANNEL_PROPERTIES } from "@vitreajs/vitrea-web";

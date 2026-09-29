@@ -1,7 +1,7 @@
 ---
 name: materialist
 description: Invoke whenever a UI uses or asks for Liquid Glass, glassmorphism, glass or translucent floating controls, an Apple-, macOS- or visionOS-like material, or the vitrea library (@vitreajs/*), whether designing, building or reviewing such an interface. Not for developing the vitrea runtime, its renderer or its calibration harness themselves.
-version: 1.1.1
+version: 1.2.0
 ---
 
 # The Materialist
@@ -209,9 +209,9 @@ The instrument register.
 
 - Legibility comes before translucency. The one charge every serious critic of the material agreed
   on is that anything placed over something else is harder to read, and a page answers it by
-  composition rather than by opacity: regular glass wherever text sits, text kept off small surfaces
-  over busy planes, and the opaque version of the page designed first so the material is laid over a
-  page that already works.
+  composition rather than by opacity: regular glass wherever text sits (spatial condition 8 names
+  the one exception and what it costs), text kept off small surfaces over busy planes, and the
+  opaque version of the page designed first so the material is laid over a page that already works.
 - In the instrument register a surface carries one short line or a control's own label; explanatory
   prose lives on the plane. In both, state and hierarchy come from layout, type and colour, not sheen.
 - Ink on glass is vibrant and automatic: the runtime publishes four label levels against the material
@@ -219,6 +219,10 @@ The instrument register.
   not a contrast calculation, so contrast is measured on rendered pixels across the backdrop's phases
   at 4.5:1 for labels and 3:1 for large text and controls, in both schemes. A page that needs a
   guaranteed ratio sets its own ink on a child element.
+- Text drawn outside CSS, in a canvas, a chart, a terminal emulator or an SVG with its own fills,
+  never inherits that ink. Read which pole the runtime published on the host and key the content's
+  colours to it as it changes, not to the colour scheme's name, which the drawn body can disagree
+  with. A palette brings as many inks as it has colours, and each one is a line to measure.
 - Prefer regular through bold weights and avoid light ones; a symbol over a word in a bar where a
   recognisable symbol exists, and a word where none does. The platform's own UI face on a page that
   is a client of that platform.
@@ -252,10 +256,11 @@ The instrument register.
   plane expect its ink to fall short of the floor, and decide up front between grading the plane for
   that scheme and authoring the label ink on a child, then measure both schemes before calling the
   page done. Pinning the scheme to dodge the failure is not an answer.
-- Two variants exist and are never mixed on one page: regular, which adapts to protect legibility and
-  is the answer wherever a surface carries text; and clear, only over media-rich content whose
-  content layer a dimming layer will not harm, with bold bright content on the glass, and then with
-  that dimming layer.
+- Two variants exist and are never mixed on one page at once: regular, which adapts to protect
+  legibility and is the answer wherever a surface carries text; and clear, over media-rich content
+  whose content layer a dimming layer will not harm, with bold bright content on the glass, and then
+  with that dimming layer. Reading text goes on clear only where the brief asks for the text itself
+  to be read over the world, on spatial condition 8's terms.
 
 ### Accessibility and the fallback
 
@@ -348,12 +353,21 @@ graphs, not prose — with a bright foreground (WWDC23 10076; WWDC25 255; HIG Wi
 7. **Scroll within the canvas.** The window host stays still; a child scroller clips and carries
    scroll edges at the window's inner edges. Ornaments stay attached while content scrolls (HIG
    Ornaments). A mask on that child is not a mask on the glass host or an ancestor of the root.
-8. **Regular for reading.** Windows and modules use regular (HIG Materials). Clear is only for
-   media being watched, whose dimming does not harm it, with bold bright foregrounds (WWDC25 219).
-   Its required policy draws no scrim: paint dimming into the plane under the footprint, not on
-   the host. HIG Materials suggests dark at 35% for bright content; the `Glass.clear` API example
-   uses black at 30%. Neither is vitrea calibration; record clear and its page-painted layer as
-   uncalibrated, and never mix variants on the page.
+8. **Regular for reading.** Windows and modules use regular (HIG Materials), and regular stays
+   the default. Clear is for media being watched, whose dimming does not harm it, with bold bright
+   foregrounds (WWDC25 219). One reading exception: the brief asks for the text itself to be read
+   over the world as the product's point, a terminal on its desktop, not merely for windows that
+   sit in an environment. The nearest thing Apple ships is Terminal's Clear Light and Clear Dark,
+   a translucent window background rather than the clear variant, 93% or 95% opaque; its default
+   text reads at 10:1 or better over what shows through, while some of its ANSI colours miss
+   4.5:1 even opaque. This law is stricter: the dimming carries the text, set per footprint from
+   the level measured under it and strong enough that every rendered line, each colour of a
+   palette included, clears 4.5:1 wherever the window can go; the text's colours follow the
+   published ink's pole; the record names the exception. Clear's required policy draws no scrim:
+   paint dimming into the plane under the footprint, not on the host. HIG Materials suggests dark
+   at 35% for bright content; the `Glass.clear` API example uses black at 30%. Neither is vitrea
+   calibration; record clear and its page-painted layer as uncalibrated, and never mix variants
+   on the page at once.
 9. **Let the material yield.** A modal task darkens the plane below it (WWDC25 356); Reduce
    Transparency frosts windows, Increase Contrast strengthens their edges, and forced colours
    makes Canvas panels with CanvasText borders whose authored fills must survive substitution.
@@ -420,8 +434,9 @@ Derive the register, its world and surfaces, the size family, anchor, scheme and
 - **Spend the tint** when one action must be found before anything else is read and no colour in the
   plane competes with it; withhold it when the plane already carries the product's colour or when a
   status hue would change with the content.
-- **Reach for clear** only when all three of Apple's conditions hold at once, and then design the
-  dimming layer as part of the plane.
+- **Reach for clear** only when all three of Apple's conditions hold at once, or when the brief
+  asks for text read over the world as the product's point (spatial condition 8), and then design
+  the dimming layer as part of the plane. An environment behind windows is not that brief.
 - **On touch**, capsules and larger targets; on a dense desktop, compact inner controls may stay
   rounded rectangles inside a capsule housing.
 - **Without vitrea**, the aesthetic still applies with one `backdrop-filter`, one `rgba()` layer, a
@@ -432,7 +447,8 @@ Derive the register, its world and surfaces, the size family, anchor, scheme and
 
 - In the instrument register, no glass on a card, row, list, table, content panel or hero.
 - No nested glass hosts; no border, background, shadow or blur authored on a glass host.
-- No two variants on one page; no clear glass over bright content without its dimming layer.
+- No two variants on one page at once; no clear glass over bright content without its dimming
+  layer; no reading text on clear outside spatial condition 8's reading exception.
 - No second tint hue in a group; no tint on a label; no solid fill standing in for a tint; no
   hand-rolled blur standing in for the material.
 - No glass over a flat, uniform field the page chose; content shown as it is that goes flat in some
@@ -475,7 +491,8 @@ not this register; other misses remain recorded failures, never passes with resi
    uses glass, and no platter holds a collection read in place.
 2. `[layer]` No glass host nests inside another; inner elements use fills, transparency or vibrancy.
 3. `[layer]` The floating inventory is short and each entry is load-bearing.
-4. `[material]` One variant across the page; clear only over media with its dimming layer.
+4. `[material]` One variant across the page at a time; clear only over media with its dimming
+   layer, or carrying reading text on spatial condition 8's terms.
 5. `[material]` At most one tinted control per view, the primary action or a status, tinted on its
    background; no solid fill and no hand-rolled blur anywhere in its place.
 6. `[material]` No glass over a flat, uniform field; every surface sits over structure at every phase
@@ -531,8 +548,10 @@ not this register; other misses remain recorded failures, never passes with resi
     concentric frames, ornaments stay attached, and no windows overlap within a plane.
 26. `[colour]` Windows/modules are untinted; colour stays in the environment, imagery, bold text,
     entire buttons or role-bearing fills, with at most one tinted ornament control.
-27. `[material]` Reading surfaces use regular; any clear surface meets all three media conditions
-    with page-painted dimming, not just a policy; modal dimming is likewise below the host.
+27. `[material]` Reading surfaces use regular, or clear under condition 8's reading exception with
+    every line measured wherever the window can go; any other clear surface meets all three media
+    conditions; either way with page-painted dimming, not just a policy; modal dimming is likewise
+    below the host.
 28. `[material]` The record names the actual CSS `cssBody` at the captured DPR and area; both CSS
     forms and the forced-colours Canvas panel preserve content and authored marks; window-scale
     optics and any clear use are stated as uncalibrated beyond the named bed, not visionOS fidelity.
@@ -562,4 +581,9 @@ material's physics from the fidelity ledger `docs/doperpowers/specs/c9a-fidelity
 by section as `references/optics.md` cites them. Two recorded taste rulings: daylight as the
 distinctive register (`apps/demo/DESIGN.md` §0, 2026-09-03) and active curvature
 (`2026-09-10-liquid-glass-into-the-skill.md`, Decision Log). The distillation record, law by law, is
-`docs/research/materialist-distillation.md`. Distilled 2026-09-26.
+`docs/research/materialist-distillation.md`. Distilled 2026-09-26. The reading exception to
+condition 8 rests on Apple's shipped Terminal (2.15 on macOS 27.0), read 2026-09-29 from its
+`Initial Settings` after the terminal gallery page (`apps/demo/src/gallery/terminal/DESIGN.md`)
+had put text on clear glass: the Clear Light and Clear Dark backgrounds at alpha 0.93 and 0.95
+over a blur of 0.5 on Terminal's scale, none when the window is inactive, and Clear Dark as the
+new-user default profile.

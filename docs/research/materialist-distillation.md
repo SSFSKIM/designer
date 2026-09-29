@@ -356,3 +356,26 @@ The spatial rulebook carries seventeen instrument rules verbatim, adapts r15 and
 old scope forbids inner-window scroll edges and modal dimming, and maps the five replaced rules
 before the numbered list. Its inherited r5's “35% black” is retained for comparability but its
 citation points to §4.1's precise attribution; the runtime skill uses dark 35% / black 30%.
+
+## Learned from the terminal page (1.2.0)
+
+The terminal gallery page (`apps/demo/src/gallery/terminal/DESIGN.md`) put a terminal's text
+straight onto clear glass over a relief map and broke condition 8 on the record to do it. On the
+user's ruling (2026-09-29) the skill takes three things from it. The precedent the page named was
+checked before it went into a law, and the check changed the law: the page had quoted Apple's
+Clear profiles as "inspired by Liquid Glass", a phrase found in no Apple source (press coverage
+says the themes adopt the Liquid Glass look), and the profiles themselves say how far Apple goes.
+An Opus review of the first draft (the GPT reviewer was over its quota) narrowed the exception
+and corrected the cookbook's ink recipe; the rows below are the reviewed text.
+
+| Change | Where | Source | Grounding |
+|---|---|---|---|
+| Clear may carry reading text where the brief asks for the text itself to be read over the world as the product's point (an environment behind windows does not qualify; regular stays the default), with the dimming set per footprint so every rendered line, each palette colour included, clears 4.5:1 wherever the window can go, the text's colours on the published ink's pole, and the record naming the exception | SKILL §4 variants, spatial condition 8, §6 reach for clear, §7 bans, checks 4 and 27, §10; `vitrea.md` spatial clear paragraph; `optics.md` §10; `examples.md` template `fidelity:` | `/System/Applications/Utilities/Terminal.app` 2.15 on macOS 27.0, `Contents/Resources/Initial Settings/`, read 2026-09-29: `Clear Dark.terminal` background rgb(0.098, 0.114, 0.153) at alpha 0.95 and `Clear Light.terminal` white at alpha 0.93, both `BackgroundBlur` 0.5 and `BackgroundBlurInactive` 0; `settings.plist` `Default Settings` = `Clear Dark`. MacRumors 2025-06-16 (Platforms State of the Union) for Terminal adopting the Liquid Glass look | Apple's shipped practice, not its guidance: WWDC25 219 and HIG Materials still say clear is for media. The profiles are Terminal's long-standing translucent background at a new strength, not the clear variant, so the precedent is text over a trace of the desktop (5–7 %). Apple's default text reads at 10.3:1 or better over that trace (sRGB composite over a black or white desktop), while some of its ANSI colours miss 4.5:1 even opaque, so the law is stricter than Apple and written as a measured floor, not as licence for a light layer. The discriminator keeps the spatial register's own "world seen through glass" from qualifying every window: the planetarium and chronograph records predate it (tracker) |
+| "Never mixed" means on one page at once; a page-wide switch between the two is one variant at a time | SKILL §4, condition 8, ban, check 4 | the start page's clear comparison mode and the terminal's glass switch, both built under 1.1.x | Apple's "They should never be mixed" is about one interface at a time; clarification, no change of intent |
+| Text drawn outside CSS inherits no ink; observe the host's `style` attribute, read the token resolved through a CSS child's computed `color`, take the pole by luminance, key the palette to it, measure every colour as a line | SKILL §4 type; `vitrea.md` §5, §8 item 17 | the terminal's `palette.ts` and `app.tsx`; its first audits failing the dark-ink yellow at 4.46 and grey at 4.35 over the west shore; the review's reading of the page's 250 ms poll (tracker) | `platform-web/src/root.ts` writes the tokens inline on the host on both tiers (the CSS tier's declarations and the GPU tier's ink) and watches host styles with its own `MutationObserver`; `css-tier.ts` `foregroundInk`: `CanvasText` under forced colours, `light-dark(#000, #fff)` under near-monochrome, `light-dark(…)` before a level; `root.ts`'s `subscribe` contract: a listener returning anything but `false` keeps the root drawing (0.25.0) |
+| Supply a canvas texture in the frame that first paints it, and again to a new root | `vitrea.md` §2 | the terminal's `environment.tsx`; `tech-debt-tracker.md`, "Runtime gaps met building the terminal page" | Chromium's `CopyExternalImageToTexture()` warning, seen every frame until the canvas painted; console noise on the WebGPU tier, not a broken look, so it is not in §8's list |
+| `GlassSegmentedControl` takes no `present`; mount it once the rest is present | `vitrea.md` §6 | the same tracker entry (about 170 ms drawn over the no-texture fallback) | `react/src/controls/segmented-control.tsx` has no `present` prop |
+
+Not shipped: the terminal's own numbers (its dimming targets, floors and sixteen colours) are that
+page's instantiation, and the forced-colours white panels and the root-rebuild error it met are
+runtime gaps the tracker holds.

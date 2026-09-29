@@ -12,9 +12,12 @@ is the record written before the first host; part two is what building it change
 ```
 register: spatial — the terminal window is the interface and the basin is its environment, the
   desktop it sits on. A window holding one app's content on one canvas, with its controls hung
-  at its edges as ornaments. Precedent for text directly on clear glass: macOS 26's Terminal,
-  whose Clear Light and Clear Dark profiles are "inspired by Liquid Glass". Named before the
-  first host.
+  at its edges as ornaments. Precedent for text on a see-through window: macOS's Terminal, whose
+  Clear Light and Clear Dark profiles, new in macOS 26, lay a translucent window background
+  (not the clear variant) 93% (light) or 95% (dark) opaque over a blur; Clear Dark is the
+  new-user default on 27. Named before the first host. (Corrected 2026-09-29: this line first
+  quoted the profiles as "inspired by Liquid Glass", a phrase found in no Apple source; the
+  figures are read from Terminal 2.15's own profile files.)
 environment: one viewport-fixed 2D canvas on the texture path (`tahoe-relief`), painted from
   `data/relief.*` (built by `scripts/build-terminal-relief.mjs` from Terrain Tiles on AWS, the
   USGS 3D Elevation Program at about 30 m): the hillshade tinted per scheme, contours every 50 m
@@ -74,7 +77,10 @@ material: two, one at a time for the whole page. Clear: the clear variant tuned 
   uncalibrated. Regular: vitrea's calibrated macOS 27 material, untuned, no layer painted.
   Clear is the default because a terminal on glass is the brief; the skill's rule that a reading
   surface is regular is broken on purpose and on the record, with Apple's own Terminal as the
-  precedent and Regular one choice away.
+  precedent and Regular one choice away. (Since materialist 1.2.0, written from this page, spatial
+  condition 8 names this case as its reading exception. Apple's ground lets 5–7% of the desktop
+  through; this page's layer runs from 20% to 90% by footprint and lets more through, which is
+  why every line is measured.)
 fidelity: Apple's macOS material composed as a window over an environment, at spans beyond the
   bed; Clear is Apple-shaped, not Apple-measured, and the runtime reports `tuned: true` for it.
   Nearest Apple surface: macOS 26 Terminal in Clear Dark over a desktop picture; no native
@@ -122,13 +128,16 @@ findings, all fixed with tests). It runs over `shell/content.json` (252 KB: 4,01
 repository's files by name, 14 readable in full, the last 60 commits with their parents, and one
 real `pnpm test` run of `packages/core` with its timing), written by
 `scripts/build-terminal-content.mjs`; re-run it after changing this file, which is one of the 14.
-`test/terminal-shell.test.ts` drives the shell through a headless xterm.
+`test/terminal-shell.test.ts` drives the shell through a headless xterm. Re-run 2026-09-29 for
+materialist 1.2.0's corrections to this file and the README: 290,875 bytes (4,084 files listed,
+14 readable, the last 60 commits).
 
 ### Weight
 
 The page's script is 660 KB (183 KB compressed): xterm.js, the page, and the shell with its
 snapshot, which is imported statically. The map is 330 KB of hillshade and 235 KB of vectors.
-Loading the snapshot lazily is the obvious next saving.
+Loading the snapshot lazily is the obvious next saving. Built again 2026-09-29 after the snapshot
+re-run above: 699.5 KB (202.2 KB compressed).
 
 ### The independent review and its fix wave
 
@@ -203,7 +212,8 @@ audit's JSON is in `docs/research/data/2026-09-29-terminal-gallery/`.
 - **Clear is uncalibrated.** Ten tuned leaves, the planetarium's with this page's base σ, and a
   page-painted dimming layer; the runtime reports `tuned: true`. An unfocused window composes the
   receded patch over the tune and frosts (the chronograph's tracker entry); the text stays legible
-  there (the receded row above).
+  there (the receded row above). Apple's Clear profiles go the other way: an unfocused Terminal
+  window drops their blur (`BackgroundBlurInactive` 0).
 - **The smallest viewport that fits the floor and its ornaments** is 320 wide, 336 tall on Clear
   and 416 on Regular on a wide screen, and 472 (Clear) or 632 (Regular) at 320 wide where the
   controls take three rows. Below that the window's top-left stays on screen and the rest

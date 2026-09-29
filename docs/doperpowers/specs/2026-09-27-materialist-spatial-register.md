@@ -472,6 +472,27 @@ and one line on Harvestar if they want a page shaped toward it.
   Rationale: a second register is a feature of the skill, not a correction.
   Date/Author: 2026-09-27, Claude.
 
+- Decision: Condition 8 gains a reading exception: clear may carry reading text where the brief
+  asks for the text itself to be read over the world as the product's point (not windows that
+  merely sit in an environment; regular stays the default), on measured terms (every rendered
+  line, each palette colour included, at 4.5:1 wherever the window can go, dimming set per
+  footprint, the text's colours on the published ink's pole). With it, text drawn outside CSS
+  follows the published pole, and two cookbook facts (a canvas texture supplied at its first
+  paint; the segmented control mounted once the rest is present). Skill 1.2.0, plugin 2.6.0.
+  Rationale: the terminal gallery page broke condition 8 on the record, with Apple's Terminal as
+  its precedent. Read from Terminal 2.15's own files on macOS 27, the precedent is narrower than
+  the page said: its Clear profiles are a translucent window background 93–95% opaque over a
+  blur, not the clear variant, and Clear Dark is the new-user default, so Apple ships text over a
+  trace of the desktop. Its default text reads at 10:1 or better there while some ANSI colours
+  miss 4.5:1 even opaque; the law is therefore a measured floor stricter than Apple's, with the
+  5–7% as the reference rather than a licence. The discriminator was added at review: without it
+  the spatial register's own "world seen through glass" qualified every window. "Never mixed" is
+  clarified to one page at once, which the start page's comparison mode and the terminal's switch
+  already assumed. Reviewed by Claude Opus, read-only, because the GPT reviewer was over its
+  usage quota; its fifteen findings were all applied.
+  Date/Author: 2026-09-29, the user ("yes do so", on the proposal to fold the terminal's three
+  lessons in, the rule change included); the Terminal reading and the wording by Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The clear variant's dimming policy is required and resolved by core
@@ -652,3 +673,7 @@ the skill adds the conditions and keeps the choice. The user's eye is not in thi
   1.1 s and at rest from 1.5 s, and the chosen thumbnail's focus ring settles by 2.5 s, which is
   the whole run-to-run difference in the platter cells; both runs' platter readings were taken
   at about 1 s and agree.
+- 2026-09-29: skill 1.2.0 from the terminal gallery page (Decision Log, last entry): condition 8's
+  reading exception, the ink rule for text drawn outside CSS, two cookbook facts; the terminal
+  page's record, the gallery index and the README corrected where they had quoted the Terminal
+  precedent without a source; the distillation's "Learned from the terminal page" table.

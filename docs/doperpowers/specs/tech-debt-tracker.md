@@ -6747,6 +6747,33 @@ Found building `apps/demo/src/gallery/terminal/` (its `DESIGN.md`, part two), on
   reproduce with a root whose `renderer` flips after groups have registered; the message suggests
   a surface re-registering against the new root before its `GlassGroup` has.
 
+## Gallery pages behind materialist 1.2.0 (materialist 1.2.0 review, 2026-09-29)
+
+Found by the independent review of materialist 1.2.0, which gave spatial condition 8 a reading
+exception and rewrote the cookbook's recipe for text drawn outside CSS (`skills/materialist/`).
+
+- **The planetarium's and chronograph's records predate the reading exception.** Tonight
+  (`apps/demo/src/gallery/planetarium/DESIGN.md`, `material: clear everywhere`) sets its window's
+  text on the clear variant, and the chronograph's timing window is the regular material tuned
+  toward clear optics for the whole root; neither record names condition 8's exception or the
+  brief's reason, which the record template's `fidelity:` line now asks for. Both pages measure
+  every text line, so the floor the exception sets is met; what is missing is the statement.
+  **Shape of the work:** one line in each record's `fidelity:` (or `material:`) saying whether the
+  brief is text read over the world (the planetarium's sky arguably is) or, if not, why the page
+  keeps clear, and a note in the chronograph's that a tuned regular root raises the same question.
+- **The terminal page draws every frame at idle on 0.25.0, and its ink read holds a stale pole
+  wherever the token is not `rgb()`.** `apps/demo/src/gallery/terminal/app.tsx` (the ink poll) and
+  `environment.tsx` (the dimming painter) subscribe with listeners that return nothing, which under
+  0.25.0's frames on demand (landed after the page) keeps the root drawing every frame even when
+  nothing moves. The ink poll parses `--vitrea-foreground` with an `rgb()` pattern
+  (`palette.ts`, `inkOf`), so under Increase Contrast (`light-dark(#000, #fff)`), before a level is
+  known, or mid-transition it returns nothing and the terminal keeps the last palette. **Shape of
+  the fix:** the ink read becomes a `MutationObserver` on the window host's `style` attribute that
+  reads the resolved `color` of a child styled `color: var(--vitrea-foreground)` and takes the pole
+  by luminance, as `references/vitrea.md` §5 now teaches; the painter's listener returns `false`
+  when neither dirty nor due a measurement and the page calls `root.requestFrame()` when a drag,
+  resize, scheme or glass change marks it dirty; then re-run the page's audit and e2e.
+
 ## The full stage recipe adds recorded pressed-state rows that the gated bed does not drop (W41 G2, 2026-09-29) — CLOSED 2026-09-29 (b83fec16)
 
 CLAUDE.md's light recipe (`--set calibration,validation,holdout,recorded,probe`, both tiers,

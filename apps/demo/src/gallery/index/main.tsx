@@ -194,8 +194,9 @@ const DEMOS: readonly Demo[] = [
     register: "spatial",
     title: "Terminal",
     brief:
-      "A terminal whose window is Liquid Glass and whose text is written directly on it, as " +
-      "macOS 26’s Terminal does in its Clear profiles. The shell is simulated over a snapshot " +
+      "A terminal whose window is Liquid Glass and whose text is written directly on it, " +
+      "further than macOS’s own Terminal goes: its Clear profiles keep a ground 93 to 95 per " +
+      "cent opaque behind the text. The shell is simulated over a snapshot " +
       "of this repository, and says so; the window moves and resizes, sessions open as tabs, " +
       "and one choice swaps the tuned clear glass for vitrea’s calibrated material.",
     plane:
