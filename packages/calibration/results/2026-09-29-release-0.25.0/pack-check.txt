@@ -1,0 +1,44 @@
+[
+  {
+    "name": "@vitreajs/vitrea",
+    "version": "0.25.0",
+    "bytes": 598568,
+    "sha256": "99040b5ac090dc7e3e5c7a1b0c0c4f8bcef4d4bb201aab79d6ef70e3341e53c3",
+    "dependencies": {},
+    "peerDependencies": {},
+    "distEntries": 7,
+    "requiredFiles": true,
+    "exports": 44
+  },
+  {
+    "name": "@vitreajs/vitrea-web",
+    "version": "0.25.0",
+    "bytes": 586295,
+    "sha256": "3e8ad666505fb31e63cb3e5cabc8d8d39fe2f272012db4d29b7297882623d039",
+    "dependencies": {
+      "@vitreajs/vitrea": "^0.25.0"
+    },
+    "peerDependencies": {},
+    "distEntries": 3,
+    "requiredFiles": true,
+    "exports": 261
+  },
+  {
+    "name": "@vitreajs/vitrea-react",
+    "version": "0.25.0",
+    "bytes": 192247,
+    "sha256": "a72ca529bafc87aba55ad74d0be468fea4dd162b281379d794dfa537404ad837",
+    "dependencies": {
+      "@vitreajs/vitrea": "^0.25.0",
+      "@vitreajs/vitrea-web": "^0.25.0"
+    },
+    "peerDependencies": {
+      "react": ">=19.0.0",
+      "react-dom": ">=19.0.0"
+    },
+    "distEntries": 3,
+    "requiredFiles": true,
+    "exports": 38
+  }
+]
+pack-check exit=0

@@ -1,0 +1,7 @@
+# Export diff: the published 0.24.0 tarballs (npm pack @vitreajs/*@0.24.0, fetched 2026-09-29T07:27:22Z) against this rehearsal's 0.25.0 tarballs
+# 0.24.0 tarball bytes: 586228 core / 569814 web / 188606 react
+@vitreajs/vitrea: 44 -> 44 added [] removed []
+@vitreajs/vitrea-web: 258 -> 261 added ["backdropReadingDue","backdropTextureIsLive","silhouetteSourceWindow"] removed []
+@vitreajs/vitrea-react: 38 at 0.24.0 (cold install, c9d row) -> 38 (not diffed by name: its 0.24.0 tarball needs react resolved beside it)
+The three added web exports are module-level helpers from the frame-loop change, reaching the public entry through src/index.ts's existing 'export * from "./backdrop-tone"' and 'export * from "./renderer-bridge"'; no CHANGELOG entry names them.
+packages/react/src/index.ts is byte-unchanged since v0.24.0 and holds no wildcard re-export, so React's 38 names are the same 38.

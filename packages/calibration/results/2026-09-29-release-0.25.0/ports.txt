@@ -1,0 +1,17 @@
+== goldens port 5189 at 2026-09-29T07:09:56Z
+free: ordinary config
+== gpu port 5189 at 2026-09-29T07:10:09Z
+free: ordinary config
+== platform-web port 5188 at 2026-09-29T07:10:31Z
+free: ordinary config
+== platform-web-run2 port 5188 at 2026-09-29T07:13:23Z
+free: ordinary config
+== react-e2e port 5176 at 2026-09-29T07:14:26Z
+free: ordinary config
+== demo-e2e port 5177 at 2026-09-29T07:15:25Z
+COMMAND   PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+node    29155  new   51u  IPv4 0x2cd0aa5983414f2a      0t0  TCP 127.0.0.1:5177 (LISTEN)
+29155 node /Users/new/Developer/GitHub/designer/apps/demo/node_modules/.bin/../vite/bin/vite.js --port 5177 --strictPort --host 127.0.0.1
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF      NODE NAME
+node    29155  new  cwd    DIR   1,15      832 100212493 /Users/new/Developer/GitHub/designer/apps/demo
+HELD: this suite runs on its isolated port, no reuse
