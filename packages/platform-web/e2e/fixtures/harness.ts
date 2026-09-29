@@ -11,7 +11,7 @@
  * be unreachable in any automated test.
  */
 
-import type { BackdropHint } from "@vitreajs/vitrea";
+import type { BackdropHint, MaterialProfile } from "@vitreajs/vitrea";
 
 import {
   createBackdropProxyManager,
@@ -23,6 +23,7 @@ import {
   type BackdropProxyManager,
   type GlassHostHandle,
   type GlassLayerManager,
+  type GlassMaterialProfileDocument,
   type GlassPlane,
   type GlassRoot,
   type GlassWindowActivation,
@@ -109,7 +110,8 @@ export interface RootSpec {
   readonly colorScheme?: "light" | "dark" | "auto";
   readonly windowActivation?: GlassWindowActivation;
   /**
-   * W29 G4: which shipped material the root selects, by name.
+   * W29 G4: which shipped material the root selects, by name — or, since W41 G2,
+   * the one control document below that is not shipped.
    *
    * A token rather than the document itself, because a `RootSpec` crosses the
    * driver seam as an argument to `page.evaluate` and the thing selected has to
@@ -117,12 +119,43 @@ export interface RootSpec {
    * would be an equal material that is not the shipped one, and identity is half
    * of what the specs reading this seam assert.
    */
-  readonly materialDocument?: "macos26" | "macos27";
+  readonly materialDocument?: "macos26" | "macos27" | "macos27-e3-identity";
 }
+
+/**
+ * The shipped macOS 27 document with the light receded patch's `bodyE3Strength`
+ * returned to its identity 0, and nothing else moved (W41 G2, R1; c9a §5.193).
+ *
+ * The seal that enabled E3 moved that one gate-group and no other leaf, so at
+ * the gate this is the pre-W41 material — and it is built here, from the
+ * module's own object, rather than copied out of the retired document, so that
+ * the equivalence is read back rather than transcribed:
+ * `e2e/gpu/w41-e3-r1.spec.ts` hashes the material the renderer holds under the
+ * digest rule and requires the pre-seal digest. The two gated tuples keep their
+ * sealed values, inert behind the gate. The shipped objects are spread, never
+ * mutated, so the two tokens above still select the module's own documents.
+ *
+ * Its receded light endpoint records no digest. `root.material` reports an
+ * endpoint's recorded digest verbatim, and the sealed one names the E3
+ * material; a twin carrying it would report a material it does not draw.
+ */
+const macos27E3IdentityDocument: GlassMaterialProfileDocument = {
+  ...macos27MaterialProfileDocument,
+  receded: {
+    ...macos27MaterialProfileDocument.receded,
+    light: {
+      ...(macos27MaterialProfileDocument.receded.light.profileKey === undefined
+        ? {}
+        : { profileKey: macos27MaterialProfileDocument.receded.light.profileKey }),
+      patch: { ...macos27MaterialProfileDocument.receded.light.patch, bodyE3Strength: 0 },
+    },
+  },
+};
 
 const MATERIAL_DOCUMENTS = {
   macos26: macos26MaterialProfileDocument,
   macos27: macos27MaterialProfileDocument,
+  "macos27-e3-identity": macos27E3IdentityDocument,
 } as const;
 
 export interface TextureGroupSpec {
@@ -138,6 +171,12 @@ export interface TextureGroupSpec {
    * *level* — and a flat backdrop is the only one whose level is unarguable.
    */
   readonly fill?: string;
+  /**
+   * The group's material defaults, forwarded to `registerGroup` — for a clear
+   * group over a sampled texture, which W41's E3 declares outside its domain
+   * (identified for the regular variant alone).
+   */
+  readonly material?: MaterialProfile;
 }
 
 export interface DiagnosticRecord {
@@ -812,7 +851,11 @@ const api = {
       kind: "texture",
       probe: { taint: "clean", textureCompatibility: "compatible" },
     });
-    glassRoot.registerGroup({ id: spec.groupId, backdropSourceId: spec.sourceId });
+    glassRoot.registerGroup({
+      id: spec.groupId,
+      backdropSourceId: spec.sourceId,
+      ...(spec.material === undefined ? {} : { material: spec.material }),
+    });
     glassRoot.setBackdropTexture(spec.sourceId, { kind: "canvas", canvas });
     glassRoot.scene.markBackdropSourceDirty(spec.sourceId);
     textureCanvases.set(spec.sourceId, canvas);
