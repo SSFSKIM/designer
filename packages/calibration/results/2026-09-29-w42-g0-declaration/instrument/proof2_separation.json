@@ -6102,6 +6102,1070 @@
      "2x|d-out16-lohi-rrect-md:bin-32..-24"
     ]
    ]
+  },
+  {
+   "truth": "free-sn",
+   "fit": "LT",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.46821329584493054,
+   "ls_max_cell": 0.8338906759649279,
+   "ls_x": {
+    "k@light-inactive": 2.0218837410292974
+   },
+   "ls_lam": {
+    "light-inactive": 0.8088567336101415
+   },
+   "s_ls": 1.3683316006084283,
+   "where_ls": "2x|bp-p1-c32-rrect-lg:sq15:far",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 1.1668241780606365,
+   "where": "2x|bp-p1-c32-rrect-lg:sq15:far",
+   "mm_x": {
+    "k@light-inactive": 2.0065147590280903
+   },
+   "mm_lam": {
+    "light-inactive": 0.812657392789829
+   },
+   "verdict": "MARGINAL",
+   "seconds": 52.799569845199585,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     1.1668241780606365,
+     "2x|bp-p1-c32-rrect-lg:sq15:far"
+    ],
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     1.1667768991410128,
+     "2x|bp-p1-c16-rrect-sm:sq130:far"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     1.1223467399506433,
+     "1x|bp-p1-c32-rrect-lg:sq35:far"
+    ],
+    [
+     "2x|c-s8-hi-rrect-sm",
+     1.0375174177188455,
+     "2x|c-s8-hi-rrect-sm:p1:core"
+    ],
+    [
+     "2x|c-s16-hi-capsule-button",
+     0.9070328039294964,
+     "2x|c-s16-hi-capsule-button:p1:core"
+    ]
+   ]
+  },
+  {
+   "truth": "LT-2k",
+   "fit": "LT",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.6516726213923687,
+   "ls_max_cell": 1.3663361377076453,
+   "ls_x": {
+    "k@light-inactive": 1.946998215436771
+   },
+   "ls_lam": {
+    "light-inactive": 0.8784158705363443
+   },
+   "s_ls": 1.972254228908639,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:knee-cores",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 1.6875156984837076,
+   "where": "2x|bp-p1-c64-rrect-ml:sq8:knee",
+   "mm_x": {
+    "k@light-inactive": 1.9203384183286876
+   },
+   "mm_lam": {
+    "light-inactive": 0.8672714706722109
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 76.80034112930298,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     1.6875156984837076,
+     "2x|bp-p1-c64-rrect-ml:sq8:knee"
+    ],
+    [
+     "2x|c-s8-hi-rrect-sm",
+     1.6871894710888569,
+     "2x|c-s8-hi-rrect-sm:p1:core"
+    ],
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     1.6870969735055894,
+     "2x|bp-p1-c16-rrect-sm:knee-cores"
+    ],
+    [
+     "2x|bp-p1-c64-capsule-button",
+     1.6515569972593767,
+     "2x|bp-p1-c64-capsule-button:sq12:knee"
+    ],
+    [
+     "2x|bp-p1-c8-rrect-sm",
+     1.627656354932924,
+     "2x|bp-p1-c8-rrect-sm:sq502:far"
+    ]
+   ]
+  },
+  {
+   "truth": "R1",
+   "fit": "LT",
+   "ep": "light-rest",
+   "whole": true,
+   "n_cells": 15,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.42908761725101485,
+   "ls_max_cell": 0.44241275286840503,
+   "ls_x": {
+    "k@light-rest": 1.9900158170262396
+   },
+   "ls_lam": {
+    "light-rest": 0.8727597882645768
+   },
+   "s_ls": 0.1539102253447311,
+   "where_ls": "2x|bp-p1-c32-rrect-ml:sq46:far",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 0.14101675211168185,
+   "where": "2x|d-d0-hilo-rrect-lg:bin-8..-4",
+   "mm_x": {
+    "k@light-rest": 1.9911342971184345
+   },
+   "mm_lam": {
+    "light-rest": 0.8737762854225567
+   },
+   "verdict": "UNRESOLVED",
+   "seconds": 39.07004904747009,
+   "bed": "5d719b60",
+   "kernel": "w",
+   "top_cells": [
+    [
+     "2x|d-d0-hilo-rrect-lg",
+     0.14101675211168185,
+     "2x|d-d0-hilo-rrect-lg:bin-8..-4"
+    ],
+    [
+     "2x|d-d0-lohi-rrect-lg",
+     0.14101675211168185,
+     "2x|d-d0-lohi-rrect-lg:bin4..8"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     0.14097029408188178,
+     "2x|bp-p1-c32-rrect-ml:sq46:far"
+    ],
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     0.14095269172781855,
+     "2x|bp-p1-c64-rrect-ml:sq13:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     0.11977282590112281,
+     "2x|bp-p1-c32-rrect-lg:sq35:far"
+    ]
+   ]
+  },
+  {
+   "truth": "R1",
+   "fit": "LT",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.44275067076414243,
+   "ls_max_cell": 0.5,
+   "ls_x": {
+    "k@light-inactive": 2.05155447994593
+   },
+   "ls_lam": {
+    "light-inactive": 0.7831329730535457
+   },
+   "s_ls": 0.5762858443455627,
+   "where_ls": "2x|b-p2-c16-rrect-md:sq132:far",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 0.5115282833084223,
+   "where": "2x|bp-p1-c32-capsule-button:sq35:far",
+   "mm_x": {
+    "k@light-inactive": 2.042934232186794
+   },
+   "mm_lam": {
+    "light-inactive": 0.7941091540838191
+   },
+   "verdict": "MARGINAL",
+   "seconds": 74.5248429775238,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c32-capsule-button",
+     0.5115282833084223,
+     "2x|bp-p1-c32-capsule-button:sq35:far"
+    ],
+    [
+     "2x|b-p2-c16-rrect-md",
+     0.5114347549547915,
+     "2x|b-p2-c16-rrect-md:sq132:far"
+    ],
+    [
+     "2x|e-by-c16-rrect-md",
+     0.5114347549547915,
+     "2x|e-by-c16-rrect-md:sq129:a|B"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-64",
+     0.5090173376780172,
+     "2x|bp-p1-c32-rrect-64:sq46:far"
+    ],
+    [
+     "2x|e-rg-c16-rrect-md",
+     0.505209724942091,
+     "2x|e-rg-c16-rrect-md:sq87:a|R"
+    ]
+   ]
+  },
+  {
+   "truth": "K2",
+   "fit": "LT",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.575293395045611,
+   "ls_max_cell": 1.2949240090579341,
+   "ls_x": {
+    "k@light-inactive": 1.9866955775855575
+   },
+   "ls_lam": {
+    "light-inactive": 0.6370233970269041
+   },
+   "s_ls": 2.9007300462474745,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:knee-cores",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 1.597846311935939,
+   "where": "2x|bp-p1-c64-rrect-ml:sq8:knee",
+   "mm_x": {
+    "k@light-inactive": 1.9287524630623918
+   },
+   "mm_lam": {
+    "light-inactive": 0.7154997714125497
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 102.68731689453125,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     1.597846311935939,
+     "2x|bp-p1-c64-rrect-ml:sq8:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     1.597006146711351,
+     "2x|bp-p1-c32-rrect-lg:sq55:far"
+    ],
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     1.594911637460683,
+     "2x|bp-p1-c16-rrect-sm:knee-cores"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     1.5611353875701184,
+     "1x|bp-p1-c32-rrect-lg:sq48:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     1.5163763665186707,
+     "2x|bp-p1-c32-rrect-ml:sq55:far"
+    ]
+   ]
+  },
+  {
+   "truth": "K2",
+   "fit": "LT",
+   "ep": "dark-inactive",
+   "whole": true,
+   "n_cells": 72,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.5274177081254022,
+   "ls_max_cell": 1.5072532770658285,
+   "ls_x": {
+    "k@dark-inactive": 2.0593530007843497
+   },
+   "ls_lam": {
+    "dark-inactive": 0.6537342488434534
+   },
+   "s_ls": 3.3846277190594947,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:sq130:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 2.0571185701769394,
+   "where": "2x|bp-p1-c64-rrect-ml:sq18:far",
+   "mm_x": {
+    "k@dark-inactive": 1.9985880080513416
+   },
+   "mm_lam": {
+    "dark-inactive": 0.722297862704787
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 113.86274480819702,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     2.0571185701769394,
+     "2x|bp-p1-c64-rrect-ml:sq18:far"
+    ],
+    [
+     "2x|c-s32-hi-p4-rrect-ml",
+     2.0561928390970934,
+     "2x|c-s32-hi-p4-rrect-ml:p1:core"
+    ],
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     2.0560371222396725,
+     "2x|bp-p1-c16-rrect-sm:knee-cores"
+    ],
+    [
+     "2x|c-s32-hi-rrect-md",
+     2.0225152874179315,
+     "2x|c-s32-hi-rrect-md:p1:core"
+    ],
+    [
+     "2x|c-s32-hi-p4-rrect-md",
+     1.8700701615983064,
+     "2x|c-s32-hi-p4-rrect-md:p1:core"
+    ]
+   ]
+  },
+  {
+   "truth": "LT",
+   "fit": "R1",
+   "ep": "light-rest",
+   "whole": true,
+   "n_cells": 15,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.42861509950699733,
+   "ls_max_cell": 0.44243861953221353,
+   "ls_x": {
+    "k@light-rest": 1.9760691024799553
+   },
+   "ls_lam": {
+    "light-rest": 0.8872041563246342
+   },
+   "s_ls": 0.15419776063319546,
+   "where_ls": "2x|bp-p1-c32-rrect-ml:sq46:far",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 0.1400071443251818,
+   "where": "2x|bp-p1-c32-rrect-ml:sq46:far",
+   "mm_x": {
+    "k@light-rest": 1.9748595769959936
+   },
+   "mm_lam": {
+    "light-rest": 0.8837484851946931
+   },
+   "verdict": "UNRESOLVED",
+   "seconds": 40.699777603149414,
+   "bed": "5d719b60",
+   "kernel": "w",
+   "top_cells": [
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     0.1400071443251818,
+     "2x|bp-p1-c32-rrect-ml:sq46:far"
+    ],
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     0.13996911909995902,
+     "2x|bp-p1-c64-rrect-ml:sq13:far"
+    ],
+    [
+     "2x|d-d0-hilo-rrect-lg",
+     0.13860870920677826,
+     "2x|d-d0-hilo-rrect-lg:bin-8..-4"
+    ],
+    [
+     "2x|d-d0-lohi-rrect-lg",
+     0.13860870920677826,
+     "2x|d-d0-lohi-rrect-lg:bin4..8"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     0.11853748672589859,
+     "2x|bp-p1-c32-rrect-lg:sq35:far"
+    ]
+   ]
+  },
+  {
+   "truth": "LT",
+   "fit": "R1",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.44213083834781225,
+   "ls_max_cell": 0.5,
+   "ls_x": {
+    "k@light-inactive": 2.018528933688419
+   },
+   "ls_lam": {
+    "light-inactive": 0.8168650979713188
+   },
+   "s_ls": 0.5748998173774567,
+   "where_ls": "2x|b-p2-c16-rrect-md:sq132:far",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 0.5103789397238927,
+   "where": "2x|bp-p1-c32-rrect-64:sq46:far",
+   "mm_x": {
+    "k@light-inactive": 2.0270952546951424
+   },
+   "mm_lam": {
+    "light-inactive": 0.812239657135366
+   },
+   "verdict": "MARGINAL",
+   "seconds": 101.71821594238281,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c32-rrect-64",
+     0.5103789397238927,
+     "2x|bp-p1-c32-rrect-64:sq46:far"
+    ],
+    [
+     "2x|bp-p1-c32-capsule-button",
+     0.5103605887213689,
+     "2x|bp-p1-c32-capsule-button:sq35:far"
+    ],
+    [
+     "2x|b-p2-c16-rrect-md",
+     0.5102536112604241,
+     "2x|b-p2-c16-rrect-md:sq132:far"
+    ],
+    [
+     "2x|e-by-c16-rrect-md",
+     0.5102536112604241,
+     "2x|e-by-c16-rrect-md:sq129:a|B"
+    ],
+    [
+     "2x|e-rg-c16-rrect-md",
+     0.507120189971431,
+     "2x|e-rg-c16-rrect-md:sq87:a|R"
+    ]
+   ]
+  },
+  {
+   "truth": "W-shape",
+   "fit": "K2",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.5358129203485918,
+   "ls_max_cell": 1.364629781926491,
+   "ls_x": {
+    "k@light-inactive": 2.0406782778846586,
+    "sk@light-inactive": 16.437654480407765
+   },
+   "ls_lam": {
+    "light-inactive": 0.805189485857188
+   },
+   "s_ls": 2.3827314137964777,
+   "where_ls": "2x|bp-p1-c32-rrect-lg:sq12:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 2.244703820520897,
+   "where": "2x|bp-p1-c32-rrect-lg:sq12:knee",
+   "mm_x": {
+    "k@light-inactive": 1.9793260582798176,
+    "sk@light-inactive": 16.546450541233362
+   },
+   "mm_lam": {
+    "light-inactive": 0.8214627045219095
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 690.801568031311,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     2.244703820520897,
+     "2x|bp-p1-c32-rrect-lg:sq12:knee"
+    ],
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     2.2445853951701054,
+     "2x|bp-p1-c64-rrect-ml:sq16:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     2.2262392703484863,
+     "2x|bp-p1-c32-rrect-ml:sq52:knee"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     2.211644468967961,
+     "1x|bp-p1-c32-rrect-lg:sq12:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-80",
+     2.12525722287171,
+     "2x|bp-p1-c32-rrect-80:sq47:knee"
+    ]
+   ]
+  },
+  {
+   "truth": "W-shape",
+   "fit": "W-tails",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.5357524176656536,
+   "ls_max_cell": 1.3631281230471408,
+   "ls_x": {
+    "k@light-inactive": 2.0377832885370335,
+    "s2@light-inactive": 20.730250393320443,
+    "a@light-inactive": 0.016618803693191783
+   },
+   "ls_lam": {
+    "light-inactive": 0.8067290744724886
+   },
+   "s_ls": 2.3679545380267086,
+   "where_ls": "2x|bp-p1-c32-rrect-lg:sq12:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 2.254475185787612,
+   "where": "2x|bp-p1-c64-rrect-ml:sq16:knee",
+   "mm_x": {
+    "k@light-inactive": 2.014169333533811,
+    "s2@light-inactive": 21.0466285110382,
+    "a@light-inactive": 0.023502724080047457
+   },
+   "mm_lam": {
+    "light-inactive": 0.8133972789583175
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 848.2373850345612,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     2.254475185787612,
+     "2x|bp-p1-c64-rrect-ml:sq16:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     2.2527982468044456,
+     "2x|bp-p1-c32-rrect-lg:sq12:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     2.2442565747679453,
+     "2x|bp-p1-c32-rrect-ml:sq52:knee"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     2.216835726370846,
+     "1x|bp-p1-c32-rrect-lg:sq12:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-80",
+     2.190828331218029,
+     "2x|bp-p1-c32-rrect-80:sq47:knee"
+    ]
+   ]
+  },
+  {
+   "truth": "K2",
+   "fit": "W-shape",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.6145475128314642,
+   "ls_max_cell": 1.324438377274481,
+   "ls_x": {
+    "k@light-inactive": 1.9828324619856073,
+    "mu@light-inactive": 1.7365724145416945
+   },
+   "ls_lam": {
+    "light-inactive": 0.629827726139836
+   },
+   "s_ls": 2.995878127431155,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:sq131:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 2.634386082750268,
+   "where": "2x|bp-p1-c64-rrect-ml:sq16:knee",
+   "mm_x": {
+    "k@light-inactive": 1.9122948790531527,
+    "mu@light-inactive": 1.7193747198122264
+   },
+   "mm_lam": {
+    "light-inactive": 0.6632067084517466
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 449.829491853714,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     2.634386082750268,
+     "2x|bp-p1-c64-rrect-ml:sq16:knee"
+    ],
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     2.631907770610269,
+     "2x|bp-p1-c16-rrect-sm:sq131:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     2.6208922455526817,
+     "2x|bp-p1-c32-rrect-lg:sq19:far"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     2.574103984879315,
+     "1x|bp-p1-c32-rrect-lg:sq19:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     2.5578666536284516,
+     "2x|bp-p1-c32-rrect-ml:sq52:knee"
+    ]
+   ]
+  },
+  {
+   "truth": "K2",
+   "fit": "W-tails",
+   "ep": "light-inactive",
+   "whole": true,
+   "n_cells": 60,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.5753239618553535,
+   "ls_max_cell": 1.2929476688070431,
+   "ls_x": {
+    "k@light-inactive": 1.9858531249145643,
+    "s2@light-inactive": 20.31178301556212,
+    "a@light-inactive": 6.417798621620612e-05
+   },
+   "ls_lam": {
+    "light-inactive": 0.6376114675492566
+   },
+   "s_ls": 2.8937126452142365,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:knee-cores",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 1.618872888083331,
+   "where": "2x|bp-p1-c16-rrect-sm:knee-cores",
+   "mm_x": {
+    "k@light-inactive": 1.9264760258656413,
+    "s2@light-inactive": 20.148316245836284,
+    "a@light-inactive": 0.007066770870606018
+   },
+   "mm_lam": {
+    "light-inactive": 0.7146481138015134
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 774.5578200817108,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     1.618872888083331,
+     "2x|bp-p1-c16-rrect-sm:knee-cores"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     1.6165887269882546,
+     "2x|bp-p1-c32-rrect-lg:sq42:far"
+    ],
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     1.603848353739977,
+     "2x|bp-p1-c64-rrect-ml:sq8:knee"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     1.5823525456859784,
+     "1x|bp-p1-c32-rrect-lg:sq48:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     1.5320696662599858,
+     "2x|bp-p1-c32-rrect-ml:sq55:far"
+    ]
+   ]
+  },
+  {
+   "truth": "W-shape",
+   "fit": "W-tails",
+   "ep": "dark-inactive",
+   "whole": true,
+   "n_cells": 72,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.5330591931365704,
+   "ls_max_cell": 1.343856485114513,
+   "ls_x": {
+    "k@dark-inactive": 2.0845395143377052,
+    "s2@dark-inactive": 19.76517366309055,
+    "a@dark-inactive": 0.00863982045648044
+   },
+   "ls_lam": {
+    "dark-inactive": 0.7999826494889339
+   },
+   "s_ls": 3.171974307514006,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:sq132:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 2.5931417059857864,
+   "where": "2x|bp-p1-c16-rrect-sm:sq129:far",
+   "mm_x": {
+    "k@dark-inactive": 2.0950999716757446,
+    "s2@dark-inactive": 19.781391299599182,
+    "a@dark-inactive": 0.015448364831484866
+   },
+   "mm_lam": {
+    "dark-inactive": 0.8179589597721659
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 1015.849958896637,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     2.5931417059857864,
+     "2x|bp-p1-c16-rrect-sm:sq129:far"
+    ],
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     2.592378643265704,
+     "2x|bp-p1-c64-rrect-ml:sq11:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-80",
+     2.3844821307472728,
+     "2x|bp-p1-c32-rrect-80:sq47:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     2.121192375333237,
+     "2x|bp-p1-c32-rrect-ml:sq59:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     2.104803981595822,
+     "2x|bp-p1-c32-rrect-lg:sq12:far"
+    ]
+   ]
+  },
+  {
+   "truth": "W-shape",
+   "fit": "K2",
+   "ep": "dark-inactive",
+   "whole": true,
+   "n_cells": 72,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.533087396700789,
+   "ls_max_cell": 1.3423611030168763,
+   "ls_x": {
+    "k@dark-inactive": 2.086148280181285,
+    "sk@dark-inactive": 16.694189407185302
+   },
+   "ls_lam": {
+    "dark-inactive": 0.8002072724406907
+   },
+   "s_ls": 3.1623119503613566,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:sq132:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 2.280659030516219,
+   "where": "2x|bp-p1-c16-rrect-sm:sq129:far",
+   "mm_x": {
+    "k@dark-inactive": 2.111286295857572,
+    "sk@dark-inactive": 15.08841705134487
+   },
+   "mm_lam": {
+    "dark-inactive": 0.8432641305604502
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 657.512403011322,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     2.280659030516219,
+     "2x|bp-p1-c16-rrect-sm:sq129:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     2.2791960327100327,
+     "2x|bp-p1-c32-rrect-lg:sq12:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     2.2386311534570638,
+     "2x|bp-p1-c32-rrect-ml:sq59:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-80",
+     2.115277553927484,
+     "2x|bp-p1-c32-rrect-80:sq47:far"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     2.0494633466263963,
+     "1x|bp-p1-c32-rrect-lg:sq12:far"
+    ]
+   ]
+  },
+  {
+   "truth": "K2",
+   "fit": "W-shape",
+   "ep": "dark-inactive",
+   "whole": true,
+   "n_cells": 72,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.5636760589851251,
+   "ls_max_cell": 1.471218192058219,
+   "ls_x": {
+    "k@dark-inactive": 2.046916717023109,
+    "mu@dark-inactive": 1.7373789453398374
+   },
+   "ls_lam": {
+    "dark-inactive": 0.6605337001129293
+   },
+   "s_ls": 3.419124429207841,
+   "where_ls": "2x|bp-p1-c32-rrect-ml:sq59:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 3.207782426543446,
+   "where": "2x|bp-p1-c16-rrect-sm:sq130:knee",
+   "mm_x": {
+    "k@dark-inactive": 1.9682626641762933,
+    "mu@dark-inactive": 1.7458070284238985
+   },
+   "mm_lam": {
+    "dark-inactive": 0.6817533110876981
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 566.728147983551,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     3.207782426543446,
+     "2x|bp-p1-c16-rrect-sm:sq130:knee"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-ml",
+     3.2006987199322197,
+     "2x|bp-p1-c32-rrect-ml:sq59:knee"
+    ],
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     3.1482054900444894,
+     "2x|bp-p1-c64-rrect-ml:sq18:far"
+    ],
+    [
+     "2x|bp-p1-c32-rrect-lg",
+     3.0176916023845024,
+     "2x|bp-p1-c32-rrect-lg:sq12:far"
+    ],
+    [
+     "1x|bp-p1-c32-rrect-lg",
+     2.84869895595196,
+     "1x|bp-p1-c32-rrect-lg:sq12:far"
+    ]
+   ]
+  },
+  {
+   "truth": "K2",
+   "fit": "W-tails",
+   "ep": "dark-inactive",
+   "whole": true,
+   "n_cells": 72,
+   "letters": [
+    "B",
+    "B'",
+    "C",
+    "D",
+    "E"
+   ],
+   "excluded": [],
+   "ls_pooled": 0.5288487106309591,
+   "ls_max_cell": 1.4882238696349335,
+   "ls_x": {
+    "k@dark-inactive": 2.051084360565179,
+    "s2@dark-inactive": 24.36324842688422,
+    "a@dark-inactive": 4.842378649674922e-06
+   },
+   "ls_lam": {
+    "dark-inactive": 0.6584060409752763
+   },
+   "s_ls": 3.320461888358693,
+   "where_ls": "2x|bp-p1-c16-rrect-sm:sq130:knee",
+   "minimax": "Nelder-Mead from the LS point, 60 evaluations",
+   "s": 2.060156981772934,
+   "where": "2x|bp-p1-c16-rrect-sm:knee-cores",
+   "mm_x": {
+    "k@dark-inactive": 1.9984877787928905,
+    "s2@dark-inactive": 23.606796764005914,
+    "a@dark-inactive": 0.0
+   },
+   "mm_lam": {
+    "dark-inactive": 0.7221435644139174
+   },
+   "verdict": "DISTINGUISHED",
+   "seconds": 1063.3556888103485,
+   "bed": "5d719b60",
+   "kernel": "receded (no band)",
+   "top_cells": [
+    [
+     "2x|bp-p1-c16-rrect-sm",
+     2.060156981772934,
+     "2x|bp-p1-c16-rrect-sm:knee-cores"
+    ],
+    [
+     "2x|bp-p1-c64-rrect-ml",
+     2.059877900659103,
+     "2x|bp-p1-c64-rrect-ml:sq18:far"
+    ],
+    [
+     "2x|c-s32-hi-p4-rrect-ml",
+     2.0526683889289217,
+     "2x|c-s32-hi-p4-rrect-ml:p1:core"
+    ],
+    [
+     "2x|c-s32-hi-rrect-md",
+     2.0183856402301927,
+     "2x|c-s32-hi-rrect-md:p1:core"
+    ],
+    [
+     "2x|c-s32-hi-p4-rrect-md",
+     1.866251782557228,
+     "2x|c-s32-hi-p4-rrect-md:p1:core"
+    ]
+   ]
   }
  ],
  "nulls": []

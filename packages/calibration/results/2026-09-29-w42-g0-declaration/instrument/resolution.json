@@ -4578,7 +4578,7 @@
    ],
    "band": "receded (no band)",
    "synthetic": {
-    "resolution": "~5.02 (from s 1.37 at 4.59)",
+    "resolution": "~3.35 (from s 2.06 at 4.59)",
     "tolerance": "the departure that reaches s = 1.5 codes",
     "verdict": "ESTIMATE"
    },
@@ -4608,7 +4608,7 @@
    ],
    "band": "receded (no band)",
    "synthetic": {
-    "resolution": "~5.17 (from s 1.24 at 4.28)",
+    "resolution": "~4.02 (from s 1.60 at 4.28)",
     "tolerance": "the departure that reaches s = 1.5 codes",
     "verdict": "ESTIMATE"
    },
@@ -4668,7 +4668,7 @@
    ],
    "band": "receded (no band)",
    "synthetic": {
-    "resolution": "~0.374 (from s 1.40 at 0.35)",
+    "resolution": "~0.311 (from s 1.69 at 0.35)",
     "tolerance": "the departure that reaches s = 1.5 codes",
     "verdict": "ESTIMATE"
    },
@@ -4788,7 +4788,7 @@
    ],
    "band": "receded (no band)",
    "synthetic": {
-    "resolution": "~0.94 (from s 1.02 at 0.64)",
+    "resolution": "~0.823 (from s 1.17 at 0.64)",
     "tolerance": "the departure that reaches s = 1.5 codes",
     "verdict": "ESTIMATE"
    },
@@ -4868,14 +4868,14 @@
    "truth": "K2",
    "fit": "LT",
    "ep": "dark-inactive",
-   "s": 1.3714430211877868,
-   "s_ls": 1.6308429242308478,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c64-capsule-button:sq13:knee",
-   "whole": false,
-   "n_cells": 40,
+   "s": 2.0571185701769394,
+   "s_ls": 3.3846277190594947,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c64-rrect-ml:sq18:far",
+   "whole": true,
+   "n_cells": 72,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
   },
   {
    "truth": "K2",
@@ -4894,14 +4894,14 @@
    "truth": "K2",
    "fit": "LT",
    "ep": "light-inactive",
-   "s": 1.2429488422939698,
-   "s_ls": 1.5752081363274613,
-   "verdict": "MARGINAL",
+   "s": 1.597846311935939,
+   "s_ls": 2.9007300462474745,
+   "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c64-rrect-ml:sq8:knee",
-   "whole": false,
-   "n_cells": 40,
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
   },
   {
    "truth": "K2",
@@ -4915,6 +4915,19 @@
    "n_cells": 34,
    "at_bound": [],
    "bed": "5ba68aeb"
+  },
+  {
+   "truth": "K2",
+   "fit": "W-canvas",
+   "ep": "dark-inactive",
+   "s": 6.687319183895838,
+   "s_ls": 6.687319183895838,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|d-out8-lohi-rrect-md:bin-24..-16",
+   "whole": false,
+   "n_cells": 35,
+   "at_bound": [],
+   "bed": "07b45391"
   },
   {
    "truth": "K2",
@@ -4933,42 +4946,57 @@
    "truth": "K2",
    "fit": "W-shape",
    "ep": "dark-inactive",
-   "s": 1.3001833150335358,
-   "s_ls": 1.4898123960420406,
-   "verdict": "MARGINAL",
-   "where": "2x|c-s16-hi-capsule-button:p1:ring2-4",
-   "whole": false,
-   "n_cells": 35,
+   "s": 3.207782426543446,
+   "s_ls": 3.419124429207841,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c16-rrect-sm:sq130:knee",
+   "whole": true,
+   "n_cells": 72,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "5d719b60"
   },
   {
    "truth": "K2",
    "fit": "W-shape",
    "ep": "light-inactive",
-   "s": 1.095136835396744,
-   "s_ls": 1.370960525377285,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p2-c16-rrect-md:sq95:knee",
-   "whole": false,
-   "n_cells": 35,
+   "s": 2.634386082750268,
+   "s_ls": 2.995878127431155,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c64-rrect-ml:sq16:knee",
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "5d719b60"
+  },
+  {
+   "truth": "K2",
+   "fit": "W-tails",
+   "ep": "dark-inactive",
+   "s": 2.060156981772934,
+   "s_ls": 3.320461888358693,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c16-rrect-sm:knee-cores",
+   "whole": true,
+   "n_cells": 72,
+   "at_bound": [
+    "a@dark-inactive"
+   ],
+   "bed": "5d719b60"
   },
   {
    "truth": "K2",
    "fit": "W-tails",
    "ep": "light-inactive",
-   "s": 0.9986589210914758,
-   "s_ls": 1.185026144768699,
-   "verdict": "MARGINAL",
-   "where": "2x|d-d0-lohi-rrect-sm:bin-24..-16",
-   "whole": false,
-   "n_cells": 35,
+   "s": 1.618872888083331,
+   "s_ls": 2.8937126452142365,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c16-rrect-sm:knee-cores",
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [
     "a@light-inactive"
    ],
-   "bed": "07b45391"
+   "bed": "5d719b60"
   },
   {
    "truth": "LT",
@@ -5093,27 +5121,27 @@
    "truth": "LT",
    "fit": "R1",
    "ep": "light-inactive",
-   "s": 0.51038349068142,
-   "s_ls": 0.5891395866565574,
+   "s": 0.5103789397238927,
+   "s_ls": 0.5748998173774567,
    "verdict": "MARGINAL",
    "where": "2x|bp-p1-c32-rrect-64:sq46:far",
-   "whole": false,
-   "n_cells": 40,
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
   },
   {
    "truth": "LT",
    "fit": "R1",
    "ep": "light-rest",
-   "s": 0.5374074490250393,
-   "s_ls": 0.7713444370275795,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c64-capsule-button:sq12:knee",
-   "whole": false,
-   "n_cells": 34,
+   "s": 0.1400071443251818,
+   "s_ls": 0.15419776063319546,
+   "verdict": "UNRESOLVED",
+   "where": "2x|bp-p1-c32-rrect-ml:sq46:far",
+   "whole": true,
+   "n_cells": 15,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
   },
   {
    "truth": "LT",
@@ -5435,14 +5463,14 @@
    "truth": "LT-2k",
    "fit": "LT",
    "ep": "light-inactive",
-   "s": 1.4042605656524358,
-   "s_ls": 2.1610927511517275,
-   "verdict": "MARGINAL",
+   "s": 1.6875156984837076,
+   "s_ls": 1.972254228908639,
+   "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c64-rrect-ml:sq8:knee",
-   "whole": false,
-   "n_cells": 40,
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
   },
   {
    "truth": "LT-2k",
@@ -5487,27 +5515,40 @@
    "truth": "R1",
    "fit": "LT",
    "ep": "light-inactive",
-   "s": 0.5115176015009126,
-   "s_ls": 0.589536175432329,
+   "s": 0.5115282833084223,
+   "s_ls": 0.5762858443455627,
    "verdict": "MARGINAL",
-   "where": "2x|b-p2-c16-rrect-md:sq132:far",
-   "whole": false,
-   "n_cells": 40,
+   "where": "2x|bp-p1-c32-capsule-button:sq35:far",
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
   },
   {
    "truth": "R1",
    "fit": "LT",
    "ep": "light-rest",
-   "s": 0.5685357914388476,
-   "s_ls": 0.7645069484390774,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c8-capsule-button:sq505:knee",
-   "whole": false,
-   "n_cells": 34,
+   "s": 0.14101675211168185,
+   "s_ls": 0.1539102253447311,
+   "verdict": "UNRESOLVED",
+   "where": "2x|d-d0-hilo-rrect-lg:bin-8..-4",
+   "whole": true,
+   "n_cells": 15,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
+  },
+  {
+   "truth": "W-canvas",
+   "fit": "K2",
+   "ep": "dark-inactive",
+   "s": 6.9953969882242575,
+   "s_ls": 6.9953969882242575,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|d-out8-lohi-rrect-md:bin-24..-16",
+   "whole": false,
+   "n_cells": 35,
+   "at_bound": [],
+   "bed": "07b45391"
   },
   {
    "truth": "W-canvas",
@@ -5577,6 +5618,21 @@
   {
    "truth": "W-canvas",
    "fit": "W-shape",
+   "ep": "dark-inactive",
+   "s": 0.06068980611099306,
+   "s_ls": 0.07204293287283647,
+   "verdict": "UNRESOLVED",
+   "where": "2x|c-impulse-rrect-lg:p1:core",
+   "whole": false,
+   "n_cells": 35,
+   "at_bound": [
+    "mu@dark-inactive"
+   ],
+   "bed": "07b45391"
+  },
+  {
+   "truth": "W-canvas",
+   "fit": "W-shape",
    "ep": "light-inactive",
    "s": 0.05685601250098671,
    "s_ls": 0.06911254458418625,
@@ -5586,6 +5642,22 @@
    "n_cells": 35,
    "at_bound": [
     "mu@light-inactive"
+   ],
+   "bed": "07b45391"
+  },
+  {
+   "truth": "W-canvas",
+   "fit": "W-tails",
+   "ep": "dark-inactive",
+   "s": 6.995396988224243,
+   "s_ls": 6.995396988224243,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|d-out8-lohi-rrect-md:bin-24..-16",
+   "whole": false,
+   "n_cells": 35,
+   "at_bound": [
+    "a@dark-inactive",
+    "s2@dark-inactive"
    ],
    "bed": "07b45391"
   },
@@ -5606,27 +5678,27 @@
    "truth": "W-shape",
    "fit": "K2",
    "ep": "dark-inactive",
-   "s": 0.9093924487726781,
-   "s_ls": 1.1164295422126571,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p4-c64-rrect-md:sq7:knee",
-   "whole": false,
-   "n_cells": 35,
+   "s": 2.280659030516219,
+   "s_ls": 3.1623119503613566,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c16-rrect-sm:sq129:far",
+   "whole": true,
+   "n_cells": 72,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "5d719b60"
   },
   {
    "truth": "W-shape",
    "fit": "K2",
    "ep": "light-inactive",
-   "s": 0.8296451479951941,
-   "s_ls": 1.0558021249358944,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p2-c16-rrect-md:sq115:far",
-   "whole": false,
-   "n_cells": 35,
+   "s": 2.244703820520897,
+   "s_ls": 2.3827314137964777,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c32-rrect-lg:sq12:knee",
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "5d719b60"
   },
   {
    "truth": "W-shape",
@@ -5710,29 +5782,27 @@
    "truth": "W-shape",
    "fit": "W-tails",
    "ep": "dark-inactive",
-   "s": 0.9552886041028046,
-   "s_ls": 1.0890558526267284,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p4-c64-rrect-md:sq7:knee",
-   "whole": false,
-   "n_cells": 35,
-   "at_bound": [
-    "s2@dark-inactive"
-   ],
-   "bed": "07b45391"
+   "s": 2.5931417059857864,
+   "s_ls": 3.171974307514006,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c16-rrect-sm:sq129:far",
+   "whole": true,
+   "n_cells": 72,
+   "at_bound": [],
+   "bed": "5d719b60"
   },
   {
    "truth": "W-shape",
    "fit": "W-tails",
    "ep": "light-inactive",
-   "s": 0.8640876175105348,
-   "s_ls": 1.0453223376617018,
-   "verdict": "MARGINAL",
-   "where": "2x|c-s16-lo-capsule-button:p1:core",
-   "whole": false,
-   "n_cells": 35,
+   "s": 2.254475185787612,
+   "s_ls": 2.3679545380267086,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c64-rrect-ml:sq16:knee",
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "5d719b60"
   },
   {
    "truth": "W-tails",
@@ -5946,14 +6016,14 @@
    "truth": "free-sn",
    "fit": "LT",
    "ep": "light-inactive",
-   "s": 1.0216525473992988,
-   "s_ls": 1.3570585623999705,
+   "s": 1.1668241780606365,
+   "s_ls": 1.3683316006084283,
    "verdict": "MARGINAL",
-   "where": "2x|c-s16-hi-capsule-button:p1:core",
-   "whole": false,
-   "n_cells": 40,
+   "where": "2x|bp-p1-c32-rrect-lg:sq15:far",
+   "whole": true,
+   "n_cells": 60,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5d719b60"
   },
   {
    "truth": "free-sn",
@@ -6023,55 +6093,10 @@
  ],
  "unresolved": [
   {
-   "truth": "K2",
-   "fit": "LT",
-   "ep": "dark-inactive",
-   "s": 1.3714430211877868,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c64-capsule-button:sq13:knee",
-   "separator": "K2's second fill width (sk 12 against 8k = 16.3 pt) moves region statistics by 1.2-1.4 codes on the p64 knee sides: the bed separates K2 at a larger width difference. What would separate it at this one: C's S 32 patch surround at 16-48 pt (U1's rows) read at their own bar, or a P2/P4 pitch-32 cell between the p16 and p64 rows."
-  },
-  {
-   "truth": "K2",
-   "fit": "LT",
-   "ep": "light-inactive",
-   "s": 1.2429488422939698,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c64-rrect-ml:sq8:knee",
-   "separator": "K2's second fill width (sk 12 against 8k = 16.3 pt) moves region statistics by 1.2-1.4 codes on the p64 knee sides: the bed separates K2 at a larger width difference. What would separate it at this one: C's S 32 patch surround at 16-48 pt (U1's rows) read at their own bar, or a P2/P4 pitch-32 cell between the p16 and p64 rows."
-  },
-  {
-   "truth": "K2",
-   "fit": "W-shape",
-   "ep": "dark-inactive",
-   "s": 1.3001833150335358,
-   "verdict": "MARGINAL",
-   "where": "2x|c-s16-hi-capsule-button:p1:ring2-4",
-   "separator": "NO NOTE: to be read"
-  },
-  {
-   "truth": "K2",
-   "fit": "W-shape",
-   "ep": "light-inactive",
-   "s": 1.095136835396744,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p2-c16-rrect-md:sq95:knee",
-   "separator": "NO NOTE: to be read"
-  },
-  {
-   "truth": "K2",
-   "fit": "W-tails",
-   "ep": "light-inactive",
-   "s": 0.9986589210914758,
-   "verdict": "MARGINAL",
-   "where": "2x|d-d0-lohi-rrect-sm:bin-24..-16",
-   "separator": "NO NOTE: to be read"
-  },
-  {
    "truth": "LT",
    "fit": "R1",
    "ep": "light-inactive",
-   "s": 0.51038349068142,
+   "s": 0.5103789397238927,
    "verdict": "MARGINAL",
    "where": "2x|bp-p1-c32-rrect-64:sq46:far",
    "separator": "The mirror of R1 -> LT: see there."
@@ -6080,9 +6105,9 @@
    "truth": "LT",
    "fit": "R1",
    "ep": "light-rest",
-   "s": 0.5374074490250393,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c64-capsule-button:sq12:knee",
+   "s": 0.1400071443251818,
+   "verdict": "UNRESOLVED",
+   "where": "2x|bp-p1-c32-rrect-ml:sq46:far",
    "separator": "The mirror of R1 -> LT (active): see there."
   },
   {
@@ -6140,31 +6165,22 @@
    "separator": "The mirror of edge-swap -> LT (active): see there."
   },
   {
-   "truth": "LT-2k",
-   "fit": "LT",
-   "ep": "light-inactive",
-   "s": 1.4042605656524358,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c64-rrect-ml:sq8:knee",
-   "separator": "k_n against k_w when receded (1.75 against 2.10) moves statistics by 1.4 codes: the receded narrow width is 0.4 + 0.4t of the radius, so k_n's lever is small on t = 0 shapes. C's S 8 against S 32 on rrect-md carries it; a receded S 8 on rrect-lg (t = 1, opacity 0.8) doubles the lever."
-  },
-  {
    "truth": "R1",
    "fit": "LT",
    "ep": "light-inactive",
-   "s": 0.5115176015009126,
+   "s": 0.5115282833084223,
    "verdict": "MARGINAL",
-   "where": "2x|b-p2-c16-rrect-md:sq132:far",
+   "where": "2x|bp-p1-c32-capsule-button:sq35:far",
    "separator": "R1 (T on C and W before the fill) and LT's order differ only through T's CURVATURE over the levels a cell spans: an affine T commutes with the fill composite. The stand-in T is nearly straight in light receded over 144-255 (slopes 0.50, 0.40, 0.37), so B's P5 144/240 and P3 96/160 cannot separate them there. Family A's greys 160-255 decide it: if native T is curved there, P5 and P3 separate R1; if it is straight, the order is non-identifiable by construction and needs no cell. Dark receded (a compressive T) separates them (s 2.5)."
   },
   {
    "truth": "R1",
    "fit": "LT",
    "ep": "light-rest",
-   "s": 0.5685357914388476,
-   "verdict": "MARGINAL",
-   "where": "2x|bp-p1-c8-capsule-button:sq505:knee",
-   "separator": "As receded: light active T is nearly straight over the P-levels (the stand-in); family A decides."
+   "s": 0.14101675211168185,
+   "verdict": "UNRESOLVED",
+   "where": "2x|d-d0-hilo-rrect-lg:bin-8..-4",
+   "separator": "As receded: light active T is nearly straight over the levels (the stand-in); family A decides. Under ruling 3 the whole-bed re-read has 15 active cells (rrect-ml and -lg: the P1 checkers, the impulses and the 48/208 steps) and reads 0.14; B's P5/P3 on rrect-lg would be the answering rows."
   },
   {
    "truth": "W-canvas",
@@ -6187,47 +6203,20 @@
   {
    "truth": "W-canvas",
    "fit": "W-shape",
+   "ep": "dark-inactive",
+   "s": 0.06068980611099306,
+   "verdict": "UNRESOLVED",
+   "where": "2x|c-impulse-rrect-lg:p1:core",
+   "separator": "Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9)."
+  },
+  {
+   "truth": "W-canvas",
+   "fit": "W-shape",
    "ep": "light-inactive",
    "s": 0.05685601250098671,
    "verdict": "UNRESOLVED",
    "where": "2x|c-s8-hi-d80-rrect-lg:p12:ring2-4",
-   "separator": "NO NOTE: to be read"
-  },
-  {
-   "truth": "W-shape",
-   "fit": "K2",
-   "ep": "dark-inactive",
-   "s": 0.9093924487726781,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p4-c64-rrect-md:sq7:knee",
-   "separator": "The rounded-shape support differs from R_fp's box only near the corners and the capsule's ends, and K2's second fill width (or W-tails' tail) absorbs most of that to within 0.8-0.9 code. What separates them: receded structure within ~16 pt of an rrect corner or a capsule end (a step or a P1 patch placed there; fork B's step reader cannot call box against shape on D's centred steps either). A bed question."
-  },
-  {
-   "truth": "W-shape",
-   "fit": "K2",
-   "ep": "light-inactive",
-   "s": 0.8296451479951941,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p2-c16-rrect-md:sq115:far",
-   "separator": "The rounded-shape support differs from R_fp's box only near the corners and the capsule's ends, and K2's second fill width (or W-tails' tail) absorbs most of that to within 0.8-0.9 code. What separates them: receded structure within ~16 pt of an rrect corner or a capsule end (a step or a P1 patch placed there; fork B's step reader cannot call box against shape on D's centred steps either). A bed question."
-  },
-  {
-   "truth": "W-shape",
-   "fit": "W-tails",
-   "ep": "dark-inactive",
-   "s": 0.9552886041028046,
-   "verdict": "MARGINAL",
-   "where": "2x|b-p4-c64-rrect-md:sq7:knee",
-   "separator": "As W-shape -> K2 (receded): structure near a corner or a capsule end."
-  },
-  {
-   "truth": "W-shape",
-   "fit": "W-tails",
-   "ep": "light-inactive",
-   "s": 0.8640876175105348,
-   "verdict": "MARGINAL",
-   "where": "2x|c-s16-lo-capsule-button:p1:core",
-   "separator": "As W-shape -> K2 (receded): structure near a corner or a capsule end."
+   "separator": "Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9)."
   },
   {
    "truth": "edge-swap",
@@ -6251,10 +6240,10 @@
    "truth": "free-sn",
    "fit": "LT",
    "ep": "light-inactive",
-   "s": 1.0216525473992988,
+   "s": 1.1668241780606365,
    "verdict": "MARGINAL",
-   "where": "2x|c-s16-hi-capsule-button:p1:core",
-   "separator": "The free receded span law's truth sits within 0.64 pt of LT's k 5 (0.4 + 0.4t) at every ordinate, so this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160); the estimated resolution row gives the departure it would separate."
+   "where": "2x|bp-p1-c32-rrect-lg:sq15:far",
+   "separator": "The free receded span law's truth sits within 0.64 pt of LT's k 5 (0.4 + 0.4t) at every ordinate, so this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160; whole bed at pin 5d719b60: 1.17); the estimated resolution row gives the departure it would separate."
   }
  ],
  "nulls": [

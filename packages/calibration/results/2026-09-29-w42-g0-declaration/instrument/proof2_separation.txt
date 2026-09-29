@@ -6,15 +6,21 @@ truth -> fit      endpoint          s(minimax)  s(LS)  LS pooled  verdict       
     C-linear -> LT            light-inactive     8.26    8.26   2.558  DISTINGUISHED  40  2x|c-impulse-rrect-ml:p7:core
     C-linear -> LT            light-rest        13.32   13.32   3.143  DISTINGUISHED  34  2x|c-impulse-rrect-ml:p7:core
           K2 -> LT            dark-inactive      1.37    1.63   0.523  MARGINAL       40  2x|bp-p1-c64-capsule-button:sq13:knee
+          K2 -> LT            dark-inactive      2.06    3.38   0.527  DISTINGUISHED  72 whole  2x|bp-p1-c64-rrect-ml:sq18:far
           K2 -> LT            dark-rest          2.28    2.71   0.815  DISTINGUISHED  34  2x|bp-p1-c32-rrect-lg:sq34:far
           K2 -> LT            light-inactive     1.24    1.58   0.576  MARGINAL       40  2x|bp-p1-c64-rrect-ml:sq8:knee
+          K2 -> LT            light-inactive     1.60    2.90   0.575  DISTINGUISHED  60 whole  2x|bp-p1-c64-rrect-ml:sq8:knee
           K2 -> LT            light-rest         1.94    2.09   0.748  DISTINGUISHED  34  2x|bp-p1-c32-rrect-lg:sq33:far
           K2 -> W-canvas      dark-inactive      6.69    6.69   0.873  DISTINGUISHED  35  2x|d-out8-lohi-rrect-md:bin-24..-16
           K2 -> W-canvas      light-inactive     4.27    5.81   0.818  DISTINGUISHED  35  2x|b-p2-c64-rrect-md:sq7:far
           K2 -> W-shape       dark-inactive      1.30    1.49   0.498  MARGINAL       35  2x|c-s16-hi-capsule-button:p1:ring2-4
+          K2 -> W-shape       dark-inactive      3.21    3.42   0.564  DISTINGUISHED  72 whole  2x|bp-p1-c16-rrect-sm:sq130:knee
           K2 -> W-shape       light-inactive     1.10    1.37   0.515  MARGINAL       35  2x|b-p2-c16-rrect-md:sq95:knee
+          K2 -> W-shape       light-inactive     2.63    3.00   0.615  DISTINGUISHED  60 whole  2x|bp-p1-c64-rrect-ml:sq16:knee
           K2 -> W-tails       dark-inactive      1.32    1.42   0.501  MARGINAL       35  2x|c-s32-hi-rrect-md:p1:core
+          K2 -> W-tails       dark-inactive      2.06    3.32   0.529  DISTINGUISHED  72 whole  2x|bp-p1-c16-rrect-sm:knee-cores
           K2 -> W-tails       light-inactive     1.00    1.19   0.513  MARGINAL       35  2x|d-d0-lohi-rrect-sm:bin-24..-16
+          K2 -> W-tails       light-inactive     1.62    2.89   0.575  DISTINGUISHED  60 whole  2x|bp-p1-c16-rrect-sm:knee-cores
           LT -> C-linear      dark-inactive      9.63    9.63   2.460  DISTINGUISHED  40  2x|bp-p1-c64-capsule-button:sq12:far
           LT -> C-linear      dark-rest         13.16   13.16   2.315  DISTINGUISHED  34  2x|bp-p1-c64-rrect-ml:sq8:far
           LT -> C-linear      light-inactive     9.47    9.47   2.931  DISTINGUISHED  40  2x|c-impulse-rrect-ml:p7:core
@@ -25,7 +31,9 @@ truth -> fit      endpoint          s(minimax)  s(LS)  LS pooled  verdict       
           LT -> R1            dark-inactive      2.56    3.83   0.786  DISTINGUISHED  40  2x|bp-p1-c64-rrect-ml:sq11:knee
           LT -> R1            dark-rest          6.99    6.99   1.598  DISTINGUISHED  34  2x|bp-p1-c32-rrect-80:sq47:far
           LT -> R1            light-inactive     0.51    0.59   0.449  MARGINAL       40  2x|bp-p1-c32-rrect-64:sq46:far
+          LT -> R1            light-inactive     0.51    0.57   0.442  MARGINAL       60 whole  2x|bp-p1-c32-rrect-64:sq46:far
           LT -> R1            light-rest         0.54    0.77   0.433  MARGINAL       34  2x|bp-p1-c64-capsule-button:sq12:knee
+          LT -> R1            light-rest         0.14    0.15   0.429  UNRESOLVED     15 whole  2x|bp-p1-c32-rrect-ml:sq46:far
           LT -> W-canvas      dark-inactive      6.46    6.46   1.260  DISTINGUISHED  40  2x|d-out8-lohi-rrect-md:bin-24..-16
           LT -> W-canvas      dark-rest          0.02    0.03   0.419  UNRESOLVED     34  2x|bp-p1-c32-rrect-64:sq36:far
           LT -> W-canvas      light-inactive     6.85    6.85   1.113  DISTINGUISHED  40  2x|bp-p1-c64-rrect-ml:sq6:knee
@@ -51,11 +59,14 @@ LT+bleed-own -> LT            light-rest         2.35    2.63   0.667  DISTINGUI
        LT-2k -> LT            dark-inactive      2.48    2.59   0.753  DISTINGUISHED  40  2x|bp-p1-c32-rrect-ml:sq32:far
        LT-2k -> LT            dark-rest          2.45    3.27   0.731  DISTINGUISHED  34  2x|bp-p1-c8-rrect-ml:sq331:far
        LT-2k -> LT            light-inactive     1.40    2.16   0.637  MARGINAL       40  2x|bp-p1-c64-rrect-ml:sq8:knee
+       LT-2k -> LT            light-inactive     1.69    1.97   0.652  DISTINGUISHED  60 whole  2x|bp-p1-c64-rrect-ml:sq8:knee
        LT-2k -> LT            light-rest         2.12    2.99   0.643  DISTINGUISHED  34  2x|bp-p1-c8-rrect-ml:sq332:far
           R1 -> LT            dark-inactive      2.53    4.21   0.748  DISTINGUISHED  40  2x|bp-p1-c32-rrect-lg:sq52:far
           R1 -> LT            dark-rest          7.05    7.05   1.554  DISTINGUISHED  34  2x|c-s8-lo-d24-rrect-md:p1:core
           R1 -> LT            light-inactive     0.51    0.59   0.450  MARGINAL       40  2x|b-p2-c16-rrect-md:sq132:far
+          R1 -> LT            light-inactive     0.51    0.58   0.443  MARGINAL       60 whole  2x|bp-p1-c32-capsule-button:sq35:far
           R1 -> LT            light-rest         0.57    0.76   0.432  MARGINAL       34  2x|bp-p1-c8-capsule-button:sq505:knee
+          R1 -> LT            light-rest         0.14    0.15   0.429  UNRESOLVED     15 whole  2x|d-d0-hilo-rrect-lg:bin-8..-4
     W-canvas -> K2            dark-inactive      7.00    7.00   0.902  DISTINGUISHED  35  2x|d-out8-lohi-rrect-md:bin-24..-16
     W-canvas -> K2            light-inactive     7.19    7.19   0.856  DISTINGUISHED  35  2x|d-out8-lohi-rrect-md:bin-24..-16
     W-canvas -> LT            dark-inactive      7.00    7.00   1.328  DISTINGUISHED  40  2x|d-out8-lohi-rrect-md:bin-24..-16
@@ -67,7 +78,9 @@ LT+bleed-own -> LT            light-rest         2.35    2.63   0.667  DISTINGUI
     W-canvas -> W-tails       dark-inactive      7.00    7.00   0.905  DISTINGUISHED  35  2x|d-out8-lohi-rrect-md:bin-24..-16
     W-canvas -> W-tails       light-inactive     7.19    7.19   0.850  DISTINGUISHED  35  2x|d-out8-lohi-rrect-md:bin-24..-16
      W-shape -> K2            dark-inactive      0.91    1.12   0.459  MARGINAL       35  2x|b-p4-c64-rrect-md:sq7:knee
+     W-shape -> K2            dark-inactive      2.28    3.16   0.533  DISTINGUISHED  72 whole  2x|bp-p1-c16-rrect-sm:sq129:far
      W-shape -> K2            light-inactive     0.83    1.06   0.468  MARGINAL       35  2x|b-p2-c16-rrect-md:sq115:far
+     W-shape -> K2            light-inactive     2.24    2.38   0.536  DISTINGUISHED  60 whole  2x|bp-p1-c32-rrect-lg:sq12:knee
      W-shape -> LT            dark-inactive      2.32    2.54   0.557  DISTINGUISHED  40  2x|bp-p1-c64-rrect-ml:sq11:knee
      W-shape -> LT            dark-rest          2.98    3.16   0.744  DISTINGUISHED  34  2x|bp-p1-c64-capsule-button:sq14:far
      W-shape -> LT            light-inactive     2.21    2.40   0.552  DISTINGUISHED  40  2x|bp-p1-c32-rrect-80:sq47:knee
@@ -75,7 +88,9 @@ LT+bleed-own -> LT            light-rest         2.35    2.63   0.667  DISTINGUI
      W-shape -> W-canvas      dark-inactive      6.81    6.81   0.778  DISTINGUISHED  35  2x|d-out8-lohi-rrect-md:bin-24..-16
      W-shape -> W-canvas      light-inactive     6.91    6.91   0.755  DISTINGUISHED  35  2x|d-out8-lohi-rrect-md:bin-24..-16
      W-shape -> W-tails       dark-inactive      0.96    1.09   0.463  MARGINAL       35  2x|b-p4-c64-rrect-md:sq7:knee
+     W-shape -> W-tails       dark-inactive      2.59    3.17   0.533  DISTINGUISHED  72 whole  2x|bp-p1-c16-rrect-sm:sq129:far
      W-shape -> W-tails       light-inactive     0.86    1.05   0.468  MARGINAL       35  2x|c-s16-lo-capsule-button:p1:core
+     W-shape -> W-tails       light-inactive     2.25    2.37   0.536  DISTINGUISHED  60 whole  2x|bp-p1-c64-rrect-ml:sq16:knee
      W-tails -> K2            dark-inactive      2.86    3.11   0.844  DISTINGUISHED  35  2x|b-p2-c16-rrect-md:sq148:far
      W-tails -> K2            light-inactive     1.81    1.85   0.642  DISTINGUISHED  35  2x|d-d32-lohi-rrect-md:bin32..48
      W-tails -> LT            dark-inactive      3.46    3.52   1.120  DISTINGUISHED  40  2x|bp-p1-c32-capsule-button:sq45:far
@@ -93,6 +108,7 @@ LT+bleed-own -> LT            light-rest         2.35    2.63   0.667  DISTINGUI
      free-sn -> LT            dark-inactive      1.60    2.24   0.489  DISTINGUISHED  40  2x|bp-p1-c32-capsule-button:sq47:far
      free-sn -> LT            dark-rest         11.50   11.50   1.162  DISTINGUISHED  34  2x|bp-p1-c32-rrect-lg:sq34:far
      free-sn -> LT            light-inactive     1.02    1.36   0.465  MARGINAL       40  2x|c-s16-hi-capsule-button:p1:core
+     free-sn -> LT            light-inactive     1.17    1.37   0.468  MARGINAL       60 whole  2x|bp-p1-c32-rrect-lg:sq15:far
      free-sn -> LT            light-rest         7.82    7.82   0.836  DISTINGUISHED  34  2x|c-s8-hi-d80-rrect-lg:p8:core
    knee-luma -> LT            dark-inactive     10.93   10.93   0.861  DISTINGUISHED  44  2x|e-by-c64-rrect-md:sq9:b|B
    knee-luma -> LT            dark-rest         18.45   18.45   1.700  DISTINGUISHED  38  2x|e-by-c16-rrect-md:sq109:b|B

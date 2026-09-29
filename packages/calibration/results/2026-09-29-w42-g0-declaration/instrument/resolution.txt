@@ -867,13 +867,13 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - depth-graded radius | does the bed resolve the grading law beyond the band? | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n) | descriptive
     notes: light active: yes on rrect-lg only (80 vs 40 pt: 0.749 against the o-law 0.750; flat would be 1.0); rrect-md d24 is cut by the mask (0.811 vs 0.749); the 0.4t-at-1-pt end is never read (nothing readable shallower than 36.8 pt on lg, 25.6 on md). Dark active: no, under memo C's T (the 208 side untrusted). Bed questions: an md patch at ~34 pt; a dark level pair inside dark T's slope.
 - family fitter: K2 against LT (estimated resolution) | |sk - 8 k| (pt) | dark-inactive | band: receded (no band)
-    synthetic ~5.02 (from s 1.37 at 4.59) (tol the departure that reaches s = 1.5 codes) ESTIMATE
+    synthetic ~3.35 (from s 2.06 at 4.59) (tol the departure that reaches s = 1.5 codes) ESTIMATE
     notes: linear in the departure; see DEPARTURES in resolution.py
 - family fitter: K2 against LT (estimated resolution) | |sk - 8 k| (pt) | dark-rest | band: outside
     synthetic ~3.13 (from s 2.28 at 4.75) (tol the departure that reaches s = 1.5 codes) ESTIMATE
     notes: linear in the departure; see DEPARTURES in resolution.py
 - family fitter: K2 against LT (estimated resolution) | |sk - 8 k| (pt) | light-inactive | band: receded (no band)
-    synthetic ~5.17 (from s 1.24 at 4.28) (tol the departure that reaches s = 1.5 codes) ESTIMATE
+    synthetic ~4.02 (from s 1.60 at 4.28) (tol the departure that reaches s = 1.5 codes) ESTIMATE
     notes: linear in the departure; see DEPARTURES in resolution.py
 - family fitter: K2 against LT (estimated resolution) | |sk - 8 k| (pt) | light-rest | band: outside
     synthetic ~2.99 (from s 1.94 at 3.86) (tol the departure that reaches s = 1.5 codes) ESTIMATE
@@ -885,7 +885,7 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
     synthetic ~0.214 (from s 2.45 at 0.35) (tol the departure that reaches s = 1.5 codes) ESTIMATE
     notes: linear in the departure; see DEPARTURES in resolution.py
 - family fitter: LT-2k against LT (estimated resolution) | |k_n - k_w| | light-inactive | band: receded (no band)
-    synthetic ~0.374 (from s 1.40 at 0.35) (tol the departure that reaches s = 1.5 codes) ESTIMATE
+    synthetic ~0.311 (from s 1.69 at 0.35) (tol the departure that reaches s = 1.5 codes) ESTIMATE
     notes: linear in the departure; see DEPARTURES in resolution.py
 - family fitter: LT-2k against LT (estimated resolution) | |k_n - k_w| | light-rest | band: outside
     synthetic ~0.248 (from s 2.12 at 0.35) (tol the departure that reaches s = 1.5 codes) ESTIMATE
@@ -909,7 +909,7 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
     synthetic ~0.506 (from s 11.50 at 3.88) (tol the departure that reaches s = 1.5 codes) ESTIMATE
     notes: linear in the departure; see DEPARTURES in resolution.py
 - family fitter: free-sn against LT (estimated resolution) | max ordinate departure (pt) | light-inactive | band: receded (no band)
-    synthetic ~0.94 (from s 1.02 at 0.64) (tol the departure that reaches s = 1.5 codes) ESTIMATE
+    synthetic ~0.823 (from s 1.17 at 0.64) (tol the departure that reaches s = 1.5 codes) ESTIMATE
     notes: linear in the departure; see DEPARTURES in resolution.py
 - family fitter: free-sn against LT (estimated resolution) | max ordinate departure (pt) | light-rest | band: outside
     synthetic ~0.659 (from s 7.82 at 3.43) (tol the departure that reaches s = 1.5 codes) ESTIMATE
@@ -934,14 +934,16 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
       C-linear -> LT            dark-rest       s  14.69  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq8:far
       C-linear -> LT            light-inactive  s   8.26  DISTINGUISHED  2x|c-impulse-rrect-ml:p7:core
       C-linear -> LT            light-rest      s  13.32  DISTINGUISHED  2x|c-impulse-rrect-ml:p7:core
-            K2 -> LT            dark-inactive   s   1.37  MARGINAL       2x|bp-p1-c64-capsule-button:sq13:knee
+            K2 -> LT            dark-inactive   s   2.06  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq18:far
             K2 -> LT            dark-rest       s   2.28  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq34:far
-            K2 -> LT            light-inactive  s   1.24  MARGINAL       2x|bp-p1-c64-rrect-ml:sq8:knee
+            K2 -> LT            light-inactive  s   1.60  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq8:knee
             K2 -> LT            light-rest      s   1.94  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq33:far
+            K2 -> W-canvas      dark-inactive   s   6.69  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
             K2 -> W-canvas      light-inactive  s   4.27  DISTINGUISHED  2x|b-p2-c64-rrect-md:sq7:far
-            K2 -> W-shape       dark-inactive   s   1.30  MARGINAL       2x|c-s16-hi-capsule-button:p1:ring2-4
-            K2 -> W-shape       light-inactive  s   1.10  MARGINAL       2x|b-p2-c16-rrect-md:sq95:knee
-            K2 -> W-tails       light-inactive  s   1.00  MARGINAL       2x|d-d0-lohi-rrect-sm:bin-24..-16  [fit at its bound: a@light-inactive; s is an upper bound]
+            K2 -> W-shape       dark-inactive   s   3.21  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:sq130:knee
+            K2 -> W-shape       light-inactive  s   2.63  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq16:knee
+            K2 -> W-tails       dark-inactive   s   2.06  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:knee-cores  [fit at its bound: a@dark-inactive; s is an upper bound]
+            K2 -> W-tails       light-inactive  s   1.62  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:knee-cores  [fit at its bound: a@light-inactive; s is an upper bound]
             LT -> C-linear      dark-inactive   s   9.63  DISTINGUISHED  2x|bp-p1-c64-capsule-button:sq12:far
             LT -> C-linear      dark-rest       s  13.16  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq8:far
             LT -> C-linear      light-inactive  s   9.47  DISTINGUISHED  2x|c-impulse-rrect-ml:p7:core
@@ -951,8 +953,8 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
             LT -> LT+bleed-own  dark-rest       s  16.44  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin16..24  [fit at its bound: k_b@dark-rest; s is an upper bound]
             LT -> R1            dark-inactive   s   2.56  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq11:knee
             LT -> R1            dark-rest       s   6.99  DISTINGUISHED  2x|bp-p1-c32-rrect-80:sq47:far
-            LT -> R1            light-inactive  s   0.51  MARGINAL       2x|bp-p1-c32-rrect-64:sq46:far
-            LT -> R1            light-rest      s   0.54  MARGINAL       2x|bp-p1-c64-capsule-button:sq12:knee
+            LT -> R1            light-inactive  s   0.51  MARGINAL      (whole bed)  2x|bp-p1-c32-rrect-64:sq46:far
+            LT -> R1            light-rest      s   0.14  UNRESOLVED    (whole bed)  2x|bp-p1-c32-rrect-ml:sq46:far
             LT -> W-canvas      dark-inactive   s   6.46  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
             LT -> W-canvas      dark-rest       s   0.02  UNRESOLVED     2x|bp-p1-c32-rrect-64:sq36:far
             LT -> W-canvas      light-inactive  s   6.85  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq6:knee
@@ -977,29 +979,32 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
   LT+bleed-own -> LT            light-rest      s   2.35  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin32..48
          LT-2k -> LT            dark-inactive   s   2.48  DISTINGUISHED  2x|bp-p1-c32-rrect-ml:sq32:far
          LT-2k -> LT            dark-rest       s   2.45  DISTINGUISHED  2x|bp-p1-c8-rrect-ml:sq331:far
-         LT-2k -> LT            light-inactive  s   1.40  MARGINAL       2x|bp-p1-c64-rrect-ml:sq8:knee
+         LT-2k -> LT            light-inactive  s   1.69  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq8:knee
          LT-2k -> LT            light-rest      s   2.12  DISTINGUISHED  2x|bp-p1-c8-rrect-ml:sq332:far
             R1 -> LT            dark-inactive   s   2.53  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq52:far
             R1 -> LT            dark-rest       s   7.05  DISTINGUISHED  2x|c-s8-lo-d24-rrect-md:p1:core
-            R1 -> LT            light-inactive  s   0.51  MARGINAL       2x|b-p2-c16-rrect-md:sq132:far
-            R1 -> LT            light-rest      s   0.57  MARGINAL       2x|bp-p1-c8-capsule-button:sq505:knee
+            R1 -> LT            light-inactive  s   0.51  MARGINAL      (whole bed)  2x|bp-p1-c32-capsule-button:sq35:far
+            R1 -> LT            light-rest      s   0.14  UNRESOLVED    (whole bed)  2x|d-d0-hilo-rrect-lg:bin-8..-4
+      W-canvas -> K2            dark-inactive   s   7.00  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
       W-canvas -> K2            light-inactive  s   7.19  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
       W-canvas -> LT            dark-inactive   s   7.00  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
       W-canvas -> LT            dark-rest       s   0.02  UNRESOLVED     2x|bp-p1-c64-capsule-button:sq12:far
       W-canvas -> LT            light-inactive  s   7.19  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
       W-canvas -> LT            light-rest      s   0.01  UNRESOLVED     2x|bp-p1-c64-capsule-button:sq12:knee
+      W-canvas -> W-shape       dark-inactive   s   0.06  UNRESOLVED     2x|c-impulse-rrect-lg:p1:core  [fit at its bound: mu@dark-inactive; s is an upper bound]
       W-canvas -> W-shape       light-inactive  s   0.06  UNRESOLVED     2x|c-s8-hi-d80-rrect-lg:p12:ring2-4  [fit at its bound: mu@light-inactive; s is an upper bound]
+      W-canvas -> W-tails       dark-inactive   s   7.00  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16  [fit at its bound: a@dark-inactive, s2@dark-inactive; s is an upper bound]
       W-canvas -> W-tails       light-inactive  s   7.19  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
-       W-shape -> K2            dark-inactive   s   0.91  MARGINAL       2x|b-p4-c64-rrect-md:sq7:knee
-       W-shape -> K2            light-inactive  s   0.83  MARGINAL       2x|b-p2-c16-rrect-md:sq115:far
+       W-shape -> K2            dark-inactive   s   2.28  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:sq129:far
+       W-shape -> K2            light-inactive  s   2.24  DISTINGUISHED (whole bed)  2x|bp-p1-c32-rrect-lg:sq12:knee
        W-shape -> LT            dark-inactive   s   2.32  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq11:knee
        W-shape -> LT            dark-rest       s   2.98  DISTINGUISHED  2x|bp-p1-c64-capsule-button:sq14:far
        W-shape -> LT            light-inactive  s   2.21  DISTINGUISHED  2x|bp-p1-c32-rrect-80:sq47:knee
        W-shape -> LT            light-rest      s   1.96  DISTINGUISHED  2x|bp-p1-c32-capsule-button:sq34:knee
        W-shape -> W-canvas      dark-inactive   s   6.81  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
        W-shape -> W-canvas      light-inactive  s   6.91  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
-       W-shape -> W-tails       dark-inactive   s   0.96  MARGINAL       2x|b-p4-c64-rrect-md:sq7:knee  [fit at its bound: s2@dark-inactive; s is an upper bound]
-       W-shape -> W-tails       light-inactive  s   0.86  MARGINAL       2x|c-s16-lo-capsule-button:p1:core
+       W-shape -> W-tails       dark-inactive   s   2.59  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:sq129:far
+       W-shape -> W-tails       light-inactive  s   2.25  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq16:knee
        W-tails -> K2            dark-inactive   s   2.86  DISTINGUISHED  2x|b-p2-c16-rrect-md:sq148:far
        W-tails -> K2            light-inactive  s   1.81  DISTINGUISHED  2x|d-d32-lohi-rrect-md:bin32..48
        W-tails -> LT            dark-inactive   s   3.46  DISTINGUISHED  2x|bp-p1-c32-capsule-button:sq45:far
@@ -1016,7 +1021,7 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
      edge-swap -> LT            light-rest      s   0.40  UNRESOLVED     2x|bp-p1-c64-capsule-button:sq13:far
        free-sn -> LT            dark-inactive   s   1.60  DISTINGUISHED  2x|bp-p1-c32-capsule-button:sq47:far
        free-sn -> LT            dark-rest       s  11.50  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq34:far
-       free-sn -> LT            light-inactive  s   1.02  MARGINAL       2x|c-s16-hi-capsule-button:p1:core
+       free-sn -> LT            light-inactive  s   1.17  MARGINAL      (whole bed)  2x|bp-p1-c32-rrect-lg:sq15:far
        free-sn -> LT            light-rest      s   7.82  DISTINGUISHED  2x|c-s8-hi-d80-rrect-lg:p8:core
      knee-luma -> LT            dark-inactive   s  10.93  DISTINGUISHED  2x|e-by-c64-rrect-md:sq9:b|B
      knee-luma -> LT            dark-rest       s  18.45  DISTINGUISHED  2x|e-by-c16-rrect-md:sq109:b|B
@@ -1046,19 +1051,9 @@ REJECTED NULLS fitted to an LT truth (memo E's bars: mixture >= 2.60, units and 
   null-texel     light-rest      pooled   2.58 max cell  11.51  FAIL
 
 PAIRS NOT DISTINGUISHED, AND WHAT WOULD SEPARATE THEM
-- K2 -> LT (dark-inactive): s 1.37 MARGINAL
-    K2's second fill width (sk 12 against 8k = 16.3 pt) moves region statistics by 1.2-1.4 codes on the p64 knee sides: the bed separates K2 at a larger width difference. What would separate it at this one: C's S 32 patch surround at 16-48 pt (U1's rows) read at their own bar, or a P2/P4 pitch-32 cell between the p16 and p64 rows.
-- K2 -> LT (light-inactive): s 1.24 MARGINAL
-    K2's second fill width (sk 12 against 8k = 16.3 pt) moves region statistics by 1.2-1.4 codes on the p64 knee sides: the bed separates K2 at a larger width difference. What would separate it at this one: C's S 32 patch surround at 16-48 pt (U1's rows) read at their own bar, or a P2/P4 pitch-32 cell between the p16 and p64 rows.
-- K2 -> W-shape (dark-inactive): s 1.30 MARGINAL
-    NO NOTE: to be read
-- K2 -> W-shape (light-inactive): s 1.10 MARGINAL
-    NO NOTE: to be read
-- K2 -> W-tails (light-inactive): s 1.00 MARGINAL
-    NO NOTE: to be read
 - LT -> R1 (light-inactive): s 0.51 MARGINAL
     The mirror of R1 -> LT: see there.
-- LT -> R1 (light-rest): s 0.54 MARGINAL
+- LT -> R1 (light-rest): s 0.14 UNRESOLVED
     The mirror of R1 -> LT (active): see there.
 - LT -> W-canvas (dark-rest): s 0.02 UNRESOLVED
     The mirror of W-canvas -> LT (active): see there.
@@ -1072,29 +1067,21 @@ PAIRS NOT DISTINGUISHED, AND WHAT WOULD SEPARATE THEM
     The mirror of edge-swap -> LT (active): see there.
 - LT -> edge-swap (light-rest): s 0.43 UNRESOLVED
     The mirror of edge-swap -> LT (active): see there.
-- LT-2k -> LT (light-inactive): s 1.40 MARGINAL
-    k_n against k_w when receded (1.75 against 2.10) moves statistics by 1.4 codes: the receded narrow width is 0.4 + 0.4t of the radius, so k_n's lever is small on t = 0 shapes. C's S 8 against S 32 on rrect-md carries it; a receded S 8 on rrect-lg (t = 1, opacity 0.8) doubles the lever.
 - R1 -> LT (light-inactive): s 0.51 MARGINAL
     R1 (T on C and W before the fill) and LT's order differ only through T's CURVATURE over the levels a cell spans: an affine T commutes with the fill composite. The stand-in T is nearly straight in light receded over 144-255 (slopes 0.50, 0.40, 0.37), so B's P5 144/240 and P3 96/160 cannot separate them there. Family A's greys 160-255 decide it: if native T is curved there, P5 and P3 separate R1; if it is straight, the order is non-identifiable by construction and needs no cell. Dark receded (a compressive T) separates them (s 2.5).
-- R1 -> LT (light-rest): s 0.57 MARGINAL
-    As receded: light active T is nearly straight over the P-levels (the stand-in); family A decides.
+- R1 -> LT (light-rest): s 0.14 UNRESOLVED
+    As receded: light active T is nearly straight over the levels (the stand-in); family A decides. Under ruling 3 the whole-bed re-read has 15 active cells (rrect-ml and -lg: the P1 checkers, the impulses and the 48/208 steps) and reads 0.14; B's P5/P3 on rrect-lg would be the answering rows.
 - W-canvas -> LT (dark-rest): s 0.02 UNRESOLVED
     U3's active question (does active W read the canvas or R_fp) has no answering cell: R_fp's active margin (16 pt, 0.35 s above 64) plus the deep mask puts any content a canvas-wide W would see and a clamped R_fp would not at >= 50 pt from every readable pixel, where a sigma_w of ~16.5 pt weighs it below 1e-3; the D steps 8 and 16 pt outside the edge were the answering rows and are refraction-confounded (19.2 pt outer reach). Non-identifiable on this bed; no cell within the canvas and outside the refraction reach separates it. Recorded, not a bed question with an answer.
 - W-canvas -> LT (light-rest): s 0.01 UNRESOLVED
     U3's active question (does active W read the canvas or R_fp) has no answering cell: R_fp's active margin (16 pt, 0.35 s above 64) plus the deep mask puts any content a canvas-wide W would see and a clamped R_fp would not at >= 50 pt from every readable pixel, where a sigma_w of ~16.5 pt weighs it below 1e-3; the D steps 8 and 16 pt outside the edge were the answering rows and are refraction-confounded (19.2 pt outer reach). Non-identifiable on this bed; no cell within the canvas and outside the refraction reach separates it. Recorded, not a bed question with an answer.
+- W-canvas -> W-shape (dark-inactive): s 0.06 UNRESOLVED
+    Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).
 - W-canvas -> W-shape (light-inactive): s 0.06 UNRESOLVED
-    NO NOTE: to be read
-- W-shape -> K2 (dark-inactive): s 0.91 MARGINAL
-    The rounded-shape support differs from R_fp's box only near the corners and the capsule's ends, and K2's second fill width (or W-tails' tail) absorbs most of that to within 0.8-0.9 code. What separates them: receded structure within ~16 pt of an rrect corner or a capsule end (a step or a P1 patch placed there; fork B's step reader cannot call box against shape on D's centred steps either). A bed question.
-- W-shape -> K2 (light-inactive): s 0.83 MARGINAL
-    The rounded-shape support differs from R_fp's box only near the corners and the capsule's ends, and K2's second fill width (or W-tails' tail) absorbs most of that to within 0.8-0.9 code. What separates them: receded structure within ~16 pt of an rrect corner or a capsule end (a step or a P1 patch placed there; fork B's step reader cannot call box against shape on D's centred steps either). A bed question.
-- W-shape -> W-tails (dark-inactive): s 0.96 MARGINAL
-    As W-shape -> K2 (receded): structure near a corner or a capsule end.
-- W-shape -> W-tails (light-inactive): s 0.86 MARGINAL
-    As W-shape -> K2 (receded): structure near a corner or a capsule end.
+    Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).
 - edge-swap -> LT (dark-rest): s 0.73 MARGINAL
     R_fp's active edge mode (clamp vs normalised) is invisible for the same reason: the active margin keeps R_fp's edge >= 45 pt from the deep mask. Memo E's 0.23-code dark-active choice is below the bar. Non-identifiable on this bed; it does not matter to a render at these margins either.
 - edge-swap -> LT (light-rest): s 0.40 UNRESOLVED
     R_fp's active edge mode (clamp vs normalised) is invisible for the same reason: the active margin keeps R_fp's edge >= 45 pt from the deep mask. Memo E's 0.23-code dark-active choice is below the bar. Non-identifiable on this bed; it does not matter to a render at these margins either.
-- free-sn -> LT (light-inactive): s 1.02 MARGINAL
-    The free receded span law's truth sits within 0.64 pt of LT's k 5 (0.4 + 0.4t) at every ordinate, so this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160); the estimated resolution row gives the departure it would separate.
+- free-sn -> LT (light-inactive): s 1.17 MARGINAL
+    The free receded span law's truth sits within 0.64 pt of LT's k 5 (0.4 + 0.4t) at every ordinate, so this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160; whole bed at pin 5d719b60: 1.17); the estimated resolution row gives the departure it would separate.

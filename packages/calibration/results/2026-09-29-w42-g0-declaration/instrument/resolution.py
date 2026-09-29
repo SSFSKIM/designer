@@ -35,7 +35,12 @@ SEPARATORS = {
         'T) separates them (s 2.5).'),
     ('LT', 'R1', 'inactive'): 'The mirror of R1 -> LT: see there.',
     ('R1', 'LT', 'rest'): (
-        'As receded: light active T is nearly straight over the P-levels (the stand-in); family A decides.'),
+        'As receded: light active T is nearly straight over the levels (the stand-in); family A decides. Under '
+        'ruling 3 the whole-bed re-read has 15 active cells (rrect-ml and -lg: the P1 checkers, the impulses and '
+        "the 48/208 steps) and reads 0.14; B's P5/P3 on rrect-lg would be the answering rows."),
+    ('W-canvas', 'W-shape', 'inactive'): (
+        'Not a separation failure: W-shape with a large margin contains the canvas support at every readable '
+        'pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).'),
     ('LT', 'R1', 'rest'): 'The mirror of R1 -> LT (active): see there.',
     ('K2', 'LT', 'inactive'): (
         "K2's second fill width (sk 12 against 8k = 16.3 pt) moves region statistics by 1.2-1.4 codes on the "
@@ -60,8 +65,8 @@ SEPARATORS = {
     ('W-shape', 'W-tails', 'inactive'): 'As W-shape -> K2 (receded): structure near a corner or a capsule end.',
     ('free-sn', 'LT', 'inactive'): (
         "The free receded span law's truth sits within 0.64 pt of LT's k 5 (0.4 + 0.4t) at every ordinate, so "
-        'this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160); '
-        'the estimated resolution row gives the departure it would separate.'),
+        'this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160; '
+        'whole bed at pin 5d719b60: 1.17); the estimated resolution row gives the departure it would separate.'),
 }
 
 
