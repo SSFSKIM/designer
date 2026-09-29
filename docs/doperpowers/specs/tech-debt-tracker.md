@@ -6682,3 +6682,30 @@ radii (12, or 14 on `GlassButton`), and the capsule radius arrives on the tick a
 that measures the box. So a capsule draws one frame as a rounded rectangle. **Shape of the work:**
 register a capsule with its capsule family's radius taken from the first measurement, or hold the
 first draw until a box exists.
+
+## A fitting wave's operational logs went into git: W41 G1 added about 526 MB raw, 84 MB packed (W41 G1 merge, 2026-09-29)
+
+The W41 G1 merge (`8ee41aa1`) added 13,143 blobs under
+`packages/calibration/results/2026-09-27-w41-g1-identification/`. That is about 526 MB raw and
+about 84 MB compressed, on a repository whose pack was 645 MB. It is roughly eighty times the
+line volume of W39 G1's evidence. Most of it is not the evidence a reader needs:
+
+- thousands of per-decision JSON records from a fit scheduler that was later retired
+  (`stroke/scheduler-run-1/admissions/`, `pressure/`);
+- per-start restart stdouts;
+- large pretty-printed intermediate arrays. The largest committed files are compressed score
+  maps of 29 MB and 24 MB, and a 14.8 MB survival map.
+
+It could not be trimmed at landing. The holdout receipt binds the exact commit `becb2fde` and
+6,575 pinned files, so rewriting the branch would have broken the provenance the wave exists
+to keep. Every clone and CI checkout now pays for it.
+
+Shape of the fix, for the next fitting wave: decide at charter time which outputs are evidence
+(summaries, certificates, per-cell verdicts, hashes) and which are operational (per-poll
+admissions, pressure samples, per-start logs, raw score maps). Commit the evidence. Put the
+operational outputs in a tar.zst named by SHA-256, as W39's archive was, and record the hash in
+git: either as a release asset, or kept on the capture machine under the raw-runs rule. A
+freeze that must pin operational files can pin the archive's hash rather than thousands of
+paths. Whether to prune history later (for example with `git replace` or a filter-repo pass
+over the retired scheduler's directories) is the user's call, because it rewrites published
+history.
