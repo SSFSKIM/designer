@@ -1,0 +1,110 @@
+{
+  "schema": "w41-g2-sheet-examples-declaration-1",
+  "declaredAt": "2026-09-29T01:28:30.034920+00:00",
+  "declaredBefore": "any pixel of the G2 sheet run was opened: no native, pre-W41, identity or new canonical PNG, and no G1 sheet image, had been decoded or viewed when this list was written. Selection used only scenes.json roles, the W40 stage membership, file presence in the capture/fixture trees and W39 preparation admission.",
+  "columns": [
+    "Native",
+    "Shipped pre-W41 (85ad7f7e3e0d + receded 30fbe05986ae)",
+    "Shipped now, E3 (85ad7f7e3e0d + receded 003940b4c7da)"
+  ],
+  "examples": [
+    {
+      "ordinal": 1,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-md__inactive",
+      "reason": "Light-inactive photo at 1x: the known risk. G1 sheet 06 showed E3 turning texture-period luma into chroma mottling (c9a §5.192 §20); this is the same cell, now shipped."
+    },
+    {
+      "ordinal": 2,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-sm__inactive",
+      "reason": "Light-inactive photo at 2x on the small footprint: G1 sheet 07, where residual patches were redistributed rather than removed."
+    },
+    {
+      "ordinal": 3,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-md__inactive",
+      "reason": "Light-inactive photo at 2x on the same footprint as the 1x cell, so the two scales pair directly."
+    },
+    {
+      "ordinal": 4,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "checkerboard__rrect-md__inactive",
+      "reason": "Checkerboard, light inactive: a high-contrast periodic backdrop where luma-to-chroma conversion would show as a colour period."
+    },
+    {
+      "ordinal": 5,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "impulse__rrect-md__inactive",
+      "reason": "Impulse, light inactive at 2x: a localized bright structure under the body."
+    },
+    {
+      "ordinal": 6,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "light-solid__rrect-md__inactive",
+      "reason": "Light solid: a uniform backdrop, inside the uniform-body claim."
+    },
+    {
+      "ordinal": 7,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+      "reason": "Chromatic solid (probe): a saturated uniform backdrop, where E3 should act most directly."
+    },
+    {
+      "ordinal": 8,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "dark-solid__rrect-md__inactive",
+      "reason": "Dark solid at 2x: the low end, beside W36's black branch."
+    },
+    {
+      "ordinal": 9,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__capsule-button__inactive-tint-orange",
+      "reason": "Tinted: an author tint composed after the body over a photo."
+    },
+    {
+      "ordinal": 10,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__toolbar-group__inactive",
+      "reason": "Toolbar group: several members sampled as one group over a photo."
+    },
+    {
+      "ordinal": 11,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-md__rest",
+      "reason": "Active control: E3 is receded-only, so pre-W41 and now must be identical."
+    },
+    {
+      "ordinal": 12,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "sceneId": "photo__rrect-md__inactive",
+      "reason": "Reduced Transparency control: bodyE3StrengthUnderPolicy stands E3 down off nominal policy, so this inactive cell should also read identical."
+    },
+    {
+      "ordinal": 13,
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "factor-y1-c24-h120-colour__inactive",
+      "reason": "W39 uniform colour, light inactive: G1 example 02, the claimed uniform body."
+    },
+    {
+      "ordinal": 14,
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "v90-c-c44__inactive",
+      "reason": "W39 gradient, light inactive: G1 example 05, a structured case outside the claim."
+    }
+  ]
+}
