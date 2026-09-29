@@ -6882,3 +6882,18 @@ Shape of the fix: a unit test that pins the package entry's export names against
 (so a new export is a one-line reviewed diff), and either named exports for the modules whose
 helpers are internal or a `stripInternal`-style convention. Decide which existing exports are
 public before pinning, because the pin makes today's surface a commitment.
+
+## A release can list `vitrea-react` before the `vitrea-web` its range needs (0.25.0 publication, 2026-09-29)
+
+*Read off the registry times by the 0.25.0 cold-install check (c9d 0.25.0 row).*
+
+`pnpm release` is `pnpm -r build && changeset publish`, and the registry listed 0.25.0 as core
+07:55:05.941Z, react 07:56:01.039Z, web 07:57:00.320Z. For 59.3 s `@vitreajs/vitrea-react@0.25.0`
+was installable while the `@vitreajs/vitrea-web@0.25.0` its `^0.25.0` range requires was not, so a
+fresh install of React in that window failed to resolve. 0.24.0 listed core, web, react; the order
+is not guaranteed, and the spreads have been 3.0 s (0.23.0), 88.4 s (0.24.0) and 114.4 s.
+
+Shape of the fix: find whether `changeset publish` orders by the workspace dependency graph at the
+pinned CLI (3.0.1) or publishes concurrently. If it does not order, make `release` publish the fixed
+group in dependency order (core, web, react) itself, or accept the window and state it in the
+checklist. Nothing is broken once the group is complete.
