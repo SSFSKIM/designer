@@ -1,14 +1,15 @@
 # W42 — the body's spatial structure: an encoded heavy blur, a one-sided narrow term, CSS-pixel widths, all four window states (2026-09-29)
 
-**Status: v1 DRAFT (drafted for the parent from its decision skeleton and grounding memos A–C);
-memo D, the native layer dump, is still running and is folded at v2; adversarial review
-requested before G0. Decision Logs 1, 2 and 6 RULED by the user 2026-09-29; Decision Log 3 ruled
-by rule at charter; Decision Logs 4 and 5 open. Ledger sections §5.194–§5.197 reserved (§5.198
-if a child splits).**
+**Status: v2 DRAFT (drafted for the parent). v2 folds the adversarial review of v1, the parent's
+rulings on v1's drafter's notes and on every review finding, the user's Decision Logs 5a and 5b,
+and memo D (Apple's declared layer tree). Memo E, the offline re-fit of that literal tree, is
+still being written: every statement it will confirm or refute is marked **pending memo E**, and
+it is folded at v2.1. Decision Logs 1, 2, 5a, 5b and 6 RULED by the user 2026-09-29; Decision Log
+3 ruled by rule at charter and extended by the parent; Decision Log 4 and Decision Log 5's
+remainder open. Ledger sections §5.194–§5.197 reserved (§5.198 if a child splits).**
 
-Drafter's notes (marked **Drafter's note**) sit beside decisions the drafter would question; the
-decisions stand as the parent wrote them. Points memo D is meant to settle are marked **Pending
-memo D; folded at v2**, each with what its outcomes would change.
+Points still marked **Drafter's note** are v2's own; v1's ten were ruled by the parent and are
+now written into the text they concerned (Revision Notes).
 
 ## Purpose
 
@@ -24,9 +25,9 @@ the next wave's first question.
 The user set W42's scope on 2026-09-29: **"Widen W42 to the body's spatial structure in all four
 window states (encoded heavy blur, one-sided detail, CSS-pixel widths); E3 becomes its
 light-unfocused tone curve."** Their plan is an offline pass on existing cells first, then a
-native capture with a structured holdout. The offline pass is done: grounding memos A, B and C
-(Grounding Baseline). What they found makes E3's failure one instance of a gap across the whole
-material:
+native capture with a structured holdout. The offline pass is grounding memos A, B and C, plus
+memo D's dump of Apple's layer tree (Grounding Baseline). What they found makes E3's failure one
+instance of a gap across the whole material:
 
 1. **Apple's body is two spatial scales composited one-sidedly, in all four endpoints.** A
    narrow component carries the visible detail. A wide component sets a floor in the light
@@ -37,31 +38,42 @@ material:
    mirror statistic that is zero for any two-sided linear system reads 0.2–0.5 on Apple and
    ≤ 0.024 on vitrea (memo C §1).
 2. **The wide component averages ENCODED values, locally.** Encoded averaging before the tone is
-   the only order within about 3 codes in all four endpoints; linear averaging misses by ≥ 12
-   codes (memo B §0, §3). A group mean loses by 5–10× rms on every pitch-64 cell, so W is a local
-   blur (memo C §0). The checkerboard's black cells read 186.8–188.1 against F at the encoded mean,
-   187.8; the linear-light mean predicts 212.3 (memo A, reading 1).
-3. **Widths hold in CSS px, and the receded pose widens the narrow component.** σw reads 12–13
-   (active) and 14–19 (receded), identical at 1x and 2x (memo C §0). The narrow component is
-   span-graded when active (2.0 / 4.0 / 4.5 at spans 96 / 128 / 160, the same at both scales) and
-   wider when receded (4–4.5 at spans 32–44, 5.5–9 at spans 96–160, noisy) (memo C §0). Memo B
-   reads rrect-md's narrow width as 2.0–2.4 active against 5.0–5.8 receded (§0).
-4. **Two shipped defects sit on the same line.** vitrea fixes both body widths in DEVICE px (D1)
+   the only order within about 3 codes in all four endpoints, and linear averaging misses by
+   ≥ 12 codes, except that dark rrect-md at span 96 is not decisive (memo B §0, §3). The
+   checkerboard's black cells read 186.8–188.1 against F at the encoded mean, 187.8; the
+   linear-light mean predicts 212.3 (memo A, reading 1).
+3. **Widths hold in CSS px, and both poses grade the narrow component by span.** σw reads 10–13
+   on the active rrect cores and 13–19 on the receded ones (memo C §2a). Apple declares the
+   narrow term as ONE radius-5 blur over the sharp half-scale backdrop, whose opacity is 0.8t at
+   the centre when active and 0.4 + 0.4t when receded, with t = clamp((s − 64)/96, 0, 1)
+   (memo D §0, §3). Every declared body input is the same at 1x and 2x (memo D §4).
+4. **Apple's declared layer tree is this structure, literally.** The wide term is a radius-8
+   fill composited Lighten 0.9 (light) or Darken 0.9 (dark), then Normal at the glass slider's
+   position, 0.5 on the bed; the face colour matrix that follows it is affine on encoded values
+   and gives the native black floor within 0.6 code in all four endpoints (memo D §0, §6).
+   Nothing in that tree adapts to the backdrop (memo D §0).
+5. **Two shipped defects sit on the same line.** vitrea fixes both body widths in DEVICE px (D1)
    and blurs and mixes in linear light on both tiers (D2) (memo C §7). They are part of the law
    (Design), not a separate fix.
 
-W42 declares that structure as a law with its rivals before any pixel of a new bed exists (G0),
-captures the bed that identifies what existing cells cannot (G1), fits it on the new bed's
-calibration set and transfers it to validation (G2), and passes the canonical landing referees
-on the candidate's calibration/validation renders **before** spending its one exposure on the
-structured holdout H. That order is the lesson W41 paid for: W41 spent the W39 holdout on E3
-(§5.192 §25), and L1 and M2 then failed on canonical calibration/validation cells that could have
-been read before the exposure (§5.193 §3). **The wave lands what closes (G3), conditional on
-every referee passing** (Decision Log 1, RULED: "Land in this wave, if every referee passes").
+W42 declares that structure as a law with its rivals before any pixel of a new bed exists (G0);
+rehearses every landing referee on the grounding readings before the sitting (G0); captures the
+bed that identifies what existing cells cannot (G1); fits it on the new bed's calibration set and
+transfers it to validation (G2); and passes the canonical landing referees on the candidates'
+calibration/validation renders **before** spending its one exposure on the structured holdout H.
+That order is the lesson W41 paid for: W41 spent the W39 holdout on E3 (§5.192 §25), and L1 and
+M2 then failed on canonical calibration/validation cells that could have been read before the
+exposure (§5.193 §3). **The wave lands what closes (G3), conditional on every referee passing**
+(Decision Log 1, RULED: "Land in this wave, if every referee passes").
 
-W42 identifies spatial structure. It does not refit T, the endpoint's uniform response: the
-level misses already recorded (W36's grey middle, chroma) stay named and are not W42's to close.
-Rims, edge bands, the stroke and Apple's dark exterior contour stay where W35–W41 left them.
+**Two candidates carry the structure (Decision Log 5b, RULED).** Candidate 1 composes the
+identified structure with the LANDED tone: the shipped solve in three endpoints and, for light
+receded, E3's F extended above 150 by the new bed's greys. Its blur structure is scored against
+the law combined with that tone, and the gap to Apple's level is recorded as the existing named
+miss. Candidate 2 takes Apple's grey tone curve from the new capture in all four window states,
+starting from memo D's face matrix; it lands instead only if it passes every check, which could
+close W36's grey-middle miss too. Rims, edge bands, the stroke and Apple's dark exterior contour
+stay where W35–W41 left them.
 
 ## Parent-Level Acceptance
 
@@ -71,11 +83,12 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
    - *Metric:* the declaration's SHA-256, committed and independently reviewed, against the
      timestamp of the first native capture of the new bed.
    - *Bed:* the declaration itself. It holds every family of Design with its parameter count,
-     working space, support, span-law form and knots; T's two roles and its interpolation and
-     continuation (X35); the bed's families A, B, B', C, D, E, F and H with exact ids, and each
-     U-item's family; the split (calibration, validation, H), enforced by the wave reader and
-     launcher; the region statistics and their populations; the survival and closure rules
-     (clauses 5 and 10); the landing-referee gate (clause 9); the stops. Memo D is folded.
+     working space, support and span or depth grading, memo E folded; both candidates' T and the
+     light receded F extension (X35); the tie-break; the law's accessibility behaviour; the bed's
+     families A, B, B', C, D, E, F and H with exact ids and each U-item's family; the split
+     (calibration, validation, H), enforced by the wave reader and launcher; the W42 web plan;
+     the region statistics and their populations; the survival and closure rules (clauses 6 and
+     11); the landing-referee gate (clause 10); the stops.
    - *Bar:* every item present and hashed before G1's first capture. Nothing is fitted to native
      pixels in G0 beyond the grounding readings, which are recorded as readings.
    - *Stop:* a capture that precedes the hash, or a declaration change after the first capture,
@@ -96,21 +109,36 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
    - *Stop:* a reader that fails its control does not read Apple (memo B's two-Gaussian photo
      reader failed its control and was not used). A parameter the synthetic recovery cannot
      separate is declared non-identifiable on this bed before any fit.
-3. **The sitting is attested (G1).**
+3. **Every landing referee is rehearsed before the sitting (G0; X39).**
+   - *Metric:* L1, M1, M2 (as Decision Log 5a ruled), C1, X1, E2 and the two directional stops
+     of clause 10, each computed by memo A's body-swap: the shipped render with only the body
+     argument replaced by the grounding law readings composed with the landed T.
+   - *Bed:* each referee's adopted non-holdout population, in all four endpoints (memo A
+     rehearsed the light receded endpoint only).
+   - *Bar:* each referee's adopted bar. A referee that fails whatever the structure's
+     coefficients, because of T, a membership or its own reading, fails "by construction".
+   - *Stop:* a referee failing by construction goes to the user BEFORE the sitting, with its
+     numbers. E2 is already a not-worse-than-baseline stop; if the rehearsal shows it failing by
+     construction, the user rules its reading then.
+4. **The sitting is attested (G1).**
    - *Metric:* the attestation of every capture.
-   - *Bed:* the declared bed: four passes per scale (scheme × pose), 66 cells per 2x pass and 22
-     per 1x pass as memo C sized it (pending memo D), **seven runs** (Decision Log 2, RULED), the
-     declared no-glass references and sentinels, and `dump-layers` on every scene.
+   - *Bed:* the declared bed: four passes per scale (scheme × pose), 86 cells per active and 82
+     per receded 2x pass and 14 per 1x pass (Design, "The bed"), **seven runs** (Decision Log 2,
+     RULED), the declared no-glass references and sentinels. `dump-layers` over the whole
+     declared bed is the sitting's first step: it needs no grant, only the idle Mac.
    - *Bar:* on every capture, the four X6 facts (Reduce Transparency 0, Increase Contrast 0,
      `NSGlassTintAmount` 0.5, zero foreign browser or capture processes after the measured idle
      window) and W34 X4's native set (build 26A428, `ButtonShapesEnabled` 0, Show Borders 0,
      the display mode before and after, the colour context, the side bundle's cdhash and
      `LC_BUILD_VERSION`, `deterministic`, the pose as the harness attests it, the requested and
-     actual window frame and the shape's attested `frameOrigin`).
+     actual window frame and the shape's attested `frameOrigin`). Every dump of the declared bed
+     reads the declared inputs memo D reads (BlurRadius 5, BlurFill 8 at 0.9 and Normal 0.5, the
+     opacity laws, the backdrop scale and margin).
    - *Stop:* a run that fails to attest is quarantined and named. A wrong mode, a lost grant, a
-     failed idle window or a foreign process stops the pass; there is never a hidden retry.
+     failed idle window or a foreign process stops the pass; there is never a hidden retry. A dump
+     that departs from memo D's declared configuration stops the sitting before its first capture.
      Nothing is read against vitrea in G1.
-4. **Repeats before thresholds; the archive of record (G1).**
+5. **Repeats before thresholds; the archive of record (G1).**
    - *Metric:* the bar per cell, region and channel: 0.5 plus half the largest pairwise
      separation of the run medians, computed before plurality (W39's rule).
    - *Bed:* every admitted run, the losing states preserved.
@@ -118,141 +146,150 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
      archive is complete, published as a release asset named by SHA-256 and byte size, and
      replayed identically with the raw root denied.
    - *Stop:* G2 does not open until the bar and the replay are committed.
-5. **Identification on calibration, transfer on validation (G2).**
+6. **Identification on calibration, transfer on validation (G2).**
    - *Metric:* the declared region statistics per required channel: checker cell-core medians on
-     the knee and far sides, patch cores, step plateaus and transition bins, uniform deep medians.
-     Per-cell deep-body rms is reported beside them and never gated.
-   - *Bed:* the new bed's calibration set, which is the only fit input; its validation set,
-     read-only transfer.
-   - *Bar:* W39 clause 8 verbatim. A family SURVIVES only at max(1 code, bar) on every required
-     channel of every calibration AND validation cell and region before the freeze; survivors
-     within max(3, sum of bars) at every admitted discriminator are "insufficient resolution".
-     X31's three statuses and X21's one-sided censoring carry. Fits are least squares and
-     minimax, equal weight per cell; the width parameters make every family non-linear, so each
-     search is a bounded deterministic multistart stated as LOCAL.
-   - *Stop:* an endpoint with no survivor is this wave's negative at its resolution. If the
-     receded endpoints fail, Decision Log 3 applies. No family is added after the bed's first
-     read.
-6. **Uniform invariance (G2).**
+     the knee and far sides, patch cores and surround annuli, step plateaus and transition bins,
+     uniform deep medians. Per-cell deep-body rms is reported beside them and never gated.
+   - *Bed:* the new bed's calibration set, which is the fit's support; the canonical probe cells
+     may corroborate (X34) but are never its only support. Its validation set, read-only
+     transfer. Family F is bridge-only: it ties the bar across sittings and is not under this
+     clause's survival rule.
+   - *Bar:* W39 clause 8 verbatim, with the structure inverted through NATIVE T measured on
+     family A per endpoint. A family SURVIVES only at max(1 code, bar) on every required channel
+     of every calibration AND validation cell and region before the freeze; survivors within
+     max(3, sum of bars) at every admitted discriminator are "insufficient resolution", and the
+     declared tie-break chooses among them (Design). X31's three statuses and X21's one-sided
+     censoring carry. Fits are least squares and minimax, equal weight per cell; a family with
+     width parameters is non-linear, so its search is a bounded deterministic multistart stated
+     as LOCAL.
+   - *Stop:* an endpoint with no survivor is this wave's negative at its resolution; Decision
+     Log 3 then applies. No family is added after the bed's first read.
+7. **Uniform invariance (G2).**
    - *Metric:* the rendered deep-body median on uniform cells.
-   - *Bed:* the canonical uniform calibration/validation cells and the new bed's family A,
-     each rendered with the candidate and with every W42 spatial gate at its identity.
+   - *Bed:* the canonical uniform calibration/validation cells and the new bed's family A, each
+     rendered with the candidate and with every W42 spatial gate at its identity.
    - *Bar:* every family maps a constant backdrop to itself (memo A), so the two renders agree
-     within one code on every endpoint: against the shipped render on the three endpoints whose
-     T is the shipped solve, and against E3 alone (its W41 closure, §5.192 §25) on the light
-     receded endpoint.
-   - *Stop:* a departure is an implementation defect, found and fixed before clause 9's gate.
-7. **The runtime base (G2).**
+     within one code in every endpoint. Candidate 1's reference is the shipped render in the
+     three endpoints whose T is the shipped solve, and E3 with its extended F alone in the light
+     receded endpoint. Candidate 2's reference is its own T with the spatial gates at identity.
+   - *Stop:* a departure is an implementation defect, found and fixed before clause 10's gate.
+8. **The runtime base (G2).**
    - *Metric:* PNG byte identity.
    - *Bed:* a sample of the canonical bed declared in G0 (every backdrop kind, both scales,
      both poses, both schemes), rendered with the SHIPPED documents at G2's base.
    - *Bar:* byte-identical to the canonical capture tree, after `check-capture-tree` exits 0 on
      that tree.
-   - *Stop:* no candidate render until any difference is attributed and resolved (X37).
-8. **The rendered candidate on the new bed (G2; W41 clause 11).**
-   - *Metric:* clause 5's region statistics, read on vitrea's render with the same instrument.
-   - *Bed:* the new bed's web-plannable calibration and validation cells; G0 declares which are
-     plannable.
-   - *Bar:* clause 5's survival bound.
+   - *Stop:* no candidate render until any difference is attributed and resolved (X37). The same
+     proof is repeated whenever the base moves before G3's seal.
+9. **The rendered candidates on the new bed (G2; W41 clause 11; Decision Log 5b).**
+   - *Metric:* clause 6's region statistics, read on vitrea's render with the same instrument.
+   - *Bed:* the new bed's web-plannable calibration and validation cells (the W42 web plan).
+   - *Bar:* **candidate 1** within max(1 code, bar) of the identified structure composed with
+     the LANDED T; the rendered-against-Apple gap is recorded as the named level miss
+     (§5.178 §2 reads the shipped solve's knot-3 miss at +0.0508 / +0.0201 / −0.0207 / −0.0029
+     linear). **Candidate 2** within max(1 code, bar) of Apple directly. What these validation
+     renders read is the T that would ship.
    - *Stop:* a candidate whose operator fails is removed from the code before G2's merge; its
      diff and renders are kept as evidence.
-9. **The landing referees pass BEFORE the exposure (G2; X33).**
-   - *Metric:* the L1, M1, M2, C1, X1 and E2 cuts, regenerated from the candidate's renders by
-     W41 G2's ported referees (`results/2026-09-29-w41-g2-landing/referees/`) in `--stage` mode;
-     and eye sheets chosen BY STRATUM: uniform, binary structure, text, impulse, photo, gradient.
-   - *Bed:* the candidate's renders of each referee's adopted non-holdout population: the
-     canonical calibration/validation cells, plus the probe rows X1 and E2 already admit, on the
-     WebGPU tier, macOS 27 standard profiles, 1x and 2x, in a scratch stage that is never
-     published. The eye sheets show native | shipped | candidate with ΔE×8.
-   - *Bar:* the adopted rows as they stand when G2 opens. L1 ≤ 0.055 absolute, with growth
-     ≤ 0.005 against its W33 baseline. M1 median in [0.8, 1.2], cells in [0.6, 1.4]. M2 within
-     2 % of its reference generation, the shipped one when G2 opens. C1 ≤ 0.0042 per bed × span.
-     X1 zero pixels above native black. E2: no measured bin worse than its frozen baseline by
-     more than one code, and UNMEASURED never a pass. Named misses stay named and none is added.
-     The eye: the parent's verdict per stratum is recorded, and no stratum reads visibly further
-     from native than the shipped render.
-   - *Stop:* any failure means no exposure. H stays sealed, the result is recorded in §5.196, and
-     the candidate returns to identification on calibration or the wave closes at the negative.
-     **This is the lesson of W41**: a holdout exposure is spent only on a law that has already
-     passed every landing referee that can be read without it.
-
-   > **Drafter's note (M2).** As written, M2 cannot pass for any law that moves photo structure,
-   > whatever the direction. Memo A's table C reads every candidate failing M2 on all eight
-   > light-inactive photo cells; its best reading, C7, fails all eight while moving each toward
-   > native, and E3 did the same at W41 G2 (§5.193 §3). The grounding also reads shipped photo
-   > luma sd at 0.25–0.37 of native in the dark scheme (memo A, question 2), so a law that closes
-   > that gap moves those cells' structure by far more than 2 %. The drafter recommends that
-   > Decision Log 5's M2 reading be ruled before G2's gate rather than in G3: either M2 is read by
-   > direction (a move toward native passes, an overshoot fails) or its reference is re-based for
-   > this gate. Otherwise the gate is unpassable by construction.
-
-   > **Drafter's note (L1 growth under a T that is not refit).** §5.193 §3 records, under E3's
-   > level, three light-solid inactive growth failures (+0.0051 to +0.0066) and two tinted photo
-   > inactive ones (+0.0131 / +0.0136). Memo A's table C attributes its two tinted photo
-   > rrect-md tint-orange growth failures (+0.007 to +0.011) on every candidate to tint and level
-   > composition, not to the argument. No spatial family moves a uniform cell (clause 6), so with
-   > T = E3's F held, the light-solid failures recur by construction. Either Decision Log 5 rules
-   > on L1 growth before the gate, or the light receded claim waits for a wave that refits T.
-
-   > **Drafter's note (the eye's strata).** The canonical calibration/validation bed has no text
-   > and no gradient cell: hc-text is holdout or probe, and gradients exist only in the W39
-   > archive. The text stratum therefore reads the canonical probe hc-text cells (calibration
-   > evidence under X34) and the gradient stratum the W39 archive's web-plannable gradient cells
-   > (`v90`/`v270`, calibration rows). The canonical holdout's hc-text cells stay sealed until G3.
-10. **The one exposure on H (G2; X26 as carried).**
-    - *Metric:* clause 5's statistics on the held-out cells: the numerical candidate on all of
-      them, the rendered candidate on the web-plannable ones.
-    - *Bed:* H, declared before capture (memo C: 8 cells per 2x pass, 6 of them structured, and a
-      1x subset of 4), its payload behind the procedural boundary until the receipt.
-    - *Bar:* max(1 code, bar) on every measured held-out cell of the claimed endpoints. A censored
-      held-out cell is UNMEASURED and counts toward neither pass nor coverage; the measured
-      coverage is reported. The rendered H predictions are produced blind from the public
+10. **The landing referees pass BEFORE the exposure (G2; X33).**
+    - *Metric:* the L1, M1, M2, C1, X1 and E2 cuts, regenerated from each candidate's renders by
+      W41 G2's ported referees (`results/2026-09-29-w41-g2-landing/referees/`) in their
+      candidate-admission mode; two directional numerical stops, the impulse halo/annulus
+      statistic and the photo band-pass chroma energy; the owner test
+      (`adopted-thresholds.test.ts`) on the candidate's scratch union over all six gated macOS 27
+      profiles; and eye sheets chosen BY STRATUM: uniform, binary structure, text, impulse,
+      photo, gradient.
+    - *Bed:* the candidate's renders of each referee's adopted non-holdout population: the
+      canonical calibration/validation cells, plus the probe rows X1 and E2 already admit, on the
+      WebGPU tier, 1x and 2x, in a scratch stage that is never published; for the owner test, the
+      light generation's four profiles and the dark generation's two. The eye sheets show native
+      | shipped | candidate with ΔE×8. The text stratum reads the canonical probe hc-text cells
+      and the gradient stratum the W39 archive's web-plannable gradient cells: both are looks,
+      not referees.
+    - *Bar:* the adopted rows as they stand when G2 opens.
+      - L1 ≤ 0.055 absolute, with growth ≤ 0.005 against its W33 baseline. The tinted photo
+        inactive growth (+0.0131 / +0.0136 under E3, §5.193 §3) is read as written.
+      - M1 median in [0.8, 1.2], cells in [0.6, 1.4].
+      - M2 as Decision Log 5a ruled: the 2 % stays; a cell that moves toward Apple's own texture
+        reading, and not past it, is a named miss with Apple's value beside it; a cell that moves
+        away from Apple, or past it by more than 2 %, fails. The reference re-baselines at the
+        adopting gate (W32 Decision Log 4).
+      - C1 ≤ 0.0042 per bed × span. X1 zero pixels above native black. E2: no measured bin worse
+        than its frozen baseline by more than one code, and UNMEASURED never a pass.
+      - The two directional stops: no cell farther from Apple than the shipped render at the
+        statistic's declared resolution.
+      - The owner test: no failure that the base's own scratch union at the same membership does
+        not show.
+      - Named misses stay named and none is added, except through M2's named-miss path above.
+      - The eye: the parent's verdict per stratum is recorded, and no stratum reads visibly
+        further from native than the shipped render.
+    - *Stop:* any failure means no exposure. H stays sealed, the result is recorded in §5.196,
+      and the candidate returns to identification on calibration or the wave closes at the
+      negative. If only L1's light-solid inactive growth fails with the extended F, the light
+      receded tone stays the shipped solve and the spatial law lands over it, a partial adoption
+      inside Decision Log 3. **This is the lesson of W41**: a holdout exposure is spent only on a
+      law that has already passed every landing referee that can be read without it.
+11. **The one exposure on H (G2; X26 as carried).**
+    - *Metric:* clause 6's statistics on the held-out cells.
+    - *Bed:* H, declared before capture (8 cells per 2x pass, 6 of them structured, and 2 per 1x
+      pass), its payload behind the procedural boundary until the receipt.
+    - *Bar:* the identified structure through native T against Apple's held-out pixels at
+      max(1 code, bar) on every measured cell of the claimed endpoints; candidate 2's render
+      against Apple's held-out pixels at the same bound; candidate 1's render against its frozen
+      structure-with-landed-T prediction, with the gap to Apple recorded as the named level miss.
+      A censored held-out cell is UNMEASURED and counts toward neither pass nor coverage; the
+      measured coverage is reported. The rendered H predictions are produced blind from the public
       declaration and frozen by hash before the receipt, which recaptures them and requires
       equality before any native held-out pixel is scored.
     - *Stop:* a failure means the law does not close and nothing lands. H is spent either way,
       and no candidate changes after the receipt.
-11. **Nothing shipped moves until clause 10 passes (G0–G2; W39 clause 9).**
+12. **Nothing shipped moves until clause 11 passes (G0–G2; W39 clause 9).**
     - *Metric:* the protected-path diff; `freeze.py verify`; the goldens.
     - *Bed:* `scenes.json`, `fixtures/`, the frozen matrix, `results/generations/`,
       `results/superseded/`, the six material documents, the generated profiles, the goldens and
       every adopted threshold.
-    - *Bar:* no byte moves; the freeze reads 1,818 at every merge. Operators added in G2 sit at
-      their identity behind zero gates, appended to the identity table, so no document digest
-      moves and the goldens stay byte-identical.
+    - *Bar:* no byte moves; the freeze reads 1,818 at every merge. The one ruled exception is
+      G0's M2 named-miss derivation beside `chromaStructureMisses()` in
+      `adopted-thresholds.test.ts`, pinned by an owner case, with the 2 % unmoved (Decision Log
+      5a). Operators added in G2 sit at their identity behind zero gates, appended to the
+      identity table, so no document digest moves and the goldens stay byte-identical.
     - *Stop:* a protected byte that moves stops the merge.
-12. **The landing (G3), on Decision Log 1's terms.**
+13. **The landing (G3), on Decision Log 1's terms.**
     - *Metric:* the seal's identity against G2's frozen renders; the canonical stage read on both
-      tiers; clause 9's cuts regenerated on the stage; `tier-coherence.test.ts` and
-      `adopted-thresholds.test.ts`; the CSS carry's Chromium proof; `check-capture-tree`.
+      tiers; clause 10's cuts and the owner test regenerated on the stage;
+      `tier-coherence.test.ts`; the CSS carry's Chromium proof; `check-capture-tree`.
     - *Bed:* the canonical stage under the CLAUDE.md recipe, a light and a dark generation, both
       tiers, holdout membership declared and read last.
-    - *Bar:* the sealed documents re-render G2's frozen predictions byte for byte; clause 9's bars
-      on the stage; Decision Log 4's carry, approximation or decline measured per leaf in
-      Chromium; publication once through W40's publisher; the capture tree copied and
+    - *Bar:* the sealed documents re-render G2's frozen predictions byte for byte at G2's frozen
+      base (a moved base is re-proved through clause 8 first); clause 10's bars on the stage;
+      Decision Log 4's carry, approximation or decline measured per leaf in Chromium;
+      publication once through W40's publisher; the capture tree copied and
       `check-capture-tree` exit 0; the eye sheets over the whole canonical bed; the changeset
       (`@vitreajs/vitrea-web` minor); the release checklist with CI green at the release commit.
+      A receded-only reseal lands only after the tracker's M2-reference fix (Decision Log 3).
     - *Stop:* a rendered prediction that moves between G2's freeze and the seal stops the landing
       and returns the law to identification with a new bed. A referee failure on the stage stops
       it for Decision Log 5. `pnpm release` is the user's hand.
-13. **The canonical holdout, once by artifact (G3).**
+14. **The canonical holdout, once by artifact (G3).**
     - *Metric:* the adopted rows that read holdout, and the eye.
     - *Bed:* the canonical holdout (`holdout-configuration/configuration.py record`). It carries
       structured backdrops in both poses: hc-text on capsule and rrect-md, checkerboard and photo
       on rrect-lg, and the glass-over-glass pairs.
     - *Bar:* the adopted bounds that apply to its rows, read once per frozen configuration.
     - *Stop:* a miss is recorded and goes to Decision Log 5; it is never re-read.
-14. **Every gap is recorded.** A family that fails, an endpoint left at identity, a leaf the CSS
-    tier cannot carry, a level miss seen through T, a unit the dump leaves open: each with its
-    numbers in §5.194–§5.197, the Deferred list or the tracker.
+15. **Every gap is recorded.** A family that fails, an endpoint left at identity, a leaf the CSS
+    tier cannot carry, a level miss seen through the landed T, a unit memo D leaves open: each
+    with its numbers in §5.194–§5.197, the Deferred list or the tracker.
 
 ## Grounding Baseline (main at `9d7e171c`, W41 closed)
 
-**The memos.** Three grounding memos, written read-only on the repository under one set of
-rules (`w42-grounding-common.md`: never a holdout or recorded native pixel; prove each reader on
-vitrea's own captures first; read features at their own scale; separate the surface's own light
-from its transmission; keep censored channels one-sided). Each memo's fits are exploratory
-readings that size an effect, never a proposed coefficient set. They are committed verbatim, with
-their briefs and a SHA-256 manifest of their scratch, under
+**The memos.** Grounding memos A, B and C were written read-only on the repository under one
+set of rules (`w42-grounding-common.md`: never a holdout or recorded native pixel; prove each
+reader on vitrea's own captures first; read features at their own scale; separate the surface's
+own light from its transmission; keep censored channels one-sided). Their fits are exploratory
+readings that size an effect, never a proposed coefficient set. Memo D read Apple's declared
+layer tree and no pixel. All of them, with their briefs, the parent's two rulings files and a
+SHA-256 manifest of their scratch, are committed under
 `packages/calibration/results/2026-09-29-w42-grounding/`; the raw scratch stays on the machine
 under `~/vitrea-w42/grounding/`.
 
@@ -261,7 +298,8 @@ under `~/vitrea-w42/grounding/`.
 | A, `w42-grounding-argument.txt` | the argument E3's F and g are evaluated at | canonical cal/val light-inactive checkerboard, impulse, photo (20 cells, 1x and 2x), light-active and dark cells for its question 2; W39 gradient calibration rows; G2's committed native body means for hc-text and the pitch series; both web trees |
 | B, `w42-grounding-kernel.txt` | Apple's body blur: kernel, space, pose; the capture that identifies it | canonical cal/val in all four endpoints; committed uniform readings from the W39 and W34 archives; vitrea's code map and captures |
 | C, `w42-grounding-probe.txt` | the probe series, the W29 dump, the smallest identifying capture | A's and B's evidence plus the canonical PROBE cells in every endpoint and scale, and the spent W34 archive's checkers |
-| D, `w42-dumps.txt` | Apple's layer tree across spans, poses and schemes, no pixels | **pending memo D; folded at v2** |
+| D, `w42-dumps.txt` | Apple's layer tree across spans, poses, schemes and scales | `dump-layers` on the W39 side bundle: 24 scenes × 4 endpoints × 2 scales, 208 surfaces, a settle-16 repeat; no pixels |
+| E, `w42-grounding-refit.txt` | the literal layer tree (LT) fitted on memo C's cells through native T and through the literal face matrix; U1 re-tested | **pending memo E; folded at v2.1** |
 
 **The repeat bar under the grounding.** Canonical cells are single captures (`repeatNoise` 0,
 `runsPerCell` 1); one code is the resolution. The W39 and W34 seven-run bar is ≤ 0.5 code and was
@@ -273,28 +311,61 @@ bridges tie the new sitting to the canonical and probe sittings and give it a re
 | question | reading | source |
 | --- | --- | --- |
 | averaging space of the level | checker black cells 186.8–188.1 against F(encoded mean 127.5) = 187.8; linear-light mean predicts 212.3. Impulse 133.0 against 132.9, linear 137.9 | A, reading 1 |
-| space, all four endpoints | encoded averaging then T within about 3 codes everywhere; linear averaging misses by ≥ 12 | B §0, §3 |
+| space, all four endpoints | encoded averaging then T within about 3 codes everywhere; linear averaging misses by ≥ 12. Dark active / receded rrect-md at span 96 is not decisive ([121, 134] / [114, 127]) | B §0, §3 |
 | one-sidedness | native suppressed side within 2.6 codes of 0; shipped dome ratios −1.04 to −1.31; mirror S 0.2–0.5 (Apple) against ≤ 0.024 (vitrea) | A q.2; C §1 |
-| W local, not group | a group mean loses by 5–10× rms on every pitch-64 cell | C §0 |
-| σw | 12–13 active, 14–19 receded, identical at 1x and 2x | C §0 |
+| W local, not group | a group mean loses by 5–10× rms on every pitch-64 rrect cell; on the W34 active capsule it reads 3.5 / 4.5 rms against the canvas's 1.25–1.27 / 0.99–1.04 (light / dark), a 2.8× / 4.5× loss as the review read it | C §0, §2a |
+| σw, full ranges | active rrect cores 10–13 (dark rrect-lg 10); W34 active capsule 24 / 17 on the canvas, 14 / 13 on its footprint. Receded rrect cores 13–19 across supports (light rrect-lg box 19); W34 receded capsule 12–15 on its footprint, 8–10 on the canvas | C §2a |
 | receded W support | footprint-limited; box fits best: W34 receded capsule 0.35 rms footprint against 1.5–2.2 canvas | C §0 |
 | active W support | big shapes cannot tell canvas from footprint; the capsule prefers canvas, but it is all refraction | C §0 |
 | σn active | 0.8 at 1x and 0.4 at 2x on spans 32–44 at every pitch 4–64 (0.8 dev: the half-scale resampling floor); 2.0 / 4.0 / 4.5 at spans 96 / 128 / 160, both scales | C §0 |
-| σn receded | 4–4.5 at spans 32–44, 5.5–9 at 96–160 (noisy); B reads 4.3 → 5.4 from span 44 to 96 | C §0; B §0 |
-| active knee | lighten/darken at λ 0.88–0.91, then normal at w 0.48–0.51, both schemes and scales; a hard max (λ = 1) rejected by +0.6 to +1.2 rms; the dump's 0.9 / 0.546 costs +0.3 to +0.7 | C §0 |
+| σn receded | 4–4.5 at spans 32–44, 5.5–9 at 96–160 (noisy); B reads 4.3 → 5.4 from span 44 to 96; σ/opacity lies between 7.5 and 11.8 on six light cells | C §0; B §0; D §5 |
+| active knee | three joint fits: light capsule 1x λ 0.88, w 0.506 (per-cell 1.22–1.58); dark capsule 1x λ 0.91, w 0.497 (1.11–1.55); light rrect-md 2x λ 0.88, w 0.483 (1.31–1.58). A hard max (λ = 1) loses +0.6 to +1.2 rms; a soft knee adds nothing | C §0, §2c |
 | receded knee | not closed: pitch-16 knee sides flat at W need λ ≥ 0.98; pitch-64 cores want 0.6–0.8; a shared fit leaves 0.9–1.5 codes per cell | C §0 |
-| space on non-binary structure | lc16 within 0–2 codes encoded, linear +3.6 to +4.2; hc-text 0.6–6 encoded against 16–48 linear | C §0 |
+| space on non-binary structure | light lc16 within 0–2 codes encoded, linear +3.6 to +4.2; hc-text 0.6–6 encoded against 16–48 linear. Dark active lc16 refits favour linear slightly (encoded 1.0–1.2 against linear 0.8–1.0); light active rrect-ml/lg and dark spans ≥ 96 are T-limited | C §0, §2d |
 | chroma | takes the heavy argument only (s about 10–12), no sharp or one-sided part | A |
 | gradients | native slope ratio 0.61; a canvas blur keeps the ramp (strip max 1.95–2.00 codes); a footprint-normalised blur at s = 12 reads 0.85–1.01 | A, reading 3 |
-| hc-text | fits F at its own footprint encoded mean (177.6, not 128) to +0.2 / −0.1 codes | A |
-| 1x fine pitches | pitches 4 and 8 at 1x pass more contrast than any Gaussian allows; points to a decimated backdrop | C §2e |
+| hc-text | F at each cell's own footprint encoded mean: rrect-lg (177.6) +0.2 / −0.1, hc-text-7 rrect-md (156.5) +1.0 / +1.1, hc-text-28 rrect-md (171.6) +0.3 / +1.5 codes; the positive part is the checker's one-sided excess over a white majority | A |
+| 1x fine pitches | pitches 4 and 8 at 1x pass more contrast than any Gaussian allows; a decimated backdrop | C §2e |
 | size of the one-sided effect | memo A's reading C7 (encoded heavy + k·max(0, sharp − heavy)): worst-cell luma rms 1.3 (2x) / 3.9 (1x) on the checker, ≤ 0.6 impulse, ≤ 1.5 photo | A |
+
+**Apple's declared configuration** (memo D; declared inputs to a private filter, pointers until
+the pixels agree, X38). One size variable drives every span-graded input, t = clamp((s − 64)/96,
+0, 1), with s the surface's short side; nothing moves for s ≤ 64, and the clamp at t = 1 is
+inferred (160 is the largest span dumped). Seventeen closed-form laws reproduce all 104 surfaces
+at 2x to below 1e-3.
+
+| input | light active | light receded | dark active | dark receded |
+| --- | --- | --- | --- | --- |
+| BlurRadius | 5 | 5 | 5 | 5 |
+| BlurOpacity, centre → 1 pt inside the edge | 0.8t → 0.4t | 0.4 + 0.4t, flat | 0.8t → 0.4t | 0.4 + 0.4t, flat |
+| BlurFill radius; Lighten / Darken; Normal | 8; 0.9 / 0; 0.5 | 8; 0.9 / 0; 0.5 | 8; 0 / 0.9; 0.5 | 8; 0 / 0.9; 0.5 |
+| face black / white; saturation; fill | 0.40 / 1.03; 1.2; white α 0.20 | 0.40 / 0.96; 1.2; white α 0.20 | 0.125 / 1.125; 1.3; none | 0.08 / 1.125; 1.3; none |
+| MaxLuma / MaxLumaSDR; Clamp | 1 / 0.94; 1.06961 | 1 / 0.94; 1.0 | max(0.35, 0.6 − 0.6t); 1.30831 | same |
+| backdrop scale; marginWidth | 0.5 (0.25 on rrect-lg); 0.35 s if s > 64, else 16 | 0.5 (0.25); 1 dev | as light active | as light receded |
+| bleed blur radius; opacity | 0.35 s if s > 64; 0.5t | 0 | 0.35 s if s > 64; 0.8t | 0 |
+
+- **Normal is the slider.** W29's "Normal 0.546" was the glass slider's position when W29
+  dumped; Normal equals `NSGlassTintAmount` at five slider positions, and the light fill alpha
+  tracks it too (0, 0.10, 0.20, 0.2275, 0.50). The bed attests 0.5, so w is **fixed at 0.5**.
+- **Scale.** 1x and 2x are field-for-field identical apart from four quantities that equal one
+  device pixel at each scale. The backdrop capture scale is 0.5 at both display scales, so the
+  backdrop is sampled at 0.5 px/pt at 1x and 1 px/pt at 2x (rrect-lg 0.25 / 0.5).
+- **Backdrop and position switch nothing**: dark-solid, checkerboard, light-solid and photo give
+  identical inputs over 12 component-surface groups × 4 endpoints; rrect-md-clear20 is rrect-md.
+- **The face against native uniform levels** (memo D §6): the declared encoded affine gives the
+  black floor within 0.6 code in all four endpoints; light follows it within 1 code up to input
+  88, then runs 1–3 codes high; light receded white is the 0.94 cap (239.7 against 240). Dark is
+  strongly compressive above the floor, not a hard cap at MaxLuma, and its span dependence
+  matches the MaxLuma law in sign (dark grey-128 134 / 127 at s ≤ 64 and 121 / 114 at s = 96).
+  Light active grey-128 rises from 195 to 198 at s = 96; no declared face input explains it.
 
 **The shipped body** (memo B's float64 replica reproduces 11 web cores at rms 0.27–0.38): the
 centre is enc(R + B·((1 − k)·Ksharp∗b + k·Kdeep∗b − L̄)) on the LINEAR-light backdrop b, with
-Ksharp 1.58 dev at both scales and Kdeep about 14 dev (L4, platykurtic); the tone argument is
-group-level (the source mean when active, the silhouette encoded mean when receded). The CSS
-tier blurs through `feGaussianBlur` in linearRGB. Neither tier has a knee (memo B §1, §6).
+Ksharp 1.58 dev at both scales and Kdeep about 14 dev (L4, platykurtic). The dark active document
+names no heavy tap (`sizeHeavyTapSigma` 0 at both scales, lines 133–134), so its deep sample is
+the chain level `scatterLod` (`wgsl/optics.ts:1052`; memo B: LOD 3.32, 9.7 dev at 2x). The tone
+argument is group-level (the source mean when active, the silhouette encoded mean when receded).
+The CSS tier blurs through `feGaussianBlur` in linearRGB. Neither tier has a knee (memo B §1, §6).
 
 **The shipped documents.** macOS 27 light active / dark active / light receded / dark receded:
 files `85ad7f7e3e0d` / `0eac5b294cc2` / `30fbe05986ae` / `5cec8c961201`, resolved digests
@@ -302,14 +373,6 @@ files `85ad7f7e3e0d` / `0eac5b294cc2` / `30fbe05986ae` / `5cec8c961201`, resolve
 macOS 26.5 pair is `b2b570e4adcea8fb` / `874be66ea501621b`. E3's zero-gated identity-table group
 (`bodyE3Strength` 0) is on main at the identity in every document (W41 Deferred at close 2).
 `freeze.py verify` read 1,818 entries at drafting.
-
-**A pointer, not evidence of record.** The uncommitted W29 G0 dump
-(`/Users/new/vitrea-w29-g0-scratch/c/dump-sdk27/`, macOS 27 26A428, 2x only, nine scenes, one
-receded cell) shows a `glassBackground` filter on a `CABackdropLayer` whose bounds are the
-shape's box, at scale 0.5; `inputBlurRadius` 5; blur opacity graded by span when active (0, 0,
-0.133, 0.267 at spans 32, 44, 80, 96) and 0.533 when receded; a radius-8 blur fill at Lighten
-0.9 (light) or Darken 0.9 (dark) plus Normal 0.546; refraction, bleed and shadow zeroed when
-receded (memo C §3). Memo D reads the same tree across spans, poses and schemes.
 
 **The runtime base.** PR #2 (`perf/demand-driven-frames`, another session's, open, mergeable,
 checks green at drafting) moves the root's frame loop to demand-driven frames and edits
@@ -320,91 +383,113 @@ constant, law or capture moved; the calibration page hand-steps `root.runFrame`
 
 ## Design (advisory unless marked)
 
-### The law (MARKED: its structure; G0 declares the families with their counts before any pixel of the new bed, and G2 fits on the new bed only)
+### The law: LT, Apple's literal layer tree (MARKED: the primary declared family; G0 declares every family with its count before any pixel of the new bed, and G2 fits on the new bed)
 
-Let B be the backdrop in encoded sRGB and G(σ) a Gaussian of width σ in CSS px.
+Let B be the backdrop in encoded sRGB, s the surface's short side in CSS px,
+t = clamp((s − 64)/96, 0, 1), d the SDF distance from the edge (negative inside), and B½ the
+backdrop sampled at the layer's backdrop scale (0.5 of the device resolution; 0.25 on rrect-lg).
+All averaging is in **ENCODED** space.
 
-- **The narrow component** C = G(σn)∗B↓, sampled from a half-scale backdrop.
-- **The heavy component** W = G(σw)∗B, on the support its family declares.
-- Both are averaged in **ENCODED** space.
-- **They combine one-sidedly.** Light: a lighten of C with W at opacity λ, then a normal mix
-  toward W at w:
+- **The narrow term** is a mixture of the sharp half-scale backdrop and ONE radius-5 blur:
+
+      C = (1 − o)·B½ + o·G(5)∗B½
+
+  Active: o = 0.8t at the centre (d = −s/2), falling linearly in d to 0.4t at 1 pt inside the
+  edge. Receded: o = 0.4 + 0.4t, flat in depth. These are memo D's exact laws; nothing in them is
+  fitted. The half-scale sampling is a device-pixel operation, which is what memo C's 0.8-dev
+  floor at spans 32–44 and the 1x fine-pitch aliasing read (§2e); every width in the law is in CSS
+  px above that floor.
+- **The wide term** W = G(8)∗B½ on the backdrop layer's support: the shape's bounding box plus
+  the declared margin (active 0.35 s if s > 64, else 16; receded one device pixel). Memo C
+  reads the receded W footprint-limited with the box fitting best; whether the declared support
+  also beats the canvas in the active pose, where memo C's capsule preferred the canvas, is
+  **pending memo E**.
+- **The composite**, light: a Lighten of C with W at λ = 0.9, then Normal toward W at w = 0.5,
+  the slider's position:
 
       M = (1 − w)·C + (1 − w)·λ·max(0, W − C) + w·W
 
-  Dark is the mirror, a darken with min: M = (1 − w)·C − (1 − w)·λ·max(0, C − W) + w·W.
-- **The output** is y = T(M), where T is the endpoint's uniform response (X35).
-- **Widths are in CSS px.** σn follows a span law per pose; σw is set per pose. G0 declares the
-  span law's form and knots, and so its count, before any fit. Two forms are advisory: ordinates
-  at declared knots among the calibration spans (rrect-80 is H's, so it tests the law and never
-  anchors it), or the dump's opacity-graded form (memo B calls σ ≈ 10·opacity "arithmetic on 3
-  points"). Whether the receded σn has a span law at all is pending memo D (below).
-
-  > **Drafter's note (the floor is a device-pixel quantity).** Memo C reads the active narrow
-  > width at spans 32–44 as 0.8 dev at both scales, the resampling floor of a half-resolution
-  > backdrop, and the 1x fine-pitch aliasing as a decimated backdrop (§2e). "Widths are in CSS
-  > px" holds for σn above that floor; the half-scale sampling itself is modelled in device px,
-  > or 1x and 2x cannot share one law.
-
+  Dark is the mirror, a Darken with min: M = (1 − w)·C − (1 − w)·λ·max(0, C − W) + w·W.
+- **The active bleed** (s > 64): a blur of radius 0.35 s at opacity 0.5t (light) or 0.8t (dark)
+  through the declared bleed matrix; zero when receded. Whether LT needs it on rrect-ml and
+  rrect-lg to meet memo C's σ-48 reading (19–36 % weight on the knee sides) is **pending memo E**.
+- **The output** is y = T(M) (X35): candidate 1's landed T or candidate 2's native T.
+- **LT's free parameters** are the radius-to-kernel mapping only: whether a declared radius is in
+  points or in backdrop pixels (a discrete switch, which the rrect-ml / rrect-lg pair settles on
+  the new bed), the kernel's scale per radius and its shape. Whether the dump's constants
+  reproduce memo C's active cells through native T at the grounding readers' residuals, and
+  so LT's final count, is **pending memo E**. Memo C's direct reading of the wide width (σw
+  10–19, wider when receded) against one declared radius of 8 in both poses is the gap that
+  mapping and the pose's support must close.
 - **Uniform invariance by construction.** A constant backdrop maps to itself under every blur,
-  every footprint normalisation and the hinge (max(0, 0) = 0), so E3's uniform closure and the
-  shipped uniform bodies are untouched (memo A). Clause 6 tests it.
+  every footprint normalisation, the mixture and the hinge (max(0, 0) = 0), so E3's uniform
+  closure and the shipped uniform bodies are untouched by the structure (memo A). Clause 7 tests
+  it.
 
-### T: read from uniforms, not refit (MARKED; X35)
+### T: two candidates (MARKED; X35, X40; Decision Log 5b)
 
-- **Light receded:** T = E3's F on encoded luma, with its chroma gain g evaluated on W:
-  y = F(L(M))·1 + g(L(W))·v(W), where L is Rec.709 encoded luma and v the encoded chroma
-  vector. Memo A reads chroma as taking the heavy argument only, which is W41's smoother-g(L)
-  hypothesis (§5.192 §20) in its declared form.
-- **The other three endpoints:** the shipped tone solve's uniform response, evaluated at M per
-  pixel rather than at the group argument. G0 names each shipped leaf the law supersedes (the
-  linear pyramid's share `sizeScatter*`, `sizeHeavyTapSigma`, `collapseTransmission`'s
-  group/local mix) and each shipped operator that reads a blurred backdrop (body chroma
-  retention, the scatter's spatial-scale statistic), and declares where it takes its argument
-  once W and M exist.
-- W42 identifies spatial structure. The level misses already recorded (W36's grey middle,
-  chroma) stay named. Memo C reads T as span-invariant light receded, rising with span light
-  active (+2 to +6.5 codes from span 44 to 160) and clamping dark at spans ≥ 96 (dark receded
-  242.4 reads 177.4 at span 44 and 117.2 at span 160).
-
-> **Drafter's note (two T's).** "T is read from uniforms" and "T is the shipped tone solve" are
-> two different functions for the three non-E3 endpoints, because the shipped solve misses the
-> native uniform response (W36's grey middle and chroma). Identification should read the NATIVE
-> uniform response (family A plus the committed W34/W39 deep medians, as memo C did); otherwise
-> the level misses leak into σ, λ and w. The landed law then applies the shipped T, and the
-> difference is the named level miss. G0 declares both roles.
+- **Identification inverts through NATIVE T**, measured on family A per endpoint, so the level
+  misses never leak into a structural parameter (the parent's ruling on v1's note 5).
+- **Candidate 1, the landed T.** The three non-E3 endpoints use the shipped tone solve's uniform
+  response, evaluated at M per pixel rather than at the group argument. The light receded
+  endpoint uses E3's F on encoded luma: its seven ordinates on 40–150 unchanged, EXTENDED above
+  150 by family A's measured ordinates (one per declared level above 150: 160, 176, 192, 208,
+  224, 240, 255), declared in G0 as its own family with that count and appended as its own
+  gate-group; g and the chroma vector it scales are evaluated on W,
+  y = F(L(M))·1 + g(L(W))·v(W) (memo A: chroma takes the heavy argument only, W41's smoother-g(L)
+  hypothesis in its declared form). If L1's light-solid inactive growth still fails with the
+  extended F, the light receded tone stays the shipped solve (clause 10). Its structure is scored
+  against the law combined with this T, and the gap to Apple's level is the existing named miss.
+- **Candidate 2, Apple's grey tone curve from the new capture, in all four endpoints.** Its
+  declared starting form is memo D's face matrix: y = black + (white − black)·x on encoded x,
+  Rec.709 saturation 1.2 (light) or 1.3 (dark), the light white fill at α 0.2, the cap at
+  MaxLumaSDR × Clamp and, in dark, MaxLuma = max(0.35, 0.6 − 0.6t). Family A's greys referee it;
+  its fitted deviations from the literal matrix (memo D §6: the light 1–3 code shoulder above 88,
+  the dark compression above the floor) are counted as parameters. How many it needs is
+  **pending memo E**. It lands instead of candidate 1 only if it passes every check, and may
+  then close W36's grey-middle miss.
+- **Where the shipped operators take their argument.** G0 names each shipped leaf the law
+  supersedes (the linear pyramid's share `sizeScatter*`, `sizeHeavyTapSigma`, the dark
+  `scatterLod` path, `collapseTransmission`'s group/local mix) and each shipped operator that
+  reads a blurred backdrop (body chroma retention, the scatter's spatial-scale statistic), and
+  declares where it reads once C, W and M exist.
+- **Accessibility.** The law stands down under an accessibility occlusion lift, as
+  `bodyChromaRetentionUnderPolicy` does: Reduce Transparency returns every W42 gate to its
+  identity, `forced-colors` draws no body, and Increase Contrast alone does not stand it down. The
+  bed measures neither mode.
+- Memo C reads the native T as span-invariant light receded, rising with span light active (+2 to
+  +6.5 codes from span 44 to 160) and clamping dark at spans ≥ 96.
 
 ### The rival families (MARKED: declared with their counts in G0, before any pixel)
 
-Counts are per endpoint. "4 + σn(span)" is memo C's count: σn, σw, λ and w, with σn extended by
-its span law.
+Counts are per endpoint, w fixed at 0.5 throughout. "σn(span)" is a declared span law whose
+ordinate count G0 fixes.
 
-| family | what differs | parameters | on existing cells | answered by |
+| family | what differs from LT | parameters | on existing cells | answered by |
 | --- | --- | --- | --- | --- |
-| **K1** | W on the canvas | 4 + σn(span) | active 1.1–1.6 rms, both schemes and scales; receded fails (C §4) | D, B |
-| **K1b** | W limited to the layer's bounding box | 4 + σn(span) | receded cores 0.35–0.8, but λ drifts across pitch (C §4) | D, B, C |
-| **K2** | two fills: the knee against Wk, the normal mix toward Wn | 5 (C §4) | receded 0.5–1.5; no gain (C §4) | C, B |
-| **C-linear** | C averaged in linear light, W encoded | K1/K1b's, a discrete choice | narrow space not identified: binary backdrops cannot show it, and the photo discriminator failed its CSS control (B §3) | B (non-binary), D (intermediate steps) |
-| **per-channel knee** | max/min per channel against on encoded luma | the base family's, a discrete choice | not identifiable (C U6) | E |
-| **active bleed** | a third, wide component on the active endpoints | a width and a span-graded weight per active endpoint; the grading's form, and so its count, fixed in G0 | active rrect-ml/lg knee sides carry 19–36 % weight at σ 48; dump bleed radius 28–33.6, opacity 0.08–0.27 at spans ≥ 80 (C §2a, §3) | D, B', C (U7) |
+| **LT, radius per pose** | the narrow radius free per pose (the review's r) instead of the dump's 5 | LT's + 1 | **pending memo E** | B', C |
+| **K1** | a Gaussian C = G(σn)∗B with σn(span), no mixture; W on the canvas; λ free | 2 + σn(span): σw, λ | active 1.1–1.6 rms (C §4, with w free); receded fails; whether it stays within resolution of LT is **pending memo E** | B', D |
+| **K1b** | K1 with W on the layer's bounding box | 2 + σn(span) | receded cores 0.35–0.8, λ drifts across pitch (C §4) | D, B, C |
+| **K1b-shape** | K1b on the rounded-shape footprint, its margin a parameter | 3 + σn(span) | read beside box and canvas on every pitch-64 cell (C §2a) | D |
+| **shared σw** | one σw for both poses of a scheme | one fewer than its base | memo C reads σw by pose (see Grounding) | A–D |
+| **heavy tails** | W a mixture of two Gaussians, not one kernel | its base + 2: a second width and its weight | U4; not identifiable here (C §5) | C |
+| **K2** | two fills: the knee against Wk, the normal mix toward Wn | 4 (memo C's 5, w fixed) | receded 0.5–1.5; no gain (C §4) | C, B |
+| **receded composite order** | the receded composite in another order; its declared form is chosen after memo E | its base's | receded not closed by K1, K1b or K2 (C §2c); **pending memo E** | B, C |
+| **face–knee order** | the face matrix applied before the knee composite rather than after it | its base's | not read | A, B |
+| **C-linear** | the narrow term averaged in linear light, W encoded | its base's, a discrete choice | not identified: binary backdrops cannot show it, and the photo discriminator failed its CSS control (B §3) | B, D |
+| **per-channel knee** | max/min per channel against on encoded luma | its base's, a discrete choice | not identifiable (C U6) | E |
+| **LT without bleed** | the active bleed layer removed | LT's | **pending memo E** | D, B', C (U7) |
 
 Nested and null families, reported and never nominated: memo A's reading C7 is K1 at λ = 1 (the
-hard max memo C rejects on the active probes). Memo B's F1 (one blur) and F2 (linear two-scale)
-are rejected by the one-sided ESFs, and so is F4, vitrea's shipped form T(group) + b·(K∗B −
-group), which is the baseline the referees read against.
+hard max memo C rejects). Memo B's F1 (one blur) and F2 (linear two-scale) are rejected by the
+one-sided ESFs, and so is F4, vitrea's shipped form T(group) + b·(K∗B − group), which is the
+baseline the referees read against.
 
-> **Drafter's note (support rivals, U3).** Memo C's U3 names three supports: the box, the
-> rounded shape and a margin. The skeleton declares canvas (K1) and box (K1b). Memo C §2a reads
-> the shape footprint beside the box and the canvas on every pitch-64 cell. The drafter suggests
-> declaring the shape footprint as a K1b variant so family D discriminates it rather than
-> leaving it implicit.
-
-> **Drafter's note (the receded algebra has no declared rival).** Memo C lists two open
-> alternatives with no declared family: non-Gaussian W tails, and a different receded composite
-> order. U1, the receded one-sided algebra, is the main thing still unidentified, and K1, K1b
-> and K2 all fail it the same way on existing cells (C §2c). If none of them closes on the new
-> bed, the receded identification has nothing declared to select, and Decision Log 3 applies. The
-> drafter recommends G0 declare one receded-order rival before capture.
+**The tie-break (MARKED).** Among survivors that are "insufficient resolution" apart: resolution
+first (a family that beats another at an admitted discriminator by more than max(3, sum of bars)
+wins); within resolution, runtime cost (passes and texture reads on the WebGPU tier, K1b's
+footprint normalisation priced as the loss of pyramid sharing across a group's surfaces); then
+parameter count.
 
 ### D1 and D2 are in the law (MARKED; X36)
 
@@ -412,204 +497,238 @@ group), which is the baseline the referees read against.
   dpr), `renderer.ts:638-644` (`heavySigmaCssFor`), `material.ts:4873-4878`
   (`heavyTapSigmaAtScale` returns device px); the light active document's lines 151–152 set
   `sizeHeavyTapSigma` 14 and `sizeHeavyTapSigma2x` 20, the light receded document's line 89
-  sets 2x 14. The effect: the heavy width is 13.8 CSS at 1x but 6.9 (receded) or 10 (light
-  active) at 2x, where Apple reads 12–13 and 14–19 at both scales (memo C §7). The doc comment
-  at `renderer.ts:582-586` justifies device px by §5.55–§5.58 ("one kernel in device pixels at
-  both scales"); the pitch series contradicts it.
+  sets 2x 14; the dark active document names no heavy tap and draws its deep sample from
+  `scatterLod`, a chain level in device texels. The effect: the heavy width is 13.8 CSS at 1x but
+  6.9 (receded) or 10 (light active) at 2x, where Apple reads 10–19 at both scales (memo C §7,
+  §2a). The doc comment at `renderer.ts:582-586` cites §5.55–§5.58 ("one kernel in device pixels
+  at both scales"); those readings were taken on macOS 26.5, so this is an OS difference, not a
+  reversal of them.
 - **D2, linear-light blur.** WebGPU decodes before the pyramid (`wgsl/backdrop.ts:86`); the CSS
   tier picks `linearRGB` on the premise that "the reference's body … is linear in luminance"
   (`css-tier.ts:2136-2150`, whose doc comment cites §5.71 §2 for the encoded blur reading worse
   under the shipped two-sided law). Every full-linear fit on Apple loses: 5–25 codes on checkers,
   16–48 on hc-text, 3.6–4.2 on lc16 (memo C §7). This settles the heavy and level argument; the
   narrow term's space is the C-linear rival.
-- Changing them moves every document, so they land with the law and pass the same referees.
-  Each is a gate-group in the identity table: at its identity the device-px and linear-light
-  paths draw exactly what ships today.
-
-> **Drafter's note ("every document").** Read as every macOS 27 document. The frozen macOS 26.5
-> pair must stay at the identity and keep `b2b570e4adcea8fb` / `874be66ea501621b` (W29 Decision
-> Log 1 (i); rule 2). The recorded §5.55–§5.58 and §5.71 §2 readings are not rewritten; G2
-> records the reversal beside them.
+- Changing them moves every macOS 27 document, so they land with the law and pass the same
+  referees. Each is a gate-group in the identity table: at its identity the device-px and
+  linear-light paths draw exactly what ships today, and the frozen macOS 26.5 pair stays there
+  with `b2b570e4adcea8fb` / `874be66ea501621b` (W29 Decision Log 1 (i); rule 2).
 
 ### What existing cells cannot identify, and the family that answers each (MARKED)
 
 | U (memo C §5) | what is open | family |
 | --- | --- | --- |
-| U1 | the receded one-sided algebra: λ drifts 0.6–1.1 and per-side kernels differ | B (the hinge reference against mean and contrast), C (which level the one-sided term hinges on) |
-| U2 | the receded narrow span law: only capsule, sm and ml at p16, plus the md and lg series | B' |
-| U3 | the footprint support: box, rounded shape or margin; the edge normalisation; whether the active W is footprint-limited | D, both poses |
+| U1 | the receded one-sided algebra: λ drifts 0.6–1.1 and per-side kernels differ; memo E re-tests it under LT (**pending memo E**) | B (the hinge reference against mean and contrast), C (which level the one-sided term hinges on) |
+| U2 | the receded narrow span law, now declared (0.4 + 0.4t) and to be confirmed in pixels | B', with C's depth sweep as its flat-in-depth control |
+| U3 | the footprint support: box, rounded shape or margin; the edge normalisation; whether the active W is footprint-limited | D (inside and outside steps), both poses |
 | U4 | the heavy kernel's tails | C |
-| U5 | T at 150–242 in every endpoint, and dark T at spans ≥ 96 | A |
+| U5 | T at 150–242 in every endpoint, dark T by span, and candidate 2's face deviations | A |
 | U6 | a per-channel against an on-luma knee, and the chroma kernel | E |
-| U7 | the active bleed as a third component | D (active steps on rrect-md, span 96), B' (active P1 at pitch 64 on rrect-ml, span 128), C (S 32 on rrect-md) |
-
-> **Drafter's note (U7).** Memo C lists U7 but its §6 table assigns it no family. The drafter
-> assigned it to the active rows that sit at spans where memo C and the dump place the bleed
-> (spans ≥ 80). If G0's synthetic recovery cannot separate a σ-48 component on those rows, a
-> dedicated long-range family (active steps on rrect-ml and rrect-lg) is a size change for the
-> user, since Decision Log 2 was ruled at about 8 h.
+| U7 | the active bleed as a third component | D (active steps on rrect-md and rrect-lg), B' (active rows at spans ≥ 80), C (S 32 on rrect-md) |
+| — | points or backdrop pixels for the declared radii | the rrect-ml / rrect-lg pair in C (impulse and patches) |
+| — | the active narrow opacity's depth grading (0.8t → 0.4t) | C's depth sweep on rrect-md and rrect-lg |
 
 ### The bed (MARKED: the families and their questions; exact ids and levels are G0's)
 
-Memo C §6, pending memo D. Existing JSON kinds only (solid, two-level checkerboard, impulse as a
-single patch, split, shape `position`), so the W39 side bundle captures it without a rebuild. The
-canvas is 320×200, as canonical (memo B §8). The full set runs at 2x; the 1x pass is reduced,
-because the widths read CSS-invariant and 1x adds the resampling floor and the aliasing. Four
-passes per scale (scheme × pose); `dump-layers` on every scene.
+Memo C §6, grown by the review's rulings and memo D's implications. Existing JSON kinds only
+(solid, two-level checkerboard, impulse as a single patch, split, shape `position`); every kind is
+checked against the side bundle's pinned build before it is declared. The canvas is 320×200, as
+canonical (memo B §8). Every s ≤ 64 is one declared stratum (t = 0); the span budget goes to
+t = 1/6, 1/3, 2/3 and 1 (s = 80, 96, 128, 160) plus a t = 0 shape (memo D §7a). Backdrop and
+position switch no declared input, so no family is stratified by backdrop (memo D §7f). Four
+passes per scale (scheme × pose).
 
-| family | cells per 2x pass | answers |
+**2x, per pass:**
+
+| family | cells | answers |
 | --- | --- | --- |
-| A — uniform greys 0, 64, 128, 160, 176, 192, 208, 224, 240, 255 × {capsule, rrect-md}; 96, 160, 208, 255 × rrect-lg | 24 | U5 |
-| B — two-level checkers P2 48/208, P3 96/160, P4 16/112, P5 144/240 at pitch 16 and 64 on rrect-md | 8 | U1 (hinge reference against mean and contrast); the space on non-binary structure |
-| B' — P1 0/255 at pitch 8, 32, 64 on capsule and rrect-ml | 6 | U2 (the active pose is already covered by the probes); U7 on rrect-ml |
-| C — single square S 8, 32 × 2 polarities on rrect-md; S 16 × 2 on capsule | 6 | U4; U1 (which level the one-sided term hinges on); U7 at S 32 |
-| D — step under the interior (split) at shape offsets δ 0, 12, 32 × 2 polarities on rrect-md; δ 0, 12 on capsule | 8 | U3 in both poses; U7 when active |
-| E — isoluminant chroma checkers, 2 hue pairs, pitch 16, rrect-md | 2 | U6 |
-| F — bridges: canonical checker-16 rrect-md, impulse rrect-md, photo rrect-md; probe checker-64 rrect-lg | 4 | ties to the canonical and probe sittings; the cross-sitting bar |
+| A — uniform greys 0, 64, 128, 160, 176, 192, 208, 224, 240, 255 × {capsule, rrect-md}; 96, 160, 208, 255 × rrect-lg; bright 160, 208, 255 × {rrect-64, rrect-ml} | 30 | U5: native T per endpoint and span, the F extension, candidate 2's face; dark MaxLuma on both sides of its knots |
+| B — two-level checkers P2 48/208, P3 96/160, P4 16/112, P5 144/240 at pitch 16 and 64 on rrect-md | 8 | U1; the space on non-binary structure; the declared λ and w refereed |
+| B' — P1 0/255 at pitch 8, 32, 64 on capsule and rrect-ml; P1 at pitch 32 on rrect-64 and rrect-80 | 8 active, 6 receded (pitch 8 dropped when receded) | U2; the active span law from the new bed alone (review 8); U7 on rrect-ml |
+| C — single square S 8, 32 × 2 polarities on rrect-md and S 16 × 2 on capsule, each with a surround annulus; S 8 at s/4 and 4 pt from the edge on rrect-md, and at the centre, s/4 and 4 pt from the edge on rrect-lg; the canonical impulse on rrect-ml and rrect-lg | 13 | U4; U1; the depth grading (a free falsification control when receded, where it must read one width); points against backdrop pixels; the annulus for the halo stop |
+| D — step under the interior (split) at shape offsets δ 0 and 32 × 2 polarities on rrect-md, δ 0 on capsule; steps 8 and 16 CSS px OUTSIDE the rrect-md edge × 2 polarities; active only, a step at δ 0 under rrect-lg × 2 polarities | 11 active, 9 receded | U3; U7 (the rrect-lg rows are the review's bleed rows) |
+| E — isoluminant chroma checkers, 2 hue pairs, pitch 16 and 64, rrect-md; G0 names the matched luma | 4 | U6 |
+| F — bridges: canonical checker-16 rrect-md, impulse rrect-md, photo rrect-md; probe checker-64 rrect-lg | 4 | the bar across sittings only (not under clause 6) |
 | H — the structured holdout, declared before fitting | 8 | referee |
 
-- **H** (memo C): P1 at pitch 24 on rrect-80 (a new span); P6 32/176 at pitch 32 on rrect-md; a
-  step at δ 20; a patch S 24; P3 at pitch 64 on rrect-lg; 128/229 at pitch 64 on capsule; greys
-  184 and 232 on rrect-md. Six of the eight are structured.
-- **The 1x pass, 22 cells:** greys 0 / 128 / 192 / 255 × {capsule, rrect-md}; P1 at pitch 4, 8,
-  16 × {capsule, rrect-lg}; F; a 4-cell subset of H that G0 declares.
-- **Size** on W39's model (9.53 s per capture, 16.3 s per sentinel, 13 s per run, 25 s per pass):
-  2x 4 × 66 × 7 = 1,848 and 1x 4 × 22 × 7 = 616 glass captures; about 230 no-glass references;
-  48 sentinels; about 7.6 h of capture and 8 h of wall clock, in one sitting (memo C §6). The
-  levers memo C names: a full 1x pass adds about 3.5 h (about 11 h); three runs would bring it to
-  about 3.7 h, which Decision Log 2 declined.
-- **What memo C dropped against memo B's 121-cell, 21–22 h design, and why:** B and B' 31 → 14,
-  because the probes read all five shapes × five pitches in the active pose and σn is
-  pitch-flat at 2x; C 34 → 6, because the pitch-64 cores and the W34 capsule already give σw
-  and local against group; D 21 → 8, because local against group is settled and the support is
-  what remains; A 26 → 24, with rrect-lg added because dark T clamps with span; E 6 → 2; the full
-  1x pass, because the widths are CSS-invariant; H 16 → 8.
+Per active pass 86 cells, per receded pass 82. Against memo C's 66: A +6, B' +2 (active) or 0
+(receded), C +7, D +3 (active) or +1 (receded), E +2; the drops are B' pitch 8 when receded and
+D's inside δ 12.
 
-### Pending memo D; folded at v2
+- **H** (memo C): P1 at pitch 24 on rrect-80; P6 32/176 at pitch 32 on rrect-md; a step at δ 20;
+  a patch S 24; P3 at pitch 64 on rrect-lg; 128/229 at pitch 64 on capsule; greys 184 and 232 on
+  rrect-md. Six of the eight are structured.
 
-Memo D reads Apple's layer tree through the harness's `dump-layers` mode across every canonical
-component and span, both schemes and both poses, at 2x and at 1x if the harness supports it
-without a rebuild (`w42-dump-brief.md`). Its numbers are pointers; they become evidence only where
-the pixels agree (X38). Three points in this charter wait on it.
+  > **Drafter's note (H's span cell).** Memo C placed P1 on rrect-80 in H as "a new span". The
+  > review's ruling 8 puts rrect-80 rows into calibration, so that cell now tests an unseen pitch
+  > at a calibrated span, not an unseen span. If the wave-local scenes file can declare an rrect
+  > of another size without a rebuild (components are data in `scenes.json`), the drafter
+  > suggests G0 give H an unseen t instead, for example s = 112 (t = 0.5).
 
-1. **Is the receded narrow width flat across span?** *Pending memo D; folded at v2.* The one
-   receded dump reads blur opacity 0.533 with its distances zeroed; the pixels read the receded
-   σn growing with span (memo C: 4–4.5 at spans 32–44, 5.5–9 at 96–160, noisy; memo B: 4.3 → 5.4
-   from span 44 to 96).
-   - *If the receded opacity is flat at every span:* the receded σn is one parameter per endpoint
-     rather than a span law, and the growth the pixels show is attributed elsewhere (the box
-     footprint's normalisation, or U1's algebra). B' then tests the flatness rather than
-     identifying a law, and memo C expects the receded span axis could shrink.
-   - *If it is graded by span:* the receded σn carries a span law as the active one does. B'
-     keeps its capsule and rrect-ml rows beside the probes' rrect-md and rrect-lg series, and H's
-     rrect-80 becomes the span law's held-out test in both poses.
-2. **What are the units of `BlurRadius` and the BlurFill radius: points or pixels?** *Pending memo
-   D; folded at v2.* The dump reads `inputBlurRadius` 5 and a BlurFill radius 8 against a
-   measured σw of 12–19; memo C calls the radius-to-sigma mapping unknown.
-   - *If points (CSS px):* the dump corroborates D1's fix and the pixels' scale invariance; the
-     reduced 1x pass stands.
-   - *If pixels (device px):* the declared radii halve in CSS at 2x, against pixels that read σw
-     and the rrect-md σn identical at both scales. The pixels govern, but the radius-to-width
-     mapping is then scale-dependent, so the 1x pass should be FULL (memo C: about 11 h) to
-     identify the widths at 1x rather than infer them from 2x. That is a size change for the user
-     (Decision Log 2 was ruled at about 8 h); the law still carries CSS-px widths as the
-     effective description, with the mechanism recorded beside it.
-3. **Do the 1x and 2x trees agree?** *Pending memo D; folded at v2.* The W29 dump is 2x only.
-   - *If they agree* (the same radii, opacities, blend modes and a backdrop scale of 0.5): 1x
-     differs from 2x only by the half-scale resampling floor and its aliasing (memo C §2e), the
-     law carries no per-scale parameter beyond the device-px sampling, and the 1x pass stays at
-     22 cells.
-   - *If they disagree* (another backdrop scale, or radii that scale): the law declares
-     per-scale widths or sampling, the 1x pass becomes full, and the hours go back to the user.
+**1x, per pass: 14 cells, re-derived from memo D's criteria.** No declared input differs with
+scale beyond four one-device-pixel terms (memo D §4), so a 1x cell earns its place only where
+sampling density or device-pixel geometry can matter: pitches of 8 pt or less, patches of 4 pt or
+less, rrect-lg (one backdrop pixel per 4 pt at 1x), and edge strips; the body-level families keep
+only a small referee (memo D §7g).
 
-Memo D may also read the active opacity at more spans, the bleed and `MaxLuma` per span, and the
-decoded `backdropRect` (memo C §3). Those are folded as pointers where they land.
+| criterion | 1x cells | count |
+| --- | --- | --- |
+| fine pitch ≤ 8 pt | P1 at pitch 4 and 8 on capsule; P1 at pitch 4 on capsule at an odd CSS-px offset (the review's odd-offset cell: half a backdrop texel of phase) | 3 |
+| rrect-lg | P1 at pitch 4, 8 and 16 on rrect-lg | 3 |
+| small patch ≤ 4 pt | the canonical impulse on rrect-lg | 1 |
+| edge strip | the D step 8 CSS px outside the rrect-md edge, one polarity (the receded margin is one device pixel) | 1 |
+| small body referee | greys 128 and 255 on rrect-md | 2 |
+| bridges (bar tie) | impulse rrect-md; probe checker-64 rrect-lg | 2 |
+| H at 1x | P3 at pitch 64 on rrect-lg; grey 232 on rrect-md | 2 |
+
+Memo C's 22 drop to 14: its six body-level greys, capsule pitch 16, the photo and checker-16
+bridges and two H cells go; the odd-offset cell, the rrect-lg impulse and the edge strip come in.
+
+**The sitting at seven runs**, on W39's model as memo C used it (9.53 s per capture, including
+each no-glass reference; 16.3 s per sentinel; 13 s per run; 25 s per pass):
+- glass captures: 2x (2 × 86 + 2 × 82) × 7 = 336 × 7 = 2,352; 1x 4 × 14 × 7 = 392; total 2,744;
+- no-glass references, one per distinct backdrop per pass in run 1: 2x 2 × 44 + 2 × 43 = 174,
+  1x 4 × 10 = 40; total 214;
+- (2,744 + 214) × 9.53 s = 28,189.7 s; 48 sentinels × 16.3 s = 782.4 s; 8 passes × 7 runs ×
+  13 s = 728 s; 8 passes × 25 s = 200 s;
+- **total 29,900.1 s ≈ 8.3 h of capture**, against memo C's 7.6 h. If memo C's capture-to-wall
+  ratio holds (7.6 → about 8 h), that is about 8.7 h at the Mac;
+- plus `dump-layers` over the declared bed first, at memo D's rate (about 200 s per 24 scenes):
+  (2 × 86 + 2 × 82 + 4 × 14) = 392 scene-dumps ≈ 3,270 s ≈ 0.9 h, no grant needed.
+
+The total, about 9.6 h, is over Decision Log 2's "about 8 h"; the review ruled that the net
+length is stated to the user at the "tell me first" moment (Decision Log 6), with seven runs
+standing.
+
+### Memo D's answers to v1's pending points (folded)
+
+1. **The receded narrow width is graded by span, not flat.** Its opacity is 0.4 + 0.4t (0.400
+   for s ≤ 64, 0.467 at 80, 0.533 at 96, 0.667 at 128, 0.800 at 160) and flat in depth. The
+   receded narrow term therefore carries the declared span law, B' keeps its capsule and
+   rrect-ml rows beside the new rrect-64 and rrect-80 rows, and C's depth sweep is its
+   falsification control.
+2. **Points or backdrop pixels: still open, settled by the bed.** Memo D reads the radii equal at
+   both scales and the pixel widths close to scale-invariant, which points to POINTS. rrect-lg is
+   the only surface at backdrop scale 0.25; with the σ ≈ 10·opacity pointer and radii in points,
+   both poses predict σ ≈ 8 at its centre, and about 16 if the radii are in backdrop pixels
+   (memo D §7c). C's rrect-ml / rrect-lg pair (s 128 at scale 0.5, s 160 at 0.25) decides it.
+3. **1x and 2x agree on every body parameter.** The four scale-dependent quantities each equal
+   one device pixel (the highlight's height and offset, the receded margin, the receded SDF
+   output maximum). The reduced 1x pass stands and is re-derived above to 14 cells. Where native
+   1x and 2x pixels differ (memo B: light-active rrect-md σ 1.31 against 2.36), the cause is the
+   realisation, sampling density or the device-pixel terms, not a declared input.
+
+### Pending memo E (folded at v2.1)
+
+Memo E fits LT with the dump's constants against memo C's cells, through native T and through the
+literal face matrix, and re-tests U1. It will confirm or refute:
+1. whether LT at the dump's literal constants (o's span and depth laws, radii 5 and 8, λ 0.9,
+   w 0.5, the declared margin) reproduces memo C's ACTIVE cells through native T within the
+   grounding readers' residuals;
+2. whether LT closes U1, the receded one-sided algebra that K1, K1b and K2 left open;
+3. LT's radius-to-kernel mapping (scale and shape), and so LT's final parameter count, including
+   whether the review's radius per pose is needed;
+4. how far the literal face matrix is from native T, and so candidate 2's count of deviations;
+5. which receded composite-order rival G0 declares (the review sequenced it after memo E);
+6. whether LT's active form needs the bleed layer on rrect-ml and rrect-lg (U7);
+7. whether the Gaussian σn(span) rival stays within resolution of LT on memo C's cells, and on
+   which cells they separate;
+8. whether LT's box-plus-margin support beats the canvas in the active pose.
 
 ### The split and the holdouts (MARKED)
 
 - **H** is the new bed's structured holdout, declared and hashed in G0 before capture, enforced
   by the wave reader and launcher, its payload behind the procedural boundary until G2's one
   receipt. G0 also declares a validation set of transfer axes (a span or pitch per family that
-  calibration does not contain), so that validation tests the span law and the pitch-flatness
-  rather than repeat noise. Whether an H cell is web-plannable (an offset step may not be) is
-  declared in G0; a cell that is not referees the numerical candidate only (W41 clause 2).
+  calibration does not contain), so that validation tests the span law, the depth grading and the
+  pitch-flatness rather than repeat noise. Whether an H cell is web-plannable (an offset step may
+  not be) is in the W42 web plan; a cell that is not referees the numerical structure only (W41
+  clause 2).
 - **The canonical holdout** stays sealed until G3 and is read there once, by artifact.
 - **The canonical probe cells were READ in grounding** (memo C), as were the W34 archive's
-  checkers. They are calibration evidence and not a referee from now on (X34).
+  checkers: calibration evidence, never a referee, and admissible as corroboration (X34).
 
 ### Repeats, the bar and the archive of record
 
-Seven runs (Decision Log 2, RULED). The bar is W39's (clause 4). The archive is W39's pattern:
+Seven runs (Decision Log 2, RULED). The bar is W39's (clause 5). The archive is W39's pattern:
 complete and role-separated, lossless crops in original coordinates with every dependency an
 estimator reads, the per-run statistics with populations and input hashes, the state
 membership, a SHA-256-pinned inventory, replay proved identical with the raw root denied; a
 `.tar.zst` under 2 GiB published as a GitHub release asset named by its SHA-256, a reader that
 fetches by that name into a cache outside the repository and verifies the digest before use,
-and a second owner-controlled copy. **The sitting's operational logs go into the archive, not
-into git** (the tracker's W41 G1 entry: about 84 MB packed of logs went into git). A thin
-projection is a convenience, never the record.
+and a second owner-controlled copy. **The sitting's operational logs and its dumps go into the
+archive, not into git** (the tracker's W41 G1 entry: about 84 MB packed of logs went into git). A
+thin projection is a convenience, never the record.
 
 ### The instrument (G0)
 
-- The readers, proved first (clause 2): memo C's model reader (C and W on canvas, box and shape
-  supports, the knee, T), the mirror statistic S, the pitch-64 heavy reader, the ESF and impulse
-  readers (memo B), the step reader for D and the patch reader for C.
-- The wave reader and launcher enforcing the split; the sitting script derived from W39's with
-  its roots pointed at the W42 bed and the side bundle.
+- The readers, proved first (clause 2): the LT forward model and memo C's model reader (C and W
+  on canvas, box and shape supports, the knee, T), the mirror statistic S, the pitch-64 heavy
+  reader, the ESF and impulse readers (memo B), the step reader for D, the patch and annulus
+  reader for C, and the depth-graded opacity reader.
+- The pre-sitting rehearsal of every referee (clause 3).
+- The referees' **candidate-admission mode**: W41 G2's ported referees refuse a declared document
+  that is not the file on disk; the mode admits a declared scratch document matched by hash and
+  stamps every output "candidate", with a red/green test.
+- The M2 named-miss derivation beside `chromaStructureMisses()`, pinned by an owner case
+  (Decision Log 5a).
+- The two directional stops' statistics, regions and resolutions (clause 10).
+- The W42 web plan (which new-bed cells vitrea can pose); the wave reader and launcher enforcing
+  the split; the sitting script derived from W39's with its roots pointed at the W42 bed and the
+  side bundle, `dump-layers` first.
 - The one-exposure runner, reusing W41's X26 machinery
-  (`results/2026-09-27-w41-g0-declaration/exposure/runner.py`), binding numerical and rendered
-  candidates on one receipt.
-- The landing-referee gate's tooling: W41 G2's referee ports in `--stage` mode and the standing
-  eye-sheet script extended to the six strata.
-
-### The landing-referee gate (MARKED; X33)
-
-Clause 9 in full. Its bed is the canonical calibration/validation renders the adopted rows
-already read; its bars are the adopted rows as they stand; its order is before the freeze and
-the receipt. Nothing about H is read, predicted or opened until the gate has passed.
+  (`results/2026-09-27-w41-g0-declaration/exposure/runner.py`), binding both candidates,
+  numerical and rendered, on one receipt.
+- The standing eye-sheet script extended to the six strata.
 
 ### The CSS carry (advisory; Decision Log 4)
 
-`backdrop-filter: blur()` already blurs ENCODED values, and `backdrop-filter` reads only the
-element's box, which is the box footprint for free (Chromium's edge mode is unmeasured). The
-one-sided term maps to a sharp sibling layer with `mix-blend-mode: lighten` (dark: `darken`) at
-opacity over the heavy layer, which computes heavy + k·max(0, sharp − heavy) per channel and
-commutes with a monotone affine F (memo A). Blend modes on `backdrop-filter` layers are unmeasured
-per engine, which is why G3 needs a Chromium proof. E3's F and g take W41's affine route
-(`w41-g2-css-candidate` `78c4b854`), re-derived against the law as W41 Deferred at close 5 lists.
+The primary route on Chromium is ONE reference filter inside `backdrop-filter`: two
+`feGaussianBlur` from `SourceGraphic` at `color-interpolation-filters="sRGB"` (the narrow mixture
+and the wide fill), `feBlend` lighten (dark: darken) and `feComposite` arithmetic for the λ and w
+weights. `backdrop-filter` reads only the element's box, the box footprint for free (Chromium's
+edge mode is unmeasured). The stacked route, encoded `blur()` layers with `mix-blend-mode`
+lighten/darken at opacity, is the approximation for engines that render no reference filter.
+E3's F and g, or candidate 2's face, take W41's affine route (`w41-g2-css-candidate`
+`78c4b854`), re-derived against the law as W41 Deferred at close 5 lists. Decision Log 4 still
+needs the Chromium proof.
 
 ### The runtime base (MARKED; X37)
 
 G2 branches from main as it stands when G2 starts, after PR #2 if it has merged. Before any
 candidate render, G2 re-renders a declared sample of the canonical bed with the SHIPPED documents
 at that base and shows it byte-identical to the canonical capture tree, so every rendered
-difference is attributable to the candidate and not to the base. W42 never merges or publishes
-PR #2.
+difference is attributable to the candidate and not to the base. G3 proves the seal's identity at
+G2's frozen base; if the base has moved, clause 8's proof runs again first. W42 never merges or
+publishes PR #2.
 
 ## Children
 
 ### G0: Declaration and instrument (ledger §5.194)
 
 Branch `w42-g0-declaration`; evidence `packages/calibration/results/<date>-w42-g0-declaration/`.
-- The families and bounds of Design, hashed before any native pixel of the new bed exists.
-- The reader, proved on synthetic renders of the declared algebra and on vitrea's own existing
-  captures (clause 2).
-- The capture bed: memo C §6 refined by memo D, with families A, B, B', C, D, E, F and the
-  structured holdout H declared before capture, as a wave-local scenes file with its own fixture
-  root; the canonical `scenes.json` untouched. Every kind the bed uses is checked against the
-  side bundle's pinned build (`backgrounds` / `self-check`, no capture) before it is declared.
-- The one-exposure runner, reusing W41's X26 machinery.
-- The pre-exposure landing-referee gate's tooling (clause 9).
-- The runtime-base sample (clause 7) and the eye sheets' stratum membership declared.
+- The families, both candidates, the F extension and the tie-break of Design, with memo E
+  folded, hashed before any native pixel of the new bed exists.
+- The instrument of Design, proved (clause 2).
+- The rehearsal of every referee in all four endpoints (clause 3); a referee failing by
+  construction goes to the user before G0 merges.
+- The capture bed as a wave-local scenes file with its own fixture root, the canonical
+  `scenes.json` untouched; every kind checked against the side bundle's pinned build
+  (`backgrounds` / `self-check`, no capture).
+- The M2 named-miss derivation and its owner case (Decision Log 5a); the candidate-admission
+  mode; the W42 web plan; the runtime-base sample and the eye sheets' stratum membership.
 - No native capture. Independent review before merge; the freeze reads 1,818.
 
 ### G1: The native sitting (ledger §5.195)
 
 Branch `w42-g1-sitting`. Starts only after G0 has merged and the parent has told the user the
-tooling is ready (Decision Log 6, RULED).
+tooling is ready and the sitting's net length (Decision Log 6, RULED).
 - **The side bundle** is the existing W39 one, `dev.vitrea.reference-apple.w39` at
-  `~/vitrea-w39/side/` (binary 02052b17…, cdhash be258cbf…), which can capture the inactive pose,
-  used with no rebuild. It was retired at W39's close with no TCC row (W39 Decision Log 4).
+  `~/vitrea-w39/side/` (binary 02052b17…, cdhash be258cbf…), used with no rebuild. Memo D ran
+  `dump-layers` on it and found its build inputs byte-identical to HEAD's `apps/reference-apple/
+  Sources`. It was retired at W39's close with no TCC row (W39 Decision Log 4).
+- **First, `dump-layers` over the declared bed**, while the Mac is idle and before any grant
+  switch; every dump must read memo D's declared configuration (clause 4).
 - **The grant, by the user's hand.** One Screen Recording grant holds at a time on this machine
   (W34 Decision Log 4; W39 Decision Log 4). The user adds the side bundle under Screen & System
   Audio Recording and lifts X5 for the W42 bed; the parent reads the grant back from the system
@@ -618,38 +737,42 @@ tooling is ready (Decision Log 6, RULED).
   X5; the original's positive check must capture a canonical cell byte-identical to its committed
   fixture, as at W39's close. Failure to restore is an open blocker, not a closed sitting.
 - **The passes:** 1x and 2x × light and dark × active and inactive, seven runs each, sentinels
-  after, `dump-layers` on every scene, every capture attested (clause 3), quarantines named.
-- **About 8 h at seven runs**, in one sitting while the user leaves the Mac idle.
+  after, every capture attested (clause 4), quarantines named.
+- **About 8.3 h of capture at seven runs, plus about 0.9 h of dumps**, in one sitting while the
+  user leaves the Mac idle.
 - **The archive** produced, pinned and published as a release asset by SHA-256 with the ledger
   citation; the bar published from the archive before plurality; replay proved with the raw root
-  denied; the operational logs inside the archive, not in git. Nothing is read against vitrea.
+  denied; the operational logs and dumps inside the archive, not in git. Nothing is read against
+  vitrea.
 
 ### G2: Identification, the gate and the one exposure (ledger §5.196)
 
 Branch `w42-g2-identification`, cut from main as it stands when G2 starts (X37). In order:
-1. The runtime-base proof (clause 7).
-2. The fit on the new bed's calibration set only, family by family; transfer to validation;
-   survival per clause 5.
-3. The survivors implemented behind zero identity gates on both tiers' code paths, D1 and D2
-   included (X36); goldens byte-identical at identity.
-4. The rendered candidate on the new bed's web-plannable calibration/validation cells (clause 8)
-   and uniform invariance (clause 6).
-5. The canonical calibration/validation bed rendered with the candidate in a scratch stage; L1,
-   M1, M2, C1, X1 and E2 run on those renders; eye sheets by stratum: uniform, binary structure,
-   text, impulse, photo, gradient (clause 9).
+1. The runtime-base proof (clause 8).
+2. Native T per endpoint from family A; the fit of the structure on the new bed's calibration
+   set, family by family, LT first; transfer to validation; survival per clause 6; the tie-break.
+3. Both candidates implemented behind zero identity gates on both tiers' code paths, D1, D2 and
+   the F extension included (X36); goldens byte-identical at identity.
+4. The rendered candidates on the new bed's web-plannable calibration/validation cells (clause 9)
+   and uniform invariance (clause 7).
+5. The canonical calibration/validation bed rendered with each candidate in a scratch stage; the
+   referees in candidate-admission mode, the two directional stops, the owner test over the six
+   gated profiles, and the eye sheets by stratum (clause 10).
 6. **Only if all of those pass:** the freeze of the numerical and blind rendered H predictions by
-   artifact, then the ONE exposure on H (clause 10). This is the lesson of W41, which spent a
+   artifact, then the ONE exposure on H (clause 11). This is the lesson of W41, which spent a
    holdout on a law that later failed landing.
-7. Decision Log 3 if the receded endpoints fail.
+7. Decision Log 3 if an endpoint fails.
 
 ### G3: Seal and land (ledger §5.197)
 
-Branch `w42-g3-landing`. Conditional on clause 10 passing (Decision Log 1).
-- Seal the documents; prove identity against G2's frozen renders.
-- The canonical stage read, both tiers. The CSS carry uses encoded `blur()` layers and
-  `mix-blend-mode` lighten/darken at opacity, and needs a Chromium proof (Decision Log 4);
+Branch `w42-g3-landing`. Conditional on clause 11 passing (Decision Log 1).
+- If the landing is receded-only, the tracker's M2-reference-by-active-hash fix lands first, as
+  its own fix wave (Decision Log 3).
+- Seal the documents; prove identity against G2's frozen renders at G2's frozen base.
+- The canonical stage read, both tiers. The CSS carry is the one reference filter on Chromium and
+  the stacked approximation elsewhere, with a Chromium proof (Decision Log 4);
   `tier-coherence.test.ts` pins whatever is carried or declined.
-- The canonical holdout once, by artifact (clause 13). Decision Log 5.
+- The canonical holdout once, by artifact (clause 14). Decision Log 5.
 - Publish once through W40's publisher; copy the capture tree and move the superseded one;
   `check-capture-tree` exit 0; eye sheets over the whole canonical bed.
 - The changeset and the release checklist; `pnpm release` is the user's; tag after.
@@ -671,7 +794,7 @@ Carried from W41 where they still apply:
 - **A pinned browser and CLI** (§5.192 §16): the cached Playwright CLI 0.1.19 with the installed
   full Chromium 1243, tool and browser hashes recorded, no browser installation or download
   inside the wave, a fresh X6 check before each launch.
-- **The four X6 facts** before every browser run and on every native capture (clause 3), with
+- **The four X6 facts** before every browser run and on every native capture (clause 4), with
   every browser run in `browser-runs.txt`; never a browser capture while a native pass runs.
 - **W34's X1–X14** with W39's substitutions updated: X3's side bundle is `.w39`, reused and not
   rebuilt; X5 authorises native capture for the W42 bed only (its wave-local scenes file, its
@@ -683,88 +806,110 @@ Carried from W41 where they still apply:
   with the freeze verified; no attribution trailers and no session URLs.
 
 New:
-- **X33 — the landing referees before the exposure.** Clause 9: L1, M1, M2, C1, X1 and E2 on the
-  candidate's canonical non-holdout renders, and the eye sheets by stratum, pass before H is
-  predicted, frozen or opened.
+- **X33 — the landing referees before the exposure.** Clause 10: the adopted referees in
+  candidate-admission mode, the two directional stops, the owner test over the six gated
+  profiles and the eye sheets by stratum pass before H is predicted, frozen or opened.
 - **X34 — the probe cells are calibration evidence.** The canonical probe cells memo C read (the
   checker pitch series, lc16, hc-text, hc-text-7 and hc-text-28, in every endpoint and scale)
-  and the W34 archive's checkers were read in grounding. From now on they cannot serve as
-  held-out evidence for any W42 law, and they are no G2 fit input, which is the new bed's
-  calibration set alone. The adopted rows that already include probe rows (X1, E2) keep their
-  populations as regression stops.
-- **X35 — T is read, never refit.** Identification reads the native uniform response; the landed
-  law applies E3's F (light receded) or the shipped tone solve (the other three); a departure
-  between them is a named level miss, never absorbed into a spatial parameter.
-- **X36 — D1 and D2 land inside the law.** Each is a gate-group in the identity table; at the
-  identity it draws exactly what ships today; the frozen macOS 26.5 pair never leaves it.
-- **X37 — the runtime base is proved before any candidate render** (clause 7); W42 never merges
-  or publishes PR #2.
+  and the W34 archive's checkers were READ in grounding. They are never a referee of a W42 law.
+  They are admissible calibration evidence that may corroborate a fit, never its only support:
+  the new bed carries every parameter on its own. The adopted rows that already include probe
+  rows (X1, E2) keep their populations as regression stops.
+- **X35 — two roles for T.** Identification inverts through the native T measured on family A;
+  candidate 1 composes the structure with the landed T (the shipped solve, or E3's F extended by
+  family A for light receded), and its gap to Apple's level is a named miss, never absorbed into
+  a structural parameter; candidate 2 takes native T from the face matrix's declared form with
+  counted deviations (Decision Log 5b).
+- **X36 — D1, D2 and the F extension land inside the law.** Each is a gate-group appended to the
+  identity table; at the identity it draws exactly what ships today; the frozen macOS 26.5 pair
+  never leaves it.
+- **X37 — the runtime base is proved before any candidate render** (clause 8) and again whenever
+  it moves before the seal; W42 never merges or publishes PR #2.
 - **X38 — dump numbers are pointers.** A layer-tree number becomes evidence only where the
-  pixels agree; the pixels govern.
+  pixels agree; the pixels govern. LT declares the dump's constants as a hypothesis the bed
+  referees.
+- **X39 — every referee is rehearsed before the sitting** (clause 3); a referee that fails by
+  construction reaches the user before a native pixel is spent.
+- **X40 — two candidates, one receipt.** Candidate 2 lands instead of candidate 1 only if it
+  passes every check candidate 1 faces; both are bound by the same exposure receipt.
 
 ## Ordering & Dependency Map
 
-Decision Logs 1, 2 and 6 RULED (2026-09-29) → memo D lands → v2 (memo D folded; adversarial
-review) → G0 (declaration hashed; instrument proved; bed, split and gate tooling; review; merge)
-→ the parent tells the user (Decision Log 6) → G1 (the user's grant switch and X5 lift; passes;
-archive; bar; the user restores both) → G2 (base proof → calibration fit → validation transfer →
-gated operators on both tiers → rendered candidate → canonical renders → **the gate** → freeze →
-ONE exposure on H; Decision Log 3 if needed) → G3 (seal → identity → Decision Log 4 → stage read,
-both tiers → canonical holdout once → Decision Log 5 → publish → capture tree → eye sheets →
-changeset → release checklist → the user's `pnpm release`) → close.
+Decision Logs 1, 2, 5a, 5b and 6 RULED (2026-09-29) → memo E lands → v2.1 (memo E folded) → G0
+(declaration hashed; instrument proved; referee rehearsal, with any by-construction failure to
+the user; bed, split, web plan and gate tooling; review; merge) → the parent tells the user,
+with the sitting's net length (Decision Log 6) → G1 (dumps; the user's grant switch and X5 lift;
+passes; archive; bar; the user restores both) → G2 (base proof → native T → calibration fit →
+validation transfer → gated operators on both tiers → rendered candidates → canonical renders →
+**the gate** → freeze → ONE exposure on H; Decision Log 3 if needed) → G3 (the M2 fix wave if
+receded-only → seal → identity → Decision Log 4 → stage read, both tiers → canonical holdout once
+→ Decision Log 5 → publish → capture tree → eye sheets → changeset → release checklist → the
+user's `pnpm release`) → close.
 
 ## Risks & Mitigations
 
 - **The receded algebra does not close (U1).** It did not on existing cells, and every declared
-  variant failed the same way (memo C §2c). Mitigation: Decision Log 3, declared now; the
-  receded documents stay at identity and E3 stays unshipped; the negative is recorded at its
-  resolution.
-- **The gate cannot pass on M2 or L1 growth by construction** (the drafter's notes at clause 9).
-  Mitigation: the parent decides whether Decision Log 5's M2 and L1 readings are ruled before
-  G2's gate.
+  variant failed the same way (memo C §2c); LT is re-tested by memo E. Mitigation: Decision Log
+  3; the receded documents stay at identity and E3 stays unshipped; the negative is recorded at
+  its resolution.
+- **LT's literal constants do not reproduce the pixels** (**pending memo E**). Mitigation: the
+  Gaussian σn(span) and K-family rivals are declared beside it, the tie-break chooses, and the
+  declared constants stay pointers (X38).
+- **A referee fails by construction.** Mitigation: clause 3's rehearsal before the sitting, with
+  the user ruling on the numbers; Decision Log 5a already rules M2's reading.
 - **A wrong mixing space manufactures a knee.** Memo C's encoded fit on vitrea's linear captures
   returned λ 1.4–1.5. Mitigation: the knee is established by S and by every linear fit's loss
   (clause 2), and the synthetic controls run in both spaces.
-- **Dump numbers mislead.** The dump's w of 0.546 reads 0.48–0.51 in the pixels, and its fill
-  radius of 8 has no known mapping to σw of 12–19 (memo C §3). Mitigation: X38.
-- **D1 and D2 reverse recorded readings** (§5.55–§5.58; §5.71 §2). Mitigation: recorded beside,
-  never rewritten; the identity gate keeps the old path exact for the frozen 26.5 material.
-- **The heavy chain costs frames.** An encoded separable blur at σ 12–19 CSS px adds passes
-  beside PR #2's demand-driven loop. Mitigation: G3 reads the renderer bench beside the goldens
-  and records the cost; a regression is a finding for the parent, not a silent trade.
+- **The sitting is longer than Decision Log 2's estimate** (about 8.3 h of capture plus about
+  0.9 h of dumps, against about 8 h). Mitigation: stated to the user at the "tell me first"
+  moment; the review's offsets (B' pitch 8 receded, D's inside δ 12) are already taken.
+- **The heavy chain costs frames.** An encoded blur at radius 8 on a half-scale backdrop adds
+  passes beside PR #2's demand-driven loop. Mitigation: the tie-break prices cost; G3 reads the
+  renderer bench beside the goldens and records it; a regression is a finding for the parent.
 - **The machine is shared.** Foreign browsers and another session's Playwright refused W41's
   reads (§5.192 §1, §5.193 §3). Mitigation: X6 before every launch; the sitting runs only when
   the user leaves the Mac idle (Decision Log 6).
-- **Some H cells cannot be posed on the web.** Mitigation: G0 declares which; those referee the
-  numerical candidate only.
+- **Some H cells cannot be posed on the web.** Mitigation: the W42 web plan says which; those
+  referee the numerical structure only.
 - **The canonical holdout fails after H passed**, as W41's canonical referees failed after the
-  W39 holdout passed. Mitigation: clause 9 puts every referee readable without a holdout first;
+  W39 holdout passed. Mitigation: clause 10 puts every referee readable without a holdout first;
   the canonical holdout's miss goes to Decision Log 5.
-- **The 1x pass is too thin** if memo D shows device-px radii or disagreeing trees. Mitigation:
-  the full 1x pass (about 11 h, memo C) goes back to the user before G0's merge.
+- **The backdrop scale step's cause is unknown.** It sits between rrect-ml and rrect-lg, and the
+  dumps cannot say whether span or area sets it (memo D §3). Mitigation: LT carries the scale per
+  surface as declared; a runtime surface between the two is a named gap until a bed reads one.
 
 ## Deferred / Out of Scope
 
-- **Refitting T.** The level misses (W36's grey middle, chroma) and F above 150 stay named; family
-  A reads T on 150–242 for the reader, not to refit it (X35).
+- **The level misses under candidate 1.** W36's grey middle and chroma stay named whenever the
+  landed T is the shipped solve; candidate 2 is the route that could close them. F above 150 is
+  extended only through family A's measured ordinates (X35).
 - **The edge.** Rims and edge bands, the lens band, the bright inner line (W35), the top/bottom
   obstruction (W37), the stroke and Apple's dark exterior contour (W41 Deferred at close 3–4),
-  and distance-to-edge grading (memo B §8).
+  and distance-to-edge grading (memo B §8). Memo D's pointers for that line: the key/fill
+  highlight band is one device pixel high and one inward at both scales; the ring shadow is
+  active only and cannot be W39's receded contour; the receded SDF output reaches 1 pt + 1 dev
+  beyond the path, where W39 saw the contour, but the light face's lift there would lighten it
+  rather than darken it, which is open (memo D §7h).
+- **Other slider positions.** Normal and the light fill track `NSGlassTintAmount`; dumps and
+  captures at slider 0 and 1 would isolate the normal-weighted wide term, but they are a user
+  setting and a new bed key (memo D §7d). The user's call, not this wave's.
 - **Tint, the clear material, glass-over-glass, accessibility, the recede transition in time,
-  spans above 160, non-sRGB content** (memo B §8; memo C §6).
+  spans above 160** (where t's clamp at 1 is inferred), **non-sRGB content, a Light system
+  appearance** (memo B §8; memo C §6; memo D §8).
+- **Light active grey-128's +3 codes at s = 96**, which no declared face input explains (memo D
+  §6): named, possibly bleed or refraction.
 - **The private filter's semantics** beyond its effective transfer.
 - **The narrow term's averaging space**, if families B and D cannot separate C-linear from
   encoded at the bed's resolution: recorded as unidentified, with the capture that would.
-- **A full 1x pass**, unless memo D requires it.
 
 ## Tracking Map
 
 | child | status |
 | --- | --- |
-| G0 | — |
+| G0 | — (after v2.1) |
 | G1 | — (after G0's merge and the parent's word to the user) |
 | G2 | — |
-| G3 | conditional on clause 10 (Decision Log 1) |
+| G3 | conditional on clause 11 (Decision Log 1) |
 
 ## Decision Log
 
@@ -774,76 +919,147 @@ The parent recommended yes, on W41 Decision Log 1's terms: a survivor at one cod
 calibration, validation and H, past every landing referee, is exactly the shipping criterion.
 
 **RULED 2026-09-29 by the user: "Land in this wave, if every referee passes".** G3 is in scope,
-conditional on clause 9's gate, clause 10's exposure and clauses 12–13's referees all passing.
+conditional on clause 10's gate, clause 11's exposure and clauses 13–14's referees all passing.
 
 ### Decision Log 2 — the repeat count (before G0's merge; the user's)
 
 Put to the user: seven runs as W39 ruled, about 8 h; or three, about 3.7 h (memo C §6). The parent
 recommended seven: the bar must be measured, and three runs cannot show a 0.5-code floor.
 
-**RULED 2026-09-29 by the user: "7 repeats (about 8 h)".** G1 runs seven. A size change from
-memo D (a full 1x pass) comes back to the user.
+**RULED 2026-09-29 by the user: "7 repeats (about 8 h)".** G1 runs seven. The bed has since grown
+by the review's rulings and memo D (about 8.3 h of capture plus about 0.9 h of dumps); the net
+length is put to the user at Decision Log 6's "tell me first" moment.
 
-### Decision Log 3 — partial-endpoint adoption if the receded endpoints fail (at charter, by rule; the parent's)
+### Decision Log 3 — partial-endpoint adoption (at charter, by rule; the parent's)
 
 **Ruled at charter.** If the receded endpoints do not survive calibration and validation, the
 active endpoints may land alone. That is a partial-endpoint adoption with a claim scope, as W41's
-Decision Log 7 allowed: the receded documents hold every W42 gate at its identity, so no receded
-document's rendering or digest moves, and E3 stays unshipped; the runner scores the complete
-membership; closure is tested on the claimed strata's H cells; unclaimed strata are reported
-"not claimed (identity)" with their scores; at identity the render reads byte-identical to the
-baseline, and that equality is a test.
+Decision Log 7 allowed: the unclaimed documents hold every W42 gate at its identity, so no
+unclaimed document's rendering or digest moves, and E3 stays unshipped if light receded is
+unclaimed; the runner scores the complete membership; closure is tested on the claimed strata's
+H cells; unclaimed strata are reported "not claimed (identity)" with their scores; at identity
+the render reads byte-identical to the baseline, and that equality is a test.
 
-> **Drafter's note.** The ruling names the receded failure only. W41 Decision Log 7's general
-> rule would also admit the receded endpoints alone if the active ones fail. G3 would then be a
-> receded-only reseal, which makes M2's active-hash reference lookup ambiguous (the tracker's
-> "M2's chroma reference is loaded by its active hash alone" entry; the fix is the
-> chroma-reference half of W41 G2's drafted patch). The parent may want to rule that case now.
+**Extended by the parent (ruling on v1's note 10):** the mirror, the receded endpoints landing
+alone, is allowed. A receded-only reseal requires the tracker's "M2's chroma reference is loaded
+by its active hash alone" fix to land first, as its own fix wave before the seal. **And (ruling on
+v1's note 2):** if L1's light-solid inactive growth still fails with the extended F, the light
+receded tone stays the shipped solve and the spatial law lands over it, a partial adoption inside
+this Decision Log.
 
 ### Decision Log 4 — the CSS tier's carry, approximation or decline, per leaf (in G3; the parent's, on the Chromium measurement)
 
-Open. Advisory route in Design.
+Open. The primary route on Chromium is one reference filter; the stacked route is the
+approximation elsewhere (Design; the review's ruling 14).
 
-### Decision Log 5 — bounds and floors if the law lands (in G3; the user's)
+### Decision Log 5 — bounds and floors
 
-Open. See the drafter's notes at clause 9 on whether its M2 and L1 readings are needed before
-G2's gate.
+#### 5a — M2 at the pre-exposure gate (before G0; the user's)
+
+Put to the user before G0 hashes the declaration: M2 is a non-directional regression stop (a 2 %
+structure change against the reference generation). §5.193 §3: E3's eight light-inactive photo
+failures all moved TOWARD native (1x rrect-md native 0.064, base 0.044, E3 0.062), and memo A
+reads every W42 candidate failing the same way; a wave whose purpose is to move structure toward
+native cannot pass a stop that measures change. The parent recommended a directional reading,
+the reference re-baselining at the adopting gate as W32 Decision Log 4 ruled.
+
+**RULED 2026-09-29 by the user: "Directional: the 2% stays. A cell that moves toward Apple's own
+texture reading, and not past it, is recorded as a named miss with Apple's value beside it. That
+is M2's existing recorded-miss path. A cell that moves away from Apple, or past it by more than
+2%, fails."** Implemented in G0 as a named-miss derivation beside `chromaStructureMisses()`,
+pinned by an owner case, the 2 % tolerance unmoved.
+
+#### 5b — the rendered bar and the native-T candidate (before G0; the user's)
+
+Put to the user on the review's B1: the rendered candidate cannot meet one code against Apple
+while it composes with a T that misses Apple's level (§5.178 §2 reads the shipped solve's knot-3
+miss at +0.0508 / +0.0201 / −0.0207 / −0.0029 linear). The parent recommended both: referee the
+structure against the numerical law composed with the landed T, and declare a second candidate
+with native T.
+
+**RULED 2026-09-29 by the user: "Both. Score the blur structure against the law combined with
+the shipped tone curve, and record the gap to Apple's level as the existing named miss. Also
+declare a second candidate that takes Apple's grey tone curve from the new capture in all four
+window states. It lands instead only if it passes every check, which could close W36's
+grey-middle miss too."** The parent's note: memo D's face matrix (encoded black, white,
+saturation and fill, and dark MaxLuma by span) is the declared starting form of that second
+candidate's T, refereed by family A's greys; its fitted deviations from the literal matrix are
+counted as parameters.
+
+#### 5 (remainder) — bounds and floors if the law lands (in G3; the user's)
+
+Open.
 
 ### Decision Log 6 — the grant switch and the sitting's timing (the user's hand)
 
 **RULED 2026-09-29 by the user: "When the tooling is ready, tell me first; I'll switch the
 permission and leave the Mac idle".** G1 starts only after G0 has merged and the parent has told
-the user. The user switches the Screen Recording grant and lifts X5 by their own hand, and
-restores both after the sitting.
+the user, with the sitting's net length. The user switches the Screen Recording grant and lifts
+X5 by their own hand, and restores both after the sitting.
 
 ## Surprises & Discoveries
 
 - **E3's failure is one instance of a gap across the whole material** (memo A, question 2): in
   every endpoint the shipped body draws the half-wave Apple removes, and its two-sided heavy part
   is too weak in the dark scheme and at light 2x.
-- **Apple's widths hold in CSS px; vitrea's are device px** (memo C §7), against the reading that
-  justified device px (§5.55–§5.58).
-- **The receded pose widens the narrow component** (memo B §0); memo C reads the heavy one wider
-  too (12–13 active, 14–19 receded) and limited to the box footprint.
+- **Apple declares the structure the pixels read.** A radius-5 narrow blur at a span- and
+  depth-graded opacity over a half-scale backdrop, a radius-8 fill at Lighten or Darken 0.9, then
+  Normal at the slider: 17 closed-form laws in one size variable reproduce all 104 surfaces
+  (memo D).
+- **W29's "Normal 0.546" was the slider**, not a material constant (memo D §0), and nothing in the
+  declared tree adapts to the backdrop.
+- **The receded narrow opacity is span-graded** (0.4 + 0.4t), which W29's single receded dump
+  had hidden (memo D §5).
+- **Apple's widths hold in CSS px on macOS 27; vitrea's are device px** (memo C §7). §5.55–§5.58
+  read one kernel in device pixels on macOS 26.5: an OS difference, not a reversal.
 - **A half-resolution backdrop shows in the pixels**: the 0.8-dev narrow floor at both scales
-  and one-sided blobs at the checker period at 1x (memo C §2e), matching the dump's backdrop scale
-  of 0.5.
-- **hc-text fits the encoded-mean pointer** at its own footprint mean, 177.6 rather than 128
-  (memo A). Memo A could reproduce W41's "hc-text does not fit" only by taking the mean from the
-  bar geometry or as 128, and says so as an inference: G2's working is not in the record.
+  and one-sided blobs at the checker period at 1x (memo C §2e), and memo D declares the scale,
+  0.5 at both display scales and 0.25 on rrect-lg.
+- **hc-text fits the encoded-mean pointer** at each cell's own footprint mean (memo A). Memo A
+  could reproduce W41's "hc-text does not fit" only by taking the mean from the bar geometry or
+  as 128, and says so as an inference: G2's working is not in the record.
 - **The pre-W41 group-level solve matched Apple's 188 on the checkerboard for a reason that is
   not Apple's mechanism.** W is a local encoded blur (memo C §0), and on a centred periodic
   pattern the local mean equals the group mean (memo B §5).
 
 ## Revision Notes
 
+- 2026-09-29 (v2, drafted for the parent). Folds:
+  - **the adversarial review of v1** (`0868784c`), every finding verified and disposed by the
+    parent (`w42-v1-review-rulings.md`): B1 to the user as Decision Log 5b; the pre-sitting
+    rehearsal of every referee (clause 3, X39); the owner test over the six gated profiles and
+    the law's accessibility behaviour; two directional stops and C's surround annulus; the
+    candidate-admission mode; the new bed self-sufficient for the active span law and X34
+    corrected; the narrow term reframed as the dump's mixture; D's outside steps; the rrect-lg
+    bleed rows; A's bright greys; F bridge-only; the CSS carry as one reference filter; the
+    items of 15–17 (the dark `scatterLod` path named, §5.55–§5.58 an OS difference, K1b's
+    pyramid cost in the tie-break, identity at G2's frozen base, the F extension a new
+    gate-group); the honesty corrections (memo C's full σw ranges and a shared-σw rival, the
+    W34 capsule's 2.8× / 4.5×, all three hc-text cells, memo B's undecided dark rrect-md, the
+    linear-favouring dark lc16, the knee's three fits, w fixed at 0.5); and the minor items (the
+    tie-break, E at pitch 64 with its luma named, `dump-layers` first, the W42 web plan, the
+    odd-offset 1x cell, the face–knee order rival). The review's offsets were taken: B' pitch 8
+    receded and D's inside δ 12.
+  - **the parent's rulings on v1's ten drafter's notes** (`w42-v1-parent-rulings.md`): M2 to the
+    user as Decision Log 5a; L1 growth not re-read, fixed by extending F above 150 from family
+    A, with the shipped solve as the fallback; the eye strata as looks; the device-px floor in
+    the law; native T for identification and landed T for validation; the shape footprint as a
+    K1b variant; a receded composite-order rival; "every document" as every macOS 27 document;
+    U7 on the active rows of D, B' and C; Decision Log 3's mirror allowed after the M2 fix wave.
+  - **the user's Decision Logs 5a and 5b**, quoted.
+  - **memo D** (`w42-dumps.txt`): v1's three pending points answered (the receded opacity is
+    span-graded; points or backdrop pixels settled by the rrect-ml / rrect-lg pair; 1x equals 2x,
+    so the reduced 1x pass stands, re-derived to 14 cells); LT, the literal layer tree, declared
+    the primary family; the face matrix as candidate 2's starting T; the depth grading and t in
+    the law; the sitting re-sized (about 8.3 h of capture plus about 0.9 h of dumps).
+  - Memo E pending; its eight points are marked and fold at v2.1.
 - 2026-09-29 (Decision Logs 1, 2 and 6, the user, relayed by the coordinator): land in this wave
   if every referee passes; seven repeats (about 8 h); the grant switched and the Mac left idle by
   the user's hand once the parent reports the tooling ready.
 - 2026-09-29 (v1, drafted for the parent): chartered from the parent's decision skeleton and
   grounding memos A (argument), B (kernel) and C (probe), committed with their briefs and a
   scratch manifest under `packages/calibration/results/2026-09-29-w42-grounding/`. Memo D (the
-  layer dump) is running; its three points are marked and folded at v2. Drafter's notes beside
+  layer dump) was running; its three points were marked and folded at v2. Ten drafter's notes:
   clause 9 (M2, L1 growth, the eye's strata), the law (the device-px floor), T (two roles), the
   rivals (U3 supports, the receded order), D1/D2 (every document), U7 and Decision Log 3.
   Adversarial review requested before G0.

@@ -1,0 +1,306 @@
+W42 DUMPS: Apple's declared glass configuration by span, pose, scheme and scale (no pixels)
+2026-09-29. Only `dump-layers` was run: no pixels were captured, nothing was rebuilt and nothing was
+committed. The repository, fixtures/ and scenes.json were not touched. Raw data and scripts:
+~/vitrea-w42/grounding/dumps/. Everything below is the configuration SwiftUI hands the window server.
+It is Apple's DECLARED configuration, not proof of what reaches the screen; the pixels remain the
+evidence. Units: pt (= CSS px) unless marked "dev" (device px). s is the surface's short side.
+
+0. ANSWERS
+- Every surface carries the same body chain. Three terms matter:
+  - a narrow blur, inputBlurRadius 5, in every one of 208 surfaces. Its opacity is graded by span in
+    both poses, and by SDF depth in the active pose only;
+  - a wide one-sided "blur fill" of radius 8. It is Lighten 0.9 in light and Darken 0.9 in dark, with
+    Normal 0.5. It does not change with span, pose, scale or backdrop; only the lighten/darken side
+    flips with the scheme;
+  - a face colour matrix that is affine on ENCODED values. Light adds a white fill at alpha 0.2.
+- One size variable drives every span-graded input: t = clamp((s-64)/96, 0, 1). Nothing moves for
+  s <= 64. The upper knot is 160, the largest span in the bed, so the clamp at t = 1 is inferred, not
+  observed. Seventeen closed-form laws reproduce all 104 surfaces at 2x exactly (laws.py, error below
+  1e-3). At 1x, one law is off only because the receded margin is 1 device px.
+- The receded blur opacity is NOT flat across spans. It is 0.4 + 0.4t: 0.400 for s <= 64, 0.467 at 80,
+  0.533 at 96, 0.667 at 128, 0.675 at 130 and 0.800 at 160. It is flat in SDF depth. In the active
+  pose the opacity is 0.8t at the centre and falls linearly to 0.4t at 1 pt inside the edge.
+- W29's "Normal 0.546" was the glass slider's position when W29 dumped, not a material constant.
+  Normal opacity equals NSGlassTintAmount at five slider positions:
+  - W29's slider sweep (d/dump-sweep): 0, 0.25, 0.5 and 1.0;
+  - W29's dump-sdk27: 0.546.
+  At the bed's attested slider of 0.5 it reads 0.5 everywhere. The light face fill alpha tracks the
+  slider too: 0, 0.10, 0.20, 0.2275 and 0.50 at those five positions.
+- Nothing in the declared configuration adapts to the backdrop. dark-solid, checkerboard, light-solid
+  and photo give identical inputs: 12 component-surface groups x 4 endpoints, zero differing fields.
+- Scale: 1x and 2x are identical apart from four quantities that equal one device pixel at each scale
+  (§4). The backdrop capture scale (0.5, and 0.25 on rrect-lg) is also the same at both scales.
+- Settledness: --settle 16 matches --settle 8 byte-for-byte, on 4 scenes x 4 endpoints at 2x.
+- Against native pixels:
+  - the declared face affine gives the native black floor to within 0.6 code in all four endpoints;
+  - it follows the light grey ramp to within 1 code for inputs up to 88, then runs 1-3 codes high;
+  - the light receded white is the MaxLumaSDR 0.94 (239.7 against 240).
+  In dark, everything above the floor is compressed. That compression is graded by span through a
+  MaxLuma of 0.6 - 0.6t, floored at 0.35, and appears in dark only. Its sign matches the native
+  span difference in both poses (§6).
+
+1. RUNS AND PROVENANCE
+- Binary: ~/vitrea-w39/side/VitreaReference.app.
+  - Bundle identifier dev.vitrea.reference-apple.w39, sha256 02052b17…, pinned in W39's bundle-pin.json.
+  - Its build inputs are byte-identical to HEAD's apps/reference-apple/Sources.
+  - build/ was not used: its dump-layers predates --inactive.
+- Launch: open -W --env VITREA_SCALE / VITREA_SCENES / VITREA_FIXTURES, then dump-layers --settle 8
+  --scheme <s>, with --require-key (active) or --inactive (receded).
+- Scene spec: a SCRATCH copy of scenes.json, sha256 035a4f22…, taken from canonical 2f457782…. It adds 6
+  probe scenes named w42__*: toolbar-group and glass-over-glass on dark-solid, and rrect-48/64/80 and
+  rrect-md-clear20 on checkerboard. These pair canonical components with canonical backgrounds.
+- 24 scenes per run:
+  - all 11 canonical glass components on dark-solid, the representative backdrop: it is the only
+    canonical backdrop carrying the rrect-48/64/80 column;
+  - the same 11 on checkerboard, the kernel memo's backdrop;
+  - photo and light-solid on rrect-md.
+  With glass-over-glass counting as two surfaces, that is 26 surfaces per run.
+- Runs:
+  - 2x (display mode 68): light and dark, active and receded, 24 scenes each;
+  - a settle-16 repeat of 4 scenes per endpoint (dark-solid rrect-sm/md/lg and photo rrect-md);
+  - 1x (display mode 69, backing 1.0): the same four 24-scene runs.
+  Each run took about 200 s.
+- Every dump attests its pose: key+active in all active dumps, neither in all receded dumps.
+- Gates at every run's open and close: macOS 27.0 26A428, slider 0.5, Reduce Transparency, Increase
+  Contrast and Show Borders all 0, the expected display mode, and the binary pin. All passed. stderr
+  was empty.
+- Session: HID idle stood at 2.9 h before the first launch. Runs paused 06:00-06:15Z while input was
+  live. No permission prompt appeared: the census of on-screen window owners was used instead of
+  osascript, and no universalAccessAuthWarn window was seen.
+- Restored and verified at exit: the display is back on mode 68. The system appearance is Dark; it was
+  never changed.
+- Appearance leak check (coordinator condition 2): none found.
+  - Light runs read Lighten 0.9, face 0.40/1.03 and a white fill. Dark runs read Darken 0.9,
+    0.125/1.125 and no fill.
+  - The only differences from W29's dumps of the same scenes are the two slider fields.
+  - Not attested: whether a Light system appearance would change anything. The harness overrides
+    only SwiftUI's colorScheme.
+
+2. LAYER ORDER (per surface; identical in every dump, bottom to top)
+NSHostingView backing layer (320x200)
+ ├ SwiftUI.ImageLayer: the backdrop raster
+ └ CALayer: scene container, masksToBounds
+    └ SwiftUI.SDFLayer: the surface frame
+       ├ CALayer 0x0: the SDF source, hidden through the portal below
+       └ CALayer: surface container
+          ├ CABackdropLayer "@0"
+          │    filters: [DLCAFilter glassBackground]
+          │    scale 0.5 (0.25 on rrect-lg); marginWidth per §3; windowServerAware 1 active / 0 receded;
+          │    allowsFilteredLuma 1, lumaUpdateRate 0.25, tracksLuma 0
+          │  └ CASDFLayer "@0": CASDFOutputEffect (min -10000, max per §3), smoothness 8
+          │                     (12 on toolbar-group), gaussianRadius 0
+          │     └ CASDFElementLayer(s): cornerCurve continuous, operation union,
+          │                             gradientOvalization 0.5 (active, s > 64) or 0
+          ├ SDFPortalLayer "@1": hidesSourceLayer 1
+          └ CASDFLayer "@2": the key/fill highlight
+               filters: [vibrantColorMatrix]; opacity 1 active / 0 RECEDED
+               effect: CASDFKeyFillHighlightEffect
+- Groups:
+  - toolbar-group is ONE backdrop layer over three union elements (44x44 each, 12 apart), with
+    smoothness 12. Its inputs follow s = 44.
+  - glass-over-glass is TWO independent backdrop layers, each with its own span law: the base at
+    s = 130 (t = 0.6875) and the overlay at s = 56 (t = 0).
+  - rrect-md-clear20 (offset 32 pt) is identical to rrect-md: position enters no input.
+- The highlight's vibrantColorMatrix is the same in every dump. Per row it is
+  0.912 x a Rec.709 saturation of 1.29, plus an offset of +0.147:
+  R' = 1.1202 R - 0.1894 G - 0.0190 B + 0.1471
+  G' = -0.0563 R + 0.9871 G - 0.0191 B + 0.1471
+  B' = -0.0563 R - 0.1893 G + 1.1574 B + 0.1471
+  A' = A
+- The CASDFKeyFillHighlightEffect is the same in every dump except its two spreads:
+  - key: amount 0.5, angle 0; fill: amount 0.5, angle π;
+  - key/fill heights 1, curvature 0.75, diffuse scales 0.15 / 8 / 0.65;
+  - key/fill spread is 80° for s <= 96, then 80° + (s-96) x 10°/96: 83.3° at 128 and 86.7° at 160.
+
+3. glassBackground, BY ENDPOINT (every value holds at 1x and 2x unless marked)
+Constants of an endpoint (the same at every span):
+| input                         | light active | light receded | dark active | dark receded |
+| BlurRadius                    | 5            | 5             | 5           | 5            |
+| BlurFill radius / Lighten / Darken / Normal | 8 / .9 / 0 / .5 | 8 / .9 / 0 / .5 | 8 / 0 / .9 / .5 | 8 / 0 / .9 / .5 |
+| FaceColorMatrix black / white | .40 / 1.03   | .40 / .96     | .125 / 1.125 | .08 / 1.125 |
+| FaceColorMatrix saturation    | 1.2          | 1.2           | 1.3         | 1.3          |
+| FaceColorMatrix fill          | white a .20  | white a .20   | none (a 0)  | none         |
+| MaxLuma / MaxLumaSDR          | 1 / .94      | 1 / .94       | span law    | span law     |
+| Clamp                         | 1.06961      | 1.0           | 1.30831     | 1.30831      |
+| RefractionOpacity             | .6           | 0             | .6          | 0            |
+| RingShadow opacity (offset 8, stroke 4, blur 5) | .06 | 0     | .06         | 0            |
+| Shadow colour; offset         | black a .3; (0, 8) | same (opacity 0) | same   | same         |
+| Bleed matrix black / white / sat / darkenBlend | .9 / 1 / 1.2 / 1 | same | .125 / .5 / 1 / 0 | same |
+| KeyFillHighlight amount / colourBias | .4 / -.25 | .5 / -.1875 | .4 / -.25  | .5 / -.1875  |
+| KeyFillHighlight spread / spreadSDR | 96° / 106° | 120° / 120° | 75° / 75° | 120° / 120° |
+| KeyFillHighlight angle        | 90°          | 90°           | 90°         | 90°          |
+| KeyFillHighlight height / offset | 1 dev / -1 dev (0.5 / -0.5 pt at 2x, 1 / -1 at 1x), all four endpoints |
+| SDRGradientDistance0/1        | 0            | 1             | 0           | 1            |
+| SDF highlight layer opacity   | 1            | 0             | 1           | 0            |
+| Distances not listed          | constant: Refraction -1/0, Bleed 1/0, BlurDistance2/3 0/0, MaxHeadroom 9999 |
+
+Span laws, with t = clamp((s-64)/96, 0, 1) (verified on 104 surfaces at 2x and 104 at 1x):
+| input                              | active                          | receded             |
+| BlurOpacity at d=BlurDistance0     | 0.8t, at d0 = -s/2 (the centre) | 0.4+0.4t, d0 = 0    |
+| BlurOpacity at d=BlurDistance1     | 0.4t, at d1 = -1 pt             | 0.4+0.4t, d1 = 0    |
+| BlurOpacity2/3 at d=0              | 0.5 / 1                         | 1 / 1               |
+| InnerRefraction amount / height    | -min(s/2, 60) / min(s/4, 20)    | same (gated by opacity 0) |
+| OuterRefraction amount / height    | max(16, s/4) / max(16, s/5)     | 0 / 0               |
+| Bleed amount = height              | 0.35 s                          | same (gated)        |
+| Bleed blur radius                  | 0.35 s if s > 64, else 0        | 0                   |
+| Bleed opacity                      | 0.5t light, 0.8t dark           | 0                   |
+| Shadow opacity                     | .04+.36t light, .04+.56t dark   | 0                   |
+| Shadow radius                      | 4 + 20t                         | 0                   |
+| MaxLuma (dark only)                | max(.35, .6-.6t)                | same                |
+| backdrop marginWidth               | 0.35 s if s > 64, else 16       | 1 dev               |
+| backdrop scale                     | 0.5; 0.25 on rrect-lg (280x160) | same                |
+| gradientOvalization                | 0.5 if s > 64, else 0           | 0                   |
+| SDF output maximum                 | 8.89 for s <= 80, then 13.85 / 25.49 / 37.90 at 96 / 128 / 160 light (dark 9.11 / 15.0 / 27.55 / 39.83 from s = 80); tracks the shadow | 1 pt + 1 dev |
+- Pinned: SDF grading reads opacity piecewise-linearly in the SDF distance d (negative inside). Active:
+  0.8t at the centre, 0.4t at 1 pt inside the edge, and 0.5 then 1 at and beyond the edge. Receded:
+  flat 0.4+0.4t inside, 1 at the edge.
+- The backdrop scale step sits between rrect-ml (224x128, area 28.7k) and rrect-lg (280x160,
+  44.8k). The dumps cannot say whether span or area sets it.
+
+Per component. Every endpoint, backdrop and scale is equal where marked. "L/D" is light/dark active;
+the receded column is both schemes.
+| component          | WxH     | s   | t     | bdScale | blurOp active ctr / -1pt | blurOp rcd | bleedOp L/D | shadowOp L/D | shR  | inRefr A/H | outRefr A/H | bleed amt/R | margin | ovl | MaxLuma D |
+| rrect-sm           | 64x32   | 32  | 0     | .5      | 0 / 0          | .400 | 0/0       | .04/.04    | 4    | -16/8  | 16/16    | 11.2/0    | 16   | 0  | .60 |
+| capsule-button     | 120x44  | 44  | 0     | .5      | 0 / 0          | .400 | 0/0       | .04/.04    | 4    | -22/11 | 16/16    | 15.4/0    | 16   | 0  | .60 |
+| toolbar-group      | 156x44  | 44  | 0     | .5      | 0 / 0          | .400 | 0/0       | .04/.04    | 4    | -22/11 | 16/16    | 15.4/0    | 16   | 0  | .60 |
+| rrect-48           | 84x48   | 48  | 0     | .5      | 0 / 0          | .400 | 0/0       | .04/.04    | 4    | -24/12 | 16/16    | 16.8/0    | 16   | 0  | .60 |
+| gog overlay        | 120x56  | 56  | 0     | .5      | 0 / 0          | .400 | 0/0       | .04/.04    | 4    | -28/14 | 16/16    | 19.6/0    | 16   | 0  | .60 |
+| rrect-64           | 112x64  | 64  | 0     | .5      | 0 / 0          | .400 | 0/0       | .04/.04    | 4    | -32/16 | 16/16    | 22.4/0    | 16   | 0  | .60 |
+| rrect-80           | 140x80  | 80  | .167  | .5      | .133 / .067    | .467 | .083/.133 | .10/.133   | 7.33 | -40/20 | 20/16    | 28/28     | 28   | .5 | .50 |
+| rrect-md, -clear20 | 160x96  | 96  | .333  | .5      | .267 / .133    | .533 | .167/.267 | .16/.227   | 10.7 | -48/20 | 24/19.2  | 33.6/33.6 | 33.6 | .5 | .40 |
+| rrect-ml           | 224x128 | 128 | .667  | .5      | .533 / .267    | .667 | .333/.533 | .28/.413   | 17.3 | -60/20 | 32/25.6  | 44.8/44.8 | 44.8 | .5 | .35 |
+| gog base           | 220x130 | 130 | .6875 | .5      | .550 / .275    | .675 | .344/.55  | .2875/.425 | 17.8 | -60/20 | 32.5/26  | 45.5/45.5 | 45.5 | .5 | .35 |
+| rrect-lg           | 280x160 | 160 | 1     | .25     | .800 / .400    | .800 | .50/.80   | .40/.60    | 24   | -60/20 | 40/32    | 56/56     | 56   | .5 | .35 |
+
+4. 1x AGAINST 2x
+All 26 surfaces in all four endpoints are field-for-field identical, with four exceptions. Each one
+equals one device pixel at its own scale:
+| input                            | 2x          | 1x      | reading                     |
+| KeyFillHighlightHeight           | 0.5         | 1       | 1 dev, all endpoints        |
+| KeyFillHighlightEffectOffset     | -0.5        | -1      | -1 dev, all endpoints       |
+| backdrop marginWidth (receded)   | 0.5         | 1       | 1 dev                       |
+| SDF output maximum (receded)     | 1.5         | 2       | 1 pt + 1 dev                |
+- The backdrop capture scale is 0.5 at BOTH display scales. At 1x the backdrop is therefore sampled at
+  0.5 px/pt, and at 2x at 1 px/pt. On rrect-lg the density is 0.25 px/pt at 1x (one backdrop pixel per
+  4 pt) and 0.5 px/pt at 2x.
+- The blur radii are equal at both scales and the pixel widths are close to scale-invariant (kernel
+  memo §0). That points to radii in POINTS, with the backdrop scale being only a resolution choice.
+  If the radii were in backdrop pixels, the 1x blur would be twice as wide in points.
+- So nothing in the DECLARED body configuration depends on scale. Where native 1x and 2x pixels differ
+  (kernel memo 2a: light-active rrect-md impulse σ 1.31 at 1x against 2.36 at 2x; receded rrect-md
+  5.84 against 5.03), the cause is in the realisation: sampling density, or the device-pixel edge
+  terms.
+
+5. W29 POINTERS: WHICH HOLD
+| W29 pointer (kernel memo §4)                                 | verdict |
+| glassBackground DLCAFilter, macOS 27 26A428, 2x              | HOLDS, and holds at 1x |
+| inputBlurRadius 5 in every dump                              | HOLDS: 208/208 surfaces, both scales, schemes and poses |
+| Active blur opacity graded by SDF depth: 0 at s 32/44, .133 at 80, .267 at 96 | HOLDS. Completed: 0.8t at the centre, 0.4t at -1 pt, then .5 and 1 at the edge; .533 at 128, .8 at 160 |
+| Receded ".533 flat, distances zeroed"                        | HALF. Flat in depth and zeroed distances hold everywhere; .533 is rrect-md's value only. The receded opacity is span-graded: 0.4+0.4t |
+| BlurFill radius 8, Lighten .9 (light) / Darken .9 (dark)     | HOLDS: span-, pose-, scale- and backdrop-invariant |
+| BlurFill Normal .546                                         | FAILS: Normal = the glass slider; .5 on the bed |
+| Face black/white .40/1.03 (light active), .40/.96 (light receded), sat 1.2 | HOLDS. Dark added: .125/1.125 active, .08/1.125 receded, sat 1.3 |
+| Receded zeroes refraction, bleed and shadow                  | HOLDS. Also zeroed: the ring shadow and the SDF highlight layer (opacity 0). Inner refraction and bleed amounts keep their span values, but their opacities are 0 |
+| Backdrop layer scale 0.5                                     | HOLDS except rrect-lg at 0.25, at both display scales |
+| "σ ≈ 10·opacity", arithmetic on 3 points (kernel memo)       | Now 6 light cells at 2x/1x: σ/opacity lies between 7.5 and 11.8 (md active .267 -> 2.0-2.4; md receded .533 -> 5.0-5.8; capsule receded .4 -> 3.8-4.7) |
+| "Opacity cannot mean a sharp/blur mix" (kernel memo)         | Consistent. The receded capsule has opacity 0.4 and no sharp core, which fits opacity scaling the blur's reach, not mixing it. The dump cannot settle the semantics |
+
+6. THE FACE MATRIX AGAINST NATIVE UNIFORM LEVELS
+Native values are 2x deep medians at s <= 64, from ~/vitrea-w42/grounding/kernel/archive-map/native-body-readings.csv
+(W34/W39 archive calibration rows). The prediction is y = black + (white-black)·x on encoded x, then a
+mix toward the fill colour at alpha a, then a cap at MaxLumaSDR x Clamp. Each cell is native / predicted.
+| input | light active    | light receded   | dark active    | dark receded   |
+| 0     | 132 / 132.6     | 133 / 132.6     | 32 / 31.9      | 20 / 20.4      |
+| 32    | 148 / 148.7     | 147 / 146.9     | 62 / 63.9      | 52 / 53.8      |
+| 64    | 164 / 164.9     | 161 / 161.3     | 89 / 95.9      | 81 / 87.3      |
+| 88    | 176 / 177.0     | 171 / 172.0     | 108 / 119.9    | 100 / 112.4    |
+| 128   | 195 / 197.1     | 188 / 189.9     | 134 / 159.9    | 127 / 154.2    |
+| 160   | 210 / 213.2     | 202 / 204.3     | 151 / 191.9    | 146 / 187.6    |
+| 255   | 253 / 256 (cap 1.005) | 240 / 239.7 (cap .94) | 184 / --  | 180 / --       |
+- Light is the declared ENCODED affine to within 1 code up to input 88. Above that it has a 1-3 code
+  shoulder. I did not fit a linear-light variant: its form (which of input and output is linear) is
+  not declared.
+- Dark: the floors are exact. Above them the response is strongly compressive, and the compression is
+  not a hard cap at MaxLuma.
+- The span dependence matches the dark-only MaxLuma law in sign, in both dark poses:
+  - dark g128 reads 134 / 127 (active / receded) at s <= 64 and 121 / 114 at s = 96;
+  - dark g255 reads 184 at s = 44 and 134 at s = 96;
+  - light receded g128 is 188 at every span, as the declaration predicts (no span-graded face input);
+  - light active g128 rises from 195 to 198 at s = 96. No declared face input explains that +3; it
+    may be bleed or refraction, and is unidentified.
+
+7. WHAT THE NUMBERS IMPLY FOR THE NATIVE CAPTURE (kernel memo §8)
+a. Spans. Every s <= 64 is ONE declared stratum: active narrow opacity 0, receded 0.4, no bleed blur,
+   no ovalization. Capsule 44, rrect-sm 32 and rrect-48/64 differ only in geometry. Spend the span
+   budget on t = 1/6, 1/3, 2/3 and 1 (s = 80, 96, 128, 160), plus one t = 0 shape. Nothing above 160
+   was dumped, so the clamp at t = 1 is untested.
+b. Depth. The active narrow blur's opacity varies within a surface: on rrect-md it falls from .267 at
+   the centre to .133 at 1 pt inside the edge. Centre-only reads (impulse, ESF) see the centre value.
+   - Family C (single patch) should place patches at several depths (centre, about s/4, 4 pt from
+     the edge) on rrect-md and rrect-lg in the active pose.
+   - In the receded pose the declared opacity is flat in depth, so the same depth sweep is a free
+     falsification control: it must read one width.
+c. rrect-lg is decisive. It is the only surface at backdrop scale 0.25. Include rrect-lg next to
+   rrect-ml (s 128, scale 0.5) in the patch and impulse families.
+   - With the "σ ≈ 10·opacity" pointer and radii in points, both poses predict σ ≈ 8 at the rrect-lg
+     centre.
+   - If the radii are in backdrop pixels, the prediction is about 16, and every 1x read doubles.
+d. The wide term's λ and w are declared: 0.9 lighten/darken and normal 0.5, the same across span, pose,
+   scale and backdrop. Treat them as a stated hypothesis that family B referees, not parameters to fit
+   per stratum.
+   - What remains free: the wide kernel's width and shape (radius 8, in unknown units; the kernel memo
+     bounds s_w >= 9 and reads photo at about 15), and the composition order (lighten before or after
+     normal).
+   - A cheap lever outside the bed: the slider moves only Normal (= slider) and the light fill alpha.
+     A pair of dumps and captures at slider 0 and 1 would isolate the normal-weighted wide term.
+     Changing it is a user setting and a new bed key, so it is the user's call.
+e. Uniform family A:
+   - Light can be thinned to a referee of the declared affine plus the 0.94 cap. Keep 150-240 for the
+     1-3 code shoulder.
+   - Dark needs spans on both sides of each MaxLuma knot (<= 64, 80, 96, >= 104) and the full level
+     range, because its compression is undeclared beyond the floor.
+f. Backdrop and position switch no declared input.
+   - Backdrop effects in pixels come from the filter's own arithmetic (lighten/darken, clamp, MaxLuma),
+     not from switched parameters, so families need not be stratified by backdrop to catch switching.
+   - Family D's δ offsets move no declared input. Any δ effect is the filter's spatial support, which
+     answers the kernel memo's "W group versus local" question in pixels.
+g. The 1x pass (the coordinator's open question). No declared parameter differs with scale apart from
+   the 1-device-px edge terms (§4). A 1x cell therefore earns its place only where sampling density or
+   device-pixel geometry can matter:
+   - fine pitches of 8 pt or less;
+   - small patches of 4 pt or less;
+   - rrect-lg, whose backdrop pixel is 4 pt at 1x;
+   - edge and highlight strips.
+   The body-level families (uniform levels, the λ/w referees, δ offsets) have no declared reason to be
+   repeated at 1x beyond a small referee. My recommendation: keep only those realisation-sensitive
+   cells in the 1x pass and drop the body-level ones. Whether that brings the pass below 22 cells
+   depends on what the 22 hold; I have not seen the charter's list.
+h. Edge pointers for the separate edge line (W35-W39), with one conflict:
+   - Receded hides the SDF key/fill highlight layer, yet the filter's own KeyFillHighlight inputs stay
+     live: amount .5, spread 120°.
+   - The KeyFillHighlight band is 1 device px high, offset 1 device px inward, at both scales. This
+     matches W37's reading that the line is a ramp averaged over pixel areas.
+   - The ring shadow is active only (opacity .06, offset 8, stroke 4, blur 5). It therefore cannot be
+     W39's receded dark contour.
+   - In the receded pose the SDF output reaches 1 pt + 1 dev beyond the path, with blur opacity 1 at
+     d >= 0. That is where W39 saw its contour (1-2 dev outside the path).
+   - Conflict: in light, that band carries the face's lift (floor 0.52), which would lighten, not
+     darken. Why the contour is dark there is open.
+
+8. LIMITS
+- These are declared inputs to a private filter. Its units, the order of composition and the meaning
+  of most keys (SDRGradientDistance, Clamp 1.06961 / 1.30831, MaxLuma) are inferred from names and
+  numbers only.
+- Spans above 160, tints, the pressed state, labels, accessibility modes, other slider positions and
+  a Light system appearance were not dumped.
+- The native values in §6 come from the grounding memo's committed-derived CSV (W34/W39 archive
+  calibration rows). No image was opened for this memo, and no holdout, recorded or probe pixel was
+  read.
+
+9. FILES (~/vitrea-w42/grounding/dumps/)
+- runs/<scale>-<scheme>-<pose>[-settle16]/: json/ (one dump per scene), dump.out/.err, attest.open/.close.
+- scenes-w42-dump.json: the scratch spec. plan-ids.txt: the 24 scene ids.
+- extract.py: per-surface records. laws.py: the 17 span laws, checked. table.py and span-table.txt:
+  the tables. flat.py: a tree diff.
+- run-one.sh, run-1x.sh, run-rest.sh, gate.sh, wait-idle.sh: the drivers.
+- run-rest.log: the 1x and settle-16 log, including the display switch and restore.
