@@ -12,8 +12,11 @@ import tempfile
 from snapshot import key
 
 EXPECTED = "7df96c9246bc9b964fd6e173e742f49dcf493ccb360f7df505a0157240eaf0de"
-GROUPS = {"950ce1c3e917": 437, "6a9600720477": 670,
-          "0eac5b294cc2": 277, "85ad7f7e3e0d": 509}
+# Each macOS 27 group is named by its (active, receded) pair: a receded-only reseal keeps the
+# active hash, and from then on an active-only lookup has two owners and refuses. The frozen
+# macOS 26.5 groups predate the index and cannot gain an owner.
+GROUPS = {("950ce1c3e917",): 437, ("6a9600720477",): 670,
+          ("0eac5b294cc2", "5cec8c961201"): 277, ("85ad7f7e3e0d", "30fbe05986ae"): 509}
 
 
 def synthetic():
@@ -22,10 +25,10 @@ def synthetic():
         root = pathlib.Path(temporary)
         generations = root / "generations"
         generations.mkdir()
-        frozen = copy.deepcopy(load_generation("950ce1c3e917")[0])
-        original = copy.deepcopy(load_generation("85ad7f7e3e0d")[0])
-        resealed = copy.deepcopy(original)
         old_receded, new_receded = "30fbe05986ae", "111111111111"
+        frozen = copy.deepcopy(load_generation("950ce1c3e917")[0])
+        original = copy.deepcopy(load_generation("85ad7f7e3e0d", old_receded)[0])
+        resealed = copy.deepcopy(original)
         resealed["key"]["web"]["capturePath"] = resealed["key"]["web"]["capturePath"].replace(
             f"recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:{old_receded}",
             f"recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:{new_receded}")
@@ -135,11 +138,11 @@ def synthetic():
 
 def main():
     grouped = []
-    for active, count in GROUPS.items():
-        rows = load_generation(active)
-        assert len(rows) == count, (active, len(rows), count)
+    for pair, count in GROUPS.items():
+        rows = load_generation(*pair)
+        assert len(rows) == count, (pair, len(rows), count)
         grouped.extend(rows)
-        print(f"{active}: {len(rows)} rows")
+        print(f"{pair[0]}: {len(rows)} rows")
     assert legacy_envelope_digest(grouped) == EXPECTED
     current = load_current_rows()
     assert len(current) == 1893

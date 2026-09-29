@@ -161,6 +161,13 @@
  *     vitrea's pressed pose against Apple's rest pose. They are still gated on
  *     the shape and perceptual axes — §5's own worst-case figures include them —
  *     but no press claim rests on that.
+ *
+ *     > **2026-09-29: "They are still gated" describes the v1 and W1 beds, not
+ *     > any current population.** Decision Log 19 ruling 1 (claims §5.19,
+ *     > 2026-08-31) moved the four `pressed` scenes to the `recorded` role, which
+ *     > no bound reads, before the frozen active bed was cut. No committed
+ *     > generation has carried a pressed row since then. The gated bed now drops
+ *     > the role explicitly (`inGatedBed`).
  *   - **The shadow axis is not gated, and must not be yet.** Schema 5 measures
  *     it (claims §5.12) and vitrea reads zero across it on every cell. A bound
  *     over that would certify the gap, which is the move Decision Log 11
@@ -2087,10 +2094,12 @@ const SCENE_DECLARATION = readJson<{
 const INACTIVE_SCENES = new Set(
   SCENE_DECLARATION.scenes.filter((scene) => scene.state === "inactive").map((scene) => scene.id),
 );
+/** Every scene the declaration gives the `recorded` role (Decision Log 19 ruling 1). */
+const RECORDED_SCENES = new Set(SCENE_DECLARATION.split["recorded"] ?? []);
 
 /**
- * The gated bed: the matrix file minus its `probe` rows, and minus the inactive
- * pose on every set.
+ * The gated bed: the matrix file minus its `probe` and `recorded` rows, and minus
+ * the inactive pose on every set.
  *
  * Since W25 the canonical matrix carries the probe set beside the frozen bed:
  * the harness captures it routinely and the fits and the claims read it, but it
@@ -2116,6 +2125,15 @@ const INACTIVE_SCENES = new Set(
  * a list of inactive scene ids here would need a line per cell per profile per
  * tier, and every new inactive scene would join the gate by default, which is the
  * failure this axis-shaped exclusion cannot have.
+ *
+ * The third drop, since 2026-09-29, is the `recorded` role, by its label and by the
+ * declaration's split, as the inactive drop reads both. Decision Log 19 ruling 1
+ * (claims §5.19) made the role to be read by no bound, and every adopted population
+ * here is over rest-state rows. The drop went unwritten because no committed
+ * generation ever carried such a row. W41 G2's full-recipe stage did, and its pressed
+ * rows entered the texture tables, the conditioning predicate and W20 (claims
+ * §5.193 §3). The guard beside the probe and inactive ones seeds a recorded row
+ * through `inGatedBed`, because the committed rows alone cannot show the drop works.
  */
 /**
  * The short content hash `capture-web` puts in a cell's `capturePath` for each
@@ -2176,16 +2194,26 @@ function atAShippedDocument(cell: Cell): boolean {
   return SHIPPED_DOCUMENT_HASHES.get(clause[1] ?? "") === clause[2];
 }
 
-const MATRIX: ResultMatrix = {
-  ...MATRIX_FILE,
-  cells: MATRIX_FILE.cells.filter(
-    (cell) =>
-      cell.fixtureSet !== "probe" &&
-      cell.state !== "inactive" &&
-      !INACTIVE_SCENES.has(cell.key.sceneId) &&
-      atAShippedDocument(cell),
-  ),
-};
+/**
+ * Is this row in the `recorded` role, by its label or by the declaration's split? Shared by
+ * the gated bed and by C1, whose selection is restated over `MATRIX_FILE` to keep probe rows.
+ */
+function inRecordedRole(cell: Cell): boolean {
+  return cell.fixtureSet === "recorded" || RECORDED_SCENES.has(cell.key.sceneId);
+}
+
+/** The gated-bed drop, one row at a time; a function so a guard can seed a row through it. */
+function inGatedBed(cell: Cell): boolean {
+  return (
+    cell.fixtureSet !== "probe" &&
+    !inRecordedRole(cell) &&
+    cell.state !== "inactive" &&
+    !INACTIVE_SCENES.has(cell.key.sceneId) &&
+    atAShippedDocument(cell)
+  );
+}
+
+const MATRIX: ResultMatrix = { ...MATRIX_FILE, cells: MATRIX_FILE.cells.filter(inGatedBed) };
 
 /** `tier / set / scene / profile` — every failure message starts with this. */
 function name(cell: Cell): string {
@@ -3313,15 +3341,16 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
     expect(intruders.map(name)).toEqual([]);
   });
 
-  it("drops the file's probe rows, the inactive pose and superseded generations, and nothing else", () => {
+  it("drops probe and recorded rows, the inactive pose and superseded generations, and nothing else", () => {
     // The other direction, and it is the one that could rot silently: the file
     // on disk now carries the probe set (W25 G4's rebuild), so the guard above
     // passes both when the drop works and when the rows were never captured.
     // Every row the drop removes must be a probe row of a declared probe scene, a
-    // row of a declared inactive scene, or a row captured at a profile document
-    // this repository no longer contains — and the two views must differ by
-    // exactly those rows. The inactive arm is W28 G4's and the generation arm is
-    // W29 G3b's; each has its own guards below. Since W30 G1 the generation arm
+    // recorded row of a declared recorded scene, a row of a declared inactive
+    // scene, or a row captured at a profile document this repository no longer
+    // contains — and the two views must differ by exactly those rows. The inactive
+    // arm is W28 G4's, the generation arm W29 G3b's and the recorded arm
+    // 2026-09-29's; each has its own guards below. Since W30 G1 the generation arm
     // is expected to drop nothing — the superseded generation lives in
     // `results/superseded/` rather than here — and it is asserted anyway, because
     // what it guards is an edited document, not a second generation.
@@ -3330,6 +3359,7 @@ describe("the probe set is captured, and gated by nothing (W25 Decision Log 3 (e
       dropped.every(
         (cell) =>
           (cell.fixtureSet === "probe" && PROBE.has(cell.key.sceneId)) ||
+          (cell.fixtureSet === "recorded" && RECORDED_SCENES.has(cell.key.sceneId)) ||
           INACTIVE_SCENES.has(cell.key.sceneId) ||
           !atAShippedDocument(cell),
       ),
@@ -3450,6 +3480,70 @@ describe("the inactive pose is published, and gated by nothing (W27 Decision Log
     expect(floored).toEqual([]);
   });
 
+});
+
+/**
+ * The `recorded` role: captured, committed, and gated by nothing (Decision Log 19 ruling 1,
+ * claims §5.19).
+ *
+ * The role was made for the four `pressed` scenes, whose native capture is a byte-copy of
+ * the rest twin, so each such cell compares vitrea's pressed pose against Apple's rest pose.
+ * The ruling says what the role means: read by no fit, no self-check, no bound and no claim,
+ * and every adopted population here was defined over rest-state rows. The drop is explicit
+ * since 2026-09-29, when W41 G2's full-recipe stage showed that no committed row had ever
+ * tested it; the gated bed's doc comment lists what the stage's rows reached. W20's
+ * conformance reading on those rows is kept as its own tracker entry, not lost with the drop.
+ */
+describe("the recorded role is captured, and gated by nothing (Decision Log 19 ruling 1)", () => {
+  it("declares a recorded role, so these assertions are about something", () => {
+    expect(RECORDED_SCENES.size).toBeGreaterThan(0);
+  });
+
+  it("puts no recorded row in the gated bed, at any profile or tier", () => {
+    const intruders = MATRIX.cells.filter(
+      (cell) => cell.fixtureSet === "recorded" || RECORDED_SCENES.has(cell.key.sceneId),
+    );
+    expect(intruders.map(name)).toEqual([]);
+  });
+
+  it("drops a seeded recorded row, by either name, that is otherwise a gated row", () => {
+    // No committed generation carries a recorded row, so the guard above passes whether the
+    // drop works or not. Seed one instead: the rest twin of a recorded pressed scene is a
+    // gated row, and the same row relabelled, re-scened or both must leave. The twin shares
+    // the seeds' profile, tier, pose and document, so the drop is the recorded arm's alone.
+    const pressed = "checkerboard__capsule-button__pressed";
+    expect(RECORDED_SCENES.has(pressed)).toBe(true);
+    const twin = MATRIX.cells.find(
+      (cell) =>
+        cell.key.profileKey === "apple-macos-27.0-1x-light-standard-glass0.5" &&
+        cell.tier === "texture" &&
+        cell.key.sceneId === "checkerboard__capsule-button__rest",
+    );
+    expect(twin).toBeDefined();
+    expect(inGatedBed(twin!)).toBe(true);
+    const seeds: readonly Cell[] = [
+      { ...twin!, fixtureSet: "recorded", state: "pressed", key: { ...twin!.key, sceneId: pressed } },
+      { ...twin!, fixtureSet: "recorded" },
+      { ...twin!, key: { ...twin!.key, sceneId: pressed } },
+    ];
+    const gated = [...MATRIX_FILE.cells, ...seeds].filter(inGatedBed);
+    expect(seeds.filter((seed) => gated.includes(seed)).map(name)).toEqual([]);
+    expect(gated).toHaveLength(MATRIX.cells.length);
+  });
+
+  it("names no recorded scene in the conditioning predicate's exclusion list", () => {
+    const named = PREDICATE_EXCLUDES.filter((line) =>
+      [...RECORDED_SCENES].some((sceneId) => line.includes(` / ${sceneId} / `)),
+    );
+    expect(named).toEqual([]);
+  });
+
+  it("floors no recorded row", () => {
+    const floored = Object.keys(REGRESSION_FLOORS).filter((key) =>
+      [...RECORDED_SCENES].some((sceneId) => key.includes(` / ${sceneId} / `)),
+    );
+    expect(floored).toEqual([]);
+  });
 });
 
 /**
@@ -4406,7 +4500,10 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
     "2x dark": { 96: 9, 128: 5, 160: 7 },
   };
 
-  /** The clause's own population, restated here and taken from nowhere else. */
+  /**
+   * The clause's own population, restated here and taken from nowhere else. The cut script
+   * drops only holdout, so the recorded role is dropped here, as the gated bed drops it.
+   */
   const readingsAt = (bed: string, span: number) =>
     CUT.rows.filter(
       (row) =>
@@ -4415,6 +4512,8 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
         row.tier === "webgpu" &&
         row.state !== "inactive" &&
         row.set !== "holdout" &&
+        row.set !== "recorded" &&
+        !RECORDED_SCENES.has(row.scene) &&
         row.T !== null &&
         row.bandsUsed.join("/") === row.admitted.join("/"),
     );
@@ -4457,6 +4556,11 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
    * probe set: span 160's cells are the pitch ladder's alone and span 128's are
    * mostly probe, so gating C1 through `MATRIX` would read two of its three
    * spans off an empty bed.
+   *
+   * It drops the recorded role as `MATRIX` does (2026-09-29). C1 was counted and
+   * adopted over rest-state rows, and W41 G2's full-recipe stage would have added
+   * the two recorded `rrect-md__pressed` rows to each light bed at span 96
+   * (`CONTRIBUTING_CELLS` 10 → 12; claims §5.193 §3).
    */
   it("re-derives every reading of the clause from results/matrix.json", () => {
     const BAND_WIDTH_CSS_PX: Readonly<Record<string, number>> = {
@@ -4515,6 +4619,7 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
       const profileKey = cell.key.profileKey;
       if (!profileKey.startsWith("apple-macos-27.0-")) continue;
       if (cell.fixtureSet === "holdout") continue;
+      if (inRecordedRole(cell)) continue;
       if (!atAShippedDocument(cell)) continue;
       if (cell.tier !== "texture") continue;
       if (cell.state === "inactive") continue;

@@ -209,7 +209,9 @@ export function prepareGeneration(directory: string, results: string) {
   const aliases = { ...index.byDocumentSha256 };
   for (const d of files[filename]!.documents) {
     const held = aliases[d.sha256];
-    aliases[d.sha256] = held ? [...new Set([...(typeof held === "string" ? [held] : held), filename])] : filename;
+    // Always a list: W40 G0 migrated every alias to one and the Python adapter refuses anything
+    // else, so a string written here would stop every Python reader of the index (W41 G2).
+    aliases[d.sha256] = [...new Set([...(typeof held === "string" ? [held] : held ?? []), filename])];
   }
   const next = { ...index, files, byDocumentSha256: aliases, currentByProfile: current };
   return { filename, raw, index: Buffer.from(`${JSON.stringify(next, null, 2)}\n`),
