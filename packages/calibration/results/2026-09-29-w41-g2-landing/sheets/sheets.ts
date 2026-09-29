@@ -69,7 +69,7 @@ export function resolveDocument(repositoryRoot: string, doc: Document): string {
 
 export interface Capture {
   png: string; pngSha256: string; cellSha256: string; pose: string[]; samplingBackend: string;
-  documents: Document[];
+  documents: Document[]; capturePath: string;
 }
 /** undefined = absent. A present capture naming any other documents, scene or renderer refuses. */
 export function inspectCapture(root: string, profileKey: string, sceneId: string, expected: Document[],
@@ -89,7 +89,7 @@ export function inspectCapture(root: string, profileKey: string, sceneId: string
   const pose = poseOf(meta.capturePath);
   if (pose.some(clause => clause.endsWith('=(absent)'))) throw new Error(`${dir}: incomplete pose`);
   return { png, pngSha256: sha(readFileSync(png)), cellSha256: sha(bytes), pose,
-    samplingBackend: String(meta.samplingBackend), documents: named };
+    samplingBackend: String(meta.samplingBackend), documents: named, capturePath: String(meta.capturePath) };
 }
 
 /** Whole-frame and changed-region OKLab distances to native. A diagnostic beside the eye, not a
@@ -199,6 +199,10 @@ export function freshOutput(outputRoot: string) {
 export interface CanonicalOptions {
   membership: string; newRoot: string; preRoot: string; outputRoot: string;
   g1Diagnostic: { freeze: string; sha256: string }; repositoryRoot?: string;
+  /** The stage's measured rows: a rendered capture must be the one its row names. */
+  stageMatrix: string;
+  /** Profiles the owner ruled out of this read; no path of theirs is formed. */
+  notCapturedInG2?: { profiles: string[]; reason: string };
 }
 interface Declared { profileKey: string; renderer: string; fixtureSet: string; sceneId: string }
 
@@ -230,12 +234,22 @@ export function renderCanonical(options: CanonicalOptions) {
   if (sha(g1) !== options.g1Diagnostic.sha256) throw new Error('G1 diagnostic freeze hash differs');
   const g1Captures = JSON.parse(g1.toString('utf8')).captures as Record<string, { png: string; pngSha256: string }>;
   const { declared, holdout, cells } = canonicalCells(options.membership, repositoryRoot);
+  const stageRows = new Map<string, string>();
+  for (const row of JSON.parse(readFileSync(options.stageMatrix, 'utf8')).cells) {
+    if (row.key.web.renderer === 'webgpu') stageRows.set(`${row.key.profileKey}/${row.key.sceneId}`, row.key.web.capturePath);
+  }
+  const excluded = new Set(options.notCapturedInG2?.profiles ?? []);
   const records = [];
   for (const cell of cells) {
     const id = `${cell.profileKey}/${cell.sceneId}`;
     const base = { bed: 'canonical', ...cell };
+    if (excluded.has(cell.profileKey)) {
+      records.push({ ...base, status: 'NOT-CAPTURED-IN-G2', reason: options.notCapturedInG2!.reason });
+      continue;
+    }
     const now = inspectCapture(options.newRoot, cell.profileKey, cell.sceneId, NOW_E3, repositoryRoot);
     if (!now) { records.push({ ...base, status: 'NOT-CAPTURED', reason: 'the new read has no WebGPU capture' }); continue; }
+    if (stageRows.get(id) !== now.capturePath) throw new Error(`${id}: the stage row does not name this capture`);
     const nativePath = contained(join(repositoryRoot, 'apps/reference-apple/fixtures'),
       join(cell.profileKey, `${cell.sceneId}.png`));
     if (!present(nativePath)) { records.push({ ...base, status: 'NO-NATIVE' }); continue; }
@@ -262,6 +276,7 @@ export function renderCanonical(options: CanonicalOptions) {
       native: { path: relative(repositoryRoot, nativePath), pngSha256: sha(nativeBytes) },
       pre: pre ? { png: pre.png, pngSha256: pre.pngSha256, cellSha256: pre.cellSha256, documents: pre.documents } : null,
       now: { png: now.png, pngSha256: now.pngSha256, cellSha256: now.cellSha256, documents: now.documents },
+      stageRow: 'present; its capturePath equals the capture metadata',
       preEqualsNowBytes: pre ? pre.pngSha256 === now.pngSha256 : null,
       preEqualsNowPixels: preImage ? pixelsEqual(preImage, nowImage) : null,
       ...(g1Diagnostic ? { g1Diagnostic } : {}),
@@ -350,11 +365,13 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     const rendered = result.records.filter(r => r.status === 'RENDERED') as any[];
     const inactive = (r: any) => /__inactive/.test(r.sceneId);
     const report = { schema: 'w41-g2-canonical-sheets-1', started, completed: new Date().toISOString(),
-      options, membershipSha256: sha(readFileSync(options.membership)), holdoutPixelsOpened: 0,
+      options, membershipSha256: sha(readFileSync(options.membership)),
+      stageMatrixSha256: sha(readFileSync(options.stageMatrix)), holdoutPixelsOpened: 0,
       browserOrCaptureStarted: false,
       summary: { declaredWebgpu: result.declaredWebgpu, holdoutNotOpened: result.holdoutNotOpened,
         admitted: result.records.length, rendered: count('RENDERED'), renderedNowOnly: count('RENDERED-NOW-ONLY'),
-        notCaptured: count('NOT-CAPTURED'), noNative: count('NO-NATIVE'),
+        notCapturedInG2: count('NOT-CAPTURED-IN-G2'), notCaptured: count('NOT-CAPTURED'),
+        noNative: count('NO-NATIVE'),
         activeControls: rendered.filter(r => !inactive(r)).length,
         activeControlsIdentical: rendered.filter(r => !inactive(r) && r.preEqualsNowBytes).length,
         activeControlsPixelIdentical: rendered.filter(r => !inactive(r) && r.preEqualsNowPixels).length,

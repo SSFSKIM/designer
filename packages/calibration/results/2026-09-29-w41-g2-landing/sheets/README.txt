@@ -16,7 +16,8 @@ cell__webgpu.json must name exactly that pair and the bytes must exist, or the s
 Files
 -----
 examples-declaration.json  the fourteen example identities, committed (7dde9f49) before any
-                           pixel of this gate was decoded or viewed.
+                           pixel of this gate was decoded or viewed; examples-amendment.json
+                           withdraws 12 and adds 15-18 at the owner's request (9202f2cc).
 sheets.ts                  the G2 adapter: sheetHtml (G0's shape, new labels), inspectCapture
                            (document pair + retired-copy resolution + pose), distances, and the
                            `canonical` / `w39` commands. sheets.test.ts: four synthetic tests
@@ -60,8 +61,50 @@ capture — the active and dark controls read identical.
 W39 examples (13, 14): rendered as G2 sheets from the three sources above
 (w39-examples-inventory.json; scratch /Users/new/vitrea-w41/g2-captures/sheets/w39-examples-1/).
 
-Canonical bed
--------------
-Pending: the canonical light read's WebGPU passes for the reduced-transparency and
-increased-contrast profiles have not completed (canonical/runs.jsonl records exit codes for
-the 1x and 2x standard passes only). Examples 1-12 and the canonical inventory follow it.
+Canonical bed (canonical-inventory.json)
+----------------------------------------
+The G2 owner's go-ahead changed the brief's precondition. The canonical light read finished
+WebGPU for the two standard profiles only: 1x and 2x, 144 cells each (stage
+/Users/new/vitrea-w41/g2-stage-light, membership b0d78e3c..., matrix.json rows). X6 refused
+the reduced-transparency and increased-contrast launches (a foreign playwright-cli daemon),
+and the owner ruled that RT, IC and the CSS tier are not read in G2. run-canonical.json
+records them under notCapturedInG2; no path of theirs is formed.
+
+Every rendered capture must be the one its stage row names: the row's capturePath must equal
+the capture's cell__webgpu.json. Pre-W41 is the main checkout's canonical tree, which must name
+the retired pair. Native is the committed fixture.
+
+  declared WebGPU cells                 390  (4 light profiles)
+  holdout, dropped by role unopened      48
+  NOT-CAPTURED-IN-G2 (RT, IC)            54
+  RENDERED (native | pre-W41 | now)     208  = 104 at 1x + 104 at 2x
+    active-pose controls                122  byte-identical pre-W41 = now: 122 / 122
+    light-inactive                       86  byte-identical: 3 (tinted capsules over solids)
+  RENDERED-NOW-ONLY                      80  recorded (8) + probe (32) per scale, no capture
+                                             at the retired pair; the pre-W41 column says so
+  G1 canonical-diagnostic overlap        98  new PNG byte-identical to G1's candidate: 98 / 98
+
+So for the 98 standard calibration/validation cells, G1's canonical diagnostic sheets and G1's
+owner-eye-reading of examples 06/07 are readings of the shipped pixels. The full 288 HTML +
+PNG set (81 MB) stays outside git at /Users/new/vitrea-w41/g2-captures/sheets/canonical-1/;
+canonical-inventory.json (byte-identical to that run's inventory.json, SHA-256 b21c2228...)
+binds every input PNG and output HTML/PNG by SHA-256, plus a distances diagnostic per cell.
+
+texture.py -> body-texture.json (radius 6 px at 1x), body-texture-r3/r12/r24.json:
+  python3.12 -B results/2026-09-29-w41-g2-landing/sheets/texture.py <inventory.json> [radius] [erode]
+It re-reads each light-inactive cell's three PNGs (hash-checked), takes the moved pixels
+eroded away from the rim, and splits each body into fine structure and broad miss, in L and in
+chroma. This separates the case where E3 adds texture from the case where E3 removes a broad
+offset and reveals texture that was already there.
+
+Examples and the eye draft
+--------------------------
+examples/ holds 17 PNG + HTML, byte-identical to scratch, bound in examples/selection.json:
+1-11 and 13-14 as declared. Example 12 (the RT control) is withdrawn: RT was not captured in
+G2. Examples 15-18 are post-declaration additions requested by the owner after the referees
+stopped the landing (examples-amendment.json, 9202f2cc), made before any canonical pixel
+was viewed in this gate. owner-eye-draft.json is the draft reading, for the owner, who writes
+the reading of record.
+
+tests.txt: 4/4 synthetic tests; typecheck.txt: strict tsc exit 0 (re-run after the RT/IC
+and stage-row changes). No browser or capture was started by this gate.

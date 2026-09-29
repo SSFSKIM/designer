@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.12
-"""Copy the declared examples (examples-declaration.json) out of scratch sheet runs into
-examples/, byte for byte, and bind each copy to its run inventory's hashes in
-examples/selection.json. Only declared identities are copied; an undeclared file is never
+"""Copy the declared examples (examples-declaration.json as amended by examples-amendment.json)
+out of scratch sheet runs into examples/, byte for byte, and bind each copy to its run
+inventory's hashes in examples/selection.json. Only declared identities are copied; an undeclared file is never
 promoted and an existing example is never overwritten.
 usage: select-examples.py <run inventory.json> [...]"""
 import hashlib
@@ -20,6 +20,12 @@ def sha(path):
 
 def main():
     declaration = json.loads((HERE / 'examples-declaration.json').read_text())
+    amendment_path = HERE / 'examples-amendment.json'
+    amendment = json.loads(amendment_path.read_text())
+    if amendment['amends']['sha256'] != sha(HERE / 'examples-declaration.json'):
+        raise SystemExit('amendment does not amend this declaration')
+    withdrawn = {w['ordinal'] for w in amendment['withdrawn']}
+    declared = [e for e in declaration['examples'] if e['ordinal'] not in withdrawn] + amendment['added']
     found = {}
     for inventory_path in map(Path, sys.argv[1:]):
         inventory = json.loads(inventory_path.read_text())
@@ -33,8 +39,11 @@ def main():
         'declarationSha256': sha(HERE / 'examples-declaration.json'), 'examples': []}
     if selection['declarationSha256'] != sha(HERE / 'examples-declaration.json'):
         raise SystemExit('declaration changed after selection began')
+    selection['amendment'] = 'examples-amendment.json'
+    selection['amendmentSha256'] = sha(amendment_path)
+    selection['withdrawnOrdinals'] = sorted(withdrawn)
     done = {e['ordinal'] for e in selection['examples']}
-    for example in declaration['examples']:
+    for example in declared:
         key = (example['bed'], example['profileKey'], example['sceneId'])
         if example['ordinal'] in done or key not in found:
             continue
@@ -56,7 +65,7 @@ def main():
             runInventorySha256=sha(inventory_path), preEqualsNowBytes=record['preEqualsNowBytes'],
             distances=record['distances'], files=files))
     selection['examples'].sort(key=lambda e: e['ordinal'])
-    missing = [e['ordinal'] for e in declaration['examples']
+    missing = [e['ordinal'] for e in declared
                if e['ordinal'] not in {x['ordinal'] for x in selection['examples']}]
     selection['pendingOrdinals'] = missing
     selection_path.write_text(json.dumps(selection, indent=2, ensure_ascii=False) + '\n')

@@ -6,5 +6,13 @@
   "g1Diagnostic": {
     "freeze": "/Users/new/vitrea-w41/g2-sheets/packages/calibration/results/2026-09-27-w41-g1-identification/canonical-diagnostic/attempt-1/frozen.json",
     "sha256": "c7feb13235bcca869fca1821d840e35de999c29ea3aad860cf7f81e6ad49a4bc"
+  },
+  "stageMatrix": "/Users/new/vitrea-w41/g2-stage-light/matrix.json",
+  "notCapturedInG2": {
+    "profiles": [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"
+    ],
+    "reason": "not captured in G2: X6 refused the WebGPU launch (a foreign playwright-cli daemon), and the G2 owner ruled that RT and IC will not be read now"
   }
 }
