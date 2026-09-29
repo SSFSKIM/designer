@@ -129,7 +129,7 @@ STEP = {'lohi': (LO, HI), 'hilo': (HI, LO)}            # step: (from, to) about 
 # §3) inside the canvas on rrect-md and the capsule; that forces the off-centre patches toward
 # the TOP edge. rrect-lg's footprint exceeds the canvas at any placement, as on the canonical
 # bed; its box stays inside. verify-backgrounds.py reads every patch back from the rasters.
-SINGLE = {g: (g // 2, CANVAS['height'] - g // 2) for g in (232, 256, 288, 320)}
+SINGLE = {g: (g // 2, CANVAS['height'] - g // 2) for g in (232, 256, 300, 336)}
 
 
 # ------------------------------------------------------------------- the cells
@@ -266,9 +266,11 @@ def build():
               note='NOT single: no single-impulse spacing reaches rrect-lg\'s centre with its box inside '
                    'the canvas; the 64-pt grid (the canonical impulse\'s) puts one patch at the centre, '
                    'its neighbours 64 pt away (bed.json charterDeviations)')
-        patch(f'c-s8-{pol}-d40-rrect-lg', fg, bg, 8, 288, 'rrect-lg', (-16, -4), 40, sweep, role='validation',
+        # rrect-lg's two single patches take the spacing that maximises the box's least
+        # clearance to the canvas edge (10 and 12 CSS px; the canonical rrect-lg has 20).
+        patch(f'c-s8-{pol}-d40-rrect-lg', fg, bg, 8, 300, 'rrect-lg', (-10, -10), 40, sweep, role='validation',
               uitems=('depth', 'rrect-lg narrow'), note='validation: depth transfer on rrect-lg')
-        patch(f'c-s8-{pol}-d4-rrect-lg', fg, bg, 8, 320, 'rrect-lg', (0, 16), 4, sweep,
+        patch(f'c-s8-{pol}-d4-rrect-lg', fg, bg, 8, 336, 'rrect-lg', (8, 8), 4, sweep,
               uitems=('depth', 'rrect-lg narrow'),
               note='inside the active inner-refraction band (20 pt, memo D §3)')
     # The canonical impulse (0/255, 4 pt every 64 pt) on rrect-ml and rrect-lg; rrect-lg also at 1x.

@@ -63,16 +63,16 @@
         72
       ]
     },
-    "288": {
+    "300": {
       "patchCentre": [
-        144,
-        56
+        150,
+        50
       ]
     },
-    "320": {
+    "336": {
       "patchCentre": [
-        160,
-        40
+        168,
+        32
       ]
     }
   },
@@ -214,8 +214,8 @@
         "impulse-208-on-048-s32-g232",
         "impulse-208-on-048-s8-g232",
         "impulse-208-on-048-s8-g256",
-        "impulse-208-on-048-s8-g288",
-        "impulse-208-on-048-s8-g320",
+        "impulse-208-on-048-s8-g300",
+        "impulse-208-on-048-s8-g336",
         "impulse-208-on-048-s8-g64",
         "impulse-255-on-000-s4-g64",
         "photo",
@@ -368,8 +368,8 @@
         "impulse-208-on-048-s32-g232",
         "impulse-208-on-048-s8-g232",
         "impulse-208-on-048-s8-g256",
-        "impulse-208-on-048-s8-g288",
-        "impulse-208-on-048-s8-g320",
+        "impulse-208-on-048-s8-g300",
+        "impulse-208-on-048-s8-g336",
         "impulse-208-on-048-s8-g64",
         "impulse-255-on-000-s4-g64",
         "photo",
@@ -526,8 +526,8 @@
         "impulse-048-on-208-s32-g232",
         "impulse-048-on-208-s8-g232",
         "impulse-048-on-208-s8-g256",
-        "impulse-048-on-208-s8-g288",
-        "impulse-048-on-208-s8-g320",
+        "impulse-048-on-208-s8-g300",
+        "impulse-048-on-208-s8-g336",
         "impulse-048-on-208-s8-g64",
         "impulse-208-on-048-s16-g232",
         "impulse-208-on-048-s24-g232",
@@ -683,8 +683,8 @@
         "impulse-048-on-208-s32-g232",
         "impulse-048-on-208-s8-g232",
         "impulse-048-on-208-s8-g256",
-        "impulse-048-on-208-s8-g288",
-        "impulse-048-on-208-s8-g320",
+        "impulse-048-on-208-s8-g300",
+        "impulse-048-on-208-s8-g336",
         "impulse-048-on-208-s8-g64",
         "impulse-208-on-048-s16-g232",
         "impulse-208-on-048-s24-g232",
@@ -3166,8 +3166,8 @@
     "c-s8-hi-d4-rrect-lg": {
       "id": "c-s8-hi-d4-rrect-lg",
       "family": "C",
-      "background": "impulse-208-on-048-s8-g320",
-      "component": "rrect-lg-o+0+16",
+      "background": "impulse-208-on-048-s8-g336",
+      "component": "rrect-lg-o+8+8",
       "role": "calibration",
       "passes": [
         "2x-light-active",
@@ -3178,17 +3178,17 @@
         "shortSide": 160,
         "t": 1,
         "offset": [
-          0,
-          16
+          8,
+          8
         ],
         "shapeCentre": [
-          160.0,
-          116.0
+          168.0,
+          108.0
         ],
         "patchSize": 8,
         "patchCentre": [
-          160,
-          40
+          168,
+          32
         ],
         "patchFromShapeCentre": [
           0.0,
@@ -3199,7 +3199,7 @@
           "foreground": 208,
           "background": 48
         },
-        "impulseSpacing": 320,
+        "impulseSpacing": 336,
         "patchesInCanvas": 1
       },
       "note": "inside the active inner-refraction band (20 pt, memo D §3)",
@@ -3255,8 +3255,8 @@
     "c-s8-hi-d40-rrect-lg": {
       "id": "c-s8-hi-d40-rrect-lg",
       "family": "C",
-      "background": "impulse-208-on-048-s8-g288",
-      "component": "rrect-lg-o-16-4",
+      "background": "impulse-208-on-048-s8-g300",
+      "component": "rrect-lg-o-10-10",
       "role": "validation",
       "passes": [
         "2x-light-active",
@@ -3267,17 +3267,17 @@
         "shortSide": 160,
         "t": 1,
         "offset": [
-          -16,
-          -4
+          -10,
+          -10
         ],
         "shapeCentre": [
-          144.0,
-          96.0
+          150.0,
+          90.0
         ],
         "patchSize": 8,
         "patchCentre": [
-          144,
-          56
+          150,
+          50
         ],
         "patchFromShapeCentre": [
           0.0,
@@ -3288,7 +3288,7 @@
           "foreground": 208,
           "background": 48
         },
-        "impulseSpacing": 288,
+        "impulseSpacing": 300,
         "patchesInCanvas": 1
       },
       "note": "validation: depth transfer on rrect-lg",
@@ -3437,8 +3437,8 @@
     "c-s8-lo-d4-rrect-lg": {
       "id": "c-s8-lo-d4-rrect-lg",
       "family": "C",
-      "background": "impulse-048-on-208-s8-g320",
-      "component": "rrect-lg-o+0+16",
+      "background": "impulse-048-on-208-s8-g336",
+      "component": "rrect-lg-o+8+8",
       "role": "calibration",
       "passes": [
         "2x-dark-active",
@@ -3449,17 +3449,17 @@
         "shortSide": 160,
         "t": 1,
         "offset": [
-          0,
-          16
+          8,
+          8
         ],
         "shapeCentre": [
-          160.0,
-          116.0
+          168.0,
+          108.0
         ],
         "patchSize": 8,
         "patchCentre": [
-          160,
-          40
+          168,
+          32
         ],
         "patchFromShapeCentre": [
           0.0,
@@ -3470,7 +3470,7 @@
           "foreground": 48,
           "background": 208
         },
-        "impulseSpacing": 320,
+        "impulseSpacing": 336,
         "patchesInCanvas": 1
       },
       "note": "inside the active inner-refraction band (20 pt, memo D §3)",
@@ -3526,8 +3526,8 @@
     "c-s8-lo-d40-rrect-lg": {
       "id": "c-s8-lo-d40-rrect-lg",
       "family": "C",
-      "background": "impulse-048-on-208-s8-g288",
-      "component": "rrect-lg-o-16-4",
+      "background": "impulse-048-on-208-s8-g300",
+      "component": "rrect-lg-o-10-10",
       "role": "validation",
       "passes": [
         "2x-dark-active",
@@ -3538,17 +3538,17 @@
         "shortSide": 160,
         "t": 1,
         "offset": [
-          -16,
-          -4
+          -10,
+          -10
         ],
         "shapeCentre": [
-          144.0,
-          96.0
+          150.0,
+          90.0
         ],
         "patchSize": 8,
         "patchCentre": [
-          144,
-          56
+          150,
+          50
         ],
         "patchFromShapeCentre": [
           0.0,
@@ -3559,7 +3559,7 @@
           "foreground": 48,
           "background": 208
         },
-        "impulseSpacing": 288,
+        "impulseSpacing": 300,
         "patchesInCanvas": 1
       },
       "note": "validation: depth transfer on rrect-lg",

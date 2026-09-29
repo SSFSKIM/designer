@@ -465,7 +465,7 @@
       "size": 8,
       "spacing": 256
     },
-    "impulse-048-on-208-s8-g288": {
+    "impulse-048-on-208-s8-g300": {
       "kind": "impulse",
       "background": [
         208,
@@ -478,9 +478,9 @@
         48
       ],
       "size": 8,
-      "spacing": 288
+      "spacing": 300
     },
-    "impulse-048-on-208-s8-g320": {
+    "impulse-048-on-208-s8-g336": {
       "kind": "impulse",
       "background": [
         208,
@@ -493,7 +493,7 @@
         48
       ],
       "size": 8,
-      "spacing": 320
+      "spacing": 336
     },
     "impulse-048-on-208-s8-g64": {
       "kind": "impulse",
@@ -585,7 +585,7 @@
       "size": 8,
       "spacing": 256
     },
-    "impulse-208-on-048-s8-g288": {
+    "impulse-208-on-048-s8-g300": {
       "kind": "impulse",
       "background": [
         48,
@@ -598,9 +598,9 @@
         208
       ],
       "size": 8,
-      "spacing": 288
+      "spacing": 300
     },
-    "impulse-208-on-048-s8-g320": {
+    "impulse-208-on-048-s8-g336": {
       "kind": "impulse",
       "background": [
         48,
@@ -613,7 +613,7 @@
         208
       ],
       "size": 8,
-      "spacing": 320
+      "spacing": 336
     },
     "impulse-208-on-048-s8-g64": {
       "kind": "impulse",
@@ -880,18 +880,6 @@
       ],
       "radius": 34
     },
-    "rrect-lg-o+0+16": {
-      "kind": "rrect",
-      "size": [
-        280,
-        160
-      ],
-      "radius": 34,
-      "offset": [
-        0,
-        16
-      ]
-    },
     "rrect-lg-o+0+4": {
       "kind": "rrect",
       "size": [
@@ -904,7 +892,7 @@
         4
       ]
     },
-    "rrect-lg-o-16-4": {
+    "rrect-lg-o+8+8": {
       "kind": "rrect",
       "size": [
         280,
@@ -912,8 +900,20 @@
       ],
       "radius": 34,
       "offset": [
-        -16,
-        -4
+        8,
+        8
+      ]
+    },
+    "rrect-lg-o-10-10": {
+      "kind": "rrect",
+      "size": [
+        280,
+        160
+      ],
+      "radius": 34,
+      "offset": [
+        -10,
+        -10
       ]
     },
     "rrect-md": {
@@ -1862,15 +1862,15 @@
     },
     {
       "id": "c-s8-hi-d4-rrect-lg__inactive",
-      "background": "impulse-208-on-048-s8-g320",
-      "component": "rrect-lg-o+0+16",
+      "background": "impulse-208-on-048-s8-g336",
+      "component": "rrect-lg-o+8+8",
       "state": "inactive",
       "$family": "C"
     },
     {
       "id": "c-s8-hi-d4-rrect-lg__rest",
-      "background": "impulse-208-on-048-s8-g320",
-      "component": "rrect-lg-o+0+16",
+      "background": "impulse-208-on-048-s8-g336",
+      "component": "rrect-lg-o+8+8",
       "state": "rest",
       "$family": "C"
     },
@@ -1890,15 +1890,15 @@
     },
     {
       "id": "c-s8-hi-d40-rrect-lg__inactive",
-      "background": "impulse-208-on-048-s8-g288",
-      "component": "rrect-lg-o-16-4",
+      "background": "impulse-208-on-048-s8-g300",
+      "component": "rrect-lg-o-10-10",
       "state": "inactive",
       "$family": "C"
     },
     {
       "id": "c-s8-hi-d40-rrect-lg__rest",
-      "background": "impulse-208-on-048-s8-g288",
-      "component": "rrect-lg-o-16-4",
+      "background": "impulse-208-on-048-s8-g300",
+      "component": "rrect-lg-o-10-10",
       "state": "rest",
       "$family": "C"
     },
@@ -1946,15 +1946,15 @@
     },
     {
       "id": "c-s8-lo-d4-rrect-lg__inactive",
-      "background": "impulse-048-on-208-s8-g320",
-      "component": "rrect-lg-o+0+16",
+      "background": "impulse-048-on-208-s8-g336",
+      "component": "rrect-lg-o+8+8",
       "state": "inactive",
       "$family": "C"
     },
     {
       "id": "c-s8-lo-d4-rrect-lg__rest",
-      "background": "impulse-048-on-208-s8-g320",
-      "component": "rrect-lg-o+0+16",
+      "background": "impulse-048-on-208-s8-g336",
+      "component": "rrect-lg-o+8+8",
       "state": "rest",
       "$family": "C"
     },
@@ -1974,15 +1974,15 @@
     },
     {
       "id": "c-s8-lo-d40-rrect-lg__inactive",
-      "background": "impulse-048-on-208-s8-g288",
-      "component": "rrect-lg-o-16-4",
+      "background": "impulse-048-on-208-s8-g300",
+      "component": "rrect-lg-o-10-10",
       "state": "inactive",
       "$family": "C"
     },
     {
       "id": "c-s8-lo-d40-rrect-lg__rest",
-      "background": "impulse-048-on-208-s8-g288",
-      "component": "rrect-lg-o-16-4",
+      "background": "impulse-048-on-208-s8-g300",
+      "component": "rrect-lg-o-10-10",
       "state": "rest",
       "$family": "C"
     },
@@ -2942,29 +2942,29 @@
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-048-on-208-s8-g288__inactive",
-      "background": "impulse-048-on-208-s8-g288",
+      "id": "ref-impulse-048-on-208-s8-g300__inactive",
+      "background": "impulse-048-on-208-s8-g300",
       "component": "none",
       "state": "inactive",
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-048-on-208-s8-g288__rest",
-      "background": "impulse-048-on-208-s8-g288",
+      "id": "ref-impulse-048-on-208-s8-g300__rest",
+      "background": "impulse-048-on-208-s8-g300",
       "component": "none",
       "state": "rest",
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-048-on-208-s8-g320__inactive",
-      "background": "impulse-048-on-208-s8-g320",
+      "id": "ref-impulse-048-on-208-s8-g336__inactive",
+      "background": "impulse-048-on-208-s8-g336",
       "component": "none",
       "state": "inactive",
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-048-on-208-s8-g320__rest",
-      "background": "impulse-048-on-208-s8-g320",
+      "id": "ref-impulse-048-on-208-s8-g336__rest",
+      "background": "impulse-048-on-208-s8-g336",
       "component": "none",
       "state": "rest",
       "$family": "reference"
@@ -3054,29 +3054,29 @@
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-208-on-048-s8-g288__inactive",
-      "background": "impulse-208-on-048-s8-g288",
+      "id": "ref-impulse-208-on-048-s8-g300__inactive",
+      "background": "impulse-208-on-048-s8-g300",
       "component": "none",
       "state": "inactive",
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-208-on-048-s8-g288__rest",
-      "background": "impulse-208-on-048-s8-g288",
+      "id": "ref-impulse-208-on-048-s8-g300__rest",
+      "background": "impulse-208-on-048-s8-g300",
       "component": "none",
       "state": "rest",
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-208-on-048-s8-g320__inactive",
-      "background": "impulse-208-on-048-s8-g320",
+      "id": "ref-impulse-208-on-048-s8-g336__inactive",
+      "background": "impulse-208-on-048-s8-g336",
       "component": "none",
       "state": "inactive",
       "$family": "reference"
     },
     {
-      "id": "ref-impulse-208-on-048-s8-g320__rest",
-      "background": "impulse-208-on-048-s8-g320",
+      "id": "ref-impulse-208-on-048-s8-g336__rest",
+      "background": "impulse-208-on-048-s8-g336",
       "component": "none",
       "state": "rest",
       "$family": "reference"
@@ -3637,10 +3637,10 @@
         "ref-impulse-208-on-048-s8-g232__rest",
         "ref-impulse-208-on-048-s8-g256__inactive",
         "ref-impulse-208-on-048-s8-g256__rest",
-        "ref-impulse-208-on-048-s8-g288__inactive",
-        "ref-impulse-208-on-048-s8-g288__rest",
-        "ref-impulse-208-on-048-s8-g320__inactive",
-        "ref-impulse-208-on-048-s8-g320__rest",
+        "ref-impulse-208-on-048-s8-g300__inactive",
+        "ref-impulse-208-on-048-s8-g300__rest",
+        "ref-impulse-208-on-048-s8-g336__inactive",
+        "ref-impulse-208-on-048-s8-g336__rest",
         "ref-impulse-208-on-048-s8-g64__inactive",
         "ref-impulse-208-on-048-s8-g64__rest",
         "ref-impulse-255-on-000-s4-g64__inactive",
@@ -3925,10 +3925,10 @@
         "ref-impulse-048-on-208-s8-g232__rest",
         "ref-impulse-048-on-208-s8-g256__inactive",
         "ref-impulse-048-on-208-s8-g256__rest",
-        "ref-impulse-048-on-208-s8-g288__inactive",
-        "ref-impulse-048-on-208-s8-g288__rest",
-        "ref-impulse-048-on-208-s8-g320__inactive",
-        "ref-impulse-048-on-208-s8-g320__rest",
+        "ref-impulse-048-on-208-s8-g300__inactive",
+        "ref-impulse-048-on-208-s8-g300__rest",
+        "ref-impulse-048-on-208-s8-g336__inactive",
+        "ref-impulse-048-on-208-s8-g336__rest",
         "ref-impulse-048-on-208-s8-g64__inactive",
         "ref-impulse-048-on-208-s8-g64__rest",
         "ref-impulse-208-on-048-s16-g232__inactive",
@@ -4179,8 +4179,8 @@
       "ref-impulse-048-on-208-s8-g232__rest",
       "ref-impulse-048-on-208-s8-g256__inactive",
       "ref-impulse-048-on-208-s8-g256__rest",
-      "ref-impulse-048-on-208-s8-g320__inactive",
-      "ref-impulse-048-on-208-s8-g320__rest",
+      "ref-impulse-048-on-208-s8-g336__inactive",
+      "ref-impulse-048-on-208-s8-g336__rest",
       "ref-impulse-048-on-208-s8-g64__inactive",
       "ref-impulse-048-on-208-s8-g64__rest",
       "ref-impulse-208-on-048-s16-g232__inactive",
@@ -4191,8 +4191,8 @@
       "ref-impulse-208-on-048-s8-g232__rest",
       "ref-impulse-208-on-048-s8-g256__inactive",
       "ref-impulse-208-on-048-s8-g256__rest",
-      "ref-impulse-208-on-048-s8-g320__inactive",
-      "ref-impulse-208-on-048-s8-g320__rest",
+      "ref-impulse-208-on-048-s8-g336__inactive",
+      "ref-impulse-208-on-048-s8-g336__rest",
       "ref-impulse-208-on-048-s8-g64__inactive",
       "ref-impulse-208-on-048-s8-g64__rest",
       "ref-impulse-255-on-000-s4-g64__inactive",
@@ -4251,10 +4251,10 @@
       "ref-checker-64-096-160__rest",
       "ref-checker-64-by__inactive",
       "ref-checker-64-by__rest",
-      "ref-impulse-048-on-208-s8-g288__inactive",
-      "ref-impulse-048-on-208-s8-g288__rest",
-      "ref-impulse-208-on-048-s8-g288__inactive",
-      "ref-impulse-208-on-048-s8-g288__rest"
+      "ref-impulse-048-on-208-s8-g300__inactive",
+      "ref-impulse-048-on-208-s8-g300__rest",
+      "ref-impulse-208-on-048-s8-g300__inactive",
+      "ref-impulse-208-on-048-s8-g300__rest"
     ],
     "holdout": [
       "h-d20-lohi-rrect-md__inactive",

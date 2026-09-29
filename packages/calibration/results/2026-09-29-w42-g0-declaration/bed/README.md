@@ -48,7 +48,10 @@ level, pitch, offset and depth is in `bed.json` `cells`; the conventions:
   sits at (g/2, 200 − g/2) in image coordinates (verified on the canonical `impulse@1x.png`,
   rows 38–41 / 102–105 / 166–169). The shape is moved onto it by an offset that keeps the
   active capture footprint (box + 0.35 s or 16 pt, memo D §3) inside the canvas on rrect-md and
-  the capsule; that is why the off-centre patches sit toward the TOP edge.
+  the capsule; that is why the off-centre patches sit toward the TOP edge. rrect-lg's footprint
+  exceeds the canvas at any placement, as on the canonical bed; its two single patches take the
+  spacing (300, 336) that maximises the box's least clearance to the canvas edge (10 and 12 px;
+  the canonical rrect-lg has 20).
 - **Levels.** A: neutral greys. B: P2 48/208, P3 96/160, P4 16/112, P5 144/240. B′: P1 0/255.
   C, D and H's patch and step: 48/208 (P2's pair; uncensored in every endpoint's uniform
   response). E: Rec.709 luma on codes 128 (memo A's luma), found by exhaustive integer search:
@@ -171,8 +174,10 @@ fixture raster and poses `inactive` through the runtime; `web/scenes.ts` places 
 web-plannable iff its native frame equals that web frame. **All 414 glass cells are
 web-plannable** (A 134, B 32, B′ 62, C 56, D 50, E 16, F 24, H 40 across the eight passes), so
 every H cell has a rendered prediction and none referees the numerical structure only. No smoke
-render was needed: code reading decides placement, and the rrect-lg cells' clearance below the
-24-px sampling padding is the canonical rrect-lg's own condition (listed per pass).
+render was needed: code reading decides placement. Every rrect-lg cell's box lies closer to the
+canvas edge than the 24-px sampling padding (listed per pass): 20 px at the canonical placement,
+16, 12 and 10 px for the depth sweep's grid, 4-pt and s/4 cells; that is the canonical
+rrect-lg's own condition, tightened, and a property of vitrea's render, not of posing.
 
 ## The runtime-base sample (clause 8; `runtime-base-sample.json`)
 
@@ -184,3 +189,22 @@ holdout). All 40 exist in the canonical capture tree, drawn with the shipped doc
 (`85ad7f7e3e0d`/`30fbe05986ae` light, `0eac5b294cc2`/`5cec8c961201` dark); their SHA-256 at G0
 is recorded as a reading. G2 runs `check-capture-tree`, renders the sample with the shipped
 documents at its base and requires byte identity (X37).
+
+## The sitting (`sitting/`; clauses 4–5)
+
+Derived from W39's driver, machine recorder, pass spec and G1 orchestrator, with W39 G1's gate
+corrections (the by-name foreign census, per-capture HID idle as an admission check). One
+order: `dump-layers` over the whole declared bed first (8 launches, 414 scenes; a departure
+from memo D's configuration stops the sitting before its first capture), then the four 2x
+passes (seven runs, run-1 references) and their long-protocol sentinels at mode 68, then the
+1x passes and sentinels at mode 69, the display restored to 68 on every exit. Before every
+launch a bounded wait for ≥ 75 s of HID idle, then every X6 and W34 X4 gate named in one
+refusal; any refusal quarantines the run under its own name and stops the pass. The archive
+tool files operational logs and dumps inside the archive and packs it as
+`w42-archive-<sha256>.tar.zst`. `sitting.py plan` walks the whole sitting and executes
+nothing: 2,898 glass + 258 references + 48 sentinel captures = 3,204 in 80 launches.
+
+**Length from real timings** (`sitting/timing.txt`, from W39 G1's 40 admitted runs and memo
+D's dump runs): 8.62 h of capture + 0.95 h of dumps ≈ **9.61 h**, against the charter's model
+of 8.71 h + about 0.96 h. Idle waits beyond the measured gaps, quarantines, the grant switch
+and the rehearsal are excluded. 29 tests (`sitting/test-sitting.txt`, `test-archive.txt`).

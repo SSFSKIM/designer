@@ -1,0 +1,1030 @@
+{
+ "schema": "w42-sitting-plan-1",
+ "executed": false,
+ "note": "nothing was launched, read or captured; argv paths are under the placeholder root",
+ "root": "<VITREA_SITTING_DIR>",
+ "passes": [
+  {
+   "name": "dump-2x-light-active",
+   "kind": "dump",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "light",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 88,
+     "timeoutSeconds": 926,
+     "argvSha256": "0c66f7073095e1675f1a1c49cc170a4467689da971eb8892f19301635dd67667"
+    }
+   ]
+  },
+  {
+   "name": "dump-2x-light-receded",
+   "kind": "dump",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "light",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 86,
+     "timeoutSeconds": 907,
+     "argvSha256": "71b15f04fc9b997a69fd1ffc9d084c708c9270ee3c97856ed15ab0b5a8448a13"
+    }
+   ]
+  },
+  {
+   "name": "dump-2x-dark-active",
+   "kind": "dump",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "dark",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 91,
+     "timeoutSeconds": 954,
+     "argvSha256": "919251b23006a57a85ba60bda1959b83f939d5bc820f7a25f9b47bb15c727121"
+    }
+   ]
+  },
+  {
+   "name": "dump-2x-dark-receded",
+   "kind": "dump",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "dark",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 89,
+     "timeoutSeconds": 935,
+     "argvSha256": "5c4c98bdb28d62d1c39a28ed4e23ed5a279c30c6fbcbf088b63df5fb7948c99c"
+    }
+   ]
+  },
+  {
+   "name": "dump-1x-light-active",
+   "kind": "dump",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "light",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 15,
+     "timeoutSeconds": 232,
+     "argvSha256": "d1f90b30d94baaed731f999e53b0d312309530f61b0a45ccaff9be2d84a1faab"
+    }
+   ]
+  },
+  {
+   "name": "dump-1x-light-receded",
+   "kind": "dump",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "light",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 15,
+     "timeoutSeconds": 232,
+     "argvSha256": "d82cc4c675331f926648f2cfbae346d65f9d284506a5d74b1345f8f3db4fdf6a"
+    }
+   ]
+  },
+  {
+   "name": "dump-1x-dark-active",
+   "kind": "dump",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "dark",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 15,
+     "timeoutSeconds": 232,
+     "argvSha256": "0bdda5d81750f19c2bf1e8dde3ca039d0dec98a9cd2faddffd0e8f6277938b3c"
+    }
+   ]
+  },
+  {
+   "name": "dump-1x-dark-receded",
+   "kind": "dump",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "dark",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 15,
+     "timeoutSeconds": 232,
+     "argvSha256": "a0b6fa368e6718ed4f6364032e80a6333a2ab1e6f1ed5da9d985e5af4eb03fac"
+    }
+   ]
+  },
+  {
+   "name": "2x-light-active",
+   "kind": "bed",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "light",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 142,
+     "glass": 88,
+     "references": 54,
+     "protocol": "normal",
+     "label": "w42-2x-light-active-1",
+     "argvSha256": "3157d001b134f34e5b6ff39e8104fb6407665fe8f8e5251979d8220cb02b4f1f"
+    },
+    {
+     "run": 2,
+     "cells": 88,
+     "glass": 88,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-active-2",
+     "argvSha256": "2d50fc81fbedbe7e4569e1dfb893987c03dec3151c873636744b23711418f055"
+    },
+    {
+     "run": 3,
+     "cells": 88,
+     "glass": 88,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-active-3",
+     "argvSha256": "2ad439a7461cea7687f8d320c4df8e27ca91e2d50b03ce1dcb8f3171a3bdca98"
+    },
+    {
+     "run": 4,
+     "cells": 88,
+     "glass": 88,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-active-4",
+     "argvSha256": "aab9e7d5c01d78f53b9fba1775533e18cfc5882b6188f35b4a915baa83fd7024"
+    },
+    {
+     "run": 5,
+     "cells": 88,
+     "glass": 88,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-active-5",
+     "argvSha256": "5fc945b5f111643d7ff9fbee9ea0424113946f196a7a676b96a177ac58fca985"
+    },
+    {
+     "run": 6,
+     "cells": 88,
+     "glass": 88,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-active-6",
+     "argvSha256": "af270d390bf618250b458178fe39316fc7d67fd24299ea217a579c30fdad83c2"
+    },
+    {
+     "run": 7,
+     "cells": 88,
+     "glass": 88,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-active-7",
+     "argvSha256": "97a03c93add4e0beb4032b5c34e0bb85ad51b743e272ddfc9d8340d46865dc7b"
+    }
+   ]
+  },
+  {
+   "name": "2x-light-receded",
+   "kind": "bed",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "light",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 141,
+     "glass": 86,
+     "references": 55,
+     "protocol": "normal",
+     "label": "w42-2x-light-receded-1",
+     "argvSha256": "89ad93c103a947212076b37eb8403904acff53e9cd8797ab19af7c7f3c9fc7bd"
+    },
+    {
+     "run": 2,
+     "cells": 86,
+     "glass": 86,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-receded-2",
+     "argvSha256": "279298191c7c5f6b6c73ed15cd80d2de1d2a983d9ccb690239139744b44f18d3"
+    },
+    {
+     "run": 3,
+     "cells": 86,
+     "glass": 86,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-receded-3",
+     "argvSha256": "2b6074f3ca0f7b0a53a611d619b7ffc0092cb53fb36b88ae8b8d4922eaa9fb74"
+    },
+    {
+     "run": 4,
+     "cells": 86,
+     "glass": 86,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-receded-4",
+     "argvSha256": "dfa6e94cbf143b6aff90a068aff0b8e12b27f232151ae9d01843af532187725e"
+    },
+    {
+     "run": 5,
+     "cells": 86,
+     "glass": 86,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-receded-5",
+     "argvSha256": "6228c4e4e495195eba203232ba0fa2081e893b8cfe221ef7e892f902e577b41e"
+    },
+    {
+     "run": 6,
+     "cells": 86,
+     "glass": 86,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-receded-6",
+     "argvSha256": "2fc9b0a33a1564b0195dec53de341b9491a2c1f85969830371c14679c88385ef"
+    },
+    {
+     "run": 7,
+     "cells": 86,
+     "glass": 86,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-light-receded-7",
+     "argvSha256": "58d1a9e3c35cdb027a670fa608fb1c5f343471bdbc3abbdb87d208bd04bd9d42"
+    }
+   ]
+  },
+  {
+   "name": "2x-dark-active",
+   "kind": "bed",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "dark",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 145,
+     "glass": 91,
+     "references": 54,
+     "protocol": "normal",
+     "label": "w42-2x-dark-active-1",
+     "argvSha256": "08ae92cb800ef9a724476f29c85223a41e96b9f4a17ef059c59d049aca26ed2a"
+    },
+    {
+     "run": 2,
+     "cells": 91,
+     "glass": 91,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-active-2",
+     "argvSha256": "a875eca6afd0e2ccd150eb671be30196a237b3e6a6e9c1b79d98fa98fe96f1f3"
+    },
+    {
+     "run": 3,
+     "cells": 91,
+     "glass": 91,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-active-3",
+     "argvSha256": "e0974dfc5f0b79cfa0aedce3c4280bc9db4bb56b5ed54056f87f512d3616e147"
+    },
+    {
+     "run": 4,
+     "cells": 91,
+     "glass": 91,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-active-4",
+     "argvSha256": "dee3e4882244d712e8d75aa7da0f51fa1f0ee3e7c76d24f03d5de7c2d80f8e35"
+    },
+    {
+     "run": 5,
+     "cells": 91,
+     "glass": 91,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-active-5",
+     "argvSha256": "b73bcd7a21a8cf8cab2df5cfef94b3396b1b32714a8fd328828506fab09b5eed"
+    },
+    {
+     "run": 6,
+     "cells": 91,
+     "glass": 91,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-active-6",
+     "argvSha256": "70a27b8679f379f7c4605b25db0edf320e8dcb111aca98b996139a6a5b9f6031"
+    },
+    {
+     "run": 7,
+     "cells": 91,
+     "glass": 91,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-active-7",
+     "argvSha256": "50136a34c98f9f7d3ec98ae3f071e1eeff9be71fd1aa399e2c2d36faf59e2647"
+    }
+   ]
+  },
+  {
+   "name": "2x-dark-receded",
+   "kind": "bed",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "dark",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 144,
+     "glass": 89,
+     "references": 55,
+     "protocol": "normal",
+     "label": "w42-2x-dark-receded-1",
+     "argvSha256": "88cd9fe74e78c9d4940f7ad328f7f049e4ac0a5d8cc86ac53abbc7ceabdd9b50"
+    },
+    {
+     "run": 2,
+     "cells": 89,
+     "glass": 89,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-receded-2",
+     "argvSha256": "30f8609d104c2a8857f6f53daccd393f14a47d16528007fc27fe9d264a7f4c6d"
+    },
+    {
+     "run": 3,
+     "cells": 89,
+     "glass": 89,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-receded-3",
+     "argvSha256": "1b1991ae8a3c775d2adc70b05b424feb58280cdedf95e5ed82f1d777e30adf41"
+    },
+    {
+     "run": 4,
+     "cells": 89,
+     "glass": 89,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-receded-4",
+     "argvSha256": "12b57d60185f74d59218466d59b7ad337a64bc2c5dde8e9d0279628d6643b747"
+    },
+    {
+     "run": 5,
+     "cells": 89,
+     "glass": 89,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-receded-5",
+     "argvSha256": "4c9b7dac57350100af4a77a7db190910b1facd1c9fc837b2f0b61d32ddc2747f"
+    },
+    {
+     "run": 6,
+     "cells": 89,
+     "glass": 89,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-receded-6",
+     "argvSha256": "c87961decdc04d4ba85725c80540998718ed9e65f72e48b0dd1298dd01048c4d"
+    },
+    {
+     "run": 7,
+     "cells": 89,
+     "glass": 89,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-2x-dark-receded-7",
+     "argvSha256": "4e4a7bc0deed940741476909af954c431a963e1f285402b7adc674a6fca95ed4"
+    }
+   ]
+  },
+  {
+   "name": "2x-light-active-sentinel",
+   "kind": "sentinel",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "light",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-light-active-sentinel-1",
+     "argvSha256": "960861f1c209b8b88752ca48a8a885b60651bed04bb7eb24013e176c7c958349"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-light-active-sentinel-2",
+     "argvSha256": "bcc81a3a2bf3d32f193e6a91b96b439d81287e7b1d5815aee2756b893f34a897"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-light-active-sentinel-3",
+     "argvSha256": "57cd7890cf12f3806d92f1f8387204fdcd1bfe5c91411dc0d818353248680731"
+    }
+   ]
+  },
+  {
+   "name": "2x-light-receded-sentinel",
+   "kind": "sentinel",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "light",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-light-receded-sentinel-1",
+     "argvSha256": "567709a9791c9c342d2a387749d49c75faf177b64aa04427dc9db3ed51aa0cc3"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-light-receded-sentinel-2",
+     "argvSha256": "b709cc39b0b8b6bef425137fd0140af5e97a42a3875d5b981481f599457f98fe"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-light-receded-sentinel-3",
+     "argvSha256": "ccbddfdf3965e08f87f9b4ab9b2e9922088bcc9f72ee929e93daaf33b91f3e70"
+    }
+   ]
+  },
+  {
+   "name": "2x-dark-active-sentinel",
+   "kind": "sentinel",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "dark",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-dark-active-sentinel-1",
+     "argvSha256": "b8f7144c266c05314cb948f5431baa9d45107542f58d954e6d66201c2129fd40"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-dark-active-sentinel-2",
+     "argvSha256": "ec01163e2a0f197b45f5c4ff858f57c8d3495341956d2f1246631eab17acb66b"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-dark-active-sentinel-3",
+     "argvSha256": "52a8f68a3f1a17666e5f702041eddc204dffefb099cf6cbaf273da6bf8fd99af"
+    }
+   ]
+  },
+  {
+   "name": "2x-dark-receded-sentinel",
+   "kind": "sentinel",
+   "mode": "68",
+   "scale": 2,
+   "scheme": "dark",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-dark-receded-sentinel-1",
+     "argvSha256": "05d73d8c7646572e04bff86a3ec5b252cc83908b2027c35bbf4c3e3532c9922e"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-dark-receded-sentinel-2",
+     "argvSha256": "78ab90a058a3975ab9f4a5d782ca3d737e4fbc68ef681816a514c831d695696a"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-2x-dark-receded-sentinel-3",
+     "argvSha256": "51245de7a8aa576bd96289c75bdb8aa7f13b755548bb7dc52e7fd47833915979"
+    }
+   ]
+  },
+  {
+   "name": "1x-light-active",
+   "kind": "bed",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "light",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 25,
+     "glass": 15,
+     "references": 10,
+     "protocol": "normal",
+     "label": "w42-1x-light-active-1",
+     "argvSha256": "9d1d376dd35dd7ef166d7144715f3168b3ec28a4c06f3a475408a461e10e3191"
+    },
+    {
+     "run": 2,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-active-2",
+     "argvSha256": "7aa0993995227cdb138de50653ac6c57aa677064de5e1ce4df392d6f4debd34e"
+    },
+    {
+     "run": 3,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-active-3",
+     "argvSha256": "e3fc2d2fe77636dd84f9a80c513b046452476e911cfadd66ad9e0a24454a8fe0"
+    },
+    {
+     "run": 4,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-active-4",
+     "argvSha256": "854f50e84312b0e1bb3ee1b1970648b0ccec371098c7f09b230ebf4c6c2b6238"
+    },
+    {
+     "run": 5,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-active-5",
+     "argvSha256": "2a3c40eb0ebde9c106f3834c1433410a4d5679d0c9121bd6aa3b98c12b98f043"
+    },
+    {
+     "run": 6,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-active-6",
+     "argvSha256": "581dbbd97f14a64af1a1c8776b602f585a008ac3d3f5eac597a5aa7551df9c49"
+    },
+    {
+     "run": 7,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-active-7",
+     "argvSha256": "085c0b6499cc9fa0c69173cccf35d24fd99b065d4de0d1face454cc8f1c7a3a0"
+    }
+   ]
+  },
+  {
+   "name": "1x-light-receded",
+   "kind": "bed",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "light",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 25,
+     "glass": 15,
+     "references": 10,
+     "protocol": "normal",
+     "label": "w42-1x-light-receded-1",
+     "argvSha256": "3a71d9fd352b0267acca53aad7809a0448d935b59b958f0ea915ee04ae175ee9"
+    },
+    {
+     "run": 2,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-receded-2",
+     "argvSha256": "406e8be22c495f2fe0cca7d44b7fe7ffb423c28d3851093dfa6e1978b362e5fd"
+    },
+    {
+     "run": 3,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-receded-3",
+     "argvSha256": "60eb6bdae953c92d9cd8282d43d40980cdc772134bdd5c541176e2d188e18819"
+    },
+    {
+     "run": 4,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-receded-4",
+     "argvSha256": "440a729d96d4e9be52e42c3a1f1a1f2035a855e4c29875ecdd6003f7c38f2f9d"
+    },
+    {
+     "run": 5,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-receded-5",
+     "argvSha256": "fceb8e86758976521dea8209f418f4b9d96f33aea99507e5d4801427f0429ac9"
+    },
+    {
+     "run": 6,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-receded-6",
+     "argvSha256": "48faef4abb89a8bb6bd058b2848b428d0820dcbd1d2f78d225f0c9c3e606f428"
+    },
+    {
+     "run": 7,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-light-receded-7",
+     "argvSha256": "5fa2d30fd851e07e7d816a40f0711f2e9d5a02b79240b6705eb2b926ca59aea7"
+    }
+   ]
+  },
+  {
+   "name": "1x-dark-active",
+   "kind": "bed",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "dark",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 25,
+     "glass": 15,
+     "references": 10,
+     "protocol": "normal",
+     "label": "w42-1x-dark-active-1",
+     "argvSha256": "4b88ada04560f4ff2e8dd918f1c2028bc21fb94559eb4262c29652dc8f12d6e4"
+    },
+    {
+     "run": 2,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-active-2",
+     "argvSha256": "fa6fe2c253142917c221504755eb07a98755d78918fb05649e24dea0d665bcb6"
+    },
+    {
+     "run": 3,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-active-3",
+     "argvSha256": "f03ae8e8946688bb8f94048df3c99192503be65691222bf2f4b54835f8208050"
+    },
+    {
+     "run": 4,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-active-4",
+     "argvSha256": "5c15b0aa2fb7bb8f31596ec91f401e0da647c34526edb61963cbdf4ef818de83"
+    },
+    {
+     "run": 5,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-active-5",
+     "argvSha256": "f3dfcdff2241fca7d9e482042364649d5d47921ad08a80cdd76980ef2e1c5678"
+    },
+    {
+     "run": 6,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-active-6",
+     "argvSha256": "168199d654805b568a8fd15d44dae68fec7cefa541a158df2fadfd1f82cab139"
+    },
+    {
+     "run": 7,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-active-7",
+     "argvSha256": "56a16ce7fab3560a0071b11164da38ba7347c90b760b448bf5ffbe6a483f1178"
+    }
+   ]
+  },
+  {
+   "name": "1x-dark-receded",
+   "kind": "bed",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "dark",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 25,
+     "glass": 15,
+     "references": 10,
+     "protocol": "normal",
+     "label": "w42-1x-dark-receded-1",
+     "argvSha256": "54e8d343b466f9dc94725ed91cc9c55c8fecaaecb61b26e3434d140ecbc3c3f9"
+    },
+    {
+     "run": 2,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-receded-2",
+     "argvSha256": "1141380e15fd2350e10fc90bed32d7ea381c7ce829fcc7ffa4cce307de99404c"
+    },
+    {
+     "run": 3,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-receded-3",
+     "argvSha256": "a7a490e4f4f2be6ffb348a995a3f8a91a6a3fee2b5b0a392000563d56a3133e5"
+    },
+    {
+     "run": 4,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-receded-4",
+     "argvSha256": "6e353575c676b0c9ea5b52044b695ceac85e6c0d70cb2c6ab744017bd6f76a98"
+    },
+    {
+     "run": 5,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-receded-5",
+     "argvSha256": "e007994dfb4453153be8af62113b14a6e8a885f3b26ff6642fa225bedfa80709"
+    },
+    {
+     "run": 6,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-receded-6",
+     "argvSha256": "eebfcc142ea4fc85b063772e1233efc0f19c3c2743ec59c60384babbe24ad979"
+    },
+    {
+     "run": 7,
+     "cells": 15,
+     "glass": 15,
+     "references": 0,
+     "protocol": "normal",
+     "label": "w42-1x-dark-receded-7",
+     "argvSha256": "8e72a2d00bb1441fe5e6687e012728b7cf9bb18a02b99129afbcaa92eb869be3"
+    }
+   ]
+  },
+  {
+   "name": "1x-light-active-sentinel",
+   "kind": "sentinel",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "light",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-light-active-sentinel-1",
+     "argvSha256": "545717644b4b1cedbef93953959aea8e1b9ba61a25973e7ce9ca5ec8fdfe1bc3"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-light-active-sentinel-2",
+     "argvSha256": "71991e93f86b041dc189f1f92b4285ab00a9531d530b6f4dafb338fe59c7499f"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-light-active-sentinel-3",
+     "argvSha256": "5b80d903d22063efdbf95f3989be5e994b9d788442b19600e51c521531a3040a"
+    }
+   ]
+  },
+  {
+   "name": "1x-light-receded-sentinel",
+   "kind": "sentinel",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "light",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-light-receded-sentinel-1",
+     "argvSha256": "57a15da28be41550ecf5e5e6511adf32060bc4d834226e503b2dff1e285fcfa5"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-light-receded-sentinel-2",
+     "argvSha256": "315838e7f90994d63a003464a9bc1c57e5b53b31ed5a20b2dec71b2ba964474d"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-light-receded-sentinel-3",
+     "argvSha256": "724223ba8a51e56509b1747d30c84e3b66855babfb300bd1e10d4457cc40c7f0"
+    }
+   ]
+  },
+  {
+   "name": "1x-dark-active-sentinel",
+   "kind": "sentinel",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "dark",
+   "pose": "active",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-dark-active-sentinel-1",
+     "argvSha256": "97e2159819140a15f7fc57ef2249039673f464be747bf0c0b6e47bdece859ede"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-dark-active-sentinel-2",
+     "argvSha256": "57704b227bdfeac9c3632cf52c4b5788725a5cc8ec3a2089caf4d887f99ae287"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-dark-active-sentinel-3",
+     "argvSha256": "29f1c69c187508e3b1cde31fb2661c45350f27d0b6717a4d1bdb5510dbebfdca"
+    }
+   ]
+  },
+  {
+   "name": "1x-dark-receded-sentinel",
+   "kind": "sentinel",
+   "mode": "69",
+   "scale": 1,
+   "scheme": "dark",
+   "pose": "receded",
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-dark-receded-sentinel-1",
+     "argvSha256": "a6553bd316ea1518a161954c1bc644b5ce37b92730539de877d4a2c7f52f7b66"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-dark-receded-sentinel-2",
+     "argvSha256": "28ce1a10b2d187da3d864da95ec1bf4de2555612a9624dfbdcea65a772466d5b"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "glass": 2,
+     "references": 0,
+     "protocol": "long",
+     "label": "w42-1x-dark-receded-sentinel-3",
+     "argvSha256": "250caed704a03fc9205170c6336bed3fa1c3ef2e9841c3f437e9f741a48ee4cb"
+    }
+   ]
+  }
+ ],
+ "totals": {
+  "dumpLaunches": 8,
+  "dumpScenes": 414,
+  "captureLaunches": 80,
+  "glass": 2898,
+  "references": 258,
+  "sentinels": 48,
+  "captures": 3204
+ },
+ "bedPins": {
+  "scenes-w42-body.json": "02da410cccd789be549fa4fe90bcbd5b640ecff9a0078ec105e1020d3f412c9a",
+  "bed.json": "f4793aaeee78f4784330a578f1e8336d7d98b6de2ca57c13d3940ee50eb0fd4b",
+  "twin-audit.json": "16a90ca2647ac44002d76262d18c2026057ec72862a377a808fc77ba9e5bd582"
+ }
+}
