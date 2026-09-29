@@ -1,0 +1,17 @@
+diff --git a/packages/calibration/results/2026-09-26-w40-g0-generations/matrix_store.py b/packages/calibration/results/2026-09-26-w40-g0-generations/matrix_store.py
+index 25539bc4..63e2b606 100644
+--- a/packages/calibration/results/2026-09-26-w40-g0-generations/matrix_store.py
++++ b/packages/calibration/results/2026-09-26-w40-g0-generations/matrix_store.py
+@@ -73,7 +73,11 @@ def _index(directory, archived=False):
+         for h in hashes:
+             owners[h].add(filename)
+     if not archived:
+-        declared = index["byDocumentSha256"]
++        # The TypeScript reader admits a single owner as a bare string, which is what its
++        # publisher writes for a hash it has not seen before; read it as a one-item list.
++        declared = index["byDocumentSha256"] = {
++            h: [names] if isinstance(names, str) else names
++            for h, names in index["byDocumentSha256"].items()}
+         if any(not isinstance(names, list) or len(names) != len(set(names))
+                for names in declared.values()) or {
+                    h: sorted(names) for h, names in declared.items()

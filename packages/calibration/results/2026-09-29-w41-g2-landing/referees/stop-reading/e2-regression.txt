@@ -1,0 +1,180 @@
+# scratch union: current union with 2 (profile, tier) pair(s) replaced by /Users/new/vitrea-w41/g2-stage-light/matrix.json; 6 declared pair(s) absent from the stage keep their current rows
+#   replaced apple-macos-27.0-1x-light-standard-glass0.5 webgpu: 144 stage rows for 124 current (20 holdout not yet read)
+#   replaced apple-macos-27.0-2x-light-standard-glass0.5 webgpu: 144 stage rows for 124 current (20 holdout not yet read)
+#   kept     apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 css: 18 current rows at ['materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae']
+#   kept     apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu: 18 current rows at ['materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae']
+#   kept     apple-macos-27.0-1x-light-reduced-transparency-glass0.5 css: 16 current rows at ['materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae']
+#   kept     apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu: 16 current rows at ['materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae']
+#   kept     apple-macos-27.0-1x-light-standard-glass0.5 css: 124 current rows at ['materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae']
+#   kept     apple-macos-27.0-2x-light-standard-glass0.5 css: 69 current rows at ['materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae']
+{
+ "source": {
+  "label": "scratch union: current union with 2 (profile, tier) pair(s) replaced by /Users/new/vitrea-w41/g2-stage-light/matrix.json; 6 declared pair(s) absent from the stage keep their current rows",
+  "stage": "/Users/new/vitrea-w41/g2-stage-light",
+  "stageMatrixSha256": "3558cee9f7549beb3d502ea1ff5d581cf2ce2498e04ac5cbc7ee4248a162f69a",
+  "declaredProfiles": [
+   "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+   "apple-macos-27.0-1x-light-standard-glass0.5",
+   "apple-macos-27.0-2x-light-standard-glass0.5"
+  ],
+  "declaredDocuments": {
+   "active": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "sha256": "85ad7f7e3e0d"
+   },
+   "receded": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "003940b4c7da"
+   }
+  },
+  "replaced": [
+   {
+    "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "renderer": "webgpu",
+    "stageRows": 144,
+    "currentRowsDropped": 124,
+    "holdoutAbsentFromStage": 20
+   },
+   {
+    "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+    "renderer": "webgpu",
+    "stageRows": 144,
+    "currentRowsDropped": 124,
+    "holdoutAbsentFromStage": 20
+   }
+  ],
+  "keptFromCurrentUnion": [
+   {
+    "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+    "renderer": "css",
+    "rows": 18,
+    "generations": [
+     "materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae"
+    ]
+   },
+   {
+    "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+    "renderer": "webgpu",
+    "rows": 18,
+    "generations": [
+     "materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae"
+    ]
+   },
+   {
+    "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    "renderer": "css",
+    "rows": 16,
+    "generations": [
+     "materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae"
+    ]
+   },
+   {
+    "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    "renderer": "webgpu",
+    "rows": 16,
+    "generations": [
+     "materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae"
+    ]
+   },
+   {
+    "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "renderer": "css",
+    "rows": 124,
+    "generations": [
+     "materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae"
+    ]
+   },
+   {
+    "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+    "renderer": "css",
+    "rows": 69,
+    "generations": [
+     "materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d / recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae"
+    ]
+   }
+  ],
+  "declaredCells": 780,
+  "stageRows": 288,
+  "missingNonHoldoutInReplacedPairs": 0,
+  "partial": false
+ },
+ "cells": 212,
+ "declaredCellsWithoutRow": [],
+ "outsideFrozenPopulation": {
+  "count": 42,
+  "verdict": "UNMEASURED: no pre-W38 baseline; not a pass",
+  "cells": [
+   "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-48__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-64__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-80__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-lg__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-md-clear20__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-ml__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-sm__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/hc-text__rrect-lg__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/hc-text__rrect-sm__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/impulse__rrect-lg__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/impulse__rrect-ml__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/impulse__rrect-sm__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__rrect-lg__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__rrect-sm__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__capsule-button__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__capsule-button__rest-tint-orange",
+   "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__rrect-lg__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/mid-dark-solid__rrect-lg__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/mid-dark-solid__rrect-md__rest",
+   "apple-macos-27.0-1x-light-standard-glass0.5/mid-dark-solid__rrect-sm__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-48__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-64__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-80__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-lg__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-md-clear20__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-ml__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-sm__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/hc-text__rrect-lg__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/hc-text__rrect-sm__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-lg__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-ml__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-sm__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__rrect-lg__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__rrect-sm__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__capsule-button__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__capsule-button__rest-tint-orange",
+   "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-lg__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/mid-dark-solid__rrect-lg__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/mid-dark-solid__rrect-md__rest",
+   "apple-macos-27.0-2x-light-standard-glass0.5/mid-dark-solid__rrect-sm__rest"
+  ]
+ },
+ "pngs": {
+  "identical": 212,
+  "differs": [],
+  "absent": []
+ },
+ "rowsIdenticalExceptGeneration": 212,
+ "capturePathsMoved": 122,
+ "bins": {
+  "total": 9216,
+  "measuredBoth": 7728,
+  "within": 7728,
+  "FAIL": 0,
+  "LOST": 0,
+  "NO_BASELINE": 0,
+  "UNMEASURED": 1488
+ },
+ "worstDelta": {
+  "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard-32__capsule-button__rest",
+  "bin": 0,
+  "worstDelta": 0.0,
+  "deltaRGB": [
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "holds": true,
+ "e2SummaryEqualsPinned": true
+}

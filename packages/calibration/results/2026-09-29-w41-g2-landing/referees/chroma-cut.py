@@ -1,13 +1,24 @@
 #!/usr/bin/env python3
-"""W36 G1 — regenerate M1/M2 at the sealed read (claims §5.179).
+"""W41 G2 — regenerate M1/M2 at the landing's read, on W40's generation store (c9a §5.193).
 
-W32 G2's implementation and guards, with M2's reference advanced to the rows
-this wave supersedes, under W32 Decision Log 4. These are W33 G1b's readings at
-6e509c7f76cc / eab099cc6698, resolved through the superseded index. The 2% bar
-is unchanged; cumulative drift is recorded separately in m2-rebaseline.json.
+W36 G1's `chroma-cut.py` (claims §5.179), ported: the implementation, the guards and the
+output are that file's. What moved is where rows come from. The bed is the current union
+(`--stage DIR` reads the scratch union a stage would publish), through `referee_source.py`,
+and M2's reference is a generation named by its (active, receded) document pair and
+resolved by `matrix_store.load_generation`, never by a file named by hand.
+
+The reference is re-baselined at this gate under W32 Decision Log 4, to the generation
+current when the gate opened: light 85ad7f7e3e0d / 30fbe05986ae, the one W41 G2's read
+supersedes; dark 0eac5b294cc2 / 5cec8c961201, which W41 does not touch and which is
+therefore its own reference — the wave's change on dark is zero by construction, and a
+dark row that moved would read here as a nonzero delta against the rows it replaced. The
+2% bar is unchanged; cumulative drift is recorded separately in m2-rebaseline.json.
+
+    python3.12 -B chroma-cut.py [--stage DIR] [--out PATH]
 """
 from __future__ import annotations
 
+import argparse
 import datetime as _datetime
 import hashlib
 import json
@@ -17,8 +28,10 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-PACKAGE = HERE.parent.parent
+PACKAGE = HERE.parents[2]
 REPO = PACKAGE.parent.parent
+sys.path.insert(0, str(HERE))
+import referee_source  # noqa: E402
 SCENES = REPO / "apps/reference-apple/scenes.json"
 
 #: The four macOS 27 STANDARD profiles, with the scheme and scale each reads at.
@@ -32,11 +45,16 @@ PROFILES = {
     "apple-macos-27.0-2x-dark-standard-glass0.5": ("dark", 2),
 }
 
-#: The generation read before this wave, resolved through the superseded index.
-REFERENCE_ACTIVE_DOCUMENTS = {
-    "dark": "eab099cc6698",
-    "light": "6e509c7f76cc",
+#: The generation current when this gate opened, per scheme, as (active, receded) — the pair
+#: `load_generation` resolves. `--reference SCHEME=ACTIVE:RECEDED` names another (the port's
+#: reproduction of W36's cut passes W33's pair, light 6e509c7f76cc:45acb6d916b9 and dark
+#: eab099cc6698:4e68f81869f6).
+REFERENCE_DOCUMENTS = {
+    "dark": ("0eac5b294cc2", "5cec8c961201"),
+    "light": ("85ad7f7e3e0d", "30fbe05986ae"),
 }
+CLAIMS = ("c9a §5.193; W32 Decision Log 4; adopted at §5.165 §1, declared at §5.161 §7 (b), "
+          "fitted at §5.164 §4")
 
 MODE = (
     "R = chromaStructureRatioWeb / chromaStructureRatioNative, web against native on the "
@@ -110,26 +128,32 @@ def bed_rows(cells: list[dict], shipped: dict[str, str]) -> dict[tuple[str, str]
 
 
 def main(argv: list[str]) -> int:
-    out_path = HERE / "chroma-cut.json"
-    if "--out" in argv:
-        out_path = Path(argv[argv.index("--out") + 1])
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    referee_source.add_source_arguments(parser)
+    parser.add_argument("--out", type=Path, default=HERE / "chroma-cut.json")
+    parser.add_argument("--reference", action="append", default=[],
+                        help="SCHEME=ACTIVE:RECEDED, the M2 reference generation for a scheme")
+    parser.add_argument("--claims", default=CLAIMS)
+    args = parser.parse_args(argv)
+    out_path = args.out
+    references = dict(REFERENCE_DOCUMENTS)
+    for spec in args.reference:
+        scheme, _, pair = spec.partition("=")
+        active, _, receded = pair.partition(":")
+        if scheme not in references or not active or not receded:
+            raise SystemExit(f"chroma-cut: --reference {spec!r} is not SCHEME=ACTIVE:RECEDED")
+        references[scheme] = (active, receded)
 
     shipped = shipped_document_hashes()
-    matrix = json.loads((PACKAGE / "results" / "matrix.json").read_text())
-    if matrix.get("schemaVersion") != 5:
-        raise SystemExit(f"chroma-cut: matrix schema {matrix.get('schemaVersion')}, expected 5")
-    current = bed_rows(matrix["cells"], shipped)
+    source = referee_source.load(args)
+    current = bed_rows(source.rows, shipped)
 
-    index = json.loads((PACKAGE / "results" / "superseded" / "index.json").read_text())
     reference: dict[tuple[str, str], dict] = {}
     reference_files: dict[str, str] = {}
-    for scheme, document in REFERENCE_ACTIVE_DOCUMENTS.items():
-        named = index["byDocumentSha256"].get(document)
-        if named is None:
-            raise SystemExit(f"chroma-cut: {document} is in no superseded file")
+    for scheme, (document, receded) in references.items():
+        cells, named = referee_source.generation(document, receded)
         reference_files[scheme] = named
-        path = PACKAGE / "results" / "superseded" / named
-        cells = json.loads(path.read_text())["cells"]
         # The reference rows were read at documents that are NOT shipped any more
         # — that is what makes them the reference and not the bed — so the
         # shipped-document guard is not applied to them. What IS asserted is that
@@ -210,8 +234,10 @@ def main(argv: list[str]) -> int:
             "M2's reference re-baselined at this gate (W32 Decision Log 4)."
         ),
         "mode": MODE,
-        "claims": "c9a §5.179; W32 Decision Log 4; adopted at §5.165 §1, declared at §5.161 §7 (b), fitted at §5.164 §4",
+        "claims": args.claims,
         "generatedAt": _datetime.datetime.now(_datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        # A stage read says which (profile, tier) pairs it replaced and which kept current rows.
+        **({"source": source.described} if source.stage else {}),
         "atDocuments": "shipped",
         "withHoldout": False,
         "tier": "texture",
@@ -224,10 +250,13 @@ def main(argv: list[str]) -> int:
         },
         "referenceGeneration": {
             scheme: {
-                "activeDocumentSha256": REFERENCE_ACTIVE_DOCUMENTS[scheme],
+                "activeDocumentSha256": references[scheme][0],
+                # W40: a document can own more than one generation (a receded-only reseal
+                # keeps its active hash), so the reference is the PAIR.
+                "recededDocumentSha256": references[scheme][1],
                 "file": reference_files[scheme],
             }
-            for scheme in REFERENCE_ACTIVE_DOCUMENTS
+            for scheme in REFERENCE_DOCUMENTS
         },
         "beds": beds,
         "cells": cells_out,
@@ -235,6 +264,7 @@ def main(argv: list[str]) -> int:
     out_path.write_text(json.dumps(cut, indent=2) + "\n")
 
     print(f"# {cut['what']}")
+    print(f"# rows: {source.label}")
     print(f"# mode: {MODE}")
     print(f"# at documents: {json.dumps(cut['shippedDocuments'])}")
     print(f"# reference generation: {json.dumps(cut['referenceGeneration'])}")

@@ -5,6 +5,18 @@ clearance (claims §5.166; W32 acceptance clause 1).
     python3 exterior-cut.py > exterior-cut.txt
     python3 exterior-cut.py --with-holdout > exterior-cut-with-holdout.txt
 
+## W41 G2's port (c9a §5.193)
+
+W36 G1's copy, moved onto W40's generation store and changed only in where rows come
+from. The rows are the current union — the frozen file plus every generation the index
+selects — through `referee_source.py`; `--stage DIR` reads the scratch union that stage
+would publish. `--against` names a generation by its document pair,
+`LABEL=ACTIVE:RECEDED[,ACTIVE:RECEDED]`, resolved by `matrix_store.load_generation`,
+instead of a file under `results/superseded/`. The JSON's `source` is that description
+rather than a path. Every statistic, table and exclusion below is W36's.
+
+    python3.12 -B exterior-cut.py [--stage DIR] [--out DIR] > exterior-cut.txt
+
 ## What this file is
 
 **A copy of W31 G1's `exterior-instrument.py`**
@@ -199,13 +211,15 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-PACKAGE = HERE.parent.parent
+PACKAGE = HERE.parents[2]
 ROOT = PACKAGE.parent.parent
+sys.path.insert(0, str(HERE))
+import referee_source  # noqa: E402
 
-MATRIX = PACKAGE / "results/matrix.json"
 PROFILES = PACKAGE / "profiles"
 SCENES = ROOT / "apps/reference-apple/scenes.json"
 NOISE_BAR = PACKAGE / "results/2026-09-19-w29-g3b-shadow-recede/noise-bar.json"
@@ -328,7 +342,7 @@ def value(axis: dict, name: str):
     return field["value"] if isinstance(field, dict) and "value" in field else None
 
 
-def cells(matrix: Path, with_holdout: bool = False) -> list[dict]:
+def cells(everything: list[dict], name: str, with_holdout: bool = False) -> list[dict]:
     """Every cell of one matrix — MINUS the holdout rows.
 
     THE TABLES NEVER READ A HOLDOUT ROW UNLESS THE FLAG IS TYPED.
@@ -338,13 +352,12 @@ def cells(matrix: Path, with_holdout: bool = False) -> list[dict]:
     own filter, and the count and the scenes are printed rather than silently
     swallowed.
     """
-    everything = json.loads(matrix.read_text())["cells"]
     if with_holdout:
-        print(f"# --with-holdout: every row of {matrix.name} is read, the holdout included.")
+        print(f"# --with-holdout: every row of {name} is read, the holdout included.")
         return everything
     dropped = [c for c in everything if c.get("fixtureSet") == HOLDOUT]
     if dropped:
-        print(f"# {len(dropped)} holdout row(s) in {matrix.name} and NOT read:")
+        print(f"# {len(dropped)} holdout row(s) in {name} and NOT read:")
         for profile, scene in sorted(
             {(c["key"]["profileKey"], c["key"]["sceneId"]) for c in dropped}
         ):
@@ -352,7 +365,7 @@ def cells(matrix: Path, with_holdout: bool = False) -> list[dict]:
     return [c for c in everything if c.get("fixtureSet") != HOLDOUT]
 
 
-def readings(matrix: Path, span_of: dict[str, int], at_documents: str,
+def readings(rows: list[dict], name: str, span_of: dict[str, int], at_documents: str,
              with_holdout: bool = False) -> list[dict]:
     """The macOS 27 generation's shadow rows, one record per cell.
 
@@ -365,7 +378,7 @@ def readings(matrix: Path, span_of: dict[str, int], at_documents: str,
     """
     hashes = shipped_hashes()
     out = []
-    for cell in cells(matrix, with_holdout):
+    for cell in cells(rows, name, with_holdout):
         profile_key = cell["key"]["profileKey"]
         if not profile_key.startswith(GENERATION):
             continue
@@ -774,21 +787,23 @@ def span_table(rows: list[dict], title: str, pick, width: int, places: int,
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--matrix", default=str(MATRIX),
-                        help="the matrix to read; defaults to the committed working file")
+    referee_source.add_source_arguments(parser)
     parser.add_argument("--at-documents", choices=("shipped", "any"), default="shipped",
                         help="'shipped' keeps only rows whose capturePath hash is a document on "
                              "disk today; 'any' is for a superseded generation, whose documents "
                              "are by definition not the shipped ones")
     parser.add_argument("--against", action="append", default=[],
-                        help="a superseded generation to compare against, as LABEL=path[,path]; "
-                             "the paths are named BY NAME under results/superseded/; repeatable")
+                        help="an earlier generation to compare against, as "
+                             "LABEL=ACTIVE:RECEDED[,ACTIVE:RECEDED], resolved through the "
+                             "generation store (RECEDED `none` for a generation without one); "
+                             "repeatable")
     parser.add_argument("--with-holdout", action="store_true",
                         help="the deliberate exception: read the holdout rows too")
     parser.add_argument("--out", default=str(HERE), help="where the JSON is written")
     args = parser.parse_args()
 
-    matrix = Path(args.matrix)
+    source = referee_source.load(args)
+    union = "the scratch union" if source.stage else "the current union"
     out_dir = Path(args.out)
     scenes = json.loads(SCENES.read_text())
     span_of = spans_of(scenes["components"])
@@ -797,7 +812,7 @@ def main() -> int:
     print("W32 G0 — the direction-resolved exterior cut, read inside each cell's own clearance")
     print("=" * 160)
     print()
-    print(f"Matrix:  {matrix}")
+    print(f"Matrix:  {source.label}")
     print(f"Spans:   the declared component's shorter side, from {SCENES.relative_to(ROOT)}")
     print("         " + "  ".join(f"{k}={v}" for k, v in sorted(span_of.items(), key=lambda kv: kv[1])))
     print("Cells:   the macOS 27 generation, at the documents on disk" if args.at_documents == "shipped"
@@ -805,7 +820,7 @@ def main() -> int:
     print("Nothing here is fitted, adopted or captured. Every figure is a cut of committed evidence.")
     print()
 
-    rows = readings(matrix, span_of, args.at_documents, args.with_holdout)
+    rows = readings(source.rows, union, span_of, args.at_documents, args.with_holdout)
     print()
 
     for row in rows:
@@ -1173,18 +1188,18 @@ def main() -> int:
         print("-" * 160)
         print("  A cell's key carries the document's content hash, so a superseded generation's rows")
         print("  are joined to this one on (tier, profileKey, sceneId) rather than on the key. Each")
-        print("  block below is one earlier generation, read from `results/superseded/` BY NAME —")
-        print("  `index.json` there maps a document hash to the file holding its rows.")
+        print("  block below is one earlier generation, named by its document pair and resolved")
+        print("  through the generation store's two indexes (W40), never by a file named by hand.")
         print()
         for spec in args.against:
             label, _, names = spec.partition("=")
             older: dict[tuple, dict] = {}
             for name in names.split(","):
-                path = Path(name)
-                if not path.is_absolute():
-                    path = PACKAGE / name
-                print(f"  {label}: reading {path.relative_to(PACKAGE)}")
-                for row in readings(path, span_of, "any", args.with_holdout):
+                active, _, receded = name.partition(":")
+                generation, owner = referee_source.generation(
+                    active, None if receded in ("", "none") else receded)
+                print(f"  {label}: reading generation {name} ({owner})")
+                for row in readings(generation, owner, span_of, "any", args.with_holdout):
                     row["sigmaRelativeError"] = sigma_error(row)[2]
                     row["T"] = shape_error(row)["T"]
                     older[(row["tier"], row["profile"], row["scene"])] = row
@@ -1476,7 +1491,7 @@ def main() -> int:
 
     suffix = "-with-holdout" if args.with_holdout else ""
     payload = {
-        "source": str(matrix),
+        "source": source.described,
         "atDocuments": args.at_documents,
         "documents": documents,
         "withHoldout": args.with_holdout,

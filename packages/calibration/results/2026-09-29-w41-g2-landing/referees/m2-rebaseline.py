@@ -1,16 +1,30 @@
 #!/usr/bin/env python3
-"""Every M2 cell's per-wave and cumulative move, resolved by generation (§5.179)."""
+"""Every M2 cell's per-wave and cumulative move, resolved by generation (§5.179).
+
+W41 G2 (c9a §5.193): W36 G1's `m2-rebaseline.py`, ported onto W40's generation store. The
+cumulative origin stays W31's pre-fit bed, now named as its (active, receded) pair and
+resolved by `matrix_store.load_generation` rather than through the superseded index by
+hand; the per-wave reference is whatever `chroma-cut.json` beside it names.
+
+    python3.12 -B m2-rebaseline.py [--cut PATH] [--out PATH]
+"""
+import argparse
 import json
+import sys
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
-CAL=HERE.parent.parent
-index=json.loads((CAL/'results/superseded/index.json').read_text())
-cut=json.loads((HERE/'chroma-cut.json').read_text())
+sys.path.insert(0,str(HERE))
+import referee_source
+parser=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
+parser.add_argument('--cut',type=Path,default=HERE/'chroma-cut.json')
+parser.add_argument('--out',type=Path,default=HERE/'m2-rebaseline.json')
+parser.add_argument('--claims',default='c9a §5.193')
+args=parser.parse_args()
+cut=json.loads(args.cut.read_text())
 pre={}
-for scheme,sha in [('light','d0c389d70456'),('dark','880ab1e31450')]:
-    path=CAL/'results/superseded'/index['byDocumentSha256'][sha]
-    for cell in json.loads(path.read_text())['cells']:
+for scheme,sha,receded in [('light','d0c389d70456','2334c7b4c5e2'),('dark','880ab1e31450','5e71370ae6d5')]:
+    for cell in referee_source.generation(sha,receded)[0]:
         if cell['key']['web']['renderer']!='webgpu': continue
         if f'sha256:{sha}' not in cell['key']['web']['capturePath']: continue
         value=(cell.get('material') or {}).get('interiorStdDevWeb')
@@ -26,7 +40,7 @@ for cell in sorted(cut['cells'],key=lambda c:(c['profile'],c['scene'])):
                      waveReference=reference,value=now,perWave=wave,cumulative=(now-initial)/initial,
                      passStop=abs(wave)<=.02))
 assert len(rows)==26
-(HERE/'m2-rebaseline.json').write_text(json.dumps(dict(claims='c9a §5.179',bound=.02,
+args.out.write_text(json.dumps(dict(claims=args.claims,**({'source':cut['source']} if 'source' in cut else {}),bound=.02,
     referenceGeneration=cut['referenceGeneration'],cells=rows),indent=2)+'\n')
 for r in rows:
     print(r['profile'],r['scene'],f"{r['waveReference']:.9f} -> {r['value']:.9f}",

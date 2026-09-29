@@ -1,0 +1,76 @@
+{
+ "what": "W41 G2 referees read in --stage mode: the formal reading of the landing stop (c9a \u00a75.193)",
+ "stage": "/Users/new/vitrea-w41/g2-stage-light",
+ "stageMatrixSha256": "3558cee9f7549beb3d502ea1ff5d581cf2ce2498e04ac5cbc7ee4248a162f69a",
+ "stageMembershipSha256": "b0d78e3c3c388d3eac239c7fd0e6513904945e7dc21ebee8f2bb7c596bee9ff4",
+ "captures": [
+  "/Users/new/vitrea-w41/g2/packages/calibration/web-captures",
+  "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures"
+ ],
+ "scratchUnion": {
+  "rows": 1933,
+  "legacyEnvelopeSha256": "8f258b93bc03ee3b9b1124b1586f9dc4fd5914e1411973fc766d873ea029e65f"
+ },
+ "committed": {
+  "adopted-thresholds-at-stage.txt": {
+   "sha256": "358b22ba1cf840d84ede9ad2145fc3b9512b564024a463df2f87546a3b5f2be4",
+   "bytes": 33313
+  },
+  "black-cut.json": {
+   "sha256": "fa1c50dfee13c758754208307c432a5fdba8663521cc5dcfbba0e132008891c0",
+   "bytes": 267462
+  },
+  "black-cut.txt": {
+   "sha256": "47ebeae5969eef33e30cee41dbd61fe55d23dc15a8bc06618bf84d0c47f83309",
+   "bytes": 3555
+  },
+  "chroma-cut.json": {
+   "sha256": "3cb4d55bbda646038d45fc516dce6d7b591b555722cf444edffafb39db1f79f9",
+   "bytes": 20208
+  },
+  "chroma-cut.txt": {
+   "sha256": "3d4e8498b4248daa783f60ccb9b20b06859b1fa468b0b2bee7fe18961e3e5e66",
+   "bytes": 7234
+  },
+  "e2-regression.json": {
+   "sha256": "625b1eb5dfa4047ffc2cc458131beb2dca268aa6e9f66b78a538fe89684bb218",
+   "bytes": 373401
+  },
+  "e2-regression.txt": {
+   "sha256": "8fb1b79c4485c18914fd079e338c9206ada264c732b519b4defcf910ddb70b25",
+   "bytes": 10323
+  },
+  "exterior-cut.txt": {
+   "sha256": "9a3ab200305f65d75cc66c3d233fa5578e1d7fdbe2e8bdb9e8966ef7d021c346",
+   "bytes": 213679
+  },
+  "l1-cut.json": {
+   "sha256": "2c486f05a606a5cbdba7c7ba5f339a4fd9e2425ff8806529dc34b80c801b2f3e",
+   "bytes": 157283
+  },
+  "l1-cut.txt": {
+   "sha256": "f51e7c558be6df8267b9e56b2f9f5ca52d472008339a2cfdc5283a66e4b6aa60",
+   "bytes": 2547
+  },
+  "m2-rebaseline.json": {
+   "sha256": "d8af7280b3103ecb2469e89ce4147855f287bd9a72820ab259df3dc81f2ae668",
+   "bytes": 13254
+  },
+  "m2-rebaseline.txt": {
+   "sha256": "9b42eb9f2d000f6c2b8e8350697362604dd3720ebb9823b78f78c81264bb2c11",
+   "bytes": 3772
+  }
+ },
+ "notCommitted": {
+  "exterior-cut.json": {
+   "sha256": "168b65866588d91bd4ec7ea8fb2aa93e2a3acfc10a90c935e457e21b3ba9cda9",
+   "bytes": 3384014,
+   "regenerate": "python3.12 -B exterior-cut.py --stage STAGE --out DIR (deterministic: two runs, one hash)"
+  },
+  "e2-regression-bins.json.gz": {
+   "sha256": "86c24af419a9d45293c066f0f715bd7b1469ef6ead3a3df2768f9643449b93f5",
+   "bytes": 176959,
+   "regenerate": "e2-regression.py --stage STAGE --captures ... --bins PATH"
+  }
+ }
+}
