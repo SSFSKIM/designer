@@ -41563,3 +41563,362 @@ because Decision Log 19 ruling 1 (§5.19) made the role to be read by no bound. 
 bed and C1's restated population drop the role. The publisher patch above is applied in the
 same commit. W20's conformance reading on the pressed cells is kept as its own tracker
 entry.
+
+## 5.194 W42 G0: the declaration assembled, the instrument proved, every landing referee rehearsed, three items to the user (2026-09-29/30)
+
+**Not hashed; no native pixel of the new bed exists; nothing shipped moves.** Evidence is
+`packages/calibration/results/2026-09-29-w42-g0-declaration/` on `w42-g0-declaration`. Three
+streams built it in parallel from main `0736ed64` (charter v2.1), each in its own subfolder, and
+were merged no-ff: bed (`e06dd368`, head `764217e1`), instrument (`f7c85f4f`, head `a489cc02`)
+and gate (`85acde2c`, head `75f244ec`). The declaration (§9) holds 30 items and pins 74 stream
+files. Three of its items wait on the user, so `declare.py hash` refuses. The freeze reads
+**1,818**. The protected-path diff against main is empty except the one ruled exception, the M2
+named-miss derivation in `adopted-thresholds.test.ts` (§6; clause 12). Each stream's README is
+its own index; this section is the G0 record.
+
+### 1. The bed stream: the declared bed, its split, the sitting and the exposure
+
+`bed/declare-bed.py` writes the wave-local scenes file (`scenes-w42-body.json`, read by the W39
+side bundle through `VITREA_SCENES`), `bed.json` (every cell's family, role, geometry, passes
+and U-items; the references, sentinels, dump list, validation axes, charter deviations and
+counts) and the twin audit. The canonical `scenes.json` is untouched. Every cell is placed by an
+integer `offset`, never by `position`, so all 465 glass cells are web-plannable (`web-plan.json`)
+and every H cell has a rendered prediction.
+
+The side bundle `dev.vitrea.reference-apple.w39` (binary `02052b17…`, cdhash `be258cbf…`) is
+used with no rebuild. Its checks all pass. `backgrounds` writes 73 backgrounds, byte-stable at
+both scales. An independent re-render reproduces 120 of the 122 rasters byte for byte and reads
+every patch and step back from the pixels with no discrepancy; the 14 declared equal to a
+canonical raster decode byte-identically to the canonical fixtures. `self-check` reads 82 ok,
+0 FAIL. `dumps/dumpcheck.py` turns memo D's
+configuration into a checker. Its self-test passes memo D's own dumps and catches all six seeded
+mutations. **s = 112 is accepted.** The bundle loads rrect-112 from the wave-local file, and its
+dumps read memo D's law at t = 0.5 in all four endpoints: active opacity 0.4 at the centre and
+0.2 at 1 pt inside the edge, receded 0.6 flat, margin 39.2 active and one device px receded. H
+keeps its unseen span. Each later addition was dumped the same way, behind memo D's idle gate,
+with no departure. Those launches recorded a by-name foreign census of 13–15 processes, and 33
+for the s = 32 rows; the census was recorded and not enforced, because these dumps capture no
+pixel.
+
+`sitting/` derives the sitting from W39's driver, recorder, pass spec and orchestrator. The
+dumps come first; then the 2x passes at mode 68 and the 1x passes at mode 69, seven runs each.
+Every X6 and W34 X4 gate is read before every launch. Each capture is admitted only with its
+pose, frame, offset and `hidIdleSeconds ≥ 60`. A refusal quarantines the run and stops the pass,
+with no retry. `w42_archive.py` packs, fetches and replays the archive of record, with the logs
+and dumps inside it and not in git. There are 29 stub tests. `runtime-base-sample.json` declares
+clause 8's 40 WebGPU cells.
+
+`exposure/runner.py` imports W41's X26 runner unchanged and derives what W41 hard-binds. One
+receipt binds the law through native T, candidate 1 and candidate 2. The verdict follows clause
+11, not W41's all-must-pass. The runner scores 441 of the 465 cell-passes (the 24 bridge
+cell-passes excluded), 40 of them H. The proof on a synthetic H in temporary repositories reads
+26 red against a stub and 27 green, rerun at each bed pin. `production-pin.json` is all null: G1
+pins the archive inventory, and `declare.py hash` pins the declaration and its closure.
+
+### 2. The bed's growth to 465 cell-passes and about 10.7 h
+
+| pin | glass cell-passes | captures | sitting | what was added, and why |
+| --- | ---: | ---: | ---: | --- |
+| `5ba68aeb` | 414 | 3,204 | 9.61 h | the charter's bed (88 / 91 / 86 / 89 per 2x pass, 15 per 1x pass) |
+| `07b45391` | 424 | 3,276 | 9.82 h | +10 s = 32 receded rows on rrect-sm (P1 pitch 8 and 16, the S 8 centre patch, the step at δ 0; P1 pitch 8 also at 1x). The gate's rehearsal failed M2 on light receded rrect-sm 2x across every declared rival, support, floor and k pair, and the bed held no structured receded cell below s = 44 |
+| `5d719b60` | 452 | 3,494 | 10.46 h | +28 from the instrument's separation proof. An S 8 at depth 34 on rrect-md in each scheme, because the active mask (25.6 pt) cuts the s/4 patch. Receded S 16 patches near rrect-md's corner (calibration) and the capsule's end (validation), to separate W-shape from K2 and W-tails. The dark 16 / 112 twins of C and D at spans ≥ 96 (10 per dark active pass, 12 per dark receded), because the 48 / 208 levels sit in dark T's compressed range |
+| `764217e1` | 465 | 3,585 | 10.73 h | +13 active guard rows (ruling 3), which keep the active identifications alive under the fallback mask. On the centred rrect-lg: B's P5 at pitch 16 and 64 and P3 at pitch 16, E's two hue pairs at pitch 16, and an S 8 at depth 60. Also the dark 16 / 112 twin of the d34 patch |
+
+The final sitting is 9.63 h of capture plus 1.06 h of dumps, from W39 G1's measured timings.
+The charter's model put it at about 8.7 h plus about 1.0 h. The no-glass references went from
+258 to 282, because C's and D's positions and polarities need more distinct backdrops than the
+charter's 214 assumed. U3's active half is recorded in `bed.json` as not captured (§4, §8).
+
+### 3. The instrument stream: the readers, proved to clause 2
+
+`instrument/tolerances.json` was committed with the engine in `4c7a96c3`, before any proof
+output existed. No bar in it was loosened afterwards. The two later re-declarations were each
+made before the proof they govern ran: proof 3's bars (ruling 1, `b223600a`) and the refraction
+test's statistic (§4). The superseded bars and their misses are kept beside the new ones.
+
+The engine is memo E's LT, with every rival and rejected null as a discrete choice of one model.
+It reproduces memo E's `lt.py` on memo C's cells within 0.025 code rms. Every family maps a
+constant backdrop to T(level) to 1e-13. `families.py` declares the counts (§9) and k at four
+nested levels: `k@global` (5 parameters in all), `k@scheme` (6), `k@endpoint` (8) and
+`k2@endpoint` (12).
+
+- **Proof 1, recovery on synthetic renders**, through memo C's T table as a known stand-in,
+  quantised ±0.5. Every family fitter passes in every endpoint at the quantisation floor, and
+  again at the narrow support on the final bed. A global-k truth recovers at every nesting
+  level. Memo E's per-endpoint k read with one k misses region statistics by 1.23 codes; with
+  one k per scheme, by 0.43. LT's survival resolution is k ±0.037–0.068 and λ ±0.029–0.044.
+- **Proof 2, separation.** At the narrow support on the final bed every active pair is
+  DISTINGUISHED, with two exceptions: R1 in light (0.54–0.57) and LT → LT+bleed-own in light
+  (1.28). Receded pairs are distinguished too: W-shape against K2 and W-tails (2.06–3.21), K2
+  against LT. Two receded readings stay MARGINAL: free-sn (1.17 at a 0.64-pt departure) and R1
+  in light (0.51). Family A's greys 160–255 decide R1 in light: a curved T separates it, and a
+  straight one makes the order non-identifiable by construction. Of the rejected nulls, the
+  mixture passes memo E's ≥ 2.60 bar (2.68–4.61). The unit nulls and R2 **miss the declared
+  pooled ≥ 4.65 bar** (texel 1.85–2.77, device px 1.26–2.98, R2 1.28–2.29). Each is refused on
+  its worst cells (9.8–12.7, 8.5–11.1 and 2.7–6.2). At 2x a point is two device px, so only the
+  1x pass referees the unit.
+- **Proof 3, vitrea's own captures, against memo B's float64 replica** (84 cells). The gated
+  step support call is identical on capture and replica on 20 / 20. S agrees within 0.022, but
+  three of its identifiability calls differ. The single-width impulse reader passes (1.8 %).
+  The per-cell λ, patch widths, one step σw, model, heavy, ESF, depth and hinge-gap readings
+  miss. The known-space control shows that an encoded reading of vitrea's linear body
+  manufactures λ from −0.50 to +1.54, so the knee is established by S and by every linear fit's
+  loss, never by λ.
+
+The capture floor, the 0.8-device-px pre-blur, stays a declared constant. Its descriptive check
+fits the box-decimation null to an LT truth. In the active pose that null misfits the fine
+pitches by 2.1 (light) and 3.1 (dark) codes pooled, and 6.0 / 8.9 codes on the odd-offset 1x
+capsule. Receded it reads only 0.41–0.43, so the receded pose cannot tell the two forms apart.
+The parameters declared non-identifiable before any fit are listed in the declaration's
+`nonIdentifiable`.
+
+### 4. The refraction-order revision
+
+The bed stream found that the active pose declares an inner refraction band 20 pt deep on
+rrect-md and rrect-lg and an outer reach of 19.2 pt. LT models neither, and the receded pose
+has none. The parent ruled that the instrument must model or exclude refraction there, and that
+the gate's active body swap keeps vitrea's own band. Ruling 3 as first given (`762b40a5`) made
+each reader add the support of the kernel it reads. That put every family fitter, since each
+reads W, at a 53.6-pt active mask, which leaves only rrect-ml and rrect-lg readable: 18 of
+about 70 active cells. Under that mask the active R1, the per-channel knee, free σn at s ≤ 96,
+the floor's form and W-shape's μ could not be identified.
+
+The parent then **revised ruling 3**. The primary hypothesis is that refraction acts AFTER the
+blur, which is vitrea's own order and the common implementation. Under it every active reader
+and fitter uses the narrow-support mask: 20 + 16.8t pt, from 20 on the capsule to 36.8 on
+rrect-lg. Refraction BEFORE the blur is a declared rival, tested on Apple's pixels. If that
+rival wins, the active fits fall back to the 53.6-pt mask; the fallback's record is kept.
+
+The test was declared in `17da5c7d`. Its statistic was the median, over structured cells, of
+Δc = rms(NEAR) − rms(FAR), less the same median over the uniform cells. Its proof showed **no
+power**: D ≤ 0.022 even with a 16-pt lens before the blur. Contamination before the blur lives
+in the few cells whose band carries structure the deeper body lacks, and the median never sees
+them. It was re-declared on the tail in `cb490956`, before the new form's proof ran: D_tail is
+the mean of the 3 largest Δc over structured cells, less the same over uniform cells. BEFORE is
+above 0.30, AFTER below 0.15, and an undecided or BEFORE call goes to the parent before the
+fallback is taken.
+
+The proof on the final bed (`04163eec`, `a489cc02`) reads D_tail +0.05 (AFTER) for refraction
+after the blur, in both active endpoints. For refraction before the blur it reads AFTER up to a
+4-pt lens, 0.13–0.17 at 8 pt and BEFORE at 16 pt (1.15–1.35), carried by B's pitch-64 cells. The
+test therefore resolves a lens between 8 and 16 pt. Below that resolution the fit's bias is k
+−0.017 / −0.018 and λ −0.009 at 8 pt, inside LT's survival resolution. The bed's guard rows
+(§2) keep R1, the per-channel knee and a graded pair answerable under the fallback mask.
+
+### 5. The defect found and fixed in the blur store
+
+Proof 2 held per-cell blur caches and canvas-sized region masks. Over a 50–90-cell fit that
+reached 12–20 GB per worker, and the machine's memory-pressure reaper stopped proof 2 once. The
+engine now shares one least-recently-used store bounded at 0.8 GB (`forward.BLUR_CACHE_BYTES`),
+and populations are flat indices. The resume ran with `W42_POOL=2`.
+
+**The store's first key was `id(cell)`.** A new cell that reused a freed cell's id could read
+that cell's blurs whenever window, width and mode matched exactly; a trial reproduced the id
+reuse. Since `04163eec` the store is keyed by a token that is never reused. No output from the
+window when the defect was live shows it: a stale blur of another backdrop leaves tens of codes
+on a cell, and the worst cell of every such row is under 3. Two further engine defects were
+fixed. Trust selection by the observed code truncated the dark knee side and pushed λ to its
+bound. And a k bound of 4.0 voided three device-px null rows, whose equivalent k is 4.1–4.2; the
+bound was widened to 9 for that null only.
+
+### 6. The gate stream: the referees, the stops, the owner test and the sheets
+
+- **Referees in candidate-admission mode.** W41 G2's cuts were copied verbatim (`5b3712f7`),
+  then given `--candidate PATH[=SHA12]` and repeatable `--stage` (`6f1c895c`). The red / green
+  record has 75 ok and 0 FAIL: the base is byte-identical to W41's port, and the candidate
+  equals the control field for field. Eight refusals are tested in each of six row readers.
+  Base mode is deliberately tightened: a document outside `profiles/` is admitted only by
+  declaration.
+- **M2's named-miss derivation** (`0ce4294e`; Decision Log 5a) is the one protected-byte
+  change. `structureVerdict` and `chromaStructureNamedMisses()` sit beside
+  `chromaStructureMisses()`, and `MissedRow.native` carries Apple's reading, pinned by the owner
+  case. The 2 % is unmoved. Seven seeded scenarios in scratch copies of the test behaved as the
+  ruling reads.
+- **The owner test** (`run-owner.py`, `ed1c4e7a`) runs `adopted-thresholds.test.ts` unmodified
+  in a disposable worktree, once on the base's union and once on the candidate's. Kept rows are
+  relocated to side copies of their documents; without that, 11 new failures appear on an
+  identity candidate. The holdout is carried. M2's named misses are inserted as the seal would
+  record them. Ten proof runs behaved as declared, and the base read 108 / 108.
+- **Stop H and Stop P** (`cee3e4b5`) are declared in `stops-declaration.json`. Stop H reads 16
+  impulse cells at a resolution of 1 code. Stop P reads 26 untinted photo cells, with its
+  resolution frozen per cell (0.12–0.28 ×1e-3 on F, 0.032–0.074 ×1e-3 on M). The proof passes
+  30 / 30, and the native-against-shipped baseline is recorded.
+- **The eye sheets by stratum** (`ffd9567f`, `c01b35b1`): 204 cells across uniform, binary,
+  text, impulse, photo and gradient. Text and gradient are looks, not referees. The uniform
+  stratum has no grey-middle sheet, because the mid-* backdrops are probe; admitting them is the
+  parent's call, and it has not been taken.
+
+### 7. The three rehearsal rounds (clause 3)
+
+The rehearsal applied memo A's body swap to the canonical shipped captures, offline, and ran
+every referee above in all four endpoints. The swap adds only the difference of two bodies, so
+rim, highlight, shadows and the tint layer are kept. Before any candidate was read, three
+controls were checked. The lensed replica meets the shipped captures at 0.24–0.88 codes rms,
+except light-active checker-8 rrect-lg at 1.6–2.1. W41
+E3's swap reproduces W41 G2's real stage capture of E3 within 0.0015 of interior linear
+luminance. And 360 / 360 identity rows equal the canonical rows. Candidates' T stood in for
+family A: memo C's native table, with E3's F extended by memo C's light-inactive readings.
+
+**Round 1** (`18909444`; the active band held byte-identical to shipped) found these failures
+by construction:
+- candidate 1 in light active, L1 growth at the landed T's level;
+- the tinted photo rrect-md inactive L1 (+0.009 / +0.010);
+- dark chroma: M1 in dark receded at 0.32–0.46, and Stop P;
+- light Stop P, from the chroma argument;
+- M2 on light receded rrect-sm 2x;
+- E2 on its own reading;
+- Decision Log 3's shipped-solve fallback: 17 L1 growth failures, 5 M2, Stop H 6 / 6 and Stop
+  P 8 / 8;
+- the body swap cannot reach active spans ≤ 44, C1 or X1.
+
+The inactive checkerboard cells that were W41's lesson passed (L1 error ≤ 0.0066).
+
+**Round 2** (`bd4b2e86`) tested five items:
+- (a) the per-channel knee, which fixed light receded Stop P (6 / 8 → 2 / 8) and not the dark
+  chroma;
+- (b) E2 read absolutely: all 7,728 bins lie inside the held band, under vitrea's lens, so a
+  held band reads nothing;
+- (c) the tinted cells, decomposed from vitrea's code. The light receded tint is a grey layer
+  0.0288 + 0.7312u that already overshoots Apple by 0.033, so the body's correction passes
+  through into the tinted cell;
+- (d) M2 at s = 32, which fails in all 36 configurations tried (−2.9 % at best), leading to the
+  s = 32 rows;
+- (e) the landed T's black end, which is not monotone per pixel in dark receded but drives none
+  of the failures.
+
+**Round 3** (`75f244ec`) crossed candidate × knee × chroma (none, the literal face saturation,
+W41 G1's E3-form g) × band (held, or blended by coverage × smoothstep(0, 20 pt, depth)). The
+face saturation proved the right idea at the wrong amount in every endpoint: too strong in dark
+(1.30 / 1.36 against Apple's 1.07–1.21) and too weak in light. The parent rejected it. Only g
+passes M1 in all four endpoints under candidate 2. The blend does change spans ≤ 44: the
+capsule's mean weight is 0.48.
+
+What still fails by construction, round by round:
+
+| failure | round 1 | round 2 | round 3 (best, r3-2pgb) | whose reach |
+| --- | --- | --- | --- | --- |
+| candidate 1, light active L1 (landed T's level) | 10 growth | 10 | 10–26 | ruled: candidate 1 does not land there |
+| dark chroma (M1, Stop P) | fails | fails, both knees | closed by g | pending (i) |
+| light active Stop P | 6 / 10 | 6 / 10 | 1 / 10, 0.000006 over on 0.00014 [P1] | marginal |
+| light active L1 on rrect-ml (candidate 2) | 3 | 3 | 1, +0.0105 [U7] | the bed's U7 rows |
+| light receded tinted photo rrect-md L1 | +0.009 / +0.010 | +0.011 / +0.012 | +0.0108 / +0.0100 [LT] | pending (ii); vitrea's tint layer |
+| dark receded tinted capsule L1 | — | — | +0.0138 / +0.0133 [DT] | pending (ii); vitrea's tint layer |
+| light receded M2 at s = 32 | fails | fails, 36 configurations | fails [LT] | the s = 32 bed rows |
+| light receded Stop P | 6 / 8 | 2 / 8 | 2 / 8 [LT] | — |
+| E2, adopted reading (its deep-median reference moves) | fails | — | fails every active combination | pending (iii) |
+| E2, absolute | — | held: 0 of 7,728 bins change, reads nothing | blended: 70 of 7,728 worse, worst 3.27 | pending (iii) |
+
+In r3-2pgb, dark active passes every referee but E2. Dark receded fails only the tinted capsule.
+Light active fails only [U7] and the marginal [P1]. Light receded fails [LT] in every
+combination. The owner test on r3-2pgb reads 103 / 108 against the base's 108 / 108. Its five
+failures are the rows above, plus a closure: the light receded tinted impulse capsule goes
+0.066 → 0.0552 at 1x and below 0.055 at 2x, and the committed named-miss list reads that as a
+change.
+
+### 8. The rulings made along the way
+
+The parent's, with the reasons the running record gives; none is the user's.
+
+- **On the bed.**
+  - The 1x P1 at pitch 16 on rrect-lg was replaced by pitch 32: ACCEPTED, because the original
+    is a canonical holdout twin, and capturing it would pre-read that scene.
+  - rrect-lg's centre S 8 declared as the 64-pt grid: ACCEPTED.
+  - The refraction confound: to the instrument (§4) and to the gate (the active swap keeps
+    vitrea's band, and band-dominated referees are named as such).
+  - Both runner readings ACCEPTED: candidate 1 must be present, and a claimed endpoint needs at
+    least one measured H cell. So are the 258 references and s = 112, with H unseen.
+  - For G1: Chrome must be quit (the foreign-process gate), and fold-run-1 materialisation is
+    handled as W39 handled it.
+- **On rehearsal round 1.**
+  - **L1 reads as written.** Decision Log 5b's named miss governs the new bed's
+    rendered-against-Apple bar, not canonical L1. Candidate 1 therefore cannot land in light
+    active, and candidate 2 is the route there.
+  - **Decision Log 3's light-receded fallback is STRUCK** (17 L1 growth failures and the rest,
+    round 1). Light receded lands with the extended F or candidate 2's T, or stays at identity.
+- **On rehearsal round 2.** The s = 32 receded rows are added to the bed.
+- **On rehearsal round 3.** The face-matrix saturation: right idea, wrong amounts, rejected. The
+  best combination is r3-2pgb.
+- **On the instrument.**
+  - Ruling 1: proof 3's bars re-declared against the float64 replica. The old bars compared a
+    Gaussian reader with vitrea's non-Gaussian kernels.
+  - Ruling 2: the ESF, impulse, depth, heavy, model and hinge-gap readers are descriptive.
+  - Ruling 3: as revised in §4.
+  - Ruling 4: U3's active half is non-identifiable on this bed. The active margin keeps R_fp's
+    edge at least 45 pt from every readable pixel, and the outside steps sit inside the outer
+    reach. The tie-break keeps the box.
+  - The resume: `W42_POOL=2`; U1's cross pairs, R2 and the box-floor null; void device-px rows.
+  - **Gating.** The family fitters and the step support call are the gated instrument. S,
+    per-cell λ, step σw and the patch widths become descriptive, with their replica misses on
+    record.
+  - **The capture floor** stays a declared constant.
+
+**Pending the user**, each written into the declaration with the options as the parent put
+them:
+- (i) whether candidate 2 carries W41 G1's E3-form g in all four endpoints, re-fitted and checked
+  on the new bed's colour cells;
+- (ii) how L1 reads on the two light tinted photo rrect-md inactive cells and the dark tinted
+  capsule inactive cell. The parent recommends reading them as named misses and deferring the
+  tint layer;
+- (iii) the active band, blended by coverage × smoothstep(0, 20 pt, depth), and how E2 reads.
+  The options are per cell in absolute codes with the worse bins listed as named misses, per
+  bin, or the band held. The correction that the blend changes spans ≤ 44 is owed to the user
+  with it.
+
+### 9. Integration and the declaration
+
+The instrument's `bed.py` reads `../bed/` once its pins match. They do: `bed.json` is
+`9047c8da…`, and the scenes file is `e2c532d9…`. The instrument's only cross-stream read
+reproduces on the merged tree. The eight bed-selection counts of the floor check (9 / 47 / 9 /
+58 / 8 / 56 / 8 / 68 cells) re-derive exactly. Its first three rows reproduce to the printed
+digit before the run was stopped; the machine was loaded, at a load average of about 11 on 10
+cores.
+
+**One integration seam was fixed** (`480b373d`). The rehearsal's `ref.sh` changed directory
+into the gate stream's own worktree; it now runs the referees beside it.
+
+The calibration suite ran with 773 passed, 1 skipped and 3 timed out under that load:
+`matrix-write-guard` at 5 s, `w37-edge-identification` at 180 s and `w41-instrument` at 90 s.
+None of those files or their subjects changed in G0. All three pass on rerun. Lint (ESLint and
+every tsc configuration) passes. The freeze reads 1,818.
+
+The declaration (`d9a57702`) is `declaration.json` with `declaration.md` as its readable twin.
+It has 30 items, each declared once and pointing at the stream file that defines it, and 74
+pinned sources, the charter among them at `0736ed64`. Candidate 2 is counted by its ordinates:
+27 / 27 / 30 / 30, derived from `bed.json`. Candidate 1's light-receded F keeps E3's seven
+ordinates and gains seven family-A ordinates at 160–255, as its own gate-group.
+`declare.py check` re-derives every count and list from the stream files and passes. `hash`
+refuses while any `pendingUser` ruling is null. `declare-proof.txt` records 12 seeded mutations,
+each failing `check`, and the hash path exercised on synthetically filled rulings, with its
+outputs removed afterwards.
+
+### 10. Disclosures
+
+- **Declared at integration, for the parent's review:**
+  - the superseded shipped leaves and their reading positions (the charter asks G0 for them,
+    and no stream owned them), taken from the charter's list and the rehearsal's `landed_T`;
+  - a knee-form tie carried as per-channel;
+  - the F extension's ordinates read on the capsule, E3's own span.
+- **The knee is named two ways.** The charter lists the per-channel knee as the rival of a knee
+  on luma. The instrument's LT carries per-channel and names the luma form its rival. The gate's
+  on-luma variant takes its chroma from W. The declaration names all three as one discrete
+  choice.
+- **Stale prose left unedited**, because each file is pinned or is another stream's record:
+  - `bed.json` still reads "flagged for the parent's ruling" on the two substitutions the
+    parent accepted; its hash is the split;
+  - `bed/README.md`'s sitting paragraph says 414 dump scenes, where the plan and the sitting
+    README say 465;
+  - a comment in `instrument/forward.py` still describes the first form of ruling 3;
+  - `gate/README.txt`'s index stops at round 2.
+- **Descriptive readers and nulls.** The descriptive readers miss their bars on vitrea's
+  captures, as §3 records. The unit nulls and R2 miss the declared pooled bar and are refused
+  on their worst cells.
+- **Fork B** of the instrument set its proof-3 identifiability flags after seeing the
+  superseded results, though before the replica run; the same call is made on both images.
+- **The rehearsal is a model**, not a render: exact to rounding in the body, up to 3.5 codes rms
+  in the outermost half CSS px. C1 and X1 are unmoved by it. Family A's ordinates are memo C's
+  stand-ins, and the chroma g is W41 G1's committed fit on W39 uniform cells; nothing new was
+  fitted to a native pixel.
+- **The owner test reads a closing named miss as a change.** The tinted impulse capsule closing
+  is therefore a failure the seal must record rather than a regression.
+- **The remaining open items:** U3's active half is recorded, not captured. The eye sheets have
+  no grey-middle uniform stratum.

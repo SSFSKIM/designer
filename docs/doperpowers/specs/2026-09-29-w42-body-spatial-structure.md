@@ -1144,6 +1144,37 @@ X5 by their own hand, and restores both after the sitting.
 
 ## Revision Notes
 
+- 2026-09-30 (G0 integration, ledger §5.194; the charter's text is unchanged). The bed,
+  instrument and gate streams were merged into `w42-g0-declaration`, and the declaration was
+  assembled in `results/2026-09-29-w42-g0-declaration/declaration.json`, with `declaration.md`
+  as its readable twin. It holds 30 items and pins 74 source files, this charter among them at
+  `0736ed64`. It is **not hashed**: `declare.py hash` refuses while three items wait on the user.
+  - **PENDING (user) (i):** whether candidate 2 carries W41 G1's E3-form g in all four
+    endpoints, re-fitted and checked on the new bed's colour cells.
+  - **PENDING (user) (ii):** the reading of L1 on the two light tinted photo rrect-md inactive
+    cells and the dark tinted capsule inactive cell.
+  - **PENDING (user) (iii):** blending the active band by coverage × smoothstep(0, 20 pt,
+    depth), and how E2 reads.
+  - **The bed's growth.** It grew from the charter's 414 glass cell-passes to 465, and the
+    sitting from about 10.1 h to about 10.73 h (9.63 h of capture, 1.06 h of dumps). Three sets
+    were added: the s = 32 receded rows, the parent's ruling from the rehearsal; the
+    separation-proof cells; and ruling 3's active guard rows. H keeps the unseen s = 112, which
+    the side bundle accepts with no rebuild.
+  - **The parent's rulings in G0** (§5.194 §8):
+    - the 1x rrect-lg substitution and the rrect-lg centre grid, both accepted;
+    - L1 read as written, so candidate 1 does not land in light active;
+    - Decision Log 3's shipped-solve fallback for light receded, as clause 10 and Decision Log 3
+      state it, STRUCK: light receded lands with the extended F or candidate 2's T, or stays at
+      identity;
+    - the revised ruling 3: refraction after the blur is primary, refraction before the blur is
+      a declared rival with a tail-statistic test, and the fallback mask is 53.6 pt;
+    - the family fitters and the step support call gated, every other reader descriptive;
+    - U3's active half non-identifiable on this bed;
+    - the literal face-matrix saturation rejected as chroma.
+  - **Candidate 2's T is counted by its ordinates** at 27 / 27 / 30 / 30 (light active / light
+    receded / dark active / dark receded).
+  - **Three declarations made at integration** go to the parent's review: the superseded shipped
+    leaves, a knee-form tie carried as per-channel, and the F extension read on the capsule.
 - 2026-09-29 (v2.1, drafted for the parent). Folds:
   - **memo E** (`w42-grounding-refit.txt`), the literal tree re-fitted on memo C's cells: all
     thirteen "pending memo E" marks resolved (Design, "Memo E's answers").
