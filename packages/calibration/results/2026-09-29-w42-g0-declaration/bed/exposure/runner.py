@@ -11,6 +11,16 @@ roots and an all-must-pass verdict — is replaced here by the minimum W42 deriv
 README.md lists every behavioural difference.
 
 Importing this module reads code only: never the receipt, never an archive payload.
+
+One exposure across checkouts (the bed review's b9). W39's receipt spends H in ONE working
+tree: its log is an uncommitted file, so another worktree, or a commit without the log, could
+expose H again, and this project works in parallel worktrees. `claim_exposure` therefore runs
+before `begin`: it fetches the remote, refuses if the receipt log path has history on any ref
+(local branches, tags and the fetched remote-tracking refs) or the marker tag exists on the
+remote or locally, and then pushes an annotated marker tag naming the receipt's configuration.
+A remote refuses to create a tag that already exists, so of two checkouts racing to expose,
+exactly one push lands; the other refuses before its `begin`. A marker pushed and followed by
+a failure still spends H: the marker, like the log, is never deleted.
 """
 from copy import deepcopy
 import hashlib
@@ -18,6 +28,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+import subprocess
 
 HERE = Path(__file__).resolve().parent
 _boundary_spec = importlib.util.spec_from_file_location('w42_wave_boundary', HERE.parent / 'wave.py')
@@ -39,6 +50,8 @@ ROLES = {'landed-T': 'candidate 1: the structure composed with the LANDED T',
 PIN_FIELDS = ('inventoryPath', 'inventorySha256', 'declarationPath', 'declarationSha256',
               'closurePath', 'closureSha256')
 SCHEMA = 'w42-renderer-exposure-1'
+MARKER_TAG = 'w42-h-exposure'        # pushed to origin at the one production exposure (b9)
+MARKER_REMOTE = 'origin'
 PROBE_REASON = 'probe: a family F bridge, read only to tie the bar across sittings (not under clause 6 or 11)'
 
 # Unchanged W41 helpers.
@@ -387,7 +400,49 @@ def scratch_path(path):
     return path
 
 
-def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
+def claim_exposure(repo, log, tag, remote, configuration):
+    """b9: refuse unless H was never exposed from any checkout, then claim the exposure by
+    pushing an annotated marker tag; return the marker's record. Runs before `begin`.
+
+    `log` is the receipt log's path inside `repo` (its history is looked for on every ref) or
+    None when the log lives outside the repository (synthetic runs). Every git failure,
+    including an unreachable remote, refuses: one exposure is not provable offline."""
+    repo = Path(repo).resolve()
+
+    def run(*args):
+        return subprocess.run(['git', '-C', str(repo), *args], capture_output=True, text=True)
+
+    fetched = run('fetch', '--quiet', '--tags', '--prune', remote)
+    if fetched.returncode:
+        raise PermissionError(f'cannot read {remote}: the one exposure is not provable ({fetched.stderr.strip()})')
+    if log is not None:
+        rel = Path(log).resolve().relative_to(repo).as_posix()
+        history = run('log', '--all', '--format=%H %D', '--', rel)
+        if history.returncode or history.stdout.strip():
+            raise PermissionError(f'the receipt log {rel} has history on a ref of this repository or of {remote}: '
+                                  f'H was exposed from another checkout ({history.stdout.split()[:1]})')
+    listed = run('ls-remote', '--tags', remote, f'refs/tags/{tag}')
+    if listed.returncode or listed.stdout.strip():
+        raise PermissionError(f'the exposure marker {tag} exists on {remote} (or {remote} cannot be listed): '
+                              'H is spent')
+    if run('rev-parse', '-q', '--verify', f'refs/tags/{tag}').returncode == 0:
+        raise PermissionError(f'the exposure marker {tag} exists in this repository: H is spent')
+    digest = hashlib.sha256(stable(configuration).encode()).hexdigest()
+    message = (f'W42 H exposure (charter clause 11; the bed review\'s b9)\n\nreceipt configuration SHA-256 {digest}\n'
+               f'manifest SHA-256 {configuration.get("manifestSha256")}\nmode {configuration.get("mode")}\n')
+    made = run('tag', '-a', tag, '-m', message, 'HEAD')
+    if made.returncode:
+        raise PermissionError(f'cannot make the exposure marker {tag}: {made.stderr.strip()}')
+    pushed = run('push', '--atomic', '--porcelain', remote, f'refs/tags/{tag}')
+    if pushed.returncode:
+        run('tag', '-d', tag)
+        raise PermissionError(f'the exposure marker {tag} did not land on {remote}; another checkout exposed H first '
+                              f'or {remote} refused ({pushed.stderr.strip() or pushed.stdout.strip()})')
+    obj = run('rev-parse', f'refs/tags/{tag}').stdout.strip()
+    return dict(tag=tag, remote=remote, object=obj, configurationSha256=digest)
+
+
+def _run(root, wave, manifest_path, log, output, capture, project, score, mode, guard=None):
     root = Path(root).resolve()
     manifest = verify(root, wave, manifest_path, mode)
     manifest_sha = sha(manifest_path)
@@ -413,11 +468,14 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
         if sha(manifest_path) != manifest_sha or verify(root, wave, manifest_path, mode) != manifest:
             raise ValueError('frozen manifest mutated during exposure')
 
+    # b9: no checkout exposed H before, and this one claims it on the remote, before begin.
+    marker = claim_exposure(guard['repo'], guard['log'], guard['tag'], guard['remote'], configuration) \
+        if guard is not None else None
     # Nothing is captured, scored or asserted before begin. Any failure after it spends H.
     with boundary.Receipt(log, configuration).expose() as authorization:
         output.mkdir(parents=True, exist_ok=False)
         result = dict(mode=mode, numericalCells=len(numerical), renderedCells=len(rendered),
-                      candidates=len(candidates), manifestSha256=manifest_sha, captures={})
+                      candidates=len(candidates), manifestSha256=manifest_sha, captures={}, marker=marker)
         try:
             authorization.check(wave)
             # The launcher's H plan must be exactly the frozen rendered scope, less any H
@@ -479,14 +537,18 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
     return result
 
 
-def run_synthetic(root, wave, manifest_path, log, output, capture, project, score):
-    """G0 proof only: a toy declaration outside the repository, injected backends, a scratch log."""
+def run_synthetic(root, wave, manifest_path, log, output, capture, project, score, guard=None):
+    """G0 proof only: a toy declaration outside the repository, injected backends, a scratch log.
+    `guard` ({repo, log, tag, remote}) runs the cross-checkout claim with a throwaway tag; the
+    production marker's name is refused here."""
     log = scratch_path(log)
     if log.exists() and log.stat().st_size:
         raise PermissionError('scratch exposure already spent')
     if wave.scenes_sha == sha(boundary.SCENES):
         raise PermissionError('the synthetic path never exposes the production W42 declaration')
-    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+    if guard is not None and guard['tag'] == MARKER_TAG:
+        raise PermissionError('a synthetic run never pushes the production exposure marker')
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic', guard)
 
 
 def run_production(manifest_path, output):
@@ -509,4 +571,5 @@ def run_production(manifest_path, output):
 
     return _run(ROOT, wave, manifest_path, PRODUCTION_LOG, output, capture_web,
                 lambda cell, path: module_ready().project(cell, path),
-                lambda request: module_ready().score(request), 'production')
+                lambda request: module_ready().score(request), 'production',
+                dict(repo=ROOT, log=PRODUCTION_LOG, tag=MARKER_TAG, remote=MARKER_REMOTE))

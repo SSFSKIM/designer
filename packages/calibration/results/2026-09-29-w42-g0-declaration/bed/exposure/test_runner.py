@@ -574,6 +574,114 @@ class Freeze(Exposure):
         self.assertEqual(len(seen), 2)   # one launch per profile
 
 
+class CrossCheckout(Exposure):
+    """b9: one exposure across checkouts. The toy repository gets a bare local `origin`; the
+    guard's `log` stands for the receipt log's path inside the repository (the synthetic run's
+    own receipt stays in scratch), and the marker is a throwaway tag."""
+
+    TAG = 'w42-h-exposure-test'
+
+    def setUp(self):
+        super().setUp()
+        base = Path(self.tmp.name).resolve()
+        self.origin = base / 'origin.git'
+        git(base, 'init', '-q', '--bare', str(self.origin))
+        git(self.root, 'remote', 'add', 'origin', str(self.origin))
+        git(self.root, 'push', '-q', 'origin', 'HEAD:refs/heads/main')
+        self.guard = dict(repo=self.root, log=self.root / 'decl/wave-identification-receipt.jsonl', tag=self.TAG,
+                          remote='origin')
+
+    def remote_tag(self):
+        return git(self.root, 'ls-remote', '--tags', 'origin', f'refs/tags/{self.TAG}')
+
+    def second_checkout(self, name):
+        clone = Path(self.tmp.name).resolve() / name
+        git(Path(self.tmp.name), 'clone', '-q', '-b', 'main', str(self.origin), str(clone))
+        git(clone, 'config', 'user.email', 'test@example.invalid')
+        git(clone, 'config', 'user.name', 'Synthetic test')
+        return clone
+
+    def expose(self, guard, log=None, output=None):
+        return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json', log or self.log,
+                                    output or self.output, self.capture, self.project, self.score, guard=guard)
+
+    def test_the_first_exposure_pushes_its_marker_before_begin(self):
+        seen = []
+
+        def capture(request):
+            seen.append(self.remote_tag())      # the marker is on the remote by the time H is posed
+            return self.capture(request)
+        result = runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json', self.log, self.output,
+                                      capture, self.project, self.score, guard=self.guard)
+        self.assertEqual(result['status'], 'complete')
+        self.assertTrue(all(self.TAG in line for line in seen) and seen)
+        self.assertEqual(result['marker']['tag'], self.TAG)
+        config = json.loads(self.log.read_text().splitlines()[0])['configurationSha256']
+        self.assertEqual(result['marker']['configurationSha256'], config)
+        self.assertIn(config, git(self.root, 'tag', '-l', '--format=%(contents)', self.TAG))
+
+    def test_a_second_checkout_cannot_expose_again(self):
+        self.expose(self.guard)
+        clone = self.second_checkout('second')
+        base = Path(self.tmp.name).resolve()
+        log2, out2 = base / 'second-receipt.jsonl', base / 'capture-second'
+        with self.assertRaisesRegex(PermissionError, 'exists on origin'):
+            self.expose(dict(self.guard, repo=clone, log=clone / 'decl/wave-identification-receipt.jsonl'),
+                        log=log2, output=out2)
+        self.assertFalse(log2.exists())          # refused before begin: nothing appended, nothing posed
+        self.assertFalse(out2.exists())
+
+    def test_receipt_history_on_any_ref_refuses(self):
+        git(self.root, 'checkout', '-q', '-b', 'side')
+        self.put('decl/wave-identification-receipt.jsonl', '{"event": "begin"}\n')
+        git(self.root, 'add', 'decl/wave-identification-receipt.jsonl')
+        git(self.root, 'commit', '-qm', 'a receipt committed on a side branch')
+        git(self.root, 'checkout', '-q', '-')
+        (self.root / 'decl/wave-identification-receipt.jsonl').unlink(missing_ok=True)
+        with self.assertRaisesRegex(PermissionError, 'has history'):
+            self.expose(self.guard)
+        self.assertFalse(self.log.exists())
+        self.assertEqual(self.remote_tag(), '')
+
+    def test_receipt_history_on_origin_only_refuses(self):
+        clone = self.second_checkout('g2')
+        (clone / 'decl/wave-identification-receipt.jsonl').write_text('{"event": "complete"}\n')
+        git(clone, 'add', 'decl/wave-identification-receipt.jsonl')
+        git(clone, 'commit', '-qm', 'the receipt, committed in another checkout')
+        git(clone, 'push', '-q', 'origin', 'HEAD:refs/heads/g2')
+        with self.assertRaisesRegex(PermissionError, 'has history'):
+            self.expose(self.guard)
+        self.assertFalse(self.log.exists())
+
+    def test_a_lost_race_refuses_and_leaves_no_local_marker(self):
+        rival = self.second_checkout('rival')
+        git(rival, 'tag', '-a', self.TAG, '-m', 'the rival exposure')
+        git(rival, 'push', '-q', 'origin', f'refs/tags/{self.TAG}')
+        real = subprocess.run
+
+        def blind(args, **kw):   # the race window: fetched and listed before the rival's tag landed
+            if 'fetch' in args or 'ls-remote' in args:
+                return subprocess.CompletedProcess(args, 0, '', '')
+            return real(args, **kw)
+        with patch.object(runner.subprocess, 'run', side_effect=blind), \
+                self.assertRaisesRegex(PermissionError, 'did not land'):
+            self.expose(dict(self.guard, log=None))
+        self.assertEqual(git(self.root, 'tag', '-l', self.TAG), '')           # our marker was taken back
+        self.assertIn(self.TAG, self.remote_tag())                              # the rival's stands
+        self.assertFalse(self.log.exists())
+
+    def test_an_unreachable_remote_refuses(self):
+        git(self.root, 'remote', 'set-url', 'origin', str(Path(self.tmp.name) / 'no-such-origin.git'))
+        with self.assertRaisesRegex(PermissionError, 'cannot read origin'):
+            self.expose(self.guard)
+        self.assertFalse(self.log.exists())
+
+    def test_a_synthetic_run_never_pushes_the_production_marker(self):
+        with self.assertRaisesRegex(PermissionError, 'production exposure marker'):
+            self.expose(dict(self.guard, tag=runner.MARKER_TAG))
+        self.assertEqual(git(self.root, 'ls-remote', '--tags', 'origin'), '')
+
+
 class RealDeclarationScope(unittest.TestCase):
     """Metadata only: the real W42 declaration's exposure scope (no inventory exists yet)."""
 
