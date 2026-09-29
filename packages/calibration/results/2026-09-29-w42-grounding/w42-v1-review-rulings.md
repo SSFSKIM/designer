@@ -63,3 +63,35 @@ Other minor: ACCEPT all — declared tie-break by resolution then cost; family E
    face-matrix-vs-knee order as a declared rival.
 Bed cost: +10-15 cells (~45-70 min at 7 runs), offset by dropping B' pitch 8 receded and D's
    inside δ12; the net sitting length is stated to the user at the "tell me first" moment.
+
+## Addendum (v2 hand-back, 2026-09-29): the review's own text for findings 9 and 15-17, and three calls
+
+Finding 9, the review's four sub-points (arithmetic on pointer numbers, before memo D):
+ (a) Pending point 1 resolves "graded"; the knot at 64 and the saturation at 160 each have at most
+     one calibration cell -> add B' P1 rows on rrect-64 and rrect-lg.
+ (b) Memo C's receded joint fits shared one σn across capsule (o .4), md (.533), lg (.8), which may
+     feed U1's λ drift -> re-fit offline with span-graded narrow term and w = 0.5 (memo E) before
+     declaring the receded composite-order rival.
+ (c) At equal opacity receded reads wider than active (active 128, o .533: σn 4.0; receded 96,
+     o .533: 5.0-5.8; at 160 both .8: 4.5 vs 6-9) -> declare the narrow term as a function of
+     opacity AND pose, not a shared f(opacity).
+ (d) Declare the continuation above 160 as the clamp.
+Finding 15: dark active sets sizeHeavyTapSigma 0 at both scales (dark document :133-134) and dark
+ receded names 2x only (:83), so the dark heavy goes through scatterLod (material.ts:1222), also
+ device px -> name it among D1's superseded leaves.
+Finding 16: §5.55-§5.58 were read on the macOS 26.5 probe beds (rrect-md 2x σ 0.5 CSS); macOS 27
+ differs -> record an OS difference, not a reversal; it is also the argument for keeping 26.5 at
+ identity.
+Finding 17: (i) K1b is per-surface and breaks per-source pyramid sharing (renderer.ts:612-617):
+ weigh that cost in the tie-break; (ii) if PR #2 merges after G2 branches, clause 12's stop turns a
+ base-caused pixel change into "a new bed" -> prove identity at G2's frozen base, base drift through
+ clause 7 (NOTE: PR #2 is merged on rel-0.25.0 at b13bc625 and lands on main with 0.25.0 before
+ G2, so G2's base will include it); (iii) the F extension needs a new appended identity-table
+ gate-group; (iv) fold ruling 2 into clause 6 ("E3 alone"), X35 and Deferred.
+Parent's calls on the v2 hand-back:
+ - H's span test moves to an UNSEEN t: s = 112 (t = 0.5) in H, IF G0 shows the side bundle accepts
+   the component from the wave-local scenes file with no rebuild (memo D's dump already declared
+   scratch scenes that way); otherwise H keeps rrect-80 and the charter says it is seen.
+ - Family A adds dark bright greys on rrect-80 too (memo D's MaxLuma transition), beside 64 and ml.
+ - The sitting's net length (~9.6 h with the dump pass) is told to the user at the "tell me first"
+   moment.

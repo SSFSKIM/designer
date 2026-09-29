@@ -1,0 +1,303 @@
+W42 GROUNDING MEMO E: the literal layer tree, refit on memo C's cells
+2026-09-29. Offline and read-only on the repository, on memo C's scratch (imported, never written) and on
+~/vitrea-w42/grounding/dumps/. Scratch: ~/vitrea-w42/grounding/refit/ (python3.12, one process at a time).
+Units: codes = 8-bit encoded output, rms over memo C's own deep masks and trust masks; pt = CSS px; "dev" =
+device px. Labels as memo C: IDENTIFIED (reads the same way on independent cells or a control), EXPLORATORY (a
+fit that sizes an effect; never a coefficient proposal), UNIDENTIFIED. No holdout or recorded pixel opened.
+
+0. ANSWERS
+Q1 The tree. Checked against every dump file: 224 surfaces (2x, 1x, settle-16), 0 departures from the laws
+   below, and one inputKeys order throughout. Per surface: one CABackdropLayer captures the shape box plus
+   marginWidth, at layer scale 0.5 (0.25 on rrect-lg). One private filter, glassBackground, runs on that
+   capture, and a CASDFLayer masks its output to the shape. The highlight layer sits above. The tree has no
+   other blur anywhere: every SDF gaussianRadius is 0. So everything in the body happens inside that one
+   filter. The dump names that filter's inputs; it does not state their order or their meaning. Section 1
+   writes the algebra and marks which parts are literal. The brief's claims hold, with two precisions:
+   - 0.8·clamp((s-64)/96) is the active opacity at the CENTRE. It falls linearly to half that at 1 pt inside
+     the edge.
+   - "Half scale" means 2 device px per texel at both display scales, and 4 on rrect-lg.
+Q2 LT. The literal constants, one free sigma scale kappa per endpoint (sigma = kappa x radius), and native T.
+   LT does NOT close where memo C's per-cell fits closed.
+   - Coverage: memo C closes (<= 1.00 code) on 28 cells. LT reaches <= 1.00 on 10 of them and lands within
+     +0.25 code of memo C on 8.
+   - Cost: the median excess over memo C is +0.51 / +0.51 / +1.16 / +0.85 codes (light active / light
+     receded / dark active / dark receded). LT spends 2 parameters per endpoint where memo C spent 4 per cell.
+   Three readings come out IDENTIFIED on these cells:
+   (a) BlurOpacity scales the radius-5 blur's reach, sigma_n = kappa·5·o. It is NOT ruling 9's mixture
+       (1-o)·S + o·G·S:
+       - pooled rms 2.25 / 2.07 / 3.45 / 3.01 against the mixture's 3.61 / 4.95 / 5.31 / 6.81;
+       - out of sample, the mixture draws a crisp impulse core that native lacks. Light receded rrect-md
+         reads a peak of 3-5 codes; the mixture predicts 25-26 and the radius scale 3.8-3.9.
+   (b) The radii are in POINTS, not texels or device px. kappa reads 1.98-2.17 in all four endpoints, so
+       sigma_n ~ 10·o pt and sigma_w ~ 16-17 pt.
+   (c) The capture's resampling acts like memo C's Gaussian floor of 0.8 dev, applied BEFORE the knee. A
+       literal box decimation fails on fine pitches: 7.32 against 1.46 on 1x p4 capsule.
+   The literal face affine in place of native T misses on level, not on order:
+   - light: it costs +0.35 to +2.26 pooled over native T (the face's 1-3-code shoulder, no span term);
+   - dark: +10.7 to +15.1 (14-18 absolute), because the dark compression above the floor is undeclared;
+   - face-before-knee against face-after moves it by only 0.20-0.43 (light) and 0.07-2.52 (dark); with
+     native T, before and after tie (2.07 / 2.07 light receded, 3.07 / 3.01 dark receded).
+Q3 U1: NO, the drift does not go away.
+   With w = 0.5 fixed, the span-graded narrow term (either reading) and the constants of Q2, the per-cell
+   lambda still drifts with pitch, inside ONE shape. On the W34 capsule (spent archive), light receded,
+   lambda reads 0.68 [0.62,0.72] / 0.68 [0.64,0.72] at p64 (1x / 2x) against 0.92 [0.84,1.00] / 0.94
+   [0.90,1.00] at p16; the canonical capsule's p16, another sitting, reads 0.92 / 0.96. Dark reads 0.72 /
+   0.78 against 0.90 / 0.92.
+   Two declared rivals:
+   - R1: T or face applied to C and W before the fill composite. The existing cells cannot separate it on
+     light receded, even from a known truth (0.41 against 0.44). On Apple it gives dark receded 3.07 against
+     3.01.
+   - R2: the fill composites onto the sharp backdrop and the narrow blur comes last. Rejected: 7.01 / 9.65
+     against 2.07 / 3.01.
+   Neither rival moves the drift.
+   EXPLORATORY: within a cell, lambda is flat across hinge-gap bins (p64 0.68-0.72, p16 0.92-0.98 at gaps
+   0.10-0.45). The drift therefore lives in W's reference at 16-48 pt (its support or its tail), not in the
+   hinge's form or the composite order.
+Q4 The bed must still separate four things:
+   - W's far profile and support: families C and D on the receded capsule and rrect-md, plus B at pitch 64
+     beside pitch 16;
+   - R1 against after: B's P5 and P3 with A's bright greys, receded, both schemes;
+   - the active depth grading and the rrect-lg narrow: C at depth, B' on rrect-lg;
+   - kappa_n against kappa_w: C's S 8 against S 32.
+   The mixture reading, texel or device-px radii, R2 and the literal box decimation need no bed budget
+   (section 4).
+
+1. THE LITERAL LAYER TREE (Q1)
+| stage | literal in the dump | value (both display scales unless noted) |
+| capture | CABackdropLayer "@0"; filters = [glassBackground] only | one per surface; glass-over-glass has two |
+|  | bounds; marginWidth | shape box; active 16 pt (s <= 64) or 0.35 s; receded 1 dev |
+|  | scale; contentsScale | 0.5 (rrect-lg 0.25); 1 |
+| filter | BlurRadius; BlurOpacity0-3 at BlurDistance0-3 | 5; active 0.8t @ -s/2, 0.4t @ -1 pt, .5 @ 0, 1 @ 0; receded 0.4+0.4t @ 0 (flat) |
+|  | BlurFillBlurRadius; Lighten / Darken / Normal | 8; light .9/0/.5, dark 0/.9/.5, every surface |
+|  | Face black/white/sat/fill; MaxLuma; Clamp | memo D §3 (verified) |
+| mask | CASDFLayer "@0" CASDFOutputEffect, smoothness 8, gaussianRadius 0 | the shape |
+| above | SDFPortalLayer "@1"; CASDFLayer "@2" vibrantColorMatrix + KeyFillHighlight | opacity 1 active / 0 receded |
+inputKeys order, one per surface: Refraction, Blur (radius, opacity/distance 0-4), Face, Bleed, Shadow,
+RingShadow, KeyFillHighlight, BlurFill (radius, lighten, darken, normal), SDR, MaxHeadroom, Clamp,
+Aberration. That is a declaration order and only a pointer for R1.
+
+The algebra (L = literal; R = a reading this memo tests; t = clamp((s-64)/96, 0, 1); d = SDF depth in pt).
+The table gives each term with what it rests on.
+| term | algebra | basis |
+| capture | S = F * B restricted to R_fp | L: R_fp = box + margin; R: F is the 0.8-dev floor at f = 2 dev per texel (1.6 dev on rrect-lg) |
+| narrow | C = G(kappa·5·o(d)) * S | R, 'var'; ruling 9's 'mix' reads (1-o)·S + o·G(kappa·5) * S |
+| fill | W = G(kappa·8) * S | L on R_fp |
+| light | N = C + 0.9·max(0, W - C) | L |
+| dark | N = C - 0.9·max(0, C - W) | L |
+| normal | M = 0.5·N + 0.5·W | L |
+| output | y = T(M), or face(M) | R |
+- o(d): active interp(d, [-s/2, -1], [0.8t, 0.4t]); receded 0.4 + 0.4t (L).
+- Lighten-then-normal and normal-then-lighten are the same algebra when both use one W. The order question is
+  therefore where T or face sits (R1), or where the narrow blur sits (R2), not the order of the two fills.
+
+2. LT ON MEMO C'S CELLS (Q2)
+2a Fixed and free
+- Fixed from the dump: the radii 5 and 8, o(s, d, pose), lambda 0.9, w 0.5, the footprint R_fp and the texel
+  size f.
+- Fixed from memo C: native T per endpoint (its T table, span corrections and dark trust masks) and the
+  0.8-dev floor.
+- FREE: kappa, where sigma = kappa·radius·u. LT-1k shares one kappa between both radii; LT-2k gives kappa_n
+  and kappa_w each their own. Both are per endpoint.
+- Named discrete choices:
+  - u: pt, texel or dev;
+  - the reading: mix or var;
+  - the edge mode on R_fp: clamp-to-edge or normalised (differences 0.03-0.49 pooled);
+  - the floor realisation.
+- Cells:
+  - active, 54 per endpoint: capsule, sm, md, ml, lg x p4-p64, plus W34 circular p4/16/64, 1x and 2x;
+  - receded, 24-26 per endpoint: memo C's run_receded list plus rrect-sm p16.
+- Comparator: memo C's per-cell best free fit (sn, sw, lam, w over the canvas, shape and box kinds), with its
+  snpitch sn-only rms (*) where no full fit exists.
+2b Reader proof (control.py)
+- Method: render LT at a known configuration on 10-12 native geometries per endpoint, through native T, then
+  round with +-0.5 noise.
+- Recovery: kappa is recovered to 3 decimals at rms 0.40-0.42.
+- Separation:
+  - the wrong reading costs >= 2.60;
+  - the wrong unit >= 4.65;
+  - R2 against after 7.3-9.4.
+  - R1 against after: 0.03 on light receded (not separable) and 0.38 on dark receded (control_order.py).
+2c Pooled rms by configuration (equal weight per cell; 0.8-dev floor unless noted)
+| config | light act | light rcd | dark act | dark rcd |
+| var pt LT-1k (kappa) | 2.38 (1.983) | 2.11 (2.035) | 3.47 (2.094) | 3.03 (2.074) |
+| var texel LT-1k | 6.28 | 6.63 | 7.89 | 9.77 |
+| var dev LT-1k | 5.47 | 5.36 | 7.19 | 8.02 |
+| var pt LT-2k (kn / kw) | 2.25 (1.67/2.04) | 2.07 (2.14/1.98) | 3.45 (2.00/2.12) | 3.01 (2.12/2.04) |
+| mix pt LT-2k (kn / kw) | 3.61 (1.41/2.03) | 4.95 (2.23/1.94) | 5.31 (1.96/2.03) | 6.81 (2.11/1.90) |
+| var pt LT-1k, literal box decimation | 3.49 | 2.12 | 4.99 | 3.06 |
+| median per cell, var LT-2k | 1.64 | 1.79 | 2.33 | 2.43 |
+| cells <= 1.00 / <= 1.50, var LT-2k | 2 / 24 of 54 | 7 / 11 of 26 | 1 / 12 of 50 | 3 / 6 of 24 |
+Notes:
+- Edge mode: active uses clamp and receded normalised. Dark active reads 3.24 normalised (1k), so a 0.23
+  choice is left there.
+- The second kappa buys 0.02-0.13, so LT-1k and LT-2k are not separated here. IDENTIFIED only as
+  "kappa ~ 2 for both radii".
+2d Per cell: var LT-2k / mix LT-2k / memo C best (* = memo C sn-only comparator; - = memo C has no fit)
+light active (kn 1.67 kw 2.04 / mix kn 1.41 kw 2.03)
+  1x capsule p4 1.46/1.46/1.50* p8 1.31/1.31/1.31* p16 1.26/1.26/1.14 p32 1.83/1.80/1.35 p64 1.81/1.78/1.41
+  1x sm      p4 1.45/1.45/1.59* p8 1.27/1.27/1.45* p16 1.17/1.17/1.35* p32 1.68/1.65/1.30* p64 1.19/1.15/1.20*
+  1x md      p4 5.57/2.00/1.90* p8 3.27/5.29/0.86  p16 2.84/2.69/1.39  p32 1.85/2.06/1.46  p64 1.60/1.65/1.26
+  1x ml      p4 4.09/3.06/1.98* p8 2.33/7.91/2.56* p16 1.98/3.93/1.32  p32 1.61/2.97/1.15  p64 2.07/2.48/1.51
+  1x lg      p4 3.75/2.86/2.36* p8 6.86/3.56/1.13  p32 2.72/1.62/1.61  p64 2.74/1.88/1.84
+  1x W34     p4 1.45/1.45/-    p16 1.24/1.24/-    p64 1.77/1.74/-
+  2x capsule p4 1.31/1.31/1.33* p8 1.28/1.28/1.25* p16 1.27/1.27/1.15  p32 1.68/1.66/1.31  p64 1.65/1.63/1.38
+  2x sm      p4 1.21/1.21/1.34* p8 1.12/1.12/1.30* p16 1.10/1.10/1.29* p32 1.39/1.37/1.24* p64 1.06/1.05/1.18*
+  2x md      p4 1.96/11.94/1.39* p8 0.95/6.90/1.01 p16 0.77/4.82/0.80  p32 1.01/3.30/0.60  p64 1.38/2.36/0.85
+  2x ml      p4 2.10/8.17/2.00* p8 1.89/9.03/1.70* p16 2.40/5.62/0.90  p32 1.28/3.85/0.87  p64 2.10/3.17/1.27
+  2x lg      p4 3.17/2.36/2.18* p8 3.13/4.98/1.80  p32 1.89/2.07/1.36  p64 2.50/2.52/1.56
+  2x W34     p4 1.30/1.30/-    p16 1.25/1.25/-    p64 1.63/1.61/-
+light receded (kn 2.14 kw 1.98 / mix kn 2.23 kw 1.94)
+  1x lg p8 3.91/2.18/1.52  p32 3.14/3.22/2.12  p64 2.15/2.16/1.05 | 1x md p4 0.95/4.37/0.46  p8 1.02/7.04/0.86
+  1x md p16 2.41/6.39/0.99 p64 3.59/4.22/2.16 | 1x ml p16 1.21/4.52/0.64 | 1x capsule p16 1.67/3.94/1.00
+  1x sm p16 1.82/3.77/1.96* | 1x W34 p4 3.42/3.69/1.10  p16 1.81/4.16/1.29  p64 2.07/2.51/0.69
+  2x lg p8 0.71/2.88/0.56  p32 1.82/2.16/1.57  p64 1.45/1.78/0.72 | 2x md p4 0.47/7.03/0.38  p8 0.72/8.00/0.60
+  2x md p16 2.48/5.77/2.29 p64 3.31/4.26/2.81 | 2x ml p16 1.76/4.00/1.38 | 2x capsule p16 0.97/6.15/0.55
+  2x sm p16 0.85/5.89/1.59* | 2x W34 p4 0.67/9.16/0.55  p16 1.24/6.27/0.88  p64 2.01/3.05/0.56
+dark active (kn 2.00 kw 2.12 / mix kn 1.96 kw 2.03)
+  1x capsule p4 1.94/1.94/1.84* p8 1.32/1.32/1.25* p16 1.23/1.23/0.99  p32 2.33/1.83/1.18  p64 4.38/3.18/1.38
+  1x sm      p4 1.55/1.55/1.47* p8 1.16/1.16/1.12* p32 2.02/1.51/0.83* p64 4.37/3.07/1.58*
+  1x md      p4 9.14/4.61/2.61* p8 4.39/10.62/1.43 p16 5.38/5.60/1.02  p32 3.11/4.28/1.93  p64 2.74/3.43/3.34
+  1x ml      p4 4.12/4.07/2.25* p8 2.68/8.92/2.89* p32 2.33/5.57/2.39  p64 5.81/6.74/2.88
+  1x lg      p4 3.12/2.08/1.75* p8 6.27/2.32/1.16  p32 2.83/1.97/1.31  p64 6.63/6.25/3.44
+  2x capsule p4 1.42/1.42/1.35* p8 1.07/1.07/1.04* p16 1.13/1.13/1.09* p32 2.04/1.57/1.26* p64 4.01/2.82/1.49*
+  2x sm      p4 1.20/1.20/1.14* p8 0.98/0.98/1.02* p32 1.69/1.20/1.02* p64 3.84/2.57/1.38*
+  2x md      p4 1.61/14.41/1.75* p8 1.82/12.85/3.42 p16 1.57/8.96/2.54 p32 1.38/6.52/2.11  p64 2.09/4.80/1.66
+  2x ml      p4 2.66/9.10/2.52* p8 2.43/10.10/2.39* p32 1.66/6.25/1.68 p64 6.07/7.46/2.54
+  2x lg      p4 2.67/2.68/1.84* p8 2.76/5.71/2.78* p32 2.02/3.07/2.28  p64 7.00/7.27/2.97
+  W34 1x p4/p16/p64 1.93/1.22/4.37; 2x 1.41/1.12/4.01 (the same pattern as the capsule)
+dark receded (kn 2.12 kw 2.04 / mix kn 2.11 kw 1.90)
+  1x lg p8 3.35/2.28/1.71  p32 3.59/3.95/2.43  p64 3.66/3.73/1.42 | 1x md p4 1.15/8.23/0.36  p8 1.26/4.55/0.56
+  1x md p16 3.60/8.48/1.03 p64 6.04/6.61/2.91 | 1x ml p16 2.33/6.10/0.97 | 1x capsule p16 2.37/6.55/1.25
+  1x W34 p4 4.86/6.28/1.77  p16 2.73/6.90/1.81  p64 3.97/4.79/1.45
+  2x lg p8 1.58/4.44/0.91  p32 2.49/3.61/1.88  p64 2.07/3.50/1.39 | 2x md p4 0.66/4.80/0.30  p8 0.79/5.45/0.32
+  2x md p16 3.28/8.35/2.92 p64 5.31/6.49/3.81 | 2x ml p16 1.77/5.44/1.54 | 2x capsule p16 1.44/9.92/0.76
+  2x W34 p4 0.69/14.88/0.69  p16 1.97/10.12/1.21  p64 2.77/4.92/1.19
+2e Where memo C closed (full fits <= 1.00; var LT-2k)
+| endpoint | cells | LT <= 1.00 | within +0.25 | worst excess |
+| light active | 6 | 1 | 1 | 1x p8 md 3.27 vs 0.86; 2x p16 ml 2.40 vs 0.90 |
+| light receded | 13 | 6 | 5 | 2x p64 W34 2.01 vs 0.56; 1x p16 md 2.41 vs 0.99 |
+| dark active | 1 | 0 | 1 | 1x p16 capsule 1.23 vs 0.99 |
+| dark receded | 8 | 3 | 1 | 1x p16 ml 2.33 vs 0.97; 1x p4 md 1.15 vs 0.36 |
+Three patterns in LT's misses:
+- p64 on capsule and sm in dark active (3.84-4.38; memo C 1.38-1.58). lambda alone at 0.33-0.40 brings sm to
+  0.63-0.66; the capsule needs lambda 0.84 with kappa_w 1.85 (1.36-1.40). This is U1's drift in the active pose.
+- active ml and lg, worst in dark. kappa_w grows with span in dark active only (2.23 / 2.54 / 2.80 on md / ml /
+  lg, §2g). That points at the undeclared bleed (U7; dump bleed opacity 0.8t dark, radius 0.35 s).
+- 1x md/ml/lg p4-p8 (up to 9.14). These are memo C's §2e aliasing cells, which no Gaussian closes.
+2f Face (b): the dump's face affine as T (var LT-2k, refit kappas; pooled)
+| | light act | light rcd | dark act | dark rcd |
+| face, after the knee | 4.51 | 2.62 | 16.66 | 18.13 |
+| face, before the knee | 4.08 | 2.42 | 14.14 | 18.06 |
+| native T, after (before) | 2.25 | 2.07 (2.07) | 3.45 | 3.01 (3.07) |
+What drives the (b) miss is the uniform response:
+- light is 1-3 codes high above input 88, and has no span term, where native light-active T rises +2 to +6.5
+  from span 44 to 160 (memo D §6);
+- dark has no declared compression above the floor.
+The face position cannot fix either. Before and after coincide exactly for any affine face below its cap, and
+with native T they tie on these cells (third row).
+2g Points against texels on rrect-lg (scale 0.25) and rrect-ml / rrect-md (0.5). kappa is read in pt per shape
+(LT-2k, both scales pooled, var; [range within +0.1 code]). Texels would put lg at 2 x ml.
+| endpoint | md kn / kw | ml kn / kw | lg kn / kw |
+| light act | 1.73 / 2.05 | 1.74 / 2.11 | 1.16 [0.96,1.44] / 2.15 [2.03,2.27] |
+| dark act | 1.96 / 2.23 | 1.80 / 2.54 | 1.68 / 2.80 [2.64,2.98] |
+| light rcd | 2.41 / 2.14 | 2.14 / 2.63 (p16 only, kw loose) | 1.99 / 1.98 [1.90,2.06] |
+| dark rcd | 2.30 / 2.24 | 2.50 / 2.66 (loose) | 1.98 / 2.06 [1.98,2.14] |
+- IDENTIFIED: radii in points; no lg ratio comes near 2.
+- The light-active lg narrow reads NARROWER than the o-law predicts. That is UNIDENTIFIED: the bleed, or the
+  0.25 realisation.
+2h Impulse cells, out of sample at 2c's kappas (peak = impulse above its local floor, median over impulses
+   wholly in the mask; codes)
+| cell | native peak | mix peak / rms | var peak / rms |
+| light act md 1x / 2x | 30 / 23 | 46.0 / 0.82, 47.8 / 1.43 | 24.8 / 0.65, 27.3 / 0.45 |
+| light act ml 1x / 2x | 10 / 7 | 34.5 / 1.77, 36.2 / 2.09 | 9.1 / 1.20, 9.5 / 1.22 |
+| light rcd md 1x / 2x | 3 / 5 | 25.0 / 1.25, 26.3 / 1.39 | 3.8 / 0.42, 3.9 / 0.42 |
+| light rcd ml, lg | 3, 1.5-3 | 17.8-18.6, 7.2-11.3 | 2.4, 1.4-1.5 (rms 0.36-0.44) |
+| dark rcd ml, lg | 1-2, 1-1.2 | 5.1-5.3, 2.5-3.5 | 1.0-1.2 (rms 0.59-0.85) |
+Dark active ml/lg impulse rms (2.6-4.7) is the same in both readings: a level miss under T's clamp at spans
+>= 96.
+
+3. U1 (Q3)
+3a Per-cell lambda at w = 0.5, receded, on knee-identified cells (p16-p64; at p4-p8, lambda runs to the
+   bound). Columns:
+   - var: lambda with the endpoint kappas fixed [interval within +0.10 code], rms (rms at 0.9);
+   - var-3: kappa_n, kappa_w and lambda free per cell (lambda, rms);
+   - mix: lambda alone.
+| cell | light: var | var-3 | mix | dark: var | var-3 | mix |
+| 1x p64 lg | 0.78 [.66,.88] 2.05 (2.15) | .67 1.07 | .82 2.12 | -0.16 [-.5,1.38] 3.63 | .29 1.68 | .55 3.71 |
+| 2x p64 lg | 0.98 [.90,1.08] 1.37 (1.45) | .67 0.74 | 1.06 1.62 | 0.26 [-.5,1.22] 2.03 | .25 1.57 | .75 3.49 |
+| 1x / 2x p64 md | 1.00 / 1.02 [.90,1.12] 3.49 / 3.18 | .73 / .83 | 1.07 / 1.09 | 1.60 [1.28-1.48, 1.6] 5.69 / 4.48 | 1.62 / 1.70 | 1.48 / 1.60 |
+| 1x / 2x p32 lg | 0.70 / 0.88 [.58-.78, .84-.98] | runs away | .77 / .96 | 0.64 / 0.70 [.18-.36, 1.02/.96] | runs away | .84 / .88 |
+| 1x / 2x p16 md | 1.04 / 1.04 [.88-.90, 1.18-1.20] | 1.09 / 1.03 | 1.04 | 1.08 / 1.36 [.90-1.06, 1.24-1.6] | 1.19 / 1.33 | 1.06 / 1.21 |
+| 1x / 2x p16 ml | 1.20 / 1.14 [1.00/.88, 1.40] | 1.30 / 1.09 | 1.08 / 1.06 | 0.72 / 0.74 [.42-.50, 1.00/.98] | -.92 / .67 | .87 / .89 |
+| 1x / 2x p16 capsule | 0.92 / 0.96 [.86-.90, 1.00] | .97 / .97 | .96 / .98 | 0.90 / 0.92 [.84-.88, .94-.96] | .94 / .94 | .93 / .95 |
+| 1x / 2x p16 sm | 0.90 / 0.92 [.82-.88, .96-.98] | .96 / .95 | .93 / .96 | - | - | - |
+| 1x / 2x p64 W34 | 0.68 / 0.68 [.62-.64, .72] 1.09 / 0.90 (2.07 / 2.01) | .58 / .53 | .70 / .71 | 0.72 / 0.78 [.60-.68, .84-.88] | .87 / .91 | .87 / .95 |
+| 1x / 2x p16 W34 | 0.92 / 0.94 [.84-.90, 1.00] | 1.05 / 1.06 | .96 / .98 | 0.90 / 0.92 [.84-.86, .94-.96] | 1.05 / 1.03 | .92 / .94 |
+- The mixture's lambda spreads like var's (light 0.70-1.09), but its fits sit at 2-10 codes, so its lambda is
+  not a reading.
+- IDENTIFIED: the drift persists under the declared readings. The cleanest case is the W34 capsule: one shape,
+  p64 against p16, with non-overlapping intervals in light at both scales.
+- ACTIVE pose (lambda alone, endpoint kappas):
+  - light: 0.80-0.94 on capsule, sm, md and W34 at every pitch, except sm p64 (runs to the bound, rms 1.06-1.19
+    either way) and the md p4 cells (0.64 at 1x, the aliasing cell; 1.16 at 2x);
+  - dark: capsule and sm read 0.84-0.93 at p4-p32 but 0.63-0.68 (capsule/W34) and 0.33-0.40 (sm) at p64;
+    md/ml/lg read 1.05-1.60, where T's clamp at span >= 96 and the bleed confound them.
+  So the p64-against-p16 drift also appears in dark active on the small shapes.
+3b Receded composite-order rivals (the two the tree makes plausible; LT-2k refit per rival; lambda 0.9)
+| rival | light rcd pooled / median / max | dark rcd | per-cell lambda | control separability |
+| after (LT) | 2.07 / 1.79 / 3.91 | 3.01 / 2.43 / 6.04 | 3a | - |
+| R1: T applied to C and W, then the fill | 2.07 / 1.75 / 3.91 | 3.07 / 2.58 / 6.84 | light 0.68-1.60 | light 0.41 vs 0.44 (none); dark 0.42 vs 0.80 |
+| R2: fill on the sharp S, narrow blur last | 7.01 / 6.57 / 9.86 | 9.65 / 9.81 / 14.47 | light 0.03-0.84 | 7.3-9.4 |
+| R1 under mix / R2 under mix | 4.89 / 7.86 | 7.43 / 10.79 | - | - |
+R2 is rejected. R1 is inseparable from "after" on light receded cells. The existing dark receded cells could
+separate R1 from a known truth, and on Apple they do not (a 0.06 difference against a 3.0 floor). Neither
+rival changes the p64 against p16 lambda.
+3c EXPLORATORY, where the drift lives
+- Hinge-gap bins (lam_gap.py; endpoint kappas; knee-side pixels): at the same gap |W-C| of 0.10-0.45,
+  light-receded W34 p64 reads lambda 0.68-0.72 in every bin and p16 reads 0.92-0.98. lambda is not a function
+  of the gap, so a compressive or soft hinge does not explain it (memo C's soft knee added nothing either).
+- W's shape at matched rms (wshape_u1.py; W34 capsule p4/16/64 x 1x/2x; sigma_w free per shape, shared by the
+  six cells):
+  - Gaussian is best or tied in every endpoint (pooled 1.33 / 1.73 / 1.40 / 2.73);
+  - in light receded the p64 against p16 gap survives every shape: Gaussian 0.54 against 0.92-0.94, exp 0.68
+    against 1.08-1.10;
+  - in dark receded, a free sigma_w of 14.67 pt closes it on this shape: 0.86 / 0.94 against 0.90 / 0.92.
+- Reading: the p64 knee side is lifted less than a Gaussian W over the box footprint predicts. The candidates
+  are W's weight at 16-48 pt or its support: box, shape, margin, or a normalisation. Both are U3/U4 questions
+  that only the new bed can answer.
+
+4. WHAT THE BED MUST STILL CAPTURE (memo C §6 / charter families; no redesign)
+| survivor question | needed | cells (family vocabulary) |
+| U1 as W's far reference or support | lambda-free readings of W at 16-48 pt, inside the 44-pt capsule and the md box, receded, both schemes | C: S 32 both polarities on rrect-md and S 16 on capsule (in C). D: delta 0/12 on capsule and 0/12/32 on md (in D). B: P2 48/208 and P4 16/112 at pitch 64 beside pitch 16 (in B). This is the pitch pair that shows the drift at a new gap and mean. |
+| R1 against after | receded cells whose two levels both sit on T's curved segments: light 160-255 (slope .40, cap 240); dark above the floor | B P5 144/240 and P3 96/160 at pitch 16/64 on rrect-md in BOTH receded endpoints (in B), plus A's greys 160-255 to pin T there (U5). Without A, R1 cannot be referred |
+| active depth grading (0.8t centre to 0.4t at -1 pt) | patches at several depths, active | "C at depth": S 8 at the centre, s/4 and 4 pt from the edge on rrect-md and rrect-lg active (memo D §7b; not in charter C) |
+| rrect-lg narrow and bleed (lg kn 1.16 against md/ml 1.73-1.74; dark kw growing with span) | lg beside ml at matched pitch, active | B' P1 pitch 8/32 on rrect-lg beside rrect-ml; the U7 D rows on rrect-lg active (charter drafter's note) |
+| kappa_n against kappa_w (LT-1k against LT-2k; 0.02-0.13 apart here) | a narrow-dominated and a heavy-dominated cell, same shape and pose | C S 8 against S 32 on rrect-md, both poses (in C) |
+| the 1x realisation | fine pitch at 1x on a depth-graded shape | the 1x pass's P1 p4/8/16 on capsule and lg (planned); md at 1x p4 reads worst (5.57 light, 9.14 dark) |
+Needing no bed budget:
+- the mixture reading: impulse, receded capsule and md cells, 2c, 2h;
+- texel and device-px radii: 2c, 2g;
+- R2: 3b;
+- literal box decimation: 2c.
+C's S 8 cells re-check the mixture for free.
+Charter consequences for v2 (the parent's call):
+- Ruling 9's primary narrow family should become the radius-scaling reading, with the mixture a rejected
+  null.
+- w and lambda stay the dump's constants to referee. lambda 0.9 is refuted on p64 cells unless W's reference
+  changes. Section 3a shows that at 0.9 the W34 p64 cell costs 2.01 where lambda 0.68 gives 0.90.
+
+5. LIMITS AND FILES
+Limits:
+- Everything fitted here is EXPLORATORY and sizes an effect. kappa ~ 2 is a reading, not a coefficient.
+- Deep bodies only, on memo C's masks. The canonical cells are single captures, so no repeat bar was measured.
+- W34 cells are spent-archive calibration captures, a second sitting of the capsule geometry.
+- Active o(d) uses the plain rounded-rect SDF. gradientOvalization 0.5 (s > 64) is unmodelled.
+- The var reading interpolates 5 blur levels across depth. Against a 41-level reference that costs 0.02-0.30
+  code rms (max 1.25 on 2x p4 md).
+- LT carries no bleed, refraction or highlight. The active ml/lg misfits may be the bleed.
+- Dark readings at spans >= 96 use memo C's trust mask (M below 128-140).
+- The face (b) dark cap is MaxLuma x Clamp, which memo D says is not the native compression.
+Files (~/vitrea-w42/grounding/refit/): verify_dump.py (Q1); lt.py (the model); comparator.py (memo C's bests);
+control.py, control_gauss.txt, control_order.py/.txt (proofs); run_a.py/stage_a (box floor); run_b.py/stage_b
+(2c-2e); run_c.py/stage_c, lam_iv.py/.json (3a); run_d.py/stage_d (2f, 3b); run_e.py/stage_e (2h);
+run_f.py/stage_f (2g); wshape_u1.py/.txt, lam_gap.py (3c); summarize.py, cells_table.txt (tables).
