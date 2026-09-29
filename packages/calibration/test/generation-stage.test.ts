@@ -80,25 +80,32 @@ it("accepts a recorded canonical capture with unchanged active and receded docum
   for (const suffix of ["", "-receded"]) {
     cpSync(join(pkg, `profiles/${base}${suffix}.json`), join(copy, `profiles/${base}${suffix}.json`));
   }
-  const sourceRows = JSON.parse(readFileSync(join(pkg, "results/generations/85ad7f7e3e0d.json"),
-    "utf8"));
+  // The generation the index selects for this profile, not a file named here: a publication
+  // retires it (W41 G2's receded-only reseal keeps the active hash and moves the receded).
+  const index = JSON.parse(readFileSync(join(pkg, "results/generations/index.json"), "utf8"));
+  const current = index.files[index.currentByProfile[profile]];
+  type Named = { path: string; sha256: string };
+  const active = current.documents.find((d: Named) => d.sha256 === current.activeDocumentSha256);
+  const receded = current.documents.find((d: Named) => d.sha256 !== current.activeDocumentSha256);
+  expect(active.path).toBe(`packages/calibration/profiles/${base}.json`);
+  expect(receded.path).toBe(`packages/calibration/profiles/${base}-receded.json`);
+  const sourceRows = JSON.parse(readFileSync(join(pkg, "results/generations",
+    index.currentByProfile[profile]), "utf8"));
   const recorded = sourceRows.cells.find((row: { key: { profileKey: string; web: { renderer: string } };
     fixtureSet: string }) => row.key.profileKey === profile && row.key.web.renderer === "webgpu" &&
     row.fixtureSet === "calibration");
   expect(recorded).toBeDefined();
-  expect(recorded.key.web.capturePath).toContain(
-    `materialProfile=packages/calibration/profiles/${base}.json sha256:85ad7f7e3e0d`);
-  expect(recorded.key.web.capturePath).toContain(
-    `recededProfile=packages/calibration/profiles/${base}-receded.json sha256:30fbe05986ae`);
+  expect(recorded.key.web.capturePath).toContain(`materialProfile=${active.path} sha256:${active.sha256}`);
+  expect(recorded.key.web.capturePath).toContain(`recededProfile=${receded.path} sha256:${receded.sha256}`);
   const child = run(copy, ["stage", "stage", "--profile", profile, "--renderer", "webgpu",
     "--set", "calibration", "--material-profile", `profiles/${base}.json`,
     "--receded-profile", `profiles/${base}-receded.json`]);
   expect(child.status, child.stderr).toBe(0);
+  // The documents on disk are the current generation's: a seal whose read has not been
+  // published yet fails here, and names the generation it is waiting for.
   const declared = JSON.parse(readFileSync(join(copy, "stage/membership.json"), "utf8"));
-  expect(declared.active).toEqual({ path: `packages/calibration/profiles/${base}.json`,
-    sha256: "85ad7f7e3e0d" });
-  expect(declared.receded).toEqual({ path: `packages/calibration/profiles/${base}-receded.json`,
-    sha256: "30fbe05986ae" });
+  expect(declared.active).toEqual({ path: active.path, sha256: active.sha256 });
+  expect(declared.receded).toEqual({ path: receded.path, sha256: receded.sha256 });
   writeFileSync(join(copy, "stage/matrix.json"),
     JSON.stringify({ schemaVersion: 5, cells: [recorded] }));
   const status = run(copy, ["status", "stage"]);
@@ -236,6 +243,20 @@ it("qualifies a receded-only reseal and preserves every alias owner", () => {
   expect(child.status, child.stderr).toBe(0);
   const index = JSON.parse(readFileSync(join(copy, "results/generations/index.json"), "utf8"));
   expect(index.byDocumentSha256[active]).toEqual([`${active}.json`, `${active}-${receded}.json`]);
+  // The index this publication wrote must be one every Python referee can read: W40's adapter
+  // refuses any alias that is not a list (W41 G2 found the receded hash, first seen here,
+  // written as a bare string, which would have stopped E2's --verify and every Python cut).
+  const python = spawnSync("python3.12", ["-B", "-c", `import sys
+sys.path.insert(0, ${JSON.stringify(join(pkg, "results/2026-09-26-w40-g0-generations"))})
+from matrix_store import load_current_rows, load_generation
+results, active, receded = sys.argv[1:]
+print(len(load_current_rows(results_dir=results)),
+      len(load_generation(active, receded, results_dir=results)))`,
+    join(copy, "results"), active, receded], { encoding: "utf8" });
+  expect(python.status, python.stderr).toBe(0);
+  expect(python.stdout.trim()).toBe("4 4");
+  // A hash first seen here gets a list too, the shape W40's Python adapter requires.
+  expect(index.byDocumentSha256[receded]).toEqual([`${active}-${receded}.json`]);
 });
 it("refuses alias path repointing even with a new receded identity", () => {
   const copy = repo(); declare(copy); const active = fill(copy);

@@ -557,6 +557,9 @@ continues directing the wave.
    drafted in `referees/drafts/`. The recipe's full light membership (780 declared against the
    retired 509) adds recorded pressed-state rows that the gated-bed filter keeps. Both must be
    settled before the first real `matrix publish`.
+   *Settled 2026-09-29 (`b83fec16`):* the publisher writes every alias as a list, and a test
+   runs the Python adapter on its output. The gated bed and C1 drop the recorded role. The W20
+   conformance reading on the pressed cells is its own tracker entry.
 
 ## Tracking Map
 

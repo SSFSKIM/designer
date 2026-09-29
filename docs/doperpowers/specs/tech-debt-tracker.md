@@ -6747,28 +6747,7 @@ Found building `apps/demo/src/gallery/terminal/` (its `DESIGN.md`, part two), on
   reproduce with a root whose `renderer` flips after groups have registered; the message suggests
   a surface re-registering against the new root before its `GlassGroup` has.
 
-## W40's publisher writes a first-seen document alias as a bare string, which the Python adapter rejects (W41 G2, 2026-09-29)
-
-Found by W41 G2's referee port (§5.193 §6), before any real publication. `prepareGeneration`
-(`packages/calibration/src/generation-stage.ts`, about line 212) writes an index alias it has
-not seen before as a string: here it would have been `byDocumentSha256["003940b4c7da"] =
-"85ad7f7e3e0d-003940b4c7da.json"`. The TypeScript reader accepts that. W40's Python adapter
-(`results/2026-09-26-w40-g0-generations/matrix_store.py`, `_index`) rejects it as "incomplete
-or stale aliases". So the first real `matrix publish` would stop E2's `--verify`
-(`w38-e2.test.ts`) and every Python referee cut. The port reproduced this through the real
-CLI in a scratch repository.
-
-Separately, W40's `adapter-test.py` (not in the vitest suite) pins an unqualified
-`load_generation("85ad7f7e3e0d")`. Once that active hash owns two files, the call is
-ambiguous.
-
-Shape of the fix: apply `results/2026-09-29-w41-g2-landing/referees/drafts/
-publisher-list-alias.patch`, which always writes a list and adds a generation-stage assertion
-that runs the Python adapter. It fails without the fix and passes with it. Qualify the adapter
-test's call with its receded hash. The alternative, `python-adapter-string-alias.patch`, is
-needed only if a publication lands first.
-
-## The full stage recipe adds recorded pressed-state rows that the gated bed does not drop (W41 G2, 2026-09-29)
+## The full stage recipe adds recorded pressed-state rows that the gated bed does not drop (W41 G2, 2026-09-29) — CLOSED 2026-09-29 (b83fec16)
 
 CLAUDE.md's light recipe (`--set calibration,validation,holdout,recorded,probe`, both tiers,
 four profiles) declares 780 cells. The retired light generation has 509 rows. The extra 271,
@@ -6795,3 +6774,94 @@ Shape of the fix: before the first full light publication, rule whether recorded
 in the gated bed. Then either filter them there or declare them, with the W20 conformance
 reading on the pressed cell recorded as its own finding. Do not narrow the stage recipe to
 dodge them, since the recipe is what makes membership complete.
+
+**Closed. The fix also covers C1, whose population bypasses the gated bed.** The ruling
+(2026-09-29): recorded rows do not belong in the gated bed. Decision Log 19 ruling 1 (claims
+§5.19) made the role to be read by no bound, and every adopted population in
+`adopted-thresholds.test.ts` was defined over rest-state rows. The header's sentence that
+pressed cells "are still gated" predates that ruling and now carries a note saying so.
+`inGatedBed` drops the role by its label and by the declaration's split. A guard seeds a
+recorded row through it, because no committed generation carries one (`b83fec16`). C1's
+re-derivation restates its own population over the undropped rows so that it keeps probe
+cells, and the same pressed rows entered it there. The stage's light span-96 count
+(10 → 12) was entirely the two recorded `rrect-md__pressed` rows per bed. Both sides of
+C1's comparison now drop the role too, and a second seeded guard fails if either drop goes.
+
+Checked with the stage's real rows. The current union plus the stage's 16 recorded rows
+(`/Users/new/vitrea-w41/g2-stage-light/matrix.json`, SHA-256 `3558cee9…`, outside git)
+fails seven cases of the pre-fix gate and one after the fix. That remaining case is L1's pin
+that its cut was read off this exact matrix file, which any scratch file fails.
+
+Not this entry's, and still ahead of the first full light publication: the ten holdout rows
+the stage never read, and the non-recorded membership the recipe adds. That membership
+moves C1's span 160 (7 → 8) and X1 (218 → 230), and E2 gains 42 cells it has no baseline
+for; none of them is a recorded row. The W20 reading on the pressed cells is the next
+entry.
+
+## W20's conformance bound fails on every recorded pressed cell, which no gate reads (W41 G2 stage, 2026-09-29)
+
+W20's rows hold a texture-tier surface to its declared geometry: `declaredContourMaxWeb` ≤ 1
+device px and `declaredIoUWeb` ≥ 0.99. Both are read off the tier's own coverage over a
+transparent page, with no Apple reference involved (claims §5.84–§5.86). At W41 G2's
+full-recipe light stage, all 16 recorded WebGPU rows fail both. Those are the four `pressed`
+scenes and their four `inactive-pressed` twins, at 1x and 2x. The owner test named one of
+them (`checkerboard__capsule-button__pressed` 1x, 2 > 1;
+`results/2026-09-29-w41-g2-landing/referees/stop-reading/adopted-thresholds-at-stage.txt`),
+because its loop stops at the first failure. The rest are read from the stage matrix
+(`/Users/new/vitrea-w41/g2-stage-light/matrix.json`, SHA-256 `3558cee9…`, outside git):
+
+| component | 1x contour max / IoU | 2x contour max / IoU |
+|---|---|---|
+| capsule-button | 2 px / 0.9286 | 4 px / 0.9458 |
+| rrect-md | 3.16 px / 0.9466 | 6 px / 0.9373 |
+
+Photo and checkerboard read identically, and each `inactive-pressed` twin agrees to three
+decimals. The rest twins pass: `capsule-button__rest` reads 0 px / 1.000 at both scales,
+and `rrect-md__rest` reads 1 px / 0.99894 at 1x and 1 px / 0.99893 at 2x. Every pressed
+surface draws entirely inside its declaration, so its IoU is its drawn share of the
+declared area exactly: on the 1x capsule, 4,524 of 4,872 px. No gate reads these rows,
+because the recorded role is dropped (`b83fec16`, the entry above), so the reading is kept
+here.
+
+A lead, not established: the press may be applied twice. `applyPressedPose`
+(`packages/calibration/web/scene.ts`) sets the `--vitrea-press` channel to 1, which the
+WebGPU renderer turns into a size scale of 1 − `pressCompressionScale` = 0.985
+(`packages/renderer-webgpu/src/instances.ts`, `compressedChannels`). The same function also
+composes `scale(0.985)` onto the host through `setOwnedTransform`. For either component,
+one compression predicts about 0.970 of the declared area and two about 0.941. All four
+readings are far nearer two. The 2x rows are the better evidence: the capsule reads 0.946
+and rrect-md 0.937, each within 0.005 of 0.941. The 1x capsule's 0.929 is below even the
+double-press prediction, so even a doubled press does not account for all of it.
+`GlassSegmentedControl`'s indicator pairs the same two
+(`packages/react/src/controls/segmented-control.tsx`), so a doubled press would be a runtime
+defect, not a page artefact.
+
+**Shape of the work:** first establish whether the renderer compresses a surface already
+measured under the press transform, on the calibration page and on the segmented control's
+indicator. Fix that in the runtime if so. Then, with the pressed + motion charter Decision
+Log 19 names, decide what a pressed surface's declaration is (most likely the rest geometry
+at the pose's compression), so that the conformance rows can read it.
+
+## M2's chroma reference is loaded by its active hash alone, which a receded-only reseal makes ambiguous (publish-blockers review, 2026-09-29)
+
+M2's case in `packages/calibration/test/adopted-thresholds.test.ts` loads each scheme's
+reference generation with `loadGeneration(generation.activeDocumentSha256)`. It is the
+file's only active-only lookup; L1 already passes its pair. `ChromaCut.referenceGeneration`
+has no receded field. The committed cut (`results/2026-09-24-w36-g1-black-branch/
+chroma-cut.json`) names `6e509c7f76cc` and `eab099cc6698`, each owned by one file, so the
+case passes today.
+
+W32 Decision Log 4 moves M2's reference, at each gate that adopts a material change, to the
+generation current when that gate opened. For light that is now `85ad7f7e3e0d` (receded
+`30fbe05986ae`). If that gate publishes a receded-only reseal, as W41 G2's E3 would have
+done, `85ad7f7e3e0d` then owns two files. The active-only lookup then throws "ambiguous
+document …; qualify the active/receded pair" (`src/matrix-store.ts`, `loadGeneration`;
+pinned by `test/matrix-store.test.ts`, "reseals keep every owner and refuse ambiguous …"),
+and M2 fails before it reads a cell.
+
+**Shape of the fix:** at the first gate that regenerates the chroma cut, apply the
+chroma-reference half of `results/2026-09-29-w41-g2-landing/referees/drafts/
+adopted-thresholds.test.ts.patch`. That half adds `recededDocumentSha256` to
+`ChromaCut.referenceGeneration` and calls `loadGeneration(active, receded)`. Cut with the
+ported `referees/chroma-cut.py`, which records the pair. The same draft's four cut-path
+hunks point at the E3 read that was not landed, and do not apply.
