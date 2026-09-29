@@ -507,7 +507,7 @@ continues directing the wave.
 | --- | --- |
 | G0 | MERGED 2026-09-27 as `cd55870d` (§5.191): declaration 850747c1… (superseded 99e460d5… kept); execution parameters body a3947184… / stroke df9f807e…; twin audit (B1/B3 bridge-only; S0/S1 below resolution); synthetic proofs (E3/EH6 4.3e-14 / 4.0e-13; certified LP 100/100 noisy; O12 local; band integrator; width-aware stroke search; strip reader; shadow vs WGSL on Metal 2.8e-5 code over 3,240 cases); exposure runner 41 tests; sheets 1,003 canonical MATCH, 330 rendered; two instrument P2s fixed in bounded waves with clean re-reviews. Review: reviewer-high, no material findings; 114 synthetic tests, the 100 noisy LP cases, the width recoveries, 3,600 shadow cases, the guarded replay and all 41 exposure tests rerun; every pin matches; no protected file changed |
 | G1 | — |
-| G2 | conditional |
+| G2 | STOPPED at brief step 3, 2026-09-29 (§5.193): seal `f5760e17` and 600/600 identity `63089862` hold; canonical L1/M2 fail on structured light-inactive backdrops (`03290223`); ruling pending |
 
 ## Decision Log
 
@@ -632,6 +632,16 @@ recommended: G2 lands light-unfocused E3; spatial and stroke close as findings."
   capture under X5 with a new sealed holdout. Apple's dark exterior contour stays a named gap.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
+
+**G2 stop material, 2026-09-29 (§5.193 §3; not a ruling).** The seal and the identity proof
+hold (600/600 byte-identical), but the canonical referees fail on structured light-inactive
+backdrops. L1 has twelve new absolute failures, one on every inactive checkerboard cell at
+both scales (0.111–0.148 against 0.055, body 210 codes where native reads 188). M2 has all
+eight light-inactive photo cells moving +14.6 % to +44.6 % against its 2 % regression stop,
+each toward native. M1 holds. The G2 owner recommends not landing E3 in W41 and taking the
+spatial argument into the next wave, with these cells declared as its referees. The
+alternatives put to the parent are a uniform-backdrop gate in the shader (a scope change with
+an unidentified threshold) and widening or naming the misses here (not recommended for L1).
 
 ### Decision Log 4 — the CSS tier's carry, approximation or decline, per leaf (in G2; the parent's, on the browser measurement)
 
