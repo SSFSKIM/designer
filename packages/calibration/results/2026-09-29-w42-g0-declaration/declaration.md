@@ -2,13 +2,15 @@
 
 Charter `docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md` v2.1 (main `0736ed64`),
 clause 1; ledger §5.194. The machine record is `declaration.json`: 30 items, each declared once and
-pointing at the stream file that defines it, and 74 source files pinned by SHA-256 (the charter
-at `0736ed64`). `declare.py check` re-derives every count and list below from those files;
+pointing at the stream file that defines it, and 76 source files pinned by SHA-256 (the charter
+at `a78fd844`, which records Decision Logs 5c–5e). `declare.py check` re-derives every count and list below from those files;
 `declare.py hash` refuses while any item marked **PENDING (user)** has no ruling, then writes
 `declaration.sha256` and `closure.json` and pins both in `bed/exposure/production-pin.json`.
 
-**Status: not hashed.** Three items wait on the user: `candidate2Chroma` (i),
-`l1TintedReceded` (ii) and `activeBandAndE2` (iii). No native pixel of the new bed exists.
+**Status: not hashed.** The three items that waited on the user were RULED on 2026-09-30:
+`candidate2Chroma` (i, Decision Log 5c), `l1TintedReceded` (ii, 5d) and `activeBandAndE2`
+(iii, 5e). The hash follows the independent review and its fixes. No native pixel of the new bed
+exists.
 
 Streams, merged no-ff into `w42-g0-declaration`: bed `764217e1`, instrument `a489cc02`, gate
 `75f244ec`. Units: codes are 8-bit encoded output levels; lengths are points (CSS px) unless
@@ -59,22 +61,23 @@ the baseline. *Sources:* `instrument/families.py`, `proof2_nulls.txt`, `proof2_f
 
 ### kneeForms
 
-Three forms of one discrete choice, equal in count, decided by the survival rule with family E
-and every RGB-read cell answering: **per-channel** (the instrument's LT; the gate's `*p*`
-variants, chroma argument M_rgb); **on-luma, whole colour** (the instrument's `knee-luma`); **on
-luma, chroma from W** (the gate's `*l*` variants; the charter's candidate-1 light-receded form).
-The charter calls per-channel the rival; the instrument calls it LT. On synthetic renders the luma
-form is DISTINGUISHED from per-channel (9.6–18.5 codes narrow support, 2.6–3.2 W support); round 3's
-best combination uses per-channel, and on-luma leaves Stop P's F band low. **Integration proposal,
-for the parent's review:** a tie within resolution carries per-channel, which is what the dump's
-declared Lighten / Darken composites compute. *Sources:* `instrument/forward.py`, `families.py`,
-`resolution.txt`, `gate/rehearsal/body.py`, `gate/rehearsal/round3/README.txt`.
+Three streams' labels, **one discrete choice**, equal in count, fitted on the bed and decided by
+the survival rule with family E and every RGB-read cell answering: the charter's "per-channel
+knee" row, the instrument's LT (`channel`) and its `knee-luma` rival, and the gate's `*p*` and
+`*l*` rehearsal variants. The forms are **per-channel** (N and M per channel, chroma argument
+M_rgb), **on-luma, whole colour** (the hinge decided on luma), and **on luma, chroma from W**
+(the charter's candidate-1 light-receded form). On synthetic renders the luma form is
+DISTINGUISHED from per-channel (9.6–18.5 codes at the narrow support, 2.6–3.2 at the W support);
+round 3's best combination uses per-channel, and on-luma leaves Stop P's F band low. **RULED by the
+parent (2026-09-30): a tie is carried as per-channel, because Apple's Lighten / Darken is
+per-channel.** *Sources:* `instrument/forward.py`, `families.py`, `resolution.txt`,
+`gate/rehearsal/body.py`, `gate/rehearsal/round3/README.txt`.
 
 ### accessibility
 
 Reduce Transparency returns every W42 gate to its identity; `forced-colors` draws no body;
 Increase Contrast alone does not stand the law down; the bed measures neither mode. *Source:* the
-charter at `0736ed64`.
+charter at `a78fd844`.
 
 ### supersededLeaves
 
@@ -84,8 +87,9 @@ conditioning, which conditions only that share. Candidate 1's landed T is the sh
 uniform response evaluated per pixel at the law's argument, so every shipped operator inside it,
 body chroma retention included, reads the argument as it reads a uniform backdrop of that colour
 (the rehearsal's `landed_T`). D1, D2 and the F extension are gate-groups at identity; the frozen
-macOS 26.5 pair never leaves it. **No G0 stream owned this item; it is declared at integration**
-from the charter and the rehearsal's construction. *Sources:* the charter, `gate/rehearsal/body.py`.
+macOS 26.5 pair never leaves it. **No G0 stream owned this item; it was declared at integration**
+from the charter and the rehearsal's construction, and the parent kept it as proposed for the
+independent review to read. *Sources:* the charter, `gate/rehearsal/body.py`.
 
 ## T and the candidates
 
@@ -102,9 +106,9 @@ capsule), s = 80 (dark), 96, 128, 160. Identification only. *Sources:* `instrume
 The LANDED T. Light active, dark active and dark receded: the shipped solve's uniform response per
 pixel. Light receded: y = F(L(M))·1 + g(L(W))·v(W), with E3's F (ordinates 150, 157, 164, 171, 178,
 188, 197 at 40…150) extended above 150 by family A's seven light-receded ordinates at 160, 176,
-192, 208, 224, 240, 255 — its own family, count 7, its own gate-group. **Integration proposal, for
-the parent's review:** those ordinates are read on the capsule (t = 0, E3's own span), and the same
-levels on the larger shapes referee F's span invariance. Scored against the law composed with this
+192, 208, 224, 240, 255 — its own family, count 7, its own gate-group. Those ordinates are read on
+the capsule (t = 0, E3's own span), and the same levels on the larger shapes referee F's span
+invariance: **ACCEPTED by the parent (2026-09-30).** Scored against the law composed with this
 T; the gap to Apple's level is the named level miss. Rulings: L1 reads as written, so candidate 1
 cannot land in light active; Decision Log 3's shipped-solve fallback for light receded is STRUCK;
 the runner requires candidate 1 in every manifest. *Sources:* W41 G1's `light-inactive-E3-fit.json`,
@@ -114,23 +118,29 @@ the runner requires candidate 1 in every manifest. *Sources:* W41 G1's `light-in
 
 Native T from family A in all four endpoints, **counted by its ordinates: 27 light active,
 27 light receded, 30 dark active, 30 dark receded** (10 levels at t = 0, 10 at s = 96, 3 at
-s = 128, 4 at s = 160; dark adds 3 at s = 80). Lands instead of candidate 1 only if it passes every
-check (X40). *Sources:* `bed/bed.json`, `instrument/tone.py`.
+s = 128, 4 at s = 160; dark adds 3 at s = 80), **plus 3 chroma-gain parameters per endpoint**
+(`candidate2Chroma`, Decision Log 5c). Lands instead of candidate 1 only if it passes every check
+(X40). *Sources:* `bed/bed.json`, `instrument/tone.py`.
 
 ### candidate2Chroma
 
-**PENDING (user).** *(i) Chroma:* whether candidate 2 carries W41 G1's E3-form g in all four
-endpoints, re-fitted and checked on the new bed's colour cells.
-- Option 1: it carries W41 G1's E3-form g in all four endpoints, re-fitted and checked on the new
-  bed's colour cells.
-- Option 2: it does not.
+**RULED 2026-09-30 by the user (Decision Log 5c): "Yes, add it."** Candidate 2 carries W41
+G1's E3-form g in all four endpoints, re-fitted and checked on the new bed's colour cells.
 
-Evidence (round 3 (b)): g on encoded luma, knots 63 / 93 / 118, fitted on 102 W39 uniform
-calibration cells per endpoint (max residual 0.71 / 0.93 / 1.09 / 1.54 codes), is the only chroma
-that passes M1 in all four endpoints under candidate 2. Without it the shipped solve carries about
-a tenth of the backdrop's chroma: dark M1 0.32–0.46 receded, 0.63–0.77 active; Stop P's M band
-fails 4/4 dark and 6–10/10 light active. The literal face-matrix saturation is the wrong amount
-everywhere. *Sources:* `gate/rehearsal/round3/README.txt`, `swap.py`, W41 G1's four E3 fits.
+- Form: y = T(L(arg)) + g(L(arg))·(arg − L(arg)) in encoded values, arg the knee form's chroma
+  argument (per-channel: M_rgb), T candidate 2's native T (rehearsal round 3 (a)–(b)).
+- g: E3's form (W41 G0 closure, family B1), a gain on encoded luma with nodes at 63, 93 and 118,
+  bounds [0, 3], linear between and held outside: **3 parameters per endpoint**.
+- Fit: re-fitted on the new bed's calibration colour cells (family E's isoluminant hue pairs) with
+  the law held at its identified parameters, checked on its validation colour cells (family E's
+  hue transfer) at clause 6's bar. W41 G1's committed fit is the start, never the reading.
+
+The question as the parent put it: whether candidate 2 carries W41 G1's E3-form g in all four
+endpoints, re-fitted and checked on the new bed's colour cells (options: it carries it / it does
+not). Evidence (round 3 (b)): g was the only chroma that passed M1 in all four endpoints under
+candidate 2; without it the shipped solve carries about a tenth of the backdrop's chroma.
+*Sources:* `gate/rehearsal/round3/README.txt`, `swap.py`, W41 G1's four E3 fits, W41 G0's
+`closure.json`.
 
 ## The instrument
 
@@ -236,39 +246,49 @@ any candidate render. *Source:* `bed/runtime-base-sample.json`.
 ### gateReferees
 
 W41 G2's ported cuts in candidate-admission mode. **L1 as written** (≤ 0.055 absolute, growth
-≤ 0.005 against W33). M1 as adopted. **M2 directional** (Decision Log 5a: `structureVerdict` in
+≤ 0.005 against W33), with Decision Log 5d's four tinted receded cell-profiles as named misses.
+M1 as adopted. **M2 directional** (Decision Log 5a: `structureVerdict` in
 `adopted-thresholds.test.ts`, pinned by the owner case, the 2 % unmoved). C1 ≤ 0.0042 per bed ×
-span. X1 zero pixels above native black. E2 per `activeBandAndE2`. Named misses stay named.
+span. X1 zero pixels above native black. E2 per cell, absolute (Decision Log 5e). Named misses stay
+named, and none is added except through M2's path, Decision Log 5d's cells and 5e's bin list.
 *Sources:* `gate/referees/*`, `gate/m2-named-miss/red-green.txt`, `adopted-thresholds.test.ts`.
 
 ### l1TintedReceded
 
-**PENDING (user).** *(ii) Tinted receded cells:* the reading of L1 on the two light tinted photo
-rrect-md inactive cells and the dark tinted capsule inactive cell, which are named misses caused by
-vitrea's receded tint composite (light and dark `photo__…__inactive-tint-orange`, 1x and 2x).
-- Option 1: read as named misses, the tint layer deferred (the parent's recommendation).
-- Option 2: read as written: they fail.
+**RULED 2026-09-30 by the user (Decision Log 5d): "Named misses."** The cells are recorded as
+named misses caused by vitrea's unfocused (receded) tint layer; the L1 bound is unchanged, and
+fixing the tint layer goes on W42's deferred list. The named misses, 1x and 2x each:
+- `apple-macos-27.0-{1x,2x}-light-standard-glass0.5` `photo__rrect-md__inactive-tint-orange`;
+- `apple-macos-27.0-{1x,2x}-dark-standard-glass0.5` `photo__capsule-button__inactive-tint-orange`.
 
-Evidence: the tint composite carries the untinted body's change into the tinted cell (light
-0.0288 + 0.7312u, dark 0.0202 + 1.4398u). Under r3-2pgb the untinted twins come within
-0.004–0.005 of Apple while the tinted cells grow +0.0108 / +0.0100 (light) and +0.0138 / +0.0133
-(dark). *Sources:* `gate/rehearsal/round2/tint.txt`, `round3/tint-dark.txt`,
-`round3/rehearsal-r3-detail.txt`.
+They fail L1's growth clause (+0.0100 to +0.0138 under r3-2pgb) with absolute errors under 0.055.
+`declare.py check` re-derives the four from r3-2pgb's receded tinted L1 failures; every
+candidate-2 combination's receded tinted failures lie within them, and round 3's light ACTIVE
+tinted failures occur only under candidate 1 (the landed T's level, [T1]). The committed owner test
+has no named list for L1 growth, so the owner-run comparison reads these cells as new failures until
+the seal records one: open for the review. The question as the parent put it: the reading of L1 on
+the two light tinted photo rrect-md inactive cells and the dark tinted capsule inactive cell (options:
+named misses, the tint layer deferred / read as written). *Sources:*
+`gate/rehearsal/round2/tint.txt`, `round3/tint-dark.txt`, `round3/rehearsal-r3-detail.txt`.
 
 ### activeBandAndE2
 
-**PENDING (user).** *(iii) The active band:* blending by coverage × smoothstep(0, 20 pt, depth),
-and how E2 reads:
-- Option 1: per cell in absolute codes, with worse bins listed as named misses.
-- Option 2: per bin.
-- Option 3: the band held.
+**RULED 2026-09-30 by the user (Decision Log 5e): "Per cell, list the worse ones."**
+- **The band:** the law is eased in across the active band with coverage × smoothstep(0, 20 pt,
+  depth): 0 at the contour, 1 at the band's inner edge. The receded pose is unchanged.
+- **E2, per cell:** over E2's own bins and population, the mean over the cell's measured bins and
+  channels of the bin residual mean |web − native| in codes. A cell fails only if the candidate's
+  mean exceeds the shipped render's: its edge moved farther from Apple overall. A cell with no
+  measured bin is UNMEASURED, never a pass. Read at zero tolerance, the ruling's words taken
+  literally; a resolution beside it is for the review.
+- **E2's named misses:** every measured bin that worsens by more than 1 code on any channel is
+  listed (cell, bin, channel, shipped and candidate residuals); the list is recorded, never a gate.
 
-Evidence: E2's adopted reading fails every active combination (its deep-median reference moves).
-Held, no bin changes, so E2 reads nothing, and the 20-pt seam fails Stop H and Stop P. Blended
-(r3-2pgb), 70 of 7,728 bins are worse than shipped by more than a code (worst 3.27), all at
-2.25–5.75 CSS px under vitrea's lens, and 838 improve. The blend changes spans ≤ 44 too (capsule
-mean weight 0.48): a correction owed to the user. *Sources:* `gate/rehearsal/round3/README.txt`,
-`e2abs.py`, `swap.py`.
+The question as the parent put it: blending by coverage × smoothstep(0, 20 pt, depth), and how E2
+reads (options: per cell in absolute codes with worse bins listed as named misses / per bin / the
+band held). Evidence (r3-2pgb): 70 of 7,728 bins worse than shipped by more than a code, all at
+2.25–5.75 CSS px under vitrea's lens; 838 improve. The blend changes spans ≤ 44 too (capsule mean
+weight 0.48). *Sources:* `gate/rehearsal/round3/README.txt`, `e2abs.py`, `swap.py`.
 
 ### stops
 
@@ -280,11 +300,16 @@ cell (0.12–0.28 ×1e-3 on F, 0.032–0.074 ×1e-3 on M). Proof 30/30. *Sources
 
 ### ownerTest
 
-`run-owner.py` runs `adopted-thresholds.test.ts` unmodified on the base's and the candidate's
-scratch unions over all six gated profiles; bar: no failure the base does not show. Kept rows are
-relocated, the holdout carried, M2 named misses inserted as the seal would. A named miss that
-closes reads as a change (`MISSED_27_ROWS`, L1's named list): a closure the seal must record.
-*Sources:* `gate/owner/run-owner.py`, `proof.txt`.
+`run-owner.py` runs `adopted-thresholds.test.ts` unmodified in its assertions on the base's and the
+candidate's scratch unions over all six gated profiles; bar: no failure the base does not show.
+Kept rows are relocated, the holdout carried, M2 named misses inserted as the seal would.
+**Closures, RULED by the parent (2026-09-30):** a closing named miss is a pass, and its list shrinks
+at the seal (floors come off by fix). Step 8 logs the list each of the test's two named-miss
+assertions derives and records (MISSED_27_ROWS, L1's `MISSES`), takes every recorded entry no longer
+derived as a closure, drops it from the worktree copy as the seal would and runs the test again.
+Closures are reported and never block, and a closure never excuses a new miss (`proof.txt`,
+closures). Open for the review: Decision Log 5d's cells have no named L1-growth list in the
+committed test. *Sources:* `gate/owner/run-owner.py`, `proof.txt`, `proof-inputs.py`.
 
 ### eyeStrata
 
@@ -298,7 +323,7 @@ Three rounds of memo A's body swap on the canonical captures. Best combination *
 (candidate 2, per-channel knee, chroma g, blended band): dark active passes every referee but E2.
 Still failing by construction: light active [U7] and a marginal [P1]; light receded [LT] (the
 tinted cells, s = 32 M2, Stop P 2/8); dark receded [DT] (the tinted capsule); E2 in every active
-combination. To the user: items (i), (ii), (iii). *Sources:* `gate/rehearsal/README.txt`,
+combination. To the user: items (i), (ii), (iii), all RULED on 2026-09-30 (Decision Logs 5c–5e). *Sources:* `gate/rehearsal/README.txt`,
 `round2/README.txt`, `round3/README.txt`, `round3/rehearsal-r3.txt`.
 
 ## The exposure
@@ -314,3 +339,10 @@ prediction with its level miss recorded; X40 selects candidate 2 if landable. An
 `begin` spends H. `declare.py hash` pins this declaration and `closure.json` in
 `production-pin.json`; G1 pins the inventory. Proof: 26 red, 27 green. *Sources:*
 `bed/exposure/runner.py`, `README.md`, `green-guard.txt`.
+
+## Errata (kept beside the bytes they correct)
+
+- `bed/bed.json` `charterDeviations`: the first two entries still read "substituted, flagged for
+  the parent's ruling" and "declared as a grid". The parent ACCEPTED both. `bed.json` is left
+  byte-identical because the split's SHA-256 (`9047c8da…`) binds it; the rulings are recorded in
+  item `bed` and in ledger §5.194 §8.

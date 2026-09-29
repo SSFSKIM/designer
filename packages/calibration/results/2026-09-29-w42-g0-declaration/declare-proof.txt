@@ -50,3 +50,28 @@ GREEN: the hash path on synthetically filled rulings (outputs deleted afterwards
   ['declaration', 'declarationSha256', 'items', 'rulings', 'schema'] ['exposureRunner', 'nativeT', 'regionStatistics', 'survivalBars']
   94d2c28876beedff4edc818c554e77a777c2309f2e8bc2b55ea8830eab31de1c  declaration.json
   94d2c28876beedff4edc818c554e77a777c2309f2e8bc2b55ea8830eab31de1c  declaration.json
+
+After the rulings (2026-09-30; Decision Logs 5c-5e recorded, re-pinned at charter a78fd844). 'hash' was NOT
+run: the hash follows the independent review and its fixes. The record above is kept as it was.
+
+$ declare.py check
+W42 G0 declaration: 30 items, 76 pinned sources
+check: consistent with the stream files
+exit 0
+
+RED: seeded mutations, each must exit 1
+  candidate 2 light-active ordinates 27 -> 28: exit 1; MISMATCH candidate2: ordinates per endpoint: found {'light-active': 27, 'light-receded': 27, 'dark-active': 30, 'dark-receded': 30}, declared {'light-active': 28, 'light-receded': 27, 'dark-active': 30, 'dark-receded': 3
+  LT-2k count 3 -> 4: exit 1; MISMATCH rivals: LT-2k count: found 3, declared 4
+  a source pin altered: exit 1; MISMATCH pin docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@a78fd844: found '1dc7631da902074f1c4e0e83193a4d64590c1fcaec04a90945b0278963309d79', declared '0000000000000000000000000000000000000000000000000
+  bed.json SHA-256 wrong: exit 1; MISMATCH split: bed.json SHA-256: found '9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176', declared '0000000000000000000000000000000000000000000000000000000000000000'
+  an H cell dropped: exit 1; MISMATCH split: H cells: found ['h-d20-lohi-rrect-md', 'h-g184-rrect-md', 'h-g232-rrect-md', 'h-lc-c64-capsule-button', 'h-p1-c24-rrect-112', 'h-p3-c64-rrect-lg', 'h-p6-c32-rrect-md', 'h-s24-hi-rrect-md'], declared ['h-d
+  the BEFORE bar 0.30 -> 0.25: exit 1; MISMATCH refractionOrder: the declared decision: found {'BEFORE': 'D_tail > 0.30 code', 'AFTER': 'D_tail < 0.15 code', 'undecided': 'between: reported, the fallback not triggered'}, declared {'BEFORE': 'D_tail > 0.25 cod
+  k nesting reordered: exit 1; MISMATCH kNesting: layouts and totals, most restricted first: found [('k@global', 5), ('k@scheme', 6), ('k@endpoint', 8), ('k2@endpoint', 12)], declared [('k2@endpoint', 12), ('k@endpoint', 8), ('k@scheme', 6), ('k@globa
+  a null added: exit 1; MISMATCH rejectedNulls: the null set: found {'null-dev', 'null-boxfloor', 'null-R2', 'null-mix', 'null-texel'}, declared {'null-dev', 'null-boxfloor', 'null-R2', 'null-mix', 'null-texel', 'null-x'}
+  an unpinned source: exit 1; MISMATCH law: source packages/calibration/package.json is not pinned in 'sources'
+  E3 extension count 7 -> 6: exit 1; MISMATCH candidate1: the extension count: found 7, declared 6
+  a tinted cell that is not a rehearsal failure: exit 1; MISMATCH l1TintedReceded: the cells against r3-2pgb's receded tinted L1 failures: found ['apple-macos-27.0-1x-dark-standard-glass0.5 photo__capsule-button__inactive-tint-orange', 'apple-macos-27.0-1x-light-standard-glass
+  a ruling without its Decision Log: exit 1; MISMATCH candidate2Chroma: a ruling names its date, who ruled, its Decision Log and the words
+  an md ruling missing its words: exit 1; MISMATCH declaration.md, l1TintedReceded: not marked RULED with the words 'Named misses.'
+  an md heading removed: exit 1; MISMATCH declaration.md: its item headings, in order: found ['law', 'kNesting', 'rivals', 'rejectedNulls', 'kneeForms', 'accessibility', 'supersededLeaves', 'nativeT', 'candidate1', 'candidate2', 'candidate2Chroma', 'reg
+  an md PENDING marker left on a ruled item: exit 1; MISMATCH declaration.md, l1TintedReceded: not marked RULED with the words 'Named misses.'

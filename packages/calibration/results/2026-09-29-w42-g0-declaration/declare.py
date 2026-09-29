@@ -78,8 +78,9 @@ def structure(c, d):
     for it in items:
         for key in ('id', 'title', 'clause', 'source'):
             c.true(f"{it.get('id')}: no '{key}'", key in it)
-        c.true(f"{it['id']}: declares exactly one of 'declared' and 'pendingUser'",
-               ('declared' in it) != ('pendingUser' in it))
+        waiting = 'pendingUser' in it and it['pendingUser'].get('ruling') is None
+        c.true(f"{it['id']}: a pending item declares nothing yet, and every other item declares its reading",
+               ('declared' in it) != waiting)
         c.true(f"{it['id']}: points at no source", bool(it['source']))
         for s in it['source']:
             c.true(f"{it['id']}: source {s} is not pinned in 'sources'", s in d['sources'])
@@ -109,10 +110,14 @@ def twin(c, items):
         p, body = it['pendingUser'], sections.get(it['id'], '')
         c.true(f"{it['id']}: pendingUser needs a question and at least two options",
                bool(p.get('question')) and len(p.get('options', [])) >= 2)
-        if p.get('ruling') is None:
+        ruling = p.get('ruling')
+        if ruling is None:
             c.true(f"declaration.md, {it['id']}: not marked PENDING (user)", 'PENDING (user)' in body)
-        else:
-            c.true(f"declaration.md, {it['id']}: does not carry the ruling", str(p['ruling']) in body)
+            continue
+        c.true(f"{it['id']}: a ruling names its date, who ruled, its Decision Log and the words",
+               all(ruling.get(k) for k in ('date', 'by', 'decisionLog', 'words', 'reading')))
+        c.true(f"declaration.md, {it['id']}: not marked RULED with the words {ruling.get('words')!r}",
+               'RULED' in body and 'PENDING (user)' not in body and str(ruling.get('words')) in body)
 
 
 def families_and_law(c, items):
@@ -249,6 +254,28 @@ def bed_and_split(c, items, d):
     c.eq('exposureRunner: scope', (b['glassCells'] - probe, sp['H']['cellPasses']), (441, 40))
 
 
+def tinted_failures():
+    """The receded tinted L1 failures of round 3's best combination, from its per-cell detail."""
+    text = (HERE / 'gate' / 'rehearsal' / 'round3' / 'rehearsal-r3-detail.txt').read_text()
+    combo = ep = None
+    out = set()
+    for line in text.splitlines():
+        m = re.match(r'^(r3-\w+) \(', line)
+        if m:
+            combo, ep = m.group(1), None
+            continue
+        if line.startswith('(c)'):
+            combo = None
+        m = re.match(r'^  (light|dark)-(active|receded)\s+(.*)$', line)
+        rest = m.group(3) if m else line.strip()
+        if m and combo:
+            ep = f'{m.group(1)}-{m.group(2)}'
+        hit = re.match(r'L1 (\dx) (\S+) web', rest)
+        if combo == 'r3-2pgb' and ep and ep.endswith('receded') and hit and '-tint-' in hit.group(2):
+            out.add(f"apple-macos-27.0-{hit.group(1)}-{ep.split('-')[0]}-standard-glass0.5 {hit.group(2)}")
+    return sorted(out)
+
+
 def gate(c, items):
     stops = json.loads((HERE / 'gate' / 'stops' / 'stops-declaration.json').read_text())
     c.eq('stops: populations', (len(stops['stopH']['population']['cells']), len(stops['stopP']['population']['cells'])),
@@ -259,6 +286,19 @@ def gate(c, items):
     test = (ROOT / 'packages/calibration/test/adopted-thresholds.test.ts').read_text()
     for name in ('const structureVerdict', 'const chromaStructureNamedMisses', 'readonly native?: number'):
         c.true(f'gateReferees: adopted-thresholds.test.ts carries {name}', name in test)
+    tinted = items['l1TintedReceded']['pendingUser']['cells']
+    c.eq('l1TintedReceded: the cells against r3-2pgb\'s receded tinted L1 failures', tinted_failures(), sorted(tinted))
+    c.eq('l1TintedReceded: the named misses are the cells', items['l1TintedReceded']['declared']['namedMisses'], tinted)
+    sys.path.insert(0, str(HERE / 'gate' / 'owner'))
+    owner = __import__('importlib').util.spec_from_file_location('run_owner', HERE / 'gate' / 'owner' / 'run-owner.py')
+    ro = __import__('importlib').util.module_from_spec(owner)
+    owner.loader.exec_module(ro)
+    for name, (anchor, _, _) in ro.CLOSURE_ASSERTIONS.items():
+        c.eq(f'ownerTest: the {name} assertion the closure step reads, in the committed test', test.count(anchor), 1)
+    w41 = json.loads((ROOT / 'packages/calibration/results/2026-09-27-w41-g0-declaration/closure.json').read_text())
+    b1 = w41['families']['B1']
+    c.eq("candidate2Chroma: E3's g form (W41 G0 closure, B1)",
+         (b1['name'], b1['chromaticParametersPerEndpoint'], b1['nodes'], b1['bounds']), ('E3', 3, [63, 93, 118], [0, 3]))
 
 
 def production_pin(c, digest):
