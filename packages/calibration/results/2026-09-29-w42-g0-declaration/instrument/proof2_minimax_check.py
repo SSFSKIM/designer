@@ -1,7 +1,7 @@
 """W42 G0 proof 2: the minimax refinement's convergence on the rows near the 1.5-code line whose search has three or
 more dimensions (the review of b151aff4, I-8). The separation rows run 60 Nelder-Mead evaluations from the
 least-squares point; here each named row's search continues from its RECORDED minimax point with a fresh simplex
-(3 % steps, 200 evaluations), then restarts from the best point found (1 % steps, 100 evaluations). The truth and the
+(3 % steps, 120 evaluations), then restarts from the best point found (1 % steps, 60 evaluations): three times the separation run's budget. The truth and the
 fitted family are rebuilt exactly as proof2_separation.run_pair builds them (same cells, pin, kernel, engine). A row
 is converged within the budget when the continued search lowers s by less than 0.05 code; its verdict is re-read
 at the lowest s found.
@@ -67,8 +67,8 @@ def check(key):
     exact = [e for c, e in zip(cells, exact) if c.id in keep]
     tstats = PC.stats_list(prob.cells, exact)
     z0 = np.array([rec['mm_x'][f'{k[0][0]}@{k[0][1]}'] for k in prob.keys] + [rec['mm_lam'][e] for e in prob.eps])
-    z1, s1, n1, s_at_rec = search(prob, z0, tstats, 0.03, 200)
-    z2, s2, n2, _ = search(prob, z1, tstats, 0.01, 100)
+    z1, s1, n1, s_at_rec = search(prob, z0, tstats, 0.03, 120)
+    z2, s2, n2, _ = search(prob, z1, tstats, 0.01, 60)
     best = min(s1, s2, s_at_rec)
     return dict(truth=truth, fit=fit, ep=ep, whole=whole, n_cells=len(prob.cells), dims=len(z0),
                 s_recorded=rec['s'], s_at_recorded_point=s_at_rec, s_continued=s1, nfev_continued=n1,
@@ -93,7 +93,7 @@ if __name__ == '__main__':
                   f"({'converged' if r['converged'] else 'MOVED'}; {r['verdict_best']}) {r['seconds']:.0f}s", flush=True)
             json.dump(out, open('proof2_minimax_check.json', 'w'), indent=1, default=float)
     L = ['W42 G0 proof 2: minimax convergence on the rows near the 1.5 line with >= 3 search dimensions (I-8).',
-         'Continued from each recorded minimax point: 200 Nelder-Mead evaluations (3 % simplex), then 100 (1 %).']
+         'Continued from each recorded minimax point: 120 Nelder-Mead evaluations (3 % simplex), then 60 (1 %).']
     for r in out:
         L.append(f"  {r['truth']:>12s} -> {r['fit']:<14s} {r['ep']:15s}{' whole' if r['whole'] else '      '} dims {r['dims']} "
                  f"s recorded {r['s_recorded']:.3f} (re-evaluated {r['s_at_recorded_point']:.3f}) -> best {r['s_best']:.3f} "
