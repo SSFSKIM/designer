@@ -531,142 +531,6 @@
   }
  },
  {
-  "ep": "light-inactive",
-  "truth": "W-shape",
-  "mode": "given",
-  "truth_support": "shape/norm",
-  "call": null,
-  "call_gap": 0.00015728032397593905,
-  "excluded": [],
-  "cells": [
-   "2x|d-d0-hilo-rrect-md",
-   "2x|d-d0-lohi-capsule-button",
-   "2x|d-d0-lohi-rrect-md",
-   "2x|d-d12-hilo-rrect-md",
-   "2x|d-d12-lohi-capsule-button",
-   "2x|d-d12-lohi-rrect-md",
-   "2x|d-d32-hilo-rrect-md",
-   "2x|d-d32-lohi-rrect-md",
-   "2x|d-out16-hilo-rrect-md",
-   "2x|d-out16-lohi-rrect-md",
-   "2x|d-out8-hilo-rrect-md",
-   "2x|d-out8-lohi-rrect-md"
-  ],
-  "ranking": [
-   "shape/norm",
-   "box/norm",
-   "box/clamp",
-   "canvas/clamp"
-  ],
-  "rms": {
-   "canvas/clamp": 0.782713372414535,
-   "box/clamp": 0.46142841785021343,
-   "box/norm": 0.4601849666892833,
-   "shape/norm": 0.4600276863653074
-  },
-  "region_ranking": [
-   "shape/norm",
-   "box/norm",
-   "box/clamp",
-   "canvas/clamp"
-  ],
-  "region_gap": 0.06726749727846482,
-  "region": {
-   "canvas/clamp": [
-    6.162286307018377,
-    "2x|d-out8-lohi-rrect-md:bin-24..-16"
-   ],
-   "box/clamp": [
-    0.600627461784967,
-    "2x|d-d32-hilo-rrect-md:bin32..48"
-   ],
-   "box/norm": [
-    0.5877334867359707,
-    "2x|d-d32-hilo-rrect-md:bin24..32"
-   ],
-   "shape/norm": [
-    0.5204659894575059,
-    "2x|d-d12-lohi-capsule-button:bin4..8"
-   ]
-  },
-  "sw_best": 16.279591652856656,
-  "sw_iv": [
-   15.448945403547157,
-   17.099126791055046
-  ],
-  "sw_true_support": 16.279591652856656,
-  "sw_truth": 16.28,
-  "kn": 2.035,
-  "lam": 0.8,
-  "w": 0.5,
-  "mu": 4.0,
-  "mu_scan": {
-   "-4": 0.46271620420824533,
-   "0": 0.46048177704390075,
-   "4": 0.4600276863653074,
-   "8": 0.4602787714355913,
-   "16": 0.5848348371730293
-  },
-  "verdict_support": "PASS",
-  "verdict_sw": "PASS",
-  "stats": {
-   "2x|d-d0-hilo-rrect-md": {
-    "bin-48..-32": 221.0,
-    "bin-32..-24": 220.0,
-    "bin-24..-16": 218.0,
-    "bin-16..-8": 213.0,
-    "bin-8..-4": 205.5,
-    "bin-4..-2": 197.5,
-    "bin-2..0": 191.0,
-    "bin0..2": 186.0,
-    "bin2..4": 182.0,
-    "bin4..8": 177.0,
-    "bin8..16": 168.0,
-    "bin16..24": 161.0,
-    "bin24..32": 156.0,
-    "bin32..48": 154.0,
-    "plateau-lo": 221.0,
-    "plateau-hi": 154.0
-   },
-   "2x|d-d0-lohi-capsule-button": {
-    "bin-48..-32": 154.0,
-    "bin-32..-24": 156.0,
-    "bin-24..-16": 161.0,
-    "bin-16..-8": 168.0,
-    "bin-8..-4": 177.0,
-    "bin-4..-2": 182.0,
-    "bin-2..0": 186.0,
-    "bin0..2": 191.5,
-    "bin2..4": 199.5,
-    "bin4..8": 208.0,
-    "bin8..16": 214.0,
-    "bin16..24": 218.0,
-    "bin24..32": 220.0,
-    "bin32..48": 221.0,
-    "plateau-lo": 154.0,
-    "plateau-hi": 221.0
-   },
-   "2x|d-d0-lohi-rrect-md": {
-    "bin-48..-32": 154.0,
-    "bin-32..-24": 156.0,
-    "bin-24..-16": 161.0,
-    "bin-16..-8": 168.0,
-    "bin-8..-4": 177.0,
-    "bin-4..-2": 182.0,
-    "bin-2..0": 186.0,
-    "bin0..2": 191.0,
-    "bin2..4": 197.5,
-    "bin4..8": 205.5,
-    "bin8..16": 213.0,
-    "bin16..24": 218.0,
-    "bin24..32": 220.0,
-    "bin32..48": 221.0,
-    "plateau-lo": 154.0,
-    "plateau-hi": 221.0
-   }
-  }
- },
- {
   "ep": "light-rest",
   "truth": "LT",
   "mode": "given",
@@ -1521,5 +1385,144 @@
     "bin32..48": 167.0
    }
   }
+ },
+ {
+  "ep": "light-inactive",
+  "truth": "W-shape",
+  "mode": "given",
+  "truth_support": "shape/norm",
+  "call": null,
+  "call_gap": 0.0004970033814764574,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d0-lohi-rrect-sm",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "shape/norm",
+   "box/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "rms": {
+   "canvas/clamp": 0.786691003602133,
+   "box/clamp": 0.46625124596322576,
+   "box/norm": 0.46027586249477287,
+   "shape/norm": 0.4597788591132964
+  },
+  "region_ranking": [
+   "shape/norm",
+   "box/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "region_gap": 0.13051660012041566,
+  "region": {
+   "canvas/clamp": [
+    6.202920556328678,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/clamp": [
+    1.0396904126218942,
+    "2x|d-d0-lohi-rrect-sm:bin-24..-16"
+   ],
+   "box/norm": [
+    0.6511027912322902,
+    "2x|d-d0-lohi-rrect-sm:bin-24..-16"
+   ],
+   "shape/norm": [
+    0.5205861911118745,
+    "2x|d-d12-lohi-capsule-button:bin4..8"
+   ]
+  },
+  "sw_best": 16.280127550259866,
+  "sw_iv": [
+   15.449454506080206,
+   17.099689483328415
+  ],
+  "sw_true_support": 16.280127550259866,
+  "sw_truth": 16.28,
+  "kn": 2.035,
+  "lam": 0.8,
+  "w": 0.5,
+  "mu": 4.0,
+  "mu_scan": {
+   "-4": 0.4672787994509494,
+   "0": 0.4610853042897908,
+   "4": 0.4597788591132964,
+   "8": 0.46059347805654793,
+   "16": 0.5864118961024626
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 221.0,
+    "bin-32..-24": 220.0,
+    "bin-24..-16": 218.0,
+    "bin-16..-8": 213.0,
+    "bin-8..-4": 205.5,
+    "bin-4..-2": 197.5,
+    "bin-2..0": 191.0,
+    "bin0..2": 186.0,
+    "bin2..4": 182.0,
+    "bin4..8": 177.0,
+    "bin8..16": 168.0,
+    "bin16..24": 161.0,
+    "bin24..32": 156.0,
+    "bin32..48": 154.0,
+    "plateau-lo": 221.0,
+    "plateau-hi": 154.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.5,
+    "bin2..4": 199.5,
+    "bin4..8": 208.0,
+    "bin8..16": 214.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.0,
+    "bin2..4": 197.5,
+    "bin4..8": 205.5,
+    "bin8..16": 213.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   }
+  },
+  "bed": "764217e1",
+  "engine": "fix-b151aff4"
  }
 ]

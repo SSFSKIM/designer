@@ -409,10 +409,11 @@ def rows_v2(p1, p3):
                  verdict='PASS' if not fails else 'FAIL'),
             dict(resolution=(f'max |cap - rep| {100 * worst:.1f} %; ' if worst is not None else '') + tally,
                  tolerance='5 %', verdict=v),
-            None, ('misses: ' + '; '.join(fails) if fails else '') + (
-                '; the fallback (W support, ' + BAND_W + '): ' + ', '.join(
+            None, '; '.join(n for n in (
+                'misses: ' + '; '.join(fails) if fails else '',
+                'the fallback (W support, ' + BAND_W + '): ' + ', '.join(
                     f"{x['ep']} {x['truth']} {x['group']} {x['sw']:.2f}/{x['sw_truth']:.2f} {x['verdict_sw']}"
-                    for x in Pw) if sel[0].endswith('rest') and Pw else ''))
+                    for x in Pw) if sel[0].endswith('rest') and Pw else '') if n))
     add('patch and annulus (family C)', 'lam, free', False, 'as above',
         dict(resolution='recovered within 0.03 on every synthetic group', tolerance='reported', verdict='N/A'),
         None, _sup(old, 'patch and annulus (family C)', 'lam, free (linear reading)'),

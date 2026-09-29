@@ -49,11 +49,11 @@
   "reader": "patch and annulus (family C)",
   "quantity": "sigma_w (lam given in the protocol)",
   "gated": true,
-  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only",
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
   "synthetic": {
-   "resolution": "7.1 %",
+   "resolution": "5.0 %",
    "tolerance": "5 %",
-   "verdict": "FAIL"
+   "verdict": "PASS"
   },
   "vitrea": {
    "resolution": "max |cap - rep| 23.2 %; 0 pass / 2 miss / 4 non-identifiable on both",
@@ -61,7 +61,7 @@
    "verdict": "FAIL"
   },
   "vitrea_superseded": null,
-  "notes": "misses: light-rest LT impulse ml 14.74/15.86; dark-rest LT impulse lg 17.84/16.75"
+  "notes": "the fallback (W support, outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only): light-rest free-sn impulse ml 15.15/15.86 PASS, light-rest free-sn impulse lg 15.97/15.86 PASS, light-rest LT impulse ml 14.74/15.86 MISS, light-rest LT impulse lg 15.94/15.86 PASS, dark-rest free-sn impulse ml 16.77/16.75 PASS, dark-rest free-sn impulse lg 16.89/16.75 PASS, dark-rest LT impulse ml 16.30/16.75 PASS, dark-rest LT impulse lg 17.84/16.75 MISS"
  },
  {
   "reader": "patch and annulus (family C)",
@@ -229,7 +229,7 @@
   "reader": "step (family D)",
   "quantity": "sigma_w on the true support",
   "gated": true,
-  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only (d-d0 on rrect-lg); receded no band",
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
   "synthetic": {
    "resolution": "0.07 %",
    "tolerance": "5 %",
@@ -249,7 +249,7 @@
   "gated": true,
   "band": "as above",
   "synthetic": {
-   "resolution": "light-inactive LT given: no call (gap 0.000; region gap 0.02); light-inactive LT free: no call (gap 0.002; region gap 0.16); light-inactive W-canvas given: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap given: no call (gap 0.001; region gap 0.01); light-inactive W-shape given: no call (gap 0.000; region gap 0.07); dark-inactive LT given: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap given: no call (gap 0.002; region gap 0.01); light-rest LT given: no call (gap 0.000; region gap 0.00); light-rest W-canvas given: no call (gap 0.000; region gap 0.00); light-rest edge-swap given: no call (gap 0.000; region gap 0.00); dark-rest LT given: no call (gap 0.000; region gap 0.00)",
+   "resolution": "light-inactive LT given: no call (gap 0.000; region gap 0.02); light-inactive LT free: no call (gap 0.002; region gap 0.16); light-inactive W-canvas given: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap given: no call (gap 0.001; region gap 0.01); light-rest LT given: no call (gap 0.000; region gap 0.00); light-rest W-canvas given: no call (gap 0.000; region gap 0.00); light-rest edge-swap given: no call (gap 0.000; region gap 0.00); dark-inactive LT given: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap given: no call (gap 0.002; region gap 0.01); dark-rest LT given: no call (gap 0.000; region gap 0.00); light-inactive W-shape given: no call (gap 0.000; region gap 0.13)",
    "tolerance": "the true support first wherever supports differ by > 0.05",
    "verdict": "PASS"
   },
@@ -259,7 +259,7 @@
    "verdict": "PASS"
   },
   "vitrea_superseded": null,
-  "notes": "canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; active: every support ties at 0.00 at both kernels"
+  "notes": "canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; active: every support ties at 0.00 at the narrow support (7 cells (dark-rest), 7 cells (light-rest)); the fallback (W support, outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only): light-rest LT given: no call on 2 cells; light-rest W-canvas given: no call on 2 cells; light-rest edge-swap given: no call on 2 cells; dark-rest LT given: no call on 2 cells. Rows with the W-shape truth re-run after the review of b151aff4 (I-2): light-inactive pin 764217e1"
  },
  {
   "reader": "step (family D)",
@@ -284,9 +284,9 @@
   "reader": "per-cell lam (memo E)",
   "quantity": "lam",
   "gated": true,
-  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
   "synthetic": {
-   "resolution": "max |err| 0.001 on 17/20 identified cells",
+   "resolution": "max |err| 0.001 on 30/33 identified cells",
    "tolerance": "0.03, truth inside the interval",
    "verdict": "PASS"
   },
@@ -301,15 +301,15 @@
    "verdict": "PASS",
    "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
   },
-  "notes": "not identified: b-p3-c16-rrect-md (light-inactive), bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest)"
+  "notes": "not identified: bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest), b-p3-c16-rrect-md (light-inactive)"
  },
  {
   "reader": "hinge-gap (memo E)",
   "quantity": "lam per gap bin",
   "gated": false,
-  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
   "synthetic": {
-   "resolution": "max |err| 0.010",
+   "resolution": "max |err| 0.012",
    "tolerance": "0.05",
    "verdict": "PASS"
   },
@@ -330,9 +330,9 @@
   "reader": "per-cell lam (memo E)",
   "quantity": "lam",
   "gated": true,
-  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
   "synthetic": {
-   "resolution": "max |err| 0.001 on 5/20 identified cells",
+   "resolution": "max |err| 0.001 on 11/33 identified cells",
    "tolerance": "0.03, truth inside the interval",
    "verdict": "PASS"
   },
@@ -347,13 +347,13 @@
    "verdict": "PASS",
    "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
   },
-  "notes": "not identified: b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive), bp-p1-c32-rrect-80 (dark-inactive), bp-p1-c32-rrect-lg (dark-inactive), bp-p1-c32-rrect-ml (dark-inactive), bp-p1-c64-rrect-ml (dark-inactive), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest)"
+  "notes": "not identified: b-p2-c16-rrect-md (dark-rest), b-p2-c64-rrect-md (dark-rest), b-p3-c16-rrect-md (dark-rest), b-p3-c64-rrect-md (dark-rest), b-p5-c16-rrect-md (dark-rest), b-p5-c64-rrect-md (dark-rest), bp-p1-c32-rrect-80 (dark-rest), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest), b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive), bp-p1-c32-rrect-80 (dark-inactive), bp-p1-c32-rrect-lg (dark-inactive), bp-p1-c32-rrect-ml (dark-inactive), bp-p1-c64-rrect-ml (dark-inactive)"
  },
  {
   "reader": "hinge-gap (memo E)",
   "quantity": "lam per gap bin",
   "gated": false,
-  "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+  "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
   "synthetic": {
    "resolution": "max |err| 0.030",
    "tolerance": "0.05",
