@@ -41,3 +41,17 @@ restores them): adopted-thresholds M1/M2's cut and L1's population name the ligh
 rows at the pre-seal receded hash, and generation-stage's recorded-capture case reads
 the retired generation. seal-calibration-tests.txt: 766 pass, 3 fail (those three),
 1 capture-dependent skip. Renderer 651/651, platform-web 634/634.
+
+Step 1b — no rendered prediction moved (identity/)
+--------------------------------------------------
+identity/driver.py re-renders G1's 600 frozen web cells (536 calibration/validation and
+64 blind held-out; plan.json is derived from G1's own process records) with the same
+producer, scenes, public generated backdrops, renderer and flags, changing only the four
+documents: the sealed profiles/ files instead of G1's scratch copies. Eight Chromium
+processes, each after its own fresh X6 pass (RT 0, IC 0, slider 0.5, zero foreign,
+idle 8,757-9,185 s), 2026-09-29T00:54-01:05Z, Chromium 151.0.7922.34, apple/metal-3,
+every scene byte-identical over two loads and no CSS fallback. comparison.json:
+600/600 PNGs byte-identical to G1's frozen pngSha256 (candidate-capture/attempt-1/
+rendered.json); moved 0, absent 0. The projection is a pure function of the PNG, so the
+frozen projections hold too. Verdict: NO PREDICTION MOVED; the closure is inherited.
+The PNGs stay outside git at /Users/new/vitrea-w41/g2-captures/identity/.
