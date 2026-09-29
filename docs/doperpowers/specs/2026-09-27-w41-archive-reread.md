@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191): declaration 850747c1…, instrument proved on synthetic data, the single-exposure runner and the standing eye sheets landed; nothing fitted to native pixels. G1 (identification, the scratch leaves, the rendered check, the single exposure) is next.**
+**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191). G1's one exposure is spent and complete (`fc157275`, §5.192.25): light-inactive E3 meets the bound on every claimed held-out cell, 18/18 numerical and 16/16 rendered. Decision Log 2 now awaits the user; G2 is conditional on it.**
 
 ## Purpose
 
@@ -584,6 +584,41 @@ all16 fixed32-quadrature lower bounds still fail. No stroke leaf is implemented.
 restored unfinished-M2 ruling, the complete exposure candidate list is light-inactive E3
 body only; its final freeze and one receipt still await the remaining execution gates.
 
+**G1 closing material after the one exposure, 2026-09-29 (§5.192.25). These are the G1
+owner's recommendations; the rulings are the user's.** Background:
+- M2's two in-flight starts were ended by the host restart and recorded as ABORTED_UNSCORED
+  (`afed9dc3`).
+- manifest-1 `77f93ba2…` was frozen in `52f62227` (body-e3 only).
+- The receipt ran once and completed (`fc157275`). Attempt-1 was refused at its pre-begin
+  X6 gate before the receipt began; the cause was the owner's own watcher process.
+- The W39 holdout is now spent.
+
+- **Body — recommend a law, scoped to what closed.** Land light-inactive E3 in G2 as the
+  uniform-backdrop body of the light receded material, through its existing zero-gated
+  identity-table group, with only the light receded document enabling it. It met the bound
+  on every claimed held-out cell: 18/18 numerical (worst 0.666 codes) and 16/16 rendered
+  (worst 1.0 code, at the bound), and no rendered held-out cell showed any veto worsening.
+  The other three endpoints are this wave's negative: dark E3/EH6 are certified infeasible, and
+  light-active misses its span-96 transfer by 3 codes. The rendered margin is zero on two
+  colour cells, so G2 must move no rendered prediction; M1/M2/L1/X1, the photo-body texture
+  trade (§5.192.20), the canonical holdout and the eye sheets remain the landing's gates, and
+  the CSS carry is Decision Log 4's.
+- **Spatial — recommend the negative for a leaf, as Decision Log 6 ruled.** S0–S2 stay a
+  calibration finding with their residuals and resolution verdict. The W39 holdout is spent
+  and never held a structured backdrop, so no further reading of this archive can close a
+  spatial law. The next spatial wave needs a new native capture whose sealed holdout
+  includes structured backdrops and independently varied group means and blur. It should
+  test the smoother-g(L) hypothesis from sheets 06/07 first.
+- **Stroke — recommend the negative for this wave: no stroke leaf.** Thirty of 36
+  combinations are certified excluded independent of coefficients, and M1 light-inactive is
+  a completed local negative, with its smallest excess 2.02 codes over the bound. M2's four
+  inactive combinations stay UNMEASURED by the user's ruling, not rejected: one start
+  complete, two aborted by the restart, 29 unstarted. With the W39 holdout spent, finishing
+  M2 or declaring a successor family on this archive can reach calibration/validation
+  survival at most, so closure needs a native capture under X5 with a new sealed holdout
+  and a fitter fast enough for the sealed budgets. Apple's dark exterior contour
+  stays a named gap.
+
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 
 ### Decision Log 4 — the CSS tier's carry, approximation or decline, per leaf (in G2; the parent's, on the browser measurement)
@@ -612,6 +647,18 @@ Deferred.
   0.715 against 0.147 (light), 3 codes at 14.5 CSS px inward between reflected rows.
 
 ## Revision Notes
+
+- 2026-09-29 (G1's one exposure, the G1 owner):
+  - M2's terminal record is committed (`afed9dc3`).
+  - The configuration was reviewed (`becb2fde`, reviewer-high, no material findings) and
+    manifest-1 frozen (`52f62227`).
+  - Attempt-1 was refused at its pre-begin X6 gate, with no receipt begun, because the
+    owner's own watcher matched the FOREIGN census. The coordinator ruled that such a
+    refusal is not a begun attempt.
+  - Attempt-2's receipt ran and completed (`fc157275`), and light-inactive E3 closes on
+    its claimed held-out cells (§5.192.25).
+  - Decision Log 2 carries the owner's per-question recommendations for the user's ruling.
+    The Status line is updated.
 
 - 2026-09-28 (G1 operational steering, user direction relayed by the coordinator): X9 now
   routes every new sub-worker to default `opus`; already-running `astra` assignments finish.

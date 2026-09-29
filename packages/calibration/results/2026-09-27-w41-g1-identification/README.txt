@@ -376,3 +376,35 @@ M2actualterminalrecord/finalreview/freeze/preflight/windowconfirmation stillpend
 
 §24 prose correction: validation admittedbins are588/1292 at1x/2x (132/148excluded),
 not606/1332 asmistakenlytranscribedin5ea44868. Rawverdict and16witness table unchanged.
+
+THE ONE EXPOSURE (claims 5.192 section25; charter X26; 2026-09-29 local)
+- afed9dc3: M2 terminal record. The 2026-09-28T22:24:32Z host restart ended device01
+  (running) and device02 (stopped in flight). Both are ABORTED_UNSCORED, seeds kept, no
+  further start. The six partial records are pinned.
+- becb2fde: final configuration (body-e3 only, 6,411 instruments; reviewer-high, no
+  material findings).
+- 52f62227: manifest-1 77f93ba2… (6,575 pinned files, 418 sources).
+- Before the receipt: the browser just-in-time check matched and the preflight succeeded.
+- Attempt-1: pre-begin X6 refused on foreignProcessCountZero; receipt NOT begun. The
+  foreign process was the owner's own watcher (a FOREIGN token in its command line). The
+  coordinator ruled this is not a begun attempt.
+- Attempt-2: all gates passed (538 s of the 3,600 s X6 budget); 64 recaptures equal their
+  frozen PNGs and projections; receipt begin 23:35:33Z, complete 23:53:22Z. The W39 holdout
+  is spent.
+- Result: light-inactive E3 closes on its claimed held-out cells.
+  - Numerical 18/18 measured, passing, worst 0.666 codes.
+  - Rendered 16/16 measured, passing, worst 1.0 code at the bound (zero margin on
+    held-y0.08-h150/h270 G, both scales).
+  - 0 censored. The veto passes on all 64 rendered cells, with max worsening 0.0.
+  - Coverage is 18/72 and 16/64 of the whole held-out set. The other endpoints are
+    unclaimed identity diagnostics.
+- Evidence: exposure/receipt-1/ (fc157275). Full 111 MB scores and 222 MB result.json stay
+  out of git by size and hash; the gzip copies are committed.
+- Close checks: close-checks/final-1/.
+  - Freeze 1,818.
+  - Calibration 60 files, 768 passed, 1 skipped (UNMEASURED X1: canonical tree absent).
+  - Lint and four TypeScript projects pass.
+  - Protected-path diff empty. Runtime changes are only the identity-table append and the
+    zero-gated operator.
+- Decision Log 2: the owner's per-question recommendations are in the charter; the rulings
+  are the user's.

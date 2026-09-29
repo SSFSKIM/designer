@@ -71,8 +71,13 @@ PENDING on the M2 record) and static-check-2.txt (afed9dc3, READY, 6,411 instrum
 are its records, each naming the HEAD it read. It predicts freeze's refusals; it does
 not substitute for them.
 
-Remaining order (steps 1-2 done; nothing after them has been done)
--------------------------------------------------------------------
+Remaining order (all steps done; see ../receipt-1/README.txt and c9a §5.192.25)
+-------------------------------------------------------------------------------
+Step 4: manifest-1 77f93ba2… committed in 52f62227 (freeze-1.txt, 63 s, no refusal).
+Step 5: browser-jit-1.json MATCH; preflight-20260928T232300Z.json SUCCESS.
+Step 6: attempt-1 refused at pre-begin X6 (receipt not begun); attempt-2 receipt
+complete; evidence committed in fc157275. The original order follows unchanged.
+
 1. DONE: the M2 terminal record is supplied and pinned with its six partial records;
    instruments.json regenerated (6,411); static-check-2.txt exits 0.
 2. DONE: final independent review (reviewer-high, review-1.json): no material findings.

@@ -41326,3 +41326,94 @@ state **588 at1x and1,292 at2x**, from720/1,440 required bins with132/148 popula
 bins excluded. Calibration4,158/9,348 is correct. This corrects only the coordinator's prose
 transcription in `5ea44868`; the generated16-row witness table, raw output files, reviewed
 verdict, failure counts and scientific conclusions do not change.
+
+
+### 25. The one exposure: light-inactive E3 meets the bound on every claimed held-out cell
+
+**The configuration and freeze.** Before the freeze, the M2 terminal record was committed
+(**`afed9dc3`**, `stroke/M2-terminal-record-1.json`). The host restarted at
+**2026-09-28T22:24:32Z** (`kern.boottime` 1790634272, `kern.shutdownreason`
+“wdog,reset_in1 ap_restart”). That restart ended device start01, last observed running at
+19:23Z, and device start02, stopped in flight since 19:01:51Z. Neither start had completed.
+Both are **ABORTED_UNSCORED**, dated to the restart rather than backdated; their seeds are
+retained and their in-memory state is lost. No M2 start follows. The six partial records
+the disposition rests on are pinned, since no writer remains.
+
+The reviewed configuration (**`becb2fde`**; reviewer-high, no material findings) binds
+**body-e3 only**, with 6,411 instruments. `runner.freeze`, run by the recorded command,
+wrote `exposure/final-configuration/manifest-1.json` in **`52f62227`**:
+- SHA-256 **77f93ba2166e83a8e31bb5f26a1c5ffb9e6d2be35fa5ec5509a0a19e72ba95a7**;
+- revision `becb2fde`;
+- 6,575 pinned files and 418 automatic sources;
+- production mode.
+
+**The exposure run.** Immediately before the receipt, three checks passed:
+- the browser's executable, framework and Info.plist hashes, its version
+  **151.0.7922.34**, and all 655 recursive chromium-1234 entries matched their
+  attestations, without a launch;
+- the external preflight passed (`runner.verify` in 181 s);
+- the user confirmed the hands-off window through the coordinator.
+
+**Attempt-1's pre-begin X6 gate refused**, and the receipt was not begun. The refusal came
+at 23:30:31Z on `foreignProcessCountZero`. The one foreign process was the exposure owner's
+own progress watcher: its shell command line carried a token that the FOREIGN census
+matches. The coordinator had already ruled that a pre-begin refusal is not a begun attempt,
+so a rerun into a new directory was admitted; the refusal record stays as it stands.
+
+**Attempt-2** ran as follows:
+- Its pre-begin gate and all four profile gates passed. The four gates used 538 s of the
+  cumulative 3,600 s X6 budget, including the in-guard manifest re-verification.
+- It captured 64 cells, each byte-identical over two loads, with no CSS fallback.
+- Every recapture equals its frozen PNG and projection. The 48 unclaimed rendered cells
+  are byte-identical to the identity baseline.
+- The receipt log (`2026-09-26-w39-g0-colour-edge-bed/wave-identification-receipt.jsonl`)
+  records **begin at 23:35:33.849Z and complete at 23:53:22.306Z**.
+
+**The W39 holdout is now spent.** This was W41's one begun attempt.
+
+**Result, on the claimed stratum** (light-inactive, uniform backdrop, both scales; bound
+max(1 code, bar) = 1.0 code on every claimed channel):
+
+| kind | claimed held-out | measured, passing | censored (UNMEASURED) | worst median error |
+| --- | ---: | ---: | ---: | --- |
+| numerical | 18 | **18** | 0 | **0.666 codes**, held-y0.08-h150 G, both scales |
+| rendered | 16 | **16** | 0 | **1.0 code**, at the bound: G 170 against native 171 on held-y0.08-h150 and -h270, both scales |
+
+**The veto.** The per-bin veto passes on **all 64** rendered held-out cells. Of its 34,624
+bins, **29,584 pass**, 5,040 are UNMEASURED at a population below four pixels, and the
+largest worsening against the shipped baseline is **0.0 codes**.
+
+**Coverage and closure.** Measured coverage is **all claimed held-out cells**: 18/18
+numerical and 16/16 rendered. That is **18/72 and 16/64 of the whole held-out set**. The
+remaining 54 numerical and 48 rendered cells belong to the three unclaimed endpoints, which
+draw the shipped identity. Their scores are kept as diagnostics of the shipped material,
+with worst measured errors of 10.5 (light active), 15.1 (dark active) and 13.0 (dark
+inactive) codes; they are not candidate claims. **Under clause 11 and X31, E3 therefore
+CLOSES for the light receded body on uniform backdrops**: every measured held-out cell of
+its claim meets the bound, both numerically and as the renderer that would ship draws it.
+
+The closure does not extend beyond that claim:
+- **No other endpoint.** Dark E3/EH6 remain certified infeasible, and light-active E3 fails
+  its span-96 transfer by 3 codes (§2, §4).
+- **No structured backdrop.** Structured backdrops stay a diagnostic domain.
+- **Nothing further on the WebGPU tier.** The WebGPU tier's claim is exactly this; the CSS
+  tier's carry is Decision Log 4's, measured in G2.
+
+**Margin.** The rendered margin is **zero on two colour cells at both scales**: the drawn
+8-bit value sits one code from native where the numerical prediction is within one
+(held-y0.08-h150 G: 170.33 predicted, 170 drawn, 171 native; -h270 G: 167.49, 167, 168).
+Any later change that moves a rendered prediction therefore stops the landing (X26) rather
+than inheriting this closure. G2's canonical referees remain load-bearing before any
+shipping: M1/M2/L1/X1, the photo-body texture trade of §20, the canonical holdout by
+artifact, and the eye sheets.
+
+**Evidence.** `exposure/receipt-1/` holds:
+- both runner output trees and the drivers;
+- gzip copies of the runner's 111,640,287-byte scores file and the 222,690,690-byte
+  `result.json`, at 1.6 and 3.2 MB and round-trip identical;
+- `storage.json`, recording every full file's size and SHA-256 (scores **7479b388…**,
+  result **26631fbe…**);
+- `summary.json`, derived by `summarize.py.txt`.
+
+This was committed in **`fc157275`**. The full files stay untracked at the runner path or
+outside git, and no committed file exceeds 50 MB.

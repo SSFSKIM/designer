@@ -1,0 +1,60 @@
+{
+ "schema": "w41-g1-final-close-checks-1",
+ "head": "fc157275bfe858cc6db18969c9c6b948ce0418be",
+ "scope": "G1 closing checks after the one exposure (c9a \u00a75.192.25). Runtime is the E3-only scratch state; no stroke leaf.",
+ "freeze": {
+  "entries": 1818,
+  "exitCode": 0
+ },
+ "tests": {
+  "filesPassed": 60,
+  "passed": 768,
+  "skipped": 1,
+  "total": 769,
+  "durationSeconds": 106.45,
+  "exitCode": 0,
+  "skip": "The adopted X1 assertion, UNMEASURED: canonical capture tree absent (packages/calibration/web-captures does not exist; VITREA_WEB_CAPTURES unset), as in close-checks/current-e3-1."
+ },
+ "lintAndTypes": {
+  "exitCode": 0,
+  "includes": [
+   "eslint .",
+   "tsc --noEmit",
+   "tsc --noEmit -p tsconfig.cli.json",
+   "tsc --noEmit -p web/tsconfig.json",
+   "tsc --noEmit -p scripts/tsconfig.json"
+  ]
+ },
+ "protectedDiff": {
+  "base": "3d13f039",
+  "paths": [
+   "apps/reference-apple",
+   "packages/calibration/profiles",
+   "packages/calibration/results/matrix.json",
+   "packages/calibration/results/generations",
+   "packages/calibration/results/superseded",
+   "packages/calibration/test/adopted-thresholds.test.ts",
+   "packages/renderer-webgpu/e2e/golden",
+   "packages/calibration/fixtures",
+   "packages/platform-web/src"
+  ],
+  "changedPaths": []
+ },
+ "runtimeAndInstrumentSourceChangesSinceBase": {
+  "renderer-webgpu": [
+   "src/material.ts: bodyE3Strength 0 / bodyE3Gains / bodyE3Neutral defaults and the appended W41 MATERIAL_IDENTITY_TABLE gate-group",
+   "src/passes.ts, src/renderer.ts, src/wgsl/optics.ts, src/index.ts: the zero-gated E3 operator (three appended uniform vec4s)",
+   "test/w41-body-e3.test.ts, test/w41-e3-uniform.test.ts"
+  ],
+  "calibration": [
+   "scripts/material-profile-file.ts: E3 keys allowed and validated by the renderer's validateBodyE3Patch",
+   "tests: capture-integrity, tier-coherence, w30-operator-identity, w31-identity-table (one pinned entry), w41-body-e3-scratch"
+  ],
+  "qualification": "Only the identity-table append and the zero-gated operator with its tests and allowlist; no shipped document enables it."
+ },
+ "logs": {
+  "calibration-test.txt": "10773ece89dfdba2137ae9c2ae70a51026296db0afdcb3a735e5d79b6dc140ae",
+  "calibration-lint-types.txt": "63fef5f354bff2972894f21b914efec8785a40e187ba587a1adf91ee3f635c87",
+  "freeze.txt": "7dfc94364110e68c6ae60399d4ec1f2655423e67175909faa8ad69efcc0e1594"
+ }
+}
