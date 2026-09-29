@@ -1,0 +1,39 @@
+{
+  "schema": "w41-g2-owner-eye-draft-1",
+  "status": "PARTIAL: W39 examples only; the canonical examples (1-12) wait on the canonical read",
+  "recordedAt": "2026-09-29T01:35:16.791232+00:00",
+  "method": "Direct viewing of the exported PNG sheets, plus scratch nearest-neighbour crops of the body (x3, with the ΔE panels re-amplified x4) that are not evidence. No browser.",
+  "readings": [
+    {
+      "ordinal": 13,
+      "path": "examples/13__w39__apple-macos-27.0-1x-light-standard-glass0.5__factor-y1-c24-h120-colour__inactive.png",
+      "sha256": "f3b8584e3554e63532680625f8af9cbcbe9779992e26cba99ef2a2fee1947532",
+      "observation": "Uniform colour, light inactive, 1x. Pre-W41's body is visibly lighter and greyer than native (its ΔE panel carries a flat grey interior). Now (E3) matches native's body level and olive hue: its interior ΔE is black even when re-amplified 4x further (ΔE x 32). Both web columns still lack native's dark contour just outside the path, so both carry the same bright outline in the difference panel; E3 does not change the edge.",
+      "distances": {
+        "pixels": 89600,
+        "meanDeltaENow": 0.000361,
+        "meanDeltaEPre": 0.0011,
+        "changedPixels": 4920,
+        "changedMeanDeltaEPre": 0.015031,
+        "changedMeanDeltaENow": 0.001568,
+        "closerFraction": 1
+      }
+    },
+    {
+      "ordinal": 14,
+      "path": "examples/14__w39__apple-macos-27.0-1x-light-standard-glass0.5__v90-c-c44__inactive.png",
+      "sha256": "7366eb56dc47947eaa7f568317c0451d03c1b53a9582c57819cbe39caf29f273",
+      "observation": "Vertical grey gradient, light inactive, 1x. Pre-W41 shows horizontal bands across the body (ΔE x 8, visible without extra gain). Now removes most of them: at ΔE x 32 a faint banded residual remains in the upper half of the body and a thin line across the middle. The body follows native's gradient without new texture. The contour is missing on both web columns, the same as example 13.",
+      "distances": {
+        "pixels": 89600,
+        "meanDeltaENow": 0.000493,
+        "meanDeltaEPre": 0.001018,
+        "changedPixels": 4908,
+        "changedMeanDeltaEPre": 0.012632,
+        "changedMeanDeltaENow": 0.003058,
+        "closerFraction": 0.977995
+      }
+    }
+  ],
+  "distancesMeaning": "Diagnostic only, not a referee. OKLab ΔE to native over the whole frame, and over the \"changed\" pixels (every pixel whose RGBA differs between pre-W41 and now). closerFraction is the share of changed pixels where now is nearer native."
+}
