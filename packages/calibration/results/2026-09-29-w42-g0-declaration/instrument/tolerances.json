@@ -257,6 +257,72 @@
       "BEFORE": "D_tail > 0.30 code",
       "AFTER": "D_tail < 0.15 code",
       "undecided": "between: reported; the fallback is not triggered, the parent rules"
+    },
+    "v2_disclosure_2026-09-30": [
+      "The review of b151aff4 (finding I-1): the v1 proof's own record (refraction_order.v1.txt, its 'carry' counts)",
+      "showed 4 light and 3 dark structured cells with Delta_c > 0.30 at a 16-pt lens and none at 8 pt or less.",
+      "Those counts were known when the tail form was chosen in cb490956, and they already fixed the tail",
+      "statistic's outcome at the same 0.30 bar: the v2 proof confirmed what was known when v2 was declared. Its",
+      "timing is clean (cb490956 precedes its proof in 04163eec; .v1.json holds no D_tail), its power was not",
+      "news. The v2 proof also measured sensitivity only: it never rendered a wrong family without a lens."
+    ],
+    "v3_2026-09-30": {
+      "$comment": [
+        "Declared before its proof runs (the review of b151aff4, finding I-1, and the parent's disposition). The",
+        "v2 test is not specific: a declared rival rendered in the AFTER order with no lens at all and fitted by",
+        "LT reads D_tail +0.32 (W-tails, light; BEFORE), +0.27 (LT-2k, light; undecided) and +1.61 (LT+bleed, dark;",
+        "BEFORE), because any unmodelled structure-dependent term that is larger near the band reads as the",
+        "BEFORE order's signature. Memo E's LT sits at 2.1-3.5 codes pooled on Apple's cells, where no v2 proof",
+        "row lies. v3 keeps the v2 statistic, adds a second, lens-matched one, measures both legs, and makes the",
+        "call conditional on the fitted family's residual."
+      ],
+      "fit": [
+        "The test family F (LT, or the family that survives clause 6) is fitted as the gated fit is: both scales",
+        "(2x and 1x), families A, B, B', C, D and E, calibration and validation roles, at the narrow-support mask,",
+        "least squares with lam inner per endpoint. P = F's pooled rms (bed-wide, equal weight per cell) is recorded."
+      ],
+      "voters": [
+        "Only 2x cells vote. The 1x cells enter the fit and never vote: a 1x depth bin holds a quarter of the",
+        "pixels, and memo E's 1x p4-p8 aliasing misfit (up to 9 codes) is graded in depth under the o-law, a depth",
+        "trend that no refraction order produces."
+      ],
+      "statistics": {
+        "S1": "D_tail exactly as statistic_v2 over the voting cells; BEFORE > 0.30 code, AFTER < 0.15, undecided between.",
+        "S2": [
+          "The lens projection A_hat. Per voting structured cell, the regressor R_c = y_before(A_ref) - y_after: F's",
+          "render at its fitted point with the proof's stand-in lens applied to the capture before every blur, less",
+          "the same render without it, on the cell's mask (luma), A_ref = 8 pt. beta = sum_c <e_c, R_c> / sum_c",
+          "<R_c, R_c> with e_c the cell's luma residual, pooled over the voting structured cells (a uniform cell has",
+          "R_c = 0). A_hat = A_ref * beta, in pt of the stand-in lens. BEFORE if A_hat >= 8 pt, AFTER if A_hat < 4 pt,",
+          "undecided between."
+        ]
+      },
+      "legs": {
+        "sensitivity": "an LT truth with the stand-in lens before the blur at A in {2, 4, 8, 16} pt, and the AFTER render (A = 0)",
+        "specificity": [
+          "every declared rival family (families.FAMILIES, status rival, the dump-literal bleed forms included) rendered",
+          "in the AFTER order at its declared truth parameters with NO lens, quantised +-0.5 as every proof is; F = LT",
+          "fitted; each row records P, S1 and S2. The k-nesting rival (k shared across poses) is not a per-endpoint",
+          "truth and is not rendered."
+        ]
+      },
+      "validity (the conditional call)": [
+        "For each statistic, P*_S = the smallest P among specificity rows where S reads other than AFTER (S1: D_tail",
+        ">= 0.15; S2: A_hat >= 4 pt). If every specificity row reads AFTER, P*_S = the largest P in the leg: beyond",
+        "the leg's range a call is an extrapolation. A statistic whose sensitivity leg reads BEFORE at no A <= 16 pt",
+        "has no power and is never admitted. On a reading (Apple's pixels in G2), a statistic is ADMITTED only when",
+        "F's P there is below its P*_S."
+      ],
+      "call": [
+        "S1's call if S1 is admitted; else S2's if S2 is admitted; if both are admitted and one reads BEFORE while the",
+        "other reads AFTER, UNDECIDED. If neither is admitted the call is UNDECIDED: the parent takes the refraction",
+        "order to the user before G2 fits the active pose, and neither the primary nor the fallback mask is chosen",
+        "by a statistic that cannot decide. A BEFORE or undecided call goes to the parent as before."
+      ],
+      "reported": [
+        "per statistic: its resolution (the smallest A reading BEFORE), P*_S, and whether P*_S exceeds 2.1 codes,",
+        "the low end of memo E's LT pooled rms on Apple's cells (the level at which LT, as F, would read Apple)."
+      ]
     }
   },
   "gating_2026-09-29-revision": {
