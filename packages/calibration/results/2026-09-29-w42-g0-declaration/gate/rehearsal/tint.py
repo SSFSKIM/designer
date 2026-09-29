@@ -18,6 +18,9 @@ Reads only calibration/validation natives (the role is checked before a path is 
 the canonical shipped captures, the swapped trees and the stages' rows.
 
     python3.12 -B tint.py --root /scratch/w42gate --variants c1,c2,c1p,c2p > tint.txt
+    # round 3: the dark receded tinted capsule, the same decomposition (part 2 only)
+    python3.12 -B tint.py --root /scratch/w42gate --variants c2,r3-2pgh,r3-2pgb --scheme dark \
+        --untinted photo__capsule-button__inactive --skip-check > round3/tint-dark.txt
 """
 from __future__ import annotations
 
@@ -78,8 +81,13 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--root', type=Path, required=True)
     ap.add_argument('--variants', default='c1,c2')
+    ap.add_argument('--scheme', default='light', help='round 3: the dark receded tinted cell too')
+    ap.add_argument('--untinted', default='photo__rrect-md__inactive')
+    ap.add_argument('--skip-check', action='store_true')
     args = ap.parse_args()
     print(__doc__.split('\n\n')[0])
+    if args.skip_check:
+        return decompose(args)
 
     print('\n1. The code composite against the shipped tinted captures (body at depth >= 2 CSS px,'
           ' tint applied to the untinted twin\'s shipped capture), rms codes:')
@@ -95,14 +103,26 @@ def main():
         real = rgb(CANONICAL / p / sc / f'{sc}__webgpu.png')
         print(f'   {p[17:]:28s} {sc:52s} {np.sqrt(((pred - real)[m] ** 2).mean()):5.2f}')
 
+    decompose(args)
+
+
+def decompose(args):
     l1 = {v: {c['cell']: c for c in json.loads((args.root / f'ref-{v}' / 'l1-cut.json').read_text())['cells']}
           for v in ['identity'] + args.variants.split(',')}
-    print('\n2. photo__rrect-md__inactive-tint-orange, light receded: the growth decomposed.')
-    print('   The tinted cell\'s web mean is 0.0288 + 0.7312 x (the untinted body\'s mean luminance over'
-          ' the same pixels), exactly, so every change is the body\'s, scaled by 0.7312.')
+    ep = f'{args.scheme}-receded'
+    k = TINT[ep]
+    slope = k['tintShadeLight'] - k['tintShadeDark']
+    u = args.untinted
+    t = u + '-tint-orange'
+    # The shade clamps at 1 where dark + (light - dark) u reaches it; in light receded that is
+    # past u = 1, so the relation is exact there (round 2's wording, kept byte for byte).
+    knee = (1 - k['tintShadeDark']) / slope
+    exact = 'exactly' if knee >= 1 else f'while that stays below {knee:.3f}'
+    print(f"\n2. {t}, {ep.replace('-', ' ')}: the growth decomposed.")
+    print(f"   The tinted cell's web mean is {k['tintShadeDark']} + {slope:.4f} x (the untinted body's mean "
+          f"luminance over the same pixels), {exact}, so every change is the body's, scaled by {slope:.4f}.")
     for scale in (1, 2):
-        p = f'apple-macos-27.0-{scale}x-light-standard-glass0.5'
-        t, u = 'photo__rrect-md__inactive-tint-orange', 'photo__rrect-md__inactive'
+        p = f'apple-macos-27.0-{scale}x-{args.scheme}-standard-glass0.5'
         mask_t, _ = native_mask(p, t)
         base = l1['identity'][f'{p}/{t}']
         allowed = base['baselineError'] + L1_GROWTH
@@ -113,11 +133,11 @@ def main():
         for v in args.variants.split(','):
             cand_u = rgb(args.root / f'tree-{v}' / p / u / f'{u}__webgpu.png')
             du = mean_lum(cand_u, mask_t) - mean_lum(ship_u, mask_t)
-            code = tint_code('light-receded', t)
+            code = tint_code(ep, t)
             dt_code = mean_lum(code(cand_u), mask_t) - mean_lum(code(ship_u), mask_t)
             row = l1[v][f'{p}/{t}']
             twin = l1[v][f'{p}/{u}']
-            need = (base['native'] + allowed - base['web']) / 0.7312
+            need = (base['native'] + allowed - base['web']) / slope
             print(f'     {v:4s} untinted body mean over the tinted silhouette {du:+.4f}; the code composite '
                   f'moves the tinted mean {dt_code:+.4f} (the swap\'s fitted composite measured {row["web"] - base["web"]:+.4f}); '
                   f'growth {row["growth"]:+.4f}. The untinted twin: native {twin["native"]:.4f}, '

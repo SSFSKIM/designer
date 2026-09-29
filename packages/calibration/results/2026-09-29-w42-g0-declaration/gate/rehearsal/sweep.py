@@ -78,7 +78,7 @@ def main():
             S.swap_cell(args.variant, rows[(p, s)], tree, S.documents(args.variant, scheme))
         for p in sorted({p for p, _ in cells}):
             scheme = 'light' if '-light-' in p else 'dark'
-            docs = HERE / 'documents' / args.variant
+            docs = HERE / 'documents' / S.doc_dir(args.variant)
             m = args.out / tag / f'{p}.json'
             scenes = ','.join(s for q, s in cells if q == p)
             env = dict(os.environ, VITREA_WEB_CAPTURES=str(tree))

@@ -56,7 +56,7 @@ def load(root: Path, variant: str):
     if o.exists():
         out['owner'] = json.loads(o.read_text())
     swaps = {}
-    for tree in sorted(root.glob(f'tree-{variant}*')):
+    for tree in [root / f'tree-{variant}']:
         s = tree / f'swap-{variant}.json'
         if s.exists():
             for c in json.loads(s.read_text())['cells']:

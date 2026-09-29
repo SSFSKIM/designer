@@ -1,0 +1,322 @@
+{
+ "what": "W42 G0 owner-test runner: clause 10's owner bar, candidate against base",
+ "commit": "bd4b2e86b2f1bbe8518283a3255c210130268598",
+ "startedAt": "2026-09-29T11:01:04Z",
+ "referees": "packages/calibration/results/2026-09-29-w41-g2-landing/referees",
+ "passed": false,
+ "exit": 1,
+ "keptRelocation": true,
+ "carryHoldout": true,
+ "holdoutCarriedByPair": {
+  "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu": 7,
+  "apple-macos-27.0-1x-light-standard-glass0.5 webgpu": 20,
+  "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu": 7,
+  "apple-macos-27.0-2x-light-standard-glass0.5 webgpu": 20
+ },
+ "m2NamedMisses": {
+  "enabled": true,
+  "derivationAtCommit": true
+ },
+ "base": {
+  "passed": 108
+ },
+ "candidate": {
+  "failed": 5,
+  "passed": 103
+ },
+ "new": [
+  {
+   "case": "the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) names every 27 row the refit missed, and nothing it did not",
+   "message": "AssertionError: the 27 rows that miss their declared bound: expected [ \u2026(30) ] to deeply equal [ \u2026(31) ]",
+   "base": "passed"
+  },
+  {
+   "case": "W31 M1 / M2 \u2014 the body's chroma and the structure it is read over (claims \u00a75.165) M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS",
+   "message": "AssertionError: texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5: interiorStdDevWeb 0.018154 -> 0.017414, -4.079%, Apple 0.026761: a failure, which no entry excuses: expected 0.04078784125896281 to be less than or equal to 0.02",
+   "base": "passed"
+  },
+  {
+   "case": "W31 M1 / M2 \u2014 the body's chroma and the structure it is read over (claims \u00a75.165) M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)",
+   "message": "AssertionError: an M2 failure on the live cut: expected [ \u2026(3) ] to deeply equal []",
+   "base": "passed"
+  },
+  {
+   "case": "W36 L1 \u2014 fixed-native-silhouette level and pre-fit growth (claims \u00a75.180) L1: absolute error is at most 0.055 except the two named, unfloored misses",
+   "message": "AssertionError: expected [ Array(1) ] to deeply equal [ \u2026(2) ]",
+   "base": "passed"
+  },
+  {
+   "case": "W36 L1 \u2014 fixed-native-silhouette level and pre-fit growth (claims \u00a75.180) L1: error growth is at most 0.005, including both existing absolute misses",
+   "message": "AssertionError: apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange: expected 0.01383061891342624 to be less than or equal to 0.005",
+   "base": "passed"
+  }
+ ],
+ "changed": [],
+ "unmeasuredInCandidate": [],
+ "fixed": [],
+ "shared": [],
+ "onlyInBase": [],
+ "m2Inserted": {
+  "base": [],
+  "candidate": [
+   "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.57966221, bound: \"\u2264 0.02\", native: 0.04271031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.26349577, bound: \"\u2264 0.02\", native: 0.04610663 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.61276704, bound: \"\u2264 0.02\", native: 0.03435215 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.97774528, bound: \"\u2264 0.02\", native: 0.03891553 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.10774774, bound: \"\u2264 0.02\", native: 0.04960473 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.10186159, bound: \"\u2264 0.02\", native: 0.05865452 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.36037753, bound: \"\u2264 0.02\", native: 0.06440934 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.36040707, bound: \"\u2264 0.02\", native: 0.07785381 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.48333511, bound: \"\u2264 0.02\", native: 0.09152257 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / validation / photo__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.07973634, bound: \"\u2264 0.02\", native: 0.04008602 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.39020701, bound: \"\u2264 0.02\", native: 0.09097633 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.09165889, bound: \"\u2264 0.02\", native: 0.09621216 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.88647453, bound: \"\u2264 0.02\", native: 0.04290656 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.48864202, bound: \"\u2264 0.02\", native: 0.04759627 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.29555560, bound: \"\u2264 0.02\", native: 0.03509309 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 1.15185895, bound: \"\u2264 0.02\", native: 0.03957447 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.02157046, bound: \"\u2264 0.02\", native: 0.04929191 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.14320720, bound: \"\u2264 0.02\", native: 0.05975691 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.24825339, bound: \"\u2264 0.02\", native: 0.06529274 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.41328318, bound: \"\u2264 0.02\", native: 0.07799072 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.49910646, bound: \"\u2264 0.02\", native: 0.09187031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.12686150, bound: \"\u2264 0.02\", native: 0.03955561 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+   "  \"texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.11325995, bound: \"\u2264 0.02\", native: 0.09314225 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed"
+  ]
+ },
+ "m2Misses": {
+  "base": [],
+  "candidate": [
+   {
+    "key": "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 2.5796622061667693,
+    "native": 0.04271030775249661,
+    "reference": 0.010046151126749121,
+    "web": 0.03596182750586353,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.2634957694919573,
+    "native": 0.04610663216842405,
+    "reference": 0.020524781721532197,
+    "web": 0.025932974874901784,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 2.6127670438607424,
+    "native": 0.03435214697770349,
+    "reference": 0.00955206126690363,
+    "web": 0.034509372146008126,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.9777452846490741,
+    "native": 0.038915527743822495,
+    "reference": 0.016057311759412985,
+    "web": 0.03175727261631916,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.10774774078317485,
+    "native": 0.04960472920856448,
+    "reference": 0.035814758339236454,
+    "web": 0.03967371763698455,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.10186159313901434,
+    "native": 0.05865452194002336,
+    "reference": 0.03949793485110859,
+    "web": 0.04352125742074351,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.36037753458571636,
+    "native": 0.06440934406703132,
+    "reference": 0.044295876435910625,
+    "web": 0.060259115178197625,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.3604070709474803,
+    "native": 0.07785380551164332,
+    "reference": 0.04851896296762562,
+    "web": 0.06600554029619683,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.4833351095694284,
+    "native": 0.09152257207224211,
+    "reference": 0.05525519724086033,
+    "web": 0.08196197405355193,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.04078784125896281,
+    "native": 0.026761377891451815,
+    "reference": 0.018154066164487493,
+    "web": 0.01741360099556567,
+    "verdict": "failure"
+   },
+   {
+    "key": "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.07973634294376394,
+    "native": 0.040086020704404424,
+    "reference": 0.023186734148722063,
+    "web": 0.025035559534550448,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.3902070065842565,
+    "native": 0.0909763250574643,
+    "reference": 0.0652856423467612,
+    "web": 0.09076055741982125,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.09165889151222618,
+    "native": 0.09621215941383285,
+    "reference": 0.07226267579473558,
+    "web": 0.07888619255578842,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 2.886474526227006,
+    "native": 0.04290656198755946,
+    "reference": 0.009295233816440217,
+    "web": 0.03612568944291874,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.4886420218568615,
+    "native": 0.04759626925505541,
+    "reference": 0.016887410429379465,
+    "web": 0.025139308805518096,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 2.2955556038625313,
+    "native": 0.03509309150935081,
+    "reference": 0.010571607941888144,
+    "web": 0.03483932179472712,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 1.1518589496672456,
+    "native": 0.03957446808784108,
+    "reference": 0.014835942443293908,
+    "web": 0.031924855523350136,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.021570461710273898,
+    "native": 0.04929191371061753,
+    "reference": 0.03875021243974247,
+    "web": 0.039586072413438915,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.14320720272945964,
+    "native": 0.05975691064195424,
+    "reference": 0.036968545938222776,
+    "web": 0.042262707991011186,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.24825338860354831,
+    "native": 0.06529273859359758,
+    "reference": 0.04827811652577723,
+    "web": 0.06026332254869839,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.4132831783223576,
+    "native": 0.07799071672822987,
+    "reference": 0.046353058409961234,
+    "web": 0.0655099977145919,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.49910645956664274,
+    "native": 0.09187031209554637,
+    "reference": 0.05479685617058988,
+    "web": 0.08214632104927554,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.1580214051265571,
+    "native": 0.021929257654370597,
+    "reference": 0.017222009406800687,
+    "web": 0.014500563281235258,
+    "verdict": "failure"
+   },
+   {
+    "key": "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.12686149690742682,
+    "native": 0.0395556052903782,
+    "reference": 0.019610188535525652,
+    "web": 0.022097966407779297,
+    "verdict": "named"
+   },
+   {
+    "key": "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.3011743587079904,
+    "native": 0.08621610081825366,
+    "reference": 0.06908933499847215,
+    "web": 0.08989727116019852,
+    "verdict": "failure"
+   },
+   {
+    "key": "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "measured": 0.11325995221734726,
+    "native": 0.09314224832504195,
+    "reference": 0.06788245681502367,
+    "web": 0.07557082063028939,
+    "verdict": "named"
+   }
+  ]
+ },
+ "keptRelocatedByPair": {
+  "apple-macos-27.0-1x-dark-standard-glass0.5 css": 83,
+  "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu": 7,
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 css": 18,
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu": 18,
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 css": 16,
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu": 16,
+  "apple-macos-27.0-1x-light-standard-glass0.5 css": 124,
+  "apple-macos-27.0-1x-light-standard-glass0.5 webgpu": 20,
+  "apple-macos-27.0-2x-dark-standard-glass0.5 css": 28,
+  "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu": 7,
+  "apple-macos-27.0-2x-light-standard-glass0.5 css": 69,
+  "apple-macos-27.0-2x-light-standard-glass0.5 webgpu": 20
+ },
+ "keptWebgpuPairsOfGatedProfiles": [
+  "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu",
+  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu",
+  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu",
+  "apple-macos-27.0-1x-light-standard-glass0.5 webgpu",
+  "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu",
+  "apple-macos-27.0-2x-light-standard-glass0.5 webgpu"
+ ]
+}

@@ -32,6 +32,12 @@ Variants (the rehearsal's candidate documents name them):
             lens, to show what the held band hides from E2. Not the rehearsal of record.
   c2        candidate 2, NATIVE T: c1's chroma with its luma replaced by memo C's native
             uniform table at M's luma, span-corrected.
+  r3-<c><k><h><b>
+            ROUND 3: candidate c (1 | 2), knee k (l on-luma | p per-channel), chroma h (n none,
+            the round-1/2 variant's own | s the literal face matrix's saturation | g W41 G1's
+            fitted E3 gain | x saturation after T, the narrow reading, a sweep only), band b
+            (h held | b blended by smoothstep over the 20 pt band). r3-<c><k>nh is c1, c2, c1p
+            or c2p pixel for pixel. See FACE_CHROMA, G_FIT and BLEND_PT.
   e3ctl     the CONTROL: the sealed W41 E3 shader on the shipped argument (light only). W41 G2's
             stage captured exactly this body for real, so web' against that capture measures
             the swap's own error, band by band.
@@ -69,6 +75,49 @@ for role, scenes in B.SPEC['split'].items():
         for s in scenes:
             SPLIT[s] = role
 VARIANTS = ('identity', 'c1', 'c1s', 'c1m', 'c2', 'e3ctl', 'c1p', 'c2p', 'c1d', 'c1f', 'c2f')
+#: Round 3: 'r3-' + candidate (1 | 2) + knee (l on-luma | p per-channel) + chroma (n none |
+#: s the literal face matrix | g the E3-form gain W41 G1 fitted per endpoint | x saturation
+#: alone, 1.2 / 1.3, applied to T's own output, the narrower reading of (a)) + band (h held |
+#: b blended). One shared document set, documents/r3/, names every round-3 variant.
+R3 = __import__('re').compile(r'^r3-([12])([lp])([nsgx])([hb])$')
+
+
+def doc_dir(variant):
+    return 'r3' if R3.match(variant) else variant
+
+
+#: (a) The literal face matrix's chroma transfer (memo D §3, the dump's constants, nothing fitted):
+#: saturation x (white - black) x (1 - white fill alpha), on encoded values around luma. It is
+#: ONE colour matrix at T's position (memo E: y = T(M) or face(M)); T replaces its grey-level
+#: part, so its chroma part acts on the same argument M, after the knee and the Normal fill.
+FACE_CHROMA = {'light-active': 1.2 * (1.03 - 0.40) * (1 - 0.20),
+               'light-receded': 1.2 * (0.96 - 0.40) * (1 - 0.20),
+               'dark-active': 1.3 * (1.125 - 0.125),
+               'dark-receded': 1.3 * (1.125 - 0.08)}
+#: (b) E3's radial gain g(L) on encoded luma, knots 63 / 93 / 118 as the shader has them, FITTED
+#: BY W41 G1 on 102 W39 uniform calibration cells per endpoint (least squares, neutral ordinates
+#: held at the measured greys; attempt-1/<endpoint>-E3-fit.json; no canonical cell). Its own
+#: residual over those cells, max: 0.709 / 0.925 / 1.088 / 1.538 codes.
+G_FIT = {'light-active': (0.93902775932778, 0.9550787131484505, 0.9388297274849499),
+         'light-receded': (0.9519916947965478, 0.9488475388498168, 0.9334270176825732),
+         'dark-active': (1.2030461109354402, 1.1653158858598713, 1.070412714349141),
+         'dark-receded': (1.211401506164362, 1.1627265637297703, 1.0693904009520063)}
+G_FIT_MAX = {'light-active': 0.7089208284257609, 'light-receded': 0.9252340218768609,
+             'dark-active': 1.087556738904837, 'dark-receded': 1.5379425309424448}
+
+
+def g_fit(ep, L):
+    g0, g1, g2 = G_FIT[ep]
+    L = np.asarray(L, dtype=np.float64)
+    lo = g0 + np.clip((L - 63) / 30, 0, 1) * (g1 - g0)
+    hi = g1 + np.clip((L - 93) / 25, 0, 1) * (g2 - g1)
+    return np.where(L > 93, hi, lo)
+
+
+#: (c) The band as a blend: in the active pose the candidate enters the 20 pt band with the
+#: weight smoothstep(0, 20 pt, depth), 1 at the band's inner edge and 0 at the contour (the
+#: parent's option), times the contour's pixel coverage. Declared before it was read.
+BLEND_PT = 20.0
 DOC_DIR = HERE / 'documents'
 
 
@@ -149,6 +198,25 @@ def candidate_body(variant, ep, scale, bg, comp, span, fl, fx, fy, bt_lensed):
         return None
     if variant == 'e3ctl':
         return B.dec(B.e3_shader(B.enc(bt_lensed) * 255) / 255)
+    r3 = R3.match(variant)
+    if r3:
+        cand, knee, chroma, _ = r3.groups()
+        base = candidate_body(('c1' if knee == 'l' else 'c1p') if cand == '1' else
+                              ('c2' if knee == 'l' else 'c2p'),
+                              ep, scale, bg, comp, span, fl, fx, fy, bt_lensed)
+        if chroma == 'n':
+            return base
+        if chroma == 'x':
+            enc = B.enc(base) * 255
+            lum = enc @ B.W709
+            sat = 1.2 if ep.startswith('light') else 1.3
+            return B.dec(np.clip(lum[..., None] + sat * (enc - lum[..., None]), 0, 255) / 255)
+        A, ML, W = B.lt_argument(ep, scale, bg, comp, knee='channel' if knee == 'p' else 'luma')
+        arg = B.sample_image(A if knee == 'p' else W, fx, fy, scale)
+        La = arg @ B.W709
+        gain = FACE_CHROMA[ep] if chroma == 's' else g_fit(ep, La)[..., None]
+        lum = (B.enc(base) * 255) @ B.W709
+        return B.dec(np.clip(lum[..., None] + gain * (arg - La[..., None]), 0, 255) / 255)
     lt = {k: v for k, v in OVERRIDE.items() if k in ('kappa_n', 'kappa_w', 'support', 'floor', 'knee')}
     if variant in ('c1p', 'c2p'):
         lt['knee'] = 'channel'
@@ -187,10 +255,11 @@ def documents(variant, scheme):
     for kind, suffix in (('materialProfile', ''), ('recededProfile', '-receded')):
         name = f'apple-macos-27.0-1x-{scheme}-standard-glass0.5{suffix}.json'
         src = CAL / 'profiles' / name
-        dst = DOC_DIR / variant / name
+        dst = DOC_DIR / doc_dir(variant) / name
         doc = json.loads(src.read_text())
+        label = 'r3-*' if R3.match(variant) else variant
         doc['$comment-w42-g0-rehearsal'] = (
-            f"W42 G0 rehearsal (charter clause 3), variant '{variant}'. NOT a material: these are "
+            f"W42 G0 rehearsal (charter clause 3), variant '{label}'. NOT a material: these are "
             f"the shipped bytes of {name} (sha256 {hashlib.sha256(src.read_bytes()).hexdigest()}) "
             "with this one key added, so the resolved material and its digest are unchanged. The "
             "captures that name this file were not rendered with it; they are the canonical "
@@ -228,6 +297,9 @@ def swap_weight(ep, fl, variant=''):
     item (b): what the held band hides from E2); they are not the rehearsal of record."""
     if ep.endswith('receded') or variant in ('c1f', 'c2f'):
         return fl.cov
+    m = R3.match(variant)
+    if m and m.group(4) == 'b':
+        return fl.cov * B.smoothstep(0.0, BLEND_PT, -fl.d)
     return np.clip((-fl.d - ACTIVE_BAND_PT) * fl.scale + 0.5, 0.0, 1.0)
 
 
@@ -286,11 +358,13 @@ def swap_cell(variant, row, out_root, docs):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--variant', choices=VARIANTS, required=True)
+    ap.add_argument('--variant', required=True, help=f'{VARIANTS} or r3-[12][lp][nsgx][hb]')
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--profiles', default=','.join(PROFILES))
     ap.add_argument('--scenes', default=None)
     args = ap.parse_args()
+    if args.variant not in VARIANTS and not R3.match(args.variant):
+        raise SystemExit(f'swap: unknown variant {args.variant}')
     out = args.out.resolve()
     if ROOT in out.parents:
         raise SystemExit('swap: write the tree outside the repository')

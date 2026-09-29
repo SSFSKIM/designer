@@ -25,11 +25,12 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from swap import CAL, PROFILES, ROOT, SPLIT, population, store  # noqa: E402
+from swap import doc_dir as S_doc_dir  # noqa: E402
 
 
 def measure_profile(tree: Path, variant: str, profile: str, out: Path) -> Path:
     scheme = 'light' if '-light-' in profile else 'dark'
-    docs = HERE / 'documents' / variant
+    docs = HERE / 'documents' / S_doc_dir(variant)
     active = docs / f'apple-macos-27.0-1x-{scheme}-standard-glass0.5.json'
     receded = docs / f'apple-macos-27.0-1x-{scheme}-standard-glass0.5-receded.json'
     matrix = out / f'{profile}.json'
@@ -51,10 +52,21 @@ def measure_profile(tree: Path, variant: str, profile: str, out: Path) -> Path:
     want = {r['key']['sceneId'] for r in population([profile])}
     got = {r['key']['sceneId'] for r in store.load_current_rows(matrix_path=str(matrix))} \
         if matrix.exists() else set()
-    if got != want:
+    # A population cell the instrument itself refuses to measure (not a missing capture, e.g.
+    # "a 0.00px contour ... carries no curvature" when a candidate's body is hard to tell from
+    # its backdrop) is recorded as UNMEASURED beside the stage, never silently dropped; a PROBE
+    # cell may be (no adopted referee reads a probe photo), any other cell refuses the stage.
+    missing = sorted(want - got)
+    refused = [c for c in missing if f'{profile} / {c}: no webgpu-tier capture' not in log.read_text()]
+    if got - want or set(missing) - set(refused) or any(SPLIT.get(c) != 'probe' for c in refused):
         raise SystemExit(f'measure: {profile}: compare exited {rc}; population {len(want)}, '
-                         f'measured {len(got)}, missing {sorted(want - got)[:5]}, extra '
+                         f'measured {len(got)}, missing {missing[:5]}, extra '
                          f'{sorted(got - want)[:5]}; see {log}')
+    if refused:
+        (out / f'{profile}.unmeasured.json').write_text(json.dumps(dict(
+            profile=profile, cells=refused,
+            reason='the instrument refused the candidate capture (see the log); probe cells only'),
+            indent=1) + '\n')
     return matrix
 
 
@@ -71,7 +83,7 @@ def assemble(variant: str, out: Path, matrices: dict[str, Path]):
                 rows.append(raw)
                 cells.append(dict(profileKey=profile, renderer='webgpu', fixtureSet=raw['fixtureSet'],
                                   sceneId=raw['key']['sceneId']))
-        docs = HERE / 'documents' / variant
+        docs = HERE / 'documents' / S_doc_dir(variant)
         import hashlib
 
         def doc(name):
