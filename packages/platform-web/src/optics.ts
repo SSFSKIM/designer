@@ -1019,6 +1019,229 @@ export const BODY_CHROMA_RETENTION = 0;
  * neither is this wave's.
  */
 
+/**
+ * **E3, the light receded body, mirrored** — `MaterialProfile.bodyE3Strength`,
+ * `bodyE3Gains` and `bodyE3Neutral` (W41; claims §5.192 §5 and §7, closed on the W39
+ * holdout at §25, sealed into the macOS 27 light receded document at §5.193).
+ *
+ * The renderer reads the blurred backdrop's ENCODED code `x` per pixel, takes its encoded
+ * Rec.709 luma `L`, and replaces the untinted body with `F(L) + g(L)·(x − L)` per channel,
+ * clipped: `F` interpolates seven neutral ordinates and continues its end segments, `g`
+ * interpolates three gains and holds its ends. These are the renderer DEFAULT's identity
+ * values restated — the gate at 0, unit gains, the neutral ordinates on the diagonal — so
+ * a document that never names the group resolves to them; `tier-coherence.test.ts` pins
+ * them, and `bodyE3Terms` below, to `@vitrea/renderer-webgpu`.
+ */
+export interface BodyE3Leaves {
+  readonly strength: number;
+  readonly gains: readonly [number, number, number];
+  readonly neutral: readonly [number, number, number, number, number, number, number];
+}
+
+export const BODY_E3_IDENTITY: BodyE3Leaves = {
+  strength: 0,
+  gains: [1, 1, 1],
+  neutral: [40, 56, 72, 88, 104, 128, 150],
+};
+
+/** The encoded-luma codes `F`'s seven ordinates and `g`'s three gains sit at. */
+const BODY_E3_NEUTRAL_KNOTS = [40, 56, 72, 88, 104, 128, 150] as const;
+
+/**
+ * The profile's E3 leaves, refused at the boundary exactly as the renderer's
+ * `validateBodyE3Patch` refuses them: a strength in [0, 1], three gains in [0, 3] and
+ * seven neutral codes in [0, 255], all finite and dense. This tier writes the leaves into a
+ * filter string, where a NaN would be a silently dropped declaration rather than an error.
+ */
+export function resolvedBodyE3(patch?: RendererMaterialProfile): BodyE3Leaves {
+  const inRange = (value: unknown, maximum: number): value is number =>
+    typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= maximum;
+  const strength: unknown = patch?.bodyE3Strength ?? BODY_E3_IDENTITY.strength;
+  if (!inRange(strength, 1)) throw new TypeError("bodyE3Strength must be finite and in [0,1]");
+  const tuple = (value: unknown, length: number, maximum: number, key: string): number[] => {
+    if (!Array.isArray(value) || value.length !== length) {
+      throw new TypeError(`${key} must be a dense tuple of ${String(length)} finite numbers in [0,${String(maximum)}]`);
+    }
+    return Array.from({ length }, (_, i) => {
+      const entry: unknown = Object.hasOwn(value, i) ? value[i] : undefined;
+      if (!inRange(entry, maximum)) {
+        throw new TypeError(`${key} must be a dense tuple of ${String(length)} finite numbers in [0,${String(maximum)}]`);
+      }
+      return entry;
+    });
+  };
+  const gains = tuple(patch?.bodyE3Gains ?? BODY_E3_IDENTITY.gains, 3, 3, "bodyE3Gains");
+  const neutral = tuple(patch?.bodyE3Neutral ?? BODY_E3_IDENTITY.neutral, 7, 255, "bodyE3Neutral");
+  return {
+    strength,
+    gains: [gains[0]!, gains[1]!, gains[2]!],
+    neutral: [neutral[0]!, neutral[1]!, neutral[2]!, neutral[3]!, neutral[4]!, neutral[5]!,
+      neutral[6]!],
+  };
+}
+
+/**
+ * `F(L)` and `g(L)` at one encoded luma, in codes — the renderer's `bodyE3Encoded` with the
+ * chroma term left to the caller. `F` continues its first and last segments outside the
+ * knots and is clipped to [0, 255]; `g` holds its end gains outside 63 and 118.
+ */
+export function bodyE3Terms(
+  lumaCodes: number,
+  leaves: Pick<BodyE3Leaves, "gains" | "neutral">,
+): { readonly neutralCodes: number; readonly gain: number } {
+  const knots = BODY_E3_NEUTRAL_KNOTS;
+  let i = 0;
+  for (let j = 1; j < 6; j++) {
+    if (lumaCodes >= knots[j]!) i = j;
+  }
+  const t = (lumaCodes - knots[i]!) / (knots[i + 1]! - knots[i]!);
+  const neutralCodes = Math.min(
+    255,
+    Math.max(0, leaves.neutral[i]! + t * (leaves.neutral[i + 1]! - leaves.neutral[i]!)),
+  );
+  const [g0, g1, g2] = leaves.gains;
+  const gain = lumaCodes > 93
+    ? g1 + clamp01((lumaCodes - 93) / 25) * (g2 - g1)
+    : g0 + clamp01((lumaCodes - 63) / 30) * (g1 - g0);
+  return { neutralCodes, gain };
+}
+
+/**
+ * The gate under the accessibility fold — the mirror of the renderer's
+ * `bodyE3StrengthUnderPolicy`, and the same enable domain: the regular variant, the
+ * nominal material policy on every axis, and a backdrop this tier actually SAMPLED.
+ *
+ * "Sampled" means something narrower here than on the GPU tier, and the difference is
+ * stated rather than hidden. A `backdrop-filter` always reads the pixels behind it, so the
+ * per-pixel half of E3 is never missing on this tier; what can be missing is `L`, the luma
+ * the per-surface affine is taken at, and the only reading of it this tier has is the
+ * silhouette sample's `encodedLuminance` over a registered texture. An author hint states
+ * a level rather than sampling one, and a stacked tone is a prediction of another
+ * surface's output, so both stand E3 down here — where the GPU tier, which reads `L` per
+ * pixel and ignores the hint, still draws it. That is a named cross-tier residual.
+ */
+export function bodyE3UnderPolicy(
+  strength: number,
+  policy: ResolvedMaterialPolicy,
+  variant: MaterialVariant,
+  sampled: boolean,
+): number {
+  return sampled && variant === "regular" &&
+    policy.glass === "material" && policy.frost === "nominal" &&
+    policy.refraction === "nominal" && policy.occlusion === "nominal" &&
+    policy.border === "nominal" && policy.ambientTint === "nominal" &&
+    policy.foreground === "adaptive" ? strength : 0;
+}
+
+/** What the sharp layer carries for E3 on one surface, as drawn (see `cssTierBodyE3`). */
+export interface CssTierBodyE3 {
+  /** The surface's encoded luma `L`, 0..1. */
+  readonly encodedLuma: number;
+  /** `F(L)`, encoded 0..1. */
+  readonly neutral: number;
+  /** `g(L)`. */
+  readonly gain: number;
+  /** The overlay alpha the filter is solved against, as L3 paints it at rest. */
+  readonly overlayAlpha: number;
+  /** The overlay colour's E3-luma level `p̄`, encoded 0..1. */
+  readonly overlayLevel: number;
+  /** The per-channel miss a chromatic overlay leaves, `max α·|p_c − p̄|`, encoded 0..1. */
+  readonly overlayChromaResidual: number;
+  readonly order: "contrast-brightness" | "brightness-contrast";
+  readonly contrast: number;
+  readonly brightness: number;
+}
+
+/**
+ * How the CSS tier carries E3 on one surface: two CSS filter functions on the sharp
+ * layer, solved against the overlay L3 keeps (W41 G2, Decision Log 4's candidate; claims
+ * §5.192 §7 and §18).
+ *
+ * ## The algebra
+ *
+ * Over a uniform backdrop E3 is affine in each encoded channel at the surface's luma:
+ * `y = g·x + k` with `k = F(L) − g·L`. This tier composites L3's overlay `(α, p)` over the
+ * filtered backdrop in the page's encoded space, `α·p + (1 − α)·S(x)`, and the overlay is
+ * the contrast floor a silently no-op'd `backdrop-filter` still leaves legible — so it
+ * stays exactly as it is, and the filter carries the REMAINDER:
+ *
+ *     S(x) = G·x + K,   G = g / (1 − α),   K = (k − α·p) / (1 − α).
+ *
+ * `contrast(c)` is `c·x + (1 − c)/2` and `brightness(b)` is `b·x`, each clamped to [0, 1],
+ * and the G1 proof page measured Chromium applying them in the listed order in encoded
+ * sRGB. Two orders cover every `K` with no premature clamp:
+ *
+ *  - `K ≥ 0`: `contrast(G/b) brightness(b)`, `b = G + 2K`. The contrast is at most 1, so its
+ *    output stays in [0, 1] and only the final clamp acts — which is E3's own clip.
+ *  - `K < 0`: `brightness(G/c) contrast(c)`, `c = 1 − 2K > 1`. The brightness clamps only
+ *    where `x > (1 − 2K)/G`, and there the target `G·x + K` already exceeds `1 − K > 1`, so
+ *    the clamp it adds is one the output would have taken anyway.
+ *
+ * §7 declared only the first order, with `α = 0`; on the shipped floor (α₃ = 0.267 over a
+ * grey near 224) `K` turns negative once `L` passes about 128 codes, so the second order is
+ * what keeps the route defined over the whole light range rather than a new degree of
+ * freedom. The route therefore exists wherever `α < 1`. What the floor still costs is
+ * reach: a composite can never fall below `α·p` or rise above `α·p + 1 − α`, and an E3
+ * target outside that interval is clamped to it — the fallback floor's price, per pixel.
+ *
+ * ## What it linearises
+ *
+ * `L` is ONE number per surface (the silhouette reading), so over a structured backdrop
+ * the luma slope this draws is `g` where the renderer's per-pixel law has `F′(L)`; the
+ * chroma slope is `g` in both. That is a residual of this form, measured rather than
+ * argued (Decision Log 4's (b) read).
+ *
+ * ## A chromatic overlay
+ *
+ * The two functions act on all three channels alike, so `K` is one number and the overlay
+ * has to be neutral for the composite to be exact. Where it is not — the collapse can
+ * converge the plate onto a chromatic dark backdrop — `K` is solved at the overlay's E3-luma
+ * level `p̄` and each channel is off by `α·(p_c − p̄)`, reported as `overlayChromaResidual`
+ * rather than hidden.
+ *
+ * Returns `undefined` where the overlay is opaque: there is no remainder to filter.
+ */
+export function cssTierBodyE3(
+  leaves: Pick<BodyE3Leaves, "gains" | "neutral">,
+  encodedLuma: number,
+  overlay: { readonly tint: Rgb255; readonly tintAlpha: number },
+): CssTierBodyE3 | undefined {
+  const alpha = clamp01(overlay.tintAlpha);
+  if (alpha >= 1) return undefined;
+  const luma = clamp01(encodedLuma);
+  const terms = bodyE3Terms(luma * 255, leaves);
+  const neutral = terms.neutralCodes / 255;
+  const gain = terms.gain;
+  const plate = overlay.tint.map((channel) => channel / 255);
+  const overlayLevel = 0.2126 * plate[0]! + 0.7152 * plate[1]! + 0.0722 * plate[2]!;
+  const slope = gain / (1 - alpha);
+  const intercept = (neutral - gain * luma - alpha * overlayLevel) / (1 - alpha);
+  const order = intercept >= 0 ? "contrast-brightness" : "brightness-contrast";
+  const brightness = intercept >= 0 ? slope + 2 * intercept : slope / (1 - 2 * intercept);
+  const contrast = intercept >= 0
+    ? (brightness > 0 ? slope / brightness : 0)
+    : 1 - 2 * intercept;
+  return {
+    encodedLuma: luma,
+    neutral,
+    gain,
+    overlayAlpha: alpha,
+    overlayLevel,
+    overlayChromaResidual: alpha * Math.max(...plate.map((channel) => Math.abs(channel - overlayLevel))),
+    order,
+    contrast,
+    brightness,
+  };
+}
+
+/** The two filter functions, in their order, as the sharp layer writes them. */
+export function cssTierBodyE3Functions(e3: CssTierBodyE3): string {
+  const n = (value: number): string => String(Math.round(value * 1e6) / 1e6);
+  return e3.order === "contrast-brightness"
+    ? `contrast(${n(e3.contrast)}) brightness(${n(e3.brightness)})`
+    : `brightness(${n(e3.brightness)}) contrast(${n(e3.contrast)})`;
+}
+
 /** The two absolute rims a collapsed surface keeps, bare and at full coverage. */
 export interface CollapsedRimConstants {
   readonly bare: number;

@@ -165,6 +165,8 @@ import {
   cssTierSharpSigmaCssPx,
   cssTierForegroundColour,
   cssTierForegroundColourBounds,
+  cssTierBodyE3,
+  cssTierBodyE3Functions,
   foldedOverlay,
   inkAlphaHoldingContrast,
   neutralComposite,
@@ -176,6 +178,8 @@ import {
   scatterThickness,
   sizeScatterSigmaAt,
   sizeThicknessUnderPolicy,
+  type BodyE3Leaves,
+  type CssTierBodyE3,
   type CssTierMapping,
   type MaterialOptics,
   type MaterialSourceOuterShadow,
@@ -448,6 +452,13 @@ export interface CssTierBody {
    * reason: the dark scheme keeps the second, and a readout has to say so.
    */
   readonly tintForm?: "linear" | "encoded";
+  /**
+   * E3, where this surface carried it (W41 G2): the two filter functions that replaced the
+   * sharp layer's `saturate()` and the numbers they were solved from. Absent wherever the
+   * surface drew the tier's own material, which is every surface outside E3's enable domain.
+   * With it present `tintTransfer` is absent, because E3 replaces the body the table carried.
+   */
+  readonly bodyE3?: CssTierBodyE3;
 
   /**
    * The single-σ projection this tier drew before W16 — the width the collapse
@@ -805,6 +816,25 @@ export interface CssTierSurface {
    * on `CssTierRender.outerShadow` for that member to use.
    */
   readonly shadowCarrier?: CssTierShadowCarrier;
+  /**
+   * E3's leaves and the luma this surface's affine is taken at, where the surface is in
+   * E3's enable domain (W41 G2; `bodyE3UnderPolicy` has already folded the gate).
+   *
+   * Absent — the case on every endpoint but the macOS 27 light receded one, and on that one
+   * outside the domain — is exactly the declarations this function wrote before E3. Only the
+   * identified endpoint, a gate of 1, is carried: a fractional gate is an unmeasured mix on
+   * the GPU tier and this tier has no body of the old material left to mix toward once the
+   * filter replaces it, so it draws the old material instead. A TINTED surface also needs
+   * `untintedOptics`, because the filter is solved against the material's own overlay and a
+   * folded one alone would absorb the author's layer into E3.
+   */
+  readonly bodyE3?: CssTierBodyE3Input;
+}
+
+/** E3 as `root.ts` hands it to one surface: the folded leaves and the silhouette luma. */
+export interface CssTierBodyE3Input extends BodyE3Leaves {
+  /** The surface's encoded Rec.709 luma, 0..1 — the silhouette reading's `encodedLuminance`. */
+  readonly encodedLuma: number;
 }
 
 /**
@@ -1269,8 +1299,11 @@ const REDUCED_DURATION_MS = 120;
 
 const px = (value: number): string => `${Math.round(value * 100) / 100}px`;
 
+/** An alpha as `rgba()` writes it, so a solve against the overlay uses the painted number. */
+const paintedAlpha = (alpha: number): number => Math.round(alpha * 1000) / 1000;
+
 const rgba = (rgb: Rgb255, alpha: number): string =>
-  `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${Math.round(alpha * 1000) / 1000})`;
+  `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${paintedAlpha(alpha)})`;
 
 /**
  * Where the gradient samples the renderer's falloff. Five stops over a quadratic
@@ -1717,6 +1750,34 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
         : authorLayer === undefined
           ? rgba(floorOptics.tint, overlayFloorAlpha)
           : rgba(authorLayer.color, authorLayer.strength);
+  /*
+   * E3 (W41 G2; Decision Log 4's candidate — see `cssTierBodyE3` for the algebra).
+   *
+   * Everything above stays as it was, and that is the point of the form: L3 keeps the
+   * overlay it would have painted, so a `backdrop-filter` that silently no-ops still leaves
+   * the same legible floor, and the sharp layer's filter carries the remainder that
+   * composites to E3 over it. The filter is solved against the MATERIAL's own overlay at
+   * rest — the floor pair on the linear form, the untinted `rgba()` on the encoded one, at
+   * the alpha `rgba()` actually writes — because an author's layer folds over that pair and
+   * then composites to `(1 − s)·E3 + s·layer`, which is E3 before the author tint as the
+   * renderer orders it. The presence rides the weights as it already does (L1's `opacity`,
+   * L3's alpha), so the definition is the resting one and exact at both ends.
+   *
+   * E3 replaces the body the transfer table and `saturate()` drew, so the sharp filter
+   * loses both: the table is not built and the saturation is not written.
+   */
+  const e3 = surface.bodyE3;
+  const restMaterial = surface.untintedOptics ?? surface.optics;
+  const bodyE3 =
+    e3 === undefined || e3.strength < 1 || presence <= 0 ||
+    (surface.untintedOptics === undefined &&
+      (surface.authorLayer !== undefined || surface.tint !== undefined))
+      ? undefined
+      : cssTierBodyE3(e3, e3.encodedLuma, {
+          tint: restMaterial.tint,
+          tintAlpha: paintedAlpha(transfer === undefined ? restMaterial.tintAlpha : floorAlpha),
+        });
+  const sharpTransfer = bodyE3 === undefined ? transfer : undefined;
 
   /*
    * X6's one honesty-core mechanism, reaching the tier most visitors get
@@ -1894,7 +1955,8 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
         policy,
         declaredPresence,
         driven,
-        transfer,
+        sharpTransfer,
+        bodyE3,
       ),
       heavy: heavyLayerDeclarations(body, optics.borderWidth, prefix, policy, presence, driven),
       overlay: overlayLayerDeclarations(
@@ -1906,7 +1968,12 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
         driven,
       ),
     },
-    body: { ...body, tintForm, ...(transfer === undefined ? {} : { tintTransfer: transfer }) },
+    body: {
+      ...body,
+      tintForm,
+      ...(sharpTransfer === undefined ? {} : { tintTransfer: sharpTransfer }),
+      ...(bodyE3 === undefined ? {} : { bodyE3 }),
+    },
     outerShadow: shadow,
     foregroundLevel: level,
   };
@@ -1977,6 +2044,13 @@ function layerFrame(borderWidth: number, zIndex: number): StyleDeclarations {
  * renderer saturates in linear light throughout. It is the same operator in a
  * different space and the difference is a chroma one; it is a gap this tier
  * carries, not a choice made twice.
+ *
+ * **Where E3 is carried (W41 G2) its two functions take the saturation's place**, on the
+ * same layer and for the same once-only reason. They are affine per channel in the
+ * encoded space, which commutes with an encoded blur and not with the reference filter's
+ * linear-light one: over a structured backdrop L2 blurs E3's output in linear light where
+ * the renderer feeds E3 the already-mixed blur, a second residual beside the per-surface
+ * luma, read by the same measurement and zero over a uniform backdrop.
  */
 function sharpLayerDeclarations(
   body: CssTierBody,
@@ -1986,9 +2060,14 @@ function sharpLayerDeclarations(
   presence: number | undefined,
   driven: boolean,
   transfer?: CssTierTintTransfer,
+  bodyE3?: CssTierBodyE3,
 ): StyleDeclarations {
   const weight = presence ?? 1;
   const blur = blurFunction(body.filter, body.sharpSigmaCssPx, prefix, transfer);
+  // E3 replaces the material's saturation with its own two functions (W41 G2): its gain is
+  // the body's chroma, and a `saturate()` left before it would scale that chroma twice.
+  const colour =
+    bodyE3 === undefined ? `saturate(${optics.saturation})` : cssTierBodyE3Functions(bodyE3);
   /*
    * At zero presence the property is written at `none` rather than at a zero
    * width (W27d). `blur(0px)` and a `saturate()` still cost a render surface and
@@ -1996,7 +2075,7 @@ function sharpLayerDeclarations(
    * nothing, and the layer's own `opacity` below would hide the result either
    * way — so the honest declaration and the cheap one are the same one.
    */
-  const filter = weight <= 0 ? "none" : `${blur} saturate(${optics.saturation})`;
+  const filter = weight <= 0 ? "none" : `${blur} ${colour}`;
   return {
     ...layerFrame(optics.borderWidth, -3),
     "backdrop-filter": filter,

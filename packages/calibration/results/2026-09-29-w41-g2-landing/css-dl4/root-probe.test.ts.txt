@@ -1,0 +1,66 @@
+import { afterEach, describe, it, vi } from "vitest";
+import { appendFileSync, writeFileSync } from "node:fs";
+import { createGlassRoot, type GlassRoot } from "../../src/root";
+import { releaseBackdropToneScratch } from "../../src/backdrop-tone";
+
+const CHROME =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
+  "(KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36";
+let root: GlassRoot | undefined;
+afterEach(() => {
+  root?.destroy(); root = undefined; document.body.replaceChildren();
+  releaseBackdropToneScratch(); vi.restoreAllMocks(); vi.unstubAllGlobals();
+});
+
+function render(rgb: [number, number, number], w: number, h: number, radius: number, dpr: number,
+  activation: "active" | "inactive" = "inactive") {
+  vi.stubGlobal("ResizeObserver", class { observe() {} unobserve() {} disconnect() {} });
+  vi.stubGlobal("ImageBitmap", class {});
+  Object.defineProperty(globalThis.navigator, "userAgent", { value: CHROME, configurable: true });
+  Object.defineProperty(window, "devicePixelRatio", { value: dpr, configurable: true });
+  const N = 4;
+  const data = new Uint8ClampedArray(N * N * 4);
+  for (let i = 0; i < N * N; i++) data.set([rgb[0], rgb[1], rgb[2], 255], i * 4);
+  vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockImplementation(() => ({
+    clearRect() {}, drawImage() {}, getImageData() { return { data }; },
+    createImageData(w: number, h: number) { return { data: new Uint8ClampedArray(w * h * 4) }; }, putImageData() {},
+  }) as unknown as CanvasRenderingContext2D);
+  const container = document.createElement("div");
+  document.body.append(container);
+  root = createGlassRoot({
+    windowActivation: activation, colorScheme: "light",
+    container, renderer: "css", autoStart: false, diagnosticSink() {},
+    matcher: () => ({ matches: false, media: "", addEventListener() {}, removeEventListener() {} }),
+  });
+  root.registerBackdropSource({ id: "src", kind: "texture",
+    probe: { taint: "clean", textureCompatibility: "compatible" } });
+  root.registerGroup({ id: "g", backdropSourceId: "src" });
+  const canvas = document.createElement("canvas");
+  canvas.width = N; canvas.height = N;
+  root.setBackdropTexture("src", { kind: "canvas", canvas,
+    placement: { kind: "rect", rect: { x: 0, y: 0, width: 320, height: 280 } } });
+  const host = document.createElement("div");
+  host.getBoundingClientRect = () => ({ x: 100, y: 118, width: w, height: h,
+    left: 100, right: 100 + w, top: 118, bottom: 118 + h, toJSON() {} }) as DOMRect;
+  root.plane("base").hostLayer.append(host);
+  root.registerHost({ host, groupId: "g", radii: [radius, radius, radius, radius] });
+  root.runFrame(16);
+  root.runFrame(32);
+  const layers = [...host.querySelectorAll("[data-vitrea-css-layer]")] as HTMLElement[];
+  const out: Record<string, string> = {};
+  for (const l of layers) out[l.getAttribute("data-vitrea-css-layer")!] = l.style.cssText;
+  const svg = document.querySelector("[data-vitrea-css-filters]");
+  return { out, host: host.style.cssText, svg: svg?.innerHTML ?? "", cap: root.capabilities("g") };
+}
+
+import { readFileSync } from "node:fs";
+describe("probe", () => {
+  it("prints", () => {
+    const cells = JSON.parse(readFileSync("/tmp/g2css-cells.json", "utf8")) as Record<string, {rgb:[number,number,number]; size:[number,number]; radius:number; scale:number}>;
+    for (const [id, c] of Object.entries(cells)) {
+      const r = render(c.rgb, c.size[0], c.size[1], c.radius, c.scale);
+      appendFileSync('/tmp/g2css-probe.jsonl', JSON.stringify({ id, rgb: c.rgb, dpr: c.scale, ...r.out, svg: r.svg.slice(0, 300), abs: r.cap?.backdropToneAbscissae }) + '\n');
+      root?.destroy(); root = undefined; document.body.replaceChildren(); releaseBackdropToneScratch(); vi.restoreAllMocks();
+    }
+  });
+});

@@ -1,0 +1,102 @@
+W41 G2 — Decision Log 4 CSS carry of light-inactive E3: STATUS at pause (2026-09-29)
+======================================================================================
+Branch w41-g2-css-candidate, cut from w41-g2-landing f5760e17. Paused at the owner's request
+(the canonical referees stopped the landing: L1 on every inactive checkerboard cell, M2 on the
+light-inactive photo cells; the user is deciding whether E3 lands). No browser was launched, no
+capture, no native or holdout read, no write to matrix/generations/profiles/fixtures/goldens.
+
+Where it stopped
+----------------
+Step 1 (derivation) is done and is written into the source doc comments. Step 2 (candidate)
+has its SOURCE done and type/lint-clean; its dedicated unit tests are NOT written. Step 3
+(capture commands and scorer) is NOT started. Step 4 not started.
+
+The derivation (full text: platform-web/src/optics.ts, `cssTierBodyE3`)
+-----------------------------------------------------------------------
+Uniform backdrop, encoded x per channel, surface luma L: E3 = clip(g·x + k), k = F(L) − g·L.
+The production composite in the deep body is α·p + (1−α)·[P·S(x) + (1−P)·x]: L2 is the
+identity on a uniform backdrop, L3's overlay (α, p) is the fallback floor, P is presence
+(L1 opacity; L3's α also carries P). Keeping L3 byte-identical and solving the filter at rest:
+
+    S(x) = G·x + K,   G = g/(1−α),   K = (k − α·p)/(1−α)
+
+  K ≥ 0: contrast(G/b) brightness(b), b = G + 2K   (§7's order; contrast ≤ 1, no early clamp)
+  K < 0: brightness(G/c) contrast(c), c = 1 − 2K   (brightness clamps only where the target
+         already exceeds 1 − K > 1, so no clamp E3 would not take)
+
+So the route exists for every α < 1, not only §7's k ≥ 0: on the shipped floor (α₃ = 0.267
+over a grey near 224) K turns negative for L above about 128 codes, and the second order is
+what covers it. The real domain limit is REACH: a composite cannot leave [α·p, α·p + 1 − α].
+Solved against the MATERIAL's own overlay at rest (floor pair on the linear form, untinted
+rgba on the encoded form, at the alpha rgba() actually writes), so an author layer folds to
+(1−s)·E3 + s·layer, E3 before author tint as the renderer orders it. Channel-uniform
+functions need a neutral overlay; a chromatic one (collapse onto a dark chromatic backdrop)
+is solved at its E3-luma level and reports overlayChromaResidual = max α·|p_c − p̄|.
+Per-surface L means the luma slope on a structured backdrop is g (≈0.93–0.96) where E3's is
+F′ (≈0.43); and L2's linear-light blur of E3's output is a second structured-only residual.
+Both are for the (b) measurement, not argued.
+
+Enable domain: the renderer's (regular variant, nominal policy on every axis), strength 1
+only (a fractional gate draws the old material: the filter replaces it, so there is nothing
+to mix toward), presence > 0, and "sampled" = the surface's silhouette `encodedLuminance`.
+A hint or a stacked tone stands E3 down on CSS where the GPU tier still draws it (a named
+cross-tier residual). Tinted surfaces need untintedOptics (root.ts always passes it).
+
+What the candidate source does (uncommitted-test state)
+-------------------------------------------------------
+- core/src/state.ts: GlassGroupState.cssBodyE3?: "carried" | "stood-down" (honesty core;
+  present only where the drawn document enables E3; weakest-member fold).
+- platform-web/src/optics.ts: BODY_E3_IDENTITY, resolvedBodyE3 (validates as the renderer's
+  validateBodyE3Patch), bodyE3Terms (F, g mirror of bodyE3Encoded), bodyE3UnderPolicy (mirror
+  of bodyE3StrengthUnderPolicy), cssTierBodyE3 (the solve), cssTierBodyE3Functions.
+- platform-web/src/css-tier.ts: CssTierSurface.bodyE3 input; CssTierBody.bodyE3 report; the
+  sharp layer writes `<blur> <E3 functions>` in place of `saturate()`, and the transfer table
+  is not built; L3, L2 and the host are untouched.
+- platform-web/src/root.ts: leaves resolved and validated with the profile; per-surface
+  input from the silhouette luma; cssBodyE3 folded onto the state.
+Checks at pause: platform-web vitest 634/634, platform-web and core lint (eslint + tsc) clean,
+calibration tier-coherence 65/65. The tier-coherence mirror entries for bodyE3* still read
+"none: ... runtime CSS is unchanged", which is FALSE on this branch; step 2 must replace them
+with citations and value pins (below).
+
+Offline read of the production declarations (jsdom root, no browser)
+-------------------------------------------------------------------
+root-probe.test.ts.txt drives the real createGlassRoot (CSS tier, Chromium UA, macOS 27,
+light, inactive, silhouette sampling of a uniform mocked texture) over G1's 130 uniform
+light-inactive calval cells (css-projection/public-3/cells.json) and writes /tmp output.
+To rerun: copy it to packages/platform-web/test/scratch/probe.test.ts and run vitest on it.
+Before the candidate: 128 cells draw the LINEAR form, L3 = rgba(p,p,p,0.267) with neutral
+p 208–245; 2 cells (grey 40, 1x/2x) draw the ENCODED form, rgba(212,212,212,0.655). Every
+overlay is neutral. With the candidate, evaluating the written functions and overlay
+algebraically (CSS clamp semantics): 128 cells reproduce E3 within 0.05 code; 122 take
+contrast-brightness and 8 brightness-contrast. The two red cells (192/32/32) miss R by
+10.68 codes: E3's R is 255 but the floor caps the composite at 255 − 0.267·(255 − 215) =
+244.3, against native's one-sided rail R ≥ 250 — about 5.7 codes short. G1's transparent
+prototype met that rail; the production floor cannot. This is the first DL4 residual.
+
+What remains
+------------
+Step 2: unit tests — (i) the algebra over L, α, p, x incl. both orders, the reach clamp,
+α ≥ 1 → undefined, the chromatic residual; (ii) declarations: only the sharp layer's
+backdrop-filter and the SVG defs move, L3/L2/host byte-identical (the fallback floor);
+strength 0, fractional, presence 0, tinted-without-untinted → identical to no input;
+(iii) stand-downs RT/IC/IC-only/forced/clear/unsampled/hint, RM alone retains;
+(iv) a root-level byte-identity fixture over 8 endpoints × colours × geometry × dpr ×
+conditions, RECORDED ON THE PRE-CHANGE TREE (f5760e17, a temporary detached worktree),
+per-layer hashes, asserting every non-E3 endpoint identical and the E3 endpoint moving
+only sharp + defs + the new state field. tier-coherence: replace the three "none:" rows
+with citations and pin BODY_E3_IDENTITY to DEFAULT_MATERIAL_PROFILE, bodyE3Terms against
+bodyE3Encoded over an encoded-RGB grid, bodyE3UnderPolicy against
+bodyE3StrengthUnderPolicy over the policy product.
+Step 3: (a) capture the 130 cells with capture-web.ts --renderer css on the W39 scenes and
+G1's generated backdrops (candidate tree), score with G1's css-projection scorer route
+(candidate-e3 native_reader, calval only) against native, beside G1's standalone route,
+and against the owner's WebGPU E3 captures in g2-captures/identity/calval; (b) exploratory
+compare --renderer css --out-matrix <scratch> with VITREA_WEB_CAPTURES scratch on the four
+light profiles, calibration+validation, sealed pair, once per tree; (c) the floor by unit
+test (L3 identical) — the tier has no filter-disabled browser path.
+Step 4 memo: to be written after the owner's captures. Candidate routes to name there: a
+per-channel table or an sRGB-interpolated feColorMatrix inside the existing reference
+filter (separates luma slope F′ from chroma gain g, and is per-channel so a chromatic
+floor is exact), and contrast → saturate(g/F′) → brightness on the filter-function path
+(also separates the slopes, on every engine). Neither is measured.

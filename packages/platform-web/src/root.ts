@@ -169,6 +169,8 @@ import {
   resolvedBackdropToneResponse,
   validateBackdropToneAbscissa,
   resolvedRimTintChroma,
+  resolvedBodyE3,
+  bodyE3UnderPolicy,
   resolvedPolicyFold,
   resolvedTintShade,
   rimAmplitude,
@@ -813,11 +815,13 @@ const withPlatformFolds = (
   cssShadow: CssTierShadowCarrier | undefined,
   materialDocument: ResolvedMaterialDocument,
   state: GlassGroupState,
+  cssBodyE3?: "carried" | "stood-down",
 ): GlassGroupState => ({
   ...state,
   ...(cssBody === undefined ? {} : { cssBody }),
   ...(cssTint === undefined ? {} : { cssTint }),
   ...(cssShadow === undefined ? {} : { cssShadow }),
+  ...(cssBodyE3 === undefined ? {} : { cssBodyE3 }),
   materialDocument,
 });
 
@@ -866,6 +870,7 @@ const rejectUndrawableProfile = (
   document: GlassMaterialProfileDocument,
 ): void => {
   validateBackdropToneAbscissa(profile);
+  resolvedBodyE3(profile);
   for (const scheme of ["light", "dark"] as const) {
     resolvedBackdropToneResponse(
       mergeMaterialProfiles(colorSchemeMaterialProfile(scheme, document), profile),
@@ -973,6 +978,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * order and there is no per-surface answer to it that a consumer could read.
    */
   const cssShadowForms = new Map<string, CssTierShadowCarrier>();
+  /**
+   * Whether each CSS-tier group's surfaces carried E3 this frame (W41 G2), only where the
+   * drawn document enables it: `stood-down` if any member drew the old material instead —
+   * the weakest member, the fold the tint form and the shadow carrier take.
+   */
+  const cssBodyE3Forms = new Map<string, "carried" | "stood-down">();
 
   /*
    * The runtime's ink, at a precedence an application can beat (Decision Log
@@ -1318,6 +1329,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let outerShadowConstants = sourceOuterShadow(initialProfile);
   let rimTintChromaConstant = resolvedRimTintChroma(initialProfile);
+  // E3's leaves on the drawn pose (W41 G2); the identity everywhere but the macOS 27 light
+  // receded endpoint.
+  let bodyE3Leaves = resolvedBodyE3(initialProfile);
   /**
    * Re-derive every one of the bindings above, on both tiers, from one profile.
    *
@@ -1347,6 +1361,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     validateBackdropToneAbscissa(profile);
     resolvedBackdropToneResponse(profile);
+    const nextBodyE3Leaves = resolvedBodyE3(profile);
     sourceSnapshots.clear();
     surfaceBackdropTones.clear();
     resolvedProfile = profile;
@@ -1358,6 +1373,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     sizeConstants = sourceSize(profile);
     outerShadowConstants = sourceOuterShadow(profile);
     rimTintChromaConstant = resolvedRimTintChroma(profile);
+    bodyE3Leaves = nextBodyE3Leaves;
     /*
      * The renderer's own patch takes the *resolved* profile too, so the GPU tier
      * and this one are always drawing the same material.
@@ -1679,6 +1695,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const cssBody = cssBodyForms.get(groupId);
     const cssTint = cssTintForms.get(groupId);
     const cssShadow = cssShadowForms.get(groupId);
+    const cssBodyE3 = cssBodyE3Forms.get(groupId);
 
     const state = withPlatformFolds(cssBody, cssTint, cssShadow, resolvedMaterialDocument(), resolveGlassGroupState(
       groupCapabilityInputs(
@@ -1707,7 +1724,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             }
           : { configuredSource: "dom", platform, governor, hint },
       ),
-    ));
+    ), cssBodyE3);
     const abscissae = resolvedProfile?.backdropToneAbscissa !== undefined &&
       resolvedProfile.backdropToneAbscissa !== "source"
       ? state.activeRenderer === "webgpu"
@@ -1979,6 +1996,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     cssBodyForms.clear();
     cssTintForms.clear();
     cssShadowForms.clear();
+    cssBodyE3Forms.clear();
     for (const groupId of cssTierGroups) {
       cssBodyForms.set(groupId, cssTierCollapsed ? "collapsed" : "two-layer");
     }
@@ -2767,8 +2785,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // last step to identity/full presence starts a second CSS animation.
         const presenceDriven = input.channels.materialization !== record.materializationDrawn;
         record.materializationDrawn = input.channels.materialization;
+        /*
+         * E3 (W41 G2), in the renderer's enable domain, where "sampled" is this surface's
+         * silhouette reading of a registered texture: the only per-surface reading of the
+         * encoded luma E3's affine is taken at. A hint or a stacked tone carries none, and
+         * stands E3 down here (see `bodyE3UnderPolicy`).
+         */
+        const encodedLuma = backdropTone?.encodedLuminance;
+        const bodyE3Strength = bodyE3UnderPolicy(
+          bodyE3Leaves.strength, accessibility.material, variant, encodedLuma !== undefined,
+        );
         // The CSS tier paints if and only if it is the active renderer.
         const declarations = cssTierDeclarations({
+          ...(bodyE3Strength > 0 && encodedLuma !== undefined
+            ? { bodyE3: { ...bodyE3Leaves, strength: bodyE3Strength, encodedLuma } }
+            : {}),
           materialization: input.channels.materialization,
           driven: presenceDriven,
           /*
@@ -2853,6 +2884,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             cssTintForms.set(
               groupId,
               weakestCssTintForm(cssTintForms.get(groupId), declarations.body.tintForm),
+            );
+          }
+          // Whether E3 drew, where the document enables it and the surface is there at all.
+          if (bodyE3Leaves.strength > 0 && input.channels.materialization > 0) {
+            cssBodyE3Forms.set(
+              groupId,
+              declarations.body.bodyE3 === undefined || cssBodyE3Forms.get(groupId) === "stood-down"
+                ? "stood-down"
+                : "carried",
             );
           }
           // The shadow this surface resolved, kept for the group's carrier to

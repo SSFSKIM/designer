@@ -131,6 +131,16 @@ export interface GlassGroupState {
    */
   readonly cssShadow?: "layer" | "group" | "host";
   /**
+   * Whether the CSS tier drew E3, the macOS 27 light receded body (W41 G2), on this group.
+   *
+   * Present only where the drawn material enables it. `carried` is every present surface of
+   * the group drawing E3's two filter functions over the overlay it keeps; `stood-down` is
+   * any of them drawing the tier's own material instead — outside the enable domain (a
+   * policy, the clear variant, a hint or an unsampled backdrop) — the weakest member, as
+   * `cssTint` and `cssShadow` fold. Absent on a WebGPU-tier group.
+   */
+  readonly cssBodyE3?: "carried" | "stood-down";
+  /**
    * Which measured material document this group is drawing (W29 G4).
    *
    * The material became a selection in 0.19.0 — a page draws macOS 27's material
