@@ -1,7 +1,7 @@
 {
  "schema": "w42-web-plan-1",
- "scenesSha256": "d8adbaac4b35d2fcded103861828b35dcb86d4f11cddd202846f00a757773e51",
- "bedSha256": "a4e9640ef89f8f2ec7625c28d15901ba96f50e9fced2108a6458c462ae63d4b1",
+ "scenesSha256": "231d80d43ce6a47ce15e464270bae041cfdecfd28b0493d1a6138bcc9c668768",
+ "bedSha256": "a4707171cbefcf1890719ae3dcd76db8d97224e4d7237c8021220ad009753fb4",
  "derivedFrom": [
   "packages/calibration/web/scene.ts (backgrounds are fixture rasters of any kind; scene.state inactive -> runtime receded pose; texture sampling)",
   "packages/calibration/web/scenes.ts + src/component-region.ts (single shapes, Math.round centring plus offset; position ignored; none/opaque native-only)"
@@ -9,20 +9,20 @@
  "rule": "a glass cell is web-plannable iff it is a single capsule/rrect whose native frame (centred + offset) equals the web frame (Math.round centred + offset)",
  "passTotals": {
   "2x-light-active": {
-   "declared": 88,
-   "plannable": 88
+   "declared": 89,
+   "plannable": 89
   },
   "2x-light-receded": {
-   "declared": 90,
-   "plannable": 90
+   "declared": 92,
+   "plannable": 92
   },
   "2x-dark-active": {
-   "declared": 91,
-   "plannable": 91
+   "declared": 102,
+   "plannable": 102
   },
   "2x-dark-receded": {
-   "declared": 93,
-   "plannable": 93
+   "declared": 107,
+   "plannable": 107
   },
   "1x-light-active": {
    "declared": 15,
@@ -55,12 +55,12 @@
    "plannable": 68
   },
   "C": {
-   "declared": 58,
-   "plannable": 58
+   "declared": 80,
+   "plannable": 80
   },
   "D": {
-   "declared": 52,
-   "plannable": 52
+   "declared": 58,
+   "plannable": 58
   },
   "E": {
    "declared": 16,
@@ -519,6 +519,14 @@
      "reason": null,
      "clearanceCss": 36.0
     },
+    "c-s8-hi-d34-rrect-md": {
+     "scene": "c-s8-hi-d34-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
     "c-s8-hi-d4-rrect-lg": {
      "scene": "c-s8-hi-d4-rrect-lg__rest",
      "family": "C",
@@ -798,8 +806,8 @@
      "plannable": 10
     },
     "C": {
-     "declared": 13,
-     "plannable": 13
+     "declared": 14,
+     "plannable": 14
     },
     "D": {
      "declared": 11,
@@ -818,8 +826,8 @@
      "plannable": 8
     }
    },
-   "declared": 88,
-   "plannable": 88,
+   "declared": 89,
+   "plannable": 89,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -1248,6 +1256,22 @@
      "reason": null,
      "clearanceCss": 56.0
     },
+    "c-s16-lo-corner-rrect-md": {
+     "scene": "c-s16-lo-corner-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-lo-end-capsule-button": {
+     "scene": "c-s16-lo-end-capsule-button__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 62.0
+    },
     "c-s32-hi-rrect-md": {
      "scene": "c-s32-hi-rrect-md__inactive",
      "family": "C",
@@ -1575,8 +1599,8 @@
      "plannable": 9
     },
     "C": {
-     "declared": 14,
-     "plannable": 14
+     "declared": 16,
+     "plannable": 16
     },
     "D": {
      "declared": 13,
@@ -1595,8 +1619,8 @@
      "plannable": 8
     }
    },
-   "declared": 90,
-   "plannable": 90,
+   "declared": 92,
+   "plannable": 92,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -2054,6 +2078,22 @@
      "reason": null,
      "clearanceCss": 56.0
     },
+    "c-s32-hi-p4-rrect-md": {
+     "scene": "c-s32-hi-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-hi-p4-rrect-ml": {
+     "scene": "c-s32-hi-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
     "c-s32-hi-rrect-md": {
      "scene": "c-s32-hi-rrect-md__rest",
      "family": "C",
@@ -2062,6 +2102,22 @@
      "reason": null,
      "clearanceCss": 36.0
     },
+    "c-s32-lo-p4-rrect-md": {
+     "scene": "c-s32-lo-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-p4-rrect-ml": {
+     "scene": "c-s32-lo-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
     "c-s32-lo-rrect-md": {
      "scene": "c-s32-lo-rrect-md__rest",
      "family": "C",
@@ -2069,6 +2125,22 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-md": {
+     "scene": "c-s8-hi-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-ml": {
+     "scene": "c-s8-hi-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
     },
     "c-s8-hi-rrect-md": {
      "scene": "c-s8-hi-rrect-md__rest",
@@ -2082,6 +2154,14 @@
      "scene": "c-s8-lo-d24-rrect-md__rest",
      "family": "C",
      "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-d34-rrect-md": {
+     "scene": "c-s8-lo-d34-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
      "plannable": true,
      "reason": null,
      "clearanceCss": 36.0
@@ -2118,6 +2198,22 @@
      "reason": null,
      "clearanceCss": 16.0
     },
+    "c-s8-lo-p4-rrect-md": {
+     "scene": "c-s8-lo-p4-rrect-md__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-p4-rrect-ml": {
+     "scene": "c-s8-lo-p4-rrect-ml__rest",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
     "c-s8-lo-rrect-md": {
      "scene": "c-s8-lo-rrect-md__rest",
      "family": "C",
@@ -2125,6 +2221,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 36.0
+    },
+    "d-d0-hilo-p4-rrect-md": {
+     "scene": "d-d0-hilo-p4-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
     },
     "d-d0-hilo-rrect-lg": {
      "scene": "d-d0-hilo-rrect-lg__rest",
@@ -2149,6 +2253,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 78.0
+    },
+    "d-d0-lohi-p4-rrect-md": {
+     "scene": "d-d0-lohi-p4-rrect-md__rest",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
     },
     "d-d0-lohi-rrect-lg": {
      "scene": "d-d0-lohi-rrect-lg__rest",
@@ -2357,12 +2469,12 @@
      "plannable": 10
     },
     "C": {
-     "declared": 13,
-     "plannable": 13
+     "declared": 22,
+     "plannable": 22
     },
     "D": {
-     "declared": 11,
-     "plannable": 11
+     "declared": 13,
+     "plannable": 13
     },
     "E": {
      "declared": 4,
@@ -2377,8 +2489,8 @@
      "plannable": 8
     }
    },
-   "declared": 91,
-   "plannable": 91,
+   "declared": 102,
+   "plannable": 102,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -2387,9 +2499,13 @@
     "bp-p1-c32-rrect-lg",
     "bp-p1-c8-rrect-lg",
     "c-impulse-rrect-lg",
+    "c-s32-hi-p4-rrect-ml",
+    "c-s32-lo-p4-rrect-ml",
+    "c-s8-hi-p4-rrect-ml",
     "c-s8-lo-d4-rrect-lg",
     "c-s8-lo-d40-rrect-lg",
     "c-s8-lo-d80-rrect-lg",
+    "c-s8-lo-p4-rrect-ml",
     "d-d0-hilo-rrect-lg",
     "d-d0-lohi-rrect-lg",
     "f-checker64-rrect-lg",
@@ -2823,6 +2939,22 @@
      "reason": null,
      "clearanceCss": 56.0
     },
+    "c-s16-hi-corner-rrect-md": {
+     "scene": "c-s16-hi-corner-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s16-hi-end-capsule-button": {
+     "scene": "c-s16-hi-end-capsule-button__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 62.0
+    },
     "c-s16-lo-capsule-button": {
      "scene": "c-s16-lo-capsule-button__inactive",
      "family": "C",
@@ -2830,6 +2962,22 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 56.0
+    },
+    "c-s32-hi-p4-rrect-md": {
+     "scene": "c-s32-hi-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-hi-p4-rrect-ml": {
+     "scene": "c-s32-hi-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
     },
     "c-s32-hi-rrect-md": {
      "scene": "c-s32-hi-rrect-md__inactive",
@@ -2839,6 +2987,22 @@
      "reason": null,
      "clearanceCss": 36.0
     },
+    "c-s32-lo-p4-rrect-md": {
+     "scene": "c-s32-lo-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s32-lo-p4-rrect-ml": {
+     "scene": "c-s32-lo-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
     "c-s32-lo-rrect-md": {
      "scene": "c-s32-lo-rrect-md__inactive",
      "family": "C",
@@ -2846,6 +3010,22 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-md": {
+     "scene": "c-s8-hi-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-hi-p4-rrect-ml": {
+     "scene": "c-s8-hi-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
     },
     "c-s8-hi-rrect-md": {
      "scene": "c-s8-hi-rrect-md__inactive",
@@ -2895,6 +3075,22 @@
      "reason": null,
      "clearanceCss": 16.0
     },
+    "c-s8-lo-p4-rrect-md": {
+     "scene": "c-s8-lo-p4-rrect-md__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 36.0
+    },
+    "c-s8-lo-p4-rrect-ml": {
+     "scene": "c-s8-lo-p4-rrect-ml__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 12.0
+    },
     "c-s8-lo-rrect-md": {
      "scene": "c-s8-lo-rrect-md__inactive",
      "family": "C",
@@ -2910,6 +3106,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 68.0
+    },
+    "d-d0-hilo-p4-rrect-md": {
+     "scene": "d-d0-hilo-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
     },
     "d-d0-hilo-rrect-md": {
      "scene": "d-d0-hilo-rrect-md__inactive",
@@ -2927,6 +3131,14 @@
      "reason": null,
      "clearanceCss": 78.0
     },
+    "d-d0-lohi-p4-rrect-md": {
+     "scene": "d-d0-lohi-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
     "d-d0-lohi-rrect-md": {
      "scene": "d-d0-lohi-rrect-md__inactive",
      "family": "D",
@@ -2943,6 +3155,14 @@
      "reason": null,
      "clearanceCss": 84.0
     },
+    "d-d12-hilo-p4-rrect-md": {
+     "scene": "d-d12-hilo-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
+    },
     "d-d12-hilo-rrect-md": {
      "scene": "d-d12-hilo-rrect-md__inactive",
      "family": "D",
@@ -2958,6 +3178,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 78.0
+    },
+    "d-d12-lohi-p4-rrect-md": {
+     "scene": "d-d12-lohi-p4-rrect-md__inactive",
+     "family": "D",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 52.0
     },
     "d-d12-lohi-rrect-md": {
      "scene": "d-d12-lohi-rrect-md__inactive",
@@ -3158,12 +3386,12 @@
      "plannable": 9
     },
     "C": {
-     "declared": 14,
-     "plannable": 14
+     "declared": 24,
+     "plannable": 24
     },
     "D": {
-     "declared": 13,
-     "plannable": 13
+     "declared": 17,
+     "plannable": 17
     },
     "E": {
      "declared": 4,
@@ -3178,8 +3406,8 @@
      "plannable": 8
     }
    },
-   "declared": 93,
-   "plannable": 93,
+   "declared": 107,
+   "plannable": 107,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -3187,9 +3415,13 @@
     "a-g255-rrect-lg",
     "bp-p1-c32-rrect-lg",
     "c-impulse-rrect-lg",
+    "c-s32-hi-p4-rrect-ml",
+    "c-s32-lo-p4-rrect-ml",
+    "c-s8-hi-p4-rrect-ml",
     "c-s8-lo-d4-rrect-lg",
     "c-s8-lo-d40-rrect-lg",
     "c-s8-lo-d80-rrect-lg",
+    "c-s8-lo-p4-rrect-ml",
     "f-checker64-rrect-lg",
     "h-p3-c64-rrect-lg"
    ]
@@ -3983,14 +4215,27 @@
    "c-impulse-rrect-ml__rest",
    "c-s16-hi-capsule-button__inactive",
    "c-s16-hi-capsule-button__rest",
+   "c-s16-hi-corner-rrect-md__inactive",
+   "c-s16-hi-end-capsule-button__inactive",
    "c-s16-lo-capsule-button__inactive",
    "c-s16-lo-capsule-button__rest",
+   "c-s16-lo-corner-rrect-md__inactive",
+   "c-s16-lo-end-capsule-button__inactive",
+   "c-s32-hi-p4-rrect-md__inactive",
+   "c-s32-hi-p4-rrect-md__rest",
+   "c-s32-hi-p4-rrect-ml__inactive",
+   "c-s32-hi-p4-rrect-ml__rest",
    "c-s32-hi-rrect-md__inactive",
    "c-s32-hi-rrect-md__rest",
+   "c-s32-lo-p4-rrect-md__inactive",
+   "c-s32-lo-p4-rrect-md__rest",
+   "c-s32-lo-p4-rrect-ml__inactive",
+   "c-s32-lo-p4-rrect-ml__rest",
    "c-s32-lo-rrect-md__inactive",
    "c-s32-lo-rrect-md__rest",
    "c-s8-hi-d24-rrect-md__inactive",
    "c-s8-hi-d24-rrect-md__rest",
+   "c-s8-hi-d34-rrect-md__rest",
    "c-s8-hi-d4-rrect-lg__inactive",
    "c-s8-hi-d4-rrect-lg__rest",
    "c-s8-hi-d4-rrect-md__inactive",
@@ -3999,11 +4244,16 @@
    "c-s8-hi-d40-rrect-lg__rest",
    "c-s8-hi-d80-rrect-lg__inactive",
    "c-s8-hi-d80-rrect-lg__rest",
+   "c-s8-hi-p4-rrect-md__inactive",
+   "c-s8-hi-p4-rrect-md__rest",
+   "c-s8-hi-p4-rrect-ml__inactive",
+   "c-s8-hi-p4-rrect-ml__rest",
    "c-s8-hi-rrect-md__inactive",
    "c-s8-hi-rrect-md__rest",
    "c-s8-hi-rrect-sm__inactive",
    "c-s8-lo-d24-rrect-md__inactive",
    "c-s8-lo-d24-rrect-md__rest",
+   "c-s8-lo-d34-rrect-md__rest",
    "c-s8-lo-d4-rrect-lg__inactive",
    "c-s8-lo-d4-rrect-lg__rest",
    "c-s8-lo-d4-rrect-md__inactive",
@@ -4012,20 +4262,30 @@
    "c-s8-lo-d40-rrect-lg__rest",
    "c-s8-lo-d80-rrect-lg__inactive",
    "c-s8-lo-d80-rrect-lg__rest",
+   "c-s8-lo-p4-rrect-md__inactive",
+   "c-s8-lo-p4-rrect-md__rest",
+   "c-s8-lo-p4-rrect-ml__inactive",
+   "c-s8-lo-p4-rrect-ml__rest",
    "c-s8-lo-rrect-md__inactive",
    "c-s8-lo-rrect-md__rest",
    "c-s8-lo-rrect-sm__inactive",
+   "d-d0-hilo-p4-rrect-md__inactive",
+   "d-d0-hilo-p4-rrect-md__rest",
    "d-d0-hilo-rrect-lg__rest",
    "d-d0-hilo-rrect-md__inactive",
    "d-d0-hilo-rrect-md__rest",
    "d-d0-lohi-capsule-button__inactive",
    "d-d0-lohi-capsule-button__rest",
+   "d-d0-lohi-p4-rrect-md__inactive",
+   "d-d0-lohi-p4-rrect-md__rest",
    "d-d0-lohi-rrect-lg__rest",
    "d-d0-lohi-rrect-md__inactive",
    "d-d0-lohi-rrect-md__rest",
    "d-d0-lohi-rrect-sm__inactive",
+   "d-d12-hilo-p4-rrect-md__inactive",
    "d-d12-hilo-rrect-md__inactive",
    "d-d12-lohi-capsule-button__inactive",
+   "d-d12-lohi-p4-rrect-md__inactive",
    "d-d12-lohi-rrect-md__inactive",
    "d-d32-hilo-rrect-md__inactive",
    "d-d32-hilo-rrect-md__rest",
@@ -4059,11 +4319,17 @@
   "excluded": {
    "bp-p1-c16-rrect-sm__rest": "dump-only rest twin: captured in no pass",
    "bp-p1-c8-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-hi-corner-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-hi-end-capsule-button__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-lo-corner-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-lo-end-capsule-button__rest": "dump-only rest twin: captured in no pass",
    "c-s8-hi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
    "c-s8-lo-rrect-sm__rest": "dump-only rest twin: captured in no pass",
    "d-d0-lohi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "d-d12-hilo-p4-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "d-d12-hilo-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "d-d12-lohi-capsule-button__rest": "dump-only rest twin: captured in no pass",
+   "d-d12-lohi-p4-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "d-d12-lohi-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "ref-checker-16-000-255__inactive": "native-only (no-glass reference)",
    "ref-checker-16-000-255__rest": "native-only (no-glass reference)",
@@ -4121,6 +4387,14 @@
    "ref-grey-240__rest": "native-only (no-glass reference)",
    "ref-grey-255__inactive": "native-only (no-glass reference)",
    "ref-grey-255__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s32-g248__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-016-on-112-s8-g248__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s16-g232__inactive": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s16-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s32-g232__inactive": "native-only (no-glass reference)",
@@ -4135,6 +4409,14 @@
    "ref-impulse-048-on-208-s8-g336__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g64__inactive": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g64__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s32-g248__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g232__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g232__rest": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g248__inactive": "native-only (no-glass reference)",
+   "ref-impulse-112-on-016-s8-g248__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s16-g232__inactive": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s16-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s32-g232__inactive": "native-only (no-glass reference)",
@@ -4153,11 +4435,17 @@
    "ref-impulse-255-on-000-s4-g64__rest": "native-only (no-glass reference)",
    "ref-photo__inactive": "native-only (no-glass reference)",
    "ref-photo__rest": "native-only (no-glass reference)",
+   "ref-split-x160-016-112__inactive": "native-only (no-glass reference)",
+   "ref-split-x160-016-112__rest": "native-only (no-glass reference)",
    "ref-split-x160-048-208__inactive": "native-only (no-glass reference)",
    "ref-split-x160-048-208__rest": "native-only (no-glass reference)",
+   "ref-split-x160-112-016__inactive": "native-only (no-glass reference)",
+   "ref-split-x160-112-016__rest": "native-only (no-glass reference)",
    "ref-split-x160-208-048__inactive": "native-only (no-glass reference)",
    "ref-split-x160-208-048__rest": "native-only (no-glass reference)",
+   "ref-split-x172-016-112__inactive": "native-only (no-glass reference)",
    "ref-split-x172-048-208__inactive": "native-only (no-glass reference)",
+   "ref-split-x172-112-016__inactive": "native-only (no-glass reference)",
    "ref-split-x172-208-048__inactive": "native-only (no-glass reference)",
    "ref-split-x192-048-208__inactive": "native-only (no-glass reference)",
    "ref-split-x192-048-208__rest": "native-only (no-glass reference)",

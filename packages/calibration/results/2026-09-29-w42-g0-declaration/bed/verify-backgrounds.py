@@ -165,8 +165,13 @@ def main():
                     rel = [want[0] - g['shapeCentre'][0], want[1] - g['shapeCentre'][1]]
                     if rel != g['patchFromShapeCentre']:
                         problems.append(f'{cid}: patchFromShapeCentre {g["patchFromShapeCentre"]} != {rel}')
-                    half = [s / 2 for s in spec['components'][cell['component']]['size']]
-                    depth = min(half[0] - abs(rel[0]), half[1] - abs(rel[1]))
+                    comp = spec['components'][cell['component']]
+                    half = [s / 2 for s in comp['size']]
+                    # The rounded shape's depth for circular corners (a capsule's radius is half its
+                    # short side): equal to the box depth on the axes, less near a corner or end.
+                    r = min(half) if comp['kind'] == 'capsule' else comp['radius']
+                    qx, qy = abs(rel[0]) - (half[0] - r), abs(rel[1]) - (half[1] - r)
+                    depth = round(-((max(qx, 0) ** 2 + max(qy, 0) ** 2) ** 0.5 + min(max(qx, qy), 0) - r), 2)
                     record['depthRead'] = depth
                     if depth != g['depth']:
                         problems.append(f'{cid}: declared depth {g["depth"]}, geometry gives {depth}')

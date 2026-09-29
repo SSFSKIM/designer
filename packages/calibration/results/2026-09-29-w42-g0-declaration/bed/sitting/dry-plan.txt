@@ -1,19 +1,19 @@
 W42 sitting dry plan (sitting.py plan): executed nothing; every document and argv was written
 under a scratch directory. Per pass: display mode, runs, cells per run (glass + references).
-bed pins: scenes d8adbaac4b35, bed a4e9640ef89f
+bed pins: scenes 231d80d43ce6, bed a4707171cbef
 
-dump-2x-light-active         mode 68  1 dump launch  88 scenes  (timeout 926 s)
-dump-2x-light-receded        mode 68  1 dump launch  90 scenes  (timeout 945 s)
-dump-2x-dark-active          mode 68  1 dump launch  91 scenes  (timeout 954 s)
-dump-2x-dark-receded         mode 68  1 dump launch  93 scenes  (timeout 973 s)
+dump-2x-light-active         mode 68  1 dump launch  89 scenes  (timeout 935 s)
+dump-2x-light-receded        mode 68  1 dump launch  92 scenes  (timeout 964 s)
+dump-2x-dark-active          mode 68  1 dump launch  102 scenes  (timeout 1059 s)
+dump-2x-dark-receded         mode 68  1 dump launch  107 scenes  (timeout 1106 s)
 dump-1x-light-active         mode 69  1 dump launch  15 scenes  (timeout 232 s)
 dump-1x-light-receded        mode 69  1 dump launch  16 scenes  (timeout 242 s)
 dump-1x-dark-active          mode 69  1 dump launch  15 scenes  (timeout 232 s)
 dump-1x-dark-receded         mode 69  1 dump launch  16 scenes  (timeout 242 s)
-2x-light-active              mode 68  7 runs  cells/run 142 88 88 88 88 88 88  protocol normal
-2x-light-receded             mode 68  7 runs  cells/run 146 90 90 90 90 90 90  protocol normal
-2x-dark-active               mode 68  7 runs  cells/run 145 91 91 91 91 91 91  protocol normal
-2x-dark-receded              mode 68  7 runs  cells/run 149 93 93 93 93 93 93  protocol normal
+2x-light-active              mode 68  7 runs  cells/run 143 89 89 89 89 89 89  protocol normal
+2x-light-receded             mode 68  7 runs  cells/run 148 92 92 92 92 92 92  protocol normal
+2x-dark-active               mode 68  7 runs  cells/run 166 102 102 102 102 102 102  protocol normal
+2x-dark-receded              mode 68  7 runs  cells/run 175 107 107 107 107 107 107  protocol normal
 2x-light-active-sentinel     mode 68  3 runs  cells/run 2 2 2  protocol long
 2x-light-receded-sentinel    mode 68  3 runs  cells/run 2 2 2  protocol long
 2x-dark-active-sentinel      mode 68  3 runs  cells/run 2 2 2  protocol long
@@ -27,4 +27,4 @@ dump-1x-dark-receded         mode 69  1 dump launch  16 scenes  (timeout 242 s)
 1x-dark-active-sentinel      mode 69  3 runs  cells/run 2 2 2  protocol long
 1x-dark-receded-sentinel     mode 69  3 runs  cells/run 2 2 2  protocol long
 
-totals: {"dumpLaunches": 8, "dumpScenes": 424, "captureLaunches": 80, "glass": 2968, "references": 260, "sentinels": 48, "captures": 3276}
+totals: {"dumpLaunches": 8, "dumpScenes": 452, "captureLaunches": 80, "glass": 3164, "references": 282, "sentinels": 48, "captures": 3494}

@@ -57,6 +57,12 @@
         84
       ]
     },
+    "248": {
+      "patchCentre": [
+        124,
+        76
+      ]
+    },
     "256": {
       "patchCentre": [
         128,
@@ -139,6 +145,7 @@
         "c-s32-hi-rrect-md",
         "c-s32-lo-rrect-md",
         "c-s8-hi-d24-rrect-md",
+        "c-s8-hi-d34-rrect-md",
         "c-s8-hi-d4-rrect-lg",
         "c-s8-hi-d4-rrect-md",
         "c-s8-hi-d40-rrect-lg",
@@ -292,6 +299,8 @@
         "c-impulse-rrect-ml",
         "c-s16-hi-capsule-button",
         "c-s16-lo-capsule-button",
+        "c-s16-lo-corner-rrect-md",
+        "c-s16-lo-end-capsule-button",
         "c-s32-hi-rrect-md",
         "c-s32-lo-rrect-md",
         "c-s8-hi-d24-rrect-md",
@@ -457,18 +466,29 @@
         "c-impulse-rrect-ml",
         "c-s16-hi-capsule-button",
         "c-s16-lo-capsule-button",
+        "c-s32-hi-p4-rrect-md",
+        "c-s32-hi-p4-rrect-ml",
         "c-s32-hi-rrect-md",
+        "c-s32-lo-p4-rrect-md",
+        "c-s32-lo-p4-rrect-ml",
         "c-s32-lo-rrect-md",
+        "c-s8-hi-p4-rrect-md",
+        "c-s8-hi-p4-rrect-ml",
         "c-s8-hi-rrect-md",
         "c-s8-lo-d24-rrect-md",
+        "c-s8-lo-d34-rrect-md",
         "c-s8-lo-d4-rrect-lg",
         "c-s8-lo-d4-rrect-md",
         "c-s8-lo-d40-rrect-lg",
         "c-s8-lo-d80-rrect-lg",
+        "c-s8-lo-p4-rrect-md",
+        "c-s8-lo-p4-rrect-ml",
         "c-s8-lo-rrect-md",
+        "d-d0-hilo-p4-rrect-md",
         "d-d0-hilo-rrect-lg",
         "d-d0-hilo-rrect-md",
         "d-d0-lohi-capsule-button",
+        "d-d0-lohi-p4-rrect-md",
         "d-d0-lohi-rrect-lg",
         "d-d0-lohi-rrect-md",
         "d-d32-hilo-rrect-md",
@@ -527,6 +547,10 @@
         "grey-232",
         "grey-240",
         "grey-255",
+        "impulse-016-on-112-s32-g232",
+        "impulse-016-on-112-s32-g248",
+        "impulse-016-on-112-s8-g232",
+        "impulse-016-on-112-s8-g248",
         "impulse-048-on-208-s16-g232",
         "impulse-048-on-208-s32-g232",
         "impulse-048-on-208-s8-g232",
@@ -534,13 +558,19 @@
         "impulse-048-on-208-s8-g300",
         "impulse-048-on-208-s8-g336",
         "impulse-048-on-208-s8-g64",
+        "impulse-112-on-016-s32-g232",
+        "impulse-112-on-016-s32-g248",
+        "impulse-112-on-016-s8-g232",
+        "impulse-112-on-016-s8-g248",
         "impulse-208-on-048-s16-g232",
         "impulse-208-on-048-s24-g232",
         "impulse-208-on-048-s32-g232",
         "impulse-208-on-048-s8-g232",
         "impulse-255-on-000-s4-g64",
         "photo",
+        "split-x160-016-112",
         "split-x160-048-208",
+        "split-x160-112-016",
         "split-x160-208-048",
         "split-x180-048-208",
         "split-x192-048-208",
@@ -615,23 +645,37 @@
         "c-impulse-rrect-lg",
         "c-impulse-rrect-ml",
         "c-s16-hi-capsule-button",
+        "c-s16-hi-corner-rrect-md",
+        "c-s16-hi-end-capsule-button",
         "c-s16-lo-capsule-button",
+        "c-s32-hi-p4-rrect-md",
+        "c-s32-hi-p4-rrect-ml",
         "c-s32-hi-rrect-md",
+        "c-s32-lo-p4-rrect-md",
+        "c-s32-lo-p4-rrect-ml",
         "c-s32-lo-rrect-md",
+        "c-s8-hi-p4-rrect-md",
+        "c-s8-hi-p4-rrect-ml",
         "c-s8-hi-rrect-md",
         "c-s8-lo-d24-rrect-md",
         "c-s8-lo-d4-rrect-lg",
         "c-s8-lo-d4-rrect-md",
         "c-s8-lo-d40-rrect-lg",
         "c-s8-lo-d80-rrect-lg",
+        "c-s8-lo-p4-rrect-md",
+        "c-s8-lo-p4-rrect-ml",
         "c-s8-lo-rrect-md",
         "c-s8-lo-rrect-sm",
+        "d-d0-hilo-p4-rrect-md",
         "d-d0-hilo-rrect-md",
         "d-d0-lohi-capsule-button",
+        "d-d0-lohi-p4-rrect-md",
         "d-d0-lohi-rrect-md",
         "d-d0-lohi-rrect-sm",
+        "d-d12-hilo-p4-rrect-md",
         "d-d12-hilo-rrect-md",
         "d-d12-lohi-capsule-button",
+        "d-d12-lohi-p4-rrect-md",
         "d-d12-lohi-rrect-md",
         "d-d32-hilo-rrect-md",
         "d-d32-lohi-rrect-md",
@@ -689,6 +733,10 @@
         "grey-232",
         "grey-240",
         "grey-255",
+        "impulse-016-on-112-s32-g232",
+        "impulse-016-on-112-s32-g248",
+        "impulse-016-on-112-s8-g232",
+        "impulse-016-on-112-s8-g248",
         "impulse-048-on-208-s16-g232",
         "impulse-048-on-208-s32-g232",
         "impulse-048-on-208-s8-g232",
@@ -696,15 +744,23 @@
         "impulse-048-on-208-s8-g300",
         "impulse-048-on-208-s8-g336",
         "impulse-048-on-208-s8-g64",
+        "impulse-112-on-016-s32-g232",
+        "impulse-112-on-016-s32-g248",
+        "impulse-112-on-016-s8-g232",
+        "impulse-112-on-016-s8-g248",
         "impulse-208-on-048-s16-g232",
         "impulse-208-on-048-s24-g232",
         "impulse-208-on-048-s32-g232",
         "impulse-208-on-048-s8-g232",
         "impulse-255-on-000-s4-g64",
         "photo",
+        "split-x160-016-112",
         "split-x160-048-208",
+        "split-x160-112-016",
         "split-x160-208-048",
+        "split-x172-016-112",
         "split-x172-048-208",
+        "split-x172-112-016",
         "split-x172-208-048",
         "split-x180-048-208",
         "split-x192-048-208",
@@ -884,81 +940,81 @@
   },
   "counts": {
     "2x-light-active": {
-      "glass": 88,
+      "glass": 89,
       "references": 54,
       "byFamily": {
         "A": 30,
         "B": 8,
         "B'": 10,
-        "C": 13,
-        "D": 11,
-        "E": 4,
-        "F": 4,
-        "H": 8
-      },
-      "byRole": {
-        "calibration": 66,
-        "validation": 10,
-        "holdout": 8,
-        "probe": 4
-      }
-    },
-    "2x-light-receded": {
-      "glass": 90,
-      "references": 56,
-      "byFamily": {
-        "A": 30,
-        "B": 8,
-        "B'": 9,
         "C": 14,
-        "D": 13,
+        "D": 11,
         "E": 4,
         "F": 4,
         "H": 8
       },
       "byRole": {
         "calibration": 67,
-        "validation": 11,
-        "holdout": 8,
-        "probe": 4
-      }
-    },
-    "2x-dark-active": {
-      "glass": 91,
-      "references": 54,
-      "byFamily": {
-        "A": 33,
-        "B": 8,
-        "B'": 10,
-        "C": 13,
-        "D": 11,
-        "E": 4,
-        "F": 4,
-        "H": 8
-      },
-      "byRole": {
-        "calibration": 69,
         "validation": 10,
         "holdout": 8,
         "probe": 4
       }
     },
-    "2x-dark-receded": {
-      "glass": 93,
+    "2x-light-receded": {
+      "glass": 92,
       "references": 56,
       "byFamily": {
-        "A": 33,
+        "A": 30,
         "B": 8,
         "B'": 9,
-        "C": 14,
+        "C": 16,
         "D": 13,
         "E": 4,
         "F": 4,
         "H": 8
       },
       "byRole": {
-        "calibration": 70,
-        "validation": 11,
+        "calibration": 68,
+        "validation": 12,
+        "holdout": 8,
+        "probe": 4
+      }
+    },
+    "2x-dark-active": {
+      "glass": 102,
+      "references": 64,
+      "byFamily": {
+        "A": 33,
+        "B": 8,
+        "B'": 10,
+        "C": 22,
+        "D": 13,
+        "E": 4,
+        "F": 4,
+        "H": 8
+      },
+      "byRole": {
+        "calibration": 78,
+        "validation": 12,
+        "holdout": 8,
+        "probe": 4
+      }
+    },
+    "2x-dark-receded": {
+      "glass": 107,
+      "references": 68,
+      "byFamily": {
+        "A": 33,
+        "B": 8,
+        "B'": 9,
+        "C": 24,
+        "D": 17,
+        "E": 4,
+        "F": 4,
+        "H": 8
+      },
+      "byRole": {
+        "calibration": 81,
+        "validation": 14,
         "holdout": 8,
         "probe": 4
       }
@@ -3063,6 +3119,94 @@
         "U4"
       ]
     },
+    "c-s16-hi-corner-rrect-md": {
+      "id": "c-s16-hi-corner-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s16-g232",
+      "component": "rrect-md-o+20+16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          20,
+          16
+        ],
+        "shapeCentre": [
+          180.0,
+          116.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -64.0,
+          -32.0
+        ],
+        "depth": 14.34,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "S 16 within 16 pt of rrect-md's top-left corner (patch centre 5.7 pt from the corner arc's centre, box depth 16); the parent's ruling from the instrument stream",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
+    "c-s16-hi-end-capsule-button": {
+      "id": "c-s16-hi-end-capsule-button",
+      "family": "C",
+      "background": "impulse-208-on-048-s16-g232",
+      "component": "capsule-button-o+4-16",
+      "role": "validation",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          4,
+          -16
+        ],
+        "shapeCentre": [
+          164.0,
+          84.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -48.0,
+          0.0
+        ],
+        "depth": 12,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
     "c-s16-lo-capsule-button": {
       "id": "c-s16-lo-capsule-button",
       "family": "C",
@@ -3107,6 +3251,189 @@
       "uItems": [
         "U1",
         "U4"
+      ]
+    },
+    "c-s16-lo-corner-rrect-md": {
+      "id": "c-s16-lo-corner-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s16-g232",
+      "component": "rrect-md-o+20+16",
+      "role": "calibration",
+      "passes": [
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          20,
+          16
+        ],
+        "shapeCentre": [
+          180.0,
+          116.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -64.0,
+          -32.0
+        ],
+        "depth": 14.34,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "S 16 within 16 pt of rrect-md's top-left corner (patch centre 5.7 pt from the corner arc's centre, box depth 16); the parent's ruling from the instrument stream",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
+    "c-s16-lo-end-capsule-button": {
+      "id": "c-s16-lo-end-capsule-button",
+      "family": "C",
+      "background": "impulse-048-on-208-s16-g232",
+      "component": "capsule-button-o+4-16",
+      "role": "validation",
+      "passes": [
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          4,
+          -16
+        ],
+        "shapeCentre": [
+          164.0,
+          84.0
+        ],
+        "patchSize": 16,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          -48.0,
+          0.0
+        ],
+        "depth": 12,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+      "uItems": [
+        "U3",
+        "W-shape against K2 and W-tails"
+      ]
+    },
+    "c-s32-hi-p4-rrect-md": {
+      "id": "c-s32-hi-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-112-on-016-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s32-hi-p4-rrect-ml": {
+      "id": "c-s32-hi-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-112-on-016-s32-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
       ]
     },
     "c-s32-hi-rrect-md": {
@@ -3154,6 +3481,101 @@
         "U1",
         "U4",
         "one k or two"
+      ]
+    },
+    "c-s32-lo-p4-rrect-md": {
+      "id": "c-s32-lo-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-016-on-112-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s32-lo-p4-rrect-ml": {
+      "id": "c-s32-lo-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-016-on-112-s32-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "validation",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
       ]
     },
     "c-s32-lo-rrect-md": {
@@ -3243,6 +3665,49 @@
         "patchesInCanvas": 1
       },
       "note": "validation: depth transfer (s/4 between the centre and 4 pt)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-hi-d34-rrect-md": {
+      "id": "c-s8-hi-d34-rrect-md",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-md-o-44-2",
+      "role": "calibration",
+      "passes": [
+        "2x-light-active"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -2
+        ],
+        "shapeCentre": [
+          116.0,
+          98.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -14.0
+        ],
+        "depth": 34,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the second readable depth on rrect-md, active: beyond the 25.6-pt deep mask (the parent's ruling from the instrument stream)",
       "uItems": [
         "depth"
       ]
@@ -3427,6 +3892,101 @@
         "units"
       ]
     },
+    "c-s8-hi-p4-rrect-md": {
+      "id": "c-s8-hi-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-112-on-016-s8-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s8-hi-p4-rrect-ml": {
+      "id": "c-s8-hi-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-112-on-016-s8-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 112,
+          "background": 16
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
+      ]
+    },
     "c-s8-hi-rrect-md": {
       "id": "c-s8-hi-rrect-md",
       "family": "C",
@@ -3559,6 +4119,49 @@
         "patchesInCanvas": 1
       },
       "note": "validation: depth transfer (s/4 between the centre and 4 pt)",
+      "uItems": [
+        "depth"
+      ]
+    },
+    "c-s8-lo-d34-rrect-md": {
+      "id": "c-s8-lo-d34-rrect-md",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-md-o-44-2",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -2
+        ],
+        "shapeCentre": [
+          116.0,
+          98.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          -14.0
+        ],
+        "depth": 34,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the second readable depth on rrect-md, active: beyond the 25.6-pt deep mask (the parent's ruling from the instrument stream)",
       "uItems": [
         "depth"
       ]
@@ -3743,6 +4346,101 @@
         "units"
       ]
     },
+    "c-s8-lo-p4-rrect-md": {
+      "id": "c-s8-lo-p4-rrect-md",
+      "family": "C",
+      "background": "impulse-016-on-112-s8-g232",
+      "component": "rrect-md-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "the dark 16 / 112 twin of the 48 / 208 cell (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair"
+      ]
+    },
+    "c-s8-lo-p4-rrect-ml": {
+      "id": "c-s8-lo-p4-rrect-ml",
+      "family": "C",
+      "background": "impulse-016-on-112-s8-g248",
+      "component": "rrect-ml-o-36-24",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-ml",
+        "shortSide": 128,
+        "t": 0.666667,
+        "offset": [
+          -36,
+          -24
+        ],
+        "shapeCentre": [
+          124.0,
+          76.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          124,
+          76
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 64,
+        "levels": {
+          "foreground": 16,
+          "background": 112
+        },
+        "impulseSpacing": 248,
+        "patchesInCanvas": 1
+      },
+      "note": "dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U4",
+        "one k or two",
+        "dark level pair",
+        "U7"
+      ]
+    },
     "c-s8-lo-rrect-md": {
       "id": "c-s8-lo-rrect-md",
       "family": "C",
@@ -3833,6 +4531,42 @@
         "U1",
         "U4",
         "M2 at s = 32"
+      ]
+    },
+    "d-d0-hilo-p4-rrect-md": {
+      "id": "d-d0-hilo-p4-rrect-md",
+      "family": "D",
+      "background": "split-x160-112-016",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 112,
+          "right": 16
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
       ]
     },
     "d-d0-hilo-rrect-lg": {
@@ -3941,6 +4675,42 @@
         "U3"
       ]
     },
+    "d-d0-lohi-p4-rrect-md": {
+      "id": "d-d0-lohi-p4-rrect-md",
+      "family": "D",
+      "background": "split-x160-016-112",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 16,
+          "right": 112
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
+      ]
+    },
     "d-d0-lohi-rrect-lg": {
       "id": "d-d0-lohi-rrect-lg",
       "family": "D",
@@ -4047,6 +4817,41 @@
         "M2 at s = 32"
       ]
     },
+    "d-d12-hilo-p4-rrect-md": {
+      "id": "d-d12-hilo-p4-rrect-md",
+      "family": "D",
+      "background": "split-x172-112-016",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 172,
+        "stepFromShapeCentre": 12.0,
+        "levels": {
+          "left": 112,
+          "right": 16
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
+      ]
+    },
     "d-d12-hilo-rrect-md": {
       "id": "d-d12-hilo-rrect-md",
       "family": "D",
@@ -4113,6 +4918,41 @@
       "uItems": [
         "U1",
         "U3"
+      ]
+    },
+    "d-d12-lohi-p4-rrect-md": {
+      "id": "d-d12-lohi-p4-rrect-md",
+      "family": "D",
+      "background": "split-x172-016-112",
+      "component": "rrect-md",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 172,
+        "stepFromShapeCentre": 12.0,
+        "levels": {
+          "left": 16,
+          "right": 112
+        }
+      },
+      "note": "the dark 16 / 112 twin (the parent's ruling)",
+      "uItems": [
+        "U1",
+        "U3",
+        "dark level pair"
       ]
     },
     "d-d12-lohi-rrect-md": {
@@ -5010,25 +5850,39 @@
       "c-impulse-rrect-lg",
       "c-impulse-rrect-ml",
       "c-s16-hi-capsule-button",
+      "c-s16-hi-corner-rrect-md",
       "c-s16-lo-capsule-button",
+      "c-s16-lo-corner-rrect-md",
+      "c-s32-hi-p4-rrect-md",
       "c-s32-hi-rrect-md",
+      "c-s32-lo-p4-rrect-md",
       "c-s32-lo-rrect-md",
+      "c-s8-hi-d34-rrect-md",
       "c-s8-hi-d4-rrect-lg",
       "c-s8-hi-d4-rrect-md",
       "c-s8-hi-d80-rrect-lg",
+      "c-s8-hi-p4-rrect-md",
+      "c-s8-hi-p4-rrect-ml",
       "c-s8-hi-rrect-md",
       "c-s8-hi-rrect-sm",
+      "c-s8-lo-d34-rrect-md",
       "c-s8-lo-d4-rrect-lg",
       "c-s8-lo-d4-rrect-md",
       "c-s8-lo-d80-rrect-lg",
+      "c-s8-lo-p4-rrect-md",
+      "c-s8-lo-p4-rrect-ml",
       "c-s8-lo-rrect-md",
       "c-s8-lo-rrect-sm",
+      "d-d0-hilo-p4-rrect-md",
       "d-d0-hilo-rrect-lg",
       "d-d0-hilo-rrect-md",
+      "d-d0-lohi-p4-rrect-md",
       "d-d0-lohi-rrect-lg",
       "d-d0-lohi-rrect-md",
+      "d-d12-hilo-p4-rrect-md",
       "d-d12-hilo-rrect-md",
       "d-d12-lohi-capsule-button",
+      "d-d12-lohi-p4-rrect-md",
       "d-d12-lohi-rrect-md",
       "d-d32-hilo-rrect-md",
       "d-d32-lohi-rrect-md",
@@ -5049,6 +5903,10 @@
       "b-p3-c16-rrect-md",
       "b-p3-c64-rrect-md",
       "bp-p1-c32-rrect-80",
+      "c-s16-hi-end-capsule-button",
+      "c-s16-lo-end-capsule-button",
+      "c-s32-hi-p4-rrect-ml",
+      "c-s32-lo-p4-rrect-ml",
       "c-s8-hi-d24-rrect-md",
       "c-s8-hi-d40-rrect-lg",
       "c-s8-lo-d24-rrect-md",
@@ -5083,6 +5941,10 @@
     "b-p3-c16-rrect-md": "validation: level-pair transfer (P3, contrast 64 at mean 128)",
     "b-p3-c64-rrect-md": "validation: level-pair transfer (P3, contrast 64 at mean 128)",
     "bp-p1-c32-rrect-80": "validation: span transfer at t = 1/6, between the knot (64) and rrect-md (96)",
+    "c-s16-hi-end-capsule-button": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+    "c-s16-lo-end-capsule-button": "validation: the shape support transferred from rrect-md's corner to the capsule's left end (patch centre 10 pt from the end cap's centre)",
+    "c-s32-hi-p4-rrect-ml": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
+    "c-s32-lo-p4-rrect-ml": "validation: C's size transfer at s = 128, dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent's ruling)",
     "c-s8-hi-d24-rrect-md": "validation: depth transfer (s/4 between the centre and 4 pt)",
     "c-s8-hi-d40-rrect-lg": "validation: depth transfer on rrect-lg",
     "c-s8-lo-d24-rrect-md": "validation: depth transfer (s/4 between the centre and 4 pt)",
@@ -5104,6 +5966,8 @@
     "depth": "C's depth sweep on rrect-md and rrect-lg",
     "rrect-lg": "B' on rrect-lg beside rrect-ml; C on rrect-lg",
     "units": "C's rrect-ml / rrect-lg pair (the canonical impulse)",
+    "W-shape against K2 and W-tails": "receded S 16 patches within 16 pt of rrect-md's corner (calibration) and the capsule's end (validation): the parent's ruling from the instrument stream",
+    "dark level pair": "the dark passes' 16 / 112 twins of C S 8 / S 32 on rrect-md and rrect-ml and D delta 0 / 12 on rrect-md, beside the 48 / 208 cells; family A says which pair carries slope",
     "M2 at s = 32": "the s = 32 receded rows on rrect-sm (P1 pitch 8 and 16, the S 8 centre patch, the step at delta 0; P1 pitch 8 also at 1x): the parent's ruling from the gate rehearsal"
   },
   "charterDeviations": [
@@ -5221,6 +6085,24 @@
     "c-s8-hi-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
     "c-s8-lo-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
     "d-d0-lohi-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-d34-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-d34-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-lo-corner-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-lo-end-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-hi-corner-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s16-hi-end-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-hi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-hi-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-lo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s32-lo-p4-rrect-ml": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-lohi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d12-lohi-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-hilo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d12-hilo-p4-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
     "e-rg-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
     "e-rg-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
     "e-by-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
@@ -5238,6 +6120,13 @@
     "h-g184-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
     "h-g232-rrect-md": "web-plannable: a single shape, centred plus an integer offset"
   },
+  "recordedNotCaptured": [
+    {
+      "item": "U3's active half: canvas against R_fp, and R_fp's active edge mode",
+      "status": "non-identifiable on this bed; recorded, not captured (the parent's ruling from the instrument stream's separation proof)",
+      "why": "the active margin keeps R_fp's edge >= 45 pt from every readable pixel, and the answering rows (D's steps outside the edge) sit inside the 19.2-pt outer-refraction reach; no cell inside the canvas and outside that reach answers it"
+    }
+  ],
   "dumpList": {
     "2x-light-active": [
       "a-g000-capsule-button__rest",
@@ -5295,6 +6184,7 @@
       "c-s32-hi-rrect-md__rest",
       "c-s32-lo-rrect-md__rest",
       "c-s8-hi-d24-rrect-md__rest",
+      "c-s8-hi-d34-rrect-md__rest",
       "c-s8-hi-d4-rrect-lg__rest",
       "c-s8-hi-d4-rrect-md__rest",
       "c-s8-hi-d40-rrect-lg__rest",
@@ -5381,6 +6271,8 @@
       "c-impulse-rrect-ml__rest",
       "c-s16-hi-capsule-button__rest",
       "c-s16-lo-capsule-button__rest",
+      "c-s16-lo-corner-rrect-md__rest",
+      "c-s16-lo-end-capsule-button__rest",
       "c-s32-hi-rrect-md__rest",
       "c-s32-lo-rrect-md__rest",
       "c-s8-hi-d24-rrect-md__rest",
@@ -5477,18 +6369,29 @@
       "c-impulse-rrect-ml__rest",
       "c-s16-hi-capsule-button__rest",
       "c-s16-lo-capsule-button__rest",
+      "c-s32-hi-p4-rrect-md__rest",
+      "c-s32-hi-p4-rrect-ml__rest",
       "c-s32-hi-rrect-md__rest",
+      "c-s32-lo-p4-rrect-md__rest",
+      "c-s32-lo-p4-rrect-ml__rest",
       "c-s32-lo-rrect-md__rest",
+      "c-s8-hi-p4-rrect-md__rest",
+      "c-s8-hi-p4-rrect-ml__rest",
       "c-s8-hi-rrect-md__rest",
       "c-s8-lo-d24-rrect-md__rest",
+      "c-s8-lo-d34-rrect-md__rest",
       "c-s8-lo-d4-rrect-lg__rest",
       "c-s8-lo-d4-rrect-md__rest",
       "c-s8-lo-d40-rrect-lg__rest",
       "c-s8-lo-d80-rrect-lg__rest",
+      "c-s8-lo-p4-rrect-md__rest",
+      "c-s8-lo-p4-rrect-ml__rest",
       "c-s8-lo-rrect-md__rest",
+      "d-d0-hilo-p4-rrect-md__rest",
       "d-d0-hilo-rrect-lg__rest",
       "d-d0-hilo-rrect-md__rest",
       "d-d0-lohi-capsule-button__rest",
+      "d-d0-lohi-p4-rrect-md__rest",
       "d-d0-lohi-rrect-lg__rest",
       "d-d0-lohi-rrect-md__rest",
       "d-d32-hilo-rrect-md__rest",
@@ -5568,23 +6471,37 @@
       "c-impulse-rrect-lg__rest",
       "c-impulse-rrect-ml__rest",
       "c-s16-hi-capsule-button__rest",
+      "c-s16-hi-corner-rrect-md__rest",
+      "c-s16-hi-end-capsule-button__rest",
       "c-s16-lo-capsule-button__rest",
+      "c-s32-hi-p4-rrect-md__rest",
+      "c-s32-hi-p4-rrect-ml__rest",
       "c-s32-hi-rrect-md__rest",
+      "c-s32-lo-p4-rrect-md__rest",
+      "c-s32-lo-p4-rrect-ml__rest",
       "c-s32-lo-rrect-md__rest",
+      "c-s8-hi-p4-rrect-md__rest",
+      "c-s8-hi-p4-rrect-ml__rest",
       "c-s8-hi-rrect-md__rest",
       "c-s8-lo-d24-rrect-md__rest",
       "c-s8-lo-d4-rrect-lg__rest",
       "c-s8-lo-d4-rrect-md__rest",
       "c-s8-lo-d40-rrect-lg__rest",
       "c-s8-lo-d80-rrect-lg__rest",
+      "c-s8-lo-p4-rrect-md__rest",
+      "c-s8-lo-p4-rrect-ml__rest",
       "c-s8-lo-rrect-md__rest",
       "c-s8-lo-rrect-sm__rest",
+      "d-d0-hilo-p4-rrect-md__rest",
       "d-d0-hilo-rrect-md__rest",
       "d-d0-lohi-capsule-button__rest",
+      "d-d0-lohi-p4-rrect-md__rest",
       "d-d0-lohi-rrect-md__rest",
       "d-d0-lohi-rrect-sm__rest",
+      "d-d12-hilo-p4-rrect-md__rest",
       "d-d12-hilo-rrect-md__rest",
       "d-d12-lohi-capsule-button__rest",
+      "d-d12-lohi-p4-rrect-md__rest",
       "d-d12-lohi-rrect-md__rest",
       "d-d32-hilo-rrect-md__rest",
       "d-d32-lohi-rrect-md__rest",

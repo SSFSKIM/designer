@@ -66,6 +66,8 @@ appends `failed` and spends H.
    40 of them H (8 per 2x pass, 2 per 1x pass, all four endpoints), all web-plannable. After
    the parent's s = 32 receded rows: 424 glass cells, 24 probe exclusions, 400 in scope, the
    same 40 H (`synthetic-check.json` `realDeclarationScopeAfterS32Ruling`; `green-s32.txt`).
+   After the instrument-stream rulings: 452 glass cells, 24 probe exclusions, 428 in scope, the
+   same 40 H (`realDeclarationScopeAfterInstrumentRulings`; `green-rulings.txt`).
 3. **The inventory is named, not fixed.** W41 bound W39's one archive inventory by constant.
    `freeze(..., inventory=...)` binds a committed inventory that must name this declaration
    (`scenesSha256`, `splitSha256` = bed.json); its SHA-256 is the receipt's generation.

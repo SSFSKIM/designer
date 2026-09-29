@@ -86,6 +86,17 @@ def short_side(base):
     return min(BASE[base][1])
 
 
+def sdf_depth(base, rel):
+    """Depth of a point inside the shape (positive inside), in CSS px, for circular corners
+    (a capsule's radius is half its short side). Exact on the axes, where every patch but the
+    corner and end cells sits; the native continuous corner departs from it slightly there."""
+    kind, (w, h), r = BASE[base]
+    r = min(w, h) / 2 if kind == 'capsule' else r
+    qx, qy = abs(rel[0]) - (w / 2 - r), abs(rel[1]) - (h / 2 - r)
+    outside = (max(qx, 0) ** 2 + max(qy, 0) ** 2) ** 0.5
+    return round(-(outside + min(max(qx, qy), 0) - r), 2)
+
+
 # ----------------------------------------------------------------- backgrounds
 
 def checker(cell, a, b):
@@ -120,6 +131,12 @@ PHOTO = ('photo', dict(kind='synthetic-photo', seed=20260825))
 LO, HI = 48, 208
 POLARITY = {'hi': (HI, LO), 'lo': (LO, HI)}           # patch: (foreground, background)
 STEP = {'lohi': (LO, HI), 'hilo': (HI, LO)}            # step: (from, to) about x = position
+# The dark passes' second pair at spans >= 96, P4's 16 / 112 (the parent's ruling from the
+# instrument stream's separation proof): dark T's compression at those spans leaves little of
+# 48 / 208's bright side. Ids carry `-p4`; the 48 / 208 cells stay beside them.
+P4_LO, P4_HI = 16, 112
+POLARITY_P4 = {'hi': (P4_HI, P4_LO), 'lo': (P4_LO, P4_HI)}
+STEP_P4 = {'lohi': (P4_LO, P4_HI), 'hilo': (P4_HI, P4_LO)}
 
 # The single-patch impulse geometry. Background.swift fills impulses in CoreGraphics space,
 # whose origin is the BOTTOM-left: the first patch is at (spacing/2, spacing/2) there, so in
@@ -130,7 +147,7 @@ STEP = {'lohi': (LO, HI), 'hilo': (HI, LO)}            # step: (from, to) about 
 # §3) inside the canvas on rrect-md and the capsule; that forces the off-centre patches toward
 # the TOP edge. rrect-lg's footprint exceeds the canvas at any placement, as on the canonical
 # bed; its box stays inside. verify-backgrounds.py reads every patch back from the rasters.
-SINGLE = {g: (g // 2, CANVAS['height'] - g // 2) for g in (232, 256, 300, 336)}
+SINGLE = {g: (g // 2, CANVAS['height'] - g // 2) for g in (232, 248, 256, 300, 336)}
 
 
 # ------------------------------------------------------------------- the cells
@@ -243,6 +260,8 @@ def build():
         else:
             px, py = cx, cy
             patches = 'grid'
+        if abs(sdf_depth(base, (px - cx, py - cy)) - depth) > 0.01:
+            raise ValueError(f'{sid}: declared depth {depth}, geometry gives {sdf_depth(base, (px - cx, py - cy))}')
         bed.cell(sid, 'C', name, base, role=role, passes=passes, offset=offset, note=note, uitems=uitems,
                  geometry=dict(patchSize=size, patchCentre=[px, py], patchFromShapeCentre=[px - cx, py - cy],
                                depth=depth, levels=dict(foreground=fg, background=bg), impulseSpacing=spacing,
@@ -284,8 +303,8 @@ def build():
 
     # D: steps under and beside the body (U1, U3, U7). The step is a split at x = 160 + delta
     # (the shape stays centred, so delta is the step's offset from the shape centre).
-    def step(sid, x, pol, base, passes, role='calibration', note=None, uitems=('U3',)):
-        left, right = STEP[pol]
+    def step(sid, x, pol, base, passes, role='calibration', note=None, uitems=('U3',), levels=STEP):
+        left, right = levels[pol]
         cx = centre(base)[0]
         bed.cell(sid, 'D', bed.bg(split(x, left, right)), base, role=role, passes=passes, note=note,
                  uitems=uitems, geometry=dict(stepX=x, stepFromShapeCentre=x - cx,
@@ -326,6 +345,55 @@ def build():
     step('d-d0-lohi-rrect-sm', 160, 'lohi', 'rrect-sm', receded2, role='validation',
          uitems=('U1', 'U3', 'M2 at s = 32'),
          note='validation: span transfer of the step below 44 (s 96 -> 32); the parent\'s s = 32 ruling')
+
+    # The parent's rulings from the instrument stream's separation proof (2026-09-29).
+    # (1) A second readable depth on rrect-md, active: the active deep mask is 20 + 16.8 t pt
+    # (25.6 on md), which cuts the s/4 patch; S 8 at depth 34 (content 30-38) in the passing
+    # polarity, on the single impulse at (116, 84), rrect-md offset (-44, -2).
+    for scheme, pol in (('light', 'hi'), ('dark', 'lo')):
+        fg, bg = POLARITY[pol]
+        patch(f'c-s8-{pol}-d34-rrect-md', fg, bg, 8, 232, 'rrect-md', (-44, -2), 34,
+              everywhere(2, ('active',), (scheme,)), uitems=('depth',),
+              note='the second readable depth on rrect-md, active: beyond the 25.6-pt deep mask '
+                   '(the parent\'s ruling from the instrument stream)')
+    # (2) Receded structure near a corner and an end: the shape support differs from the box
+    # only there, so an S 16 patch within 16 pt of rrect-md's top-left corner and of the
+    # capsule's left end separates W-shape from K2 and W-tails. The polarity whose detail the
+    # knee SUPPRESSES (dark on bright in light, bright on dark in dark), where the output is
+    # mostly W (memo B: "a dark patch reads W (swapped in dark)"). Both reuse the S 16 rasters.
+    for scheme, pol in (('light', 'lo'), ('dark', 'hi')):
+        fg, bg = POLARITY[pol]
+        receded = everywhere(2, ('receded',), (scheme,))
+        patch(f'c-s16-{pol}-corner-rrect-md', fg, bg, 16, 232, 'rrect-md', (20, 16), sdf_depth('rrect-md', (-64, -32)),
+              receded, uitems=('U3', 'W-shape against K2 and W-tails'),
+              note='S 16 within 16 pt of rrect-md\'s top-left corner (patch centre 5.7 pt from the corner '
+                   'arc\'s centre, box depth 16); the parent\'s ruling from the instrument stream')
+        patch(f'c-s16-{pol}-end-capsule-button', fg, bg, 16, 232, 'capsule-button', (4, -16), 12, receded,
+              role='validation', uitems=('U3', 'W-shape against K2 and W-tails'),
+              note='validation: the shape support transferred from rrect-md\'s corner to the capsule\'s '
+                   'left end (patch centre 10 pt from the end cap\'s centre)')
+    # (3) The dark passes' 16 / 112 twins of the key C and D cells at spans >= 96 (rrect-md and,
+    # new geometry, rrect-ml): C S 8 and S 32 in both polarities, D delta 0 (and delta 12
+    # receded) in both. rrect-ml's patches sit on a single impulse of spacing 248, the spacing
+    # that maximises its box's least canvas clearance (12 px), at the ml centre. rrect-ml's S 32
+    # pair is validation: C's size transfer (S 8 -> S 32) at the new span.
+    dark2 = everywhere(2, schemes=('dark',))
+    for pol, (fg, bg) in POLARITY_P4.items():
+        for size in (8, 32):
+            patch(f'c-s{size}-{pol}-p4-rrect-md', fg, bg, size, 232, 'rrect-md', (-44, -16), 48, dark2,
+                  uitems=('U1', 'U4', 'one k or two', 'dark level pair'),
+                  note='the dark 16 / 112 twin of the 48 / 208 cell (the parent\'s ruling)')
+            patch(f'c-s{size}-{pol}-p4-rrect-ml', fg, bg, size, 248, 'rrect-ml', (-36, -24), 64, dark2,
+                  role='validation' if size == 32 else 'calibration',
+                  uitems=('U1', 'U4', 'one k or two', 'dark level pair', 'U7'),
+                  note=('validation: C\'s size transfer at s = 128, ' if size == 32 else '') +
+                       'dark 16 / 112 at rrect-ml, which has no 48 / 208 counterpart (the parent\'s ruling)')
+    for pol in STEP_P4:
+        step(f'd-d0-{pol}-p4-rrect-md', 160, pol, 'rrect-md', dark2, levels=STEP_P4,
+             uitems=('U1', 'U3', 'dark level pair'), note='the dark 16 / 112 twin (the parent\'s ruling)')
+        step(f'd-d12-{pol}-p4-rrect-md', 172, pol, 'rrect-md', everywhere(2, ('receded',), ('dark',)),
+             levels=STEP_P4, uitems=('U1', 'U3', 'dark level pair'),
+             note='the dark 16 / 112 twin (the parent\'s ruling)')
 
     # E: isoluminant chroma checkers (U6).
     for pair, (a, b) in E_PAIRS.items():
@@ -381,8 +449,11 @@ def profile_key(scale, scheme):
 
 # The charter's v2.1 counts, plus the s = 32 receded rows the parent ruled from the gate
 # rehearsal (4 per 2x receded pass, 1 per 1x receded pass).
-EXPECTED = {pass_key(2, 'light', 'active'): 88, pass_key(2, 'dark', 'active'): 91,
-            pass_key(2, 'light', 'receded'): 86 + 4, pass_key(2, 'dark', 'receded'): 89 + 4,
+# Then the instrument-stream rulings: the depth-34 patch (+1 per 2x active pass), the corner
+# and end patches (+2 per 2x receded pass), the dark 16 / 112 twins (+10 dark active, +12 dark
+# receded).
+EXPECTED = {pass_key(2, 'light', 'active'): 88 + 1, pass_key(2, 'dark', 'active'): 91 + 1 + 10,
+            pass_key(2, 'light', 'receded'): 86 + 4 + 2, pass_key(2, 'dark', 'receded'): 89 + 4 + 2 + 12,
             pass_key(1, 'light', 'active'): 15, pass_key(1, 'dark', 'active'): 15,
             pass_key(1, 'light', 'receded'): 15 + 1, pass_key(1, 'dark', 'receded'): 15 + 1}
 SENTINELS = ('f-impulse-rrect-md', 'f-checker64-rrect-lg')
@@ -541,6 +612,10 @@ U_ITEMS = {
     'depth': "C's depth sweep on rrect-md and rrect-lg",
     'rrect-lg': "B' on rrect-lg beside rrect-ml; C on rrect-lg",
     'units': "C's rrect-ml / rrect-lg pair (the canonical impulse)",
+    'W-shape against K2 and W-tails': "receded S 16 patches within 16 pt of rrect-md's corner (calibration) and "
+                                      "the capsule's end (validation): the parent's ruling from the instrument stream",
+    'dark level pair': "the dark passes' 16 / 112 twins of C S 8 / S 32 on rrect-md and rrect-ml and D delta 0 / 12 "
+                       "on rrect-md, beside the 48 / 208 cells; family A says which pair carries slope",
     'M2 at s = 32': "the s = 32 receded rows on rrect-sm (P1 pitch 8 and 16, the S 8 centre patch, the step at "
                     "delta 0; P1 pitch 8 also at 1x): the parent's ruling from the gate rehearsal",
 }
@@ -604,6 +679,13 @@ def main():
         roles={r: sorted(c for c, x in bed.cells.items() if x['role'] == r) for r in ROLE_ORDER},
         validationAxes={cid: c['note'] for cid, c in sorted(bed.cells.items()) if c['role'] == 'validation'},
         uItems=U_ITEMS, charterDeviations=DEVIATIONS, webPlacement=web,
+        recordedNotCaptured=[dict(
+            item="U3's active half: canvas against R_fp, and R_fp's active edge mode",
+            status='non-identifiable on this bed; recorded, not captured (the parent\'s ruling from the '
+                   'instrument stream\'s separation proof)',
+            why='the active margin keeps R_fp\'s edge >= 45 pt from every readable pixel, and the answering '
+                'rows (D\'s steps outside the edge) sit inside the 19.2-pt outer-refraction reach; no cell '
+                'inside the canvas and outside that reach answers it')],
         dumpList={k: sorted(f'{c}__rest' for c in p['cells']) for k, p in passes.items()},
     )
     (HERE / 'bed.json').write_text(json.dumps(companion, indent=2, ensure_ascii=False) + '\n')
