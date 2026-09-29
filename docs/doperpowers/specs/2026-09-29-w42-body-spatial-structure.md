@@ -418,11 +418,11 @@ macOS 26.5 pair is `b2b570e4adcea8fb` / `874be66ea501621b`. E3's zero-gated iden
 demand-driven frames and edits `renderer-webgpu/src/renderer.ts`, `src/backdrop.ts`,
 `src/pyramid.ts` and `src/silhouette-tone.ts`, files G2 also edits for D1 and D2. Its spec states
 that no material constant, law or capture moved; the calibration page hand-steps `root.runFrame`
-(`packages/calibration/web/scene.ts:866-877`), which the PR keeps exact. **It is merged**: main is
-at `399c6bbf`, which carries it with 0.25.0 prepared and unpublished (`pnpm release` is the
-user's). That merge's release chain read the capture tree 1,893 match / 0 mismatch, the goldens
-byte-identical to v0.24.0 and the six document digests unmoved. G2's base includes it; X37
-governs. Line numbers in this charter are `9d7e171c`'s unless marked; the merge moved
+(`packages/calibration/web/scene.ts:866-877`), which the PR keeps exact. **It is merged and
+released**: `399c6bbf` carries it as 0.25.0, which the user published on that commit (the c9d
+row, `10c52933`). That merge's release chain read the capture tree 1,893 match / 0 mismatch,
+the goldens byte-identical to v0.24.0 and the six document digests unmoved. G2's base includes
+it; X37 governs. Line numbers in this charter are `9d7e171c`'s unless marked; the merge moved
 `renderer.ts`'s cited lines down by 20 and left the others where they were.
 
 ## Design (advisory unless marked)
@@ -776,11 +776,11 @@ Decision Log 4 still needs the Chromium proof.
 
 ### The runtime base (MARKED; X37)
 
-PR #2 is merged: main is at `399c6bbf`, which carries it with 0.25.0 prepared; publishing 0.25.0
-is the user's, not W42's. G2 branches from main as it stands when G2 starts, so its base includes
-PR #2. Before any candidate render, G2 re-renders a declared sample of the canonical bed with the
-SHIPPED documents at that base and shows it byte-identical to the canonical capture tree, so every
-rendered difference is attributable to the candidate and not to the base. G3 proves the seal's
+PR #2 is merged at `399c6bbf` and released there as 0.25.0 (`10c52933`). G2 branches from main
+as it stands when G2 starts, so its base includes PR #2. Before any candidate render, G2
+re-renders a declared sample of the canonical bed with the SHIPPED documents at that base and
+shows it byte-identical to the canonical capture tree, so every rendered difference is
+attributable to the candidate and not to the base. G3 proves the seal's
 identity at G2's frozen base; if the base has moved since, clause 8's proof runs again first
 (finding 17(ii)).
 
@@ -907,8 +907,8 @@ New:
   identity table; at the identity it draws exactly what ships today; the frozen macOS 26.5 pair
   never leaves it.
 - **X37 — the runtime base is proved before any candidate render** (clause 8) and again whenever
-  it moves before the seal. The base includes PR #2, merged at `399c6bbf`; publishing 0.25.0 is
-  the user's, not W42's.
+  it moves before the seal. The base includes PR #2, merged at `399c6bbf` and released there as
+  0.25.0.
 - **X38 — dump numbers are pointers.** A layer-tree number becomes evidence only where the
   pixels agree; the pixels govern. LT declares the dump's constants as hypotheses the bed
   referees; memo E has already refuted λ 0.9 on pitch-64 receded cells, so λ is fitted, and w,
@@ -1163,7 +1163,8 @@ X5 by their own hand, and restores both after the sitting.
     at identity; 17 the per-surface support's pyramid cost, identity at G2's frozen base, the F
     extension's own gate-group and ruling 2's placement; H's span test at s = 112 if G0 can
     declare it; family A's dark greys on rrect-80.
-  - **PR #2 merged** on main at `399c6bbf` with 0.25.0 prepared: G2's base includes it.
+  - **PR #2 merged** on main at `399c6bbf` and released there as 0.25.0 (`10c52933`): G2's base
+    includes it.
   - The rejected nulls are recorded in Surprises with memo E's numbers. The bed is now 88 / 91 /
     86 / 89 cells per 2x pass and 15 per 1x pass, about 8.7 h of capture at seven runs plus about
     1.0 h of dumps.
