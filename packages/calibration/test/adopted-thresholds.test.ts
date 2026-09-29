@@ -5200,6 +5200,48 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     return n === null || w === null ? null : Math.abs(w - n);
   };
 
+  /**
+   * **L1 growth's named misses** (W42 G0; charter Decision Log 5d, RULED by the user
+   * 2026-09-30: "Named misses."). The growth clause gains the recorded-miss path M2 has had
+   * since Decision Log 5a, and the 0.005 does not move.
+   *
+   * The ruling names four cell-profiles, `GROWTH_RULED`: the light tinted photo rrect-md and
+   * the dark tinted photo capsule, inactive, at 1x and 2x. Their growth comes through
+   * vitrea's receded tint composite, which carries the untinted body's correction into the
+   * tinted cell (light 0.0288 + 0.7312 u, dark 0.0202 + 1.4398 u) and which W42's law does
+   * not govern. Fixing that layer is on W42's Deferred list. The absolute clause above still
+   * reads these cells.
+   *
+   * The shape is M2's. `growthVerdict` classes every growth miss: a miss on a ruled cell is
+   * NAMED, and a miss anywhere else is a FAILURE that no entry excuses. `GROWTH_MISSES`
+   * records the named ones with their growth, and the owner case below holds the named set
+   * and the recorded set equal in both directions. So a named miss that is not recorded
+   * fails, and a recorded miss that has closed fails too. The list is empty today because no
+   * shipped cell misses growth. The gate that seals a candidate adds the entries its
+   * regenerated cut derives, and the rest of this block holds unedited, so the owner-test
+   * runner can add them in a disposable copy as the seal would (gate/owner/run-owner.py).
+   */
+  const GROWTH_RULED = new Set([1, 2].flatMap(scale => [
+    `apple-macos-27.0-${scale}x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange`,
+    `apple-macos-27.0-${scale}x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange`,
+  ]));
+  interface GrowthMiss { readonly measured: number; readonly bound: string }
+  const GROWTH_MISSES: Readonly<Record<string, GrowthMiss>> = {
+  };
+  type GrowthVerdict = "within" | "named" | "failure";
+  const growthVerdict = (cell: string, growth: number): GrowthVerdict =>
+    !(growth > 0.005) ? "within" : GROWTH_RULED.has(cell) ? "named" : "failure";
+  /** Every growth miss on the live matrix, with its verdict; UNMEASURED cells carry none. */
+  const growthMisses = (): readonly {
+    readonly cell: string; readonly growth: number; readonly verdict: "named" | "failure";
+  }[] => population.flatMap(c => {
+    const baseline = old.find(b => key(b) === key(c));
+    const e = error(c), before = baseline === undefined ? null : error(baseline);
+    if (e === null || before === null) return [];
+    const verdict = growthVerdict(key(c), e - before);
+    return verdict === "within" ? [] : [{ cell: key(c), growth: e - before, verdict }];
+  });
+
   it("guards the declared population, named missing means and pre-fit generation", () => {
     expect(CUT.atDocuments).toBe("shipped");
     expect(CUT.withHoldout).toBe(false);
@@ -5265,7 +5307,8 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     expect(misses).toEqual(MISSES);
   });
 
-  it("L1: error growth is at most 0.005, including both existing absolute misses", () => {
+  it("L1: error growth is at most 0.005, including both existing absolute misses, or is a "
+    + "named growth miss (W42 Decision Log 5d)", () => {
     for (const c of population) {
       const baseline = old.find(b => key(b) === key(c));
       expect(baseline, key(c)).toBeDefined();
@@ -5275,7 +5318,57 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
         expect(MISSING, `UNMEASURED L1: ${key(c)}`).toContain(key(c));
         continue;
       }
-      expect(e - before, key(c)).toBeLessThanOrEqual(0.005);
+      // Recorded, not widened (W42 G0, Decision Log 5d): a named growth miss that
+      // `GROWTH_MISSES` records is excused here and only here, and the owner case below
+      // asserts that the recorded set is exactly the named set. A failure fails here whether
+      // or not an entry names it.
+      const verdict = growthVerdict(key(c), e - before);
+      if (verdict === "named" && GROWTH_MISSES[key(c)] !== undefined) continue;
+      expect(e - before, key(c)
+        + (verdict === "named" ? ": a named growth miss GROWTH_MISSES does not record" : "")
+        + (verdict === "failure" ? ": a failure, which no entry excuses" : ""),
+      ).toBeLessThanOrEqual(0.005);
     }
+  });
+
+  it("L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)", () => {
+    // The path's owner, as M2's derivation case is M2's: seeded cells through the verdict
+    // the growth case reads, one per arm of the ruling, so each arm is shown to fire.
+    const ruled = "apple-macos-27.0-1x-light-standard-glass0.5/"
+      + "photo__rrect-md__inactive-tint-orange";
+    const seeded: readonly (readonly [string, string, number, GrowthVerdict])[] = [
+      ["a ruled cell at the bound", ruled, 0.005, "within"],
+      ["a ruled cell past the bound", ruled, 0.0108, "named"],
+      ["an absolute named miss past the bound", MISSES[0]!, 0.0051, "failure"],
+      ["the untinted twin of a ruled cell past the bound",
+        ruled.replace("-tint-orange", ""), 0.0108, "failure"],
+    ];
+    for (const [label, cell, growth, verdict] of seeded) {
+      expect(growthVerdict(cell, growth), label).toBe(verdict);
+    }
+    // The ruled set is the ruling's four cell-profiles, every one inside the population.
+    expect(population.map(key).filter(k => GROWTH_RULED.has(k)).sort(), "the ruled cells")
+      .toEqual([...GROWTH_RULED].sort());
+
+    // On the live matrix the named growth misses are exactly the entries `GROWTH_MISSES`
+    // records, each at its growth to five decimals, and no growth miss is a failure. Today
+    // both sets are empty. The statement is relational on purpose: the gate that records
+    // the first named miss adds its entry beside the regenerated cut and this case holds
+    // unedited.
+    const misses = growthMisses();
+    const namedGrowth = misses.filter(m => m.verdict === "named");
+    expect(namedGrowth.map((m) => m.cell).sort(), "the named L1 growth misses").toEqual(
+      Object.keys(GROWTH_MISSES).sort(),
+    );
+    for (const { cell, growth } of namedGrowth) {
+      expect(growth, `${cell}: the recorded growth`).toBeCloseTo(
+        GROWTH_MISSES[cell]?.measured ?? Number.NaN,
+        5,
+      );
+    }
+    expect(
+      misses.filter(m => m.verdict === "failure").map(m => m.cell),
+      "an L1 growth failure on the live matrix",
+    ).toEqual([]);
   });
 });
