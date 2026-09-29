@@ -1,0 +1,43 @@
+W42 G0 — M2's past-Apple clause under mutation (the gate review of b151aff4, finding 6)
+=====================================================================================
+
+Finding 6: the owner case "M2's named-miss derivation classes a move as Decision Log 5a ruled"
+seeded no cell past a FLATTER Apple and none that tells Apple's value from the reference as the
+2 % denominator, so two mutants of `structureVerdict`'s past-Apple clause
+    Math.abs(web - native) / native <= CHROMA_STRUCTURE_TOLERANCE
+survived every seed:
+    no-abs   (web - native) / native <= ...          a cell below a flatter Apple always passes
+    over-r   Math.abs(web - native) / reference <= ...  the 2 % read against r, not n
+The fix adds the reviewer's two seeds (r = 0.020 as for every seed):
+    ["past a flatter Apple by 5 %", 0.0095, 0.01, "failure"]
+    ["past a far more textured Apple by 1.5 % of it", 0.0406, 0.04, "named"]   (3 % of r)
+
+mutants.py (beside this file) writes each mutant into a throwaway copy of the committed test and
+of the test at 9a695ec0 (the seeds before the fix), plus both unmutated, and runs each through a
+scratch vitest config; the directory was deleted afterwards. RED is the owner case catching the
+mutant; the 9a695ec0 copies show the old seeds did not.
+
+Output (vitest, colour stripped, durations dropped)
+---------------------------------------------------
+--- seeds-9a695ec0--no-abs
+      Tests  107 passed | 1 skipped (108)
+--- seeds-9a695ec0--over-r
+      Tests  107 passed | 1 skipped (108)
+--- seeds-9a695ec0--unmutated
+      Tests  107 passed | 1 skipped (108)
+--- seeds-now--no-abs
+     × M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: past a flatter Apple by 5 %: expected 'named' to be 'failure' // Object.is equality
+      Tests  1 failed | 107 passed | 1 skipped (109)
+--- seeds-now--over-r
+     × M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: past a far more textured Apple by 1.5 % of it: expected 'failure' to be 'named' // Object.is equality
+      Tests  1 failed | 107 passed | 1 skipped (109)
+--- seeds-now--unmutated
+      Tests  108 passed | 1 skipped (109)
+
+Reading: at 9a695ec0 both mutants pass all 107 cases (the finding); with the two seeds, no-abs
+fails on "past a flatter Apple by 5 %" and over-r on "past a far more textured Apple by 1.5 % of
+it", and the unmutated file passes 108 | 1 skipped (109, with A1's L1 growth owner case).

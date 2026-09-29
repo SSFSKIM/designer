@@ -4512,6 +4512,13 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
       ["past Apple by 4 %", 0.026, 0.025, "failure"],
       ["away from Apple", 0.015, 0.03, "failure"],
       ["with Apple on the reference", 0.025, 0.02, "failure"],
+      // The past-Apple clause's two readings, one seed each (W42 G0, the gate review of
+      // b151aff4, finding 6). Its distance is ABSOLUTE, so a cell that overshoots a flatter
+      // Apple fails; and it is read against APPLE's value, so 1.5 % of n = 0.04 is named where
+      // the same 0.0006 is 3 % of r. Without these two, dropping the `Math.abs` or dividing by
+      // r instead of n survived every seed above.
+      ["past a flatter Apple by 5 %", 0.0095, 0.01, "failure"],
+      ["past a far more textured Apple by 1.5 % of it", 0.0406, 0.04, "named"],
     ];
     for (const [label, web, native, verdict] of seeded) {
       expect(structureVerdict(seed(web), native), label).toBe(verdict);
