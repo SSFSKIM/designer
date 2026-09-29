@@ -5,13 +5,19 @@ the current union (`--stage DIR`: the scratch union a stage would publish); the 
 read from the `--captures` root whose metadata names each row's capturePath. Both named
 documents are still checked against the files on disk, as the adopted test checks them.
 
-    python3.12 -B black-cut.py [--stage DIR] [--captures ROOT ...] [--out PATH]
+W42 G0 (charter clause 10): that check reads `Source.admitted`, the shipped documents under
+profiles/ plus any declared `--candidate`, each at its hash (W41 hashed whatever file the
+row's path named); with a candidate, the cut carries `admission`, `atDocuments` reads
+`candidate` and stdout opens `# CANDIDATE`.
+
+    python3.12 -B black-cut.py [--stage DIR ...] [--candidate PATH[=SHA12] ...]
+                               [--captures ROOT ...] [--out PATH]
 """
-import argparse,hashlib,io,json,re,sys
+import argparse,io,json,re,sys
 from pathlib import Path
 import numpy as np
 from PIL import Image
-HERE=Path(__file__).resolve().parent;CAL=HERE.parents[2];ROOT=HERE.parents[4]
+HERE=Path(__file__).resolve().parent;CAL=HERE.parents[3]
 sys.path.insert(0,str(HERE));import referee_source
 sys.path.insert(0,str(CAL/'results/2026-09-23-w34-g0-contour-bed'))
 from w35_readers import CanonicalNativeReader
@@ -28,7 +34,7 @@ for c in source.rows:
     if not (profile.startswith('apple-macos-27.0-') and '-standard-' in profile and c['tier']=='texture' and c['key']['web']['renderer']=='webgpu' and role in ['calibration','validation','probe'] and scene['state'] in ['rest','inactive'] and scene['background'] in BLACK and comp['kind'] in ['rrect','capsule']):continue
     cell=profile+'/'+sid;web=captures.select(cell,c);meta=json.loads(web.read(cell,'metadata'));assert meta['capturePath']==c['key']['web']['capturePath']
     docs=re.findall(r'(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})',meta['capturePath']);assert len(docs)==2
-    for path,sha in docs:assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()[:12]==sha
+    for path,sha in docs:assert source.admitted.get(path)==sha,(cell,path,sha)
     n=image(native.read(cell));bg=image(native.read(cell,'background'));w=image(web.read(cell));scale=2 if '-2x-' in profile else 1
     width,height=comp['size'];dx,dy=comp.get('offset',[0,0]);x0=((320-width)/2+dx)*scale;y0=((200-height)/2+dy)*scale;x1=x0+width*scale;y1=y0+height*scale
     y,x=np.indices(n.shape[:2]);black=np.all(bg==0,2);nat=np.all(n==0,2);maximum=w.max(2)
@@ -40,8 +46,9 @@ for c in source.rows:
         row[name]=dict(backdropBlack=int(np.sum(mask&black)),nativeNonzero=int(np.sum(mask&black&~nat)),pixels=pixels,aboveZero=zero,aboveOne=int(np.sum(eligible&(maximum>1))),fraction=zero/pixels if pixels else None)
     rows.append(row)
 rows.sort(key=lambda r:(r['profile'],r['scene']))
-result=dict(**({'source':source.described} if source.stage else {}),atDocuments='shipped',withHoldout=False,blackBackdrops=BLACK,targets=dict(blackFraction=0,aboveOne=0),missed=[],cells=rows)
+result=dict(**({'source':source.described} if source.stage else {}),**source.stamp,atDocuments=source.at_documents,withHoldout=False,blackBackdrops=BLACK,targets=dict(blackFraction=0,aboveOne=0),missed=[],cells=rows)
 with args.out.open('x') as f:json.dump(result,f,indent=2);f.write('\n')
+source.banner()
 print('X1 cells',len(rows))
 for mask in ['integer','analytic']:print(mask,{k:sum(r[mask][k] for r in rows) for k in ['pixels','aboveZero','aboveOne']})
 # W36 asserted its own bed's count, 218. The count is the matrix's to set (the owner test

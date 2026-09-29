@@ -14,7 +14,14 @@ therefore its own reference — the wave's change on dark is zero by constructio
 dark row that moved would read here as a nonzero delta against the rows it replaced. The
 2% bar is unchanged; cumulative drift is recorded separately in m2-rebaseline.json.
 
-    python3.12 -B chroma-cut.py [--stage DIR] [--out PATH]
+W42 G0 (charter clause 10): the shipped-document guard reads `Source.admitted`, the shipped
+documents plus any declared `--candidate`, so a candidate's rows form the bed; with one, the
+cut carries `admission`, `atDocuments` reads `candidate` and stdout opens `# CANDIDATE`.
+`shippedDocuments` stays the files under profiles/. The reference is unchanged: the
+generation current when the W42 gate opens is still light 85ad7f7e3e0d / 30fbe05986ae and
+dark 0eac5b294cc2 / 5cec8c961201.
+
+    python3.12 -B chroma-cut.py [--stage DIR ...] [--candidate PATH[=SHA12] ...] [--out PATH]
 """
 from __future__ import annotations
 
@@ -28,7 +35,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-PACKAGE = HERE.parents[2]
+PACKAGE = HERE.parents[3]
 REPO = PACKAGE.parent.parent
 sys.path.insert(0, str(HERE))
 import referee_source  # noqa: E402
@@ -78,7 +85,9 @@ def at_a_shipped_document(cell: dict, shipped: dict[str, str]) -> bool:
 
     The test's version reads the FIRST `materialProfile=` clause; a macOS 27 row
     names a receded document too, and a cut that ignored it would read rows drawn
-    by a recede nobody ships. Every named document has to be current here.
+    by a recede nobody ships. Every named document has to be current here. In
+    candidate mode `shipped` is `Source.admitted`: the shipped documents and the
+    declared candidates, each at its hash (W42 G0).
     """
     named = re.findall(
         r"(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})",
@@ -147,7 +156,7 @@ def main(argv: list[str]) -> int:
 
     shipped = shipped_document_hashes()
     source = referee_source.load(args)
-    current = bed_rows(source.rows, shipped)
+    current = bed_rows(source.rows, source.admitted)
 
     reference: dict[tuple[str, str], dict] = {}
     reference_files: dict[str, str] = {}
@@ -238,7 +247,8 @@ def main(argv: list[str]) -> int:
         "generatedAt": _datetime.datetime.now(_datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         # A stage read says which (profile, tier) pairs it replaced and which kept current rows.
         **({"source": source.described} if source.stage else {}),
-        "atDocuments": "shipped",
+        **source.stamp,
+        "atDocuments": source.at_documents,
         "withHoldout": False,
         "tier": "texture",
         "renderer": "webgpu",
@@ -263,6 +273,7 @@ def main(argv: list[str]) -> int:
     }
     out_path.write_text(json.dumps(cut, indent=2) + "\n")
 
+    source.banner()
     print(f"# {cut['what']}")
     print(f"# rows: {source.label}")
     print(f"# mode: {MODE}")

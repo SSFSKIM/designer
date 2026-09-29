@@ -6,6 +6,10 @@ cumulative origin stays W31's pre-fit bed, now named as its (active, receded) pa
 resolved by `matrix_store.load_generation` rather than through the superseded index by
 hand; the per-wave reference is whatever `chroma-cut.json` beside it names.
 
+W42 G0 (charter clause 10): this script reads a cut, not rows, so it takes no --candidate;
+a cut stamped `admission` passes the stamp on (the JSON carries it after `source`, and
+stdout opens `# CANDIDATE`).
+
     python3.12 -B m2-rebaseline.py [--cut PATH] [--out PATH]
 """
 import argparse
@@ -22,6 +26,10 @@ parser.add_argument('--out',type=Path,default=HERE/'m2-rebaseline.json')
 parser.add_argument('--claims',default='c9a §5.193')
 args=parser.parse_args()
 cut=json.loads(args.cut.read_text())
+if 'admission' in cut:
+    print('# CANDIDATE admission: the cut read rows at '+', '.join(
+        f"{d['path']} sha256:{d['sha12']}" for d in cut['admission']['documents'])
+          +' (declared scratch documents; not a shipped cut)')
 pre={}
 for scheme,sha,receded in [('light','d0c389d70456','2334c7b4c5e2'),('dark','880ab1e31450','5e71370ae6d5')]:
     for cell in referee_source.generation(sha,receded)[0]:
@@ -40,7 +48,8 @@ for cell in sorted(cut['cells'],key=lambda c:(c['profile'],c['scene'])):
                      waveReference=reference,value=now,perWave=wave,cumulative=(now-initial)/initial,
                      passStop=abs(wave)<=.02))
 assert len(rows)==26
-args.out.write_text(json.dumps(dict(claims=args.claims,**({'source':cut['source']} if 'source' in cut else {}),bound=.02,
+args.out.write_text(json.dumps(dict(claims=args.claims,**({'source':cut['source']} if 'source' in cut else {}),
+    **({'admission':cut['admission']} if 'admission' in cut else {}),bound=.02,
     referenceGeneration=cut['referenceGeneration'],cells=rows),indent=2)+'\n')
 for r in rows:
     print(r['profile'],r['scene'],f"{r['waveReference']:.9f} -> {r['value']:.9f}",

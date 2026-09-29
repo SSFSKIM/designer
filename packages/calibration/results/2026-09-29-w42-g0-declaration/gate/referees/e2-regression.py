@@ -20,7 +20,13 @@ Every row must name documents that are the files on disk: a regression read of t
 generation. e2.py's own resolver admits a retired copy for its frozen reference; this read
 does not.
 
-    python3.12 -B e2-regression.py [--stage DIR] [--captures ROOT ...] [--out PATH] [--bins PATH]
+W42 G0 (charter clause 10): "the files on disk" is `Source.admitted`, the shipped documents
+under profiles/ plus any declared `--candidate`, each at its hash (W41 hashed whatever file
+the row's path named). With a candidate the summary carries `admission` after `source`
+(it has no `atDocuments`) and stdout opens `# CANDIDATE`.
+
+    python3.12 -B e2-regression.py [--stage DIR ...] [--candidate PATH[=SHA12] ...]
+                                   [--captures ROOT ...] [--out PATH] [--bins PATH]
 """
 import argparse
 import gzip
@@ -30,8 +36,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CAL = HERE.parents[2]
-ROOT = CAL.parent.parent
+CAL = HERE.parents[3]
 sys.path.insert(0, str(HERE))
 import referee_source  # noqa: E402
 
@@ -45,10 +50,6 @@ BIN_IDENTITY = ('side', 'member', 'shell', 'angleBin', 'pixels')
 
 def encoded(obj):
     return json.dumps(obj, sort_keys=True, indent=1, allow_nan=False).encode() + b'\n'
-
-
-def live(path):
-    return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()[:12]
 
 
 def compare_bins(cell, new, old, bound):
@@ -112,9 +113,11 @@ def main():
             continue
         row = mapped[cell]
         named = referee_source.store.documents(row)
-        stale = [f'{path} sha256:{sha}' for _, path, sha in named if live(path) != sha]
+        stale = [f'{path} sha256:{sha}' for _, path, sha in named
+                 if source.admitted.get(path) != sha]
         if stale:
-            raise SystemExit(f'e2-regression: {cell} names documents that are not on disk: {stale}')
+            raise SystemExit(f'e2-regression: {cell} names documents that are neither shipped nor '
+                             f'a declared candidate at that hash: {stale}')
         ref = e2.reference(native, cell, row)
         if (ref['estimator'], ref['role']) != (pinned['estimator'], pinned['role']) or (
                 ref['nativeSha256'] is not None and ref['nativeSha256'] != pinned['nativeSha256']):
@@ -150,6 +153,7 @@ def main():
         what="E2's population rule and estimator (e2.py, imported) on the rows the source "
              'names, per bin against the frozen pre-W38 baseline',
         source=source.described,
+        **source.stamp,
         matrixSha256=source.legacy_sha256,
         captures=[str(r) for r in captures.roots],
         baseline=dict(file=str((E2_DIR / 'e2-baseline.json.gz').relative_to(CAL)),
@@ -185,6 +189,7 @@ def main():
         out.write(gzip.compress(encoded(bins), mtime=0))
     with args.out.open('xb') as out:
         out.write(encoded(summary))
+    source.banner()
     print(json.dumps({k: summary[k] for k in ('source', 'cells', 'declaredCellsWithoutRow',
                                               'outsideFrozenPopulation', 'pngs',
                                               'rowsIdenticalExceptGeneration',

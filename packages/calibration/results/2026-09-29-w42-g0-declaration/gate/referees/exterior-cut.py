@@ -17,6 +17,16 @@ rather than a path. Every statistic, table and exclusion below is W36's.
 
     python3.12 -B exterior-cut.py [--stage DIR] [--out DIR] > exterior-cut.txt
 
+## W42 G0's candidate admission (charter clause 10)
+
+`--at-documents shipped` keeps a row whose active document is in `Source.admitted`: the
+shipped documents under profiles/ plus any declared `--candidate`, each at its hash. With a
+candidate the JSON carries `admission` after `source`, its `atDocuments` reads `candidate`,
+and stdout opens `# CANDIDATE`. `--stage` is repeatable (referee_source.py). The guard still
+reads the active document only, as W36's did.
+
+    python3.12 -B exterior-cut.py [--stage DIR ...] [--candidate PATH[=SHA12] ...] [--out DIR]
+
 ## What this file is
 
 **A copy of W31 G1's `exterior-instrument.py`**
@@ -215,7 +225,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-PACKAGE = HERE.parents[2]
+PACKAGE = HERE.parents[3]
 ROOT = PACKAGE.parent.parent
 sys.path.insert(0, str(HERE))
 import referee_source  # noqa: E402
@@ -366,7 +376,7 @@ def cells(everything: list[dict], name: str, with_holdout: bool = False) -> list
 
 
 def readings(rows: list[dict], name: str, span_of: dict[str, int], at_documents: str,
-             with_holdout: bool = False) -> list[dict]:
+             with_holdout: bool = False, admitted: dict[str, str] | None = None) -> list[dict]:
     """The macOS 27 generation's shadow rows, one record per cell.
 
     `at_documents` is `shipped` for the working file — the `capturePath` names a
@@ -374,9 +384,10 @@ def readings(rows: list[dict], name: str, span_of: dict[str, int], at_documents:
     that hash is the hash of the file on disk — and `any` for a superseded file,
     whose documents are by definition no longer the shipped ones. The observed
     document hashes are printed either way, so the generation a table was read
-    at is in the output rather than in a memory.
+    at is in the output rather than in a memory. `admitted` (W42 G0) replaces the shipped
+    hashes with the source's admitted documents, the shipped ones plus declared candidates.
     """
-    hashes = shipped_hashes()
+    hashes = shipped_hashes() if admitted is None else admitted
     out = []
     for cell in cells(rows, name, with_holdout):
         profile_key = cell["key"]["profileKey"]
@@ -809,6 +820,7 @@ def main() -> int:
     span_of = spans_of(scenes["components"])
     bars, floors = noise_bars()
 
+    source.banner()
     print("W32 G0 — the direction-resolved exterior cut, read inside each cell's own clearance")
     print("=" * 160)
     print()
@@ -820,7 +832,8 @@ def main() -> int:
     print("Nothing here is fitted, adopted or captured. Every figure is a cut of committed evidence.")
     print()
 
-    rows = readings(source.rows, union, span_of, args.at_documents, args.with_holdout)
+    rows = readings(source.rows, union, span_of, args.at_documents, args.with_holdout,
+                    source.admitted)
     print()
 
     for row in rows:
@@ -1492,7 +1505,9 @@ def main() -> int:
     suffix = "-with-holdout" if args.with_holdout else ""
     payload = {
         "source": source.described,
-        "atDocuments": args.at_documents,
+        **source.stamp,
+        "atDocuments": (source.at_documents if args.at_documents == "shipped"
+                        else args.at_documents),
         "documents": documents,
         "withHoldout": args.with_holdout,
         "candidateI": {
