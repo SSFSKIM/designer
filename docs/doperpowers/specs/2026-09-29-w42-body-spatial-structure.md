@@ -1170,6 +1170,34 @@ band with coverage × smoothstep(0, 20 pt, depth). E2 fails a cell only if its e
 from Apple overall, in absolute codes, and every bin that worsens by more than 1 code is listed as
 a named miss (G0 declaration, item `activeBandAndE2`).
 
+#### 5f — the refraction order when the test cannot call (G0, from the instrument review; the user's)
+
+Put to the user after the instrument review of G0 (§5.194 §4). The refraction-order test (v3) is
+sensitive, but it is specific only below each statistic's P*. At memo E's LT residual on Apple's
+active cells (2.25 light, 3.45 dark), no statistic is admitted in dark active, and in light only
+S2 is, and only just. So the focused (active) order may be undecidable before G2. The question
+asked what G2 does then, with three options:
+- "Fit both; land only if they agree": "Fit the focused law under both assumptions. If both give
+  the same law within measurement resolution, the order doesn't matter and it can land; if they
+  differ, that focused state doesn't land in W42 and the difference is recorded. Unfocused states
+  are unaffected."
+- "Assume after the blur".
+- "Assume before the blur", the cautious reading, with far fewer cells.
+
+**RULED 2026-09-30 by the user: "Fit both; land only if they agree".** Declared operationally
+(G0 declaration, item `refractionOrderNoCall`):
+- **When.** On a focused endpoint where v3 makes no call, the surviving family is fitted as the
+  gated fit twice: under the narrow-support mask (refraction after the blur) and under the 2σw
+  mask (before the blur, 53.6 pt).
+- **Agreement.** They agree iff every parameter's difference (k, λ and any other the family fits)
+  lies within that parameter's survival resolution in `instrument/resolution.*`. For LT that is
+  k +0.0589 / −0.0582 and λ ±0.0314 in light active, and k +0.0494 / −0.0477 and λ ±0.0288 in
+  dark active.
+- **If they agree,** the endpoint may land.
+- **If they differ,** it stays at the identity (Decision Log 3), and the difference is recorded.
+- **Where v3 calls** (light, S2 admitted), the call decides as declared. The receded endpoints are
+  unaffected.
+
 #### 5 (remainder) — bounds and floors if the law lands (in G3; the user's)
 
 Open.
@@ -1282,8 +1310,9 @@ X5 by their own hand, and restores both after the sitting.
       - The refraction-order test is **v3**: S1 and S2, admitted only below P* against the
         specificity leg. S2 is admitted in light only below 2.29, and dark active is
         undecidable unless the surviving family fits Apple's active cells below about 1.1
-        codes. The rule for what G2 does when no call can be made is **PENDING (user)**
-        (declaration item `refractionOrderNoCall`).
+        codes. The rule for what G2 does when no call can be made was RULED by the user on
+        2026-09-30, "Fit both; land only if they agree" (Decision Log 5f; declaration item
+        `refractionOrderNoCall`).
       - The unit nulls, R2 and the light-active mixture are not refused by their declared bars,
         so they are non-identifiable here, and the 1x pass decides units.
       - The dump-literal bleed is the declared form, with the Normal form as a stated variant;

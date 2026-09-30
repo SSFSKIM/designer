@@ -41573,8 +41573,9 @@ were merged no-ff: bed (`e06dd368`, head `764217e1`), instrument (`f7c85f4f`, he
 and gate (`85acde2c`, head `75f244ec`). The declaration (§9) holds 31 items and pins every stream
 file it points at. The user ruled its three open items on 2026-09-30 (Decision Logs 5c–5e, §8).
 An independent review of `b151aff4` and three fix waves followed, merged at `53400aa5` (each
-stream's `FIXES-b151aff4.md`), and are folded into this section. One new item waits on the user:
-what G2 does when the refraction-order test cannot make a call (§4). The freeze reads **1,818**.
+stream's `FIXES-b151aff4.md`), and are folded into this section. The user then ruled what G2
+does when the refraction-order test cannot make a call (Decision Log 5f, §4, §8). The freeze reads
+**1,818**.
 The protected-path diff against main is empty except clause 12's ruled exception: two named-miss
 derivations in `adopted-thresholds.test.ts`, M2's and L1 growth's (§6). Each stream's README is
 its own index; this section is the G0 record.
@@ -41771,8 +41772,20 @@ the bleed +1.61 dark. v3 was declared in `79152643` before its proof (`0b9e8940`
 - **The dark-active order is undecidable before G2** unless the family that survives clause 6 fits
   Apple's active cells below about 1.1 codes (S2) or 0.55 (S1). It is declared non-identifiable
   with LT as F.
-- **PENDING (user):** the rule for what G2 does when no call can be made. The parent is putting it
-  to the user, and the declaration holds it as `refractionOrderNoCall`.
+- **RULED by the user, 2026-09-30 (Decision Log 5f): "Fit both; land only if they agree".**
+  - **The two fits.** On a focused endpoint where v3 makes no call, the surviving family is
+    fitted under the narrow mask (after the blur) and under the 2σw mask (before the blur).
+  - **Agreement.** The fits agree iff every fitted parameter's difference lies within its
+    survival resolution in `instrument/resolution.*`. For LT that is k +0.0589 / −0.0582 and λ
+    ±0.0314 in light active, and k +0.0494 / −0.0477 and λ ±0.0288 in dark active.
+  - **If they agree,** the endpoint may land with the narrow-mask fit.
+  - **If they differ,** it stays at the identity and the difference is recorded.
+  - **Unaffected:** the receded endpoints, and a light call made by an admitted S2.
+  - **Integration proposals** for the parent's review (declaration item
+    `refractionOrderNoCall`):
+    - a family other than LT gets its resolutions by the same rule before the comparison;
+    - a parameter the 2σw mask cannot identify cannot show agreement;
+    - the narrow-mask fit is the one that lands.
 
 b1 (§2) took the band-only cells to the receded passes, so no active cell is excluded any more,
 and `instrument/bed.py` refuses a bed that captures one.
@@ -42024,8 +42037,9 @@ was rate-limited; `w42-g0-review-dispositions.md`):
   and share the native, so the difference is exact.
 - **A3, as above.**
 - **Fixed, instrument:** I-1 to I-10 (§3–§5).
-- **Pending the user:** the rule for what G2 does when the refraction-order test cannot make a
-  call (§4).
+- **Ruled by the user after the review, 2026-09-30.** Decision Log 5f, "Fit both; land only if
+  they agree". The two declined options were "Assume after the blur" and "Assume before the blur"
+  (the cautious reading, with far fewer cells). Its operational form is in §4.
 
 ### 9. Integration and the declaration
 
@@ -42071,8 +42085,13 @@ After the review's fix waves (merged at `53400aa5`):
   3,441 captures, 10.31 h, runner scope 423 with 40 H); the four dump-literal bleed forms; v3's
   S1 and S2 bars; each P* from the proof's own output; and the three named-miss anchors the
   owner runner reads.
-- **One item waits on the user again:** `refractionOrderNoCall`. So the declaration is still not
-  hashed, and `hash` was not run.
+- **`refractionOrderNoCall` was ruled** on 2026-09-30 (Decision Log 5f). The declaration is
+  still not hashed. The hash waits for the commits the parent is merging, then the final fold,
+  re-pin and hash:
+  - the instrument's correction (`c9361e94` and later), which shows the old key did contaminate
+    `proof3_readers_b.replica.json`;
+  - the remaining reader replays;
+  - a second bed fix round.
 
 Reruns at `53400aa5` with the fold, on a quieter machine (load average about 7). There were no
 timeouts this time:
