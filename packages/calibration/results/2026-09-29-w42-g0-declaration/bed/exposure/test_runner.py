@@ -664,11 +664,57 @@ class CrossCheckout(Exposure):
                 return subprocess.CompletedProcess(args, 0, '', '')
             return real(args, **kw)
         with patch.object(runner.subprocess, 'run', side_effect=blind), \
-                self.assertRaisesRegex(PermissionError, 'did not land'):
+                self.assertRaisesRegex(PermissionError, 'was not CREATED'):
             self.expose(dict(self.guard, log=None))
         self.assertEqual(git(self.root, 'tag', '-l', self.TAG), '')           # our marker was taken back
         self.assertIn(self.TAG, self.remote_tag())                              # the rival's stands
         self.assertFalse(self.log.exists())
+
+    def identical_race(self, fixed_nonce):
+        """The verification round's race (finding 4): clone B at A's HEAD BEFORE A claims, one
+        identity and tagger second for both, then B claims inside the window (its fetch and
+        listing see nothing yet)."""
+        rival = self.second_checkout('race-b')
+        stamp = {'GIT_COMMITTER_NAME': 'Same Tagger', 'GIT_COMMITTER_EMAIL': 'same@example.invalid',
+                 'GIT_COMMITTER_DATE': '2026-10-01T00:00:00+0000'}
+        nonce = patch.object(runner.uuid, 'uuid4', return_value=runner.uuid.UUID(int=42)) if fixed_nonce \
+            else patch.object(runner, 'SCHEMA', runner.SCHEMA)
+        with patch.dict(os.environ, stamp), nonce:
+            self.expose(self.guard)
+            first = git(self.root, 'rev-parse', f'refs/tags/{self.TAG}')
+            real = subprocess.run
+
+            def blind(args, **kw):
+                if 'fetch' in args or 'ls-remote' in args:
+                    return subprocess.CompletedProcess(args, 0, '', '')
+                return real(args, **kw)
+            base = Path(self.tmp.name).resolve()
+            log2 = base / 'race-receipt.jsonl'
+            with patch.object(runner.subprocess, 'run', side_effect=blind), \
+                    self.assertRaisesRegex(PermissionError, 'was not CREATED') as refused:
+                self.expose(dict(self.guard, repo=rival, log=rival / 'decl/wave-identification-receipt.jsonl'),
+                            log=log2, output=base / 'race-capture')
+            self.assertFalse(log2.exists())                  # refused before its begin
+            self.assertEqual(git(rival, 'tag', '-l', self.TAG), '')
+            self.assertEqual(git(self.root, 'ls-remote', '--tags', 'origin', f'refs/tags/{self.TAG}').split()[0], first)
+        return str(refused.exception)
+
+    def test_an_identical_tag_object_reported_up_to_date_is_not_a_claim(self):
+        # Even with the nonce defeated (one fixed value for both), "[up to date]" is refused.
+        self.assertIn('[up to date]', self.identical_race(fixed_nonce=True))
+
+    def test_the_nonce_makes_two_racing_claims_different_objects(self):
+        self.assertIn('(already exists)', self.identical_race(fixed_nonce=False))
+        self.assertIn('nonce ', git(self.root, 'tag', '-l', '--format=%(contents)', self.TAG))
+
+    def test_only_a_created_porcelain_line_is_a_claim(self):
+        tag = self.TAG
+        for text, want in ((f'To o\n*\trefs/tags/{tag}:refs/tags/{tag}\t[new tag]\nDone\n', True),
+                           (f'To o\n=\trefs/tags/{tag}:refs/tags/{tag}\t[up to date]\nDone\n', False),
+                           (f'To o\n!\trefs/tags/{tag}:refs/tags/{tag}\t[rejected] (already exists)\nDone\n', False),
+                           ('To o\n*\trefs/tags/other:refs/tags/other\t[new tag]\nDone\n', False), ('', False)):
+            with self.subTest(text=text):
+                self.assertIs(runner.created(text, tag), want)
 
     def test_an_unreachable_remote_refuses(self):
         git(self.root, 'remote', 'set-url', 'origin', str(Path(self.tmp.name) / 'no-such-origin.git'))
