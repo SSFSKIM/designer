@@ -1,6 +1,7 @@
 """W42 G0 instrument: the bed the clause-2 proofs render on — the DECLARED bed of the bed stream
 (`../bed/scenes-w42-body.json` and `../bed/bed.json`, pinned by SHA-256 as `../bed/pins.json` records them at
-w42-g0-bed 764217e1), so every synthetic render sits on the exact ids, levels, pitches, offsets and depths G1 captures.
+w42-g0-fix-bed eb8677e6), so every synthetic render sits on the exact ids, levels, pitches, offsets and depths G1
+captures.
 
 `cells(ep, scale)` returns the calibration and validation cells of one pass (the split's H and the F bridges
 are left out: the instrument is never tuned on the holdout's geometry, and the bridges are not under clause
@@ -12,6 +13,13 @@ models neither. `forward.Cell`'s active deep mask already sits beyond the band p
 support (forward.band_d_in). `refraction_exclusions(ep, scale)` lists the active cells whose informative
 content lies only inside the zones, each with its reason; `cells()` leaves them out of the fit set unless
 `with_excluded=True`. Receded cells are unaffected.
+
+Since the bed review's fix b1 (the parent's ruling, eb8677e6) the bed captures none of those cells in the active
+pose: the two 4-pt patches, the capsule S 16 patches and D's outside steps are declared receded only, so on the
+pinned bed the exclusion list is EMPTY in every pass. The rule stays as the guard, and this module refuses to
+load a bed that declares an active cell the rule would exclude, so the bed and the instrument cannot disagree
+about what an active fit reads. Proof outputs recorded before b1 (bed 764217e1 and earlier) list those cells as
+EXCLUDED; they name the pin they ran on.
 """
 import hashlib
 import json
@@ -22,15 +30,16 @@ import geometry as G
 import forward as F
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-# The declaration this instrument reads: w42-g0-bed 764217e1 (465 glass cells: the active guard rows of the
-# parent's ruling 3 on rrect-lg, B P5/P3 and E at pitch 16, an S 8 at 60 pt, and the dark 16/112 d34 twin, added
-# to 5d719b60's bed, no cell changed). Earlier proofs rendered on 5ba68aeb, 07b45391 and 5d719b60; every output
+# The declaration this instrument reads: w42-g0-fix-bed eb8677e6 (447 glass cells: 764217e1's 465 less the 18
+# active cell-passes no active reader read, now receded only; no cell otherwise changed). 764217e1 added the active
+# guard rows of the parent's ruling 3 on rrect-lg, B P5/P3 and E at pitch 16, an S 8 at 60 pt, and the dark 16/112
+# d34 twin, to 5d719b60's bed. Earlier proofs rendered on 5ba68aeb, 07b45391, 5d719b60 and 764217e1; every output
 # row records the pin it ran on. After G0's integration the files sit beside this folder; before it, they are
 # read from the bed branch's commit itself, so an uncommitted edit in the bed stream's worktree can never be
 # read as the declaration.
-BED_COMMIT = '764217e1e98f1fdbd93fd662e26f7880b82f5a21'
-PINS = {'scenes-w42-body.json': 'e2c532d98ed55dff1a37825bd4717957c71f827184af9fa9fc9a26dbe2465478',
-        'bed.json': '9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176'}
+BED_COMMIT = 'eb8677e668ea674f17f676ddd793cd52327fadd0'
+PINS = {'scenes-w42-body.json': '4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0',
+        'bed.json': '53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762'}
 REL = 'packages/calibration/results/2026-09-29-w42-g0-declaration/bed'
 SIBLING = os.path.join(HERE, '..', 'bed')
 
@@ -86,6 +95,16 @@ def refraction_exclusions(ep, scale):
             out[cid] = (f"patch at depth {g['depth']:g} pt (near edge {g['depth'] - g['patchSize'] / 2:g} pt): "
                         f'inside the {F.BAND_IN} pt inner refraction band')
     return out
+
+
+def _active_exclusions_on_the_pinned_bed():
+    return {f'{scale}x {scheme}-rest': sorted(ex) for scale in (2, 1) for scheme in ('light', 'dark')
+            if (ex := refraction_exclusions(f'{scheme}-rest', scale))}
+
+
+# The bed and the instrument agree (fix b1): no active pass declares a cell the refraction rule excludes.
+if (_disagree := _active_exclusions_on_the_pinned_bed()):
+    raise ValueError(f'the pinned bed captures active cells the instrument excludes from every fit: {_disagree}')
 
 
 def cells(ep, scale=2, letters=None, ids=None, rgb=False, roles=ROLES_FIT, with_excluded=False, kernel='n'):

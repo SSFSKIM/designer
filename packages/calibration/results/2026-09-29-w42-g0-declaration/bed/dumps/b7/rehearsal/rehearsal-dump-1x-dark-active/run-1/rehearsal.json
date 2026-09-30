@@ -1,0 +1,49 @@
+{
+  "schema": "w42-dump-rehearsal-1",
+  "outcome": "dumped-and-checked",
+  "foreignCensus": {
+    "open": {
+      "count": 7,
+      "names": [
+        "Google Chrome",
+        "Google Chrome Helper",
+        "chrome_crashpad_handler"
+      ]
+    },
+    "close": {
+      "count": 7,
+      "names": [
+        "Google Chrome",
+        "Google Chrome Helper",
+        "chrome_crashpad_handler"
+      ]
+    }
+  },
+  "protocol": "dump",
+  "run": 1,
+  "scenes": 14,
+  "departures": 0,
+  "unpredicted": 0,
+  "checkSha256": "e03ac7e0b1387efda37a4f1d4e3cf811e0b013e1b5a4be7edd41ddccb6fda3e9",
+  "timing": {
+    "elapsedSeconds": 117.0,
+    "timeoutSeconds": 223,
+    "perSceneSeconds": 8.357,
+    "scenes": 14
+  },
+  "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+  "splitSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+  "declaration": {
+    "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+    "splitSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+    "head": "c6adbecbc2cd7065afa6a13fe83b6aa005bd81da",
+    "declarationSha256": "eb8597d220d5e6d5d66cc8a3371eb236280f9c45a6e377fea785c40b5bb3718e",
+    "predeclaration": true,
+    "declarationProblems": [
+      "declaration.json names scenes e2c532d98ed5 and bed 9047c8da871f; the files are 4aa06af90eb5 and 53870f470368",
+      "the declaration is not committed and hashed: FileNotFoundError: [Errno 2] No such file or directory: '/Users/new/vitrea-w42/g0-fix-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/declaration.sha256'"
+    ]
+  },
+  "pass": "dump-1x-dark-active",
+  "key": "1x-dark-active"
+}

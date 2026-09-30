@@ -1,0 +1,16 @@
+2026-09-29T23:41:17Z orchestrator pid 79833 (process group 79833) REHEARSAL=1 STOP_AFTER=dumps START_AT= PASSES=dump-2x-dark-receded dump-1x-light-active dump-1x-light-receded dump-1x-dark-active dump-1x-dark-receded W42_PREDECLARATION=1
+2026-09-29T23:41:18Z pin-check: scenes 4aa06af90eb5 bed 53870f470368 predeclaration
+2026-09-29T23:41:18Z selection: dump-2x-dark-receded dump-1x-light-active dump-1x-light-receded dump-1x-dark-active dump-1x-dark-receded (last dump-1x-dark-receded)
+2026-09-29T23:41:18Z START rehearsal dump-2x-dark-receded (dump) at mode 68
+2026-09-29T23:56:14Z DONE dump-2x-dark-receded
+2026-09-29T23:56:22Z display -> mode 69
+2026-09-29T23:56:22Z START rehearsal dump-1x-light-active (dump) at mode 69
+2026-09-29T23:58:21Z DONE dump-1x-light-active
+2026-09-29T23:58:21Z START rehearsal dump-1x-light-receded (dump) at mode 69
+2026-09-30T00:00:37Z DONE dump-1x-light-receded
+2026-09-30T00:00:37Z START rehearsal dump-1x-dark-active (dump) at mode 69
+2026-09-30T00:02:37Z DONE dump-1x-dark-active
+2026-09-30T00:02:37Z START rehearsal dump-1x-dark-receded (dump) at mode 69
+2026-09-30T00:04:52Z DONE dump-1x-dark-receded
+2026-09-30T00:04:52Z REHEARSALS DONE (dump-1x-dark-receded)
+2026-09-30T00:04:59Z restore: display mode 68 (verified)

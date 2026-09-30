@@ -3,9 +3,10 @@
 digest from a local copy -> replay through bed/wave.py's Reader with the raw root denied.
 
 The run tree is SYNTHETIC: real declaration (bed/scenes-w42-body.json, bed.json, pins.json),
-real sitting admissions (sitting.run_admission over manifests shaped like the harness's),
-solid-colour PNGs that are not captures. One cell carries two states across its runs, so a
-losing state is present. Needs python3.12 with numpy/PIL and the zstd CLI.
+real sitting admissions (sitting.run_admission over manifests shaped like the harness's, with
+the per-fixture pixel statistics the harness records), solid-colour PNGs that are not captures.
+One cell carries two states across its runs, so a losing state is present. Needs python3.12
+with numpy/PIL and the zstd CLI.
 
 Run: python3.12 -m unittest -v test_archive    (from this directory)"""
 import gzip
@@ -34,6 +35,9 @@ T = load('w42_test_sitting_for_archive', HERE / 'test_sitting.py')
 S, P = T.S, T.P
 KEY = '1x-light-active'
 PASSES = ['dump-' + KEY, KEY, KEY + '-sentinel']
+# What the harness records per fixture that reads the pixels (Manifest.swift FixtureEntry).
+PIXEL_STATISTICS = ('deltaFromBackground', 'chromaShift', 'repeatNoise', 'identicalToBackground',
+                    'settleIterations', 'settleSeconds')
 
 
 def colour(sid, run):
@@ -51,15 +55,23 @@ def write_run(root, p, n, pose='active'):
     label = f'w42-{p["name"]}-{n}'
     protocol = S.protocol_of_pass(p)
     m = T.manifest(doc, pose, 1, label, protocol)
+    m['caveats'] = ['0 of 23 fixtures are PIXEL-IDENTICAL to their own background raster']
+    log = [f'capturing {sum(len(q["fixtures"]) for q in m["profiles"])} fixtures via screencapturekit at 1.0x']
     for profile in m['profiles']:
-        for f in profile['fixtures']:
+        profile['caveats'] = ['a profile-scoped caveat']
+        for i, f in enumerate(profile['fixtures']):
+            level = colour(f['sceneId'], n)[0]
+            f.update(deltaFromBackground=level / 3, chromaShift=-0.5, repeatNoise=0.25, identicalToBackground=False,
+                     settleIterations=2, settleSeconds=1.5, orderIndex=i)
             path = run / f['file']
             path.parent.mkdir(parents=True, exist_ok=True)
             Image.new('RGB', (320, 200), colour(f['sceneId'], n)).save(path)
+            log.append(f'  [{i + 1}/{len(profile["fixtures"])}] {profile["profileKey"]}/{f["sceneId"]} NOISY({level / 7:.3f})')
     raw = json.dumps(m).encode()
     (run / 'manifest.json').write_bytes(raw)
+    (run / 'producer-capture.out').write_text('\n'.join(log) + '\n')
     for name in ('attest.open.json', 'attest.close.json', 'session-before.json', 'driver-idle.log',
-                 'producer-capture.out', 'producer-capture.err'):
+                 'producer-capture.err'):
         (run / name).write_text('{}\n' if name.endswith('.json') else f'{name} of {label}\n')
     (run / 'backgrounds').mkdir()
     Image.new('RGB', (320, 200), (1, 2, 3)).save(run / 'backgrounds' / 'grey-128@1x.png')
@@ -67,7 +79,8 @@ def write_run(root, p, n, pose='active'):
                           sorted(s['id'] for s in doc['scenes']), pose)
     (run / 'launch.json').write_text(json.dumps(dict(argv=argv)) + '\n')
     admission = S.run_admission(p, n, argv, m, hashlib.sha256(raw).hexdigest(),
-                                sum(len(q['scenes']) for q in doc['profiles']))
+                                sum(len(q['scenes']) for q in doc['profiles']), T.DECLARATION,
+                                S.frame_binding(run, m, doc, 1))
     (run / 'admission.json').write_text(json.dumps(admission) + '\n')
     (root / p['name'] / f'scenes-run-{n}.json').write_text(json.dumps(doc) + '\n')
 
@@ -79,6 +92,8 @@ def write_dump(root, p):
         (run / 'json' / f'{sid}.json').write_text(json.dumps(dict(scene=sid, synthetic=True)) + '\n')
     (run / 'check.json').write_text(json.dumps(dict(departures=0, synthetic=True)) + '\n')
     (run / 'admission.json').write_text(json.dumps(dict(admitted=True, protocol='dump', run=1,
+                                                         scenesSha256=T.DECLARATION['scenesSha256'],
+                                                         splitSha256=T.DECLARATION['splitSha256'],
                                                          **{'pass': p['name']})) + '\n')
     (run / 'dump.out').write_text('== dump-layers ==\n')
 
@@ -117,7 +132,7 @@ class Archive(unittest.TestCase):
         self.assertEqual(inv['splitSha256'], hashlib.sha256(self.wave.split_path.read_bytes()).hexdigest())
         pins = json.loads((A.BED_DIR / 'pins.json').read_text())
         self.assertEqual(inv['splitSha256'], pins['bed.json'])
-        self.assertEqual(inv['archivedCells'], 25)
+        self.assertEqual(inv['archivedCells'], 23)
         self.assertEqual(inv['uncaptured'], [])
         for row in inv['entries']:
             sid = row['cell'].split('/', 1)[1]
@@ -126,10 +141,11 @@ class Archive(unittest.TestCase):
         self.assertTrue(all(r['path'].startswith('dumps/') for r in inv['dumps']))
         paths = {r['path'] for r in inv['operational']}
         self.assertIn(f'operational/{KEY}/QUARANTINE-run-3-1/refusal.txt', paths)
+        self.assertEqual(len(inv['holdoutOperational']), 30)                   # manifest + two capture logs, 10 runs
         self.assertIn(f'operational/logs/{KEY}-driver.txt', paths)
         self.assertIn(f'operational/{KEY}/run-1/manifest.json', paths)
         self.assertFalse(any(p.endswith('.png') for p in paths))
-        self.assertEqual(len(inv['dumps']), 16)
+        self.assertEqual(len(inv['dumps']), 15)
 
     def test_reference_travels_inside_its_dependent_role(self):
         wave = self.wave
@@ -186,6 +202,99 @@ class Archive(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'dump step'):
             A.produce(nodump, self.tmp / 'a3', wave=self.wave, passes=PASSES)
 
+    def edited(self, name, edit):
+        """A copy of the raw tree with one admission edited in place."""
+        tree = self.tmp / name
+        shutil.copytree(self.raw, tree)
+        path = tree / edit[0] / 'admission.json'
+        a = json.loads(path.read_text())
+        edit[1](a)
+        path.write_text(json.dumps(a) + '\n')
+        return tree
+
+    def test_b_m1_an_admission_under_another_declaration_refuses(self):
+        for name, where, change, message in (
+                ('stale-capture', f'{KEY}/run-4', lambda a: a.update(splitSha256='9' * 64), 'another declaration'),
+                ('stale-dump', f'{PASSES[0]}/run-1', lambda a: a.update(scenesSha256='8' * 64), 'another declaration'),
+                ('rehearsal', f'{KEY}/run-2', lambda a: a.update(predeclaration=True), 'predeclaration')):
+            with self.subTest(name=name):
+                tree = self.edited(name, (where, change))
+                with self.assertRaisesRegex(ValueError, message):
+                    A.produce(tree, self.tmp / f'out-{name}', wave=self.wave, passes=PASSES)
+                self.assertFalse((self.tmp / f'out-{name}').exists())
+
+    def test_b_m1_a_declared_cell_left_uncaptured_refuses(self):
+        import copy as copy_
+        wider = copy_.copy(self.wave)
+        wider.bed = copy_.deepcopy(self.wave.bed)
+        wider.bed['passes'][KEY]['cells'].append('h-p1-c24-rrect-112')   # declared, never captured at 1x
+        with self.assertRaisesRegex(ValueError, r'1 declared cell\(s\) were never captured'):
+            A.produce(self.raw, self.tmp / 'out-uncaptured', wave=wider, passes=PASSES)
+        self.assertFalse((self.tmp / 'out-uncaptured').exists())
+
+    def test_b2_a_frame_changed_after_admission_refuses(self):
+        for cell in ('bp-p1-c4-rrect-md__rest', 'h-g232-rrect-md__rest'):     # an open frame and a held one
+            with self.subTest(cell=cell):
+                tree = self.tmp / f'raw-{cell}'
+                shutil.copytree(self.raw, tree)
+                png = tree / KEY / 'run-3' / 'apple-macos-27.0-1x-light-standard-glass0.5' / f'{cell}.png'
+                Image.new('RGB', (320, 200), (1, 1, 1)).save(png)
+                with self.assertRaisesRegex(ValueError, 'differ from the ones admission bound'):
+                    A.produce(tree, self.tmp / f'out-{cell}', wave=self.wave, passes=PASSES)
+
+    def test_b_m2_operational_copies_carry_no_holdout_pixel_statistic(self):
+        inv = json.loads((self.out / 'inventory.json').read_text())
+        held = {s for s, r in self.wave.roles.items() if r == 'holdout'}
+        manifests = [r['path'] for r in inv['operational'] if r['path'].endswith('/manifest.json')]
+        self.assertEqual(len(manifests), 10)                                  # 7 bed runs + 3 sentinel runs
+        seen_held = seen_open = 0
+        for rel in manifests:
+            public = json.loads((self.out / rel).read_text())
+            self.assertNotIn('caveats', public)
+            for profile in public['profiles']:
+                self.assertNotIn('caveats', profile)
+                for f in profile['fixtures']:
+                    if f['sceneId'] in held:
+                        seen_held += 1
+                        self.assertLessEqual(set(f), set(A.H_ATTESTATION))
+                        self.assertFalse(set(f) & set(PIXEL_STATISTICS))
+                    else:
+                        seen_open += 1
+                        self.assertLessEqual(set(PIXEL_STATISTICS), set(f))   # calibration keeps them
+        raw_held = sum(1 for run in (self.raw / KEY).glob('run-*') for p in json.loads(
+            (run / 'manifest.json').read_text())['profiles'] for f in p['fixtures'] if f['sceneId'] in held)
+        self.assertEqual(seen_held, raw_held)
+        self.assertGreater(seen_held, 0)
+        self.assertGreater(seen_open, 0)
+        for rel in (r['path'] for r in inv['operational'] if r['path'].endswith('/producer-capture.out')):
+            for line in (self.out / rel).read_text().splitlines():
+                if any(f'/{sid}' in line for sid in held):
+                    self.assertNotIn('NOISY', line)
+                    self.assertIn('withheld', line)
+        guarded = {r['path'] for r in inv['holdoutOperational']}
+        self.assertTrue(all(p.startswith('holdout/operational/') for p in guarded))
+        self.assertIn(f'holdout/operational/{KEY}/run-1/manifest.json', guarded)
+        self.assertIn(f'holdout/operational/{KEY}/run-1/producer-capture.out', guarded)
+
+    def test_b_m2_the_whole_manifest_opens_only_inside_the_receipt(self):
+        W = A.wave_module()
+        rel = f'holdout/operational/{KEY}/run-1/manifest.json'
+        with self.assertRaises(PermissionError):
+            self.wave.reader(self.out).read_holdout_operational(rel)
+        generation = A.file_sha(self.out / 'inventory.json')
+        receipt = W.Receipt(self.tmp / 'scratch-receipt.jsonl', dict(
+            scenes=self.wave.scenes_sha, split=self.wave.split_sha, generation=[generation],
+            instrument='synthetic', closure='synthetic', candidate='synthetic'))
+        with receipt.expose() as token:
+            reader = self.wave.reader(self.out, ('holdout',), token)
+            whole = reader.read_holdout_operational(rel)
+        self.assertEqual(whole, (self.raw / KEY / 'run-1' / 'manifest.json').read_bytes())
+        full = json.loads(whole)
+        held = [f for p in full['profiles'] for f in p['fixtures'] if self.wave.roles[f['sceneId']] == 'holdout']
+        self.assertTrue(all('deltaFromBackground' in f for f in held))
+        with self.assertRaises(PermissionError):                               # the token is dead after it
+            reader.read_holdout_operational(rel)
+
     def test_tree_pack_fetch_replay(self):
         A.verify_tree(self.out)
         first = A.pack(self.out, self.tmp / 'release-1')
@@ -205,7 +314,7 @@ class Archive(unittest.TestCase):
         self.assertTrue(result['identical'])
         holdout = sum(1 for r in json.loads((root / 'inventory.json').read_text())['entries']
                       if r['path'].startswith('holdout/')) // 2
-        self.assertEqual(result['cells'], 25 - holdout)
+        self.assertEqual(result['cells'], 23 - holdout)
         with self.assertRaises(PermissionError):
             (self.raw / 'logs' / f'{KEY}-driver.txt').read_text()
         with self.assertRaises(PermissionError):

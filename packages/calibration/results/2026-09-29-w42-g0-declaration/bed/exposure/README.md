@@ -29,6 +29,9 @@ native harness, or touches `bed/wave-identification-receipt.jsonl`.
 - `red-unadmitted-holdout.txt`: the 27th test, added with the change below, fails under
   W41's plan-coverage rule ("authorized web plan" coverage mismatch) and passes under W42's.
 - `production-pin.json`: every field null. See "Production" below.
+- `green-b1.txt`: the 27 tests after the bed fix b1 (scope 423 of 447).
+- `green-fixes.txt`: all 34 tests after the bed review's fixes, the seven of `CrossCheckout`
+  (b9, below) included; `b9-proof.py` → `b9-proof.txt` is b9's red/green and live proof.
 
 ## Reuse, not rewrite: the choice
 
@@ -69,7 +72,9 @@ appends `failed` and spends H.
    After the instrument-stream rulings: 452 glass cells, 24 probe exclusions, 428 in scope, the
    same 40 H (`realDeclarationScopeAfterInstrumentRulings`; `green-rulings.txt`). After
    ruling 3's active guard rows: 465 glass cells, 24 probe exclusions, 441 in scope, the same
-   40 H (`realDeclarationScopeAfterRuling3GuardRows`; `green-guard.txt`).
+   40 H (`realDeclarationScopeAfterRuling3GuardRows`; `green-guard.txt`). After the bed fix b1
+   (the active cells no active reader reads, receded only): 447 glass cells, 24 probe
+   exclusions, 423 in scope, the same 40 H (`realDeclarationScopeAfterB1Drops`; `green-b1.txt`).
 3. **The inventory is named, not fixed.** W41 bound W39's one archive inventory by constant.
    `freeze(..., inventory=...)` binds a committed inventory that must name this declaration
    (`scenesSha256`, `splitSha256` = bed.json); its SHA-256 is the receipt's generation.
@@ -119,6 +124,23 @@ appends `failed` and spends H.
     paths are in `request.manifest['law']`. The scorer returns
     `{"law": {"numerical": {cell: row}}, "candidates": {id: {"rendered": {cell: row}}}}`
     over exactly the admitted H cells.
+11. **One exposure across checkouts** (the bed review's b9). W39's receipt spends H in one
+    working tree only: its log is an uncommitted file, so another worktree, or a commit without
+    the log, could expose H again. `claim_exposure` runs before `begin`: it fetches `origin`
+    (an unreachable remote refuses), refuses if `bed/wave-identification-receipt.jsonl` has
+    history on any ref, remote-tracking refs included, or the marker tag `w42-h-exposure`
+    exists on `origin` or locally, then pushes an annotated marker at HEAD naming the receipt's
+    configuration SHA-256. A remote refuses to create a tag that exists, so of two racing
+    checkouts one push lands and the other refuses, taking its local tag back. A marker
+    pushed and followed by any failure still spends H. `run_production` always claims;
+    `run_synthetic` claims only when given a guard with a throwaway tag (the production name
+    is refused), and `result.json` records the marker. Proved in `CrossCheckout` (seven tests
+    against a bare local origin: first exposure, second checkout, history on a side branch,
+    history on origin only, a lost race, an unreachable remote, the production name) and in
+    `b9-proof.txt`: without the claim a clone exposes the toy H a second time (red); with it
+    a clone of a local origin refuses before its `begin`; and live, a throwaway tag pushed to
+    GitHub from this checkout made a fresh clone of GitHub refuse, then was deleted from
+    GitHub and locally and read back absent.
 
 ## Production (G1, G0 integration, G2)
 
