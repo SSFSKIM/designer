@@ -1,10 +1,14 @@
 W42 G0 instrument, finding I-4: outputs of the id(cell)-keyed blur store replayed with a never-reused token
-(i4_replay.py, i4_readers.py). Rows: re-evaluated at their RECORDED points, no refit, by the code and bed pin
-that produced them. Classes: EXACT (1e-9 relative); ROUNDING (<= 1e-3 code, lam <= 1e-4: the store's own
-width rounding, see the no-cache control); MOVED (anything else).
+(i4_replay.py, i4_readers.py, i4_fitcontrol.py, i4_sections.py). Rows: re-evaluated at their RECORDED points,
+no refit, by the code and bed pin that produced them. Classes: EXACT (1e-9 relative); ROUNDING (<= 1e-3 code,
+lam <= 1e-4: the fit's own evaluation history under the store's 1e-4-px width rounding; see classify() and the
+fit control below); MOVED (anything else).
 
 summary: floor EXACT: 4; floor ROUNDING: 4; null EXACT: 15; null ROUNDING: 5; null2x EXACT: 14; null2x ROUNDING: 6; pair EXACT: 48; pair ROUNDING: 62; pair SUPERSEDED BY THE 07b45391 RETRY (the row carries no pin and ran on 07b45391): 1
 largest |replayed - recorded| over rows not superseded: pooled 5.16e-06, max_cell 1.72e-05, s 0.000118, ls_pooled 5.61e-06, ls_max_cell 5.45e-05, s_ls 6.49e-05
+no-cache control on 72 ROUNDING rows: largest |no-cache - replay| 0 (the replay is history-free)
+fit control fitcontrol-7efe4ce8-5ba68aeb-LT-2k-LT-dark-inactive: a fresh token-keyed fit records ls_pooled 0.752946920 s_ls 2.591894413 s 2.483869917, bit for bit the committed row's; its own replay differs by {'s': -5.805885906795538e-05}
+fit control fitcontrol-7efe4ce8-5ba68aeb-W-tails-LT-dark-inactive: a fresh token-keyed fit records ls_pooled 1.120051529 s_ls 3.515824504 s 3.459296940, bit for bit the committed row's; its own replay differs by {'s': 0.0001180393479387476}
 
 ROUNDING       floor  a489cc02 null-boxfloor light-rest fine pitch (B' pitch <= 8) 764217e1 n: pooled 2.0737 max_cell 6.0181 | diff pooled +1.71e-07
 ROUNDING       floor  a489cc02 null-boxfloor light-rest every structured family 764217e1 n: pooled 0.9885 max_cell 6.0506 | diff pooled +6.22e-08
@@ -165,3 +169,75 @@ ROUNDING       pair   be700896 W-shape -> W-tails dark-inactive whole 5d719b60 n
 ROUNDING       pair   be700896 W-shape -> K2 dark-inactive whole 5d719b60 n: ls_pooled 0.5331 s_ls 3.1623 s 2.2807 | diff ls_max_cell +2.36e-07, s_ls +7.29e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
 EXACT          pair   be700896 K2 -> W-shape dark-inactive whole 5d719b60 n: ls_pooled 0.5637 s_ls 3.4191 s 3.2078
 ROUNDING       pair   be700896 K2 -> W-tails dark-inactive whole 5d719b60 n: ls_pooled 0.5288 s_ls 3.3205 s 2.0602 | diff ls_pooled -5.61e-06, ls_max_cell -5.45e-05, s_ls -6.49e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+
+READERS: regenerated JSON against the committed JSON (numeric leaves; differ = beyond 1e-9 relative)
+  EXACT        7efe4ce8-07b45391     proof1_readers_b.step.json                        767 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.step.json                        536 numbers,   18 differ, max 0.459 at [17].w: -433.2190946916977 -> -433.6784405845887
+               calls identical; <= 2e-5 on every well-conditioned value, 0.46 on an ill-conditioned w of -433
+  EXACT        9c1623b4-07b45391     proof1_readers_b.step_w.json                      224 numbers,    0 differ, max 0
+  CONTAMINATED 9c1623b4-07b45391     proof3_readers_b.replica.json                    6430 numbers,  117 differ, max 10.4 at .rows[113].cap.cell.rms0: 11.183117536638292 -> 0.7681135212637611
+               the id key served stale blurs (the audit row below); the token file replaced it in c9361e94, the contaminated one is i4_contaminated_proof3_readers_b.replica.json
+  EXACT        7efe4ce8-07b45391     proof1_readers_b.patch.json                      1436 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof1_readers_b.depth.json                       480 numbers,   11 differ, max 2.06e-06 at [55].sn_iv[1]: 13.320480251130782 -> 13.320478188193452
+               <= 2.1e-6
+  PIN          7efe4ce8-07b45391     proof1_readers_b.lambda.json                     1964 numbers,  389 differ, max 1.18e+05 at [29].n: 149740.0 -> 31468.0
+               this section ran on 5ba68aeb (66 rows, not 70); superseded by the 5ba68aeb replay, EXACT
+  EXACT        7efe4ce8-07b45391     proof1_readers_b.u1.json                         3873 numbers,    0 differ, max 0
+  AUDIT        9c1623b4-07b45391aud  proof3_readers_b.replica.json                    6384 numbers,  246 differ, max 6.71e+14 at .rows[106].cap.cell.w_free: 0.41497072485462344 -> -670745723327769.8
+               the same section re-run with the ORIGINAL id key and a per-hit source check: 15 hits served a blur of another checkerboard pitch (0.10-1.0 encoded, 25-255 codes) on the checkerboard-8/-32/-64 cells; its output differs from both the record and the token replay
+  EXACT        9c1623b4-07b45391     proof1_readers_b.patch_w.json                     268 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof1_readers_b.lambda_w.json                    298 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.depth.json                       400 numbers,   13 differ, max 1.69e-05 at [1].w: 0.3025460837949252 -> 0.3025291666804139
+               <= 1.7e-5
+  EXACT        7efe4ce8-07b45391     proof3_readers_b.lambda.json                     4383 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.patch.json                       604 numbers,   15 differ, max 0.194 at [18].w: -61.99188781615905 -> -61.797571077433325
+               sn / sw move 0.02 % on one flat dark 1x rrect-lg receded fit (w ill-conditioned); two support rankings swap between tied rms values; no gated or scored call changes
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.patch_given.json                 360 numbers,    7 differ, max 13.7 at [18].w: -655.5784615436773 -> -641.8843158421978
+               an ill-conditioned narrow share / w (-655 -> -642) on the same flat row; one tie swap
+  EXACT        7efe4ce8-5ba68aeb     proof1_readers_b.lambda.json                     2089 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.light-rest.replica.json         1229 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.light-inactive.replica.json      795 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.dark-rest.replica.json          1087 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.dark-inactive.replica.json       757 numbers,    0 differ, max 0
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.light-rest.json                 1208 numbers,   69 differ, max 5.61 at [13].mirror.sw: 35.758358627557755 -> 41.3646354675293
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.light-inactive.json              947 numbers,   50 differ, max 4.34 at [21].mirror.s1_gain_range[0]: -4.340247305352007 -> 2.5557410815731543e-10
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.dark-rest.json                  1002 numbers,  106 differ, max 1.17 at [11].mirror.sw: 35.81806891784072 -> 36.983489990234375
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.dark-inactive.json               844 numbers,   37 differ, max 0.0526 at [4].mirror.s1_gain_range[1]: 0.007467681563511652 -> -0.045127502571461205
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.light-rest.mirror.json           252 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.light-inactive.mirror.json       168 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.dark-rest.mirror.json            224 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.dark-inactive.mirror.json        168 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-rest.model.json            233 numbers,    0 differ, max 0
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-inactive.model.json        297 numbers,    0 differ, max 0
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-rest.model.json             219 numbers,    0 differ, max 0
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-inactive.model.json         270 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof1_readers_a.light-rest.mirror,band.json      631 numbers,    3 differ, max 0.00307 at [0].reads.lt|kw.s1_gain_range[0]: -0.1251743450632034 -> -0.12824077324280572
+               one interval bound moves 0.003; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-inactive.mirror,band.json    462 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-rest.mirror,band.json       395 numbers,    1 differ, max 0
+               one inf leaf compares as nan
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-inactive.mirror,band.json    382 numbers,    0 differ, max 0
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.light-rest.impulse,band.json     375 numbers,   21 differ, max 1.92 at [16].mirror.s1_gain_range[1]: 2.4757065392018194 -> 0.5591058374754827
+               its impulse rows replay exactly; its three band rows are from an earlier revision and are replaced by the later mirror,band file when cited
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-inactive.impulse,band.json    292 numbers,    0 differ, max 0
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.light-rest.all.json              993 numbers,  639 differ, max 1.01e+08 at [71].mix.b: 130.31470273380413 -> 100822205.4660527
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.light-inactive.all.json         1330 numbers,  920 differ, max 4.38e+08 at [69].mix.b: 94.8684519187889 -> 438433439.8880523
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.dark-rest.all.json               757 numbers,  434 differ, max 7.68e+05 at [73].mix.b: 768103.1664664599 -> 178.45081621786036
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.dark-inactive.all.json          1036 numbers,  664 differ, max 5.4e+06 at [69].mix.b: 5398270.6547589265 -> 233.24611352904867
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+
+AUDIT (id key kept, proof3_readers_b replica): 282 hits served an entry stored by a cell of another fingerprint; 15 of them a DIFFERENT blur (max 1.000 encoded) on checkerboard-32__capsule-button__rest, checkerboard-32__rrect-md__rest, checkerboard-64__capsule-button__rest, checkerboard-64__rrect-md__rest, checkerboard-64__rrect-ml__rest, checkerboard-8__rrect-md__inactive, checkerboard-8__rrect-ml__rest; the rest differ only in scheme, pose or scale over one backdrop, so the blur is the same
+
+logs outside git (SHA-256, 16 hex): /tmp/w42fix/i4-out/audit-p3rep.jsonl 0524c903dd26fd3b, /tmp/w42fix/i4-out/readers.log 094621030af5169b, /tmp/w42fix/i4-out/readers.json afc3184ea89b398d, /tmp/w42fix/i4-out/chain.log 3e90f18f3cb3bce7

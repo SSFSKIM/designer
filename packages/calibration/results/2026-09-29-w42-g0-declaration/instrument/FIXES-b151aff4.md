@@ -222,18 +222,50 @@ One untagged row (LT → edge-swap light-inactive) had run on `07b45391`, not `5
 - Its token-key replay (that commit's code, only the key changed) differs on the light checkerboard-8 / -64 λ
   rows over rrect-md / ml, by up to 10.4 codes: a capture rms of 11.18 reads 0.77, and gap bins flip between
   identifiable and non-identifiable. It also differs on two 1x checkerboard rrect-ml depth rows (0.85–0.87).
-- An audit run of the same section with the ORIGINAL id key and a per-hit source check logged 24 hits whose
-  stored blur came from another checkerboard pitch (up to 1.0 encoded, 255 codes), on exactly those cells.
+- An audit run of the same section with the ORIGINAL id key and a per-hit source check logged 15 hits whose
+  stored blur came from another checkerboard pitch (0.10–1.0 encoded, 25–255 codes), on the checkerboard-8,
+  -32 and -64 cells over the capsule, rrect-md and rrect-ml. Nine more hits served the same impulse backdrop at
+  a rounded width and differ by at most 2.5e-9. The audit has its own allocation pattern, so its set of hit
+  cells overlaps the record's contaminated rows without equalling them.
 - **Substituted:** the token-keyed file is now `proof3_readers_b.replica.json`; the contaminated one is kept
   as `i4_contaminated_proof3_readers_b.replica.json`.
 - **Effect** (`resolution_rows_b.json` regenerated): the light per-cell λ replica reading goes from FAIL
   (14 pass / 1 miss) to PASS (15 / 0). The light hinge-gap goes from 0.320 max, 21 misses, to 0.230, 13, still
   FAIL. Nothing else in the resolution rows moves.
-- Replayed clean: proof1_readers_b step / step_w / patch / u1 EXACT, proof3_readers_b step within 2e-5 (calls
-  identical).
+- **The other 39 reader files replayed clean** (`i4_replay.txt`, READERS; 40 files in all, each by its
+  producing commit's code and pin):
+  - EXACT: proof1_readers_b step, step_w, patch, patch_w, lambda (on `5ba68aeb`, the pin it ran on; on
+    `07b45391` it has 70 rows, not 66), lambda_w and u1; proof3_readers_b lambda; proof3_readers_a's four
+    `.replica` files and four `.mirror` files; proof1_readers_a's four `model` files, three of its four
+    `mirror,band` files and light-inactive `impulse,band`.
+  - Within the fit's own rounding: proof1_readers_b depth (2.1e-6); proof3_readers_b step (calls identical,
+    2e-5 on every well-conditioned value), depth (1.7e-5), patch and patch_given (one flat dark 1x rrect-lg
+    receded fit whose w is ill-conditioned moves sn / sw by 0.02 %; two support rankings swap between tied
+    rms values; no gated or scored call changes); proof1_readers_a light-rest `mirror,band` (one interval bound,
+    0.003).
+  - Written by an EARLIER reader revision than the commit that holds them, so compared on the rows
+    `summarize_a.py` cites (`i4_sections.py` → `i4_sections.txt`): proof3_readers_a's four `<ep>.json` (every
+    cited field EXACT; their `mirror` field is replaced by the `.mirror` re-run when cited) and
+    proof1_readers_a's four `all` files and light-rest `impulse,band` (esf, heavy, exclusion and the dark
+    impulse sections EXACT; the model / mirror / band / light impulse sections are replaced by later re-runs
+    that replay clean). The one cited section that differs, the two-sided linear control, never touches the
+    shared store (the probe counts 0 blur and 0 maps calls in all four endpoints), so no key reached it; see
+    the note below.
+- **Proof 2, the other half of the evidence** (`i4_fitcontrol.py`): a fresh token-keyed fit of two committed
+  rows (LT-2k → LT and W-tails → LT, dark receded, `5ba68aeb`) records ls_pooled, s_ls, s and both points bit
+  for bit as committed, and its own replay differs from it by exactly the committed rows' replay difference
+  (−5.8e-5 and +1.18e-4 in s). The sub-1e-3 differences are therefore the fit's evaluation history (the key
+  rounds a width to 1e-4 device px, so a blur computed at one width serves every width within 5e-5 during a
+  fit); the replay itself is history-free (a no-cache control on the 72 differing rows equals it exactly).
+- The four box-floor rows of `proof2_nulls-2xonly.json` reproduce on B' at BOTH scales (17 cells), not 2x only;
+  the file's name does not describe them.
 
-**PENDING.** proof3_readers_b depth / lambda / patch, proof3_readers_a and proof1_readers_a are still being
-replayed under the shared compute lock. They land as one more commit.
+**Note, not I-4 (reader revision; recorded, not substituted).** The linear-control rows of
+`proof1_readers_a.<ep>.all.json` are not reproduced by the committed reader code: every row's fit moves on a
+flat optimum (on the 1x pitch-8 capsule `model_lin` σw sat on its 60-pt bound where the committed code reads
+11.3–11.8), and several `mirror_lin` / `mirror_enc` identification flags flip. The section never reads the blur store, so this is the file predating a reader revision, not the
+key. Regenerating it would move one note in `resolution_rows_a` (the two-sided control's S, max over
+identified reads, 0.0035 → 0.0020) and no verdict. The parent decides whether to regenerate.
 
 **Consequence.** The README's and §5.194 §5's claim that "no output from the window it was live shows it" is
 FALSE for the readers. The proof-2, null and floor rows are clean.
