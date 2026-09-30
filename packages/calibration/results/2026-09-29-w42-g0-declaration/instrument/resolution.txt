@@ -1164,12 +1164,12 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
     vitrea, superseded sigma_RMS bar: |lam| <= 0.220; false calls 0/20 (tol 0.12; none) FAIL
 - per-cell lam (memo E) | lam | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | descriptive
     synthetic max |err| 0.001 on 30/33 identified cells (tol 0.03, truth inside the interval) PASS
-    vitrea    max |cap - rep| 0.029; 14 pass / 1 miss / 19 non-identifiable on both (tol 0.03, each interval contains the other's point) FAIL
+    vitrea    max |cap - rep| 0.029; 15 pass / 0 miss / 19 non-identifiable on both (tol 0.03, each interval contains the other's point) PASS
     vitrea, superseded sigma_RMS bar: |lam| <= 0.082 on 27/90 identified cells (tol 0.12) PASS
     notes: not identified: bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest), b-p3-c16-rrect-md (light-inactive)
 - hinge-gap (memo E) | lam per gap bin | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | descriptive
     synthetic max |err| 0.012 (tol 0.05) PASS
-    vitrea    max |cap - rep| 0.320; 52 pass / 21 miss / 45 non-identifiable on both (tol 0.05) FAIL
+    vitrea    max |cap - rep| 0.230; 55 pass / 13 miss / 48 non-identifiable on both (tol 0.05) FAIL
     vitrea, superseded sigma_RMS bar: |lam| <= 0.712 over 195 bins (tol 0.12) FAIL
 - per-cell lam (memo E) | lam | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | descriptive
     synthetic max |err| 0.001 on 11/33 identified cells (tol 0.03, truth inside the interval) PASS
