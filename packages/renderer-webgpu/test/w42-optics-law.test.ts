@@ -419,7 +419,7 @@ describe("W42 stage and lanes with the law on", () => {
 
 describe("W42 duplicates, pinned to the shipped lines they copy (§10)", () => {
   const fsOptics = WGSL_OPTICS_PASS.slice(WGSL_OPTICS_PASS.indexOf("fn fs_optics("));
-  const landed = WGSL_OPTICS_PASS.slice(WGSL_OPTICS_PASS.indexOf("fn body_law_landed("));
+  const landed = WGSL_OPTICS_PASS.slice(WGSL_OPTICS_PASS.indexOf("fn body_law_landed_solve("));
   const tinted = WGSL_OPTICS_PASS.slice(WGSL_OPTICS_PASS.indexOf("fn body_law_tinted("));
 
   it("the landed solve is the shipped solve with the tone, the mean and the backdrop at dec(A)", () => {

@@ -23,7 +23,7 @@ import {
   bodyLawStrengthUnderPolicy,
   bodyLawSurfacePlan,
   bodyToneTableCodesAt,
-  landedToneLinear,
+  landedToneSolveLinear,
   roundHalfEven,
   type LandedToneInputs,
 } from "../src/body-law";
@@ -427,7 +427,9 @@ describe("candidate 1's landed tone against the rehearsal's landed_T (test 3)", 
         abscissa: params.abscissa === "source(default)" ? "source" : "silhouette", presence: 1,
       };
       A.forEach((a, i) => {
-        const y = landedToneLinear(a, inputs, profile);
+        // The solve as declared: landed.json is the rehearsal's landed_T before the black-join
+        // amendment, which w42-black-join.test.ts holds `landedToneLinear` to.
+        const y = landedToneSolveLinear(a, inputs, profile);
         y.forEach((v, c) => expect(v, `${endpoint} sizeK ${sizeK} A ${a}`).toBeCloseTo(linear[i]![c]!, 12));
       });
     }

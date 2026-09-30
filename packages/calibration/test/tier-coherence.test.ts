@@ -127,6 +127,7 @@ import {
   tintToneAdaptation as cssTierTintToneAdaptation,
   validateBackdropToneAbscissa,
   macos27MaterialProfileDocument,
+  mergeMaterialProfiles,
   // W42's body law on this tier (G2's implementation-design §5; U5).
   CSS_BODY_LAW_DECLARED,
   CSS_BODY_LAW_IDENTITY,
@@ -3472,8 +3473,12 @@ describe("W42's body law on the CSS tier (G2's implementation-design §1, §4, �
     ["default", undefined],
     ["macOS 27 active light", macos27MaterialProfileDocument.active.light.patch],
     ["macOS 27 active dark", macos27MaterialProfileDocument.active.dark.patch],
-    ["macOS 27 receded light", macos27MaterialProfileDocument.receded?.light.patch],
-    ["macOS 27 receded dark", macos27MaterialProfileDocument.receded?.dark.patch],
+    // The receded documents are differences over their scheme's ACTIVE endpoint, composed as a
+    // root composes them (`root.ts` `posedProfile`).
+    ["macOS 27 receded light", mergeMaterialProfiles(macos27MaterialProfileDocument.active.light.patch,
+      macos27MaterialProfileDocument.receded?.light.patch)],
+    ["macOS 27 receded dark", mergeMaterialProfiles(macos27MaterialProfileDocument.active.dark.patch,
+      macos27MaterialProfileDocument.receded?.dark.patch)],
   ] as const;
 
   it("restates the declared constants its derivation reads", () => {
@@ -3626,7 +3631,9 @@ describe("W42's body law on the CSS tier (G2's implementation-design §1, §4, �
           const inputs = cssLandedToneInputs(patch, "regular", span,
             NOMINAL_ACCESSIBILITY_POLICY.material, dpr);
           abscissae.add(inputs.abscissa);
-          const steps = [0, 0.001, 0.02, 0.1, 0.35, 0.6, 0.85, 1];
+          // 0.0005 to 0.0029 are inside W36's open interval below the black join, where both
+          // copies bridge (candidate1-black-join-addendum.md).
+          const steps = [0, 0.0005, 0.001, 0.002, 0.0029, 0.02, 0.1, 0.35, 0.6, 0.85, 1];
           for (const r of steps) {
             for (const g of steps) {
               for (const b of [0, 0.3, 1]) {

@@ -43,6 +43,7 @@ import {
   cssTierBodyLawFilter,
   cssTierBodyLawStacked,
   macos27MaterialProfileDocument,
+  mergeMaterialProfiles,
   resolvedBackdropToneResponse,
   resolvedBodyLaw,
   type CssTierBodyLawFilter,
@@ -301,12 +302,23 @@ describe("T2 and E3 are the renderer's tones in form (§2.8, §2.9)", () => {
   });
 });
 
+/**
+ * The receded endpoints as a root draws them: the receded document is a difference OVER the
+ * complete active endpoint of its scheme (`root.ts` `posedProfile`). Until the black-join fix wave
+ * these tests read the receded difference over the renderer's default, which is not a material
+ * any root draws; the receded rows of u5_css_algebra.md §4 were read on it and are re-read here.
+ */
+const RECEDED_LIGHT = mergeMaterialProfiles(macos27MaterialProfileDocument.active.light.patch,
+  macos27MaterialProfileDocument.receded?.light.patch);
+const RECEDED_DARK = mergeMaterialProfiles(macos27MaterialProfileDocument.active.dark.patch,
+  macos27MaterialProfileDocument.receded?.dark.patch);
+
 describe("candidate 1's landed solve is an approximation, bounded on the shipped endpoints", () => {
   const endpoints = [
     ["active light", macos27MaterialProfileDocument.active.light.patch],
     ["active dark", macos27MaterialProfileDocument.active.dark.patch],
-    ["receded light", macos27MaterialProfileDocument.receded?.light.patch],
-    ["receded dark", macos27MaterialProfileDocument.receded?.dark.patch],
+    ["receded light", RECEDED_LIGHT],
+    ["receded dark", RECEDED_DARK],
   ] as const;
   for (const [name, endpoint] of endpoints) {
     it(`${name}: exact on the greys, and within the recorded bound on chromatic arguments`, () => {
@@ -379,8 +391,8 @@ describe("the landed solve between the table's knots: fractional greys across W3
   const endpoints = [
     ["active light", macos27MaterialProfileDocument.active.light.patch],
     ["active dark", macos27MaterialProfileDocument.active.dark.patch],
-    ["receded light", macos27MaterialProfileDocument.receded?.light.patch],
-    ["receded dark", macos27MaterialProfileDocument.receded?.dark.patch],
+    ["receded light", RECEDED_LIGHT],
+    ["receded dark", RECEDED_DARK],
   ] as const;
   for (const [name, endpoint] of endpoints) {
     it(`${name}: the chord's miss below 4 codes and between the knots above, within the record`, () => {
@@ -412,15 +424,19 @@ describe("the landed solve between the table's knots: fractional greys across W3
 });
 
 /**
- * The fractional-grey readings (u5_css_algebra.md §4): below 4 codes, across the black join, one
- * code above each reading (43.20, 16.03, 53.08 and 200.61, every one between code 0 and code 1);
- * between the knots above 4 codes, 0.065 at worst, bounded at 0.1.
+ * The fractional-grey readings (u5_css_algebra.md §4), against the renderer's landed tone as
+ * amended below the black join (candidate1-black-join-addendum.md): below 4 codes, one code above
+ * each reading (28.04, 9.69, 39.35 and 35.83, every worst at code 0.76, the bridge's end, where
+ * the chord from code 0 to code 1 is furthest below the solve's value at the end and the old solve
+ * then falls to code 1); between the knots above 4 codes, 0.065 at worst,
+ * bounded at 0.1. Against the unamended solve on the same materials they read 43.20, 16.03, 56.87
+ * and 45.23.
  */
 const FRACTIONAL_GREY_BOUND_CODES: Readonly<Record<string, { black: number; above: number }>> = {
-  "active light": { black: 44.2, above: 0.1 },
-  "active dark": { black: 17.03, above: 0.1 },
-  "receded light": { black: 54.09, above: 0.1 },
-  "receded dark": { black: 201.62, above: 0.1 },
+  "active light": { black: 29.05, above: 0.1 },
+  "active dark": { black: 10.69, above: 0.1 },
+  "receded light": { black: 40.35, above: 0.1 },
+  "receded dark": { black: 36.83, above: 0.1 },
 };
 
 describe("the stacked approximation, where no reference filter renders (§5)", () => {

@@ -985,3 +985,55 @@ The mirror's 0.15-code budget does not show it, because it compares the implemen
 oracle at the same argument. The rehearsal's `mono_black` was the device for exactly this, and
 it was declined as not declared (§2.8). Whether step 2 reads candidate 1 through it as declared,
 or a declaration amends the region below the join, is the parent's decision.
+
+## 15. The black-join amendment, implemented (2026-10-01)
+
+The parent ruled a pre-read amendment on §14's finding. It is `candidate1-black-join-addendum.md`,
+SHA-256 `8ad314c13047722c22869b2bd46d1691f1adfd232ccb1209b48264c5ca52a1f6`, committed on its own
+as `eaafdf7b` before any read of the archive.
+
+**The rule.** Inside W36's open interval below the join (0 < x < 0.003 on the branch's own
+abscissa), where the branch's strength is above 0, candidate 1's per-pixel landed tone is the
+straight line in x. It runs from the solve's value at black to its value on the argument's own ray
+at the end, per channel, in linear light.
+
+**Its executable form** is `implementation-design/candidate1_black_join.py`. It wraps the hashed
+`landed_T` and edits no G0 file. Its report is `candidate1_black_join.txt`, and it writes the
+fixture `fixtures/landed-bridged.json`.
+
+**The implementation:**
+- **WGSL:** `body_law_landed` bridges around `body_law_landed_solve`, the declared solve, whose
+  structural pin to `fs_optics` is unchanged. The shader's end constant is `LAW_BLACK_JOIN_END`.
+- **CPU reference:** `landedToneLinear` is now the amended tone. `landedToneSolveLinear` is the
+  solve as declared, and U1's `landed.json` test now reads it.
+- **CSS:** `cssLandedToneLinear` is now the amended tone, over `cssLandedToneSolveLinear`.
+
+`test/w42-black-join.test.ts` holds the CPU reference to the wrapper's fixture. It also checks:
+- that the tone equals the solve at black and at or above the end, and lies on the line between
+  the two ends inside, for greys and for chromatic arguments on their own rays;
+- that the tone stands down at strength 0;
+- that the shader carries the same lines;
+- that none of the six digests moves.
+
+**The CSS tier's tables do not change**, because codes 0 and 1 lie outside the interval. Its
+fractional-grey misses shrink by 21–40 % against the tone they are measured against
+(`u5_css_algebra.md` §4, re-read):
+
+| endpoint | before (codes) | after (codes) |
+| --- | --- | --- |
+| active light | 43.20 | 28.04 |
+| active dark | 16.03 | 9.69 |
+| receded light | 56.87 | 39.35 |
+| receded dark | 45.23 | 35.83 |
+
+Each amended worst sits at the bridge's end. The same re-read found that the algebra test and
+`tier-coherence.test.ts` composed the receded endpoints over the renderer's default instead of
+over their scheme's active endpoint. Both now compose them as a root does.
+
+**A correction to §14.** Its receded-dark profile (20 → 216 → 12.4 → 0.2) was read on that
+mis-composed material. The declared `landed_T` on the correct receded dark reads 20 → 53.6 at
+code 0.60 → 0.7 at code 1 → 0.2 above. The finding stands on every endpoint at these smaller
+magnitudes: active light 132 → 177 → 135.2 was read correctly.
+
+The dip above the end remains the named black-level miss. For example, dark receded falls from
+39.9 at code 0.7 (bridged) through 36.2 at 0.8 to 0.7 at code 1.

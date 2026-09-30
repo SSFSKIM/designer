@@ -19,6 +19,7 @@
 import type { Rgb } from "./color";
 import { linearToSrgbChannel, srgbToLinearChannel } from "./color";
 import {
+  BACKDROP_TONE_BLACK_JOIN,
   backdropToneResponse,
   type BodyE3Gains,
   type MaterialPolicyView,
@@ -519,14 +520,64 @@ export interface LandedToneInputs {
 }
 
 /**
- * **Candidate 1's landed T at one pixel** (§2.8): the shipped solve's uniform response evaluated
+ * **The black branch's own abscissa for a per-pixel argument**: the solve's encoded input
+ * enc(level), with the level the source abscissa's linear luminance of dec(A) or the silhouette
+ * abscissa's decoded encoded luma. `candidate1-black-join-addendum.md` §1.
+ */
+export function landedToneAbscissa(argumentEncoded: Rgb, abscissa: LandedToneInputs["abscissa"]): number {
+  const c = argumentEncoded.map((v) => srgbToLinearChannel(clamp(v, 0, 1))) as unknown as Rgb;
+  const level = abscissa === "silhouette"
+    ? srgbToLinearChannel(clamp(luma(argumentEncoded), 0, 1))
+    : luma(c);
+  return linearToSrgbChannel(clamp(level, 0, 1));
+}
+
+/**
+ * **Candidate 1's landed T at one pixel, as amended** (`candidate1-black-join-addendum.md`, the
+ * parent's pre-read ruling). Inside W36's open interval below the black join, 0 < x < 0.003 on the
+ * branch's own abscissa (`landedToneAbscissa`), where the branch's strength is above 0, the tone
+ * is the straight line in x between the solve's value at black and its value on the argument's
+ * own ray at the end, per channel in linear light:
+ * - the ray is encoded for the silhouette abscissa and linear for the source abscissa, so the
+ *   end's abscissa is exactly 0.003.
+ * Everywhere else it is `landedToneSolveLinear`. The interval holds no measured input, so black
+ * itself and every input at or above the end are the solve's, and no digest moves.
+ */
+export function landedToneLinear(
+  argumentEncoded: Rgb,
+  inputs: LandedToneInputs,
+  profile: Parameters<typeof landedToneSolveLinear>[2],
+): Rgb {
+  const solve = (a: Rgb): Rgb => landedToneSolveLinear(a, inputs, profile);
+  if (!(profile.backdropToneBlackStrength > 0)) return solve(argumentEncoded);
+  const x = landedToneAbscissa(argumentEncoded, inputs.abscissa);
+  if (!(x > 0 && x < BACKDROP_TONE_BLACK_JOIN)) return solve(argumentEncoded);
+  let end: Rgb;
+  if (inputs.abscissa === "silhouette") {
+    const k = BACKDROP_TONE_BLACK_JOIN / luma(argumentEncoded);
+    end = [argumentEncoded[0] * k, argumentEncoded[1] * k, argumentEncoded[2] * k];
+  } else {
+    const c = argumentEncoded.map((v) => srgbToLinearChannel(clamp(v, 0, 1))) as unknown as Rgb;
+    const k = srgbToLinearChannel(BACKDROP_TONE_BLACK_JOIN) / luma(c);
+    end = [linearToSrgbChannel(c[0] * k), linearToSrgbChannel(c[1] * k), linearToSrgbChannel(c[2] * k)];
+  }
+  const y0 = solve([0, 0, 0]);
+  const y1 = solve(end);
+  const f = x / BACKDROP_TONE_BLACK_JOIN;
+  return [0, 1, 2].map((i) => (1 - f) * y0[i]! + f * y1[i]!) as unknown as Rgb;
+}
+
+/**
+ * **Candidate 1's landed T at one pixel, as declared** (§2.8), before the black-join amendment:
+ * the shipped solve's uniform response evaluated
  * at the law's argument, as the rehearsal's `landed_T` does (`body.py:504–537`). Each pixel is
  * toned as the shipped material tones a uniform backdrop of colour dec(A): the solve at
  * `wgsl/optics.ts:1165–1262`, the collapse target and adapted colour at `1292–1303`, the composite
  * at `1318–1319` and the retention at `1369`, transcribed in their order with the tone colour, the
- * linear mean and the composited backdrop all dec(A). Returns linear light.
+ * linear mean and the composited backdrop all dec(A). Returns linear light. `landedToneLinear` is
+ * this with the interval below the join bridged.
  */
-export function landedToneLinear(
+export function landedToneSolveLinear(
   argumentEncoded: Rgb,
   inputs: LandedToneInputs,
   profile: Pick<MaterialProfile, "backdropToneAnchorX" | "backdropToneResponseThin" |

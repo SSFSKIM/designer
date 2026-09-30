@@ -154,6 +154,40 @@ backdrop between codes 0 and 1, which the rehearsal's `landed_T` reproduces (U1'
 pins it to 1e-12 at encoded 0.0005 to 0.003). The WebGPU tier draws it at f32 too
 (`implementation-design.md` §14).
 
+**Re-read after the black-join amendment (2026-10-01).** Two things changed.
+
+**The receded rows above were read on the wrong material.** The test applied the receded
+difference over the renderer's default, not over its scheme's active endpoint as a root composes
+it (`root.ts` `posedProfile`). On the correct material, receded dark's profile is 20.0 → 53.6 at
+code 0.60 → 0.7 at code 1, not 20 → 215.9 → 12.4. The chromatic 6³-grid bounds of the table
+further up this section read the same on the correct material: 70.70 and 27.77 again.
+
+**The renderer's landed tone is now amended below the join** (`candidate1-black-join-addendum.md`).
+Inside 0 < x < 0.003 it is the straight line from the solve at black to the solve at the end.
+Codes 0 and 1 lie outside that interval, so no table entry moves. What moves is the curve the
+chord is measured against.
+
+Worst miss below 4 codes, span 96, dpr 2, codes:
+
+| endpoint | against the unamended solve | against the amended tone | shrunk by |
+| --- | --- | --- | --- |
+| active light | 43.20 | **28.04** | 15.15 (35 %) |
+| active dark | 16.03 | **9.69** | 6.34 (40 %) |
+| receded light, landed at E3 = 0 | 56.87 | **39.35** | 17.53 (31 %) |
+| receded dark | 45.23 | **35.83** | 9.40 (21 %) |
+
+The unamended column is read on the correctly composed receded materials, so it replaces 53.08 and
+200.61 as the before-figures.
+
+Every amended worst sits at code 0.76, the bridge's end. There the tone has climbed to the solve's
+value at the end (162.7 on active light rrect-md), and the chord from code 0 (132.0) to code 1
+(135.2) cannot follow it. Between the end and code 1 the old solve falls back in measured
+territory, which the amendment leaves alone.
+
+Above 4 codes the chord is unchanged at 0.065 code at worst. The test pins each amended reading a
+code above itself. It remains a Decision Log 4 approximation, and the engine row stays
+`"unverified"`.
+
 ## 5. What the CSS route does not carry (named gaps; each is Decision Log 4's or U6's)
 
 - **Support.** A `backdrop-filter` reads the element's box, so the law's footprint is the box, not

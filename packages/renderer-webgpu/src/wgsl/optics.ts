@@ -456,16 +456,18 @@ fn body_table_codes(codes : vec3f, span : f32) -> vec3f {
 }
 
 /*
- * Candidate 1's landed T at one pixel (G2 implementation-design 2.8; 'landedToneLinear'): the
- * shipped solve's response evaluated as if the backdrop were uniformly dec(A), as the
- * rehearsal's 'landed_T' does. This is a DUPLICATE of the shipped lines in 'fs_optics' - the
- * adaptation, the response solve with W36's black branch, the collapse target, the composite and
- * the retention - with the tone colour, the linear mean and the backdrop all dec(A), and it is
+ * Candidate 1's landed T at one pixel AS DECLARED (G2 implementation-design 2.8;
+ * 'landedToneSolveLinear'): the shipped solve's response evaluated as if the backdrop were
+ * uniformly dec(A), as the rehearsal's 'landed_T' does. This is a DUPLICATE of the shipped lines
+ * in 'fs_optics' - the adaptation, the response solve with W36's black branch, the collapse
+ * target, the composite and the retention - with the tone colour, the linear mean and the
+ * backdrop all dec(A), and it is
  * kept textually separate so the shipped expression stays untouched until the goldens can be
  * read on a GPU (the design's section 10; 'test/w42-optics-law.test.ts' pins it line by line).
  * Presence is applied by the caller, on E3's convention.
  */
-fn body_law_landed(encoded : vec3f, sizeK : f32, toneLevelFar : f32, neutral : vec3f) -> vec3f {
+fn body_law_landed_solve(encoded : vec3f, sizeK : f32, toneLevelFar : f32,
+                         neutral : vec3f) -> vec3f {
   let c = srgb_to_linear(clamp(encoded, vec3f(0.0), vec3f(1.0)));
   let toneLinearMean = dot(c, LAW_LUMA);
   var level = toneLinearMean;
@@ -533,6 +535,42 @@ fn body_law_landed(encoded : vec3f, sizeK : f32, toneLevelFar : f32, neutral : v
   let presentAlpha = adaptedAlpha;
   let colour = mix(c, adapted, presentAlpha);
   return body_chroma_retention(colour, c, ou.bodyChroma.x);
+}
+
+/// W36's black branch ends where its blend weight reaches 0: the shipped branch's 0.003 in
+/// 'fs_optics', 'BACKDROP_TONE_BLACK_JOIN' in material.ts.
+const LAW_BLACK_JOIN_END = 0.003;
+
+/*
+ * Candidate 1's landed T at one pixel AS AMENDED (candidate1-black-join-addendum.md, the parent's
+ * pre-read ruling; 'landedToneLinear'). Inside W36's open interval below the black join,
+ * 0 < x < LAW_BLACK_JOIN_END on the branch's own abscissa, where the branch's strength is above
+ * 0, the tone is the straight line in x between the solve's value at black and its value on the
+ * argument's own ray at the end, per channel in linear light. The ray is encoded for the
+ * silhouette abscissa and linear for the source one, so the end's abscissa is exactly the end.
+ * Elsewhere it is the solve's. The interval holds no measured input.
+ */
+fn body_law_landed(encoded : vec3f, sizeK : f32, toneLevelFar : f32, neutral : vec3f) -> vec3f {
+  if (ou.toneBlack.x <= 0.0) {
+    return body_law_landed_solve(encoded, sizeK, toneLevelFar, neutral);
+  }
+  let silhouette = ou.bodyLawA.w > 0.5;
+  let c = srgb_to_linear(clamp(encoded, vec3f(0.0), vec3f(1.0)));
+  let encodedLuma = dot(encoded, LAW_LUMA);
+  var level = dot(c, LAW_LUMA);
+  if (silhouette) { level = srgb_to_linear(vec3f(clamp(encodedLuma, 0.0, 1.0))).x; }
+  let x = srgb_encode(level);
+  if (!(x > 0.0 && x < LAW_BLACK_JOIN_END)) {
+    return body_law_landed_solve(encoded, sizeK, toneLevelFar, neutral);
+  }
+  var atEnd = encoded * (LAW_BLACK_JOIN_END / encodedLuma);
+  if (!silhouette) {
+    let endLevel = srgb_to_linear(vec3f(LAW_BLACK_JOIN_END)).x;
+    atEnd = linear_to_srgb(c * (endLevel / dot(c, LAW_LUMA)));
+  }
+  let f = x / LAW_BLACK_JOIN_END;
+  return mix(body_law_landed_solve(vec3f(0.0), sizeK, toneLevelFar, neutral),
+    body_law_landed_solve(atEnd, sizeK, toneLevelFar, neutral), vec3f(f));
 }
 
 /// The law's untinted body at presence 1, linear, by precedence: the table where its strength

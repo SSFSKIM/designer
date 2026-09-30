@@ -1447,14 +1447,57 @@ export function cssLandedToneInputs(
   };
 }
 
+/** W36's black branch ends where its blend weight reaches 0: the renderer's `BACKDROP_TONE_BLACK_JOIN`. */
+export const CSS_BACKDROP_TONE_BLACK_JOIN = 0.003;
+
 /**
- * **Candidate 1's landed T at one pixel** — the renderer's `landedToneLinear` (`body-law.ts`),
- * transcribed in its order through this tier's pinned mirror of the response
+ * **Candidate 1's landed T at one pixel, as amended** — the renderer's `landedToneLinear`
+ * (`body-law.ts`; `candidate1-black-join-addendum.md`, the parent's pre-read ruling). Inside W36's
+ * open interval below the black join, 0 < x < 0.003 on the branch's own abscissa, where the
+ * branch's strength is above 0, the tone is the straight line in x between the solve's value at
+ * black and its value on the argument's own ray at the end, per channel in linear light (the ray
+ * encoded for the silhouette abscissa, linear for the source one). Elsewhere it is
+ * `cssLandedToneSolveLinear`. The table this tier reads carries one entry per code, and codes 0
+ * and 1 lie outside the interval, so the amendment reaches the filter through the chord between
+ * them and not through any entry.
+ */
+export function cssLandedToneLinear(
+  argumentEncoded: LinearRgb,
+  inputs: CssLandedToneInputs,
+  response: BackdropToneResponseConstants,
+): LinearRgb {
+  const solve = (a: LinearRgb): LinearRgb => cssLandedToneSolveLinear(a, inputs, response);
+  if (!((response.blackStrength ?? 0) > 0)) return solve(argumentEncoded);
+  const c: LinearRgb = [
+    srgbDecode(argumentEncoded[0]), srgbDecode(argumentEncoded[1]), srgbDecode(argumentEncoded[2]),
+  ];
+  const encodedLuma = 0.2126 * argumentEncoded[0] + 0.7152 * argumentEncoded[1] +
+    0.0722 * argumentEncoded[2];
+  const level = inputs.abscissa === "silhouette" ? srgbDecode(clamp01(encodedLuma)) : luminance(c);
+  const x = srgbEncode(clamp01(level));
+  if (!(x > 0 && x < CSS_BACKDROP_TONE_BLACK_JOIN)) return solve(argumentEncoded);
+  let end: LinearRgb;
+  if (inputs.abscissa === "silhouette") {
+    const k = CSS_BACKDROP_TONE_BLACK_JOIN / encodedLuma;
+    end = [argumentEncoded[0] * k, argumentEncoded[1] * k, argumentEncoded[2] * k];
+  } else {
+    const k = srgbDecode(CSS_BACKDROP_TONE_BLACK_JOIN) / luminance(c);
+    end = [srgbEncode(c[0] * k), srgbEncode(c[1] * k), srgbEncode(c[2] * k)];
+  }
+  const y0 = solve([0, 0, 0]);
+  const y1 = solve(end);
+  const f = x / CSS_BACKDROP_TONE_BLACK_JOIN;
+  return [0, 1, 2].map((i) => (1 - f) * y0[i]! + f * y1[i]!) as unknown as LinearRgb;
+}
+
+/**
+ * **Candidate 1's landed T at one pixel, as declared** — the renderer's `landedToneSolveLinear`
+ * (`body-law.ts`), transcribed in its order through this tier's pinned mirror of the response
  * (`backdropToneResponseLevel`): each pixel toned as the shipped material tones a uniform
  * backdrop of colour dec(A). Returns linear light. `tier-coherence.test.ts` holds the two equal
  * on the four macOS 27 endpoints.
  */
-export function cssLandedToneLinear(
+export function cssLandedToneSolveLinear(
   argumentEncoded: LinearRgb,
   inputs: CssLandedToneInputs,
   response: BackdropToneResponseConstants,
