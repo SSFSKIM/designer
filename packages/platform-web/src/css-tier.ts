@@ -139,11 +139,19 @@ import type {
   CornerRadii,
   ForegroundMode,
   GlassTint,
+  MaterialVariant,
   ResolvedAccessibilityPolicy,
 } from "@vitreajs/vitrea";
 
 import { GLASS_CHANNEL_PROPERTIES } from "./channels";
 import {
+  cssBodyLawStrengthUnderPolicy,
+  cssLandedToneInputs,
+  cssTierBodyLaw,
+  resolvedBackdropToneResponse,
+  type CssBodyLawLeaves,
+  type CssTierBodyLaw,
+  type CssTierBodyLawTone,
   boundedForegroundLevel,
   cssTierCompositeLevel,
   cssTintEncodedFormError,
@@ -195,6 +203,7 @@ import {
 } from "./vibrancy";
 
 import type { CssTierShadowCarrier } from "./css-tier-shadow";
+import type { RendererMaterialProfile } from "./renderer-bridge";
 
 export type { CssTierShadowCarrier };
 
@@ -454,6 +463,90 @@ export interface CssTierBody {
    * degrades to, and the number `--vitrea-blur` publishes.
    */
   readonly projectedSigmaCssPx: number;
+
+  /**
+   * W42's body law, where it drew (G2's implementation-design §5). Present only where the
+   * folded strength is above 0 AND the engine's row says `bodyLawFilterInBackdrop: "yes"` with a
+   * reference filter to carry it, which no row says until Decision Log 4's measurement: L1 then
+   * carries the law's filter in place of its blur and `saturate()`, L2 is `display: none` and L3
+   * paints no plate. The fields above keep describing the shipped body the law replaced.
+   */
+  readonly law?: CssTierBodyLawFilter;
+}
+
+/**
+ * One SVG filter primitive as this tier writes it (W42; implementation-design §5 as revised by
+ * R5). A plain record rather than an element so the program is pure — `css-tier-layers.ts` turns
+ * it into DOM, and `packages/calibration/test/w42-css-filter-algebra.test.ts` evaluates the same
+ * records under SVG's own semantics to prove the algebra.
+ *
+ * Every primitive names its own `color-interpolation-filters`: the law's blurs and knee run in
+ * the space D2 selects, T in the encoded space, and a fractional tone mix in linear light.
+ */
+export type CssTierFilterSpace = "sRGB" | "linearRGB";
+
+/** One `feFuncX` of an `feComponentTransfer`, or its absence (identity). */
+export type CssTierTransferFunction =
+  | { readonly type: "linear"; readonly slope: number; readonly intercept: number }
+  | { readonly type: "table"; readonly tableValues: readonly number[] };
+
+export type CssTierFilterPrimitive =
+  | {
+      readonly primitive: "feGaussianBlur";
+      readonly result: string;
+      readonly in: "SourceGraphic";
+      readonly stdDeviation: number;
+      /** `duplicate` is clamp-to-edge at the region; `none` reads transparent outside it. */
+      readonly edgeMode: "none" | "duplicate";
+      readonly space: CssTierFilterSpace;
+    }
+  | {
+      readonly primitive: "feComponentTransfer";
+      readonly result: string;
+      readonly in: string;
+      readonly r?: CssTierTransferFunction;
+      readonly g?: CssTierTransferFunction;
+      readonly b?: CssTierTransferFunction;
+      readonly a?: CssTierTransferFunction;
+      readonly space: CssTierFilterSpace;
+    }
+  | {
+      readonly primitive: "feColorMatrix";
+      readonly result: string;
+      readonly in: string;
+      /** `type="matrix"`: four rows of five, applied to un-premultiplied [r, g, b, a, 1]. */
+      readonly values: readonly number[];
+      readonly space: CssTierFilterSpace;
+    }
+  | {
+      readonly primitive: "feComposite";
+      readonly result: string;
+      readonly in: string;
+      readonly in2: string;
+      /** `operator="arithmetic"`: k1·i1·i2 + k2·i1 + k3·i2 + k4, premultiplied, clamped. */
+      readonly k1: number;
+      readonly k2: number;
+      readonly k3: number;
+      readonly k4: number;
+      readonly space: CssTierFilterSpace;
+    };
+
+/** The law's reference filter: its primitives, the results a proof can read, and its key. */
+export interface CssTierBodyLawFilter {
+  readonly parameters: CssTierBodyLaw;
+  readonly primitives: readonly CssTierFilterPrimitive[];
+  /**
+   * The named results: the two normalised blurs, the law's argument A = M and the filter's
+   * output. The last primitive's result is `output`.
+   */
+  readonly results: {
+    readonly narrow: string;
+    readonly wide: string;
+    readonly argument: string;
+    readonly output: string;
+  };
+  /** A content hash of the primitives, so surfaces with one filter share one definition. */
+  readonly key: string;
 }
 
 /** The depth ramp as the mask carries it, all depths in DEVICE px (W16 G1). */
@@ -481,6 +574,17 @@ export interface CssTierEngineCapabilities {
   readonly referenceFilterInBackdrop: boolean;
   /** Whether a `mask-image` on a `backdrop-filter` layer composes (claims §5.71 §1). */
   readonly maskOnBackdropFilter: "yes" | "no" | "unverified";
+  /**
+   * Whether W42's body law may draw here through its reference filter (G2's
+   * implementation-design §5; charter Decision Log 4). Absent reads as `"unverified"`.
+   *
+   * Fails closed like `maskOnBackdropFilter`, and harder: an engine at anything but `"yes"`
+   * draws the shipped body whatever the document's `bodyLawStrength` holds. What the row waits
+   * on is Decision Log 4's Chromium proof — whether `feGaussianBlur` is Gaussian enough at the
+   * law's widths, whether `edgeMode` is honoured inside `backdrop-filter`, what the chain's
+   * eight-bit intermediates cost, and how far one narrow width stands for the graded term.
+   */
+  readonly bodyLawFilterInBackdrop?: "yes" | "no" | "unverified";
 }
 
 /** The conservative capabilities: the form every engine can draw. */
@@ -805,6 +909,22 @@ export interface CssTierSurface {
    * on `CssTierRender.outerShadow` for that member to use.
    */
   readonly shadowCarrier?: CssTierShadowCarrier;
+  /**
+   * W42's body law for this surface (G2's implementation-design §5): the resolved leaves, the
+   * variant the fold reads and the profile the landed tone's inputs are derived from.
+   *
+   * Absent draws the shipped body, as does every present input whose folded strength is 0 —
+   * every shipped document — or whose engine row is not `bodyLawFilterInBackdrop: "yes"`, which
+   * is every row. The derivation runs only past those gates, so the identity costs nothing.
+   */
+  readonly bodyLaw?: CssTierBodyLawSurfaceInput;
+}
+
+/** What `cssTierDeclarations` needs to derive the law for one surface. */
+export interface CssTierBodyLawSurfaceInput {
+  readonly leaves: CssBodyLawLeaves;
+  readonly variant: MaterialVariant;
+  readonly profile?: RendererMaterialProfile;
 }
 
 /**
@@ -966,6 +1086,336 @@ export function referenceFilterId(
     id += `-t${quantised([transfer.tintAlpha, ...transfer.tint, transfer.addedLight, transfer.floorAlpha, ...transfer.floorEncoded])}`;
   }
   return id;
+}
+
+/*
+ * =================================================================================================
+ * **W42's body law as one reference filter** (G2's implementation-design §5 as revised by §11's
+ * R5). The algebra, its clamping analysis over the admitted ranges and where it is exact is
+ * `packages/calibration/results/2026-09-30-w42-g2-identification/implementation-design/u5_css_algebra.md`;
+ * the short form is here.
+ *
+ * Three constraints of SVG's primitives shape every line. `feComposite` arithmetic acts on
+ * PREMULTIPLIED channels, alpha included, and clamps each to [0, 1]; so every input is made opaque
+ * first (R5: a blur's partial alpha at a normalised edge is its weight, and the un-premultiply of
+ * an `feComponentTransfer` divides by it), and every arithmetic keeps k1 + k2 + k3 + k4 ≥ 1 so the
+ * alpha it writes is 1. A signed difference therefore cannot be one arithmetic (its alpha would
+ * be 0): it is the positive part max(0, x − y) = x + (1 − y) − 1, with the complement taken by an
+ * exact 255 − x transfer. And a clamp inside the chain clips the law, so each weighted sum is
+ * ordered so that the only clamp is the final one: a term is added to a quantity in [0, 1], a
+ * negative term is added to its complement and complemented back, and the terms of one sum are
+ * positive parts of the same difference with opposite signs, so at most one is non-zero per
+ * channel. `feBlend` is not used: on opaque inputs lighten is max, which the positive part
+ * already is, and on partial alpha it composites source-over (R5).
+ * =================================================================================================
+ */
+
+/** Rec. 709 luma rows for `feColorMatrix`, and their complement 1 − L. */
+const BODY_LAW_LUMA = [0.2126, 0.7152, 0.0722] as const;
+
+function lumaMatrix(complement: boolean): number[] {
+  const [r, g, b] = BODY_LAW_LUMA;
+  const row = complement ? [-r, -g, -b, 0, 1] : [r, g, b, 0, 0];
+  return [...row, ...row, ...row, 0, 0, 0, 1, 0];
+}
+
+const INVERT: CssTierTransferFunction = { type: "linear", slope: -1, intercept: 1 };
+const OPAQUE: CssTierTransferFunction = { type: "linear", slope: 0, intercept: 1 };
+/** One eight-bit code of luma difference decides the on-luma hinge (knee 1; R1's flip set). */
+const STEP: CssTierTransferFunction = { type: "linear", slope: 255, intercept: 0 };
+
+/** The millionth every coefficient and table entry is written at. */
+const micro = (value: number): number => Math.round(value * 1e6) / 1e6;
+
+/** Two FNV-1a passes over the program's serialisation: the definition's content key. */
+function contentKey(text: string): string {
+  let a = 0x811c9dc5;
+  let b = 0x01000193 ^ 0x5bd1e995;
+  for (let i = 0; i < text.length; i++) {
+    const code = text.charCodeAt(i);
+    a = Math.imul(a ^ code, 0x01000193) >>> 0;
+    b = Math.imul(b ^ code, 0x01000193) >>> 0;
+  }
+  return a.toString(16).padStart(8, "0") + b.toString(16).padStart(8, "0");
+}
+
+/**
+ * **The law's reference filter for one surface** (§5 as revised by R5): the two blurs, made
+ * opaque; the knee and the Normal fill composed into M without a premature clamp; and T read as
+ * `F(L(A)) + G(ℓ)·(A − L(A))` through tables, with the chroma split into its two positive parts so
+ * each product with the level-dependent gain stays in [0, 1].
+ *
+ * Per knee form, with b = (1 − w)·λ, P = (1 − w)·C + w·W and D± = max(0, ±(W − C)):
+ *
+ * - 0, per channel: M = P + h·b·D_h with D_h = D₊ (light) or D₋ (dark). h·b ≥ 0 adds to P;
+ *   h·b < 0 adds |b|·D_h to 1 − P and complements back.
+ * - 1, on luma, whole colour: M = P + on·b·(D₊ − D₋), where `on` is the hinge decided on the
+ *   luma difference by a step one code wide, and gates each part by an arithmetic product.
+ * - 2, on luma with W's chroma: M = W + p·Δ₊ + q·Δ₋ on the luma differences Δ± = max(0, ±(L(W) −
+ *   L(C))), with (p, q) = (1 − w)·(λ − 1, 1) light and (1 − w)·(−1, 1 − λ) dark.
+ */
+export function cssTierBodyLawFilter(law: CssTierBodyLaw): CssTierBodyLawFilter {
+  const primitives: CssTierFilterPrimitive[] = [];
+  let count = 0;
+  const next = (tag: string): string => `${tag}${String(count++)}`;
+  const push = (primitive: CssTierFilterPrimitive): string => {
+    primitives.push(primitive);
+    return primitive.result;
+  };
+  const kneeSpace: CssTierFilterSpace = law.encodedAveraging === 1 ? "sRGB" : "linearRGB";
+  const edgeMode = law.edge === "clamp" ? "duplicate" : "none";
+
+  const blur = (sigmaCssPx: number, result: string): string => {
+    const raw = push({
+      primitive: "feGaussianBlur", result: `${result}-raw`, in: "SourceGraphic",
+      stdDeviation: micro(sigmaCssPx), edgeMode, space: kneeSpace,
+    });
+    return push({ primitive: "feComponentTransfer", result, in: raw, a: OPAQUE, space: kneeSpace });
+  };
+  const cache = new Map<string, string>();
+  const once = (key: string, build: () => string): string => {
+    const hit = cache.get(key);
+    if (hit !== undefined) return hit;
+    const made = build();
+    cache.set(key, made);
+    return made;
+  };
+  const invert = (x: string, space: CssTierFilterSpace): string =>
+    once(`invert|${x}|${space}`, () => push({
+      primitive: "feComponentTransfer", result: next("complement"), in: x,
+      r: INVERT, g: INVERT, b: INVERT, space,
+    }));
+  const luma = (x: string, space: CssTierFilterSpace, complement = false): string =>
+    once(`luma|${x}|${space}|${String(complement)}`, () => push({
+      primitive: "feColorMatrix", result: next(complement ? "luma-complement" : "luma"), in: x,
+      values: lumaMatrix(complement), space,
+    }));
+  const arithmetic = (in1: string, in2: string, k: readonly [number, number, number, number],
+    space: CssTierFilterSpace): string => push({
+    primitive: "feComposite", result: next("sum"), in: in1, in2,
+    k1: micro(k[0]), k2: micro(k[1]), k3: micro(k[2]), k4: micro(k[3]), space,
+  });
+  /**
+   * A convex pair (1 − s, s), rounded so that the two written coefficients sum to exactly 1 and
+   * the result's alpha is exactly 1, which rounding each separately would not guarantee.
+   */
+  const convex = (s: number): readonly [number, number, number, number] => {
+    const second = micro(s);
+    return [0, micro(1 - second), second, 0];
+  };
+  /** max(0, x − y), given x and the complement of y. */
+  const positivePart = (x: string, yComplement: string, space: CssTierFilterSpace): string =>
+    arithmetic(x, yComplement, [0, 1, 1, -1], space);
+  /**
+   * start + Σ coef·term, with the terms' supports disjoint per channel: a positive coefficient
+   * is added to the running value, a negative one to its complement.
+   */
+  const accumulate = (start: string, terms: readonly (readonly [number, string])[],
+    space: CssTierFilterSpace): string => {
+    let value = start;
+    let complemented = false;
+    for (const [coefficient, term] of terms) {
+      if (coefficient === 0) continue;
+      if ((coefficient < 0) !== complemented) {
+        value = invert(value, space);
+        complemented = !complemented;
+      }
+      value = arithmetic(value, term, [0, 1, Math.abs(coefficient), 0], space);
+    }
+    return complemented ? invert(value, space) : value;
+  };
+
+  const C = blur(law.narrowSigmaCssPx, "narrow");
+  const W = blur(law.wideSigmaCssPx, "wide");
+  const { normal: w, lambda, hinge: h } = law;
+  const b = (1 - w) * lambda;
+  let M: string;
+  switch (law.knee) {
+    case 0: {
+      const hinged = (): string => h > 0
+        ? positivePart(W, invert(C, kneeSpace), kneeSpace)
+        : positivePart(C, invert(W, kneeSpace), kneeSpace);
+      if (h * b >= 0) {
+        const P = arithmetic(C, W, convex(w), kneeSpace);
+        M = h * b === 0 ? P : arithmetic(P, hinged(), [0, 1, h * b, 0], kneeSpace);
+      } else {
+        const dh = hinged();
+        const complementP = arithmetic(invert(C, kneeSpace), invert(W, kneeSpace), convex(w),
+          kneeSpace);
+        M = invert(arithmetic(complementP, dh, [0, 1, -h * b, 0], kneeSpace), kneeSpace);
+      }
+      break;
+    }
+    case 1: {
+      const decided = h > 0
+        ? positivePart(luma(W, kneeSpace), luma(C, kneeSpace, true), kneeSpace)
+        : positivePart(luma(C, kneeSpace), luma(W, kneeSpace, true), kneeSpace);
+      const on = push({
+        primitive: "feComponentTransfer", result: next("hinge"), in: decided,
+        r: STEP, g: STEP, b: STEP, space: kneeSpace,
+      });
+      const up = arithmetic(on, positivePart(W, invert(C, kneeSpace), kneeSpace), [1, 0, 0, 0],
+        kneeSpace);
+      const down = arithmetic(on, positivePart(C, invert(W, kneeSpace), kneeSpace), [1, 0, 0, 0],
+        kneeSpace);
+      const P = arithmetic(C, W, convex(w), kneeSpace);
+      M = accumulate(P, [[b, up], [-b, down]], kneeSpace);
+      break;
+    }
+    case 2: {
+      const rise = positivePart(luma(W, kneeSpace), luma(C, kneeSpace, true), kneeSpace);
+      const fall = positivePart(luma(C, kneeSpace), luma(W, kneeSpace, true), kneeSpace);
+      const p = (1 - w) * (h > 0 ? lambda - 1 : -1);
+      const q = (1 - w) * (h > 0 ? 1 : 1 - lambda);
+      M = accumulate(W, [[p, rise], [q, fall]], kneeSpace);
+      break;
+    }
+  }
+
+  const table = (values: readonly number[]): CssTierTransferFunction =>
+    ({ type: "table", tableValues: values.map(micro) });
+  const toneChain = (tone: CssTierBodyLawTone): string => {
+    const level = luma(M, "sRGB");
+    const neutral = push({
+      primitive: "feComponentTransfer", result: next("neutral"), in: level,
+      r: table(tone.neutral[0]), g: table(tone.neutral[1]), b: table(tone.neutral[2]),
+      space: "sRGB",
+    });
+    const gainMax = Math.max(1, ...tone.gain);
+    if (tone.gain.every((gain) => gain === 0)) return neutral;
+    const gainTable = table(tone.gain.map((gain) => gain / gainMax));
+    const argument = tone.gainArgument === "wide" ? luma(W, "sRGB") : level;
+    const gain = push({
+      primitive: "feComponentTransfer", result: next("gain"), in: argument,
+      r: gainTable, g: gainTable, b: gainTable, space: "sRGB",
+    });
+    const above = positivePart(M, luma(M, "sRGB", true), "sRGB");
+    const below = positivePart(level, invert(M, "sRGB"), "sRGB");
+    const raise = arithmetic(gain, above, [1, 0, 0, 0], "sRGB");
+    const lower = arithmetic(gain, below, [1, 0, 0, 0], "sRGB");
+    return accumulate(neutral, [[gainMax, raise], [-gainMax, lower]], "sRGB");
+  };
+  const toneOf = (tone: CssTierBodyLawTone): string => {
+    const top = toneChain(tone);
+    if (tone.below === undefined) return top;
+    const under = toneOf(tone.below.tone);
+    return arithmetic(under, top, convex(tone.below.weight), "linearRGB");
+  };
+  const output = toneOf(law.tone);
+  if (primitives[primitives.length - 1]?.result !== output) {
+    throw new Error("cssTierBodyLawFilter: the output is not the last primitive's result");
+  }
+  return {
+    parameters: law,
+    primitives,
+    results: { narrow: C, wide: W, argument: M, output },
+    key: contentKey(JSON.stringify(primitives)),
+  };
+}
+
+/** The `id` of a law filter: the root's prefix and the program's content key. */
+export function bodyLawFilterId(prefix: string, filter: Pick<CssTierBodyLawFilter, "key">): string {
+  return `${prefix}-law-${filter.key}`;
+}
+
+/** One layer of the stacked approximation, as its declarations. */
+export interface CssTierBodyLawStackedLayer {
+  readonly role: "narrow" | "hinge" | "normal" | "tone";
+  readonly declarations: StyleDeclarations;
+}
+
+/**
+ * **The stacked approximation** for an engine that renders no reference filter (§5): four
+ * `backdrop-filter` layers, each over the one below it.
+ *
+ * 1. `blur(σn)` → C, averaged in the encoded space (`blur()` is sRGB), which is D2 = 1 exactly
+ *    and D2 = 0 not at all.
+ * 2. `blur(√(σw² − σn²))` at `mix-blend-mode: lighten` (dark `darken`) and opacity λ over C →
+ *    (1 − λ)·C + λ·max(C, W) = N exactly for knee 0 with λ in [0, 1] (the opacity clamps λ
+ *    outside it); the on-luma knees are not a per-channel blend.
+ * 3. `blur(√(σw² − σn²))` at opacity w over N: the Normal fill cannot read W again, so this is
+ *    (1 − w)·N + w·G*N = M + w·h·λ·G*D_h, over by exactly the blurred hinge term.
+ * 4. W41's affine route for T at the surface's encoded level L̄ (`78c4b854`, re-derived on the
+ *    law's tone with no plate): y = G(L̄)·x + (F̄(L̄) − G(L̄)·L̄), as `contrast() brightness()`
+ *    or `brightness() contrast()` by the intercept's sign. Its chroma slope is the tone's; its
+ *    luma slope is G where T's is F′, so it is exact only at L̄. Without a level there is no
+ *    fourth layer.
+ *
+ * It is derived and not attached: the tier creates three layers, and this route needs four and
+ * a measured `mix-blend-mode` on a filtered layer. No engine row enables it; Decision Log 4
+ * decides whether it is carried at all.
+ */
+export function cssTierBodyLawStacked(
+  law: CssTierBodyLaw,
+  encodedLevel?: number,
+): readonly CssTierBodyLawStackedLayer[] {
+  const n = (value: number): string => String(micro(value));
+  const layer = (role: CssTierBodyLawStackedLayer["role"], filter: string,
+    blend: "normal" | "lighten" | "darken", opacity: number): CssTierBodyLawStackedLayer => ({
+    role,
+    declarations: {
+      "backdrop-filter": filter,
+      "-webkit-backdrop-filter": filter,
+      "mix-blend-mode": blend,
+      opacity: n(clamp01(opacity)),
+    },
+  });
+  const step = Math.sqrt(Math.max(0, law.wideSigmaCssPx ** 2 - law.narrowSigmaCssPx ** 2));
+  const layers = [
+    layer("narrow", `blur(${px(law.narrowSigmaCssPx)})`, "normal", 1),
+    layer("hinge", `blur(${px(step)})`, law.hinge > 0 ? "lighten" : "darken", law.lambda),
+    layer("normal", `blur(${px(step)})`, "normal", law.normal),
+  ];
+  if (encodedLevel === undefined) return layers;
+  const affine = bodyLawToneAffine(law.tone, clamp01(encodedLevel));
+  const functions = bodyLawAffineFilterFunctions(affine.slope, affine.intercept);
+  return [...layers, layer("tone", functions, "normal", 1)];
+}
+
+/**
+ * The tone's affine at one encoded level: slope G(L̄), intercept F̄(L̄) − G(L̄)·L̄ with F̄ the
+ * neutral's luma; a fractional tone mixes the two affines in the encoded space (an approximation
+ * of the renderer's linear-light mix). Exported for the proof.
+ */
+export function bodyLawToneAffine(
+  tone: CssTierBodyLawTone,
+  level: number,
+): { readonly slope: number; readonly intercept: number } {
+  const at = (values: readonly number[]): number => {
+    const x = clamp01(level) * (values.length - 1);
+    const i = Math.min(values.length - 2, Math.floor(x));
+    return values[i]! + (x - i) * (values[i + 1]! - values[i]!);
+  };
+  const f = BODY_LAW_LUMA[0] * at(tone.neutral[0]) + BODY_LAW_LUMA[1] * at(tone.neutral[1]) +
+    BODY_LAW_LUMA[2] * at(tone.neutral[2]);
+  const slope = at(tone.gain);
+  const top = { slope, intercept: f - slope * level };
+  if (tone.below === undefined) return top;
+  const under = bodyLawToneAffine(tone.below.tone, level);
+  const s = tone.below.weight;
+  return {
+    slope: under.slope + s * (top.slope - under.slope),
+    intercept: under.intercept + s * (top.intercept - under.intercept),
+  };
+}
+
+/**
+ * S(x) = slope·x + intercept as two CSS filter functions with no premature clamp (W41 G2,
+ * `78c4b854`, with the plate at α = 0): `contrast(c)` is c·x + (1 − c)/2 and `brightness(b)` is
+ * b·x, each clamped. For an intercept K ≥ 0, contrast(S/b) then brightness(b) with b = S + 2K:
+ * the contrast is at most 1 and stays in range, so only the final clamp acts. For K < 0,
+ * brightness(S/c) then contrast(c) with c = 1 − 2K: the brightness clamps only where the target
+ * already exceeds 1 − K > 1.
+ */
+export function bodyLawAffineFilterFunctions(slope: number, intercept: number): string {
+  const n = (value: number): string => String(micro(value));
+  if (intercept >= 0) {
+    const brightness = slope + 2 * intercept;
+    const contrast = brightness > 0 ? slope / brightness : 0;
+    return `contrast(${n(contrast)}) brightness(${n(brightness)})`;
+  }
+  const contrast = 1 - 2 * intercept;
+  return `brightness(${n(slope / contrast)}) contrast(${n(contrast)})`;
 }
 
 /**
@@ -1568,6 +2018,12 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     presence,
   });
   const prefix = surface.filterIdPrefix ?? DEFAULT_FILTER_ID_PREFIX;
+  /*
+   * W42's body law, where it draws (implementation-design §5). Resolved after the shipped body
+   * so that everything above is computed exactly as it was; the branch that uses it is at the
+   * return, and it is taken by no engine row today.
+   */
+  const law = drawnBodyLaw(surface, engine, presence, dpr);
   const tint = rgba(optics.tint, optics.tintAlpha);
   const border = rgba(optics.border, optics.borderAlpha);
   /*
@@ -1884,6 +2340,35 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     }),
   };
 
+  /*
+   * Under the law (§5): L1 carries the law's filter and nothing else — T contains the plate and
+   * the renderer has no `saturate()` for it to stand in for — L2 is `display: none`, and L3 keeps
+   * the rim, the glow, the outer shadow and the author's own layer at its own strength, with no
+   * plate beneath it. The host, the tokens and the ink stay the shipped material's, a residual
+   * the readout (U6) and Decision Log 4 carry (`u5_css_algebra.md` §5).
+   */
+  if (law !== undefined) {
+    return {
+      host,
+      layers: {
+        sharp: bodyLawLayerDeclarations(law, optics.borderWidth, prefix, policy, declaredPresence,
+          driven),
+        heavy: { ...layerFrame(optics.borderWidth, -2), display: "none" },
+        overlay: overlayLayerDeclarations(
+          optics,
+          authorLayer === undefined ? "transparent" : rgba(authorLayer.color, authorLayer.strength),
+          border,
+          policy,
+          shadowCarrier === "layer" ? shadow : "none",
+          driven,
+        ),
+      },
+      body: { ...body, law },
+      outerShadow: shadow,
+      foregroundLevel: level,
+    };
+  }
+
   return {
     host,
     layers: {
@@ -2018,6 +2503,75 @@ function sharpLayerDeclarations(
      * the saturated body toward the raw backdrop, and a saturation folded toward
      * 1 on top of it would count the same presence twice.
      */
+    ...(presence === undefined ? {} : { opacity: String(Math.round(presence * 1000) / 1000) }),
+    transition: transitionFor(policy, ["backdrop-filter"], driven),
+  };
+}
+
+/**
+ * The law for one surface, or nothing — and nothing unless every gate is open (W42; §4, §5).
+ *
+ * In order: an input; a span to derive from (a surface with no measured box has no footprint);
+ * a present surface; no cost collapse (the root's budget is a degradation to a KNOWN body, and
+ * the law's chain costs more than the one it would replace, unmeasured until G3's bench); the
+ * fold (`cssBodyLawStrengthUnderPolicy`, with `sampled` true because a `backdrop-filter` always
+ * reads the page); and the engine's row — `bodyLawFilterInBackdrop: "yes"` with a reference
+ * filter to carry it, which no row says until Decision Log 4. Only then is anything derived.
+ *
+ * A fractional strength draws the law at full weight: the renderer mixes it over the shipped
+ * body, and a `backdrop-filter` stack has no layer that can read both from the page. Documents
+ * carry 0 or 1; the fraction is a named approximation (`u5_css_algebra.md` §5).
+ */
+function drawnBodyLaw(
+  surface: CssTierSurface,
+  engine: CssTierEngineCapabilities,
+  presence: number,
+  dpr: number,
+): CssTierBodyLawFilter | undefined {
+  const input = surface.bodyLaw;
+  if (input === undefined || surface.spanPx === undefined) return undefined;
+  if (presence <= 0 || surface.collapsed === true) return undefined;
+  const strength = cssBodyLawStrengthUnderPolicy(
+    input.leaves.bodyLawStrength,
+    surface.policy.material,
+    input.variant,
+    true,
+  );
+  if (!(strength > 0)) return undefined;
+  if (engine.bodyLawFilterInBackdrop !== "yes" || !engine.referenceFilterInBackdrop) return undefined;
+  const [width, height] = surface.extentsCssPx ?? [surface.spanPx, surface.spanPx];
+  return cssTierBodyLawFilter(cssTierBodyLaw({
+    leaves: input.leaves,
+    strength,
+    widthCssPx: width,
+    heightCssPx: height,
+    radiusCssPx: surface.radii[0],
+    devicePixelRatio: dpr,
+    landed: cssLandedToneInputs(input.profile, input.variant, Math.min(width, height),
+      surface.policy.material, dpr),
+    response: resolvedBackdropToneResponse(input.profile),
+  }));
+}
+
+/**
+ * L1 under the law: its reference filter and nothing else, at the surface's presence. The
+ * definition is the resting material's, so a presence transit rebuilds nothing, and the
+ * `opacity` mixes toward the raw backdrop, which is the renderer's `mix(backdrop, law body, mat)`
+ * in the page's encoded space (exact at 0 and 1).
+ */
+function bodyLawLayerDeclarations(
+  law: CssTierBodyLawFilter,
+  borderWidth: number,
+  prefix: string,
+  policy: ResolvedAccessibilityPolicy,
+  presence: number | undefined,
+  driven: boolean,
+): StyleDeclarations {
+  const filter = `url(#${bodyLawFilterId(prefix, law)})`;
+  return {
+    ...layerFrame(borderWidth, -3),
+    "backdrop-filter": filter,
+    "-webkit-backdrop-filter": filter,
     ...(presence === undefined ? {} : { opacity: String(Math.round(presence * 1000) / 1000) }),
     transition: transitionFor(policy, ["backdrop-filter"], driven),
   };
