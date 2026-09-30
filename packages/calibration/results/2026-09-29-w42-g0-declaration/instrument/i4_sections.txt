@@ -1,0 +1,31 @@
+W42 G0 instrument, finding I-4: the reader files written by an earlier reader revision, compared on the rows
+summarize_a.py cites (i4_sections.py). Per cited section: rows, rows differing, largest numeric difference.
+  proof1_readers_a.light-rest.all.json
+    esf         16 rows,   0 differ, 0 unmatched, max 0
+    exclusion    9 rows,   0 differ, 0 unmatched, max 0
+    heavy       12 rows,   0 differ, 0 unmatched, max 0
+    linear      14 rows,  14 differ, 0 unmatched, max 48.2 at 1x|bp-p1-c8-capsule-button.model_lin.sw: 59.99997006804931 -> 11.751376572200584; other ['2x|b-p4-c64-rrect-md.mirror_enc.identified: False -> True', '2x|b-p4-c64-rrect-md.mirror_lin.identified: True -> False']
+  proof1_readers_a.light-inactive.all.json
+    esf         14 rows,   0 differ, 0 unmatched, max 0
+    heavy       12 rows,   0 differ, 0 unmatched, max 0
+    linear      14 rows,  14 differ, 0 unmatched, max 48.7 at 1x|bp-p1-c8-capsule-button.model_lin.sw: 59.99999999999999 -> 11.320714719147476; other ['2x|bp-p1-c32-rrect-lg.mirror_enc.identified: True -> False', '2x|bp-p1-c64-rrect-ml.mirror_enc.identified: True -> False']
+  proof1_readers_a.dark-rest.all.json
+    esf         16 rows,   0 differ, 0 unmatched, max 0
+    exclusion    9 rows,   0 differ, 0 unmatched, max 0
+    heavy       12 rows,   0 differ, 0 unmatched, max 0
+    impulse      8 rows,   0 differ, 0 unmatched, max 0
+    linear      14 rows,  14 differ, 0 unmatched, max 49.2 at 1x|bp-p1-c8-capsule-button.model_enc.sw: 11.614988856961519 -> 60.798821483877305; other ['2x|b-p4-c64-rrect-md.mirror_lin.identified: True -> False', '2x|bp-p1-c32-rrect-80.mirror_enc.identified: True -> False']
+  proof1_readers_a.dark-inactive.all.json
+    esf         14 rows,   0 differ, 0 unmatched, max 0
+    heavy       12 rows,   0 differ, 0 unmatched, max 0
+    impulse     10 rows,   0 differ, 0 unmatched, max 0
+    linear      14 rows,  14 differ, 0 unmatched, max 48.7 at 1x|bp-p1-c8-capsule-button.model_lin.sw: 59.99999999996361 -> 11.325800887530635; other ['2x|bp-p1-c32-rrect-lg.mirror_enc.identified: True -> False', '2x|bp-p1-c64-rrect-ml.mirror_enc.identified: True -> False']
+  proof3_readers_a.light-rest.json
+    proof3      30 rows,   0 differ, 0 unmatched, max 0
+  proof3_readers_a.light-inactive.json
+    proof3      25 rows,   0 differ, 0 unmatched, max 0
+  proof3_readers_a.dark-rest.json
+    proof3      24 rows,   0 differ, 0 unmatched, max 0
+  proof3_readers_a.dark-inactive.json
+    proof3      22 rows,   0 differ, 0 unmatched, max 0
+  linear control, calls into the shared blur store while it runs (7efe4ce8 code): light-rest 14 rows / 0 blur / 0 maps, light-inactive 14 rows / 0 blur / 0 maps, dark-rest 14 rows / 0 blur / 0 maps, dark-inactive 14 rows / 0 blur / 0 maps

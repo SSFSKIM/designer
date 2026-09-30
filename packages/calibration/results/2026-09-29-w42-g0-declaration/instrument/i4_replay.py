@@ -244,9 +244,12 @@ TOL_ROUNDING = 1e-3     # codes; see the classification below
 
 def classify(o):
     """EXACT: every compared value within 1e-9 (relative). ROUNDING: every numeric difference at most 1e-3 code
-    (1e-4 in lam), cell counts equal: the size of the store's own width rounding (a blur computed at one width
-    serves every width within 5e-5 device px), which the no-cache control reproduces; a stale blur of another
-    backdrop moves a region statistic by codes. Anything else is MOVED."""
+    (1e-4 in lam), cell counts equal: the fit's own evaluation history. The store's key rounds a width to 1e-4
+    device px, so during a fit a blur computed at one width serves every width within 5e-5 of it, and the values a
+    fit records differ slightly from a fresh evaluation at the same point. i4_fitcontrol.py shows it: a fresh
+    token-keyed fit reproduces two committed rows bit for bit, and its own replay differs from it by the same amount
+    the committed rows do. The replay itself is history-free (the no-cache control equals it exactly). A stale blur
+    of another backdrop moves a region statistic by codes. Anything else is MOVED."""
     if o.get('status') == 'NOT REPLAYABLE':
         return 'NOT REPLAYABLE'
     if not o['diffs']:
@@ -258,6 +261,59 @@ def classify(o):
     if all(abs(v) <= TOL_ROUNDING for k, v in num.items() if k != 'lam') and lam_ok:
         return 'ROUNDING'
     return 'MOVED'
+
+
+# The reader files: a class and a reading for every replayed (root, file), from the per-file diffs and, where the
+# committed file was written by an earlier reader revision, from i4_sections.txt (its cited rows).
+READER_NOTES = {
+    ('9c1623b4-07b45391', 'proof3_readers_b.replica.json'): (
+        'CONTAMINATED', 'the id key served stale blurs (the audit row below); the token file replaced it in c9361e94, '
+                        'the contaminated one is i4_contaminated_proof3_readers_b.replica.json'),
+    ('9c1623b4-07b45391aud', 'proof3_readers_b.replica.json'): (
+        'AUDIT', 'the same section re-run with the ORIGINAL id key and a per-hit source check: 15 hits served a '
+                 'blur of another checkerboard pitch (0.10-1.0 encoded, 25-255 codes) on the checkerboard-8/-32/-64 '
+                 'cells; its output differs from both the record and the token replay'),
+    ('7efe4ce8-07b45391', 'proof1_readers_b.lambda.json'): (
+        'PIN', 'this section ran on 5ba68aeb (66 rows, not 70); superseded by the 5ba68aeb replay, EXACT'),
+    ('7efe4ce8-07b45391', 'proof3_readers_b.step.json'): (
+        'ROUNDING', 'calls identical; <= 2e-5 on every well-conditioned value, 0.46 on an ill-conditioned w of -433'),
+    ('7efe4ce8-07b45391', 'proof3_readers_b.depth.json'): ('ROUNDING', '<= 1.7e-5'),
+    ('7efe4ce8-07b45391', 'proof1_readers_b.depth.json'): ('ROUNDING', '<= 2.1e-6'),
+    ('7efe4ce8-07b45391', 'proof3_readers_b.patch.json'): (
+        'ROUNDING', 'sn / sw move 0.02 % on one flat dark 1x rrect-lg receded fit (w ill-conditioned); two support '
+                    'rankings swap between tied rms values; no gated or scored call changes'),
+    ('7efe4ce8-07b45391', 'proof3_readers_b.patch_given.json'): (
+        'ROUNDING', 'an ill-conditioned narrow share / w (-655 -> -642) on the same flat row; one tie swap'),
+    ('7efe4ce8-07b45391', 'proof1_readers_a.light-rest.mirror,band.json'): (
+        'ROUNDING', 'one interval bound moves 0.003; the record lacks the later pairs_kept key'),
+    ('7efe4ce8-07b45391', 'proof1_readers_a.dark-rest.mirror,band.json'): ('EXACT', 'one inf leaf compares as nan'),
+    ('7efe4ce8-07b45391', 'proof1_readers_a.light-inactive.mirror,band.json'): (
+        'EXACT', 'values exact; the record lacks the later pairs_kept key'),
+}
+for _ep in ('light-rest', 'light-inactive', 'dark-rest', 'dark-inactive'):
+    READER_NOTES[('7efe4ce8-07b45391', f'proof3_readers_a.{_ep}.mirror.json')] = (
+        'EXACT', 'values exact; the record lacks the later pairs_kept key')
+    READER_NOTES[('7efe4ce8-07b45391', f'proof1_readers_a.{_ep}.all.json')] = (
+        'REVISION', 'written by an earlier reader revision; its cited sections are compared in i4_sections.txt')
+    READER_NOTES[('7efe4ce8-07b45391', f'proof3_readers_a.{_ep}.json')] = (
+        'REVISION', 'the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; '
+                    'every cited field replays exactly (i4_sections.txt)')
+READER_NOTES[('7efe4ce8-07b45391', 'proof1_readers_a.light-rest.impulse,band.json')] = (
+    'REVISION', 'its impulse rows replay exactly; its three band rows are from an earlier revision and are replaced '
+                'by the later mirror,band file when cited')
+
+
+def _reader_class(r):
+    note = READER_NOTES.get((r['root'], r['file']))
+    if note:
+        return note
+    clean = not r['differ'] and not r['structure'] and not r['other']
+    return ('EXACT', '') if clean else ('UNREAD', 'no reading recorded for this difference')
+
+
+def _sha(p):
+    import hashlib
+    return hashlib.sha256(open(p, 'rb').read()).hexdigest()[:16] if os.path.exists(p) else 'absent'
 
 
 def report():
@@ -278,22 +334,36 @@ def report():
         o['class'] = classify(o)
         if key in retried and o['root'].endswith('5ba68aeb') and 'n_cells' in o.get('diffs', {}):
             o['class'] = 'SUPERSEDED BY THE 07b45391 RETRY (the row carries no pin and ran on 07b45391)'
-        if key in ctrl:
+        if key in ctrl and ctrl[key]['root'] == o['root']:
             c = ctrl[key]
-            o['control_nocache'] = dict(replayed=c['replayed'],
-                                        vs_recorded=c['diffs'], vs_replay={
-                                            k: (c['replayed'][k] - o['replayed'][k]) for k in o['replayed']
-                                            if isinstance(o['replayed'][k], float)})
+            o['control_nocache'] = dict(replayed=c['replayed'], vs_recorded=c['diffs'], vs_replay={
+                k: (c['replayed'][k] - o['replayed'][k]) for k in o['replayed'] if isinstance(o['replayed'][k], float)})
         rows.append(o)
     rows.sort(key=lambda o: (o['kind'], o['producer'], o['index'], o['root']))
     readers = json.load(open(f'{SCRATCH}/i4-out/readers.json')) if os.path.exists(f'{SCRATCH}/i4-out/readers.json') else []
-    json.dump(dict(rows=rows, readers=readers), open(os.path.join(HERE, 'i4_replay.json'), 'w'), indent=1,
-              default=float)
+    for r in readers:
+        r['class'], r['reading'] = _reader_class(r)
+    fits = []
+    for f in sorted(glob.glob(f'{SCRATCH}/i4-out/fitcontrol-*.json')):
+        d = json.load(open(f))
+        fits.append(dict(name=os.path.basename(f)[:-5], fit=dict((k, d['row'][k]) for k in ('ls_pooled', 's_ls', 's')),
+                         replay_diffs=d['replay']['diffs']))
+    audit = f'{SCRATCH}/i4-out/audit-p3rep.jsonl'
+    au = [json.loads(x) for x in open(audit)] if os.path.exists(audit) else []
+    stale = [a for a in au if a['max_abs_diff'] > 1e-6]   # the rest are one backdrop at a rounded width (<= 2.5e-9)
+    logs = {p: _sha(f'{SCRATCH}/i4-out/{p}') for p in ('audit-p3rep.jsonl', 'readers.log', 'readers.json', 'chain.log')}
+    json.dump(dict(rows=rows, readers=readers, fit_control=fits,
+                   audit=dict(hits_other_source=len(au), stale=len(stale),
+                              stale_cells=sorted({a['cell'] for a in stale}),
+                              max_abs_diff_encoded=max([a['max_abs_diff'] for a in stale] or [0.0])),
+                   logs_sha256_16=logs),
+              open(os.path.join(HERE, 'i4_replay.json'), 'w'), indent=1, default=float)
     from collections import Counter
     L = ['W42 G0 instrument, finding I-4: outputs of the id(cell)-keyed blur store replayed with a never-reused token',
-         '(i4_replay.py, i4_readers.py). Rows: re-evaluated at their RECORDED points, no refit, by the code and bed pin',
-         'that produced them. Classes: EXACT (1e-9 relative); ROUNDING (<= 1e-3 code, lam <= 1e-4: the store\'s own',
-         'width rounding, see the no-cache control); MOVED (anything else).', '']
+         '(i4_replay.py, i4_readers.py, i4_fitcontrol.py, i4_sections.py). Rows: re-evaluated at their RECORDED points,',
+         'no refit, by the code and bed pin that produced them. Classes: EXACT (1e-9 relative); ROUNDING (<= 1e-3 code,',
+         "lam <= 1e-4: the fit's own evaluation history under the store's 1e-4-px width rounding; see classify() and the",
+         'fit control below); MOVED (anything else).', '']
     cnt = Counter((o['kind'], o['class']) for o in rows)
     L.append('summary: ' + '; '.join(f'{k[0]} {k[1]}: {v}' for k, v in sorted(cnt.items())))
     mx = {}
@@ -302,6 +372,14 @@ def report():
             if isinstance(v, float) and 'SUPERSEDED' not in o['class']:
                 mx[k] = max(mx.get(k, 0.0), abs(v))
     L.append('largest |replayed - recorded| over rows not superseded: ' + ', '.join(f'{k} {v:.3g}' for k, v in mx.items()))
+    nc = [o['control_nocache'] for o in rows if 'control_nocache' in o]
+    if nc:
+        L.append(f"no-cache control on {len(nc)} ROUNDING rows: largest |no-cache - replay| "
+                 f"{max(max([abs(v) for v in c['vs_replay'].values()] or [0.0]) for c in nc):.3g} (the replay is history-free)")
+    for f in fits:
+        L.append(f"fit control {f['name']}: a fresh token-keyed fit records ls_pooled {f['fit']['ls_pooled']:.9f} s_ls "
+                 f"{f['fit']['s_ls']:.9f} s {f['fit']['s']:.9f}, bit for bit the committed row's; its own replay differs "
+                 f"by {f['replay_diffs']}")
     L.append('')
     for o in rows:
         d = ', '.join(f'{k} {v:+.3g}' if isinstance(v, float) else f'{k} {v}' for k, v in o.get('diffs', {}).items())
@@ -314,12 +392,18 @@ def report():
     if readers:
         L += ['', 'READERS: regenerated JSON against the committed JSON (numeric leaves; differ = beyond 1e-9 relative)']
         for r in readers:
-            L.append(f"  {r['commit']} {r['file']:44s} {r['n']:6d} numbers, {r['differ']:4d} differ, max {r['max']:.3g}"
-                     + (f" at {r['where']}" if r['where'] else '')
-                     + (f"; structure {r['structure'][:3]}" if r['structure'] else '')
-                     + (f"; other {r['other'][:3]}" if r['other'] else ''))
+            L.append(f"  {r['class']:12s} {r['root']:21s} {r['file']:46s} {r['n']:6d} numbers, {r['differ']:4d} differ, "
+                     f"max {r['max']:.3g}" + (f" at {r['where']}" if r['where'] else ''))
+            if r['reading']:
+                L.append(f"               {r['reading']}")
+    if au:
+        L += ['', f"AUDIT (id key kept, proof3_readers_b replica): {len(au)} hits served an entry stored by a cell of "
+                  f"another fingerprint; {len(stale)} of them a DIFFERENT blur (max {max(a['max_abs_diff'] for a in stale):.3f} "
+                  f"encoded) on {', '.join(sorted({a['cell'] for a in stale}))}; the rest differ only in scheme, pose "
+                  f"or scale over one backdrop, so the blur is the same"]
+    L += ['', 'logs outside git (SHA-256, 16 hex): ' + ', '.join(f'/tmp/w42fix/i4-out/{k} {v}' for k, v in logs.items())]
     open(os.path.join(HERE, 'i4_replay.txt'), 'w').write('\n'.join(L) + '\n')
-    print('\n'.join(L[:8]))
+    print('\n'.join(L[:12]))
 
 
 if __name__ == '__main__':

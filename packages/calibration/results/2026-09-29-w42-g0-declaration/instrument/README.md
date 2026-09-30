@@ -40,7 +40,7 @@ rendered: the instrument is not tuned on the holdout's geometry.
 | `proof2_separation.*`, `proof2_nulls.*`, `proof_common.py` | proof 2 |
 | `refraction_order.py` → `refraction_order.*` | the refraction-order test (the revised ruling 3): v3's two legs (`.v3`), v2's proof per pin, the first statistic's record (`.v1`) |
 | `proof2_bleed_light.*`, `proof2_minimax_check.*`, `rerun_wshape_readers.py` | the fix wave's bounds on the literal bleed in light, the minimax convergence check, the W-shape reader re-runs |
-| `i4_replay.*`, `i4_readers.py`, `i4_fitcontrol.py` | the id(cell)-key replay: every pre-token output re-evaluated with a token (finding I-4) |
+| `i4_replay.*`, `i4_readers.py`, `i4_fitcontrol.py`, `i4_sections.*` | the id(cell)-key replay: every pre-token output re-evaluated with a token (finding I-4) |
 | `FIXES-b151aff4.md` | the fix wave of the review of `b151aff4`: one entry per finding, what changed and what each re-run showed |
 | `proof1_depth_sweeps.py` → `proof1_depth_{n,w}.*` | the active depth sweeps at either mask (descriptive depth reader); `proof1_depth_d34.*` its first run |
 | `proof3_readers_a.*`, `proof3_readers_b.*` | proof 3 |
@@ -311,11 +311,13 @@ constant. At the W support (the fallback) no active fine-pitch cell survives, an
   1.2e-4 code in s), which a fresh token-keyed fit replayed the same way also shows. No proof-2 row moved.
   **One reader output was contaminated**: `proof3_readers_b.replica.json` (`9c1623b4`). Its token-key replay
   differs on the checkerboard-8 / -64 λ rows over rrect-md / ml (a capture rms of 11.18 codes reads 0.77) and
-  on two 1x checkerboard rrect-ml depth rows, and an audit of the same section with the original key logged 24
-  hits whose stored blur came from another checkerboard pitch (up to 255 codes). The token-keyed file replaces
+  on two 1x checkerboard rrect-ml depth rows, and an audit of the same section with the original key logged 15
+  hits whose stored blur came from another checkerboard pitch (25–255 codes). The token-keyed file replaces
   it; the contaminated one is kept as `i4_contaminated_proof3_readers_b.replica.json`. It moved the light
   per-cell λ replica reading from FAIL (14 pass / 1 miss) to PASS (15 / 0) and the light hinge-gap from 0.320
-  (21 misses) to 0.230 (13), still FAIL. The other reader replays are recorded in `FIXES-b151aff4.md`.
+  (21 misses) to 0.230 (13), still FAIL. The other 39 reader files replayed clean: exactly or within the fit's
+  own rounding, and where a file predates a reader revision, on every row `summarize_a.py` cites
+  (`i4_sections.txt`; the one cited section that differs, the linear control, never reads the store).
 - **W-shape's narrow term** followed W onto the shape window (up to 4.6 encoded codes on receded p16 cells at
   μ 4). C now stays on R_fp and only W moves; every W-shape row was re-run (above).
 - **Part D's decimated-blur check** cleared only the cell's own cache after the shared store arrived, so its
