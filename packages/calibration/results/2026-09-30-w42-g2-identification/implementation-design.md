@@ -1,6 +1,7 @@
 # W42 G2 step 3 — the implementation design: LT, both T candidates, D1, D2 and the F extension behind zero gates (2026-09-30)
 
-**Status: DESIGN, for the parent's review. Nothing is implemented, fitted or rendered.**
+**Status: DESIGN, reviewed by the parent; its rulings on the six forks are §9 and the named gaps
+§10. Nothing is fitted or rendered.**
 
 Governed by the charter `docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md` (G2 step 3;
 X35, X36, X40; Decision Logs 3, 4, 5b–5f) and the hashed declaration
@@ -379,9 +380,10 @@ span (clamped to the first and last rows), the piecewise-linear value at the lev
 `bodyToneTableLevels` (held at the ends); linear in span between the rows; then
 y = clamp(f + scale·g(level)·(A − level), 0, 255) with g the E3-form gain over the knots 63, 93,
 118 and E3's clipping order (F clipped, chroma added, channels clipped; `material.ts:2119–2152`).
-The span is `aux.z`, the field's per-pixel span (`wgsl/field.ts:360`). How a sparse stratum
-(three or four ordinates at 128 and 160) and the light schemes' missing 80 row are completed into
-the grid is step 2's output, recorded with the fit; the runtime grid is fixed in shape (Fork 3).
+The span is `aux.z`, the field's per-pixel span (`wgsl/field.ts:360`). How a span between strata
+and a sparse stratum (three or four ordinates at 128, 160 and dark 80) read native T is fixed
+before family A is read by the pre-read addendum (`native-t-addendum.md`; §9, Fork 3): the grid is
+that rule sampled at its knots, and the shader's bilinear read reproduces it exactly.
 
 ### 2.10 Cost
 
@@ -589,7 +591,8 @@ Each is a question the charter and the declaration leave open, with the option t
    variant, as E3 is (`material.ts:2196`); the bed measured regular only. The alternative applies
    the law to the clear variant unmeasured.
 5. **Candidate 1's light-receded chroma vector.** Taken: A − L(A) with g at L(W), which is
-   M_rgb's chroma under the carried per-channel knee (the rehearsal's per-channel candidate 1) and
+   M_rgb's chroma under the carried per-channel knee (`kneeForms`: "per-channel (N and M per
+   channel, chroma argument M_rgb)"; the rehearsal's per-channel candidate 1 followed it) and
    exactly v(W) under knee form 2. The literal reading, v(W) under every knee, would give the
    per-channel knee W's chroma and not its own.
 6. **E3's fold under the law** (§4). Taken: the law's (Increase Contrast alone keeps E3 in the
@@ -597,3 +600,46 @@ Each is a question the charter and the declaration leave open, with the option t
    the law down and E3 is part of that candidate's T. The alternative keeps E3's own fold and
    draws the struck fallback under Increase Contrast.
 
+## 9. Rulings (the parent, 2026-09-30)
+
+The parent read this design at `67e9d784` and accepted all six forks, one on a condition
+(verbatim in `implementation-design-rulings.md`).
+
+1. **Fork 1, ACCEPTED as (a).** D1 and D2 act inside the law only, as plain value drops whose
+   identity is the shipped convention. That matches the rehearsal, where the band's shipped share
+   is the shipped path.
+2. **Fork 2, ACCEPTED.** LT is built with the declared discrete choices that need no new operator.
+   A survivor that needs one is built after step 2 names it.
+3. **Fork 3, ACCEPTED ON A CONDITION**: candidate 2's rules between spans and for a sparse stratum
+   must be what the declared path uses, and where it is silent a pre-read addendum states them
+   before family A is read, with no free parameter, through every measured ordinate, monotone,
+   reducing to the full row where no residual exists, and with the s = 112 reading explicit; no 104
+   row. **Outcome: the declared path is silent on both** (the instrument's `tone.py:8–9` says only
+   that G2 builds `TableT` from the measured ordinates; `memo_c_T`'s snapping and base-plus-residual
+   are memo C's spans and table; the runner forms no T; the rehearsal uses memo C's table). The
+   addendum is `native-t-addendum.md`, with its executable form and self-check in
+   `implementation-design/native_t.py` and `native_t.txt`: full rows at t = 0 and 96, a base linear
+   in t between them, each sparse stratum as base plus its residuals held beyond them (the
+   stand-in's own convention), a monotone guard that never moves a measured ordinate, linear in t
+   between strata, and **T(L, 112) = ½ T₉₆(L) + ½ T₁₂₈(L)**. The parent reviews it before step 2.
+4. **Fork 4, ACCEPTED.** The law stands down on non-regular variants; the clear variant under the
+   law is a named gap (§10).
+5. **Fork 5, ACCEPTED.** The governing text is `kneeForms`' own definition of the per-channel form
+   (chroma argument M_rgb); the rehearsal is corroboration.
+6. **Fork 6, ACCEPTED.** E3 under the law takes the law's fold.
+
+## 10. Named gaps and debt (carried to the tracker at G2's landing)
+
+- **A source whose level 0 is not the device grid** (§2.3): the capture reads level 0 at
+  device-pixel centres, which aliases a minified source, and the chain at a matching lod encodes
+  after a linear prefilter. The canonical and new beds are one texel per device pixel.
+- **Groups sampling through `css-backdrop` on the WebGPU tier.** Verified: the bridge hands the
+  renderer a `backdropSourceId` only when the group's sampling backend is `gpu-texture` and the
+  source has a backdrop (`platform-web/src/renderer-bridge.ts:310–323`), so such a group has no
+  pyramid, the fold's `sampled` is false, and the law cannot run; its body is the proxy's CSS blur
+  under the optics layer (`platform-web/src/root.ts:2569`), which is the CSS tier's carry and
+  Decision Log 4's.
+- **`landed_tone` is a duplicate** of the shipped solve (§2.8), kept textually separate until the
+  goldens can be read on a GPU; it is deduplicated into one function after they pass
+  byte-identical, with the structural pin retired then.
+- **The clear variant under the law** (Fork 4): unmeasured, so the law stands down there.
