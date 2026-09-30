@@ -811,3 +811,45 @@ above 0. This replaces §2.7's "mix before the author tint". U4's CPU reference 
 3. **Knee 1.** It is carried only if step 2 selects it. It then needs a capture that bypasses the
    rgba16float chain, and its tolerance is a flip fraction plus an off-flip bound.
 4. **R4.** The encoded-output delta after the tint on both bodies, as above.
+
+## 12. The parent's rulings on U1/U2 (2026-10-01), and the capture path U3 built
+
+The rulings are kept verbatim in `implementation-design-rulings.md`, which now holds all three of
+the parent's sections: the fork rulings, the dispositions of R1–R6, and these.
+
+1. **The native-T addendum is accepted as written** (`native-t-addendum.md`, SHA-256
+   `23e400bffb923db7c2453c0ed6062a3c4b4217d1217817adb635ef7eb7085362`). Step 2 pins that hash
+   beside the declaration's and cites it wherever native T is read. A decreasing measured ordinate
+   is still a finding for the parent.
+2. **The realisation of §11.1 is accepted**: six interior levels plus the contour level, the
+   oracle's own 12-device-px decimation rule, and a shader-against-oracle tolerance of **0.15
+   code** for knees 0 and 2.
+3. **Formats are accepted**: every tile and A are rgba32float, read by manual bilinear, two targets
+   per pass. The G3 bench reads the cost; if it is prohibitive the formats are revisited on that
+   measurement.
+4. **Built: one capture path for every knee form, reading the source at its own precision.** The
+   bypass was not materially harder than the chain, because the placement mapping it needs is the
+   one the chain already has:
+   - The pyramid's import pass is stretch-fit: level 0 is the source resampled to the plan's
+     extent, and a group's framing is applied later through its `fit` uniform
+     (`pyramid.ts` `runImport`; the silhouette tone and the optics pass read level 0 that way).
+   - When a group sampling the source runs the law, the import writes a **second attachment at
+     level 0**, rgba32float, from the same sample of the source that the chain's level 0 is made
+     from: the source's encoded colour, premultiplied by its alpha, (enc·α, α).
+   - For an 8-bit encoded source with sRGB primaries (every image, gradient and canvas copy), the
+     encoded colour is the sampled value itself, un-premultiplied and clamped as the chain's own
+     decode clamps it. That is the 8-bit value exactly at a texel centre. Any other source is
+     decoded, converted and re-encoded in f32.
+   - The law's capture reads that texture at device-pixel centres by manual bilinear, through the
+     group's `fit` (the silhouette tone's mapping). This is the mirror's `exact8` input wherever
+     the plan's level 0 is the source grid, which it is on both beds.
+   - Where no group runs the law, the import pipeline, its uniform words and the chain are what
+     they were: nothing is allocated, and the second pipeline is never created.
+   - Every tile carries (value·weight, weight), and every read divides by the weight. That is the
+     normalised mode's numerator and weight (`forward.py` `_blur`), and the same straight-colour
+     convention the optics pass applies to the chain. The weight is 1 over an opaque source, which
+     is every cell of both beds.
+   Knee 1's tolerance is therefore a flip fraction plus a 0.15-code bound off the flips, whichever
+   knee step 2 selects.
+5. **The suite timeouts seen under the sitting's load are environmental.** The full suites are
+   re-run at normal load after the sitting and before any merge.
