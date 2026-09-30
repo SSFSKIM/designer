@@ -179,3 +179,74 @@ parent ended that run at 16:14:44Z. At 16:15:01Z it ended every orphaned vitest 
 test processes. Its scan at 16:15:01Z found no vitest, `compare.ts`, launcher or archive-test
 process, and both implementation workers now hold the ban. The census is then rerun as its own
 command, and the launch follows only on a clean read.
+
+**The second pre-check read clean.** The census counted 0 foreign processes and the 2x gate
+passed. Its scan also showed a third, short `vitest run` of named files in the G2 worktree
+(`dark-profile-export`, `digest-supersessions`, `macos27-profile-export`, …), which spawns no
+census-matching process and had finished seconds later. The census was rerun as its own
+command: 0 foreign, no vitest process, the gate passed. The launch followed at 16:16:17Z. The
+parent kept the ban as ruled: named-file runs are allowed, since none of their processes can
+match the census.
+
+## The sitting completed (2026-09-30 22:09:55Z)
+
+Continuation 5 took `2x-light-receded` run 7, then every remaining pass in order, with **no
+further stop**. At 22:09:55Z the orchestrator logged `ALL PASSES DONE`, and at 22:10:01Z it
+restored mode 68 and verified it. The session trace (1,056 reads, 20 s apart) saw no HID input
+from 16:16:17Z to the end; only the harness or Finder was frontmost.
+
+**Every declared launch is admitted** under the hashed declaration (scenes `4aa06af9…`, bed
+`53870f47…`, declaration `f04ae95b…`, no predeclaration), matching `dry-plan.json` run by run:
+
+| Totals | Declared | Admitted |
+| --- | --- | --- |
+| dump launches / scenes | 8 / 447 | 8 / 447, 0 departures |
+| capture launches | 80 | 80 |
+| glass captures | 3,129 | 3,129 |
+| no-glass references (run 1 of each bed pass) | 264 | 264 |
+| sentinel captures | 48 | 48 |
+| captures in all | 3,441 | 3,441 |
+
+| Pass | Runs | Cells (run 1; runs 2–7) | Admitted |
+| --- | --- | --- | --- |
+| 8 dump passes | 1 each | 87, 92, 101, 107; 14, 16, 14, 16 scenes | 11:28:28 – 12:30:54Z (continuation 2) |
+| 2x-light-active | 7 | 133; 87 | 12:31:01 – 14:15:49Z (continuation 2) |
+| 2x-light-receded | 7 | 148; 92 | runs 1–3 by 15:08Z (continuation 2), runs 4–6 15:27:41 – 16:11:42Z (continuation 4), run 7 by 16:30:58Z (continuation 5) |
+| 2x-dark-active / -dark-receded | 7 / 7 | 157; 101 / 175; 107 | 16:30:58 – 20:42:37Z |
+| 2x sentinels (four) | 3 each | 2 | 20:42:37 – 20:49:26Z |
+| 1x-light-active / -light-receded | 7 / 7 | 23; 14 / 26; 16 | 20:49:33 – 21:26:21Z (mode 69) |
+| 1x-dark-active / -dark-receded | 7 / 7 | 23; 14 / 26; 16 | 21:26:21 – 22:03:10Z |
+| 1x sentinels (four) | 3 each | 2 | 22:03:10 – 22:09:55Z |
+
+**Quarantines**, all kept under their own names under `~/vitrea-w42/g1/run`:
+1. `dump-2x-light-active/QUARANTINE-run-1-1790765998327680000`: Universal Control input took the focus (stop 1).
+2. `dump-2x-light-active/QUARANTINE-run-1-1790767520002843000`: the same, with Universal Control reported off (stop 2).
+3. `2x-light-receded/QUARANTINE-run-4-1790781804771531000`: another session's browser automation, counted at the close (stop 3).
+4. `2x-light-receded/QUARANTINE-run-4-1790781952880634000`: the G1 worker's own launching shell, refused at the open (stop 4).
+5. `2x-light-receded/QUARANTINE-run-7-1790784701958598000`: a calibration test suite's stub launch, refused at the open (stop 5).
+
+**Elapsed.** Wall time was 11 h 22 min 9 s (10:47:52Z – 22:10:01Z). Continuation 5 alone ran
+5 h 53 min 44 s. The capture passes ran at the rate `timing.txt` modelled: 2x dark active
+2 h 1.5 min, 2x dark receded 2 h 10.1 min, each set of four sentinels about 6.8 min, and each 1x
+pass 17–20 min.
+
+**State at the close.** Display mode 68, verified. System TCC rows (read-only):
+`dev.vitrea.reference-apple.w39` ScreenCapture auth 2 (2026-09-30 10:44:55Z);
+`dev.vitrea.reference-apple` has no ScreenCapture row, and its Accessibility row is at auth 2;
+`dev.vitrea.tccprobe` auth 0. The raw run root is 166 MB. `freeze.py verify` reads 1,818.
+
+**Not yet done (phase 3, the parent's):** the archive's production, publication and replay;
+the repeat bar; and the restore. For the restore, the user re-adds the original bundle alone.
+Its positive check is compared against both recorded states of the canonical cell, `204f21f0…`
+and `6c15311b…` (`prechecks/README.md`).
+
+**Tracker items from the sitting.** (1) The census matches any process whose command line
+merely names a browser, a capture tool or the harness: a `pgrep` pattern, or a test stub's fake
+launch path. That caused stops 4 and 5. It fails safe, but it is brittle; it could match
+executables rather than whole command lines. (2) The census excludes only the reader's own
+ancestors. The orchestrator detaches with `setsid`, so the shell that launched it is not
+excluded. (3) The orchestrator's per-pass `git add` drops each run's `driver-idle.log`, since
+`*.log` is gitignored. The raw copy stays under the run root for the archive. (4) Universal
+Control input reaches the Mac through a system agent that neither the census nor a
+launch-time idle gate can see. A mid-run focus loss is caught only by the dump check or the
+per-fixture pose attestation.
