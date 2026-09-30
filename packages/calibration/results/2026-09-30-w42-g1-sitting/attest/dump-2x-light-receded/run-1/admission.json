@@ -1,0 +1,37 @@
+{
+  "schema": "w42-dump-admission-2",
+  "admitted": true,
+  "dry": false,
+  "protocol": "dump",
+  "run": 1,
+  "scenes": 92,
+  "departures": 0,
+  "unpredicted": 0,
+  "checkSha256": "9ff6d8f11a01074c8be640fabe6370187df93ce8fde931faba163581e3b042b3",
+  "timing": {
+    "elapsedSeconds": 767.3,
+    "timeoutSeconds": 964,
+    "perSceneSeconds": 8.34,
+    "scenes": 92,
+    "loadAverageAtLaunch": [
+      4.07,
+      4.38,
+      4.88
+    ],
+    "loadAverageAtClose": [
+      4.25,
+      4.08,
+      4.47
+    ]
+  },
+  "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+  "splitSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+  "declaration": {
+    "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+    "splitSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+    "head": "46b539e26b6c2a5a613727adef088b5e0afc53e7",
+    "declarationSha256": "f04ae95b626c7547cc3dbae11e08cb04a89ef642680d0b4f509c6c833633381c"
+  },
+  "pass": "dump-2x-light-receded",
+  "key": "2x-light-receded"
+}
