@@ -364,6 +364,65 @@ const LANDED_BOUND_CODES: Readonly<Record<string, number>> = {
   "receded dark": 28.77,
 };
 
+/**
+ * The landed solve BETWEEN the table's knots (the U3/U4 review's fix wave, item 2). Every tone
+ * table carries one entry per code and the filter interpolates linearly between them, so a blurred
+ * argument between two codes reads the chord. That is harmless where the response is smooth, and
+ * not across W36's black branch, which rejoins the old solve before encoded 0.003 (0.77 code):
+ * a response that moves by tens of codes inside the first code of input cannot be carried by a
+ * chord from code 0 to code 1. The emulator's intermediates are float, as an engine's would have
+ * to be for a fractional code to reach the table at all; an eight-bit chain quantises the argument
+ * to the knots, where the table is exact. Recorded in u5_css_algebra.md §4 as a Decision Log 4
+ * approximation, with these bounds.
+ */
+describe("the landed solve between the table's knots: fractional greys across W36's black join", () => {
+  const endpoints = [
+    ["active light", macos27MaterialProfileDocument.active.light.patch],
+    ["active dark", macos27MaterialProfileDocument.active.dark.patch],
+    ["receded light", macos27MaterialProfileDocument.receded?.light.patch],
+    ["receded dark", macos27MaterialProfileDocument.receded?.dark.patch],
+  ] as const;
+  for (const [name, endpoint] of endpoints) {
+    it(`${name}: the chord's miss below 4 codes and between the knots above, within the record`, () => {
+      const patch = { ...(endpoint ?? {}), bodyLawStrength: 1, bodyLawEncodedAveraging: 1,
+        bodyLawWidthUnit: 1, bodyLawPose: name.startsWith("receded") ? 1 : 0 } as Patch;
+      const filter = filterFor(patch, [200, 96]);
+      const material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch as never);
+      const inputs = cssLandedToneInputs(patch, "regular", 96, NOMINAL_ACCESSIBILITY_POLICY.material, 2);
+      const miss = (code: number): number => {
+        const g = code / 255;
+        const out = emulateBodyLawFilter(filter, {
+          [filter.results.argument]: { rgba: [g, g, g, 1], space: "sRGB" },
+          [filter.results.wide]: { rgba: [g, g, g, 1], space: "sRGB" },
+        }).output;
+        const linear = landedToneLinear([g, g, g], inputs, material);
+        return Math.max(...[0, 1, 2].map((c) => Math.abs(out[c]! - encode(linear[c]!)) * 255));
+      };
+      let black = 0;
+      for (let i = 0; i <= 400; i++) black = Math.max(black, miss(i / 100));
+      let above = 0;
+      for (let k = 4; k < 255; k++) for (const f of [0.25, 0.5, 0.75]) above = Math.max(above, miss(k + f));
+      const bound = FRACTIONAL_GREY_BOUND_CODES[name]!;
+      // A bound a code above each reading, so a tone that moves re-opens the record.
+      expect(black).toBeLessThan(bound.black);
+      expect(black).toBeGreaterThan(bound.black - 1.5);
+      expect(above).toBeLessThan(bound.above);
+    });
+  }
+});
+
+/**
+ * The fractional-grey readings (u5_css_algebra.md §4): below 4 codes, across the black join, one
+ * code above each reading (43.20, 16.03, 53.08 and 200.61, every one between code 0 and code 1);
+ * between the knots above 4 codes, 0.065 at worst, bounded at 0.1.
+ */
+const FRACTIONAL_GREY_BOUND_CODES: Readonly<Record<string, { black: number; above: number }>> = {
+  "active light": { black: 44.2, above: 0.1 },
+  "active dark": { black: 17.03, above: 0.1 },
+  "receded light": { black: 54.09, above: 0.1 },
+  "receded dark": { black: 201.62, above: 0.1 },
+};
+
 describe("the stacked approximation, where no reference filter renders (§5)", () => {
   it("draws N exactly for knee 0 with λ in [0, 1] — a lighten at opacity λ over C", () => {
     for (const hinge of [1, -1] as const) {

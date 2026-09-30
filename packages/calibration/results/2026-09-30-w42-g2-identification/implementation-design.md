@@ -927,3 +927,61 @@ shipped frame's (the same test).
   `unfilterable-float` sample type. Every stage binding here and A's binding at 12 rely on that
   reading of the default-layout rule; it was not checked against the specification's text;
 - the shader-against-oracle tolerance of 0.15 code.
+
+## 14. U6, and the fix wave after the reviews of U1–U5 (2026-10-01)
+
+**U6, the readout.** `GlassGroupState` gains two fields, both absent where the material asks for
+no law, which is every shipped document:
+- `bodyLaw` is the WebGPU tier's reading. The renderer resolves it where the fold is, in
+  `drawGroups`, and exposes it as `GlassRenderer.bodyLawReadout`.
+- `cssBodyLaw` is `cssBody`'s twin, folded to the group's weakest present member. The CSS tier
+  reports `stood-down` while its `bodyLawFilterInBackdrop` row is `"unverified"`, which is every
+  row.
+
+React's structural state equality compares both fields.
+
+**Item 1: M is stored unclipped.** The review found that the composite clipped M to [0, 1] before
+storing A, and that the mirror clipped both its oracle and its simulation, so it could not see the
+clip. The declared oracle does not clip there:
+- `forward.py:527` returns `T(255 * M)` with M unclipped, and T (`tone.py:70–71`) holds its table's
+  ends;
+- the rehearsal's argument is unclipped (`body.py:706`, `713`);
+- each tone clips where its own gamut step does. The landed solve clips each channel and,
+  separately, the luma (`body.py:513`, `515`, through `dec` at `69–71`). E3 clips F, adds the
+  argument's chroma, and clips the channels (`body.py:550`, `573`; `swap.py:219`, `233`).
+
+The fix, file by file:
+- `wgsl/body-law.ts` stores `vec4f(M, law_luma(W))`. The optics pass's tones already clip where
+  the oracle's do, and their CPU references (`landedToneLinear`, `bodyLawE3Codes`,
+  `bodyToneTableCodesAt`) never clipped their argument.
+- `u2_mirror.py` no longer clips M on either side. Rerun as `u2_mirror-unclipped.txt`, it matches
+  `u2_mirror.txt` line for line except the run time: no budget figure of §11.1 moves on the bed's
+  population, so 0.15 code stands.
+- `u4_out_of_range.py` writes `fixtures/out-of-range.json`, and `test/w42-out-of-range.test.ts`
+  holds the CPU references to it. The fixture has the 226 composite cases of `composite.json`'s
+  generator whose M leaves [0, 1] (all three knees; M from −0.236 to 1.371), each through the
+  landed solve at every endpoint, E3 with the F extension, and candidate 2's table.
+- A constant-128 table shows what the clip cost: up to **45.75 codes** at span 96, median 6.39.
+
+**Item 2** is recorded in `u5_css_algebra.md` §4. Between the tone tables' knots the filter reads
+a chord. Above 4 codes that is within 0.065 code. Across W36's black join the chord misses by
+43.2, 16.0, 53.1 and 200.6 codes on the four endpoints, each between code 0 and code 1. It is a
+Decision Log 4 approximation, pinned by `test/w42-css-filter-algebra.test.ts`, and the engine row
+stays `"unverified"`.
+
+**A finding for the parent from item 2: the landed solve's response between codes 0 and 1.**
+Candidate 1's landed solve, evaluated per pixel, is sharply non-monotone below the join on a
+uniform backdrop:
+- receded dark: 20.0 at code 0, 215.9 at code 0.60, 12.4 at code 1, 0.2 at code 1.05;
+- active light: 132.0, 177.0 at code 0.60, 135.2 at code 1.
+
+This is the declared construction: the rehearsal's `landed_T` reproduces it, and U1's fixture pins
+it to 1e-12 on encoded 0.0005 to 0.003. §2.8 carried W36's branch "as it is" and called the
+result a dip. At these magnitudes it is more than a dip.
+
+The WebGPU tier evaluates A at f32. A blurred near-black argument there (the dark squares of a
+checkerboard beside a light edge, a dark photo) lands inside the first code and draws the spike.
+The mirror's 0.15-code budget does not show it, because it compares the implementation to the
+oracle at the same argument. The rehearsal's `mono_black` was the device for exactly this, and
+it was declined as not declared (§2.8). Whether step 2 reads candidate 1 through it as declared,
+or a declaration amends the region below the join, is the parent's decision.

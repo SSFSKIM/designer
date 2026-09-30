@@ -83,7 +83,8 @@ the offset.
 
 Built as §5 proposed: F per channel is the solve on the grey at each encoded level, and G is the
 least-squares chroma gain of the solve's encoded response along the three luma-preserving chroma
-directions, by central differences of four codes. Exact on the greys (1e-3 code). On the 6³ grid
+directions, by central differences of four codes. Exact on the greys AT THE TABLE'S KNOTS (1e-3
+code; see "Between the knots" below for what it is not). On the 6³ grid
 of encoded colours at span 96, dpr 2, worst code error (and worst over the grid's colours with
 encoded chroma spread ≤ 0.2):
 
@@ -116,6 +117,42 @@ toward-term, and the eight-bit chain may not hold it. The silhouette abscissa (t
 documents) reads two scalars, L_enc(A) for the solve and L_lin for the composite, and has no
 one-dimensional exact form. Recommended as the landed route Decision Log 4 measures beside this
 one; not built here because it changes the design's §5 route.
+
+**Between the knots, near black: a Decision Log 4 approximation** (the U3/U4 review's fix wave,
+item 2). Every tone table has one entry per code, and `feComponentTransfer` reads the chord between
+two entries. A blurred argument lands between codes. Wherever the response is smooth the chord is
+close. Above 4 codes it is within 0.065 code at worst on all four endpoints (quarter, half and
+three-quarter codes, span 96, dpr 2).
+
+Across W36's black join it is not. The join rejoins the old solve before encoded 0.003 (0.77
+code), and the landed solve per pixel is sharply non-monotone inside the first code:
+- active light rises from 132.0 at code 0 to 177.0 at code 0.60 and falls back to 135.2 at code 1;
+- receded dark rises from 20.0 to 215.9 at code 0.60, falls to 12.4 at code 1 and to 0.2 at code
+  1.05.
+
+The chord from code 0 to code 1 misses the peak, by these amounts:
+
+| endpoint | worst miss below 4 codes |
+| --- | --- |
+| active light | 43.20 codes |
+| active dark | 16.03 codes |
+| receded light, landed at E3 = 0 | 53.08 codes |
+| receded dark | 200.61 codes |
+
+Every worst is between code 0 and code 1. The 43.2 is the review's reading at encoded 0.59/255.
+`test/w42-css-filter-algebra.test.ts` pins each one code above its reading, and bounds the region
+above 4 codes at 0.1.
+
+A refinement would take a second transfer stage per tone table: one to stretch the first codes,
+one to read a denser table in the stretched variable. That is only meaningful where the engine's
+intermediates carry sub-code levels, and an eight-bit chain (§6) quantises the argument to the
+knots, where the table is exact. It is not built. What an engine does between the knots is
+Decision Log 4's reading.
+
+The spike itself is not the filter's. It is the declared candidate 1's landed solve on a uniform
+backdrop between codes 0 and 1, which the rehearsal's `landed_T` reproduces (U1's landed fixture
+pins it to 1e-12 at encoded 0.0005 to 0.003). The WebGPU tier draws it at f32 too
+(`implementation-design.md` §14).
 
 ## 5. What the CSS route does not carry (named gaps; each is Decision Log 4's or U6's)
 
