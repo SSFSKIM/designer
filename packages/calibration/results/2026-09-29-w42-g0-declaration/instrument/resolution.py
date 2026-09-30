@@ -39,11 +39,18 @@ SEPARATORS = {
         "narrow support on the final bed, with B's P5 / P3 on rrect-lg in, the whole-bed re-read reads 0.54-0.57; "
         'at the W support (the fallback) 0.14. Dark separates it under both masks (7.0-7.3 narrow, 1.42-1.50 W).'),
     ('LT', 'LT+bleed-own', 'rest'): (
-        'In light the declared bleed weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): '
-        '0.02 on md to 0.09 on rrect-lg), so with its radius free the bleed nearly vanishes into LT (1.28 on the '
-        'whole final bed); in dark (beta up to 0.6) it cannot (16.4). The reverse, LT+bleed-own -> LT, is '
-        'distinguished in both schemes (2.35 light, 22.1 dark): a true light bleed is caught, a light LT truth '
-        'leaves the free-radius bleed marginally alive, and the tie-break (parameter count) keeps LT.'),
+        "The bleed's NORMAL VARIANT (a stated variant since the review of b151aff4: Normal mix, pre-T, whole shape, "
+        'affine absorbed). Its light weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): '
+        '0.02 on md to 0.09 on rrect-lg), so with its radius free it nearly vanishes into LT (1.28 on the whole '
+        'final bed; the minimax search continued at three times the budget stays at 1.279); in dark (beta up to '
+        '0.6) it cannot (16.4). The reverse is distinguished (2.35 light, 22.1 dark); the tie-break keeps LT. The '
+        "DECLARED dump-literal form is separated in dark (5.5-11.0) and moves no light pixel (see its rows)."),
+    ('bleed-lit', 'light', 'rest'): (
+        "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 "
+        'inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the '
+        'bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the '
+        "truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: "
+        'under the literal reading the bleed cannot be light-active U7\'s cause.'),
     ('W-canvas', 'W-shape', 'inactive'): (
         'Not a separation failure: W-shape with a large margin contains the canvas support at every readable '
         'pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).'),
