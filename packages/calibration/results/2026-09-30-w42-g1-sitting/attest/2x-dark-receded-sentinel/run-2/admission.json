@@ -1,0 +1,34 @@
+{
+  "schema": "w42-run-admission-2",
+  "admitted": true,
+  "dry": false,
+  "protocol": "long",
+  "captureProtocol": {
+    "initialSettleSeconds": 8.0,
+    "orderSeed": 4242,
+    "resetInterstitialSeconds": 6.0,
+    "resetCarriesGlass": false,
+    "minIdleSeconds": 60.0
+  },
+  "cells": 2,
+  "manifestSha256": "4fb6bd37d26b8274481c79303f15a84b96751622b8b4d93400c7a4a7ced018d7",
+  "run": 2,
+  "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+  "splitSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+  "declaration": {
+    "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+    "splitSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+    "head": "f96531d7843ee95d78f45fdf4330c407f0ecfd53",
+    "declarationSha256": "f04ae95b626c7547cc3dbae11e08cb04a89ef642680d0b4f509c6c833633381c"
+  },
+  "frames": {
+    "apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__inactive": "1c1f0841475006e15bd9bbcb2d5654ad834c4cc0990e69e34f56ec771702d4d7",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/f-impulse-rrect-md__inactive": "440474b42328312e5871146bc5ee4b9a1b2125b76568486a0101c32211c17c6b"
+  },
+  "holdoutFrames": {
+    "count": 0,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "pass": "2x-dark-receded-sentinel",
+  "key": "2x-dark-receded"
+}
