@@ -42114,16 +42114,22 @@ After the review's fix waves (merged at `53400aa5`):
   3,441 captures, 10.31 h, runner scope 423 with 40 H); the four dump-literal bleed forms; v3's
   S1 and S2 bars; each P* from the proof's own output; and the three named-miss anchors the
   owner runner reads.
-- **`refractionOrderNoCall` was ruled** on 2026-09-30 (Decision Log 5f). The declaration is
-  still not hashed. The hash waits for the commits the parent is merging, then the final fold,
-  re-pin and hash:
-  - the instrument's correction (`c9361e94` and later), which shows the old key did contaminate
-    `proof3_readers_b.replica.json`;
-  - the remaining reader replays;
-  - a second bed fix round.
+- **`refractionOrderNoCall` was ruled** on 2026-09-30 (Decision Log 5f).
+- **The final fold (2026-09-30).** The bed's verification round, the instrument's correction and
+  the I-4 report were folded in and re-pinned: 92 sources, the charter at `c4730b9d`, committed at
+  `5334c509`. **The declaration was then hashed: `declaration.json` SHA-256
+  `f04ae95b626c7547cc3dbae11e08cb04a89ef642680d0b4f509c6c833633381c`** (`2ecd3c48`), and
+  `closure.json` `cca11cb5…`. Both are pinned in `production-pin.json`, whose archive inventory
+  pin G1 fills.
+- **The sitting's pin check** (`sitting.py pin-check`, `W42_PREDECLARATION` unset) passes
+  against the hashed declaration: scenes `4aa06af9…`, bed `53870f47…`, declaration `f04ae95b…`
+  (`pin-check.txt`).
+- **No native pixel of the new bed exists before the hash** (charter clause 1).
 
 Reruns at `53400aa5` with the fold, on a quieter machine (load average about 7). There were no
-timeouts this time:
+timeouts this time, and the same results held at the final fold (`5334c509`): sitting 40,
+archive 15 and runner 37 OK; adopted-thresholds 108 passed, 1 skipped; calibration 777 passed,
+1 skipped; freeze 1,818. The earlier reruns read:
 - **The calibration suite:** 777 passed, 1 skipped, across 60 files.
 - **`adopted-thresholds.test.ts`:** 108 passed, 1 skipped (X1, no capture tree in a worktree).
 - **The bed's sitting, archive and runner suites:** 38, 13 and 34 tests, all OK.
