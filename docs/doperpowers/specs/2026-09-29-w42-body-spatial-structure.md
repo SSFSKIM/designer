@@ -142,7 +142,11 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
      active, 91 dark active, 86 light receded and 89 dark receded, and 15 per 1x pass (Design,
      "The bed"); **seven runs** (Decision Log 2, RULED); the declared no-glass references and
      sentinels. `dump-layers` over the whole
-     declared bed is the sitting's first step: it needs no grant, only the idle Mac.
+     declared bed is the sitting's first step: it needs no grant, only the idle Mac. *G0 (the
+     bed review's b1, 2026-09-30): the cells no active reader reads are captured receded only.
+     For the charter's own bed the active 2x passes then hold 80 light and 83 dark cells and the
+     1x active passes 14; the bed G0 declares, with its rulings' additions, is 447 cell-passes
+     (Design, "The bed").*
    - *Bar:* on every capture, the four X6 facts (Reduce Transparency 0, Increase Contrast 0,
      `NSGlassTintAmount` 0.5, zero foreign browser or capture processes after the measured idle
      window) and W34 X4's native set (build 26A428, `ButtonShapesEnabled` 0, Show Borders 0,
@@ -273,7 +277,10 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
     - *Bar:* no byte moves; the freeze reads 1,818 at every merge. The one ruled exception is
       G0's M2 named-miss derivation beside `chromaStructureMisses()` in
       `adopted-thresholds.test.ts`, pinned by an owner case, with the 2 % unmoved (Decision Log
-      5a). Operators added in G2 sit at their identity behind zero gates, appended to the
+      5a). *Since the review of G0 (the parent's A1, 2026-09-30) the exception covers two
+      derivations: M2's and L1 growth's named misses (Decision Log 5d's four cell-profiles,
+      `GROWTH_RULED`), each pinned by an owner case, with the bounds unmoved.* Operators added
+      in G2 sit at their identity behind zero gates, appended to the
       identity table, so no document digest moves and the goldens stay byte-identical.
     - *Stop:* a protected byte that moves stops the merge.
 13. **The landing (G3), on Decision Log 1's terms.**
@@ -624,6 +631,12 @@ Backdrop and position switch no declared input, so no family is stratified by ba
 | F — bridges: canonical checker-16 rrect-md, impulse rrect-md, photo rrect-md; probe checker-64 rrect-lg | 4 | the bar across sittings only (not under clause 6) |
 | H — the structured holdout, declared before fitting | 8 | referee |
 
+*G0 (the bed review's b1, 2026-09-30): the active passes no longer capture the cells no active
+reader reads (C's 4-pt patches and capsule S 16, D's outside steps), which stay receded. For this
+table's bed that is 80 light active and 83 dark active (C 9, D 7 active; receded unchanged), and
+the 1x edge strip is receded only (1x active 14, receded 15, plus the s = 32 row, 16). The bed G0
+declares, with the additions its rulings made, is 447 cell-passes (ledger §5.194 §2).*
+
 Per 2x pass: **88 light active, 91 dark active, 86 light receded, 89 dark receded**. Against v2's
 86 / 82: B' +2 active and +1 receded (rrect-lg); A +3 in both dark passes (rrect-80); D +3 in
 both receded passes (δ 12 restored). Memo E's other Q4 rows were already in v2's bed: C's S 32 and
@@ -671,7 +684,9 @@ each no-glass reference; 16.3 s per sentinel; 13 s per run; 25 s per pass):
   354 + 60 = 414 scene-dumps ≈ 3,450 s ≈ 1.0 h, no grant needed.
 
 The total, about 10.1 h, is over Decision Log 2's "about 8 h"; the parent tells the user the net
-length at the "tell me first" moment (Decision Log 6), with seven runs standing.
+length at the "tell me first" moment (Decision Log 6), with seven runs standing. *G0 measured the
+declared bed from W39 G1's and memo D's real timings: 9.25 h of capture plus 1.02 h of dumps,
+about 10.31 h (3,441 captures in 80 launches, 447 dump scenes in 8).*
 
 ### Memo D's answers to v1's pending points (folded at v2; point 2 settled by memo E at v2.1)
 
@@ -815,7 +830,10 @@ tooling is ready and the sitting's net length (Decision Log 6, RULED).
   `dump-layers` on it and found its build inputs byte-identical to HEAD's `apps/reference-apple/
   Sources`. It was retired at W39's close with no TCC row (W39 Decision Log 4).
 - **First, `dump-layers` over the declared bed**, while the Mac is idle and before any grant
-  switch; every dump must read memo D's declared configuration (clause 4).
+  switch; every dump must read memo D's declared configuration (clause 4). *Amended at G0 (the
+  bed review's b5, 2026-09-30): the dumps need no grant and run as the sitting's first phase
+  after the user's one switch, Decision Log 6's single departure; `STOP_AFTER=dumps` runs them
+  alone.*
 - **The grant, by the user's hand.** One Screen Recording grant holds at a time on this machine
   (W34 Decision Log 4; W39 Decision Log 4). The user adds the side bundle under Screen & System
   Audio Recording and lifts X5 for the W42 bed; the parent reads the grant back from the system
@@ -826,7 +844,8 @@ tooling is ready and the sitting's net length (Decision Log 6, RULED).
 - **The passes:** 1x and 2x × light and dark × active and inactive, seven runs each, sentinels
   after, every capture attested (clause 4), quarantines named.
 - **About 8.7 h of capture at seven runs (about 9.2 h at the Mac), plus about 1.0 h of dumps**,
-  in one sitting while the user leaves the Mac idle.
+  in one sitting while the user leaves the Mac idle. *As G0 declares the bed: about 10.31 h (9.25
+  capture + 1.02 dumps).*
 - **The archive** produced, pinned and published as a release asset by SHA-256 with the ledger
   citation; the bar published from the archive before plurality; replay proved with the raw root
   denied; the operational logs and dumps inside the archive, not in git. Nothing is read against
@@ -1071,6 +1090,14 @@ is M2's existing recorded-miss path. A cell that moves away from Apple, or past 
 2%, fails."** Implemented in G0 as a named-miss derivation beside `chromaStructureMisses()`,
 pinned by an owner case, the 2 % tolerance unmoved.
 
+*The parent's reading of these words (the gate review's G7, 2026-09-30):* "past it by more than
+2%" is read against Apple's own value, |w − n| / n. So a cell within 2 % of Apple counts as not
+past it even where the reference was closer: r 0.0200, n 0.0201, w 0.0205 is named at 1.99 % past
+n. Two seeds in the owner case pin that clause. *And what M2 can see on this bed (G3):* Apple's
+interior structure exceeds vitrea's on all 26 M2 cells, at 1.25 to 4.6 times, so under this
+ruling M2 fails only on FLATTENING. Wrong ADDED texture is caught by Stop P and the eye sheets,
+not by M2.
+
 #### 5b — the rendered bar and the native-T candidate (before G0; the user's)
 
 Put to the user on the review's B1: the rendered candidate cannot meet one code against Apple
@@ -1105,9 +1132,14 @@ every endpoint. The question: whether candidate 2 carries W41 G1's E3-form g in 
 endpoints, re-fitted and checked on the new bed's colour cells.
 
 **RULED 2026-09-30 by the user: "Yes, add it."** Candidate 2 carries W41 G1's E3-form g in all
-four endpoints, re-fitted and checked on the new bed's colour cells. The declaration counts it:
-3 parameters per endpoint beside candidate 2's ordinates (G0 declaration, item
+four endpoints, re-fitted and checked on the new bed's colour cells (G0 declaration, item
 `candidate2Chroma`).
+
+*The parent's reading of "re-fitted and checked on the new capture's colour cells" (A3,
+2026-09-30):* family E sits at one luma (isoluminant at Rec.709 128), so it cannot re-identify
+g's three knots. Candidate 2's g is therefore W41 G1's fitted curve (the W39 archive, 102 uniform
+colour cells per endpoint) times ONE per-endpoint scale. The scale is re-fitted on family E's
+calibration cells and checked on its validation cells: 1 parameter per endpoint, not 3.
 
 #### 5d — L1 on the tinted receded cells (G0, from the rehearsal; the user's)
 
@@ -1198,19 +1230,19 @@ X5 by their own hand, and restores both after the sitting.
 - 2026-09-30 (G0 integration, ledger §5.194; the charter's text is unchanged). The bed,
   instrument and gate streams were merged into `w42-g0-declaration`, and the declaration was
   assembled in `results/2026-09-29-w42-g0-declaration/declaration.json`, with `declaration.md`
-  as its readable twin. It holds 30 items and pins every source file it points at. It is **not
-  hashed**: the hash follows the independent review and its fixes.
+  as its readable twin. It holds 31 items and pins every source file it points at. It is **not
+  hashed**: one item waits on the user again (below).
   - **The three items that waited on the user were RULED on 2026-09-30** (Decision Logs 5c,
     5d, 5e above): candidate 2 carries W41 G1's E3-form g ("Yes, add it."); the tinted receded
     cells are named misses and the tint layer is deferred ("Named misses."); the band is eased in
     with coverage × smoothstep(0, 20 pt, depth), and E2 reads per cell in absolute codes with its
     worse bins listed ("Per cell, list the worse ones."). Clause 10 carries a pointer to 5d and
     5e, and the Deferred list gains the tint layer.
-  - **The bed's growth.** It grew from the charter's 414 glass cell-passes to 465, and the
-    sitting from about 10.1 h to about 10.73 h (9.63 h of capture, 1.06 h of dumps). Three sets
-    were added: the s = 32 receded rows, the parent's ruling from the rehearsal; the
-    separation-proof cells; and ruling 3's active guard rows. H keeps the unseen s = 112, which
-    the side bundle accepts with no rebuild.
+  - **The bed's growth.** It grew from the charter's 414 glass cell-passes to 465 (the s = 32
+    receded rows, the separation-proof cells and ruling 3's active guard rows). Then the bed
+    review's b1 took the 18 active cell-passes no active reader reads to the receded passes only,
+    leaving **447**. The sitting is about **10.31 h** (9.25 h of capture, 1.02 h of dumps). H
+    keeps the unseen s = 112, which the side bundle accepts with no rebuild.
   - **The parent's rulings in G0** (§5.194 §8):
     - the 1x rrect-lg substitution and the rrect-lg centre grid, both accepted;
     - L1 read as written, so candidate 1 does not land in light active;
@@ -1234,6 +1266,30 @@ X5 by their own hand, and restores both after the sitting.
       red / green proof.
     - Stale prose fixed in three stream files. `bed.json` stays byte-identical, because the split
       binds it, and its stale phrase is in the declaration's errata.
+  - **The independent review of `b151aff4` and its three fix waves** (merged at `53400aa5`; each
+    stream's `FIXES-b151aff4.md`; ledger §5.194), folded here:
+    - **The bed.** b1's active drops (the counts above; clause 4 and Design, "The bed", carry
+      the note); b5's amendment of G1's dumps, run after the user's one switch; the sitting's
+      pin check, detached orchestrator, PNG binding and H-manifest guard; b8's two near-twin
+      rulings, recorded beside the split; b9's cross-checkout claim on the exposure.
+    - **The gate.**
+      - G3 and G7 beside Decision Log 5a.
+      - A1: L1 growth's named-miss path, which clause 12's exception now covers.
+      - The owner runner's seal edits: closures, re-records, never an addition.
+      - Stop H's floor statistic, which adds a near-bound [HF] cell under candidate 2 inside the
+        active swap's unmeasured error.
+    - **The instrument.**
+      - The refraction-order test is **v3**: S1 and S2, admitted only below P* against the
+        specificity leg. S2 is admitted in light only below 2.29, and dark active is
+        undecidable unless the surviving family fits Apple's active cells below about 1.1
+        codes. The rule for what G2 does when no call can be made is **PENDING (user)**
+        (declaration item `refractionOrderNoCall`).
+      - The unit nulls, R2 and the light-active mixture are not refused by their declared bars,
+        so they are non-identifiable here, and the 1x pass decides units.
+      - The dump-literal bleed is the declared form, with the Normal form as a stated variant;
+        the literal light bleed is inert, so it is not U7's cause.
+    - **A3** beside Decision Log 5c: candidate 2's g is W41 G1's curve times one per-endpoint
+      scale, 1 parameter.
 - 2026-09-29 (v2.1, drafted for the parent). Folds:
   - **memo E** (`w42-grounding-refit.txt`), the literal tree re-fitted on memo C's cells: all
     thirteen "pending memo E" marks resolved (Design, "Memo E's answers").
