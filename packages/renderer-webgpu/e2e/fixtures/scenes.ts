@@ -30,6 +30,11 @@ export type BackdropSpec =
       readonly live?: boolean;
     }
   | { readonly kind: "flat"; readonly luminance: number }
+  /**
+   * An explicit 8-bit sRGB raster, RGBA, base64 (W42 G2 U7): a backdrop another tool rendered —
+   * the instrument's own backgrounds, so the law's render and `forward.py` read one image.
+   */
+  | { readonly kind: "pixels"; readonly width: number; readonly height: number; readonly rgba: string }
   | { readonly kind: "gradient"; readonly from: readonly [number, number, number]; readonly to: readonly [number, number, number] };
 
 export interface Scene {

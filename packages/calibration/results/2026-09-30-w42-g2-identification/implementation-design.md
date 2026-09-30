@@ -1037,3 +1037,95 @@ magnitudes: active light 132 → 177 → 135.2 was read correctly.
 
 The dip above the end remains the named black-level miss. For example, dark receded falls from
 39.9 at code 0.7 (bridged) through 36.2 at 0.8 to 0.7 at code 1.
+
+## 16. U7 and the runtime-base proof, after the sitting (2026-10-01)
+
+All of this ran on `apple/metal-3`, an Apple M2 Pro, with Chromium 151.0.7922.34 for everything
+browser-side. The branch was at `2ce1c2d5` plus this section's e2e additions.
+
+**The full suites, at normal load.** `pnpm -r build`, `pnpm -r lint`, root `eslint .` and
+`pnpm -r test` all exit 0:
+
+| package | tests |
+| --- | --- |
+| renderer-webgpu | 823 |
+| core | 304 |
+| platform-web | 668 |
+| react | 180 |
+| calibration (whole suite) | 815, 1 skipped |
+| demo | 110 |
+| geometry | 170 |
+| motion | 164 |
+| policy | 23 |
+
+**Goldens and GPU suites.** `test:golden` passes 34/34: byte-identical at identity, with the
+isolation spec's pinned hashes unmoved. The renderer's `test:gpu` passes 49/49 and platform-web's
+`test:e2e:gpu` 9/9.
+
+**The compute proof.** `implementation-design/u7_compute_proof.py`, with its output
+`u7_compute_proof.json`, follows W41's `e3-gpu-proof.py` pattern: native Metal through wgpu-py, no
+browser. The runtime's WGSL functions are extracted unchanged and run over 6,844 cases against
+the declared numpy oracles:
+
+| function | worst error (codes) |
+| --- | --- |
+| amended landed tone, and the unamended solve (all four endpoints, four sizeKs) | 1.7e-4 |
+| E3 with the F extension | 3.4e-5 |
+| candidate 2's table on the addendum's grid | 3.4e-5 |
+| the body's precedence and fractional mixes | 4.3e-5 |
+
+The arguments cover the black-join interval, near-black chromatics and out-of-range values. The
+complete optics module also compiles.
+
+**The rendered agreement with the law on.** `implementation-design/u7_rendered.py`, with
+`e2e/gpu/w42-body-law.spec.ts` and output `u7_rendered.json`. The render is on the adapter into
+rgba32float (the harness requests `float32-blendable` where offered). There are 96 cells:
+- four grey instrument backdrops;
+- capsule, rrect-md and rrect-lg;
+- both poses, both scales and both schemes;
+- a known monotone T, given as candidate 2's table;
+- 400 deep-interior samples per cell.
+
+Against the composite over the exact per-pixel Gaussians, the render is within **0.040 code** at
+worst, well inside the 0.15-code budget. Against `forward.py`'s own output, 95 cells are within
+0.098 code. One cell, impulse rrect-md active 1x light, reads 0.181 at one pixel. There the render
+is 0.006 code from the exact Gaussian and `forward.py` is 0.175 from it: `narrow_map`'s linear
+interpolation between its own narrow levels misses at an impulse, not the runtime.
+
+**Uniform invariance on rendered cells.** 16 cells cover four uniform backdrops, the chromatic one
+included, both poses and both scales. With an identity T, the rendered body equals the backdrop to
+**1.8e-4 code**.
+
+**`layout: "auto"` on the adapter.** 112 renders with the law on, and every other GPU suite,
+reported no WebGPU error. A `float` sample type would fail validation at bind-group creation for
+the rgba32float tiles and A, so the default layout gives them `unfilterable-float` on this
+adapter. No explicit layouts are needed.
+
+**The bench.** `e2e/bench/budget.spec.ts` gained three law-on rows; output in `u7_bench.txt`, from
+three runs of 60 interleaved rounds. The scene's backdrop is dirty every frame, so the stage
+rebuilds on all 8 surfaces every frame. That is the worst case: a live video behind the glass.
+
+| row | wall-clock median per frame |
+| --- | --- |
+| mobile 390×844@3 base | 2.3–2.6 ms |
+| mobile, law active | 13.6–15.2 ms |
+| mobile, law receded | 7.2–8.8 ms |
+| desktop 1440×900@2 base | 2.4–2.7 ms |
+| desktop, law active | 17.4–18.8 ms |
+
+The timestamp-query sums for the law rows (176–193 ms, `body-law` 147–159 ms) cannot be read on
+this adapter. The highlight pass, which the law does not touch, reads 12.8 ms in those rows
+against 0.9 ms in the base row, so the timestamps absorb queueing once about 130 more passes run
+per frame. The wall-clock is the reading.
+
+So on a live backdrop the law costs about +11–16 ms a frame at 8 surfaces, an order of magnitude
+past §2.10's estimate and far past the 2 ms envelope. A static backdrop rebuilds nothing after its
+first frame. This is the measurement the ruling on formats asked for (§12 item 3), and it goes to
+the parent and G3.
+
+**The runtime-base proof, clause 8.** The main checkout's gitignored tree was only read. On it,
+`check-capture-tree` exits 0: 1,900 captures, 1,893 matching, 0 mismatched, 7 with no row. The 40
+WebGPU cells of `bed/runtime-base-sample.json`, re-rendered with the shipped documents at this
+branch through `capture-web.ts` into scratch, are **40/40 PNG byte-identical** to the tree
+(`u7_runtime_base.json`). The engine is 151.0.7922.34, as the tree's cells record, on
+`apple/metal-3`, and nothing fell back to the CSS tier.
