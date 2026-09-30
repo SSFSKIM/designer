@@ -109,13 +109,13 @@ the region ranking (max |median| misfit over the step populations) beside it.
   light-inactive  LT        free  truth box/norm     call None         gap 0.002 PASS | sw@true 16.29/16.28 PASS | region rank ['box/norm', 'box/clamp'] gap 0.16 | lam 0.799 kn 2.037
   light-inactive  W-canvas  given truth canvas/clamp call canvas/clamp gap 0.117 PASS | sw@true 16.28/16.28 PASS | region rank ['canvas/clamp', 'shape/norm'] gap 2.87 | lam 0.800 kn 2.035
   light-inactive  edge-swap given truth box/clamp    call None         gap 0.001 PASS | sw@true 16.28/16.28 PASS | region rank ['box/clamp', 'shape/norm'] gap 0.01 | lam 0.800 kn 2.035
-  light-inactive  W-shape   given truth shape/norm   call None         gap 0.000 PASS | sw@true 16.28/16.28 PASS | region rank ['shape/norm', 'box/norm'] gap 0.07 | lam 0.800 kn 2.035
   light-rest      LT        given truth box/clamp    call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
   light-rest      W-canvas  given truth canvas/clamp call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
   light-rest      edge-swap given truth box/norm     call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
   dark-inactive   LT        given truth box/norm     call None         gap 0.000 PASS | sw@true 16.59/16.59 PASS | region rank ['shape/norm', 'box/norm'] gap 0.02 | lam 0.800 kn 2.074
   dark-inactive   edge-swap given truth box/clamp    call None         gap 0.002 PASS | sw@true 16.59/16.59 PASS | region rank ['box/clamp', 'shape/norm'] gap 0.01 | lam 0.800 kn 2.074
   dark-rest       LT        given truth box/clamp    call None         gap 0.000 PASS | sw@true 16.75/16.75 PASS | region rank ['box/clamp', 'box/norm'] gap 0.00 | lam 0.900 kn 2.094
+  light-inactive  W-shape   given truth shape/norm   call None         gap 0.000 PASS | sw@true 16.28/16.28 PASS | region rank ['shape/norm', 'box/norm'] gap 0.13 | lam 0.800 kn 2.035
 
 PER-CELL LAM AND HINGE-GAP READERS (LT truth at the truth k). identified = interval <= 0.4 wide and
 not at the grid bound; bar lam within 0.03 with the truth inside the interval; gap bins within 0.05.
@@ -154,8 +154,6 @@ and its per-cell lam and hinge-gap readers, as memo E read Apple. drift = lam(p6
 intervals disjoint; gap spread = max - min of the per-bin lam within one cell.
   light-inactive  LT        LT k 2.035 pooled 0.408 max 0.416 | capsule P1 p64-p16:+0.000 md P1 p64-p16:-0.000 md P2 p64-p16:-0.000 md P4 p64-p16:+0.001 | gap spread max 0.007
       b-p2-c16-rrect-md:0.80 b-p2-c64-rrect-md:0.80 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.80 bp-p1-c32-capsule-button:0.80 bp-p1-c64-capsule-button:0.80 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.80 x-p1-c64-rrect-md:0.80
-  light-inactive  W-shape   LT k 2.037 pooled 0.615 max 0.979 | capsule P1 p64-p16:+0.030 md P1 p64-p16:-0.029 md P2 p64-p16:-0.027 md P4 p64-p16:-0.030 | gap spread max 0.290
-      b-p2-c16-rrect-md:0.80 b-p2-c64-rrect-md:0.78 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.77 bp-p1-c32-capsule-button:0.79 bp-p1-c64-capsule-button:0.84 x-p1-c16-capsule-button:0.81 x-p1-c16-rrect-md:0.80 x-p1-c64-rrect-md:0.77
   light-inactive  W-tails   LT k 2.273 pooled 1.254 max 1.735 | capsule P1 p64-p16:+0.179* md P1 p64-p16:+0.161 md P2 p64-p16:+0.161 md P4 p64-p16:+0.151 | gap spread max 0.340
       b-p2-c16-rrect-md:0.74 b-p2-c64-rrect-md:0.90 b-p4-c16-rrect-md:0.74 b-p4-c64-rrect-md:0.89 bp-p1-c32-capsule-button:0.77 bp-p1-c64-capsule-button:0.94 x-p1-c16-capsule-button:0.77 x-p1-c16-rrect-md:0.74 x-p1-c64-rrect-md:0.90
   light-inactive  K2        LT k 1.966 pooled 0.792 max 1.033 | capsule P1 p64-p16:-0.172* md P1 p64-p16:-0.178* md P2 p64-p16:-0.181* md P4 p64-p16:-0.175 | gap spread max 0.200
@@ -166,8 +164,6 @@ intervals disjoint; gap spread = max - min of the per-bin lam within one cell.
       b-p2-c16-rrect-md:0.81 b-p2-c64-rrect-md:0.84 b-p4-c16-rrect-md:0.81 b-p4-c64-rrect-md:0.82 bp-p1-c32-capsule-button:0.75 bp-p1-c64-capsule-button:0.59 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.81 x-p1-c64-rrect-md:0.83
   dark-inactive   LT        LT k 2.074 pooled 0.407 max 0.416 | capsule P1 p64-p16:-0.001 md P1 p64-p16:-0.014 md P2 p64-p16:-0.052 md P4 p64-p16:-0.001 | gap spread max 0.009
       b-p2-c16-rrect-md:0.85 b-p2-c64-rrect-md:0.79 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.80 bp-p1-c32-capsule-button:0.80 bp-p1-c64-capsule-button:0.80 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.81 x-p1-c64-rrect-md:0.80
-  dark-inactive   W-shape   LT k 2.075 pooled 0.703 max 1.004 | capsule P1 p64-p16:-0.046 md P1 p64-p16:-0.454 md P2 p64-p16:-0.137 md P4 p64-p16:+0.000 | gap spread max 0.285
-      b-p2-c16-rrect-md:0.69 b-p2-c64-rrect-md:0.55 b-p4-c16-rrect-md:0.81 b-p4-c64-rrect-md:0.81 bp-p1-c32-capsule-button:0.79 bp-p1-c64-capsule-button:0.76 x-p1-c16-capsule-button:0.81 x-p1-c16-rrect-md:1.01 x-p1-c64-rrect-md:0.56
   dark-inactive   W-tails   LT k 2.294 pooled 1.802 max 2.744 | capsule P1 p64-p16:+0.178* md P1 p64-p16:-0.154 md P2 p64-p16:-0.016 md P4 p64-p16:+0.135 | gap spread max 0.625
       b-p2-c16-rrect-md:0.54 b-p2-c64-rrect-md:0.53 b-p4-c16-rrect-md:0.74 b-p4-c64-rrect-md:0.88 bp-p1-c32-capsule-button:0.77 bp-p1-c64-capsule-button:0.95 x-p1-c16-capsule-button:0.77 x-p1-c16-rrect-md:0.68 x-p1-c64-rrect-md:0.53
   dark-inactive   K2        LT k 2.062 pooled 0.769 max 1.215 | capsule P1 p64-p16:-0.191* md P1 p64-p16:-0.174 md P2 p64-p16:+0.065 md P4 p64-p16:-0.221* | gap spread max 0.318
@@ -178,8 +174,6 @@ intervals disjoint; gap spread = max - min of the per-bin lam within one cell.
       b-p2-c16-rrect-md:0.36 b-p2-c64-rrect-md:-0.50 b-p4-c16-rrect-md:0.81 b-p4-c64-rrect-md:0.75 bp-p1-c32-capsule-button:0.75 bp-p1-c64-capsule-button:0.91 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.26 x-p1-c64-rrect-md:-0.50
   dark-rest       LT        LT k 2.093 pooled 0.407 max 0.418 | capsule P1 p64-p16:-0.001 | gap spread max 0.004
       bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.90 x-p1-c16-capsule-button:0.90
-  dark-rest       W-shape   LT k 1.868 pooled 1.356 max 2.186 | capsule P1 p64-p16:-0.093* | gap spread max 0.205
-      bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.81 x-p1-c16-capsule-button:0.90
   dark-rest       W-tails   LT k 2.503 pooled 0.563 max 0.697 | capsule P1 p64-p16:-0.005 | gap spread max 0.022
       bp-p1-c32-capsule-button:0.88 bp-p1-c64-capsule-button:0.90 x-p1-c16-capsule-button:0.90
   dark-rest       K2        LT k 1.860 pooled 0.847 max 1.003 | capsule P1 p64-p16:-0.032 | gap spread max 0.080
@@ -188,6 +182,12 @@ intervals disjoint; gap spread = max - min of the per-bin lam within one cell.
       bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.90 x-p1-c16-capsule-button:0.90
   dark-rest       edge-swap LT k 2.014 pooled 0.459 max 0.496 | capsule P1 p64-p16:-0.006 | gap spread max 0.029
       bp-p1-c32-capsule-button:0.91 bp-p1-c64-capsule-button:0.89 x-p1-c16-capsule-button:0.90
+  light-inactive  W-shape   LT k 2.035 pooled 0.603 max 0.952 | capsule P1 p64-p16:+0.032 md P1 p64-p16:-0.025 md P2 p64-p16:-0.024 md P4 p64-p16:-0.027 | gap spread max 0.292
+      b-p2-c16-rrect-md:0.80 b-p2-c64-rrect-md:0.78 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.77 bp-p1-c32-capsule-button:0.79 bp-p1-c64-capsule-button:0.84 x-p1-c16-capsule-button:0.81 x-p1-c16-rrect-md:0.80 x-p1-c64-rrect-md:0.78
+  dark-inactive   W-shape   LT k 2.074 pooled 0.676 max 0.985 | capsule P1 p64-p16:-0.045 md P1 p64-p16:-0.443 md P2 p64-p16:-0.099 md P4 p64-p16:+0.004 | gap spread max 0.288
+      b-p2-c16-rrect-md:0.67 b-p2-c64-rrect-md:0.57 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.81 bp-p1-c32-capsule-button:0.79 bp-p1-c64-capsule-button:0.77 x-p1-c16-capsule-button:0.81 x-p1-c16-rrect-md:1.01 x-p1-c64-rrect-md:0.57
+  dark-rest       W-shape   LT k 1.868 pooled 1.356 max 2.186 | capsule P1 p64-p16:-0.093* | gap spread max 0.205
+      bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.81 x-p1-c16-capsule-button:0.90
 
 ==== KERNEL w RE-RUN (the parent's ruling 3): the ACTIVE endpoints of the W readers on bed.cells(kernel='w'), d_in 53.6 pt ====
 

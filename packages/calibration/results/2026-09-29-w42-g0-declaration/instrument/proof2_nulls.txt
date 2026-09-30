@@ -1,22 +1,46 @@
 W42 G0 proof 2, rejected nulls fitted to an LT truth: pooled rms (codes) against memo E's separation bars
-kernel: the active mask's support (rows without it ran at the narrow support, before ruling 3)
-  null-R2        dark-inactive   pooled   2.14 max cell   6.20 bar 4.65 FAIL x {'k@dark-inactive': 2.217121417506654} (54 cells) kernel receded (no band)
-  null-R2        dark-rest       pooled   1.28 max cell   2.72 bar 4.65 FAIL x {'k@dark-rest': 2.0583169930829666} (15 cells) kernel w
-  null-R2        light-inactive  pooled   1.73 max cell   4.27 bar 4.65 FAIL x {'k@light-inactive': 2.3325520683272716} (54 cells) kernel n (pre-ruling)
-  null-R2        light-rest      pooled   2.29 max cell   4.24 bar 4.65 FAIL x {'k@light-rest': 2.2607003044365164} (15 cells) kernel w
-  null-boxfloor  dark-inactive   pooled   0.42 max cell   0.49 bar None n/a (no memo E bar) x {'k@dark-inactive': 2.067658700336121} (54 cells) kernel receded (no band)
-  null-boxfloor  dark-rest       pooled   0.44 max cell   0.50 bar None n/a (no memo E bar) x {'k@dark-rest': 2.0985666916072296} (15 cells) kernel w
-  null-boxfloor  light-inactive  pooled   0.43 max cell   0.50 bar None n/a (no memo E bar) x {'k@light-inactive': 2.0285002693684135} (54 cells) kernel receded (no band)
-  null-boxfloor  light-rest      pooled   0.43 max cell   0.44 bar None n/a (no memo E bar) x {'k@light-rest': 1.987000502882874} (15 cells) kernel w
-  null-dev       dark-inactive   pooled   1.30 max cell   8.75 bar 4.65 FAIL x {'k@dark-inactive': 4.113994371652878} (54 cells) kernel receded (no band)
-  null-dev       dark-rest       pooled   2.98 max cell  11.08 bar 4.65 FAIL x {'k@dark-rest': 3.9290176935591736} (15 cells) kernel w
-  null-dev       light-inactive  pooled   1.26 max cell   8.49 bar 4.65 FAIL x {'k@light-inactive': 4.001682336337506} (54 cells) kernel receded (no band)
-  null-dev       light-rest      pooled   1.46 max cell   8.93 bar 4.65 FAIL x {'k@light-rest': 3.8784062725444577} (42 cells) kernel n (pre-ruling)
-  null-mix       dark-inactive   pooled   4.61 max cell  14.78 bar 2.6 PASS x {'k@dark-inactive': 1.9102579264857051} (54 cells) kernel n (pre-ruling)
-  null-mix       dark-rest       pooled   3.20 max cell  10.97 bar 2.6 PASS x {'k@dark-rest': 1.9845844066512246} (42 cells) kernel n (pre-ruling)
-  null-mix       light-inactive  pooled   3.10 max cell   9.44 bar 2.6 PASS x {'k@light-inactive': 1.9114225932903273} (54 cells) kernel n (pre-ruling)
-  null-mix       light-rest      pooled   2.68 max cell   9.26 bar 2.6 PASS x {'k@light-rest': 1.9239497377635608} (42 cells) kernel n (pre-ruling)
-  null-texel     dark-inactive   pooled   1.91 max cell  10.03 bar 4.65 FAIL x {'k@dark-inactive': 2.0545947942893084} (54 cells) kernel n (pre-ruling)
-  null-texel     dark-rest       pooled   2.77 max cell  12.73 bar 4.65 FAIL x {'k@dark-rest': 1.9858987995900463} (42 cells) kernel n (pre-ruling)
-  null-texel     light-inactive  pooled   1.85 max cell   9.81 bar 4.65 FAIL x {'k@light-inactive': 1.9935040319916955} (54 cells) kernel n (pre-ruling)
-  null-texel     light-rest      pooled   2.58 max cell  11.51 bar 4.65 FAIL x {'k@light-rest': 1.8739506119052276} (42 cells) kernel n (pre-ruling)
+(tolerances.json). Current rows: pin 764217e1, engine fix-b151aff4, active mask kernel n. A null whose pooled rms misses its declared bar is NOT refused by this bed's synthetic proof
+(clause 2's stop: non-identifiable by the declared bar); its worst cell is a descriptive reading. The unit
+nulls are refereed in the sitting by the 1x pass (worst cells, not the pooled rms of a mostly-2x bed).
+  null-R2        dark-inactive   pooled   1.99 max cell   6.02 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@dark-inactive': 2.226239446761663} (68 cells) kernel receded (no band)
+  null-R2        dark-rest       pooled   2.84 max cell   9.35 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@dark-rest': 2.188636576022316} (58 cells) kernel n
+  null-R2        light-inactive  pooled   1.71 max cell   4.23 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@light-inactive': 2.3349789571263253} (56 cells) kernel receded (no band)
+  null-R2        light-rest      pooled   2.75 max cell   8.24 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@light-rest': 2.0576676581099878} (47 cells) kernel n
+  null-boxfloor  dark-inactive   pooled   0.41 max cell   0.49 bar None n/a (no memo E bar) x {'k@dark-inactive': 2.067811634068518} (68 cells) kernel receded (no band)
+  null-boxfloor  dark-rest       pooled   1.27 max cell   8.91 bar None n/a (no memo E bar) x {'k@dark-rest': 2.0952516007439286} (58 cells) kernel n
+  null-boxfloor  light-inactive  pooled   0.43 max cell   0.50 bar None n/a (no memo E bar) x {'k@light-inactive': 2.0285200915637636} (56 cells) kernel receded (no band)
+  null-boxfloor  light-rest      pooled   0.99 max cell   6.05 bar None n/a (no memo E bar) x {'k@light-rest': 1.984622719705261} (47 cells) kernel n
+  null-dev       dark-inactive   pooled   1.17 max cell   8.75 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@dark-inactive': 4.115732103368491} (68 cells) kernel receded (no band)
+  null-dev       dark-rest       pooled   1.41 max cell  10.14 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@dark-rest': 4.091234897457178} (58 cells) kernel n
+  null-dev       light-inactive  pooled   1.24 max cell   8.49 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@light-inactive': 4.00179432009521} (56 cells) kernel receded (no band)
+  null-dev       light-rest      pooled   1.38 max cell   8.93 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@light-rest': 3.880176082626771} (47 cells) kernel n
+  null-mix       dark-inactive   pooled   4.13 max cell  14.78 bar 2.6 PASS x {'k@dark-inactive': 1.9107878670613125} (68 cells) kernel receded (no band)
+  null-mix       dark-rest       pooled   2.78 max cell  10.97 bar 2.6 PASS x {'k@dark-rest': 1.9861649015612683} (58 cells) kernel n
+  null-mix       light-inactive  pooled   3.04 max cell   9.44 bar 2.6 PASS x {'k@light-inactive': 1.9108265599007408} (56 cells) kernel receded (no band)
+  null-mix       light-rest      pooled   2.56 max cell   9.26 bar 2.6 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@light-rest': 1.9247954116800068} (47 cells) kernel n
+  null-texel     dark-inactive   pooled   1.71 max cell  10.03 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@dark-inactive': 2.0556999697808416} (68 cells) kernel receded (no band)
+  null-texel     dark-rest       pooled   2.37 max cell  12.73 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@dark-rest': 1.9971238166883243} (58 cells) kernel n
+  null-texel     light-inactive  pooled   1.82 max cell   9.81 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@light-inactive': 1.9936250350899885} (56 cells) kernel receded (no band)
+  null-texel     light-rest      pooled   2.61 max cell  11.50 bar 4.65 NOT REFUSED: non-identifiable by the declared pooled bar x {'k@light-rest': 1.8498800848974164} (47 cells) kernel n
+
+superseded rows (earlier pins, the mixed active masks of b151aff4, the engine before its review):
+  null-R2        dark-inactive   pooled   2.14 max cell   6.20 pin 07b45391 kernel receded (no band) engine -
+  null-R2        dark-rest       pooled   1.28 max cell   2.72 pin 07b45391 kernel w engine -
+  null-R2        light-inactive  pooled   1.73 max cell   4.27 pin 07b45391 kernel n (pre-ruling) engine -
+  null-R2        light-rest      pooled   2.29 max cell   4.24 pin 07b45391 kernel w engine -
+  null-boxfloor  dark-inactive   pooled   0.42 max cell   0.49 pin 07b45391 kernel receded (no band) engine -
+  null-boxfloor  dark-rest       pooled   0.44 max cell   0.50 pin 07b45391 kernel w engine -
+  null-boxfloor  light-inactive  pooled   0.43 max cell   0.50 pin 07b45391 kernel receded (no band) engine -
+  null-boxfloor  light-rest      pooled   0.43 max cell   0.44 pin 07b45391 kernel w engine -
+  null-dev       dark-inactive   pooled   1.30 max cell   8.75 pin 07b45391 kernel receded (no band) engine -
+  null-dev       dark-rest       pooled   2.98 max cell  11.08 pin 07b45391 kernel w engine -
+  null-dev       light-inactive  pooled   1.26 max cell   8.49 pin 07b45391 kernel receded (no band) engine -
+  null-dev       light-rest      pooled   1.46 max cell   8.93 pin 07b45391 kernel n (pre-ruling) engine -
+  null-mix       dark-inactive   pooled   4.61 max cell  14.78 pin 07b45391 kernel n (pre-ruling) engine -
+  null-mix       dark-rest       pooled   3.20 max cell  10.97 pin 07b45391 kernel n (pre-ruling) engine -
+  null-mix       light-inactive  pooled   3.10 max cell   9.44 pin 07b45391 kernel n (pre-ruling) engine -
+  null-mix       light-rest      pooled   2.68 max cell   9.26 pin 07b45391 kernel n (pre-ruling) engine -
+  null-texel     dark-inactive   pooled   1.91 max cell  10.03 pin 07b45391 kernel n (pre-ruling) engine -
+  null-texel     dark-rest       pooled   2.77 max cell  12.73 pin 07b45391 kernel n (pre-ruling) engine -
+  null-texel     light-inactive  pooled   1.85 max cell   9.81 pin 07b45391 kernel n (pre-ruling) engine -
+  null-texel     light-rest      pooled   2.58 max cell  11.51 pin 07b45391 kernel n (pre-ruling) engine -

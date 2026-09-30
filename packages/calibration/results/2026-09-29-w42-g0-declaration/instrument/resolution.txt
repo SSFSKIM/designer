@@ -1,6 +1,210 @@
 W42 G0 instrument: resolution of every reader (clause 2), the separation table and the open pairs
 
 READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on the canonical web tree)
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.0002 (read 1.9828, truth 1.9830) (tol +-0.005) PASS
+    notes: pooled rms 0.417, 29 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | mu | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.1021 (read 4.1021, truth 4.0000) (tol +-1.0) PASS
+    notes: pooled rms 0.417, 29 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0004 (read 0.8804, truth 0.8800) (tol +-0.03) PASS
+    notes: pooled rms 0.417, 29 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | k | light-inactive | band: receded (no band) | GATED
+    synthetic -0.0002 (read 2.0348, truth 2.0350) (tol +-0.005) PASS
+    notes: pooled rms 0.437, 37 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | mu | light-inactive | band: receded (no band) | GATED
+    synthetic -0.0319 (read 3.9681, truth 4.0000) (tol +-1.0) PASS
+    notes: pooled rms 0.437, 37 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | lam | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0004 (read 0.8004, truth 0.8000) (tol +-0.03) PASS
+    notes: pooled rms 0.437, 37 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 2.0942, truth 2.0940) (tol +-0.005) PASS
+    notes: pooled rms 0.404, 40 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | mu | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.1366 (read 3.8634, truth 4.0000) (tol +-1.0) PASS
+    notes: pooled rms 0.404, 40 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.9001, truth 0.9000) (tol +-0.03) PASS
+    notes: pooled rms 0.404, 40 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | k | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0000 (read 2.0740, truth 2.0740) (tol +-0.005) PASS
+    notes: pooled rms 0.401, 49 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | mu | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0184 (read 3.9816, truth 4.0000) (tol +-1.0) PASS
+    notes: pooled rms 0.401, 49 cells, bed 764217e1
+- family fitter: W-shape (A_fix, engine fix-b151aff4) | lam | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0003 (read 0.7997, truth 0.8000) (tol +-0.03) PASS
+    notes: pooled rms 0.401, 49 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 1.9831, truth 1.9830) (tol +-0.005) PASS
+    notes: pooled rms 0.416, 29 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | s2 | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.0253 (read 39.9747, truth 40.0000) (tol +-2.0) PASS
+    notes: pooled rms 0.416, 29 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | a | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.2501, truth 0.2500) (tol +-0.03) PASS
+    notes: pooled rms 0.416, 29 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
+    notes: pooled rms 0.416, 29 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | k | light-inactive | band: receded (no band) | GATED
+    synthetic -0.0003 (read 2.0347, truth 2.0350) (tol +-0.005) PASS
+    notes: pooled rms 0.430, 37 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | s2 | light-inactive | band: receded (no band) | GATED
+    synthetic -0.0131 (read 39.9869, truth 40.0000) (tol +-2.0) PASS
+    notes: pooled rms 0.430, 37 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | a | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0001 (read 0.2501, truth 0.2500) (tol +-0.03) PASS
+    notes: pooled rms 0.430, 37 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | lam | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0003 (read 0.8003, truth 0.8000) (tol +-0.03) PASS
+    notes: pooled rms 0.430, 37 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0006 (read 2.0946, truth 2.0940) (tol +-0.005) PASS
+    notes: pooled rms 0.405, 40 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | s2 | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.1013 (read 39.8987, truth 40.0000) (tol +-2.0) PASS
+    notes: pooled rms 0.405, 40 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | a | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0011 (read 0.2511, truth 0.2500) (tol +-0.03) PASS
+    notes: pooled rms 0.405, 40 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.0005 (read 0.8995, truth 0.9000) (tol +-0.03) PASS
+    notes: pooled rms 0.405, 40 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | k | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0006 (read 2.0734, truth 2.0740) (tol +-0.005) PASS
+    notes: pooled rms 0.410, 49 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | s2 | dark-inactive | band: receded (no band) | GATED
+    synthetic +0.4690 (read 40.4690, truth 40.0000) (tol +-2.0) PASS
+    notes: pooled rms 0.410, 49 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | a | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0049 (read 0.2451, truth 0.2500) (tol +-0.03) PASS
+    notes: pooled rms 0.410, 49 cells, bed 764217e1
+- family fitter: W-tails (A_fix, engine fix-b151aff4) | lam | dark-inactive | band: receded (no band) | GATED
+    synthetic +0.0020 (read 0.8020, truth 0.8000) (tol +-0.03) PASS
+    notes: pooled rms 0.410, 49 cells, bed 764217e1
+- family fitter: LT+bleed-own (A_fix, engine fix-b151aff4) | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 1.9831, truth 1.9830) (tol +-0.005) PASS
+    notes: pooled rms 0.413, 28 cells, bed 764217e1
+- family fitter: LT+bleed-own (A_fix, engine fix-b151aff4) | k_b | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.0035 (read 1.9965, truth 2.0000) (tol +-0.05) PASS
+    notes: pooled rms 0.413, 28 cells, bed 764217e1
+- family fitter: LT+bleed-own (A_fix, engine fix-b151aff4) | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
+    notes: pooled rms 0.413, 28 cells, bed 764217e1
+- family fitter: LT+bleed-own (A_fix, engine fix-b151aff4) | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0004 (read 2.0944, truth 2.0940) (tol +-0.005) PASS
+    notes: pooled rms 0.412, 39 cells, bed 764217e1
+- family fitter: LT+bleed-own (A_fix, engine fix-b151aff4) | k_b | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.0003 (read 1.9997, truth 2.0000) (tol +-0.05) PASS
+    notes: pooled rms 0.412, 39 cells, bed 764217e1
+- family fitter: LT+bleed-own (A_fix, engine fix-b151aff4) | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.9001, truth 0.9000) (tol +-0.03) PASS
+    notes: pooled rms 0.412, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4) | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 1.9832, truth 1.9830) (tol +-0.005) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4) | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4) | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 2.0942, truth 2.0940) (tol +-0.005) PASS
+    notes: pooled rms 0.402, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4) | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 0.9002, truth 0.9000) (tol +-0.03) PASS
+    notes: pooled rms 0.402, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4) | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 1.9832, truth 1.9830) (tol +-0.005) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4) | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4) | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0003 (read 2.0943, truth 2.0940) (tol +-0.005) PASS
+    notes: pooled rms 0.404, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4) | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.9001, truth 0.9000) (tol +-0.03) PASS
+    notes: pooled rms 0.404, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4) | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 1.9832, truth 1.9830) (tol +-0.005) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4) | k_b | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +1.9999 (read 3.9999, truth 2.0000) (tol +-0.05) FAIL
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4) | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4) | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 2.0942, truth 2.0940) (tol +-0.005) PASS
+    notes: pooled rms 0.402, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4) | k_b | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 2.0002, truth 2.0000) (tol +-0.05) PASS
+    notes: pooled rms 0.402, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4) | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 0.9002, truth 0.9000) (tol +-0.03) PASS
+    notes: pooled rms 0.402, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4) | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0002 (read 1.9832, truth 1.9830) (tol +-0.005) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4) | k_b | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.5527 (read 2.5527, truth 2.0000) (tol +-0.05) FAIL
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4) | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
+    notes: pooled rms 0.418, 28 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4) | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0003 (read 2.0943, truth 2.0940) (tol +-0.005) PASS
+    notes: pooled rms 0.404, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4) | k_b | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic -0.0004 (read 1.9996, truth 2.0000) (tol +-0.05) PASS
+    notes: pooled rms 0.404, 39 cells, bed 764217e1
+- family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4) | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
+    synthetic +0.0001 (read 0.9001, truth 0.9000) (tol +-0.03) PASS
+    notes: pooled rms 0.404, 39 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | k | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0001 (read 2.0351, truth 2.0350) (tol +-0.005) PASS
+    notes: pooled rms 0.430, 25 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_64 | light-inactive | band: receded (no band) | GATED
+    synthetic -0.0010 (read 4.2490, truth 4.2500) (tol +-0.05) PASS
+    notes: pooled rms 0.430, 25 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_80 | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0014 (read 4.8014, truth 4.8000) (tol +-0.05) PASS
+    notes: pooled rms 0.430, 25 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_96 | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0047 (read 5.4047, truth 5.4000) (tol +-0.05) PASS
+    notes: pooled rms 0.430, 25 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_128 | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0003 (read 6.5003, truth 6.5000) (tol +-0.05) PASS
+    notes: pooled rms 0.430, 25 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_160 | light-inactive | band: receded (no band) | GATED
+    synthetic -0.0013 (read 7.4987, truth 7.5000) (tol +-0.05) PASS
+    notes: pooled rms 0.430, 25 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | lam | light-inactive | band: receded (no band) | GATED
+    synthetic +0.0001 (read 0.8001, truth 0.8000) (tol +-0.03) PASS
+    notes: pooled rms 0.430, 25 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | k | dark-inactive | band: receded (no band) | GATED
+    synthetic +0.0001 (read 2.0741, truth 2.0740) (tol +-0.005) PASS
+    notes: pooled rms 0.404, 33 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_64 | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0013 (read 4.2487, truth 4.2500) (tol +-0.05) PASS
+    notes: pooled rms 0.404, 33 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_80 | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0006 (read 4.7994, truth 4.8000) (tol +-0.05) PASS
+    notes: pooled rms 0.404, 33 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_96 | dark-inactive | band: receded (no band) | GATED
+    synthetic -0.0064 (read 5.3936, truth 5.4000) (tol +-0.05) PASS
+    notes: pooled rms 0.404, 33 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_128 | dark-inactive | band: receded (no band) | GATED
+    synthetic +0.0002 (read 6.5002, truth 6.5000) (tol +-0.05) PASS
+    notes: pooled rms 0.404, 33 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | sn_inactive_160 | dark-inactive | band: receded (no band) | GATED
+    synthetic +0.0001 (read 7.5001, truth 7.5000) (tol +-0.05) PASS
+    notes: pooled rms 0.404, 33 cells, bed 764217e1
+- family fitter: free-sn (A_fix, engine fix-b151aff4) | lam | dark-inactive | band: receded (no band) | GATED
+    synthetic +0.0001 (read 0.8001, truth 0.8000) (tol +-0.03) PASS
+    notes: pooled rms 0.404, 33 cells, bed 764217e1
 - family fitter: LT | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0004 (read 1.9834, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.411, 42 cells
@@ -82,27 +286,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: free-sn | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic -0.0000 (read 0.8800, truth 0.8800) (tol +-0.03) PASS
     notes: pooled rms 0.414, 19 cells
-- family fitter: free-sn | k | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0002 (read 2.0352, truth 2.0350) (tol +-0.005) PASS
-    notes: pooled rms 0.430, 20 cells
-- family fitter: free-sn | sn_inactive_64 | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0007 (read 4.2507, truth 4.2500) (tol +-0.05) PASS
-    notes: pooled rms 0.430, 20 cells
-- family fitter: free-sn | sn_inactive_80 | light-inactive | band: receded (no band) | GATED
-    synthetic -0.0008 (read 4.7992, truth 4.8000) (tol +-0.05) PASS
-    notes: pooled rms 0.430, 20 cells
-- family fitter: free-sn | sn_inactive_96 | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0002 (read 5.4002, truth 5.4000) (tol +-0.05) PASS
-    notes: pooled rms 0.430, 20 cells
-- family fitter: free-sn | sn_inactive_128 | light-inactive | band: receded (no band) | GATED
-    synthetic -0.0009 (read 6.4991, truth 6.5000) (tol +-0.05) PASS
-    notes: pooled rms 0.430, 20 cells
-- family fitter: free-sn | sn_inactive_160 | light-inactive | band: receded (no band) | GATED
-    synthetic -0.0007 (read 7.4993, truth 7.5000) (tol +-0.05) PASS
-    notes: pooled rms 0.430, 20 cells
-- family fitter: free-sn | lam | light-inactive | band: receded (no band) | GATED
-    synthetic -0.0001 (read 0.7999, truth 0.8000) (tol +-0.03) PASS
-    notes: pooled rms 0.430, 20 cells
 - family fitter: free-sn | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0005 (read 2.0945, truth 2.0940) (tol +-0.005) PASS
     notes: pooled rms 0.420, 19 cells
@@ -124,27 +307,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: free-sn | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0000 (read 0.9000, truth 0.9000) (tol +-0.03) PASS
     notes: pooled rms 0.420, 19 cells
-- family fitter: free-sn | k | dark-inactive | band: receded (no band) | GATED
-    synthetic -0.0001 (read 2.0739, truth 2.0740) (tol +-0.005) PASS
-    notes: pooled rms 0.428, 20 cells
-- family fitter: free-sn | sn_inactive_64 | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0017 (read 4.2517, truth 4.2500) (tol +-0.05) PASS
-    notes: pooled rms 0.428, 20 cells
-- family fitter: free-sn | sn_inactive_80 | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0011 (read 4.8011, truth 4.8000) (tol +-0.05) PASS
-    notes: pooled rms 0.428, 20 cells
-- family fitter: free-sn | sn_inactive_96 | dark-inactive | band: receded (no band) | GATED
-    synthetic -0.0043 (read 5.3957, truth 5.4000) (tol +-0.05) PASS
-    notes: pooled rms 0.428, 20 cells
-- family fitter: free-sn | sn_inactive_128 | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0008 (read 6.5008, truth 6.5000) (tol +-0.05) PASS
-    notes: pooled rms 0.428, 20 cells
-- family fitter: free-sn | sn_inactive_160 | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0005 (read 7.5005, truth 7.5000) (tol +-0.05) PASS
-    notes: pooled rms 0.428, 20 cells
-- family fitter: free-sn | lam | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0002 (read 0.8002, truth 0.8000) (tol +-0.03) PASS
-    notes: pooled rms 0.428, 20 cells
 - family fitter: R1 | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0002 (read 1.9832, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.407, 8 cells
@@ -169,42 +331,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: R1 | lam | dark-inactive | band: receded (no band) | GATED
     synthetic +0.0005 (read 0.8005, truth 0.8000) (tol +-0.03) PASS
     notes: pooled rms 0.397, 8 cells
-- family fitter: W-shape | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0006 (read 1.9824, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.418, 24 cells
-- family fitter: W-shape | mu | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.1218 (read 4.1218, truth 4.0000) (tol +-1.0) PASS
-    notes: pooled rms 0.418, 24 cells
-- family fitter: W-shape | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.418, 24 cells
-- family fitter: W-shape | k | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0000 (read 2.0350, truth 2.0350) (tol +-0.005) PASS
-    notes: pooled rms 0.438, 33 cells
-- family fitter: W-shape | mu | light-inactive | band: receded (no band) | GATED
-    synthetic -0.0187 (read 3.9813, truth 4.0000) (tol +-1.0) PASS
-    notes: pooled rms 0.438, 33 cells
-- family fitter: W-shape | lam | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0001 (read 0.8001, truth 0.8000) (tol +-0.03) PASS
-    notes: pooled rms 0.438, 33 cells
-- family fitter: W-shape | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0007 (read 2.0933, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.422, 24 cells
-- family fitter: W-shape | mu | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.1974 (read 4.1974, truth 4.0000) (tol +-1.0) PASS
-    notes: pooled rms 0.422, 24 cells
-- family fitter: W-shape | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0002 (read 0.9002, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.422, 24 cells
-- family fitter: W-shape | k | dark-inactive | band: receded (no band) | GATED
-    synthetic -0.0001 (read 2.0739, truth 2.0740) (tol +-0.005) PASS
-    notes: pooled rms 0.417, 33 cells
-- family fitter: W-shape | mu | dark-inactive | band: receded (no band) | GATED
-    synthetic -0.0033 (read 3.9967, truth 4.0000) (tol +-1.0) PASS
-    notes: pooled rms 0.417, 33 cells
-- family fitter: W-shape | lam | dark-inactive | band: receded (no band) | GATED
-    synthetic -0.0000 (read 0.8000, truth 0.8000) (tol +-0.03) PASS
-    notes: pooled rms 0.417, 33 cells
 - family fitter: W-canvas | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic -0.0004 (read 1.9826, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.419, 24 cells
@@ -229,54 +355,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: W-canvas | lam | dark-inactive | band: receded (no band) | GATED
     synthetic -0.0002 (read 0.7998, truth 0.8000) (tol +-0.03) PASS
     notes: pooled rms 0.419, 33 cells
-- family fitter: W-tails | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0005 (read 1.9825, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.418, 24 cells
-- family fitter: W-tails | s2 | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0080 (read 39.9920, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.418, 24 cells
-- family fitter: W-tails | a | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0001 (read 0.2499, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.418, 24 cells
-- family fitter: W-tails | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0002 (read 0.8802, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.418, 24 cells
-- family fitter: W-tails | k | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0002 (read 2.0352, truth 2.0350) (tol +-0.005) PASS
-    notes: pooled rms 0.431, 33 cells
-- family fitter: W-tails | s2 | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0349 (read 40.0349, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.431, 33 cells
-- family fitter: W-tails | a | light-inactive | band: receded (no band) | GATED
-    synthetic -0.0005 (read 0.2495, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.431, 33 cells
-- family fitter: W-tails | lam | light-inactive | band: receded (no band) | GATED
-    synthetic +0.0002 (read 0.8002, truth 0.8000) (tol +-0.03) PASS
-    notes: pooled rms 0.431, 33 cells
-- family fitter: W-tails | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0003 (read 2.0937, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.422, 24 cells
-- family fitter: W-tails | s2 | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0187 (read 39.9813, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.422, 24 cells
-- family fitter: W-tails | a | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0005 (read 0.2495, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.422, 24 cells
-- family fitter: W-tails | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0003 (read 0.9003, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.422, 24 cells
-- family fitter: W-tails | k | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0002 (read 2.0742, truth 2.0740) (tol +-0.005) PASS
-    notes: pooled rms 0.421, 33 cells
-- family fitter: W-tails | s2 | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0169 (read 40.0169, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.421, 33 cells
-- family fitter: W-tails | a | dark-inactive | band: receded (no band) | GATED
-    synthetic -0.0001 (read 0.2499, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.421, 33 cells
-- family fitter: W-tails | lam | dark-inactive | band: receded (no band) | GATED
-    synthetic +0.0002 (read 0.8002, truth 0.8000) (tol +-0.03) PASS
-    notes: pooled rms 0.421, 33 cells
 - family fitter: K2 | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic -0.0001 (read 1.9829, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.417, 24 cells
@@ -372,24 +450,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
     notes: pooled rms 0.420, 26 cells
 - family fitter: LT+bleed | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0001 (read 0.9001, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.420, 26 cells
-- family fitter: LT+bleed-own | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0001 (read 1.9831, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.412, 26 cells
-- family fitter: LT+bleed-own | k_b | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0009 (read 1.9991, truth 2.0000) (tol +-0.05) PASS
-    notes: pooled rms 0.412, 26 cells
-- family fitter: LT+bleed-own | lam | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.412, 26 cells
-- family fitter: LT+bleed-own | k | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0004 (read 2.0944, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.420, 26 cells
-- family fitter: LT+bleed-own | k_b | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0004 (read 1.9996, truth 2.0000) (tol +-0.05) PASS
-    notes: pooled rms 0.420, 26 cells
-- family fitter: LT+bleed-own | lam | dark-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0000 (read 0.9000, truth 0.9000) (tol +-0.03) PASS
     notes: pooled rms 0.420, 26 cells
 - family fitter: edge-swap | k | light-rest | band: outside (d_in = 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0003 (read 1.9833, truth 1.9830) (tol +-0.005) PASS
@@ -493,24 +553,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: R1 (W support: the fallback record) | all | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
     synthetic no answering cell (tol -) NON-IDENTIFIABLE
     notes: no answering cell (B) survives the mask (kernel w): a bed question under ruling 3
-- family fitter: W-shape (W support: the fallback record) | k | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0008 (read 1.9822, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.431, 6 cells, bed 5d719b60
-- family fitter: W-shape (W support: the fallback record) | mu | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic +2.0010 (read 6.0010, truth 4.0000) (tol +-1.0) FAIL
-    notes: pooled rms 0.431, 6 cells, bed 5d719b60
-- family fitter: W-shape (W support: the fallback record) | lam | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0004 (read 0.8796, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.431, 6 cells, bed 5d719b60
-- family fitter: W-shape (W support: the fallback record) | k | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0004 (read 2.0936, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.426, 10 cells, bed 5d719b60
-- family fitter: W-shape (W support: the fallback record) | mu | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic +3.5013 (read 7.5013, truth 4.0000) (tol +-1.0) FAIL
-    notes: pooled rms 0.426, 10 cells, bed 5d719b60
-- family fitter: W-shape (W support: the fallback record) | lam | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic +0.0002 (read 0.9002, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.426, 10 cells, bed 5d719b60
 - family fitter: W-canvas (W support: the fallback record) | k | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
     synthetic -0.0008 (read 1.9822, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.431, 6 cells, bed 5d719b60
@@ -523,30 +565,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: W-canvas (W support: the fallback record) | lam | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
     synthetic +0.0002 (read 0.9002, truth 0.9000) (tol +-0.03) PASS
     notes: pooled rms 0.426, 10 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | k | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0017 (read 1.9813, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.428, 6 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | s2 | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0242 (read 39.9758, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.428, 6 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | a | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic +0.0008 (read 0.2508, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.428, 6 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | lam | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0002 (read 0.8798, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.428, 6 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | k | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0009 (read 2.0931, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.430, 10 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | s2 | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0028 (read 39.9972, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.430, 10 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | a | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic +0.0000 (read 0.2500, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.430, 10 cells, bed 5d719b60
-- family fitter: W-tails (W support: the fallback record) | lam | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0002 (read 0.8998, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.430, 10 cells, bed 5d719b60
 - family fitter: K2 (W support: the fallback record) | k | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
     synthetic -0.0007 (read 1.9823, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.424, 6 cells, bed 5d719b60
@@ -594,24 +612,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
     notes: pooled rms 0.422, 15 cells, bed 5d719b60
 - family fitter: LT+bleed (W support: the fallback record) | lam | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
     synthetic -0.0006 (read 0.8994, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.422, 15 cells, bed 5d719b60
-- family fitter: LT+bleed-own (W support: the fallback record) | k | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0001 (read 1.9829, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.418, 11 cells, bed 5d719b60
-- family fitter: LT+bleed-own (W support: the fallback record) | k_b | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0007 (read 1.9993, truth 2.0000) (tol +-0.05) PASS
-    notes: pooled rms 0.418, 11 cells, bed 5d719b60
-- family fitter: LT+bleed-own (W support: the fallback record) | lam | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic +0.0000 (read 0.8800, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.418, 11 cells, bed 5d719b60
-- family fitter: LT+bleed-own (W support: the fallback record) | k | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0002 (read 2.0938, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.422, 15 cells, bed 5d719b60
-- family fitter: LT+bleed-own (W support: the fallback record) | k_b | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0001 (read 1.9999, truth 2.0000) (tol +-0.05) PASS
-    notes: pooled rms 0.422, 15 cells, bed 5d719b60
-- family fitter: LT+bleed-own (W support: the fallback record) | lam | dark-rest | band: outside (d_in 53.6 pt, W support) | descriptive
-    synthetic -0.0008 (read 0.8992, truth 0.9000) (tol +-0.03) PASS
     notes: pooled rms 0.422, 15 cells, bed 5d719b60
 - family fitter: edge-swap (W support: the fallback record) | k | light-rest | band: outside (d_in 53.6 pt, W support) | descriptive
     synthetic -0.0008 (read 1.9822, truth 1.9830) (tol +-0.005) PASS
@@ -709,24 +709,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: R1 (narrow support) | lam | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
     synthetic -0.0001 (read 0.8999, truth 0.9000) (tol +-0.03) PASS
     notes: pooled rms 0.418, 8 cells, bed 5d719b60
-- family fitter: W-shape (narrow support) | k | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0001 (read 1.9829, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.420, 25 cells, bed 5d719b60
-- family fitter: W-shape (narrow support) | mu | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0158 (read 4.0158, truth 4.0000) (tol +-1.0) PASS
-    notes: pooled rms 0.420, 25 cells, bed 5d719b60
-- family fitter: W-shape (narrow support) | lam | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0002 (read 0.8802, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.420, 25 cells, bed 5d719b60
-- family fitter: W-shape (narrow support) | k | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0002 (read 2.0938, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.410, 35 cells, bed 5d719b60
-- family fitter: W-shape (narrow support) | mu | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.1350 (read 3.8650, truth 4.0000) (tol +-1.0) PASS
-    notes: pooled rms 0.410, 35 cells, bed 5d719b60
-- family fitter: W-shape (narrow support) | lam | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0002 (read 0.9002, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.410, 35 cells, bed 5d719b60
 - family fitter: W-canvas (narrow support) | k | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
     synthetic -0.0004 (read 1.9826, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.420, 25 cells, bed 5d719b60
@@ -739,30 +721,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: W-canvas (narrow support) | lam | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0002 (read 0.9002, truth 0.9000) (tol +-0.03) PASS
     notes: pooled rms 0.410, 35 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | k | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0007 (read 1.9823, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.419, 25 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | s2 | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0389 (read 40.0389, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.419, 25 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | a | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0002 (read 0.2502, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.419, 25 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | lam | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0002 (read 0.8802, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.419, 25 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | k | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0004 (read 2.0936, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.411, 35 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | s2 | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0061 (read 40.0061, truth 40.0000) (tol +-2.0) PASS
-    notes: pooled rms 0.411, 35 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | a | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0001 (read 0.2499, truth 0.2500) (tol +-0.03) PASS
-    notes: pooled rms 0.411, 35 cells, bed 5d719b60
-- family fitter: W-tails (narrow support) | lam | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0004 (read 0.9004, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.411, 35 cells, bed 5d719b60
 - family fitter: K2 (narrow support) | k | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0001 (read 1.9831, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.418, 25 cells, bed 5d719b60
@@ -817,24 +775,6 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - family fitter: LT+bleed (narrow support) | lam | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
     synthetic -0.0001 (read 0.8999, truth 0.9000) (tol +-0.03) PASS
     notes: pooled rms 0.413, 37 cells, bed 5d719b60
-- family fitter: LT+bleed-own (narrow support) | k | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0000 (read 1.9830, truth 1.9830) (tol +-0.005) PASS
-    notes: pooled rms 0.413, 27 cells, bed 5d719b60
-- family fitter: LT+bleed-own (narrow support) | k_b | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0011 (read 1.9989, truth 2.0000) (tol +-0.05) PASS
-    notes: pooled rms 0.413, 27 cells, bed 5d719b60
-- family fitter: LT+bleed-own (narrow support) | lam | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0001 (read 0.8801, truth 0.8800) (tol +-0.03) PASS
-    notes: pooled rms 0.413, 27 cells, bed 5d719b60
-- family fitter: LT+bleed-own (narrow support) | k | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic +0.0008 (read 2.0948, truth 2.0940) (tol +-0.005) PASS
-    notes: pooled rms 0.412, 37 cells, bed 5d719b60
-- family fitter: LT+bleed-own (narrow support) | k_b | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0005 (read 1.9995, truth 2.0000) (tol +-0.05) PASS
-    notes: pooled rms 0.412, 37 cells, bed 5d719b60
-- family fitter: LT+bleed-own (narrow support) | lam | dark-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
-    synthetic -0.0001 (read 0.8999, truth 0.9000) (tol +-0.03) PASS
-    notes: pooled rms 0.412, 37 cells, bed 5d719b60
 - family fitter: edge-swap (narrow support) | k | light-rest | band: outside (d_in 20 + 2 sigma_n,ref) | GATED
     synthetic +0.0001 (read 1.9831, truth 1.9830) (tol +-0.005) PASS
     notes: pooled rms 0.426, 17 cells, bed 5d719b60
@@ -1180,10 +1120,10 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
     synthetic 1.6 % (flat-in-depth truth) (tol 5 %) PASS
     vitrea    max |cap - rep| 9.3 %; 4 pass / 3 miss / 3 non-identifiable on both (tol 5 %) FAIL
     vitrea, superseded sigma_RMS bar: 3 % max over 6/20 cells with a narrow share >= 0.2 (tol 10 % (the impulse reader's bar, reference)) PASS
-- patch and annulus (family C) | sigma_w (lam given in the protocol) | all four | band: outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only | descriptive
-    synthetic 7.1 % (tol 5 %) FAIL
+- patch and annulus (family C) | sigma_w (lam given in the protocol) | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n) | descriptive
+    synthetic 5.0 % (tol 5 %) PASS
     vitrea    max |cap - rep| 23.2 %; 0 pass / 2 miss / 4 non-identifiable on both (tol 5 %) FAIL
-    notes: misses: light-rest LT impulse ml 14.74/15.86; dark-rest LT impulse lg 17.84/16.75
+    notes: the fallback (W support, outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only): light-rest free-sn impulse ml 15.15/15.86 PASS, light-rest free-sn impulse lg 15.97/15.86 PASS, light-rest LT impulse ml 14.74/15.86 MISS, light-rest LT impulse lg 15.94/15.86 PASS, dark-rest free-sn impulse ml 16.77/16.75 PASS, dark-rest free-sn impulse lg 16.89/16.75 PASS, dark-rest LT impulse ml 16.30/16.75 PASS, dark-rest LT impulse lg 17.84/16.75 MISS
 - patch and annulus (family C) | sigma_w (lam given in the protocol) | all four | band: receded (no band) | descriptive
     synthetic 4.8 % (tol 5 %) PASS
     vitrea    max |cap - rep| 15.1 %; 0 pass / 2 miss / 8 non-identifiable on both (tol 5 %) FAIL
@@ -1212,31 +1152,31 @@ READERS (synthetic = proof 1 through the memo C T stand-in; vitrea = proof 3 on 
 - depth-graded radius | ratio sigma_n(d)/sigma_n(ref), vitrea bins | all four | band: vitrea lens band excluded | descriptive
     vitrea    max |cap - rep| 0.023; 3 pass / 10 miss / 43 non-identifiable on both (tol 0.05) FAIL
     vitrea, superseded sigma_RMS bar: max |ratio - 1| 0.071 on 10/40 bins (tol 0.05) FAIL
-- step (family D) | sigma_w on the true support | all four | band: outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only (d-d0 on rrect-lg); receded no band | GATED
+- step (family D) | sigma_w on the true support | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | GATED
     synthetic 0.07 % (tol 5 %) PASS
     vitrea    max |cap - rep| 1.1 %; 6 pass / 1 miss / 13 non-identifiable on both (tol 5 %) FAIL
 - step (family D) | support / edge-mode call | all four | band: as above | GATED
-    synthetic light-inactive LT given: no call (gap 0.000; region gap 0.02); light-inactive LT free: no call (gap 0.002; region gap 0.16); light-inactive W-canvas given: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap given: no call (gap 0.001; region gap 0.01); light-inactive W-shape given: no call (gap 0.000; region gap 0.07); dark-inactive LT given: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap given: no call (gap 0.002; region gap 0.01); light-rest LT given: no call (gap 0.000; region gap 0.00); light-rest W-canvas given: no call (gap 0.000; region gap 0.00); light-rest edge-swap given: no call (gap 0.000; region gap 0.00); dark-rest LT given: no call (gap 0.000; region gap 0.00) (tol the true support first wherever supports differ by > 0.05) PASS
+    synthetic light-inactive LT given: no call (gap 0.000; region gap 0.02); light-inactive LT free: no call (gap 0.002; region gap 0.16); light-inactive W-canvas given: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap given: no call (gap 0.001; region gap 0.01); light-rest LT given: no call (gap 0.000; region gap 0.00); light-rest W-canvas given: no call (gap 0.000; region gap 0.00); light-rest edge-swap given: no call (gap 0.000; region gap 0.00); dark-inactive LT given: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap given: no call (gap 0.002; region gap 0.01); dark-rest LT given: no call (gap 0.000; region gap 0.00); light-inactive W-shape given: no call (gap 0.000; region gap 0.13) (tol the true support first wherever supports differ by > 0.05) PASS
     vitrea    identical call on capture and replica: 20 pass / 0 miss / 0 non-identifiable on both (tol identical) PASS
-    notes: canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; active: every support ties at 0.00 at both kernels
+    notes: canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; active: every support ties at 0.00 at the narrow support (7 cells (dark-rest), 7 cells (light-rest)); the fallback (W support, outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only): light-rest LT given: no call on 2 cells; light-rest W-canvas given: no call on 2 cells; light-rest edge-swap given: no call on 2 cells; dark-rest LT given: no call on 2 cells. Rows with
 - step (family D) | lam (free) | all four | band: as above | descriptive
     vitrea    max |cap - rep| 0.052; 10 pass / 3 miss / 7 non-identifiable on both (tol 0.03) FAIL
     vitrea, superseded sigma_RMS bar: |lam| <= 0.220; false calls 0/20 (tol 0.12; none) FAIL
-- per-cell lam (memo E) | lam | all four | band: outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band | descriptive
-    synthetic max |err| 0.001 on 17/20 identified cells (tol 0.03, truth inside the interval) PASS
+- per-cell lam (memo E) | lam | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | descriptive
+    synthetic max |err| 0.001 on 30/33 identified cells (tol 0.03, truth inside the interval) PASS
     vitrea    max |cap - rep| 0.029; 14 pass / 1 miss / 19 non-identifiable on both (tol 0.03, each interval contains the other's point) FAIL
     vitrea, superseded sigma_RMS bar: |lam| <= 0.082 on 27/90 identified cells (tol 0.12) PASS
-    notes: not identified: b-p3-c16-rrect-md (light-inactive), bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest)
-- hinge-gap (memo E) | lam per gap bin | all four | band: outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band | descriptive
-    synthetic max |err| 0.010 (tol 0.05) PASS
+    notes: not identified: bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest), b-p3-c16-rrect-md (light-inactive)
+- hinge-gap (memo E) | lam per gap bin | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | descriptive
+    synthetic max |err| 0.012 (tol 0.05) PASS
     vitrea    max |cap - rep| 0.320; 52 pass / 21 miss / 45 non-identifiable on both (tol 0.05) FAIL
     vitrea, superseded sigma_RMS bar: |lam| <= 0.712 over 195 bins (tol 0.12) FAIL
-- per-cell lam (memo E) | lam | all four | band: outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band | descriptive
-    synthetic max |err| 0.001 on 5/20 identified cells (tol 0.03, truth inside the interval) PASS
+- per-cell lam (memo E) | lam | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | descriptive
+    synthetic max |err| 0.001 on 11/33 identified cells (tol 0.03, truth inside the interval) PASS
     vitrea    max |cap - rep| 0.089; 6 pass / 6 miss / 20 non-identifiable on both (tol 0.03, each interval contains the other's point) FAIL
     vitrea, superseded sigma_RMS bar: |lam| <= 0.082 on 27/90 identified cells (tol 0.12) PASS
-    notes: not identified: b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive), bp-p1-c32-rrect-80 (dark-inactive), bp-p1-c32-rrect-lg (dark-inactive), bp-p1-c32-rrect-ml (dark-inactive), bp-p1-c64-rrect-ml (dark-inactive), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest)
-- hinge-gap (memo E) | lam per gap bin | all four | band: outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band | descriptive
+    notes: not identified: b-p2-c16-rrect-md (dark-rest), b-p2-c64-rrect-md (dark-rest), b-p3-c16-rrect-md (dark-rest), b-p3-c64-rrect-md (dark-rest), b-p5-c16-rrect-md (dark-rest), b-p5-c64-rrect-md (dark-rest), bp-p1-c32-rrect-80 (dark-rest), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest), b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive)
+- hinge-gap (memo E) | lam per gap bin | all four | band: outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band | descriptive
     synthetic max |err| 0.030 (tol 0.05) PASS
     vitrea    max |cap - rep| 0.295; 72 pass / 21 miss / 21 non-identifiable on both (tol 0.05) FAIL
     vitrea, superseded sigma_RMS bar: |lam| <= 0.712 over 195 bins (tol 0.12) FAIL
@@ -1318,8 +1258,8 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
             K2 -> LT            light-rest      s   1.94  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq12:knee
             K2 -> W-canvas      dark-inactive   s   6.69  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
             K2 -> W-canvas      light-inactive  s   4.27  DISTINGUISHED  2x|b-p2-c64-rrect-md:sq7:far
-            K2 -> W-shape       dark-inactive   s   3.21  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:sq130:knee
-            K2 -> W-shape       light-inactive  s   2.63  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq16:knee
+            K2 -> W-shape       dark-inactive   s   1.68  DISTINGUISHED  2x|b-p2-c64-rrect-md:sq8:far
+            K2 -> W-shape       light-inactive  s   2.68  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq16:knee
             K2 -> W-tails       dark-inactive   s   2.06  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:knee-cores  [fit at its bound: a@dark-inactive; s is an upper bound]
             K2 -> W-tails       light-inactive  s   1.62  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:knee-cores  [fit at its bound: a@light-inactive; s is an upper bound]
             LT -> C-linear      dark-inactive   s   9.63  DISTINGUISHED  2x|bp-p1-c64-capsule-button:sq12:far
@@ -1328,6 +1268,10 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
             LT -> C-linear      light-rest      s  13.99  DISTINGUISHED  2x|c-impulse-rrect-ml:p7:core
             LT -> LT+bleed      dark-rest       s  22.44  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin24..32
             LT -> LT+bleed      light-rest      s   2.39  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin32..48
+            LT -> LT+bleed-lit-own-post dark-rest       s   9.37  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq22:knee  [fit at its bound: k_b@dark-rest; s is an upper bound]
+            LT -> LT+bleed-lit-own-pre dark-rest       s   5.45  DISTINGUISHED  2x|b-p3-c16-rrect-lg:sq197:knee  [fit at its bound: k_b@dark-rest; s is an upper bound]
+            LT -> LT+bleed-lit-post dark-rest       s  11.00  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq22:knee
+            LT -> LT+bleed-lit-pre dark-rest       s   6.13  DISTINGUISHED  2x|bp-p1-c8-rrect-lg:sq288:far
             LT -> LT+bleed-own  dark-rest       s  16.45  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin16..24  [fit at its bound: k_b@dark-rest; s is an upper bound]
             LT -> LT+bleed-own  light-rest      s   1.28  MARGINAL      (whole bed)  2x|d-d0-hilo-rrect-lg:bin-32..-24  [fit at its bound: k_b@light-rest; s is an upper bound]
             LT -> R1            dark-inactive   s   2.56  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq11:knee
@@ -1338,10 +1282,10 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
             LT -> W-canvas      dark-rest       s   0.02  UNRESOLVED     2x|bp-p1-c32-rrect-64:sq36:far
             LT -> W-canvas      light-inactive  s   6.85  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq6:knee
             LT -> W-canvas      light-rest      s   0.01  UNRESOLVED     2x|bp-p1-c64-capsule-button:sq12:knee
-            LT -> W-shape       dark-inactive   s   2.49  DISTINGUISHED  2x|bp-p1-c32-rrect-ml:sq59:knee
-            LT -> W-shape       dark-rest       s   0.01  UNRESOLVED     2x|bp-p1-c32-rrect-64:sq36:far  [fit at its bound: mu@dark-rest; s is an upper bound]
-            LT -> W-shape       light-inactive  s   2.38  DISTINGUISHED  2x|bp-p1-c32-rrect-ml:sq52:knee
-            LT -> W-shape       light-rest      s   0.01  UNRESOLVED     2x|bp-p1-c32-rrect-64:sq36:knee  [fit at its bound: mu@light-rest; s is an upper bound]
+            LT -> W-shape       dark-inactive   s   2.67  DISTINGUISHED  2x|bp-p1-c32-rrect-ml:sq59:knee
+            LT -> W-shape       dark-rest       s   0.01  UNRESOLVED     2x|bp-p1-c32-rrect-64:sq36:far  [fit at its bound: mu@dark-rest; s is an upper bound]  [STALE: read at the engine before the review of b151aff4, not re-run]
+            LT -> W-shape       light-inactive  s   2.36  DISTINGUISHED  2x|bp-p1-c32-rrect-ml:sq52:knee
+            LT -> W-shape       light-rest      s   0.01  UNRESOLVED     2x|bp-p1-c32-rrect-64:sq36:knee  [fit at its bound: mu@light-rest; s is an upper bound]  [STALE: read at the engine before the review of b151aff4, not re-run]
             LT -> edge-swap     dark-inactive   s   5.61  DISTINGUISHED  2x|bp-p1-c64-capsule-button:sq12:far
             LT -> edge-swap     dark-rest       s   0.79  MARGINAL       2x|c-s32-hi-rrect-md:p1:core
             LT -> edge-swap     light-inactive  s   6.13  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq6:knee
@@ -1354,6 +1298,10 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
             LT -> knee-luma     light-rest      s  16.69  DISTINGUISHED  2x|e-by-c16-rrect-md:sq109:b|B
       LT+bleed -> LT            dark-rest       s  22.42  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin32..48
       LT+bleed -> LT            light-rest      s   2.34  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin32..48
+  LT+bleed-lit-own-post -> LT            dark-rest       s  10.89  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq22:knee
+  LT+bleed-lit-own-pre -> LT            dark-rest       s   6.09  DISTINGUISHED  2x|bp-p1-c8-rrect-lg:sq688:far
+  LT+bleed-lit-post -> LT            dark-rest       s  10.99  DISTINGUISHED  2x|bp-p1-c32-rrect-lg:sq22:knee
+  LT+bleed-lit-pre -> LT            dark-rest       s   6.13  DISTINGUISHED  2x|bp-p1-c8-rrect-lg:sq688:far
   LT+bleed-own -> LT            dark-rest       s  22.06  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin32..48
   LT+bleed-own -> LT            light-rest      s   2.35  DISTINGUISHED  2x|bp-p1-c64-capsule-button:sq13:far
          LT-2k -> LT            dark-inactive   s   2.48  DISTINGUISHED  2x|bp-p1-c32-rrect-ml:sq32:far
@@ -1370,20 +1318,20 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
       W-canvas -> LT            dark-rest       s   0.02  UNRESOLVED     2x|bp-p1-c64-capsule-button:sq12:far
       W-canvas -> LT            light-inactive  s   7.19  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
       W-canvas -> LT            light-rest      s   0.01  UNRESOLVED     2x|bp-p1-c64-capsule-button:sq12:knee
-      W-canvas -> W-shape       dark-inactive   s   0.06  UNRESOLVED     2x|c-impulse-rrect-lg:p1:core  [fit at its bound: mu@dark-inactive; s is an upper bound]
-      W-canvas -> W-shape       light-inactive  s   0.06  UNRESOLVED     2x|c-s8-hi-d80-rrect-lg:p12:ring2-4  [fit at its bound: mu@light-inactive; s is an upper bound]
+      W-canvas -> W-shape       dark-inactive   s   0.44  UNRESOLVED     2x|c-s32-lo-p4-rrect-ml:p1:core  [fit at its bound: mu@dark-inactive; s is an upper bound]
+      W-canvas -> W-shape       light-inactive  s   0.34  UNRESOLVED     2x|c-s32-hi-rrect-md:p1:core  [fit at its bound: mu@light-inactive; s is an upper bound]
       W-canvas -> W-tails       dark-inactive   s   7.00  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16  [fit at its bound: a@dark-inactive, s2@dark-inactive; s is an upper bound]
       W-canvas -> W-tails       light-inactive  s   7.19  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
-       W-shape -> K2            dark-inactive   s   2.28  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:sq129:far
-       W-shape -> K2            light-inactive  s   2.24  DISTINGUISHED (whole bed)  2x|bp-p1-c32-rrect-lg:sq12:knee
-       W-shape -> LT            dark-inactive   s   2.32  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq11:knee
+       W-shape -> K2            dark-inactive   s   2.19  DISTINGUISHED (whole bed)  2x|bp-p1-c32-rrect-ml:sq59:knee
+       W-shape -> K2            light-inactive  s   2.16  DISTINGUISHED (whole bed)  2x|bp-p1-c32-rrect-80:sq47:knee
+       W-shape -> LT            dark-inactive   s   2.42  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq11:knee
        W-shape -> LT            dark-rest       s   2.98  DISTINGUISHED  2x|bp-p1-c64-capsule-button:sq13:knee
-       W-shape -> LT            light-inactive  s   2.21  DISTINGUISHED  2x|bp-p1-c32-rrect-80:sq47:knee
+       W-shape -> LT            light-inactive  s   2.20  DISTINGUISHED  2x|bp-p1-c64-rrect-ml:sq16:knee
        W-shape -> LT            light-rest      s   1.96  DISTINGUISHED  2x|bp-p1-c64-capsule-button:sq12:knee
-       W-shape -> W-canvas      dark-inactive   s   6.81  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
-       W-shape -> W-canvas      light-inactive  s   6.91  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
-       W-shape -> W-tails       dark-inactive   s   2.59  DISTINGUISHED (whole bed)  2x|bp-p1-c16-rrect-sm:sq129:far
-       W-shape -> W-tails       light-inactive  s   2.25  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq16:knee
+       W-shape -> W-canvas      dark-inactive   s   6.88  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
+       W-shape -> W-canvas      light-inactive  s   6.84  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
+       W-shape -> W-tails       dark-inactive   s   2.44  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq11:knee
+       W-shape -> W-tails       light-inactive  s   2.22  DISTINGUISHED (whole bed)  2x|bp-p1-c64-rrect-ml:sq16:knee  [fit at its bound: a@light-inactive; s is an upper bound]
        W-tails -> K2            dark-inactive   s   2.86  DISTINGUISHED  2x|b-p2-c16-rrect-md:sq148:far
        W-tails -> K2            light-inactive  s   1.81  DISTINGUISHED  2x|d-d32-lohi-rrect-md:bin32..48
        W-tails -> LT            dark-inactive   s   3.46  DISTINGUISHED  2x|bp-p1-c32-capsule-button:sq45:far
@@ -1392,8 +1340,8 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
        W-tails -> LT            light-rest      s   2.58  DISTINGUISHED  2x|d-d0-hilo-rrect-lg:bin32..48
        W-tails -> W-canvas      dark-inactive   s   8.92  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
        W-tails -> W-canvas      light-inactive  s   9.18  DISTINGUISHED  2x|d-out8-lohi-rrect-md:bin-24..-16
-       W-tails -> W-shape       dark-inactive   s   3.12  DISTINGUISHED  2x|b-p2-c16-rrect-md:sq87:far
-       W-tails -> W-shape       light-inactive  s   3.05  DISTINGUISHED  2x|c-s8-hi-rrect-sm:p1:core
+       W-tails -> W-shape       dark-inactive   s   2.96  DISTINGUISHED  2x|c-s16-lo-capsule-button:p1:core
+       W-tails -> W-shape       light-inactive  s   3.09  DISTINGUISHED  2x|c-s8-hi-rrect-sm:p1:core
      edge-swap -> LT            dark-inactive   s   5.64  DISTINGUISHED  2x|bp-p1-c32-rrect-80:sq47:far
      edge-swap -> LT            dark-rest       s   0.73  MARGINAL       2x|bp-p1-c64-capsule-button:sq13:knee
      edge-swap -> LT            light-inactive  s   6.10  DISTINGUISHED  2x|bp-p1-c32-rrect-80:sq47:knee
@@ -1406,28 +1354,43 @@ SEPARATION (s = the fitted family's best max region-statistic miss against the t
      knee-luma -> LT            dark-rest       s  18.45  DISTINGUISHED  2x|e-by-c16-rrect-md:sq109:b|B
      knee-luma -> LT            light-inactive  s   9.65  DISTINGUISHED  2x|e-by-c64-rrect-md:sq8:a|B
      knee-luma -> LT            light-rest      s  15.98  DISTINGUISHED  2x|e-by-c16-rrect-md:sq109:b|B
+  LT+bleed-lit-pre -> LT            light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
+            LT -> LT+bleed-lit-pre light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
+  LT+bleed-lit-post -> LT            light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
+            LT -> LT+bleed-lit-post light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
+  LT+bleed-lit-own-pre -> LT            light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
+            LT -> LT+bleed-lit-own-pre light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
+  LT+bleed-lit-own-post -> LT            light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
+            LT -> LT+bleed-lit-own-post light-rest      s   0.00  UNRESOLVED (bound at the truth's own parameters; no fit) (whole bed)  None
 
 REJECTED NULLS fitted to an LT truth (memo E's bars: mixture >= 2.60, units and R2 >= 4.65)
-  null-R2        dark-inactive   pooled   2.14 max cell   6.20  FAIL
-  null-R2        dark-rest       pooled   1.28 max cell   2.72  FAIL
-  null-R2        light-inactive  pooled   1.73 max cell   4.27  FAIL
-  null-R2        light-rest      pooled   2.29 max cell   4.24  FAIL
-  null-boxfloor  dark-inactive   pooled   0.42 max cell   0.49  n/a (no memo E bar)
-  null-boxfloor  dark-rest       pooled   0.44 max cell   0.50  n/a (no memo E bar)
-  null-boxfloor  light-inactive  pooled   0.43 max cell   0.50  n/a (no memo E bar)
-  null-boxfloor  light-rest      pooled   0.43 max cell   0.44  n/a (no memo E bar)
-  null-dev       dark-inactive   pooled   1.30 max cell   8.75  FAIL
-  null-dev       dark-rest       pooled   2.98 max cell  11.08  FAIL
-  null-dev       light-inactive  pooled   1.26 max cell   8.49  FAIL
-  null-dev       light-rest      pooled   1.46 max cell   8.93  FAIL
-  null-mix       dark-inactive   pooled   4.61 max cell  14.78  PASS
-  null-mix       dark-rest       pooled   3.20 max cell  10.97  PASS
-  null-mix       light-inactive  pooled   3.10 max cell   9.44  PASS
-  null-mix       light-rest      pooled   2.68 max cell   9.26  PASS
-  null-texel     dark-inactive   pooled   1.91 max cell  10.03  FAIL
-  null-texel     dark-rest       pooled   2.77 max cell  12.73  FAIL
-  null-texel     light-inactive  pooled   1.85 max cell   9.81  FAIL
-  null-texel     light-rest      pooled   2.58 max cell  11.51  FAIL
+  null-R2        dark-inactive   pooled   1.99 max cell   6.02  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel receded (no band))
+  null-R2        dark-rest       pooled   2.84 max cell   9.35  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel n)
+  null-R2        light-inactive  pooled   1.71 max cell   4.23  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel receded (no band))
+  null-R2        light-rest      pooled   2.75 max cell   8.24  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel n)
+  null-boxfloor  dark-inactive   pooled   0.41 max cell   0.49  n/a (no memo E bar)  (pin 764217e1, kernel receded (no band))
+  null-boxfloor  dark-rest       pooled   1.27 max cell   8.91  n/a (no memo E bar)  (pin 764217e1, kernel n)
+  null-boxfloor  light-inactive  pooled   0.43 max cell   0.50  n/a (no memo E bar)  (pin 764217e1, kernel receded (no band))
+  null-boxfloor  light-rest      pooled   0.99 max cell   6.05  n/a (no memo E bar)  (pin 764217e1, kernel n)
+  null-dev       dark-inactive   pooled   1.17 max cell   8.75  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel receded (no band))
+  null-dev       dark-rest       pooled   1.41 max cell  10.14  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel n)
+  null-dev       light-inactive  pooled   1.24 max cell   8.49  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel receded (no band))
+  null-dev       light-rest      pooled   1.38 max cell   8.93  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel n)
+  null-mix       dark-inactive   pooled   4.13 max cell  14.78  PASS  (pin 764217e1, kernel receded (no band))
+  null-mix       dark-rest       pooled   2.78 max cell  10.97  PASS  (pin 764217e1, kernel n)
+  null-mix       light-inactive  pooled   3.04 max cell   9.44  PASS  (pin 764217e1, kernel receded (no band))
+  null-mix       light-rest      pooled   2.56 max cell   9.26  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel n)
+  null-texel     dark-inactive   pooled   1.71 max cell  10.03  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel receded (no band))
+  null-texel     dark-rest       pooled   2.37 max cell  12.73  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel n)
+  null-texel     light-inactive  pooled   1.82 max cell   9.81  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel receded (no band))
+  null-texel     light-rest      pooled   2.61 max cell  11.50  NOT REFUSED: non-identifiable by the declared pooled bar  (pin 764217e1, kernel n)
+
+THE REFRACTION-ORDER TEST, v3 (refraction_order.v3.txt): per endpoint and statistic, P* (the pooled rms
+below which the statistic is admitted), its resolution, and whether it would admit LT at 2.1 codes
+  dark-rest|S1   P* 0.568; resolution 16.0; power True; admits LT at 2.1: False
+  dark-rest|S2   P* 1.086; resolution 16.0; power True; admits LT at 2.1: False
+  light-rest|S1  P* 0.549; resolution 16.0; power True; admits LT at 2.1: False
+  light-rest|S2  P* 2.285; resolution 16.0; power True; admits LT at 2.1: True
 
 ACTIVE PAIRS AT THE W SUPPORT (the first ruling 3; the fallback's record if refraction acts before the blur)
             LT -> R1            dark-rest       s   1.50  DISTINGUISHED  bed 764217e1
@@ -1445,7 +1408,7 @@ ACTIVE PAIRS AT THE W SUPPORT (the first ruling 3; the fallback's record if refr
 
 PAIRS NOT DISTINGUISHED, AND WHAT WOULD SEPARATE THEM
 - LT -> LT+bleed-own (light-rest): s 1.28 MARGINAL
-    In light the declared bleed weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): 0.02 on md to 0.09 on rrect-lg), so with its radius free the bleed nearly vanishes into LT (1.28 on the whole final bed); in dark (beta up to 0.6) it cannot (16.4). The reverse, LT+bleed-own -> LT, is distinguished in both schemes (2.35 light, 22.1 dark): a true light bleed is caught, a light LT truth leaves the free-radius bleed marginally alive, and the tie-break (parameter count) keeps LT.
+    The bleed's NORMAL VARIANT (a stated variant since the review of b151aff4: Normal mix, pre-T, whole shape, affine absorbed). Its light weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): 0.02 on md to 0.09 on rrect-lg), so with its radius free it nearly vanishes into LT (1.28 on the whole final bed; the minimax search continued at three times the budget stays at 1.279); in dark (beta up to 0.6) it cannot (16.4). The reverse is distinguished (2.35 light, 22.1 dark); the tie-break keeps LT. The DECLARED dump-literal form is separated in dark (5.5-11.0) and moves no light pixel (see its rows).
 - LT -> R1 (light-inactive): s 0.51 MARGINAL
     The mirror of R1 -> LT: see there.
 - LT -> R1 (light-rest): s 0.54 MARGINAL
@@ -1470,9 +1433,9 @@ PAIRS NOT DISTINGUISHED, AND WHAT WOULD SEPARATE THEM
     U3's active question (does active W read the canvas or R_fp) has no answering cell: R_fp's active margin (16 pt, 0.35 s above 64) plus the deep mask puts any content a canvas-wide W would see and a clamped R_fp would not at >= 50 pt from every readable pixel, where a sigma_w of ~16.5 pt weighs it below 1e-3; the D steps 8 and 16 pt outside the edge were the answering rows and are refraction-confounded (19.2 pt outer reach). Non-identifiable on this bed; no cell within the canvas and outside the refraction reach separates it. Recorded, not a bed question with an answer.
 - W-canvas -> LT (light-rest): s 0.01 UNRESOLVED
     U3's active question (does active W read the canvas or R_fp) has no answering cell: R_fp's active margin (16 pt, 0.35 s above 64) plus the deep mask puts any content a canvas-wide W would see and a clamped R_fp would not at >= 50 pt from every readable pixel, where a sigma_w of ~16.5 pt weighs it below 1e-3; the D steps 8 and 16 pt outside the edge were the answering rows and are refraction-confounded (19.2 pt outer reach). Non-identifiable on this bed; no cell within the canvas and outside the refraction reach separates it. Recorded, not a bed question with an answer.
-- W-canvas -> W-shape (dark-inactive): s 0.06 UNRESOLVED
+- W-canvas -> W-shape (dark-inactive): s 0.44 UNRESOLVED
     Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).
-- W-canvas -> W-shape (light-inactive): s 0.06 UNRESOLVED
+- W-canvas -> W-shape (light-inactive): s 0.34 UNRESOLVED
     Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).
 - edge-swap -> LT (dark-rest): s 0.73 MARGINAL
     R_fp's active edge mode (clamp vs normalised) is invisible for the same reason: the active margin keeps R_fp's edge >= 45 pt from the deep mask. Memo E's 0.23-code dark-active choice is below the bar. Non-identifiable on this bed; it does not matter to a render at these margins either.
@@ -1480,3 +1443,19 @@ PAIRS NOT DISTINGUISHED, AND WHAT WOULD SEPARATE THEM
     R_fp's active edge mode (clamp vs normalised) is invisible for the same reason: the active margin keeps R_fp's edge >= 45 pt from the deep mask. Memo E's 0.23-code dark-active choice is below the bar. Non-identifiable on this bed; it does not matter to a render at these margins either.
 - free-sn -> LT (light-inactive): s 1.17 MARGINAL
     The free receded span law's truth sits within 0.64 pt of LT's k 5 (0.4 + 0.4t) at every ordinate, so this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160; whole bed at pin 5d719b60: 1.17); the estimated resolution row gives the departure it would separate.
+- LT+bleed-lit-pre -> LT (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.
+- LT -> LT+bleed-lit-pre (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.
+- LT+bleed-lit-post -> LT (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.
+- LT -> LT+bleed-lit-post (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.
+- LT+bleed-lit-own-pre -> LT (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.
+- LT -> LT+bleed-lit-own-pre (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.
+- LT+bleed-lit-own-post -> LT (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.
+- LT -> LT+bleed-lit-own-post (light-rest): s 0.00 UNRESOLVED (bound at the truth's own parameters; no fit)
+    The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause.

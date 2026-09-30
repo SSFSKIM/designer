@@ -39,11 +39,18 @@ SEPARATORS = {
         "narrow support on the final bed, with B's P5 / P3 on rrect-lg in, the whole-bed re-read reads 0.54-0.57; "
         'at the W support (the fallback) 0.14. Dark separates it under both masks (7.0-7.3 narrow, 1.42-1.50 W).'),
     ('LT', 'LT+bleed-own', 'rest'): (
-        'In light the declared bleed weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): '
-        '0.02 on md to 0.09 on rrect-lg), so with its radius free the bleed nearly vanishes into LT (1.28 on the '
-        'whole final bed); in dark (beta up to 0.6) it cannot (16.4). The reverse, LT+bleed-own -> LT, is '
-        'distinguished in both schemes (2.35 light, 22.1 dark): a true light bleed is caught, a light LT truth '
-        'leaves the free-radius bleed marginally alive, and the tie-break (parameter count) keeps LT.'),
+        "The bleed's NORMAL VARIANT (a stated variant since the review of b151aff4: Normal mix, pre-T, whole shape, "
+        'affine absorbed). Its light weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): '
+        '0.02 on md to 0.09 on rrect-lg), so with its radius free it nearly vanishes into LT (1.28 on the whole '
+        'final bed; the minimax search continued at three times the budget stays at 1.279); in dark (beta up to '
+        '0.6) it cannot (16.4). The reverse is distinguished (2.35 light, 22.1 dark); the tie-break keeps LT. The '
+        "DECLARED dump-literal form is separated in dark (5.5-11.0) and moves no light pixel (see its rows)."),
+    ('bleed-lit', 'light', 'rest'): (
+        "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 "
+        'inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the '
+        'bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the '
+        "truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: "
+        'under the literal reading the bleed cannot be light-active U7\'s cause.'),
     ('W-canvas', 'W-shape', 'inactive'): (
         'Not a separation failure: W-shape with a large margin contains the canvas support at every readable '
         'pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).'),
@@ -83,12 +90,29 @@ def load(p):
         return None
 
 
+ENGINE = 'fix-b151aff4'   # forward.ENGINE (not imported: the table is assembled from outputs alone)
+
+
 def family_rows(p1):
     rows = []
     if not p1:
         return rows
-    for r in p1.get('A', []):
+    # A row of part A / An / Aw that part A_fix re-ran (same family and endpoint) is superseded: the family's model or
+    # its starts changed in the review of b151aff4.
+    fixed = {(r['family'], r['ep']) for r in p1.get('A_fix', [])}
+    for r in p1.get('A_fix', []):
+        band = 'outside (d_in = 20 + 2 sigma_n,ref)' if r['ep'].endswith('rest') else 'receded (no band)'
         if 'skipped' in r:
+            continue
+        for pn, v in r['recovered'].items():
+            rows.append(dict(reader=f"family fitter: {r['family']} (A_fix, engine {r['engine']})", quantity=pn,
+                             endpoints=[r['ep']], band=band, gated=True,
+                             synthetic=dict(resolution=f"{v['err']:+.4f} (read {v['read']:.4f}, truth {v['truth']:.4f})",
+                                            tolerance=f"+-{v['tol']}",
+                                            verdict='PASS' if v['ok'] else 'FAIL'),
+                             vitrea=None, notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells, bed {r['bed']}"))
+    for r in p1.get('A', []):
+        if 'skipped' in r or (r['family'], r['ep']) in fixed:
             continue
         band = 'outside (d_in = 20 + 2 sigma_n,ref)' if r['ep'].endswith('rest') else 'receded (no band)'
         for pn, v in r['recovered'].items():
@@ -103,6 +127,8 @@ def family_rows(p1):
                              ('Aw_final', 'W support: the fallback record, final pin', 'outside (d_in 53.6 pt, W support)'),
                              ('An_final', 'narrow support, final pin', 'outside (d_in 20 + 2 sigma_n,ref)')):
         for r in p1.get(key, []):
+            if (r['family'], r['ep']) in fixed:
+                continue
             if 'skipped' in r:
                 rows.append(dict(reader=f"family fitter: {r['family']} ({label})", quantity='all', endpoints=[r['ep']],
                                  band=band, gated=key.startswith('An'),
@@ -165,6 +191,7 @@ def estimate_rows(table):
 
 
 FALLBACK = []
+ENGINE_CHANGED = {'W-shape'}   # proof2_separation.ENGINE_CHANGED
 
 
 def separation(p2):
@@ -174,7 +201,9 @@ def separation(p2):
     # narrow-support read (the revised ruling 3's primary); active reads at the W support are the fallback's
     # record and are listed apart (fallback_table).
     order = {'5ba68aeb': 0, '07b45391': 1, '5d719b60': 2, '764217e1': 3}
-    rank = lambda r: (order.get(r.get('bed', '5ba68aeb'), 9), bool(r.get('whole')))
+    # a pair with a family whose model the review of b151aff4 changed counts first at the current engine
+    rank = lambda r: (r.get('engine') == ENGINE if {r['truth'], r['fit']} & ENGINE_CHANGED else True,
+                      order.get(r.get('bed', '5ba68aeb'), 9), bool(r.get('whole')))
     best, fallback = {}, {}
     for r in p2['pairs']:
         key = (r['truth'], r['fit'], r['ep'])
@@ -190,9 +219,10 @@ def separation(p2):
         bound = sorted({k for k, v in list(r['ls_x'].items()) + list(r['mm_x'].items())
                         if min(abs(v - b[k.split('@')[0]][0]), abs(v - b[k.split('@')[0]][1])) < 1e-3 *
                         max(1, abs(v))})
+        stale = bool({t, f} & ENGINE_CHANGED) and r.get('engine') != ENGINE
         table.append(dict(truth=t, fit=f, ep=ep, s=r['s'], s_ls=r['s_ls'], verdict=r['verdict'], where=r['where'],
                           whole=r.get('whole', False), n_cells=r['n_cells'], at_bound=bound,
-                          bed=r.get('bed', '5ba68aeb')))
+                          bed=r.get('bed', '5ba68aeb'), engine=r.get('engine'), stale_engine=stale))
         if r['verdict'] != 'DISTINGUISHED':
             pose = ep.split('-')[1]
             note = SEPARATORS.get((t, f, pose)) or SEPARATORS.get((t, f, '*')) or 'NO NOTE: to be read'
@@ -210,7 +240,17 @@ def main():
             r['gated'] = bool(r['reader'].startswith('step') and 'support' in r['quantity'])
             rows.append(r)
     table, open_pairs = separation(load('proof2_separation.json'))
-    nulls = load('proof2_nulls.json') or []
+    for r in load('proof2_bleed_light.json') or []:
+        table.append(dict(truth=r['truth'], fit=r['fit'], ep=r['ep'], s=r['s_bound'], s_ls=None, verdict=r['verdict'],
+                          where=r['where'], whole=True, n_cells=r['n_cells'], at_bound=[], bed=r['bed'],
+                          engine=r['engine'], stale_engine=False))
+        pose = r['ep'].split('-')[1]
+        open_pairs.append(dict(truth=r['truth'], fit=r['fit'], ep=r['ep'], s=r['s_bound'], verdict=r['verdict'],
+                               where=r['where'], separator=SEPARATORS.get(('bleed-lit', 'light', pose))))
+    import bed as _bed
+    cur = lambda r: (r.get('bed'), r.get('engine')) == (_bed.BED_COMMIT[:8], ENGINE)
+    nulls_all = load('proof2_nulls.json') or []
+    nulls = [r for r in nulls_all if cur(r)] or nulls_all
     rows += estimate_rows(table)
     p1 = load('proof1_families.json') or {}
     json.dump(dict(rows=rows, separation=table, unresolved=open_pairs, nulls=nulls, nesting=p1.get('B'),
@@ -245,7 +285,9 @@ def main():
     for r in table:
         L.append(f"  {r['truth']:>12s} -> {r['fit']:<13s} {r['ep']:15s} s {r['s']:6.2f}  {r['verdict']:13s}"
                  f"{' (whole bed)' if r['whole'] else ''}  {r['where']}"
-                 + (f"  [fit at its bound: {', '.join(r['at_bound'])}; s is an upper bound]" if r['at_bound'] else ''))
+                 + (f"  [fit at its bound: {', '.join(r['at_bound'])}; s is an upper bound]" if r['at_bound'] else '')
+                 + ('  [STALE: read at the engine before the review of b151aff4, not re-run]' if r.get('stale_engine')
+                    else ''))
     if nulls:
         L += ['', "REJECTED NULLS fitted to an LT truth (memo E's bars: mixture >= 2.60, units and R2 >= 4.65)"]
         for r in sorted(nulls, key=lambda r: (r['fit'], r['ep'])):
@@ -254,7 +296,15 @@ def main():
             at_bound = any(min(abs(v - b[k.split('@')[0]][0]), abs(v - b[k.split('@')[0]][1])) < 1e-3
                            for k, v in r['x'].items())
             verdict = 'VOID: the fit sat on the k bound (4.0); widened for the resume' if at_bound else r['verdict']
-            L.append(f"  {r['fit']:14s} {r['ep']:15s} pooled {r['pooled']:6.2f} max cell {r['max_cell']:6.2f}  {verdict}")
+            L.append(f"  {r['fit']:14s} {r['ep']:15s} pooled {r['pooled']:6.2f} max cell {r['max_cell']:6.2f}  {verdict}"
+                     f"  (pin {r.get('bed')}, kernel {r.get('kernel')})")
+    ro = load('refraction_order.v3.json')
+    if ro:
+        L += ['', 'THE REFRACTION-ORDER TEST, v3 (refraction_order.v3.txt): per endpoint and statistic, P* (the pooled rms',
+              'below which the statistic is admitted), its resolution, and whether it would admit LT at 2.1 codes']
+        for k, v in ro['validity'].items():
+            L.append(f"  {k:14s} P* {v['P_star']:.3f}; resolution {v['resolution']}; power {v['power']}; "
+                     f"admits LT at 2.1: {v['admits_memo_E_LT']}")
     if FALLBACK:
         L += ['', "ACTIVE PAIRS AT THE W SUPPORT (the first ruling 3; the fallback's record if refraction acts before the blur)"]
         for r in FALLBACK:

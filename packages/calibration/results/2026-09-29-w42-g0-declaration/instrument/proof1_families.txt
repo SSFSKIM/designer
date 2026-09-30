@@ -126,6 +126,28 @@ Aw_final  the same at the W support (the fallback), pin 764217e1
   knee-luma     light-rest      PASS pooled 0.293 max 0.296 n 2 | k 1.983->1.982 (-0.0009; 0.005) | lam 0.880->0.881 (+0.0009; 0.03)
   knee-luma     dark-rest       PASS pooled 0.275 max 0.280 n 2 | k 2.094->2.095 (+0.0013; 0.005) | lam 0.900->0.898 (-0.0020; 0.03)
 
+A_fix  part A re-run after the review of b151aff4 (engine fix-b151aff4): W-shape's narrow term on R_fp, starts off the truths, the dump-literal bleed; supersedes the same family and endpoint in A / An / Aw
+  W-shape               light-rest      PASS pooled 0.417 max 0.443 n 29 pin 764217e1 kernel n | k 1.983->1.983 (-0.0002; 0.005) | mu 4.000->4.102 (+0.1021; 1.0) | lam 0.880->0.880 (+0.0004; 0.03)
+  W-shape               light-inactive  PASS pooled 0.437 max 0.500 n 37 pin 764217e1 kernel receded (no band) | k 2.035->2.035 (-0.0002; 0.005) | mu 4.000->3.968 (-0.0319; 1.0) | lam 0.800->0.800 (+0.0004; 0.03)
+  W-shape               dark-rest       PASS pooled 0.404 max 0.497 n 40 pin 764217e1 kernel n | k 2.094->2.094 (+0.0002; 0.005) | mu 4.000->3.863 (-0.1366; 1.0) | lam 0.900->0.900 (+0.0001; 0.03)
+  W-shape               dark-inactive   PASS pooled 0.401 max 0.492 n 49 pin 764217e1 kernel receded (no band) | k 2.074->2.074 (-0.0000; 0.005) | mu 4.000->3.982 (-0.0184; 1.0) | lam 0.800->0.800 (-0.0003; 0.03)
+  W-tails               light-rest      PASS pooled 0.416 max 0.455 n 29 pin 764217e1 kernel n | k 1.983->1.983 (+0.0001; 0.005) | s2 40.000->39.975 (-0.0253; 2.0) | a 0.250->0.250 (+0.0001; 0.03) | lam 0.880->0.880 (+0.0001; 0.03)
+  W-tails               light-inactive  PASS pooled 0.430 max 0.500 n 37 pin 764217e1 kernel receded (no band) | k 2.035->2.035 (-0.0003; 0.005) | s2 40.000->39.987 (-0.0131; 2.0) | a 0.250->0.250 (+0.0001; 0.03) | lam 0.800->0.800 (+0.0003; 0.03)
+  W-tails               dark-rest       PASS pooled 0.405 max 0.498 n 40 pin 764217e1 kernel n | k 2.094->2.095 (+0.0006; 0.005) | s2 40.000->39.899 (-0.1013; 2.0) | a 0.250->0.251 (+0.0011; 0.03) | lam 0.900->0.900 (-0.0005; 0.03)
+  W-tails               dark-inactive   PASS pooled 0.410 max 0.493 n 49 pin 764217e1 kernel receded (no band) | k 2.074->2.073 (-0.0006; 0.005) | s2 40.000->40.469 (+0.4690; 2.0) | a 0.250->0.245 (-0.0049; 0.03) | lam 0.800->0.802 (+0.0020; 0.03)
+  LT+bleed-own          light-rest      PASS pooled 0.413 max 0.442 n 28 pin 764217e1 kernel n | k 1.983->1.983 (+0.0001; 0.005) | k_b 2.000->1.997 (-0.0035; 0.05) | lam 0.880->0.880 (+0.0001; 0.03)
+  LT+bleed-own          dark-rest       PASS pooled 0.412 max 0.500 n 39 pin 764217e1 kernel n | k 2.094->2.094 (+0.0004; 0.005) | k_b 2.000->2.000 (-0.0003; 0.05) | lam 0.900->0.900 (+0.0001; 0.03)
+  LT+bleed-lit-pre      light-rest      PASS pooled 0.418 max 0.440 n 28 pin 764217e1 kernel n | k 1.983->1.983 (+0.0002; 0.005) | lam 0.880->0.880 (+0.0001; 0.03)
+  LT+bleed-lit-pre      dark-rest       PASS pooled 0.402 max 0.441 n 39 pin 764217e1 kernel n | k 2.094->2.094 (+0.0002; 0.005) | lam 0.900->0.900 (+0.0002; 0.03)
+  LT+bleed-lit-post     light-rest      PASS pooled 0.418 max 0.440 n 28 pin 764217e1 kernel n | k 1.983->1.983 (+0.0002; 0.005) | lam 0.880->0.880 (+0.0001; 0.03)
+  LT+bleed-lit-post     dark-rest       PASS pooled 0.404 max 0.444 n 39 pin 764217e1 kernel n | k 2.094->2.094 (+0.0003; 0.005) | lam 0.900->0.900 (+0.0001; 0.03)
+  LT+bleed-lit-own-pre  light-rest      FAIL pooled 0.418 max 0.440 n 28 pin 764217e1 kernel n | k 1.983->1.983 (+0.0002; 0.005) | k_b 2.000->4.000 (+1.9999; 0.05) | lam 0.880->0.880 (+0.0001; 0.03)
+  LT+bleed-lit-own-pre  dark-rest       PASS pooled 0.402 max 0.441 n 39 pin 764217e1 kernel n | k 2.094->2.094 (+0.0002; 0.005) | k_b 2.000->2.000 (+0.0002; 0.05) | lam 0.900->0.900 (+0.0002; 0.03)
+  LT+bleed-lit-own-post light-rest      FAIL pooled 0.418 max 0.440 n 28 pin 764217e1 kernel n | k 1.983->1.983 (+0.0002; 0.005) | k_b 2.000->2.553 (+0.5527; 0.05) | lam 0.880->0.880 (+0.0001; 0.03)
+  LT+bleed-lit-own-post dark-rest       PASS pooled 0.404 max 0.443 n 39 pin 764217e1 kernel n | k 2.094->2.094 (+0.0003; 0.005) | k_b 2.000->2.000 (-0.0004; 0.05) | lam 0.900->0.900 (+0.0001; 0.03)
+  free-sn               light-inactive  PASS pooled 0.430 max 0.495 n 25 pin 764217e1 kernel receded (no band) | k 2.035->2.035 (+0.0001; 0.005) | sn_inactive_64 4.250->4.249 (-0.0010; 0.05) | sn_inactive_80 4.800->4.801 (+0.0014; 0.05) | sn_inactive_96 5.400->5.405 (+0.0047; 0.05) | sn_inactive_128 6.500->6.500 (+0.0003; 0.05) | sn_inactive_160 7.500->7.499 (-0.0013; 0.05) | lam 0.800->0.800 (+0.0001; 0.03)
+  free-sn               dark-inactive   PASS pooled 0.404 max 0.492 n 33 pin 764217e1 kernel receded (no band) | k 2.074->2.074 (+0.0001; 0.005) | sn_inactive_64 4.250->4.249 (-0.0013; 0.05) | sn_inactive_80 4.800->4.799 (-0.0006; 0.05) | sn_inactive_96 5.400->5.394 (-0.0064; 0.05) | sn_inactive_128 6.500->6.500 (+0.0002; 0.05) | sn_inactive_160 7.500->7.500 (+0.0001; 0.05) | lam 0.800->0.800 (+0.0001; 0.03)
+
 B  k nesting (all four endpoints together): truth, level -> k read, pooled (per endpoint)
   truth global  k@global     params  5 pooled 0.419 max 0.497 [lr 0.413 li 0.423 dr 0.420 di 0.420] | k@all 2.0501
   truth global  k@scheme     params  6 pooled 0.419 max 0.497 [lr 0.413 li 0.423 dr 0.420 di 0.420] | k@light 2.0502, k@dark 2.0500
@@ -146,9 +168,9 @@ C  LT survival resolution (the change that moves some region statistic by one co
   dark-rest       k +0.0494 / -0.0477   lam +0.0288 / -0.0288   (34 cells)
   dark-inactive   k +0.0388 / -0.0368   lam +0.0290 / -0.0295   (40 cells)
 
-D  narrow interpolation vs dense reference: worst rms 0.0248, worst max 0.0938, median rms 0.0006 over 117 depth-graded cells
-   uniform invariance (max |y - T(g)| before rounding): LT 7.1e-14, LT-2k 7.1e-14, free-sn 7.1e-14, R1 7.1e-14, W-shape 8.5e-14, W-canvas 4.3e-14, W-tails 5.7e-14, K2 7.1e-14, C-linear 7.1e-14, knee-luma 7.1e-14, LT+bleed 5.7e-14, LT+bleed-own 5.7e-14, edge-swap 8.5e-14, null-mix 7.1e-14, null-texel 7.1e-14, null-dev 7.1e-14, null-R2 5.7e-14, null-boxfloor 5.7e-14
-   decimated wide blur vs direct: worst max 0.0366, worst rms 0.0075 over 332 cells (every pass)
+D  (pin 764217e1, engine fix-b151aff4) narrow interpolation vs dense reference: worst rms 0.0248, worst max 0.0938, median rms 0.0007 over 142 depth-graded cells
+   uniform invariance, max |y - T(g)| before rounding per pixel / at the deep median: LT 7.1e-14 / 4.3e-14, LT-2k 7.1e-14 / 5.7e-14, free-sn 7.1e-14 / 4.3e-14, R1 7.1e-14 / 4.3e-14, W-shape 8.5e-14 / 4.3e-14, W-canvas 4.3e-14 / 4.3e-14, W-tails 5.7e-14 / 4.3e-14, K2 7.1e-14 / 4.3e-14, C-linear 7.1e-14 / 4.3e-14, knee-luma 7.1e-14 / 4.3e-14, LT+bleed-lit-pre 7.3e+00 / 2.8e-14, LT+bleed-lit-post 9.5e+00 / 2.8e-14, LT+bleed-lit-own-pre 7.3e+00 / 2.8e-14, LT+bleed-lit-own-post 9.5e+00 / 2.8e-14, LT+bleed 5.7e-14 / 5.7e-14, LT+bleed-own 5.7e-14 / 5.7e-14, edge-swap 8.5e-14 / 4.3e-14, null-mix 7.1e-14 / 5.7e-14, null-texel 7.1e-14 / 5.7e-14, null-dev 7.1e-14 / 4.3e-14, null-R2 5.7e-14 / 4.3e-14, null-boxfloor 5.7e-14 / 2.8e-14
+   decimated wide blur vs direct: worst max 0.0366, worst rms 0.0075 over 383 cells (every pass)
    active deep mask d_in (pt) by span: 44 20.0, 64 20.0, 80 22.8, 96 25.6, 112 28.4, 128 31.2, 160 36.8
    refraction exclusions (active; the parent ruling):
      2x light-rest: c-s16-hi-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band

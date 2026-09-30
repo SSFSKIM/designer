@@ -1,6 +1,1094 @@
 {
  "rows": [
   {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0002 (read 1.9828, truth 1.9830)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.417, 29 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "mu",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.1021 (read 4.1021, truth 4.0000)",
+    "tolerance": "+-1.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.417, 29 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0004 (read 0.8804, truth 0.8800)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.417, 29 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0002 (read 2.0348, truth 2.0350)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.437, 37 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "mu",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0319 (read 3.9681, truth 4.0000)",
+    "tolerance": "+-1.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.437, 37 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0004 (read 0.8004, truth 0.8000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.437, 37 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 2.0942, truth 2.0940)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 40 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "mu",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.1366 (read 3.8634, truth 4.0000)",
+    "tolerance": "+-1.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 40 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.9001, truth 0.9000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 40 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0000 (read 2.0740, truth 2.0740)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.401, 49 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "mu",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0184 (read 3.9816, truth 4.0000)",
+    "tolerance": "+-1.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.401, 49 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-shape (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0003 (read 0.7997, truth 0.8000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.401, 49 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 1.9831, truth 1.9830)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.416, 29 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "s2",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0253 (read 39.9747, truth 40.0000)",
+    "tolerance": "+-2.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.416, 29 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "a",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.2501, truth 0.2500)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.416, 29 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.416, 29 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0003 (read 2.0347, truth 2.0350)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 37 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "s2",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0131 (read 39.9869, truth 40.0000)",
+    "tolerance": "+-2.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 37 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "a",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.2501, truth 0.2500)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 37 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0003 (read 0.8003, truth 0.8000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 37 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0006 (read 2.0946, truth 2.0940)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.405, 40 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "s2",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.1013 (read 39.8987, truth 40.0000)",
+    "tolerance": "+-2.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.405, 40 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "a",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0011 (read 0.2511, truth 0.2500)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.405, 40 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0005 (read 0.8995, truth 0.9000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.405, 40 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0006 (read 2.0734, truth 2.0740)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.410, 49 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "s2",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.4690 (read 40.4690, truth 40.0000)",
+    "tolerance": "+-2.0",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.410, 49 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "a",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0049 (read 0.2451, truth 0.2500)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.410, 49 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: W-tails (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0020 (read 0.8020, truth 0.8000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.410, 49 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-own (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 1.9831, truth 1.9830)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.413, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-own (A_fix, engine fix-b151aff4)",
+   "quantity": "k_b",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0035 (read 1.9965, truth 2.0000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.413, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-own (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.413, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-own (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0004 (read 2.0944, truth 2.0940)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.412, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-own (A_fix, engine fix-b151aff4)",
+   "quantity": "k_b",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0003 (read 1.9997, truth 2.0000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.412, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-own (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.9001, truth 0.9000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.412, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 1.9832, truth 1.9830)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 2.0942, truth 2.0940)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.402, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 0.9002, truth 0.9000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.402, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 1.9832, truth 1.9830)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0003 (read 2.0943, truth 2.0940)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-post (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.9001, truth 0.9000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 1.9832, truth 1.9830)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "k_b",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+1.9999 (read 3.9999, truth 2.0000)",
+    "tolerance": "+-0.05",
+    "verdict": "FAIL"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 2.0942, truth 2.0940)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.402, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "k_b",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 2.0002, truth 2.0000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.402, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-pre (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 0.9002, truth 0.9000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.402, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 1.9832, truth 1.9830)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4)",
+   "quantity": "k_b",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.5527 (read 2.5527, truth 2.0000)",
+    "tolerance": "+-0.05",
+    "verdict": "FAIL"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.418, 28 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0003 (read 2.0943, truth 2.0940)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4)",
+   "quantity": "k_b",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0004 (read 1.9996, truth 2.0000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: LT+bleed-lit-own-post (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-rest"
+   ],
+   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.9001, truth 0.9000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 39 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 2.0351, truth 2.0350)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 25 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_64",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0010 (read 4.2490, truth 4.2500)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 25 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_80",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0014 (read 4.8014, truth 4.8000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 25 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_96",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0047 (read 5.4047, truth 5.4000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 25 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_128",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0003 (read 6.5003, truth 6.5000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 25 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_160",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0013 (read 7.4987, truth 7.5000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 25 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "light-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8001, truth 0.8000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.430, 25 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "k",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 2.0741, truth 2.0740)",
+    "tolerance": "+-0.005",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 33 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_64",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0013 (read 4.2487, truth 4.2500)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 33 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_80",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0006 (read 4.7994, truth 4.8000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 33 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_96",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "-0.0064 (read 5.3936, truth 5.4000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 33 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_128",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0002 (read 6.5002, truth 6.5000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 33 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "sn_inactive_160",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 7.5001, truth 7.5000)",
+    "tolerance": "+-0.05",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 33 cells, bed 764217e1"
+  },
+  {
+   "reader": "family fitter: free-sn (A_fix, engine fix-b151aff4)",
+   "quantity": "lam",
+   "endpoints": [
+    "dark-inactive"
+   ],
+   "band": "receded (no band)",
+   "gated": true,
+   "synthetic": {
+    "resolution": "+0.0001 (read 0.8001, truth 0.8000)",
+    "tolerance": "+-0.03",
+    "verdict": "PASS"
+   },
+   "vitrea": null,
+   "notes": "pooled rms 0.404, 33 cells, bed 764217e1"
+  },
+  {
    "reader": "family fitter: LT",
    "quantity": "k",
    "endpoints": [
@@ -436,118 +1524,6 @@
    "reader": "family fitter: free-sn",
    "quantity": "k",
    "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 2.0352, truth 2.0350)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_64",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0007 (read 4.2507, truth 4.2500)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_80",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0008 (read 4.7992, truth 4.8000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_96",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 5.4002, truth 5.4000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_128",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0009 (read 6.4991, truth 6.5000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_160",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0007 (read 7.4993, truth 7.5000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "lam",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 0.7999, truth 0.8000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "k",
-   "endpoints": [
     "dark-rest"
    ],
    "band": "outside (d_in = 20 + 2 sigma_n,ref)",
@@ -655,118 +1631,6 @@
    },
    "vitrea": null,
    "notes": "pooled rms 0.420, 19 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "k",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 2.0739, truth 2.0740)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_64",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0017 (read 4.2517, truth 4.2500)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_80",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0011 (read 4.8011, truth 4.8000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_96",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0043 (read 5.3957, truth 5.4000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_128",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0008 (read 6.5008, truth 6.5000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "sn_inactive_160",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0005 (read 7.5005, truth 7.5000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 20 cells"
-  },
-  {
-   "reader": "family fitter: free-sn",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.8002, truth 0.8000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 20 cells"
   },
   {
    "reader": "family fitter: R1",
@@ -897,198 +1761,6 @@
    "notes": "pooled rms 0.397, 8 cells"
   },
   {
-   "reader": "family fitter: W-shape",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0006 (read 1.9824, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "mu",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.1218 (read 4.1218, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "k",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0000 (read 2.0350, truth 2.0350)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.438, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "mu",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0187 (read 3.9813, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.438, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "lam",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0001 (read 0.8001, truth 0.8000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.438, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0007 (read 2.0933, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "mu",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.1974 (read 4.1974, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.9002, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "k",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 2.0739, truth 2.0740)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.417, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "mu",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0033 (read 3.9967, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.417, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-shape",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0000 (read 0.8000, truth 0.8000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.417, 33 cells"
-  },
-  {
    "reader": "family fitter: W-canvas",
    "quantity": "k",
    "endpoints": [
@@ -1215,262 +1887,6 @@
    },
    "vitrea": null,
    "notes": "pooled rms 0.419, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0005 (read 1.9825, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "s2",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0080 (read 39.9920, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "a",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 0.2499, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.8802, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "k",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 2.0352, truth 2.0350)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.431, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "s2",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0349 (read 40.0349, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.431, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "a",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0005 (read 0.2495, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.431, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "lam",
-   "endpoints": [
-    "light-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.8002, truth 0.8000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.431, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0003 (read 2.0937, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "s2",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0187 (read 39.9813, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "a",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0005 (read 0.2495, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0003 (read 0.9003, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 24 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "k",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 2.0742, truth 2.0740)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.421, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "s2",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0169 (read 40.0169, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.421, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "a",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 0.2499, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.421, 33 cells"
-  },
-  {
-   "reader": "family fitter: W-tails",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-inactive"
-   ],
-   "band": "receded (no band)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.8002, truth 0.8000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.421, 33 cells"
   },
   {
    "reader": "family fitter: K2",
@@ -1978,102 +2394,6 @@
    "gated": true,
    "synthetic": {
     "resolution": "+0.0001 (read 0.9001, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.420, 26 cells"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0001 (read 1.9831, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.412, 26 cells"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own",
-   "quantity": "k_b",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0009 (read 1.9991, truth 2.0000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.412, 26 cells"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.412, 26 cells"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0004 (read 2.0944, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.420, 26 cells"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own",
-   "quantity": "k_b",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0004 (read 1.9996, truth 2.0000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.420, 26 cells"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in = 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0000 (read 0.9000, truth 0.9000)",
     "tolerance": "+-0.03",
     "verdict": "PASS"
    },
@@ -2625,102 +2945,6 @@
    "notes": "no answering cell (B) survives the mask (kernel w): a bed question under ruling 3"
   },
   {
-   "reader": "family fitter: W-shape (W support: the fallback record)",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0008 (read 1.9822, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.431, 6 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (W support: the fallback record)",
-   "quantity": "mu",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "+2.0010 (read 6.0010, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "FAIL"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.431, 6 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (W support: the fallback record)",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0004 (read 0.8796, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.431, 6 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (W support: the fallback record)",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0004 (read 2.0936, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.426, 10 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (W support: the fallback record)",
-   "quantity": "mu",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "+3.5013 (read 7.5013, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "FAIL"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.426, 10 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (W support: the fallback record)",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.9002, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.426, 10 cells, bed 5d719b60"
-  },
-  {
    "reader": "family fitter: W-canvas (W support: the fallback record)",
    "quantity": "k",
    "endpoints": [
@@ -2783,134 +3007,6 @@
    },
    "vitrea": null,
    "notes": "pooled rms 0.426, 10 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0017 (read 1.9813, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 6 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "s2",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0242 (read 39.9758, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 6 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "a",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "+0.0008 (read 0.2508, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 6 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0002 (read 0.8798, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.428, 6 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0009 (read 2.0931, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 10 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "s2",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0028 (read 39.9972, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 10 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "a",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "+0.0000 (read 0.2500, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 10 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (W support: the fallback record)",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0002 (read 0.8998, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.430, 10 cells, bed 5d719b60"
   },
   {
    "reader": "family fitter: K2 (W support: the fallback record)",
@@ -3162,102 +3258,6 @@
    "gated": false,
    "synthetic": {
     "resolution": "-0.0006 (read 0.8994, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 15 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (W support: the fallback record)",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0001 (read 1.9829, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 11 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (W support: the fallback record)",
-   "quantity": "k_b",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0007 (read 1.9993, truth 2.0000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 11 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (W support: the fallback record)",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "+0.0000 (read 0.8800, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.418, 11 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (W support: the fallback record)",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0002 (read 2.0938, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 15 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (W support: the fallback record)",
-   "quantity": "k_b",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0001 (read 1.9999, truth 2.0000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.422, 15 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (W support: the fallback record)",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 53.6 pt, W support)",
-   "gated": false,
-   "synthetic": {
-    "resolution": "-0.0008 (read 0.8992, truth 0.9000)",
     "tolerance": "+-0.03",
     "verdict": "PASS"
    },
@@ -3777,102 +3777,6 @@
    "notes": "pooled rms 0.418, 8 cells, bed 5d719b60"
   },
   {
-   "reader": "family fitter: W-shape (narrow support)",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 1.9829, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.420, 25 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (narrow support)",
-   "quantity": "mu",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0158 (read 4.0158, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.420, 25 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (narrow support)",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.8802, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.420, 25 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (narrow support)",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0002 (read 2.0938, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.410, 35 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (narrow support)",
-   "quantity": "mu",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.1350 (read 3.8650, truth 4.0000)",
-    "tolerance": "+-1.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.410, 35 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-shape (narrow support)",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.9002, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.410, 35 cells, bed 5d719b60"
-  },
-  {
    "reader": "family fitter: W-canvas (narrow support)",
    "quantity": "k",
    "endpoints": [
@@ -3935,134 +3839,6 @@
    },
    "vitrea": null,
    "notes": "pooled rms 0.410, 35 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0007 (read 1.9823, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.419, 25 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "s2",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0389 (read 40.0389, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.419, 25 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "a",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.2502, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.419, 25 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0002 (read 0.8802, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.419, 25 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0004 (read 2.0936, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.411, 35 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "s2",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0061 (read 40.0061, truth 40.0000)",
-    "tolerance": "+-2.0",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.411, 35 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "a",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 0.2499, truth 0.2500)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.411, 35 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: W-tails (narrow support)",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0004 (read 0.9004, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.411, 35 cells, bed 5d719b60"
   },
   {
    "reader": "family fitter: K2 (narrow support)",
@@ -4351,102 +4127,6 @@
    },
    "vitrea": null,
    "notes": "pooled rms 0.413, 37 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (narrow support)",
-   "quantity": "k",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0000 (read 1.9830, truth 1.9830)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.413, 27 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (narrow support)",
-   "quantity": "k_b",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0011 (read 1.9989, truth 2.0000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.413, 27 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (narrow support)",
-   "quantity": "lam",
-   "endpoints": [
-    "light-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0001 (read 0.8801, truth 0.8800)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.413, 27 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (narrow support)",
-   "quantity": "k",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "+0.0008 (read 2.0948, truth 2.0940)",
-    "tolerance": "+-0.005",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.412, 37 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (narrow support)",
-   "quantity": "k_b",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0005 (read 1.9995, truth 2.0000)",
-    "tolerance": "+-0.05",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.412, 37 cells, bed 5d719b60"
-  },
-  {
-   "reader": "family fitter: LT+bleed-own (narrow support)",
-   "quantity": "lam",
-   "endpoints": [
-    "dark-rest"
-   ],
-   "band": "outside (d_in 20 + 2 sigma_n,ref)",
-   "gated": true,
-   "synthetic": {
-    "resolution": "-0.0001 (read 0.8999, truth 0.9000)",
-    "tolerance": "+-0.03",
-    "verdict": "PASS"
-   },
-   "vitrea": null,
-   "notes": "pooled rms 0.412, 37 cells, bed 5d719b60"
   },
   {
    "reader": "family fitter: edge-swap (narrow support)",
@@ -6243,11 +5923,11 @@
    "reader": "patch and annulus (family C)",
    "quantity": "sigma_w (lam given in the protocol)",
    "gated": false,
-   "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only",
+   "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n)",
    "synthetic": {
-    "resolution": "7.1 %",
+    "resolution": "5.0 %",
     "tolerance": "5 %",
-    "verdict": "FAIL"
+    "verdict": "PASS"
    },
    "vitrea": {
     "resolution": "max |cap - rep| 23.2 %; 0 pass / 2 miss / 4 non-identifiable on both",
@@ -6255,7 +5935,7 @@
     "verdict": "FAIL"
    },
    "vitrea_superseded": null,
-   "notes": "misses: light-rest LT impulse ml 14.74/15.86; dark-rest LT impulse lg 17.84/16.75"
+   "notes": "the fallback (W support, outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only): light-rest free-sn impulse ml 15.15/15.86 PASS, light-rest free-sn impulse lg 15.97/15.86 PASS, light-rest LT impulse ml 14.74/15.86 MISS, light-rest LT impulse lg 15.94/15.86 PASS, dark-rest free-sn impulse ml 16.77/16.75 PASS, dark-rest free-sn impulse lg 16.89/16.75 PASS, dark-rest LT impulse ml 16.30/16.75 PASS, dark-rest LT impulse lg 17.84/16.75 MISS"
   },
   {
    "reader": "patch and annulus (family C)",
@@ -6423,7 +6103,7 @@
    "reader": "step (family D)",
    "quantity": "sigma_w on the true support",
    "gated": true,
-   "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only (d-d0 on rrect-lg); receded no band",
+   "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
    "synthetic": {
     "resolution": "0.07 %",
     "tolerance": "5 %",
@@ -6443,7 +6123,7 @@
    "gated": true,
    "band": "as above",
    "synthetic": {
-    "resolution": "light-inactive LT given: no call (gap 0.000; region gap 0.02); light-inactive LT free: no call (gap 0.002; region gap 0.16); light-inactive W-canvas given: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap given: no call (gap 0.001; region gap 0.01); light-inactive W-shape given: no call (gap 0.000; region gap 0.07); dark-inactive LT given: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap given: no call (gap 0.002; region gap 0.01); light-rest LT given: no call (gap 0.000; region gap 0.00); light-rest W-canvas given: no call (gap 0.000; region gap 0.00); light-rest edge-swap given: no call (gap 0.000; region gap 0.00); dark-rest LT given: no call (gap 0.000; region gap 0.00)",
+    "resolution": "light-inactive LT given: no call (gap 0.000; region gap 0.02); light-inactive LT free: no call (gap 0.002; region gap 0.16); light-inactive W-canvas given: canvas/clamp (gap 0.117; region gap 2.87); light-inactive edge-swap given: no call (gap 0.001; region gap 0.01); light-rest LT given: no call (gap 0.000; region gap 0.00); light-rest W-canvas given: no call (gap 0.000; region gap 0.00); light-rest edge-swap given: no call (gap 0.000; region gap 0.00); dark-inactive LT given: no call (gap 0.000; region gap 0.02); dark-inactive edge-swap given: no call (gap 0.002; region gap 0.01); dark-rest LT given: no call (gap 0.000; region gap 0.00); light-inactive W-shape given: no call (gap 0.000; region gap 0.13)",
     "tolerance": "the true support first wherever supports differ by > 0.05",
     "verdict": "PASS"
    },
@@ -6453,7 +6133,7 @@
     "verdict": "PASS"
    },
    "vitrea_superseded": null,
-   "notes": "canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; active: every support ties at 0.00 at both kernels"
+   "notes": "canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; active: every support ties at 0.00 at the narrow support (7 cells (dark-rest), 7 cells (light-rest)); the fallback (W support, outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only): light-rest LT given: no call on 2 cells; light-rest W-canvas given: no call on 2 cells; light-rest edge-swap given: no call on 2 cells; dark-rest LT given: no call on 2 cells. Rows with the W-shape truth re-run after the review of b151aff4 (I-2): light-inactive pin 764217e1"
   },
   {
    "reader": "step (family D)",
@@ -6478,9 +6158,9 @@
    "reader": "per-cell lam (memo E)",
    "quantity": "lam",
    "gated": false,
-   "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+   "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
    "synthetic": {
-    "resolution": "max |err| 0.001 on 17/20 identified cells",
+    "resolution": "max |err| 0.001 on 30/33 identified cells",
     "tolerance": "0.03, truth inside the interval",
     "verdict": "PASS"
    },
@@ -6495,15 +6175,15 @@
     "verdict": "PASS",
     "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
    },
-   "notes": "not identified: b-p3-c16-rrect-md (light-inactive), bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest)"
+   "notes": "not identified: bp-p1-c8-rrect-lg (light-rest), bp-p1-c8-rrect-ml (light-rest), b-p3-c16-rrect-md (light-inactive)"
   },
   {
    "reader": "hinge-gap (memo E)",
    "quantity": "lam per gap bin",
    "gated": false,
-   "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+   "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
    "synthetic": {
-    "resolution": "max |err| 0.010",
+    "resolution": "max |err| 0.012",
     "tolerance": "0.05",
     "verdict": "PASS"
    },
@@ -6524,9 +6204,9 @@
    "reader": "per-cell lam (memo E)",
    "quantity": "lam",
    "gated": false,
-   "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+   "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
    "synthetic": {
-    "resolution": "max |err| 0.001 on 5/20 identified cells",
+    "resolution": "max |err| 0.001 on 11/33 identified cells",
     "tolerance": "0.03, truth inside the interval",
     "verdict": "PASS"
    },
@@ -6541,13 +6221,13 @@
     "verdict": "PASS",
     "basis": "against the code's sigma_RMS (bars superseded 2026-09-29)"
    },
-   "notes": "not identified: b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive), bp-p1-c32-rrect-80 (dark-inactive), bp-p1-c32-rrect-lg (dark-inactive), bp-p1-c32-rrect-ml (dark-inactive), bp-p1-c64-rrect-ml (dark-inactive), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest)"
+   "notes": "not identified: b-p2-c16-rrect-md (dark-rest), b-p2-c64-rrect-md (dark-rest), b-p3-c16-rrect-md (dark-rest), b-p3-c64-rrect-md (dark-rest), b-p5-c16-rrect-md (dark-rest), b-p5-c64-rrect-md (dark-rest), bp-p1-c32-rrect-80 (dark-rest), bp-p1-c32-rrect-lg (dark-rest), bp-p1-c32-rrect-ml (dark-rest), bp-p1-c64-rrect-ml (dark-rest), bp-p1-c8-rrect-lg (dark-rest), bp-p1-c8-rrect-ml (dark-rest), b-p2-c16-rrect-md (dark-inactive), b-p2-c64-rrect-md (dark-inactive), b-p3-c16-rrect-md (dark-inactive), b-p3-c64-rrect-md (dark-inactive), b-p5-c16-rrect-md (dark-inactive), b-p5-c64-rrect-md (dark-inactive), bp-p1-c32-rrect-80 (dark-inactive), bp-p1-c32-rrect-lg (dark-inactive), bp-p1-c32-rrect-ml (dark-inactive), bp-p1-c64-rrect-ml (dark-inactive)"
   },
   {
    "reader": "hinge-gap (memo E)",
    "quantity": "lam per gap bin",
    "gated": false,
-   "band": "outside: active d_in = 53.6 pt (band + 2 sigma_w,ref; kernel w), rrect-ml and rrect-lg only; receded no band",
+   "band": "outside: active d_in = 20 + 16.8 t pt (band + 2 sigma_n,ref; kernel n); receded no band",
    "synthetic": {
     "resolution": "max |err| 0.030",
     "tolerance": "0.05",
@@ -6839,7 +6519,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "C-linear",
@@ -6852,7 +6534,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "C-linear",
@@ -6865,7 +6549,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "C-linear",
@@ -6878,7 +6564,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -6891,7 +6579,9 @@
    "whole": true,
    "n_cells": 72,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -6904,7 +6594,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -6917,7 +6609,9 @@
    "whole": true,
    "n_cells": 60,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -6930,7 +6624,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -6943,7 +6639,9 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -6956,33 +6654,39 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
    "fit": "W-shape",
    "ep": "dark-inactive",
-   "s": 3.207782426543446,
-   "s_ls": 3.419124429207841,
+   "s": 1.6798761224143561,
+   "s_ls": 1.8943440172708392,
    "verdict": "DISTINGUISHED",
-   "where": "2x|bp-p1-c16-rrect-sm:sq130:knee",
-   "whole": true,
-   "n_cells": 72,
+   "where": "2x|b-p2-c64-rrect-md:sq8:far",
+   "whole": false,
+   "n_cells": 49,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "K2",
    "fit": "W-shape",
    "ep": "light-inactive",
-   "s": 2.634386082750268,
-   "s_ls": 2.995878127431155,
+   "s": 2.6819946523529836,
+   "s_ls": 3.033391758049362,
    "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c64-rrect-ml:sq16:knee",
    "whole": true,
    "n_cells": 60,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -6997,7 +6701,9 @@
    "at_bound": [
     "a@dark-inactive"
    ],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "K2",
@@ -7012,7 +6718,9 @@
    "at_bound": [
     "a@light-inactive"
    ],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7025,7 +6733,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7038,7 +6748,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7051,7 +6763,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7064,7 +6778,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7077,7 +6793,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7090,7 +6808,73 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-own-post",
+   "ep": "dark-rest",
+   "s": 9.365792904002959,
+   "s_ls": 9.365792904002959,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c32-rrect-lg:sq22:knee",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [
+    "k_b@dark-rest"
+   ],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-own-pre",
+   "ep": "dark-rest",
+   "s": 5.44745070980602,
+   "s_ls": 5.773361386182756,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|b-p3-c16-rrect-lg:sq197:knee",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [
+    "k_b@dark-rest"
+   ],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-post",
+   "ep": "dark-rest",
+   "s": 10.99710173443546,
+   "s_ls": 10.99710173443546,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c32-rrect-lg:sq22:knee",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-pre",
+   "ep": "dark-rest",
+   "s": 6.126066943753358,
+   "s_ls": 6.126066943753358,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c8-rrect-lg:sq288:far",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7105,7 +6889,9 @@
    "at_bound": [
     "k_b@dark-rest"
    ],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7120,7 +6906,9 @@
    "at_bound": [
     "k_b@light-rest"
    ],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7133,7 +6921,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7146,7 +6936,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7159,7 +6951,9 @@
    "whole": true,
    "n_cells": 60,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7172,7 +6966,9 @@
    "whole": true,
    "n_cells": 53,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7185,7 +6981,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7198,7 +6996,9 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7211,7 +7011,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7224,20 +7026,24 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
    "fit": "W-shape",
    "ep": "dark-inactive",
-   "s": 2.4880282834881626,
-   "s_ls": 3.102956034647093,
+   "s": 2.6681493383135404,
+   "s_ls": 3.399886163264668,
    "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c32-rrect-ml:sq59:knee",
    "whole": false,
-   "n_cells": 40,
+   "n_cells": 58,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7252,20 +7058,24 @@
    "at_bound": [
     "mu@dark-rest"
    ],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": true
   },
   {
    "truth": "LT",
    "fit": "W-shape",
    "ep": "light-inactive",
-   "s": 2.383312385138936,
-   "s_ls": 3.0655012188638864,
+   "s": 2.362035183399314,
+   "s_ls": 3.144250883786583,
    "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c32-rrect-ml:sq52:knee",
    "whole": false,
-   "n_cells": 40,
+   "n_cells": 46,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7280,7 +7090,9 @@
    "at_bound": [
     "mu@light-rest"
    ],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": true
   },
   {
    "truth": "LT",
@@ -7293,7 +7105,9 @@
    "whole": false,
    "n_cells": 44,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7306,7 +7120,9 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7319,7 +7135,9 @@
    "whole": false,
    "n_cells": 44,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7332,7 +7150,9 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7345,7 +7165,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7358,7 +7180,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7371,7 +7195,9 @@
    "whole": false,
    "n_cells": 44,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7384,7 +7210,9 @@
    "whole": false,
    "n_cells": 56,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7397,7 +7225,9 @@
    "whole": false,
    "n_cells": 44,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT",
@@ -7410,7 +7240,9 @@
    "whole": false,
    "n_cells": 45,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT+bleed",
@@ -7423,7 +7255,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT+bleed",
@@ -7436,7 +7270,69 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-own-post",
+   "fit": "LT",
+   "ep": "dark-rest",
+   "s": 10.887714821655607,
+   "s_ls": 10.887714821655607,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c32-rrect-lg:sq22:knee",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-own-pre",
+   "fit": "LT",
+   "ep": "dark-rest",
+   "s": 6.088864803389683,
+   "s_ls": 6.088864803389683,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c8-rrect-lg:sq688:far",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-post",
+   "fit": "LT",
+   "ep": "dark-rest",
+   "s": 10.985048141823668,
+   "s_ls": 10.985048141823668,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c32-rrect-lg:sq22:knee",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-pre",
+   "fit": "LT",
+   "ep": "dark-rest",
+   "s": 6.134137627339186,
+   "s_ls": 6.134137627339186,
+   "verdict": "DISTINGUISHED",
+   "where": "2x|bp-p1-c8-rrect-lg:sq688:far",
+   "whole": false,
+   "n_cells": 50,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "LT+bleed-own",
@@ -7449,7 +7345,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT+bleed-own",
@@ -7462,7 +7360,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT-2k",
@@ -7475,7 +7375,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT-2k",
@@ -7488,7 +7390,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT-2k",
@@ -7501,7 +7405,9 @@
    "whole": true,
    "n_cells": 60,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "LT-2k",
@@ -7514,7 +7420,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "R1",
@@ -7527,7 +7435,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "R1",
@@ -7540,7 +7450,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "R1",
@@ -7553,7 +7465,9 @@
    "whole": true,
    "n_cells": 60,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "R1",
@@ -7566,7 +7480,9 @@
    "whole": true,
    "n_cells": 53,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7579,7 +7495,9 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7592,7 +7510,9 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7605,7 +7525,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7618,7 +7540,9 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7631,7 +7555,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7644,37 +7570,43 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
    "fit": "W-shape",
    "ep": "dark-inactive",
-   "s": 0.06068980611099306,
-   "s_ls": 0.07204293287283647,
+   "s": 0.44289717335362866,
+   "s_ls": 0.6890313417786729,
    "verdict": "UNRESOLVED",
-   "where": "2x|c-impulse-rrect-lg:p1:core",
+   "where": "2x|c-s32-lo-p4-rrect-ml:p1:core",
    "whole": false,
-   "n_cells": 35,
+   "n_cells": 49,
    "at_bound": [
     "mu@dark-inactive"
    ],
-   "bed": "07b45391"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
    "fit": "W-shape",
    "ep": "light-inactive",
-   "s": 0.05685601250098671,
-   "s_ls": 0.06911254458418625,
+   "s": 0.3352323971161013,
+   "s_ls": 0.529424867520845,
    "verdict": "UNRESOLVED",
-   "where": "2x|c-s8-hi-d80-rrect-lg:p12:ring2-4",
+   "where": "2x|c-s32-hi-rrect-md:p1:core",
    "whole": false,
-   "n_cells": 35,
+   "n_cells": 37,
    "at_bound": [
     "mu@light-inactive"
    ],
-   "bed": "07b45391"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7690,7 +7622,9 @@
     "a@dark-inactive",
     "s2@dark-inactive"
    ],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-canvas",
@@ -7703,137 +7637,161 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "K2",
    "ep": "dark-inactive",
-   "s": 2.280659030516219,
-   "s_ls": 3.1623119503613566,
+   "s": 2.1884107753675153,
+   "s_ls": 3.067296751531188,
    "verdict": "DISTINGUISHED",
-   "where": "2x|bp-p1-c16-rrect-sm:sq129:far",
+   "where": "2x|bp-p1-c32-rrect-ml:sq59:knee",
    "whole": true,
    "n_cells": 72,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "K2",
    "ep": "light-inactive",
-   "s": 2.244703820520897,
-   "s_ls": 2.3827314137964777,
+   "s": 2.1589105199571463,
+   "s_ls": 2.3440796042759757,
    "verdict": "DISTINGUISHED",
-   "where": "2x|bp-p1-c32-rrect-lg:sq12:knee",
+   "where": "2x|bp-p1-c32-rrect-80:sq47:knee",
    "whole": true,
    "n_cells": 60,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "LT",
    "ep": "dark-inactive",
-   "s": 2.3195616358909064,
-   "s_ls": 2.5365160426617024,
+   "s": 2.4216672967782813,
+   "s_ls": 3.0312754416127348,
    "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c64-rrect-ml:sq11:knee",
    "whole": false,
-   "n_cells": 40,
+   "n_cells": 58,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "LT",
    "ep": "dark-rest",
-   "s": 2.9783884112129613,
-   "s_ls": 3.2724153166927863,
+   "s": 2.978413024391415,
+   "s_ls": 3.272440599509622,
    "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c64-capsule-button:sq13:knee",
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "LT",
    "ep": "light-inactive",
-   "s": 2.2106170908036233,
-   "s_ls": 2.3950684427856572,
+   "s": 2.2024789247544447,
+   "s_ls": 2.348149088522092,
    "verdict": "DISTINGUISHED",
-   "where": "2x|bp-p1-c32-rrect-80:sq47:knee",
+   "where": "2x|bp-p1-c64-rrect-ml:sq16:knee",
    "whole": false,
-   "n_cells": 40,
+   "n_cells": 46,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "LT",
    "ep": "light-rest",
-   "s": 1.9601000803120314,
-   "s_ls": 2.0488340132957603,
+   "s": 1.9601003082061936,
+   "s_ls": 2.0488342402352657,
    "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c64-capsule-button:sq12:knee",
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "W-canvas",
    "ep": "dark-inactive",
-   "s": 6.811941960502139,
-   "s_ls": 6.811941960502139,
+   "s": 6.878684376651222,
+   "s_ls": 6.878684376651222,
    "verdict": "DISTINGUISHED",
    "where": "2x|d-out8-lohi-rrect-md:bin-24..-16",
    "whole": false,
-   "n_cells": 35,
+   "n_cells": 49,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "W-canvas",
    "ep": "light-inactive",
-   "s": 6.905996991029099,
-   "s_ls": 6.905996991029099,
+   "s": 6.842696049883813,
+   "s_ls": 6.842696049883813,
    "verdict": "DISTINGUISHED",
    "where": "2x|d-out8-lohi-rrect-md:bin-24..-16",
    "whole": false,
-   "n_cells": 35,
+   "n_cells": 37,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "W-tails",
    "ep": "dark-inactive",
-   "s": 2.5931417059857864,
-   "s_ls": 3.171974307514006,
+   "s": 2.437583331490586,
+   "s_ls": 3.0681222969502926,
    "verdict": "DISTINGUISHED",
-   "where": "2x|bp-p1-c16-rrect-sm:sq129:far",
+   "where": "2x|bp-p1-c64-rrect-ml:sq11:knee",
    "whole": true,
    "n_cells": 72,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-shape",
    "fit": "W-tails",
    "ep": "light-inactive",
-   "s": 2.254475185787612,
-   "s_ls": 2.3679545380267086,
+   "s": 2.224055200628129,
+   "s_ls": 2.3274157838593794,
    "verdict": "DISTINGUISHED",
    "where": "2x|bp-p1-c64-rrect-ml:sq16:knee",
    "whole": true,
    "n_cells": 60,
-   "at_bound": [],
-   "bed": "5d719b60"
+   "at_bound": [
+    "a@light-inactive"
+   ],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7846,7 +7804,9 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7859,7 +7819,9 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7872,7 +7834,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7885,7 +7849,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7898,7 +7864,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7911,7 +7879,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7924,7 +7894,9 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
@@ -7937,33 +7909,39 @@
    "whole": false,
    "n_cells": 35,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "07b45391",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
    "fit": "W-shape",
    "ep": "dark-inactive",
-   "s": 3.1234347213717797,
-   "s_ls": 3.333102152340345,
+   "s": 2.9637307253256893,
+   "s_ls": 3.024317719178754,
    "verdict": "DISTINGUISHED",
-   "where": "2x|b-p2-c16-rrect-md:sq87:far",
+   "where": "2x|c-s16-lo-capsule-button:p1:core",
    "whole": false,
-   "n_cells": 35,
+   "n_cells": 49,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "W-tails",
    "fit": "W-shape",
    "ep": "light-inactive",
-   "s": 3.0515182624513386,
-   "s_ls": 3.16160721450953,
+   "s": 3.0860396651474957,
+   "s_ls": 3.2079382549635795,
    "verdict": "DISTINGUISHED",
    "where": "2x|c-s8-hi-rrect-sm:p1:core",
    "whole": false,
-   "n_cells": 35,
+   "n_cells": 37,
    "at_bound": [],
-   "bed": "07b45391"
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   },
   {
    "truth": "edge-swap",
@@ -7976,7 +7954,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "edge-swap",
@@ -7989,7 +7969,9 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "edge-swap",
@@ -8002,7 +7984,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "edge-swap",
@@ -8015,7 +7999,9 @@
    "whole": false,
    "n_cells": 34,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "free-sn",
@@ -8028,7 +8014,9 @@
    "whole": false,
    "n_cells": 40,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "free-sn",
@@ -8041,7 +8029,9 @@
    "whole": false,
    "n_cells": 50,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "free-sn",
@@ -8054,7 +8044,9 @@
    "whole": true,
    "n_cells": 60,
    "at_bound": [],
-   "bed": "5d719b60"
+   "bed": "5d719b60",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "free-sn",
@@ -8067,7 +8059,9 @@
    "whole": false,
    "n_cells": 39,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "knee-luma",
@@ -8080,7 +8074,9 @@
    "whole": false,
    "n_cells": 44,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "knee-luma",
@@ -8093,7 +8089,9 @@
    "whole": false,
    "n_cells": 56,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "knee-luma",
@@ -8106,7 +8104,9 @@
    "whole": false,
    "n_cells": 44,
    "at_bound": [],
-   "bed": "5ba68aeb"
+   "bed": "5ba68aeb",
+   "engine": null,
+   "stale_engine": false
   },
   {
    "truth": "knee-luma",
@@ -8119,7 +8119,129 @@
    "whole": false,
    "n_cells": 45,
    "at_bound": [],
-   "bed": "764217e1"
+   "bed": "764217e1",
+   "engine": null,
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-pre",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-pre",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-post",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-post",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-own-pre",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-own-pre",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT+bleed-lit-own-post",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-own-post",
+   "ep": "light-rest",
+   "s": 0.0,
+   "s_ls": null,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "whole": true,
+   "n_cells": 53,
+   "at_bound": [],
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "stale_engine": false
   }
  ],
  "unresolved": [
@@ -8130,7 +8252,7 @@
    "s": 1.2787429468436073,
    "verdict": "MARGINAL",
    "where": "2x|d-d0-hilo-rrect-lg:bin-32..-24",
-   "separator": "In light the declared bleed weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): 0.02 on md to 0.09 on rrect-lg), so with its radius free the bleed nearly vanishes into LT (1.28 on the whole final bed); in dark (beta up to 0.6) it cannot (16.4). The reverse, LT+bleed-own -> LT, is distinguished in both schemes (2.35 light, 22.1 dark): a true light bleed is caught, a light LT truth leaves the free-radius bleed marginally alive, and the tie-break (parameter count) keeps LT."
+   "separator": "The bleed's NORMAL VARIANT (a stated variant since the review of b151aff4: Normal mix, pre-T, whole shape, affine absorbed). Its light weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): 0.02 on md to 0.09 on rrect-lg), so with its radius free it nearly vanishes into LT (1.28 on the whole final bed; the minimax search continued at three times the budget stays at 1.279); in dark (beta up to 0.6) it cannot (16.4). The reverse is distinguished (2.35 light, 22.1 dark); the tie-break keeps LT. The DECLARED dump-literal form is separated in dark (5.5-11.0) and moves no light pixel (see its rows)."
   },
   {
    "truth": "LT",
@@ -8244,18 +8366,18 @@
    "truth": "W-canvas",
    "fit": "W-shape",
    "ep": "dark-inactive",
-   "s": 0.06068980611099306,
+   "s": 0.44289717335362866,
    "verdict": "UNRESOLVED",
-   "where": "2x|c-impulse-rrect-lg:p1:core",
+   "where": "2x|c-s32-lo-p4-rrect-ml:p1:core",
    "separator": "Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9)."
   },
   {
    "truth": "W-canvas",
    "fit": "W-shape",
    "ep": "light-inactive",
-   "s": 0.05685601250098671,
+   "s": 0.3352323971161013,
    "verdict": "UNRESOLVED",
-   "where": "2x|c-s8-hi-d80-rrect-lg:p12:ring2-4",
+   "where": "2x|c-s32-hi-rrect-md:p1:core",
    "separator": "Not a separation failure: W-shape with a large margin contains the canvas support at every readable pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9)."
   },
   {
@@ -8284,23 +8406,97 @@
    "verdict": "MARGINAL",
    "where": "2x|bp-p1-c32-rrect-lg:sq15:far",
    "separator": "The free receded span law's truth sits within 0.64 pt of LT's k 5 (0.4 + 0.4t) at every ordinate, so this pair measures that the bed does NOT separate a departure that small (max 0.64 pt, at s = 160; whole bed at pin 5d719b60: 1.17); the estimated resolution row gives the departure it would separate."
+  },
+  {
+   "truth": "LT+bleed-lit-pre",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-pre",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
+  },
+  {
+   "truth": "LT+bleed-lit-post",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-post",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
+  },
+  {
+   "truth": "LT+bleed-lit-own-pre",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-own-pre",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
+  },
+  {
+   "truth": "LT+bleed-lit-own-post",
+   "fit": "LT",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
+  },
+  {
+   "truth": "LT",
+   "fit": "LT+bleed-lit-own-post",
+   "ep": "light-rest",
+   "s": 0.0,
+   "verdict": "UNRESOLVED (bound at the truth's own parameters; no fit)",
+   "where": null,
+   "separator": "The dump-literal bleed in light is a darken blend toward Q = 0.9 + 0.1 sat(Bl) at w = 0.5 t r(d) <= 0.27 inside the deep mask: it pulls a channel down only where the composite exceeds Q, which no pixel of the bed does (max 0.000 code before T, 0.024 after), so the light pairs are bounded at s <= 0.000 at the truth's own parameters and k_b is non-identifiable. Non-identifiable on this bed and invisible on it: under the literal reading the bleed cannot be light-active U7's cause."
   }
  ],
  "nulls": [
   {
    "truth": "LT",
    "fit": "null-mix",
-   "ep": "dark-rest",
-   "n_cells": 42,
-   "pooled": 3.2029771140542285,
-   "max_cell": 10.96669313131389,
+   "ep": "light-inactive",
+   "n_cells": 56,
+   "pooled": 3.0436381871285674,
+   "max_cell": 9.440032569219824,
    "x": {
-    "k@dark-rest": 1.9845844066512246
+    "k@light-inactive": 1.9108265599007408
    },
    "lam": {
-    "dark-rest": 0.9193108942941891
+    "light-inactive": 0.9214915797177632
    },
-   "bed": "07b45391",
+   "kernel": "receded (no band)",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 2.6,
    "verdict": "PASS"
   },
@@ -8308,278 +8504,284 @@
    "truth": "LT",
    "fit": "null-mix",
    "ep": "light-rest",
-   "n_cells": 42,
-   "pooled": 2.683208672253392,
-   "max_cell": 9.263706811985996,
+   "n_cells": 47,
+   "pooled": 2.560544065048345,
+   "max_cell": 9.259275540239317,
    "x": {
-    "k@light-rest": 1.9239497377635608
+    "k@light-rest": 1.9247954116800068
    },
    "lam": {
-    "light-rest": 0.9029634900482354
+    "light-rest": 0.9027388670964787
    },
-   "bed": "07b45391",
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "bar": 2.6,
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+  },
+  {
+   "truth": "LT",
+   "fit": "null-mix",
+   "ep": "dark-rest",
+   "n_cells": 58,
+   "pooled": 2.7757627715211335,
+   "max_cell": 10.966495551441296,
+   "x": {
+    "k@dark-rest": 1.9861649015612683
+   },
+   "lam": {
+    "dark-rest": 0.9214915797177632
+   },
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 2.6,
    "verdict": "PASS"
   },
   {
    "truth": "LT",
    "fit": "null-mix",
-   "ep": "light-inactive",
-   "n_cells": 54,
-   "pooled": 3.09740066447656,
-   "max_cell": 9.439840205431311,
-   "x": {
-    "k@light-inactive": 1.9114225932903273
-   },
-   "lam": {
-    "light-inactive": 0.9218020010024377
-   },
-   "bed": "07b45391",
-   "bar": 2.6,
-   "verdict": "PASS"
-  },
-  {
-   "truth": "LT",
-   "fit": "null-mix",
    "ep": "dark-inactive",
-   "n_cells": 54,
-   "pooled": 4.610757470928127,
-   "max_cell": 14.783618877912016,
+   "n_cells": 68,
+   "pooled": 4.128355163454033,
+   "max_cell": 14.784642902483013,
    "x": {
-    "k@dark-inactive": 1.9102579264857051
+    "k@dark-inactive": 1.9107878670613125
    },
    "lam": {
-    "dark-inactive": 0.9357971231589816
+    "dark-inactive": 0.9345351837813589
    },
-   "bed": "07b45391",
+   "kernel": "receded (no band)",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 2.6,
    "verdict": "PASS"
   },
   {
    "truth": "LT",
    "fit": "null-texel",
-   "ep": "light-rest",
-   "n_cells": 42,
-   "pooled": 2.5834797003280983,
-   "max_cell": 11.505157446270855,
+   "ep": "light-inactive",
+   "n_cells": 56,
+   "pooled": 1.8230012284789525,
+   "max_cell": 9.812546280628682,
    "x": {
-    "k@light-rest": 1.8739506119052276
+    "k@light-inactive": 1.9936250350899885
    },
    "lam": {
-    "light-rest": 0.8959924421129241
+    "light-inactive": 0.8221249606254941
    },
-   "bed": "07b45391",
+   "kernel": "receded (no band)",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-texel",
-   "ep": "light-inactive",
-   "n_cells": 54,
-   "pooled": 1.8541469096962895,
-   "max_cell": 9.810524549351692,
+   "ep": "light-rest",
+   "n_cells": 47,
+   "pooled": 2.607252535663434,
+   "max_cell": 11.50087987803364,
    "x": {
-    "k@light-inactive": 1.9935040319916955
+    "k@light-rest": 1.8498800848974164
    },
    "lam": {
-    "light-inactive": 0.8222637852443331
+    "light-rest": 0.89702975853879
    },
-   "bed": "07b45391",
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-texel",
    "ep": "dark-inactive",
-   "n_cells": 54,
-   "pooled": 1.9052142761185082,
-   "max_cell": 10.031045000167646,
+   "n_cells": 68,
+   "pooled": 1.7052078400046546,
+   "max_cell": 10.030445072785461,
    "x": {
-    "k@dark-inactive": 2.0545947942893084
+    "k@dark-inactive": 2.0556999697808416
    },
    "lam": {
-    "dark-inactive": 0.8053610825230235
+    "dark-inactive": 0.8055529334277837
    },
-   "bed": "07b45391",
+   "kernel": "receded (no band)",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-texel",
    "ep": "dark-rest",
-   "n_cells": 42,
-   "pooled": 2.772216224579592,
-   "max_cell": 12.73146387372548,
+   "n_cells": 58,
+   "pooled": 2.3745213914110685,
+   "max_cell": 12.72590676339266,
    "x": {
-    "k@dark-rest": 1.9858987995900463
+    "k@dark-rest": 1.9971238166883243
    },
    "lam": {
-    "dark-rest": 0.9156436465412355
+    "dark-rest": 0.9162317170635879
    },
-   "bed": "07b45391",
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
-  },
-  {
-   "truth": "LT",
-   "fit": "null-dev",
-   "ep": "light-rest",
-   "n_cells": 42,
-   "pooled": 1.4554683070900918,
-   "max_cell": 8.925387619311259,
-   "x": {
-    "k@light-rest": 3.8784062725444577
-   },
-   "lam": {
-    "light-rest": 0.8882414727505
-   },
-   "bed": "07b45391",
-   "bar": 4.65,
-   "verdict": "FAIL"
-  },
-  {
-   "truth": "LT",
-   "fit": "null-R2",
-   "ep": "light-inactive",
-   "n_cells": 54,
-   "pooled": 1.7272598953156266,
-   "max_cell": 4.266413122655827,
-   "x": {
-    "k@light-inactive": 2.3325520683272716
-   },
-   "lam": {
-    "light-inactive": 0.30813176744408577
-   },
-   "bed": "07b45391",
-   "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-dev",
    "ep": "light-inactive",
-   "n_cells": 54,
-   "pooled": 1.255125691338008,
-   "max_cell": 8.48624565856256,
+   "n_cells": 56,
+   "pooled": 1.2358130774375051,
+   "max_cell": 8.488399812116326,
    "x": {
-    "k@light-inactive": 4.001682336337506
+    "k@light-inactive": 4.00179432009521
    },
    "lam": {
-    "light-inactive": 0.8184046865866194
+    "light-inactive": 0.8183188882537016
    },
    "kernel": "receded (no band)",
-   "bed": "07b45391",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-dev",
-   "ep": "dark-rest",
-   "n_cells": 15,
-   "pooled": 2.983202974325901,
-   "max_cell": 11.078867550191253,
+   "ep": "light-rest",
+   "n_cells": 47,
+   "pooled": 1.3825433272402115,
+   "max_cell": 8.929223687705305,
    "x": {
-    "k@dark-rest": 3.9290176935591736
+    "k@light-rest": 3.880176082626771
    },
    "lam": {
-    "dark-rest": 0.9372509134413645
+    "light-rest": 0.8879310514658255
    },
-   "kernel": "w",
-   "bed": "07b45391",
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-dev",
    "ep": "dark-inactive",
-   "n_cells": 54,
-   "pooled": 1.3021806136088128,
-   "max_cell": 8.747698837472004,
+   "n_cells": 68,
+   "pooled": 1.1712103564802938,
+   "max_cell": 8.749724860708039,
    "x": {
-    "k@dark-inactive": 4.113994371652878
+    "k@dark-inactive": 4.115732103368491
    },
    "lam": {
-    "dark-inactive": 0.8045483890489143
+    "dark-inactive": 0.8047730120006711
    },
    "kernel": "receded (no band)",
-   "bed": "07b45391",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+  },
+  {
+   "truth": "LT",
+   "fit": "null-dev",
+   "ep": "dark-rest",
+   "n_cells": 58,
+   "pooled": 1.4121767900638313,
+   "max_cell": 10.140607340908447,
+   "x": {
+    "k@dark-rest": 4.091234897457178
+   },
+   "lam": {
+    "dark-rest": 0.9080845280835718
+   },
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "bar": 4.65,
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+  },
+  {
+   "truth": "LT",
+   "fit": "null-R2",
+   "ep": "light-inactive",
+   "n_cells": 56,
+   "pooled": 1.709927591622559,
+   "max_cell": 4.230849260009318,
+   "x": {
+    "k@light-inactive": 2.3349789571263253
+   },
+   "lam": {
+    "light-inactive": 0.3105698478664133
+   },
+   "kernel": "receded (no band)",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "bar": 4.65,
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-R2",
    "ep": "light-rest",
-   "n_cells": 15,
-   "pooled": 2.292015240948019,
-   "max_cell": 4.239114272161379,
+   "n_cells": 47,
+   "pooled": 2.7511477113453737,
+   "max_cell": 8.242232572768074,
    "x": {
-    "k@light-rest": 2.2607003044365164
+    "k@light-rest": 2.0576676581099878
    },
    "lam": {
-    "light-rest": 0.29853078818168677
+    "light-rest": 0.7111685277520119
    },
-   "kernel": "w",
-   "bed": "07b45391",
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
-  },
-  {
-   "truth": "LT",
-   "fit": "null-R2",
-   "ep": "dark-rest",
-   "n_cells": 15,
-   "pooled": 1.2770865134652243,
-   "max_cell": 2.7217804633147287,
-   "x": {
-    "k@dark-rest": 2.0583169930829666
-   },
-   "lam": {
-    "dark-rest": 0.050114240451014036
-   },
-   "kernel": "w",
-   "bed": "07b45391",
-   "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-R2",
    "ep": "dark-inactive",
-   "n_cells": 54,
-   "pooled": 2.1385659019493106,
-   "max_cell": 6.202556055636685,
+   "n_cells": 68,
+   "pooled": 1.985785306534876,
+   "max_cell": 6.022207576425895,
    "x": {
-    "k@dark-inactive": 2.217121417506654
+    "k@dark-inactive": 2.226239446761663
    },
    "lam": {
-    "dark-inactive": 0.23339856619662547
+    "dark-inactive": 0.246805617830817
    },
    "kernel": "receded (no band)",
-   "bed": "07b45391",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": 4.65,
-   "verdict": "FAIL"
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
   },
   {
    "truth": "LT",
    "fit": "null-boxfloor",
    "ep": "light-rest",
-   "n_cells": 15,
-   "pooled": 0.42573153708164674,
-   "max_cell": 0.4425073723025515,
+   "n_cells": 47,
+   "pooled": 0.9885218614567428,
+   "max_cell": 6.050564991171904,
    "x": {
-    "k@light-rest": 1.987000502882874
+    "k@light-rest": 1.984622719705261
    },
    "lam": {
-    "light-rest": 0.8779666246328308
+    "light-rest": 0.8787793181069401
    },
-   "kernel": "w",
-   "bed": "07b45391",
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": null,
    "verdict": "n/a (no memo E bar)"
   },
@@ -8587,35 +8789,56 @@
    "truth": "LT",
    "fit": "null-boxfloor",
    "ep": "light-inactive",
-   "n_cells": 54,
-   "pooled": 0.431565914709527,
+   "n_cells": 56,
+   "pooled": 0.4324010939451107,
    "max_cell": 0.5,
    "x": {
-    "k@light-inactive": 2.0285002693684135
+    "k@light-inactive": 2.0285200915637636
    },
    "lam": {
     "light-inactive": 0.8028699758147748
    },
    "kernel": "receded (no band)",
-   "bed": "07b45391",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": null,
    "verdict": "n/a (no memo E bar)"
   },
   {
    "truth": "LT",
-   "fit": "null-boxfloor",
+   "fit": "null-R2",
    "ep": "dark-rest",
-   "n_cells": 15,
-   "pooled": 0.4362016651713186,
-   "max_cell": 0.49967454783913584,
+   "n_cells": 58,
+   "pooled": 2.8424284799906596,
+   "max_cell": 9.346717281024036,
    "x": {
-    "k@dark-rest": 2.0985666916072296
+    "k@dark-rest": 2.188636576022316
    },
    "lam": {
-    "dark-rest": 0.8986223734400117
+    "dark-rest": 0.7040586551978617
    },
-   "kernel": "w",
-   "bed": "07b45391",
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
+   "bar": 4.65,
+   "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+  },
+  {
+   "truth": "LT",
+   "fit": "null-boxfloor",
+   "ep": "dark-rest",
+   "n_cells": 58,
+   "pooled": 1.2725458983364435,
+   "max_cell": 8.909322882534713,
+   "x": {
+    "k@dark-rest": 2.0952516007439286
+   },
+   "lam": {
+    "dark-rest": 0.8993492685812031
+   },
+   "kernel": "n",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": null,
    "verdict": "n/a (no memo E bar)"
   },
@@ -8623,17 +8846,18 @@
    "truth": "LT",
    "fit": "null-boxfloor",
    "ep": "dark-inactive",
-   "n_cells": 54,
-   "pooled": 0.4184274970234983,
-   "max_cell": 0.4923241901138021,
+   "n_cells": 68,
+   "pooled": 0.4066282568567419,
+   "max_cell": 0.49306711831718414,
    "x": {
-    "k@dark-inactive": 2.067658700336121
+    "k@dark-inactive": 2.067811634068518
    },
    "lam": {
     "dark-inactive": 0.801832659388909
    },
    "kernel": "receded (no band)",
-   "bed": "07b45391",
+   "bed": "764217e1",
+   "engine": "fix-b151aff4",
    "bar": null,
    "verdict": "n/a (no memo E bar)"
   }
@@ -9059,90 +9283,130 @@
   }
  ],
  "engine": {
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
   "interpolation": {
    "worst_rms": 0.02477833948766431,
    "worst_max": 0.0938323451365477,
-   "median_rms": 0.0005706477019578793,
-   "n": 117
+   "median_rms": 0.0007353278553379446,
+   "n": 142
   },
   "uniform_invariance": [
    [
     "LT",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    4.263256414560601e-14
    ],
    [
     "LT-2k",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    5.684341886080802e-14
    ],
    [
     "free-sn",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    4.263256414560601e-14
    ],
    [
     "R1",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    4.263256414560601e-14
    ],
    [
     "W-shape",
-    8.526512829121202e-14
+    8.526512829121202e-14,
+    4.263256414560601e-14
    ],
    [
     "W-canvas",
+    4.263256414560601e-14,
     4.263256414560601e-14
    ],
    [
     "W-tails",
-    5.684341886080802e-14
+    5.684341886080802e-14,
+    4.263256414560601e-14
    ],
    [
     "K2",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    4.263256414560601e-14
    ],
    [
     "C-linear",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    4.263256414560601e-14
    ],
    [
     "knee-luma",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    4.263256414560601e-14
+   ],
+   [
+    "LT+bleed-lit-pre",
+    7.315630988228854,
+    2.842170943040401e-14
+   ],
+   [
+    "LT+bleed-lit-post",
+    9.461678832116789,
+    2.842170943040401e-14
+   ],
+   [
+    "LT+bleed-lit-own-pre",
+    7.315630988228854,
+    2.842170943040401e-14
+   ],
+   [
+    "LT+bleed-lit-own-post",
+    9.461678832116775,
+    2.842170943040401e-14
    ],
    [
     "LT+bleed",
+    5.684341886080802e-14,
     5.684341886080802e-14
    ],
    [
     "LT+bleed-own",
+    5.684341886080802e-14,
     5.684341886080802e-14
    ],
    [
     "edge-swap",
-    8.526512829121202e-14
+    8.526512829121202e-14,
+    4.263256414560601e-14
    ],
    [
     "null-mix",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    5.684341886080802e-14
    ],
    [
     "null-texel",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    5.684341886080802e-14
    ],
    [
     "null-dev",
-    7.105427357601002e-14
+    7.105427357601002e-14,
+    4.263256414560601e-14
    ],
    [
     "null-R2",
-    5.684341886080802e-14
+    5.684341886080802e-14,
+    4.263256414560601e-14
    ],
    [
     "null-boxfloor",
-    5.684341886080802e-14
+    5.684341886080802e-14,
+    2.842170943040401e-14
    ]
   ],
   "decimated_wide_blur": {
    "worst_max": 0.03661027616026047,
    "worst_rms": 0.00745463981202849,
-   "n": 332
+   "n": 383
   },
   "refraction_exclusions": {
    "2x light-rest": {
