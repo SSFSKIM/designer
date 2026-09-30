@@ -2,19 +2,18 @@
 
 Charter `docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md` v2.1 (main `0736ed64`),
 clause 1; ledger §5.194. The machine record is `declaration.json`: 31 items, each declared once and
-pointing at the stream file that defines it, with 89 source files pinned by SHA-256 (the charter
-at `bc1e6bc6`, which records Decision Log 5f and the review's readings beside 5a and 5c).
+pointing at the stream file that defines it, with 92 source files pinned by SHA-256 (the charter
+at `c4730b9d`, which records G0 complete and Decision Logs 5a to 5f).
 `declare.py check` re-derives every count and list below from those files; `declare.py hash`
 refuses while any item marked **PENDING (user)** has no ruling, then writes `declaration.sha256`
 and `closure.json` and pins both in `bed/exposure/production-pin.json`.
 
-**Status: not hashed.** The three items that waited on the user were RULED on 2026-09-30:
-`candidate2Chroma` (i, Decision Log 5c), `l1TintedReceded` (ii, 5d) and `activeBandAndE2`
-(iii, 5e). The review of `b151aff4` and its three fix waves are folded in (the streams'
-`FIXES-b151aff4.md`), and the refraction-order rule (`refractionOrderNoCall`) was RULED on
-2026-09-30 (Decision Log 5f). The hash waits for the remaining commits the parent is merging (the
-instrument's correction, the reader replays, a second bed fix round). No native pixel of the new
-bed exists.
+**Status: complete.** The user's six rulings under Decision Log 5 are in: 5a and 5b (before G0),
+`candidate2Chroma` (5c), `l1TintedReceded` (5d), `activeBandAndE2` (5e) and
+`refractionOrderNoCall` (5f). The review of `b151aff4`, its three fix waves, the bed's verification
+round and the instrument's correction are folded in. `declare.py hash` writes
+`declaration.sha256` beside this file, and the SHA-256 there names this declaration. No native
+pixel of the new bed exists before it.
 
 Streams, merged no-ff into `w42-g0-declaration`: bed `764217e1`, instrument `a489cc02`, gate
 `75f244ec`. Units: codes are 8-bit encoded output levels; lengths are points (CSS px) unless
@@ -97,7 +96,7 @@ per-channel.** *Sources:* `instrument/forward.py`, `families.py`, `resolution.tx
 
 Reduce Transparency returns every W42 gate to its identity; `forced-colors` draws no body;
 Increase Contrast alone does not stand the law down; the bed measures neither mode. *Source:* the
-charter at `bc1e6bc6`.
+charter at `c4730b9d`.
 
 ### supersededLeaves
 
@@ -241,7 +240,9 @@ record: S, per-cell λ, step σw, patch widths, ESF, single-width impulse, depth
 hinge-gap. Family fitters recover every parameter well inside their bars; the step call is
 identical on capture and replica on 20/20; LT's survival resolution is k ±0.037–0.068, λ
 ±0.029–0.044. Continuing every separation row near the 1.5 line with three times the budget moved
-s by at most 0.022, and no verdict. *Sources:* `instrument/tolerances.json`, `resolution.json`, `proof1_families.txt`,
+s by at most 0.022, and no verdict. The one output the old blur key contaminated,
+`proof3_readers_b.replica.json`, is replaced: the per-cell λ replica reading passes in light
+(15 / 0) and misses in dark only. *Sources:* `instrument/tolerances.json`, `resolution.json`, `proof1_families.txt`,
 `read_step.py`.
 
 ### nonIdentifiable
@@ -319,7 +320,10 @@ launches, seven runs, every X6 / X4 gate before every launch, quarantine and sto
 never a retry. **About 10.31 h** (9.25 capture + 1.02 dumps). The orchestrator runs detached and
 restores mode 68 on every exit; the driver refuses a launch it did not make; the pin check needs
 the hashed declaration; PNGs are bound at admission; H's operational manifests carry attestation
-fields only. *Sources:* `bed/sitting/*` (the orchestrator and its red / green records),
+fields only. The verification round made every run derive from the snapshot the pin check
+accepted, withheld the harness's `CAVEAT:` aggregate, made a signal end the launch and restore the
+mode, and guarded staged manifests (13 of 13 red / green). *Sources:* `bed/sitting/*` (the
+orchestrator and its red / green records),
 `bed/dumps/dumpcheck.py`, `dump-reference.json`.
 
 ### runtimeBase
@@ -433,9 +437,10 @@ their blind rendered H predictions frozen by hash and recaptured equal inside it
 of every claimed endpoint passes at max(1 code, bar), with at least one measured cell each;
 censored H cells are UNMEASURED; X40 selects candidate 2 if landable. Before `begin` the runner
 refuses if the receipt log has history on any ref or origin carries the marker tag, then pushes the
-marker atomically, so only one checkout can expose H (b9). `declare.py hash` pins this declaration
-and `closure.json` in `production-pin.json`; G1 pins the inventory. Proof: 34 / 34. *Sources:*
-`bed/exposure/runner.py`, `README.md`, `green-fixes.txt`, `b9-proof.txt`.
+marker atomically, with a fresh nonce, and counts the claim only when the tag is CREATED, so only
+one checkout can expose H (b9, the verification round). `declare.py hash` pins this declaration and
+`closure.json` in `production-pin.json`; G1 pins the inventory. Proof: 37 / 37. *Sources:*
+`bed/exposure/runner.py`, `README.md`, `green-fixes.txt`, `b9-proof.txt`, `green-verification.txt`.
 
 ## Errata (kept beside the bytes they correct)
 

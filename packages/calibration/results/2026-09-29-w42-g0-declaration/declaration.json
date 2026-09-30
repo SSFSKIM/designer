@@ -4,7 +4,7 @@
   "charter": {
     "path": "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md",
     "revision": "v2.1, with Decision Logs 5c-5e RULED and the review's readings beside 5a and 5c (2026-09-30)",
-    "commit": "bc1e6bc6"
+    "commit": "c4730b9d"
   },
   "ledger": "docs/doperpowers/specs/c9a-fidelity-claims.md §5.194",
   "streams": {
@@ -285,7 +285,7 @@
         "measured": "the bed measures neither mode"
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6"
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@c4730b9d"
       ]
     },
     {
@@ -305,7 +305,7 @@
         "provenance": "no G0 stream owned this item; declared at integration from the charter's list and the rehearsal's construction, and kept as proposed by the parent (2026-09-30) for the independent review to read"
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6",
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@c4730b9d",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/body.py"
       ]
     },
@@ -555,7 +555,8 @@
         "captureFloor": "memo E's 0.8-device-px pre-blur (1.6 on rrect-lg) stays a declared constant, re-read descriptively (item rejectedNulls, null-boxfloor)",
         "proof3Bars": "re-declared by the parent's ruling 1 against the float64 replica before the re-proof ran; the superseded sigma_RMS bars and their misses stay on record",
         "minimax": "continuing every >= 3-dimensional separation row near the 1.5 line with three times the budget moved s by at most 0.022; no verdict changed (proof2_minimax_check.txt)",
-        "perCellLambda": "descriptive; at the narrow mask it identifies 30 / 33 light cells and 11 / 33 dark (was 17 / 20 and 5 / 20 at the W support)"
+        "perCellLambda": "descriptive; at the narrow mask it identifies 30 / 33 light cells and 11 / 33 dark (was 17 / 20 and 5 / 20 at the W support)",
+        "perCellLambdaReplica": "descriptive; against memo B's float64 replica the per-cell lambda reader passes in light (15 / 0) after the token-keyed replay of proof3_readers_b.replica.json, the one output the old blur key contaminated, and misses in dark only; the light hinge-gap reads 0.230 (13 misses, still FAIL)"
       },
       "source": [
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json",
@@ -601,7 +602,7 @@
         "negative": "an endpoint with no survivor is this wave's negative at its resolution; Decision Log 3 then applies"
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6",
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@c4730b9d",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/fitting.py",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py"
@@ -625,7 +626,7 @@
         ]
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6",
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@c4730b9d",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt"
       ]
     },
@@ -749,7 +750,8 @@
         "length": "9.25 h of capture + 1.02 h of dumps, about 10.31 h, from W39 G1's and memo D's real timings",
         "archive": "w42_archive.py produce / pack / fetch / replay; operational logs and dumps inside the archive, never in git",
         "pinCheck": "sitting.py pin-check is the orchestrator's first act and the driver repeats it before every launch; it requires the hashed declaration (declaration.sha256), so until the hash only predeclaration rehearsals run",
-        "orchestration": "the orchestrator relaunches itself detached (nohup, setsid) and its EXIT trap restores and verifies mode 68; the driver refuses a launch the orchestrator did not make, rehearsals included; every fixture PNG is bound at admission (non-H SHA-256s, one digest over H); the operational manifests carry only H's attestation fields, the full files behind the receipt; no rehearse-tints"
+        "orchestration": "the orchestrator relaunches itself detached (nohup, setsid) and its EXIT trap restores and verifies mode 68; the driver refuses a launch the orchestrator did not make, rehearsals included; every fixture PNG is bound at admission (non-H SHA-256s, one digest over H); the operational manifests carry only H's attestation fields, the full files behind the receipt; no rehearse-tints",
+        "verificationRound": "every run derives from the one snapshot of the scenes file and bed.json the pin check accepted, and the files are re-verified before each run; the public capture log is withheld from the harness's first CAVEAT: line on; a signal ends the driver and its launch, quarantines the run and restores mode 68; staged manifests at any depth are redacted and guarded (6fbb1055; red-green-fixes.txt 13 of 13)"
       },
       "source": [
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py",
@@ -762,7 +764,9 @@
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting-orchestrate.sh",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/red-green-fixes.txt",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-sitting-fixes.txt",
-        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-archive-fixes.txt"
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-archive-fixes.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-sitting-verification.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-archive-verification.txt"
       ]
     },
     {
@@ -1001,19 +1005,20 @@
         "claimedEndpoints": "frozen, a nonempty subset; unclaimed endpoints scored and reported 'not claimed (identity)' (Decision Log 3)",
         "spend": "any fault after begin spends H; nothing changes after the receipt",
         "productionPins": "production-pin.json: G1 pins the archive inventory; declare.py hash pins this declaration and its closure (closure.json, written from items survivalBars and exposureRunner)",
-        "proof": "26 red against a stub, 27 green on a synthetic H; with b9's cross-checkout claim the runner suite reads 34 of 34",
-        "crossCheckout": "before begin the runner fetches origin's tags and refuses if the receipt log path has history on any ref or the marker tag exists; it then pushes an annotated marker tag (w42-h-exposure) atomically, so of two racing checkouts one exposes H and the other refuses (b9)"
+        "proof": "26 red against a stub, 27 green on a synthetic H; with the cross-checkout claim and its race fix the runner suite reads 37 of 37",
+        "crossCheckout": "before begin the runner fetches origin's tags and refuses if the receipt log path has history on any ref or the marker tag exists; it then pushes an annotated marker tag (w42-h-exposure) carrying a fresh nonce, and a claim counts only when the push reports the tag CREATED ('[new tag]'), so of two racing checkouts one exposes H and the other refuses (b9, and the verification round)"
       },
       "source": [
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/README.md",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/green-fixes.txt",
-        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/b9-proof.txt"
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/b9-proof.txt",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/green-verification.txt"
       ]
     }
   ],
   "sources": {
-    "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6": "c90c7331ce163c343587a0e3c78cf68c9261e5ffd515259316e3a920fb333d05",
+    "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@c4730b9d": "51afbdf79775fc3a61e64b95a3f82eaa0532b310f3a7712fb1b4d6a56381dd5c",
     "packages/calibration/results/2026-09-27-w41-g0-declaration/closure.json": "016d93ea9dce679ea3a7f2baa09683769a5da3f33da7883cefba15649c803412",
     "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-active-E3-fit.json": "8d23ff0bb08a5458d45fbf2217e35d298955d487435dfc4e72728bf1ef422430",
     "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-inactive-E3-fit.json": "2024f3a4baa070288145ab1095d29fd7495510e81c07a7b40ed717aae1fd2b2e",
@@ -1029,22 +1034,25 @@
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-dark-inactive/check.json": "2b4f2c2cb0e79f8a61194e435132bb1c6c50ac665c8817dfb8db3702b76f35f5",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-light-active/check.json": "ee2c23ac40dc69ed1982655d10fef978f94aa28c7d89fdbebd7b17250eba47da",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/dumps/s112/2x-light-inactive/check.json": "ec82d6d43b262285d36fc308762edb53bf6237190b61dc5783e99cf812a41343",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/README.md": "0d50baead9ae277a636f7eae57e763dec0e52413965faa6eef33eec809156c6d",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/README.md": "467a9e1db1d4c2aab165d0d8ba19ca5b1128ceb1596fa31bb19e3ed3effc74a4",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/b9-proof.txt": "c3cb84e6084a1b5b530a47cdb17b11d40309093b7efdc2e1156483c49369de1b",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/green-fixes.txt": "e1d0edbed812e51f767bdeb09312ec5b17d68d5de9c914b950775feddb921181",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py": "1d6aa18b17c7ebc23df17c696c592d45c6468a03ebd0e0ac87f4b811407fd1c1",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/green-verification.txt": "32bd5328bc13c92726529c66a5182b1fe00520754477a7ae7fd8fce6097a385e",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py": "5d93722fc90ef3dee8f4f3e7457ff431071407c997e9b247a5c67722b5088db5",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/pins.json": "4badfe18bde4520a8a6a891780160bf9dbd71d463400fd4480fab2c18729b2b7",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/runtime-base-sample.json": "e22b24ddb6f517930b2996882ecb96b5a5a39414d4f88856db403a2590f26ae5",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/dry-plan.txt": "72503ae27d754d97a3cc241db88d1c0fa9991bb3be54a1d10db1056c1928a4f9",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/pass-spec.py": "31858d7dc9f8e3fcb705894c6471f100845a01efa947adb5d0f43185990d5283",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/red-green-fixes.txt": "47addb5d63dceda8438b306c66fc3801b3ab892c65ce244d7a73eb10a6c99593",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting-orchestrate.sh": "38101f2babc8ef0be509f8c8336786f9b24b8908d6b754e2bb30fc1e3149ec23",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py": "6edd67eecf2cd856307141a961ce42f207f1727c4bbb55b02101ce60e452cd99",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/pass-spec.py": "f019a02f4582d8fc1d20bfc289981ee29b4363bb0fb84e455c56033d0f655ad8",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/red-green-fixes.txt": "4e2c2693dfa466d006344470186b3ed1ec97efbf2f450a5b80f361a1517d6958",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting-orchestrate.sh": "b2a8fa54dc2da55c23c0fe5f41450f1e22ee5dd4f1d6be121fd3dc21a2765e55",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py": "3124044f9c5eaa220f352cd6560e61b09c8131e1220f07981f73d7a34948e8d0",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-archive-fixes.txt": "23034406974a7ab20352b438800727d521ce95583715a1ce9387a8ae200329a2",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-archive-verification.txt": "473e87f38c5d5c622cbdcb2b9a5b61cdc6c4983d3b9ac4cd12b883f0aeb60354",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-sitting-fixes.txt": "83e55a19fa6ccabf1bdd02afc4026fbba4e07a4ba7aea40cad026681b00eecc4",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/test-sitting-verification.txt": "530480857f4c28482dfd6fdf354daeeeac82959862d644d3a95b957d82481671",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/timing.txt": "593806d97a6e6ab20f301b53eb174f37d64e0916f632a430435550b9038b14e6",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py": "b1e582d4ced8101abf85db62d74dce060fbb076ad27be152e7bd7fb4ae4dc3c2",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py": "145bbd614958f8f9bff28bb6a41a20eb681c4d2e7297c60c40a8e9e51dd89587",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/twin-audit.json": "a7f2682e771f0ecf1725120c698c4cd6588e972b7c3d4dbe37308cc8fa05a06a",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/wave.py": "dfb55b4490bf8e67950ed0c7dab8f93c0c20d19e20378b1e43f2efd3754f4166",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/web-plan.json": "16fb739aa549e5e75bbdc0f36116c8754aeabd25aa26ad9248093b0b2ddb3cc7",
@@ -1080,7 +1088,7 @@
     "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/proof.txt": "82c16e5a501676349d5b81b6f033aa832b3ab0208e28b5a9e6643df8ba474b60",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json": "d5283e4e198c7d2ac72d605f4713fcaa6b254c9a9c162ea2ba13d8ffd026d521",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops.py": "3badf7c3f66879d4b4db4cf44690116e0b3afb3d20435e1b12226c00f8ff9d02",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/README.md": "b30341f7076c694c79111d88bd068ae595ae183977fa78cb732169a5c92e16d5",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/README.md": "0837af54e6205d8731ca5bbf2d4454a6386245265a2a932a881c0a04f2ec5c24",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/bed.py": "5b54a05ce4c9b5fedcfb66fbc1ed39fa3e1eeee34c3448d007d13dfaf1c7c184",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py": "0e41f7b85bbbc9d45781d95a9334322a51c6ebd67016ebe31bc5dbfe92bad3d3",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/fitting.py": "ecd9efccc52fbffe59ea003344ac372c92db7f8add7a6c857d778a257af2e055",
@@ -1097,8 +1105,8 @@
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.v3.json": "bb39d29f19af1be282121318a472b212316e78291b5984a39a54859b1bcd0584",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.v3.txt": "1bea0bfad46d32051f905a25ce2c9b6f51bbfbae1c9b201c1e8ce8e08ab71f7a",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py": "d7744b2753c9801dc91bac62cce61d90112e4f5e56460e1507d02ad1b0b97e42",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.json": "1f15f5671716384fc0fff37184a662e6edb4fcf5508af0a9f92de739d9e67adf",
-    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt": "2aef2e265b1dd2b67a340d377b7fdf8de1c6bcdd931f6375a2f76118221f86f4",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.json": "71eb72991a2f0b1ea07cc891607cdac079c63e32639de52297f567bb2a04a839",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt": "b142a7f2ac6e58d29f29523dfd5d9d26b8b312a4e87ca75912933d55173c10ba",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json": "62b6b7b3c39227aff2edb481cdd02978e9277afef648c2028b18f32b46417d97",
     "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tone.py": "e08912b66fe6369cdc057ca7229b67f3f015bb081ccbf7350c9f098aa74fe37c",
     "packages/calibration/test/adopted-thresholds.test.ts": "36eb6d68d30959a0a7354032205d24f39512423883af0ab298bbb64f6d400a40"
