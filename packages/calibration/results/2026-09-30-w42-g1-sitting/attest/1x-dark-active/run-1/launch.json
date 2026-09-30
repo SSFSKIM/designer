@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w42/g1/run/1x-dark-active/scenes-run-1.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w42/g1/run/1x-dark-active/run-1",
+    "--env",
+    "VITREA_SCALE=1",
+    "--stdout",
+    "/Users/new/vitrea-w42/g1/run/1x-dark-active/run-1/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w42/g1/run/1x-dark-active/run-1/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w42-1x-dark-active-1",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "a-g128-rrect-md-1x__rest,a-g255-rrect-md-1x__rest,bp-p1-c32-rrect-lg__rest,bp-p1-c4-capsule-button-odd__rest,bp-p1-c4-capsule-button__rest,bp-p1-c4-rrect-lg__rest,bp-p1-c4-rrect-md__rest,bp-p1-c8-capsule-button__rest,bp-p1-c8-rrect-lg__rest,c-impulse-rrect-lg__rest,f-checker64-rrect-lg__rest,f-impulse-rrect-md__rest,h-g232-rrect-md__rest,h-p3-c64-rrect-lg__rest,ref-checker-32-000-255__rest,ref-checker-4-000-255__rest,ref-checker-64-000-255__rest,ref-checker-64-096-160__rest,ref-checker-8-000-255__rest,ref-grey-128__rest,ref-grey-232__rest,ref-grey-255__rest,ref-impulse-255-on-000-s4-g64__rest"
+  ],
+  "rehearsal": false
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "run": "run-1",
+    "admitted": true,
+    "manifestSha256": "f085b72da73d29bb6f1a48ef0fa03749f78a523cc784ab697253316fec4bcde4",
+    "fixtures": 2,
+    "firstCapture": "2026-09-30T22:05:10Z",
+    "lastCapture": "2026-09-30T22:05:26Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 38314.057192458,
+      "hidIdleSecondsAtStart": 38282.084851791,
+      "initialSettleSeconds": 8,
+      "minIdleSeconds": 60,
+      "orderSeed": 4242,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w42-1x-light-receded-sentinel-1",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-2",
+    "admitted": true,
+    "manifestSha256": "9441201c9ff5ec11c3088294599d5d358cd06c5f7c3d9b186173f03752aa0c11",
+    "fixtures": 2,
+    "firstCapture": "2026-09-30T22:05:43Z",
+    "lastCapture": "2026-09-30T22:05:59Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 38347.42664,
+      "hidIdleSecondsAtStart": 38315.55372525,
+      "initialSettleSeconds": 8,
+      "minIdleSeconds": 60,
+      "orderSeed": 4242,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w42-1x-light-receded-sentinel-2",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-3",
+    "admitted": true,
+    "manifestSha256": "773d1cf26d3d3ca579adbd6ba20febcef6933a47a6be14ae825afef68f55e88b",
+    "fixtures": 2,
+    "firstCapture": "2026-09-30T22:06:16Z",
+    "lastCapture": "2026-09-30T22:06:32Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 38380.61880175,
+      "hidIdleSecondsAtStart": 38348.819680041,
+      "initialSettleSeconds": 8,
+      "minIdleSeconds": 60,
+      "orderSeed": 4242,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w42-1x-light-receded-sentinel-3",
+      "userIsActiveAtStart": true
+    }
+  }
+]

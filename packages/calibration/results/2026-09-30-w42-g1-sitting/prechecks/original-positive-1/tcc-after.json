@@ -1,0 +1,13 @@
+{
+  "at": "2026-09-30T10:02:10.347366+00:00",
+  "command": [
+    "sqlite3",
+    "-readonly",
+    "-json",
+    "/Library/Application Support/com.apple.TCC/TCC.db",
+    "select service,client,auth_value,last_modified from access where client like '%vitrea%';"
+  ],
+  "exitCode": 0,
+  "stdout": "[{\"service\":\"kTCCServiceScreenCapture\",\"client\":\"dev.vitrea.tccprobe\",\"auth_value\":0,\"last_modified\":1787645170},\n{\"service\":\"kTCCServiceAccessibility\",\"client\":\"dev.vitrea.reference-apple\",\"auth_value\":2,\"last_modified\":1787935072},\n{\"service\":\"kTCCServiceScreenCapture\",\"client\":\"dev.vitrea.reference-apple\",\"auth_value\":2,\"last_modified\":1790485708}]\n",
+  "stderr": ""
+}

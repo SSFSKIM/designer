@@ -1,0 +1,48 @@
+{
+  "asset": "w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst",
+  "path": "/Users/new/vitrea-w42/release/w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst",
+  "sha256": "1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014",
+  "bytes": 13611249,
+  "tarMembers": 3564,
+  "zstd": "*** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***",
+  "compression": "-19 -T1 -q -c",
+  "entries": 3563,
+  "inventorySha256": "5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7",
+  "tag": "w42-archive",
+  "publish": [
+    [
+      "gh",
+      "release",
+      "create",
+      "w42-archive",
+      "--repo",
+      "SSFSKIM/designer",
+      "--title",
+      "W42 archive of record",
+      "--notes",
+      "W42 archive of record (charter clause 5; ledger \u00a75.195). SHA-256 1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014, 13611249 bytes. Verify with w42_archive.py fetch before reading.",
+      "--latest=false",
+      "--target",
+      "<G1 merge commit>"
+    ],
+    [
+      "gh",
+      "release",
+      "upload",
+      "w42-archive",
+      "/Users/new/vitrea-w42/release/w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst",
+      "--repo",
+      "SSFSKIM/designer"
+    ],
+    [
+      "gh",
+      "release",
+      "view",
+      "w42-archive",
+      "--repo",
+      "SSFSKIM/designer",
+      "--json",
+      "assets"
+    ]
+  ]
+}

@@ -42192,3 +42192,161 @@ Reruns under a load average of 17 to 136, from other work on the machine:
   a pass, and the list shrinks at the seal.
 - **The remaining open items:** U3's active half is recorded, not captured. The eye sheets have
   no grey-middle uniform stratum.
+
+## 5.195 W42 G1: the native sitting — 3,441 captures and 447 dump scenes admitted through five stops, archived, published and replayed; the bar is the floor everywhere; no read against vitrea (2026-09-30)
+
+Evidence directory: `results/2026-09-30-w42-g1-sitting/`, whose `README.md` is the operational
+index. It records every stop and continuation. The raw runs stay on the capture machine under
+`~/vitrea-w42/g1/run/` (166 MB). The repository holds the attestations, admissions and driver
+logs (the orchestrator's per-pass commits), the pre-grant checks (`prechecks/`), the pose check
+(`grant/`), the bar (`bar/`), the archive's inventory and release citation (`archive/`), and the
+worker's 20 s session trace (`watch/`). Charter: G1 and Decision Log 6.
+
+### 1. Pre-grant checks and the grant switch
+
+- **The original bundle's positive check** (`prechecks/`; binary `bd3092e8…`, never rebuilt).
+  The canonical 27-only 2x light checkerboard capsule attests `captured-active`: material
+  rendered, deterministic, `repeatNoise` 0. Its frame is `204f21f0…`, which is 115 px and at most
+  2 codes from the committed fixture `6c15311b…` and byte-identical to W39 G1's step-0 capture.
+  **The parent ruled it passed on its attestations.** For this binary the restore baseline is
+  either recorded state, `204f21f0…` or `6c15311b…`.
+- **A hypothesis, not established.** The two states split exactly by whether a Window Server
+  window at level 2147483630 (kCGCursorWindowLevel) was on screen when the launch began. The
+  `204f21f0` launches began without it and it appeared during the launch; the `6c15311b` launches
+  began with it. That is four captures, two per state, plus a fifth reading from the side's pose
+  check. Nothing is gated on it.
+- **The refusal rehearsal.**
+  - *Attempt 1* was quarantined `prompt-pending`. The side bundle had no TCC row, and its first
+    ScreenCaptureKit call raised a Screen Recording prompt. **The prompt itself wrote `.w39`
+    auth 0 (10:06:47Z) before any click**, which corrects W39 G0's note that a pending prompt
+    writes no row. Nothing clicked Allow; the parent answered Deny through cua_repl.
+  - *Attempt 2*, on a fresh root, read `refused-tcc` in all four passes (2x and 1x, light active
+    and receded), with no manifest, PNG, staging directory or new window.
+- **The grant switch (the user's hand, Decision Log 6).** `.w39` reads auth 2 (10:44:55Z). The
+  original's Screen Recording row was removed (`tccutil reset`); its Accessibility row is
+  untouched.
+- **The side's pose check** was `captured-active` on its first attempt, with frame `204f21f0…`.
+  The original was not launched, since with no row it would raise an unattended prompt; its
+  check is the read-only TCC read.
+
+### 2. The sitting: five stops, five continuations, one declared order
+
+| # | When (Z) | Where | Cause | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | 10:59:58 | `dump-2x-light-active` | 163 departures, all in the last 6 of 87 scenes, which read `isKeyWindow`/`appIsActive` false and the unfocused material; Universal Control input at about 10:59:14 took the focus | closing session: frontmost `com.apple.universalcontrol`, idle 44 s |
+| 2 | 11:25:20 | the same dump | 317 departures in 12 contiguous scenes (11:15:24–11:16:57); `com.apple.universalcontrol` frontmost 11:15:26–11:17:05, with Universal Control reported off | the worker's 20 s session trace |
+| 3 | 15:23:25 | `2x-light-receded` run 4, close | 11 foreign processes: another agent session's `playwright-cli` launched Google Chrome at 15:23:05 (`tss.ucsd.edu`, not W42 work); all 92 captures had attested the receded pose, and no human input occurred | closing census |
+| 4 | 15:25:53 | run 4 again, open | 1 foreign process: **the worker's own launching shell**, whose command line carried the census's name pattern through a `pgrep` guard; the orchestrator detaches, so that shell is not an excluded ancestor | opening census |
+| 5 | 16:11:42 | run 7, open | 1 foreign process: a W39 test stub's fake launch, from a calibration `vitest run` a G2 worker was running; a second such run refused continuation 5's first pre-check (a `compare.ts`) | opening census; pid chains |
+
+Every stop quarantined its run under its own name, and the orchestrator restored mode 68 and
+verified it. Every continuation was the parent's explicit act, recorded in the README before its
+relaunch. Nothing was retried. The user switched Universal Control off after stop 2. The parent
+ended the test runs and their orphaned workers (16:13–16:15Z) and barred the calibration suite,
+beyond named files, until the sitting ended. Before continuations 3–5 the census and X6 gate ran
+in their own command, which exited before the launch. From continuation 4 on, the launch line held
+only the orchestrator call. Continuation 5 (16:16:17Z) ran every remaining pass with no further stop: `ALL PASSES DONE`
+at 22:09:55Z, and mode 68 restored and verified at 22:10:01Z. **The trace saw no HID input for
+its 5 h 54 min.** Wall time was 11 h 22 min 9 s from the first launch.
+
+### 3. Totals: every declared launch admitted
+
+All 88 admissions name scenes `4aa06af9…`, bed `53870f47…` and declaration `f04ae95b…` (no
+predeclaration), and each matches `dry-plan.json` in cells and protocol:
+- **the dumps:** 8 launches and 447 scenes, with **0 departures**. Each 2x active dump records
+  one `unpredicted` field, the rrect-112 SDF maximum, as designed.
+- **80 capture launches:** 3,129 glass captures, 264 no-glass references (run 1 of each bed
+  pass) and 48 long-protocol sentinel captures, **3,441 in all**, the declared baseline exactly.
+- **Per pass,** as run 1; runs 2–7:
+  - 2x: light active 133; 87, light receded 148; 92, dark active 157; 101, dark receded 175; 107;
+  - 1x: 23; 14 and 26; 16 for either scheme;
+  - sentinels: 2 cells × 3 runs in each of the eight endpoints.
+- **Five quarantines**, kept under their own names: two dumps (stops 1–2) and three
+  `2x-light-receded` runs (stops 3–5).
+
+### 4. The repeat bar (clause 5): 0.5 everywhere
+
+`bar/report-bars.py` read the **downloaded** archive through the guarded Reader, with the raw run
+root, the producer's output and the release directory denied. It used the instrument's own cells
+(`forward.Cell`, both of ruling 3's masks on active cells) and region statistics
+(`regions.statistics`: per-channel medians over deep-mask populations). The bar per cell, region
+statistic and channel is 0.5 + half the largest pairwise separation of the run medians, with the
+seven-run bed and the three-run sentinels as separate strata.
+
+| Stratum | Cells | Statistics | Bar |
+| --- | --- | --- | --- |
+| bed, narrow mask | 391 | 22,521 | **0.5 on every one** |
+| bed, wide mask (active cells) | 62 | 4,464 | 0.5 on every one |
+| sentinels, narrow | 16 | 732 | 0.5 on every one |
+| sentinels, wide | 4 | 60 | 0.5 on every one |
+
+- **Cells read:** 639 of the calibration, validation and probe roles. 232 are no-glass
+  references (run 1 only, no bar). 132 active cells have an empty deep mask at the wide kernel.
+  18 cell-masks have **no region statistic**, because every population is under `MIN_PX` = 12 px;
+  for example, the pitch-4 checkers at 1x. The 72 holdout cells were not read.
+- **The losing states are real and stay under the bar.** 35 bed rows (18 narrow, 17 wide) have
+  two frame states: runs split 6–1 (19), 5–2 (14) and 4–3 (2). The states differ by at most
+  **2 codes on at most 585 px**, and no region median moves (`bar/state-check.json`). The
+  sentinels are single-state.
+- `bar.json.gz` (JSON SHA-256 `a85662f2…`) and `bar-headlines.json` are published before G2
+  opens. **The seven-run bed is noise-free at the declaration's statistic**, so max(1 code, bar)
+  reads 1 code everywhere. W39's bar was the floor "almost everywhere".
+
+### 5. The archive of record
+
+- **Produced** by `w42_archive.py produce ~/vitrea-w42/g1/run`, before plurality. It holds all
+  **711 of 711 declared cells** with none uncaptured, from 80 source manifests, in **1,422
+  entries**: calibration 1,054, validation 168, holdout 144 and probe 56.
+  - **`operational/` (1,267 files):** every run's and quarantine's reads, argv, admission or
+    refusal, the 93 `driver-idle.log` files and the 77 orchestrator and driver logs. All five
+    quarantines are under their own names.
+  - **`dumps/` (631 files):** every dump JSON and check, the two quarantined dumps included.
+  - **`holdoutOperational` (243 files):** the whole manifests and logs, behind the receipt.
+  - Inventory SHA-256 `5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7`; the tree
+    holds 3,563 entries.
+- **Published** as GitHub release **`w42-archive`** on `SSFSKIM/designer` ("W42 archive of
+  record", `--latest=false`, target `eed62a29`). Asset
+  **`w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst`**,
+  SHA-256 **`1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014`**, **13,611,249
+  bytes**. GitHub's own asset digest agrees. A re-pack reproduces the digest.
+- **Round-tripped.** `fetch` verified the digest before extraction. The downloaded tree equals
+  the producer's output byte for byte. **A second owner-controlled copy** at
+  `~/vitrea-w42/archive-copy/`, taken through `fetch --source`, is identical to it.
+- **Replayed with the raw root denied:**
+
+  ```bash
+  S=packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting
+  ROOT=$(python3.12 "$S/w42_archive.py" fetch \
+    --asset w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst \
+    --sha256 1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014)
+  python3.12 "$S/w42_archive.py" replay "$ROOT" --deny-raw-root ~/vitrea-w42
+  ```
+
+  Run from the main checkout (`19db06ec`, whose tools are byte-identical to the branch's) with
+  **all of `~/vitrea-w42` denied** (the raw runs, the worktree, the producer's output, the release
+  and the second copy), it recomputed **all 639 calibration, validation and probe cells
+  identically**. A negative control shows the hook refusing an open under the denied root.
+- **Not archived:** the 92 PNGs of stop 3's quarantined run. The producer archives no pixel of
+  an unadmitted run, by design. They remain in the raw root only.
+
+### 6. Findings for the tracker
+
+1. **The census over-matches.** It counts any process whose command line merely *names* a
+   browser, a capture tool or the harness: a `pgrep` pattern, or a test stub's fake launch path.
+   That caused stops 4 and 5. It fails safe, but it is brittle.
+2. **Ancestor exclusion does not reach a detached launch.** The orchestrator detaches with
+   `setsid`, so the shell that launched it is not excluded.
+3. **The orchestrator's per-pass commit drops `driver-idle.log`,** because `*.log` is gitignored.
+   The raw copies are in the archive's `operational/`.
+4. **Universal Control input is invisible to the gates.** It enters through a system agent that
+   the census does not name, and the idle gate reads idle only at a launch. A mid-run focus loss
+   is caught only after the fact, by `dumpcheck` or the per-fixture pose attestation.
+
+### 7. What is not claimed
+
+No law, fit or model comparison. **Nothing was read against vitrea**: no browser, `compare` or
+web capture ran for G1. The W42 holdout's payload was produced behind the procedural boundary,
+never analysed, and has no bar here. **The original bundle's grant is not restored.** The user
+swaps it back by hand, and the original's positive check must then capture `204f21f0…` or
+`6c15311b…` (the parent's ruling). Until then the sitting is not closed. Freeze at G1's close is
+**1,818 intact**.

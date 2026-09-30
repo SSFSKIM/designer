@@ -1,0 +1,19 @@
+2026-09-30T10:36:22Z orchestrator pid 15750 (process group 15750) REHEARSAL=1 STOP_AFTER= START_AT= PASSES=2x-light-active 2x-light-receded 1x-light-active 1x-light-receded W42_PREDECLARATION=0
+2026-09-30T10:36:22Z pin-check: scenes 4aa06af90eb5 bed 53870f470368 declared
+2026-09-30T10:36:22Z selection: 2x-light-active 2x-light-receded 1x-light-active 1x-light-receded (last 1x-light-receded)
+2026-09-30T10:36:22Z START rehearsal 2x-light-active (bed) at mode 68
+2026-09-30T10:36:22Z job pid 15799: /Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/run-sitting-w42.sh capture 2x-light-active
+2026-09-30T10:36:33Z DONE 2x-light-active
+2026-09-30T10:36:33Z START rehearsal 2x-light-receded (bed) at mode 68
+2026-09-30T10:36:33Z job pid 16057: /Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/run-sitting-w42.sh capture 2x-light-receded
+2026-09-30T10:36:44Z DONE 2x-light-receded
+2026-09-30T10:36:44Z job pid 17869: /Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py wait-idle 300
+2026-09-30T10:36:50Z display -> mode 69
+2026-09-30T10:36:50Z START rehearsal 1x-light-active (bed) at mode 69
+2026-09-30T10:36:50Z job pid 18169: /Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/run-sitting-w42.sh capture 1x-light-active
+2026-09-30T10:37:01Z DONE 1x-light-active
+2026-09-30T10:37:01Z START rehearsal 1x-light-receded (bed) at mode 69
+2026-09-30T10:37:01Z job pid 18426: /Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/run-sitting-w42.sh capture 1x-light-receded
+2026-09-30T10:37:11Z DONE 1x-light-receded
+2026-09-30T10:37:11Z REHEARSALS DONE (1x-light-receded)
+2026-09-30T10:37:17Z restore: display mode 68 (verified)

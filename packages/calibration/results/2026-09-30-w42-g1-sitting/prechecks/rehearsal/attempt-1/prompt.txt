@@ -1,0 +1,29 @@
+The Screen Recording prompt raised by attempt 1's first launch (rehearsal-2x-light-active run 1,
+the side bundle ~/vitrea-w39/side/VitreaReference.app, dev.vitrea.reference-apple.w39), first
+seen on screen by read-session at 2026-09-30T10:06:48Z as window owner universalAccessAuthWarn|0.
+Read by the G1 worker after the orchestrator had exited, clicking nothing:
+
+$ osascript -e 'tell application "System Events" to tell process "universalAccessAuthWarn" to get value of every static text of window 1'
+‘VitreaReference’이(가) 이 컴퓨터의 화면과 오디오를 기록하려고 합니다., 시스템 설정에 있는 개인정보 보호 및 보안 설정에서 이 응용 프로그램에 접근 권한을 부여하십시오., 화면 기록
+  ('VitreaReference' would like to record this computer's screen and audio. / Grant this
+   application access in Privacy & Security in System Settings. / Screen Recording)
+
+$ osascript -e 'tell application "System Events" to tell process "universalAccessAuthWarn" to get name of every button of window 1'
+시스템 설정 열기, 거부, missing value
+  (Open System Settings / Deny / an unnamed button)
+
+$ osascript -e 'tell application "System Events" to tell process "universalAccessAuthWarn" to get {name, title} of every window'
+화면 기록, 화면 기록
+
+System TCC rows read read-only while the prompt was still on screen and unanswered:
+kTCCServiceScreenCapture|dev.vitrea.tccprobe|0|2026-08-25 08:06:10
+kTCCServiceAccessibility|dev.vitrea.reference-apple|2|2026-08-28 16:37:52
+kTCCServiceScreenCapture|dev.vitrea.reference-apple|2|2026-09-27 05:08:28
+kTCCServiceScreenCapture|dev.vitrea.reference-apple.w39|0|2026-09-30 10:06:47
+
+The .w39 row did not exist before the launch (../../../original-positive-1/tcc-after.json, and
+the pre-rehearsal read). It was written at 10:06:47Z, as the prompt appeared, before any click.
+
+The parent then clicked 거부 (Deny) through cua_repl. The parent read universalAccessAuthWarn at
+zero windows and the TCC rows unchanged; the .w39 row stays auth 0 at 10:06:47Z
+(tcc-at-collect.json).

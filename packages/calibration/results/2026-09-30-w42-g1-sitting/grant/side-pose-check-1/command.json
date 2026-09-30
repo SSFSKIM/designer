@@ -1,0 +1,34 @@
+{
+  "bundle": "side",
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w42/g1/grant-checks/side-pose-check-1/scenes.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w42/g1/grant-checks/side-pose-check-1",
+    "--env",
+    "VITREA_SCALE=2",
+    "--stdout",
+    "/Users/new/vitrea-w42/g1/grant-checks/side-pose-check-1/capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w42/g1/grant-checks/side-pose-check-1/capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w42-g1-side-pose-check-1",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "checkerboard__capsule-button__rest"
+  ],
+  "loadAverageAtLaunch": [
+    3.73,
+    3.87,
+    3.93
+  ],
+  "chatgptRunningAtLaunch": false
+}
