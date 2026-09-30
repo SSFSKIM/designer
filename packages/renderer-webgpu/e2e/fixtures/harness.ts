@@ -1072,6 +1072,8 @@ const api = {
       readonly gpuMsPerFrame: number | undefined;
       readonly gpuP95: number | undefined;
       readonly wallMsPerFrame: number;
+      /** The CPU's share: `drawFrame`'s own encode and submit, before the GPU is waited on. */
+      readonly cpuMsPerFrame: number;
       readonly wallP95: number;
       readonly passMs: Record<string, number>;
       readonly anomalies: number;
@@ -1088,6 +1090,7 @@ const api = {
           config,
           run,
           wall: [] as number[],
+          cpu: [] as number[],
           gpuFrames: [] as number[],
           passTotals: new Map<string, number>(),
           timedFrames: 0,
@@ -1128,8 +1131,10 @@ const api = {
             highlight: entry.run.highlight.view,
             ...(timing === undefined ? {} : { timing }),
           });
+          const encoded = performance.now();
           await gpu.queue.onSubmittedWorkDone();
           entry.wall.push(performance.now() - start);
+          entry.cpu.push(encoded - start);
 
           if (timing !== undefined) {
             const read = await timing.read();
@@ -1165,6 +1170,7 @@ const api = {
             gpuMsPerFrame: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.5),
             gpuP95: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.95),
             wallMsPerFrame: quantile(entry.wall, 0.5),
+            cpuMsPerFrame: quantile(entry.cpu, 0.5),
             wallP95: quantile(entry.wall, 0.95),
             passMs,
             // Reported per config for want of a per-config counter; it is a

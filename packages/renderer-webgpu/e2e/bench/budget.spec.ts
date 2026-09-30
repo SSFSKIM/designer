@@ -201,6 +201,7 @@ test.describe("@bench the performance envelope", () => {
         `${result.label}: gpu(median)=${gpu === undefined ? "n/a" : `${gpu.toFixed(3)}ms`} ` +
           `gpu(p95)=${result.gpuP95 === undefined ? "n/a" : `${result.gpuP95.toFixed(3)}ms`} ` +
           `wall(median)=${result.wallMsPerFrame.toFixed(3)}ms wall(p95)=${result.wallP95.toFixed(3)}ms ` +
+          `cpu(median)=${result.cpuMsPerFrame.toFixed(3)}ms ` +
           `budget=${gpu === undefined ? "n/a" : `${((gpu / BUDGET_MS) * 100).toFixed(0)}%`} ` +
           `anomalies=${result.anomalies} | ${passes}`,
       );
