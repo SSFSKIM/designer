@@ -106,6 +106,12 @@ import {
   type MaterialProfilePatch,
   type MaterialVariant,
 } from "./material";
+import {
+  BODY_LAW_DECLARED,
+  bodyLawE3StrengthUnderLaw,
+  bodyLawStrengthUnderPolicy,
+} from "./body-law";
+import { createBodyLawStage, type BodyLawStage } from "./body-law-pass";
 import { createSilhouetteTonePass, type SurfaceBackdropToneAbscissa } from "./silhouette-tone";
 import { createPassRunner, groupResourceId, type DeviceRect, type PassRunner } from "./passes";
 import {
@@ -366,6 +372,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   let store: PyramidStore | undefined;
   let runner: PassRunner | undefined;
   let silhouetteTone: ReturnType<typeof createSilhouetteTonePass> | undefined;
+  let bodyLaw: BodyLawStage | undefined;
   let framesDrawn = 0;
   let generations = 0;
   let lastFrameTimeMs: number | undefined;
@@ -415,6 +422,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     store?.destroy();
     silhouetteTone?.destroy();
     silhouetteTone = undefined;
+    bodyLaw?.destroy();
+    bodyLaw = undefined;
     hintedTones.clear();
     runner?.destroy();
     context?.destroy();
@@ -456,6 +465,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       store = createPyramidStore(context);
       runner = createPassRunner(context);
       silhouetteTone = createSilhouetteTonePass(context);
+      bodyLaw = createBodyLawStage(context);
       // The providers outlive the context, and every one of them closes over the
       // device it was built with. Re-pointing them here — rather than in the loss
       // teardown — is what makes the timing right: this is the one place that
@@ -571,7 +581,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         heavySecondSigmaCssFor(sourceId),
         existing.heavy2SigmaCss,
       );
-      if (sameDensity && sameSigma && sameHeavy && sameHeavy2) continue;
+      // W42's encoded level 0 is written by the import, so a clean source a law group has just
+      // started sampling has to be imported again to carry it (and released when none does).
+      const sameEncoded = encodedLevel0For(sourceId) === (existing.encoded !== undefined);
+      if (sameDensity && sameSigma && sameHeavy && sameHeavy2 && sameEncoded) continue;
       requests.push({
         sourceId,
         epoch: existing.builtEpoch,
@@ -680,6 +693,20 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     if (bodySigmaCssFor(sourceId) <= 0) return 0;
     return heavySecondTapSigmaAtScale(material, viewport.devicePixelRatio);
   };
+
+  /**
+   * Whether any group sampling this source runs W42's body law, and so needs the pyramid's encoded
+   * level 0 (`PyramidResources.encoded`). The strength is folded exactly as the draw folds it
+   * (`bodyLawStrengthUnderPolicy`, with the source in hand as the sample), under the renderer's
+   * accessibility view as the body's σ is (`bodySigmaCssFor`). A frame whose resolved policy
+   * disagrees draws the law nowhere that frame, because the draw finds no encoded texture; it
+   * never draws it from the chain.
+   */
+  const encodedLevel0For = (sourceId: string): boolean =>
+    [...groups.values()].some((entry) =>
+      entry.input.backdropSourceId === sourceId &&
+      bodyLawStrengthUnderPolicy(material.bodyLawStrength, accessibility,
+        variantOf(entry.input), true) > 0);
 
   /**
    * The one tint seed this group's optics pass draws with.
@@ -792,6 +819,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           // the pyramid allocates nothing and encodes nothing, exactly as for
           // the first one.
           heavy2SigmaCss: heavySecondSigmaCssFor(request.sourceId),
+          // W42's encoded level 0, only where a law group samples this source.
+          ...(encodedLevel0For(request.sourceId) ? { encodedLevel0: true } : {}),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },
@@ -869,6 +898,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     const releaseIdle = (groupId: string): void => {
       passes.forget(resourceOf(groupId));
       silhouetteTone?.forget(resourceOf(groupId));
+      bodyLaw?.forget(resourceOf(groupId));
       hintedTones.delete(resourceOf(groupId));
     };
 
@@ -1099,6 +1129,24 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         });
       } else hintedTones.delete(resourceOf(input.groupId));
       /*
+       * W42's body law (G2 implementation-design §2.1, §4): the folded strength, and the stage
+       * that builds its argument A over the group's own surface rect. It runs only for a regular
+       * group sampling a texture, under no occlusion lift, and only where the source carries
+       * the encoded level 0 the law is captured from; otherwise nothing is encoded and the
+       * optics pass receives no law, which is every group on every shipped material.
+       */
+      const lawStrength = bodyLawStrengthUnderPolicy(
+        material.bodyLawStrength, policy, variant, pyramid !== undefined,
+      );
+      const lawArgument = lawStrength > 0 && pyramid !== undefined && sourceId !== undefined
+        ? bodyLaw?.draw(encoder, {
+            resourceId: resourceOf(input.groupId), surfaces, pyramid,
+            rectDevice: surfaceRectDevice, viewportDevice, fit: fitFor(sourceId, pyramid),
+            devicePixelRatio: dpr, material,
+          })
+        : undefined;
+      if (lawArgument === undefined) bodyLaw?.forget(resourceOf(input.groupId));
+      /*
        * The response and size laws always read the LINEAR profile (W27f G1).
        * DOM groups convert only their final layer, after evaluating the material
        * at the measured tone; feeding an encoded alpha into the response solve
@@ -1298,6 +1346,26 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         ),
         bodyE3Gains: material.bodyE3Gains,
         bodyE3Neutral: material.bodyE3Neutral,
+        ...(lawArgument === undefined ? {} : { bodyLaw: {
+          strength: lawStrength,
+          bandPt: material.bodyLawPose === 1 ? 0 : BODY_LAW_DECLARED.activeBandPt,
+          argument: lawArgument.view,
+          origin: lawArgument.origin,
+          size: lawArgument.size,
+          // The law's argument is always a measured colour, so the landed solve takes the tone
+          // axis's strength without the shipped path's "no measured tone" gate (§2.8).
+          landedToneStrength: backdropToneUnderPolicy(policy, material) * material.backdropToneMax,
+          silhouetteAbscissa: typeof material.backdropToneAbscissa === "object",
+          e3Strength: bodyLawE3StrengthUnderLaw(material.bodyE3Strength, lawStrength),
+          e3HighStrength: material.bodyE3HighStrength,
+          e3NeutralHigh: material.bodyE3NeutralHigh,
+          tableStrength: material.bodyToneTableStrength,
+          tableLevels: material.bodyToneTableLevels,
+          tableSpans: material.bodyToneTableSpans,
+          tableCodes: material.bodyToneTableCodes,
+          chromaGains: material.bodyToneChromaGains,
+          chromaScale: material.bodyToneChromaScale,
+        } }),
         ...(pyramid === undefined && input.unsampledMaterial !== undefined
           ? { domMaterial: {
               ...input.unsampledMaterial,
@@ -1647,6 +1715,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       for (const plane of planesDrawn) {
         runner?.forget(groupResourceId(plane, groupId));
         silhouetteTone?.forget(groupResourceId(plane, groupId));
+        bodyLaw?.forget(groupResourceId(plane, groupId));
         hintedTones.delete(groupResourceId(plane, groupId));
       }
     },
@@ -1689,6 +1758,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       pyramids.beginFrame(args.frame.id);
       pyramids.setTimeline(args.timing);
       passes.setTimeline(args.timing);
+      bodyLaw?.setTimeline(args.timing);
 
       const encoder = gpu.device.createCommandEncoder({
         label: `vitrea:frame:${args.frame.id}`,
@@ -1713,6 +1783,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // reached the queue is its own bug (see `requestStats`).
         pyramids.afterSubmit();
         silhouetteTone?.afterSubmit();
+        bodyLaw?.afterSubmit();
       } finally {
         // Owed whether or not the frame reached the queue. A throw anywhere above
         // leaves an acquired video held across the frame, and the next acquire
@@ -1720,6 +1791,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // wasted frame and a decoder buffer nobody released.
         pyramids.releaseAcquired();
         silhouetteTone?.cancelQueued();
+        bodyLaw?.cancelQueued();
       }
 
       // Advance the adaptation filters by the real frame delta. The drivers are
@@ -1734,6 +1806,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       framesDrawn += 1;
       pyramids.setTimeline(undefined);
       passes.setTimeline(undefined);
+      bodyLaw?.setTimeline(undefined);
       return result;
     },
 
@@ -1769,6 +1842,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             pendingEncoder = undefined;
             pyramids.releaseAcquired();
             silhouetteTone?.cancelQueued();
+            bodyLaw?.cancelQueued();
             throw error;
           }
         },
@@ -1790,9 +1864,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             context.device.queue.submit([encoder.finish()]);
             pyramids.afterSubmit();
             silhouetteTone?.afterSubmit();
+            bodyLaw?.afterSubmit();
           } finally {
             pyramids.releaseAcquired();
             silhouetteTone?.cancelQueued();
+            bodyLaw?.cancelQueued();
           }
 
           const delta =

@@ -262,6 +262,21 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// Seven encoded neutral ordinates at 40,56,72,88,104,128,150; last lane padding.
   bodyE3Neutral0 : vec4f,
   bodyE3Neutral1 : vec4f,
+  /// W42's body law (G2 implementation-design 2.7, R4): the policy-folded strength (x), the
+  /// active band in points, 0 when receded (y), and A's origin on the plane in device px (zw).
+  /// Every W42 lane is 0 where the renderer handed no law over, and at 0 nothing below runs.
+  bodyLaw : vec4f,
+  /// A's extent in device px (xy); the landed solve's tone strength without the measured-tone
+  /// gate (z); 1 where the tone abscissa is the silhouette's encoded level (w).
+  bodyLawA : vec4f,
+  /// E3 on the law's path (x), the F extension's strength (y), the table's strength (z).
+  bodyLawTone : vec4f,
+  /// The F extension's ordinates at encoded 160, 176, ..., 255; the last lane is padding.
+  bodyE3High0 : vec4f,
+  bodyE3High1 : vec4f,
+  /// Candidate 2's table, 76 lanes (R6): levels 0-10, spans 11-15, codes 16-70 (five rows of
+  /// eleven, row by span), gains 71-73, the scale 74, padding 75.
+  bodyTable : array<vec4f, 19>,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -294,6 +309,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// which is where the price of this mechanism actually is (W26 Decision Log
 /// 2 (b)).
 @group(0) @binding(11) var backdropHeavy2 : texture_2d<f32>;
+
+/// W42's argument A (body-law-pass.ts): the law's M in encoded sRGB (rgb) and L(W) (a), at one
+/// texel per device pixel over the group's rect, rgba32float and therefore only ever loaded. The
+/// placeholder stands in it wherever the law's strength lane is 0, and nothing reads it there.
+@group(0) @binding(12) var bodyLawTexture : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -340,6 +360,224 @@ fn body_e3_composite(colour : vec3f, backdrop : vec3f, presence : f32) -> vec3f 
   let replacement = srgb_to_linear(body_e3_codes(linear_to_srgb(backdrop) * 255.0) / 255.0);
   let presentTarget = mix(backdrop, replacement, vec3f(presence));
   return mix(colour, presentTarget, vec3f(ou.bodyE3.x));
+}
+
+const LAW_LUMA = vec3f(0.2126, 0.7152, 0.0722);
+
+/// A at a position on the plane in device px, by manual bilinear with the edge held.
+fn body_law_argument(p : vec2f) -> vec4f {
+  let at = p - ou.bodyLaw.zw - vec2f(0.5);
+  let base = vec2i(floor(at));
+  let f = at - floor(at);
+  let last = vec2i(ou.bodyLawA.xy) - vec2i(1);
+  let a = textureLoad(bodyLawTexture, clamp(base, vec2i(0), last), 0);
+  let b = textureLoad(bodyLawTexture, clamp(base + vec2i(1, 0), vec2i(0), last), 0);
+  let c = textureLoad(bodyLawTexture, clamp(base + vec2i(0, 1), vec2i(0), last), 0);
+  let d = textureLoad(bodyLawTexture, clamp(base + vec2i(1, 1), vec2i(0), last), 0);
+  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+/// E3's gain g(L) over the knots 63, 93 and 118, held outside ('bodyLawE3Gain').
+fn body_law_gain(level : f32, g : vec3f) -> f32 {
+  if (level > 93.0) { return mix(g.y, g.z, clamp((level - 93.0) / 25.0, 0.0, 1.0)); }
+  return mix(g.x, g.y, clamp((level - 63.0) / 30.0, 0.0, 1.0));
+}
+
+/// E3 with the law's argument and the F extension ('bodyLawE3Codes'): F is W41's
+/// ('body_e3_neutral'), moved above encoded 150 toward (150, n6), (160, h0) ... (255, h6) by the
+/// extension's strength; g is read at 'gainLevel', L(W) under the law, and scales the argument's
+/// own chroma.
+fn body_law_e3_codes(codes : vec3f, gainLevel : f32) -> vec3f {
+  let level = dot(codes, LAW_LUMA);
+  var f = body_e3_neutral(level);
+  if (ou.bodyLawTone.y > 0.0 && level > 150.0) {
+    let xs = array<f32, 8>(150.0, 160.0, 176.0, 192.0, 208.0, 224.0, 240.0, 255.0);
+    let ys = array<f32, 8>(ou.bodyE3Neutral1.z, ou.bodyE3High0.x, ou.bodyE3High0.y,
+      ou.bodyE3High0.z, ou.bodyE3High0.w, ou.bodyE3High1.x, ou.bodyE3High1.y, ou.bodyE3High1.z);
+    var k = 0u;
+    loop {
+      if (k >= 6u || level <= xs[k + 1u]) { break; }
+      k = k + 1u;
+    }
+    let u = min(1.0, (level - xs[k]) / (xs[k + 1u] - xs[k]));
+    f = f + ou.bodyLawTone.y * ((ys[k] + u * (ys[k + 1u] - ys[k])) - f);
+  }
+  if (codes.x == codes.y && codes.y == codes.z) { return vec3f(f); }
+  let gain = body_law_gain(gainLevel, ou.bodyE3.yzw);
+  return clamp(vec3f(f) + gain * (codes - vec3f(level)), vec3f(0.0), vec3f(255.0));
+}
+
+fn body_table_lane(i : u32) -> f32 {
+  return ou.bodyTable[i / 4u][i % 4u];
+}
+
+/// One row of candidate 2's table at an encoded level: linear over the levels, held at the ends.
+fn body_table_row(level : f32, row : u32) -> f32 {
+  let first = 16u + row * 11u;
+  if (level <= body_table_lane(0u)) { return body_table_lane(first); }
+  if (level >= body_table_lane(10u)) { return body_table_lane(first + 10u); }
+  var k = 0u;
+  loop {
+    if (k >= 9u || level <= body_table_lane(k + 1u)) { break; }
+    k = k + 1u;
+  }
+  let a = body_table_lane(k);
+  let u = (level - a) / (body_table_lane(k + 1u) - a);
+  let ya = body_table_lane(first + k);
+  return ya + u * (body_table_lane(first + k + 1u) - ya);
+}
+
+/// Candidate 2's tone ('bodyToneTableCodesAt'): T at the argument's encoded luma, linear in span
+/// between the two rows that bracket it, then E3's clipping order with the table's own gains.
+fn body_table_codes(codes : vec3f, span : f32) -> vec3f {
+  let level = dot(codes, LAW_LUMA);
+  var f : f32;
+  if (span <= body_table_lane(11u)) {
+    f = body_table_row(level, 0u);
+  } else if (span >= body_table_lane(15u)) {
+    f = body_table_row(level, 4u);
+  } else {
+    var k = 0u;
+    loop {
+      if (k >= 3u || span <= body_table_lane(12u + k)) { break; }
+      k = k + 1u;
+    }
+    let a = body_table_lane(11u + k);
+    let u = (span - a) / (body_table_lane(12u + k) - a);
+    let lo = body_table_row(level, k);
+    f = lo + u * (body_table_row(level, k + 1u) - lo);
+  }
+  f = clamp(f, 0.0, 255.0);
+  if (codes.x == codes.y && codes.y == codes.z) { return vec3f(f); }
+  let gain = body_table_lane(74u) * body_law_gain(level,
+    vec3f(body_table_lane(71u), body_table_lane(72u), body_table_lane(73u)));
+  return clamp(vec3f(f) + gain * (codes - vec3f(level)), vec3f(0.0), vec3f(255.0));
+}
+
+/*
+ * Candidate 1's landed T at one pixel (G2 implementation-design 2.8; 'landedToneLinear'): the
+ * shipped solve's response evaluated as if the backdrop were uniformly dec(A), as the
+ * rehearsal's 'landed_T' does. This is a DUPLICATE of the shipped lines in 'fs_optics' - the
+ * adaptation, the response solve with W36's black branch, the collapse target, the composite and
+ * the retention - with the tone colour, the linear mean and the backdrop all dec(A), and it is
+ * kept textually separate so the shipped expression stays untouched until the goldens can be
+ * read on a GPU (the design's section 10; 'test/w42-optics-law.test.ts' pins it line by line).
+ * Presence is applied by the caller, on E3's convention.
+ */
+fn body_law_landed(encoded : vec3f, sizeK : f32, toneLevelFar : f32, neutral : vec3f) -> vec3f {
+  let c = srgb_to_linear(clamp(encoded, vec3f(0.0), vec3f(1.0)));
+  let toneLinearMean = dot(c, LAW_LUMA);
+  var level = toneLinearMean;
+  if (ou.bodyLawA.w > 0.5) {
+    level = srgb_to_linear(vec3f(clamp(dot(encoded, LAW_LUMA), 0.0, 1.0))).x;
+  }
+  let toneStrength = ou.bodyLawA.z;
+  var toneAdapt = 0.0;
+  if (toneStrength > 0.0) {
+    let toneX = level + ou.toneAdapt.z * sizeK;
+    let toneT = clamp(
+      (toneX - ou.toneAdapt.x) / max(ou.toneAdapt.y - ou.toneAdapt.x, 1e-6),
+      0.0,
+      1.0,
+    );
+    toneAdapt = clamp(toneStrength, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
+  }
+  let sizedAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
+  var solvedNeutral = neutral;
+  var solvedAlpha = sizedAlpha;
+  if (toneStrength > 0.0 && ou.toneRowThin.w > 0.0 &&
+      sizedAlpha > 1e-3 && toneAdapt < 0.995) {
+    let encodedInput = srgb_encode(level);
+    let anchor = max(ou.toneAnchor.x, 1e-4);
+    var authority =
+      smoothstep(anchor * 0.5, anchor, encodedInput) * clamp(ou.toneRowThin.w, 0.0, 1.0);
+    var blackWeight = 0.0;
+    if (ou.toneBlack.x > 0.0 && encodedInput < 0.003) {
+      blackWeight = clamp(ou.toneBlack.x, 0.0, 1.0) *
+        (1.0 - smoothstep(0.0, 0.003, encodedInput));
+      authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), blackWeight);
+    }
+    if (authority > 0.0) {
+      var response = tone_response(encodedInput, sizeK, toneLevelFar);
+      if (blackWeight > 0.0) {
+        let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
+        response = mix(response, mix(ou.toneBlack.y, ou.toneBlack.z, f), blackWeight);
+      }
+      let preCollapse = (response - toneAdapt * toneLinearMean) / (1.0 - toneAdapt);
+      let neutralLuma = dot(neutral, vec3f(0.2126, 0.7152, 0.0722));
+      let nominal = (1.0 - sizedAlpha) * toneLinearMean + sizedAlpha * neutralLuma;
+      let shift = (preCollapse - nominal) / sizedAlpha * authority * toneStrength;
+      solvedNeutral = clamp(neutral + vec3f(shift), vec3f(0.0), vec3f(1.0));
+      let solvedLuma = dot(solvedNeutral, vec3f(0.2126, 0.7152, 0.0722));
+      let achieved = (1.0 - sizedAlpha) * toneLinearMean + sizedAlpha * solvedLuma;
+      if (preCollapse > achieved + 1e-4 && solvedLuma > toneLinearMean + 1e-3) {
+        let alphaTarget = clamp(
+          (preCollapse - toneLinearMean) / (solvedLuma - toneLinearMean),
+          sizedAlpha,
+          1.0,
+        );
+        solvedAlpha = mix(sizedAlpha, alphaTarget, authority * toneStrength);
+      }
+    }
+  }
+  // The collapse's target is mix(dec(A), dec(A), transmission): inert by construction.
+  let toneTarget = c;
+  let adaptedAlpha = solvedAlpha + toneAdapt * (1.0 - solvedAlpha);
+  var adapted = solvedNeutral;
+  if (toneAdapt > 0.0 && adaptedAlpha > 0.0) {
+    adapted =
+      (solvedNeutral * ((1.0 - toneAdapt) * solvedAlpha) + toneTarget * toneAdapt) /
+      adaptedAlpha;
+  }
+  let presentAlpha = adaptedAlpha;
+  let colour = mix(c, adapted, presentAlpha);
+  return body_chroma_retention(colour, c, ou.bodyChroma.x);
+}
+
+/// The law's untinted body at presence 1, linear, by precedence: the table where its strength
+/// is 1, E3 where its strength is 1, else the landed solve; a fractional strength mixes toward
+/// the tone above it in linear light, on E3's unmeasured convention.
+fn body_law_body(lawArgument : vec4f, span : f32, sizeK : f32, toneLevelFar : f32,
+                 neutral : vec3f) -> vec3f {
+  let codes = lawArgument.rgb * 255.0;
+  let e3 = clamp(ou.bodyLawTone.x, 0.0, 1.0);
+  let table = clamp(ou.bodyLawTone.z, 0.0, 1.0);
+  var body = vec3f(0.0);
+  if (e3 < 1.0 && table < 1.0) {
+    body = body_law_landed(lawArgument.rgb, sizeK, toneLevelFar, neutral);
+  }
+  if (e3 > 0.0 && table < 1.0) {
+    body = mix(body, srgb_to_linear(body_law_e3_codes(codes, lawArgument.a * 255.0) / 255.0),
+      vec3f(e3));
+  }
+  if (table > 0.0) {
+    body = mix(body, srgb_to_linear(body_table_codes(codes, span) / 255.0), vec3f(table));
+  }
+  return body;
+}
+
+/*
+ * The author tint of an untinted SAMPLED body, as encoded output (R4): the tint block in
+ * 'fs_optics' on its sampled branch (bodyAlpha 1), evaluated on any body. The law's delta is
+ * the difference of this on the law's body and on the shipped one, so the author's paint is the
+ * same function of each body, as the rehearsal applied its fitted transfer to both
+ * ('swap.py:322-337'). Pinned to the shipped lines by 'test/w42-optics-law.test.ts'.
+ */
+fn body_law_tinted(c : vec3f, tintK : f32, toneAdapt : f32) -> vec3f {
+  let encodedMaterial = linear_to_srgb(clamp(c, vec3f(0.0), vec3f(1.0)));
+  if (tintK <= 0.0) { return encodedMaterial; }
+  let u = dot(c, vec3f(0.2126, 0.7152, 0.0722));
+  let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) *
+    (1.0 - toneAdapt * (1.0 - clamp(ou.rim.w, 0.0, 1.0)));
+  let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
+  var seed = ou.seed.rgb;
+  if (ou.rim.z < 1.0) {
+    let neutral = max(seed.r, max(seed.g, seed.b));
+    seed = mix(vec3f(neutral), seed, clamp(ou.rim.z, 0.0, 1.0));
+  }
+  let layer = seed * shade;
+  let encodedLayer = linear_to_srgb(layer);
+  return mix(encodedMaterial, encodedLayer, vec3f(tintK));
 }
 
 /// The backdrop tone response R(encodedInput, sizeK) (W9): monotone
@@ -1371,6 +1609,26 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // before author tint and rim; it changes no sampling coordinate or kernel.
   colour = body_e3_composite(colour, backdrop, mat);
   /*
+   * W42's body law (G2 implementation-design 2.7, as revised by R4). The shipped body above is
+   * left exactly as it is; the law's own body is formed beside it from A, read at the REFRACTED
+   * position (the rehearsal's order: the law's maps are resampled by the lens), and only after
+   * the author tint do the two meet, as a delta in encoded output codes weighted by the strength
+   * and, in the active pose, by the band smoothstep(0, 20 pt, depth). At strength 0 none of this
+   * runs and 'lawWeight' stays 0, which is what keeps every shipped byte.
+   */
+  let shippedBody = colour;
+  var lawWeight = 0.0;
+  var lawBody = colour;
+  if (ou.bodyLaw.x > 0.0 && ou.flags.x > 0.5) {
+    lawWeight = clamp(ou.bodyLaw.x, 0.0, 1.0);
+    if (ou.bodyLaw.y > 0.0) { lawWeight = lawWeight * smoothstep(0.0, ou.bodyLaw.y, -d); }
+    if (lawWeight > 0.0) {
+      let lawArgument = body_law_argument(refracted01 * ou.screen.xy);
+      lawBody = mix(backdrop, body_law_body(lawArgument, span, sizeK, toneLevelFar, neutral),
+        vec3f(mat));
+    }
+  }
+  /*
    * How much of this pixel the SURFACE owns, as the canvas will composite it.
    *
    * With a backdrop the composite above is the whole pixel — the pass sampled
@@ -1534,6 +1792,12 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
       bodyAlpha = 1.0 - (1.0 - s) * (1.0 - bodyAlpha);
       colour = srgb_to_linear(premultiplied / max(bodyAlpha, 1e-6));
     }
+  }
+  // W42's delta (R4): both bodies through the same author tint, differenced in encoded codes.
+  var lawDelta = vec3f(0.0);
+  if (lawWeight > 0.0) {
+    lawDelta = lawWeight *
+      (body_law_tinted(lawBody, tintK, toneAdapt) - body_law_tinted(shippedBody, tintK, toneAdapt));
   }
 
   /*
@@ -1727,6 +1991,12 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     return dom_material_output(compositeEncoded, b, alpha);
   }
   let body = encode_output(max(colour, vec3f(0.0)), coverage * bodyAlpha);
+  if (lawWeight > 0.0) {
+    // The rehearsal's out = web + coverage * w * (cand - ship), kept a valid premultiplied colour.
+    let lawAlpha = body.a + shadowAlpha * (1.0 - coverage);
+    let composed = body.rgb + liftEncoded * (1.0 - coverage) + lawDelta * body.a;
+    return vec4f(clamp(composed, vec3f(0.0), vec3f(lawAlpha)), lawAlpha);
+  }
   return vec4f(
     body.rgb + liftEncoded * (1.0 - coverage),
     body.a + shadowAlpha * (1.0 - coverage),

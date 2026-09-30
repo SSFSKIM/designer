@@ -853,3 +853,77 @@ the parent's sections: the fork rulings, the dispositions of R1–R6, and these.
    knee step 2 selects.
 5. **The suite timeouts seen under the sitting's load are environmental.** The full suites are
    re-run at normal load after the sitting and before any merge.
+
+## 13. What U3 and U4 built (2026-10-01)
+
+**The stage** is `renderer-webgpu/src/body-law-pass.ts` with its WGSL in `src/wgsl/body-law.ts`.
+It runs in `drawGroups` after the silhouette tone and before the optics pass, for a group whose
+folded strength is above 0 and whose source carries the encoded level 0 of §12 item 4. Per
+surface, on R_fp, it encodes:
+
+- the capture;
+- the floor (a clamp-mode pair);
+- one grid per decimation factor, with the widths in two-target pairs (a horizontal and a
+  vertical pass per pair) and a block-mean pass for each decimated grid;
+- one draw into A, after A's initial fill.
+
+**What that costs in passes.** On the canonical widths that is 8 passes per surface (receded) to 15. For
+example, rrect-md at 1x in points takes 1 + 2 + 4 × 2 + 1 + 2 = 14, plus one A pass per group. The
+stage is cached on the silhouette tone's model, so a static frame encodes nothing. A frame whose
+encoder never reached the queue is built again.
+
+**Sharing a padded grid is exact.** The widths of one q share one decimated grid, padded by the
+largest padding any of them needs. `test/w42-body-law-stage.test.ts` holds that schedule to
+`u2_mirror.py`'s per-width graph. It emulates the runtime's passes in f64 on five cells
+(`u3_fixtures.py`, `fixtures/stage.json`), which exercise every branch:
+- direct and decimated levels;
+- two grids;
+- the normalised mode's zero padding;
+- the t = 0 linear case.
+
+It agrees with the mirror to 1e-6 code. Against the exact per-pixel Gaussian it is at most 0.022
+code band-weighted.
+
+**One real error, outside the band.** Unweighted, rrect-80's cubic across the gap between its top
+interior level (2.8 device px at 2x) and the contour level (10.5) misses by 5.0 codes inside the
+last point of depth. The band weight there is below 0.008, so this is inside the accepted budget.
+It is recorded because a linear last interval, or one more level, would remove it if a later
+reading needs that shell.
+
+**The optics pass (U4).** The uniform grows from 152 to **248 floats** (62 vec4s, 992 bytes) by
+appended vec4s only. The lanes are:
+
+| Floats | Contents |
+| --- | --- |
+| 152–155 | the strength, the band, and A's origin |
+| 156–159 | A's extent, the landed solve's ungated tone strength, and the abscissa flag |
+| 160–163 | the E3, F-extension and table strengths |
+| 164–171 | the F extension's ordinates |
+| 172–247 | the table: levels 0–10, spans 11–15, codes 16–70, gains 71–73, scale 74, padding 75 |
+
+`OPTICS_BODY_LAW_LANES` names the map, and `test/w42-optics-law.test.ts` pins it against the WGSL
+struct (R6). A is bound at 12, with the placeholder in its place when the law is not handed over.
+
+The law's body is formed after `body_e3_composite` from A read at the refracted position. The tone
+takes precedence in this order: the table, then E3 with the F extension under the law, then the
+landed solve. A fractional E3 or table strength mixes toward that tone in linear light; U5's CSS
+algebra assumes the same for E3. Presence follows E3's convention. After the author tint the law
+adds R4's delta, strength × band × (enc(tint(law)) − enc(tint(shipped))), times the coverage, to
+the shipped output. The landed solve (`body_law_landed`) and the tint (`body_law_tinted`) are duplicates of
+the shipped lines, and the import's chain target duplicates `fs_import`. Each is pinned line by
+line with its differences named. They are deduplicated after the goldens (§10).
+
+**At identity** the renderer encodes no law pass and creates no encoded level 0. It writes zeros
+into lanes 152–247 after the first 152 floats, which are unchanged, and binds the placeholder.
+With every law leaf moved but the strength at 0, the frame's uniform words and passes are the
+shipped frame's (the same test).
+
+**Not verified here** (U7 verifies these on an adapter):
+- that the WGSL compiles as the adapter's own compiler parses it. naga 30.0.1 (wgpu's WGSL front
+  end) validates every new and changed module: the optics pass, the encoded import in both source
+  kinds, the capture, both blurs, the decimation and the composite. The adapter's compiler has not
+  read them;
+- that `layout: "auto"` gives an rgba32float binding read only by `textureLoad` the
+  `unfilterable-float` sample type. Every stage binding here and A's binding at 12 rely on that
+  reading of the default-layout rule; it was not checked against the specification's text;
+- the shader-against-oracle tolerance of 0.15 code.
