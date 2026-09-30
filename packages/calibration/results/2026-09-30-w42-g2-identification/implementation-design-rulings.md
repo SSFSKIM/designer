@@ -101,3 +101,29 @@ All six findings are ACCEPTED as real. The parent verified the reasoning; the re
     flips.
 - The suite timeouts under the sitting's load are environmental. The full suites are re-run at
   normal load after the sitting, before any merge.
+
+# Parent's ruling on the landed solve below the black join (33d60bab's finding), 2026-10-01
+
+Finding: candidate 1's landed tone, the shipped solve's uniform response per pixel, is wildly
+non-monotone inside the first code of input. On receded dark it reads 20 at 0, 216 at code 0.60,
+12.4 at code 1 and 0.2 at code 1.05; `landed_T` reproduces this. Evaluated per pixel at a blurred
+argument, it would draw bright rings wherever the blur carries black through that interval: at
+every black/white edge and between impulse dots.
+
+RULING (pre-read amendment, parent's). The interval is W36's "open interval below the join",
+which W36 recorded as UNIDENTIFIED; its values are an artifact of blending the authority, not a
+measurement.
+- Inside that interval only (encoded input strictly between 0 and the black branch's own end,
+  where its blend weight reaches 0 and the response is exactly the old solve), candidate 1's
+  per-pixel landed tone is the straight line in encoded input between the solve's value at 0 and
+  its value at that end. The bridge is per channel, on the same abscissa the branch uses.
+- It has no free parameter, and at every measured input (black itself, and at or above the
+  lowest packed impulse input) it is identical to the shipped solve.
+- The shipped group-level solve is untouched, and no digest moves.
+- The dip ABOVE the end (for example 0.2 at code 1.05 against a native black of 20) is the shipped
+  solve's measured-region response and the existing named black-level miss. The amendment does
+  not touch it. The rehearsal's `mono_black`, which held black flat up to where the response
+  climbs back, stays declined, because it changes measured territory.
+The amendment is committed and hashed before step 2 reads any family-A pixel, beside
+native-t-addendum.md. The oracle gets a wrapper in the G2 evidence root; the G0 files are
+never edited.

@@ -1,0 +1,65 @@
+W42 G2: the executable form of `candidate1-black-join-addendum.md`, the parent's pre-read amendment
+of candidate 1's landed tone inside W36's open interval below the black join.
+
+X_END = 0.003 (encoded input; 0.765 codes)
+
+The bridge's endpoint values, grey output codes (every channel equal): y(0) at black and y(end) at the grey on the end
+endpoint       scale component                      y(0)   y(end)
+light-active   1x    capsule, sizeK 0.0923       132.000  157.312
+light-active   1x    rrect-sm, sizeK 0             0.000  156.979
+light-active   1x    rrect-md/ml/lg, sizeK 1     132.000  162.659
+light-active   2x    capsule, sizeK 0.0923       132.000  157.312
+light-active   2x    rrect-sm, sizeK 0             0.000  156.979
+light-active   2x    rrect-md/ml/lg, sizeK 1     132.000  162.659
+light-receded  1x    capsule, sizeK 0.0923       133.000  151.873
+light-receded  1x    rrect-sm, sizeK 0             0.000  151.652
+light-receded  1x    rrect-md/ml/lg, sizeK 1     133.000  152.368
+light-receded  2x    capsule, sizeK 0.0923       133.000  151.873
+light-receded  2x    rrect-sm, sizeK 0             0.000  151.652
+light-receded  2x    rrect-md/ml/lg, sizeK 1     133.000  152.368
+dark-active    1x    capsule, sizeK 0.0923        32.000   56.672
+dark-active    1x    rrect-sm, sizeK 0             0.000   56.707
+dark-active    1x    rrect-md/ml/lg, sizeK 1      32.000   54.949
+dark-active    2x    capsule, sizeK 0.0923        32.000   56.672
+dark-active    2x    rrect-sm, sizeK 0             0.000   56.707
+dark-active    2x    rrect-md/ml/lg, sizeK 1      32.000   54.949
+dark-receded   1x    capsule, sizeK 0.0923        20.000   41.105
+dark-receded   1x    rrect-sm, sizeK 0             0.000   41.092
+dark-receded   1x    rrect-md/ml/lg, sizeK 1      20.000   41.233
+dark-receded   2x    capsule, sizeK 0.0923        20.000   41.105
+dark-receded   2x    rrect-sm, sizeK 0             0.000   41.092
+dark-receded   2x    rrect-md/ml/lg, sizeK 1      20.000   41.233
+
+Before / after over [0, 2] codes of grey input, output codes; 1x, and 2x asserted equal (sizeK is per component and the same at both scales)
+light-active capsule, sizeK 0.0923
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before  132.0  134.6  141.3  150.3  159.8  168.7  172.5  166.1  151.8  136.8  128.0  127.7  127.8  127.9  127.9  128.0  128.1  128.2  128.2  128.3  128.4
+  after   132.0  135.7  139.2  142.6  145.9  149.2  152.3  155.4  151.8  136.8  128.0  127.7  127.8  127.9  127.9  128.0  128.1  128.2  128.2  128.3  128.4
+light-active rrect-md/ml/lg, sizeK 1
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before  132.0  135.2  143.2  153.4  163.9  173.1  177.0  170.9  157.5  143.4  135.2  135.0  135.0  135.1  135.2  135.2  135.3  135.3  135.4  135.5  135.5
+  after   132.0  136.5  140.8  145.0  149.0  152.9  156.7  160.3  157.5  143.4  135.2  135.0  135.0  135.1  135.2  135.2  135.3  135.3  135.4  135.5  135.5
+light-receded capsule, sizeK 0.0923
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before  133.0  134.9  140.2  148.1  157.4  166.8  170.9  162.8  144.9  125.3  113.1  112.8  113.0  113.1  113.2  113.4  113.5  113.6  113.8  113.9  114.1
+  after   133.0  135.7  138.3  140.8  143.3  145.7  148.1  150.4  144.9  125.3  113.1  112.8  113.0  113.1  113.2  113.4  113.5  113.6  113.8  113.9  114.1
+light-receded rrect-md/ml/lg, sizeK 1
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before  133.0  135.0  140.6  148.9  159.1  169.4  174.0  164.9  144.4  121.3  106.6  106.2  106.3  106.5  106.7  106.9  107.1  107.2  107.4  107.6  107.8
+  after   133.0  135.7  138.4  141.0  143.5  146.0  148.5  150.8  144.4  121.3  106.6  106.2  106.3  106.5  106.7  106.9  107.1  107.2  107.4  107.6  107.8
+dark-active capsule, sizeK 0.0923
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before   32.0   35.0   41.5   48.1   53.4   57.0   58.3   57.7   56.0   54.2   53.3   53.2   53.2   53.3   53.3   53.3   53.3   53.3   53.3   53.4   53.4
+  after    32.0   36.2   40.0   43.5   46.7   49.6   52.4   55.0   56.0   54.2   53.3   53.2   53.2   53.3   53.3   53.3   53.3   53.3   53.3   53.4   53.4
+dark-active rrect-md/ml/lg, sizeK 1
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before   32.0   34.8   40.8   47.2   52.5   56.4   57.9   56.7   53.8   50.9   49.3   49.3   49.3   49.3   49.3   49.3   49.3   49.3   49.3   49.4   49.4
+  after    32.0   35.9   39.4   42.6   45.6   48.3   50.9   53.4   53.8   50.9   49.3   49.3   49.3   49.3   49.3   49.3   49.3   49.3   49.3   49.4   49.4
+dark-receded capsule, sizeK 0.0923
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before   20.0   22.8   29.1   36.7   44.1   50.7   53.4   48.4   36.1   18.4    0.7    0.2    0.4    0.6    0.9    1.1    1.3    1.5    1.7    2.0    2.2
+  after    20.0   23.8   27.0   30.0   32.7   35.2   37.5   39.7   36.1   18.4    0.7    0.2    0.4    0.6    0.9    1.1    1.3    1.5    1.7    2.0    2.2
+dark-receded rrect-md/ml/lg, sizeK 1
+  code      0.0    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9    1.0    1.1    1.2    1.3    1.4    1.5    1.6    1.7    1.8    1.9    2.0
+  before   20.0   22.8   29.2   36.8   44.2   50.9   53.6   48.6   36.2   18.5    0.7    0.2    0.3    0.5    0.7    0.9    1.1    1.3    1.5    1.6    1.8
+  after    20.0   23.8   27.1   30.1   32.8   35.3   37.7   39.9   36.2   18.5    0.7    0.2    0.3    0.5    0.7    0.9    1.1    1.3    1.5    1.6    1.8
