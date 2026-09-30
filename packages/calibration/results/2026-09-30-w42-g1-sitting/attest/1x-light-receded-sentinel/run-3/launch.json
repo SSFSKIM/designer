@@ -1,0 +1,33 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w42/g1/run/1x-light-receded-sentinel/scenes-run-3.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w42/g1/run/1x-light-receded-sentinel/run-3",
+    "--env",
+    "VITREA_SCALE=1",
+    "--stdout",
+    "/Users/new/vitrea-w42/g1/run/1x-light-receded-sentinel/run-3/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w42/g1/run/1x-light-receded-sentinel/run-3/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w42-1x-light-receded-sentinel-3",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--initial-settle",
+    "8",
+    "--order-seed",
+    "4242",
+    "--scenes",
+    "f-checker64-rrect-lg__inactive,f-impulse-rrect-md__inactive",
+    "--inactive"
+  ],
+  "rehearsal": false
+}
