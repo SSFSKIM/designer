@@ -168,3 +168,14 @@ The parent authorised the fifth continuation as an explicit act, the same way as
 census and X6 check run in their own command, which exits first; the launch line holds only the
 orchestrator call. The command is `START_AT=2x-light-receded FIRST_RUN=7` against the same run
 root, and the run-7 quarantine stays under its own name.
+
+**The first pre-check refused, and nothing was launched.** The census, run as its own command,
+counted one process: a `compare.ts` run with `--skip-capture` (pid 50021, already exited when
+read). Its parent was a vitest worker (46765) of a **second** `vitest run` in
+`~/vitrea-w42/g2-impl/packages/calibration` (46735 ← `npm exec vitest run` 46695, started
+16:13:19Z), from a shell of the parent's session, seconds after the first run was ended. The
+parent ended that run at 16:14:44Z. At 16:15:01Z it ended every orphaned vitest worker left under
+`~/vitrea-w42/g2-impl`, pids 31027 to 52858: reparented to launchd, they were still spawning
+test processes. Its scan at 16:15:01Z found no vitest, `compare.ts`, launcher or archive-test
+process, and both implementation workers now hold the ban. The census is then rerun as its own
+command, and the launch follows only on a clean read.
