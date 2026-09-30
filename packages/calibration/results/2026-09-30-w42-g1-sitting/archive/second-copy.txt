@@ -1,0 +1,7 @@
+Second owner-controlled copy (charter "Repeats, the bar and the archive of record"; W39 G1's pattern).
+The downloaded asset ~/.cache/vitrea-archives/1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014/w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst was taken through
+w42_archive.py fetch --source into the cache ~/vitrea-w42/archive-copy: full digest verified before
+decompression, members checked, tree verified (second-copy-verified.json). diff -r of the copy's tree
+against the downloaded tree: clean. diff -r of the downloaded tree against the producer's output
+~/vitrea-w42/archive: clean. A re-pack of the producer's output into a scratch directory reproduced
+SHA-256 1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014 and 13611249 bytes (the pack is deterministic).

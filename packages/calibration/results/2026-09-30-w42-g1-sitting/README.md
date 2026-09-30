@@ -250,3 +250,23 @@ excluded. (3) The orchestrator's per-pass `git add` drops each run's `driver-idl
 Control input reaches the Mac through a system agent that neither the census nor a
 launch-time idle gate can see. A mid-run focus loss is caught only by the dump check or the
 per-fixture pose attestation.
+
+## Phase 3 — the archive of record, the bar and the replay (2026-09-30; c9a §5.195 §4–§5)
+
+- **`archive/`**: the archive's `inventory.json` (SHA-256 `5481795e…`, 711 of 711 cells, 1,422
+  entries, 1,267 operational files with all five quarantines under their own names and 93
+  `driver-idle.log` files, 631 dump files, 243 holdout-operational files), and the produce,
+  verify-tree and pack outputs. Also the release view and list (`w42-archive`, asset
+  `w42-archive-1e3d6e65….tar.zst`, **SHA-256
+  `1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014`, 13,611,249 bytes**, GitHub's
+  digest agreeing), the fetch and second-copy verifications, the replay (639 cells identical with
+  all of `~/vitrea-w42` denied, from the main checkout) and the deny hook's negative control.
+- **`bar/`**: `report-bars.py` and its outputs, computed from the **downloaded** archive with the
+  raw root, the producer's output and the release directory denied. The bar is **0.5 on all 27,777
+  statistics** (bed and sentinels, both masks). `state-check.py/.json` shows the 35 two-state rows
+  differ by at most 2 codes on at most 585 px, with no region median moving.
+- **`watch/`**: the worker's session trace (gzip), the watcher and tracer scripts, and the
+  pre-launch census reads of continuations 3–5.
+
+Not done here: the restore. The user swaps the Screen Recording grant back by hand; the original
+bundle's positive check must then capture `204f21f0…` or `6c15311b…`.

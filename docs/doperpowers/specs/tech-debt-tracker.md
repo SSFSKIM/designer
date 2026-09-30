@@ -6924,3 +6924,69 @@ Shape of the fix: find whether `changeset publish` orders by the workspace depen
 pinned CLI (3.0.1) or publishes concurrently. If it does not order, make `release` publish the fixed
 group in dependency order (core, web, react) itself, or accept the window and state it in the
 checklist. Nothing is broken once the group is complete.
+
+## The sitting census counts command lines that merely name a browser or the harness (W42 G1, 2026-09-30)
+
+*Found by W42 G1's stops 4 and 5 (c9a §5.195 §2, §6).*
+
+`record-machine.py`'s census (the W39 G1 correction, carried into W42) matches the regex
+`Chromium|playwright|compare\.ts|capture-web|VitreaReference|Google Chrome|Chrome Helper|Playwright|headless[-_ ]shell`
+against every process's whole command line. So it counts processes that are not browsers or
+capture tools at all:
+- a shell whose command text contains a `pgrep` pattern (stop 4, the worker's own launching shell);
+- a test stub's fake launch whose arguments name a stub harness bundle (stop 5, a W39 sitting test
+  spawned by `vitest run` in `packages/calibration`);
+- a `compare.ts --skip-capture` spawned by a unit test.
+
+It fails safe (nothing wrong was admitted), but each hit quarantines a run and needs a continuation
+by the parent's hand.
+
+Shape of the fix: match the executable (argv[0], or the process's resolved image path) against the
+list, not the whole command line. Keep `compare.ts` and `capture-web` as script names matched in
+argv[1..] only when argv[0] is `node`/`tsx`. Add unit cases for a `pgrep` line, a test stub's
+launcher and a real browser.
+
+## The census excludes only the reader's ancestors, so a detached orchestrator's launching shell is counted (W42 G1, 2026-09-30)
+
+*Found by W42 G1's stop 4 (c9a §5.195 §2).*
+
+`record-machine.py` excludes the reading process's own ancestor chain from the census.
+`sitting-orchestrate.sh` detaches itself with `nohup` + `setsid`, and its parent exits, so the
+driver's ancestors stop at launchd. The shell that launched the orchestrator is therefore not an
+ancestor. If it is still alive when the first census is taken (a chained `sleep`), and its command
+line matches, it is counted. Stop 4 was exactly that.
+
+Shape of the fix: record the launching shell's pid (and its ancestors) in the orchestrator's
+`logs/orchestrator.pid` record at detach time, and exclude them in the census. Or keep the rule
+operational and state it in the runbook: the launch command holds only the orchestrator call.
+
+## The orchestrator's per-pass evidence commit drops every run's `driver-idle.log` (W42 G1, 2026-09-30)
+
+*Found in W42 G1's phase 1 (c9a §5.195 §6).*
+
+`collect-pass.py` copies `driver-idle.log` into `attest/<pass>/<run>/`, and the orchestrator then
+runs `git add -- "$W42_EVIDENCE"`. The repository's `.gitignore` has `*.log`, so every idle-wait
+log is silently left out of the per-pass commits, though the README lists the idle log as part of
+a run's record. Nothing is lost: the raw logs are in the archive's `operational/` section
+(93 files in `w42-archive`).
+
+Shape of the fix: have `collect-pass.py` write the copy as `driver-idle.txt`, which G1's phase-1
+`prechecks/rehearsal/collect.sh` already does. Or add a negation for `results/**/driver-idle.log`
+in `.gitignore`.
+
+## Universal Control input is invisible to the sitting's gates (W42 G1, 2026-09-30)
+
+*Found by W42 G1's stops 1 and 2 (c9a §5.195 §2).*
+
+Pointer and keyboard input crossing from another device over Universal Control arrives through the
+`UniversalControl` system agent. It took the harness's key status mid-dump twice (163 and 317
+departures), the second time with the feature reported off. The census does not name it, the idle
+gate reads HID idle only at a launch, and neither sees input that arrives during a 12-minute dump
+or a 15-minute capture run. The loss was caught only after the fact, by `dumpcheck`'s key/active
+fields (and would be by the per-fixture pose attestation in a capture).
+
+Shape of the fix: add the session reads the G1 worker ran by hand (`read-session` every 20 s) to
+the driver as a watchdog during every launch. On frontmost ≠ the harness, or on an idle reset, end
+the launch at once and quarantine the run naming the reading, instead of finishing a doomed run.
+Add a pre-sitting check that Universal Control is disabled
+(`defaults -currentHost read com.apple.universalcontrol Disable`, to be confirmed on macOS 27).
