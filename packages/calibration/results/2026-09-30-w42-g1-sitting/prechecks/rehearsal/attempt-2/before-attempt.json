@@ -1,0 +1,29 @@
+{
+  "at": "2026-09-30T10:36:17.426410+00:00",
+  "tcc": {
+    "command": [
+      "sqlite3",
+      "-readonly",
+      "-json",
+      "/Library/Application Support/com.apple.TCC/TCC.db",
+      "select service,client,auth_value,last_modified from access where client like '%vitrea%';"
+    ],
+    "exitCode": 0,
+    "stdout": "[{\"service\":\"kTCCServiceScreenCapture\",\"client\":\"dev.vitrea.tccprobe\",\"auth_value\":0,\"last_modified\":1787645170},\n{\"service\":\"kTCCServiceAccessibility\",\"client\":\"dev.vitrea.reference-apple\",\"auth_value\":2,\"last_modified\":1787935072},\n{\"service\":\"kTCCServiceScreenCapture\",\"client\":\"dev.vitrea.reference-apple\",\"auth_value\":2,\"last_modified\":1790485708},\n{\"service\":\"kTCCServiceScreenCapture\",\"client\":\"dev.vitrea.reference-apple.w39\",\"auth_value\":0,\"last_modified\":1790762807}]\n",
+    "stderr": ""
+  },
+  "session": {
+    "frontmostIdentifier": "com.apple.finder",
+    "frontmostPid": 413,
+    "idleSeconds": 1344.939150458,
+    "screenLocked": false,
+    "windowOwners": [
+      "ChatGPT Computer Use|0",
+      "Dock|20",
+      "Window Server|24",
+      "WindowManager|18",
+      "알림 센터|-2147483601",
+      "알림 센터|21"
+    ]
+  }
+}

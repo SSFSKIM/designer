@@ -27,6 +27,7 @@ for f in orchestrator-status.txt orchestrator-console.txt pin-check.json; do
   cp -p "$ROOT/logs/$f" "$EV/logs/"
 done
 cp -p "$ROOT"/logs/*-display-*.txt "$EV/logs/"
+[ -f "$ROOT/logs/mode-switch-idle.txt" ] && cp -p "$ROOT/logs/mode-switch-idle.txt" "$EV/logs/"
 PYTHONDONTWRITEBYTECODE=1 python3.12 - "$EV" <<'PY'
 import datetime, json, subprocess, sys
 cmd = ['sqlite3', '-readonly', '-json', '/Library/Application Support/com.apple.TCC/TCC.db',

@@ -3,10 +3,11 @@
 Charter: `docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md`, G1 and Decision Log 6.
 Runbook: `../../2026-09-29-w42-g0-declaration/bed/sitting/README.md`. Worktree `w42-g1-sitting`
 at `19db06ec`; `sitting.py pin-check` passed against the hashed declaration `f04ae95b…`
-(scenes `4aa06af9…`, bed `53870f47…`); `freeze.py verify` reads 1,818. Raw captures stay under
-`~/vitrea-w42/g1/prechecks/` and are never committed.
+(scenes `4aa06af9…`, bed `53870f47…`); `freeze.py verify` reads 1,818. Raw captures and runs
+stay under `~/vitrea-w42/g1/` (`prechecks/`, `rehearsal/`, `rehearsal-attempt-2/`) and are
+never committed.
 
-## Check 1 — the ORIGINAL granted bundle's positive capture: PASSED on its attestations (the parent's ruling)
+## Check 1 — the ORIGINAL bundle's positive capture: PASSED on its attestations (parent's ruling)
 
 `original-positive.py original-positive-1` (W39 G1's `wave-close/grant-check-close.py` with the
 W42 driver's gates). The original bundle `dev.vitrea.reference-apple` (binary `bd3092e8…`,
@@ -55,3 +56,54 @@ at the stop, were unchanged. `dev.vitrea.reference-apple` has Screen Recording a
 (2026-09-27 05:08:28Z) and Accessibility auth 2. `dev.vitrea.reference-apple.w39` has **no
 row**, and the only other row is `dev.vitrea.tccprobe` at 0. No harness process remained, and no
 permission prompt was on screen during check 1.
+
+## Check 2 — the TCC-refusal rehearsal of the ungranted side bundle: PASSED at attempt 2
+
+The runbook's command, through the orchestrator's display trap:
+`REHEARSAL=1 PASSES="2x-light-active 2x-light-receded 1x-light-active 1x-light-receded"`, the
+side bundle `~/vitrea-w39/side/VitreaReference.app` (`dev.vitrea.reference-apple.w39`, cdhash
+`be258cbf…`, binary `02052b17…`, the W39 pin), real run-1 argv. `rehearsal/collect.sh <root>
+<attempt>` copied each attempt here through the sitting's `collect-pass.py`, adding each run's
+idle log as `driver-idle.txt` (`*.log` is gitignored), the harness's stderr and the orchestrator's
+logs. `runs.json` reads `admitted: false` for every rehearsal run by construction: a rehearsal
+writes `rehearsal.json`, never an admission.
+
+**Attempt 1 (`rehearsal/attempt-1/`, root `~/vitrea-w42/g1/rehearsal`): prompt-pending, stopped.**
+The side bundle had no TCC row. Its first launch (2x-light-active) attempted the capture and
+printed the TCC-gate sentence, but a `universalAccessAuthWarn` window appeared during it, so the
+driver quarantined the run `prompt-pending` and the orchestrator stopped, restoring and verifying
+mode 68 (10:06:48Z). The other three passes did not run. **The prompt wrote the TCC row itself**:
+`.w39` ScreenCapture auth 0 at 10:06:47Z, read while the prompt was still up and unanswered,
+contrary to W39 G0's note that a pending prompt writes none (`attempt-1/prompt.txt`, with the
+prompt's text and buttons read by osascript). Nothing clicked Allow. The parent clicked 거부
+(Deny) through cua_repl; the row stayed auth 0.
+
+**Attempt 2 (`rehearsal/attempt-2/`, fresh root `~/vitrea-w42/g1/rehearsal-attempt-2`): all four
+`refused-tcc`, no prompt.** 10:36:22–10:37:17Z; the switch to mode 69 waited on 300 s of idle
+(`logs/mode-switch-idle.txt`) and the trap restored mode 68, verified.
+
+| Pass | Mode (open / close) | Outcome | Capture attempted | TCC-gate sentence | Manifest / PNG / staging / new window / timeout |
+| --- | --- | --- | --- | --- | --- |
+| 2x-light-active | 68 / 68 | refused-tcc | yes | yes | none |
+| 2x-light-receded | 68 / 68 | refused-tcc | yes | yes | none |
+| 1x-light-active | 69 / 69 | refused-tcc | yes | yes | none |
+| 1x-light-receded | 69 / 69 | refused-tcc | yes | yes | none |
+
+Every opening read: 27.0 / 26A428, tint 0.5, Reduce Transparency, Increase Contrast and Show
+Borders 0, the side pin, 0 foreign processes, no prompt, ≥ 1,350 s of HID idle; every closing
+read agreed. The TCC rows before and after (`attempt-2/before-attempt.json`,
+`attempt-2/tcc-at-collect.json`) are identical: the recorded denial suppresses the prompt, as in
+W39 G1's attempt 2.
+
+A window `ChatGPT Computer Use|0` (owner `SkyComputerUseService`, Codex Computer Use.app, the
+cua_repl helper, started 10:34:16Z) was on screen through attempt 2. The census does not name it
+and a refusal cannot be affected by it, but a layer-0 window of another app is the kind that took
+the active pose in W39 G1's stop 1; it is recorded for the sitting's active passes.
+
+## State at the close of phase 1
+
+Display mode 68 on `7709FD0F-…`, verified. X6 as above. System TCC rows (read-only):
+`dev.vitrea.reference-apple` ScreenCapture auth 2 (2026-09-27 05:08:28Z) and Accessibility auth 2;
+`dev.vitrea.reference-apple.w39` ScreenCapture **auth 0** (2026-09-30 10:06:47Z);
+`dev.vitrea.tccprobe` auth 0. No harness process running, no prompt on screen. Phase 2 begins
+with the grant switch, which is the parent's.
