@@ -108,8 +108,8 @@ def twin(c, items):
         if 'pendingUser' not in it:
             continue
         p, body = it['pendingUser'], sections.get(it['id'], '')
-        c.true(f"{it['id']}: pendingUser needs a question and at least two options",
-               bool(p.get('question')) and len(p.get('options', [])) >= 2)
+        c.true(f"{it['id']}: pendingUser needs a question, and at least two options or a note saying who "
+               "will write them", bool(p.get('question')) and (len(p.get('options', [])) >= 2 or bool(p.get('optionsNote'))))
         ruling = p.get('ruling')
         if ruling is None:
             c.true(f"declaration.md, {it['id']}: not marked PENDING (user)", 'PENDING (user)' in body)
@@ -126,6 +126,8 @@ def families_and_law(c, items):
     declared = {f['name']: f['count'] for f in items['rivals']['declared']['families']}
     expect = {'LT-2k': 'LT-2k', 'free-sn': 'free-sn', 'R1': 'R1', 'W-shape': 'W-shape', 'W-canvas': 'W-canvas',
               'W-tails': 'W-tails', 'K2': 'K2', 'C-linear': 'C-linear', 'knee form': 'knee-luma',
+              'LT+bleed-lit-pre': 'LT+bleed-lit-pre', 'LT+bleed-lit-post': 'LT+bleed-lit-post',
+              'LT+bleed-lit-own-pre': 'LT+bleed-lit-own-pre', 'LT+bleed-lit-own-post': 'LT+bleed-lit-own-post',
               'LT+bleed': 'LT+bleed', 'LT+bleed-own': 'LT+bleed-own', 'edge-swap': 'edge-swap'}
     for name, key in expect.items():
         c.eq(f'rivals: {name} count', F[key][2], declared.get(name))
@@ -168,6 +170,17 @@ def masks_and_tests(c, items, forward):
          {'BEFORE': dv2['BEFORE'], 'AFTER': dv2['AFTER'],
           'undecided': 'between: reported, the fallback not triggered'},
          items['refractionOrder']['declared']['decision'])
+    v3 = tol['refraction_order_test']['v3_2026-09-30']
+    c.true('refractionOrder: v3 S1 bars', 'BEFORE > 0.30 code, AFTER < 0.15' in v3['statistics']['S1'])
+    c.true('refractionOrder: v3 S2 bars', 'BEFORE if A_hat >= 8 pt, AFTER if A_hat < 4 pt' in ' '.join(v3['statistics']['S2']))
+    c.true('refractionOrder: only 2x cells vote', 'Only 2x cells vote' in ' '.join(v3['voters']))
+    c.eq('refractionOrder: the declared S2 decision', {'BEFORE': 'A_hat >= 8 pt', 'AFTER': 'A_hat < 4 pt',
+         'undecided': 'between'}, items['refractionOrder']['declared']['decisionS2'])
+    validity = json.loads((HERE / 'instrument' / 'refraction_order.v3.json').read_text())['validity']
+    found = {f"{ep.split('-')[0]} {st}": round(v['P_star'], 3) for key, v in validity.items()
+             for ep, st in [key.split('|')]}
+    declared = {k: v for k, v in items['refractionOrder']['declared']['pStar'].items() if k != 'reading'}
+    c.eq('refractionOrder: P* per scheme and statistic', found, declared)
     gating = tol['gating_2026-09-29-revision']
     g = items['instrumentGating']['declared']
     c.eq('instrumentGating: gated and descriptive counts', (len(gating['gated']), len(gating['descriptive'])),
@@ -237,10 +250,10 @@ def bed_and_split(c, items, d):
            and sum(v['declared'] for v in web['passTotals'].values()) == b['glassCells'])
     plan = (HERE / 'bed' / 'sitting' / 'dry-plan.txt').read_text()
     totals = json.loads(re.search(r'^totals: (\{.*\})$', plan, flags=re.M).group(1))
-    c.eq('sitting: dry-plan totals', totals, {'dumpLaunches': 8, 'dumpScenes': 465, 'captureLaunches': 80,
-                                              'glass': 3255, 'references': 282, 'sentinels': 48,
-                                              'captures': 3585})
-    c.true('sitting: 10.73 h', 'TOTAL      38636.1 s = 10.73 h' in
+    c.eq('sitting: dry-plan totals', totals, {'dumpLaunches': 8, 'dumpScenes': 447, 'captureLaunches': 80,
+                                              'glass': 3129, 'references': 264, 'sentinels': 48,
+                                              'captures': 3441})
+    c.true('sitting: 10.31 h', 'TOTAL      37115.5 s = 10.31 h' in
            (HERE / 'bed' / 'sitting' / 'timing.txt').read_text())
     base = json.loads((HERE / 'bed' / 'runtime-base-sample.json').read_text())
     c.eq('runtimeBase: cells', base['count'], 40)
@@ -251,7 +264,7 @@ def bed_and_split(c, items, d):
                   and any(getattr(t, 'id', None) == 'PIN_FIELDS' for t in n.targets))
     c.eq('exposureRunner: pin fields', fields, ('inventoryPath', 'inventorySha256', 'declarationPath',
                                                 'declarationSha256', 'closurePath', 'closureSha256'))
-    c.eq('exposureRunner: scope', (b['glassCells'] - probe, sp['H']['cellPasses']), (441, 40))
+    c.eq('exposureRunner: scope', (b['glassCells'] - probe, sp['H']['cellPasses']), (423, 40))
 
 
 def tinted_failures():
