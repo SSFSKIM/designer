@@ -1013,6 +1013,17 @@ sheets → changeset → release checklist → the user's `pnpm release`) → cl
 - **Other slider positions.** Normal and the light fill track `NSGlassTintAmount`; dumps and
   captures at slider 0 and 1 would isolate the normal-weighted wide term, but they are a user
   setting and a new bed key (memo D §7d). The user's call, not this wave's.
+- **A clearer-glass capture, `-glass0.25`: the user's stated next phase after W42** (the user,
+  2026-09-30, "like 0.25").
+  - **The generation.** It is a new capture generation, with profile keys `-glass0.25` beside
+    `-glass0.5`, in the same four window states. The user's hand on the Glass appearance slider
+    (`NSGlassTintAmount`) is X6's attested fact.
+  - **What it tests.** W42's law already carries the slider: memo D found that the Normal blend's
+    opacity w equals `NSGlassTintAmount`, and W42 fixes w = 0.5 from it. A 0.25 capture is
+    therefore the first test of that dependence: if the law is right, w becomes 0.25 with no
+    refit.
+  - **Unknown.** Whether the tone curve T and the chroma also move with the slider is not known.
+    Memo D read the face matrix at five slider positions for Normal only.
 - **Tint, the clear material, glass-over-glass, accessibility, the recede transition in time,
   spans above 160** (declared as the clamp, t = 1, and untested), **non-sRGB content, a Light
   system appearance** (memo B §8; memo C §6; memo D §8).

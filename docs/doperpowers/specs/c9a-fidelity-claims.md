@@ -42163,6 +42163,13 @@ Reruns under a load average of 17 to 136, from other work on the machine:
   contaminated output, `proof3_readers_b.replica.json`, which is replaced (§5). The review's
   I-4 therefore corrected this section's draft, and the correction is recorded rather than the
   commit history rewritten.
+- **The user's next phase after W42** (2026-09-30), recorded in the charter's Deferred list.
+  - **The capture.** A clearer-glass generation, `-glass0.25` beside `-glass0.5` in the same four
+    window states, with the user's hand on the Glass slider as X6's fact.
+  - **What it tests.** It is the first test of the law's slider dependence: memo D found w =
+    `NSGlassTintAmount`, so w should become 0.25 with no refit.
+  - **Unknown.** Whether T and the chroma move with the slider; memo D read five slider
+    positions for Normal only.
 - **The machine.** The review and the fix waves ran at load averages of 72 to 245. ChatGPT's Codex
   helper processes held about 100 % CPU each for about 17 h. The sitting needs a quiet machine.
 - **Descriptive readers and nulls.** The descriptive readers miss their bars on vitrea's
