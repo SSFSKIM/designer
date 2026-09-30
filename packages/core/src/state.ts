@@ -92,6 +92,20 @@ export interface GlassGroupState {
    */
   readonly cssBody?: "two-layer" | "collapsed";
   /**
+   * Whether W42's body law drew for this group on the CSS tier: `cssBody`'s twin (G2
+   * `implementation-design.md` §5, "The readout").
+   *
+   * `drawn` where every present member drew the law's reference filter; `stood-down` where the
+   * material asks for the law (`bodyLawStrength` above 0) and some present member did not. The
+   * tier stands it down for the fold (an occlusion lift, forced colours, a variant other than
+   * `regular`), for the cost collapse, and wherever the engine's `bodyLawFilterInBackdrop` row is
+   * not `"yes"`. Until Decision Log 4's measurement, that is every row, so the tier reports
+   * `stood-down` wherever a document asks. The group reports its weakest member, as `cssTint`
+   * does. Absent where the material asks for no law (every shipped document), on a WebGPU-tier
+   * group (whose field is `bodyLaw`), and before the first frame resolves one.
+   */
+  readonly cssBodyLaw?: "drawn" | "stood-down";
+  /**
    * Which form the CSS tier's TINT drew (W17 G1; charter Decision Log 4 (c)).
    *
    * `linear` is the exact one — an encoded overlay at the tier's floor alpha with
@@ -145,6 +159,22 @@ export interface GlassGroupState {
    * resolver cannot see. Absent before the first frame resolves one.
    */
   readonly materialDocument?: ResolvedMaterialDocument;
+  /**
+   * Whether W42's body law drew for this group on the WebGPU tier (G2
+   * `implementation-design.md` §5, "The readout"), as of the frame the renderer last drew.
+   *
+   * `drawn` where the renderer encoded the law's stage and handed the optics pass its argument.
+   * `stood-down` where the material asks for the law (`bodyLawStrength` above 0) and it did not
+   * draw. The causes are the accessibility fold (an occlusion lift, forced colours), a variant
+   * other than `regular`, no sampled texture, a source without the encoded level 0 the law is
+   * captured from, and a group that resolved nothing to draw. Absent where the material asks for
+   * no law (every shipped document), on a CSS-tier group (whose field is `cssBodyLaw`), and before
+   * the renderer has drawn the group.
+   *
+   * Resolved by the renderer, where the fold is, and folded on by the platform like the fields
+   * above: the renderer is a separate package that core cannot see.
+   */
+  readonly bodyLaw?: "drawn" | "stood-down";
 }
 
 /**

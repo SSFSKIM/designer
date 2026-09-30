@@ -846,3 +846,62 @@ describe("vitrea's ownership of the transform property", () => {
     expect(reported).not.toContain("host-inline-transform");
   });
 });
+
+/**
+ * W42 G2 step 3, U6 — the body law's readout on the resolved state (`implementation-design.md`
+ * §5, "The readout"): `bodyLaw` from the renderer on the WebGPU tier, `cssBodyLaw` beside
+ * `cssBody` on the CSS tier, each absent where the material asks for no law.
+ */
+describe("W42's law readout on the resolved state", () => {
+  const LAW = { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1 } as const;
+
+  const boxedHost = (instance: GlassRoot): void => {
+    const host = withHost(instance);
+    host.getBoundingClientRect = () => ({ x: 0, y: 0, width: 160, height: 96,
+      left: 0, right: 160, top: 0, bottom: 96, toJSON() {} }) as DOMRect;
+  };
+
+  it("reports the CSS tier's law stood down while its engine row is unverified", () => {
+    const instance = root();
+    boxedHost(instance);
+    instance.setMaterialProfile(LAW);
+    instance.runFrame(16);
+    const state = instance.capabilities("g1");
+    expect(state?.activeRenderer).toBe("css");
+    expect(state?.cssBodyLaw).toBe("stood-down");
+    expect(state !== undefined && "bodyLaw" in state).toBe(false);
+    expect(instance.renderInput()?.groups[0]?.state).toEqual(state);
+  });
+
+  it("writes no field at all where the material asks for no law", () => {
+    const instance = root();
+    boxedHost(instance);
+    instance.runFrame(16);
+    const state = instance.capabilities("g1");
+    expect(state?.cssBody).toBeDefined();
+    expect(state !== undefined && "cssBodyLaw" in state).toBe(false);
+    expect(state !== undefined && "bodyLaw" in state).toBe(false);
+  });
+
+  it("folds the renderer's readout onto a WebGPU-tier group, and nothing where it has none", async () => {
+    stubCanvasContexts();
+    const gpu = stubGpu();
+    let readout: "drawn" | "stood-down" | undefined = "drawn";
+    (gpu.renderer as unknown as { bodyLawReadout(id: string): typeof readout }).bodyLawReadout =
+      (id) => (id === "g1" ? readout : undefined);
+    const instance = root({ renderer: "webgpu", webgpu: { device: idleDevice(), load: gpu.load } });
+    instance.registerBackdropSource({
+      id: "src", kind: "texture", probe: { taint: "clean", textureCompatibility: "compatible" },
+    });
+    withHost(instance, { sourceId: "src" });
+    await instance.ready();
+    instance.runFrame(16);
+    expect(instance.capabilities("g1")?.activeRenderer).toBe("webgpu");
+    expect(instance.capabilities("g1")?.bodyLaw).toBe("drawn");
+    expect("cssBodyLaw" in instance.capabilities("g1")!).toBe(false);
+    readout = "stood-down";
+    expect(instance.capabilities("g1")?.bodyLaw).toBe("stood-down");
+    readout = undefined;
+    expect("bodyLaw" in instance.capabilities("g1")!).toBe(false);
+  });
+});

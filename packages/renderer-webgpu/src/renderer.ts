@@ -309,6 +309,12 @@ export interface GlassRenderer {
   /** Actual GPU reduction, resolved asynchronously after the submitted draw. */
   backdropToneAbscissae(groupId: string): readonly SurfaceBackdropToneAbscissa[];
   /**
+   * Whether W42's body law drew for this group in the frame this renderer last drew it
+   * (`GlassGroupState.bodyLaw`): `drawn`, `stood-down`, or `undefined` where the material asks
+   * for no law or the group has not been drawn.
+   */
+  bodyLawReadout(groupId: string): "drawn" | "stood-down" | undefined;
+  /**
    * Whether drawing another frame would change anything this renderer owns, with
    * nothing new handed to it: an adaptation filter still travelling, a readback
    * still on its way, or a rebuilt pyramid whose stats have not been read yet.
@@ -347,6 +353,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * a copy, a map and the frames that wait for it.
    */
   const statsReadFor = new Map<string, PyramidResources>();
+  /**
+   * W42's readout per group (`bodyLawReadout`): what the last frame that drew the group did with
+   * the law. Written where the fold is, in `drawGroups`, and read against the material in force,
+   * so a material that stops asking reports nothing without waiting for a frame.
+   */
+  const bodyLawReadouts = new Map<string, "drawn" | "stood-down">();
   const hintedTones = new Map<string, {
     groupId: string; readings: readonly SurfaceBackdropToneAbscissa[];
   }>();
@@ -935,6 +947,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           reason: error instanceof Error ? error.message : String(error),
         });
         releaseIdle(input.groupId);
+        bodyLawReadouts.set(input.groupId, "stood-down");
         continue;
       }
 
@@ -1045,6 +1058,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
       if (rectDevice === undefined) {
         releaseIdle(input.groupId);
+        bodyLawReadouts.set(input.groupId, "stood-down");
         continue;
       }
 
@@ -1146,6 +1160,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           })
         : undefined;
       if (lawArgument === undefined) bodyLaw?.forget(resourceOf(input.groupId));
+      bodyLawReadouts.set(input.groupId, lawArgument === undefined ? "stood-down" : "drawn");
       /*
        * The response and size laws always read the LINEAR profile (W27f G1).
        * DOM groups convert only their final layer, after evaluating the material
@@ -1708,6 +1723,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
     removeGroup(groupId) {
       groups.delete(groupId);
+      bodyLawReadouts.delete(groupId);
       // Every plane, because a group's resources are per plane and one group can
       // have drawn on more than one (`groupResourceId`). Forgetting only the
       // plane drawn most recently would strand the other plane's set for the
@@ -1880,6 +1896,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           framesDrawn += 1;
         },
       };
+    },
+
+    bodyLawReadout(groupId) {
+      // Nothing to report where the material asks for no law: every shipped document.
+      return material.bodyLawStrength > 0 ? bodyLawReadouts.get(groupId) : undefined;
     },
 
     backdropToneAbscissae(groupId) {

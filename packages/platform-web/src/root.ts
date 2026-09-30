@@ -868,13 +868,25 @@ const withPlatformFolds = (
   cssShadow: CssTierShadowCarrier | undefined,
   materialDocument: ResolvedMaterialDocument,
   state: GlassGroupState,
+  cssBodyLaw?: "drawn" | "stood-down",
 ): GlassGroupState => ({
   ...state,
   ...(cssBody === undefined ? {} : { cssBody }),
+  ...(cssBodyLaw === undefined ? {} : { cssBodyLaw }),
   ...(cssTint === undefined ? {} : { cssTint }),
   ...(cssShadow === undefined ? {} : { cssShadow }),
   materialDocument,
 });
+
+/**
+ * The W42 law readout a group of members folds to (`GlassGroupState.cssBodyLaw`): `stood-down`
+ * wins, as `weakestCssTintForm` does, so the field never claims the law drew on a member where
+ * it did not.
+ */
+const weakestBodyLawReadout = (
+  current: "drawn" | "stood-down" | undefined,
+  next: "drawn" | "stood-down",
+): "drawn" | "stood-down" => (current === "stood-down" || next === "stood-down" ? "stood-down" : "drawn");
 
 /**
  * Refuse a host patch that either scheme's material could not draw.
@@ -1032,6 +1044,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * order and there is no per-surface answer to it that a consumer could read.
    */
   const cssShadowForms = new Map<string, CssTierShadowCarrier>();
+  /**
+   * Whether W42's body law drew for each CSS-tier group this frame (`GlassGroupState.cssBodyLaw`),
+   * folded over its present members. Written only where the material asks for the law.
+   */
+  const cssBodyLawForms = new Map<string, "drawn" | "stood-down">();
 
   /*
    * The runtime's ink, at a precedence an application can beat (Decision Log
@@ -1877,6 +1894,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const cssBody = cssBodyForms.get(groupId);
     const cssTint = cssTintForms.get(groupId);
     const cssShadow = cssShadowForms.get(groupId);
+    const cssBodyLaw = cssBodyLawForms.get(groupId);
 
     const state = withPlatformFolds(cssBody, cssTint, cssShadow, resolvedMaterialDocument(), resolveGlassGroupState(
       groupCapabilityInputs(
@@ -1905,14 +1923,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             }
           : { configuredSource: "dom", platform, governor, hint },
       ),
-    ));
+    ), cssBodyLaw);
     const abscissae = resolvedProfile?.backdropToneAbscissa !== undefined &&
       resolvedProfile.backdropToneAbscissa !== "source"
       ? state.activeRenderer === "webgpu"
         ? bridge?.renderer?.backdropToneAbscissae?.(groupId)
         : cssBackdropAbscissae.get(groupId)
       : undefined;
-    return abscissae === undefined ? state : { ...state, backdropToneAbscissae: abscissae };
+    // W42's readout on the WebGPU tier, from the renderer, where the law's fold is. Like the
+    // abscissae it is the frame the renderer last drew, and absent where the material asks for
+    // no law.
+    const bodyLaw = state.activeRenderer === "webgpu"
+      ? bridge?.renderer?.bodyLawReadout?.(groupId)
+      : undefined;
+    const drawn = bodyLaw === undefined ? state : { ...state, bodyLaw };
+    return abscissae === undefined ? drawn : { ...drawn, backdropToneAbscissae: abscissae };
   };
 
   /**
@@ -2237,6 +2262,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // every consumer of the resolved state goes through, including the capture
     // cells — carries the form the surfaces below are about to draw.
     cssBodyForms.clear();
+    cssBodyLawForms.clear();
     cssTintForms.clear();
     cssShadowForms.clear();
     for (const groupId of cssTierGroups) {
@@ -3117,6 +3143,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
            * same fold the shadow carrier takes — so the readout never over-claims
            * a form some surface of the group did not draw.
            */
+          // W42's law, folded over the group's present members where the material asks for it
+          // (`GlassGroupState.cssBodyLaw`). `declarations.body.law` is present only where every
+          // gate of the tier's own fold was open, so its absence is the stand-down.
+          if (bodyLawLeaves.bodyLawStrength > 0 && channels.materialization > 0) {
+            cssBodyLawForms.set(groupId, weakestBodyLawReadout(cssBodyLawForms.get(groupId),
+              declarations.body.law === undefined ? "stood-down" : "drawn"));
+          }
           if (declarations.body.tintForm !== undefined) {
             cssTintForms.set(
               groupId,
