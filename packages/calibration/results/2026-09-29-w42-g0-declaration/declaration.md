@@ -3,15 +3,18 @@
 Charter `docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md` v2.1 (main `0736ed64`),
 clause 1; ledger §5.194. The machine record is `declaration.json`: 31 items, each declared once and
 pointing at the stream file that defines it, with 89 source files pinned by SHA-256 (the charter
-at `f5da67ad`, which records the review's readings beside Decision Logs 5a and 5c). `declare.py check` re-derives every count and list below from those files;
-`declare.py hash` refuses while any item marked **PENDING (user)** has no ruling, then writes
-`declaration.sha256` and `closure.json` and pins both in `bed/exposure/production-pin.json`.
+at `bc1e6bc6`, which records Decision Log 5f and the review's readings beside 5a and 5c).
+`declare.py check` re-derives every count and list below from those files; `declare.py hash`
+refuses while any item marked **PENDING (user)** has no ruling, then writes `declaration.sha256`
+and `closure.json` and pins both in `bed/exposure/production-pin.json`.
 
 **Status: not hashed.** The three items that waited on the user were RULED on 2026-09-30:
 `candidate2Chroma` (i, Decision Log 5c), `l1TintedReceded` (ii, 5d) and `activeBandAndE2`
 (iii, 5e). The review of `b151aff4` and its three fix waves are folded in (the streams'
-`FIXES-b151aff4.md`). One item waits on the user again: `refractionOrderNoCall`. No native
-pixel of the new bed exists.
+`FIXES-b151aff4.md`), and the refraction-order rule (`refractionOrderNoCall`) was RULED on
+2026-09-30 (Decision Log 5f). The hash waits for the remaining commits the parent is merging (the
+instrument's correction, the reader replays, a second bed fix round). No native pixel of the new
+bed exists.
 
 Streams, merged no-ff into `w42-g0-declaration`: bed `764217e1`, instrument `a489cc02`, gate
 `75f244ec`. Units: codes are 8-bit encoded output levels; lengths are points (CSS px) unless
@@ -94,7 +97,7 @@ per-channel.** *Sources:* `instrument/forward.py`, `families.py`, `resolution.tx
 
 Reduce Transparency returns every W42 gate to its identity; `forced-colors` draws no body;
 Increase Contrast alone does not stand the law down; the bed measures neither mode. *Source:* the
-charter at `f5da67ad`.
+charter at `bc1e6bc6`.
 
 ### supersededLeaves
 
@@ -190,7 +193,8 @@ lowest residual at which a declared rival, rendered AFTER with no lens, makes it
 AFTER. **P*: light S1 0.549, S2 2.285 (the leg's top); dark S1 0.568, S2 1.086.** At memo E's LT
 residual (2.25 light, 3.45 dark) no statistic is admitted in dark, and in light only S2, at the
 leg's edge. Neither admitted is UNDECIDED: the order goes to the user before G2 fits the active
-pose (`refractionOrderNoCall`). Sensitivity: a 16-pt lens reads BEFORE and an 8-pt lens undecided.
+pose; Decision Log 5f then fits under both masks and lands only if they agree
+(`refractionOrderNoCall`). Sensitivity: a 16-pt lens reads BEFORE and an 8-pt lens undecided.
 The **fallback mask** is d ≤ −53.6 pt (rrect-ml and rrect-lg only). History: v1's median proved
 powerless; v2's tail was sensitive and not specific. **v2 disclosure:** v1's carry counts (4 light
 and 3 dark cells over 0.30 at 16 pt, none at 8 pt) were known when the tail was chosen and fixed its
@@ -200,11 +204,35 @@ outcome, so v2's proof confirmed what was known. *Sources:* `instrument/toleranc
 
 ### refractionOrderNoCall
 
-**PENDING (user).** The rule for what G2 does when no refraction-order call can be made:
-neither statistic admitted, which is expected in dark active at memo E's residual, and in light if
-F's pooled rms reaches 2.29. The parent is putting the question to the user; the options and the
-ruling are written in when the parent sends them. *Sources:* `instrument/refraction_order.v3.txt`,
-`tolerances.json`.
+**RULED 2026-09-30 by the user (Decision Log 5f): "Fit both; land only if they agree"** —
+"Fit the focused law under both assumptions. If both give the same law within measurement
+resolution, the order doesn't matter and it can land; if they differ, that focused state doesn't
+land in W42 and the difference is recorded. Unfocused states are unaffected." The options
+declined were "Assume after the blur" and "Assume before the blur" (the cautious reading, with
+far fewer cells).
+
+Operationally:
+- **When.** A focused endpoint where v3 makes no call: UNDECIDED (neither statistic admitted, or
+  both admitted and opposite), or the admitted statistic reading between its bars.
+- **The two fits.** The surviving family is fitted as the gated fit, once under the narrow mask
+  (refraction after the blur) and once under the 2σw mask (before the blur, 53.6 pt, rrect-ml and
+  rrect-lg only).
+- **Agreement.** The two fits agree iff every parameter's difference lies within that parameter's
+  survival resolution in `instrument/resolution.*`, on the side of the difference's sign. For LT:
+  light active k +0.0589 / −0.0582 and λ ±0.0314; dark active k +0.0494 / −0.0477 and λ ±0.0288.
+- **Other families.** A surviving family other than LT has its resolutions computed by the same
+  rule (the smallest move that shifts some region statistic by 1 code), at its narrow-mask fitted
+  point, before the comparison.
+- **Unidentifiable parameters.** A parameter the 2σw mask cannot identify cannot show agreement.
+- **If they agree,** the endpoint may land with the narrow-mask fit.
+- **If they differ,** that focused endpoint stays at the identity (Decision Log 3), and both fits
+  and every difference are recorded.
+- **Unaffected:** the receded endpoints. Where v3 makes a call (light, S2 admitted), the call
+  decides as declared.
+- **Integration proposals, for the parent's review:** the rule for other families, the
+  unidentifiable-parameter reading, and the narrow-mask fit being the one that lands.
+
+*Sources:* `instrument/refraction_order.v3.txt`, `tolerances.json`, `resolution.json`.
 
 ### instrumentGating
 

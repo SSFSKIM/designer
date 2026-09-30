@@ -4,7 +4,7 @@
   "charter": {
     "path": "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md",
     "revision": "v2.1, with Decision Logs 5c-5e RULED and the review's readings beside 5a and 5c (2026-09-30)",
-    "commit": "f5da67ad"
+    "commit": "bc1e6bc6"
   },
   "ledger": "docs/doperpowers/specs/c9a-fidelity-claims.md §5.194",
   "streams": {
@@ -285,7 +285,7 @@
         "measured": "the bed measures neither mode"
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@f5da67ad"
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6"
       ]
     },
     {
@@ -305,7 +305,7 @@
         "provenance": "no G0 stream owned this item; declared at integration from the charter's list and the rehearsal's construction, and kept as proposed by the parent (2026-09-30) for the independent review to read"
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@f5da67ad",
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/body.py"
       ]
     },
@@ -461,7 +461,7 @@
           "AFTER": "A_hat < 4 pt",
           "undecided": "between"
         },
-        "admission": "a statistic is ADMITTED on Apple's pixels only when F's P there is below its P*: the smallest P among the specificity leg's rows (every declared rival rendered AFTER with no lens, LT fitted) where it reads other than AFTER, or the leg's top if none does. S1's call if admitted, else S2's; both admitted and opposite, UNDECIDED; neither admitted, UNDECIDED, and the order goes to the user before G2 fits the active pose (item refractionOrderNoCall)",
+        "admission": "a statistic is ADMITTED on Apple's pixels only when F's P there is below its P*: the smallest P among the specificity leg's rows (every declared rival rendered AFTER with no lens, LT fitted) where it reads other than AFTER, or the leg's top if none does. S1's call if admitted, else S2's; both admitted and opposite, UNDECIDED; neither admitted, UNDECIDED, and the order goes to the user before G2 fits the active pose (item refractionOrderNoCall: Decision Log 5f, fit under both masks and land only if they agree)",
         "pStar": {
           "light S1": 0.549,
           "light S2": 2.285,
@@ -483,18 +483,49 @@
     },
     {
       "id": "refractionOrderNoCall",
-      "title": "What G2 does when the refraction-order test cannot make a call",
+      "title": "What G2 does when the refraction-order test cannot make a call (Decision Log 5f, RULED)",
       "clause": "2, 6; the parent's revised ruling 3; item refractionOrder",
       "pendingUser": {
         "question": "the rule for what G2 does when no refraction-order call can be made (neither statistic admitted: expected in dark active at memo E's residual, and in light if F's pooled rms reaches 2.29)",
-        "options": [],
-        "optionsNote": "the parent is putting the question to the user; the options are written in when the parent sends them",
-        "ruling": null
+        "options": [
+          "Fit both; land only if they agree: \"Fit the focused law under both assumptions. If both give the same law within measurement resolution, the order doesn't matter and it can land; if they differ, that focused state doesn't land in W42 and the difference is recorded. Unfocused states are unaffected.\"",
+          "Assume after the blur",
+          "Assume before the blur (the cautious reading, with far fewer cells)"
+        ],
+        "ruling": {
+          "date": "2026-09-30",
+          "by": "the user",
+          "decisionLog": "5f",
+          "words": "Fit both; land only if they agree",
+          "reading": "Fit the focused law under both assumptions. If both give the same law within measurement resolution, the order doesn't matter and it can land; if they differ, that focused state doesn't land in W42 and the difference is recorded. Unfocused states are unaffected."
+        }
       },
       "source": [
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.v3.txt",
-        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json"
-      ]
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json",
+        "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.json"
+      ],
+      "declared": {
+        "when": "a focused (active) endpoint where v3 makes no call: UNDECIDED by v3's rule (neither statistic admitted, or both admitted and opposite), or the admitted statistic reading between its bars. Expected in dark active at memo E's residual, and in light if F's pooled rms reaches 2.29",
+        "fits": "the family that survives clause 6 is fitted twice on that endpoint, as the gated fit is: under the narrow-support mask (refraction AFTER the blur, 20 + 16.8 t pt) and under the 2 sigma_w mask (refraction BEFORE the blur, 53.6 pt; rrect-ml and rrect-lg only)",
+        "agreement": "the two fits give the same law within measurement resolution iff, for every parameter the family fits (k, lambda, and any other), the difference between the two fitted values lies within that parameter's survival resolution in instrument/resolution.*, on the side of the difference's sign",
+        "ltSurvivalResolution": {
+          "light-active": {
+            "k": "+0.0589 / -0.0582",
+            "lam": "+0.0314 / -0.0314"
+          },
+          "dark-active": {
+            "k": "+0.0494 / -0.0477",
+            "lam": "+0.0288 / -0.0288"
+          }
+        },
+        "otherFamilies": "a surviving family other than LT has its parameters' survival resolutions computed by the same rule as resolution.*'s LT rows (the smallest move of the parameter that shifts some region statistic by 1 code, the other parameters refitted or held as those rows state) on the synthetic proof at its narrow-mask fitted point, and recorded before the two fits are compared (integration proposal, for the parent's review)",
+        "notIdentifiable": "a parameter the 2 sigma_w mask cannot identify (item nonIdentifiable: the free sigma_n ordinates at s <= 96, anything read only on active rrect-md) cannot show agreement, so that endpoint does not land (integration proposal)",
+        "agree": "the order does not matter; the endpoint may land with the narrow-mask fit, the primary, which reads the most cells (integration proposal), subject to every other clause",
+        "differ": "that focused endpoint does not land in W42: it stays at the identity (Decision Log 3's partial adoption) and both fits, every parameter's difference and its resolution are recorded",
+        "unfocused": "the receded endpoints are unaffected: they have no refraction band",
+        "canCall": "where v3 makes a call (light, S2 admitted and reading AFTER or BEFORE), the call decides as declared in item refractionOrder: AFTER the narrow mask; BEFORE goes to the parent before the fallback mask is taken"
+      }
     },
     {
       "id": "instrumentGating",
@@ -545,7 +576,7 @@
         "R1 in light, unless family A finds T curved over 144-255 (an affine T commutes with the fill)",
         "dark readings on the 48 / 208 levels at spans >= 96 under the stand-in T (the 16 / 112 twins read instead)",
         "under the fallback mask only: the free sigma_n ordinates at s <= 96 and the active rrect-md cells",
-        "the dark-active refraction order with LT as the test family: neither statistic is admitted at memo E's 3.45 codes (S1 P* 0.568, S2 P* 1.086); decidable only if the family that survives clause 6 fits Apple's active cells below about 1.1 codes (S2) or 0.55 (S1); what G2 does then is item refractionOrderNoCall",
+        "the dark-active refraction order with LT as the test family: neither statistic is admitted at memo E's 3.45 codes (S1 P* 0.568, S2 P* 1.086); decidable only if the family that survives clause 6 fits Apple's active cells below about 1.1 codes (S2) or 0.55 (S1); G2 then fits under both masks and lands only if they agree (Decision Log 5f, item refractionOrderNoCall)",
         "the unit nulls (texel, device px), R2 and the light-active mixture reading, by their declared pooled bars on the synthetic proof; the 1x pass decides the unit in the sitting",
         "the dump-literal light bleed and its k_b: inert on this bed"
       ],
@@ -570,7 +601,7 @@
         "negative": "an endpoint with no survivor is this wave's negative at its resolution; Decision Log 3 then applies"
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@f5da67ad",
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/fitting.py",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py"
@@ -594,7 +625,7 @@
         ]
       },
       "source": [
-        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@f5da67ad",
+        "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6",
         "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.txt"
       ]
     },
@@ -982,7 +1013,7 @@
     }
   ],
   "sources": {
-    "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@f5da67ad": "902738eef198fbd1f703397db9fe5072614734df1954dd6657c3174724fa0bca",
+    "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6": "c90c7331ce163c343587a0e3c78cf68c9261e5ffd515259316e3a920fb333d05",
     "packages/calibration/results/2026-09-27-w41-g0-declaration/closure.json": "016d93ea9dce679ea3a7f2baa09683769a5da3f33da7883cefba15649c803412",
     "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-active-E3-fit.json": "8d23ff0bb08a5458d45fbf2217e35d298955d487435dfc4e72728bf1ef422430",
     "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-inactive-E3-fit.json": "2024f3a4baa070288145ab1095d29fd7495510e81c07a7b40ed717aae1fd2b2e",

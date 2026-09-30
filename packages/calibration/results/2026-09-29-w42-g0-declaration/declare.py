@@ -181,6 +181,13 @@ def masks_and_tests(c, items, forward):
              for ep, st in [key.split('|')]}
     declared = {k: v for k, v in items['refractionOrder']['declared']['pStar'].items() if k != 'reading'}
     c.eq('refractionOrder: P* per scheme and statistic', found, declared)
+    rows = json.loads((HERE / 'instrument' / 'resolution.json').read_text())['rows']
+    lt = {(r['endpoints'][0], r['quantity']): r['synthetic']['resolution'] for r in rows
+          if r['reader'] == 'family fitter: LT (survival resolution)'}
+    declared = items['refractionOrderNoCall'].get('declared', {}).get('ltSurvivalResolution')
+    if declared is not None:
+        c.eq('refractionOrderNoCall: LT survival resolutions', {f"{ep.replace('rest', 'active')}": {q: lt[(ep, q)]
+             for q in ('k', 'lam')} for ep in ('light-rest', 'dark-rest')}, declared)
     gating = tol['gating_2026-09-29-revision']
     g = items['instrumentGating']['declared']
     c.eq('instrumentGating: gated and descriptive counts', (len(gating['gated']), len(gating['descriptive'])),

@@ -105,3 +105,33 @@ RED: seeded mutations, each must exit 1
   the runner scope 447 -> 465 glass cells: exit 1; MISMATCH bed: glass cells: found 447, declared 465
   a pending item without its marker in the twin: exit 1; MISMATCH declaration.md, refractionOrderNoCall: not marked PENDING (user)
   an md PENDING marker left on a ruled item: exit 1; MISMATCH declaration.md, l1TintedReceded: not marked RULED with the words 'Named misses.'
+
+After Decision Log 5f (2026-09-30; refractionOrderNoCall RULED, re-pinned with the charter at bc1e6bc6). 'hash' was NOT
+run: it waits for the parent's further merges and the final fold.
+
+$ declare.py check
+W42 G0 declaration: 31 items, 89 pinned sources
+check: consistent with the stream files
+exit 0
+
+RED: seeded mutations, each must exit 1
+  candidate 2 light-active ordinates 27 -> 28: exit 1; MISMATCH candidate2: ordinates per endpoint: found {'light-active': 27, 'light-receded': 27, 'dark-active': 30, 'dark-receded': 30}, declared {'light-active': 28, 'light-receded': 27, 'dark-active': 30, 'dark-receded': 3
+  LT-2k count 3 -> 4: exit 1; MISMATCH rivals: LT-2k count: found 3, declared 4
+  a source pin altered: exit 1; MISMATCH pin docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md@bc1e6bc6: found 'c90c7331ce163c343587a0e3c78cf68c9261e5ffd515259316e3a920fb333d05', declared '0000000000000000000000000000000000000000000000000
+  bed.json SHA-256 wrong: exit 1; MISMATCH split: bed.json SHA-256: found '53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762', declared '0000000000000000000000000000000000000000000000000000000000000000'
+  an H cell dropped: exit 1; MISMATCH split: H cells: found ['h-d20-lohi-rrect-md', 'h-g184-rrect-md', 'h-g232-rrect-md', 'h-lc-c64-capsule-button', 'h-p1-c24-rrect-112', 'h-p3-c64-rrect-lg', 'h-p6-c32-rrect-md', 'h-s24-hi-rrect-md'], declared ['h-d
+  the BEFORE bar 0.30 -> 0.25: exit 1; MISMATCH refractionOrder: the declared decision: found {'BEFORE': 'D_tail > 0.30 code', 'AFTER': 'D_tail < 0.15 code', 'undecided': 'between: reported, the fallback not triggered'}, declared {'BEFORE': 'D_tail > 0.25 cod
+  k nesting reordered: exit 1; MISMATCH kNesting: layouts and totals, most restricted first: found [('k@global', 5), ('k@scheme', 6), ('k@endpoint', 8), ('k2@endpoint', 12)], declared [('k2@endpoint', 12), ('k@endpoint', 8), ('k@scheme', 6), ('k@globa
+  a null added: exit 1; MISMATCH rejectedNulls: the null set: found {'null-mix', 'null-dev', 'null-boxfloor', 'null-texel', 'null-R2'}, declared {'null-x', 'null-mix', 'null-dev', 'null-boxfloor', 'null-texel', 'null-R2'}
+  an unpinned source: exit 1; MISMATCH law: source packages/calibration/package.json is not pinned in 'sources'
+  E3 extension count 7 -> 6: exit 1; MISMATCH candidate1: the extension count: found 7, declared 6
+  a tinted cell that is not a rehearsal failure: exit 1; MISMATCH l1TintedReceded: the cells against r3-2pgb's receded tinted L1 failures: found ['apple-macos-27.0-1x-dark-standard-glass0.5 photo__capsule-button__inactive-tint-orange', 'apple-macos-27.0-1x-light-standard-glass
+  a ruling without its Decision Log: exit 1; MISMATCH candidate2Chroma: a ruling names its date, who ruled, its Decision Log and the words
+  an md ruling missing its words: exit 1; MISMATCH declaration.md, l1TintedReceded: not marked RULED with the words 'Named misses.'
+  an md heading removed: exit 1; MISMATCH declaration.md: its item headings, in order: found ['law', 'kNesting', 'rivals', 'rejectedNulls', 'kneeForms', 'accessibility', 'supersededLeaves', 'nativeT', 'candidate1', 'candidate2', 'candidate2Chroma', 'reg
+  a P* not the proof's: exit 1; MISMATCH refractionOrder: P* per scheme and statistic: found {'dark S1': 0.568, 'dark S2': 1.086, 'light S1': 0.549, 'light S2': 2.285}, declared {'light S1': 0.549, 'light S2': 2.285, 'dark S1': 0.568, 'dark S2': 2.0}
+  the S2 bar 8 -> 6 pt: exit 1; MISMATCH refractionOrder: the declared S2 decision: found {'BEFORE': 'A_hat >= 8 pt', 'AFTER': 'A_hat < 4 pt', 'undecided': 'between'}, declared {'BEFORE': 'A_hat >= 6 pt', 'AFTER': 'A_hat < 4 pt', 'undecided': 'between'
+  the runner scope 447 -> 465 glass cells: exit 1; MISMATCH bed: glass cells: found 447, declared 465
+  an LT survival resolution not the instrument's: exit 1; MISMATCH refractionOrderNoCall: LT survival resolutions: found {'light-active': {'k': '+0.0589 / -0.0582', 'lam': '+0.0314 / -0.0314'}, 'dark-active': {'k': '+0.0494 / -0.0477', 'lam': '+0.0288 / -0.0288'}}, declared {'l
+  the 5f ruling without its words in the twin: exit 1; MISMATCH declaration.md, refractionOrderNoCall: not marked RULED with the words 'Fit both; land only if they agree'
+  an md PENDING marker left on a ruled item: exit 1; MISMATCH declaration.md, l1TintedReceded: not marked RULED with the words 'Named misses.'
