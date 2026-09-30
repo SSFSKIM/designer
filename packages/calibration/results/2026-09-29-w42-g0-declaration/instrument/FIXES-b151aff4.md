@@ -23,7 +23,8 @@ script at a time (`W42_POOL=2`, BLAS threads 1). `freeze.py verify` reads 1,818.
   In dark it is DISTINGUISHED from LT (5.5–11.0). **In light it moves no pixel of the bed**, so under the
   literal reading it cannot be light-active U7's cause.
 - **I-4, the id(cell) key.** 158 proof-2, null and floor rows were replayed at their recorded points with a
-  token key. **None moved**. The reader replays are still running.
+  token key. **None moved**. But **one reader output was contaminated** (`proof3_readers_b.replica`,
+  replaced): the light per-cell λ replica reading is now PASS. The remaining reader replays are still running.
 - **I-6, the nulls.** Re-run at the narrow mask, the unit nulls, R2 and now the light-active mixture are
   **not refused** by their declared bars. They are recorded as non-identifiable.
 - **I-8, minimax.** The continued searches moved s by at most 0.022; no verdict changes.
@@ -217,13 +218,32 @@ the code and pin of the commit that produced it; only the store's key is changed
 
 One untagged row (LT → edge-swap light-inactive) had run on `07b45391`, not `5ba68aeb`, and reproduces there.
 
-**PENDING.** The reader outputs of `7efe4ce8` and `9c1623b4` (proof1_readers_a/b, proof3_readers_a/b) are
-being replayed the same way under the shared compute lock. They land as one more commit, from the fork or
-from this stream if resumed.
+**Readers: one output was contaminated.** `proof3_readers_b.replica.json` (`9c1623b4`):
+- Its token-key replay (that commit's code, only the key changed) differs on the light checkerboard-8 / -64 λ
+  rows over rrect-md / ml, by up to 10.4 codes: a capture rms of 11.18 reads 0.77, and gap bins flip between
+  identifiable and non-identifiable. It also differs on two 1x checkerboard rrect-ml depth rows (0.85–0.87).
+- An audit run of the same section with the ORIGINAL id key and a per-hit source check logged 24 hits whose
+  stored blur came from another checkerboard pitch (up to 1.0 encoded, 255 codes), on exactly those cells.
+- **Substituted:** the token-keyed file is now `proof3_readers_b.replica.json`; the contaminated one is kept
+  as `i4_contaminated_proof3_readers_b.replica.json`.
+- **Effect** (`resolution_rows_b.json` regenerated): the light per-cell λ replica reading goes from FAIL
+  (14 pass / 1 miss) to PASS (15 / 0). The light hinge-gap goes from 0.320 max, 21 misses, to 0.230, 13, still
+  FAIL. Nothing else in the resolution rows moves.
+- Replayed clean: proof1_readers_b step / step_w / patch / u1 EXACT, proof3_readers_b step within 2e-5 (calls
+  identical).
 
-**For the parent to fold.** Flag §5.194 §5's sentence "the worst cell of every such row is under 3". It is
-false: 30 pre-fix rows have a worst cell of 3.0–12.8. Replace it with the replay's result, and add the readers'
-result when it lands.
+**PENDING.** proof3_readers_b depth / lambda / patch, proof3_readers_a and proof1_readers_a are still being
+replayed under the shared compute lock. They land as one more commit.
+
+**Consequence.** The README's and §5.194 §5's claim that "no output from the window it was live shows it" is
+FALSE for the readers. The proof-2, null and floor rows are clean.
+
+**For the parent to fold.** In §5.194 §5:
+- "No output from the window it was live shows it" and "the worst cell of every such row is under 3" are both
+  false. 30 pre-fix proof-2 rows have a worst cell of 3.0–12.8, and one reader output WAS contaminated.
+- Replace them with the replay's result: proof 2 clean; `proof3_readers_b.replica` contaminated and replaced,
+  which moves the light per-cell λ replica verdict to PASS and the light hinge-gap to 0.230.
+- §5.194 §3's proof-3 sentence "the per-cell λ ... miss" holds in dark only.
 
 ## I-5 (minor): part D's decimated-blur check
 

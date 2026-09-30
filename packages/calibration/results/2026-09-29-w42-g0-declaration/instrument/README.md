@@ -102,14 +102,14 @@ outside the 20-pt band plus 2σn (the revised ruling 3's primary); the W-support
 | step reader (D) | gated | support / edge call | canvas called when receded; box / shape / edge never called on D's centred steps | identical on 20/20, PASS |
 | step reader | descriptive | σw on the true support | ≤ 0.07 % PASS | 1 miss (one-image identification) |
 | mirror S (flagged) | descriptive | λ(1 − w) | ±0.002–0.010 PASS | values within 0.022; 3 flag calls differ, FAIL |
-| per-cell λ (memo E) | descriptive | λ | ≤ 0.001 on identified cells PASS | light 1 miss, dark 6, FAIL |
+| per-cell λ (memo E) | descriptive | λ | ≤ 0.001 on identified cells PASS | light PASS (15 / 0), dark 6 miss, FAIL |
 | patch and annulus (C) | descriptive | σn / σw (λ given) | ≤ 1.6 % / ≤ 5.0 % PASS | σn up to 9.3 %, σw 5–23 %, FAIL |
 | model reader (memo C) | descriptive | σn / σw / λ / w | receded ±0.012 pt / ±0.008 pt / ±0.003 / ±0.001 PASS | FAIL (ill-conditioned on vitrea's graded share) |
 | pitch-64 heavy reader | descriptive | σw | active 3.2 % PASS; receded 7.1 % FAIL | 7–192 % on 7/16, FAIL |
 | ESF reader (memo B) | descriptive | narrow σ | 4.9–8.7 % FAIL (3 %) | FAIL (identified on one image only on 3 sides) |
 | impulse reader (memo B) | descriptive | narrow σ | 3.5–9 % FAIL (3 %) | 1.8 %, PASS |
 | depth-graded radius | descriptive | σn(d)/σn(centre) | light md d34 0.871 / 0.856, lg d60 0.870 / 0.876, lg d40 0.749 / 0.750, dark md 16/112 d34 0.868 / 0.856, PASS; dark 48/208 sweeps MISS | 3 pass / 10 miss |
-| hinge-gap (memo E) | descriptive | λ per bin | ≤ 0.030 PASS | up to 0.32, FAIL |
+| hinge-gap (memo E) | descriptive | λ per bin | ≤ 0.030 PASS | up to 0.30 (light 0.23), FAIL |
 | known-space control | reported | λ, S in the wrong space | λ −0.5 … +1.6; S up to 0.43 | λ −0.50 … +1.54 |
 | engine | — | interpolation; decimated W; invariance | ≤ 0.025 rms (0.09 max); ≤ 0.037 max; 1e-13 | — |
 
@@ -308,8 +308,14 @@ constant. At the W support (the fallback) no active fine-pitch cell survives, an
   now a replay (`i4_replay.txt`): every cited proof-2, null and floor row produced before or around the fix,
   re-evaluated at its recorded least-squares and minimax points by the code and pin that produced it with only
   the key made a token, reproduces its record exactly (81) or within the store's own width rounding (77; at most
-  1.2e-4 code in s), which a fresh token-keyed fit replayed the same way also shows. No row moved. The reader
-  outputs of `7efe4ce8` and `9c1623b4` are replayed the same way (`i4_readers.py`; see `FIXES-b151aff4.md`).
+  1.2e-4 code in s), which a fresh token-keyed fit replayed the same way also shows. No proof-2 row moved.
+  **One reader output was contaminated**: `proof3_readers_b.replica.json` (`9c1623b4`). Its token-key replay
+  differs on the checkerboard-8 / -64 λ rows over rrect-md / ml (a capture rms of 11.18 codes reads 0.77) and
+  on two 1x checkerboard rrect-ml depth rows, and an audit of the same section with the original key logged 24
+  hits whose stored blur came from another checkerboard pitch (up to 255 codes). The token-keyed file replaces
+  it; the contaminated one is kept as `i4_contaminated_proof3_readers_b.replica.json`. It moved the light
+  per-cell λ replica reading from FAIL (14 pass / 1 miss) to PASS (15 / 0) and the light hinge-gap from 0.320
+  (21 misses) to 0.230 (13), still FAIL. The other reader replays are recorded in `FIXES-b151aff4.md`.
 - **W-shape's narrow term** followed W onto the shape window (up to 4.6 encoded codes on receded p16 cells at
   μ 4). C now stays on R_fp and only W moves; every W-shape row was re-run (above).
 - **Part D's decimated-blur check** cleared only the cell's own cache after the shared store arrived, so its

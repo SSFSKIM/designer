@@ -291,9 +291,9 @@
    "verdict": "PASS"
   },
   "vitrea": {
-   "resolution": "max |cap - rep| 0.029; 14 pass / 1 miss / 19 non-identifiable on both",
+   "resolution": "max |cap - rep| 0.029; 15 pass / 0 miss / 19 non-identifiable on both",
    "tolerance": "0.03, each interval contains the other's point",
-   "verdict": "FAIL"
+   "verdict": "PASS"
   },
   "vitrea_superseded": {
    "resolution": "|lam| <= 0.082 on 27/90 identified cells",
@@ -314,7 +314,7 @@
    "verdict": "PASS"
   },
   "vitrea": {
-   "resolution": "max |cap - rep| 0.320; 52 pass / 21 miss / 45 non-identifiable on both",
+   "resolution": "max |cap - rep| 0.230; 55 pass / 13 miss / 48 non-identifiable on both",
    "tolerance": "0.05",
    "verdict": "FAIL"
   },
