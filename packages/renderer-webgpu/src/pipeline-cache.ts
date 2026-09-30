@@ -101,6 +101,9 @@ export function createPipelineCache(factory: PipelineFactory): PipelineCache {
 export const pipelineKey = {
   field: (family: string, format: GPUTextureFormat): string => `field:${family}:${format}`,
   import: (kind: string, format: GPUTextureFormat): string => `import:${kind}:${format}`,
+  /** The import with W42's encoded level-0 companion as a second target. */
+  importEncoded: (kind: string, format: GPUTextureFormat): string =>
+    `import-encoded:${kind}:${format}`,
   chain: (entry: string, format: GPUTextureFormat): string => `chain:${entry}:${format}`,
   analysis: (): string => "analysis",
   optics: (format: GPUTextureFormat, blend: string): string => `optics:${format}:${blend}`,

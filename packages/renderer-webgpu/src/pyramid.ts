@@ -52,11 +52,22 @@ import {
 import { createRebuildLedger, type RebuildLedger } from "./rebuild-ledger";
 import { poolKey } from "./texture-pool";
 import { PASS_LABEL, type PassTimeline } from "./timing";
-import { analysisModule, chainModule, importModule } from "./wgsl";
+import { analysisModule, chainModule, importEncodedModule, importModule } from "./wgsl";
 
 /** Computed on first use, not at module scope — see the note in `passes.ts`. */
 const chainUsage = (): GPUTextureUsageFlags =>
   GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING;
+
+/**
+ * W42's encoded level 0 is rgba32float: the body law's luma knee decides on encoded luma contrasts
+ * of 0.004–0.007 code, below rgba16float's resolution at the top of the range (G2
+ * `implementation-design.md` §11.1). The format is not filterable without `float32-filterable`,
+ * so every reader loads its texels and interpolates by hand.
+ */
+export const ENCODED_LEVEL0_FORMAT: GPUTextureFormat = "rgba32float";
+
+const isIdentityMatrix = (m: Float32Array): boolean =>
+  m.every((value, i) => value === (i % 4 === 0 ? 1 : 0));
 
 export interface PyramidResources {
   readonly sourceId: string;
@@ -93,6 +104,15 @@ export interface PyramidResources {
    * material that names it and by nothing else.
    */
   readonly heavy2: GPUTexture | undefined;
+  /**
+   * **W42's encoded level 0** (G2 `implementation-design.md` §12 item 4): the source's encoded
+   * colour premultiplied by its alpha, (enc·α, α), rgba32float, at level 0's extent and from the
+   * same sample of the source, written by the import as its second target. `undefined` unless a
+   * group sampling this source runs the body law (`PyramidBuildRequest.encodedLevel0`), which is
+   * every group on every shipped material: nothing is allocated and the import is the one-target
+   * pass it always was.
+   */
+  readonly encoded: GPUTexture | undefined;
   readonly stats: GPUBuffer;
   /** Source size epoch this allocation was made for. */
   readonly sizeEpoch: number;
@@ -189,6 +209,11 @@ export interface PyramidBuildRequest {
    */
   readonly heavy2SigmaCss: number;
   readonly viewportCss: readonly [number, number];
+  /**
+   * Whether a group sampling this source runs W42's body law and so needs the encoded level 0
+   * (`PyramidResources.encoded`). Absent or false on every shipped material.
+   */
+  readonly encodedLevel0?: boolean;
   /**
    * Where the source sits on the plane, in CSS px relative to the viewport, if
    * the host measured one. Absent, the source is cover-fit to the viewport.
@@ -315,7 +340,10 @@ const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boo
   // And the second heavy blur on the identical rule (W30 G2): its ON/OFF state
   // exactly, then the tolerance, because 0 and a tiny positive width differ in
   // kind and not in degree.
-  && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss);
+  && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss)
+  // W42's encoded level 0 is written by the import, so a source built without it has to be
+  // imported again to gain it, and one that no longer needs it releases it the same way.
+  && (request.encodedLevel0 === true) === (existing.encoded !== undefined);
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -383,6 +411,22 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       primitive: { topology: "triangle-list" },
     }));
 
+  const importEncodedPipeline = (kind: "sampled" | "external"): GPURenderPipeline =>
+    cache.renderPipeline(pipelineKey.importEncoded(kind, WORKING_TEXTURE_FORMAT), () => ({
+      label: `vitrea:pipeline:import-encoded:${kind}`,
+      layout: "auto",
+      vertex: {
+        module: cache.module(`module:import-encoded:${kind}`, () => importEncodedModule(kind)),
+        entryPoint: "vs_fullscreen",
+      },
+      fragment: {
+        module: cache.module(`module:import-encoded:${kind}`, () => importEncodedModule(kind)),
+        entryPoint: "fs_import_encoded",
+        targets: [{ format: WORKING_TEXTURE_FORMAT }, { format: ENCODED_LEVEL0_FORMAT }],
+      },
+      primitive: { topology: "triangle-list" },
+    }));
+
   const analysisPipeline = (): GPUComputePipeline =>
     cache.computePipeline(pipelineKey.analysis(), () => ({
       label: "vitrea:pipeline:analysis",
@@ -419,6 +463,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     ) {
       return undefined;
     }
+    if (target.encoded !== undefined && pool.peek(poolKey.backdropEncoded(sourceId)) !== target.encoded) {
+      return undefined;
+    }
     return target;
   };
 
@@ -438,6 +485,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     heavySigmaCss: number,
     heavy2Level: number | undefined,
     heavy2SigmaCss: number,
+    encodedLevel0: boolean,
   ): PyramidResources {
     const existing = resources.get(sourceId);
     const levelSize = (level: number): { width: number; height: number } =>
@@ -506,6 +554,21 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       });
     }
 
+    // W42's encoded level 0, on the heavy textures' rule: acquired only where a law group asked,
+    // and released where none does, so a material that turns the law off strands nothing.
+    let encoded: GPUTexture | undefined;
+    if (!encodedLevel0) {
+      pool.release(poolKey.backdropEncoded(sourceId));
+    } else {
+      encoded = pool.acquire(poolKey.backdropEncoded(sourceId), {
+        width: plan.width,
+        height: plan.height,
+        format: ENCODED_LEVEL0_FORMAT,
+        usage: chainUsage(),
+        label: `vitrea:pyramid:${sourceId}:encoded`,
+      });
+    }
+
     let stats = existing?.stats;
     if (stats === undefined) {
       stats = device.createBuffer({
@@ -520,7 +583,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       existing.chain !== chain ||
       existing.body !== body ||
       existing.heavy !== heavy ||
-      existing.heavy2 !== heavy2
+      existing.heavy2 !== heavy2 ||
+      existing.encoded !== encoded
     ) {
       reallocations += 1;
     }
@@ -532,6 +596,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       body,
       heavy,
       heavy2,
+      encoded,
       stats,
       sizeEpoch,
       builtEpoch,
@@ -552,9 +617,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     sourceId: string,
     frame: BackdropFrame,
     chain: GPUTexture,
+    encoded: GPUTexture | undefined,
   ): void {
     const kind = frame.binding.kind;
-    const pipeline = importPipeline(kind);
+    const pipeline = encoded === undefined ? importPipeline(kind) : importEncodedPipeline(kind);
     const slot = uniformSlot(`import:${sourceId}`, 16);
     const matrix = importColorMatrix(frame.colorSpace);
 
@@ -569,7 +635,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     slot.data[8] = matrix[6] as number;
     slot.data[9] = matrix[7] as number;
     slot.data[10] = matrix[8] as number;
-    slot.data[11] = 0;
+    // W42's passthrough, read only by the encoded entry point: an encoded source with sRGB
+    // primaries has its encoded colour in hand. 0 wherever the law asked for nothing.
+    slot.data[11] =
+      encoded !== undefined && frame.encoded && isIdentityMatrix(matrix) ? 1 : 0;
     // Stretch fit: level 0 IS the source, resampled to the planned extent, so the
     // uv transform is the identity. A group's own framing of the backdrop happens
     // in the optics pass, where the viewport is known.
@@ -594,6 +663,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       ...timedRender(PASS_LABEL.import),
       colorAttachments: [
         { view: mipView(chain, 0), loadOp: "clear", storeOp: "store", clearValue: { r: 0, g: 0, b: 0, a: 0 } },
+        ...(encoded === undefined ? [] : [{
+          view: encoded.createView(), loadOp: "clear" as const, storeOp: "store" as const,
+          clearValue: { r: 0, g: 0, b: 0, a: 0 },
+        }]),
       ],
     });
     pass.setPipeline(pipeline);
@@ -877,9 +950,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         request.heavySigmaCss,
         heavy2Plan?.level,
         request.heavy2SigmaCss,
+        request.encodedLevel0 === true,
       );
 
-      runImport(encoder, request.sourceId, frame, target.chain);
+      runImport(encoder, request.sourceId, frame, target.chain, target.encoded);
       runChain(encoder, request.sourceId, plan, target.chain);
       runSeparableBlur(
         encoder,
@@ -1020,6 +1094,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       pool.release(poolKey.backdropBodyScratch(sourceId));
       pool.release(poolKey.backdropHeavy(sourceId));
       pool.release(poolKey.backdropHeavyScratch(sourceId));
+      pool.release(poolKey.backdropEncoded(sourceId));
       resources.get(sourceId)?.stats.destroy();
       resources.delete(sourceId);
       readbacks.get(sourceId)?.staging.destroy();

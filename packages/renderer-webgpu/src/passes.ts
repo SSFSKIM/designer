@@ -19,7 +19,14 @@
 import { OUTPUT_TEXTURE_FORMAT, WORKING_TEXTURE_FORMAT } from "./color";
 import { type GpuContext, createUniformSlot, createStorageSlot, type StorageSlot, type UniformSlot } from "./gpu-context";
 import type { FieldFamily } from "./governor";
-import type { BodyE3Gains, BodyE3Neutral } from "./material";
+import type {
+  BodyE3Gains,
+  BodyE3Neutral,
+  BodyE3NeutralHigh,
+  BodyToneTableCodes,
+  BodyToneTableLevels,
+  BodyToneTableSpans,
+} from "./material";
 import { INSTANCE_BYTES } from "./instances";
 import { pipelineKey } from "./pipeline-cache";
 import { poolKey } from "./texture-pool";
@@ -71,6 +78,93 @@ export interface DeviceRect {
   readonly y: number;
   readonly width: number;
   readonly height: number;
+}
+
+/**
+ * **What W42's body law hands the optics pass** (G2 `implementation-design.md` §2.7–§2.9, R4,
+ * R6): the stage's argument texture A and where it lies, and every tone leaf the per-pixel body
+ * reads, each already under its fold. Built only where the stage ran.
+ */
+export interface OpticsBodyLaw {
+  /** `bodyLawStrengthUnderPolicy`: above 0, or the law is not handed over at all. */
+  readonly strength: number;
+  /** The active band the law eases in across, points; 0 when receded (flat, the whole body). */
+  readonly bandPt: number;
+  /** A (`body-law-pass.ts`) and its rectangle on the plane, device px. */
+  readonly argument: GPUTextureView;
+  readonly origin: readonly [number, number];
+  readonly size: readonly [number, number];
+  /**
+   * The landed solve's tone strength, `backdropToneUnderPolicy × backdropToneMax`, WITHOUT the
+   * shipped path's "no measured tone" gate: the law's argument is always a measured colour (§2.8).
+   */
+  readonly landedToneStrength: number;
+  /** Whether the tone abscissa is the silhouette's encoded level rather than the linear mean. */
+  readonly silhouetteAbscissa: boolean;
+  /** E3 on the law's path (`bodyLawE3StrengthUnderLaw`, Fork 6). */
+  readonly e3Strength: number;
+  readonly e3HighStrength: number;
+  readonly e3NeutralHigh: BodyE3NeutralHigh;
+  readonly tableStrength: number;
+  readonly tableLevels: BodyToneTableLevels;
+  readonly tableSpans: BodyToneTableSpans;
+  readonly tableCodes: BodyToneTableCodes;
+  readonly chromaGains: BodyE3Gains;
+  readonly chromaScale: number;
+}
+
+/**
+ * **The optics uniform's W42 lanes** (R6: the complete map and its extent, pinned by
+ * `test/w42-optics-law.test.ts` against the WGSL struct). Appended vec4s only: no lane below 152
+ * changes owner, and every lane here is 0 where the law is not handed over.
+ */
+export const OPTICS_BODY_LAW_LANES = {
+  strength: 152,
+  bandPt: 153,
+  origin: 154,
+  size: 156,
+  landedToneStrength: 158,
+  silhouetteAbscissa: 159,
+  e3Strength: 160,
+  e3HighStrength: 161,
+  tableStrength: 162,
+  /** Seven ordinates at 164–170; 171 is padding. */
+  e3NeutralHigh: 164,
+  /**
+   * The table, 19 vec4s from 172: levels 172–182, spans 183–187, codes 188–242 (five rows of
+   * eleven, row by span), gains 243–245, the scale 246 and one lane of padding at 247.
+   */
+  table: 172,
+  tableLevels: 172,
+  tableSpans: 183,
+  tableCodes: 188,
+  tableGains: 243,
+  tableScale: 246,
+} as const;
+
+/** The optics uniform's extent in floats: 152 through W41, 248 with W42's 24 vec4s. */
+export const OPTICS_UNIFORM_FLOATS = 248;
+
+/** Write W42's lanes (152–247) of one optics uniform; all 0 where `law` is absent. */
+export function packOpticsBodyLaw(d: Float32Array, law: OpticsBodyLaw | undefined): void {
+  const L = OPTICS_BODY_LAW_LANES;
+  d.fill(0, L.strength, OPTICS_UNIFORM_FLOATS);
+  if (law === undefined || !(law.strength > 0)) return;
+  d[L.strength] = law.strength;
+  d[L.bandPt] = law.bandPt;
+  d.set(law.origin, L.origin);
+  d.set(law.size, L.size);
+  d[L.landedToneStrength] = law.landedToneStrength;
+  d[L.silhouetteAbscissa] = law.silhouetteAbscissa ? 1 : 0;
+  d[L.e3Strength] = law.e3Strength;
+  d[L.e3HighStrength] = law.e3HighStrength;
+  d[L.tableStrength] = law.tableStrength;
+  d.set(law.e3NeutralHigh, L.e3NeutralHigh);
+  d.set(law.tableLevels, L.tableLevels);
+  d.set(law.tableSpans, L.tableSpans);
+  law.tableCodes.forEach((row, k) => d.set(row, L.tableCodes + 11 * k));
+  d.set(law.chromaGains, L.tableGains);
+  d[L.tableScale] = law.chromaScale;
 }
 
 export interface FieldPassArgs {
@@ -255,6 +349,11 @@ export interface OpticsPassArgs {
   readonly bodyE3Strength: number;
   readonly bodyE3Gains: BodyE3Gains;
   readonly bodyE3Neutral: BodyE3Neutral;
+  /**
+   * W42's body law (`OpticsBodyLaw`). Absent is the identity: every lane from 152 is 0 and the
+   * placeholder is bound at 12.
+   */
+  readonly bodyLaw?: OpticsBodyLaw;
   /** W36 black branch: strength and linear thin/thick ordinates, identity-gated. */
   readonly backdropToneBlackStrength: number;
   readonly backdropToneBlackThin: number;
@@ -783,7 +882,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 152);
+      const slot = uniformSlot(`optics:${args.resourceId}`, OPTICS_UNIFORM_FLOATS);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -1007,6 +1106,8 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d.set(args.bodyE3Gains, 141);
       d.set(args.bodyE3Neutral, 144);
       d[151] = 0;
+      // W42 owns twenty-four appended vec4s from 152 (R6's map, `OPTICS_BODY_LAW_LANES`).
+      packOpticsBodyLaw(d, args.bodyLaw);
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -1047,6 +1148,9 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 9, resource: args.fields.presence.createView() },
             { binding: 10, resource: args.localTone ?? placeholderView },
             { binding: 11, resource: heavy2 },
+            // W42's argument texture A, or the placeholder where the law is not handed over;
+            // the shader reads it only where the strength lane is above 0.
+            { binding: 12, resource: args.bodyLaw?.argument ?? placeholderView },
           ],
         }),
       );

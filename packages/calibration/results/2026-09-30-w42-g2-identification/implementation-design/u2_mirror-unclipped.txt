@@ -1,0 +1,48 @@
+W42 G2 step 3, U2: the realisation mirror as the exact planned storage graph (the design review's
+R3), with the on-luma knees' flip fractions (R1). It replaces `narrow_error.py`'s 0.115 / 0.127 as the
+budget and as the shader-against-oracle tolerance (`implementation-design.md` §11).
+
+decimate from 12 device px; 6 interior levels; backdrops all
+
+== canonical backdrops
+knee fmt src      tone          cells | band-weighted max  deep max  band-weighted rms | flip fraction (max over cells)  worst at a flip  max off the flips
+   0 f16  chain16  cand1-landed    192 |             0.231     0.231              0.044 |
+   0 f16  chain16  cand2-table     192 |             0.143     0.143              0.053 |
+   0 f32  chain16  cand1-landed    192 |             0.148     0.148              0.024 |
+   0 f32  chain16  cand2-table     192 |             0.064     0.029              0.017 |
+   1 f16  chain16  cand1-landed    192 |             7.439     7.439              0.472 |                        0.5360            7.439              0.231
+   1 f16  chain16  cand2-table     192 |             7.402     7.402              0.470 |                        0.5360            7.402              0.131
+   1 f32  chain16  cand1-landed    192 |             0.148     0.148              0.024 |                        0.0150            0.008              0.148
+   1 f32  chain16  cand2-table     192 |             0.064     0.029              0.017 |                        0.0150            0.010              0.064
+   2 f16  chain16  cand1-landed    192 |             0.231     0.231              0.044 |                        0.5360            0.057              0.231
+   2 f16  chain16  cand2-table     192 |             0.157     0.157              0.054 |                        0.5360            0.128              0.157
+   2 f32  chain16  cand1-landed    192 |             0.148     0.148              0.024 |                        0.0150            0.002              0.148
+   2 f32  chain16  cand2-table     192 |             0.064     0.029              0.017 |                        0.0150            0.006              0.064
+== family E (isoluminant)
+knee fmt src      tone          cells | band-weighted max  deep max  band-weighted rms | flip fraction (max over cells)  worst at a flip  max off the flips
+   0 f16  chain16  cand1-landed     24 |             0.151     0.151              0.065 |
+   0 f16  chain16  cand2-table      24 |             0.194     0.194              0.076 |
+   0 f16  exact8   cand1-landed     24 |             0.145     0.145              0.057 |
+   0 f16  exact8   cand2-table      24 |             0.187     0.187              0.065 |
+   0 f32  chain16  cand1-landed     24 |             0.022     0.020              0.017 |
+   0 f32  chain16  cand2-table      24 |             0.030     0.024              0.018 |
+   0 f32  exact8   cand1-landed     24 |             0.010     0.007              0.003 |
+   0 f32  exact8   cand2-table      24 |             0.019     0.009              0.003 |
+   1 f16  chain16  cand1-landed     24 |            25.452    25.452              9.237 |                        0.5880           25.452              0.161
+   1 f16  chain16  cand2-table      24 |            38.501    38.440             14.156 |                        0.5880           38.501              0.163
+   1 f16  exact8   cand1-landed     24 |            26.178    26.178             10.796 |                        0.7424           26.178              0.135
+   1 f16  exact8   cand2-table      24 |            38.540    38.514             18.211 |                        0.7424           38.540              0.162
+   1 f32  chain16  cand1-landed     24 |            24.304    24.304             13.078 |                        1.0000           24.304              0.016
+   1 f32  chain16  cand2-table      24 |            35.613    35.574             19.505 |                        1.0000           35.613              0.032
+   1 f32  exact8   cand1-landed     24 |             0.094     0.094              0.006 |                        0.0360            0.094              0.009
+   1 f32  exact8   cand2-table      24 |             0.265     0.265              0.015 |                        0.0360            0.265              0.020
+   2 f16  chain16  cand1-landed     24 |             0.177     0.177              0.069 |                        0.5880            0.177              0.174
+   2 f16  chain16  cand2-table      24 |             0.195     0.195              0.079 |                        0.5880            0.195              0.191
+   2 f16  exact8   cand1-landed     24 |             0.195     0.195              0.058 |                        0.7424            0.176              0.195
+   2 f16  exact8   cand2-table      24 |             0.194     0.194              0.067 |                        0.7424            0.175              0.194
+   2 f32  chain16  cand1-landed     24 |             0.020     0.020              0.016 |                        1.0000            0.020              0.015
+   2 f32  chain16  cand2-table      24 |             0.022     0.022              0.018 |                        1.0000            0.022              0.016
+   2 f32  exact8   cand1-landed     24 |             0.008     0.008              0.004 |                        0.0360            0.001              0.008
+   2 f32  exact8   cand2-table      24 |             0.008     0.008              0.004 |                        0.0360            0.001              0.008
+
+cells 216, run time 647 s

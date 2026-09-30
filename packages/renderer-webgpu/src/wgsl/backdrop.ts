@@ -50,7 +50,7 @@
 export const WGSL_IMPORT_PASS = `struct ImportUniforms {
   m0     : vec4f,   // colour matrix row 0 (xyz), srcEncoded (w)
   m1     : vec4f,   // row 1 (xyz), alphaMode (w)
-  m2     : vec4f,   // row 2 (xyz), unused (w)
+  m2     : vec4f,   // row 2 (xyz); w unused here, fs_import_encoded's passthrough (W42)
   fit    : vec4f,   // uv scale (xy), uv offset (zw) — the source's fit into the target
 };
 
@@ -90,6 +90,59 @@ fn fs_import(in : FullscreenOut) -> @location(0) vec4f {
   colour = vec3f(dot(iu.m0.xyz, colour), dot(iu.m1.xyz, colour), dot(iu.m2.xyz, colour));
 
   return vec4f(max(colour, vec3f(0.0)) * alpha, alpha);
+}`;
+
+/**
+ * **W42's encoded level-0 companion** (G2 `implementation-design.md` §12 item 4): the import's
+ * second entry point, taken only where a group sampling this source runs the body law.
+ *
+ * Target 0 is the chain's level 0 by the same arithmetic as 'fs_import', line for line, so the
+ * chain a law group reads is the chain every other group reads. Target 1 is the source's colour
+ * ENCODED, un-premultiplied and premultiplied again by its alpha, (enc·α, α), in rgba32float: the
+ * law averages in encoded sRGB (declaration 'law'), and its luma knee decides on a luma contrast
+ * a fifth of the rgba16float linear chain's re-encoding error (§11.1, R1), so the capture reads the
+ * source here rather than off the chain.
+ *
+ * 'm2.w' (unused by 'fs_import') is the passthrough the CPU resolves: 1 for an encoded source
+ * with sRGB primaries, whose encoded colour is the sampled value itself, clamped as the chain's
+ * decode clamps it. That is the 8-bit value exactly at a texel centre. Any other source is decoded,
+ * converted and re-encoded in f32.
+ */
+export const WGSL_IMPORT_ENCODED_ENTRY = `struct ImportTargets {
+  @location(0) chain   : vec4f,
+  @location(1) encoded : vec4f,
+};
+
+@fragment
+fn fs_import_encoded(in : FullscreenOut) -> ImportTargets {
+  let uv = in.uv * iu.fit.xy + iu.fit.zw;
+  var raw = sample_src(clamp(uv, vec2f(0.0), vec2f(1.0)));
+
+  let alphaMode = iu.m1.w;
+  var alpha = raw.a;
+  var colour = raw.rgb;
+
+  if (alphaMode > 1.5) {
+    alpha = 1.0;
+  } else if (alphaMode > 0.5) {
+    // Already unpremultiplied: nothing to undo.
+  } else {
+    colour = colour / max(alpha, 1e-6);
+  }
+  let straight = colour;
+
+  if (iu.m0.w > 0.5) {
+    colour = srgb_to_linear(clamp(colour, vec3f(0.0), vec3f(1.0)));
+  }
+
+  colour = vec3f(dot(iu.m0.xyz, colour), dot(iu.m1.xyz, colour), dot(iu.m2.xyz, colour));
+
+  var encoded = linear_to_srgb(max(colour, vec3f(0.0)));
+  if (iu.m2.w > 0.5) { encoded = clamp(straight, vec3f(0.0), vec3f(1.0)); }
+  var out : ImportTargets;
+  out.chain = vec4f(max(colour, vec3f(0.0)) * alpha, alpha);
+  out.encoded = vec4f(encoded * alpha, alpha);
+  return out;
 }`;
 
 /** `SRC_TEXTURE_TYPE`/`SRC_SAMPLE_EXPR` per source kind. */

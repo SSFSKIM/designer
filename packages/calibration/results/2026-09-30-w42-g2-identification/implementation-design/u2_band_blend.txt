@@ -1,0 +1,13 @@
+W42 G2 step 3, U2: the band blend's order (the design review's R4).
+
+order against the rehearsal, codes, over the band (0 < depth < 20 pt) of every active cell read:
+  tinted (80 cell-candidates): encoded-before-tint max 28.1365 (p99 26.0374); linear-before-tint max 28.404 (p99 21.279)
+  untinted (8 cell-candidates): encoded-before-tint max 0.0000 (p99 0.0000); linear-before-tint max 2.350 (p99 2.212)
+  the five worst cells for the encoded order:
+    apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard-64__capsule-button__rest-tint-orange r3-2pgb: 28.1365 (tint fit rms 0.2586772882443748)
+    apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard-32__capsule-button__rest-tint-orange r3-1pnb: 27.0708 (tint fit rms 0.26469566190626787)
+    apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard-64__capsule-button__rest-tint-orange r3-1pnb: 27.0697 (tint fit rms 0.2586772882443748)
+    apple-macos-27.0-1x-dark-standard-glass0.5 checkerboard-32__capsule-button__rest-tint-orange r3-1pnb: 26.9828 (tint fit rms 0.2753367841557043)
+    apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard-4__capsule-button__rest-tint-orange r3-1pnb: 26.9684 (tint fit rms 0.2647924565268828)
+
+run time 435 s

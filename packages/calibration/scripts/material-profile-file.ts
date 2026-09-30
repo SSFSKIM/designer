@@ -11,7 +11,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { relative } from "node:path";
-import { validateBodyE3Patch } from "@vitrea/renderer-webgpu";
+import { validateBodyE3Patch, validateBodyLawPatch } from "@vitrea/renderer-webgpu";
 
 /**
  * Every top-level key a `MaterialProfilePatch` may carry.
@@ -161,6 +161,27 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "bodyE3Strength",
   "bodyE3Gains",
   "bodyE3Neutral",
+  // W42's law, D1, D2, the F extension and candidate 2's tone (G2's implementation-design.md
+  // §1): every key a candidate document names, admitted with the renderer's own validation below,
+  // so a document that turns the law on is measured with it rather than refused or ignored.
+  "bodyLawStrength",
+  "bodyLawK",
+  "bodyLawLambda",
+  "bodyLawNormal",
+  "bodyLawHinge",
+  "bodyLawPose",
+  "bodyLawKnee",
+  "bodyLawEdgeSwap",
+  "bodyLawWidthUnit",
+  "bodyLawEncodedAveraging",
+  "bodyE3HighStrength",
+  "bodyE3NeutralHigh",
+  "bodyToneTableStrength",
+  "bodyToneTableLevels",
+  "bodyToneTableSpans",
+  "bodyToneTableCodes",
+  "bodyToneChromaGains",
+  "bodyToneChromaScale",
   // The rim that survives the collapse (W23): a profile-level constant, because
   // the collapsed appearance is one appearance in both schemes (the reference's
   // light and dark fixtures of the collapsed cells are byte-identical).
@@ -340,6 +361,7 @@ export function readMaterialProfileFile(path: string): MaterialProfileSections {
   reject("the renderer's MaterialProfilePatch", Object.keys(patch), MATERIAL_PATCH_KEYS);
   // Share the scalar/whole-tuple contract with the renderer instead of drifting ranges.
   validateBodyE3Patch(patch);
+  validateBodyLawPatch(patch);
   // A locality descriptor is a tagged branch, not an open numeric patch. Refuse
   // an unrecognised scale instead of recording a parameter the renderer ignores.
   if ("backdropToneAbscissa" in patch) {

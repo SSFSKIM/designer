@@ -127,6 +127,23 @@ import {
   tintToneAdaptation as cssTierTintToneAdaptation,
   validateBackdropToneAbscissa,
   macos27MaterialProfileDocument,
+  mergeMaterialProfiles,
+  // W42's body law on this tier (G2's implementation-design §5; U5).
+  CSS_BODY_LAW_DECLARED,
+  CSS_BODY_LAW_IDENTITY,
+  cssBodyChromaRetentionUnderPolicy,
+  cssBodyE3NeutralCodes,
+  cssBodyLawCaptureTexelDevicePx,
+  cssBodyLawE3StrengthUnderLaw,
+  cssBodyLawGain,
+  cssBodyLawOpacity,
+  cssBodyLawSizeT,
+  cssBodyLawStrengthUnderPolicy,
+  cssBodyLawUnitDevicePx,
+  cssBodyToneTableNeutralCodes,
+  cssLandedToneInputs,
+  cssLandedToneLinear,
+  resolvedBodyLaw,
 } from "@vitreajs/vitrea-web";
 import {
   DEFAULT_MATERIAL_PROFILE,
@@ -176,6 +193,16 @@ import {
   tintShadeLayer as rendererTintShadeLayer,
   tintToneAdaptation as rendererTintToneAdaptation,
   withMaterialOverrides,
+  BODY_LAW_DECLARED,
+  bodyLawCaptureTexelDevicePx,
+  bodyLawE3Codes,
+  bodyLawE3StrengthUnderLaw,
+  bodyLawOpacity,
+  bodyLawSizeT,
+  bodyLawStrengthUnderPolicy,
+  bodyLawUnitDevicePx,
+  bodyToneTableCodesAt,
+  landedToneLinear,
   type MaterialProfile,
 } from "@vitrea/renderer-webgpu";
 import { loadCurrentRows } from "../src/matrix-store";
@@ -3189,12 +3216,38 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   // floor, blur/fallback-floor geometry, nonuniform backdrops, policy,
   // intermediate presence and author tint all remain unvalidated. This is a
   // scoped measurement, not a production-parity or blanket E3-decline claim.
-  bodyE3Strength: "none: step 9 measured a standalone CSS BODY projection (112dbc63; claims " +
-    "§5.192.18), not adopted as a production counterpart; runtime CSS is unchanged.",
-  bodyE3Gains: "none: as `bodyE3Strength` — the measured standalone projection carries no " +
-    "pixel-local encoded-luma gain wired into production CSS.",
-  bodyE3Neutral: "none: as `bodyE3Strength` — the measured projection's neutral ordinates are " +
-    "not an adopted CSS counterpart.",
+  //
+  // W42 G2 step 3, U5 (implementation-design.md §5; the case "W42's body law on the CSS tier"
+  // below): E3's three leaves are now READ on this tier, and only on the law's path — candidate
+  // 1's light receded tone is E3 under the law (Fork 6), so the law's filter carries F and g as
+  // tables. They cite the mirror for that reason. E3's own lawless path still has no CSS
+  // counterpart: with the law at 0, which every document holds, runtime CSS draws nothing of it.
+  bodyE3Strength: "CSS_BODY_LAW_IDENTITY",
+  bodyE3Gains: "CSS_BODY_LAW_IDENTITY",
+  bodyE3Neutral: "CSS_BODY_LAW_IDENTITY",
+  // W42's eighteen leaves: mirrored by name in `CSS_BODY_LAW_IDENTITY`, resolved by
+  // `resolvedBodyLaw`, and derived into one reference filter by `cssTierBodyLaw` and
+  // `cssTierBodyLawFilter`. Every one sits behind a gate that ships at its identity, and the
+  // engine row `bodyLawFilterInBackdrop` is "unverified" everywhere, so this tier draws the
+  // shipped body whatever they hold until Decision Log 4's measurement.
+  bodyLawStrength: "CSS_BODY_LAW_IDENTITY",
+  bodyLawK: "CSS_BODY_LAW_IDENTITY",
+  bodyLawLambda: "CSS_BODY_LAW_IDENTITY",
+  bodyLawNormal: "CSS_BODY_LAW_IDENTITY",
+  bodyLawHinge: "CSS_BODY_LAW_IDENTITY",
+  bodyLawPose: "CSS_BODY_LAW_IDENTITY",
+  bodyLawKnee: "CSS_BODY_LAW_IDENTITY",
+  bodyLawEdgeSwap: "CSS_BODY_LAW_IDENTITY",
+  bodyLawWidthUnit: "CSS_BODY_LAW_IDENTITY",
+  bodyLawEncodedAveraging: "CSS_BODY_LAW_IDENTITY",
+  bodyE3HighStrength: "CSS_BODY_LAW_IDENTITY",
+  bodyE3NeutralHigh: "CSS_BODY_LAW_IDENTITY",
+  bodyToneTableStrength: "CSS_BODY_LAW_IDENTITY",
+  bodyToneTableLevels: "CSS_BODY_LAW_IDENTITY",
+  bodyToneTableSpans: "CSS_BODY_LAW_IDENTITY",
+  bodyToneTableCodes: "CSS_BODY_LAW_IDENTITY",
+  bodyToneChromaGains: "CSS_BODY_LAW_IDENTITY",
+  bodyToneChromaScale: "CSS_BODY_LAW_IDENTITY",
 
   /*
    * The four OPTIONAL keys, which no bed above reaches because the default does
@@ -3268,6 +3321,14 @@ describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () =>
         // per-quality scalars and the others are numbers, and a deep equality
         // covers both without the table having to say which is which.
         expect((MATERIAL_SOURCE_SIZE as unknown as Record<string, unknown>)[key], key).toStrictEqual(
+          (DEFAULT_MATERIAL_PROFILE as unknown as Record<string, unknown>)[key],
+        );
+        compared += 1;
+      }
+    }
+    for (const [key, where] of Object.entries(CSS_COUNTERPART)) {
+      if (where === "CSS_BODY_LAW_IDENTITY") {
+        expect((CSS_BODY_LAW_IDENTITY as unknown as Record<string, unknown>)[key], key).toStrictEqual(
           (DEFAULT_MATERIAL_PROFILE as unknown as Record<string, unknown>)[key],
         );
         compared += 1;
@@ -3398,4 +3459,202 @@ it("W36's black branch derives the same target on both tiers, including its rejo
       }
     }
   }
+});
+
+describe("W42's body law on the CSS tier (G2's implementation-design §1, §4, §5; U5)", () => {
+  /*
+   * The CSS tier derives the law's reference filter from the same leaves the renderer reads
+   * (`cssTierBodyLaw`), through mirrors of the renderer's own pieces: the declared constants,
+   * the opacity law, the capture texel, the width unit, the fold, E3's and candidate 2's curves
+   * and gains, and the landed solve. Each is pinned here to the function it restates; what the
+   * filter then does with them is `w42-css-filter-algebra.test.ts`'s.
+   */
+  const endpoints = [
+    ["default", undefined],
+    ["macOS 27 active light", macos27MaterialProfileDocument.active.light.patch],
+    ["macOS 27 active dark", macos27MaterialProfileDocument.active.dark.patch],
+    // The receded documents are differences over their scheme's ACTIVE endpoint, composed as a
+    // root composes them (`root.ts` `posedProfile`).
+    ["macOS 27 receded light", mergeMaterialProfiles(macos27MaterialProfileDocument.active.light.patch,
+      macos27MaterialProfileDocument.receded?.light.patch)],
+    ["macOS 27 receded dark", mergeMaterialProfiles(macos27MaterialProfileDocument.active.dark.patch,
+      macos27MaterialProfileDocument.receded?.dark.patch)],
+  ] as const;
+
+  it("restates the declared constants its derivation reads", () => {
+    for (const [key, value] of Object.entries(CSS_BODY_LAW_DECLARED)) {
+      expect(value, key).toStrictEqual((BODY_LAW_DECLARED as Record<string, unknown>)[key]);
+    }
+  });
+
+  it("evaluates t, o, the capture texel and the width unit as the renderer does", () => {
+    for (const span of [24, 44, 64, 80, 96, 112, 128, 160, 200, 320]) {
+      expect(cssBodyLawSizeT(span), `t at ${span}`).toBe(bodyLawSizeT(span));
+      for (const depth of [-200, -80, -span / 2, -20, -1, -0.5, 0, 0.5, 3]) {
+        for (const receded of [false, true]) {
+          expect(cssBodyLawOpacity(depth, span, receded)).toBe(bodyLawOpacity(depth, span, receded));
+        }
+      }
+    }
+    for (const [w, h] of [[44, 44], [280, 160], [279, 160], [280, 159], [400, 200]] as const) {
+      expect(cssBodyLawCaptureTexelDevicePx(w, h)).toBe(bodyLawCaptureTexelDevicePx(w, h));
+    }
+    for (const unit of [0, 1, 2]) {
+      for (const dpr of [1, 2, 3]) {
+        for (const texel of [2, 4]) {
+          expect(cssBodyLawUnitDevicePx(unit, dpr, texel)).toBe(bodyLawUnitDevicePx(unit, dpr, texel));
+        }
+      }
+    }
+    expect(() => cssBodyLawUnitDevicePx(3, 1, 2)).toThrow(RangeError);
+  });
+
+  it("folds the law's strength under every policy and variant exactly as the renderer does", () => {
+    let cases = 0;
+    for (const reducedTransparency of [false, true]) {
+      for (const increasedContrast of [false, true]) {
+        for (const forcedColors of [false, true]) {
+          for (const reducedMotion of [false, true]) {
+            const policy = resolveAccessibilityPolicy({
+              reducedTransparency, increasedContrast, forcedColors, reducedMotion,
+              reducedTransparencySupported: true,
+            }).material;
+            for (const variant of MATERIAL_VARIANTS) {
+              for (const sampled of [false, true]) {
+                for (const strength of [0, 0.5, 1]) {
+                  const folded = cssBodyLawStrengthUnderPolicy(strength, policy, variant, sampled);
+                  expect(folded).toBe(bodyLawStrengthUnderPolicy(strength, policy, variant, sampled));
+                  for (const e3 of [0, 0.4, 1]) {
+                    expect(cssBodyLawE3StrengthUnderLaw(e3, folded))
+                      .toBe(bodyLawE3StrengthUnderLaw(e3, folded));
+                  }
+                  cases += 1;
+                }
+              }
+            }
+            // The retention's own fold, which the landed tone reads: the occlusion axis alone.
+            expect(cssBodyChromaRetentionUnderPolicy(0.3, policy))
+              .toBe(policy.occlusion === "nominal" ? 0.3 : 0);
+          }
+        }
+      }
+    }
+    expect(cases).toBeGreaterThan(100);
+  });
+
+  it("resolves every shipped endpoint at the identity, and refuses what the renderer refuses", () => {
+    for (const [name, patch] of endpoints) {
+      expect(resolvedBodyLaw(patch), name).toStrictEqual(CSS_BODY_LAW_IDENTITY);
+    }
+    const tuned = {
+      bodyLawStrength: 1, bodyLawK: [1.9, 2.3], bodyLawLambda: 1.4, bodyLawNormal: 0.25,
+      bodyLawHinge: -1, bodyLawPose: 1, bodyLawKnee: 2, bodyLawEdgeSwap: 1, bodyLawWidthUnit: 2,
+      bodyLawEncodedAveraging: 1, bodyE3Strength: 1, bodyE3Gains: [1.1, 0.9, 1.3],
+      bodyE3Neutral: [30, 50, 70, 90, 110, 140, 165], bodyE3HighStrength: 0.5,
+      bodyE3NeutralHigh: [170, 185, 200, 214, 228, 242, 252], bodyToneTableStrength: 1,
+      bodyToneTableLevels: [0, 60, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+      bodyToneTableSpans: [60, 80, 96, 128, 170],
+      bodyToneChromaGains: [0.7, 1, 1.4], bodyToneChromaScale: 2.5,
+    } as const;
+    const css = resolvedBodyLaw(tuned) as unknown as Record<string, unknown>;
+    const renderer = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, tuned) as unknown as
+      Record<string, unknown>;
+    for (const key of Object.keys(CSS_BODY_LAW_IDENTITY)) {
+      expect(css[key], key).toStrictEqual(renderer[key]);
+    }
+    const malformed: readonly Record<string, unknown>[] = [
+      { bodyLawStrength: 1.5 }, { bodyLawStrength: Number.NaN }, { bodyLawLambda: 1.7 },
+      { bodyLawLambda: -0.6 }, { bodyLawNormal: -0.1 }, { bodyLawHinge: 0 }, { bodyLawPose: 2 },
+      { bodyLawKnee: 3 }, { bodyLawEdgeSwap: 0.5 }, { bodyLawWidthUnit: 3 },
+      { bodyLawEncodedAveraging: 2 }, { bodyLawK: [2] }, { bodyLawK: [2, 5] },
+      { bodyE3Strength: 2 }, { bodyE3Gains: [1, 1] }, { bodyE3Neutral: [1, 2, 3, 4, 5, 6, 300] },
+      { bodyE3HighStrength: -1 }, { bodyE3NeutralHigh: [1, 2, 3] },
+      { bodyToneTableLevels: [0, 64, 64, 128, 160, 176, 192, 208, 224, 240, 255] },
+      { bodyToneTableSpans: [64, 80, 96, 128] }, { bodyToneTableCodes: [[0]] },
+      { bodyToneChromaGains: [1, 1, 4] }, { bodyToneChromaScale: 3.5 },
+    ];
+    for (const patch of malformed) {
+      expect(() => resolvedBodyLaw(patch as never), JSON.stringify(patch)).toThrow(TypeError);
+      expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch as never),
+        JSON.stringify(patch)).toThrow(TypeError);
+    }
+  });
+
+  it("decomposes E3's and candidate 2's codes into the curve and gain the filter's tables carry", () => {
+    const tuned = {
+      bodyE3Strength: 1, bodyE3Gains: [1.2, 0.9, 1.4],
+      bodyE3Neutral: [30, 50, 70, 90, 110, 140, 165], bodyE3HighStrength: 0.7,
+      bodyE3NeutralHigh: [170, 185, 200, 214, 228, 242, 252], bodyToneTableStrength: 1,
+      bodyToneTableCodes: [
+        [0, 70, 101, 131, 161, 177, 192, 207, 222, 238, 254],
+        [0, 68, 99, 130, 160, 176, 191, 207, 223, 239, 255],
+        [2, 66, 97, 128, 159, 175, 191, 206, 222, 238, 253],
+        [3, 64, 95, 126, 158, 174, 190, 206, 221, 237, 252],
+        [4, 62, 94, 125, 157, 173, 189, 205, 221, 236, 251],
+      ],
+      bodyToneChromaGains: [0.8, 1.2, 1.5], bodyToneChromaScale: 1.3,
+    } as const;
+    const leaves = resolvedBodyLaw(tuned);
+    const material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, tuned);
+    let state = 17;
+    const next = (): number => {
+      state = (state * 1103515245 + 12345) % 2147483648;
+      return state / 2147483648;
+    };
+    for (let i = 0; i < 500; i++) {
+      const A = [next() * 255, next() * 255, next() * 255] as const;
+      const level = 0.2126 * A[0] + 0.7152 * A[1] + 0.0722 * A[2];
+      const gainLevel = next() * 255;
+      const span = 40 + next() * 160;
+      const e3 = bodyLawE3Codes(A, gainLevel, material);
+      const t2 = bodyToneTableCodesAt(A, span, material);
+      const f3 = cssBodyE3NeutralCodes(level, leaves);
+      const g3 = cssBodyLawGain(gainLevel, leaves.bodyE3Gains);
+      const f2 = cssBodyToneTableNeutralCodes(level, span, leaves);
+      const g2 = leaves.bodyToneChromaScale * cssBodyLawGain(level, leaves.bodyToneChromaGains);
+      for (let c = 0; c < 3; c++) {
+        expect(Math.min(255, Math.max(0, f3 + g3 * (A[c]! - level)))).toBeCloseTo(e3[c]!, 10);
+        expect(Math.min(255, Math.max(0, f2 + g2 * (A[c]! - level)))).toBeCloseTo(t2[c]!, 10);
+      }
+    }
+  });
+
+  it("re-executes the landed solve per pixel exactly as the renderer's CPU reference", () => {
+    const abscissae = new Set<string>();
+    let worst = 0;
+    let where = "";
+    for (const [name, patch] of endpoints) {
+      const material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch ?? {});
+      const response = resolvedBackdropToneResponse(patch);
+      for (const span of [44, 96, 160]) {
+        for (const dpr of [1, 2]) {
+          const inputs = cssLandedToneInputs(patch, "regular", span,
+            NOMINAL_ACCESSIBILITY_POLICY.material, dpr);
+          abscissae.add(inputs.abscissa);
+          // 0.0005 to 0.0029 are inside W36's open interval below the black join, where both
+          // copies bridge (candidate1-black-join-addendum.md).
+          const steps = [0, 0.0005, 0.001, 0.002, 0.0029, 0.02, 0.1, 0.35, 0.6, 0.85, 1];
+          for (const r of steps) {
+            for (const g of steps) {
+              for (const b of [0, 0.3, 1]) {
+                const css = cssLandedToneLinear([r, g, b], inputs, response);
+                const renderer = landedToneLinear([r, g, b], inputs, material);
+                for (let c = 0; c < 3; c++) {
+                  const difference = Math.abs(css[c]! - renderer[c]!);
+                  if (!(difference <= worst)) {
+                    worst = difference;
+                    where = `${name} span ${String(span)} dpr ${String(dpr)} (${String(r)}, ` +
+                      `${String(g)}, ${String(b)})`;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    expect(worst, where).toBeLessThan(1e-12);
+    // Both abscissa kinds are read: the active documents' source mean, the receded silhouette.
+    expect([...abscissae].sort()).toEqual(["silhouette", "source"]);
+  });
 });

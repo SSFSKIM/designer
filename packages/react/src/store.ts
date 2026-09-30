@@ -54,7 +54,9 @@ export interface GlassRootStore {
  * root from its active endpoint to its receded one, the readout is supposed to
  * say so, and it went on naming the active document because nothing here saw
  * the change. A readout that cannot report the axis it exists to report is worse
- * than no readout.
+ * than no readout. W42 added two more platform folds, the body law's readout on
+ * each tier (`bodyLaw`, `cssBodyLaw`), and they are compared here on the same rule.
+ * `backdropToneAbscissae` is the one field still left out.
  */
 const sameState = (a: GlassGroupState | undefined, b: GlassGroupState | undefined): boolean => {
   if (a === undefined || b === undefined) return a === b;
@@ -67,8 +69,10 @@ const sameState = (a: GlassGroupState | undefined, b: GlassGroupState | undefine
     a.health === b.health &&
     a.demotionReason === b.demotionReason &&
     a.cssBody === b.cssBody &&
+    a.cssBodyLaw === b.cssBodyLaw &&
     a.cssTint === b.cssTint &&
     a.cssShadow === b.cssShadow &&
+    a.bodyLaw === b.bodyLaw &&
     sameMaterialDocument(a.materialDocument, b.materialDocument)
   );
 };

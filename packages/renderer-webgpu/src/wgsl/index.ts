@@ -10,8 +10,14 @@
  */
 
 import { WGSL_ANALYSIS_PASS } from "./analysis";
+import {
+  bodyLawBlurSource,
+  WGSL_BODY_LAW_CAPTURE,
+  WGSL_BODY_LAW_COMPOSITE,
+  WGSL_BODY_LAW_DECIMATE,
+} from "./body-law";
 import { WGSL_CROSS_CHECK_PASS } from "./cross-check";
-import { importPassSource, WGSL_DOWNSAMPLE_PASS } from "./backdrop";
+import { importPassSource, WGSL_DOWNSAMPLE_PASS, WGSL_IMPORT_ENCODED_ENTRY } from "./backdrop";
 import { fieldPassSource, WGSL_FIELD_KERNELS } from "./field";
 import { WGSL_HIGHLIGHT_PASS } from "./highlight";
 import { WGSL_OPTICS_PASS } from "./optics";
@@ -19,6 +25,7 @@ import { WGSL_PRELUDE } from "./prelude";
 import { silhouetteFieldModule, silhouetteReductionModule } from "./silhouette-tone";
 
 export * from "./analysis";
+export * from "./body-law";
 export * from "./cross-check";
 export * from "./backdrop";
 export * from "./field";
@@ -35,9 +42,20 @@ export const fieldModule = (family: FieldFamily): string => withPrelude(fieldPas
 export const importModule = (kind: "sampled" | "external"): string =>
   withPrelude(importPassSource(kind));
 
+/** The import with W42's encoded level-0 companion (`WGSL_IMPORT_ENCODED_ENTRY`). */
+export const importEncodedModule = (kind: "sampled" | "external"): string =>
+  withPrelude(`${importPassSource(kind)}\n\n${WGSL_IMPORT_ENCODED_ENTRY}`);
+
 export const chainModule = (): string => withPrelude(WGSL_DOWNSAMPLE_PASS);
 
 export const analysisModule = (): string => withPrelude(WGSL_ANALYSIS_PASS);
+
+/** W42's body-law stage (`wgsl/body-law.ts`, `body-law-pass.ts`). */
+export const bodyLawCaptureModule = (): string => withPrelude(WGSL_BODY_LAW_CAPTURE);
+export const bodyLawBlurModule = (targets: 1 | 2): string =>
+  withPrelude(bodyLawBlurSource(targets));
+export const bodyLawDecimateModule = (): string => withPrelude(WGSL_BODY_LAW_DECIMATE);
+export const bodyLawCompositeModule = (): string => withPrelude(WGSL_BODY_LAW_COMPOSITE);
 
 export const opticsModule = (): string => withPrelude(WGSL_OPTICS_PASS);
 
@@ -74,5 +92,11 @@ export function allShaderSource(): string {
     silhouetteFieldModule("rsup"),
     WGSL_OPTICS_PASS,
     WGSL_HIGHLIGHT_PASS,
+    WGSL_IMPORT_ENCODED_ENTRY,
+    WGSL_BODY_LAW_CAPTURE,
+    bodyLawBlurSource(1),
+    bodyLawBlurSource(2),
+    WGSL_BODY_LAW_DECIMATE,
+    WGSL_BODY_LAW_COMPOSITE,
   ].join("\n\n");
 }

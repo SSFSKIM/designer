@@ -1,0 +1,75 @@
+W42 G2 step 3, the implementation design: how far the WebGPU realisation of LT's two blurred terms
+can sit from the EXACT Gaussians the law declares (charter Design, "The law"; the declaration's item
+`law`; the instrument's `forward.py` is the oracle the shader must reproduce).
+
+pose     strategy  f16   sigma_q  cells | C deep max  C deep rms(worst)  C band-weighted max | y deep max  y band-weighted max
+active   lin-2    False   never    96 |     17.538              6.475               17.538 |      4.341               4.341
+active   lin-2    False      12    48 |     17.538              6.475               17.538 |      3.823               3.823
+active   lin-2    False       6    48 |     17.535              6.474               17.535 |      3.822               3.822
+active   lin-2    False       4    48 |     17.480              6.459               17.480 |      3.810               3.810
+active   lin-2    True    never    48 |     17.543              6.477               17.543 |      3.824               3.824
+active   lin-2    True        6    96 |     17.543              6.476               17.543 |      4.341               4.341
+active   lin-3    False   never    96 |      3.312              1.230                5.622 |      0.850               1.365
+active   lin-3    False      12    48 |      3.133              1.224                5.191 |      0.671               1.135
+active   lin-3    False       6    48 |      3.112              1.212                5.179 |      0.666               1.132
+active   lin-3    False       4    48 |      3.112              1.212                5.143 |      0.666               1.125
+active   lin-3    True    never    48 |      3.135              1.223                5.201 |      0.669               1.137
+active   lin-3    True        6    96 |      3.296              1.219                5.575 |      0.845               1.365
+active   lin-4    False   never    96 |      2.036              0.594                2.248 |      0.491               0.510
+active   lin-4    False      12    48 |      2.036              0.577                2.248 |      0.445               0.510
+active   lin-4    False       6    48 |      2.003              0.572                2.222 |      0.438               0.501
+active   lin-4    False       4    48 |      2.003              0.569                2.222 |      0.438               0.501
+active   lin-4    True    never    48 |      2.026              0.576                2.239 |      0.443               0.508
+active   lin-4    True        6    96 |      1.992              0.579                2.239 |      0.484               0.508
+active   lin-6    False   never    96 |      0.734              0.209                0.922 |      0.177               0.208
+active   lin-6    False      12    48 |      0.734              0.205                0.874 |      0.160               0.191
+active   lin-6    False       6    48 |      0.704              0.205                0.834 |      0.154               0.182
+active   lin-6    False       4    48 |      0.704              0.222                0.834 |      0.154               0.182
+active   lin-6    True    never    48 |      0.745              0.205                0.856 |      0.156               0.187
+active   lin-6    True        6    96 |      0.713              0.207                0.892 |      0.167               0.221
+active   lin-8    False   never    96 |      0.373              0.107                0.419 |      0.090               0.104
+active   lin-8    False      12    48 |      0.373              0.101                0.411 |      0.082               0.098
+active   lin-8    False       6    48 |      0.344              0.101                0.379 |      0.075               0.090
+active   lin-8    False       4    48 |      0.473              0.227                0.473 |      0.103               0.103
+active   lin-8    True    never    48 |      0.370              0.107                0.410 |      0.076               0.107
+active   lin-8    True        6    96 |      0.365              0.106                0.419 |      0.085               0.107
+active   mip      False   never    96 |     62.169             25.188               62.169 |     13.188              13.188
+active   sepvar   False   never    96 |      4.339              1.788                4.339 |      1.071               1.071
+active   var-2    False   never    96 |     22.948              8.761               22.948 |      5.546               5.546
+active   var-2    False      12    48 |     22.948              8.596               22.948 |      5.006               5.006
+active   var-2    False       6    48 |     22.946              8.595               22.946 |      5.006               5.006
+active   var-2    False       4    48 |     22.882              8.577               22.882 |      4.992               4.992
+active   var-2    True    never    48 |     22.957              8.598               22.957 |      5.005               5.005
+active   var-2    True        6    96 |     22.957              8.752               22.957 |      5.546               5.546
+active   var-3    False   never    96 |      4.399              1.609                7.797 |      1.129               1.888
+active   var-3    False      12    48 |      4.330              1.609                7.526 |      0.927               1.645
+active   var-3    False       6    48 |      4.307              1.597                7.515 |      0.922               1.643
+active   var-3    False       4    48 |      4.307              1.597                7.474 |      0.922               1.634
+active   var-3    True    never    48 |      4.330              1.608                7.534 |      0.925               1.647
+active   var-3    True        6    96 |      4.382              1.594                7.751 |      1.123               1.888
+active   var-4    False   never    96 |      2.575              0.832                2.964 |      0.604               0.735
+active   var-4    False      12    48 |      2.575              0.797                2.872 |      0.563               0.673
+active   var-4    False       6    48 |      2.542              0.790                2.832 |      0.556               0.663
+active   var-4    False       4    48 |      2.542              0.790                2.832 |      0.556               0.663
+active   var-4    True    never    48 |      2.568              0.807                2.885 |      0.561               0.670
+active   var-4    True        6    96 |      2.530              0.819                2.952 |      0.598               0.732
+active   var-6    False   never    96 |      0.926              0.288                1.226 |      0.217               0.277
+active   var-6    False      12    48 |      0.926              0.278                1.210 |      0.202               0.265
+active   var-6    False       6    48 |      0.895              0.278                1.169 |      0.196               0.256
+active   var-6    False       4    48 |      0.895              0.282                1.169 |      0.196               0.256
+active   var-6    True    never    48 |      0.937              0.278                1.191 |      0.198               0.260
+active   var-6    True        6    96 |      0.903              0.279                1.198 |      0.207               0.279
+active   var-8    False   never    96 |      0.471              0.150                0.587 |      0.110               0.146
+active   var-8    False      12    48 |      0.471              0.142                0.560 |      0.103               0.124
+active   var-8    False       6    48 |      0.441              0.138                0.529 |      0.097               0.116
+active   var-8    False       4    48 |      0.441              0.199                0.529 |      0.097               0.116
+active   var-8    True    never    48 |      0.466              0.150                0.582 |      0.096               0.133
+active   var-8    True        6    96 |      0.453              0.143                0.577 |      0.105               0.138
+receded  one-level False  never    72 | C deep max 0.000, C body max 0.000, W body max 0.000 | y deep max 0.000, y body max 0.000, y body rms 0.000
+receded  one-level False     12    36 | C deep max 0.056, C body max 0.059, W body max 0.060 | y deep max 0.026, y body max 0.026, y body rms 0.015
+receded  one-level False      6    36 | C deep max 0.201, C body max 0.257, W body max 0.060 | y deep max 0.049, y body max 0.055, y body rms 0.015
+receded  one-level False      4    36 | C deep max 0.679, C body max 1.057, W body max 0.060 | y deep max 0.125, y body max 0.251, y body rms 0.057
+receded  one-level True   never    36 | C deep max 0.069, C body max 0.069, W body max 0.069 | y deep max 0.032, y body max 0.032, y body rms 0.014
+receded  one-level True       6    72 | C deep max 0.252, C body max 0.282, W body max 0.119 | y deep max 0.080, y body max 0.096, y body rms 0.031
+
+run time 782 s

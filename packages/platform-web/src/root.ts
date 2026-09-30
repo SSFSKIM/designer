@@ -104,7 +104,7 @@ import {
   destroyCssTierLayers,
   ensureCssTierContainingBlock,
   filteredAreaDevicePx,
-  referenceFilterSpecs,
+  cssTierFilterSpecs,
   type CssTierFilterSpec,
   type CssTierGroupShadow,
   type CssTierLayers,
@@ -167,6 +167,7 @@ import {
   opticsUnderPolicy,
   outerShadowSigmaPx,
   resolvedBackdropToneResponse,
+  resolvedBodyLaw,
   validateBackdropToneAbscissa,
   resolvedRimTintChroma,
   resolvedPolicyFold,
@@ -867,13 +868,25 @@ const withPlatformFolds = (
   cssShadow: CssTierShadowCarrier | undefined,
   materialDocument: ResolvedMaterialDocument,
   state: GlassGroupState,
+  cssBodyLaw?: "drawn" | "stood-down",
 ): GlassGroupState => ({
   ...state,
   ...(cssBody === undefined ? {} : { cssBody }),
+  ...(cssBodyLaw === undefined ? {} : { cssBodyLaw }),
   ...(cssTint === undefined ? {} : { cssTint }),
   ...(cssShadow === undefined ? {} : { cssShadow }),
   materialDocument,
 });
+
+/**
+ * The W42 law readout a group of members folds to (`GlassGroupState.cssBodyLaw`): `stood-down`
+ * wins, as `weakestCssTintForm` does, so the field never claims the law drew on a member where
+ * it did not.
+ */
+const weakestBodyLawReadout = (
+  current: "drawn" | "stood-down" | undefined,
+  next: "drawn" | "stood-down",
+): "drawn" | "stood-down" => (current === "stood-down" || next === "stood-down" ? "stood-down" : "drawn");
 
 /**
  * Refuse a host patch that either scheme's material could not draw.
@@ -921,9 +934,11 @@ const rejectUndrawableProfile = (
 ): void => {
   validateBackdropToneAbscissa(profile);
   for (const scheme of ["light", "dark"] as const) {
-    resolvedBackdropToneResponse(
-      mergeMaterialProfiles(colorSchemeMaterialProfile(scheme, document), profile),
-    );
+    const merged = mergeMaterialProfiles(colorSchemeMaterialProfile(scheme, document), profile);
+    resolvedBackdropToneResponse(merged);
+    // W42's leaves, refused here for the response rows' reason: the CSS tier writes them into
+    // a filter, and a patch neither tier could draw is refused before anything moves.
+    resolvedBodyLaw(merged);
   }
 };
 
@@ -994,6 +1009,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const cssTierEngine: CssTierEngineCapabilities = {
     referenceFilterInBackdrop: platformProbe.conformance.referenceFilterInBackdrop,
     maskOnBackdropFilter: platformProbe.conformance.maskOnBackdropFilter,
+    // W42's law draws on this tier only where the row says "yes", which none does yet.
+    bodyLawFilterInBackdrop: platformProbe.conformance.bodyLawFilterInBackdrop,
   };
   const cssTierFilterPrefix = `vitrea-css-${String(nextRootOrdinal())}`;
   const cssTierMasks = createCssTierMaskCache(view.document);
@@ -1027,6 +1044,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * order and there is no per-surface answer to it that a consumer could read.
    */
   const cssShadowForms = new Map<string, CssTierShadowCarrier>();
+  /**
+   * Whether W42's body law drew for each CSS-tier group this frame (`GlassGroupState.cssBodyLaw`),
+   * folded over its present members. Written only where the material asks for the law.
+   */
+  const cssBodyLawForms = new Map<string, "drawn" | "stood-down">();
 
   /*
    * The runtime's ink, at a precedence an application can beat (Decision Log
@@ -1426,6 +1448,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let outerShadowConstants = sourceOuterShadow(initialProfile);
   let rimTintChromaConstant = resolvedRimTintChroma(initialProfile);
+  /*
+   * W42's body-law leaves (G2's implementation-design §5), resolved once per profile like the
+   * constants above. The CSS tier derives nothing from them unless the fold and the engine's
+   * `bodyLawFilterInBackdrop` row both allow it, which no row does yet.
+   */
+  let bodyLawLeaves = resolvedBodyLaw(initialProfile);
   /**
    * Re-derive every one of the bindings above, on both tiers, from one profile.
    *
@@ -1455,6 +1483,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     validateBackdropToneAbscissa(profile);
     resolvedBackdropToneResponse(profile);
+    resolvedBodyLaw(profile);
     sourceSnapshots.clear();
     surfaceBackdropTones.clear();
     resolvedProfile = profile;
@@ -1466,6 +1495,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     sizeConstants = sourceSize(profile);
     outerShadowConstants = sourceOuterShadow(profile);
     rimTintChromaConstant = resolvedRimTintChroma(profile);
+    bodyLawLeaves = resolvedBodyLaw(profile);
     // Both tiers re-derive on the next frame, so there has to be one.
     requestFrame();
     /*
@@ -1864,6 +1894,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const cssBody = cssBodyForms.get(groupId);
     const cssTint = cssTintForms.get(groupId);
     const cssShadow = cssShadowForms.get(groupId);
+    const cssBodyLaw = cssBodyLawForms.get(groupId);
 
     const state = withPlatformFolds(cssBody, cssTint, cssShadow, resolvedMaterialDocument(), resolveGlassGroupState(
       groupCapabilityInputs(
@@ -1892,14 +1923,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             }
           : { configuredSource: "dom", platform, governor, hint },
       ),
-    ));
+    ), cssBodyLaw);
     const abscissae = resolvedProfile?.backdropToneAbscissa !== undefined &&
       resolvedProfile.backdropToneAbscissa !== "source"
       ? state.activeRenderer === "webgpu"
         ? bridge?.renderer?.backdropToneAbscissae?.(groupId)
         : cssBackdropAbscissae.get(groupId)
       : undefined;
-    return abscissae === undefined ? state : { ...state, backdropToneAbscissae: abscissae };
+    // W42's readout on the WebGPU tier, from the renderer, where the law's fold is. Like the
+    // abscissae it is the frame the renderer last drew, and absent where the material asks for
+    // no law.
+    const bodyLaw = state.activeRenderer === "webgpu"
+      ? bridge?.renderer?.bodyLawReadout?.(groupId)
+      : undefined;
+    const drawn = bodyLaw === undefined ? state : { ...state, bodyLaw };
+    return abscissae === undefined ? drawn : { ...drawn, backdropToneAbscissae: abscissae };
   };
 
   /**
@@ -2224,6 +2262,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // every consumer of the resolved state goes through, including the capture
     // cells — carries the form the surfaces below are about to draw.
     cssBodyForms.clear();
+    cssBodyLawForms.clear();
     cssTintForms.clear();
     cssShadowForms.clear();
     for (const groupId of cssTierGroups) {
@@ -3075,6 +3114,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // whole group above (W18 G1). A GPU-tier group resolves no plan, and
           // this branch is only read where the CSS tier draws.
           shadowCarrier: shadowCarriers.get(record.nodeId) ?? "layer",
+          // W42's body law (G2's implementation-design §5): the leaves, the variant the fold
+          // reads and the profile the landed tone is derived from. Drawn only where the fold
+          // and the engine's `bodyLawFilterInBackdrop` row both allow it, which no row does yet.
+          bodyLaw: {
+            leaves: bodyLawLeaves,
+            variant,
+            ...(resolvedProfile === undefined ? {} : { profile: resolvedProfile }),
+          },
         });
         if (state.activeRenderer === "css") {
           const geometry = {
@@ -3086,7 +3133,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // The reference filters this body needs, built before the declaration
           // that names them lands — a `url(#id)` with no definition renders the
           // layer unfiltered, which would be a silent loss of the whole body.
-          ensureCssTierFilters(referenceFilterSpecs(declarations.body));
+          ensureCssTierFilters(cssTierFilterSpecs(declarations.body));
           /*
            * Which form this group's tint drew, folded across the surfaces that
            * declared one (Decision Log 4 (c)). The members of a group share a
@@ -3096,6 +3143,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
            * same fold the shadow carrier takes — so the readout never over-claims
            * a form some surface of the group did not draw.
            */
+          // W42's law, folded over the group's present members where the material asks for it
+          // (`GlassGroupState.cssBodyLaw`). `declarations.body.law` is present only where every
+          // gate of the tier's own fold was open, so its absence is the stand-down.
+          if (bodyLawLeaves.bodyLawStrength > 0 && channels.materialization > 0) {
+            cssBodyLawForms.set(groupId, weakestBodyLawReadout(cssBodyLawForms.get(groupId),
+              declarations.body.law === undefined ? "stood-down" : "drawn"));
+          }
           if (declarations.body.tintForm !== undefined) {
             cssTintForms.set(
               groupId,
