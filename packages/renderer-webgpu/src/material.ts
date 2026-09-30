@@ -649,6 +649,21 @@ export interface MaterialOcclusionLiftByPolicy {
 export type BodyE3Gains = readonly [number, number, number];
 /** E3's neutral ordinates at encoded input codes 40, 56, 72, 88, 104, 128 and 150. */
 export type BodyE3Neutral = readonly [number, number, number, number, number, number, number];
+/** W42: the law's two radius scales, (k_n, k_w): σn = k_n·5·o, σw = k_w·8, in the D1 unit. */
+export type BodyLawK = readonly [number, number];
+/** W42: E3's F above encoded 150, at inputs 160, 176, 192, 208, 224, 240 and 255. */
+export type BodyE3NeutralHigh = readonly [number, number, number, number, number, number, number];
+/** W42 candidate 2: the table's eleven encoded input levels, strictly increasing. */
+export type BodyToneTableLevels = readonly [
+  number, number, number, number, number, number, number, number, number, number, number,
+];
+/** W42 candidate 2: the table's five span rows in CSS px, strictly increasing. */
+export type BodyToneTableSpans = readonly [number, number, number, number, number];
+/** W42 candidate 2: one row of output codes per span row, one code per level. */
+export type BodyToneTableCodes = readonly [
+  BodyToneTableLevels, BodyToneTableLevels, BodyToneTableLevels, BodyToneTableLevels,
+  BodyToneTableLevels,
+];
 
 export interface MaterialProfile {
   /** Per-variant optics. `clear` is persistently more transparent than `regular`. */
@@ -1780,6 +1795,74 @@ export interface MaterialProfile {
   readonly bodyE3Neutral: BodyE3Neutral;
 
   /**
+   * **W42's spatial law, LT** (charter `2026-09-29-w42-body-spatial-structure.md`, Design "The
+   * law"; declaration item `law`; G2's `implementation-design.md` §1). The gate: the weight at
+   * which the law's body replaces the shipped untinted body, times the active band's weight.
+   * Documents carry 0 or 1; a fractional weight is E3's unmeasured linear convention.
+   *
+   * **Ships at 0, its identity, forever** (`MATERIAL_IDENTITY_TABLE`), and at 0 no leaf below is
+   * read: the renderer encodes no law pass and the optics pass returns before any law arithmetic.
+   * Read through `bodyLawStrengthUnderPolicy` (`body-law.ts`), which stands it down under an
+   * occlusion lift, on every variant but `regular` and on any group with no sampled texture.
+   */
+  readonly bodyLawStrength: number;
+  /** (k_n, k_w), each in [0.8, 4]: LT writes one k twice, the LT-2k rival two. Gated. */
+  readonly bodyLawK: BodyLawK;
+  /** λ in [−0.5, 1.6], the Lighten/Darken weight; the dump's 0.9 is only a default. Gated. */
+  readonly bodyLawLambda: number;
+  /** w in [0, 1], the Normal fill: `NSGlassTintAmount`, 0.5 on the bed (memo D §0). Gated. */
+  readonly bodyLawNormal: number;
+  /** 1 Lighten (the light scheme's hinge) or −1 Darken (the dark scheme's). Gated. */
+  readonly bodyLawHinge: number;
+  /** 0 active, 1 receded: the declared opacity law, margin, edge mode and band. Gated. */
+  readonly bodyLawPose: number;
+  /**
+   * `kneeForms` (declaration): 0 per-channel (N and M per channel, chroma argument M_rgb; the
+   * carried tie form), 1 the hinge decided on encoded luma and applied to the whole colour, 2 the
+   * luma composite with W's chroma. Gated.
+   */
+  readonly bodyLawKnee: number;
+  /** The `edge-swap` rival: 1 exchanges clamp-to-edge and normalised between the poses. Gated. */
+  readonly bodyLawEdgeSwap: number;
+  /**
+   * **D1, the law's width unit** (X36; `implementation-design.md` Fork 1, ruled (a)): 0 device px,
+   * the shipped convention and the identity; 1 CSS px, which is points and LT as declared; 2 capture
+   * texels. The 1x cells of G1's bed decide between them (declaration `rejectedNulls`). Read only by
+   * the law, so it moves no pixel while `bodyLawStrength` is 0; a document that turns the law on
+   * sets it explicitly.
+   */
+  readonly bodyLawWidthUnit: number;
+  /**
+   * **D2, the law's averaging space** (X36; Fork 1 (a)): 0 linear light, the shipped space and the
+   * identity; 1 encoded sRGB, LT as declared. Read only by the law, like D1.
+   */
+  readonly bodyLawEncodedAveraging: number;
+  /**
+   * **The F extension** (X35; declaration `candidate1`): above encoded 150, E3's F moves by this
+   * strength from its continued last segment toward the table through (150, n₆), (160, h₀) …
+   * (255, h₆). Ships at 0, its identity, where E3 computes exactly what W41 left.
+   */
+  readonly bodyE3HighStrength: number;
+  /** Family A's light-receded ordinates at 160 … 255, each in [0, 255]; gated by the above. */
+  readonly bodyE3NeutralHigh: BodyE3NeutralHigh;
+  /**
+   * **Candidate 2's tone** (X40; declaration `candidate2`, `candidate2Chroma`; the pre-read
+   * addendum `native-t-addendum.md`): the table's weight against the tone below it in precedence.
+   * Read only under the law. Ships at 0, its identity.
+   */
+  readonly bodyToneTableStrength: number;
+  /** The table's encoded input levels (family A's), strictly increasing in [0, 255]. Gated. */
+  readonly bodyToneTableLevels: BodyToneTableLevels;
+  /** The table's span rows in CSS px (the declared strata), strictly increasing. Gated. */
+  readonly bodyToneTableSpans: BodyToneTableSpans;
+  /** Output codes, one row per span row and one code per level, each in [0, 255]. Gated. */
+  readonly bodyToneTableCodes: BodyToneTableCodes;
+  /** W41 G1's E3-form gains at encoded luma 63, 93 and 118, each in [0, 3]. Gated. */
+  readonly bodyToneChromaGains: BodyE3Gains;
+  /** The one per-endpoint scale on those gains, in [0, 3] (Decision Log 5c). Gated. */
+  readonly bodyToneChromaScale: number;
+
+  /**
    * **The rim that survives the collapse (W23)** — the one mark the collapsed
    * appearance keeps.
    *
@@ -2223,6 +2306,77 @@ export function validateBodyE3Patch(patch: {
       if (!Object.hasOwn(value, i) || !inRange(value[i], maximum)) {
         throw new TypeError(`${key} must be a dense tuple of ${length} finite numbers in [0,${maximum}]`);
       }
+    }
+  }
+}
+
+/**
+ * W42's patch-boundary validation, shared by runtime merges and the calibration JSON reader, on
+ * E3's model (`validateBodyE3Patch`): every tuple dense and of its fixed length, every number
+ * finite and in its declared range, the discrete leaves by membership, the table's axes strictly
+ * increasing. It refuses behind a gate at its identity too, because a document recording an
+ * unapplicable tune is a document that lies about what it would draw.
+ */
+export function validateBodyLawPatch(patch: Readonly<Record<string, unknown>>): void {
+  const finite = (value: unknown): value is number =>
+    typeof value === "number" && Number.isFinite(value);
+  const scalar = (key: string, low: number, high: number): void => {
+    if (!(key in patch)) return;
+    const value = patch[key];
+    if (!finite(value) || value < low || value > high) {
+      throw new TypeError(`${key} must be finite and in [${low},${high}]`);
+    }
+  };
+  const member = (key: string, allowed: readonly number[]): void => {
+    if (!(key in patch)) return;
+    if (!allowed.includes(patch[key] as number)) {
+      throw new TypeError(`${key} must be one of ${allowed.join(", ")}`);
+    }
+  };
+  const tuple = (key: string, length: number, low: number, high: number,
+    increasing = false, value: unknown = patch[key], label = key): void => {
+    const message = `${label} must be a dense tuple of ${length} finite numbers in [${low},${high}]` +
+      (increasing ? ", strictly increasing" : "");
+    if (!Array.isArray(value) || value.length !== length) throw new TypeError(message);
+    for (let i = 0; i < length; i++) {
+      const entry: unknown = value[i];
+      if (!Object.hasOwn(value, i) || !finite(entry) || entry < low || entry > high) {
+        throw new TypeError(message);
+      }
+      if (increasing && i > 0 && !((entry as number) > (value[i - 1] as number))) {
+        throw new TypeError(message);
+      }
+    }
+  };
+  for (const key of ["bodyLawStrength", "bodyE3HighStrength", "bodyToneTableStrength"]) {
+    scalar(key, 0, 1);
+  }
+  scalar("bodyLawLambda", -0.5, 1.6);
+  scalar("bodyLawNormal", 0, 1);
+  scalar("bodyToneChromaScale", 0, 3);
+  member("bodyLawHinge", [1, -1]);
+  member("bodyLawPose", [0, 1]);
+  member("bodyLawKnee", [0, 1, 2]);
+  member("bodyLawEdgeSwap", [0, 1]);
+  member("bodyLawWidthUnit", [0, 1, 2]);
+  member("bodyLawEncodedAveraging", [0, 1]);
+  if ("bodyLawK" in patch) tuple("bodyLawK", 2, 0.8, 4);
+  if ("bodyE3NeutralHigh" in patch) tuple("bodyE3NeutralHigh", 7, 0, 255);
+  if ("bodyToneTableLevels" in patch) tuple("bodyToneTableLevels", 11, 0, 255, true);
+  if ("bodyToneTableSpans" in patch) {
+    tuple("bodyToneTableSpans", 5, Number.MIN_VALUE, Number.MAX_VALUE, true);
+  }
+  if ("bodyToneChromaGains" in patch) tuple("bodyToneChromaGains", 3, 0, 3);
+  if ("bodyToneTableCodes" in patch) {
+    const rows = patch["bodyToneTableCodes"];
+    if (!Array.isArray(rows) || rows.length !== 5) {
+      throw new TypeError("bodyToneTableCodes must be a dense tuple of 5 rows of 11 codes in [0,255]");
+    }
+    for (let r = 0; r < 5; r++) {
+      if (!Object.hasOwn(rows, r)) {
+        throw new TypeError("bodyToneTableCodes must be a dense tuple of 5 rows of 11 codes in [0,255]");
+      }
+      tuple("bodyToneTableCodes", 11, 0, 255, false, rows[r], `bodyToneTableCodes[${r}]`);
     }
   }
 }
@@ -2945,6 +3099,37 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   bodyE3Strength: 0,
   bodyE3Gains: [1, 1, 1],
   bodyE3Neutral: [40, 56, 72, 88, 104, 128, 150],
+  /*
+   * W42 (`implementation-design.md` §1). Every gate ships at its identity: the law's strength,
+   * D1's device-px unit and D2's linear space (the shipped conventions), the F extension's and the
+   * table's strengths. The gated leaves are unread there; they hold the declared hypothesis where
+   * one exists (k 2 in points, the dump's λ 0.9, the slider's w 0.5) and the identity map
+   * otherwise, E3's own convention for its neutral ordinates.
+   */
+  bodyLawStrength: 0,
+  bodyLawK: [2, 2],
+  bodyLawLambda: 0.9,
+  bodyLawNormal: 0.5,
+  bodyLawHinge: 1,
+  bodyLawPose: 0,
+  bodyLawKnee: 0,
+  bodyLawEdgeSwap: 0,
+  bodyLawWidthUnit: 0,
+  bodyLawEncodedAveraging: 0,
+  bodyE3HighStrength: 0,
+  bodyE3NeutralHigh: [160, 176, 192, 208, 224, 240, 255],
+  bodyToneTableStrength: 0,
+  bodyToneTableLevels: [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+  bodyToneTableSpans: [64, 80, 96, 128, 160],
+  bodyToneTableCodes: [
+    [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+    [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+    [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+    [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+    [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+  ],
+  bodyToneChromaGains: [1, 1, 1],
+  bodyToneChromaScale: 1,
 
   /*
    * FITTED 0.038 (W23 G1; claims §5.100 §3, W23 Decision Log 2 (b)) — and it is
@@ -3387,6 +3572,69 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
     whyGated: "At strength 0 neither tuple reaches the replacement branch's pixels.",
     claims: "c9a §5.192; W41 clause 11, partial-endpoint ruling",
   },
+  /*
+   * W42 (charter X35, X36, X40; G2's `implementation-design.md` §1 and its rulings §9). Five
+   * entries: the law's gate-group, D1 and D2 as plain value drops whose identities are the shipped
+   * conventions (Fork 1, ruled (a)), the F extension's gate-group and candidate 2's tone. No
+   * shipped document names any of these leaves, so each drops at its identity and no digest moves.
+   */
+  {
+    wave: "W42",
+    gate: { bodyLawStrength: 0 },
+    gated: ["bodyLawK", "bodyLawLambda", "bodyLawNormal", "bodyLawHinge", "bodyLawPose",
+      "bodyLawKnee", "bodyLawEdgeSwap"],
+    law: "LT: S = F*B on R_fp; C = G(k_n·5·o)*S; W = G(k_w·8)*S; N = C + h·λ·max(0, h(W − C)); " +
+      "M = (1 − w)N + wW; the body replaced by T(M) at strength × band weight.",
+    inertLawCase: "packages/renderer-webgpu/test/w42-body-law.test.ts — " +
+      '"drops the law\'s whole zero-gate group while its seven gated leaves are swept"',
+    whyGated: "At strength 0 no law pass is encoded and the optics pass returns before any law " +
+      "arithmetic, so no gated leaf reaches a pixel.",
+    claims: "W42 charter X36; declaration item law; implementation-design.md §1",
+  },
+  {
+    wave: "W42",
+    gate: { bodyLawWidthUnit: 0 },
+    gated: [],
+    law: "D1: the law's widths are in device px (0), CSS px = points (1) or capture texels (2).",
+    inertLawCase: "packages/renderer-webgpu/test/w42-body-law.test.ts — " +
+      '"drops D1 and D2 as plain values at the shipped conventions and discriminates each"',
+    whyGated: "Not gated — a plain value drop. Read only by the law's own pass.",
+    claims: "W42 charter X36; implementation-design.md Fork 1, ruled (a)",
+  },
+  {
+    wave: "W42",
+    gate: { bodyLawEncodedAveraging: 0 },
+    gated: [],
+    law: "D2: the law averages in linear light (0) or in encoded sRGB (1).",
+    inertLawCase: "packages/renderer-webgpu/test/w42-body-law.test.ts — " +
+      '"drops D1 and D2 as plain values at the shipped conventions and discriminates each"',
+    whyGated: "Not gated — a plain value drop. Read only by the law's own pass.",
+    claims: "W42 charter X36; implementation-design.md Fork 1, ruled (a)",
+  },
+  {
+    wave: "W42",
+    gate: { bodyE3HighStrength: 0 },
+    gated: ["bodyE3NeutralHigh"],
+    law: "E3's F above encoded 150 = mix(continued last segment, the table through (150, n₆), " +
+      "(160, h₀) … (255, h₆), bodyE3HighStrength).",
+    inertLawCase: "packages/renderer-webgpu/test/w42-body-law.test.ts — " +
+      '"drops the F extension\'s group and computes E3 exactly as W41 at strength 0"',
+    whyGated: "At strength 0 the continued segment is returned unchanged, so no high ordinate " +
+      "is read; E3 is itself gated at 0 in every document.",
+    claims: "W42 charter X35; declaration item candidate1",
+  },
+  {
+    wave: "W42",
+    gate: { bodyToneTableStrength: 0 },
+    gated: ["bodyToneTableLevels", "bodyToneTableSpans", "bodyToneTableCodes",
+      "bodyToneChromaGains", "bodyToneChromaScale"],
+    law: "Candidate 2: y = T(L(A), s) + scale·g(L(A))·(A − L(A)), T the table read linearly in " +
+      "level and in t between span rows, mixed in by bodyToneTableStrength.",
+    inertLawCase: "packages/renderer-webgpu/test/w42-body-law.test.ts — " +
+      '"drops candidate 2\'s tone group while its table is swept"',
+    whyGated: "At strength 0 the table is never read, and it is read only under the law.",
+    claims: "W42 charter X40; declaration items candidate2, candidate2Chroma; native-t-addendum.md",
+  },
 ];
 
 /**
@@ -3580,6 +3828,24 @@ export interface MaterialProfilePatch {
   readonly bodyE3Strength?: number;
   readonly bodyE3Gains?: BodyE3Gains;
   readonly bodyE3Neutral?: BodyE3Neutral;
+  readonly bodyLawStrength?: number;
+  readonly bodyLawK?: BodyLawK;
+  readonly bodyLawLambda?: number;
+  readonly bodyLawNormal?: number;
+  readonly bodyLawHinge?: number;
+  readonly bodyLawPose?: number;
+  readonly bodyLawKnee?: number;
+  readonly bodyLawEdgeSwap?: number;
+  readonly bodyLawWidthUnit?: number;
+  readonly bodyLawEncodedAveraging?: number;
+  readonly bodyE3HighStrength?: number;
+  readonly bodyE3NeutralHigh?: BodyE3NeutralHigh;
+  readonly bodyToneTableStrength?: number;
+  readonly bodyToneTableLevels?: BodyToneTableLevels;
+  readonly bodyToneTableSpans?: BodyToneTableSpans;
+  readonly bodyToneTableCodes?: BodyToneTableCodes;
+  readonly bodyToneChromaGains?: BodyE3Gains;
+  readonly bodyToneChromaScale?: number;
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
   readonly rimTintChroma?: number;
@@ -3716,6 +3982,7 @@ export function withMaterialOverrides(
   patch: MaterialProfilePatch,
 ): MaterialProfile {
   validateBodyE3Patch(patch);
+  validateBodyLawPatch(patch as Readonly<Record<string, unknown>>);
   rejectRetiredOuterShadowLeaves(patch.outerShadow);
   const backdropToneAbscissa = patch.backdropToneAbscissa === undefined
     ? base.backdropToneAbscissa : patch.backdropToneAbscissa;
@@ -3836,6 +4103,24 @@ export function withMaterialOverrides(
     bodyE3Strength: patch.bodyE3Strength ?? base.bodyE3Strength,
     bodyE3Gains: patch.bodyE3Gains ?? base.bodyE3Gains,
     bodyE3Neutral: patch.bodyE3Neutral ?? base.bodyE3Neutral,
+    bodyLawStrength: patch.bodyLawStrength ?? base.bodyLawStrength,
+    bodyLawK: patch.bodyLawK ?? base.bodyLawK,
+    bodyLawLambda: patch.bodyLawLambda ?? base.bodyLawLambda,
+    bodyLawNormal: patch.bodyLawNormal ?? base.bodyLawNormal,
+    bodyLawHinge: patch.bodyLawHinge ?? base.bodyLawHinge,
+    bodyLawPose: patch.bodyLawPose ?? base.bodyLawPose,
+    bodyLawKnee: patch.bodyLawKnee ?? base.bodyLawKnee,
+    bodyLawEdgeSwap: patch.bodyLawEdgeSwap ?? base.bodyLawEdgeSwap,
+    bodyLawWidthUnit: patch.bodyLawWidthUnit ?? base.bodyLawWidthUnit,
+    bodyLawEncodedAveraging: patch.bodyLawEncodedAveraging ?? base.bodyLawEncodedAveraging,
+    bodyE3HighStrength: patch.bodyE3HighStrength ?? base.bodyE3HighStrength,
+    bodyE3NeutralHigh: patch.bodyE3NeutralHigh ?? base.bodyE3NeutralHigh,
+    bodyToneTableStrength: patch.bodyToneTableStrength ?? base.bodyToneTableStrength,
+    bodyToneTableLevels: patch.bodyToneTableLevels ?? base.bodyToneTableLevels,
+    bodyToneTableSpans: patch.bodyToneTableSpans ?? base.bodyToneTableSpans,
+    bodyToneTableCodes: patch.bodyToneTableCodes ?? base.bodyToneTableCodes,
+    bodyToneChromaGains: patch.bodyToneChromaGains ?? base.bodyToneChromaGains,
+    bodyToneChromaScale: patch.bodyToneChromaScale ?? base.bodyToneChromaScale,
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,

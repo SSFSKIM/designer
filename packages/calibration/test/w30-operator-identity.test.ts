@@ -120,9 +120,18 @@ const W36_OPERATOR_LEAVES = [
 /** W41's encoded body replacement is one gate-group; tuples are whole leaves (§5.192). */
 const W41_OPERATOR_LEAVES = ["bodyE3Strength", "bodyE3Gains", "bodyE3Neutral"] as const;
 
+/** W42's law, D1, D2, the F extension and candidate 2's tone: five identity entries (§1). */
+const W42_OPERATOR_LEAVES = [
+  "bodyLawStrength", "bodyLawK", "bodyLawLambda", "bodyLawNormal", "bodyLawHinge", "bodyLawPose",
+  "bodyLawKnee", "bodyLawEdgeSwap", "bodyLawWidthUnit", "bodyLawEncodedAveraging",
+  "bodyE3HighStrength", "bodyE3NeutralHigh", "bodyToneTableStrength", "bodyToneTableLevels",
+  "bodyToneTableSpans", "bodyToneTableCodes", "bodyToneChromaGains", "bodyToneChromaScale",
+] as const;
+
 /** Every later wave's additions, beside rather than rewriting either original list. */
 const OPERATOR_LEAVES: readonly string[] = [
   ...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES, ...W36_OPERATOR_LEAVES, ...W41_OPERATOR_LEAVES,
+  ...W42_OPERATOR_LEAVES,
 ];
 
 const HERE = import.meta.dirname;

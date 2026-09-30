@@ -302,8 +302,14 @@ export {
   bodyE3Encoded,
   bodyE3StrengthUnderPolicy,
   validateBodyE3Patch,
+  validateBodyLawPatch,
   type BodyE3Gains,
   type BodyE3Neutral,
+  type BodyE3NeutralHigh,
+  type BodyLawK,
+  type BodyToneTableCodes,
+  type BodyToneTableLevels,
+  type BodyToneTableSpans,
   withMaterialOverrides,
   // W31's digest rule (Decision Log 1 (a); claims §5.161 §7b, §5.164). The
   // TABLE and the leaves it drops live beside `DEFAULT_MATERIAL_PROFILE`
@@ -324,6 +330,36 @@ export {
   type MaterialVariant,
   type RefractionQuality,
 } from "./material";
+// W42's spatial law on the CPU: the declared constants, the per-surface plan, the composite, the
+// tones the law's argument is read through, and the one accessibility fold (G2's
+// implementation-design.md §1–§4; the GPU stage lands in U3–U4).
+export {
+  BODY_LAW_DECLARED,
+  BODY_LAW_LUMA,
+  BODY_LAW_REALISATION,
+  bodyLawCaptureTexelDevicePx,
+  bodyLawChromaRetention,
+  bodyLawComposite,
+  bodyLawDecimation,
+  bodyLawE3Codes,
+  bodyLawE3Gain,
+  bodyLawE3StrengthUnderLaw,
+  bodyLawInterpolateLevels,
+  bodyLawNarrowSigmaDevicePx,
+  bodyLawOpacity,
+  bodyLawSizeT,
+  bodyLawStrengthUnderPolicy,
+  bodyLawSurfacePlan,
+  bodyLawUnitDevicePx,
+  bodyToneTableCodesAt,
+  landedToneLinear,
+  roundHalfEven,
+  type BodyLawArgument,
+  type BodyLawDeviceRect,
+  type BodyLawSurfaceGeometry,
+  type BodyLawSurfacePlan,
+  type LandedToneInputs,
+} from "./body-law";
 
 export {
   CANVAS_FORMAT,

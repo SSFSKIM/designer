@@ -155,6 +155,31 @@ describe("the material profile document's key admission", () => {
     }
   });
 
+  it("admits W42's law, D1, D2, the F extension and candidate 2's table, validated", () => {
+    // G2's implementation-design.md §1: a candidate document names these, and the path that
+    // renders it must neither refuse it nor apply it silently at the defaults.
+    const patch = {
+      bodyLawStrength: 1, bodyLawK: [2.03, 2.03], bodyLawLambda: 0.8, bodyLawNormal: 0.5,
+      bodyLawHinge: -1, bodyLawPose: 1, bodyLawKnee: 0, bodyLawEdgeSwap: 0, bodyLawWidthUnit: 1,
+      bodyLawEncodedAveraging: 1, bodyE3HighStrength: 1,
+      bodyE3NeutralHigh: [202, 208, 214, 220, 227, 234, 240], bodyToneTableStrength: 1,
+      bodyToneTableLevels: [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255],
+      bodyToneTableSpans: [64, 80, 96, 128, 160],
+      bodyToneTableCodes: Array(5).fill([20, 81, 106, 127, 146, 150, 155, 160, 165, 170, 180]),
+      bodyToneChromaGains: [1.21, 1.16, 1.07], bodyToneChromaScale: 1,
+    };
+    for (const reader of [readMaterialProfileFile, readRecededProfileFile]) {
+      expect(reader(write({ patch })).patch).toEqual(patch);
+    }
+    for (const [key, value] of Object.entries({
+      bodyLawStrength: 2, bodyLawK: [2], bodyLawHinge: 0, bodyLawKnee: 3, bodyLawWidthUnit: 5,
+      bodyToneTableLevels: [0, 64, 64, 128, 160, 176, 192, 208, 224, 240, 255],
+    })) {
+      expect(() => readMaterialProfileFile(write({ patch: { [key]: value } })), key)
+        .toThrow(new RegExp(key));
+    }
+  });
+
   it("admits the inactive endpoint's two tint terms (W27c, claims §5.130)", () => {
     // The frozen receded endpoint sets both. While they were missing from the
     // set, the canonical capture path refused the very document it exists to

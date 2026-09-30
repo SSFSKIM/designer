@@ -3015,6 +3015,15 @@ describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
  * `saturate()` constants, measured on scratch; otherwise the tier records the
  * residual and carries nothing.
  */
+/**
+ * W42's leaves on this tier (G2's implementation-design.md §5): nothing yet, by the parent's
+ * hold on U5 until the design review is relayed, and behind gates that ship at their identity.
+ */
+const W42_LAW_CSS_COUNTERPART =
+  "none: W42's law, its tones and D1/D2 are WebGPU-tier leaves until U5 derives the CSS carry " +
+  "and Decision Log 4 measures it in Chromium; every one sits behind a gate that ships at its " +
+  "identity, so this tier draws the shipped body whatever it holds.";
+
 const W31_BODY_CHROMA_CSS_COUNTERPART =
   "none: DERIVED, MEASURED AND DECLINED (claims §5.164 §5). The only operator this tier has " +
   "on the body's chroma is the `saturate()` inside its one `backdrop-filter`, and the leaf " +
@@ -3195,6 +3204,27 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
     "pixel-local encoded-luma gain wired into production CSS.",
   bodyE3Neutral: "none: as `bodyE3Strength` — the measured projection's neutral ordinates are " +
     "not an adopted CSS counterpart.",
+  // W42 (G2's implementation-design.md §1, §5): the CSS tier's carry is U5's and Decision Log 4's,
+  // held until the parent relays the design review; until then the tier draws the shipped body
+  // whatever these leaves hold, and every one of them sits behind a gate that ships at 0.
+  bodyLawStrength: W42_LAW_CSS_COUNTERPART,
+  bodyLawK: W42_LAW_CSS_COUNTERPART,
+  bodyLawLambda: W42_LAW_CSS_COUNTERPART,
+  bodyLawNormal: W42_LAW_CSS_COUNTERPART,
+  bodyLawHinge: W42_LAW_CSS_COUNTERPART,
+  bodyLawPose: W42_LAW_CSS_COUNTERPART,
+  bodyLawKnee: W42_LAW_CSS_COUNTERPART,
+  bodyLawEdgeSwap: W42_LAW_CSS_COUNTERPART,
+  bodyLawWidthUnit: W42_LAW_CSS_COUNTERPART,
+  bodyLawEncodedAveraging: W42_LAW_CSS_COUNTERPART,
+  bodyE3HighStrength: W42_LAW_CSS_COUNTERPART,
+  bodyE3NeutralHigh: W42_LAW_CSS_COUNTERPART,
+  bodyToneTableStrength: W42_LAW_CSS_COUNTERPART,
+  bodyToneTableLevels: W42_LAW_CSS_COUNTERPART,
+  bodyToneTableSpans: W42_LAW_CSS_COUNTERPART,
+  bodyToneTableCodes: W42_LAW_CSS_COUNTERPART,
+  bodyToneChromaGains: W42_LAW_CSS_COUNTERPART,
+  bodyToneChromaScale: W42_LAW_CSS_COUNTERPART,
 
   /*
    * The four OPTIONAL keys, which no bed above reaches because the default does
