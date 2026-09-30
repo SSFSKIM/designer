@@ -271,3 +271,121 @@ now empty: the cells are receded only); `sitting` (447 dump scenes, 3,129 + 264 
 it); `exposureRunner.scope` ("423 of 447, 40 of them H") and the b9 claim; `webPlan.result`
 (447). **The charter and §5.194**: b1's counts and length, b5's G1 wording, b4's runbook, b9's
 cross-checkout claim, b7's reading.
+
+## Verification round (53400aa5)
+
+The verification review of these fixes, read at the integration commit `53400aa5`, found four
+major defects and one minor, all sitting-critical; each is fixed as new commits on this branch
+and rebuilt as a red/green row (`sitting/red-green-fixes.txt`, round 2: the pre-fix tools are
+`sitting.py`, `pass-spec.py`, `sitting-orchestrate.sh` and `w42_archive.py` at `3da63224`, and
+`runner.claim_exposure` as it stood there). Nothing native was launched: no real mode switch,
+and the race ran against a bare local origin, no GitHub tag.
+
+### 1. Per-run provenance (`sitting.py`, `pass-spec.py`)
+
+**Defect.** The pin check ran once per driver invocation, but `P.derive()` re-read the scenes
+file for every run, so runs after a mid-pass edit captured the edited document under the
+original SHA-256. **Changed.** `pinned_snapshot` reads each file once and requires exactly those
+bytes to be the ones the pin check accepted; every run derives from that in-memory snapshot
+(`pass-spec.derive_from`, `dump_ids_from`), so the recorded hash names the bytes used; and
+`reverify` re-checks the files on disk before every run, quarantining the run if they moved.
+**Red/green** (row 1): grey-128 edited from 128 to 129 by the stub launcher after run 1 of
+`capture 1x-light-active 1 2`. Pre-fix: run 2 was ADMITTED with grey-128 [129, 128, 128] in its
+document while its admission named scenes `4aa06af9…`, 2 launches. Fixed: run 2 refused before
+launch ("the bed on disk is no longer the one this driver validated"), 1 launch; run 1's
+document keeps 128. Suite: `VerificationRound.test_a_scenes_file_edited_between_runs_refuses_the_next_run`.
+
+### 2. The aggregate pixel summary in the capture log (`w42_archive.py`)
+
+**Defect.** The harness ends a capture log with `CAVEAT: N of M fixtures are PIXEL-IDENTICAL …`,
+counted over every fixture, H included, with no scene id, so it survived redaction and the
+public non-H flags recovered H's count. **Changed.** `public_log` withholds everything from the
+first `CAVEAT:` line on (the harness prints its caveats last), with one marker line; the whole
+log stays only under `holdout/operational/`. **Red/green** (row 2): the real line through
+`public_log()` is kept pre-fix, withheld fixed. Suite: `test_archive`
+`test_verification_round_the_real_caveat_line_does_not_survive_redaction`, and every synthetic
+run's public log now ends in that line and must not show it.
+
+### 3. Cancellation (`sitting-orchestrate.sh`, `sitting.py`)
+
+**Defect.** Bash runs a trap only when the foreground driver returns, and a driver runs a whole
+multi-run pass, so a SIGTERM left mode 69 on while captures went on. **Changed.** The driver
+and the idle wait run as tracked background jobs under an interruptible `wait`. On HUP, INT or
+TERM the orchestrator sends the driver SIGTERM, KILLs it and its children if it has not gone
+in 20 s, reaps it, ends any native app still running by its binary path, and exits, so the
+EXIT trap restores mode 68 and verifies it. The driver turns SIGTERM, SIGINT and SIGHUP into
+`Cancelled`: `subprocess.run` kills the launch's child, the driver ends the native app by its
+binary path, and the run is quarantined. **Red/green** (row 3; stub display setter, a launch that
+blocks, a stand-in native app started in its own session): 12 s after SIGTERM, pre-fix, the
+orchestrator was still running at mode 69 with the launcher and the app alive; fixed, it had
+exited 143 at mode 68 with nothing left (in the suite about 1 s to stop the driver, 7 s with the
+restore). Suite: `VerificationRound.test_a_signal_mid_capture_ends_the_driver_and_its_launch_and_restores_at_once`
+(driver, launcher and app pids all gone; run 1 quarantined as `Cancelled`).
+
+### 4. The exposure race (`exposure/runner.py`)
+
+**Defect.** Two clones at one HEAD, configuration, identity and tagger second made byte-identical
+tag objects, so the second `git push --atomic --porcelain` exited 0 as "[up to date]" and the
+loser went on to `begin`. **Changed.** Every claim's message carries a fresh nonce (`uuid4`, also
+in `result.json`'s marker), and a claim counts only when the porcelain line for
+`refs/tags/<tag>` reads `*` ("[new tag]"); `=` (up to date), `!` (rejected) or no line refuses and
+takes the local tag back. **Red/green** (row 4; bare local origin, clone B made before A claims,
+one committer identity and date for both, B's fetch and listing blinded as in the race window):
+pre-fix, clone B CLAIMED too, its marker the same object as A's (`25cedc07…` in the recorded
+run); fixed, B refused ("was not CREATED", `! … (already exists)`). Suite (`CrossCheckout`, now
+10): the same race with the nonce defeated reads "[up to date]" and is refused; with the nonce
+it reads "(already exists)" and is refused; only a `*` line for the tag counts (5 porcelain
+cases).
+
+### 5. Staged manifests at any depth (`w42_archive.py`)
+
+**Defect.** A quarantined run can keep the harness's `.staging-<UUID>/manifest.json`, which was
+copied verbatim into public `operational/`. **Changed.** The holdout-bearing file names
+(`manifest.json`, `producer-capture.out`, `producer-capture.err`) are guarded at any depth, with
+the same redaction in public and the whole file under `holdout/operational/`. **Red/green**
+(row 5): the staged manifest's public copy carried all six H pixel statistics pre-fix, none
+fixed. Suite: `test_verification_round_a_staged_manifest_is_redacted_and_guarded`.
+
+### Also corrected
+
+Round 1's `one_byte_edit` test helper found its digits inside the background's KEY
+(`"grey-064"` became `"grey-065"`), not its level. The edit was still one byte and the proofs
+held, but the helper now edits the level (grey-064 [65, 64, 64], grey-128 [129, 128, 128]), and
+round 1's rows were re-run with it, still 8 of 8.
+
+### Counts and SHA-256s
+
+Suites: sitting 40 of 40 (`sitting/test-sitting-verification.txt`), archive 15 of 15
+(`sitting/test-archive-verification.txt`), runner 37 of 37 (`exposure/green-verification.txt`);
+`sitting/red-green-fixes.txt` 13 of 13 (round 1: 8, round 2: 5). The bed, split and counts are
+unchanged (`bed.json` `53870f47…`, scenes `4aa06af9…`). The freeze reads 1,818.
+
+At this round's head, the declaration sources that differ from what `declaration.json` pins now (this
+supersedes the table above for the files this round changed; `bed/FIXES-b151aff4.md` itself is
+named in the hand-back):
+
+| file | SHA-256 now |
+| --- | --- |
+| `bed/README.md` | `f5d785597248166903f2a8b99c7a234d16a48edb4530073ebfec00065b9ce1b9` |
+| `bed/bed.json` | `53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762` |
+| `bed/declare-bed.py` | `d73ca5f8e376870b5a78c056981924cffb87dcb781574b03eccc993173a6619a` |
+| `bed/exposure/README.md` | `467a9e1db1d4c2aab165d0d8ba19ca5b1128ceb1596fa31bb19e3ed3effc74a4` |
+| `bed/exposure/runner.py` | `5d93722fc90ef3dee8f4f3e7457ff431071407c997e9b247a5c67722b5088db5` |
+| `bed/pins.json` | `4badfe18bde4520a8a6a891780160bf9dbd71d463400fd4480fab2c18729b2b7` |
+| `bed/scenes-w42-body.json` | `4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0` |
+| `bed/sitting/dry-plan.txt` | `72503ae27d754d97a3cc241db88d1c0fa9991bb3be54a1d10db1056c1928a4f9` |
+| `bed/sitting/pass-spec.py` | `f019a02f4582d8fc1d20bfc289981ee29b4363bb0fb84e455c56033d0f655ad8` |
+| `bed/sitting/sitting.py` | `3124044f9c5eaa220f352cd6560e61b09c8131e1220f07981f73d7a34948e8d0` |
+| `bed/sitting/timing.txt` | `593806d97a6e6ab20f301b53eb174f37d64e0916f632a430435550b9038b14e6` |
+| `bed/sitting/w42_archive.py` | `145bbd614958f8f9bff28bb6a41a20eb681c4d2e7297c60c40a8e9e51dd89587` |
+| `bed/wave.py` | `dfb55b4490bf8e67950ed0c7dab8f93c0c20d19e20378b1e43f2efd3754f4166` |
+| `bed/web-plan.json` | `16fb739aa549e5e75bbdc0f36116c8754aeabd25aa26ad9248093b0b2ddb3cc7` |
+| `instrument/bed.py` | `5b54a05ce4c9b5fedcfb66fbc1ed39fa3e1eeee34c3448d007d13dfaf1c7c184` |
+
+New or changed proof and tool files worth pinning beside them:
+
+- `bed/sitting/sitting-orchestrate.sh` `b2a8fa54dc2da55c23c0fe5f41450f1e22ee5dd4f1d6be121fd3dc21a2765e55`
+- `bed/sitting/red-green-fixes.txt` `4e2c2693dfa466d006344470186b3ed1ec97efbf2f450a5b80f361a1517d6958`
+- `bed/sitting/test-sitting-verification.txt` `530480857f4c28482dfd6fdf354daeeeac82959862d644d3a95b957d82481671`
+- `bed/sitting/test-archive-verification.txt` `473e87f38c5d5c622cbdcb2b9a5b61cdc6c4983d3b9ac4cd12b883f0aeb60354`
+- `bed/exposure/green-verification.txt` `32bd5328bc13c92726529c66a5182b1fe00520754477a7ae7fd8fce6097a385e`

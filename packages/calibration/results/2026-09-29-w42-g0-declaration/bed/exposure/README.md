@@ -140,7 +140,12 @@ appends `failed` and spends H.
     `b9-proof.txt`: without the claim a clone exposes the toy H a second time (red); with it
     a clone of a local origin refuses before its `begin`; and live, a throwaway tag pushed to
     GitHub from this checkout made a fresh clone of GitHub refuse, then was deleted from
-    GitHub and locally and read back absent.
+    GitHub and locally and read back absent. The verification round (53400aa5, finding 4):
+    two clones at one HEAD, configuration, identity and tagger second made byte-identical tag
+    objects, and the loser's push exited 0 as "[up to date]". Each claim's message now carries
+    a fresh nonce, and a claim counts only when the porcelain line for the tag reads `*`
+    ("[new tag]"); both are proved against a bare local origin (`CrossCheckout`, three more
+    tests; `../sitting/red-green-fixes.txt` round 2, row 4).
 
 ## Production (G1, G0 integration, G2)
 

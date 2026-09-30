@@ -21,6 +21,12 @@ remote or locally, and then pushes an annotated marker tag naming the receipt's 
 A remote refuses to create a tag that already exists, so of two checkouts racing to expose,
 exactly one push lands; the other refuses before its `begin`. A marker pushed and followed by
 a failure still spends H: the marker, like the log, is never deleted.
+
+The verification round (53400aa5, finding 4): two clones at the same HEAD, configuration,
+identity and tagger second made byte-identical tag objects, so the second push reported "up to
+date" and exited 0 and the loser went on to expose. Every claim's message now carries a fresh
+nonce, and a claim is accepted only when the push's porcelain line for the tag reports it
+CREATED (`*`, "[new tag]"); anything else (`=` up to date, `!` rejected, no line) refuses.
 """
 from copy import deepcopy
 import hashlib
@@ -29,6 +35,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import uuid
 
 HERE = Path(__file__).resolve().parent
 _boundary_spec = importlib.util.spec_from_file_location('w42_wave_boundary', HERE.parent / 'wave.py')
@@ -428,18 +435,30 @@ def claim_exposure(repo, log, tag, remote, configuration):
     if run('rev-parse', '-q', '--verify', f'refs/tags/{tag}').returncode == 0:
         raise PermissionError(f'the exposure marker {tag} exists in this repository: H is spent')
     digest = hashlib.sha256(stable(configuration).encode()).hexdigest()
+    nonce = uuid.uuid4().hex
     message = (f'W42 H exposure (charter clause 11; the bed review\'s b9)\n\nreceipt configuration SHA-256 {digest}\n'
-               f'manifest SHA-256 {configuration.get("manifestSha256")}\nmode {configuration.get("mode")}\n')
+               f'manifest SHA-256 {configuration.get("manifestSha256")}\nmode {configuration.get("mode")}\n'
+               f'nonce {nonce}\n')
     made = run('tag', '-a', tag, '-m', message, 'HEAD')
     if made.returncode:
         raise PermissionError(f'cannot make the exposure marker {tag}: {made.stderr.strip()}')
     pushed = run('push', '--atomic', '--porcelain', remote, f'refs/tags/{tag}')
-    if pushed.returncode:
+    if pushed.returncode or not created(pushed.stdout, tag):
         run('tag', '-d', tag)
-        raise PermissionError(f'the exposure marker {tag} did not land on {remote}; another checkout exposed H first '
-                              f'or {remote} refused ({pushed.stderr.strip() or pushed.stdout.strip()})')
+        raise PermissionError(f'the exposure marker {tag} was not CREATED on {remote}; another checkout exposed H '
+                              f'first or {remote} refused ({(pushed.stdout.strip() or pushed.stderr.strip())[:200]})')
     obj = run('rev-parse', f'refs/tags/{tag}').stdout.strip()
-    return dict(tag=tag, remote=remote, object=obj, configurationSha256=digest)
+    return dict(tag=tag, remote=remote, object=obj, configurationSha256=digest, nonce=nonce)
+
+
+def created(porcelain, tag):
+    """True iff `git push --porcelain` reports the remote tag CREATED by this push: the line
+    `*<TAB>refs/tags/<tag>:refs/tags/<tag><TAB>[new tag]`. "Up to date" (`=`) means a byte-identical
+    tag object was already there, which is somebody else's exposure, never ours."""
+    ref = f'refs/tags/{tag}'
+    rows = [line.split('\t') for line in porcelain.splitlines() if '\t' in line]
+    ours = [r for r in rows if len(r) >= 2 and r[1].split(':')[-1] == ref]
+    return len(ours) == 1 and ours[0][0] == '*'
 
 
 def _run(root, wave, manifest_path, log, output, capture, project, score, mode, guard=None):

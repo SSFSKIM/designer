@@ -47,6 +47,16 @@ The fixes of the bed review of b151aff4 (the parent's dispositions):
 - W42_PREDECLARATION=1 is for rehearsals before the declaration is re-pinned and hashed: the
   pins and HEAD checks hold, the declaration's state is recorded, only rehearsals launch.
 
+The verification round of those fixes (53400aa5):
+
+- The driver reads the scenes file and bed.json ONCE, checks exactly those bytes against the
+  pins and the declaration (`pinned_snapshot`), and derives every run of the pass from that
+  in-memory snapshot, so the SHA-256 an admission records names the bytes the run used; before
+  every run it re-checks the files on disk and refuses (quarantining the run) if they moved.
+- SIGTERM, SIGINT and SIGHUP raise `Cancelled` in the driver: the launch's child process is
+  killed, the native app is terminated by its binary path, and the run is quarantined; the
+  orchestrator sends SIGTERM when it is itself cancelled, then restores the display.
+
 Capture logs and manifests can carry holdout-role cells' diagnostics and stay producer-only
 under the raw root until the archive producer files them: redacted for H under operational/,
 whole under holdout/operational/, readable only through the receipt (B-M2).
@@ -60,6 +70,7 @@ import os
 from pathlib import Path
 import re
 import shlex
+import signal
 import subprocess
 import sys
 import time
@@ -260,6 +271,39 @@ def pinned_declaration(predeclaration=False):
     if problems:
         raise ValueError('refused before any launch: the bed is not the pinned declaration: ' + '; '.join(problems))
     return record
+
+
+def pinned_snapshot(predeclaration=False):
+    """(record, scenes document, bed) from ONE read of each file, whose bytes are exactly the ones
+    the pin check accepted: every run of the pass derives from this snapshot (verification
+    round, finding 1), so a file edited mid-pass can never be captured under the checked hash."""
+    P = pass_spec()
+    scenes_raw, bed_raw = Path(P.SCENES).read_bytes(), Path(P.BED).read_bytes()
+    declaration = pinned_declaration(predeclaration)
+    read = (hashlib.sha256(scenes_raw).hexdigest(), hashlib.sha256(bed_raw).hexdigest())
+    if read != (declaration['scenesSha256'], declaration['splitSha256']):
+        raise ValueError('refused before any launch: the bed changed while it was being checked')
+    return declaration, json.loads(scenes_raw), json.loads(bed_raw)
+
+
+def reverify(declaration, predeclaration=False):
+    """Before every run: the files on disk are still the snapshot's."""
+    try:
+        again = pinned_declaration(predeclaration)
+    except ValueError as error:
+        raise ValueError(f'the bed on disk is no longer the one this driver validated: {error}') from None
+    if (again['scenesSha256'], again['splitSha256']) != (declaration['scenesSha256'], declaration['splitSha256']):
+        raise ValueError(f'the bed on disk is no longer the one this driver validated: scenes '
+                         f'{again["scenesSha256"][:12]} and bed {again["splitSha256"][:12]} against '
+                         f'{declaration["scenesSha256"][:12]} and {declaration["splitSha256"][:12]}')
+
+
+class Cancelled(BaseException):
+    """SIGTERM, SIGINT or SIGHUP: the orchestrator's cancellation, or the operator's."""
+
+
+def _cancel(signum, frame):
+    raise Cancelled(f'cancelled by signal {signal.Signals(signum).name}')
 
 
 def declared_by(admission, declaration):
@@ -663,7 +707,7 @@ def main(argv=None):
     if predeclaration and not rehearsal:
         ap.error(f'{PREDECLARATION_ENV} admits rehearsals only: no evidence is launched before the declaration is '
                  'hashed')
-    declaration = pinned_declaration(predeclaration)
+    declaration, spec_doc, bed = pinned_snapshot(predeclaration)
     root = outside_repository(os.environ['VITREA_SITTING_DIR'])
     root.mkdir(parents=True, exist_ok=True)
     app = Path(os.environ.get('VITREA_APP', pin()['path'])).resolve()
@@ -676,7 +720,6 @@ def main(argv=None):
     idle_limit = float(os.environ.get('VITREA_IDLE_LIMIT', IDLE_WAIT_LIMIT))
     idle_poll = float(os.environ.get('VITREA_IDLE_POLL', IDLE_POLL_SECONDS))
     P = pass_spec()
-    spec_doc, bed = P.load()
     census = not (rehearsal and args.action == 'dump')
     if args.action == 'dump':
         p = P.pass_of('dump-' + args.key, bed)
@@ -713,12 +756,12 @@ def main(argv=None):
         if not rehearsal:
             check_order(root, p, n, bed, declaration)
         if p['kind'] == 'dump':
-            ids = P.dump_ids(p['key'])
+            ids = P.dump_ids_from(bed, p['key'])
             profile = next(x for x in spec_doc['profiles'] if x['key'] == bed['passes'][p['key']]['profile'])
             spec = write_doc(passdir, 'scenes-dump.json', P.subset(spec_doc, ids, profile))
             label = f'w42-{name}-{n}'
         else:
-            doc = P.derive(p['key'], n, p['kind'] == 'sentinel')
+            doc = P.derive_from(spec_doc, bed, p['key'], n, p['kind'] == 'sentinel')
             spec = write_doc(passdir, f'scenes-run-{n}.json', doc)
             ids = sorted({s for q in doc['profiles'] for s in q['scenes']})
             label = f'w42-{name}-{n}'
@@ -733,6 +776,7 @@ def main(argv=None):
                 f.write(f'{time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())} {line}\n')
 
         try:
+            reverify(declaration, predeclaration)
             wait_for_idle(read_session, log, limit=idle_limit, poll=idle_poll)
 
             def attest(phase):
@@ -865,6 +909,10 @@ def main(argv=None):
                 (run / 'admission.json').write_text(json.dumps(admission, indent=2) + '\n')
                 print(f'{name} run {n}: admitted cells={cells}', flush=True)
         except BaseException as error:
+            if isinstance(error, Cancelled):
+                # subprocess.run has already killed the launch's child; the app itself is
+                # LaunchServices', not ours, so it is ended by its binary path as a timeout ends it.
+                subprocess.run(['pkill', '-f', str(app / 'Contents/MacOS/VitreaReference')], check=False)
             (run / 'refusal.txt').write_text(f'{type(error).__name__}: {error}\n')
             quarantine = run.with_name(f'QUARANTINE-run-{n}-{time.time_ns()}')
             run.rename(quarantine)
@@ -873,4 +921,6 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
+    for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
+        signal.signal(sig, _cancel)
     main()

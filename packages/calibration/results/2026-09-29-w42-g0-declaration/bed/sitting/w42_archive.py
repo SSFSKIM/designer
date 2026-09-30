@@ -44,6 +44,13 @@ The fixes of the bed review of b151aff4:
   the whole files go to `holdoutOperational` under holdout/operational/, which bed/wave.py's
   Reader opens only with the receipt (W39 G1's pattern: public H entries carry attestation
   only, the full manifest sits behind the guarded reader).
+
+The verification round (53400aa5): the harness ends a capture log with its run summary,
+`CAVEAT: N of M fixtures are PIXEL-IDENTICAL …`, counted over every fixture, H included, with
+no scene id to redact by, so subtracting the public non-H flags recovered H's count (finding
+2). A public log now withholds everything from its first CAVEAT line on. And a quarantined run
+can keep the harness's `.staging-<UUID>/manifest.json`, which was copied verbatim (finding 5):
+holdout-bearing file names are guarded at any depth.
 """
 import argparse
 import copy
@@ -83,6 +90,7 @@ H_ATTESTATION = ('sceneId', 'file', 'fixtureSet', 'orderIndex', 'hidIdleSeconds'
                  'suppliedPaths', 'windowFrame', 'capturedAt')
 HOLDOUT_BEARING = ('manifest.json', 'producer-capture.out', 'producer-capture.err')
 WITHHELD = ' [holdout diagnostics withheld: holdout/operational/, read inside the receipt]'
+SUMMARY = 'CAVEAT:'
 _MODULES = {}
 
 
@@ -254,14 +262,19 @@ def public_manifest(raw, held):
 
 
 def public_log(raw, held):
-    """B-M2: a capture log with the diagnostics after every held-out scene id withheld."""
-    if not held:
-        return raw
+    """B-M2: a capture log with the diagnostics after every held-out scene id withheld, and,
+    from its first CAVEAT line on, the harness's run summary withheld whole: it is counted over
+    every fixture, H included, and names no scene to redact by (verification round, finding 2)."""
     pattern = re.compile(r'(?<![\w-])(' + '|'.join(re.escape(s) for s in sorted(held, key=len, reverse=True))
-                         + r')(?![\w-])')
-    lines = []
-    for line in raw.decode(errors='replace').splitlines(keepends=True):
-        found = pattern.search(line)
+                         + r')(?![\w-])') if held else None
+    lines, text = [], raw.decode(errors='replace').splitlines(keepends=True)
+    for i, line in enumerate(text):
+        if line.lstrip().startswith(SUMMARY):
+            lines.append(f'[{len(text) - i} line(s) withheld from here: the harness\'s run summary, counted over '
+                         'every fixture, H included; the whole log is in holdout/operational/, read inside the '
+                         'receipt]\n')
+            break
+        found = pattern.search(line) if pattern else None
         if found:
             line = line[:found.end()] + WITHHELD + ('\n' if line.endswith('\n') else '')
         lines.append(line)
@@ -272,7 +285,8 @@ def operational_files(raw_root, passes, held=frozenset()):
     """Every non-pixel file of the sitting, admitted and quarantined runs alike, and the logs.
 
     Returns (operational, holdoutOperational), each a list of (archive path, bytes). A run's
-    manifest and capture logs go to operational/ redacted for the held-out scenes and whole to
+    manifest and capture logs, at any depth (a quarantined run's `.staging-<UUID>/manifest.json`
+    included), go to operational/ redacted for the held-out scenes and whole to
     holdout/operational/ (B-M2); a manifest that does not parse goes to the holdout side only.
     """
     raw_root = Path(raw_root)
@@ -288,7 +302,7 @@ def operational_files(raw_root, passes, held=frozenset()):
             if rel.name == 'check.json' and name.startswith('dump-'):
                 continue
             raw = path.read_bytes()
-            if rel.name in HOLDOUT_BEARING and len(rel.parts) == 2:
+            if rel.name in HOLDOUT_BEARING:          # at any depth: a staged manifest too
                 guarded.append((f'holdout/operational/{name}/{rel.as_posix()}', raw))
                 if rel.name == 'manifest.json':
                     try:
