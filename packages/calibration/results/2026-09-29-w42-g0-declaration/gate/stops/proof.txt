@@ -1,5 +1,5 @@
 # W42 G0 gate: the directional stops' reader proof (charter clauses 2 and 10)
-# declaration sha256:0f907bfee62ae07f5ad68b1f8d7679b35abeae14a2077bb6bc5127d80a68809e
+# declaration sha256:d5283e4e198c7d2ac72d605f4713fcaa6b254c9a9c162ea2ba13d8ffd026d521
 # tolerances: stops-declaration.json proofTolerances, declared before this ran
 
 G. Geometry: scenes.json components against every shipped cell's report surfaces
@@ -18,8 +18,8 @@ H-A. Admission, from geometry alone (declared list enforced by halo.admitted)
       rrect-md 2x dot (160, 104): min depth over r < 10 34.25, centroid depth 44.00 -> admitted
       rrect-md 2x dot (224, 104): min depth over r < 10 6.25, centroid depth 16.00 -> not admitted
 H-S. Synthetic halos on a flat 120-code body (255 outside the shape)
-  [PASS] H implementation: largest |reader - per-pixel loop| 4.26e-14 code (tolerance 1e-9)
-  [PASS] H quantisation: largest |rounded - unrounded| 0.788 code (tolerance 1)
+  [PASS] H implementation: largest |reader - per-pixel loop| over peak, annulus and floor 4.26e-14 code (tolerance 1e-9)
+  [PASS] H quantisation: largest |rounded - unrounded| over peak, annulus and floor 0.788 code (tolerance 1)
   [PASS] H recovery: largest |read - continuous truth| 0.984 code (tolerance 1 + 0.03 A per case)
       capsule-button 1x sigma 1.0 A    8: peak read   3.33 truth   3.46 | annulus read  0.02 truth  0.04
       capsule-button 1x sigma 1.0 A   40: peak read  17.67 truth  17.29 | annulus read  0.20 truth  0.18
@@ -54,6 +54,13 @@ H-S. Synthetic halos on a flat 120-code body (255 outside the shape)
       rrect-md       2x sigma 5.0 A    8: peak read   5.85 truth   6.14 | annulus read  2.27 truth  2.75
       rrect-md       2x sigma 5.0 A   40: peak read  30.54 truth  30.68 | annulus read 13.36 truth 13.74
   [PASS] H side dots: rrect-md side dots at 3 A change the reading by 0.0e+00
+H-F. The floor statistic (version 2): a too-wide halo against a narrow Apple
+      flat 120-code body; Apple sigma 1.5 A 8, shipped sigma 1.5 A 40, candidate sigma 20 A 30; rounded to codes
+  [PASS] H floor sees a too-wide halo: on both shapes at both scales the sigma-20 candidate passes peak and annulus (the narrow reading it defeats) and FAILs floor, so the cell FAILs
+      capsule-button 1x peak nat   5.67 ship  27.33 cand   3.00 margin  20.00 pass | annulus nat   0.18 ship   1.16 cand   1.73 margin   0.43 pass | floor nat 120.00 ship 120.00 cand 147.00 margin -26.00 FAIL -> cell FAIL
+      capsule-button 2x peak nat   5.38 ship  26.31 cand   3.00 margin  19.54 pass | annulus nat   0.21 ship   1.16 cand   1.77 margin   0.39 pass | floor nat 120.00 ship 120.00 cand 147.00 margin -26.00 FAIL -> cell FAIL
+      rrect-md       1x peak nat   5.67 ship  27.33 cand   3.00 margin  20.00 pass | annulus nat   0.18 ship   1.16 cand   1.73 margin   0.43 pass | floor nat 120.00 ship 120.00 cand 147.00 margin -26.00 FAIL -> cell FAIL
+      rrect-md       2x peak nat   5.38 ship  26.31 cand   3.00 margin  19.54 pass | annulus nat   0.21 ship   1.16 cand   1.77 margin   0.39 pass | floor nat 120.00 ship 120.00 cand 147.00 margin -26.00 FAIL -> cell FAIL
 P-S. Synthetic OKLab fields (L 0.75, 24 plane waves per channel, lambda 3-60 CSS px)
   [PASS] P implementation: largest relative |reader - FFT implementation| 3.01e-16 (tolerance 1e-9)
   [PASS] P gamut: every synthetic field is inside the sRGB gamut (nothing clipped)
@@ -90,12 +97,18 @@ P-Q. The analytic res_band against a 64-draw Monte Carlo of the one-code field
       capsule-button 1x F: analytic 0.27291 Monte Carlo 0.27341 x1e-3
       capsule-button 1x M: analytic 0.07174 Monte Carlo 0.07300 x1e-3
   [PASS] P resolution: largest relative difference 0.018 (tolerance 0.05)
-E1. Candidate = the shipped tree itself (both stops)
-  [PASS] E1 identity: exit 0, 84 statistics on 42 cells, every dCand - dShip == 0: True, verdict pass
+E1. The shipped render: refused as a candidate, read as the identity and as the baseline
+  [PASS] E1 shipped tree refused as a candidate: the canonical tree as --candidate-root without --baseline: exit 1, no output: ...loper/GitHub/designer/packages/calibration/web-captures: the shipped render passes the bar by construction and is no candidate (--baseline records native against shipped)
+  [PASS] E1 identity: the shipped captures re-named at 4 declared scratch documents: exit 0, 100 statistics on 42 cells, every dCand - dShip == 0: True, verdict pass, stamped candidate
+  [PASS] E1 baseline: --baseline over the canonical tree: exit 0, 100 statistics, every dCand - dShip == 0: True, stamped baseline
+  [PASS] E1 baseline needs the shipped root: --baseline with a candidate root that is not the shipped root: exit 1: ...identity is not the shipped root /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
 E2. Stop H moved by known amounts (captures name scratch documents)
-  [PASS] E2 farther: exit 1; every core and annulus moved 3 codes away from Apple in every channel (clipped at the rails): the distance grew by 2.783..3.000 codes, equal to an independent loop within 2.8e-14, and every statistic reads FAIL ({'pass': 0, 'FAIL': 16, 'UNMEASURED': 0})
+  [PASS] E2 h-far: floor untouched: the floor ring is not moved, and floor reads dCand - dShip == 0 and pass on all 16 cells
+  [PASS] E2 farther: exit 1; every core and annulus moved 3 codes away from Apple in every channel (clipped at the rails): the distance grew by 2.783..3.000 codes, equal to an independent loop within 2.8e-14, and every peak and annulus reads FAIL ({'pass': 0, 'FAIL': 16, 'UNMEASURED': 0})
   [PASS] E2 admission stamp: 4 scratch documents named and matched by hash: materialProfile 4355ab720dfd (dark), recededProfile af8fceee1cd3 (dark), materialProfile 8e76dd5c0b73 (light), recededProfile 2fb4d8b8457a (light)
+  [PASS] E2 h-within: floor untouched: the floor ring is not moved, and floor reads dCand - dShip == 0 and pass on all 16 cells
   [PASS] E2 within resolution: exit 0; half of each ring moved 1 code away: the distance grew by 0.464..0.500 codes (independent loop within 5.7e-14) and every statistic reads pass ({'pass': 16, 'FAIL': 0, 'UNMEASURED': 0})
+  [PASS] E2 floor farther: exit 1; the whole r < 10 disc moved 3 codes away from Apple's floor in every channel (0 channel values clipped): peak and annulus move by at most 5.7e-14 and pass, floor's distance grows by 3.000000..3.000000 codes and FAILs on all 16 cells (independent loop within 5.7e-14; {'pass': 0, 'FAIL': 16, 'UNMEASURED': 0})
 E3. Stop P moved by known amounts
   [PASS] E3 farther in F: exit 1; 26/26 cells FAIL on F; distance grew by 0.365..4.216 x1e-3 = 1.5..32.7 res; the read candidate energy is within 0.33 res of the unrounded construction
   [PASS] E3 farther in M: exit 1; 26/26 cells FAIL on M; distance grew by 0.958..13.566 x1e-3 = 27.2..307.3 res; the read candidate energy is within 0.40 res of the unrounded construction
@@ -105,10 +118,11 @@ E4. Refusals and UNMEASURED
   [PASS] E4 scheme mismatch: exit 1: ...r-scheme/apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive: capturePath does not say colorScheme=light
   [PASS] E4 size mismatch: exit 1: ...r-size/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__inactive: the PNG is 320x200, not [640, 400]
   [PASS] E4 mixed documents: exit 1: ...documents/apple-macos-27.0-1x-light-standard-glass0.5-receded.json', '2fb4d8b8457a'))
-  [PASS] E4 undeclared document: exit 1: ...documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:4355ab720dfd, which is none of the declared documents ['85ad7f7e3e0d'] and not a shipped document
+  [PASS] E4 undeclared document: exit 1: ...s-27.0-1x-dark-standard-glass0.5.json sha256:4355ab720dfd, which is not a shipped document and none of the declared documents ['85ad7f7e3e0d']: declare it with --document
+  [PASS] E4 undeclared documents, no --document: exit 1: ...nts/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:4355ab720dfd, which is not a shipped document and none of the declared documents []: declare it with --document
   [PASS] E4 shipped scheme needs no declaration: light at scratch documents declared by --document, dark left at the shipped documents undeclared: exit 0, admission [('materialProfile', 'dark', True), ('materialProfile', 'light', False), ('recededProfile', 'dark', True), ('recededProfile', 'light', False)]
   [PASS] E4 stale shipped tree: a shipped root whose captures name scratch documents: exit 1: ...k-standard-glass0.5.json sha256:4355ab720dfd, which is not a document under packages/calibration/profiles/ at its bytes on disk (4355ab720dfd): not the shipped generation
   [PASS] E4 missing candidate cell: exit 1; apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive absent from the candidate reads UNMEASURED and the stop reads UNMEASURED, not pass
   [PASS] E4 native role guard: holdout / probe / recorded scenes raise before a path is formed: ['photo__rrect-lg__rest is holdout', 'impulse__rrect-ml__rest is probe', 'photo__capsule-button__pressed is recorded']
 
-# 0 check(s) failed; 220 s
+# 0 check(s) failed; 140 s

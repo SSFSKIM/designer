@@ -25,6 +25,21 @@
   cand-light-closure-plus-new/  the same two closures and the RED seed together: a closure
                          never excuses a new miss.
 
+Added by the fix wave on the gate review of b151aff4:
+  The light stages hold the WebGPU rows of all four light gated profiles, reduced transparency and
+  increased contrast included (finding 1: a candidate that moves the light documents must render
+  all six gated profiles' WebGPU pairs), and {base,cand}-light-no-rt/ omit reduced transparency's,
+  the synthetic stage the new refusal must refuse.
+  cand-light-closure-move/  the two closures and a MOVE of the other two M1 misses (the 2x light
+                         photo__rrect-sm inactive and rest R set to 1.43 and 1.42, still past
+                         1.40): finding 2's re-record. cand-light-closure-move-plus-new/ adds the
+                         RED seed.
+  cand-{light,dark}-a1/  Decision Log 5d's four cell-profiles at round 3's r3-2pgb growths (light
+                         photo__rrect-md__inactive-tint-orange +0.0108 / +0.0100, dark
+                         photo__capsule-button__inactive-tint-orange +0.0138 / +0.0133, 1x / 2x):
+                         item A1. cand-light-a1-fifth/ adds a fifth growth failure, round 3's [U7]
+                         reading, 1x light checkerboard__rrect-ml__rest at +0.0105.
+
     python3.12 -B proof-inputs.py --out /tmp/w42-gate-owner/proof-inputs
 """
 import argparse
@@ -44,10 +59,26 @@ import matrix_store as store  # noqa: E402
 CANONICAL = Path("/Users/new/Developer/GitHub/designer/packages/calibration/web-captures")
 SCRATCH = "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/owner/proof-candidate"
 SCHEMES = {"light": ["apple-macos-27.0-1x-light-standard-glass0.5",
-                     "apple-macos-27.0-2x-light-standard-glass0.5"],
+                     "apple-macos-27.0-2x-light-standard-glass0.5",
+                     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+                     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"],
            "dark": ["apple-macos-27.0-1x-dark-standard-glass0.5",
                     "apple-macos-27.0-2x-dark-standard-glass0.5"]}
 LIGHT_1X = "apple-macos-27.0-1x-light-standard-glass0.5"
+LIGHT_2X = "apple-macos-27.0-2x-light-standard-glass0.5"
+RT = "apple-macos-27.0-1x-light-reduced-transparency-glass0.5"
+#: L1's W33 baseline generations (adopted-thresholds.test.ts BASELINE), for the growth seeds.
+L1_BASELINE = {"light": ("6e509c7f76cc", "45acb6d916b9"), "dark": ("eab099cc6698", "4e68f81869f6")}
+#: Growth seeds: name -> (cell, growth). Decision Log 5d's four at r3-2pgb, and [U7] as a fifth.
+GROWTH = {
+    "g5d-l1": ((LIGHT_1X, "photo__rrect-md__inactive-tint-orange"), 0.0108),
+    "g5d-l2": ((LIGHT_2X, "photo__rrect-md__inactive-tint-orange"), 0.0100),
+    "g5d-d1": (("apple-macos-27.0-1x-dark-standard-glass0.5",
+                "photo__capsule-button__inactive-tint-orange"), 0.0138),
+    "g5d-d2": (("apple-macos-27.0-2x-dark-standard-glass0.5",
+                "photo__capsule-button__inactive-tint-orange"), 0.0133),
+    "g-fifth": ((LIGHT_1X, "checkerboard__rrect-ml__rest"), 0.0105),
+}
 #: name -> (cell, axis, field, the native field it is read against or None, how it moves).
 SEEDS = {
     "seeded": ((LIGHT_1X, "light-solid__rrect-md__rest"), "material", "interiorMeanWeb",
@@ -63,10 +94,19 @@ SEEDS = {
                  "interiorMeanWeb", "interiorMeanNative", lambda native, web: native),
     "m27-close": ((LIGHT_1X, "photo__rrect-sm__inactive"), "material", "chromaStructureRatioWeb",
                   "chromaStructureRatioNative", lambda native, web: native),
+    "m27-move-a": ((LIGHT_2X, "photo__rrect-sm__inactive"), "material", "chromaStructureRatioWeb",
+                   "chromaStructureRatioNative", lambda native, web: 1.43 * native),
+    "m27-move-b": ((LIGHT_2X, "photo__rrect-sm__rest"), "material", "chromaStructureRatioWeb",
+                   "chromaStructureRatioNative", lambda native, web: 1.42 * native),
 }
-#: stage name -> the seeds applied in order (only the stages that combine seeds).
+#: stage name -> the seeds applied in order (only the stages that combine seeds). A stage is
+#: written for each scheme that holds at least one of its seeds' cells.
 COMBINED = {"closure": ("l1-close", "m27-close"),
-            "closure-plus-new": ("l1-close", "m27-close", "seeded")}
+            "closure-plus-new": ("l1-close", "m27-close", "seeded"),
+            "closure-move": ("l1-close", "m27-close", "m27-move-a", "m27-move-b"),
+            "closure-move-plus-new": ("l1-close", "m27-close", "m27-move-a", "m27-move-b", "seeded"),
+            "a1": ("g5d-l1", "g5d-l2", "g5d-d1", "g5d-d2"),
+            "a1-fifth": ("g5d-l1", "g5d-l2", "g5d-d1", "g5d-d2", "g-fifth")}
 COMMENT = ("W42 G0 owner-runner proof: the shipped document with this one key added, so its "
            "bytes and hash differ and its resolved material does not.")
 
@@ -108,7 +148,6 @@ def seeded(rows: list[bytes], name: str) -> tuple[list[bytes], dict]:
                       seeded=moved, changeFraction=(moved - web) / web,
                       **({} if native is None else dict(errorBefore=abs(web - native),
                                                         errorAfter=abs(moved - native))))
-    assert record is not None
     return out, record
 
 
@@ -120,6 +159,19 @@ def main() -> int:
     if out.exists():
         raise SystemExit(f"{out} exists")
     rows = store.load_current_rows(matrix_path=str(CAL / "results/matrix.json"))
+    # The growth seeds move a cell's web mean to n + sign(w - n) (before + g): its L1 error is
+    # its W33 baseline error plus g, which is the growth L1 reads.
+    for name, (cell, growth) in GROWTH.items():
+        scheme = "dark" if "-dark-" in cell[0] else "light"
+        old = [r for r in store.load_generation(*L1_BASELINE[scheme])
+               if (r["key"]["profileKey"], r["key"]["sceneId"]) == cell
+               and r["key"]["web"]["renderer"] == "webgpu"]
+        assert len(old) == 1, (name, len(old))
+        before = abs(old[0]["material"]["interiorMeanWeb"]["value"]
+                     - old[0]["material"]["interiorMeanNative"]["value"])
+        SEEDS[name] = (cell, "material", "interiorMeanWeb", "interiorMeanNative",
+                       lambda native, web, before=before, growth=growth:
+                       native + (1.0 if web >= native else -1.0) * (before + growth))
     scenes = json.loads((CAL.parent.parent / "apps/reference-apple/scenes.json").read_text())
     roles = {sid: role for role, ids in scenes["split"].items() if not role.startswith("$")
              for sid in ids}
@@ -157,22 +209,35 @@ def main() -> int:
             renamed.append(r)
         write_stage(out / f"cand-{scheme}", renamed, declared["materialProfile"],
                     declared["recededProfile"])
+        record.setdefault("seeds", {})
+        for name in SEEDS:
+            rows_seeded, seed_record = seeded(renamed, name)
+            if seed_record is None:
+                continue  # the seed's cell is in the other scheme's stage
+            record["seeds"][name] = seed_record
+            write_stage(out / f"cand-{scheme}-{name}", rows_seeded, declared["materialProfile"],
+                        declared["recededProfile"])
+        for stage, names in COMBINED.items():
+            rows_seeded, hit = renamed, False
+            for name in names:
+                rows_seeded, seed_record = seeded(rows_seeded, name)
+                hit |= seed_record is not None
+            if hit:
+                write_stage(out / f"cand-{scheme}-{stage}", rows_seeded,
+                            declared["materialProfile"], declared["recededProfile"])
+        record["combined"] = {stage: list(names) for stage, names in COMBINED.items()}
         if scheme == "light":
-            record["seeds"] = {}
-            for name in SEEDS:
-                rows_seeded, record["seeds"][name] = seeded(renamed, name)
-                write_stage(out / f"cand-light-{name}", rows_seeded, declared["materialProfile"],
-                            declared["recededProfile"])
-            for stage, names in COMBINED.items():
-                rows_seeded = renamed
-                for name in names:
-                    rows_seeded, _ = seeded(rows_seeded, name)
-                write_stage(out / f"cand-light-{stage}", rows_seeded, declared["materialProfile"],
-                            declared["recededProfile"])
-            record["combined"] = {stage: list(names) for stage, names in COMBINED.items()}
             base_seeded, _ = seeded(raw, "seeded")
             write_stage(out / "base-light-seeded", base_seeded, pair["materialProfile"],
                         pair["recededProfile"])
+            # Finding 1's synthetic stage: the light stages without reduced transparency's WebGPU
+            # rows, which the candidate's light documents drew.
+            def no_rt(rows_):
+                return [r for r in rows_ if json.loads(r)["key"]["profileKey"] != RT]
+            write_stage(out / "base-light-no-rt", no_rt(raw), pair["materialProfile"],
+                        pair["recededProfile"])
+            write_stage(out / "cand-light-no-rt", no_rt(renamed), declared["materialProfile"],
+                        declared["recededProfile"])
         # G2's shape: the stage holds no holdout row (clause 10 never renders one before the
         # exposure), so W41's pair replacement drops the pair's current holdout rows.
         def g2(rows_):

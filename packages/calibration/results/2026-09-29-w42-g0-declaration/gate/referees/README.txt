@@ -37,8 +37,11 @@ every `--claims` default are W41's; with no --candidate every output keeps the p
                     replaced (profile, tier) pairs must be disjoint; the union replaces all of
                     them. One stage: `source` is W41's dict, byte for byte. More than one:
                     `source` = {label, stages: [W41's dict per stage]}.
-  chroma-cut.py     M1/M2 bed guard reads `source.admitted`; `shippedDocuments` stays the files
-                    under profiles/; stamp + atDocuments + banner.
+  chroma-cut.py     M1/M2 bed guard reads `source.admitted`; stamp + atDocuments + banner. In
+                    candidate mode `shippedDocuments` names what the bed was measured at, each
+                    admitted candidate in place of the profiles/ file of its basename (since
+                    2026-09-30, the gate review of b151aff4, finding 11; before, it kept the
+                    profiles/ files). Base mode writes the profiles/ files as W41's port does.
   exterior-cut.py   --at-documents shipped reads `source.admitted` (still the active document
                     only, as W36's did); stamp + atDocuments ("any" stays "any") + banner.
   l1-cut.py         the per-row assert reads `source.admitted`; stamp + atDocuments + banner.
@@ -131,8 +134,11 @@ its section-0 list, one entry per document the rows name: the WebGPU rows name t
 while the CSS rows still name the shipped documents, so 4 names where the control has 2, the
 same 2 once mapped, row counts summing per name.
 
-Result (admission-test.txt; the working tree over ffd9567f, 2026-09-29): all checks pass,
-75 ok and 0 FAIL, in about six minutes.
+Result (admission-test.txt; re-run 2026-09-30 by the fix wave over ee2205d8 with finding 11's
+chroma-cut.py and its new check; first run over ffd9567f, 2026-09-29): all checks pass, 75 ok and
+0 FAIL. Only the GREEN candidate chroma-cut lines changed: its shippedDocuments names the four
+candidates before mapping (checked), and the base-mode chroma cut is still byte-identical to
+W41's port.
   GREEN base, current union        six scripts byte-identical to W41's port run from its own
                                    folder; chroma-cut.json except generatedAt.
   GREEN base, one stage            control-light (208 rows, 1x/2x light standard WebGPU, holdout

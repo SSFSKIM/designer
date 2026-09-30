@@ -14,12 +14,19 @@ no canonical holdout or recorded native pixel opened; freeze 1,818 at every comm
   m2-named-miss/   Decision Log 5a's derivation in test/adopted-thresholds.test.ts beside
                    chromaStructureMisses(), with its owner case; the 2 % unmoved; 107 pass, 1
                    skipped (X1: no capture tree in a worktree, as before); red/green record.
+                   Fix wave: two seeds pin the past-Apple clause (mutants.txt).
+  l1-growth-named-miss/  (fix wave, item A1) Decision Log 5d's path for L1 GROWTH beside L1's
+                   MISSES: the four ruled cell-profiles, GROWTH_MISSES (empty), the owner case;
+                   red/green record. The suite reads 108 pass, 1 skipped.
   owner/           run-owner.py: the owner test, unmodified, on a candidate's scratch union over
                    all six gated profiles, against the base's own union at the same membership
                    (disposable worktree; candidates installed at their profiles/ names; kept rows
-                   and holdout carried; M2 named misses recorded as the seal would). proof.txt.
-  stops/           Stop H (impulse halo/annulus) and Stop P (photo band-pass chroma energy),
-                   declared (stops-declaration.json), proved 30/30, baselined native vs shipped.
+                   and holdout carried; M2 and L1-growth named misses recorded as the seal would;
+                   the seal's closures and re-records; a refusal when a gated WebGPU pair drawn
+                   at a replaced document is not staged, or the base fails). proof.txt.
+  stops/           Stop H (impulse halo/annulus/floor) and Stop P (photo band-pass chroma
+                   energy), declared (stops-declaration.json v2), proved 38/38, baselined native
+                   vs shipped; undeclared documents and the shipped render itself refused.
   sheets/          the standing eye sheets by the six strata, membership declared (strata.json).
   rehearsal/       clause 3: memo A's body swap in all four endpoints on the canonical captures,
                    every referee above run on it; the table and the by-construction failures
@@ -33,3 +40,26 @@ no canonical holdout or recorded native pixel opened; freeze 1,818 at every comm
                    coverage x smoothstep(0, 20 pt, depth), crossed with both candidates and both
                    knees (24 combinations); round3/README.txt ends with what still fails by
                    construction, per combination (best: r3-2pgb).
+
+The fix wave on the review of b151aff4 (branch w42-g0-fix-gate; FIXES-b151aff4.md)
+---------------------------------------------------------------------------------
+FIXES-b151aff4.md lists every finding and what changed. Two findings change nothing and are
+recorded here.
+
+G4, dismissed as overtaken. The review asked that E2's ADOPTED reading be run on round 2's
+full-swap trees c1f and c2f, whose edge shells move with the body, before E2 went to the user.
+The user then ruled E2's reading (Decision Log 5e: per cell, in absolute codes, worse bins
+listed as named misses), so the adopted reading is no longer the gate's and the run was not made.
+rehearsal/round3/README.txt carries the note: the claim that the adopted reading fails "because
+the law moves the deep median" is attested only on trees whose shells are held.
+
+G7, recorded, no change: the /n reading of Decision Log 5a. structureVerdict names a move that
+passes Apple only when |w - n| / n <= 2 %, with Apple's value n as the denominator, not the
+reference r. So a cell within 2 % of Apple counts as not past it, even when the reference sat
+closer to Apple. Example: r 0.0200, n 0.0201, w 0.0205 is named (1.99 % past n), although
+|w - n| = 0.0004 against |r - n| = 0.0001. Wherever n > r, which is every bed cell (Apple's
+structure is 1.25-4.6 times the shipped reading on all 26), /n is the more lenient choice. The
+implementation's reading is that a cell within 2 % of Apple's value sits at M2's own tolerance
+of Apple and is not "past it". The parent records this reading beside Decision Log 5a in the
+charter and in §5.194. The owner case's two new seeds (finding 6) pin /n and the absolute
+distance as implemented.

@@ -32,27 +32,34 @@ Per run, inside one disposable detached worktree at `--commit` (default this bra
      that union: chroma and exterior written over their fixed paths in the worktree, L1 and X1
      through VITREA_L1_CUT / VITREA_X1_CUT. M2's reference is the generation current at the
      commit (W32 Decision Log 4).
-  6. (default on) M2 named misses as the seal would record them (Decision Log 5a): inserted into
-     the worktree's copy of MISSED_27_ROWS, each line logged, only when the test at the commit
-     carries the named-miss derivation, which then checks every insertion itself.
+  6. (default on) Named misses added as the seal would add them, and ONLY through the two
+     ruled paths: M2's (Decision Log 5a) into the worktree's copy of MISSED_27_ROWS, and L1
+     growth's (Decision Log 5d: a growth miss on one of its four ruled cell-profiles) into
+     GROWTH_MISSES. Each only when the test at the commit carries that path, which then checks
+     every insertion itself; each line logged (m2-insertions.txt, l1-growth-insertions.txt).
   7. `vitest run test/adopted-thresholds.test.ts --reporter=json` with VITREA_MATRIX_PATH,
      VITREA_WEB_CAPTURES, VITREA_L1_CUT and VITREA_X1_CUT set.
-  8. (default on; --no-closures for evidence) CLOSURES, the parent's ruling of 2026-09-30: a
-     named miss that stops missing is a pass, and its list shrinks at the seal, because floors
-     come off by fix. The test compares two named-miss lists with the lists it derives, in both
-     directions: MISSED_27_ROWS ("names every 27 row the refit missed") and L1's `MISSES` ("the
-     two named, unfloored misses"). So a closing entry fails it exactly as a new miss would, and
-     vitest's truncated message cannot tell the two apart. Before each of those two assertions
-     the worktree's copy logs the derived and the recorded list to a scratch file (one added
-     line each; no assertion changes). Every recorded entry the run no longer derives is a
-     closure. The copy then drops the closing entries, as the seal would: the MISSED_27_ROWS
-     line is deleted, and `MISSES` is filtered at its assertion. The test runs again, and that
-     second run is the run's result. A closure never excuses a new miss: the shrunken list
-     still fails on any entry derived and not recorded.
+  8. (default on; --no-closures for evidence) THE SEAL'S RECORDING EDITS, the parent's ruling of
+     2026-09-30 and the gate review of b151aff4, finding 2. The test compares three named-miss
+     lists with the lists it derives, in both directions (MISSED_27_ROWS, L1's `MISSES`, L1's
+     GROWTH_MISSES), and pins each entry's reading to five decimals. So a candidate that closes a
+     named miss, or merely moves one that still misses, fails the owner case exactly as a new
+     miss would, and vitest stops that case at its first failure. Before each list's assertion
+     the worktree's copy logs the derived list, the recorded list, each derived entry's
+     readings and the recorded entries (one added line each; no assertion changes). Then, as the
+     seal would: every recorded entry the run no longer derives is a CLOSURE and is dropped (a
+     floor comes off by fix: a pass, reported as its own list); every recorded entry still
+     derived whose reading no longer pins is RE-RECORDED at its new reading. Nothing is added
+     here: an entry derived and not recorded still fails. The test runs again, and that second
+     run is the run's result. Every edit is logged in edits.txt.
 
 Then the comparison: exit 0 only when no candidate case fails that the base passes, and no case
-failing in both fails with a different message. Closures are reported per run and never block.
-Exit 1 otherwise; exit 2 on a refusal.
+failing in both fails with a different message. Closures and re-records are reported per run
+and never block. Exit 1 otherwise; exit 2 on a refusal. Two refusals guard what the comparison
+cannot see (the gate review of b151aff4): a gated profile's WebGPU pair drawn at a document the
+run replaces must be staged (finding 1: unstaged, its old rows are read in both runs and say
+nothing about the candidate), and the base must pass every case (finding 8: vitest truncates the
+messages a shared failure is compared on); the verdict is written either way.
 
     python3.12 -B run-owner.py --stage LIGHT --stage DARK --candidate DOC ... --captures ROOT \\
         --base-stage BLIGHT --base-stage BDARK --base-captures ROOT --out /tmp/owner-run
@@ -86,13 +93,56 @@ M2_METRIC = "interiorStdDevStructureDelta"
 CHROMA_BED = {"apple-macos-27.0-1x-light-standard-glass0.5", "apple-macos-27.0-2x-light-standard-glass0.5",
               "apple-macos-27.0-1x-dark-standard-glass0.5", "apple-macos-27.0-2x-dark-standard-glass0.5"}
 MISSED_ANCHOR = "const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {"
-#: The test's two list-equality assertions over named misses, with the expressions for the list
-#: each derives and the list each records (step 8).
+#: L1 growth's recorded named misses (Decision Log 5d), where the seal would add its entries.
+GROWTH_ANCHOR = "  const GROWTH_MISSES: Readonly<Record<string, GrowthMiss>> = {"
+GROWTH_BOUND = 0.005
+#: Decision Log 5d's four cell-profiles (RULED 2026-09-30; declaration item l1TintedReceded), in
+#: L1's own key: the only cells whose growth miss the seal may record. The test at the commit
+#: carries the same set as GROWTH_RULED and checks every insertion against it.
+GROWTH_RULED = tuple(f"apple-macos-27.0-{s}x-{scheme}-standard-glass0.5/{scene}" for s in (1, 2)
+                     for scheme, scene in (("light", "photo__rrect-md__inactive-tint-orange"),
+                                           ("dark", "photo__capsule-button__inactive-tint-orange")))
+#: Charter clause 10's "all six gated macOS 27 profiles", whose WebGPU pairs a candidate that
+#: moves a document they were drawn at must render (the gate review of b151aff4, finding 1).
+GATED_PROFILES = ("apple-macos-27.0-1x-light-standard-glass0.5",
+                  "apple-macos-27.0-2x-light-standard-glass0.5",
+                  "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+                  "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+                  "apple-macos-27.0-1x-dark-standard-glass0.5",
+                  "apple-macos-27.0-2x-dark-standard-glass0.5")
+#: The test's three list-equality assertions over named misses, with the expressions for the list
+#: each derives and the list each records (step 8). declare.py reads this 3-tuple shape.
 CLOSURE_ASSERTIONS = {
     "MISSED_27_ROWS": ('    expect(missed.sort(), "the 27 rows that miss their declared bound").toEqual(',
                        "[...missed].sort()", "Object.keys(MISSED_27_ROWS).sort()"),
     "L1 MISSES": ("    expect(misses).toEqual(MISSES);", "[...misses].sort()", "[...MISSES].sort()"),
+    "L1 GROWTH_MISSES": ('    expect(namedGrowth.map((m) => m.cell).sort(), "the named L1 growth misses")'
+                         ".toEqual(", "namedGrowth.map((m) => m.cell).sort()",
+                         "Object.keys(GROWTH_MISSES).sort()"),
 }
+#: Per list, in the same scope: each derived entry's readings as the test pins them against the
+#: recorded entry (`measured`, and `native` for an M2 named miss, to five decimals), and the
+#: recorded entries themselves. MISSED_27_ROWS's are the three pins of its owner case: a table
+#: row's reading, an M1 miss's R, an M2 named miss's |delta| and Apple's reading.
+MEASURED_27 = (
+    "Object.fromEntries([...DECLARED_27_PROFILES.filter(transcribed27).flatMap((profile) => "
+    '["texture", "dom"].flatMap((tier) => profile[tier].flatMap(([axis, metric]) => '
+    "cellsOf(profile.profileKey, tier).flatMap((cell) => missed.includes(`${name(cell)} :: "
+    "${metric}`) ? [[`${name(cell)} :: ${metric}`, { measured: reading(cell, axis, metric) }]] "
+    ": [])))), ...chromaPerCellMisses().map((cell) => [`${chromaKey(cell)} :: ${CHROMA_METRIC}`, "
+    "{ measured: cell.R }]), ...namedStructureMisses.map(({ cell, native }) => "
+    "[`${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`, { measured: "
+    "Math.abs(cell.structureDeltaFraction), native }])])")
+CLOSURE_READINGS = {
+    "MISSED_27_ROWS": (MEASURED_27, "MISSED_27_ROWS"),
+    "L1 MISSES": ("{}", "{}"),
+    "L1 GROWTH_MISSES": ("Object.fromEntries(namedGrowth.map((m) => [m.cell, { measured: m.growth }]))",
+                         "GROWTH_MISSES"),
+}
+#: Where each recorded list's entries sit, one per line: the indent before the quoted key.
+ENTRY_INDENT = {"MISSED_27_ROWS": "  ", "L1 GROWTH_MISSES": "    "}
+#: `toBeCloseTo(x, 5)` passes when |x - recorded| < 10^-5 / 2; a reading off by that re-records.
+PIN = 5e-6
 CLOSURE_NOTE = "// run-owner.py: a closure read (W42, 2026-09-30), not committed"
 
 
@@ -177,6 +227,7 @@ def internal_union(argv: list[str]) -> int:
                     and member(row) not in held):
                 continue
             carried.append(row)
+        carrying = rs._pair(row) in replaced
         hits = [(kind, path, sha) for kind, path, sha in store.documents(row)
                 if f"{path} {sha}" in side]
         if not hits:
@@ -199,7 +250,8 @@ def internal_union(argv: list[str]) -> int:
         kept.append(moved)
         relocated.append(dict(profile=row["key"]["profileKey"], renderer=row["key"]["web"]["renderer"],
                               set=row.get("fixtureSet"), scene=row["key"]["sceneId"],
-                              capturePath=capture, originalCapturePath=row["key"]["web"]["capturePath"]))
+                              capturePath=capture, originalCapturePath=row["key"]["web"]["capturePath"],
+                              carried=carrying))
     union = sorted(kept + staged, key=store.key)
     if len({store.key(r) for r in union}) != len(union):
         raise SystemExit("a staged key collides with a kept row")
@@ -217,13 +269,17 @@ def internal_union(argv: list[str]) -> int:
             label = " ".join(rs._pair(r))
             out[label] = out.get(label, 0) + 1
         return dict(sorted(out.items()))
+    # A carried holdout row belongs to a replaced pair: it is not a kept pair, and counting it as
+    # one named every staged pair "kept" (the gate review of b151aff4, finding 1).
+    only_kept = [r for r in kept if rs._pair(r) not in replaced]
     report = dict(
         rows=len(union), legacyEnvelopeSha256=digest,
         replacedPairs=sorted(" ".join(p) for p in replaced),
         stagedMembers=sorted([r["key"]["profileKey"], r["key"]["web"]["renderer"], r.get("fixtureSet"),
                               r["key"]["sceneId"]] for r in staged),
         stagedRowsByPair=counted(staged),
-        keptRowsByPair=counted(r for r in kept if r["key"]["profileKey"].startswith("apple-macos-27.0-")),
+        keptRowsByPair=counted(r for r in only_kept
+                               if r["key"]["profileKey"].startswith("apple-macos-27.0-")),
         keptRelocatedByPair={},
         holdoutCarriedByPair=counted(carried),
         keptRelocated=relocated,
@@ -237,6 +293,8 @@ def internal_union(argv: list[str]) -> int:
                                   "rows" if args.carry_holdout else "")),
     )
     for e in relocated:
+        if e["carried"]:
+            continue
         label = f"{e['profile']} {e['renderer']}"
         report["keptRelocatedByPair"][label] = report["keptRelocatedByPair"].get(label, 0) + 1
     args.report.write_text(json.dumps(report, indent=1) + "\n")
@@ -358,7 +416,10 @@ def inspect_test(source: str) -> dict:
     missed_row = re.search(r"interface MissedRow \{(.*?)\n\}", source, re.S)
     m2 = bool(missed_row and re.search(r"readonly native\?: number;", missed_row.group(1))
               and "chromaStructureNamedMisses" in source and source.count(MISSED_ANCHOR) == 1)
-    return dict(fixedCuts=fixed, otherCommittedCutsReadAsCommitted=other, m2NamedMissDerivation=m2)
+    growth = bool("const GROWTH_RULED" in source and "const growthVerdict" in source
+                  and source.count(GROWTH_ANCHOR) == 1)
+    return dict(fixedCuts=fixed, otherCommittedCutsReadAsCommitted=other, m2NamedMissDerivation=m2,
+                l1GrowthNamedMissPath=growth)
 
 
 class Run:
@@ -569,14 +630,17 @@ def m2_named_misses(cut: dict, union_path: Path, shipped_now: dict[str, str]) ->
 
 
 def instrument_closures(source: str) -> str:
-    """Step 8: log each named-miss list the test derives and records, beside its assertion."""
+    """Step 8: log each named-miss list the test derives and records, beside its assertion,
+    with each derived entry's readings and the recorded entries (one added line per list)."""
     for name, (anchor, derived, recorded) in CLOSURE_ASSERTIONS.items():
         if source.count(anchor) != 1:
             raise Refusal(f"the test at the commit holds {source.count(anchor)} copies of the {name} "
                           "assertion; closures cannot be read (--no-closures to run without them)")
+        measured, entries = CLOSURE_READINGS[name]
         line = ('    if (process.env.W42_OWNER_DERIVED) process.getBuiltinModule("node:fs").appendFileSync('
                 f'process.env.W42_OWNER_DERIVED, JSON.stringify({{ list: "{name}", derived: {derived}, '
-                f'recorded: {recorded} }}) + "\\n"); {CLOSURE_NOTE}')
+                f'recorded: {recorded}, measured: {measured}, entries: {entries} }}) + "\\n"); '
+                f"{CLOSURE_NOTE}")
         source = source.replace(anchor, line + "\n" + anchor, 1)
     return source
 
@@ -594,14 +658,51 @@ def closures_of(lists: dict[str, dict]) -> dict[str, list[str]]:
     return {name: keys for name, keys in out.items() if keys}
 
 
-def shrink(source: str, closures: dict[str, list[str]]) -> str:
-    """The seal's shrink on the worktree copy: the closing MISSED_27_ROWS lines deleted, and
-    `MISSES` filtered where it is asserted and logged."""
-    for key in closures.get("MISSED_27_ROWS", []):
-        line = re.compile(r"^  " + re.escape(json.dumps(key, ensure_ascii=False)) + r": \{.*\n", re.M)
-        if len(line.findall(source)) != 1:
-            raise Refusal(f"MISSED_27_ROWS holds {len(line.findall(source))} lines for {key!r}")
-        source = line.sub("", source)
+def rerecords_of(lists: dict[str, dict]) -> list[dict]:
+    """Every reading of an entry still derived that no longer pins to what the entry records.
+
+    The test pins `measured` (and an M2 named miss's `native`) to five decimals; the seal would
+    re-record such an entry at its new reading rather than read the move as a new failure (the
+    gate review of b151aff4, finding 2). A field the entry does not carry is never added.
+    """
+    out = []
+    for name, r in sorted(lists.items()):
+        for key in sorted(set(r["recorded"]) & set(r["derived"])):
+            entry, reading = r["entries"].get(key, {}), r["measured"].get(key, {})
+            for field in ("measured", "native"):
+                if field not in entry or field not in reading:
+                    continue
+                if not abs(reading[field] - entry[field]) < PIN:
+                    out.append(dict(list=name, key=key, field=field, recorded=entry[field],
+                                    reading=reading[field]))
+    return out
+
+
+def entry_line(source: str, name: str, key: str) -> re.Match:
+    """The one line that records `key` in list `name`, refused unless it is unique."""
+    line = re.compile(r"^" + ENTRY_INDENT[name] + re.escape(json.dumps(key, ensure_ascii=False))
+                      + r": \{.*\n", re.M)
+    hits = list(line.finditer(source))
+    if len(hits) != 1:
+        raise Refusal(f"{name} holds {len(hits)} lines for {key!r}")
+    return hits[0]
+
+
+def seal_edits(source: str, closures: dict[str, list[str]], rerecords: list[dict]) -> str:
+    """The seal's recording edits on the worktree copy, and nothing else: a closing entry is
+    dropped (its MISSED_27_ROWS or GROWTH_MISSES line deleted, `MISSES` filtered where it is
+    asserted and logged), and a moved reading is re-recorded in its line. No entry is added."""
+    for edit in rerecords:
+        match = entry_line(source, edit["list"], edit["key"])
+        field = re.compile(r"(\b" + edit["field"] + r": )-?[0-9][0-9.eE+-]*")
+        line, count = field.subn(lambda m: f"{m.group(1)}{edit['reading']:.8f}", match.group(0), 1)
+        if count != 1:
+            raise Refusal(f"{edit['list']} {edit['key']!r}: no {edit['field']} to re-record")
+        source = source[:match.start()] + line + source[match.end():]
+    for name in ("MISSED_27_ROWS", "L1 GROWTH_MISSES"):
+        for key in closures.get(name, []):
+            match = entry_line(source, name, key)
+            source = source[:match.start()] + source[match.end():]
     closed = closures.get("L1 MISSES")
     if closed:
         kept = f"MISSES.filter((key) => !{json.dumps(closed)}.includes(key))"
@@ -609,6 +710,38 @@ def shrink(source: str, closures: dict[str, list[str]]) -> str:
         source = source.replace(anchor, f"    expect(misses).toEqual({kept}); {CLOSURE_NOTE}", 1)
         source = source.replace("recorded: [...MISSES].sort()", f"recorded: [...{kept}].sort()", 1)
     return source
+
+
+def growth_named_misses(cut: dict) -> list[dict]:
+    """Decision Log 5d's named L1 growth misses on the regenerated cut, as the seal would record
+    them: a MEASURED ruled cell whose growth passes the bound. The cut's growth is the test's
+    own `e - before`, which "re-derives every recorded mean" holds equal to it."""
+    return [dict(key=c["cell"], measured=c["growth"]) for c in cut["cells"]
+            if c["cell"] in GROWTH_RULED and c["status"] == "MEASURED" and c["growth"] > GROWTH_BOUND]
+
+
+def unstaged_gated_pairs(run: "Run", wt: Path, shipped: dict[str, dict]) -> list[str]:
+    """Clause 10's six gated profiles: a WebGPU pair whose current rows name a document this run
+    replaces must be staged. Unstaged, its rows are read at a side copy of the old document in
+    both runs and say nothing about the candidate (the gate review of b151aff4, finding 1)."""
+    moved = {(shipped[n]["path"], shipped[n]["sha12"]) for n, data in run.installs.items()
+             if data != shipped[n]["bytes"]}
+    if not moved:
+        return []
+    staged = {(r["key"]["profileKey"], r["key"]["web"]["renderer"])
+              for stage in run.relocated_stages
+              for r in json.loads((stage / "matrix.json").read_text())["cells"]}
+    sys.path.insert(0, str(wt / CAL_REL / "results/2026-09-26-w40-g0-generations"))
+    import matrix_store  # noqa: PLC0415
+    rows = matrix_store.load_current_rows(matrix_path=str(wt / CAL_REL / "results/matrix.json"))
+    sys.path.pop(0)
+    out = set()
+    for row in rows:
+        pair = (row["key"]["profileKey"], row["key"]["web"]["renderer"])
+        if pair[0] in GATED_PROFILES and pair[1] == "webgpu" and pair not in staged and any(
+                (path, sha) in moved for _, path, sha in matrix_store.documents(row)):
+            out.add(" ".join(pair))
+    return sorted(out)
 
 
 def vitest(run: Run, wt: Path, env: dict, stem: str) -> dict:
@@ -708,10 +841,35 @@ def execute(run: Run, tree: Worktree, ctx: dict, before_test=None) -> dict:
         else:
             note = "\n".join(inserted) if inserted else "(none)"
         if inserted:
-            tree.write(TEST_REL, source.replace(MISSED_ANCHOR, "\n".join([MISSED_ANCHOR, *inserted]),
-                                                1).encode())
+            source = source.replace(MISSED_ANCHOR, "\n".join([MISSED_ANCHOR, *inserted]), 1)
+            tree.write(TEST_REL, source.encode())
         (run.out / "m2-insertions.txt").write_text(note + "\n")
         result["m2Inserted"] = inserted
+        edits = [f"insert M2 (Decision Log 5a): {line.strip()}" for line in inserted]
+
+        # L1 growth's named misses, the same way (Decision Log 5d; the fix wave's item A1): every
+        # growth miss on a ruled cell is inserted as the seal would record it, and only where the
+        # test at the commit carries the path to check it. A growth miss anywhere else is never
+        # inserted, so it fails the growth case as the new failure it is.
+        growth = growth_named_misses(json.loads((cuts / "l1-cut.json").read_text()))
+        result["l1GrowthNamedMisses"] = growth
+        grown = [f'    "{m["key"]}": {{ measured: {m["measured"]:.8f}, bound: "≤ 0.005" }}, '
+                 "// run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed"
+                 for m in growth if f'"{m["key"]}"' not in source]
+        if ctx["l1Growth"] is False:
+            note, grown = "(disabled by --no-l1-growth-named-misses)", []
+        elif ctx["l1Growth"] is None:
+            note = (f"(none inserted: the test at the commit carries no L1 growth named-miss path; "
+                    f"{len(grown)} named miss(es) derived, see summary.json l1GrowthNamedMisses)")
+            grown = []
+        else:
+            note = "\n".join(grown) if grown else "(none)"
+        if grown:
+            source = source.replace(GROWTH_ANCHOR, "\n".join([GROWTH_ANCHOR, *grown]), 1)
+            tree.write(TEST_REL, source.encode())
+        (run.out / "l1-growth-insertions.txt").write_text(note + "\n")
+        result["l1GrowthInserted"] = grown
+        edits += [f"insert L1 growth (Decision Log 5d): {line.strip()}" for line in grown]
         if ctx["closures"]:
             tree.write(TEST_REL, instrument_closures((wt / TEST_REL).read_text()).encode())
         result["testAsRunSha256"] = file_sha(wt / TEST_REL)
@@ -724,17 +882,29 @@ def execute(run: Run, tree: Worktree, ctx: dict, before_test=None) -> dict:
         result["vitestExit"], result["vitestJsonSha256"] = first["exit"], first["jsonSha256"]
         result["cases"], result["namedMissLists"] = first["cases"], first["lists"]
         result["closures"] = closures_of(first["lists"]) if ctx["closures"] else {}
-        if result["closures"]:
-            # The seal's shrink, then the test again: the second run is this run's result.
-            log(f"{run.name}: closures {result['closures']}; vitest at the shrunken lists")
-            tree.write(TEST_REL, shrink((wt / TEST_REL).read_text(), result["closures"]).encode())
+        result["reRecorded"] = rerecords_of(first["lists"]) if ctx["closures"] else []
+        if result["closures"] or result["reRecorded"]:
+            # The seal's recording edits, then the test again: the second run is this run's
+            # result. Closures are dropped and moved readings re-recorded; nothing is added.
+            for edit in result["reRecorded"]:
+                edits.append(f"re-record {edit['list']} {edit['key']} {edit['field']}: "
+                             f"{edit['recorded']} -> {edit['reading']:.8f}")
+            for listed, keys in result["closures"].items():
+                edits += [f"close {listed} {key}" for key in keys]
+            log(f"{run.name}: closures {result['closures']}, {len(result['reRecorded'])} "
+                "re-recorded reading(s); vitest at the seal's lists")
+            tree.write(TEST_REL, seal_edits((wt / TEST_REL).read_text(), result["closures"],
+                                            result["reRecorded"]).encode())
             again = vitest(run, wt, env, "vitest-at-seal")
-            result["casesBeforeClosure"] = result["cases"]
+            result["casesBeforeSealEdits"] = result["cases"]
             result["testAtSealSha256"] = file_sha(wt / TEST_REL)
             result["vitestAtSealExit"], result["vitestAtSealJsonSha256"] = again["exit"], again["jsonSha256"]
             result["cases"], result["namedMissListsAtSeal"] = again["cases"], again["lists"]
-            if closures_of(again["lists"]):
-                raise SystemExit(f"{run.name}: the shrunken lists still close {closures_of(again['lists'])}")
+            if closures_of(again["lists"]) or rerecords_of(again["lists"]):
+                raise SystemExit(f"{run.name}: the seal's lists still close "
+                                 f"{closures_of(again['lists'])} or move {rerecords_of(again['lists'])}")
+        (run.out / "edits.txt").write_text("\n".join(edits) + "\n" if edits else "(none)\n")
+        result["edits"] = edits
         return result
     finally:
         tree.restore()
@@ -802,6 +972,9 @@ def main() -> int:
     parser.add_argument("--canonical-captures", type=Path, default=CANONICAL_CAPTURES)
     parser.add_argument("--m2-named-misses", action=argparse.BooleanOptionalAction, default=True,
                         help="insert Decision Log 5a's named M2 misses into the worktree's test copy")
+    parser.add_argument("--l1-growth-named-misses", action=argparse.BooleanOptionalAction,
+                        default=True, help="insert Decision Log 5d's named L1 growth misses into "
+                                           "the worktree's test copy")
     parser.add_argument("--no-carry-holdout", dest="carry_holdout", action="store_false",
                         help="W41's rule exactly: a held pair loses its holdout rows when the stage "
                              "holds none, and the count-first cases fail in BOTH runs, unread")
@@ -809,8 +982,9 @@ def main() -> int:
                         help="EVIDENCE ONLY, never the bar: leave rows the stages do not replace at "
                              "the document a candidate overwrote, so the test drops them")
     parser.add_argument("--closures", action=argparse.BooleanOptionalAction, default=True,
-                        help="step 8: a closing named miss is a pass and its list shrinks as at the "
-                             "seal (--no-closures is EVIDENCE ONLY: a closure then fails as a change)")
+                        help="step 8: the seal's recording edits: a closing named miss is a pass and "
+                             "its list shrinks, a moved reading of a listed miss is re-recorded "
+                             "(--no-closures is EVIDENCE ONLY: either then fails as a change)")
     parser.add_argument("--out", type=Path, required=True, help="a new directory outside the repository")
     parser.add_argument("--keep", action="store_true", help="keep the disposable worktree")
     args = parser.parse_args()
@@ -835,7 +1009,10 @@ def main() -> int:
         if not (referees / "referee_source.py").exists():
             raise Refusal(f"{args.referees} holds no referee_source.py at {commit[:12]}")
         m2 = (test["m2NamedMissDerivation"] or None) if args.m2_named_misses else False
+        l1_growth = ((test["l1GrowthNamedMissPath"] or None) if args.l1_growth_named_misses
+                     else False)
         ctx = dict(referees=args.referees, shipped=shipped_documents(tree.path), test=test, m2=m2,
+                   l1Growth=l1_growth,
                    keptRelocation=args.kept_relocation, carryHoldout=args.carry_holdout,
                    closures=args.closures,
                    canonical=args.canonical_captures.resolve(),
@@ -844,6 +1021,12 @@ def main() -> int:
         candidate = Run("candidate", args.stage, args.candidate, args.captures, out)
         for run in (base, candidate):
             run.prepare(ctx["shipped"])
+        for run in (base, candidate):
+            unstaged = unstaged_gated_pairs(run, tree.path, ctx["shipped"])
+            if unstaged:
+                raise Refusal(f"{run.name}: {', '.join(unstaged)} drew at a document this run "
+                              "replaces and no stage renders it; clause 10 reads all six gated "
+                              "profiles' WebGPU pairs at the candidate")
         results = {"base": execute(base, tree, ctx)}
 
         def same_membership(report: dict) -> None:
@@ -855,6 +1038,16 @@ def main() -> int:
         results["candidate"] = execute(candidate, tree, ctx, same_membership)
         verdict = compare(results["base"]["cases"], results["candidate"]["cases"])
         blocking = bool(verdict["new"] or verdict["changed"] or verdict["unmeasuredInCandidate"])
+        # A case failing in both runs is compared on vitest's message, which truncates arrays
+        # ("[ …(30) ] to deeply equal [ …(31) ]"), so two different failures can read as one
+        # shared failure that blocks nothing. The bar is read only against a base that passes
+        # (the gate review of b151aff4, finding 8); the verdict is still written, for evidence.
+        base_failed = sorted(n for n, c in results["base"]["cases"].items() if c["status"] == "failed")
+        refused = None if not base_failed else (
+            f"the base run fails {len(base_failed)} case(s), first {base_failed[0]!r}: a case "
+            "failing in both runs cannot be compared on vitest's truncated message, so the bar "
+            "is read only against a base that passes")
+        code = 2 if refused else 1 if blocking else 0
 
         def tally(run):
             statuses = [c["status"] for c in results[run]["cases"].values()]
@@ -862,19 +1055,28 @@ def main() -> int:
         summary = dict(
             what="W42 G0 owner-test runner: clause 10's owner bar, candidate against base",
             commit=commit, startedAt=started, referees=args.referees,
-            passed=not blocking, exit=1 if blocking else 0, keptRelocation=args.kept_relocation,
+            passed=not blocking and not refused, exit=code, refused=refused,
+            keptRelocation=args.kept_relocation,
             carryHoldout=args.carry_holdout,
             holdoutCarriedByPair=results["candidate"]["union"]["holdoutCarriedByPair"],
             m2NamedMisses=dict(enabled=args.m2_named_misses,
                                derivationAtCommit=test["m2NamedMissDerivation"]),
+            l1GrowthNamedMisses=dict(enabled=args.l1_growth_named_misses,
+                                     pathAtCommit=test["l1GrowthNamedMissPath"]),
             base=tally("base"), candidate=tally("candidate"),
             new=verdict["new"], changed=verdict["changed"],
             unmeasuredInCandidate=verdict["unmeasuredInCandidate"],
             fixed=verdict["fixed"], shared=verdict["shared"], onlyInBase=verdict["onlyInBase"],
-            closures=dict(enabled=args.closures, base=results["base"]["closures"],
-                          candidate=results["candidate"]["closures"]),
+            closures=dict(enabled=args.closures, **{
+                name: [dict(list=listed, key=key) for listed, keys in results[name]["closures"].items()
+                       for key in keys] for name in ("base", "candidate")}),
+            reRecorded=dict(enabled=args.closures, base=results["base"]["reRecorded"],
+                            candidate=results["candidate"]["reRecorded"]),
             m2Inserted=dict(base=results["base"]["m2Inserted"],
                             candidate=results["candidate"]["m2Inserted"]),
+            l1GrowthInserted=dict(base=results["base"]["l1GrowthInserted"],
+                                  candidate=results["candidate"]["l1GrowthInserted"]),
+            edits=dict(base=results["base"]["edits"], candidate=results["candidate"]["edits"]),
             m2Misses=dict(base=results["base"].get("m2Misses"),
                           candidate=results["candidate"].get("m2Misses")),
             keptRelocatedByPair=results["candidate"]["union"]["keptRelocatedByPair"],
@@ -891,7 +1093,8 @@ def main() -> int:
             shippedDocuments={n: dict(path=d["path"], sha256=sha256(d["bytes"]))
                               for n, d in ctx["shipped"].items()},
             canonicalCaptures=str(ctx["canonical"]),
-            runs={name: {k: v for k, v in r.items() if k not in ("cases", "casesBeforeClosure", "m2Misses")}
+            runs={name: {k: v for k, v in r.items()
+                         if k not in ("cases", "casesBeforeSealEdits", "m2Misses")}
                   for name, r in results.items()},
         )
         (out / "manifest.json").write_text(json.dumps(manifest, indent=1) + "\n")
@@ -906,13 +1109,16 @@ def main() -> int:
                 first = (entry.get("message") or entry.get("baseMessage") or entry.get("status", ""))
                 print(f"  {entry['case']}\n    {first.splitlines()[0] if first else ''}")
         for name in ("base", "candidate"):
+            for line in results[name]["edits"]:
+                print(f"seal edit ({name}): {line}")
+        for name in ("base", "candidate"):
             for listed, keys in results[name]["closures"].items():
                 for key in keys:
                     print(f"closure ({name}, {listed}): {key} (a pass; the list shrinks at the seal)")
-            for line in results[name]["m2Inserted"]:
-                print(f"M2 inserted ({name}): {line.strip()}")
+        if refused:
+            raise Refusal(f"{refused} ({out / 'summary.json'})")
         print(f"{'PASS' if not blocking else 'FAIL'}: {out / 'summary.json'}")
-        return 1 if blocking else 0
+        return code
     finally:
         tree.remove()
 

@@ -17,7 +17,8 @@ candidate pair names candidate documents that are the shipped bytes plus one
 hash moves), with a scratch capture tree whose metadata names them. Every script reads the
 control in base mode and the candidate with --candidate; each output must equal the
 control's once the stamps are removed and the document names, hashes and the digests over
-rows naming them are mapped back.
+rows naming them are mapped back. Before mapping, the candidate chroma cut's
+`shippedDocuments` must name the four candidates (the gate review of b151aff4, finding 11).
 
 RED: a wrong =SHA12, the candidate's bytes changed after the rows were written (declared
 with and without its hash), base mode on the candidate stages, a candidate under
@@ -280,7 +281,7 @@ def summarise(paths, limit=6):
     return ', '.join(paths[:limit]) + (f' (+{len(paths) - limit} more)' if len(paths) > limit else '')
 
 
-def candidate_equality(control, candidate, mapping, captures_expected):
+def candidate_equality(control, candidate, mapping, captures_expected, named_candidates):
     say('GREEN candidate: candidate-light + candidate-dark with --candidate (x4), against '
         'control-light + control-dark in base mode')
     for script in candidate:
@@ -319,6 +320,14 @@ def candidate_equality(control, candidate, mapping, captures_expected):
                 continue
             ja, jb, jm = json.loads(a), json.loads(b), json.loads(mapped)
             differs = json_paths(ja, jb)
+            if name == 'chroma-cut.json':
+                # The gate review of b151aff4, finding 11: a candidate cut's shippedDocuments
+                # names the documents its bed was measured at, the candidates, before mapping.
+                named = {k: jb['shippedDocuments'].get(k) for k in named_candidates}
+                ok &= named == named_candidates
+                notes.append(f'{name}: shippedDocuments names the {len(named_candidates)} '
+                             f'candidates before mapping: '
+                             f'{"yes" if named == named_candidates else "NO"} (finding 11)')
             stamp = isinstance(jm, dict) and jm.get('admission', {}).get('mode') == 'candidate'
             if isinstance(jm, dict) and not name.endswith('.gz'):
                 ok &= stamp
@@ -467,7 +476,11 @@ def main():
         'the two candidate stage paths and stage-matrix digests to the control ones; the union\'s '
         'legacy-envelope digest (a hash over rows that name the documents); the output directory '
         'scratch-union prints; e2\'s captures roots are set aside (path-only)')
-    candidate_equality(control, candidate, mapping, [str(CAN), str(SCRATCH / 'captures')])
+    named_candidates = {Path(built[scheme]['candidate'][kind][0]).name:
+                        built[scheme]['candidate'][kind][1][:12]
+                        for scheme in SCHEMES for kind in ('active', 'receded')}
+    candidate_equality(control, candidate, mapping, [str(CAN), str(SCRATCH / 'captures')],
+                       named_candidates)
     say()
 
     # RED ------------------------------------------------------------------------------------

@@ -90,6 +90,10 @@ light ACTIVE (122 cells; swapped fraction 0 on s <= 44, 0.45 rrect-md, 0.58 rrec
              ml/lg misfit (memo E: the undeclared bleed, U7) and native T's span-128 correction.
   M1      pass (median 0.888 / 0.919)
   M2      pass (4 / 5 named toward Apple, the rest within 2 %)
+             [2026-09-30, the gate review of b151aff4, finding 3: SEAM-DRIVEN, not the law's.
+             Held, the band steps at 20 pt inside interiorStdDev's native silhouette, and Apple's
+             interior structure is above vitrea's on all 26 bed cells, so any variance the step
+             adds classes as toward Apple and is named. See round3/README.txt, [SEAM].]
   C1      UNMOVED: every active T statistic identical to the base (exterior-cut §3, §9)
   X1      UNMOVED, pass (78 cells, zero above native black)
   E2      BAND, FAIL on its own reading: 352 bins / 19 cells (C1), 752 / 47 (C2).
@@ -127,7 +131,9 @@ dark ACTIVE (90 cells; swapped as light active)
   L1      pass (max growth +0.0003)
   M1      C1 pass (0.955); C2 FAIL median 0.761: C2's luma structure rises toward Apple while
              chroma stays at the landed T's
-  M2      pass (4 named)
+  M2      pass (4 named) [2026-09-30: seam-driven, as light active above (finding 3). The dark
+             capsule at rest has 6.5 % of its body swapped, about 11 codes, and moves +5.6 % /
+             +10.4 % under C2 and +2.1 % / +4.3 % under C1, every move named.]
   C1/X1   UNMOVED, pass
   E2      BAND, FAIL on its own reading: 123 bins / 10 cells (C1), 599 / 36 (C2), as light active
   Stop H  C1 pass; C2 BAND FAIL 2/2 (capsule annulus -4.3 / -3.8 against native 0.6 / 0.3: the
@@ -151,7 +157,13 @@ dark RECEDED (62 cells; whole body swapped)
   Stop H  pass: peak 3.0 against native 2.7 (shipped 37.7)
   Stop P  FAIL-C 4/4: F 0.68 x1e-3 against shipped 2.36, native 4.64; M 5.4 / 9.0 / 26.9. T's
              chroma, as M1.
-Owner test (run-owner.py, all six gated profiles, identity base 108/108): C1 101/108, C2 101/108.
+Owner test (run-owner.py, identity base 108/108): C1 101/108, C2 101/108. [Corrected 2026-09-30,
+  the gate review of b151aff4, finding 1. This line said "all six gated profiles"; the stages held
+  the four STANDARD profiles' WebGPU pairs only. Reduced transparency's and increased contrast's
+  WebGPU rows were never candidate-rendered: the runner kept them at a side copy of the light
+  documents that drew them, so both runs read them identically and they gated nothing for either
+  candidate. The runner's keptWebgpuPairsOfGatedProfiles named all six profiles because it
+  counted carried holdout rows as kept, which hid this. The runner now refuses such a run.]
   The seven new failures are the referee failures above (M1 median and cell, M2 case and the
   derivation's live-cut check, L1 growth, the MISSED_27_ROWS owner case) plus L1's named-miss
   list: under C1 both named tinted-impulse misses close, under C2 one does; the list cannot move

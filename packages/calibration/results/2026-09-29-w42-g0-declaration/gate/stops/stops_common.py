@@ -10,8 +10,13 @@ turns a (profile, scene) into pixels, and it does so under the declaration's rul
   renderer, pixel size, scale and scheme) and at least the material document that drew it;
 - a shipped capture must name documents that are the files on disk, so a stale canonical tree is
   refused rather than read as "shipped";
-- a candidate run names every document its captures name, one set per colour scheme, and
-  optionally matches them by hash to scratch files given with --document.
+- a candidate run names every document its captures name, one set per colour scheme, and every
+  one that is not a shipped document must be declared by hash with --document; a run in which
+  every scheme's captures name the shipped documents is refused, because a candidate that IS the
+  shipped render passes the bar by construction and gates nothing. The one run that reads the
+  shipped tree as its candidate is the baseline (`--baseline`, stamped "baseline", never
+  "candidate"), and only with the candidate root equal to the shipped root (2026-09-30, the gate
+  review of b151aff4, finding 10).
 
 Everything a stop needs beyond that (rings, bands, regions, resolutions) comes from
 `stops-declaration.json`, which is the declaration of record; the code reads it rather than
@@ -271,6 +276,7 @@ class Trees:
     shipped_root: Path
     candidate_root: Path
     declared_documents: list[Path] = field(default_factory=list)
+    baseline: bool = False
     shipped_named: dict = field(default_factory=dict)
     candidate_named: dict = field(default_factory=dict)
 
@@ -302,8 +308,27 @@ class Trees:
             raise Refused(f"captures of the {scheme} scheme name two document sets: "
                           f"{named[scheme]} and {documents}")
 
+    def check_roots(self) -> None:
+        """Before any read: the shipped tree is a candidate only in the baseline, and only there."""
+        same = self.candidate_root == self.shipped_root
+        if self.baseline and not same:
+            raise Refused(f"--baseline reads the shipped tree against itself; the candidate root "
+                          f"{self.candidate_root} is not the shipped root {self.shipped_root}")
+        if same and not self.baseline:
+            raise Refused(f"the candidate root is the shipped root {self.shipped_root}: the "
+                          "shipped render passes the bar by construction and is no candidate "
+                          "(--baseline records native against shipped)")
+        if self.baseline and self.declared_documents:
+            raise Refused("--baseline names the shipped documents; it declares no --document")
+
     def admission(self) -> dict:
-        """The candidate stamp: every document the candidate captures name, per scheme."""
+        """The stamp: every document the candidate captures name, per scheme.
+
+        A candidate declares every document that is not shipped by --document (with or without
+        any other declaration), and a candidate whose every scheme names only shipped documents
+        is refused: it is the shipped render, whatever root it was copied to. The baseline is
+        stamped as such and is never a candidate.
+        """
         declared = {sha256_file(p)[:12]: str(p) for p in self.declared_documents}
         documents = {}
         for scheme, named in sorted(self.candidate_named.items()):
@@ -312,16 +337,22 @@ class Trees:
                     kind=kind, path=path, sha256=digest, schemes=[],
                     isShippedDocument=is_shipped_document(path, digest)))
                 entry["schemes"].append(scheme)
-                # A scheme the candidate leaves at the shipped documents needs no declaration.
-                if self.declared_documents and digest not in declared and \
-                        not entry["isShippedDocument"]:
-                    raise Refused(f"the candidate names {path} sha256:{digest}, which is none of "
-                                  f"the declared documents {sorted(declared)} and not a shipped "
-                                  "document")
+                # A scheme the candidate leaves at the shipped documents needs no declaration;
+                # every other document does, whether or not any --document was given.
+                if digest not in declared and not entry["isShippedDocument"]:
+                    raise Refused(f"the candidate names {path} sha256:{digest}, which is not a "
+                                  "shipped document and none of the declared documents "
+                                  f"{sorted(declared)}: declare it with --document")
                 if digest in declared:
                     entry["matchedDeclaredFile"] = declared[digest]
+        at_shipped = bool(self.candidate_named) and all(
+            is_shipped_document(path, digest)
+            for named in self.candidate_named.values() for _kind, path, digest in named)
+        if at_shipped and not self.baseline:
+            raise Refused("every scheme of the candidate names the shipped documents: it is the "
+                          "shipped render, which passes the bar by construction and gates nothing")
         return dict(
-            mode="candidate",
+            mode="baseline" if self.baseline else "candidate",
             documents=list(documents.values()),
             declaredDocuments=[dict(path=str(p), sha256=sha256_file(p)[:12])
                                for p in self.declared_documents],

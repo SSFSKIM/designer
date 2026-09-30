@@ -186,3 +186,122 @@ closure. The candidate reports exactly the two seeded closures, drops them and p
 RED: with --no-closures the same stage fails both named-miss cases as new failures, which is the
 behaviour the ruling replaces. RED: a closure never excuses a new miss. The shrunken L1 list still
 refuses the light-solid cell, and the growth case fails on its own.
+
+The fix wave (2026-09-30, the gate review of b151aff4: findings 1, 2, 8 and item A1)
+==================================================================================
+
+What changed is in run-owner.py's docstring and README.txt (steps 6, 7a, 8): a gated WebGPU pair
+drawn at a replaced document must be staged (finding 1), and carried holdout rows no longer count
+as kept; the seal's recording edits, closures dropped and moved readings re-recorded, nothing
+added (finding 2); Decision Log 5d's L1 growth named misses inserted as the seal would (A1); a
+base that fails any case refuses (finding 8).
+
+Every run: --commit 44462152 (the test at it carries A1's GROWTH_RULED / GROWTH_MISSES and
+finding 6's seeds, SHA-256 36eb6d68…), runner run-owner.py b4c1a035…, proof-inputs.py
+7cb4349e… (--out /tmp/w42-g0-fixgate/owner-inputs; proof-inputs.json a94f3c11…), batch
+run-fixgate.sh (beside this file; a943b201…), 2026-09-30 08:24–08:35 KST, eleven runs in
+parallel on a machine at load 100–150, each in its own disposable worktree, all removed
+afterwards (`git worktree list` names none). Scratch (2.0 GB) stays outside git at
+/tmp/w42-g0-fixgate/owner/<run>/.
+
+Inputs, beyond the earlier sections':
+  - The light stages now hold all four light gated profiles' WebGPU rows: 1x/2x standard,
+    reduced transparency and increased contrast (282 rows; dark 166); 386 captures.
+  - {base,cand}-light-no-rt: the light stages without reduced transparency's 16 WebGPU rows.
+  - cand-light-closure-move: the two closure seeds above plus a MOVE of the other two M1 misses,
+    2x light photo__rrect-sm inactive and rest, R 1.46115 -> 1.43 and 1.44950 -> 1.42 (still past
+    1.40). cand-light-closure-move-plus-new adds the RED seed.
+  - cand-{light,dark}-a1: Decision Log 5d's four cell-profiles at round 3's r3-2pgb growths,
+    light photo__rrect-md__inactive-tint-orange +0.0108 / +0.0100 and dark
+    photo__capsule-button__inactive-tint-orange +0.0138 / +0.0133 (1x / 2x): the web mean set to
+    n + sign(w - n)(before + g), before the W33 baseline error. cand-light-a1-fifth adds round 3's
+    [U7] reading, 1x light checkerboard__rrect-ml__rest at +0.0105.
+
+run                        exit  base       candidate   verdict
+g1-red-no-rt                2    -          -           REFUSED before either run: "candidate:
+                                                        apple-macos-27.0-1x-light-reduced-
+                                                        transparency-glass0.5 webgpu drew at a
+                                                        document this run replaces and no stage
+                                                        renders it"
+green                       0    109 pass   109 pass    new 0; keptWebgpuPairsOfGatedProfiles []
+g2-green                    0    109 pass   109 pass    new 0; 62 holdout rows carried, all six
+                                                        pairs; keptWebgpuPairsOfGatedProfiles []
+a1-green                    0    109 pass   109 pass    new 0; four L1 growth entries inserted
+a1-fifth                    1    109 pass   107, 2 fail new 2: the growth case ("…checkerboard__
+                                                        rrect-ml__rest: a failure, which no entry
+                                                        excuses", 0.0105) and the A1 owner case
+                                                        ("an L1 growth failure on the live matrix")
+a1-no-insertion             1    109 pass   107, 2 fail new 2: the growth case ("a named growth
+                                                        miss GROWTH_MISSES does not record") and
+                                                        the A1 owner case ([ …(4) ] against [])
+closure-move                0    109 pass   109 pass    new 0; closures 2 (MISSED_27_ROWS 1x
+                                                        rrect-sm inactive R; L1 MISSES 1x tinted
+                                                        impulse capsule); re-recorded 2
+                                                        (1.46115 -> 1.43, 1.4495 -> 1.42)
+closure-move-no-closures    1    109 pass   107, 2 fail new 2: "names every 27 row …" ([ …(7) ]
+                                                        against [ …(8) ]) and L1 absolute
+                                                        (Array(1) against [ …(2) ])
+closure-move-plus-new       1    109 pass   106, 3 fail new 3: L1 absolute, L1 growth (+0.100,
+                                                        "a failure"), the A1 owner case; the two
+                                                        closures and two re-records still made
+g8-red-shared               2    106, 3 fail 106, 3 fail REFUSED after both runs: "the base run
+                                                        fails 3 case(s) …"; the verdict (3 shared)
+                                                        written for evidence
+m2-toward                   0    109 pass   109 pass    new 0; one M2 entry inserted (as before)
+
+GREEN (green, g2-green). The base union is the current union (1,893 rows, 7df96c92…); every run's
+base passes 109 of 109 (A1's owner case is the 109th; X1 reads 218 cells from the copied tree).
+The candidate stages hold all six gated profiles' WebGPU pairs, so the only kept rows are the
+macOS 27 CSS tier (338 rows relocated to side copies) and keptWebgpuPairsOfGatedProfiles is empty.
+Under the G2 shape it is empty too: before finding 1's fix the 62 carried holdout rows made it
+name every staged pair.
+
+G1, RED (g1-red-no-rt). The same inputs less reduced transparency's WebGPU pair refuse before
+either run: the light documents the candidate replaces drew those rows. Before the fix this
+stage passed (the rehearsal ran exactly so for reduced transparency and increased contrast),
+with the flag naming all six profiles.
+
+A1 (a1-green, a1-fifth, a1-no-insertion). The four ruled cells' growth misses are inserted into
+the worktree's GROWTH_MISSES from the regenerated L1 cut (candidate/l1-growth-insertions.txt):
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange":
+          { measured: 0.01380000, bound: "≤ 0.005" }
+      (and 2x dark 0.01330000, 1x light rrect-md 0.01080000, 2x light 0.01000000)
+and the candidate passes 109 of 109: the growth case excuses them and the owner case finds the
+named set equal to the recorded set. A fifth growth miss (the [U7] cell) is not a ruled cell, is
+never inserted, and blocks as two new failures. Without the insertions the four read as new.
+
+G2 (closure-move, closure-move-no-closures, closure-move-plus-new). candidate/edits.txt:
+      re-record MISSED_27_ROWS texture / validation / photo__rrect-sm__inactive /
+          apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR measured:
+          1.46115 -> 1.43000000
+      re-record MISSED_27_ROWS … photo__rrect-sm__rest / …2x-light… measured: 1.4495 -> 1.42000000
+      close MISSED_27_ROWS texture / validation / photo__rrect-sm__inactive /
+          apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR
+      close L1 MISSES apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__
+          inactive-tint-orange
+The first vitest run fails two cases, 107 / 109: the MISSED_27_ROWS owner case on its closure
+([ …(7) ] against [ …(8) ]; the two moved pins behind that assertion go unread by vitest, but the
+logged readings name them) and L1's absolute case on its closure. At the seal's lists the second
+run passes 109 of 109 (test as run a0985ef6…, at the seal 8be020a2…). Without step 8 the same stage is two new failures. A new
+miss beside the same edits still blocks: the edits add nothing.
+
+G8 (g8-red-shared). The RED seed in the base as well as the candidate: before the fix, three
+cases failing in both with equal messages were "shared" and the run exited 0 (the earlier
+section's red-shared). Now the run refuses with exit 2, after writing summary.json (refused,
+and the verdict: 3 shared) for evidence.
+
+Hashes (SHA-256, first 16 hex: summary.json, manifest.json, base/vitest.json, candidate/vitest.json)
+  green                      224e26b9af0e7846 4bb05e3efecbc34e d16042854c7111c7 ed2dcded89cda311
+  g2-green                   f5102c0ffa88a6a9 8fff9aa47e80c38b d84e84f70a559af3 3d7dec6bb89a975e
+  a1-green                   a9d7742414bd1ef4 9f81517f3007429d 071d9b66d7f99352 486cdfe75106f63f
+  a1-fifth                   3f6a7e043c8f9970 e1acc1bd613935ea 7bce4cb63673ba2c a8352674b514d8e0
+  a1-no-insertion            7f14c31646d4ae26 03bea50c1aafca3f 96aed4b824b0f235 d236bf99d50f0adc
+  closure-move               7e449bed464922b7 aa7c5ec257e52eef 44a9de4a17c2ff96 227308654364fa21
+  closure-move-no-closures   e867a811f8e86a63 8f7dc778417132a5 b937aa47e2e100ec bd2683a60db43026
+  closure-move-plus-new      50b399bf431d4988 7c86cc82c0d6cccb 02d892b30fd062a9 17db333762ea76ad
+  g8-red-shared              a85c78ef7064d76e 0bd33c4258bb13d3 1bdca1839dfba48a b8f0e9a25392b3c8
+  m2-toward                  99434df433a34084 11169930201c3f50 e7b3a3db7036df5f 9e34ff5ae6db35bb
+(vitest.json is the first run's; a run with seal edits also holds vitest-at-seal.json, hashed in
+its manifest.) The earlier sections' runs were made at ffd9567f and b151aff4 with the runner as
+it was then; they are not re-run, and their "red-shared" and "g2-texture-no-carry" verdicts
+would now refuse (finding 8).
