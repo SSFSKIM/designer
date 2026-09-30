@@ -109,6 +109,21 @@ declaration, placement ignored conservatively as W39 did); every F bridge twins 
 scene. The odd-offset 1x cell twins the canonical probe `checkerboard-4__capsule-button` under
 that rule and is calibration for that reason.
 
+**Near-twins, as the parent ruled them on the bed review (b8; no cell changes).** The review
+found cells close to a holdout without being exact twins, and the parent ruled both kinds:
+
+1. *A holdout protects its pixels, not its geometry.* An exact-backdrop twin of a canonical
+   holdout is refused (deviation 1 below refused exactly that at 1x); the same geometry, pitch
+   and phase at OTHER levels is allowed. So the active guard rows at pitch 16 on the centred
+   rrect-lg (B's P5 and P3, E's `rg` and `by`) stand beside the canonical holdout
+   `checkerboard__rrect-lg` (P1 0/255 at that geometry, pitch and phase): they read no pixel of
+   it, and the canonical probe `checkerboard-lc16__rrect-lg` at that geometry was already read.
+2. *`b-p5-c64-rrect-lg` beside `h-p3-c64-rrect-lg`.* The calibration cell shares the H cell's
+   geometry, pitch and phase at P5 144/240 in the two active 2x passes, so in those passes that
+   H cell tests the LEVEL-PAIR transfer (P5 → P3 at matched geometry), not a new geometry; the
+   span test is carried by H's s = 112 cells (`h-p1-c24-rrect-112`, unseen in calibration).
+   Receded and at 1x the H cell has no such calibration neighbour.
+
 ### Where the charter could not be followed as written
 
 1. **The 1x "P1 at pitch 16 on rrect-lg" is a canonical holdout twin** (`checkerboard__rrect-lg`,
@@ -145,6 +160,16 @@ The side bundle `~/vitrea-w39/side/VitreaReference.app` (`dev.vitrea.reference-a
   ladder) to decode byte-identically to the canonical fixture rasters, and reads every declared
   patch (count, size, centre, depth) and step column back from the pixels: no discrepancy.
 - `self-check`: 82 ok, 0 FAIL.
+
+## The pre-sitting dumps (`dumps/b7/`; the bed review's b7)
+
+Before the sitting, the fixed orchestrator (`REHEARSAL=1 STOP_AFTER=dumps`, detached, behind
+the driver's idle gate) dumped the largest pass (2x dark receded, 107 scenes) and all four 1x
+endpoints (14 / 16 / 14 / 16), each `dumpcheck`ed: no departure, no unpredicted field, no scene
+missing, the (1, 1)-offset capsule included; 8.33–8.37 s a scene under loads from 25 to 237,
+margins 215 s on the 2x launch's 1106-s timeout and about 106 s at 1x. The display went to mode
+69 for the 1x launches and was restored to 68 and verified. `b7.txt` has every launch with its
+load and census; `FIXES-b151aff4.md` the reading.
 
 ## The s = 112 component (`dumps/`)
 
@@ -338,12 +363,32 @@ with only a native-T candidate is refused, reading "lands instead" as presupposi
 1; and a claimed endpoint must have at least one MEASURED H cell to close, so an endpoint
 whose H cells are all censored does not close.
 
+## The fixes of the bed review of b151aff4
+
+The review (no blocker; two major, ten minor findings) and the parent's dispositions, each
+entry of `FIXES-b151aff4.md` with what changed, its proof and the new counts and SHA-256s:
+
+- **b1**: the active cells no active reader reads are captured receded only (above; the
+  instrument's `bed.py` pin follows and refuses a bed that captures an active cell it excludes).
+- **B-M1**: the sitting refuses, before any launch, a bed that is not the pinned, committed,
+  hashed declaration; every admission names it; the archive refuses any other and any
+  uncaptured declared cell (`sitting/`).
+- **B-M2**: operational manifests and capture logs carry no pixel statistic of an H fixture;
+  the whole ones sit behind the receipt (`sitting/w42_archive.py`, `wave.py`'s Reader).
+- **b2–b6**: frames bound at admission; the orchestrator's pass list on fd 3, status-checked,
+  last pass asserted; detached, with every launch under its mode trap, rehearsals included;
+  `STOP_AFTER=dumps`; no `rehearse-tints` (`sitting/README.md`).
+- **b7**: the dumps of one full 2x endpoint and the four 1x endpoints were run before the
+  sitting behind the idle gate (`dumps/b7/`).
+- **b8**: the near-twin rulings above. **b9**: one exposure of H across checkouts, claimed on
+  origin before `begin` (`exposure/README.md` difference 11). **b10**: this README's numbers.
+
 ## Integration notes
 
 - `split_sha` is the SHA-256 of the whole `bed.json`, so the archive's Reader and the receipt
   bind it byte for byte: `bed.json` (and `scenes-w42-body.json`) must be frozen at the
   declaration's hash before G1's first capture. A later edit, even a prose one, is a changed
-  declaration (clause 1's stop).
+  declaration (clause 1's stop), and since B-M1 the sitting itself refuses to launch on it.
 - `wave.py` shares its name with the standard library's `wave`, as W39's did; every tool here
   loads it by file path.
 - Freeze at hand-back: `python3.12 packages/calibration/results/2026-09-16-w29-freeze/freeze.py
