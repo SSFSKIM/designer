@@ -1,0 +1,161 @@
+{
+ "canonical": "apps/reference-apple/fixtures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__rest.png",
+ "canonicalSha256": "6c15311b06af50a17141c54d7a71645cf63518c844b61d113b9426e15bcbf1d0",
+ "states": {
+  "204f21f0362d3226f7e28690be7c61ece0848931c89062e8a888f1ade22d4033": [
+   "w39-g1-step0-original",
+   "w42-g1-original-positive-1"
+  ],
+  "6c15311b06af50a17141c54d7a71645cf63518c844b61d113b9426e15bcbf1d0": [
+   "w39-g1-side-pose-check-2",
+   "w39-close-original"
+  ]
+ },
+ "checks": {
+  "w39-g1-step0-original": {
+   "sha256": "204f21f0362d3226f7e28690be7c61ece0848931c89062e8a888f1ade22d4033",
+   "byteIdenticalToFixture": false,
+   "differingPixels": 115,
+   "maxAbsCode": 2,
+   "codeHistogram": [
+    0,
+    114,
+    1
+   ],
+   "bboxXY": [
+    200,
+    155,
+    440,
+    254
+   ],
+   "signedMeanRGB": [
+    0.087,
+    0.243,
+    0.339
+   ],
+   "capturedAt": "2026-09-25T20:20:46Z",
+   "presentedActive": true,
+   "materialRendered": true,
+   "deterministic": true,
+   "repeatNoise": 0,
+   "hidIdleSeconds": 262.006498125,
+   "cursorWindowBefore": false,
+   "cursorWindowAfter": true,
+   "windowOwnersBefore": [
+    "Dock|20",
+    "Window Server|24",
+    "알림 센터|-2147483601"
+   ],
+   "windowOwnersAfter": [
+    "Dock|20",
+    "Window Server|2147483630",
+    "Window Server|24",
+    "알림 센터|-2147483601",
+    "제어 센터|0"
+   ]
+  },
+  "w39-g1-side-pose-check-2": {
+   "sha256": "6c15311b06af50a17141c54d7a71645cf63518c844b61d113b9426e15bcbf1d0",
+   "byteIdenticalToFixture": true,
+   "differingPixels": 0,
+   "maxAbsCode": 0,
+   "codeHistogram": [],
+   "bboxXY": null,
+   "signedMeanRGB": null,
+   "capturedAt": "2026-09-26T03:08:42Z",
+   "presentedActive": true,
+   "materialRendered": true,
+   "deterministic": true,
+   "repeatNoise": 0,
+   "hidIdleSeconds": 185.38073825,
+   "cursorWindowBefore": true,
+   "cursorWindowAfter": true,
+   "windowOwnersBefore": [
+    "Dock|20",
+    "UserNotificationCenter|8",
+    "Window Server|2147483630",
+    "Window Server|24",
+    "알림 센터|-2147483601"
+   ],
+   "windowOwnersAfter": [
+    "Dock|20",
+    "UserNotificationCenter|8",
+    "Window Server|2147483630",
+    "Window Server|24",
+    "알림 센터|-2147483601"
+   ]
+  },
+  "w39-close-original": {
+   "sha256": "6c15311b06af50a17141c54d7a71645cf63518c844b61d113b9426e15bcbf1d0",
+   "byteIdenticalToFixture": true,
+   "differingPixels": 0,
+   "maxAbsCode": 0,
+   "codeHistogram": [],
+   "bboxXY": null,
+   "signedMeanRGB": null,
+   "capturedAt": "2026-09-27T05:14:09Z",
+   "presentedActive": true,
+   "materialRendered": true,
+   "deterministic": true,
+   "repeatNoise": 0,
+   "hidIdleSeconds": 86.867478708,
+   "cursorWindowBefore": true,
+   "cursorWindowAfter": true,
+   "windowOwnersBefore": [
+    "Dock|20",
+    "Window Server|2147483630",
+    "Window Server|24",
+    "알림 센터|-2147483601"
+   ],
+   "windowOwnersAfter": [
+    "Dock|20",
+    "Window Server|2147483630",
+    "Window Server|24",
+    "알림 센터|-2147483601"
+   ]
+  },
+  "w42-g1-original-positive-1": {
+   "sha256": "204f21f0362d3226f7e28690be7c61ece0848931c89062e8a888f1ade22d4033",
+   "byteIdenticalToFixture": false,
+   "differingPixels": 115,
+   "maxAbsCode": 2,
+   "codeHistogram": [
+    0,
+    114,
+    1
+   ],
+   "bboxXY": [
+    200,
+    155,
+    440,
+    254
+   ],
+   "signedMeanRGB": [
+    0.087,
+    0.243,
+    0.339
+   ],
+   "capturedAt": "2026-09-30T10:02:09Z",
+   "presentedActive": true,
+   "materialRendered": true,
+   "deterministic": true,
+   "repeatNoise": 0,
+   "hidIdleSeconds": 94.776368916,
+   "cursorWindowBefore": false,
+   "cursorWindowAfter": true,
+   "windowOwnersBefore": [
+    "Dock|20",
+    "Window Server|24",
+    "알림 센터|-2147483601",
+    "알림 센터|21"
+   ],
+   "windowOwnersAfter": [
+    "Dock|20",
+    "Window Server|2147483630",
+    "Window Server|24",
+    "알림 센터|-2147483601",
+    "알림 센터|21"
+   ]
+  }
+ }
+}
