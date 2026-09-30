@@ -643,3 +643,171 @@ The parent read this design at `67e9d784` and accepted all six forks, one on a c
   goldens can be read on a GPU; it is deduplicated into one function after they pass
   byte-identical, with the structural pin retired then.
 - **The clear variant under the law** (Fork 4): unmeasured, so the law stands down there.
+
+## 11. Revision after the adversarial review of `67e9d784` (R1–R6; the parent's dispositions, 2026-09-30)
+
+An independent adversarial review read the design and returned needs-attention with two P1 and four
+P2 findings. The parent verified the reasoning and accepted all six; its dispositions are kept
+verbatim beside the Fork rulings in `implementation-design-rulings.md`. The text above is left as
+it was reviewed. Where this section and the text above disagree, this section governs.
+
+**R1 [P1] — the on-luma knees are discontinuous in their hinge decision.** Knee forms 1 and 2
+decide the hinge on h·(L(W) − L(C)) > 0, and a stored rounding flips that decision near
+L(W) = L(C). Family E's isoluminant pairs sit exactly there. The discontinuity belongs to the
+declared family, not to the implementation, and §2.6 now says so: the per-channel knee (form 0,
+the carried form) is continuous, and the on-luma knees are not. Consequences:
+- The implementation must agree with the f64 oracle except on a set of pixels whose size is
+  measured and reported. U2's mirror (R3) reports each knee's **flip fraction** (the share of drawn
+  pixels whose decision differs from the oracle's) and its worst error, per storage format, on RGB
+  cells with family E included. The measured figures are below.
+- No epsilon or deadband is added to the decision, because that would change the declared family.
+- The luma comparison needs f32 precision end to end whenever `bodyLawKnee` ≠ 0: rgba32float
+  tiles, or an f32 luma companion. The review did not name one further source of the problem, and
+  this revision records it: the capture's input is chain level 0, which is **rgba16float linear**
+  (`color.ts:50`, `pyramid.ts:21`). Re-encoding an f16 linear value carries about 0.02 code of
+  rounding, and the isoluminant pairs' luma contrast is 0.004–0.007 code (`bed.json`, `isoluminant`).
+  The mirror therefore also runs the luma knees with the capture reading the 8-bit source directly
+  (`exact8`), so that the budget separates the tile format from the capture's input.
+
+**R2 [P1] — A left union pixels outside every member unwritten** (`geometry/src/union.ts:101–116`).
+Revised §2.6:
+- A is **initialised over the whole sampleable group texture to the captured encoded backdrop**, as
+  the rehearsal initialises its whole canvas (`body.py` `lt_argument`: `A_out = B.copy()` before
+  any surface writes).
+- Each owned R_fp is overwritten in full, not only within one device px of the contour.
+- A pixel of the union that lies outside every member's R_fp reads the backdrop. The rehearsal's
+  owner rule gives it exactly that: `A_out` keeps B wherever no surface's crop owns the pixel.
+- U3 proves coverage against the real union (`@vitrea/geometry`'s smooth union, not the argmin of
+  circles) and against the bilinear read's support, with a close-member, receded,
+  refraction-off test.
+
+**R3 [P2] — the error mirror did not model the planned storage graph.** U2's test 6 is rebuilt as
+`implementation-design/u2_mirror.py`. It models every stored pass's format: chain level 0 as
+rgba16float linear, the capture, both floor passes, the numerator-and-weight channels of the
+normalised mode, the decimation, each separable pass, the composite in f32, the stored A and its
+read. It covers the whole drawn population, including the shell at depth 20 to 20 + 16.8t pt, and
+runs through both implemented tones: candidate 1's landed solve (E3 in light receded) and
+candidate 2's table. **Its figure replaces 0.115 / 0.127 (§2.4) as the budget and as the
+shader-against-oracle tolerance.** The numbers are below.
+
+**R4 [P2] — the band blend's space differed from the rehearsal's.** §2.7 blended in linear light
+before the tint. The rehearsal adds the two bodies' difference in encoded output codes, after the
+tint's transfer (`swap.py:322–337`). Revised: the runtime reproduces the rehearsal. A cheaper order
+is admitted only if the CPU reference puts it within 0.1 code of the rehearsal on the canonical
+band cells, tinted cells included. `implementation-design/u2_band_blend.py` measures this. What was
+built, and why, is below.
+
+**R5 [P2] — the CSS filter algebra (§5) was wrong.** `feBlend` composites source-over on the
+blurs' partial alpha, and an `feComposite` arithmetic primitive clamps, which clips N when λ lies
+outside [0, 1]. Revised §5:
+- Each blur is normalised to opaque before it is blended, for example by an alpha
+  `feComponentTransfer` set to 1 on un-premultiplied values.
+- M is composed without clipping inside the admitted λ range wherever the primitives allow it.
+  Where they do not, the route is classified as an approximation and measured under Decision
+  Log 4.
+- The engine row stays `"unverified"`.
+This is U5's, held with U3–U5.
+
+**R6 [P2] — the table needs 75 floats, and 18 vec4s hold 72.** Revised §2.10: the table takes
+**19 vec4s** (11 levels, 5 spans, 55 codes, 3 gains and the scale, with one lane of padding).
+U4 pins the complete CPU/WGSL offset map and its final extent in a test.
+
+### 11.1 What U2 measured (R1, R3), and what it changes before U3
+
+`implementation-design/u2_mirror.py` ran the planned storage graph on 216 cells: the six canonical
+backdrops on the capsule, rrect-80, rrect-md, rrect-ml and rrect-lg (active) and on the capsule,
+rrect-md and rrect-lg (receded), at 1x and 2x in both schemes, plus the six family-E cells (2x,
+both poses and schemes). Each cell has 250 samples per stratum, and every figure is the worst cell
+in output codes before rounding.
+
+**The first realisation broke the target.** Four interior levels decimated from 6 device px
+(§2.4, `u2_mirror-l4-q6.txt`) put the landed tone **0.295 code** from the oracle with float16 tiles
+and 0.210 with float32. The worst cells are dark receded impulse cells, where candidate 1's landed
+solve is steep near black (W36's branch) and amplifies small argument errors. §2.4's 0.115 / 0.127
+was a luma-only figure through memo C's table, and it missed that amplification.
+
+**Revised realisation, forced before U3.** It uses six interior levels plus the contour level,
+decimates from 12 device px as `forward.py` does, and stores **float32 tiles** (and a float32 A)
+for every knee. `BODY_LAW_REALISATION` and the fixtures now carry it. The subset runs that led here
+are kept as `u2_mirror-l4-q12-subset.txt` and `u2_mirror-l6-q12-subset.txt`. The full run is
+`u2_mirror.txt`. Worst band-weighted output error, codes:
+
+| knee (`kneeForms`) | tiles | canonical: landed / table | family E: landed / table |
+| --- | --- | --- | --- |
+| 0 per-channel (carried) | f32 | **0.148 / 0.064** (rms ≤ 0.024) | **0.022 / 0.030** |
+| 0 per-channel | f16 | 0.231 / 0.143 | 0.151 / 0.194 |
+| 2 on luma, W's chroma | f32 | 0.148 / 0.064 | 0.020 / 0.022 |
+| 1 on luma, whole colour | f32, chain16 capture | 0.148 / 0.064 off the flips | 24.3 / 35.6 |
+| 1 on luma, whole colour | f32, exact8 capture | — | 0.094 / 0.265 |
+
+**The budget and the shader-against-oracle tolerance** become **0.15 code** for knees 0 and 2,
+not ~0.13. One cell sets it: the dark receded impulse capsule at 1x, where W's decimation meets the
+landed tone's near-black slope. The next worst cell is 0.073. Two routes would hold 0.13 there: a
+direct W below 24 device px, which costs about twice W's taps at 1x, or a tolerance relative to T's
+local slope. Neither is taken, and the parent decides (§11.3).
+
+**R1's flip fractions** (knee 1's decision differing from the oracle's, share of drawn pixels,
+worst cell):
+- float16 tiles: 53.6 % canonical and 58.8–74.2 % family E. A flip costs up to 7.4 codes on the
+  canonical cells and 38.5 on family E.
+- float32 tiles, chain16 capture: **1.5 %** canonical, a flip costing 0.010 code on this run's
+  samples; the six-level subset run's samples found flips costing 1.8 and 9.3 codes. Family E flips
+  **100 %**, at 24–36 codes. The rgba16float linear chain reverses the isoluminant pairs'
+  0.004–0.007-code luma order, so the decision is inverted everywhere, not just noisy.
+- float32 tiles with the capture reading the 8-bit source (exact8): family E **3.6 %**, worst
+  0.094 / 0.265 code.
+
+Knee 2 records "flips" too (up to 100 % on family E), but they cost at most 0.022 code at float32.
+Its luma hinge, max(0, ·), is continuous, and its chroma is W's. **Only knee 1 is discontinuous.**
+R1's "on-luma knee" is form 1. So knee 1 would need float32 tiles **and** a capture that bypasses the
+rgba16float chain: the provider's texture read directly, or a float32 import. Even then its flips
+are unbounded in cost where the two terms differ in chroma at equal luma. If step 2 selects knee 1,
+the tolerance is a flip fraction plus an off-flip bound (0.15 code), not a single maximum.
+
+**Formats for U3, then**: every tile and A in rgba32float, which is not filterable without the
+`float32-filterable` feature. The decimated levels and A are therefore read by manual bilinear
+(four `textureLoad`s at f32 weights), the design's plan for the levels already. The optics pass's
+read of A moves from the sampler to manual bilinear too. The default
+`maxColorAttachmentBytesPerSample` of 32 admits **two** rgba32float targets per pass, so six levels
+plus the contour level take four pass pairs per resolution group. Requesting 64 from an adapter
+that offers it would halve that, and U3 chooses by the bench. The memory estimate of §2.10 doubles.
+
+### 11.2 R4: which band blend was built, and why
+
+`implementation-design/u2_band_blend.py` read every active tinted cell of the canonical
+calibration/validation population: 40 cells in the four macOS 27 profiles, each for candidate 1
+(per-channel knee, its own chroma, `r3-1pnb`) and candidate 2 (`r3-2pgb`) at the rehearsal's own
+bodies, plus four untinted cells as a control. It compares each order with the rehearsal's
+y = t(ship) + w (t(cand) − t(ship)) over the band (0 < depth < 20 pt):
+
+| order | untinted | tinted |
+| --- | --- | --- |
+| the bodies blended in encoded codes, tinted once | **0.0000** (identical by algebra) | **28.1** codes max; 55 of 80 cell-candidates above 0.1 |
+| the bodies blended in linear light, tinted once (§2.7 as written) | 2.35 | 28.4 |
+
+The tinted gap is real, not a fitting artefact. The worst cells' tint fits reproduce their shipped
+tinted captures to 0.26–0.28 code rms, and on those cells (the dark tinted capsule over checkerboards) the
+fitted transfer has s = 1 with a shade that clips in the blue channel. The author tint there is
+an opaque paint whose shade depends on the body's luma, so it does not commute with a blend of two
+bodies.
+
+**Built: the rehearsal's construction.** The shipped path draws its whole output as it does today.
+The law adds a delta in encoded output codes,
+strength × band weight × (enc(tint(law body)) − enc(tint(shipped body))), where tint(·) is the
+optics pass's own author-tint composition of an untinted body, evaluated on each body. The rim,
+the highlight and the inner shadow stay as the shipped path draws them, which is what the
+rehearsal kept in its residual. On an untinted pixel tint(·) is the identity and the delta is one
+encode of each body. The cost is one extra tint evaluation on tinted pixels where the weight is
+above 0. This replaces §2.7's "mix before the author tint". U4's CPU reference is held to
+`swap.py`'s construction on these cells.
+
+### 11.3 What goes to the parent before U3
+
+1. **The tolerance.** The landed tone near black makes the budget 0.15 code, not ~0.13, at one
+   cell (the dark receded impulse capsule at 1x; next worst 0.073). The options: accept 0.15, the
+   recommendation; take W direct below 24 device px; or state the tolerance relative to T's slope.
+2. **Formats.** Float32 tiles and A for every knee, as §11.1 found; two targets per pass under the
+   default limit.
+3. **Knee 1.** It is carried only if step 2 selects it. It then needs a capture that bypasses the
+   rgba16float chain, and its tolerance is a flip fraction plus an off-flip bound.
+4. **R4.** The encoded-output delta after the tint on both bodies, as above.

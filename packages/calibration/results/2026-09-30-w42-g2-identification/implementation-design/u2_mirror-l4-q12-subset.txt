@@ -1,0 +1,24 @@
+W42 G2 step 3, U2: the realisation mirror as the exact planned storage graph (the design review's
+R3), with the on-luma knees' flip fractions (R1). It replaces `narrow_error.py`'s 0.115 / 0.127 as the
+budget and as the shader-against-oracle tolerance (`implementation-design.md` §11).
+
+decimate from 12 device px; backdrops impulse,checkerboard,checkerboard-8,photo
+
+== canonical backdrops
+knee fmt src      tone          cells | band-weighted max  deep max  band-weighted rms | flip fraction (max over cells)  worst at a flip  max off the flips
+   0 f16  chain16  cand1-landed    128 |             0.201     0.201              0.045 |
+   0 f16  chain16  cand2-table     128 |             0.168     0.168              0.055 |
+   0 f32  chain16  cand1-landed    128 |             0.144     0.102              0.021 |
+   0 f32  chain16  cand2-table     128 |             0.127     0.094              0.027 |
+   1 f16  chain16  cand1-landed    128 |             6.056     6.056              0.363 |                        0.4880            6.056              0.201
+   1 f16  chain16  cand2-table     128 |            22.251    22.251              0.761 |                        0.4880           22.251              0.135
+   1 f32  chain16  cand1-landed    128 |             1.797     1.797              0.065 |                        0.0102            1.797              0.144
+   1 f32  chain16  cand2-table     128 |             4.569     4.569              0.165 |                        0.0102            4.569              0.127
+   2 f16  chain16  cand1-landed    128 |             0.201     0.201              0.045 |                        0.4880            0.068              0.201
+   2 f16  chain16  cand2-table     128 |             0.151     0.151              0.055 |                        0.4880            0.084              0.151
+   2 f32  chain16  cand1-landed    128 |             0.144     0.102              0.021 |                        0.0102            0.002              0.144
+   2 f32  chain16  cand2-table     128 |             0.127     0.094              0.027 |                        0.0102            0.004              0.127
+== family E (isoluminant)
+knee fmt src      tone          cells | band-weighted max  deep max  band-weighted rms | flip fraction (max over cells)  worst at a flip  max off the flips
+
+cells 128, run time 408 s

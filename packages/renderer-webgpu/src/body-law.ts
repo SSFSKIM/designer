@@ -63,15 +63,17 @@ export const BODY_LAW_DECLARED = {
 } as const;
 
 /**
- * **The realisation's own constants** (`implementation-design.md` §2.4, measured in
- * `implementation-design/narrow_error.txt` and `narrow_interp.txt`): four interior levels uniform
- * in σ, a contour level where o = 0.5 lies above them, a cubic in σ through the four nearest, and a
- * box decimation from 6 device px (q = 2) and 48 (q = 4). Not declared by the law; chosen for the
- * shader and bounded against the exact Gaussian.
+ * **The realisation's own constants** (`implementation-design.md` §2.4 as revised in §11): six
+ * interior levels uniform in σ, a contour level where o = 0.5 lies above them, a cubic in σ through
+ * the four nearest, and a box decimation from 12 device px (q = 2) and 48 (q = 4), the oracle's own
+ * rule (`forward.py:228`, `246–271`). Not declared by the law; chosen for the shader and bounded
+ * against the exact Gaussian by the storage-graph mirror (`implementation-design/u2_mirror.txt`).
+ * §2.4's first choice, four levels from 6 device px, put the landed tone 0.295 code from the oracle
+ * near black, above the ~0.13-code target (`u2_mirror-l4-q6.txt`).
  */
 export const BODY_LAW_REALISATION = {
-  activeInteriorLevels: 4,
-  decimateFromDevicePx: 6,
+  activeInteriorLevels: 6,
+  decimateFromDevicePx: 12,
   decimateBy4FromDevicePx: 48,
 } as const;
 

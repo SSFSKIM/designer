@@ -7,8 +7,8 @@ addendum's reference (`native_t.py`); none is written by hand. Nothing here read
 
   plan.json       forward.py's footprint (Cell.crop('box')), texel, floor and widths, and the exact
                   sigma_n at a set of depths, for every canonical and bed single shape at dpr 1 and 2,
-                  both poses and all three units; plus the realisation's level set (narrow_error.py's
-                  `levels_for`, four interior levels) beside it
+                  both poses and all three units; plus the realisation's level set (six interior levels,
+                  as u2_mirror.py's `levels_for`) beside it
   composite.json  forward.py's `_hinge` + Normal fill for the per-channel and on-luma knees, and
                   body.py's chroma-from-W form, on random encoded pairs, both hinges, four lambdas
   landed.json     body.py's `solve` + `compose` (the rehearsal's `landed_T`) per endpoint and sizeK on
@@ -49,7 +49,7 @@ def levels_for(s, scale_u, kn, receded):
         return [sc * (0.4 + 0.4 * t)]
     if t == 0:
         return [0.0, sc * 0.5]
-    lv = list(np.linspace(sc * 0.4 * t, sc * 0.8 * t, 4))
+    lv = list(np.linspace(sc * 0.4 * t, sc * 0.8 * t, 6))   # six interior levels (§11, R3)
     if sc * 0.5 > sc * 0.8 * t + 1e-9:
         lv.append(sc * 0.5)
     return lv
