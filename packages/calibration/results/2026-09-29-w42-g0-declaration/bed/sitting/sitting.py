@@ -772,15 +772,19 @@ def main(argv=None):
                 command = dump_argv(launcher, app, spec, run, scale, scheme, pose, ids)
                 (run / 'launch.json').write_text(json.dumps(dict(argv=command), indent=2) + '\n')
                 timed_out = False
-                began = time.monotonic()
+                began, load_at_launch = time.monotonic(), [round(v, 2) for v in os.getloadavg()]
                 try:
                     result = subprocess.run(command, timeout=dump_timeout(len(ids)))
                 except subprocess.TimeoutExpired:
                     timed_out = True
                     subprocess.run(['pkill', '-f', str(app / 'Contents/MacOS/VitreaReference')], check=False)
                 elapsed = round(time.monotonic() - began, 1)
+                # The load average beside the rate (the coordinator's note on b7): a dump's rate is
+                # settle-dominated, and a loaded machine reads it pessimistically if at all.
                 timing = dict(elapsedSeconds=elapsed, timeoutSeconds=dump_timeout(len(ids)),
-                              perSceneSeconds=round(elapsed / len(ids), 3), scenes=len(ids))
+                              perSceneSeconds=round(elapsed / len(ids), 3), scenes=len(ids),
+                              loadAverageAtLaunch=load_at_launch,
+                              loadAverageAtClose=[round(v, 2) for v in os.getloadavg()])
                 (run / 'timing.json').write_text(json.dumps(timing, indent=2) + '\n')
                 closed = attest('close')
                 (run / 'attest.close').write_text(portable(closed, 'close'))

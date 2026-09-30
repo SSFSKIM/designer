@@ -360,6 +360,7 @@ class DumpStep(unittest.TestCase):
         self.assertEqual(record['scenesSha256'], DECLARATION['scenesSha256'])
         timing = json.loads((run / 'timing.json').read_text())
         self.assertEqual((timing['scenes'], timing['timeoutSeconds']), (14, S.dump_timeout(14)))
+        self.assertEqual((len(timing['loadAverageAtLaunch']), len(timing['loadAverageAtClose'])), (3, 3))
         with self.assertRaisesRegex(ValueError, 'foreign'):     # the evidence dump still enforces it
             self.st.run('dump', '1x-light-active')
 

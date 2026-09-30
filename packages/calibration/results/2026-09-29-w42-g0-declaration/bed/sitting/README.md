@@ -98,7 +98,8 @@ TCC-refusal rehearsal, G1's first runbook step while the side bundle is ungrante
 `capture <pass> --rehearse-refusal` in a root that holds rehearsals only: the real run-1
 launch, admitted only as `refused-tcc`. The dump rehearsal, `dump <pass> --rehearse`, is the
 real dump launch and `dumpcheck` in a rehearsal root; it writes `rehearsal.json` and
-`timing.json`, never an admission, and records the foreign-process census instead of enforcing
+`timing.json` (elapsed, per scene, timeout, and the load average at launch and close, which
+every dump records), never an admission, and records the foreign-process census instead of enforcing
 it, as G0's no-pixel dumps did (the evidence dumps enforce it). Every rehearsal runs through
 the orchestrator: `REHEARSAL=1 PASSES="<pass> ..."`, each pass at its display mode.
 
