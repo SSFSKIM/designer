@@ -310,9 +310,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// 2 (b)).
 @group(0) @binding(11) var backdropHeavy2 : texture_2d<f32>;
 
-/// W42's argument A (body-law-pass.ts): the law's M in encoded sRGB (rgb) and L(W) (a), at one
-/// texel per device pixel over the group's rect, rgba32float and therefore only ever loaded. The
-/// placeholder stands in it wherever the law's strength lane is 0, and nothing reads it there.
+/// W42's argument A (body-law-pass.ts): the law's M in encoded sRGB, unclipped (rgb), and L(W)
+/// (a), at one texel per device pixel over the group's rect, rgba32float and therefore only ever
+/// loaded. The placeholder stands in it wherever the law's strength lane is 0, and nothing reads
+/// it there. Each tone below clips an out-of-range argument where its own gamut step does.
 @group(0) @binding(12) var bodyLawTexture : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone

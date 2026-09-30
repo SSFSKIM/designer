@@ -14,7 +14,8 @@ The planned graph, per surface, every stored pass rounded to its texture format:
      upsample;
   4  the composite at every drawn pixel in f32: the cubic in sigma through the four nearest levels (or
      linear, or single), the knee (three forms), the Normal fill, stored as A = (M, L(W)) in the tile
-     format;
+     format, M unclipped (the outputs without a suffix were produced before that fix, with M clipped
+     to [0, 1] on both sides; `-unclipped` is the fixed run);
   5  the optics pass reads A at the pixel (texel centres; the lens's resampling mixes the same stored
      texels and is not modelled) and applies the tone in f32.
 The oracle is f64 throughout on the exact 8-bit source: exact per-pixel Gaussians at each pixel's own
@@ -284,7 +285,11 @@ def run_cell(bg, comp, scale, scheme, pose, configs, rng):
     oracle = {}
     for knee in (0, 1, 2):
         A, LW, dx = composite(Cx, Wx, knee, h, lam)
-        oracle[knee] = (tones(ep, s, np.clip(A, 0, 1), LW), dx)
+        # M is NOT clipped before the tone: forward.py passes T(255 * M) (compose), and the
+        # rehearsal's tones clip where their own gamut step does (body.py dec, e3_F and the final
+        # clip). Until the U3/U4 review's finding this line and the implementation's below both
+        # clipped, so neither could see an out-of-range argument (implementation-design.md §14).
+        oracle[knee] = (tones(ep, s, A, LW), dx)
 
     rows = []
     for fmt, src in configs:
@@ -301,7 +306,7 @@ def run_cell(bg, comp, scale, scheme, pose, configs, rng):
         C = f32(interp_levels(stack, levels, sig, how))
         for knee in (0, 1, 2):
             A, LW, dm = composite(f32(C), f32(Wm), knee, h, lam)
-            A, LW = st(np.clip(A, 0, 1), fmt), st(LW, fmt)
+            A, LW = st(A, fmt), st(LW, fmt)
             ty = tones(ep, s, A, LW)
             ox, dx = oracle[knee]
             flips = None if dm is None else (dm != dx)

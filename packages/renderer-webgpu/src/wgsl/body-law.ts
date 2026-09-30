@@ -175,7 +175,10 @@ fn fs_decimate(in : FullscreenOut) -> @location(0) vec4f {
  *   the plan names through the stored levels (`bodyLawInterpolateLevels`);
  * - W from its tile;
  * - the knee and M by `bodyLawComposite`, term for term;
- * - A = (clamp(M, 0, 1), L(W)), encoded.
+ * - A = (M, L(W)), encoded and NOT clipped: the declared oracle passes M to T unclipped
+ *   (`forward.py:527`, `T(255 * M)`; the rehearsal's argument, `body.py:706`, `713`), and each tone
+ *   clips where its own gamut step does (`body.py:513`, `515`, `550`, `573`; `swap.py:219`, `233`).
+ *   A clip here would move an out-of-range argument's chroma term before the tone reads it.
  *
  * A level stored at q = 1 is read at the pixel's own texel. A decimated one is read at
  * `forward.py`'s return coordinate, (P + i + 0.5) / q − 0.5 on its grid, bilinear with the edge
@@ -360,7 +363,8 @@ fn fs_composite(in : FullscreenOut) -> @location(0) vec4f {
     M = vec3f(ML) + (W - vec3f(WL));
   }
   if (lu.mode.y > 0.5) {
-    return vec4f(clamp(M, vec3f(0.0), vec3f(1.0)), law_luma(W));
+    // Unclipped: rgba32float carries an out-of-range M to the tone, which clips where it clips.
+    return vec4f(M, law_luma(W));
   }
   // D2 = 0: C and W were averaged in linear light, and A is encoded here (the rejected F2).
   let We = linear_to_srgb(clamp(W, vec3f(0.0), vec3f(1.0)));
