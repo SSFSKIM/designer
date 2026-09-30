@@ -1017,7 +1017,771 @@ export const BODY_CHROMA_RETENTION = 0;
  * this tier does not solve to full coverage, or a chroma operator on the
  * `rgba()` layer rather than on the backdrop beneath it. Both are work, and
  * neither is this wave's.
+ *
+ * **W42 reads the documents' retention in one place, behind a gate that ships at 0.** Under W42's
+ * body law the landed tone is the shipped solve re-executed per pixel, retention included, and
+ * the law's CSS derivation reads its chroma gain off that solve (`cssLandedToneLinear`,
+ * `cssTierBodyLaw` below). Nothing a page draws moves: the law's strength is 0 in every document
+ * and its engine row is `unverified` everywhere, so the shipped body above still carries none.
  */
+
+/*
+ * =================================================================================================
+ * **W42's body law on this tier** — the derivation of LT's CSS carry from the same leaves the
+ * renderer reads (G2's `implementation-design.md` §1, §4, §5, revised by §11's R5; the charter's
+ * Design "The CSS carry"). Everything here is arithmetic: which widths the two blurs run at, which
+ * tone tables T is read through, and the accessibility fold. The filter those numbers build is
+ * `cssTierBodyLawFilterProgram` in `css-tier.ts`; the DOM is `css-tier-layers.ts`'s. Nothing is
+ * drawn until Decision Log 4's measurement flips `bodyLawFilterInBackdrop` on an engine's row.
+ *
+ * The algebra, its clamping analysis over the admitted ranges and which parts are exact is
+ * `packages/calibration/results/2026-09-30-w42-g2-identification/implementation-design/u5_css_algebra.md`.
+ * =================================================================================================
+ */
+
+/**
+ * The law's leaves as this tier reads them, under the renderer's own names — the eighteen W42
+ * leaves and E3's three, which the law's path reads for candidate 1's light receded tone (Fork 6).
+ * Mirrors `MaterialProfile`'s, pinned by value in `tier-coherence.test.ts`.
+ */
+export interface CssBodyLawLeaves {
+  readonly bodyLawStrength: number;
+  readonly bodyLawK: readonly [number, number];
+  readonly bodyLawLambda: number;
+  readonly bodyLawNormal: number;
+  readonly bodyLawHinge: number;
+  readonly bodyLawPose: number;
+  readonly bodyLawKnee: number;
+  readonly bodyLawEdgeSwap: number;
+  readonly bodyLawWidthUnit: number;
+  readonly bodyLawEncodedAveraging: number;
+  readonly bodyE3Strength: number;
+  readonly bodyE3Gains: readonly [number, number, number];
+  readonly bodyE3Neutral: readonly [number, number, number, number, number, number, number];
+  readonly bodyE3HighStrength: number;
+  readonly bodyE3NeutralHigh: readonly [number, number, number, number, number, number, number];
+  readonly bodyToneTableStrength: number;
+  readonly bodyToneTableLevels: readonly number[];
+  readonly bodyToneTableSpans: readonly number[];
+  readonly bodyToneTableCodes: readonly (readonly number[])[];
+  readonly bodyToneChromaGains: readonly [number, number, number];
+  readonly bodyToneChromaScale: number;
+}
+
+const BODY_TONE_TABLE_IDENTITY_ROW = [0, 64, 96, 128, 160, 176, 192, 208, 224, 240, 255] as const;
+
+/**
+ * The renderer DEFAULT's values of those leaves: every gate at its identity (the law's strength,
+ * D1's device px, D2's linear light, E3's, the F extension's and the table's strengths all 0) and
+ * the gated leaves at their declared hypotheses. A document that names none of them resolves here.
+ */
+export const CSS_BODY_LAW_IDENTITY: CssBodyLawLeaves = {
+  bodyLawStrength: 0,
+  bodyLawK: [2, 2],
+  bodyLawLambda: 0.9,
+  bodyLawNormal: 0.5,
+  bodyLawHinge: 1,
+  bodyLawPose: 0,
+  bodyLawKnee: 0,
+  bodyLawEdgeSwap: 0,
+  bodyLawWidthUnit: 0,
+  bodyLawEncodedAveraging: 0,
+  bodyE3Strength: 0,
+  bodyE3Gains: [1, 1, 1],
+  bodyE3Neutral: [40, 56, 72, 88, 104, 128, 150],
+  bodyE3HighStrength: 0,
+  bodyE3NeutralHigh: [160, 176, 192, 208, 224, 240, 255],
+  bodyToneTableStrength: 0,
+  bodyToneTableLevels: BODY_TONE_TABLE_IDENTITY_ROW,
+  bodyToneTableSpans: [64, 80, 96, 128, 160],
+  bodyToneTableCodes: [
+    BODY_TONE_TABLE_IDENTITY_ROW, BODY_TONE_TABLE_IDENTITY_ROW, BODY_TONE_TABLE_IDENTITY_ROW,
+    BODY_TONE_TABLE_IDENTITY_ROW, BODY_TONE_TABLE_IDENTITY_ROW,
+  ],
+  bodyToneChromaGains: [1, 1, 1],
+  bodyToneChromaScale: 1,
+};
+
+/**
+ * The leaves under a patch, refused at the boundary exactly where the renderer's
+ * `validateBodyLawPatch` and `validateBodyE3Patch` refuse (a `renderer: "css"` root builds no
+ * bridge, so the renderer's guard is never reached, and this tier writes these numbers into
+ * filter attributes, where a NaN is a silently dropped primitive rather than an error).
+ * `tier-coherence.test.ts` holds the two refusals to the same malformed patches.
+ */
+export function resolvedBodyLaw(patch?: RendererMaterialProfile): CssBodyLawLeaves {
+  const source = (patch ?? {}) as Readonly<Record<string, unknown>>;
+  const finite = (value: unknown): value is number =>
+    typeof value === "number" && Number.isFinite(value);
+  const scalar = (key: keyof CssBodyLawLeaves, low: number, high: number): number => {
+    if (!(key in source)) return CSS_BODY_LAW_IDENTITY[key] as number;
+    const value = source[key];
+    if (!finite(value) || value < low || value > high) {
+      throw new TypeError(`${key} must be finite and in [${String(low)},${String(high)}]`);
+    }
+    return value;
+  };
+  const member = (key: keyof CssBodyLawLeaves, allowed: readonly number[]): number => {
+    if (!(key in source)) return CSS_BODY_LAW_IDENTITY[key] as number;
+    const value = source[key];
+    if (!allowed.includes(value as number)) {
+      throw new TypeError(`${key} must be one of ${allowed.join(", ")}`);
+    }
+    return value as number;
+  };
+  const tuple = (value: unknown, length: number, low: number, high: number, label: string,
+    increasing = false): number[] => {
+    const message = `${label} must be a dense tuple of ${String(length)} finite numbers in ` +
+      `[${String(low)},${String(high)}]` + (increasing ? ", strictly increasing" : "");
+    if (!Array.isArray(value) || value.length !== length) throw new TypeError(message);
+    return Array.from({ length }, (_, i) => {
+      const entry: unknown = Object.hasOwn(value, i) ? value[i] : undefined;
+      if (!finite(entry) || entry < low || entry > high) throw new TypeError(message);
+      if (increasing && i > 0 && !(entry > (value[i - 1] as number))) throw new TypeError(message);
+      return entry;
+    });
+  };
+  const keyed = (key: keyof CssBodyLawLeaves, length: number, low: number, high: number,
+    increasing = false): number[] =>
+    key in source
+      ? tuple(source[key], length, low, high, key, increasing)
+      : [...(CSS_BODY_LAW_IDENTITY[key] as readonly number[])];
+  const k = keyed("bodyLawK", 2, 0.8, 4);
+  const gains = keyed("bodyE3Gains", 3, 0, 3);
+  const neutral = keyed("bodyE3Neutral", 7, 0, 255);
+  const high = keyed("bodyE3NeutralHigh", 7, 0, 255);
+  const toneGains = keyed("bodyToneChromaGains", 3, 0, 3);
+  let codes: number[][];
+  if ("bodyToneTableCodes" in source) {
+    const rows = source["bodyToneTableCodes"];
+    const message = "bodyToneTableCodes must be a dense tuple of 5 rows of 11 codes in [0,255]";
+    if (!Array.isArray(rows) || rows.length !== 5) throw new TypeError(message);
+    codes = Array.from({ length: 5 }, (_, r) => {
+      if (!Object.hasOwn(rows, r)) throw new TypeError(message);
+      return tuple(rows[r], 11, 0, 255, `bodyToneTableCodes[${String(r)}]`);
+    });
+  } else {
+    codes = CSS_BODY_LAW_IDENTITY.bodyToneTableCodes.map((row) => [...row]);
+  }
+  return {
+    bodyLawStrength: scalar("bodyLawStrength", 0, 1),
+    bodyLawK: [k[0]!, k[1]!],
+    bodyLawLambda: scalar("bodyLawLambda", -0.5, 1.6),
+    bodyLawNormal: scalar("bodyLawNormal", 0, 1),
+    bodyLawHinge: member("bodyLawHinge", [1, -1]),
+    bodyLawPose: member("bodyLawPose", [0, 1]),
+    bodyLawKnee: member("bodyLawKnee", [0, 1, 2]),
+    bodyLawEdgeSwap: member("bodyLawEdgeSwap", [0, 1]),
+    bodyLawWidthUnit: member("bodyLawWidthUnit", [0, 1, 2]),
+    bodyLawEncodedAveraging: member("bodyLawEncodedAveraging", [0, 1]),
+    bodyE3Strength: scalar("bodyE3Strength", 0, 1),
+    bodyE3Gains: [gains[0]!, gains[1]!, gains[2]!],
+    bodyE3Neutral: [neutral[0]!, neutral[1]!, neutral[2]!, neutral[3]!, neutral[4]!, neutral[5]!,
+      neutral[6]!],
+    bodyE3HighStrength: scalar("bodyE3HighStrength", 0, 1),
+    bodyE3NeutralHigh: [high[0]!, high[1]!, high[2]!, high[3]!, high[4]!, high[5]!, high[6]!],
+    bodyToneTableStrength: scalar("bodyToneTableStrength", 0, 1),
+    bodyToneTableLevels: keyed("bodyToneTableLevels", 11, 0, 255, true),
+    bodyToneTableSpans: keyed("bodyToneTableSpans", 5, Number.MIN_VALUE, Number.MAX_VALUE, true),
+    bodyToneTableCodes: codes,
+    bodyToneChromaGains: [toneGains[0]!, toneGains[1]!, toneGains[2]!],
+    bodyToneChromaScale: scalar("bodyToneChromaScale", 0, 3),
+  };
+}
+
+/**
+ * The law's declared constants this tier reads — the renderer's `BODY_LAW_DECLARED` restated,
+ * pinned to it by `tier-coherence.test.ts`. The footprint's margins are not among them: a
+ * `backdrop-filter` reads the element's own box, so the CSS support is the box (a named gap,
+ * `u5_css_algebra.md` §5).
+ */
+export const CSS_BODY_LAW_DECLARED = {
+  narrowRadius: 5,
+  wideRadius: 8,
+  spanKnotPx: 64,
+  spanRangePx: 96,
+  activeCentreOpacity: 0.8,
+  activeEdgeOpacity: 0.4,
+  activeEdgeDepthPt: 1,
+  contourOpacity: 0.5,
+  recededOpacityBase: 0.4,
+  recededOpacitySlope: 0.4,
+  captureTexelDevicePx: 2,
+  largeCaptureTexelDevicePx: 4,
+  largeShapeMinPx: [280, 160] as const,
+  floorPerTexel: 0.4,
+  activeBandPt: 20,
+} as const;
+
+/** t = clamp((s − 64) / 96, 0, 1) — the renderer's `bodyLawSizeT`. */
+export function cssBodyLawSizeT(spanPx: number): number {
+  const d = CSS_BODY_LAW_DECLARED;
+  return clamp01((spanPx - d.spanKnotPx) / d.spanRangePx);
+}
+
+/** The declared opacity o(s, d, pose) — the renderer's `bodyLawOpacity`, term for term. */
+export function cssBodyLawOpacity(depthPt: number, spanPx: number, receded: boolean): number {
+  const d = CSS_BODY_LAW_DECLARED;
+  const t = cssBodyLawSizeT(spanPx);
+  if (receded) return d.recededOpacityBase + d.recededOpacitySlope * t;
+  const centre = -spanPx / 2;
+  const edge = -d.activeEdgeDepthPt;
+  if (depthPt <= centre) return d.activeCentreOpacity * t;
+  if (depthPt <= edge) {
+    const a = (depthPt - centre) / (edge - centre);
+    return d.activeCentreOpacity * t + (d.activeEdgeOpacity * t - d.activeCentreOpacity * t) * a;
+  }
+  if (depthPt <= 0) {
+    const a = (depthPt - edge) / (0 - edge);
+    return d.activeEdgeOpacity * t + (d.contourOpacity - d.activeEdgeOpacity * t) * a;
+  }
+  return d.contourOpacity;
+}
+
+/** Device px per capture texel — the renderer's `bodyLawCaptureTexelDevicePx`. */
+export function cssBodyLawCaptureTexelDevicePx(widthPx: number, heightPx: number): number {
+  const d = CSS_BODY_LAW_DECLARED;
+  return widthPx >= d.largeShapeMinPx[0] && heightPx >= d.largeShapeMinPx[1]
+    ? d.largeCaptureTexelDevicePx
+    : d.captureTexelDevicePx;
+}
+
+/** Device px per unit of the law's widths, by D1 — the renderer's `bodyLawUnitDevicePx`. */
+export function cssBodyLawUnitDevicePx(
+  unit: number,
+  devicePixelRatio: number,
+  texelDevicePx: number,
+): number {
+  switch (unit) {
+    case 0:
+      return 1;
+    case 1:
+      return devicePixelRatio;
+    case 2:
+      return texelDevicePx;
+    default:
+      throw new RangeError(`bodyLawWidthUnit ${String(unit)} is not 0, 1 or 2`);
+  }
+}
+
+/**
+ * **The accessibility fold, the WebGPU tier's own** (`body-law.ts`'s
+ * `bodyLawStrengthUnderPolicy`; implementation-design §4, Fork 4): an exhaustive switch on the
+ * occlusion axis. Reduce Transparency (`increased`) and forced colours (`opaque`) stand the law
+ * down; Increase Contrast alone moves no occlusion and keeps it; a variant other than `regular`
+ * stands it down.
+ *
+ * `sampled` means what it means on the other tier — the law has a per-pixel argument to read.
+ * On this tier that is every surface: a `backdrop-filter` reads the page behind it, so the
+ * caller passes `true` (`cssTierDeclarations` does). It stays a parameter so the two folds are
+ * one function of the same four inputs and `tier-coherence.test.ts` can sweep them together.
+ */
+export function cssBodyLawStrengthUnderPolicy(
+  strength: number,
+  policy: ResolvedMaterialPolicy,
+  variant: MaterialVariant,
+  sampled: boolean,
+): number {
+  switch (policy.occlusion) {
+    case "nominal":
+      return sampled && variant === "regular" ? strength : 0;
+    case "increased":
+    case "opaque":
+      return 0;
+  }
+}
+
+/** E3's strength on the law's path (Fork 6) — the renderer's `bodyLawE3StrengthUnderLaw`. */
+export function cssBodyLawE3StrengthUnderLaw(e3Strength: number, foldedLawStrength: number): number {
+  return foldedLawStrength > 0 ? e3Strength : 0;
+}
+
+/** E3's gain g over the knots 63, 93 and 118 codes, held outside — `bodyLawE3Gain`. */
+export function cssBodyLawGain(levelCodes: number, gains: readonly [number, number, number]): number {
+  return levelCodes > 93
+    ? gains[1] + clamp01((levelCodes - 93) / 25) * (gains[2] - gains[1])
+    : gains[0] + clamp01((levelCodes - 63) / 30) * (gains[1] - gains[0]);
+}
+
+/**
+ * E3's neutral curve F at one encoded level, in codes, with the F extension above 150 — the
+ * achromatic half of the renderer's `bodyLawE3Codes` (F continued past its knots and clipped,
+ * then moved toward the table through (150, n₆), (160, h₀) … (255, h₆) by `bodyE3HighStrength`).
+ */
+export function cssBodyE3NeutralCodes(
+  levelCodes: number,
+  leaves: Pick<CssBodyLawLeaves, "bodyE3Neutral" | "bodyE3HighStrength" | "bodyE3NeutralHigh">,
+): number {
+  const knots = [40, 56, 72, 88, 104, 128, 150] as const;
+  const neutral = leaves.bodyE3Neutral;
+  let i = 0;
+  for (let j = 1; j < 6; j++) if (levelCodes >= knots[j]!) i = j;
+  const tt = (levelCodes - knots[i]!) / (knots[i + 1]! - knots[i]!);
+  let f = Math.min(255, Math.max(0, neutral[i]! + tt * (neutral[i + 1]! - neutral[i]!)));
+  const strength = leaves.bodyE3HighStrength;
+  if (strength > 0 && levelCodes > 150) {
+    const xs = [150, 160, 176, 192, 208, 224, 240, 255];
+    const ys = [neutral[6], ...leaves.bodyE3NeutralHigh];
+    let k = 0;
+    while (k < xs.length - 2 && levelCodes > xs[k + 1]!) k++;
+    const u = Math.min(1, (levelCodes - xs[k]!) / (xs[k + 1]! - xs[k]!));
+    const table = ys[k]! + u * (ys[k + 1]! - ys[k]!);
+    f = f + strength * (table - f);
+  }
+  return f;
+}
+
+/** One table row at a level: piecewise linear over the levels, held at the ends. */
+function bodyToneRowAt(level: number, levels: readonly number[], row: readonly number[]): number {
+  const n = levels.length;
+  if (level <= levels[0]!) return row[0]!;
+  if (level >= levels[n - 1]!) return row[n - 1]!;
+  let k = 0;
+  while (level > levels[k + 1]!) k++;
+  const u = (level - levels[k]!) / (levels[k + 1]! - levels[k]!);
+  return row[k]! + u * (row[k + 1]! - row[k]!);
+}
+
+/**
+ * Candidate 2's neutral T at one encoded level and one span, in codes and clipped — the
+ * achromatic half of the renderer's `bodyToneTableCodesAt` (linear in level within a span row,
+ * linear in span between the two rows that bracket the surface's span, the end rows outside).
+ */
+export function cssBodyToneTableNeutralCodes(
+  levelCodes: number,
+  spanPx: number,
+  leaves: Pick<CssBodyLawLeaves, "bodyToneTableLevels" | "bodyToneTableSpans" | "bodyToneTableCodes">,
+): number {
+  const spans = leaves.bodyToneTableSpans;
+  const levels = leaves.bodyToneTableLevels;
+  const rows = leaves.bodyToneTableCodes;
+  let f: number;
+  if (spanPx <= spans[0]!) f = bodyToneRowAt(levelCodes, levels, rows[0]!);
+  else if (spanPx >= spans[4]!) f = bodyToneRowAt(levelCodes, levels, rows[4]!);
+  else {
+    let k = 0;
+    while (spanPx > spans[k + 1]!) k++;
+    const u = (spanPx - spans[k]!) / (spans[k + 1]! - spans[k]!);
+    const lo = bodyToneRowAt(levelCodes, levels, rows[k]!);
+    const hi = bodyToneRowAt(levelCodes, levels, rows[k + 1]!);
+    f = lo + u * (hi - lo);
+  }
+  return Math.min(255, Math.max(0, f));
+}
+
+/**
+ * What candidate 1's landed tone reads besides the pixel's own colour — the renderer's
+ * `LandedToneInputs`, field for field, so `tier-coherence.test.ts` can hand one record to both.
+ */
+export interface CssLandedToneInputs {
+  readonly sizeK: number;
+  readonly toneLevelFar: number;
+  readonly neutral: LinearRgb;
+  readonly tintAlpha: number;
+  readonly sizeOcclusionGain: number;
+  readonly toneStrength: number;
+  readonly toneLow: number;
+  readonly toneHigh: number;
+  readonly toneSizeBias: number;
+  readonly retention: number;
+  readonly abscissa: "source" | "silhouette";
+  readonly presence: number;
+}
+
+/** W31's retention under the occlusion fold — the renderer's `bodyChromaRetentionUnderPolicy`. */
+export function cssBodyChromaRetentionUnderPolicy(
+  retention: number,
+  policy: ResolvedMaterialPolicy,
+): number {
+  switch (policy.occlusion) {
+    case "nominal":
+      return retention;
+    case "increased":
+    case "opaque":
+      return 0;
+  }
+}
+
+/**
+ * The landed tone's inputs for one surface, from this tier's mirrors of the same leaves the
+ * renderer packs (implementation-design §2.8): the folded thickness at the surface's span, W25's
+ * far level, the source's neutral and its policy-folded alpha, the size law's occlusion gain, the
+ * tone's strength WITHOUT the "no measured tone" gate (the law's argument is always a measured
+ * tone), the band, the bias pre-divided by the accessibility cap as the uniform carries it, the
+ * folded retention and the abscissa kind.
+ *
+ * Two readings are this tier's and are stated rather than hidden. The neutral is the profile's
+ * tint: the renderer mixes it toward the adaptive tint the group's analysis observed, and the
+ * macOS 27 documents' adaptive poles equal their tints, so the two agree on every shipped endpoint
+ * and differ only on a document whose poles move. And the presence is 1: the filter is the
+ * resting material's and L1's `opacity` carries the presence, as the shipped tier's table does.
+ */
+export function cssLandedToneInputs(
+  profile: RendererMaterialProfile | undefined,
+  variant: MaterialVariant,
+  spanPx: number,
+  policy: ResolvedMaterialPolicy,
+  devicePixelRatio = 1,
+): CssLandedToneInputs {
+  const source = sourceOptics(profile)[variant];
+  const size = sourceSize(profile);
+  const tone = resolvedBackdropTone(profile);
+  const cap = size.refractionScale[accessibilityRefractionCap(policy)];
+  const abscissa = profile?.backdropToneAbscissa;
+  return {
+    sizeK: sizeThicknessUnderPolicy(spanPx, policy, size),
+    toneLevelFar: sizeToneLevelFar(spanPx, size, devicePixelRatio, cap),
+    neutral: source.tint,
+    tintAlpha: occlusionAlphaUnderPolicy(source.tintAlpha, policy.occlusion,
+      occlusionLiftForPolicy(policy, resolvedPolicyFold(profile))),
+    sizeOcclusionGain: size.sizeOcclusionGain,
+    toneStrength: backdropToneUnderPolicy(policy, resolvedTintShade(profile), size.refractionScale) *
+      tone.max,
+    toneLow: tone.low,
+    toneHigh: tone.high,
+    toneSizeBias: cap > 0 ? tone.sizeBias / cap : 0,
+    retention: cssBodyChromaRetentionUnderPolicy(
+      profile?.bodyChromaRetention ?? BODY_CHROMA_RETENTION, policy),
+    abscissa: abscissa === undefined || abscissa === "source" ? "source" : "silhouette",
+    presence: 1,
+  };
+}
+
+/**
+ * **Candidate 1's landed T at one pixel** — the renderer's `landedToneLinear` (`body-law.ts`),
+ * transcribed in its order through this tier's pinned mirror of the response
+ * (`backdropToneResponseLevel`): each pixel toned as the shipped material tones a uniform
+ * backdrop of colour dec(A). Returns linear light. `tier-coherence.test.ts` holds the two equal
+ * on the four macOS 27 endpoints.
+ */
+export function cssLandedToneLinear(
+  argumentEncoded: LinearRgb,
+  inputs: CssLandedToneInputs,
+  response: BackdropToneResponseConstants,
+): LinearRgb {
+  const c: LinearRgb = [
+    srgbDecode(argumentEncoded[0]), srgbDecode(argumentEncoded[1]), srgbDecode(argumentEncoded[2]),
+  ];
+  const lin = luminance(c);
+  const encodedLuma = 0.2126 * argumentEncoded[0] + 0.7152 * argumentEncoded[1] +
+    0.0722 * argumentEncoded[2];
+  const level = inputs.abscissa === "silhouette" ? srgbDecode(clamp01(encodedLuma)) : lin;
+  const sizeK = inputs.sizeK;
+  const toneStrength = inputs.toneStrength;
+
+  let toneAdapt = 0;
+  if (toneStrength > 0) {
+    const toneX = level + inputs.toneSizeBias * sizeK;
+    const toneT = clamp01((toneX - inputs.toneLow) / Math.max(inputs.toneHigh - inputs.toneLow, 1e-6));
+    toneAdapt = clamp01(toneStrength) * (1 - toneT * toneT * (3 - 2 * toneT));
+  }
+  const sizedAlpha = inputs.tintAlpha + inputs.sizeOcclusionGain * sizeK * (1 - inputs.tintAlpha);
+  const neutral = inputs.neutral;
+  let solvedNeutral: LinearRgb = neutral;
+  let solvedAlpha = sizedAlpha;
+  const rs = clamp01(response.strength);
+  if (toneStrength > 0 && response.strength > 0 && sizedAlpha > 1e-3 && toneAdapt < 0.995) {
+    const encodedInput = srgbEncode(clamp01(level));
+    const anchor = Math.max(response.anchorX[0], 1e-4);
+    let authority = smoothstep(anchor * 0.5, anchor, encodedInput) * rs;
+    if ((response.blackStrength ?? 0) > 0 && encodedInput < 0.003) {
+      const blackWeight =
+        clamp01(response.blackStrength ?? 0) * (1 - smoothstep(0, 0.003, encodedInput));
+      authority = authority + (rs - authority) * blackWeight;
+    }
+    if (authority > 0) {
+      const target = backdropToneResponseLevel(encodedInput, sizeK, response, inputs.toneLevelFar);
+      const preCollapse = (target - toneAdapt * lin) / (1 - toneAdapt);
+      const nominal = (1 - sizedAlpha) * lin + sizedAlpha * luminance(neutral);
+      const shift = ((preCollapse - nominal) / sizedAlpha) * authority * toneStrength;
+      solvedNeutral = [
+        clamp01(neutral[0] + shift), clamp01(neutral[1] + shift), clamp01(neutral[2] + shift),
+      ];
+      const solvedLuma = luminance(solvedNeutral);
+      const achieved = (1 - sizedAlpha) * lin + sizedAlpha * solvedLuma;
+      if (preCollapse > achieved + 1e-4 && solvedLuma > lin + 1e-3) {
+        const alphaTarget = Math.min(1, Math.max(sizedAlpha, (preCollapse - lin) / (solvedLuma - lin)));
+        solvedAlpha = sizedAlpha + (alphaTarget - sizedAlpha) * authority * toneStrength;
+      }
+    }
+  }
+  const adaptedAlpha = solvedAlpha + toneAdapt * (1 - solvedAlpha);
+  let adapted: LinearRgb = solvedNeutral;
+  if (toneAdapt > 0 && adaptedAlpha > 0) {
+    adapted = [0, 1, 2].map((i) =>
+      (solvedNeutral[i]! * ((1 - toneAdapt) * solvedAlpha) + c[i]! * toneAdapt) / adaptedAlpha,
+    ) as unknown as LinearRgb;
+  }
+  const presentAlpha = adaptedAlpha * inputs.presence;
+  const colour = [0, 1, 2].map((i) => c[i]! + (adapted[i]! - c[i]!) * presentAlpha) as unknown as
+    LinearRgb;
+  return cssBodyLawChromaRetention(colour, c, inputs.retention);
+}
+
+/** `body_chroma_retention` with `gamut_at_luma` — the renderer's `bodyLawChromaRetention`. */
+export function cssBodyLawChromaRetention(
+  colour: LinearRgb,
+  backdrop: LinearRgb,
+  retention: number,
+): LinearRgb {
+  if (retention <= 0) return colour;
+  const Y = luminance(colour);
+  if (!(Y > 1e-6 && Y <= 1)) return colour;
+  const Yb = luminance(backdrop);
+  if (Yb <= 1e-6) return colour;
+  const r = clamp01(retention);
+  const toward = [0, 1, 2].map((i) => backdrop[i]! * (Y / Yb));
+  let restored = [0, 1, 2].map((i) => colour[i]! + (toward[i]! - colour[i]!) * r);
+  const Yr = luminance(restored as unknown as LinearRgb);
+  if (Yr > 1e-6) restored = restored.map((v) => v * (Y / Yr));
+  let t = 1;
+  for (let i = 0; i < 3; i++) {
+    const d = restored[i]! - Y;
+    if (d > 1e-7) t = Math.min(t, (1 - Y) / d);
+    else if (d < -1e-7) t = Math.min(t, -Y / d);
+  }
+  const k = clamp01(t);
+  return [0, 1, 2].map((i) => Y + (restored[i]! - Y) * k) as unknown as LinearRgb;
+}
+
+/** The number of entries in every tone table the law's filter carries: one per eight-bit code. */
+export const CSS_BODY_LAW_TABLE_SIZE = 256;
+
+/**
+ * One tone of the law as the filter reads it: `y = F(L(A)) + G(ℓ)·(A − L(A))` per channel,
+ * clipped, with `F` a table per channel over the encoded luma of the argument and `G` a table over
+ * `ℓ`, which is L(A) or, for E3 under the law, L(W) (Fork 5). Every table has one entry per code,
+ * entry k at level k/255.
+ */
+export interface CssTierBodyLawTone {
+  /** Which tone this is, by the renderer's precedence: T2, else E3, else the landed solve. */
+  readonly kind: "table" | "e3" | "landed";
+  /**
+   * Whether the form is the renderer's. Exact for T2 and E3, whose T IS a luma curve plus a
+   * level-dependent chroma gain; an approximation for the landed solve, whose response to chroma
+   * is read off it as one gain per level (`u5_css_algebra.md` §4).
+   */
+  readonly exactForm: boolean;
+  /** F per channel, encoded [0, 1], 256 entries each. */
+  readonly neutral: readonly [readonly number[], readonly number[], readonly number[]];
+  /** G at each level, 256 entries, ≥ 0 (unnormalised: the filter divides by `gainMax`). */
+  readonly gain: readonly number[];
+  readonly gainArgument: "argument" | "wide";
+  /**
+   * A fractional strength: this tone is mixed over `below` by `weight` in linear light, the
+   * renderer's convention for T2 (implementation-design §2.7) and taken for E3 under the law too.
+   */
+  readonly below?: { readonly tone: CssTierBodyLawTone; readonly weight: number };
+}
+
+/** The law's derived parameters for one surface — what the reference filter is built from. */
+export interface CssTierBodyLaw {
+  /** The folded strength. The filter draws the law at full weight wherever it is above 0. */
+  readonly strength: number;
+  readonly pose: "active" | "receded";
+  /** Clamp-to-edge active, normalised receded, swapped by `bodyLawEdgeSwap`. */
+  readonly edge: "clamp" | "normalised";
+  readonly spanPx: number;
+  readonly t: number;
+  readonly texelDevicePx: number;
+  /** memo C's floor, 0.4 texel, in CSS px; folded into both widths below. */
+  readonly floorSigmaCssPx: number;
+  /**
+   * The narrow term's graded widths, CSS px, before the floor: [the band-weighted mean, the
+   * least, the greatest] over the body. One width when receded (all three equal).
+   */
+  readonly narrowSigmaGradedCssPx: readonly [number, number, number];
+  /** The one narrow width the filter blurs at, √(σ̄n² + σF²), CSS px. */
+  readonly narrowSigmaCssPx: number;
+  /** The wide width, √(σw² + σF²), CSS px. */
+  readonly wideSigmaCssPx: number;
+  readonly lambda: number;
+  readonly normal: number;
+  readonly hinge: 1 | -1;
+  readonly knee: 0 | 1 | 2;
+  /** D2: 1 averages in the encoded space (LT), 0 in linear light (the rejected F2). */
+  readonly encodedAveraging: 0 | 1;
+  readonly tone: CssTierBodyLawTone;
+}
+
+/** What `cssTierBodyLaw` derives from. */
+export interface CssTierBodyLawInput {
+  readonly leaves: CssBodyLawLeaves;
+  /** The folded strength (`cssBodyLawStrengthUnderPolicy`), above 0. */
+  readonly strength: number;
+  readonly widthCssPx: number;
+  readonly heightCssPx: number;
+  readonly radiusCssPx: number;
+  readonly devicePixelRatio: number;
+  readonly landed: CssLandedToneInputs;
+  readonly response: BackdropToneResponseConstants;
+}
+
+/**
+ * The band-weighted mean of the active narrow width over the body, and its extremes (§5's
+ * proposal for the one width that stands for the depth-graded term; Decision Log 4 measures it).
+ * The weight is Decision Log 5e's smoothstep(0, 20 pt, depth), the area the grid of cell centres
+ * over the box, and the depth the circular-corner field the law's composite reads.
+ */
+function activeNarrowSigmaGraded(
+  widthCssPx: number,
+  heightCssPx: number,
+  radiusCssPx: number,
+  spanPx: number,
+  sigmaAt: (depthPt: number) => number,
+): [number, number, number] {
+  const cells = 64;
+  const hw = widthCssPx / 2;
+  const hh = heightCssPx / 2;
+  const r = Math.min(Math.max(radiusCssPx, 0), Math.min(hw, hh));
+  let sum = 0;
+  let weights = 0;
+  let least = Infinity;
+  let greatest = -Infinity;
+  for (let j = 0; j < cells; j++) {
+    const y = -hh + ((j + 0.5) / cells) * heightCssPx;
+    for (let i = 0; i < cells; i++) {
+      const x = -hw + ((i + 0.5) / cells) * widthCssPx;
+      const qx = Math.abs(x) - (hw - r);
+      const qy = Math.abs(y) - (hh - r);
+      const depth = r - (Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0));
+      if (!(depth > 0)) continue;
+      const sigma = sigmaAt(-depth);
+      const weight = smoothstep(0, CSS_BODY_LAW_DECLARED.activeBandPt, depth);
+      sum += weight * sigma;
+      weights += weight;
+      least = Math.min(least, sigma);
+      greatest = Math.max(greatest, sigma);
+    }
+  }
+  const centre = sigmaAt(-spanPx / 2);
+  return weights > 0 ? [sum / weights, least, greatest] : [centre, centre, centre];
+}
+
+/** Entry k of a table at level k/255, rounded to the millionth the filter writes. */
+const tableEntry = (value: number): number => Math.round(clamp01(value) * 1e6) / 1e6;
+
+/**
+ * Candidate 1's landed solve as a luma curve and one chroma gain per level (§5: "an approximation
+ * whose chroma gain is read off the solve"). F is the solve on the grey at each level, per
+ * channel because the neutral may be tinted; G is the least-squares scalar gain of the solve's
+ * encoded response along the three luma-preserving chroma directions e_c − w_c·(1, 1, 1), by
+ * central differences of four codes, taken where the probe stays inside the gamut.
+ */
+function landedTone(input: CssTierBodyLawInput): CssTierBodyLawTone {
+  const weights = [0.2126, 0.7152, 0.0722] as const;
+  const tone = (encoded: LinearRgb): LinearRgb => {
+    const linear = cssLandedToneLinear(encoded, input.landed, input.response);
+    return [srgbEncode(linear[0]), srgbEncode(linear[1]), srgbEncode(linear[2])];
+  };
+  const epsilon = 4 / 255;
+  const reach = epsilon * (1 - Math.min(...weights));
+  const neutral: [number[], number[], number[]] = [[], [], []];
+  const gain: number[] = [];
+  for (let k = 0; k < CSS_BODY_LAW_TABLE_SIZE; k++) {
+    const level = k / 255;
+    const grey = tone([level, level, level]);
+    for (let c = 0; c < 3; c++) neutral[c]!.push(tableEntry(grey[c]!));
+    const at = Math.min(Math.max(level, reach), 1 - reach);
+    let numerator = 0;
+    let denominator = 0;
+    for (let c = 0; c < 3; c++) {
+      const v = [0, 1, 2].map((i) => (i === c ? 1 : 0) - weights[c]!);
+      const plus = tone(v.map((vi) => at + epsilon * vi) as unknown as LinearRgb);
+      const minus = tone(v.map((vi) => at - epsilon * vi) as unknown as LinearRgb);
+      for (let i = 0; i < 3; i++) {
+        numerator += ((plus[i]! - minus[i]!) / (2 * epsilon)) * v[i]!;
+        denominator += v[i]! * v[i]!;
+      }
+    }
+    gain.push(Math.max(0, numerator / denominator));
+  }
+  return { kind: "landed", exactForm: false, neutral, gain, gainArgument: "argument" };
+}
+
+/** E3 under the law: F with its extension over L(A), g over L(W) (§2.8, Fork 5). */
+function e3Tone(leaves: CssBodyLawLeaves): CssTierBodyLawTone {
+  const f: number[] = [];
+  const gain: number[] = [];
+  for (let k = 0; k < CSS_BODY_LAW_TABLE_SIZE; k++) {
+    f.push(tableEntry(cssBodyE3NeutralCodes(k, leaves) / 255));
+    gain.push(cssBodyLawGain(k, leaves.bodyE3Gains));
+  }
+  return { kind: "e3", exactForm: true, neutral: [f, f, f], gain, gainArgument: "wide" };
+}
+
+/** Candidate 2's table at the surface's span, its gain the scale times g over L(A) (§2.9). */
+function tableTone(leaves: CssBodyLawLeaves, spanPx: number): CssTierBodyLawTone {
+  const f: number[] = [];
+  const gain: number[] = [];
+  for (let k = 0; k < CSS_BODY_LAW_TABLE_SIZE; k++) {
+    f.push(tableEntry(cssBodyToneTableNeutralCodes(k, spanPx, leaves) / 255));
+    gain.push(leaves.bodyToneChromaScale * cssBodyLawGain(k, leaves.bodyToneChromaGains));
+  }
+  return { kind: "table", exactForm: true, neutral: [f, f, f], gain, gainArgument: "argument" };
+}
+
+/**
+ * **The law's CSS parameters for one surface** (implementation-design §5, R5): the two widths
+ * with memo C's floor folded in, λ, w, the hinge, the knee, the averaging space and the tone.
+ *
+ * - The floor is a Gaussian applied to the capture before the knee, so it composes exactly into
+ *   each blur: √(σ² + σF²).
+ * - The receded narrow width is the renderer's one number. The active one grades in depth, and
+ *   one `feGaussianBlur` has one width, so it stands for the term at the band-weighted mean;
+ *   the least and greatest are reported beside it for Decision Log 4.
+ * - The tone follows the renderer's precedence (§2.7): T2 where its strength is above 0, else E3
+ *   on the law's lane (Fork 6), else the landed solve; a fractional strength mixes over the tone
+ *   below it in linear light.
+ */
+export function cssTierBodyLaw(input: CssTierBodyLawInput): CssTierBodyLaw {
+  const { leaves, devicePixelRatio: dpr } = input;
+  const d = CSS_BODY_LAW_DECLARED;
+  const spanPx = Math.min(input.widthCssPx, input.heightCssPx);
+  const t = cssBodyLawSizeT(spanPx);
+  const receded = leaves.bodyLawPose === 1;
+  const texelDevicePx = cssBodyLawCaptureTexelDevicePx(input.widthCssPx, input.heightCssPx);
+  const unitCssPx =
+    cssBodyLawUnitDevicePx(leaves.bodyLawWidthUnit, dpr, texelDevicePx) / Math.max(dpr, 1e-3);
+  const floor = (d.floorPerTexel * texelDevicePx) / Math.max(dpr, 1e-3);
+  const [kn, kw] = leaves.bodyLawK;
+  const sigmaAt = (depthPt: number): number =>
+    kn * d.narrowRadius * cssBodyLawOpacity(depthPt, spanPx, receded) * unitCssPx;
+  const graded: [number, number, number] = receded
+    ? [sigmaAt(0), sigmaAt(0), sigmaAt(0)]
+    : activeNarrowSigmaGraded(input.widthCssPx, input.heightCssPx, input.radiusCssPx, spanPx, sigmaAt);
+  const wide = kw * d.wideRadius * unitCssPx;
+  const clampMode = !receded !== (leaves.bodyLawEdgeSwap === 1);
+
+  const e3Lane = cssBodyLawE3StrengthUnderLaw(leaves.bodyE3Strength, input.strength);
+  const landed = (): CssTierBodyLawTone => landedTone(input);
+  const withBelow = (tone: CssTierBodyLawTone, weight: number, below: () => CssTierBodyLawTone):
+    CssTierBodyLawTone => weight >= 1 ? tone : { ...tone, below: { tone: below(), weight } };
+  const e3OrLanded = (): CssTierBodyLawTone =>
+    e3Lane > 0 ? withBelow(e3Tone(leaves), e3Lane, landed) : landed();
+  const tone = leaves.bodyToneTableStrength > 0
+    ? withBelow(tableTone(leaves, spanPx), leaves.bodyToneTableStrength, e3OrLanded)
+    : e3OrLanded();
+
+  return {
+    strength: input.strength,
+    pose: receded ? "receded" : "active",
+    edge: clampMode ? "clamp" : "normalised",
+    spanPx,
+    t,
+    texelDevicePx,
+    floorSigmaCssPx: floor,
+    narrowSigmaGradedCssPx: graded,
+    narrowSigmaCssPx: Math.hypot(graded[0], floor),
+    wideSigmaCssPx: Math.hypot(wide, floor),
+    lambda: leaves.bodyLawLambda,
+    normal: leaves.bodyLawNormal,
+    hinge: leaves.bodyLawHinge === -1 ? -1 : 1,
+    knee: leaves.bodyLawKnee === 1 ? 1 : leaves.bodyLawKnee === 2 ? 2 : 0,
+    encodedAveraging: leaves.bodyLawEncodedAveraging === 1 ? 1 : 0,
+    tone,
+  };
+}
 
 /** The two absolute rims a collapsed surface keeps, bare and at full coverage. */
 export interface CollapsedRimConstants {

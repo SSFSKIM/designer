@@ -29,8 +29,10 @@
 
 import {
   CSS_TIER_LAYER_ORDER,
+  bodyLawFilterId,
   referenceFilterId,
   type CssTierBody,
+  type CssTierBodyLawFilter,
   type CssTierLayer,
   type CssTierRamp,
   type CssTierRender,
@@ -428,10 +430,90 @@ export interface CssTierFilterDefs {
  */
 const TINT_TABLE_CACHE_LIMIT = 32;
 
-/** One filter definition's whole identity: its width and the tint it carries. */
-export interface CssTierFilterSpec {
+/** One filter definition's whole identity. */
+export type CssTierFilterSpec = CssTierBlurFilterSpec | CssTierBodyLawFilterSpec;
+
+/** The shipped body's filter: its width and the tint it carries. */
+export interface CssTierBlurFilterSpec {
+  readonly kind?: "blur";
   readonly sigmaCssPx: number;
   readonly transfer?: CssTierTintTransfer;
+}
+
+/**
+ * W42's body law as one reference filter (G2's implementation-design §5, R5): its identity is
+ * the program's content key, so two surfaces with one program share one definition.
+ */
+export interface CssTierBodyLawFilterSpec {
+  readonly kind: "body-law";
+  readonly law: CssTierBodyLawFilter;
+}
+
+const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+
+/** A number as an attribute: the millionth the program was written at. */
+const attribute = (value: number): string => String(Math.round(value * 1e6) / 1e6);
+
+/**
+ * The law's `<filter>`, primitive for primitive from the pure program (`cssTierBodyLawFilter`).
+ *
+ * The region is the element's own box (`0 0 100% 100%`, the default object-bounding-box units)
+ * rather than the shipped filter's inert ±50 %: the law's edge mode is a statement about the
+ * box — `duplicate` clamps at it (active) and `none` reads transparent beyond it, which the
+ * opaque step then normalises (receded) — and a region larger than the box would move the edge
+ * to where no backdrop is. Whether `backdrop-filter` honours either is Decision Log 4's reading.
+ */
+function buildBodyLawFilter(doc: Document, id: string, law: CssTierBodyLawFilter): SVGElement {
+  const filter = doc.createElementNS(SVG_NAMESPACE, "filter");
+  filter.setAttribute("id", id);
+  filter.setAttribute("x", "0%");
+  filter.setAttribute("y", "0%");
+  filter.setAttribute("width", "100%");
+  filter.setAttribute("height", "100%");
+  filter.setAttribute("color-interpolation-filters", "sRGB");
+  for (const primitive of law.primitives) {
+    const element = doc.createElementNS(SVG_NAMESPACE, primitive.primitive);
+    element.setAttribute("result", primitive.result);
+    element.setAttribute("in", primitive.in);
+    element.setAttribute("color-interpolation-filters", primitive.space);
+    switch (primitive.primitive) {
+      case "feGaussianBlur":
+        element.setAttribute("stdDeviation", attribute(primitive.stdDeviation));
+        element.setAttribute("edgeMode", primitive.edgeMode);
+        break;
+      case "feColorMatrix":
+        element.setAttribute("type", "matrix");
+        element.setAttribute("values", primitive.values.map(attribute).join(" "));
+        break;
+      case "feComposite":
+        element.setAttribute("in2", primitive.in2);
+        element.setAttribute("operator", "arithmetic");
+        element.setAttribute("k1", attribute(primitive.k1));
+        element.setAttribute("k2", attribute(primitive.k2));
+        element.setAttribute("k3", attribute(primitive.k3));
+        element.setAttribute("k4", attribute(primitive.k4));
+        break;
+      case "feComponentTransfer":
+        for (const [channel, name] of [
+          ["r", "feFuncR"], ["g", "feFuncG"], ["b", "feFuncB"], ["a", "feFuncA"],
+        ] as const) {
+          const fn = primitive[channel];
+          if (fn === undefined) continue;
+          const child = doc.createElementNS(SVG_NAMESPACE, name);
+          child.setAttribute("type", fn.type);
+          if (fn.type === "linear") {
+            child.setAttribute("slope", attribute(fn.slope));
+            child.setAttribute("intercept", attribute(fn.intercept));
+          } else {
+            child.setAttribute("tableValues", fn.tableValues.map(attribute).join(" "));
+          }
+          element.append(child);
+        }
+        break;
+    }
+    filter.append(element);
+  }
+  return filter;
 }
 
 export function createCssTierFilterDefs(
@@ -495,7 +577,17 @@ export function createCssTierFilterDefs(
     return values;
   };
   return {
-    ensure({ sigmaCssPx, transfer }) {
+    ensure(spec) {
+      if (spec.kind === "body-law") {
+        const id = bodyLawFilterId(prefix, spec.law);
+        live.add(id);
+        if (built.has(id)) return;
+        const filter = buildBodyLawFilter(doc, id, spec.law);
+        defs.append(filter);
+        built.set(id, filter);
+        return;
+      }
+      const { sigmaCssPx, transfer } = spec;
       const id = referenceFilterId(prefix, sigmaCssPx, transfer);
       live.add(id);
       if (built.has(id)) return;
@@ -609,12 +701,23 @@ export function filteredAreaDevicePx(
  * with each. A body at zero presence names none at all — it reports `blur` at
  * zero width, which is what a body that draws nothing is.
  */
-export function referenceFilterSpecs(body: CssTierBody): readonly CssTierFilterSpec[] {
+export function referenceFilterSpecs(body: CssTierBody): readonly CssTierBlurFilterSpec[] {
+  // Under W42's law L1 names the law's filter alone and L2 draws nothing (§5).
+  if (body.law !== undefined) return [];
   if (body.filter !== "reference-filter") return [];
-  const sharp: CssTierFilterSpec = {
+  const sharp: CssTierBlurFilterSpec = {
     sigmaCssPx: body.sharpSigmaCssPx,
     ...(body.tintTransfer === undefined ? {} : { transfer: body.tintTransfer }),
   };
   if (body.form === "collapsed") return [sharp];
   return [sharp, { sigmaCssPx: body.heavyStepSigmaCssPx }];
+}
+
+/**
+ * Every `<filter>` definition one body names: W42's law filter where the law drew (G2's
+ * implementation-design §5), and the shipped body's otherwise. What the root builds from.
+ */
+export function cssTierFilterSpecs(body: CssTierBody): readonly CssTierFilterSpec[] {
+  if (body.law !== undefined) return [{ kind: "body-law", law: body.law }];
+  return referenceFilterSpecs(body);
 }

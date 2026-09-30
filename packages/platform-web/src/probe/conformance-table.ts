@@ -109,6 +109,18 @@ export interface EngineConformanceRow {
    * gate of its own. The band is the only thing the labeled pass unlocks.
    */
   readonly maskOnBackdropFilter: "yes" | "no" | "unverified";
+  /**
+   * Whether W42's body law may draw through its one reference filter inside `backdrop-filter`
+   * (G2's implementation-design §5, revised by R5; charter Decision Log 4).
+   *
+   * `"unverified"` on every row, including Chromium's, until Decision Log 4's proof in G3: the
+   * law's chain is two blurs and some twenty `feComponentTransfer` / `feColorMatrix` /
+   * `feComposite` primitives, and whether the blur is Gaussian enough at its widths, whether
+   * `edgeMode` is honoured at the element's box, what the eight-bit intermediates cost and how
+   * far one narrow width stands for the depth-graded term are all measurements nobody has made.
+   * The CSS tier reads anything but `"yes"` as the shipped body, whatever the document says.
+   */
+  readonly bodyLawFilterInBackdrop: "yes" | "no" | "unverified";
   /** Device-pixel proxy area above which the filter may be dropped silently. */
   readonly maxProxyAreaDevicePx: number;
   /** Ancestor `perspective` / `preserve-3d`, which is not the plain-transform case. */
@@ -160,6 +172,20 @@ const CHROMIUM_MEASURED_CONFORMANCE = {
   backdropRootTriggers: "normative",
 } as const satisfies Partial<EngineConformanceRow>;
 
+/**
+ * W42's body-law row, the same on every row and outside the measured block above because
+ * nothing has measured it: the reference filter exists (G2's implementation-design §5, R5), and
+ * Decision Log 4 reads it in G3.
+ */
+const BODY_LAW_UNVERIFIED = { bodyLawFilterInBackdrop: "unverified" } as const;
+
+const BODY_LAW_UNVERIFIED_EVIDENCE =
+  "W42 G2 step 3 (U5): bodyLawFilterInBackdrop is unverified on every row. The law's CSS " +
+  "carry is built as one reference filter and proven only as algebra (packages/calibration/" +
+  "test/w42-css-filter-algebra.test.ts); the engine-side questions — the blur's shape at the " +
+  "law's widths, edgeMode at the element's box, the eight-bit chain, one narrow width for the " +
+  "graded term — are charter Decision Log 4's, so the tier draws the shipped body until then.";
+
 const CHROMIUM_MEASURED_EVIDENCE: readonly string[] = [
   "S1: 122 capture variants across headless Chromium 151.0.7922.34 and retail Chrome 151.0.7922.172 — proxy topology confirmed byte-exact; samplingPadding >= 3σ byte-exact at blur(8px), blur(20px) and blur(40px).",
   "S1 Q5: all thirteen backdrop-root fixtures reproduce in both builds (97.77 clean / 0 re-rooted, and 97.58 / 0 in retail Chrome).",
@@ -181,9 +207,11 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     family: "chromium",
     minVersion: CHROMIUM_PATH_CLIP_DEFECT_MIN_VERSION,
     ...CHROMIUM_MEASURED_CONFORMANCE,
+    ...BODY_LAW_UNVERIFIED,
     defects: [CHROMIUM_152_PATH_CLIP_NO_OP],
     evidence: [
       ...CHROMIUM_MEASURED_EVIDENCE,
+      BODY_LAW_UNVERIFIED_EVIDENCE,
       "Every conformance field above is the 151 row's, unchanged: the 152 regression is a defect in one construction, not a change in what the engine can do, so it is recorded as a defect rather than by downgrading a field. Downgrading `rasterisesBackdropFilter` would demote every Chromium 152 session including the overwhelming majority that never build the failing shape.",
       "The regression itself: spikes/s1-proxy-topology/chrome152-regression/REPORT.md — 12-cell x 2-build matrix, verified repro, bug report drafted (parent Decision Log #39).",
     ],
@@ -192,8 +220,9 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     family: "chromium",
     minVersion: 113,
     ...CHROMIUM_MEASURED_CONFORMANCE,
+    ...BODY_LAW_UNVERIFIED,
     defects: [],
-    evidence: CHROMIUM_MEASURED_EVIDENCE,
+    evidence: [...CHROMIUM_MEASURED_EVIDENCE, BODY_LAW_UNVERIFIED_EVIDENCE],
   },
   {
     family: "gecko",
@@ -202,6 +231,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     edgeMode: "unverified",
     referenceFilterInBackdrop: false,
     maskOnBackdropFilter: "unverified",
+    bodyLawFilterInBackdrop: "unverified",
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "partial",
@@ -213,6 +243,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
       "Gecko bug 1816561 (open) and WPT backdrop-filter-nested-3d-transform-perspective failing in Firefox 154: ancestor perspective/preserve-3d is a live hazard.",
       "WPT backdrop-filter-backdrop-root-mask fails in Firefox 154, so an ancestor mask may not re-root there and layer 2 over-triggers — the fail-safe direction.",
       "W16 G0 §7 (contract X9): maskOnBackdropFilter stays unverified here — a mask on a filtered layer is measured only in Chromium, and no automatable capture path on this engine renders backdrop-filter at all, so section H of spikes/s1-proxy-topology/pages/manual-check.html is its only oracle. The runtime draws the two layers with the heavy share as one opacity until that pass, which is ordinary CSS on every engine.",
+      BODY_LAW_UNVERIFIED_EVIDENCE,
     ],
   },
   {
@@ -222,6 +253,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     edgeMode: "unverified",
     referenceFilterInBackdrop: false,
     maskOnBackdropFilter: "unverified",
+    bodyLawFilterInBackdrop: "unverified",
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "normative",
@@ -234,6 +266,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
       "transform3dHazard: translate3d(0,0,0) measured harmless, consistent with the hazard being specifically ancestor perspective/preserve-3d — WebKit bugs 252181 and 201987 remain open.",
       "WebKit bug 245510: reference filters inside backdrop-filter are refused (unchanged by this run).",
       "W16 G0 §7 (contract X9): maskOnBackdropFilter stays unverified here — a mask on a filtered layer is measured only in Chromium, and no automatable capture path on this engine renders backdrop-filter at all, so section H of spikes/s1-proxy-topology/pages/manual-check.html is its only oracle. The runtime draws the two layers with the heavy share as one opacity until that pass, which is ordinary CSS on every engine.",
+      BODY_LAW_UNVERIFIED_EVIDENCE,
     ],
   },
   {
@@ -243,6 +276,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     edgeMode: "unverified",
     referenceFilterInBackdrop: false,
     maskOnBackdropFilter: "unverified",
+    bodyLawFilterInBackdrop: "unverified",
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "partial",
@@ -254,6 +288,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
       "WebKit bugs 252181 and 201987 (both open): ancestor perspective/preserve-3d breaks backdrop-filter.",
       "WPT backdrop-filter-backdrop-root-mask and backdrop-filter-backdrop-root-clip-path-2 fail in Safari 26.6, so layer 2 over-triggers there — the fail-safe direction.",
       "W16 G0 §7 (contract X9): maskOnBackdropFilter stays unverified here — a mask on a filtered layer is measured only in Chromium, and no automatable capture path on this engine renders backdrop-filter at all, so section H of spikes/s1-proxy-topology/pages/manual-check.html is its only oracle. The runtime draws the two layers with the heavy share as one opacity until that pass, which is ordinary CSS on every engine.",
+      BODY_LAW_UNVERIFIED_EVIDENCE,
     ],
   },
 ];
@@ -269,12 +304,14 @@ export const CONSERVATIVE_ROW: EngineConformanceRow = {
   edgeMode: "unverified",
   referenceFilterInBackdrop: false,
   maskOnBackdropFilter: "unverified",
+  bodyLawFilterInBackdrop: "unverified",
   maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
   transform3dHazard: "unverified",
   backdropRootTriggers: "unverified",
   defects: [],
   evidence: [
     "Not measured. S1's layer-3 design requires the runtime to fail closed: an engine or version no row covers gets the conservative answer on every axis rather than the nearest optimistic one.",
+    BODY_LAW_UNVERIFIED_EVIDENCE,
   ],
 };
 

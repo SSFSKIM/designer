@@ -104,7 +104,7 @@ import {
   destroyCssTierLayers,
   ensureCssTierContainingBlock,
   filteredAreaDevicePx,
-  referenceFilterSpecs,
+  cssTierFilterSpecs,
   type CssTierFilterSpec,
   type CssTierGroupShadow,
   type CssTierLayers,
@@ -167,6 +167,7 @@ import {
   opticsUnderPolicy,
   outerShadowSigmaPx,
   resolvedBackdropToneResponse,
+  resolvedBodyLaw,
   validateBackdropToneAbscissa,
   resolvedRimTintChroma,
   resolvedPolicyFold,
@@ -921,9 +922,11 @@ const rejectUndrawableProfile = (
 ): void => {
   validateBackdropToneAbscissa(profile);
   for (const scheme of ["light", "dark"] as const) {
-    resolvedBackdropToneResponse(
-      mergeMaterialProfiles(colorSchemeMaterialProfile(scheme, document), profile),
-    );
+    const merged = mergeMaterialProfiles(colorSchemeMaterialProfile(scheme, document), profile);
+    resolvedBackdropToneResponse(merged);
+    // W42's leaves, refused here for the response rows' reason: the CSS tier writes them into
+    // a filter, and a patch neither tier could draw is refused before anything moves.
+    resolvedBodyLaw(merged);
   }
 };
 
@@ -994,6 +997,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const cssTierEngine: CssTierEngineCapabilities = {
     referenceFilterInBackdrop: platformProbe.conformance.referenceFilterInBackdrop,
     maskOnBackdropFilter: platformProbe.conformance.maskOnBackdropFilter,
+    // W42's law draws on this tier only where the row says "yes", which none does yet.
+    bodyLawFilterInBackdrop: platformProbe.conformance.bodyLawFilterInBackdrop,
   };
   const cssTierFilterPrefix = `vitrea-css-${String(nextRootOrdinal())}`;
   const cssTierMasks = createCssTierMaskCache(view.document);
@@ -1426,6 +1431,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let outerShadowConstants = sourceOuterShadow(initialProfile);
   let rimTintChromaConstant = resolvedRimTintChroma(initialProfile);
+  /*
+   * W42's body-law leaves (G2's implementation-design §5), resolved once per profile like the
+   * constants above. The CSS tier derives nothing from them unless the fold and the engine's
+   * `bodyLawFilterInBackdrop` row both allow it, which no row does yet.
+   */
+  let bodyLawLeaves = resolvedBodyLaw(initialProfile);
   /**
    * Re-derive every one of the bindings above, on both tiers, from one profile.
    *
@@ -1455,6 +1466,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     validateBackdropToneAbscissa(profile);
     resolvedBackdropToneResponse(profile);
+    resolvedBodyLaw(profile);
     sourceSnapshots.clear();
     surfaceBackdropTones.clear();
     resolvedProfile = profile;
@@ -1466,6 +1478,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     sizeConstants = sourceSize(profile);
     outerShadowConstants = sourceOuterShadow(profile);
     rimTintChromaConstant = resolvedRimTintChroma(profile);
+    bodyLawLeaves = resolvedBodyLaw(profile);
     // Both tiers re-derive on the next frame, so there has to be one.
     requestFrame();
     /*
@@ -3075,6 +3088,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // whole group above (W18 G1). A GPU-tier group resolves no plan, and
           // this branch is only read where the CSS tier draws.
           shadowCarrier: shadowCarriers.get(record.nodeId) ?? "layer",
+          // W42's body law (G2's implementation-design §5): the leaves, the variant the fold
+          // reads and the profile the landed tone is derived from. Drawn only where the fold
+          // and the engine's `bodyLawFilterInBackdrop` row both allow it, which no row does yet.
+          bodyLaw: {
+            leaves: bodyLawLeaves,
+            variant,
+            ...(resolvedProfile === undefined ? {} : { profile: resolvedProfile }),
+          },
         });
         if (state.activeRenderer === "css") {
           const geometry = {
@@ -3086,7 +3107,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // The reference filters this body needs, built before the declaration
           // that names them lands — a `url(#id)` with no definition renders the
           // layer unfiltered, which would be a silent loss of the whole body.
-          ensureCssTierFilters(referenceFilterSpecs(declarations.body));
+          ensureCssTierFilters(cssTierFilterSpecs(declarations.body));
           /*
            * Which form this group's tint drew, folded across the surfaces that
            * declared one (Decision Log 4 (c)). The members of a group share a
