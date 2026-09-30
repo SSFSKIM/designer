@@ -85,3 +85,35 @@ display mode 68, and TCC unchanged (`.w39` auth 2, the original with no ScreenCa
 command is again `START_AT=dump-2x-light-active` against the same run root and evidence
 variables, with both quarantines kept under their own names. A 20 s session trace runs for the
 whole sitting, not only the dumps, so any later loss of focus comes with its reads.
+
+### Stop 3 (continuation 2, 2026-09-30 11:28:28Z – 15:23:25Z)
+
+Continuation 2 admitted **every dump**: 8 of 8, 447 scenes, 0 departures. Each 2x active dump
+has one `unpredicted` field, the rrect-112 SDF maximum, which is recorded and not a stop. It
+then admitted **`2x-light-active` in full** (7 of 7 runs: run 1 has 133 cells, 87 glass and 46
+references, and runs 2–7 have 87 each), and `2x-light-receded` runs 1–3 (148, 92, 92). The
+session trace saw no HID input from 11:28:33Z on; only the harness or Finder was frontmost.
+
+**`2x-light-receded` run 4 was QUARANTINED** (`2x-light-receded/QUARANTINE-run-4-1790781804771531000`,
+commit `ff9ece16`) by the closing machine read: `machine gate refused: 11 foreign capture
+process(es); X6 admits none`. The run opened at 15:08:45Z with 0 foreign processes and 13,313 s
+of HID idle. All 92 captures, from 15:08:56 to 15:23:23Z, attest `presentedActive: false`,
+observed pose `inactive`, material rendered and deterministic. At 15:23:05Z **another agent
+session's `playwright-cli`** (a daemon, pid 8697, whose `npm exec` parent had exited) launched
+Google Chrome with its helpers. Its `run-code` navigated to `tss.ucsd.edu`, which is not W42
+work. The census counted them at the close. **No human input occurred**: HID idle stayed above
+14,000 s, and nobody touched the Mac. The orchestrator restored mode 68 and verified it. Nothing
+was retried, and the G1 worker killed no process belonging to another session.
+
+### Continuation 3 (the parent's explicit resume, 2026-09-30)
+
+By 15:24:47Z the parent had found no Google Chrome or Playwright process left, the last Chrome
+crashpad handler having exited. The parent authorised the sitting's third continuation as an
+explicit act, on the condition that the machine gate's own census reads zero first. The G1
+worker ran `record-machine.py` and `sitting.validate_machine(…, 2)`. The census read 0 foreign
+processes, and the gate passed: macOS 27.0 / 26A428, Reduce Transparency, Increase Contrast and
+Show Borders 0, `NSGlassTintAmount` 0.5, mode 68, and the side pin `be258cbf…`. The session read
+unlocked, with Finder frontmost and 14,316 s of HID idle. The command is
+`START_AT=2x-light-receded FIRST_RUN=4` against the same run root and evidence variables. The
+quarantine stays under its own name, and runs 1–3 stand as admitted. The parent has asked the
+user to keep browser automation from every other session off this Mac until the sitting ends.
