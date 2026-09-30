@@ -24,6 +24,11 @@ import { fingerprint, WGSL_RSUP, WGSL_RSUPN } from "@vitrea/geometry";
 import {
   allShaderSource,
   analysisModule,
+  bodyLawBlurModule,
+  bodyLawCaptureModule,
+  bodyLawCompositeModule,
+  bodyLawDecimateModule,
+  importEncodedModule,
   chainModule,
   crossCheckKernelModule,
   fieldModule,
@@ -51,6 +56,14 @@ const MODULES: readonly (readonly [string, string])[] = [
   ["optics", opticsModule()],
   ["highlight", highlightModule()],
   ["cross-check", crossCheckKernelModule()],
+  // W42 (G2 implementation-design §12, `wgsl/body-law.ts`).
+  ["import-encoded:sampled", importEncodedModule("sampled")],
+  ["import-encoded:external", importEncodedModule("external")],
+  ["body-law:capture", bodyLawCaptureModule()],
+  ["body-law:blur:1", bodyLawBlurModule(1)],
+  ["body-law:blur:2", bodyLawBlurModule(2)],
+  ["body-law:decimate", bodyLawDecimateModule()],
+  ["body-law:composite", bodyLawCompositeModule()],
 ];
 
 describe("every module", () => {

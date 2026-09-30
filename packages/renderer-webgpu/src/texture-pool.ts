@@ -173,6 +173,9 @@ export const poolKey = {
    * width along, acquired only where `sizeHeavySecondShare` is non-zero. */
   backdropHeavy2: (sourceId: string): string => `backdrop:${sourceId}:heavy2`,
   backdropHeavy2Scratch: (sourceId: string): string => `backdrop:${sourceId}:heavy2-scratch`,
+  /** W42's encoded level-0 companion, acquired only where a group sampling the source runs the
+   * body law (`PyramidResources.encoded`). */
+  backdropEncoded: (sourceId: string): string => `backdrop:${sourceId}:encoded`,
   backdropUpload: (sourceId: string): string => `backdrop:${sourceId}:upload`,
   /*
    * The four field targets. Their key is a group's RESOURCE identity — the id
