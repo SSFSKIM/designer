@@ -117,3 +117,26 @@ unlocked, with Finder frontmost and 14,316 s of HID idle. The command is
 `START_AT=2x-light-receded FIRST_RUN=4` against the same run root and evidence variables. The
 quarantine stays under its own name, and runs 1–3 stand as admitted. The parent has asked the
 user to keep browser automation from every other session off this Mac until the sitting ends.
+
+### Stop 4 (continuation 3, 2026-09-30 15:25:51Z – 15:25:53Z): the G1 worker's own error
+
+The driver's opening machine read refused `2x-light-receded` run 4 before any launch:
+`machine gate refused: 1 foreign capture process(es); X6 admits none`. The run is quarantined
+as `2x-light-receded/QUARANTINE-run-4-1790781952880634000`, which holds only the opening reads
+and the refusal (commit `18eb5935`). The one process was the G1 worker's own launching shell
+(pid 18305, a child of the worker's session). The worker had put a guard, a `pgrep` over the
+browser names, into the same shell command as the orchestrator call, followed by `sleep 2`, so
+that shell's command line carried the census words while it waited. The census matches command
+lines by name. It excludes only the reader's own ancestors, and the orchestrator detaches with
+`setsid`, so the launching shell is not one of them and was counted. No harness launched,
+nothing was captured, and the display stayed at mode 68, verified.
+
+### Continuation 4 (the parent's explicit resume, 2026-09-30)
+
+The parent authorised the fourth continuation as an explicit act, on the worker's fix. The census
+and X6 check run in their own command, which exits before the launch. The launch command's line
+holds only the orchestrator call, with none of the census words and nothing chained after it. For
+the rest of the sitting, no command line of the G1 worker (or of the parent's other workers)
+carries the census words, search patterns included. The command is again
+`START_AT=2x-light-receded FIRST_RUN=4` against the same run root. Both run-4 quarantines stay
+under their own names.
