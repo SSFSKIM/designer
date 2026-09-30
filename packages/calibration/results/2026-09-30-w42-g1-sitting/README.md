@@ -140,3 +140,31 @@ the rest of the sitting, no command line of the G1 worker (or of the parent's ot
 carries the census words, search patterns included. The command is again
 `START_AT=2x-light-receded FIRST_RUN=4` against the same run root. Both run-4 quarantines stay
 under their own names.
+
+### Stop 5 (continuation 4, 2026-09-30 15:27:41Z – 16:11:42Z)
+
+Continuation 4 admitted `2x-light-receded` runs 4, 5 and 6, with 92 cells each, so runs 1–6 of
+that pass are now admitted. Run 7 was refused at its opening machine read at 16:11:41Z, before
+any launch, with idle at 17,089 s and no human input: `machine gate refused: 1 foreign capture
+process(es); X6 admits none`. It is quarantined as
+`2x-light-receded/QUARANTINE-run-7-1790784701958598000`, which holds only the opening reads and the
+refusal (commit `ae060b7e`).
+
+The counted process was a W39 test stub's fake launch (pid 40834): a temporary `launcher.py`
+whose arguments name a stub harness bundle under `/private/tmp/w39-test-side/`, so its command
+line carries the harness's own name, which is a census word. The process chain was:
+`test-archive.py` (37311) ← a vitest worker (36297) ← `vitest run` in
+`~/vitrea-w42/g2-impl/packages/calibration` (30648) ← `npm exec vitest run` (30554, started
+16:07:58Z) ← a shell of the parent's own session. One of the parent's G2 implementation workers
+was running the calibration unit suite, whose Python sitting and archive tests spawn such stubs.
+A rule about typed command lines cannot cover processes a test suite spawns. The parent ended
+that test run at 16:13Z (30554, 30648, 36297, 37311). It barred both implementation workers
+from the whole calibration suite, and from every Python test under `results/`, until the sitting
+ends.
+
+### Continuation 5 (the parent's explicit resume, 2026-09-30)
+
+The parent authorised the fifth continuation as an explicit act, the same way as the fourth. The
+census and X6 check run in their own command, which exits first; the launch line holds only the
+orchestrator call. The command is `START_AT=2x-light-receded FIRST_RUN=7` against the same run
+root, and the run-7 quarantine stays under its own name.
