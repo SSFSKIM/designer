@@ -51,3 +51,37 @@ continuation against the **same** run root and evidence variables:
 `START_AT=dump-2x-light-active` (run 1, since `FIRST_RUN` is unset). The quarantine stays under
 its own name, `dump-2x-light-active/QUARANTINE-run-1-1790765998327680000`, and the driver takes
 a fresh `run-1` beside it. The idle gate waits out the user's recent touch, as designed.
+
+### Stop 2 (continuation 1, 2026-09-30 11:13:09Z – 11:25:20Z)
+
+`dump-2x-light-active` was QUARANTINED again (`QUARANTINE-run-1-1790767520002843000`, commit
+`061f5601`), and the orchestrator restored mode 68 and verified it. `dump-layers` completed
+87/87 scenes in 728.6 s. There were **317 departures, all in twelve contiguous scenes** in dump
+order: `a-g192-rrect-md` through `a-g255-rrect-64`, the scenes written from 11:15:24Z to
+11:16:57Z. Each reads `appIsActive: false` and `isKeyWindow: false` and carries the
+unfocused-window material. The other 75 scenes, including stop 1's six, read memo D's
+configuration exactly. The G1 worker's 20 s session trace (`~/vitrea-w42/g1/watch/`, raw)
+shows the cause:
+
+| Read at | Frontmost | HID idle (s) |
+| --- | --- | --- |
+| 11:15:14Z | `dev.vitrea.reference-apple.w39` | 205.1 |
+| 11:15:34Z | `com.apple.universalcontrol` | 7.7 |
+| 11:16:55Z | `com.apple.universalcontrol` | 88.1 |
+| 11:17:15Z | `dev.vitrea.reference-apple.w39` | 108.2 |
+
+Input arrived at about 11:15:26Z through the same `UniversalControl` process (pid 49435, alive
+since 2026-09-29) with Universal Control reported off. No `WindowManager` window appeared this
+time. The harness took focus back by itself at about 11:17:05Z. Nothing was captured, and
+nothing was retried.
+
+### Continuation 2 (the parent's explicit resume, 2026-09-30)
+
+The user reports that Universal Control is now off, and asked for the sitting to run again. The
+parent authorised the sitting's second continuation as an explicit act. Before the relaunch the
+G1 worker read Finder frontmost, no Chrome, ChatGPT, cua helper, harness or orchestrator running,
+display mode 68, and TCC unchanged (`.w39` auth 2, the original with no ScreenCapture row). The
+`UniversalControl` process is still alive; that alone does not show the feature is on. The
+command is again `START_AT=dump-2x-light-active` against the same run root and evidence
+variables, with both quarantines kept under their own names. A 20 s session trace runs for the
+whole sitting, not only the dumps, so any later loss of focus comes with its reads.
