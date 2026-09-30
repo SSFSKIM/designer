@@ -348,5 +348,385 @@
   "bed": "07b45391",
   "bar": null,
   "verdict": "n/a (no memo E bar)"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "light-inactive",
+  "n_cells": 56,
+  "pooled": 3.0436381871285674,
+  "max_cell": 9.440032569219824,
+  "x": {
+   "k@light-inactive": 1.9108265599007408
+  },
+  "lam": {
+   "light-inactive": 0.9214915797177632
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 2.6,
+  "verdict": "PASS"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "light-rest",
+  "n_cells": 47,
+  "pooled": 2.560544065048345,
+  "max_cell": 9.259275540239317,
+  "x": {
+   "k@light-rest": 1.9247954116800068
+  },
+  "lam": {
+   "light-rest": 0.9027388670964787
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 2.6,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "dark-rest",
+  "n_cells": 58,
+  "pooled": 2.7757627715211335,
+  "max_cell": 10.966495551441296,
+  "x": {
+   "k@dark-rest": 1.9861649015612683
+  },
+  "lam": {
+   "dark-rest": 0.9214915797177632
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 2.6,
+  "verdict": "PASS"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "dark-inactive",
+  "n_cells": 68,
+  "pooled": 4.128355163454033,
+  "max_cell": 14.784642902483013,
+  "x": {
+   "k@dark-inactive": 1.9107878670613125
+  },
+  "lam": {
+   "dark-inactive": 0.9345351837813589
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 2.6,
+  "verdict": "PASS"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "light-inactive",
+  "n_cells": 56,
+  "pooled": 1.8230012284789525,
+  "max_cell": 9.812546280628682,
+  "x": {
+   "k@light-inactive": 1.9936250350899885
+  },
+  "lam": {
+   "light-inactive": 0.8221249606254941
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "light-rest",
+  "n_cells": 47,
+  "pooled": 2.607252535663434,
+  "max_cell": 11.50087987803364,
+  "x": {
+   "k@light-rest": 1.8498800848974164
+  },
+  "lam": {
+   "light-rest": 0.89702975853879
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "dark-inactive",
+  "n_cells": 68,
+  "pooled": 1.7052078400046546,
+  "max_cell": 10.030445072785461,
+  "x": {
+   "k@dark-inactive": 2.0556999697808416
+  },
+  "lam": {
+   "dark-inactive": 0.8055529334277837
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "dark-rest",
+  "n_cells": 58,
+  "pooled": 2.3745213914110685,
+  "max_cell": 12.72590676339266,
+  "x": {
+   "k@dark-rest": 1.9971238166883243
+  },
+  "lam": {
+   "dark-rest": 0.9162317170635879
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "light-inactive",
+  "n_cells": 56,
+  "pooled": 1.2358130774375051,
+  "max_cell": 8.488399812116326,
+  "x": {
+   "k@light-inactive": 4.00179432009521
+  },
+  "lam": {
+   "light-inactive": 0.8183188882537016
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "light-rest",
+  "n_cells": 47,
+  "pooled": 1.3825433272402115,
+  "max_cell": 8.929223687705305,
+  "x": {
+   "k@light-rest": 3.880176082626771
+  },
+  "lam": {
+   "light-rest": 0.8879310514658255
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "dark-inactive",
+  "n_cells": 68,
+  "pooled": 1.1712103564802938,
+  "max_cell": 8.749724860708039,
+  "x": {
+   "k@dark-inactive": 4.115732103368491
+  },
+  "lam": {
+   "dark-inactive": 0.8047730120006711
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "dark-rest",
+  "n_cells": 58,
+  "pooled": 1.4121767900638313,
+  "max_cell": 10.140607340908447,
+  "x": {
+   "k@dark-rest": 4.091234897457178
+  },
+  "lam": {
+   "dark-rest": 0.9080845280835718
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-R2",
+  "ep": "light-inactive",
+  "n_cells": 56,
+  "pooled": 1.709927591622559,
+  "max_cell": 4.230849260009318,
+  "x": {
+   "k@light-inactive": 2.3349789571263253
+  },
+  "lam": {
+   "light-inactive": 0.3105698478664133
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-R2",
+  "ep": "light-rest",
+  "n_cells": 47,
+  "pooled": 2.7511477113453737,
+  "max_cell": 8.242232572768074,
+  "x": {
+   "k@light-rest": 2.0576676581099878
+  },
+  "lam": {
+   "light-rest": 0.7111685277520119
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-R2",
+  "ep": "dark-inactive",
+  "n_cells": 68,
+  "pooled": 1.985785306534876,
+  "max_cell": 6.022207576425895,
+  "x": {
+   "k@dark-inactive": 2.226239446761663
+  },
+  "lam": {
+   "dark-inactive": 0.246805617830817
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-boxfloor",
+  "ep": "light-rest",
+  "n_cells": 47,
+  "pooled": 0.9885218614567428,
+  "max_cell": 6.050564991171904,
+  "x": {
+   "k@light-rest": 1.984622719705261
+  },
+  "lam": {
+   "light-rest": 0.8787793181069401
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": null,
+  "verdict": "n/a (no memo E bar)"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-boxfloor",
+  "ep": "light-inactive",
+  "n_cells": 56,
+  "pooled": 0.4324010939451107,
+  "max_cell": 0.5,
+  "x": {
+   "k@light-inactive": 2.0285200915637636
+  },
+  "lam": {
+   "light-inactive": 0.8028699758147748
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": null,
+  "verdict": "n/a (no memo E bar)"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-R2",
+  "ep": "dark-rest",
+  "n_cells": 58,
+  "pooled": 2.8424284799906596,
+  "max_cell": 9.346717281024036,
+  "x": {
+   "k@dark-rest": 2.188636576022316
+  },
+  "lam": {
+   "dark-rest": 0.7040586551978617
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": 4.65,
+  "verdict": "NOT REFUSED: non-identifiable by the declared pooled bar"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-boxfloor",
+  "ep": "dark-rest",
+  "n_cells": 58,
+  "pooled": 1.2725458983364435,
+  "max_cell": 8.909322882534713,
+  "x": {
+   "k@dark-rest": 2.0952516007439286
+  },
+  "lam": {
+   "dark-rest": 0.8993492685812031
+  },
+  "kernel": "n",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": null,
+  "verdict": "n/a (no memo E bar)"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-boxfloor",
+  "ep": "dark-inactive",
+  "n_cells": 68,
+  "pooled": 0.4066282568567419,
+  "max_cell": 0.49306711831718414,
+  "x": {
+   "k@dark-inactive": 2.067811634068518
+  },
+  "lam": {
+   "dark-inactive": 0.801832659388909
+  },
+  "kernel": "receded (no band)",
+  "bed": "764217e1",
+  "engine": "fix-b151aff4",
+  "bar": null,
+  "verdict": "n/a (no memo E bar)"
  }
 ]
