@@ -38,6 +38,12 @@ PASSES = ['dump-' + KEY, KEY, KEY + '-sentinel']
 # What the harness records per fixture that reads the pixels (Manifest.swift FixtureEntry).
 PIXEL_STATISTICS = ('deltaFromBackground', 'chromaShift', 'repeatNoise', 'identicalToBackground',
                     'settleIterations', 'settleSeconds')
+# The harness's own run summary (main.swift, `for c in caveats { print("CAVEAT: \(c)") }`), counted
+# over every fixture, H included, with no scene id in it (the verification round's finding 2).
+CAVEAT = ('CAVEAT: 1 of 23 fixtures are PIXEL-IDENTICAL to their own background raster: the component '
+          'contributed no pixels whatsoever. These carry zero information about shape or material and exist '
+          'only to exercise the diff pipeline end to end.')
+STAGING = '.staging-6F1C2B0E-2D4A-4E4B-9B8F-0C1D2E3F4A5B'
 
 
 def colour(sid, run):
@@ -69,6 +75,7 @@ def write_run(root, p, n, pose='active'):
             log.append(f'  [{i + 1}/{len(profile["fixtures"])}] {profile["profileKey"]}/{f["sceneId"]} NOISY({level / 7:.3f})')
     raw = json.dumps(m).encode()
     (run / 'manifest.json').write_bytes(raw)
+    log += [f'manifest → {run}/manifest.json', CAVEAT]
     (run / 'producer-capture.out').write_text('\n'.join(log) + '\n')
     for name in ('attest.open.json', 'attest.close.json', 'session-before.json', 'driver-idle.log',
                  'producer-capture.err'):
@@ -107,6 +114,10 @@ def sitting_tree(root):
     q = root / KEY / 'QUARANTINE-run-3-1'
     q.mkdir()
     (q / 'refusal.txt').write_text('ValueError: a quarantined attempt, kept\n')
+    # The harness's staging directory, left behind by an interrupted capture: its manifest carries
+    # every fixture's pixel statistics, H's included (the verification round's finding 5).
+    (q / STAGING).mkdir()
+    shutil.copyfile(root / KEY / 'run-3' / 'manifest.json', q / STAGING / 'manifest.json')
     (root / 'logs').mkdir()
     (root / 'logs' / f'{KEY}-driver.txt').write_text('driver log\n')
 
@@ -141,7 +152,7 @@ class Archive(unittest.TestCase):
         self.assertTrue(all(r['path'].startswith('dumps/') for r in inv['dumps']))
         paths = {r['path'] for r in inv['operational']}
         self.assertIn(f'operational/{KEY}/QUARANTINE-run-3-1/refusal.txt', paths)
-        self.assertEqual(len(inv['holdoutOperational']), 30)                   # manifest + two capture logs, 10 runs
+        self.assertEqual(len(inv['holdoutOperational']), 31)   # manifest + two capture logs, 10 runs; the staged one
         self.assertIn(f'operational/logs/{KEY}-driver.txt', paths)
         self.assertIn(f'operational/{KEY}/run-1/manifest.json', paths)
         self.assertFalse(any(p.endswith('.png') for p in paths))
@@ -246,7 +257,7 @@ class Archive(unittest.TestCase):
         inv = json.loads((self.out / 'inventory.json').read_text())
         held = {s for s, r in self.wave.roles.items() if r == 'holdout'}
         manifests = [r['path'] for r in inv['operational'] if r['path'].endswith('/manifest.json')]
-        self.assertEqual(len(manifests), 10)                                  # 7 bed runs + 3 sentinel runs
+        self.assertEqual(len(manifests), 11)              # 7 bed runs + 3 sentinel runs + the staged one
         seen_held = seen_open = 0
         for rel in manifests:
             public = json.loads((self.out / rel).read_text())
@@ -261,13 +272,16 @@ class Archive(unittest.TestCase):
                     else:
                         seen_open += 1
                         self.assertLessEqual(set(PIXEL_STATISTICS), set(f))   # calibration keeps them
-        raw_held = sum(1 for run in (self.raw / KEY).glob('run-*') for p in json.loads(
-            (run / 'manifest.json').read_text())['profiles'] for f in p['fixtures'] if f['sceneId'] in held)
+        raw_held = sum(1 for path in list((self.raw / KEY).glob('run-*/manifest.json'))
+                       + list((self.raw / KEY).glob(f'QUARANTINE-*/{STAGING}/manifest.json'))
+                       for p in json.loads(path.read_text())['profiles'] for f in p['fixtures'] if f['sceneId'] in held)
         self.assertEqual(seen_held, raw_held)
         self.assertGreater(seen_held, 0)
         self.assertGreater(seen_open, 0)
         for rel in (r['path'] for r in inv['operational'] if r['path'].endswith('/producer-capture.out')):
-            for line in (self.out / rel).read_text().splitlines():
+            text = (self.out / rel).read_text()
+            self.assertNotIn('PIXEL-IDENTICAL', text)                          # the run summary is withheld
+            for line in text.splitlines():
                 if any(f'/{sid}' in line for sid in held):
                     self.assertNotIn('NOISY', line)
                     self.assertIn('withheld', line)
@@ -275,6 +289,31 @@ class Archive(unittest.TestCase):
         self.assertTrue(all(p.startswith('holdout/operational/') for p in guarded))
         self.assertIn(f'holdout/operational/{KEY}/run-1/manifest.json', guarded)
         self.assertIn(f'holdout/operational/{KEY}/run-1/producer-capture.out', guarded)
+        self.assertIn(f'holdout/operational/{KEY}/QUARANTINE-run-3-1/{STAGING}/manifest.json', guarded)
+        self.assertIn(CAVEAT.encode(), (self.out / f'holdout/operational/{KEY}/run-1/producer-capture.out').read_bytes())
+
+    def test_verification_round_the_real_caveat_line_does_not_survive_redaction(self):
+        held = {s for s, r in self.wave.roles.items() if r == 'holdout'}
+        log = ('capturing 23 fixtures via screencapturekit at 1.0x (interleaved)\n'
+               '  [1/23] apple-macos-27.0-1x-light-standard-glass0.5/h-g232-rrect-md__rest byte-stable EMPTY(==background)\n'
+               '  [2/23] apple-macos-27.0-1x-light-standard-glass0.5/a-g128-rrect-md-1x__rest byte-stable\n'
+               'manifest → /raw/1x-light-active/run-1/manifest.json\n' + CAVEAT + '\n').encode()
+        public = A.public_log(log, held).decode()
+        self.assertNotIn('PIXEL-IDENTICAL', public)
+        self.assertNotIn('1 of 23', public)
+        self.assertNotIn('EMPTY', public)
+        self.assertIn('a-g128-rrect-md-1x__rest byte-stable', public)            # calibration diagnostics stay
+        self.assertIn('manifest →', public)
+
+    def test_verification_round_a_staged_manifest_is_redacted_and_guarded(self):
+        inv = json.loads((self.out / 'inventory.json').read_text())
+        held = {s for s, r in self.wave.roles.items() if r == 'holdout'}
+        rel = f'operational/{KEY}/QUARANTINE-run-3-1/{STAGING}/manifest.json'
+        self.assertIn(rel, {r['path'] for r in inv['operational']})
+        public = json.loads((self.out / rel).read_text())
+        fixtures = [f for p in public['profiles'] for f in p['fixtures'] if f['sceneId'] in held]
+        self.assertTrue(fixtures)
+        self.assertFalse(any(set(f) & set(PIXEL_STATISTICS) for f in fixtures))
 
     def test_b_m2_the_whole_manifest_opens_only_inside_the_receipt(self):
         W = A.wave_module()
