@@ -18,3 +18,13 @@ Traceback (most recent call last):
   File "/Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py", line 814, in main
     raise ValueError(' | '.join(problems))
 ValueError: machine gate refused: 1 foreign capture process(es); X6 admits none
+2x-light-receded run 4: admitted cells=92
+2x-light-receded run 5: admitted cells=92
+2x-light-receded run 6: admitted cells=92
+REFUSED; retained at /Users/new/vitrea-w42/g1/run/2x-light-receded/QUARANTINE-run-7-1790784701958598000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py", line 926, in <module>
+    main()
+  File "/Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py", line 814, in main
+    raise ValueError(' | '.join(problems))
+ValueError: machine gate refused: 1 foreign capture process(es); X6 admits none

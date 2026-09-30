@@ -24,6 +24,11 @@
     "refusal": "ValueError: machine gate refused: 1 foreign capture process(es); X6 admits none"
   },
   {
+    "run": "QUARANTINE-run-7-1790784701958598000",
+    "admitted": false,
+    "refusal": "ValueError: machine gate refused: 1 foreign capture process(es); X6 admits none"
+  },
+  {
     "run": "run-1",
     "admitted": true,
     "manifestSha256": "c72d1061ef38eeb3bda5fe784e56192de024c7a44d527471f752120ba6e0a279",
@@ -74,6 +79,60 @@
       "resetCarriesGlass": false,
       "resetInterstitialSeconds": 6,
       "runLabel": "w42-2x-light-receded-3",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-4",
+    "admitted": true,
+    "manifestSha256": "d8fb5033a24c5c0b9caaeef54b8ef735676d7db223d72af950ae12fdb4bf0832",
+    "fixtures": 92,
+    "firstCapture": "2026-09-30T15:27:52Z",
+    "lastCapture": "2026-09-30T15:42:19Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 15327.690614958,
+      "hidIdleSecondsAtStart": 14450.600608958,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w42-2x-light-receded-4",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-5",
+    "admitted": true,
+    "manifestSha256": "d9dad3004d9115a81c6426022ba9dad2f1db4593d527b3c1bab09fbde92b51e6",
+    "fixtures": 92,
+    "firstCapture": "2026-09-30T15:42:31Z",
+    "lastCapture": "2026-09-30T15:56:59Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 16207.897172875,
+      "hidIdleSecondsAtStart": 15329.915168458,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w42-2x-light-receded-5",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-6",
+    "admitted": true,
+    "manifestSha256": "60d40c540c91607debbac2bbacd94d013662fc7807b739cf6701adbdc1b73357",
+    "fixtures": 92,
+    "firstCapture": "2026-09-30T15:57:11Z",
+    "lastCapture": "2026-09-30T16:11:40Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 17088.293993875,
+      "hidIdleSecondsAtStart": 16210.115810291,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w42-2x-light-receded-6",
       "userIsActiveAtStart": true
     }
   }
