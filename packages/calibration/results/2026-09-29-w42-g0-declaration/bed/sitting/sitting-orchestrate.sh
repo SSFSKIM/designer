@@ -27,6 +27,14 @@
 # - b5: STOP_AFTER=dumps ends the sitting after the dump step (no grant is needed for it);
 #   the continuation is START_AT=2x-light-active.
 #
+# The verification round (53400aa5, finding 3): bash runs a trap only once its FOREGROUND child
+# returns, and a driver runs a whole multi-run pass, so a SIGTERM used to leave mode 69 on
+# while captures went on. The driver and the idle wait now run as tracked background jobs under
+# an interruptible `wait`; on HUP, INT or TERM the orchestrator sends the driver SIGTERM (it
+# kills its launch, ends the native app and quarantines the run), KILLs it and its children if
+# it has not gone in 20 s, ends any native app still running by its binary path, and only then
+# exits, so the EXIT trap restores mode 68 and verifies it.
+#
 # Environment: VITREA_SITTING_DIR (required; outside every checkout), optionally
 # W42_EVIDENCE (a directory the attestations of each pass are copied into by
 # collect-pass.py) and W42_EVIDENCE_REPO (a checkout whose W42_EVIDENCE is committed after
@@ -51,10 +59,42 @@ fi
 SCREEN=7709FD0F-F423-4277-B0C8-7CA94F85723A
 DP=${DISPLAYPLACER:-/opt/homebrew/bin/displayplacer}
 export W42_ORCHESTRATED=1
+PIN_FILE=$HERE/../../../2026-09-26-w39-g0-colour-edge-bed/bundle-pin.json
+APP=${VITREA_APP:-$(python3.12 -c 'import json, sys; print(json.load(open(sys.argv[1]))["path"])' "$PIN_FILE")}
+NATIVE=$(cd "$APP" 2>/dev/null && pwd -P || echo "$APP")/Contents/MacOS/VitreaReference
+CHILD=""
+# A tracked background job and an interruptible wait: a signal reaches its trap at once.
+job() {
+  local log=$1; shift
+  "$@" >> "$log" 2>&1 </dev/null 3<&- &
+  CHILD=$!
+  say "job pid $CHILD: ${*:2:3}"
+  wait "$CHILD"
+  local rc=$?
+  CHILD=""
+  return $rc
+}
+cancel() {
+  trap '' HUP INT TERM
+  say "CANCEL: signal $2 received${CHILD:+; stopping pid $CHILD}"
+  if [ -n "$CHILD" ] && kill -0 "$CHILD" 2>/dev/null; then
+    kill -TERM "$CHILD" 2>/dev/null
+    # A driver that has not gone in 20 s is KILLed with its children; `wait` reaps it either way.
+    ( sleep 20; pkill -KILL -P "$CHILD"; kill -KILL "$CHILD" ) </dev/null >/dev/null 2>&1 &
+    local reaper=$!
+    wait "$CHILD" 2>/dev/null
+    local status=$?
+    pkill -P "$reaper" 2>/dev/null; kill "$reaper" 2>/dev/null
+    say "CANCEL: pid $CHILD ended (status $status)"
+  fi
+  if pkill -f "$NATIVE" 2>/dev/null; then say "CANCEL: a native launch was still running; terminated"; fi
+  say "CANCEL: done; restoring the display"
+  exit "$1"
+}
 mode() { $DP list | sed -n 's/^  mode \([0-9]*\):.*<-- current mode$/\1/p'; }
 setmode() {
   [ "$(mode)" = "$1" ] && return 0
-  python3.12 "$HERE/sitting.py" wait-idle 300 >> "$L/mode-switch-idle.txt" 2>&1 </dev/null 3<&- || return 1
+  job "$L/mode-switch-idle.txt" python3.12 "$HERE/sitting.py" wait-idle 300 || return 1
   $DP "id:$SCREEN mode:$1"; sleep 6
   say "display -> mode $(mode)"
   [ "$(mode)" = "$1" ]
@@ -68,9 +108,9 @@ restore() {
   exit $rc
 }
 trap restore EXIT
-trap 'exit 129' HUP
-trap 'exit 130' INT
-trap 'exit 143' TERM
+trap 'cancel 129 HUP' HUP
+trap 'cancel 130 INT' INT
+trap 'cancel 143 TERM' TERM
 say "orchestrator pid $$ (process group $(ps -o pgid= -p $$ | tr -d ' ')) REHEARSAL=${REHEARSAL:-0}" \
   "STOP_AFTER=${STOP_AFTER:-} START_AT=${START_AT:-} PASSES=${PASSES:-} W42_PREDECLARATION=${W42_PREDECLARATION:-0}"
 
@@ -123,20 +163,22 @@ while read -r -u 3 name kind key want runs; do
   first_pass=no
   setmode "$want" || { say "STOP $name: display mode $want did not take"; exit 2; }
   $DP list > "$L/$name-display-before.txt" 2>&1
+  D=(bash "$HERE/run-sitting-w42.sh")
   if [ "${REHEARSAL:-0}" = 1 ]; then
     say "START rehearsal $name ($kind) at mode $want"
     case $kind in
-      dump) bash "$HERE/run-sitting-w42.sh" dump "$key" --rehearse >> "$L/$name-driver.txt" 2>&1 </dev/null 3<&- ;;
-      bed) bash "$HERE/run-sitting-w42.sh" capture "$key" --rehearse-refusal >> "$L/$name-driver.txt" 2>&1 </dev/null 3<&- ;;
+      dump) D+=(dump "$key" --rehearse) ;;
+      bed) D+=(capture "$key" --rehearse-refusal) ;;
     esac
   else
     say "START $name ($kind, runs $first..$runs) at mode $want"
     case $kind in
-      dump) bash "$HERE/run-sitting-w42.sh" dump "$key" >> "$L/$name-driver.txt" 2>&1 </dev/null 3<&- ;;
-      sentinel) bash "$HERE/run-sitting-w42.sh" capture "$key" "$first" --sentinel >> "$L/$name-driver.txt" 2>&1 </dev/null 3<&- ;;
-      bed) bash "$HERE/run-sitting-w42.sh" capture "$key" "$first" >> "$L/$name-driver.txt" 2>&1 </dev/null 3<&- ;;
+      dump) D+=(dump "$key") ;;
+      sentinel) D+=(capture "$key" "$first" --sentinel) ;;
+      bed) D+=(capture "$key" "$first") ;;
     esac
   fi
+  job "$L/$name-driver.txt" "${D[@]}"
   rc=$?
   $DP list > "$L/$name-display-after.txt" 2>&1
   if [ "${REHEARSAL:-0}" != 1 ] && [ -n "${W42_EVIDENCE:-}" ]; then

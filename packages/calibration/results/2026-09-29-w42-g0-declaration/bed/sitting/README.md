@@ -61,9 +61,20 @@ it. `W42_PREDECLARATION=1` keeps every check but the declaration's, whose state 
 then the driver launches rehearsals only; G0 used it for the pre-sitting dumps (b7) before the
 parent re-pinned and hashed the declaration.
 
+The driver reads the scenes file and `bed.json` once, checks exactly those bytes, and derives
+every run of the pass from that in-memory snapshot, so the SHA-256 an admission records names
+the bytes the run used; before every run it re-checks the files on disk and quarantines the run
+if they moved (the verification round, finding 1).
+
 A launch happens only under the orchestrator (the driver refuses one without
 `W42_ORCHESTRATED`, which the orchestrator sets), so every path that changes the display mode is
-covered by its EXIT trap, which restores mode 68 and verifies it (b4).
+covered by its EXIT trap, which restores mode 68 and verifies it (b4). The driver and the idle
+wait run as tracked background jobs under an interruptible `wait`, so a HUP, INT or TERM
+reaches the orchestrator at once: it sends the driver SIGTERM (the driver kills its launch,
+ends the native app by its binary path and quarantines the run as `Cancelled`), KILLs it after
+20 s if it has not gone, ends any native app still running, and then restores mode 68 and
+verifies it (the verification round, finding 3; before it, bash deferred the trap for the
+length of the pass).
 
 Before **every** launch, dumps included: wait, bounded (3 h) and logged in the run's
 `driver-idle.log`, for ≥ 75 s of HID idle, unlocked, with no permission prompt on screen (a
@@ -157,7 +168,12 @@ counts), which for a held-out grey read the tone curve H referees; so `operation
 each run's manifest with every H fixture reduced to its attestation fields and the caveats
 dropped, and its capture logs with every H line's diagnostics withheld, while the whole files
 sit in the `holdoutOperational` section under `holdout/operational/`, which `../wave.py`'s
-Reader opens only with the receipt (`read_holdout_operational`; B-M2, W39 G1's pattern).
+Reader opens only with the receipt (`read_holdout_operational`; B-M2, W39 G1's pattern). A
+public log also withholds everything from its first `CAVEAT:` line on: the harness's run
+summary (`N of M fixtures are PIXEL-IDENTICAL …`) is counted over every fixture, H included,
+and names no scene to redact by; and the holdout-bearing files are guarded at any depth, a
+quarantined run's `.staging-<UUID>/manifest.json` included (the verification round, findings 2
+and 5).
 `produce` also refuses an admission under another declaration or a rehearsal's
 predeclaration, a frame whose bytes differ from the ones its admission bound, and any declared
 cell left uncaptured (B-M1, b2). The inventory names `scenesSha256` (scenes-w42-body.json) and

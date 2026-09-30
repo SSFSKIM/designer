@@ -102,8 +102,13 @@ def capture_ids(bed, key, run, sentinel=False):
 
 
 def derive(key, run=1, sentinel=False, scenes=SCENES, bed_path=BED):
-    """The scenes document the harness captures for run `run` of pass `key`."""
-    spec, bed = load(scenes, bed_path)
+    """The scenes document the harness captures for run `run` of pass `key`, read from disk."""
+    return derive_from(*load(scenes, bed_path), key, run, sentinel)
+
+
+def derive_from(spec, bed, key, run=1, sentinel=False):
+    """The same document from an in-memory declaration: the driver derives every run of a pass
+    from the snapshot it validated, so the hash it records names the bytes it used."""
     if key not in bed['passes']:
         raise ValueError('undeclared pass ' + key)
     limit = RUNS['sentinel' if sentinel else 'bed']
@@ -119,7 +124,10 @@ def derive(key, run=1, sentinel=False, scenes=SCENES, bed_path=BED):
 
 
 def dump_ids(key, bed_path=BED):
-    bed = json.loads(Path(bed_path).read_text())
+    return dump_ids_from(json.loads(Path(bed_path).read_text()), key)
+
+
+def dump_ids_from(bed, key):
     ids = bed['dumpList'][key]
     want = sorted(f'{c}__rest' for c in bed['passes'][key]['cells'])
     if ids != want:

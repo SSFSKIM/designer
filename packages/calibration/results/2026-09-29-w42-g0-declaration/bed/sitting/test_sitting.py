@@ -16,6 +16,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import signal
 import subprocess
@@ -139,10 +140,32 @@ fixtures = Path(env['VITREA_FIXTURES'])
 out, err = Path(args[args.index('--stdout') + 1]), Path(args[args.index('--stderr') + 1])
 n = len(args[args.index('--scenes') + 1].split(','))
 out.write_text(f'capturing {n} fixtures via screencapturekit\n')
+if mode == 'block':
+    # A capture that does not return: a stand-in native app, detached as LaunchServices would
+    # start it, and this launcher waiting on it like `open -W`.
+    import subprocess, time
+    app = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(900)', os.environ['STUB_NATIVE']],
+                           start_new_session=True)
+    Path(os.environ['STUB_PIDS']).write_text(json.dumps(dict(launcher=os.getpid(), app=app.pid)))
+    time.sleep(900)
+    sys.exit(0)
 if mode == 'tcc':
     err.write_text('error: ScreenCaptureKit is unavailable\n\nThis is the Screen Recording (TCC) gate.\n')
 else:
-    manifest = json.loads(Path(os.environ['STUB_MANIFEST']).read_text())
+    if os.environ.get('STUB_AUTO') == '1':
+        # The manifest of exactly the document this run was given, shaped as the suite shapes it.
+        sys.path.insert(0, os.environ['STUB_TEST_DIR'])
+        import test_sitting as T
+        doc = json.loads(Path(env['VITREA_SCENES']).read_text())
+        label = args[args.index('--run-label') + 1]
+        manifest = T.manifest(doc, 'receded' if '--inactive' in args else 'active', int(env['VITREA_SCALE']), label,
+                              'long' if '--order-seed' in args else 'normal')
+        edit = os.environ.get('STUB_EDIT_SCENES')
+        if edit and not Path(edit + '.edited').exists():        # once, after the first capture
+            T.one_byte_edit(Path(edit), 'grey-128')
+            Path(edit + '.edited').write_text('')
+    else:
+        manifest = json.loads(Path(os.environ['STUB_MANIFEST']).read_text())
     (fixtures / 'manifest.json').write_text(json.dumps(manifest))
     if mode != 'no-png':
         from PIL import Image
@@ -425,9 +448,11 @@ class Capture(unittest.TestCase):
 
     def test_an_admission_under_another_declaration_does_not_count(self):
         self.prime(1)
-        other = dict(DECLARATION, splitSha256='f' * 64)
+        for path in self.st.root.glob('*/run-*/admission.json'):    # earlier passes, admitted under another bed
+            a = json.loads(path.read_text())
+            path.write_text(json.dumps(dict(a, splitSha256='f' * 64)))
         with self.assertRaisesRegex(ValueError, 'earlier pass is not complete'):
-            self.st.run('capture', '1x-light-active', '1', '1', declaration=other)
+            self.st.run('capture', '1x-light-active', '1', '1')
 
     def test_per_capture_idle_quarantines_and_blocks_successors(self):
         self.prime(1, idle=30.0)
@@ -588,11 +613,15 @@ class Mirror:
                               text=True, env={**os.environ, **(env or {})}, timeout=120)
 
 
-def one_byte_edit(scenes):
-    """A silent, loadable one-byte edit: grey-064's first channel becomes 65."""
+def one_byte_edit(scenes, background='grey-064'):
+    """A silent, loadable one-byte edit: the grey's first channel moves by one code (its last
+    digit, 4 -> 5 or 8 -> 9)."""
     raw = bytearray(scenes.read_bytes())
-    at = raw.index(b'64', raw.index(b'"grey-064": {'))
-    raw[at + 1] = ord('5')
+    level = background.split('-')[1].lstrip('0')
+    key = f'"{background}": {{'.encode()
+    at = raw.index(level.encode(), raw.index(key) + len(key))
+    last = at + len(level) - 1
+    raw[last] = raw[last] + 1
     scenes.write_bytes(bytes(raw))
     json.loads(raw)
 
@@ -858,6 +887,77 @@ class Orchestrator(unittest.TestCase):
             time.sleep(0.5)
         self.assertIn('DUMPS DONE', self.status())
         self.assertEqual(self.state.read_text(), '68')
+
+
+def gone(pid, within=15):
+    """True once `pid` no longer exists (a reaped process), within `within` seconds."""
+    deadline = time.monotonic() + within
+    while time.monotonic() < deadline:
+        try:
+            os.kill(pid, 0)
+        except ProcessLookupError:
+            return True
+        time.sleep(0.2)
+    return False
+
+
+class VerificationRound(unittest.TestCase):
+    """The verification review of the fixes (53400aa5): per-run provenance (finding 1) and a
+    cancellation that reaches the driver and its launch at once (finding 3), in a Mirror."""
+
+    def test_a_scenes_file_edited_between_runs_refuses_the_next_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            m = Mirror(tmp)
+            st = Stubs(tmp, scale=1)
+            st.admit_before('1x-light-active')
+            scenes = m.bed / 'scenes-w42-body.json'
+            env = {**st.env, 'STUB_AUTO': '1', 'STUB_TEST_DIR': str(HERE), 'STUB_EDIT_SCENES': str(scenes)}
+            out = m.sitting_py('capture', '1x-light-active', '1', '2', env=env)
+            self.assertNotEqual(out.returncode, 0)
+            base = st.root / '1x-light-active'
+            admitted = json.loads((base / 'run-1' / 'admission.json').read_text())
+            self.assertEqual(admitted['scenesSha256'], PINS['scenes-w42-body.json'])
+            self.assertEqual(json.loads((base / 'scenes-run-1.json').read_text())['backgrounds']['grey-128']['srgb'],
+                             [128, 128, 128])
+            self.assertNotEqual(hashlib.sha256(scenes.read_bytes()).hexdigest(), PINS['scenes-w42-body.json'])
+            q = list(base.glob('QUARANTINE-run-2-*'))
+            self.assertEqual(len(q), 1)
+            self.assertIn('no longer the one this driver validated', (q[0] / 'refusal.txt').read_text())
+            self.assertEqual(len([c for c in st.calls_made() if 'capture' in c]), 1)   # run 2 never launched
+
+    def test_a_signal_mid_capture_ends_the_driver_and_its_launch_and_restores_at_once(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            m = Mirror(tmp)
+            st = Stubs(tmp, scale=1)
+            st.admit_before('1x-light-active')
+            dp, state, _ = stub_displayplacer(tmp)
+            pids = tmp / 'pids.json'
+            env = {**os.environ, **st.env, 'DISPLAYPLACER': str(dp), 'STUB_IDLE': '400', 'W42_FOREGROUND': '1',
+                   'START_AT': '1x-light-active', 'STUB_MODE': 'block', 'STUB_PIDS': str(pids),
+                   'STUB_NATIVE': PIN['path'] + '/Contents/MacOS/VitreaReference'}
+            for k in ('W42_ORCHESTRATED', 'STOP_AFTER', 'PASSES', 'REHEARSAL', 'W42_PREDECLARATION'):
+                env.pop(k, None)
+            proc = subprocess.Popen(['bash', str(m.sitting / 'sitting-orchestrate.sh')], env=env,
+                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            deadline = time.monotonic() + 90
+            while not pids.exists() and time.monotonic() < deadline:
+                time.sleep(0.2)
+            launched = json.loads(pids.read_text())
+            self.assertEqual(state.read_text(), '69')
+            began = time.monotonic()
+            proc.send_signal(signal.SIGTERM)
+            self.assertEqual(proc.wait(timeout=60), 143)
+            self.assertLess(time.monotonic() - began, 20)                    # not the pass's length
+            status = (st.root / 'logs' / 'orchestrator-status.txt').read_text()
+            self.assertEqual(state.read_text(), '68')
+            self.assertIn('restore: display mode 68 (verified)', status)
+            driver = int(re.search(r'job pid (\d+): \S*run-sitting-w42.sh capture', status)[1])
+            for pid in (driver, launched['launcher'], launched['app']):
+                self.assertTrue(gone(pid), f'pid {pid} survives the cancellation')
+            q = list((st.root / '1x-light-active').glob('QUARANTINE-run-1-*'))
+            self.assertEqual(len(q), 1)
+            self.assertIn('Cancelled', (q[0] / 'refusal.txt').read_text())
 
 
 class DriverUnderTheOrchestrator(unittest.TestCase):
