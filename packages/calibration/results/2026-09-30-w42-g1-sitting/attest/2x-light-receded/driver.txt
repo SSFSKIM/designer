@@ -1,0 +1,13 @@
+2x-light-receded run 1: admitted cells=148
+2x-light-receded run 2: admitted cells=92
+2x-light-receded run 3: admitted cells=92
+REFUSED; retained at /Users/new/vitrea-w42/g1/run/2x-light-receded/QUARANTINE-run-4-1790781804771531000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py", line 926, in <module>
+    main()
+  File "/Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py", line 888, in main
+    if validate_machine(closed, scale, census) != start:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g1-repo/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/sitting.py", line 174, in validate_machine
+    raise ValueError('machine gate refused: ' + '; '.join(problems))
+ValueError: machine gate refused: 11 foreign capture process(es); X6 admits none
