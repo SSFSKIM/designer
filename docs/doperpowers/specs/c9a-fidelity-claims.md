@@ -41639,6 +41639,26 @@ pins the archive inventory, and `declare.py hash` pins the declaration and its c
   was no departure and no unpredicted field, at 8.33–8.37 s a scene under loads of 25 to 237, and
   the display was restored to 68 and read back.
 
+**The bed's verification round** (`6fbb1055`). A verification review of these fixes at
+`53400aa5` found four major defects and one minor, all sitting-critical. Each was reproduced red
+on the pre-fix tools and fixed green; nothing native was launched.
+1. **Per-run provenance.** Runs after a mid-pass edit captured the edited scenes file under the
+   original SHA-256. Every run now derives from the one snapshot the pin check accepted, and the
+   files are re-verified before every run.
+2. **The harness's `CAVEAT:` pixel aggregate.** It counted H's fixtures and survived redaction.
+   The public log is now withheld from the first `CAVEAT:` line on.
+3. **Cancellation.** A SIGTERM left display mode 69 on while captures went on. The driver now
+   runs as a tracked job: a signal ends it and its launch, quarantines the run, and restores
+   mode 68.
+4. **The exposure race.** Two clones made byte-identical tags, and the second push read "[up to
+   date]". Each claim now carries a fresh nonce, and only a "[new tag]" line counts.
+5. **Staged manifests.** Staged manifests at any depth leaked H statistics into public
+   `operational/`. They are now redacted and guarded.
+
+`red-green-fixes.txt` reads 13 of 13; the suites read sitting 40, archive 15 and runner 37. The
+review loop on the bed converged: every finding of both rounds was reproduced red and fixed
+green, and the bed, split and counts are unchanged.
+
 ### 2. The bed's growth to 465 cell-passes, then 447 and about 10.3 h
 
 | pin | glass cell-passes | captures | sitting | what was added, and why |
@@ -41701,8 +41721,10 @@ nested levels: `k@global` (5 parameters in all), `k@scheme` (6), `k@endpoint` (8
 - **Proof 3, vitrea's own captures, against memo B's float64 replica** (84 cells). The gated
   step support call is identical on capture and replica on 20 / 20. S agrees within 0.022, but
   three of its identifiability calls differ. The single-width impulse reader passes (1.8 %).
-  The per-cell λ, patch widths, one step σw, model, heavy, ESF, depth and hinge-gap readings
-  miss. The known-space control shows that an encoded reading of vitrea's linear body
+  **The per-cell λ misses in dark only:** the token-keyed replay of the one contaminated output
+  moves the light replica reading to PASS (15 / 0; §5). The patch widths, one step σw, model,
+  heavy, ESF, depth and hinge-gap readings miss (the light hinge-gap 0.230 with 13 misses after
+  the replay, still FAIL). The known-space control shows that an encoded reading of vitrea's linear body
   manufactures λ from −0.50 to +1.54, so the knee is established by S and by every linear fit's
   loss, never by λ.
 
@@ -41799,15 +41821,22 @@ and populations are flat indices. The resume ran with `W42_POOL=2`.
 
 **The store's first key was `id(cell)`.** A new cell that reused a freed cell's id could read
 that cell's blurs whenever window, width and mode matched exactly; a trial reproduced the id
-reuse. Since `04163eec` the store is keyed by a token that is never reused. **The draft of this
+reuse. Since `04163eec` the store is keyed by a token that is never reused. The draft of this
 section argued that no output shows the defect, because "the worst cell of every such row is
-under 3". That argument was false:** 30 pre-fix rows have a worst cell of 3.0–12.8 (the review's
-I-4). It is replaced by evidence. **158 rows were replayed** (110 separation pairs, 20 nulls, 20
-2x-only nulls, 8 floor rows): each was re-evaluated at its recorded points, with no refit, by the
-code and pin of the commit that produced it, with only the store's key changed to a token.
-**None moved.** 81 reproduce exactly, and 77 agree within the store's own width rounding (at most
-1.2e-4 code in s). The reader outputs of `7efe4ce8` and `9c1623b4` are still being replayed the
-same way; that result is PENDING. Two further engine defects were
+under 3". That argument was false: 30 pre-fix rows have a worst cell of 3.0–12.8 (the review's
+I-4). It is replaced by the instrument's replay:
+
+> The store's first key was id(cell). A replay of every output produced under it, by the
+> producing commit's code and pin with only the key made a token, found one contaminated output:
+> proof3_readers_b.replica.json. An audit with the original key logged 15 hits serving another
+> checkerboard pitch's blur, on its light checkerboard-8 and checkerboard-64 λ rows. Its
+> token-keyed replacement moves the light per-cell λ replica reading to PASS (15 / 0) and the
+> light hinge-gap to 0.230 (13 misses, still FAIL). All 158 proof-2, null and floor rows and the
+> other 39 reader files reproduce, exactly or within the fit's own width rounding (≤ 1.2e-4
+> code).
+
+**Correction beside it:** commit `c9361e94`'s message says 24 hits; the count is 15. Commits are
+not rewritten. Two further engine defects were
 fixed. Trust selection by the observed code truncated the dark knee side and pushed λ to its
 bound. And a k bound of 4.0 voided three device-px null rows, whose equivalent k is 4.1–4.2; the
 bound was widened to 9 for that null only.
@@ -42130,8 +42159,10 @@ Reruns under a load average of 17 to 136, from other work on the machine:
   accepted. It stays byte-identical because its hash is the split, and the phrase is in the
   declaration's errata.
 - **Closed by the review:** the missing named L1-growth list (A1) and E2's zero tolerance (A2).
-- **The instrument's reader replays** (`7efe4ce8`, `9c1623b4`) under the token key are still
-  running (§5).
+- **The instrument's reader replays** (`7efe4ce8`, `9c1623b4`) under the token key found one
+  contaminated output, `proof3_readers_b.replica.json`, which is replaced (§5). The review's
+  I-4 therefore corrected this section's draft, and the correction is recorded rather than the
+  commit history rewritten.
 - **The machine.** The review and the fix waves ran at load averages of 72 to 245. ChatGPT's Codex
   helper processes held about 100 % CPU each for about 17 h. The sitting needs a quiet machine.
 - **Descriptive readers and nulls.** The descriptive readers miss their bars on vitrea's

@@ -1255,6 +1255,18 @@ X5 by their own hand, and restores both after the sitting.
 
 ## Revision Notes
 
+- 2026-09-30 (**G0 COMPLETE**, pending only the declaration's hash and the merge to main; ledger
+  §5.194). Every stream, both review rounds and every fix wave are merged into
+  `w42-g0-declaration`:
+  - the bed's verification round (`6fbb1055`): five sitting-critical findings, each red then
+    green, `red-green-fixes.txt` 13 of 13;
+  - the instrument's correction (`0c6e94d0`): the old blur key contaminated one reader output,
+    `proof3_readers_b.replica.json`. It was replaced; the light per-cell λ replica now passes, and
+    every other output reproduces;
+  - the I-4 report (`1dac9b4a`).
+  All six of the user's G0 rulings, Decision Logs 5a to 5f, are in the declaration, and
+  `declare.py check` passes with nothing pending. The hash follows this note's commit, and G1
+  starts only after the merge and the parent's word to the user (Decision Log 6).
 - 2026-09-30 (G0 integration, ledger §5.194; the charter's text is unchanged). The bed,
   instrument and gate streams were merged into `w42-g0-declaration`, and the declaration was
   assembled in `results/2026-09-29-w42-g0-declaration/declaration.json`, with `declaration.md`
