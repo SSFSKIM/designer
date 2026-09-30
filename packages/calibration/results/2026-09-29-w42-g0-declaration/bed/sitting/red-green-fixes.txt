@@ -1,0 +1,57 @@
+== Round 1: the bed review of b151aff4 ==
+
+B-M1 scenes edited by one byte, pins.json untouched
+  RED   (pre-fix 9a695ec0): exit 0, launched=True;   [defect shown]
+  GREEN (fix): exit 1, launched=False; ValueError: refused before any launch: the bed is not its pins (scenes hash mismatch)  [fixed]
+
+B-M1 scenes edited by one byte, re-pinned and committed
+  RED   (pre-fix 9a695ec0): exit 0, launched=True;   [defect shown]
+  GREEN (fix): exit 1, launched=False; ValueError: refused before any launch: the bed is not the pinned declaration: declaration.json names scenes 4aa06af90eb5 and bed 53870f470368; the fil  [fixed]
+
+B-M1 a stale bed (764217e1 scenes + bed.json), re-pinned and committed
+  RED   (pre-fix 9a695ec0): exit 0, launched=True;   [defect shown]
+  GREEN (fix): exit 1, launched=False; ValueError: refused before any launch: the bed is not the pinned declaration: declaration.json names scenes 4aa06af90eb5 and bed 53870f470368; the fil  [fixed]
+
+B-M1 produce with a declared cell never captured
+  RED   (pre-fix 9a695ec0): archive written; uncaptured=['apple-macos-27.0-1x-light-standard-glass0.5/h-p1-c24-rrect-112__rest']  [defect shown]
+  GREEN (fix): refused: 1 declared cell(s) were never captured (e.g. ['apple-macos-27.0-1x-light-standard-glass0.5/h-p1-c24-rrect-112__rest']);   [fixed]
+
+B-M2 the operational manifests of a synthetic run
+  RED   (pre-fix 9a695ec0): operational manifests carry H pixel statistics ['chromaShift', 'deltaFromBackground', 'identicalToBackground', 'repeatNoise', 'settleIterations', 'settleSeconds']; holdoutOperational entries 0  [defect shown]
+  GREEN (fix): operational manifests carry H pixel statistics none; holdoutOperational entries 31  [fixed]
+
+b2 a capture run whose manifest names PNGs that do not exist
+  RED   (pre-fix 9a695ec0): exit 0, admitted=True;   [defect shown]
+  GREEN (fix): exit 1, admitted=False; ValueError: fixture PNG missing or outside its run: apple-macos-27.0-1x-light-standard-glass0.5/a-g128-rrect-md-1x__rest  [fixed]
+
+b3 a driver that reads stdin, over the whole order
+  RED   (pre-fix 9a695ec0): exit 0, driver called 1 of 24 passes; "ALL PASSES DONE"  [defect shown]
+  GREEN (fix): exit 0, driver called 24 of 24 passes; "ALL PASSES DONE"  [fixed]
+
+b3 a pass-spec.py order that fails
+  RED   (pre-fix 9a695ec0): exit 0, driver called 0 of 24 passes; "ALL PASSES DONE"  [defect shown]
+  GREEN (fix): exit 6, driver called 0 of 24 passes; "STOP: pass-spec.py order failed (exit 3) or is empty; nothing launched"  [fixed]
+
+== Round 2: the verification review of the fixes (53400aa5) ==
+
+1. provenance: the scenes file edited (grey-128 128 -> 129) between runs 1 and 2
+  RED   (pre-fix 3da63224): exit 0; run 2 ADMITTED, its document has grey-128 [129, 128, 128] while the admission names scenes 4aa06af90eb5 (the pinned bytes); 2 launches  [defect shown]
+  GREEN (fix): exit 1; run 2 refused before launch (ValueError: the bed on disk is no longer the one this driver validated: refused before any launch: the bed is ); 1 launch  [fixed]
+
+2. the real "CAVEAT: 1 of 23 fixtures are PIXEL-IDENTICAL ..." line through public_log()
+  RED   (pre-fix 3da63224): the public log keeps it: True  [defect shown]
+  GREEN (fix): the public log keeps it: False  [fixed]
+
+3. SIGTERM to the orchestrator mid-capture, the launch blocking, at mode 69
+  RED   (pre-fix 3da63224): 12 s after SIGTERM: orchestrator running, display mode 69, still alive: ['launcher', 'app']  [defect shown]
+  GREEN (fix): 12 s after SIGTERM: orchestrator exited 143, display mode 68, still alive: none  [fixed]
+
+4. the exposure race: clone B claims inside the window with a byte-identical tag object
+  RED   (pre-fix 3da63224): clone B CLAIMED too, exit 0 ("[up to date]"): marker 25cedc07bf4d, the same object as A's 25cedc07bf4d  [defect shown]
+  GREEN (fix): clone B refused: the exposure marker w42-h-exposure-race was not CREATED on origin; another checkout exposed H first or origin refused ( ! refs/tags/w42-h-exposure-race:refs/tags/w42-h-ex  [fixed]
+
+5. a quarantined run's .staging-<UUID>/manifest.json
+  RED   (pre-fix 3da63224): its public copy carries H ['chromaShift', 'deltaFromBackground', 'identicalToBackground', 'repeatNoise', 'settleIterations', 'settleSeconds']  [defect shown]
+  GREEN (fix): its public copy carries H no pixel statistic  [fixed]
+
+13 of 13 scenarios red before and green after

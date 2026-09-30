@@ -1,0 +1,19 @@
+1. RED (no claim: the pre-fix path)
+   checkout A: complete, receipt events ['begin', 'complete']
+   checkout B (a clone): complete, receipt events ['begin', 'complete']
+   [H exposed twice: defect shown]
+
+2. GREEN (the claim, a bare local origin)
+   checkout A: complete, receipt events ['begin', 'complete']
+   checkout B (a clone of origin): REFUSED: the exposure marker w42-h-exposure-proof-local exists on origin (or origin cannot be listed): H is spent; receipt events []
+   [one exposure: fixed]
+
+3. GREEN, live (origin https://github.com/SSFSKIM/designer.git; marker at this checkout's HEAD b56e0524, on origin/w42-g0-fix-bed)
+   throwaway tag w42-h-exposure-proof-20260929T234313Z
+   this checkout: complete, receipt events ['begin', 'complete']
+   the tag on origin after it: 79a5cb90ab4a w42-h-exposure-proof-20260929T234313Z
+   a fresh clone of origin: REFUSED: the exposure marker w42-h-exposure-proof-20260929T234313Z exists on origin (or origin cannot be listed): H is spent; receipt events []
+   cleanup: push :refs/tags/w42-h-exposure-proof-20260929T234313Z exit 0; on origin now absent; locally now absent
+   [one exposure across checkouts against GitHub: fixed; throwaway tag deleted]
+
+3 of 3 as expected

@@ -1,0 +1,25 @@
+capture dark-rest      1x checkerboard__rrect-md__rest         | model lin sn 1.642/1.581 sw 49.53/14.44 lam -0.029 w 0.000 rms 0.30 | enc lam +0.126 | S +0.0000 | ESF 1.723/1.573
+replica dark-rest      1x checkerboard__rrect-md__rest         | model lin sn 1.693/1.581 sw 3.31/14.44 lam -0.045 w 0.000/0.160 rms 0.20 | enc lam +0.153 | S -0.0000 | ESF 1.693/1.693
+capture dark-rest      1x checkerboard__capsule-button__rest   | model lin sn 1.665/1.581 sw 22.57/14.44 lam +0.058 w 0.523 rms 0.34 | enc lam +0.210 | S -0.0000 | ESF None/None
+replica dark-rest      1x checkerboard__capsule-button__rest   | model lin sn 1.670/1.581 sw 27.73/14.44 lam +0.002 w 0.003/0.000 rms 0.24 | enc lam +0.162 | S -0.0000 | ESF None/None
+capture dark-rest      1x checkerboard-8__rrect-md__rest       | model lin sn 8.369/1.581 sw 9.76/14.44 lam -0.040 w 0.601 rms 0.56 | enc lam +0.145 | S +0.0000 | ESF 2.357/1.888
+capture dark-rest      1x checkerboard-32__rrect-md__rest      | model lin sn 1.649/1.581 sw 21.11/14.44 lam +0.025 w 0.786 rms 0.39 | enc lam +0.170 | S -0.0201 | ESF 1.825/1.691 | heavy best canvas Rfp:18.1 0.445 canvas:20.1 0.445 shape:8.6 0.446 box:8.6 0.446 group:0.0 0.477
+capture dark-rest      1x checkerboard-64__rrect-md__rest      | model lin sn 1.737/1.581 sw 19.61/14.44 lam +0.012 w 0.497 rms 0.31 | enc lam +0.184 | S -0.0019 | ESF 2.155/2.027 | heavy best canvas Rfp:14.2 0.338 canvas:33.1 0.335 shape:12.1 0.346 box:12.1 0.346 group:0.0 0.705
+replica dark-rest      1x checkerboard-64__rrect-md__rest      | model lin sn 1.740/1.581 sw 18.79/14.44 lam +0.020 w 0.479/0.426 rms 0.14 | enc lam +0.202 | S +0.0000 | ESF 2.178/2.178 | heavy best Rfp Rfp:12.5 0.145 canvas:12.5 0.145 shape:11.5 0.157 box:11.5 0.157 group:0.0 0.635
+capture dark-rest      1x checkerboard-64__rrect-ml__rest      | model lin sn 1.717/1.581 sw 16.52/14.44 lam -0.034 w 0.544 rms 0.35 | enc lam -0.290 | S -0.0146 | ESF 2.421/2.624 | heavy best Rfp Rfp:12.5 0.377 canvas:12.5 0.377 shape:12.3 0.378 box:12.3 0.378 group:0.0 1.006
+replica dark-rest      1x checkerboard-64__rrect-ml__rest      | model lin sn 1.725/1.581 sw 17.05/14.44 lam -0.004 w 0.548/0.518 rms 0.20 | enc lam -0.256 | S -0.0011 | ESF 2.457/2.457 | heavy best Rfp Rfp:12.7 0.222 canvas:12.7 0.222 shape:12.4 0.224 box:12.4 0.224 group:0.0 0.986
+capture dark-rest      1x checkerboard-64__capsule-button__rest | model lin sn 1.673/1.581 sw 19.86/14.44 lam -0.021 w 0.330 rms 0.28 | enc lam +0.133 | S -0.0488 | ESF None/None
+replica dark-rest      1x checkerboard-64__capsule-button__rest | model lin sn 1.727/1.581 sw 28.87/14.44 lam +0.001 w 0.578/0.266 rms 0.08 | enc lam +0.154 | S +0.0000 | ESF None/None
+capture dark-rest      1x checkerboard-4__rrect-md__rest       | model lin sn 0.000/1.581 sw 2.20/14.44 lam +1.600 w 0.979 rms 0.28 | enc lam +1.509 | S -0.0000 | ESF 0.971/0.564
+capture dark-rest      1x impulse__capsule-button__rest        | impulse single 1.814/1.581 (output-affine 1.919) | mix s1 1.457 s2 7.98/14.44 k 0.473 rms 0.07
+replica dark-rest      1x impulse__capsule-button__rest        | impulse single 1.683/1.581 (output-affine 1.749) | mix s1 1.640 s2 26.15/14.44 k 0.871/0.363 rms 0.03
+capture dark-rest      2x checkerboard__rrect-md__rest         | model lin sn 0.906/0.791 sw 11.55/4.87 lam +0.006 w 0.990 rms 0.35 | enc lam +0.206 | S +0.0000 | ESF 2.365/2.065
+capture dark-rest      2x checkerboard__capsule-button__rest   | model lin sn 0.817/0.791 sw 7.19/4.87 lam +0.023 w 0.688 rms 0.31 | enc lam +0.186 | S +0.0000 | ESF None/None
+capture dark-rest      2x checkerboard-8__rrect-md__rest       | model lin sn 0.886/0.791 sw 12.41/4.87 lam +0.034 w 0.690 rms 0.41 | enc lam +0.131 | S -0.0000 | ESF 0.956/0.911
+capture dark-rest      2x checkerboard-32__rrect-md__rest      | model lin sn 0.968/0.791 sw 4.64/4.87 lam +0.011 w 0.734 rms 0.36 | enc lam -0.500 | S +0.0015 | ESF 3.441/3.173 | heavy best box Rfp:6.3 0.288 canvas:6.3 0.288 shape:6.3 0.288 box:6.3 0.288 group:0.0 0.660
+capture dark-rest      2x checkerboard-64__rrect-md__rest      | model lin sn 1.292/0.791 sw 4.93/4.87 lam +0.030 w 0.773 rms 0.26 | enc lam -0.500 | S +0.0054 | ESF 3.836/3.638 | heavy best group Rfp:24.4 0.000 canvas:12.7 0.000 shape:6.7 0.000 box:19.7 0.000 group:0.0 0.000
+capture dark-rest      2x checkerboard-64__rrect-ml__rest      | model lin sn 1.464/0.791 sw 5.67/5.35 lam +0.013 w 0.767 rms 0.30 | enc lam -0.500 | S +0.0021 | ESF 4.115/4.081 | heavy best group Rfp:5.4 0.000 canvas:5.4 0.000 shape:4.0 0.000 box:4.0 0.000 group:0.0 0.000
+capture dark-rest      2x checkerboard-64__capsule-button__rest | model lin sn 1.060/0.791 sw 5.68/4.87 lam -0.103 w 0.604 rms 0.39 | enc lam -0.423 | S +0.0218 | ESF None/None
+capture dark-rest      2x checkerboard-4__rrect-md__rest       | model lin sn 0.374/0.791 sw 2.81/4.87 lam +0.050 w 0.998 rms 0.28 | enc lam +0.245 | S +0.0000 | ESF 5.35/1.044
+capture dark-rest      2x impulse__capsule-button__rest        | impulse single 3.735/0.791 (output-affine 3.907) | mix s1 1.087 s2 4.71/4.87 k 0.770 rms 0.09
+# dark-rest done in 141 s

@@ -1,0 +1,329 @@
+{
+  "what": "W42 G0: the two directional numerical stops of charter clause 10 (the impulse halo/annulus statistic and the photo band-pass chroma energy), declared before any candidate render exists. The bar of both: no cell farther from Apple than the shipped render at the statistic's declared resolution.",
+  "charter": "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md v2.1: Parent-Level Acceptance clause 10 (the gate) and clause 3 (rehearsed before the sitting); Design, 'The instrument (G0)'; Cross-Child Contract X33.",
+  "grounding": "packages/calibration/results/2026-09-29-w42-grounding/w42-grounding-argument.txt (memo A: 'Impulse halo peak, shipped/native', 'Light-inactive fine chroma 1.1-2.5x native (the mottling)', the deep-body definition) and w42-grounding-refit.txt section 2h (memo E: impulse peaks over impulses wholly in the mask).",
+  "version": 2,
+  "changesFromStartingDesign": [
+    "Stop H admission gains clause (ii), the dot's centroid past the lens extent: the rrect-md side dots are refracted in Apple's render and in vitrea's (stopH.admission.changedFromStartingDesign), so each shape keeps its one undisplaced dot.",
+    "Stop P's filter support is the deep region itself, not the interior at depth >= 2: the band 2 <= depth < D would supply 15-62 % of G(16)'s weight (stopP.filter.changedFromStartingDesign).",
+    "Stop P's resolution is the band energy of the DIFFERENCE of two independent roundings (per-channel variance 1/6, sqrt(2) times one rounding's energy), because the stop compares two independently rounded renders; it is computed analytically (not by drawing noise), at the native's colours, and frozen per cell.",
+    "D is taken from the shape's inradius rather than the largest pixel-centre depth, so the region does not move between 1x and 2x (the values are memo A's 16 / 11 / 8).",
+    "Native channels at the rails are kept rather than excluded (stopP.censoring), with each cell's fraction reported."
+  ],
+  "revisions": [
+    {
+      "version": 2,
+      "date": "2026-09-30",
+      "source": "the gate review of b151aff4 (W42 G0), findings 9 and 10, dispositions G9 and G10 (FIX); no candidate render existed before or at this revision",
+      "changes": [
+        "Stop H gains a third statistic, floor (stopH.statistics.floor): the floor ring's median luma in ABSOLUTE codes, under the same bar. The floor ring (8 <= r < 10 CSS px) lies inside the narrow term's own reach (sigma_n about 4.1-5.4 pt in the receded pose), so a halo that is too wide raises the ring that peak and annulus subtract and reads as a smaller, 'closer' peak and annulus; the absolute floor sees the rise. A cell passes only if all three statistics pass.",
+        "Admission: every document a candidate's captures name that is not a shipped document must be declared with --document, whether or not any --document is given (version 1 admitted anything when none was given); a run in which every scheme's candidate captures name only shipped documents is refused, because the shipped render passes the bar by construction; the one run that reads the shipped tree as its candidate is --baseline, allowed only with the candidate root equal to the shipped root, stamped admission.mode 'baseline' and never 'candidate'.",
+        "baseline.json / baseline.txt regenerated under --baseline with the floor statistic; proof.py re-run with the checks proofTolerances now states."
+      ]
+    }
+  ],
+  "common": {
+    "tier": "webgpu",
+    "profiles": {
+      "apple-macos-27.0-1x-light-standard-glass0.5": ["light", 1],
+      "apple-macos-27.0-2x-light-standard-glass0.5": ["light", 2],
+      "apple-macos-27.0-1x-dark-standard-glass0.5": ["dark", 1],
+      "apple-macos-27.0-2x-dark-standard-glass0.5": ["dark", 2]
+    },
+    "canvasCssPx": [320, 200],
+    "pose": "a scene's pose is its state token: 'rest' (and 'rest-tint-*') is active, 'inactive' (and 'inactive-tint-*') is receded; no other state is in either population",
+    "nativeReadRule": "a native fixture path is formed only after apps/reference-apple/scenes.json's split names the scene calibration or validation; any other role (holdout, recorded, probe, unlisted) raises before the path exists",
+    "natives": "apps/reference-apple/fixtures/<profile>/<scene>.png",
+    "captureTree": "<root>/<profile>/<scene>/<scene>__webgpu.png beside <root>/<profile>/<scene>/cell__webgpu.json",
+    "shippedRoot": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures (the canonical capture tree); every shipped capture must name, in its capturePath, documents whose 12-hex SHA-256 is the file on disk under packages/calibration/profiles/, or the run refuses",
+    "captureAdmission": [
+      "cell__webgpu.json sceneId equals the scene directory",
+      "renderer is webgpu",
+      "pixelSize is [320 s, 200 s] and the PNG is that size",
+      "capturePath carries deviceScaleFactor=s and colorScheme=<scheme> of the profile directory",
+      "capturePath names at least a materialProfile document ('materialProfile=<path> sha256:<12 hex>', and 'recededProfile=<path> sha256:<12 hex>' when present)",
+      "report.cell__webgpu.json, when present, names the profile directory as key.profileKey and the scene as key.sceneId",
+      "a candidate run: every capture of one colour scheme names the same document set, and every named hash is a shipped document (under packages/calibration/profiles/ at its bytes on disk, so a scheme the candidate leaves at the shipped documents needs no declaration) or the hash of a file declared with --document, whether or not any --document is given; a run in which every scheme names only shipped documents is refused (the shipped render is no candidate); the output is stamped admission.mode = 'candidate' with the documents named",
+      "the baseline run (--baseline): the candidate root must equal the shipped root and no --document is given; the output is stamped admission.mode = 'baseline', never 'candidate', and records native against shipped; a candidate root equal to the shipped root without --baseline is refused before any read"
+    ],
+    "geometry": "the shape's signed distance in CSS px at device-pixel centres ((i + 0.5) / s), from apps/reference-apple/scenes.json components centred on the 320 x 200 canvas (a group is the minimum over its items); depth = -sdf. proof.py checks it against every shipped cell's report__webgpu.json surfaces.",
+    "distance": "per statistic S: dShip = |S_shipped - S_native|, dCand = |S_candidate - S_native|",
+    "bar": "pass iff dCand <= dShip + res, with res the statistic's declared resolution; a cell passes only if every one of its statistics passes",
+    "unmeasured": "a statistic with no admitted support on the cell (no admitted dot, an empty region) or a population cell the candidate tree does not hold is UNMEASURED, never a pass; a cell with any FAIL is FAIL, otherwise with any UNMEASURED it is UNMEASURED",
+    "stopVerdict": "a stop passes only when every population cell passes; the run passes only when both stops pass",
+    "missingNativeOrShipped": "a population cell with no native fixture or no shipped capture is a declaration error and the run refuses"
+  },
+  "stopH": {
+    "name": "impulse halo/annulus",
+    "population": {
+      "rule": "every scene of the profile's own scene list in apps/reference-apple/scenes.json whose backdrop is impulse and whose split role is calibration or validation, tinted included, in the four standard macOS 27 profiles, WebGPU tier",
+      "cells": [
+        ["apple-macos-27.0-1x-dark-standard-glass0.5", "impulse__capsule-button__inactive"],
+        ["apple-macos-27.0-1x-dark-standard-glass0.5", "impulse__capsule-button__rest"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "impulse__capsule-button__inactive"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "impulse__capsule-button__inactive-tint-orange"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "impulse__capsule-button__rest"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "impulse__capsule-button__rest-tint-orange"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "impulse__rrect-md__inactive"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "impulse__rrect-md__rest"],
+        ["apple-macos-27.0-2x-dark-standard-glass0.5", "impulse__capsule-button__inactive"],
+        ["apple-macos-27.0-2x-dark-standard-glass0.5", "impulse__capsule-button__rest"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "impulse__capsule-button__inactive"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "impulse__capsule-button__inactive-tint-orange"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "impulse__capsule-button__rest"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "impulse__capsule-button__rest-tint-orange"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "impulse__rrect-md__inactive"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "impulse__rrect-md__rest"]
+      ],
+      "count": 16,
+      "why": "every impulse cell a landing referee may read without the holdout. The dark profiles list only the capsule's two poses among calibration/validation impulse scenes, so dark reads four cells."
+    },
+    "dots": {
+      "source": "apps/reference-apple/fixtures/backgrounds/impulse@<s>x.png: each 8-connected white component (G > 127); its centroid in CSS px is (mean device index + 0.5) / s",
+      "expected": "15 dots, 4 x 4 CSS px, centroids at (32 + 64 i, 40 + 64 j) CSS px, i = 0..4, j = 0..2, identical at 1x and 2x; the reader refuses any other set"
+    },
+    "rings": {
+      "unit": "CSS px, radius r from the dot's backdrop centroid to a device-pixel centre",
+      "core": "r < 2 (the dot's own footprint: 12 device px at 1x, 52 at 2x)",
+      "annulus": "2 <= r < 8",
+      "floorRing": "8 <= r < 10, its median"
+    },
+    "admission": {
+      "rule": "a dot is admitted on a shape only if (i) every device pixel with r < 10 lies inside the shape at depth >= 2 CSS px (outside the rim band), and (ii) the dot's centroid lies at depth >= the lens extent L'(span) = lensExtentGain x lensDepth = 1.337 x min(0.25 span, 20) CSS px at the default thickness 8 (material.ts lensDepthPx / lensExtentPx; the reference's own crossing law, claims 5.49-5.51), so the dot is not displaced by refraction. span is the shape's short side.",
+      "lensExtentCssPx": {
+        "capsule-button": 14.707,
+        "rrect-md": 26.74
+      },
+      "admittedDots": {
+        "capsule-button": [
+          [160, 104]
+        ],
+        "rrect-md": [
+          [160, 104]
+        ]
+      },
+      "admittedDotsNote": "the same at 1x and 2x; the reader derives admission from the geometry and refuses a run in which it differs from this list",
+      "changedFromStartingDesign": "the starting design admitted a dot on clause (i) alone, which admits the rrect-md side dots at (96, 104) and (224, 104). Their centroids sit at depth 16 CSS px, inside the lens extent 26.74, and the grounding reading shows both Apple's and the shipped render's halo displaced there: the centroid of luma above the floor ring within r < 8 lies outward from the backdrop centroid by 2.70-2.75 CSS px on Apple and 2.47 on the shipped render (light active 1x), 2.57-2.59 and 2.03 (light active 2x), 0.63 and 2.52 (light receded 1x), 1.34 and 1.42 (light receded 2x), against <= 0.23 CSS px on the capsule dot and the rrect-md centre dot in every cell of the population, Apple and shipped alike. A ring centred on the backdrop centroid there reads the lens's displacement (which differs between Apple and vitrea) rather than the body's halo, so clause (ii) is added. Each shape keeps one admitted dot."
+    },
+    "luma": "Rec.709 weights (0.2126, 0.7152, 0.0722) on ENCODED sRGB codes 0..255 (memo A's luma), not linear light",
+    "statistics": {
+      "peak": "mean(luma over core) - median(luma over floorRing), per dot",
+      "annulus": "mean(luma over annulus) - median(luma over floorRing), per dot",
+      "floor": {
+        "definition": "median(luma over floorRing), per dot, in ABSOLUTE codes (no local reference subtracted)",
+        "added": "version 2, 2026-09-30 (the gate review of b151aff4, finding 9)",
+        "why": "the floor ring is the reference peak and annulus subtract, and it lies inside the narrow term's own reach: sigma_n is about 4.1-5.4 pt in the receded pose, so a Gaussian halo of that width still carries about 10-25 % of its centre value at 8-10 CSS px. A halo that is too WIDE therefore raises the floor ring with the core and the annulus, and reads as a smaller, 'closer' peak and a flat annulus. Read in absolute codes the floor sees that rise (proof.py's G9 case: a sigma-20 halo passes peak and annulus against a narrow Apple and fails floor on both shapes at both scales). The floor also carries the body's own level beside the dot, which is part of what the stop compares, since it reads the render and not a model of it."
+      },
+      "perCell": "the median over the cell's admitted dots (one dot per shape under the admission above)"
+    },
+    "units": "codes (encoded 8-bit)",
+    "resolution": {
+      "res": 1.0,
+      "why": "canonical cells are single captures (repeatNoise 0, runsPerCell 1) and the charter's Grounding Baseline makes one code their resolution; the web side is deterministic, so the code is the native reading's. It is also the rigorous bound on what 8-bit rounding can move a mean-minus-median statistic (0.5 + 0.5)."
+    },
+    "bar": "per statistic (peak, annulus and, since version 2, floor), |S_cand - S_nat| <= |S_ship - S_nat| + 1 code",
+    "why": "memo A reads the shipped impulse halo 7-48 codes against Apple's 3-14 on light receded, 41-47 against 4-6 on dark receded (dark detail is what Apple's Darken ceiling removes), and memo E 2h reads the radius-scaled narrow blur's peak at 3.8-3.9 where Apple reads 3-5 and a mixture reads 25-26: the impulse is where a law that restores sharp structure, or keeps the shipped crisp core, is seen at once. The peak reads the core's height above its local floor; the annulus reads how far the halo spreads (a wide halo raises the annulus while a narrow one only raises the peak). Luma of encoded codes is the space memo A reads both in; the floor is a median, so the heavy blur's slow hump and a stray pixel do not move it."
+  },
+  "stopP": {
+    "name": "photo band-pass chroma energy",
+    "population": {
+      "rule": "every scene of the profile's own scene list whose backdrop is photo, untinted (no '-tint-' in the state), and whose split role is calibration or validation, in the four standard macOS 27 profiles, WebGPU tier: M1/M2's bed",
+      "cells": [
+        ["apple-macos-27.0-1x-dark-standard-glass0.5", "photo__capsule-button__inactive"],
+        ["apple-macos-27.0-1x-dark-standard-glass0.5", "photo__capsule-button__rest"],
+        ["apple-macos-27.0-1x-dark-standard-glass0.5", "photo__rrect-md__inactive"],
+        ["apple-macos-27.0-1x-dark-standard-glass0.5", "photo__rrect-md__rest"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__capsule-button__inactive"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__capsule-button__rest"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__rrect-md__inactive"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__rrect-md__rest"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__rrect-ml__rest"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__rrect-sm__inactive"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__rrect-sm__rest"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__toolbar-group__inactive"],
+        ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__toolbar-group__rest"],
+        ["apple-macos-27.0-2x-dark-standard-glass0.5", "photo__capsule-button__inactive"],
+        ["apple-macos-27.0-2x-dark-standard-glass0.5", "photo__capsule-button__rest"],
+        ["apple-macos-27.0-2x-dark-standard-glass0.5", "photo__rrect-md__inactive"],
+        ["apple-macos-27.0-2x-dark-standard-glass0.5", "photo__rrect-md__rest"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__capsule-button__inactive"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__capsule-button__rest"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__rrect-md__inactive"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__rrect-md__rest"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__rrect-ml__rest"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__rrect-sm__inactive"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__rrect-sm__rest"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__toolbar-group__inactive"],
+        ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__toolbar-group__rest"]
+      ],
+      "count": 26,
+      "why": "the chroma-structure referees M1/M2 read exactly this bed (gate/referees/chroma-cut.py's filter), so the stop reads the texture those rows bound as a scalar, per spatial band"
+    },
+    "region": {
+      "rule": "memo A's deep body: depth >= D = max(6, min(16, half the shape's maximum depth)) CSS px, the maximum depth being the inradius (half the short side of the shape, or of a group's item), so D does not move with the scale",
+      "deepThresholdCssPx": {
+        "capsule-button": 11,
+        "toolbar-group": 11,
+        "rrect-sm": 8,
+        "rrect-md": 16,
+        "rrect-ml": 16
+      },
+      "why": "past the lens and the edge bands (rim, Apple's inner line, W37's 7-14 CSS px obstruction), where memo A reads the body; the same region for native, shipped and candidate"
+    },
+    "colour": "per pixel OKLab (a, b) of the ENCODED image: sRGB decode to linear, then Ottosson's M1, cube root, M2 (the port proven against the matrix rows in memo A's verify_metrics.py)",
+    "filter": {
+      "kernel": "a sampled Gaussian, radius ceil(4 sigma) device px, weights normalised to sum 1, applied separably with zeros outside the canvas",
+      "sigmaDevicePx": "sigma in CSS px times the scale s",
+      "maskNormalised": "G_sigma(f) = K(f m) / K(m), with m the SUPPORT mask",
+      "support": "the region itself (the deep body)",
+      "changedFromStartingDesign": "the starting design's support was the whole interior at depth >= 2 CSS px. Computed on the population's geometry alone, that support takes 15-62 % of G(16)'s weight over the deep region (and 5-28 % of G(4)'s) from the band 2 <= depth < D: capsule 42 %, rrect-md 23 %, rrect-ml 15 %, rrect-sm 46 %, toolbar 61-62 %. That band holds the lens's refracted backdrop and Apple's edge structure, which differ between Apple and vitrea for reasons the body's spatial law does not own, so the M band would mostly read them. With the support equal to the region nothing outside the deep body enters any band value."
+    },
+    "bands": {
+      "F": "G(1) - G(4), sigma in CSS px: the fine band, where memo A reads the light receded 'mottling' (shipped fine chroma 1.1-2.5x Apple's)",
+      "M": "G(4) - G(16): the mid band, where the heavy blur sets the chroma structure (memo A: chroma takes the heavy argument only, s about 10-12 CSS px) and where memo A reads the dark shipped body's structure at a quarter to a third of Apple's (photo luma sd 0.25-0.37, the W31 X3 deficit)",
+      "why": "G(1) removes pixel-scale rendering noise; the pair of bands splits restoring fine texture from mis-sizing the heavy blur, which one high-pass could not tell apart"
+    },
+    "statistic": "per band, E = sqrt(mean over the region of (Delta a^2 + Delta b^2)), the band's value in each of a and b",
+    "units": "OKLab (a, b) units, as computed (text tables print E x 1000)",
+    "censoring": "native channels at 255 are kept: 15-30 % of deep pixels on light rrect-md and rrect-ml carry one. X21's one-sided bound protects an UNCLIPPED prediction from being scored against a clipped channel; here all three images are 8-bit outputs that clip alike, so the displayed values are the objects compared. Each cell's fraction of deep pixels with a native channel >= 250 or <= 5 is reported beside its reading.",
+    "resolution": {
+      "rule": "res_band = the band energy of the one-code quantisation field at the NATIVE image's own colours: q = u1 - u2 with u1, u2 independent U(-0.5, 0.5) per pixel and channel (the difference of two independent roundings, per-channel variance 1/6), linearised by a secant Jacobian of OKLab (a, b) over +/- 0.5 code per channel (clipped at the rails), and propagated exactly: E_res^2 = mean over the region of sum_y h(x, y)^2 w(y), with h the band's mask-normalised weights and w(y) = (1/6) ||J(y)||_F^2. No web image is read.",
+      "why": "E is a seminorm of the band field, so by the triangle inequality a candidate equal to the shipped render up to an independent re-rounding of every channel moves E by at most E(q): a candidate identical before rounding cannot fail, and anything larger is a real difference in the rendered structure. The native's own capture-to-capture spread is not measured on canonical single captures (Grounding Baseline) and is not in this number (README, limits).",
+      "perCell": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive": {
+          "F": 0.0002793522495861677,
+          "M": 7.342406412179904e-05
+        },
+        "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__rest": {
+          "F": 0.0002773295944507651,
+          "M": 7.289968277715011e-05
+        },
+        "apple-macos-27.0-1x-dark-standard-glass0.5/photo__rrect-md__inactive": {
+          "F": 0.00026536162763929767,
+          "M": 6.830739743631791e-05
+        },
+        "apple-macos-27.0-1x-dark-standard-glass0.5/photo__rrect-md__rest": {
+          "F": 0.0002646034407035822,
+          "M": 6.812082800981458e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__inactive": {
+          "F": 0.0002679294897240778,
+          "M": 7.04072303804302e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__rest": {
+          "F": 0.00026676248773596845,
+          "M": 7.009994840152659e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive": {
+          "F": 0.00025816355629744713,
+          "M": 6.65712098565072e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__rest": {
+          "F": 0.0002571911000435167,
+          "M": 6.633480953686477e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-ml__rest": {
+          "F": 0.0002495216417626886,
+          "M": 6.369838547555123e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-sm__inactive": {
+          "F": 0.00027880739518642064,
+          "M": 7.410073236842574e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-sm__rest": {
+          "F": 0.0002768466716700715,
+          "M": 7.357569365706697e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__toolbar-group__inactive": {
+          "F": 0.0002570712613559645,
+          "M": 6.607300106808414e-05
+        },
+        "apple-macos-27.0-1x-light-standard-glass0.5/photo__toolbar-group__rest": {
+          "F": 0.0002571549316148018,
+          "M": 6.60908581452956e-05
+        },
+        "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive": {
+          "F": 0.00013969955358345725,
+          "M": 3.66876697644703e-05
+        },
+        "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__rest": {
+          "F": 0.00013868836513636834,
+          "M": 3.642749893742423e-05
+        },
+        "apple-macos-27.0-2x-dark-standard-glass0.5/photo__rrect-md__inactive": {
+          "F": 0.00013249583694436212,
+          "M": 3.409226112465705e-05
+        },
+        "apple-macos-27.0-2x-dark-standard-glass0.5/photo__rrect-md__rest": {
+          "F": 0.00013222663925907237,
+          "M": 3.402802515806434e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive": {
+          "F": 0.00013406935263467974,
+          "M": 3.520375382601447e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest": {
+          "F": 0.00013347283023512187,
+          "M": 3.504713374033379e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive": {
+          "F": 0.00012901157391785408,
+          "M": 3.325354312789322e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__rest": {
+          "F": 0.0001286038783960578,
+          "M": 3.3155530777638906e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-ml__rest": {
+          "F": 0.00012477709029946662,
+          "M": 3.184653739530627e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-sm__inactive": {
+          "F": 0.0001397998858653154,
+          "M": 3.707774529342608e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-sm__rest": {
+          "F": 0.00013879446913085433,
+          "M": 3.68098801822094e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__toolbar-group__inactive": {
+          "F": 0.00012841170756363416,
+          "M": 3.302370543088131e-05
+        },
+        "apple-macos-27.0-2x-light-standard-glass0.5/photo__toolbar-group__rest": {
+          "F": 0.00012847335868118272,
+          "M": 3.303697598717651e-05
+        }
+      },
+      "perCellNote": "filled by `chroma_band.py --write-resolution` from the natives alone (no web image), before any candidate render; every run recomputes it and refuses if the recomputation differs from this table by more than 1e-9 relative"
+    },
+    "bar": "per band, |E_cand - E_nat| <= |E_ship - E_nat| + res_band",
+    "why": "a law that restores detail can return the mottling Apple does not draw; a law whose heavy blur is mis-sized, or that runs chroma through a sharp term (memo A: chroma takes the heavy argument only), moves the mid band. M1/M2 read the ratio of chroma to structure and the structure's level, not the spatial scale the chroma lives at, so neither sees a candidate that trades fine chroma for mid chroma."
+  },
+  "proofTolerances": {
+    "declaredBefore": "proof.py reads these; they were written before it ran",
+    "H": {
+      "implementation": "the reader equals an independent per-dot loop on unquantised synthetic images within 1e-9 code",
+      "quantisation": "rounding the synthetic to codes moves each statistic by <= 1 code",
+      "recovery": "a radial Gaussian halo of amplitude A (codes) and width sigma in {1, 1.5, 3, 5} CSS px on a flat body reads within 1 code + 0.03 A of its continuous-domain value at both scales",
+      "admission": "the derived admitted dots equal admittedDots exactly; rrect-md's side dots, given three times the centre's amplitude, change nothing",
+      "floor": "(version 2) on a flat 120-code body, against a narrow Apple (sigma 1.5 CSS px, A 8) and a narrow over-strong shipped halo (sigma 1.5, A 40), a too-wide candidate halo (sigma 20, A 30), rounded to codes, passes peak and annulus and FAILs floor, so the cell FAILs, on both shapes at both scales; the reader's floor equals the per-pixel loop's within 1e-9 code"
+    },
+    "P": {
+      "implementation": "the reader equals an independent FFT implementation of the same masked filter on unquantised synthetic fields within 1e-9 relative, on every population shape at both scales",
+      "quantisation": "rounding the synthetic to codes moves each band energy by <= res_band at the synthetic's colours",
+      "recovery": "band-limited plane-wave noise of known OKLab amplitude, read on a region at least 4 sigma(16) from the canvas border, reads within res_band + 1 % of the band energy its continuous Gaussian responses give",
+      "resolution": "the analytic res_band equals a 64-draw Monte Carlo band energy of the one-code field within 5 % on a synthetic cell away from the rails"
+    },
+    "endToEnd": "a candidate identical to the shipped tree reads dCand - dShip = 0 exactly and passes every cell; a candidate moved away from Apple by more than res on a statistic reads FAIL on that statistic in every cell; one moved by at most res passes; a capture whose metadata does not match its path, a mixed document set and an undeclared document are refused; a missing candidate cell reads UNMEASURED",
+    "endToEndVersion2": "the shipped tree given as the candidate without --baseline is refused; the identity candidate is the shipped captures re-named at declared scratch documents (dCand - dShip = 0 exactly on every statistic, every cell passes, stamped candidate); --baseline over the shipped tree passes with admission.mode 'baseline'; moving the core and annulus rings (E2) leaves floor at dCand - dShip = 0; moving the WHOLE r < 10 disc 3 codes away from Apple's floor in every channel, with no channel clipped, leaves peak and annulus at dCand - dShip = 0 (within 1e-9) and FAILs floor on every cell (growth 3 codes within 1e-9); a candidate naming scratch documents with no --document is refused"
+  },
+  "limits": [
+    "Stop H reads luma only, so a coloured fringe around the dot is invisible to it, and a halo displaced from the dot reads as a changed peak rather than as a displacement; one dot per shape (the capsule's and rrect-md's centre dot) carries each cell, so rrect-md's lens band is not read by this stop.",
+    "Stop H's annulus is small on every endpoint (baseline.txt: 0.17-5.2 codes) against a 1-code resolution, so it stops a halo that spreads substantially, not a subtle reshaping.",
+    "Stop H's floor (version 2) is absolute: it carries the body's level beside the dot as well as the halo's reach, so a candidate that moves the body's level near black moves it too, and a halo widened while the level beside it falls could read unchanged; it reads one ring (8-10 CSS px), not the halo's profile.",
+    "Stop P reads chroma only (luma structure is M2's and L1's) and the deep body only; its bands overlap (a difference of Gaussians is not a sharp band); an energy is blind to where the structure lies, so a candidate that moves chroma without changing its energy per band passes.",
+    "Stop P's resolution is the 8-bit quantisation floor, not a cross-sitting bar: where a candidate crosses to the other side of Apple's value, an unmeasured re-capture spread of Apple's reading could move the verdict.",
+    "Neither stop reads the CSS tier, the accessibility profiles, holdout or probe cells."
+  ]
+}

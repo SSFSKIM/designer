@@ -1,0 +1,16 @@
+W42 G0 rehearsal round 2, item (c): the tinted photo rrect-md inactive L1 growth, decomposed.
+
+2. photo__capsule-button__inactive-tint-orange, dark receded: the growth decomposed.
+   The tinted cell's web mean is 0.0202 + 1.4398 x (the untinted body's mean luminance over the same pixels), while that stays below 0.681, so every change is the body's, scaled by 1.4398.
+
+   1x: native (tinted) 0.2904; shipped 0.2897 (error 0.0007, W33 baseline 0.0007); passing needs web <= 0.2961
+     c2   untinted body mean over the tinted silhouette -0.0033; the code composite moves the tinted mean -0.0048 (the swap's fitted composite measured -0.0023); growth +0.0023. The untinted twin: native 0.2037, candidate 0.1866 (error 0.0171). To pass, the untinted body may rise by at most +0.0045 here; the candidate raises it -0.0033.
+     r3-2pgh untinted body mean over the tinted silhouette +0.0087; the code composite moves the tinted mean +0.0125 (the swap's fitted composite measured +0.0153); growth +0.0138. The untinted twin: native 0.2037, candidate 0.1993 (error 0.0043). To pass, the untinted body may rise by at most +0.0045 here; the candidate raises it +0.0087.
+     r3-2pgb untinted body mean over the tinted silhouette +0.0087; the code composite moves the tinted mean +0.0125 (the swap's fitted composite measured +0.0153); growth +0.0138. The untinted twin: native 0.2037, candidate 0.1993 (error 0.0043). To pass, the untinted body may rise by at most +0.0045 here; the candidate raises it +0.0087.
+     r3-2psb untinted body mean over the tinted silhouette +0.0165; the code composite moves the tinted mean +0.0238 (the swap's fitted composite measured +0.0269); growth +0.0255. The untinted twin: native 0.2037, candidate 0.2077 (error 0.0040). To pass, the untinted body may rise by at most +0.0045 here; the candidate raises it +0.0165.
+
+   2x: native (tinted) 0.2914; shipped 0.2902 (error 0.0013, W33 baseline 0.0013); passing needs web <= 0.2977
+     c2   untinted body mean over the tinted silhouette -0.0033; the code composite moves the tinted mean -0.0047 (the swap's fitted composite measured -0.0022); growth +0.0022. The untinted twin: native 0.2046, candidate 0.1868 (error 0.0177). To pass, the untinted body may rise by at most +0.0052 here; the candidate raises it -0.0033.
+     r3-2pgh untinted body mean over the tinted silhouette +0.0089; the code composite moves the tinted mean +0.0128 (the swap's fitted composite measured +0.0158); growth +0.0133. The untinted twin: native 0.2046, candidate 0.1998 (error 0.0048). To pass, the untinted body may rise by at most +0.0052 here; the candidate raises it +0.0089.
+     r3-2pgb untinted body mean over the tinted silhouette +0.0089; the code composite moves the tinted mean +0.0128 (the swap's fitted composite measured +0.0158); growth +0.0133. The untinted twin: native 0.2046, candidate 0.1998 (error 0.0048). To pass, the untinted body may rise by at most +0.0052 here; the candidate raises it +0.0089.
+     r3-2psb untinted body mean over the tinted silhouette +0.0168; the code composite moves the tinted mean +0.0242 (the swap's fitted composite measured +0.0277); growth +0.0251. The untinted twin: native 0.2046, candidate 0.2083 (error 0.0037). To pass, the untinted body may rise by at most +0.0052 here; the candidate raises it +0.0168.

@@ -1,0 +1,26 @@
+# replica fast path against the original functions: max |difference| 5.68e-14 (1x md checker)
+dark-rest      1x checkerboard__rrect-md__rest             k 0.16 | model sn 1.642/1.693 sw 49.53/3.31 lam -0.029/-0.045 w 0.000/0.000 | S +0.0000/-0.0000 | ESF 1.723/1.693
+dark-rest      1x checkerboard__capsule-button__rest       k 0.00 | model sn 1.696/1.693 sw 36.60/3.39 lam +0.055/-0.042 w 0.811/0.000 | S -0.0000/-0.0000 | ESF 1.714/1.693
+dark-rest      1x checkerboard__rrect-ml__rest             no capture or fewer than 200 px on the joint core
+dark-rest      1x checkerboard-8__rrect-md__rest           k 0.00 | model sn 8.369/1.842 sw 9.76/13.92 lam -0.040/-0.003 w 0.601/0.253 | S +0.0000/-0.0000 | ESF 2.357/2.029
+dark-rest      1x checkerboard-32__rrect-md__rest          k 0.32 | model sn 1.649/1.721 sw 21.11/14.83 lam +0.025/+0.000 w 0.786/0.235 | S -0.0200*/+0.0000* | ESF 1.825/1.808 | heavy canvas 20.12 / shape 6.89
+dark-rest      1x checkerboard-64__rrect-md__rest          k 0.43 | model sn 1.737/1.740 sw 19.61/18.79 lam +0.012/+0.020 w 0.497/0.479 | S -0.0019*/+0.0000* | ESF 2.155/2.178 | heavy canvas 33.08 / Rfp 12.48
+dark-rest      1x checkerboard-64__rrect-ml__rest          k 0.52 | model sn 1.714/1.720 sw 16.53/17.04 lam -0.032/-0.003 w 0.544/0.548 | S -0.0139*/-0.0002* | ESF 2.363/2.353 | heavy Rfp 12.60 / Rfp 12.79
+dark-rest      1x checkerboard-64__capsule-button__rest    k 0.27 | model sn 1.663/1.730 sw 15.30/38.76 lam +0.006/+0.002 w 0.256/0.879 | S +0.0210*/-0.0006* | ESF 1.853/1.918
+dark-rest      1x checkerboard-4__rrect-md__rest           k 0.29 | model sn 0.000/0.852 sw 2.20/11.31 lam +1.600/-0.000 w 0.979/0.835 | S - | ESF 0.971/0.325
+dark-rest      1x impulse__rrect-md__rest                  no capture or fewer than 200 px on the joint core
+dark-rest      1x impulse__capsule-button__rest            k 0.36 | impulse single 1.712/1.682 s1 1.556/1.662 k 0.477/0.934
+dark-rest      1x impulse__rrect-ml__rest                  no capture or fewer than 200 px on the joint core
+dark-rest      2x checkerboard__rrect-md__rest             k 0.64 | model sn 0.906/0.898 sw 11.55/11.56 lam +0.006/+0.000 w 0.990/0.990 | S +0.0000/+0.0000 | ESF 2.365/2.241
+dark-rest      2x checkerboard__capsule-button__rest       k 0.42 | model sn 0.857/0.864 sw 5.74/7.31 lam +0.021/+0.001 w 0.479/0.668 | S +0.0000/+0.0000 | ESF 1.501/1.386
+dark-rest      2x checkerboard__rrect-ml__rest             no capture or fewer than 200 px on the joint core
+dark-rest      2x checkerboard-8__rrect-md__rest           k 0.51 | model sn 0.886/0.884 sw 12.41/29.41 lam +0.034/+0.001 w 0.690/0.844 | S -0.0000/-0.0000 | ESF 0.956/0.9
+dark-rest      2x checkerboard-32__rrect-md__rest          k 0.80 | model sn 0.968/0.951 sw 4.64/4.54 lam +0.011/+0.004 w 0.734/0.743 | S +0.0015*/+0.0000* | ESF 3.441/3.254 | heavy box 6.35 / shape 5.16
+dark-rest      2x checkerboard-64__rrect-md__rest          k 0.90 | model sn 1.292/1.254 sw 4.93/4.91 lam +0.030/+0.031 w 0.773/0.783 | S +0.0054*/+0.0003* | ESF 3.836/3.826 | heavy group 12.73 / Rfp 7.71
+dark-rest      2x checkerboard-64__rrect-ml__rest          k 0.92 | model sn 1.289/1.380 sw 5.59/5.64 lam +0.005/-0.003 w 0.777/0.767 | S +0.0018*/+0.0007* | ESF 3.831/3.881 | heavy group 10.00 / box 7.60
+dark-rest      2x checkerboard-64__capsule-button__rest    k 0.68 | model sn 1.139/0.934 sw 5.69/4.79 lam -0.026/+0.033 w 0.543/0.602 | S -0.0162*/-0.0015* | ESF 2.538/2.789
+dark-rest      2x checkerboard-4__rrect-md__rest           k 0.81 | model sn 0.374/0.884 sw 2.81/3.56 lam +0.050/-0.000 w 0.998/0.985 | S - | ESF 5.35/1.017
+dark-rest      2x impulse__rrect-md__rest                  no capture or fewer than 200 px on the joint core
+dark-rest      2x impulse__capsule-button__rest            k 0.78 | impulse single 2.189/2.112 s1 1.099/0.898 k 0.735/0.748
+dark-rest      2x impulse__rrect-ml__rest                  no capture or fewer than 200 px on the joint core
+# dark-rest done in 172 s

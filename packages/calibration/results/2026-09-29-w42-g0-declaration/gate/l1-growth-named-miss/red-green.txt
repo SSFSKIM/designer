@@ -1,0 +1,86 @@
+W42 G0 — L1 growth's named-miss path (charter Decision Log 5d, RULED): red / green record
+=========================================================================================
+
+The fix-wave item A1 (the parent's design call on the declaration assembler's open items, review
+of b151aff4): L1's growth clause gains the recorded-miss path M2 has (Decision Log 5a), in
+test/adopted-thresholds.test.ts beside L1's `MISSES`:
+  GROWTH_RULED    Decision Log 5d's four cell-profiles: light photo__rrect-md__inactive-tint-orange
+                  and dark photo__capsule-button__inactive-tint-orange, 1x and 2x.
+  growthVerdict   a growth miss (> 0.005) on a ruled cell is NAMED; anywhere else it is a FAILURE.
+  GROWTH_MISSES   the recorded named misses, { measured: <growth>, bound: "≤ 0.005" }. EMPTY today.
+  the growth case excuses a named miss that GROWTH_MISSES records, and nothing else; a failure
+                  fails whether or not an entry names it.
+  the owner case  "L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)":
+                  seeds one cell per arm of growthVerdict; holds the ruled set inside the
+                  population; the named set equal to the recorded set in both directions; each
+                  recorded growth to five decimals; and no growth failure on the live matrix.
+The 0.005 and the absolute clause do not move.
+
+Green, the committed file unseeded: 108 passed | 1 skipped (109) (the skip is W33 X1's UNMEASURED
+capture tree, absent in a worktree, as before this change).
+
+What was seeded, and how
+------------------------
+No edit to the committed test file. red-scenarios.py (beside this file) writes throwaway copies
+into packages/calibration/.scratch-w42-l1-red/. Each copy seeds the growth of named cells in the
+matrix the test loads, and the same cells in the L1 cut beside it (web, error, growth, and the
+cut's growthFailures and absoluteMisses), so "re-derives every recorded mean" stays green and the
+seed reaches only the growth clause and its owner. A cell's seeded web mean is
+n + sign(w - n) (before + g): its error is its W33 baseline error plus the seeded growth g.
+Growths are round 3's r3-2pgb readings on Decision Log 5d's cells (light +0.0108 / +0.0100,
+dark +0.0138 / +0.0133, 1x / 2x; declaration item l1TintedReceded). Every copy ran through a
+scratch vitest config; the directory was deleted afterwards.
+
+  a   the ruled 1x light tinted rrect-md at +0.0108, not listed          RED  (both cases)
+  b   the same, listed at 0.0108                                          GREEN
+  b2  the same, listed at 0.0100 (a stale reading)                        RED  (the owner's pin)
+  c   the same entry, the cell NOT seeded (the miss has closed)           RED  (the owner, both directions)
+  d   the untinted twin photo__rrect-md__inactive at +0.0108, not listed  RED  (a failure)
+  d2  the same, listed                                                    RED  (a failure fails when listed)
+  e   all four ruled cells at their r3-2pgb growths, all four listed      GREEN
+  f   e plus the untinted twin at +0.0108                                 RED  (the fifth blocks)
+
+Output (vitest, colour stripped, durations dropped)
+---------------------------------------------------
+--- a-ruled-unlisted
+     × L1: error growth is at most 0.005, including both existing absolute misses, or is a named growth miss (W42 Decision Log 5d)
+     × L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange: a named growth miss GROWTH_MISSES does not record: expected 0.010800000000000032 to be less than or equal to 0.005
+AssertionError: the named L1 growth misses: expected [ Array(1) ] to deeply equal []
+      Tests  2 failed | 106 passed | 1 skipped (109)
+--- b-ruled-listed
+      Tests  108 passed | 1 skipped (109)
+--- b2-ruled-listed-wrong-measured
+     × L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange: the recorded growth: expected 0.010800000000000032 to be close to 0.01, received difference is 0.0008000000000000316, but expected 0.000005
+      Tests  1 failed | 107 passed | 1 skipped (109)
+--- c-closed-listed
+     × L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: the named L1 growth misses: expected [] to deeply equal [ Array(1) ]
+      Tests  1 failed | 107 passed | 1 skipped (109)
+--- d-unruled-unlisted
+     × L1: error growth is at most 0.005, including both existing absolute misses, or is a named growth miss (W42 Decision Log 5d)
+     × L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive: a failure, which no entry excuses: expected 0.010799999999999976 to be less than or equal to 0.005
+AssertionError: an L1 growth failure on the live matrix: expected [ Array(1) ] to deeply equal []
+      Tests  2 failed | 106 passed | 1 skipped (109)
+--- d2-unruled-listed
+     × L1: error growth is at most 0.005, including both existing absolute misses, or is a named growth miss (W42 Decision Log 5d)
+     × L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive: a failure, which no entry excuses: expected 0.010799999999999976 to be less than or equal to 0.005
+AssertionError: the named L1 growth misses: expected [] to deeply equal [ Array(1) ]
+      Tests  2 failed | 106 passed | 1 skipped (109)
+--- e-four-ruled-listed
+      Tests  108 passed | 1 skipped (109)
+--- f-four-ruled-listed-plus-unruled
+     × L1: error growth is at most 0.005, including both existing absolute misses, or is a named growth miss (W42 Decision Log 5d)
+     × L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive: a failure, which no entry excuses: expected 0.010799999999999976 to be less than or equal to 0.005
+AssertionError: an L1 growth failure on the live matrix: expected [ Array(1) ] to deeply equal []
+      Tests  2 failed | 106 passed | 1 skipped (109)

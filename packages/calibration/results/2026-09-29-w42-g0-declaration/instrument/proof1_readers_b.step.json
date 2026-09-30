@@ -1,0 +1,1528 @@
+[
+ {
+  "ep": "light-inactive",
+  "truth": "LT",
+  "mode": "given",
+  "truth_support": "box/norm",
+  "call": null,
+  "call_gap": 0.0001446360367194921,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/norm",
+   "shape/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "rms": {
+   "canvas/clamp": 0.7836522452196512,
+   "box/clamp": 0.4620609476942266,
+   "box/norm": 0.46015111616130117,
+   "shape/norm": 0.46029575219802066
+  },
+  "region_ranking": [
+   "box/norm",
+   "shape/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "region_gap": 0.018852318416520575,
+  "region": {
+   "canvas/clamp": [
+    6.169269796959526,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/clamp": [
+    0.6834771940869189,
+    "2x|d-d32-hilo-rrect-md:bin24..32"
+   ],
+   "box/norm": [
+    0.5035349991036355,
+    "2x|d-d12-lohi-rrect-md:bin8..16"
+   ],
+   "shape/norm": [
+    0.5223873175201561,
+    "2x|d-d12-lohi-capsule-button:bin4..8"
+   ]
+  },
+  "sw_best": 16.279762541820684,
+  "sw_iv": [
+   15.449107748062984,
+   17.099306224467277
+  ],
+  "sw_true_support": 16.279762541820684,
+  "sw_truth": 16.28,
+  "kn": 2.035,
+  "lam": 0.8,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.46235625986818185,
+   "0": 0.46049686174319615,
+   "4": 0.46029575219802066,
+   "8": 0.4607068906820358,
+   "16": 0.5854554942382518
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 221.0,
+    "bin-32..-24": 220.0,
+    "bin-24..-16": 218.0,
+    "bin-16..-8": 213.0,
+    "bin-8..-4": 205.5,
+    "bin-4..-2": 197.5,
+    "bin-2..0": 191.0,
+    "bin0..2": 186.0,
+    "bin2..4": 182.0,
+    "bin4..8": 177.0,
+    "bin8..16": 168.0,
+    "bin16..24": 161.0,
+    "bin24..32": 156.0,
+    "bin32..48": 154.0,
+    "plateau-lo": 221.0,
+    "plateau-hi": 154.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.5,
+    "bin2..4": 199.5,
+    "bin4..8": 208.0,
+    "bin8..16": 214.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.0,
+    "bin2..4": 197.5,
+    "bin4..8": 205.5,
+    "bin8..16": 213.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   }
+  }
+ },
+ {
+  "ep": "light-inactive",
+  "truth": "LT",
+  "mode": "free",
+  "truth_support": "box/norm",
+  "call": null,
+  "call_gap": 0.0018347136831805555,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "rms": {
+   "canvas/clamp": 0.7761406954197345,
+   "box/clamp": 0.4619793203896094,
+   "box/norm": 0.46014460670642887
+  },
+  "region_ranking": [
+   "box/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "region_gap": 0.1604559279784894,
+  "region": {
+   "canvas/clamp": [
+    5.9785118717638,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/clamp": [
+    0.666199051529361,
+    "2x|d-d32-hilo-rrect-md:bin24..32"
+   ],
+   "box/norm": [
+    0.5057431235508716,
+    "2x|d-d0-lohi-rrect-md:bin8..16"
+   ]
+  },
+  "sw_best": 16.29169028344826,
+  "sw_iv": [
+   14.634743477325657,
+   18.350373791101518
+  ],
+  "sw_true_support": 16.29169028344826,
+  "sw_truth": 16.28,
+  "kn": 2.0368950183039125,
+  "lam": 0.7989136212224003,
+  "w": 0.4988674179898729,
+  "mu": null,
+  "mu_scan": null,
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 221.0,
+    "bin-32..-24": 220.0,
+    "bin-24..-16": 218.0,
+    "bin-16..-8": 213.0,
+    "bin-8..-4": 205.5,
+    "bin-4..-2": 197.5,
+    "bin-2..0": 191.0,
+    "bin0..2": 186.0,
+    "bin2..4": 182.0,
+    "bin4..8": 177.0,
+    "bin8..16": 168.0,
+    "bin16..24": 161.0,
+    "bin24..32": 156.0,
+    "bin32..48": 154.0,
+    "plateau-lo": 221.0,
+    "plateau-hi": 154.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.5,
+    "bin2..4": 199.5,
+    "bin4..8": 208.0,
+    "bin8..16": 214.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.0,
+    "bin2..4": 197.5,
+    "bin4..8": 205.5,
+    "bin8..16": 213.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   }
+  }
+ },
+ {
+  "ep": "light-inactive",
+  "truth": "W-canvas",
+  "mode": "given",
+  "truth_support": "canvas/clamp",
+  "call": "canvas/clamp",
+  "call_gap": 0.11693567593812776,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "canvas/clamp",
+   "shape/norm",
+   "box/clamp",
+   "box/norm"
+  ],
+  "rms": {
+   "canvas/clamp": 0.4537079650936931,
+   "box/clamp": 0.7833927298454902,
+   "box/norm": 0.7846427642076724,
+   "shape/norm": 0.5706436410318209
+  },
+  "region_ranking": [
+   "canvas/clamp",
+   "shape/norm",
+   "box/clamp",
+   "box/norm"
+  ],
+  "region_gap": 2.8732885912393726,
+  "region": {
+   "canvas/clamp": [
+    0.5022708071350053,
+    "2x|d-d12-hilo-rrect-md:bin-16..-8"
+   ],
+   "box/clamp": [
+    7.273175712010925,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/norm": [
+    7.273552917417703,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "shape/norm": [
+    3.375559398374378,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ]
+  },
+  "sw_best": 16.28114074022034,
+  "sw_iv": [
+   15.450417036542657,
+   17.100753332786912
+  ],
+  "sw_true_support": 16.28114074022034,
+  "sw_truth": 16.28,
+  "kn": 2.035,
+  "lam": 0.8,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.7877478534286235,
+   "0": 0.7854313941210871,
+   "4": 0.7843540825359092,
+   "8": 0.7782696194396701,
+   "16": 0.5706436410318209
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 221.0,
+    "bin-32..-24": 220.0,
+    "bin-24..-16": 218.0,
+    "bin-16..-8": 213.0,
+    "bin-8..-4": 205.5,
+    "bin-4..-2": 197.5,
+    "bin-2..0": 191.0,
+    "bin0..2": 186.0,
+    "bin2..4": 182.0,
+    "bin4..8": 177.0,
+    "bin8..16": 168.0,
+    "bin16..24": 161.0,
+    "bin24..32": 156.0,
+    "bin32..48": 154.0,
+    "plateau-lo": 221.0,
+    "plateau-hi": 154.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.5,
+    "bin2..4": 199.5,
+    "bin4..8": 208.0,
+    "bin8..16": 214.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.0,
+    "bin2..4": 197.5,
+    "bin4..8": 205.5,
+    "bin8..16": 213.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   }
+  }
+ },
+ {
+  "ep": "light-inactive",
+  "truth": "edge-swap",
+  "mode": "given",
+  "truth_support": "box/clamp",
+  "call": null,
+  "call_gap": 0.0006049088112871082,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/clamp",
+   "shape/norm",
+   "box/norm",
+   "canvas/clamp"
+  ],
+  "rms": {
+   "canvas/clamp": 0.7781783763241465,
+   "box/clamp": 0.4600230317935201,
+   "box/norm": 0.46188279753604156,
+   "shape/norm": 0.4606279406048072
+  },
+  "region_ranking": [
+   "box/clamp",
+   "shape/norm",
+   "box/norm",
+   "canvas/clamp"
+  ],
+  "region_gap": 0.011361168060432192,
+  "region": {
+   "canvas/clamp": [
+    6.119779770155276,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/clamp": [
+    0.5017737498975521,
+    "2x|d-d12-hilo-rrect-md:bin-16..-8"
+   ],
+   "box/norm": [
+    0.6030786283032796,
+    "2x|d-d32-hilo-rrect-md:bin32..48"
+   ],
+   "shape/norm": [
+    0.5131349179579843,
+    "2x|d-d0-hilo-rrect-md:bin-16..-8"
+   ]
+  },
+  "sw_best": 16.27924324998131,
+  "sw_iv": [
+   15.448614420815577,
+   17.09876096803593
+  ],
+  "sw_true_support": 16.27924324998131,
+  "sw_truth": 16.28,
+  "kn": 2.035,
+  "lam": 0.8,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.46758380482106976,
+   "0": 0.4633276365894174,
+   "4": 0.46140670957001784,
+   "8": 0.4606279406048072,
+   "16": 0.5831794971338626
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 221.0,
+    "bin-32..-24": 220.0,
+    "bin-24..-16": 218.0,
+    "bin-16..-8": 213.0,
+    "bin-8..-4": 205.5,
+    "bin-4..-2": 197.5,
+    "bin-2..0": 191.0,
+    "bin0..2": 186.0,
+    "bin2..4": 182.0,
+    "bin4..8": 177.0,
+    "bin8..16": 168.0,
+    "bin16..24": 161.0,
+    "bin24..32": 156.0,
+    "bin32..48": 154.0,
+    "plateau-lo": 221.0,
+    "plateau-hi": 154.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.5,
+    "bin2..4": 199.5,
+    "bin4..8": 208.0,
+    "bin8..16": 214.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.0,
+    "bin2..4": 197.5,
+    "bin4..8": 205.5,
+    "bin8..16": 213.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   }
+  }
+ },
+ {
+  "ep": "light-rest",
+  "truth": "LT",
+  "mode": "given",
+  "truth_support": "box/clamp",
+  "call": null,
+  "call_gap": 5.598782945592795e-07,
+  "excluded": [
+   {
+    "cell": "d-out16-hilo-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out16-lohi-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-hilo-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-lohi-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   }
+  ],
+  "cells": [
+   "2x|d-d0-hilo-rrect-lg",
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-lg",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/norm",
+   "canvas/clamp",
+   "box/clamp",
+   "shape/norm"
+  ],
+  "rms": {
+   "canvas/clamp": 0.42914918650369993,
+   "box/clamp": 0.42914923853878684,
+   "box/norm": 0.42914862662540537,
+   "shape/norm": 0.4291557259433884
+  },
+  "region_ranking": [
+   "shape/norm",
+   "canvas/clamp",
+   "box/norm",
+   "box/clamp"
+  ],
+  "region_gap": 0.0013623560287214787,
+  "region": {
+   "canvas/clamp": [
+    0.5129570452320991,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "box/clamp": [
+    0.5133280540089231,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "box/norm": [
+    0.5133044605519785,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "shape/norm": [
+    0.5115946892033776,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ]
+  },
+  "sw_best": 15.864335791488978,
+  "sw_iv": [
+   15.054452335247863,
+   16.663108136618984
+  ],
+  "sw_true_support": 15.864352960854095,
+  "sw_truth": 15.864,
+  "kn": 1.983,
+  "lam": 0.88,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.4330859311967689,
+   "0": 0.4304510006653836,
+   "4": 0.4295452074104029,
+   "8": 0.4292595312507584,
+   "16": 0.4291557259433884
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-lg": {
+    "bin-48..-32": 235.0,
+    "bin-32..-24": 234.0,
+    "bin-24..-16": 232.0,
+    "bin-16..-8": 227.0,
+    "bin-8..-4": 217.0,
+    "bin-4..-2": 209.0,
+    "bin-2..0": 204.0,
+    "bin0..2": 199.0,
+    "bin2..4": 195.0,
+    "bin4..8": 189.0,
+    "bin8..16": 180.0,
+    "bin16..24": 170.0,
+    "bin24..32": 165.0,
+    "bin32..48": 162.0,
+    "plateau-lo": 236.0,
+    "plateau-hi": 162.0
+   },
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 233.0,
+    "bin-32..-24": 232.0,
+    "bin-24..-16": 230.0,
+    "bin-16..-8": 226.0,
+    "bin-8..-4": 221.0,
+    "bin-4..-2": 215.0,
+    "bin-2..0": 204.5,
+    "bin0..2": 195.0,
+    "bin2..4": 190.0,
+    "bin4..8": 184.0,
+    "bin8..16": 175.0,
+    "bin16..24": 166.0,
+    "bin24..32": 161.0,
+    "bin32..48": 159.0,
+    "plateau-lo": 233.0,
+    "plateau-hi": 158.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 157.0,
+    "bin-32..-24": 159.0,
+    "bin-24..-16": 164.0,
+    "bin-16..-8": 173.0,
+    "bin-8..-4": 181.5,
+    "bin-4..-2": 187.0,
+    "bin-2..0": 190.5,
+    "bin0..2": 214.0,
+    "bin2..4": 216.0,
+    "bin4..8": 219.0,
+    "bin8..16": 224.0,
+    "bin16..24": 228.0,
+    "bin24..32": 230.0,
+    "bin32..48": 231.0
+   }
+  }
+ },
+ {
+  "ep": "light-rest",
+  "truth": "W-canvas",
+  "mode": "given",
+  "truth_support": "canvas/clamp",
+  "call": null,
+  "call_gap": 4.884326411658257e-07,
+  "excluded": [
+   {
+    "cell": "d-out16-hilo-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out16-lohi-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-hilo-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-lohi-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   }
+  ],
+  "cells": [
+   "2x|d-d0-hilo-rrect-lg",
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-lg",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/norm",
+   "canvas/clamp",
+   "box/clamp",
+   "shape/norm"
+  ],
+  "rms": {
+   "canvas/clamp": 0.42911528533925664,
+   "box/clamp": 0.4291154105455691,
+   "box/norm": 0.42911479690661547,
+   "shape/norm": 0.4291224334535437
+  },
+  "region_ranking": [
+   "shape/norm",
+   "canvas/clamp",
+   "box/norm",
+   "box/clamp"
+  ],
+  "region_gap": 0.0013628849580982205,
+  "region": {
+   "canvas/clamp": [
+    0.5124807783981282,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "box/clamp": [
+    0.5128518290052284,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "box/norm": [
+    0.5128282509152484,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "shape/norm": [
+    0.51111789344003,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ]
+  },
+  "sw_best": 15.863913190294433,
+  "sw_iv": [
+   15.054050864113044,
+   16.66266440536471
+  ],
+  "sw_true_support": 15.864262729876964,
+  "sw_truth": 15.864,
+  "kn": 1.983,
+  "lam": 0.88,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.4330669219976553,
+   "0": 0.4304257810818134,
+   "4": 0.4295160955120151,
+   "8": 0.4292281386610918,
+   "16": 0.4291224334535437
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-lg": {
+    "bin-48..-32": 235.0,
+    "bin-32..-24": 234.0,
+    "bin-24..-16": 232.0,
+    "bin-16..-8": 227.0,
+    "bin-8..-4": 217.0,
+    "bin-4..-2": 209.0,
+    "bin-2..0": 204.0,
+    "bin0..2": 199.0,
+    "bin2..4": 195.0,
+    "bin4..8": 189.0,
+    "bin8..16": 180.0,
+    "bin16..24": 170.0,
+    "bin24..32": 165.0,
+    "bin32..48": 162.0,
+    "plateau-lo": 236.0,
+    "plateau-hi": 162.0
+   },
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 233.0,
+    "bin-32..-24": 232.0,
+    "bin-24..-16": 230.0,
+    "bin-16..-8": 226.0,
+    "bin-8..-4": 221.0,
+    "bin-4..-2": 215.0,
+    "bin-2..0": 204.5,
+    "bin0..2": 195.0,
+    "bin2..4": 190.0,
+    "bin4..8": 184.0,
+    "bin8..16": 175.0,
+    "bin16..24": 166.0,
+    "bin24..32": 161.0,
+    "bin32..48": 159.0,
+    "plateau-lo": 233.0,
+    "plateau-hi": 158.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 157.0,
+    "bin-32..-24": 159.0,
+    "bin-24..-16": 164.0,
+    "bin-16..-8": 173.0,
+    "bin-8..-4": 181.5,
+    "bin-4..-2": 187.0,
+    "bin-2..0": 190.5,
+    "bin0..2": 214.0,
+    "bin2..4": 216.0,
+    "bin4..8": 219.0,
+    "bin8..16": 224.0,
+    "bin16..24": 228.0,
+    "bin24..32": 230.0,
+    "bin32..48": 231.0
+   }
+  }
+ },
+ {
+  "ep": "light-rest",
+  "truth": "edge-swap",
+  "mode": "given",
+  "truth_support": "box/norm",
+  "call": null,
+  "call_gap": 6.811770943415674e-07,
+  "excluded": [
+   {
+    "cell": "d-out16-hilo-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out16-lohi-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-hilo-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-lohi-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   }
+  ],
+  "cells": [
+   "2x|d-d0-hilo-rrect-lg",
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-lg",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/norm",
+   "canvas/clamp",
+   "box/clamp",
+   "shape/norm"
+  ],
+  "rms": {
+   "canvas/clamp": 0.4291527695156723,
+   "box/clamp": 0.42915282931346244,
+   "box/norm": 0.429152088338578,
+   "shape/norm": 0.4291588822523736
+  },
+  "region_ranking": [
+   "shape/norm",
+   "canvas/clamp",
+   "box/norm",
+   "box/clamp"
+  ],
+  "region_gap": 0.001361532111161523,
+  "region": {
+   "canvas/clamp": [
+    0.5130112226024153,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "box/clamp": [
+    0.5133822294649235,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "box/norm": [
+    0.5133589377085741,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ],
+   "shape/norm": [
+    0.5116496904912538,
+    "2x|d-d0-hilo-rrect-md:bin8..16"
+   ]
+  },
+  "sw_best": 15.864376622035834,
+  "sw_iv": [
+   15.054491124267377,
+   16.663151008693184
+  ],
+  "sw_true_support": 15.864376622035834,
+  "sw_truth": 15.864,
+  "kn": 1.983,
+  "lam": 0.88,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.43308430467925185,
+   "0": 0.43045112257375434,
+   "4": 0.4295465612211265,
+   "8": 0.42926175538415867,
+   "16": 0.4291588822523736
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-lg": {
+    "bin-48..-32": 235.0,
+    "bin-32..-24": 234.0,
+    "bin-24..-16": 232.0,
+    "bin-16..-8": 227.0,
+    "bin-8..-4": 217.0,
+    "bin-4..-2": 209.0,
+    "bin-2..0": 204.0,
+    "bin0..2": 199.0,
+    "bin2..4": 195.0,
+    "bin4..8": 189.0,
+    "bin8..16": 180.0,
+    "bin16..24": 170.0,
+    "bin24..32": 165.0,
+    "bin32..48": 162.0,
+    "plateau-lo": 236.0,
+    "plateau-hi": 162.0
+   },
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 233.0,
+    "bin-32..-24": 232.0,
+    "bin-24..-16": 230.0,
+    "bin-16..-8": 226.0,
+    "bin-8..-4": 221.0,
+    "bin-4..-2": 215.0,
+    "bin-2..0": 204.5,
+    "bin0..2": 195.0,
+    "bin2..4": 190.0,
+    "bin4..8": 184.0,
+    "bin8..16": 175.0,
+    "bin16..24": 166.0,
+    "bin24..32": 161.0,
+    "bin32..48": 159.0,
+    "plateau-lo": 233.0,
+    "plateau-hi": 158.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 157.0,
+    "bin-32..-24": 159.0,
+    "bin-24..-16": 164.0,
+    "bin-16..-8": 173.0,
+    "bin-8..-4": 181.5,
+    "bin-4..-2": 187.0,
+    "bin-2..0": 190.5,
+    "bin0..2": 214.0,
+    "bin2..4": 216.0,
+    "bin4..8": 219.0,
+    "bin8..16": 224.0,
+    "bin16..24": 228.0,
+    "bin24..32": 230.0,
+    "bin32..48": 231.0
+   }
+  }
+ },
+ {
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "mode": "given",
+  "truth_support": "box/norm",
+  "call": null,
+  "call_gap": 0.00038623196269349513,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/norm",
+   "shape/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "rms": {
+   "canvas/clamp": 0.8958464559253235,
+   "box/clamp": 0.3751685077336107,
+   "box/norm": 0.3708753554443803,
+   "shape/norm": 0.37126158740707377
+  },
+  "region_ranking": [
+   "shape/norm",
+   "box/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "region_gap": 0.01593638614902204,
+  "region": {
+   "canvas/clamp": [
+    6.613416928390222,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/clamp": [
+    0.6372545575041499,
+    "2x|d-d32-hilo-rrect-md:bin16..24"
+   ],
+   "box/norm": [
+    0.4394727810120429,
+    "2x|d-d32-hilo-rrect-md:bin24..32"
+   ],
+   "shape/norm": [
+    0.42353639486302086,
+    "2x|d-d12-lohi-capsule-button:bin-48..-32"
+   ]
+  },
+  "sw_best": 16.587299007071568,
+  "sw_iv": [
+   15.741267390051323,
+   17.422219512980703
+  ],
+  "sw_true_support": 16.587299007071568,
+  "sw_truth": 16.592,
+  "kn": 2.074,
+  "lam": 0.8,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.3760772892512552,
+   "0": 0.3719035835892558,
+   "4": 0.37126158740707377,
+   "8": 0.37205872892437375,
+   "16": 0.5882623878971207
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 125.0,
+    "bin-32..-24": 124.0,
+    "bin-24..-16": 124.0,
+    "bin-16..-8": 123.0,
+    "bin-8..-4": 121.0,
+    "bin-4..-2": 118.0,
+    "bin-2..0": 116.0,
+    "bin0..2": 110.5,
+    "bin2..4": 102.5,
+    "bin4..8": 93.0,
+    "bin8..16": 80.0,
+    "bin16..24": 72.0,
+    "bin24..32": 68.0,
+    "bin32..48": 66.0,
+    "plateau-lo": 125.0,
+    "plateau-hi": 65.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 68.0,
+    "bin-32..-24": 70.0,
+    "bin-24..-16": 75.0,
+    "bin-16..-8": 83.0,
+    "bin-8..-4": 95.5,
+    "bin-4..-2": 109.0,
+    "bin-2..0": 121.0,
+    "bin0..2": 130.5,
+    "bin2..4": 136.0,
+    "bin4..8": 143.0,
+    "bin8..16": 151.0,
+    "bin16..24": 158.0,
+    "bin24..32": 162.0,
+    "bin32..48": 164.0,
+    "plateau-lo": 67.0,
+    "plateau-hi": 164.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 66.0,
+    "bin-32..-24": 68.0,
+    "bin-24..-16": 72.0,
+    "bin-16..-8": 80.0,
+    "bin-8..-4": 93.0,
+    "bin-4..-2": 102.5,
+    "bin-2..0": 110.5,
+    "bin0..2": 116.0,
+    "bin2..4": 118.0,
+    "bin4..8": 121.0,
+    "bin8..16": 123.0,
+    "bin16..24": 124.0,
+    "bin24..32": 124.0,
+    "bin32..48": 125.0,
+    "plateau-lo": 65.0,
+    "plateau-hi": 125.0
+   }
+  }
+ },
+ {
+  "ep": "dark-inactive",
+  "truth": "edge-swap",
+  "mode": "given",
+  "truth_support": "box/clamp",
+  "call": null,
+  "call_gap": 0.0016267039349640022,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/clamp",
+   "shape/norm",
+   "box/norm",
+   "canvas/clamp"
+  ],
+  "rms": {
+   "canvas/clamp": 0.886504316362474,
+   "box/clamp": 0.370591094492686,
+   "box/norm": 0.3749155115804009,
+   "shape/norm": 0.37221779842765
+  },
+  "region_ranking": [
+   "box/clamp",
+   "shape/norm",
+   "box/norm",
+   "canvas/clamp"
+  ],
+  "region_gap": 0.007639180290922809,
+  "region": {
+   "canvas/clamp": [
+    6.559441575495114,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/clamp": [
+    0.4448595737161867,
+    "2x|d-d12-lohi-capsule-button:bin-48..-32"
+   ],
+   "box/norm": [
+    0.5426583604549791,
+    "2x|d-d32-hilo-rrect-md:bin16..24"
+   ],
+   "shape/norm": [
+    0.4524987540071095,
+    "2x|d-d0-lohi-capsule-button:bin8..16"
+   ]
+  },
+  "sw_best": 16.588359016275493,
+  "sw_iv": [
+   15.742274398795052,
+   17.423332522644824
+  ],
+  "sw_true_support": 16.588359016275493,
+  "sw_truth": 16.592,
+  "kn": 2.074,
+  "lam": 0.8,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.3875069211341894,
+   "0": 0.3784166317053712,
+   "4": 0.37407399524407753,
+   "8": 0.37221779842765,
+   "16": 0.5845015141881323
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 125.0,
+    "bin-32..-24": 124.0,
+    "bin-24..-16": 124.0,
+    "bin-16..-8": 123.0,
+    "bin-8..-4": 121.0,
+    "bin-4..-2": 118.0,
+    "bin-2..0": 116.0,
+    "bin0..2": 110.5,
+    "bin2..4": 102.5,
+    "bin4..8": 93.0,
+    "bin8..16": 80.0,
+    "bin16..24": 72.0,
+    "bin24..32": 68.0,
+    "bin32..48": 66.0,
+    "plateau-lo": 125.0,
+    "plateau-hi": 65.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 68.0,
+    "bin-32..-24": 70.0,
+    "bin-24..-16": 75.0,
+    "bin-16..-8": 83.0,
+    "bin-8..-4": 95.5,
+    "bin-4..-2": 109.0,
+    "bin-2..0": 121.0,
+    "bin0..2": 130.5,
+    "bin2..4": 136.0,
+    "bin4..8": 143.0,
+    "bin8..16": 151.0,
+    "bin16..24": 158.0,
+    "bin24..32": 162.0,
+    "bin32..48": 164.0,
+    "plateau-lo": 67.0,
+    "plateau-hi": 164.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 66.0,
+    "bin-32..-24": 68.0,
+    "bin-24..-16": 72.0,
+    "bin-16..-8": 80.0,
+    "bin-8..-4": 93.0,
+    "bin-4..-2": 102.5,
+    "bin-2..0": 110.5,
+    "bin0..2": 116.0,
+    "bin2..4": 118.0,
+    "bin4..8": 121.0,
+    "bin8..16": 123.0,
+    "bin16..24": 124.0,
+    "bin24..32": 124.0,
+    "bin32..48": 125.0,
+    "plateau-lo": 65.0,
+    "plateau-hi": 125.0
+   }
+  }
+ },
+ {
+  "ep": "dark-rest",
+  "truth": "LT",
+  "mode": "given",
+  "truth_support": "box/clamp",
+  "call": null,
+  "call_gap": 1.0336461786497608e-07,
+  "excluded": [
+   {
+    "cell": "d-out16-hilo-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out16-lohi-rrect-md",
+    "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-hilo-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   },
+   {
+    "cell": "d-out8-lohi-rrect-md",
+    "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+   }
+  ],
+  "cells": [
+   "2x|d-d0-hilo-rrect-lg",
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-lg",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md"
+  ],
+  "ranking": [
+   "box/clamp",
+   "canvas/clamp",
+   "box/norm",
+   "shape/norm"
+  ],
+  "rms": {
+   "canvas/clamp": 0.373487307802408,
+   "box/clamp": 0.37348720443779015,
+   "box/norm": 0.3734887674610725,
+   "shape/norm": 0.3735104830918227
+  },
+  "region_ranking": [
+   "box/clamp",
+   "box/norm",
+   "canvas/clamp",
+   "shape/norm"
+  ],
+  "region_gap": 0.00010927745299227354,
+  "region": {
+   "canvas/clamp": [
+    0.6014727537482969,
+    "2x|d-d0-lohi-capsule-button:bin-8..-4"
+   ],
+   "box/clamp": [
+    0.6013216182646488,
+    "2x|d-d0-lohi-capsule-button:bin-8..-4"
+   ],
+   "box/norm": [
+    0.6014308957176411,
+    "2x|d-d0-lohi-capsule-button:bin-8..-4"
+   ],
+   "shape/norm": [
+    0.6037030561927992,
+    "2x|d-d0-lohi-capsule-button:bin-8..-4"
+   ]
+  },
+  "sw_best": 16.75461098603644,
+  "sw_iv": [
+   15.90021377006795,
+   17.597897090893817
+  ],
+  "sw_true_support": 16.75461098603644,
+  "sw_truth": 16.752,
+  "kn": 2.094,
+  "lam": 0.9,
+  "w": 0.5,
+  "mu": null,
+  "mu_scan": {
+   "-4": 0.3802685050875433,
+   "0": 0.3759412041684952,
+   "4": 0.3743135339487248,
+   "8": 0.37374735482378735,
+   "16": 0.3735104830918227
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-lg": {
+    "bin-48..-32": 125.0,
+    "bin-32..-24": 125.0,
+    "bin-24..-16": 125.0,
+    "bin-16..-8": 124.0,
+    "bin-8..-4": 123.0,
+    "bin-4..-2": 120.0,
+    "bin-2..0": 119.0,
+    "bin0..2": 115.0,
+    "bin2..4": 109.0,
+    "bin4..8": 99.0,
+    "bin8..16": 85.0,
+    "bin16..24": 76.0,
+    "bin24..32": 72.0,
+    "bin32..48": 69.0,
+    "plateau-lo": 126.0,
+    "plateau-hi": 69.0
+   },
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 131.0,
+    "bin-32..-24": 131.0,
+    "bin-24..-16": 130.0,
+    "bin-16..-8": 129.0,
+    "bin-8..-4": 127.0,
+    "bin-4..-2": 125.0,
+    "bin-2..0": 122.0,
+    "bin0..2": 113.5,
+    "bin2..4": 102.0,
+    "bin4..8": 94.0,
+    "bin8..16": 86.0,
+    "bin16..24": 80.0,
+    "bin24..32": 76.0,
+    "bin32..48": 73.0,
+    "plateau-lo": 131.0,
+    "plateau-hi": 73.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 77.0,
+    "bin-32..-24": 79.0,
+    "bin-24..-16": 84.0,
+    "bin-16..-8": 92.0,
+    "bin-8..-4": 99.0,
+    "bin-4..-2": 104.0,
+    "bin-2..0": 107.0,
+    "bin0..2": 138.0,
+    "bin2..4": 142.0,
+    "bin4..8": 148.0,
+    "bin8..16": 155.0,
+    "bin16..24": 162.0,
+    "bin24..32": 165.0,
+    "bin32..48": 167.0
+   }
+  }
+ },
+ {
+  "ep": "light-inactive",
+  "truth": "W-shape",
+  "mode": "given",
+  "truth_support": "shape/norm",
+  "call": null,
+  "call_gap": 0.0004970033814764574,
+  "excluded": [],
+  "cells": [
+   "2x|d-d0-hilo-rrect-md",
+   "2x|d-d0-lohi-capsule-button",
+   "2x|d-d0-lohi-rrect-md",
+   "2x|d-d0-lohi-rrect-sm",
+   "2x|d-d12-hilo-rrect-md",
+   "2x|d-d12-lohi-capsule-button",
+   "2x|d-d12-lohi-rrect-md",
+   "2x|d-d32-hilo-rrect-md",
+   "2x|d-d32-lohi-rrect-md",
+   "2x|d-out16-hilo-rrect-md",
+   "2x|d-out16-lohi-rrect-md",
+   "2x|d-out8-hilo-rrect-md",
+   "2x|d-out8-lohi-rrect-md"
+  ],
+  "ranking": [
+   "shape/norm",
+   "box/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "rms": {
+   "canvas/clamp": 0.786691003602133,
+   "box/clamp": 0.46625124596322576,
+   "box/norm": 0.46027586249477287,
+   "shape/norm": 0.4597788591132964
+  },
+  "region_ranking": [
+   "shape/norm",
+   "box/norm",
+   "box/clamp",
+   "canvas/clamp"
+  ],
+  "region_gap": 0.13051660012041566,
+  "region": {
+   "canvas/clamp": [
+    6.202920556328678,
+    "2x|d-out8-lohi-rrect-md:bin-24..-16"
+   ],
+   "box/clamp": [
+    1.0396904126218942,
+    "2x|d-d0-lohi-rrect-sm:bin-24..-16"
+   ],
+   "box/norm": [
+    0.6511027912322902,
+    "2x|d-d0-lohi-rrect-sm:bin-24..-16"
+   ],
+   "shape/norm": [
+    0.5205861911118745,
+    "2x|d-d12-lohi-capsule-button:bin4..8"
+   ]
+  },
+  "sw_best": 16.280127550259866,
+  "sw_iv": [
+   15.449454506080206,
+   17.099689483328415
+  ],
+  "sw_true_support": 16.280127550259866,
+  "sw_truth": 16.28,
+  "kn": 2.035,
+  "lam": 0.8,
+  "w": 0.5,
+  "mu": 4.0,
+  "mu_scan": {
+   "-4": 0.4672787994509494,
+   "0": 0.4610853042897908,
+   "4": 0.4597788591132964,
+   "8": 0.46059347805654793,
+   "16": 0.5864118961024626
+  },
+  "verdict_support": "PASS",
+  "verdict_sw": "PASS",
+  "stats": {
+   "2x|d-d0-hilo-rrect-md": {
+    "bin-48..-32": 221.0,
+    "bin-32..-24": 220.0,
+    "bin-24..-16": 218.0,
+    "bin-16..-8": 213.0,
+    "bin-8..-4": 205.5,
+    "bin-4..-2": 197.5,
+    "bin-2..0": 191.0,
+    "bin0..2": 186.0,
+    "bin2..4": 182.0,
+    "bin4..8": 177.0,
+    "bin8..16": 168.0,
+    "bin16..24": 161.0,
+    "bin24..32": 156.0,
+    "bin32..48": 154.0,
+    "plateau-lo": 221.0,
+    "plateau-hi": 154.0
+   },
+   "2x|d-d0-lohi-capsule-button": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.5,
+    "bin2..4": 199.5,
+    "bin4..8": 208.0,
+    "bin8..16": 214.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   },
+   "2x|d-d0-lohi-rrect-md": {
+    "bin-48..-32": 154.0,
+    "bin-32..-24": 156.0,
+    "bin-24..-16": 161.0,
+    "bin-16..-8": 168.0,
+    "bin-8..-4": 177.0,
+    "bin-4..-2": 182.0,
+    "bin-2..0": 186.0,
+    "bin0..2": 191.0,
+    "bin2..4": 197.5,
+    "bin4..8": 205.5,
+    "bin8..16": 213.0,
+    "bin16..24": 218.0,
+    "bin24..32": 220.0,
+    "bin32..48": 221.0,
+    "plateau-lo": 154.0,
+    "plateau-hi": 221.0
+   }
+  },
+  "bed": "764217e1",
+  "engine": "fix-b151aff4"
+ }
+]

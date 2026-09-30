@@ -1,0 +1,47 @@
+W42 sitting length from real timings (timing.py; timing.json has every input)
+
+W39 G1 admitted runs read: 40 (bed and sentinel; preflight excluded).
+A run is modelled as its measured overhead (wall - capture span) + (n - 1) capture intervals.
+Normal 2x: overhead 11.93 s, interval 9.5463 s (cross-check fit wall = 5.46 s + 9.5297 s x n)
+Normal 1x: overhead 10.96 s, interval 9.522 s (cross-check fit wall = -2.4 s + 9.5411 s x n)
+Long 2x / 1x: overhead 18.27 / 17.35 s, interval 16.0 / 16.0 s
+Normal 2x: wall = 5.46 s + 9.5297 s x n  (interval median 9.5463 s; 14 runs, 3136 captures)
+Normal 1x: wall = -2.4 s + 9.5411 s x n  (interval median 9.522 s; 14 runs)
+Long 2x / 1x (sentinels, 4 cells a run): all-in 16.5637 / 16.3529 s per capture; interval median 16.0 / 16.0 s
+Gap between runs (next open - previous close), median: 1.2 s; between passes: [6.5, 6.6, 6.7, 7.2, 7.4, 7.4, 7.5] s
+memo D dumps: 8.131 s per scene at settle 8 + 6.23 s per launch (24 scenes 201.38 s; 4 scenes at settle 16 70.75 s)
+
+W42 (pass-spec.py plan: 3,129 glass + 264 references + 48 sentinel captures; 447 dump scenes):
+  dump-2x-light-active            87 scenes      713.6 s
+  dump-2x-light-receded           92 scenes      754.3 s
+  dump-2x-dark-active            101 scenes      827.5 s
+  dump-2x-dark-receded           107 scenes      876.2 s
+  dump-1x-light-active            14 scenes      120.1 s
+  dump-1x-light-receded           16 scenes      136.3 s
+  dump-1x-dark-active             14 scenes      120.1 s
+  dump-1x-dark-receded            16 scenes      136.3 s
+  2x-light-active                655 captures     6269.5 s
+  2x-light-receded               700 captures     6699.1 s
+  2x-dark-active                 763 captures     7300.5 s
+  2x-dark-receded                817 captures     7816.0 s
+  2x-light-active-sentinel         6 captures      102.8 s
+  2x-light-receded-sentinel        6 captures      102.8 s
+  2x-dark-active-sentinel          6 captures      102.8 s
+  2x-dark-receded-sentinel         6 captures      102.8 s
+  1x-light-active                107 captures     1028.9 s
+  1x-light-receded               122 captures     1171.8 s
+  1x-dark-active                 107 captures     1028.9 s
+  1x-dark-receded                122 captures     1171.8 s
+  1x-light-active-sentinel         6 captures      100.1 s
+  1x-light-receded-sentinel        6 captures      100.1 s
+  1x-dark-active-sentinel          6 captures      100.1 s
+  1x-dark-receded-sentinel         6 captures      100.1 s
+
+captures   33297.9 s = 9.25 h
+dumps       3684.4 s = 1.02 h
+gaps         104.4 s (87 gaps x 1.2 s)
+switches      28.8 s (4 display mode switches at the W39 pass-gap median)
+TOTAL      37115.5 s = 10.31 h
+
+Charter v2.1 model: 31367.8 s capture (8.71 h) + about 3,450 s dumps = 9.67 h.
+Excluded: idle waits beyond the measured gaps, quarantines, the grant switch and the rehearsal.

@@ -1,0 +1,371 @@
+{
+ "schema": "w42-sitting-timing-1",
+ "sources": {
+  "w39Attest": "packages/calibration/results/2026-09-26-w39-g1-colour-edge-sitting/attest",
+  "memoDDumps": "/Users/new/vitrea-w42/grounding/dumps/runs",
+  "w39AdmittedRuns": 40
+ },
+ "w39Fits": {
+  "normal-1x": {
+   "runs": 14,
+   "captures": 3136,
+   "wallSeconds": 29887.4,
+   "perCaptureFit": 9.5411,
+   "perRunFit": -2.4,
+   "intervalMedian": 9.522,
+   "intervalMean": 9.5233,
+   "overheadMedian": 10.96,
+   "secondsPerCaptureAllIn": 9.5304
+  },
+  "normal-2x": {
+   "runs": 14,
+   "captures": 3136,
+   "wallSeconds": 29961.4,
+   "perCaptureFit": 9.5297,
+   "perRunFit": 5.46,
+   "intervalMedian": 9.5463,
+   "intervalMean": 9.5439,
+   "overheadMedian": 11.93,
+   "secondsPerCaptureAllIn": 9.554
+  },
+  "long-1x": {
+   "runs": 6,
+   "captures": 24,
+   "wallSeconds": 392.5,
+   "perCaptureFit": null,
+   "perRunFit": null,
+   "intervalMedian": 16.0,
+   "intervalMean": 16.0,
+   "overheadMedian": 17.35,
+   "secondsPerCaptureAllIn": 16.3529
+  },
+  "long-2x": {
+   "runs": 6,
+   "captures": 24,
+   "wallSeconds": 397.5,
+   "perCaptureFit": null,
+   "perRunFit": null,
+   "intervalMedian": 16.0,
+   "intervalMean": 16.0556,
+   "overheadMedian": 18.27,
+   "secondsPerCaptureAllIn": 16.5637
+  }
+ },
+ "w39GapBetweenRunsMedian": 1.2,
+ "w39GapBetweenPasses": [
+  {
+   "after": "active-1x/run-7",
+   "before": "active-2x/run-1",
+   "seconds": 7.2
+  },
+  {
+   "after": "active-2x/run-7",
+   "before": "inactive-1x/run-1",
+   "seconds": 7.5
+  },
+  {
+   "after": "inactive-1x/run-7",
+   "before": "inactive-2x/run-1",
+   "seconds": 7.4
+  },
+  {
+   "after": "inactive-2x/run-7",
+   "before": "active-1x-sentinel/run-1",
+   "seconds": 7.4
+  },
+  {
+   "after": "active-1x-sentinel/run-3",
+   "before": "active-2x-sentinel/run-1",
+   "seconds": 6.5
+  },
+  {
+   "after": "active-2x-sentinel/run-3",
+   "before": "inactive-1x-sentinel/run-1",
+   "seconds": 6.6
+  },
+  {
+   "after": "inactive-1x-sentinel/run-3",
+   "before": "inactive-2x-sentinel/run-1",
+   "seconds": 6.7
+  }
+ ],
+ "memoDDumps": {
+  "runs": [
+   {
+    "run": "1x-dark-active",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 201.0
+   },
+   {
+    "run": "1x-dark-inactive",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 201.0
+   },
+   {
+    "run": "1x-light-active",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 202.0
+   },
+   {
+    "run": "1x-light-inactive",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 202.0
+   },
+   {
+    "run": "2x-dark-active",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 201.0
+   },
+   {
+    "run": "2x-dark-active-settle16",
+    "scenes": 4,
+    "settle": 16,
+    "wall": 71.0
+   },
+   {
+    "run": "2x-dark-inactive",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 201.0
+   },
+   {
+    "run": "2x-dark-inactive-settle16",
+    "scenes": 4,
+    "settle": 16,
+    "wall": 70.0
+   },
+   {
+    "run": "2x-light-active",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 201.0
+   },
+   {
+    "run": "2x-light-active-settle16",
+    "scenes": 4,
+    "settle": 16,
+    "wall": 71.0
+   },
+   {
+    "run": "2x-light-inactive",
+    "scenes": 24,
+    "settle": 8,
+    "wall": 202.0
+   },
+   {
+    "run": "2x-light-inactive-settle16",
+    "scenes": 4,
+    "settle": 16,
+    "wall": 71.0
+   }
+  ],
+  "meanWall24AtSettle8": 201.38,
+  "meanWall4AtSettle16": 70.75,
+  "perSceneBeyondSettle": 0.131,
+  "perLaunch": 6.23,
+  "settle": 8,
+  "perSceneAtSettle8": 8.131
+ },
+ "w42": {
+  "passes": [
+   {
+    "name": "dump-2x-light-active",
+    "kind": "dump",
+    "scenes": 87,
+    "seconds": 713.6
+   },
+   {
+    "name": "dump-2x-light-receded",
+    "kind": "dump",
+    "scenes": 92,
+    "seconds": 754.3
+   },
+   {
+    "name": "dump-2x-dark-active",
+    "kind": "dump",
+    "scenes": 101,
+    "seconds": 827.5
+   },
+   {
+    "name": "dump-2x-dark-receded",
+    "kind": "dump",
+    "scenes": 107,
+    "seconds": 876.2
+   },
+   {
+    "name": "dump-1x-light-active",
+    "kind": "dump",
+    "scenes": 14,
+    "seconds": 120.1
+   },
+   {
+    "name": "dump-1x-light-receded",
+    "kind": "dump",
+    "scenes": 16,
+    "seconds": 136.3
+   },
+   {
+    "name": "dump-1x-dark-active",
+    "kind": "dump",
+    "scenes": 14,
+    "seconds": 120.1
+   },
+   {
+    "name": "dump-1x-dark-receded",
+    "kind": "dump",
+    "scenes": 16,
+    "seconds": 136.3
+   },
+   {
+    "name": "2x-light-active",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 655,
+    "seconds": 6269.5,
+    "crossCheckSeconds": 6280.2
+   },
+   {
+    "name": "2x-light-receded",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 700,
+    "seconds": 6699.1,
+    "crossCheckSeconds": 6709.0
+   },
+   {
+    "name": "2x-dark-active",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 763,
+    "seconds": 7300.5,
+    "crossCheckSeconds": 7309.4
+   },
+   {
+    "name": "2x-dark-receded",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 817,
+    "seconds": 7816.0,
+    "crossCheckSeconds": 7824.0
+   },
+   {
+    "name": "2x-light-active-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 102.8,
+    "crossCheckSeconds": null
+   },
+   {
+    "name": "2x-light-receded-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 102.8,
+    "crossCheckSeconds": null
+   },
+   {
+    "name": "2x-dark-active-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 102.8,
+    "crossCheckSeconds": null
+   },
+   {
+    "name": "2x-dark-receded-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 102.8,
+    "crossCheckSeconds": null
+   },
+   {
+    "name": "1x-light-active",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 107,
+    "seconds": 1028.9,
+    "crossCheckSeconds": 1004.1
+   },
+   {
+    "name": "1x-light-receded",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 122,
+    "seconds": 1171.8,
+    "crossCheckSeconds": 1147.2
+   },
+   {
+    "name": "1x-dark-active",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 107,
+    "seconds": 1028.9,
+    "crossCheckSeconds": 1004.1
+   },
+   {
+    "name": "1x-dark-receded",
+    "kind": "bed",
+    "runs": 7,
+    "captures": 122,
+    "seconds": 1171.8,
+    "crossCheckSeconds": 1147.2
+   },
+   {
+    "name": "1x-light-active-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 100.1,
+    "crossCheckSeconds": null
+   },
+   {
+    "name": "1x-light-receded-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 100.1,
+    "crossCheckSeconds": null
+   },
+   {
+    "name": "1x-dark-active-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 100.1,
+    "crossCheckSeconds": null
+   },
+   {
+    "name": "1x-dark-receded-sentinel",
+    "kind": "sentinel",
+    "runs": 3,
+    "captures": 6,
+    "seconds": 100.1,
+    "crossCheckSeconds": null
+   }
+  ],
+  "captureSeconds": 33297.9,
+  "dumpSeconds": 3684.4,
+  "launches": 88,
+  "interRunGapSeconds": 104.4,
+  "modeSwitches": 4,
+  "modeSwitchSeconds": 28.8,
+  "totalSeconds": 37115.5,
+  "totalHours": 10.31,
+  "captureHours": 9.25,
+  "dumpHours": 1.02
+ },
+ "charter": {
+  "modelSeconds": 31367.8,
+  "modelHours": 8.71,
+  "dumpModelSeconds": 3450,
+  "modelTotalHours": 9.67
+ },
+ "excludes": "waiting for HID idle beyond the measured gaps, quarantines and continuations, the grant switch and the pre-sitting rehearsal"
+}

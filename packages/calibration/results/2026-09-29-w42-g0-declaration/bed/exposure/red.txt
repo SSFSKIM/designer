@@ -1,0 +1,419 @@
+test_candidate_2_failing_does_not_fail_candidate_1 (test_runner.CandidateTwoFails.test_candidate_2_failing_does_not_fail_candidate_1) ... ERROR
+test_censored_cell_is_neither_pass_nor_coverage (test_runner.Censoring.test_censored_cell_is_neither_pass_nor_coverage) ... ERROR
+test_censoring_cannot_hide_a_binding_miss (test_runner.Censoring.test_censoring_cannot_hide_a_binding_miss) ... ERROR
+test_other_unmeasured_is_a_procedural_failure (test_runner.Censoring.test_other_unmeasured_is_a_procedural_failure) ... ERROR
+test_claims_must_name_endpoints_with_holdout_cells (test_runner.Freeze.test_claims_must_name_endpoints_with_holdout_cells) ... ERROR
+test_failed_pre_exposure_survival_refuses_freeze (test_runner.Freeze.test_failed_pre_exposure_survival_refuses_freeze) ... ERROR
+test_inventory_admission_bounds_the_scope (test_runner.Freeze.test_inventory_admission_bounds_the_scope) ... ERROR
+test_missing_prediction_refuses_freeze (test_runner.Freeze.test_missing_prediction_refuses_freeze) ... ERROR
+test_one_landed_t_candidate_is_required_and_roles_are_unique (test_runner.Freeze.test_one_landed_t_candidate_is_required_and_roles_are_unique) ... ERROR
+test_production_freeze_refuses_without_the_g1_inventory_pin (test_runner.Freeze.test_production_freeze_refuses_without_the_g1_inventory_pin) ... ERROR
+test_real_backend_is_w41s_capture_web_on_the_w42_scenes_file (test_runner.Freeze.test_real_backend_is_w41s_capture_web_on_the_w42_scenes_file) ... ERROR
+test_synthetic_mode_refuses_the_production_declaration_and_log (test_runner.Freeze.test_synthetic_mode_refuses_the_production_declaration_and_log) ... ERROR
+test_numerical_law_failure_leaves_nothing_landable (test_runner.LawFails.test_numerical_law_failure_leaves_nothing_landable) ... ERROR
+test_both_candidates_and_the_law_are_bound_in_one_receipt (test_runner.Lifecycle.test_both_candidates_and_the_law_are_bound_in_one_receipt) ... ERROR
+test_changed_frozen_png_fails_and_spends (test_runner.Lifecycle.test_changed_frozen_png_fails_and_spends) ... ERROR
+test_changed_projection_fails_and_spends (test_runner.Lifecycle.test_changed_projection_fails_and_spends) ... ERROR
+test_frozen_input_mutation_refused_before_begin (test_runner.Lifecycle.test_frozen_input_mutation_refused_before_begin) ... ERROR
+test_holdout_only_is_exposed_and_probe_is_excluded_with_reason (test_runner.Lifecycle.test_holdout_only_is_exposed_and_probe_is_excluded_with_reason) ... ERROR
+test_holdout_reader_refused_outside_receipt_admitted_inside (test_runner.Lifecycle.test_holdout_reader_refused_outside_receipt_admitted_inside) ... ERROR
+test_process_kill_after_persistence_leaves_scores_without_retry (test_runner.Lifecycle.test_process_kill_after_persistence_leaves_scores_without_retry) ... ERROR
+test_score_callback_mutation_is_refused (test_runner.Lifecycle.test_score_callback_mutation_is_refused) ... ERROR
+test_scorer_exception_fails_without_invented_scores (test_runner.Lifecycle.test_scorer_exception_fails_without_invented_scores) ... ERROR
+test_scores_are_persisted_before_aggregation (test_runner.Lifecycle.test_scores_are_persisted_before_aggregation) ... ERROR
+test_second_attempt_refused_once_spent (test_runner.Lifecycle.test_second_attempt_refused_once_spent) ... ERROR
+test_scope_of_the_declared_bed (test_runner.RealDeclarationScope.test_scope_of_the_declared_bed) ... ERROR
+test_unclaimed_endpoint_is_scored_and_reported_not_claimed (test_runner.UnclaimedEndpoint.test_unclaimed_endpoint_is_scored_and_reported_not_claimed) ... ERROR
+
+======================================================================
+ERROR: test_candidate_2_failing_does_not_fail_candidate_1 (test_runner.CandidateTwoFails.test_candidate_2_failing_does_not_fail_candidate_1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_censored_cell_is_neither_pass_nor_coverage (test_runner.Censoring.test_censored_cell_is_neither_pass_nor_coverage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_censoring_cannot_hide_a_binding_miss (test_runner.Censoring.test_censoring_cannot_hide_a_binding_miss)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_other_unmeasured_is_a_procedural_failure (test_runner.Censoring.test_other_unmeasured_is_a_procedural_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_claims_must_name_endpoints_with_holdout_cells (test_runner.Freeze.test_claims_must_name_endpoints_with_holdout_cells)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_failed_pre_exposure_survival_refuses_freeze (test_runner.Freeze.test_failed_pre_exposure_survival_refuses_freeze)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_inventory_admission_bounds_the_scope (test_runner.Freeze.test_inventory_admission_bounds_the_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_missing_prediction_refuses_freeze (test_runner.Freeze.test_missing_prediction_refuses_freeze)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_one_landed_t_candidate_is_required_and_roles_are_unique (test_runner.Freeze.test_one_landed_t_candidate_is_required_and_roles_are_unique)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_production_freeze_refuses_without_the_g1_inventory_pin (test_runner.Freeze.test_production_freeze_refuses_without_the_g1_inventory_pin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_real_backend_is_w41s_capture_web_on_the_w42_scenes_file (test_runner.Freeze.test_real_backend_is_w41s_capture_web_on_the_w42_scenes_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_synthetic_mode_refuses_the_production_declaration_and_log (test_runner.Freeze.test_synthetic_mode_refuses_the_production_declaration_and_log)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_numerical_law_failure_leaves_nothing_landable (test_runner.LawFails.test_numerical_law_failure_leaves_nothing_landable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_both_candidates_and_the_law_are_bound_in_one_receipt (test_runner.Lifecycle.test_both_candidates_and_the_law_are_bound_in_one_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_changed_frozen_png_fails_and_spends (test_runner.Lifecycle.test_changed_frozen_png_fails_and_spends)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_changed_projection_fails_and_spends (test_runner.Lifecycle.test_changed_projection_fails_and_spends)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_frozen_input_mutation_refused_before_begin (test_runner.Lifecycle.test_frozen_input_mutation_refused_before_begin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_holdout_only_is_exposed_and_probe_is_excluded_with_reason (test_runner.Lifecycle.test_holdout_only_is_exposed_and_probe_is_excluded_with_reason)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_holdout_reader_refused_outside_receipt_admitted_inside (test_runner.Lifecycle.test_holdout_reader_refused_outside_receipt_admitted_inside)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_process_kill_after_persistence_leaves_scores_without_retry (test_runner.Lifecycle.test_process_kill_after_persistence_leaves_scores_without_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_score_callback_mutation_is_refused (test_runner.Lifecycle.test_score_callback_mutation_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_scorer_exception_fails_without_invented_scores (test_runner.Lifecycle.test_scorer_exception_fails_without_invented_scores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_scores_are_persisted_before_aggregation (test_runner.Lifecycle.test_scores_are_persisted_before_aggregation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_second_attempt_refused_once_spent (test_runner.Lifecycle.test_second_attempt_refused_once_spent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_scope_of_the_declared_bed (test_runner.RealDeclarationScope.test_scope_of_the_declared_bed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 552, in test_scope_of_the_declared_bed
+    numerical, excluded = runner.declared_scope(wave, web=False)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 22, in declared_scope
+    def declared_scope(wave, web=False): raise NotImplementedError
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_unclaimed_endpoint_is_scored_and_reported_not_claimed (test_runner.UnclaimedEndpoint.test_unclaimed_endpoint_is_scored_and_reported_not_claimed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 134, in setUp
+    self.manifest = self.freeze()
+                    ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/test_runner.py", line 167, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w42/g0-bed/packages/calibration/results/2026-09-29-w42-g0-declaration/bed/exposure/runner.py", line 23, in freeze
+    def freeze(*args, **kwargs): raise NotImplementedError
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 26 tests in 6.468s
+
+FAILED (errors=26)
+exit=1

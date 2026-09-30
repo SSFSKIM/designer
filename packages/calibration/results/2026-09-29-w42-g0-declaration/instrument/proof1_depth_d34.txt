@@ -1,0 +1,13 @@
+W42 G0 proof 1 addendum: the md depth sweep with the d34 patch (pin 5d719b60; narrow reader, descriptive)
+  light-rest  LT       c-s8-hi-rrect-md         depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  LT       c-s8-hi-d34-rrect-md     depth  34.2 ratio 0.871 expect 0.856 PASS across
+  light-rest  LT       c-s8-hi-d24-rrect-md     depth  24.2 ratio 0.811 expect 0.749 MISS across
+  light-rest  free-sn  c-s8-hi-rrect-md         depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  free-sn  c-s8-hi-d34-rrect-md     depth  34.2 ratio 0.992 expect 1.000 PASS across
+  light-rest  free-sn  c-s8-hi-d24-rrect-md     depth  24.2 ratio 1.008 expect 1.000 PASS across
+  dark-rest   LT       c-s8-lo-rrect-md         depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   LT       c-s8-lo-d34-rrect-md     depth  34.2 ratio 0.998 expect 0.856 MISS across
+  dark-rest   LT       c-s8-lo-d24-rrect-md     depth  24.2 ratio 0.661 expect 0.749 MISS across
+  dark-rest   free-sn  c-s8-lo-rrect-md         depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   free-sn  c-s8-lo-d34-rrect-md     depth  34.2 ratio 0.924 expect 1.000 MISS across
+  dark-rest   free-sn  c-s8-lo-d24-rrect-md     depth  24.2 ratio 0.55 expect 1.000 MISS across

@@ -1,0 +1,95 @@
+The swap's own error, measured (rehearsal control): the sealed W41 E3 body swapped onto the
+canonical shipped capture (swap.py --variant e3ctl) against W41 G2's REAL stage capture of that
+same body (/Users/new/vitrea-w41/g2-captures/canonical-stage, receded 003940b4c7da), light
+receded cells, calibration/validation/probe roles only (a holdout cell is dropped by role before
+any path is formed). Reported per cell: rms codes by depth band, and the interior mean linear
+luminance over the shape (depth > 0) of the swap minus the real capture, the quantity L1 reads.
+cell                                                                      0-2    2-8   8-18    18+   dMeanLin  max|d|
+1x-light-standard-glass0.5/checkerboard-32__rrect-lg__inactive           2.03   0.34   0.26   0.22   +0.00042     12
+1x-light-standard-glass0.5/checkerboard-4__rrect-md__inactive            1.24   0.28   0.21   0.17   +0.00020      7
+1x-light-standard-glass0.5/checkerboard-64__rrect-lg__inactive           1.92   0.40   0.28   0.21   +0.00030     11
+1x-light-standard-glass0.5/checkerboard-64__rrect-md__inactive           1.32   0.37   0.26   0.21   +0.00029      7
+1x-light-standard-glass0.5/checkerboard-8__rrect-lg__inactive            2.05   0.39   0.24   0.06   +0.00012     12
+1x-light-standard-glass0.5/checkerboard-8__rrect-md__inactive            1.33   0.35   0.25   0.09   +0.00017      7
+1x-light-standard-glass0.5/checkerboard-lc16__capsule-button__inactive   0.40   0.27   0.15   0.12   +0.00037      1
+1x-light-standard-glass0.5/checkerboard-lc16__rrect-md__inactive         0.41   0.26   0.24   0.29   +0.00041      1
+1x-light-standard-glass0.5/checkerboard__capsule-button__inactive        0.19   0.08   0.15   0.00   +0.00008      1
+1x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue   0.24   0.27   0.20   0.39   -0.00017      1
+1x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange   0.24   0.27   0.20   0.39   -0.00017      1
+1x-light-standard-glass0.5/checkerboard__rrect-md__inactive              1.28   0.26   0.26   0.07   +0.00020      7
+1x-light-standard-glass0.5/checkerboard__rrect-ml__inactive              1.70   0.31   0.21   0.12   +0.00020      9
+1x-light-standard-glass0.5/checkerboard__rrect-sm__inactive              0.68   0.17   0.13      -   +0.00024      4
+1x-light-standard-glass0.5/checkerboard__toolbar-group__inactive         0.34   0.15   0.13   0.00   +0.00009      1
+1x-light-standard-glass0.5/dark-solid__capsule-button__inactive          0.31   0.00   0.00   0.00   -0.00003      1
+1x-light-standard-glass0.5/dark-solid__capsule-button__inactive-tint-orange   0.00   0.00   0.00   0.00   +0.00000      0
+1x-light-standard-glass0.5/dark-solid__rrect-lg__inactive                0.15   0.00   0.00   0.00   +0.00000      1
+1x-light-standard-glass0.5/dark-solid__rrect-md__inactive                0.35   0.00   0.00   0.00   +0.00001      1
+1x-light-standard-glass0.5/hc-text-28__rrect-md__inactive                0.89   0.26   0.23   0.17   +0.00029      5
+1x-light-standard-glass0.5/hc-text-7__rrect-md__inactive                 0.98   0.34   0.25   0.20   +0.00031      6
+1x-light-standard-glass0.5/hc-text__rrect-lg__inactive                   1.29   0.37   0.24   0.20   +0.00035      9
+1x-light-standard-glass0.5/impulse__capsule-button__inactive             0.12   0.06   0.12   0.11   +0.00003      1
+1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange   0.33   0.22   0.29   0.42   -0.00012      2
+1x-light-standard-glass0.5/impulse__rrect-lg__inactive                   2.64   0.20   0.12   0.07   +0.00008     14
+1x-light-standard-glass0.5/impulse__rrect-md__inactive                   0.45   0.20   0.09   0.06   +0.00003      2
+1x-light-standard-glass0.5/impulse__rrect-ml__inactive                   0.69   0.15   0.07   0.06   +0.00002      5
+1x-light-standard-glass0.5/light-solid__capsule-button__inactive         0.18   0.00   0.00   0.00   +0.00002      1
+1x-light-standard-glass0.5/light-solid__capsule-button__inactive-tint-orange   0.55   0.58   0.58   0.58   +0.00052      1
+1x-light-standard-glass0.5/light-solid__rrect-lg__inactive               0.28   0.00   0.00   0.00   -0.00000      1
+1x-light-standard-glass0.5/light-solid__rrect-md__inactive               0.30   0.00   0.00   0.00   -0.00000      1
+1x-light-standard-glass0.5/light-solid__rrect-ml__inactive               0.28   0.00   0.00   0.00   +0.00000      1
+1x-light-standard-glass0.5/mid-chroma-solid__rrect-lg__inactive          2.17   0.00   0.00   0.00   +0.00004     16
+1x-light-standard-glass0.5/mid-dark-solid__rrect-lg__inactive            0.45   0.00   0.00   0.00   -0.00001      2
+1x-light-standard-glass0.5/photo__capsule-button__inactive               0.30   0.21   0.22   0.19   +0.00028      1
+1x-light-standard-glass0.5/photo__capsule-button__inactive-tint-blue     0.28   0.17   0.20   0.22   +0.00020      2
+1x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange   0.28   0.17   0.20   0.22   +0.00020      2
+1x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange-half   0.29   0.22   0.22   0.23   +0.00028      1
+1x-light-standard-glass0.5/photo__rrect-md__inactive                     1.04   0.42   0.24   0.22   +0.00032     11
+1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange         0.46   0.26   0.22   0.20   +0.00023      3
+1x-light-standard-glass0.5/photo__rrect-ml__inactive                     2.09   0.41   0.24   0.22   +0.00033     24
+1x-light-standard-glass0.5/photo__rrect-sm__inactive                     0.46   0.26   0.21      -   +0.00020      2
+1x-light-standard-glass0.5/photo__toolbar-group__inactive                0.38   0.23   0.22   0.24   +0.00037      2
+2x-light-standard-glass0.5/checkerboard-32__rrect-lg__inactive           2.33   0.43   0.31   0.20   +0.00036     21
+2x-light-standard-glass0.5/checkerboard-4__rrect-md__inactive            1.64   0.24   0.10   0.06   +0.00013     13
+2x-light-standard-glass0.5/checkerboard-64__rrect-lg__inactive           2.47   0.52   0.34   0.18   +0.00019     20
+2x-light-standard-glass0.5/checkerboard-64__rrect-md__inactive           0.79   0.61   0.39   0.19   +0.00018      7
+2x-light-standard-glass0.5/checkerboard-8__rrect-lg__inactive            2.33   0.27   0.12   0.09   +0.00014     20
+2x-light-standard-glass0.5/checkerboard-8__rrect-md__inactive            1.64   0.25   0.13   0.13   +0.00022     13
+2x-light-standard-glass0.5/checkerboard-lc16__capsule-button__inactive   0.34   0.21   0.23   0.22   +0.00038      1
+2x-light-standard-glass0.5/checkerboard-lc16__rrect-md__inactive         0.39   0.29   0.26   0.26   +0.00043      2
+2x-light-standard-glass0.5/checkerboard__capsule-button__inactive        0.28   0.19   0.19   0.23   +0.00028      1
+2x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue   0.31   0.23   0.22   0.22   +0.00005      1
+2x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange   0.31   0.23   0.22   0.22   +0.00005      1
+2x-light-standard-glass0.5/checkerboard__rrect-md__inactive              1.66   0.30   0.27   0.25   +0.00049     13
+2x-light-standard-glass0.5/checkerboard__rrect-ml__inactive              2.02   0.32   0.26   0.23   +0.00043     18
+2x-light-standard-glass0.5/checkerboard__rrect-sm__inactive              0.87   0.22   0.20      -   +0.00028      6
+2x-light-standard-glass0.5/checkerboard__toolbar-group__inactive         0.30   0.19   0.20   0.25   +0.00024      2
+2x-light-standard-glass0.5/dark-solid__capsule-button__inactive          0.16   0.00   0.00   0.00   -0.00000      1
+2x-light-standard-glass0.5/dark-solid__capsule-button__inactive-tint-orange   0.12   0.00   0.00   0.00   -0.00001      1
+2x-light-standard-glass0.5/dark-solid__rrect-lg__inactive                0.24   0.00   0.00   0.00   +0.00000      1
+2x-light-standard-glass0.5/dark-solid__rrect-md__inactive                0.24   0.00   0.00   0.00   +0.00000      1
+2x-light-standard-glass0.5/hc-text-28__rrect-md__inactive                1.25   0.30   0.22   0.23   +0.00033     10
+2x-light-standard-glass0.5/hc-text-7__rrect-md__inactive                 1.24   0.26   0.18   0.16   +0.00027     10
+2x-light-standard-glass0.5/hc-text__rrect-lg__inactive                   1.21   0.26   0.26   0.19   +0.00034     13
+2x-light-standard-glass0.5/impulse__capsule-button__inactive             0.39   0.36   0.39   0.44   +0.00057      1
+2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange   0.26   0.27   0.26   0.25   +0.00018      2
+2x-light-standard-glass0.5/impulse__rrect-lg__inactive                   3.48   0.43   0.40   0.56   +0.00110     24
+2x-light-standard-glass0.5/impulse__rrect-md__inactive                   0.72   0.56   0.71   0.53   +0.00126      5
+2x-light-standard-glass0.5/impulse__rrect-ml__inactive                   0.93   0.70   0.70   0.59   +0.00150      8
+2x-light-standard-glass0.5/light-solid__capsule-button__inactive         0.17   0.00   0.00   0.00   +0.00001      1
+2x-light-standard-glass0.5/light-solid__capsule-button__inactive-tint-orange   0.56   0.58   0.58   0.58   +0.00049      1
+2x-light-standard-glass0.5/light-solid__rrect-lg__inactive               0.21   0.00   0.00   0.00   +0.00000      1
+2x-light-standard-glass0.5/light-solid__rrect-md__inactive               0.23   0.00   0.00   0.00   +0.00001      1
+2x-light-standard-glass0.5/light-solid__rrect-ml__inactive               0.20   0.00   0.00   0.00   -0.00000      1
+2x-light-standard-glass0.5/mid-chroma-solid__rrect-lg__inactive          2.67   0.00   0.00   0.00   +0.00004     29
+2x-light-standard-glass0.5/mid-dark-solid__rrect-lg__inactive            0.53   0.00   0.00   0.00   -0.00001      4
+2x-light-standard-glass0.5/photo__capsule-button__inactive               0.25   0.20   0.21   0.22   +0.00025      1
+2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-blue     0.25   0.19   0.20   0.22   +0.00021      2
+2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange   0.25   0.19   0.20   0.22   +0.00021      2
+2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange-half   0.22   0.18   0.20   0.19   +0.00019      1
+2x-light-standard-glass0.5/photo__rrect-md__inactive                     1.40   0.47   0.25   0.23   +0.00032     20
+2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange         0.54   0.28   0.21   0.20   +0.00023      4
+2x-light-standard-glass0.5/photo__rrect-ml__inactive                     2.57   0.45   0.25   0.22   +0.00033     40
+2x-light-standard-glass0.5/photo__rrect-sm__inactive                     0.51   0.30   0.21      -   +0.00019      5
+2x-light-standard-glass0.5/photo__toolbar-group__inactive                0.28   0.21   0.22   0.21   +0.00030      2
+
+largest |interior mean| error (linear luminance; L1 bounds 0.055, growth 0.005): [(0.001501038302569646, 'apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-ml__inactive'), (0.0012639002061172189, 'apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-md__inactive'), (0.0011000725532340494, 'apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-lg__inactive'), (0.0005688859304146809, 'apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive'), (0.0005188154687576496, 'apple-macos-27.0-1x-light-standard-glass0.5/light-solid__capsule-button__inactive-tint-orange')]

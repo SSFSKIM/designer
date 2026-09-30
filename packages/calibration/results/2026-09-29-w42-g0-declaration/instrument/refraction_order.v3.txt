@@ -1,0 +1,55 @@
+W42 G0 refraction-order test v3 (tolerances.json refraction_order_test.v3_2026-09-30, declared in 79152643
+before this proof): LT fitted on both scales of families A-E at the narrow mask; 2x cells vote.
+S1 = D_tail (BEFORE > 0.30, AFTER < 0.15); S2 = A_hat, the lens projection (BEFORE >= 8 pt, AFTER < 4 pt).
+P = LT's pooled rms over the fitted cells. Sensitivity: an LT truth, the stand-in lens before the blur at A;
+specificity: each declared rival as an AFTER truth, no lens.
+
+  dark-rest  sensitivity LT truth, lens A    0              P  0.380  S1 +0.051 AFTER      S2   +0.01 pt AFTER      k 2.0941 lam 0.900  S1 top b-p5-c16-rrect-lg 0.07, e-by-c16-rrect-lg 0.06, c-s8-lo-rrect-md 0.05
+  dark-rest  sensitivity LT truth, lens A  2.0              P  0.382  S1 +0.051 AFTER      S2   +1.27 pt AFTER      k 2.0888 lam 0.899  S1 top b-p5-c16-rrect-lg 0.07, e-by-c16-rrect-lg 0.06, c-s8-lo-rrect-md 0.05
+  dark-rest  sensitivity LT truth, lens A  4.0              P  0.390  S1 +0.051 AFTER      S2   +3.03 pt AFTER      k 2.0836 lam 0.896  S1 top b-p5-c16-rrect-lg 0.07, e-by-c16-rrect-lg 0.06, c-s8-lo-rrect-md 0.05
+  dark-rest  sensitivity LT truth, lens A  8.0              P  0.437  S1 +0.135 AFTER      S2   +6.61 pt undecided  k 2.0768 lam 0.892  S1 top b-p4-c64-rrect-md 0.20, b-p2-c64-rrect-md 0.16, b-p5-c16-rrect-lg 0.07
+  dark-rest  sensitivity LT truth, lens A 16.0              P  0.578  S1 +1.162 BEFORE     S2  +13.12 pt BEFORE     k 2.0530 lam 0.898  S1 top b-p4-c64-rrect-md 1.86, b-p2-c64-rrect-md 1.21, b-p3-c64-rrect-md 0.44
+  dark-rest  specificity rival C-linear                     P  1.627  S1 +1.341 BEFORE     S2  +20.75 pt BEFORE     k 2.4433 lam 0.844  S1 top bp-p1-c64-rrect-ml 1.72, bp-p1-c32-rrect-lg 1.17, b-p2-c64-rrect-md 1.16
+  dark-rest  specificity rival K2                           P  0.619  S1 +0.112 AFTER      S2   +1.53 pt AFTER      k 2.0092 lam 0.852  S1 top b-p2-c64-rrect-md 0.23, b-p5-c16-rrect-lg 0.07, d-d32-hilo-rrect-md 0.06
+  dark-rest  specificity rival LT+bleed                     P  2.333  S1 +1.596 BEFORE     S2  +16.54 pt BEFORE     k 2.8011 lam 0.819  S1 top bp-p1-c32-rrect-lg 2.36, bp-p1-c32-rrect-ml 1.38, bp-p1-c8-rrect-lg 1.07
+  dark-rest  specificity rival LT+bleed-lit-own-post        P  1.636  S1 +2.432 BEFORE     S2   -1.54 pt AFTER      k 2.0885 lam 0.913  S1 top bp-p1-c8-rrect-lg 8.37, e-by-c16-rrect-lg 8.34, e-rg-c16-rrect-lg 8.21
+  dark-rest  specificity rival LT+bleed-lit-own-pre         P  1.068  S1 +3.545 BEFORE     S2   -1.26 pt AFTER      k 2.1071 lam 0.902  S1 top c-impulse-rrect-lg 6.57, e-by-c16-rrect-lg 5.53, bp-p1-c8-rrect-lg 5.48
+  dark-rest  specificity rival LT+bleed-lit-post            P  1.638  S1 +2.437 BEFORE     S2   -1.54 pt AFTER      k 2.0885 lam 0.913  S1 top bp-p1-c8-rrect-lg 8.39, e-by-c16-rrect-lg 8.34, e-rg-c16-rrect-lg 8.21
+  dark-rest  specificity rival LT+bleed-lit-pre             P  1.068  S1 +3.548 BEFORE     S2   -1.26 pt AFTER      k 2.1071 lam 0.902  S1 top c-impulse-rrect-lg 6.57, e-by-c16-rrect-lg 5.53, bp-p1-c8-rrect-lg 5.49
+  dark-rest  specificity rival LT+bleed-own                 P  2.291  S1 +1.564 BEFORE     S2  +16.24 pt BEFORE     k 2.7986 lam 0.819  S1 top bp-p1-c32-rrect-lg 2.35, bp-p1-c32-rrect-ml 1.36, bp-p1-c8-rrect-lg 1.01
+  dark-rest  specificity rival LT-2k                        P  0.568  S1 +0.338 BEFORE     S2   -4.23 pt AFTER      k 2.0088 lam 0.915  S1 top bp-p1-c8-rrect-ml 0.55, b-p2-c64-rrect-md 0.27, bp-p1-c64-rrect-ml 0.22
+  dark-rest  specificity rival R1                           P  1.086  S1 +0.526 BEFORE     S2   +6.44 pt undecided  k 1.9603 lam 0.953  S1 top bp-p1-c32-rrect-ml 0.62, b-p2-c64-rrect-md 0.55, b-p2-c16-rrect-md 0.44
+  dark-rest  specificity rival W-canvas                     P  0.380  S1 +0.051 AFTER      S2   +0.04 pt AFTER      k 2.0940 lam 0.900  S1 top b-p5-c16-rrect-lg 0.07, e-by-c16-rrect-lg 0.06, c-s8-lo-rrect-md 0.05
+  dark-rest  specificity rival W-shape                      P  0.532  S1 +0.073 AFTER      S2   +1.71 pt AFTER      k 2.0536 lam 0.885  S1 top b-p2-c64-rrect-md 0.12, b-p5-c16-rrect-lg 0.07, e-by-c16-rrect-lg 0.06
+  dark-rest  specificity rival W-tails                      P  0.699  S1 +0.246 undecided  S2   -2.22 pt AFTER      k 2.3706 lam 0.902  S1 top b-p2-c64-rrect-md 0.32, bp-p1-c8-rrect-ml 0.25, d-d32-hilo-rrect-md 0.19
+  dark-rest  specificity rival edge-swap                    P  0.393  S1 +0.051 AFTER      S2   -0.24 pt AFTER      k 2.0824 lam 0.898  S1 top b-p5-c16-rrect-lg 0.07, e-by-c16-rrect-lg 0.06, c-s8-lo-rrect-md 0.05
+  dark-rest  specificity rival free-sn                      P  0.919  S1 +0.205 undecided  S2   -6.95 pt AFTER      k 1.9600 lam 0.923  S1 top b-p2-c64-rrect-md 0.46, d-d32-hilo-rrect-md 0.14, e-by-c64-rrect-md 0.04
+  dark-rest  specificity rival knee-luma                    P  1.101  S1 +0.162 undecided  S2   +1.74 pt AFTER      k 2.1378 lam 0.888  S1 top e-rg-c16-rrect-lg 0.27, e-rg-c16-rrect-md 0.13, e-by-c16-rrect-lg 0.11
+  light-rest sensitivity LT truth, lens A    0              P  0.398  S1 +0.052 AFTER      S2   +0.01 pt AFTER      k 1.9830 lam 0.880  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest sensitivity LT truth, lens A  2.0              P  0.401  S1 +0.051 AFTER      S2   +1.37 pt AFTER      k 1.9786 lam 0.879  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest sensitivity LT truth, lens A  4.0              P  0.411  S1 +0.062 AFTER      S2   +3.21 pt AFTER      k 1.9734 lam 0.877  S1 top b-p2-c64-rrect-md 0.08, e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.06
+  light-rest sensitivity LT truth, lens A  8.0              P  0.457  S1 +0.176 undecided  S2   +6.53 pt undecided  k 1.9674 lam 0.872  S1 top b-p2-c64-rrect-md 0.31, b-p4-c64-rrect-md 0.12, b-p3-c64-rrect-md 0.11
+  light-rest sensitivity LT truth, lens A 16.0              P  0.624  S1 +1.368 BEFORE     S2  +13.57 pt BEFORE     k 1.9388 lam 0.873  S1 top b-p2-c64-rrect-md 1.99, b-p4-c64-rrect-md 1.14, b-p5-c64-rrect-md 0.98
+  light-rest specificity rival C-linear                     P  2.285  S1 +0.998 BEFORE     S2   -2.69 pt AFTER      k 1.8745 lam 0.937  S1 top bp-p1-c64-rrect-ml 1.73, c-s8-hi-d24-rrect-md 0.72, c-s8-hi-d40-rrect-lg 0.55
+  light-rest specificity rival K2                           P  0.601  S1 +0.107 AFTER      S2   +2.27 pt AFTER      k 1.8468 lam 0.842  S1 top bp-p1-c8-rrect-ml 0.19, b-p3-c16-rrect-lg 0.07, b-p5-c16-rrect-lg 0.06
+  light-rest specificity rival LT+bleed                     P  0.529  S1 +0.145 AFTER      S2   +1.59 pt AFTER      k 2.0597 lam 0.869  S1 top bp-p1-c32-rrect-lg 0.22, bp-p1-c8-rrect-lg 0.12, b-p2-c64-rrect-md 0.10
+  light-rest specificity rival LT+bleed-lit-own-post        P  0.398  S1 +0.052 AFTER      S2   +0.01 pt AFTER      k 1.9830 lam 0.880  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest specificity rival LT+bleed-lit-own-pre         P  0.398  S1 +0.052 AFTER      S2   +0.01 pt AFTER      k 1.9830 lam 0.880  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest specificity rival LT+bleed-lit-post            P  0.398  S1 +0.052 AFTER      S2   +0.01 pt AFTER      k 1.9830 lam 0.880  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest specificity rival LT+bleed-lit-pre             P  0.398  S1 +0.052 AFTER      S2   +0.01 pt AFTER      k 1.9830 lam 0.880  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest specificity rival LT+bleed-own                 P  0.530  S1 +0.145 AFTER      S2   +1.59 pt AFTER      k 2.0597 lam 0.869  S1 top bp-p1-c32-rrect-lg 0.22, bp-p1-c8-rrect-lg 0.12, b-p2-c64-rrect-md 0.10
+  light-rest specificity rival LT-2k                        P  0.549  S1 +0.261 undecided  S2   -2.32 pt AFTER      k 2.0339 lam 0.892  S1 top bp-p1-c8-rrect-ml 0.50, b-p5-c16-rrect-lg 0.16, b-p3-c16-rrect-lg 0.12
+  light-rest specificity rival R1                           P  0.408  S1 +0.051 AFTER      S2   -0.03 pt AFTER      k 1.9867 lam 0.880  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest specificity rival W-canvas                     P  0.398  S1 +0.052 AFTER      S2   +0.03 pt AFTER      k 1.9830 lam 0.880  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest specificity rival W-shape                      P  0.481  S1 +0.108 AFTER      S2   +2.01 pt AFTER      k 1.9584 lam 0.879  S1 top b-p2-c64-rrect-md 0.20, b-p3-c64-rrect-md 0.07, e-by-c16-rrect-lg 0.06
+  light-rest specificity rival W-tails                      P  0.743  S1 +0.292 undecided  S2   -0.57 pt AFTER      k 2.3039 lam 0.865  S1 top bp-p1-c8-rrect-ml 0.37, d-d0-lohi-rrect-md 0.27, d-d0-hilo-rrect-md 0.24
+  light-rest specificity rival edge-swap                    P  0.403  S1 +0.052 AFTER      S2   -0.09 pt AFTER      k 1.9777 lam 0.881  S1 top e-by-c16-rrect-lg 0.06, b-p3-c16-rrect-lg 0.05, c-s8-lo-rrect-md 0.05
+  light-rest specificity rival free-sn                      P  0.757  S1 +0.113 AFTER      S2   -3.44 pt AFTER      k 1.9059 lam 0.899  S1 top c-s8-hi-d40-rrect-lg 0.15, b-p2-c64-rrect-md 0.14, c-s8-hi-d24-rrect-md 0.06
+  light-rest specificity rival knee-luma                    P  1.291  S1 +0.342 BEFORE     S2   -0.89 pt AFTER      k 1.9966 lam 0.853  S1 top e-rg-c64-rrect-md 0.51, e-rg-c16-rrect-lg 0.37, e-by-c16-rrect-lg 0.15
+
+VALIDITY (per endpoint and statistic): P*_S, the pooled rms below which the statistic is admitted;
+its resolution (the smallest lens reading BEFORE); whether it would admit LT at memo E's 2.1 codes.
+  dark-rest|S1   P* 0.568 (the first non-AFTER specificity row); resolution 16.0; AFTER truth reads AFTER: True; admits LT at 2.1 codes: False; false non-AFTER: [('C-linear', 1.627), ('LT+bleed', 2.333), ('LT+bleed-lit-own-post', 1.636), ('LT+bleed-lit-own-pre', 1.068), ('LT+bleed-lit-post', 1.638), ('LT+bleed-lit-pre', 1.068), ('LT+bleed-own', 2.291), ('LT-2k', 0.568), ('R1', 1.086), ('W-tails', 0.699), ('free-sn', 0.919), ('knee-luma', 1.101)]
+  dark-rest|S2   P* 1.086 (the first non-AFTER specificity row); resolution 16.0; AFTER truth reads AFTER: True; admits LT at 2.1 codes: False; false non-AFTER: [('C-linear', 1.627), ('LT+bleed', 2.333), ('LT+bleed-own', 2.291), ('R1', 1.086)]
+  light-rest|S1  P* 0.549 (the first non-AFTER specificity row); resolution 16.0; AFTER truth reads AFTER: True; admits LT at 2.1 codes: False; false non-AFTER: [('C-linear', 2.285), ('LT-2k', 0.549), ('W-tails', 0.743), ('knee-luma', 1.291)]
+  light-rest|S2  P* 2.285 (the leg's range (none reads other than AFTER)); resolution 16.0; AFTER truth reads AFTER: True; admits LT at 2.1 codes: True; false non-AFTER: []

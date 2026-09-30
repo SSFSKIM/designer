@@ -1,0 +1,347 @@
+{
+  "$comment": [
+    "W42 G0 instrument: the tolerances clause 2 requires G0 to declare BEFORE the proofs run.",
+    "Committed before any proof output exists (git history is the timestamp). Each bar is no looser than",
+    "what the grounding readers achieved (charter clause 2): memo C recovered lam and w to +-0.03 and widths",
+    "to +-0.05 CSS px at the quantisation floor (rms 0.40-0.42); memo B recovered widths within 3-10 % and",
+    "the share within 0.03-0.1 at 2x on vitrea's captures; memo E recovered k to three decimals at rms",
+    "0.40-0.42 and separated the wrong reading by >= 2.60 codes and the wrong unit by >= 4.65; memo C's",
+    "two-sided control read the mirror statistic <= 0.024 at p >= 8.",
+    "A reader that misses its bar in proof 1 or proof 3 does not read Apple (clause 2's stop). A parameter",
+    "proof 1 cannot recover to its bar is declared NON-IDENTIFIABLE on this bed before any fit, never",
+    "silently loosened."
+  ],
+  "synthetic_render": {
+    "T": "memo C's native-T table (tone.memo_c_T), per endpoint and span, applied per channel",
+    "quantisation": "y = round(T(M) + U(-0.5, 0.5)), clipped to 0..255 (memo C / memo E's convention)",
+    "floor_rms_codes": [
+      0.4,
+      0.42
+    ],
+    "fit_reaches_floor_if_pooled_rms_at_most": 0.45
+  },
+  "proof1_family_recovery": {
+    "k (every nesting level: global, per scheme, per endpoint)": {
+      "abs": 0.005
+    },
+    "k_n, k_w (LT-2k)": {
+      "abs": 0.005,
+      "note": "k_n is identified only by cells with t > 0 in the active pose"
+    },
+    "lam (per endpoint, every family)": {
+      "abs": 0.03
+    },
+    "sigma_n(span) ordinates (free Gaussian rival)": {
+      "abs_pt": 0.05
+    },
+    "mu (W on the rounded shape, margin)": {
+      "abs_pt": 1.0
+    },
+    "tails: a (weight of the second Gaussian)": {
+      "abs": 0.03
+    },
+    "tails: sigma2 (pt)": {
+      "abs_pt": 2.0
+    },
+    "K2: sk (the knee fill's width, pt)": {
+      "abs_pt": 0.25
+    },
+    "LT + bleed (own scale): k_b": {
+      "abs": 0.05
+    },
+    "discrete choices (support, edge mode, C-linear, per-channel knee, order)": "the true choice's pooled rms at the floor (<= 0.45) and every wrong choice >= 0.10 code worse pooled"
+  },
+  "proof1_statistic_readers": {
+    "model reader (memo C)": {
+      "lam": 0.03,
+      "w": 0.03,
+      "sigma_n_pt": 0.05,
+      "sigma_w_pt": 0.05,
+      "scope": "cells whose narrow width is flat in depth (receded, and active t = 0); on depth-graded cells it reads an effective width, reported, not gated"
+    },
+    "mirror statistic S": {
+      "s1/gain vs lam(1-w)": 0.03,
+      "two-sided linear control |s1/gain|": 0.024,
+      "pitches": ">= 8 pt"
+    },
+    "pitch-64 heavy reader": {
+      "sigma_w": "within 5 %",
+      "support call": "the true support ranks first wherever the supports differ by > 0.05 code rms",
+      "group mean": "rejected"
+    },
+    "ESF reader (memo B)": {
+      "sigma": "within 3 % of the rendered effective narrow width"
+    },
+    "impulse reader (memo B)": {
+      "sigma": "within 3 %",
+      "share": 0.03
+    },
+    "step reader (family D)": {
+      "sigma_w": "within 5 %",
+      "support and edge-mode call": "the true one ranks first wherever they differ by > 0.05 code rms"
+    },
+    "patch and annulus reader (family C)": {
+      "sigma_n": "within 5 %",
+      "sigma_w": "within 5 %"
+    },
+    "depth-graded radius reader": {
+      "sigma_n(edge) / sigma_n(centre)": 0.05,
+      "receded control": "flat within 0.05"
+    },
+    "per-cell lam reader (memo E)": {
+      "lam": 0.03,
+      "interval": "contains the truth",
+      "scope": "knee-identified cells, pitch 16-64"
+    },
+    "hinge-gap reader (memo E)": {
+      "lam per bin": 0.05,
+      "scope": "bins of >= 200 px"
+    }
+  },
+  "proof2_separation": {
+    "rule": [
+      "For a truth family A and a fitted family B: B is fitted to A's quantised synthetic render by least",
+      "squares, then refined by minimax on the region statistics (regions.py) of A's exact render.",
+      "s = max over cells and region statistics of |B's statistic - A's statistic| at that optimum.",
+      "DISTINGUISHED if s > 1.5 codes (B fails clause 6's max(1 code, bar) with room for the median's own",
+      "0.5-code quantisation); UNRESOLVED if s < 0.5 (B survives on A's truth); MARGINAL between, where the",
+      "verdict depends on the measured bar. An unresolved or marginal pair is a bed question and is",
+      "reported with the cell or family that would separate it."
+    ],
+    "rejected nulls against LT (memo E's control, on the new bed's geometry)": {
+      "mixture reading pooled rms": ">= 2.60",
+      "texel or device-px units pooled rms": ">= 4.65",
+      "R2 pooled rms": ">= 4.65"
+    }
+  },
+  "proof3_vitrea_superseded_2026-09-29": {
+    "$comment": [
+      "The proof-3 bars declared in 4c7a96c3, kept on record. They compared each reader's Gaussian reading of",
+      "vitrea's captures with the code's sigma_RMS, i.e. a Gaussian reader against non-Gaussian kernels (the L1",
+      "chain reads +6-7 % as a Gaussian, the L4 is platykurtic, the share is depth-graded). Their misses, as",
+      "measured (7efe4ce8, resolution_rows_a/b.json): model reader lam over 0.12 on 10/58 cells, sigma_n 20-28 %",
+      "(one degenerate fit), sigma_w up to 128 %; S 0.056 over all 50 cells (<= 0.022 on the 11 its flag",
+      "accepts); heavy reader group unrejected on 5 cells; hinge-gap lam per bin up to 0.71; step lam 0.154 /",
+      "0.220 on 2 of 20; depth flat control 0.071. The float64 replica read the same where it was run: model",
+      "mismatch, not pixels. Superseded by the parent's ruling 1 (2026-09-29): the bars below."
+    ],
+    "T": "tone.SrgbAffineT (vitrea's body is affine in linear light, then encoded)",
+    "truth": "the code's kernels: memo B's code-map (kernels.json, SHA-256 9c684eb9...) and its float64 replica (kernel_sim.py 98d00dc9..., verify.py 45f54862...)",
+    "mirror statistic S |s1/gain|": {
+      "max": 0.024,
+      "pitches": ">= 8 pt"
+    },
+    "model reader, linear space": {
+      "lam": "|lam| <= 0.12",
+      "sigma_n": "within 20 % of the body kernel's sigma_RMS",
+      "sigma_w": "within 25 % (the platykurtic L4 reads low or wide as a Gaussian)"
+    },
+    "pitch-64 heavy reader": {
+      "group mean": "rejected",
+      "canvas vs footprint": "no false footprint call: within 0.04 code rms"
+    },
+    "ESF and impulse readers": {
+      "narrow sigma": "within 10 %",
+      "share": "within 0.1 at 2x",
+      "deep sigma": "within 25 %"
+    },
+    "every other reader": "reads the code's two-sided linear body: lam within 0.12 of 0 in the linear reading, a flat narrow width in depth, the canvas-wide W",
+    "known-space control": "the ENCODED reading of vitrea's linear captures is reported (memo C: lam 1.4-1.5); the knee is established by S and by every linear fit's loss, never by lam alone"
+  },
+  "proof3_vitrea": {
+    "$comment": [
+      "Re-declared by the parent's ruling 1 (2026-09-29), BEFORE the re-proof ran: each reader is proved on",
+      "real pixels by the difference between its reading of vitrea's CAPTURE and its reading of memo B's",
+      "float64 REPLICA of the same cell (kernel/code-map/verify.py `render`, SHA-256 45f54862...; it",
+      "reproduces vitrea's body cores at 0.27-0.38 code rms, memo B §1), never against sigma_RMS. The two",
+      "images differ by the renderer's own arithmetic (half-float chain, sampler rounding) and the capture's",
+      "quantisation, about the size of proof 1's synthetic quantisation (0.41 code rms), so the bars are the",
+      "reader's proof-1 bars. The replica covers the capsule, rrect-sm, rrect-md, rrect-ml and toolbar",
+      "components at both scales (not rrect-lg), on its core mask (depth > lens extent + 1 device px).",
+      "A reader whose reading is non-identifiable on a cell (by its own flag) on BOTH images is reported, not",
+      "scored; identifiable on one image and not the other is a miss."
+    ],
+    "T": "tone.SrgbAffineT, the same linear reading on both images",
+    "model reader": {
+      "|sigma_n(cap) - sigma_n(rep)|": "0.05 pt",
+      "|sigma_w(cap) - sigma_w(rep)|": "0.05 pt",
+      "|lam(cap) - lam(rep)|": 0.03,
+      "|w(cap) - w(rep)|": 0.03
+    },
+    "mirror statistic S": {
+      "|S(cap) - S(rep)|": 0.024,
+      "flag": "the same identifiability call on both"
+    },
+    "pitch-64 heavy reader": {
+      "sigma_w": "within 5 % of each other",
+      "support call and group rejection": "identical on both"
+    },
+    "ESF reader": {
+      "sigma": "within 3 % of each other"
+    },
+    "impulse reader": {
+      "sigma": "within 3 % of each other",
+      "share": 0.03
+    },
+    "patch reader (lam given)": {
+      "sigma_n": "within 5 %",
+      "sigma_w": "within 5 %"
+    },
+    "step reader": {
+      "sigma_w": "within 5 %",
+      "support / edge call": "identical on both",
+      "lam": 0.03
+    },
+    "depth reader": {
+      "sigma_n(d)/sigma_n(centre)": "within 0.05 of each other"
+    },
+    "per-cell lam reader": {
+      "|lam(cap) - lam(rep)|": 0.03,
+      "interval": "each contains the other's point"
+    },
+    "hinge-gap reader": {
+      "lam per bin": "within 0.05 of each other"
+    },
+    "known-space control": "unchanged: the ENCODED reading of vitrea's linear captures is reported, not gated",
+    "gating (the parent's ruling 2)": "ESF, single-width impulse, depth, heavy, model and hinge-gap readers are DESCRIPTIVE, not gated, whatever they read; their results are still reported against these bars"
+  },
+  "refraction_order_test": {
+    "$comment": [
+      "The parent's revised ruling 3 (2026-09-29): in the ACTIVE pose refraction is taken to act AFTER the blur",
+      "(the blurred image displaced inside the band; vitrea's own order), so every active reader and family fitter",
+      "uses the narrow-support mask d >= 20 + 2 sigma_n,ref. The rival order, BEFORE the blur (the capture displaced,",
+      "then blurred), is declared with this test, which the bed decides on Apple's pixels; if the rival wins, active",
+      "fits fall back to the 2 sigma_w mask (the record in 9c1623b4 / be700896 is that fallback). Declared before",
+      "its proof runs."
+    ],
+    "statistic": [
+      "Fit the law (LT, or the surviving family) on the active cells at the narrow-support mask, as the gated fit",
+      "does, and take the per-pixel luma residual e = y - y_hat. Bin the mask's pixels by depth: [d_in, 30),",
+      "[30, 38), [38, 46), [46, 54), [54, inf) pt. Per cell, NEAR is the shallowest bin with >= 200 px and FAR",
+      "the deepest, with FAR's lower edge at least 16 pt deeper than NEAR's (a cell without such a pair does not",
+      "vote). Delta_c = rms(e | NEAR) - rms(e | FAR). D = median of Delta_c over the structured cells of a pose",
+      "(families B, B', C, D, E) minus the median of Delta_c over its uniform cells (family A, the same shapes):",
+      "the uniform cells carry every depth trend that does not depend on backdrop structure (level, lift, an",
+      "unmodelled edge term), which a displacement of a uniform backdrop cannot produce."
+    ],
+    "decision": {
+      "BEFORE": "D > 0.30 code, carried by at least 3 structured cells with Delta_c > 0.30",
+      "AFTER": "D < 0.15 code",
+      "undecided": "between: reported; the fallback is not triggered, the parent rules"
+    },
+    "proof": [
+      "Synthetic renders of both orders on the active cells of the declared bed, through the memo C T stand-in,",
+      "quantised +-0.5. AFTER: the law's own render (a displacement after the blur leaves every pixel beyond the",
+      "band untouched). BEFORE: the floored capture displaced, then blurred by the law; the displacement is the",
+      "proof's stand-in for a lens whose form the dump declares only by its inputs (inner amount -min(s/2, 60),",
+      "height min(s/4, 20); outer reach max(16, s/5)): along the SDF normal, A (1 - |d| / h)^2 inside the 20-pt",
+      "inner band and outside to the 19.2-pt outer reach, pointing inward, for A in {2, 4, 8, 16} pt.",
+      "Bar: AFTER reads D < 0.15 in both active endpoints; the test's resolution is the smallest A at which BEFORE",
+      "reads D > 0.30 (reported, not a pass condition: a weak lens before the blur is harmless to the fit)."
+    ],
+    "v1_result": [
+      "The statistic declared first (the MEDIAN of Delta_c over structured cells) has no power on this bed: its",
+      "proof (refraction_order.v1.txt) reads D between -0.007 and +0.022 for BEFORE up to A = 16 pt in both active",
+      "endpoints, although the law's pooled rms rises from 0.41 to 0.58-0.64 code there. Contamination before the",
+      "blur is confined to the few cells whose band carries structure the deeper body does not (a step or patch",
+      "near the edge, pitch-64 squares); a displaced fine periodic pattern keeps its local mean, so the median",
+      "cell is untouched. Superseded, before its own proof ran, by the tail statistic below."
+    ],
+    "statistic_v2": [
+      "Per cell, Delta_c as declared above. D_tail = mean of the 3 largest Delta_c over the structured cells minus",
+      "the mean of the 3 largest over the uniform cells (the same shapes and pose). The tail is where a",
+      "contamination large enough to move a fit lives; the uniform tail subtracts depth trends a displacement",
+      "cannot produce."
+    ],
+    "decision_v2": {
+      "BEFORE": "D_tail > 0.30 code",
+      "AFTER": "D_tail < 0.15 code",
+      "undecided": "between: reported; the fallback is not triggered, the parent rules"
+    },
+    "v2_disclosure_2026-09-30": [
+      "The review of b151aff4 (finding I-1): the v1 proof's own record (refraction_order.v1.txt, its 'carry' counts)",
+      "showed 4 light and 3 dark structured cells with Delta_c > 0.30 at a 16-pt lens and none at 8 pt or less.",
+      "Those counts were known when the tail form was chosen in cb490956, and they already fixed the tail",
+      "statistic's outcome at the same 0.30 bar: the v2 proof confirmed what was known when v2 was declared. Its",
+      "timing is clean (cb490956 precedes its proof in 04163eec; .v1.json holds no D_tail), its power was not",
+      "news. The v2 proof also measured sensitivity only: it never rendered a wrong family without a lens."
+    ],
+    "v3_2026-09-30": {
+      "$comment": [
+        "Declared before its proof runs (the review of b151aff4, finding I-1, and the parent's disposition). The",
+        "v2 test is not specific: a declared rival rendered in the AFTER order with no lens at all and fitted by",
+        "LT reads D_tail +0.32 (W-tails, light; BEFORE), +0.27 (LT-2k, light; undecided) and +1.61 (LT+bleed, dark;",
+        "BEFORE), because any unmodelled structure-dependent term that is larger near the band reads as the",
+        "BEFORE order's signature. Memo E's LT sits at 2.1-3.5 codes pooled on Apple's cells, where no v2 proof",
+        "row lies. v3 keeps the v2 statistic, adds a second, lens-matched one, measures both legs, and makes the",
+        "call conditional on the fitted family's residual."
+      ],
+      "fit": [
+        "The test family F (LT, or the family that survives clause 6) is fitted as the gated fit is: both scales",
+        "(2x and 1x), families A, B, B', C, D and E, calibration and validation roles, at the narrow-support mask,",
+        "least squares with lam inner per endpoint. P = F's pooled rms (bed-wide, equal weight per cell) is recorded."
+      ],
+      "voters": [
+        "Only 2x cells vote. The 1x cells enter the fit and never vote: a 1x depth bin holds a quarter of the",
+        "pixels, and memo E's 1x p4-p8 aliasing misfit (up to 9 codes) is graded in depth under the o-law, a depth",
+        "trend that no refraction order produces."
+      ],
+      "statistics": {
+        "S1": "D_tail exactly as statistic_v2 over the voting cells; BEFORE > 0.30 code, AFTER < 0.15, undecided between.",
+        "S2": [
+          "The lens projection A_hat. Per voting structured cell, the regressor R_c = y_before(A_ref) - y_after: F's",
+          "render at its fitted point with the proof's stand-in lens applied to the capture before every blur, less",
+          "the same render without it, on the cell's mask (luma), A_ref = 8 pt. beta = sum_c <e_c, R_c> / sum_c",
+          "<R_c, R_c> with e_c the cell's luma residual, pooled over the voting structured cells (a uniform cell has",
+          "R_c = 0). A_hat = A_ref * beta, in pt of the stand-in lens. BEFORE if A_hat >= 8 pt, AFTER if A_hat < 4 pt,",
+          "undecided between."
+        ]
+      },
+      "legs": {
+        "sensitivity": "an LT truth with the stand-in lens before the blur at A in {2, 4, 8, 16} pt, and the AFTER render (A = 0)",
+        "specificity": [
+          "every declared rival family (families.FAMILIES, status rival, the dump-literal bleed forms included) rendered",
+          "in the AFTER order at its declared truth parameters with NO lens, quantised +-0.5 as every proof is; F = LT",
+          "fitted; each row records P, S1 and S2. The k-nesting rival (k shared across poses) is not a per-endpoint",
+          "truth and is not rendered."
+        ]
+      },
+      "validity (the conditional call)": [
+        "For each statistic, P*_S = the smallest P among specificity rows where S reads other than AFTER (S1: D_tail",
+        ">= 0.15; S2: A_hat >= 4 pt). If every specificity row reads AFTER, P*_S = the largest P in the leg: beyond",
+        "the leg's range a call is an extrapolation. A statistic whose sensitivity leg reads BEFORE at no A <= 16 pt",
+        "has no power and is never admitted. On a reading (Apple's pixels in G2), a statistic is ADMITTED only when",
+        "F's P there is below its P*_S."
+      ],
+      "call": [
+        "S1's call if S1 is admitted; else S2's if S2 is admitted; if both are admitted and one reads BEFORE while the",
+        "other reads AFTER, UNDECIDED. If neither is admitted the call is UNDECIDED: the parent takes the refraction",
+        "order to the user before G2 fits the active pose, and neither the primary nor the fallback mask is chosen",
+        "by a statistic that cannot decide. A BEFORE or undecided call goes to the parent as before."
+      ],
+      "reported": [
+        "per statistic: its resolution (the smallest A reading BEFORE), P*_S, and whether P*_S exceeds 2.1 codes,",
+        "the low end of memo E's LT pooled rms on Apple's cells (the level at which LT, as F, would read Apple)."
+      ]
+    }
+  },
+  "gating_2026-09-29-revision": {
+    "gated": [
+      "every family fitter (LT and the rivals)",
+      "the step reader's support / edge-mode call"
+    ],
+    "descriptive": [
+      "S (replica: 3 flag-call mismatches)",
+      "per-cell lam (replica misses)",
+      "step sigma_w (one replica miss)",
+      "patch widths (replica misses)",
+      "ESF",
+      "single-width impulse",
+      "depth",
+      "heavy",
+      "model",
+      "hinge-gap"
+    ],
+    "capture floor": "memo E's 0.8-device-px pre-blur (1.6 on rrect-lg) stays a DECLARED CONSTANT; it is re-read descriptively on the fine-pitch cells as a check, never fitted"
+  }
+}

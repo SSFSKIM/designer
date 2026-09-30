@@ -1,0 +1,78 @@
+{
+  "declaration": "packages/calibration/results/2026-09-29-w42-g0-declaration/declaration.json",
+  "declarationSha256": "f04ae95b626c7547cc3dbae11e08cb04a89ef642680d0b4f509c6c833633381c",
+  "items": {
+    "exposureRunner": {
+      "binding": "ONE receipt binds the identified law (the structure through native T: parameters, numerical predictions, calibration / validation survival), candidate 1 (landed T, required) and at most one candidate 2 (native T), each with its numerical composition and blind rendered H predictions (PNG and projection) frozen by hash before the receipt and recaptured equal inside it",
+      "claimedEndpoints": "frozen, a nonempty subset; unclaimed endpoints scored and reported 'not claimed (identity)' (Decision Log 3)",
+      "closure": "the law closes iff every measured H cell of every claimed endpoint passes at max(1 code, bar), with at least one measured H cell per claimed endpoint; a censored H cell is UNMEASURED and counts toward neither pass nor coverage, the measured coverage reported; candidate 2 is scored against Apple's H pixels, candidate 1 against its own frozen structure-with-landed-T prediction with levelMiss recorded; a candidate is landable only if the law closes and its own check passes; X40 selects candidate 2 if landable, else candidate 1, else none",
+      "crossCheckout": "before begin the runner fetches origin's tags and refuses if the receipt log path has history on any ref or the marker tag exists; it then pushes an annotated marker tag (w42-h-exposure) carrying a fresh nonce, and a claim counts only when the push reports the tag CREATED ('[new tag]'), so of two racing checkouts one exposes H and the other refuses (b9, and the verification round)",
+      "productionPins": "production-pin.json: G1 pins the archive inventory; declare.py hash pins this declaration and its closure (closure.json, written from items survivalBars and exposureRunner)",
+      "proof": "26 red against a stub, 27 green on a synthetic H; with the cross-checkout claim and its race fix the runner suite reads 37 of 37",
+      "runner": "bed/exposure/runner.py imports W41's X26 runner unchanged and derives the W42 boundary, scope, pins, freeze, verify and verdict",
+      "scope": "every declared glass cell of calibration, validation and H admitted by G1's archive inventory, the probe bridges excluded: 423 of 447, 40 of them H, all web-plannable",
+      "spend": "any fault after begin spends H; nothing changes after the receipt"
+    },
+    "nativeT": {
+      "ordinates": "each ordinate is a 2x family-A CALIBRATION cell's deep median per channel under clause 5's statistic; the 2x rrect-64 and 1x rrect-md greys are validation (t = 0 stratum transfer; T at 2x predicting 1x)",
+      "role": "identification only: a level miss never leaks into a structural parameter",
+      "spanStrata": "t = 0 (every s <= 64, read on the capsule, s = 44), s = 80 (dark only), 96, 128, 160",
+      "trust": "an input above the highest measured ordinate of a stratum carries no information (a clamp), as memo C's trust limits did",
+      "what": "per endpoint and span stratum, the monotone piecewise-linear curve through family A's measured ordinates (input encoded level, output code), with its inverse (tone.TableT)"
+    },
+    "regionStatistics": {
+      "deepMask": "receded: d <= -8 pt; active: item refractionOrder",
+      "minimumPopulation": "12 pixels; a smaller population is not a statistic",
+      "populations": {
+        "photo, text": "the deep median only",
+        "single patch (C, impulse bridges)": "the patch core (at least min(1, size / 4) pt inside the square) and surround annuli at 0, 2, 4, 8, 16, 32, 48 pt from the patch's edge",
+        "step (D)": "two plateaus beyond 48 pt from the step and transition bins at -48, -32, -24, -16, -8, -4, -2, 0, 2, 4, 8, 16, 24, 32, 48 pt",
+        "two-level checker (B, B', E, checker bridges)": "one median per square over its core (at least min(4, pitch / 4) pt from every checker edge), labelled knee side or far side (light: the darker level is the knee side; dark: the brighter; an isoluminant pair a / b), plus the pooled knee-side and far-side core medians",
+        "uniform (A)": "the deep median"
+      },
+      "statistic": "a MEDIAN of output codes per channel over a declared population of deep-mask pixels; per-cell deep-body rms is reported beside it and never gated"
+    },
+    "survivalBars": {
+      "bar": "per cell, region statistic and channel: 0.5 + 0.5 * (the largest pairwise separation of the seven run medians), computed before plurality and published before G2 opens; a zero observed spread buys no tolerance",
+      "bridges": "family F is bridge-only: it ties the bar across sittings and is not under the survival rule",
+      "censoring": "X21: a native channel >= 250 or <= 5 is a one-sided bound; a censored held-out cell is UNMEASURED",
+      "fits": "least squares and minimax, equal weight per cell; bounded deterministic multistart, stated LOCAL (item law, search)",
+      "negative": "an endpoint with no survivor is this wave's negative at its resolution; Decision Log 3 then applies",
+      "repeats": 7,
+      "resolution": "survivors within max(3, sum of bars) at every admitted discriminator are 'insufficient resolution'; item tieBreak chooses among them",
+      "statuses": "X31: measured, censored-bound-satisfied, UNMEASURED",
+      "survival": "a family SURVIVES in an endpoint only at max(1 code, bar) on every required channel of every calibration AND validation cell and region statistic, with the structure inverted through native T (item nativeT)"
+    }
+  },
+  "rulings": {
+    "activeBandAndE2": {
+      "by": "the user",
+      "date": "2026-09-30",
+      "decisionLog": "5e",
+      "reading": "the law is eased in across the active band with coverage x smoothstep(0, 20 pt, depth); E2 fails a cell only if its edge moves farther from Apple overall, in absolute codes; every bin that worsens by more than 1 code is listed as a named miss",
+      "words": "Per cell, list the worse ones."
+    },
+    "candidate2Chroma": {
+      "by": "the user",
+      "date": "2026-09-30",
+      "decisionLog": "5c",
+      "reading": "candidate 2 carries W41 G1's E3-form g in all four endpoints, re-fitted and checked on the new bed's colour cells",
+      "words": "Yes, add it."
+    },
+    "l1TintedReceded": {
+      "by": "the user",
+      "date": "2026-09-30",
+      "decisionLog": "5d",
+      "reading": "the four cell-profiles are recorded as named misses caused by vitrea's unfocused (receded) tint layer; the L1 bound is unchanged; fixing the tint layer goes on W42's deferred list",
+      "words": "Named misses."
+    },
+    "refractionOrderNoCall": {
+      "by": "the user",
+      "date": "2026-09-30",
+      "decisionLog": "5f",
+      "reading": "Fit the focused law under both assumptions. If both give the same law within measurement resolution, the order doesn't matter and it can land; if they differ, that focused state doesn't land in W42 and the difference is recorded. Unfocused states are unaffected.",
+      "words": "Fit both; land only if they agree"
+    }
+  },
+  "schema": "w42-closure-1"
+}

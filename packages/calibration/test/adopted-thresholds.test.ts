@@ -1815,6 +1815,13 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
 interface MissedRow {
   readonly measured: number;
   readonly bound: string;
+  /**
+   * Apple's own reading beside the miss, carried by an M2 named miss and by nothing else
+   * (W42 G0, Decision Log 5a): the cell's `interiorStdDevNative`, which is what makes a
+   * structure move that crossed the 2 % a move TOWARD Apple rather than a drift. The owner case
+   * pins it to the matrix row to five decimals, as it pins `measured`.
+   */
+  readonly native?: number;
 }
 
 /*
@@ -2447,6 +2454,10 @@ const CHROMA_METRIC = "chromaStructureRatioR";
  * recording and widening: `chromaStructureMisses()` derives the failures from the
  * same cut M2 reads, the owner case asserts that the derived set IS the recorded
  * set, and a cell that starts missing or stops missing fails it either way.
+ *
+ * *(2026-09-29, W42 G0, Decision Log 5a as RULED: the recorded set is now the NAMED
+ * misses among those failures, `chromaStructureNamedMisses()` below. A miss that moves away
+ * from Apple, or past it by more than 2 %, is a failure no entry excuses.)*
  */
 const CHROMA_STRUCTURE_METRIC = "interiorStdDevStructureDelta";
 
@@ -2482,6 +2493,112 @@ const chromaStructureMisses = (): readonly ChromaCutCell[] =>
   CHROMA_CUT.cells.filter(
     (cell) => Math.abs(cell.structureDeltaFraction) > CHROMA_STRUCTURE_TOLERANCE,
   );
+
+/**
+ * The bed, re-derived here from the matrix rather than taken from the cut.
+ *
+ * `MATRIX` is not usable: it drops the inactive pose, and half this bed is the
+ * inactive pose, because the receded documents carry their own retention and
+ * are bounded separately. So the selection is restated over `MATRIX_FILE` with
+ * the shipped-document guard applied to EVERY document a row names — the
+ * receded one included, which `atAShippedDocument` does not reach and which is
+ * what decides what an inactive row drew.
+ *
+ * Lifted out of the M1 / M2 block at W42 G0 (Decision Log 5a), unchanged, because
+ * M2's named-miss derivation below reads Apple's texture off these same rows.
+ */
+const bedFromMatrix = (): Map<string, Cell> => {
+  const out = new Map<string, Cell>();
+  for (const cell of MATRIX_FILE.cells) {
+    if (CHROMA_BED_PROFILES[cell.key.profileKey] === undefined) continue;
+    if (cell.key.web.renderer !== "webgpu") continue;
+    if (cell.fixtureSet !== "calibration" && cell.fixtureSet !== "validation") continue;
+    const scene = cell.key.sceneId;
+    if (!scene.startsWith("photo__") || scene.includes("-tint-")) continue;
+    const named = [
+      ...cell.key.web.capturePath.matchAll(
+        /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
+      ),
+    ];
+    if (named.length === 0) continue;
+    if (!named.every((match) => SHIPPED_DOCUMENT_HASHES.get(match[1] ?? "") === match[2])) {
+      continue;
+    }
+    out.set(`${cell.key.profileKey} ${scene}`, cell);
+  }
+  return out;
+};
+
+/**
+ * **M2's named-miss derivation** (W42 G0; charter Decision Log 5a, RULED by the user
+ * 2026-09-29), the one ruled exception to clause 12's "no protected byte moves". The ruling:
+ * "Directional: the 2% stays. A cell that moves toward Apple's own texture reading, and not
+ * past it, is recorded as a named miss with Apple's value beside it. That is M2's existing
+ * recorded-miss path. A cell that moves away from Apple, or past it by more than 2%, fails."
+ *
+ * With `r` the reference generation's `interiorStdDevWeb`, `w` this generation's, and `n`
+ * Apple's own texture reading — `interiorStdDevNative` on the matrix row the cut cell is
+ * re-derived from, because the cut does not carry it:
+ *
+ *   - a cell MISSES M2 when |w − r| / r > 2 %, which is `chromaStructureMisses()`'s clause
+ *     unchanged;
+ *   - a miss is NAMED when it moves toward Apple, (w − r)(n − r) > 0, and does not pass
+ *     Apple by more than the same 2 % read against Apple's value: where w lands on the far
+ *     side of n, (w − n)(n − r) > 0, it needs |w − n| / n ≤ 2 %;
+ *   - every other miss is a FAILURE: a move away from Apple, one past it by more than 2 %,
+ *     and any move at n = r, where Apple sits on the reference and no move is toward it.
+ *
+ * M2 is a regression stop, and W42 exists to move the body's structure toward native: §5.193
+ * §3 read all eight of E3's light-inactive photo failures moving toward it (1x rrect-md native
+ * 0.064, base 0.044, E3 0.062), so a stop that reads change alone refuses the wave's own
+ * success. The ruling keeps the 2 % and changes what a miss can be: one that closes on Apple
+ * is recorded with Apple's reading beside it, and one that does not fails even when listed.
+ * The verdict is pure over the three readings so the owner case can seed it.
+ */
+type StructureVerdict = "within" | "named" | "failure";
+
+const structureVerdict = (
+  cell: Pick<
+    ChromaCutCell,
+    "interiorStdDevWebReference" | "interiorStdDevWeb" | "structureDeltaFraction"
+  >,
+  native: number,
+): StructureVerdict => {
+  if (!(Math.abs(cell.structureDeltaFraction) > CHROMA_STRUCTURE_TOLERANCE)) return "within";
+  const reference = cell.interiorStdDevWebReference;
+  const web = cell.interiorStdDevWeb;
+  const toward = (web - reference) * (native - reference) > 0;
+  const beyond = (web - native) * (native - reference) > 0;
+  return toward && (!beyond || Math.abs(web - native) / native <= CHROMA_STRUCTURE_TOLERANCE)
+    ? "named"
+    : "failure";
+};
+
+interface StructureMiss {
+  readonly cell: ChromaCutCell;
+  readonly native: number;
+  readonly verdict: Exclude<StructureVerdict, "within">;
+}
+
+/**
+ * Every M2 miss on the cut, with Apple's reading and its verdict. A cut cell with no matrix
+ * row throws rather than reading as a verdict; the M1 / M2 block's first case holds the cut
+ * and the bed equal, cell for cell.
+ */
+const chromaStructureVerdicts = (): readonly StructureMiss[] => {
+  const bed = bedFromMatrix();
+  return CHROMA_CUT.cells.flatMap((cell): StructureMiss[] => {
+    const row = bed.get(`${cell.profile} ${cell.scene}`);
+    if (row === undefined) throw new Error(`${chromaKey(cell)}: no matrix row to read Apple from`);
+    const native = reading(row, "material", "interiorStdDevNative");
+    const verdict = structureVerdict(cell, native);
+    return verdict === "within" ? [] : [{ cell, native, verdict }];
+  });
+};
+
+/** The M2 misses `MISSED_27_ROWS` records, and the only ones it may. */
+const chromaStructureNamedMisses = (): readonly StructureMiss[] =>
+  chromaStructureVerdicts().filter((miss) => miss.verdict === "named");
 
 // ---------------------------------------------------------------------------
 
@@ -3163,7 +3280,11 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
     }
     // M2's, on the same argument (W32 G1, claims §5.168): its clause is per cell
     // over the same cut, so its failures are derived here rather than excused.
-    for (const cell of chromaStructureMisses()) {
+    // Since W42 G0 (Decision Log 5a) only a NAMED miss joins: a miss that moves
+    // away from Apple, or past it by more than 2 %, cannot be recorded, so it is
+    // left out here and fails the M2 case whether or not an entry names it.
+    const namedStructureMisses = chromaStructureNamedMisses();
+    for (const { cell } of namedStructureMisses) {
       missed.push(`${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`);
     }
     expect(missed.sort(), "the 27 rows that miss their declared bound").toEqual(
@@ -3182,14 +3303,29 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
       );
     }
 
-    for (const cell of chromaStructureMisses()) {
+    for (const { cell, native } of namedStructureMisses) {
       const row = MISSED_27_ROWS[`${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`];
       expect(row, `${chromaKey(cell)}: a structure miss with no recorded reading`).toBeDefined();
       expect(
         Math.abs(cell.structureDeltaFraction),
         `${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`,
       ).toBeCloseTo(row?.measured ?? Number.NaN, 5);
+      expect(native, `${chromaKey(cell)}: Apple's reading beside the miss`).toBeCloseTo(
+        row?.native ?? Number.NaN,
+        5,
+      );
     }
+    // And Apple's reading is carried by a named M2 miss and by nothing else.
+    expect(
+      Object.keys(MISSED_27_ROWS)
+        .filter((key) => MISSED_27_ROWS[key]?.native !== undefined)
+        .sort(),
+      "the entries carrying Apple's reading",
+    ).toEqual(
+      namedStructureMisses
+        .map(({ cell }) => `${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`)
+        .sort(),
+    );
 
     // Every recorded reading is the one the sealed read took, to five decimals —
     // so the prose beside the list cannot drift from the artifact it describes.
@@ -4149,6 +4285,17 @@ describe("W30 B1 — the shadow's σ law, adopted (claims §5.160)", () => {
  * > the cost the ruling names in its own words. The worst per-wave move on this
  * > bed is −1.477 % and the worst cumulative is −2.775 %, on the same cell.
  *
+ * > **2026-09-29, W42 G0 (charter Decision Log 5a as RULED by the user): a miss
+ * > is read against APPLE's texture, and the 2 % is unmoved.** A cell that moves
+ * > by more than 2 % toward its own `interiorStdDevNative`, and not past it by
+ * > more than 2 %, is a named miss recorded with Apple's value beside it; a move
+ * > away from Apple, or past it by more than that, fails even when listed. So
+ * > the paragraph above's "flattening the body fails M2" now holds where Apple's
+ * > body is the more textured, which it is on all 26 cells of this bed today, and
+ * > a flattening toward a flatter Apple would be named rather than refused. The
+ * > stop still bounds one wave's change against vitrea's own reference; Apple's
+ * > reading only classes a miss. `structureVerdict` states the arms.
+ *
  * **The WebGPU tier only** (`tier === "texture"`), which is G0's second condition
  * and is stronger after the read than before it. The CSS tier's `R` at the
  * canonical read sits at 0.95 to 1.12 by bed median on a tier that carries none
@@ -4170,38 +4317,6 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
     "light|inactive": 8,
     "dark|active": 4,
     "dark|inactive": 4,
-  };
-
-  /**
-   * The bed, re-derived here from the matrix rather than taken from the cut.
-   *
-   * `MATRIX` is not usable: it drops the inactive pose, and half this bed is the
-   * inactive pose, because the receded documents carry their own retention and
-   * are bounded separately. So the selection is restated over `MATRIX_FILE` with
-   * the shipped-document guard applied to EVERY document a row names — the
-   * receded one included, which `atAShippedDocument` does not reach and which is
-   * what decides what an inactive row drew.
-   */
-  const bedFromMatrix = (): Map<string, Cell> => {
-    const out = new Map<string, Cell>();
-    for (const cell of MATRIX_FILE.cells) {
-      if (CHROMA_BED_PROFILES[cell.key.profileKey] === undefined) continue;
-      if (cell.key.web.renderer !== "webgpu") continue;
-      if (cell.fixtureSet !== "calibration" && cell.fixtureSet !== "validation") continue;
-      const scene = cell.key.sceneId;
-      if (!scene.startsWith("photo__") || scene.includes("-tint-")) continue;
-      const named = [
-        ...cell.key.web.capturePath.matchAll(
-          /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
-        ),
-      ];
-      if (named.length === 0) continue;
-      if (!named.every((match) => SHIPPED_DOCUMENT_HASHES.get(match[1] ?? "") === match[2])) {
-        continue;
-      }
-      out.set(`${cell.key.profileKey} ${scene}`, cell);
-    }
-    return out;
   };
 
   it("reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries", () => {
@@ -4356,19 +4471,84 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
   });
 
   it("M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS", () => {
+    const misses = new Map(chromaStructureVerdicts().map((miss) => [chromaKey(miss.cell), miss]));
     for (const cell of CHROMA_CUT.cells) {
       // Recorded, not widened — the same path M1 has one case up, added at W32 G1
       // (claims §5.168) when the first miss appeared. The tolerance above is
       // unmoved and `MISSED_27_ROWS`'s owner asserts that the set of excused
-      // cells is exactly the set that fails.
-      if (MISSED_27_ROWS[`${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`] !== undefined) continue;
+      // cells is exactly the set of NAMED misses: since W42 G0 (Decision Log 5a)
+      // an entry excuses only a miss that moved toward Apple and not past it by
+      // more than 2 %, so a failure fails here even when it is listed.
+      const miss = misses.get(chromaKey(cell));
+      const key = `${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`;
+      if (miss?.verdict === "named" && MISSED_27_ROWS[key] !== undefined) continue;
       expect(
         Math.abs(cell.structureDeltaFraction),
         `${chromaKey(cell)}: interiorStdDevWeb ${cell.interiorStdDevWebReference.toFixed(6)} -> `
           + `${cell.interiorStdDevWeb.toFixed(6)}, `
-          + `${(cell.structureDeltaFraction * 100).toFixed(3)}%`,
+          + `${(cell.structureDeltaFraction * 100).toFixed(3)}%`
+          + (miss === undefined ? "" : `, Apple ${miss.native.toFixed(6)}: `)
+          + (miss?.verdict === "named" ? "a named miss MISSED_27_ROWS does not record" : "")
+          + (miss?.verdict === "failure" ? "a failure, which no entry excuses" : ""),
       ).toBeLessThanOrEqual(CHROMA_STRUCTURE_TOLERANCE);
     }
+  });
+
+  it("M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)", () => {
+    // The derivation's owner. Seeded cells through the same verdict M2 and the
+    // `MISSED_27_ROWS` owner read, one per arm of the ruling, at a reference of
+    // 0.020 — so each arm is shown to fire, not merely to be written down.
+    const seed = (web: number) => ({
+      interiorStdDevWebReference: 0.02,
+      interiorStdDevWeb: web,
+      structureDeltaFraction: (web - 0.02) / 0.02,
+    });
+    const seeded: readonly (readonly [string, number, number, StructureVerdict])[] = [
+      ["within 2 %, whatever Apple reads", 0.0203, 0.03, "within"],
+      ["toward Apple, not past it", 0.025, 0.03, "named"],
+      ["toward Apple from above, not past it", 0.015, 0.01, "named"],
+      ["onto Apple exactly", 0.03, 0.03, "named"],
+      ["past Apple by 1.6 %, within the 2 %", 0.0254, 0.025, "named"],
+      ["past Apple by 4 %", 0.026, 0.025, "failure"],
+      ["away from Apple", 0.015, 0.03, "failure"],
+      ["with Apple on the reference", 0.025, 0.02, "failure"],
+      // The past-Apple clause's two readings, one seed each (W42 G0, the gate review of
+      // b151aff4, finding 6). Its distance is ABSOLUTE, so a cell that overshoots a flatter
+      // Apple fails; and it is read against APPLE's value, so 1.5 % of n = 0.04 is named where
+      // the same 0.0006 is 3 % of r. Without these two, dropping the `Math.abs` or dividing by
+      // r instead of n survived every seed above.
+      ["past a flatter Apple by 5 %", 0.0095, 0.01, "failure"],
+      ["past a far more textured Apple by 1.5 % of it", 0.0406, 0.04, "named"],
+    ];
+    for (const [label, web, native, verdict] of seeded) {
+      expect(structureVerdict(seed(web), native), label).toBe(verdict);
+    }
+
+    // On the live cut the verdict's miss clause is `chromaStructureMisses()`'s,
+    // cell for cell, no miss is a failure, and the named misses are exactly the M2
+    // entries `MISSED_27_ROWS` records. Today both sets are empty — the cut
+    // regenerated at W36 G1 moves no cell from its reference and the list holds no
+    // M2 entry — so no cell engages the new path. The statement is relational
+    // rather than "empty" on purpose: the gate that records the first named miss
+    // adds its entry beside the regenerated cut and this case holds unedited, which
+    // is what lets the owner test run on a candidate's scratch union with the
+    // entries the seal would add (W42 G0, charter clause 10).
+    const misses = chromaStructureVerdicts();
+    const keys = (verdict: StructureVerdict): string[] =>
+      misses.filter((miss) => miss.verdict === verdict).map(({ cell }) => chromaKey(cell));
+    expect(
+      misses.map(({ cell }) => chromaKey(cell)).sort(),
+      "the verdict's misses against chromaStructureMisses()",
+    ).toEqual(chromaStructureMisses().map(chromaKey).sort());
+    expect(keys("failure"), "an M2 failure on the live cut").toEqual([]);
+    expect(
+      keys("named").map((key) => `${key} :: ${CHROMA_STRUCTURE_METRIC}`).sort(),
+      "the named M2 misses against the M2 entries MISSED_27_ROWS records",
+    ).toEqual(
+      Object.keys(MISSED_27_ROWS)
+        .filter((key) => key.endsWith(` :: ${CHROMA_STRUCTURE_METRIC}`))
+        .sort(),
+    );
   });
 });
 
@@ -5027,6 +5207,48 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     return n === null || w === null ? null : Math.abs(w - n);
   };
 
+  /**
+   * **L1 growth's named misses** (W42 G0; charter Decision Log 5d, RULED by the user
+   * 2026-09-30: "Named misses."). The growth clause gains the recorded-miss path M2 has had
+   * since Decision Log 5a, and the 0.005 does not move.
+   *
+   * The ruling names four cell-profiles, `GROWTH_RULED`: the light tinted photo rrect-md and
+   * the dark tinted photo capsule, inactive, at 1x and 2x. Their growth comes through
+   * vitrea's receded tint composite, which carries the untinted body's correction into the
+   * tinted cell (light 0.0288 + 0.7312 u, dark 0.0202 + 1.4398 u) and which W42's law does
+   * not govern. Fixing that layer is on W42's Deferred list. The absolute clause above still
+   * reads these cells.
+   *
+   * The shape is M2's. `growthVerdict` classes every growth miss: a miss on a ruled cell is
+   * NAMED, and a miss anywhere else is a FAILURE that no entry excuses. `GROWTH_MISSES`
+   * records the named ones with their growth, and the owner case below holds the named set
+   * and the recorded set equal in both directions. So a named miss that is not recorded
+   * fails, and a recorded miss that has closed fails too. The list is empty today because no
+   * shipped cell misses growth. The gate that seals a candidate adds the entries its
+   * regenerated cut derives, and the rest of this block holds unedited, so the owner-test
+   * runner can add them in a disposable copy as the seal would (gate/owner/run-owner.py).
+   */
+  const GROWTH_RULED = new Set([1, 2].flatMap(scale => [
+    `apple-macos-27.0-${scale}x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange`,
+    `apple-macos-27.0-${scale}x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange`,
+  ]));
+  interface GrowthMiss { readonly measured: number; readonly bound: string }
+  const GROWTH_MISSES: Readonly<Record<string, GrowthMiss>> = {
+  };
+  type GrowthVerdict = "within" | "named" | "failure";
+  const growthVerdict = (cell: string, growth: number): GrowthVerdict =>
+    !(growth > 0.005) ? "within" : GROWTH_RULED.has(cell) ? "named" : "failure";
+  /** Every growth miss on the live matrix, with its verdict; UNMEASURED cells carry none. */
+  const growthMisses = (): readonly {
+    readonly cell: string; readonly growth: number; readonly verdict: "named" | "failure";
+  }[] => population.flatMap(c => {
+    const baseline = old.find(b => key(b) === key(c));
+    const e = error(c), before = baseline === undefined ? null : error(baseline);
+    if (e === null || before === null) return [];
+    const verdict = growthVerdict(key(c), e - before);
+    return verdict === "within" ? [] : [{ cell: key(c), growth: e - before, verdict }];
+  });
+
   it("guards the declared population, named missing means and pre-fit generation", () => {
     expect(CUT.atDocuments).toBe("shipped");
     expect(CUT.withHoldout).toBe(false);
@@ -5092,7 +5314,8 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     expect(misses).toEqual(MISSES);
   });
 
-  it("L1: error growth is at most 0.005, including both existing absolute misses", () => {
+  it("L1: error growth is at most 0.005, including both existing absolute misses, or is a "
+    + "named growth miss (W42 Decision Log 5d)", () => {
     for (const c of population) {
       const baseline = old.find(b => key(b) === key(c));
       expect(baseline, key(c)).toBeDefined();
@@ -5102,7 +5325,57 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
         expect(MISSING, `UNMEASURED L1: ${key(c)}`).toContain(key(c));
         continue;
       }
-      expect(e - before, key(c)).toBeLessThanOrEqual(0.005);
+      // Recorded, not widened (W42 G0, Decision Log 5d): a named growth miss that
+      // `GROWTH_MISSES` records is excused here and only here, and the owner case below
+      // asserts that the recorded set is exactly the named set. A failure fails here whether
+      // or not an entry names it.
+      const verdict = growthVerdict(key(c), e - before);
+      if (verdict === "named" && GROWTH_MISSES[key(c)] !== undefined) continue;
+      expect(e - before, key(c)
+        + (verdict === "named" ? ": a named growth miss GROWTH_MISSES does not record" : "")
+        + (verdict === "failure" ? ": a failure, which no entry excuses" : ""),
+      ).toBeLessThanOrEqual(0.005);
     }
+  });
+
+  it("L1 growth's named misses are the ruled cells that miss (W42 Decision Log 5d)", () => {
+    // The path's owner, as M2's derivation case is M2's: seeded cells through the verdict
+    // the growth case reads, one per arm of the ruling, so each arm is shown to fire.
+    const ruled = "apple-macos-27.0-1x-light-standard-glass0.5/"
+      + "photo__rrect-md__inactive-tint-orange";
+    const seeded: readonly (readonly [string, string, number, GrowthVerdict])[] = [
+      ["a ruled cell at the bound", ruled, 0.005, "within"],
+      ["a ruled cell past the bound", ruled, 0.0108, "named"],
+      ["an absolute named miss past the bound", MISSES[0]!, 0.0051, "failure"],
+      ["the untinted twin of a ruled cell past the bound",
+        ruled.replace("-tint-orange", ""), 0.0108, "failure"],
+    ];
+    for (const [label, cell, growth, verdict] of seeded) {
+      expect(growthVerdict(cell, growth), label).toBe(verdict);
+    }
+    // The ruled set is the ruling's four cell-profiles, every one inside the population.
+    expect(population.map(key).filter(k => GROWTH_RULED.has(k)).sort(), "the ruled cells")
+      .toEqual([...GROWTH_RULED].sort());
+
+    // On the live matrix the named growth misses are exactly the entries `GROWTH_MISSES`
+    // records, each at its growth to five decimals, and no growth miss is a failure. Today
+    // both sets are empty. The statement is relational on purpose: the gate that records
+    // the first named miss adds its entry beside the regenerated cut and this case holds
+    // unedited.
+    const misses = growthMisses();
+    const namedGrowth = misses.filter(m => m.verdict === "named");
+    expect(namedGrowth.map((m) => m.cell).sort(), "the named L1 growth misses").toEqual(
+      Object.keys(GROWTH_MISSES).sort(),
+    );
+    for (const { cell, growth } of namedGrowth) {
+      expect(growth, `${cell}: the recorded growth`).toBeCloseTo(
+        GROWTH_MISSES[cell]?.measured ?? Number.NaN,
+        5,
+      );
+    }
+    expect(
+      misses.filter(m => m.verdict === "failure").map(m => m.cell),
+      "an L1 growth failure on the live matrix",
+    ).toEqual([]);
   });
 });

@@ -1,0 +1,23 @@
+{
+ "readAt": "2026-09-29T23:08:50.659343+00:00",
+ "path": "/Users/new/vitrea-w39/side/VitreaReference.app",
+ "identifier": [
+  "dev.vitrea.reference-apple.w39"
+ ],
+ "cdhash": [
+  "be258cbfc53e5cec6b49ecdec01f126872400b29"
+ ],
+ "binarySha256": "02052b175dd14bfbe2713d8e566c9b650011000f8f72de87a965f070c38b6498",
+ "buildVersion": "/Users/new/vitrea-w39/side/VitreaReference.app/Contents/MacOS/VitreaReference:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 26.0\n      sdk 26.0\n   ntools 1\n     tool LD\n  version 1267.0\n",
+ "matchesW39Pin": {
+  "binary": true,
+  "cdhash": true,
+  "buildVersion": true
+ },
+ "commands": [
+  "VITREA_SCENES=<bed>/scenes-w42-body.json VITREA_FIXTURES=<scratch>/fixtures VITREA_SCALE=1|2 ~/vitrea-w39/side/harness backgrounds",
+  "~/vitrea-w39/side/harness self-check",
+  "python3.12 <bed>/verify-backgrounds.py <scratch>/fixtures/backgrounds --out backgrounds-verification.json"
+ ],
+ "notes": "non-GUI commands only: no window, no ScreenCaptureKit, no TCC; the rasters stay in scratch (~/vitrea-w42/g0-bed-scratch/side-check-fix-b1/fixtures), hashed in backgrounds-verification.json. Rerun for the b1 fix (the active cells no active reader reads dropped from the active passes): the 73 backgrounds, their 146 rasters and the self-check's 82 rows are byte-identical to the previous run (side-check-v5); only the scenes file's SHA-256 moved."
+}

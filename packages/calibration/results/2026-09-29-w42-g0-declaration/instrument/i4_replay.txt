@@ -1,0 +1,243 @@
+W42 G0 instrument, finding I-4: outputs of the id(cell)-keyed blur store replayed with a never-reused token
+(i4_replay.py, i4_readers.py, i4_fitcontrol.py, i4_sections.py). Rows: re-evaluated at their RECORDED points,
+no refit, by the code and bed pin that produced them. Classes: EXACT (1e-9 relative); ROUNDING (<= 1e-3 code,
+lam <= 1e-4: the fit's own evaluation history under the store's 1e-4-px width rounding; see classify() and the
+fit control below); MOVED (anything else).
+
+summary: floor EXACT: 4; floor ROUNDING: 4; null EXACT: 15; null ROUNDING: 5; null2x EXACT: 14; null2x ROUNDING: 6; pair EXACT: 48; pair ROUNDING: 62; pair SUPERSEDED BY THE 07b45391 RETRY (the row carries no pin and ran on 07b45391): 1
+largest |replayed - recorded| over rows not superseded: pooled 5.16e-06, max_cell 1.72e-05, s 0.000118, ls_pooled 5.61e-06, ls_max_cell 5.45e-05, s_ls 6.49e-05
+no-cache control on 72 ROUNDING rows: largest |no-cache - replay| 0 (the replay is history-free)
+fit control fitcontrol-7efe4ce8-5ba68aeb-LT-2k-LT-dark-inactive: a fresh token-keyed fit records ls_pooled 0.752946920 s_ls 2.591894413 s 2.483869917, bit for bit the committed row's; its own replay differs by {'s': -5.805885906795538e-05}
+fit control fitcontrol-7efe4ce8-5ba68aeb-W-tails-LT-dark-inactive: a fresh token-keyed fit records ls_pooled 1.120051529 s_ls 3.515824504 s 3.459296940, bit for bit the committed row's; its own replay differs by {'s': 0.0001180393479387476}
+
+ROUNDING       floor  a489cc02 null-boxfloor light-rest fine pitch (B' pitch <= 8) 764217e1 n: pooled 2.0737 max_cell 6.0181 | diff pooled +1.71e-07
+ROUNDING       floor  a489cc02 null-boxfloor light-rest every structured family 764217e1 n: pooled 0.9885 max_cell 6.0506 | diff pooled +6.22e-08
+ROUNDING       floor  a489cc02 null-boxfloor dark-rest fine pitch (B' pitch <= 8) 764217e1 n: pooled 3.0730 max_cell 8.8879 | diff pooled +2.42e-08
+ROUNDING       floor  a489cc02 null-boxfloor dark-rest every structured family 764217e1 n: pooled 1.2725 max_cell 8.9093 | diff pooled +6.74e-08
+EXACT          floor  a489cc02 null-boxfloor light-inactive fine pitch (B' pitch <= 8) 764217e1 n: pooled 0.4216 max_cell 0.4501
+EXACT          floor  a489cc02 null-boxfloor light-inactive every structured family 764217e1 n: pooled 0.4324 max_cell 0.5000
+EXACT          floor  a489cc02 null-boxfloor dark-inactive fine pitch (B' pitch <= 8) 764217e1 n: pooled 0.4327 max_cell 0.4751
+EXACT          floor  a489cc02 null-boxfloor dark-inactive every structured family 764217e1 n: pooled 0.4066 max_cell 0.4931
+EXACT          null   7efe4ce8 null-mix dark-rest  07b45391 n: pooled 3.2030 max_cell 10.9667
+EXACT          null   7efe4ce8 null-mix light-rest  07b45391 n: pooled 2.6832 max_cell 9.2637
+EXACT          null   7efe4ce8 null-mix light-inactive  07b45391 n: pooled 3.0974 max_cell 9.4398
+EXACT          null   7efe4ce8 null-mix dark-inactive  07b45391 n: pooled 4.6108 max_cell 14.7836
+ROUNDING       null   7efe4ce8 null-texel light-rest  07b45391 n: pooled 2.5835 max_cell 11.5052 | diff pooled +1.55e-07 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null   7efe4ce8 null-texel light-inactive  07b45391 n: pooled 1.8541 max_cell 9.8105
+EXACT          null   7efe4ce8 null-texel dark-inactive  07b45391 n: pooled 1.9052 max_cell 10.0310
+ROUNDING       null   7efe4ce8 null-texel dark-rest  07b45391 n: pooled 2.7722 max_cell 12.7315 | diff pooled +4.83e-07 | no-cache control vs replay: pooled +0, max_cell +0
+ROUNDING       null   7efe4ce8 null-dev light-rest  07b45391 n: pooled 1.4555 max_cell 8.9254 | diff pooled +6.15e-07 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null   7efe4ce8 null-R2 light-inactive  07b45391 n: pooled 1.7273 max_cell 4.2664
+EXACT          null   9c1623b4 null-dev light-inactive  07b45391 n: pooled 1.2551 max_cell 8.4862
+EXACT          null   9c1623b4 null-dev dark-rest  07b45391 w: pooled 2.9832 max_cell 11.0789
+ROUNDING       null   9c1623b4 null-dev dark-inactive  07b45391 n: pooled 1.3022 max_cell 8.7477 | diff pooled +3.19e-07 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null   9c1623b4 null-R2 light-rest  07b45391 w: pooled 2.2920 max_cell 4.2391
+EXACT          null   9c1623b4 null-R2 dark-rest  07b45391 w: pooled 1.2771 max_cell 2.7218
+EXACT          null   9c1623b4 null-R2 dark-inactive  07b45391 n: pooled 2.1386 max_cell 6.2026
+EXACT          null   9c1623b4 null-boxfloor light-rest  07b45391 w: pooled 0.4257 max_cell 0.4425
+EXACT          null   9c1623b4 null-boxfloor light-inactive  07b45391 n: pooled 0.4316 max_cell 0.5000
+EXACT          null   9c1623b4 null-boxfloor dark-rest  07b45391 w: pooled 0.4362 max_cell 0.4997
+ROUNDING       null   9c1623b4 null-boxfloor dark-inactive  07b45391 n: pooled 0.4184 max_cell 0.4923 | diff pooled +1.9e-06 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null2x 7efe4ce8 null-mix light-rest  07b45391 n (2x only): pooled 2.9988 max_cell 9.2595
+EXACT          null2x 7efe4ce8 null-mix dark-rest  07b45391 n (2x only): pooled 3.5907 max_cell 10.9662
+EXACT          null2x 7efe4ce8 null-mix light-inactive  07b45391 n (2x only): pooled 3.1206 max_cell 9.4552
+EXACT          null2x 7efe4ce8 null-mix dark-inactive  07b45391 n (2x only): pooled 4.6283 max_cell 14.8106
+EXACT          null2x 7efe4ce8 null-texel light-inactive  07b45391 n (2x only): pooled 1.8744 max_cell 8.5856
+ROUNDING       null2x 7efe4ce8 null-texel light-rest  07b45391 n (2x only): pooled 2.1545 max_cell 8.9734 | diff pooled +2.99e-07 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null2x 7efe4ce8 null-texel dark-inactive  07b45391 n (2x only): pooled 1.9166 max_cell 8.9067
+ROUNDING       null2x 7efe4ce8 null-texel dark-rest  07b45391 n (2x only): pooled 2.4251 max_cell 10.2009 | diff pooled +4.87e-07 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null2x 7efe4ce8 null-dev light-rest  07b45391 n (2x only): pooled 0.4137 max_cell 0.4404
+ROUNDING       null2x 7efe4ce8 null-dev light-inactive  07b45391 n (2x only): pooled 0.4559 max_cell 0.5207 | diff pooled -4.51e-06 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null2x 7efe4ce8 null-dev dark-inactive  07b45391 n (2x only): pooled 0.6769 max_cell 1.1088
+ROUNDING       null2x 7efe4ce8 null-dev dark-rest  07b45391 n (2x only): pooled 0.7246 max_cell 1.4107 | diff pooled -5.16e-06, max_cell -1.72e-05 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null2x 7efe4ce8 null-R2 light-inactive  07b45391 n (2x only): pooled 2.3882 max_cell 3.7640
+EXACT          null2x 7efe4ce8 null-R2 dark-inactive  07b45391 n (2x only): pooled 2.9993 max_cell 5.5399
+ROUNDING       null2x 7efe4ce8 null-boxfloor light-rest  07b45391 n (2x only): pooled 1.5371 max_cell 6.0102 | diff pooled +6.59e-08 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null2x 7efe4ce8 null-boxfloor light-inactive  07b45391 n (2x only): pooled 0.4185 max_cell 0.4728
+ROUNDING       null2x 7efe4ce8 null-boxfloor dark-rest  07b45391 n (2x only): pooled 2.2665 max_cell 8.9346 | diff pooled +9.8e-08 | no-cache control vs replay: pooled +0, max_cell +0
+EXACT          null2x 7efe4ce8 null-boxfloor dark-inactive  07b45391 n (2x only): pooled 0.4261 max_cell 0.4772
+EXACT          null2x 7efe4ce8 null-R2 light-rest  07b45391 n (2x only): pooled 3.6530 max_cell 8.2056
+EXACT          null2x 7efe4ce8 null-R2 dark-rest  07b45391 n (2x only): pooled 4.1944 max_cell 9.1318
+EXACT          pair   7efe4ce8 W-shape -> LT light-inactive 5ba68aeb n: ls_pooled 0.5520 s_ls 2.3951 s 2.2106
+EXACT          pair   7efe4ce8 W-canvas -> LT light-inactive 5ba68aeb n: ls_pooled 1.1390 s_ls 7.1915 s 7.1915
+EXACT          pair   7efe4ce8 W-canvas -> LT light-rest 5ba68aeb n: ls_pooled 0.4150 s_ls 0.0139 s 0.0087
+EXACT          pair   7efe4ce8 W-tails -> LT light-inactive 5ba68aeb n: ls_pooled 1.0262 s_ls 3.7117 s 3.4483
+ROUNDING       pair   7efe4ce8 LT-2k -> LT dark-inactive 5ba68aeb n: ls_pooled 0.7529 s_ls 2.5919 s 2.4839 | diff s -5.81e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   7efe4ce8 free-sn -> LT dark-inactive 5ba68aeb n: ls_pooled 0.4893 s_ls 2.2392 s 1.5993 | diff s +5.76e-05, where 2x|bp-p1-c32-capsule-button:sq47:far != 2x|bp-p1-c32-rrect-lg:far-cores | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   7efe4ce8 R1 -> LT dark-inactive 5ba68aeb n: ls_pooled 0.7484 s_ls 4.2114 s 2.5320
+EXACT          pair   7efe4ce8 W-shape -> LT dark-inactive 5ba68aeb n: ls_pooled 0.5566 s_ls 2.5365 s 2.3196
+EXACT          pair   7efe4ce8 W-canvas -> LT dark-inactive 5ba68aeb n: ls_pooled 1.3285 s_ls 6.9954 s 6.9954
+ROUNDING       pair   7efe4ce8 W-canvas -> LT dark-rest 5ba68aeb n: ls_pooled 0.4186 s_ls 0.0202 s 0.0194 | diff ls_pooled +1.5e-08 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   7efe4ce8 W-tails -> LT dark-inactive 5ba68aeb n: ls_pooled 1.1201 s_ls 3.5158 s 3.4593 | diff s +0.000118 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   7efe4ce8 C-linear -> LT light-inactive 5ba68aeb n: ls_pooled 2.5577 s_ls 8.2620 s 8.2620
+EXACT          pair   7efe4ce8 C-linear -> LT dark-inactive 5ba68aeb n: ls_pooled 2.6732 s_ls 11.5409 s 11.5409
+EXACT          pair   7efe4ce8 knee-luma -> LT light-inactive 5ba68aeb n: ls_pooled 0.8768 s_ls 9.6455 s 9.6455
+EXACT          pair   7efe4ce8 knee-luma -> LT dark-inactive 5ba68aeb n: ls_pooled 0.8609 s_ls 10.9254 s 10.9254
+EXACT          pair   7efe4ce8 edge-swap -> LT light-inactive 5ba68aeb n: ls_pooled 1.0753 s_ls 6.0992 s 6.0992
+ROUNDING       pair   7efe4ce8 edge-swap -> LT light-rest 5ba68aeb n: ls_pooled 0.4246 s_ls 0.6257 s 0.4009 | diff ls_pooled +1.91e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   7efe4ce8 edge-swap -> LT dark-rest 5ba68aeb n: ls_pooled 0.4525 s_ls 1.0962 s 0.7308 | diff s +2.43e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   7efe4ce8 edge-swap -> LT dark-inactive 5ba68aeb n: ls_pooled 1.2089 s_ls 5.8875 s 5.6365 | diff s -6.56e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   7efe4ce8 LT -> R1 dark-inactive 5ba68aeb n: ls_pooled 0.7855 s_ls 3.8301 s 2.5604
+ROUNDING       pair   7efe4ce8 LT -> W-shape light-inactive 5ba68aeb n: ls_pooled 0.4937 s_ls 3.0655 s 2.3833 | diff ls_pooled -2.22e-07, ls_max_cell +7.7e-07, s_ls +1.13e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   7efe4ce8 LT -> W-shape light-rest 5ba68aeb n: ls_pooled 0.4150 s_ls 0.0116 s 0.0056
+EXACT          pair   7efe4ce8 LT -> W-shape dark-rest 5ba68aeb n: ls_pooled 0.4186 s_ls 0.0169 s 0.0121
+EXACT          pair   7efe4ce8 LT -> W-canvas light-rest 5ba68aeb n: ls_pooled 0.4150 s_ls 0.0122 s 0.0085
+EXACT          pair   7efe4ce8 LT -> W-canvas light-inactive 5ba68aeb n: ls_pooled 1.1130 s_ls 6.8548 s 6.8548
+ROUNDING       pair   7efe4ce8 LT -> W-canvas dark-rest 5ba68aeb n: ls_pooled 0.4186 s_ls 0.0265 s 0.0198 | diff ls_pooled -1.25e-08 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   7efe4ce8 LT -> W-canvas dark-inactive 5ba68aeb n: ls_pooled 1.2602 s_ls 6.4617 s 6.4617
+EXACT          pair   7efe4ce8 LT -> C-linear light-inactive 5ba68aeb n: ls_pooled 2.9308 s_ls 9.4658 s 9.4658
+ROUNDING       pair   7efe4ce8 LT -> W-shape dark-inactive 5ba68aeb n: ls_pooled 0.4987 s_ls 3.1030 s 2.4880 | diff ls_pooled +9.89e-07, ls_max_cell +2.8e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   7efe4ce8 LT -> C-linear dark-inactive 5ba68aeb n: ls_pooled 2.4600 s_ls 9.6321 s 9.6321
+EXACT          pair   7efe4ce8 LT -> knee-luma light-inactive 5ba68aeb n: ls_pooled 0.8764 s_ls 9.6232 s 9.6232
+EXACT          pair   7efe4ce8 LT -> knee-luma dark-inactive 5ba68aeb n: ls_pooled 0.8566 s_ls 10.7198 s 10.7198
+EXACT          pair   7efe4ce8 LT -> edge-swap light-inactive 5ba68aeb n: ls_pooled 1.0623 s_ls 6.1282 s 6.1282
+SUPERSEDED BY  pair   7efe4ce8 LT -> edge-swap light-inactive 5ba68aeb n: ls_pooled 1.0623 s_ls 6.1282 s 6.1282 | diff n_cells -4, ls_pooled +0.0114, ls_max_cell -0.0221, lam +0.00453
+EXACT          pair   7efe4ce8 LT -> edge-swap light-rest 07b45391 n: ls_pooled 0.4268 s_ls 0.6410 s 0.4316
+ROUNDING       pair   7efe4ce8 LT -> edge-swap dark-rest 07b45391 n: ls_pooled 0.4564 s_ls 1.1671 s 0.7913 | diff ls_pooled +2.68e-07, s -7.84e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   7efe4ce8 LT -> edge-swap dark-inactive 07b45391 n: ls_pooled 1.1993 s_ls 5.8826 s 5.6138 | diff s +1.26e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   7efe4ce8 W-shape -> W-canvas light-inactive 07b45391 n: ls_pooled 0.7552 s_ls 6.9060 s 6.9060
+EXACT          pair   7efe4ce8 W-tails -> W-shape light-inactive 07b45391 n: ls_pooled 0.8460 s_ls 3.1616 s 3.0515
+EXACT          pair   7efe4ce8 W-tails -> W-canvas light-inactive 07b45391 n: ls_pooled 1.2126 s_ls 9.1849 s 9.1849
+ROUNDING       pair   7efe4ce8 W-tails -> K2 light-inactive 07b45391 n: ls_pooled 0.6420 s_ls 1.8486 s 1.8099 | diff ls_pooled +9.72e-07, ls_max_cell +2.84e-07, s_ls +4.56e-09, s +1.18e-06, where 2x|d-d32-lohi-rrect-md:bin32..48 != 2x|c-s8-hi-rrect-sm:p1:core | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   9c1623b4 K2 -> W-canvas light-inactive 07b45391 n: ls_pooled 0.8182 s_ls 5.8088 s 4.2666
+ROUNDING       pair   9c1623b4 W-canvas -> W-shape light-inactive 07b45391 n: ls_pooled 0.4355 s_ls 0.0691 s 0.0569 | diff ls_pooled +4.84e-08, s_ls -1.91e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   9c1623b4 W-canvas -> W-tails light-inactive 07b45391 n: ls_pooled 0.8500 s_ls 7.1915 s 7.1915 | diff ls_pooled +4.9e-07, ls_max_cell +1.23e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   9c1623b4 W-canvas -> K2 light-inactive 07b45391 n: ls_pooled 0.8558 s_ls 7.1915 s 7.1915 | diff ls_pooled +1.36e-07, ls_max_cell -1.56e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   9c1623b4 W-shape -> W-canvas dark-inactive 07b45391 n: ls_pooled 0.7777 s_ls 6.8119 s 6.8119
+EXACT          pair   9c1623b4 W-tails -> W-shape dark-inactive 07b45391 n: ls_pooled 0.8803 s_ls 3.3331 s 3.1234
+ROUNDING       pair   9c1623b4 W-tails -> K2 dark-inactive 07b45391 n: ls_pooled 0.8438 s_ls 3.1066 s 2.8606 | diff ls_pooled -2.35e-06, ls_max_cell -3.68e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   9c1623b4 W-tails -> W-canvas dark-inactive 07b45391 n: ls_pooled 1.2965 s_ls 8.9194 s 8.9194
+EXACT          pair   9c1623b4 K2 -> W-canvas dark-inactive 07b45391 n: ls_pooled 0.8733 s_ls 6.6873 s 6.6873
+ROUNDING       pair   9c1623b4 W-canvas -> W-shape dark-inactive 07b45391 n: ls_pooled 0.4181 s_ls 0.0720 s 0.0607 | diff ls_pooled +2.68e-08, s_ls -3.62e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   9c1623b4 W-canvas -> W-tails dark-inactive 07b45391 n: ls_pooled 0.9051 s_ls 6.9954 s 6.9954 | diff ls_pooled -2.55e-07, ls_max_cell -1.36e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   9c1623b4 W-canvas -> K2 dark-inactive 07b45391 n: ls_pooled 0.9025 s_ls 6.9954 s 6.9954 | diff ls_pooled +5.04e-07, ls_max_cell +1.63e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT-2k -> LT light-rest 764217e1 n: ls_pooled 0.6342 s_ls 2.9612 s 2.1182 | diff ls_pooled +2.41e-06, s_ls +3.22e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT-2k -> LT dark-rest 764217e1 n: ls_pooled 0.6582 s_ls 3.3345 s 2.4507 | diff ls_pooled -1.03e-06, s +2.77e-06, where 2x|bp-p1-c8-rrect-ml:sq331:far != 2x|bp-p1-c64-rrect-ml:sq12:far | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 free-sn -> LT light-rest 764217e1 n: ls_pooled 0.8584 s_ls 7.7679 s 7.7679 | diff ls_pooled -1.99e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 free-sn -> LT dark-rest 764217e1 n: ls_pooled 1.0112 s_ls 11.5724 s 11.5724 | diff ls_pooled +1.56e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 R1 -> LT dark-rest 764217e1 n: ls_pooled 1.3163 s_ls 7.2987 s 7.2987 | diff ls_pooled -5.16e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   a489cc02 W-shape -> LT light-rest 764217e1 n: ls_pooled 0.5729 s_ls 2.0488 s 1.9601
+ROUNDING       pair   a489cc02 W-shape -> LT dark-rest 764217e1 n: ls_pooled 0.6552 s_ls 3.2724 s 2.9784 | diff ls_pooled -6.57e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 W-tails -> LT light-rest 764217e1 n: ls_pooled 0.9291 s_ls 3.9956 s 2.5757 | diff ls_pooled +2.63e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   a489cc02 W-tails -> LT dark-rest 764217e1 n: ls_pooled 0.8501 s_ls 4.3480 s 2.7787
+ROUNDING       pair   a489cc02 K2 -> LT light-rest 764217e1 n: ls_pooled 0.7188 s_ls 2.0743 s 1.9374 | diff ls_pooled +1.38e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   a489cc02 C-linear -> LT light-rest 764217e1 n: ls_pooled 2.9508 s_ls 13.3102 s 13.3102
+ROUNDING       pair   a489cc02 C-linear -> LT dark-rest 764217e1 n: ls_pooled 2.0783 s_ls 14.9389 s 14.9389 | diff ls_pooled -3.93e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 K2 -> LT dark-rest 764217e1 n: ls_pooled 0.7424 s_ls 2.5767 s 2.2807 | diff ls_pooled -8.86e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 knee-luma -> LT light-rest 764217e1 n: ls_pooled 1.7310 s_ls 15.9837 s 15.9837 | diff ls_pooled -1.82e-06, ls_max_cell -1.07e-05, s_ls +5.31e-06, s +5.31e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 knee-luma -> LT dark-rest 764217e1 n: ls_pooled 1.4280 s_ls 18.4488 s 18.4488 | diff ls_pooled +1.08e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT+bleed -> LT dark-rest 764217e1 n: ls_pooled 3.1669 s_ls 22.4193 s 22.4193 | diff ls_pooled -3.11e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT+bleed -> LT light-rest 764217e1 n: ls_pooled 0.6457 s_ls 2.6191 s 2.3388 | diff ls_pooled -5.79e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT+bleed-own -> LT dark-rest 764217e1 n: ls_pooled 3.1099 s_ls 22.0563 s 22.0563 | diff ls_pooled -5.77e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT+bleed-own -> LT light-rest 764217e1 n: ls_pooled 0.6473 s_ls 2.6280 s 2.3463 | diff ls_pooled -3.3e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> free-sn light-rest 764217e1 n: ls_pooled 0.4851 s_ls 2.4713 s 2.2176 | diff ls_max_cell +2.38e-09, s_ls +2.47e-08 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   a489cc02 LT -> free-sn dark-rest 764217e1 n: ls_pooled 0.4983 s_ls 3.1522 s 2.6662
+ROUNDING       pair   a489cc02 LT -> C-linear light-rest 764217e1 n: ls_pooled 2.9953 s_ls 13.9906 s 13.9906 | diff ls_pooled -6.91e-08 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> R1 dark-rest 764217e1 n: ls_pooled 1.3455 s_ls 7.0158 s 7.0158 | diff ls_pooled +3.7e-07, ls_max_cell +5.76e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   a489cc02 LT -> C-linear dark-rest 764217e1 n: ls_pooled 1.9770 s_ls 13.4559 s 13.4559
+ROUNDING       pair   a489cc02 LT -> knee-luma light-rest 764217e1 n: ls_pooled 1.7316 s_ls 16.6912 s 16.6912 | diff ls_pooled -1.22e-06, ls_max_cell -7.34e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   a489cc02 LT -> knee-luma dark-rest 764217e1 n: ls_pooled 1.4140 s_ls 17.8213 s 17.8213
+EXACT          pair   a489cc02 LT -> LT+bleed dark-rest 764217e1 n: ls_pooled 3.3384 s_ls 22.4376 s 22.4376
+ROUNDING       pair   a489cc02 LT -> LT+bleed light-rest 764217e1 n: ls_pooled 0.6493 s_ls 2.6151 s 2.3883 | diff ls_pooled -2.53e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> LT+bleed-own dark-rest 764217e1 n: ls_pooled 2.5818 s_ls 16.4461 s 16.4461 | diff ls_pooled -4.83e-07, ls_max_cell -4.81e-06, s_ls -1.25e-06, s -1.25e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 R1 -> LT light-rest whole 764217e1 n: ls_pooled 0.4195 s_ls 0.7752 s 0.5691 | diff ls_pooled +3.21e-07, ls_max_cell +2.38e-06, s_ls +1.88e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> R1 light-rest whole 764217e1 n: ls_pooled 0.4192 s_ls 0.7780 s 0.5375 | diff ls_pooled -7.53e-08 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> LT+bleed-own light-rest whole 764217e1 n: ls_pooled 0.4950 s_ls 1.4577 s 1.2787 | diff ls_pooled +7.2e-07, ls_max_cell -1.85e-06, s_ls -7.62e-06
+ROUNDING       pair   a489cc02 LT -> R1 dark-rest 764217e1 w: ls_pooled 0.5817 s_ls 2.4041 s 1.5018 | diff s +2.03e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 knee-luma -> LT dark-rest 764217e1 w: ls_pooled 0.4526 s_ls 3.3199 s 2.5843 | diff s +6.06e-05, where 2x|e-by-c16-rrect-lg:sq105:b|B != 2x|bp-p1-c32-rrect-lg:sq43:far | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   a489cc02 knee-luma -> LT light-rest 764217e1 w: ls_pooled 0.5274 s_ls 3.7744 s 3.1960
+EXACT          pair   a489cc02 LT -> knee-luma light-rest 764217e1 w: ls_pooled 0.5273 s_ls 3.7425 s 2.8478
+EXACT          pair   a489cc02 LT -> knee-luma dark-rest 764217e1 w: ls_pooled 0.4514 s_ls 3.3154 s 2.6461
+EXACT          pair   a489cc02 free-sn -> LT light-rest 764217e1 w: ls_pooled 1.2075 s_ls 6.5794 s 6.5794
+EXACT          pair   a489cc02 free-sn -> LT dark-rest 764217e1 w: ls_pooled 1.3560 s_ls 7.5663 s 7.5663
+ROUNDING       pair   a489cc02 R1 -> LT dark-rest whole 764217e1 w: ls_pooled 0.5520 s_ls 2.5147 s 1.4245 | diff s +3.43e-05, where 2x|bp-p1-c32-rrect-lg:sq34:far != 2x|bp-p1-c32-rrect-ml:sq34:far | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 R1 -> LT light-rest whole 764217e1 w: ls_pooled 0.4120 s_ls 0.1646 s 0.1410 | diff s -9.47e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> R1 light-rest whole 764217e1 w: ls_pooled 0.4118 s_ls 0.1566 s 0.1400 | diff s -8.72e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> free-sn light-rest whole 764217e1 w: ls_pooled 0.4608 s_ls 1.4286 s 0.9876 | diff ls_pooled -1.21e-06, ls_max_cell -5.98e-06, s_ls -1.9e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   a489cc02 LT -> free-sn dark-rest whole 764217e1 w: ls_pooled 0.5417 s_ls 2.3283 s 1.0972 | diff ls_pooled -3.41e-06, ls_max_cell -9.05e-06, s_ls -2.18e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   be700896 free-sn -> LT light-inactive whole 5d719b60 n: ls_pooled 0.4682 s_ls 1.3683 s 1.1668 | diff s +3.26e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   be700896 LT-2k -> LT light-inactive whole 5d719b60 n: ls_pooled 0.6517 s_ls 1.9723 s 1.6875
+ROUNDING       pair   be700896 R1 -> LT light-inactive whole 5d719b60 n: ls_pooled 0.4428 s_ls 0.5763 s 0.5115 | diff s -4.92e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   be700896 K2 -> LT light-inactive whole 5d719b60 n: ls_pooled 0.5753 s_ls 2.9007 s 1.5978
+EXACT          pair   be700896 K2 -> LT dark-inactive whole 5d719b60 n: ls_pooled 0.5274 s_ls 3.3846 s 2.0571
+ROUNDING       pair   be700896 LT -> R1 light-inactive whole 5d719b60 n: ls_pooled 0.4421 s_ls 0.5749 s 0.5104 | diff ls_pooled +3.35e-07, s +2.1e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   be700896 W-shape -> K2 light-inactive whole 5d719b60 n: ls_pooled 0.5358 s_ls 2.3827 s 2.2447 | diff ls_pooled +3.59e-07, ls_max_cell +6.57e-06, s_ls +1.07e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   be700896 W-shape -> W-tails light-inactive whole 5d719b60 n: ls_pooled 0.5358 s_ls 2.3680 s 2.2545 | diff ls_pooled +7.85e-07, ls_max_cell +7.61e-06, s_ls +1.69e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   be700896 K2 -> W-shape light-inactive whole 5d719b60 n: ls_pooled 0.6145 s_ls 2.9959 s 2.6344 | diff ls_pooled +1.28e-06, ls_max_cell -1.55e-06, s_ls -2.26e-06 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   be700896 K2 -> W-tails light-inactive whole 5d719b60 n: ls_pooled 0.5753 s_ls 2.8937 s 1.6189 | diff ls_pooled -4.28e-06, ls_max_cell -3.5e-05, s_ls -4.95e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   be700896 W-shape -> W-tails dark-inactive whole 5d719b60 n: ls_pooled 0.5331 s_ls 3.1720 s 2.5931 | diff ls_max_cell +1.39e-07, s_ls +4.52e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+ROUNDING       pair   be700896 W-shape -> K2 dark-inactive whole 5d719b60 n: ls_pooled 0.5331 s_ls 3.1623 s 2.2807 | diff ls_max_cell +2.36e-07, s_ls +7.29e-07 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+EXACT          pair   be700896 K2 -> W-shape dark-inactive whole 5d719b60 n: ls_pooled 0.5637 s_ls 3.4191 s 3.2078
+ROUNDING       pair   be700896 K2 -> W-tails dark-inactive whole 5d719b60 n: ls_pooled 0.5288 s_ls 3.3205 s 2.0602 | diff ls_pooled -5.61e-06, ls_max_cell -5.45e-05, s_ls -6.49e-05 | no-cache control vs replay: ls_pooled +0, ls_max_cell +0, s_ls +0, s +0
+
+READERS: regenerated JSON against the committed JSON (numeric leaves; differ = beyond 1e-9 relative)
+  EXACT        7efe4ce8-07b45391     proof1_readers_b.step.json                        767 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.step.json                        536 numbers,   18 differ, max 0.459 at [17].w: -433.2190946916977 -> -433.6784405845887
+               calls identical; <= 2e-5 on every well-conditioned value, 0.46 on an ill-conditioned w of -433
+  EXACT        9c1623b4-07b45391     proof1_readers_b.step_w.json                      224 numbers,    0 differ, max 0
+  CONTAMINATED 9c1623b4-07b45391     proof3_readers_b.replica.json                    6430 numbers,  117 differ, max 10.4 at .rows[113].cap.cell.rms0: 11.183117536638292 -> 0.7681135212637611
+               the id key served stale blurs (the audit row below); the token file replaced it in c9361e94, the contaminated one is i4_contaminated_proof3_readers_b.replica.json
+  EXACT        7efe4ce8-07b45391     proof1_readers_b.patch.json                      1436 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof1_readers_b.depth.json                       480 numbers,   11 differ, max 2.06e-06 at [55].sn_iv[1]: 13.320480251130782 -> 13.320478188193452
+               <= 2.1e-6
+  PIN          7efe4ce8-07b45391     proof1_readers_b.lambda.json                     1964 numbers,  389 differ, max 1.18e+05 at [29].n: 149740.0 -> 31468.0
+               this section ran on 5ba68aeb (66 rows, not 70); superseded by the 5ba68aeb replay, EXACT
+  EXACT        7efe4ce8-07b45391     proof1_readers_b.u1.json                         3873 numbers,    0 differ, max 0
+  AUDIT        9c1623b4-07b45391aud  proof3_readers_b.replica.json                    6384 numbers,  246 differ, max 6.71e+14 at .rows[106].cap.cell.w_free: 0.41497072485462344 -> -670745723327769.8
+               the same section re-run with the ORIGINAL id key and a per-hit source check: 15 hits served a blur of another checkerboard pitch (0.10-1.0 encoded, 25-255 codes) on the checkerboard-8/-32/-64 cells; its output differs from both the record and the token replay
+  EXACT        9c1623b4-07b45391     proof1_readers_b.patch_w.json                     268 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof1_readers_b.lambda_w.json                    298 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.depth.json                       400 numbers,   13 differ, max 1.69e-05 at [1].w: 0.3025460837949252 -> 0.3025291666804139
+               <= 1.7e-5
+  EXACT        7efe4ce8-07b45391     proof3_readers_b.lambda.json                     4383 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.patch.json                       604 numbers,   15 differ, max 0.194 at [18].w: -61.99188781615905 -> -61.797571077433325
+               sn / sw move 0.02 % on one flat dark 1x rrect-lg receded fit (w ill-conditioned); two support rankings swap between tied rms values; no gated or scored call changes
+  ROUNDING     7efe4ce8-07b45391     proof3_readers_b.patch_given.json                 360 numbers,    7 differ, max 13.7 at [18].w: -655.5784615436773 -> -641.8843158421978
+               an ill-conditioned narrow share / w (-655 -> -642) on the same flat row; one tie swap
+  EXACT        7efe4ce8-5ba68aeb     proof1_readers_b.lambda.json                     2089 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.light-rest.replica.json         1229 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.light-inactive.replica.json      795 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.dark-rest.replica.json          1087 numbers,    0 differ, max 0
+  EXACT        9c1623b4-07b45391     proof3_readers_a.dark-inactive.replica.json       757 numbers,    0 differ, max 0
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.light-rest.json                 1208 numbers,   69 differ, max 5.61 at [13].mirror.sw: 35.758358627557755 -> 41.3646354675293
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.light-inactive.json              947 numbers,   50 differ, max 4.34 at [21].mirror.s1_gain_range[0]: -4.340247305352007 -> 2.5557410815731543e-10
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.dark-rest.json                  1002 numbers,  106 differ, max 1.17 at [11].mirror.sw: 35.81806891784072 -> 36.983489990234375
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  REVISION     7efe4ce8-07b45391     proof3_readers_a.dark-inactive.json               844 numbers,   37 differ, max 0.0526 at [4].mirror.s1_gain_range[1]: 0.007467681563511652 -> -0.045127502571461205
+               the mirror field (replaced by the .mirror.json re-run when cited) is from an earlier revision; every cited field replays exactly (i4_sections.txt)
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.light-rest.mirror.json           252 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.light-inactive.mirror.json       168 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.dark-rest.mirror.json            224 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof3_readers_a.dark-inactive.mirror.json        168 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-rest.model.json            233 numbers,    0 differ, max 0
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-inactive.model.json        297 numbers,    0 differ, max 0
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-rest.model.json             219 numbers,    0 differ, max 0
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-inactive.model.json         270 numbers,    0 differ, max 0
+  ROUNDING     7efe4ce8-07b45391     proof1_readers_a.light-rest.mirror,band.json      631 numbers,    3 differ, max 0.00307 at [0].reads.lt|kw.s1_gain_range[0]: -0.1251743450632034 -> -0.12824077324280572
+               one interval bound moves 0.003; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-inactive.mirror,band.json    462 numbers,    0 differ, max 0
+               values exact; the record lacks the later pairs_kept key
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-rest.mirror,band.json       395 numbers,    1 differ, max 0
+               one inf leaf compares as nan
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.dark-inactive.mirror,band.json    382 numbers,    0 differ, max 0
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.light-rest.impulse,band.json     375 numbers,   21 differ, max 1.92 at [16].mirror.s1_gain_range[1]: 2.4757065392018194 -> 0.5591058374754827
+               its impulse rows replay exactly; its three band rows are from an earlier revision and are replaced by the later mirror,band file when cited
+  EXACT        7efe4ce8-07b45391     proof1_readers_a.light-inactive.impulse,band.json    292 numbers,    0 differ, max 0
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.light-rest.all.json              993 numbers,  639 differ, max 1.01e+08 at [71].mix.b: 130.31470273380413 -> 100822205.4660527
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.light-inactive.all.json         1330 numbers,  920 differ, max 4.38e+08 at [69].mix.b: 94.8684519187889 -> 438433439.8880523
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.dark-rest.all.json               757 numbers,  434 differ, max 7.68e+05 at [73].mix.b: 768103.1664664599 -> 178.45081621786036
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+  REVISION     7efe4ce8-07b45391     proof1_readers_a.dark-inactive.all.json          1036 numbers,  664 differ, max 5.4e+06 at [69].mix.b: 5398270.6547589265 -> 233.24611352904867
+               written by an earlier reader revision; its cited sections are compared in i4_sections.txt
+
+AUDIT (id key kept, proof3_readers_b replica): 282 hits served an entry stored by a cell of another fingerprint; 15 of them a DIFFERENT blur (max 1.000 encoded) on checkerboard-32__capsule-button__rest, checkerboard-32__rrect-md__rest, checkerboard-64__capsule-button__rest, checkerboard-64__rrect-md__rest, checkerboard-64__rrect-ml__rest, checkerboard-8__rrect-md__inactive, checkerboard-8__rrect-ml__rest; the rest differ only in scheme, pose or scale over one backdrop, so the blur is the same
+
+logs outside git (SHA-256, 16 hex): /tmp/w42fix/i4-out/audit-p3rep.jsonl 0524c903dd26fd3b, /tmp/w42fix/i4-out/readers.log 094621030af5169b, /tmp/w42fix/i4-out/readers.json afc3184ea89b398d, /tmp/w42fix/i4-out/chain.log 3e90f18f3cb3bce7

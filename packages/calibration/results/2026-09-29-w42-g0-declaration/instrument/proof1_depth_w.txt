@@ -1,0 +1,16 @@
+W42 G0 proof 1 addendum: the active depth sweeps (descriptive depth reader), mask w, pin 764217e1
+  light-rest  md              NO SWEEP: the mask leaves [] of ['c-s8-hi-rrect-md', 'c-s8-hi-d34-rrect-md', 'c-s8-hi-d24-rrect-md']
+  light-rest  lg              LT       c-s8-hi-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  lg              LT       c-s8-hi-d60-rrect-lg       depth  60.2 ratio 0.878 expect 0.876 PASS outside
+  light-rest  lg              LT       c-s8-hi-d40-rrect-lg       depth  40.2 ratio 1.082 expect 0.750 MISS outside
+  light-rest  lg              free-sn  c-s8-hi-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  lg              free-sn  c-s8-hi-d60-rrect-lg       depth  60.2 ratio 1.004 expect 1.000 PASS outside
+  light-rest  lg              free-sn  c-s8-hi-d40-rrect-lg       depth  40.2 ratio 2.104 expect 1.000 MISS outside
+  dark-rest   md              NO SWEEP: the mask leaves [] of ['c-s8-lo-rrect-md', 'c-s8-lo-d34-rrect-md', 'c-s8-lo-d24-rrect-md']
+  dark-rest   lg              LT       c-s8-lo-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   lg              LT       c-s8-lo-d60-rrect-lg       depth  60.2 ratio 0.567 expect 0.876 MISS outside
+  dark-rest   lg              LT       c-s8-lo-d40-rrect-lg       depth  40.2 ratio 0.016 expect 0.750 MISS outside
+  dark-rest   lg              free-sn  c-s8-lo-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   lg              free-sn  c-s8-lo-d60-rrect-lg       depth  60.2 ratio 0.041 expect 1.000 MISS outside
+  dark-rest   lg              free-sn  c-s8-lo-d40-rrect-lg       depth  40.2 ratio 0.016 expect 1.000 MISS outside
+  dark-rest   md p4 (16/112)  NO SWEEP: the mask leaves [] of ['c-s8-lo-p4-rrect-md', 'c-s8-lo-p4-d34-rrect-md']

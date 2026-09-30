@@ -1,0 +1,1033 @@
+{
+ "r3-1lnh": {
+  "variant": "c1",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 10 (max +0.0296)",
+     "StopH 1/6",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 352,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0091)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 4/4"
+    ],
+    "e2Adopted": 123,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0064)",
+     "M1 0.46/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1lnb": {
+  "variant": "r3-1lnb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 25 (max +0.0494)",
+     "M2 2",
+     "StopH 1/6",
+     "StopP 10/10"
+    ],
+    "e2Adopted": 1838,
+    "e2AbsoluteFailingCells": 27,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0091)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 508,
+    "e2AbsoluteFailingCells": 11,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0064)",
+     "M1 0.46/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1lsh": {
+  "variant": "r3-1lsh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 10 (max +0.0296)",
+     "StopH 1/6",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 373,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0122)",
+     "M1 0.74/0",
+     "M2 4",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 4/4"
+    ],
+    "e2Adopted": 134,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0213)",
+     "M1 1.29/0"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1lsb": {
+  "variant": "r3-1lsb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 25 (max +0.0494)",
+     "M2 2",
+     "StopH 1/6",
+     "StopP 10/10"
+    ],
+    "e2Adopted": 1834,
+    "e2AbsoluteFailingCells": 27,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0122)",
+     "M1 0.74/0",
+     "M2 4",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 1.33/0",
+     "StopH 2/2",
+     "StopP 2/4"
+    ],
+    "e2Adopted": 538,
+    "e2AbsoluteFailingCells": 13,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0213)",
+     "M1 1.29/0"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1lgh": {
+  "variant": "r3-1lgh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 10 (max +0.0296)",
+     "StopH 1/6",
+     "StopP 5/10"
+    ],
+    "e2Adopted": 372,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0085)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 4/4"
+    ],
+    "e2Adopted": 134,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0105)",
+     "M1 1.36/2",
+     "StopP 2/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1lgb": {
+  "variant": "r3-1lgb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 26 (max +0.0494)",
+     "M2 2",
+     "StopH 1/6",
+     "StopP 7/10"
+    ],
+    "e2Adopted": 1809,
+    "e2AbsoluteFailingCells": 30,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0085)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 1.37/2",
+     "StopH 2/2",
+     "StopP 3/4"
+    ],
+    "e2Adopted": 537,
+    "e2AbsoluteFailingCells": 13,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0105)",
+     "M1 1.36/2",
+     "StopP 2/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1pnh": {
+  "variant": "c1p",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 10 (max +0.0296)",
+     "StopH 1/6",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 276,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0109)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 4/4"
+    ],
+    "e2Adopted": 109,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 6 (max +0.0091)",
+     "M1 0.46/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1pnb": {
+  "variant": "r3-1pnb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 26 (max +0.0494)",
+     "M2 2",
+     "StopH 1/6",
+     "StopP 10/10"
+    ],
+    "e2Adopted": 1872,
+    "e2AbsoluteFailingCells": 27,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0109)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 501,
+    "e2AbsoluteFailingCells": 11,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 6 (max +0.0091)",
+     "M1 0.46/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1psh": {
+  "variant": "r3-1psh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 10 (max +0.0296)",
+     "StopH 1/6",
+     "StopP 5/10"
+    ],
+    "e2Adopted": 269,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0094)",
+     "M1 0.78/0",
+     "M2 3",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 4/4"
+    ],
+    "e2Adopted": 134,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0213)",
+     "M1 1.25/0"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1psb": {
+  "variant": "r3-1psb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 26 (max +0.0494)",
+     "M2 2",
+     "StopH 1/6",
+     "StopP 10/10"
+    ],
+    "e2Adopted": 1853,
+    "e2AbsoluteFailingCells": 27,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0094)",
+     "M1 0.78/0",
+     "M2 3",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 1.26/0",
+     "StopH 2/2"
+    ],
+    "e2Adopted": 539,
+    "e2AbsoluteFailingCells": 13,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0213)",
+     "M1 1.25/0"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1pgh": {
+  "variant": "r3-1pgh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 11 (max +0.0296)",
+     "StopH 1/6",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 373,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0099)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 4/4"
+    ],
+    "e2Adopted": 134,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0098)",
+     "M1 1.34/2"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-1pgb": {
+  "variant": "r3-1pgb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 26 (max +0.0494)",
+     "M1 0.99/1",
+     "StopH 1/6"
+    ],
+    "e2Adopted": 1801,
+    "e2AbsoluteFailingCells": 30,
+    "excludedByRuling": true
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0099)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 1.35/1",
+     "StopH 2/2"
+    ],
+    "e2Adopted": 537,
+    "e2AbsoluteFailingCells": 12,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0098)",
+     "M1 1.34/2"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2lnh": {
+  "variant": "c2",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 3 (max +0.0085)",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 752,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0098)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 0.76/0",
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 599,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0130)",
+     "M1 0.32/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2lnb": {
+  "variant": "r3-2lnb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 3 (max +0.0109)",
+     "StopP 10/10"
+    ],
+    "e2Adopted": 1845,
+    "e2AbsoluteFailingCells": 14,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0098)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 0.63/1",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 980,
+    "e2AbsoluteFailingCells": 16,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0130)",
+     "M1 0.32/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2lsh": {
+  "variant": "r3-2lsh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 3 (max +0.0085)",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 679,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0122)",
+     "M1 0.74/0",
+     "M2 4",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 628,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 3 (max +0.0254)",
+     "M2 2"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2lsb": {
+  "variant": "r3-2lsb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 3 (max +0.0105)",
+     "StopP 10/10"
+    ],
+    "e2Adopted": 1771,
+    "e2AbsoluteFailingCells": 14,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0122)",
+     "M1 0.74/0",
+     "M2 4",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 2/4"
+    ],
+    "e2Adopted": 1014,
+    "e2AbsoluteFailingCells": 16,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 3 (max +0.0254)",
+     "M2 2"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2lgh": {
+  "variant": "r3-2lgh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 1 (max +0.0085)",
+     "StopP 5/10"
+    ],
+    "e2Adopted": 863,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0091)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 628,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0146)",
+     "StopP 2/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2lgb": {
+  "variant": "r3-2lgb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 1 (max +0.0105)",
+     "StopP 7/10"
+    ],
+    "e2Adopted": 1829,
+    "e2AbsoluteFailingCells": 10,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0091)",
+     "M2 4",
+     "StopP 6/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopP 3/4"
+    ],
+    "e2Adopted": 1014,
+    "e2AbsoluteFailingCells": 16,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0146)",
+     "StopP 2/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2pnh": {
+  "variant": "c2p",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 3 (max +0.0085)",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 663,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0119)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 0.77/0",
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 585,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0139)",
+     "M1 0.33/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2pnb": {
+  "variant": "r3-2pnb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 3 (max +0.0105)",
+     "StopP 10/10"
+    ],
+    "e2Adopted": 1729,
+    "e2AbsoluteFailingCells": 13,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0119)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "M1 0.65/1",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 976,
+    "e2AbsoluteFailingCells": 16,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0139)",
+     "M1 0.33/4",
+     "StopP 4/4"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2psh": {
+  "variant": "r3-2psh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 1 (max +0.0085)",
+     "StopP 5/10"
+    ],
+    "e2Adopted": 663,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0094)",
+     "M1 0.78/0",
+     "M2 3",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 628,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0255)",
+     "M2 2"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2psb": {
+  "variant": "r3-2psb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 3 (max +0.0105)",
+     "StopP 8/10"
+    ],
+    "e2Adopted": 1733,
+    "e2AbsoluteFailingCells": 14,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 4 (max +0.0094)",
+     "M1 0.78/0",
+     "M2 3",
+     "StopP 8/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [],
+    "e2Adopted": 1014,
+    "e2AbsoluteFailingCells": 16,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 4 (max +0.0255)",
+     "M2 2"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2pgh": {
+  "variant": "r3-2pgh",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 1 (max +0.0085)",
+     "StopP 6/10"
+    ],
+    "e2Adopted": 728,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0108)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [
+     "StopH 2/2",
+     "StopP 4/4"
+    ],
+    "e2Adopted": 628,
+    "e2AbsoluteFailingCells": 0,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0138)"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ },
+ "r3-2pgb": {
+  "variant": "r3-2pgb",
+  "endpoints": {
+   "light-active": {
+    "fails": [
+     "L1 1 (max +0.0105)",
+     "StopP 1/10"
+    ],
+    "e2Adopted": 1811,
+    "e2AbsoluteFailingCells": 8,
+    "excludedByRuling": false
+   },
+   "light-receded": {
+    "fails": [
+     "L1 2 (max +0.0108)",
+     "M2 3",
+     "StopP 2/8"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   },
+   "dark-active": {
+    "fails": [],
+    "e2Adopted": 1014,
+    "e2AbsoluteFailingCells": 15,
+    "excludedByRuling": false
+   },
+   "dark-receded": {
+    "fails": [
+     "L1 2 (max +0.0138)"
+    ],
+    "e2Adopted": null,
+    "e2AbsoluteFailingCells": null,
+    "excludedByRuling": false
+   }
+  }
+ }
+}

@@ -1,0 +1,13 @@
+W42 G0: the sitting's pin check (bed/sitting/sitting.py pin-check, the bed review's B-M1) against the hashed
+declaration, run 2026-09-30 at 2ecd3c48 with W42_PREDECLARATION unset. Exit 0: PASS. The scenes file and bed.json
+equal pins.json and their committed copies at HEAD, and declaration.json, committed and hashed by
+declaration.sha256, names both SHA-256s in its split item.
+
+$ python3.12 -B bed/sitting/sitting.py pin-check
+{
+  "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+  "splitSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+  "head": "2ecd3c48a48270bb1ad435e28713f4612c0f4085",
+  "declarationSha256": "f04ae95b626c7547cc3dbae11e08cb04a89ef642680d0b4f509c6c833633381c"
+}
+exit 0
