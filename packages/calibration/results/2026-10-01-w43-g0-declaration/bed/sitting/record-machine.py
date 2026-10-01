@@ -1,14 +1,33 @@
-#!/usr/bin/env python3
-"""Read the W42 sitting's machine and binary facts (charter clause 4; X6 as carried).
+#!/usr/bin/env python3.12
+"""Read the W43 sitting's machine and binary facts (charter clause 4; X6 as carried).
 
-Derived from W39 G0's record-machine.py (itself derived from W34 G0's), never edited in
-place. What changed: only the gate label, which names W42. The side bundle is still W39's
-(`~/vitrea-w39/side`, dev.vitrea.reference-apple.w39), used with no rebuild (charter G1),
-and W39 G1's by-name census correction is kept verbatim. The census excludes this process's own ancestors,
-as W34's did, so the sitting that asks is not counted as a foreign capture
-process. It observes once; the independent sixty-second idle is read-session's.
-Missing commands, settings and bundles are recorded as missing, never defaulted.
+Derived from W42 G0's record-machine.py (itself W39's and W34's), never edited in place. The side
+bundle is still W39's (`~/vitrea-w39/side`, dev.vitrea.reference-apple.w39), used with no rebuild
+(X4'). Missing commands, settings and bundles are recorded as missing, never defaulted. What W43
+changes is the foreign-process census, after W42 G1's stops 4 and 5 (c9a §5.195 §2; the two
+census entries in tech-debt-tracker.md):
+
+- **By executable, not by command line.** W42 matched a regex against every process's whole
+  command line, so a `pgrep` pattern, a shell holding one, and a test stub whose arguments name the
+  harness's bundle all counted. A process now counts by what it IS: its executable image
+  (libproc's `proc_pidpath`, the resolved binary the kernel runs; ps's argv[0] only where the image
+  is unreadable). A Chromium, Google Chrome (any helper, Chrome for Testing, the crashpad handler
+  inside a browser bundle), headless shell or `VitreaReference` executable counts wherever it
+  lives. Playwright and the calibration's capture scripts have no executable of their own: they
+  are node scripts, so for a node-family interpreter only, the SCRIPT arguments are matched, by
+  path component or exact file name (`compare.ts`, `capture-web`, a `playwright*` package or
+  CLI), never by substring.
+- **The launching chain is excluded.** The orchestrator detaches with setsid, so the shell that
+  launched it is not an ancestor of anything that reads the census (stop 4). At launch it records
+  that chain (`launcher-chain`: pid and start time of the launching process and its ancestors) and
+  passes the file in `VITREA_LAUNCHER_CHAIN`; a row is excluded only if both its pid and its start
+  time match, so a reused pid is still counted.
+
+`universal-control` is the pre-sitting check the fourth W42 G1 tracker entry asked for. It reports
+what this machine lets a process read, and names what it cannot (stops 1 and 2: input arrived
+over Universal Control once with the feature reported off).
 """
+import ctypes
 import datetime
 import hashlib
 import json
@@ -21,11 +40,17 @@ import sys
 MAIN = Path('/Users/new/Developer/GitHub/designer')
 SIDE = Path.home() / 'vitrea-w39/side/VitreaReference.app'
 DEV = Path('/Applications/Xcode.app/Contents/Developer')
-# G1 gate correction (c9a §5.185, G1 stop 1): Google Chrome launched mid-run took the harness's
-# activation and read 0 here, because the census named only Chromium. It now also refuses, by
-# name, any Google Chrome, Chrome Helper, Playwright or headless-shell process — stricter only.
-FOREIGN = (r'Chromium|playwright|compare\.ts|capture-web|VitreaReference'
-           r'|Google Chrome|Chrome Helper|Playwright|headless[-_ ]shell')
+# What counts, by executable file name (the image's basename) ...
+FOREIGN_EXECUTABLES = re.compile(r'^(Chromium|Google Chrome)\b|Chrome Helper|headless[-_ ]shell|^VitreaReference$')
+# ... or by a bundle anywhere on the image's path (a browser's helpers and its crashpad handler).
+FOREIGN_BUNDLES = re.compile(r'^(Chromium|Google Chrome[^/]*)\.app$')
+# The interpreters whose script arguments are read, and what a script argument counts by.
+INTERPRETERS = re.compile(r'^(node|nodejs|tsx|bun|deno)(\d+(\.\d+)*)?$')
+SCRIPT_NAMES = {'compare.ts', 'capture-web', 'capture-web.ts', 'capture-web.js', 'capture-web.mjs'}
+SCRIPT_PACKAGES = re.compile(r'^(@playwright|playwright(-core|-cli|-mcp)?|ms-playwright)$')
+SCRIPT_CLI = re.compile(r'^playwright(-core|-cli|-mcp)?(\.(js|mjs|cjs))?$')
+LAUNCHER_CHAIN_ENV = 'VITREA_LAUNCHER_CHAIN'
+PROC_PIDPATHINFO_MAXSIZE = 4096
 
 
 def read(*args):
@@ -34,21 +59,186 @@ def read(*args):
                 stdout=result.stdout.strip(), stderr=result.stderr.strip())
 
 
-def processes():
-    output = read('ps', '-axo', 'pid=,ppid=,command=')
-    rows = [line.strip().split(None, 2) for line in output['stdout'].splitlines()]
-    rows = [r for r in rows if len(r) == 3]
-    parents = {int(p): int(pp) for p, pp, _ in rows}
-    ancestors = set()
-    pid = os.getpid()
-    while pid and pid not in ancestors:
-        ancestors.add(pid)
+# --------------------------------------------------------------------------- census
+
+_LIBPROC = None
+
+
+def image_path(pid):
+    """The executable image the kernel runs for `pid` (libproc), or None if unreadable."""
+    global _LIBPROC
+    try:
+        if _LIBPROC is None:
+            _LIBPROC = ctypes.CDLL('/usr/lib/libproc.dylib', use_errno=True)
+        buf = ctypes.create_string_buffer(PROC_PIDPATHINFO_MAXSIZE)
+        n = _LIBPROC.proc_pidpath(int(pid), buf, PROC_PIDPATHINFO_MAXSIZE)
+        return buf.value.decode(errors='replace') if n > 0 else None
+    except OSError:
+        return None
+
+
+def process_table():
+    """Every process: pid, ppid, start (ps lstart, C locale), executable image and argv tokens.
+
+    argv is ps's `args` split on whitespace: a path with a space splits, which only ever turns
+    one script path into two tokens, and script matching reads path components and file names.
+    """
+    out = subprocess.run(['ps', '-axww', '-o', 'pid=,ppid=,lstart=,args='], capture_output=True, text=True,
+                         env={**os.environ, 'LC_ALL': 'C'}).stdout
+    rows = []
+    for line in out.splitlines():
+        parts = line.split()
+        if len(parts) < 8 or not parts[0].isdigit() or not parts[1].isdigit():
+            continue
+        pid, ppid, start, argv = int(parts[0]), int(parts[1]), ' '.join(parts[2:7]), parts[7:]
+        rows.append(dict(pid=pid, ppid=ppid, start=start, executable=image_path(pid) or argv[0], argv=argv))
+    return rows
+
+
+def foreign_reason(row):
+    """Why this process is a foreign capture process, or None. Executables first; a script only
+    as an argument of a node-family interpreter."""
+    exe = row['executable'] or ''
+    name = Path(exe).name
+    if FOREIGN_EXECUTABLES.search(name):
+        return f'executable {name}'
+    bundle = next((c for c in Path(exe).parts if FOREIGN_BUNDLES.match(c)), None)
+    if bundle:
+        return f'inside {bundle}'
+    if any(SCRIPT_PACKAGES.match(c) for c in Path(exe).parts):
+        return f'executable under {exe}'
+    if INTERPRETERS.match(name):
+        for token in row['argv'][1:]:
+            if token.startswith('-'):
+                continue
+            path = Path(token)
+            if path.name in SCRIPT_NAMES or SCRIPT_CLI.match(path.name):
+                return f'{name} script {path.name}'
+            package = next((c for c in path.parts[:-1] if SCRIPT_PACKAGES.match(c)), None)
+            if package:
+                return f'{name} script in {package}'
+    return None
+
+
+def ancestors(rows, pid):
+    parents = {r['pid']: r['ppid'] for r in rows}
+    chain = set()
+    while pid and pid not in chain:
+        chain.add(pid)
         pid = parents.get(pid, 0)
-    return [line for line in rows if int(line[0]) not in ancestors and is_foreign(line[2])]
+    return chain
 
 
-def is_foreign(command):
-    return re.search(FOREIGN, command) is not None
+def launcher_chain_entries(path):
+    """The (pid, start) pairs the orchestrator recorded at launch, or [] when none was recorded."""
+    if not path:
+        return []
+    record = json.loads(Path(path).read_text())
+    return [(int(e['pid']), e['start']) for e in record['chain']]
+
+
+def census(rows=None, me=None, chain_file=None):
+    """(foreign rows, excluded launcher-chain rows). Own ancestors are never counted, as W42's; a
+    launcher-chain row is excluded only where both pid and start time match the record."""
+    rows = process_table() if rows is None else rows
+    mine = ancestors(rows, os.getpid() if me is None else me)
+    chain = set(launcher_chain_entries(chain_file if chain_file is not None else os.environ.get(LAUNCHER_CHAIN_ENV)))
+    foreign, excluded = [], []
+    for r in rows:
+        if r['pid'] in mine:
+            continue
+        why = foreign_reason(r)
+        if why is None:
+            continue
+        entry = dict(pid=r['pid'], ppid=r['ppid'], start=r['start'], executable=r['executable'],
+                     args=' '.join(r['argv'])[:400], why=why)
+        (excluded if (r['pid'], r['start']) in chain else foreign).append(entry)
+    return foreign, excluded
+
+
+def native_processes(rows=None, binary=None):
+    """Every running harness: an executable named VitreaReference (or exactly `binary`), by image."""
+    rows = process_table() if rows is None else rows
+    want = None if binary is None else str(Path(binary).resolve())
+    return [dict(pid=r['pid'], start=r['start'], executable=r['executable']) for r in rows
+            if Path(r['executable'] or '').name == 'VitreaReference'
+            or (want is not None and r['executable'] == want)]
+
+
+def launcher_chain(pid=None, rows=None):
+    """The chain from `pid` (default: this process's parent, the launching shell) to launchd's child."""
+    rows = process_table() if rows is None else rows
+    by_pid = {r['pid']: r for r in rows}
+    pid = os.getppid() if pid is None else pid
+    chain, seen = [], set()
+    while pid > 1 and pid in by_pid and pid not in seen:
+        seen.add(pid)
+        r = by_pid[pid]
+        chain.append(dict(pid=r['pid'], ppid=r['ppid'], start=r['start'], executable=r['executable'],
+                          args=' '.join(r['argv'])[:400]))
+        pid = r['ppid']
+    return dict(schema='w43-launcher-chain-1', recordedAt=now(), chain=chain)
+
+
+# ---------------------------------------------------------------- universal control
+
+def universal_control(rows=None, read=read):
+    """What can be read about Universal Control before a sitting, and what cannot.
+
+    Read: the `UniversalControl` agent's process; the `Disable` key in its currentHost domain;
+    Bluetooth's controller state; the awdl0 peer-to-peer interface; Wi-Fi power; Handoff's two
+    currentHost flags. The input path is REACHABLE when the agent runs and Bluetooth and awdl0
+    are up: those carry the discovery and the input stream. None of these says whether a peer
+    device is near and linked, or whether the agent forwards input with the feature off (W42 G1
+    stop 2 saw input arrive with it reported off); the watchdog during every launch is what sees
+    input that does arrive.
+    """
+    rows = process_table() if rows is None else rows
+    agent = [dict(pid=r['pid'], start=r['start'], executable=r['executable']) for r in rows
+             if Path(r['executable'] or '').name == 'UniversalControl']
+    disable = read('defaults', '-currentHost', 'read', 'com.apple.universalcontrol', 'Disable')
+    bluetooth = read('system_profiler', 'SPBluetoothDataType', '-json')
+    try:
+        props = json.loads(bluetooth['stdout'])['SPBluetoothDataType'][0].get('controller_properties', {})
+        bt_state = props.get('controller_state')
+    except (ValueError, KeyError, IndexError, TypeError):
+        bt_state = None
+    awdl = read('ifconfig', 'awdl0')
+    flags = re.search(r'flags=\w+<([^>]*)>', awdl['stdout'])
+    awdl_flags = flags[1].split(',') if flags else None
+    ports = read('networksetup', '-listallhardwareports')
+    wifi_device = re.search(r'Hardware Port: Wi-Fi\nDevice: (\S+)', ports['stdout'])
+    wifi = read('networksetup', '-getairportpower', wifi_device[1]) if wifi_device else None
+    handoff = {k: read('defaults', '-currentHost', 'read', 'com.apple.coreservices.useractivityd', k)
+               for k in ('ActivityAdvertisingAllowed', 'ActivityReceivingAllowed')}
+    setting = disable['stdout'] if disable['exitCode'] == 0 else None
+    bt_on = None if bt_state is None else bt_state == 'attrib_on'
+    awdl_up = None if awdl_flags is None else ('UP' in awdl_flags and 'RUNNING' in awdl_flags)
+    wifi_on = None if wifi is None or wifi['exitCode'] != 0 else wifi['stdout'].rstrip().endswith('On')
+    reachable = bool(agent) and bt_on is True and awdl_up is True
+    return dict(
+        schema='w43-universal-control-1', recordedAt=now(),
+        agentActive=bool(agent), agent=agent,
+        disableSetting=setting, disabledBySetting=setting == '1',
+        bluetoothControllerState=bt_state, awdlFlags=awdl_flags, wifiPower=None if wifi is None else wifi['stdout'],
+        handoff={k: (v['stdout'] if v['exitCode'] == 0 else None) for k, v in handoff.items()},
+        inputPathReachable=reachable,
+        verdict=('the agent runs and its input path (Bluetooth, awdl0) is up: input from a linked device can reach '
+                 'this Mac' if reachable else 'the agent or its input path is down: input over Universal Control '
+                 'cannot arrive'),
+        cannotDetect=['whether a peer device is near and linked right now',
+                      'whether the agent forwards input while the setting reads off (W42 G1 stop 2)',
+                      'whether the Disable key is where macOS 27 keeps the toggle: an absent key is not a reading of '
+                      'the toggle, and confirming it needs System Settings, which no check here may touch'],
+        reads=dict(disable=disable, awdl=awdl, wifi=wifi, handoff=handoff,
+                   bluetoothExit=bluetooth['exitCode']),
+        wifiOn=wifi_on)
+
+
+# ------------------------------------------------------------------ the machine read
+
+def now():
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
 
 
 def bundle(app):
@@ -67,14 +257,13 @@ def bundle(app):
                                   '-show-build', binary))
 
 
-def main():
-    foreign = processes()
+def machine(phase):
+    foreign, excluded = census()
     settings = {key: read('defaults', 'read', domain, key) for domain, key in [
         ('com.apple.universalaccess', 'reduceTransparency'),
         ('com.apple.universalaccess', 'increaseContrast'),
         ('-g', 'NSGlassTintAmount'), ('com.apple.Accessibility', 'ButtonShapesEnabled')]}
-    record = dict(schema=1, gate='W42 G1; charter clause 4, X6', phase=sys.argv[1],
-        recordedAt=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    return dict(schema=1, gate='W43; charter clause 4, X6, X42', phase=phase, recordedAt=now(),
         os=read('sw_vers'), settings=settings, display=read('/opt/homebrew/bin/displayplacer', 'list'),
         displayColourContext=read('system_profiler', 'SPDisplaysDataType', '-json'),
         toolchain=dict(xcode=read(DEV / 'usr/bin/xcodebuild', '-version'),
@@ -84,9 +273,26 @@ def main():
         python=read('python3.12', '-c', 'import PIL, numpy; print(PIL.__version__, numpy.__version__)'),
         granted=bundle(MAIN / 'apps/reference-apple/build/VitreaReference.app'),
         side=bundle(SIDE),
-        foreignProcessCount=len(foreign), foreignProcesses=foreign,
+        foreignProcessCount=len(foreign), foreignProcesses=foreign, excludedLauncherChain=excluded,
+        censusRule='by executable image; node-family script arguments by path component or file name; own '
+                   'ancestors and the recorded launcher chain (pid and start time) excluded',
         idleScope='Instantaneous process census, not an idle attestation; read-session is.')
-    print(json.dumps(record, indent=2, ensure_ascii=False))
+
+
+def main():
+    if len(sys.argv) != 2:
+        raise SystemExit('usage: record-machine.py <phase> | launcher-chain | universal-control | census')
+    what = sys.argv[1]
+    if what == 'launcher-chain':
+        value = launcher_chain()
+    elif what == 'universal-control':
+        value = universal_control()
+    elif what == 'census':
+        foreign, excluded = census()
+        value = dict(foreignProcessCount=len(foreign), foreignProcesses=foreign, excludedLauncherChain=excluded)
+    else:
+        value = machine(what)
+    print(json.dumps(value, indent=2, ensure_ascii=False))
 
 
 if __name__ == '__main__':
