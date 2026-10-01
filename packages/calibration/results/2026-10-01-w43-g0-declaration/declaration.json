@@ -115,7 +115,8 @@
         "metric": "every run of every bridge cell pixel-identical to its reference, or every region statistic of that run within max(1 code, bar) of the reference (W42's instrument; W39's bar; the sentinels W42 G1's long-protocol bar); the coordinator's ruling: read run by run, never a plurality frame",
         "stops": "at an opening: the sitting stops before any capture away from 0.5; at a close: nothing voided, the sitting's claims against 0.5 read as unbridged and the user rules before G3 (clause 3)",
         "afterCut": "the closing sentinel passes are the order's tail and run after any cut, the slider and mode 68 restored first (runAfterCut)",
-        "tints": "the four tinted bridge cells (photo__capsule-button and checkerboard__capsule-button, rest and inactive, tint-orange) are refereed by clause 3 against W29 fixtures the original harness tint-attested, which is stricter than the twin test; no W29-style tint pre-flight runs, because a check over 0.5 fixtures says nothing about 0.25 pixels (the parent's ruling)"
+        "tints": "the four tinted bridge cells (photo__capsule-button and checkerboard__capsule-button, rest and inactive, tint-orange) are refereed by clause 3 against W29 fixtures the original harness tint-attested, which is stricter than the twin test; no W29-style tint pre-flight runs, because a check over 0.5 fixtures says nothing about 0.25 pixels (the parent's ruling)",
+        "canonicalCells": "light: dark-solid__capsule-button, photo__capsule-button tint-orange, mid-chroma-solid__rrect-md; dark: dark-solid__rrect-lg, checkerboard__capsule-button tint-orange, hc-text-28__rrect-md (text on rrect-md: an active rrect-sm has no region statistic under W42's instrument, so it could agree only by bytes)"
       }
     },
     {
@@ -226,7 +227,7 @@
         "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json"
       ],
       "declared": {
-        "planSha256": "a30447af9d7c8ce9a75a6b13b405c070a05260c13e570a8479386880be078c54",
+        "planSha256": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
         "plan": "bed/sitting-g1a.json",
         "schema": "w43-sitting-plan-1",
         "totals": {
@@ -241,7 +242,8 @@
         "modelledHours": 11.21,
         "withStopLossHours": 12.33,
         "timing": "bed/timing-g1a.txt: G0 (d)'s timing.py (w43-g0-sitting d92190b4), W42 G1's measured rates",
-        "order": "0.5 at mode 68: the pose check, the opening bridges at 2x; 0.5 at mode 69: the opening bridges at 1x; 0.25: dump sentinels and the canonical passes, 2x at mode 68 then 1x at mode 69; 0.5: the closing W42 sentinels at 1x, then 2x, ending at mode 68"
+        "order": "0.5 at mode 68: the pose check, the opening bridges at 2x; 0.5 at mode 69: the opening bridges at 1x; 0.25: dump sentinels and the canonical passes, 2x at mode 68 then 1x at mode 69; 0.5: the closing W42 sentinels at 1x, then 2x, ending at mode 68",
+        "validatedBy": "G0 (d)'s final pass-spec.py, w43-g0-sitting d32cf72d (file SHA-256 d739887eefb41c5c70c4eab156404788089fac18e7a042a56b1a8b8c884b7fc4): validate_plan accepts the plan, plan_counts gives the totals; timing.py is unchanged since d92190b4"
       }
     },
     {
@@ -255,7 +257,7 @@
         "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json"
       ],
       "declared": {
-        "planSha256": "45197a63e00b04992288ea9f5cc1996c5e9e0d0f0235a7393551e28e8d0fcfca",
+        "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
         "plan": "bed/sitting-g1b.json",
         "schema": "w43-sitting-plan-1",
         "totals": {
@@ -271,7 +273,8 @@
         "withStopLossHours": 4.08,
         "timing": "bed/timing-g1b.txt: G0 (d)'s timing.py (w43-g0-sitting d92190b4), W42 G1's measured rates",
         "order": "mode 68 throughout. 0.5: the pose check and the opening bridges; then 0.25 (the probe), 1, 0 and 0.75 (the ladder), each opening with its dump sentinels, one capture pass per pose over both schemes; 0.5: the closing sentinels. The original bundle's restore follows, by hand (clause 6)",
-        "dumpScenesAgainstCharter": "96 dump scenes, six per endpoint at each of the four positions, against the 72 the charter priced"
+        "dumpScenesAgainstCharter": "96 dump scenes, six per endpoint at each of the four positions, against the 72 the charter priced",
+        "validatedBy": "G0 (d)'s final pass-spec.py, w43-g0-sitting d32cf72d (file SHA-256 d739887eefb41c5c70c4eab156404788089fac18e7a042a56b1a8b8c884b7fc4): validate_plan accepts the plan, plan_counts gives the totals; timing.py is unchanged since d92190b4"
       }
     },
     {
@@ -300,14 +303,14 @@
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/pins.json": "e64e63f41e3a50dc6254d0dc3f26ef37a0b5a51ff28275678dc5a23a003072d3",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json": "2ab7de9ba5737b802e48b2cc742d90c8ca34c5867aff0c249144277522d92f5e",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/scenes-w43-probe.json": "f54e133befb61d20bdefcefd2228d66067b96bc35ecb332681498a70e39b2ba0",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1a.json": "a30447af9d7c8ce9a75a6b13b405c070a05260c13e570a8479386880be078c54",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json": "45197a63e00b04992288ea9f5cc1996c5e9e0d0f0235a7393551e28e8d0fcfca",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1a.json": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json": "8e1d70028c717368eb81b42dd4753974769982bba3c43541e414ff0f1f0becba",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json": "27c7687e60fb3c83ce2cfc6b80ee493ebb90a958222005f04011f63c33637ef3",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json": "04b176a7ec8605bbc01d98a08a4b7f3768985d95c591cdf54d89dbb0de4b3201",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py": "446957b4cca58482b6ae533ab9bbd4f9f10eeb56daaad20dee75a94228f636a4",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json": "f56c2e5ef08202f2d3d6248dc2d05c9d9d02e8ccbcc49aa08f3262bf9fe3e074",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py": "05b580f8fe3b058050a265dcaedd60bcf3b0b9400208d1a9ed92d7e1747ad975",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json": "c9fe41f21b8157997db97cb7aae692e5213dfc7e6707e19a96c887f529ccb2ab",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py": "f1d99365d349914f587023660430bd4ac87d94d89f10ec988752120bc3244428",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.json": "100ca39c4bb717f4bc75c17e60978687b108c66deba2bb447231ba17cc07d86f",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.py": "95af5de7da92590f90a53b24f7a13e3e48ff1adc9253045d0b6a6f64add2d35c",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md": "c81a1065660dcde9f62fbac5a354adda6d026eb73e1f568e731ab092f0d47890",

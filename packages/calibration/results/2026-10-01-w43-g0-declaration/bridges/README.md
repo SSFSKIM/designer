@@ -18,10 +18,12 @@ tint pre-flight runs: a check over 0.5 fixtures says nothing about 0.25 pixels (
 
 **The canonical six.** In light: `dark-solid__capsule-button`, `photo__capsule-button` with the
 orange tint, and `mid-chroma-solid__rrect-md`. In dark: `dark-solid__rrect-lg`,
-`checkerboard__capsule-button` with the orange tint, and `hc-text__rrect-sm`. Each is declared in
+`checkerboard__capsule-button` with the orange tint, and `hc-text-28__rrect-md`. The text cell sits
+on rrect-md, not rrect-sm. An active rrect-sm has no region statistic under W42's instrument, so a
+bridge there could agree only by bytes, and one benign second state would stop a sitting. Each is declared in
 both poses at both scales. They add what G0 (b)'s bridge did not cover: uniform backdrops on the
 capsule and on the largest span, an author tint over photo and over a checker, the saturated solid,
-and text on the smallest shape. None is a holdout or recorded scene. Their fixtures' SHA-256s are in
+and text rows on rrect-md. None is a holdout or recorded scene. Their fixtures' SHA-256s are in
 `bridge-cells.json`.
 
 **The sentinels compare like protocol with like.** In the active pose, W42's long-protocol sentinel

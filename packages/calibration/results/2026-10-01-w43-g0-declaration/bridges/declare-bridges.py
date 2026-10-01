@@ -17,8 +17,11 @@ The six canonical cells are chosen for what G0 (b)'s bridge did not cover (X43: 
 claim is stated for a cell type no bridge covered). G0 (b) covered the two-level checker on rrect-md
 (2x), the pitch-64 checker on rrect-lg, the impulse on rrect-md in light and photo on rrect-md (2x).
 These add uniform backdrops on the capsule and rrect-lg (the exterior shadow's largest span), an
-author tint on photo and on the checker, the saturated mid-chroma solid, and text on the smallest shape,
-in both schemes and both poses at both scales. Every one is a calibration, validation or probe scene of the
+author tint on photo and on the checker, the saturated mid-chroma solid, and text rows on rrect-md, in
+both schemes and both poses at both scales. Text sits on rrect-md rather than rrect-sm: an active
+rrect-sm has no deep mask under W42's instrument (its half-height is inside the 20-pt refraction
+band), so a text bridge there could agree only by bytes, and one benign second state would stop a
+sitting at its opening. Both were unanimous over W29's seven runs at both scales and poses. Every one is a calibration, validation or probe scene of the
 canonical split (never holdout or recorded), declared in both poses of its scheme at both scales.
 
 The metric is the charter's, read run by run (the coordinator's ruling): a cell AGREES when EVERY one of
@@ -42,7 +45,7 @@ OUT = HERE / 'bridge-cells.json'
 SENTINELS = ('f-impulse-rrect-md', 'f-checker64-rrect-lg')
 CANONICAL = {'light': ('dark-solid__capsule-button', 'photo__capsule-button@tint-orange',
                        'mid-chroma-solid__rrect-md'),
-             'dark': ('dark-solid__rrect-lg', 'checkerboard__capsule-button@tint-orange', 'hc-text__rrect-sm')}
+             'dark': ('dark-solid__rrect-lg', 'checkerboard__capsule-button@tint-orange', 'hc-text-28__rrect-md')}
 RUNS = 3
 SITTINGS = {'G1a': (2, 1), 'G1b': (2,)}
 
