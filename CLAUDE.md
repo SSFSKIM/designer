@@ -99,9 +99,12 @@ then append holdout: a published file accepts no later row, even under a new sta
 
 `--renderer` is one tier per run; `--set` defaults to `calibration,validation` and holdout membership
 is read from `apps/reference-apple/scenes.json`, never named in code. `--material-profile` also
-**selects the runtime material its patch is a difference from**, by the OS token in the document's
-own `profileKey`: the web page refuses a token the runtime ships no material for, because a macOS
-26.5 patch composed over the macOS 27 base is neither material. `--receded-profile` poses the run's
+**selects the runtime material its patch is a difference from**, by the (OS, glass) pair in the
+document's own `profileKey`: the web page refuses a pair the runtime ships no material for, or
+ships twice, because a macOS 26.5 patch composed over the macOS 27 base is neither material.
+`--candidate-document` is candidate mode: a complete, hash-matched document drawn with nothing
+injected; a read against another glass position needs `--cross-position`, which stamps every
+output and is scratch only (W43 G0 (f)). `--receded-profile` poses the run's
 `__inactive` scenes with a CANDIDATE document and pins the root active; omit it and the root poses
 itself and applies the receded endpoint of the document it selected. `--out-matrix` and the
 `VITREA_WEB_CAPTURES` env redirect output to scratch; `--stage` selects that stage's
