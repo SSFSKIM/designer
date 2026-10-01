@@ -5,6 +5,11 @@
     "refusal": "ValueError: watchdog stopped the launch: focus lost during the launch: frontmost became com.apple.UserNotificationCenter (pid 8754) while the harness (pid 16821) still ran"
   },
   {
+    "run": "QUARANTINE-run-4-1790858024939711000",
+    "admitted": false,
+    "refusal": "ValueError: watchdog stopped the launch: HID input during the launch: idle read 0.3 s where at least 846.3 s was due (843.3 s, 5.0 s earlier); frontmost dev.vitrea.reference-apple.w39"
+  },
+  {
     "run": "run-1",
     "admitted": true,
     "manifestSha256": "a1c6088de916dbc21c476a794b84b3fe77a4c484474b75e83803231bb545fb4d",
