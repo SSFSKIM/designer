@@ -21,9 +21,9 @@ author tint on photo and on the checker, the saturated mid-chroma solid, and tex
 in both schemes and both poses at both scales. Every one is a calibration, validation or probe scene of the
 canonical split (never holdout or recorded), declared in both poses of its scheme at both scales.
 
-The metric is the charter's: a cell AGREES when one of its runs is pixel-identical to its reference frame
-(byte identity), or else when every region statistic of its plurality frame lies within max(1 code, bar)
-of the reference's, with W42's instrument unchanged (`forward.Cell` at the cell's geometry; masks `n` and
+The metric is the charter's, read run by run (the coordinator's ruling): a cell AGREES when EVERY one of
+its runs is pixel-identical to its reference frame (byte identity) or has every region statistic within
+max(1 code, bar) of the reference's, with W42's instrument unchanged (`forward.Cell` at the cell's geometry; masks `n` and
 `w` when active, `n` when receded; `regions.statistics`) and the bar W39's, 0.5 + half the largest
 pairwise separation of the run medians. G0 (b)'s `bridge/bridge.py` is that reader on existing evidence.
 """
@@ -111,9 +111,11 @@ def build():
                        scenesSha256=sha(SCENES.read_bytes()), fixtureSha256=dict(sorted(fixtures.items()))),
         coveredByG0b=['checkerboard__rrect-md (2x, all four window states)', 'checkerboard-64__rrect-lg (1x and 2x)',
                       'impulse__rrect-md (light, 1x and 2x)', 'photo__rrect-md (2x)'],
-        metric=dict(agree='a run pixel-identical to the reference frame; else every region statistic of the plurality '
-                          'frame within max(1 code, bar) of the reference', bar='0.5 + 0.5 x the largest pairwise '
-                          'separation of the run medians, per cell, region statistic and channel',
+        metric=dict(agree='EVERY run of every bridge cell agrees with its reference: pixel-identical to it, or every '
+                          'region statistic of that run within max(1 code, bar) of the reference (the coordinator\'s '
+                          'ruling: the gate reads every run, never a plurality frame)',
+                    bar='0.5 + 0.5 x the largest pairwise separation of the run medians, per cell, region statistic and '
+                        "channel; the sentinels take W42 G1's long-protocol bar, a cell with no measured row the 0.5 floor",
                     regions="W42's instrument unchanged: forward.Cell at the cell's geometry, masks n and w active, n "
                             'receded; regions.statistics', reader='bridge/bridge.py (G0 (b))'),
         stops={'before the sittings': 'a disagreement goes to the user before the declaration is hashed (G0 (b): none)',

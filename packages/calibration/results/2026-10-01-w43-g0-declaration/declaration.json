@@ -46,17 +46,17 @@
           {
             "x": 0.25,
             "kind": "probe",
-            "cellsPerEndpoint": 28
+            "cellsPerEndpoint": 29
           },
           {
             "x": 1,
             "kind": "ladder",
-            "cellsPerEndpoint": 28
+            "cellsPerEndpoint": 29
           },
           {
             "x": 0,
             "kind": "ladder",
-            "cellsPerEndpoint": 28
+            "cellsPerEndpoint": 29
           },
           {
             "x": 0.75,
@@ -68,9 +68,10 @@
         "ids": "W42's declared bed, ids, backgrounds, components and split roles verbatim (calibration and validation only); every 0.5 counterpart present in w42-archive",
         "runs": 3,
         "references": "one recaptured per pass in run 1 (ref-checker-64-048-208); the rest are W42's",
-        "captures": 1144,
+        "captures": 1180,
         "order": "0.25, then 1, 0, 0.75; a stop drops from the bottom: 0.75, then 0, then 1, then the probe (X47)",
-        "publication": "never filed as fixtures; archived as w43-archive-g1b by SHA-256 and bytes, the bar published from the archive"
+        "publication": "never filed as fixtures; archived as w43-archive-g1b by SHA-256 and bytes, the bar published from the archive",
+        "addedBeforeHash": "bp-p1-c32-rrect-64 (P1 at pitch 32 on rrect-64, t = 0): rehearsal 3 left each receded endpoint one 12-px capsule region; this W42 calibration cell is supported in all four endpoints (wtest/proposal-p2.txt)"
       }
     },
     {
@@ -110,8 +111,9 @@
           "G1a": 168,
           "G1b": 84
         },
-        "metric": "a run pixel-identical to the reference, or every region statistic of the plurality frame within max(1 code, bar) of the reference (W42's instrument; W39's bar)",
-        "stops": "at an opening: the sitting stops before any capture away from 0.5; at a close: nothing voided, the sitting's claims against 0.5 read as unbridged and the user rules before G3 (clause 3)"
+        "metric": "every run of every bridge cell pixel-identical to its reference, or every region statistic of that run within max(1 code, bar) of the reference (W42's instrument; W39's bar; the sentinels W42 G1's long-protocol bar); the coordinator's ruling: read run by run, never a plurality frame",
+        "stops": "at an opening: the sitting stops before any capture away from 0.5; at a close: nothing voided, the sitting's claims against 0.5 read as unbridged and the user rules before G3 (clause 3)",
+        "afterCut": "the closing sentinel passes are the order's tail and run after any cut, the slider and mode 68 restored first (runAfterCut)"
       }
     },
     {
@@ -190,7 +192,7 @@
         "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json"
       ],
       "declared": {
-        "planSha256": "4b69291fe2b4f6d842872bf95910364cc28b09eaa4413f30023b33721643b030",
+        "planSha256": "a30447af9d7c8ce9a75a6b13b405c070a05260c13e570a8479386880be078c54",
         "plan": "bed/sitting-g1a.json",
         "schema": "w43-sitting-plan-1",
         "totals": {
@@ -219,20 +221,20 @@
         "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json"
       ],
       "declared": {
-        "planSha256": "1a8f941d6d4d56b3eb1a8675fc437f22550f5c656234399cd1dd3d8941576f3d",
+        "planSha256": "45197a63e00b04992288ea9f5cc1996c5e9e0d0f0235a7393551e28e8d0fcfca",
         "plan": "bed/sitting-g1b.json",
         "schema": "w43-sitting-plan-1",
         "totals": {
           "captureLaunches": 55,
-          "captures": 1229,
+          "captures": 1265,
           "dumpLaunches": 16,
           "dumpScenes": 96,
           "modeSwitches": 0,
           "publishedCells": 0,
           "sliderWrites": 5
         },
-        "modelledHours": 3.61,
-        "withStopLossHours": 3.97,
+        "modelledHours": 3.7,
+        "withStopLossHours": 4.08,
         "timing": "bed/timing-g1b.txt: G0 (d)'s timing.py (w43-g0-sitting d92190b4), W42 G1's measured rates",
         "order": "mode 68 throughout. 0.5: the pose check and the opening bridges; then 0.25 (the probe), 1, 0 and 0.75 (the ladder), each opening with its dump sentinels, one capture pass per pose over both schemes; 0.5: the closing sentinels. The original bundle's restore follows, by hand (clause 6)",
         "dumpScenesAgainstCharter": "96 dump scenes, six per endpoint at each of the four positions, against the 72 the charter priced"
@@ -259,19 +261,19 @@
   "sources": {
     "apps/reference-apple/scenes.json": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
     "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a": "dc5c41d648ba3a8544a5387214c06863be1db0da121ae9f88a15f6a7c6e22156",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-probe.py": "5c554eed4ae46a68d2351ae176172ff30c7bb4735311df2b991ee85ea37e8904",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-sittings.py": "0e26d6f16fd2c088623039c392add1eccab6a28958997e60cebda1543233cc80",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/pins.json": "8829c8b4c02d942eb324daa9ed0d017f8223ec6b7293280dfa51b4d69e60b0bd",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json": "38320312669e396572b4abf2cebeb036e92b3fcc2a088d7e1eacbae0662611ed",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/scenes-w43-probe.json": "37455ea15a153e428703861639cf3d131a5525c0182683989d8aff65850bc1b4",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1a.json": "4b69291fe2b4f6d842872bf95910364cc28b09eaa4413f30023b33721643b030",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json": "1a8f941d6d4d56b3eb1a8675fc437f22550f5c656234399cd1dd3d8941576f3d",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-probe.py": "d4ef8492f93bf1a25944373c77c49ef12bd09f757ca9e86069d6c2848ed6eff9",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-sittings.py": "2b73a0d06f3e69b68b96ae3dcf6fed6c25e2b682ee312b0bdec574e599fd0c06",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/pins.json": "e64e63f41e3a50dc6254d0dc3f26ef37a0b5a51ff28275678dc5a23a003072d3",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json": "2ab7de9ba5737b802e48b2cc742d90c8ca34c5867aff0c249144277522d92f5e",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/scenes-w43-probe.json": "f54e133befb61d20bdefcefd2228d66067b96bc35ecb332681498a70e39b2ba0",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1a.json": "a30447af9d7c8ce9a75a6b13b405c070a05260c13e570a8479386880be078c54",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json": "45197a63e00b04992288ea9f5cc1996c5e9e0d0f0235a7393551e28e8d0fcfca",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json": "8e1d70028c717368eb81b42dd4753974769982bba3c43541e414ff0f1f0becba",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json": "d9218db4ab708ad44f4bdf2f24eeccc1cc91065eb26cdcb26abe21416d38dc85",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json": "27c7687e60fb3c83ce2cfc6b80ee493ebb90a958222005f04011f63c33637ef3",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json": "abe8c11792e189eac4a6e16363fc41e133be415e1c921cabc631839f1c9844aa",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py": "653b3facaf1acb42edde348f90522ecf697389a4b93e98f46730af0ca58ac2bf",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json": "3ba15fa282b41eafb02f3d771d0fe4b1e6c68fc0e5927f2808176b19a15ca3c1",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py": "3f7352fc81b8c5daa6ce8cd312bf642e091a7a6e7d72f5f7a1407e7dc012e29e",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json": "f56c2e5ef08202f2d3d6248dc2d05c9d9d02e8ccbcc49aa08f3262bf9fe3e074",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py": "05b580f8fe3b058050a265dcaedd60bcf3b0b9400208d1a9ed92d7e1747ad975",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.json": "100ca39c4bb717f4bc75c17e60978687b108c66deba2bb447231ba17cc07d86f",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.py": "95af5de7da92590f90a53b24f7a13e3e48ff1adc9253045d0b6a6f64add2d35c",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f.py": "62cad58bd3a2232f3266afa4a01a02b0ca3cd2bd6501daee9e5544c1e2818b0f",

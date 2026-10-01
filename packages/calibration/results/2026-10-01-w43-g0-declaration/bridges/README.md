@@ -25,7 +25,11 @@ rows and its normal-protocol bed rows of the same cell settle on different frame
 eight active cell-endpoints (`sentinel-references.json`). A sitting's sentinels are therefore read
 against the long-protocol rows only. In the receded pose the two protocols agree.
 
-**The metric.** A cell agrees when one of its runs is pixel-identical to the reference frame.
-Otherwise it agrees when every region statistic of its plurality frame lies within max(1 code, bar)
-of the reference's. The region statistics are W42's instrument, unchanged; the bar is W39's. The
-reader on existing evidence is `../bridge/bridge.py`.
+**The metric, run by run** (the coordinator's ruling): a cell agrees only when EVERY one of its runs
+agrees with the reference, each run either pixel-identical to it or with every region statistic
+within max(1 code, bar) of the reference's. The region statistics are W42's instrument, unchanged
+(masks `n` and `w` active, `n` receded); the bar is W39's, and the sentinels take W42 G1's
+long-protocol bar (a cell with no measured row reads at the 0.5 floor, one code). The plans carry
+each cell's reference in G0 (d)'s `bridge` field (`../bed/sitting-g1a.json`, `sitting-g1b.json`).
+The reader on existing evidence is `../bridge/bridge.py`; it compared the fixture with the
+plurality frame and with every state, which on that evidence is the same verdict.

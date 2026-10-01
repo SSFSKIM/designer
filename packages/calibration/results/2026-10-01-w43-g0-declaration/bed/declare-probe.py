@@ -19,11 +19,14 @@ The selection, per 2x endpoint (light and dark, active and receded), is the char
 - **B, two-level checkers** on rrect-md at pitch 64 (every pair) and pitch 16 (48 / 208 and 16 / 112,
   plus 96 / 160 in dark), at levels inside each endpoint's monotone range. 144 / 240 is light only,
   because dark native T falls above 208 at s >= 96 (§5.196 §2.1) and its 240 side could not be inverted.
-- **B', P1** (0 / 255) on the capsule at pitch 32 and 64.
+- **B', P1** (0 / 255) on the capsule at pitch 32 and 64, and on rrect-64 at pitch 32. rrect-64 is the
+  w-test's support shape at t = 0 beside the capsule. Rehearsal 3 on W42's 0.5 frames left each receded
+  endpoint one 12-pixel capsule region and found this cell supported in all four endpoints
+  (`../wtest/proposal-p2.txt`), so it was added before the hash.
 - **D, steps** at offset 0 and 32 from the shape centre, both polarities, on rrect-md.
 - **C, squares** of 32 pt, both polarities, on rrect-md.
 
-That is 28 cells per endpoint at x = 0.25 (the probe), 1 and 0 (the ladder's ends). x = 0.75 takes ten:
+That is 29 cells per endpoint at x = 0.25 (the probe), 1 and 0 (the ladder's ends). x = 0.75 takes ten:
 the greys 0, 128, 208 and 255 on both strata, and two free-side cores (the 48 / 208 pitch-64 checker
 and the bright 32-pt square). Every pass also recaptures ONE no-glass reference in its run 1,
 `ref-checker-64-048-208`, against W42's run-1 frame (Design: the references do not depend on the
@@ -52,7 +55,7 @@ A_LEVELS = (0, 64, 128, 160, 192, 208, 255)
 A_SHAPES = ('capsule-button', 'rrect-md')
 B_PITCH64 = {'light': ('p2', 'p3', 'p4', 'p5'), 'dark': ('p2', 'p3', 'p4')}
 B_PITCH16 = {'light': ('p2', 'p4'), 'dark': ('p2', 'p3', 'p4')}
-PROBE_FIXED = ('bp-p1-c32-capsule-button', 'bp-p1-c64-capsule-button',
+PROBE_FIXED = ('bp-p1-c32-capsule-button', 'bp-p1-c64-capsule-button', 'bp-p1-c32-rrect-64',
                'd-d0-hilo-rrect-md', 'd-d0-lohi-rrect-md', 'd-d32-hilo-rrect-md', 'd-d32-lohi-rrect-md',
                'c-s32-hi-rrect-md', 'c-s32-lo-rrect-md')
 LADDER_075 = tuple(f'a-g{L:03d}-{s}' for s in A_SHAPES for L in (0, 128, 208, 255)) + \

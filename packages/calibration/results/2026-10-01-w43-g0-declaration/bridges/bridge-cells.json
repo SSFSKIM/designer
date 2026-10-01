@@ -260,8 +260,8 @@
     "photo__rrect-md (2x)"
   ],
   "metric": {
-    "agree": "a run pixel-identical to the reference frame; else every region statistic of the plurality frame within max(1 code, bar) of the reference",
-    "bar": "0.5 + 0.5 x the largest pairwise separation of the run medians, per cell, region statistic and channel",
+    "agree": "EVERY run of every bridge cell agrees with its reference: pixel-identical to it, or every region statistic of that run within max(1 code, bar) of the reference (the coordinator's ruling: the gate reads every run, never a plurality frame)",
+    "bar": "0.5 + 0.5 x the largest pairwise separation of the run medians, per cell, region statistic and channel; the sentinels take W42 G1's long-protocol bar, a cell with no measured row the 0.5 floor",
     "regions": "W42's instrument unchanged: forward.Cell at the cell's geometry, masks n and w active, n receded; regions.statistics",
     "reader": "bridge/bridge.py (G0 (b))"
   },

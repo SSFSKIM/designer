@@ -11,7 +11,7 @@ Rates, from W42 G1's 88 admitted runs (packages/calibration/results/2026-09-30-w
   excluded   2 stop gap(s) over 60 s: 2x-light-receded/run-3 -> 2x-light-receded/run-4 1137.2 s, 2x-light-receded/run-6 -> 2x-light-receded/run-7 277.5 s
   self-check the model on W42 G1's own runs: 37046.8 s against a measured 37070.8 s (-24.0 s; in-sample, the medians' loss)
 
-Membership (g1b): 1,229 captures in 55 capture launches, 96 dump scenes in 16 dump launches, 5 slider writes, 0 display switches; 0 cells published
+Membership (g1b): 1,265 captures in 55 capture launches, 96 dump scenes in 16 dump launches, 5 slider writes, 0 display switches; 0 cells published
 
   pose-check                       x=0.5   mode 68      1 captures (1 runs, normal)       11.4 s
   open-w42-2x-light-active         x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
@@ -24,20 +24,20 @@ Membership (g1b): 1,229 captures in 55 capture launches, 96 dump scenes in 16 du
   dump-0.25-2x-light-receded       x=0.25  mode 68      6 scenes                          50.8 s
   dump-0.25-2x-dark-active         x=0.25  mode 68      6 scenes                          50.8 s
   dump-0.25-2x-dark-receded        x=0.25  mode 68      6 scenes                          50.8 s
-  probe-0.25-2x-active             x=0.25  mode 68    170 captures (3 runs, normal)     1627.7 s
-  probe-0.25-2x-receded            x=0.25  mode 68    170 captures (3 runs, normal)     1627.7 s
+  probe-0.25-2x-active             x=0.25  mode 68    176 captures (3 runs, normal)     1684.9 s
+  probe-0.25-2x-receded            x=0.25  mode 68    176 captures (3 runs, normal)     1684.9 s
   dump-1-2x-light-active           x=1     mode 68      6 scenes                          50.8 s
   dump-1-2x-light-receded          x=1     mode 68      6 scenes                          50.8 s
   dump-1-2x-dark-active            x=1     mode 68      6 scenes                          50.8 s
   dump-1-2x-dark-receded           x=1     mode 68      6 scenes                          50.8 s
-  ladder-1-2x-active               x=1     mode 68    170 captures (3 runs, normal)     1627.7 s
-  ladder-1-2x-receded              x=1     mode 68    170 captures (3 runs, normal)     1627.7 s
+  ladder-1-2x-active               x=1     mode 68    176 captures (3 runs, normal)     1684.9 s
+  ladder-1-2x-receded              x=1     mode 68    176 captures (3 runs, normal)     1684.9 s
   dump-0-2x-light-active           x=0     mode 68      6 scenes                          50.8 s
   dump-0-2x-light-receded          x=0     mode 68      6 scenes                          50.8 s
   dump-0-2x-dark-active            x=0     mode 68      6 scenes                          50.8 s
   dump-0-2x-dark-receded           x=0     mode 68      6 scenes                          50.8 s
-  ladder-0-2x-active               x=0     mode 68    170 captures (3 runs, normal)     1627.7 s
-  ladder-0-2x-receded              x=0     mode 68    170 captures (3 runs, normal)     1627.7 s
+  ladder-0-2x-active               x=0     mode 68    176 captures (3 runs, normal)     1684.9 s
+  ladder-0-2x-receded              x=0     mode 68    176 captures (3 runs, normal)     1684.9 s
   dump-0.75-2x-light-active        x=0.75  mode 68      6 scenes                          50.8 s
   dump-0.75-2x-light-receded       x=0.75  mode 68      6 scenes                          50.8 s
   dump-0.75-2x-dark-active         x=0.75  mode 68      6 scenes                          50.8 s
@@ -49,9 +49,9 @@ Membership (g1b): 1,229 captures in 55 capture launches, 96 dump scenes in 16 du
   close-w42-2x-dark-active         x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
   close-w42-2x-dark-receded        x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
 
-captures     12137.2 s = 3.37 h
+captures     12480.3 s = 3.47 h
 dumps          812.1 s = 0.23 h
 boundaries      44.1 s (34: gaps, display switches, slider writes)
-TOTAL        12993.4 s = 3.61 h; 3.97 h with the charter's 10 % stop loss
+TOTAL        13336.5 s = 3.70 h; 4.08 h with the charter's 10 % stop loss
 Excluded: idle waits beyond the measured gaps, quarantines, stops and their continuations, the
 orchestrator's start and restore, and any grant swap.

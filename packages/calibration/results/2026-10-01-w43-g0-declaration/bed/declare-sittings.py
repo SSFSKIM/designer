@@ -26,11 +26,20 @@ bridges. At each of 0.25, 1, 0 and 0.75, the position's dump sentinels and then 
 one per pose over both schemes. At 0.5, the closing sentinels. The restore of the original bundle
 is the user's hand and the parent's check after the plan, not a pass.
 
+Every bridge pass carries G0 (d)'s `bridge` field: its stop rule (an opening bridge stops the sitting
+on a disagreement, a closing one does not), and per cell the reference it is read against, run by
+run (the coordinator's ruling: every run must agree, by bytes or by region medians within max(1
+code, bar)). A canonical cell's reference is its committed fixture; a sentinel's is W42 G1's
+long-protocol frame from `w42-archive` (`../bridges/sentinel-references.json`, one frame per
+cell-endpoint), with W42 G1's long-protocol bar. The closing sentinel passes carry
+`runAfterCut: true`: they are the order's tail and run after any cut.
+
 One capture pass per pose and position carries both schemes, as the canonical passes do. Its run 1
 also recaptures the one declared no-glass reference per profile, so the 16 references of
 probe-bed.json's 16 endpoint-passes become `run1Only` cells of 8 launches' first runs.
 """
 import argparse
+import gzip
 import hashlib
 import importlib.util
 import json
@@ -51,6 +60,8 @@ G1B_DUMP = ('a-g000-capsule-button', 'a-g128-capsule-button', 'a-g255-capsule-bu
 ENDPOINTS = (('light', 'active'), ('light', 'receded'), ('dark', 'active'), ('dark', 'receded'))
 STATE = {'active': 'rest', 'receded': 'inactive'}
 CANONICAL_RUNS, BRIDGE_RUNS = 7, 3
+W42_BAR = 'packages/calibration/results/2026-09-30-w42-g1-sitting/bar/bar.json.gz'
+W42_BAR_JSON_SHA256 = 'a85662f2eacba16613c6470407a5f0d7469569d4a4918f1ab0047ae0c6b8ccf0'
 
 
 def sha(raw):
@@ -86,8 +97,9 @@ class Plan:
                                 source=source, profile=profile, scenes=list(scenes)))
 
     def doc(self, comment):
+        used = {p['source'] for p in self.passes}            # a plan pins only the files it reads
         return {'schema': 'w43-sitting-plan-1', 'sitting': self.sitting, '$comment': comment,
-                'sources': sources(), 'passes': self.passes}
+                'sources': {k: v for k, v in sources().items() if k in used}, 'passes': self.passes}
 
 
 def bridges():
@@ -101,22 +113,49 @@ def pose_check(plan):
                  expect={f'{k}/{sid}': list(frames)})
 
 
+def w42_bars():
+    """W42 G1's published bar (long protocol rows for the sentinels), named by its decompressed JSON's SHA-256."""
+    raw = gzip.decompress((ROOT / W42_BAR).read_bytes())
+    if sha(raw) != W42_BAR_JSON_SHA256:
+        raise SystemExit("W42 G1's bar.json is not the published one")
+    return dict(path=W42_BAR, sha256=W42_BAR_JSON_SHA256, protocol='long')
+
+
 def sentinels(plan, phase, scale):
+    """W42's two sentinels at 0.5, read run by run against W42 G1's long-protocol frame of the same cell.
+    The closing passes are the order's tail and run after any cut (the coordinator's ruling; X47, clause 3)."""
     cells = bridges()['sentinels']
+    refs = json.loads((EVID / 'bridges/sentinel-references.json').read_text())['byEndpoint']
     for scheme, pose in ENDPOINTS:
-        row = cells['byEndpoint'][f'{scale}x-{scheme}-{pose}']
+        endpoint = f'{scale}x-{scheme}-{pose}'
+        row = cells['byEndpoint'][endpoint]
+        reference = {}
+        for sid in row['scenes']:
+            states = refs[endpoint][sid]['long']['states']
+            if len(states) != 1:
+                raise SystemExit(f'{endpoint} {sid}: {len(states)} long-protocol frames; the schema takes one')
+            reference[f"{row['profile']}/{sid}"] = dict(reference=dict(sha256=next(iter(states)), archive='w42-archive'))
+        extra = dict(bridge=dict(stop=phase == 'open', cells=reference, bars=w42_bars()))
+        if phase == 'close':
+            extra['runAfterCut'] = True
         plan.capture(f'{phase}-w42-{scale}x-{scheme}-{pose}', 'bridge-w42-sentinel', 0.5, scale, pose, 'w42',
-                     {row['profile']: row['scenes']}, BRIDGE_RUNS, 'long')
+                     {row['profile']: row['scenes']}, BRIDGE_RUNS, 'long', **extra)
 
 
 def canonical_bridges(plan, scale):
-    by_pass = bridges()['canonical']['byPass']
+    """Six canonical cells per pass at 0.5, read run by run against their committed -glass0.5 fixtures."""
+    b = bridges()['canonical']
     for pose in ('active', 'receded'):
-        lists = {}
-        for row in by_pass[f'{scale}x-{pose}']:
+        lists, reference = {}, {}
+        for row in b['byPass'][f'{scale}x-{pose}']:
             lists.setdefault(row['profile'], []).append(row['scene'])
+            cell = f"{row['profile']}/{row['scene']}"
+            path = f"apps/reference-apple/fixtures/{row['profile']}/{row['scene']}.png"
+            if sha((ROOT / path).read_bytes()) != b['fixtureSha256'][cell]:
+                raise SystemExit(f'{path} is not the fixture bridge-cells.json names')
+            reference[cell] = dict(reference=dict(sha256=b['fixtureSha256'][cell], path=path))
         plan.capture(f'open-canonical-{scale}x-{pose}', 'bridge-canonical', 0.5, scale, pose, 'canonical', lists,
-                     BRIDGE_RUNS)
+                     BRIDGE_RUNS, bridge=dict(stop=True, cells=reference))
 
 
 def g1a():

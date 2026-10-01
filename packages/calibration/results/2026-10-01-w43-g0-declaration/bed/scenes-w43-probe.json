@@ -299,6 +299,14 @@
     "none": {
       "kind": "none"
     },
+    "rrect-64": {
+      "kind": "rrect",
+      "size": [
+        112,
+        64
+      ],
+      "radius": 13.5
+    },
     "rrect-md": {
       "kind": "rrect",
       "size": [
@@ -627,6 +635,20 @@
       "id": "bp-p1-c32-capsule-button__rest",
       "background": "checker-32-000-255",
       "component": "capsule-button",
+      "state": "rest",
+      "$family": "B'"
+    },
+    {
+      "id": "bp-p1-c32-rrect-64__inactive",
+      "background": "checker-32-000-255",
+      "component": "rrect-64",
+      "state": "inactive",
+      "$family": "B'"
+    },
+    {
+      "id": "bp-p1-c32-rrect-64__rest",
+      "background": "checker-32-000-255",
+      "component": "rrect-64",
       "state": "rest",
       "$family": "B'"
     },
@@ -1085,6 +1107,8 @@
         "b-p5-c64-rrect-md__rest",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
+        "bp-p1-c32-rrect-64__inactive",
+        "bp-p1-c32-rrect-64__rest",
         "bp-p1-c64-capsule-button__inactive",
         "bp-p1-c64-capsule-button__rest",
         "c-s32-hi-rrect-md__inactive",
@@ -1190,6 +1214,8 @@
         "b-p4-c64-rrect-md__rest",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
+        "bp-p1-c32-rrect-64__inactive",
+        "bp-p1-c32-rrect-64__rest",
         "bp-p1-c64-capsule-button__inactive",
         "bp-p1-c64-capsule-button__rest",
         "c-s32-hi-rrect-md__inactive",
@@ -1295,6 +1321,8 @@
         "b-p5-c64-rrect-md__rest",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
+        "bp-p1-c32-rrect-64__inactive",
+        "bp-p1-c32-rrect-64__rest",
         "bp-p1-c64-capsule-button__inactive",
         "bp-p1-c64-capsule-button__rest",
         "c-s32-hi-rrect-md__inactive",
@@ -1400,6 +1428,8 @@
         "b-p4-c64-rrect-md__rest",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
+        "bp-p1-c32-rrect-64__inactive",
+        "bp-p1-c32-rrect-64__rest",
         "bp-p1-c64-capsule-button__inactive",
         "bp-p1-c64-capsule-button__rest",
         "c-s32-hi-rrect-md__inactive",
@@ -1505,6 +1535,8 @@
         "b-p5-c64-rrect-md__rest",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
+        "bp-p1-c32-rrect-64__inactive",
+        "bp-p1-c32-rrect-64__rest",
         "bp-p1-c64-capsule-button__inactive",
         "bp-p1-c64-capsule-button__rest",
         "c-s32-hi-rrect-md__inactive",
@@ -1610,6 +1642,8 @@
         "b-p4-c64-rrect-md__rest",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
+        "bp-p1-c32-rrect-64__inactive",
+        "bp-p1-c32-rrect-64__rest",
         "bp-p1-c64-capsule-button__inactive",
         "bp-p1-c64-capsule-button__rest",
         "c-s32-hi-rrect-md__inactive",
@@ -1789,6 +1823,8 @@
       "b-p5-c64-rrect-md__rest",
       "bp-p1-c32-capsule-button__inactive",
       "bp-p1-c32-capsule-button__rest",
+      "bp-p1-c32-rrect-64__inactive",
+      "bp-p1-c32-rrect-64__rest",
       "bp-p1-c64-capsule-button__inactive",
       "bp-p1-c64-capsule-button__rest",
       "c-s32-hi-rrect-md__inactive",

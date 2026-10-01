@@ -32,12 +32,14 @@ At 2x and in all four window states:
 
 | position | cells per endpoint | what |
 | --- | ---: | --- |
-| x = 0.25, the probe | 28 | greys on the capsule and rrect-md at 0, 64, 128, 160, 192, 208, 255; two-level checkers on rrect-md at pitch 64 and 16, inside each endpoint's monotone range; P1 on the capsule at 32 and 64; steps at 0 and 32 and 32-pt squares, both polarities |
-| x = 1 and x = 0, the ladder's ends | 28 | the probe's cells |
+| x = 0.25, the probe | 29 | greys on the capsule and rrect-md at 0, 64, 128, 160, 192, 208, 255; two-level checkers on rrect-md at pitch 64 and 16, inside each endpoint's monotone range; P1 on the capsule at 32 and 64 and on rrect-64 at 32; steps at 0 and 32 and 32-pt squares, both polarities |
+| x = 1 and x = 0, the ladder's ends | 29 | the probe's cells |
 | x = 0.75 | 10 | the greys 0, 128, 208, 255 on both strata; two free-side cores |
 
-The bed runs at three runs. Each of its 16 passes recaptures one no-glass reference in run 1. That
-makes 1,144 captures, in the order 0.25, then 1, 0 and 0.75. A sitting that must stop drops from the
+P1 on rrect-64 was added before the hash, because rehearsal 3 left each receded endpoint a single
+12-pixel capsule region and this W42 cell is supported in all four (`wtest/proposal-p2.txt`). The
+bed runs at three runs. Each of its 16 endpoint-passes recaptures one no-glass reference in run 1.
+That makes 1,180 captures, in the order 0.25, then 1, 0 and 0.75. A sitting that must stop drops from the
 bottom (X47). Nothing is filed as a fixture; the bed is archived as `w43-archive-g1b`.
 
 ## The bridges
@@ -57,9 +59,10 @@ Each sitting captures two kinds of bridge cell at 0.5:
   settle on different frames (`bridges/sentinel-references.json`).
 - Six canonical cells per canonical pass, three runs, at the opening, read against their fixtures.
 
-G1a's bridges are 168 captures over both scales; G1b's are 84 at 2x. A cell agrees when one of its
-runs is pixel-identical to its reference. Otherwise it agrees when every region statistic lies within
-max(1 code, bar). A disagreement at an opening stops that sitting before any capture away from 0.5.
+G1a's bridges are 168 captures over both scales; G1b's are 84 at 2x. The verdict reads every run (the
+parent's ruling): a cell agrees only when each of its runs is pixel-identical to its reference or has
+every region statistic within max(1 code, bar). The plans carry each cell's reference. The closing
+sentinels are each order's tail and run after any cut, with the slider and display restored first. A disagreement at an opening stops that sitting before any capture away from 0.5.
 One at a close voids nothing already admitted, but that sitting's claims against 0.5 are read as
 unbridged and the user rules before G3 opens.
 
@@ -124,9 +127,10 @@ against the charter's 11.26 h and 12.4 h (`bed/timing-g1a.txt`).
    the declared reference in run 1.
 3. At 0.5: the closing sentinels.
 
-The original bundle's restore follows by hand (clause 6). That is 1,229 captures in 55 launches,
-96 dump scenes (the charter priced 72) and five slider writes. (d)'s model gives 3.61 h, or 3.97 h
-with the stop loss, against the charter's 3.65 h and 4.0 h.
+The original bundle's restore follows by hand (clause 6). That is 1,265 captures in 55 launches,
+96 dump scenes (the charter priced 72; a declared deviation of about 3 minutes, accepted by the
+parent) and five slider writes. (d)'s model gives 3.70 h, or 4.08 h with the stop loss, against the
+charter's 3.65 h and 4.0 h; the added rrect-64 cell is the 0.09 h.
 
 ## The frozen
 
