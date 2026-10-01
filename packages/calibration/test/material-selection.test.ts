@@ -27,6 +27,7 @@ import {
 import {
   candidateDocumentRefusals,
   candidateMaterialLabel,
+  crossPositionRefusal,
   documentPosition,
   selectShippedDocument,
   type MaterialDocumentLike,
@@ -179,6 +180,31 @@ describe("candidate mode, the document the page draws", () => {
     });
     expect(label).toMatch(/^materialProfile=candidate /);
     expect(label).not.toMatch(/sha256:/);
+  });
+});
+
+describe("candidate mode, the position it is read against", () => {
+  const at025 = ["apple-macos-27.0-1x-light-standard-glass0.25", "apple-macos-27.0-2x-dark-standard-glass0.25"];
+  const at05 = ["apple-macos-27.0-1x-light-standard-glass0.5", "apple-macos-27.0-2x-dark-standard-glass0.5"];
+
+  it("admits profiles at the candidate's own position without the flag", () => {
+    expect(crossPositionRefusal(0.25, at025, false)).toBeUndefined();
+  });
+
+  it("red: refuses a profile at another position, or none, without --cross-position", () => {
+    expect(crossPositionRefusal(0.25, [...at025, at05[0]!], false))
+      .toMatch(/read against apple-macos-27\.0-1x-light-standard-glass0\.5 \(glass 0\.5\)/);
+    expect(crossPositionRefusal(0.25, ["apple-macos-26.5-1x-light-standard"], false))
+      .toMatch(/\(glass none\)/);
+  });
+
+  it("admits every profile at another position under --cross-position", () => {
+    expect(crossPositionRefusal(0.25, at05, true)).toBeUndefined();
+  });
+
+  it("red: refuses --cross-position over any profile at the candidate's own position", () => {
+    expect(crossPositionRefusal(0.25, at025, true)).toMatch(/the stamp would be false/);
+    expect(crossPositionRefusal(0.25, [...at05, at025[1]!], true)).toMatch(/the stamp would be false/);
   });
 });
 
@@ -365,4 +391,39 @@ describe("candidate mode, the command lines", () => {
     expect(canonical.status).not.toBe(0);
     expect(canonical.stderr).toMatch(/would write its captures into the canonical tree/);
   }, 120_000);
+
+  const compareAt05 = (extra: readonly string[]) => run("cli/compare.ts", [
+    "--candidate-document", candidate, "--profile", KEY_05, "--scene", "photo__rrect-md__rest",
+    "--out-matrix", "/tmp/w43-never.json", "--skip-capture", ...extra,
+  ], { VITREA_WEB_CAPTURES: "/tmp/w43-never-captures" });
+
+  it("red: compare refuses the 0.25 candidate against 0.5 fixtures without --cross-position", () => {
+    const out = compareAt05([]);
+    expect(out.status).not.toBe(0);
+    expect(out.stderr).toMatch(/the candidate is at glass 0\.25 and is read against .*glass0\.5/);
+  }, 60_000);
+
+  it("green: compare admits it under --cross-position, past the gate to the capture lookup", () => {
+    const out = compareAt05(["--cross-position"]);
+    expect(`${out.stdout}${out.stderr}`).not.toMatch(/is read against|stamp would be false/);
+    expect(`${out.stdout}${out.stderr}`).toMatch(/no webgpu-tier capture on disk/);
+  }, 60_000);
+
+  it("red: --cross-position with no candidate, on both command lines", () => {
+    const compare = run("cli/compare.ts", ["--cross-position", "--material-profile", active,
+      "--out-matrix", "/tmp/w43-never.json"], { VITREA_WEB_CAPTURES: "/tmp/w43-never-captures" });
+    expect(compare.status).not.toBe(0);
+    expect(compare.stderr).toMatch(/--cross-position declares a candidate .* names no --candidate-document/);
+    const capture = run("scripts/capture-web.ts",
+      ["photo__rrect-md__rest", "--out", "/tmp/w43-never", "--cross-position", "0.5"]);
+    expect(capture.status).not.toBe(0);
+    expect(capture.stderr).toMatch(/names no --candidate-document/);
+  }, 60_000);
+
+  it("red: capture-web refuses a cross-position stamp at the candidate's own position", () => {
+    const out = run("scripts/capture-web.ts", ["photo__rrect-md__rest", "--out", "/tmp/w43-never",
+      "--candidate-document", candidate, "--cross-position", "0.25"]);
+    expect(out.status).not.toBe(0);
+    expect(out.stderr).toMatch(/is the candidate's own glass position/);
+  }, 60_000);
 });

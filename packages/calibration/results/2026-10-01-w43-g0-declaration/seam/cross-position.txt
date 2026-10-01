@@ -1,0 +1,7 @@
+W43 G0 (f) cross-position stamp, end to end, 2026-10-01T06:51:44Z
+$ VITREA_WEB_CAPTURES=/tmp/w43-g0-cross/captures npx tsx cli/compare.ts --candidate-document results/2026-10-01-w43-g0-declaration/seam/scratch-candidate/candidate.json --cross-position --profile apple-macos-27.0-1x-light-standard-glass0.5 --scene photo__rrect-md__rest --out-matrix /tmp/w43-g0-cross/matrix.json
+exit 0; one row written to the scratch matrix:
+profileKey apple-macos-27.0-1x-light-standard-glass0.5
+renderer webgpu adapter apple/metal-3
+capturePath playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-01-w43-g0-declaration/seam/scratch-candidate/candidate.json declarationSha256=7ecc6262e435 name=apple-macos-27.0-glass0.25-w43-g0-scratch glassTintAmount=0.25, crossPosition=candidate-glass0.25-against-glass0.5
+Without --cross-position the same command is refused before capture (test/material-selection.test.ts).

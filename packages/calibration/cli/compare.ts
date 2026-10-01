@@ -117,6 +117,8 @@ import {
 } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
 import { isNativeOnly } from "../src/component-region";
+import { crossPositionRefusal, keyPosition } from "../src/material-selection";
+import { readCandidateDocument, type CandidateDocument } from "../scripts/candidate-document";
 import { declaredComponentOf, readSceneGeometry, type SceneGeometryMatrix } from "./scene-geometry";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -284,6 +286,13 @@ interface Options {
    * a shipped material in strict mode. Its rows carry the candidate stamp in `capturePath`.
    */
   readonly candidateDocument: string | undefined;
+  /**
+   * The declared cross-position reading (W43 G0 (f)): a candidate read against fixtures at
+   * another glass position, for the deliberate comparisons (the bridge, the w-test). Without
+   * it such a run is refused; with it every planned profile must be at another position, and
+   * every capture's `capturePath` and report carry the stamp.
+   */
+  readonly crossPosition: boolean;
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
   readonly stage: string | undefined;
@@ -388,6 +397,12 @@ function parseOptions(argv: readonly string[]): Options {
       );
     }
   }
+  if (argv.includes("--cross-position") && candidateDocument === undefined) {
+    throw new Error(
+      "compare: --cross-position declares a candidate read at another glass position, and this " +
+        "run names no --candidate-document (W43 G0 (f))",
+    );
+  }
   const scenes = list("scene");
   const profileKeys = list("profile");
 
@@ -414,6 +429,7 @@ function parseOptions(argv: readonly string[]): Options {
     recededProfile: recededProfile === undefined ? undefined : resolve(process.cwd(), recededProfile),
     candidateDocument:
       candidateDocument === undefined ? undefined : resolve(process.cwd(), candidateDocument),
+    crossPosition: argv.includes("--cross-position"),
     webAccessibility,
     stage: flag("stage") === undefined ? undefined : resolve(flag("stage")!),
     matrixPath: flag("stage") === undefined
@@ -625,6 +641,8 @@ function captureFor(planned: readonly PlannedCell[], options: Options): void {
     ...(options.recededProfile === undefined ? [] : ["--receded-profile", options.recededProfile]),
     ...(options.candidateDocument === undefined
       ? [] : ["--candidate-document", options.candidateDocument]),
+    ...(options.crossPosition
+      ? ["--cross-position", String(keyPosition(first.profileKey)?.glass ?? "none")] : []),
     ...(options.alpha ? ["--alpha"] : []),
   ]);
 }
@@ -704,6 +722,21 @@ function main(): void {
           ? ""
           : " Every tinted scene is being skipped — see --allow-colourless-tints."),
     );
+  }
+
+  /*
+   * The candidate's position against every planned profile's, before anything is captured
+   * (W43 G0 (f)). Read through the same reader `capture-web` uses, so a `--skip-capture`
+   * re-measure is held to the same declaration as a run that captures.
+   */
+  if (options.candidateDocument !== undefined) {
+    const candidate: CandidateDocument = readCandidateDocument(options.candidateDocument);
+    const refusal = crossPositionRefusal(
+      candidate.document.glassTintAmount,
+      [...new Set(planned.map((cell) => cell.profileKey))],
+      options.crossPosition,
+    );
+    if (refusal !== undefined) throw new Error(refusal);
   }
 
   if (options.sets.includes("holdout")) {
@@ -1128,6 +1161,9 @@ function main(): void {
   }
   if (options.candidateDocument !== undefined) {
     say(`CANDIDATE material document drawn on the web side: ${options.candidateDocument}`);
+  }
+  if (options.crossPosition) {
+    say("CROSS-POSITION reading: the candidate sits at another glass position from these fixtures");
   }
 
   // Every profile's web-side accessibility state, printed whether or not the

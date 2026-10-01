@@ -62,7 +62,7 @@ import {
   recededProfileClause,
 } from "./material-profile-file.ts";
 import { readCandidateDocument, type CandidateDocument } from "./candidate-document.ts";
-import { candidateMaterialLabel } from "../src/material-selection.ts";
+import { candidateMaterialLabel, crossPositionClause } from "../src/material-selection.ts";
 import { PNG } from "pngjs";
 import { createServer, type ViteDevServer } from "vite";
 
@@ -255,6 +255,12 @@ interface Options {
    */
   readonly candidateDocument: CandidateDocument | undefined;
   /**
+   * The glass position of the fixtures this candidate is read against, where that differs
+   * from the candidate's own (`--cross-position <glass|none>`, W43 G0 (f)). `compare` passes
+   * it only under its own `--cross-position`; every output then carries the stamp.
+   */
+  readonly crossPosition: string | undefined;
+  /**
    * Also take the declaration-conformance capture (W20 G0, claims §5.83): the
    * same scene on the same resolved tier with the page ground transparent and
    * the backdrop raster hidden, written as `<scene>__<tier>__alpha.png`.
@@ -285,6 +291,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   let materialProfile: MaterialProfileFile | undefined;
   let recededProfile: MaterialProfileFile | undefined;
   let candidateDocument: CandidateDocument | undefined;
+  let crossPosition: string | undefined;
   let alpha = false;
   let all = false;
 
@@ -349,6 +356,10 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
         candidateDocument = readCandidateDocument(resolve(process.cwd(), next(index, argument)));
         index += 1;
         break;
+      case "--cross-position":
+        crossPosition = next(index, argument);
+        index += 1;
+        break;
       default:
         if (argument.startsWith("--")) throw new Error(`unknown flag ${argument}`);
         ids.push(argument);
@@ -362,6 +373,16 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
         "--receded-profile beside it: the page builds the root from the candidate alone, never " +
         "from a shipped document with a patch injected over it (W43 G0 (f)).",
     );
+  }
+  if (crossPosition !== undefined) {
+    if (candidateDocument === undefined) {
+      throw new Error("--cross-position stamps a candidate read at another glass position, and " +
+        "this run names no --candidate-document (W43 G0 (f)).");
+    }
+    if (crossPosition === String(candidateDocument.document.glassTintAmount)) {
+      throw new Error(`--cross-position ${crossPosition} is the candidate's own glass position, so ` +
+        "the stamp would be false (W43 G0 (f)).");
+    }
   }
   // A candidate's pixels stay out of the canonical capture tree, which `check-capture-tree`
   // reads against the published rows and the sheets are copied from.
@@ -408,6 +429,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     materialProfile,
     recededProfile,
     candidateDocument,
+    crossPosition,
     alpha,
   };
 }
@@ -705,6 +727,10 @@ async function captureScene(
       (options.candidateDocument === undefined
         ? materialProfileLabel(options.materialProfile)
         : candidateLabel(options.candidateDocument)) +
+      (options.crossPosition === undefined || options.candidateDocument === undefined
+        ? ""
+        : crossPositionClause(
+            options.candidateDocument.document.glassTintAmount, options.crossPosition)) +
       // Empty when no candidate receded document was injected, so every key
       // published before this flag existed is unchanged to the byte, and
       // non-empty otherwise — which is what makes a receded row say which
@@ -842,6 +868,12 @@ async function captureScene(
                 declarationSha256: options.candidateDocument.declarationSha256,
                 endpoints: options.candidateDocument.endpoints,
                 cssTierMappingSha256: options.candidateDocument.cssTierMappingSha256,
+                crossPosition: options.crossPosition === undefined
+                  ? null
+                  : {
+                      candidateGlass: options.candidateDocument.document.glassTintAmount,
+                      againstGlass: options.crossPosition,
+                    },
               },
         fallback: fallback ?? null,
         problems,
@@ -969,6 +1001,9 @@ async function main(): Promise<void> {
         },
       );
       say(`candidate document: ${candidateLabel(candidate)}`);
+      if (options.crossPosition !== undefined) {
+        say(`CROSS-POSITION: read against fixtures at glass ${options.crossPosition}`);
+      }
     }
 
     // Same init-script placement, same reason: the CSS tier writes its

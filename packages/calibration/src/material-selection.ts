@@ -264,6 +264,48 @@ export function validateCandidateDocument(
 }
 
 /**
+ * A candidate read against fixtures at another glass position, refused unless declared
+ * (W43 G0 (f), the parent's ruling on X45).
+ *
+ * A candidate at one position measured against native fixtures at another is a comparison
+ * between two materials, never a fit of either, and nothing in a row would otherwise say so
+ * beyond two numbers in two strings. So a run is one of two things, declared up front: every
+ * profile at the candidate's position, or, under `--cross-position`, every profile at another
+ * one, each output stamped. The flag over a same-position profile is refused too, because the
+ * stamp it writes would be false. Returns the refusal, or `undefined`.
+ */
+export function crossPositionRefusal(
+  candidateGlass: number,
+  profileKeys: readonly string[],
+  crossPosition: boolean,
+): string | undefined {
+  const glassOf = (key: string): number | undefined => keyPosition(key)?.glass;
+  const same = profileKeys.filter((key) => glassOf(key) === candidateGlass);
+  const other = profileKeys.filter((key) => glassOf(key) !== candidateGlass);
+  if (!crossPosition && other.length > 0) {
+    return (
+      `the candidate is at glass ${candidateGlass} and is read against ` +
+      `${other.map((k) => `${k} (glass ${String(glassOf(k) ?? "none")})`).join(", ")}. A ` +
+      `cross-position reading is a comparison between two materials; declare it with ` +
+      `--cross-position, which stamps every output, or select profiles at glass ${candidateGlass}`
+    );
+  }
+  if (crossPosition && same.length > 0) {
+    return (
+      `--cross-position was declared, and ${same.join(", ")} ${same.length === 1 ? "is" : "are"} at ` +
+      `the candidate's own glass ${candidateGlass}, so the stamp would be false there; run the ` +
+      `same-position profiles without the flag`
+    );
+  }
+  return undefined;
+}
+
+/** The `capturePath` clause a cross-position output carries, after the candidate's own. */
+export function crossPositionClause(candidateGlass: number, againstGlass: string): string {
+  return `, crossPosition=candidate-glass${candidateGlass}-against-glass${againstGlass}`;
+}
+
+/**
  * How a capture's `capturePath` names a candidate, so every output carries the stamp.
  *
  * It replaces the `materialProfile=` clause rather than following it, and its hash is not
