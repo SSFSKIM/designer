@@ -102,7 +102,7 @@ NSGlassTintAmount` if `present` is false). Then run `/opt/homebrew/bin/displaypl
 
 ## What was proved before the window
 
-- `proof.txt` (`proof.py`): 83 expectations over 29 cases, all holding. The cases run on stub
+- `proof.txt` (`proof.py`): 86 expectations over 31 cases, all holding, re-run after the window. The cases run on stub
   tools, with the slider in a sandbox defaults domain through the real `/usr/bin/defaults`. The
   harness is a re-signed copy of `/bin/sleep` that really runs, and the dumps are memo D's own,
   patched. Green: as-found 0.5, absent, and an odd double (0.5459057092666626), each restored
@@ -111,7 +111,8 @@ NSGlassTintAmount` if `present` is false). Then run `/opt/homebrew/bin/displaypl
   prompt, locked screen, idle cap, a live harness before the first write, an as-found string, a
   harness that outlives its launch, a dump at the previous slider, a lost focus, a memo D departure
   at 0.5, a missing scene, a failed launch, a display switch that does not take, a failed restore
-  (exit 7, then `restore` by hand), SIGTERM, SIGINT during the 1x block, SIGHUP, a continuation
+  (exit 7, then `restore` by hand), SIGTERM, SIGINT during the 1x block, SIGHUP, this runbook's own
+  detached command and a detached child refusing a dirty root, a continuation
   (and its refusal when the slider is not at the as-found value), a run root inside the checkout,
   a real tool in the stub directory, and the shortened waits outside stub mode. The proof read the
   machine's real slider (0.5, a real) and display mode (68) before and after, and both were

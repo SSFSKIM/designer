@@ -1,4 +1,4 @@
-memo F driver proof: 83 of 83 expectations hold over 30 cases
+memo F driver proof: 86 of 86 expectations hold over 32 cases
 real witness before {'slider': '0.5', 'sliderType': 'float', 'mode': 'mode 68'}, after {'slider': '0.5', 'sliderType': 'float', 'mode': 'mode 68'}
 
 PASS  green-present                exit 0, every launch admitted
@@ -83,4 +83,7 @@ PASS  green-continue               a continuation refuses when the slider is not
 PASS  red-root-in-repo             a run root inside the checkout refuses
 PASS  red-real-tool                a stub tools directory holding a real tool refuses
 PASS  red-fast-real                the shortened waits refuse outside stub mode, before any tool runs
+PASS  green-detached               the launcher detaches and the child runs every block
+PASS  green-detached               restored and verified
+PASS  red-detached-child-dirty-root refused before anything is read
 PASS  witness                      the machine's real slider and display mode are unchanged
