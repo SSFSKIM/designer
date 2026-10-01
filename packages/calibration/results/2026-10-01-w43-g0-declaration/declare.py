@@ -2,6 +2,7 @@
 
     python3.12 -B declare.py check    # exit 0 consistent (pending items reported), 1 on any mismatch
     python3.12 -B declare.py hash     # refuses (exit 2) while any item is pending
+    python3.12 -B declare.py amend --reason TEXT --cause COMMIT PIN [PIN ...]   # re-pin moved sources, after the hash
 
 W42's pattern (`2026-09-29-w42-g0-declaration/declare.py`), not its code. `declaration.json` declares
 each item once, points at its source files, and pins every source by SHA-256; a path suffixed
@@ -22,9 +23,30 @@ then re-derives each fact the declaration states as a number or a list:
 - that `declaration.md` carries every item in order, each pending item marked `PENDING (<what it
   waits on>)` and no declared item so marked.
 
-A pending item declares nothing yet and names what it waits on; none is pending now. `hash` refuses while one remains. It then writes `declaration.sha256` and `closure.json` (the
-items G1a, G1b and G2 implement from the hash) and never overwrites either. Both must be committed
-before G1a's first capture; a change after it voids the affected sitting as the bed (clause 1).
+A pending item declares nothing yet and names what it waits on; none is pending now. `hash` refuses
+while one remains. It then writes `declaration.sha256` and `closure.json` (the items G1a, G1b and G2
+implement from the hash) and never overwrites either. Both must be committed before G1a's first
+capture; a change after it voids the affected sitting as the bed (clause 1).
+
+**Amendments** (the parent's ruling, 2026-10-01: an amendment, not a rewrite, and only while no 0.25
+pixel exists). `amend` re-pins the named sources at their current bytes and changes nothing else. It
+refuses unless:
+- the declaration is hashed and its chain verifies;
+- every named pin has moved;
+- no other pin has moved;
+- the same pins are not amended again without a new reason;
+- no capture or archive exists for this declaration (`capture_evidence`).
+
+It appends a record to `amendments.json`: the superseded hash, the reason, the cause, and each pin's
+from and to. It writes the amended `declaration.json`, then appends the amended hash to
+`declaration.sha256` beneath the earlier ones; no line is ever replaced. `closure.json` keeps naming
+the original hash, because an amendment changes no item.
+
+`check` verifies the whole chain. Each line of `declaration.sha256` is the hash of the declaration
+that line names: the first is the original, each later line one amendment's, and the last the
+current bytes. Each earlier declaration is rebuilt from the current one by putting back its
+amendments' `from` pins. Its bytes must hash to the line recorded for it, so an amendment that moved
+anything but its named pins cannot verify.
 """
 import hashlib
 import json
@@ -38,6 +60,7 @@ ROOT = HERE.parents[3]
 REL = HERE.relative_to(ROOT).as_posix()
 DECLARATION, TWIN = HERE / 'declaration.json', HERE / 'declaration.md'
 DIGEST, CLOSURE = HERE / 'declaration.sha256', HERE / 'closure.json'
+AMENDMENTS = HERE / 'amendments.json'
 W42_BED = ROOT / 'packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json'
 CLOSURE_ITEMS = ('canonicalBed', 'probeBed', 'bridgeCells', 'repeatsAndBar', 'wTestPrediction', 'wTestStatistic',
                  'ladderReadings', 'sitting-g1a', 'sitting-g1b')
@@ -206,10 +229,68 @@ def repeats(c, items):
     c.eq('probeBed: runs against probe-bed.json', items['probeBed']['declared']['runs'], bed['runs'])
 
 
+def serialise(d):
+    """declaration.json's own form, so a rebuilt declaration hashes as the file it once was."""
+    return (json.dumps(d, indent=2, ensure_ascii=False) + '\n').encode()
+
+
+def digest_lines():
+    return [ln.split()[0] for ln in DIGEST.read_text().splitlines() if ln.strip()] if DIGEST.exists() else []
+
+
+def amendments():
+    return json.loads(AMENDMENTS.read_text())['amendments'] if AMENDMENTS.exists() else []
+
+
+def chain(c, d):
+    """The hash chain: original, each amendment, the current bytes (the module docstring, Amendments)."""
+    lines, record, raw = digest_lines(), amendments(), DECLARATION.read_bytes()
+    if not lines:
+        c.true('chain: amendments.json exists but the declaration was never hashed', not record)
+        return
+    c.true('chain: declaration.json is not in its own serialised form', serialise(d) == raw)
+    c.eq('chain: declaration.sha256 lines against amendments', len(lines), 1 + len(record))
+    c.eq('chain: the last line names the current declaration.json', lines[-1], sha(raw))
+    if CLOSURE.exists():
+        c.eq('chain: closure.json names the original hash', json.loads(CLOSURE.read_text()).get('declarationSha256'),
+             lines[0])
+    state = json.loads(raw)
+    for i in range(len(record) - 1, -1, -1):
+        a = record[i]
+        c.eq(f'chain: amendment {i + 1} number', a.get('n'), i + 1)
+        c.eq(f'chain: amendment {i + 1} names the hash it made', a.get('declarationSha256'), lines[i + 1])
+        c.eq(f'chain: amendment {i + 1} names the hash it supersedes', a.get('supersedes'), lines[i])
+        c.true(f'chain: amendment {i + 1} states a reason and a cause', bool(a.get('reason')) and bool(a.get('cause')))
+        c.true(f'chain: amendment {i + 1} re-pins at least one source', bool(a.get('pins')))
+        for path, move in (a.get('pins') or {}).items():
+            c.eq(f'chain: amendment {i + 1} pin {path} as amended', state['sources'].get(path), move.get('to'))
+            state['sources'][path] = move.get('from')
+        c.eq(f'chain: the declaration before amendment {i + 1}, rebuilt, hashes as recorded', sha(serialise(state)),
+             lines[i])
+    seen = {}
+    for a in record:
+        key = (tuple(sorted(a.get('pins') or {})), a.get('reason'))
+        c.true(f"chain: amendment {a.get('n')} repeats amendment {seen.get(key)}'s pins and reason", key not in seen)
+        seen[key] = a.get('n')
+
+
+def capture_evidence():
+    """Anything that would mean a capture or an archive exists for this declaration: the published 0.25
+    fixture trees, a G1a or G1b evidence directory, the sittings' run roots, or a W43 archive tag."""
+    found = []
+    found += [str(p.relative_to(ROOT)) for p in sorted((ROOT / 'apps/reference-apple/fixtures').glob('*glass0.25*'))]
+    found += [str(p.relative_to(ROOT)) for p in sorted((ROOT / 'packages/calibration/results').glob('*w43-g1[ab]*'))]
+    found += [str(p) for p in (Path.home() / 'vitrea-w43/g1a', Path.home() / 'vitrea-w43/g1b') if p.exists()]
+    tags = subprocess.run(['git', '-C', str(ROOT), 'tag', '-l', 'w43-archive*'], capture_output=True, text=True)
+    found += [f'tag {t}' for t in tags.stdout.split()]
+    return found
+
+
 def check():
     c = Check()
     d = json.loads(DECLARATION.read_text())
     c.eq('schema', d.get('schema'), 'w43-declaration-1')
+    chain(c, d)
     items = structure(c, d)
     twin(c, items)
     beds(c, items)
@@ -226,7 +307,74 @@ def closure(items, digest):
             'items': {k: items[k]['declared'] for k in CLOSURE_ITEMS}}
 
 
+def amend(argv):
+    """The parent's amendment verb: re-pin the named moved sources, record why, append the new hash."""
+    import argparse
+    ap = argparse.ArgumentParser(prog='declare.py amend')
+    ap.add_argument('--reason', required=True)
+    ap.add_argument('--cause', required=True, help='the commit that moved the pins')
+    ap.add_argument('pins', nargs='+')
+    args = ap.parse_args(argv)
+    lines = digest_lines()
+    if not lines:
+        print('amend REFUSES: the declaration is not hashed; before the hash it is simply edited and re-checked')
+        return 2
+    evidence = capture_evidence()
+    if evidence:
+        print('amend REFUSES: a capture or archive exists for this declaration, so the bed is fixed: ' +
+              ', '.join(evidence[:6]))
+        return 2
+    record = amendments()
+    key = (tuple(sorted(args.pins)), args.reason)
+    if any((tuple(sorted(a['pins'])), a['reason']) == key for a in record):
+        print('amend REFUSES: these pins were amended before for this same reason; a second amendment needs a new one')
+        return 2
+    d = json.loads(DECLARATION.read_text())
+    unknown = [p for p in args.pins if p not in d['sources'] or '@' in p]
+    if unknown:
+        print(f'amend REFUSES: not a pinned working-tree source: {unknown}')
+        return 2
+    c, _, _ = check()
+    named = {f'pin {p}' for p in args.pins}
+    other = [f for f in c.failures if not any(f.startswith(n + ':') for n in named)]
+    if other:
+        print('amend REFUSES: the check fails outside the named pins, and an amendment changes nothing else:')
+        for f in other:
+            print('  MISMATCH', f)
+        return 2
+    moves = {}
+    for p in args.pins:
+        now = sha(source_bytes(p))
+        if now == d['sources'][p]:
+            print(f'amend REFUSES: {p} has not moved; there is nothing to re-pin')
+            return 2
+        moves[p] = {'from': d['sources'][p], 'to': now}
+        d['sources'][p] = now
+    raw = serialise(d)
+    digest = sha(raw)
+    entry = {'n': len(record) + 1, 'supersedes': lines[-1], 'declarationSha256': digest, 'reason': args.reason,
+             'cause': args.cause, 'pins': moves,
+             'captureEvidenceAtAmendment': 'none (capture_evidence: the 0.25 fixture trees, G1a/G1b evidence '
+                                           'directories, ~/vitrea-w43/g1a and g1b, w43-archive tags)'}
+    body = {'schema': 'w43-declaration-amendments-1', 'amendments': record + [entry]}
+    AMENDMENTS.write_text(json.dumps(body, indent=2, ensure_ascii=False) + '\n')
+    DECLARATION.write_bytes(raw)
+    with DIGEST.open('a') as f:
+        f.write(f'{digest}  declaration.json\n')
+    c, _, _ = check()
+    if c.failures:
+        for f in c.failures:
+            print('  MISMATCH', f)
+        print('amend: written, but the check fails; inspect before committing')
+        return 1
+    print(f'amended: declaration.json sha256 {digest} supersedes {lines[-1]} (amendment {entry["n"]}); '
+          'the chain verifies; commit declaration.json, amendments.json and declaration.sha256')
+    return 0
+
+
 def main(argv):
+    if len(argv) >= 2 and argv[1] == 'amend':
+        return amend(argv[2:])
     if len(argv) != 2 or argv[1] not in ('check', 'hash'):
         print(__doc__)
         return 64

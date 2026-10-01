@@ -6,10 +6,11 @@ files that define it, and pins every one of those files by SHA-256. `declare.py 
 every count and list below from those files. `declare.py hash` refuses while any item is PENDING. It
 then writes `declaration.sha256` and `closure.json`, and never overwrites either.
 
-**Status: COMPLETE, NOT HASHED.** Every item is declared: memo F's reading and the w-test's record
-rehearsals are folded in, and both sittings' plans are validated by G0 (d)'s final pass-spec. The hash
-waits on the independent review and the parent's word, and must come before G1a's first capture
-(clause 1). No pixel at 0.25 exists.
+**Status: HASHED, AMENDED ONCE.** The original hash `4675ce21…` (commit `487262d0`) covered every
+item declared. Amendment 1 (`amendments.json`) re-pins the two X41 files that review fix `b213d4a4`
+moved after the hash, and changes nothing else. The hash in force is `4f90f91015f3c82c…`, the last line
+of `declaration.sha256`, beneath the original. `declare.py check` verifies the whole chain. No pixel at
+0.25 exists.
 
 ## The beds
 

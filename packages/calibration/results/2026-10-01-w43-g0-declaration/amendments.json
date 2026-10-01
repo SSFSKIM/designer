@@ -1,0 +1,23 @@
+{
+  "schema": "w43-declaration-amendments-1",
+  "amendments": [
+    {
+      "n": 1,
+      "supersedes": "4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874",
+      "declarationSha256": "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb",
+      "reason": "the X41 pins moved by review fix b213d4a4 (X41 projects scenes.json by unit, 911 entries), merged after the hash",
+      "cause": "b213d4a4",
+      "pins": {
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/x41.ts": {
+          "from": "0b7171ae5e33d0a51894e67677d20b389716ed2c7c60874a81b910d1105197d5",
+          "to": "879fad0870066c0325b5f0a79f49529f9725bcf3282f5252bed1194bc782c581"
+        },
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/sha256.txt": {
+          "from": "61a55c03b71a302a81191fbd3ca2de755d781e3b1fd1f230e15f2b4af5e10a1a",
+          "to": "fdf4fbde81c35f6c68d15c75f85149a0b33ce6a2997afdb2e43029b1c7859581"
+        }
+      },
+      "captureEvidenceAtAmendment": "none (capture_evidence: the 0.25 fixture trees, G1a/G1b evidence directories, ~/vitrea-w43/g1a and g1b, w43-archive tags)"
+    }
+  ]
+}
