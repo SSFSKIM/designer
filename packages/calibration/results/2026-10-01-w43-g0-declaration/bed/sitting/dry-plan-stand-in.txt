@@ -1,0 +1,40 @@
+W43 stand-in dry plan (sitting.py plan): executed nothing; every document and argv was written
+under a scratch directory. Per pass: slider position, display mode, runs, cells per run.
+REHEARSAL on the G1a-shaped STAND-IN (stand_in.py), not the declared plan.
+plan 32a81a8221f6
+
+pose-check                       x=0.5   mode 68  1 runs  cells/run 1  normal
+open-w42-2x-light-active         x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+open-w42-2x-light-receded        x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+open-w42-2x-dark-active          x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+open-w42-2x-dark-receded         x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+open-canonical-2x-active         x=0.5   mode 68  3 runs  cells/run 6 6 6  normal
+open-canonical-2x-receded        x=0.5   mode 68  3 runs  cells/run 6 6 6  normal
+open-w42-1x-light-active         x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+open-w42-1x-light-receded        x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+open-w42-1x-dark-active          x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+open-w42-1x-dark-receded         x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+open-canonical-1x-active         x=0.5   mode 69  3 runs  cells/run 6 6 6  normal
+open-canonical-1x-receded        x=0.5   mode 69  3 runs  cells/run 6 6 6  normal
+dump-0.25-2x-light-active        x=0.25  mode 68  dump        6 scenes  (timeout 147 s)
+dump-0.25-2x-light-receded       x=0.25  mode 68  dump        6 scenes  (timeout 147 s)
+dump-0.25-2x-dark-active         x=0.25  mode 68  dump        6 scenes  (timeout 147 s)
+dump-0.25-2x-dark-receded        x=0.25  mode 68  dump        6 scenes  (timeout 147 s)
+bed-0.25-2x-active               x=0.25  mode 68  7 runs  cells/run 162 162 162 162 162 162 162  normal  PUBLISHED
+bed-0.25-2x-receded              x=0.25  mode 68  7 runs  cells/run 119 119 119 119 119 119 119  normal  PUBLISHED
+dump-0.25-1x-light-active        x=0.25  mode 69  dump        6 scenes  (timeout 147 s)
+dump-0.25-1x-light-receded       x=0.25  mode 69  dump        6 scenes  (timeout 147 s)
+dump-0.25-1x-dark-active         x=0.25  mode 69  dump        6 scenes  (timeout 147 s)
+dump-0.25-1x-dark-receded        x=0.25  mode 69  dump        6 scenes  (timeout 147 s)
+bed-0.25-1x-active               x=0.25  mode 69  7 runs  cells/run 162 162 162 162 162 162 162  normal  PUBLISHED
+bed-0.25-1x-receded              x=0.25  mode 69  7 runs  cells/run 119 119 119 119 119 119 119  normal  PUBLISHED
+close-w42-1x-light-active        x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+close-w42-1x-light-receded       x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+close-w42-1x-dark-active         x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+close-w42-1x-dark-receded        x=0.5   mode 69  3 runs  cells/run 2 2 2  long
+close-w42-2x-light-active        x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+close-w42-2x-light-receded       x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+close-w42-2x-dark-active         x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+close-w42-2x-dark-receded        x=0.5   mode 68  3 runs  cells/run 2 2 2  long
+
+totals: {"captureLaunches": 89, "captures": 4103, "dumpLaunches": 8, "dumpScenes": 48, "sliderWrites": 2, "modeSwitches": 4, "publishedCells": 562}

@@ -1,206 +1,290 @@
 #!/usr/bin/env python3.12
-"""Recompute the W42 sitting's length from REAL timings, not W39's 9.53 s/capture model.
+"""A W43 sitting's length, derived from its DECLARED plan and W42 G1's measured rates (G0 (d)).
 
-Inputs, all measured and read-only:
-- W39 G1's committed attestations (packages/calibration/results/2026-09-26-w39-g1-colour-edge-
-  sitting/attest/<pass>/runs.json, run-*/attest.open.json and attest.close.json): for every
-  admitted run, its fixture count, first and last capture time and its opening and closing
-  machine reads. A run's wall time is close - open; its capture interval is (last - first) /
-  (n - 1); a per-run fixed cost is fitted as wall = a + b n by least squares per protocol
-  and scale; the gap between runs and between passes is open(next) - close(previous).
-- memo D's dump attestations (~/vitrea-w42/grounding/dumps/runs/*/attest.open|close): 24
-  scenes at settle 8 and 4 scenes at settle 16, which separate the per-scene cost from the
-  per-launch cost.
-- W42's counts: bed/sitting/pass-spec.py plan over the bed files.
+Derived from W42 G0's timing.py, which stays untouched. W42's model read W42's own bed
+(pass-spec.py over bed.json) and W39 G1's runs, so it could price no other membership. This one
+prices whatever plan pass-spec.py reads, pass by pass, and takes every rate from W42 G1's
+committed attestations (packages/calibration/results/2026-09-30-w42-g1-sitting/attest/): the
+same machine, the same side bundle, the same driver and protocols, nine days before W43.
 
-W39's runs captured both schemes in one process; W42's capture one. The per-capture interval
-is a property of the harness's per-cell protocol (settle, dwell, reset interstitial) and is
-carried over; the run count and per-run cost are W42's.
+From every ADMITTED run there (runs.json, run-N/attest.open.json and attest.close.json):
+- a capture run's wall = close read - open read; its capture span = last - first capture;
+  per protocol and scale, the run OVERHEAD (wall - span: machine reads, backgrounds, launch,
+  the first cell's settle, the harness's exit) and the capture INTERVAL ((span) / (n - 1)) are
+  medians, and a least-squares wall = a + b n is kept as a cross-check;
+- a dump launch's wall is fitted as a + b scenes over W42 G1's eight dump launches (87, 92, 101,
+  107, 14, 16, 14, 16 scenes), the only dumps on this bundle under this driver;
+- the gap between consecutive runs of a pass, between passes at one display mode, and across
+  a display-mode change (each median); a gap over STOP_GAP seconds is a stop and its
+  continuation (W42 G1 had two inside 2x-light-receded), never a rate.
+
+A run costs overhead + interval (n - 1); a pass costs its runs plus (runs - 1) in-pass gaps; a
+dump costs a + b scenes; each boundary between passes costs the between-pass gap, or the
+mode-switch gap where the display mode changes, plus SLIDER_WRITE_SECONDS where the slider
+position changes. W42 never wrote the slider inside a sitting, so that cost is an ASSUMPTION (a
+`defaults write`, its read-back and two process-table reads), stated, not measured.
+
+Excluded: idle waits beyond the measured gaps (the user's touch before a launch), quarantines,
+stops and their continuations (the charter adds 10 % for them separately), the orchestrator's
+start (pin check, Universal Control report, the as-found slider), the trap's restore and any
+grant swap.
+
+    timing.py --sitting g1a|g1b   # the declared plan (pass-spec.plan_path); writes timing-<sitting>.*
+    timing.py --stand-in          # stand_in.build(): a REHEARSAL on a G1a-shaped stand-in
 """
+import argparse
 import datetime
 import importlib.util
 import json
 from pathlib import Path
-import re
 import statistics
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[5]
-W39 = REPO / 'packages/calibration/results/2026-09-26-w39-g1-colour-edge-sitting/attest'
-MEMO_D = Path('/Users/new/vitrea-w42/grounding/dumps/runs')
-CHARTER_MODEL_SECONDS = 31367.8
+W42_G1 = REPO / 'packages/calibration/results/2026-09-30-w42-g1-sitting/attest'
+STOP_GAP = 60.0                  # seconds; a longer gap between runs is a stop, not a rate
+SLIDER_WRITE_SECONDS = 1.0       # ASSUMED: defaults write + read-back + two process tables
+CHARTER_G1A = dict(captures=4103, modelledHours=11.26, atMacHours=12.4,
+                   source='charter Design, "The two sittings": G1a total, W42 G0\'s model rates')
+_MODULES = {}
+
+
+def module(name, path):
+    if name not in _MODULES:
+        spec = importlib.util.spec_from_file_location(name, path)
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        _MODULES[name] = m
+    return _MODULES[name]
+
+
+def pass_spec():
+    return module('w43_pass_spec_timing', HERE / 'pass-spec.py')
 
 
 def when(text):
     return datetime.datetime.fromisoformat(text.replace('Z', '+00:00')).timestamp()
 
 
-def w39_runs():
+# ---------------------------------------------------------------- the measurement
+
+def w42_runs(attest=W42_G1):
+    """Every admitted W42 G1 run (captures and dumps), in the order the sitting took them."""
     rows = []
-    for pdir in sorted(p for p in W39.iterdir() if p.is_dir() and not p.name.startswith('preflight')):
-        runs = json.loads((pdir / 'runs.json').read_text())
-        for r in runs:
-            if not r.get('admitted') or 'firstCapture' not in r:
-                continue
+    for pdir in sorted(p for p in Path(attest).iterdir() if p.is_dir()):
+        for r in json.loads((pdir / 'runs.json').read_text()):
             d = pdir / r['run']
-            o = json.loads((d / 'attest.open.json').read_text())['recordedAt']
-            c = json.loads((d / 'attest.close.json').read_text())['recordedAt']
-            scale = 1 if '-1x' in pdir.name else 2
-            rows.append(dict(passName=pdir.name, run=r['run'], scale=scale,
-                             protocol='long' if pdir.name.endswith('sentinel') else 'normal',
-                             n=r['fixtures'], open=when(o), close=when(c),
-                             first=when(r['firstCapture']), last=when(r['lastCapture'])))
+            if not r['run'].startswith('run-') or not (d / 'admission.json').is_file():
+                continue
+            admission = json.loads((d / 'admission.json').read_text())
+            read = dict(line.split('=', 1) for line in (d / 'attest.read').read_text().splitlines() if '=' in line)
+            row = dict(passName=pdir.name, run=r['run'], mode=read['displayplacerMode'],
+                       open=when(json.loads((d / 'attest.open.json').read_text())['recordedAt']),
+                       close=when(json.loads((d / 'attest.close.json').read_text())['recordedAt']))
+            if admission.get('protocol') == 'dump':
+                row.update(kind='dump', scenes=admission['scenes'], elapsed=admission['timing']['elapsedSeconds'])
+            else:
+                row.update(kind='capture', protocol=admission['protocol'], scale=1 if read['displayplacerMode'] == '69' else 2,
+                           n=r['fixtures'], first=when(r['firstCapture']), last=when(r['lastCapture']))
+            rows.append(row)
     return sorted(rows, key=lambda r: r['open'])
 
 
-def fit(rows):
-    """wall = a + b n, least squares; plus the capture interval's median."""
-    xs = [r['n'] for r in rows]
-    ys = [r['close'] - r['open'] for r in rows]
+def line_fit(xs, ys):
     mx, my = statistics.fmean(xs), statistics.fmean(ys)
     sxx = sum((x - mx) ** 2 for x in xs)
-    b = sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / sxx if sxx else None
-    a = my - b * mx if b is not None else None
-    intervals = [(r['last'] - r['first']) / (r['n'] - 1) for r in rows if r['n'] > 1]
-    overheads = [(r['close'] - r['open']) - (r['last'] - r['first']) for r in rows]
-    return dict(runs=len(rows), captures=sum(xs), wallSeconds=round(sum(ys), 1),
-                perCaptureFit=None if b is None else round(b, 4), perRunFit=None if a is None else round(a, 2),
-                intervalMedian=round(statistics.median(intervals), 4),
-                intervalMean=round(statistics.fmean(intervals), 4),
-                overheadMedian=round(statistics.median(overheads), 2),
-                secondsPerCaptureAllIn=round(sum(ys) / sum(xs), 4))
+    if not sxx:
+        return None, None
+    b = sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / sxx
+    return my - b * mx, b
 
 
-def gaps(rows):
-    within, between = [], []
-    for prev, nxt in zip(rows, rows[1:]):
-        g = nxt['open'] - prev['close']
-        (within if prev['passName'] == nxt['passName'] else between).append(
-            dict(after=f"{prev['passName']}/{prev['run']}", before=f"{nxt['passName']}/{nxt['run']}", seconds=round(g, 1)))
-    return within, between
-
-
-def memo_d_dumps():
-    rows = []
-    for d in sorted(MEMO_D.iterdir()):
-        o = re.search(r'^at=(.+)$', (d / 'attest.open').read_text(), re.M)[1]
-        c = re.search(r'^at=(.+)$', (d / 'attest.close').read_text(), re.M)[1]
-        rows.append(dict(run=d.name, scenes=len(list((d / 'json').glob('*.json'))),
-                         settle=16 if d.name.endswith('settle16') else 8, wall=when(c) - when(o)))
-    a8 = [r for r in rows if r['settle'] == 8]
-    a16 = [r for r in rows if r['settle'] == 16]
-    w8, n8 = statistics.fmean(r['wall'] for r in a8), a8[0]['scenes']
-    w16, n16 = statistics.fmean(r['wall'] for r in a16), a16[0]['scenes']
-    # wall = launch + scenes (settle + c): two settles solve launch and c.
-    c = ((w8 - w16) - (n8 * 8 - n16 * 16)) / (n8 - n16)
-    launch = w8 - n8 * (8 + c)
-    return dict(runs=rows, meanWall24AtSettle8=round(w8, 2), meanWall4AtSettle16=round(w16, 2),
-                perSceneBeyondSettle=round(c, 3), perLaunch=round(launch, 2), settle=8,
-                perSceneAtSettle8=round(8 + c, 3))
-
-
-def main():
-    spec = importlib.util.spec_from_file_location('w42_pass_spec_timing', HERE / 'pass-spec.py')
-    P = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(P)
-    plan = P.plan()
-    rows = w39_runs()
-    fits = {}
+def measure(attest=W42_G1):
+    """The rates, each with the runs it was read off."""
+    rows = w42_runs(attest)
+    captures = {}
     for protocol in ('normal', 'long'):
         for scale in (1, 2):
-            sel = [r for r in rows if r['protocol'] == protocol and r['scale'] == scale]
-            if sel:
-                fits[f'{protocol}-{scale}x'] = fit(sel)
-    within, between = gaps(rows)
-    within_med = statistics.median(g['seconds'] for g in within)
-    between_list = [g['seconds'] for g in between]
-    dumps = memo_d_dumps()
-    # W42 arithmetic, pass by pass: each run costs a + b n from its protocol-scale fit.
-    passes, total_capture, total_runs = [], 0.0, 0
-    for p in plan['passes']:
-        if p['kind'] == 'dump':
-            n = p['runsDetail'][0]['scenes']
-            secs = dumps['perLaunch'] + n * dumps['perSceneAtSettle8']
-            passes.append(dict(name=p['name'], kind='dump', scenes=n, seconds=round(secs, 1)))
-            continue
-        f = fits[('long' if p['kind'] == 'sentinel' else 'normal') + f'-{p["scale"]}x']
-        # A run costs its measured overhead (wall - capture span: machine reads, backgrounds,
-        # launch, the first cell's settle) plus (n - 1) measured capture intervals. This is
-        # used for every pass: W39's runs were 206-332 cells, so the a + b n fit (kept as a
-        # cross-check, crossCheckSeconds) extrapolates to W42's 15-25-cell 1x runs, and every
-        # W39 sentinel run had 4 cells, so b is not identified there at all.
-        secs = sum(f['overheadMedian'] + f['intervalMedian'] * (r['cells'] - 1) for r in p['runsDetail'])
-        if f['perCaptureFit'] is not None:
-            cross = sum(f['perRunFit'] + f['perCaptureFit'] * r['cells'] for r in p['runsDetail'])
+            sel = [r for r in rows if r['kind'] == 'capture' and r['protocol'] == protocol and r['scale'] == scale]
+            if not sel:
+                continue
+            walls = [r['close'] - r['open'] for r in sel]
+            spans = [r['last'] - r['first'] for r in sel]
+            a, b = line_fit([r['n'] for r in sel], walls)
+            captures[f'{protocol}-{scale}x'] = dict(
+                runs=len(sel), captures=sum(r['n'] for r in sel), cells=sorted({r['n'] for r in sel}),
+                overheadSeconds=round(statistics.median(w - s for w, s in zip(walls, spans)), 3),
+                intervalSeconds=round(statistics.median((r['last'] - r['first']) / (r['n'] - 1) for r in sel), 4),
+                crossCheckFit=None if b is None else dict(perRunSeconds=round(a, 2), perCaptureSeconds=round(b, 4)),
+                wallSeconds=round(sum(walls), 1))
+    dumps = [r for r in rows if r['kind'] == 'dump']
+    a, b = line_fit([r['scenes'] for r in dumps], [r['close'] - r['open'] for r in dumps])
+    ea, eb = line_fit([r['scenes'] for r in dumps], [r['elapsed'] for r in dumps])
+    within, between, switch, stops = [], [], [], []
+    for prev, nxt in zip(rows, rows[1:]):
+        gap = nxt['open'] - prev['close']
+        tag = dict(after=f'{prev["passName"]}/{prev["run"]}', before=f'{nxt["passName"]}/{nxt["run"]}',
+                   seconds=round(gap, 1))
+        if gap > STOP_GAP:
+            stops.append(tag)
+        elif prev['passName'] == nxt['passName']:
+            within.append(gap)
+        elif prev['mode'] != nxt['mode']:
+            switch.append(gap)
         else:
-            cross = None
-        total_runs += len(p['runsDetail'])
-        total_capture += secs
-        passes.append(dict(name=p['name'], kind=p['kind'], runs=len(p['runsDetail']), captures=p['captures'],
-                           seconds=round(secs, 1), crossCheckSeconds=None if cross is None else round(cross, 1)))
-    dump_seconds = sum(q['seconds'] for q in passes if q['kind'] == 'dump')
-    launches = total_runs + 8
-    gap_seconds = within_med * (launches - 1)
-    mode_switches = 4
-    switch_seconds = mode_switches * statistics.median(between_list)
-    total = total_capture + dump_seconds + gap_seconds + switch_seconds
-    value = dict(
-        schema='w42-sitting-timing-1',
-        sources=dict(w39Attest=str(W39.relative_to(REPO)), memoDDumps=str(MEMO_D),
-                     w39AdmittedRuns=len(rows)),
-        w39Fits=fits, w39GapBetweenRunsMedian=within_med,
-        w39GapBetweenPasses=between, memoDDumps=dumps,
-        w42=dict(passes=passes, captureSeconds=round(total_capture, 1), dumpSeconds=round(dump_seconds, 1),
-                 launches=launches, interRunGapSeconds=round(gap_seconds, 1),
-                 modeSwitches=mode_switches, modeSwitchSeconds=round(switch_seconds, 1),
-                 totalSeconds=round(total, 1), totalHours=round(total / 3600, 2),
-                 captureHours=round(total_capture / 3600, 2), dumpHours=round(dump_seconds / 3600, 2)),
-        charter=dict(modelSeconds=CHARTER_MODEL_SECONDS, modelHours=round(CHARTER_MODEL_SECONDS / 3600, 2),
-                     dumpModelSeconds=3450, modelTotalHours=round((CHARTER_MODEL_SECONDS + 3450) / 3600, 2)),
-        excludes='waiting for HID idle beyond the measured gaps, quarantines and continuations, the grant '
-                 'switch and the pre-sitting rehearsal')
-    (HERE / 'timing.json').write_text(json.dumps(value, indent=1) + '\n')
-    n2, n1, l2, l1 = fits['normal-2x'], fits['normal-1x'], fits['long-2x'], fits['long-1x']
-    lines = [
-        'W42 sitting length from real timings (timing.py; timing.json has every input)',
-        '',
-        f'W39 G1 admitted runs read: {len(rows)} (bed and sentinel; preflight excluded).',
-        'A run is modelled as its measured overhead (wall - capture span) + (n - 1) capture intervals.',
-        f'Normal 2x: overhead {n2["overheadMedian"]} s, interval {n2["intervalMedian"]} s '
-        f'(cross-check fit wall = {n2["perRunFit"]} s + {n2["perCaptureFit"]} s x n)',
-        f'Normal 1x: overhead {n1["overheadMedian"]} s, interval {n1["intervalMedian"]} s '
-        f'(cross-check fit wall = {n1["perRunFit"]} s + {n1["perCaptureFit"]} s x n)',
-        f'Long 2x / 1x: overhead {l2["overheadMedian"]} / {l1["overheadMedian"]} s, interval '
-        f'{l2["intervalMedian"]} / {l1["intervalMedian"]} s',
-        f'Normal 2x: wall = {n2["perRunFit"]} s + {n2["perCaptureFit"]} s x n  '
-        f'(interval median {n2["intervalMedian"]} s; {n2["runs"]} runs, {n2["captures"]} captures)',
-        f'Normal 1x: wall = {n1["perRunFit"]} s + {n1["perCaptureFit"]} s x n  '
-        f'(interval median {n1["intervalMedian"]} s; {n1["runs"]} runs)',
-        f'Long 2x / 1x (sentinels, 4 cells a run): all-in {l2["secondsPerCaptureAllIn"]} / '
-        f'{l1["secondsPerCaptureAllIn"]} s per capture; interval median {l2["intervalMedian"]} / {l1["intervalMedian"]} s',
-        f'Gap between runs (next open - previous close), median: {within_med} s; between passes: '
-        f'{sorted(between_list)} s',
-        f'memo D dumps: {dumps["perSceneAtSettle8"]} s per scene at settle 8 + {dumps["perLaunch"]} s per launch '
-        f'(24 scenes {dumps["meanWall24AtSettle8"]} s; 4 scenes at settle 16 {dumps["meanWall4AtSettle16"]} s)',
-        '',
-        f'W42 (pass-spec.py plan: {plan["totals"]["glassCaptures"]:,} glass + {plan["totals"]["referenceCaptures"]:,} '
-        f'references + {plan["totals"]["sentinelCaptures"]} sentinel captures; {plan["totals"]["dumpScenes"]} dump scenes):',
-    ]
-    for q in passes:
-        lines.append(f'  {q["name"]:28s} {q.get("captures", q.get("scenes")):5d} '
-                     f'{"scenes" if q["kind"] == "dump" else "captures"}  {q["seconds"]:9.1f} s')
+            between.append(gap)
+    return dict(
+        source=str(Path(attest).relative_to(REPO)) if Path(attest).is_relative_to(REPO) else str(attest),
+        admittedRuns=len(rows), captureRates=captures,
+        dump=dict(launches=len(dumps), scenes=[r['scenes'] for r in dumps], perLaunchSeconds=round(a, 2),
+                  perSceneSeconds=round(b, 4), elapsedFit=dict(perLaunchSeconds=round(ea, 2),
+                                                               perSceneSeconds=round(eb, 4))),
+        gapWithinPassSeconds=round(statistics.median(within), 2), gapWithinPassCount=len(within),
+        gapBetweenPassesSeconds=round(statistics.median(between), 2), gapBetweenPassesCount=len(between),
+        modeSwitchSeconds=round(statistics.median(switch), 2), modeSwitches=[round(g, 1) for g in switch],
+        excludedStopGaps=stops,
+        sliderWriteSeconds=SLIDER_WRITE_SECONDS,
+        sliderWriteNote='ASSUMED, not measured: W42 never wrote the slider inside a sitting')
+
+
+def self_check(rates, attest=W42_G1):
+    """The model applied to W42 G1's own admitted runs and boundaries, against their measured
+    wall (first open to last close, less the stop gaps). In-sample: it checks the arithmetic and
+    how much the medians lose, not a prediction."""
+    rows = w42_runs(attest)
+    model = 0.0
+    for r in rows:
+        model += dump_seconds(rates, r['scenes']) if r['kind'] == 'dump' else \
+            run_seconds(rates, r['protocol'], r['scale'], r['n'])
+    for prev, nxt in zip(rows, rows[1:]):
+        if nxt['open'] - prev['close'] > STOP_GAP:
+            continue
+        model += rates['gapWithinPassSeconds'] if prev['passName'] == nxt['passName'] else (
+            rates['modeSwitchSeconds'] if prev['mode'] != nxt['mode'] else rates['gapBetweenPassesSeconds'])
+    measured = rows[-1]['close'] - rows[0]['open'] - sum(s['seconds'] for s in rates['excludedStopGaps'])
+    return dict(measuredSeconds=round(measured, 1), modelledSeconds=round(model, 1),
+                differenceSeconds=round(model - measured, 1))
+
+
+# --------------------------------------------------------------------- the model
+
+def run_seconds(rates, protocol, scale, cells):
+    r = rates['captureRates'][f'{protocol}-{scale}x']
+    return r['overheadSeconds'] + r['intervalSeconds'] * (cells - 1)
+
+
+def dump_seconds(rates, scenes):
+    return rates['dump']['perLaunchSeconds'] + rates['dump']['perSceneSeconds'] * scenes
+
+
+def price(plan, sources, rates):
+    """Every pass's cost and every boundary's, from the plan's own membership."""
+    P = pass_spec()
+    counts = {row['name']: row for row in P.plan_counts(plan, sources)['passes']}
+    passes, boundaries = [], []
+    prev = None
+    for p in P.pass_order(plan):
+        row = counts[p['name']]
+        if p['kind'] == 'dump':
+            secs = dump_seconds(rates, len(p['scenes']))
+            passes.append(dict(name=p['name'], kind='dump', glass=p['glass'], mode=p['mode'], scenes=len(p['scenes']),
+                               seconds=round(secs, 1), exactSeconds=secs))
+        else:
+            runs = [run_seconds(rates, p['protocol'], p['scale'], n) for n in row['cellsPerRun']]
+            secs = sum(runs) + (len(runs) - 1) * rates['gapWithinPassSeconds']
+            passes.append(dict(name=p['name'], kind='capture', glass=p['glass'], mode=p['mode'], runs=len(runs),
+                               protocol=p['protocol'], captures=row['captures'], seconds=round(secs, 1),
+                               exactSeconds=secs))
+        if prev is not None:
+            switch = p['mode'] != prev['mode']
+            slider = p['glass'] != prev['glass']
+            secs = (rates['modeSwitchSeconds'] if switch else rates['gapBetweenPassesSeconds']) \
+                + (rates['sliderWriteSeconds'] if slider else 0.0)
+            boundaries.append(dict(after=prev['name'], before=p['name'], modeSwitch=switch, sliderWrite=slider,
+                                   exactSeconds=secs))
+        prev = p
+    total = sum(q['exactSeconds'] for q in passes) + sum(b['exactSeconds'] for b in boundaries)
+    capture_s = sum(q['exactSeconds'] for q in passes if q['kind'] == 'capture')
+    dump_s = sum(q['exactSeconds'] for q in passes if q['kind'] == 'dump')
+    return dict(passes=passes, boundaries=boundaries, totals=P.plan_counts(plan, sources)['totals'],
+                captureSeconds=round(capture_s, 1), dumpSeconds=round(dump_s, 1),
+                boundarySeconds=round(sum(b['exactSeconds'] for b in boundaries), 1),
+                totalSeconds=round(total, 1), totalHours=round(total / 3600, 2),
+                withStopLossHours=round(total * 1.1 / 3600, 2), exactTotalSeconds=total)
+
+
+def report(plan, sources, rates, label, rehearsal):
+    priced = price(plan, sources, rates)
+    check = self_check(rates)
+    t = priced['totals']
+    c = rates['captureRates']
+    lines = [f'W43 {label} sitting length (timing.py; timing-{label}.json has every input)']
+    if rehearsal:
+        lines += ['REHEARSAL on the G1a-shaped STAND-IN (stand_in.py), not the declared plan: its bridge cells and',
+                  'dump scenes are stand_in.py\'s arbitrary picks. The declared plan is priced by --sitting g1a.']
+    lines += ['', f'Rates, from W42 G1\'s {rates["admittedRuns"]} admitted runs ({rates["source"]}):']
+    for k, r in sorted(c.items()):
+        fit = r['crossCheckFit']
+        lines.append(f'  {k:10s} overhead {r["overheadSeconds"]:7.2f} s + interval {r["intervalSeconds"]:.4f} s x (n - 1)'
+                     f'   [{r["runs"]} runs, n {r["cells"][0]}..{r["cells"][-1]}'
+                     + (f'; fit {fit["perRunSeconds"]} + {fit["perCaptureSeconds"]} n' if fit else '; fit unidentified')
+                     + ']')
+    d = rates['dump']
+    lines += [f'  dump       {d["perLaunchSeconds"]} s + {d["perSceneSeconds"]} s x scenes   [{d["launches"]} launches, '
+              f'scenes {d["scenes"]}]',
+              f'  gaps       {rates["gapWithinPassSeconds"]} s between runs of a pass, {rates["gapBetweenPassesSeconds"]} s '
+              f'between passes, {rates["modeSwitchSeconds"]} s across a display switch {rates["modeSwitches"]}',
+              f'  slider     {rates["sliderWriteSeconds"]} s a write ({rates["sliderWriteNote"]})',
+              f'  excluded   {len(rates["excludedStopGaps"])} stop gap(s) over {STOP_GAP:g} s: '
+              + ', '.join(f'{s["after"]} -> {s["before"]} {s["seconds"]} s' for s in rates['excludedStopGaps']),
+              f'  self-check the model on W42 G1\'s own runs: {check["modelledSeconds"]} s against a measured '
+              f'{check["measuredSeconds"]} s ({check["differenceSeconds"]:+} s; in-sample, the medians\' loss)',
+              '', f'Membership ({plan["sitting"]}): {t["captures"]:,} captures in {t["captureLaunches"]} capture launches, '
+              f'{t["dumpScenes"]} dump scenes in {t["dumpLaunches"]} dump launches, {t["sliderWrites"]} slider writes, '
+              f'{t["modeSwitches"]} display switches; {t["publishedCells"]} cells published', '']
+    for q in priced['passes']:
+        what = f'{q["scenes"]:5d} scenes' if q['kind'] == 'dump' else f'{q["captures"]:5d} captures ({q["runs"]} runs, {q["protocol"]})'
+        lines.append(f'  {q["name"]:32s} x={q["glass"]:<5g} mode {q["mode"]}  {what:32s} {q["seconds"]:9.1f} s')
     lines += ['',
-              f'captures {total_capture:9.1f} s = {total_capture / 3600:.2f} h',
-              f'dumps    {dump_seconds:9.1f} s = {dump_seconds / 3600:.2f} h',
-              f'gaps     {gap_seconds:9.1f} s ({launches - 1} gaps x {within_med} s)',
-              f'switches {switch_seconds:9.1f} s ({mode_switches} display mode switches at the W39 pass-gap median)',
-              f'TOTAL    {total:9.1f} s = {total / 3600:.2f} h',
-              '',
-              f'Charter v2.1 model: {CHARTER_MODEL_SECONDS} s capture ({CHARTER_MODEL_SECONDS / 3600:.2f} h) + about '
-              f'3,450 s dumps = {(CHARTER_MODEL_SECONDS + 3450) / 3600:.2f} h.',
-              'Excluded: idle waits beyond the measured gaps, quarantines, the grant switch and the rehearsal.']
-    (HERE / 'timing.txt').write_text('\n'.join(lines) + '\n')
-    print('\n'.join(lines))
+              f'captures   {priced["captureSeconds"]:9.1f} s = {priced["captureSeconds"] / 3600:.2f} h',
+              f'dumps      {priced["dumpSeconds"]:9.1f} s = {priced["dumpSeconds"] / 3600:.2f} h',
+              f'boundaries {priced["boundarySeconds"]:9.1f} s ({len(priced["boundaries"])}: gaps, display switches, '
+              'slider writes)',
+              f'TOTAL      {priced["totalSeconds"]:9.1f} s = {priced["totalHours"]:.2f} h; '
+              f'{priced["withStopLossHours"]:.2f} h with the charter\'s 10 % stop loss']
+    if rehearsal or plan['sitting'] == 'g1a':
+        lines += ['', f'Charter G1a model: {CHARTER_G1A["captures"]:,} captures, {CHARTER_G1A["modelledHours"]} h modelled, '
+                  f'about {CHARTER_G1A["atMacHours"]} h at the Mac ({CHARTER_G1A["source"]}). This plan: '
+                  f'{t["captures"]:,} captures, {priced["totalHours"]:.2f} h '
+                  f'({priced["totalHours"] - CHARTER_G1A["modelledHours"]:+.2f} h).']
+    lines += ['Excluded: idle waits beyond the measured gaps, quarantines, stops and their continuations, the',
+              'orchestrator\'s start and restore, and any grant swap.']
+    value = dict(schema='w43-sitting-timing-1', sitting=plan['sitting'], label=label, rehearsal=rehearsal,
+                 rates=rates, selfCheck=check, priced={k: v for k, v in priced.items() if k != 'exactTotalSeconds'},
+                 charterG1a=CHARTER_G1A if (rehearsal or plan['sitting'] == 'g1a') else None)
+    return value, '\n'.join(lines) + '\n'
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    which = ap.add_mutually_exclusive_group(required=True)
+    which.add_argument('--sitting', choices=('g1a', 'g1b'))
+    which.add_argument('--stand-in', action='store_true')
+    args = ap.parse_args(argv)
+    P = pass_spec()
+    if args.stand_in:
+        S = module('w43_stand_in_timing', HERE / 'stand_in.py')
+        canonical, w42, plan = S.build()
+        sources = S.sources_of(plan, canonical, w42)
+        P.validate_plan(plan, sources)
+        label = 'stand-in'
+    else:
+        plan, sources = P.load(P.plan_path(args.sitting))
+        label = args.sitting
+    value, text = report(plan, sources, measure(), label, args.stand_in)
+    (HERE / f'timing-{label}.json').write_text(json.dumps(value, indent=1) + '\n')
+    (HERE / f'timing-{label}.txt').write_text(text)
+    print(text, end='')
 
 
 if __name__ == '__main__':
