@@ -1174,15 +1174,16 @@ Steps 1–4 are exact: the A/B against the render-pass stage on the bench's eigh
    - Each lane sums four outputs. The taps are paired symmetrically, so each pair takes one
      weight.
    - Tiles live in shelf-packed rgba32float atlases.
-2. **One compute pass per frame.** Every group that rebuilds shares one dispatch per kind:
-   1. the floor (once per source);
+2. **One compute pass per group that rebuilds**, in the frame's own encoder where the
+   render-pass stage's passes were. It contains, in order:
+   1. the floor;
    2. the decimation;
    3. every width's horizontal pass;
    4. every width's vertical pass;
-   5. A, once per group.
+   5. A.
 
-   The pass sits in its own command buffer, submitted between the rebuilds and the groups' passes
-   (`renderer.ts` `submitFrame`).
+   As first committed (`844aa4b3`), the stage batched every group into one pass per frame, in a
+   command buffer of its own. §17.6 says why that was undone.
 3. **Each width is computed only where it is read** (`bodyLawRegions`):
    - The vertical pass writes the texels the composite reads inside A's rect.
    - The horizontal pass writes those columns over every row the vertical kernel reaches.
@@ -1292,3 +1293,43 @@ queueing, so the wall clock and the `body-law` pass timestamp are the readings.
   100 MB on mobile and 130 MB on desktop, against 64 / 114 MB of tiles.
 - A group whose tiles alone would pass `maxTextureDimension2D`, or a kernel past the line
   cache's reach, stands the law down with an honest readout rather than drawing.
+
+### 17.6 The fix wave after the review of `7aa1eb80..f0bd6d50`
+
+The independent review returned three P2 findings, and the parent accepted all three. Everything
+else read sound:
+- job indexing;
+- the workgroup caches' bounds and barriers;
+- atlas bounds;
+- the union/backdrop fallback;
+- submission dependencies;
+- the WGSL/CPU/CSS bridge.
+
+1. **Identity paid a second encoder.** The batched stage needed its own command buffer between
+   the rebuilds and the groups' passes. So every frame, the shipped materials included, created
+   two encoders and submitted two buffers.
+   - The stage now encodes each group's pass into the frame's own encoder when the group draws, as
+     the render-pass stage did. `renderer.ts`'s submission is `fbb2136e`'s again.
+   - The identity test counts encoders and submitted command buffers: one each, law off or on.
+   - Batching across groups had bought nothing measurable. Alternating `budget.spec.ts` runs
+     against `f0bd6d50` read the same wall clock: mobile active +3.5–3.8 ms per group against
+     +3.6–3.7 batched, desktop active +5.0–5.6 against +5.0–5.3
+     (`perf/fix-wave-encoding.txt`, fit running, load logged).
+   - The rendered bench scene is bit-identical between the two in every variant.
+   - Encoding per group exposed a hazard batching had hidden. A later group that grows an atlas
+     must not destroy the texture an earlier group's pass in the same encoder reads. A grown atlas
+     now takes a new key, and the one it replaces is released after submit, or when the frame is
+     dropped. A unit test checks at submit that no texture any recorded pass binds has been
+     destroyed. With the old single-key growth it fails with eleven stale bindings.
+2. **A forgotten group's buffers outlived `forget`.** Each group's job tables, kernels and
+   composite words now live on its own entry, and `destroyEntry` destroys them. A test draws two
+   law groups, removes one and draws a static frame: the removed group's buffers and A are
+   destroyed, and the survivor's stay live.
+3. **The readout went stale on empty groups.** The readout is now kept per group and per plane.
+   - A plane on which the group has no member retires its part.
+   - The read folds what remains, the weaker answer winning, as platform-web's
+     `weakestBodyLawReadout` does.
+   - A group with no plane left reports "stood-down".
+   - The renderer's teardown (`dropContext`) clears the map.
+   - `w42-readout.test.ts` walks a group from drawn, through an overlay plane it is absent from,
+     to empty everywhere, and back.

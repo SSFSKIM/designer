@@ -1101,7 +1101,7 @@ const api = {
     // One collector for the whole benchmark, reset before each frame. A query set
     // per frame would allocate hundreds of them and, worse, read slots that this
     // frame's passes never wrote.
-    // W42's law adds one slot a frame: its stage is one compute pass for every group (§17).
+    // W42's law adds one slot per group: its stage is one compute pass per group (§17).
     const timing = timestamps ? createTimingCollector(gpu, 256) : undefined;
 
     try {

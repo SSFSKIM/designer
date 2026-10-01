@@ -11,9 +11,9 @@
  * written out by hand.
  *
  * The stage is four compute entry points over job tables, so that one dispatch serves every law
- * surface of every group that rebuilds in a frame: `cs_floor` (the capture and its floor),
- * `cs_decimate` (the block means), `cs_blur` (every width's separable passes) and `cs_composite`
- * (A, one dispatch per group). On the Apple adapter a render pass costs about 50 µs whatever it
+ * surface of a group: `cs_floor` (the capture and its floor), `cs_decimate` (the block means),
+ * `cs_blur` (every width's separable passes) and `cs_composite` (A), one compute pass per group
+ * that rebuilds. On the Apple adapter a render pass costs about 50 µs whatever it
  * draws, and at eight surfaces the render-pass stage ran some eighty; what remains is bound by
  * the rgba32float tiles' traffic, which is why the capture and the floor's horizontal half never
  * leave the chip (§17).

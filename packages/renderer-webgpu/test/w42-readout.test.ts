@@ -5,7 +5,9 @@
  * The readout is written where the fold is, in `drawGroups`, so it says what the frame did rather
  * than what the document asked: `drawn` where the stage built A and the optics pass was handed the
  * law, `stood-down` where the material asks and the fold or the frame said no, and nothing at all
- * where the material asks for no law.
+ * where the material asks for no law. It is kept per plane: a plane the group has no member on
+ * retires its part, the read folds the rest with the weaker answer winning, and a group with no
+ * plane left is stood down.
  */
 
 import { describe, expect, it } from "vitest";
@@ -79,6 +81,30 @@ describe("W42 U6: the WebGPU tier's law readout", () => {
     const renderer = drawn(over);
     expect(renderer.bodyLawReadout("g")).toBe("stood-down");
     renderer.destroy();
+  });
+
+  it("retires a plane the group has left, and a group with no member anywhere stood down", () => {
+    const renderer = drawn();
+    const group = (surfaces: GroupRenderInput["surfaces"]): GroupRenderInput => ({
+      groupId: "g", surfaces, refraction: "true", analysisExact: true, variant: "regular",
+      backdropSourceId: "bg",
+    });
+    const draw = (id: number, plane: string) => renderer.drawFrame({
+      frame: { id, timeMs: id * 16 }, optics: {} as GPUTextureView, plane });
+    expect(renderer.bodyLawReadout("g")).toBe("drawn");
+    // An overlay plane the group has no member on contributes nothing to retire.
+    renderer.setGroup(group([]));
+    draw(2, "overlay");
+    expect(renderer.bodyLawReadout("g")).toBe("drawn");
+    // The base plane's members leave too: the law draws nothing of the group.
+    draw(3, "");
+    expect(renderer.bodyLawReadout("g")).toBe("stood-down");
+    // And drawing it again on either plane reports what that frame did.
+    renderer.setGroup(group([SURFACE]));
+    draw(4, "overlay");
+    expect(renderer.bodyLawReadout("g")).toBe("drawn");
+    renderer.destroy();
+    expect(renderer.bodyLawReadout("g")).toBeUndefined();
   });
 
   it("stops reporting as soon as the material stops asking, and forgets a removed group", () => {

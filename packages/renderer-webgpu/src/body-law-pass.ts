@@ -16,11 +16,10 @@
  *    above it on S decimated by q = 2 (q = 4 from 48), `forward.py`'s `_blur_decimated`;
  * 4. A, which holds the captured backdrop wherever no surface's footprint owns the texel (R2).
  *
- * All of it is one compute pass per frame (`encode`): the floor, the decimation, every width's
- * horizontal pass and every width's vertical pass, each one dispatch for every law surface of every
- * group that rebuilt, from a job table (`wgsl/body-law.ts`), and then A, one dispatch per group.
- * The renderer submits it between the pyramid's rebuilds and the groups' passes. A width is computed only
- * where it is read: its vertical pass over the texels the composite reaches inside A's rect, its
+ * All of it is one compute pass per group, encoded where the group draws: the floor, the
+ * decimation, every width's horizontal pass and every width's vertical pass, each one dispatch for
+ * every law surface of the group from a job table (`wgsl/body-law.ts`), and then A. A width is
+ * computed only where it is read: its vertical pass over the texels the composite reaches inside A's rect, its
  * horizontal pass over those columns and the rows the vertical kernel reaches (`bodyLawRegions`).
  * Each texel so computed is the texel the whole-footprint pass computed, because every kernel reads
  * the same clamped or zero-padded neighbourhood of the same source.
@@ -337,26 +336,21 @@ interface Entry {
   encoded: GPUTexture | undefined;
   a: GPUTexture | undefined;
   output: BodyLawStageOutput | undefined;
-  /** Planned or encoded this frame and not yet submitted: a cancelled frame built nothing. */
+  /** Encoded this frame and not yet submitted: a cancelled frame built nothing. */
   unsubmitted: boolean;
+  /** The group's own job tables, kernels and composite words, released with it. */
+  readonly uniforms: Map<string, UniformSlot>;
+  readonly storages: Map<string, StorageSlot>;
 }
 
 export interface BodyLawStage {
   /**
-   * Plan the stage for one group and hand back A, or reuse A. The work itself is encoded by
-   * `encode`, once per frame for every group planned since. `undefined` where the source has no
-   * encoded level 0, or where the group's own tiles would pass the device's texture extent or a
-   * kernel the line cache's reach (`BODY_LAW_RADIUS_CAP`): the group then draws without the law
-   * and its readout says so.
+   * Encode the stage for one group into the frame's encoder, or reuse A. `undefined` where the
+   * source has no encoded level 0, or where the group's tiles would pass the device's texture
+   * extent or a kernel the line cache's reach (`BODY_LAW_RADIUS_CAP`): the group then draws
+   * without the law and its readout says so.
    */
-  draw(args: BodyLawStageArgs): BodyLawStageOutput | undefined;
-  /**
-   * Every group planned since the last call, in one compute pass: the command buffer the renderer
-   * submits after the pyramid's rebuilds and before the passes that read A, or `undefined` when no
-   * group rebuilt. One pass for all of them is the point: the floor, the decimation and each
-   * separable pass are one dispatch for every surface of every group (§17).
-   */
-  encode(): GPUCommandBuffer | undefined;
+  draw(encoder: GPUCommandEncoder, args: BodyLawStageArgs): BodyLawStageOutput | undefined;
   setTimeline(timeline: PassTimeline | undefined): void;
   afterSubmit(): void;
   cancelQueued(): void;
@@ -375,9 +369,8 @@ interface PlannedSurface {
   readonly regions: readonly BodyLawWidthRegion[];
 }
 
-/** One group's rebuild, planned by `draw` and encoded by `encode`. */
+/** One group's rebuild. */
 interface Build {
-  readonly resourceId: string;
   readonly args: BodyLawStageArgs;
   readonly encoded: GPUTexture;
   readonly shapes: Float32Array;
@@ -388,10 +381,9 @@ interface Build {
 
 type Packed = NonNullable<ReturnType<typeof bodyLawPackShelves>>;
 
-/** Where every tile of a set of builds sits: one shelf packing per atlas. */
+/** Where every tile of a group's build sits: one shelf packing per atlas. */
 interface Layout {
-  readonly surfaces: readonly { readonly build: number; readonly member: number;
-    readonly planned: PlannedSurface }[];
+  readonly surfaces: readonly { readonly member: number; readonly planned: PlannedSurface }[];
   readonly grids: readonly { readonly surface: number; readonly grid: BodyLawGrid }[];
   readonly regions: readonly { readonly surface: number; readonly region: BodyLawWidthRegion }[];
   readonly floors: Packed;
@@ -400,12 +392,9 @@ interface Layout {
   readonly writtens: Packed;
 }
 
-function layoutOf(
-  builds: readonly { readonly members: Build["members"] }[],
-  limit: number,
-): Layout | undefined {
-  const surfaces = builds.flatMap((build, b) => build.members.flatMap((planned, member) =>
-    planned === undefined ? [] : [{ build: b, member, planned }]));
+function layoutOf(members: Build["members"], limit: number): Layout | undefined {
+  const surfaces = members.flatMap((planned, member) =>
+    planned === undefined ? [] : [{ member, planned }]);
   const grids = surfaces.flatMap(({ planned }, surface) =>
     planned.schedule.grids.filter((grid) => grid.q > 1).map((grid) => ({ surface, grid })));
   const regions = surfaces.flatMap(({ planned }, surface) =>
@@ -439,12 +428,21 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
   const entries = new Map<string, Entry>();
   let timeline: PassTimeline | undefined;
   let rebuilds = 0;
-  let pending: Build[] = [];
   const limit = device.limits.maxTextureDimension2D;
-  /** The atlases' extents so far: they grow and never shrink while any group runs the law. */
-  const atlasExtent = new Map<string, [number, number]>();
-  const uniforms = new Map<string, UniformSlot>();
-  const storages = new Map<string, StorageSlot>();
+  /**
+   * The atlases so far. Every group's pass writes the same atlases in encoder order and leaves its
+   * result in its own A, so one set serves them all; they grow and never shrink while any group
+   * runs the law. A growth takes a new texture under a new key, and the one it replaces is
+   * released only once the frame is submitted or dropped: an earlier group's pass in the same
+   * encoder still reads it.
+   */
+  const atlases = new Map<string, { key: string; width: number; height: number }>();
+  let atlasGeneration = 0;
+  let retired: string[] = [];
+  const releaseRetired = (): void => {
+    for (const key of retired) pool.release(key);
+    retired = [];
+  };
 
   const computePipeline = (key: string, module: () => string, entryPoint: string) =>
     cache.computePipeline(`body-law:${key}`, () => ({
@@ -454,19 +452,15 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
     }));
   const aKey = (resourceId: string) => `body-law:${resourceId}:A`;
 
-  const releaseShared = (): void => {
-    for (const name of atlasExtent.keys()) pool.release(`body-law:atlas:${name}`);
-    atlasExtent.clear();
-    for (const slot of uniforms.values()) slot.buffer.destroy();
-    uniforms.clear();
-    for (const slot of storages.values()) slot.destroy();
-    storages.clear();
-  };
-  const destroyEntry = (resourceId: string): void => {
+  const destroyEntry = (resourceId: string, entry: Entry): void => {
     pool.release(aKey(resourceId));
+    for (const slot of entry.uniforms.values()) slot.buffer.destroy();
+    for (const slot of entry.storages.values()) slot.destroy();
     entries.delete(resourceId);
-    pending = pending.filter((build) => build.resourceId !== resourceId);
-    if (entries.size === 0) releaseShared();
+    if (entries.size > 0) return;
+    for (const { key } of atlases.values()) retired.push(key);
+    atlases.clear();
+    releaseRetired();
   };
 
   const plan = (args: BodyLawStageArgs): (PlannedSurface | undefined)[] => {
@@ -495,6 +489,249 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
     });
   };
 
+  /** One group's compute pass: the floor, the decimation, the widths' two passes, and A. */
+  const encodeBuild = (encoder: GPUCommandEncoder, resourceId: string, entry: Entry,
+    build: Build, layout: Layout): void => {
+    const { args } = build;
+    const { material, rectDevice } = args;
+
+    const atlas = (name: string, packed: Packed): GPUTextureView => {
+      const step = (v: number) => Math.min(limit, Math.ceil(v / ATLAS_STEP) * ATLAS_STEP);
+      let current = atlases.get(name);
+      if (current === undefined || current.width < packed.width || current.height < packed.height) {
+        if (current !== undefined) retired.push(current.key);
+        atlasGeneration += 1;
+        current = {
+          key: `body-law:atlas:${name}:${atlasGeneration}`,
+          width: Math.max(current?.width ?? 1, step(packed.width)),
+          height: Math.max(current?.height ?? 1, step(packed.height)),
+        };
+        atlases.set(name, current);
+      }
+      return pool.acquire(current.key, {
+        width: current.width, height: current.height, format: BODY_LAW_TILE_FORMAT,
+        usage: tileUsage(), label: `vitrea:body-law:atlas:${name}`,
+      }).createView();
+    };
+    const flooredAtlas = atlas("floored", layout.floors);
+    const gridAtlas = atlas("grids", layout.decimated);
+    const levelAtlas = atlas("levels", layout.writtens);
+    const scratchAtlas = atlas("scratch", layout.horizontals);
+
+    // The group's own slots: a slot is written before the frame is submitted, so two groups
+    // sharing one would leave the first group's dispatch reading the second group's words.
+    const usedSlots = new Set<string>();
+    const uniform = (name: string, data: readonly number[]): GPUBuffer => {
+      usedSlots.add(name);
+      let slot = entry.uniforms.get(name);
+      if (slot === undefined || slot.data.length < data.length) {
+        slot?.buffer.destroy();
+        slot = createUniformSlot(device, data.length,
+          `vitrea:uniform:body-law:${resourceId}:${name}`);
+        entry.uniforms.set(name, slot);
+      }
+      slot.data.fill(0);
+      slot.data.set(data);
+      slot.write();
+      return slot.buffer;
+    };
+    const storage = (name: string, data: Float32Array): GPUBuffer => {
+      usedSlots.add(name);
+      let slot = entry.storages.get(name);
+      if (slot === undefined) {
+        slot = createStorageSlot(device, data.byteLength,
+          `vitrea:storage:body-law:${resourceId}:${name}`);
+        entry.storages.set(name, slot);
+      }
+      const buffer = slot.ensure(data.byteLength);
+      slot.write(data, data.length);
+      return buffer;
+    };
+
+    // The half kernels, centre first, one copy per distinct width.
+    const weightData: number[] = [];
+    const weightStart = new Map<number, number>();
+    const kernel = (sigma: number): number => {
+      let start = weightStart.get(sigma);
+      if (start === undefined) {
+        start = weightData.length;
+        weightStart.set(sigma, start);
+        const full = bodyLawGaussianWeights(sigma);
+        const r = full.length >> 1;
+        for (let k = 0; k <= r; k++) weightData.push(full[r + k]!);
+      }
+      return start;
+    };
+    const blurTable = (jobs: readonly BlurJob[]) => {
+      const data = new Int32Array(Math.max(jobs.length, 1) * BODY_LAW_JOB_VEC4S * 4);
+      let total = 0;
+      jobs.forEach((job, j) => {
+        const segments = Math.ceil((job.positions[1] - job.positions[0]) / BODY_LAW_SEGMENT);
+        data.set([
+          total, segments, job.axis, (job.zero ? 1 : 0) | (job.source << 1),
+          job.lines[0], job.lines[1], job.positions[0], job.positions[1],
+          job.extent, bodyLawGaussianWeights(job.sigma).length >> 1, kernel(job.sigma), 0,
+          job.src[0], job.src[1], job.dst[0], job.dst[1],
+        ], j * BODY_LAW_JOB_VEC4S * 4);
+        total += segments * (job.lines[1] - job.lines[0]);
+      });
+      return { data, count: jobs.length, total };
+    };
+    const minus = (p: readonly [number, number], x: number, y: number) =>
+      [p[0] - x, p[1] - y] as const;
+
+    // The job tables, before anything is written, so the weights are written once.
+    const floorJobs = new Int32Array(Math.max(layout.surfaces.length, 1) * BODY_LAW_JOB_VEC4S * 4);
+    let floorTotal = 0;
+    layout.surfaces.forEach(({ planned }, s) => {
+      const sigma = planned.plan.floorSigmaDevicePx;
+      const tilesX = Math.ceil(planned.fw / BODY_LAW_FLOOR_TILE[0]);
+      floorJobs.set([
+        floorTotal, tilesX, bodyLawGaussianWeights(sigma).length >> 1, kernel(sigma),
+        planned.fw, planned.fh, ...layout.floors.places[s]!,
+        planned.plan.footprint.x0, planned.plan.footprint.y0, 0, 0,
+      ], s * BODY_LAW_JOB_VEC4S * 4);
+      floorTotal += tilesX * Math.ceil(planned.fh / BODY_LAW_FLOOR_TILE[1]);
+    });
+    const gridPlace = new Map<string, readonly [number, number]>();
+    const decimations = new Int32Array(Math.max(layout.grids.length, 1) * BODY_LAW_JOB_VEC4S * 4);
+    let decimationTotal = 0;
+    layout.grids.forEach(({ surface, grid }, g) => {
+      const { planned } = layout.surfaces[surface]!;
+      gridPlace.set(`${surface}:${grid.q}`, layout.decimated.places[g]!);
+      const texels = grid.width * grid.height;
+      decimations.set([
+        decimationTotal, texels, grid.q, grid.pad,
+        grid.width, grid.height, planned.fw, planned.fh,
+        ...layout.floors.places[surface]!, ...layout.decimated.places[g]!,
+        planned.plan.edge === "normalised" ? 1 : 0, 0, 0, 0,
+      ], g * BODY_LAW_JOB_VEC4S * 4);
+      decimationTotal += Math.ceil(texels / BODY_LAW_LANES);
+    });
+    const horizontal: BlurJob[] = [];
+    const vertical: BlurJob[] = [];
+    const writtenOffset = new Map<string, readonly [number, number]>();
+    layout.regions.forEach(({ surface, region }, r) => {
+      const { written: w, horizontal: h, grid } = region;
+      const source = grid.q === 1 ? layout.floors.places[surface]! :
+        gridPlace.get(`${surface}:${grid.q}`)!;
+      const hOffset = minus(layout.horizontals.places[r]!, w.x0, h.y0);
+      const wOffset = minus(layout.writtens.places[r]!, w.x0, w.y0);
+      writtenOffset.set(`${surface}:${String(region.width.role)}`, wOffset);
+      horizontal.push({ axis: 0, zero: region.zero, source: grid.q === 1 ? 0 : 1,
+        lines: [h.y0, h.y1], positions: [w.x0, w.x1], extent: grid.width, sigma: region.sigma,
+        src: source, dst: hOffset });
+      vertical.push({ axis: 1, zero: region.zero, source: 0,
+        lines: [w.x0, w.x1], positions: [w.y0, w.y1], extent: grid.height, sigma: region.sigma,
+        src: hOffset, dst: wOffset });
+    });
+    for (const job of [...horizontal, ...vertical]) kernel(job.sigma);
+    const weights = storage("kernels", new Float32Array(weightData.length === 0 ? [0] : weightData));
+
+    const slot = timeline?.computeSlot(PASS_LABEL.bodyLaw);
+    const pass = encoder.beginComputePass({
+      label: "vitrea:pass:body-law",
+      ...(slot === undefined ? {} : { timestampWrites: slot }),
+    });
+    const dispatch = (pipe: GPUComputePipeline, bindings: GPUBindGroupEntry[], x: number,
+      y = 1): void => {
+      pass.setPipeline(pipe);
+      pass.setBindGroup(0, device.createBindGroup({ layout: pipe.getBindGroupLayout(0),
+        entries: bindings }));
+      pass.dispatchWorkgroups(x, y);
+    };
+    const flat = (total: number) =>
+      [Math.min(total, BODY_LAW_DISPATCH_ROW), Math.ceil(total / BODY_LAW_DISPATCH_ROW)] as const;
+    const encodedView = build.encoded.createView();
+
+    if (layout.surfaces.length > 0) {
+      dispatch(computePipeline("floor", bodyLawFloorModule, "cs_floor"), [
+        { binding: 0, resource: { buffer: uniform("floor", [
+          args.viewportDevice[0], args.viewportDevice[1], layout.surfaces.length, floorTotal,
+          ...args.fit, material.bodyLawEncodedAveraging === 1 ? 0 : 1, 0, 0, 0,
+        ]) } },
+        { binding: 3, resource: encodedView },
+        { binding: 4, resource: flooredAtlas },
+        { binding: 5, resource: { buffer: storage("floor:jobs", new Float32Array(floorJobs.buffer)) } },
+        { binding: 6, resource: { buffer: weights } },
+      ], ...flat(floorTotal));
+    }
+    if (layout.grids.length > 0) {
+      dispatch(computePipeline("decimate", bodyLawDecimateModule, "cs_decimate"), [
+        { binding: 0, resource: { buffer: uniform("decimate", [layout.grids.length, decimationTotal]) } },
+        { binding: 1, resource: flooredAtlas },
+        { binding: 4, resource: gridAtlas },
+        { binding: 5, resource: { buffer: storage("decimate:jobs",
+          new Float32Array(decimations.buffer)) } },
+      ], ...flat(decimationTotal));
+    }
+    const blurPipeline = computePipeline("blur", bodyLawBlurModule, "cs_blur");
+    const blur = (name: string, jobs: readonly BlurJob[], srcA: GPUTextureView,
+      srcB: GPUTextureView, dst: GPUTextureView): void => {
+      if (jobs.length === 0) return;
+      const t = blurTable(jobs);
+      dispatch(blurPipeline, [
+        { binding: 0, resource: { buffer: uniform(name, [t.count, t.total]) } },
+        { binding: 1, resource: srcA },
+        { binding: 2, resource: srcB },
+        { binding: 4, resource: dst },
+        { binding: 5, resource: { buffer: storage(`${name}:jobs`, new Float32Array(t.data.buffer)) } },
+        { binding: 6, resource: { buffer: weights } },
+      ], ...flat(t.total));
+    };
+    blur("widths:h", horizontal, flooredAtlas, gridAtlas, scratchAtlas);
+    blur("widths:v", vertical, scratchAtlas, gridAtlas, levelAtlas);
+
+    // A: the surface table names where each member's widths sit.
+    const surfaceTable = new Float32Array(build.members.length * BODY_LAW_SURFACE_VEC4S * 4);
+    layout.surfaces.forEach(({ member, planned }, s) => {
+      const { plan: memberPlan, schedule } = planned;
+      const levels = memberPlan.narrowSigmaDevicePx;
+      const floorPlace = layout.floors.places[s]!;
+      const level = (width: BodyLawWidth): number[] => {
+        if (width.q === 0) return [width.sigma, 1, 0, 1, ...floorPlace, planned.fw, planned.fh];
+        const grid = schedule.grids.find((g) => g.q === width.q)!;
+        return [width.sigma, grid.q, grid.pad, 0,
+          ...writtenOffset.get(`${s}:${String(width.role)}`)!, grid.width, grid.height];
+      };
+      const rows = [
+        memberPlan.footprint.x0, memberPlan.footprint.y0, planned.fw, planned.fh,
+        memberPlan.spanPx, memberPlan.t, material.bodyLawK[0] * 5 * memberPlan.unitDevicePx,
+        levels.length,
+        memberPlan.interpolation === "single" ? 0 : memberPlan.interpolation === "linear" ? 1 : 2,
+        memberPlan.receded ? 1 : 0, 0, 0,
+      ];
+      for (let k = 0; k < BODY_LAW_MAX_LEVELS; k++) {
+        rows.push(...(k < levels.length ? level(schedule.widths[k]!) : [0, 0, 0, 0, 0, 0, 1, 1]));
+      }
+      rows.push(...level(schedule.widths[schedule.widths.length - 1]!));
+      surfaceTable.set(rows, member * BODY_LAW_SURFACE_VEC4S * 4);
+    });
+    dispatch(computePipeline("composite", bodyLawCompositeModule, "cs_composite"), [
+      { binding: 0, resource: { buffer: uniform("composite", [
+        args.viewportDevice[0], args.viewportDevice[1], rectDevice.x, rectDevice.y, ...args.fit,
+        args.surfaces.length, args.devicePixelRatio,
+        material.bodyLawEncodedAveraging === 1 ? 1 : 0, 0,
+        material.bodyLawLambda, material.bodyLawNormal, material.bodyLawHinge, material.bodyLawKnee,
+      ]) } },
+      { binding: 1, resource: { buffer: storage("shapes", build.shapes) } },
+      { binding: 2, resource: { buffer: storage("surfaces", surfaceTable) } },
+      { binding: 3, resource: encodedView },
+      { binding: 4, resource: flooredAtlas },
+      { binding: 5, resource: levelAtlas },
+      { binding: 6, resource: build.a.createView() },
+    ], Math.ceil(rectDevice.width / 8), Math.ceil(rectDevice.height / 8));
+    pass.end();
+
+    // What this build did not use is released; destruction waits for the work already submitted.
+    for (const [name, s] of entry.uniforms) {
+      if (!usedSlots.has(name)) { s.buffer.destroy(); entry.uniforms.delete(name); }
+    }
+    for (const [name, s] of entry.storages) {
+      if (!usedSlots.has(name)) { s.destroy(); entry.storages.delete(name); }
+    }
+  };
+
   return {
     get rebuilds() {
       return rebuilds;
@@ -504,12 +741,12 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
       timeline = next;
     },
 
-    draw(args) {
+    draw(encoder, args) {
       const { pyramid, material, surfaces, rectDevice } = args;
       const encoded = pyramid.encoded;
       const stale = entries.get(args.resourceId);
       if (encoded === undefined || surfaces.length === 0) {
-        if (stale !== undefined) destroyEntry(args.resourceId);
+        if (stale !== undefined) destroyEntry(args.resourceId, stale);
         return undefined;
       }
       const shapes = packToneShapes(surfaces, args.devicePixelRatio);
@@ -526,19 +763,20 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
       }
 
       const members = plan(args);
-      const fits = layoutOf([{ members }], limit) !== undefined &&
-        members.every((member) => member === undefined ||
-          (bodyLawGaussianWeights(member.plan.floorSigmaDevicePx).length >> 1) <=
-            BODY_LAW_FLOOR_RADIUS_CAP &&
-          member.regions.every((region) => region.radius <= BODY_LAW_RADIUS_CAP));
+      const layout = layoutOf(members, limit);
+      const fits = layout !== undefined && members.every((member) => member === undefined ||
+        (bodyLawGaussianWeights(member.plan.floorSigmaDevicePx).length >> 1) <=
+          BODY_LAW_FLOOR_RADIUS_CAP &&
+        member.regions.every((region) => region.radius <= BODY_LAW_RADIUS_CAP));
       if (!fits) {
         // Honest rather than clipped: the group draws without the law, and says so.
-        if (stale !== undefined) destroyEntry(args.resourceId);
+        if (stale !== undefined) destroyEntry(args.resourceId, stale);
         return undefined;
       }
 
       const entry: Entry = stale ?? {
         key: undefined, encoded: undefined, a: undefined, output: undefined, unsubmitted: false,
+        uniforms: new Map(), storages: new Map(),
       };
       entries.set(args.resourceId, entry);
       rebuilds += 1;
@@ -546,8 +784,7 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
         width: rectDevice.width, height: rectDevice.height, format: BODY_LAW_TILE_FORMAT,
         usage: tileUsage(), label: `vitrea:body-law:${args.resourceId}:A`,
       });
-      pending = pending.filter((build) => build.resourceId !== args.resourceId);
-      pending.push({ resourceId: args.resourceId, args, encoded, shapes, members, a });
+      encodeBuild(encoder, args.resourceId, entry, { args, encoded, shapes, members, a }, layout);
 
       entry.key = key;
       entry.encoded = encoded;
@@ -560,300 +797,14 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
       return entry.output;
     },
 
-    encode() {
-      if (pending.length === 0) return undefined;
-      const builds = pending;
-      pending = [];
-
-      // Batches of builds whose tiles share one set of atlases; one batch unless the frame's
-      // tiles together pass the device's texture extent (every build fits alone: `draw`).
-      const batches: { builds: Build[]; layout: Layout }[] = [];
-      let current: Build[] = [];
-      let currentLayout: Layout | undefined;
-      for (const build of builds) {
-        const trial = layoutOf([...current, build], limit);
-        if (trial === undefined) {
-          batches.push({ builds: current, layout: currentLayout! });
-          current = [build];
-          currentLayout = layoutOf(current, limit)!;
-        } else {
-          current = [...current, build];
-          currentLayout = trial;
-        }
-      }
-      batches.push({ builds: current, layout: currentLayout! });
-
-      const atlas = (name: string, width: number, height: number): GPUTextureView => {
-        const grown = atlasExtent.get(name) ?? [1, 1];
-        const step = (v: number) => Math.min(limit, Math.ceil(v / ATLAS_STEP) * ATLAS_STEP);
-        grown[0] = Math.max(grown[0], step(width));
-        grown[1] = Math.max(grown[1], step(height));
-        atlasExtent.set(name, grown);
-        return pool.acquire(`body-law:atlas:${name}`, {
-          width: grown[0], height: grown[1], format: BODY_LAW_TILE_FORMAT, usage: tileUsage(),
-          label: `vitrea:body-law:atlas:${name}`,
-        }).createView();
-      };
-      const maxOf = (pick: (layout: Layout) => Packed) => [
-        Math.max(...batches.map(({ layout }) => pick(layout).width)),
-        Math.max(...batches.map(({ layout }) => pick(layout).height)),
-      ] as const;
-      const flooredAtlas = atlas("floored", ...maxOf((l) => l.floors));
-      const gridAtlas = atlas("grids", ...maxOf((l) => l.decimated));
-      const levelAtlas = atlas("levels", ...maxOf((l) => l.writtens));
-      const scratchAtlas = atlas("scratch", ...maxOf((l) => l.horizontals));
-
-      const usedSlots = new Set<string>();
-      const uniform = (name: string, data: readonly number[]): GPUBuffer => {
-        usedSlots.add(name);
-        let slot = uniforms.get(name);
-        if (slot === undefined || slot.data.length < data.length) {
-          slot?.buffer.destroy();
-          slot = createUniformSlot(device, data.length, `vitrea:uniform:body-law:${name}`);
-          uniforms.set(name, slot);
-        }
-        slot.data.fill(0);
-        slot.data.set(data);
-        slot.write();
-        return slot.buffer;
-      };
-      const storage = (name: string, data: Float32Array): GPUBuffer => {
-        usedSlots.add(name);
-        let slot = storages.get(name);
-        if (slot === undefined) {
-          slot = createStorageSlot(device, data.byteLength, `vitrea:storage:body-law:${name}`);
-          storages.set(name, slot);
-        }
-        const buffer = slot.ensure(data.byteLength);
-        slot.write(data, data.length);
-        return buffer;
-      };
-
-      // The half kernels, centre first, one copy per distinct width across the frame.
-      const weightData: number[] = [];
-      const weightStart = new Map<number, number>();
-      const kernel = (sigma: number): number => {
-        let start = weightStart.get(sigma);
-        if (start === undefined) {
-          start = weightData.length;
-          weightStart.set(sigma, start);
-          const full = bodyLawGaussianWeights(sigma);
-          const r = full.length >> 1;
-          for (let k = 0; k <= r; k++) weightData.push(full[r + k]!);
-        }
-        return start;
-      };
-      const blurTable = (jobs: readonly BlurJob[]) => {
-        const data = new Int32Array(Math.max(jobs.length, 1) * BODY_LAW_JOB_VEC4S * 4);
-        let total = 0;
-        jobs.forEach((job, j) => {
-          const segments = Math.ceil((job.positions[1] - job.positions[0]) / BODY_LAW_SEGMENT);
-          data.set([
-            total, segments, job.axis, (job.zero ? 1 : 0) | (job.source << 1),
-            job.lines[0], job.lines[1], job.positions[0], job.positions[1],
-            job.extent, bodyLawGaussianWeights(job.sigma).length >> 1, kernel(job.sigma), 0,
-            job.src[0], job.src[1], job.dst[0], job.dst[1],
-          ], j * BODY_LAW_JOB_VEC4S * 4);
-          total += segments * (job.lines[1] - job.lines[0]);
-        });
-        return { data, count: jobs.length, total };
-      };
-      const minus = (p: readonly [number, number], x: number, y: number) =>
-        [p[0] - x, p[1] - y] as const;
-
-      // Every batch's job tables, before anything is written, so the weights are written once.
-      const tables = batches.map(({ builds: members, layout }) => {
-        // The capture reads its group's source through its fit: one floor dispatch per source.
-        const captures = new Map<string, { build: Build; jobs: number[][] }>();
-        layout.surfaces.forEach(({ build, planned }, s) => {
-          const owner = members[build]!;
-          const captureKey = JSON.stringify([owner.args.pyramid.sourceId, owner.args.fit,
-            owner.args.viewportDevice, owner.args.material.bodyLawEncodedAveraging]);
-          let capture = captures.get(captureKey);
-          if (capture === undefined) {
-            capture = { build: owner, jobs: [] };
-            captures.set(captureKey, capture);
-          }
-          const sigma = planned.plan.floorSigmaDevicePx;
-          capture.jobs.push([
-            Math.ceil(planned.fw / BODY_LAW_FLOOR_TILE[0]),
-            Math.ceil(planned.fh / BODY_LAW_FLOOR_TILE[1]),
-            bodyLawGaussianWeights(sigma).length >> 1, kernel(sigma),
-            planned.fw, planned.fh, ...layout.floors.places[s]!,
-            planned.plan.footprint.x0, planned.plan.footprint.y0, 0, 0,
-          ]);
-        });
-        const gridPlace = new Map<string, readonly [number, number]>();
-        const decimations = new Int32Array(Math.max(layout.grids.length, 1) * BODY_LAW_JOB_VEC4S * 4);
-        let decimationTotal = 0;
-        layout.grids.forEach(({ surface, grid }, g) => {
-          const { planned } = layout.surfaces[surface]!;
-          gridPlace.set(`${surface}:${grid.q}`, layout.decimated.places[g]!);
-          const texels = grid.width * grid.height;
-          decimations.set([
-            decimationTotal, texels, grid.q, grid.pad,
-            grid.width, grid.height, planned.fw, planned.fh,
-            ...layout.floors.places[surface]!, ...layout.decimated.places[g]!,
-            planned.plan.edge === "normalised" ? 1 : 0, 0, 0, 0,
-          ], g * BODY_LAW_JOB_VEC4S * 4);
-          decimationTotal += Math.ceil(texels / BODY_LAW_LANES);
-        });
-        const horizontal: BlurJob[] = [];
-        const vertical: BlurJob[] = [];
-        const writtenOffset = new Map<string, readonly [number, number]>();
-        layout.regions.forEach(({ surface, region }, r) => {
-          const { written: w, horizontal: h, grid } = region;
-          const source = grid.q === 1 ? layout.floors.places[surface]! :
-            gridPlace.get(`${surface}:${grid.q}`)!;
-          const hOffset = minus(layout.horizontals.places[r]!, w.x0, h.y0);
-          const wOffset = minus(layout.writtens.places[r]!, w.x0, w.y0);
-          writtenOffset.set(`${surface}:${String(region.width.role)}`, wOffset);
-          horizontal.push({ axis: 0, zero: region.zero, source: grid.q === 1 ? 0 : 1,
-            lines: [h.y0, h.y1], positions: [w.x0, w.x1], extent: grid.width, sigma: region.sigma,
-            src: source, dst: hOffset });
-          vertical.push({ axis: 1, zero: region.zero, source: 0,
-            lines: [w.x0, w.x1], positions: [w.y0, w.y1], extent: grid.height, sigma: region.sigma,
-            src: hOffset, dst: wOffset });
-        });
-        for (const job of [...horizontal, ...vertical]) kernel(job.sigma);
-        return { captures: [...captures.values()], decimations, decimationTotal,
-          horizontal, vertical, writtenOffset };
-      });
-      const weights = storage("kernels", new Float32Array(weightData.length === 0 ? [0] : weightData));
-
-      const encoder = device.createCommandEncoder({ label: "vitrea:body-law" });
-      const slot = timeline?.computeSlot(PASS_LABEL.bodyLaw);
-      const pass = encoder.beginComputePass({
-        label: "vitrea:pass:body-law",
-        ...(slot === undefined ? {} : { timestampWrites: slot }),
-      });
-      const dispatch = (pipe: GPUComputePipeline, bindings: GPUBindGroupEntry[], x: number,
-        y = 1): void => {
-        pass.setPipeline(pipe);
-        pass.setBindGroup(0, device.createBindGroup({ layout: pipe.getBindGroupLayout(0),
-          entries: bindings }));
-        pass.dispatchWorkgroups(x, y);
-      };
-      const flat = (total: number) =>
-        [Math.min(total, BODY_LAW_DISPATCH_ROW), Math.ceil(total / BODY_LAW_DISPATCH_ROW)] as const;
-      const blurPipeline = computePipeline("blur", bodyLawBlurModule, "cs_blur");
-      const blur = (name: string, jobs: readonly BlurJob[], srcA: GPUTextureView,
-        srcB: GPUTextureView, dst: GPUTextureView): void => {
-        if (jobs.length === 0) return;
-        const t = blurTable(jobs);
-        dispatch(blurPipeline, [
-          { binding: 0, resource: { buffer: uniform(name, [t.count, t.total]) } },
-          { binding: 1, resource: srcA },
-          { binding: 2, resource: srcB },
-          { binding: 4, resource: dst },
-          { binding: 5, resource: { buffer: storage(`${name}:jobs`, new Float32Array(t.data.buffer)) } },
-          { binding: 6, resource: { buffer: weights } },
-        ], ...flat(t.total));
-      };
-      const floorPipeline = computePipeline("floor", bodyLawFloorModule, "cs_floor");
-
-      batches.forEach(({ builds: members, layout }, b) => {
-        const table = tables[b]!;
-        table.captures.forEach(({ build, jobs }, c) => {
-          const name = `${b}:floor:${c}`;
-          const data = new Int32Array(jobs.length * BODY_LAW_JOB_VEC4S * 4);
-          let total = 0;
-          jobs.forEach(([tilesX, tilesY, ...rest], j) => {
-            data.set([total, tilesX!, ...rest], j * BODY_LAW_JOB_VEC4S * 4);
-            total += tilesX! * tilesY!;
-          });
-          const { args } = build;
-          dispatch(floorPipeline, [
-            { binding: 0, resource: { buffer: uniform(name, [
-              args.viewportDevice[0], args.viewportDevice[1], jobs.length, total, ...args.fit,
-              args.material.bodyLawEncodedAveraging === 1 ? 0 : 1, 0, 0, 0,
-            ]) } },
-            { binding: 3, resource: build.encoded.createView() },
-            { binding: 4, resource: flooredAtlas },
-            { binding: 5, resource: { buffer: storage(`${name}:jobs`, new Float32Array(data.buffer)) } },
-            { binding: 6, resource: { buffer: weights } },
-          ], ...flat(total));
-        });
-        if (layout.grids.length > 0) {
-          dispatch(computePipeline("decimate", bodyLawDecimateModule, "cs_decimate"), [
-            { binding: 0, resource: { buffer: uniform(`${b}:decimate`,
-              [layout.grids.length, table.decimationTotal]) } },
-            { binding: 1, resource: flooredAtlas },
-            { binding: 4, resource: gridAtlas },
-            { binding: 5, resource: { buffer: storage(`${b}:decimate:jobs`,
-              new Float32Array(table.decimations.buffer)) } },
-          ], ...flat(table.decimationTotal));
-        }
-        blur(`${b}:widths:h`, table.horizontal, flooredAtlas, gridAtlas, scratchAtlas);
-        blur(`${b}:widths:v`, table.vertical, scratchAtlas, gridAtlas, levelAtlas);
-
-        // A, one dispatch per group: its surface table names where each member's widths sit.
-        const composite = computePipeline("composite", bodyLawCompositeModule, "cs_composite");
-        members.forEach((build, m) => {
-          const { args } = build;
-          const { material, rectDevice } = args;
-          const surfaceTable = new Float32Array(build.members.length * BODY_LAW_SURFACE_VEC4S * 4);
-          layout.surfaces.forEach(({ build: owner, member, planned }, s) => {
-            if (owner !== m) return;
-            const { plan: memberPlan, schedule } = planned;
-            const levels = memberPlan.narrowSigmaDevicePx;
-            const floorPlace = layout.floors.places[s]!;
-            const level = (width: BodyLawWidth): number[] => {
-              if (width.q === 0) return [width.sigma, 1, 0, 1, ...floorPlace, planned.fw, planned.fh];
-              const grid = schedule.grids.find((g) => g.q === width.q)!;
-              return [width.sigma, grid.q, grid.pad, 0,
-                ...table.writtenOffset.get(`${s}:${String(width.role)}`)!, grid.width, grid.height];
-            };
-            const rows = [
-              memberPlan.footprint.x0, memberPlan.footprint.y0, planned.fw, planned.fh,
-              memberPlan.spanPx, memberPlan.t, material.bodyLawK[0] * 5 * memberPlan.unitDevicePx,
-              levels.length,
-              memberPlan.interpolation === "single" ? 0 : memberPlan.interpolation === "linear" ? 1 : 2,
-              memberPlan.receded ? 1 : 0, 0, 0,
-            ];
-            for (let k = 0; k < BODY_LAW_MAX_LEVELS; k++) {
-              rows.push(...(k < levels.length ? level(schedule.widths[k]!) : [0, 0, 0, 0, 0, 0, 1, 1]));
-            }
-            rows.push(...level(schedule.widths[schedule.widths.length - 1]!));
-            surfaceTable.set(rows, member * BODY_LAW_SURFACE_VEC4S * 4);
-          });
-          dispatch(composite, [
-            { binding: 0, resource: { buffer: uniform(`${build.resourceId}:composite`, [
-              args.viewportDevice[0], args.viewportDevice[1], rectDevice.x, rectDevice.y,
-              ...args.fit,
-              args.surfaces.length, args.devicePixelRatio,
-              material.bodyLawEncodedAveraging === 1 ? 1 : 0, 0,
-              material.bodyLawLambda, material.bodyLawNormal, material.bodyLawHinge,
-              material.bodyLawKnee,
-            ]) } },
-            { binding: 1, resource: { buffer: storage(`${build.resourceId}:shapes`, build.shapes) } },
-            { binding: 2, resource: { buffer: storage(`${build.resourceId}:surfaces`, surfaceTable) } },
-            { binding: 3, resource: build.encoded.createView() },
-            { binding: 4, resource: flooredAtlas },
-            { binding: 5, resource: levelAtlas },
-            { binding: 6, resource: build.a.createView() },
-          ], Math.ceil(rectDevice.width / 8), Math.ceil(rectDevice.height / 8));
-        });
-      });
-      pass.end();
-
-      // What this frame did not use is released; destruction waits for the work already submitted.
-      for (const [name, s] of uniforms) {
-        if (!usedSlots.has(name)) { s.buffer.destroy(); uniforms.delete(name); }
-      }
-      for (const [name, s] of storages) {
-        if (!usedSlots.has(name)) { s.destroy(); storages.delete(name); }
-      }
-      return encoder.finish();
-    },
-
     afterSubmit() {
       for (const entry of entries.values()) entry.unsubmitted = false;
+      releaseRetired();
     },
 
     cancelQueued() {
+      releaseRetired();
       // A build that never reached the queue left A unwritten: the next frame builds again.
-      pending = [];
       for (const entry of entries.values()) {
         if (!entry.unsubmitted) continue;
         entry.unsubmitted = false;
@@ -863,12 +814,12 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
     },
 
     forget(resourceId) {
-      if (entries.has(resourceId)) destroyEntry(resourceId);
+      const entry = entries.get(resourceId);
+      if (entry !== undefined) destroyEntry(resourceId, entry);
     },
 
     destroy() {
-      for (const resourceId of [...entries.keys()]) destroyEntry(resourceId);
-      releaseShared();
+      for (const [resourceId, entry] of [...entries]) destroyEntry(resourceId, entry);
     },
   };
 }

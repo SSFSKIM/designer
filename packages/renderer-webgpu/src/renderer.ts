@@ -354,11 +354,23 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    */
   const statsReadFor = new Map<string, PyramidResources>();
   /**
-   * W42's readout per group (`bodyLawReadout`): what the last frame that drew the group did with
-   * the law. Written where the fold is, in `drawGroups`, and read against the material in force,
-   * so a material that stops asking reports nothing without waiting for a frame.
+   * W42's readout per group and per plane (`bodyLawReadout`): what the last frame that drew the
+   * group on that plane did with the law. Written where the fold is, in `drawGroups`, and read
+   * against the material in force, so a material that stops asking reports nothing without
+   * waiting for a frame. A plane on which the group has no member retires its contribution, the
+   * read folds what remains with the weaker answer winning (platform-web's
+   * `weakestBodyLawReadout`), and a group with no plane left reports "stood-down": the law drew
+   * nothing of it.
    */
-  const bodyLawReadouts = new Map<string, "drawn" | "stood-down">();
+  const bodyLawReadouts = new Map<string, Map<string, "drawn" | "stood-down">>();
+  const bodyLawPlanes = (groupId: string): Map<string, "drawn" | "stood-down"> => {
+    let planes = bodyLawReadouts.get(groupId);
+    if (planes === undefined) {
+      planes = new Map();
+      bodyLawReadouts.set(groupId, planes);
+    }
+    return planes;
+  };
   const hintedTones = new Map<string, {
     groupId: string; readings: readonly SurfaceBackdropToneAbscissa[];
   }>();
@@ -436,6 +448,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     silhouetteTone = undefined;
     bodyLaw?.destroy();
     bodyLaw = undefined;
+    bodyLawReadouts.clear();
     hintedTones.clear();
     runner?.destroy();
     context?.destroy();
@@ -865,22 +878,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     return { built, unbuilt };
   }
 
-  /**
-   * One frame's submission, in the order its work depends on: the rebuilds (the pyramid, whose
-   * encoded level 0 the body law captures), then the body law's one compute pass for every group
-   * that rebuilt (`BodyLawStage.encode`), then the groups' passes, which read A.
-   */
-  function submitFrame(
-    device: GPUDevice,
-    rebuilds: GPUCommandEncoder,
-    law: GPUCommandBuffer | undefined,
-    groups: GPUCommandEncoder,
-  ): void {
-    const first = rebuilds.finish();
-    const last = groups.finish();
-    device.queue.submit(law === undefined ? [first, last] : [first, law, last]);
-  }
-
   function drawGroups(
     encoder: GPUCommandEncoder,
     resolution: SceneResolutionView | undefined,
@@ -946,6 +943,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        */
       if (input.surfaces.length === 0) {
         releaseIdle(input.groupId);
+        bodyLawPlanes(input.groupId).delete(active.plane);
         continue;
       }
 
@@ -963,7 +961,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           reason: error instanceof Error ? error.message : String(error),
         });
         releaseIdle(input.groupId);
-        bodyLawReadouts.set(input.groupId, "stood-down");
+        bodyLawPlanes(input.groupId).set(active.plane, "stood-down");
         continue;
       }
 
@@ -1074,7 +1072,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
       if (rectDevice === undefined) {
         releaseIdle(input.groupId);
-        bodyLawReadouts.set(input.groupId, "stood-down");
+        bodyLawPlanes(input.groupId).set(active.plane, "stood-down");
         continue;
       }
 
@@ -1163,22 +1161,21 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        * that builds its argument A over the group's own surface rect. It runs only for a regular
        * group sampling a texture, under no occlusion lift, and only where the source carries
        * the encoded level 0 the law is captured from; otherwise nothing is encoded and the
-       * optics pass receives no law, which is every group on every shipped material. The stage
-       * hands A over here and encodes every group's build in one compute pass of its own
-       * command buffer, submitted between the rebuilds and this encoder (`submitFrame`, §17).
+       * optics pass receives no law, which is every group on every shipped material.
        */
       const lawStrength = bodyLawStrengthUnderPolicy(
         material.bodyLawStrength, policy, variant, pyramid !== undefined,
       );
       const lawArgument = lawStrength > 0 && pyramid !== undefined && sourceId !== undefined
-        ? bodyLaw?.draw({
+        ? bodyLaw?.draw(encoder, {
             resourceId: resourceOf(input.groupId), surfaces, pyramid,
             rectDevice: surfaceRectDevice, viewportDevice, fit: fitFor(sourceId, pyramid),
             devicePixelRatio: dpr, material,
           })
         : undefined;
       if (lawArgument === undefined) bodyLaw?.forget(resourceOf(input.groupId));
-      bodyLawReadouts.set(input.groupId, lawArgument === undefined ? "stood-down" : "drawn");
+      bodyLawPlanes(input.groupId).set(active.plane,
+        lawArgument === undefined ? "stood-down" : "drawn");
       /*
        * The response and size laws always read the LINEAR profile (W27f G1).
        * DOM groups convert only their final layer, after evaluating the material
@@ -1797,9 +1794,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const encoder = gpu.device.createCommandEncoder({
         label: `vitrea:frame:${args.frame.id}`,
       });
-      const groupsEncoder = gpu.device.createCommandEncoder({
-        label: `vitrea:frame:${args.frame.id}:groups`,
-      });
 
       let result: DrawFrameResult;
       try {
@@ -1812,11 +1806,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           if (args.highlight !== undefined) passes.clearPass(encoder, args.highlight);
         }
 
-        result = drawGroups(groupsEncoder, args.resolution, args.frame.timeMs);
-        const law = bodyLaw?.encode();
+        result = drawGroups(encoder, args.resolution, args.frame.timeMs);
 
-        args.timing?.resolve(groupsEncoder);
-        submitFrame(gpu.device, encoder, law, groupsEncoder);
+        args.timing?.resolve(encoder);
+        gpu.device.queue.submit([encoder.finish()]);
         // Success path only: starting a readback map for a copy that never
         // reached the queue is its own bug (see `requestStats`).
         pyramids.afterSubmit();
@@ -1893,16 +1886,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           const pyramids = store as PyramidStore;
 
           try {
-            const groupsEncoder = context.device.createCommandEncoder({
-              label: `vitrea:frame:${frameContext.frame.id}:groups`,
-            });
             if (targets !== undefined) {
               passes.clearPass(encoder, targets.optics);
               if (targets.highlight !== undefined) passes.clearPass(encoder, targets.highlight);
-              drawGroups(groupsEncoder, frameContext.resolution, frameContext.frame.timeMs);
+              drawGroups(encoder, frameContext.resolution, frameContext.frame.timeMs);
             }
 
-            submitFrame(context.device, encoder, bodyLaw?.encode(), groupsEncoder);
+            context.device.queue.submit([encoder.finish()]);
             pyramids.afterSubmit();
             silhouetteTone?.afterSubmit();
             bodyLaw?.afterSubmit();
@@ -1925,7 +1915,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
     bodyLawReadout(groupId) {
       // Nothing to report where the material asks for no law: every shipped document.
-      return material.bodyLawStrength > 0 ? bodyLawReadouts.get(groupId) : undefined;
+      const planes = material.bodyLawStrength > 0 ? bodyLawReadouts.get(groupId) : undefined;
+      if (planes === undefined) return undefined;
+      for (const readout of planes.values()) if (readout === "stood-down") return "stood-down";
+      return planes.size === 0 ? "stood-down" : "drawn";
     },
 
     backdropToneAbscissae(groupId) {

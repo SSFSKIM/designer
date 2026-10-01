@@ -67,6 +67,10 @@ export interface FakeGpu {
   /** Uniform writes since the last `reset()`, in the order they were issued. */
   readonly uniformWrites: FakeUniformWrite[];
   readonly submits: number;
+  /** Command encoders created since the last `reset()`. */
+  readonly encoders: number;
+  /** Command buffers handed to `queue.submit` since the last `reset()`. */
+  readonly submittedBuffers: number;
   /** Resolve the device's `lost` promise, the way a real loss does. */
   lose(reason?: GPUDeviceLostReason): void;
   /** Make the next `createCommandEncoder().finish()` throw, once. */
@@ -84,6 +88,8 @@ export function createFakeGpu(): FakeGpu {
   const uniformWrites: FakeUniformWrite[] = [];
   const backing = new WeakMap<object, FakeTexture>();
   let submits = 0;
+  let encoders = 0;
+  let submittedBuffers = 0;
   let failFinish: string | undefined;
   let resolveLost: (info: GPUDeviceLostInfo) => void = () => undefined;
   const lost = new Promise<GPUDeviceLostInfo>((resolve) => {
@@ -159,8 +165,9 @@ export function createFakeGpu(): FakeGpu {
     limits: { maxTextureDimension2D: 8192 } as GPUSupportedLimits,
     features: new Set<string>(),
     queue: {
-      submit: () => {
+      submit: (buffers: readonly GPUCommandBuffer[]) => {
         submits += 1;
+        submittedBuffers += buffers.length;
       },
       writeBuffer: (
         buffer: { readonly label?: string },
@@ -197,21 +204,24 @@ export function createFakeGpu(): FakeGpu {
     createBindGroup: (descriptor: GPUBindGroupDescriptor) =>
       ({ entries: [...descriptor.entries] }) as unknown as GPUBindGroup,
     importExternalTexture: () => ({}) as GPUExternalTexture,
-    createCommandEncoder: () => ({
-      beginRenderPass: (descriptor: GPURenderPassDescriptor) =>
-        passEncoder(makePass(descriptor.label ?? "", "render")),
-      beginComputePass: (descriptor: GPUComputePassDescriptor = {}) =>
-        passEncoder(makePass(descriptor.label ?? "", "compute")),
-      copyBufferToBuffer: () => undefined,
-      finish: () => {
-        if (failFinish !== undefined) {
-          const message = failFinish;
-          failFinish = undefined;
-          throw new Error(message);
-        }
-        return {} as GPUCommandBuffer;
-      },
-    }),
+    createCommandEncoder: () => {
+      encoders += 1;
+      return {
+        beginRenderPass: (descriptor: GPURenderPassDescriptor) =>
+          passEncoder(makePass(descriptor.label ?? "", "render")),
+        beginComputePass: (descriptor: GPUComputePassDescriptor = {}) =>
+          passEncoder(makePass(descriptor.label ?? "", "compute")),
+        copyBufferToBuffer: () => undefined,
+        finish: () => {
+          if (failFinish !== undefined) {
+            const message = failFinish;
+            failFinish = undefined;
+            throw new Error(message);
+          }
+          return {} as GPUCommandBuffer;
+        },
+      };
+    },
     destroy: () => undefined,
   };
 
@@ -224,6 +234,12 @@ export function createFakeGpu(): FakeGpu {
     get submits() {
       return submits;
     },
+    get encoders() {
+      return encoders;
+    },
+    get submittedBuffers() {
+      return submittedBuffers;
+    },
     lose(reason = "unknown") {
       resolveLost({ reason, message: "test" } as GPUDeviceLostInfo);
     },
@@ -233,6 +249,8 @@ export function createFakeGpu(): FakeGpu {
     reset() {
       passes.length = 0;
       uniformWrites.length = 0;
+      encoders = 0;
+      submittedBuffers = 0;
     },
     info(texture) {
       return backing.get(texture as unknown as object);

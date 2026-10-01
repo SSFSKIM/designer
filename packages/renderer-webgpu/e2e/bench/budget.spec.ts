@@ -142,8 +142,8 @@ const CONFIGS = [
    * backdrop is dirty every frame, so the law's stage rebuilds every frame on every surface: the
    * worst case, a live video behind the glass. A static backdrop rebuilds nothing after its first
    * frame (the stage's cache, `test/w42-optics-law.test.ts`). Active and receded poses, in points
-   * (LT's unit), on both scenes. The stage is one compute pass per frame, so its `body-law`
-   * timestamp is its own; the other passes' timestamps absorb its queueing, as they did the
+   * (LT's unit), on both scenes. The stage is one compute pass per group, so its `body-law`
+   * timestamps are its own; the other passes' timestamps absorb its queueing, as they did the
    * render-pass stage's (§16), and the wall clock remains the frame's reading.
    */
   {

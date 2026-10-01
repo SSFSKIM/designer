@@ -244,6 +244,10 @@ describe("W42 identity through the renderer", () => {
     expect(h.lawPasses()).toEqual([]);
     expect(h.gpu.textures.some((t) => t.label.includes(":encoded") || t.label.includes("body-law")))
       .toBe(false);
+    expect(h.gpu.buffers.some((b) => b.label.includes("body-law"))).toBe(false);
+    // One encoder and one command buffer a frame, as before the law existed.
+    expect(h.gpu.encoders).toBe(1);
+    expect(h.gpu.submittedBuffers).toBe(1);
     const d = h.optics();
     expect(d).toHaveLength(OPTICS_UNIFORM_FLOATS);
     expect([...d.slice(152)].every((v) => v === 0)).toBe(true);
@@ -264,6 +268,7 @@ describe("W42 identity through the renderer", () => {
     expect(moved.lawPasses()).toEqual([]);
     expect([...moved.optics()]).toEqual([...base.optics()]);
     expect(moved.gpu.passes.map((p) => p.label)).toEqual(base.gpu.passes.map((p) => p.label));
+    expect([moved.gpu.encoders, moved.gpu.submittedBuffers]).toEqual([1, 1]);
     base.destroy();
     moved.destroy();
   });
@@ -275,6 +280,8 @@ describe("W42 stage and lanes with the law on", () => {
     h.draw();
     expect(h.lawPasses()).toEqual(["vitrea:pass:body-law"]);
     expect(h.lawDispatches()).toHaveLength(expectedDispatches(LAW));
+    // In the frame's own encoder: the law adds a compute pass, not a command buffer.
+    expect([h.gpu.encoders, h.gpu.submittedBuffers]).toEqual([1, 1]);
     // The last dispatch writes A.
     expect(labelOf(h.gpu, h.lawDispatches().at(-1)!.entries.find((e) => e.binding === 6)!.resource))
       .toBe("vitrea:body-law:g:A");
@@ -391,7 +398,7 @@ describe("W42 stage and lanes with the law on", () => {
     h.draw();
     expect(h.lawPasses()).toEqual(["vitrea:pass:body-law"]);
     // One floor job per member, and one composite over all three into one A.
-    const floor = h.gpu.uniformWrites.find((w) => w.label === "vitrea:uniform:body-law:0:floor:0")!;
+    const floor = h.gpu.uniformWrites.find((w) => w.label === "vitrea:uniform:body-law:g:floor")!;
     expect(floor.data[2]).toBe(3);
     const composite = h.gpu.uniformWrites.find((w) => w.label === "vitrea:uniform:body-law:g:composite")!;
     expect(composite.data[8]).toBe(3);
@@ -399,6 +406,78 @@ describe("W42 stage and lanes with the law on", () => {
       e.binding === 6 && labelOf(h.gpu, e.resource) === "vitrea:body-law:g:A"));
     expect(writesA).toHaveLength(1);
     h.destroy();
+  });
+
+  it("releases a removed group's own buffers while another law group lives on", () => {
+    // A static backdrop rebuilds nothing, so nothing but the removal can release them.
+    const gpu = createFakeGpu();
+    const renderer = createWebGPURenderer({ viewport: { widthCss: 240, heightCss: 160,
+      devicePixelRatio: 1 } });
+    renderer.attachDevice(gpu.device, "vitrea");
+    renderer.setMaterialProfile(LAW);
+    renderer.setAccessibility(NOMINAL_MATERIAL_POLICY);
+    renderer.registerBackdrop(createGradientProvider({ id: "bg", device: gpu.device,
+      stops: linearGradientStops([0.1, 0.2, 0.3], [0.5, 0.6, 0.7]), generation: 1 }));
+    for (const [groupId, x] of [["g", 70], ["h", 170]] as const) {
+      renderer.setGroup({ groupId, refraction: "true", analysisExact: true, variant: "regular",
+        backdropSourceId: "bg",
+        surfaces: [{ ...SURFACE, nodeId: groupId, shape: { ...SURFACE.shape, center: [x, 80],
+          size: [60, 44] } }] });
+    }
+    const draw = (id: number) => renderer.drawFrame({ frame: { id, timeMs: id * 16 },
+      optics: {} as GPUTextureView, highlight: {} as GPUTextureView });
+    draw(1);
+    const own = (groupId: string) =>
+      gpu.buffers.filter((b) => b.label.includes(`:body-law:${groupId}:`));
+    expect(own("h").length).toBeGreaterThanOrEqual(5);
+    renderer.removeGroup("h");
+    draw(2);
+    expect(own("h").every((b) => b.destroyed)).toBe(true);
+    expect(own("g").some((b) => !b.destroyed)).toBe(true);
+    expect(gpu.textures.filter((t) => t.label === "vitrea:body-law:h:A").every((t) => t.destroyed))
+      .toBe(true);
+    renderer.destroy();
+  });
+
+  it("destroys no texture a pass of the frame binds before the frame is submitted", () => {
+    // Two law groups whose second needs larger atlases than the first: the growth must not take
+    // the first group's atlases away from its pass, which is still in the unsubmitted encoder.
+    const gpu = createFakeGpu();
+    const renderer = createWebGPURenderer({ viewport: { widthCss: 240, heightCss: 160,
+      devicePixelRatio: 1 } });
+    renderer.attachDevice(gpu.device, "vitrea");
+    renderer.setMaterialProfile(LAW);
+    renderer.setAccessibility(NOMINAL_MATERIAL_POLICY);
+    renderer.registerBackdrop(createGradientProvider({ id: "bg", device: gpu.device,
+      stops: linearGradientStops([0.1, 0.2, 0.3], [0.5, 0.6, 0.7]), generation: 1 }));
+    const group = (groupId: string, size: [number, number], x: number): GroupRenderInput => ({
+      groupId, refraction: "true", analysisExact: true, variant: "regular", backdropSourceId: "bg",
+      surfaces: [{ ...SURFACE, nodeId: groupId, shape: { ...SURFACE.shape, center: [x, 80], size } }],
+    });
+    renderer.setGroup(group("small", [44, 44], 50));
+    renderer.setGroup(group("large", [120, 96], 160));
+    const stale: string[] = [];
+    const submit = gpu.device.queue.submit.bind(gpu.device.queue);
+    gpu.device.queue.submit = (buffers) => {
+      for (const pass of gpu.passes) {
+        for (const bindGroup of pass.bindGroups) {
+          for (const entry of bindGroup.entries) {
+            const record = (entry.resource as { __texture?: GPUTexture }).__texture === undefined
+              ? undefined : gpu.info(viewOwner(entry.resource as GPUTextureView));
+            if (record?.destroyed === true) stale.push(`${pass.label}: ${record.label}`);
+          }
+        }
+      }
+      submit(buffers);
+    };
+    renderer.drawFrame({ frame: { id: 1, timeMs: 16 }, optics: {} as GPUTextureView,
+      highlight: {} as GPUTextureView });
+    expect(stale).toEqual([]);
+    // The atlases the growth replaced go once the frame is submitted.
+    const atlases = gpu.textures.filter((t) => t.label.startsWith("vitrea:body-law:atlas:"));
+    expect(atlases.length).toBeGreaterThan(4);
+    expect(atlases.filter((t) => !t.destroyed)).toHaveLength(4);
+    renderer.destroy();
   });
 
   it("fills A over the whole group rect before any member draws, receded and unrefracted (R2)", () => {
