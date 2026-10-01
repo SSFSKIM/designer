@@ -1,0 +1,25 @@
+{
+ "at": "2026-10-01T08:15:02.213372Z",
+ "reason": "complete",
+ "steps": [
+  {
+   "alive": [],
+   "ended": true,
+   "step": "harness"
+  },
+  {
+   "after": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<real>0.5</real>\n</plist>\n",
+   "asFound": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<real>0.5</real>\n</plist>\n",
+   "before": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<real>0.25</real>\n</plist>\n",
+   "step": "slider",
+   "verified": true,
+   "wrote": true
+  },
+  {
+   "mode": 68,
+   "step": "display",
+   "verified": true
+  }
+ ],
+ "verified": true
+}

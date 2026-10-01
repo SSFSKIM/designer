@@ -1,0 +1,487 @@
+{
+ "endpoints": {
+  "1x-dark-active": {
+   "moving": {},
+   "cOrWMovingAt025": [],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  },
+  "1x-dark-receded": {
+   "moving": {},
+   "cOrWMovingAt025": [],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  },
+  "1x-light-active": {
+   "moving": {},
+   "cOrWMovingAt025": [],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  },
+  "1x-light-receded": {
+   "moving": {},
+   "cOrWMovingAt025": [],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  },
+  "2x-dark-active": {
+   "moving": {
+    "C": [
+     {
+      "field": "bd.scale",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "lambda": [
+     {
+      "field": "glassBackground.inputBlurFillDarkenOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "w": [
+     {
+      "field": "glassBackground.inputBlurFillNormalOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "T": [
+     {
+      "field": "glassBackground.inputFaceColorMatrixFillColor",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     },
+     {
+      "field": "glassBackground.inputFaceColorMatrixMaxLuma",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "80",
+       "96"
+      ]
+     },
+     {
+      "field": "glassBackground.inputFaceColorMatrixMaxLumaSDR",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "80",
+       "96"
+      ]
+     }
+    ]
+   },
+   "cOrWMovingAt025": [
+    "bd.scale"
+   ],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  },
+  "2x-dark-receded": {
+   "moving": {
+    "C": [
+     {
+      "field": "bd.scale",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "lambda": [
+     {
+      "field": "glassBackground.inputBlurFillDarkenOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "w": [
+     {
+      "field": "glassBackground.inputBlurFillNormalOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "T": [
+     {
+      "field": "glassBackground.inputFaceColorMatrixFillColor",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     },
+     {
+      "field": "glassBackground.inputFaceColorMatrixMaxLuma",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "80",
+       "96"
+      ]
+     },
+     {
+      "field": "glassBackground.inputFaceColorMatrixMaxLumaSDR",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "80",
+       "96"
+      ]
+     }
+    ]
+   },
+   "cOrWMovingAt025": [
+    "bd.scale"
+   ],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  },
+  "2x-light-active": {
+   "moving": {
+    "C": [
+     {
+      "field": "bd.scale",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "lambda": [
+     {
+      "field": "glassBackground.inputBlurFillLightenOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "w": [
+     {
+      "field": "glassBackground.inputBlurFillNormalOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "T": [
+     {
+      "field": "glassBackground.inputFaceColorMatrixFillColor",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ]
+   },
+   "cOrWMovingAt025": [
+    "bd.scale"
+   ],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  },
+  "2x-light-receded": {
+   "moving": {
+    "C": [
+     {
+      "field": "bd.scale",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "lambda": [
+     {
+      "field": "glassBackground.inputBlurFillLightenOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "w": [
+     {
+      "field": "glassBackground.inputBlurFillNormalOpacity",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ],
+    "T": [
+     {
+      "field": "glassBackground.inputFaceColorMatrixFillColor",
+      "xs": [
+       "0.0",
+       "0.125",
+       "0.25",
+       "0.375",
+       "0.625",
+       "0.75",
+       "0.875",
+       "1.0"
+      ],
+      "spans": [
+       "128",
+       "160",
+       "44",
+       "64",
+       "80",
+       "96"
+      ]
+     }
+    ]
+   },
+   "cOrWMovingAt025": [
+    "bd.scale"
+   ],
+   "cOrWMovingAt025OnSupport": [],
+   "normalEqualsX": true,
+   "prediction": "w(0.25) / w(0.5) = 0.5 on the free side at every support span",
+   "predictionStated": true
+  }
+ },
+ "unclassified": [],
+ "open": false
+}
