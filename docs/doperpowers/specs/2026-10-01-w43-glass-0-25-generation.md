@@ -1,25 +1,27 @@
 # W43 — the clearer glass: a `-glass0.25` material generation beside `-glass0.5`, the slider's second point, and a one-knob test of the body law (2026-10-01)
 
-**Status: DRAFT v1 (2026-10-01), for the parent and the user. Nothing is ruled and no child is
-dispatched.** Chartered on the user's ruling at W42's close, "Close W42 here (Recommended)",
-whose option reads "... Then move to your planned next phase, the clearer glass capture at
-slider 0.25" (W42 Decision Log 8; §5.197 §4). Five decisions belong to the user (Decision Logs
-1–5, summarised in the next section). Decision Log 6 holds the parent's mechanical rulings at
-charter. Ledger §5.198–§5.201 are reserved, and §5.202 if G3 splits at the seal; §5.198 was W42's
-conditional reservation, which W42 closed without using. Main is at `4da14bd3`, 0.25.0 is
-published, and the freeze reads 1,818. An adversarial review of this draft is due before G0.
+**Status: DRAFT v1.1 (2026-10-01), for adversarial review. No child is dispatched.** Chartered
+on the user's ruling at W42's close, "Close W42 here (Recommended)", whose option reads "...
+Then move to your planned next phase, the clearer glass capture at slider 0.25" (W42 Decision
+Log 8; §5.197 §4). **The user ruled Decision Logs 1 and 3 on 2026-10-01**: a second fixed
+setting, and two sittings. The parent ruled Decision Log 4 and adopted Decision Log 2 under the
+user's sitting ruling. Decision Log 5 (bounds) stays open for G2's reading, and Decision Log 6
+holds the parent's mechanical rulings at charter. Ledger §5.198–§5.201 are reserved, and §5.202
+if G3 splits at the seal; §5.198 was W42's conditional reservation, which W42 closed without
+using. Main is at `4da14bd3`, 0.25.0 is published, and the freeze reads 1,818.
 
-## Open for the user
+## Decisions
 
-The full entries, with options and reasoning, are Decision Logs 1–5 at the tail.
+The full entries are Decision Logs 1–6 at the tail.
 
-| DL | question | recommendation | why, in one line |
+| DL | question | status | what holds |
 | --- | --- | --- | --- |
-| 1 | the product's shape and API | a second discrete document, `macos27Glass025MaterialProfileDocument`, chosen through the existing `materialProfileDocument` option; the honesty core gains `glassTintAmount`; the default stays 0.5 | one selection path and every shipped number measured; a continuous slider needs evidence this sitting only starts collecting |
-| 2 | the capture scope | the four standard keys in full (562 cells a round, both scales, both poses) at seven runs; no accessibility pass; a w-test probe at 0.25 and a slider ladder at 0, 0.75 and 1 (about 28 cells per 2x endpoint, three runs); every pixel through the W39 side bundle | the product needs the whole gated bed; the probes buy the one decisive test of the body law and the axis's shape for about 3.1 h |
-| 3 | the sitting's length and timing | one sitting of about 14.5 h modelled, 15–16 h at the Mac, started in the evening; a 40-minute dump window in G0 first; "tell me first" as in W42 | W42's timing model reproduced W42's own net time to a minute; a cut line lets it split if it must |
-| 4 | W42's structure question | kept separate: W43 runs only the declared w-test as a reading and archives the ladder for the next structure wave; W42's H and branches are untouched | the product should not wait on a law that has failed twice, but the capture is the scarce part, so it is taken now |
-| 5 | bounds for the 0.25 documents | the 0.5 standard tables' values; M1, C1, X1, L1, M2 and E2 re-instantiated against a pre-fit baseline; a new slider-direction row read but not gated; no floor; land with recorded misses, as W29 did | the same bar the 0.5 material was held to, plus the one property a two-position family adds: the change between positions |
+| 1 | the product's shape and API | **RULED** by the user, 2026-10-01: "Second fixed setting (Recommended)" | a second set of documents at 0.25 through the existing `materialProfileDocument` option; the default stays 0.5; the runtime reports `glassTintAmount`; a continuous slider waits for more positions |
+| 2 | the capture scope | **ADOPTED** by the parent under the user's Decision Log 3 ruling | the four standard keys in full at seven runs; no accessibility pass; the w-test probe and the ladder at 0, 0.75 and 1 at three runs; every pixel through the W39 side bundle |
+| 3 | the sittings | **RULED** by the user, 2026-10-01: "Two sittings, 12.4 h + 4 h (Recommended)" | G1a, the generation, about 12.4 h at the Mac; G1b, the probe and ladder, about 4.0 h, later |
+| 4 | W42's structure question | **RULED** by the parent, 2026-10-01 | kept separate; the probe and ladder are declared readings, never a landing; W42's H and branches untouched |
+| 5 | bounds for the 0.25 documents | **OPEN**, for G2's reading | the draft's recommendation stands beside it |
+| 6 | the charter's mechanical rulings | the parent's | ledger, branches, routing, memo F in G0 |
 
 ## Purpose
 
@@ -36,7 +38,8 @@ that wants the clearer glass a Mac user gets by moving the slider left has nothi
 draw. W29 G0's sheet read the axis as material opacity: "at 0.0 the body is nearly clear and the
 backdrop's structure reads through it" (§5.149 §4). 0.25 is halfway there.
 
-**The best version of this is three things from one sitting.**
+**The best version of this is three things from two sittings** (Decision Log 3, RULED): the
+generation first, then the probe and the ladder.
 
 1. **A measured clearer material that any page can choose, honestly labelled.** Four material
    documents at 0.25 (light and dark, active and receded), fitted on the WebGPU tier with the CSS
@@ -77,9 +80,10 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
    independently reviewed, against the first capture's timestamp. *Bed:* the declaration: the
    four canonical keys and their membership; the probe and ladder cells with exact ids; the
    w-test's statistic, support, resolution and verdict rule; the ladder's readings; the bridge
-   cells; the sitting's order, cut line and timing. *Bar:* every item present and hashed before
-   G1's first capture. *Stop:* a capture before the hash, or a declaration change after it,
-   voids the sitting as the bed; its captures are kept and never read as the bed.
+   cells; both sittings' order and timing. *Bar:* every item, G1b's included, present and
+   hashed before G1a's first capture. *Stop:* a capture before the hash, or a declaration
+   change after it (between G1a and G1b included), voids the affected sitting as the bed; its
+   captures are kept and never read as the bed.
 2. **The slider's declared configuration is read before the bed is declared (G0, memo F).**
    *Metric:* every declared input of Apple's glass filter as a function of x. *Bed:*
    `dump-layers` through the side bundle at nine slider positions in all four endpoints (Design,
@@ -87,15 +91,16 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
    pointers (X38), and the w-test's prediction is stated in their terms before the hash.
    *Stop:* an input that moves with x and that the declaration cannot state before the hash
    keeps the declaration open; nothing is captured.
-3. **The bridges hold (G0 and G1).** *Metric:* byte identity, or region medians within max(1
-   code, bar), cell by cell. *Bed:* before the sitting, W42's family F frames (the side bundle at
-   0.5, 2026-09-30) against the canonical 0.5 fixtures (the original bundle, 2026-09-18/19); in
-   the sitting, at 0.5, W42's sentinels at its opening and its close and a set of canonical
-   cells at its opening. *Bar:* every bridge cell agrees. *Stop:* a disagreement before the
-   sitting goes to the user before the declaration is hashed; one at the opening stops the sitting before any 0.25
-   capture; one at the close voids nothing already admitted, but G2 reads every
-   0.25-against-0.5 claim as unbridged (X43) and the user rules before G3 opens.
-4. **The sitting is attested (G1).** *Metric:* every capture's attestation. *Bed:* every
+3. **The bridges hold (G0, G1a, G1b).** *Metric:* byte identity, or region medians within max(1
+   code, bar), cell by cell. *Bed:* before the sittings, W42's family F frames (the side bundle
+   at 0.5, 2026-09-30) against the canonical 0.5 fixtures (the original bundle,
+   2026-09-18/19); in each sitting, at 0.5, W42's sentinels at its opening and its close and a
+   set of canonical cells at its opening (G1a at both scales, G1b at 2x). *Bar:* every bridge
+   cell agrees. *Stop:* a disagreement before the sittings goes to the user before the
+   declaration is hashed; one at a sitting's opening stops that sitting before any capture away
+   from 0.5; one at a close voids nothing already admitted, but G2 reads that sitting's
+   claims against 0.5 as unbridged (X43) and the user rules before G3 opens.
+4. **Each sitting is attested (G1a, G1b).** *Metric:* every capture's attestation. *Bed:* every
    declared pass. *Bar:* W42's X6 facts with the slider at the pass's declared position, read
    twice (the defaults domain and the tree's own `inputBlurFillNormalOpacity`, X42); W34 X4's
    native set (build 26A428, `ButtonShapesEnabled` 0, Show Borders 0, the display mode before
@@ -103,21 +108,25 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
    `deterministic`, the attested pose, the window frame); `hidIdleSeconds` ≥ 60 per fixture.
    *Stop:* a run that fails to attest is quarantined under its own name; a wrong mode, a lost
    grant, a failed idle wait or a foreign process stops the pass; a continuation is the parent's
-   explicit act; there is never a hidden retry. Nothing is read against vitrea in G1.
-5. **Repeats, publication and the archive (G1).** *Metric:* the bar per cell, region and channel
-   (W39's rule: 0.5 plus half the largest pairwise separation of the run medians); the plurality
-   publication's refusals. *Bed:* every admitted run. *Bar:* the canonical bed at seven runs,
-   plurality-published by `materialize` into `fixtures/apple-macos-27.0-*-glass0.25/` with no
-   refusal and the per-profile count equal to the 0.5 count, or each missing cell named; the
-   probe and ladder at the count Decision Log 2 rules, never plurality-published; the archive of
-   record complete, published by SHA-256 and replayed identically with the raw root denied.
-   *Stop:* G2 does not open until the bar, the publication and the replay are committed.
-6. **The original bundle is restored (G1's close).** *Metric:* the system TCC database and a
+   explicit act; there is never a hidden retry. Nothing is read against vitrea in either
+   sitting.
+5. **Repeats, publication and the archive (G1a, G1b).** *Metric:* the bar per cell, region and
+   channel (W39's rule: 0.5 plus half the largest pairwise separation of the run medians); the
+   plurality publication's refusals. *Bed:* every admitted run. *Bar:* the canonical bed at seven
+   runs, plurality-published by `materialize` into `fixtures/apple-macos-27.0-*-glass0.25/` with no
+   refusal and the per-profile count equal to the 0.5 count, or each missing cell named (G1a); the
+   probe and ladder at three runs (Decision Log 2), never plurality-published (G1b); each sitting's
+   archive of record complete, published by SHA-256 and replayed identically with the raw root
+   denied. *Stop:* G2's generation reading (a, b, e) does not open until G1a's bar, publication and
+   replay are committed, and its probe reading (c, d) not until G1b's are.
+6. **The original bundle is restored (G1b's close).** *Metric:* the system TCC database and a
    positive capture. *Bed:* the canonical 2x light checkerboard capsule at 0.5. *Bar:* the user
    re-adds `dev.vitrea.reference-apple` by hand; its capture is `captured-active`,
    deterministic, and equal to `204f21f0…` or `6c15311b…` (the parent's W42 G1 ruling).
    *Stop:* a failed restore is an open blocker, not a closed sitting. This closes W42 Decision
-   Log 8's deferral.
+   Log 8's deferral. The restore waits for G1b because both sittings need the side bundle, and
+   the user's W42 ruling chose to avoid two extra swaps; if G1b is cancelled, the restore
+   happens at the cancellation instead.
 7. **Measured before moved (G2).** *Metric:* the native delta, 0.25 against 0.5, per cell and
    per metric, through W29 G2's driver. *Bed:* every canonical 0.25 cell with its 0.5
    counterpart. *Bar:* the per-metric bar is the 0.25 runs' own run-to-run distribution,
@@ -188,17 +197,18 @@ The generation index holds `85ad7f7e3e0d.json` (509 rows over four light profile
 profiles are the four light (standard 1x and 2x, reduced transparency, coupled contrast) and
 the two dark standard.
 
-**The machine and the two bundles.** macOS 27.0 build 26A428 at W42 G1 (2026-09-30). The W39
-side bundle, `dev.vitrea.reference-apple.w39` at `~/vitrea-w39/side/` (binary `02052b17…`,
-cdhash `be258cbf…`, sources byte-identical to `apps/reference-apple/Sources` per memo D), holds
-the machine's one Screen Recording grant (auth 2 since 2026-09-30 10:44:55Z). The original
-`dev.vitrea.reference-apple` (binary `bd3092e8…`, cdhash `88cbbb5b…`) captured every canonical
-macOS 27 fixture; its Screen Recording row was removed at W42 G1, and its Accessibility row is
-untouched. Its restore and positive check are deferred to this sitting by the user's ruling (W42
-Decision Log 8). Two facts already tie the bundles together. At W42 G1 both captured the same
-frame, `204f21f0…`, on the canonical 2x light checkerboard capsule. At W39 G1 the side captured
-a canonical 2x cell byte-identical to its committed fixture. **X5's lift was scoped to W42's bed
-by its own terms** (§5.197 §3), so W43 needs its own.
+**The machine and the two bundles.** macOS 27.0 build 26A428 at W42 G1 (2026-09-30). The W39 side
+bundle, `dev.vitrea.reference-apple.w39` at `~/vitrea-w39/side/` (binary `02052b17…`, cdhash
+`be258cbf…`, sources byte-identical to `apps/reference-apple/Sources` per memo D), holds the
+machine's one Screen Recording grant (auth 2 since 2026-09-30 10:44:55Z). The original
+`dev.vitrea.reference-apple` (binary `bd3092e8…`, cdhash `88cbbb5b…`) captured every canonical macOS
+27 fixture; its Screen Recording row was removed at W42 G1, and its Accessibility row is untouched.
+Its restore and positive check are deferred to this wave's capture by the user's ruling (W42
+Decision Log 8); under Decision Log 3 they fall at G1b's close. Two facts already tie the bundles
+together. At W42 G1 both captured the same frame, `204f21f0…`, on the canonical 2x light
+checkerboard capsule. At W39 G1 the side captured a canonical 2x cell byte-identical to its
+committed fixture. **X5's lift was scoped to W42's bed by its own terms** (§5.197 §3), so W43 needs
+its own.
 
 **What already carries a `-glass0.25` key, unchanged.**
 - `PROFILE_KEY_PATTERN` parses the trailing `-glass<amount>` as a number
@@ -264,7 +274,7 @@ rehearse any rule on existing renders before hashing it.
 
 ## Design (advisory unless marked)
 
-### The product (MARKED, pending Decision Log 1)
+### The product (MARKED; Decision Log 1, RULED)
 
 - **A second document, selected the way documents are selected today.**
   `macos27Glass025MaterialProfileDocument` ships beside `macos27MaterialProfileDocument` (which
@@ -281,7 +291,7 @@ rehearse any rule on existing renders before hashing it.
 - **A construction-time choice.** The root reads the document once, so a live switch remounts
   the root, as it does today for 26.5 against 27. A live setter is Deferred.
 
-### The generation's bed (MARKED, pending Decision Log 2)
+### The generation's bed (MARKED; Decision Log 2, ADOPTED)
 
 - **The canonical standard bed at 0.25, mirrored exactly.** `scenes.json` version 8 adds four
   profile entries, `apple-macos-27.0-{1x,2x}-{light,dark}-standard-glass0.25`, whose scene
@@ -306,10 +316,11 @@ bridges make that a measurement:
   0.5 on 2026-09-30: canonical checker-16, impulse and photo on rrect-md, and probe checker-64 on
   rrect-lg, at seven runs. They have never been read (§5.196 §1). G0 reads them against the
   canonical 0.5 fixtures.
-- **In the sitting (G1), at 0.5.** W42's two sentinel cells, three runs per endpoint at both
-  scales, against their `w42-archive` frames, at the sitting's opening and again at its close.
-  At the opening only, six canonical cells per canonical pass at three runs, against their
-  fixtures.
+- **In each sitting, at 0.5.** W42's two sentinel cells, three runs per endpoint, against their
+  `w42-archive` frames, at the sitting's opening and again at its close; and at the opening
+  only, six canonical cells per canonical pass at three runs, against their fixtures. G1a
+  bridges both scales. G1b, whose cells are all 2x, bridges 2x only, and its opening bridge is
+  also the check that nothing on the machine moved between the two sittings.
 
 ### Memo F: the slider in Apple's declared tree (G0)
 
@@ -324,7 +335,7 @@ scene dumps, roughly 0.6 h. The slider is restored after. Memo F answers three q
 
 Its numbers are pointers (X38). They write the w-test's prediction, and the pixels referee it.
 
-### The w-test: one knob, one prediction (MARKED, pending Decision Logs 2 and 4)
+### The w-test: one knob, one prediction (MARKED; Decision Logs 2 and 4)
 
 **The algebra** (W42 Design, LT; light written out, dark the mirror). C is the narrow term, W
 the wide term, λ the Lighten weight, w the Normal weight, all averaged in encoded space:
@@ -389,7 +400,7 @@ validation roles only; X46):
 The no-glass references do not depend on the slider, so W42's are reused; one per pass is
 recaptured to prove it.
 
-### The slider ladder (MARKED, pending Decision Log 2)
+### The slider ladder (MARKED; Decision Log 2, ADOPTED)
 
 Three positions beyond 0.25 and 0.5, all at 2x and three runs:
 - **x = 1:** the probe's 28 cells per endpoint. M = W everywhere, so the body is the wide term
@@ -406,45 +417,65 @@ no one in W43. It is the evidence base for two later questions:
   documents;
 - how many generations either route needs.
 
-### The sitting (MARKED, pending Decision Log 3): the order is the priority
+### The two sittings (MARKED; Decision Log 3, RULED)
 
+**G1a, the generation** (about 12.4 h at the Mac, overnight):
 0. **Opening, at 0.5.** The machine read: the X6 facts, build 26A428, Universal Control off, a
    clean census, and the slider's as-found value. The side bundle's pose check (expect
    `204f21f0…` or `6c15311b…`). The opening bridges at both scales.
 1. **x = 0.25, mode 68.** Dump sentinels, then the canonical 2x passes (active 162, receded
    119), seven runs.
-2. **x = 0.25, mode 69.** Dump sentinels, then the canonical 1x passes, seven runs. **The
-   product is complete here.**
-3. **x = 0.25, mode 68.** The w-test probe, four passes.
-4. **The ladder, mode 68.** x = 1, then 0, then 0.75, each with its dump sentinels.
-5. **x = 0.5.** The closing bridges at both scales; mode 68 restored and verified.
-6. **The close.** The slider is set back to its as-found value. Then the user re-adds the
-   original bundle by hand (W39's close recipe: remove every VitreaReference entry and add the
-   original alone), and the parent runs its positive check (clause 6).
+2. **x = 0.25, mode 69.** Dump sentinels, then the canonical 1x passes, seven runs.
+3. **x = 0.5.** The closing bridges at both scales; mode 68 restored and verified; the slider
+   set back to its as-found value. The side bundle keeps the grant for G1b.
 
-The orchestrator's exit trap restores both the display mode and the slider on every path. **The
-cut line:** if the sitting must stop, it stops from the bottom (the ladder, then the w-test).
-A dropped block is recorded and is not captured later without a new ruling (X47).
+**G1b, the probe and the ladder** (about 4.0 h at the Mac, on a later day):
+0. **Opening, at 0.5, mode 68.** The machine read as in G1a, the build still 26A428 and the
+   side's pins unchanged; the pose check; the opening bridges at 2x.
+1. **x = 0.25.** Dump sentinels, then the w-test probe, four passes.
+2. **The ladder.** x = 1, then 0, then 0.75, each opening with its dump sentinels.
+3. **x = 0.5.** The closing bridges at 2x; the slider set back to its as-found value.
+4. **The restore.** The user re-adds the original bundle by hand (W39's close recipe: remove
+   every VitreaReference entry and add the original alone), and the parent runs its positive
+   check (clause 6).
+
+The orchestrator's exit trap restores both the display mode and the slider on every path. A
+sitting that must stop drops from the bottom of its own order (in G1b, the ladder's x = 0.75,
+then 0, then 1, then the probe). A dropped block is recorded and is not captured later without
+a new ruling (X47).
 
 **The estimate**, from the rates in Grounding (W42 G0's model; W29's measured canonical rate as
 the check):
 
-| block | captures | modelled |
-| --- | ---: | ---: |
-| canonical 0.25 bed: 562 cells a round, seven runs, four passes | 3,934 | 10.44 h |
-| w-test probe: 28 cells × 4 endpoints, 2x, three runs, plus 16 references | 352 | 0.95 h |
-| ladder: x = 1 and 0 at 28 cells, x = 0.75 at 10, four endpoints, three runs | 792 | 2.16 h |
-| bridges at 0.5: W42's sentinels opening and closing, plus 72 canonical bridge captures | 168 | 0.65 h |
-| dump sentinels (about 96 scenes) | — | 0.25 h |
-| display switches, slider writes, the pose check | 1 | 0.05 h |
-| **total** | **5,247** | **14.5 h** |
+| sitting | block | captures | modelled |
+| --- | --- | ---: | ---: |
+| G1a | canonical 0.25 bed: 562 cells a round, seven runs, four passes | 3,934 | 10.44 h |
+| G1a | bridges at 0.5, both scales: W42's sentinels at the opening and close (96), 72 canonical bridge captures | 168 | 0.65 h |
+| G1a | dump sentinels at 0.25 (48 scenes), display switches, slider writes, the pose check | 1 | 0.17 h |
+| **G1a** | **total** | **4,103** | **11.26 h** |
+| G1b | w-test probe: 28 cells × 4 endpoints, 2x, three runs, plus 16 references | 352 | 0.95 h |
+| G1b | ladder: x = 1 and 0 at 28 cells, x = 0.75 at 10, four endpoints, three runs | 792 | 2.16 h |
+| G1b | bridges at 0.5, 2x: W42's sentinels at the opening and close (48), 36 canonical bridge captures | 84 | 0.32 h |
+| G1b | dump sentinels (72 scenes), slider writes, the pose check | 1 | 0.21 h |
+| **G1b** | **total** | **1,229** | **3.65 h** |
 
-At the Mac this is 14.5 h if nothing stops, as at W29, and about 16.0 h with W42's 10 % stop
-loss. To that add G0's memo F window (about 0.6 h, on another day) and the user's restore
-(about 15 minutes). The alternatives, modelled (at the Mac with 10 %):
-- the canonical bed and bridges only: 11.4 h (12.5 h);
-- with the w-test but no ladder: 12.3 h (13.6 h);
+At the Mac, G1a is 11.3 h if nothing stops, as at W29, and about 12.4 h with W42's 10 % stop
+loss; G1b is 3.7 h and about 4.0 h. Split this way, the two sittings cost about 0.4 h more than
+one, for G1b's own bridges, dumps and checks. To these add G0's memo F window (about 0.6 h, on
+another day) and the user's restore at G1b's close (about 15 minutes).
+
+*Priced for the decision and not chosen* (modelled, at the Mac with 10 %):
+- one sitting of the same scope: 14.5 h (16.0 h);
+- the canonical bed at three runs, the probe and ladder at three: 8.5 h (9.4 h);
+- the canonical bed at three runs, no probe or ladder: 5.3 h (5.8 h);
 - everything at seven runs: 18.6 h (20.5 h).
+
+A three-run canonical bed could confirm that 0.25 sits at the 0.5-code floor W39 and W42
+measured. It could not settle the cells that flip between two states: W29's 0.5 bed had 110
+voted and 9 frequency-settled cells at seven runs, and three runs see a one-in-six minority
+state only 42 % of the time. W39's and W42's floor was also measured on region medians, not on
+the SSIM, ΔE and contour metrics W29's native delta reads. And the 0.25 fixtures would sit at a
+weaker bar than the 0.5 generation they are compared against. The user's ruling keeps seven.
 
 ### The native delta and the refit (advisory; chartered from G2's reading)
 
@@ -517,58 +548,78 @@ Branch `w43-g0-declaration`; evidence `packages/calibration/results/<date>-w43-g
 - **(e) The declaration** (clause 1):
   - `scenes.json` version 8;
   - the wave-local probe and ladder scenes file and bed;
-  - the w-test and ladder readings written from memo F, the bridge cells, the sitting plan;
+  - the w-test and ladder readings written from memo F, the bridge cells, both sittings' plans;
   - rehearsed as Design states, then hashed.
 - **(f) The selection seam** (Surprises 1). The calibration page and its driver select a
   shipped document by (OS, glass) and refuse an unshipped or ambiguous pair. A candidate's CSS
   crossing and receded document are injected, never inherited. Red and green cases; no material
   moves.
 - **Acceptance:** clauses 1–3 and 11; an independent review (`doperpowers:reviewer-medium`)
-  closed; then the parent tells the user that the tooling is ready and how long the sitting
-  is (Decision Log 3).
+  closed; then the parent tells the user that the tooling is ready and how long G1a is
+  (Decision Log 3).
 - **Stops:**
   - a bridge disagreement;
   - memo F shows an input moving with x that the declaration cannot state before the hash;
   - the side bundle's pins differ from W39 G0's `bundle-pin.json`;
   - the machine is no longer on 26A428 (Risks).
 
-### G1: The sitting (ledger §5.199)
+### G1a: The generation sitting (ledger §5.199)
 
-Branch `w43-g1-sitting`. It starts after G0 has merged, the user has lifted X5 for W43's beds,
-and the user's go (Decision Log 3).
-- The order and cut line of Design. Every capture attested (clause 4) and quarantines named.
+Branch `w43-g1a-generation`. It starts after G0 has merged, the user has lifted X5′ for W43's
+beds, and the user's go (Decision Log 3). About 11.3 h modelled, 12.4 h at the Mac.
+- G1a's order in Design ("The two sittings"). Every capture attested (clause 4) and quarantines
+  named.
 - The canonical bed plurality-published by `materialize --frequency-settle` into the four
   `-glass0.25` fixture directories, with the manifest's hardware block naming the side bundle.
-- The probe and ladder archived, never published as fixtures.
 - The bar published from the archive before plurality.
-- `w43-archive` published as a release asset named by SHA-256 and bytes, with a second
+- `w43-archive-g1a` published as a release asset named by SHA-256 and bytes, with a second
   owner-controlled copy, and replayed with the raw root denied. Operational logs and dumps go
   into the archive, not into git.
-- The original bundle restored and positively checked (clause 6).
-- The freeze and X41 manifests verified at the close. Nothing is read against vitrea; no browser
-  runs while a native pass runs.
+- The freeze and X41 manifests verified at the close; the slider read back at its as-found
+  value. The side bundle keeps the grant, and the original stays unrestored until G1b's close
+  (clause 6). Nothing is read against vitrea; no browser runs while a native pass runs.
+
+### G1b: The probe and ladder sitting (ledger §5.199b)
+
+Branch `w43-g1b-probe`. It starts on a later day, after G1a has merged, with the user's go; X5′
+covers it. About 3.7 h modelled, 4.0 h at the Mac.
+- G1b's order in Design. Its opening bridge at 2x is also the check that nothing on the machine
+  moved between the sittings: a different build, side pin or bridge frame stops G1b before any
+  capture away from 0.5 and goes to the user.
+- The probe and ladder archived as `w43-archive-g1b` by the same rules, never published as
+  fixtures. The bar is published from the archive.
+- The original bundle restored and positively checked (clause 6). Then the side bundle is
+  retired with no row, as at W39's close.
+- The freeze and X41 manifests verified at the close.
 
 ### G2: The reading (ledger §5.200)
 
-Branch `w43-g2-reading`; no vitrea change of any kind.
-- **(a)** The bridges read (clause 3).
-- **(b)** The native delta with its bar declared first, and sheets (clause 7).
-- **(c)** The w-test, read once against the hashed prediction (clause 8).
-- **(d)** The ladder described (clause 9).
-- **(e)** A Decision Log 7 draft for the user: the laws G3 refits, ranked by the evidence, and
-  either Decision Log 5's ruling confirmed or the bounds amended on what the delta measured,
-  before any vitrea render at 0.25 exists.
-- Acceptance: clauses 7–9, and an independent review closed.
+Branch `w43-g2-reading`; no vitrea change of any kind. It reads in two stages, so the product
+path does not wait for G1b.
+- **After G1a:**
+  - **(a)** G1a's bridges read (clause 3);
+  - **(b)** the native delta with its bar declared first, and sheets (clause 7);
+  - **(e)** a Decision Log 7 draft for the user: the laws G3 refits, ranked by the evidence, with
+    Decision Log 5's bounds put for ruling on what the delta measured, before any vitrea render
+    at 0.25 exists.
+- **After G1b:**
+  - G1b's bridges read;
+  - **(c)** the w-test, read once against the prediction hashed in G0 (clause 8);
+  - **(d)** the ladder described (clause 9).
+
+  Neither may be amended for anything stage one read: the declaration was hashed before G1a's
+  first capture (clause 1).
+- Acceptance: clauses 7–9, with an independent review closed at each stage.
 
 ### G3: The refit, the seal and the landing (ledger §5.201; §5.202 if split at the seal)
 
 Branches `w43-g3-refit`, then `w43-g3-landing`.
-- **The refit.** Opened after Decision Log 7 is ruled. Bounds and rows declared and committed
-  before any 0.25 read. The four documents patched over the unmoved default, naming the 0.5 leaf
-  set (X44). WebGPU fitted first; the CSS tier derived and `tier-coherence.test.ts` extended.
-  Calibration and validation fit and read in one light and one dark stage; the configuration
-  frozen; holdout read once per tier into the same stage; `publish` once per stage. The goldens
-  byte-identical and the 0.5 digests unmoved (clause 11).
+- **The refit.** Opened after Decision Logs 5 and 7 are ruled; it does not wait for G1b. Bounds and
+  rows declared and committed before any 0.25 read. The four documents patched over the unmoved
+  default, naming the 0.5 leaf set (X44). WebGPU fitted first; the CSS tier derived and
+  `tier-coherence.test.ts` extended. Calibration and validation fit and read in one light and one
+  dark stage; the configuration frozen; holdout read once per tier into the same stage; `publish`
+  once per stage. The goldens byte-identical and the 0.5 digests unmoved (clause 11).
 - **The landing:**
   - Decision Log 1 executed: the generator and its export test for the 0.25 module, the
     document, `glassTintAmount` on both types, React re-exports, the README rows;
@@ -591,7 +642,7 @@ Branches `w43-g3-refit`, then `w43-g3-landing`.
 - **X2 and X6:** attestation before pixels, and the key names every axis that moved a pixel.
 - **X3:** measure before moving; G2 changes nothing; G3 changes nothing G2 did not name.
 - **X4′:** the side bundle is not rebuilt, and nothing is added to Screen Recording under either
-  bundle identifier except the user's restore of the original at G1's close.
+  bundle identifier except the user's restore of the original at G1b's close.
 - **Holdout and bounds:** the holdout is read once per frozen configuration, and bounds are
   declared before reads.
 - **X7:** one capture process at a time, and no browser during a native pass.
@@ -608,12 +659,14 @@ Branches `w43-g3-refit`, then `w43-g3-landing`.
 - **Merges** are `--no-ff -F <file>` with the freeze verified; commits use path-scoped `git add`
   and carry no attribution trailers or session URLs.
 
-**X5′ — the capture authorisation.** The user's lift authorises native capture for exactly:
-- the four canonical `-glass0.25` standard keys;
-- the wave-local probe and ladder scenes file;
-- the 0.5 bridge cells, which go into scratch and the archive and are never filed.
+**X5′ — the capture authorisation.** The user's lift authorises native capture, in G1a and
+G1b only, for exactly:
+- the four canonical `-glass0.25` standard keys (G1a);
+- the wave-local probe and ladder scenes file (G1b);
+- the 0.5 bridge cells, which go into scratch and the archive and are never filed (both).
 
-No accessibility key, no 0.5 key and no 26.5 key is filed.
+No accessibility key, no 0.5 key and no 26.5 key is filed. The lift ends at G1b's close, or at
+G1b's cancellation.
 
 **New:**
 - **X41 — the 0.5 generation is frozen.** Its fixtures, documents, generation files, generated
@@ -634,12 +687,15 @@ No accessibility key, no 0.5 key and no 26.5 key is filed.
 - **X46 — W42 is not reopened.** H is never requested, and `w42-g2-impl` and
   `w42-g2-identification` are not built on. The w-test reads only the probe and W42's
   calibration and validation counterparts.
-- **X47 — a cut sitting drops from the bottom.** A dropped block is recorded with its cause and
-  is not captured later without a new ruling.
+- **X47 — a cut sitting drops from the bottom of its own order.** A dropped block is recorded
+  with its cause and is not captured later without a new ruling. Everything G1b captures is
+  declared and hashed in G0, before G1a: nothing G1a or G2's first stage shows can change G1b's
+  cells or the w-test's prediction.
 
 ## Ordering & Dependency Map
 
-1. Decision Logs 1–5 (the user's; 5 may wait for G2) and this draft's adversarial review.
+1. Decision Logs 1 and 3 ruled by the user, 2 and 4 by the parent (2026-10-01); this draft's
+   adversarial review.
 2. G0:
    - the manifests;
    - the bridge on existing evidence;
@@ -647,17 +703,18 @@ No accessibility key, no 0.5 key and no 26.5 key is filed.
    - the tooling and the selection seam;
    - the declaration, rehearsed and hashed;
    - review and merge.
-3. The parent tells the user, with the sitting's length.
-4. G1:
-   - the user's X5 lift and go;
-   - opening bridges, the canonical bed, the w-test, the ladder, closing bridges;
-   - the restore and positive check;
-   - publication, the archive and the bar.
-5. G2: the bridges, the native delta, the w-test, the ladder, Decision Log 7.
-6. G3:
-   - bounds declared, then the refit, the holdout once, and publication;
-   - the landing, the c9d chain, and the user's `pnpm release`.
-7. Close.
+3. The parent tells the user, with G1a's length.
+4. G1a: the user's X5′ lift and go; opening bridges, the canonical bed at both scales, closing
+   bridges; publication, the archive and the bar.
+5. G2, first stage: G1a's bridges, the native delta, the Decision Log 7 draft with Decision
+   Log 5's bounds; the user rules both.
+6. Two tracks from here, independent:
+   - **the product:** G3: bounds declared, then the refit, the holdout once, and publication;
+     the landing, the c9d chain, and the user's `pnpm release`;
+   - **the evidence:** G1b on a later day (opening bridges, the probe, the ladder, closing
+     bridges, the restore and positive check, the archive and the bar), then G2's second stage
+     (G1b's bridges, the w-test, the ladder).
+7. Close, when both tracks have closed and the original bundle is restored.
 
 ## Risks & Mitigations
 
@@ -668,25 +725,28 @@ No accessibility key, no 0.5 key and no 26.5 key is filed.
   - misses are named and go to Decision Log 5 (e);
   - the structure wave, which the ladder feeds, is the route that closes them.
 - **A bridge fails:** the bundles differ on canonical cells, or the machine has drifted since
-  2026-09-18. Mitigation: G0 reads W42's family F before anything is declared; the in-sitting
-  bridge stops the sitting before the first 0.25 capture. The user then rules between capturing
+  2026-09-18. Mitigation: G0 reads W42's family F before anything is declared; G1a's opening
+  bridge stops it before the first 0.25 capture. The user then rules between capturing
   the canonical bed through the original bundle (two more grant swaps) and recapturing a 0.5
   control through the side.
-- **macOS updates.** A 27.0.x or 27.1 build before or during the sitting is a new reference: the
-  gate refuses any build but 26A428, and the wave stops for the user. Mitigation: the user
-  defers updates until G1 closes (Decision Log 3).
+- **macOS updates.** A 27.0.x or 27.1 build before or during either sitting is a new reference:
+  the gate refuses any build but 26A428, and the wave stops for the user. Mitigation: the user
+  defers updates until G1b closes (Decision Log 3).
 - **The slider does not reach a run** (a stale preference), or is left moved after a crash.
   Mitigation: the dump sentinel's tree check (X42), the orchestrator's trap, and the read-back at
-  G1's close.
+  each sitting's close.
 - **Stops from focus, input or the census** (W39 and W42; Grounding). Mitigation:
   - the four tracker fixes in G0;
   - the memory lesson's procedures;
   - the user's prerequisites in Decision Log 3, including Universal Control off, browser
     automation held in other sessions, the cua helper quit, and no chat from the capture Mac;
   - concurrent workers given the census pattern and barred from whole-package suites.
-- **A 15–16 h sitting.** Mitigation: the priority order and cut line (X47); a split at the
-  product line if the user prefers (Decision Log 3); W39's 17-hour sitting is the precedent
-  for one untouched sitting.
+- **The gap between the sittings.** Three things can happen between G1a and G1b: a macOS
+  update, a change to the side bundle or the machine, or G1b slipping indefinitely while the
+  original bundle stays unrestored. Mitigation: G1b's opening bridges and gates refuse a changed
+  build, pin or frame before any capture away from 0.5; the user defers updates until G1b
+  closes; nothing before G1b needs the original bundle; and if G1b is cancelled, the restore
+  happens then (clause 6).
 - **The w-test fails for a reason other than w.** C or W could move with x, or T be flat where it
   is inverted. Mitigation: memo F reads the tree first; the support needs monotone T, a minimum
   slope and a minimum contrast; the statistic is rehearsed on synthetic renders and on W42's
@@ -703,8 +763,8 @@ No accessibility key, no 0.5 key and no 26.5 key is filed.
 
 ## Deferred / Out of Scope
 
-- **Accessibility at 0.25** (reduced transparency, increased contrast alone or coupled), unless
-  Decision Log 2 rules it in. The 0.25 documents carry the 0.5 accessibility leaves, recorded as
+- **Accessibility at 0.25** (reduced transparency, increased contrast alone or coupled; Decision
+  Log 2 (b), ADOPTED). The 0.25 documents carry the 0.5 accessibility leaves, recorded as
   unmeasured.
 - **Other slider positions as full generations** (0 or 1 as "clearest" and "most tinted"
   documents). The ladder makes them cheap to evaluate, but not cheap to ship: each is a
@@ -723,14 +783,25 @@ No accessibility key, no 0.5 key and no 26.5 key is filed.
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | NOT STARTED; waits on Decision Logs 1–4 and this draft's review | §5.198 |
-| G1 | NOT STARTED | §5.199 |
-| G2 | NOT STARTED | §5.200 |
+| G0 | NOT STARTED; waits on this draft's review | §5.198 |
+| G1a | NOT STARTED | §5.199 |
+| G1b | NOT STARTED | §5.199b |
+| G2 | NOT STARTED; two stages, after G1a and after G1b | §5.200 |
 | G3 | NOT STARTED | §5.201 (§5.202 if split) |
 
 ## Decision Log
 
-### Decision Log 1 — the product's shape and API (OPEN; the user's)
+### Decision Log 1 — RULED 2026-10-01 (the user): a second fixed setting
+
+**RULED 2026-10-01 by the user: "Second fixed setting (Recommended)"**, the option reading: "A
+second set of material documents for the 0.25 position, chosen through the existing
+materialProfileDocument option; the default stays 0.5. The runtime reports which slider position
+drew (a new glassTintAmount field). A continuous slider waits until more positions are
+measured." G3 executes option (a) below. The ruling names no export; the drafted name,
+`macos27Glass025MaterialProfileDocument`, follows the recommendation to name by measurement and
+never by "clear", and the review may propose another.
+
+*The draft, as it was put to the user:*
 
 **The question.** What a developer gets from a 0.25 material, how a page selects it, and how the
 runtime says what drew.
@@ -763,7 +834,20 @@ what form it takes.
 Naming is yours too. The recommendation is to name by measurement and never by "clear", which
 collides with `variant: "clear"` (Apple's `Glass.clear`).
 
-### Decision Log 2 — the capture scope (OPEN; the user's)
+### Decision Log 2 — ADOPTED 2026-10-01 (the parent, under the user's Decision Log 3 ruling): the capture scope as recommended
+
+**Adopted.** The user's sitting ruling fixes (a), (c), (d) and (e): "the full 0.25 bed at 7 runs
+per scene", then "a small structure probe plus captures at slider 0, 0.75 and 1" in the ~4 h
+sitting, which is the three-run probe and ladder as priced. (b), no accessibility pass, and (f),
+the side bundle for every pixel, are the draft's recommendations, adopted by the parent as
+within that ruling: its option names no accessibility pass, and two sittings through one bundle
+keep the user's W42 choice to avoid extra grant swaps. The ruling moves one thing: the original
+bundle's restore falls at G1b's close, not at one sitting's end (clause 6). Restoring it at
+G1a's close instead would cost two more swaps (re-granting the side for G1b and restoring
+again). The review or the user may reopen (b) or (f).
+
+*The draft, as it was put:*
+
 
 - **(a) Profiles.** *Recommended:* the four standard keys in full, at both scales and both poses
   (562 cells a round). This is the 0.5 bed's exact mirror and every gated population. *Smaller
@@ -792,7 +876,20 @@ collides with `variant: "clear"` (Apple's `Glass.clear`).
   the probes still need the side (its bed kinds postdate the original binary), so it costs one
   more swap.
 
-### Decision Log 3 — the sitting's length and timing (OPEN; the user's hand)
+### Decision Log 3 — RULED 2026-10-01 (the user): two sittings
+
+**RULED 2026-10-01 by the user: "Two sittings, 12.4 h + 4 h (Recommended)"**, the option reading:
+"First the full 0.25 bed at 7 runs per scene, matching the 0.5 generation's standard (~12.4 h,
+e.g. overnight). Later a ~4 h sitting for a small structure probe plus captures at slider 0,
+0.75 and 1. That second set directly tests W42's law (the blend weight should track the slider)
+and gives positions for a future continuous slider." Executed as G1a and G1b (Children), with
+Design's timings: G1a 11.3 h modelled, 12.4 h at the Mac; G1b 3.7 h and 4.0 h. The prerequisites
+in the draft below stand for both sittings, with macOS updates deferred until G1b closes and the
+original bundle's restore at G1b's close. The memo F window in G0 remains the user's go.
+
+*The draft, as it was put to the user* (the split, its alternative, was re-priced at 12.4 h and
+4.0 h before the ruling; the three-run variants priced beside it are in Design):
+
 
 **The estimate.** About 14.5 h modelled and 5,247 captures, as itemised in Design. At the Mac
 that is 15–16 h, depending on whether stops cost what they cost W42 (about 10 %) or W29 (almost
@@ -815,7 +912,16 @@ and then the probes (about 3.9 h with their own bridges). Splitting is safe for 
 because each half opens with its own bridges, but it spends a second idle window. It also risks
 an OS update between the halves.
 
-### Decision Log 4 — W42's structure question in this wave or separate (OPEN; the user's)
+### Decision Log 4 — RULED 2026-10-01 (the parent): kept separate
+
+**Ruled by the parent, as recommended: option (a).** The user's Decision Log 3 ruling adopts the
+probe and the ladder, in an option that describes them as directly testing W42's law and giving
+positions for a future continuous slider. The parent reads that as adopting them as declared
+readings (clauses 8 and 9): never an identification, a fit or a landing of a body law in this
+wave, and with W42's H and branches untouched (X46).
+
+*The draft:*
+
 
 **Options.**
 - **(a) Separate.** W43 lands the 0.25 generation in the shipped material form and runs the
@@ -836,7 +942,11 @@ on build 26A428 come together now. The w-test and the ladder ends are what a str
 most want from this position, and they are cheap. The ladder may matter more than the test: at
 x = 1 the body is the wide term alone, which is what W42's U1 and U3 could not separate.
 
-### Decision Log 5 — bounds for the 0.25 documents (OPEN; the user's; may be ruled now or on G2's draft)
+### Decision Log 5 — bounds for the 0.25 documents (OPEN; the user's; for G2's reading)
+
+**Left open by the parent, 2026-10-01.** It is put to the user with G2's Decision Log 7 draft,
+on what the native delta measured, and must be ruled before G3 reads any 0.25 render. The
+recommendation below stands beside it.
 
 - **(a)** The four 0.25 standard profiles take the 0.5 standard tables' values per tier, declared
   before G3's read. This follows W29 Decision Log 4, which declared the 27 tables at the 26.5
@@ -863,8 +973,9 @@ matters.
 
 ### Decision Log 6 — the charter's mechanical rulings (the parent's; DRAFTED for the parent)
 
-- Ledger §5.198–§5.201, and §5.202 if G3 splits. Branches and evidence directories as listed in
-  Children. Contracts continue from W42's X40 at X41.
+- Ledger §5.198–§5.201, and §5.202 if G3 splits. G1's split under Decision Log 3 gives G1a
+  §5.199 and G1b §5.199b (the §5.159b precedent), so no reserved number moves. Branches and
+  evidence directories as listed in Children. Contracts continue from W42's X40 at X41.
 - This draft goes to `doperpowers:adversarial-reviewer` before G0. Children are reviewed by the
   review-code agents at medium, and high for G3's seal.
 - Every worker runs on `opus`.
@@ -898,6 +1009,20 @@ Found while drafting (2026-10-01):
 
 ## Revision Notes
 
+- 2026-10-01 (v1.1, for adversarial review). The user ruled Decision Logs 1 ("Second fixed
+  setting (Recommended)") and 3 ("Two sittings, 12.4 h + 4 h (Recommended)"), quoted verbatim
+  with their option text. The parent ruled Decision Log 4 (kept separate; the probe and ladder
+  are declared readings) and adopted Decision Log 2 under the sitting ruling. Decision Log 5
+  stays open for G2's reading. Changes:
+  - G1 becomes G1a, the generation (§5.199), and G1b, the probe and ladder (§5.199b);
+  - Design's sitting section becomes "The two sittings", with each sitting's order, bridges and
+    priced timing, and the variants priced for the decision recorded beside them (one sitting,
+    three-run canonical bed with and without probes, everything at seven runs), with what a
+    three-run bed can and cannot establish;
+  - G2 reads in two stages, so G3 does not wait for G1b;
+  - the original bundle's restore moves to G1b's close (clause 6);
+  - clauses 1 and 3–6, X5′, X47, the ordering map, the risks (the gap between the sittings
+    replaces the long sitting) and the tracking map follow.
 - 2026-10-01 (v1, drafted for the parent). Chartered from:
   - W42's close: Decision Log 8, Deferred at close 7–10, §5.196 and §5.197;
   - W29's charter and record: Decision Log 3 (a), §5.149 §4, G1's `sitting.md`;
