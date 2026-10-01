@@ -1,0 +1,39 @@
+{
+  "schema": "w43-run-admission-1",
+  "admitted": true,
+  "dry": false,
+  "protocol": "normal",
+  "captureProtocol": {
+    "initialSettleSeconds": 1.75,
+    "orderSeed": null,
+    "resetInterstitialSeconds": 6.0,
+    "resetCarriesGlass": false,
+    "minIdleSeconds": 60.0
+  },
+  "cells": 1,
+  "manifestSha256": "c7dff8232f7d0a3b5c27888b67ac109f5ef000429f44ec9decf185c3d33ca17b",
+  "run": 1,
+  "glass": 0.5,
+  "sitting": "g1a",
+  "planSha256": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+  "declaration": {
+    "sitting": "g1a",
+    "planSha256": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+    "sources": {
+      "canonical": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+      "w42": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0"
+    },
+    "head": "9d7a5b470012403683313c3b9da9147575e91c99",
+    "declarationSha256": "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb",
+    "declarationChain": [
+      "4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874",
+      "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb"
+    ]
+  },
+  "frames": {
+    "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__rest": "204f21f0362d3226f7e28690be7c61ece0848931c89062e8a888f1ade22d4033"
+  },
+  "role": "pose-check",
+  "publish": false,
+  "pass": "pose-check"
+}
