@@ -1,0 +1,47 @@
+{
+  "schema": "w43-dump-admission-1",
+  "admitted": true,
+  "dry": false,
+  "protocol": "dump",
+  "run": 1,
+  "scenes": 6,
+  "departures": 0,
+  "glass": 0.25,
+  "normalOpacities": [
+    "0.25"
+  ],
+  "checkSha256": "89e079becd3d7c8be49c76a72fcc340b2de5dfe4aaf5be8bea07ed2371a8e376",
+  "timing": {
+    "elapsedSeconds": 50.3,
+    "timeoutSeconds": 147,
+    "perSceneSeconds": 8.383,
+    "scenes": 6,
+    "loadAverageAtLaunch": [
+      4.13,
+      3.79,
+      3.25
+    ],
+    "loadAverageAtClose": [
+      3.1,
+      3.59,
+      3.2
+    ]
+  },
+  "sitting": "g1a",
+  "planSha256": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+  "declaration": {
+    "sitting": "g1a",
+    "planSha256": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+    "sources": {
+      "canonical": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+      "w42": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0"
+    },
+    "head": "382eafb5f26829b1ecfca16b6d8a0a90aa476069",
+    "declarationSha256": "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb",
+    "declarationChain": [
+      "4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874",
+      "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb"
+    ]
+  },
+  "pass": "dump-0.25-1x-dark-receded"
+}
