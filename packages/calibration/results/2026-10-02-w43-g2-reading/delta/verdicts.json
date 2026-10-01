@@ -1,0 +1,621 @@
+{
+ "source": "delta/slider-delta.json",
+ "laws": {
+  "silhouette": {
+   "verdict": "MINORITY",
+   "primary": "silhouetteIoUComplement",
+   "perPose": {
+    "active": {
+     "measured": 266,
+     "moved": 105,
+     "share": 0.39473684210526316,
+     "medianAbs": 0,
+     "p90Abs": 0.006498732445374467,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 180,
+     "moved": 84,
+     "share": 0.4666666666666667,
+     "medianAbs": 0,
+     "p90Abs": 0.0010266940451745254,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 50,
+     "share": 0.8620689655172413,
+     "medianAbs": 7.997440818940937e-05,
+     "p90Abs": 0.00171766819935526,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 10.8367719659097
+    },
+    "inactive": {
+     "measured": 44,
+     "moved": 31,
+     "share": 0.7045454545454546,
+     "medianAbs": 9.134088417972475e-05,
+     "p90Abs": 0.0010568227908118732,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 11.834022715354712
+    }
+   }
+  },
+  "contour": {
+   "verdict": "MINORITY",
+   "primary": "contourDistanceMeanPx",
+   "perPose": {
+    "active": {
+     "measured": 266,
+     "moved": 105,
+     "share": 0.39473684210526316,
+     "medianAbs": 0,
+     "p90Abs": 0.10125665565080078,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 180,
+     "moved": 84,
+     "share": 0.4666666666666667,
+     "medianAbs": 0,
+     "p90Abs": 0.021739130434782608,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 50,
+     "share": 0.8620689655172413,
+     "medianAbs": 0.00625,
+     "p90Abs": 0.10258822938013992,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 8.51
+    },
+    "inactive": {
+     "measured": 44,
+     "moved": 31,
+     "share": 0.7045454545454546,
+     "medianAbs": 0.006875,
+     "p90Abs": 0.15332355745105009,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 10.637500000000001
+    }
+   }
+  },
+  "interior level": {
+   "verdict": "MOVED",
+   "primary": "bodyLevelDelta",
+   "perPose": {
+    "active": {
+     "measured": 256,
+     "moved": 240,
+     "share": 0.9375,
+     "medianAbs": 0.008600191510911515,
+     "p90Abs": 0.05245525435654613,
+     "medianSigned": -0.007892694900714176,
+     "up": 46,
+     "down": 194,
+     "medianRatio": 14201215.252080537,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 180,
+     "moved": 152,
+     "share": 0.8444444444444444,
+     "medianAbs": 0.032527834832712155,
+     "p90Abs": 0.05490445896264329,
+     "medianSigned": -0.029993739685817422,
+     "up": 32,
+     "down": 120,
+     "medianRatio": 38981283.269089945,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 58,
+     "share": 1.0,
+     "medianAbs": 0.024557310243697894,
+     "p90Abs": 0.0585464686007898,
+     "medianSigned": -0.010753025037198272,
+     "up": 25,
+     "down": 33,
+     "medianRatio": 71167.30501902812
+    },
+    "inactive": {
+     "measured": 46,
+     "moved": 46,
+     "share": 1.0,
+     "medianAbs": 0.03260226456474857,
+     "p90Abs": 0.05561796700157223,
+     "medianSigned": -0.02320082378570154,
+     "up": 20,
+     "down": 26,
+     "medianRatio": 22945085.84483654
+    }
+   }
+  },
+  "tone by backdrop": {
+   "verdict": "MOVED",
+   "primary": "transferSlopeDelta",
+   "perPose": {
+    "active": {
+     "measured": 194,
+     "moved": 194,
+     "share": 1.0,
+     "medianAbs": 0.03969452348502077,
+     "p90Abs": 0.11434009644398102,
+     "medianSigned": 0.03969452348502077,
+     "up": 191,
+     "down": 3,
+     "medianRatio": 861943.1270338818,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 112,
+     "moved": 112,
+     "share": 1.0,
+     "medianAbs": 0.02460007372717954,
+     "p90Abs": 0.08317125224215005,
+     "medianSigned": 0.02460007372717954,
+     "up": 107,
+     "down": 5,
+     "medianRatio": 427100.2052880197,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 44,
+     "moved": 44,
+     "share": 1.0,
+     "medianAbs": 0.017007654313826767,
+     "p90Abs": 0.0633176257090587,
+     "medianSigned": 0.015054027946769188,
+     "up": 39,
+     "down": 5,
+     "medianRatio": 10967.165955418755
+    },
+    "inactive": {
+     "measured": 26,
+     "moved": 26,
+     "share": 1.0,
+     "medianAbs": 0.01641826441328248,
+     "p90Abs": 0.05486644425663706,
+     "medianSigned": 0.013861671026922687,
+     "up": 23,
+     "down": 3,
+     "medianRatio": 236068.29181534296
+    }
+   }
+  },
+  "scatter": {
+   "verdict": "MOVED",
+   "primary": "interiorStdDevDelta",
+   "perPose": {
+    "active": {
+     "measured": 198,
+     "moved": 198,
+     "share": 1.0,
+     "medianAbs": 0.014230013297641328,
+     "p90Abs": 0.06994775167921242,
+     "medianSigned": 0.014230013297641328,
+     "up": 184,
+     "down": 14,
+     "medianRatio": 4472319.267697955,
+     "withinNull": 1
+    },
+    "inactive": {
+     "measured": 116,
+     "moved": 115,
+     "share": 0.9913793103448276,
+     "medianAbs": 0.0057253885029087265,
+     "p90Abs": 0.02318813914166125,
+     "medianSigned": 0.005699708798723682,
+     "up": 100,
+     "down": 15,
+     "medianRatio": 1399181.07678505,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 44,
+     "moved": 44,
+     "share": 1.0,
+     "medianAbs": 0.006655529176613738,
+     "p90Abs": 0.03782643943322105,
+     "medianSigned": 0.006475571464482167,
+     "up": 34,
+     "down": 10,
+     "medianRatio": 6653.981881041371
+    },
+    "inactive": {
+     "measured": 28,
+     "moved": 28,
+     "share": 1.0,
+     "medianAbs": 0.006319815224419538,
+     "p90Abs": 0.01730964644391092,
+     "medianSigned": 0.0058813943128889,
+     "up": 22,
+     "down": 6,
+     "medianRatio": 1711767.5807251378
+    }
+   }
+  },
+  "chroma": {
+   "verdict": "MOVED",
+   "primary": "tintChromaDelta",
+   "perPose": {
+    "active": {
+     "measured": 220,
+     "moved": 206,
+     "share": 0.9363636363636364,
+     "medianAbs": 4.0047711050130306e-05,
+     "p90Abs": 0.0010340392431075788,
+     "medianSigned": -2.0800723704064616e-06,
+     "up": 88,
+     "down": 118,
+     "medianRatio": 68843166736.26602,
+     "withinNull": 30
+    },
+    "inactive": {
+     "measured": 148,
+     "moved": 134,
+     "share": 0.9054054054054054,
+     "medianAbs": 4.3965918957123074e-05,
+     "p90Abs": 0.0026995473837372365,
+     "medianSigned": 1.3309918584407315e-06,
+     "up": 83,
+     "down": 51,
+     "medianRatio": 29650483801.589085,
+     "withinNull": 21
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 56,
+     "moved": 56,
+     "share": 1.0,
+     "medianAbs": 3.470119017002063e-05,
+     "p90Abs": 0.0012829910898030394,
+     "medianSigned": -6.062582378262467e-06,
+     "up": 21,
+     "down": 35,
+     "medianRatio": 1356.3155572020758
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 42,
+     "share": 1.0,
+     "medianAbs": 4.59769858312799e-05,
+     "p90Abs": 0.0019375826261389389,
+     "medianSigned": 1.2585048872315472e-07,
+     "up": 23,
+     "down": 19,
+     "medianRatio": 60685024069.804535
+    }
+   }
+  },
+  "rim band": {
+   "verdict": "MOVED",
+   "primary": "rimContourDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 256,
+     "moved": 240,
+     "share": 0.9375,
+     "medianAbs": 0.009878088875868968,
+     "p90Abs": 0.07870453286585588,
+     "medianSigned": -0.0012684740781417903,
+     "up": 88,
+     "down": 152,
+     "medianRatio": 1045845.2381145289,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 180,
+     "moved": 130,
+     "share": 0.7222222222222222,
+     "medianAbs": 0.0010228280288305802,
+     "p90Abs": 0.02298398560695708,
+     "medianSigned": 0.0,
+     "up": 62,
+     "down": 68,
+     "medianRatio": 53409.78786590161,
+     "withinNull": 17
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 58,
+     "share": 1.0,
+     "medianAbs": 0.009782964893263107,
+     "p90Abs": 0.05118135202485963,
+     "medianSigned": 0.002475852496984704,
+     "up": 35,
+     "down": 23,
+     "medianRatio": 5001.27451237514
+    },
+    "inactive": {
+     "measured": 46,
+     "moved": 46,
+     "share": 1.0,
+     "medianAbs": 0.0012254500259052392,
+     "p90Abs": 0.03716197618976136,
+     "medianSigned": -1.9548487315002028e-07,
+     "up": 21,
+     "down": 25,
+     "medianRatio": 42477.95539185849
+    }
+   }
+  },
+  "highlight": {
+   "verdict": "MOVED",
+   "primary": "highlightBinDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 256,
+     "moved": 240,
+     "share": 0.9375,
+     "medianAbs": 0.014530090534576101,
+     "p90Abs": 0.07685035591469852,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1432817.2245976361,
+     "withinNull": 2
+    },
+    "inactive": {
+     "measured": 180,
+     "moved": 134,
+     "share": 0.7444444444444445,
+     "medianAbs": 0.011731688547729408,
+     "p90Abs": 0.04288628973426584,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 609514.47827075,
+     "withinNull": 13
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 58,
+     "share": 1.0,
+     "medianAbs": 0.016562404014264065,
+     "p90Abs": 0.06907565510338998,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 86.06214112923415
+    },
+    "inactive": {
+     "measured": 46,
+     "moved": 46,
+     "share": 1.0,
+     "medianAbs": 0.014343008564385973,
+     "p90Abs": 0.04975280075939273,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1232512.4536981515
+    }
+   }
+  },
+  "exterior shadow": {
+   "verdict": "MOVED",
+   "primary": "shadowProfileRmsDelta",
+   "perPose": {
+    "active": {
+     "measured": 212,
+     "moved": 199,
+     "share": 0.9386792452830188,
+     "medianAbs": 6.906451383100003e-05,
+     "p90Abs": 0.0005361877779807889,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1492.0569204707162,
+     "withinNull": 6
+    },
+    "inactive": {
+     "measured": 150,
+     "moved": 134,
+     "share": 0.8933333333333333,
+     "medianAbs": 0.00027382492721007325,
+     "p90Abs": 0.0014436463341997868,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 4110.163449444129,
+     "withinNull": 2
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 50,
+     "moved": 47,
+     "share": 0.94,
+     "medianAbs": 0.0008768428671344055,
+     "p90Abs": 0.0059041126749070595,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 115.17938158371243
+    },
+    "inactive": {
+     "measured": 38,
+     "moved": 38,
+     "share": 1.0,
+     "medianAbs": 0.0018937030301999682,
+     "p90Abs": 0.011602792251162479,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 42433.84413768798
+    }
+   }
+  },
+  "tint shade": {
+   "verdict": "MOVED",
+   "primary": "tintDeltaLDelta",
+   "perPose": {
+    "active": {
+     "measured": 46,
+     "moved": 44,
+     "share": 0.9565217391304348,
+     "medianAbs": 0.0018398083776847152,
+     "p90Abs": 0.013407899109808774,
+     "medianSigned": -0.00161668053108599,
+     "up": 0,
+     "down": 44,
+     "medianRatio": 155961.31708971,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 32,
+     "moved": 28,
+     "share": 0.875,
+     "medianAbs": 0.023756529759138445,
+     "p90Abs": 0.04826690820420021,
+     "medianSigned": -0.02077465392595812,
+     "up": 0,
+     "down": 28,
+     "medianRatio": 1640653.8345562546,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 2,
+     "moved": 2,
+     "share": 1.0,
+     "medianAbs": 0.00756413086952934,
+     "p90Abs": 0.00756413086952934,
+     "medianSigned": -0.007391921706789817,
+     "up": 0,
+     "down": 2,
+     "medianRatio": 28546.791069590803
+    },
+    "inactive": {
+     "measured": 2,
+     "moved": 2,
+     "share": 1.0,
+     "medianAbs": 0.02459183895352235,
+     "p90Abs": 0.02459183895352235,
+     "medianSigned": -0.02399767042702239,
+     "up": 0,
+     "down": 2,
+     "medianRatio": 2034292.4471260218
+    }
+   }
+  },
+  "the recede": {
+   "verdict": "MOVED",
+   "primary": "bodyLevel",
+   "all": {
+    "measured": 160,
+    "moved": 146,
+    "share": 0.9125,
+    "medianAbs": 0.004822801224397016,
+    "p90Abs": 0.02925129770803589,
+    "medianSigned": -0.002551440404785721,
+    "up": 37,
+    "down": 109,
+    "medianRatio": 2568129.7618423947
+   },
+   "rrectLg": {
+    "measured": 42,
+    "moved": 42,
+    "share": 1.0,
+    "medianAbs": 0.0035081716542392782,
+    "p90Abs": 0.0203597841083335,
+    "medianSigned": -6.882861374105879e-05,
+    "up": 20,
+    "down": 22,
+    "medianRatio": 9387.70704434262
+   }
+  }
+ },
+ "strata": {},
+ "nullMax": {
+  "silhouetteIoUComplement": 0.0,
+  "contourDistanceMeanPx": 0.0,
+  "contourDistanceP95Px": 0.0,
+  "silhouetteAreaDeltaPx": 0.0,
+  "cornerCurvatureDeltaPerPx": 0.0,
+  "ssimComplement": 1.1000943556105369e-07,
+  "ssimBandComplement": 6.639621737969392e-07,
+  "ssimOutsideComplement": 5.599047808724222e-07,
+  "oklabDeltaEMean": 1.0781758109668456e-06,
+  "oklabDeltaEP95": 0.0,
+  "oklabDeltaEBodyMean": 9.097365275009797e-06,
+  "edgeWeightedMean": 2.4628807202397744e-06,
+  "interiorMeanDelta": 8.07943033981351e-06,
+  "interiorStdDevDelta": 5.820951631423099e-06,
+  "bodyLevelDelta": 2.4234197981698458e-09,
+  "transferSlopeDelta": 2.736651798564485e-06,
+  "transferOffsetDelta": 1.000576322796043e-06,
+  "rimContourDeltaMax": 6.508939076310671e-05,
+  "rimLocalDeltaMax": 6.508454392351037e-05,
+  "rimRow0DeltaMax": 0.00013017151126681892,
+  "rimPeakDelta": 0.0,
+  "rimPeakDepthDeltaPx": 0.0,
+  "rimFwhmDeltaPx": 0.0,
+  "highlightBinDeltaMax": 0.00019322539069641098,
+  "highlightBinDeltaMean": 1.8630893785697746e-05,
+  "highlightIntegralDeltaMax": 0.000384877174504597,
+  "highlightRatioDelta": 9.126506569145931e-06,
+  "highlightPeakAngleDeltaDeg": 0.0,
+  "tintDeltaLDelta": 5.922876905151142e-06,
+  "tintChromaDelta": 4.6235931110984695e-06,
+  "tintHueShiftDeltaDeg": 0.0001578118868792444,
+  "shadowMeanDepartureDelta": 1.537322665071659e-07,
+  "shadowStrengthPeakDelta": 6.313932882898166e-05,
+  "shadowStrengthPeakDistanceDeltaPx": 0.0,
+  "shadowExtentAboveDeltaPx": 0.0,
+  "shadowExtentBelowDeltaPx": 0.0,
+  "shadowExtentLeftDeltaPx": 0.0,
+  "shadowExtentRightDeltaPx": 0.0,
+  "shadowOffsetXDeltaPx": 0.0,
+  "shadowOffsetYDeltaPx": 0.0,
+  "shadowFalloffSigmaDeltaPx": 0.005135239559671767,
+  "shadowFalloffAmplitudeDelta": 5.2451692177026e-05,
+  "shadowProfileRmsDelta": 4.511280866461306e-06,
+  "shadowAffineSlopeDeltaMax": 6.817710204798377e-05,
+  "shadowAffineInterceptDeltaMax": 2.6676867005970273e-06,
+  "ssimInteriorComplement": 0.0,
+  "shadowFalloffLengthDeltaPx": 0.004935777706973177
+ }
+}

@@ -1,0 +1,14 @@
+  50 / 562 cells read
+  100 / 562 cells read
+  150 / 562 cells read
+  200 / 562 cells read
+  250 / 562 cells read
+  300 / 562 cells read
+  350 / 562 cells read
+  400 / 562 cells read
+  450 / 562 cells read
+  500 / 562 cells read
+  550 / 562 cells read
+slider-delta: 562 pair rows, 212 recede rows, 0 cells only at glass0.25, 0 cells with no bar
+npx tsx cli/slider-delta.ts delta --bar $E/bar/noise-bar-0.25.json   --out   127.60s user 2.08s system 116% cpu 1:51.63 total
+exit 0

@@ -1,0 +1,10 @@
+W43 G2 (b): the eye sheets sent to the user's MacBook (Taildrop, peer s), 2026-10-01T23:20:25Z
+
+$ /Applications/Tailscale.app/Contents/MacOS/Tailscale file cp /tmp/w43-g2-sheets.zip s:   # exit 0
+
+zip: w43-g2-sheets.zip, 53,522,825 bytes, SHA-256 f52e3ccc074c136e852f97a9d0bfa017c63e77d75ae06254f1cdbee2878d9b45
+contents: OPEN-ME.html; this directory's sheets/ (14 MB: four per-profile pages, every cell as
+glass0.5 | glass0.25 | |difference| x4 | where any channel differs, and 16 full-resolution triptychs);
+verdicts.txt and law-tables.txt; and the eight fixture trees the pages reference, at their repository paths
+(apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-{light,dark}-standard-glass{0.25,0.5}/).
+The zip itself is not committed: the sheets are, and the fixtures already are.
