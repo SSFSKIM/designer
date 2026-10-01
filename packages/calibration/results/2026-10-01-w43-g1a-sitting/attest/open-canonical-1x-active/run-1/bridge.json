@@ -1,0 +1,99 @@
+{
+ "schema": "w43-bridge-run-1",
+ "run": 1,
+ "stop": true,
+ "agrees": true,
+ "rule": "byte identity, or every region median within max(1 code, bar) of the reference (charter clause 3)",
+ "cells": [
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange",
+   "frameSha256": "fcd54fa5ddd9255e2ffe2f78fb9389076260e8dec5b3d4e568e173ba299f5164",
+   "referenceSha256": "fcd54fa5ddd9255e2ffe2f78fb9389076260e8dec5b3d4e568e173ba299f5164",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest",
+   "frameSha256": "bd57bc945289319c4a42415c04e39d1f69f84aec97b8d0ed6b22483dcec6695f",
+   "referenceSha256": "bd57bc945289319c4a42415c04e39d1f69f84aec97b8d0ed6b22483dcec6695f",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/hc-text-28__rrect-md__rest",
+   "frameSha256": "546e9974ccc5db012ac548bbc934a76d17e9cf7e899e414c4983552d6af0e36c",
+   "referenceSha256": "546e9974ccc5db012ac548bbc934a76d17e9cf7e899e414c4983552d6af0e36c",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__rest",
+   "frameSha256": "7eb081da9b8ca42214f04276d87083cc8c2845cf09a4a7d62e00bb437c41ac07",
+   "referenceSha256": "c4733c8ef1cdde945c8f09b2874a4e696d2d006ff789635297ad03a438873d68",
+   "verdict": "AGREE (regions)",
+   "agrees": true,
+   "failing": [],
+   "masks": [
+    {
+     "mask": "n",
+     "populations": 1
+    },
+    {
+     "mask": "w",
+     "populations": 0
+    }
+   ],
+   "statistics": 3,
+   "worstDelta": 0.0,
+   "pixelsDiffering": 22,
+   "maxCodes": 2.0,
+   "rows": [
+    {
+     "mask": "n",
+     "statistic": "deep|B",
+     "frame": 148.0,
+     "reference": 148.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "deep|G",
+     "frame": 146.0,
+     "reference": 146.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "deep|R",
+     "frame": 146.0,
+     "reference": 146.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    }
+   ]
+  },
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest",
+   "frameSha256": "2cb69544bd5871fc28df40a60decb8b2259fca18def9226cce646aebaecbbc20",
+   "referenceSha256": "2cb69544bd5871fc28df40a60decb8b2259fca18def9226cce646aebaecbbc20",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__rest-tint-orange",
+   "frameSha256": "baf11fdb94de86bbb95b34d13a2bd106c2a22691e2c9e57bd7d7857de86525dc",
+   "referenceSha256": "baf11fdb94de86bbb95b34d13a2bd106c2a22691e2c9e57bd7d7857de86525dc",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  }
+ ],
+ "pass": "open-canonical-1x-active"
+}
