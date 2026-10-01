@@ -1,0 +1,58 @@
+ok    expected pass got pass  unmodified
+ok    expected pass got pass  glassTintAmount: 0.5 added at the document's top level
+ok    expected fail got fail  glassTintAmount: 0.25 on the 0.5 document
+            throw new Error(`${label}.${RULED_READOUT} is ${String(readout)}; X41 admits only 0.5`);
+        Error: macos27MaterialProfileDocument.glassTintAmount is 0.25; X41 admits only 0.5
+ok    expected fail got fail  glassTintAmount: 0.5 on an endpoint rather than the document
+              if (k === RULED_READOUT) throw new Error(`${path}.${k}: X41 admits the readout only at the top`);
+        Error: macos27MaterialProfileDocument.active.light.glassTintAmount: X41 admits the readout only at the top
+ok    expected fail got fail  any other field added to the document
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:macos27MaterialProfileDocument
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:DEFAULT_MATERIAL_PROFILE_DOCUMENT
+        NEW/CHANGED:     d5cfcbdbccd5c5d86c6e26fade46c850a6c1955c3f6ab5777f7b98371949c7b1  projection:macos27MaterialProfileDocument
+ok    expected fail got fail  one patch leaf moved
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:macos27MaterialProfileDocument
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:DEFAULT_MATERIAL_PROFILE_DOCUMENT
+        NEW/CHANGED:     f59b049bb3ad33500b2cb6d92e62aa498716fbc90befd7b46b1aadb5526aaa0b  projection:macos27MaterialProfileDocument
+ok    expected fail got fail  one endpoint digest moved
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:macos27MaterialProfileDocument
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:DEFAULT_MATERIAL_PROFILE_DOCUMENT
+        NEW/CHANGED:     9b65b30b14c4357eae6fbd57ec5765acebb4fa81797d8d3185889f8da4d2fa3d  projection:macos27MaterialProfileDocument
+ok    expected fail got fail  the CSS mapping dropped
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:macos27MaterialProfileDocument
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:DEFAULT_MATERIAL_PROFILE_DOCUMENT
+        NEW/CHANGED:     7e3a91e781e319614a92de22c9a7deb6aa82692323240a640a117be5d9a95c42  projection:macos27MaterialProfileDocument
+ok    expected fail got fail  the default document re-pointed
+        MISSING/CHANGED: 154e756fc0001c7e5a1ae5b3f9c9daf41c69980573f7552d49085526f8aa9a39  projection:DEFAULT_MATERIAL_PROFILE_DOCUMENT
+        NEW/CHANGED:     5453d6f24b357a58ab770c74aaba5332536dcb9e5a78bf2459579624095cd120  projection:DEFAULT_MATERIAL_PROFILE_DOCUMENT
+ok    expected fail got fail  one byte appended to a 0.5 fixture
+        MISSING/CHANGED: 20d2d70f26d9d6f30f6cb78f864cba49cc4dbb3f8671e7d75f56d3af0cea0674  apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/photo__rrect-md__rest.png
+        NEW/CHANGED:     dfdee36f739b0684e6ac0f72297756794706637fcdb42219e60d3615743b594a  apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/photo__rrect-md__rest.png
+ok    expected fail got fail  a file added to a 0.5 tree
+        NEW/CHANGED:     20d2d70f26d9d6f30f6cb78f864cba49cc4dbb3f8671e7d75f56d3af0cea0674  apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/extra.png
+ok    expected pass got pass  a 0.25 tree added beside the 0.5 trees
+ok    expected fail got fail  one byte appended to a 0.5 profile document
+        MISSING/CHANGED: 5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json
+        NEW/CHANGED:     ee6031af813ab4df12bd068a23be49fa7730f541abe2875e807b278ecabb12fb  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json
+ok    expected pass got pass  a 0.25 profile document added
+ok    expected fail got fail  the generated module touched
+        MISSING/CHANGED: ab953bfe1e06e38a7eb405b96cfbab506dc0e93b9dbfc65f056f22557b4878a2  packages/platform-web/src/macos27-profile.ts
+        NEW/CHANGED:     2126b31e7936c4e1d34ec99cf1f4438bcc22be8245b3e5c592251d6e60a5354f  packages/platform-web/src/macos27-profile.ts
+ok    expected fail got fail  one byte appended to a 0.5 generation file
+        MISSING/CHANGED: 39ac0ba98ca200b10b194f6b45af54df8bf8b2dcbe6b98946a1c8b8aed58356e  packages/calibration/results/generations/85ad7f7e3e0d.json
+        NEW/CHANGED:     1500d6e4a0177132b409b900aabbf6cf65c119b544c8a56b05b79ae2d370a285  packages/calibration/results/generations/85ad7f7e3e0d.json
+ok    expected pass got pass  a 0.25 profile entry and its provenance block appended, file re-serialised
+ok    expected fail got fail  a fixture dropped from a 0.5 profile entry
+        MISSING/CHANGED: f76e0bbfb6d75c8e9e2e4b5f6f14a035efe6c61a8e4b13ebc75b8c32e538221d  manifest:profile:apple-macos-27.0-1x-dark-standard-glass0.5
+        NEW/CHANGED:     257eb04f08c94665b81efc9f09b217cc8052b4ff1e1593e4ec3b7fc96fa2b3c7  manifest:profile:apple-macos-27.0-1x-dark-standard-glass0.5
+ok    expected fail got fail  a provenance block naming 0.25 and 0.5 together
+        NEW/CHANGED:     6cd8e2b8d8f32e22da81c4643e7c2d1c0f2d9029d2024c1cf6b875fa2ba60755  manifest:bedProvenance:glass0.5
+ok    expected pass got pass  a 0.25 generation indexed beside the 0.5 ones
+ok    expected fail got fail  a 0.5 generation retired
+        MISSING/CHANGED: af3c06240c40739ba2a1cad469dc1aef2e0893f9c899cfa1453d479c625a23ce  generations:index:files:0eac5b294cc2.json
+        NEW/CHANGED:     f21cd7399ca35071ca5d11ba1b6dba6b58fb2d96e5654df38b97696c0db9c34b  generations:index:files:0eac5b294cc2.json
+ok    expected fail got fail  a 0.5 profile's current selection re-pointed
+        MISSING/CHANGED: 66ee999759531fd0ade33ddbbdd5aa3760aa671ea36c13700cb40cf0c3b7d9d9  generations:index:currentByProfile:apple-macos-27.0-1x-light-standard-glass0.5
+        NEW/CHANGED:     c219a0e9a69fbbc2bc82aa028f5374bdf2ff7d27e5aad1f2ea045f9feacf8616  generations:index:currentByProfile:apple-macos-27.0-1x-light-standard-glass0.5
+ok    expected pass got pass  restored
+wrong verdicts: 0
