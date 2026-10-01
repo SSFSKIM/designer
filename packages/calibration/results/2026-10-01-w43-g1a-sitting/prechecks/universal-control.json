@@ -1,0 +1,96 @@
+{
+  "schema": "w43-universal-control-1",
+  "recordedAt": "2026-10-01T09:36:27.505347+00:00",
+  "agentActive": true,
+  "agent": [
+    {
+      "pid": 49435,
+      "start": "Tue Sep 29 12:09:50 2026",
+      "executable": "/System/Library/CoreServices/UniversalControl.app/Contents/MacOS/UniversalControl"
+    }
+  ],
+  "disableSetting": null,
+  "disabledBySetting": false,
+  "bluetoothControllerState": "attrib_on",
+  "awdlFlags": [
+    "UP",
+    "BROADCAST",
+    "SMART",
+    "RUNNING",
+    "SIMPLEX",
+    "MULTICAST"
+  ],
+  "wifiPower": "Wi-Fi Power (en1): On",
+  "handoff": {
+    "ActivityAdvertisingAllowed": null,
+    "ActivityReceivingAllowed": null
+  },
+  "inputPathReachable": true,
+  "verdict": "the agent runs and its input path (Bluetooth, awdl0) is up: input from a linked device can reach this Mac",
+  "cannotDetect": [
+    "whether a peer device is near and linked right now",
+    "whether the agent forwards input while the setting reads off (W42 G1 stop 2)",
+    "whether the Disable key is where macOS 27 keeps the toggle: an absent key is not a reading of the toggle, and confirming it needs System Settings, which no check here may touch"
+  ],
+  "reads": {
+    "disable": {
+      "command": [
+        "defaults",
+        "-currentHost",
+        "read",
+        "com.apple.universalcontrol",
+        "Disable"
+      ],
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Error: Could not find key 'Disable' in domain 'com.apple.universalcontrol'."
+    },
+    "awdl": {
+      "command": [
+        "ifconfig",
+        "awdl0"
+      ],
+      "exitCode": 0,
+      "stdout": "awdl0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500\n\toptions=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>\n\tether 02:00:00:00:00:00\n\tinet6 fe80::b8:b7ff:fe57:1dbb%awdl0 prefixlen 64 scopeid 0x16 \n\tnd6 options=201<PERFORMNUD,DAD>\n\tmedia: autoselect\n\tstatus: active",
+      "stderr": ""
+    },
+    "wifi": {
+      "command": [
+        "networksetup",
+        "-getairportpower",
+        "en1"
+      ],
+      "exitCode": 0,
+      "stdout": "Wi-Fi Power (en1): On",
+      "stderr": ""
+    },
+    "handoff": {
+      "ActivityAdvertisingAllowed": {
+        "command": [
+          "defaults",
+          "-currentHost",
+          "read",
+          "com.apple.coreservices.useractivityd",
+          "ActivityAdvertisingAllowed"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "Error: Domain 'com.apple.coreservices.useractivityd' not found."
+      },
+      "ActivityReceivingAllowed": {
+        "command": [
+          "defaults",
+          "-currentHost",
+          "read",
+          "com.apple.coreservices.useractivityd",
+          "ActivityReceivingAllowed"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "Error: Domain 'com.apple.coreservices.useractivityd' not found."
+      }
+    },
+    "bluetoothExit": 0
+  },
+  "wifiOn": true
+}
