@@ -1,68 +1,75 @@
 #!/bin/bash
-# W42 G1: the whole sitting in its one declared order (pass-spec.py `order`): the dump step
-# for the 2x endpoints (mode 68) and the 1x endpoints (mode 69), then the four 2x passes and
-# their sentinels (mode 68), then the four 1x passes and theirs (mode 69); the display is
-# restored to mode 68 on every exit path. Derived from W39 G1's tools/sitting-orchestrate.sh.
+# W43: one sitting (W43_SITTING=g1a or g1b) in its one declared order (pass-spec.py `order` over
+# the hashed plan). Each pass names its display mode (by scale) and its slider position; this
+# script switches the display, writes the slider, and runs one driver call per pass. The display
+# is restored to mode 68 AND the slider to its as-found value on every exit path. Derived from
+# W42 G0's sitting-orchestrate.sh, which stays untouched.
 #
-# One driver invocation per pass (all its runs). The driver waits for >= 75 s of HID idle
-# before EVERY run and judges every gate itself; this script only switches the display, and
-# a switch waits for >= 300 s of HID idle first (memo D's run-1x.sh rule). ANY failure — a
-# mode that does not take, a refusal, a quarantine, a dump departure — stops the sitting
-# here. Nothing is retried. A continuation is the operator's explicit act: START_AT=<pass>
-# FIRST_RUN=<n> resumes at that pass, beginning with run n (the driver refuses an existing
-# run-N and any out-of-order pass, whatever this script is told).
+# One driver invocation per pass (all its runs). The driver waits for >= 75 s of HID idle before
+# EVERY run, judges every gate itself and watches every launch; this script switches the display
+# (a switch waits for >= 300 s of HID idle first, memo D's run-1x.sh rule) and the slider. ANY
+# failure (a mode that does not take, a slider write refused, a refusal, a quarantine, a sentinel
+# departure, a watchdog trip) stops the sitting here. Nothing is retried. A continuation is the
+# operator's explicit act: START_AT=<pass> FIRST_RUN=<n> resumes at that pass, beginning with run
+# n (the driver refuses an existing run-N and any out-of-order pass, whatever this script is told).
 #
-# The fixes of the bed review of b151aff4:
-# - B-M1: before any launch, `sitting.py pin-check` must accept the bed as the pinned, hashed
-#   declaration; a refusal launches nothing.
-# - b3: the pass list is computed first, its status checked, and read on fd 3; every driver
-#   gets </dev/null, so no child can swallow the remaining passes; the last pass of the
-#   selection must be the last one reached, or the sitting reports a STOP.
-# - b4: the script detaches itself into its own session (nohup + setsid) unless
-#   W42_FOREGROUND=1, so a torn-down agent or terminal session cannot orphan it mid-mode; the
-#   EXIT trap (reached from HUP, INT and TERM too) restores mode 68 and verifies it. Every
-#   launch runs under it (the driver refuses one without W42_ORCHESTRATED), the rehearsals
-#   included: REHEARSAL=1 PASSES="<pass> ..." runs each named pass as its rehearsal, at its
-#   display mode (a dump pass as `dump --rehearse`, a bed pass as the TCC-refusal rehearsal).
-# - b5: STOP_AFTER=dumps ends the sitting after the dump step (no grant is needed for it);
-#   the continuation is START_AT=2x-light-active.
+# Kept from W42 (its bed review and verification round): the pin check first; the pass list
+# computed first, its status checked and read on fd 3, every child on /dev/null, the last pass of
+# the selection asserted; the detach into its own session; tracked background jobs under an
+# interruptible wait, so HUP, INT and TERM reach the trap at once.
 #
-# The verification round (53400aa5, finding 3): bash runs a trap only once its FOREGROUND child
-# returns, and a driver runs a whole multi-run pass, so a SIGTERM used to leave mode 69 on
-# while captures went on. The driver and the idle wait now run as tracked background jobs under
-# an interruptible `wait`; on HUP, INT or TERM the orchestrator sends the driver SIGTERM (it
-# kills its launch, ends the native app and quarantines the run), KILLs it and its children if
-# it has not gone in 20 s, ends any native app still running by its binary path, and only then
-# exits, so the EXIT trap restores mode 68 and verifies it.
+# What W43 changes:
+# - THE LAUNCHER CHAIN (W42 G1 stop 4). Before detaching, the launching chain (this shell and
+#   its ancestors, pid and start time) is recorded in logs/launcher-chain-<epoch>.json and named
+#   in VITREA_LAUNCHER_CHAIN, so the census excludes it though setsid has cut it off from every
+#   process that reads the census.
+# - THE SLIDER, PER PASS (charter G0 (d), X42). The as-found NSGlassTintAmount is recorded once per
+#   sitting root (logs/slider-as-found.json) before anything is written; before each pass whose
+#   position differs from the current one, `sitting.py slider-set` writes it, refusing while any
+#   harness or dump process is alive, and records the write; the EXIT trap restores the as-found
+#   value and reads it back, beside the display mode.
+# - UNIVERSAL CONTROL (W42 G1 stops 1 and 2). `record-machine.py universal-control` is read at the
+#   start and summarised in the status log: a report for the operator, never a gate, since what it
+#   can read does not decide whether input will arrive. The watchdog sees input that does.
+# - The native app is ended by its executable image, never by a command-line pattern.
+# - STOP_AFTER=<pass> ends the sitting after that pass (a sitting cut short drops from the bottom of
+#   its own order, X47). REHEARSAL=1 PASSES="<dump pass> ..." runs dump passes as rehearsals.
 #
-# Environment: VITREA_SITTING_DIR (required; outside every checkout), optionally
-# W42_EVIDENCE (a directory the attestations of each pass are copied into by
-# collect-pass.py) and W42_EVIDENCE_REPO (a checkout whose W42_EVIDENCE is committed after
-# each pass, adding that directory only). W42_PREDECLARATION=1 is for rehearsals before the
-# declaration is hashed (the driver launches nothing else under it).
+# Environment: VITREA_SITTING_DIR (required; outside every checkout), W43_SITTING (required),
+# optionally W43_EVIDENCE (a directory the attestations of each pass are copied into by
+# collect-pass.py) and W43_EVIDENCE_REPO (a checkout whose W43_EVIDENCE is committed after each
+# pass, adding that directory only). VITREA_DEFAULTS is the `defaults` seam the suites stub.
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : "${VITREA_SITTING_DIR:?VITREA_SITTING_DIR must name the sitting root}"
+: "${W43_SITTING:?W43_SITTING must name the sitting (g1a or g1b)}"
 L=$VITREA_SITTING_DIR/logs
 mkdir -p "$L"
 ST=$L/orchestrator-status.txt
 say() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) $*" | tee -a "$ST"; }
 
-if [ "${W42_FOREGROUND:-0}" != 1 ] && [ -z "${W42_DETACHED:-}" ]; then
-  W42_DETACHED=1 nohup python3.12 -c 'import os, sys; os.setsid(); os.execvp(sys.argv[1], sys.argv[1:])' \
+if [ "${W43_FOREGROUND:-0}" != 1 ] && [ -z "${W43_DETACHED:-}" ]; then
+  CHAIN="$L/launcher-chain-$(date +%s).json"
+  if ! python3.12 "$HERE/record-machine.py" launcher-chain > "$CHAIN" 2>>"$L/orchestrator-console.txt"; then
+    echo "sitting-orchestrate: the launcher chain could not be recorded; nothing launched" >&2
+    exit 6
+  fi
+  W43_DETACHED=1 VITREA_LAUNCHER_CHAIN="$CHAIN" nohup python3.12 -c \
+    'import os, sys; os.setsid(); os.execvp(sys.argv[1], sys.argv[1:])' \
     bash "$HERE/sitting-orchestrate.sh" </dev/null >>"$L/orchestrator-console.txt" 2>&1 &
   echo "$!" > "$L/orchestrator.pid"
-  echo "sitting-orchestrate: detached as pid $! in its own session; follow $ST"
+  echo "sitting-orchestrate: detached as pid $! in its own session; launcher chain in $CHAIN; follow $ST"
   exit 0
 fi
 
 SCREEN=7709FD0F-F423-4277-B0C8-7CA94F85723A
 DP=${DISPLAYPLACER:-/opt/homebrew/bin/displayplacer}
-export W42_ORCHESTRATED=1
+export W43_ORCHESTRATED=1
 PIN_FILE=$HERE/../../../2026-09-26-w39-g0-colour-edge-bed/bundle-pin.json
 APP=${VITREA_APP:-$(python3.12 -c 'import json, sys; print(json.load(open(sys.argv[1]))["path"])' "$PIN_FILE")}
-NATIVE=$(cd "$APP" 2>/dev/null && pwd -P || echo "$APP")/Contents/MacOS/VitreaReference
 CHILD=""
+GLASS=""          # the slider's current position as this sitting last read or wrote it
+SLIDER_RECORDED=no
 # A tracked background job and an interruptible wait: a signal reaches its trap at once.
 job() {
   local log=$1; shift
@@ -73,6 +80,9 @@ job() {
   local rc=$?
   CHILD=""
   return $rc
+}
+end_native() {
+  python3.12 "$HERE/sitting.py" end-native "$APP" </dev/null 3<&- 2>>"$ST"
 }
 cancel() {
   trap '' HUP INT TERM
@@ -87,8 +97,10 @@ cancel() {
     pkill -P "$reaper" 2>/dev/null; kill "$reaper" 2>/dev/null
     say "CANCEL: pid $CHILD ended (status $status)"
   fi
-  if pkill -f "$NATIVE" 2>/dev/null; then say "CANCEL: a native launch was still running; terminated"; fi
-  say "CANCEL: done; restoring the display"
+  local ended
+  ended=$(end_native)
+  [ "$ended" = "[]" ] || say "CANCEL: native launches still running were ended: $ended"
+  say "CANCEL: done; restoring the slider and the display"
   exit "$1"
 }
 mode() { $DP list | sed -n 's/^  mode \([0-9]*\):.*<-- current mode$/\1/p'; }
@@ -99,8 +111,21 @@ setmode() {
   say "display -> mode $(mode)"
   [ "$(mode)" = "$1" ]
 }
+setglass() {
+  [ "$GLASS" = "$1" ] && return 0
+  python3.12 "$HERE/sitting.py" slider-set "$1" >> "$L/slider-set.txt" 2>&1 </dev/null 3<&- || return 1
+  GLASS=$1
+  say "slider -> $1 (written, read back, no native process alive across it)"
+}
 restore() {
   local rc=$? now
+  if [ "$SLIDER_RECORDED" = yes ]; then
+    if python3.12 "$HERE/sitting.py" slider-restore > "$L/slider-restore.txt" 2>&1 </dev/null 3<&-; then
+      say "restore: slider $(cat "$L/slider-restore.txt") (verified)"
+    else
+      say "RESTORE FAILED: slider: $(cat "$L/slider-restore.txt" 2>/dev/null | tail -n 2)"; rc=7
+    fi
+  fi
   [ "$(mode)" = 68 ] || { $DP "id:$SCREEN mode:68"; sleep 6; }
   now=$(mode)
   if [ "$now" = 68 ]; then say "restore: display mode 68 (verified)"
@@ -111,19 +136,29 @@ trap restore EXIT
 trap 'cancel 129 HUP' HUP
 trap 'cancel 130 INT' INT
 trap 'cancel 143 TERM' TERM
-say "orchestrator pid $$ (process group $(ps -o pgid= -p $$ | tr -d ' ')) REHEARSAL=${REHEARSAL:-0}" \
-  "STOP_AFTER=${STOP_AFTER:-} START_AT=${START_AT:-} PASSES=${PASSES:-} W42_PREDECLARATION=${W42_PREDECLARATION:-0}"
+say "orchestrator pid $$ (process group $(ps -o pgid= -p $$ | tr -d ' ')) W43_SITTING=$W43_SITTING" \
+  "REHEARSAL=${REHEARSAL:-0} STOP_AFTER=${STOP_AFTER:-} START_AT=${START_AT:-} PASSES=${PASSES:-}" \
+  "W43_PREDECLARATION=${W43_PREDECLARATION:-0} launcher chain ${VITREA_LAUNCHER_CHAIN:-none}"
 
 if ! python3.12 "$HERE/sitting.py" pin-check > "$L/pin-check.json" 2>&1 </dev/null; then
-  say "STOP: the bed is not the pinned declaration ($L/pin-check.json); nothing launched"
+  say "STOP: the plan is not the pinned declaration ($L/pin-check.json); nothing launched"
   exit 5
 fi
-say "pin-check: $(python3.12 -c 'import json, sys; d = json.load(open(sys.argv[1])); print("scenes", d["scenesSha256"][:12], "bed", d["splitSha256"][:12], "predeclaration" if d.get("predeclaration") else "declared")' "$L/pin-check.json")"
+say "pin-check: $(python3.12 -c 'import json, sys; d = json.load(open(sys.argv[1])); print(d["sitting"], "plan", d["planSha256"][:12], "predeclaration" if d.get("predeclaration") else "declared")' "$L/pin-check.json")"
 
-ORDER=$(python3.12 "$HERE/pass-spec.py" order </dev/null)
+UC="$L/universal-control-$(date +%s).json"
+if python3.12 "$HERE/record-machine.py" universal-control > "$UC" 2>&1 </dev/null; then
+  say "universal control (a report, not a gate): $(python3.12 -c 'import json, sys; d = json.load(open(sys.argv[1])); print("agent", "running" if d["agentActive"] else "absent", "| input path", "REACHABLE" if d["inputPathReachable"] else "down", "| Disable", d["disableSetting"], "| bluetooth", d["bluetoothControllerState"], "| awdl0", ",".join(d["awdlFlags"] or []))' "$UC")"
+else
+  say "universal control: the report could not be read ($UC)"
+fi
+
+ORDER=$(python3.12 "$HERE/pass-spec.py" order --sitting "$W43_SITTING" </dev/null)
 rc=$?
 if [ $rc -ne 0 ] || [ -z "$ORDER" ]; then say "STOP: pass-spec.py order failed (exit $rc) or is empty; nothing launched"; exit 6; fi
-case "${STOP_AFTER:-}" in ''|dumps) ;; *) say "STOP: STOP_AFTER=$STOP_AFTER is not a declared stop (dumps)"; exit 6 ;; esac
+if [ -n "${STOP_AFTER:-}" ] && ! grep -q "^$STOP_AFTER " <<< "$ORDER"; then
+  say "STOP: STOP_AFTER=$STOP_AFTER names no declared pass"; exit 6
+fi
 if [ "${REHEARSAL:-0}" = 1 ]; then
   [ -n "${PASSES:-}" ] || { say "STOP: REHEARSAL=1 needs PASSES"; exit 6; }
   [ -z "${START_AT:-}" ] || { say "STOP: a rehearsal has no continuation (START_AT)"; exit 6; }
@@ -133,16 +168,16 @@ fi
 SELECTED=""
 started=${START_AT:+no}
 started=${started:-yes}
-while read -r name kind key want runs; do
-  if [ "${STOP_AFTER:-}" = dumps ] && [ "$kind" != dump ]; then break; fi
+while read -r name kind want runs glass; do
   if [ "${REHEARSAL:-0}" = 1 ]; then
     case " $PASSES " in *" $name "*) ;; *) continue ;; esac
-    [ "$kind" != sentinel ] || { say "STOP: a sentinel pass has no rehearsal ($name)"; exit 6; }
+    [ "$kind" = dump ] || { say "STOP: only a dump pass has a rehearsal ($name is a $kind pass)"; exit 6; }
   elif [ "$started" = no ]; then
     [ "$name" = "$START_AT" ] || continue
     started=yes
   fi
-  SELECTED+="$name $kind $key $want $runs"$'\n'
+  SELECTED+="$name $kind $want $runs $glass"$'\n'
+  [ "$name" = "${STOP_AFTER:-}" ] && break
 done <<< "$ORDER"
 [ "$started" = yes ] || { say "STOP: START_AT=$START_AT names no pass"; exit 4; }
 if [ "${REHEARSAL:-0}" = 1 ]; then
@@ -152,43 +187,52 @@ if [ "${REHEARSAL:-0}" = 1 ]; then
 fi
 [ -n "$SELECTED" ] || { say "STOP: the selection is empty"; exit 4; }
 LAST=$(printf '%s' "$SELECTED" | tail -n 1 | cut -d' ' -f1)
+if [ -n "${STOP_AFTER:-}" ] && [ "$LAST" != "$STOP_AFTER" ]; then
+  say "STOP: STOP_AFTER=$STOP_AFTER is not in this selection (it precedes START_AT or is not rehearsed)"; exit 6
+fi
 say "selection: $(printf '%s' "$SELECTED" | cut -d' ' -f1 | tr '\n' ' ')(last $LAST)"
+
+# The as-found slider, recorded before anything is written (once per sitting root: a continuation
+# keeps the first record, so the trap restores what the sitting found, not what a crash left).
+if ! FOUND=$(python3.12 "$HERE/sitting.py" slider-as-found 2>>"$ST" </dev/null); then
+  say "STOP: the as-found slider could not be recorded; nothing written, nothing launched"; exit 8
+fi
+SLIDER_RECORDED=yes
+GLASS=$(python3.12 -c 'import json, sys; c = json.loads(sys.argv[1])["current"]; print(repr(float(c["value"])) if c["present"] else "absent")' "$FOUND")
+say "slider: as-found $(python3.12 -c 'import json, sys; print(json.loads(sys.argv[1])["asFound"])' "$FOUND"); now $GLASS"
 
 reached=""
 first_pass=yes
-while read -r -u 3 name kind key want runs; do
+while read -r -u 3 name kind want runs glass; do
   [ -n "$name" ] || continue
   first=1
   if [ "$first_pass" = yes ] && [ -n "${START_AT:-}" ]; then first=${FIRST_RUN:-1}; fi
   first_pass=no
   setmode "$want" || { say "STOP $name: display mode $want did not take"; exit 2; }
+  setglass "$glass" || { say "STOP $name: the slider write to $glass was refused ($L/slider-set.txt)"; exit 9; }
   $DP list > "$L/$name-display-before.txt" 2>&1
-  D=(bash "$HERE/run-sitting-w42.sh")
+  D=(bash "$HERE/run-sitting-w43.sh")
   if [ "${REHEARSAL:-0}" = 1 ]; then
-    say "START rehearsal $name ($kind) at mode $want"
-    case $kind in
-      dump) D+=(dump "$key" --rehearse) ;;
-      bed) D+=(capture "$key" --rehearse-refusal) ;;
-    esac
+    say "START rehearsal $name ($kind) at mode $want, slider $glass"
+    D+=(dump "$name" --rehearse)
   else
-    say "START $name ($kind, runs $first..$runs) at mode $want"
+    say "START $name ($kind, runs $first..$runs) at mode $want, slider $glass"
     case $kind in
-      dump) D+=(dump "$key") ;;
-      sentinel) D+=(capture "$key" "$first" --sentinel) ;;
-      bed) D+=(capture "$key" "$first") ;;
+      dump) D+=(dump "$name") ;;
+      capture) D+=(capture "$name" "$first") ;;
     esac
   fi
   job "$L/$name-driver.txt" "${D[@]}"
   rc=$?
   $DP list > "$L/$name-display-after.txt" 2>&1
-  if [ "${REHEARSAL:-0}" != 1 ] && [ -n "${W42_EVIDENCE:-}" ]; then
+  if [ "${REHEARSAL:-0}" != 1 ] && [ -n "${W43_EVIDENCE:-}" ]; then
     python3.12 "$HERE/collect-pass.py" "$name" >> "$ST" 2>&1 </dev/null 3<&-
-    if [ -n "${W42_EVIDENCE_REPO:-}" ]; then
-      git -C "$W42_EVIDENCE_REPO" add -- "$W42_EVIDENCE" && git -C "$W42_EVIDENCE_REPO" commit -q -m "W42 G1: $name $([ $rc = 0 ] && echo admitted || echo "STOPPED (driver exit $rc)")
+    if [ -n "${W43_EVIDENCE_REPO:-}" ]; then
+      git -C "$W43_EVIDENCE_REPO" add -- "$W43_EVIDENCE" && git -C "$W43_EVIDENCE_REPO" commit -q -m "W43 $W43_SITTING: $name $([ $rc = 0 ] && echo admitted || echo "STOPPED (driver exit $rc)")
 
-The pass's attestations, admissions, dump checks and driver log as they stand; manifests,
-capture logs and PNGs stay under the raw root until the archive producer files them.
-Charter clause 4, G1." -- "$W42_EVIDENCE"
+The pass's attestations, admissions, sentinel checks, idle-wait and watchdog logs as they stand;
+manifests, capture logs, dumps and PNGs stay under the raw root until the archive producer files
+them. Charter clause 4." -- "$W43_EVIDENCE"
     fi
   fi
   if [ $rc -ne 0 ]; then say "STOP $name: driver exit $rc"; exit 3; fi
@@ -197,5 +241,5 @@ Charter clause 4, G1." -- "$W42_EVIDENCE"
 done 3<<< "$SELECTED"
 [ "$reached" = "$LAST" ] || { say "STOP: the pass list ended at '${reached:-nothing}', not at $LAST"; exit 4; }
 if [ "${REHEARSAL:-0}" = 1 ]; then say "REHEARSALS DONE ($LAST)"
-elif [ "${STOP_AFTER:-}" = dumps ]; then say "DUMPS DONE: stopped after $LAST (STOP_AFTER=dumps); continue with START_AT=2x-light-active"
+elif [ -n "${STOP_AFTER:-}" ]; then say "STOPPED AFTER $LAST (STOP_AFTER); continue with START_AT=<the next pass>"
 else say "ALL PASSES DONE"; fi

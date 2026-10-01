@@ -1,12 +1,15 @@
 #!/usr/bin/env python3.12
 """collect-pass.py <pass> [<pass> ...]: copy a sitting pass's attestations into the G1 evidence.
 
-Derived from W39 G1's tools/collect-pass.py. Roots come from the environment
-(VITREA_SITTING_DIR, W42_EVIDENCE). Per run (admitted run-N and every QUARANTINE-*): the
-machine and session reads, launch.json, admission.json or refusal.txt, the idle-wait log,
-a dump run's check.json, and a distilled record (manifest SHA-256, fixture count, capture
-times, protocol). Never a manifest, a capture log, a dump JSON or a PNG: those can carry
-holdout-role cells' diagnostics and go to the archive's operational/ and dumps/ sections.
+Derived from W42 G0's collect-pass.py. Roots come from the environment (VITREA_SITTING_DIR,
+W43_EVIDENCE). Per run (admitted run-N and every QUARANTINE-*): the machine and session reads,
+attest.read, launch.json, admission.json or refusal.txt, the idle-wait log, the watchdog's log, a
+dump run's sentinel check, and a distilled record (manifest SHA-256, fixture count, capture times,
+protocol). Never a manifest, a capture log, a dump JSON or a PNG: those go to the archive.
+
+W43's change: the idle-wait log is `driver-idle.txt` (the driver writes it so), because the
+repository ignores `*.log` and W42's per-pass commits silently dropped every `driver-idle.log`
+(W42 G1 phase 1; tech-debt-tracker). A legacy `.log` is still copied, renamed to `.txt`.
 """
 import hashlib
 import json
@@ -16,8 +19,9 @@ import sys
 from pathlib import Path
 
 KEEP = ['attest.open.json', 'attest.close.json', 'attest.read', 'attest.close', 'session-before.json',
-        'session-after.json', 'launch.json', 'admission.json', 'refusal.txt', 'driver-idle.log', 'check.json',
-        'rehearsal.json']
+        'session-after.json', 'launch.json', 'admission.json', 'refusal.txt', 'driver-idle.txt', 'watchdog.txt',
+        'check.json', 'timing.json', 'rehearsal.json']
+RENAMED = {'driver-idle.log': 'driver-idle.txt'}
 
 
 def collect(run_root, evidence, name):
@@ -32,6 +36,9 @@ def collect(run_root, evidence, name):
         for f in KEEP:
             if (run / f).exists():
                 shutil.copy2(run / f, out / f)
+        for old, new in RENAMED.items():
+            if (run / old).exists() and not (run / new).exists():
+                shutil.copy2(run / old, out / new)
         row = dict(run=run.name, admitted=(run / 'admission.json').exists())
         if (run / 'manifest.json').exists():
             raw = (run / 'manifest.json').read_bytes()
@@ -52,7 +59,7 @@ def collect(run_root, evidence, name):
 
 
 if __name__ == '__main__':
-    run_root, evidence = Path(os.environ['VITREA_SITTING_DIR']), Path(os.environ['W42_EVIDENCE'])
+    run_root, evidence = Path(os.environ['VITREA_SITTING_DIR']), Path(os.environ['W43_EVIDENCE'])
     for name in sys.argv[1:]:
         rows = collect(run_root, evidence, name)
         print(name, [(r['run'], r['admitted'], r.get('fixtures')) for r in rows])
