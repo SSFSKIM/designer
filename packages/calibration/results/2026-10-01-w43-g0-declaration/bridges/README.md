@@ -20,7 +20,13 @@ tint pre-flight runs: a check over 0.5 fixtures says nothing about 0.25 pixels (
 orange tint, and `mid-chroma-solid__rrect-md`. In dark: `dark-solid__rrect-lg`,
 `checkerboard__capsule-button` with the orange tint, and `hc-text-28__rrect-md`. The text cell sits
 on rrect-md, not rrect-sm. An active rrect-sm has no region statistic under W42's instrument, so a
-bridge there could agree only by bytes, and one benign second state would stop a sitting. Each is declared in
+bridge there could agree only by bytes, and one benign second state would stop a sitting. The
+parent's ruling: an opening cell must carry a region statistic, or have been unanimous at W29 AND
+byte-identical in G0 (b)'s re-read. `hc-text__rrect-sm` was unanimous at W29 but is not a G0 (b)
+twin, so it failed the second test and was replaced. Every one of the six reads a region statistic in
+every pass (`regionMasks` in `bridge-cells.json`: mask `n`, and `w` too on rrect-lg active), and the
+generator refuses a cell that does not. The W42 sentinels read theirs as well: the impulse under mask
+`n` in the active pose, the rrect-lg checker under both. Each is declared in
 both poses at both scales. They add what G0 (b)'s bridge did not cover: uniform backdrops on the
 capsule and on the largest span, an author tint over photo and over a checker, the saturated solid,
 and text rows on rrect-md. None is a holdout or recorded scene. Their fixtures' SHA-256s are in

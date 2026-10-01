@@ -22,7 +22,10 @@ both schemes and both poses at both scales. Text sits on rrect-md rather than rr
 rrect-sm has no deep mask under W42's instrument (its half-height is inside the 20-pt refraction
 band), so a text bridge there could agree only by bytes, and one benign second state would stop a
 sitting at its opening. Both were unanimous over W29's seven runs at both scales and poses. Every one is a calibration, validation or probe scene of the
-canonical split (never holdout or recorded), declared in both poses of its scheme at both scales.
+canonical split (never holdout or recorded), declared in both poses of its scheme at both scales, and
+every one carries a region statistic under W42's instrument in every pass (`regionMasks`). The parent
+ruled that an opening cell without one could stay only if it was unanimous at W29 and byte-identical in
+G0 (b)'s re-read; the generator refuses such a cell, and none is declared.
 
 The metric is the charter's, read run by run (the coordinator's ruling): a cell AGREES when EVERY one of
 its runs is pixel-identical to its reference frame (byte identity) or has every region statistic within
@@ -54,6 +57,22 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
+def region_masks(scale, scheme, pose, sid):
+    """The masks under which W42's instrument has a region statistic for this cell: active n and w, receded n."""
+    sys.path.insert(0, str(ROOT / 'packages/calibration/results/2026-09-29-w42-g0-declaration/instrument'))
+    import bed as _IB  # noqa: F401  loads W42's backgrounds beside the canonical ones
+    import forward as F
+    import regions as R
+    bg, comp, _ = sid.split('__')
+    out = []
+    for kernel in (('n', 'w') if pose == 'active' else ('n',)):
+        c = F.Cell(f'{scale}x|{sid}', bg, comp, scale, scheme, 'rest' if pose == 'active' else 'inactive', rgb=True,
+                   kernel=kernel)
+        if c.mask.sum() and R.populations(c):
+            out.append(kernel)
+    return out
+
+
 def scene_id(cell, pose):
     base, _, tint = cell.partition('@')
     state = 'rest' if pose == 'active' else 'inactive'
@@ -81,7 +100,13 @@ def build():
                         raise SystemExit(f'{sid} is {roles[sid]}: a bridge never reads a holdout or recorded fixture')
                     path = FIXTURES / profile / f'{sid}.png'
                     fixtures[f'{profile}/{sid}'] = sha(path.read_bytes())
-                    rows.append(dict(profile=profile, scene=sid, role=roles[sid]))
+                    masks = region_masks(scale, scheme, pose, sid)
+                    if not masks:
+                        # The parent's ruling: an identity-only opening cell must have been unanimous at W29
+                        # and byte-identical in G0 (b)'s re-read; none of the declared six needs that path.
+                        raise SystemExit(f'{sid} ({scale}x {pose}) has no region statistic: an identity-only opening '
+                                         'bridge is a false-stop risk; choose a cell that reads one')
+                    rows.append(dict(profile=profile, scene=sid, role=roles[sid], regionMasks=masks))
             canonical[f'{scale}x-{pose}'] = rows
     sentinels = {}
     for scale in (2, 1):
