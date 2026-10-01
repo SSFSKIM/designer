@@ -1220,6 +1220,28 @@ permission and leave the Mac idle".** G1 starts only after G0 has merged and the
 the user, with the sitting's net length. The user switches the Screen Recording grant and lifts
 X5 by their own hand, and restores both after the sitting.
 
+### Decision Log 7 — land on improvement after the identification negative (G2; the user's)
+
+Put to the user after G2 step 2 (ledger §5.196): no declared family survives one code in any
+endpoint, so the identification is negative, but LT is much closer to Apple than what ships (the
+post-read F4 baseline). The question: continue toward landing on that measured improvement, or
+close here.
+
+**RULED 2026-10-01 by the user: "Land on improvement (Recommended)"**, the option reading "Record
+the identification as negative (LT is not Apple's exact law). Before rendering anything, declare
+an improvement rule: on the new capture's test cells, vitrea with LT must be closer to Apple than
+shipped vitrea in every backdrop type, with no cell worse by more than ~1-2 codes. Then run every
+existing landing check, then the one blind test on the unseen holdout. Three window states only:
+dark focused is excluded (its two required fits disagree). The live-backdrop cost (~4-5.5
+ms/frame) comes to you for a decision before release." The parent's terms are written in
+`packages/calibration/results/2026-09-30-w42-g2-identification/improvement-landing-addendum.md`
+(SHA-256 `0398c9c85509729d7d3be73ac12bafe6af477b62d2b194820762f9a06cf5911f`, commit `034594ab`),
+committed before any vitrea render of the new bed or of a candidate document: LT at the k@global
+least-squares point in light active, light receded and dark receded, dark active at identity; the
+improvement rule 4 (a)–(c) replacing clause 6's survival on the landing path, over the strata the
+addendum enumerates; clause 10 unchanged; clause 11's H bar rule 4 (a)–(b) on H, read once; X40 as
+declared; performance to the user in G3.
+
 ## Surprises & Discoveries
 
 - **E3's failure is one instance of a gap across the whole material** (memo A, question 2): in
@@ -1266,6 +1288,7 @@ X5 by their own hand, and restores both after the sitting.
 
 ## Revision Notes
 
+- 2026-10-01 (G2 step 2 and Decision Log 7). The identification is negative in all four endpoints (ledger §5.196); the user ruled "Land on improvement (Recommended)" (Decision Log 7), whose terms are `results/2026-09-30-w42-g2-identification/improvement-landing-addendum.md` (`0398c9c8…`). Earlier text is unchanged; where clause 6's survival, clause 9 and clause 11's bar govern the landing, the addendum's rule 4 and clause 11′ now do.
 - 2026-09-30 (**G0 COMPLETE**, pending only the declaration's hash and the merge to main; ledger
   §5.194). Every stream, both review rounds and every fix wave are merged into
   `w42-g0-declaration`:

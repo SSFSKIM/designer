@@ -1,0 +1,397 @@
+{
+  "claims": "c9a \u00a75.193",
+  "source": {
+    "label": "scratch union: current union with 6 (profile, tier) pair(s) replaced by /private/tmp/w42-g2-step4/stages/c2-light/matrix.json + /private/tmp/w42-g2-step4/stages/c2-dark/matrix.json; 0 declared pair(s) absent from the stages keep their current rows",
+    "stages": [
+      {
+        "stage": "/private/tmp/w42-g2-step4/stages/c2-light",
+        "stageMatrixSha256": "28d92e17df1a84c3340657be33e6f2bd90758f3a0c42b08e474f2744948b1a43",
+        "declaredProfiles": [
+          "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+          "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+          "apple-macos-27.0-1x-light-standard-glass0.5",
+          "apple-macos-27.0-2x-light-standard-glass0.5"
+        ],
+        "declaredDocuments": {
+          "active": {
+            "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5.json",
+            "sha256": "0495ef9fbc08"
+          },
+          "receded": {
+            "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+            "sha256": "6e04f22edcbe"
+          }
+        },
+        "replaced": [
+          {
+            "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+            "renderer": "webgpu",
+            "stageRows": 14,
+            "currentRowsDropped": 18,
+            "holdoutAbsentFromStage": 4
+          },
+          {
+            "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+            "renderer": "webgpu",
+            "stageRows": 12,
+            "currentRowsDropped": 16,
+            "holdoutAbsentFromStage": 4
+          },
+          {
+            "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+            "renderer": "webgpu",
+            "stageRows": 104,
+            "currentRowsDropped": 124,
+            "holdoutAbsentFromStage": 20
+          },
+          {
+            "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+            "renderer": "webgpu",
+            "stageRows": 104,
+            "currentRowsDropped": 124,
+            "holdoutAbsentFromStage": 20
+          }
+        ],
+        "keptFromCurrentUnion": [],
+        "declaredCells": 282,
+        "stageRows": 234,
+        "missingNonHoldoutInReplacedPairs": 0,
+        "partial": false
+      },
+      {
+        "stage": "/private/tmp/w42-g2-step4/stages/c2-dark",
+        "stageMatrixSha256": "5eef48cc885f74a2b1f7f66be2983ee05afcce04aa64efe86993e5f46e303e23",
+        "declaredProfiles": [
+          "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "apple-macos-27.0-2x-dark-standard-glass0.5"
+        ],
+        "declaredDocuments": {
+          "active": {
+            "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+            "sha256": "0eac5b294cc2"
+          },
+          "receded": {
+            "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+            "sha256": "c450b449b3b0"
+          }
+        },
+        "replaced": [
+          {
+            "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+            "renderer": "webgpu",
+            "stageRows": 76,
+            "currentRowsDropped": 83,
+            "holdoutAbsentFromStage": 7
+          },
+          {
+            "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+            "renderer": "webgpu",
+            "stageRows": 76,
+            "currentRowsDropped": 83,
+            "holdoutAbsentFromStage": 7
+          }
+        ],
+        "keptFromCurrentUnion": [],
+        "declaredCells": 166,
+        "stageRows": 152,
+        "missingNonHoldoutInReplacedPairs": 0,
+        "partial": false
+      }
+    ]
+  },
+  "admission": {
+    "mode": "candidate",
+    "documents": [
+      {
+        "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5.json",
+        "sha256": "0495ef9fbc0872f7588599d331a393effe66e302a3b919b76c804ef046041c86",
+        "sha12": "0495ef9fbc08"
+      },
+      {
+        "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+        "sha256": "6e04f22edcbe018817486a81faee791726011283fc575e77b76201a5973d8a5e",
+        "sha12": "6e04f22edcbe"
+      },
+      {
+        "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+        "sha256": "c450b449b3b026a8675f0ccf97ec6114b3cd55f1e97b4596935dbb9862e18734",
+        "sha12": "c450b449b3b0"
+      }
+    ]
+  },
+  "bound": 0.02,
+  "referenceGeneration": {
+    "dark": {
+      "activeDocumentSha256": "0eac5b294cc2",
+      "recededDocumentSha256": "5cec8c961201",
+      "file": "0eac5b294cc2.json"
+    },
+    "light": {
+      "activeDocumentSha256": "85ad7f7e3e0d",
+      "recededDocumentSha256": "30fbe05986ae",
+      "file": "85ad7f7e3e0d.json"
+    }
+  },
+  "cells": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "w31PreFit": 0.009852494148753393,
+      "waveReference": 0.010046151126749121,
+      "value": 0.035860864848205366,
+      "perWave": 2.569612321749906,
+      "cumulative": 2.639775300221085,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "w31PreFit": 0.020337332305618454,
+      "waveReference": 0.020524781721532197,
+      "value": 0.020524781721532197,
+      "perWave": 0.0,
+      "cumulative": 0.009217011016826348,
+      "passStop": true
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "w31PreFit": 0.009456690639081762,
+      "waveReference": 0.00955206126690363,
+      "value": 0.0356180203896236,
+      "perWave": 2.728830814039516,
+      "cumulative": 2.7664360344436605,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "w31PreFit": 0.0159967786246052,
+      "waveReference": 0.016057311759412985,
+      "value": 0.016057311759412985,
+      "perWave": 0.0,
+      "cumulative": 0.0037840827974375026,
+      "passStop": true
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "w31PreFit": 0.03594194320615711,
+      "waveReference": 0.035814758339236454,
+      "value": 0.04016976987837573,
+      "perWave": 0.12159823885697395,
+      "cumulative": 0.11762932927606322,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "w31PreFit": 0.03960363910570759,
+      "waveReference": 0.03949793485110859,
+      "value": 0.04298581291976612,
+      "perWave": 0.08830532740016499,
+      "cumulative": 0.08540058162410381,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "w31PreFit": 0.04438009279727724,
+      "waveReference": 0.044295876435910625,
+      "value": 0.059826452957201647,
+      "perWave": 0.3506099838381434,
+      "cumulative": 0.3480470451128046,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "w31PreFit": 0.04860129916844631,
+      "waveReference": 0.04851896296762562,
+      "value": 0.06525801535542874,
+      "perWave": 0.3450002094845328,
+      "cumulative": 0.3427216241535486,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__rest",
+      "w31PreFit": 0.05529322287954205,
+      "waveReference": 0.05525519724086033,
+      "value": 0.08295150547784944,
+      "perWave": 0.5012434959965744,
+      "cumulative": 0.5002110775593924,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__inactive",
+      "w31PreFit": 0.01867218118188696,
+      "waveReference": 0.018154066164487493,
+      "value": 0.017220831108914786,
+      "perWave": -0.05140639276716293,
+      "cumulative": -0.07772793434438517,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__rest",
+      "w31PreFit": 0.023445955450685042,
+      "waveReference": 0.023186734148722063,
+      "value": 0.02363037286403843,
+      "perWave": 0.01913329891440617,
+      "cumulative": 0.007865638648903968,
+      "passStop": true
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__inactive",
+      "w31PreFit": 0.06551392268437238,
+      "waveReference": 0.0652856423467612,
+      "value": 0.09029953925927638,
+      "perWave": 0.3831454514861814,
+      "cumulative": 0.3783259429345135,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__rest",
+      "w31PreFit": 0.07246841106870175,
+      "waveReference": 0.07226267579473558,
+      "value": 0.07808170480692808,
+      "perWave": 0.08052606616341798,
+      "cumulative": 0.07745849060916761,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "w31PreFit": 0.009188730998895308,
+      "waveReference": 0.009295233816440217,
+      "value": 0.03600365971784513,
+      "perWave": 2.8733463223019173,
+      "cumulative": 2.918240693102626,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "w31PreFit": 0.016789804575301936,
+      "waveReference": 0.016887410429379465,
+      "value": 0.016887410429379465,
+      "perWave": 0.0,
+      "cumulative": 0.005813400247737713,
+      "passStop": true
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "w31PreFit": 0.010441754653474815,
+      "waveReference": 0.010571607941888144,
+      "value": 0.03590203386012005,
+      "perWave": 2.396080715201756,
+      "cumulative": 2.43831425383784,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "w31PreFit": 0.014754598893968561,
+      "waveReference": 0.014835942443293908,
+      "value": 0.014835942443293908,
+      "perWave": 0.0,
+      "cumulative": 0.005513097977783633,
+      "passStop": true
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "w31PreFit": 0.038806346566297785,
+      "waveReference": 0.03875021243974247,
+      "value": 0.04008795949936979,
+      "perWave": 0.034522315502335546,
+      "cumulative": 0.03302585907906743,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "w31PreFit": 0.03699818234368014,
+      "waveReference": 0.036968545938222776,
+      "value": 0.04172519693696568,
+      "perWave": 0.1286675166151145,
+      "cumulative": 0.12776342765641263,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "w31PreFit": 0.048358344703363636,
+      "waveReference": 0.04827811652577723,
+      "value": 0.059803422072544965,
+      "perWave": 0.23872732360248572,
+      "cumulative": 0.23667223184306493,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "w31PreFit": 0.04640075700573945,
+      "waveReference": 0.046353058409961234,
+      "value": 0.06477069923472696,
+      "perWave": 0.39733388597305136,
+      "cumulative": 0.3958974683692181,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__rest",
+      "w31PreFit": 0.05480790094860157,
+      "waveReference": 0.05479685617058988,
+      "value": 0.08316660767863678,
+      "perWave": 0.5177258968968602,
+      "cumulative": 0.5174200478253999,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__inactive",
+      "w31PreFit": 0.017517925876061755,
+      "waveReference": 0.017222009406800687,
+      "value": 0.01430520643688612,
+      "perWave": -0.1693648459373602,
+      "cumulative": -0.1833961087577049,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__rest",
+      "w31PreFit": 0.019807895065761444,
+      "waveReference": 0.019610188535525652,
+      "value": 0.020460078848910313,
+      "perWave": 0.04333922194807086,
+      "cumulative": 0.03292544619121034,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__inactive",
+      "w31PreFit": 0.06918975077811848,
+      "waveReference": 0.06908933499847215,
+      "value": 0.08935185256738121,
+      "perWave": 0.2932799623756277,
+      "cumulative": 0.2914030121877396,
+      "passStop": false
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__rest",
+      "w31PreFit": 0.06795920397958381,
+      "waveReference": 0.06788245681502367,
+      "value": 0.07473140503225162,
+      "perWave": 0.10089423009380753,
+      "cumulative": 0.09965097670511708,
+      "passStop": false
+    }
+  ]
+}

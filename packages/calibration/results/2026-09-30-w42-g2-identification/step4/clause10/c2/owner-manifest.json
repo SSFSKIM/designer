@@ -1,0 +1,5755 @@
+{
+ "commit": "33b00f85406bd799ce279022f75e2945dc7286ea",
+ "startedAt": "2026-10-01T03:31:36Z",
+ "runner": {
+  "path": "/Users/new/vitrea-w42/g2-ident/packages/calibration/results/2026-09-29-w42-g0-declaration/gate/owner/run-owner.py",
+  "sha256": "b4c1a03577374bb0baa5d6f01c7b18a2808c32bbb69b6648842810a36b8bc36a"
+ },
+ "referees": {
+  "black-cut.py": "cff0347d0864e3a56d24afa2cbc9e9f22557abf981247826571dbbffabe88f82",
+  "chroma-cut.py": "7c884ba3da8426a20737fcfb26edaab039ab926141112772cdd418999559f279",
+  "e2-regression.py": "9c709841756baddc1d27564a22c4457891ede449687263432cbed5730dbb0758",
+  "exterior-cut.py": "0c2c20897fa1688fb23a9e4b35fb0b9bb0fbe38b0d3fb389d29e611a73dde92a",
+  "l1-cut.py": "cce2280bd1a05365211b6374568637b048d62434f5de7c1bb8968bc2206d5b13",
+  "m2-rebaseline.py": "27e243324d82c1f023f3b080aeb8c9c64ff23cde8bc203a230189fc78efa3298",
+  "referee_source.py": "a4d17d8bf64d0302b9d86371a208c2527b610a611a17aabc8c3896f5405bb24d",
+  "reproduce.py": "6844002e526abba00d57a9eb32e1f54e35e7063b468ea6a0388b8dc4435bacff",
+  "scratch-union.py": "f0cc1e4cdd63843381bf26f89954f6a063cc6ae0556e9fff14970575f7f8bd05"
+ },
+ "test": {
+  "path": "packages/calibration/test/adopted-thresholds.test.ts",
+  "committedSha256": "36eb6d68d30959a0a7354032205d24f39512423883af0ab298bbb64f6d400a40",
+  "fixedCuts": {
+   "chroma-cut.json": "packages/calibration/results/2026-09-24-w36-g1-black-branch/chroma-cut.json",
+   "exterior-cut.json": "packages/calibration/results/2026-09-24-w36-g1-black-branch/exterior-cut.json"
+  },
+  "otherCommittedCutsReadAsCommitted": [
+   "results/2026-09-20-w30-g0-cut/shadow-cut.json",
+   "results/2026-09-24-w36-g1-black-branch/black-cut.json",
+   "results/2026-09-24-w36-g2-landing/l1-cut.json"
+  ],
+  "m2NamedMissDerivation": true,
+  "l1GrowthNamedMissPath": true
+ },
+ "chromaReferences": {
+  "light": "85ad7f7e3e0d:30fbe05986ae",
+  "dark": "0eac5b294cc2:5cec8c961201"
+ },
+ "shippedDocuments": {
+  "apple-macos-26.5-1x-dark-standard.json": {
+   "path": "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+   "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+  },
+  "apple-macos-26.5-1x-light-standard.json": {
+   "path": "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+   "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26"
+  },
+  "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+   "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+  },
+  "apple-macos-27.0-1x-dark-standard-glass0.5.json": {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+   "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+  },
+  "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+   "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd"
+  },
+  "apple-macos-27.0-1x-light-standard-glass0.5.json": {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+   "sha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936"
+  }
+ },
+ "canonicalCaptures": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+ "runs": {
+  "base": {
+   "inputs": {
+    "stages": [
+     {
+      "stage": "/private/tmp/w42-g2-step4/stages/shipped-light",
+      "membershipSha256": "5f1b112cc25760c04a0f110acf009a51397ec86e2eddf4ecc7372b6514cef60c",
+      "matrixSha256": "ea2e89485161c849bfb7b432e6c1c03928ba141be6a708bc61f09fc0084353b7",
+      "rows": 234,
+      "relocatedMatrixSha256": "ea2e89485161c849bfb7b432e6c1c03928ba141be6a708bc61f09fc0084353b7",
+      "relocated": {}
+     },
+     {
+      "stage": "/private/tmp/w42-g2-step4/stages/shipped-dark",
+      "membershipSha256": "49d2832cacad81f6e599c7eab7fdd9d648fb247d7207565e4cec292ab5027e52",
+      "matrixSha256": "02c9a2995a0336ff9857da6bca5ce5e0f3015de3cbffa49aec64e318a6a45954",
+      "rows": 152,
+      "relocatedMatrixSha256": "02c9a2995a0336ff9857da6bca5ce5e0f3015de3cbffa49aec64e318a6a45954",
+      "relocated": {}
+     }
+    ],
+    "candidates": []
+   },
+   "union": {
+    "rows": 1893,
+    "legacyEnvelopeSha256": "0c56164b2edcc49c08546697988c8e620c416a8197f75982d8b89ad050849ce9",
+    "replacedPairs": [
+     "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu",
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu",
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu",
+     "apple-macos-27.0-1x-light-standard-glass0.5 webgpu",
+     "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu",
+     "apple-macos-27.0-2x-light-standard-glass0.5 webgpu"
+    ],
+    "stagedMembers": [
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ]
+    ],
+    "stagedRowsByPair": {
+     "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu": 76,
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu": 14,
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu": 12,
+     "apple-macos-27.0-1x-light-standard-glass0.5 webgpu": 104,
+     "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu": 76,
+     "apple-macos-27.0-2x-light-standard-glass0.5 webgpu": 104
+    },
+    "keptRowsByPair": {
+     "apple-macos-27.0-1x-dark-standard-glass0.5 css": 83,
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 css": 18,
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 css": 16,
+     "apple-macos-27.0-1x-light-standard-glass0.5 css": 124,
+     "apple-macos-27.0-2x-dark-standard-glass0.5 css": 28,
+     "apple-macos-27.0-2x-light-standard-glass0.5 css": 69
+    },
+    "keptRelocatedByPair": {},
+    "holdoutCarriedByPair": {
+     "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu": 7,
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu": 4,
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu": 4,
+     "apple-macos-27.0-1x-light-standard-glass0.5 webgpu": 20,
+     "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu": 7,
+     "apple-macos-27.0-2x-light-standard-glass0.5 webgpu": 20
+    },
+    "sideDocumentsUsed": [],
+    "fileSha256": "0c56164b2edcc49c08546697988c8e620c416a8197f75982d8b89ad050849ce9"
+   },
+   "captures": {
+    "stage": 386,
+    "canonical": 0,
+    "rewritten": 0,
+    "missing": [],
+    "x1Domain": 218,
+    "listingSha256": "209c5d97c24642beafda1cb550c805cab1f65899dc411d0e5097815699824f9b"
+   },
+   "cuts": {
+    "chroma-cut.json": {
+     "sha256": "27ec58360532a05488041fcde529e9d3b870f27756abf492efc3f6f1c4d62b2c",
+     "exit": 0
+    },
+    "exterior-cut.json": {
+     "sha256": "f9a42e67e7ae62e032573249122fa97f5fabe3ba18be2160edb33f3c526e7d0a",
+     "exit": 0
+    },
+    "l1-cut.json": {
+     "sha256": "31df01e6eef29f96fcb8672c90cf58a8f814af75d058cd9aa9200db586099761",
+     "exit": 0
+    },
+    "black-cut.json": {
+     "sha256": "7fa72248b329c95721d22400efd84caf8a6f5a01d262db4f2228448567142476",
+     "exit": 0
+    }
+   },
+   "m2Inserted": [],
+   "l1GrowthNamedMisses": [],
+   "l1GrowthInserted": [],
+   "testAsRunSha256": "a0985ef6dfc8e32fb6434178ec2e0cd734e7bc0ee21f974117d962d5f4edb35e",
+   "vitestExit": 0,
+   "vitestJsonSha256": "f543ba42fd551d7bfba0dcdc53479755cf51ae3a63ef53ab98f860a81e22f3f3",
+   "namedMissLists": {
+    "MISSED_27_ROWS": {
+     "list": "MISSED_27_ROWS",
+     "derived": [
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR"
+     ],
+     "recorded": [
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR"
+     ],
+     "measured": {
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.8953893830556694
+      },
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.884236578776211
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.2009480825230589
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.1947448579850081
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": {
+       "measured": 0.8269807220229869
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.539111987448197
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.4611484175735718
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.4495004585796625
+      }
+     },
+     "entries": {
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.89539,
+       "bound": "\u2265 0.9"
+      },
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.88424,
+       "bound": "\u2265 0.9"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.20095,
+       "bound": "\u2264 0.18"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": {
+       "measured": 0.82698,
+       "bound": "\u2265 0.83"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.19474,
+       "bound": "\u2264 0.19"
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.53911,
+       "bound": "\u2264 1.40"
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.46115,
+       "bound": "\u2264 1.40"
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.4495,
+       "bound": "\u2264 1.40"
+      }
+     }
+    },
+    "L1 MISSES": {
+     "list": "L1 MISSES",
+     "derived": [
+      "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+     ],
+     "recorded": [
+      "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+     ],
+     "measured": {},
+     "entries": {}
+    },
+    "L1 GROWTH_MISSES": {
+     "list": "L1 GROWTH_MISSES",
+     "derived": [],
+     "recorded": [],
+     "measured": {},
+     "entries": {}
+    }
+   },
+   "closures": {},
+   "reRecorded": [],
+   "edits": []
+  },
+  "candidate": {
+   "inputs": {
+    "stages": [
+     {
+      "stage": "/private/tmp/w42-g2-step4/stages/c2-light",
+      "membershipSha256": "3306e2b893a7d224e74cb3f367f6b18e7a12cf53e998097fb45344240483cd01",
+      "matrixSha256": "28d92e17df1a84c3340657be33e6f2bd90758f3a0c42b08e474f2744948b1a43",
+      "rows": 234,
+      "relocatedMatrixSha256": "4a9d12f22f2a03467411b6cfee3a8b6249c02fbcc0f33af1bf4ea310ba357ae3",
+      "relocated": {
+       "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:0495ef9fbc08": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+       "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:6e04f22edcbe": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json"
+      }
+     },
+     {
+      "stage": "/private/tmp/w42-g2-step4/stages/c2-dark",
+      "membershipSha256": "08a84e00bee2ccf56a7bc1fbd2d65415d2c8b86e7ac683c54d4ae614c54519ea",
+      "matrixSha256": "5eef48cc885f74a2b1f7f66be2983ee05afcce04aa64efe86993e5f46e303e23",
+      "rows": 152,
+      "relocatedMatrixSha256": "ebb7f609426646048abb7a701de93953188bee61a56ff43bbd3793b5545b7d96",
+      "relocated": {
+       "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json sha256:c450b449b3b0": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json"
+      }
+     }
+    ],
+    "candidates": [
+     {
+      "path": "/Users/new/vitrea-w42/g2-ident/packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5.json",
+      "basename": "apple-macos-27.0-1x-light-standard-glass0.5.json",
+      "sha256": "0495ef9fbc0872f7588599d331a393effe66e302a3b919b76c804ef046041c86",
+      "sha12": "0495ef9fbc08",
+      "bytes": 40475
+     },
+     {
+      "path": "/Users/new/vitrea-w42/g2-ident/packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+      "basename": "apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+      "sha256": "6e04f22edcbe018817486a81faee791726011283fc575e77b76201a5973d8a5e",
+      "sha12": "6e04f22edcbe",
+      "bytes": 18530
+     },
+     {
+      "path": "/Users/new/vitrea-w42/g2-ident/packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+      "basename": "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+      "sha256": "c450b449b3b026a8675f0ccf97ec6114b3cd55f1e97b4596935dbb9862e18734",
+      "sha12": "c450b449b3b0",
+      "bytes": 16383
+     }
+    ]
+   },
+   "union": {
+    "rows": 1893,
+    "legacyEnvelopeSha256": "10e4f407e8e927de1563baa83b0afce91f98044916a6e370d2fa0f030abe7620",
+    "replacedPairs": [
+     "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu",
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu",
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu",
+     "apple-macos-27.0-1x-light-standard-glass0.5 webgpu",
+     "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu",
+     "apple-macos-27.0-2x-light-standard-glass0.5 webgpu"
+    ],
+    "stagedMembers": [
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "checkerboard__toolbar-group__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "dark-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "impulse__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "light-solid__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__inactive-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__capsule-button__rest-tint-orange-half"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "calibration",
+      "photo__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-32__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-4__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-64__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__capsule-button__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-8__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-ml__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard-lc16__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "checkerboard__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-28__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-lg__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text-7__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "hc-text__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "impulse__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "light-solid__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-chroma-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "mid-dark-solid__rrect-lg__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "probe",
+      "photo__rrect-ml__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__inactive-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "checkerboard__capsule-button__rest-tint-blue"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__capsule-button__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "impulse__rrect-md__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__inactive-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-md__rest-tint-orange"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__rrect-sm__rest"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__inactive"
+     ],
+     [
+      "apple-macos-27.0-2x-light-standard-glass0.5",
+      "webgpu",
+      "validation",
+      "photo__toolbar-group__rest"
+     ]
+    ],
+    "stagedRowsByPair": {
+     "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu": 76,
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu": 14,
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu": 12,
+     "apple-macos-27.0-1x-light-standard-glass0.5 webgpu": 104,
+     "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu": 76,
+     "apple-macos-27.0-2x-light-standard-glass0.5 webgpu": 104
+    },
+    "keptRowsByPair": {
+     "apple-macos-27.0-1x-dark-standard-glass0.5 css": 83,
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 css": 18,
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 css": 16,
+     "apple-macos-27.0-1x-light-standard-glass0.5 css": 124,
+     "apple-macos-27.0-2x-dark-standard-glass0.5 css": 28,
+     "apple-macos-27.0-2x-light-standard-glass0.5 css": 69
+    },
+    "keptRelocatedByPair": {
+     "apple-macos-27.0-1x-dark-standard-glass0.5 css": 83,
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 css": 18,
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 css": 16,
+     "apple-macos-27.0-1x-light-standard-glass0.5 css": 124,
+     "apple-macos-27.0-2x-dark-standard-glass0.5 css": 28,
+     "apple-macos-27.0-2x-light-standard-glass0.5 css": 69
+    },
+    "holdoutCarriedByPair": {
+     "apple-macos-27.0-1x-dark-standard-glass0.5 webgpu": 7,
+     "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu": 4,
+     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5 webgpu": 4,
+     "apple-macos-27.0-1x-light-standard-glass0.5 webgpu": 20,
+     "apple-macos-27.0-2x-dark-standard-glass0.5 webgpu": 7,
+     "apple-macos-27.0-2x-light-standard-glass0.5 webgpu": 20
+    },
+    "sideDocumentsUsed": [
+     "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.kept-5cec8c961201.json",
+     "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.kept-30fbe05986ae.json",
+     "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.kept-85ad7f7e3e0d.json"
+    ],
+    "fileSha256": "10e4f407e8e927de1563baa83b0afce91f98044916a6e370d2fa0f030abe7620"
+   },
+   "captures": {
+    "stage": 386,
+    "canonical": 0,
+    "rewritten": 386,
+    "missing": [],
+    "x1Domain": 218,
+    "listingSha256": "1692e5a75c38c32bf3ecf54ab87bf0ce44fb1110d44dc129fe41fa7c00adad57"
+   },
+   "cuts": {
+    "chroma-cut.json": {
+     "sha256": "5ceb6d9fcdc4c760c5e76fda68faa7ed0415ce1b3168685bc53dae0540f95d84",
+     "exit": 0
+    },
+    "exterior-cut.json": {
+     "sha256": "3c2b951db9f5e9003e45dbe3442228c7c7c9da76f5376ba5bd609d88c2937e3f",
+     "exit": 0
+    },
+    "l1-cut.json": {
+     "sha256": "39bcc4186c6c83a6361fd10a49e1d85890f12afe2c696b53218d9bce81806349",
+     "exit": 0
+    },
+    "black-cut.json": {
+     "sha256": "d2cd8701d4fd0f95f1bb4c81995b2b74b6b71fee77989950020d9f5a5f65103d",
+     "exit": 0
+    }
+   },
+   "m2Inserted": [
+    "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.56961232, bound: \"\u2264 0.02\", native: 0.04271031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.12159824, bound: \"\u2264 0.02\", native: 0.04960473 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.08830533, bound: \"\u2264 0.02\", native: 0.05865452 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.35060998, bound: \"\u2264 0.02\", native: 0.06440934 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.34500021, bound: \"\u2264 0.02\", native: 0.07785381 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.50124350, bound: \"\u2264 0.02\", native: 0.09152257 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.38314545, bound: \"\u2264 0.02\", native: 0.09097633 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.08052607, bound: \"\u2264 0.02\", native: 0.09621216 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.87334632, bound: \"\u2264 0.02\", native: 0.04290656 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.03452232, bound: \"\u2264 0.02\", native: 0.04929191 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.12866752, bound: \"\u2264 0.02\", native: 0.05975691 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.23872732, bound: \"\u2264 0.02\", native: 0.06529274 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.39733389, bound: \"\u2264 0.02\", native: 0.07799072 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.51772590, bound: \"\u2264 0.02\", native: 0.09187031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.04333922, bound: \"\u2264 0.02\", native: 0.03955561 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "  \"texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.10089423, bound: \"\u2264 0.02\", native: 0.09314225 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed"
+   ],
+   "l1GrowthNamedMisses": [
+    {
+     "key": "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+     "measured": 0.0068888557197755995
+    },
+    {
+     "key": "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange",
+     "measured": 0.010162082855708077
+    },
+    {
+     "key": "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+     "measured": 0.006218875758655651
+    },
+    {
+     "key": "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange",
+     "measured": 0.00944991232548148
+    }
+   ],
+   "l1GrowthInserted": [
+    "    \"apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange\": { measured: 0.00688886, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed",
+    "    \"apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange\": { measured: 0.01016208, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed",
+    "    \"apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange\": { measured: 0.00621888, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed",
+    "    \"apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange\": { measured: 0.00944991, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed"
+   ],
+   "testAsRunSha256": "d9401a057014d84c403cb469e92bcf3f9961e824c3c142990673ec59d0d8ab38",
+   "vitestExit": 1,
+   "vitestJsonSha256": "9395b9ec578ac503555839613431c2efb6c2af6ea027a6db676c71d26606c9f0",
+   "namedMissLists": {
+    "MISSED_27_ROWS": {
+     "list": "MISSED_27_ROWS",
+     "derived": [
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta"
+     ],
+     "recorded": [
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta"
+     ],
+     "measured": {
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.8953893830556694
+      },
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.884236578776211
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.2009480825230589
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.1947448579850081
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": {
+       "measured": 0.8269807220229869
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.4119832752126829
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.495878673655178
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.569612321749906,
+       "native": 0.04271030775249661
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.12159823885697395,
+       "native": 0.04960472920856448
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08830532740016499,
+       "native": 0.05865452194002336
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.3506099838381434,
+       "native": 0.06440934406703132
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.3450002094845328,
+       "native": 0.07785380551164332
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5012434959965744,
+       "native": 0.09152257207224211
+      },
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.3831454514861814,
+       "native": 0.0909763250574643
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08052606616341798,
+       "native": 0.09621215941383285
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.8733463223019173,
+       "native": 0.04290656198755946
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.034522315502335546,
+       "native": 0.04929191371061753
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.1286675166151145,
+       "native": 0.05975691064195424
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.23872732360248572,
+       "native": 0.06529273859359758
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.39733388597305136,
+       "native": 0.07799071672822987
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5177258968968602,
+       "native": 0.09187031209554637
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.04333922194807086,
+       "native": 0.0395556052903782
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.10089423009380753,
+       "native": 0.09314224832504195
+      }
+     },
+     "entries": {
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.56961232,
+       "bound": "\u2264 0.02",
+       "native": 0.04271031
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.12159824,
+       "bound": "\u2264 0.02",
+       "native": 0.04960473
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08830533,
+       "bound": "\u2264 0.02",
+       "native": 0.05865452
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.35060998,
+       "bound": "\u2264 0.02",
+       "native": 0.06440934
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.34500021,
+       "bound": "\u2264 0.02",
+       "native": 0.07785381
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5012435,
+       "bound": "\u2264 0.02",
+       "native": 0.09152257
+      },
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.38314545,
+       "bound": "\u2264 0.02",
+       "native": 0.09097633
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08052607,
+       "bound": "\u2264 0.02",
+       "native": 0.09621216
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.87334632,
+       "bound": "\u2264 0.02",
+       "native": 0.04290656
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.03452232,
+       "bound": "\u2264 0.02",
+       "native": 0.04929191
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.12866752,
+       "bound": "\u2264 0.02",
+       "native": 0.05975691
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.23872732,
+       "bound": "\u2264 0.02",
+       "native": 0.06529274
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.39733389,
+       "bound": "\u2264 0.02",
+       "native": 0.07799072
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5177259,
+       "bound": "\u2264 0.02",
+       "native": 0.09187031
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.04333922,
+       "bound": "\u2264 0.02",
+       "native": 0.03955561
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.10089423,
+       "bound": "\u2264 0.02",
+       "native": 0.09314225
+      },
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.89539,
+       "bound": "\u2265 0.9"
+      },
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.88424,
+       "bound": "\u2265 0.9"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.20095,
+       "bound": "\u2264 0.18"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": {
+       "measured": 0.82698,
+       "bound": "\u2265 0.83"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.19474,
+       "bound": "\u2264 0.19"
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.53911,
+       "bound": "\u2264 1.40"
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.46115,
+       "bound": "\u2264 1.40"
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.4495,
+       "bound": "\u2264 1.40"
+      }
+     }
+    },
+    "L1 MISSES": {
+     "list": "L1 MISSES",
+     "derived": [
+      "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+     ],
+     "recorded": [
+      "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+     ],
+     "measured": {},
+     "entries": {}
+    },
+    "L1 GROWTH_MISSES": {
+     "list": "L1 GROWTH_MISSES",
+     "derived": [
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange"
+     ],
+     "recorded": [
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange"
+     ],
+     "measured": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.0068888557197755995
+      },
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.010162082855708077
+      },
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.006218875758655651
+      },
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.00944991232548148
+      }
+     },
+     "entries": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.00688886,
+       "bound": "\u2264 0.005"
+      },
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.01016208,
+       "bound": "\u2264 0.005"
+      },
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.00621888,
+       "bound": "\u2264 0.005"
+      },
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.00944991,
+       "bound": "\u2264 0.005"
+      }
+     }
+    }
+   },
+   "closures": {
+    "MISSED_27_ROWS": [
+     "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR"
+    ],
+    "L1 MISSES": [
+     "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+    ]
+   },
+   "reRecorded": [
+    {
+     "list": "MISSED_27_ROWS",
+     "key": "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
+     "field": "measured",
+     "recorded": 1.53911,
+     "reading": 1.4119832752126829
+    },
+    {
+     "list": "MISSED_27_ROWS",
+     "key": "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+     "field": "measured",
+     "recorded": 1.4495,
+     "reading": 1.495878673655178
+    }
+   ],
+   "testAtSealSha256": "784d71f6227735a981fac1365f706d31af3ac383f9c587a80f0efae8ded641ad",
+   "vitestAtSealExit": 1,
+   "vitestAtSealJsonSha256": "30081cd357a13a38fdb800d9864d667a56c635c3f9091a02c60d4f3075ac90c1",
+   "namedMissListsAtSeal": {
+    "MISSED_27_ROWS": {
+     "list": "MISSED_27_ROWS",
+     "derived": [
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta"
+     ],
+     "recorded": [
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside",
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta"
+     ],
+     "measured": {
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.8953893830556694
+      },
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.884236578776211
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.2009480825230589
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.1947448579850081
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": {
+       "measured": 0.8269807220229869
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.4119832752126829
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.495878673655178
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.569612321749906,
+       "native": 0.04271030775249661
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.12159823885697395,
+       "native": 0.04960472920856448
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08830532740016499,
+       "native": 0.05865452194002336
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.3506099838381434,
+       "native": 0.06440934406703132
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.3450002094845328,
+       "native": 0.07785380551164332
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5012434959965744,
+       "native": 0.09152257207224211
+      },
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.3831454514861814,
+       "native": 0.0909763250574643
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08052606616341798,
+       "native": 0.09621215941383285
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.8733463223019173,
+       "native": 0.04290656198755946
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.034522315502335546,
+       "native": 0.04929191371061753
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.1286675166151145,
+       "native": 0.05975691064195424
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.23872732360248572,
+       "native": 0.06529273859359758
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.39733388597305136,
+       "native": 0.07799071672822987
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5177258968968602,
+       "native": 0.09187031209554637
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.04333922194807086,
+       "native": 0.0395556052903782
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.10089423009380753,
+       "native": 0.09314224832504195
+      }
+     },
+     "entries": {
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.56961232,
+       "bound": "\u2264 0.02",
+       "native": 0.04271031
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.12159824,
+       "bound": "\u2264 0.02",
+       "native": 0.04960473
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08830533,
+       "bound": "\u2264 0.02",
+       "native": 0.05865452
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.35060998,
+       "bound": "\u2264 0.02",
+       "native": 0.06440934
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.34500021,
+       "bound": "\u2264 0.02",
+       "native": 0.07785381
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5012435,
+       "bound": "\u2264 0.02",
+       "native": 0.09152257
+      },
+      "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.38314545,
+       "bound": "\u2264 0.02",
+       "native": 0.09097633
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.08052607,
+       "bound": "\u2264 0.02",
+       "native": 0.09621216
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 2.87334632,
+       "bound": "\u2264 0.02",
+       "native": 0.04290656
+      },
+      "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.03452232,
+       "bound": "\u2264 0.02",
+       "native": 0.04929191
+      },
+      "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.12866752,
+       "bound": "\u2264 0.02",
+       "native": 0.05975691
+      },
+      "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.23872732,
+       "bound": "\u2264 0.02",
+       "native": 0.06529274
+      },
+      "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.39733389,
+       "bound": "\u2264 0.02",
+       "native": 0.07799072
+      },
+      "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.5177259,
+       "bound": "\u2264 0.02",
+       "native": 0.09187031
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.04333922,
+       "bound": "\u2264 0.02",
+       "native": 0.03955561
+      },
+      "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": {
+       "measured": 0.10089423,
+       "bound": "\u2264 0.02",
+       "native": 0.09314225
+      },
+      "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.89539,
+       "bound": "\u2265 0.9"
+      },
+      "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": {
+       "measured": 0.88424,
+       "bound": "\u2265 0.9"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.20095,
+       "bound": "\u2264 0.18"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": {
+       "measured": 0.82698,
+       "bound": "\u2265 0.83"
+      },
+      "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": {
+       "measured": 0.19474,
+       "bound": "\u2264 0.19"
+      },
+      "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.41198328,
+       "bound": "\u2264 1.40"
+      },
+      "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+       "measured": 1.49587867,
+       "bound": "\u2264 1.40"
+      }
+     }
+    },
+    "L1 MISSES": {
+     "list": "L1 MISSES",
+     "derived": [
+      "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+     ],
+     "recorded": [
+      "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+     ],
+     "measured": {},
+     "entries": {}
+    },
+    "L1 GROWTH_MISSES": {
+     "list": "L1 GROWTH_MISSES",
+     "derived": [
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange"
+     ],
+     "recorded": [
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange"
+     ],
+     "measured": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.0068888557197755995
+      },
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.010162082855708077
+      },
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.006218875758655651
+      },
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.00944991232548148
+      }
+     },
+     "entries": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.00688886,
+       "bound": "\u2264 0.005"
+      },
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.01016208,
+       "bound": "\u2264 0.005"
+      },
+      "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": {
+       "measured": 0.00621888,
+       "bound": "\u2264 0.005"
+      },
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": {
+       "measured": 0.00944991,
+       "bound": "\u2264 0.005"
+      }
+     }
+    }
+   },
+   "edits": [
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.56961232, bound: \"\u2264 0.02\", native: 0.04271031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.12159824, bound: \"\u2264 0.02\", native: 0.04960473 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.08830533, bound: \"\u2264 0.02\", native: 0.05865452 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.35060998, bound: \"\u2264 0.02\", native: 0.06440934 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.34500021, bound: \"\u2264 0.02\", native: 0.07785381 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.50124350, bound: \"\u2264 0.02\", native: 0.09152257 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.38314545, bound: \"\u2264 0.02\", native: 0.09097633 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.08052607, bound: \"\u2264 0.02\", native: 0.09621216 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 2.87334632, bound: \"\u2264 0.02\", native: 0.04290656 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.03452232, bound: \"\u2264 0.02\", native: 0.04929191 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.12866752, bound: \"\u2264 0.02\", native: 0.05975691 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.23872732, bound: \"\u2264 0.02\", native: 0.06529274 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.39733389, bound: \"\u2264 0.02\", native: 0.07799072 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.51772590, bound: \"\u2264 0.02\", native: 0.09187031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.04333922, bound: \"\u2264 0.02\", native: 0.03955561 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert M2 (Decision Log 5a): \"texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta\": { measured: 0.10089423, bound: \"\u2264 0.02\", native: 0.09314225 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed",
+    "insert L1 growth (Decision Log 5d): \"apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange\": { measured: 0.00688886, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed",
+    "insert L1 growth (Decision Log 5d): \"apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange\": { measured: 0.01016208, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed",
+    "insert L1 growth (Decision Log 5d): \"apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange\": { measured: 0.00621888, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed",
+    "insert L1 growth (Decision Log 5d): \"apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange\": { measured: 0.00944991, bound: \"\u2264 0.005\" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed",
+    "re-record MISSED_27_ROWS texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR measured: 1.53911 -> 1.41198328",
+    "re-record MISSED_27_ROWS texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR measured: 1.4495 -> 1.49587867",
+    "close MISSED_27_ROWS texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
+    "close L1 MISSES apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange"
+   ]
+  }
+ }
+}

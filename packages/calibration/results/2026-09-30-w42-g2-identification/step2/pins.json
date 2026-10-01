@@ -1,0 +1,77 @@
+{
+ "addenda": {
+  "candidate1-black-join-addendum.md": {
+   "path": "packages/calibration/results/2026-09-30-w42-g2-identification/candidate1-black-join-addendum.md",
+   "sha256": "8ad314c13047722c22869b2bd46d1691f1adfd232ccb1209b48264c5ca52a1f6"
+  },
+  "native-t-addendum.md": {
+   "path": "packages/calibration/results/2026-09-30-w42-g2-identification/native-t-addendum.md",
+   "sha256": "23e400bffb923db7c2453c0ed6062a3c4b4217d1217817adb635ef7eb7085362"
+  }
+ },
+ "archive": {
+  "asset": "w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst",
+  "bytes": 13611249,
+  "inventorySha256": "5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7",
+  "repo": "SSFSKIM/designer",
+  "sha256": "1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014",
+  "tag": "w42-archive",
+  "verifiedCopy": "/Users/new/vitrea-w42/archive-copy"
+ },
+ "archiveInventoryCommitted": {
+  "path": "packages/calibration/results/2026-09-30-w42-g1-sitting/archive/inventory.json",
+  "sha256": "5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7"
+ },
+ "bar": {
+  "decompressedSha256": "a85662f2eacba16613c6470407a5f0d7469569d4a4918f1ab0047ae0c6b8ccf0",
+  "path": "packages/calibration/results/2026-09-30-w42-g1-sitting/bar/bar.json.gz",
+  "rule": "0.5 + half the largest pairwise separation of the seven run medians; 0.5 on all 27,777"
+ },
+ "declaration": {
+  "path": "packages/calibration/results/2026-09-29-w42-g0-declaration/declaration.json",
+  "recorded": "f04ae95b626c7547cc3dbae11e08cb04a89ef642680d0b4f509c6c833633381c",
+  "sha256": "f04ae95b626c7547cc3dbae11e08cb04a89ef642680d0b4f509c6c833633381c",
+  "sourcesMismatched": [],
+  "sourcesPinned": 92
+ },
+ "python": "3.12.3",
+ "readingRule": {
+  "holdout": "never requested; withheld by the Reader",
+  "rawRootDenied": "/Users/new/vitrea-w42/g1",
+  "roles": [
+   "calibration",
+   "validation"
+  ]
+ },
+ "schema": "w42-g2-step2-pins-1",
+ "used": {
+  "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-active-E3-fit.json": "8d23ff0bb08a5458d45fbf2217e35d298955d487435dfc4e72728bf1ef422430",
+  "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-inactive-E3-fit.json": "2024f3a4baa070288145ab1095d29fd7495510e81c07a7b40ed717aae1fd2b2e",
+  "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-active-E3-fit.json": "a66a709adc3a85176a4ab7a7a02a8d8f02445ad9281fcccafb8f9cb7c7e192cc",
+  "packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-inactive-E3-fit.json": "fef8045e611ade02184e091350cd89ebcb32a6eff86d82bea39f2aefa7100fd6",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/pins.json": "4badfe18bde4520a8a6a891780160bf9dbd71d463400fd4480fab2c18729b2b7",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py": "145bbd614958f8f9bff28bb6a41a20eb681c4d2e7297c60c40a8e9e51dd89587",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/wave.py": "dfb55b4490bf8e67950ed0c7dab8f93c0c20d19e20378b1e43f2efd3754f4166",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/body.py": "c402d5d60cc69cbc9c5175fbf42a11409d8c321d3cc3503b18b228b84f152776",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/swap.py": "da34529e0bc6c102793969e2bc3bd91fd04c3414404dcfc1d922bc916e2fbc64",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/bed.py": "5b54a05ce4c9b5fedcfb66fbc1ed39fa3e1eeee34c3448d007d13dfaf1c7c184",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/families.py": "0e41f7b85bbbc9d45781d95a9334322a51c6ebd67016ebe31bc5dbfe92bad3d3",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/fitting.py": "ecd9efccc52fbffe59ea003344ac372c92db7f8add7a6c857d778a257af2e055",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/forward.py": "1a0d8efd9ae82231a4909906bdfc80da56a9eea0cc3401ae2a703267b4433af4",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/geometry.py": "de7a4fd0105ff644334c280678e89b6e5af18779ebfdf6ff25989d434998c947",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/proof_common.py": "b5708c459e6e5b1e61e7a033cb791e20079b563f1064d6f0d03c3f222ee2a292",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/refraction_order.py": "4dd20bc5a8b8bc1c0cd234b993ade75be0799050f712f10a33924423969cbbc6",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py": "d7744b2753c9801dc91bac62cce61d90112e4f5e56460e1507d02ad1b0b97e42",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/resolution.json": "71eb72991a2f0b1ea07cc891607cdac079c63e32639de52297f567bb2a04a839",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tolerances.json": "62b6b7b3c39227aff2edb481cdd02978e9277afef648c2028b18f32b46417d97",
+  "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tone.py": "e08912b66fe6369cdc057ca7229b67f3f015bb081ccbf7350c9f098aa74fe37c",
+  "packages/calibration/results/2026-09-30-w42-g1-sitting/archive/inventory.json": "5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7",
+  "packages/calibration/results/2026-09-30-w42-g1-sitting/bar/bar-headlines.json": "635ec6661236c6ce9a0e8d7f213416017ba436ae674a819e4d239b0fbb34478d",
+  "packages/calibration/results/2026-09-30-w42-g1-sitting/bar/report-bars.py": "55e5b642adb96c8265e9e6b224f7490bae0a94120f8c79bd528cf92f0e6bd211",
+  "packages/calibration/results/2026-09-30-w42-g2-identification/implementation-design/candidate1_black_join.py": "48f82d687c7569d39dfdf06e0554a2ad4f5e6949fc1f9dacedee5bf780c0e287",
+  "packages/calibration/results/2026-09-30-w42-g2-identification/implementation-design/native_t.py": "33f98a3c687751eb0e07bad931224df1fa7352f8aa6b32e3e90d7afade59f2aa"
+ },
+ "what": "W42 G2 step 2 (identification): pins recorded before the first archive read"
+}

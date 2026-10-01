@@ -1,0 +1,38 @@
+W42 G2 perf wave fix wave (§17.6): the stage encoded per group in the frame's encoder against the
+batched commit f0bd6d50 (one compute pass per frame in its own command buffer), budget.spec.ts
+alternated three times each, step 2's fit running (load logged). body-law is the sum of the
+stage's pass timestamps (one per group per-group, one per frame batched).
+
+[pergroup 1] 00:20:17Z load 10.24 9.69 11.50
+[batched 1] 00:20:24Z load 10.22 9.69 11.49
+[pergroup 2] 00:20:30Z load 10.92 9.85 11.53
+[batched 2] 00:20:37Z load 11.31 9.97 11.55
+[pergroup 3] 00:20:43Z load 11.36 10.00 11.56
+[batched 3] 00:20:50Z load 11.25 10.00 11.55
+
+== pergroup
+desktop-1440x900@2                       wall 2.4 / 2.6 / 2.5   body-law 0.00 / 0.00 / 0.00
+desktop-1440x900@2 law-active            wall 7.5 / 8.2 / 7.5   body-law 5.30 / 5.49 / 5.35
+desktop-1440x900@2 law-receded           wall 5.3 / 5.8 / 5.3   body-law 2.96 / 3.08 / 2.99
+mobile-390x844@3                         wall 2.3 / 2.5 / 2.4   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 control                 wall 2.4 / 2.6 / 2.4   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 family-C                wall 2.3 / 2.4 / 2.2   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 heavy-tap               wall 2.3 / 2.4 / 2.3   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 law-active              wall 5.9 / 6.3 / 5.9   body-law 3.73 / 3.89 / 3.74
+mobile-390x844@3 law-receded             wall 4.2 / 4.3 / 4.2   body-law 1.87 / 1.92 / 1.89
+mobile-390x844@3 shadow-off              wall 2.0 / 2.1 / 2.0   body-law 0.00 / 0.00 / 0.00
+
+== batched
+desktop-1440x900@2                       wall 2.5 / 2.5 / 2.5   body-law 0.00 / 0.00 / 0.00
+desktop-1440x900@2 law-active            wall 7.6 / 7.5 / 7.8   body-law 4.88 / 5.09 / 5.14
+desktop-1440x900@2 law-receded           wall 5.3 / 5.5 / 5.6   body-law 2.55 / 2.63 / 2.70
+mobile-390x844@3                         wall 2.4 / 2.4 / 2.5   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 control                 wall 2.5 / 2.5 / 2.6   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 family-C                wall 2.3 / 2.3 / 2.4   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 heavy-tap               wall 2.3 / 2.4 / 2.4   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 law-active              wall 6.0 / 6.0 / 6.2   body-law 3.34 / 3.43 / 3.54
+mobile-390x844@3 law-receded             wall 4.2 / 4.2 / 4.3   body-law 1.44 / 1.48 / 1.56
+mobile-390x844@3 shadow-off              wall 2.0 / 2.0 / 2.1   body-law 0.00 / 0.00 / 0.00
+
+Rendered output of the bench scene (w42-ab.spec.ts; both poses, both scales, D2, edge swap):
+per-group and batched are bit-identical in every variant.

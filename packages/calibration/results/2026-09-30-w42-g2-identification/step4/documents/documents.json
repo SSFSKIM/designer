@@ -1,0 +1,582 @@
+{
+ "schema": "w42-g2-step4-documents-1",
+ "addendum": {
+  "path": "packages/calibration/results/2026-09-30-w42-g2-identification/improvement-landing-addendum.md",
+  "sha256": "0398c9c85509729d7d3be73ac12bafe6af477b62d2b194820762f9a06cf5911f"
+ },
+ "digestRule": 2,
+ "values": {
+  "k": 2.1378819065300068,
+  "lambda": {
+   "light-rest": 0.868087996132754,
+   "light-inactive": 0.7668713671405096,
+   "dark-inactive": 0.7588099764934113
+  },
+  "landingScale": {
+   "dark-inactive": 0.9095859566263651,
+   "light-inactive": 0.9873652081344214,
+   "light-rest": 0.9764957238674986
+  },
+  "candidate1LightRecededE3": {
+   "source": "W41 G2's sealed receded document 003940b4c7da",
+   "bodyE3Gains": [
+    0.929205829365914,
+    0.9597570955316058,
+    0.9383102545096953
+   ],
+   "bodyE3Neutral": [
+    150,
+    157,
+    164,
+    171,
+    178,
+    188,
+    197
+   ],
+   "bodyE3NeutralHigh": [
+    201.9278,
+    208,
+    215,
+    221,
+    228,
+    234,
+    240
+   ]
+  }
+ },
+ "sets": {
+  "c1": {
+   "light": {
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c1/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "shipped": false,
+    "endpoint": "light active",
+    "sha256": "58f9f721e900",
+    "fileSha256": "58f9f721e90048212e68eba122aa0e94443eb66d0bfc930721d3e9ccb9b89ca7",
+    "resolvedMaterialSha256": "feb56987333d7775",
+    "leaves": {
+     "bodyLawStrength": 1,
+     "bodyLawK": [
+      2.1378819065300068,
+      2.1378819065300068
+     ],
+     "bodyLawLambda": 0.868087996132754,
+     "bodyLawNormal": 0.5,
+     "bodyLawHinge": 1,
+     "bodyLawPose": 0,
+     "bodyLawKnee": 0,
+     "bodyLawEdgeSwap": 0,
+     "bodyLawWidthUnit": 1,
+     "bodyLawEncodedAveraging": 1
+    },
+    "shippedResolvedMaterialSha256": "be13dae45098fc89"
+   },
+   "dark": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+    "shipped": true,
+    "sha256": "0eac5b294cc2"
+   },
+   "lightReceded": {
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c1/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "shipped": false,
+    "endpoint": "light receded",
+    "sha256": "e64b910fef5c",
+    "fileSha256": "e64b910fef5c887dd95cf66cb890996464c56765f86a4b1f5b9b1e13528e5ec6",
+    "resolvedMaterialSha256": "e1979078ce891142",
+    "leaves": {
+     "bodyLawStrength": 1,
+     "bodyLawK": [
+      2.1378819065300068,
+      2.1378819065300068
+     ],
+     "bodyLawLambda": 0.7668713671405096,
+     "bodyLawNormal": 0.5,
+     "bodyLawHinge": 1,
+     "bodyLawPose": 1,
+     "bodyLawKnee": 0,
+     "bodyLawEdgeSwap": 0,
+     "bodyLawWidthUnit": 1,
+     "bodyLawEncodedAveraging": 1,
+     "bodyE3Strength": 1,
+     "bodyE3Gains": [
+      0.929205829365914,
+      0.9597570955316058,
+      0.9383102545096953
+     ],
+     "bodyE3Neutral": [
+      150,
+      157,
+      164,
+      171,
+      178,
+      188,
+      197
+     ],
+     "bodyE3HighStrength": 1,
+     "bodyE3NeutralHigh": [
+      201.9278,
+      208,
+      215,
+      221,
+      228,
+      234,
+      240
+     ]
+    },
+    "shippedResolvedMaterialSha256": "b0d0d8dacc6a03af"
+   },
+   "darkReceded": {
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c1/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+    "shipped": false,
+    "endpoint": "dark receded",
+    "sha256": "58ebf5ff05ea",
+    "fileSha256": "58ebf5ff05ea1175c7936a1c3832fe32ae6fc39f8ca8ef3221c6182f40ceb3ee",
+    "resolvedMaterialSha256": "66f2070777cc604c",
+    "leaves": {
+     "bodyLawStrength": 1,
+     "bodyLawK": [
+      2.1378819065300068,
+      2.1378819065300068
+     ],
+     "bodyLawLambda": 0.7588099764934113,
+     "bodyLawNormal": 0.5,
+     "bodyLawHinge": -1,
+     "bodyLawPose": 1,
+     "bodyLawKnee": 0,
+     "bodyLawEdgeSwap": 0,
+     "bodyLawWidthUnit": 1,
+     "bodyLawEncodedAveraging": 1
+    },
+    "shippedResolvedMaterialSha256": "7c454858a3cbad5b"
+   }
+  },
+  "c2": {
+   "light": {
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "shipped": false,
+    "endpoint": "light active",
+    "sha256": "0495ef9fbc08",
+    "fileSha256": "0495ef9fbc0872f7588599d331a393effe66e302a3b919b76c804ef046041c86",
+    "resolvedMaterialSha256": "259a617d63f47e55",
+    "leaves": {
+     "bodyLawStrength": 1,
+     "bodyLawK": [
+      2.1378819065300068,
+      2.1378819065300068
+     ],
+     "bodyLawLambda": 0.868087996132754,
+     "bodyLawNormal": 0.5,
+     "bodyLawHinge": 1,
+     "bodyLawPose": 0,
+     "bodyLawKnee": 0,
+     "bodyLawEdgeSwap": 0,
+     "bodyLawWidthUnit": 1,
+     "bodyLawEncodedAveraging": 1,
+     "bodyToneTableStrength": 1,
+     "bodyToneTableLevels": [
+      0,
+      64,
+      96,
+      128,
+      160,
+      176,
+      192,
+      208,
+      224,
+      240,
+      255
+     ],
+     "bodyToneTableSpans": [
+      64,
+      80,
+      96,
+      128,
+      160
+     ],
+     "bodyToneTableCodes": [
+      [
+       132,
+       164,
+       179.5,
+       195,
+       210,
+       217,
+       225,
+       232,
+       239,
+       246,
+       253
+      ],
+      [
+       133,
+       165,
+       180.75,
+       196.5,
+       211.5,
+       218.5,
+       226,
+       233,
+       240,
+       247,
+       253.5
+      ],
+      [
+       134,
+       166,
+       182,
+       198,
+       213,
+       220,
+       227,
+       234,
+       241,
+       248,
+       254
+      ],
+      [
+       137,
+       169,
+       185,
+       201,
+       216,
+       223,
+       230,
+       237,
+       242.9787,
+       248.9574,
+       254
+      ],
+      [
+       139,
+       171,
+       187,
+       203,
+       218,
+       224.7376,
+       231.475,
+       238.2126,
+       243.7785,
+       249.3444,
+       254
+      ]
+     ],
+     "bodyToneChromaGains": [
+      0.93902775932778,
+      0.9550787131484505,
+      0.9388297274849499
+     ],
+     "bodyToneChromaScale": 0.9764957238674986
+    },
+    "shippedResolvedMaterialSha256": "be13dae45098fc89"
+   },
+   "dark": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+    "shipped": true,
+    "sha256": "0eac5b294cc2"
+   },
+   "lightReceded": {
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "shipped": false,
+    "endpoint": "light receded",
+    "sha256": "6e04f22edcbe",
+    "fileSha256": "6e04f22edcbe018817486a81faee791726011283fc575e77b76201a5973d8a5e",
+    "resolvedMaterialSha256": "8fc5ab4550eaf065",
+    "leaves": {
+     "bodyLawStrength": 1,
+     "bodyLawK": [
+      2.1378819065300068,
+      2.1378819065300068
+     ],
+     "bodyLawLambda": 0.7668713671405096,
+     "bodyLawNormal": 0.5,
+     "bodyLawHinge": 1,
+     "bodyLawPose": 1,
+     "bodyLawKnee": 0,
+     "bodyLawEdgeSwap": 0,
+     "bodyLawWidthUnit": 1,
+     "bodyLawEncodedAveraging": 1,
+     "bodyToneTableStrength": 1,
+     "bodyToneTableLevels": [
+      0,
+      64,
+      96,
+      128,
+      160,
+      176,
+      192,
+      208,
+      224,
+      240,
+      255
+     ],
+     "bodyToneTableSpans": [
+      64,
+      80,
+      96,
+      128,
+      160
+     ],
+     "bodyToneTableCodes": [
+      [
+       133,
+       161,
+       174.5,
+       188,
+       201.9278,
+       208,
+       215,
+       221,
+       228,
+       234,
+       240
+      ],
+      [
+       133,
+       161,
+       174.5,
+       188,
+       201.9278,
+       208,
+       215,
+       221,
+       228,
+       234,
+       240
+      ],
+      [
+       133,
+       161,
+       174.5,
+       188,
+       201.9278,
+       208,
+       215,
+       221,
+       228,
+       234,
+       240
+      ],
+      [
+       133,
+       161,
+       174.5,
+       188,
+       201.9278,
+       208,
+       215,
+       221,
+       228,
+       234,
+       240
+      ],
+      [
+       133.5,
+       161.5,
+       175,
+       188.25,
+       201.9278,
+       208,
+       215,
+       221,
+       228,
+       234,
+       240
+      ]
+     ],
+     "bodyToneChromaGains": [
+      0.9519916947965478,
+      0.9488475388498168,
+      0.9334270176825732
+     ],
+     "bodyToneChromaScale": 0.9873652081344214
+    },
+    "shippedResolvedMaterialSha256": "b0d0d8dacc6a03af"
+   },
+   "darkReceded": {
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+    "shipped": false,
+    "endpoint": "dark receded",
+    "sha256": "c450b449b3b0",
+    "fileSha256": "c450b449b3b026a8675f0ccf97ec6114b3cd55f1e97b4596935dbb9862e18734",
+    "resolvedMaterialSha256": "ba91db335b3108d2",
+    "leaves": {
+     "bodyLawStrength": 1,
+     "bodyLawK": [
+      2.1378819065300068,
+      2.1378819065300068
+     ],
+     "bodyLawLambda": 0.7588099764934113,
+     "bodyLawNormal": 0.5,
+     "bodyLawHinge": -1,
+     "bodyLawPose": 1,
+     "bodyLawKnee": 0,
+     "bodyLawEdgeSwap": 0,
+     "bodyLawWidthUnit": 1,
+     "bodyLawEncodedAveraging": 1,
+     "bodyToneTableStrength": 1,
+     "bodyToneTableLevels": [
+      0,
+      64,
+      96,
+      128,
+      160,
+      176,
+      192,
+      208,
+      224,
+      240,
+      255
+     ],
+     "bodyToneTableSpans": [
+      64,
+      80,
+      96,
+      128,
+      160
+     ],
+     "bodyToneTableCodes": [
+      [
+       20,
+       80.2848,
+       103.6424,
+       127,
+       146,
+       154,
+       160,
+       167,
+       172,
+       177,
+       180
+      ],
+      [
+       19.5,
+       78.1424,
+       99.0712,
+       120,
+       135,
+       140.6667,
+       144.8333,
+       149,
+       151.6702,
+       153.3404,
+       154
+      ],
+      [
+       20,
+       77,
+       95.5,
+       114,
+       125,
+       128,
+       130,
+       131,
+       131,
+       129,
+       127
+      ],
+      [
+       14,
+       71,
+       89.5,
+       108,
+       119,
+       121.0709,
+       122.1417,
+       122.2126,
+       114,
+       114,
+       114
+      ],
+      [
+       20.5,
+       77.5,
+       96,
+       111.25,
+       119,
+       121.0709,
+       122.1417,
+       122.2126,
+       114,
+       114,
+       114
+      ]
+     ],
+     "bodyToneChromaGains": [
+      1.211401506164362,
+      1.1627265637297703,
+      1.0693904009520063
+     ],
+     "bodyToneChromaScale": 0.9095859566263651
+    },
+    "shippedResolvedMaterialSha256": "7c454858a3cbad5b"
+   }
+  },
+  "c1ref": {
+   "light": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "shipped": true,
+    "sha256": "85ad7f7e3e0d"
+   },
+   "dark": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+    "shipped": true,
+    "sha256": "0eac5b294cc2"
+   },
+   "lightReceded": {
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c1ref/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "shipped": false,
+    "endpoint": "light receded",
+    "sha256": "b507c476b41a",
+    "fileSha256": "b507c476b41a291619140e3f2855c71ca0cbfa3679301d3df2cff36b90865db8",
+    "resolvedMaterialSha256": "9b8016c1d67929b2",
+    "leaves": {
+     "bodyE3Strength": 1,
+     "bodyE3Gains": [
+      0.929205829365914,
+      0.9597570955316058,
+      0.9383102545096953
+     ],
+     "bodyE3Neutral": [
+      150,
+      157,
+      164,
+      171,
+      178,
+      188,
+      197
+     ],
+     "bodyE3HighStrength": 1,
+     "bodyE3NeutralHigh": [
+      201.9278,
+      208,
+      215,
+      221,
+      228,
+      234,
+      240
+     ]
+    },
+    "shippedResolvedMaterialSha256": "b0d0d8dacc6a03af"
+   },
+   "darkReceded": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+    "shipped": true,
+    "sha256": "5cec8c961201"
+   }
+  }
+ },
+ "candidate2TableRealisation": {
+  "note": "the runtime's bodyToneTableCodes is one 5 x 11 row set read on encoded luma (body_table_codes); the addendum's candidate 2 names one row set per channel. The documents carry the Rec.709 combination, which preserves each grey's output luma; a grey's channel departs from its own row set by at most the worst below",
+  "light-rest": {
+   "worstChannelDepartureCodes": 0.787399999999991,
+   "channelSpreadCodes": 1
+  },
+  "light-inactive": {
+   "worstChannelDepartureCodes": 0.9277999999999906,
+   "channelSpreadCodes": 1
+  },
+  "dark-inactive": {
+   "worstChannelDepartureCodes": 0.7874000000000052,
+   "channelSpreadCodes": 1
+  }
+ }
+}

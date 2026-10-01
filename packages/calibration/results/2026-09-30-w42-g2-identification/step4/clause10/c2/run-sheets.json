@@ -1,0 +1,73 @@
+{
+ "label": "W42 G2 step 4, candidate 2 (LT with the native-T table, Rec.709 realisation; dark active shipped): rendered at d012ac6a+; informational, candidate 2 failed rule 4",
+ "outputRoot": "/tmp/w42-g2-step4/sheets/c2",
+ "candidateDocuments": {
+  "apple-macos-27.0-1x-light-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "sha256": "0495ef9fbc08"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "6e04f22edcbe"
+   }
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "sha256": "0495ef9fbc08"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "6e04f22edcbe"
+   }
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+    "sha256": "0eac5b294cc2"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+    "sha256": "c450b449b3b0"
+   }
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+    "sha256": "0eac5b294cc2"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/results/2026-09-30-w42-g2-identification/step4/documents/c2/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+    "sha256": "c450b449b3b0"
+   }
+  ]
+ },
+ "canonical": {
+  "shippedRoots": [
+   "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+   "/tmp/w42-g2-step4/looks/shipped/text"
+  ],
+  "candidateRoot": "/tmp/w42-g2-step4/sheets-roots/c2"
+ },
+ "gradient": {
+  "archiveRoot": "/Users/new/.cache/vitrea-archives/489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5/extracted/archive",
+  "repeat": 0,
+  "g1Inventory": {
+   "gzip": "packages/calibration/results/2026-09-27-w41-g1-identification/sheets/render-inventory.json.gz",
+   "sha256": "f52dbcb03a9b164fbafb916a400c14e79c8d8405d1ae4a6b83a487e62064f44e"
+  },
+  "shippedRoots": [
+   "/tmp/w42-g2-step4/looks/shipped/gradient"
+  ],
+  "candidateRoot": "/tmp/w42-g2-step4/looks/c2/gradient"
+ }
+}

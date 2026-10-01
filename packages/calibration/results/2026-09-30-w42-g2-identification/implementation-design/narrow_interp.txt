@@ -1,0 +1,23 @@
+W42 G2 step 3 design, the second reading: can a higher-order interpolation in sigma replace levels?
+
+strategy  cells | C deep max  C band-weighted max | y deep max  y band-weighted max  y band-weighted rms   (active, worst over cells; the Lagrange rows light only)
+chosen       96 |      0.474               0.567 |      0.115               0.127               0.025
+cubic-3      48 |      1.749               2.496 |      0.363               0.535               0.112
+cubic-4      48 |      0.401               0.455 |      0.094               0.097               0.024
+cubic-6      48 |      0.039               0.044 |      0.010               0.010               0.002
+lin-3        48 |      3.139               5.191 |      0.672               1.135               0.216
+lin-4        48 |      2.036               2.248 |      0.445               0.510               0.108
+lin-6        48 |      0.734               0.874 |      0.160               0.191               0.031
+lin6-q12     96 |      0.770               0.951 |      0.181               0.211               0.035
+quad-3       48 |      1.749               2.496 |      0.363               0.535               0.112
+quad-4       48 |      0.531               0.957 |      0.115               0.205               0.038
+quad-6       48 |      0.132               0.132 |      0.034               0.034               0.006
+
+chosen, the five worst cells by band-weighted output error:
+  checkerboard    rrect-lg  2x light  C deep 0.464  C bandw 0.567  y deep 0.092  y bandw 0.127
+  checkerboard    rrect-lg  2x dark   C deep 0.474  C bandw 0.496  y deep 0.105  y bandw 0.123
+  checkerboard-8  rrect-lg  2x light  C deep 0.468  C bandw 0.468  y deep 0.115  y bandw 0.115
+  checkerboard-8  rrect-lg  2x dark   C deep 0.365  C bandw 0.514  y deep 0.094  y bandw 0.114
+  checkerboard    rrect-lg  1x dark   C deep 0.442  C bandw 0.442  y deep 0.114  y bandw 0.114
+
+run time 121 s
