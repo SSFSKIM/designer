@@ -13,11 +13,12 @@ then re-derives each fact the declaration states as a number or a list:
 - G0 (b)'s bridge verdicts, and that `bridge.json` names the `bridge.py` beside it;
 - the bridge cells' own generator check, their 168 and 84 captures, and the sentinels' reference
   protocol;
+- both sittings' plans: their generator check, each plan's SHA-256 (the item G0 (d)'s pin-check
+  reads, `sitting-<name>`), its totals and hours against its timing, and its sources' bytes;
 - that `declaration.md` carries every item in order, each pending item marked `PENDING (<what it
   waits on>)` and no declared item so marked.
 
-A pending item declares nothing yet. It names what it waits on: memo F, G0 (e)'s rehearsals or G0
-(d). `hash` refuses while one remains. It then writes `declaration.sha256` and `closure.json` (the
+A pending item declares nothing yet. It names what it waits on: memo F or G0 (e)'s rehearsals. `hash` refuses while one remains. It then writes `declaration.sha256` and `closure.json` (the
 items G1a, G1b and G2 implement from the hash) and never overwrites either. Both must be committed
 before G1a's first capture; a change after it voids the affected sitting as the bed (clause 1).
 """
@@ -35,7 +36,7 @@ DECLARATION, TWIN = HERE / 'declaration.json', HERE / 'declaration.md'
 DIGEST, CLOSURE = HERE / 'declaration.sha256', HERE / 'closure.json'
 W42_BED = ROOT / 'packages/calibration/results/2026-09-29-w42-g0-declaration/bed/bed.json'
 CLOSURE_ITEMS = ('canonicalBed', 'probeBed', 'bridgeCells', 'repeatsAndBar', 'wTestPrediction', 'wTestStatistic',
-                 'ladderReadings', 'sittingG1a', 'sittingG1b')
+                 'ladderReadings', 'sitting-g1a', 'sitting-g1b')
 
 sha = lambda data: hashlib.sha256(data).hexdigest()  # noqa: E731
 
@@ -157,6 +158,21 @@ def bridges(c, items):
          sorted({p['long']['runs'] for e in refs['byEndpoint'].values() for p in e.values()}), [3])
 
 
+def sittings(c, items):
+    rc, out = run(HERE / 'bed/declare-sittings.py', 'check')
+    c.true(f'sittings: declare-sittings.py check ({out.strip()})', rc == 0)
+    for s in ('g1a', 'g1b'):
+        it = items[f'sitting-{s}']['declared']
+        c.eq(f'sitting-{s}: planSha256', sha((HERE / f'bed/sitting-{s}.json').read_bytes()), it['planSha256'])
+        timing = json.loads((HERE / f'bed/timing-{s}.json').read_text())
+        c.eq(f'sitting-{s}: totals against its timing', timing['priced']['totals'], it['totals'])
+        c.eq(f'sitting-{s}: modelled hours', (timing['priced']['totalHours'], timing['priced']['withStopLossHours']),
+             (it['modelledHours'], it['withStopLossHours']))
+        plan = json.loads((HERE / f'bed/sitting-{s}.json').read_text())
+        c.eq(f'sitting-{s}: its sources are the declared files', {k: v['sha256'] for k, v in plan['sources'].items()},
+             {k: sha((ROOT / v['path']).read_bytes()) for k, v in plan['sources'].items()})
+
+
 def check():
     c = Check()
     d = json.loads(DECLARATION.read_text())
@@ -165,6 +181,7 @@ def check():
     twin(c, items)
     beds(c, items)
     bridges(c, items)
+    sittings(c, items)
     return c, d, items
 
 

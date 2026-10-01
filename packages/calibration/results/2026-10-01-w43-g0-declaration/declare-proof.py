@@ -55,7 +55,7 @@ def resolve_all(tmp):
                 del it['pending']
     edit_json(tmp / 'declaration.json', fn)
     md = (tmp / 'declaration.md').read_text()
-    for tag in ('memo F', 'G0 (e) rehearsals', 'G0 (d)'):
+    for tag in ('memo F', 'G0 (e) rehearsals'):
         md = md.replace(f'**PENDING ({tag}).**', '')
     (tmp / 'declaration.md').write_text(md)
 
@@ -74,8 +74,9 @@ def main():
     case('red-twin-order', lambda t: (t / 'declaration.md').write_text((t / 'declaration.md').read_text().replace(
         '### probeBed', '### probeBedX')), 'check', 1, 'mismatch')
     case('red-unmarked-pending', lambda t: (t / 'declaration.md').write_text((t / 'declaration.md').read_text().replace(
-        '**PENDING (G0 (d)).** The order is Design\'s. The opening', 'The order is Design\'s. The opening')), 'check', 1,
-         'mismatch')
+        '**PENDING (memo F).** On the free side', 'On the free side')), 'check', 1, 'mismatch')
+    case('red-plan-sha', lambda t: edit_json(t / 'declaration.json', lambda d: item(d, 'sitting-g1b')['declared'].update(
+        planSha256='0' * 64)), 'check', 1, 'mismatch')
     case('red-neither', lambda t: edit_json(t / 'declaration.json', lambda d: item(d, 'memoF').pop('pending')), 'check',
          1, 'mismatch')
     case('red-bed-edited', lambda t: (t / 'bed/probe-bed.json').write_text(

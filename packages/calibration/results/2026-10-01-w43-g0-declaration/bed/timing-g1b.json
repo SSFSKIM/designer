@@ -1,0 +1,737 @@
+{
+ "charterG1a": null,
+ "label": "g1b",
+ "priced": {
+  "boundaries": [
+   {
+    "after": "pose-check",
+    "before": "open-w42-2x-light-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-light-active",
+    "before": "open-w42-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-light-receded",
+    "before": "open-w42-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-dark-active",
+    "before": "open-w42-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-dark-receded",
+    "before": "open-canonical-2x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-canonical-2x-active",
+    "before": "open-canonical-2x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-canonical-2x-receded",
+    "before": "dump-0.25-2x-light-active",
+    "exactSeconds": 2.15,
+    "modeSwitch": false,
+    "sliderWrite": true
+   },
+   {
+    "after": "dump-0.25-2x-light-active",
+    "before": "dump-0.25-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-2x-light-receded",
+    "before": "dump-0.25-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-2x-dark-active",
+    "before": "dump-0.25-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-2x-dark-receded",
+    "before": "probe-0.25-2x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "probe-0.25-2x-active",
+    "before": "probe-0.25-2x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "probe-0.25-2x-receded",
+    "before": "dump-1-2x-light-active",
+    "exactSeconds": 2.15,
+    "modeSwitch": false,
+    "sliderWrite": true
+   },
+   {
+    "after": "dump-1-2x-light-active",
+    "before": "dump-1-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-1-2x-light-receded",
+    "before": "dump-1-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-1-2x-dark-active",
+    "before": "dump-1-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-1-2x-dark-receded",
+    "before": "ladder-1-2x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "ladder-1-2x-active",
+    "before": "ladder-1-2x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "ladder-1-2x-receded",
+    "before": "dump-0-2x-light-active",
+    "exactSeconds": 2.15,
+    "modeSwitch": false,
+    "sliderWrite": true
+   },
+   {
+    "after": "dump-0-2x-light-active",
+    "before": "dump-0-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0-2x-light-receded",
+    "before": "dump-0-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0-2x-dark-active",
+    "before": "dump-0-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0-2x-dark-receded",
+    "before": "ladder-0-2x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "ladder-0-2x-active",
+    "before": "ladder-0-2x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "ladder-0-2x-receded",
+    "before": "dump-0.75-2x-light-active",
+    "exactSeconds": 2.15,
+    "modeSwitch": false,
+    "sliderWrite": true
+   },
+   {
+    "after": "dump-0.75-2x-light-active",
+    "before": "dump-0.75-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.75-2x-light-receded",
+    "before": "dump-0.75-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.75-2x-dark-active",
+    "before": "dump-0.75-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.75-2x-dark-receded",
+    "before": "ladder-0.75-2x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "ladder-0.75-2x-active",
+    "before": "ladder-0.75-2x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "ladder-0.75-2x-receded",
+    "before": "close-w42-2x-light-active",
+    "exactSeconds": 2.15,
+    "modeSwitch": false,
+    "sliderWrite": true
+   },
+   {
+    "after": "close-w42-2x-light-active",
+    "before": "close-w42-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-2x-light-receded",
+    "before": "close-w42-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-2x-dark-active",
+    "before": "close-w42-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   }
+  ],
+  "boundarySeconds": 44.1,
+  "captureSeconds": 12137.2,
+  "dumpSeconds": 812.1,
+  "passes": [
+   {
+    "captures": 1,
+    "exactSeconds": 11.427,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "pose-check",
+    "protocol": "normal",
+    "runs": 1,
+    "seconds": 11.4
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-light-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-light-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-dark-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-dark-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 18,
+    "exactSeconds": 178.764,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-canonical-2x-active",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 178.8
+   },
+   {
+    "captures": 18,
+    "exactSeconds": 178.764,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-canonical-2x-receded",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 178.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-light-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-light-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-dark-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-dark-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "captures": 170,
+    "exactSeconds": 1627.6583999999998,
+    "glass": 0.25,
+    "kind": "capture",
+    "mode": "68",
+    "name": "probe-0.25-2x-active",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 1627.7
+   },
+   {
+    "captures": 170,
+    "exactSeconds": 1627.6583999999998,
+    "glass": 0.25,
+    "kind": "capture",
+    "mode": "68",
+    "name": "probe-0.25-2x-receded",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 1627.7
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 1.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-1-2x-light-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 1.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-1-2x-light-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 1.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-1-2x-dark-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 1.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-1-2x-dark-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "captures": 170,
+    "exactSeconds": 1627.6583999999998,
+    "glass": 1.0,
+    "kind": "capture",
+    "mode": "68",
+    "name": "ladder-1-2x-active",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 1627.7
+   },
+   {
+    "captures": 170,
+    "exactSeconds": 1627.6583999999998,
+    "glass": 1.0,
+    "kind": "capture",
+    "mode": "68",
+    "name": "ladder-1-2x-receded",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 1627.7
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0-2x-light-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0-2x-light-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0-2x-dark-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.0,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0-2x-dark-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "captures": 170,
+    "exactSeconds": 1627.6583999999998,
+    "glass": 0.0,
+    "kind": "capture",
+    "mode": "68",
+    "name": "ladder-0-2x-active",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 1627.7
+   },
+   {
+    "captures": 170,
+    "exactSeconds": 1627.6583999999998,
+    "glass": 0.0,
+    "kind": "capture",
+    "mode": "68",
+    "name": "ladder-0-2x-receded",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 1627.7
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.75,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.75-2x-light-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.75,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.75-2x-light-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.75,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.75-2x-dark-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.75,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.75-2x-dark-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "captures": 62,
+    "exactSeconds": 598.1808,
+    "glass": 0.75,
+    "kind": "capture",
+    "mode": "68",
+    "name": "ladder-0.75-2x-active",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 598.2
+   },
+   {
+    "captures": 62,
+    "exactSeconds": 598.1808,
+    "glass": 0.75,
+    "kind": "capture",
+    "mode": "68",
+    "name": "ladder-0.75-2x-receded",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 598.2
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-light-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-light-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-dark-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-dark-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   }
+  ],
+  "totalHours": 3.61,
+  "totalSeconds": 12993.4,
+  "totals": {
+   "captureLaunches": 55,
+   "captures": 1229,
+   "dumpLaunches": 16,
+   "dumpScenes": 96,
+   "modeSwitches": 0,
+   "publishedCells": 0,
+   "sliderWrites": 5
+  },
+  "withStopLossHours": 3.97
+ },
+ "rates": {
+  "admittedRuns": 88,
+  "captureRates": {
+   "long-1x": {
+    "captures": 24,
+    "cells": [
+     2
+    ],
+    "crossCheckFit": null,
+    "intervalSeconds": 16.0,
+    "overheadSeconds": 16.75,
+    "runs": 12,
+    "wallSeconds": 394.4
+   },
+   "long-2x": {
+    "captures": 24,
+    "cells": [
+     2
+    ],
+    "crossCheckFit": null,
+    "intervalSeconds": 16.0,
+    "overheadSeconds": 17.079,
+    "runs": 12,
+    "wallSeconds": 399.9
+   },
+   "normal-1x": {
+    "captures": 458,
+    "cells": [
+     14,
+     16,
+     23,
+     26
+    ],
+    "crossCheckFit": {
+     "perCaptureSeconds": 9.4674,
+     "perRunSeconds": 2.14
+    },
+    "intervalSeconds": 9.5333,
+    "overheadSeconds": 10.878,
+    "runs": 28,
+    "wallSeconds": 4395.9
+   },
+   "normal-2x": {
+    "captures": 2935,
+    "cells": [
+     87,
+     92,
+     101,
+     107,
+     133,
+     148,
+     157,
+     175
+    ],
+    "crossCheckFit": {
+     "perCaptureSeconds": 9.4906,
+     "perRunSeconds": 7.15
+    },
+    "intervalSeconds": 9.5322,
+    "overheadSeconds": 11.427,
+    "runs": 28,
+    "wallSeconds": 28054.9
+   }
+  },
+  "dump": {
+   "elapsedFit": {
+    "perLaunchSeconds": 0.19,
+    "perSceneSeconds": 8.3306
+   },
+   "launches": 8,
+   "perLaunchSeconds": 0.77,
+   "perSceneSeconds": 8.3311,
+   "scenes": [
+    87,
+    92,
+    101,
+    107,
+    14,
+    16,
+    14,
+    16
+   ]
+  },
+  "excludedStopGaps": [
+   {
+    "after": "2x-light-receded/run-3",
+    "before": "2x-light-receded/run-4",
+    "seconds": 1137.2
+   },
+   {
+    "after": "2x-light-receded/run-6",
+    "before": "2x-light-receded/run-7",
+    "seconds": 277.5
+   }
+  ],
+  "gapBetweenPassesCount": 20,
+  "gapBetweenPassesSeconds": 1.15,
+  "gapWithinPassCount": 62,
+  "gapWithinPassSeconds": 0.75,
+  "modeSwitchSeconds": 7.74,
+  "modeSwitches": [
+   7.8,
+   7.7,
+   7.6
+  ],
+  "sliderWriteNote": "ASSUMED, not measured: W42 never wrote the slider inside a sitting",
+  "sliderWriteSeconds": 1.0,
+  "source": "packages/calibration/results/2026-09-30-w42-g1-sitting/attest"
+ },
+ "rehearsal": false,
+ "schema": "w43-sitting-timing-1",
+ "selfCheck": {
+  "differenceSeconds": -24.0,
+  "measuredSeconds": 37070.8,
+  "modelledSeconds": 37046.8
+ },
+ "sitting": "g1b",
+ "tool": {
+  "note": "run in this process, unedited",
+  "path": "bed/sitting/timing.py on w43-g0-sitting d92190b4"
+ }
+}
