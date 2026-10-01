@@ -1,0 +1,2431 @@
+{
+  "schema": "w43-probe-bed-1",
+  "charter": "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md",
+  "scenesFile": "scenes-w43-probe.json",
+  "w42": {
+    "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+    "bedSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+    "archive": {
+      "tag": "w42-archive",
+      "inventorySha256": "5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7",
+      "assetSha256": "1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014"
+    }
+  },
+  "order": [
+    {
+      "x": 0.25,
+      "kind": "probe"
+    },
+    {
+      "x": 1.0,
+      "kind": "ladder"
+    },
+    {
+      "x": 0.0,
+      "kind": "ladder"
+    },
+    {
+      "x": 0.75,
+      "kind": "ladder"
+    }
+  ],
+  "dropOrder": "a sitting that must stop drops from the bottom: x = 0.75, then 0, then 1, then the probe (X47)",
+  "runs": 3,
+  "protocol": "normal (W42 bed rows)",
+  "passes": {
+    "x0.25/2x-light-active": {
+      "x": 0.25,
+      "kind": "probe",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.25",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-144-240",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__rest"
+    },
+    "x0.25/2x-light-receded": {
+      "x": 0.25,
+      "kind": "probe",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.25",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-144-240",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__inactive"
+    },
+    "x0.25/2x-dark-active": {
+      "x": 0.25,
+      "kind": "probe",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__rest"
+    },
+    "x0.25/2x-dark-receded": {
+      "x": 0.25,
+      "kind": "probe",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__inactive"
+    },
+    "x1/2x-light-active": {
+      "x": 1.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-light-standard-glass1",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-144-240",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__rest"
+    },
+    "x1/2x-light-receded": {
+      "x": 1.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-light-standard-glass1",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-144-240",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__inactive"
+    },
+    "x1/2x-dark-active": {
+      "x": 1.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass1",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__rest"
+    },
+    "x1/2x-dark-receded": {
+      "x": 1.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass1",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__inactive"
+    },
+    "x0/2x-light-active": {
+      "x": 0.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-144-240",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__rest"
+    },
+    "x0/2x-light-receded": {
+      "x": 0.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "b-p5-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "checker-64-144-240",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__inactive"
+    },
+    "x0/2x-dark-active": {
+      "x": 0.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__rest"
+    },
+    "x0/2x-dark-receded": {
+      "x": 0.0,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g064-capsule-button",
+        "a-g064-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g160-capsule-button",
+        "a-g160-rrect-md",
+        "a-g192-capsule-button",
+        "a-g192-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c16-rrect-md",
+        "b-p2-c64-rrect-md",
+        "b-p3-c16-rrect-md",
+        "b-p3-c64-rrect-md",
+        "b-p4-c16-rrect-md",
+        "b-p4-c64-rrect-md",
+        "bp-p1-c32-capsule-button",
+        "bp-p1-c64-capsule-button",
+        "c-s32-hi-rrect-md",
+        "c-s32-lo-rrect-md",
+        "d-d0-hilo-rrect-md",
+        "d-d0-lohi-rrect-md",
+        "d-d32-hilo-rrect-md",
+        "d-d32-lohi-rrect-md"
+      ],
+      "references": [
+        "checker-16-016-112",
+        "checker-16-048-208",
+        "checker-16-096-160",
+        "checker-32-000-255",
+        "checker-64-000-255",
+        "checker-64-016-112",
+        "checker-64-048-208",
+        "checker-64-096-160",
+        "grey-000",
+        "grey-064",
+        "grey-128",
+        "grey-160",
+        "grey-192",
+        "grey-208",
+        "grey-255",
+        "impulse-048-on-208-s32-g232",
+        "impulse-208-on-048-s32-g232",
+        "split-x160-048-208",
+        "split-x160-208-048",
+        "split-x192-048-208",
+        "split-x192-208-048"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__inactive"
+    },
+    "x0.75/2x-light-active": {
+      "x": 0.75,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.75",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c64-rrect-md",
+        "c-s32-hi-rrect-md"
+      ],
+      "references": [
+        "checker-64-048-208",
+        "grey-000",
+        "grey-128",
+        "grey-208",
+        "grey-255",
+        "impulse-208-on-048-s32-g232"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__rest"
+    },
+    "x0.75/2x-light-receded": {
+      "x": 0.75,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "light",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.75",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c64-rrect-md",
+        "c-s32-hi-rrect-md"
+      ],
+      "references": [
+        "checker-64-048-208",
+        "grey-000",
+        "grey-128",
+        "grey-208",
+        "grey-255",
+        "impulse-208-on-048-s32-g232"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-light-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-light-standard-glass0.5/<cell>__inactive"
+    },
+    "x0.75/2x-dark-active": {
+      "x": 0.75,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "active",
+      "state": "rest",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.75",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c64-rrect-md",
+        "c-s32-hi-rrect-md"
+      ],
+      "references": [
+        "checker-64-048-208",
+        "grey-000",
+        "grey-128",
+        "grey-208",
+        "grey-255",
+        "impulse-208-on-048-s32-g232"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-active",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__rest"
+    },
+    "x0.75/2x-dark-receded": {
+      "x": 0.75,
+      "kind": "ladder",
+      "scale": 2,
+      "scheme": "dark",
+      "pose": "receded",
+      "state": "inactive",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.75",
+      "cells": [
+        "a-g000-capsule-button",
+        "a-g000-rrect-md",
+        "a-g128-capsule-button",
+        "a-g128-rrect-md",
+        "a-g208-capsule-button",
+        "a-g208-rrect-md",
+        "a-g255-capsule-button",
+        "a-g255-rrect-md",
+        "b-p2-c64-rrect-md",
+        "c-s32-hi-rrect-md"
+      ],
+      "references": [
+        "checker-64-048-208",
+        "grey-000",
+        "grey-128",
+        "grey-208",
+        "grey-255",
+        "impulse-208-on-048-s32-g232"
+      ],
+      "recapturedReference": "checker-64-048-208",
+      "referencesReusedFrom": "w42-archive run 1 of pass 2x-dark-receded",
+      "runs": 3,
+      "w42Counterparts": "apple-macos-27.0-2x-dark-standard-glass0.5/<cell>__inactive"
+    }
+  },
+  "counts": {
+    "x0.25/2x-light-active": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0.25/2x-light-receded": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0.25/2x-dark-active": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0.25/2x-dark-receded": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x1/2x-light-active": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x1/2x-light-receded": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x1/2x-dark-active": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x1/2x-dark-receded": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0/2x-light-active": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0/2x-light-receded": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0/2x-dark-active": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0/2x-dark-receded": {
+      "glass": 28,
+      "recapturedReferences": 1,
+      "captures": 85
+    },
+    "x0.75/2x-light-active": {
+      "glass": 10,
+      "recapturedReferences": 1,
+      "captures": 31
+    },
+    "x0.75/2x-light-receded": {
+      "glass": 10,
+      "recapturedReferences": 1,
+      "captures": 31
+    },
+    "x0.75/2x-dark-active": {
+      "glass": 10,
+      "recapturedReferences": 1,
+      "captures": 31
+    },
+    "x0.75/2x-dark-receded": {
+      "glass": 10,
+      "recapturedReferences": 1,
+      "captures": 31
+    }
+  },
+  "byPosition": {
+    "0.25": {
+      "kind": "probe",
+      "passes": 4,
+      "glassPerEndpoint": [
+        28
+      ],
+      "captures": 340
+    },
+    "1": {
+      "kind": "ladder",
+      "passes": 4,
+      "glassPerEndpoint": [
+        28
+      ],
+      "captures": 340
+    },
+    "0": {
+      "kind": "ladder",
+      "passes": 4,
+      "glassPerEndpoint": [
+        28
+      ],
+      "captures": 340
+    },
+    "0.75": {
+      "kind": "ladder",
+      "passes": 4,
+      "glassPerEndpoint": [
+        10
+      ],
+      "captures": 124
+    }
+  },
+  "totals": {
+    "passes": 16,
+    "glassCaptures": 1128,
+    "references": 16,
+    "captures": 1144
+  },
+  "cells": {
+    "a-g000-capsule-button": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-000",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g000-rrect-md": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-000",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g064-capsule-button": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-064",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g064-rrect-md": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-064",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g128-capsule-button": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-128",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g128-rrect-md": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-128",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g160-capsule-button": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-160",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g160-rrect-md": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-160",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g192-capsule-button": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-192",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g192-rrect-md": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-192",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g208-capsule-button": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-208",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g208-rrect-md": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-208",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g255-capsule-button": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-255",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "a-g255-rrect-md": {
+      "family": "A",
+      "role": "calibration",
+      "background": "grey-255",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "b-p2-c16-rrect-md": {
+      "family": "B",
+      "role": "calibration",
+      "background": "checker-16-048-208",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          48,
+          208
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "b-p2-c64-rrect-md": {
+      "family": "B",
+      "role": "calibration",
+      "background": "checker-64-048-208",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          48,
+          208
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "b-p3-c16-rrect-md": {
+      "family": "B",
+      "role": "validation",
+      "background": "checker-16-096-160",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          96,
+          160
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "b-p3-c64-rrect-md": {
+      "family": "B",
+      "role": "validation",
+      "background": "checker-64-096-160",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          96,
+          160
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "b-p4-c16-rrect-md": {
+      "family": "B",
+      "role": "calibration",
+      "background": "checker-16-016-112",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          16,
+          112
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "b-p4-c64-rrect-md": {
+      "family": "B",
+      "role": "calibration",
+      "background": "checker-64-016-112",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          16,
+          112
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "b-p5-c64-rrect-md": {
+      "family": "B",
+      "role": "calibration",
+      "background": "checker-64-144-240",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          144,
+          240
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded"
+        ]
+      }
+    },
+    "bp-p1-c32-capsule-button": {
+      "family": "B'",
+      "role": "calibration",
+      "background": "checker-32-000-255",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 32,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "bp-p1-c64-capsule-button": {
+      "family": "B'",
+      "role": "calibration",
+      "background": "checker-64-000-255",
+      "component": "capsule-button",
+      "geometry": {
+        "shape": "capsule-button",
+        "shortSide": 44,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 64,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "c-s32-hi-rrect-md": {
+      "family": "C",
+      "role": "calibration",
+      "background": "impulse-208-on-048-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0.75": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "c-s32-lo-rrect-md": {
+      "family": "C",
+      "role": "calibration",
+      "background": "impulse-048-on-208-s32-g232",
+      "component": "rrect-md-o-44-16",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 32,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 48,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "d-d0-hilo-rrect-md": {
+      "family": "D",
+      "role": "calibration",
+      "background": "split-x160-208-048",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "d-d0-lohi-rrect-md": {
+      "family": "D",
+      "role": "calibration",
+      "background": "split-x160-048-208",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "d-d32-hilo-rrect-md": {
+      "family": "D",
+      "role": "calibration",
+      "background": "split-x192-208-048",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 192,
+        "stepFromShapeCentre": 32.0,
+        "levels": {
+          "left": 208,
+          "right": 48
+        }
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    },
+    "d-d32-lohi-rrect-md": {
+      "family": "D",
+      "role": "calibration",
+      "background": "split-x192-048-208",
+      "component": "rrect-md",
+      "geometry": {
+        "shape": "rrect-md",
+        "shortSide": 96,
+        "t": 0.333333,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 192,
+        "stepFromShapeCentre": 32.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "positions": {
+        "0.25": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "1": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ],
+        "0": [
+          "2x-light-active",
+          "2x-light-receded",
+          "2x-dark-active",
+          "2x-dark-receded"
+        ]
+      }
+    }
+  },
+  "selection": {
+    "aLevels": [
+      0,
+      64,
+      128,
+      160,
+      192,
+      208,
+      255
+    ],
+    "aShapes": [
+      "capsule-button",
+      "rrect-md"
+    ],
+    "bPitch64": {
+      "light": [
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "dark": [
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "bPitch16": {
+      "light": [
+        "p2",
+        "p4"
+      ],
+      "dark": [
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "fixed": [
+      "bp-p1-c32-capsule-button",
+      "bp-p1-c64-capsule-button",
+      "d-d0-hilo-rrect-md",
+      "d-d0-lohi-rrect-md",
+      "d-d32-hilo-rrect-md",
+      "d-d32-lohi-rrect-md",
+      "c-s32-hi-rrect-md",
+      "c-s32-lo-rrect-md"
+    ],
+    "ladder075": [
+      "a-g000-capsule-button",
+      "a-g128-capsule-button",
+      "a-g208-capsule-button",
+      "a-g255-capsule-button",
+      "a-g000-rrect-md",
+      "a-g128-rrect-md",
+      "a-g208-rrect-md",
+      "a-g255-rrect-md",
+      "b-p2-c64-rrect-md",
+      "c-s32-hi-rrect-md"
+    ],
+    "excluded": {
+      "b-p5-*-rrect-md in dark": "dark native T falls above 208 at s >= 96 (§5.196 §2.1); its 240 side is outside the monotone range",
+      "rrect-ml, rrect-lg and every 1x cell": "W42 Deferred at close 1-2: no Gaussian structure closes them; they are not w-test support and add nothing the ladder reads that the 2x mid shapes do not",
+      "H and the F bridges": "X46: calibration and validation counterparts only"
+    }
+  }
+}
