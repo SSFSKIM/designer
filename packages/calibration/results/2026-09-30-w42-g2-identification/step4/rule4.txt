@@ -1,0 +1,168 @@
+W42 G2 step 4: rule 4 (improvement-landing addendum sections 4-5) and clause 7 on the W42 bed
+addendum 0398c9c85509729d7d3be73ac12bafe6af477b62d2b194820762f9a06cf5911f; archive inventory 5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7; scratch /tmp/w42-g2-step4
+
+== light active (light-rest): 85 cell-passes, 17 strata
+   stratum                        n  shipped       c1       c2  (pooled rms, codes; measured statistics)
+   uniform t=0                   13    5.300    5.410    0.000 c1:FAIL(a)
+   uniform s=96                  12    5.394    5.394    0.000
+   uniform s=128                  3    2.236    2.236    0.000
+   uniform s=160                  4    1.856    1.856    0.333
+   grey checker t=0               7    7.349    6.747    1.118
+   grey checker s=80              1    5.083    7.979    0.931 c1:FAIL(a)
+   grey checker s=96              9    5.984    6.530    0.648 c1:FAIL(a)
+   grey checker s=128             3    5.462    4.937    1.182
+   grey checker s=160             8    3.732    3.779    3.746 c1:FAIL(a) c2:FAIL(a)
+   patch / impulse s=96           6    6.904    5.274    1.263
+   patch / impulse s=128          1    2.385    8.510    1.890 c1:FAIL(a)
+   patch / impulse s=160          5    3.369    5.246    1.920 c1:FAIL(a)
+   step t=0                       1    8.744    5.737    0.694
+   step s=96                      4   10.639    6.037    0.943
+   step s=160                     2    9.631    1.962    1.132
+   colour checker s=96            4    9.452    9.582    0.747 c1:FAIL(a)
+   colour checker s=160           2    7.178    2.737    1.925
+   c1: (a) FAIL uniform t=0, grey checker s=80, grey checker s=96, grey checker s=160, patch / impulse s=128, patch / impulse s=160, colour checker s=96; (b) FAIL 831 statistic(s) on 31 cell(s); (c) clause 7 worst 1.00 code over 32 uniform cells pass  => rule 4 FAILS
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p7:ring16-32|R measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p7:ring16-32|G measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p7:ring16-32|B measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p8:ring16-32|R measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p8:ring16-32|G measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p8:ring16-32|B measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p9:ring16-32|R measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p9:ring16-32|G measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p9:ring16-32|B measured: Apple 136.0, shipped 137.0 (err 1.00), c1 154.0 (err 18.00), worse by 17.00
+      (b) 2x c-impulse-rrect-lg [patch / impulse s=160] p7:ring16-32|R measured: Apple 136.0, shipped 138.0 (err 2.00), c1 154.0 (err 18.00), worse by 16.00
+      (b) 2x c-impulse-rrect-lg [patch / impulse s=160] p7:ring16-32|G measured: Apple 136.0, shipped 138.0 (err 2.00), c1 154.0 (err 18.00), worse by 16.00
+      (b) 2x c-impulse-rrect-lg [patch / impulse s=160] p7:ring16-32|B measured: Apple 136.0, shipped 138.0 (err 2.00), c1 154.0 (err 18.00), worse by 16.00
+      ... 819 more in rule4.json
+      (b) against section 7: gap 1, class (a): the 1x pitch-8 rrect-lg checker: 432 statistic(s) on 1 cell(s), worst 12.00 worse than shipped: 1x bp-p1-c8-rrect-lg
+      (b) against section 7: gap 1, class (b): rrect-ml / rrect-lg span growth: 99 statistic(s) on 6 cell(s), worst 17.00 worse than shipped: 1x c-impulse-rrect-lg, 2x bp-p1-c32-rrect-lg, 2x bp-p1-c32-rrect-ml, 2x bp-p1-c64-rrect-ml, 2x c-impulse-rrect-lg, 2x c-impulse-rrect-ml
+      (b) against section 7: gap 5: family E chroma: 99 statistic(s) on 5 cell(s), worst 7.00 worse than shipped: 2x e-by-c16-rrect-md, 2x e-by-c64-rrect-md, 2x e-rg-c16-rrect-lg, 2x e-rg-c16-rrect-md, 2x e-rg-c64-rrect-md
+      (b) against section 7: outside the named gaps: 201 statistic(s) on 19 cell(s), worst 11.00 worse than shipped: 2x b-p2-c64-rrect-md, 2x b-p3-c16-rrect-md, 2x b-p3-c64-rrect-md, 2x b-p4-c16-rrect-md, 2x b-p5-c64-rrect-md, 2x bp-p1-c32-capsule-button, 2x bp-p1-c32-rrect-64, 2x bp-p1-c32-rrect-80, 2x bp-p1-c64-capsule-button, 2x bp-p1-c8-capsule-button, 2x c-s32-hi-rrect-md, 2x c-s8-hi-d24-rrect-md, 2x c-s8-hi-d34-rrect-md, 2x c-s8-hi-rrect-md, 2x d-d0-hilo-rrect-md, 2x d-d0-lohi-capsule-button, 2x d-d0-lohi-rrect-md, 2x d-d32-hilo-rrect-md, 2x d-d32-lohi-rrect-md
+   c2: (a) FAIL grey checker s=160; (b) FAIL 558 statistic(s) on 4 cell(s); (c) clause 7 worst 0.21 code over 32 uniform cells pass  => rule 4 FAILS
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq297:far|R measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq299:far|G measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq301:far|R measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq301:far|G measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq301:far|B measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq303:far|R measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq303:far|G measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq303:far|B measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq305:far|G measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq305:far|B measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq307:far|R measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq307:far|G measured: Apple 217.0, shipped 217.0 (err 0.00), c2 203.0 (err 14.00), worse by 14.00
+      ... 546 more in rule4.json
+      (b) against section 7: gap 1, class (a): the 1x pitch-8 rrect-lg checker: 432 statistic(s) on 1 cell(s), worst 14.00 worse than shipped: 1x bp-p1-c8-rrect-lg
+      (b) against section 7: gap 1, class (b): rrect-ml / rrect-lg span growth: 126 statistic(s) on 3 cell(s), worst 3.00 worse than shipped: 1x bp-p1-c32-rrect-lg, 1x c-impulse-rrect-lg, 2x bp-p1-c8-rrect-lg
+
+== light receded (light-inactive): 92 cell-passes, 16 strata
+   stratum                        n  shipped       c1       c2  (pooled rms, codes; measured statistics)
+   uniform t=0                   13    3.121    0.358    0.226
+   uniform s=96                  12    2.995    0.333    0.167
+   uniform s=128                  3    3.399    0.333    0.333
+   uniform s=160                  4    3.109    0.289    0.289
+   grey checker t=0               9   18.347    1.807    1.902
+   grey checker s=80              1   15.502    1.449    1.449
+   grey checker s=96              9    3.527    2.189    2.085
+   grey checker s=128             2   11.697    4.086    4.279
+   grey checker s=160             4    8.776    4.218    4.211
+   patch / impulse t=0            4    7.756    0.655    0.690
+   patch / impulse s=96           7    3.144    0.873    0.825
+   patch / impulse s=128          1    4.472    0.535    0.535
+   patch / impulse s=160          5   16.482    0.733    0.898
+   step t=0                       3    6.156    0.856    0.889
+   step s=96                     11    4.167    0.882    0.630
+   colour checker s=96            4    6.893    3.832    3.917
+   c1: (a) pass; (b) FAIL 867 statistic(s) on 11 cell(s); (c) clause 7 worst 1.00 code over 32 uniform cells pass  => rule 4 FAILS
+      (b) 2x e-rg-c64-rrect-md [colour checker s=96] sq8:a|R measured: Apple 212.0, shipped 216.0 (err 4.00), c1 198.0 (err 14.00), worse by 10.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq391:far|R measured: Apple 196.5, shipped 196.5 (err 0.00), c1 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq391:far|G measured: Apple 196.5, shipped 196.5 (err 0.00), c1 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq391:far|B measured: Apple 196.5, shipped 196.5 (err 0.00), c1 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq631:far|R measured: Apple 196.5, shipped 196.5 (err 0.00), c1 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq631:far|G measured: Apple 196.5, shipped 196.5 (err 0.00), c1 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq631:far|B measured: Apple 196.5, shipped 196.5 (err 0.00), c1 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq289:far|R measured: Apple 196.5, shipped 197.0 (err 0.50), c1 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq289:far|G measured: Apple 196.5, shipped 197.0 (err 0.50), c1 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq289:far|B measured: Apple 196.5, shipped 197.0 (err 0.50), c1 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq313:far|R measured: Apple 196.5, shipped 197.0 (err 0.50), c1 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq313:far|G measured: Apple 196.5, shipped 197.0 (err 0.50), c1 188.0 (err 8.50), worse by 8.00
+      ... 855 more in rule4.json
+      (b) against section 7: gap 1, class (a): the 1x pitch-8 rrect-lg checker: 799 statistic(s) on 1 cell(s), worst 8.50 worse than shipped: 1x bp-p1-c8-rrect-lg
+      (b) against section 7: gap 1, class (b): rrect-ml / rrect-lg span growth: 36 statistic(s) on 4 cell(s), worst 7.00 worse than shipped: 1x bp-p1-c32-rrect-lg, 2x bp-p1-c32-rrect-lg, 2x bp-p1-c32-rrect-ml, 2x bp-p1-c64-rrect-ml
+      (b) against section 7: gap 5: family E chroma: 5 statistic(s) on 2 cell(s), worst 10.00 worse than shipped: 2x e-by-c64-rrect-md, 2x e-rg-c64-rrect-md
+      (b) against section 7: outside the named gaps: 27 statistic(s) on 4 cell(s), worst 5.00 worse than shipped: 2x b-p2-c16-rrect-md, 2x b-p2-c64-rrect-md, 2x b-p3-c64-rrect-md, 2x b-p5-c64-rrect-md
+   c2: (a) pass; (b) FAIL 862 statistic(s) on 10 cell(s); (c) clause 7 worst 0.07 code over 32 uniform cells pass  => rule 4 FAILS
+      (b) 2x e-rg-c64-rrect-md [colour checker s=96] sq8:a|R measured: Apple 212.0, shipped 216.0 (err 4.00), c2 198.0 (err 14.00), worse by 10.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq391:far|R measured: Apple 196.5, shipped 196.5 (err 0.00), c2 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq391:far|G measured: Apple 196.5, shipped 196.5 (err 0.00), c2 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq391:far|B measured: Apple 196.5, shipped 196.5 (err 0.00), c2 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq631:far|R measured: Apple 196.5, shipped 196.5 (err 0.00), c2 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq631:far|G measured: Apple 196.5, shipped 196.5 (err 0.00), c2 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq631:far|B measured: Apple 196.5, shipped 196.5 (err 0.00), c2 188.0 (err 8.50), worse by 8.50
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq289:far|R measured: Apple 196.5, shipped 197.0 (err 0.50), c2 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq289:far|G measured: Apple 196.5, shipped 197.0 (err 0.50), c2 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq289:far|B measured: Apple 196.5, shipped 197.0 (err 0.50), c2 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq313:far|R measured: Apple 196.5, shipped 197.0 (err 0.50), c2 188.0 (err 8.50), worse by 8.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq313:far|G measured: Apple 196.5, shipped 197.0 (err 0.50), c2 188.0 (err 8.50), worse by 8.00
+      ... 850 more in rule4.json
+      (b) against section 7: gap 1, class (a): the 1x pitch-8 rrect-lg checker: 799 statistic(s) on 1 cell(s), worst 8.50 worse than shipped: 1x bp-p1-c8-rrect-lg
+      (b) against section 7: gap 1, class (b): rrect-ml / rrect-lg span growth: 36 statistic(s) on 4 cell(s), worst 6.50 worse than shipped: 1x bp-p1-c32-rrect-lg, 2x bp-p1-c32-rrect-lg, 2x bp-p1-c32-rrect-ml, 2x bp-p1-c64-rrect-ml
+      (b) against section 7: gap 5: family E chroma: 3 statistic(s) on 2 cell(s), worst 10.00 worse than shipped: 2x e-by-c64-rrect-md, 2x e-rg-c64-rrect-md
+      (b) against section 7: outside the named gaps: 24 statistic(s) on 3 cell(s), worst 5.00 worse than shipped: 2x b-p2-c64-rrect-md, 2x b-p3-c64-rrect-md, 2x b-p5-c64-rrect-md
+
+== dark receded (dark-inactive): 107 cell-passes, 17 strata
+   stratum                        n  shipped       c1       c2  (pooled rms, codes; measured statistics)
+   uniform t=0                   13   10.957   10.957    0.226
+   uniform s=80                   3   25.285   25.285    0.000
+   uniform s=96                  12    8.727    8.727    0.000
+   uniform s=128                  3    4.203    4.203    0.333
+   uniform s=160                  4    5.408    5.408    0.289
+   grey checker t=0               9   25.055    4.264    2.402
+   grey checker s=80              1   18.825   10.196    1.623
+   grey checker s=96              9   10.044    7.725    2.294
+   grey checker s=128             2   15.679    5.919    4.769
+   grey checker s=160             4    8.927    7.563    4.354
+   patch / impulse t=0            4    7.880    3.730    0.826
+   patch / impulse s=96          11   13.324   10.039    1.686
+   patch / impulse s=128          5   15.365   12.427    6.926
+   patch / impulse s=160          5   12.474   12.176    0.893
+   step t=0                       3   26.470    3.572    1.166
+   step s=96                     15   17.949    9.102    1.493
+   colour checker s=96            4   12.735   13.390    3.940 c1:FAIL(a)
+   c1: (a) FAIL colour checker s=96; (b) FAIL 1350 statistic(s) on 31 cell(s); (c) clause 7 worst 0.00 code over 35 uniform cells pass  => rule 4 FAILS
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p7:ring8-16|R measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p7:ring8-16|G measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p7:ring8-16|B measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p8:ring8-16|R measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p8:ring8-16|G measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p8:ring8-16|B measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p9:ring8-16|R measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p9:ring8-16|G measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 2x c-impulse-rrect-ml [patch / impulse s=128] p9:ring8-16|B measured: Apple 22.0, shipped 24.0 (err 2.00), c1 1.0 (err 21.00), worse by 19.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p2:core|R measured: Apple 24.0, shipped 25.0 (err 1.00), c1 4.0 (err 20.00), worse by 19.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p2:core|G measured: Apple 24.0, shipped 25.0 (err 1.00), c1 4.0 (err 20.00), worse by 19.00
+      (b) 1x c-impulse-rrect-lg [patch / impulse s=160] p2:core|B measured: Apple 24.0, shipped 25.0 (err 1.00), c1 4.0 (err 20.00), worse by 19.00
+      ... 1338 more in rule4.json
+      (b) against section 7: gap 1, class (a): the 1x pitch-8 rrect-lg checker: 813 statistic(s) on 1 cell(s), worst 11.00 worse than shipped: 1x bp-p1-c8-rrect-lg
+      (b) against section 7: gap 1, class (b): rrect-ml / rrect-lg span growth: 267 statistic(s) on 8 cell(s), worst 19.00 worse than shipped: 1x bp-p1-c32-rrect-lg, 1x c-impulse-rrect-lg, 2x bp-p1-c32-rrect-lg, 2x bp-p1-c32-rrect-ml, 2x bp-p1-c64-rrect-ml, 2x c-impulse-rrect-lg, 2x c-impulse-rrect-ml, 2x c-s32-hi-p4-rrect-ml
+      (b) against section 7: gap 5: family E chroma: 11 statistic(s) on 2 cell(s), worst 11.00 worse than shipped: 2x e-by-c64-rrect-md, 2x e-rg-c64-rrect-md
+      (b) against section 7: outside the named gaps: 259 statistic(s) on 20 cell(s), worst 9.00 worse than shipped: 2x b-p2-c16-rrect-md, 2x b-p2-c64-rrect-md, 2x b-p4-c16-rrect-md, 2x b-p5-c16-rrect-md, 2x b-p5-c64-rrect-md, 2x bp-p1-c32-capsule-button, 2x bp-p1-c32-rrect-64, 2x bp-p1-c32-rrect-80, 2x c-s16-hi-capsule-button, 2x c-s16-hi-end-capsule-button, 2x c-s16-lo-capsule-button, 2x c-s32-hi-p4-rrect-md, 2x c-s32-lo-rrect-md, 2x d-d0-hilo-rrect-md, 2x d-d0-lohi-rrect-md, 2x d-d12-hilo-rrect-md, 2x d-d12-lohi-p4-rrect-md, 2x d-d12-lohi-rrect-md, 2x d-d32-hilo-rrect-md, 2x d-d32-lohi-rrect-md
+   c2: (a) pass; (b) FAIL 842 statistic(s) on 7 cell(s); (c) clause 7 worst 0.28 code over 35 uniform cells pass  => rule 4 FAILS
+      (b) 2x bp-p1-c64-rrect-ml [grey checker s=128] sq11:knee|R measured: Apple 107.0, shipped 109.0 (err 2.00), c2 93.0 (err 14.00), worse by 12.00
+      (b) 2x bp-p1-c64-rrect-ml [grey checker s=128] sq11:knee|G measured: Apple 107.0, shipped 109.0 (err 2.00), c2 93.0 (err 14.00), worse by 12.00
+      (b) 2x bp-p1-c64-rrect-ml [grey checker s=128] sq11:knee|B measured: Apple 107.0, shipped 109.0 (err 2.00), c2 93.0 (err 14.00), worse by 12.00
+      (b) 2x bp-p1-c64-rrect-ml [grey checker s=128] sq15:knee|R measured: Apple 107.0, shipped 109.0 (err 2.00), c2 93.0 (err 14.00), worse by 12.00
+      (b) 2x bp-p1-c64-rrect-ml [grey checker s=128] sq15:knee|G measured: Apple 107.0, shipped 109.0 (err 2.00), c2 93.0 (err 14.00), worse by 12.00
+      (b) 2x bp-p1-c64-rrect-ml [grey checker s=128] sq15:knee|B measured: Apple 107.0, shipped 109.0 (err 2.00), c2 93.0 (err 14.00), worse by 12.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq206:far|R measured: Apple 101.0, shipped 102.0 (err 1.00), c2 111.0 (err 10.00), worse by 9.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq206:far|G measured: Apple 101.0, shipped 102.0 (err 1.00), c2 111.0 (err 10.00), worse by 9.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq206:far|B measured: Apple 101.0, shipped 102.0 (err 1.00), c2 111.0 (err 10.00), worse by 9.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq766:far|R measured: Apple 102.0, shipped 102.0 (err 0.00), c2 111.0 (err 9.00), worse by 9.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq766:far|G measured: Apple 102.0, shipped 102.0 (err 0.00), c2 111.0 (err 9.00), worse by 9.00
+      (b) 1x bp-p1-c8-rrect-lg [grey checker s=160] sq766:far|B measured: Apple 102.0, shipped 102.0 (err 0.00), c2 111.0 (err 9.00), worse by 9.00
+      ... 830 more in rule4.json
+      (b) against section 7: gap 1, class (a): the 1x pitch-8 rrect-lg checker: 801 statistic(s) on 1 cell(s), worst 9.00 worse than shipped: 1x bp-p1-c8-rrect-lg
+      (b) against section 7: gap 1, class (b): rrect-ml / rrect-lg span growth: 36 statistic(s) on 3 cell(s), worst 12.00 worse than shipped: 2x bp-p1-c32-rrect-ml, 2x bp-p1-c64-rrect-ml, 2x c-impulse-rrect-ml
+      (b) against section 7: gap 5: family E chroma: 2 statistic(s) on 2 cell(s), worst 8.00 worse than shipped: 2x e-by-c64-rrect-md, 2x e-rg-c64-rrect-md
+      (b) against section 7: outside the named gaps: 3 statistic(s) on 1 cell(s), worst 3.00 worse than shipped: 2x b-p4-c16-rrect-md
+
