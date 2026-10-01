@@ -437,6 +437,33 @@ stroke leaf survives: its M2 search is UNMEASURED by ruling, and the dark contou
 The next wave starts at the receded body's spatial argument: group luma, a wider or
 encoded-space blur, or a blend. Its referees are those canonical cells, plus a new native
 capture whose holdout carries structured backdrops (W41 Deferred at close 1–7).
+**W42 (§5.194–§5.197, 2026-09-29/10-01) took that question to all four window states, captured a
+new native bed, and shipped nothing.** Grounding read Apple's body as two scales composited
+one-sidedly. A narrow blur's radius is scaled by the declared opacity (σn = k·5·o). A wide
+ENCODED blur (σw = k·8) is composited Lighten in light and Darken in dark at a fitted λ, then
+Normal at w, the Glass slider's 0.5. Widths are in points; vitrea's are device px averaged in
+linear light (D1, D2). G0 hashed that law, LT, with its rivals and two tone candidates before the
+sitting (`f04ae95b…`): the landed solve, or Apple's native grey curve measured on the bed. G1
+captured 3,441 frames, archived as `w42-archive`. G2 built LT behind zero identity gates on both
+tiers and proved it at identity: goldens byte-identical, the WGSL against the oracles to 1.7e-4
+code, the render within 0.053, the runtime base 40/40. Its live-backdrop cost came down from
++11–16 to +3.7–5.8 ms a frame. The identification was negative: no declared family survives one
+code in any endpoint. LT's worst miss is 10–16 codes, and nothing closes the large spans or the 1x
+pitch-8 rrect-lg aliasing cells. Still, LT's calibration pooled error is 1.2–2.1 codes against
+6.4–11.4 for the shipped structure. The user then ruled a landing on improvement: every stratum no
+worse than shipped, and no statistic worse by more than 2 codes. Neither candidate passed in any
+endpoint. Candidate 2 beat shipped in 49 of 50 strata, but its one stratum failure sits on a cell
+where the shipped render reads Apple's value by coincidence; a rule scored against shipped's error
+inherits shipped's coincidences (W42 Deferred at close 5). The code stays on `w42-g2-impl`
+`b92bfb1f` and `w42-g2-identification` `91e56c47`, and main has the evidence only. Two facts to
+keep: Apple's dark native T FALLS above 208 at s ≥ 96, and the shipped tone solve is far from
+monotone in the first code and a half above black (a tracker entry). The holdout H is unspent and
+serves the next declaration on this archive. By the user's ruling the Screen Recording grant stays
+with the W39 side bundle. The original bundle's restore and positive check (`204f21f0…` or
+`6c15311b…`) happen at the next sitting. **The next wave is the `-glass0.25` capture**, the user's
+next phase. LT declares w = `NSGlassTintAmount`, so a clearer-glass generation tests that constant
+with no refit. Its declaration states black handling, the span law and the aliasing cells first
+(W42 Deferred at close 1–10).
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
