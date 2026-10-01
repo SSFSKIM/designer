@@ -16,7 +16,7 @@ The change is the body and its first two CSS px, and nothing outside them. Chang
 
 | law | verdict (declared rule) | what moved, as the eye sees it | where |
 | --- | --- | --- | --- |
-| interior level | MOVED | **Light body darker:** a median 3.3 codes active and 7.3 receded, and 13–15 codes over black and dark-solid. **Dark body:** no change on uniform backdrops (0 codes, byte-identical bodies); brighter by 1.5–3.4 codes at spans 128 and 160, and by 2.1 at 96 when receded | light, both poses; dark at s ≥ 96 |
+| interior level | MOVED | **Light body darker:** a median 3.3 codes active and 7.3 receded, and 13–15 codes over black and dark-solid. **Dark body:** no change on uniform backdrops below span 96 (the deep body byte-identical on 42 of 44 cells, the other two by one code); brighter by 1.5–3.4 codes at spans 128 and 160, and by 2.1 at 96 when receded | light, both poses; dark at s ≥ 96 |
 | tone by backdrop | MOVED | The transfer slope rises: light checkerboard 0.082 → 0.150, photo 0.53 → 0.64. The light offset falls about 0.05 linear; the dark offset barely moves | both schemes |
 | scatter | MOVED | More of the backdrop's structure survives: interior spread ×1.1–1.7 on most structured backdrops in both schemes; the light receded fine checkers (pitch 4, 8) and impulse fall instead (×0.81–0.94); ×1.00 on dark solids | both schemes, both poses |
 | chroma | MOVED (small) | Light body chroma +9 % on mid-chroma-solid and +13–17 % on photo; dark unchanged (×0.96–1.00) | light |
@@ -55,9 +55,10 @@ one-sided 0.25 body (Design, "The w-test"), so a scatter refit buys part of a ga
 must close anyway.
 
 **3. In the dark documents, should only the thick tone and the scatter move?**
-*Recommendation: yes.* On uniform backdrops the dark body did not change at all (0 codes; memo F:
-the dark fill is inert below 0.5 and a uniform backdrop makes the wide and narrow terms equal). It
-brightened 1.5–3.4 codes only at s ≥ 96, where memo F's MaxLuma cap relaxes. So move
+*Recommendation: yes.* On uniform backdrops below span 96 the dark body did not change: it is
+byte-identical on 42 of 44 cells. Memo F says why to expect that: the dark fill is inert below 0.5,
+and a uniform backdrop makes the wide and narrow terms equal. The body brightened 1.5–3.4 codes only
+at s ≥ 96, where memo F's MaxLuma cap relaxes. So move
 `backdropToneResponseThick` (active and receded) and the scatter (item 2). Hold the thin ordinates,
 the black branch, `tintAlpha` and `bodyChromaRetention` at their 0.5 values. *Alternative:* refit all
 four dark tone ordinates jointly. That is sound if the fit shows the thin ordinates trading against
