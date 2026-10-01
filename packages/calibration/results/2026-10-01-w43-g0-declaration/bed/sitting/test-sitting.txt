@@ -1,27 +1,53 @@
-test_a_later_pass_blocks_an_earlier_one (test_sitting.Capture.test_a_later_pass_blocks_an_earlier_one) ... ok
-test_a_slider_read_off_the_pass_s_position_refuses_before_launch (test_sitting.Capture.test_a_slider_read_off_the_pass_s_position_refuses_before_launch) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmphd0frszd/root/bed-1x-active/QUARANTINE-run-1-1790839388042180000
+test_a_sentinel_reference_is_extracted_by_its_digest_and_reads_identical (test_sitting.BridgeReferences.test_a_sentinel_reference_is_extracted_by_its_digest_and_reads_identical) ... ok
+test_a_closing_bridge_that_disagrees_is_recorded_and_the_pass_goes_on (test_sitting.BridgeRun.test_a_closing_bridge_that_disagrees_is_recorded_and_the_pass_goes_on) ... /Users/new/vitrea-w43/g0-sitting/packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/geometry.py:32: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/new/vitrea-w43/g0-sitting/apps/reference-apple/scenes.json' mode='r' encoding='UTF-8'>
+  _CANON = json.load(open(CANON_SCENES))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+close-w42-1x-light-active run 1: admitted cells=2
+close-w42-1x-light-active run 1: the bridge DISAGREES with its references: {'apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest': ['n:far-cores|R -2.0 codes (tolerance 1)', 'n:knee-cores|R -2.0 codes (tolerance 1)', 'n:sq10:knee|R -2.0 codes (tolerance 1)'], 'apple-macos-27.0-1x-light-standard-glass0.5/f-impulse-rrect-md__rest': ['n:p8:core|R -2.0 codes (tolerance 1)', 'n:p8:ring0-2|R -2.0 codes (tolerance 1)', 'n:p8:ring16-32|R -2.0 codes (tolerance 1)']}; recorded, voiding nothing (a closing bridge; G2 reads the sitting unbridged, X43)
+close-w42-1x-light-active run 2: admitted cells=2
+close-w42-1x-light-active run 2: the bridge DISAGREES with its references: {'apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest': ['n:far-cores|R -2.0 codes (tolerance 1)', 'n:knee-cores|R -2.0 codes (tolerance 1)', 'n:sq10:knee|R -2.0 codes (tolerance 1)'], 'apple-macos-27.0-1x-light-standard-glass0.5/f-impulse-rrect-md__rest': ['n:p8:core|R -2.0 codes (tolerance 1)', 'n:p8:ring0-2|R -2.0 codes (tolerance 1)', 'n:p8:ring16-32|R -2.0 codes (tolerance 1)']}; recorded, voiding nothing (a closing bridge; G2 reads the sitting unbridged, X43)
 ok
-test_a_slider_record_off_the_pass_s_position_refuses (test_sitting.Capture.test_a_slider_record_off_the_pass_s_position_refuses) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpn2c35l6z/root/bed-1x-active/QUARANTINE-run-1-1790839388048901000
+test_a_reference_that_is_not_the_declared_frame_refuses_before_any_launch (test_sitting.BridgeRun.test_a_reference_that_is_not_the_declared_frame_refuses_before_any_launch) ... ok
+test_an_agreeing_bridge_is_admitted_with_its_report (test_sitting.BridgeRun.test_an_agreeing_bridge_is_admitted_with_its_report) ... close-w42-1x-light-active run 1: admitted cells=2
+ok
+test_an_opening_bridge_that_disagrees_stops_the_sitting_and_its_run_stands (test_sitting.BridgeRun.test_an_opening_bridge_that_disagrees_stops_the_sitting_and_its_run_stands) ... open-w42-1x-light-active run 1: admitted cells=2
+STOPPED: open-w42-1x-light-active run 1: the bridge DISAGREES with its references: {'apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest': ['n:far-cores|R -2.0 codes (tolerance 1)', 'n:knee-cores|R -2.0 codes (tolerance 1)', 'n:sq10:knee|R -2.0 codes (tolerance 1)'], 'apple-macos-27.0-1x-light-standard-glass0.5/f-impulse-rrect-md__rest': ['n:p8:core|R -2.0 codes (tolerance 1)', 'n:p8:ring0-2|R -2.0 codes (tolerance 1)', 'n:p8:ring16-32|R -2.0 codes (tolerance 1)']}; the sitting stops before any capture away from 0.5 (charter clause 3)
+ok
+test_a_cell_with_no_region_statistic_agrees_only_by_identity (test_sitting.BridgeVerdict.test_a_cell_with_no_region_statistic_agrees_only_by_identity) ... ok
+test_a_missing_region_disagrees (test_sitting.BridgeVerdict.test_a_missing_region_disagrees) ... ok
+test_identity_agrees (test_sitting.BridgeVerdict.test_identity_agrees) ... ok
+test_one_code_on_edge_pixels_with_equal_medians_agrees (test_sitting.BridgeVerdict.test_one_code_on_edge_pixels_with_equal_medians_agrees) ... ok
+test_one_region_median_moved_by_two_codes_disagrees (test_sitting.BridgeVerdict.test_one_region_median_moved_by_two_codes_disagrees) ... ok
+test_the_declared_cell_has_region_statistics (test_sitting.BridgeVerdict.test_the_declared_cell_has_region_statistics) ... ok
+test_a_later_pass_blocks_an_earlier_one (test_sitting.Capture.test_a_later_pass_blocks_an_earlier_one) ... ok
+test_a_slider_read_off_the_pass_s_position_refuses_before_launch (test_sitting.Capture.test_a_slider_read_off_the_pass_s_position_refuses_before_launch) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp4c6frbv3/root/bed-1x-active/QUARANTINE-run-1-1790842794549563000
+ok
+test_a_slider_record_off_the_pass_s_position_refuses (test_sitting.Capture.test_a_slider_record_off_the_pass_s_position_refuses) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpgag5j7w5/root/bed-1x-active/QUARANTINE-run-1-1790842794556897000
 ok
 test_a_two_scheme_canonical_run_is_admitted_with_materialize_s_attestation (test_sitting.Capture.test_a_two_scheme_canonical_run_is_admitted_with_materialize_s_attestation) ... bed-1x-active run 1: admitted cells=5
 bed-1x-active run 2: admitted cells=5
 ok
 test_an_existing_run_is_never_overwritten (test_sitting.Capture.test_an_existing_run_is_never_overwritten) ... ok
-test_an_expected_frame_that_differs_refuses (test_sitting.Capture.test_an_expected_frame_that_differs_refuses) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpg89w8xlp/root/pose-check/QUARANTINE-run-1-1790839388774515000
+test_an_expected_frame_that_differs_refuses (test_sitting.Capture.test_an_expected_frame_that_differs_refuses) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpqu42mqvl/root/pose-check/QUARANTINE-run-1-1790842795499789000
 ok
-test_group_and_stack_paths_are_attested_and_a_wrong_origin_refuses (test_sitting.Capture.test_group_and_stack_paths_are_attested_and_a_wrong_origin_refuses) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpxdk_ll5h/root/bed-1x-active/QUARANTINE-run-1-1790839389054663000
-REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpvdwhftmr/root/bed-1x-active/QUARANTINE-run-1-1790839389269850000
+test_group_and_stack_paths_are_attested_and_a_wrong_origin_refuses (test_sitting.Capture.test_group_and_stack_paths_are_attested_and_a_wrong_origin_refuses) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpepoktyth/root/bed-1x-active/QUARANTINE-run-1-1790842795806252000
+REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmprg9o8d7p/root/bed-1x-active/QUARANTINE-run-1-1790842796110565000
 ok
-test_png_bytes_are_bound (test_sitting.Capture.test_png_bytes_are_bound) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpqm4kcwys/root/bed-1x-active/QUARANTINE-run-1-1790839389498578000
-REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpqm4kcwys/root/bed-1x-active/QUARANTINE-run-1-1790839389772288000
+test_png_bytes_are_bound (test_sitting.Capture.test_png_bytes_are_bound) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpz3d55jri/root/bed-1x-active/QUARANTINE-run-1-1790842796403938000
+REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpz3d55jri/root/bed-1x-active/QUARANTINE-run-1-1790842796693519000
 ok
 test_command_lines_that_merely_name_a_census_word_do_not_count (test_sitting.Census.test_command_lines_that_merely_name_a_census_word_do_not_count) ... ok
 test_launcher_chain_records_the_launching_shell_and_its_ancestors (test_sitting.Census.test_launcher_chain_records_the_launching_shell_and_its_ancestors) ... ok
 test_real_browser_harness_and_playwright_executables_count (test_sitting.Census.test_real_browser_harness_and_playwright_executables_count) ... ok
 test_the_launcher_chain_is_excluded_only_by_pid_and_start (test_sitting.Census.test_the_launcher_chain_is_excluded_only_by_pid_and_start) ... ok
 test_the_idle_log_is_committed (test_sitting.Collect.test_the_idle_log_is_committed) ... ok
+test_the_close_runs_after_a_cut_and_the_dropped_passes_never_run_later (test_sitting.CutOrder.test_the_close_runs_after_a_cut_and_the_dropped_passes_never_run_later) ... close-w42-1x-light-active run 1: admitted cells=2
+close-w42-1x-light-active run 2: admitted cells=2
+close-w42-1x-light-active run 3: admitted cells=2
+ok
+test_a_cut_runs_the_close (test_sitting.CutOverG1b.test_a_cut_runs_the_close) ... ok
 test_dry_env_is_refused (test_sitting.Gates.test_dry_env_is_refused) ... usage: python3.12 -m unittest [-h]
-                              {plan,dump,capture,wait-idle,pin-check,slider-as-found,slider-set,slider-restore,publish,end-native}
+                              {plan,dump,capture,wait-idle,pin-check,slider-as-found,slider-set,slider-restore,publish,end-native,bridge-references}
                               ...
 python3.12 -m unittest: error: DRY is W34's harness --dry-run, which never reaches ScreenCaptureKit. W43 has no such path: the dry mode is `plan`.
 ok
@@ -30,7 +56,7 @@ test_outputs_never_inside_a_checkout_or_documents (test_sitting.Gates.test_outpu
 test_the_slider_gate_is_exact_and_an_absent_key_refuses (test_sitting.Gates.test_the_slider_gate_is_exact_and_an_absent_key_refuses) ... ok
 test_a_native_process_alive_at_a_slider_write_stops_the_sitting (test_sitting.Orchestrator.test_a_native_process_alive_at_a_slider_write_stops_the_sitting) ... ok
 test_a_signal_mid_pass_restores_the_slider_and_the_display (test_sitting.Orchestrator.test_a_signal_mid_pass_restores_the_slider_and_the_display) ... ok
-test_an_absent_slider_is_absent_again_after_a_stop (test_sitting.Orchestrator.test_an_absent_slider_is_absent_again_after_a_stop) ... ok
+test_an_absent_slider_is_absent_again_after_a_cut_and_the_close_still_runs (test_sitting.Orchestrator.test_an_absent_slider_is_absent_again_after_a_cut_and_the_close_still_runs) ... ok
 test_rehearsals_are_dump_passes_only (test_sitting.Orchestrator.test_rehearsals_are_dump_passes_only) ... ok
 test_the_detached_sitting_records_its_launching_chain (test_sitting.Orchestrator.test_the_detached_sitting_records_its_launching_chain) ... ok
 test_the_whole_order_writes_the_slider_per_pass_and_restores_both (test_sitting.Orchestrator.test_the_whole_order_writes_the_slider_per_pass_and_restores_both) ... ok
@@ -41,13 +67,17 @@ test_the_declared_plan_passes (test_sitting.PinCheck.test_the_declared_plan_pass
 test_a_canonical_pass_spans_both_schemes_with_their_own_lists (test_sitting.Plan.test_a_canonical_pass_spans_both_schemes_with_their_own_lists) ... ok
 test_the_plan_refuses_what_the_sitting_could_not_honour (test_sitting.Plan.test_the_plan_refuses_what_the_sitting_could_not_honour) ... ok
 test_the_stand_in_is_the_charters_g1a_membership (test_sitting.Plan.test_the_stand_in_is_the_charters_g1a_membership) ... ok
+test_a_closing_sentinel_bridge_must_run_after_a_cut (test_sitting.PlanRulings.test_a_closing_sentinel_bridge_must_run_after_a_cut) ... ok
+test_every_bridge_pass_declares_its_verdict (test_sitting.PlanRulings.test_every_bridge_pass_declares_its_verdict) ... ok
+test_only_a_closing_sentinel_bridge_carries_the_field (test_sitting.PlanRulings.test_only_a_closing_sentinel_bridge_carries_the_field) ... ok
+test_the_after_cut_passes_are_the_tail (test_sitting.PlanRulings.test_the_after_cut_passes_are_the_tail) ... ok
 bed-1x-active run 1: admitted cells=5
 bed-1x-active run 2: admitted cells=5
 test_a_run_that_does_not_name_the_side_is_not_publishable (test_sitting.Publication.test_a_run_that_does_not_name_the_side_is_not_publishable) ... ok
 test_the_published_bed_names_the_side_bundle_and_the_slider (test_sitting.Publication.test_the_published_bed_names_the_side_bundle_and_the_slider) ... ok
-test_a_stale_position_a_lost_key_or_no_reading_departs (test_sitting.Sentinel.test_a_stale_position_a_lost_key_or_no_reading_departs) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpg3mgdv70/root/dump-1x-light-active/QUARANTINE-run-1-1790839493366321000
-REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpeh4hzpqs/root/dump-1x-light-active/QUARANTINE-run-1-1790839493535372000
-REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp2jqfgktz/root/dump-1x-light-active/QUARANTINE-run-1-1790839493704014000
+test_a_stale_position_a_lost_key_or_no_reading_departs (test_sitting.Sentinel.test_a_stale_position_a_lost_key_or_no_reading_departs) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpgn51xp1q/root/dump-1x-light-active/QUARANTINE-run-1-1790842955279649000
+REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpqzmpiyjo/root/dump-1x-light-active/QUARANTINE-run-1-1790842955486785000
+REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpm66coyd2/root/dump-1x-light-active/QUARANTINE-run-1-1790842955689780000
 ok
 test_memo_d_s_real_dumps_read_their_own_position (test_sitting.Sentinel.test_memo_d_s_real_dumps_read_their_own_position)
 The walker finds the input in the real tree format: memo D's 2x light active dumps, taken at 0.5. ... ok
@@ -62,14 +92,14 @@ test_a_steady_active_launch_and_its_end_do_not_trip (test_sitting.Watch.test_a_s
 test_a_trip_kills_the_launch_and_ends_the_native_app (test_sitting.Watch.test_a_trip_kills_the_launch_and_ends_the_native_app) ... ok
 test_an_unreadable_session_trips (test_sitting.Watch.test_an_unreadable_session_trips) ... ok
 test_input_and_focus_and_prompts_trip (test_sitting.Watch.test_input_and_focus_and_prompts_trip) ... ok
-test_focus_lost_mid_launch_stops_it (test_sitting.WatchedLaunch.test_focus_lost_mid_launch_stops_it) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpk_5sdohs/root/bed-1x-active/QUARANTINE-run-1-1790839497508854000
+test_focus_lost_mid_launch_stops_it (test_sitting.WatchedLaunch.test_focus_lost_mid_launch_stops_it) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp45mjulm3/root/bed-1x-active/QUARANTINE-run-1-1790842959642245000
 ok
-test_input_mid_launch_stops_it (test_sitting.WatchedLaunch.test_input_mid_launch_stops_it) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp_860s23q/root/bed-1x-active/QUARANTINE-run-1-1790839499386466000
+test_input_mid_launch_stops_it (test_sitting.WatchedLaunch.test_input_mid_launch_stops_it) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpegl2sser/root/bed-1x-active/QUARANTINE-run-1-1790842961365952000
 ok
-test_the_harness_exiting_is_not_a_focus_loss (test_sitting.WatchedLaunch.test_the_harness_exiting_is_not_a_focus_loss) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpehosgysq/root/bed-1x-active/QUARANTINE-run-1-1790839502300952000
+test_the_harness_exiting_is_not_a_focus_loss (test_sitting.WatchedLaunch.test_the_harness_exiting_is_not_a_focus_loss) ... REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpbixtifux/root/bed-1x-active/QUARANTINE-run-1-1790842964252869000
 ok
 
 ----------------------------------------------------------------------
-Ran 47 tests in 114.421s
+Ran 64 tests in 172.498s
 
 OK

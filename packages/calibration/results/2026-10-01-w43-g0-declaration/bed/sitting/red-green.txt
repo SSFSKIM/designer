@@ -7,7 +7,7 @@ The machine's NSGlassTintAmount before: 0.5 (read only)
   GREEN (W43): counted 0 of 3 of them; still counts every real one (6 of 6: Chromium, a Chrome renderer helper, Chrome for Testing, a headless shell, a harness, Playwright (node + playwright-core/cli.js))  [fixed]
 
 2. the launching shell's chain is excluded, through the setsid detach
-  RED   (W42): the launching shell (pid 39026, alive after the detach, census words on its command line) is counted by the detached reader: True  [defect shown]
+  RED   (W42): the launching shell (pid 49557, alive after the detach, census words on its command line) is counted by the detached reader: True  [defect shown]
   GREEN (W43): a launching process the census DOES count by executable (node + @playwright/cli script), detached the same way: counted without the recorded chain (True), excluded with it (True, counted False)  [fixed]
 
 3. the idle log is kept as .txt
@@ -15,8 +15,8 @@ The machine's NSGlassTintAmount before: 0.5 (read only)
   GREEN (W43): the driver writes ['driver-idle.txt']; W43's collect-pass + git add commits ['ev/attest/p/run-1/driver-idle.txt']  [fixed]
 
 4a. a watchdog on frontmost and HID idle during every launch
-  RED   (W42): focus went to com.apple.universalcontrol with HID input 2.0 s into the launch; the driver read nothing until the launch ended (5.3 s) and ADMITTED the run: True  [defect shown]
-  GREEN (W43): the same event 2.0 s in; the watchdog (period 0.3 s here, 5 s in a sitting) ended the launch 0.3 s later and quarantined the run: "watchdog stopped the launch: HID input during the launch: idle read 0.1 s where at least 400.3 s was due (401.9 s, 0.4 s earlier); frontmost com.apple"  [fixed]
+  RED   (W42): focus went to com.apple.universalcontrol with HID input 2.0 s into the launch; the driver read nothing until the launch ended (5.2 s) and ADMITTED the run: True  [defect shown]
+  GREEN (W43): the same event 2.0 s in; the watchdog (period 0.3 s here, 5 s in a sitting) ended the launch 0.5 s later and quarantined the run: "watchdog stopped the launch: HID input during the launch: idle read 0.3 s where at least 400.4 s was due (402.1 s, 0.3 s earlier); frontmost com.apple"  [fixed]
 
 4b. a pre-sitting Universal Control check
   RED   (W42): W42 reads nothing about Universal Control: its census does not name the agent and its gates read HID idle at launch only (record-machine.py has no such read)  [defect shown]
@@ -32,7 +32,7 @@ The machine's NSGlassTintAmount before: 0.5 (read only)
 
 7. the canonical publication path for side-bundle runs
   RED   (W42): materialize over W42 G1's seven committed 2x-light-active attestations exits 1: "- the runs read 2 different scene declarations — 655fc83302ce: r1; d618aabec87f: r2, r3, r4, r5, r6, r7. The declaration..."; and they never name ['bundlePath', 'bundleIdentifier', 'bundlePinSha256']  [defect shown]
-  GREEN (W43): materialize publishes both schemes (exit 0); the profile record names bundlePath=/private/tmp/w43-test-side/VitreaReference.app, bundleIdentifier=dev.vitrea.reference-apple.w39, bundlePinSha256=780d6f950cb9…, glassTintAmount=0.25, runs=2; `publish` builds cli/materialize.ts --run r1=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpn7gs3fk9/g/root/bed-1x-active/run-1 … and refuses a run at another slider ("bed-1x-active is not publishable: run 2 attests slider '0.5'; the pass is 0.25")  [fixed]
+  GREEN (W43): materialize publishes both schemes (exit 0); the profile record names bundlePath=/private/tmp/w43-test-side/VitreaReference.app, bundleIdentifier=dev.vitrea.reference-apple.w39, bundlePinSha256=780d6f950cb9…, glassTintAmount=0.25, runs=2; `publish` builds cli/materialize.ts --run r1=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp02km6mr_/g/root/bed-1x-active/run-1 … and refuses a run at another slider ("bed-1x-active is not publishable: run 2 attests slider '0.5'; the pass is 0.25")  [fixed]
 
 7b. the supplied-path attestation of the canonical bed's group and stack components
   RED   (W42): W42's driver on a faithful toolbar-group + glass-over-glass manifest: refused: supplied path count mismatch: checkerboard__glass-over-glass__rest (every canonical pass holding them would quarantine)  [defect shown]
@@ -46,6 +46,18 @@ The machine's NSGlassTintAmount before: 0.5 (read only)
   RED   (W42): W42 tools price 3,441 captures, 447 dump scenes, 10.31 h without a W43 plan and 3,441 / 447 / 10.31 h with the stand-in at its declared path: blind to it  [defect shown]
   GREEN (W43): W43 timing prices the stand-in at 4,103 captures and 48 dump scenes, 11.21 h; one more 2x active bed run gives 4,265 captures and +1546.9 s, that run's modelled 1546.9 s  [fixed]
 
+10. the opening bridge: byte identity, or every region median within max(1 code, bar), run by run
+  RED   (W42, and W43 as accepted at d92190b4): on (e)'s declared bridge cell apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange against its real 0.5 fixture: W42's driver compares a sentinel with nothing (True); W43 as accepted gates by byte identity only: 1 code on edge pixels, medians equal: refused; one region median moved +2 codes: refused; a missing region (sq128:knee, no opaque pixel): refused (the first is a false stop)  [defect shown]
+  GREEN (W43): 1 code on edge pixels, medians equal: AGREE (regions) (2340 px differ by 1, worst median delta 0); one region median moved +2 codes: DISAGREE (n:sq128:knee|R +2.0 codes (tolerance 1)); a missing region (sq128:knee, no opaque pixel): DISAGREE (n:sq128:knee|B missing from the frame)  [fixed]
+
+11a. a cut never drops the close: G1b's order (e94b2ed2, with the two fields) cut at each pass
+  RED   (W43 as accepted at d92190b4): cut after pose-check: exit 0, close passes run 0 of 4; cut after probe-0.25-2x-active: exit 0, close passes run 0 of 4; cut after close-w42-2x-light-active: exit 0, close passes run 1 of 4  [defect shown]
+  GREEN (W43): 35 of 35 cuts ran every pass up to the cut, then the slider restored and mode 68, then each of the 4 close passes not yet run, in order, and restored the slider as found  [fixed]
+
+11b. runAfterCut is required on every closing W42 sentinel bridge and refused on any other pass
+  RED   (W43 as accepted at d92190b4): close lacking it: accepted; a probe pass carrying it: accepted  [defect shown]
+  GREEN (W43): close lacking it: refused: close-w42-2x-dark-receded: a closing W42 sentinel bridge declares runAfterCut: true (a cut never drops the clo; a probe pass carrying it: refused: probe-0.25-2x-active: only a closing W42 sentinel bridge (close-*, role bridge-w42-sentinel) carries runAfterC  [fixed]
+
 The machine's NSGlassTintAmount after: 0.5 (read only; unchanged)
 
-11 of 11 scenarios red before and green after; the real slider untouched
+14 of 14 scenarios red before and green after; the real slider untouched

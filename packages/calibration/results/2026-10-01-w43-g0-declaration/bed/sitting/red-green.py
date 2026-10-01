@@ -1,9 +1,11 @@
 #!/usr/bin/env python3.12
 """Red/green proofs of W43 G0 (d)'s sitting changes, stubs and scratch roots only.
 
-Each scenario runs the defect on W42's COMMITTED tools (results/2026-09-29-w42-g0-declaration/
-bed/sitting/, loaded from their files, never edited) and the fix on W43's. RED is the defect W42
-G1's stops or the charter named, observed; GREEN is W43 behaving. Nothing native is launched,
+Each scenario runs the defect on the tools before the change and the fix on W43's. Scenarios 1-9
+run it on W42's COMMITTED tools (results/2026-09-29-w42-g0-declaration/bed/sitting/, loaded from
+their files, never edited). Scenarios 10 and 11, the coordinator's rulings after the first 11 of
+11, run it on W43's own tools as accepted at d92190b4, read from Git; each RED line names which.
+RED is the defect W42 G1's stops, the charter or a ruling named, observed; GREEN is W43 behaving. Nothing native is launched,
 the display is never touched, and the machine's real NSGlassTintAmount is only READ, before and
 after, to show that nothing here wrote it. The census scenarios run real processes whose command
 lines carry the census words (and copies of node under browser and harness names), so this runs
@@ -19,6 +21,7 @@ import io
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import signal
 import subprocess
@@ -46,9 +49,9 @@ def load(name, path):
     return m
 
 
-def record(name, red, green, red_ok, green_ok):
+def record(name, red, green, red_ok, green_ok, before='W42'):
     results.append(red_ok and green_ok)
-    print(f'{name}\n  RED   (W42): {red}  [{"defect shown" if red_ok else "NOT SHOWN"}]\n'
+    print(f'{name}\n  RED   ({before}): {red}  [{"defect shown" if red_ok else "NOT SHOWN"}]\n'
           f'  GREEN (W43): {green}  [{"fixed" if green_ok else "NOT FIXED"}]\n', flush=True)
 
 
@@ -306,7 +309,7 @@ with tempfile.TemporaryDirectory() as tmp:
     case.tmp = tmp
     case.setup()
     out = case.orchestrate()
-    writes = [w['value'] for w in S.slider_writes(case.st.root)]
+    writes = [w['value'] for w in S.slider_writes(case.st.root) if not w.get('restore')]
     restored = case.stored()
     calls = (case.st.store.with_name(case.st.store.name + '.calls')).read_text().splitlines()
 with tempfile.TemporaryDirectory() as tmp:
@@ -452,6 +455,99 @@ record('7b. the supplied-path attestation of the canonical bed\'s group and stac
 for module in ('red_green_archive.py', 'red_green_timing.py'):
     case = load(module[:-3] + '_rg', HERE / module).scenario()
     record(case['name'], case['red'], case['green'], case['red_ok'], case['green_ok'])
+
+# ------------------------------------------------------- the coordinator's rulings
+# The pre-ruling tools are W43's own as accepted at d92190b4 (the 11 of 11 above), read from Git.
+
+ACCEPTED = 'd92190b4'
+
+
+def accepted_tool(name, tmp):
+    path = Path(tmp) / f'accepted-{name}'
+    path.write_bytes(subprocess.run(['git', '-C', str(HERE), 'show', f'{ACCEPTED}:./{name}'], check=True,
+                                    capture_output=True).stdout)
+    return path
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    S0 = load('w43_sitting_accepted', accepted_tool('sitting.py', tmp))
+    case = T.BridgeVerdict('test_identity_agrees')
+    T.BridgeVerdict.setUpClass()
+    edge, n_edge = case.edge_frame()
+    shifted, name, sign = case.shifted_frame(2)
+    import numpy as np  # noqa: E402
+    rgba = np.dstack([case.img, np.full(case.img.shape[:2], 255, np.int16)]).reshape(-1, 4)
+    rgba[case.pops['n'][0][2], 3] = 0
+    frames = {'1 code on edge pixels, medians equal': T.png_bytes(edge),
+              f'one region median moved {sign}2 codes': T.png_bytes(shifted),
+              f'a missing region ({case.pops["n"][0][0]}, no opaque pixel)': T.png_bytes(
+                  rgba.reshape(*case.img.shape[:2], 4), 'RGBA')}
+    pass0 = dict(expect={case.cell: [hashlib.sha256(case.ref).hexdigest()]})
+    before = {k: 'refused' if S0.expectation_problems(pass0, {case.cell: hashlib.sha256(raw).hexdigest()})
+              else 'passed' for k, raw in frames.items()}
+    after = {k: S.bridge_verdict(raw, case.ref, case.bg, case.comp, 2, 'dark', 'active', None, case.cell)
+             for k, raw in frames.items()}
+w42_reads = re.search(r'def \w*(bridge|expect)\w*\(', (W42 / 'sitting.py').read_text()) is not None
+record('10. the opening bridge: byte identity, or every region median within max(1 code, bar), run by run',
+       f'on (e)\'s declared bridge cell {case.cell} against its real 0.5 fixture: W42\'s driver compares a sentinel '
+       f'with nothing ({not w42_reads}); W43 as accepted gates by byte identity only: '
+       + '; '.join(f'{k}: {v}' for k, v in before.items()) + ' (the first is a false stop)',
+       '; '.join(f'{k}: {v["verdict"]}' + (f' ({v["failing"][0]})' if v['failing'] else
+                                           f' ({v["pixelsDiffering"]} px differ by {v["maxCodes"]:g}, worst median '
+                                           f'delta {v["worstDelta"]:g})') for k, v in after.items()),
+       list(before.values()) == ['refused'] * 3 and not w42_reads,
+       [v['verdict'] for v in after.values()] == ['AGREE (regions)', 'DISAGREE', 'DISAGREE'],
+       before=f'W42, and W43 as accepted at {ACCEPTED}')
+
+E = T.e_g1b()
+if E is not None:
+    plan, files = E
+    names = [p['name'] for p in plan['passes']]
+    closing = [x for x in names if x.startswith('close-')]
+    with tempfile.TemporaryDirectory() as tmp:
+        old = {(T.HERE / n).relative_to(T.REPO): accepted_tool(n, tmp).read_bytes()
+               for n in ('sitting.py', 'pass-spec.py', 'sitting-orchestrate.sh')}
+        red_rows = []
+        for cut in (names[0], 'probe-0.25-2x-active', closing[0]):
+            _, out, ran, status, _ = T.g1b_cut(cut, replace=old)
+            red_rows.append((cut, out.returncode, [c for c in closing if c in ran]))
+    green_rows = []
+    for cut in names:
+        _, out, ran, status, stored = T.g1b_cut(cut)
+        upto = names[:names.index(cut) + 1]
+        green_rows.append((cut, out.returncode == 0 and ran == upto + [c for c in closing if c not in upto]
+                           and stored['value'] == '0.5459057'))
+    record('11a. a cut never drops the close: G1b\'s order (e94b2ed2, with the two fields) cut at each pass',
+           '; '.join(f'cut after {c}: exit {rc}, close passes run {len(r)} of {len(closing)}' for c, rc, r in red_rows),
+           f'{sum(ok for _, ok in green_rows)} of {len(green_rows)} cuts ran every pass up to the cut, then the slider '
+           f'restored and mode 68, then each of the {len(closing)} close passes not yet run, in order, and restored '
+           f'the slider as found' + ('' if all(ok for _, ok in green_rows) else
+                                     f'; FAILED at {[c for c, ok in green_rows if not ok]}'),
+           all(len(r) < len(closing) for _, _, r in red_rows[:2]),
+           all(ok for _, ok in green_rows), before=f'W43 as accepted at {ACCEPTED}')
+
+    with tempfile.TemporaryDirectory() as tmp:
+        P0 = load('w43_pass_spec_accepted', accepted_tool('pass-spec.py', tmp))
+    sources = {k: json.loads(files[s['path']]) for k, s in plan['sources'].items()}
+    lacking = json.loads(json.dumps(plan))
+    del next(p for p in lacking['passes'] if p['name'] == closing[-1])['runAfterCut']
+    carrying = json.loads(json.dumps(plan))
+    next(p for p in carrying['passes'] if p['name'] == 'probe-0.25-2x-active')['runAfterCut'] = True
+
+    def verdict(module, candidate):
+        try:
+            module.validate_plan(candidate, sources)
+            return 'accepted'
+        except ValueError as error:
+            return 'refused: ' + str(error).split(': ', 1)[1][:110]
+    red = {k: verdict(P0, c) for k, c in (('close lacking it', lacking), ('a probe pass carrying it', carrying))}
+    green = {k: verdict(P, c) for k, c in (('close lacking it', lacking), ('a probe pass carrying it', carrying))}
+    record('11b. runAfterCut is required on every closing W42 sentinel bridge and refused on any other pass',
+           '; '.join(f'{k}: {v}' for k, v in red.items()), '; '.join(f'{k}: {v}' for k, v in green.items()),
+           set(red.values()) == {'accepted'}, all(v.startswith('refused') for v in green.values()),
+           before=f'W43 as accepted at {ACCEPTED}')
+else:
+    record("11. a cut never drops the close", "SKIPPED: (e)'s plans are absent", 'SKIPPED', False, False)
 
 T.tearDownModule()
 SLIDER_AFTER = real_slider()

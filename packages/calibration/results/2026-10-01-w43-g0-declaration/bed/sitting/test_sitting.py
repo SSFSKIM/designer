@@ -12,8 +12,10 @@ checkout holding the tools, the stand-in canonical file, W42's scenes file, the 
 declaration at their real relative paths.
 
 Run: python3.12 -m unittest -v test_sitting    (from this directory)"""
+import copy
 import hashlib
 import importlib.util
+import io
 import json
 import os
 from pathlib import Path
@@ -59,6 +61,7 @@ SOURCES = SI.sources_of(STAND_IN_PLAN, CANONICAL_RAW, W42_RAW)
 SHAS = dict(canonical=hashlib.sha256(CANONICAL_RAW).hexdigest(), w42=hashlib.sha256(W42_RAW).hexdigest())
 L1, D1 = SI.key(1, 'light', '0.25'), SI.key(1, 'dark', '0.25')
 L2_05 = SI.key(2, 'light', '0.5')
+L1_05 = SI.key(1, 'light', '0.5')
 BED_ACTIVE = {L1: ['checkerboard__capsule-button__rest', 'checkerboard__glass-over-glass__rest',
                    'checkerboard__toolbar-group__rest'],
               D1: ['checkerboard__capsule-button__rest', 'checkerboard__glass-over-glass__rest']}
@@ -81,8 +84,10 @@ def mini_plan(**edits):
         dict(name='bed-1x-receded', kind='capture', role='bed', glass=0.25, scale=1, pose='receded',
              source='canonical', runs=2, protocol='normal', profiles=BED_RECEDED, publish=True),
         dict(name='close-w42-1x-light-active', kind='capture', role='bridge-w42-sentinel', glass=0.5, scale=1,
-             pose='active', source='w42', runs=3, protocol='long',
-             profiles={SI.key(1, 'light', '0.5'): sorted(f'{c}__rest' for c in SI.W42_SENTINELS)}),
+             pose='active', source='w42', runs=3, protocol='long', runAfterCut=True,
+             profiles={L1_05: sorted(f'{c}__rest' for c in SI.W42_SENTINELS)},
+             bridge=dict(stop=False, cells={f'{L1_05}/{c}__rest': dict(reference=dict(
+                 sha256=hashlib.sha256(c.encode()).hexdigest(), archive='w42-archive')) for c in SI.W42_SENTINELS})),
     ]
     plan = dict(STAND_IN_PLAN, passes=passes)
     for name, change in edits.items():
@@ -923,7 +928,8 @@ class Mirror:
              'collect-pass.py', 'stand_in.py')
     W39_DIR = REPO / 'packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed'
 
-    def __init__(self, tmp, plan=None, replace=None):
+    def __init__(self, tmp, plan=None, replace=None, sitting='g1a'):
+        self.sitting_name = sitting
         self.repo = Path(tmp) / 'repo'
         for n in self.TOOLS:
             self.put((HERE / n).relative_to(REPO), (HERE / n).read_bytes())
@@ -951,10 +957,10 @@ class Mirror:
 
     def write_plan(self, plan):
         self.plan_raw = (json.dumps(plan, indent=2) + '\n').encode()
-        (self.sitting.parent / 'sitting-g1a.json').write_bytes(self.plan_raw)
+        (self.sitting.parent / f'sitting-{self.sitting_name}.json').write_bytes(self.plan_raw)
 
     def declare(self, plan_sha=None, hashed=True):
-        raw = json.dumps(dict(schema='w43-declaration-1', items=[dict(id='sitting-g1a', declared=dict(
+        raw = json.dumps(dict(schema='w43-declaration-1', items=[dict(id=f'sitting-{self.sitting_name}', declared=dict(
             planSha256=plan_sha or hashlib.sha256(self.plan_raw).hexdigest()))]), indent=1).encode()
         (self.decl / 'declaration.json').write_bytes(raw)
         digest = self.decl / 'declaration.sha256'
@@ -1066,7 +1072,7 @@ else:
 STUB_DRIVER = r"""#!/bin/bash
 # A stand-in for run-sitting-w43.sh: logs its argv and the slider it finds, then does what
 # STUB_DRIVER_MODE says.
-echo "$* glass=$(python3.12 -c 'import json, sys; print(json.load(open(sys.argv[1]))["NSGlassTintAmount"]["value"])' "$STUB_DEFAULTS_STORE" 2>/dev/null)" >> "$STUB_DRIVER_CALLS"
+echo "$* cut=${W43_CUT_AFTER:--} glass=$(python3.12 -c 'import json, sys; print(json.load(open(sys.argv[1]))["NSGlassTintAmount"]["value"])' "$STUB_DEFAULTS_STORE" 2>/dev/null)" >> "$STUB_DRIVER_CALLS"
 case "${STUB_DRIVER_MODE:-ok}" in
   swallow) cat > /dev/null ;;
   sleep) sleep 4 ;;
@@ -1127,9 +1133,12 @@ class Orchestrator(unittest.TestCase):
             self.assertTrue(line.startswith(('dump ' if p['kind'] == 'dump' else 'capture ') + p['name']), line)
             self.assertTrue(line.endswith(f'glass={S.pass_spec().parse_key(next(iter(p["profiles"])) if p["kind"] == "capture" else p["profile"])[3]:g}'.replace('glass=0.5', 'glass=0.5')), line)
         writes = S.slider_writes(self.st.root)
-        self.assertEqual([w['value'] for w in writes], [0.5, 0.25, 0.5])    # as-found 0.546 -> 0.5 -> 0.25 -> 0.5
+        passes = [w['value'] for w in writes if not w.get('restore')]
+        self.assertEqual(passes, [0.5, 0.25, 0.5])                           # as-found 0.546 -> 0.5 -> 0.25 -> 0.5
+        self.assertEqual((writes[-1].get('restore'), writes[-1]['value']), (True, 0.5459057))   # the trap's, logged
         self.assertTrue(all(not w['nativeAliveBefore'] and not w['nativeAliveAfter'] for w in writes))
         self.assertEqual(self.stored(), dict(type='float', value='0.5459057'))   # restored as found
+        self.assertTrue(all(' cut=- ' in line for line in driven))           # no cut: nothing ran after one
         status = self.status()
         self.assertIn('ALL PASSES DONE', status)
         self.assertIn('restore: slider', status)
@@ -1137,14 +1146,19 @@ class Orchestrator(unittest.TestCase):
         self.assertIn('universal control (a report, not a gate)', status)
         self.assertEqual(self.state.read_text(), '68')
 
-    def test_an_absent_slider_is_absent_again_after_a_stop(self):
+    def test_an_absent_slider_is_absent_again_after_a_cut_and_the_close_still_runs(self):
         self.setup(as_found=None)
         out = self.orchestrate(STOP_AFTER='dump-0.25-2x-light-active')
         self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
         self.assertIn('STOPPED AFTER dump-0.25-2x-light-active', self.status())
         self.assertIsNone(self.stored())
-        self.assertTrue(self.driven()[-1].startswith('dump dump-0.25-2x-light-active'))
-        self.assertTrue(self.driven()[-1].endswith('glass=0.25'))
+        driven = self.driven()
+        cut = driven.index(next(l for l in driven if l.startswith('dump dump-0.25-2x-light-active')))
+        self.assertTrue(driven[cut].endswith('cut=- glass=0.25'))
+        closing = [p['name'] for p in STAND_IN_PLAN['passes'] if p.get('runAfterCut')]
+        self.assertEqual([l.split()[1] for l in driven[cut + 1:]], closing)            # every close pass, in order
+        self.assertTrue(all(l.endswith('cut=dump-0.25-2x-light-active glass=0.5') for l in driven[cut + 1:]))
+        self.assertIn('restore before the close: slider absent', self.status())
 
     @needs_node
     def test_a_native_process_alive_at_a_slider_write_stops_the_sitting(self):
@@ -1157,7 +1171,7 @@ class Orchestrator(unittest.TestCase):
         self.assertIn('STOP dump-0.25-2x-light-active: the slider write to 0.25 was refused', status)
         self.assertNotIn('START dump-0.25', status)
         self.assertEqual(self.stored(), dict(type='float', value='0.5459057'))
-        self.assertEqual([w['value'] for w in S.slider_writes(self.st.root)], [0.5])
+        self.assertEqual([w['value'] for w in S.slider_writes(self.st.root) if not w.get('restore')], [0.5])
         for p in R.native_processes(binary=SIDE / 'Contents/MacOS/VitreaReference'):
             os.kill(p['pid'], signal.SIGKILL)
 
@@ -1179,7 +1193,7 @@ class Orchestrator(unittest.TestCase):
         self.setup()
         out = self.orchestrate(REHEARSAL='1', PASSES='dump-0.25-1x-dark-receded')
         self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
-        self.assertEqual([l.rsplit(' glass=', 1)[0] for l in self.driven()], ['dump dump-0.25-1x-dark-receded --rehearse'])
+        self.assertEqual([l.rsplit(' cut=', 1)[0] for l in self.driven()], ['dump dump-0.25-1x-dark-receded --rehearse'])
         out = self.orchestrate(REHEARSAL='1', PASSES='bed-0.25-1x-active')
         self.assertEqual(out.returncode, 6)
         self.assertIn('only a dump pass has a rehearsal', self.status())
@@ -1190,7 +1204,7 @@ class Orchestrator(unittest.TestCase):
         # The launching shell outlives the launch with census words on its command line (stop 4).
         out = subprocess.run(['bash', '-c', f'bash "{self.m.sitting / "sitting-orchestrate.sh"}"; '
                                             'sleep 3; : pgrep -fl "Chromium|playwright"; echo launcher=$$'],
-                             env={**env, 'STOP_AFTER': 'pose-check', 'STUB_DRIVER_MODE': 'sleep'},
+                             env={**env, 'STOP_AFTER': 'pose-check', 'STUB_DRIVER_MODE': 'ok'},
                              capture_output=True, text=True, timeout=60)
         self.assertEqual(out.returncode, 0, out.stderr)
         launcher = int(re.search(r'launcher=(\d+)', out.stdout)[1])
@@ -1300,6 +1314,364 @@ class Publication(unittest.TestCase):
                                                      'reference-apple/build/VitreaReference.app'))
             with self.assertRaisesRegex(ValueError, "does not name the side bundle's pin"):
                 S.publication(root, P.pass_of('bed-1x-active', PLAN), DECLARATION, SI.CANONICAL)
+
+
+# ============================================================ the coordinator's rulings
+
+class PlanRulings(unittest.TestCase):
+    """runAfterCut (a cut never drops the close) and the bridge block (clause 3), as the plan states them."""
+
+    def refused(self, plan, message):
+        with self.assertRaisesRegex(ValueError, message):
+            P.validate_plan(plan, SOURCES)
+
+    def test_a_closing_sentinel_bridge_must_run_after_a_cut(self):
+        plan = copy.deepcopy(STAND_IN_PLAN)
+        del next(p for p in plan['passes'] if p['name'] == 'close-w42-2x-dark-receded')['runAfterCut']
+        self.refused(plan, 'close-w42-2x-dark-receded: a closing W42 sentinel bridge declares runAfterCut: true')
+
+    def test_only_a_closing_sentinel_bridge_carries_the_field(self):
+        for name, value in (('pose-check', True), ('open-w42-2x-light-active', True), ('bed-0.25-2x-active', True),
+                            ('dump-0.25-1x-dark-receded', True), ('open-canonical-1x-active', False)):
+            with self.subTest(name=name):
+                plan = copy.deepcopy(STAND_IN_PLAN)
+                next(p for p in plan['passes'] if p['name'] == name)['runAfterCut'] = value
+                self.refused(plan, f'{name}: only a closing W42 sentinel bridge')
+
+    def test_the_after_cut_passes_are_the_tail(self):
+        plan = copy.deepcopy(STAND_IN_PLAN)
+        moved = plan['passes'].pop(-1)
+        plan['passes'].insert(3, moved)
+        self.refused(plan, 'the runAfterCut passes are the tail of the order')
+
+    def test_every_bridge_pass_declares_its_verdict(self):
+        for name, change, message in (
+                ('open-canonical-2x-active', lambda p: p.pop('bridge'), 'declares its references and verdict'),
+                ('open-w42-1x-dark-active', lambda p: p['bridge'].update(stop=False), '`stop` is True'),
+                ('close-w42-1x-dark-active', lambda p: p['bridge'].update(stop=True), '`stop` is False'),
+                ('open-w42-2x-light-active', lambda p: p['bridge']['cells'].popitem(), 'without a reference'),
+                ('open-w42-2x-light-active',
+                 lambda p: next(iter(p['bridge']['cells'].values()))['reference'].update(path='x.png'),
+                 'a repo path or an archive frame, exactly one')):
+            with self.subTest(name=name, message=message):
+                plan = copy.deepcopy(STAND_IN_PLAN)
+                change(next(p for p in plan['passes'] if p['name'] == name))
+                self.refused(plan, message)
+
+
+FIXTURES = REPO / 'apps/reference-apple/fixtures'
+BRIDGE_CELL = ('apple-macos-27.0-2x-dark-standard-glass0.5', 'checkerboard__capsule-button__rest-tint-orange')
+
+
+def png_bytes(array, mode='RGB', **save):
+    from PIL import Image
+    import numpy as np
+    buf = io.BytesIO()
+    Image.fromarray(np.asarray(array, dtype=np.uint8), mode).save(buf, format='PNG', **save)
+    return buf.getvalue()
+
+
+class BridgeVerdict(unittest.TestCase):
+    """Clause 3 as ruled, in process, on a cell (e) declared as a canonical bridge: its real 0.5
+    fixture is the reference, and frames are made from it one change at a time."""
+
+    @classmethod
+    def setUpClass(cls):
+        import numpy as np
+        from PIL import Image
+        profile, scene = BRIDGE_CELL
+        cls.cell = f'{profile}/{scene}'
+        cls.ref = (FIXTURES / profile / f'{scene}.png').read_bytes()
+        canonical = json.loads(CANONICAL_RAW)
+        spec = next(s for s in canonical['scenes'] if s['id'] == scene)
+        cls.bg, cls.comp = canonical['backgrounds'][spec['background']], canonical['components'][spec['component']]
+        F, Rg = S.instrument()
+        cls.cells = {k: F.Cell(f'2x|{cls.cell}', cls.bg, cls.comp, 2, 'dark', 'rest', rgb=True, kernel=k)
+                     for k in ('n', 'w')}
+        cls.pops = {k: Rg.populations(c) for k, c in cls.cells.items()}
+        with Image.open(io.BytesIO(cls.ref)) as image:
+            cls.img = np.asarray(image.convert('RGB')).astype(np.int16)
+        cls.names = {k: sorted(Rg.statistics(c, cls.img.astype(float), cls.pops[k])) for k, c in cls.cells.items()}
+
+    def verdict(self, raw, bars=None, comp=None):
+        return S.bridge_verdict(raw, self.ref, self.bg, comp or self.comp, 2, 'dark', 'active', bars, self.cell)
+
+    def edge_frame(self):
+        """+1 code (or -1 at 255) on the pixels within 1 pt of the shape's edge, outside both deep masks."""
+        import numpy as np
+        c = self.cells['n']
+        edge = (np.abs(c.d) <= 1.0) & ~self.cells['n'].mask & ~self.cells['w'].mask
+        frame = self.img.copy()
+        frame[edge] = np.where(frame[edge] < 255, frame[edge] + 1, frame[edge] - 1)
+        return frame, int(edge.sum())
+
+    def shifted_frame(self, codes=2):
+        """One population's red channel moved by `codes`, all one way, so its median moves by exactly that."""
+        name, _, idx = self.pops['n'][0]
+        frame = self.img.copy().reshape(-1, 3)
+        sign = 1 if frame[idx, 0].max() <= 255 - codes else -1
+        self.assertTrue(sign == 1 or frame[idx, 0].min() >= codes)
+        frame[idx, 0] += sign * codes
+        return frame.reshape(self.img.shape), name, '+' if sign == 1 else '-'
+
+    def test_the_declared_cell_has_region_statistics(self):
+        # A capsule's span (44 pt) leaves the wide mask empty: the narrow one carries the statistics.
+        self.assertEqual((len(self.pops['n']) > 0, len(self.pops['w'])), (True, 0))
+
+    def test_identity_agrees(self):
+        self.assertEqual(self.verdict(self.ref)['verdict'], 'AGREE (bytes)')
+        reencoded = png_bytes(self.img, compress_level=1)
+        self.assertNotEqual(hashlib.sha256(reencoded).hexdigest(), hashlib.sha256(self.ref).hexdigest())
+        self.assertEqual(self.verdict(reencoded)['verdict'], 'AGREE (pixels)')
+
+    def test_one_code_on_edge_pixels_with_equal_medians_agrees(self):
+        frame, n = self.edge_frame()
+        v = self.verdict(png_bytes(frame))
+        self.assertGreater(n, 0)
+        self.assertEqual((v['verdict'], v['maxCodes'], v['pixelsDiffering']), ('AGREE (regions)', 1.0, n))
+        self.assertEqual(v['worstDelta'], 0.0)
+
+    def test_one_region_median_moved_by_two_codes_disagrees(self):
+        frame, name, sign = self.shifted_frame(2)
+        v = self.verdict(png_bytes(frame))
+        self.assertEqual(v['verdict'], 'DISAGREE')
+        self.assertIn(f'n:{name}|R {sign}2.0 codes (tolerance 1)', v['failing'])
+        bars = {(k, s): 2.5 for k in self.names for s in self.names[k]}     # a measured bar of 2.5 admits it
+        self.assertEqual(self.verdict(png_bytes(frame), bars)['verdict'], 'AGREE (regions)')
+
+    def test_a_missing_region_disagrees(self):
+        import numpy as np
+        name, _, idx = self.pops['n'][0]
+        rgba = np.dstack([self.img, np.full(self.img.shape[:2], 255, np.int16)]).reshape(-1, 4)
+        rgba[idx, 3] = 0                                  # no opaque pixel in that region
+        v = self.verdict(png_bytes(rgba.reshape(*self.img.shape[:2], 4), 'RGBA'))
+        self.assertEqual(v['verdict'], 'DISAGREE')
+        self.assertIn(f'n:{name}|R missing from the frame', v['failing'])
+        small = png_bytes(self.img[:200, :320])
+        self.assertTrue(self.verdict(small)['failing'][0].startswith('every region missing'))
+
+    def test_a_cell_with_no_region_statistic_agrees_only_by_identity(self):
+        frame, _ = self.edge_frame()
+        tiny = dict(kind='rrect', size=[8, 8], radius=2)
+        v = self.verdict(png_bytes(frame), comp=tiny)
+        self.assertEqual(v['verdict'], 'DISAGREE')
+        self.assertIn('no region statistic', v['failing'][0])
+        self.assertEqual(self.verdict(self.ref, comp=tiny)['verdict'], 'AGREE (bytes)')
+
+
+W42_ARCHIVE = Path.home() / ('.cache/vitrea-archives/1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014'
+                             '/extracted/archive')
+
+
+@unittest.skipUnless(W42_ARCHIVE.is_dir(), 'the verified w42-archive is not cached on this machine')
+class BridgeReferences(unittest.TestCase):
+    """`bridge-references` fills the store from the real w42-archive, probe role, by SHA-256."""
+
+    def test_a_sentinel_reference_is_extracted_by_its_digest_and_reads_identical(self):
+        A = S.module('w42_archive_for_test', REPO / S.W42_DIR / 'bed/sitting/w42_archive.py')
+        reader = A.wave_module().default_wave().reader(W42_ARCHIVE, roles=('probe',))
+        cell = f'{L2_05}/f-impulse-rrect-md__rest'
+        header, blobs = A.unbundle(reader.read(cell, 'states'))
+        long_frames = sorted({r['frame'] for r in header['runs'] if r['protocol'] == 'long'})
+        self.assertEqual(len(long_frames), 1)                                  # (e): one settled frame
+        plan = dict(passes=[dict(name='open-w42-2x-light-active', bridge=dict(stop=True, cells={
+            cell: dict(reference=dict(sha256=long_frames[0], archive='w42-archive'))}))])
+        with tempfile.TemporaryDirectory() as tmp:
+            store = Path(tmp) / 'refs'
+            written = S.extract_bridge_references(plan, W42_ARCHIVE, store)
+            self.assertEqual(written, {long_frames[0]: cell})
+            raw = (store / f'{long_frames[0]}.png').read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), long_frames[0])
+            with mock.patch.dict(os.environ, {S.BRIDGE_REFERENCES_ENV: str(store)}):
+                refs = S.bridge_references(plan['passes'][0])
+            self.assertEqual(refs[cell], raw)
+            bad = dict(passes=[dict(name='x', bridge=dict(stop=True, cells={
+                cell: dict(reference=dict(sha256='0' * 64, archive='w42-archive'))}))])
+            with self.assertRaisesRegex(ValueError, 'holds no frame'):
+                S.extract_bridge_references(bad, W42_ARCHIVE, Path(tmp) / 'refs2')
+
+
+def solid_png(sid, scale=1, shift=0):
+    """The bytes the stub launcher writes for `sid` (a solid colour), optionally moved in red."""
+    from PIL import Image
+    r, g, b = colour(sid)
+    buf = io.BytesIO()
+    red = r + shift if 0 <= r + shift <= 255 else r - shift          # never clipped: the shift stays whole
+    Image.new('RGB', (320 * scale, 200 * scale), (red, g, b)).save(buf, format='PNG')
+    return buf.getvalue()
+
+
+def bridged_plan(tmp, name='close-w42-1x-light-active', stop=False, shift=0, **extra):
+    """PLAN with the W42 sentinel pass named `name`, its references the stub's own frames (moved by
+    `shift` codes in red) in a store under `tmp`; returns (plan, store)."""
+    store = Path(tmp) / 'references'
+    store.mkdir(exist_ok=True)
+    plan = copy.deepcopy(PLAN)
+    p = plan['passes'][-1]
+    cells = {}
+    for sid in p['profiles'][L1_05]:
+        raw = solid_png(sid, shift=shift)
+        digest = hashlib.sha256(raw).hexdigest()
+        (store / f'{digest}.png').write_bytes(raw)
+        cells[f'{L1_05}/{sid}'] = dict(reference=dict(sha256=digest, archive='w42-archive'))
+    p.update(name=name, bridge=dict(stop=stop, cells=cells), **extra)
+    if name.startswith('open-'):
+        p.pop('runAfterCut', None)
+    return plan, store
+
+
+class BridgeRun(unittest.TestCase):
+    """The gate inside the driver: every run of every bridge cell, against its reference."""
+
+    def run_bridge(self, tmp, name, stop, shift):
+        st = Stubs(tmp, glass='0.5')
+        plan, store = bridged_plan(tmp, name, stop, shift)
+        st.admit_before(name, plan=plan)
+        return st, plan, store
+
+    def test_an_agreeing_bridge_is_admitted_with_its_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            st, plan, store = self.run_bridge(tmp, 'close-w42-1x-light-active', False, 0)
+            st.run('capture', 'close-w42-1x-light-active', '1', '1', plan=plan, W43_BRIDGE_REFERENCES=str(store))
+            run = st.root / 'close-w42-1x-light-active' / 'run-1'
+            a = json.loads((run / 'admission.json').read_text())
+            self.assertTrue(a['bridge']['agrees'])
+            self.assertEqual(set(a['bridge']['verdicts'].values()), {'AGREE (bytes)'})
+            self.assertTrue((run / 'bridge.json').exists())
+
+    def test_a_closing_bridge_that_disagrees_is_recorded_and_the_pass_goes_on(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            st, plan, store = self.run_bridge(tmp, 'close-w42-1x-light-active', False, 2)
+            st.run('capture', 'close-w42-1x-light-active', '1', '2', plan=plan, W43_BRIDGE_REFERENCES=str(store))
+            for n in (1, 2):
+                a = json.loads((st.root / 'close-w42-1x-light-active' / f'run-{n}' / 'admission.json').read_text())
+                self.assertEqual((a['admitted'], a['bridge']['agrees'], a['bridge']['stop']), (True, False, False))
+
+    def test_an_opening_bridge_that_disagrees_stops_the_sitting_and_its_run_stands(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            st, plan, store = self.run_bridge(tmp, 'open-w42-1x-light-active', True, 2)
+            with self.assertRaises(S.BridgeStop):
+                st.run('capture', 'open-w42-1x-light-active', '1', '3', plan=plan, W43_BRIDGE_REFERENCES=str(store))
+            base = st.root / 'open-w42-1x-light-active'
+            self.assertTrue((base / 'run-1' / 'admission.json').exists())          # admitted, not quarantined
+            self.assertFalse(list(base.glob('QUARANTINE-*')))
+            self.assertFalse((base / 'run-2').exists())                              # run 2 never launched
+            report = json.loads((base / 'run-1' / 'bridge.json').read_text())
+            self.assertEqual({c['verdict'] for c in report['cells']}, {'DISAGREE'})
+            self.assertTrue(all(re.search(r'\|R [+-]2\.0 codes', f) for c in report['cells'] for f in c['failing']))
+            with self.assertRaisesRegex(ValueError, r'earlier run\(s\) \[1\]'):     # nothing goes on from it
+                st.run('capture', 'open-w42-1x-light-active', '2', '2', plan=plan, W43_BRIDGE_REFERENCES=str(store))
+
+    def test_a_reference_that_is_not_the_declared_frame_refuses_before_any_launch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            st, plan, store = self.run_bridge(tmp, 'close-w42-1x-light-active', False, 0)
+            for f in store.iterdir():
+                f.write_bytes(f.read_bytes() + b'\0')
+            with self.assertRaisesRegex(ValueError, 'a bridge reference is not the declared frame'):
+                st.run('capture', 'close-w42-1x-light-active', plan=plan, W43_BRIDGE_REFERENCES=str(store))
+            with self.assertRaisesRegex(ValueError, 'names no store'):
+                st.run('capture', 'close-w42-1x-light-active', plan=plan)
+            self.assertFalse(any('capture' in c for c in st.calls_made()))
+
+
+class CutOrder(unittest.TestCase):
+    """The driver lets a runAfterCut pass past the passes a cut dropped, and nothing else."""
+
+    def test_the_close_runs_after_a_cut_and_the_dropped_passes_never_run_later(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            st = Stubs(tmp, glass='0.5')
+            plan, store = bridged_plan(tmp, 'close-w42-1x-light-active', False, 0, runAfterCut=True)
+            st.admit_before('bed-1x-active', plan=plan)                 # the cut after dump-1x-light-active
+            env = dict(plan=plan, W43_BRIDGE_REFERENCES=str(store))
+            with self.assertRaisesRegex(ValueError, 'an earlier pass is not complete'):
+                st.run('capture', 'close-w42-1x-light-active', '1', '1', **env)
+            q = list((st.root / 'close-w42-1x-light-active').glob('QUARANTINE-*'))
+            for d in q:
+                shutil.rmtree(d)
+            with self.assertRaisesRegex(ValueError, 'only runAfterCut passes run'):
+                st.run('capture', 'bed-1x-active', '1', '1', W43_CUT_AFTER='dump-1x-light-active', **env)
+            st.run('capture', 'close-w42-1x-light-active', '1', '3', W43_CUT_AFTER='dump-1x-light-active', **env)
+            a = json.loads((st.root / 'close-w42-1x-light-active' / 'run-3' / 'admission.json').read_text())
+            self.assertEqual(a['cutAfter'], 'dump-1x-light-active')
+            with self.assertRaisesRegex(ValueError, 'a later pass has already started'):
+                st.run('capture', 'bed-1x-active', '1', '1', **env)             # a dropped pass, never later
+
+
+E_PLANS = 'e94b2ed2'      # (e)'s declared plans (w43-g0-decl), before the runAfterCut and bridge fields
+
+
+def at_commit(commit, rel):
+    out = subprocess.run(['git', '-C', str(REPO), 'show', f'{commit}:{rel}'], capture_output=True)
+    return out.stdout if out.returncode == 0 else None
+
+
+def e_g1b(with_fields=True):
+    """(e)'s G1b plan and its sources' bytes at E_PLANS; `with_fields` adds what the rulings require
+    (runAfterCut on the closing sentinel bridges, placeholder bridge blocks), as (e) then did."""
+    raw = at_commit(E_PLANS, 'packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json')
+    if raw is None:
+        return None
+    plan = json.loads(raw)
+    files = {s['path']: at_commit(E_PLANS, s['path']) for s in plan['sources'].values()}
+    if with_fields:
+        for p in plan['passes']:
+            if str(p.get('role', '')).startswith('bridge-'):
+                p['bridge'] = dict(stop=p['name'].startswith('open-'), cells={
+                    f'{k}/{s}': dict(reference=dict(sha256=hashlib.sha256(f'{k}/{s}'.encode()).hexdigest(),
+                                                    archive='w42-archive'))
+                    for k, ids in p['profiles'].items() for s in ids})
+            if p['name'].startswith('close-') and p.get('role') == 'bridge-w42-sentinel':
+                p['runAfterCut'] = True
+    return plan, files
+
+
+def g1b_mirror(tmp, plan, files, replace=None):
+    return Mirror(tmp, plan, replace={**files, **(replace or {})}, sitting='g1b')
+
+
+def g1b_cut(stop_after, replace=None):
+    """sitting-orchestrate.sh over (e)'s G1b order in a Mirror (stub driver, displayplacer and
+    `defaults`), cut by STOP_AFTER=`stop_after`; `replace` swaps tools (the pre-ruling ones, for the
+    red case). Returns (plan, completed process, the passes driven, the status log, the slider)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        plan, files = e_g1b()
+        case = Orchestrator('test_rehearsals_are_dump_passes_only')
+        case.tmp = tmp
+        case.m = Mirror(tmp, plan, replace={**files, **(replace or {})}, sitting='g1b')
+        case.st = Stubs(tmp)
+        case.st.store.write_text(json.dumps({'NSGlassTintAmount': dict(type='float', value='0.5459057')}))
+        case.dp, case.state, _ = stub_displayplacer(tmp, '68')
+        case.driver_calls = tmp / 'driver-calls.txt'
+        (case.m.sitting / 'run-sitting-w43.sh').write_text(STUB_DRIVER)
+        case.m.commit('the stub driver')
+        case.env = {**os.environ, **case.st.env, 'W43_SITTING': 'g1b', 'DISPLAYPLACER': str(case.dp),
+                    'STUB_DRIVER_CALLS': str(case.driver_calls), 'STUB_DEFAULTS_STORE': str(case.st.store),
+                    'W43_FOREGROUND': '1'}
+        for k in ('DRY', 'W43_ORCHESTRATED', 'START_AT', 'STOP_AFTER', 'PASSES', 'REHEARSAL', 'VITREA_LAUNCHER_CHAIN'):
+            case.env.pop(k, None)
+        out = case.orchestrate(STOP_AFTER=stop_after)
+        return plan, out, [l.split()[1] for l in case.driven()], case.status(), case.stored()
+
+
+@unittest.skipUnless(at_commit(E_PLANS, 'packages/calibration/results/2026-10-01-w43-g0-declaration/bed/'
+                                        'sitting-g1b.json'), "(e)'s plans are not in this repository")
+class CutOverG1b(unittest.TestCase):
+    """A cut at a sample of G1b's passes (red-green.py takes every one) still runs every close pass."""
+
+    def test_a_cut_runs_the_close(self):
+        plan, _ = e_g1b()
+        names = [p['name'] for p in plan['passes']]
+        closing = [n for n in names if n.startswith('close-')]
+        for stop_after in (names[0], 'probe-0.25-2x-active', 'ladder-0-2x-receded', closing[1], names[-1]):
+            with self.subTest(stop_after=stop_after):
+                _, out, ran, status, stored = g1b_cut(stop_after)
+                self.assertEqual(out.returncode, 0, out.stdout + out.stderr + status)
+                upto = names[:names.index(stop_after) + 1]
+                self.assertEqual(ran, upto + [n for n in closing if n not in upto])
+                self.assertEqual(stored['value'], '0.5459057')
+                if stop_after != names[-1]:
+                    self.assertIn('restore before the close', status)
 
 
 def tearDownModule():

@@ -17,8 +17,8 @@ against the native side: no capture, no dump, no slider write, no display switch
 | `w43_archive.py` | `produce`, `verify-tree`, `pack`, `fetch`, `replay`: the archive of record |
 | `timing.py`, `dry-plan-summary.py` | the sitting's length and dry plan, derived from the declared plan |
 | `stand_in.py` | a G1a-shaped STAND-IN for the declaration (e) writes: test and rehearsal material only |
-| `test_sitting.py`, `test_archive.py`, `test_timing.py` → `test-*.txt` | the suites: 47, 10 and 7 cases, stubs only |
-| `red-green.py` → `red-green.txt` | each change red on W42's committed tools and green on W43's: 11 of 11 |
+| `test_sitting.py`, `test_archive.py`, `test_timing.py` → `test-*.txt` | the suites: 64, 11 and 7 cases, stubs only |
+| `red-green.py` → `red-green.txt` | each change red on the tools before it (W42's committed ones; W43's as accepted at `d92190b4` for the rulings 10 and 11) and green on W43's: 14 of 14 |
 | `timing-stand-in.*`, `dry-plan-stand-in.*` | the deriver run on the stand-in: a rehearsal, not the sitting's numbers |
 
 ## The plan G0 (e) declares (the contract this tooling reads)
@@ -39,12 +39,23 @@ against the native side: no capture, no dump, no slider write, no display switch
     (allowed frame SHA-256s per cell, e.g. the pose check's `204f21f0…` / `6c15311b…`).
   - A dump pass is a sentinel: `glass`, scale, pose, source, one `profile` and its `__rest`
     `scenes`.
+  - Every capture pass whose role starts `bridge-` carries a `bridge` block (change 10). It
+    holds `stop` (true on `open-*` passes, false on `close-*`) and `cells`: exactly the cells
+    the pass captures, each with its `reference`. A canonical cell's reference is
+    `{sha256, path}` of its committed 0.5 fixture; a W42 sentinel's is `{sha256, archive:
+    "w42-archive"}`, the frame its long-protocol rows settled on. An optional `bars` names W42
+    G1's `bar.json.gz` by the SHA-256 of its JSON and a protocol.
+  - Every `close-*` pass of role `bridge-w42-sentinel` declares `runAfterCut: true` (change 11).
+    No other pass may carry the key, and those passes are the order's tail.
 - **Refusals.** `validate_plan` refuses, among others:
   - a profile key whose `-glass` token is not the pass's position (X6);
   - a receded id in an active pass, or the reverse;
   - a published pass with run-1-only cells, or with one run;
   - a non-`__rest` dump id;
-  - an undeclared scene.
+  - an undeclared scene;
+  - a bridge pass without its `bridge` block, with the wrong `stop`, or whose cells are not
+    exactly its captured cells;
+  - a closing W42 sentinel bridge without `runAfterCut: true`, or any other pass carrying it.
 - **Before every launch**, `pin-check` requires all of these:
   - the plan and every source are committed at HEAD;
   - each source's bytes are the SHA-256 the plan names;
@@ -167,6 +178,44 @@ against the native side: no capture, no dump, no slider write, no display switch
    - **Commands.** `timing.py --sitting g1a` and `dry-plan-summary.py --sitting g1a` price the
      real plan once (e) commits it.
 
+The coordinator then ruled two more, after the first 11 of 11:
+
+10. **The opening bridge's verdict is charter clause 3's metric, run by run**
+    (`sitting.bridge_verdict`).
+    - **The rule.** Every run of every bridge cell must agree with its reference: byte- or
+      pixel-identical, or else every region median within max(1 code, bar). The regions are
+      W42's instrument, unchanged, as G0 (b) read them: `forward.Cell` at the cell's own
+      geometry, masks `n` and `w` active and `n` receded, a per-channel median per population.
+      The bar is the cell's measured repeat bar from the declared bar file, or the 0.5 floor
+      where none was measured, so the tolerance is 1 code everywhere W42 measured.
+    - **What disagrees.** A region the reference carries but the frame does not (no opaque pixel
+      in it, or a frame of another size), and a cell with no region statistic at all, which
+      can then agree only by identity.
+    - **On (e)'s declared cells** (read 2026-10-01, `sitting-g1a.json` at `e94b2ed2`):
+      - `hc-text__rrect-sm__rest`, in the active pose at both scales, has no region statistic
+        under either mask, so it bridges only by byte or pixel identity.
+      - The active capsule cells and `f-impulse-rrect-md__rest` read mask `n` only, because
+        the wide mask is empty at their spans.
+      - Every other cell reads both masks when active, or `n` when receded.
+    - **Before any launch,** the references are read and checked by SHA-256. Fixtures come from
+      the repository; w42-archive frames come from the store named by `W43_BRIDGE_REFERENCES`,
+      which `sitting.py bridge-references <w42-archive tree> --out <store>` fills from the
+      verified archive (probe role only, through W42's guarded Reader).
+    - **Each run** writes `bridge.json` and records the verdicts in its admission.
+    - **On a disagreement.**
+      - At an opening (`stop: true`), the run stays admitted as evidence and the driver exits 10.
+        The orchestrator stops the sitting before any capture away from 0.5. The run no longer
+        counts toward the order, so nothing proceeds from it under this declaration.
+      - At a close (`stop: false`), the disagreement is recorded and nothing is voided.
+11. **A cut never drops the close.**
+    - **The cut.** After a `STOP_AFTER` cut the orchestrator restores the slider to its as-found
+      value (logged as a write) and the display to mode 68. It then runs every `runAfterCut`
+      pass after the cut, in order, with `W43_CUT_AFTER` set.
+    - **The driver** lets only those passes past the passes the cut dropped. The dropped passes
+      can never be taken later, because a later pass has started.
+    - **The archive.** `w43_archive.py produce --cut-after <pass>` archives a cut sitting and
+      names the dropped passes. It refuses one of them that ran.
+
 ## Kept from W42, and dropped
 
 - **Kept:** the pin check before any launch and before every run; one read of every file,
@@ -177,7 +226,16 @@ against the native side: no capture, no dump, no slider write, no display switch
 - **Dropped:**
   - the TCC-refusal rehearsal: its premise, an ungranted side, ended when the side took the
     grant;
-  - `rehearse-tints` stays absent, as in W42.
+  - `rehearse-tints` stays absent, as in W42, and no tint gate replaces it (the coordinator's
+    ruling, 2026-10-01). W29 ran it before each receded pass, replaying the harness's
+    end-of-run tint attestation over the committed fixtures. Two reasons it is not carried:
+    - the bridges' four tinted cells (`photo__capsule-button` and
+      `checkerboard__capsule-button` with the orange tint, in both poses) are read by clause
+      3 against W29 fixtures that the original harness already tint-attested, which is the
+      stricter check;
+    - a pre-flight over the 0.5 fixtures says nothing about 0.25 pixels.
+
+    No untinted twins are added to the bridges, and (e) records this as a declared non-gate.
 
   A dump rehearsal remains: `REHEARSAL=1 PASSES="<dump pass> ..."`, in which the census is
   recorded rather than enforced. `STOP_AFTER=<pass>` cuts a sitting from the bottom of its
@@ -191,9 +249,14 @@ W43_SITTING=g1a python3.12 $S/sitting.py plan --out /tmp/w43-g1a-plan     # exec
 W43_SITTING=g1a python3.12 $S/sitting.py pin-check
 python3.12 $S/record-machine.py census                 # its own command, exited before the launch
 python3.12 $S/record-machine.py universal-control      # read before the user's go
+# the W42 sentinels' reference frames, from the verified w42-archive (probe role only):
+W43_SITTING=g1a python3.12 $S/sitting.py bridge-references "$(python3.12 \
+  packages/calibration/results/2026-09-29-w42-g0-declaration/bed/sitting/w42_archive.py fetch \
+  --asset w42-archive-1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014.tar.zst \
+  --sha256 1e3d6e65fa3b9a621f1d0f80fb03cc79ee76c29d9b001174983689a7aed31014)" --out ~/vitrea-w43/references
 # the launch line holds only this (it detaches; follow logs/orchestrator-status.txt):
-W43_SITTING=g1a VITREA_SITTING_DIR=~/vitrea-w43/g1a/run W43_EVIDENCE=<evidence dir> \
-  W43_EVIDENCE_REPO=<checkout> bash $S/sitting-orchestrate.sh
+W43_SITTING=g1a VITREA_SITTING_DIR=~/vitrea-w43/g1a/run W43_BRIDGE_REFERENCES=~/vitrea-w43/references \
+  W43_EVIDENCE=<evidence dir> W43_EVIDENCE_REPO=<checkout> bash $S/sitting-orchestrate.sh
 # after the sitting: each published pass through materialize (dry, then --apply), then the archive
 W43_SITTING=g1a VITREA_SITTING_DIR=~/vitrea-w43/g1a/run python3.12 $S/sitting.py publish bed-0.25-2x-active
 python3.12 $S/w43_archive.py produce ~/vitrea-w43/g1a/run --sitting g1a --out ~/vitrea-w43/g1a-archive

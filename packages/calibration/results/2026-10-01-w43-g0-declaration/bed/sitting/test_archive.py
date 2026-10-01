@@ -65,8 +65,11 @@ def small_plan():
     sentinels = sorted(f'{c}__rest' for c in SI.W42_SENTINELS)
 
     def bridge(name):
+        closing = name.startswith('close-')
+        cells = {f'{L5}/{s}': dict(reference=dict(sha256=sha(s.encode()), archive='w42-archive')) for s in sentinels}
         return dict(name=name, kind='capture', role='bridge-w42-sentinel', glass=0.5, scale=1, pose='active',
-                    source='w42', runs=2, protocol='long', profiles={L5: sentinels})
+                    source='w42', runs=2, protocol='long', profiles={L5: sentinels},
+                    bridge=dict(stop=not closing, cells=cells), **(dict(runAfterCut=True) if closing else {}))
 
     plan = dict(schema=P.SCHEMA, sitting='g1a',
                 sources=dict(canonical=dict(path=SI.CANONICAL, sha256=sha(canonical)),
@@ -291,6 +294,24 @@ class Archive(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, message):
                     produce(tree, self.tmp / f'out-{name}')
                 self.assertFalse((self.tmp / f'out-{name}').exists())
+
+    def test_a_cut_sitting_archives_with_its_dropped_passes_named(self):
+        """X47 as ruled: a cut drops the passes after it, never the close. The producer archives the
+        rest, the closing bridge included, names what was dropped, and refuses a dropped pass that ran."""
+        tree = self.tmp / 'raw-cut'
+        shutil.copytree(self.raw, tree)
+        shutil.rmtree(tree / 'bed-0.25-1x-active')
+        out = self.tmp / 'out-cut'
+        inv = A.produce(tree, out, plan=PLAN, sources=SOURCES, declaration=DECLARATION,
+                        cut_after='dump-0.25-1x-light-active')
+        self.assertEqual((inv['cutAfter'], inv['dropped']), ('dump-0.25-1x-light-active', ['bed-0.25-1x-active']))
+        self.assertIn('close-w42-1x-light-active', inv['passes'])
+        self.assertNotIn('bed-0.25-1x-active', inv['passes'])
+        with self.assertRaisesRegex(ValueError, 'not admitted'):             # without the cut: incomplete
+            A.produce(tree, self.tmp / 'out-uncut', plan=PLAN, sources=SOURCES, declaration=DECLARATION)
+        with self.assertRaisesRegex(ValueError, 'were started'):             # a dropped pass that ran
+            A.produce(self.raw, self.tmp / 'out-bad-cut', plan=PLAN, sources=SOURCES, declaration=DECLARATION,
+                      cut_after='dump-0.25-1x-light-active')
 
     def edited(self, name, where, change):
         tree = self.tmp / name
