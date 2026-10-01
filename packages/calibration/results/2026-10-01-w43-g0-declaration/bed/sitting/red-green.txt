@@ -7,16 +7,17 @@ The machine's NSGlassTintAmount before: 0.5 (read only)
   GREEN (W43): counted 0 of 3 of them; still counts every real one (6 of 6: Chromium, a Chrome renderer helper, Chrome for Testing, a headless shell, a harness, Playwright (node + playwright-core/cli.js))  [fixed]
 
 2. the launching shell's chain is excluded, through the setsid detach
-  RED   (W42): the launching shell (pid 25684, alive after the detach, census words on its command line) is counted by the detached reader: True  [defect shown]
+  RED   (W42): the launching shell (pid 27591, alive after the detach, census words on its command line) is counted by the detached reader: True  [defect shown]
   GREEN (W43): a launching process the census DOES count by executable (node + @playwright/cli script), detached the same way: counted without the recorded chain (True), excluded with it (True, counted False)  [fixed]
 
 3. the idle log is kept as .txt
   RED   (W42): W42 G1's committed evidence holds 0 idle logs over 88 admitted runs (.gitignore:18:*.log	packages/calibration/results/2026-09-30-w42-g1-sitting/attest/x/run-1/driver-idle.log); W42's collect-pass + git add commits []  [defect shown]
   GREEN (W43): the driver writes ['driver-idle.txt']; W43's collect-pass + git add commits ['ev/attest/p/run-1/driver-idle.txt']  [fixed]
 
+REFUSED; retained at /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpmwlitujw/root/bed-1x-active/QUARANTINE-run-1-1790846657588690000
 4a. a watchdog on frontmost and HID idle during every launch
-  RED   (W42): focus went to com.apple.universalcontrol with HID input 2.0 s into the launch; the driver read nothing until the launch ended (5.3 s) and ADMITTED the run: True  [defect shown]
-  GREEN (W43): the same event 2.0 s in; the watchdog, polling every 0.3 s in this test, ended the launch 0.3 s later and quarantined the run: "watchdog stopped the launch: HID input during the launch: idle read 0.1 s where at least 400.2 s was due (401.9 s, 0.4 s earlier); frontmost com.apple". A sitting polls every 5 s, so there the bound is about 5 s from the event  [fixed]
+  RED   (W42): focus went to com.apple.universalcontrol with HID input 2.0 s into the launch; the driver read nothing until the launch ended (5.2 s) and ADMITTED the run: True  [defect shown]
+  GREEN (W43): the same event 2.0 s in; the watchdog, polling every 0.3 s in this test, ended the launch 0.3 s later and quarantined the run: "watchdog stopped the launch: HID input during the launch: idle read 0.2 s where at least 400.3 s was due (401.9 s, 0.4 s earlier); frontmost com.apple". A sitting polls every 5 s, so there the bound is about 5 s from the event  [fixed]
 
 4b. a pre-sitting Universal Control check
   RED   (W42): W42 reads nothing about Universal Control: its census does not name the agent and its gates read HID idle at launch only (record-machine.py has no such read)  [defect shown]
@@ -32,7 +33,7 @@ The machine's NSGlassTintAmount before: 0.5 (read only)
 
 7. the canonical publication path for side-bundle runs
   RED   (W42): materialize over W42 G1's seven committed 2x-light-active attestations exits 1: "- the runs read 2 different scene declarations — 655fc83302ce: r1; d618aabec87f: r2, r3, r4, r5, r6, r7. The declaration..."; and they never name ['bundlePath', 'bundleIdentifier', 'bundlePinSha256']  [defect shown]
-  GREEN (W43): materialize publishes both schemes (exit 0); the profile record names bundlePath=/private/tmp/w43-test-side/VitreaReference.app, bundleIdentifier=dev.vitrea.reference-apple.w39, bundlePinSha256=780d6f950cb9…, glassTintAmount=0.25, runs=2; `publish` builds cli/materialize.ts --run r1=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpwmy5ihwa/g/root/bed-1x-active/run-1 … and refuses a run at another slider ("bed-1x-active is not publishable: run 2 attests slider '0.5'; the pass is 0.25")  [fixed]
+  GREEN (W43): materialize publishes both schemes (exit 0); the profile record names bundlePath=/private/tmp/w43-test-side/VitreaReference.app, bundleIdentifier=dev.vitrea.reference-apple.w39, bundlePinSha256=780d6f950cb9…, glassTintAmount=0.25, runs=2; `publish` builds cli/materialize.ts --run r1=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpfxi0qcn7/g/root/bed-1x-active/run-1 … and refuses a run at another slider ("bed-1x-active is not publishable: run 2 attests slider '0.5'; the pass is 0.25")  [fixed]
 
 7b. the supplied-path attestation of the canonical bed's group and stack components
   RED   (W42): W42's driver on a faithful toolbar-group + glass-over-glass manifest: refused: supplied path count mismatch: checkerboard__glass-over-glass__rest (every canonical pass holding them would quarantine)  [defect shown]
@@ -70,6 +71,10 @@ The machine's NSGlassTintAmount before: 0.5 (read only)
   RED   (W43 as reviewed at d32cf72d): a rehearsal at mode 69 exits normally; TERM while the trap writes the as-found slider: exit 143, display left at mode 69; logged ['CANCEL: done; restoring the slider and the display']  [defect shown]
   GREEN (W43): the same: exit 0, mode 68, logged ['restore: slider {"restored": true, "asFound": {"present": true, "value": "0.5459057", "type": "float"}, "read": {"present": true, "value": "0.5459057", "type": "float"}, "written": true} (verified)', 'restore: display mode 68 (verified)']; with the write refused: exit 7, mode 68, logged ['RESTORE FAILED: slider:     raise CalledProcessError(retcode, process.args,', 'restore: display mode 68 (verified)']  [fixed]
 
+13. the pin check reads the amended declaration on its last line (the amendment ruling)
+  RED   (W43 at f8a8650a): an amended chain (original, then the hash of these bytes): exit 1, "ore any launch: the plan is not the pinned declaration: declaration.sha256 does not name this declaration.json"  [defect shown]
+  GREEN (W43): the same chain: exit 0; a chain whose last line names other bytes: exit 1, "he plan is not the pinned declaration: declaration.sha256 does not name this declaration.json on its last line"  [fixed]
+
 The machine's NSGlassTintAmount after: 0.5 (read only; unchanged)
 
-17 of 17 scenarios red before and green after; the real slider untouched
+18 of 18 scenarios red before and green after; the real slider untouched

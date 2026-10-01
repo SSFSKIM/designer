@@ -17,8 +17,8 @@ against the native side: no capture, no dump, no slider write, no display switch
 | `w43_archive.py` | `produce`, `verify-tree`, `pack`, `fetch`, `replay`: the archive of record |
 | `timing.py`, `dry-plan-summary.py` | the sitting's length and dry plan, derived from the declared plan |
 | `stand_in.py` | a G1a-shaped STAND-IN for the declaration (e) writes: test and rehearsal material only |
-| `test_sitting.py`, `test_archive.py`, `test_timing.py` → `test-*.txt` | the suites: 66, 11 and 7 cases, stubs only |
-| `red-green.py` → `red-green.txt` | each change red on the tools before it (W42's committed ones; W43's as accepted at `d92190b4` for the rulings 10 and 11; the reviewed head `d32cf72d` for the review's 1b and 12; `materialize` alone for 7c) and green on W43's: 17 of 17 |
+| `test_sitting.py`, `test_archive.py`, `test_timing.py` → `test-*.txt` | the suites: 68, 11 and 7 cases, stubs only |
+| `red-green.py` → `red-green.txt` | each change red on the tools before it (W42's committed ones; W43's as accepted at `d92190b4` for the rulings 10 and 11; the reviewed head `d32cf72d` for the review's 1b and 12; `materialize` alone for 7c; `f8a8650a` for the amendment chain, 13) and green on W43's: 18 of 18 |
 | `timing-stand-in.*`, `dry-plan-stand-in.*` | the deriver run on the stand-in: a rehearsal, not the sitting's numbers |
 
 ## The plan G0 (e) declares (the contract this tooling reads)
@@ -59,7 +59,10 @@ against the native side: no capture, no dump, no slider write, no display switch
 - **Before every launch**, `pin-check` requires all of these:
   - the plan and every source are committed at HEAD;
   - each source's bytes are the SHA-256 the plan names;
-  - the declaration names the plan's SHA-256 and is itself hashed.
+  - the declaration names the plan's SHA-256 and is itself hashed. `declaration.sha256` is a chain:
+    the original hash first, each amendment's beneath it (`declare.py amend`, the parent's ruling),
+    and the LAST line must name the committed `declaration.json`. `declare.py check` verifies the
+    chain itself.
 
   `stand_in.py` builds a plan of this shape from committed files. It reproduces the charter's
   G1a membership exactly: 4,103 captures in 89 launches, 48 dump scenes, 562 published cells,

@@ -484,7 +484,8 @@ def pinned_declaration(sitting, predeclaration=False):
     Returns the record every admission carries. Refuses unless the sitting's plan and every
     scenes file it names are committed at HEAD, each source's bytes are the SHA-256 the plan
     names, the plan validates, and declaration.json, committed and hashed (declaration.sha256,
-    committed), names the plan's SHA-256 in its `sitting-<sitting>` item. `predeclaration` keeps
+    committed, its last line naming these bytes: an amended declaration appends its hash beneath the
+    original), names the plan's SHA-256 in its `sitting-<sitting>` item. `predeclaration` keeps
     every check but the declaration's, whose state is recorded; only dump rehearsals then launch.
     """
     P = pass_spec()
@@ -520,9 +521,13 @@ def pinned_declaration(sitting, predeclaration=False):
         if item.get('planSha256') != record['planSha256']:
             stated.append(f'declaration.json names plan {str(item.get("planSha256"))[:12]}; the {sitting} plan is '
                           f'{record["planSha256"][:12]}')
-        digest = at_head(DECLARATION_DIGEST).decode().split()
-        if not digest or digest[0] != record['declarationSha256']:
-            stated.append('declaration.sha256 does not name this declaration.json')
+        # declaration.sha256 is a chain (declare.py, the parent's amendment ruling): the original hash first,
+        # each amendment's beneath it, and the LAST line names the bytes in force. declare.py check verifies
+        # the chain itself; the launch requires that its last line is this declaration.json.
+        chain = [ln.split()[0] for ln in at_head(DECLARATION_DIGEST).decode().splitlines() if ln.strip()]
+        record['declarationChain'] = chain
+        if not chain or chain[-1] != record['declarationSha256']:
+            stated.append('declaration.sha256 does not name this declaration.json on its last line')
     except (ValueError, OSError, KeyError, StopIteration, UnicodeDecodeError, json.JSONDecodeError) as error:
         stated.append(f'the declaration is not committed and hashed: {type(error).__name__}: {error}')
     if predeclaration:

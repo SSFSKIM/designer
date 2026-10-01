@@ -644,6 +644,32 @@ record('12. a signal during the EXIT trap\'s restore cannot cut it short (the re
        and lines(status2, 'restore: display mode 68 (verified)'),
        before=f'W43 as reviewed at {REVIEWED}')
 
+# ------------------------------------------------------- the declaration's amendment chain
+# The parent's ruling (2026-10-01): an amended declaration appends its hash beneath the original in
+# declaration.sha256. The tooling as reviewed and fixed (f8a8650a) read the FIRST line only.
+
+AMENDED_FROM = 'f8a8650a'
+with tempfile.TemporaryDirectory() as tmp:
+    old = {(T.HERE / 'sitting.py').relative_to(T.REPO): accepted_tool('sitting.py', tmp, AMENDED_FROM).read_bytes()}
+chains = {}
+for label, replace in (('red', old), ('green', None)):
+    for case, chain in (('amended', ['4675ce21' + '0' * 56, 'CURRENT']), ('stale', ['CURRENT', '4f90f910' + '0' * 56])):
+        with tempfile.TemporaryDirectory() as tmp:
+            m = T.Mirror(tmp, replace=replace)
+            m.declare(chain=chain)
+            m.commit(f'a {case} chain')
+            out = m.sitting_py('pin-check', env={'W43_PREDECLARATION': ''})
+            chains[(label, case)] = (out.returncode, (out.stdout + out.stderr).strip().splitlines()[-1][-110:])
+record('13. the pin check reads the amended declaration on its last line (the amendment ruling)',
+       f'an amended chain (original, then the hash of these bytes): exit {chains[("red", "amended")][0]}, '
+       f'"{chains[("red", "amended")][1]}"',
+       f'the same chain: exit {chains[("green", "amended")][0]}; a chain whose last line names other bytes: exit '
+       f'{chains[("green", "stale")][0]}, "{chains[("green", "stale")][1]}"',
+       chains[('red', 'amended')][0] != 0,
+       chains[('green', 'amended')][0] == 0 and chains[('green', 'stale')][0] != 0
+       and 'on its last line' in chains[('green', 'stale')][1],
+       before=f'W43 at {AMENDED_FROM}')
+
 T.tearDownModule()
 SLIDER_AFTER = real_slider()
 print(f'The machine\'s NSGlassTintAmount after: {SLIDER_AFTER} (read only; '

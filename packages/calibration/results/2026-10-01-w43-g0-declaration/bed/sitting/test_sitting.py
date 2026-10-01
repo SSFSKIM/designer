@@ -992,12 +992,16 @@ class Mirror:
         self.plan_raw = (json.dumps(plan, indent=2) + '\n').encode()
         (self.sitting.parent / f'sitting-{self.sitting_name}.json').write_bytes(self.plan_raw)
 
-    def declare(self, plan_sha=None, hashed=True):
+    def declare(self, plan_sha=None, hashed=True, chain=None):
         raw = json.dumps(dict(schema='w43-declaration-1', items=[dict(id=f'sitting-{self.sitting_name}', declared=dict(
             planSha256=plan_sha or hashlib.sha256(self.plan_raw).hexdigest()))]), indent=1).encode()
         (self.decl / 'declaration.json').write_bytes(raw)
         digest = self.decl / 'declaration.sha256'
-        if hashed:
+        if chain is not None:
+            # an amended declaration: earlier hashes first, then whatever the caller names last
+            lines = [h if h != 'CURRENT' else hashlib.sha256(raw).hexdigest() for h in chain]
+            digest.write_text(''.join(f'{h}  declaration.json\n' for h in lines))
+        elif hashed:
             digest.write_text(hashlib.sha256(raw).hexdigest() + '  declaration.json\n')
         elif digest.exists():
             digest.unlink()
@@ -1059,6 +1063,22 @@ class PinCheck(unittest.TestCase):
         rc, text = self.check()
         self.assertNotEqual(rc, 0)
         self.assertIn('declaration.json names plan', text)
+
+    def test_an_amended_declaration_passes_on_its_last_line(self):
+        # declare.py's amendment appends the amended hash beneath the original; the bytes in force are the
+        # last line's, so the original's line no longer names them and must not be read as the current one.
+        self.m.declare(chain=['4675ce21' + '0' * 56, 'CURRENT'])
+        self.m.commit('an amended declaration')
+        rc, text = self.check()
+        self.assertEqual(rc, 0, text)
+        self.assertEqual(len(json.loads(text)['declarationChain']), 2)
+
+    def test_a_chain_whose_last_line_is_not_these_bytes_refuses(self):
+        self.m.declare(chain=['CURRENT', '4f90f910' + '0' * 56])
+        self.m.commit('a chain whose last line names other bytes')
+        rc, text = self.check()
+        self.assertNotEqual(rc, 0)
+        self.assertIn('on its last line', text)
 
     def test_an_unhashed_declaration_refuses_and_predeclaration_records_it(self):
         self.m.declare(hashed=False)
