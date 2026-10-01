@@ -127,6 +127,7 @@ import {
 } from "../src/material-selection";
 import { readCandidateDocument, type CandidateDocument } from "../scripts/candidate-document";
 import { readMaterialProfileFile } from "../scripts/material-profile-file";
+import { crossPositionVerdict } from "../src/document-position";
 import { SHIPPED_MATERIAL_PROFILE_DOCUMENTS } from "@vitreajs/vitrea-web";
 import { declaredComponentOf, readSceneGeometry, type SceneGeometryMatrix } from "./scene-geometry";
 
@@ -860,6 +861,22 @@ function main(): void {
         `${cell.profileKey} / ${cell.sceneId}: the ${options.renderer}-tier capture on disk predates ` +
           `this run — capture-web resolved another tier; check its FELL BACK line`,
       );
+      continue;
+    }
+
+    /*
+     * The capture's own documents decide its position, not this run's flags and not its stamp
+     * (W43 G0 review, finding 1). Under `--skip-capture` the capture on disk may come from any
+     * earlier run, so the gate above, which reads this run's options, says nothing about it.
+     */
+    const capturedPath =
+      (JSON.parse(readFileSync(webCell, "utf8")) as { capturePath: string }).capturePath;
+    const positionRefusal = crossPositionVerdict(
+      { profileKey: cell.profileKey, capturePath: capturedPath },
+      { crossPosition: options.crossPosition, authoritative: options.stage !== undefined,
+        repoRoot: REPO_ROOT });
+    if (positionRefusal !== undefined) {
+      failures.push(`${cell.profileKey} / ${cell.sceneId}: ${positionRefusal}`);
       continue;
     }
 

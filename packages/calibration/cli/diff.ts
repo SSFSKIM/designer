@@ -39,6 +39,7 @@ import {
 import { matrixSchemaRefusal } from "./gates";
 import { assertScratchDestination } from "../src/matrix-write-guard";
 import { stageMatrixPath, stageStatus, validateStageRows } from "../src/generation-stage";
+import { crossPositionVerdict } from "../src/document-position";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell, type MeasureInput } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
@@ -55,6 +56,8 @@ interface Args extends MeasureInput {
   readonly matrix?: string;
   readonly stage?: string;
   readonly out?: string;
+  /** A declared cross-position reading, scratch only (W43 G0 (f) and its review). */
+  readonly crossPosition: boolean;
 }
 
 function parseArgs(argv: readonly string[]): Args {
@@ -151,6 +154,7 @@ function parseArgs(argv: readonly string[]): Args {
     ...(stage === undefined ? {} : { stage }),
     ...(out === undefined ? {} : { out }),
     ...(blurRegion === undefined ? {} : { blurRegion }),
+    crossPosition: map.get("cross-position") === "true",
   };
 }
 
@@ -163,6 +167,10 @@ function main(): void {
   if (args.matrix !== undefined) assertScratchDestination(args.matrix);
   if (args.out !== undefined) assertScratchDestination(args.out);
   if (args.stage) stageStatus(args.stage);
+  if (args.stage && args.crossPosition) {
+    throw new Error("diff: --cross-position cannot measure into a --stage; a cross-position reading " +
+      "is scratch only (W43 G0 (f))");
+  }
 
   // A scratch matrix at another schema cannot be merged into; reject it before
   // measuring, just as compare rejects it before capturing.
@@ -177,6 +185,14 @@ function main(): void {
   }
 
   const { cell, notes } = measureCell(args);
+
+  // The row's position, from the documents its capture names (W43 G0 review, finding 1): a
+  // stage refuses any mismatch, and scratch admits one only as a stamped, declared reading.
+  const positionRefusal = crossPositionVerdict(
+    { profileKey: cell.key.profileKey, capturePath: cell.key.web.capturePath },
+    { crossPosition: args.crossPosition, authoritative: args.stage !== undefined,
+      repoRoot: resolve(REFERENCE, "..", "..") });
+  if (positionRefusal !== undefined) throw new Error(`diff: ${positionRefusal}`);
 
   const reportJson = JSON.stringify(cell, null, 2);
   if (args.out !== undefined) {

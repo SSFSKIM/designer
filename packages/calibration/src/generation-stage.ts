@@ -7,7 +7,8 @@ import { assertScratchDestination } from "./matrix-write-guard";
 import { documents, generationEnvelope, iterateRecordedRows, loadCurrentRows, readIndex,
   readRows, type Document, type Entry, type Index } from "./matrix-store";
 import { serializeResultCellKey, type CellResult } from "./report";
-import { carriesCrossPositionStamp } from "./material-selection";
+import { carriesCrossPositionStamp, glassToken, keyPosition } from "./material-selection";
+import { capturePathPosition, crossPositionVerdict } from "./document-position";
 
 const PACKAGE = fileURLToPath(new URL("../", import.meta.url));
 const REPO_ROOT = resolve(PACKAGE, "../..");
@@ -34,6 +35,30 @@ function document(path: string): Document {
 function distinctRoles(active: Document, receded?: Document): void {
   if (receded && active.sha256 === receded.sha256) {
     fail("active and receded document hashes must be distinct");
+  }
+}
+/**
+ * A generation is drawn at one glass position, read from its documents' own profile keys, and
+ * every profile it declares is at that position (W43 G0 review, finding 1). Checked when a stage
+ * is declared and every time its membership is read, so a cross-position stage cannot be
+ * declared, measured into, reported or published, whatever wrote its membership file.
+ */
+function assertDeclaredPosition(profiles: readonly string[], active: Document, receded?: Document): void {
+  const label = `materialProfile=${active.path} sha256:${active.sha256}` +
+    (receded ? `, recededProfile=${receded.path} sha256:${receded.sha256}` : "");
+  let position;
+  try {
+    position = capturePathPosition(label, REPO_ROOT);
+  } catch (error) {
+    fail(error instanceof Error ? error.message : String(error));
+  }
+  if (position.kind === "unpositioned") {
+    fail(`a generation's documents must name their glass position, and ${position.why}`);
+  }
+  const other = profiles.filter((p) => keyPosition(p)?.glass !== position.glass);
+  if (other.length) {
+    fail(`the declared documents are at glass ${glassToken(position.glass)} and ${other.join(", ")} ` +
+      "is not; a cross-position reading never enters a stage");
   }
 }
 function unique(values: readonly string[], label: string) {
@@ -78,6 +103,7 @@ export function createStage(directory: string, options: {
   const active = document(options.active);
   const receded = options.receded ? document(options.receded) : undefined;
   distinctRoles(active, receded);
+  assertDeclaredPosition(options.profiles, active, receded);
   const membership: Membership = { schemaVersion: 1, profiles: options.profiles,
     tiers: options.tiers, sets: options.sets, active,
     ...(receded ? { receded } : {}), cells };
@@ -100,6 +126,7 @@ export function readMembership(directory: string): Membership {
       fail(`document digest differs from declaration: ${d.path}`);
     }
   }
+  assertDeclaredPosition(m.profiles, m.active, m.receded);
   return m;
 }
 const memberKey = (c: Membership["cells"][number]) => JSON.stringify([c.profileKey, c.renderer, c.fixtureSet, c.sceneId]);
@@ -117,6 +144,11 @@ export function validateStageRows(directory: string, rows: readonly CellResult[]
     const named = documents(row);
     if (JSON.stringify(named.active) !== JSON.stringify(m.active) ||
         JSON.stringify(named.receded) !== JSON.stringify(m.receded)) fail("row document digests differ from declaration");
+    // Derived again from the row's own documents: a stage is an authoritative destination.
+    const refusal = crossPositionVerdict(
+      { profileKey: row.key.profileKey, capturePath: row.key.web.capturePath },
+      { crossPosition: false, authoritative: true, repoRoot: REPO_ROOT });
+    if (refusal) fail(`${key}: ${refusal}`);
   }
   return { membership: m, declared: expected.size, present: seen.size,
     missing: [...expected].filter((k) => !seen.has(k)).length };

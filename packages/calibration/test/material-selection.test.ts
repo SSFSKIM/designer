@@ -11,7 +11,7 @@
 
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, mkdtempSync, readFileSync, symlinkSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -40,6 +40,7 @@ import {
   readCandidateDocument,
 } from "../scripts/candidate-document";
 import { withinTree } from "../src/matrix-write-guard";
+import { crossPositionVerdict } from "../src/document-position";
 
 const PACKAGE = resolve(import.meta.dirname, "..");
 const PROFILES = resolve(PACKAGE, "profiles");
@@ -199,7 +200,7 @@ describe("both modes, the position a material is read against", () => {
 
   it("red: refuses a profile at another position, or none, without --cross-position", () => {
     expect(crossPositionRefusal("candidate", 0.25, [...at025, at05[0]!], false))
-      .toMatch(/the candidate is at glass 0\.25 and is read against apple-macos-27\.0-1x-light-standard-glass0\.5 \(glass 0\.5\)/);
+      .toMatch(/the candidate is at glass 0\.25 and is read against .*glass0\.5 \(glass 0\.5\)/);
     expect(crossPositionRefusal("candidate", 0.25, ["apple-macos-26.5-1x-light-standard"], false))
       .toMatch(/\(glass none\)/);
     expect(crossPositionRefusal("shipped", 0.5, [at025[0]!], false))
@@ -227,6 +228,63 @@ describe("both modes, the position a material is read against", () => {
       .toBe(", crossPosition=candidate-glass0.25-against-glassnone");
     expect(carriesCrossPositionStamp(`materialProfile=x sha256:aaaaaaaaaaaa${shipped}`)).toBe(true);
     expect(carriesCrossPositionStamp("materialProfile=x sha256:aaaaaaaaaaaa")).toBe(false);
+  });
+});
+
+/*
+ * The G0 review's first finding: a row's position is derived from the documents its capture
+ * path names, each read and checked against the hash the row records, and the stamp is a label
+ * that must agree with them.
+ */
+describe("both modes, the position a row's documents derive", () => {
+  const REPO = resolve(PACKAGE, "../..");
+  const DOC05 = "materialProfile=packages/calibration/profiles/" +
+    "apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d sections=renderer+cssTierMapping";
+  const STAMP = ", crossPosition=shipped-glass0.5-against-glass0.25";
+  const verdict = (profileKey: string, capturePath: string, crossPosition: boolean, authoritative = false) =>
+    crossPositionVerdict({ profileKey, capturePath }, { crossPosition, authoritative, repoRoot: REPO });
+
+  it("admits an unstamped row at its documents' own position", () => {
+    expect(verdict(KEY_05, DOC05, false)).toBeUndefined();
+    expect(verdict(KEY_05, DOC05, false, true)).toBeUndefined();
+  });
+
+  it("red: an unstamped 0.5-document row against a 0.25 profile, at a stage and in scratch", () => {
+    expect(verdict(KEY_025, DOC05, false, true)).toMatch(/never enters a stage or a publication/);
+    expect(verdict(KEY_025, DOC05, true, true)).toMatch(/never enters a stage or a publication/);
+    expect(verdict(KEY_025, DOC05, false)).toMatch(/declare it with --cross-position, into scratch/);
+  });
+
+  it("red: under --cross-position, a capture with no stamp or another stamp is refused, not re-stamped", () => {
+    expect(verdict(KEY_025, DOC05, true))
+      .toMatch(/must carry, crossPosition=shipped-glass0\.5-against-glass0\.25, and it carries no stamp/);
+    expect(verdict(KEY_025, `${DOC05}, crossPosition=candidate-glass0.25-against-glass0.5`, true))
+      .toMatch(/it carries crossPosition=candidate-glass0\.25-against-glass0\.5/);
+  });
+
+  it("green: under --cross-position, the stamp the documents derive is admitted in scratch", () => {
+    expect(verdict(KEY_025, `${DOC05}${STAMP}`, true)).toBeUndefined();
+  });
+
+  it("red: a stamp on a same-position row is false, and a stamp never proves a position", () => {
+    expect(verdict(KEY_05, `${DOC05}${STAMP}`, false)).toMatch(/the stamp is false/);
+    expect(verdict(KEY_05, `${DOC05}${STAMP}`, true)).toMatch(/the stamp is false/);
+  });
+
+  it("red: a document whose bytes are not the row's hash yields no position", () => {
+    expect(verdict(KEY_05, DOC05.replace("85ad7f7e3e0d", "85ad7f7e3e0e"), false))
+      .toMatch(/hashes to 85ad7f7e3e0d, and the row records 85ad7f7e3e0e/);
+  });
+
+  it("derives a candidate row's position from its declaration's endpoint keys", () => {
+    const declaration = "packages/calibration/results/2026-10-01-w43-g0-declaration/seam/" +
+      "scratch-candidate/candidate.json";
+    const label = `materialProfile=candidate candidateDocument=${declaration} declarationSha256=` +
+      `${sha(readFileSync(resolve(REPO, declaration), "utf8")).slice(0, 12)} name=x glassTintAmount=0.25`;
+    expect(verdict(KEY_025, label, false)).toBeUndefined();
+    expect(verdict(KEY_05, label, false)).toMatch(/at glass 0\.25 and the profile .*glass0\.5 at glass 0\.5/);
+    expect(verdict(KEY_05, `${label}, crossPosition=candidate-glass0.25-against-glass0.5`, true))
+      .toBeUndefined();
   });
 });
 
@@ -489,6 +547,45 @@ describe("both modes, the command lines", () => {
       }
     }
   }, 180_000);
+
+  /*
+   * The G0 review's first finding, on compare's `--skip-capture` path: the capture on disk is
+   * judged by its own documents, whatever this run's flags say.
+   */
+  const AT265 = "apple-macos-26.5-1x-light-standard";
+  const skipCapture = (capturePath: string) => {
+    const tree = mkdtempSync(join(tmpdir(), "w43-skip-"));
+    const dir = join(tree, AT265, "photo__rrect-md__rest");
+    mkdirSync(dir, { recursive: true });
+    copyFileSync(resolve(PACKAGE, "../../apps/reference-apple/fixtures", AT265, "photo__rrect-md__rest.png"),
+      join(dir, "photo__rrect-md__rest__webgpu.png"));
+    writeFileSync(join(dir, "cell__webgpu.json"), JSON.stringify({ engine: "chromium",
+      engineVersion: "1", renderer: "webgpu", samplingBackend: "gpu-texture", gpuAdapter: "apple/metal-3",
+      colorSpace: "srgb", capturePath, sceneId: "photo__rrect-md__rest", pixelSize: [320, 200],
+      deterministic: true, repeatNoise: 0 }));
+    const matrix = join(tree, "matrix.json");
+    const out = run("cli/compare.ts", [...asShipped05, "--profile", AT265, "--scene", "photo__rrect-md__rest",
+      "--set", "calibration", "--skip-capture", "--cross-position", "--out-matrix", matrix],
+    { VITREA_WEB_CAPTURES: tree });
+    return { out, matrix };
+  };
+  const DOC05 = "materialProfile=packages/calibration/profiles/" +
+    "apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d sections=renderer+cssTierMapping";
+
+  it("red: compare --skip-capture --cross-position over an unstamped capture is refused", () => {
+    const { out } = skipCapture(DOC05);
+    expect(out.status).not.toBe(0);
+    expect(`${out.stdout}${out.stderr}`)
+      .toMatch(/must carry, crossPosition=shipped-glass0\.5-against-glassnone, and it carries no stamp/);
+  }, 60_000);
+
+  it("green: the same run over a capture stamped from the derived pair writes a stamped row", () => {
+    const { out, matrix } = skipCapture(`${DOC05}, crossPosition=shipped-glass0.5-against-glassnone`);
+    expect(out.status, `${out.stdout}${out.stderr}`).toBe(0);
+    const row = JSON.parse(readFileSync(matrix, "utf8")).cells[0];
+    expect(row.key.profileKey).toBe(AT265);
+    expect(row.key.web.capturePath).toMatch(/, crossPosition=shipped-glass0\.5-against-glassnone$/);
+  }, 60_000);
 
   it("red: --cross-position is scratch only: no stage, no canonical tree, no authoritative matrix", () => {
     const staged = run("cli/compare.ts", [...asShipped05, "--cross-position", "--stage", "/tmp/w43-never"],
