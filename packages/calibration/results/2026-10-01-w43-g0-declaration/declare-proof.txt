@@ -1,0 +1,17 @@
+declare.py proof: 15 of 15 cases hold
+
+PASS  green-check              rc 0  | check: consistent with its sources
+PASS  red-hash-while-pending   rc 2  | hash REFUSES: ladderReadings are pending
+PASS  red-pin                  rc 1  | check: 1 mismatch(es)
+PASS  red-verdicts             rc 1  | check: 1 mismatch(es)
+PASS  red-captures             rc 1  | check: 1 mismatch(es)
+PASS  red-cells                rc 1  | check: 1 mismatch(es)
+PASS  red-runs                 rc 1  | check: 1 mismatch(es)
+PASS  red-probe-runs           rc 1  | check: 1 mismatch(es)
+PASS  red-twin-order           rc 1  | check: 1 mismatch(es)
+PASS  red-unmarked-pending     rc 1  | check: 1 mismatch(es)
+PASS  red-support-count        rc 1  | check: 1 mismatch(es)
+PASS  red-plan-sha             rc 1  | check: 1 mismatch(es)
+PASS  red-neither              rc 1  | check: 1 mismatch(es)
+PASS  red-bed-edited           rc 1  | check: 4 mismatch(es)
+PASS  green-hash               rc 0 and a second hash refuses  | declaration.json sha256 4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874; closure.json sha256 84d95c136a2b02f11eb84bb040a7f87a9d8941e66ac2a8bf168bc8fd534a5263; commit both before G1a

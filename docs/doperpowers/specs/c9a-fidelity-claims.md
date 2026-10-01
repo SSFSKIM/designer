@@ -42942,3 +42942,268 @@ tests the one constant LT declares from the slider, w = `NSGlassTintAmount`, dir
 structure is right, w becomes 0.25 with no refit. Whether T and the chroma move with the slider is
 unknown. The span-dependent misses, the 1x aliasing cells, dark native T's black handling and the
 rule-design lesson (Deferred at close 1–5) are what its declaration states first.
+
+## 5.198 W43 G0: the 0.5 generation frozen, the selection seam in two modes, the bridge holds, memo F reads the slider, the sitting tooling and the declaration hashed (2026-10-01)
+
+**Hashed; no pixel at 0.25 exists; nothing shipped moves.** Charter
+`docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md` v1.2, child G0 (a)–(f), clauses 1–3
+and 11. Evidence is `packages/calibration/results/2026-10-01-w43-g0-declaration/` on three branches
+off `6cb112d5`, the branch's first act:
+- `w43-g0-declaration`: (a) X41 and (f) the selection seam;
+- `w43-g0-sitting`: (d) the sitting tooling;
+- `w43-g0-decl`: (b) the bridge, (c) memo F and (e) the declaration.
+
+The declaration is **`4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874`**
+(`declaration.sha256`; closure `6d743c46…`; commit `487262d0`). It was hashed on the parent's word,
+after an independent review of each branch closed. The freeze reads **1,818** on every branch. X41
+reads 695 on the branches that carry the first manifest and 911 on `w43-g0-declaration`.
+
+### 1. (a) X41: the 0.5 generation frozen before any other act
+
+`x41/x41.ts verify`, run under tsx from `packages/calibration`, protects two kinds of thing:
+- **bytes:** the seven `apple-macos-27.0-*-glass0.5` fixture trees (656 PNGs), the four 0.5 profile
+  documents, the generated `platform-web/src/macos27-profile.ts` and the two 0.5 generation files;
+- **entries:** in the two files the 0.25 bed and generation must be appended to, the fixtures
+  manifest and the generation index. Each entry is canonicalised and hashed on its own, as
+  `freeze.py` does for the 26.5 manifest.
+
+It also takes a canonical projection of `macos27MaterialProfileDocument`, admitting only Decision
+Log 1's `glassTintAmount: 0.5` at the document's top level. The first manifest (`6cb112d5`) held
+**695** entries, with 23 proof cases.
+
+The review's finding 3 (`b213d4a4`, accepted P2) was that neither X41 nor the freeze read
+`apps/reference-apple/scenes.json`, the one file the 0.25 bed must change. X41 now projects it by
+unit: each scene and the scene order, each component, each split set, each existing profile entry
+and the profile order, and every other top-level block. Version 8 may change exactly three things:
+the version, its note, and the `-glass0.25` entries. The manifest is re-recorded at **911**: the
+695 lines unchanged and 216 new `scenes.json` units. Its proof has 27 cases. Green: the version 8
+file. Red: a moved radius, a moved split membership, and a scene dropped from a 0.5 profile.
+
+### 2. (f) The selection seam, in two declared modes
+
+The charter's Surprises 1: `web/scene.ts` took the first shipped document whose platform matched
+the key's OS token, so a 0.25 read would have receded and crossed over with the 0.5 document's
+endpoints. `src/material-selection.ts` (`75574642`) holds both modes' rules as pure functions:
+- **Strict shipped mode** selects by the (OS, glass) pair the key names. A document's position is
+  read from its platform, its endpoint keys' glass tokens and `glassTintAmount`, which must agree.
+  An unparseable key, or an unshipped or ambiguous pair, is refused.
+- **Candidate mode** reads a declaration naming four endpoint documents by file SHA-256 and the CSS
+  mapping by canonical hash. Each endpoint's resolved digest is recomputed over the unmoved
+  `DEFAULT_MATERIAL_PROFILE`. The page builds the root from that document alone, refuses anything
+  injected beside it, and stamps every output `materialProfile=candidate …`.
+  - It refuses a partial candidate, a glass token that differs from the declared position, and a
+    candidate that names a shipped document.
+  - Candidates are refused into a stage and into the canonical capture tree.
+
+**The candidate path's proof** (`adda0ea7`, on a sample declared at `8cfee405` before any capture;
+Chromium 151, full binary, apple/metal-3). A scratch `-glass0.25` candidate carrying the 0.5
+documents' content renders **byte-identical** to strict mode's 0.5 render on **64/64** cells (8
+scenes, both schemes, both tiers, both scales), and to the CLAUDE.md publication recipe on 64/64.
+The control perturbs one receded-dark leaf and the CSS mapping's blur scale; the cells that should
+differ do, **32/32**. So byte identity is not a silent fall-back to the default.
+
+**The cross-position rule** (`53c44f42`, `d81cd089`; the parent's two rulings on X45). A candidate
+or a selected shipped document at another glass position than a planned fixture profile is refused
+before capture, and under `--skip-capture` too. `--cross-position` is the one way through:
+- every planned profile must then be at another position;
+- the output is stamped `crossPosition=<candidate|shipped>-glass<x>-against-glass<g>`;
+- it is scratch only: refused into a stage, the canonical tree or an authoritative matrix;
+- `matrix publish` refuses any stamped row, whatever route brought it.
+
+The refusals are 21 cases (`seam/cross-position-refusals.txt`).
+
+**Two review rounds, four P2s fixed:**
+- the X41 projection (§1, `b213d4a4`);
+- symbolic links resolved before a scratch capture tree is admitted (`13ae0ce4`, its lint fix
+  `cdde8279`);
+- a row's glass position derived from the documents its capturePath names, read and hash-checked,
+  never from its stamp, at stage declaration, compare, diff and publication (`d329db2a`);
+- in the second round, a declared stage recognised by its declaration rather than by the `--stage`
+  flag, so neither `diff --matrix` nor `compare --out-matrix` can write a stamped row into one
+  (`e1cd695e`).
+
+The named suites pass (80), lint is clean, and the freeze reads 1,818 and X41 911.
+
+### 3. (b) The bridge on existing evidence: it holds
+
+`bridge/bridge.py` reads W42's family F through W42's guarded Reader, with the probe role only. The
+source is the second owner-controlled copy of `w42-archive` (asset `1e3d6e65…`, inventory `5481795e…`,
+the tree verified); H is never requested and the raw W42 roots are denied. F was captured through
+the side bundle at 0.5 on 2026-09-30. It is read against the canonical 0.5 fixtures, captured
+through the original bundle on 2026-09-18/19.
+
+The metric is clause 3's: byte identity, or every region statistic (W42's instrument, its bar
+recomputed and equal to G1's `bar.json`) within max(1 code, bar). After the review it is read
+**run by run**.
+
+| verdict | cell-passes |
+| --- | ---: |
+| agree, every run by bytes | 18 |
+| agree, by regions in at least one run | 2 |
+| no canonical twin (the dark impulse) | 4 |
+
+- **The 2x dark active checker-64 on rrect-lg.** 84 edge pixels differ, each by 1 code; all 66
+  statistics are equal. The original bundle's own W29 runs of that cell read two states, and the
+  side's unanimous state is the 3-of-7 one.
+- **The 2x light active checker-64.** Its two-run minority state agrees by regions only.
+
+Every state the side produced is one the original produced at W29. Nothing went to the user.
+
+### 4. (c) Memo F: the slider in Apple's declared tree
+
+`memo-f/`: the RUNBOOK, the driver `memo_f.py`, the reader `memo_f_read.py`, the fold `fold.py`,
+the record `run/`, the reading `reading/` and `MEMO.md`. It ran on the user's go relayed by the
+parent, at 2026-10-01 07:37–08:15Z, through the W39 side bundle, with no grant and no X5 lift.
+
+**The run.**
+- The first launch refused before its preflight, a driver bug: the detached child re-checked that
+  the run root must not exist against the root its own launcher had just made. Nothing was read or
+  written on the machine. The fix (`0103e540`) admits a root holding only the launcher's `logs/`; it
+  is proved on the stub, and the refused root is kept.
+- The second run recorded the as-found slider exactly (the exported real 0.5, fsynced) before its
+  first write.
+- It admitted **40 of 40 launches and 264 scene dumps**, every one a fresh launch:
+  - scene set, scheme, scale, build and pose attested per dump;
+  - `inputBlurFillNormalOpacity` = x on every surface (X42);
+  - at x = 0.5 every surface **reproduces memo D with zero departures**.
+- **The restore is verified:** no harness left, the slider back to its as-found real byte for byte,
+  the display at mode 68.
+
+The driver's stub proof re-ran after the window, 86 of 86 over 31 cases, with the real slider and
+display read unchanged before and after.
+
+**What moves with x (pointers, X38):**
+- `BlurFillNormalOpacity` = x at all nine positions;
+- Lighten and Darken 0.675 + 0.45x on [0, 0.5], then 0.9;
+- the face fill: light white at alpha 0.4x, then 0.2 + 0.6(x − 0.5); dark alpha 0 to 0.5, then a grey
+  at alpha x − 0.5;
+- the dark MaxLuma cap at s ≥ 80 on [0, 0.5], max(0.45 − 0.2x, 0.6 − (0.36 + 0.48x)t);
+- the backdrop capture scale: 0.125 on every shape at x = 1, and steps on rrect-ml and rrect-lg that
+  depend on x, scheme and pose.
+
+**Nothing else moves.** Every memo D span law holds at 0.25 except the dark cap and the rrect-lg
+capture scale (0.5 against 0.25). Rrect-md on photo and on the checkerboard is identical to
+dark-solid at 0, 0.25 and 1. At 0.25, 1x differs from 2x only in memo D's four device-pixel terms.
+
+### 5. (d) The sitting tooling (`w43-g0-sitting`, through `f8a8650a`)
+
+The tooling is derived from W42's machinery, copied verbatim first (`ae073d8a`). The sitting's
+membership is now a declared plan (`787fcaa7`). The changes:
+- the census matches executables, and a node process only by its entry script;
+- the launching chain is excluded by pid and start time;
+- the idle log is `.txt`, and a watchdog reads the session every 5 s during every launch;
+- a Universal Control report is made;
+- the slider is declared per pass, written only before fresh launches and restored by the EXIT
+  trap;
+- the dump sentinel's Normal = x check;
+- the side-bundle publication path to `materialize`;
+- an archive that stores each distinct frame once;
+- the dry plan and timing derived from the declared plan, at W42 G1's measured rates.
+
+**The parent's rulings, implemented** (`085f0542`, `d32cf72d`):
+- clause 3's bridge gate reads every run of every bridge cell;
+- `runAfterCut` on the closing W42 sentinel passes, which are each order's tail, so a STOP_AFTER cut
+  never drops the close;
+- no tint gate: the clause 3 bridge against tint-attested W29 fixtures is the stricter check.
+
+**The independent review's fixes** (`73923ff5`, proved at `f8a8650a`):
+- P1: a signal during the EXIT trap's restoration could end the shell with the display at mode 69
+  and no RESTORE FAILED. Restoration now ignores HUP, INT and TERM for its whole duration and runs
+  once.
+- P2: the census counted a node process whose later argument named Playwright. Only the entry point
+  counts now.
+
+Red-green reads **17 of 17**; the suites 66, 11 and 7.
+
+### 6. (e) The declaration: twelve items, hashed
+
+`declaration.json` declares each item once and pins its 39 sources by SHA-256, the charter at
+`c271521a`. `declare.py check` re-derives every count and list. `hash` refused while anything was
+pending and never overwrites; its proof is **15 of 15** on scratch copies, a hash among them.
+
+**The canonical bed.** `scenes.json` version 8 adds the four `-glass0.25` standard keys as verbatim
+copies of their 0.5 lists, 562 cells a round. Nothing else moves. `scene-matrix.test.ts` and
+`native-delta.test.ts` are scoped to the two macOS 27 beds, not relaxed.
+
+**The probe and ladder bed.** `bed/declare-probe.py` takes W42 ids, backgrounds, components and
+roles verbatim, calibration and validation only (X46). All 116 of their 0.5 counterparts are in
+`w42-archive`. Per 2x endpoint:
+- 29 cells at x = 0.25, 1 and 0: greys on the capsule and rrect-md; two-level checkers at pitch 64
+  and 16 inside each endpoint's monotone range; P1 on the capsule at 32 and 64 and on rrect-64; the
+  steps and 32-pt squares;
+- 10 cells at x = 0.75.
+
+That is 1,180 captures at three runs.
+
+**The bridges in each sitting.** `bridges/`:
+- W42's two sentinels at 0.5, long protocol, three runs, at each opening and close. They are read
+  against W42 G1's long-protocol frames, because in the active pose the two protocols settle on
+  different frames in five of eight cell-endpoints.
+- Six canonical cells per canonical pass at each opening.
+
+That makes 168 captures in G1a and 84 in G1b. **The identity-only ruling:** an opening cell must
+read a region statistic, or else have been unanimous at W29 AND byte-identical in G0 (b).
+`hc-text__rrect-sm` had no region statistic as an active rrect-sm, and is no G0 (b) twin. It was
+replaced by `hc-text-28__rrect-md` (`355fbd25`, `333ac8b1`), and the generator refuses any opening
+cell that reads none.
+
+**Both plans**, in (d)'s schema, are validated by its final pass-spec (unchanged through
+`f8a8650a`) and priced by its timing model:
+
+| plan | captures | launches | dump scenes | slider writes | display switches | modelled | with 10 % stops |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| G1a | 4,103 | 89 | 48 | 2 | 4 | 11.21 h | 12.33 h |
+| G1b | 1,265 | 55 | 96 | 5 | 0 | 3.70 h | 4.08 h |
+
+**The w-test** (`wtest/`):
+- The statistic is the free-side ratio r = (T₀.₂₅⁻¹(y₀.₂₅) − C)/(T₀.₅⁻¹(y₀.₅) − C), with native T from
+  the probe's own greys.
+- Its support is fixed in `support.json`: the narrow term within 0.5 code of the level and the wide
+  term 24 codes from it, for every k in [1.4, 2.5]; predicted dr ≤ 0.10. That is **4 / 2 / 3 / 2**
+  regions in light active, light receded, dark active and dark receded. Rehearsal 3 on W42's 0.5
+  frames found each receded endpoint resting on one 12-px region, so P1 on rrect-64 was added
+  before the hash.
+- The verdict is PASS iff |r − 0.5| ≤ dr on every supported region.
+
+The record rehearsals:
+- **Synthetic LT, 40 seeds a scenario.** The null passed in every seed of 64 scenarios, with
+  z ≤ 0.82. Every seed failed at r = 0.7 and 1.0. The free side is unmoved by λ₀.₂₅. The per-pixel
+  mean statistic is not honest and was not declared.
+- **The two-sided control.** The free and lifted readings agree.
+
+The prediction, from memo F's fold on the support spans: **r = 0.5, stated in all four 2x
+endpoints.**
+
+**The review** of `w43-g0-decl` against `6cb112d5` (reviewer-medium, changes-needed) found three P2s,
+all fixed in `60e6f136`:
+- the bridge verdict follows every run;
+- `declare.py` checks the declared repeat counts against both plans;
+- the lifted reading carries memo F's dark ramp.
+
+### 7. Gaps, each recorded
+
+- **Identity-only cells.** No opening canonical bridge cell is identity-only, by construction.
+  The pose check stays an identity gate by design (`204f21f0…` or `6c15311b…`). Under W42's
+  instrument the active small shapes (rrect-sm) have no deep mask, so no bridge can cover them
+  except by identity.
+- **96 dump scenes in G1b against the charter's 72.** That is six per endpoint at each of the four
+  positions, about 3 minutes, a declared deviation accepted by the parent.
+- **The rrect-lg capture-scale step moves with x.** It is 0.5 at x = 0.25 against 0.25 at 0.5, in
+  all four endpoints. Every canonical rrect-lg cell is realised at twice the backdrop density at
+  0.25, which G2's native delta must read as such, not as a material change. Rrect-ml steps
+  elsewhere, and every shape drops to 0.125 at x = 1, so the ladder's x = 1 cells read W through a
+  quarter of 0.5's capture density.
+- **The dark cap moves with x.** At s ≥ 80 below 0.5, the dark T at 0.25 is not the dark T at 0.5.
+  The w-test inverts T natively per position; G3's dark tone leaves will move for that reason, and
+  clause 7 must attribute it.
+- **Universal Control is undetectable as a feature state.** (d)'s report reads the agent,
+  Bluetooth and awdl0, and finds the input path reachable on this Mac. It cannot tell whether a peer
+  is linked or whether the agent forwards input with the feature off, as W42 G1's stop 2 saw it do.
+  The user's prerequisite stands: off on the capture Mac, the other device away. The watchdog sees
+  only input that resets HID idle, and focus changes that outlast its 5 s period.
+- **The w-test reads mostly t = 0.** Every supported region but light active's square lies on the
+  capsule or rrect-64. Rrect-md regions are conditioned but under-resolved (dr 0.14–0.53), and the
+  pitch-16 checkers carry no support. The test therefore says little about the composite's slider
+  coupling at s ≥ 80.
+- **The light lifted-side scalings are indistinguishable.** λ₀.₂₅ by ratio is 0.7595, by difference
+  0.7555 (Δr_lift ≈ 0.003), so the lifted reading tests the ramp's size, not its form.

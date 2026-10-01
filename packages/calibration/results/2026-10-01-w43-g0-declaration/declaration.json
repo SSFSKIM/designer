@@ -1,0 +1,371 @@
+{
+  "schema": "w43-declaration-1",
+  "charter": "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+  "items": [
+    {
+      "id": "canonicalBed",
+      "title": "The canonical 0.25 bed (G1a)",
+      "clause": "1, 5; Design \"The generation's bed\"; DL 2",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "apps/reference-apple/scenes.json"
+      ],
+      "declared": {
+        "scenesVersion": 8,
+        "keys": [
+          "apple-macos-27.0-1x-light-standard-glass0.25",
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "apple-macos-27.0-2x-light-standard-glass0.25",
+          "apple-macos-27.0-2x-dark-standard-glass0.25"
+        ],
+        "membership": "each list its -glass0.5 counterpart's verbatim; no scene, background, component, tint, split membership or existing profile moves",
+        "cellsPerRound": 562,
+        "perScale": {
+          "light": 164,
+          "dark": 117
+        },
+        "runs": 7,
+        "publication": "plurality-published by materialize --frequency-settle into apps/reference-apple/fixtures/apple-macos-27.0-*-glass0.25/, the manifest's hardware block naming the side bundle; the per-profile count equal to the 0.5 count or each missing cell named",
+        "accessibility": "none at 0.25 (DL 2 (b)); the 0.25 documents carry the 0.5 accessibility leaves, recorded as unmeasured",
+        "passes": "four, one scale and one pose each, both schemes (2x active 162, 2x receded 119, 1x the same); each derives a specification carrying the 0.25 keys alone"
+      }
+    },
+    {
+      "id": "probeBed",
+      "title": "The probe and the ladder (G1b)",
+      "clause": "1, 5, 8, 9; Design \"The w-test\", \"The slider ladder\"; DL 2, 4; X46, X47",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-probe.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/scenes-w43-probe.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/pins.json"
+      ],
+      "declared": {
+        "positions": [
+          {
+            "x": 0.25,
+            "kind": "probe",
+            "cellsPerEndpoint": 29
+          },
+          {
+            "x": 1,
+            "kind": "ladder",
+            "cellsPerEndpoint": 29
+          },
+          {
+            "x": 0,
+            "kind": "ladder",
+            "cellsPerEndpoint": 29
+          },
+          {
+            "x": 0.75,
+            "kind": "ladder",
+            "cellsPerEndpoint": 10
+          }
+        ],
+        "endpoints": "2x light active, light receded, dark active, dark receded",
+        "ids": "W42's declared bed, ids, backgrounds, components and split roles verbatim (calibration and validation only); every 0.5 counterpart present in w42-archive",
+        "runs": 3,
+        "references": "one recaptured per pass in run 1 (ref-checker-64-048-208); the rest are W42's",
+        "captures": 1180,
+        "order": "0.25, then 1, 0, 0.75; a stop drops from the bottom: 0.75, then 0, then 1, then the probe (X47)",
+        "publication": "never filed as fixtures; archived as w43-archive-g1b by SHA-256 and bytes, the bar published from the archive",
+        "addedBeforeHash": "bp-p1-c32-rrect-64 (P1 at pitch 32 on rrect-64, t = 0): rehearsal 3 left each receded endpoint one 12-px capsule region; this W42 calibration cell is supported in all four endpoints (wtest/proposal-p2.txt)"
+      }
+    },
+    {
+      "id": "bridgeExisting",
+      "title": "The bridge on existing evidence (G0 (b))",
+      "clause": "3; Design \"The bridges\"; X43",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json"
+      ],
+      "declared": {
+        "verdicts": {
+          "AGREE (bytes)": 18,
+          "AGREE (regions)": 2,
+          "NO TWIN": 4
+        },
+        "reading": "W42 family F (side bundle, 0.5, 2026-09-30) against the canonical 0.5 fixtures (original bundle, 2026-09-18/19), read run by run: every run of every twinned cell-pass agrees; the dark impulse has no canonical twin",
+        "archive": "w42-archive asset 1e3d6e65..., inventory 5481795e..., probe role only, H never requested",
+        "runByRun": "every run of all 20 twinned cell-passes agrees with its fixture, by bytes or by every region statistic (bridge.json runByRun)"
+      }
+    },
+    {
+      "id": "bridgeCells",
+      "title": "The bridges in each sitting",
+      "clause": "3; Design \"The bridges\"; X43",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.json"
+      ],
+      "declared": {
+        "sentinels": "f-impulse-rrect-md and f-checker64-rrect-lg at 0.5, long protocol, 3 runs per endpoint, at each sitting's opening and close, against W42 G1's long-protocol rows",
+        "canonical": "six cells per canonical pass at 0.5, 3 runs, at the opening, against their -glass0.5 fixtures",
+        "captures": {
+          "G1a": 168,
+          "G1b": 84
+        },
+        "metric": "every run of every bridge cell pixel-identical to its reference, or every region statistic of that run within max(1 code, bar) of the reference (W42's instrument; W39's bar; the sentinels W42 G1's long-protocol bar); the coordinator's ruling: read run by run, never a plurality frame",
+        "stops": "at an opening: the sitting stops before any capture away from 0.5; at a close: nothing voided, the sitting's claims against 0.5 read as unbridged and the user rules before G3 (clause 3)",
+        "afterCut": "the closing sentinel passes are the order's tail and run after any cut, the slider and mode 68 restored first (runAfterCut)",
+        "tints": "the four tinted bridge cells (photo__capsule-button and checkerboard__capsule-button, rest and inactive, tint-orange) are refereed by clause 3 against W29 fixtures the original harness tint-attested, which is stricter than the twin test; no W29-style tint pre-flight runs, because a check over 0.5 fixtures says nothing about 0.25 pixels (the parent's ruling)",
+        "canonicalCells": "light: dark-solid__capsule-button, photo__capsule-button tint-orange, mid-chroma-solid__rrect-md; dark: dark-solid__rrect-lg, checkerboard__capsule-button tint-orange, hc-text-28__rrect-md (text on rrect-md: an active rrect-sm has no region statistic under W42's instrument, so it could agree only by bytes)",
+        "identityOnly": "none: every opening canonical cell carries a region statistic under W42's instrument in every pass (the parent's ruling; hc-text__rrect-sm, unanimous at W29 but no G0 (b) twin, was replaced by hc-text-28__rrect-md)"
+      }
+    },
+    {
+      "id": "repeatsAndBar",
+      "title": "Repeats, the bar and the archives",
+      "clause": "5; X24",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a"
+      ],
+      "declared": {
+        "bar": "per cell, region statistic and channel: 0.5 + 0.5 x the largest pairwise separation of the run medians, computed from the archive before plurality and published before G2 reads",
+        "canonicalRuns": 7,
+        "probeRuns": 3,
+        "archives": "w43-archive-g1a and w43-archive-g1b, each complete, published by SHA-256 and bytes, a second owner-controlled copy, replayed identically with the raw root denied; each distinct frame stored once"
+      }
+    },
+    {
+      "id": "memoF",
+      "title": "Memo F: the slider in Apple's declared tree",
+      "clause": "2; Design \"Memo F\"; X38, X42",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/plan.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f_read.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/tables.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/fold.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/restore.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/run-sha256.txt"
+      ],
+      "declared": {
+        "run": "2026-10-01 07:37-08:15Z, run root ~/vitrea-w43/memo-f/run-20261001T0737Z (scratch, manifested in run/run-sha256.txt); 40 of 40 launches, 264 scene dumps admitted; restore verified (slider back to its as-found real 0.5, display mode 68)",
+        "control": "x = 0.5 reproduces memo D with zero departures in all four endpoints",
+        "moving": {
+          "BlurFillNormalOpacity": "= x at all nine positions (w)",
+          "BlurFillLightenOpacity / BlurFillDarkenOpacity": "0.675 + 0.45x on [0, 0.5], 0.9 on [0.5, 1], both schemes (lambda)",
+          "FaceColorMatrixFillColor": "light: white, alpha 0.4x then 0.2 + 0.6(x - 0.5); dark: grey 0.25|x - 0.5|, alpha 0 on [0, 0.5] then x - 0.5 (T)",
+          "FaceColorMatrixMaxLuma = MaxLumaSDR (dark)": "at s >= 80 on [0, 0.5]: max(0.45 - 0.2x, 0.6 - (0.36 + 0.48x) t); memo D's law on [0.5, 1]; 0.6 at s <= 64 (T)",
+          "bd.scale": "0.5 at s <= 96 for x < 1 and 0.125 at x = 1 on every shape; rrect-ml and rrect-lg step to 0.25 at positions that depend on x, scheme and pose (rrect-lg 0.5 at x = 0.25 in all four endpoints) (C and W)"
+        },
+        "unmoved": "every other declared input at every position: the narrow blur radius, opacities and distances, the fill radius, the face black, white and saturation, the clamp, refraction, bleed, shadows, ring shadow, highlight, SDF output, margin and element",
+        "lawsAt025": "every memo D span law holds at 0.25 except the dark MaxLuma law (slope 0.48 against 0.6, floor 0.40 against 0.35) and the rrect-lg capture scale (0.5 against 0.25)",
+        "controls": "backdrop: rrect-md on photo and checkerboard identical to dark-solid at 0, 0.25 and 1; scale: 1x and 2x at 0.25 differ only in memo D's four one-device-pixel terms",
+        "status": "pointers to Apple's declared configuration (X38); the pixels referee them"
+      }
+    },
+    {
+      "id": "wTestPrediction",
+      "title": "The w-test prediction, in memo F's terms",
+      "clause": "2, 8; Design \"The w-test\"",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/fold.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/fold.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md"
+      ],
+      "declared": {
+        "prediction": "on the free side (light C >= W, dark C <= W), r = (T25^-1(y25) - C) / (T50^-1(y50) - C) = w(0.25) / w(0.5) = 0.5",
+        "statedIn": [
+          "2x-dark-active",
+          "2x-dark-receded",
+          "2x-light-active",
+          "2x-light-receded"
+        ],
+        "basis": "memo F: between 0.25 and 0.5 no input that sets C or W moves on the support shapes (s = 44, 64, 96); Normal reads exactly 0.25 and 0.5; lambda (0.9 -> 0.7875) does not enter the free side; the face fill and the dark cap move and are T, inverted natively at each position from that position's greys",
+        "liftedSide": "read and reported, never gated: the declared lambda25 is 0.7875 in both schemes, against W42's fitted lambda50 scaled by 0.875 or shifted by -0.1125",
+        "refutes": "a FAIL refutes the composite's slider coupling on the free side; either verdict redirects the next structure wave and lands nothing (clause 8, Decision Log 4)"
+      }
+    },
+    {
+      "id": "wTestStatistic",
+      "title": "The w-test: statistic, support, resolution and verdict",
+      "clause": "8; Design \"The w-test\"",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/README.md",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/wtest.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/w42frames.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearse.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/support.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/prediction.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r1.txt",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r2.txt",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r3.txt",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/proposal-p2.txt"
+      ],
+      "declared": {
+        "statistic": "per supported free-side region and channel, r = (T25^-1(y25) - C) / (T50^-1(y50) - C), averaged over channels; y the region median of the plurality frame (three runs at 0.25, W42's seven at 0.5); T_x native per channel and stratum through the probe's own greys at x (W42's at 0.5); C the backdrop's declared level",
+        "support": {
+          "file": "wtest/support.json, fixed at the hash",
+          "supportedRegionsPerEndpoint": {
+            "dark-inactive": 2,
+            "dark-rest": 3,
+            "light-inactive": 2,
+            "light-rest": 4
+          },
+          "rule": "W42 region populations on the free level (light the brighter, dark the darker), per pixel |C - level| <= 0.5 code and |W - C| >= 24 codes under LT's maps for every k in [1.4, 2.5]; >= 12 px; |M50 - C| >= 12 codes; predicted dr <= 0.10; X21 censoring (>= 250 or <= 5) excludes at 0.5 and makes a 0.25 statistic UNMEASURED; in dark at s >= 96 an inverted M above 208 excluded",
+          "note": "mostly t = 0 (capsule, rrect-64); the pitch-16 checkers drop out everywhere",
+          "liftedReported": "lifted-side regions are listed beside the free ones (reported, never gated)"
+        },
+        "resolution": "dr = (dM25 + |r| dM50) / |M50 - C|, dM = (0.5 median quantisation + 0.5 ordinate quantisation + the T table's interpolation error from the three nearest ordinates' curvature) / T's slope",
+        "verdict": "per endpoint: PASS iff |r - 0.5| <= dr on every supported, measured region (at least one); FAIL otherwise, with the measured r; no region measured is UNMEASURED",
+        "prediction": "wtest/prediction.json: stated in all four endpoints, r_pred = 0.5 (item wTestPrediction)",
+        "liftedSide": "r_lift = (w25 + lam25 (1 - w25)) / (w50 + lam50 (1 - w50)) and lam25, read and reported, never gated",
+        "rehearsals": {
+          "r3": "W42's 0.5 frames: supported regions 4 / 2 / 3 / 2 (light active, light receded, dark active, dark receded), every one at predicted dr <= 0.094",
+          "r1": "synthetic LT, 40 seeds a scenario: null PASS in every seed of 64 scenarios (size 0), |r - 0.5| <= 0.069, z <= 0.82 (dr honest); every seed FAILs at r = 0.7 and 1.0; the free-side r is unmoved by lam25 in all 64 checks; the per-pixel mean statistic is not honest (null pass 0.95, z 1.3) and is not declared",
+          "r2": "two-sided linear control, 40 seeds: free 0.47-0.52 and lifted 0.43-0.50 agree within dr; with the hinge the lifted reading matches its expectation and lam25 is recovered to +-0.02"
+        },
+        "addedBeforeHash": "bp-p1-c32-rrect-64 joined the probe (proposal P2) so that no receded endpoint rests on one 12-px region"
+      }
+    },
+    {
+      "id": "ladderReadings",
+      "title": "The ladder, described",
+      "clause": "9; Design \"The slider ladder\"",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json"
+      ],
+      "declared": {
+        "T": "T(x) per endpoint, channel and stratum (capsule t = 0, rrect-md s = 96): the probe greys' deep medians at x = 0, 0.25, 1 (seven levels), 0.75 (0, 128, 208, 255) and W42's at 0.5 (plurality frames)",
+        "freeSide": "M_x = T_x^-1(y_x) on the w-test's supported free-side regions at x = 0, 0.25, 0.5 and 1 (and 0.75 where its two cores are supported), against the affine M(x) = C + x (W - C): M(0) - C, the slope, and the largest residual from the line through x = 0 and 1",
+        "bodyAt1": "M = W on both sides under LT: the free and lifted region medians' symmetry (memo C's mirror statistic) and the step and patch profiles, read through the 0.125 capture scale memo F declares at x = 1 on every shape",
+        "bodyAt0": "the free side reads C directly (M(0) - C, predicted 0); the lifted side reads C with the hinge at the declared lambda(0) = 0.675",
+        "status": "descriptive: no fit claimed, no gate reads it (clause 9); written for the next structure wave and the continuous slider's charter, with a recommendation on its form and the fewest generations it needs"
+      }
+    },
+    {
+      "id": "sitting-g1a",
+      "title": "G1a: order and timing",
+      "clause": "1, 4; Design \"The two sittings\"; DL 3",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-sittings.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1a.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json"
+      ],
+      "declared": {
+        "planSha256": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+        "plan": "bed/sitting-g1a.json",
+        "schema": "w43-sitting-plan-1",
+        "totals": {
+          "captureLaunches": 89,
+          "captures": 4103,
+          "dumpLaunches": 8,
+          "dumpScenes": 48,
+          "modeSwitches": 4,
+          "publishedCells": 562,
+          "sliderWrites": 2
+        },
+        "modelledHours": 11.21,
+        "withStopLossHours": 12.33,
+        "timing": "bed/timing-g1a.txt: G0 (d)'s timing.py (w43-g0-sitting d92190b4), W42 G1's measured rates",
+        "order": "0.5 at mode 68: the pose check, the opening bridges at 2x; 0.5 at mode 69: the opening bridges at 1x; 0.25: dump sentinels and the canonical passes, 2x at mode 68 then 1x at mode 69; 0.5: the closing W42 sentinels at 1x, then 2x, ending at mode 68",
+        "validatedBy": "G0 (d)'s final pass-spec.py, w43-g0-sitting d32cf72d (file SHA-256 d739887eefb41c5c70c4eab156404788089fac18e7a042a56b1a8b8c884b7fc4): validate_plan accepts the plan, plan_counts gives the totals; timing.py is unchanged since d92190b4"
+      }
+    },
+    {
+      "id": "sitting-g1b",
+      "title": "G1b: order and timing",
+      "clause": "1, 4; Design \"The two sittings\"; DL 3; X47",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-sittings.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json"
+      ],
+      "declared": {
+        "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+        "plan": "bed/sitting-g1b.json",
+        "schema": "w43-sitting-plan-1",
+        "totals": {
+          "captureLaunches": 55,
+          "captures": 1265,
+          "dumpLaunches": 16,
+          "dumpScenes": 96,
+          "modeSwitches": 0,
+          "publishedCells": 0,
+          "sliderWrites": 5
+        },
+        "modelledHours": 3.7,
+        "withStopLossHours": 4.08,
+        "timing": "bed/timing-g1b.txt: G0 (d)'s timing.py (w43-g0-sitting d92190b4), W42 G1's measured rates",
+        "order": "mode 68 throughout. 0.5: the pose check and the opening bridges; then 0.25 (the probe), 1, 0 and 0.75 (the ladder), each opening with its dump sentinels, one capture pass per pose over both schemes; 0.5: the closing sentinels. The original bundle's restore follows, by hand (clause 6)",
+        "dumpScenesAgainstCharter": "96 dump scenes, six per endpoint at each of the four positions, against the 72 the charter priced",
+        "validatedBy": "G0 (d)'s final pass-spec.py, w43-g0-sitting d32cf72d (file SHA-256 d739887eefb41c5c70c4eab156404788089fac18e7a042a56b1a8b8c884b7fc4): validate_plan accepts the plan, plan_counts gives the totals; timing.py is unchanged since d92190b4"
+      }
+    },
+    {
+      "id": "nothingFrozen",
+      "title": "Nothing frozen moves",
+      "clause": "11; X1, X41",
+      "source": [
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/x41.ts",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/sha256.txt",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/macos27-document-projection.json"
+      ],
+      "declared": {
+        "freeze": "freeze.py verify reads 1,818",
+        "x41": "x41.ts verify reads 695 entries at every merge",
+        "digests": "0.5: be13dae45098fc89 / 2a4323f33df8d799 / b0d0d8dacc6a03af / 7c454858a3cbad5b; 26.5: b2b570e4adcea8fb / 874be66ea501621b",
+        "goldens": 34
+      }
+    }
+  ],
+  "sources": {
+    "apps/reference-apple/scenes.json": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+    "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a": "dc5c41d648ba3a8544a5387214c06863be1db0da121ae9f88a15f6a7c6e22156",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-probe.py": "d4ef8492f93bf1a25944373c77c49ef12bd09f757ca9e86069d6c2848ed6eff9",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-sittings.py": "e1bbbbffe48ede37f7560e27366e13461655d2b331aab5fa62df7e628de21e9e",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/pins.json": "e64e63f41e3a50dc6254d0dc3f26ef37a0b5a51ff28275678dc5a23a003072d3",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json": "2ab7de9ba5737b802e48b2cc742d90c8ca34c5867aff0c249144277522d92f5e",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/scenes-w43-probe.json": "f54e133befb61d20bdefcefd2228d66067b96bc35ecb332681498a70e39b2ba0",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1a.json": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json": "8e1d70028c717368eb81b42dd4753974769982bba3c43541e414ff0f1f0becba",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json": "27c7687e60fb3c83ce2cfc6b80ee493ebb90a958222005f04011f63c33637ef3",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json": "36369636f682bdd078dc586c075f7ed9c6a996a47863b9f530e05699204e0533",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py": "ca10493f19915ab6f4bc97aa1bcc86455af3627bd874801021b1c36f3073581c",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json": "8bd264fd70fa7ec9a1310c9fe7651d755fbb33b3e81b8da7f95ccbff59d8fa2f",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py": "cbc7d2640352909aad69f9d0bf7c76e1c004a24cdfb93a096e64ba2683d87b7e",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.json": "100ca39c4bb717f4bc75c17e60978687b108c66deba2bb447231ba17cc07d86f",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.py": "95af5de7da92590f90a53b24f7a13e3e48ff1adc9253045d0b6a6f64add2d35c",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md": "c81a1065660dcde9f62fbac5a354adda6d026eb73e1f568e731ab092f0d47890",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/fold.py": "60382c85d6e25d0fbcc6baa3412fa687eff22089580663e72db8bcee4451bd77",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f.py": "62cad58bd3a2232f3266afa4a01a02b0ca3cd2bd6501daee9e5544c1e2818b0f",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f_read.py": "eff54b6ec254603cacd60199c475c66a9ecab8b10018e9126899082a63bb6f76",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/plan.json": "caeb90ad108a467a7d2486f89fde6b551dfce4e8af51aff1209af44c7ff9d0d5",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/fold.json": "ce0e070a269221ed3ed3c676cc57c4654c3c16c1330b3d0927ffbc501030e181",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/tables.json": "d50352abab02cbd478352c7eeb70042df6a6e4e9bc654d7a6f3984b31f474bdf",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/restore.json": "fe83df7871d324f7e1e842a93a5c6d7cab819aa303d3d45b338d68347be550a2",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/run-sha256.txt": "f9bfca0ccfe790c9b801c21c943659326450eaafac6d9127070e52fb58a12b39",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/README.md": "b4aedbed7a5fcc31aed3039374d8a29ba631c871a48e8940b526f01daccd71da",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/prediction.json": "6f44606612a3d8540422641691e09ea995afa8bd43e51f152da73a66224c7adf",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/proposal-p2.txt": "ad25bbfa16dc1f96dd9c065dbd624bb7838a93f30ce4823c7ddd6cacbceacab1",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r1.txt": "8d721222ba03c4262fd6a55a3a83dbb1880ed617ce5b65b50adeccfe46670908",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r2.txt": "879b3419898db500b3edec41cb000df81c36c0a5e76ad69bd08ae8f967bf7cda",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r3.txt": "0d2cbde00b40f1fb9db0c673fa5d2cbde51457286dab0e761d67b4ae985b2a7e",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearse.py": "4c8c6f3c2415c12934f21275ee65a6ac2623ff6656528c01626fcba722e4af84",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/support.json": "790fcab778331e76236e28699379a6ef7cf68219780a20a7514ea9d70b792492",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/w42frames.py": "749710bf088214e6c28c1efcf764e31aa228c14cc8c75ab9c896749a08b036de",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/wtest.py": "b789bd0203df285a45e1413cd44e6e840ad62a449ad7d88a35c55906bdc771b7",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/macos27-document-projection.json": "edf6c3dd63f16f48733a1a916f90bba71d4b23b2093715a64ac83bdd02738079",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/sha256.txt": "61a55c03b71a302a81191fbd3ca2de755d781e3b1fd1f230e15f2b4af5e10a1a",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/x41.ts": "0b7171ae5e33d0a51894e67677d20b389716ed2c7c60874a81b910d1105197d5"
+  }
+}

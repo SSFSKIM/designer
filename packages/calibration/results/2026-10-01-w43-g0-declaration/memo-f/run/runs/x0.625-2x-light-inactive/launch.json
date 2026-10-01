@@ -1,0 +1,29 @@
+{
+ "argv": [
+  "/usr/bin/open",
+  "-W",
+  "--env",
+  "VITREA_SCALE=2",
+  "--env",
+  "VITREA_SCENES=/Users/new/vitrea-w43/memo-f/run-20261001T0737Z/scenes.json",
+  "--env",
+  "VITREA_FIXTURES=/Users/new/vitrea-w43/memo-f/run-20261001T0737Z/runs/x0.625-2x-light-inactive/no-fixtures",
+  "--stdout",
+  "/Users/new/vitrea-w43/memo-f/run-20261001T0737Z/runs/x0.625-2x-light-inactive/dump.out",
+  "--stderr",
+  "/Users/new/vitrea-w43/memo-f/run-20261001T0737Z/runs/x0.625-2x-light-inactive/dump.err",
+  "/Users/new/vitrea-w39/side/VitreaReference.app",
+  "--args",
+  "dump-layers",
+  "--scenes",
+  "dark-solid__capsule-button__rest,dark-solid__rrect-64__rest,dark-solid__rrect-80__rest,dark-solid__rrect-md__rest,dark-solid__rrect-ml__rest,dark-solid__rrect-lg__rest",
+  "--settle",
+  "8",
+  "--scheme",
+  "light",
+  "--inactive",
+  "--out",
+  "/Users/new/vitrea-w43/memo-f/run-20261001T0737Z/runs/x0.625-2x-light-inactive/json"
+ ],
+ "at": "2026-10-01T08:05:29.504640Z"
+}

@@ -1,0 +1,153 @@
+memo F reading: positions [0.0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0]
+
+== 1x-dark-active
+  no x = 0.5 block at this scale: moving fields are read against memo D only
+  inputs that move with x (0): none
+  x=0.25: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+
+== 1x-dark-receded
+  no x = 0.5 block at this scale: moving fields are read against memo D only
+  inputs that move with x (0): none
+  x=0.25: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+
+== 1x-light-active
+  no x = 0.5 block at this scale: moving fields are read against memo D only
+  inputs that move with x (0): none
+  x=0.25: memo D departs on 4 field(s); laws among them: ['bd.scale']
+
+== 1x-light-receded
+  no x = 0.5 block at this scale: moving fields are read against memo D only
+  inputs that move with x (0): none
+  x=0.25: memo D departs on 4 field(s); laws among them: ['bd.scale']
+
+== 2x-dark-active
+  inputs that move with x (6): bd.scale, BlurFillDarkenOpacity, BlurFillNormalOpacity, FaceColorMatrixFillColor, FaceColorMatrixMaxLuma, FaceColorMatrixMaxLumaSDR
+    bd.scale                                 s=44       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=64       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=80       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=160      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.25 0.625:0.25 0.75:0.25 0.875:0.25 1.0:0.125  | [0, 0.5] slope -0.5 (resid 0.1875); [0.5, 1] slope -0.25 (resid 0.09375)
+    bd.scale                                 s=96       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=128      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    BlurFillDarkenOpacity                    all spans  0.0:0.675 0.125:0.73125 0.25:0.7875 0.375:0.84375 0.5:0.9 0.625:0.9 0.75:0.9 0.875:0.9 1.0:0.9  | [0, 0.5] slope +0.45 (resid 0); [0.5, 1] slope +0 (resid 0)
+    BlurFillNormalOpacity                    all spans  0.0:0 0.125:0.125 0.25:0.25 0.375:0.375 0.5:0.5 0.625:0.625 0.75:0.75 0.875:0.875 1.0:1  | [0, 0.5] slope +1 (resid 0); [0.5, 1] slope +1 (resid 0)
+    FaceColorMatrixFillColor                 all spans  0.0:0 0.125:0 0.25:0 0.375:0 0.5:0 0.625:0.125 0.75:0.25 0.875:0.375 1.0:0.5  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +1 (resid 0)
+    FaceColorMatrixMaxLuma                   s=44       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=64       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=80       0.0:0.54 0.125:0.53 0.25:0.52 0.375:0.51 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.5  | [0, 0.5] slope -0.08 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=160      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=96       0.0:0.48 0.125:0.46 0.25:0.44 0.375:0.42 0.5:0.4 0.625:0.4 0.75:0.4 0.875:0.4 1.0:0.4  | [0, 0.5] slope -0.16 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=128      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=44       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=64       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=80       0.0:0.54 0.125:0.53 0.25:0.52 0.375:0.51 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.5  | [0, 0.5] slope -0.08 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=160      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=96       0.0:0.48 0.125:0.46 0.25:0.44 0.375:0.42 0.5:0.4 0.625:0.4 0.75:0.4 0.875:0.4 1.0:0.4  | [0, 0.5] slope -0.16 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=128      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+  x=0.0: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.125: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.25: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.375: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.625: memo D departs on 2 field(s); laws among them: none
+  x=0.75: memo D departs on 2 field(s); laws among them: none
+  x=0.875: memo D departs on 3 field(s); laws among them: ['bd.scale']
+  x=1.0: memo D departs on 3 field(s); laws among them: ['bd.scale']
+
+== 2x-dark-receded
+  inputs that move with x (6): bd.scale, BlurFillDarkenOpacity, BlurFillNormalOpacity, FaceColorMatrixFillColor, FaceColorMatrixMaxLuma, FaceColorMatrixMaxLumaSDR
+    bd.scale                                 s=44       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=64       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=80       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=160      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.25 0.625:0.25 0.75:0.25 0.875:0.25 1.0:0.125  | [0, 0.5] slope -0.5 (resid 0.1875); [0.5, 1] slope -0.25 (resid 0.09375)
+    bd.scale                                 s=96       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=128      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.25 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.09375)
+    BlurFillDarkenOpacity                    all spans  0.0:0.675 0.125:0.73125 0.25:0.7875 0.375:0.84375 0.5:0.9 0.625:0.9 0.75:0.9 0.875:0.9 1.0:0.9  | [0, 0.5] slope +0.45 (resid 0); [0.5, 1] slope +0 (resid 0)
+    BlurFillNormalOpacity                    all spans  0.0:0 0.125:0.125 0.25:0.25 0.375:0.375 0.5:0.5 0.625:0.625 0.75:0.75 0.875:0.875 1.0:1  | [0, 0.5] slope +1 (resid 0); [0.5, 1] slope +1 (resid 0)
+    FaceColorMatrixFillColor                 all spans  0.0:0 0.125:0 0.25:0 0.375:0 0.5:0 0.625:0.125 0.75:0.25 0.875:0.375 1.0:0.5  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +1 (resid 0)
+    FaceColorMatrixMaxLuma                   s=44       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=64       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=80       0.0:0.54 0.125:0.53 0.25:0.52 0.375:0.51 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.5  | [0, 0.5] slope -0.08 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=160      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=96       0.0:0.48 0.125:0.46 0.25:0.44 0.375:0.42 0.5:0.4 0.625:0.4 0.75:0.4 0.875:0.4 1.0:0.4  | [0, 0.5] slope -0.16 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLuma                   s=128      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=44       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=64       0.0:0.6 0.125:0.6 0.25:0.6 0.375:0.6 0.5:0.6 0.625:0.6 0.75:0.6 0.875:0.6 1.0:0.6  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=80       0.0:0.54 0.125:0.53 0.25:0.52 0.375:0.51 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.5  | [0, 0.5] slope -0.08 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=160      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=96       0.0:0.48 0.125:0.46 0.25:0.44 0.375:0.42 0.5:0.4 0.625:0.4 0.75:0.4 0.875:0.4 1.0:0.4  | [0, 0.5] slope -0.16 (resid 0); [0.5, 1] slope +0 (resid 0)
+    FaceColorMatrixMaxLumaSDR                s=128      0.0:0.45 0.125:0.425 0.25:0.4 0.375:0.375 0.5:0.35 0.625:0.35 0.75:0.35 0.875:0.35 1.0:0.35  | [0, 0.5] slope -0.2 (resid 0); [0.5, 1] slope +0 (resid 0)
+  x=0.0: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.125: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.25: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.375: memo D departs on 6 field(s); laws among them: ['bd.scale', 'FaceColorMatrixMaxLuma', 'FaceColorMatrixMaxLumaSDR']
+  x=0.625: memo D departs on 2 field(s); laws among them: none
+  x=0.75: memo D departs on 3 field(s); laws among them: ['bd.scale']
+  x=0.875: memo D departs on 3 field(s); laws among them: ['bd.scale']
+  x=1.0: memo D departs on 3 field(s); laws among them: ['bd.scale']
+
+== 2x-light-active
+  inputs that move with x (4): bd.scale, BlurFillLightenOpacity, BlurFillNormalOpacity, FaceColorMatrixFillColor
+    bd.scale                                 s=44       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=64       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=80       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=160      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.25 0.5:0.25 0.625:0.25 0.75:0.25 0.875:0.25 1.0:0.125  | [0, 0.5] slope -0.5 (resid 0.125); [0.5, 1] slope -0.25 (resid 0.09375)
+    bd.scale                                 s=96       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.28125)
+    bd.scale                                 s=128      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    BlurFillLightenOpacity                   all spans  0.0:0.675 0.125:0.73125 0.25:0.7875 0.375:0.84375 0.5:0.9 0.625:0.9 0.75:0.9 0.875:0.9 1.0:0.9  | [0, 0.5] slope +0.45 (resid 0); [0.5, 1] slope +0 (resid 0)
+    BlurFillNormalOpacity                    all spans  0.0:0 0.125:0.125 0.25:0.25 0.375:0.375 0.5:0.5 0.625:0.625 0.75:0.75 0.875:0.875 1.0:1  | [0, 0.5] slope +1 (resid 0); [0.5, 1] slope +1 (resid 0)
+    FaceColorMatrixFillColor                 all spans  0.0:0 0.125:0.05 0.25:0.1 0.375:0.15 0.5:0.2 0.625:0.275 0.75:0.35 0.875:0.425 1.0:0.5  | [0, 0.5] slope +0.4 (resid 0); [0.5, 1] slope +0.6 (resid 0)
+  x=0.0: memo D departs on 4 field(s); laws among them: ['bd.scale']
+  x=0.125: memo D departs on 4 field(s); laws among them: ['bd.scale']
+  x=0.25: memo D departs on 4 field(s); laws among them: ['bd.scale']
+  x=0.375: memo D departs on 3 field(s); laws among them: none
+  x=0.625: memo D departs on 2 field(s); laws among them: none
+  x=0.75: memo D departs on 2 field(s); laws among them: none
+  x=0.875: memo D departs on 3 field(s); laws among them: ['bd.scale']
+  x=1.0: memo D departs on 3 field(s); laws among them: ['bd.scale']
+
+== 2x-light-receded
+  inputs that move with x (4): bd.scale, BlurFillLightenOpacity, BlurFillNormalOpacity, FaceColorMatrixFillColor
+    bd.scale                                 s=44       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=64       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=80       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=160      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.25 0.5:0.25 0.625:0.25 0.75:0.25 0.875:0.25 1.0:0.125  | [0, 0.5] slope -0.5 (resid 0.125); [0.5, 1] slope -0.25 (resid 0.09375)
+    bd.scale                                 s=96       0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.5 0.75:0.5 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.1875)
+    bd.scale                                 s=128      0.0:0.5 0.125:0.5 0.25:0.5 0.375:0.5 0.5:0.5 0.625:0.25 0.75:0.25 0.875:0.25 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0.15625)
+    BlurFillLightenOpacity                   all spans  0.0:0.675 0.125:0.73125 0.25:0.7875 0.375:0.84375 0.5:0.9 0.625:0.9 0.75:0.9 0.875:0.9 1.0:0.9  | [0, 0.5] slope +0.45 (resid 0); [0.5, 1] slope +0 (resid 0)
+    BlurFillNormalOpacity                    all spans  0.0:0 0.125:0.125 0.25:0.25 0.375:0.375 0.5:0.5 0.625:0.625 0.75:0.75 0.875:0.875 1.0:1  | [0, 0.5] slope +1 (resid 0); [0.5, 1] slope +1 (resid 0)
+    FaceColorMatrixFillColor                 all spans  0.0:0 0.125:0.05 0.25:0.1 0.375:0.15 0.5:0.2 0.625:0.275 0.75:0.35 0.875:0.425 1.0:0.5  | [0, 0.5] slope +0.4 (resid 0); [0.5, 1] slope +0.6 (resid 0)
+  x=0.0: memo D departs on 4 field(s); laws among them: ['bd.scale']
+  x=0.125: memo D departs on 4 field(s); laws among them: ['bd.scale']
+  x=0.25: memo D departs on 4 field(s); laws among them: ['bd.scale']
+  x=0.375: memo D departs on 3 field(s); laws among them: none
+  x=0.625: memo D departs on 3 field(s); laws among them: ['bd.scale']
+  x=0.75: memo D departs on 3 field(s); laws among them: ['bd.scale']
+  x=0.875: memo D departs on 3 field(s); laws among them: ['bd.scale']
+  x=1.0: memo D departs on 3 field(s); laws among them: ['bd.scale']
+
+== backdrop control (rrect-md on photo / checkerboard against dark-solid)
+  x0 2x-dark-active photo__rrect-md__rest: identical
+  x0 2x-dark-active checkerboard__rrect-md__rest: identical
+  x0 2x-dark-receded photo__rrect-md__rest: identical
+  x0 2x-dark-receded checkerboard__rrect-md__rest: identical
+  x0 2x-light-active photo__rrect-md__rest: identical
+  x0 2x-light-active checkerboard__rrect-md__rest: identical
+  x0 2x-light-receded photo__rrect-md__rest: identical
+  x0 2x-light-receded checkerboard__rrect-md__rest: identical
+  x0.25 2x-dark-active photo__rrect-md__rest: identical
+  x0.25 2x-dark-active checkerboard__rrect-md__rest: identical
+  x0.25 2x-dark-receded photo__rrect-md__rest: identical
+  x0.25 2x-dark-receded checkerboard__rrect-md__rest: identical
+  x0.25 2x-light-active photo__rrect-md__rest: identical
+  x0.25 2x-light-active checkerboard__rrect-md__rest: identical
+  x0.25 2x-light-receded photo__rrect-md__rest: identical
+  x0.25 2x-light-receded checkerboard__rrect-md__rest: identical
+  x1 2x-dark-active photo__rrect-md__rest: identical
+  x1 2x-dark-active checkerboard__rrect-md__rest: identical
+  x1 2x-dark-receded photo__rrect-md__rest: identical
+  x1 2x-dark-receded checkerboard__rrect-md__rest: identical
+  x1 2x-light-active photo__rrect-md__rest: identical
+  x1 2x-light-active checkerboard__rrect-md__rest: identical
+  x1 2x-light-receded photo__rrect-md__rest: identical
+  x1 2x-light-receded checkerboard__rrect-md__rest: identical
+
+== scale control: 24 scene-endpoints at 1x against 2x; 0 differ beyond memo D's four device-pixel terms

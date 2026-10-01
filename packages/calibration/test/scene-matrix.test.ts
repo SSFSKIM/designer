@@ -85,16 +85,29 @@ const SETS = ["calibration", "validation", "holdout", "recorded", "probe"] as co
 const GATED_SETS: readonly string[] = ["calibration", "validation", "holdout"];
 const IDS = new Set(MATRIX.scenes.map((scene) => scene.id));
 /**
- * The two operating-system beds the matrix declares, and the key prefix of each.
+ * The beds the matrix declares, and which profile keys belong to each.
  *
  * Every assertion below that was written about "the four standard profiles" or
  * "both dark profiles" was written when one bed existed, and each is a statement
  * about a bed's SHAPE rather than about 26.5 in particular — so W29's 27 bed
  * (version 6: the same scenes and the same split under `apple-macos-27.0-…`
  * keys) is held to it too, which is also what checks that the 27 entries really
- * are copies of the 26.5 lists.
+ * are copies of the 26.5 lists. Version 8 adds W43's bed at the appearance
+ * slider's 0.25: the same operating system, so a bed is no longer named by the
+ * OS prefix alone. A pass captures one OS at one slider position, and the key's
+ * trailing token is what tells the two macOS 27 beds apart.
  */
-const BEDS = ["apple-macos-26.5-", "apple-macos-27.0-"] as const;
+const BEDS = [
+  { name: "apple-macos-26.5", holds: (key: string): boolean => key.startsWith("apple-macos-26.5-") },
+  {
+    name: "apple-macos-27.0 at glass 0.5",
+    holds: (key: string): boolean => key.startsWith("apple-macos-27.0-") && key.endsWith("-glass0.5"),
+  },
+  {
+    name: "apple-macos-27.0 at glass 0.25",
+    holds: (key: string): boolean => key.startsWith("apple-macos-27.0-") && key.endsWith("-glass0.25"),
+  },
+] as const;
 /**
  * A profile key with macOS 27's trailing appearance-slider token removed.
  *
@@ -438,16 +451,19 @@ describe("W27c G1d's uniform dark-response anchor (Decision Log 18)", () => {
   });
 
   it("presents four dark cells, not eight cross-scheme cells, at either scale", () => {
-    const selected = (bed: string, scale: string): string[] => MATRIX.profiles
-      .filter((profile) => profile.key.startsWith(bed) && profile.key.includes(`-${scale}-`)
+    const selected = (bed: (typeof BEDS)[number], scale: string): string[] => MATRIX.profiles
+      .filter((profile) => bed.holds(profile.key) && profile.key.includes(`-${scale}-`)
         && withoutGlass(profile.key).endsWith("-standard"))
       .flatMap((profile) => profile.scenes === "all"
         ? MATRIX.scenes.map((scene) => scene.id)
         : profile.scenes)
       .filter((id) => ids.includes(id));
-    // Per bed, not across both: a pass captures one operating system's profiles,
-    // so "four cells, not eight" is a statement about one bed's pass.
-    for (const bed of BEDS) for (const scale of ["1x", "2x"]) expect(selected(bed, scale), `${bed}${scale}`).toEqual(ids);
+    // Per bed, not across beds: a pass captures one operating system's profiles
+    // at one slider position, so "four cells, not eight" is a statement about one
+    // bed's pass.
+    for (const bed of BEDS) {
+      for (const scale of ["1x", "2x"]) expect(selected(bed, scale), `${bed.name} ${scale}`).toEqual(ids);
+    }
   });
 });
 
@@ -606,14 +622,19 @@ describe("W25's probe set is captured evidence that no gate is stated over", () 
     // The 27 bed declares the same scenes as the 26.5 bed (version 6), so the
     // grids ride its four standard profiles as well — which is the assertion
     // that would catch a 27 entry built from anything other than the 26.5 list.
+    // W43's 0.25 bed copies the 0.5 lists (version 8), so they ride its four too.
     expect(carrying).toEqual([
       "apple-macos-26.5-1x-dark-standard",
       "apple-macos-26.5-1x-light-standard",
       "apple-macos-26.5-2x-dark-standard",
       "apple-macos-26.5-2x-light-standard",
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
       "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "apple-macos-27.0-1x-light-standard-glass0.25",
       "apple-macos-27.0-1x-light-standard-glass0.5",
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
       "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "apple-macos-27.0-2x-light-standard-glass0.25",
       "apple-macos-27.0-2x-light-standard-glass0.5",
     ]);
     for (const key of [
@@ -671,7 +692,10 @@ describe("W25's probe backgrounds and shapes cost no new generator", () => {
 });
 
 describe("W29's macOS 27 bed (version 7, acceptance clause 2 and Decision Log 4 (b))", () => {
-  const OS_27 = MATRIX.profiles.filter((profile) => profile.key.startsWith("apple-macos-27.0-"));
+  // W29's bed is the macOS 27 profiles at the slider's 0.5; W43's 0.25 bed is
+  // held to its own block below.
+  const OS_27 = MATRIX.profiles.filter((profile) => profile.key.startsWith("apple-macos-27.0-")
+    && parseProfileKey(profile.key)?.glass === 0.5);
   const COUPLED = "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5";
 
   it("declares one 27 profile per 26.5 profile, plus the coupled contrast state", () => {
@@ -738,9 +762,14 @@ describe("W29's macOS 27 bed (version 7, acceptance clause 2 and Decision Log 4 
     for (const profile of MATRIX.profiles) {
       const parsed = parseProfileKey(profile.key);
       expect(parsed, profile.key).not.toBeNull();
-      expect(parsed?.glass, profile.key)
-        .toBe(profile.key.startsWith("apple-macos-27.0-") ? 0.5 : undefined);
+      if (profile.key.startsWith("apple-macos-27.0-")) continue;
+      expect(parsed?.glass, profile.key).toBeUndefined();
     }
+    for (const profile of OS_27) expect(parseProfileKey(profile.key)?.glass, profile.key).toBe(0.5);
+    // Every other macOS 27 key is W43's, at the one other position it declares.
+    const elsewhere = MATRIX.profiles.filter((profile) => profile.key.startsWith("apple-macos-27.0-")
+      && !OS_27.includes(profile));
+    for (const profile of elsewhere) expect(parseProfileKey(profile.key)?.glass, profile.key).toBe(0.25);
   });
 
   it("declares the 624 cells the pass plan is priced on, and 32 more for the coupled pair", () => {
@@ -759,5 +788,51 @@ describe("W29's macOS 27 bed (version 7, acceptance clause 2 and Decision Log 4 
       OS_27.filter((profile) => profile.key !== COUPLED)
         .reduce((total, profile) => total + cells(profile), 0),
     ).toBe(624);
+  });
+});
+
+describe("W43's 0.25 bed (version 8; charter Design \"The generation's bed\", Decision Log 2)", () => {
+  const AT_025 = MATRIX.profiles.filter((profile) => parseProfileKey(profile.key)?.glass === 0.25);
+
+  it("declares the four standard profiles at 0.25 and nothing else there", () => {
+    // No accessibility key is captured at 0.25 (Decision Log 2 (b)): whether the
+    // slider reaches the reduced-transparency or increased-contrast material at
+    // all is unread, and the 0.25 documents carry the 0.5 accessibility leaves.
+    expect(AT_025.map((profile) => profile.key).sort()).toEqual([
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "apple-macos-27.0-1x-light-standard-glass0.25",
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "apple-macos-27.0-2x-light-standard-glass0.25",
+    ]);
+  });
+
+  it("copies each 0.5 standard profile's scene list, scheme and mode exactly", () => {
+    // Every 0.25 cell must have a 0.5 counterpart for the native delta to read
+    // (clause 7), and the gate's populations must exist at 0.25 as at 0.5. A list
+    // that drifted would meet the delta as a missing cell, not as a declaration bug.
+    for (const profile of AT_025) {
+      const key05 = profile.key.replace(/-glass0\.25$/, "-glass0.5");
+      const counterpart = MATRIX.profiles.find((entry) => entry.key === key05);
+      expect(counterpart, profile.key).toBeDefined();
+      expect(profile.scenes, profile.key).toEqual(counterpart?.scenes);
+      expect(profile.colorScheme, profile.key).toBe(counterpart?.colorScheme);
+      expect(profile.a11y, profile.key).toBe(counterpart?.a11y);
+    }
+  });
+
+  it("names no third slider position", () => {
+    // A position is a measured generation with its own keys; a key at a third
+    // position would be a bed nobody declared a capture for.
+    const positions = new Set(MATRIX.profiles.map((profile) => parseProfileKey(profile.key)?.glass)
+      .filter((glass) => glass !== undefined));
+    expect([...positions].sort()).toEqual([0.25, 0.5]);
+  });
+
+  it("declares the 562 cells G1a is priced on", () => {
+    // The charter's estimate (Design, "The two sittings") prices G1a's canonical
+    // bed at 562 cells a round: 164 light and 117 dark at each scale.
+    const cells = AT_025.reduce((total, profile) =>
+      total + (profile.scenes === "all" ? MATRIX.scenes.length : profile.scenes.length), 0);
+    expect(cells).toBe(562);
   });
 });

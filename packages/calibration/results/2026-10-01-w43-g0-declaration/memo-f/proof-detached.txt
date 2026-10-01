@@ -1,0 +1,14 @@
+memo F driver proof, the detached path (2026-10-01, after the first real launch refused before its
+preflight: the detached child re-checked "the run root must not exist" against the root its own
+launcher had just made). Cases run: python3.12 -B proof.py green-detached red-detached-child-dirty-root
+red-root-in-repo red-fast-real. The full suite re-runs after memo F's window closes.
+
+memo F driver proof: 6 of 6 expectations hold over 5 cases
+real witness before {'slider': '0.5', 'sliderType': 'float', 'mode': 'mode 68'}, after {'slider': '0.5', 'sliderType': 'float', 'mode': 'mode 68'}
+
+PASS  green-detached               the launcher detaches and the child runs every block
+PASS  green-detached               restored and verified
+PASS  red-detached-child-dirty-root refused before anything is read
+PASS  red-root-in-repo             a run root inside the checkout refuses
+PASS  red-fast-real                the shortened waits refuse outside stub mode, before any tool runs
+PASS  witness                      the machine's real slider and display mode are unchanged

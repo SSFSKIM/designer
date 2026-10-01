@@ -52,7 +52,11 @@ describe("the pairing of a 27 cell with its 26.5 counterpart", () => {
   it("maps every declared 27 profile key onto a declared 26.5 one", () => {
     const declared = new Set(spec.profiles.map((profile) => profile.key));
     const keys27 = spec.profiles.map((profile) => profile.key).filter((key) => key.startsWith("apple-macos-27.0-"));
-    expect(keys27).toHaveLength(7);
+    // Seven at the slider's 0.5 (W29) and, since scenes.json version 8, W43's four
+    // standard keys at 0.25. `counterpartKey` strips the slider token, so both
+    // positions map onto the one 26.5 bed; W43 G2 adds the (0.25, 0.5) pairing
+    // beside it, naming the position it reads (X45).
+    expect(keys27).toHaveLength(11);
     for (const key of keys27) {
       const counterpart = counterpartKey(key);
       expect(counterpart.startsWith("apple-macos-26.5-")).toBe(true);
