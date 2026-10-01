@@ -1,0 +1,132 @@
+# W43 G2 (a): G1a's bridges read (charter clause 3; §5.199 §4 and §9)
+
+## The 168 bridge cell-runs, from the committed bridge.json files
+
+| bridge | cell-runs | by bytes | by regions | worst region delta |
+| --- | ---: | ---: | ---: | ---: |
+| opening, W42 sentinels | 48 | 47 | 1 | 0.0 |
+| opening, canonical cells | 72 | 67 | 5 | 0.0 |
+| closing, W42 sentinels | 48 | 46 | 2 | 0.0 |
+| **all** | **168** | **160** | **8** | **0.0** |
+
+Verdicts other than the two agreements: 0.
+
+## Gap 1: is each region-only state among W29's own run states for that cell?
+
+W29's states are the file SHA-256s of its seven raw runs per cell through the original bundle
+(``~/vitrea-w29-27-run``, read in ``../bar/raw-states.json``). A sentinel cell is read against its
+canonical twin (G0 (b)'s mapping): the checker-64 on rrect-lg is W29's checkerboard-64__rrect-lg.
+W42's own states for the sentinel are given beside, under both protocols.
+
+- close-w42-1x-dark-active run 1: `apple-macos-27.0-1x-dark-standard-glass0.5/f-checker64-rrect-lg__rest`
+  frame `069ecad73f24` against reference `f4ae168e4975`; 359 px at <= 2 codes; 60 region statistics, worst delta 0.0
+  W29's runs of `checkerboard-64__rrect-lg__rest`: {'069ecad73f24': 7}. **Among W29's states: YES**
+  W42 long protocol {'f4ae168e4975': 3} (among: False); W42 normal protocol {'069ecad73f24': 7} (among: True); G0 (b) family F at 0.5 {'069ecad73f24': 7} (among: True)
+  it is the 0.5 fixture's own bytes: the region-only verdict is against W42's long-protocol frame
+  the cell at 0.25 (G1a, seven runs): {'1fbc5c7e862d': 7}
+
+- close-w42-2x-dark-active run 1: `apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__rest`
+  frame `24b99f3931c2` against reference `969118c4591d`; 84 px at <= 1 codes; 66 region statistics, worst delta 0.0
+  W29's runs of `checkerboard-64__rrect-lg__rest`: {'24b99f3931c2': 3, '969118c4591d': 4}. **Among W29's states: YES**
+  W42 long protocol {'969118c4591d': 3} (among: False); W42 normal protocol {'24b99f3931c2': 7} (among: True); G0 (b) family F at 0.5 {'24b99f3931c2': 7} (among: True)
+  where it differs from the 0.5 fixture, by band (pixels, max code): {'deep': (13, 1), 'shoulder': (4, 1), 'edge': (56, 1), 'near-exterior': (11, 1)}
+  the cell at 0.25 (G1a, seven runs): {'0787b865beaa': 7}
+
+- open-canonical-1x-active run 1: `apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__rest`
+  frame `7eb081da9b8c` against reference `c4733c8ef1cd`; 22 px at <= 2 codes; 3 region statistics, worst delta 0.0
+  W29's runs of `dark-solid__capsule-button__rest`: {'c4733c8ef1cd': 7}. **Among W29's states: NO**
+  where it differs from the 0.5 fixture, by band (pixels, max code): {'edge': (14, 2), 'near-exterior': (8, 1)}
+  the cell at 0.25 (G1a, seven runs): {'e8ac774d8e8f': 7}
+
+- open-canonical-1x-active run 2: `apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__rest`
+  frame `7eb081da9b8c` against reference `c4733c8ef1cd`; 22 px at <= 2 codes; 3 region statistics, worst delta 0.0
+  W29's runs of `dark-solid__capsule-button__rest`: {'c4733c8ef1cd': 7}. **Among W29's states: NO** (the same state as above)
+  where it differs from the 0.5 fixture, by band (pixels, max code): {'edge': (14, 2), 'near-exterior': (8, 1)}
+  the cell at 0.25 (G1a, seven runs): {'e8ac774d8e8f': 7}
+
+- open-canonical-1x-active run 3: `apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__rest`
+  frame `7eb081da9b8c` against reference `c4733c8ef1cd`; 22 px at <= 2 codes; 3 region statistics, worst delta 0.0
+  W29's runs of `dark-solid__capsule-button__rest`: {'c4733c8ef1cd': 7}. **Among W29's states: NO** (the same state as above)
+  where it differs from the 0.5 fixture, by band (pixels, max code): {'edge': (14, 2), 'near-exterior': (8, 1)}
+  the cell at 0.25 (G1a, seven runs): {'e8ac774d8e8f': 7}
+
+- open-canonical-2x-active run 2: `apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange`
+  frame `c79a194c75b7` against reference `4e148f0908bf`; 30 px at <= 2 codes; 24 region statistics, worst delta 0.0
+  W29's runs of `checkerboard__capsule-button__rest-tint-orange`: {'4e148f0908bf': 7}. **Among W29's states: NO**
+  where it differs from the 0.5 fixture, by band (pixels, max code): {'deep': (2, 1), 'shoulder': (3, 1), 'edge': (14, 1), 'near-exterior': (10, 2), 'exterior': (1, 1)}
+  the cell at 0.25 (G1a, seven runs): {'b21d65156f9f': 7}
+
+- open-canonical-2x-active run 3: `apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange`
+  frame `c79a194c75b7` against reference `4e148f0908bf`; 30 px at <= 2 codes; 24 region statistics, worst delta 0.0
+  W29's runs of `checkerboard__capsule-button__rest-tint-orange`: {'4e148f0908bf': 7}. **Among W29's states: NO** (the same state as above)
+  where it differs from the 0.5 fixture, by band (pixels, max code): {'deep': (2, 1), 'shoulder': (3, 1), 'edge': (14, 1), 'near-exterior': (10, 2), 'exterior': (1, 1)}
+  the cell at 0.25 (G1a, seven runs): {'b21d65156f9f': 7}
+
+- open-w42-1x-light-active run 3: `apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest`
+  frame `10266071090c` against reference `c1d1fa1d324a`; 216 px at <= 2 codes; 60 region statistics, worst delta 0.0
+  W29's runs of `checkerboard-64__rrect-lg__rest`: {'10266071090c': 7}. **Among W29's states: YES**
+  W42 long protocol {'c1d1fa1d324a': 3} (among: False); W42 normal protocol {'10266071090c': 7} (among: True); G0 (b) family F at 0.5 {'10266071090c': 7} (among: True)
+  it is the 0.5 fixture's own bytes: the region-only verdict is against W42's long-protocol frame
+  the cell at 0.25 (G1a, seven runs): {'e60dacfd464d': 7}
+
+Distinct region-only (cell, state): 5, on 5 cells; among W29's run states: 3; not among them: 2.
+No state is UNMEASURED here: every region-only cell, the sentinels by their canonical twin, has
+W29's seven raw runs on the capture machine.
+
+## The bridge cells' own states on the G1a night (0.5, side bundle), by bytes
+
+56 (cell, opening/closing) groups of three runs; with more than one state: 4
+  close apple-macos-27.0-1x-dark-standard-glass0.5/f-checker64-rrect-lg__rest: {'069ecad73f24': 1, 'f4ae168e4975': 2}
+  open  apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest: {'c1d1fa1d324a': 2, '10266071090c': 1}
+  open  apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange: {'4e148f0908bf': 1, 'c79a194c75b7': 2}
+  close apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__rest: {'24b99f3931c2': 1, '969118c4591d': 2}
+
+## Gap 2: the 0.25 bed is unanimous; the 0.5 bed was not. A description, not an explanation
+
+0.5 side (W29 G1, original bundle, 2026-09-18/19): 103 of 562 standard cells
+carried two states over seven runs (no cell carried three).
+0.25 side (G1a, side bundle, 2026-10-01): 0 of 562.
+
+W29's two-state cells by scale and scheme (two-state / cells):
+  1x-dark 30/117, 1x-light 37/164, 2x-dark 18/117, 2x-light 18/164
+W29's two-state cells by pose (two-state / cells):
+  active 57/324, receded 46/238
+W29's two-state cells by component (two-state / cells):
+  capsule-button 17/168, glass-over-glass 3/14, rrect-48 1/8, rrect-64 0/4, rrect-80 2/8, rrect-lg 58/104, rrect-md 12/114, rrect-md-clear20 0/8, rrect-ml 5/52, rrect-sm 5/74, toolbar-group 0/8
+W29's two-state cells by backdrop (two-state / cells):
+  checkerboard 11/62, checkerboard-32 2/28, checkerboard-4 5/28, checkerboard-64 6/32, checkerboard-8 6/32, checkerboard-lc16 6/28, dark-solid 12/76, hc-text 6/28, hc-text-28 5/16, hc-text-7 5/16, impulse 7/36, light-solid 5/36, mid-chroma-solid 6/24, mid-dark-solid 5/32, mid-light-solid 1/8, photo 15/80
+rrect-lg against every other shape: 58/104 against 45/458 two-state at 0.5;
+at 0.25, 0/104 and 0/458. (Memo F: the rrect-lg backdrop capture scale is 0.25 at x = 0.5
+and 0.5 at x = 0.25; every other shape is captured at 0.5 at both positions.)
+Were the 0.25 bed's other shapes two-state at the 0.5 bed's own rate (0.098) and independent, no
+second state on all 458 would have probability (1 - 0.098)^458 = 2.7e-21: the
+difference is not a seven-run sampling accident. It does not say which of the position, the bundle or
+the night it belongs to.
+Minority-state run counts: 1 of 7: 65 cells, 2 of 7: 29 cells, 3 of 7: 9 cells
+
+Where W29's two states differ, from the minority state measured against the published fixture
+(103 cells; the radial bands of ``slider-delta pairs``): cells with any differing pixel per band,
+and the largest code difference anywhere in that band:
+  deep             73/103  max |code| 3
+  shoulder         72/103  max |code| 2
+  edge             99/103  max |code| 2
+  near-exterior    97/103  max |code| 2
+  exterior         39/103  max |code| 1
+  far              35/103  max |code| 1
+  pixels differing per cell: median 72, max 583
+
+Beside it, the same side bundle at 0.5:
+- on the G1a night itself, the bridge cells above (three runs each) show the within-night states;
+- on 2026-09-30, W42's bed at 0.5 carried 35 two-state rows (§5.199 §5), and G0 (b)'s family F
+  read the 2x light active checker-64 on rrect-lg in two states, 5 and 2 (§5.198 §3).
+
+What the evidence separates, and what it does not. More than half of W29's second states (58 of
+103) sit on rrect-lg, the one shape whose declared backdrop capture scale differs between the two
+positions, and they
+differ from the plurality by 1 to 3 codes, almost always at the edge and just outside it. But 45 of
+the 458 other cells also carried one at 0.5, and none does at 0.25. The side bundle produced
+second states at 0.5 on the G1a night itself (the within-night groups above: three W42 sentinels
+in the long protocol and one canonical capsule) and on 2026-09-30, so neither the bundle nor the
+night is by itself without them. At 0.25, the same night through the same bundle, no cell carried
+one in 3,934 captures. Nothing here measures why a second state appears: this is a description,
+and the position is the factor it leaves standing, not one it identifies.
