@@ -1,0 +1,1210 @@
+{
+ "metrics": {
+  "silhouetteIoUComplement": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 12,
+    "medianOwn": 2.2843567251462638e-05,
+    "maxOwn": 9.139514691769435e-05,
+    "fallback": 5.793239289730856e-06,
+    "standardOnlyMinimumNonZero": 5.793239289730856e-06
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 536,
+    "unbarred": 14,
+    "reference:cell": 12
+   }
+  },
+  "contourDistanceMeanPx": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 12,
+    "medianOwn": 0.0012515644555694619,
+    "maxOwn": 0.004901960784313725,
+    "fallback": 0.0005875440658049354,
+    "standardOnlyMinimumNonZero": 0.0005875440658049354
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 536,
+    "unbarred": 14,
+    "reference:cell": 12
+   }
+  },
+  "contourDistanceP95Px": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 548,
+    "unbarred": 14
+   }
+  },
+  "silhouetteAreaDeltaPx": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 14,
+    "medianOwn": 1,
+    "maxOwn": 4,
+    "fallback": 1,
+    "standardOnlyMinimumNonZero": 1
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 534,
+    "unbarred": 14,
+    "reference:cell": 14
+   }
+  },
+  "cornerCurvatureDeltaPerPx": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 8,
+    "medianOwn": 0.0009768776277961702,
+    "maxOwn": 0.2659888895805331,
+    "fallback": 2.286858252265045e-05,
+    "standardOnlyMinimumNonZero": 2.286858252265045e-05
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 540,
+    "unbarred": 14,
+    "reference:cell": 8
+   }
+  },
+  "ssimComplement": {
+   "subject": {
+    "cells": 562,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 562,
+    "spread": 103,
+    "medianOwn": 1.2813645973164256e-06,
+    "maxOwn": 2.4784345094785998e-05,
+    "fallback": 7.472688023923979e-10,
+    "standardOnlyMinimumNonZero": 7.472688023923979e-10
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 459,
+    "reference:cell": 103
+   }
+  },
+  "ssimBandComplement": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 100,
+    "medianOwn": 4.3275835862610634e-06,
+    "maxOwn": 6.816906492068675e-05,
+    "fallback": 3.125272818316205e-09,
+    "standardOnlyMinimumNonZero": 3.125272818316205e-09
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 448,
+    "reference:cell": 100,
+    "unbarred": 14
+   }
+  },
+  "ssimInteriorComplement": {
+   "subject": {
+    "cells": 288,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 288,
+    "spread": 23,
+    "medianOwn": 2.9189861305845e-08,
+    "maxOwn": 2.900950833106819e-06,
+    "fallback": 7.4478201383954e-12,
+    "standardOnlyMinimumNonZero": 7.4478201383954e-12
+   },
+   "verdictBarFrom": {
+    "unbarred": 274,
+    "reference:bed-minimum": 265,
+    "reference:cell": 23
+   }
+  },
+  "ssimOutsideComplement": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 100,
+    "medianOwn": 6.271495522902626e-07,
+    "maxOwn": 1.4221893847254918e-05,
+    "fallback": 3.3403018129263273e-09,
+    "standardOnlyMinimumNonZero": 3.3403018129263273e-09
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 448,
+    "reference:cell": 100,
+    "unbarred": 14
+   }
+  },
+  "oklabDeltaEMean": {
+   "subject": {
+    "cells": 562,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 562,
+    "spread": 103,
+    "medianOwn": 1.4031398974890882e-06,
+    "maxOwn": 2.163314272598371e-05,
+    "fallback": 1.1597539215087765e-07,
+    "standardOnlyMinimumNonZero": 1.1597539215087765e-07
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 459,
+    "reference:cell": 103
+   }
+  },
+  "oklabDeltaEP95": {
+   "subject": {
+    "cells": 562,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 562,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 562
+   }
+  },
+  "oklabDeltaEBodyMean": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 3.0523825313276718e-06,
+    "maxOwn": 7.290718429763337e-05,
+    "fallback": 2.692171335134093e-07,
+    "standardOnlyMinimumNonZero": 2.692171335134093e-07
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 452,
+    "reference:cell": 96,
+    "unbarred": 14
+   }
+  },
+  "edgeWeightedMean": {
+   "subject": {
+    "cells": 562,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 562,
+    "spread": 103,
+    "medianOwn": 2.6673946036680368e-06,
+    "maxOwn": 7.713542350173035e-05,
+    "fallback": 1.935414170841021e-08,
+    "standardOnlyMinimumNonZero": 1.935414170841021e-08
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 459,
+    "reference:cell": 103
+   }
+  },
+  "interiorMeanDelta": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 1.1751210080568342e-06,
+    "maxOwn": 3.388791217734388e-05,
+    "fallback": 9.673822853883962e-10,
+    "standardOnlyMinimumNonZero": 9.673822853883962e-10
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 452,
+    "reference:cell": 96,
+    "unbarred": 14
+   }
+  },
+  "interiorStdDevDelta": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 2.467228489877113e-06,
+    "maxOwn": 3.196077082878723e-05,
+    "fallback": 3.0173808139577485e-09,
+    "standardOnlyMinimumNonZero": 3.0173808139577485e-09
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 452,
+    "reference:cell": 96,
+    "unbarred": 14
+   }
+  },
+  "bodyLevelDelta": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 76,
+    "medianOwn": 4.804798222624029e-07,
+    "maxOwn": 1.1523480404895814e-05,
+    "fallback": 5.970478278438662e-10,
+    "standardOnlyMinimumNonZero": 5.970478278438662e-10
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 464,
+    "reference:cell": 76,
+    "unbarred": 22
+   }
+  },
+  "transferSlopeDelta": {
+   "subject": {
+    "cells": 376,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 376,
+    "spread": 74,
+    "medianOwn": 2.6134079637030183e-06,
+    "maxOwn": 6.329504268758057e-05,
+    "fallback": 4.3058704157772354e-08,
+    "standardOnlyMinimumNonZero": 4.3058704157772354e-08
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 302,
+    "reference:cell": 74,
+    "unbarred": 186
+   }
+  },
+  "transferOffsetDelta": {
+   "subject": {
+    "cells": 376,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 376,
+    "spread": 74,
+    "medianOwn": 1.2555318804063909e-06,
+    "maxOwn": 5.891570770602539e-05,
+    "fallback": 2.2036410363135417e-08,
+    "standardOnlyMinimumNonZero": 2.2036410363135417e-08
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 302,
+    "reference:cell": 74,
+    "unbarred": 186
+   }
+  },
+  "rimContourDeltaMax": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 78,
+    "medianOwn": 1.115038933685586e-05,
+    "maxOwn": 0.00410340861310432,
+    "fallback": 9.237518180937876e-09,
+    "standardOnlyMinimumNonZero": 9.237518180937876e-09
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 462,
+    "reference:cell": 78,
+    "unbarred": 22
+   }
+  },
+  "rimLocalDeltaMax": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 49,
+    "medianOwn": 0.00022490612759606954,
+    "maxOwn": 0.004104369572748845,
+    "fallback": 1.1099967057170979e-06,
+    "standardOnlyMinimumNonZero": 1.1099967057170979e-06
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 491,
+    "reference:cell": 49,
+    "unbarred": 22
+   }
+  },
+  "rimRow0DeltaMax": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 77,
+    "medianOwn": 1.609384758793908e-06,
+    "maxOwn": 0.0041038890929265825,
+    "fallback": 5.970478278438662e-10,
+    "standardOnlyMinimumNonZero": 5.970478278438662e-10
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 463,
+    "reference:cell": 77,
+    "unbarred": 22
+   }
+  },
+  "rimPeakDelta": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 58,
+    "medianOwn": 1.8520125423804323e-05,
+    "maxOwn": 0.0004320441897456839,
+    "fallback": 1.316803782680509e-08,
+    "standardOnlyMinimumNonZero": 1.316803782680509e-08
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 490,
+    "reference:cell": 58,
+    "unbarred": 14
+   }
+  },
+  "rimPeakDepthDeltaPx": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 548,
+    "unbarred": 14
+   }
+  },
+  "rimFwhmDeltaPx": {
+   "subject": {
+    "cells": 429,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 422,
+    "spread": 59,
+    "medianOwn": 0.0007964921919323409,
+    "maxOwn": 0.05527054982074375,
+    "fallback": 1.252003642981947e-07,
+    "standardOnlyMinimumNonZero": 1.3172158463969907e-06
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 363,
+    "unbarred": 106,
+    "subject:bed-zero": 34,
+    "reference:cell": 59
+   }
+  },
+  "highlightBinDeltaMax": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 82,
+    "medianOwn": 0.00026730668486281417,
+    "maxOwn": 0.005279974479485583,
+    "fallback": 9.451389337833405e-09,
+    "standardOnlyMinimumNonZero": 9.451389337833405e-09
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 458,
+    "reference:cell": 82,
+    "unbarred": 22
+   }
+  },
+  "highlightBinDeltaMean": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 82,
+    "medianOwn": 3.6639409556578904e-05,
+    "maxOwn": 0.0009167279868029649,
+    "fallback": 9.451389337833405e-09,
+    "standardOnlyMinimumNonZero": 9.451389337833405e-09
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 458,
+    "reference:cell": 82,
+    "unbarred": 22
+   }
+  },
+  "highlightIntegralDeltaMax": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 100,
+    "medianOwn": 0.00040407684747256756,
+    "maxOwn": 0.0024318502183866275,
+    "fallback": 4.562333797177021e-06,
+    "standardOnlyMinimumNonZero": 4.562333797177021e-06
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 440,
+    "reference:cell": 100,
+    "unbarred": 22
+   }
+  },
+  "highlightRatioDelta": {
+   "subject": {
+    "cells": 235,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 234,
+    "spread": 41,
+    "medianOwn": 0.006597189566889483,
+    "maxOwn": 8.40068555283166,
+    "fallback": 7.826896686324858e-09,
+    "standardOnlyMinimumNonZero": 7.826896686324858e-09
+   },
+   "verdictBarFrom": {
+    "unbarred": 311,
+    "subject:bed-zero": 17,
+    "reference:bed-minimum": 193,
+    "reference:cell": 41
+   }
+  },
+  "highlightPeakAngleDeltaDeg": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 2,
+    "medianOwn": 22.5,
+    "maxOwn": 22.5,
+    "fallback": 22.5,
+    "standardOnlyMinimumNonZero": 22.5
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 538,
+    "unbarred": 22,
+    "reference:cell": 2
+   }
+  },
+  "tintDeltaLDelta": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 7.640396016972417e-07,
+    "maxOwn": 3.0869231947616704e-05,
+    "fallback": 1.1796568610833447e-08,
+    "standardOnlyMinimumNonZero": 1.1796568610833447e-08
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 452,
+    "reference:cell": 96,
+    "unbarred": 14
+   }
+  },
+  "tintChromaDelta": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 1.5896383757723568e-07,
+    "maxOwn": 1.0638682986483303e-05,
+    "fallback": 5.560746880352799e-16,
+    "standardOnlyMinimumNonZero": 5.560746880352799e-16
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 452,
+    "reference:cell": 96,
+    "unbarred": 14
+   }
+  },
+  "tintHueShiftDeltaDeg": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 0.010575696741497609,
+    "maxOwn": 2.471526064624939,
+    "fallback": 1.0258918337058276e-07,
+    "standardOnlyMinimumNonZero": 3.300220186019942e-07
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 452,
+    "reference:cell": 96,
+    "unbarred": 14
+   }
+  },
+  "shadowMeanDepartureDelta": {
+   "subject": {
+    "cells": 562,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 562,
+    "spread": 97,
+    "medianOwn": 2.636822788388074e-07,
+    "maxOwn": 6.605212364602098e-05,
+    "fallback": 1.1107416855314807e-10,
+    "standardOnlyMinimumNonZero": 1.1107416855314807e-10
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 465,
+    "reference:cell": 97
+   }
+  },
+  "shadowStrengthPeakDelta": {
+   "subject": {
+    "cells": 450,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 450,
+    "spread": 83,
+    "medianOwn": 5.8229184329794403e-05,
+    "maxOwn": 0.0017109253722217277,
+    "fallback": 2.8091228843063476e-07,
+    "standardOnlyMinimumNonZero": 2.8091228843063476e-07
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 367,
+    "reference:cell": 83,
+    "unbarred": 112
+   }
+  },
+  "shadowStrengthPeakDistanceDeltaPx": {
+   "subject": {
+    "cells": 450,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 450,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 450,
+    "unbarred": 112
+   }
+  },
+  "shadowExtentAboveDeltaPx": {
+   "subject": {
+    "cells": 401,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 401,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 401,
+    "unbarred": 161
+   }
+  },
+  "shadowExtentBelowDeltaPx": {
+   "subject": {
+    "cells": 400,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 400,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 400,
+    "unbarred": 162
+   }
+  },
+  "shadowExtentLeftDeltaPx": {
+   "subject": {
+    "cells": 400,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 400,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 400,
+    "unbarred": 162
+   }
+  },
+  "shadowExtentRightDeltaPx": {
+   "subject": {
+    "cells": 400,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 400,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 400,
+    "unbarred": 162
+   }
+  },
+  "shadowOffsetXDeltaPx": {
+   "subject": {
+    "cells": 396,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 396,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 396,
+    "unbarred": 166
+   }
+  },
+  "shadowOffsetYDeltaPx": {
+   "subject": {
+    "cells": 396,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 396,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "fallback": null,
+    "standardOnlyMinimumNonZero": null
+   },
+   "verdictBarFrom": {
+    "both:bed-zero": 396,
+    "unbarred": 166
+   }
+  },
+  "shadowCentroidOffsetXDeltaPx": {
+   "subject": {
+    "cells": 101,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 101,
+    "spread": 41,
+    "medianOwn": 0.002699068000367788,
+    "maxOwn": 0.04367130287940313,
+    "fallback": 1.1368683772161603e-13,
+    "standardOnlyMinimumNonZero": 1.1368683772161603e-13
+   },
+   "verdictBarFrom": {
+    "unbarred": 461,
+    "reference:bed-minimum": 60,
+    "reference:cell": 41
+   }
+  },
+  "shadowCentroidOffsetYDeltaPx": {
+   "subject": {
+    "cells": 101,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 101,
+    "spread": 43,
+    "medianOwn": 0.0025222509553941563,
+    "maxOwn": 0.07648372664758085,
+    "fallback": 0.00012894478328462355,
+    "standardOnlyMinimumNonZero": 0.00012894478328462355
+   },
+   "verdictBarFrom": {
+    "unbarred": 461,
+    "reference:bed-minimum": 58,
+    "reference:cell": 43
+   }
+  },
+  "shadowFalloffSigmaDeltaPx": {
+   "subject": {
+    "cells": 232,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 232,
+    "spread": 47,
+    "medianOwn": 0.0008423287446674976,
+    "maxOwn": 0.017703542793920946,
+    "fallback": 1.4520050953592545e-05,
+    "standardOnlyMinimumNonZero": 1.4520050953592545e-05
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 185,
+    "unbarred": 330,
+    "reference:cell": 47
+   }
+  },
+  "shadowFalloffAmplitudeDelta": {
+   "subject": {
+    "cells": 232,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 232,
+    "spread": 47,
+    "medianOwn": 1.230932360624104e-05,
+    "maxOwn": 0.001993109489467043,
+    "fallback": 6.073140305096203e-07,
+    "standardOnlyMinimumNonZero": 6.073140305096203e-07
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 185,
+    "unbarred": 330,
+    "reference:cell": 47
+   }
+  },
+  "shadowFalloffLengthDeltaPx": {
+   "subject": {
+    "cells": 208,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 208,
+    "spread": 46,
+    "medianOwn": 0.0009632864064030855,
+    "maxOwn": 0.022289947449742442,
+    "fallback": 2.271312382617907e-06,
+    "standardOnlyMinimumNonZero": 2.271312382617907e-06
+   },
+   "verdictBarFrom": {
+    "unbarred": 354,
+    "reference:bed-minimum": 162,
+    "reference:cell": 46
+   }
+  },
+  "shadowProfileRmsDelta": {
+   "subject": {
+    "cells": 450,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 450,
+    "spread": 83,
+    "medianOwn": 8.70949813965639e-06,
+    "maxOwn": 0.00026409601945563774,
+    "fallback": 4.387112884494938e-08,
+    "standardOnlyMinimumNonZero": 4.387112884494938e-08
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 367,
+    "reference:cell": 83,
+    "unbarred": 112
+   }
+  },
+  "shadowAffineSlopeDeltaMax": {
+   "subject": {
+    "cells": 378,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 378,
+    "spread": 66,
+    "medianOwn": 8.857590278277261e-05,
+    "maxOwn": 0.0012682954310585526,
+    "fallback": 6.449795955765225e-06,
+    "standardOnlyMinimumNonZero": 6.449795955765225e-06
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 312,
+    "reference:cell": 66,
+    "unbarred": 184
+   }
+  },
+  "shadowAffineInterceptDeltaMax": {
+   "subject": {
+    "cells": 378,
+    "spread": 0,
+    "max": 0,
+    "fallback": null
+   },
+   "reference": {
+    "cells": 378,
+    "spread": 66,
+    "medianOwn": 1.2288371284918664e-05,
+    "maxOwn": 0.00027201099710194576,
+    "fallback": 4.385380947269368e-15,
+    "standardOnlyMinimumNonZero": 4.385380947269368e-15
+   },
+   "verdictBarFrom": {
+    "reference:bed-minimum": 312,
+    "reference:cell": 66,
+    "unbarred": 184
+   }
+  }
+ },
+ "readings": {
+  "bodyLevel": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 76,
+    "medianOwn": 4.804798222624029e-07,
+    "maxOwn": 1.1523480404895814e-05,
+    "minOwn": 5.970478278438662e-10
+   }
+  },
+  "rimContourMean": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 78,
+    "medianOwn": 3.5791722821088e-06,
+    "maxOwn": 0.0010251314335426864,
+    "minOwn": 9.237518167060088e-09
+   }
+  },
+  "rimLocalMean": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 49,
+    "medianOwn": 5.86477633821858e-05,
+    "maxOwn": 0.00131649577482712,
+    "minOwn": 2.7749917642927446e-07
+   }
+  },
+  "highlightPeak": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 80,
+    "medianOwn": 2.9805896953893907e-06,
+    "maxOwn": 0.005279974479485583,
+    "minOwn": 5.970485217332566e-10
+   }
+  },
+  "highlightFloor": {
+   "subject": {
+    "cells": 540,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 540,
+    "spread": 76,
+    "medianOwn": 1.7895861410544e-06,
+    "maxOwn": 0.0009157616939791217,
+    "minOwn": 5.549833675955185e-09
+   }
+  },
+  "highlightRatio": {
+   "subject": {
+    "cells": 235,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 234,
+    "spread": 41,
+    "medianOwn": 0.006597189566889483,
+    "maxOwn": 8.40068555283166,
+    "minOwn": 7.826896686324858e-09
+   }
+  },
+  "interiorMean": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 1.5096766892153113e-06,
+    "maxOwn": 3.388791217734388e-05,
+    "minOwn": 9.673822853883962e-10
+   }
+  },
+  "interiorStdDev": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 2.6815186281170522e-06,
+    "maxOwn": 4.744462042816262e-05,
+    "minOwn": 3.0173808139577485e-09
+   }
+  },
+  "rimPeak": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 58,
+    "medianOwn": 1.8520125423804323e-05,
+    "maxOwn": 0.0004320441897456839,
+    "minOwn": 1.316803782680509e-08
+   }
+  },
+  "rimPeakDepthPx": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 0,
+    "medianOwn": null,
+    "maxOwn": null,
+    "minOwn": null
+   }
+  },
+  "tintDeltaL": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 8.773381309223893e-07,
+    "maxOwn": 3.0869231947616704e-05,
+    "minOwn": 1.1796568610833447e-08
+   }
+  },
+  "tintChroma": {
+   "subject": {
+    "cells": 548,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 548,
+    "spread": 96,
+    "medianOwn": 1.5896383757723568e-07,
+    "maxOwn": 1.0718542528351943e-05,
+    "minOwn": 5.560746880352799e-16
+   }
+  },
+  "silhouetteAreaPx": {
+   "subject": {
+    "cells": 562,
+    "spread": 0,
+    "max": 0
+   },
+   "reference": {
+    "cells": 562,
+    "spread": 14,
+    "medianOwn": 1,
+    "maxOwn": 4,
+    "minOwn": 1
+   }
+  }
+ },
+ "constructions": {
+  "referenceMultiStateBytes": 103,
+  "referenceSpreadMetrics": 103,
+  "same": true,
+  "subjectSpreadAnyMetric": 0
+ }
+}

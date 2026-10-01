@@ -1,0 +1,553 @@
+{
+ "source": "../../2026-09-19-w29-g3b-shadow-recede/native-delta.json",
+ "laws": {
+  "silhouette": {
+   "verdict": "MOVED",
+   "primary": "silhouetteIoUComplement",
+   "perPose": {
+    "active": {
+     "measured": 265,
+     "moved": 181,
+     "share": 0.6830188679245283,
+     "medianAbs": 0.00030819806862547594,
+     "p90Abs": 0.9511278195488722,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 53.19960961595189
+    },
+    "inactive": {
+     "measured": 162,
+     "moved": 130,
+     "share": 0.8024691358024691,
+     "medianAbs": 0.0006157635467980427,
+     "p90Abs": 0.024195481081702885,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 106.29002463087451
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 56,
+     "share": 0.9655172413793104,
+     "medianAbs": 0.0005706980778888981,
+     "p90Abs": 0.05666542888971404,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 78.79085265680189
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 39,
+     "share": 0.9285714285714286,
+     "medianAbs": 0.0005934718100890635,
+     "p90Abs": 0.004486768610933112,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 102.44213649884212
+    }
+   }
+  },
+  "contour": {
+   "verdict": "MOVED",
+   "primary": "contourDistanceMeanPx",
+   "perPose": {
+    "active": {
+     "measured": 265,
+     "moved": 181,
+     "share": 0.6830188679245283,
+     "medianAbs": 0.010869565217391304,
+     "p90Abs": 1.8020309382293946,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 18.5
+    },
+    "inactive": {
+     "measured": 162,
+     "moved": 130,
+     "share": 0.8024691358024691,
+     "medianAbs": 0.0234375,
+     "p90Abs": 1.1804705479830575,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 39.890625
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 56,
+     "share": 0.9655172413793104,
+     "medianAbs": 0.04339681548548236,
+     "p90Abs": 1.9559727865558951,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 58.50625000000001
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 39,
+     "share": 0.9285714285714286,
+     "medianAbs": 0.0475,
+     "p90Abs": 0.2449965111129489,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 80.845
+    }
+   }
+  },
+  "interior level": {
+   "verdict": "MOVED",
+   "primary": "bodyLevelDelta",
+   "perPose": {
+    "active": {
+     "measured": 255,
+     "moved": 255,
+     "share": 1.0,
+     "medianAbs": 0.06768404469262757,
+     "p90Abs": 0.18745440407980551,
+     "medianSigned": 0.002700905639334894,
+     "up": 142,
+     "down": 113,
+     "medianRatio": 109220132.83486253
+    },
+    "inactive": {
+     "measured": 178,
+     "moved": 178,
+     "share": 1.0,
+     "medianAbs": 0.10804506159037236,
+     "p90Abs": 0.1781323817330292,
+     "medianSigned": -0.059392897544888856,
+     "up": 85,
+     "down": 93,
+     "medianRatio": 167111242.1167056
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 58,
+     "share": 1.0,
+     "medianAbs": 0.10138554293415658,
+     "p90Abs": 0.16719737874395796,
+     "medianSigned": -0.00579353301114216,
+     "up": 28,
+     "down": 30,
+     "medianRatio": 423222.4528498369
+    },
+    "inactive": {
+     "measured": 46,
+     "moved": 46,
+     "share": 1.0,
+     "medianAbs": 0.10783312309222562,
+     "p90Abs": 0.1728725517992759,
+     "medianSigned": -0.06497711427789221,
+     "up": 20,
+     "down": 26,
+     "medianRatio": 169651936.02492628
+    }
+   }
+  },
+  "tone by backdrop": {
+   "verdict": "MOVED",
+   "primary": "transferSlopeDelta",
+   "perPose": {
+    "active": {
+     "measured": 193,
+     "moved": 193,
+     "share": 1.0,
+     "medianAbs": 0.0305639320661487,
+     "p90Abs": 0.16564960484125307,
+     "medianSigned": 0.0036089563811537717,
+     "up": 112,
+     "down": 81,
+     "medianRatio": 689226.411454251
+    },
+    "inactive": {
+     "measured": 108,
+     "moved": 108,
+     "share": 1.0,
+     "medianAbs": 0.04908775193348336,
+     "p90Abs": 0.1485665725174061,
+     "medianSigned": -0.0017700193624900495,
+     "up": 48,
+     "down": 60,
+     "medianRatio": 404187.44530918635
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 44,
+     "moved": 44,
+     "share": 1.0,
+     "medianAbs": 0.02246399126988486,
+     "p90Abs": 0.07307396145649547,
+     "medianSigned": -0.0025769029685941912,
+     "up": 20,
+     "down": 24,
+     "medianRatio": 12697.205876583424
+    },
+    "inactive": {
+     "measured": 26,
+     "moved": 26,
+     "share": 1.0,
+     "medianAbs": 0.022035980684925904,
+     "p90Abs": 0.1355916730557188,
+     "medianSigned": -0.0011056058736540926,
+     "up": 12,
+     "down": 14,
+     "medianRatio": 312368.35269780504
+    }
+   }
+  },
+  "scatter": {
+   "verdict": "MOVED",
+   "primary": "interiorStdDevDelta",
+   "perPose": {
+    "active": {
+     "measured": 197,
+     "moved": 197,
+     "share": 1.0,
+     "medianAbs": 0.015640632075321154,
+     "p90Abs": 0.05098936814357817,
+     "medianSigned": -0.003937064759535237,
+     "up": 87,
+     "down": 110,
+     "medianRatio": 5018421.382886026
+    },
+    "inactive": {
+     "measured": 114,
+     "moved": 114,
+     "share": 1.0,
+     "medianAbs": 0.010791457957603601,
+     "p90Abs": 0.047650333360048196,
+     "medianSigned": -0.005127085448806648,
+     "up": 42,
+     "down": 72,
+     "medianRatio": 2708937.581667472
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 44,
+     "moved": 44,
+     "share": 1.0,
+     "medianAbs": 0.013291635116407428,
+     "p90Abs": 0.03888910042044451,
+     "medianSigned": -0.0037755127097277713,
+     "up": 16,
+     "down": 28,
+     "medianRatio": 18353.975825432502
+    },
+    "inactive": {
+     "measured": 28,
+     "moved": 28,
+     "share": 1.0,
+     "medianAbs": 0.010306560527961167,
+     "p90Abs": 0.02388046104385267,
+     "medianSigned": -0.000835377680802243,
+     "up": 12,
+     "down": 16,
+     "medianRatio": 2842583.7105437173
+    }
+   }
+  },
+  "chroma": {
+   "verdict": "MOVED",
+   "primary": "tintChromaDelta",
+   "perPose": {
+    "active": {
+     "measured": 219,
+     "moved": 219,
+     "share": 1.0,
+     "medianAbs": 5.8733063119510034e-05,
+     "p90Abs": 0.0055879493849138396,
+     "medianSigned": 3.779152611052582e-05,
+     "up": 159,
+     "down": 60,
+     "medianRatio": 99398691723.91525
+    },
+    "inactive": {
+     "measured": 130,
+     "moved": 130,
+     "share": 1.0,
+     "medianAbs": 6.15670355583688e-05,
+     "p90Abs": 0.018083639379321444,
+     "medianSigned": 4.4742258772337576e-05,
+     "up": 84,
+     "down": 46,
+     "medianRatio": 54774558925.64153
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 56,
+     "moved": 55,
+     "share": 0.9821428571428571,
+     "medianAbs": 1.2394026090906891e-05,
+     "p90Abs": 0.002561120359154446,
+     "medianSigned": 5.152448663854605e-06,
+     "up": 38,
+     "down": 17,
+     "medianRatio": 553.5889592444294
+    },
+    "inactive": {
+     "measured": 40,
+     "moved": 40,
+     "share": 1.0,
+     "medianAbs": 4.186697817676171e-05,
+     "p90Abs": 0.07278092855051449,
+     "medianSigned": -1.7864488169078126e-09,
+     "up": 18,
+     "down": 22,
+     "medianRatio": 46289200886.80277
+    }
+   }
+  },
+  "rim band": {
+   "verdict": "MOVED",
+   "primary": "rimContourDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 255,
+     "moved": 255,
+     "share": 1.0,
+     "medianAbs": 0.09219516661709884,
+     "p90Abs": 0.2543516767376382,
+     "medianSigned": -0.0075884063434814575,
+     "up": 110,
+     "down": 145,
+     "medianRatio": 9715487.462244213
+    },
+    "inactive": {
+     "measured": 178,
+     "moved": 143,
+     "share": 0.8033707865168539,
+     "medianAbs": 0.0021657282292889546,
+     "p90Abs": 0.13796548274450504,
+     "medianSigned": 7.793765632868599e-14,
+     "up": 84,
+     "down": 59,
+     "medianRatio": 125826.33292410227
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 58,
+     "share": 1.0,
+     "medianAbs": 0.14527607564036749,
+     "p90Abs": 0.2324014137771654,
+     "medianSigned": -0.017942111162574617,
+     "up": 19,
+     "down": 39,
+     "medianRatio": 23650.64074870207
+    },
+    "inactive": {
+     "measured": 46,
+     "moved": 46,
+     "share": 1.0,
+     "medianAbs": 0.003735978412283354,
+     "p90Abs": 0.13860526414841978,
+     "medianSigned": 0.001345343069036109,
+     "up": 35,
+     "down": 11,
+     "medianRatio": 132299.45705986314
+    }
+   }
+  },
+  "highlight": {
+   "verdict": "MOVED",
+   "primary": "highlightBinDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 255,
+     "moved": 255,
+     "share": 1.0,
+     "medianAbs": 0.15893809114158397,
+     "p90Abs": 0.41781927103081506,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 16625574.275051927
+    },
+    "inactive": {
+     "measured": 178,
+     "moved": 156,
+     "share": 0.8764044943820225,
+     "medianAbs": 0.06864069603929127,
+     "p90Abs": 0.4255325374466484,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 5520800.013386354
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 58,
+     "moved": 58,
+     "share": 1.0,
+     "medianAbs": 0.14804641800845833,
+     "p90Abs": 0.4178677668590099,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 739.6980296649725
+    },
+    "inactive": {
+     "measured": 46,
+     "moved": 46,
+     "share": 1.0,
+     "medianAbs": 0.10028730710871189,
+     "p90Abs": 0.42509471555494227,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 6120716.105520558
+    }
+   }
+  },
+  "exterior shadow": {
+   "verdict": "MOVED",
+   "primary": "shadowProfileRmsDelta",
+   "perPose": {
+    "active": {
+     "measured": 211,
+     "moved": 211,
+     "share": 1.0,
+     "medianAbs": 0.03622999521910197,
+     "p90Abs": 0.04798957813625316,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 799153.1212221741
+    },
+    "inactive": {
+     "measured": 146,
+     "moved": 146,
+     "share": 1.0,
+     "medianAbs": 0.03719331430762276,
+     "p90Abs": 0.06602902466127238,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 752313.9354608963
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 50,
+     "moved": 50,
+     "share": 1.0,
+     "medianAbs": 0.037914695540813434,
+     "p90Abs": 0.06761645272633252,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 3486.4642104051654
+    },
+    "inactive": {
+     "measured": 38,
+     "moved": 38,
+     "share": 1.0,
+     "medianAbs": 0.06890503919103154,
+     "p90Abs": 0.11161466211293739,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1285893.287155767
+    }
+   }
+  },
+  "tint shade": {
+   "verdict": "MOVED",
+   "primary": "tintDeltaLDelta",
+   "perPose": {
+    "active": {
+     "measured": 46,
+     "moved": 46,
+     "share": 1.0,
+     "medianAbs": 0.0022625097616671974,
+     "p90Abs": 0.08189463125198959,
+     "medianSigned": -0.0014722142004034433,
+     "up": 18,
+     "down": 28,
+     "medianRatio": 191793.88823199048
+    },
+    "inactive": {
+     "measured": 32,
+     "moved": 32,
+     "share": 1.0,
+     "medianAbs": 0.06860992097990348,
+     "p90Abs": 0.23919274643639277,
+     "medianSigned": -0.03807758847679821,
+     "up": 14,
+     "down": 18,
+     "medianRatio": 5775186.59273984
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 2,
+     "moved": 2,
+     "share": 1.0,
+     "medianAbs": 0.018847543419681312,
+     "p90Abs": 0.018847543419681312,
+     "medianSigned": -0.01859492723527789,
+     "up": 0,
+     "down": 2,
+     "medianRatio": 70176.66826443354
+    },
+    "inactive": {
+     "measured": 2,
+     "moved": 2,
+     "share": 1.0,
+     "medianAbs": 0.0674851106714115,
+     "p90Abs": 0.0674851106714115,
+     "medianSigned": -0.06737065959804533,
+     "up": 0,
+     "down": 2,
+     "medianRatio": 5720740.742306721
+    }
+   }
+  },
+  "the recede": {
+   "verdict": "MOVED",
+   "primary": "bodyLevel",
+   "all": {
+    "measured": 160,
+    "moved": 160,
+    "share": 1.0,
+    "medianAbs": 0.030403466979130378,
+    "p90Abs": 0.09061629265108176,
+    "medianSigned": -0.02342610365151905,
+    "up": 35,
+    "down": 125,
+    "medianRatio": 21948839.76817236
+   },
+   "rrectLg": {
+    "measured": 42,
+    "moved": 42,
+    "share": 1.0,
+    "medianAbs": 0.02650170993120233,
+    "p90Abs": 0.0636829821537025,
+    "medianSigned": -0.021864337462282717,
+    "up": 8,
+    "down": 34,
+    "medianRatio": 150788.28908592465
+   }
+  }
+ },
+ "strata": {},
+ "nullMax": {}
+}

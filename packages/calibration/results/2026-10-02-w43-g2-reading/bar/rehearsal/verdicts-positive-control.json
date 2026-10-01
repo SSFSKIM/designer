@@ -1,0 +1,527 @@
+{
+ "source": "rehearsal/w29-state-pairs-measured.json",
+ "laws": {
+  "silhouette": {
+   "verdict": "NOT MOVED",
+   "primary": "silhouetteIoUComplement",
+   "perPose": {
+    "active": {
+     "measured": 8,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 5.179736869365126e-05,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 34,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 49,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 1.1431445620657676e-05,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 9,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 2.2843567251462638e-05,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "contour": {
+   "verdict": "NOT MOVED",
+   "primary": "contourDistanceMeanPx",
+   "perPose": {
+    "active": {
+     "measured": 8,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0.0018115942028985507,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 34,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 49,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0.0012484394506866417,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 9,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0.0012515644555694619,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "interior level": {
+   "verdict": "NOT MOVED",
+   "primary": "bodyLevelDelta",
+   "perPose": {
+    "active": {
+     "measured": 8,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 2.964575871289288e-06,
+     "p90Abs": 4.208615858480869e-06,
+     "medianSigned": 1.2976533552422342e-06,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 34,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 1.609384758793908e-06,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 49,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 4.273402226528944e-07,
+     "p90Abs": 3.292656162057206e-06,
+     "medianSigned": -3.023424821613219e-08,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 9,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 2.8615857683433887e-08,
+     "p90Abs": 1.8638941012838472e-06,
+     "medianSigned": -9.451389337833405e-09,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   }
+  },
+  "tone by backdrop": {
+   "verdict": "NOT MOVED",
+   "primary": "transferSlopeDelta",
+   "perPose": {
+    "active": {
+     "measured": 7,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 2.895566120249271e-05,
+     "p90Abs": 5.285974410257355e-05,
+     "medianSigned": -2.5499519750588062e-05,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 25,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 2.2331912325236625e-06,
+     "p90Abs": 3.695501464434647e-05,
+     "medianSigned": 8.191083324358972e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 36,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 4.1977574784177185e-06,
+     "p90Abs": 2.183858784801651e-05,
+     "medianSigned": 1.000647015873303e-06,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 6,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 9.380680794923713e-07,
+     "p90Abs": 4.2861997557319675e-06,
+     "medianSigned": -6.487077555267229e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   }
+  },
+  "scatter": {
+   "verdict": "NOT MOVED",
+   "primary": "interiorStdDevDelta",
+   "perPose": {
+    "active": {
+     "measured": 7,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.2180072876316617e-05,
+     "p90Abs": 3.196077082878723e-05,
+     "medianSigned": -5.110407077329321e-06,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 25,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 2.8347849863399888e-06,
+     "p90Abs": 1.4631561149058836e-05,
+     "medianSigned": 1.1104724222804618e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 36,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.933481664259662e-06,
+     "p90Abs": 1.0993736429844997e-05,
+     "medianSigned": -9.822868532460838e-08,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 6,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 3.2728122359437783e-07,
+     "p90Abs": 1.0190894667583272e-06,
+     "medianSigned": 3.2728122359437783e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   }
+  },
+  "chroma": {
+   "verdict": "NOT MOVED",
+   "primary": "tintChromaDelta",
+   "perPose": {
+    "active": {
+     "measured": 7,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 7.874103453186284e-07,
+     "p90Abs": 1.0638682986483303e-05,
+     "medianSigned": -3.7918566526380724e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 29,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 2.84945816064492e-07,
+     "p90Abs": 8.195346462431239e-07,
+     "medianSigned": 8.210763545015765e-08,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 47,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 9.481830854810936e-08,
+     "p90Abs": 6.045875920198909e-07,
+     "medianSigned": 3.02793903647031e-12,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 8,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 4.479395178066427e-08,
+     "p90Abs": 4.1789488967880484e-07,
+     "medianSigned": 1.906044505389071e-08,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   }
+  },
+  "rim band": {
+   "verdict": "NOT MOVED",
+   "primary": "rimContourDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 8,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0.0007117790747634134,
+     "p90Abs": 0.0014259921672318543,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 34,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 3.5791722821088e-06,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 49,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.2706675088347552e-05,
+     "p90Abs": 0.0009619504118384414,
+     "medianSigned": -9.673833930023967e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 9,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.0039795822786024e-05,
+     "p90Abs": 0.00019360933760814714,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   }
+  },
+  "highlight": {
+   "verdict": "NOT MOVED",
+   "primary": "highlightBinDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 8,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0.0009877108236542864,
+     "p90Abs": 0.0026314381822833965,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 34,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 5.198872746192684e-08,
+     "p90Abs": 0.0009396870111615385,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 49,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0.00026730668486281417,
+     "p90Abs": 0.0011856788271884453,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 9,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 3.267988368329741e-05,
+     "p90Abs": 0.0006572766920005524,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   }
+  },
+  "exterior shadow": {
+   "verdict": "NOT MOVED",
+   "primary": "shadowProfileRmsDelta",
+   "perPose": {
+    "active": {
+     "measured": 7,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.5671734119714874e-05,
+     "p90Abs": 2.982540716110313e-05,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 28,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 3.943002441610999e-06,
+     "p90Abs": 1.4525758004779945e-05,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.2577256392423778e-05,
+     "p90Abs": 0.0001105604334369107,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 7,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 9.380435452225475e-06,
+     "p90Abs": 3.315016757648845e-05,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   }
+  },
+  "tint shade": {
+   "verdict": "NOT MOVED",
+   "primary": "tintDeltaLDelta",
+   "perPose": {
+    "active": {
+     "measured": 1,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.4238206864636282e-06,
+     "p90Abs": 1.4238206864636282e-06,
+     "medianSigned": 1.4238206864636282e-06,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 5,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.609469462593438e-06,
+     "p90Abs": 2.7471762582553794e-06,
+     "medianSigned": 1.609469462593438e-06,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 2,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 6.450389531398315e-07,
+     "p90Abs": 6.450389531398315e-07,
+     "medianSigned": 2.649730700410302e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 1.0
+    },
+    "inactive": {
+     "measured": 1,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 1.0374325409845397e-07,
+     "p90Abs": 1.0374325409845397e-07,
+     "medianSigned": -1.0374325409845397e-07,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.6723994907260277
+    }
+   }
+  }
+ },
+ "strata": {},
+ "nullMax": {}
+}

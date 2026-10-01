@@ -1,0 +1,87 @@
+# Both sides' run-to-run bars, per metric (W43 G2, charter clause 7)
+
+0.25 side: noise-bar-0.25.json: 562 cells over passes bed-0.25-1x-active, bed-0.25-1x-receded, bed-0.25-2x-active, bed-0.25-2x-receded; runs per cell {7: 562}
+0.5 side:  2026-09-19-w29-g3b-shadow-recede/noise-bar.json: 624 cells, 562 of them standard (the cells the 0.25 bed mirrors)
+
+Columns, per side: cells carrying the metric / cells whose own runs spread at all; median and
+max of the non-zero own spreads; the side's fallback (its bed's smallest non-zero spread, or
+'zero' where its bed resolved none). Then, over the 562 0.25 cells, where the verdict bar
+(the larger side) comes from.
+
+metric                              0.25 n/spread   0.25 max  0.25 fallback  0.5 n/spread  0.5 med own  0.5 max own  0.5 fallback  verdict bar from
+---------------------------------------------------------------------------------------------------------------------------------------------------
+silhouetteIoUComplement                     548/0  0.000e+00           zero        548/12    2.284e-05    9.140e-05     5.793e-06  reference:bed-minimum 536, reference:cell 12, unbarred 14
+contourDistanceMeanPx                       548/0  0.000e+00           zero        548/12    1.252e-03    4.902e-03     5.875e-04  reference:bed-minimum 536, reference:cell 12, unbarred 14
+contourDistanceP95Px                        548/0  0.000e+00           zero         548/0            —            —          zero  both:bed-zero 548, unbarred 14
+silhouetteAreaDeltaPx                       548/0  0.000e+00           zero        548/14    1.000e+00    4.000e+00     1.000e+00  reference:bed-minimum 534, reference:cell 14, unbarred 14
+cornerCurvatureDeltaPerPx                   548/0  0.000e+00           zero         548/8    9.769e-04    2.660e-01     2.287e-05  reference:bed-minimum 540, reference:cell 8, unbarred 14
+ssimComplement                              562/0  0.000e+00           zero       562/103    1.281e-06    2.478e-05     7.473e-10  reference:bed-minimum 459, reference:cell 103
+ssimBandComplement                          548/0  0.000e+00           zero       548/100    4.328e-06    6.817e-05     3.125e-09  reference:bed-minimum 448, reference:cell 100, unbarred 14
+ssimInteriorComplement                      288/0  0.000e+00           zero        288/23    2.919e-08    2.901e-06     7.448e-12  reference:bed-minimum 265, reference:cell 23, unbarred 274
+ssimOutsideComplement                       548/0  0.000e+00           zero       548/100    6.271e-07    1.422e-05     3.340e-09  reference:bed-minimum 448, reference:cell 100, unbarred 14
+oklabDeltaEMean                             562/0  0.000e+00           zero       562/103    1.403e-06    2.163e-05     1.160e-07  reference:bed-minimum 459, reference:cell 103
+oklabDeltaEP95                              562/0  0.000e+00           zero         562/0            —            —          zero  both:bed-zero 562
+oklabDeltaEBodyMean                         548/0  0.000e+00           zero        548/96    3.052e-06    7.291e-05     2.692e-07  reference:bed-minimum 452, reference:cell 96, unbarred 14
+edgeWeightedMean                            562/0  0.000e+00           zero       562/103    2.667e-06    7.714e-05     1.935e-08  reference:bed-minimum 459, reference:cell 103
+interiorMeanDelta                           548/0  0.000e+00           zero        548/96    1.175e-06    3.389e-05     9.674e-10  reference:bed-minimum 452, reference:cell 96, unbarred 14
+interiorStdDevDelta                         548/0  0.000e+00           zero        548/96    2.467e-06    3.196e-05     3.017e-09  reference:bed-minimum 452, reference:cell 96, unbarred 14
+bodyLevelDelta                              540/0  0.000e+00           zero        540/76    4.805e-07    1.152e-05     5.970e-10  reference:bed-minimum 464, reference:cell 76, unbarred 22
+transferSlopeDelta                          376/0  0.000e+00           zero        376/74    2.613e-06    6.330e-05     4.306e-08  reference:bed-minimum 302, reference:cell 74, unbarred 186
+transferOffsetDelta                         376/0  0.000e+00           zero        376/74    1.256e-06    5.892e-05     2.204e-08  reference:bed-minimum 302, reference:cell 74, unbarred 186
+rimContourDeltaMax                          540/0  0.000e+00           zero        540/78    1.115e-05    4.103e-03     9.238e-09  reference:bed-minimum 462, reference:cell 78, unbarred 22
+rimLocalDeltaMax                            540/0  0.000e+00           zero        540/49    2.249e-04    4.104e-03     1.110e-06  reference:bed-minimum 491, reference:cell 49, unbarred 22
+rimRow0DeltaMax                             540/0  0.000e+00           zero        540/77    1.609e-06    4.104e-03     5.970e-10  reference:bed-minimum 463, reference:cell 77, unbarred 22
+rimPeakDelta                                548/0  0.000e+00           zero        548/58    1.852e-05    4.320e-04     1.317e-08  reference:bed-minimum 490, reference:cell 58, unbarred 14
+rimPeakDepthDeltaPx                         548/0  0.000e+00           zero         548/0            —            —          zero  both:bed-zero 548, unbarred 14
+rimFwhmDeltaPx                              429/0  0.000e+00           zero        422/59    7.965e-04    5.527e-02     1.252e-07  reference:bed-minimum 363, reference:cell 59, subject:bed-zero 34, unbarred 106
+highlightBinDeltaMax                        540/0  0.000e+00           zero        540/82    2.673e-04    5.280e-03     9.451e-09  reference:bed-minimum 458, reference:cell 82, unbarred 22
+highlightBinDeltaMean                       540/0  0.000e+00           zero        540/82    3.664e-05    9.167e-04     9.451e-09  reference:bed-minimum 458, reference:cell 82, unbarred 22
+highlightIntegralDeltaMax                   540/0  0.000e+00           zero       540/100    4.041e-04    2.432e-03     4.562e-06  reference:bed-minimum 440, reference:cell 100, unbarred 22
+highlightRatioDelta                         235/0  0.000e+00           zero        234/41    6.597e-03    8.401e+00     7.827e-09  reference:bed-minimum 193, reference:cell 41, subject:bed-zero 17, unbarred 311
+highlightPeakAngleDeltaDeg                  540/0  0.000e+00           zero         540/2    2.250e+01    2.250e+01     2.250e+01  reference:bed-minimum 538, reference:cell 2, unbarred 22
+tintDeltaLDelta                             548/0  0.000e+00           zero        548/96    7.640e-07    3.087e-05     1.180e-08  reference:bed-minimum 452, reference:cell 96, unbarred 14
+tintChromaDelta                             548/0  0.000e+00           zero        548/96    1.590e-07    1.064e-05     5.561e-16  reference:bed-minimum 452, reference:cell 96, unbarred 14
+tintHueShiftDeltaDeg                        548/0  0.000e+00           zero        548/96    1.058e-02    2.472e+00     1.026e-07  reference:bed-minimum 452, reference:cell 96, unbarred 14
+shadowMeanDepartureDelta                    562/0  0.000e+00           zero        562/97    2.637e-07    6.605e-05     1.111e-10  reference:bed-minimum 465, reference:cell 97
+shadowStrengthPeakDelta                     450/0  0.000e+00           zero        450/83    5.823e-05    1.711e-03     2.809e-07  reference:bed-minimum 367, reference:cell 83, unbarred 112
+shadowStrengthPeakDistanceDeltaPx           450/0  0.000e+00           zero         450/0            —            —          zero  both:bed-zero 450, unbarred 112
+shadowExtentAboveDeltaPx                    401/0  0.000e+00           zero         401/0            —            —          zero  both:bed-zero 401, unbarred 161
+shadowExtentBelowDeltaPx                    400/0  0.000e+00           zero         400/0            —            —          zero  both:bed-zero 400, unbarred 162
+shadowExtentLeftDeltaPx                     400/0  0.000e+00           zero         400/0            —            —          zero  both:bed-zero 400, unbarred 162
+shadowExtentRightDeltaPx                    400/0  0.000e+00           zero         400/0            —            —          zero  both:bed-zero 400, unbarred 162
+shadowOffsetXDeltaPx                        396/0  0.000e+00           zero         396/0            —            —          zero  both:bed-zero 396, unbarred 166
+shadowOffsetYDeltaPx                        396/0  0.000e+00           zero         396/0            —            —          zero  both:bed-zero 396, unbarred 166
+shadowCentroidOffsetXDeltaPx                101/0  0.000e+00           zero        101/41    2.699e-03    4.367e-02     1.137e-13  reference:bed-minimum 60, reference:cell 41, unbarred 461
+shadowCentroidOffsetYDeltaPx                101/0  0.000e+00           zero        101/43    2.522e-03    7.648e-02     1.289e-04  reference:bed-minimum 58, reference:cell 43, unbarred 461
+shadowFalloffSigmaDeltaPx                   232/0  0.000e+00           zero        232/47    8.423e-04    1.770e-02     1.452e-05  reference:bed-minimum 185, reference:cell 47, unbarred 330
+shadowFalloffAmplitudeDelta                 232/0  0.000e+00           zero        232/47    1.231e-05    1.993e-03     6.073e-07  reference:bed-minimum 185, reference:cell 47, unbarred 330
+shadowFalloffLengthDeltaPx                  208/0  0.000e+00           zero        208/46    9.633e-04    2.229e-02     2.271e-06  reference:bed-minimum 162, reference:cell 46, unbarred 354
+shadowProfileRmsDelta                       450/0  0.000e+00           zero        450/83    8.709e-06    2.641e-04     4.387e-08  reference:bed-minimum 367, reference:cell 83, unbarred 112
+shadowAffineSlopeDeltaMax                   378/0  0.000e+00           zero        378/66    8.858e-05    1.268e-03     6.450e-06  reference:bed-minimum 312, reference:cell 66, unbarred 184
+shadowAffineInterceptDeltaMax               378/0  0.000e+00           zero        378/66    1.229e-05    2.720e-04     4.385e-15  reference:bed-minimum 312, reference:cell 66, unbarred 184
+
+The 0.5 side's fallback is W29's committed bedMinimumNonZeroBar over its 624-cell bed. Over the
+562 standard cells alone the smallest non-zero spread is never smaller (a minimum over a subset),
+and it is recorded per metric in bar-sides.json as standardOnlyMinimumNonZero.
+
+## Signed capture readings (the recede's inputs): run-to-run spread, max - min over seven runs
+
+reading               0.25 n/spread   0.25 max  0.5 n/spread  0.5 med own  0.5 max own  0.5 min own
+bodyLevel                     540/0  0.000e+00        540/76    4.805e-07    1.152e-05    5.970e-10
+rimContourMean                540/0  0.000e+00        540/78    3.579e-06    1.025e-03    9.238e-09
+rimLocalMean                  540/0  0.000e+00        540/49    5.865e-05    1.316e-03    2.775e-07
+highlightPeak                 540/0  0.000e+00        540/80    2.981e-06    5.280e-03    5.970e-10
+highlightFloor                540/0  0.000e+00        540/76    1.790e-06    9.158e-04    5.550e-09
+highlightRatio                235/0  0.000e+00        234/41    6.597e-03    8.401e+00    7.827e-09
+interiorMean                  548/0  0.000e+00        548/96    1.510e-06    3.389e-05    9.674e-10
+interiorStdDev                548/0  0.000e+00        548/96    2.682e-06    4.744e-05    3.017e-09
+rimPeak                       548/0  0.000e+00        548/58    1.852e-05    4.320e-04    1.317e-08
+rimPeakDepthPx                548/0  0.000e+00         548/0            —            —            —
+tintDeltaL                    548/0  0.000e+00        548/96    8.773e-07    3.087e-05    1.180e-08
+tintChroma                    548/0  0.000e+00        548/96    1.590e-07    1.072e-05    5.561e-16
+silhouetteAreaPx              562/0  0.000e+00        562/14    1.000e+00    4.000e+00    1.000e+00
+
+## Two constructions, cell for cell
+0.5 side: cells with more than one raw state by bytes 103; cells whose whole-cell
+metrics spread at all 103; the same set: True
+0.25 side: cells with more than one raw state by bytes 0; cells with ANY metric's spread non-zero 0

@@ -1,0 +1,22 @@
+# The raw run states of both sides, by file SHA-256 (W43 G2, charter clause 7)
+
+0.25 side: /Users/new/vitrea-w43/g1a-run passes bed-0.25-1x-active, bed-0.25-1x-receded, bed-0.25-2x-active, bed-0.25-2x-receded (run-N only, quarantines excluded)
+0.5 side:  /Users/new/vitrea-w29-27-run passes standard-active-1x, standard-inactive-1x, standard-active-2x, standard-inactive-2x
+
+## 0.25 side (G1a, W39 side bundle, 2026-10-01): 562 cells; runs per cell {7: 562}
+  bed-0.25-1x-active: unanimous 162
+  bed-0.25-1x-receded: unanimous 119
+  bed-0.25-2x-active: unanimous 162
+  bed-0.25-2x-receded: unanimous 119
+  unanimous 562, more than one state 0
+  published fixture among the cell's own run states: 562 of 562
+
+## 0.5 side (W29 G1, original bundle, 2026-09-18/19): 562 cells; runs per cell {7: 562}
+  standard-active-1x: 2 states, plurality 5-of-7 4, 2 states, plurality 6-of-7 19, unanimous 139
+  standard-active-2x: 2 states, plurality 4-of-7 8, 2 states, plurality 5-of-7 13, 2 states, plurality 6-of-7 13, unanimous 128
+  standard-inactive-1x: 2 states, plurality 4-of-7 1, 2 states, plurality 5-of-7 12, 2 states, plurality 6-of-7 31, unanimous 75
+  standard-inactive-2x: 2 states, plurality 6-of-7 2, unanimous 117
+  unanimous 459, more than one state 103
+  published fixture among the cell's own run states: 562 of 562
+
+0.25 cells with a 0.5 counterpart in W29's raw runs: 562 of 562

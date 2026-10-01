@@ -1,0 +1,595 @@
+{
+ "source": "rehearsal/null-pairs-measured.json",
+ "laws": {
+  "silhouette": {
+   "verdict": "NOT MOVED",
+   "primary": "silhouetteIoUComplement",
+   "perPose": {
+    "active": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 24,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "contour": {
+   "verdict": "NOT MOVED",
+   "primary": "contourDistanceMeanPx",
+   "perPose": {
+    "active": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 24,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "interior level": {
+   "verdict": "MINORITY",
+   "primary": "bodyLevelDelta",
+   "perPose": {
+    "active": {
+     "measured": 42,
+     "moved": 8,
+     "share": 0.19047619047619047,
+     "medianAbs": 0,
+     "p90Abs": 1.9367907833078846e-08,
+     "medianSigned": 0.0,
+     "up": 8,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 2
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 30,
+     "moved": 10,
+     "share": 0.3333333333333333,
+     "medianAbs": 0,
+     "p90Abs": 3.03246508603916e-06,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 10,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "tone by backdrop": {
+   "verdict": "MINORITY",
+   "primary": "transferSlopeDelta",
+   "perPose": {
+    "active": {
+     "measured": 30,
+     "moved": 8,
+     "share": 0.26666666666666666,
+     "medianAbs": 0,
+     "p90Abs": 2.2802787619333187e-05,
+     "medianSigned": 0.0,
+     "up": 6,
+     "down": 2,
+     "medianRatio": 0.0,
+     "withinNull": 2
+    },
+    "inactive": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 24,
+     "moved": 10,
+     "share": 0.4166666666666667,
+     "medianAbs": 0,
+     "p90Abs": 5.39399343631175e-06,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 10,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 24,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "scatter": {
+   "verdict": "MINORITY",
+   "primary": "interiorStdDevDelta",
+   "perPose": {
+    "active": {
+     "measured": 30,
+     "moved": 8,
+     "share": 0.26666666666666666,
+     "medianAbs": 0,
+     "p90Abs": 9.045258225796188e-05,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 8,
+     "medianRatio": 0.0,
+     "withinNull": 2
+    },
+    "inactive": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 24,
+     "moved": 10,
+     "share": 0.4166666666666667,
+     "medianAbs": 0,
+     "p90Abs": 3.143703454958069e-06,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 10,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 24,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "chroma": {
+   "verdict": "MINORITY",
+   "primary": "tintChromaDelta",
+   "perPose": {
+    "active": {
+     "measured": 30,
+     "moved": 9,
+     "share": 0.3,
+     "medianAbs": 0,
+     "p90Abs": 4.6235931110984695e-06,
+     "medianSigned": 0.0,
+     "up": 6,
+     "down": 3,
+     "medianRatio": 0.0,
+     "withinNull": 9
+    },
+    "inactive": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 30,
+     "moved": 10,
+     "share": 0.3333333333333333,
+     "medianAbs": 0,
+     "p90Abs": 7.222938024104442e-07,
+     "medianSigned": 0.0,
+     "up": 10,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 24,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "rim band": {
+   "verdict": "MINORITY",
+   "primary": "rimContourDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 42,
+     "moved": 8,
+     "share": 0.19047619047619047,
+     "medianAbs": 0,
+     "p90Abs": 0.0012564084934825193,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 8,
+     "medianRatio": 0.0,
+     "withinNull": 2
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 30,
+     "moved": 10,
+     "share": 0.3333333333333333,
+     "medianAbs": 0,
+     "p90Abs": 0.0002806283506793239,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 10,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "highlight": {
+   "verdict": "MINORITY",
+   "primary": "highlightBinDeltaMax",
+   "perPose": {
+    "active": {
+     "measured": 42,
+     "moved": 11,
+     "share": 0.2619047619047619,
+     "medianAbs": 0,
+     "p90Abs": 0.001962853013520005,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 5
+    },
+    "inactive": {
+     "measured": 42,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 30,
+     "moved": 10,
+     "share": 0.3333333333333333,
+     "medianAbs": 0,
+     "p90Abs": 0.004305360185094698,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 30,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "exterior shadow": {
+   "verdict": "MINORITY",
+   "primary": "shadowProfileRmsDelta",
+   "perPose": {
+    "active": {
+     "measured": 24,
+     "moved": 2,
+     "share": 0.08333333333333333,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 2
+    },
+    "inactive": {
+     "measured": 24,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 24,
+     "moved": 10,
+     "share": 0.4166666666666667,
+     "medianAbs": 0,
+     "p90Abs": 0.0003880693115920377,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    },
+    "inactive": {
+     "measured": 24,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0
+    }
+   }
+  },
+  "tint shade": {
+   "verdict": "MINORITY",
+   "primary": "tintDeltaLDelta",
+   "perPose": {
+    "active": {
+     "measured": 12,
+     "moved": 2,
+     "share": 0.16666666666666666,
+     "medianAbs": 0,
+     "p90Abs": 1.5700854283373644e-07,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 2,
+     "medianRatio": 0.0,
+     "withinNull": 2
+    },
+    "inactive": {
+     "measured": 12,
+     "moved": 0,
+     "share": 0.0,
+     "medianAbs": 0,
+     "p90Abs": 0,
+     "medianSigned": 0.0,
+     "up": 0,
+     "down": 0,
+     "medianRatio": 0.0,
+     "withinNull": 0
+    }
+   },
+   "rrectLg": {
+    "active": {
+     "measured": 0,
+     "moved": 0,
+     "share": NaN,
+     "medianAbs": NaN,
+     "p90Abs": NaN,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": NaN
+    },
+    "inactive": {
+     "measured": 0,
+     "moved": 0,
+     "share": NaN,
+     "medianAbs": NaN,
+     "p90Abs": NaN,
+     "medianSigned": null,
+     "up": 0,
+     "down": 0,
+     "medianRatio": NaN
+    }
+   }
+  }
+ },
+ "strata": {},
+ "nullMax": {
+  "silhouetteIoUComplement": 0.0,
+  "contourDistanceMeanPx": 0.0,
+  "contourDistanceP95Px": 0.0,
+  "silhouetteAreaDeltaPx": 0.0,
+  "cornerCurvatureDeltaPerPx": 0.0,
+  "ssimComplement": 1.1000943556105369e-07,
+  "ssimBandComplement": 6.639621737969392e-07,
+  "ssimOutsideComplement": 5.599047808724222e-07,
+  "oklabDeltaEMean": 1.0781758109668456e-06,
+  "oklabDeltaEP95": 0.0,
+  "oklabDeltaEBodyMean": 9.097365275009797e-06,
+  "edgeWeightedMean": 2.4628807202397744e-06,
+  "interiorMeanDelta": 8.07943033981351e-06,
+  "interiorStdDevDelta": 5.820951631423099e-06,
+  "bodyLevelDelta": 2.4234197981698458e-09,
+  "transferSlopeDelta": 2.736651798564485e-06,
+  "transferOffsetDelta": 1.000576322796043e-06,
+  "rimContourDeltaMax": 6.508939076310671e-05,
+  "rimLocalDeltaMax": 6.508454392351037e-05,
+  "rimRow0DeltaMax": 0.00013017151126681892,
+  "rimPeakDelta": 0.0,
+  "rimPeakDepthDeltaPx": 0.0,
+  "rimFwhmDeltaPx": 0.0,
+  "highlightBinDeltaMax": 0.00019322539069641098,
+  "highlightBinDeltaMean": 1.8630893785697746e-05,
+  "highlightIntegralDeltaMax": 0.000384877174504597,
+  "highlightRatioDelta": 9.126506569145931e-06,
+  "highlightPeakAngleDeltaDeg": 0.0,
+  "tintDeltaLDelta": 5.922876905151142e-06,
+  "tintChromaDelta": 4.6235931110984695e-06,
+  "tintHueShiftDeltaDeg": 0.0001578118868792444,
+  "shadowMeanDepartureDelta": 1.537322665071659e-07,
+  "shadowStrengthPeakDelta": 6.313932882898166e-05,
+  "shadowStrengthPeakDistanceDeltaPx": 0.0,
+  "shadowExtentAboveDeltaPx": 0.0,
+  "shadowExtentBelowDeltaPx": 0.0,
+  "shadowExtentLeftDeltaPx": 0.0,
+  "shadowExtentRightDeltaPx": 0.0,
+  "shadowOffsetXDeltaPx": 0.0,
+  "shadowOffsetYDeltaPx": 0.0,
+  "shadowFalloffSigmaDeltaPx": 0.005135239559671767,
+  "shadowFalloffAmplitudeDelta": 5.2451692177026e-05,
+  "shadowProfileRmsDelta": 4.511280866461306e-06,
+  "shadowAffineSlopeDeltaMax": 6.817710204798377e-05,
+  "shadowAffineInterceptDeltaMax": 2.6676867005970273e-06,
+  "ssimInteriorComplement": 0.0,
+  "shadowFalloffLengthDeltaPx": 0.004935777706973177
+ }
+}

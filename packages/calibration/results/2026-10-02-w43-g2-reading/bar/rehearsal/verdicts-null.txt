@@ -1,0 +1,221 @@
+# Per-law verdicts under the declared rule (verdicts.py), over rehearsal/null-pairs-measured.json
+
+144 pair rows; 60 in the held-out rrect-lg stratum; poses {'active': 72, 'inactive': 72}
+
+## silhouette  (primary silhouetteIoUComplement; population all; rrect-lg held out)
+  VERDICT: NOT MOVED
+    silhouetteIoUComplement [active]      0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    silhouetteIoUComplement [inactive]    0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest silhouetteIoUComplement: 0.000e+00; moved cells [active] no larger than it: 0 of 0
+    canonical bridge null's largest silhouetteIoUComplement: 0.000e+00; moved cells [inactive] no larger than it: 0 of 0
+    silhouetteAreaDeltaPx [active]        0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    silhouetteAreaDeltaPx [inactive]      0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [active]             0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+
+## contour  (primary contourDistanceMeanPx; population all; rrect-lg held out)
+  VERDICT: NOT MOVED
+    contourDistanceMeanPx [active]        0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    contourDistanceMeanPx [inactive]      0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest contourDistanceMeanPx: 0.000e+00; moved cells [active] no larger than it: 0 of 0
+    canonical bridge null's largest contourDistanceMeanPx: 0.000e+00; moved cells [inactive] no larger than it: 0 of 0
+    contourDistanceP95Px [active]         0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    contourDistanceP95Px [inactive]       0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    cornerCurvatureDeltaPerPx [active]    0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    cornerCurvatureDeltaPerPx [inactive]    0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [active]             0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+
+## interior level  (primary bodyLevelDelta; population all; rrect-lg held out)
+  VERDICT: MINORITY
+    bodyLevelDelta [active]               8/42   share 0.190  med|d| 0.000e+00  p90 1.937e-08  med signed 0.000e+00  up/down 8/0  med d/bar 0.000e+00
+    bodyLevelDelta [inactive]             0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest bodyLevelDelta: 2.423e-09; moved cells [active] no larger than it: 2 of 8
+    canonical bridge null's largest bodyLevelDelta: 2.423e-09; moved cells [inactive] no larger than it: 0 of 0
+    interiorMeanDelta [active]           11/42   share 0.262  med|d| 0.000e+00  p90 2.273e-05  med signed 0.000e+00  up/down 3/8  med d/bar 0.000e+00
+    interiorMeanDelta [inactive]          0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [active]            10/30   share 0.333  med|d| 0.000e+00  p90 3.032e-06  med signed 0.000e+00  up/down 0/10  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+
+## tone by backdrop  (primary transferSlopeDelta; population all; rrect-lg held out)
+  VERDICT: MINORITY
+    transferSlopeDelta [active]           8/30   share 0.267  med|d| 0.000e+00  p90 2.280e-05  med signed 0.000e+00  up/down 6/2  med d/bar 0.000e+00
+    transferSlopeDelta [inactive]         0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest transferSlopeDelta: 2.737e-06; moved cells [active] no larger than it: 2 of 8
+    canonical bridge null's largest transferSlopeDelta: 2.737e-06; moved cells [inactive] no larger than it: 0 of 0
+    transferOffsetDelta [active]          8/30   share 0.267  med|d| 0.000e+00  p90 2.280e-05  med signed 0.000e+00  up/down 2/6  med d/bar 0.000e+00
+    transferOffsetDelta [inactive]        0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [active]            10/24   share 0.417  med|d| 0.000e+00  p90 5.394e-06  med signed 0.000e+00  up/down 0/10  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+
+## scatter  (primary interiorStdDevDelta; population structured; rrect-lg held out)
+  VERDICT: MINORITY
+    interiorStdDevDelta [active]          8/30   share 0.267  med|d| 0.000e+00  p90 9.045e-05  med signed 0.000e+00  up/down 0/8  med d/bar 0.000e+00
+    interiorStdDevDelta [inactive]        0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest interiorStdDevDelta: 5.821e-06; moved cells [active] no larger than it: 2 of 8
+    canonical bridge null's largest interiorStdDevDelta: 5.821e-06; moved cells [inactive] no larger than it: 0 of 0
+    rrect-lg stratum [active]            10/24   share 0.417  med|d| 0.000e+00  p90 3.144e-06  med signed 0.000e+00  up/down 0/10  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+
+## chroma  (primary tintChromaDelta; population untinted; rrect-lg held out)
+  VERDICT: MINORITY
+    tintChromaDelta [active]              9/30   share 0.300  med|d| 0.000e+00  p90 4.624e-06  med signed 0.000e+00  up/down 6/3  med d/bar 0.000e+00
+    tintChromaDelta [inactive]            0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest tintChromaDelta: 4.624e-06; moved cells [active] no larger than it: 9 of 9
+    canonical bridge null's largest tintChromaDelta: 4.624e-06; moved cells [inactive] no larger than it: 0 of 0
+    rrect-lg stratum [active]            10/30   share 0.333  med|d| 0.000e+00  p90 7.223e-07  med signed 0.000e+00  up/down 10/0  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+
+## rim band  (primary rimContourDeltaMax; population all; rrect-lg held out)
+  VERDICT: MINORITY
+    rimContourDeltaMax [active]           8/42   share 0.190  med|d| 0.000e+00  p90 1.256e-03  med signed 0.000e+00  up/down 0/8  med d/bar 0.000e+00
+    rimContourDeltaMax [inactive]         0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest rimContourDeltaMax: 6.509e-05; moved cells [active] no larger than it: 2 of 8
+    canonical bridge null's largest rimContourDeltaMax: 6.509e-05; moved cells [inactive] no larger than it: 0 of 0
+    rimLocalDeltaMax [active]             8/42   share 0.190  med|d| 0.000e+00  p90 1.256e-03  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rimLocalDeltaMax [inactive]           0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rimRow0DeltaMax [active]              8/42   share 0.190  med|d| 0.000e+00  p90 2.513e-03  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rimRow0DeltaMax [inactive]            0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rimPeakDelta [active]                 0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rimPeakDelta [inactive]               0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rimPeakDepthDeltaPx [active]          0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rimPeakDepthDeltaPx [inactive]        0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rimFwhmDeltaPx [active]               0/27   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rimFwhmDeltaPx [inactive]             0/18   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [active]            10/30   share 0.333  med|d| 0.000e+00  p90 2.806e-04  med signed 0.000e+00  up/down 0/10  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+
+## highlight  (primary highlightBinDeltaMax; population all; rrect-lg held out)
+  VERDICT: MINORITY
+    highlightBinDeltaMax [active]        11/42   share 0.262  med|d| 0.000e+00  p90 1.963e-03  med signed —  up/down 0/0  med d/bar 0.000e+00
+    highlightBinDeltaMax [inactive]       0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest highlightBinDeltaMax: 1.932e-04; moved cells [active] no larger than it: 5 of 11
+    canonical bridge null's largest highlightBinDeltaMax: 1.932e-04; moved cells [inactive] no larger than it: 0 of 0
+    highlightBinDeltaMean [active]       11/42   share 0.262  med|d| 0.000e+00  p90 2.997e-04  med signed —  up/down 0/0  med d/bar 0.000e+00
+    highlightBinDeltaMean [inactive]      0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    highlightIntegralDeltaMax [active]   11/42   share 0.262  med|d| 0.000e+00  p90 1.026e-03  med signed —  up/down 0/0  med d/bar 0.000e+00
+    highlightIntegralDeltaMax [inactive]    0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    highlightRatioDelta [active]          2/15   share 0.133  med|d| 0.000e+00  p90 9.127e-06  med signed 0.000e+00  up/down 2/0  med d/bar 0.000e+00
+    highlightRatioDelta [inactive]        0/18   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    highlightPeakAngleDeltaDeg [active]    0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    highlightPeakAngleDeltaDeg [inactive]    0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [active]            10/30   share 0.333  med|d| 0.000e+00  p90 4.305e-03  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+
+## exterior shadow  (primary shadowProfileRmsDelta; population all; rrect-lg held out)
+  VERDICT: MINORITY
+    shadowProfileRmsDelta [active]        2/24   share 0.083  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowProfileRmsDelta [inactive]      0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest shadowProfileRmsDelta: 4.511e-06; moved cells [active] no larger than it: 2 of 2
+    canonical bridge null's largest shadowProfileRmsDelta: 4.511e-06; moved cells [inactive] no larger than it: 0 of 0
+    shadowMeanDepartureDelta [active]    11/42   share 0.262  med|d| 0.000e+00  p90 7.987e-08  med signed 0.000e+00  up/down 8/3  med d/bar 0.000e+00
+    shadowMeanDepartureDelta [inactive]    0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    shadowStrengthPeakDelta [active]      2/24   share 0.083  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 2/0  med d/bar 0.000e+00
+    shadowStrengthPeakDelta [inactive]    0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    shadowStrengthPeakDistanceDeltaPx [active]    0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowStrengthPeakDistanceDeltaPx [inactive]    0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowFalloffSigmaDeltaPx [active]    2/24   share 0.083  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/2  med d/bar 0.000e+00
+    shadowFalloffAmplitudeDelta [active]    2/24   share 0.083  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 2/0  med d/bar 0.000e+00
+    shadowFalloffLengthDeltaPx [active]    2/18   share 0.111  med|d| 0.000e+00  p90 4.936e-03  med signed 0.000e+00  up/down 0/2  med d/bar 0.000e+00
+    shadowExtentAboveDeltaPx [active]     0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentAboveDeltaPx [inactive]    0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentBelowDeltaPx [active]     0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentBelowDeltaPx [inactive]    0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentLeftDeltaPx [active]      0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentLeftDeltaPx [inactive]    0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentRightDeltaPx [active]     0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentRightDeltaPx [inactive]    0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowOffsetXDeltaPx [active]         0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowOffsetXDeltaPx [inactive]       0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowOffsetYDeltaPx [active]         0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    shadowOffsetYDeltaPx [inactive]       0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    shadowAffineSlopeDeltaMax [active]    2/30   share 0.067  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowAffineSlopeDeltaMax [inactive]    0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowAffineInterceptDeltaMax [active]    2/30   share 0.067  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowAffineInterceptDeltaMax [inactive]    0/30   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [active]            10/24   share 0.417  med|d| 0.000e+00  p90 3.881e-04  med signed —  up/down 0/0  med d/bar 0.000e+00
+    rrect-lg stratum [inactive]           0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+
+## tint shade  (primary tintDeltaLDelta; population tinted; rrect-lg held out)
+  VERDICT: MINORITY
+    tintDeltaLDelta [active]              2/12   share 0.167  med|d| 0.000e+00  p90 1.570e-07  med signed 0.000e+00  up/down 0/2  med d/bar 0.000e+00
+    tintDeltaLDelta [inactive]            0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    canonical bridge null's largest tintDeltaLDelta: 5.923e-06; moved cells [active] no larger than it: 2 of 2
+    canonical bridge null's largest tintDeltaLDelta: 5.923e-06; moved cells [inactive] no larger than it: 0 of 0
+    tintChromaDelta [active]              2/12   share 0.167  med|d| 0.000e+00  p90 1.012e-07  med signed 0.000e+00  up/down 2/0  med d/bar 0.000e+00
+    tintChromaDelta [inactive]            0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    tintHueShiftDeltaDeg [active]         2/12   share 0.167  med|d| 0.000e+00  p90 1.438e-04  med signed —  up/down 0/0  med d/bar 0.000e+00
+    tintHueShiftDeltaDeg [inactive]       0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+
+## The whole cell, as context (no verdict)
+    ssimComplement [active]              11/42   share 0.262  med|d| 0.000e+00  p90 8.800e-07  med signed —  up/down 0/0  med d/bar 0.000e+00
+    ssimComplement [inactive]             0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    ssimBandComplement [active]          11/42   share 0.262  med|d| 0.000e+00  p90 4.100e-06  med signed —  up/down 0/0  med d/bar 0.000e+00
+    ssimBandComplement [inactive]         0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    ssimInteriorComplement [active]       0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    ssimInteriorComplement [inactive]     0/24   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    ssimOutsideComplement [active]       11/42   share 0.262  med|d| 0.000e+00  p90 1.053e-06  med signed —  up/down 0/0  med d/bar 0.000e+00
+    ssimOutsideComplement [inactive]      0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    oklabDeltaEMean [active]             11/42   share 0.262  med|d| 0.000e+00  p90 6.974e-06  med signed —  up/down 0/0  med d/bar 0.000e+00
+    oklabDeltaEMean [inactive]            0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    oklabDeltaEP95 [active]               0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    oklabDeltaEP95 [inactive]             0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    oklabDeltaEBodyMean [active]         11/42   share 0.262  med|d| 0.000e+00  p90 1.831e-05  med signed —  up/down 0/0  med d/bar 0.000e+00
+    oklabDeltaEBodyMean [inactive]        0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    edgeWeightedMean [active]            11/42   share 0.262  med|d| 0.000e+00  p90 1.136e-05  med signed —  up/down 0/0  med d/bar 0.000e+00
+    edgeWeightedMean [inactive]           0/42   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+
+## Attribution reads (descriptive; never a verdict)
+
+Geometry, healthy population (both silhouettes within 2x): 84 cells; one under half the other: 0
+    healthy silhouetteIoUComplement       0/84   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    healthy contourDistanceMeanPx         0/84   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    healthy silhouetteAreaDeltaPx         0/84   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    healthy cornerCurvatureDeltaPerPx     0/84   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+
+Implied corner radius per single-box component, median 1/kappa (reference -> subject), healthy cells:
+    capsule-button     36 cells    18.14 ->   18.14 px
+    rrect-md           48 cells    18.89 ->   18.89 px
+
+Rim and highlight on uniform backdrops only (24 cells):
+    uniform rimContourDeltaMax [active]    0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    uniform rimContourDeltaMax [inactive]    0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    uniform rimLocalDeltaMax [active]     0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    uniform rimLocalDeltaMax [inactive]    0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    uniform highlightBinDeltaMax [active]    3/12   share 0.250  med|d| 0.000e+00  p90 1.932e-04  med signed —  up/down 0/0  med d/bar 0.000e+00
+    uniform highlightBinDeltaMax [inactive]    0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    uniform highlightRatioDelta [inactive]    0/6    share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    uniform bodyLevelDelta [active]       0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+    uniform bodyLevelDelta [inactive]     0/12   share 0.000  med|d| 0.000e+00  p90 0.000e+00  med signed 0.000e+00  up/down 0/0  med d/bar 0.000e+00
+
+Radial difference profile, per band (cells with any differing pixel / cells; median of the
+per-cell mean |code|; max |code|; median per-cell mean signed linear luminance):
+  held-in [active]
+    deep              8/42   med mean|code|    0.000  max|code|     1  med signed lum +0.00000
+    shoulder          8/42   med mean|code|    0.000  max|code|     1  med signed lum +0.00000
+    edge             11/42   med mean|code|    0.000  max|code|     2  med signed lum +0.00000
+    near-exterior    11/42   med mean|code|    0.000  max|code|     2  med signed lum +0.00000
+    exterior          2/42   med mean|code|    0.000  max|code|     1  med signed lum +0.00000
+    far               0/42   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+  held-in [inactive]
+    deep              0/42   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    shoulder          0/42   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    edge              0/42   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    near-exterior     0/42   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    exterior          0/42   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    far               0/42   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+  rrect-lg [active]
+    deep             11/30   med mean|code|    0.000  max|code|     2  med signed lum +0.00000
+    shoulder         11/30   med mean|code|    0.000  max|code|     2  med signed lum +0.00000
+    edge             11/30   med mean|code|    0.000  max|code|     2  med signed lum +0.00000
+    near-exterior    11/30   med mean|code|    0.000  max|code|     1  med signed lum +0.00000
+    exterior          0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    far               0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+  rrect-lg [inactive]
+    deep              0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    shoulder          0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    edge              0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    near-exterior     0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    exterior          0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+    far               0/30   med mean|code|    0.000  max|code|     0  med signed lum +0.00000
+
