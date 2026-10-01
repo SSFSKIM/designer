@@ -11,6 +11,8 @@ TSX="$ROOT/packages/calibration/node_modules/.bin/tsx"
 SCRATCH="$(mktemp -d /tmp/x41-proof.XXXXXX)"
 trap 'rm -rf "$SCRATCH"' EXIT
 
+mkdir -p "$SCRATCH/apps/reference-apple"
+cp "$ROOT/apps/reference-apple/scenes.json" "$SCRATCH/apps/reference-apple/scenes.json"
 for d in apps/reference-apple/fixtures packages/calibration/profiles \
          packages/calibration/results/generations packages/platform-web/src \
          packages/calibration/results/2026-10-01-w43-g0-declaration/x41; do
@@ -21,6 +23,7 @@ X="$SCRATCH/packages/calibration/results/2026-10-01-w43-g0-declaration/x41/x41.t
 DOC="$SCRATCH/packages/platform-web/src/material-document.ts"
 MAN="$SCRATCH/apps/reference-apple/fixtures/manifest.json"
 IDX="$SCRATCH/packages/calibration/results/generations/index.json"
+SCN="$SCRATCH/apps/reference-apple/scenes.json"
 
 restore() { cp "$ROOT/$1" "$SCRATCH/$1"; }
 fails=0
@@ -144,6 +147,36 @@ open(p, "w").write(json.dumps(m, indent=2) + "\n")
 EOF
 check "a 0.5 profile's current selection re-pointed" fail
 restore packages/calibration/results/generations/index.json
+
+# The scene declaration (the G0 review's third finding).
+git -C "$ROOT" show origin/w43-g0-decl:apps/reference-apple/scenes.json >"$SCN"
+check "scenes.json version 8 from w43-g0-decl: four -glass0.25 profiles, the version and its note" pass
+restore apps/reference-apple/scenes.json
+py "$SCN" <<'EOF'
+import json, sys
+p = sys.argv[1]; s = json.load(open(p))
+s["components"]["rrect-md"]["radius"] += 1
+open(p, "w").write(json.dumps(s, indent=2) + "\n")
+EOF
+check "one existing component's radius moved (every rrect-md scene)" fail
+restore apps/reference-apple/scenes.json
+py "$SCN" <<'EOF'
+import json, sys
+p = sys.argv[1]; s = json.load(open(p))
+s["split"]["calibration"].remove("photo__rrect-md__rest")
+s["split"]["validation"].append("photo__rrect-md__rest")
+open(p, "w").write(json.dumps(s, indent=2) + "\n")
+EOF
+check "one scene moved from calibration to validation" fail
+restore apps/reference-apple/scenes.json
+py "$SCN" <<'EOF'
+import json, sys
+p = sys.argv[1]; s = json.load(open(p))
+next(x for x in s["profiles"] if x["key"] == "apple-macos-27.0-2x-dark-standard-glass0.5")["scenes"].pop()
+open(p, "w").write(json.dumps(s, indent=2) + "\n")
+EOF
+check "a scene dropped from a 0.5 profile entry" fail
+restore apps/reference-apple/scenes.json
 
 check "restored" pass
 echo "wrong verdicts: $fails"

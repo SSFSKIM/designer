@@ -43,6 +43,16 @@
  * beside the manifest is the recorded projection, pretty-printed; on a mismatch `verify`
  * names the paths that differ from it.
  *
+ * **The scene declaration** (amended at the G0 review's third finding). `scenes.json` is the
+ * one file the 0.25 bed has to change and neither this manifest nor the 26.5 freeze read, so an
+ * existing scene's geometry, component or split membership could move under two green checks.
+ * It is projected by unit, as the fixtures manifest is: each scene by id and the scene order,
+ * each split set, each existing profile entry by key and the profile order, each component, and
+ * every other top-level block. Version 8 may change exactly three things, so exactly three are
+ * outside the projection: `version`, its own note `$comment-version-8`, and the profile entries
+ * keyed `-glass0.25` (excluded from the order too, so appending them moves nothing). Anything
+ * else that moves, including a new scene or a new top-level block, fires.
+ *
  * What this does not cover, deliberately: the 26.5 evidence and `backgrounds/` (the freeze),
  * `DEFAULT_MATERIAL_PROFILE` and the goldens (X1 and their own tests), and the four 0.5
  * digests as computed rather than recorded (`macos27-profile-export.test.ts`).
@@ -64,6 +74,10 @@ const FIX = join(ROOT, "apps/reference-apple/fixtures");
 const PROFILES = join(ROOT, "packages/calibration/profiles");
 const GENERATIONS = join(ROOT, "packages/calibration/results/generations");
 const MODULE = join(ROOT, "packages/platform-web/src/macos27-profile.ts");
+const SCENES = join(ROOT, "apps/reference-apple/scenes.json");
+/** What scene-spec version 8 may change, and nothing else (charter, Design "The generation's bed"). */
+const SCENES_VERSION_FIELDS = new Set(["version", "$comment-version-8"]);
+const IS_025_KEY = /-glass0\.25$/;
 const OUT = join(HERE, "sha256.txt");
 const PROJECTION_OUT = join(HERE, "macos27-document-projection.json");
 
@@ -182,6 +196,38 @@ interface GenerationIndex {
   readonly currentByProfile: Record<string, string>;
 }
 
+interface SceneSpec {
+  readonly scenes: readonly { readonly id: string }[];
+  readonly split: Record<string, unknown>;
+  readonly profiles: readonly { readonly key: string }[];
+  readonly components: Record<string, unknown>;
+  readonly [block: string]: unknown;
+}
+
+function* scenesEntries(): Generator<string> {
+  const spec = JSON.parse(readFileSync(SCENES, "utf8")) as SceneSpec;
+  const units = new Set(["scenes", "split", "profiles", "components"]);
+  for (const block of Object.keys(spec).sort()) {
+    if (SCENES_VERSION_FIELDS.has(block) || units.has(block)) continue;
+    yield `${sha(canon(spec[block]))}  scenes:${block}`;
+  }
+  yield `${sha(canon(spec.scenes.map((s) => s.id)))}  scenes:scene-order`;
+  for (const scene of [...spec.scenes].sort((a, b) => (a.id < b.id ? -1 : 1))) {
+    yield `${sha(canon(scene))}  scenes:scene:${scene.id}`;
+  }
+  for (const name of Object.keys(spec.components).sort()) {
+    yield `${sha(canon(spec.components[name]))}  scenes:component:${name}`;
+  }
+  for (const set of Object.keys(spec.split).sort()) {
+    yield `${sha(canon(spec.split[set]))}  scenes:split:${set}`;
+  }
+  const profiles = spec.profiles.filter((p) => !IS_025_KEY.test(p.key));
+  yield `${sha(canon(profiles.map((p) => p.key)))}  scenes:profile-order`;
+  for (const profile of [...profiles].sort((a, b) => (a.key < b.key ? -1 : 1))) {
+    yield `${sha(canon(profile))}  scenes:profile:${profile.key}`;
+  }
+}
+
 function* generationEntries(): Generator<string> {
   const index = JSON.parse(readFileSync(join(GENERATIONS, "index.json"), "utf8")) as GenerationIndex;
   yield `${sha(canon(index.schemaVersion))}  generations:index:schemaVersion`;
@@ -232,7 +278,8 @@ function differingPaths(a: unknown, b: unknown, path = "$"): string[] {
 function main(): number {
   const mode = process.argv[2] ?? "verify";
   const { lines: projectionLines, projected } = projection();
-  const lines = [...byteEntries(), ...manifestEntries(), ...generationEntries(), ...projectionLines];
+  const lines = [...byteEntries(), ...manifestEntries(), ...generationEntries(), ...scenesEntries(),
+    ...projectionLines];
   if (mode === "write") {
     writeFileSync(OUT, `${lines.join("\n")}\n`);
     writeFileSync(PROJECTION_OUT, `${JSON.stringify(projected, null, 2)}\n`);

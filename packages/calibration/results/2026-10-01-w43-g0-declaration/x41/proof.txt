@@ -54,5 +54,16 @@ ok    expected fail got fail  a 0.5 generation retired
 ok    expected fail got fail  a 0.5 profile's current selection re-pointed
         MISSING/CHANGED: 66ee999759531fd0ade33ddbbdd5aa3760aa671ea36c13700cb40cf0c3b7d9d9  generations:index:currentByProfile:apple-macos-27.0-1x-light-standard-glass0.5
         NEW/CHANGED:     c219a0e9a69fbbc2bc82aa028f5374bdf2ff7d27e5aad1f2ea045f9feacf8616  generations:index:currentByProfile:apple-macos-27.0-1x-light-standard-glass0.5
+ok    expected pass got pass  scenes.json version 8 from w43-g0-decl: four -glass0.25 profiles, the version and its note
+ok    expected fail got fail  one existing component's radius moved (every rrect-md scene)
+        MISSING/CHANGED: 3a6bd12ecf0abc43eb300fff3bc9c11f7c8b5d0819db8e52efb8b2206fe5b970  scenes:component:rrect-md
+        NEW/CHANGED:     c912e163d61ae37170475105d92b044822971b784bb437870e848eece08e16a4  scenes:component:rrect-md
+ok    expected fail got fail  one scene moved from calibration to validation
+        MISSING/CHANGED: 26adf8274e5619f602508a789b5c64be070aac545b46838ad2b0a9091ea11888  scenes:split:calibration
+        MISSING/CHANGED: 7bce91294a0ae130f64cd58cb3767ef355999ad81fd8494f902c55e056d8cccd  scenes:split:validation
+        NEW/CHANGED:     d9a815144c49bf4d00251ce265e1e8fcac00281b789b2064237725497fd5d19c  scenes:split:calibration
+ok    expected fail got fail  a scene dropped from a 0.5 profile entry
+        MISSING/CHANGED: e44409ded04a4e430318b98395f53ecaff16a38b9f3d3791bdcff5dbb3ab3df8  scenes:profile:apple-macos-27.0-2x-dark-standard-glass0.5
+        NEW/CHANGED:     acf8df0bc4ac3f7bf21c2f282a1021ad18abb392846786e1a63036db15b8747c  scenes:profile:apple-macos-27.0-2x-dark-standard-glass0.5
 ok    expected pass got pass  restored
 wrong verdicts: 0
