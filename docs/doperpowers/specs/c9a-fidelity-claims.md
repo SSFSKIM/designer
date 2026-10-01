@@ -42350,3 +42350,220 @@ never analysed, and has no bar here. **The original bundle's grant is not restor
 swaps it back by hand, and the original's positive check must then capture `204f21f0…` or
 `6c15311b…` (the parent's ruling). Until then the sitting is not closed. Freeze at G1's close is
 **1,818 intact**.
+
+## 5.196 W42 G2, step 2 (identification): no declared family survives one code in any of the four window states; the knee is per-channel, the unit points, light-active refraction after the blur, dark-active undecided and its two fits disagree (2026-10-01) — DRAFT, the identification part only
+
+Evidence directory: `results/2026-09-30-w42-g2-identification/step2/` (`README.md` indexes it; the
+verdicts are `verdicts.txt` / `.json`, the family tables `tables.md`, the candidate values
+`candidates.txt` / `.json`). Charter G2 step 2, clauses 6 and 15, Decision Logs 3 and 5a–5f.
+Branch `w42-g2-identification` (main `e2f48c2b` plus `w42-g2-impl` at `2ce1c2d5`). Nothing here
+rendered vitrea, ran a gate or opened H. Steps 3–6 follow only on the parent's reading of this.
+
+### 1. Pins and the reading
+
+- **Pinned before the first read** (`afae1c36`, `step2/pins.json`): the declaration `f04ae95b…`
+  with all 92 of its sources re-hashed; the native-T addendum `23e400bf…` and the black-join
+  addendum `8ad314c1…`; the archive asset `1e3d6e65…` (13,611,249 bytes) and inventory
+  `5481795e…`; G1's bar (`a85662f2…`); the 27 instrument, oracle and W41 files imported. Every
+  script re-verifies the pins at import and denies `~/vitrea-w42/g1` by the archive's audit hook.
+- **The reading plan** (`step2/reading-plan.md`, committed with the pins) fixed the operational
+  readings the declared path leaves open before any pixel was opened: the plurality frame as the
+  observed image; RGB with per-channel native T on grey cells; family E read through candidate 2's
+  declared chroma form; X21 censoring as W41 G1's `body41.score` reads it; the "beats" rule
+  (|e| smaller by more than max(3, sum of bars) = 3 codes at a measured statistic); the unit and
+  refraction-order procedures.
+- **Read:** 383 calibration and validation glass cells through the guarded Reader (roles
+  calibration and validation only; H withheld, F not read). 364 have one state across the seven
+  runs; 19 have two (pluralities 4–6 of 7). The bar is 0.5 on every statistic, so survival is at
+  **one code**, and the tie-break threshold is max(3, 1) = **3 codes**.
+
+### 2. Native T (family A, 2x calibration deep medians per channel)
+
+| stratum | light active | light receded | dark active | dark receded |
+| --- | --- | --- | --- | --- |
+| t = 0 (capsule), 0 → 255 | 132 → 253 | 133 → 240 | 32 → 185 | 20 → 180 |
+| s = 96 (rrect-md), 0 → 255 | 134 → 254 | 133 → 240 | 32 → **138 at 208 → 134** | 20 → **131 at 208–224 → 127** |
+| s = 128 (160 / 208 / 255) | 216 / 237 / 254 | 202 / 221 / 240 | 125 / **129 / 121** | 119 / **123 / 114** |
+| s = 160 (96 / 160 / 208 / 255) | 187 / 218 / 239 / 254 | 175 / 202 / 221 / 240 | 101 / 125 / **128 / 122** | 96 / 119 / **123 / 114** |
+| dark s = 80 (160 / 208 / 255) | — | — | 141 / 155 / 159 | 135 / 149 / 154 |
+
+1. **Monotone in both light endpoints; NOT monotone in either dark endpoint at s ≥ 96.** The dark
+   ordinates fall above 208: dark active 96 from 138 to 134, 128 from 129 to 121, 160 from 128 to
+   122; dark receded 96 from 131 to 127, 128 and 160 from 123 to 114. It is the dark compression
+   memo D's MaxLuma law points at, measured as a decrease. A finding for the parent; nothing is
+   repaired: the forward T passes through every measured ordinate.
+2. **The addendum's guard and completion, as they act on these ordinates** (both are its declared
+   rule, recorded here as consequences):
+   - the guard caps a completed point at the next measured ordinate, so on the decreasing dark
+     rows at s = 128 and 160 it steps the row from 129 / 123 at 208 to 121 / 114 at 224 (a linear
+     reading through the measured points would give 126.3 / 120.0 there);
+   - below a sparse stratum's lowest ordinate the 160-level residual is held to black, so dark T
+     at s = 128 reads **26 (active) and 14 (receded) at input 0** where both full strata read
+     32 / 20, and light active at s = 128 reads 137. No family-A cell measures black at s ≥ 128.
+     The dark rrect-ml cells' low-level statistics carry the largest dark misses beside it
+     (§3: the rrect-ml impulse's black field reads 34 / 23 natively where LT predicts 27.8 / 16.2),
+     so the completion, not only the structure, sits under those misses.
+3. **Neutral within one code, not within the bar.** 12 of the 114 ordinates differ by exactly one
+   code between channels (light receded B at 160 reads 201 in every stratum). Under the
+   addendum's §5 candidate 2's table carries one row set per channel.
+4. **The validation greys transfer:** the 2x rrect-64 greys (t = 0) and the 1x rrect-md greys 128
+   and 255 are predicted within one code on every channel in all four endpoints.
+5. Light active rises with span (black 132 / 134 / 137 / 139 at t = 0 / 96 / 128 / 160); light
+   receded is span-invariant to within half a code (memo C's reading confirmed).
+
+### 3. The structure fits: no survivor
+
+Every declared family was fitted with its declared count in every endpoint where it is defined, on
+the endpoint's calibration cells of families B, B′, C and D at both scales (40–58 cells; family A
+scored, never optimised on), least squares then minimax on the region statistics, and transferred
+to the validation cells read-only. 21 families in the active endpoints, 15 in the receded ones
+(the bleeds are zero when receded), plus LT under the 53.6-pt mask and at `k@global` and
+`k@scheme`. Statistics scored per endpoint: 4,476 / 4,785 / 4,770 / 5,154 (light active, light
+receded, dark active, dark receded; grey cells), plus family E (§5). Full rows: `step2/tables.md`.
+
+| endpoint | LT, least squares: k, λ; worst; failing | LT, minimax: k, λ; worst; failing | smallest worst of any family |
+| --- | --- | --- | --- |
+| light active | 2.019, 0.895; 14.14; 2,322 | 1.405, 1.323; 12.42; 3,584 | 9.48 (null-R2, rejected); of the rivals 11.68 (LT-2k, W-tails) |
+| light receded | 2.047, 0.828; 10.23; 2,604 | 2.164, 0.805; 8.96; 2,590 | 8.49 (null-R2); 8.96 (LT, LT-2k, K2, W-tails) |
+| dark active | 2.218, 0.837; 13.71; 2,898 | 2.000, 0.887; 13.63; 2,741 | 11.51 (null-R2); 12.08 (the literal bleed, pre-T) |
+| dark receded | 2.187, 0.734; 16.08; 2,564 | 2.478, 0.677; 13.35; 2,811 | 10.23 (C-linear); 11.07 (LT-2k) |
+
+1. **No family survives in any endpoint**, at either fitted point. The smallest worst miss of any
+   declared family is 9.0–12.1 codes by endpoint (8.5–11.5 counting the rejected nulls) against a
+   one-code bar; every family fails thousands of statistics. **Each endpoint is this wave's negative at its resolution (one code), and Decision
+   Log 3 applies with no endpoint claimed.**
+2. **Where LT fails** (least-squares point; `verdicts.txt` lists every group):
+   - *light active:* the checkers on the small and mid shapes nearly close (capsule, rrect-64,
+     rrect-80 and rrect-md within 0.6–1.2 codes), the rrect-md steps and patches miss by 2.1–3.6,
+     and the large misses are rrect-lg and rrect-ml (2x B′ 4.1 / 2.8, the rrect-lg impulse 3.4) and
+     the **1x rrect-lg checkers, 14.1**. Over the 2x cells alone LT's worst is 4.14;
+   - *light receded:* the 48 / 208 checker on rrect-md (7.7), P1 on rrect-ml (10.2) and rrect-lg
+     (6.8), the pitch-64 capsule (4.3, U1's drift), and the 1x rrect-lg checkers (9.0);
+   - *dark active:* rrect-ml (P1 9.5, the impulse and the 16 / 112 patches 6.2–6.5, partly the
+     completed T of §2.2), rrect-lg P1 (5.9) and the 1x rrect-lg checkers (13.7);
+   - *dark receded:* P1 on rrect-ml (16.1), the rrect-md checkers (9.2), the rrect-80 span
+     transfer (8.7, validation), rrect-ml patches (6.8–8.5) and the pitch-64 capsule (6.6).
+   Common to all four: **the large spans (rrect-ml, rrect-lg) and the 1x rrect-lg pitch-8 / 32
+   checkers**, which no declared family closes (memo C's 1x aliasing; the rrect-lg 0.25 capture;
+   U7).
+3. **The minimax refinement is degenerate where a family cannot close a cell.** In light active
+   LT's minimax trades the 1x rrect-lg cell (14.1 → 12.4) by moving to k 1.405, λ 1.323, which
+   raises its failing statistics from 2,322 to 3,584 and its 2x worst from 4.1 to 12.4. Comparisons
+   between families at minimax points mostly read where each search was dragged; the verdicts
+   report both points.
+4. **The rivals against LT** (both points; "beats" by more than 3 codes):
+   - *non-identifiable as declared, and read so:* W-canvas and edge-swap in the active pose
+     (U3's active half), and the literal light bleed (inert: it reproduces LT to 0.00 codes);
+   - *the receded support:* in both receded endpoints LT is better than W-canvas by up to 6.9–9.1
+     codes and than edge-swap by up to 6.5–8.3, while they are better than LT at single statistics
+     by up to 3.6 and 5.7: the declared box and normalised edge are favoured, not dominant;
+   - *C-linear*'s pooled fit is 2.5–3.1 codes against LT's 1.1–2.1 in every endpoint, and it beats
+     LT only at single statistics: the encoded narrow term stands;
+   - *the rest* (LT-2k, free-sn, R1, W-shape, W-tails, K2, the bleeds, the rejected nulls) are
+     resolved both ways at listed statistics or within resolution; none dominates LT. free-sn's
+     s = 80 ordinate runs to or near its bound (11.4–14 pt) in every endpoint, because **no
+     structured calibration cell has s = 80** (the B′ rrect-80 cell is validation), and it then
+     misses that cell by 19.7–36.8 codes: a bed gap in the declared free span law.
+5. **The fitted structure where it is read** (least squares): LT's k 2.02–2.22 and λ 0.73–0.90 by
+   endpoint; LT-2k's k_n / k_w 1.71 / 2.09 (light active, memo E's narrow-shorter reading), 2.09 /
+   2.02, 2.03 / 2.28 and 2.24 / 2.14; W-tails' second weight a = 0.30 in light active and
+   0.01–0.19 elsewhere; K2's knee fill 13–17 pt; W-shape's margin 34 pt (light active, box-like),
+   16 pt (dark active) and 2–6 pt (receded).
+
+### 4. The k ladder, the width unit, the refraction order
+
+- **k ladder** (`kNesting`): `k@global` k 2.138 (λ 0.868 / 0.767 / 0.851 / 0.759); `k@scheme`
+  light 2.031, dark 2.199. At the least-squares points **no level beats `k@global` by more than 3
+  codes** (the largest gain is 1.80), so the most restricted level stands: one k for all four
+  endpoints. At the minimax points every step is resolved both ways (gains and losses of 3–12 codes)
+  and the declared walk climbs to `k2@endpoint`; that reading is the degeneracy of §3.3, recorded,
+  not adopted here.
+- **The unit** (the 1x cells, `rejectedNulls`): **points**. Points give the lowest 1x pooled rms in
+  every endpoint and at both fitted points (2.07–4.68 codes against texels 3.81–7.10 and device px
+  3.25–5.76), and no unit beats points at an admitted 1x discriminator at either point, except
+  light active's minimax point, where texels and device px each beat points at one statistic
+  (3.8 / 6.8) while points beat them by more (8.6 / 11.0) elsewhere.
+- **The refraction order** (v3 on Apple, LT the test family because nothing survives; families
+  A–E, calibration and validation, both scales):
+  - *light active:* P 2.166 < S2's P* 2.285, so **S2 is admitted** and reads Â −6.53 pt:
+    **AFTER**. The narrow mask stands, and Decision Log 5f does not apply. S1 (+0.545) is not
+    admitted. The admission's margin is 0.12 code of P, and P without family E is 1.41.
+  - *dark active:* P 2.777, above both P* (0.568, 1.086): **UNDECIDED**, so Decision Log 5f
+    applies. LT fitted under the narrow mask (49 cells) and the 53.6-pt mask (19 cells):
+    k 2.000 / 2.150, λ 0.887 / 0.648 (minimax); k 2.218 / 2.360, λ 0.837 / 0.594 (least
+    squares). dk +0.150 / +0.143 and dλ −0.238 / −0.244 against the survival resolution k
+    +0.049 / −0.048, λ ±0.029: **the two fits DIFFER**, so dark active could not land even had a
+    family survived.
+
+### 5. Family E: the knee and candidate 2's chroma scale
+
+With LT held at its grey minimax point, each knee form read through y_c = T_c(L(arg)) +
+s·g(L(arg))·(arg_c − L(arg)), g W41 G1's E3 least-squares fit per endpoint:
+
+| endpoint | s, per-channel (minimax / LS) | worst, per-channel | worst, on-luma whole colour | worst, on-luma chroma from W |
+| --- | --- | --- | --- | --- |
+| light active | 0.630 / 0.777 | 10.6 (luma 1.9) | 39.7 | 37.0 |
+| light receded | 0.770 / 1.003 | 13.8 (luma 1.3) | 18.9 | 20.6 |
+| dark active | 0.992 / 0.908 | 5.6 (luma 2.0) | 33.0 | 37.0 |
+| dark receded | 0.815 / 1.008 | 11.3 (luma 1.1) | 18.3 | 23.4 |
+
+- **The knee is per-channel.** No form survives. Per-channel is better than the on-luma forms by
+  up to 12.6–35.2 codes; in dark active it beats both with no statistic going the other way
+  (decided by resolution), and elsewhere the on-luma forms are better at single statistics by
+  6.0–11.4, so the parent's tie rule carries per-channel.
+- **The luma of family E closes under the per-channel knee within 1.1–2.0 codes; the misses are
+  chroma, and they are not one amplitude.** At pitch 64 the model under-predicts Apple's chroma
+  excursion by 9.5–13.8 codes in light (light receded e-by-c64 B 242 against 228.2) and 7–11 in
+  dark receded. At pitch 16 the same colour reads differently by position inside one cell: in
+  light receded e-by-c16-rrect-md the blue squares' B channel reads 187 to 206 where the model
+  predicts 199–202 for all of them. One scale on W41's g cannot carry a chroma that depends on
+  pitch and on position (U6's chroma kernel is not LT's per-channel M).
+- Candidate 2's chroma scale is therefore a value for scratch renders, not an identified one.
+
+### 6. Candidate-document values (scratch renders only; `step2/candidates.json`)
+
+Because no family survives, these are LT's fitted values and not an identified law. Leaves
+common to all four: knee 0 (per-channel), width unit 1 (points), encoded averaging 1, Normal 0.5,
+edge swap 0; hinge +1 light / −1 dark; pose by endpoint.
+
+| endpoint | bodyLawK, bodyLawLambda (minimax, the declared refinement) | (least squares) | candidate 2 chroma scale (minimax / LS) |
+| --- | --- | --- | --- |
+| light active | 1.4046, 1.3231 | 2.0191, 0.8954 | 0.6301 / 0.7768 |
+| light receded | 2.1644, 0.8048 | 2.0474, 0.8284 | 0.7704 / 1.0026 |
+| dark active | 2.0001, 0.8865 | 2.2178, 0.8374 | 0.9916 / 0.9082 |
+| dark receded | 2.4777, 0.6774 | 2.1870, 0.7338 | 0.8152 / 1.0084 |
+
+- **Candidate 1's F extension** (light receded, `bodyE3NeutralHigh` at 160, 176, 192, 208, 224,
+  240, 255): Rec.709 **201.93, 208, 215, 221, 228, 234, 240** (R and G 202 at 160, B 201). The
+  same levels on rrect-md, rrect-ml and rrect-lg read identically: F is span-invariant.
+- **Candidate 2's `bodyToneTableCodes`**: five rows (64 / 80 / 96 / 128 / 160) by eleven levels per
+  endpoint and channel, the addendum's rule sampled exactly (grid against measured ordinates
+  0.0e+00); in `native-t/ordinates.json` and `candidates.json`, with Rec.709 rows beside them.
+
+### 7. Findings for the next wave (none fitted here)
+
+1. The large spans: every family misses rrect-ml and rrect-lg by 3–16 codes in every endpoint.
+   The bleed (U7) does not close them in either form, and the rrect-lg capture's 0.25 scale is
+   modelled only as a wider floor.
+2. 1x fine pitches on rrect-lg (pitch 8 and 32) miss by 9–14 codes under every family:
+   the decimated half-scale backdrop memo C read at pitches 4–8 also reaches pitch 32 at 1x on
+   rrect-lg.
+3. U1 persists in light receded (the pitch-64 capsule and the 48 / 208 rrect-md checker).
+4. Dark native T's decrease and the addendum's completion below sparse strata (§2): a T read on
+   black at s ≥ 128 and a non-monotone dark row are needed before any dark candidate is rendered.
+5. The chroma kernel: per-channel luma closes; chroma depends on pitch and on position (§5).
+6. A structured calibration cell at s = 80 (free-sn's ordinate is otherwise unidentified).
+7. The declared minimax refinement is dominated by cells no family can close; a survival-oriented
+   reading (least squares, or minimax over the cells a family can close) would be a declaration
+   change for a later wave, not this one.
+
+### 8. What this asks of the parent
+
+- **The wave's negative.** No endpoint has a survivor, so under clause 6 and Decision Log 3 no
+  endpoint is claimable and the law cannot land in W42. Steps 3–6 (rendered candidates, the gate,
+  the H exposure) presuppose a survivor; whether any of them runs is the parent's and the user's
+  call. H stays sealed.
+- **The two native-T findings** (§2.1–2.2) bear on candidate 2's table and on the blind H
+  predictions at s = 112 (½T₉₆ + ½T₁₂₈ inherits the s = 128 completion: dark black 29 / 17).
+- Which fitted point, if any, scratch renders should use: the declared minimax point is
+  degenerate in light active (§3.3).

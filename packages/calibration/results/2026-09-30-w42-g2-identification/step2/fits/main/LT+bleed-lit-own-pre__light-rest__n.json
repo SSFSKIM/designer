@@ -1,0 +1,1573 @@
+{
+ "cells": {
+  "calibration": 67,
+  "excludedEmpty": [],
+  "fit": 40,
+  "validation": 12
+ },
+ "count": 3,
+ "endpoint": "light-rest",
+ "family": "LT+bleed-lit-own-pre",
+ "kernel": "n",
+ "layout": [
+  [
+   "k",
+   "endpoint"
+  ],
+  [
+   "k_b",
+   "endpoint"
+  ]
+ ],
+ "ls": {
+  "calibration": {
+   "cellsWithNoStatistic": [
+    "1x|bp-p1-c4-capsule-button",
+    "1x|bp-p1-c4-capsule-button-odd",
+    "1x|bp-p1-c4-rrect-lg",
+    "1x|bp-p1-c4-rrect-md"
+   ],
+   "failures": 2198,
+   "perCellRms": {
+    "1x|bp-p1-c32-rrect-lg": 2.4639699210483483,
+    "1x|bp-p1-c4-capsule-button": 1.1122839677783138,
+    "1x|bp-p1-c4-capsule-button-odd": 1.2018000348659281,
+    "1x|bp-p1-c4-rrect-lg": 2.1232475006309963,
+    "1x|bp-p1-c4-rrect-md": 6.540185961552287,
+    "1x|bp-p1-c8-capsule-button": 0.5603685675630868,
+    "1x|bp-p1-c8-rrect-lg": 5.77398627734706,
+    "1x|c-impulse-rrect-lg": 3.098104324944494,
+    "2x|a-g000-capsule-button": 0.0,
+    "2x|a-g000-rrect-md": 0.0,
+    "2x|a-g064-capsule-button": 0.0,
+    "2x|a-g064-rrect-md": 0.0,
+    "2x|a-g096-rrect-lg": 0.0,
+    "2x|a-g128-capsule-button": 2.842170943040401e-14,
+    "2x|a-g128-rrect-md": 2.842170943040401e-14,
+    "2x|a-g160-capsule-button": 0.04585901679780552,
+    "2x|a-g160-rrect-lg": 0.0,
+    "2x|a-g160-rrect-md": 0.0,
+    "2x|a-g160-rrect-ml": 1.5017335653207446e-14,
+    "2x|a-g176-capsule-button": 0.47159036921960285,
+    "2x|a-g176-rrect-md": 2.842170943040401e-14,
+    "2x|a-g192-capsule-button": 0.5208583064465054,
+    "2x|a-g192-rrect-md": 1.2485070481848935e-14,
+    "2x|a-g208-capsule-button": 2.842170943040401e-14,
+    "2x|a-g208-rrect-lg": 3.6348350086958124e-14,
+    "2x|a-g208-rrect-md": 2.046865201853675e-14,
+    "2x|a-g208-rrect-ml": 2.2537320236857542e-14,
+    "2x|a-g224-capsule-button": 2.842170943040401e-14,
+    "2x|a-g224-rrect-md": 3.1559969912775176e-14,
+    "2x|a-g240-capsule-button": 0.6844371838781304,
+    "2x|a-g240-rrect-md": 5.684341886080802e-14,
+    "2x|a-g255-capsule-button": 0.032427221756276076,
+    "2x|a-g255-rrect-lg": 0.0,
+    "2x|a-g255-rrect-md": 0.0,
+    "2x|a-g255-rrect-ml": 0.0,
+    "2x|b-p2-c16-rrect-md": 0.8258176444279419,
+    "2x|b-p2-c64-rrect-md": 1.0301286302354864,
+    "2x|b-p4-c16-rrect-md": 0.9671785621305462,
+    "2x|b-p4-c64-rrect-md": 0.7296087980485277,
+    "2x|b-p5-c16-rrect-lg": 0.8848605583550645,
+    "2x|b-p5-c16-rrect-md": 0.6054132808699768,
+    "2x|b-p5-c64-rrect-lg": 1.2028102041870576,
+    "2x|b-p5-c64-rrect-md": 0.7758296449293713,
+    "2x|bp-p1-c32-capsule-button": 0.49990856932496364,
+    "2x|bp-p1-c32-rrect-64": 0.6731744778454954,
+    "2x|bp-p1-c32-rrect-lg": 1.353944832643155,
+    "2x|bp-p1-c32-rrect-ml": 1.0343711532667896,
+    "2x|bp-p1-c64-capsule-button": 0.6998192679772313,
+    "2x|bp-p1-c64-rrect-ml": 2.327407109994793,
+    "2x|bp-p1-c8-capsule-button": 0.5504939456896276,
+    "2x|bp-p1-c8-rrect-lg": 1.4605511491824534,
+    "2x|bp-p1-c8-rrect-ml": 0.8980056412781819,
+    "2x|c-impulse-rrect-lg": 3.1685752611944853,
+    "2x|c-impulse-rrect-ml": 2.1571550332850156,
+    "2x|c-s32-hi-rrect-md": 0.7162426842840169,
+    "2x|c-s32-lo-rrect-md": 0.829857621296411,
+    "2x|c-s8-hi-d34-rrect-md": 0.6133699121456292,
+    "2x|c-s8-hi-d60-rrect-lg": 1.0770633495358184,
+    "2x|c-s8-hi-d80-rrect-lg": 1.1059007742504994,
+    "2x|c-s8-hi-rrect-md": 0.6373741275855789,
+    "2x|c-s8-lo-rrect-md": 0.3897274953549685,
+    "2x|d-d0-hilo-rrect-lg": 0.9261072554969917,
+    "2x|d-d0-hilo-rrect-md": 0.7425756492481635,
+    "2x|d-d0-lohi-rrect-lg": 0.925985169728916,
+    "2x|d-d0-lohi-rrect-md": 0.7478445466857319,
+    "2x|d-d32-hilo-rrect-md": 0.4974904995455305,
+    "2x|d-d32-lohi-rrect-md": 0.7332239130995394
+   },
+   "pooledRms": 1.4570417320484355,
+   "statuses": {
+    "censored-bound-satisfied": 12,
+    "measured": 3984
+   },
+   "worstAt": "1x|bp-p1-c8-rrect-lg:sq297:far|R",
+   "worstMeasured": 14.13858227520626
+  },
+  "failedCalibration": [
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq108:knee|R",
+    197.0,
+    195.938,
+    -1.062,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq108:knee|B",
+    197.0,
+    195.938,
+    -1.062,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq110:knee|R",
+    197.0,
+    195.938,
+    -1.062,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq110:knee|B",
+    197.0,
+    195.938,
+    -1.062,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq112:knee|R",
+    197.0,
+    195.938,
+    -1.062,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq112:knee|B",
+    197.0,
+    195.938,
+    -1.062,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq114:knee|R",
+    197.0,
+    195.96,
+    -1.04,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq114:knee|B",
+    197.0,
+    195.96,
+    -1.04,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq127:knee|R",
+    197.0,
+    195.962,
+    -1.038,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq127:knee|B",
+    197.0,
+    195.962,
+    -1.038,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq148:knee|R",
+    197.0,
+    195.982,
+    -1.018,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq148:knee|B",
+    197.0,
+    195.982,
+    -1.018,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq150:knee|R",
+    197.0,
+    195.982,
+    -1.018,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq150:knee|B",
+    197.0,
+    195.982,
+    -1.018,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq152:knee|R",
+    197.0,
+    195.982,
+    -1.018,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq152:knee|B",
+    197.0,
+    195.982,
+    -1.018,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq154:knee|R",
+    197.0,
+    195.962,
+    -1.038,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq154:knee|B",
+    197.0,
+    195.962,
+    -1.038,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "knee-cores|R",
+    197.0,
+    195.979,
+    -1.021,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "knee-cores|G",
+    197.0,
+    195.979,
+    -1.021,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "knee-cores|B",
+    197.0,
+    195.979,
+    -1.021,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq108:knee|R",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq108:knee|G",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq108:knee|B",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq110:knee|R",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq110:knee|G",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq110:knee|B",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq112:knee|R",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq112:knee|G",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq112:knee|B",
+    166.0,
+    164.763,
+    -1.237,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq114:knee|R",
+    166.0,
+    164.776,
+    -1.224,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq114:knee|G",
+    166.0,
+    164.776,
+    -1.224,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq114:knee|B",
+    166.0,
+    164.776,
+    -1.224,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq127:knee|R",
+    166.0,
+    164.777,
+    -1.223,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq127:knee|G",
+    166.0,
+    164.777,
+    -1.223,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq127:knee|B",
+    166.0,
+    164.777,
+    -1.223,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq129:knee|R",
+    166.0,
+    164.821,
+    -1.179,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq129:knee|G",
+    166.0,
+    164.821,
+    -1.179,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq129:knee|B",
+    166.0,
+    164.821,
+    -1.179,
+    "measured"
+   ],
+   [
+    "2x|b-p4-c16-rrect-md",
+    "sq131:knee|R",
+    166.0,
+    164.821,
+    -1.179,
+    "measured"
+   ]
+  ],
+  "failedValidation": [
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq84:far|R",
+    207.0,
+    205.363,
+    -1.637,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq84:far|G",
+    207.0,
+    205.363,
+    -1.637,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq84:far|B",
+    207.0,
+    205.363,
+    -1.637,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq86:far|R",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq86:far|G",
+    206.5,
+    205.157,
+    -1.343,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq86:far|B",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq88:far|R",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq88:far|G",
+    206.5,
+    205.157,
+    -1.343,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq88:far|B",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq90:far|R",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq90:far|G",
+    206.5,
+    205.157,
+    -1.343,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq90:far|B",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq92:far|R",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq92:far|G",
+    206.5,
+    205.157,
+    -1.343,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq92:far|B",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq94:far|R",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq94:far|B",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq96:far|R",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq96:far|B",
+    207.0,
+    205.157,
+    -1.843,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq105:far|R",
+    206.0,
+    204.765,
+    -1.235,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq105:far|G",
+    206.0,
+    204.765,
+    -1.235,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq105:far|B",
+    206.0,
+    204.765,
+    -1.235,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq107:far|R",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq107:far|G",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq107:far|B",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq109:far|R",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq109:far|G",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq109:far|B",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq111:far|R",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq111:far|G",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq111:far|B",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq113:far|R",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq113:far|G",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq113:far|B",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq115:far|R",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq115:far|G",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq115:far|B",
+    206.0,
+    204.426,
+    -1.574,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq117:far|R",
+    207.0,
+    205.363,
+    -1.637,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq117:far|G",
+    207.0,
+    205.363,
+    -1.637,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq117:far|B",
+    207.0,
+    205.363,
+    -1.637,
+    "measured"
+   ]
+  ],
+  "failures": 2322,
+  "lam": {
+   "light-rest": 0.8954043715905716
+  },
+  "lsPooledFitCells": 1.8793198976878227,
+  "params": {
+   "k@light-rest": 2.0190156251902542,
+   "k_b@light-rest": 3.993571159417542
+  },
+  "survives": false,
+  "validation": {
+   "cellsWithNoStatistic": [],
+   "failures": 124,
+   "perCellRms": {
+    "1x|a-g128-rrect-md-1x": 2.842170943040401e-14,
+    "1x|a-g255-rrect-md-1x": 0.0,
+    "2x|a-g160-rrect-64": 0.0,
+    "2x|a-g208-rrect-64": 2.842170943040401e-14,
+    "2x|a-g255-rrect-64": 0.7359800721939872,
+    "2x|b-p3-c16-rrect-lg": 0.6414520905809995,
+    "2x|b-p3-c16-rrect-md": 0.4032167086691115,
+    "2x|b-p3-c64-rrect-md": 0.5368376309480294,
+    "2x|bp-p1-c32-rrect-80": 1.4054715164532254,
+    "2x|c-s8-hi-d24-rrect-md": 0.5470243173880993,
+    "2x|c-s8-hi-d40-rrect-lg": 1.0383496018027438,
+    "2x|d-d0-lohi-capsule-button": 0.7076276163048555
+   },
+   "pooledRms": 0.6619037149028109,
+   "statuses": {
+    "censored-bound-satisfied": 6,
+    "measured": 474
+   },
+   "worstAt": "2x|b-p3-c16-rrect-lg:sq86:far|R",
+   "worstMeasured": 1.8428430496617239
+  }
+ },
+ "minimax": {
+  "calibration": {
+   "cellsWithNoStatistic": [
+    "1x|bp-p1-c4-capsule-button",
+    "1x|bp-p1-c4-capsule-button-odd",
+    "1x|bp-p1-c4-rrect-lg",
+    "1x|bp-p1-c4-rrect-md"
+   ],
+   "failures": 3017,
+   "perCellRms": {
+    "1x|bp-p1-c32-rrect-lg": 5.624844852334563,
+    "1x|bp-p1-c4-capsule-button": 2.4167612063847623,
+    "1x|bp-p1-c4-capsule-button-odd": 2.442146217553896,
+    "1x|bp-p1-c4-rrect-lg": 2.123234641895841,
+    "1x|bp-p1-c4-rrect-md": 4.938697094529786,
+    "1x|bp-p1-c8-capsule-button": 3.0917213766111624,
+    "1x|bp-p1-c8-rrect-lg": 5.448969010934023,
+    "1x|c-impulse-rrect-lg": 3.0626027030914122,
+    "2x|a-g000-capsule-button": 0.0,
+    "2x|a-g000-rrect-md": 0.0,
+    "2x|a-g064-capsule-button": 0.0,
+    "2x|a-g064-rrect-md": 0.0,
+    "2x|a-g096-rrect-lg": 0.0,
+    "2x|a-g128-capsule-button": 0.0,
+    "2x|a-g128-rrect-md": 1.686951350721408e-14,
+    "2x|a-g160-capsule-button": 0.04585901679780552,
+    "2x|a-g160-rrect-lg": 1.8050268692018995e-14,
+    "2x|a-g160-rrect-md": 0.0,
+    "2x|a-g160-rrect-ml": 1.079351518703275e-14,
+    "2x|a-g176-capsule-button": 0.4715903692196163,
+    "2x|a-g176-rrect-md": 1.5779984956387588e-14,
+    "2x|a-g192-capsule-button": 0.5208583064465054,
+    "2x|a-g192-rrect-md": 1.0725409791286762e-14,
+    "2x|a-g208-capsule-button": 0.0,
+    "2x|a-g208-rrect-lg": 3.7944845851314946e-14,
+    "2x|a-g208-rrect-md": 0.0,
+    "2x|a-g208-rrect-ml": 0.0,
+    "2x|a-g224-capsule-button": 0.0,
+    "2x|a-g224-rrect-md": 0.0,
+    "2x|a-g240-capsule-button": 0.6844371838781692,
+    "2x|a-g240-rrect-md": 2.1959185400403616e-14,
+    "2x|a-g255-capsule-button": 0.032427221756276076,
+    "2x|a-g255-rrect-lg": 2.136622412931347e-14,
+    "2x|a-g255-rrect-md": 0.0,
+    "2x|a-g255-rrect-ml": 0.0,
+    "2x|b-p2-c16-rrect-md": 1.6626892815389143,
+    "2x|b-p2-c64-rrect-md": 5.00119044943919,
+    "2x|b-p4-c16-rrect-md": 0.5967000542881901,
+    "2x|b-p4-c64-rrect-md": 3.042205795687551,
+    "2x|b-p5-c16-rrect-lg": 0.7831730025191925,
+    "2x|b-p5-c16-rrect-md": 0.9586668279320951,
+    "2x|b-p5-c64-rrect-lg": 3.325881078298286,
+    "2x|b-p5-c64-rrect-md": 2.934227132900215,
+    "2x|bp-p1-c32-capsule-button": 2.523261745461493,
+    "2x|bp-p1-c32-rrect-64": 4.049793161763377,
+    "2x|bp-p1-c32-rrect-lg": 6.211065769322455,
+    "2x|bp-p1-c32-rrect-ml": 6.538170335179092,
+    "2x|bp-p1-c64-capsule-button": 4.6771923334007655,
+    "2x|bp-p1-c64-rrect-ml": 9.25149886143911,
+    "2x|bp-p1-c8-capsule-button": 3.2709700557340895,
+    "2x|bp-p1-c8-rrect-lg": 1.4797138786556319,
+    "2x|bp-p1-c8-rrect-ml": 3.2542433278920484,
+    "2x|c-impulse-rrect-lg": 3.1377881364156646,
+    "2x|c-impulse-rrect-ml": 2.247590432352154,
+    "2x|c-s32-hi-rrect-md": 3.5229251978385863,
+    "2x|c-s32-lo-rrect-md": 3.914095264663546,
+    "2x|c-s8-hi-d34-rrect-md": 0.8006097146075853,
+    "2x|c-s8-hi-d60-rrect-lg": 1.1073280380156048,
+    "2x|c-s8-hi-d80-rrect-lg": 1.1430735531840195,
+    "2x|c-s8-hi-rrect-md": 0.791687899021479,
+    "2x|c-s8-lo-rrect-md": 0.496372826871633,
+    "2x|d-d0-hilo-rrect-lg": 2.0741176478260313,
+    "2x|d-d0-hilo-rrect-md": 2.52303763737749,
+    "2x|d-d0-lohi-rrect-lg": 2.074772924722303,
+    "2x|d-d0-lohi-rrect-md": 2.5224873069301506,
+    "2x|d-d32-hilo-rrect-md": 2.159270021116763,
+    "2x|d-d32-lohi-rrect-md": 2.469945007846973
+   },
+   "pooledRms": 2.7162865341062874,
+   "statuses": {
+    "censored-bound-satisfied": 12,
+    "measured": 3984
+   },
+   "worstAt": "2x|bp-p1-c64-rrect-ml:knee-cores|R",
+   "worstMeasured": 12.845064278977162
+  },
+  "failedCalibration": [
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq108:knee|R",
+    197.0,
+    198.987,
+    1.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq108:knee|G",
+    196.0,
+    198.987,
+    2.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq108:knee|B",
+    197.0,
+    198.987,
+    1.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq110:knee|R",
+    197.0,
+    198.987,
+    1.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq110:knee|G",
+    196.0,
+    198.987,
+    2.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq110:knee|B",
+    197.0,
+    198.987,
+    1.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq112:knee|R",
+    197.0,
+    198.987,
+    1.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq112:knee|G",
+    196.0,
+    198.987,
+    2.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq112:knee|B",
+    197.0,
+    198.987,
+    1.987,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq114:knee|R",
+    197.0,
+    199.002,
+    2.002,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq114:knee|G",
+    196.0,
+    199.002,
+    3.002,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq114:knee|B",
+    197.0,
+    199.002,
+    2.002,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq127:knee|R",
+    197.0,
+    199.011,
+    2.011,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq127:knee|G",
+    196.0,
+    199.011,
+    3.011,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq127:knee|B",
+    197.0,
+    199.011,
+    2.011,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq129:knee|R",
+    197.0,
+    198.986,
+    1.986,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq129:knee|G",
+    197.0,
+    198.986,
+    1.986,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq129:knee|B",
+    197.0,
+    198.986,
+    1.986,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq131:knee|R",
+    197.0,
+    198.986,
+    1.986,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq131:knee|G",
+    197.0,
+    198.986,
+    1.986,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq131:knee|B",
+    197.0,
+    198.986,
+    1.986,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq133:knee|R",
+    197.0,
+    198.991,
+    1.991,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq133:knee|G",
+    197.0,
+    198.991,
+    1.991,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq133:knee|B",
+    197.0,
+    198.991,
+    1.991,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq148:knee|R",
+    197.0,
+    198.994,
+    1.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq148:knee|G",
+    196.0,
+    198.994,
+    2.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq148:knee|B",
+    197.0,
+    198.994,
+    1.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq150:knee|R",
+    197.0,
+    198.994,
+    1.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq150:knee|G",
+    196.5,
+    198.994,
+    2.494,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq150:knee|B",
+    197.0,
+    198.994,
+    1.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq152:knee|R",
+    197.0,
+    198.994,
+    1.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq152:knee|G",
+    196.0,
+    198.994,
+    2.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq152:knee|B",
+    197.0,
+    198.994,
+    1.994,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq154:knee|R",
+    197.0,
+    199.011,
+    2.011,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq154:knee|G",
+    196.0,
+    199.011,
+    3.011,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "sq154:knee|B",
+    197.0,
+    199.011,
+    2.011,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "knee-cores|R",
+    197.0,
+    198.991,
+    1.991,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "knee-cores|G",
+    197.0,
+    198.991,
+    1.991,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c16-rrect-md",
+    "knee-cores|B",
+    197.0,
+    198.991,
+    1.991,
+    "measured"
+   ],
+   [
+    "2x|b-p2-c64-rrect-md",
+    "sq12:knee|R",
+    181.0,
+    174.0,
+    -7.0,
+    "measured"
+   ]
+  ],
+  "failedValidation": [
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq94:far|G",
+    206.0,
+    207.402,
+    1.402,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq96:far|G",
+    206.0,
+    207.402,
+    1.402,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq126:far|R",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq126:far|G",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq126:far|B",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq147:far|R",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq147:far|G",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq147:far|B",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq149:far|R",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq149:far|G",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq149:far|B",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq151:far|R",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq151:far|G",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq151:far|B",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq153:far|R",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq153:far|G",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq153:far|B",
+    205.0,
+    206.155,
+    1.155,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq155:far|R",
+    205.0,
+    206.234,
+    1.234,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq155:far|G",
+    205.0,
+    206.234,
+    1.234,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq155:far|B",
+    205.0,
+    206.234,
+    1.234,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq176:far|R",
+    206.0,
+    207.042,
+    1.042,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq176:far|G",
+    206.0,
+    207.042,
+    1.042,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-lg",
+    "sq176:far|B",
+    206.0,
+    207.042,
+    1.042,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq108:knee|R",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq108:knee|G",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq108:knee|B",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq110:knee|R",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq110:knee|G",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq110:knee|B",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq112:knee|R",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq112:knee|G",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq112:knee|B",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq114:knee|R",
+    197.0,
+    198.401,
+    1.401,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq114:knee|G",
+    197.0,
+    198.401,
+    1.401,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq114:knee|B",
+    197.0,
+    198.401,
+    1.401,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq127:knee|R",
+    197.0,
+    198.405,
+    1.405,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq127:knee|G",
+    197.0,
+    198.405,
+    1.405,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq127:knee|B",
+    197.0,
+    198.405,
+    1.405,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq129:knee|R",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ],
+   [
+    "2x|b-p3-c16-rrect-md",
+    "sq129:knee|G",
+    197.0,
+    198.395,
+    1.395,
+    "measured"
+   ]
+  ],
+  "failures": 3173,
+  "lam": {
+   "light-rest": 1.0666614583180563
+  },
+  "objective": {
+   "end": 12.845064278977162,
+   "nfev": 120,
+   "start": 14.13858227520626
+  },
+  "params": {
+   "k@light-rest": 1.467302263220402,
+   "k_b@light-rest": 4.0
+  },
+  "survives": false,
+  "validation": {
+   "cellsWithNoStatistic": [],
+   "failures": 156,
+   "perCellRms": {
+    "1x|a-g128-rrect-md-1x": 2.842170943040401e-14,
+    "1x|a-g255-rrect-md-1x": 0.0,
+    "2x|a-g160-rrect-64": 0.0,
+    "2x|a-g208-rrect-64": 0.0,
+    "2x|a-g255-rrect-64": 0.7359800721939872,
+    "2x|b-p3-c16-rrect-lg": 0.42593292465070554,
+    "2x|b-p3-c16-rrect-md": 0.8798997777507127,
+    "2x|b-p3-c64-rrect-md": 2.1100360761715624,
+    "2x|bp-p1-c32-rrect-80": 5.1687477789437715,
+    "2x|c-s8-hi-d24-rrect-md": 0.7028990797000243,
+    "2x|c-s8-hi-d40-rrect-lg": 1.0845491570041788,
+    "2x|d-d0-lohi-capsule-button": 2.809514374284881
+   },
+   "pooledRms": 1.8759264377113014,
+   "statuses": {
+    "censored-bound-satisfied": 6,
+    "measured": 474
+   },
+   "worstAt": "2x|bp-p1-c32-rrect-80:sq34:knee|R",
+   "worstMeasured": 7.569325072429535
+  }
+ },
+ "scales": [
+  2,
+  1
+ ],
+ "schema": "w42-g2-step2-fit-1",
+ "seconds": {
+  "ls": 4347,
+  "minimax": 211
+ },
+ "statisticsTable": {
+  "path": "/Users/new/vitrea-w42/g2-ident-scratch/fits/main/LT+bleed-lit-own-pre__light-rest__n.json.gz",
+  "sha256": "6bb5131ff8f7a1e874869d237f6252175d321602c9ccc68270fff71794b5008c"
+ },
+ "survives": false,
+ "units": "pt"
+}

@@ -1,0 +1,55 @@
+W42 G2 step 2: candidate-document values (scratch renders only; see verdicts.txt for survival)
+
+== light-rest (light active): survives False
+  law [minimax]: bodyLawK 1.4046 x2, bodyLawLambda 1.3231  (failures 3584, worst 12.42 codes)
+  law [ls]: bodyLawK 2.0191 x2, bodyLawLambda 0.8954  (failures 2322, worst 14.14 codes)
+  leaves: {'bodyLawKnee': 0, 'bodyLawWidthUnit': 1, 'bodyLawEncodedAveraging': 1, 'bodyLawNormal': 0.5, 'bodyLawHinge': 1, 'bodyLawPose': 0, 'bodyLawEdgeSwap': 0}  (unit: {'minimax': "['null-texel', 'null-dev'] beat points at some 1x discriminator and points beat them by more elsewhere (resolved both ways); no unit dominates points", 'ls': 'no unit beats points at an admitted 1x discriminator: the declared points stand'})
+  knee: channel — no form survives: the tie rule carries per-channel
+  candidate 2 chroma scale (channel): minimax 0.6301, least squares 0.7768; g = W41 G1 [0.93902775932778, 0.9550787131484505, 0.9388297274849499]
+  candidate 2 bodyToneTableCodes per channel (channels differ by at most 1.00 codes); Rec.709 rows:
+     64:  132.00  164.00  179.50  195.00  210.00  217.00  225.00  232.00  239.00  246.00  253.00
+     80:  133.00  165.00  180.75  196.50  211.50  218.50  226.00  233.00  240.00  247.00  253.50
+     96:  134.00  166.00  182.00  198.00  213.00  220.00  227.00  234.00  241.00  248.00  254.00
+    128:  137.00  169.00  185.00  201.00  216.00  223.00  230.00  237.00  242.98  248.96  254.00
+    160:  139.00  171.00  187.00  203.00  218.00  224.74  231.47  238.21  243.78  249.34  254.00
+
+== light-inactive (light receded): survives False
+  law [minimax]: bodyLawK 2.1644 x2, bodyLawLambda 0.8048  (failures 2590, worst 8.96 codes)
+  law [ls]: bodyLawK 2.0474 x2, bodyLawLambda 0.8284  (failures 2604, worst 10.23 codes)
+  leaves: {'bodyLawKnee': 0, 'bodyLawWidthUnit': 1, 'bodyLawEncodedAveraging': 1, 'bodyLawNormal': 0.5, 'bodyLawHinge': 1, 'bodyLawPose': 1, 'bodyLawEdgeSwap': 0}  (unit: {'minimax': 'no unit beats points at an admitted 1x discriminator: the declared points stand', 'ls': 'no unit beats points at an admitted 1x discriminator: the declared points stand'})
+  knee: channel — no form survives: the tie rule carries per-channel
+  candidate 2 chroma scale (channel): minimax 0.7704, least squares 1.0026; g = W41 G1 [0.9519916947965478, 0.9488475388498168, 0.9334270176825732]
+  candidate 2 bodyToneTableCodes per channel (channels differ by at most 1.00 codes); Rec.709 rows:
+     64:  133.00  161.00  174.50  188.00  201.93  208.00  215.00  221.00  228.00  234.00  240.00
+     80:  133.00  161.00  174.50  188.00  201.93  208.00  215.00  221.00  228.00  234.00  240.00
+     96:  133.00  161.00  174.50  188.00  201.93  208.00  215.00  221.00  228.00  234.00  240.00
+    128:  133.00  161.00  174.50  188.00  201.93  208.00  215.00  221.00  228.00  234.00  240.00
+    160:  133.50  161.50  175.00  188.25  201.93  208.00  215.00  221.00  228.00  234.00  240.00
+  candidate 1 F extension bodyE3NeutralHigh at [160, 176, 192, 208, 224, 240, 255]: Rec.709 [201.9278, 208.0, 215.0, 221.0, 228.0, 234.0, 240.0] (R [202.0, 208.0, 215.0, 221.0, 228.0, 234.0, 240.0], G [202.0, 208.0, 215.0, 221.0, 228.0, 234.0, 240.0], B [201.0, 208.0, 215.0, 221.0, 228.0, 234.0, 240.0])
+
+== dark-rest (dark active): survives False
+  law [minimax]: bodyLawK 2.0001 x2, bodyLawLambda 0.8865  (failures 2741, worst 13.63 codes)
+  law [ls]: bodyLawK 2.2178 x2, bodyLawLambda 0.8374  (failures 2898, worst 13.71 codes)
+  leaves: {'bodyLawKnee': 0, 'bodyLawWidthUnit': 1, 'bodyLawEncodedAveraging': 1, 'bodyLawNormal': 0.5, 'bodyLawHinge': -1, 'bodyLawPose': 0, 'bodyLawEdgeSwap': 0}  (unit: {'minimax': 'no unit beats points at an admitted 1x discriminator: the declared points stand', 'ls': 'no unit beats points at an admitted 1x discriminator: the declared points stand'})
+  knee: channel — per-channel beats both on-luma forms by more than max(3, sum of bars) at an admitted discriminator (resolution first), though no form survives
+  candidate 2 chroma scale (channel): minimax 0.9916, least squares 0.9082; g = W41 G1 [1.2030461109354402, 1.1653158858598713, 1.070412714349141]
+  candidate 2 bodyToneTableCodes per channel (channels differ by at most 1.00 codes); Rec.709 rows:
+     64:   32.00   89.00  111.50  134.00  151.72  159.00  166.00  172.00  177.00  181.00  185.00
+     80:   31.64   86.64  106.89  127.14  141.00  146.26  151.38  155.00  157.19  158.16  159.00
+     96:   32.00   85.00  103.00  121.00  131.00  134.00  137.00  138.00  137.72  136.00  134.00
+    128:   26.72   79.72   97.72  115.72  125.72  127.48  129.00  129.00  121.00  121.00  121.00
+    160:   30.00   83.00  101.00  117.00  125.00  126.91  128.72  128.72  122.00  122.00  122.00
+
+== dark-inactive (dark receded): survives False
+  law [minimax]: bodyLawK 2.4777 x2, bodyLawLambda 0.6774  (failures 2811, worst 13.35 codes)
+  law [ls]: bodyLawK 2.1870 x2, bodyLawLambda 0.7338  (failures 2564, worst 16.08 codes)
+  leaves: {'bodyLawKnee': 0, 'bodyLawWidthUnit': 1, 'bodyLawEncodedAveraging': 1, 'bodyLawNormal': 0.5, 'bodyLawHinge': -1, 'bodyLawPose': 1, 'bodyLawEdgeSwap': 0}  (unit: {'minimax': 'no unit beats points at an admitted 1x discriminator: the declared points stand', 'ls': 'no unit beats points at an admitted 1x discriminator: the declared points stand'})
+  knee: channel — no form survives: the tie rule carries per-channel
+  candidate 2 chroma scale (channel): minimax 0.8152, least squares 1.0084; g = W41 G1 [1.211401506164362, 1.1627265637297703, 1.0693904009520063]
+  candidate 2 bodyToneTableCodes per channel (channels differ by at most 1.00 codes); Rec.709 rows:
+     64:   20.00   80.28  103.64  127.00  146.00  154.00  160.00  167.00  172.00  177.00  180.00
+     80:   19.50   78.14   99.07  120.00  135.00  140.67  144.83  149.00  151.67  153.34  154.00
+     96:   20.00   77.00   95.50  114.00  125.00  128.00  130.00  131.00  131.00  129.00  127.00
+    128:   14.00   71.00   89.50  108.00  119.00  121.07  122.14  122.21  114.00  114.00  114.00
+    160:   20.50   77.50   96.00  111.25  119.00  121.07  122.14  122.21  114.00  114.00  114.00
+

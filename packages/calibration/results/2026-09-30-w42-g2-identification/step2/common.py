@@ -246,7 +246,7 @@ def cells(ep, scale, roles, letters=None, kernel='n', ntc=None, rgb=None):
         img = observed(ep, scale, c.bed_id)
         if img.shape[:2] != c.d.shape:
             raise SystemExit(f'{c.id}: capture {img.shape} is not the cell canvas {c.d.shape}')
-        y = np.full(img.shape, np.nan, np.float64)
+        y = np.full(img.shape, np.nan, np.float32)
         y[c.mask] = img[c.mask]
         c.y = y
         c.Tc = ntc.channels(c.span)
