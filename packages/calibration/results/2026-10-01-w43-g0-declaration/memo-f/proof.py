@@ -302,6 +302,8 @@ def main(selected):
         'red-root-in-repo': red_root_in_repo,
         'red-real-tool': red_real_tool,
         'red-fast-real': red_fast_real,
+        'green-detached': green_detached,
+        'red-detached-child-dirty-root': red_detached_dirty,
     }
     for name in (selected or cases):
         try:
@@ -320,6 +322,43 @@ def main(selected):
         (HERE / 'proof.txt').write_text(text)
     print(text)
     return 0 if all(ok for *_, ok, _ in RESULTS) else 1
+
+
+def green_detached():
+    """The RUNBOOK's command: no --foreground, so the launcher makes the root and detaches a child."""
+    name = 'green-detached'
+    c = Case(name)
+    try:
+        c.as_found('<real>0.5</real>')
+        r = subprocess.run([sys.executable, '-B', str(DRIVER), 'run', str(c.root)], capture_output=True, text=True,
+                           env=c.env())
+        end = time.time() + 300
+        while time.time() < end and not (c.root / 'restore.json').exists():
+            time.sleep(0.5)
+        time.sleep(1)
+        status = (c.root / 'logs/status.txt').read_text() if (c.root / 'logs/status.txt').exists() else ''
+        rest = c.restore()
+        expect(name, 'the launcher detaches and the child runs every block', r.returncode == 0 and 'detached as pid'
+               in r.stdout and 'ALL BLOCKS ADMITTED' in status and len(c.admissions()) == LAUNCHES,
+               (r.stdout + r.stderr)[-200:] + ' | ' + status[-200:])
+        expect(name, 'restored and verified', rest and rest['verified'] and c.slider() == 0.5 and c.mode() == 68)
+    finally:
+        c.close()
+
+
+def red_detached_dirty():
+    """A detached child refuses a root that holds anything beside the launcher's logs/."""
+    name = 'red-detached-child-dirty-root'
+    c = Case(name)
+    try:
+        c.as_found('<real>0.5</real>')
+        (c.root / 'logs').mkdir(parents=True)
+        (c.root / 'as-found.json').write_text('{}')
+        rc, out = c.run('--detached-child')
+        expect(name, 'refused before anything is read', rc != 0 and 'more than the launcher' in out
+               and not c.calls(), out.strip()[-160:])
+    finally:
+        c.close()
 
 
 def red_alive_at_start():

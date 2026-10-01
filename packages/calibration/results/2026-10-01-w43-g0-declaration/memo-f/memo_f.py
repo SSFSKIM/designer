@@ -587,13 +587,17 @@ def run_main(args):
     if args.cont:
         if not (root / 'as-found.json').exists():
             raise SystemExit('REFUSE: --continue needs the run root of a run that recorded its as-found value')
+    elif args.detached_child:
+        # The launcher below made this root and its logs/ a moment ago and nothing else: a fresh run's root
+        # holds only logs/, never an as-found record or a run.
+        if sorted(x.name for x in root.iterdir()) != ['logs']:
+            raise SystemExit(f'REFUSE: {root} holds more than the launcher\'s logs/ (a new run takes a new root)')
     elif root.exists():
         raise SystemExit(f'REFUSE: {root} exists (a new run takes a new root; a continuation says --continue)')
     (root / 'logs').mkdir(parents=True, exist_ok=True)
     if not args.foreground:
         argv = [sys.executable, '-B', str(Path(__file__).resolve()), 'run', str(root), '--foreground']
-        if args.cont:
-            argv.append('--continue')
+        argv.append('--continue' if args.cont else '--detached-child')
         with open(root / 'logs' / 'console.txt', 'a') as console:
             child = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=console, stderr=subprocess.STDOUT,
                                      start_new_session=True)
@@ -617,6 +621,7 @@ def main(argv=None):
     r.add_argument('root')
     r.add_argument('--continue', dest='cont', action='store_true')
     r.add_argument('--foreground', action='store_true')
+    r.add_argument('--detached-child', action='store_true', help=argparse.SUPPRESS)
     s = sub.add_parser('restore')
     s.add_argument('root')
     c = sub.add_parser('check')
