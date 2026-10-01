@@ -1,6 +1,7 @@
 # W43 — the clearer glass: a `-glass0.25` material generation beside `-glass0.5`, the slider's second point, and a one-knob test of the body law (2026-10-01)
 
-**Status: DRAFT v1.1 (2026-10-01), for adversarial review. No child is dispatched.** Chartered
+**Status: DRAFT v1.2 (2026-10-01): the adversarial review of v1.1 folded (one P1, three P2, all
+accepted by the parent; Revision Notes). No child is dispatched.** Chartered
 on the user's ruling at W42's close, "Close W42 here (Recommended)", whose option reads "...
 Then move to your planned next phase, the clearer glass capture at slider 0.25" (W42 Decision
 Log 8; §5.197 §4). **The user ruled Decision Logs 1 and 3 on 2026-10-01**: a second fixed
@@ -145,13 +146,19 @@ Each clause names its metric, the bed it is read on, the bar and what stops the 
    the numbers are written for the next structure wave and for the continuous slider's charter,
    with a recommendation on the latter's form and the fewest generations it needs. No fit is
    claimed and no gate reads it.
-10. **The refit (G3).** *Metric:* the adopted bounds and rows Decision Log 5 rules. *Bed:* the
-    canonical stage under the CLAUDE.md recipe, a light and a dark stage at 0.25, both tiers,
-    holdout declared and read last. *Bar:* four 0.25 documents as patches over the unmoved
-    runtime default, naming the same leaves as their 0.5 counterparts (X44), moved only where
-    clause 7 says Apple's law moved (X3); bounds declared before the read; the holdout read once
-    per tier; no floor; every residual named. *Stop:* a missed bound goes to the user under
-    Decision Log 5 (e).
+10. **The refit, gated before the holdout (G3).** *Metric:* the adopted bounds and rows Decision
+    Log 5 rules, implemented with their baseline selection and rehearsed before any candidate is
+    judged. *Bed:* the fit in scratch; then two final publication stages (light and dark) under
+    the CLAUDE.md recipe, both tiers, filled completely, holdout last. *Bar:* four 0.25
+    documents as patches over the unmoved runtime default, naming the same leaves as their 0.5
+    counterparts (X44), moved only where clause 7 says Apple's law moved (X3); bounds declared
+    before the read; **every non-holdout verdict passing, or each miss explicitly ruled by the
+    user as a permitted named miss, before the holdout is read**; the holdout read once per
+    tier; publication only after every verdict, holdout included, has passed or been ruled; no
+    floor; every residual named. *Stop:* a non-holdout miss the user does not permit stops the
+    holdout read and the publication; the documents return to fitting in scratch, or the wave
+    closes at the miss. This is W42's lesson (its Deferred at close 7; X33): a holdout is spent
+    only after every referee readable without it has passed.
 11. **Nothing frozen moves (G0–G3).** *Metric:* `freeze.py verify`; the 0.5 generation's hash
     manifest (X41); the goldens; the six shipped documents' digests. *Bar:* the freeze reads
     1,818 and the X41 manifest verifies at every merge; the 34 goldens are byte-identical; the
@@ -516,7 +523,13 @@ document interpolation would start from.
     change in interior level exceeds its bar, vitrea's change has the same sign, and the median
     ratio of vitrea's change to Apple's lies in [0.8, 1.2]. It is read in G3 and adopted only by
     the user's ruling (Decision Log 5 (c)). Per-document bounds cannot see this property, and a
-    developer switching positions sees exactly it;
+    developer switching positions sees exactly it. **Its sign clause is not fidelity, and is
+    rehearsed before Decision Log 5 is ruled.** Where the shipped 0.5 render already errs in the
+    direction of Apple's change, by more than that change, a 0.25 endpoint that matched Apple
+    exactly would move against Apple's delta. G2 maps those cells on a perfect-endpoint null
+    (Apple's own 0.25 in vitrea's place) before any vitrea render at 0.25, and S1 is restated
+    from that map if it must be, for example over the cells where the shipped 0.5 render is
+    within the bar of Apple, as the memory lesson on improvement rules advises;
   - the selection-seam test (Surprises 1; X45).
 
 ## Children
@@ -525,10 +538,15 @@ document interpolation would start from.
 
 Branch `w43-g0-declaration`; evidence `packages/calibration/results/<date>-w43-g0-declaration/`.
 - **(a) The manifests first.** Before any other act, `freeze.py verify` reads 1,818 and X41's
-  0.5 manifest is written and committed. It covers the four 0.5 standard fixture trees, the
-  0.5 accessibility trees, their entries in `fixtures/manifest.json`, the four 0.5 documents,
-  the two current generation files and the index's 0.5 entries, `src/macos27-profile.ts` and
-  `material-document.ts`'s 0.5 block.
+  0.5 manifest is written and committed. It holds two kinds of protection:
+  - **bytes:** the four 0.5 standard fixture trees, the 0.5 accessibility trees, their entries in
+    `fixtures/manifest.json`, the four 0.5 profile documents, `src/macos27-profile.ts` (the
+    generated material), the two current generation files and the index's 0.5 entries;
+  - **a projection of `macos27MaterialProfileDocument`:** its optical content (the four endpoint
+    patches and their resolved digests), its endpoint identities (name, platform, profile keys)
+    and its CSS mapping, hashed as a canonical JSON projection. The one permitted change is
+    Decision Log 1's ruled readout metadata, `glassTintAmount: 0.5`; any other field moving
+    fails the check.
 - **(b) The bridge on existing evidence** (clause 3), from `w42-archive` through its guarded
   reader, H never requested. A disagreement goes to the user before (e) is hashed.
 - **(c) Memo F** (clause 2). This is G0's only native act. It needs no grant and no X5 lift,
@@ -538,7 +556,10 @@ Branch `w43-g0-declaration`; evidence `packages/calibration/results/<date>-w43-g
   - the four tracker fixes: the census by executable; the launching shell's chain excluded; the
     idle log kept as `.txt`; a watchdog on frontmost and idle during every launch, and a
     pre-sitting Universal Control check;
-  - the slider declared per pass, with the as-found value restored by the trap;
+  - the slider declared per pass, with the as-found value restored by the trap. A `defaults
+    write` takes effect only for a freshly launched harness (the review's confirmation; W29 G0
+    relaunched per arm for it), so every slider write is followed only by fresh launches, and a
+    harness or dump process alive across a write refuses the pass;
   - the dump sentinel's Normal = x check;
   - the canonical publication path for side-bundle runs: the attestation `materialize` reads,
     the bundle pin naming the side;
@@ -550,10 +571,21 @@ Branch `w43-g0-declaration`; evidence `packages/calibration/results/<date>-w43-g
   - the wave-local probe and ladder scenes file and bed;
   - the w-test and ladder readings written from memo F, the bridge cells, both sittings' plans;
   - rehearsed as Design states, then hashed.
-- **(f) The selection seam** (Surprises 1). The calibration page and its driver select a
-  shipped document by (OS, glass) and refuse an unshipped or ambiguous pair. A candidate's CSS
-  crossing and receded document are injected, never inherited. Red and green cases; no material
-  moves.
+- **(f) The selection seam, in two declared modes** (Surprises 1):
+  - **strict shipped mode**, for every read of a shipped material: the page selects a shipped
+    document by (OS, glass) and refuses an unshipped or ambiguous pair;
+  - **candidate mode**, for every fit and pre-seal read: the driver declares a complete
+    candidate document, built over the unmoved `DEFAULT_MATERIAL_PROFILE` and independent of the
+    shipped registry, with its own four endpoints (active and receded, per scheme) and its own
+    CSS mapping, each matched by hash. The page constructs the root from that document, never
+    from a shipped document with a patch injected over it, and stamps every output "candidate".
+    It refuses a partial candidate, a candidate whose keys' glass token differs from its declared
+    position, and a candidate that names a shipped document.
+
+  Before any 0.25 shipped export exists, G0 proves the candidate path. A candidate whose content
+  is the 0.5 documents', declared under a scratch `-glass0.25` name, must render byte-identical
+  to strict mode's shipped 0.5 render on a declared sample covering all four endpoints and both
+  tiers. Every refusal case gets a red case. No material moves.
 - **Acceptance:** clauses 1–3 and 11; an independent review (`doperpowers:reviewer-medium`)
   closed; then the parent tells the user that the tooling is ready and how long G1a is
   (Decision Log 3).
@@ -599,9 +631,13 @@ path does not wait for G1b.
 - **After G1a:**
   - **(a)** G1a's bridges read (clause 3);
   - **(b)** the native delta with its bar declared first, and sheets (clause 7);
+  - **(f)** S1's rehearsal on the perfect-endpoint null (Design, "Referees"): the shipped 0.5
+    render's error per cell, from the current generation's rows, against Apple's slider change
+    from (b). This maps the cells where a 0.25 endpoint that matched Apple exactly would still
+    fail S1's sign clause. It needs no vitrea render at 0.25;
   - **(e)** a Decision Log 7 draft for the user: the laws G3 refits, ranked by the evidence, with
-    Decision Log 5's bounds put for ruling on what the delta measured, before any vitrea render
-    at 0.25 exists.
+    Decision Log 5's bounds, S1 restated from (f)'s map where it must be, put for ruling on what
+    the delta measured, before any vitrea render at 0.25 exists.
 - **After G1b:**
   - G1b's bridges read;
   - **(c)** the w-test, read once against the prediction hashed in G0 (clause 8);
@@ -614,17 +650,41 @@ path does not wait for G1b.
 ### G3: The refit, the seal and the landing (ledger §5.201; §5.202 if split at the seal)
 
 Branches `w43-g3-refit`, then `w43-g3-landing`.
-- **The refit.** Opened after Decision Logs 5 and 7 are ruled; it does not wait for G1b. Bounds and
-  rows declared and committed before any 0.25 read. The four documents patched over the unmoved
-  default, naming the 0.5 leaf set (X44). WebGPU fitted first; the CSS tier derived and
-  `tier-coherence.test.ts` extended. Calibration and validation fit and read in one light and one
-  dark stage; the configuration frozen; holdout read once per tier into the same stage; `publish`
-  once per stage. The goldens byte-identical and the 0.5 digests unmoved (clause 11).
+- **The refit,** opened after Decision Logs 5 and 7 are ruled; it does not wait for G1b. In
+  order (clause 10):
+  1. **The cuts first.** The 0.25 adopted rows Decision Log 5 rules (the per-profile tables, M1,
+     C1, X1, L1, M2, E2, and S1 as ruled) are implemented with their baseline selection: the
+     pre-fit render (the 0.5 documents rendered on the 0.25 cells, in candidate mode, in
+     scratch) is L1's growth baseline and M2's and E2's reference. They run in W42's
+     candidate-admission mode and are committed before any candidate is judged.
+  2. **The rehearsal.** The cuts run on the pre-fit render and on the first candidate's renders.
+     S1 is rehearsed again on real renders, beside G2's perfect-endpoint map. A cut that fails by
+     construction goes to the user before fitting continues, as W42's X39 did.
+  3. **The fit, in scratch.** The four documents are patched over the unmoved default, naming the
+     0.5 leaf set (X44). WebGPU is fitted first; the CSS tier is derived and
+     `tier-coherence.test.ts` extended. Every candidate reads in ordinary scratch
+     (`--out-matrix`) or in a fresh stage of its own; no fitting read enters a stage that will
+     publish, because a stage binds its document hashes.
+  4. **The freeze and the final stages.** The four documents are frozen. Then the two
+     publication stages, light and dark, are created at those bytes and filled completely with
+     every declared non-holdout set on both tiers (`--write-partial`).
+  5. **The gate.** Every non-holdout verdict is read on the final stages: the cuts, the owner
+     test on the stages' scratch union, `tier-coherence.test.ts`, and the eye sheets by
+     stratum. Each one passes, or the user rules each miss explicitly: ship as a named miss,
+     or stop. Nothing proceeds on an unruled miss. On a stop, the two stages are left
+     unpublished, the fit resumes in scratch, and a later freeze creates new final stages.
+  6. **The holdout,** read once per tier into the same stages, last. A holdout miss is recorded,
+     never re-read, and put to the user.
+  7. **Publication,** once per stage, only after every verdict, holdout included, has passed or
+     been ruled. The published bytes are the stages' bytes and never change.
+
+  The goldens stay byte-identical and the 0.5 digests unmoved (clause 11).
 - **The landing:**
   - Decision Log 1 executed: the generator and its export test for the 0.25 module, the
     document, `glassTintAmount` on both types, React re-exports, the README rows;
-  - `adopted-thresholds.test.ts` blocks for the four 0.25 profiles, `PREDICATE_EXCLUDES` moved to
-    the machine's output;
+  - the refit's cuts committed as `adopted-thresholds.test.ts` blocks for the four 0.25
+    profiles, read on the published rows, with `PREDICATE_EXCLUDES` moved to the machine's
+    output and every ruled miss named in the file;
   - X45's sweep of every consumer of the current union, the demo's reduction included;
   - a playground selector and readout, the demo at 0.25 beside the harness capture;
   - the capture tree copied to the canonical path and `check-capture-tree` exit 0 on it (no
@@ -650,6 +710,8 @@ Branches `w43-g3-refit`, then `w43-g3-landing`.
   and the three closure statuses, in the w-test.
 - **X24:** archives complete and cited by SHA-256 and bytes.
 - **X38:** dump numbers are pointers.
+- **X33 (W42):** the landing referees pass, or their misses are ruled, before the exposure
+  (clause 10).
 - **Workers:** every worker runs on `opus`; reviews go through the review-code agents, with
   `doperpowers:adversarial-reviewer` for this charter. The rule is passed to workers that
   dispatch workers.
@@ -669,8 +731,10 @@ No accessibility key, no 0.5 key and no 26.5 key is filed. The lift ends at G1b'
 G1b's cancellation.
 
 **New:**
-- **X41 — the 0.5 generation is frozen.** Its fixtures, documents, generation files, generated
-  module and the default document do not change. G0's manifest is the check, at every merge.
+- **X41 — the 0.5 generation is frozen.** Its fixtures, profile documents, generated module and
+  generation files do not change by a byte. The default document's optical content, endpoint
+  identities and CSS mapping do not change; only Decision Log 1's `glassTintAmount: 0.5` readout
+  is added. G0's manifest checks both, at every merge.
 - **X42 — the slider is attested twice.** The run reads the defaults domain, and the dump
   sentinel reads the tree's Normal input. Either reading off the pass's declared position
   refuses the pass. The as-found value is recorded and restored on every exit path.
@@ -682,8 +746,8 @@ G1b's cancellation.
   one space, and the 0.5 digests and goldens cannot move.
 - **X45 — every consumer of the current union names the glass position it reads:** the demo's
   reduction and figures, `adopted-thresholds.test.ts`'s populations, the calibration page's
-  selection, `check-capture-tree`, and the native delta driver. A consumer that would silently
-  mix positions is a defect.
+  strict and candidate modes (G0 (f)), `check-capture-tree`, and the native delta driver. A
+  consumer that would silently mix positions is a defect.
 - **X46 — W42 is not reopened.** H is never requested, and `w42-g2-impl` and
   `w42-g2-identification` are not built on. The w-test reads only the probe and W42's
   calibration and validation counterparts.
@@ -959,11 +1023,16 @@ recommendation below stands beside it.
     re-baselined at the adopting gate;
   - E2 per cell in absolute codes against the same render.
 - **(c)** S1, the slider's direction (Design), read in G3 and adopted only by your ruling at the
-  landing.
+  landing. Before this item is ruled, G2 rehearses it on the perfect-endpoint null (G2 (f)): its
+  sign clause can fail a 0.25 endpoint that matches Apple exactly, wherever the shipped 0.5
+  render already errs in the direction of Apple's change. S1 is put to you as restated from
+  that map.
 - **(d)** No regression floor: the bed is at seven runs, not seventeen (W29 clause 4).
 - **(e)** A missed bound is recorded with its numbers and comes to you as a floor decision. It
-  does not by itself stop the landing; W29 landed 0.19.0 with seven UNMET rows. *The
-  alternative:* 0.25 ships only if every bound holds.
+  does not by itself stop the landing; W29 landed 0.19.0 with seven UNMET rows. But every
+  non-holdout miss must be ruled by you, as a permitted named miss or a stop, before the holdout
+  is read and before anything publishes (clause 10). *The alternative:* 0.25 ships only if every
+  bound holds.
 
 **Recommendation: (a)–(e) as written.** It holds 0.25 to the bar 0.5 was held to. It adds the
 one property per-document bounds cannot see, and reads that property once before gating on it.
@@ -1009,6 +1078,38 @@ Found while drafting (2026-10-01):
 
 ## Revision Notes
 
+- 2026-10-01 (v1.2; the adversarial review of `689c3f31`, needs-attention, one P1 and three P2,
+  every finding accepted by the parent and folded in place):
+  - **[P1] Gate before holdout and publication.** v1.1 froze, read the holdout and published,
+    and added the 0.25 adopted blocks only at the landing; nothing required the non-holdout
+    verdicts to pass, or their misses to be ruled, before the exposure. That dropped W42's
+    protection (its Deferred at close 7; X33). Clause 10 and G3's refit now run in order: the
+    cuts and their baseline selection implemented first; rehearsed on the pre-fit and candidate
+    renders; the fit; the freeze; every non-holdout verdict passed or each miss ruled by the user;
+    then the holdout; then publication. Decision Log 5 (e) keeps the user's option to ship named
+    misses. S1 gains a rehearsal before Decision Log 5 is ruled (G2 (f); Design; Decision Log 5
+    (c)), because its per-cell sign clause can fail an exact 0.25 endpoint wherever the shipped
+    0.5 render already errs in the direction of Apple's change.
+  - **[P2] Candidate selection path.** v1.1's strict (OS, glass) selection would refuse an
+    unshipped `-glass0.25` candidate, and the page selected a shipped document before applying
+    the injected patch. G0 (f) now declares two modes: strict for shipped reads, and a candidate
+    mode that builds a complete four-endpoint candidate document with its own CSS mapping over
+    the unmoved default, independent of the shipped registry. G0 proves it before any 0.25
+    shipped export: a 0.5-content candidate renders byte-identical to shipped 0.5 on all four
+    endpoints and both tiers, and every refusal case has a red case. X45 names both modes.
+  - **[P2] Fitting scratch against publication stages.** A stage binds its document hashes and
+    refuses later edits, so v1.1's "fit and read in one light and one dark stage" could not
+    work. Fitting now reads in ordinary scratch or fresh stages per candidate. The two final
+    publication stages are created only after the four documents are frozen and filled
+    completely, holdout last, and only they publish.
+  - **[P2] The 0.5 manifest against the ruled readout.** v1.1's byte protection of
+    `material-document.ts`'s 0.5 block conflicted with adding `glassTintAmount: 0.5`. G0 (a) and
+    X41 now protect a projection of the default document (optical content, endpoint identities,
+    CSS mapping) and permit only that readout; the fixtures, profile documents, generated module
+    and generation files keep their byte protection.
+  - **The review's confirmation kept as a G0 tooling requirement:** `defaults write` takes effect
+    only for a freshly launched harness, so a harness or dump process alive across a slider write
+    refuses the pass (G0 (d)).
 - 2026-10-01 (v1.1, for adversarial review). The user ruled Decision Logs 1 ("Second fixed
   setting (Recommended)") and 3 ("Two sittings, 12.4 h + 4 h (Recommended)"), quoted verbatim
   with their option text. The parent ruled Decision Log 4 (kept separate; the probe and ladder
