@@ -106,6 +106,29 @@ export function counterpartKey(key27: string): string {
     .replace(/-increased-contrast-coupled$/, "-increased-contrast");
 }
 
+/**
+ * The key one slider position's cell is read against at another position: the same key with its
+ * trailing `-glass<amount>` token moved, and nothing else (W43 G2; X45, every consumer names the
+ * position it reads).
+ *
+ * It refuses a key with no slider token, and a key already at the reference position, rather than
+ * returning something: a 26.5 key has no slider axis to move along, and a key paired with itself
+ * would read a cell against its own bytes and report that Apple's material did not move.
+ */
+export function sliderCounterpartKey(key: string, referenceGlass: string): string {
+  const match = /-glass([\d.]+)$/.exec(key);
+  if (match === null) {
+    throw new Error(`sliderCounterpartKey: ${key} carries no -glass<amount> token`);
+  }
+  if (!/^\d+(\.\d+)?$/.test(referenceGlass)) {
+    throw new Error(`sliderCounterpartKey: ${referenceGlass} is not a slider amount`);
+  }
+  if (Number(match[1]) === Number(referenceGlass)) {
+    throw new Error(`sliderCounterpartKey: ${key} is already at glass${referenceGlass}`);
+  }
+  return `${key.slice(0, match.index)}-glass${referenceGlass}`;
+}
+
 /** Active or receded, read off the scene's own state token (X3: the pose is a scene state). */
 export function poseOf(sceneId: string): "active" | "inactive" {
   return sceneId.split("__")[2]?.startsWith("inactive") === true ? "inactive" : "active";

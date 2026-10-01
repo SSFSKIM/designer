@@ -1,0 +1,386 @@
+# S1 on the perfect-endpoint null (W43 G2 (f); charter Design 'Referees', Decision Log 5 (c))
+
+No vitrea render at 0.25 exists or was made. vitrea@0.5 is the current generation (rows:
+matrix_store.load_current_profile; captures: the canonical tree, read-only).
+Reader checks: interiorMeanNative of the row against the native delta's own-silhouette reading of
+the 0.5 fixture, worst |difference| 0.000e+00 over 599 row reads;
+this script's bodyLevel on the 0.5 fixture against the native delta's, worst 1.517e-12
+over 594 reads.
+The anti-null reader (the 0.5 web capture under the 0.5 native silhouette) against the row's
+interiorMeanWeb, worst |difference| 0.000e+00 over 599 reads.
+
+## S1 as chartered, on interiorMean
+
+### tier webgpu
+  all four profiles                            cells  346  wrong sign   78  outside [0.8,1.2]  279  median ratio   1.071  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 346, sign not Apple's on 283, median ratio  -0.000, passes S1: False
+  1x-light                                     cells  104  wrong sign   12  outside [0.8,1.2]   76  median ratio   1.071  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 104, sign not Apple's on 88, median ratio  -0.000, passes S1: False
+  2x-light                                     cells  104  wrong sign   17  outside [0.8,1.2]   77  median ratio   1.103  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 104, sign not Apple's on 89, median ratio  -0.000, passes S1: False
+  1x-dark                                      cells   69  wrong sign   23  outside [0.8,1.2]   63  median ratio   1.193  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 69, sign not Apple's on 56, median ratio   0.000, passes S1: False
+  2x-dark                                      cells   69  wrong sign   26  outside [0.8,1.2]   63  median ratio   1.000  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 69, sign not Apple's on 50, median ratio  -0.000, passes S1: False
+  not in the population: Apple's change within its bar 8; UNMEASURED: no 0.5 row on this tier 140, UNMEASURED: no Apple reading 14
+
+### tier css
+  all four profiles                            cells  237  wrong sign   50  outside [0.8,1.2]  187  median ratio   1.075  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 237, sign not Apple's on 201, median ratio  -0.000, passes S1: False
+  1x-light                                     cells  104  wrong sign   18  outside [0.8,1.2]   76  median ratio   0.986  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 104, sign not Apple's on 87, median ratio  -0.000, passes S1: False
+  2x-light                                     cells   49  wrong sign    4  outside [0.8,1.2]   31  median ratio   1.061  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 49, sign not Apple's on 45, median ratio  -0.000, passes S1: False
+  1x-dark                                      cells   69  wrong sign   22  outside [0.8,1.2]   66  median ratio   1.678  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 69, sign not Apple's on 57, median ratio   0.000, passes S1: False
+  2x-dark                                      cells   15  wrong sign    6  outside [0.8,1.2]   14  median ratio   1.957  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 15, sign not Apple's on 12, median ratio  -0.000, passes S1: False
+  not in the population: Apple's change within its bar 8; UNMEASURED: no 0.5 row on this tier 249, UNMEASURED: no Apple reading 14
+
+
+## S1 as chartered, on bodyLevel
+
+### tier webgpu
+  all four profiles                            cells  340  wrong sign   63  outside [0.8,1.2]  274  median ratio   1.178  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 340, sign not Apple's on 340, median ratio  -0.000, passes S1: False
+  1x-light                                     cells  100  wrong sign    6  outside [0.8,1.2]   71  median ratio   1.164  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 100, sign not Apple's on 100, median ratio  -0.000, passes S1: False
+  2x-light                                     cells  100  wrong sign    9  outside [0.8,1.2]   76  median ratio   1.270  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 100, sign not Apple's on 100, median ratio  -0.000, passes S1: False
+  1x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   64  median ratio   1.188  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 70, sign not Apple's on 70, median ratio   0.000, passes S1: False
+  2x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   63  median ratio   1.126  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 70, sign not Apple's on 70, median ratio   0.000, passes S1: False
+  not in the population: Apple's change within its bar 12; UNMEASURED: no 0.5 row on this tier 148, UNMEASURED: no Apple reading 8
+
+### tier css
+  all four profiles                            cells  230  wrong sign   43  outside [0.8,1.2]  187  median ratio   1.217  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 230, sign not Apple's on 230, median ratio  -0.000, passes S1: False
+  1x-light                                     cells  100  wrong sign   12  outside [0.8,1.2]   74  median ratio   1.083  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 100, sign not Apple's on 100, median ratio  -0.000, passes S1: False
+  2x-light                                     cells   45  wrong sign    2  outside [0.8,1.2]   32  median ratio   1.290  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 45, sign not Apple's on 45, median ratio  -0.000, passes S1: False
+  1x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   66  median ratio   1.439  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 70, sign not Apple's on 70, median ratio   0.000, passes S1: False
+  2x-dark                                      cells   15  wrong sign    5  outside [0.8,1.2]   15  median ratio   3.885  perfect endpoint passes S1: False
+                                               unmoved endpoint: read on 15, sign not Apple's on 15, median ratio  -0.000, passes S1: False
+  not in the population: Apple's change within its bar 12; UNMEASURED: no 0.5 row on this tier 258, UNMEASURED: no Apple reading 8
+
+
+## The map: where a perfect 0.25 endpoint fails S1's sign clause (interiorMean, webgpu)
+
+  1x-dark    checkerboard         active    1
+  1x-dark    checkerboard         inactive  1
+  1x-dark    checkerboard-32      active    2
+  1x-dark    checkerboard-32      inactive  1
+  1x-dark    checkerboard-4       active    1
+  1x-dark    checkerboard-64      active    3
+  1x-dark    checkerboard-64      inactive  2
+  1x-dark    checkerboard-8       active    1
+  1x-dark    checkerboard-8       inactive  1
+  1x-dark    checkerboard-lc16    active    1
+  1x-dark    checkerboard-lc16    inactive  1
+  1x-dark    hc-text-28           active    1
+  1x-dark    impulse              active    1
+  1x-dark    impulse              inactive  2
+  1x-dark    mid-dark-solid       inactive  1
+  1x-dark    photo                active    2
+  1x-dark    photo                inactive  1
+  1x-light   checkerboard         active    4
+  1x-light   checkerboard-32      active    3
+  1x-light   checkerboard-64      active    2
+  1x-light   checkerboard-8       active    1
+  1x-light   hc-text-28           active    1
+  1x-light   impulse              inactive  1
+  2x-dark    checkerboard         active    1
+  2x-dark    checkerboard         inactive  2
+  2x-dark    checkerboard-32      active    3
+  2x-dark    checkerboard-32      inactive  1
+  2x-dark    checkerboard-4       active    1
+  2x-dark    checkerboard-64      active    3
+  2x-dark    checkerboard-64      inactive  2
+  2x-dark    checkerboard-8       active    2
+  2x-dark    checkerboard-lc16    active    1
+  2x-dark    checkerboard-lc16    inactive  1
+  2x-dark    hc-text-28           active    1
+  2x-dark    impulse              active    1
+  2x-dark    impulse              inactive  3
+  2x-dark    mid-dark-solid       inactive  1
+  2x-dark    photo                active    2
+  2x-dark    photo                inactive  1
+  2x-light   checkerboard         active    4
+  2x-light   checkerboard-32      active    4
+  2x-light   checkerboard-64      active    2
+  2x-light   checkerboard-64      inactive  1
+  2x-light   checkerboard-8       active    2
+  2x-light   hc-text-28           active    1
+  2x-light   hc-text-28           inactive  1
+  2x-light   hc-text-7            active    1
+  2x-light   impulse              inactive  1
+
+Each wrong-sign cell: Apple's change dA, the shipped 0.5 error e, and e/dA (> 1 is wrong sign):
+  2x-dark    photo__capsule-button__rest                          dA -0.0000  e -0.0493  e/dA +1933.04
+  2x-dark    impulse__rrect-lg__inactive                          dA -0.0000  e -0.0059  e/dA +421.53
+  1x-dark    photo__capsule-button__rest                          dA -0.0001  e -0.0457  e/dA +308.44
+  2x-dark    photo__capsule-button__rest-tint-orange              dA -0.0001  e -0.0161  e/dA +141.47
+  1x-dark    photo__capsule-button__rest-tint-orange              dA -0.0001  e -0.0145  e/dA +115.52
+  1x-dark    checkerboard-32__rrect-lg__rest                      dA +0.0003  e +0.0182  e/dA +70.97
+  2x-dark    photo__capsule-button__inactive                      dA -0.0003  e -0.0166  e/dA +55.32
+  1x-dark    impulse__rrect-lg__inactive                          dA -0.0001  e -0.0068  e/dA +50.82
+  1x-dark    photo__capsule-button__inactive                      dA -0.0004  e -0.0158  e/dA +41.86
+  2x-light   checkerboard__capsule-button__rest                   dA -0.0007  e -0.0225  e/dA +32.83
+  1x-dark    impulse__capsule-button__rest                        dA +0.0008  e +0.0229  e/dA +29.09
+  2x-dark    impulse__capsule-button__inactive                    dA +0.0019  e +0.0465  e/dA +24.61
+  2x-dark    checkerboard-64__capsule-button__rest-tint-orange    dA -0.0007  e -0.0160  e/dA +24.47
+  2x-dark    checkerboard-32__rrect-ml__rest                      dA +0.0008  e +0.0198  e/dA +23.36
+  1x-dark    checkerboard-64__capsule-button__rest-tint-orange    dA -0.0007  e -0.0150  e/dA +21.82
+  1x-dark    checkerboard-4__capsule-button__rest-tint-orange     dA -0.0006  e -0.0136  e/dA +21.13
+  2x-dark    checkerboard__capsule-button__rest-tint-orange       dA -0.0007  e -0.0139  e/dA +21.12
+  2x-dark    checkerboard-4__capsule-button__rest-tint-orange     dA -0.0007  e -0.0146  e/dA +19.90
+  1x-dark    checkerboard__capsule-button__rest-tint-orange       dA -0.0007  e -0.0123  e/dA +18.79
+  2x-dark    checkerboard-8__capsule-button__rest-tint-orange     dA -0.0008  e -0.0142  e/dA +18.62
+  2x-light   hc-text-7__rrect-sm__rest                            dA +0.0015  e +0.0273  e/dA +17.93
+  1x-dark    checkerboard-8__capsule-button__rest-tint-orange     dA -0.0007  e -0.0129  e/dA +17.53
+  2x-light   checkerboard__toolbar-group__rest                    dA -0.0009  e -0.0144  e/dA +16.94
+  1x-light   hc-text-28__rrect-sm__rest                           dA -0.0009  e -0.0147  e/dA +15.60
+  1x-dark    checkerboard-64__rrect-ml__rest                      dA +0.0020  e +0.0283  e/dA +14.48
+  2x-light   checkerboard-32__capsule-button__rest                dA -0.0017  e -0.0233  e/dA +13.81
+  1x-dark    impulse__capsule-button__inactive                    dA +0.0034  e +0.0445  e/dA +13.06
+  2x-dark    impulse__capsule-button__rest                        dA +0.0010  e +0.0117  e/dA +11.37
+  1x-light   checkerboard__rrect-sm__rest                         dA -0.0023  e -0.0238  e/dA +10.23
+  2x-dark    checkerboard-64__rrect-ml__rest                      dA +0.0026  e +0.0254  e/dA +9.71
+  2x-dark    checkerboard-32__capsule-button__rest-tint-orange    dA -0.0016  e -0.0146  e/dA +9.21
+  1x-dark    checkerboard-32__capsule-button__rest-tint-orange    dA -0.0015  e -0.0128  e/dA +8.31
+  2x-dark    checkerboard-32__rrect-lg__inactive                  dA +0.0027  e +0.0201  e/dA +7.47
+  2x-dark    impulse__rrect-ml__inactive                          dA +0.0003  e +0.0022  e/dA +7.26
+  2x-light   checkerboard-32__rrect-sm__rest                      dA -0.0033  e -0.0218  e/dA +6.68
+  1x-light   checkerboard-32__capsule-button__rest                dA -0.0041  e -0.0214  e/dA +5.20
+  2x-dark    checkerboard-32__rrect-lg__rest                      dA +0.0040  e +0.0197  e/dA +4.87
+  1x-light   checkerboard__capsule-button__rest                   dA -0.0043  e -0.0203  e/dA +4.70
+  2x-light   checkerboard-64__capsule-button__rest                dA -0.0034  e -0.0151  e/dA +4.38
+  1x-light   checkerboard-64__capsule-button__rest                dA -0.0038  e -0.0166  e/dA +4.36
+  2x-dark    checkerboard-lc16__capsule-button__inactive          dA -0.0025  e -0.0089  e/dA +3.54
+  2x-light   hc-text-28__rrect-sm__rest                           dA +0.0023  e +0.0076  e/dA +3.30
+  1x-dark    checkerboard-64__rrect-lg__rest                      dA +0.0094  e +0.0307  e/dA +3.27
+  1x-light   checkerboard-32__rrect-sm__rest                      dA -0.0052  e -0.0166  e/dA +3.19
+  2x-light   checkerboard__capsule-button__rest-tint-blue         dA -0.0008  e -0.0026  e/dA +3.09
+  2x-light   checkerboard-8__rrect-sm__rest                       dA -0.0035  e -0.0106  e/dA +2.99
+  2x-dark    checkerboard-64__rrect-lg__rest                      dA +0.0105  e +0.0306  e/dA +2.92
+  1x-dark    checkerboard-32__rrect-lg__inactive                  dA +0.0084  e +0.0235  e/dA +2.80
+  1x-light   checkerboard__toolbar-group__rest                    dA -0.0039  e -0.0107  e/dA +2.72
+  1x-dark    hc-text-28__rrect-md__rest                           dA -0.0079  e -0.0213  e/dA +2.71
+  1x-dark    checkerboard-64__rrect-md__inactive                  dA +0.0104  e +0.0273  e/dA +2.63
+  2x-light   checkerboard__capsule-button__rest-tint-orange       dA -0.0019  e -0.0049  e/dA +2.54
+  2x-dark    checkerboard-8__rrect-md__rest                       dA +0.0009  e +0.0020  e/dA +2.31
+  2x-light   checkerboard-32__capsule-button__rest-tint-orange    dA -0.0019  e -0.0045  e/dA +2.30
+  2x-dark    hc-text-28__rrect-md__rest                           dA -0.0087  e -0.0198  e/dA +2.29
+  2x-light   checkerboard-8__capsule-button__rest                 dA -0.0046  e -0.0102  e/dA +2.22
+  2x-dark    checkerboard__rrect-md__inactive                     dA +0.0040  e +0.0087  e/dA +2.17
+  2x-dark    mid-dark-solid__rrect-lg__inactive                   dA +0.0021  e +0.0042  e/dA +2.03
+  1x-dark    mid-dark-solid__rrect-lg__inactive                   dA +0.0021  e +0.0042  e/dA +2.03
+  2x-dark    checkerboard-64__rrect-lg__inactive                  dA +0.0181  e +0.0359  e/dA +1.99
+  2x-dark    checkerboard-64__rrect-md__inactive                  dA +0.0155  e +0.0306  e/dA +1.97
+  2x-dark    checkerboard__rrect-ml__inactive                     dA +0.0076  e +0.0150  e/dA +1.97
+  1x-dark    checkerboard-64__rrect-lg__inactive                  dA +0.0191  e +0.0368  e/dA +1.93
+  1x-dark    checkerboard-lc16__capsule-button__inactive          dA -0.0033  e -0.0057  e/dA +1.74
+  1x-light   checkerboard__capsule-button__rest-tint-orange       dA -0.0024  e -0.0041  e/dA +1.70
+  1x-light   impulse__rrect-lg__inactive                          dA -0.0544  e -0.0899  e/dA +1.65
+  2x-light   impulse__rrect-lg__inactive                          dA -0.0542  e -0.0893  e/dA +1.65
+  1x-light   checkerboard-32__capsule-button__rest-tint-orange    dA -0.0022  e -0.0034  e/dA +1.53
+  1x-light   checkerboard-8__rrect-sm__rest                       dA -0.0085  e -0.0126  e/dA +1.49
+  2x-dark    checkerboard-lc16__capsule-button__rest              dA -0.0078  e -0.0112  e/dA +1.43
+  1x-dark    checkerboard__rrect-ml__inactive                     dA +0.0090  e +0.0122  e/dA +1.35
+  1x-dark    checkerboard-lc16__capsule-button__rest              dA -0.0074  e -0.0095  e/dA +1.29
+  1x-light   checkerboard-64__rrect-ml__rest                      dA -0.0270  e -0.0335  e/dA +1.24
+  2x-light   checkerboard-32__rrect-md__rest                      dA -0.0122  e -0.0130  e/dA +1.07
+  2x-light   hc-text-28__rrect-md__inactive                       dA -0.0400  e -0.0426  e/dA +1.07
+  2x-light   checkerboard-64__rrect-md__inactive                  dA -0.0351  e -0.0372  e/dA +1.06
+  2x-light   checkerboard-64__rrect-md__rest                      dA -0.0215  e -0.0228  e/dA +1.06
+  1x-dark    checkerboard-8__rrect-lg__inactive                   dA +0.0138  e +0.0143  e/dA +1.03
+
+The map's other half: cells whose null ratio leaves [0.8, 1.2] (interiorMean, webgpu), by profile,
+backdrop and pose, with the median |dA| (linear) of those cells beside the median |dA| of the rest:
+  1x-dark    checkerboard         active    3
+  1x-dark    checkerboard         inactive  4
+  1x-dark    checkerboard-32      active    6
+  1x-dark    checkerboard-32      inactive  1
+  1x-dark    checkerboard-4       active    6
+  1x-dark    checkerboard-64      active    6
+  1x-dark    checkerboard-64      inactive  2
+  1x-dark    checkerboard-8       active    5
+  1x-dark    checkerboard-8       inactive  1
+  1x-dark    checkerboard-lc16    active    5
+  1x-dark    checkerboard-lc16    inactive  2
+  1x-dark    dark-solid           active    1
+  1x-dark    hc-text-28           active    3
+  1x-dark    hc-text-28           inactive  1
+  1x-dark    hc-text-7            active    3
+  1x-dark    hc-text-7            inactive  1
+  1x-dark    impulse              active    1
+  1x-dark    impulse              inactive  3
+  1x-dark    mid-chroma-solid     inactive  1
+  1x-dark    mid-dark-solid       inactive  1
+  1x-dark    photo                active    3
+  1x-dark    photo                inactive  4
+  1x-light   checkerboard         active    5
+  1x-light   checkerboard         inactive  4
+  1x-light   checkerboard-32      active    6
+  1x-light   checkerboard-32      inactive  1
+  1x-light   checkerboard-4       active    5
+  1x-light   checkerboard-4       inactive  1
+  1x-light   checkerboard-64      active    6
+  1x-light   checkerboard-64      inactive  2
+  1x-light   checkerboard-8       active    5
+  1x-light   checkerboard-8       inactive  1
+  1x-light   checkerboard-lc16    active    3
+  1x-light   checkerboard-lc16    inactive  2
+  1x-light   dark-solid           active    2
+  1x-light   dark-solid           inactive  1
+  1x-light   hc-text-28           active    2
+  1x-light   hc-text-28           inactive  1
+  1x-light   hc-text-7            active    2
+  1x-light   hc-text-7            inactive  1
+  1x-light   impulse              active    2
+  1x-light   impulse              inactive  5
+  1x-light   light-solid          active    4
+  1x-light   light-solid          inactive  1
+  1x-light   mid-dark-solid       inactive  1
+  1x-light   photo                active    7
+  1x-light   photo                inactive  6
+  2x-dark    checkerboard         active    3
+  2x-dark    checkerboard         inactive  4
+  2x-dark    checkerboard-32      active    6
+  2x-dark    checkerboard-32      inactive  1
+  2x-dark    checkerboard-4       active    5
+  2x-dark    checkerboard-64      active    6
+  2x-dark    checkerboard-64      inactive  2
+  2x-dark    checkerboard-8       active    5
+  2x-dark    checkerboard-8       inactive  1
+  2x-dark    checkerboard-lc16    active    5
+  2x-dark    checkerboard-lc16    inactive  2
+  2x-dark    dark-solid           active    1
+  2x-dark    hc-text              inactive  1
+  2x-dark    hc-text-28           active    3
+  2x-dark    hc-text-28           inactive  1
+  2x-dark    hc-text-7            active    3
+  2x-dark    hc-text-7            inactive  1
+  2x-dark    impulse              active    1
+  2x-dark    impulse              inactive  3
+  2x-dark    mid-chroma-solid     inactive  1
+  2x-dark    mid-dark-solid       inactive  1
+  2x-dark    photo                active    3
+  2x-dark    photo                inactive  4
+  2x-light   checkerboard         active    6
+  2x-light   checkerboard         inactive  2
+  2x-light   checkerboard-32      active    6
+  2x-light   checkerboard-4       active    6
+  2x-light   checkerboard-4       inactive  1
+  2x-light   checkerboard-64      active    6
+  2x-light   checkerboard-64      inactive  2
+  2x-light   checkerboard-8       active    6
+  2x-light   checkerboard-8       inactive  2
+  2x-light   checkerboard-lc16    active    4
+  2x-light   checkerboard-lc16    inactive  2
+  2x-light   dark-solid           active    2
+  2x-light   dark-solid           inactive  1
+  2x-light   hc-text-28           active    3
+  2x-light   hc-text-28           inactive  1
+  2x-light   hc-text-7            active    3
+  2x-light   hc-text-7            inactive  1
+  2x-light   impulse              active    2
+  2x-light   impulse              inactive  5
+  2x-light   light-solid          active    3
+  2x-light   light-solid          inactive  1
+  2x-light   mid-dark-solid       inactive  1
+  2x-light   photo                active    5
+  2x-light   photo                inactive  6
+  median |dA| outside the band 0.0098; inside 0.0362; wrong-sign cells 0.0024
+  median |e| outside the band 0.0164; inside 0.0017
+
+## Restatements, each read on the perfect-endpoint null and on the unmoved-endpoint anti-null
+
+R0  as chartered.
+R1  over the cells where the shipped 0.5 render is within a fifth of Apple's change of Apple (|e| <= 0.2|dA|).
+R2  over the cells where Apple's change exceeds the shipped 0.5 error (|dA| > |e|): sign on every cell, the
+    median ratio clause over the same cells.
+R3  as R2 for the sign; the ratio clause replaced by the pooled ratio sum(V)/sum(dA) over the population,
+    in [0.8, 1.2].
+R4  over R2's cells, per cell: the 0.25 endpoint's error must not exceed the 0.5 endpoint's,
+    |V + e − dA| <= |e| + bar (corrected at the review closure; the first cut read |V − dA|).
+
+### interiorMean, tier webgpu (346 cells where Apple's change exceeds its bar)
+  R0: cells  346 (100%)  sign on null False  median ratio 1.071  pooled 1.118  perfect endpoint passes False
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.016  passes False
+  R1: cells   67 (19%)  sign on null True  median ratio 1.008  pooled 1.029  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.006  passes False
+  R2: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.013  passes False
+  R3: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.013  passes False
+  R4: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.013  passes False  R4 cells it passes 19 of 183
+
+### interiorMean, tier css (237 cells where Apple's change exceeds its bar)
+  R0: cells  237 (100%)  sign on null False  median ratio 1.075  pooled 1.056  perfect endpoint passes False
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.006  passes False
+  R1: cells   50 (21%)  sign on null True  median ratio 0.986  pooled 0.983  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled 0.001  passes False
+  R2: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.004  passes False
+  R3: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.004  passes False
+  R4: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.004  passes False  R4 cells it passes 9 of 125
+
+### bodyLevel, tier webgpu (340 cells where Apple's change exceeds its bar)
+  R0: cells  340 (100%)  sign on null False  median ratio 1.178  pooled 1.165  perfect endpoint passes False
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R1: cells   66 (19%)  sign on null True  median ratio 0.986  pooled 1.023  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R2: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R3: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R4: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False  R4 cells it passes 26 of 181
+
+### bodyLevel, tier css (230 cells where Apple's change exceeds its bar)
+  R0: cells  230 (100%)  sign on null False  median ratio 1.217  pooled 1.182  perfect endpoint passes False
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R1: cells   43 (19%)  sign on null True  median ratio 1.026  pooled 0.997  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R2: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R3: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
+  R4: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True
+      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False  R4 cells it passes 8 of 124
+
+## The charter's example, literally: cells where the shipped 0.5 render is within the bar of Apple
+
+  interiorMean webgpu 0 of 346 cells: |e| <= the two-sided bar (of order 1e-9 to 1e-5)
+  interiorMean css    0 of 237 cells: |e| <= the two-sided bar (of order 1e-9 to 1e-5)
+  bodyLevel    webgpu 2 of 340 cells: |e| <= the two-sided bar (of order 1e-9 to 1e-5)
+  bodyLevel    css    0 of 230 cells: |e| <= the two-sided bar (of order 1e-9 to 1e-5)
+  The bar is the run-to-run spread, so this population is empty or nearly so; R1 is its workable
+  relative form and R2 the one that keeps half the cells.
+
+## R2 per profile (the recommended restatement), perfect-endpoint null
+
+  interiorMean webgpu 1x-light  cells  81 of 104  median ratio 1.071  perfect endpoint passes True
+  interiorMean webgpu 2x-light  cells  71 of 104  median ratio 1.103  perfect endpoint passes True
+  interiorMean webgpu 1x-dark   cells  17 of  69  median ratio 0.930  perfect endpoint passes True
+  interiorMean webgpu 2x-dark   cells  14 of  69  median ratio 0.876  perfect endpoint passes True
+  interiorMean css    1x-light  cells  72 of 104  median ratio 1.072  perfect endpoint passes True
+  interiorMean css    2x-light  cells  35 of  49  median ratio 0.992  perfect endpoint passes True
+  interiorMean css    1x-dark   cells  16 of  69  median ratio 1.138  perfect endpoint passes True
+  interiorMean css    2x-dark   cells   2 of  15  median ratio 1.957  perfect endpoint passes False
+  bodyLevel    webgpu 1x-light  cells  81 of 100  median ratio 1.066  perfect endpoint passes True
+  bodyLevel    webgpu 2x-light  cells  69 of 100  median ratio 1.097  perfect endpoint passes True
+  bodyLevel    webgpu 1x-dark   cells  16 of  70  median ratio 0.981  perfect endpoint passes True
+  bodyLevel    webgpu 2x-dark   cells  15 of  70  median ratio 0.841  perfect endpoint passes True
+  bodyLevel    css    1x-light  cells  74 of 100  median ratio 1.081  perfect endpoint passes True
+  bodyLevel    css    2x-light  cells  33 of  45  median ratio 1.153  perfect endpoint passes True
+  bodyLevel    css    1x-dark   cells  15 of  70  median ratio 0.991  perfect endpoint passes True
+  bodyLevel    css    2x-dark   cells   2 of  15  median ratio 1.994  perfect endpoint passes False
+

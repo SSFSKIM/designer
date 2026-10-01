@@ -1,0 +1,6 @@
+W43 G2 (1), 2026-10-01T23:14:40Z: pnpm --filter @vitrea/calibration lint, then vitest run
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+lint exit 0
+ Test Files  62 passed (62)
+      Tests  847 passed | 1 skipped (848)
+test exit 0

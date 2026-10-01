@@ -1,0 +1,376 @@
+# The native delta, 0.25 against 0.5, read off the rows (W43 G2 (b); claims §5.200)
+
+562 pair rows (104 rrect-lg, held apart), 212 recede rows.
+Every change is Apple at 0.25 minus Apple at 0.5. 'codes' is the encoded sRGB difference of the
+two levels; 'lin' is linear luminance.
+
+## 1. The body level (bodyLevel, the declared box eroded 6 CSS px), codes, by backdrop
+### light, active (160 cells, rrect-lg apart)
+  impulse (enc mean 0.004)           n  10  p10  -15.912  median  -14.786  p90   -4.379  up/down 0/10
+  dark-solid (enc mean 0.110)        n  20  p10  -13.963  median  -13.337  p90   -3.389  up/down 0/20
+  mid-chroma-solid (enc mean 0.255)  n   6  p10   -6.982  median   -6.761  p90   -4.060  up/down 0/6
+  mid-dark-solid (enc mean 0.271)    n   6  p10  -11.059  median  -10.894  p90  -10.857  up/down 0/6
+  photo (enc mean 0.425)             n  20  p10   -6.390  median   -6.104  p90   -1.684  up/down 0/20
+  checkerboard-64 (enc mean 0.472)   n  10  p10   -3.912  median   -0.518  p90   +4.015  up/down 2/8
+  checkerboard (enc mean 0.500)      n  16  p10   -4.605  median   -0.478  p90   +0.071  up/down 3/13
+  checkerboard-32 (enc mean 0.500)   n  10  p10   -3.155  median   -0.368  p90   -0.032  up/down 0/10
+  checkerboard-4 (enc mean 0.500)    n  10  p10   -7.137  median   -3.043  p90   -0.654  up/down 0/10
+  checkerboard-8 (enc mean 0.500)    n  10  p10   -6.927  median   -1.219  p90   -0.409  up/down 0/10
+  checkerboard-lc16 (enc mean 0.700) n   8  p10   -3.406  median   -2.185  p90   -1.998  up/down 0/8
+  hc-text (enc mean 0.740)           n   8  p10   -2.957  median   -0.399  p90   +3.933  up/down 2/6
+  hc-text-7 (enc mean 0.751)         n   4  p10   -4.539  median   -0.982  p90   +0.940  up/down 1/3
+  hc-text-28 (enc mean 0.765)        n   4  p10   -4.056  median   -3.793  p90   -3.230  up/down 0/4
+  light-solid (enc mean 0.950)       n  10  p10   -0.998  median   -0.455  p90   -0.147  up/down 0/10
+  ALL                                n 152  p10  -13.497  median   -3.314  p90   -0.294  up/down 8/144
+  rrect-lg stratum                   n  32  p10  -14.130  median   -4.964  p90   -2.346  up/down 0/32
+
+### light, inactive (112 cells, rrect-lg apart)
+  impulse (enc mean 0.004)           n   8  p10  -15.452  median  -15.392  p90  -14.804  up/down 0/8
+  dark-solid (enc mean 0.110)        n  16  p10  -14.000  median  -13.996  p90  -11.817  up/down 0/16
+  mid-chroma-solid (enc mean 0.255)  n   6  p10   -9.280  median   -6.644  p90   -6.639  up/down 0/6
+  mid-dark-solid (enc mean 0.271)    n   6  p10  -11.787  median  -11.787  p90  -11.782  up/down 0/6
+  photo (enc mean 0.425)             n  20  p10   -7.822  median   -7.357  p90   -7.054  up/down 0/20
+  checkerboard-64 (enc mean 0.472)   n   2  p10   -6.454  median   -5.764  p90   -5.764  up/down 0/2
+  checkerboard (enc mean 0.500)      n  16  p10   -7.693  median   -6.195  p90   -5.499  up/down 0/16
+  checkerboard-4 (enc mean 0.500)    n   2  p10   -8.123  median   -8.055  p90   -8.055  up/down 0/2
+  checkerboard-8 (enc mean 0.500)    n   2  p10   -8.246  median   -8.206  p90   -8.206  up/down 0/2
+  checkerboard-lc16 (enc mean 0.700) n   4  p10   -5.415  median   -5.044  p90   -4.869  up/down 0/4
+  hc-text (enc mean 0.740)           n   8  p10   -6.428  median   -5.853  p90   -4.546  up/down 0/8
+  hc-text-7 (enc mean 0.751)         n   2  p10   -6.517  median   -6.357  p90   -6.357  up/down 0/2
+  hc-text-28 (enc mean 0.765)        n   2  p10   -6.317  median   -6.001  p90   -6.001  up/down 0/2
+  light-solid (enc mean 0.950)       n  10  p10   -2.926  median   -2.926  p90   -2.923  up/down 0/10
+  ALL                                n 104  p10  -14.000  median   -7.342  p90   -4.546  up/down 0/104
+  rrect-lg stratum                   n  24  p10  -13.978  median   -7.399  p90   -5.125  up/down 0/24
+
+### dark, active (106 cells, rrect-lg apart)
+  impulse (enc mean 0.004)           n   6  p10   -0.089  median   +0.016  p90   +0.334  up/down 4/2
+  dark-solid (enc mean 0.110)        n  18  p10   +0.000  median   +0.000  p90   +0.080  up/down 8/0
+  mid-dark-solid (enc mean 0.271)    n   6  p10   +0.000  median   +0.000  p90   +0.908  up/down 2/0
+  photo (enc mean 0.425)             n   8  p10   -0.046  median   -0.023  p90   +2.343  up/down 2/6
+  checkerboard-64 (enc mean 0.472)   n  10  p10   -0.492  median   -0.103  p90   +1.596  up/down 4/6
+  checkerboard (enc mean 0.500)      n   6  p10   -3.001  median   -0.890  p90   -0.088  up/down 0/6
+  checkerboard-32 (enc mean 0.500)   n  10  p10   -2.495  median   -0.981  p90   +0.311  up/down 2/8
+  checkerboard-4 (enc mean 0.500)    n  10  p10   -2.690  median   -0.105  p90   +3.211  up/down 4/6
+  checkerboard-8 (enc mean 0.500)    n  10  p10   -2.977  median   -0.115  p90   +3.133  up/down 4/6
+  checkerboard-lc16 (enc mean 0.700) n   8  p10   -1.841  median   +3.736  p90   +5.695  up/down 4/4
+  hc-text (enc mean 0.740)           n   2  p10   +0.238  median   +0.330  p90   +0.330  up/down 2/0
+  hc-text-7 (enc mean 0.751)         n   4  p10   -2.293  median   +1.803  p90   +2.089  up/down 2/2
+  hc-text-28 (enc mean 0.765)        n   4  p10   -7.235  median   -2.887  p90   -2.625  up/down 0/4
+  light-solid (enc mean 0.950)       n   2  p10   +0.000  median   +0.000  p90   +0.000  up/down 0/0
+  ALL                                n 104  p10   -2.690  median   +0.000  p90   +2.089  up/down 38/50
+  rrect-lg stratum                   n  26  p10   +0.188  median   +3.360  p90   +6.124  up/down 25/1
+
+### dark, inactive (80 cells, rrect-lg apart)
+  impulse (enc mean 0.004)           n   4  p10   -0.116  median   -0.008  p90   +0.009  up/down 1/3
+  dark-solid (enc mean 0.110)        n  14  p10   +0.000  median   +0.000  p90   +0.000  up/down 2/0
+  mid-chroma-solid (enc mean 0.255)  n   6  p10   +0.000  median   +0.000  p90   +1.314  up/down 2/0
+  mid-dark-solid (enc mean 0.271)    n   6  p10   +0.000  median   +0.000  p90   +1.000  up/down 2/0
+  photo (enc mean 0.425)             n  10  p10   -0.332  median   -0.111  p90   +3.134  up/down 4/6
+  checkerboard-64 (enc mean 0.472)   n   2  p10   +0.867  median   +1.372  p90   +1.372  up/down 2/0
+  checkerboard (enc mean 0.500)      n   8  p10   -2.184  median   +1.321  p90   +2.958  up/down 4/4
+  checkerboard-4 (enc mean 0.500)    n   2  p10   +2.446  median   +2.653  p90   +2.653  up/down 2/0
+  checkerboard-8 (enc mean 0.500)    n   2  p10   +2.458  median   +2.559  p90   +2.559  up/down 2/0
+  mid-light-solid (enc mean 0.549)   n   6  p10   +0.000  median   +0.000  p90   +3.711  up/down 2/0
+  checkerboard-lc16 (enc mean 0.700) n   4  p10   -0.718  median   +4.839  p90   +5.249  up/down 2/2
+  hc-text (enc mean 0.740)           n   2  p10   +0.545  median   +0.972  p90   +0.972  up/down 2/0
+  hc-text-7 (enc mean 0.751)         n   2  p10   +3.994  median   +4.131  p90   +4.131  up/down 2/0
+  hc-text-28 (enc mean 0.765)        n   2  p10   -0.195  median   +1.812  p90   +1.812  up/down 1/1
+  light-solid (enc mean 0.950)       n   6  p10   +0.000  median   +0.000  p90  +11.981  up/down 2/0
+  ALL                                n  76  p10   -0.332  median   +0.000  p90   +3.710  up/down 32/16
+  rrect-lg stratum                   n  22  p10   +0.000  median   +3.132  p90   +6.546  up/down 20/2
+
+## 2. The body level by component span, codes (memo F: the dark MaxLuma cap moves at s >= 80)
+### light, active
+  rrect-sm (s 32)                    n  28  p10  -13.328  median   -1.219  p90   +3.800  up/down 6/22
+  capsule-button (s 44)              n  60  p10   -6.762  median   -1.387  p90   -0.215  up/down 2/58
+  rrect-48 (s 48)                    n   2  p10  -13.521  median  -13.497  p90  -13.497  up/down 0/2
+  rrect-64 (s 64)                    n   2  p10  -13.622  median  -13.604  p90  -13.604  up/down 0/2
+  rrect-80 (s 80)                    n   2  p10  -13.337  median  -13.319  p90  -13.319  up/down 0/2
+  rrect-md (s 96)                    n  36  p10  -13.953  median   -4.056  p90   -2.160  up/down 0/36
+  rrect-md-clear20 (s 96)            n   2  p10  -11.740  median  -11.729  p90  -11.729  up/down 0/2
+  rrect-ml (s 128)                   n  20  p10  -14.738  median   -5.264  p90   -0.382  up/down 0/20
+  rrect-lg (s 160)                   n  32  p10  -14.130  median   -4.964  p90   -2.346  up/down 0/32
+
+### light, inactive
+  rrect-sm (s 32)                    n  12  p10  -14.000  median   -6.195  p90   -2.926  up/down 0/12
+  capsule-button (s 44)              n  44  p10  -13.996  median   -7.342  p90   -4.869  up/down 0/44
+  rrect-48 (s 48)                    n   2  p10  -14.000  median  -14.000  p90  -14.000  up/down 0/2
+  rrect-80 (s 80)                    n   2  p10  -14.000  median  -14.000  p90  -14.000  up/down 0/2
+  rrect-md (s 96)                    n  34  p10  -14.000  median   -7.135  p90   -5.415  up/down 0/34
+  rrect-md-clear20 (s 96)            n   2  p10  -11.817  median  -11.814  p90  -11.814  up/down 0/2
+  rrect-ml (s 128)                   n   8  p10  -15.452  median   -7.054  p90   -2.923  up/down 0/8
+  rrect-lg (s 160)                   n  24  p10  -13.978  median   -7.399  p90   -5.125  up/down 0/24
+
+### dark, active
+  rrect-sm (s 32)                    n  24  p10   -2.977  median   +0.000  p90   +0.334  up/down 6/12
+  capsule-button (s 44)              n  36  p10   -2.754  median   -0.104  p90   +0.000  up/down 0/30
+  rrect-48 (s 48)                    n   2  p10   +0.000  median   +0.000  p90   +0.000  up/down 0/0
+  rrect-64 (s 64)                    n   2  p10   +0.000  median   +0.000  p90   +0.000  up/down 0/0
+  rrect-80 (s 80)                    n   2  p10   +0.071  median   +0.077  p90   +0.077  up/down 2/0
+  rrect-md (s 96)                    n  22  p10   -1.064  median   +0.458  p90   +2.343  up/down 14/8
+  rrect-md-clear20 (s 96)            n   2  p10   +0.061  median   +0.066  p90   +0.066  up/down 2/0
+  rrect-ml (s 128)                   n  14  p10   +0.016  median   +1.514  p90   +5.503  up/down 14/0
+  rrect-lg (s 160)                   n  26  p10   +0.188  median   +3.360  p90   +6.124  up/down 25/1
+
+### dark, inactive
+  rrect-sm (s 32)                    n  10  p10   +0.000  median   +0.000  p90   +0.972  up/down 2/0
+  capsule-button (s 44)              n  28  p10   -1.728  median   +0.000  p90   +0.000  up/down 1/13
+  rrect-48 (s 48)                    n   2  p10   +0.000  median   +0.000  p90   +0.000  up/down 0/0
+  rrect-80 (s 80)                    n   2  p10   +0.000  median   +0.000  p90   +0.000  up/down 0/0
+  rrect-md (s 96)                    n  22  p10   +0.000  median   +2.075  p90   +4.131  up/down 19/1
+  rrect-md-clear20 (s 96)            n   2  p10   +0.000  median   +0.000  p90   +0.000  up/down 2/0
+  rrect-ml (s 128)                   n  10  p10   -0.106  median   +3.134  p90  +11.981  up/down 8/2
+  rrect-lg (s 160)                   n  22  p10   +0.000  median   +3.132  p90   +6.546  up/down 20/2
+
+## 3. Tone response by backdrop: the affine transfer of rendered against backdrop luminance
+### light, active
+  checkerboard         n  20  slope 0.082 -> 0.150  median offset change -0.0516 lin
+  checkerboard-32      n  10  slope 0.150 -> 0.233  median offset change -0.0622 lin
+  checkerboard-4       n  10  slope 0.040 -> 0.069  median offset change -0.0463 lin
+  checkerboard-64      n   8  slope 0.310 -> 0.377  median offset change -0.0519 lin
+  checkerboard-8       n  10  slope 0.047 -> 0.084  median offset change -0.0477 lin
+  checkerboard-lc16    n   8  slope 0.066 -> 0.123  median offset change -0.0446 lin
+  hc-text              n   8  slope 0.086 -> 0.160  median offset change -0.0179 lin
+  hc-text-28           n   4  slope 0.193 -> 0.331  median offset change -0.0811 lin
+  hc-text-7            n   4  slope 0.094 -> 0.161  median offset change -0.0479 lin
+  impulse              n  10  slope 0.126 -> 0.199  median offset change -0.0532 lin
+  photo                n  24  slope 0.530 -> 0.643  median offset change -0.0591 lin
+
+### light, inactive
+  checkerboard         n  20  slope 0.044 -> 0.073  median offset change -0.0510 lin
+  checkerboard-4       n   2  slope 0.006 -> 0.007  median offset change -0.0473 lin
+  checkerboard-64      n   2  slope 0.235 -> 0.269  median offset change -0.0505 lin
+  checkerboard-8       n   2  slope -0.001 -> -0.003  median offset change -0.0466 lin
+  checkerboard-lc16    n   4  slope 0.036 -> 0.061  median offset change -0.0426 lin
+  hc-text              n   8  slope 0.035 -> 0.046  median offset change -0.0428 lin
+  hc-text-28           n   2  slope 0.104 -> 0.140  median offset change -0.0559 lin
+  hc-text-7            n   2  slope 0.023 -> 0.028  median offset change -0.0427 lin
+  impulse              n   8  slope 0.022 -> 0.030  median offset change -0.0545 lin
+  photo                n  24  slope 0.466 -> 0.549  median offset change -0.0579 lin
+
+### dark, active
+  checkerboard         n   8  slope 0.035 -> 0.062  median offset change -0.0063 lin
+  checkerboard-32      n  10  slope 0.062 -> 0.094  median offset change -0.0161 lin
+  checkerboard-4       n  10  slope 0.019 -> 0.034  median offset change -0.0021 lin
+  checkerboard-64      n   8  slope 0.130 -> 0.153  median offset change -0.0121 lin
+  checkerboard-8       n  10  slope 0.023 -> 0.041  median offset change -0.0067 lin
+  checkerboard-lc16    n   8  slope 0.070 -> 0.115  median offset change +0.0187 lin
+  hc-text              n   2  slope 0.052 -> 0.088  median offset change -0.0093 lin
+  hc-text-28           n   4  slope 0.159 -> 0.231  median offset change -0.0398 lin
+  hc-text-7            n   4  slope 0.065 -> 0.099  median offset change -0.0022 lin
+  impulse              n   6  slope -0.016 -> 0.012  median offset change +0.0001 lin
+  photo                n   8  slope 0.412 -> 0.444  median offset change -0.0031 lin
+
+### dark, inactive
+  checkerboard         n  10  slope 0.014 -> 0.024  median offset change +0.0036 lin
+  checkerboard-4       n   2  slope 0.003 -> 0.004  median offset change +0.0079 lin
+  checkerboard-64      n   2  slope 0.099 -> 0.115  median offset change -0.0045 lin
+  checkerboard-8       n   2  slope -0.001 -> -0.002  median offset change +0.0085 lin
+  checkerboard-lc16    n   4  slope 0.091 -> 0.107  median offset change +0.0062 lin
+  hc-text              n   2  slope 0.022 -> 0.032  median offset change +0.0018 lin
+  hc-text-28           n   2  slope 0.043 -> 0.072  median offset change -0.0059 lin
+  hc-text-7            n   2  slope 0.007 -> 0.008  median offset change +0.0138 lin
+  photo                n  12  slope 0.425 -> 0.449  median offset change -0.0017 lin
+
+## 4. Scatter: the interior's spatial spread (interiorStdDev, lin), structured against solid
+### light, active
+  checkerboard         structured n  20  stdDev 0.0929 -> 0.1501  median ratio 1.692
+  checkerboard-32      structured n  10  stdDev 0.1103 -> 0.1817  median ratio 1.566
+  checkerboard-4       structured n  10  stdDev 0.0514 -> 0.0784  median ratio 1.527
+  checkerboard-64      structured n  10  stdDev 0.1872 -> 0.2341  median ratio 1.222
+  checkerboard-8       structured n  10  stdDev 0.0603 -> 0.0991  median ratio 1.642
+  checkerboard-lc16    structured n   8  stdDev 0.0566 -> 0.0758  median ratio 1.347
+  dark-solid           solid      n  20  stdDev 0.0257 -> 0.0229  median ratio 0.892
+  hc-text              structured n   8  stdDev 0.0953 -> 0.1595  median ratio 1.577
+  hc-text-28           structured n   4  stdDev 0.1068 -> 0.1835  median ratio 1.743
+  hc-text-7            structured n   4  stdDev 0.0906 -> 0.1447  median ratio 1.597
+  impulse              structured n  10  stdDev 0.0282 -> 0.0288  median ratio 1.115
+  light-solid          solid      n  10  stdDev 0.0186 -> 0.0196  median ratio 1.054
+  mid-chroma-solid     solid      n   6  stdDev 0.0126 -> 0.0095  median ratio 0.792
+  mid-dark-solid       solid      n   6  stdDev 0.0343 -> 0.0311  median ratio 0.926
+  photo                structured n  24  stdDev 0.0598 -> 0.0675  median ratio 1.123
+
+### light, inactive
+  checkerboard         structured n  20  stdDev 0.0467 -> 0.0695  median ratio 1.491
+  checkerboard-4       structured n   2  stdDev 0.0207 -> 0.0192  median ratio 0.930
+  checkerboard-64      structured n   2  stdDev 0.1575 -> 0.1927  median ratio 1.223
+  checkerboard-8       structured n   2  stdDev 0.0206 -> 0.0194  median ratio 0.944
+  checkerboard-lc16    structured n   4  stdDev 0.0278 -> 0.0349  median ratio 1.283
+  dark-solid           solid      n  16  stdDev 0.0157 -> 0.0124  median ratio 0.788
+  hc-text              structured n   8  stdDev 0.0459 -> 0.0578  median ratio 1.204
+  hc-text-28           structured n   2  stdDev 0.0844 -> 0.1060  median ratio 1.256
+  hc-text-7            structured n   2  stdDev 0.0565 -> 0.0629  median ratio 1.114
+  impulse              structured n   8  stdDev 0.0123 -> 0.0098  median ratio 0.811
+  light-solid          solid      n  10  stdDev 0.0110 -> 0.0102  median ratio 0.923
+  mid-chroma-solid     solid      n   6  stdDev 0.0107 -> 0.0079  median ratio 0.729
+  mid-dark-solid       solid      n   6  stdDev 0.0212 -> 0.0175  median ratio 0.824
+  photo                structured n  24  stdDev 0.0497 -> 0.0551  median ratio 1.110
+
+### dark, active
+  checkerboard         structured n   8  stdDev 0.0384 -> 0.0616  median ratio 1.453
+  checkerboard-32      structured n  10  stdDev 0.0532 -> 0.0816  median ratio 1.327
+  checkerboard-4       structured n  10  stdDev 0.0267 -> 0.0394  median ratio 1.387
+  checkerboard-64      structured n  10  stdDev 0.0704 -> 0.0856  median ratio 1.097
+  checkerboard-8       structured n  10  stdDev 0.0319 -> 0.0491  median ratio 1.435
+  checkerboard-lc16    structured n   8  stdDev 0.0412 -> 0.0547  median ratio 1.295
+  dark-solid           solid      n  18  stdDev 0.0123 -> 0.0123  median ratio 1.000
+  hc-text              structured n   2  stdDev 0.0700 -> 0.1010  median ratio 1.444
+  hc-text-28           structured n   4  stdDev 0.0838 -> 0.1204  median ratio 1.577
+  hc-text-7            structured n   4  stdDev 0.0677 -> 0.0958  median ratio 1.416
+  impulse              structured n   6  stdDev 0.0218 -> 0.0226  median ratio 1.026
+  light-solid          solid      n   2  stdDev 0.0390 -> 0.0390  median ratio 1.000
+  mid-dark-solid       solid      n   6  stdDev 0.0201 -> 0.0201  median ratio 1.000
+  photo                structured n   8  stdDev 0.0461 -> 0.0483  median ratio 1.047
+
+### dark, inactive
+  checkerboard         structured n  10  stdDev 0.0164 -> 0.0276  median ratio 1.470
+  checkerboard-4       structured n   2  stdDev 0.0083 -> 0.0089  median ratio 1.077
+  checkerboard-64      structured n   2  stdDev 0.0695 -> 0.0881  median ratio 1.267
+  checkerboard-8       structured n   2  stdDev 0.0083 -> 0.0090  median ratio 1.093
+  checkerboard-lc16    structured n   4  stdDev 0.0145 -> 0.0213  median ratio 1.464
+  dark-solid           solid      n   2  stdDev 0.0029 -> 0.0029  median ratio 1.000
+  hc-text              structured n   2  stdDev 0.0252 -> 0.0309  median ratio 1.226
+  hc-text-28           structured n   2  stdDev 0.0290 -> 0.0513  median ratio 1.770
+  hc-text-7            structured n   2  stdDev 0.0162 -> 0.0193  median ratio 1.212
+  impulse              structured n   4  stdDev 0.0003 -> 0.0008  median ratio 2.972
+  light-solid          solid      n   6  stdDev 0.0032 -> 0.0032  median ratio 1.000
+  mid-chroma-solid     solid      n   6  stdDev 0.0037 -> 0.0039  median ratio 1.000
+  mid-dark-solid       solid      n   6  stdDev 0.0008 -> 0.0008  median ratio 1.000
+  mid-light-solid      solid      n   6  stdDev 0.0229 -> 0.0229  median ratio 1.000
+  photo                structured n  12  stdDev 0.0427 -> 0.0450  median ratio 1.134
+
+## 5. The body's chroma (tintChroma, OKLab chroma of the interior), untinted cells
+### light, active
+  checkerboard         n  16  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-32      n   8  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-4       n   8  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-64      n   8  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-8       n   8  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-lc16    n   8  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  dark-solid           n  16  chroma 0.0027 -> 0.0032  median ratio (where >= 0.005) nan
+  hc-text              n   6  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  hc-text-28           n   4  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  hc-text-7            n   4  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  impulse              n   8  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  light-solid          n   8  chroma 0.0063 -> 0.0067  median ratio (where >= 0.005) 1.057
+  mid-chroma-solid     n   4  chroma 0.2470 -> 0.2701  median ratio (where >= 0.005) 1.096
+  mid-dark-solid       n   6  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  photo                n  16  chroma 0.0256 -> 0.0273  median ratio (where >= 0.005) 1.130
+
+### light, inactive
+  checkerboard         n  16  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-4       n   2  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-64      n   2  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-8       n   2  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-lc16    n   4  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  dark-solid           n  12  chroma 0.0029 -> 0.0030  median ratio (where >= 0.005) nan
+  hc-text              n   6  chroma 0.0000 -> 0.0001  median ratio (where >= 0.005) nan
+  hc-text-28           n   2  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  hc-text-7            n   2  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  impulse              n   6  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  light-solid          n   8  chroma 0.0054 -> 0.0067  median ratio (where >= 0.005) 1.252
+  mid-chroma-solid     n   4  chroma 0.2528 -> 0.2754  median ratio (where >= 0.005) 1.089
+  mid-dark-solid       n   6  chroma 0.0000 -> 0.0012  median ratio (where >= 0.005) nan
+  photo                n  16  chroma 0.0226 -> 0.0265  median ratio (where >= 0.005) 1.173
+
+### dark, active
+  checkerboard         n   6  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-32      n   8  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-4       n   8  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-64      n   8  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-8       n   8  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-lc16    n   8  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  dark-solid           n  16  chroma 0.0040 -> 0.0040  median ratio (where >= 0.005) nan
+  hc-text              n   2  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  hc-text-28           n   4  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  hc-text-7            n   4  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  impulse              n   6  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  light-solid          n   2  chroma 0.0060 -> 0.0060  median ratio (where >= 0.005) 1.000
+  mid-dark-solid       n   6  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  photo                n   6  chroma 0.0458 -> 0.0455  median ratio (where >= 0.005) 0.992
+
+### dark, inactive
+  checkerboard         n   8  chroma 0.0002 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-4       n   2  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  checkerboard-64      n   2  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-8       n   2  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  checkerboard-lc16    n   4  chroma 0.0006 -> 0.0001  median ratio (where >= 0.005) nan
+  hc-text              n   2  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  hc-text-28           n   2  chroma 0.0001 -> 0.0001  median ratio (where >= 0.005) nan
+  hc-text-7            n   2  chroma 0.0001 -> 0.0000  median ratio (where >= 0.005) nan
+  impulse              n   4  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  light-solid          n   6  chroma 0.0070 -> 0.0070  median ratio (where >= 0.005) 1.000
+  mid-chroma-solid     n   4  chroma 0.3213 -> 0.3213  median ratio (where >= 0.005) 1.003
+  mid-dark-solid       n   6  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  mid-light-solid      n   6  chroma 0.0000 -> 0.0000  median ratio (where >= 0.005) nan
+  photo                n  10  chroma 0.0284 -> 0.0275  median ratio (where >= 0.005) 0.961
+
+## 6. Rim and highlight on uniform backdrops (both readers subtract the body), lin
+### light, active (42 uniform-backdrop cells)
+  rim excess per side (W23)      +0.0777 -> +0.0724   median change -0.0037
+  highlight brightest bin (W24)  +0.1221 -> +0.1157   median change -0.0059
+  highlight dimmest bin          -0.0055 -> -0.0042   median change +0.0009
+
+### light, inactive (38 uniform-backdrop cells)
+  rim excess per side (W23)      +0.0000 -> +0.0000   median change -0.0000
+  highlight brightest bin (W24)  +0.0001 -> +0.0001   median change +0.0000
+  highlight dimmest bin          +0.0001 -> +0.0001   median change +0.0000
+
+### dark, active (26 uniform-backdrop cells)
+  rim excess per side (W23)      +0.0450 -> +0.0450   median change +0.0000
+  highlight brightest bin (W24)  +0.0780 -> +0.0781   median change +0.0000
+  highlight dimmest bin          -0.0004 -> -0.0004   median change +0.0000
+
+### dark, inactive (38 uniform-backdrop cells)
+  rim excess per side (W23)      +0.0000 -> +0.0000   median change +0.0000
+  highlight brightest bin (W24)  +0.0000 -> +0.0000   median change +0.0000
+  highlight dimmest bin          +0.0000 -> +0.0000   median change +0.0000
+
+## 7. The exterior: cells whose bands are byte-identical, and the largest code difference
+  held-in  light active    near-exterior 0/160 identical, max 9, med signed -0.00015; exterior 160/160 identical, max 0, med signed +0.00000; far 160/160 identical, max 0, med signed +0.00000
+  held-in  light inactive  near-exterior 0/112 identical, max 10, med signed -0.00027; exterior 112/112 identical, max 0, med signed +0.00000; far 112/112 identical, max 0, med signed +0.00000
+  held-in  dark  active    near-exterior 22/106 identical, max 9, med signed +0.00000; exterior 105/106 identical, max 1, med signed +0.00000; far 106/106 identical, max 0, med signed +0.00000
+  held-in  dark  inactive  near-exterior 28/80 identical, max 11, med signed +0.00000; exterior 80/80 identical, max 0, med signed +0.00000; far 80/80 identical, max 0, med signed +0.00000
+  rrect-lg light active    near-exterior 0/32 identical, max 112, med signed -0.00005; exterior 31/32 identical, max 1, med signed +0.00000; far 31/32 identical, max 1, med signed +0.00000
+  rrect-lg light inactive  near-exterior 0/24 identical, max 83, med signed -0.00007; exterior 24/24 identical, max 0, med signed +0.00000; far 24/24 identical, max 0, med signed +0.00000
+  rrect-lg dark  active    near-exterior 0/26 identical, max 47, med signed +0.00095; exterior 26/26 identical, max 0, med signed +0.00000; far 26/26 identical, max 0, med signed +0.00000
+  rrect-lg dark  inactive  near-exterior 0/22 identical, max 60, med signed +0.00192; exterior 22/22 identical, max 0, med signed +0.00000; far 22/22 identical, max 0, med signed +0.00000
+
+Shadow readings (shadowField), held-in cells, reference -> subject medians:
+  light active    mean departure +0.00075 -> +0.00075 (n 160)  strength peak 0.3427 -> 0.3442 (n 130)  falloff sigma 8.57 -> 8.57 px (n 111)
+  light inactive  mean departure +0.00066 -> +0.00066 (n 112)  strength peak 0.4559 -> 0.4618 (n 88)
+  dark  active    mean departure +0.00046 -> +0.00046 (n 106)  strength peak 0.2683 -> 0.2692 (n 82)  falloff sigma 8.87 -> 8.90 px (n 71)
+  dark  inactive  mean departure +0.00061 -> +0.00061 (n 80)  strength peak 0.5408 -> 0.5285 (n 62)
+
+## 8. Tint shade, tinted cells: the tint's lightness (tintDeltaL) and chroma, by tint
+  light active   blue    n  6  dL -0.0200 -> -0.0255  chroma 0.1933 -> 0.1923
+  light active   orange  n 24  dL -0.0716 -> -0.0729  chroma 0.1653 -> 0.1648
+  light active   orange-half n  2  dL +0.1485 -> +0.1353  chroma 0.1007 -> 0.1000
+  light inactive blue    n  6  dL +0.1103 -> +0.0855  chroma 0.0015 -> 0.0015
+  light inactive orange  n 16  dL +0.1047 -> +0.0799  chroma 0.0028 -> 0.0041
+  light inactive orange-half n  2  dL +0.1528 -> +0.1290  chroma 0.0187 -> 0.0218
+  dark  active   orange  n 14  dL -0.0215 -> -0.0219  chroma 0.1685 -> 0.1690
+  dark  inactive orange  n  8  dL +0.0656 -> +0.0645  chroma 0.0186 -> 0.0191
+
+## 9. The recede: (inactive − active) at each position, and their difference
+  light 1x  bodyLevel        n  52  recede at 0.5 -0.0310  at 0.25 -0.0366  median difference -0.0151
+  light 1x  rimContourMean   n  52  recede at 0.5 -0.0850  at 0.25 -0.0767  median difference +0.0039
+  light 1x  highlightPeak    n  52  recede at 0.5 -0.0232  at 0.25 -0.0264  median difference +0.0091
+  light 1x  interiorStdDev   n  56  recede at 0.5 -0.0115  at 0.25 -0.0137  median difference -0.0022
+  light 1x  tintChroma       n  56  recede at 0.5 -0.0000  at 0.25 -0.0000  median difference +0.0001
+  light 2x  bodyLevel        n  52  recede at 0.5 -0.0317  at 0.25 -0.0375  median difference -0.0142
+  light 2x  rimContourMean   n  52  recede at 0.5 -0.0863  at 0.25 -0.0803  median difference +0.0037
+  light 2x  highlightPeak    n  52  recede at 0.5 -0.0258  at 0.25 -0.0185  median difference +0.0127
+  light 2x  interiorStdDev   n  56  recede at 0.5 -0.0127  at 0.25 -0.0151  median difference -0.0020
+  light 2x  tintChroma       n  56  recede at 0.5 -0.0000  at 0.25 -0.0000  median difference +0.0001
+  dark  1x  bodyLevel        n  28  recede at 0.5 -0.0130  at 0.25 -0.0123  median difference +0.0000
+  dark  1x  rimContourMean   n  28  recede at 0.5 -0.0633  at 0.25 -0.0655  median difference +0.0000
+  dark  1x  highlightPeak    n  28  recede at 0.5 -0.0681  at 0.25 -0.0681  median difference +0.0000
+  dark  1x  interiorStdDev   n  23  recede at 0.5 -0.0184  at 0.25 -0.0211  median difference -0.0005
+  dark  1x  tintChroma       n  23  recede at 0.5 -0.0000  at 0.25 -0.0000  median difference +0.0000
+  dark  2x  bodyLevel        n  28  recede at 0.5 -0.0134  at 0.25 -0.0130  median difference +0.0000
+  dark  2x  rimContourMean   n  28  recede at 0.5 -0.0689  at 0.25 -0.0721  median difference +0.0000
+  dark  2x  highlightPeak    n  28  recede at 0.5 +0.0126  at 0.25 +0.0084  median difference +0.0000
+  dark  2x  interiorStdDev   n  23  recede at 0.5 -0.0181  at 0.25 -0.0211  median difference -0.0005
+  dark  2x  tintChroma       n  23  recede at 0.5 -0.0000  at 0.25 -0.0000  median difference +0.0000
+

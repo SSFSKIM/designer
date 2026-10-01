@@ -78,8 +78,8 @@ import { declaredComponentOf, componentRegionFor, readSceneGeometry } from "./sc
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
-const REFERENCE = resolve(REPO_ROOT, "apps", "reference-apple");
-const FIXTURES = resolve(REFERENCE, "fixtures");
+export const REFERENCE = resolve(REPO_ROOT, "apps", "reference-apple");
+export const FIXTURES = resolve(REFERENCE, "fixtures");
 
 const say = (line: string): void => void process.stdout.write(`${line}\n`);
 
@@ -87,30 +87,30 @@ const say = (line: string): void => void process.stdout.write(`${line}\n`);
 // The manifest, the beds and the pairing
 // ---------------------------------------------------------------------------
 
-interface FixtureEntry {
+export interface FixtureEntry {
   readonly sceneId: string;
   readonly file: string;
   readonly fixtureSet: string;
 }
 
-interface ProfileEntry {
+export interface ProfileEntry {
   readonly profileKey: string;
   readonly colorScheme: "light" | "dark";
   readonly a11yMode: string;
   readonly fixtures: readonly FixtureEntry[];
 }
 
-interface Manifest {
+export interface Manifest {
   readonly backgrounds: Readonly<Record<string, string>>;
   readonly profiles: readonly ProfileEntry[];
 }
 
-function readJson<T>(path: string): T {
+export function readJson<T>(path: string): T {
   if (!existsSync(path)) throw new Error(`native-delta: ${path} does not exist`);
   return JSON.parse(readFileSync(path, "utf8")) as T;
 }
 
-const load = (path: string): CalibrationImage => decodePng(readFileSync(path));
+export const load = (path: string): CalibrationImage => decodePng(readFileSync(path));
 
 function backgroundOf(
   manifest: Manifest,
@@ -127,14 +127,14 @@ function backgroundOf(
   );
 }
 
-interface CellContext {
+export interface CellContext {
   readonly geometry: CellGeometry;
   readonly background: CalibrationImage;
   readonly backgroundId: string;
   readonly scale: number;
 }
 
-function contextFor(
+export function contextFor(
   sceneId: string,
   profileKey: string,
   manifest: Manifest,
@@ -194,10 +194,10 @@ export const CAPTURE_READINGS = [
   "tintChroma",
   "silhouetteAreaPx",
 ] as const;
-type CaptureReadingName = (typeof CAPTURE_READINGS)[number];
-type CaptureReadingVector = Readonly<Record<CaptureReadingName, number | null>>;
+export type CaptureReadingName = (typeof CAPTURE_READINGS)[number];
+export type CaptureReadingVector = Readonly<Record<CaptureReadingName, number | null>>;
 
-function captureReadings(
+export function captureReadings(
   image: CalibrationImage,
   reading: CaptureReading,
   context: CellContext,
@@ -250,7 +250,7 @@ function captureReadings(
 // The noise bar
 // ---------------------------------------------------------------------------
 
-interface Distribution {
+export interface Distribution {
   readonly n: number;
   readonly min: number;
   readonly median: number;
@@ -271,7 +271,7 @@ function distributionOf(values: readonly number[]): Distribution | null {
   };
 }
 
-interface BarCell {
+export interface BarCell {
   readonly profileKey: string;
   readonly sceneId: string;
   readonly pose: "active" | "inactive";
@@ -284,7 +284,7 @@ interface BarCell {
   readonly readingSpread: Readonly<Partial<Record<CaptureReadingName, number>>>;
 }
 
-interface BarFile {
+export interface BarFile {
   readonly generatedAt: string;
   readonly construction: string;
   readonly rule: string;
@@ -575,7 +575,7 @@ interface RecedeRow {
 }
 
 /** The backdrop's own encoded mean, which is how the tone-response law groups cells. */
-function encodedMeanOf(image: CalibrationImage): number {
+export function encodedMeanOf(image: CalibrationImage): number {
   const count = image.width * image.height;
   let sum = 0;
   for (let i = 0; i < count; i += 1) {
@@ -1334,7 +1334,7 @@ function buildTables(dir: string, barPath: string): void {
  * here is WHERE the two beds differ and by how much, which an amplified
  * magnitude shows directly.
  */
-function writeSheet(path: string, columns: readonly CalibrationImage[]): void {
+export function writeSheet(path: string, columns: readonly CalibrationImage[]): void {
   const gap = 8;
   const width = columns.reduce((sum, image) => sum + image.width, 0) + gap * (columns.length - 1);
   const height = Math.max(...columns.map((image) => image.height));
@@ -1358,7 +1358,7 @@ function writeSheet(path: string, columns: readonly CalibrationImage[]): void {
   writeFileSync(path, PNG.sync.write(png));
 }
 
-function amplifiedDifference(a: CalibrationImage, b: CalibrationImage, gain: number): CalibrationImage {
+export function amplifiedDifference(a: CalibrationImage, b: CalibrationImage, gain: number): CalibrationImage {
   const count = a.width * a.height;
   const data = new Uint8Array(count * 4);
   for (let i = 0; i < count; i += 1) {
@@ -1672,9 +1672,20 @@ function main(): void {
   throw new Error("native-delta: one of verify-readers | bar | delta | tables | sheets");
 }
 
-try {
-  main();
-} catch (error) {
-  process.stderr.write(`native-delta: ${error instanceof Error ? error.message : String(error)}\n`);
-  process.exit(1);
+/*
+ * Run only when invoked as a script. W43 G2's slider reading (`cli/slider-delta.ts`) imports the
+ * per-capture readings, the cell context and the bar file's shape from here, so that its bar and
+ * its delta are the same function of a pair of captures as this instrument's (the reason the bar
+ * declaration gives for porting the rim readers rather than shelling out to them). An import must
+ * therefore not run this file's command line.
+ */
+const invokedAsScript =
+  process.argv[1] !== undefined && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (invokedAsScript) {
+  try {
+    main();
+  } catch (error) {
+    process.stderr.write(`native-delta: ${error instanceof Error ? error.message : String(error)}\n`);
+    process.exit(1);
+  }
 }

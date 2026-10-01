@@ -43477,3 +43477,321 @@ before any `materialize --apply`.
 - **Not attributed: the 0.25 bed's unanimity, where the 0.5 bed through the original bundle had
   voted and frequency-settled cells.** It may be the position, the bundle or the night. G2 states
   the bar it reads the native delta against before the first pair.
+
+## 5.200 W43 G2 stage one, the reading: Apple's slider moved the body and its first two CSS px and nothing outside them; the bar is the 0.5 side's because the 0.25 side's is zero; S1 as chartered fails Apple itself; Decision Log 7 drafted (2026-10-02)
+
+Evidence directory: `results/2026-10-02-w43-g2-reading/`, on branch `w43-g2-reading` off `41c24b45`.
+Charter: G2's first stage, (a), (b), (f) and (e); clauses 3 and 7; X3, X43, X44 and X45. **No vitrea
+change:** nothing under `packages/*/src`, no profile document, no generation file, no fixture, no
+runtime constant, and no native capture. The 26.5 freeze reads **1,818** and X41 **911** at the
+opening and at the close (`bar/opening-checks.txt`, `close-checks.txt`).
+
+The directory holds:
+- the bar, declared and hashed before any pair (`bar/`);
+- the bridges read (`bridges/`);
+- the native delta with its verdicts, law tables and eye sheets (`delta/`);
+- S1 on the perfect-endpoint null (`s1/`);
+- the Decision Log 7 draft (`decision-log-7-draft.md`).
+
+The raw runs stay on the capture machine: G1a's under `~/vitrea-w43/g1a-run`, W29's under
+`~/vitrea-w29-27-run`.
+
+### 1. The instrument (X45: it names the position it reads)
+
+`cli/slider-delta.ts` is W29 G2's driver re-keyed to the pair (`-glass0.25`, `-glass0.5`). It
+imports `readCapture`, `pairMetrics` (W29 G2's 32 metrics and G3b's 17 shadow metrics),
+`captureReadings` (the 13 signed readings the recede is built from) and `contextFor` from
+`cli/native-delta.ts`. So the bar and the delta are one function of a pair of captures.
+`native-delta.ts` gains exports and a run-as-script guard only. `sliderCounterpartKey` moves the
+slider token, and refuses a key with none or at the same position. `test/slider-delta.test.ts`
+pins the pairing to `scenes.json` (every 0.25 key onto a 0.5 key with the identical scene list), the
+two-sided bar's arithmetic and the radial profile. The calibration suite reads 62 files and 847
+tests green, and lint is clean.
+
+The reference side of every pair is the 0.5 fixture, and every signed reading is `[0.5, 0.25]`.
+Beside the 49 metrics, each row carries a **radial difference profile**: where the two captures
+differ, by band of signed distance from the declared contour (deep ≤ −6 CSS px, shoulder, edge
+(−2, 0], near exterior (0, 2], exterior (2, 12], far). It is descriptive, never a verdict.
+
+### 2. The bar, declared before the first pair (clause 7)
+
+`bar/bar-declaration.md`, SHA-256 **`a8659d7e3f550f690942792d4e77aaa86df3c2bfe30790ff481a202d273c200d`**
+(`bar/bar-declaration.sha256`, commit `97526a2e`), pins the instrument, the rule (`verdicts.py`) and
+every input by SHA-256. It has not been edited since.
+
+- **The 0.25 side's own run-to-run distribution is degenerate at zero.** The native delta's `bar`
+  command over G1a's admitted runs, 562 cells × 21 run pairs, gives **22,427 cell-metric
+  distributions, every one exactly 0**, and every one of the 13 reading spreads is 0. There is no
+  non-zero spread anywhere, so its own rule yields a bar of exactly zero. By bytes, 562 of 562
+  cells are unanimous (`bar/raw-states.txt`). Seven runs still miss a one-in-six minority state
+  with probability 0.28 per cell.
+- **The 0.5 side's W29 bar, recorded beside it:** W29 G3b's `noise-bar.json` (49 metrics; it
+  reproduces G2's 32). On the 562 standard cells, 103 spread and 459 are unanimous, the same 103
+  that carry two raw states by bytes (94 voted and 9 frequency-settled at W29). On the level and
+  material primaries, the own spreads have medians of 4.8e-7 (`bodyLevelDelta`) to 2.7e-4
+  (`highlightBinDeltaMax`). W29's bed minimums run from 5.6e-16 to 4.6e-6 on the level and
+  material rows. Ten metrics have no spread in W29's bed and bar at zero.
+- **Declared:** per cell and metric, the verdict bar is the **larger of the two sides'** three-level
+  bounds. Here that equals their sum, the 0.25 side being zero, so the 0.5 side sets every judged
+  bar. The recede takes the larger side's summed spreads. A "moved" on the 459 cells unanimous on
+  both sides therefore means "differs at all", so every verdict prints its magnitudes.
+- **The per-law rule** (`verdicts.py`):
+  - each law reads one primary metric over a declared population, with rrect-lg held out as its
+    own stratum (memo F's capture-scale step, §5.198 §7);
+  - MOVED at half the measured cells in either pose, NOT MOVED at none, MINORITY between;
+  - the canonical bridge null's largest value is printed beside each primary;
+  - attribution reads (healthy geometry, uniform-backdrop rim and highlight, the radial bands) are
+    descriptive.
+- **Rehearsed before the hash.**
+  - On W29's 26.5-against-27 standard rows, every material law reads MOVED, and so do silhouette
+    and contour. W29 called the geometry unmoved on magnitude, and the attribution read reproduces
+    W29's numbers: a healthy median IoU complement of 3.3e-4 and the capsule at 17.92 → 17.95 px.
+  - On **144 bridge null pairs** (G1a's 0.5 side-bundle captures against the 0.5 fixtures), no law
+    reads MOVED. The canonical cells misread 5 of 72 pairs, on the two side-bundle states of §3; the
+    largest values are `bodyLevelDelta` 2.4e-9, `interiorMeanDelta` 8.1e-6 and
+    `highlightBinDeltaMax` 1.9e-4. The long-protocol sentinels misread 16 of 72.
+  - On **W29's 103 minority states** against their fixtures, none moved on any metric, and every
+    law reads NOT MOVED.
+
+### 3. (a) G1a's bridges read (clause 3; `bridges/bridges.txt`)
+
+**The 168 cell-runs:**
+
+| bridge | cell-runs | by bytes | by regions | worst region delta |
+| --- | ---: | ---: | ---: | ---: |
+| opening, W42 sentinels | 48 | 47 | 1 | 0.0 |
+| opening, canonical cells | 72 | 67 | 5 | 0.0 |
+| closing, W42 sentinels | 48 | 46 | 2 | 0.0 |
+| **all** | **168** | **160** | **8** | **0.0** |
+
+**Gap 1: is each region-only state among W29's own run states?** W29's seven raw runs per cell are
+on the capture machine, so no answer is UNMEASURED. There are 5 distinct (cell, state) pairs on 5
+cells: 3 are among W29's states, 2 are not.
+- **The three W42 sentinel states are W29's.** The sentinel cells are read through their canonical
+  twin, checkerboard-64 on rrect-lg.
+  - 1x dark `069ecad7…` is W29's 7-of-7 state and the 0.5 fixture's own bytes; the region-only
+    verdict was against W42's long-protocol frame.
+  - 1x light `10266071…` is the same: W29's 7-of-7 state and the fixture's bytes.
+  - 2x dark `24b99f39…` is W29's 3-of-7 state.
+  - All three are also W42's normal-protocol state and G0 (b)'s family F state.
+- **The two canonical states are not.**
+  - 1x light `dark-solid__capsule-button__rest`, all three runs on `7eb081da…`: W29 read
+    `c4733c8e…` 7 of 7. It is 22 px at ≤ 2 codes, 14 at the edge and 8 just outside it.
+  - 2x dark `checkerboard__capsule-button__rest-tint-orange`, runs 2–3 on `c79a194c…`: W29 read
+    `4e148f09…` 7 of 7. It is 30 px at ≤ 2 codes, mostly at the edge and just outside it.
+  - These are side-bundle (or night) states the original bundle never produced. This narrows §5.198
+    §3's "every state the side produced is one the original produced at W29", which was true of
+    family F's cells and is not of these two.
+- **Within the G1a night**, at 0.5 through the side bundle, 4 of 56 three-run bridge groups carried
+  two states: three long-protocol sentinels and the orange capsule above.
+
+**Gap 2: the 0.25 bed's unanimity, described and not explained.** W29's 0.5 bed carried 103
+two-state cells of 562 (no three-state cell); the minority state ran 1, 2 or 3 of 7 on 65, 29 and 9
+of them.
+- By shape, 58 of the 103 are rrect-lg (58 of 104 rrect-lg cells), the one shape whose declared
+  backdrop capture scale differs between the positions. The other 45 lie among the 458 other cells.
+- W29's two states differ by 1–3 codes, at the edge on 99 of 103 cells and just outside it on 97.
+  The median is 72 px differing per cell, and the most 583.
+- The 0.25 bed carries none, on rrect-lg or elsewhere. At the 0.5 bed's own rate on the other
+  shapes, 0 of 458 has probability 2.7e-21 under independence, so it is not a seven-run sampling
+  accident.
+- The side bundle produced second states at 0.5 on the G1a night and on 2026-09-30, so neither the
+  bundle nor the night is without them. The position is the factor the evidence leaves standing,
+  and nothing here identifies it.
+
+### 4. (b) The native delta, 0.25 against 0.5 (clause 7; `delta/`)
+
+**562 pair rows and 212 recede rows**: every canonical 0.25 cell with its 0.5 counterpart, both
+scales, schemes and poses. No cell is unpaired and none unbarred. Under the hashed rule
+(`delta/verdicts.txt`), with rrect-lg held apart:
+
+| law (primary) | verdict | moved, active / receded | median \|Δ\| active / receded | signed, up/down of moved | within the bridge null |
+| --- | --- | --- | --- | --- | --- |
+| silhouette (IoU complement) | **MINORITY** | 105/266, 84/180 | 0 / 0 | — | 0 |
+| contour (mean distance) | **MINORITY** | 105/266, 84/180 | 0 / 0 px | — | 0 |
+| interior level (`bodyLevel`) | **MOVED** | 240/256, 152/180 | 0.0086 / 0.033 lin | −0.0079 / −0.030; 46↑ 194↓, 32↑ 120↓ | 0 |
+| tone by backdrop (transfer slope) | **MOVED** | 194/194, 112/112 | 0.040 / 0.025 | +; 191↑ 3↓, 107↑ 5↓ | 0 |
+| scatter (interior spread, structured) | **MOVED** | 198/198, 115/116 | 0.014 / 0.0057 lin | +; 184↑ 14↓, 100↑ 15↓ | 1 |
+| chroma (body chroma, untinted) | **MOVED** | 206/220, 134/148 | 4.0e-5 / 4.4e-5 | ≈0; 88↑ 118↓, 83↑ 51↓ | 30, 21 |
+| rim band (W23 contour) | **MOVED** | 240/256, 130/180 | 0.0099 / 0.0010 | −0.0013 / 0 | 0, 17 |
+| highlight (W24 brightest bin) | **MOVED** | 240/256, 134/180 | 0.015 / 0.012 | — | 2, 13 |
+| exterior shadow (ring profile rms) | **MOVED** | 199/212, 134/150 | 6.9e-5 / 2.7e-4 | — | 6, 2 |
+| tint shade (tint ΔL, tinted) | **MOVED** | 44/46, 28/32 | 0.0018 / 0.024 | −; 0↑ 44↓, 0↑ 28↓ | 0 |
+| the recede (`bodyLevel` difference of differences) | **MOVED** | 146/160 | 0.0048 | −0.0026; 37↑ 109↓ | — |
+
+No law reads NOT MOVED. The magnitudes and the attribution reads (`delta/law-tables.txt`) say what
+the counts cannot:
+
+- **The body (interior level, tone).**
+  - The light body is darker: by a median 3.3 codes active and 7.3 receded, and 13–15 codes over
+    impulse and dark-solid.
+  - The dark body did not change on uniform backdrops below span 96: the deep band is
+    byte-identical on 42 of 44 cells, and the other two differ by one code.
+  - The dark body brightened 1.5–3.4 codes at spans 128 and 160, and 2.1 at 96 when receded.
+    That is memo F's dark MaxLuma cap relaxing at s ≥ 80.
+  - The transfer slope rises ×1.1–1.9 in both schemes (light checkerboard 0.082 → 0.150, photo
+    0.53 → 0.64). The light offset falls about 0.05 linear; the dark offset barely moves.
+- **Scatter.** The interior spread rises ×1.1–1.7 on most structured backdrops in both schemes. The
+  light receded fine checkers (pitch 4, 8) and impulse fall instead (×0.81–0.94). Dark solids read
+  ×1.00.
+- **Chroma.**
+  - The verdict's count rests mostly on near-neutral cells: the median is 4e-5, and 51 moved cells
+    lie within the bridge null.
+  - The reading that means something is on the chromatic backdrops. The light body carries 9 % more
+    of mid-chroma-solid's chroma (0.247 → 0.270) and 13–17 % more of photo's.
+  - The dark body carries the same (×0.96–1.00).
+- **Tint shade.** The light receded tint's lightness falls 0.025 OKLab L (orange 0.105 → 0.080).
+  Light active moves by −0.001 and dark by about 0.
+- **Rim and highlight, on uniform backdrops,** where both readers' subtraction of the body is
+  clean:
+  - the **dark** rim excess (0.0450 → 0.0450) and brightest bin (0.0780 → 0.0781) are unchanged;
+  - the **light active** rim excess falls 0.0777 → 0.0724 and the brightest bin 0.1221 → 0.1157
+    (about 5 %), with the body;
+  - no receded rim exists at either position.
+  - Memo F declares the highlight's inputs unchanged. The verdict reads the body under the edge.
+- **The exterior.**
+  - **From 2 CSS px outward the two captures are byte-identical on 457 of 458 held-in cells**; the
+    other differs by one code, in the exterior band. The far field is identical on all 458.
+  - The shadow field's mean departure agrees to five decimals. Its falloff σ reads 8.57 → 8.57 px
+    light and 8.87 → 8.90 dark. No shadow extent or offset moved on any active cell.
+  - The shadow verdict is therefore the rule reading the 0–2 CSS px rings, where the body's own edge
+    changed (median per-cell mean 0.05–0.12 codes, at most 9–11). **Apple's outer shadow did not
+    move.**
+- **The recede.**
+  - The light recede deepened: the recede's body change is a further −0.015 linear (1x) and −0.014
+    (2x).
+  - Its rim loss shrank (+0.004) and its highlight loss shrank (+0.009 / +0.013).
+  - The dark recede did not change (median 0.0000 on body, rim and highlight).
+- **The geometry.** The silhouette and contour verdicts are MINORITY at a median magnitude of 0.
+  Every component's implied corner radius is unchanged (capsule 17.99 → 17.95 px, the rest
+  identical), and there is no unhealthy cell: both silhouettes are within 2× everywhere. **The shape
+  did not move.**
+- **The rrect-lg stratum** moves like the rest in the body (light −5.0 codes active, −7.4 receded;
+  dark +3.4 and +3.1). Its first two exterior CSS px differ by up to 112 codes on structured
+  backdrops (1x light `hc-text-7`; 2x light `checkerboard-8` 80–83). That is the capture-scale step
+  at the edge, and no vitrea leaf models it.
+
+**The eye sheets** (`delta/sheets/`, 14 MB) give one page per profile at each scale, every cell as
+0.5 | 0.25 | |difference| ×4 | where any channel differs, plus 16 full-resolution triptychs. They
+were sent to the user's MacBook by Taildrop as one zip of **53,522,825 bytes** (SHA-256
+`f52e3ccc…9b45`), with the fixture trees the pages reference (`delta/sheets-sent.txt`). By eye: at
+0.25 the light body over dark backdrops is plainly darker and the impulses inside it sharper, and
+the body over the checkers carries more of their contrast. The dark body over photo differs only in
+its structure, faintly. Outside the contour the difference column is black. The rrect-lg edge on fine
+checkers shows the thin bright contour line the near-exterior rows count.
+
+### 5. (f) S1 on the perfect-endpoint null (`s1/s1-null.txt`)
+
+Apple's own 0.25 was put in vitrea's place against the current generation's 0.5 error, e = vitrea
+− Apple at 0.5, read two ways:
+- `interiorMean`, from the rows. The row's `interiorMeanNative` equals the native delta's
+  own-silhouette reading exactly on 599 reads.
+- `bodyLevel`, mask-free, read off the canonical capture tree, which `check-capture-tree` reads
+  exit 0 with 1,893 matches. This reader agrees with the native delta's to 1.5e-12.
+
+No vitrea render at 0.25 was made. Some cells could not be read:
+- 140 WebGPU non-holdout cells with an Apple reading have no 0.5 row: the generation carries no
+  row for the recorded cells or for 32 of each profile's 87 probe cells.
+- 14 have no Apple reading (composites and empty silhouettes).
+Both groups are UNMEASURED.
+
+- **S1 as chartered fails Apple itself, on both tiers and both readings.**
+  - On WebGPU `interiorMean`, 78 of 346 cells take the wrong sign and 279 leave [0.8, 1.2]. The
+    median ratio is 1.07, but the sign clause has failed.
+  - The wrong-sign cells are where Apple barely moved (median |ΔA| 0.0024 linear, against 0.036 on
+    in-band cells) and the shipped 0.5 render errs by more. 49 of the 78 are dark and 36 are
+    capsules; the checkers at pitch 64, 32 and 16 lead.
+  - The CSS tier reads 50 of 237 wrong-sign, and `bodyLevel` 63 of 340.
+- **The charter's example restatement is empty.** The cells where the shipped render is within the
+  bar of Apple number 0–2, because the bar is the run-to-run spread.
+- **The restatements, each read on the perfect-endpoint null and on an unmoved-endpoint anti-null:**
+  - **R2**, over the cells where |ΔA| exceeds both its bar and |e|, keeps 53 % (183 WebGPU and 125
+    CSS cells on `interiorMean`). The perfect endpoint passes with a pooled median ratio of
+    1.06 / 1.05 (`bodyLevel` 1.03 / 1.08), and the unmoved endpoint fails, read through the masks
+    G3 will read it through (§9). Per profile it passes everywhere but the 2x dark CSS tier's 2
+    cells. Its population is fixed now in `s1/r2-population.json`.
+  - **R1** (|e| ≤ 0.2|ΔA|) keeps 19 %, 12 of them dark on WebGPU.
+- **The restatement the map implies is R2.** S1 can only speak where the shipped 0.5 render's error
+  is smaller than Apple's own change, and where it does, the perfect endpoint passes.
+
+### 6. (e) Decision Log 7, drafted for the user (`decision-log-7-draft.md`)
+
+The draft puts eleven questions, each with a recommendation and the alternative that is sound, to
+be ruled before any vitrea render at 0.25.
+- **Refit, in order:**
+  1. the light body's level and tone, with its black branch, in both light documents;
+  2. the scatter in all four documents;
+  3. in dark, only the thick tone ordinates and the scatter;
+  4. the light chroma retention and the light receded tint shade, only if the first candidate
+     misses.
+- **Hold:** the rim, the highlight, every `outerShadow` leaf and the lens.
+- **rrect-lg** stays in the fit and the gate as its own stratum, and its edge is a named gap.
+- **Decision Log 5's bounds are re-instantiated at 0.25:**
+  - C1 should reproduce its 0.5 readings;
+  - X1 referees the black branch;
+  - M2 holds only in its directional form, because Apple's 0.25 texture is ×1.1–1.7 the 0.5's.
+- **S1 as R2.**
+
+### 7. Gaps, each recorded
+
+- **The bar contains no bundle term.** Two canonical cells carry side-bundle states the original
+  never produced (§3). On those, the per-cell bar misreads a zero slider change as "moved", by at
+  most 2.4e-9 on `bodyLevelDelta` and 1.9e-4 on `highlightBinDeltaMax`. Only the bridged cells
+  measure the term.
+- **The 0.25 side's bar is zero at seven runs' resolution.** A minority state seen once in six
+  captures would escape it with probability 0.28 per cell.
+- **The rule's shadow, rim and highlight verdicts read the body.** The shadow's MOVED is the 0–2 CSS
+  px rings, and the rim's and highlight's are relative to a body that moved. The attribution reads
+  separate them, but the per-law rule as hashed does not. The next declaration should give the
+  exterior a body-independent primary, the exterior band's identity or the ring profile from
+  2 CSS px out.
+- **The chroma verdict's count is near-neutral cells.** Its meaningful reading is on two
+  chromatic backdrops (mid-chroma-solid, photo) and is descriptive.
+- **The dark contour Apple draws outside its path** (W39) lies inside the 0–2 CSS px band and is not
+  read on its own here.
+- **The rrect-lg edge**, up to 112 codes near the contour on structured backdrops, comes from the
+  capture-scale step. No leaf carries it (X44), so it is a named gap for G3.
+- **S1's dark coverage is thin under R2:** 31 WebGPU dark cells of 138.
+- **The unanimity is not explained (§3).**
+
+### 8. What is not claimed
+
+- No vitrea render at 0.25, no fit, no bound adopted, no document. Decision Logs 5 and 7 are the
+  user's.
+- The w-test, the ladder and G1b's bridges are G2's second stage. Nothing here touches their
+  declaration (X47).
+- No accessibility state at 0.25 was read (Decision Log 2 (b)).
+
+### 9. Review closure (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `41c24b45`, head `2327eef4`) returned
+changes-needed with two P2 findings, both in S1's rehearsal and both accepted. It found the
+instrument, the declaration (hash and all 23 pins match), the commit order and the per-law verdicts
+sound, and `verdicts.py` replays every recorded result. The outputs first recorded are kept as
+`s1/s1-null.v1.txt` and `.json`. `s1-null.txt` and `.json` are regenerated beside them, and
+`r2-population.json` regenerates byte-identical.
+
+1. **The unmoved endpoint was asserted, not measured.** The first cut took its change as zero. On
+   `bodyLevel`, mask-free, that is exact. On `interiorMean` it is not: a matrix row measures its web
+   image through that row's native silhouette (`cli/measure.ts`, `interior = nativeSil`), so an
+   endpoint that renders vitrea's 0.5 pixels unchanged reads, at 0.25, the 0.5 web capture through
+   Apple's 0.25 silhouette.
+   - `s1/anti-null-reader.ts` reads exactly that for all 599 non-holdout tier-cells. Its read under
+     the 0.5 silhouette equals the row's `interiorMeanWeb` with a worst difference of 0 over 599
+     reads.
+   - On R2's cells the mask shift alone moves the unmoved endpoint on 98 of 183 WebGPU cells (38 of
+     them with Apple's sign) and 58 of 125 CSS cells (19).
+   - **It still fails every restatement on both readings and tiers.** Its median ratio is 0.000 and
+     its pooled ratio −0.016 to +0.001, so R0–R3's sign and ratio clauses refuse it, and R4 refuses
+     it per cell (item 2). The verdict first written stands, now as a measurement.
+2. **R4 read the change's error, not the endpoint's.** It tested |V − ΔA| ≤ |e| + bar where the
+   0.25 endpoint's error, V + e − ΔA, was meant. Corrected to |V + e − ΔA| ≤ |e| + bar:
+   - the perfect endpoint still passes everywhere (its error is 0);
+   - the unmoved endpoint fails, passing it on 19 of 183 WebGPU and 9 of 125 CSS cells on
+     `interiorMean`, and on 26 of 181 and 8 of 124 on `bodyLevel`;
+   - those are the cells where the unmoved endpoint's 0.25 error is no larger than the shipped 0.5
+     render's error.
+   - R4 is not the recommended restatement, and its row in the table moves only in those counts.
+
+Neither correction moves R2, the recommendation, the map, the Decision Log 7 draft's item 11 beyond
+naming the masks, or any number in §§1–4.

@@ -1,0 +1,196 @@
+# Per-law verdicts under the declared rule (verdicts.py), over ../../2026-09-19-w29-g3b-shadow-recede/native-delta.json
+
+557 pair rows; 104 in the held-out rrect-lg stratum; poses {'inactive': 234, 'active': 323}
+
+## silhouette  (primary silhouetteIoUComplement; population all; rrect-lg held out)
+  VERDICT: MOVED
+    silhouetteIoUComplement [active]    181/265  share 0.683  med|d| 3.082e-04  p90 9.511e-01  med signed —  up/down 0/0  med d/bar 5.320e+01
+    silhouetteIoUComplement [inactive]  130/162  share 0.802  med|d| 6.158e-04  p90 2.420e-02  med signed —  up/down 0/0  med d/bar 1.063e+02
+    silhouetteAreaDeltaPx [active]      172/265  share 0.649  med|d| 6.000e+00  p90 6.944e+03  med signed —  up/down 0/0  med d/bar 6.000e+00
+    silhouetteAreaDeltaPx [inactive]    119/162  share 0.735  med|d| 9.000e+00  p90 2.121e+03  med signed —  up/down 0/0  med d/bar 9.000e+00
+    rrect-lg stratum [active]            56/58   share 0.966  med|d| 5.707e-04  p90 5.667e-02  med signed —  up/down 0/0  med d/bar 7.879e+01
+    rrect-lg stratum [inactive]          39/42   share 0.929  med|d| 5.935e-04  p90 4.487e-03  med signed —  up/down 0/0  med d/bar 1.024e+02
+
+## contour  (primary contourDistanceMeanPx; population all; rrect-lg held out)
+  VERDICT: MOVED
+    contourDistanceMeanPx [active]      181/265  share 0.683  med|d| 1.087e-02  p90 1.802e+00  med signed —  up/down 0/0  med d/bar 1.850e+01
+    contourDistanceMeanPx [inactive]    130/162  share 0.802  med|d| 2.344e-02  p90 1.180e+00  med signed —  up/down 0/0  med d/bar 3.989e+01
+    contourDistanceP95Px [active]        84/265  share 0.317  med|d| 0.000e+00  p90 1.404e+01  med signed —  up/down 0/0  med d/bar 0.000e+00
+    contourDistanceP95Px [inactive]      52/162  share 0.321  med|d| 0.000e+00  p90 9.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    cornerCurvatureDeltaPerPx [active]  169/263  share 0.643  med|d| 4.624e-04  p90 5.796e+00  med signed 0.000e+00  up/down 97/72  med d/bar 2.003e+01
+    cornerCurvatureDeltaPerPx [inactive]  128/162  share 0.790  med|d| 1.790e-03  p90 7.142e-01  med signed 0.000e+00  up/down 66/62  med d/bar 7.826e+01
+    rrect-lg stratum [active]            56/58   share 0.966  med|d| 4.340e-02  p90 1.956e+00  med signed —  up/down 0/0  med d/bar 5.851e+01
+    rrect-lg stratum [inactive]          39/42   share 0.929  med|d| 4.750e-02  p90 2.450e-01  med signed —  up/down 0/0  med d/bar 8.084e+01
+
+## interior level  (primary bodyLevelDelta; population all; rrect-lg held out)
+  VERDICT: MOVED
+    bodyLevelDelta [active]             255/255  share 1.000  med|d| 6.768e-02  p90 1.875e-01  med signed 2.701e-03  up/down 142/113  med d/bar 1.092e+08
+    bodyLevelDelta [inactive]           178/178  share 1.000  med|d| 1.080e-01  p90 1.781e-01  med signed -5.939e-02  up/down 85/93  med d/bar 1.671e+08
+    interiorMeanDelta [active]          265/265  share 1.000  med|d| 7.096e-02  p90 1.877e-01  med signed -1.221e-03  up/down 128/137  med d/bar 7.212e+07
+    interiorMeanDelta [inactive]        162/162  share 1.000  med|d| 1.108e-01  p90 1.730e-01  med signed -7.649e-02  up/down 63/99  med d/bar 1.037e+08
+    rrect-lg stratum [active]            58/58   share 1.000  med|d| 1.014e-01  p90 1.672e-01  med signed -5.794e-03  up/down 28/30  med d/bar 4.232e+05
+    rrect-lg stratum [inactive]          46/46   share 1.000  med|d| 1.078e-01  p90 1.729e-01  med signed -6.498e-02  up/down 20/26  med d/bar 1.697e+08
+
+## tone by backdrop  (primary transferSlopeDelta; population all; rrect-lg held out)
+  VERDICT: MOVED
+    transferSlopeDelta [active]         193/193  share 1.000  med|d| 3.056e-02  p90 1.656e-01  med signed 3.609e-03  up/down 112/81  med d/bar 6.892e+05
+    transferSlopeDelta [inactive]       108/108  share 1.000  med|d| 4.909e-02  p90 1.486e-01  med signed -1.770e-03  up/down 48/60  med d/bar 4.042e+05
+    transferOffsetDelta [active]        193/193  share 1.000  med|d| 5.455e-02  p90 1.605e-01  med signed 2.285e-03  up/down 104/89  med d/bar 2.388e+06
+    transferOffsetDelta [inactive]      108/108  share 1.000  med|d| 1.044e-01  p90 1.566e-01  med signed -5.005e-02  up/down 39/69  med d/bar 4.052e+06
+    rrect-lg stratum [active]            44/44   share 1.000  med|d| 2.246e-02  p90 7.307e-02  med signed -2.577e-03  up/down 20/24  med d/bar 1.270e+04
+    rrect-lg stratum [inactive]          26/26   share 1.000  med|d| 2.204e-02  p90 1.356e-01  med signed -1.106e-03  up/down 12/14  med d/bar 3.124e+05
+
+## scatter  (primary interiorStdDevDelta; population structured; rrect-lg held out)
+  VERDICT: MOVED
+    interiorStdDevDelta [active]        197/197  share 1.000  med|d| 1.564e-02  p90 5.099e-02  med signed -3.937e-03  up/down 87/110  med d/bar 5.018e+06
+    interiorStdDevDelta [inactive]      114/114  share 1.000  med|d| 1.079e-02  p90 4.765e-02  med signed -5.127e-03  up/down 42/72  med d/bar 2.709e+06
+    rrect-lg stratum [active]            44/44   share 1.000  med|d| 1.329e-02  p90 3.889e-02  med signed -3.776e-03  up/down 16/28  med d/bar 1.835e+04
+    rrect-lg stratum [inactive]          28/28   share 1.000  med|d| 1.031e-02  p90 2.388e-02  med signed -8.354e-04  up/down 12/16  med d/bar 2.843e+06
+
+## chroma  (primary tintChromaDelta; population untinted; rrect-lg held out)
+  VERDICT: MOVED
+    tintChromaDelta [active]            219/219  share 1.000  med|d| 5.873e-05  p90 5.588e-03  med signed 3.779e-05  up/down 159/60  med d/bar 9.940e+10
+    tintChromaDelta [inactive]          130/130  share 1.000  med|d| 6.157e-05  p90 1.808e-02  med signed 4.474e-05  up/down 84/46  med d/bar 5.477e+10
+    rrect-lg stratum [active]            55/56   share 0.982  med|d| 1.239e-05  p90 2.561e-03  med signed 5.152e-06  up/down 38/17  med d/bar 5.536e+02
+    rrect-lg stratum [inactive]          40/40   share 1.000  med|d| 4.187e-05  p90 7.278e-02  med signed -1.786e-09  up/down 18/22  med d/bar 4.629e+10
+
+## rim band  (primary rimContourDeltaMax; population all; rrect-lg held out)
+  VERDICT: MOVED
+    rimContourDeltaMax [active]         255/255  share 1.000  med|d| 9.220e-02  p90 2.544e-01  med signed -7.588e-03  up/down 110/145  med d/bar 9.715e+06
+    rimContourDeltaMax [inactive]       143/178  share 0.803  med|d| 2.166e-03  p90 1.380e-01  med signed 7.794e-14  up/down 84/59  med d/bar 1.258e+05
+    rimLocalDeltaMax [active]           255/255  share 1.000  med|d| 7.530e-02  p90 2.552e-01  med signed —  up/down 0/0  med d/bar 6.595e+04
+    rimLocalDeltaMax [inactive]         109/178  share 0.612  med|d| 3.711e-03  p90 8.195e-02  med signed —  up/down 0/0  med d/bar 2.767e+03
+    rimRow0DeltaMax [active]            255/255  share 1.000  med|d| 9.510e-02  p90 2.355e-01  med signed —  up/down 0/0  med d/bar 1.542e+08
+    rimRow0DeltaMax [inactive]          143/178  share 0.803  med|d| 2.745e-03  p90 9.447e-02  med signed —  up/down 0/0  med d/bar 1.914e+06
+    rimPeakDelta [active]               263/265  share 0.992  med|d| 4.640e-02  p90 1.001e-01  med signed -4.069e-02  up/down 68/195  med d/bar 3.521e+06
+    rimPeakDelta [inactive]             128/162  share 0.790  med|d| 3.237e-03  p90 3.292e-02  med signed -7.807e-04  up/down 38/90  med d/bar 2.122e+05
+    rimPeakDepthDeltaPx [active]        108/265  share 0.408  med|d| 0.000e+00  p90 1.000e+00  med signed 0.000e+00  up/down 94/14  med d/bar 0.000e+00
+    rimPeakDepthDeltaPx [inactive]      126/162  share 0.778  med|d| 3.000e+00  p90 1.100e+01  med signed 1.000e+00  up/down 81/45  med d/bar inf
+    rimFwhmDeltaPx [active]             169/172  share 0.983  med|d| 8.250e-01  p90 1.952e+00  med signed 4.342e-01  up/down 120/49  med d/bar 6.525e+06
+    rimFwhmDeltaPx [inactive]           105/110  share 0.955  med|d| 1.120e+00  p90 3.090e+00  med signed 1.107e-01  up/down 59/46  med d/bar 6.656e+06
+    rrect-lg stratum [active]            58/58   share 1.000  med|d| 1.453e-01  p90 2.324e-01  med signed -1.794e-02  up/down 19/39  med d/bar 2.365e+04
+    rrect-lg stratum [inactive]          46/46   share 1.000  med|d| 3.736e-03  p90 1.386e-01  med signed 1.345e-03  up/down 35/11  med d/bar 1.323e+05
+
+## highlight  (primary highlightBinDeltaMax; population all; rrect-lg held out)
+  VERDICT: MOVED
+    highlightBinDeltaMax [active]       255/255  share 1.000  med|d| 1.589e-01  p90 4.178e-01  med signed —  up/down 0/0  med d/bar 1.663e+07
+    highlightBinDeltaMax [inactive]     156/178  share 0.876  med|d| 6.864e-02  p90 4.255e-01  med signed —  up/down 0/0  med d/bar 5.521e+06
+    highlightBinDeltaMean [active]      255/255  share 1.000  med|d| 7.262e-02  p90 1.827e-01  med signed —  up/down 0/0  med d/bar 7.558e+06
+    highlightBinDeltaMean [inactive]    156/178  share 0.876  med|d| 5.118e-02  p90 1.604e-01  med signed —  up/down 0/0  med d/bar 2.570e+06
+    highlightIntegralDeltaMax [active]  255/255  share 1.000  med|d| 2.665e-01  p90 5.832e-01  med signed —  up/down 0/0  med d/bar 5.810e+04
+    highlightIntegralDeltaMax [inactive]  178/178  share 1.000  med|d| 1.287e-01  p90 3.836e-01  med signed —  up/down 0/0  med d/bar 1.956e+04
+    highlightRatioDelta [active]         95/95   share 1.000  med|d| 1.159e+01  p90 2.141e+02  med signed 8.960e+00  up/down 71/24  med d/bar 1.358e+09
+    highlightRatioDelta [inactive]       36/50   share 0.720  med|d| 1.894e-01  p90 3.685e+02  med signed 1.394e-01  up/down 32/4  med d/bar 1.440e+07
+    highlightPeakAngleDeltaDeg [active]  126/255  share 0.494  med|d| 2.250e+01  p90 1.575e+02  med signed —  up/down 0/0  med d/bar 1.000e+00
+    highlightPeakAngleDeltaDeg [inactive]   62/178  share 0.348  med|d| 2.250e+01  p90 1.350e+02  med signed —  up/down 0/0  med d/bar 1.000e+00
+    rrect-lg stratum [active]            58/58   share 1.000  med|d| 1.480e-01  p90 4.179e-01  med signed —  up/down 0/0  med d/bar 7.397e+02
+    rrect-lg stratum [inactive]          46/46   share 1.000  med|d| 1.003e-01  p90 4.251e-01  med signed —  up/down 0/0  med d/bar 6.121e+06
+
+## exterior shadow  (primary shadowProfileRmsDelta; population all; rrect-lg held out)
+  VERDICT: MOVED
+    shadowProfileRmsDelta [active]      211/211  share 1.000  med|d| 3.623e-02  p90 4.799e-02  med signed —  up/down 0/0  med d/bar 7.992e+05
+    shadowProfileRmsDelta [inactive]    146/146  share 1.000  med|d| 3.719e-02  p90 6.603e-02  med signed —  up/down 0/0  med d/bar 7.523e+05
+    shadowMeanDepartureDelta [active]   265/265  share 1.000  med|d| 3.263e-03  p90 9.954e-03  med signed -3.263e-03  up/down 17/248  med d/bar 2.577e+07
+    shadowMeanDepartureDelta [inactive]  188/188  share 1.000  med|d| 6.103e-04  p90 3.224e-03  med signed 6.103e-04  up/down 184/4  med d/bar 2.823e+06
+    shadowStrengthPeakDelta [active]    211/211  share 1.000  med|d| 1.870e-01  p90 3.164e-01  med signed 1.870e-01  up/down 197/14  med d/bar 6.544e+05
+    shadowStrengthPeakDelta [inactive]  146/146  share 1.000  med|d| 4.637e-01  p90 7.080e-01  med signed 4.637e-01  up/down 146/0  med d/bar 1.485e+06
+    shadowStrengthPeakDistanceDeltaPx [active]   67/211  share 0.318  med|d| 0.000e+00  p90 1.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowStrengthPeakDistanceDeltaPx [inactive]   45/146  share 0.308  med|d| 0.000e+00  p90 1.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowFalloffSigmaDeltaPx [active]  181/181  share 1.000  med|d| 1.662e+01  p90 3.486e+01  med signed -1.631e+01  up/down 10/171  med d/bar 1.141e+06
+    shadowFalloffAmplitudeDelta [active]  181/181  share 1.000  med|d| 1.080e-01  p90 3.106e-01  med signed -1.045e-01  up/down 18/163  med d/bar 1.747e+05
+    shadowFalloffLengthDeltaPx [active]  157/157  share 1.000  med|d| 1.306e+01  p90 3.117e+01  med signed -1.263e+01  up/down 10/147  med d/bar 5.678e+06
+    shadowExtentAboveDeltaPx [active]   211/211  share 1.000  med|d| 2.200e+01  p90 4.800e+01  med signed —  up/down 0/0  med d/bar inf
+    shadowExtentAboveDeltaPx [inactive]   59/146  share 0.404  med|d| 0.000e+00  p90 2.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    shadowExtentBelowDeltaPx [active]   184/184  share 1.000  med|d| 3.100e+01  p90 6.100e+01  med signed -3.100e+01  up/down 0/184  med d/bar inf
+    shadowExtentBelowDeltaPx [inactive]   54/146  share 0.370  med|d| 0.000e+00  p90 2.000e+00  med signed 0.000e+00  up/down 54/0  med d/bar 0.000e+00
+    shadowExtentLeftDeltaPx [active]    201/211  share 0.953  med|d| 2.900e+01  p90 6.100e+01  med signed —  up/down 0/0  med d/bar inf
+    shadowExtentLeftDeltaPx [inactive]  145/146  share 0.993  med|d| 2.000e+00  p90 2.000e+00  med signed —  up/down 0/0  med d/bar inf
+    shadowExtentRightDeltaPx [active]   201/211  share 0.953  med|d| 2.900e+01  p90 6.400e+01  med signed —  up/down 0/0  med d/bar inf
+    shadowExtentRightDeltaPx [inactive]  142/146  share 0.973  med|d| 2.000e+00  p90 2.000e+00  med signed —  up/down 0/0  med d/bar inf
+    shadowOffsetXDeltaPx [active]       131/211  share 0.621  med|d| 5.000e-01  p90 2.500e+00  med signed —  up/down 0/0  med d/bar inf
+    shadowOffsetYDeltaPx [active]       166/184  share 0.902  med|d| 4.000e+00  p90 8.000e+00  med signed -4.000e+00  up/down 27/139  med d/bar inf
+    shadowCentroidOffsetXDeltaPx [active]   51/51   share 1.000  med|d| 2.507e+00  p90 7.364e+00  med signed —  up/down 0/0  med d/bar 2.205e+13
+    shadowCentroidOffsetYDeltaPx [active]   51/51   share 1.000  med|d| 3.662e+00  p90 1.069e+01  med signed —  up/down 0/0  med d/bar 2.685e+04
+    shadowAffineSlopeDeltaMax [active]  193/197  share 0.980  med|d| 1.422e-01  p90 2.145e-01  med signed —  up/down 0/0  med d/bar 2.043e+04
+    shadowAffineSlopeDeltaMax [inactive]  112/114  share 0.982  med|d| 1.598e-01  p90 3.138e-01  med signed —  up/down 0/0  med d/bar 1.855e+04
+    shadowAffineInterceptDeltaMax [active]  192/197  share 0.975  med|d| 3.718e-03  p90 3.571e-02  med signed —  up/down 0/0  med d/bar 8.345e+11
+    shadowAffineInterceptDeltaMax [inactive]  112/114  share 0.982  med|d| 1.447e-02  p90 6.707e-02  med signed —  up/down 0/0  med d/bar 1.516e+12
+    rrect-lg stratum [active]            50/50   share 1.000  med|d| 3.791e-02  p90 6.762e-02  med signed —  up/down 0/0  med d/bar 3.486e+03
+    rrect-lg stratum [inactive]          38/38   share 1.000  med|d| 6.891e-02  p90 1.116e-01  med signed —  up/down 0/0  med d/bar 1.286e+06
+
+## tint shade  (primary tintDeltaLDelta; population tinted; rrect-lg held out)
+  VERDICT: MOVED
+    tintDeltaLDelta [active]             46/46   share 1.000  med|d| 2.263e-03  p90 8.189e-02  med signed -1.472e-03  up/down 18/28  med d/bar 1.918e+05
+    tintDeltaLDelta [inactive]           32/32   share 1.000  med|d| 6.861e-02  p90 2.392e-01  med signed -3.808e-02  up/down 14/18  med d/bar 5.775e+06
+    tintChromaDelta [active]             46/46   share 1.000  med|d| 2.209e-03  p90 1.675e-02  med signed -1.793e-03  up/down 20/26  med d/bar 3.973e+12
+    tintChromaDelta [inactive]           32/32   share 1.000  med|d| 1.547e-03  p90 6.649e-02  med signed 1.547e-03  up/down 24/8  med d/bar 3.909e+11
+    tintHueShiftDeltaDeg [active]        46/46   share 1.000  med|d| 7.776e-01  p90 1.662e+00  med signed —  up/down 0/0  med d/bar 7.580e+06
+    tintHueShiftDeltaDeg [inactive]      32/32   share 1.000  med|d| 1.516e+00  p90 7.761e+00  med signed —  up/down 0/0  med d/bar 1.478e+07
+    rrect-lg stratum [active]             2/2    share 1.000  med|d| 1.885e-02  p90 1.885e-02  med signed -1.859e-02  up/down 0/2  med d/bar 7.018e+04
+    rrect-lg stratum [inactive]           2/2    share 1.000  med|d| 6.749e-02  p90 6.749e-02  med signed -6.737e-02  up/down 0/2  med d/bar 5.721e+06
+
+## the recede  (primary bodyLevel difference of differences; rrect-lg held out)
+  VERDICT: MOVED
+    bodyLevel                           160/160  share 1.000  med|d| 3.040e-02  p90 9.062e-02  med signed -2.343e-02  up/down 35/125  med d/bar 2.195e+07
+    rimContourMean                      160/160  share 1.000  med|d| 5.856e-02  p90 1.294e-01  med signed 1.041e-02  up/down 92/68  med d/bar 2.825e+06
+    rimLocalMean                        160/160  share 1.000  med|d| 4.475e-02  p90 1.282e-01  med signed 2.467e-02  up/down 100/60  med d/bar 7.683e+04
+    highlightPeak                       160/160  share 1.000  med|d| 5.866e-02  p90 1.568e-01  med signed 6.825e-03  up/down 83/77  med d/bar 3.957e+07
+    highlightFloor                      160/160  share 1.000  med|d| 2.517e-02  p90 9.555e-02  med signed 1.200e-02  up/down 113/47  med d/bar 1.920e+06
+    highlightRatio                       22/22   share 1.000  med|d| 3.446e+01  p90 1.620e+03  med signed 1.235e+00  up/down 16/6  med d/bar 7.891e+07
+    interiorMean                        144/144  share 1.000  med|d| 3.694e-02  p90 9.045e-02  med signed -2.737e-02  up/down 34/110  med d/bar 1.262e+07
+    interiorStdDev                      144/144  share 1.000  med|d| 1.204e-02  p90 3.098e-02  med signed -1.549e-03  up/down 66/78  med d/bar 1.733e+06
+    tintDeltaL                          144/144  share 1.000  med|d| 3.029e-02  p90 9.834e-02  med signed -2.467e-02  up/down 31/113  med d/bar 9.895e+05
+    tintChroma                          144/144  share 1.000  med|d| 1.299e-04  p90 1.114e-02  med signed -1.694e-05  up/down 55/89  med d/bar 4.966e+10
+    rrect-lg stratum                     42/42   share 1.000  med|d| 2.650e-02  p90 6.368e-02  med signed -2.186e-02  up/down 8/34  med d/bar 1.508e+05
+
+## The whole cell, as context (no verdict)
+    ssimComplement [active]             265/265  share 1.000  med|d| 1.504e-02  p90 8.951e-02  med signed —  up/down 0/0  med d/bar 1.981e+07
+    ssimComplement [inactive]           188/188  share 1.000  med|d| 1.894e-02  p90 7.598e-02  med signed —  up/down 0/0  med d/bar 1.723e+07
+    ssimBandComplement [active]         265/265  share 1.000  med|d| 1.574e-01  p90 3.831e-01  med signed —  up/down 0/0  med d/bar 4.647e+07
+    ssimBandComplement [inactive]       162/162  share 1.000  med|d| 1.440e-01  p90 2.977e-01  med signed —  up/down 0/0  med d/bar 1.783e+07
+    ssimInteriorComplement [active]      96/96   share 1.000  med|d| 6.961e-02  p90 2.462e-01  med signed —  up/down 0/0  med d/bar 9.346e+09
+    ssimInteriorComplement [inactive]    76/76   share 1.000  med|d| 4.429e-02  p90 2.208e-01  med signed —  up/down 0/0  med d/bar 4.923e+09
+    ssimOutsideComplement [active]      265/265  share 1.000  med|d| 2.461e-02  p90 1.544e-01  med signed —  up/down 0/0  med d/bar 7.160e+06
+    ssimOutsideComplement [inactive]    162/162  share 1.000  med|d| 2.579e-02  p90 8.323e-02  med signed —  up/down 0/0  med d/bar 6.232e+06
+    oklabDeltaEMean [active]            265/265  share 1.000  med|d| 8.765e-03  p90 5.256e-02  med signed —  up/down 0/0  med d/bar 7.346e+04
+    oklabDeltaEMean [inactive]          188/188  share 1.000  med|d| 1.287e-02  p90 4.141e-02  med signed —  up/down 0/0  med d/bar 6.752e+04
+    oklabDeltaEP95 [active]             257/265  share 0.970  med|d| 7.801e-02  p90 2.064e-01  med signed —  up/down 0/0  med d/bar inf
+    oklabDeltaEP95 [inactive]           166/188  share 0.883  med|d| 8.085e-02  p90 2.148e-01  med signed —  up/down 0/0  med d/bar inf
+    oklabDeltaEBodyMean [active]        265/265  share 1.000  med|d| 6.096e-02  p90 1.980e-01  med signed —  up/down 0/0  med d/bar 1.931e+05
+    oklabDeltaEBodyMean [inactive]      162/162  share 1.000  med|d| 7.652e-02  p90 1.795e-01  med signed —  up/down 0/0  med d/bar 2.449e+05
+    edgeWeightedMean [active]           265/265  share 1.000  med|d| 1.158e-02  p90 4.803e-02  med signed —  up/down 0/0  med d/bar 5.806e+05
+    edgeWeightedMean [inactive]         188/188  share 1.000  med|d| 1.247e-02  p90 4.367e-02  med signed —  up/down 0/0  med d/bar 4.772e+05
+
+## Attribution reads (descriptive; never a verdict)
+
+Geometry, healthy population (both silhouettes within 2x): 390 cells; one under half the other: 37
+    healthy silhouetteIoUComplement     274/390  share 0.703  med|d| 3.328e-04  p90 1.192e-02  med signed —  up/down 0/0  med d/bar 5.745e+01
+    healthy contourDistanceMeanPx       274/390  share 0.703  med|d| 1.168e-02  p90 3.359e-01  med signed —  up/down 0/0  med d/bar 1.988e+01
+    healthy silhouetteAreaDeltaPx       254/390  share 0.651  med|d| 6.000e+00  p90 1.131e+03  med signed —  up/down 0/0  med d/bar 6.000e+00
+    healthy cornerCurvatureDeltaPerPx   260/388  share 0.670  med|d| 6.011e-04  p90 7.198e-01  med signed 0.000e+00  up/down 142/118  med d/bar 2.628e+01
+    unhealthy: dark-solid           reference small  24
+    unhealthy: impulse              reference small  9
+    unhealthy: mid-light-solid      subject small    4
+
+Implied corner radius per single-box component, median 1/kappa (reference -> subject), healthy cells:
+    capsule-button    146 cells    17.92 ->   17.95 px
+    glass-over-glass   12 cells    23.30 ->   23.30 px
+    rrect-80            4 cells    16.04 ->   16.04 px
+    rrect-md          105 cells    18.89 ->   18.89 px
+    rrect-md-clear20    4 cells    18.52 ->   18.52 px
+    rrect-ml           46 cells    25.86 ->   25.80 px
+    rrect-sm           54 cells     7.87 ->    7.56 px
+    toolbar-group       8 cells    18.40 ->   18.40 px
+
+Rim and highlight on uniform backdrops only (142 cells):
+    uniform rimContourDeltaMax [active]   68/68   share 1.000  med|d| 8.381e-02  p90 2.340e-01  med signed 9.481e-03  up/down 39/29  med d/bar 9.073e+06
+    uniform rimContourDeltaMax [inactive]   39/74   share 0.527  med|d| 2.265e-05  p90 4.752e-04  med signed 4.963e-14  up/down 31/8  med d/bar 2.452e+03
+    uniform rimLocalDeltaMax [active]    68/68   share 1.000  med|d| 6.042e-02  p90 2.070e-01  med signed —  up/down 0/0  med d/bar 5.443e+04
+    uniform rimLocalDeltaMax [inactive]    5/74   share 0.068  med|d| 0.000e+00  p90 0.000e+00  med signed —  up/down 0/0  med d/bar 0.000e+00
+    uniform highlightBinDeltaMax [active]   68/68   share 1.000  med|d| 9.115e-02  p90 2.603e-01  med signed —  up/down 0/0  med d/bar 9.644e+06
+    uniform highlightBinDeltaMax [inactive]   52/74   share 0.703  med|d| 2.376e-04  p90 1.224e-01  med signed —  up/down 0/0  med d/bar 2.514e+04
+    uniform highlightRatioDelta [active]   15/15   share 1.000  med|d| 8.944e+01  p90 5.878e+02  med signed 8.944e+01  up/down 13/2  med d/bar 1.143e+10
+    uniform highlightRatioDelta [inactive]   17/31   share 0.548  med|d| 1.837e-02  p90 1.488e+02  med signed 0.000e+00  up/down 15/2  med d/bar 2.348e+06
+    uniform bodyLevelDelta [active]      68/68   share 1.000  med|d| 6.775e-02  p90 2.753e-01  med signed 4.547e-03  up/down 36/32  med d/bar 1.135e+08
+    uniform bodyLevelDelta [inactive]    74/74   share 1.000  med|d| 9.962e-02  p90 2.718e-01  med signed 1.809e-02  up/down 44/30  med d/bar 1.669e+08
+
