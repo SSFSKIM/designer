@@ -1,0 +1,1205 @@
+{
+ "endpoints": {
+  "dark-inactive": {
+   "classes": {
+    "a": {
+     "cells": [
+      "1x|bp-p1-c4-rrect-lg",
+      "1x|bp-p1-c4-rrect-md",
+      "1x|bp-p1-c8-rrect-lg"
+     ],
+     "failingCells": 1,
+     "failures": 1108,
+     "statistics": 1626,
+     "worst": 10.01069340785233,
+     "worstAt": "1x|bp-p1-c8-rrect-lg:sq206:far|R"
+    },
+    "b": {
+     "cells": [
+      "1x|bp-p1-c32-rrect-lg",
+      "1x|c-impulse-rrect-lg",
+      "2x|a-g096-rrect-lg",
+      "2x|a-g160-rrect-lg",
+      "2x|a-g160-rrect-ml",
+      "2x|a-g208-rrect-lg",
+      "2x|a-g208-rrect-ml",
+      "2x|a-g255-rrect-lg",
+      "2x|a-g255-rrect-ml",
+      "2x|bp-p1-c32-rrect-lg",
+      "2x|bp-p1-c32-rrect-ml",
+      "2x|bp-p1-c64-rrect-ml",
+      "2x|c-impulse-rrect-lg",
+      "2x|c-impulse-rrect-ml",
+      "2x|c-s32-hi-p4-rrect-ml",
+      "2x|c-s32-lo-p4-rrect-ml",
+      "2x|c-s8-hi-p4-rrect-ml",
+      "2x|c-s8-lo-d4-rrect-lg",
+      "2x|c-s8-lo-d40-rrect-lg",
+      "2x|c-s8-lo-d80-rrect-lg",
+      "2x|c-s8-lo-p4-rrect-ml"
+     ],
+     "failingCells": 11,
+     "failures": 597,
+     "statistics": 1458,
+     "worst": 16.080498925369824,
+     "worstAt": "2x|bp-p1-c32-rrect-ml:sq49:far|R"
+    },
+    "c": {
+     "cells": [
+      "1x|a-g128-rrect-md-1x",
+      "1x|a-g255-rrect-md-1x",
+      "1x|bp-p1-c4-capsule-button",
+      "1x|bp-p1-c4-capsule-button-odd",
+      "1x|bp-p1-c8-capsule-button",
+      "1x|bp-p1-c8-rrect-sm",
+      "1x|d-out8-lohi-rrect-md",
+      "2x|a-g000-capsule-button",
+      "2x|a-g000-rrect-md",
+      "2x|a-g064-capsule-button",
+      "2x|a-g064-rrect-md",
+      "2x|a-g128-capsule-button",
+      "2x|a-g128-rrect-md",
+      "2x|a-g160-capsule-button",
+      "2x|a-g160-rrect-64",
+      "2x|a-g160-rrect-80",
+      "2x|a-g160-rrect-md",
+      "2x|a-g176-capsule-button",
+      "2x|a-g176-rrect-md",
+      "2x|a-g192-capsule-button",
+      "2x|a-g192-rrect-md",
+      "2x|a-g208-capsule-button",
+      "2x|a-g208-rrect-64",
+      "2x|a-g208-rrect-80",
+      "2x|a-g208-rrect-md",
+      "2x|a-g224-capsule-button",
+      "2x|a-g224-rrect-md",
+      "2x|a-g240-capsule-button",
+      "2x|a-g240-rrect-md",
+      "2x|a-g255-capsule-button",
+      "2x|a-g255-rrect-64",
+      "2x|a-g255-rrect-80",
+      "2x|a-g255-rrect-md",
+      "2x|b-p2-c16-rrect-md",
+      "2x|b-p2-c64-rrect-md",
+      "2x|b-p3-c16-rrect-md",
+      "2x|b-p3-c64-rrect-md",
+      "2x|b-p4-c16-rrect-md",
+      "2x|b-p4-c64-rrect-md",
+      "2x|b-p5-c16-rrect-md",
+      "2x|b-p5-c64-rrect-md",
+      "2x|bp-p1-c16-rrect-sm",
+      "2x|bp-p1-c32-capsule-button",
+      "2x|bp-p1-c32-rrect-64",
+      "2x|bp-p1-c32-rrect-80",
+      "2x|bp-p1-c64-capsule-button",
+      "2x|bp-p1-c8-rrect-sm",
+      "2x|c-s16-hi-capsule-button",
+      "2x|c-s16-hi-corner-rrect-md",
+      "2x|c-s16-hi-end-capsule-button",
+      "2x|c-s16-lo-capsule-button",
+      "2x|c-s32-hi-p4-rrect-md",
+      "2x|c-s32-hi-rrect-md",
+      "2x|c-s32-lo-p4-rrect-md",
+      "2x|c-s32-lo-rrect-md",
+      "2x|c-s8-hi-p4-rrect-md",
+      "2x|c-s8-hi-rrect-md",
+      "2x|c-s8-lo-d24-rrect-md",
+      "2x|c-s8-lo-d4-rrect-md",
+      "2x|c-s8-lo-p4-rrect-md",
+      "2x|c-s8-lo-rrect-md",
+      "2x|c-s8-lo-rrect-sm",
+      "2x|d-d0-hilo-p4-rrect-md",
+      "2x|d-d0-hilo-rrect-md",
+      "2x|d-d0-lohi-capsule-button",
+      "2x|d-d0-lohi-p4-rrect-md",
+      "2x|d-d0-lohi-rrect-md",
+      "2x|d-d0-lohi-rrect-sm",
+      "2x|d-d12-hilo-p4-rrect-md",
+      "2x|d-d12-hilo-rrect-md",
+      "2x|d-d12-lohi-capsule-button",
+      "2x|d-d12-lohi-p4-rrect-md",
+      "2x|d-d12-lohi-rrect-md",
+      "2x|d-d32-hilo-rrect-md",
+      "2x|d-d32-lohi-rrect-md",
+      "2x|d-out16-hilo-rrect-md",
+      "2x|d-out16-lohi-rrect-md",
+      "2x|d-out8-hilo-rrect-md",
+      "2x|d-out8-lohi-rrect-md",
+      "2x|e-by-c16-rrect-md",
+      "2x|e-by-c64-rrect-md",
+      "2x|e-rg-c16-rrect-md",
+      "2x|e-rg-c64-rrect-md"
+     ],
+     "failingCells": 47,
+     "failures": 1029,
+     "statistics": 2430,
+     "worst": 15.733923952800524,
+     "worstAt": "2x|e-by-c16-rrect-md:sq166:b|B"
+    }
+   },
+   "spanTrend": {
+    "P1 0/255 pitch 32": {
+     "44": {
+      "cell": "2x|bp-p1-c32-capsule-button",
+      "signed": {
+       "far-cores": 1.69,
+       "knee-cores": 0.52
+      },
+      "worst": 3.82
+     },
+     "64": {
+      "cell": "2x|bp-p1-c32-rrect-64",
+      "signed": {
+       "far-cores": 3.69,
+       "knee-cores": 0.24
+      },
+      "worst": 5.34
+     },
+     "80": {
+      "cell": "2x|bp-p1-c32-rrect-80",
+      "signed": {
+       "far-cores": 5.34,
+       "knee-cores": -0.17
+      },
+      "worst": 8.66
+     },
+     "128": {
+      "cell": "2x|bp-p1-c32-rrect-ml",
+      "signed": {
+       "far-cores": -2.65,
+       "knee-cores": -1.95
+      },
+      "worst": 16.08
+     },
+     "160": {
+      "cell": "2x|bp-p1-c32-rrect-lg",
+      "signed": {
+       "far-cores": 0.69,
+       "knee-cores": -0.32
+      },
+      "worst": 6.32
+     }
+    },
+    "P1 0/255 pitch 64": {
+     "44": {
+      "cell": "2x|bp-p1-c64-capsule-button",
+      "signed": {
+       "far-cores": 6.42,
+       "knee-cores": 0.13
+      },
+      "worst": 6.63
+     },
+     "128": {
+      "cell": "2x|bp-p1-c64-rrect-ml",
+      "signed": {
+       "far-cores": -5.97,
+       "knee-cores": -1.8
+      },
+      "worst": 15.56
+     }
+    },
+    "P1 0/255 pitch 8": {
+     "32": {
+      "cell": "2x|bp-p1-c8-rrect-sm",
+      "signed": {
+       "far-cores": -0.56,
+       "knee-cores": 0.41
+      },
+      "worst": 1.64
+     }
+    },
+    "P3 96/160 pitch 16": {
+     "96": {
+      "cell": "2x|b-p3-c16-rrect-md",
+      "signed": {
+       "far-cores": -0.34,
+       "knee-cores": 0.53
+      },
+      "worst": 3.61
+     }
+    },
+    "P5 144/240 pitch 16": {
+     "96": {
+      "cell": "2x|b-p5-c16-rrect-md",
+      "signed": {
+       "far-cores": -0.08,
+       "knee-cores": 0.14
+      },
+      "worst": 1.17
+     }
+    },
+    "P5 144/240 pitch 64": {
+     "96": {
+      "cell": "2x|b-p5-c64-rrect-md",
+      "signed": {
+       "far-cores": 0.44,
+       "knee-cores": -0.0
+      },
+      "worst": 0.84
+     }
+    },
+    "impulse 255 on 0, spacing 64": {
+     "128": {
+      "cell": "2x|c-impulse-rrect-ml",
+      "signed": {
+       "core": -5.96,
+       "ring0-2": -6.12,
+       "ring16-32": -6.64,
+       "ring2-4": -6.34,
+       "ring32-48": -5.85,
+       "ring4-8": -6.8,
+       "ring8-16": -6.64
+      },
+      "worst": 6.8
+     },
+     "160": {
+      "cell": "2x|c-impulse-rrect-lg",
+      "signed": {
+       "core": -0.63,
+       "ring0-2": -0.74,
+       "ring16-32": -0.05,
+       "ring2-4": -0.55,
+       "ring32-48": -0.32,
+       "ring4-8": -0.51,
+       "ring8-16": 0.09
+      },
+      "worst": 1.39
+     }
+    },
+    "step 48|208 at the centre": {
+     "32": {
+      "cell": "2x|d-d0-lohi-rrect-sm",
+      "signed": {},
+      "worst": 3.29
+     },
+     "44": {
+      "cell": "2x|d-d0-lohi-capsule-button",
+      "signed": {
+       "plateau-hi": -0.18,
+       "plateau-lo": -1.27
+      },
+      "worst": 2.02
+     },
+     "96": {
+      "cell": "2x|d-d0-lohi-rrect-md",
+      "signed": {
+       "plateau-hi": -0.0,
+       "plateau-lo": -2.23
+      },
+      "worst": 2.45
+     }
+    }
+   }
+  },
+  "dark-rest": {
+   "classes": {
+    "a": {
+     "cells": [
+      "1x|bp-p1-c4-rrect-lg",
+      "1x|bp-p1-c4-rrect-md",
+      "1x|bp-p1-c8-rrect-lg"
+     ],
+     "failingCells": 1,
+     "failures": 825,
+     "statistics": 864,
+     "worst": 13.714140934733678,
+     "worstAt": "1x|bp-p1-c8-rrect-lg:sq312:far|R"
+    },
+    "b": {
+     "cells": [
+      "1x|bp-p1-c32-rrect-lg",
+      "1x|c-impulse-rrect-lg",
+      "2x|a-g096-rrect-lg",
+      "2x|a-g160-rrect-lg",
+      "2x|a-g160-rrect-ml",
+      "2x|a-g208-rrect-lg",
+      "2x|a-g208-rrect-ml",
+      "2x|a-g255-rrect-lg",
+      "2x|a-g255-rrect-ml",
+      "2x|b-p3-c16-rrect-lg",
+      "2x|b-p5-c16-rrect-lg",
+      "2x|b-p5-c64-rrect-lg",
+      "2x|bp-p1-c32-rrect-lg",
+      "2x|bp-p1-c32-rrect-ml",
+      "2x|bp-p1-c64-rrect-ml",
+      "2x|bp-p1-c8-rrect-lg",
+      "2x|bp-p1-c8-rrect-ml",
+      "2x|c-impulse-rrect-lg",
+      "2x|c-impulse-rrect-ml",
+      "2x|c-s32-hi-p4-rrect-ml",
+      "2x|c-s32-lo-p4-rrect-ml",
+      "2x|c-s8-hi-p4-rrect-ml",
+      "2x|c-s8-lo-d40-rrect-lg",
+      "2x|c-s8-lo-d60-rrect-lg",
+      "2x|c-s8-lo-d80-rrect-lg",
+      "2x|c-s8-lo-p4-rrect-ml",
+      "2x|d-d0-hilo-rrect-lg",
+      "2x|d-d0-lohi-rrect-lg",
+      "2x|e-by-c16-rrect-lg",
+      "2x|e-rg-c16-rrect-lg"
+     ],
+     "failingCells": 19,
+     "failures": 1967,
+     "statistics": 3270,
+     "worst": 9.535963782704101,
+     "worstAt": "2x|bp-p1-c64-rrect-ml:sq12:far|R"
+    },
+    "c": {
+     "cells": [
+      "1x|a-g128-rrect-md-1x",
+      "1x|a-g255-rrect-md-1x",
+      "1x|bp-p1-c4-capsule-button",
+      "1x|bp-p1-c4-capsule-button-odd",
+      "1x|bp-p1-c8-capsule-button",
+      "2x|a-g000-capsule-button",
+      "2x|a-g000-rrect-md",
+      "2x|a-g064-capsule-button",
+      "2x|a-g064-rrect-md",
+      "2x|a-g128-capsule-button",
+      "2x|a-g128-rrect-md",
+      "2x|a-g160-capsule-button",
+      "2x|a-g160-rrect-64",
+      "2x|a-g160-rrect-80",
+      "2x|a-g160-rrect-md",
+      "2x|a-g176-capsule-button",
+      "2x|a-g176-rrect-md",
+      "2x|a-g192-capsule-button",
+      "2x|a-g192-rrect-md",
+      "2x|a-g208-capsule-button",
+      "2x|a-g208-rrect-64",
+      "2x|a-g208-rrect-80",
+      "2x|a-g208-rrect-md",
+      "2x|a-g224-capsule-button",
+      "2x|a-g224-rrect-md",
+      "2x|a-g240-capsule-button",
+      "2x|a-g240-rrect-md",
+      "2x|a-g255-capsule-button",
+      "2x|a-g255-rrect-64",
+      "2x|a-g255-rrect-80",
+      "2x|a-g255-rrect-md",
+      "2x|b-p2-c16-rrect-md",
+      "2x|b-p2-c64-rrect-md",
+      "2x|b-p3-c16-rrect-md",
+      "2x|b-p3-c64-rrect-md",
+      "2x|b-p4-c16-rrect-md",
+      "2x|b-p4-c64-rrect-md",
+      "2x|b-p5-c16-rrect-md",
+      "2x|b-p5-c64-rrect-md",
+      "2x|bp-p1-c32-capsule-button",
+      "2x|bp-p1-c32-rrect-64",
+      "2x|bp-p1-c32-rrect-80",
+      "2x|bp-p1-c64-capsule-button",
+      "2x|bp-p1-c8-capsule-button",
+      "2x|c-s32-hi-p4-rrect-md",
+      "2x|c-s32-hi-rrect-md",
+      "2x|c-s32-lo-p4-rrect-md",
+      "2x|c-s32-lo-rrect-md",
+      "2x|c-s8-hi-p4-rrect-md",
+      "2x|c-s8-hi-rrect-md",
+      "2x|c-s8-lo-d24-rrect-md",
+      "2x|c-s8-lo-d34-rrect-md",
+      "2x|c-s8-lo-p4-d34-rrect-md",
+      "2x|c-s8-lo-p4-rrect-md",
+      "2x|c-s8-lo-rrect-md",
+      "2x|d-d0-hilo-p4-rrect-md",
+      "2x|d-d0-hilo-rrect-md",
+      "2x|d-d0-lohi-capsule-button",
+      "2x|d-d0-lohi-p4-rrect-md",
+      "2x|d-d0-lohi-rrect-md",
+      "2x|d-d32-hilo-rrect-md",
+      "2x|d-d32-lohi-rrect-md",
+      "2x|e-by-c16-rrect-md",
+      "2x|e-by-c64-rrect-md",
+      "2x|e-rg-c16-rrect-md",
+      "2x|e-rg-c64-rrect-md"
+     ],
+     "failingCells": 31,
+     "failures": 563,
+     "statistics": 1338,
+     "worst": 3.60661465548759,
+     "worstAt": "2x|e-by-c16-rrect-md:sq108:a|B"
+    }
+   },
+   "spanTrend": {
+    "P1 0/255 pitch 32": {
+     "44": {
+      "cell": "2x|bp-p1-c32-capsule-button",
+      "signed": {
+       "far-cores": 0.21,
+       "knee-cores": 0.1
+      },
+      "worst": 1.1
+     },
+     "64": {
+      "cell": "2x|bp-p1-c32-rrect-64",
+      "signed": {
+       "far-cores": 1.41,
+       "knee-cores": -1.01
+      },
+      "worst": 2.13
+     },
+     "80": {
+      "cell": "2x|bp-p1-c32-rrect-80",
+      "signed": {
+       "far-cores": 1.01,
+       "knee-cores": -1.07
+      },
+      "worst": 2.12
+     },
+     "128": {
+      "cell": "2x|bp-p1-c32-rrect-ml",
+      "signed": {
+       "far-cores": -2.37,
+       "knee-cores": -1.42
+      },
+      "worst": 5.11
+     },
+     "160": {
+      "cell": "2x|bp-p1-c32-rrect-lg",
+      "signed": {
+       "far-cores": 4.14,
+       "knee-cores": -0.38
+      },
+      "worst": 5.92
+     }
+    },
+    "P1 0/255 pitch 64": {
+     "44": {
+      "cell": "2x|bp-p1-c64-capsule-button",
+      "signed": {
+       "far-cores": 1.57,
+       "knee-cores": -2.16
+      },
+      "worst": 2.16
+     },
+     "128": {
+      "cell": "2x|bp-p1-c64-rrect-ml",
+      "signed": {
+       "far-cores": -8.98,
+       "knee-cores": -0.34
+      },
+      "worst": 9.54
+     }
+    },
+    "P1 0/255 pitch 8": {
+     "44": {
+      "cell": "2x|bp-p1-c8-capsule-button",
+      "signed": {
+       "far-cores": -0.22,
+       "knee-cores": 2.01
+      },
+      "worst": 2.56
+     },
+     "128": {
+      "cell": "2x|bp-p1-c8-rrect-ml",
+      "signed": {
+       "far-cores": -1.93,
+       "knee-cores": -0.79
+      },
+      "worst": 2.86
+     },
+     "160": {
+      "cell": "2x|bp-p1-c8-rrect-lg",
+      "signed": {
+       "far-cores": 0.74,
+       "knee-cores": 3.42
+      },
+      "worst": 3.76
+     }
+    },
+    "P3 96/160 pitch 16": {
+     "96": {
+      "cell": "2x|b-p3-c16-rrect-md",
+      "signed": {
+       "far-cores": -1.49,
+       "knee-cores": 0.77
+      },
+      "worst": 1.75
+     },
+     "160": {
+      "cell": "2x|b-p3-c16-rrect-lg",
+      "signed": {
+       "far-cores": 1.79,
+       "knee-cores": 1.1
+      },
+      "worst": 2.66
+     }
+    },
+    "P5 144/240 pitch 16": {
+     "96": {
+      "cell": "2x|b-p5-c16-rrect-md",
+      "signed": {
+       "far-cores": -0.24,
+       "knee-cores": 0.23
+      },
+      "worst": 0.37
+     },
+     "160": {
+      "cell": "2x|b-p5-c16-rrect-lg",
+      "signed": {
+       "far-cores": -0.02,
+       "knee-cores": -0.67
+      },
+      "worst": 1.0
+     }
+    },
+    "P5 144/240 pitch 64": {
+     "96": {
+      "cell": "2x|b-p5-c64-rrect-md",
+      "signed": {
+       "far-cores": -0.16,
+       "knee-cores": -0.32
+      },
+      "worst": 0.48
+     },
+     "160": {
+      "cell": "2x|b-p5-c64-rrect-lg",
+      "signed": {
+       "far-cores": -0.61,
+       "knee-cores": 0.33
+      },
+      "worst": 1.48
+     }
+    },
+    "impulse 255 on 0, spacing 64": {
+     "128": {
+      "cell": "2x|c-impulse-rrect-ml",
+      "signed": {
+       "core": -4.64,
+       "ring0-2": -4.91,
+       "ring16-32": -5.31,
+       "ring2-4": -5.25,
+       "ring32-48": -5.49,
+       "ring4-8": -5.81,
+       "ring8-16": -4.83
+      },
+      "worst": 6.15
+     },
+     "160": {
+      "cell": "2x|c-impulse-rrect-lg",
+      "signed": {
+       "core": -1.86,
+       "ring0-2": -1.92,
+       "ring16-32": -1.64,
+       "ring2-4": -2.01,
+       "ring32-48": -1.83,
+       "ring4-8": -1.22,
+       "ring8-16": -1.73
+      },
+      "worst": 2.02
+     }
+    },
+    "step 48|208 at the centre": {
+     "44": {
+      "cell": "2x|d-d0-lohi-capsule-button",
+      "signed": {},
+      "worst": 1.84
+     },
+     "96": {
+      "cell": "2x|d-d0-lohi-rrect-md",
+      "signed": {
+       "plateau-hi": -0.02,
+       "plateau-lo": -1.12
+      },
+      "worst": 1.45
+     },
+     "160": {
+      "cell": "2x|d-d0-lohi-rrect-lg",
+      "signed": {
+       "plateau-hi": 0.33,
+       "plateau-lo": -0.25
+      },
+      "worst": 2.35
+     }
+    }
+   }
+  },
+  "light-inactive": {
+   "classes": {
+    "a": {
+     "cells": [
+      "1x|bp-p1-c4-rrect-lg",
+      "1x|bp-p1-c4-rrect-md",
+      "1x|bp-p1-c8-rrect-lg"
+     ],
+     "failingCells": 1,
+     "failures": 1614,
+     "statistics": 1626,
+     "worst": 8.956219624041864,
+     "worstAt": "1x|bp-p1-c8-rrect-lg:sq635:far|R"
+    },
+    "b": {
+     "cells": [
+      "1x|bp-p1-c32-rrect-lg",
+      "1x|c-impulse-rrect-lg",
+      "2x|a-g096-rrect-lg",
+      "2x|a-g160-rrect-lg",
+      "2x|a-g160-rrect-ml",
+      "2x|a-g208-rrect-lg",
+      "2x|a-g208-rrect-ml",
+      "2x|a-g255-rrect-lg",
+      "2x|a-g255-rrect-ml",
+      "2x|bp-p1-c32-rrect-lg",
+      "2x|bp-p1-c32-rrect-ml",
+      "2x|bp-p1-c64-rrect-ml",
+      "2x|c-impulse-rrect-lg",
+      "2x|c-impulse-rrect-ml",
+      "2x|c-s8-hi-d4-rrect-lg",
+      "2x|c-s8-hi-d40-rrect-lg",
+      "2x|c-s8-hi-d80-rrect-lg"
+     ],
+     "failingCells": 8,
+     "failures": 607,
+     "statistics": 1374,
+     "worst": 10.230831826955608,
+     "worstAt": "2x|bp-p1-c32-rrect-ml:sq42:far|R"
+    },
+    "c": {
+     "cells": [
+      "1x|a-g128-rrect-md-1x",
+      "1x|a-g255-rrect-md-1x",
+      "1x|bp-p1-c4-capsule-button",
+      "1x|bp-p1-c4-capsule-button-odd",
+      "1x|bp-p1-c8-capsule-button",
+      "1x|bp-p1-c8-rrect-sm",
+      "1x|d-out8-lohi-rrect-md",
+      "2x|a-g000-capsule-button",
+      "2x|a-g000-rrect-md",
+      "2x|a-g064-capsule-button",
+      "2x|a-g064-rrect-md",
+      "2x|a-g128-capsule-button",
+      "2x|a-g128-rrect-md",
+      "2x|a-g160-capsule-button",
+      "2x|a-g160-rrect-64",
+      "2x|a-g160-rrect-md",
+      "2x|a-g176-capsule-button",
+      "2x|a-g176-rrect-md",
+      "2x|a-g192-capsule-button",
+      "2x|a-g192-rrect-md",
+      "2x|a-g208-capsule-button",
+      "2x|a-g208-rrect-64",
+      "2x|a-g208-rrect-md",
+      "2x|a-g224-capsule-button",
+      "2x|a-g224-rrect-md",
+      "2x|a-g240-capsule-button",
+      "2x|a-g240-rrect-md",
+      "2x|a-g255-capsule-button",
+      "2x|a-g255-rrect-64",
+      "2x|a-g255-rrect-md",
+      "2x|b-p2-c16-rrect-md",
+      "2x|b-p2-c64-rrect-md",
+      "2x|b-p3-c16-rrect-md",
+      "2x|b-p3-c64-rrect-md",
+      "2x|b-p4-c16-rrect-md",
+      "2x|b-p4-c64-rrect-md",
+      "2x|b-p5-c16-rrect-md",
+      "2x|b-p5-c64-rrect-md",
+      "2x|bp-p1-c16-rrect-sm",
+      "2x|bp-p1-c32-capsule-button",
+      "2x|bp-p1-c32-rrect-64",
+      "2x|bp-p1-c32-rrect-80",
+      "2x|bp-p1-c64-capsule-button",
+      "2x|bp-p1-c8-rrect-sm",
+      "2x|c-s16-hi-capsule-button",
+      "2x|c-s16-lo-capsule-button",
+      "2x|c-s16-lo-corner-rrect-md",
+      "2x|c-s16-lo-end-capsule-button",
+      "2x|c-s32-hi-rrect-md",
+      "2x|c-s32-lo-rrect-md",
+      "2x|c-s8-hi-d24-rrect-md",
+      "2x|c-s8-hi-d4-rrect-md",
+      "2x|c-s8-hi-rrect-md",
+      "2x|c-s8-hi-rrect-sm",
+      "2x|c-s8-lo-rrect-md",
+      "2x|d-d0-hilo-rrect-md",
+      "2x|d-d0-lohi-capsule-button",
+      "2x|d-d0-lohi-rrect-md",
+      "2x|d-d0-lohi-rrect-sm",
+      "2x|d-d12-hilo-rrect-md",
+      "2x|d-d12-lohi-capsule-button",
+      "2x|d-d12-lohi-rrect-md",
+      "2x|d-d32-hilo-rrect-md",
+      "2x|d-d32-lohi-rrect-md",
+      "2x|d-out16-hilo-rrect-md",
+      "2x|d-out16-lohi-rrect-md",
+      "2x|d-out8-hilo-rrect-md",
+      "2x|d-out8-lohi-rrect-md",
+      "2x|e-by-c16-rrect-md",
+      "2x|e-by-c64-rrect-md",
+      "2x|e-rg-c16-rrect-md",
+      "2x|e-rg-c64-rrect-md"
+     ],
+     "failingCells": 32,
+     "failures": 530,
+     "statistics": 2145,
+     "worst": 16.3784438152085,
+     "worstAt": "2x|e-by-c16-rrect-md:sq175:a|B"
+    }
+   },
+   "spanTrend": {
+    "P1 0/255 pitch 32": {
+     "44": {
+      "cell": "2x|bp-p1-c32-capsule-button",
+      "signed": {
+       "far-cores": 0.6,
+       "knee-cores": -0.23
+      },
+      "worst": 1.44
+     },
+     "64": {
+      "cell": "2x|bp-p1-c32-rrect-64",
+      "signed": {
+       "far-cores": 0.15,
+       "knee-cores": 0.12
+      },
+      "worst": 2.88
+     },
+     "80": {
+      "cell": "2x|bp-p1-c32-rrect-80",
+      "signed": {
+       "far-cores": -1.23,
+       "knee-cores": -0.64
+      },
+      "worst": 3.72
+     },
+     "128": {
+      "cell": "2x|bp-p1-c32-rrect-ml",
+      "signed": {
+       "far-cores": -1.11,
+       "knee-cores": 0.15
+      },
+      "worst": 10.23
+     },
+     "160": {
+      "cell": "2x|bp-p1-c32-rrect-lg",
+      "signed": {
+       "far-cores": 0.92,
+       "knee-cores": 0.69
+      },
+      "worst": 6.75
+     }
+    },
+    "P1 0/255 pitch 64": {
+     "44": {
+      "cell": "2x|bp-p1-c64-capsule-button",
+      "signed": {
+       "far-cores": 0.26,
+       "knee-cores": 4.27
+      },
+      "worst": 4.27
+     },
+     "128": {
+      "cell": "2x|bp-p1-c64-rrect-ml",
+      "signed": {
+       "far-cores": 0.18,
+       "knee-cores": -0.47
+      },
+      "worst": 10.11
+     }
+    },
+    "P1 0/255 pitch 8": {
+     "32": {
+      "cell": "2x|bp-p1-c8-rrect-sm",
+      "signed": {
+       "far-cores": 0.48,
+       "knee-cores": -0.68
+      },
+      "worst": 0.69
+     }
+    },
+    "P3 96/160 pitch 16": {
+     "96": {
+      "cell": "2x|b-p3-c16-rrect-md",
+      "signed": {
+       "far-cores": -0.12,
+       "knee-cores": -0.49
+      },
+      "worst": 3.13
+     }
+    },
+    "P5 144/240 pitch 16": {
+     "96": {
+      "cell": "2x|b-p5-c16-rrect-md",
+      "signed": {
+       "far-cores": -0.21,
+       "knee-cores": 0.24
+      },
+      "worst": 4.97
+     }
+    },
+    "P5 144/240 pitch 64": {
+     "96": {
+      "cell": "2x|b-p5-c64-rrect-md",
+      "signed": {
+       "far-cores": 0.18,
+       "knee-cores": -0.66
+      },
+      "worst": 1.66
+     }
+    },
+    "impulse 255 on 0, spacing 64": {
+     "128": {
+      "cell": "2x|c-impulse-rrect-ml",
+      "signed": {
+       "core": 0.46,
+       "ring0-2": 0.15,
+       "ring16-32": 0.29,
+       "ring2-4": -0.29,
+       "ring32-48": 0.1,
+       "ring4-8": 0.88,
+       "ring8-16": 0.7
+      },
+      "worst": 0.88
+     },
+     "160": {
+      "cell": "2x|c-impulse-rrect-lg",
+      "signed": {
+       "core": 1.41,
+       "ring0-2": 1.24,
+       "ring16-32": 0.84,
+       "ring2-4": 0.97,
+       "ring32-48": 0.63,
+       "ring4-8": 1.31,
+       "ring8-16": 1.36
+      },
+      "worst": 2.42
+     }
+    },
+    "step 48|208 at the centre": {
+     "32": {
+      "cell": "2x|d-d0-lohi-rrect-sm",
+      "signed": {},
+      "worst": 1.59
+     },
+     "44": {
+      "cell": "2x|d-d0-lohi-capsule-button",
+      "signed": {
+       "plateau-hi": -0.05,
+       "plateau-lo": 0.1
+      },
+      "worst": 1.09
+     },
+     "96": {
+      "cell": "2x|d-d0-lohi-rrect-md",
+      "signed": {
+       "plateau-hi": -0.0,
+       "plateau-lo": 0.01
+      },
+      "worst": 1.78
+     }
+    }
+   }
+  },
+  "light-rest": {
+   "classes": {
+    "a": {
+     "cells": [
+      "1x|bp-p1-c4-rrect-lg",
+      "1x|bp-p1-c4-rrect-md",
+      "1x|bp-p1-c8-rrect-lg"
+     ],
+     "failingCells": 1,
+     "failures": 864,
+     "statistics": 864,
+     "worst": 14.13861825753969,
+     "worstAt": "1x|bp-p1-c8-rrect-lg:sq297:far|R"
+    },
+    "b": {
+     "cells": [
+      "1x|bp-p1-c32-rrect-lg",
+      "1x|c-impulse-rrect-lg",
+      "2x|a-g096-rrect-lg",
+      "2x|a-g160-rrect-lg",
+      "2x|a-g160-rrect-ml",
+      "2x|a-g208-rrect-lg",
+      "2x|a-g208-rrect-ml",
+      "2x|a-g255-rrect-lg",
+      "2x|a-g255-rrect-ml",
+      "2x|b-p3-c16-rrect-lg",
+      "2x|b-p5-c16-rrect-lg",
+      "2x|b-p5-c64-rrect-lg",
+      "2x|bp-p1-c32-rrect-lg",
+      "2x|bp-p1-c32-rrect-ml",
+      "2x|bp-p1-c64-rrect-ml",
+      "2x|bp-p1-c8-rrect-lg",
+      "2x|bp-p1-c8-rrect-ml",
+      "2x|c-impulse-rrect-lg",
+      "2x|c-impulse-rrect-ml",
+      "2x|c-s8-hi-d40-rrect-lg",
+      "2x|c-s8-hi-d60-rrect-lg",
+      "2x|c-s8-hi-d80-rrect-lg",
+      "2x|d-d0-hilo-rrect-lg",
+      "2x|d-d0-lohi-rrect-lg",
+      "2x|e-by-c16-rrect-lg",
+      "2x|e-rg-c16-rrect-lg"
+     ],
+     "failingCells": 19,
+     "failures": 1471,
+     "statistics": 3186,
+     "worst": 5.345188092339413,
+     "worstAt": "2x|e-by-c16-rrect-lg:sq184:a|B"
+    },
+    "c": {
+     "cells": [
+      "1x|a-g128-rrect-md-1x",
+      "1x|a-g255-rrect-md-1x",
+      "1x|bp-p1-c4-capsule-button",
+      "1x|bp-p1-c4-capsule-button-odd",
+      "1x|bp-p1-c8-capsule-button",
+      "2x|a-g000-capsule-button",
+      "2x|a-g000-rrect-md",
+      "2x|a-g064-capsule-button",
+      "2x|a-g064-rrect-md",
+      "2x|a-g128-capsule-button",
+      "2x|a-g128-rrect-md",
+      "2x|a-g160-capsule-button",
+      "2x|a-g160-rrect-64",
+      "2x|a-g160-rrect-md",
+      "2x|a-g176-capsule-button",
+      "2x|a-g176-rrect-md",
+      "2x|a-g192-capsule-button",
+      "2x|a-g192-rrect-md",
+      "2x|a-g208-capsule-button",
+      "2x|a-g208-rrect-64",
+      "2x|a-g208-rrect-md",
+      "2x|a-g224-capsule-button",
+      "2x|a-g224-rrect-md",
+      "2x|a-g240-capsule-button",
+      "2x|a-g240-rrect-md",
+      "2x|a-g255-capsule-button",
+      "2x|a-g255-rrect-64",
+      "2x|a-g255-rrect-md",
+      "2x|b-p2-c16-rrect-md",
+      "2x|b-p2-c64-rrect-md",
+      "2x|b-p3-c16-rrect-md",
+      "2x|b-p3-c64-rrect-md",
+      "2x|b-p4-c16-rrect-md",
+      "2x|b-p4-c64-rrect-md",
+      "2x|b-p5-c16-rrect-md",
+      "2x|b-p5-c64-rrect-md",
+      "2x|bp-p1-c32-capsule-button",
+      "2x|bp-p1-c32-rrect-64",
+      "2x|bp-p1-c32-rrect-80",
+      "2x|bp-p1-c64-capsule-button",
+      "2x|bp-p1-c8-capsule-button",
+      "2x|c-s32-hi-rrect-md",
+      "2x|c-s32-lo-rrect-md",
+      "2x|c-s8-hi-d24-rrect-md",
+      "2x|c-s8-hi-d34-rrect-md",
+      "2x|c-s8-hi-rrect-md",
+      "2x|c-s8-lo-rrect-md",
+      "2x|d-d0-hilo-rrect-md",
+      "2x|d-d0-lohi-capsule-button",
+      "2x|d-d0-lohi-rrect-md",
+      "2x|d-d32-hilo-rrect-md",
+      "2x|d-d32-lohi-rrect-md",
+      "2x|e-by-c16-rrect-md",
+      "2x|e-by-c64-rrect-md",
+      "2x|e-rg-c16-rrect-md",
+      "2x|e-rg-c64-rrect-md"
+     ],
+     "failingCells": 14,
+     "failures": 128,
+     "statistics": 1128,
+     "worst": 3.558062285839611,
+     "worstAt": "2x|c-s8-hi-rrect-md:p1:core|R"
+    }
+   },
+   "spanTrend": {
+    "P1 0/255 pitch 32": {
+     "44": {
+      "cell": "2x|bp-p1-c32-capsule-button",
+      "signed": {
+       "far-cores": 0.64,
+       "knee-cores": -0.2
+      },
+      "worst": 0.97
+     },
+     "64": {
+      "cell": "2x|bp-p1-c32-rrect-64",
+      "signed": {
+       "far-cores": -0.36,
+       "knee-cores": 0.39
+      },
+      "worst": 0.77
+     },
+     "80": {
+      "cell": "2x|bp-p1-c32-rrect-80",
+      "signed": {
+       "far-cores": -0.09,
+       "knee-cores": 0.21
+      },
+      "worst": 0.92
+     },
+     "128": {
+      "cell": "2x|bp-p1-c32-rrect-ml",
+      "signed": {
+       "far-cores": 1.34,
+       "knee-cores": 1.09
+      },
+      "worst": 1.98
+     },
+     "160": {
+      "cell": "2x|bp-p1-c32-rrect-lg",
+      "signed": {
+       "far-cores": -0.92,
+       "knee-cores": 1.17
+      },
+      "worst": 4.14
+     }
+    },
+    "P1 0/255 pitch 64": {
+     "44": {
+      "cell": "2x|bp-p1-c64-capsule-button",
+      "signed": {
+       "far-cores": -0.21,
+       "knee-cores": 0.97
+      },
+      "worst": 0.97
+     },
+     "128": {
+      "cell": "2x|bp-p1-c64-rrect-ml",
+      "signed": {
+       "far-cores": 2.49,
+       "knee-cores": -1.1
+      },
+      "worst": 2.81
+     }
+    },
+    "P1 0/255 pitch 8": {
+     "44": {
+      "cell": "2x|bp-p1-c8-capsule-button",
+      "signed": {
+       "far-cores": 0.63,
+       "knee-cores": -0.47
+      },
+      "worst": 0.63
+     },
+     "128": {
+      "cell": "2x|bp-p1-c8-rrect-ml",
+      "signed": {
+       "far-cores": 1.36,
+       "knee-cores": -0.43
+      },
+      "worst": 2.07
+     },
+     "160": {
+      "cell": "2x|bp-p1-c8-rrect-lg",
+      "signed": {
+       "far-cores": -0.22,
+       "knee-cores": -3.25
+      },
+      "worst": 3.27
+     }
+    },
+    "P3 96/160 pitch 16": {
+     "96": {
+      "cell": "2x|b-p3-c16-rrect-md",
+      "signed": {
+       "far-cores": 0.24,
+       "knee-cores": 0.19
+      },
+      "worst": 0.39
+     },
+     "160": {
+      "cell": "2x|b-p3-c16-rrect-lg",
+      "signed": {
+       "far-cores": -1.38,
+       "knee-cores": -0.18
+      },
+      "worst": 1.84
+     }
+    },
+    "P5 144/240 pitch 16": {
+     "96": {
+      "cell": "2x|b-p5-c16-rrect-md",
+      "signed": {
+       "far-cores": 0.13,
+       "knee-cores": -0.06
+      },
+      "worst": 0.34
+     },
+     "160": {
+      "cell": "2x|b-p5-c16-rrect-lg",
+      "signed": {
+       "far-cores": -1.25,
+       "knee-cores": -0.68
+      },
+      "worst": 2.22
+     }
+    },
+    "P5 144/240 pitch 64": {
+     "96": {
+      "cell": "2x|b-p5-c64-rrect-md",
+      "signed": {
+       "far-cores": 0.82,
+       "knee-cores": -0.28
+      },
+      "worst": 0.82
+     },
+     "160": {
+      "cell": "2x|b-p5-c64-rrect-lg",
+      "signed": {
+       "far-cores": 0.3,
+       "knee-cores": -1.16
+      },
+      "worst": 1.24
+     }
+    },
+    "impulse 255 on 0, spacing 64": {
+     "128": {
+      "cell": "2x|c-impulse-rrect-ml",
+      "signed": {
+       "core": 1.71,
+       "ring0-2": 1.76,
+       "ring16-32": 2.37,
+       "ring2-4": 2.27,
+       "ring32-48": 2.14,
+       "ring4-8": 2.09,
+       "ring8-16": 1.79
+      },
+      "worst": 2.38
+     },
+     "160": {
+      "cell": "2x|c-impulse-rrect-lg",
+      "signed": {
+       "core": 2.16,
+       "ring0-2": 1.96,
+       "ring16-32": 3.35,
+       "ring2-4": 2.66,
+       "ring32-48": 3.14,
+       "ring4-8": 3.02,
+       "ring8-16": 2.84
+      },
+      "worst": 3.35
+     }
+    },
+    "step 48|208 at the centre": {
+     "44": {
+      "cell": "2x|d-d0-lohi-capsule-button",
+      "signed": {},
+      "worst": 1.21
+     },
+     "96": {
+      "cell": "2x|d-d0-lohi-rrect-md",
+      "signed": {
+       "plateau-hi": -0.03,
+       "plateau-lo": -0.94
+      },
+      "worst": 2.11
+     },
+     "160": {
+      "cell": "2x|d-d0-lohi-rrect-lg",
+      "signed": {
+       "plateau-hi": 0.33,
+       "plateau-lo": 1.0
+      },
+      "worst": 2.1
+     }
+    }
+   }
+  }
+ },
+ "schema": "w42-g2-step2-post-read-anatomy-1",
+ "status": "POST-READ DESCRIPTION: not declared before the read, not a fit for adoption, changes no verdict"
+}

@@ -53,3 +53,35 @@ python3.12 -B analyze.py main; python3.12 -B candidates.py main
   does not.
 - **Candidate values for scratch renders** are in `candidates.txt` / `.json` (LT's fitted values;
   none is an identified law).
+
+## Findings recorded for the parent (from the hand-back's decisions-needed list)
+
+1. **The native-T addendum on Apple's decreasing dark ordinates, and black at s ≥ 128.** Dark
+   native T decreases above input 208 at s ≥ 96 in both dark endpoints (`native-t/native-t.txt`).
+   The addendum's monotone guard, written for increasing ordinates, caps a completed grid point at
+   the next measured ordinate, so on the dark s = 128 and 160 rows it steps 129 → 121 (active)
+   and 123 → 114 (receded) between inputs 208 and 224, where a straight line through the measured
+   points reads 126.3 / 120.0 at 224. Below a sparse stratum's lowest measured level (160) the
+   addendum holds the residual, so black at s = 128 reads 26 (dark active) and 14 (dark receded)
+   where both full strata (t = 0, s = 96) measure 32 / 20; light active reads 137 there. No
+   family-A cell measures any level below 160 at s ≥ 128. The same rows feed candidate 2's
+   `bodyToneTableCodes` and the blind H predictions at s = 112 (½T₉₆ + ½T₁₂₈: dark black 29 / 17).
+   The dark rrect-ml cells' low-level statistics miss beside it (the impulse's black field reads
+   34 / 23 natively where LT predicts 27.8 / 16.2).
+2. **The minimax refinement is degenerate where no family closes a cell.** In light active LT's
+   minimax point (k 1.405, λ 1.323) trades the 1x rrect-lg pitch-8 cell (14.1 → 12.4 codes) for
+   failing 3,584 statistics instead of 2,322 and a 2x worst of 12.4 instead of 4.1. Comparisons at
+   minimax points (the rival table, the k ladder's climb) mostly read where each search was
+   dragged; for any scratch render the least-squares point is the representative one.
+3. **A bed gap at s = 80.** No structured calibration cell has s = 80 (`bp-p1-c32-rrect-80` is
+   validation; the rrect-80 family-A cells are dark and uniform), so free-sn's s = 80 ordinate is
+   unidentified: it runs to or near its bound (11.4–14 pt) and then misses that validation cell by
+   19.7–36.8 codes.
+
+## Post-read description (`post-read/`, asked for by the parent after the negative)
+
+`post_read.py` → `post-read/post-read.md`, `f4-baseline.json`, `anatomy.json`. **Not declared before
+the read, not a fit for adoption, and it changes no verdict above.** (1) F4, the shipped baseline,
+on the same region statistics through the same native T, beside LT's least-squares point, per
+endpoint, stratum and span. (2) The anatomy of LT's failures: memo E §2e's 1x aliasing cells, the
+other rrect-ml / rrect-lg cells (U7's span growth), and the rest, with the span trend described.

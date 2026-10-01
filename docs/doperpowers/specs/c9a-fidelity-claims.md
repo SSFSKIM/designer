@@ -42567,3 +42567,24 @@ edge swap 0; hinge +1 light / −1 dark; pose by endpoint.
   predictions at s = 112 (½T₉₆ + ½T₁₂₈ inherits the s = 128 completion: dark black 29 / 17).
 - Which fitted point, if any, scratch renders should use: the declared minimax point is
   degenerate in light active (§3.3).
+
+### 9. POST-READ DESCRIPTION (asked for by the parent after the negative; not declared, not a fit, changes no verdict)
+
+`step2/post_read.py` → `step2/post-read/`.
+- **F4, the shipped baseline**, on the same statistics: the shipped body's structure re-anchored
+  at native T, with shipped constants only (the rehearsal's replica; resolve.ts's component law
+  for the bed's spans, matching every resolved component exactly). Calibration pooled rms is
+  6.35 / 6.38 / 11.42 / 11.17 codes (light active, light receded, dark active, dark receded)
+  against LT's least-squares 1.43 / 1.16 / 1.88 / 2.07; the worst is 28.4 / 33.9 / 48.0 / 69.2
+  against 14.1 / 16.4 / 13.7 / 16.1. F4 with its own landed tone reads 6.28 / 7.61 / 14.08 / 13.87.
+  LT is closer in every structured stratum, ties on the black-field impulse grids and 8-pt
+  patches in pooled rms while cutting their worst, and fails with F4 on the 1x pitch-8 rrect-lg
+  checker.
+- **The anatomy of LT's failures** (least squares):
+  - (a) memo E §2e's 1x aliasing cells: one failing cell per endpoint, worst 14.1 / 9.0 / 13.7 /
+    10.0;
+  - (b) the other rrect-ml / rrect-lg cells: worst 5.4 / 10.2 / 9.5 / 16.1;
+  - (c) the rest: worst 3.6 / 16.4 / 3.6 / 15.7, where family E's chroma is the receded worst and
+    the grey cells reach 7.7 and 9.2 there.
+  Light active grows with span past 96, to 2–4 codes at 128–160. Light receded peaks at 128. Dark
+  is worst at 128 and not monotone, following native T's completion there more than the span.
