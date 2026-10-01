@@ -1,0 +1,20 @@
+W43 G1a close checks (charter G1a; clause 11), read 2026-10-01 22:28-22:31Z after the four bed
+passes were plurality-published.
+
+freeze   python3.12 results/2026-09-16-w29-freeze/freeze.py verify      -> 26.5 freeze intact: 1818 entries
+X41      npx tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify -> X41 0.5 generation intact: 911 entries
+manifest every existing profile entry and the 23 earlier bedProvenance records are unchanged; four
+         -glass0.25 profiles and four provenance records are added. Each 0.25 profile's attestation
+         names the side bundle (dev.vitrea.reference-apple.w39, cdhash be258cbf…, binary 02052b17…,
+         pin 780d6f95…); its hardware block reads the 0.5 profiles' shape (26A428, sdk and Xcode
+         unknown).
+fixtures 1x dark 117, 1x light 164, 2x dark 117, 2x light 164 PNGs: the 0.5 counts and the 0.5 scene
+         names exactly, profile by profile.
+slider   defaults read -g NSGlassTintAmount -> 0.5 (float), the as-found value
+display  displayplacer list -> current mode 68
+tests    vitest run of scene-matrix, adopted-thresholds, material-selection, matrix-write-guard,
+         generation-stage and materialize-new-profile: 6 files, 237 passed, 1 skipped (after
+         pnpm -r --filter '!demo' build in this fresh worktree; before the build three files
+         failed only on unbuilt package entries)
+bundles  the side bundle keeps its Screen Recording grant for G1b; the original bundle stays
+         unrestored until G1b's close (charter clause 6). Nothing was added to or removed from TCC.
