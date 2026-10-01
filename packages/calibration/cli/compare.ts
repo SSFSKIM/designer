@@ -277,6 +277,13 @@ interface Options {
    * scene's declared state asks for it.
    */
   readonly recededProfile: string | undefined;
+  /**
+   * Candidate mode (W43 G0 (f)): a declaration naming a complete material document by hash,
+   * which `capture-web` reads and the page builds the root from. It takes neither flag above
+   * beside it, and it never enters a stage: a stage is a publication, and a publication reads
+   * a shipped material in strict mode. Its rows carry the candidate stamp in `capturePath`.
+   */
+  readonly candidateDocument: string | undefined;
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
   readonly stage: string | undefined;
@@ -355,6 +362,32 @@ function parseOptions(argv: readonly string[]): Options {
 
   const materialProfile = flag("material-profile");
   const recededProfile = flag("receded-profile");
+  const candidateDocument = flag("candidate-document");
+  if (candidateDocument !== undefined) {
+    if (materialProfile !== undefined || recededProfile !== undefined) {
+      throw new Error(
+        "compare: --candidate-document is a complete material and takes no --material-profile or " +
+          "--receded-profile beside it (W43 G0 (f))",
+      );
+    }
+    if (flag("stage") !== undefined) {
+      throw new Error(
+        "compare: --candidate-document cannot measure into a --stage. A stage is a publication, " +
+          "and a publication reads a shipped material in strict mode; measure a candidate into a " +
+          "scratch --out-matrix (W43 G0 (f))",
+      );
+    }
+    // The canonical capture tree is what the sheets and the demo fixture are copied from and
+    // what `check-capture-tree` reads against the matrix, so a candidate's pixels stay out.
+    const tree = resolve(PACKAGE_ROOT, "web-captures");
+    const target = captures === undefined ? tree : resolve(captures);
+    if (target === tree || target.startsWith(`${tree}/`)) {
+      throw new Error(
+        `compare: --candidate-document would write its captures into the canonical tree ${tree}; ` +
+          "set VITREA_WEB_CAPTURES to a scratch directory (W43 G0 (f))",
+      );
+    }
+  }
   const scenes = list("scene");
   const profileKeys = list("profile");
 
@@ -379,6 +412,8 @@ function parseOptions(argv: readonly string[]): Options {
     allowColourlessTints: argv.includes("--allow-colourless-tints"),
     materialProfile: materialProfile === undefined ? undefined : resolve(process.cwd(), materialProfile),
     recededProfile: recededProfile === undefined ? undefined : resolve(process.cwd(), recededProfile),
+    candidateDocument:
+      candidateDocument === undefined ? undefined : resolve(process.cwd(), candidateDocument),
     webAccessibility,
     stage: flag("stage") === undefined ? undefined : resolve(flag("stage")!),
     matrixPath: flag("stage") === undefined
@@ -588,6 +623,8 @@ function captureFor(planned: readonly PlannedCell[], options: Options): void {
     captureRootFor(first.profileKey, variant),
     ...(options.materialProfile === undefined ? [] : ["--material-profile", options.materialProfile]),
     ...(options.recededProfile === undefined ? [] : ["--receded-profile", options.recededProfile]),
+    ...(options.candidateDocument === undefined
+      ? [] : ["--candidate-document", options.candidateDocument]),
     ...(options.alpha ? ["--alpha"] : []),
   ]);
 }
@@ -1088,6 +1125,9 @@ function main(): void {
   }
   if (options.materialProfile !== undefined) {
     say(`material profile applied to the web side: ${options.materialProfile}`);
+  }
+  if (options.candidateDocument !== undefined) {
+    say(`CANDIDATE material document drawn on the web side: ${options.candidateDocument}`);
   }
 
   // Every profile's web-side accessibility state, printed whether or not the

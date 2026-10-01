@@ -76,6 +76,7 @@ import {
   parseBackdropMode,
   type BackdropMode,
 } from "../src/backdrop-probe";
+import { selectShippedDocument, validateCandidateDocument } from "../src/material-selection";
 import { CANVAS, SCENE_IDS, resolveScene, type PlacedScene } from "./scenes";
 
 const REFERENCE_MOUNT = "/reference-fixtures";
@@ -273,6 +274,15 @@ export interface SceneReport {
    */
   readonly material: ResolvedMaterialDocument;
   /**
+   * Which of the page's declared modes chose that document (W43 G0 (f)): `"shipped"`, a
+   * shipped document selected by the (OS, glass) pair the injected key names; `"candidate"`,
+   * a complete document the driver declared, drawn with nothing injected over it; or
+   * `"default"`, no key and no candidate, so the runtime's own default document.
+   */
+  readonly materialMode: "shipped" | "candidate" | "default";
+  /** The candidate's stamp, as the driver declared it, or `null` outside candidate mode. */
+  readonly candidateDocument: CandidateStamp | null;
+  /**
    * What the crossing to `backdrop-filter` was priced at for this capture, or
    * `null` for the shipped mapping (corrective K5). Only the dom tier renders
    * through it, but it is reported on every capture: a GPU-tier cell that
@@ -326,6 +336,14 @@ export interface SceneReport {
   readonly problems: readonly string[];
 }
 
+/** What a candidate capture is stamped with: the declaration that named its document. */
+export interface CandidateStamp {
+  readonly mode: "candidate";
+  readonly declaration: string;
+  readonly declarationSha256: string;
+  readonly cssTierMappingSha256: string;
+}
+
 declare global {
   interface Window {
     __vitreaCalibration: {
@@ -346,9 +364,10 @@ declare global {
      * against, and it became load-bearing the moment the shipped default moved
      * to macOS 27: a patch is a DIFFERENCE from whatever base the root resolved,
      * so a macOS 26.5 document merged over a macOS 27 base is neither material.
-     * The page maps the key's OS token onto a shipped document and refuses a
-     * token it does not ship, which is the same rule the harness applies to every
-     * other axis — a value that cannot be checked is not an attestation.
+     * The page maps the key's (OS, glass) pair onto exactly one shipped document
+     * and refuses a pair it does not ship or ships twice (strict shipped mode, W43
+     * G0 (f)), which is the same rule the harness applies to every other axis — a
+     * value that cannot be checked is not an attestation.
      *
      * Absent means the runtime's own default document, which is what an
      * unspecified capture must be.
@@ -377,6 +396,16 @@ declare global {
      * accessibility-free capture must be.
      */
     __vitreaAccessibilityOverrides?: AccessibilityOverrides;
+    /**
+     * Candidate mode (W43 G0 (f)): a complete material document the driver declared and
+     * checked by hash, with the stamp every output of this capture carries. Present means
+     * the root is built from this document and from nothing else, so its presence beside
+     * any of the injections above is refused.
+     */
+    __vitreaCandidateDocument?: {
+      readonly stamp: CandidateStamp;
+      readonly document: GlassMaterialProfileDocument & { readonly glassTintAmount: number };
+    };
   }
 }
 
@@ -656,7 +685,10 @@ async function build(): Promise<SceneReport> {
    */
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   /*
-   * The candidate branch, and the one thing that distinguishes it.
+   * The candidate RECEDED branch, and the one thing that distinguishes it. (W29 G3b's
+   * `--receded-profile` seam, under strict or default mode; W43's candidate mode below needs
+   * none of it, because its document carries its own receded endpoints and the root poses
+   * itself.)
    *
    * A read of a CANDIDATE receded document — one that is by definition not the
    * shipped one — cannot go through the runtime's pose: the root would apply
@@ -677,32 +709,47 @@ async function build(): Promise<SceneReport> {
    * root under an inactive id only on the evidence of the first.
    */
   /*
-   * Which shipped material document this capture is read against (W29 G4).
+   * Which material document this capture is read against, in one of two declared modes
+   * (W29 G4; W43 G0 (f), the charter's Surprises 1).
    *
-   * Before the selection landed there was only one shipped material and this
-   * question did not exist: a profile document's patch was a difference from the
-   * one base the runtime had. Since 0.19.0 a root resolves macOS 27's material
-   * by default and macOS 26.5's on request, and a patch composed over the wrong
-   * one of those is a material nobody measured — so the driver names the
-   * document its `--material-profile` came from and the page selects by the OS
-   * token in that key. An unrecognised token stops the capture rather than
-   * drawing something plausible.
+   * Since 0.19.0 a root resolves macOS 27's material by default and macOS 26.5's on request,
+   * and a patch composed over the wrong one of those is a material nobody measured. Through
+   * W42 the page chose by the OS token of the key alone, which stays right only while each OS
+   * ships one material: once a second slider position ships, the token returns the first one
+   * found, and a read at the other position borrows its receded endpoints and CSS crossing.
+   *
+   * **Strict shipped mode** selects by the (OS, glass) pair the key names and refuses a pair
+   * no shipped document carries, or more than one does. **Candidate mode** builds the root
+   * from a complete document the driver declared, for a material that is not shipped yet, and
+   * refuses any injection beside it: the patch, the key, the receded difference and the CSS
+   * mapping would each put another material's half under the candidate's name. Both modes'
+   * rules are in `src/material-selection.ts`, which the driver runs first and this page runs
+   * again before anything draws.
    */
-  const materialProfileDocument = ((): GlassMaterialProfileDocument | undefined => {
-    const key = window.__vitreaMaterialProfileKey;
-    if (key === undefined) return undefined;
-    const os = /^apple-macos-(\d+\.\d+)-/.exec(key)?.[1];
-    const shipped = SHIPPED_MATERIAL_PROFILE_DOCUMENTS.find(
-      (document) => document.platform === `macOS ${os ?? ""}`,
-    );
-    if (shipped === undefined) {
+  const declaredCandidate = window.__vitreaCandidateDocument;
+  if (declaredCandidate !== undefined) {
+    const beside = [
+      ["__vitreaMaterialProfile", window.__vitreaMaterialProfile],
+      ["__vitreaMaterialProfileKey", window.__vitreaMaterialProfileKey],
+      ["__vitreaRecededMaterialProfile", window.__vitreaRecededMaterialProfile],
+      ["__vitreaCssTierMapping", window.__vitreaCssTierMapping],
+    ].filter(([, value]) => value !== undefined).map(([name]) => name);
+    if (beside.length > 0) {
       throw new Error(
-        `the material profile document ${key} names macOS ${os ?? "(unparsed)"}, which ` +
-          `@vitreajs/vitrea-web does not ship a material for — a patch over the wrong base ` +
-          `is not the material this profile records`,
+        `candidate mode refuses ${beside.join(", ")} beside the candidate document: the root is ` +
+          `built from the candidate alone, never with another material's half injected over it`,
       );
     }
-    return shipped;
+    validateCandidateDocument(declaredCandidate.document, SHIPPED_MATERIAL_PROFILE_DOCUMENTS);
+  }
+  const materialMode: SceneReport["materialMode"] = declaredCandidate !== undefined
+    ? "candidate"
+    : window.__vitreaMaterialProfileKey === undefined ? "default" : "shipped";
+  const materialProfileDocument = ((): GlassMaterialProfileDocument | undefined => {
+    if (declaredCandidate !== undefined) return declaredCandidate.document;
+    const key = window.__vitreaMaterialProfileKey;
+    if (key === undefined) return undefined;
+    return selectShippedDocument(key, SHIPPED_MATERIAL_PROFILE_DOCUMENTS);
   })();
 
   const candidateReceded = placed.inactive ? window.__vitreaRecededMaterialProfile : undefined;
@@ -805,8 +852,12 @@ async function build(): Promise<SceneReport> {
     // receded difference's and not the active document's: the root merges the two
     // and this decision has to follow the merge, or an inactive cell would be
     // captured in the source path's content box.
+    // In candidate mode nothing is injected, so the active half is the candidate's own.
+    const activeHalf = declaredCandidate === undefined
+      ? materialProfile
+      : declaredCandidate.document.active[colorScheme].patch;
     const drawnAbscissa =
-      runtimeReceded?.backdropToneAbscissa ?? materialProfile?.backdropToneAbscissa;
+      runtimeReceded?.backdropToneAbscissa ?? activeHalf?.backdropToneAbscissa;
     if (drawnAbscissa !== undefined && drawnAbscissa !== "source") {
       host.style.boxSizing = "border-box";
     }
@@ -968,6 +1019,8 @@ async function build(): Promise<SceneReport> {
     windowActivation: root.windowActivation,
     colorScheme: root.colorScheme,
     material: root.material,
+    materialMode,
+    candidateDocument: declaredCandidate?.stamp ?? null,
     cssTierMapping: cssTierMapping ?? null,
     transparentPage,
     accessibilityOverrides: accessibilityOverrides ?? null,

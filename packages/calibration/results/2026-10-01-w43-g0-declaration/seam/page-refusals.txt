@@ -1,0 +1,24 @@
+W43 G0 (f) page refusals, 2026-10-01T06:43:46.079Z, chromium 151.0.7922.34
+ok    green: strict, the 0.5 key
+        ready: mode=shipped material={"name":"apple-macos-27.0-glass0.5","platform":"macOS 27.0","profileKey":"apple-macos-27.0-1x-light-standard-glass0.5-receded","resolvedMaterialSha256":"b0d0d8dacc6a03af","tuned":true} windowActivation=inactive
+ok    green: candidate, the scratch 0.25 document
+        ready: mode=candidate material={"name":"apple-macos-27.0-glass0.25-w43-g0-scratch","platform":"macOS 27.0","profileKey":"apple-macos-27.0-1x-light-standard-glass0.25-receded","resolvedMaterialSha256":"b0d0d8dacc6a03af","tuned":false} windowActivation=inactive
+ok    red: strict, a 0.25 key (unshipped pair)
+        strict shipped mode: 'apple-macos-27.0-1x-light-standard-glass0.25' names (macOS 27.0, glass 0.25), and @vitreajs/vitrea-web ships no material at that pair (it ships apple-macos-27.0-glass0.5 at macOS 27.0, glass 0.5; apple-macos-26.5 at macOS 26.5, no glass token). A patch over another position's document is not the material this profile records; read an unshipped material through candidate mode
+ok    red: strict, a macOS 27 key with no glass token
+        strict shipped mode: 'apple-macos-27.0-1x-light-standard' names (macOS 27.0, no glass token), and @vitreajs/vitrea-web ships no material at that pair (it ships apple-macos-27.0-glass0.5 at macOS 27.0, glass 0.5; apple-macos-26.5 at macOS 26.5, no glass token). A patch over another position's document is not the material this profile records; read an unshipped material through candidate mode
+ok    red: candidate beside an injected patch
+        candidate mode refuses __vitreaMaterialProfile beside the candidate document: the root is built from the candidate alone, never with another material's half injected over it
+ok    red: candidate beside an injected key
+        candidate mode refuses __vitreaMaterialProfileKey beside the candidate document: the root is built from the candidate alone, never with another material's half injected over it
+ok    red: candidate beside a receded difference
+        candidate mode refuses __vitreaRecededMaterialProfile beside the candidate document: the root is built from the candidate alone, never with another material's half injected over it
+ok    red: candidate beside a CSS mapping
+        candidate mode refuses __vitreaCssTierMapping beside the candidate document: the root is built from the candidate alone, never with another material's half injected over it
+ok    red: partial candidate (no receded.dark)
+        candidate mode refuses this document: partial: no receded.dark endpoint
+ok    red: candidate whose keys' glass token differs
+        candidate mode refuses this document: glass token: active.light key 'apple-macos-27.0-1x-light-standard-glass0.25' names glass 0.25, the candidate declares 0.5; glass token: active.dark key 'apple-macos-27.0-1x-dark-standard-glass0.25' names glass 0.25, the candidate declares 0.5; glass token: receded.light key 'apple-macos-27.0-1x-light-standard-glass0.25-receded' names glass 0.25, the candidate declares 0.5; glass token: receded.dark key 'apple-macos-27.0-1x-dark-standard-glass0.25-receded' names glass 0.25, the candidate declares 0.5
+ok    red: candidate naming the shipped document
+        candidate mode refuses this document: names a shipped document: 'apple-macos-27.0-glass0.5' is a shipped document's name
+wrong verdicts: 0

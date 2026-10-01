@@ -61,6 +61,8 @@ import {
   readRecededProfileFile,
   recededProfileClause,
 } from "./material-profile-file.ts";
+import { readCandidateDocument, type CandidateDocument } from "./candidate-document.ts";
+import { candidateMaterialLabel } from "../src/material-selection.ts";
 import { PNG } from "pngjs";
 import { createServer, type ViteDevServer } from "vite";
 
@@ -246,6 +248,13 @@ interface Options {
    */
   readonly recededProfile: MaterialProfileFile | undefined;
   /**
+   * Candidate mode (W43 G0 (f)): a complete declared document the page builds its root from,
+   * in place of a shipped document selected by the key with a patch injected over it. It
+   * excludes both flags above, because a candidate that borrowed either half from elsewhere
+   * would be the borrowed material under the candidate's name.
+   */
+  readonly candidateDocument: CandidateDocument | undefined;
+  /**
    * Also take the declaration-conformance capture (W20 G0, claims §5.83): the
    * same scene on the same resolved tier with the page ground transparent and
    * the backdrop raster hidden, written as `<scene>__<tier>__alpha.png`.
@@ -275,6 +284,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   let outDir = DEFAULT_OUT;
   let materialProfile: MaterialProfileFile | undefined;
   let recededProfile: MaterialProfileFile | undefined;
+  let candidateDocument: CandidateDocument | undefined;
   let alpha = false;
   let all = false;
 
@@ -335,9 +345,33 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
         recededProfile = readRecededProfile(resolve(process.cwd(), next(index, argument)));
         index += 1;
         break;
+      case "--candidate-document":
+        candidateDocument = readCandidateDocument(resolve(process.cwd(), next(index, argument)));
+        index += 1;
+        break;
       default:
         if (argument.startsWith("--")) throw new Error(`unknown flag ${argument}`);
         ids.push(argument);
+    }
+  }
+
+  if (candidateDocument !== undefined &&
+    (materialProfile !== undefined || recededProfile !== undefined)) {
+    throw new Error(
+      "--candidate-document is a complete material and takes no --material-profile or " +
+        "--receded-profile beside it: the page builds the root from the candidate alone, never " +
+        "from a shipped document with a patch injected over it (W43 G0 (f)).",
+    );
+  }
+  // A candidate's pixels stay out of the canonical capture tree, which `check-capture-tree`
+  // reads against the published rows and the sheets are copied from.
+  if (candidateDocument !== undefined) {
+    const out = resolve(outDir);
+    if (out === DEFAULT_OUT || out.startsWith(`${DEFAULT_OUT}/`)) {
+      throw new Error(
+        `--candidate-document would write into the canonical capture tree ${DEFAULT_OUT}; ` +
+          "pass --out <scratch directory> (W43 G0 (f)).",
+      );
     }
   }
 
@@ -373,6 +407,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     outDir,
     materialProfile,
     recededProfile,
+    candidateDocument,
     alpha,
   };
 }
@@ -412,6 +447,20 @@ function readRecededProfile(path: string): MaterialProfileFile {
     patch: sections.patch as MaterialProfileFile["patch"],
     cssTierMapping: undefined,
   };
+}
+
+/**
+ * How the cell names a candidate document: the stamp, in place of the `materialProfile=`
+ * clause, so a candidate capture can never carry a shipped capture's key.
+ */
+function candidateLabel(candidate: CandidateDocument): string {
+  const shown = relative(REPO_ROOT, candidate.declarationPath);
+  return candidateMaterialLabel({
+    declaration: shown.startsWith("..") ? candidate.declarationPath : shown,
+    sha256: candidate.declarationSha256,
+    name: candidate.document.name,
+    glassTintAmount: candidate.document.glassTintAmount,
+  });
 }
 
 /** How the cell names the tunables a capture ran on. Never omitted. */
@@ -653,7 +702,9 @@ async function captureScene(
       `deviceScaleFactor=${options.scale}, colorScheme=${options.colorScheme}, ` +
       `animations=disabled, frames=${first.report.frames}, ` +
       `${accessibilityLabel(options.accessibility)}, ` +
-      materialProfileLabel(options.materialProfile) +
+      (options.candidateDocument === undefined
+        ? materialProfileLabel(options.materialProfile)
+        : candidateLabel(options.candidateDocument)) +
       // Empty when no candidate receded document was injected, so every key
       // published before this flag existed is unchanged to the byte, and
       // non-empty otherwise — which is what makes a receded row say which
@@ -783,6 +834,15 @@ async function captureScene(
                 sha256: options.recededProfile.sha256,
                 patch: options.recededProfile.patch,
               },
+        candidateDocument:
+          options.candidateDocument === undefined
+            ? null
+            : {
+                declarationPath: options.candidateDocument.declarationPath,
+                declarationSha256: options.candidateDocument.declarationSha256,
+                endpoints: options.candidateDocument.endpoints,
+                cssTierMappingSha256: options.candidateDocument.cssTierMappingSha256,
+              },
         fallback: fallback ?? null,
         problems,
         page: first.report,
@@ -885,6 +945,30 @@ async function main(): Promise<void> {
         window.__vitreaRecededMaterialProfile = patch;
       }, receded.patch);
       say(`receded profile:${recededProfileClause(receded, REPO_ROOT)}`);
+    }
+
+    /*
+     * The candidate document, on the same init-script placement (W43 G0 (f)). The whole
+     * document travels, with the stamp the page reports back, and nothing else does: the
+     * flags that inject a patch or a receded difference were refused beside it.
+     */
+    if (options.candidateDocument !== undefined) {
+      const candidate = options.candidateDocument;
+      await context.addInitScript(
+        (injected: NonNullable<Window["__vitreaCandidateDocument"]>) => {
+          window.__vitreaCandidateDocument = injected;
+        },
+        {
+          stamp: {
+            mode: "candidate" as const,
+            declaration: relative(REPO_ROOT, candidate.declarationPath),
+            declarationSha256: candidate.declarationSha256,
+            cssTierMappingSha256: candidate.cssTierMappingSha256,
+          },
+          document: candidate.document as NonNullable<Window["__vitreaCandidateDocument"]>["document"],
+        },
+      );
+      say(`candidate document: ${candidateLabel(candidate)}`);
     }
 
     // Same init-script placement, same reason: the CSS tier writes its
