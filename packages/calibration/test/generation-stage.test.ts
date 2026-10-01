@@ -24,6 +24,8 @@ function repo() {
   mkdirSync(join(copy, "results/generations"), { recursive: true });
   cpSync(join(pkg, "src"), join(copy, "src"), { recursive: true });
   cpSync(join(pkg, "cli"), join(copy, "cli"), { recursive: true });
+  // compare reads candidate and material documents through the drivers' readers (W43 G0 (f)).
+  cpSync(join(pkg, "scripts"), join(copy, "scripts"), { recursive: true });
   cpSync(join(pkg, "package.json"), join(copy, "package.json"));
   symlinkSync(join(pkg, "node_modules"), join(copy, "node_modules"));
   writeFileSync(join(copy, "results/matrix.json"), '{"schemaVersion":5,"cells":[]}\n');
@@ -226,6 +228,22 @@ it("refuses row document drift, undeclared rows, and existing authoritative keys
   writeFileSync(path, raw);
   expect(run(copy, ["publish", "stage"]).status).toBe(0);
   expect(run(copy, ["publish", "stage"]).stderr).toMatch(/serialized key already exists/);
+});
+it("refuses a cross-position row at publication, whatever route brought it into the stage", () => {
+  // W43 G0 (f): the stamp is the only thing separating such a row from a generation's own, since
+  // its key carries a declared document's hash over a profile at another glass position.
+  const copy = repo(); declare(copy); fill(copy);
+  const path = join(copy, "stage/matrix.json");
+  const raw = readFileSync(path, "utf8");
+  const index = readFileSync(join(copy, "results/generations/index.json"));
+  writeFileSync(path, raw.replace(/(sha256:[0-9a-f]{12})"/,
+    '$1, crossPosition=shipped-glass0.5-against-glass0.25"'));
+  const refused = run(copy, ["publish", "stage"]);
+  expect(refused.status).toBe(1);
+  expect(refused.stderr).toMatch(/cross-position rows cannot publish: .*glass0\.5\/cal/);
+  expect(readFileSync(join(copy, "results/generations/index.json"))).toEqual(index);
+  writeFileSync(path, raw);
+  expect(run(copy, ["publish", "stage"]).status).toBe(0);
 });
 it("qualifies a receded-only reseal and preserves every alias owner", () => {
   const copy = repo(); declare(copy); const active = fill(copy);

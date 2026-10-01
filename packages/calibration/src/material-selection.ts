@@ -263,47 +263,70 @@ export function validateCandidateDocument(
   }
 }
 
+/** Which mode drew the material a cross-position reading compares: the stamp's first word. */
+export type CrossPositionSource = "candidate" | "shipped";
+
+/** A glass position as a stamp and a message spell it; a key with no glass token is `none`. */
+export const glassToken = (glass: number | undefined): string => String(glass ?? "none");
+
 /**
- * A candidate read against fixtures at another glass position, refused unless declared
- * (W43 G0 (f), the parent's ruling on X45).
+ * A material read against fixtures at another glass position, refused unless declared (W43
+ * G0 (f), the parent's rulings on X45), in both modes: a candidate at its declared position, or
+ * a strict read at the position its `--material-profile` key selects.
  *
- * A candidate at one position measured against native fixtures at another is a comparison
- * between two materials, never a fit of either, and nothing in a row would otherwise say so
- * beyond two numbers in two strings. So a run is one of two things, declared up front: every
- * profile at the candidate's position, or, under `--cross-position`, every profile at another
- * one, each output stamped. The flag over a same-position profile is refused too, because the
- * stamp it writes would be false. Returns the refusal, or `undefined`.
+ * A material at one position measured against native fixtures at another is a comparison
+ * between two materials, never a fit or a referee of either, and nothing in a row would
+ * otherwise say so beyond two numbers in two strings: a strict row would even carry a shipped
+ * document's hash over the other position's profile key, which reads as legitimate. So a run is
+ * one of two things, declared up front: every profile at the material's position, or, under
+ * `--cross-position`, every profile at another one, each output stamped and kept to scratch.
+ * The flag over a same-position profile is refused too, because the stamp it writes would be
+ * false. Returns the refusal, or `undefined`.
  */
 export function crossPositionRefusal(
-  candidateGlass: number,
+  source: CrossPositionSource,
+  materialGlass: number | undefined,
   profileKeys: readonly string[],
   crossPosition: boolean,
 ): string | undefined {
   const glassOf = (key: string): number | undefined => keyPosition(key)?.glass;
-  const same = profileKeys.filter((key) => glassOf(key) === candidateGlass);
-  const other = profileKeys.filter((key) => glassOf(key) !== candidateGlass);
+  const same = profileKeys.filter((key) => glassOf(key) === materialGlass);
+  const other = profileKeys.filter((key) => glassOf(key) !== materialGlass);
+  const material = source === "candidate" ? "the candidate" : "the shipped material";
   if (!crossPosition && other.length > 0) {
     return (
-      `the candidate is at glass ${candidateGlass} and is read against ` +
-      `${other.map((k) => `${k} (glass ${String(glassOf(k) ?? "none")})`).join(", ")}. A ` +
+      `${material} is at glass ${glassToken(materialGlass)} and is read against ` +
+      `${other.map((k) => `${k} (glass ${glassToken(glassOf(k))})`).join(", ")}. A ` +
       `cross-position reading is a comparison between two materials; declare it with ` +
-      `--cross-position, which stamps every output, or select profiles at glass ${candidateGlass}`
+      `--cross-position, which stamps every output and keeps it to scratch, or select profiles ` +
+      `at glass ${glassToken(materialGlass)}`
     );
   }
   if (crossPosition && same.length > 0) {
     return (
       `--cross-position was declared, and ${same.join(", ")} ${same.length === 1 ? "is" : "are"} at ` +
-      `the candidate's own glass ${candidateGlass}, so the stamp would be false there; run the ` +
-      `same-position profiles without the flag`
+      `${material}'s own glass ${glassToken(materialGlass)}, so the stamp would be false there; run ` +
+      `the same-position profiles without the flag`
     );
   }
   return undefined;
 }
 
-/** The `capturePath` clause a cross-position output carries, after the candidate's own. */
-export function crossPositionClause(candidateGlass: number, againstGlass: string): string {
-  return `, crossPosition=candidate-glass${candidateGlass}-against-glass${againstGlass}`;
+/** The `capturePath` clause a cross-position output carries, after the material's own label. */
+export function crossPositionClause(
+  source: CrossPositionSource,
+  materialGlass: number | undefined,
+  againstGlass: string,
+): string {
+  return `, crossPosition=${source}-glass${glassToken(materialGlass)}-against-glass${againstGlass}`;
 }
+
+/**
+ * Whether a row's `capturePath` carries the cross-position stamp. `matrix publish` refuses
+ * such a row whatever route brought it into a stage.
+ */
+export const carriesCrossPositionStamp = (capturePath: string): boolean =>
+  /(^|, )crossPosition=/.test(capturePath);
 
 /**
  * How a capture's `capturePath` names a candidate, so every output carries the stamp.

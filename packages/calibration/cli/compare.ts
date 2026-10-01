@@ -117,8 +117,17 @@ import {
 } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
 import { isNativeOnly } from "../src/component-region";
-import { crossPositionRefusal, keyPosition } from "../src/material-selection";
+import {
+  crossPositionRefusal,
+  documentPosition,
+  glassToken,
+  keyPosition,
+  selectShippedDocument,
+  type MaterialPosition,
+} from "../src/material-selection";
 import { readCandidateDocument, type CandidateDocument } from "../scripts/candidate-document";
+import { readMaterialProfileFile } from "../scripts/material-profile-file";
+import { SHIPPED_MATERIAL_PROFILE_DOCUMENTS } from "@vitreajs/vitrea-web";
 import { declaredComponentOf, readSceneGeometry, type SceneGeometryMatrix } from "./scene-geometry";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -287,10 +296,12 @@ interface Options {
    */
   readonly candidateDocument: string | undefined;
   /**
-   * The declared cross-position reading (W43 G0 (f)): a candidate read against fixtures at
-   * another glass position, for the deliberate comparisons (the bridge, the w-test). Without
-   * it such a run is refused; with it every planned profile must be at another position, and
-   * every capture's `capturePath` and report carry the stamp.
+   * The declared cross-position reading (W43 G0 (f)): a candidate, or the shipped material a
+   * keyed `--material-profile` selects, read against fixtures at another glass position, for
+   * the deliberate comparisons (the bridge, the w-test). Without it such a run is refused;
+   * with it every planned profile must be at another position, every capture's `capturePath`
+   * and report carry the stamp, and the run is scratch only: no stage, no canonical tree, and
+   * `matrix publish` refuses a stamped row whatever route brought it.
    */
   readonly crossPosition: boolean;
   readonly webAccessibility: WebAccessibilityMode;
@@ -397,11 +408,28 @@ function parseOptions(argv: readonly string[]): Options {
       );
     }
   }
-  if (argv.includes("--cross-position") && candidateDocument === undefined) {
-    throw new Error(
-      "compare: --cross-position declares a candidate read at another glass position, and this " +
-        "run names no --candidate-document (W43 G0 (f))",
-    );
+  if (argv.includes("--cross-position")) {
+    if (candidateDocument === undefined && materialProfile === undefined) {
+      throw new Error(
+        "compare: --cross-position declares a material read at another glass position, and this " +
+          "run names neither a --candidate-document nor a --material-profile (W43 G0 (f))",
+      );
+    }
+    if (flag("stage") !== undefined) {
+      throw new Error(
+        "compare: --cross-position cannot measure into a --stage. A cross-position reading is a " +
+          "comparison between two materials and never a generation's row; measure it into a " +
+          "scratch --out-matrix (W43 G0 (f))",
+      );
+    }
+    const tree = resolve(PACKAGE_ROOT, "web-captures");
+    const target = captures === undefined ? tree : resolve(captures);
+    if (target === tree || target.startsWith(`${tree}/`)) {
+      throw new Error(
+        `compare: --cross-position would write its captures into the canonical tree ${tree}; ` +
+          "set VITREA_WEB_CAPTURES to a scratch directory (W43 G0 (f))",
+      );
+    }
   }
   const scenes = list("scene");
   const profileKeys = list("profile");
@@ -642,7 +670,7 @@ function captureFor(planned: readonly PlannedCell[], options: Options): void {
     ...(options.candidateDocument === undefined
       ? [] : ["--candidate-document", options.candidateDocument]),
     ...(options.crossPosition
-      ? ["--cross-position", String(keyPosition(first.profileKey)?.glass ?? "none")] : []),
+      ? ["--cross-position", glassToken(keyPosition(first.profileKey)?.glass)] : []),
     ...(options.alpha ? ["--alpha"] : []),
   ]);
 }
@@ -725,18 +753,35 @@ function main(): void {
   }
 
   /*
-   * The candidate's position against every planned profile's, before anything is captured
-   * (W43 G0 (f)). Read through the same reader `capture-web` uses, so a `--skip-capture`
-   * re-measure is held to the same declaration as a run that captures.
+   * The material's glass position against every planned profile's, before anything is
+   * captured (W43 G0 (f)), in both modes: a candidate's declared position, read through the
+   * reader `capture-web` uses; or the position of the shipped document a keyed
+   * `--material-profile` selects, through the page's own strict selection. So a `--skip-capture`
+   * re-measure is held to the same declaration as a run that captures. A bare patch file names
+   * no key, selects nothing and is read over the runtime's default, so it has no declared
+   * position to compare, and it cannot carry `--cross-position`.
    */
+  const plannedKeys = [...new Set(planned.map((cell) => cell.profileKey))];
   if (options.candidateDocument !== undefined) {
     const candidate: CandidateDocument = readCandidateDocument(options.candidateDocument);
-    const refusal = crossPositionRefusal(
-      candidate.document.glassTintAmount,
-      [...new Set(planned.map((cell) => cell.profileKey))],
-      options.crossPosition,
-    );
+    const refusal = crossPositionRefusal("candidate", candidate.document.glassTintAmount,
+      plannedKeys, options.crossPosition);
     if (refusal !== undefined) throw new Error(refusal);
+  } else if (options.materialProfile !== undefined) {
+    const key = readMaterialProfileFile(options.materialProfile).profileKey;
+    if (key === undefined) {
+      if (options.crossPosition) {
+        throw new Error(
+          `--cross-position needs a material with a position, and ${options.materialProfile} is a ` +
+            "bare patch with no profileKey (W43 G0 (f))",
+        );
+      }
+    } else {
+      const position = documentPosition(selectShippedDocument(key, SHIPPED_MATERIAL_PROFILE_DOCUMENTS));
+      const refusal = crossPositionRefusal("shipped", (position as MaterialPosition).glass,
+        plannedKeys, options.crossPosition);
+      if (refusal !== undefined) throw new Error(refusal);
+    }
   }
 
   if (options.sets.includes("holdout")) {
@@ -1163,7 +1208,7 @@ function main(): void {
     say(`CANDIDATE material document drawn on the web side: ${options.candidateDocument}`);
   }
   if (options.crossPosition) {
-    say("CROSS-POSITION reading: the candidate sits at another glass position from these fixtures");
+    say("CROSS-POSITION reading: the material sits at another glass position from these fixtures");
   }
 
   // Every profile's web-side accessibility state, printed whether or not the

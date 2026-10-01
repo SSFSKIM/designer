@@ -7,6 +7,7 @@ import { assertScratchDestination } from "./matrix-write-guard";
 import { documents, generationEnvelope, iterateRecordedRows, loadCurrentRows, readIndex,
   readRows, type Document, type Entry, type Index } from "./matrix-store";
 import { serializeResultCellKey, type CellResult } from "./report";
+import { carriesCrossPositionStamp } from "./material-selection";
 
 const PACKAGE = fileURLToPath(new URL("../", import.meta.url));
 const REPO_ROOT = resolve(PACKAGE, "../..");
@@ -158,6 +159,14 @@ export function prepareGeneration(directory: string, results: string) {
   const rows = readRows(stageMatrixPath(directory));
   const status = validateStageRows(directory, rows);
   if (status.missing) fail(`incomplete membership: ${status.present}/${status.declared}`);
+  // A cross-position row compares two materials; its key can still look like a generation's own
+  // (a shipped document's hash over another position's profile), so the stamp is what refuses
+  // it, whatever route brought it into the stage (W43 G0 (f)).
+  const stamped = rows.filter((r) => carriesCrossPositionStamp(r.key.web.capturePath));
+  if (stamped.length) {
+    fail(`cross-position rows cannot publish: ${stamped.map((r) => `${r.key.profileKey}/${r.key.sceneId}`)
+      .join(", ")}`);
+  }
   const m = status.membership;
   if (m.profiles.some((p) => !p.startsWith("apple-macos-27."))) fail("frozen profile cannot publish");
   // Ignore reader scratch overrides: publication always checks the complete authoritative history.
