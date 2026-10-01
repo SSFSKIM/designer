@@ -6990,3 +6990,47 @@ the driver as a watchdog during every launch. On frontmost ≠ the harness, or o
 the launch at once and quarantine the run naming the reading, instead of finishing a doomed run.
 Add a pre-sitting check that Universal Control is disabled
 (`defaults -currentHost read com.apple.universalcontrol Disable`, to be confirmed on macOS 27).
+
+## The shipped tone response is far from monotone in the first code and a half above black (W42 G2, 2026-10-01)
+
+*Found by W42 G2 step 3 (c9a §5.196 §10; `results/2026-09-30-w42-g2-identification/`
+`candidate1-black-join-addendum.md` §3–§4 and `implementation-design.md` §14–§15).*
+
+The WebGPU tier's backdrop tone solve, with W36's black branch, as a function of its abscissa (the
+encoded input `srgb_encode(toneColour.w)` in `wgsl/optics.ts`). It is read off the rehearsal's
+replica `landed_T`, which a line-by-line duplicate of the shipped lines matches to 1.7e-4 code on
+Metal (§5.196 §11). Grey output codes on rrect-md, by input code:
+
+| endpoint | 0 | 0.6 | 0.7 | 1.0 | 2.0 |
+| --- | --- | --- | --- | --- | --- |
+| light active | 132.0 | 177.0 | 170.9 | 135.2 | 135.5 |
+| light receded | 133.0 | 174.0 | 164.9 | 106.6 | 107.8 |
+| dark active | 32.0 | 57.9 | 56.7 | 49.3 | 49.4 |
+| dark receded | 20.0 | 53.6 | 48.6 | 0.7 | 1.8 |
+
+- **Inside W36's open interval** (encoded 0 < x < 0.003, below code 0.765), the blend of the
+  branch's authority humps, to 177.0 on light active. W36 recorded the interval as an
+  interpolation without native anchors (§5.179); its shape was not recorded.
+- **Just above the join**, the old solve's own response is far from the black W36 sealed. At
+  code 1, light receded reads 106.6 against 133 at black, and dark receded 0.7 against 20. Every
+  native T ordinate W42 measured above black lies above black (§5.196 §2). Apple's pixels show the
+  dark receded dip directly: where candidate 1's per-pixel tone passed through it, it read 1 code
+  where Apple reads 22 (§5.196 §15).
+
+**Where the shipped path reaches it.** The abscissa is the host-measured source average for the
+active documents, or the silhouette tone for the receded ones, not a per-pixel sample. So a group
+or surface whose measured level falls in the first code and a half draws these values: a uniform
+#010101 or #020202 backdrop, or a nearly black one whose mean is that low. The canonical
+backgrounds' darkest solid is `dark-solid` (28, 28, 30), and W36's black cells sit at exactly 0,
+so no gated row reads it. Not rendered on the shipped path.
+
+W42 bridged the interval for its own candidate only, behind a zero gate on its branch. The parent
+named the dip above the join "the existing named black-level miss" (`implementation-design-rulings.md`),
+but until this entry nothing in the ledger or the tracker stated it.
+
+Shape of the fix: this changes measured territory, so a native reading comes first: near-black
+uniform greys (codes 1–8) at each span, in all four endpoints. Then a declared low-end form, refereed
+by the black cells W36 sealed and by that reading. The rehearsal's `mono_black`, which holds black
+flat until the response climbs back, is one form; W42 declined it because it changed measured
+territory without a reading. The CSS tier derives the same branch (`tier-coherence.test.ts`'s W36
+case), so a fix moves both tiers.

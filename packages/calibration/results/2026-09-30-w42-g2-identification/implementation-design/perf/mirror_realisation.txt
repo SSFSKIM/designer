@@ -1,0 +1,74 @@
+W42 G2 perf wave (§17): the realisation's error per knee under each decimation rule, from the U2
+mirror's runs with candidate 1 bridged (`u2_mirror.py`, W42_BRIDGED=1). A rule that changes only the
+active pose's narrow levels is read as that run's active rows beside the oracle-rule run's receded
+rows, which it leaves as they are.
+
+Worst band-weighted output error in codes over the canonical cells (192) and family E (24),
+f32 tiles with the chain16 capture unless named; knee 1 adds its flip fraction and the worst
+error at a flip. Knees 0 and 2 are held to 0.15 (§11.1, ruled).
+
+== oracle rule, 12 device px everywhere (U2, bridged)
+  canonical chain16  knee 0: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.064 (checkerboard capsule-button 2x dark active)
+  canonical chain16  knee 1: cand1-landed 0.148 (impulse capsule-button 1x dark receded) flips 0.015 at a flip 0.008 | cand2-table 0.064 (checkerboard capsule-button 2x dark active) flips 0.015 at a flip 0.010
+  canonical chain16  knee 2: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.064 (checkerboard capsule-button 2x dark active)
+  family E chain16  knee 0: cand1-landed 0.022 (checker-16-rg rrect-lg 2x light active) | cand2-table 0.030 (checker-16-rg rrect-lg 2x light active)
+  family E chain16  knee 1: cand1-landed 24.304 (checker-64-rg rrect-md 2x light receded) flips 1.000 at a flip 24.304 | cand2-table 35.613 (checker-16-rg rrect-md 2x dark active) flips 1.000 at a flip 35.613
+  family E chain16  knee 2: cand1-landed 0.020 (checker-64-rg rrect-md 2x light receded) | cand2-table 0.022 (checker-64-rg rrect-md 2x dark receded)
+  family E exact8   knee 0: cand1-landed 0.010 (checker-16-by rrect-lg 2x light active) | cand2-table 0.019 (checker-16-by rrect-lg 2x dark active)
+  family E exact8   knee 1: cand1-landed 0.094 (checker-16-rg rrect-lg 2x dark active) flips 0.036 at a flip 0.094 | cand2-table 0.265 (checker-16-rg rrect-lg 2x dark active) flips 0.036 at a flip 0.265
+  family E exact8   knee 2: cand1-landed 0.008 (checker-64-by rrect-md 2x light receded) | cand2-table 0.008 (checker-64-by rrect-md 2x light receded)
+
+== active narrow levels from 6 (adopted)
+  canonical chain16  knee 0: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.064 (checkerboard capsule-button 2x dark active)
+  canonical chain16  knee 1: cand1-landed 0.148 (impulse capsule-button 1x dark receded) flips 0.015 at a flip 0.008 | cand2-table 0.064 (checkerboard capsule-button 2x dark active) flips 0.015 at a flip 0.010
+  canonical chain16  knee 2: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.064 (checkerboard capsule-button 2x dark active)
+  family E chain16  knee 0: cand1-landed 0.020 (checker-64-rg rrect-md 2x light receded) | cand2-table 0.032 (checker-16-by rrect-lg 2x dark active)
+  family E chain16  knee 1: cand1-landed 24.304 (checker-64-rg rrect-md 2x light receded) flips 1.000 at a flip 24.304 | cand2-table 35.613 (checker-16-rg rrect-md 2x dark active) flips 1.000 at a flip 35.613
+  family E chain16  knee 2: cand1-landed 0.020 (checker-64-rg rrect-md 2x light receded) | cand2-table 0.022 (checker-64-rg rrect-md 2x dark receded)
+  family E exact8   knee 0: cand1-landed 0.018 (checker-16-by rrect-lg 2x light active) | cand2-table 0.026 (checker-16-by rrect-lg 2x dark active)
+  family E exact8   knee 1: cand1-landed 0.074 (checker-16-rg rrect-lg 2x light receded) flips 0.036 at a flip 0.074 | cand2-table 0.117 (checker-16-by rrect-lg 2x dark active) flips 0.036 at a flip 0.117
+  family E exact8   knee 2: cand1-landed 0.008 (checker-64-by rrect-md 2x light receded) | cand2-table 0.008 (checker-64-by rrect-md 2x light receded)
+
+== active narrow levels from 5
+  canonical chain16  knee 0: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.103 (checkerboard-8 rrect-md 2x dark active)
+  canonical chain16  knee 1: cand1-landed 0.148 (impulse capsule-button 1x dark receded) flips 0.027 at a flip 0.009 | cand2-table 0.103 (checkerboard-8 rrect-md 2x dark active) flips 0.027 at a flip 0.010
+  canonical chain16  knee 2: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.103 (checkerboard-8 rrect-md 2x dark active)
+  family E chain16  knee 0: cand1-landed 0.039 (checker-16-by rrect-md 2x light active) | cand2-table 0.094 (checker-16-by rrect-md 2x dark active)
+  family E chain16  knee 1: cand1-landed 24.304 (checker-64-rg rrect-md 2x light receded) flips 1.000 at a flip 24.304 | cand2-table 35.624 (checker-16-rg rrect-md 2x dark active) flips 1.000 at a flip 35.624
+  family E chain16  knee 2: cand1-landed 0.020 (checker-64-rg rrect-md 2x light receded) | cand2-table 0.022 (checker-64-rg rrect-md 2x dark receded)
+  family E exact8   knee 0: cand1-landed 0.047 (checker-16-by rrect-md 2x light active) | cand2-table 0.087 (checker-16-by rrect-md 2x dark active)
+  family E exact8   knee 1: cand1-landed 0.074 (checker-16-rg rrect-lg 2x light receded) flips 0.036 at a flip 0.074 | cand2-table 0.116 (checker-16-rg rrect-lg 2x dark receded) flips 0.036 at a flip 0.116
+  family E exact8   knee 2: cand1-landed 0.008 (checker-64-by rrect-md 2x light receded) | cand2-table 0.008 (checker-64-by rrect-md 2x light receded)
+
+== active narrow levels from 4.5
+  canonical chain16  knee 0: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.103 (checkerboard-8 rrect-md 2x dark active)
+  canonical chain16  knee 1: cand1-landed 8.201 (photo rrect-md 2x light active) flips 0.026 at a flip 8.201 | cand2-table 12.421 (photo rrect-md 2x light active) flips 0.026 at a flip 12.421
+  canonical chain16  knee 2: cand1-landed 0.148 (impulse capsule-button 1x dark receded) | cand2-table 0.103 (checkerboard-8 rrect-md 2x dark active)
+  family E chain16  knee 0: cand1-landed 0.058 (checker-16-by rrect-md 2x light active) | cand2-table 0.094 (checker-16-by rrect-md 2x dark active)
+  family E chain16  knee 1: cand1-landed 24.304 (checker-64-rg rrect-md 2x light receded) flips 1.000 at a flip 24.304 | cand2-table 35.624 (checker-16-rg rrect-md 2x dark active) flips 1.000 at a flip 35.624
+  family E chain16  knee 2: cand1-landed 0.020 (checker-64-rg rrect-md 2x light receded) | cand2-table 0.022 (checker-64-rg rrect-md 2x dark receded)
+  family E exact8   knee 0: cand1-landed 0.066 (checker-16-by rrect-md 2x light active) | cand2-table 0.088 (checker-16-by rrect-md 2x light active)
+  family E exact8   knee 1: cand1-landed 0.074 (checker-16-rg rrect-lg 2x light receded) flips 0.036 at a flip 0.074 | cand2-table 0.116 (checker-16-rg rrect-lg 2x dark receded) flips 0.036 at a flip 0.116
+  family E exact8   knee 2: cand1-landed 0.008 (checker-64-by rrect-md 2x light receded) | cand2-table 0.008 (checker-64-by rrect-md 2x light receded)
+
+== every width from 6 (receded too)
+  canonical chain16  knee 0: cand1-landed 0.210 (impulse rrect-lg 1x dark receded) | cand2-table 0.075 (checkerboard capsule-button 2x dark receded)
+  canonical chain16  knee 1: cand1-landed 0.210 (impulse rrect-lg 1x dark receded) flips 0.015 at a flip 0.008 | cand2-table 0.075 (checkerboard capsule-button 2x dark receded) flips 0.015 at a flip 0.010
+  canonical chain16  knee 2: cand1-landed 0.210 (impulse rrect-lg 1x dark receded) | cand2-table 0.075 (checkerboard capsule-button 2x dark receded)
+  family E chain16  knee 0: cand1-landed 0.039 (checker-16-by rrect-md 2x light receded) | cand2-table 0.062 (checker-16-by rrect-md 2x dark receded)
+  family E chain16  knee 1: cand1-landed 24.298 (checker-64-rg rrect-md 2x light receded) flips 1.000 at a flip 24.298 | cand2-table 35.613 (checker-16-rg rrect-md 2x dark active) flips 1.000 at a flip 35.613
+  family E chain16  knee 2: cand1-landed 0.020 (checker-64-rg rrect-md 2x light receded) | cand2-table 0.022 (checker-64-rg rrect-md 2x dark receded)
+  family E exact8   knee 0: cand1-landed 0.056 (checker-16-rg rrect-md 2x light receded) | cand2-table 0.056 (checker-16-rg rrect-md 2x light receded)
+  family E exact8   knee 1: cand1-landed 0.074 (checker-16-rg rrect-lg 2x light receded) flips 0.036 at a flip 0.074 | cand2-table 0.117 (checker-16-by rrect-lg 2x dark active) flips 0.036 at a flip 0.117
+  family E exact8   knee 2: cand1-landed 0.008 (checker-64-by rrect-md 2x light receded) | cand2-table 0.008 (checker-64-by rrect-md 2x light receded)
+
+== active from 5, companded 16-bit tiles (A float32)
+  canonical chain16  knee 0: cand1-landed 0.162 (impulse capsule-button 1x dark receded) | cand2-table 0.104 (checkerboard-8 rrect-md 2x dark active)
+  canonical chain16  knee 1: cand1-landed 0.162 (impulse capsule-button 1x dark receded) flips 0.308 at a flip 0.009 | cand2-table 0.104 (checkerboard-8 rrect-md 2x dark active) flips 0.308 at a flip 0.012
+  canonical chain16  knee 2: cand1-landed 0.162 (impulse capsule-button 1x dark receded) | cand2-table 0.104 (checkerboard-8 rrect-md 2x dark active)
+  family E chain16  knee 0: cand1-landed 0.042 (checker-16-by rrect-md 2x light active) | cand2-table 0.091 (checker-16-rg rrect-md 2x dark active)
+  family E chain16  knee 1: cand1-landed 24.308 (checker-64-rg rrect-md 2x light receded) flips 0.987 at a flip 24.308 | cand2-table 35.613 (checker-16-rg rrect-md 2x dark active) flips 0.987 at a flip 35.613
+  family E chain16  knee 2: cand1-landed 0.022 (checker-64-rg rrect-md 2x light receded) | cand2-table 0.025 (checker-64-rg rrect-md 2x dark receded)
+  family E exact8   knee 0: cand1-landed 0.051 (checker-16-by rrect-md 2x light active) | cand2-table 0.084 (checker-16-by rrect-md 2x dark active)
+  family E exact8   knee 1: cand1-landed 24.285 (checker-64-rg rrect-md 2x light receded) flips 0.553 at a flip 24.285 | cand2-table 38.457 (checker-16-by rrect-md 2x dark active) flips 0.553 at a flip 38.457
+  family E exact8   knee 2: cand1-landed 0.013 (checker-64-by rrect-md 2x light receded) | cand2-table 0.014 (checker-64-by rrect-md 2x dark receded)

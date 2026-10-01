@@ -1,0 +1,35 @@
+{
+ "source": "e2e/gpu/w42-body-law.spec.ts with W42_U7_KNEE, cells from u7_rendered.py prepare; the bed is grey, so the three forms share one expectation",
+ "knees": {
+  "knee0": {
+   "adapter": "apple/metal-3",
+   "format": "rgba32float",
+   "gpuErrors": [],
+   "cells": 96,
+   "againstExactGaussianMaxCodes": 0.052587105456922245,
+   "worst": "checkerboard__rrect-lg__active__1x__light",
+   "uniformCells": 16,
+   "uniformMaxCodes": 0.00016766786575317383
+  },
+  "knee1": {
+   "adapter": "apple/metal-3",
+   "format": "rgba32float",
+   "gpuErrors": [],
+   "cells": 96,
+   "againstExactGaussianMaxCodes": 0.052587105456922245,
+   "worst": "checkerboard__rrect-lg__active__1x__light",
+   "uniformCells": 16,
+   "uniformMaxCodes": 0.00016766786575317383
+  },
+  "knee2": {
+   "adapter": "apple/metal-3",
+   "format": "rgba32float",
+   "gpuErrors": [],
+   "cells": 96,
+   "againstExactGaussianMaxCodes": 0.052587105456922245,
+   "worst": "checkerboard__rrect-lg__active__1x__light",
+   "uniformCells": 16,
+   "uniformMaxCodes": 0.00016796588897705078
+  }
+ }
+}

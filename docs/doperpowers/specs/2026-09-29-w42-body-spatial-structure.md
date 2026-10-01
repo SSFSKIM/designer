@@ -1,13 +1,25 @@
 # W42 — the body's spatial structure: an encoded heavy blur, a one-sided narrow term, CSS-pixel widths, all four window states (2026-09-29)
 
-**Status: v2.1 DRAFT (drafted for the parent). v2 folded the adversarial review of v1, the
-parent's rulings on v1's drafter's notes and on every review finding, the user's Decision Logs 5a
-and 5b, and memo D (Apple's declared layer tree). v2.1 folds memo E (that tree re-fitted on memo
-C's cells), the parent's rulings on memo E, and the review's own text for findings 9 and 15–17
-with the parent's three calls on v2. No point is pending. Decision Logs 1, 2, 5a, 5b and 6 RULED
-by the user 2026-09-29; Decision Log 3 ruled by rule at charter and extended by the parent;
-Decision Log 4 and Decision Log 5's remainder open. Ledger sections §5.194–§5.197 reserved
-(§5.198 if a child splits).**
+**Status: CLOSED 2026-10-01 as the negative, twice. Nothing shipped, published or released.**
+G0 MERGED `19db06ec` (§5.194): the declaration hashed `f04ae95b…`. G1 MERGED `e2f48c2b` (§5.195):
+3,441 captures and 447 dump scenes, archived as `w42-archive`. G2 (§5.196) built both candidates
+behind zero gates and proved them at identity. Its identification was negative: no declared family
+survives one code in any window state. The user then ruled a landing on measured improvement
+(Decision Log 7), and neither candidate passed that rule in any endpoint. The holdout H was never
+read. The user ruled "Close W42 here (Recommended)" (Decision Log 8). The implementation stays on
+`w42-g2-impl` `b92bfb1f` and `w42-g2-identification` `91e56c47` as evidence. G3 did not run, and
+§5.197 records the close. The original bundle's grant restore is deferred to the `-glass0.25`
+sitting by the user's ruling (Decision Log 8; Deferred at close 9). The next phase is that capture
+(Deferred at close 8).
+
+*Status at v2.1 (2026-09-29):* v2.1 DRAFT (drafted for the parent). v2 folded the adversarial review
+of v1, the parent's rulings on v1's drafter's notes and on every review finding, the user's Decision
+Logs 5a and 5b, and memo D (Apple's declared layer tree). v2.1 folds memo E (that tree re-fitted on
+memo C's cells), the parent's rulings on memo E, and the review's own text for findings 9 and 15–17
+with the parent's three calls on v2. No point is pending. Decision Logs 1, 2, 5a, 5b and 6 RULED by
+the user 2026-09-29; Decision Log 3 ruled by rule at charter and extended by the parent; Decision
+Log 4 and Decision Log 5's remainder open. Ledger sections §5.194–§5.197 reserved (§5.198 if a child
+splits).
 
 Points marked **Drafter's note** are v2.1's own; earlier notes were ruled by the parent and are
 written into the text they concerned (Revision Notes).
@@ -823,6 +835,10 @@ Branch `w42-g0-declaration`; evidence `packages/calibration/results/<date>-w42-g
 
 ### G1: The native sitting (ledger §5.195)
 
+**MERGED `e2f48c2b` (2026-09-30).** The original bundle's restore and positive check, which the
+last bullet below makes a condition of a closed sitting, are deferred to the `-glass0.25` sitting
+by the user's ruling (Decision Log 8; §5.197 §3).
+
 Branch `w42-g1-sitting`. Starts only after G0 has merged and the parent has told the user the
 tooling is ready and the sitting's net length (Decision Log 6, RULED).
 - **The side bundle** is the existing W39 one, `dev.vitrea.reference-apple.w39` at
@@ -853,6 +869,13 @@ tooling is ready and the sitting's net length (Decision Log 6, RULED).
 
 ### G2: Identification, the gate and the one exposure (ledger §5.196)
 
+**COMPLETE 2026-10-01 at two negatives; steps 6–7 not run.** Steps 1–3 ran: the base proof, the
+identification (negative in all four endpoints) and the implementation behind zero gates, proved
+at identity. Decision Log 7 then replaced clause 6's survival on the landing path with an
+improvement rule. Steps 4–5 ran under it, and neither candidate passed in any endpoint. No H
+prediction was frozen and no receipt was opened. The code and renders stay on `w42-g2-impl`
+`b92bfb1f` and `w42-g2-identification` `91e56c47` (§5.196 §17).
+
 Branch `w42-g2-identification`, cut from main as it stands when G2 starts (X37). In order:
 1. The runtime-base proof (clause 8).
 2. Native T per endpoint from family A; the fit of the structure on the new bed's calibration
@@ -870,6 +893,8 @@ Branch `w42-g2-identification`, cut from main as it stands when G2 starts (X37).
 7. Decision Log 3 if an endpoint fails.
 
 ### G3: Seal and land (ledger §5.197)
+
+**NOT RUN.** Clause 11 was never reached (Decision Log 8). §5.197 records the wave's close instead.
 
 Branch `w42-g3-landing`. Conditional on clause 11 passing (Decision Log 1).
 - If the landing is receded-only, the tracker's M2-reference-by-active-hash fix lands first, as
@@ -1033,14 +1058,104 @@ sheets → changeset → release checklist → the user's `pnpm release`) → cl
 - **The narrow term's averaging space**, if families B and D cannot separate C-linear from
   encoded at the bed's resolution: recorded as unidentified, with the capture that would.
 
+### Deferred at close (2026-10-01, G2; each with its evidence and the shape of work that would close it)
+
+1. **The span-dependent structure on rrect-ml and rrect-lg.** Every declared family misses these
+   by 3–16 codes in every endpoint. LT's class (b) worst is 5.4 / 10.2 / 9.5 / 16.1 (light active
+   / light receded / dark active / dark receded). Light active grows with span past 96, to 1.3–3.3
+   codes at 128–160; light receded peaks at 128; dark is worst at 128 and not monotone. Neither
+   form of the bleed (U7) closes them. The rrect-lg capture's 0.25 scale is modelled only as a
+   wider floor, and free-sn's s = 80 ordinate is unidentified because no structured calibration
+   cell has s = 80 (§5.196 §3.2, §3.4, §7.1, §9). Class (b) also carries rule 4 (b) failures for
+   both candidates (§5.196 §15).
+   *Next:* a span law for the structure declared before the read, with the backdrop scale step
+   between rrect-ml and rrect-lg as a term (memo D §3 cannot say whether span or area sets it), and
+   structured calibration cells at every declared span, s = 80 and a span between rrect-ml and
+   rrect-lg included.
+2. **The 1x pitch-8 rrect-lg aliasing cells, which no Gaussian closes.** Memo E §2e proved them
+   unclosable before G0, and step 2 confirms it: one cell per endpoint, carrying 864 / 1,614 / 825 /
+   1,108 failures, worst 14.1 / 9.0 / 13.7 / 10.0. That cell dragged the minimax refinement
+   (§5.196 §3.3). It set candidate 2's only stratum failure and the largest (b) failures in every
+   endpoint (§5.196 §15). A survival bar over cells a prior memo proved unclosable decides the
+   identification before the read.
+   *Next:* the next declaration either models the capture or excludes these cells up front. To
+   model it: a forward model of Apple's 1x decimated capture on rrect-lg, with its phase, proved on
+   synthetic renders before the read. To exclude them: they leave survival and stay a described
+   stratum.
+3. **Dark native T, and black.** Apple's dark native T is non-monotone at s ≥ 96: dark active falls
+   from 129 to 121 at s = 128 between 208 and 255, and dark receded from 123 to 114 (§5.196 §2.1).
+   The native-T addendum's completion below a sparse stratum reads black at s = 128 as 26 / 14
+   (active / receded), where both full strata measure 32 / 20. That carried into candidate 2's
+   table, into the blind H predictions at s = 112 (dark black 29 / 17), and into dark receded
+   rrect-ml, where c2 reads 93 against Apple's 107 (§5.196 §2.2, §15). Separately, the shipped
+   solve's response in the first code of input is a tracker entry, because it is debt in shipped
+   code.
+   *Next:* the next declaration states black handling first. Family-A black and near-black at every
+   span stratum it uses (s ≥ 128 included), and a dark T declared non-monotone where it is, before
+   any dark candidate is rendered.
+4. **Candidate 2's failure map** (§5.196 §15–§16), each a property the next candidate must hold:
+   - the dark receded photo M2 overshoot: rrect-md inactive moves past Apple by +3.7 % (1x) and
+     +2.3 % (2x);
+   - the light receded low-frequency flattening: the pitch-64 rrect-md checkers (b-p2: Apple
+     181 / 200 knee / far, c2 187 / 194), photo rrect-sm inactive's M2 (−5.1 % / −16.9 %) and
+     Stop P on the toolbar and rrect-md;
+   - the soft light-active impulse peak, Stop H: Apple 25.2, shipped 33.0, c2 15.3;
+   - one luma table where the addendum declared per-channel row sets (a grey's channel departs by
+     ≤ 0.79 / 0.93 / 0.79 codes).
+   *Next:* the receded flattening points at W's reach or support, where U1 already points. The
+   table needs a per-channel form in the runtime, which is a size change, before any seal.
+5. **A lesson for how improvement rules are declared.** The per-statistic "never worse than
+   shipped" rule fails a model that is better on average wherever the shipped render's errors
+   happen to cancel. Candidate 2 passed rule 4 (a) in 49 of 50 strata, often by a factor of five,
+   and failed (b) in every endpoint. Its one (a) failure and its largest (b) failures sit on a cell
+   where the shipped render reads Apple's 217 exactly, by coincidence and not by mechanism, and c2
+   reads 203 (§5.196 §15.1). A comparison against the shipped render's error inherits every one of
+   those coincidences as a bar.
+   *Next:* rehearse an improvement rule on the shipped render's own error map before declaring it,
+   as X39 rehearses referees, so the cells where shipped is right by accident are seen first. Bound
+   a regression against Apple's value and the bar rather than against the shipped error alone.
+6. **Performance** (§5.196 §12). The compute stage costs +3.7–4.1 ms a frame on mobile active and
+   +5.1–5.8 on desktop active on live backdrops (+1.9–2.0 and +2.9–3.3 receded). Pipeline creation
+   is synchronous: the first frame costs 3–10 ms over base. The atlases' high-water mark is about
+   100 / 130 MB and they never shrink while a group runs the law. A group whose tiles would pass
+   `maxTextureDimension2D` stands the law down. About 2.5 ms of mobile active is tile traffic with
+   a zero-tap floor, and every measured format that would cut it breaks the 0.15-code budget.
+   *Next:* asynchronous pipeline creation with the law standing down until ready, and atlas
+   eviction. A reduced rebuild cadence on live sources is a product question for the user: every
+   second frame averages about +2.0 ms on mobile, with +3.7–4.1 ms frames.
+7. **The holdout H is unspent** (§5.197 §2). It is 8 cells per 2x pass (6 structured) and 2 per 1x
+   pass, with the unseen s = 112, behind `w42-archive`'s guarded reader, and was never requested.
+   *Next:* it serves the next declaration on this archive, under X26's machinery (blind rendered
+   predictions frozen by artifact, one receipt), and is exposed only after every referee readable
+   without it has passed (clause 10's lesson).
+8. **The next phase: `-glass0.25`.** This is the user's stated next phase, and the item above,
+   "A clearer-glass capture, `-glass0.25`", describes it. It tests w = `NSGlassTintAmount`
+   directly: LT fixes w = 0.5 from the slider (memo D §0), so if the structure is right, w becomes
+   0.25 with no refit. Whether T and the chroma move with the slider is unknown.
+   *Next:* a new capture generation, keys `-glass0.25` beside `-glass0.5` in the four window
+   states, declared and hashed before capture with w = 0.25 as the a-priori prediction, and its own
+   X5 lift. Items 1–5 are what its declaration states first.
+9. **The original bundle's grant restore and positive check, deferred by ruling** (Decision Log 8;
+   §5.197 §3; §5.195 §1, §7). The W39 side bundle keeps the Screen Recording grant. The original's
+   row was removed at G1 (`tccutil reset`; its Accessibility row is untouched), and it cannot
+   capture until restored.
+   *Next:* at the `-glass0.25` sitting, the user re-adds the original bundle by hand, and its
+   positive check must capture `204f21f0…` or `6c15311b…` (the parent's G1 ruling). As at G1,
+   failure to restore is an open blocker.
+10. **G1's tooling findings**, already tracker entries (§5.195 §6). The census over-matches command
+    lines that merely name a browser or the harness. Ancestor exclusion does not reach a detached
+    launch. The per-pass commit drops `driver-idle.log`. Universal Control input is invisible to
+    the gates.
+    *Next:* fix them before the `-glass0.25` sitting, which runs the same orchestrator and census.
+
 ## Tracking Map
 
 | child | status |
 | --- | --- |
-| G0 | — |
-| G1 | — (after G0's merge and the parent's word to the user) |
-| G2 | — |
-| G3 | conditional on clause 11 (Decision Log 1) |
+| G0 | MERGED 2026-09-30 as `19db06ec` (§5.194): the declaration hashed `f04ae95b…` (92 pins), the instrument proved, every landing referee rehearsed, the user's rulings 5a–5f folded |
+| G1 | MERGED 2026-09-30 as `e2f48c2b` (§5.195): 3,441 captures and 447 dump scenes admitted through five stops; `w42-archive` (`1e3d6e65…`); the bar at the 0.5 floor; the replay identical. The original bundle's restore is deferred by ruling (Decision Log 8) |
+| G2 | COMPLETE 2026-10-01 at two negatives (§5.196). Step 3: both candidates behind zero gates, goldens 34/34 byte-identical, compute proof 1.7e-4 code, rendered agreement 0.053, runtime base 40/40; the perf wave from +11–16 ms to +3.7–5.8 ms on live backdrops; three reviews, every finding accepted and fixed. Step 2: no family survives one code in any endpoint. Steps 4–5, under Decision Log 7's rule: neither candidate passes rule 4 in any endpoint. H never read. Code on `w42-g2-impl` `b92bfb1f` and `w42-g2-identification` `91e56c47`, not merged |
+| G3 | NOT RUN: clause 11 was never reached (Decision Log 8); §5.197 records the close |
 
 ## Decision Log
 
@@ -1083,6 +1198,9 @@ this Decision Log.
 
 Open. The primary route on Chromium is one reference filter; the stacked route is the
 approximation elsewhere (Design; the review's ruling 14).
+
+*Not reached, 2026-10-01:* G3 did not run (Decision Log 8). The CSS tier's derivation and filter
+were built fail-closed in G2 step 3 (engine row `"unverified"`) and stay on `w42-g2-impl`.
 
 ### Decision Log 5 — bounds and floors
 
@@ -1211,7 +1329,7 @@ asked what G2 does then, with three options:
 
 #### 5 (remainder) — bounds and floors if the law lands (in G3; the user's)
 
-Open.
+Open. *Not reached, 2026-10-01:* nothing landed (Decision Log 8).
 
 ### Decision Log 6 — the grant switch and the sitting's timing (the user's hand)
 
@@ -1219,6 +1337,60 @@ Open.
 permission and leave the Mac idle".** G1 starts only after G0 has merged and the parent has told
 the user, with the sitting's net length. The user switches the Screen Recording grant and lifts
 X5 by their own hand, and restores both after the sitting.
+
+*Beside, 2026-10-01:* the restore of the original bundle's grant, and its positive check, are
+deferred to the `-glass0.25` sitting by the user's ruling (Decision Log 8). X5's lift was scoped to
+the W42 bed by its own terms, so it authorises no further capture.
+
+### Decision Log 7 — land on improvement after the identification negative (G2; the user's)
+
+Put to the user after G2 step 2 (ledger §5.196): no declared family survives one code in any
+endpoint, so the identification is negative, but LT is much closer to Apple than what ships (the
+post-read F4 baseline). The question: continue toward landing on that measured improvement, or
+close here.
+
+**RULED 2026-10-01 by the user: "Land on improvement (Recommended)"**, the option reading "Record
+the identification as negative (LT is not Apple's exact law). Before rendering anything, declare
+an improvement rule: on the new capture's test cells, vitrea with LT must be closer to Apple than
+shipped vitrea in every backdrop type, with no cell worse by more than ~1-2 codes. Then run every
+existing landing check, then the one blind test on the unseen holdout. Three window states only:
+dark focused is excluded (its two required fits disagree). The live-backdrop cost (~4-5.5
+ms/frame) comes to you for a decision before release." The parent's terms are written in
+`packages/calibration/results/2026-09-30-w42-g2-identification/improvement-landing-addendum.md`
+(SHA-256 `0398c9c85509729d7d3be73ac12bafe6af477b62d2b194820762f9a06cf5911f`, commit `034594ab`),
+committed before any vitrea render of the new bed or of a candidate document: LT at the k@global
+least-squares point in light active, light receded and dark receded, dark active at identity; the
+improvement rule 4 (a)–(c) replacing clause 6's survival on the landing path, over the strata the
+addendum enumerates; clause 10 unchanged; clause 11's H bar rule 4 (a)–(b) on H, read once; X40 as
+declared; performance to the user in G3.
+
+*Outcome (§5.196 §15):* neither candidate passed rule 4 in any endpoint, so clause 10 was owed to
+neither and the exposure was never reached. Clause 10 run on candidate 2 as evidence would also
+have failed in every endpoint (§5.196 §16). Decision Log 8 closes the wave.
+
+### Decision Log 8 — close at the two negatives, and the original bundle's restore (G2; the user's)
+
+Put to the user after G2 steps 4–5 (ledger §5.196 §14–§16): neither landing candidate passes the
+improvement rule in any endpoint, candidate 2 would also fail clause 10, and H is unread. Two
+questions: whether W42 closes here, and whether the Screen Recording grant goes back to the
+original bundle now or at the next capture.
+
+**RULED 2026-10-01 by the user: "Close W42 here (Recommended)"**, the option reading: "Record both
+negatives (identification, then the improvement rule) with every finding; keep the code and
+renders on their branch as evidence; nothing ships; the holdout stays sealed for the next wave.
+Then move to your planned next phase, the clearer glass capture at slider 0.25. That capture also
+varies one of the law's fixed constants (the blend weight is declared to equal the slider
+position), which is a direct test of the structure that just failed."
+
+**RULED 2026-10-01 by the user: "Keep it for the next capture (Recommended)"**, the option reading:
+"Avoids two extra swaps. W42's record will note the restore as deferred by your ruling. The
+original app can't capture until it's restored, but nothing needs it before the next capture."
+
+Executed in `w42-close` (§5.197). The ledger, this charter and the G2 evidence root reach main;
+no code under `packages/*/src`, `test`, `e2e` or `packages/calibration/scripts` does, per clause
+9's stop. The W39 side bundle keeps the grant. The original's restore and its positive check
+(`204f21f0…` or `6c15311b…`) are deferred to the `-glass0.25` sitting (Deferred at close 9). H stays
+sealed in `w42-archive` (Deferred at close 7).
 
 ## Surprises & Discoveries
 
@@ -1263,9 +1435,46 @@ X5 by their own hand, and restores both after the sitting.
 - **The pre-W41 group-level solve matched Apple's 188 on the checkerboard for a reason that is
   not Apple's mechanism.** W is a local encoded blur (memo C §0), and on a centred periodic
   pattern the local mean equals the group mean (memo B §5).
+- **Dark native T falls above 208 at s ≥ 96** (§5.196 §2.1). For example, dark active rrect-md
+  goes 138 → 134 and dark receded s = 128 goes 123 → 114. Both light endpoints are monotone. Memo
+  D's MaxLuma law pointed at a compression; the bed measures a decrease.
+- **The shipped solve's black-branch blend humps inside the first code of input** (G2 step 3,
+  design §14–§15). Evaluated per pixel, light active rrect-md reads 132 at black, 177.0 at code
+  0.60 and 135.2 at code 1. The old solve then falls steeply just above the join on dark receded,
+  from 39.9 at code 0.7 to 0.7 at code 1 against a native black of 20. W36 recorded that interval as
+  an unidentified interpolation; its shape had not been read.
+- **The f16 chain reverses the order of family E's isoluminant pairs** (design §11, R1). Their luma
+  contrast is 0.004–0.007 code against about 0.02 code of re-encoding rounding, so knee 1 flipped
+  on 100 % of family-E pixels at 24–36 codes until the capture read the 8-bit source (3.6 %).
+- **Pass count was half the law's cost** (design §17.1). A dependent render pass costs about 50 µs
+  on this adapter whatever it draws. The ~78-pass stage still cost 4.0–4.7 ms with every kernel
+  cut to one tap. Separately, Dawn zero-fills a new storage texture by copy unless it carries
+  `RENDER_ATTACHMENT`, which made the compute stage's static first frame 8–18 ms slower than the
+  render-pass stage's until the flag was set.
+- **The declared minimax refinement is dragged by cells no family can close** (§5.196 §3.3). In
+  light active it trades the 1x pitch-8 rrect-lg cell from 14.1 to 12.4 codes for 3,584 failing
+  statistics instead of 2,322, and a 2x worst of 12.4 instead of 4.1.
+- **Candidate 2 beats shipped in 49 of 50 strata and still fails the improvement rule
+  everywhere** (§5.196 §15). Its one stratum failure is a single cell where the shipped render
+  happens to read Apple's 217 exactly. A rule that compares a candidate's error with the shipped
+  render's, statistic by statistic, scores the shipped render's coincidences as mechanism (Deferred
+  at close 5).
+- **Family E's chroma depends on pitch and on position inside one cell** (§5.196 §5). The
+  per-channel knee closes its luma within 1.1–2.0 codes. Its chroma under-reads by 9.5–13.8 codes at
+  pitch 64 in light. Across one pitch-16 cell (light receded `e-by-c16-rrect-md`), Apple's blue
+  squares read 187 to 206 on B, where the model predicts 199–202 for every one.
 
 ## Revision Notes
 
+- 2026-10-01 (**CLOSED**, `w42-close`; ledger §5.196 finalised, §5.197 new). G2 steps 4–5 ran
+  under Decision Log 7's addendum: neither candidate passes rule 4 in any endpoint, and candidate 2
+  would also fail clause 10 (§5.196 §14–§16). H was never read. The user ruled "Close W42 here
+  (Recommended)" and "Keep it for the next capture (Recommended)" (Decision Log 8). Status, G1, G2
+  and G3 under Children, and the Tracking Map are updated. Notes beside Decision Logs 4, 5 and 6
+  say what was not reached or was deferred. The Surprises gain G2's entries, and the Deferred list
+  gains "Deferred at close". The G2 evidence root and these documents reach main; the code stays on
+  its branches by hash. Freeze 1,818.
+- 2026-10-01 (G2 step 2 and Decision Log 7). The identification is negative in all four endpoints (ledger §5.196); the user ruled "Land on improvement (Recommended)" (Decision Log 7), whose terms are `results/2026-09-30-w42-g2-identification/improvement-landing-addendum.md` (`0398c9c8…`). Earlier text is unchanged; where clause 6's survival, clause 9 and clause 11's bar govern the landing, the addendum's rule 4 and clause 11′ now do.
 - 2026-09-30 (**G0 COMPLETE**, pending only the declaration's hash and the merge to main; ledger
   §5.194). Every stream, both review rounds and every fix wave are merged into
   `w42-g0-declaration`:

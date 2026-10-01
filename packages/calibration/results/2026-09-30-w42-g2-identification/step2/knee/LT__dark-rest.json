@@ -1,0 +1,1702 @@
+{
+ "endpoint": "dark-rest",
+ "family": "LT",
+ "forms": {
+  "channel": {
+   "ls": {
+    "calibration": {
+     "cellsWithNoStatistic": [],
+     "failures": 199,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-md": 1.1387020604540763,
+      "2x|e-rg-c16-rrect-lg": 1.5864084234590097,
+      "2x|e-rg-c16-rrect-md": 0.9907519330139134,
+      "2x|e-rg-c64-rrect-md": 1.070072910576078
+     },
+     "pooledRms": 1.2186036573906653,
+     "statuses": {
+      "measured": 429
+     },
+     "worstAt": "2x|e-rg-c16-rrect-lg:sq197:b|R",
+     "worstMeasured": 5.58996938482872
+    },
+    "failed": [
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|B",
+      125.0,
+      126.39,
+      1.39,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|B",
+      125.0,
+      126.39,
+      1.39,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|B",
+      125.0,
+      126.39,
+      1.39,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|B",
+      125.0,
+      126.336,
+      1.336,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|B",
+      125.0,
+      126.33,
+      1.33,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|B",
+      125.0,
+      126.146,
+      1.146,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq130:b|B",
+      84.0,
+      85.383,
+      1.383,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|B",
+      125.0,
+      126.146,
+      1.146,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq132:b|B",
+      84.0,
+      85.383,
+      1.383,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|B",
+      125.0,
+      126.218,
+      1.218,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq148:a|B",
+      125.0,
+      126.28,
+      1.28,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq150:a|B",
+      125.0,
+      126.279,
+      1.279,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq152:a|B",
+      125.0,
+      126.279,
+      1.279,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq154:a|B",
+      125.0,
+      126.33,
+      1.33,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "a-cores|B",
+      125.0,
+      126.287,
+      1.287,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq84:b|R",
+      102.0,
+      106.438,
+      4.438,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq84:b|B",
+      117.0,
+      118.064,
+      1.064,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq85:a|R",
+      118.0,
+      119.184,
+      1.184,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq85:a|G",
+      113.0,
+      114.812,
+      1.812,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq86:b|R",
+      103.0,
+      107.339,
+      4.339,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq87:a|R",
+      118.0,
+      119.184,
+      1.184,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq87:a|G",
+      113.0,
+      114.812,
+      1.812,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq88:b|R",
+      103.0,
+      107.339,
+      4.339,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq89:a|R",
+      118.0,
+      119.184,
+      1.184,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq89:a|G",
+      113.0,
+      114.812,
+      1.812,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq90:b|R",
+      103.0,
+      107.339,
+      4.339,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq91:a|R",
+      118.0,
+      119.184,
+      1.184,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq91:a|G",
+      113.0,
+      114.812,
+      1.812,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq92:b|R",
+      103.0,
+      107.339,
+      4.339,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq93:a|R",
+      118.0,
+      119.184,
+      1.184,
+      "measured"
+     ]
+    ],
+    "failures": 457,
+    "lumaOnlyWorst": 1.978743658748499,
+    "s": 0.9082250815805835,
+    "survives": false,
+    "validation": {
+     "cellsWithNoStatistic": [],
+     "failures": 258,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-lg": 1.8206102914063742,
+      "2x|e-by-c64-rrect-md": 1.1757843846104328
+     },
+     "pooledRms": 1.5324964522419842,
+     "statuses": {
+      "measured": 273
+     },
+     "worstAt": "2x|e-by-c16-rrect-lg:sq197:b|B",
+     "worstMeasured": 5.997315894260197
+    }
+   },
+   "lsObjective": 1.2186036573906653,
+   "minimax": {
+    "calibration": {
+     "cellsWithNoStatistic": [],
+     "failures": 240,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-md": 1.0736516683641393,
+      "2x|e-rg-c16-rrect-lg": 1.5277082953588594,
+      "2x|e-rg-c16-rrect-md": 0.9743107402315903,
+      "2x|e-rg-c64-rrect-md": 2.978432636447076
+     },
+     "pooledRms": 1.823935506608792,
+     "statuses": {
+      "measured": 429
+     },
+     "worstAt": "2x|e-rg-c16-rrect-lg:sq197:b|R",
+     "worstMeasured": 4.736252398738856
+    },
+    "failed": [
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq107:b|B",
+      84.0,
+      80.81,
+      -3.19,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|B",
+      125.0,
+      127.015,
+      2.015,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq109:b|B",
+      84.0,
+      80.405,
+      -3.595,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|B",
+      125.0,
+      127.015,
+      2.015,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq111:b|B",
+      84.0,
+      80.405,
+      -3.595,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|B",
+      125.0,
+      127.015,
+      2.015,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq113:b|B",
+      84.0,
+      80.405,
+      -3.595,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|B",
+      125.0,
+      126.954,
+      1.954,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|B",
+      125.0,
+      126.948,
+      1.948,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq128:b|B",
+      84.0,
+      81.696,
+      -2.304,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|B",
+      125.0,
+      126.743,
+      1.743,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq130:b|B",
+      84.0,
+      82.238,
+      -1.762,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|B",
+      125.0,
+      126.743,
+      1.743,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq132:b|B",
+      84.0,
+      82.238,
+      -1.762,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|B",
+      125.0,
+      126.823,
+      1.823,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq134:b|B",
+      84.0,
+      80.853,
+      -3.147,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq147:b|B",
+      84.0,
+      80.853,
+      -3.147,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq148:a|B",
+      125.0,
+      126.892,
+      1.892,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq149:b|B",
+      84.0,
+      81.239,
+      -2.761,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq150:a|B",
+      125.0,
+      126.891,
+      1.891,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq151:b|B",
+      84.0,
+      81.239,
+      -2.761,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq152:a|B",
+      125.0,
+      126.891,
+      1.891,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq153:b|B",
+      84.0,
+      81.231,
+      -2.769,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq154:a|B",
+      125.0,
+      126.948,
+      1.948,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "a-cores|B",
+      125.0,
+      126.901,
+      1.901,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "b-cores|B",
+      84.0,
+      81.173,
+      -2.827,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq84:b|R",
+      102.0,
+      105.572,
+      3.572,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq84:b|B",
+      117.0,
+      118.265,
+      1.265,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq85:a|R",
+      118.0,
+      119.479,
+      1.479,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq85:a|G",
+      113.0,
+      114.705,
+      1.705,
+      "measured"
+     ]
+    ],
+    "failures": 505,
+    "lumaOnlyWorst": 1.978743658748499,
+    "s": 0.9916002831747537,
+    "survives": false,
+    "validation": {
+     "cellsWithNoStatistic": [],
+     "failures": 265,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-lg": 1.7116543278965073,
+      "2x|e-by-c64-rrect-md": 3.252014028702109
+     },
+     "pooledRms": 2.5985915205243555,
+     "statuses": {
+      "measured": 273
+     },
+     "worstAt": "2x|e-by-c64-rrect-md:sq13:b|B",
+     "worstMeasured": 5.626790522654019
+    }
+   },
+   "minimaxObjective": 4.736252398738856
+  },
+  "luma": {
+   "ls": {
+    "calibration": {
+     "cellsWithNoStatistic": [],
+     "failures": 234,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-md": 12.211522412038972,
+      "2x|e-rg-c16-rrect-lg": 3.4046283577737144,
+      "2x|e-rg-c16-rrect-md": 10.46503861614362,
+      "2x|e-rg-c64-rrect-md": 10.427577591763638
+     },
+     "pooledRms": 9.73350118847164,
+     "statuses": {
+      "measured": 429
+     },
+     "worstAt": "2x|e-by-c16-rrect-md:sq130:b|B",
+     "worstMeasured": 33.75989606346897
+    },
+    "failed": [
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq107:b|B",
+      84.0,
+      117.641,
+      33.641,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|B",
+      125.0,
+      150.868,
+      25.868,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq109:b|B",
+      84.0,
+      117.607,
+      33.607,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|B",
+      125.0,
+      150.868,
+      25.868,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq111:b|B",
+      84.0,
+      117.607,
+      33.607,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|B",
+      125.0,
+      150.868,
+      25.868,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq113:b|B",
+      84.0,
+      117.607,
+      33.607,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|B",
+      125.0,
+      150.57,
+      25.57,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|B",
+      125.0,
+      150.539,
+      25.539,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq128:b|B",
+      84.0,
+      117.715,
+      33.715,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|B",
+      125.0,
+      149.52,
+      24.52,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq130:b|B",
+      84.0,
+      117.76,
+      33.76,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|B",
+      125.0,
+      149.52,
+      24.52,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq132:b|B",
+      84.0,
+      117.76,
+      33.76,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|B",
+      125.0,
+      149.918,
+      24.918,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq134:b|B",
+      84.0,
+      117.644,
+      33.644,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq147:b|B",
+      84.0,
+      117.644,
+      33.644,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq148:a|B",
+      125.0,
+      150.26,
+      25.26,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq149:b|B",
+      84.0,
+      117.676,
+      33.676,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq150:a|B",
+      125.0,
+      150.255,
+      25.255,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq151:b|B",
+      84.0,
+      117.676,
+      33.676,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq152:a|B",
+      125.0,
+      150.255,
+      25.255,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq153:b|B",
+      84.0,
+      117.676,
+      33.676,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq154:a|B",
+      125.0,
+      150.539,
+      25.539,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "a-cores|B",
+      125.0,
+      150.303,
+      25.303,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "b-cores|B",
+      84.0,
+      117.671,
+      33.671,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq84:b|R",
+      102.0,
+      115.969,
+      13.969,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq85:a|R",
+      118.0,
+      125.285,
+      7.285,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq85:a|G",
+      113.0,
+      114.537,
+      1.537,
+      "measured"
+     ],
+     [
+      "2x|e-rg-c16-rrect-lg",
+      "sq86:b|R",
+      103.0,
+      116.057,
+      13.057,
+      "measured"
+     ]
+    ],
+    "failures": 502,
+    "lumaOnlyWorst": 3.6536349978299683,
+    "s": 0.7076260655291032,
+    "survives": false,
+    "validation": {
+     "cellsWithNoStatistic": [],
+     "failures": 268,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-lg": 4.017807929067518,
+      "2x|e-by-c64-rrect-md": 11.781032225769234
+     },
+     "pooledRms": 8.8015765877339,
+     "statuses": {
+      "measured": 273
+     },
+     "worstAt": "2x|e-by-c64-rrect-md:sq13:b|B",
+     "worstMeasured": 25.224872534014636
+    }
+   },
+   "lsObjective": 9.73350118847164,
+   "minimax": {
+    "calibration": {
+     "cellsWithNoStatistic": [],
+     "failures": 226,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-md": 13.273064190152864,
+      "2x|e-rg-c16-rrect-lg": 3.575271120493223,
+      "2x|e-rg-c16-rrect-md": 11.431173221497536,
+      "2x|e-rg-c64-rrect-md": 9.447755559322893
+     },
+     "pooledRms": 10.11049705639577,
+     "statuses": {
+      "measured": 429
+     },
+     "worstAt": "2x|e-by-c16-rrect-md:sq130:b|B",
+     "worstMeasured": 32.98757122625935
+    },
+    "failed": [
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq107:b|B",
+      84.0,
+      116.84,
+      32.84,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|R",
+      119.0,
+      117.764,
+      -1.236,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|B",
+      125.0,
+      157.987,
+      32.987,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq109:b|B",
+      84.0,
+      116.798,
+      32.798,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|R",
+      119.0,
+      117.764,
+      -1.236,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|B",
+      125.0,
+      157.987,
+      32.987,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq111:b|B",
+      84.0,
+      116.798,
+      32.798,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|R",
+      119.0,
+      117.764,
+      -1.236,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|B",
+      125.0,
+      157.987,
+      32.987,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq113:b|B",
+      84.0,
+      116.798,
+      32.798,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|R",
+      119.0,
+      117.797,
+      -1.203,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|B",
+      125.0,
+      157.619,
+      32.619,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|R",
+      119.0,
+      117.8,
+      -1.2,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|B",
+      125.0,
+      157.58,
+      32.58,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq128:b|B",
+      84.0,
+      116.932,
+      32.932,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|R",
+      119.0,
+      117.91,
+      -1.09,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|B",
+      125.0,
+      156.318,
+      31.318,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq130:b|B",
+      84.0,
+      116.988,
+      32.988,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|R",
+      119.0,
+      117.91,
+      -1.09,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|B",
+      125.0,
+      156.318,
+      31.318,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq132:b|B",
+      84.0,
+      116.988,
+      32.988,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|R",
+      119.0,
+      117.867,
+      -1.133,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|B",
+      125.0,
+      156.812,
+      31.812,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq134:b|B",
+      84.0,
+      116.844,
+      32.844,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq147:b|B",
+      84.0,
+      116.844,
+      32.844,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq148:a|R",
+      119.0,
+      117.83,
+      -1.17,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq148:a|B",
+      125.0,
+      157.235,
+      32.235,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq149:b|B",
+      84.0,
+      116.884,
+      32.884,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq150:a|R",
+      119.0,
+      117.831,
+      -1.169,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq150:a|B",
+      125.0,
+      157.228,
+      32.228,
+      "measured"
+     ]
+    ],
+    "failures": 477,
+    "lumaOnlyWorst": 3.653634997829954,
+    "s": 0.8762958410307438,
+    "survives": false,
+    "validation": {
+     "cellsWithNoStatistic": [],
+     "failures": 251,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-lg": 4.208350063183443,
+      "2x|e-by-c64-rrect-md": 10.975430396503972
+     },
+     "pooledRms": 8.311747188251077,
+     "statuses": {
+      "measured": 273
+     },
+     "worstAt": "2x|e-by-c64-rrect-md:sq12:a|B",
+     "worstMeasured": 18.17135533451949
+    }
+   },
+   "minimaxObjective": 32.98757122625935
+  },
+  "lumaW": {
+   "ls": {
+    "calibration": {
+     "cellsWithNoStatistic": [],
+     "failures": 246,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-md": 10.987689268972755,
+      "2x|e-rg-c16-rrect-lg": 3.2252396685900786,
+      "2x|e-rg-c16-rrect-md": 9.948754698654477,
+      "2x|e-rg-c64-rrect-md": 6.895269689109893
+     },
+     "pooledRms": 8.33147571758604,
+     "statuses": {
+      "measured": 429
+     },
+     "worstAt": "2x|e-by-c16-rrect-md:sq134:b|B",
+     "worstMeasured": 36.99399227057086
+    },
+    "failed": [
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq107:b|B",
+      84.0,
+      120.994,
+      36.994,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|B",
+      125.0,
+      121.006,
+      -3.994,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq109:b|B",
+      84.0,
+      120.993,
+      36.993,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|B",
+      125.0,
+      121.006,
+      -3.994,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq111:b|B",
+      84.0,
+      120.993,
+      36.993,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|B",
+      125.0,
+      121.006,
+      -3.994,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq113:b|B",
+      84.0,
+      120.993,
+      36.993,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|R",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|B",
+      125.0,
+      121.005,
+      -3.995,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|R",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|B",
+      125.0,
+      121.005,
+      -3.995,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq128:b|B",
+      84.0,
+      120.994,
+      36.994,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|R",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|B",
+      125.0,
+      121.005,
+      -3.995,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq130:b|B",
+      84.0,
+      120.994,
+      36.994,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|R",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|B",
+      125.0,
+      121.005,
+      -3.995,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq132:b|B",
+      84.0,
+      120.994,
+      36.994,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|R",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|G",
+      119.0,
+      120.999,
+      1.999,
+      "measured"
+     ]
+    ],
+    "failures": 490,
+    "lumaOnlyWorst": 3.6536349627777724,
+    "s": 1.1218085879733446,
+    "survives": false,
+    "validation": {
+     "cellsWithNoStatistic": [],
+     "failures": 244,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-lg": 3.7026672029373664,
+      "2x|e-by-c64-rrect-md": 7.687827887575748
+     },
+     "pooledRms": 6.033756791779704,
+     "statuses": {
+      "measured": 273
+     },
+     "worstAt": "2x|e-by-c16-rrect-lg:sq197:b|B",
+     "worstMeasured": 17.994438850729082
+    }
+   },
+   "lsObjective": 8.33147571758604,
+   "minimax": {
+    "calibration": {
+     "cellsWithNoStatistic": [],
+     "failures": 248,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-md": 10.986929385467041,
+      "2x|e-rg-c16-rrect-lg": 3.2246259271937583,
+      "2x|e-rg-c16-rrect-md": 9.947981712189328,
+      "2x|e-rg-c64-rrect-md": 13.127754565407317
+     },
+     "pooledRms": 10.030093590879341,
+     "statuses": {
+      "measured": 429
+     },
+     "worstAt": "2x|e-by-c16-rrect-md:sq134:b|B",
+     "worstMeasured": 36.99128828198246
+    },
+    "failed": [
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq107:b|B",
+      84.0,
+      120.991,
+      36.991,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq108:a|B",
+      125.0,
+      121.009,
+      -3.991,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq109:b|B",
+      84.0,
+      120.99,
+      36.99,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq110:a|B",
+      125.0,
+      121.009,
+      -3.991,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq111:b|B",
+      84.0,
+      120.99,
+      36.99,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq112:a|B",
+      125.0,
+      121.009,
+      -3.991,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq113:b|B",
+      84.0,
+      120.99,
+      36.99,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq114:a|B",
+      125.0,
+      121.008,
+      -3.992,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq127:a|B",
+      125.0,
+      121.008,
+      -3.992,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq128:b|B",
+      84.0,
+      120.991,
+      36.991,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq129:a|B",
+      125.0,
+      121.008,
+      -3.992,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq130:b|B",
+      84.0,
+      120.991,
+      36.991,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq131:a|B",
+      125.0,
+      121.008,
+      -3.992,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq132:b|B",
+      84.0,
+      120.991,
+      36.991,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|R",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ],
+     [
+      "2x|e-by-c16-rrect-md",
+      "sq133:a|G",
+      119.0,
+      120.998,
+      1.998,
+      "measured"
+     ]
+    ],
+    "failures": 493,
+    "lumaOnlyWorst": 3.6536349628818243,
+    "s": 1.6218085879733446,
+    "survives": false,
+    "validation": {
+     "cellsWithNoStatistic": [],
+     "failures": 245,
+     "perCellRms": {
+      "2x|e-by-c16-rrect-lg": 3.7020672125029526,
+      "2x|e-by-c64-rrect-md": 13.942556105919978
+     },
+     "pooledRms": 10.20049440989543,
+     "statuses": {
+      "measured": 273
+     },
+     "worstAt": "2x|e-by-c64-rrect-md:sq12:a|B",
+     "worstMeasured": 22.93166034015462
+    }
+   },
+   "minimaxObjective": 36.99128828198246
+  }
+ },
+ "gCoefficients": [
+  1.2030461109354402,
+  1.1653158858598713,
+  1.070412714349141
+ ],
+ "gSource": "dark-active-E3-fit.json local.leastSquares.coefficients (the rehearsal G_FIT)",
+ "lawParams": {
+  "k": 2.000084375000923,
+  "k_n": 2.000084375000923,
+  "k_w": 2.000084375000923,
+  "lam": 0.8865161689662968
+ },
+ "statisticsTable": {
+  "path": "/Users/new/vitrea-w42/g2-ident-scratch/knee/LT__dark-rest.json.gz",
+  "sha256": "0d69ee260f9a523b73b3fca1b50c1b87f81864a605531e32701ff4557873f0fd"
+ }
+}

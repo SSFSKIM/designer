@@ -1,0 +1,473 @@
+{
+ "adapter": "apple/metal-3",
+ "cells": 112,
+ "gpuErrors": [],
+ "format": "rgba32float",
+ "formatRoundingCodes": 0.001,
+ "agreement": {
+  "cells": 96,
+  "samplesPerCell": 400,
+  "boundCodes": 0.15,
+  "againstExactGaussian": {
+   "maxCodes": 0.052587105456922245,
+   "worstP99Codes": 0.04912054859096315,
+   "worst": "checkerboard__rrect-lg__active__1x__light"
+  },
+  "againstForward": {
+   "maxCodes": 0.181194913765367,
+   "worst": "impulse__rrect-md__active__1x__light",
+   "cellsAbove015": [
+    "impulse__rrect-md__active__1x__light"
+   ]
+  },
+  "perCell": {
+   "checkerboard__capsule-button__active__1x__light": {
+    "exact": 0.0005768512331201237,
+    "forward": 0.0006143057363772186
+   },
+   "checkerboard__capsule-button__active__1x__dark": {
+    "exact": 0.001471704888047043,
+    "forward": 0.0014715185152027743
+   },
+   "checkerboard__capsule-button__active__2x__light": {
+    "exact": 0.0024216181840017725,
+    "forward": 0.0024240157036103938
+   },
+   "checkerboard__capsule-button__active__2x__dark": {
+    "exact": 0.001035359155025617,
+    "forward": 0.0010352169457803484
+   },
+   "checkerboard__capsule-button__receded__1x__light": {
+    "exact": 0.004159647800861421,
+    "forward": 0.0002144964007300132
+   },
+   "checkerboard__capsule-button__receded__1x__dark": {
+    "exact": 0.004085422373293568,
+    "forward": 0.00018687420566720903
+   },
+   "checkerboard__capsule-button__receded__2x__light": {
+    "exact": 0.001282929839675262,
+    "forward": 0.0002701946811782818
+   },
+   "checkerboard__capsule-button__receded__2x__dark": {
+    "exact": 0.0012374193667596955,
+    "forward": 0.00018263477124946803
+   },
+   "checkerboard__rrect-md__active__1x__light": {
+    "exact": 0.008845956254162957,
+    "forward": 0.08257753890993058
+   },
+   "checkerboard__rrect-md__active__1x__dark": {
+    "exact": 0.009208199215848367,
+    "forward": 0.09757289793796531
+   },
+   "checkerboard__rrect-md__active__2x__light": {
+    "exact": 0.005442208738799081,
+    "forward": 0.04383269823148339
+   },
+   "checkerboard__rrect-md__active__2x__dark": {
+    "exact": 0.010493754676616618,
+    "forward": 0.040465284815326186
+   },
+   "checkerboard__rrect-md__receded__1x__light": {
+    "exact": 0.009949158800793612,
+    "forward": 0.0001126946189060618
+   },
+   "checkerboard__rrect-md__receded__1x__dark": {
+    "exact": 0.008330447856621959,
+    "forward": 0.0001252506598632408
+   },
+   "checkerboard__rrect-md__receded__2x__light": {
+    "exact": 0.0029665752130654255,
+    "forward": 0.00012766150646825736
+   },
+   "checkerboard__rrect-md__receded__2x__dark": {
+    "exact": 0.0024187988501012114,
+    "forward": 0.00011763335302816813
+   },
+   "checkerboard__rrect-lg__active__1x__light": {
+    "exact": 0.052587105456922245,
+    "forward": 0.11003980311153327
+   },
+   "checkerboard__rrect-lg__active__1x__dark": {
+    "exact": 0.04566773183458395,
+    "forward": 0.11139573534757119
+   },
+   "checkerboard__rrect-lg__active__2x__light": {
+    "exact": 0.015038526640807959,
+    "forward": 0.048711898562771694
+   },
+   "checkerboard__rrect-lg__active__2x__dark": {
+    "exact": 0.013374139467771329,
+    "forward": 0.051683056930841076
+   },
+   "checkerboard__rrect-lg__receded__1x__light": {
+    "exact": 0.0018921311203996538,
+    "forward": 6.320287832295435e-05
+   },
+   "checkerboard__rrect-lg__receded__1x__dark": {
+    "exact": 0.002957246377178535,
+    "forward": 5.3973319467104375e-05
+   },
+   "checkerboard__rrect-lg__receded__2x__light": {
+    "exact": 0.011509369323960073,
+    "forward": 5.6069041477258e-05
+   },
+   "checkerboard__rrect-lg__receded__2x__dark": {
+    "exact": 0.010440744799041113,
+    "forward": 8.376479860316977e-05
+   },
+   "checkerboard-8__capsule-button__active__1x__light": {
+    "exact": 0.0012474073911334926,
+    "forward": 0.0012389571361666185
+   },
+   "checkerboard-8__capsule-button__active__1x__dark": {
+    "exact": 0.0005173880081770221,
+    "forward": 0.0005237761785110706
+   },
+   "checkerboard-8__capsule-button__active__2x__light": {
+    "exact": 0.002445071152209266,
+    "forward": 0.002445160160220894
+   },
+   "checkerboard-8__capsule-button__active__2x__dark": {
+    "exact": 0.0010565691541444266,
+    "forward": 0.0010479376300907006
+   },
+   "checkerboard-8__capsule-button__receded__1x__light": {
+    "exact": 0.000901445501881426,
+    "forward": 7.270522161206827e-05
+   },
+   "checkerboard-8__capsule-button__receded__1x__dark": {
+    "exact": 0.000807048774845498,
+    "forward": 7.372640996550217e-05
+   },
+   "checkerboard-8__capsule-button__receded__2x__light": {
+    "exact": 0.00046614305412617796,
+    "forward": 8.683128487518843e-05
+   },
+   "checkerboard-8__capsule-button__receded__2x__dark": {
+    "exact": 0.000452225378694493,
+    "forward": 7.679501450752468e-05
+   },
+   "checkerboard-8__rrect-md__active__1x__light": {
+    "exact": 0.006617089514378449,
+    "forward": 0.06708534328100768
+   },
+   "checkerboard-8__rrect-md__active__1x__dark": {
+    "exact": 0.009758721386361913,
+    "forward": 0.07761485091717191
+   },
+   "checkerboard-8__rrect-md__active__2x__light": {
+    "exact": 0.01215256059560943,
+    "forward": 0.03829248036609556
+   },
+   "checkerboard-8__rrect-md__active__2x__dark": {
+    "exact": 0.016373755167080617,
+    "forward": 0.03756914815079426
+   },
+   "checkerboard-8__rrect-md__receded__1x__light": {
+    "exact": 0.002079363061341155,
+    "forward": 5.807356976106348e-05
+   },
+   "checkerboard-8__rrect-md__receded__1x__dark": {
+    "exact": 0.0019835170708688565,
+    "forward": 5.276110678664736e-05
+   },
+   "checkerboard-8__rrect-md__receded__2x__light": {
+    "exact": 0.0007376926885740431,
+    "forward": 7.945944781795333e-05
+   },
+   "checkerboard-8__rrect-md__receded__2x__dark": {
+    "exact": 0.0007574002952424053,
+    "forward": 8.373603009204089e-05
+   },
+   "checkerboard-8__rrect-lg__active__1x__light": {
+    "exact": 0.013999761236505037,
+    "forward": 0.02995691467364736
+   },
+   "checkerboard-8__rrect-lg__active__1x__dark": {
+    "exact": 0.012380449257221926,
+    "forward": 0.02081407865057372
+   },
+   "checkerboard-8__rrect-lg__active__2x__light": {
+    "exact": 0.018921875167137614,
+    "forward": 0.032915274037890185
+   },
+   "checkerboard-8__rrect-lg__active__2x__dark": {
+    "exact": 0.01724809570956154,
+    "forward": 0.026252420014571953
+   },
+   "checkerboard-8__rrect-lg__receded__1x__light": {
+    "exact": 0.0005314969564267358,
+    "forward": 7.580667440265643e-05
+   },
+   "checkerboard-8__rrect-lg__receded__1x__dark": {
+    "exact": 0.0005073972958768991,
+    "forward": 6.769419505303631e-05
+   },
+   "checkerboard-8__rrect-lg__receded__2x__light": {
+    "exact": 0.0001262667313142174,
+    "forward": 5.813023705059095e-05
+   },
+   "checkerboard-8__rrect-lg__receded__2x__dark": {
+    "exact": 9.990012222260702e-05,
+    "forward": 8.33225869882881e-05
+   },
+   "impulse__capsule-button__active__1x__light": {
+    "exact": 0.0005643114627353896,
+    "forward": 0.0001684216509261205
+   },
+   "impulse__capsule-button__active__1x__dark": {
+    "exact": 0.0004331220776627731,
+    "forward": 1.6374818628150933e-05
+   },
+   "impulse__capsule-button__active__2x__light": {
+    "exact": 0.0018342381284028875,
+    "forward": 0.001761141428694657
+   },
+   "impulse__capsule-button__active__2x__dark": {
+    "exact": 0.00022099401378383732,
+    "forward": 0.00011599376211890444
+   },
+   "impulse__capsule-button__receded__1x__light": {
+    "exact": 0.0019438381780290115,
+    "forward": 4.771753868482165e-05
+   },
+   "impulse__capsule-button__receded__1x__dark": {
+    "exact": 0.002319005304990185,
+    "forward": 1.5982519510515658e-05
+   },
+   "impulse__capsule-button__receded__2x__light": {
+    "exact": 0.0005105856260207986,
+    "forward": 0.00011516453839277574
+   },
+   "impulse__capsule-button__receded__2x__dark": {
+    "exact": 0.0006260734356828834,
+    "forward": 4.870126735667668e-05
+   },
+   "impulse__rrect-md__active__1x__light": {
+    "exact": 0.006118685914231037,
+    "forward": 0.181194913765367
+   },
+   "impulse__rrect-md__active__1x__dark": {
+    "exact": 0.0009801673846254744,
+    "forward": 0.011298594920130967
+   },
+   "impulse__rrect-md__active__2x__light": {
+    "exact": 0.006665584439609518,
+    "forward": 0.041580767060395374
+   },
+   "impulse__rrect-md__active__2x__dark": {
+    "exact": 0.0012329004524573861,
+    "forward": 0.005569581380360233
+   },
+   "impulse__rrect-md__receded__1x__light": {
+    "exact": 0.0014962882937261668,
+    "forward": 3.674804392517217e-05
+   },
+   "impulse__rrect-md__receded__1x__dark": {
+    "exact": 0.0018914193295813675,
+    "forward": 2.013282567148167e-05
+   },
+   "impulse__rrect-md__receded__2x__light": {
+    "exact": 0.0003864652860166018,
+    "forward": 7.934873573844925e-05
+   },
+   "impulse__rrect-md__receded__2x__dark": {
+    "exact": 0.0005539289017022497,
+    "forward": 2.9850925152175023e-05
+   },
+   "impulse__rrect-lg__active__1x__light": {
+    "exact": 0.007940167946046017,
+    "forward": 0.012489306981279924
+   },
+   "impulse__rrect-lg__active__1x__dark": {
+    "exact": 0.001989775285696993,
+    "forward": 0.0024644093035490755
+   },
+   "impulse__rrect-lg__active__2x__light": {
+    "exact": 0.003459333603153425,
+    "forward": 0.004107876437345226
+   },
+   "impulse__rrect-lg__active__2x__dark": {
+    "exact": 0.0010030752696792433,
+    "forward": 0.0019643762149392785
+   },
+   "impulse__rrect-lg__receded__1x__light": {
+    "exact": 0.001256254023811465,
+    "forward": 2.8112524333323563e-05
+   },
+   "impulse__rrect-lg__receded__1x__dark": {
+    "exact": 0.0020809386733979807,
+    "forward": 2.2131676654879584e-05
+   },
+   "impulse__rrect-lg__receded__2x__light": {
+    "exact": 0.003090668347208947,
+    "forward": 5.118957298932969e-05
+   },
+   "impulse__rrect-lg__receded__2x__dark": {
+    "exact": 0.0010270673076426817,
+    "forward": 3.231973463613258e-05
+   },
+   "hc-text__capsule-button__active__1x__light": {
+    "exact": 0.005091164215969002,
+    "forward": 0.00016581920201019784
+   },
+   "hc-text__capsule-button__active__1x__dark": {
+    "exact": 0.0018348036958570901,
+    "forward": 0.0006062250680827219
+   },
+   "hc-text__capsule-button__active__2x__light": {
+    "exact": 0.000600038762343047,
+    "forward": 0.00030421248530387857
+   },
+   "hc-text__capsule-button__active__2x__dark": {
+    "exact": 0.0018443321806955737,
+    "forward": 0.001283741571455721
+   },
+   "hc-text__capsule-button__receded__1x__light": {
+    "exact": 0.04010272406478066,
+    "forward": 0.00014085844136957348
+   },
+   "hc-text__capsule-button__receded__1x__dark": {
+    "exact": 0.03858615883274297,
+    "forward": 0.00012353513201901478
+   },
+   "hc-text__capsule-button__receded__2x__light": {
+    "exact": 0.010447920059220905,
+    "forward": 0.0001709066595196873
+   },
+   "hc-text__capsule-button__receded__2x__dark": {
+    "exact": 0.010069964916851859,
+    "forward": 0.0001774752572316629
+   },
+   "hc-text__rrect-md__active__1x__light": {
+    "exact": 0.00416952567837825,
+    "forward": 0.05131299876777007
+   },
+   "hc-text__rrect-md__active__1x__dark": {
+    "exact": 0.0033116087697351304,
+    "forward": 0.047420752192323334
+   },
+   "hc-text__rrect-md__active__2x__light": {
+    "exact": 0.005928173261196434,
+    "forward": 0.028290929786095376
+   },
+   "hc-text__rrect-md__active__2x__dark": {
+    "exact": 0.006487604106496292,
+    "forward": 0.03950174220921099
+   },
+   "hc-text__rrect-md__receded__1x__light": {
+    "exact": 0.02473479673759016,
+    "forward": 0.00013730652585763892
+   },
+   "hc-text__rrect-md__receded__1x__dark": {
+    "exact": 0.024210241642805386,
+    "forward": 0.00015455906256534035
+   },
+   "hc-text__rrect-md__receded__2x__light": {
+    "exact": 0.0065973960591634295,
+    "forward": 0.00023242863471750752
+   },
+   "hc-text__rrect-md__receded__2x__dark": {
+    "exact": 0.006258131672268519,
+    "forward": 0.00021565928221889408
+   },
+   "hc-text__rrect-lg__active__1x__light": {
+    "exact": 0.028941550512257663,
+    "forward": 0.04669243636249121
+   },
+   "hc-text__rrect-lg__active__1x__dark": {
+    "exact": 0.025124919285985925,
+    "forward": 0.034184760906782685
+   },
+   "hc-text__rrect-lg__active__2x__light": {
+    "exact": 0.011159585069549394,
+    "forward": 0.025033579407590878
+   },
+   "hc-text__rrect-lg__active__2x__dark": {
+    "exact": 0.01157167954676197,
+    "forward": 0.0288005692826232
+   },
+   "hc-text__rrect-lg__receded__1x__light": {
+    "exact": 0.021052069390322004,
+    "forward": 0.00014135242918200674
+   },
+   "hc-text__rrect-lg__receded__1x__dark": {
+    "exact": 0.026393833409770195,
+    "forward": 0.00014883407766319579
+   },
+   "hc-text__rrect-lg__receded__2x__light": {
+    "exact": 0.016468924510547822,
+    "forward": 0.0001767861913606339
+   },
+   "hc-text__rrect-lg__receded__2x__dark": {
+    "exact": 0.014165062022755137,
+    "forward": 0.00017195722512042266
+   }
+  }
+ },
+ "uniformInvariance": {
+  "cells": 16,
+  "maxCodes": 0.00016766786575317383,
+  "perCell": {
+   "light-solid__rrect-md__active__1x__light": 3.0875205993652344e-05,
+   "light-solid__rrect-md__active__2x__light": 6.031990051269531e-05,
+   "light-solid__rrect-md__receded__1x__light": 0.00010687112808227539,
+   "light-solid__rrect-md__receded__2x__light": 0.00016766786575317383,
+   "dark-solid__rrect-md__active__1x__light": 1.7881393432617188e-06,
+   "dark-solid__rrect-md__active__2x__light": 1.7881393432617188e-06,
+   "dark-solid__rrect-md__receded__1x__light": 1.6868114471435547e-05,
+   "dark-solid__rrect-md__receded__2x__light": 1.6987323760986328e-05,
+   "mid-dark-solid__rrect-md__active__1x__light": 1.9311904907226562e-05,
+   "mid-dark-solid__rrect-md__active__2x__light": 1.9311904907226562e-05,
+   "mid-dark-solid__rrect-md__receded__1x__light": 3.388524055480957e-05,
+   "mid-dark-solid__rrect-md__receded__2x__light": 4.908442497253418e-05,
+   "mid-chroma-solid__rrect-md__active__1x__light": 8.869171142578125e-05,
+   "mid-chroma-solid__rrect-md__active__2x__light": 7.349252700805664e-05,
+   "mid-chroma-solid__rrect-md__receded__1x__light": 7.849931716918945e-05,
+   "mid-chroma-solid__rrect-md__receded__2x__light": 0.00010389089584350586
+  }
+ },
+ "table": {
+  "levels": [
+   0,
+   64,
+   96,
+   128,
+   160,
+   176,
+   192,
+   208,
+   224,
+   240,
+   255
+  ],
+  "row": [
+   20.0,
+   88.585626,
+   120.112753,
+   148.799621,
+   174.41811,
+   186.134683,
+   197.210861,
+   207.744391,
+   217.85404,
+   227.67499,
+   236.75
+  ]
+ },
+ "identityTable": [
+  0.0,
+  64.0,
+  96.0,
+  128.0,
+  160.0,
+  176.0,
+  192.0,
+  208.0,
+  224.0,
+  240.0,
+  255.0
+ ]
+}
