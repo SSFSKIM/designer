@@ -38,7 +38,7 @@ import {
 } from "../src/index";
 import { matrixSchemaRefusal } from "./gates";
 import { assertScratchDestination } from "../src/matrix-write-guard";
-import { stageMatrixPath, stageStatus, validateStageRows } from "../src/generation-stage";
+import { stageMatrixPath, stageOfDestination, stageStatus, validateStageRows } from "../src/generation-stage";
 import { crossPositionVerdict } from "../src/document-position";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell, type MeasureInput } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
@@ -129,8 +129,10 @@ function parseArgs(argv: readonly string[]): Args {
   // one this package leans on everywhere else (an absent axis means not measured,
   // never measured as zero), so the CLI honours it too.
   const backgroundPath = map.get("background");
-  const stage = map.get("stage");
-  const matrix = stage ? stageMatrixPath(stage, map.get("matrix")) : map.get("matrix");
+  // A --matrix inside a declared stage is that stage, whichever flag named it.
+  const named = map.get("matrix");
+  const stage = map.get("stage") ?? (named === undefined ? undefined : stageOfDestination(named));
+  const matrix = stage ? stageMatrixPath(stage, named) : named;
   const out = map.get("out");
 
   return {
@@ -168,8 +170,8 @@ function main(): void {
   if (args.out !== undefined) assertScratchDestination(args.out);
   if (args.stage) stageStatus(args.stage);
   if (args.stage && args.crossPosition) {
-    throw new Error("diff: --cross-position cannot measure into a --stage; a cross-position reading " +
-      "is scratch only (W43 G0 (f))");
+    throw new Error(`diff: --cross-position cannot measure into the stage ${args.stage}, named by ` +
+      "--stage or by its matrix.json; a cross-position reading is scratch only (W43 G0 (f))");
   }
 
   // A scratch matrix at another schema cannot be merged into; reject it before

@@ -11,7 +11,8 @@
 
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, symlinkSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, symlinkSync, writeFileSync }
+  from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -465,7 +466,7 @@ describe("both modes, the command lines", () => {
     const staged = run("cli/compare.ts", ["--candidate-document", candidate, "--stage", "/tmp/w43-never"],
       scratchTree);
     expect(staged.status).not.toBe(0);
-    expect(staged.stderr).toMatch(/cannot measure into a --stage/);
+    expect(staged.stderr).toMatch(/cannot measure into the stage .*, named by --stage/);
     const canonical = run("cli/compare.ts", ["--candidate-document", candidate,
       "--out-matrix", "/tmp/w43-never.json"], { VITREA_WEB_CAPTURES: undefined });
     expect(canonical.status).not.toBe(0);
@@ -587,11 +588,80 @@ describe("both modes, the command lines", () => {
     expect(row.key.web.capturePath).toMatch(/, crossPosition=shipped-glass0\.5-against-glassnone$/);
   }, 60_000);
 
+  /*
+   * The second review round: a declared stage is recognised by its declaration, whichever flag
+   * names its matrix file. The reviewer's reproduction, a stamped candidate-against-0.5 capture
+   * written through --matrix / --out-matrix into a declared 0.5 stage, on both command lines.
+   */
+  const SCENE = "photo__rrect-md__rest";
+  const FIXTURE05 = resolve(PACKAGE, "../../apps/reference-apple/fixtures", KEY_05, `${SCENE}.png`);
+  const CANDIDATE_REL = "packages/calibration/results/2026-10-01-w43-g0-declaration/seam/" +
+    "scratch-candidate/candidate.json";
+  const stampedCandidateCell = () => JSON.stringify({ engine: "chromium", engineVersion: "1",
+    renderer: "webgpu", samplingBackend: "gpu-texture", gpuAdapter: "apple/metal-3", colorSpace: "srgb",
+    capturePath: `materialProfile=candidate candidateDocument=${CANDIDATE_REL} declarationSha256=` +
+      `${sha(readFileSync(resolve(PACKAGE, "../..", CANDIDATE_REL), "utf8")).slice(0, 12)} ` +
+      "name=apple-macos-27.0-glass0.25-w43-g0-scratch glassTintAmount=0.25, " +
+      "crossPosition=candidate-glass0.25-against-glass0.5",
+    sceneId: SCENE, pixelSize: [320, 200], deterministic: true, repeatNoise: 0 });
+  const declaredStage05 = () => {
+    const stage = join(mkdtempSync(join(tmpdir(), "w43-stage-")), "stage");
+    const declared = spawnSync(process.execPath, ["--import", "tsx", "cli/matrix.ts", "stage", stage,
+      "--profile", KEY_05, "--renderer", "webgpu", "--set", "calibration", "--material-profile", active],
+    { cwd: PACKAGE, encoding: "utf8", env: { ...process.env, VITREA_MATRIX_PATH: "" } });
+    expect(declared.status, declared.stderr).toBe(0);
+    return stage;
+  };
+  const snapshot = (dir: string) =>
+    readdirSync(dir).sort().map((name) => `${name} ${sha(readFileSync(join(dir, name), "utf8"))}`);
+
+  it("red/green: diff --matrix into a declared stage is that stage; into scratch it writes", () => {
+    const stage = declaredStage05();
+    const before = snapshot(stage);
+    const cell = join(mkdtempSync(join(tmpdir(), "w43-cell-")), "cell.json");
+    writeFileSync(cell, stampedCandidateCell());
+    const diff = (matrix: string) => run("cli/diff.ts", ["--native", FIXTURE05, "--web", FIXTURE05,
+      "--profile", KEY_05, "--scene", SCENE, "--web-cell", cell, "--matrix", matrix, "--cross-position"]);
+    const staged = diff(join(stage, "matrix.json"));
+    expect(staged.status).not.toBe(0);
+    expect(staged.stderr)
+      .toMatch(/--cross-position cannot measure into the stage .*named by --stage or by its matrix\.json/);
+    expect(snapshot(stage)).toEqual(before);
+    const scratchMatrix = join(mkdtempSync(join(tmpdir(), "w43-scratch-")), "matrix.json");
+    const scratchRun = diff(scratchMatrix);
+    expect(scratchRun.status, scratchRun.stderr).toBe(0);
+    expect(JSON.parse(readFileSync(scratchMatrix, "utf8")).cells[0].key.web.capturePath)
+      .toMatch(/, crossPosition=candidate-glass0\.25-against-glass0\.5$/);
+  }, 120_000);
+
+  it("red/green: compare --out-matrix into a declared stage is that stage; into scratch it writes", () => {
+    const stage = declaredStage05();
+    const before = snapshot(stage);
+    const tree = mkdtempSync(join(tmpdir(), "w43-skip-candidate-"));
+    const dir = join(tree, KEY_05, SCENE);
+    mkdirSync(dir, { recursive: true });
+    copyFileSync(FIXTURE05, join(dir, `${SCENE}__webgpu.png`));
+    writeFileSync(join(dir, "cell__webgpu.json"), stampedCandidateCell());
+    const compare = (matrix: string) => run("cli/compare.ts", ["--candidate-document",
+      resolve(PACKAGE, "../..", CANDIDATE_REL), "--cross-position", "--profile", KEY_05, "--scene", SCENE,
+      "--set", "calibration", "--skip-capture", "--out-matrix", matrix], { VITREA_WEB_CAPTURES: tree });
+    const staged = compare(join(stage, "matrix.json"));
+    expect(staged.status).not.toBe(0);
+    expect(staged.stderr)
+      .toMatch(/cannot measure into the stage .*named by --stage or by its matrix\.json/);
+    expect(snapshot(stage)).toEqual(before);
+    const scratchMatrix = join(mkdtempSync(join(tmpdir(), "w43-scratch-")), "matrix.json");
+    const scratchRun = compare(scratchMatrix);
+    expect(scratchRun.status, `${scratchRun.stdout}${scratchRun.stderr}`).toBe(0);
+    expect(JSON.parse(readFileSync(scratchMatrix, "utf8")).cells[0].key.web.capturePath)
+      .toMatch(/, crossPosition=candidate-glass0\.25-against-glass0\.5$/);
+  }, 120_000);
+
   it("red: --cross-position is scratch only: no stage, no canonical tree, no authoritative matrix", () => {
     const staged = run("cli/compare.ts", [...asShipped05, "--cross-position", "--stage", "/tmp/w43-never"],
       scratchTree);
     expect(staged.status).not.toBe(0);
-    expect(staged.stderr).toMatch(/--cross-position cannot measure into a --stage/);
+    expect(staged.stderr).toMatch(/--cross-position cannot measure into the stage .*, named by --stage/);
     const tree = run("cli/compare.ts", [...asShipped05, "--cross-position", "--out-matrix",
       "/tmp/w43-never.json"], { VITREA_WEB_CAPTURES: undefined });
     expect(tree.status).not.toBe(0);

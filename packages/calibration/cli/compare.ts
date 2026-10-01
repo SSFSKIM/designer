@@ -101,7 +101,7 @@ import {
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
 import { assertScratchDestination, withinTree } from "../src/matrix-write-guard";
-import { assertStageRun, stageMatrixPath, validateStageRows } from "../src/generation-stage";
+import { assertStageRun, stageMatrixPath, stageOfDestination, validateStageRows } from "../src/generation-stage";
 import {
   capturePoseRefusal,
   colourlessTintEvidence,
@@ -384,6 +384,9 @@ function parseOptions(argv: readonly string[]): Options {
   const materialProfile = flag("material-profile");
   const recededProfile = flag("receded-profile");
   const candidateDocument = flag("candidate-document");
+  // An --out-matrix inside a declared stage is that stage, whichever flag named it.
+  const stage = flag("stage") ??
+    (matrix === undefined ? undefined : stageOfDestination(resolve(PACKAGE_ROOT, matrix)));
   if (candidateDocument !== undefined) {
     if (materialProfile !== undefined || recededProfile !== undefined) {
       throw new Error(
@@ -391,9 +394,10 @@ function parseOptions(argv: readonly string[]): Options {
           "--receded-profile beside it (W43 G0 (f))",
       );
     }
-    if (flag("stage") !== undefined) {
+    if (stage !== undefined) {
       throw new Error(
-        "compare: --candidate-document cannot measure into a --stage. A stage is a publication, " +
+        `compare: --candidate-document cannot measure into the stage ${stage}, named by --stage ` +
+          "or by its matrix.json. A stage is a publication, " +
           "and a publication reads a shipped material in strict mode; measure a candidate into a " +
           "scratch --out-matrix (W43 G0 (f))",
       );
@@ -416,9 +420,10 @@ function parseOptions(argv: readonly string[]): Options {
           "run names neither a --candidate-document nor a --material-profile (W43 G0 (f))",
       );
     }
-    if (flag("stage") !== undefined) {
+    if (stage !== undefined) {
       throw new Error(
-        "compare: --cross-position cannot measure into a --stage. A cross-position reading is a " +
+        `compare: --cross-position cannot measure into the stage ${stage}, named by --stage or by ` +
+          "its matrix.json. A cross-position reading is a " +
           "comparison between two materials and never a generation's row; measure it into a " +
           "scratch --out-matrix (W43 G0 (f))",
       );
@@ -460,11 +465,10 @@ function parseOptions(argv: readonly string[]): Options {
       candidateDocument === undefined ? undefined : resolve(process.cwd(), candidateDocument),
     crossPosition: argv.includes("--cross-position"),
     webAccessibility,
-    stage: flag("stage") === undefined ? undefined : resolve(flag("stage")!),
-    matrixPath: flag("stage") === undefined
-      ? resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json")
-      : stageMatrixPath(flag("stage")!, flag("out-matrix") === undefined
-        ? undefined : resolve(PACKAGE_ROOT, flag("out-matrix")!)),
+    stage: stage === undefined ? undefined : resolve(stage),
+    matrixPath: stage === undefined
+      ? resolve(PACKAGE_ROOT, matrix ?? "results/matrix.json")
+      : stageMatrixPath(stage, matrix === undefined ? undefined : resolve(PACKAGE_ROOT, matrix)),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
     silhouetteChromaThreshold: Number(
       flag("silhouette-chroma-threshold") ?? `${DEFAULT_SILHOUETTE_CHROMA_THRESHOLD}`,

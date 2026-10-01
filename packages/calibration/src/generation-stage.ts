@@ -1,9 +1,9 @@
 /** A declaration precedes measurement. Presence means every named fixture, not one row per set. */
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { assertScratchDestination } from "./matrix-write-guard";
+import { assertScratchDestination, canonicalPath } from "./matrix-write-guard";
 import { documents, generationEnvelope, iterateRecordedRows, loadCurrentRows, readIndex,
   readRows, type Document, type Entry, type Index } from "./matrix-store";
 import { serializeResultCellKey, type CellResult } from "./report";
@@ -153,9 +153,21 @@ export function validateStageRows(directory: string, rows: readonly CellResult[]
   return { membership: m, declared: expected.size, present: seen.size,
     missing: [...expected].filter((k) => !seen.has(k)).length };
 }
+/**
+ * The stage a matrix destination belongs to, recognised by the declaration beside it and not
+ * by the flag that named it (W43 G0 review, second round). A `--matrix` or `--out-matrix` that
+ * points into a declared stage's directory is that stage: its position rules apply and a
+ * cross-position or candidate reading is refused, exactly as under `--stage`.
+ */
+export function stageOfDestination(path: string): string | undefined {
+  const directory = canonicalPath(dirname(resolve(path)));
+  return existsSync(join(directory, "membership.json")) ? directory : undefined;
+}
 export function stageMatrixPath(directory: string, explicit?: string): string {
   const path = join(resolve(directory), "matrix.json");
-  if (explicit && resolve(explicit) !== path) fail("--out-matrix must name the stage's matrix.json");
+  if (explicit && canonicalPath(explicit) !== canonicalPath(path)) {
+    fail("--out-matrix must name the stage's matrix.json");
+  }
   assertScratchDestination(path);
   return path;
 }
