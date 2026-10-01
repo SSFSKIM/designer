@@ -62,6 +62,7 @@ import {
   recededProfileClause,
 } from "./material-profile-file.ts";
 import { readCandidateDocument, type CandidateDocument } from "./candidate-document.ts";
+import { withinTree } from "../src/matrix-write-guard.ts";
 import {
   candidateMaterialLabel,
   crossPositionClause,
@@ -408,8 +409,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
       throw new Error(`--cross-position ${againstGlass} is the material's own glass position, so ` +
         "the stamp would be false (W43 G0 (f)).");
     }
-    const out = resolve(outDir);
-    if (out === DEFAULT_OUT || out.startsWith(`${DEFAULT_OUT}/`)) {
+    if (withinTree(outDir, DEFAULT_OUT)) {
       throw new Error(`--cross-position would write into the canonical capture tree ${DEFAULT_OUT}; ` +
         "pass --out <scratch directory> (W43 G0 (f)).");
     }
@@ -417,8 +417,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   // A candidate's pixels stay out of the canonical capture tree, which `check-capture-tree`
   // reads against the published rows and the sheets are copied from.
   if (candidateDocument !== undefined) {
-    const out = resolve(outDir);
-    if (out === DEFAULT_OUT || out.startsWith(`${DEFAULT_OUT}/`)) {
+    if (withinTree(outDir, DEFAULT_OUT)) {
       throw new Error(
         `--candidate-document would write into the canonical capture tree ${DEFAULT_OUT}; ` +
           "pass --out <scratch directory> (W43 G0 (f)).",

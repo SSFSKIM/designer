@@ -11,7 +11,7 @@
 
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -39,6 +39,7 @@ import {
   cssTierMappingSha256,
   readCandidateDocument,
 } from "../scripts/candidate-document";
+import { withinTree } from "../src/matrix-write-guard";
 
 const PACKAGE = resolve(import.meta.dirname, "..");
 const PROFILES = resolve(PACKAGE, "profiles");
@@ -453,6 +454,41 @@ describe("both modes, the command lines", () => {
     expect(flagged.status).not.toBe(0);
     expect(flagged.stderr).toMatch(/the shipped material's own glass 0\.5, so the stamp would be false/);
   }, 60_000);
+
+  /*
+   * The G0 review's second finding: a scratch path that is a symbolic link to the canonical tree,
+   * or that runs through a link to the package, is the canonical tree. The canonical tree need
+   * not exist (it is absent in a fresh worktree), so the first link is also a dangling one.
+   */
+  const CANONICAL_TREE = resolve(PACKAGE, "web-captures");
+  const links = mkdtempSync(join(tmpdir(), "w43-links-"));
+  symlinkSync(CANONICAL_TREE, join(links, "to-tree"));
+  symlinkSync(PACKAGE, join(links, "to-package"));
+  const aliases = [join(links, "to-tree", "run"), join(links, "to-package", "web-captures", "run")];
+
+  it("resolves every link before the containment check, a dangling one included", () => {
+    for (const alias of aliases) expect(withinTree(alias, CANONICAL_TREE), alias).toBe(true);
+    const plain = join(links, "plain");
+    mkdirSync(plain);
+    expect(withinTree(plain, CANONICAL_TREE)).toBe(false);
+    expect(withinTree(join(links, "to-package", "web-captures-scratch"), CANONICAL_TREE)).toBe(false);
+  });
+
+  it("red: a linked alias of the canonical tree is refused for candidate and cross-position runs", () => {
+    for (const alias of aliases) {
+      for (const material of [asCandidate, [...asShipped05, "--cross-position", "0.25"]]) {
+        const capture = run("scripts/capture-web.ts", ["photo__rrect-md__rest", "--out", alias, ...material]);
+        expect(capture.status, alias).not.toBe(0);
+        expect(capture.stderr).toMatch(/would write into the canonical capture tree/);
+      }
+      for (const material of [asCandidate, [...asShipped05, "--cross-position"]]) {
+        const compare = run("cli/compare.ts", [...material, "--out-matrix", "/tmp/w43-never.json"],
+          { VITREA_WEB_CAPTURES: alias });
+        expect(compare.status, alias).not.toBe(0);
+        expect(compare.stderr).toMatch(/would write its captures into the canonical tree/);
+      }
+    }
+  }, 180_000);
 
   it("red: --cross-position is scratch only: no stage, no canonical tree, no authoritative matrix", () => {
     const staged = run("cli/compare.ts", [...asShipped05, "--cross-position", "--stage", "/tmp/w43-never"],

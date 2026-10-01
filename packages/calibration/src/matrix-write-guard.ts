@@ -2,8 +2,8 @@
  * Measurement is scratch-only. The one sanctioned publication entry below
  * preserves the same filesystem-identity boundary as the scratch refusal.
  */
-import { closeSync, existsSync, fsyncSync, lstatSync, mkdirSync, openSync, readdirSync, realpathSync, renameSync, rmdirSync, statSync, unlinkSync, writeFileSync } from "node:fs";
-import { dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { closeSync, existsSync, fsyncSync, lstatSync, mkdirSync, openSync, readdirSync, readlinkSync, realpathSync, renameSync, rmdirSync, statSync, unlinkSync, writeFileSync } from "node:fs";
+import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
 import { prepareGeneration } from "./generation-stage";
@@ -20,6 +20,32 @@ function destinationPath(path: string): string {
   const parent = dirname(absolute);
   if (parent === absolute) return absolute;
   return resolve(destinationPath(parent), relative(parent, absolute));
+}
+
+/**
+ * A path with every symbolic link on it resolved, a dangling one included (W43 G0 review,
+ * finding 2). `destinationPath` asks `existsSync`, which follows a link, so a link to a tree
+ * that does not exist yet reads as a fresh scratch name; this follows the link itself. The
+ * longest existing prefix is canonicalised and the rest appended, as `destinationPath` does.
+ */
+export function canonicalPath(path: string, hops = 0): string {
+  if (hops > 40) throw new Error(`${path}: too many levels of symbolic links`);
+  const absolute = resolve(path);
+  let link = false;
+  try {
+    link = lstatSync(absolute).isSymbolicLink();
+  } catch {
+    const parent = dirname(absolute);
+    return parent === absolute ? absolute : join(canonicalPath(parent, hops), basename(absolute));
+  }
+  if (link) return canonicalPath(resolve(dirname(absolute), readlinkSync(absolute)), hops + 1);
+  return realpathSync.native(absolute);
+}
+
+/** Whether `path` is `tree` or inside it, both canonicalised through every link first. */
+export function withinTree(path: string, tree: string): boolean {
+  const within = relative(canonicalPath(tree), canonicalPath(path));
+  return within === "" || (within !== ".." && !within.startsWith(`..${sep}`) && !isAbsolute(within));
 }
 
 function insideJsonDirectory(directory: string, path: string): boolean {

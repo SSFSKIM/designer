@@ -100,7 +100,7 @@ import {
   type SceneState,
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
-import { assertScratchDestination } from "../src/matrix-write-guard";
+import { assertScratchDestination, withinTree } from "../src/matrix-write-guard";
 import { assertStageRun, stageMatrixPath, validateStageRows } from "../src/generation-stage";
 import {
   capturePoseRefusal,
@@ -401,7 +401,7 @@ function parseOptions(argv: readonly string[]): Options {
     // what `check-capture-tree` reads against the matrix, so a candidate's pixels stay out.
     const tree = resolve(PACKAGE_ROOT, "web-captures");
     const target = captures === undefined ? tree : resolve(captures);
-    if (target === tree || target.startsWith(`${tree}/`)) {
+    if (withinTree(target, tree)) {
       throw new Error(
         `compare: --candidate-document would write its captures into the canonical tree ${tree}; ` +
           "set VITREA_WEB_CAPTURES to a scratch directory (W43 G0 (f))",
@@ -424,7 +424,7 @@ function parseOptions(argv: readonly string[]): Options {
     }
     const tree = resolve(PACKAGE_ROOT, "web-captures");
     const target = captures === undefined ? tree : resolve(captures);
-    if (target === tree || target.startsWith(`${tree}/`)) {
+    if (withinTree(target, tree)) {
       throw new Error(
         `compare: --cross-position would write its captures into the canonical tree ${tree}; ` +
           "set VITREA_WEB_CAPTURES to a scratch directory (W43 G0 (f))",
