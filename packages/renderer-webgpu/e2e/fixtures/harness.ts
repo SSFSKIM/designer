@@ -79,9 +79,13 @@ async function ensureDevice(): Promise<GPUDevice> {
 
   const info = adapter.info ?? ({} as GPUAdapterInfo);
   const timestamps = adapter.features.has("timestamp-query");
-  device = await adapter.requestDevice(
-    timestamps ? { requiredFeatures: ["timestamp-query"] } : {},
-  );
+  // `float32-blendable` only where the adapter offers it, and only so that W42's U7 can read a
+  // composite in rgba32float (`renderSceneFloat`); it changes no pipeline any other spec builds.
+  const features: GPUFeatureName[] = [
+    ...(timestamps ? ["timestamp-query" as const] : []),
+    ...(adapter.features.has("float32-blendable") ? ["float32-blendable" as GPUFeatureName] : []),
+  ];
+  device = await adapter.requestDevice(features.length > 0 ? { requiredFeatures: features } : {});
   const fallback = softwareAdapter(info);
   device.addEventListener("uncapturederror", (event) => {
     gpuErrors.push((event as GPUUncapturedErrorEvent).error.message);
@@ -158,6 +162,16 @@ function providerFor(spec: BackdropSpec, gpu: GPUDevice): BackdropProvider | und
         height: image.height,
       });
     }
+    case "pixels": {
+      const binary = atob(spec.rgba);
+      const data = new Uint8ClampedArray(binary.length);
+      for (let i = 0; i < binary.length; i += 1) data[i] = binary.charCodeAt(i);
+      const image = new ImageData(data, spec.width, spec.height);
+      return createCopyProvider({
+        id: "bg", kind: "image", device: gpu, source: image,
+        width: image.width, height: image.height,
+      });
+    }
     case "gradient":
       return createGradientProvider({
         id: "bg",
@@ -179,11 +193,17 @@ interface Target {
   readonly view: GPUTextureView;
 }
 
-function makeTarget(gpu: GPUDevice, width: number, height: number, label: string): Target {
+function makeTarget(
+  gpu: GPUDevice,
+  width: number,
+  height: number,
+  label: string,
+  format: GPUTextureFormat = OUTPUT_TEXTURE_FORMAT,
+): Target {
   const texture = gpu.createTexture({
     label,
     size: { width, height, depthOrArrayLayers: 1 },
-    format: OUTPUT_TEXTURE_FORMAT,
+    format,
     usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC,
   });
   return { texture, view: texture.createView() };
@@ -216,6 +236,76 @@ async function readback(
   const out = new Uint8Array(unpadded * height);
   for (let row = 0; row < height; row += 1) {
     out.set(mapped.subarray(row * padded, row * padded + unpadded), row * unpadded);
+  }
+  buffer.unmap();
+  buffer.destroy();
+  return out;
+}
+
+/** An `rgba32float` target read back, four channels per pixel (W42 G2 U7). */
+async function readbackFloat(
+  gpu: GPUDevice,
+  texture: GPUTexture,
+  width: number,
+  height: number,
+): Promise<Float32Array> {
+  const unpadded = width * 16;
+  const padded = Math.ceil(unpadded / 256) * 256;
+  const buffer = gpu.createBuffer({
+    size: padded * height,
+    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ,
+  });
+  const encoder = gpu.createCommandEncoder();
+  encoder.copyTextureToBuffer(
+    { texture },
+    { buffer, bytesPerRow: padded, rowsPerImage: height },
+    { width, height },
+  );
+  gpu.queue.submit([encoder.finish()]);
+  await buffer.mapAsync(GPUMapMode.READ);
+  const mapped = new Float32Array(buffer.getMappedRange());
+  const out = new Float32Array(width * height * 4);
+  for (let row = 0; row < height; row += 1) {
+    out.set(mapped.subarray((row * padded) / 4, (row * padded) / 4 + width * 4), row * width * 4);
+  }
+  buffer.unmap();
+  buffer.destroy();
+  return out;
+}
+
+/** An `rgba16float` target read back as f32, four channels per pixel (W42 G2 U7). */
+async function readbackHalf(
+  gpu: GPUDevice,
+  texture: GPUTexture,
+  width: number,
+  height: number,
+): Promise<Float32Array> {
+  const unpadded = width * 8;
+  const padded = Math.ceil(unpadded / 256) * 256;
+  const buffer = gpu.createBuffer({
+    size: padded * height,
+    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ,
+  });
+  const encoder = gpu.createCommandEncoder();
+  encoder.copyTextureToBuffer(
+    { texture },
+    { buffer, bytesPerRow: padded, rowsPerImage: height },
+    { width, height },
+  );
+  gpu.queue.submit([encoder.finish()]);
+  await buffer.mapAsync(GPUMapMode.READ);
+  const mapped = new Uint16Array(buffer.getMappedRange());
+  const out = new Float32Array(width * height * 4);
+  const half = (h: number): number => {
+    const sign = h & 0x8000 ? -1 : 1;
+    const exponent = (h >> 10) & 0x1f;
+    const fraction = h & 0x3ff;
+    if (exponent === 0) return sign * 2 ** -14 * (fraction / 1024);
+    if (exponent === 31) return fraction === 0 ? sign * Infinity : NaN;
+    return sign * 2 ** (exponent - 15) * (1 + fraction / 1024);
+  };
+  for (let row = 0; row < height; row += 1) {
+    for (let i = 0; i < width * 4; i += 1) out[row * width * 4 + i] = half(mapped[(row * padded) / 2 + i]!);
   }
   buffer.unmap();
   buffer.destroy();
@@ -323,6 +413,11 @@ interface SceneRun {
 /** Per-render switches a spec can throw. */
 export interface RenderOptions {
   /**
+   * The optics and highlight targets' format (W42 G2 U7). `rgba16float` lets a spec read the
+   * composite below the eight-bit output's half-code rounding; absent, the canvas format.
+   */
+  readonly targetFormat?: GPUTextureFormat;
+  /**
    * Render the scene with its `backdropPlacement` withheld, so the backdrop is
    * cover-fit to the viewport — the pre-§5.47 rule, kept reachable so a spec can
    * show the two renders differ and pin what the old one produced.
@@ -413,8 +508,9 @@ async function setUpScene(
 
   const width = Math.round(scene.widthCss * scene.devicePixelRatio);
   const height = Math.round(scene.heightCss * scene.devicePixelRatio);
-  const optics = makeTarget(gpu, width, height, "harness:optics");
-  const highlight = makeTarget(gpu, width, height, "harness:highlight");
+  const format = options?.targetFormat ?? OUTPUT_TEXTURE_FORMAT;
+  const optics = makeTarget(gpu, width, height, "harness:optics", format);
+  const highlight = makeTarget(gpu, width, height, "harness:highlight", format);
 
   return {
     renderer,
@@ -449,6 +545,7 @@ async function runScene(
       frame: { id: frame, timeMs: frame * 16.7 },
       optics: run.optics.view,
       highlight: run.highlight.view,
+      ...(options?.targetFormat === undefined ? {} : { format: options.targetFormat }),
     });
     // Adaptation reaches the shader through a readback, so the loop has to give
     // the map a chance to resolve between frames.
@@ -533,6 +630,42 @@ const api = {
         declaredRegionsOf(scene),
       );
       return { width: run.width, height: run.height, pixels: toBase64(bytes) };
+    } finally {
+      run.dispose();
+    }
+  },
+
+  /**
+   * Render one scene into `rgba16float` targets and hand back the optics target as f32
+   * (W42 G2 U7): the law's rendered agreement is held to 0.15 code, below the eight-bit
+   * output's own rounding. Throws on any WebGPU error, which is how a spec knows every binding
+   * of the frame, the body law's rgba32float tiles and A included, validated on this adapter.
+   */
+  async renderSceneFloat(
+    scene: Scene,
+    materialProfile?: MaterialProfilePatch,
+    options?: RenderOptions,
+  ): Promise<{
+    readonly width: number;
+    readonly height: number;
+    readonly format: GPUTextureFormat;
+    readonly pixels: string;
+  }> {
+    const errorsBefore = gpuErrors.length;
+    const gpu = await ensureDevice();
+    const format: GPUTextureFormat = gpu.features.has("float32-blendable") ? "rgba32float" : "rgba16float";
+    const run = await runScene(scene, undefined, materialProfile, undefined,
+      { ...options, targetFormat: format });
+    try {
+      const values = format === "rgba32float"
+        ? await readbackFloat(gpu, run.optics.texture, run.width, run.height)
+        : await readbackHalf(gpu, run.optics.texture, run.width, run.height);
+      if (gpuErrors.length > errorsBefore) {
+        throw new Error(`WebGPU reported ${gpuErrors.length - errorsBefore} error(s): ` +
+          gpuErrors.slice(errorsBefore).join(" | "));
+      }
+      return { width: run.width, height: run.height, format,
+        pixels: toBase64(new Uint8Array(values.buffer)) };
     } finally {
       run.dispose();
     }
@@ -939,6 +1072,8 @@ const api = {
       readonly gpuMsPerFrame: number | undefined;
       readonly gpuP95: number | undefined;
       readonly wallMsPerFrame: number;
+      /** The CPU's share: `drawFrame`'s own encode and submit, before the GPU is waited on. */
+      readonly cpuMsPerFrame: number;
       readonly wallP95: number;
       readonly passMs: Record<string, number>;
       readonly anomalies: number;
@@ -955,6 +1090,7 @@ const api = {
           config,
           run,
           wall: [] as number[],
+          cpu: [] as number[],
           gpuFrames: [] as number[],
           passTotals: new Map<string, number>(),
           timedFrames: 0,
@@ -965,6 +1101,7 @@ const api = {
     // One collector for the whole benchmark, reset before each frame. A query set
     // per frame would allocate hundreds of them and, worse, read slots that this
     // frame's passes never wrote.
+    // W42's law adds one slot per group: its stage is one compute pass per group (§17).
     const timing = timestamps ? createTimingCollector(gpu, 256) : undefined;
 
     try {
@@ -993,8 +1130,10 @@ const api = {
             highlight: entry.run.highlight.view,
             ...(timing === undefined ? {} : { timing }),
           });
+          const encoded = performance.now();
           await gpu.queue.onSubmittedWorkDone();
           entry.wall.push(performance.now() - start);
+          entry.cpu.push(encoded - start);
 
           if (timing !== undefined) {
             const read = await timing.read();
@@ -1030,6 +1169,7 @@ const api = {
             gpuMsPerFrame: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.5),
             gpuP95: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.95),
             wallMsPerFrame: quantile(entry.wall, 0.5),
+            cpuMsPerFrame: quantile(entry.cpu, 0.5),
             wallP95: quantile(entry.wall, 0.95),
             passMs,
             // Reported per config for want of a per-config counter; it is a

@@ -66,6 +66,11 @@ PER_STRATUM = 250
 # near black, above the ~0.13 target, and the revision (§11) takes the oracle's own FAST_FROM_DEV, 12,
 # and six levels. W42_DECIMATE_FROM, W42_LEVELS, W42_BACKDROPS and W42_SUFFIX run the alternatives.
 DECIMATE_FROM = float(os.environ.get('W42_DECIMATE_FROM', '12'))
+# The perf wave (§17) decimates the ACTIVE pose's narrow levels from a lower width than the receded
+# level and W: W42_DECIMATE_ACTIVE_FROM sets that threshold alone (default: DECIMATE_FROM), and
+# W42_POSES restricts the run to the poses it changes.
+DECIMATE_ACTIVE_FROM = float(os.environ.get('W42_DECIMATE_ACTIVE_FROM', str(DECIMATE_FROM)))
+POSES = tuple(os.environ.get('W42_POSES', 'active,receded').split(','))
 LEVELS = int(os.environ.get('W42_LEVELS', '6'))
 BACKDROPS = ('checkerboard', 'checkerboard-8', 'checkerboard-64', 'hc-text', 'photo', 'impulse')
 ACTIVE = ('capsule-button', 'rrect-80', 'rrect-md', 'rrect-ml', 'rrect-lg')
@@ -75,6 +80,11 @@ FAMILY_E = (('checker-16-rg', 'rrect-md'), ('checker-64-rg', 'rrect-md'), ('chec
 
 
 def st(x, fmt):
+    if fmt == 'c16':
+        # A 16-bit store of sqrt(v) (the perf wave's companded candidate, §17): v in [0, 1] rounds
+        # to (round(65535 sqrt v) / 65535)^2, so its absolute error falls toward black.
+        u = np.round(np.sqrt(np.clip(x, 0, 1)) * 65535) / 65535
+        return u * u
     return x.astype(FMT[fmt]).astype(np.float64)
 
 
@@ -123,10 +133,11 @@ def blur_decimated(X, sig, mode, fmt):
     return np.stack([ndimage.map_coordinates(D[..., c], [Y, Xg], order=1, mode='nearest') for c in range(C)], -1)
 
 
-def stored_blur(X, sig, mode, fmt):
+def stored_blur(X, sig, mode, fmt, threshold=None):
     if sig < 1e-3:
         return X
-    return blur_direct(X, sig, mode, fmt) if sig < DECIMATE_FROM else blur_decimated(X, sig, mode, fmt)
+    threshold = DECIMATE_FROM if threshold is None else threshold
+    return blur_direct(X, sig, mode, fmt) if sig < threshold else blur_decimated(X, sig, mode, fmt)
 
 
 def read(X, mode):
@@ -200,15 +211,27 @@ def composite(C, W, knee, h, lam):
 
 # ---------------------------------------------------------------- tones
 
+# W42_BRIDGED=1 reads candidate 1 through the black-join amendment (`candidate1-black-join-addendum.md`,
+# `candidate1_black_join.bridge`), the tone the runtime has drawn since `2ce1c2d5`. Unset, the tone is the
+# declared solve, which is what every output of this script before the perf wave (§17) read.
+BRIDGED = os.environ.get('W42_BRIDGED') == '1'
+
+
 def tone_landed(ep, s, A):
     e = BODY.RES[ep]
     x = np.clip((s - e['sizeSpanMin']) / (e['sizeSpanMax'] - e['sizeSpanMin']), 0, 1)
     sizeK = x * x * (3 - 2 * x)
-    c = dec(A)
-    lin = c @ W709
-    level = dec(A @ W709) if e['abscissa'] != 'source(default)' else lin
-    y = BODY.compose(e, c, BODY.solve(e, sizeK, level, lin), c)
-    return 255 * enc(y)
+
+    def solve(X):
+        c = dec(X)
+        lin = c @ W709
+        level = dec(X @ W709) if e['abscissa'] != 'source(default)' else lin
+        return BODY.compose(e, c, BODY.solve(e, sizeK, level, lin), c)
+
+    if BRIDGED:
+        import candidate1_black_join as CJ
+        return 255 * enc(CJ.bridge(solve, e, A))
+    return 255 * enc(solve(A))
 
 
 def tone_e3(A, LW):
@@ -301,12 +324,14 @@ def run_cell(bg, comp, scale, scheme, pose, configs, rng):
         h1 = st(gauss1(X, 0.4 * f, 1, 'clamp'), fmt)
         S = st(gauss1(h1, 0.4 * f, 0, 'clamp'), fmt)
         S[..., 3] = 1.0
-        stack = np.array([read(stored_blur(S, v, mode, fmt), mode)[py, px] for v in levels])
+        narrow_from = DECIMATE_FROM if receded else DECIMATE_ACTIVE_FROM
+        stack = np.array([read(stored_blur(S, v, mode, fmt, narrow_from), mode)[py, px] for v in levels])
         Wm = read(stored_blur(S, sw, mode, fmt), mode)[py, px]
         C = f32(interp_levels(stack, levels, sig, how))
         for knee in (0, 1, 2):
             A, LW, dm = composite(f32(C), f32(Wm), knee, h, lam)
-            A, LW = st(A, fmt), st(LW, fmt)
+            # A is float32 under the companded tiles: M is unclipped and can leave [0, 1].
+            A, LW = st(A, 'f32' if fmt == 'c16' else fmt), st(LW, 'f32' if fmt == 'c16' else fmt)
             ty = tones(ep, s, A, LW)
             ox, dx = oracle[knee]
             flips = None if dm is None else (dm != dx)
@@ -331,28 +356,32 @@ def main():
     rng = np.random.default_rng(20261001)
     rows = []
     t0 = time.time()
-    base = (('f16', 'chain16'), ('f32', 'chain16'))
+    base = tuple((fmt, 'chain16') for fmt in os.environ.get('W42_FORMATS', 'f16,f32').split(','))
     cells = []
     for bg in (BACKDROPS if not only else only.split(',')):
         for scale in (1, 2):
             for scheme in ('light', 'dark'):
-                cells += [(bg, c, scale, scheme, 'active', base) for c in ACTIVE]
-                cells += [(bg, c, scale, scheme, 'receded', base) for c in RECEDED]
+                if 'active' in POSES:
+                    cells += [(bg, c, scale, scheme, 'active', base) for c in ACTIVE]
+                if 'receded' in POSES:
+                    cells += [(bg, c, scale, scheme, 'receded', base) for c in RECEDED]
     for bg, comp in (FAMILY_E if not only else ()):
         for scheme in ('light', 'dark'):
-            for pose in ('active', 'receded'):
-                cells.append((bg, comp, 2, scheme, pose, base + (('f16', 'exact8'), ('f32', 'exact8'))))
+            for pose in POSES:
+                cells.append((bg, comp, 2, scheme, pose, base + tuple((f, 'exact8') for f, _ in base)))
     for i, (bg, comp, scale, scheme, pose, cfg) in enumerate(cells):
         rows += run_cell(bg, comp, scale, scheme, pose, cfg, rng)
         print(f'{i + 1}/{len(cells)} {bg} {comp} {scale}x {scheme} {pose} {time.time() - t0:.0f}s',
               file=sys.stderr, flush=True)
     json.dump(dict(rows=rows, k=K, k_receded=K_REC, lam=LAM, lam_receded=LAM_REC, per_stratum=PER_STRATUM,
-                   decimate_from=DECIMATE_FROM, levels=LEVELS, backdrops=only),
+                   decimate_from=DECIMATE_FROM, decimate_active_from=DECIMATE_ACTIVE_FROM, poses=POSES,
+                   levels=LEVELS, backdrops=only, bridged=BRIDGED),
               open(os.path.join(HERE, f'u2_mirror{suffix}.json'), 'w'), separators=(',', ':'))
     text = summarise(rows)
     open(os.path.join(HERE, f'u2_mirror{suffix}.txt'), 'w').write(
-        __doc__.split('\n\n')[0] + '\n\n' + f'decimate from {DECIMATE_FROM:g} device px; {LEVELS} interior levels; '
-        f'backdrops {only or "all"}\n\n'
+        __doc__.split('\n\n')[0] + '\n\n' + f'decimate from {DECIMATE_FROM:g} device px (active narrow levels from {DECIMATE_ACTIVE_FROM:g}); '
+        f'{LEVELS} interior levels; poses {",".join(POSES)}; '
+        f'backdrops {only or "all"}; candidate 1 {"bridged" if BRIDGED else "as declared"}\n\n'
         + text + f'\n\ncells {len(cells)}, run time {time.time() - t0:.0f} s\n')
     print(text)
 

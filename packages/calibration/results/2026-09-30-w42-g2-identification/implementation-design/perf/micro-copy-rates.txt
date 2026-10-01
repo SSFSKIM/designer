@@ -1,0 +1,13 @@
+w42-micro3.spec.ts (this folder), apple/metal-3, Chromium 151.0.7922.34, 2026-10-01 ~08:47 local,
+load average ~12 (step 2's fit running). One compute dispatch over 1024 x 1024 texels, ms per
+dispatch (median of 30 submits of 10 dispatches):
+
+  rgba32float copy 8x8        0.23    rgba16float copy 8x8        0.07
+  rgba32float copy 64x1       0.21    rgba16float copy 64x1       0.07
+  rgba32float copy 64x1 col   0.23    rgba16float copy 64x1 col   0.10
+  rgba32float load4 store1    0.23    rgba16float load4 store1    0.08
+  rgba32float load16 store1   0.30    rgba16float load16 store1   0.15
+
+A rgba32float texel stored and read back costs about 0.2 ns: about 145 GB/s, close to the
+device's DRAM bandwidth. Extra loads of cached texels barely move it. The stage's non-tap cost is
+the tiles' traffic.

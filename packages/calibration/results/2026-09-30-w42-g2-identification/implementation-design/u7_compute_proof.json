@@ -1,0 +1,53 @@
+{
+  "adapter": {
+    "vendor": "",
+    "architecture": "",
+    "device": "Apple M2 Pro",
+    "description": "",
+    "stackgroup_min_size": 4,
+    "stackgroup_max_size": 128,
+    "vendor_id": 0,
+    "device_id": 0,
+    "adapter_type": "IntegratedGPU",
+    "backend_type": "Metal"
+  },
+  "cases": 6844,
+  "results": {
+    "landed": {
+      "cases": 1856,
+      "maxCodes": 0.00016776754696934404,
+      "worst": "landed light-active 0.0923"
+    },
+    "solve": {
+      "cases": 1856,
+      "maxCodes": 0.00016776754696934404,
+      "worst": "solve light-active 0.0923"
+    },
+    "body": {
+      "cases": 696,
+      "maxCodes": 4.30238513047243e-05,
+      "worst": "body e3 1 table 0"
+    },
+    "e3": {
+      "cases": 348,
+      "maxCodes": 3.366269456250848e-05,
+      "worst": "e3 high 0.0"
+    },
+    "table": {
+      "cases": 2088,
+      "maxCodes": 3.402215679670917e-05,
+      "worst": "table dark-rest 72"
+    }
+  },
+  "passed": true,
+  "bound": "0.01 code per channel, f32 on the adapter against f64 numpy",
+  "fullOpticsModuleCompiled": true,
+  "browserRuns": 0,
+  "sources": {
+    "packages/calibration/results/2026-09-30-w42-g2-identification/implementation-design/u7_compute_proof.py": "6f49590d8f84ff95e3b73d808afe32e3749ad16bc421478f547e1cf6c8cf899e",
+    "packages/renderer-webgpu/src/wgsl/optics.ts": "dfb6b867a6d70d9e52e200af46064241a595450e4dd74668a4140df54e6cee02",
+    "packages/renderer-webgpu/src/wgsl/prelude.ts": "beb2fb3c03c61e00f6a24d1c1dee55c22b63830dc415e1e95d34a43a6e8981f6",
+    "packages/calibration/results/2026-09-30-w42-g2-identification/implementation-design/candidate1_black_join.py": "48f82d687c7569d39dfdf06e0554a2ad4f5e6949fc1f9dacedee5bf780c0e287"
+  },
+  "wrapperSha256": "46560ca9df43acd6ca3ab448516fa455aa6f03ccf5bdc5fb94cf6d11e6321c6b"
+}

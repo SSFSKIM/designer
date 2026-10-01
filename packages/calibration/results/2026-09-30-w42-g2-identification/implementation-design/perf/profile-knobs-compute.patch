@@ -1,0 +1,102 @@
+diff --git a/packages/renderer-webgpu/e2e/fixtures/harness.ts b/packages/renderer-webgpu/e2e/fixtures/harness.ts
+index 885e9aa3..566cef5b 100644
+--- a/packages/renderer-webgpu/e2e/fixtures/harness.ts
++++ b/packages/renderer-webgpu/e2e/fixtures/harness.ts
+@@ -1061,6 +1061,7 @@ const api = {
+        * state at least as much as it measures the renderer.
+        */
+       readonly materialProfile?: MaterialProfilePatch;
++      readonly skip?: string[];
+     }[];
+     readonly rounds: number;
+     readonly warmup: number;
+@@ -1084,7 +1085,12 @@ const api = {
+ 
+     const runs = await Promise.all(
+       input.configs.map(async (config) => {
+-        const run = await setUpScene(benchScene(config), config.materialProfile);
++        const live = benchScene(config);
++        const full = (config as { staticBackdrop?: boolean }).staticBackdrop === true
++          ? { ...live, backdrop: { kind: "checkerboard" as const, cell: 12 } } : live;
++        const only = (config as { groups?: string[] }).groups;
++        const run = await setUpScene(only === undefined ? full :
++          { ...full, groups: full.groups.filter((g) => only.includes(g.groupId)) }, config.materialProfile);
+         if (config.family !== undefined) run.renderer.governor.set({ fieldFamily: config.family });
+         return {
+           config,
+@@ -1111,11 +1117,17 @@ const api = {
+       for (let i = 0; i < input.warmup; i += 1) {
+         for (const entry of runs) {
+           frameId += 1;
++          (globalThis as { __w42Skip?: string[] }).__w42Skip = (entry.config as { skip?: string[] }).skip ?? [];
++          const t0 = performance.now();
+           entry.run.renderer.drawFrame({
+             frame: { id: frameId, timeMs: frameId * 16.7 },
+             optics: entry.run.optics.view,
+             highlight: entry.run.highlight.view,
+           });
++          if (i < 3) {
++            await gpu.queue.onSubmittedWorkDone();
++            ((entry as unknown as { warm: number[] }).warm ??= []).push(performance.now() - t0);
++          }
+         }
+       }
+       await gpu.queue.onSubmittedWorkDone();
+@@ -1125,6 +1137,7 @@ const api = {
+           frameId += 1;
+           timing?.reset();
+           const start = performance.now();
++          (globalThis as { __w42Skip?: string[] }).__w42Skip = (entry.config as { skip?: string[] }).skip ?? [];
+           entry.run.renderer.drawFrame({
+             frame: { id: frameId, timeMs: frameId * 16.7 },
+             optics: entry.run.optics.view,
+@@ -1171,6 +1184,7 @@ const api = {
+             gpuP95: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.95),
+             wallMsPerFrame: quantile(entry.wall, 0.5),
+             cpuMsPerFrame: quantile(entry.cpu, 0.5),
++            warmWallMs: (entry as unknown as { warm: number[] }).warm,
+             wallP95: quantile(entry.wall, 0.95),
+             passMs,
+             // Reported per config for want of a per-config counter; it is a
+diff --git a/e2e/bench/w42-profile.spec.ts b/e2e/bench/w42-profile.spec.ts
+new file mode 100644
+index 00000000..e1431a84
+--- /dev/null
++++ b/e2e/bench/w42-profile.spec.ts
+@@ -0,0 +1,36 @@
++// TEMPORARY perf-wave profiling spec (not committed).
++import { writeFileSync } from "node:fs";
++import { test } from "@playwright/test";
++import { openHarness, requireHardwareAdapter } from "../support";
++const LAW = { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1 };
++const M = { widthCss: 390, heightCss: 844, devicePixelRatio: 3 };
++const D = { widthCss: 1440, heightCss: 900, devicePixelRatio: 2 };
++const rows = JSON.parse(process.env["W42_PROFILE_ROWS"] ?? "null") ?? [
++  { label: "m base", ...M },
++  { label: "m law", ...M, materialProfile: LAW },
++  { label: "m law -narrow", ...M, materialProfile: LAW, lawKnobs: { skip: ["narrow"] } },
++  { label: "m law -wide", ...M, materialProfile: LAW, lawKnobs: { skip: ["wide"] } },
++  { label: "m law -floor", ...M, materialProfile: LAW, lawKnobs: { skip: ["floor"] } },
++  { label: "m law -composite", ...M, materialProfile: LAW, lawKnobs: { skip: ["composite"] } },
++  { label: "m law -capture", ...M, materialProfile: LAW, lawKnobs: { skip: ["capture"] } },
++  { label: "m law -q1", ...M, materialProfile: LAW, lawKnobs: { skip: ["q1"] } },
++  { label: "m law -q2", ...M, materialProfile: LAW, lawKnobs: { skip: ["q2"] } },
++  { label: "m law -q4", ...M, materialProfile: LAW, lawKnobs: { skip: ["q4"] } },
++  { label: "m law f16", ...M, materialProfile: LAW, lawKnobs: { format: "rgba16float" } },
++  { label: "m law -all", ...M, materialProfile: LAW, lawKnobs: { skip: ["narrow", "wide", "floor", "composite", "capture"] } },
++  { label: "m law-receded", ...M, materialProfile: { ...LAW, bodyLawPose: 1 } },
++  { label: "d law", ...D, materialProfile: LAW },
++  { label: "d law f16", ...D, materialProfile: LAW, lawKnobs: { format: "rgba16float" } },
++  { label: "m base control", ...M },
++];
++test("@w42-profile stage ablations", async ({ page }) => {
++  test.setTimeout(900_000);
++  requireHardwareAdapter(await openHarness(page));
++  const out = [];
++  for (let run = 0; run < Number(process.env["W42_PROFILE_RUNS"] ?? 3); run += 1) {
++    const m = await page.evaluate((configs) => window.vitrea.bench({ configs, rounds: 60, warmup: 20 }), rows);
++    out.push(m.results.map((r: any) => ({ label: r.label, wall: r.wallMsPerFrame, cpu: r.cpuMsPerFrame,
++      gpu: r.gpuMsPerFrame, passMs: r.passMs, warm: r.warmWallMs })));
++  }
++  writeFileSync(process.env["W42_PROFILE_OUT"] ?? "/tmp/w42-perf/profile.json", JSON.stringify(out, null, 1));
++});

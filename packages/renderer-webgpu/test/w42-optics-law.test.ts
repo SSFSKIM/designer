@@ -56,6 +56,8 @@ interface Harness {
   readonly gpu: FakeGpu;
   draw(): void;
   lawPasses(): string[];
+  /** The stage's compute pass's bind groups, one per dispatch, in order. */
+  lawDispatches(): readonly { readonly entries: readonly GPUBindGroupEntry[] }[];
   optics(): Float32Array;
   importUniform(): Float32Array | undefined;
   opticsBinding(binding: number): GPUBindingResource | undefined;
@@ -96,7 +98,9 @@ function harness(over: {
         highlight: {} as GPUTextureView });
     },
     lawPasses: () => gpu.passes.map((pass) => pass.label)
-      .filter((label) => label.startsWith("vitrea:pass:body-law:")),
+      .filter((label) => label.startsWith("vitrea:pass:body-law")),
+    lawDispatches: () => gpu.passes.find((pass) => pass.label === "vitrea:pass:body-law")
+      ?.bindGroups ?? [],
     optics() {
       const writes = gpu.uniformWrites.filter((write) => write.label.includes("uniform:optics"));
       expect(writes).toHaveLength(1);
@@ -121,15 +125,18 @@ function harness(over: {
 const labelOf = (gpu: FakeGpu, resource: GPUBindingResource | undefined): string =>
   resource === undefined ? "" : gpu.info(viewOwner(resource as GPUTextureView))?.label ?? "";
 
-/** The passes one surface's stage encodes, from the schedule (`body-law-pass.ts`). */
-function expectedPasses(patch: MaterialProfilePatch, dpr = 1): number {
+/**
+ * The dispatches one surface's stage encodes, from the schedule (`body-law-pass.ts`): the floor,
+ * the decimation where a width is decimated, every width's horizontal and vertical passes, and A.
+ */
+function expectedDispatches(patch: MaterialProfilePatch, dpr = 1): number {
   const material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
   const viewport: readonly [number, number] = [240 * dpr, 160 * dpr];
   const plan = bodyLawSurfacePlan({ centre: SURFACE.shape.center, size: SURFACE.shape.size }, dpr,
     material, bodyLawSourceExtent(viewport, [1, 1, 0, 0]));
   const schedule = bodyLawSchedule(plan);
-  return 3 + schedule.grids.reduce((n, grid) => n + (grid.q > 1 ? 1 : 0) + 2 * grid.pairs.length, 0)
-    + 1;
+  return 1 + (schedule.grids.some((grid) => grid.q > 1) ? 1 : 0) +
+    (schedule.grids.length > 0 ? 2 : 0) + 1;
 }
 
 /** Code lines of a WGSL region: comments dropped, trimmed, empty lines removed. */
@@ -237,6 +244,10 @@ describe("W42 identity through the renderer", () => {
     expect(h.lawPasses()).toEqual([]);
     expect(h.gpu.textures.some((t) => t.label.includes(":encoded") || t.label.includes("body-law")))
       .toBe(false);
+    expect(h.gpu.buffers.some((b) => b.label.includes("body-law"))).toBe(false);
+    // One encoder and one command buffer a frame, as before the law existed.
+    expect(h.gpu.encoders).toBe(1);
+    expect(h.gpu.submittedBuffers).toBe(1);
     const d = h.optics();
     expect(d).toHaveLength(OPTICS_UNIFORM_FLOATS);
     expect([...d.slice(152)].every((v) => v === 0)).toBe(true);
@@ -257,17 +268,23 @@ describe("W42 identity through the renderer", () => {
     expect(moved.lawPasses()).toEqual([]);
     expect([...moved.optics()]).toEqual([...base.optics()]);
     expect(moved.gpu.passes.map((p) => p.label)).toEqual(base.gpu.passes.map((p) => p.label));
+    expect([moved.gpu.encoders, moved.gpu.submittedBuffers]).toEqual([1, 1]);
     base.destroy();
     moved.destroy();
   });
 });
 
 describe("W42 stage and lanes with the law on", () => {
-  it("runs the schedule's passes, binds A at 12 and packs the fold", () => {
+  it("runs the schedule's dispatches in one compute pass, binds A at 12 and packs the fold", () => {
     const h = harness();
     h.draw();
-    expect(h.lawPasses()).toHaveLength(expectedPasses(LAW));
-    expect(h.lawPasses().at(-1)).toBe("vitrea:pass:body-law:A");
+    expect(h.lawPasses()).toEqual(["vitrea:pass:body-law"]);
+    expect(h.lawDispatches()).toHaveLength(expectedDispatches(LAW));
+    // In the frame's own encoder: the law adds a compute pass, not a command buffer.
+    expect([h.gpu.encoders, h.gpu.submittedBuffers]).toEqual([1, 1]);
+    // The last dispatch writes A.
+    expect(labelOf(h.gpu, h.lawDispatches().at(-1)!.entries.find((e) => e.binding === 6)!.resource))
+      .toBe("vitrea:body-law:g:A");
     expect(h.gpu.textures.some((t) => t.label === "vitrea:pyramid:bg:encoded")).toBe(true);
     // The gradient is an encoded sRGB source: the import passes its value through.
     expect(h.importUniform()?.[11]).toBe(1);
@@ -304,7 +321,7 @@ describe("W42 stage and lanes with the law on", () => {
     h.gpu.failNextFinish();
     expect(() => h.draw()).toThrow("encode failed");
     h.draw();
-    expect(h.lawPasses()).toHaveLength(expectedPasses(LAW));
+    expect(h.lawDispatches()).toHaveLength(expectedDispatches(LAW));
     h.destroy();
   });
 
@@ -313,7 +330,7 @@ describe("W42 stage and lanes with the law on", () => {
     const h = harness({ patch });
     h.draw();
     expect(h.optics()[OPTICS_BODY_LAW_LANES.bandPt]).toBe(0);
-    expect(h.lawPasses()).toHaveLength(expectedPasses(patch));
+    expect(h.lawDispatches()).toHaveLength(expectedDispatches(patch));
     h.destroy();
   });
 
@@ -379,13 +396,88 @@ describe("W42 stage and lanes with the law on", () => {
     });
     const h = harness({ surfaces: [capsule("a", 70), capsule("b", 126), capsule("c", 182)] });
     h.draw();
-    const passes = h.lawPasses();
-    expect(passes.filter((label) => label.endsWith(":capture"))).toHaveLength(3);
-    expect(passes.filter((label) => label === "vitrea:pass:body-law:A")).toHaveLength(1);
-    const composite = h.gpu.passes.find((p) => p.label === "vitrea:pass:body-law:A")!;
-    // The initial fill plus one draw per member.
-    expect(composite.bindGroups).toHaveLength(4);
+    expect(h.lawPasses()).toEqual(["vitrea:pass:body-law"]);
+    // One floor job per member, and one composite over all three into one A.
+    const floor = h.gpu.uniformWrites.find((w) => w.label === "vitrea:uniform:body-law:g:floor")!;
+    expect(floor.data[2]).toBe(3);
+    const composite = h.gpu.uniformWrites.find((w) => w.label === "vitrea:uniform:body-law:g:composite")!;
+    expect(composite.data[8]).toBe(3);
+    const writesA = h.lawDispatches().filter((group) => group.entries.some((e) =>
+      e.binding === 6 && labelOf(h.gpu, e.resource) === "vitrea:body-law:g:A"));
+    expect(writesA).toHaveLength(1);
     h.destroy();
+  });
+
+  it("releases a removed group's own buffers while another law group lives on", () => {
+    // A static backdrop rebuilds nothing, so nothing but the removal can release them.
+    const gpu = createFakeGpu();
+    const renderer = createWebGPURenderer({ viewport: { widthCss: 240, heightCss: 160,
+      devicePixelRatio: 1 } });
+    renderer.attachDevice(gpu.device, "vitrea");
+    renderer.setMaterialProfile(LAW);
+    renderer.setAccessibility(NOMINAL_MATERIAL_POLICY);
+    renderer.registerBackdrop(createGradientProvider({ id: "bg", device: gpu.device,
+      stops: linearGradientStops([0.1, 0.2, 0.3], [0.5, 0.6, 0.7]), generation: 1 }));
+    for (const [groupId, x] of [["g", 70], ["h", 170]] as const) {
+      renderer.setGroup({ groupId, refraction: "true", analysisExact: true, variant: "regular",
+        backdropSourceId: "bg",
+        surfaces: [{ ...SURFACE, nodeId: groupId, shape: { ...SURFACE.shape, center: [x, 80],
+          size: [60, 44] } }] });
+    }
+    const draw = (id: number) => renderer.drawFrame({ frame: { id, timeMs: id * 16 },
+      optics: {} as GPUTextureView, highlight: {} as GPUTextureView });
+    draw(1);
+    const own = (groupId: string) =>
+      gpu.buffers.filter((b) => b.label.includes(`:body-law:${groupId}:`));
+    expect(own("h").length).toBeGreaterThanOrEqual(5);
+    renderer.removeGroup("h");
+    draw(2);
+    expect(own("h").every((b) => b.destroyed)).toBe(true);
+    expect(own("g").some((b) => !b.destroyed)).toBe(true);
+    expect(gpu.textures.filter((t) => t.label === "vitrea:body-law:h:A").every((t) => t.destroyed))
+      .toBe(true);
+    renderer.destroy();
+  });
+
+  it("destroys no texture a pass of the frame binds before the frame is submitted", () => {
+    // Two law groups whose second needs larger atlases than the first: the growth must not take
+    // the first group's atlases away from its pass, which is still in the unsubmitted encoder.
+    const gpu = createFakeGpu();
+    const renderer = createWebGPURenderer({ viewport: { widthCss: 240, heightCss: 160,
+      devicePixelRatio: 1 } });
+    renderer.attachDevice(gpu.device, "vitrea");
+    renderer.setMaterialProfile(LAW);
+    renderer.setAccessibility(NOMINAL_MATERIAL_POLICY);
+    renderer.registerBackdrop(createGradientProvider({ id: "bg", device: gpu.device,
+      stops: linearGradientStops([0.1, 0.2, 0.3], [0.5, 0.6, 0.7]), generation: 1 }));
+    const group = (groupId: string, size: [number, number], x: number): GroupRenderInput => ({
+      groupId, refraction: "true", analysisExact: true, variant: "regular", backdropSourceId: "bg",
+      surfaces: [{ ...SURFACE, nodeId: groupId, shape: { ...SURFACE.shape, center: [x, 80], size } }],
+    });
+    renderer.setGroup(group("small", [44, 44], 50));
+    renderer.setGroup(group("large", [120, 96], 160));
+    const stale: string[] = [];
+    const submit = gpu.device.queue.submit.bind(gpu.device.queue);
+    gpu.device.queue.submit = (buffers) => {
+      for (const pass of gpu.passes) {
+        for (const bindGroup of pass.bindGroups) {
+          for (const entry of bindGroup.entries) {
+            const record = (entry.resource as { __texture?: GPUTexture }).__texture === undefined
+              ? undefined : gpu.info(viewOwner(entry.resource as GPUTextureView));
+            if (record?.destroyed === true) stale.push(`${pass.label}: ${record.label}`);
+          }
+        }
+      }
+      submit(buffers);
+    };
+    renderer.drawFrame({ frame: { id: 1, timeMs: 16 }, optics: {} as GPUTextureView,
+      highlight: {} as GPUTextureView });
+    expect(stale).toEqual([]);
+    // The atlases the growth replaced go once the frame is submitted.
+    const atlases = gpu.textures.filter((t) => t.label.startsWith("vitrea:body-law:atlas:"));
+    expect(atlases.length).toBeGreaterThan(4);
+    expect(atlases.filter((t) => !t.destroyed)).toHaveLength(4);
+    renderer.destroy();
   });
 
   it("fills A over the whole group rect before any member draws, receded and unrefracted (R2)", () => {
@@ -401,8 +493,9 @@ describe("W42 stage and lanes with the law on", () => {
       surfaces: [capsule("a", 70), capsule("b", 126), capsule("c", 182)] });
     h.setGroup({ refraction: "none" });
     h.draw();
-    const composite = h.gpu.passes.find((p) => p.label === "vitrea:pass:body-law:A")!;
-    const init = composite.bindGroups[0]!.entries.find((e) => e.binding === 1)!.resource;
+    // The composite reads the encoded level 0 wherever no member's footprint owns the texel.
+    const composite = h.lawDispatches().at(-1)!;
+    const init = composite.entries.find((e) => e.binding === 3)!.resource;
     expect(labelOf(h.gpu, init)).toBe("vitrea:pyramid:bg:encoded");
     const d = h.optics();
     const L = OPTICS_BODY_LAW_LANES;

@@ -137,6 +137,45 @@ const CONFIGS = [
     devicePixelRatio: 3,
     materialProfile: { sizeHeavyTapSigma: 19.5, sizeHeavyTapSigma2x: 11.3 },
   },
+  /**
+   * W42's body law ON (G2 implementation-design §2.10 and §17; the bench G3 reads). The scene's
+   * backdrop is dirty every frame, so the law's stage rebuilds every frame on every surface: the
+   * worst case, a live video behind the glass. A static backdrop rebuilds nothing after its first
+   * frame (the stage's cache, `test/w42-optics-law.test.ts`). Active and receded poses, in points
+   * (LT's unit), on both scenes. The stage is one compute pass per group, so its `body-law`
+   * timestamps are its own; the other passes' timestamps absorb its queueing, as they did the
+   * render-pass stage's (§16), and the wall clock remains the frame's reading.
+   */
+  {
+    label: "mobile-390x844@3 law-active",
+    widthCss: 390,
+    heightCss: 844,
+    devicePixelRatio: 3,
+    materialProfile: { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1 },
+  },
+  {
+    label: "mobile-390x844@3 law-receded",
+    widthCss: 390,
+    heightCss: 844,
+    devicePixelRatio: 3,
+    materialProfile: { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1,
+      bodyLawPose: 1 },
+  },
+  {
+    label: "desktop-1440x900@2 law-active",
+    widthCss: 1440,
+    heightCss: 900,
+    devicePixelRatio: 2,
+    materialProfile: { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1 },
+  },
+  {
+    label: "desktop-1440x900@2 law-receded",
+    widthCss: 1440,
+    heightCss: 900,
+    devicePixelRatio: 2,
+    materialProfile: { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1,
+      bodyLawPose: 1 },
+  },
   // The ordering control: the first config again. Interleaved, it should land on
   // the first row's number; if it does not, nothing else in the table is
   // comparable either.
@@ -172,6 +211,7 @@ test.describe("@bench the performance envelope", () => {
         `${result.label}: gpu(median)=${gpu === undefined ? "n/a" : `${gpu.toFixed(3)}ms`} ` +
           `gpu(p95)=${result.gpuP95 === undefined ? "n/a" : `${result.gpuP95.toFixed(3)}ms`} ` +
           `wall(median)=${result.wallMsPerFrame.toFixed(3)}ms wall(p95)=${result.wallP95.toFixed(3)}ms ` +
+          `cpu(median)=${result.cpuMsPerFrame.toFixed(3)}ms ` +
           `budget=${gpu === undefined ? "n/a" : `${((gpu / BUDGET_MS) * 100).toFixed(0)}%`} ` +
           `anomalies=${result.anomalies} | ${passes}`,
       );

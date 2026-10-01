@@ -354,11 +354,23 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    */
   const statsReadFor = new Map<string, PyramidResources>();
   /**
-   * W42's readout per group (`bodyLawReadout`): what the last frame that drew the group did with
-   * the law. Written where the fold is, in `drawGroups`, and read against the material in force,
-   * so a material that stops asking reports nothing without waiting for a frame.
+   * W42's readout per group and per plane (`bodyLawReadout`): what the last frame that drew the
+   * group on that plane did with the law. Written where the fold is, in `drawGroups`, and read
+   * against the material in force, so a material that stops asking reports nothing without
+   * waiting for a frame. A plane on which the group has no member retires its contribution, the
+   * read folds what remains with the weaker answer winning (platform-web's
+   * `weakestBodyLawReadout`), and a group with no plane left reports "stood-down": the law drew
+   * nothing of it.
    */
-  const bodyLawReadouts = new Map<string, "drawn" | "stood-down">();
+  const bodyLawReadouts = new Map<string, Map<string, "drawn" | "stood-down">>();
+  const bodyLawPlanes = (groupId: string): Map<string, "drawn" | "stood-down"> => {
+    let planes = bodyLawReadouts.get(groupId);
+    if (planes === undefined) {
+      planes = new Map();
+      bodyLawReadouts.set(groupId, planes);
+    }
+    return planes;
+  };
   const hintedTones = new Map<string, {
     groupId: string; readings: readonly SurfaceBackdropToneAbscissa[];
   }>();
@@ -436,6 +448,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     silhouetteTone = undefined;
     bodyLaw?.destroy();
     bodyLaw = undefined;
+    bodyLawReadouts.clear();
     hintedTones.clear();
     runner?.destroy();
     context?.destroy();
@@ -930,6 +943,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        */
       if (input.surfaces.length === 0) {
         releaseIdle(input.groupId);
+        bodyLawPlanes(input.groupId).delete(active.plane);
         continue;
       }
 
@@ -947,7 +961,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           reason: error instanceof Error ? error.message : String(error),
         });
         releaseIdle(input.groupId);
-        bodyLawReadouts.set(input.groupId, "stood-down");
+        bodyLawPlanes(input.groupId).set(active.plane, "stood-down");
         continue;
       }
 
@@ -1058,7 +1072,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
       if (rectDevice === undefined) {
         releaseIdle(input.groupId);
-        bodyLawReadouts.set(input.groupId, "stood-down");
+        bodyLawPlanes(input.groupId).set(active.plane, "stood-down");
         continue;
       }
 
@@ -1160,7 +1174,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           })
         : undefined;
       if (lawArgument === undefined) bodyLaw?.forget(resourceOf(input.groupId));
-      bodyLawReadouts.set(input.groupId, lawArgument === undefined ? "stood-down" : "drawn");
+      bodyLawPlanes(input.groupId).set(active.plane,
+        lawArgument === undefined ? "stood-down" : "drawn");
       /*
        * The response and size laws always read the LINEAR profile (W27f G1).
        * DOM groups convert only their final layer, after evaluating the material
@@ -1900,7 +1915,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
     bodyLawReadout(groupId) {
       // Nothing to report where the material asks for no law: every shipped document.
-      return material.bodyLawStrength > 0 ? bodyLawReadouts.get(groupId) : undefined;
+      const planes = material.bodyLawStrength > 0 ? bodyLawReadouts.get(groupId) : undefined;
+      if (planes === undefined) return undefined;
+      for (const readout of planes.values()) if (readout === "stood-down") return "stood-down";
+      return planes.size === 0 ? "stood-down" : "drawn";
     },
 
     backdropToneAbscissae(groupId) {

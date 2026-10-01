@@ -1,0 +1,203 @@
+W42 G2 perf wave (§17): the before/after bench, run in one window with step 2's fit processes
+stopped (SIGSTOP by the parent at 00:03Z, 2026-10-02 UTC), apple/metal-3, Chromium 151.0.7922.34.
+The load average was still decaying from the fit (logged per run below). 'before' is fbb2136e's
+src (the render-pass stage) swapped into the worktree; 'after' is 844aa4b3, run before and again
+after the 'before' runs to bracket drift. Each run is budget.spec.ts: 60 interleaved rounds,
+20 warm-up, wall-clock medians; body-law is the stage's own pass timestamp (after: one compute
+pass; before: the sum of its ~80 render passes, which absorbs queueing and is not a reading).
+
+== load log (/tmp/w42-perf/quiet-window.sh)
+[quiet-after budget run 1 start] 00:03:14Z load 9.79 16.09 17.08
+[quiet-after budget run 1 end (exit 0)] 00:03:21Z load 8.82 15.68 16.92
+[quiet-after budget run 2 start] 00:03:21Z load 8.82 15.68 16.92
+[quiet-after budget run 2 end (exit 0)] 00:03:27Z load 8.51 15.50 16.85
+[quiet-after budget run 3 start] 00:03:27Z load 8.51 15.50 16.85
+[quiet-after budget run 3 end (exit 0)] 00:03:33Z load 8.55 15.39 16.81
+[quiet-after static start] 00:03:33Z load 8.55 15.39 16.81
+[quiet-after static end (exit 0)] 00:03:38Z load 8.43 15.25 16.75
+[quiet-before static start] 00:03:38Z load 8.43 15.25 16.75
+[quiet-before static end (exit 0)] 00:03:43Z load 8.71 15.20 16.72
+[quiet-before budget run 1 start] 00:03:43Z load 8.71 15.20 16.72
+[quiet-before budget run 1 end (exit 0)] 00:03:51Z load 8.30 14.90 16.60
+[quiet-before budget run 2 start] 00:03:51Z load 8.30 14.90 16.60
+[quiet-before budget run 2 end (exit 0)] 00:03:58Z load 7.71 14.66 16.50
+[quiet-before budget run 3 start] 00:03:58Z load 7.71 14.66 16.50
+[quiet-before budget run 3 end (exit 0)] 00:04:06Z load 7.75 14.44 16.40
+[quiet-after2 budget run 1 start] 00:04:06Z load 7.75 14.44 16.40
+[quiet-after2 budget run 1 end (exit 0)] 00:04:12Z load 7.29 14.24 16.32
+[quiet-after2 budget run 2 start] 00:04:12Z load 7.29 14.24 16.32
+[quiet-after2 budget run 2 end (exit 0)] 00:04:17Z load 6.94 14.05 16.24
+[quiet-after2 budget run 3 start] 00:04:17Z load 6.94 14.05 16.24
+[quiet-after2 budget run 3 end (exit 0)] 00:04:23Z load 7.03 13.95 16.19
+[done] 00:04:23Z load 7.03 13.95 16.19
+
+== quiet-after
+## run 1 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=38.691ms gpu(p95)=52.712ms wall(median)=8.000ms wall(p95)=9.300ms cpu(median)=0.600ms budget=1935% anomalies=0 | optics=15.388 highlight=15.360 group-field=5.754 body-law=4.960 blur-chain=0.137 body-blur=0.106 analysis=0.042 backdrop-import=0.028
+desktop-1440x900@2 law-receded: gpu(median)=21.597ms gpu(p95)=29.144ms wall(median)=5.700ms wall(p95)=6.400ms cpu(median)=0.600ms budget=1080% anomalies=0 | optics=8.367 highlight=8.342 group-field=3.393 body-law=2.622 blur-chain=0.150 body-blur=0.119 analysis=0.038 backdrop-import=0.028
+desktop-1440x900@2: gpu(median)=3.459ms gpu(p95)=4.836ms wall(median)=2.700ms wall(p95)=3.200ms cpu(median)=0.300ms budget=173% anomalies=0 | optics=1.302 highlight=1.288 group-field=0.797 blur-chain=0.093 body-blur=0.079 analysis=0.043 backdrop-import=0.024
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=2.888ms gpu(p95)=4.744ms wall(median)=2.600ms wall(p95)=3.200ms cpu(median)=0.300ms budget=144% anomalies=0 | optics=1.087 highlight=1.041 group-field=0.661 blur-chain=0.097 body-blur=0.074 analysis=0.037 backdrop-import=0.024
+mobile-390x844@3 family-C: gpu(median)=2.501ms gpu(p95)=4.073ms wall(median)=2.500ms wall(p95)=3.100ms cpu(median)=0.300ms budget=125% anomalies=0 | optics=0.927 highlight=0.887 group-field=0.531 blur-chain=0.096 body-blur=0.076 analysis=0.036 backdrop-import=0.024
+mobile-390x844@3 heavy-tap: gpu(median)=2.956ms gpu(p95)=4.723ms wall(median)=2.500ms wall(p95)=2.900ms cpu(median)=0.300ms budget=148% anomalies=0 | optics=1.094 highlight=1.087 group-field=0.683 blur-chain=0.086 body-blur=0.074 analysis=0.037 backdrop-import=0.024
+mobile-390x844@3 law-active: gpu(median)=27.156ms gpu(p95)=38.961ms wall(median)=6.500ms wall(p95)=7.400ms cpu(median)=0.700ms budget=1358% anomalies=0 | optics=10.783 highlight=10.739 group-field=4.106 body-law=3.433 blur-chain=0.160 body-blur=0.111 analysis=0.038 backdrop-import=0.029
+mobile-390x844@3 law-receded: gpu(median)=13.463ms gpu(p95)=18.821ms wall(median)=4.500ms wall(p95)=5.200ms cpu(median)=0.600ms budget=673% anomalies=0 | optics=5.078 highlight=5.029 group-field=2.214 body-law=1.513 blur-chain=0.154 body-blur=0.112 analysis=0.038 backdrop-import=0.028
+mobile-390x844@3 shadow-off: gpu(median)=1.043ms gpu(p95)=1.778ms wall(median)=2.200ms wall(p95)=2.700ms cpu(median)=0.300ms budget=52% anomalies=0 | optics=0.345 highlight=0.311 group-field=0.230 blur-chain=0.091 body-blur=0.080 analysis=0.038 backdrop-import=0.024
+mobile-390x844@3: gpu(median)=2.925ms gpu(p95)=4.534ms wall(median)=2.600ms wall(p95)=3.200ms cpu(median)=0.300ms budget=146% anomalies=0 | optics=1.089 highlight=1.048 group-field=0.663 blur-chain=0.086 body-blur=0.073 analysis=0.037 backdrop-import=0.024
+## run 2 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=41.461ms gpu(p95)=70.816ms wall(median)=8.500ms wall(p95)=13.200ms cpu(median)=0.900ms budget=2073% anomalies=0 | optics=17.003 highlight=16.989 group-field=6.150 body-law=5.396 blur-chain=0.164 body-blur=0.117 analysis=0.047 backdrop-import=0.028
+desktop-1440x900@2 law-receded: gpu(median)=23.712ms gpu(p95)=37.999ms wall(median)=6.300ms wall(p95)=9.100ms cpu(median)=0.900ms budget=1186% anomalies=0 | optics=9.193 highlight=9.124 group-field=3.545 body-law=2.803 blur-chain=0.169 body-blur=0.121 analysis=0.046 backdrop-import=0.028
+desktop-1440x900@2: gpu(median)=3.704ms gpu(p95)=6.884ms wall(median)=3.200ms wall(p95)=4.100ms cpu(median)=0.400ms budget=185% anomalies=0 | highlight=1.453 optics=1.433 group-field=0.822 blur-chain=0.116 body-blur=0.094 analysis=0.049 backdrop-import=0.027
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=3.102ms gpu(p95)=5.951ms wall(median)=3.000ms wall(p95)=4.000ms cpu(median)=0.500ms budget=155% anomalies=0 | optics=1.191 highlight=1.175 group-field=0.681 blur-chain=0.127 body-blur=0.090 analysis=0.043 backdrop-import=0.026
+mobile-390x844@3 family-C: gpu(median)=2.709ms gpu(p95)=4.870ms wall(median)=2.900ms wall(p95)=3.800ms cpu(median)=0.500ms budget=135% anomalies=0 | optics=1.058 highlight=1.029 group-field=0.568 blur-chain=0.131 body-blur=0.087 analysis=0.040 backdrop-import=0.026
+mobile-390x844@3 heavy-tap: gpu(median)=3.086ms gpu(p95)=7.416ms wall(median)=2.900ms wall(p95)=4.500ms cpu(median)=0.400ms budget=154% anomalies=0 | optics=1.254 highlight=1.240 group-field=0.702 blur-chain=0.112 body-blur=0.087 analysis=0.041 backdrop-import=0.026
+mobile-390x844@3 law-active: gpu(median)=29.245ms gpu(p95)=54.835ms wall(median)=6.900ms wall(p95)=10.800ms cpu(median)=1.000ms budget=1462% anomalies=0 | optics=11.833 highlight=11.775 group-field=4.306 body-law=3.692 blur-chain=0.178 body-blur=0.111 analysis=0.046 backdrop-import=0.029
+mobile-390x844@3 law-receded: gpu(median)=14.256ms gpu(p95)=22.062ms wall(median)=5.000ms wall(p95)=7.300ms cpu(median)=0.900ms budget=713% anomalies=0 | optics=5.682 highlight=5.634 group-field=2.309 body-law=1.633 blur-chain=0.148 body-blur=0.101 analysis=0.043 backdrop-import=0.028
+mobile-390x844@3 shadow-off: gpu(median)=1.167ms gpu(p95)=2.182ms wall(median)=2.700ms wall(p95)=3.800ms cpu(median)=0.400ms budget=58% anomalies=0 | optics=0.403 highlight=0.375 group-field=0.252 blur-chain=0.109 body-blur=0.087 analysis=0.040 backdrop-import=0.026
+mobile-390x844@3: gpu(median)=3.126ms gpu(p95)=5.520ms wall(median)=3.000ms wall(p95)=4.700ms cpu(median)=0.500ms budget=156% anomalies=0 | optics=1.200 highlight=1.164 group-field=0.678 blur-chain=0.145 body-blur=0.086 analysis=0.043 backdrop-import=0.026
+## run 3 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=38.559ms gpu(p95)=65.582ms wall(median)=8.000ms wall(p95)=12.200ms cpu(median)=0.800ms budget=1928% anomalies=0 | optics=16.459 highlight=16.437 group-field=5.891 body-law=5.225 blur-chain=0.169 body-blur=0.122 analysis=0.043 backdrop-import=0.029
+desktop-1440x900@2 law-receded: gpu(median)=21.458ms gpu(p95)=36.477ms wall(median)=5.800ms wall(p95)=9.500ms cpu(median)=0.700ms budget=1073% anomalies=0 | optics=8.992 highlight=8.948 group-field=3.409 body-law=2.728 blur-chain=0.163 body-blur=0.121 analysis=0.047 backdrop-import=0.027
+desktop-1440x900@2: gpu(median)=3.577ms gpu(p95)=6.356ms wall(median)=2.800ms wall(p95)=4.100ms cpu(median)=0.400ms budget=179% anomalies=0 | highlight=1.468 optics=1.450 group-field=0.809 blur-chain=0.105 body-blur=0.089 analysis=0.041 backdrop-import=0.025
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=3.047ms gpu(p95)=5.890ms wall(median)=2.800ms wall(p95)=4.100ms cpu(median)=0.400ms budget=152% anomalies=0 | optics=1.251 highlight=1.245 group-field=0.702 blur-chain=0.124 body-blur=0.088 analysis=0.041 backdrop-import=0.025
+mobile-390x844@3 family-C: gpu(median)=2.622ms gpu(p95)=4.821ms wall(median)=2.700ms wall(p95)=3.700ms cpu(median)=0.400ms budget=131% anomalies=0 | optics=1.038 highlight=1.019 group-field=0.536 blur-chain=0.117 body-blur=0.084 analysis=0.042 backdrop-import=0.026
+mobile-390x844@3 heavy-tap: gpu(median)=3.070ms gpu(p95)=5.873ms wall(median)=2.600ms wall(p95)=3.600ms cpu(median)=0.400ms budget=153% anomalies=0 | optics=1.255 highlight=1.249 group-field=0.707 blur-chain=0.102 body-blur=0.080 analysis=0.040 backdrop-import=0.023
+mobile-390x844@3 law-active: gpu(median)=27.012ms gpu(p95)=45.986ms wall(median)=6.500ms wall(p95)=9.900ms cpu(median)=0.800ms budget=1351% anomalies=0 | optics=11.454 highlight=11.410 group-field=4.164 body-law=3.589 blur-chain=0.173 body-blur=0.121 analysis=0.047 backdrop-import=0.028
+mobile-390x844@3 law-receded: gpu(median)=13.137ms gpu(p95)=23.754ms wall(median)=4.600ms wall(p95)=8.500ms cpu(median)=0.700ms budget=657% anomalies=0 | optics=5.454 highlight=5.405 group-field=2.169 body-law=1.571 blur-chain=0.176 body-blur=0.111 analysis=0.046 backdrop-import=0.029
+mobile-390x844@3 shadow-off: gpu(median)=1.228ms gpu(p95)=2.456ms wall(median)=2.400ms wall(p95)=3.300ms cpu(median)=0.300ms budget=61% anomalies=0 | optics=0.426 highlight=0.383 group-field=0.259 blur-chain=0.110 body-blur=0.081 analysis=0.039 backdrop-import=0.025
+mobile-390x844@3: gpu(median)=3.033ms gpu(p95)=5.384ms wall(median)=2.700ms wall(p95)=4.100ms cpu(median)=0.400ms budget=152% anomalies=0 | optics=1.217 highlight=1.189 group-field=0.673 blur-chain=0.102 body-blur=0.079 analysis=0.044 backdrop-import=0.024
+
+desktop-1440x900@2                       wall 2.7 / 3.2 / 2.8   body-law 0.00 / 0.00 / 0.00
+desktop-1440x900@2 law-active            wall 8.0 / 8.5 / 8.0   body-law 4.96 / 5.40 / 5.22
+desktop-1440x900@2 law-receded           wall 5.7 / 6.3 / 5.8   body-law 2.62 / 2.80 / 2.73
+mobile-390x844@3                         wall 2.6 / 3.0 / 2.7   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 control                 wall 2.6 / 3.0 / 2.8   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 family-C                wall 2.5 / 2.9 / 2.7   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 heavy-tap               wall 2.5 / 2.9 / 2.6   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 law-active              wall 6.5 / 6.9 / 6.5   body-law 3.43 / 3.69 / 3.59
+mobile-390x844@3 law-receded             wall 4.5 / 5.0 / 4.6   body-law 1.51 / 1.63 / 1.57
+mobile-390x844@3 shadow-off              wall 2.2 / 2.7 / 2.4   body-law 0.00 / 0.00 / 0.00
+
+== quiet-before
+## run 1 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=197.142ms gpu(p95)=209.663ms wall(median)=18.900ms wall(p95)=19.300ms cpu(median)=1.200ms budget=9857% anomalies=0 | body-law=155.303 optics=13.812 highlight=12.144 group-field=2.409 blur-chain=0.157 body-blur=0.122 backdrop-import=0.052 analysis=0.034
+desktop-1440x900@2 law-receded: gpu(median)=85.332ms gpu(p95)=95.144ms wall(median)=11.300ms wall(p95)=12.100ms cpu(median)=1.200ms budget=4267% anomalies=0 | body-law=68.044 highlight=6.319 optics=6.312 group-field=1.993 blur-chain=0.136 body-blur=0.112 backdrop-import=0.048 analysis=0.034
+desktop-1440x900@2: gpu(median)=3.114ms gpu(p95)=3.806ms wall(median)=2.700ms wall(p95)=3.000ms cpu(median)=0.300ms budget=156% anomalies=0 | highlight=1.110 optics=1.103 group-field=0.683 body-blur=0.076 blur-chain=0.074 analysis=0.036 backdrop-import=0.023
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=2.406ms gpu(p95)=3.245ms wall(median)=2.600ms wall(p95)=3.000ms cpu(median)=0.400ms budget=120% anomalies=0 | optics=0.882 highlight=0.864 group-field=0.555 blur-chain=0.083 body-blur=0.072 analysis=0.036 backdrop-import=0.024
+mobile-390x844@3 family-C: gpu(median)=2.153ms gpu(p95)=2.835ms wall(median)=2.500ms wall(p95)=3.100ms cpu(median)=0.400ms budget=108% anomalies=0 | optics=0.773 highlight=0.732 group-field=0.459 blur-chain=0.077 body-blur=0.070 analysis=0.034 backdrop-import=0.023
+mobile-390x844@3 heavy-tap: gpu(median)=2.556ms gpu(p95)=3.244ms wall(median)=2.600ms wall(p95)=2.800ms cpu(median)=0.300ms budget=128% anomalies=0 | highlight=0.917 optics=0.916 group-field=0.587 blur-chain=0.073 body-blur=0.068 analysis=0.035 backdrop-import=0.024
+mobile-390x844@3 law-active: gpu(median)=168.842ms gpu(p95)=240.047ms wall(median)=15.300ms wall(p95)=15.900ms cpu(median)=1.300ms budget=8442% anomalies=0 | body-law=139.162 highlight=10.843 optics=10.795 group-field=4.852 blur-chain=0.165 body-blur=0.127 backdrop-import=0.055 analysis=0.034
+mobile-390x844@3 law-receded: gpu(median)=24.648ms gpu(p95)=30.557ms wall(median)=8.900ms wall(p95)=9.800ms cpu(median)=1.200ms budget=1232% anomalies=0 | body-law=20.770 optics=1.663 highlight=1.648 group-field=0.378 blur-chain=0.159 body-blur=0.122 backdrop-import=0.051 analysis=0.034
+mobile-390x844@3 shadow-off: gpu(median)=0.926ms gpu(p95)=1.176ms wall(median)=2.300ms wall(p95)=2.600ms cpu(median)=0.400ms budget=46% anomalies=0 | optics=0.289 highlight=0.274 group-field=0.198 blur-chain=0.073 body-blur=0.066 analysis=0.034 backdrop-import=0.023
+mobile-390x844@3: gpu(median)=2.484ms gpu(p95)=3.232ms wall(median)=2.600ms wall(p95)=3.100ms cpu(median)=0.300ms budget=124% anomalies=0 | optics=0.892 highlight=0.876 group-field=0.564 blur-chain=0.081 body-blur=0.069 analysis=0.034 backdrop-import=0.024
+## run 2 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=174.479ms gpu(p95)=210.849ms wall(median)=18.700ms wall(p95)=19.500ms cpu(median)=1.400ms budget=8724% anomalies=0 | body-law=152.269 optics=12.556 highlight=12.276 group-field=2.503 blur-chain=0.147 body-blur=0.106 backdrop-import=0.048 analysis=0.035
+desktop-1440x900@2 law-receded: gpu(median)=84.269ms gpu(p95)=100.322ms wall(median)=11.400ms wall(p95)=12.400ms cpu(median)=1.200ms budget=4213% anomalies=0 | body-law=67.864 optics=6.258 highlight=6.256 group-field=1.758 blur-chain=0.136 body-blur=0.105 backdrop-import=0.045 analysis=0.034
+desktop-1440x900@2: gpu(median)=3.373ms gpu(p95)=3.762ms wall(median)=2.700ms wall(p95)=3.200ms cpu(median)=0.400ms budget=169% anomalies=0 | optics=1.133 highlight=1.132 group-field=0.696 body-blur=0.078 blur-chain=0.076 analysis=0.037 backdrop-import=0.021
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=2.802ms gpu(p95)=3.252ms wall(median)=2.700ms wall(p95)=3.000ms cpu(median)=0.400ms budget=140% anomalies=0 | optics=0.956 highlight=0.934 group-field=0.586 blur-chain=0.080 body-blur=0.075 analysis=0.034 backdrop-import=0.021
+mobile-390x844@3 family-C: gpu(median)=2.464ms gpu(p95)=2.796ms wall(median)=2.600ms wall(p95)=2.800ms cpu(median)=0.400ms budget=123% anomalies=0 | optics=0.844 highlight=0.817 group-field=0.479 body-blur=0.076 blur-chain=0.073 analysis=0.036 backdrop-import=0.020
+mobile-390x844@3 heavy-tap: gpu(median)=2.713ms gpu(p95)=3.230ms wall(median)=2.600ms wall(p95)=2.900ms cpu(median)=0.400ms budget=136% anomalies=0 | optics=0.937 highlight=0.916 group-field=0.574 blur-chain=0.077 body-blur=0.071 analysis=0.034 backdrop-import=0.022
+mobile-390x844@3 law-active: gpu(median)=162.116ms gpu(p95)=236.845ms wall(median)=15.400ms wall(p95)=16.400ms cpu(median)=1.400ms budget=8106% anomalies=0 | body-law=131.359 highlight=12.209 optics=12.106 group-field=5.152 blur-chain=0.161 body-blur=0.118 backdrop-import=0.053 analysis=0.034
+mobile-390x844@3 law-receded: gpu(median)=24.285ms gpu(p95)=33.780ms wall(median)=8.900ms wall(p95)=10.800ms cpu(median)=1.300ms budget=1214% anomalies=0 | body-law=20.094 optics=1.670 highlight=1.634 group-field=0.389 blur-chain=0.154 body-blur=0.112 backdrop-import=0.049 analysis=0.034
+mobile-390x844@3 shadow-off: gpu(median)=0.936ms gpu(p95)=1.195ms wall(median)=2.300ms wall(p95)=2.700ms cpu(median)=0.400ms budget=47% anomalies=0 | optics=0.293 highlight=0.269 group-field=0.197 blur-chain=0.079 body-blur=0.071 analysis=0.034 backdrop-import=0.022
+mobile-390x844@3: gpu(median)=2.744ms gpu(p95)=3.235ms wall(median)=2.600ms wall(p95)=3.100ms cpu(median)=0.400ms budget=137% anomalies=0 | optics=0.934 highlight=0.920 group-field=0.578 blur-chain=0.086 body-blur=0.078 analysis=0.034 backdrop-import=0.023
+## run 3 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=187.630ms gpu(p95)=218.654ms wall(median)=17.600ms wall(p95)=18.800ms cpu(median)=0.900ms budget=9381% anomalies=0 | body-law=158.890 optics=13.679 highlight=13.522 group-field=2.344 blur-chain=0.141 body-blur=0.098 backdrop-import=0.042 analysis=0.035
+desktop-1440x900@2 law-receded: gpu(median)=85.476ms gpu(p95)=103.927ms wall(median)=10.400ms wall(p95)=11.500ms cpu(median)=0.800ms budget=4274% anomalies=0 | body-law=70.617 optics=6.522 highlight=6.488 group-field=1.633 blur-chain=0.127 body-blur=0.090 backdrop-import=0.040 analysis=0.035
+desktop-1440x900@2: gpu(median)=3.328ms gpu(p95)=3.847ms wall(median)=2.400ms wall(p95)=3.200ms cpu(median)=0.300ms budget=166% anomalies=0 | optics=1.184 highlight=1.177 group-field=0.700 body-blur=0.087 blur-chain=0.084 analysis=0.036 backdrop-import=0.021
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=2.690ms gpu(p95)=3.248ms wall(median)=2.300ms wall(p95)=2.800ms cpu(median)=0.300ms budget=134% anomalies=0 | optics=0.954 highlight=0.905 group-field=0.559 blur-chain=0.079 body-blur=0.071 analysis=0.034 backdrop-import=0.020
+mobile-390x844@3 family-C: gpu(median)=2.364ms gpu(p95)=2.758ms wall(median)=2.200ms wall(p95)=3.100ms cpu(median)=0.300ms budget=118% anomalies=0 | optics=0.831 highlight=0.790 group-field=0.447 blur-chain=0.093 body-blur=0.082 analysis=0.034 backdrop-import=0.022
+mobile-390x844@3 heavy-tap: gpu(median)=2.725ms gpu(p95)=3.283ms wall(median)=2.200ms wall(p95)=2.800ms cpu(median)=0.300ms budget=136% anomalies=0 | optics=0.972 highlight=0.940 group-field=0.582 blur-chain=0.089 body-blur=0.079 analysis=0.034 backdrop-import=0.021
+mobile-390x844@3 law-active: gpu(median)=172.210ms gpu(p95)=234.655ms wall(median)=13.700ms wall(p95)=15.000ms cpu(median)=0.900ms budget=8610% anomalies=0 | body-law=143.515 optics=12.479 highlight=11.898 group-field=3.367 blur-chain=0.149 body-blur=0.091 backdrop-import=0.044 analysis=0.033
+mobile-390x844@3 law-receded: gpu(median)=24.899ms gpu(p95)=38.793ms wall(median)=7.200ms wall(p95)=9.000ms cpu(median)=0.900ms budget=1245% anomalies=0 | body-law=21.610 optics=1.867 highlight=1.607 group-field=0.594 blur-chain=0.137 body-blur=0.092 backdrop-import=0.042 analysis=0.033
+mobile-390x844@3 shadow-off: gpu(median)=0.938ms gpu(p95)=1.319ms wall(median)=2.000ms wall(p95)=2.400ms cpu(median)=0.300ms budget=47% anomalies=0 | optics=0.300 highlight=0.268 group-field=0.196 blur-chain=0.085 body-blur=0.077 analysis=0.034 backdrop-import=0.020
+mobile-390x844@3: gpu(median)=2.742ms gpu(p95)=3.291ms wall(median)=2.300ms wall(p95)=3.200ms cpu(median)=0.300ms budget=137% anomalies=0 | optics=0.972 highlight=0.935 group-field=0.571 blur-chain=0.082 body-blur=0.078 analysis=0.035 backdrop-import=0.033
+
+desktop-1440x900@2                       wall 2.7 / 2.7 / 2.4   body-law 0.00 / 0.00 / 0.00
+desktop-1440x900@2 law-active            wall 18.9 / 18.7 / 17.6   body-law 155.30 / 152.27 / 158.89
+desktop-1440x900@2 law-receded           wall 11.3 / 11.4 / 10.4   body-law 68.04 / 67.86 / 70.62
+mobile-390x844@3                         wall 2.6 / 2.6 / 2.3   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 control                 wall 2.6 / 2.7 / 2.3   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 family-C                wall 2.5 / 2.6 / 2.2   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 heavy-tap               wall 2.6 / 2.6 / 2.2   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 law-active              wall 15.3 / 15.4 / 13.7   body-law 139.16 / 131.36 / 143.51
+mobile-390x844@3 law-receded             wall 8.9 / 8.9 / 7.2   body-law 20.77 / 20.09 / 21.61
+mobile-390x844@3 shadow-off              wall 2.3 / 2.3 / 2.0   body-law 0.00 / 0.00 / 0.00
+
+== quiet-after2
+## run 1 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=38.569ms gpu(p95)=64.000ms wall(median)=8.200ms wall(p95)=11.700ms cpu(median)=0.900ms budget=1928% anomalies=0 | optics=16.109 highlight=16.078 group-field=5.771 body-law=5.109 blur-chain=0.148 body-blur=0.105 analysis=0.046 backdrop-import=0.026
+desktop-1440x900@2 law-receded: gpu(median)=21.405ms gpu(p95)=35.862ms wall(median)=6.000ms wall(p95)=8.700ms cpu(median)=0.900ms budget=1070% anomalies=0 | optics=8.775 highlight=8.739 group-field=3.314 body-law=2.651 blur-chain=0.161 body-blur=0.108 analysis=0.045 backdrop-import=0.027
+desktop-1440x900@2: gpu(median)=3.468ms gpu(p95)=6.239ms wall(median)=3.100ms wall(p95)=3.900ms cpu(median)=0.400ms budget=173% anomalies=0 | highlight=1.406 optics=1.371 group-field=0.767 blur-chain=0.100 body-blur=0.093 analysis=0.044 backdrop-import=0.021
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=2.847ms gpu(p95)=5.414ms wall(median)=3.000ms wall(p95)=3.900ms cpu(median)=0.400ms budget=142% anomalies=0 | optics=1.149 highlight=1.142 group-field=0.637 blur-chain=0.097 body-blur=0.088 analysis=0.050 backdrop-import=0.021
+mobile-390x844@3 family-C: gpu(median)=2.585ms gpu(p95)=4.886ms wall(median)=3.000ms wall(p95)=3.700ms cpu(median)=0.400ms budget=129% anomalies=0 | optics=1.010 highlight=0.983 group-field=0.510 blur-chain=0.107 body-blur=0.088 analysis=0.050 backdrop-import=0.022
+mobile-390x844@3 heavy-tap: gpu(median)=2.777ms gpu(p95)=5.589ms wall(median)=2.900ms wall(p95)=3.700ms cpu(median)=0.400ms budget=139% anomalies=0 | optics=1.154 highlight=1.149 group-field=0.631 blur-chain=0.089 body-blur=0.080 analysis=0.044 backdrop-import=0.023
+mobile-390x844@3 law-active: gpu(median)=27.116ms gpu(p95)=45.897ms wall(median)=6.800ms wall(p95)=9.300ms cpu(median)=1.000ms budget=1356% anomalies=0 | optics=11.124 highlight=11.078 group-field=3.986 body-law=3.475 blur-chain=0.154 body-blur=0.106 analysis=0.046 backdrop-import=0.026
+mobile-390x844@3 law-receded: gpu(median)=13.012ms gpu(p95)=22.812ms wall(median)=5.000ms wall(p95)=6.900ms cpu(median)=0.900ms budget=651% anomalies=0 | optics=5.331 highlight=5.270 group-field=2.097 body-law=1.526 blur-chain=0.121 body-blur=0.095 analysis=0.046 backdrop-import=0.025
+mobile-390x844@3 shadow-off: gpu(median)=1.058ms gpu(p95)=2.324ms wall(median)=2.700ms wall(p95)=3.500ms cpu(median)=0.400ms budget=53% anomalies=0 | optics=0.373 highlight=0.323 group-field=0.233 blur-chain=0.104 body-blur=0.091 analysis=0.041 backdrop-import=0.022
+mobile-390x844@3: gpu(median)=3.008ms gpu(p95)=5.173ms wall(median)=3.100ms wall(p95)=4.100ms cpu(median)=0.400ms budget=150% anomalies=0 | optics=1.157 highlight=1.155 group-field=0.646 blur-chain=0.104 body-blur=0.089 analysis=0.043 backdrop-import=0.022
+## run 2 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=43.809ms gpu(p95)=62.383ms wall(median)=9.000ms wall(p95)=12.200ms cpu(median)=0.900ms budget=2190% anomalies=0 | optics=16.777 highlight=16.741 group-field=6.011 body-law=5.310 blur-chain=0.149 body-blur=0.113 analysis=0.055 backdrop-import=0.026
+desktop-1440x900@2 law-receded: gpu(median)=24.268ms gpu(p95)=34.221ms wall(median)=6.500ms wall(p95)=8.500ms cpu(median)=0.800ms budget=1213% anomalies=0 | optics=9.050 highlight=9.021 group-field=3.422 body-law=2.751 blur-chain=0.131 body-blur=0.102 analysis=0.043 backdrop-import=0.025
+desktop-1440x900@2: gpu(median)=3.654ms gpu(p95)=6.519ms wall(median)=3.200ms wall(p95)=4.000ms cpu(median)=0.400ms budget=183% anomalies=0 | highlight=1.448 optics=1.417 group-field=0.799 blur-chain=0.106 body-blur=0.093 analysis=0.049 backdrop-import=0.023
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=3.157ms gpu(p95)=5.390ms wall(median)=3.100ms wall(p95)=4.200ms cpu(median)=0.400ms budget=158% anomalies=0 | optics=1.201 highlight=1.191 group-field=0.672 blur-chain=0.099 body-blur=0.082 analysis=0.048 backdrop-import=0.022
+mobile-390x844@3 family-C: gpu(median)=2.656ms gpu(p95)=4.083ms wall(median)=3.000ms wall(p95)=3.700ms cpu(median)=0.400ms budget=133% anomalies=0 | optics=1.021 highlight=1.010 group-field=0.521 blur-chain=0.101 body-blur=0.088 analysis=0.041 backdrop-import=0.022
+mobile-390x844@3 heavy-tap: gpu(median)=3.115ms gpu(p95)=4.741ms wall(median)=3.000ms wall(p95)=3.900ms cpu(median)=0.400ms budget=156% anomalies=0 | optics=1.207 highlight=1.206 group-field=0.667 blur-chain=0.096 body-blur=0.085 analysis=0.051 backdrop-import=0.023
+mobile-390x844@3 law-active: gpu(median)=29.203ms gpu(p95)=42.642ms wall(median)=7.200ms wall(p95)=9.500ms cpu(median)=1.000ms budget=1460% anomalies=0 | optics=11.534 highlight=11.489 group-field=4.174 body-law=3.573 blur-chain=0.157 body-blur=0.104 analysis=0.045 backdrop-import=0.026
+mobile-390x844@3 law-receded: gpu(median)=14.646ms gpu(p95)=21.923ms wall(median)=5.100ms wall(p95)=7.000ms cpu(median)=0.900ms budget=732% anomalies=0 | optics=5.533 highlight=5.472 group-field=2.178 body-law=1.578 blur-chain=0.137 body-blur=0.096 analysis=0.051 backdrop-import=0.026
+mobile-390x844@3 shadow-off: gpu(median)=1.135ms gpu(p95)=2.153ms wall(median)=2.700ms wall(p95)=3.400ms cpu(median)=0.400ms budget=57% anomalies=0 | optics=0.385 highlight=0.373 group-field=0.251 blur-chain=0.113 body-blur=0.086 analysis=0.040 backdrop-import=0.023
+mobile-390x844@3: gpu(median)=3.078ms gpu(p95)=4.712ms wall(median)=3.100ms wall(p95)=3.900ms cpu(median)=0.400ms budget=154% anomalies=0 | optics=1.179 highlight=1.161 group-field=0.640 blur-chain=0.097 body-blur=0.080 analysis=0.045 backdrop-import=0.021
+## run 3 (passed)
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+desktop-1440x900@2 law-active: gpu(median)=38.974ms gpu(p95)=69.063ms wall(median)=8.500ms wall(p95)=12.600ms cpu(median)=0.900ms budget=1949% anomalies=0 | optics=16.378 highlight=16.358 group-field=5.891 body-law=5.165 blur-chain=0.156 body-blur=0.106 analysis=0.044 backdrop-import=0.043
+desktop-1440x900@2 law-receded: gpu(median)=21.656ms gpu(p95)=36.255ms wall(median)=6.100ms wall(p95)=9.100ms cpu(median)=0.900ms budget=1083% anomalies=0 | optics=8.854 highlight=8.816 group-field=3.361 body-law=2.662 blur-chain=0.153 body-blur=0.109 analysis=0.048 backdrop-import=0.026
+desktop-1440x900@2: gpu(median)=3.674ms gpu(p95)=5.786ms wall(median)=3.100ms wall(p95)=3.900ms cpu(median)=0.400ms budget=184% anomalies=0 | highlight=1.433 optics=1.394 group-field=0.790 blur-chain=0.126 body-blur=0.100 analysis=0.044 backdrop-import=0.024
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3 control: gpu(median)=3.090ms gpu(p95)=6.002ms wall(median)=3.000ms wall(p95)=4.300ms cpu(median)=0.400ms budget=154% anomalies=0 | optics=1.201 highlight=1.195 group-field=0.679 blur-chain=0.124 body-blur=0.087 analysis=0.042 backdrop-import=0.024
+mobile-390x844@3 family-C: gpu(median)=2.530ms gpu(p95)=4.805ms wall(median)=2.900ms wall(p95)=3.600ms cpu(median)=0.400ms budget=126% anomalies=0 | optics=1.011 highlight=0.989 group-field=0.520 blur-chain=0.106 body-blur=0.098 analysis=0.047 backdrop-import=0.024
+mobile-390x844@3 heavy-tap: gpu(median)=3.009ms gpu(p95)=5.692ms wall(median)=2.900ms wall(p95)=4.000ms cpu(median)=0.400ms budget=150% anomalies=0 | optics=1.184 highlight=1.184 group-field=0.658 blur-chain=0.108 body-blur=0.084 analysis=0.042 backdrop-import=0.023
+mobile-390x844@3 law-active: gpu(median)=27.233ms gpu(p95)=47.309ms wall(median)=6.700ms wall(p95)=9.800ms cpu(median)=1.000ms budget=1362% anomalies=0 | optics=11.295 highlight=11.244 group-field=4.092 body-law=3.504 blur-chain=0.158 body-blur=0.101 analysis=0.043 backdrop-import=0.040
+mobile-390x844@3 law-receded: gpu(median)=13.462ms gpu(p95)=23.203ms wall(median)=4.900ms wall(p95)=6.900ms cpu(median)=0.900ms budget=673% anomalies=0 | optics=5.407 highlight=5.360 group-field=2.127 body-law=1.525 blur-chain=0.142 body-blur=0.102 analysis=0.045 backdrop-import=0.027
+mobile-390x844@3 shadow-off: gpu(median)=1.132ms gpu(p95)=2.183ms wall(median)=2.600ms wall(p95)=3.700ms cpu(median)=0.400ms budget=57% anomalies=0 | optics=0.409 highlight=0.368 group-field=0.250 blur-chain=0.117 body-blur=0.092 analysis=0.040 backdrop-import=0.024
+mobile-390x844@3: gpu(median)=3.048ms gpu(p95)=5.553ms wall(median)=3.000ms wall(p95)=4.100ms cpu(median)=0.500ms budget=152% anomalies=0 | optics=1.179 highlight=1.162 group-field=0.658 blur-chain=0.122 body-blur=0.083 analysis=0.039 backdrop-import=0.025
+
+desktop-1440x900@2                       wall 3.1 / 3.2 / 3.1   body-law 0.00 / 0.00 / 0.00
+desktop-1440x900@2 law-active            wall 8.2 / 9.0 / 8.5   body-law 5.11 / 5.31 / 5.17
+desktop-1440x900@2 law-receded           wall 6.0 / 6.5 / 6.1   body-law 2.65 / 2.75 / 2.66
+mobile-390x844@3                         wall 3.1 / 3.1 / 3.0   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 control                 wall 3.0 / 3.1 / 3.0   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 family-C                wall 3.0 / 3.0 / 2.9   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 heavy-tap               wall 2.9 / 3.0 / 2.9   body-law 0.00 / 0.00 / 0.00
+mobile-390x844@3 law-active              wall 6.8 / 7.2 / 6.7   body-law 3.48 / 3.57 / 3.50
+mobile-390x844@3 law-receded             wall 5.0 / 5.1 / 4.9   body-law 1.53 / 1.58 / 1.52
+mobile-390x844@3 shadow-off              wall 2.7 / 2.7 / 2.6   body-law 0.00 / 0.00 / 0.00
+
+== static backdrop (w42-profile.spec.ts with profile-knobs-compute.patch; three runs; 'first' is the wall
+== of the first three frames, frame 1 building the pyramid and the stage; 'steady' the 60-round median)
+before m base static  steady [1.6, 1.6, 1.5] first [[28, 2.2, 1.7], [11.8, 2.1, 1.6], [11.5, 1.8, 1.6]]
+before m law static   steady [1.7, 1.7, 1.7] first [[37.5, 2, 1.7], [20.6, 1.8, 1.7], [19.5, 1.8, 1.7]]
+before m rec static   steady [1.7, 1.7, 1.7] first [[12.8, 1.9, 1.7], [11.3, 1.7, 1.7], [15.3, 1.7, 1.7]]
+before d base static  steady [1.7, 1.7, 1.6] first [[7.4, 1.9, 1.7], [6, 1.7, 1.6], [6.3, 1.7, 1.7]]
+before d law static   steady [1.8, 1.8, 1.8] first [[22.6, 1.8, 2.5], [22.1, 1.7, 1.9], [21.9, 1.8, 1.8]]
+before d rec static   steady [1.8, 1.8, 1.8] first [[18.5, 2, 1.8], [15.9, 1.8, 1.6], [16.1, 1.8, 1.9]]
+after m base static  steady [1.6, 1.5, 1.5] first [[27.8, 2.4, 1.7], [11.1, 1.7, 1.6], [9.7, 2.2, 1.5]]
+after m law static   steady [1.8, 1.6, 1.7] first [[23.7, 1.9, 2], [20.1, 1.7, 1.5], [13.2, 1.8, 1.7]]
+after m rec static   steady [1.8, 1.6, 1.7] first [[11.1, 1.8, 2.4], [10, 1.9, 1.8], [11.5, 1.8, 1.8]]
+after d base static  steady [1.8, 1.6, 1.7] first [[7.1, 1.7, 2.1], [6.2, 1.8, 1.7], [6, 1.7, 1.7]]
+after d law static   steady [1.9, 1.8, 1.8] first [[18.5, 2.4, 2.1], [16.4, 1.8, 1.8], [15.7, 1.8, 1.8]]
+after d rec static   steady [1.9, 1.7, 1.8] first [[12, 2.4, 2], [12.2, 1.9, 2], [12, 2, 1.8]]

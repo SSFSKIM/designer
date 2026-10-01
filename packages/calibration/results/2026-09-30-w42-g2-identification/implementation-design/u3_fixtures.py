@@ -17,7 +17,7 @@ formula rather than 100 000 pixels.
     rrect-md        1x  light active    pt     cubic levels, all direct; W at q = 2
     rrect-lg        1x  dark  active    texel  six levels on one shared q = 2 grid; W at q = 4
     capsule-button  2x  light receded   pt     normalised mode; one level direct, W at q = 2 zero-padded
-    rrect-80        2x  dark  active    pt     cubic levels and the contour level direct; W at q = 2
+    rrect-80        2x  dark  active    pt     cubic levels direct, the contour level (10.5) on q = 2 with W
     capsule-button  1x  light active    pt     t = 0: the floored capture and the contour level, linear
 
     python3.12 -B u3_fixtures.py      # writes fixtures/stage.json beside this file
@@ -45,6 +45,10 @@ CELLS = (
     ('capsule-button', 1, 'light', 'active', 1),
 )
 PER_STRATUM = 40
+# The realisation since the perf wave (§17, `BODY_LAW_REALISATION.decimateActiveNarrowFromDevicePx`):
+# the active pose's narrow levels are decimated from 6 device px; W and the receded level keep the
+# oracle's 12.
+ACTIVE_NARROW_FROM = 6.0
 
 
 def backdrop(H, W):
@@ -97,7 +101,8 @@ def cell(comp, scale, scheme, pose, unit, rng):
     levels, how = M.levels_for(s, u, k, receded)
     sw = k * 8.0 * u
 
-    stack = np.array([read(M.stored_blur(S, v, mode, 'f64'), mode)[py, px] for v in levels])
+    narrow_from = M.DECIMATE_FROM if receded else ACTIVE_NARROW_FROM
+    stack = np.array([read(M.stored_blur(S, v, mode, 'f64', narrow_from), mode)[py, px] for v in levels])
     Cm = M.interp_levels(stack, levels, sig, how)
     Wm = read(M.stored_blur(S, sw, mode, 'f64'), mode)[py, px]
     ex = 'clamp' if mode == 'clamp' else 'norm'

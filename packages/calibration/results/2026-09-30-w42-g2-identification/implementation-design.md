@@ -1037,3 +1037,299 @@ magnitudes: active light 132 → 177 → 135.2 was read correctly.
 
 The dip above the end remains the named black-level miss. For example, dark receded falls from
 39.9 at code 0.7 (bridged) through 36.2 at 0.8 to 0.7 at code 1.
+
+## 16. U7 and the runtime-base proof, after the sitting (2026-10-01)
+
+All of this ran on `apple/metal-3`, an Apple M2 Pro, with Chromium 151.0.7922.34 for everything
+browser-side. The branch was at `2ce1c2d5` plus this section's e2e additions.
+
+**The full suites, at normal load.** `pnpm -r build`, `pnpm -r lint`, root `eslint .` and
+`pnpm -r test` all exit 0:
+
+| package | tests |
+| --- | --- |
+| renderer-webgpu | 823 |
+| core | 304 |
+| platform-web | 668 |
+| react | 180 |
+| calibration (whole suite) | 815, 1 skipped |
+| demo | 110 |
+| geometry | 170 |
+| motion | 164 |
+| policy | 23 |
+
+**Goldens and GPU suites.** `test:golden` passes 34/34: byte-identical at identity, with the
+isolation spec's pinned hashes unmoved. The renderer's `test:gpu` passes 49/49 and platform-web's
+`test:e2e:gpu` 9/9.
+
+**The compute proof.** `implementation-design/u7_compute_proof.py`, with its output
+`u7_compute_proof.json`, follows W41's `e3-gpu-proof.py` pattern: native Metal through wgpu-py, no
+browser. The runtime's WGSL functions are extracted unchanged and run over 6,844 cases against
+the declared numpy oracles:
+
+| function | worst error (codes) |
+| --- | --- |
+| amended landed tone, and the unamended solve (all four endpoints, four sizeKs) | 1.7e-4 |
+| E3 with the F extension | 3.4e-5 |
+| candidate 2's table on the addendum's grid | 3.4e-5 |
+| the body's precedence and fractional mixes | 4.3e-5 |
+
+The arguments cover the black-join interval, near-black chromatics and out-of-range values. The
+complete optics module also compiles.
+
+**The rendered agreement with the law on.** `implementation-design/u7_rendered.py`, with
+`e2e/gpu/w42-body-law.spec.ts` and output `u7_rendered.json`. The render is on the adapter into
+rgba32float (the harness requests `float32-blendable` where offered). There are 96 cells:
+- four grey instrument backdrops;
+- capsule, rrect-md and rrect-lg;
+- both poses, both scales and both schemes;
+- a known monotone T, given as candidate 2's table;
+- 400 deep-interior samples per cell.
+
+Against the composite over the exact per-pixel Gaussians, the render is within **0.040 code** at
+worst, well inside the 0.15-code budget. Against `forward.py`'s own output, 95 cells are within
+0.098 code. One cell, impulse rrect-md active 1x light, reads 0.181 at one pixel. There the render
+is 0.006 code from the exact Gaussian and `forward.py` is 0.175 from it: `narrow_map`'s linear
+interpolation between its own narrow levels misses at an impulse, not the runtime.
+
+**Uniform invariance on rendered cells.** 16 cells cover four uniform backdrops, the chromatic one
+included, both poses and both scales. With an identity T, the rendered body equals the backdrop to
+**1.8e-4 code**.
+
+**`layout: "auto"` on the adapter.** 112 renders with the law on, and every other GPU suite,
+reported no WebGPU error. A `float` sample type would fail validation at bind-group creation for
+the rgba32float tiles and A, so the default layout gives them `unfilterable-float` on this
+adapter. No explicit layouts are needed.
+
+**The bench.** `e2e/bench/budget.spec.ts` gained three law-on rows; output in `u7_bench.txt`, from
+three runs of 60 interleaved rounds. The scene's backdrop is dirty every frame, so the stage
+rebuilds on all 8 surfaces every frame. That is the worst case: a live video behind the glass.
+
+| row | wall-clock median per frame |
+| --- | --- |
+| mobile 390×844@3 base | 2.3–2.6 ms |
+| mobile, law active | 13.6–15.2 ms |
+| mobile, law receded | 7.2–8.8 ms |
+| desktop 1440×900@2 base | 2.4–2.7 ms |
+| desktop, law active | 17.4–18.8 ms |
+
+The timestamp-query sums for the law rows (176–193 ms, `body-law` 147–159 ms) cannot be read on
+this adapter. The highlight pass, which the law does not touch, reads 12.8 ms in those rows
+against 0.9 ms in the base row, so the timestamps absorb queueing once about 130 more passes run
+per frame. The wall-clock is the reading.
+
+So on a live backdrop the law costs about +11–16 ms a frame at 8 surfaces, an order of magnitude
+past §2.10's estimate and far past the 2 ms envelope. A static backdrop rebuilds nothing after its
+first frame. This is the measurement the ruling on formats asked for (§12 item 3), and it goes to
+the parent and G3.
+
+**The runtime-base proof, clause 8.** The main checkout's gitignored tree was only read. On it,
+`check-capture-tree` exits 0: 1,900 captures, 1,893 matching, 0 mismatched, 7 with no row. The 40
+WebGPU cells of `bed/runtime-base-sample.json`, re-rendered with the shipped documents at this
+branch through `capture-web.ts` into scratch, are **40/40 PNG byte-identical** to the tree
+(`u7_runtime_base.json`). The engine is 151.0.7922.34, as the tree's cells record, on
+`apple/metal-3`, and nothing fell back to the CSS tier.
+
+## 17. The perf wave (2026-10-01/02)
+
+§16 read the render-pass stage at +11–16 ms a frame on a live backdrop. The parent asked for a
+profile, then a reduction that keeps the shader-against-oracle agreement inside the declared budget
+(0.15 code per knee, ruled in §12), and a report of what stands between the result and about +2 ms.
+The code is `844aa4b3`. The evidence is in `implementation-design/perf/`.
+
+**The runtime-base proof is unaffected.** It rendered through `calibration/scripts/capture-web.ts`
+and the calibration page, which create their own device. The `float32-blendable` request lives
+only in the renderer's e2e harness, so no rerun was needed.
+
+### 17.1 Where the time went
+
+Ablations of the render-pass stage (`perf/profile-before.json`, `profile-before-one-tap.json`,
+mobile at dpr 3, wall-clock, interleaved):
+
+| what was removed | saving (ms) |
+| --- | --- |
+| the narrow levels | 7.0 |
+| W | 2.2 |
+| the capture | 0.6 |
+| the floor | 0.2 |
+| the composite | 0.3 |
+| rgba16float tiles instead of rgba32float | 0.1–0.3 |
+
+Two micro-benchmarks fix the costs (`micro-pass-overhead.json`, `micro-blur-forms.json`):
+- **Pass count.** A dependent render pass costs about **50 µs** on this adapter, whatever it
+  draws; a dispatch in one compute pass costs about 12 µs. With every kernel cut to one tap, the
+  stage's ~78 passes still cost 4.0–4.7 ms. Pass count was half the cost.
+- **Taps.** The other half: 377 M texel fetches a frame on mobile, 558 M on desktop, at about
+  55 M per ms from fragment shaders. Most of it was the morph's six narrow levels at full
+  resolution over the whole footprint.
+
+### 17.2 What was built
+
+Steps 1–4 are exact: the A/B against the render-pass stage on the bench's eight surfaces is within
+**4.1e-4 code**, on both poses, both scales, D2 and the edge swap. Step 5 is a realisation change.
+
+1. **Compute instead of render passes.** The stage is four compute entry points over job tables:
+   `cs_floor`, `cs_decimate`, `cs_blur` and `cs_composite`.
+   - Each blur workgroup loads one line segment and both reaches into workgroup memory.
+   - Each lane sums four outputs. The taps are paired symmetrically, so each pair takes one
+     weight.
+   - Tiles live in shelf-packed rgba32float atlases.
+2. **One compute pass per group that rebuilds**, in the frame's own encoder where the
+   render-pass stage's passes were. It contains, in order:
+   1. the floor;
+   2. the decimation;
+   3. every width's horizontal pass;
+   4. every width's vertical pass;
+   5. A.
+
+   As first committed (`844aa4b3`), the stage batched every group into one pass per frame, in a
+   command buffer of its own. §17.6 says why that was undone.
+3. **Each width is computed only where it is read** (`bodyLawRegions`):
+   - The vertical pass writes the texels the composite reads inside A's rect.
+   - The horizontal pass writes those columns over every row the vertical kernel reaches.
+
+   A unit test runs the bounded passes in f64, with NaN everywhere else, and holds every
+   composite read to the whole-footprint value bit for bit.
+4. **The capture and the floor are fused.** S0 and the floor's horizontal half stay in workgroup
+   memory, so neither reaches DRAM.
+   - Atlases and A carry `RENDER_ATTACHMENT`. Without it, Dawn zeroed each new storage texture by
+     copy, and the static first frame came out 8–18 ms slower than the render-pass stage's.
+5. **The active pose's narrow levels are decimated from 6 device px.** W and the receded level
+   keep the oracle's 12 (`BODY_LAW_REALISATION.decimateActiveNarrowFromDevicePx`).
+   - §11.1's 0.295 / 0.210 at q6 was set by a receded cell.
+   - With candidate 1 bridged, the active rows at q6 read the oracle rule's worst per knee
+     exactly (`perf/mirror_realisation.txt`).
+   - `u3_fixtures.py` mirrors the new rule, and `fixtures/stage.json` is regenerated (rrect-80's
+     contour level moves to q = 2, and its mirror C moves by 0.0035 code).
+
+### 17.3 Agreement
+
+**The U2 mirror, bridged, worst band-weighted output error in codes** (knees 0 and 2 identical;
+knee 1 off its flips):
+
+| rule | canonical landed | canonical table | family E exact8 knee 1 (landed / table, flips) |
+| --- | --- | --- | --- |
+| oracle, 12 everywhere | 0.148 | 0.064 | 0.094 / 0.265, 3.6 % |
+| **active from 6 (adopted)** | **0.148** | **0.064** | **0.074 / 0.117, 3.6 %** |
+| active from 5 | 0.148 | 0.103 | 0.074 / 0.116, 3.6 % |
+| active from 4.5 | 0.148 (knee 1 flips cost 8.2 codes on photo) | 0.103 | — |
+| every width from 6 | 0.210 | 0.075 | — |
+| active from 5, companded 16-bit tiles | 0.162 | 0.104 | 24.3 / 38.5, 55 % |
+
+**Rendered on the adapter** (`perf/u7_rendered.json`, `perf/u7_rendered_knees.json`):
+- The worst is **0.053 code** against the exact Gaussian, for knees 0, 1 and 2. Before the
+  change it was 0.040; the worst cell is checkerboard rrect-lg active at 1x. The bed is grey, so
+  the three forms share one expectation, and the override checks each shader branch.
+- Uniform invariance reads 1.7e-4 code.
+- Against `forward.py` the figure is unchanged: 0.181 at the one impulse cell §16 attributes to
+  forward.
+
+**Gates.** Goldens 34/34 byte-identical, renderer `test:gpu` 49/49, platform-web `test:e2e:gpu`
+9/9. The six digests are unmoved (`w42-black-join.test.ts`).
+
+### 17.4 The bench
+
+`perf/bench.txt` was run in one window with step 2's fits stopped. The load average was still
+decaying from them, 9.8 → 7.0, and is logged per run. Each figure is three runs of 60
+interleaved rounds; the cell shows the law row's wall median minus its own run's base row.
+
+| row | before (ms) | after (ms) | the stage's compute pass, GPU (ms) |
+| --- | --- | --- | --- |
+| mobile 390×844@3, law active | +11.4–12.8 | **+3.7–4.1** | 3.4–3.7 |
+| mobile, law receded | +4.9–6.3 | **+1.9–2.0** | 1.5–1.6 |
+| desktop 1440×900@2, law active | +15.2–16.2 | **+5.1–5.8** | 5.0–5.4 |
+| desktop, law receded | +8.0–8.7 | **+2.9–3.3** | 2.6–2.8 |
+
+**Static backdrop.** The stage rebuilds nothing after frame 1, and a steady frame costs +0.1–0.2
+ms (the optics pass's read of A and its tone). The first frame, with the browser's shader cache
+warm, is:
+
+| | before (ms) | after (ms) | base (ms) |
+| --- | --- | --- | --- |
+| mobile active | 19.5–20.6 | 13.2–20.1 | 9.7–11.8 |
+| mobile receded | 11.3–15.3 | 10.0–11.5 | 9.7–11.8 |
+| desktop active | 21.9–22.1 | 15.7–16.4 | 6.0–6.3 |
+| desktop receded | 15.9–16.1 | 12.0–12.2 | 6.0–6.3 |
+
+Most of that first-frame cost is pipeline creation, which is synchronous.
+
+### 17.5 What stands between this and about +2 ms
+
+Mobile active spends about 3.6 ms in the stage's pass (`perf/profile-after-zero-tap.json`):
+- **About 1.1 ms of taps:** 105 M a frame. 58 M of them are the morph's three levels below
+  6 device px.
+- **About 2.5 ms of tile traffic.** It has a zero-tap floor. Per frame there are 4.5 M
+  rgba32float texel stores and about 15 M loads. A stored and reloaded rgba32float texel costs
+  about 0.2 ns here, close to DRAM bandwidth; rgba16float costs a third of that
+  (`perf/micro-copy-rates.txt`).
+- **About 0.3 ms outside the stage:** the encoded level-0 companion and the optics pass's law
+  path.
+
+Desktop active spends 5.0–5.4 ms. Its morph's six levels are all 2.7–5.3 device px, so they all
+stay at full resolution: 158 M taps.
+
+The remaining levers, each measured:
+
+| lever | effect | why not taken |
+| --- | --- | --- |
+| Active narrow levels from 5 device px | −0.2–0.3 ms | Inside the budget (table worst 0.064 → 0.103), but knee 1 begins to flip at 4.5. Adopting it is a ruling. |
+| 16-bit tiles | Would roughly halve the traffic | rgba16float measured 0.231 (§11.1). sqrt-companded rgba16uint measured 0.162 and broke knee 1 (55 % flips on family E at 24–38 codes). Neither fits the ruled budget. |
+| rgba16uint encoded level-0 companion | About −0.2 ms | Exact for 8-bit opaque sources only; it would change §12 item 4's capture path for other sources. Not built. |
+| Sharing W, levels or floors across surfaces | — | Not exact under the declared per-surface crop: W reaches 4σ = 192 device px and the contour level 60, both past the 48-px footprint margin. |
+| A reduced rebuild cadence on live sources | Measured from the rows above, not built: every second frame averages about +2.0 ms on mobile, with +3.7–4.1 ms frames | A product question; not adopted. |
+
+**What `budget.spec.ts` bounds.** Nothing about cost.
+- Each row's wall median must lie in (0, 200) ms.
+- Under timestamp-query, each row needs a GPU time above 0 and more than two non-zero passes.
+- The ordering control's GPU-timestamp sum must be within 25 % of the first row's.
+- `BUDGET_MS = 2` appears only as a printed percentage.
+
+The law's rows would pass at 100 ms. The other passes' timestamps still absorb the stage's
+queueing, so the wall clock and the `body-law` pass timestamp are the readings.
+
+**Named gaps, for the tracker at G2's landing:**
+- Pipeline creation is synchronous, so the first frame costs 3–10 ms over base.
+- The atlases grow and never shrink while any group runs the law. Their high-water mark is about
+  100 MB on mobile and 130 MB on desktop, against 64 / 114 MB of tiles.
+- A group whose tiles alone would pass `maxTextureDimension2D`, or a kernel past the line
+  cache's reach, stands the law down with an honest readout rather than drawing.
+
+### 17.6 The fix wave after the review of `7aa1eb80..f0bd6d50`
+
+The independent review returned three P2 findings, and the parent accepted all three. Everything
+else read sound:
+- job indexing;
+- the workgroup caches' bounds and barriers;
+- atlas bounds;
+- the union/backdrop fallback;
+- submission dependencies;
+- the WGSL/CPU/CSS bridge.
+
+1. **Identity paid a second encoder.** The batched stage needed its own command buffer between
+   the rebuilds and the groups' passes. So every frame, the shipped materials included, created
+   two encoders and submitted two buffers.
+   - The stage now encodes each group's pass into the frame's own encoder when the group draws, as
+     the render-pass stage did. `renderer.ts`'s submission is `fbb2136e`'s again.
+   - The identity test counts encoders and submitted command buffers: one each, law off or on.
+   - Batching across groups had bought nothing measurable. Alternating `budget.spec.ts` runs
+     against `f0bd6d50` read the same wall clock: mobile active +3.5–3.8 ms per group against
+     +3.6–3.7 batched, desktop active +5.0–5.6 against +5.0–5.3
+     (`perf/fix-wave-encoding.txt`, fit running, load logged).
+   - The rendered bench scene is bit-identical between the two in every variant.
+   - Encoding per group exposed a hazard batching had hidden. A later group that grows an atlas
+     must not destroy the texture an earlier group's pass in the same encoder reads. A grown atlas
+     now takes a new key, and the one it replaces is released after submit, or when the frame is
+     dropped. A unit test checks at submit that no texture any recorded pass binds has been
+     destroyed. With the old single-key growth it fails with eleven stale bindings.
+2. **A forgotten group's buffers outlived `forget`.** Each group's job tables, kernels and
+   composite words now live on its own entry, and `destroyEntry` destroys them. A test draws two
+   law groups, removes one and draws a static frame: the removed group's buffers and A are
+   destroyed, and the survivor's stay live.
+3. **The readout went stale on empty groups.** The readout is now kept per group and per plane.
+   - A plane on which the group has no member retires its part.
+   - The read folds what remains, the weaker answer winning, as platform-web's
+     `weakestBodyLawReadout` does.
+   - A group with no plane left reports "stood-down".
+   - The renderer's teardown (`dropContext`) clears the map.
+   - `w42-readout.test.ts` walks a group from drawn, through an overlay plane it is absent from,
+     to empty everywhere, and back.
