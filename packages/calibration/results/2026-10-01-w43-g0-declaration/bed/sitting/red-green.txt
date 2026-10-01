@@ -1,0 +1,51 @@
+== W43 G0 (d): the sitting tooling, red on W42 and green on W43 ==
+
+The machine's NSGlassTintAmount before: 0.5 (read only)
+
+1. the census matches executables, not whole command lines
+  RED   (W42): counted 3 of 3 non-browser processes: a shell holding a pgrep pattern (stop 4): True; a grep for a browser helper: True; a test stub's launch naming the harness (stop 5): True  [defect shown]
+  GREEN (W43): counted 0 of 3 of them; still counts every real one (6 of 6: Chromium, a Chrome renderer helper, Chrome for Testing, a headless shell, a harness, Playwright (node + playwright-core/cli.js))  [fixed]
+
+2. the launching shell's chain is excluded, through the setsid detach
+  RED   (W42): the launching shell (pid 39026, alive after the detach, census words on its command line) is counted by the detached reader: True  [defect shown]
+  GREEN (W43): a launching process the census DOES count by executable (node + @playwright/cli script), detached the same way: counted without the recorded chain (True), excluded with it (True, counted False)  [fixed]
+
+3. the idle log is kept as .txt
+  RED   (W42): W42 G1's committed evidence holds 0 idle logs over 88 admitted runs (.gitignore:18:*.log	packages/calibration/results/2026-09-30-w42-g1-sitting/attest/x/run-1/driver-idle.log); W42's collect-pass + git add commits []  [defect shown]
+  GREEN (W43): the driver writes ['driver-idle.txt']; W43's collect-pass + git add commits ['ev/attest/p/run-1/driver-idle.txt']  [fixed]
+
+4a. a watchdog on frontmost and HID idle during every launch
+  RED   (W42): focus went to com.apple.universalcontrol with HID input 2.0 s into the launch; the driver read nothing until the launch ended (5.3 s) and ADMITTED the run: True  [defect shown]
+  GREEN (W43): the same event 2.0 s in; the watchdog (period 0.3 s here, 5 s in a sitting) ended the launch 0.3 s later and quarantined the run: "watchdog stopped the launch: HID input during the launch: idle read 0.1 s where at least 400.3 s was due (401.9 s, 0.4 s earlier); frontmost com.apple"  [fixed]
+
+4b. a pre-sitting Universal Control check
+  RED   (W42): W42 reads nothing about Universal Control: its census does not name the agent and its gates read HID idle at launch only (record-machine.py has no such read)  [defect shown]
+  GREEN (W43): THIS machine, read-only: agent running ([49435]), Disable key None, Bluetooth attrib_on, awdl0 ['UP', 'BROADCAST', 'SMART', 'RUNNING', 'SIMPLEX', 'MULTICAST'], Wi-Fi 'Wi-Fi Power (en1): On': input path REACHABLE. Cannot detect: whether a peer device is near and linked right now; whether the agent forwards input while the setting reads off (W42 G1 stop 2); whether the Disable key is where macOS 27 keeps the toggle: an absent key is not a reading of the toggle, and confirming it needs System Settings, which no check here may touch  [fixed]
+
+5. the slider declared per pass, the as-found value restored, fresh launches only
+  RED   (W42): W42 hard-codes the slider at 0.5: a 0.25 machine is refused by its gate ("machine gate refused: policy/slider/Show Borders mismatch: {'reduceTransparency': '0', 'in"), no pass can declare a position, and its orchestrator never reads, writes or restores it (mentions NSGlassTintAmount: False)  [defect shown]
+  GREEN (W43): the stand-in G1a order (as-found 0.5459057) wrote [0.5, 0.25, 0.5] at its pass boundaries with no native process alive, exit 0, and restored 0.5459057 as found (16 stub `defaults` calls); a stand-in harness left alive across the 0.25 write refused the pass (exit 9: "STOP dump-0.25-2x-light-active: the slider write to 0.25 was refused (/var/folders/c1/l4z") and restored 0.5459057  [fixed]
+
+6. the dump sentinel checks the Normal blend opacity against the declared position
+  RED   (W42): W42's dumpcheck has no position input (its reference is memo D's 0.5): over memo D's real 2x light active dumps (24 scenes) it finds 0 Normal departure(s) in the trees taken at 0.5, which a 0.25 pass must refuse as stale, and 26 in the same trees at Normal 0.25, which it must accept  [defect shown]
+  GREEN (W43): the sentinel at declared 0.25 departs on 24 of 24 stale scenes (Normal ['0.5']) and on 0 of the 0.25 trees (26 surfaces read)  [fixed]
+
+7. the canonical publication path for side-bundle runs
+  RED   (W42): materialize over W42 G1's seven committed 2x-light-active attestations exits 1: "- the runs read 2 different scene declarations — 655fc83302ce: r1; d618aabec87f: r2, r3, r4, r5, r6, r7. The declaration..."; and they never name ['bundlePath', 'bundleIdentifier', 'bundlePinSha256']  [defect shown]
+  GREEN (W43): materialize publishes both schemes (exit 0); the profile record names bundlePath=/private/tmp/w43-test-side/VitreaReference.app, bundleIdentifier=dev.vitrea.reference-apple.w39, bundlePinSha256=780d6f950cb9…, glassTintAmount=0.25, runs=2; `publish` builds cli/materialize.ts --run r1=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpn7gs3fk9/g/root/bed-1x-active/run-1 … and refuses a run at another slider ("bed-1x-active is not publishable: run 2 attests slider '0.5'; the pass is 0.25")  [fixed]
+
+7b. the supplied-path attestation of the canonical bed's group and stack components
+  RED   (W42): W42's driver on a faithful toolbar-group + glass-over-glass manifest: refused: supplied path count mismatch: checkerboard__glass-over-glass__rest (every canonical pass holding them would quarantine)  [defect shown]
+  GREEN (W43): faithful: accepted; a group item shifted by 1 pt: refused: supplied path attestation failed: checkerboard__toolbar-group__rest [1  [fixed]
+
+8. the archive stores each distinct frame once, by SHA-256
+  RED   (W42): 23 cells store 38 frame copies of 24 distinct SHA-256s (25,343 bytes for 16,007 distinct); one frame is stored in 5 cells  [defect shown]
+  GREEN (W43): 7 cells and 11 runs name 54 frame occurrences of 7 distinct SHA-256s, stored as 7 files; the unanimous cell: 7 runs, 1 frame; replay with the raw root denied: identical over 7 cells, raw root refused  [fixed]
+
+9. the dry plan and the timing derived from the declared membership (the G1a stand-in)
+  RED   (W42): W42 tools price 3,441 captures, 447 dump scenes, 10.31 h without a W43 plan and 3,441 / 447 / 10.31 h with the stand-in at its declared path: blind to it  [defect shown]
+  GREEN (W43): W43 timing prices the stand-in at 4,103 captures and 48 dump scenes, 11.21 h; one more 2x active bed run gives 4,265 captures and +1546.9 s, that run's modelled 1546.9 s  [fixed]
+
+The machine's NSGlassTintAmount after: 0.5 (read only; unchanged)
+
+11 of 11 scenarios red before and green after; the real slider untouched

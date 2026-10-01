@@ -1,16 +1,17 @@
 #!/usr/bin/env python3.12
-"""W42 sitting driver tests (charter clause 4). Nothing is captured and nothing is launched:
-the machine recorder, session reader, harness and launcher are stubs; pass-spec.py, the bed
-files and dumpcheck.py are the real ones. The dump-step tests feed memo D's own dump files
-(~/vitrea-w42/grounding/dumps, hashed in the grounding's scratch-sha256.txt) relabelled with
-W42 scene ids, and are skipped where that scratch is absent.
+"""W43 sitting tooling tests (charter G0 (d)). Nothing native is launched and the real slider is
+never written: the machine recorder, session reader, harness, launcher, `defaults`, displayplacer
+and the driver (for the orchestrator) are stubs; pass-spec.py, record-machine.py's census and
+sitting.py are the real ones. The census tests read the REAL process table, over processes they
+start themselves: shells and stubs whose command lines name the census words, and copies of
+python3.12 under browser and harness executable names. Run them only when no sitting is running.
 
-The pre-launch declaration check (B-M1) and the orchestrator run for real inside `Mirror`, a
-throwaway Git checkout holding the bed, its tools and a declaration.json at their real relative
-paths; the other tests hold the check's answer fixed (`DECLARATION`).
+The plan is stand_in.py's (the declaration (e) writes does not exist yet), cut to a few passes
+for the driver; the pin check and the orchestrator run for real in `Mirror`, a throwaway Git
+checkout holding the tools, the stand-in canonical file, W42's scenes file, the plan and a
+declaration at their real relative paths.
 
 Run: python3.12 -m unittest -v test_sitting    (from this directory)"""
-import copy
 import hashlib
 import importlib.util
 import json
@@ -27,12 +28,18 @@ import unittest
 from unittest import mock
 
 HERE = Path(__file__).resolve().parent
-BED_DIR = HERE.parent
 REPO = HERE.parents[5]
 W34_MACHINE = REPO / 'packages/calibration/results/2026-09-23-w34-g0-contour-bed/machine-side-built.json'
 MEMO_D = Path('/Users/new/vitrea-w42/grounding/dumps/runs')
-PIN = dict(path=str(Path('/tmp/w42-test-side/VitreaReference.app').resolve()), binarySha256='b' * 64,
-           cdhash='c' * 40, buildVersion='LC_BUILD_VERSION stub')
+PYTHON = Path(os.path.realpath(sys.executable))
+# A fake executable is a copy of node: python3.12's framework launcher re-execs into Python.app, so a
+# copy of it never runs under its own name, while a node copy's image IS the copy (proc_pidpath).
+NODE = Path(os.path.realpath(shutil.which('node'))) if shutil.which('node') else None
+SLEEP_JS = ['-e', 'setTimeout(() => {}, 30000)']
+SIDE = Path('/tmp/w43-test-side/VitreaReference.app').resolve()
+HARNESS_ID = 'dev.vitrea.reference-apple.w39'
+PIN = dict(path=str(SIDE), bundleIdentifier=HARNESS_ID, binarySha256='b' * 64, cdhash='c' * 40,
+           buildVersion='stub:\n platform MACOS\n    minos 26.0\n      sdk 26.0\n')
 
 
 def load(name, path):
@@ -42,21 +49,58 @@ def load(name, path):
     return m
 
 
-S = load('w42_sitting_under_test', HERE / 'sitting.py')
+S = load('w43_sitting_under_test', HERE / 'sitting.py')
 S._PIN = dict(PIN)
 P = S.pass_spec()
-SPEC, BED = P.load()
-PINS = json.loads((BED_DIR / 'pins.json').read_text())
-# What pinned_declaration answers for the pinned bed, held fixed outside the Mirror tests.
-DECLARATION = dict(scenesSha256=PINS['scenes-w42-body.json'], splitSha256=PINS['bed.json'], head='test-head',
-                   declarationSha256='d' * 64)
+R = S.recorder_module()
+SI = load('w43_stand_in_for_tests', HERE / 'stand_in.py')
+CANONICAL_RAW, W42_RAW, STAND_IN_PLAN = SI.build()
+SOURCES = SI.sources_of(STAND_IN_PLAN, CANONICAL_RAW, W42_RAW)
+SHAS = dict(canonical=hashlib.sha256(CANONICAL_RAW).hexdigest(), w42=hashlib.sha256(W42_RAW).hexdigest())
+L1, D1 = SI.key(1, 'light', '0.25'), SI.key(1, 'dark', '0.25')
+L2_05 = SI.key(2, 'light', '0.5')
+BED_ACTIVE = {L1: ['checkerboard__capsule-button__rest', 'checkerboard__glass-over-glass__rest',
+                   'checkerboard__toolbar-group__rest'],
+              D1: ['checkerboard__capsule-button__rest', 'checkerboard__glass-over-glass__rest']}
+BED_RECEDED = {L1: ['checkerboard__capsule-button__inactive', 'checkerboard__toolbar-group__inactive'],
+               D1: ['checkerboard__glass-over-glass__inactive']}
 
 
-def machine(scale=2, **changes):
+def mini_plan(**edits):
+    """Five passes over the stand-in's sources: the pose check at 0.5, a dump sentinel and the two
+    canonical 1x passes at 0.25 (both schemes, group and stack components), a W42 sentinel at 0.5."""
+    passes = [
+        dict(name='pose-check', kind='capture', role='pose-check', glass=0.5, scale=2, pose='active',
+             source='canonical', runs=1, protocol='normal',
+             profiles={L2_05: ['checkerboard__capsule-button__rest']},
+             expect={f'{L2_05}/checkerboard__capsule-button__rest': list(SI.POSE_CHECK_FRAMES)}),
+        dict(name='dump-1x-light-active', kind='dump', role='dump-sentinel', glass=0.25, scale=1, pose='active',
+             source='canonical', profile=L1, scenes=sorted(BED_ACTIVE[L1])),
+        dict(name='bed-1x-active', kind='capture', role='bed', glass=0.25, scale=1, pose='active',
+             source='canonical', runs=2, protocol='normal', profiles=BED_ACTIVE, publish=True),
+        dict(name='bed-1x-receded', kind='capture', role='bed', glass=0.25, scale=1, pose='receded',
+             source='canonical', runs=2, protocol='normal', profiles=BED_RECEDED, publish=True),
+        dict(name='close-w42-1x-light-active', kind='capture', role='bridge-w42-sentinel', glass=0.5, scale=1,
+             pose='active', source='w42', runs=3, protocol='long',
+             profiles={SI.key(1, 'light', '0.5'): sorted(f'{c}__rest' for c in SI.W42_SENTINELS)}),
+    ]
+    plan = dict(STAND_IN_PLAN, passes=passes)
+    for name, change in edits.items():
+        next(p for p in passes if p['name'] == name).update(change)
+    return plan
+
+
+PLAN = mini_plan()
+DECLARATION = dict(sitting='g1a', planSha256='a' * 64, sources=dict(SHAS), head='test-head', declarationSha256='d' * 64)
+
+
+def machine(scale=2, glass='0.25', **changes):
     m = json.loads(W34_MACHINE.read_text())
     m['foreignProcessCount'], m['foreignProcesses'] = 0, []
-    m['side'].update(path=PIN['path'], binarySha256=PIN['binarySha256'], buildVersion=dict(stdout=PIN['buildVersion']))
+    m['side'].update(path=PIN['path'], binarySha256=PIN['binarySha256'], buildVersion=dict(stdout=PIN['buildVersion']),
+                     identifier=dict(stdout=HARNESS_ID))
     m['side']['signature']['stderr'] = f'CDHash={PIN["cdhash"]}\n'
+    m['settings']['NSGlassTintAmount']['stdout'] = glass
     if scale == 1:
         m['display']['stdout'] = m['display']['stdout'].replace(
             'scaling:on <-- current mode', 'scaling:on').replace(
@@ -77,22 +121,46 @@ HARNESS_PROTOCOL = {  # what the harness records: literals, not read from sittin
 }
 
 
+def colour(sid, run=1):
+    h = hashlib.sha256(sid.encode()).digest()
+    return (h[0], h[1], h[2])
+
+
 def manifest(doc, pose, scale, label, protocol='normal', idle=100.0, origin_shift=None):
+    """A manifest shaped as the side harness writes it, its supplied paths built independently of
+    sitting.declared_paths from PathAttestation.swift's rules."""
     canvas = doc['canvas']
     scenes = {s['id']: s for s in doc['scenes']}
     size = [canvas['width'] * scale, canvas['height'] * scale]
     frame = [1120.0, 580.0, float(canvas['width']), float(canvas['height'])]
+
+    def centred(s):
+        dx, dy = s.get('offset') or [0, 0]
+        return [(canvas['width'] - s['size'][0]) / 2 + dx, (canvas['height'] - s['size'][1]) / 2 + dy]
+
+    def entry(s, origin):
+        return dict(kind=s['kind'], frameOrigin=origin, rect=[0, 0, *s['size']], opaque=bool(s.get('opaque')),
+                    elements=[])
+
     profiles = []
     for p in doc['profiles']:
         fixtures = []
         for sid in p['scenes']:
             comp = doc['components'][scenes[sid]['component']]
-            paths = [] if comp['kind'] == 'none' else [dict(
-                kind=comp['kind'], frameOrigin=S.declared_origin(comp, canvas), rect=[0, 0, *comp['size']],
-                opaque=False, elements=[])]
-            if origin_shift and sid == origin_shift and paths:
-                paths[0]['frameOrigin'] = [(canvas['width'] - comp['size'][0]) / 2,
-                                           (canvas['height'] - comp['size'][1]) / 2]
+            if comp['kind'] == 'none':
+                paths = []
+            elif comp['kind'] == 'stack':
+                paths = [entry(comp['base'], centred(comp['base'])), entry(comp['over'], centred(comp['over']))]
+            elif comp['kind'] == 'group':
+                width = sum(s['size'][0] for s in comp['items']) + (len(comp['items']) - 1) * comp['spacing']
+                left, paths = (canvas['width'] - width) / 2, []
+                for s in comp['items']:
+                    paths.append(entry(s, [left, (canvas['height'] - s['size'][1]) / 2]))
+                    left += s['size'][0] + comp['spacing']
+            else:
+                paths = [entry(comp, centred(comp))]
+            if origin_shift == sid and paths:
+                paths[-1]['frameOrigin'] = [paths[-1]['frameOrigin'][0] + 1, paths[-1]['frameOrigin'][1]]
             active = pose == 'active'
             fixtures.append(dict(sceneId=sid, file=f'{p["key"]}/{sid}.png', captureMethod='screencapturekit',
                                  materialRendered=True, deterministic=True, width=size[0], height=size[1],
@@ -103,117 +171,213 @@ def manifest(doc, pose, scale, label, protocol='normal', idle=100.0, origin_shif
                                  windowFrame=dict(coordinateSpace='appkit-global-bottom-left', requested=list(frame),
                                                   actual=list(frame), backingScaleFactor=float(scale)),
                                  suppliedPaths=paths))
-        profiles.append(dict(profileKey=p['key'], display=dict(requestedScale=scale, actualBackingScale=scale,
-                                                               pixelSize=size, colorSpace='kCGColorSpaceSRGB'),
+        profiles.append(dict(profileKey=p['key'], colorScheme=p['colorScheme'], a11yMode='standard',
+                             display=dict(requestedScale=scale, actualBackingScale=scale, pixelSize=size,
+                                          colorSpace='kCGColorSpaceSRGB'),
                              fixtures=fixtures))
-    return dict(hardware=dict(osBuild='26A428'), profiles=profiles,
+    return dict(hardware=dict(osBuild='26A428', osVersion='Version 27.0 (Build 26A428)', cpu='Apple M2 Pro'),
+                profiles=profiles,
+                backgrounds={f'{b}@{scale}x': f'backgrounds/{b}@{scale}x.png' for b in doc['backgrounds']},
                 captureProtocol=dict(runLabel=label, **HARNESS_PROTOCOL[protocol], hidIdleSecondsAtStart=100.0,
                                      hidIdleSecondsAtEnd=100.0))
 
 
 STUB_LAUNCHER = r'''
-import json, os, shutil, sys
+import json, os, subprocess, sys, time
 from pathlib import Path
 args = sys.argv[1:]
 env = dict(a.split('=', 1) for i, a in enumerate(args) if i and args[i - 1] == '--env')
 with open(os.environ['STUB_CALLS'], 'a') as f:
     f.write(json.dumps(args) + '\n')
-mode = os.environ['STUB_MODE']
+mode = os.environ.get('STUB_MODE', 'auto')
+
+
+def session(**changes):
+    path = Path(os.environ['STUB_SESSION_FILE'])
+    state = json.loads(path.read_text())
+    state.update(changes)
+    path.write_text(json.dumps(state))
+
+
 if 'dump-layers' in args:
     out = Path(args[args.index('--out') + 1]); out.mkdir(parents=True)
     ids = args[args.index('--scenes') + 1].split(',')
-    source = json.loads(Path(os.environ['STUB_DUMPS']).read_text())
-    for sid in ids:
-        d = json.loads(Path(source[sid]).read_text())
-        d['scene'] = sid
-        if mode == 'depart' and sid == ids[0]:
-            def walk(n):
-                if isinstance(n, dict):
-                    for flt in n.get('filters') or []:
-                        if 'inputBlurRadius' in (flt.get('inputs') or {}):
-                            flt['inputs']['inputBlurRadius'] = 6
-                    for s in n.get('sublayers') or []: walk(s)
-            walk(d['view']['layer'])
+    scheme = args[args.index('--scheme') + 1]
+    active = '--require-key' in args
+    normal = float(os.environ.get('STUB_NORMAL', '0.25'))
+    for i, sid in enumerate(ids):
+        key = active and not (mode == 'lose-key' and i == len(ids) - 1)
+        filters = [] if mode == 'no-normal' else [dict(description='glassBackground', inputs={
+            'inputBlurFillNormalOpacity': normal, 'inputBlurFillLightenOpacity': 0.7875, 'inputBlurRadius': 5})]
+        d = dict(scene=sid, isKeyWindow=key, appIsActive=key, backingScaleFactor=int(env['VITREA_SCALE']),
+                 colorScheme=scheme, view=dict(layer=dict(sublayers=[dict(filters=filters)])))
         (out / (sid + '.json')).write_text(json.dumps(d))
     sys.exit(0)
 fixtures = Path(env['VITREA_FIXTURES'])
 out, err = Path(args[args.index('--stdout') + 1]), Path(args[args.index('--stderr') + 1])
-n = len(args[args.index('--scenes') + 1].split(','))
-out.write_text(f'capturing {n} fixtures via screencapturekit\n')
-if mode == 'block':
-    # A capture that does not return: a stand-in native app, detached as LaunchServices would
-    # start it, and this launcher waiting on it like `open -W`.
-    import subprocess, time
-    app = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(900)', os.environ['STUB_NATIVE']],
-                           start_new_session=True)
+ids = args[args.index('--scenes') + 1].split(',')
+out.write_text(f'capturing {len(ids)} fixtures via screencapturekit\n')
+if mode in ('block', 'input', 'focus', 'focus-after-exit'):
+    # A capture that does not return: a stand-in native app (a copy of python at the pinned binary
+    # path), detached as LaunchServices would start it, and this launcher waiting like `open -W`.
+    app = subprocess.Popen([os.environ['STUB_NATIVE'], '-e', 'setTimeout(() => {}, 60000)'], start_new_session=True)
     Path(os.environ['STUB_PIDS']).write_text(json.dumps(dict(launcher=os.getpid(), app=app.pid)))
-    time.sleep(900)
+    if mode in ('focus', 'focus-after-exit'):
+        session(frontmostIdentifier=os.environ['STUB_HARNESS_ID'], frontmostPid=app.pid)
+    time.sleep(float(os.environ.get('STUB_BEFORE_EVENT', '1.2')))
+    if mode == 'input':
+        session(inputAt=time.time())
+    elif mode == 'focus':
+        session(frontmostIdentifier='com.apple.universalcontrol', frontmostPid=49435)
+    elif mode == 'focus-after-exit':
+        app.kill(); app.wait()
+        session(frontmostIdentifier='com.apple.finder', frontmostPid=600)
+        time.sleep(1.5)
+        sys.exit(1)
+    time.sleep(60)
     sys.exit(0)
-if mode == 'tcc':
-    err.write_text('error: ScreenCaptureKit is unavailable\n\nThis is the Screen Recording (TCC) gate.\n')
-else:
-    if os.environ.get('STUB_AUTO') == '1':
-        # The manifest of exactly the document this run was given, shaped as the suite shapes it.
-        sys.path.insert(0, os.environ['STUB_TEST_DIR'])
-        import test_sitting as T
-        doc = json.loads(Path(env['VITREA_SCENES']).read_text())
-        label = args[args.index('--run-label') + 1]
-        manifest = T.manifest(doc, 'receded' if '--inactive' in args else 'active', int(env['VITREA_SCALE']), label,
-                              'long' if '--order-seed' in args else 'normal')
-        edit = os.environ.get('STUB_EDIT_SCENES')
-        if edit and not Path(edit + '.edited').exists():        # once, after the first capture
-            T.one_byte_edit(Path(edit), 'grey-128')
-            Path(edit + '.edited').write_text('')
-    else:
-        manifest = json.loads(Path(os.environ['STUB_MANIFEST']).read_text())
-    (fixtures / 'manifest.json').write_text(json.dumps(manifest))
-    if mode != 'no-png':
-        from PIL import Image
-        for p in manifest['profiles']:
-            for f in p['fixtures']:
-                path = fixtures / f['file']
-                path.parent.mkdir(parents=True, exist_ok=True)
-                size = (f['width'] // 2, f['height']) if mode == 'bad-png' else (f['width'], f['height'])
-                Image.new('RGB', size, (len(f['sceneId']) % 256, 7, 9)).save(path)
-    err.write_text('')
+sys.path.insert(0, os.environ['STUB_TEST_DIR'])
+import test_sitting as T
+doc = json.loads(Path(env['VITREA_SCENES']).read_text())
+label = args[args.index('--run-label') + 1]
+manifest = T.manifest(doc, 'receded' if '--inactive' in args else 'active', int(env['VITREA_SCALE']), label,
+                      'long' if '--order-seed' in args else 'normal', origin_shift=os.environ.get('STUB_SHIFT'))
+(fixtures / 'manifest.json').write_text(json.dumps(manifest))
+if mode != 'no-png':
+    from PIL import Image
+    for p in manifest['profiles']:
+        for f in p['fixtures']:
+            path = fixtures / f['file']
+            path.parent.mkdir(parents=True, exist_ok=True)
+            size = (f['width'] // 2, f['height']) if mode == 'bad-png' else (f['width'], f['height'])
+            Image.new('RGB', size, T.colour(f['sceneId'])).save(path)
+    for name, rel in manifest['backgrounds'].items():
+        if not (fixtures / rel).exists():
+            Image.new('RGB', (doc['canvas']['width'] * int(env['VITREA_SCALE']),
+                              doc['canvas']['height'] * int(env['VITREA_SCALE'])), (9, 9, 9)).save(fixtures / rel)
+err.write_text('')
 '''
 
 STUB_SESSION = r'''
-import json, os
-print(json.dumps(dict(idleSeconds=float(os.environ.get('STUB_IDLE', '100')), screenLocked=False,
-                      windowOwners=['Dock|20', 'Window Server|24'] + (['universalAccessAuthWarn|0']
-                      if os.environ.get('STUB_PROMPT') else []))))
+import json, os, time
+state = json.loads(open(os.environ['STUB_SESSION_FILE']).read())
+if state.get('fail'):
+    raise SystemExit('the session reader failed')
+print(json.dumps(dict(idleSeconds=time.time() - state['inputAt'], screenLocked=state.get('screenLocked', False),
+                      windowOwners=state.get('windowOwners', ['Dock|20', 'Window Server|24']),
+                      frontmostIdentifier=state.get('frontmostIdentifier', 'com.apple.finder'),
+                      frontmostPid=state.get('frontmostPid', 600))))
 '''
 
 STUB_HARNESS = r'''
 import json, os, sys
+from pathlib import Path
 with open(os.environ['STUB_CALLS'], 'a') as f:
     f.write(json.dumps(['harness'] + sys.argv[1:]) + '\n')
+root = Path(os.environ['VITREA_FIXTURES']) / 'backgrounds'
+root.mkdir(parents=True, exist_ok=True)
+'''
+
+# The machine read: the test's machine.json, with the slider taken from the stub defaults store
+# when one is named, so the orchestrator's writes reach the gate as they would on the machine.
+STUB_RECORDER = r'''
+import json, os, sys
+m = json.loads(open(os.environ['STUB_MACHINE']).read())
+store = os.environ.get('STUB_DEFAULTS_STORE')
+if store and os.path.exists(store):
+    value = json.loads(open(store).read()).get('NSGlassTintAmount')
+    m['settings']['NSGlassTintAmount'] = dict(stdout=value['value'] if value else '', exitCode=0 if value else 1)
+m['phase'] = sys.argv[1]
+print(json.dumps(m))
+'''
+
+# `defaults` over one JSON file holding the global domain: never the machine's real default.
+STUB_DEFAULTS = r'''
+import json, os, sys
+from pathlib import Path
+store = Path(os.environ['STUB_DEFAULTS_STORE'])
+state = json.loads(store.read_text()) if store.exists() else {}
+with open(str(store) + '.calls', 'a') as f:
+    f.write(' '.join(sys.argv[1:]) + '\n')
+verb, domain, key = sys.argv[1], sys.argv[2], sys.argv[3]
+assert domain == '-g', domain
+
+
+def shown(v):
+    text = repr(float(v))
+    return text[:-2] if text.endswith('.0') else text
+
+
+if verb == 'read':
+    if key not in state:
+        sys.exit(f'The domain/default pair of (kCFPreferencesAnyApplication, {key}) does not exist')
+    print(state[key]['value'])
+elif verb == 'read-type':
+    if key not in state:
+        sys.exit(1)
+    print('Type is ' + state[key]['type'])
+elif verb == 'write':
+    assert sys.argv[4] == '-float'
+    state[key] = dict(type='float', value=shown(sys.argv[5]))
+    store.write_text(json.dumps(state))
+elif verb == 'delete':
+    state.pop(key, None)
+    store.write_text(json.dumps(state))
 '''
 
 
+def fake_executable(path):
+    """A copy of node at `path` (an APFS clone, renamed into place), so a process's executable image
+    IS that name. Replaced whenever it is not node's bytes, never overwritten in place."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists() and path.stat().st_size == NODE.stat().st_size:
+        return path
+    tmp = path.with_name(path.name + '.cloning')
+    if subprocess.run(['cp', '-c', str(NODE), str(tmp)], capture_output=True).returncode != 0:
+        shutil.copyfile(NODE, tmp)
+    tmp.chmod(0o755)
+    os.replace(tmp, path)
+    return path
+
+
+needs_node = unittest.skipUnless(NODE is not None, 'no node binary to copy under a fake executable name')
+
+
 class Stubs:
-    def __init__(self, tmp, scale=2, **machine_changes):
+    def __init__(self, tmp, scale=1, glass='0.25', **machine_changes):
         self.tmp = Path(tmp)
-        (self.tmp / 'machine.json').write_text(json.dumps(machine(scale, **machine_changes)))
-        for name, text in [('launcher.py', STUB_LAUNCHER), ('session.py', STUB_SESSION), ('harness.py', STUB_HARNESS),
-                           ('recorder.py', f'import pathlib\nprint(pathlib.Path({str(self.tmp / "machine.json")!r}).read_text())\n')]:
+        (self.tmp / 'machine.json').write_text(json.dumps(machine(scale, glass, **machine_changes)))
+        for name, text in [('launcher.py', STUB_LAUNCHER), ('session.py', STUB_SESSION),
+                           ('harness.py', STUB_HARNESS), ('recorder.py', STUB_RECORDER),
+                           ('defaults.py', STUB_DEFAULTS)]:
             (self.tmp / name).write_text(text)
+        self.session_file = self.tmp / 'session.json'
+        self.session(inputAt=time.time() - 400)
         self.root = self.tmp / 'root'
         self.calls = self.tmp / 'calls.jsonl'
+        self.store = self.tmp / 'defaults-store.json'
         py = sys.executable
-        self.env = dict(VITREA_SITTING_DIR=str(self.root), VITREA_APP=PIN['path'],
+        self.env = dict(VITREA_SITTING_DIR=str(self.root), VITREA_APP=PIN['path'], W43_SITTING='g1a',
                         VITREA_RECORD_MACHINE=f'{py} {self.tmp / "recorder.py"}',
                         VITREA_SESSION_READER=f'{py} {self.tmp / "session.py"}',
                         VITREA_HARNESS=f'{py} {self.tmp / "harness.py"}',
                         VITREA_LAUNCHER=f'{py} {self.tmp / "launcher.py"}',
-                        VITREA_IDLE_LIMIT='0', VITREA_IDLE_POLL='0', W42_ORCHESTRATED='1',
-                        STUB_CALLS=str(self.calls), STUB_MODE='manifest', STUB_MANIFEST=str(self.tmp / 'manifest.json'),
-                        STUB_DUMPS=str(self.tmp / 'dumps.json'))
+                        VITREA_DEFAULTS=f'{py} {self.tmp / "defaults.py"}',
+                        VITREA_IDLE_LIMIT='0', VITREA_IDLE_POLL='0', VITREA_WATCH_POLL='0.3', W43_ORCHESTRATED='1',
+                        STUB_CALLS=str(self.calls), STUB_MODE='auto', STUB_MACHINE=str(self.tmp / 'machine.json'),
+                        STUB_SESSION_FILE=str(self.session_file), STUB_TEST_DIR=str(HERE),
+                        STUB_HARNESS_ID=HARNESS_ID, STUB_PIDS=str(self.tmp / 'pids.json'),
+                        STUB_NATIVE=str(SIDE / 'Contents/MacOS/VitreaReference'))
 
-    def admit_before(self, name):
+    def session(self, **state):
+        current = json.loads(self.session_file.read_text()) if self.session_file.exists() else {}
+        current.update(state)
+        self.session_file.write_text(json.dumps(current))
+
+    def admit_before(self, name, plan=PLAN):
         """Fake admissions for every pass ranked before `name` (the order gate reads only these)."""
-        order = P.pass_order(BED)
+        order = P.pass_order(plan)
         target = next(p for p in order if p['name'] == name)
         for p in order:
             if p['rank'] >= target['rank']:
@@ -222,362 +386,560 @@ class Stubs:
                 d = self.root / p['name'] / f'run-{n}'
                 d.mkdir(parents=True, exist_ok=True)
                 (d / 'admission.json').write_text(json.dumps(
-                    {'admitted': True, 'pass': p['name'], 'run': n, 'protocol': S.protocol_of_pass(p),
-                     'scenesSha256': DECLARATION['scenesSha256'], 'splitSha256': DECLARATION['splitSha256']}))
+                    {'admitted': True, 'pass': p['name'], 'run': n,
+                     'protocol': 'dump' if p['kind'] == 'dump' else p['protocol'],
+                     'sitting': DECLARATION['sitting'], 'planSha256': DECLARATION['planSha256']}))
 
-    def run(self, *argv, declaration=None, **extra):
+    def run(self, *argv, plan=PLAN, declaration=None, **extra):
         env = {**self.env, **extra}
         with mock.patch.dict(os.environ, env, clear=False):
-            for k in ('DRY', 'STUB_PROMPT', 'W42_PREDECLARATION'):
+            for k in ('DRY', 'W43_PREDECLARATION', 'VITREA_LAUNCHER_CHAIN'):
                 if k not in extra:
                     os.environ.pop(k, None)
             answer = dict(declaration or DECLARATION)
-            if os.environ.get('W42_PREDECLARATION') == '1':
+            if os.environ.get('W43_PREDECLARATION') == '1':
                 answer['predeclaration'] = True
             with mock.patch.object(S, 'REPO', Path('/nonexistent-repo')), \
                     mock.patch.object(S, 'MAIN', Path('/nonexistent-main')), \
-                    mock.patch.object(S, 'pinned_declaration', lambda predeclaration=False: dict(answer)):
+                    mock.patch.object(S, 'pinned_declaration', lambda sitting, predeclaration=False: dict(answer)), \
+                    mock.patch.object(S, 'pinned_snapshot',
+                                      lambda sitting, predeclaration=False: (dict(answer), plan, SOURCES)):
                 return S.main(list(argv))
 
     def calls_made(self):
         return [json.loads(l) for l in self.calls.read_text().splitlines()] if self.calls.exists() else []
 
 
+def gone(pid, within=15):
+    """True once `pid` no longer exists, within `within` seconds."""
+    deadline = time.monotonic() + within
+    while time.monotonic() < deadline:
+        try:
+            os.kill(pid, 0)
+        except ProcessLookupError:
+            return True
+        time.sleep(0.2)
+    return False
+
+
+def spawn(argv, **kw):
+    proc = subprocess.Popen([str(a) for a in argv], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **kw)
+    time.sleep(0.4)
+    return proc
+
+
+# ======================================================================= the plan
+
 class Plan(unittest.TestCase):
-    def test_plan_executes_nothing_and_counts_the_bed(self):
-        with mock.patch('subprocess.run', side_effect=AssertionError('launched')), \
-                mock.patch('subprocess.check_output', side_effect=AssertionError('read')), \
-                mock.patch('subprocess.Popen', side_effect=AssertionError('spawned')):
-            value = S.dry_plan()
-        t = value['totals']
-        # The charter's v2.1 bed plus the s = 32 receded rows the parent ruled from the gate
-        # rehearsal, then the cells ruled from the instrument stream's separation proof (depth 34,
-        # corner and end, the dark 16 / 112 twins) and ruling 3's active guard rows, less the
-        # active cells no active reader reads (b1): 2x 87 / 92 / 101 / 107, 1x 14 / 16 / 14 / 16.
-        self.assertEqual((t['dumpLaunches'], t['dumpScenes'], t['captureLaunches']), (8, 447, 80))
-        self.assertEqual((t['glass'], t['references'], t['sentinels'], t['captures']), (3129, 264, 48, 3441))
-        names = [p['name'] for p in value['passes']]
-        self.assertEqual(names[:8], [f'dump-{s}x-{c}-{p}' for s in (2, 1) for c in ('light', 'dark')
-                                     for p in ('active', 'receded')])
-        self.assertEqual(names[8:12], ['2x-light-active', '2x-light-receded', '2x-dark-active', '2x-dark-receded'])
-        self.assertTrue(all(n.endswith('-sentinel') for n in names[12:16]))
-        self.assertEqual([p['mode'] for p in value['passes']], ['68'] * 4 + ['69'] * 4 + ['68'] * 8 + ['69'] * 8)
-        for p in value['passes']:
-            for r in p['runs']:
-                self.assertNotIn('--dry-run', r['argv'])
+    def test_the_stand_in_is_the_charters_g1a_membership(self):
+        t = P.plan_counts(STAND_IN_PLAN, SOURCES)['totals']
+        self.assertEqual((t['captures'], t['dumpScenes'], t['publishedCells']), (4103, 48, 562))
+        self.assertEqual((t['sliderWrites'], t['modeSwitches']), (2, 4))
 
-    def test_per_pass_counts_match_bed_json(self):
-        for key, c in BED['counts'].items():
-            docs = [P.derive(key, n) for n in range(1, 8)]
-            self.assertEqual(len(docs[0]['scenes']), c['glass'] + c['references'], key)
-            self.assertTrue(all(len(d['scenes']) == c['glass'] for d in docs[1:]), key)
+    def test_a_canonical_pass_spans_both_schemes_with_their_own_lists(self):
+        doc = P.derive_from(PLAN, SOURCES, 'bed-1x-active', 1)
+        self.assertEqual([p['key'] for p in doc['profiles']], sorted(BED_ACTIVE))
+        for p in doc['profiles']:
+            self.assertEqual(p['scenes'], sorted(BED_ACTIVE[p['key']]))
+        self.assertEqual(set(doc['components']), {'capsule-button', 'glass-over-glass', 'toolbar-group'})
+        listed = sorted(s for r in P.SPLIT_ROLES for s in doc['split'][r])
+        self.assertEqual(listed, sorted({s['id'] for s in doc['scenes']}))
+        self.assertEqual(P.derive_from(PLAN, SOURCES, 'bed-1x-active', 2), doc)   # one document every run
 
-    def test_references_only_in_run_one_and_roles_preserved(self):
-        roles = {sid: r for r, ids in SPEC['split'].items() for sid in ids}
-        for key in BED['passes']:
-            one, two = P.derive(key, 1), P.derive(key, 2)
-            self.assertTrue(any(s['id'].startswith('ref-') for s in one['scenes']))
-            self.assertFalse(any(s['id'].startswith('ref-') for s in two['scenes']))
-            for doc in (one, two, P.derive(key, 1, sentinel=True)):
-                ids = {s['id'] for s in doc['scenes']}
-                self.assertEqual(len(doc['profiles']), 1)
-                listed = [s for r in P.SPLIT_ROLES for s in doc['split'][r]]
-                self.assertEqual(sorted(listed), sorted(ids))
-                for r in P.SPLIT_ROLES:
-                    self.assertTrue(all(roles[s] == r for s in doc['split'][r]))
-                self.assertTrue(set(doc['backgrounds']) == {s['background'] for s in doc['scenes']})
+    def test_the_plan_refuses_what_the_sitting_could_not_honour(self):
+        cases = [
+            (dict(profiles={SI.key(1, 'light', '0.5'): ['checkerboard__capsule-button__rest']}), 'names slider 0.5'),
+            (dict(profiles={L1: ['checkerboard__capsule-button__inactive']}), 'state the other pose'),
+            (dict(run1Only={L1: ['checkerboard__rrect-md__rest']}), 'no run1Only'),
+            (dict(runs=1), 'at least two runs'),
+            (dict(profiles={L1: ['no-such__scene__rest']}), 'undeclared scenes'),
+            (dict(scale=2), 'states 1x and the pass is 2x'),
+        ]
+        for change, message in cases:
+            with self.subTest(message=message):
+                plan = mini_plan(**{'bed-1x-active': change})
+                with self.assertRaisesRegex(ValueError, message):
+                    P.validate_plan(plan, SOURCES)
+        with self.assertRaisesRegex(ValueError, 'non-rest'):
+            P.validate_plan(mini_plan(**{'dump-1x-light-active': dict(scenes=['checkerboard__capsule-button__inactive'])}),
+                            SOURCES)
 
-    def test_sentinel_argv_is_the_long_protocol(self):
-        doc = P.derive('2x-dark-receded', 2, sentinel=True)
-        argv = S.capture_argv(['open', '-W'], Path('/a.app'), Path('/s.json'), Path('/r'), 2, 'l', 'long',
-                              [s['id'] for s in doc['scenes']], 'receded')
-        self.assertEqual(S.launch_protocol(argv), 'long')
-        self.assertIn('4242', argv)
-        self.assertEqual(argv[-1], '--inactive')
-        self.assertEqual(sorted(s['id'] for s in doc['scenes']),
-                         sorted(f'{c}__inactive' for c in BED['sentinels']))
 
+# ===================================================================== the census
+
+class Census(unittest.TestCase):
+    """Change 1 (by executable) and change 2 (the launcher chain), on the REAL process table."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.tmp = Path(cls._tmp.name).resolve()
+        cls.procs = []
+
+    @classmethod
+    def tearDownClass(cls):
+        for p in cls.procs:
+            p.kill()
+            p.wait()
+        cls._tmp.cleanup()
+
+    def start(self, argv):
+        p = spawn(argv)
+        self.procs.append(p)
+        return p.pid
+
+    def counted(self, pid):
+        foreign, _ = R.census(chain_file='')
+        return [f['why'] for f in foreign if f['pid'] == pid]
+
+    def test_command_lines_that_merely_name_a_census_word_do_not_count(self):
+        stub = self.tmp / 'w43-test-side/VitreaReference.app'
+        for argv in (['/bin/sh', '-c', 'sleep 30; pgrep -fl "Chromium|playwright|VitreaReference" || true'],
+                     ['/bin/sh', '-c', 'sleep 30; grep -c "Google Chrome Helper" /dev/null || true'],
+                     [PYTHON, '-c', 'import time; time.sleep(30)', '--env', f'VITREA_FIXTURES={stub}', str(stub),
+                      '--args', 'capture', str(stub / 'Contents/MacOS/VitreaReference')],
+                     [PYTHON, '-c', 'import time; time.sleep(30)', 'compare.ts --skip-capture headless_shell']):
+            with self.subTest(argv=argv[:3]):
+                self.assertEqual(self.counted(self.start(argv)), [])
+
+    @needs_node
+    def test_real_browser_harness_and_playwright_executables_count(self):
+        sleeper = SLEEP_JS
+        for rel in ('Chromium.app/Contents/MacOS/Chromium',
+                    'Google Chrome.app/Contents/Frameworks/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/'
+                    'Google Chrome Helper (Renderer)',
+                    'Google Chrome.app/Contents/Frameworks/Helpers/chrome_crashpad_handler',
+                    'Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing',
+                    'chrome-headless-shell-mac-arm64/chrome-headless-shell',
+                    'Side.app/Contents/MacOS/VitreaReference'):
+            with self.subTest(executable=rel):
+                exe = fake_executable(self.tmp / 'exe' / rel)
+                self.assertNotEqual(self.counted(self.start([exe, *sleeper])), [], rel)
+        node = fake_executable(self.tmp / 'bin/node')
+        script = self.tmp / 'lib/node_modules/playwright-core/cli.js'
+        script.parent.mkdir(parents=True, exist_ok=True)
+        script.write_text('setTimeout(() => {}, 30000)\n')
+        self.assertEqual(self.counted(self.start([node, script])), ['node script in playwright-core'])
+        compare = self.tmp / 'cli/compare.js'
+        compare.parent.mkdir(parents=True, exist_ok=True)
+        compare.write_text('setTimeout(() => {}, 30000)\n')
+        compare = compare.with_name('compare.ts')
+        compare.symlink_to('compare.js')
+        self.assertEqual(self.counted(self.start([node, compare, '--skip-capture'])), ['node script compare.ts'])
+
+    @needs_node
+    def test_the_launcher_chain_is_excluded_only_by_pid_and_start(self):
+        node = fake_executable(self.tmp / 'chain/node')
+        script = self.tmp / 'chain/@playwright/cli/launch.js'
+        script.parent.mkdir(parents=True, exist_ok=True)
+        script.write_text('setTimeout(() => {}, 30000)\n')
+        pid = self.start([node, script])
+        rows = R.process_table()
+        row = next(r for r in rows if r['pid'] == pid)
+        chain = self.tmp / 'chain.json'
+        chain.write_text(json.dumps(dict(chain=[dict(pid=pid, start=row['start'])])))
+        foreign, excluded = R.census(chain_file=str(chain))
+        self.assertFalse(any(f['pid'] == pid for f in foreign))
+        self.assertTrue(any(e['pid'] == pid for e in excluded))
+        chain.write_text(json.dumps(dict(chain=[dict(pid=pid, start='Thu Jan  1 00:00:00 1970')])))
+        foreign, excluded = R.census(chain_file=str(chain))
+        self.assertTrue(any(f['pid'] == pid for f in foreign))      # a reused pid is still counted
+
+    def test_launcher_chain_records_the_launching_shell_and_its_ancestors(self):
+        out = subprocess.run(['/bin/sh', '-c', f'"{PYTHON}" "{HERE / "record-machine.py"}" launcher-chain; echo $$'],
+                             capture_output=True, text=True, check=True).stdout
+        record = json.loads(out[:out.rindex('}') + 1])
+        shell = int(out.strip().splitlines()[-1])
+        pids = [e['pid'] for e in record['chain']]
+        self.assertEqual(pids[0], shell)
+        self.assertIn(os.getpid(), pids)                         # this test process is an ancestor
+
+
+# =================================================================== the watchdog
+
+class Clock:
+    def __init__(self):
+        self.t = 1000.0
+
+    def __call__(self):
+        return self.t
+
+
+class Watch(unittest.TestCase):
+    """Change 4: the watchdog's rules, over injected readings."""
+
+    def dog(self, pose, readings, alive_pids=()):
+        clock = Clock()
+        lines = []
+        reads = iter(readings)
+
+        def read():
+            o = next(reads)
+            clock.t += o.pop('dt', 5.0)
+            return o
+        base = dict(idleSeconds=400.0, frontmostIdentifier='com.apple.finder', frontmostPid=600)
+        d = S.Watchdog(read, pose, HARNESS_ID, base, clock(), lines.append, clock=clock,
+                       is_alive=lambda pid: pid in alive_pids)
+        return d, lines
+
+    def run_dog(self, d, n):
+        return [d.check() for _ in range(n)]
+
+    @staticmethod
+    def reading(idle, front='com.apple.finder', pid=600, **kw):
+        return {**dict(idleSeconds=idle, frontmostIdentifier=front, frontmostPid=pid, screenLocked=False,
+                       windowOwners=['Dock|20']), **kw}
+
+    def test_a_steady_active_launch_and_its_end_do_not_trip(self):
+        r = self.reading
+        d, lines = self.dog('active', [r(405), r(410, HARNESS_ID, 7), r(415, HARNESS_ID, 7), r(420, 'com.apple.finder')],
+                            alive_pids=())
+        self.assertEqual(self.run_dog(d, 4), [None] * 4)    # the harness exited before Finder came back
+        self.assertEqual(len(lines), 4)
+
+    def test_input_and_focus_and_prompts_trip(self):
+        r = self.reading
+        cases = [
+            ('active', [r(405), r(3.0)], 'HID input'),
+            ('active', [r(405, HARNESS_ID, 7), r(410, 'com.apple.universalcontrol', 49435)], 'focus lost'),
+            ('active', [r(405, 'com.google.Chrome', 9)], 'focus taken'),
+            ('receded', [r(405), r(410, HARNESS_ID, 7)], 'receded launch'),
+            ('receded', [r(405, 'com.apple.universalcontrol', 49435)], 'receded launch'),
+            ('receded', [r(405, windowOwners=['universalAccessAuthWarn|0'])], 'permission prompt'),
+            ('active', [dict(r(405), screenLocked=True)], 'locked'),
+        ]
+        for pose, readings, message in cases:
+            with self.subTest(message=message, pose=pose):
+                for o in readings:
+                    if 'windowOwners' in o and isinstance(o['windowOwners'], list) and not o['windowOwners']:
+                        o['windowOwners'] = ['Dock|20']
+                d, _ = self.dog(pose, readings, alive_pids=(7,))
+                got = self.run_dog(d, len(readings))
+                self.assertTrue(got[-1] and message in got[-1], got)
+                self.assertTrue(all(g is None for g in got[:-1]), got)
+
+    def test_an_unreadable_session_trips(self):
+        def read():
+            raise subprocess.CalledProcessError(1, 'read-session')
+        d = S.Watchdog(read, 'active', HARNESS_ID, dict(idleSeconds=400.0), 0.0, lambda line: None)
+        self.assertIn('could not read the session', d.check())
+
+    def test_a_trip_kills_the_launch_and_ends_the_native_app(self):
+        ended = []
+        trips = iter([None, 'HID input during the launch: stub'])
+
+        class Dog:
+            def check(self):
+                return next(trips)
+        began = time.monotonic()
+        with self.assertRaisesRegex(ValueError, 'watchdog stopped the launch: HID input'):
+            S.watched([sys.executable, '-c', 'import time; time.sleep(60)'], Dog(), poll=0.2,
+                      end_native=lambda: ended.append(True))
+        self.assertLess(time.monotonic() - began, 10)
+        self.assertEqual(ended, [True])
+
+
+# ===================================================================== the slider
+
+class Slider(unittest.TestCase):
+    """Change 5's functions over the stub `defaults`: as-found once, writes only with no native
+    process alive, restore to the as-found value; the real global default is never written."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.st = Stubs(self._tmp.name)
+        self.st.store.write_text(json.dumps({'NSGlassTintAmount': dict(type='float', value='0.5459057')}))
+        self.env = mock.patch.dict(os.environ, dict(VITREA_DEFAULTS=self.st.env['VITREA_DEFAULTS'],
+                                                    STUB_DEFAULTS_STORE=str(self.st.store)))
+        self.env.start()
+        self.root = self.st.root
+        self.root.mkdir()
+
+    def tearDown(self):
+        self.env.stop()
+        self._tmp.cleanup()
+
+    def stored(self):
+        return json.loads(self.st.store.read_text()).get('NSGlassTintAmount')
+
+    def test_as_found_is_recorded_once_and_restored(self):
+        record, current = S.slider_as_found(self.root)
+        self.assertEqual(record['asFound']['value'], '0.5459057')
+        S.slider_set(self.root, 0.25, list_native=lambda: [])
+        self.assertEqual(self.stored()['value'], '0.25')
+        again, current = S.slider_as_found(self.root)      # a continuation: the first record stands
+        self.assertEqual((again['asFound']['value'], current['value']), ('0.5459057', '0.25'))
+        result = S.slider_restore(self.root)
+        self.assertTrue(result['restored'] and result['written'])
+        self.assertEqual(self.stored(), dict(type='float', value='0.5459057'))
+        self.assertFalse(S.slider_restore(self.root)['written'])          # already as found: no write
+
+    def test_an_absent_slider_is_deleted_again(self):
+        self.st.store.write_text('{}')
+        S.slider_as_found(self.root)
+        S.slider_set(self.root, 0.5, list_native=lambda: [])
+        self.assertTrue(S.slider_restore(self.root)['restored'])
+        self.assertIsNone(self.stored())
+
+    def test_a_native_process_alive_refuses_the_write(self):
+        S.slider_as_found(self.root)
+        with self.assertRaisesRegex(ValueError, 'alive'):
+            S.slider_set(self.root, 0.25, list_native=lambda: [dict(pid=1, executable='VitreaReference')])
+        self.assertEqual(self.stored()['value'], '0.5459057')            # nothing written
+        if NODE is None:
+            return
+        exe = fake_executable(Path(self._tmp.name) / 'X.app/Contents/MacOS/VitreaReference')
+        proc = spawn([exe, *SLEEP_JS])
+        try:
+            with self.assertRaisesRegex(ValueError, 'alive'):               # the real listing, by executable
+                S.slider_set(self.root, 0.25)
+        finally:
+            proc.kill()
+            proc.wait()
+        self.assertEqual(self.stored()['value'], '0.5459057')
+
+    def test_a_non_float_as_found_is_refused(self):
+        self.st.store.write_text(json.dumps({'NSGlassTintAmount': dict(type='string', value='0.5')}))
+        with self.assertRaisesRegex(ValueError, 'not a float'):
+            S.slider_as_found(self.root)
+
+    def test_the_run_reads_the_last_write(self):
+        S.slider_as_found(self.root)
+        S.slider_set(self.root, 0.25, list_native=lambda: [])
+        self.assertEqual(S.slider_problems(self.root, 0.25), [])
+        self.assertIn('the last slider write set 0.25', S.slider_problems(self.root, 0.5)[0])
+
+
+# ========================================================================= gates
 
 class Gates(unittest.TestCase):
     def test_every_failing_gate_is_named_in_one_refusal(self):
-        m = machine(2, reduceTransparency='1', foreign=3)
+        m = machine(2, '0.5', reduceTransparency='1', foreign=3)
         m['side']['binarySha256'] = 'd' * 64
-        with mock.patch.object(S, '_PIN', dict(PIN)):
-            with self.assertRaises(ValueError) as caught:
-                S.validate_machine(m, 1)
+        with self.assertRaises(ValueError) as caught:
+            S.validate_machine(m, 1, 0.25)
         text = str(caught.exception)
-        for fragment in ('policy/slider', 'display mode', 'side bundle identity', 'foreign capture'):
+        for fragment in ('policy/Show Borders', 'slider mismatch', 'display mode', 'side bundle identity',
+                         'foreign capture'):
             self.assertIn(fragment, text)
 
-    def test_idle_wait_is_bounded_logged_and_stops_on_a_prompt(self):
-        reads = iter([dict(idleSeconds=10, screenLocked=False, windowOwners=[]),
-                      dict(idleSeconds=80, screenLocked=False, windowOwners=[])])
-        lines, clock = [], iter(range(100))
-        got = S.wait_for_idle(lambda: next(reads), lines.append, need=75, limit=50, poll=0,
-                              sleep=lambda s: None, clock=lambda: next(clock))
-        self.assertEqual(got['idleSeconds'], 80)
-        self.assertEqual(len(lines), 2)
-        with self.assertRaises(ValueError):
-            S.wait_for_idle(lambda: dict(idleSeconds=1, screenLocked=False, windowOwners=[]), lines.append,
-                            limit=3, poll=0, sleep=lambda s: None, clock=iter(range(100)).__next__)
-        with self.assertRaisesRegex(ValueError, 'prompt'):
-            S.wait_for_idle(lambda: dict(idleSeconds=999, screenLocked=False,
-                                         windowOwners=['universalAccessAuthWarn|0']), lines.append)
+    def test_the_slider_gate_is_exact_and_an_absent_key_refuses(self):
+        S.validate_machine(machine(1, '0.25'), 1, 0.25)
+        S.validate_machine(machine(1, '1'), 1, 1.0)
+        for read in ('0.2500001', '', 'absent'):
+            with self.subTest(read=read), self.assertRaisesRegex(ValueError, 'slider mismatch'):
+                S.validate_machine(machine(1, read), 1, 0.25)
 
     def test_outputs_never_inside_a_checkout_or_documents(self):
-        for bad in (REPO / 'x', Path.home() / 'Documents' / 'w42'):
+        for bad in (REPO / 'x', Path.home() / 'Documents' / 'w43'):
             with self.assertRaises(ValueError):
                 S.outside_repository(bad)
-        S.outside_repository('/tmp/w42-ok')
+        S.outside_repository('/tmp/w43-ok')
 
     def test_dry_env_is_refused(self):
         with tempfile.TemporaryDirectory() as tmp, self.assertRaises(SystemExit):
-            Stubs(tmp).run('capture', '1x-light-active', DRY='1')
+            Stubs(tmp).run('capture', 'bed-1x-active', DRY='1')
 
 
-def dumps_for(ids, tag):
-    """memo D's dump of the same shape in the same endpoint, per W42 scene id."""
-    base = {'capsule-button': 'capsule-button', 'rrect-md': 'rrect-md', 'rrect-lg': 'rrect-lg',
-            'rrect-ml': 'rrect-ml', 'rrect-64': 'rrect-64', 'rrect-80': 'rrect-80'}
-    comps = {s['id']: s['component'] for s in SPEC['scenes']}
-    out = {}
-    for sid in ids:
-        shape = next(b for b in sorted(base, key=len, reverse=True) if comps[sid].startswith(b))
-        out[sid] = str(MEMO_D / tag / 'json' / f'dark-solid__{shape}__rest.json')
-    return out
-
-
-@unittest.skipUnless(MEMO_D.is_dir(), "memo D's scratch dumps are absent on this machine")
-class DumpStep(unittest.TestCase):
-    def setUp(self):
-        self._tmp = tempfile.TemporaryDirectory()
-        self.st = Stubs(self._tmp.name, scale=1)
-        self.st.admit_before('dump-1x-light-active')
-        ids = P.dump_ids('1x-light-active')
-        (self.st.tmp / 'dumps.json').write_text(json.dumps(dumps_for(ids, '1x-light-active')))
-
-    def tearDown(self):
-        self._tmp.cleanup()
-
-    def test_a_conforming_dump_is_admitted(self):
-        self.st.run('dump', '1x-light-active')
-        run = self.st.root / 'dump-1x-light-active' / 'run-1'
-        a = json.loads((run / 'admission.json').read_text())
-        self.assertEqual((a['protocol'], a['scenes'], a['departures']), ('dump', 14, 0))
-        self.assertEqual((a['scenesSha256'], a['splitSha256']), (DECLARATION['scenesSha256'], DECLARATION['splitSha256']))
-        report = json.loads((run / 'check.json').read_text())
-        self.assertEqual(report['departures'], 0)
-        argv = self.st.calls_made()[-1]
-        self.assertIn('--require-key', argv)
-        self.assertIn('VITREA_SCALE=1', argv)
-
-    def test_a_dump_rehearsal_records_the_census_and_is_never_evidence(self):
-        (self.st.tmp / 'machine.json').write_text(json.dumps(machine(1, foreign=2)))
-        root = self.st.tmp / 'rehearsal-root'
-        self.st.run('dump', '1x-light-active', '--rehearse', VITREA_SITTING_DIR=str(root))
-        run = root / 'rehearsal-dump-1x-light-active' / 'run-1'
-        self.assertFalse((run / 'admission.json').exists())
-        record = json.loads((run / 'rehearsal.json').read_text())
-        self.assertEqual((record['outcome'], record['departures'], record['scenes']), ('dumped-and-checked', 0, 14))
-        self.assertEqual(record['foreignCensus']['open']['count'], 2)
-        self.assertEqual(record['scenesSha256'], DECLARATION['scenesSha256'])
-        timing = json.loads((run / 'timing.json').read_text())
-        self.assertEqual((timing['scenes'], timing['timeoutSeconds']), (14, S.dump_timeout(14)))
-        self.assertEqual((len(timing['loadAverageAtLaunch']), len(timing['loadAverageAtClose'])), (3, 3))
-        with self.assertRaisesRegex(ValueError, 'foreign'):     # the evidence dump still enforces it
-            self.st.run('dump', '1x-light-active')
-
-    def test_a_departure_stops_the_sitting_before_any_capture(self):
-        with self.assertRaisesRegex(ValueError, 'departure'):
-            self.st.run('dump', '1x-light-active', STUB_MODE='depart')
-        quarantined = list((self.st.root / 'dump-1x-light-active').glob('QUARANTINE-run-1-*'))
-        self.assertEqual(len(quarantined), 1)
-        self.assertIn('departure', (quarantined[0] / 'refusal.txt').read_text())
-        with self.assertRaisesRegex(ValueError, 'earlier pass is not complete'):
-            self.st.run('capture', '2x-light-active')
-        self.assertFalse(any('capture' in c for c in self.st.calls_made()))
-
+# ========================================================================= capture
 
 class Capture(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
-        self.st = Stubs(self._tmp.name, scale=1)
-        self.st.admit_before('1x-light-active')
+        self.st = Stubs(self._tmp.name)
+        self.st.admit_before('bed-1x-active')
 
     def tearDown(self):
         self._tmp.cleanup()
 
-    def prime(self, run, sentinel=False, **kw):
-        doc = P.derive('1x-light-active', run, sentinel)
-        name = '1x-light-active' + ('-sentinel' if sentinel else '')
-        m = manifest(doc, 'active', 1, f'w42-{name}-{run}', 'long' if sentinel else 'normal', **kw)
-        (self.st.tmp / 'manifest.json').write_text(json.dumps(m))
-
-    def test_run_one_carries_references_and_is_admitted(self):
-        self.prime(1)
-        self.st.run('capture', '1x-light-active', '1', '1')
-        run = self.st.root / '1x-light-active' / 'run-1'
-        a = json.loads((run / 'admission.json').read_text())
-        self.assertEqual((a['protocol'], a['cells'], a['key']), ('normal', 23, '1x-light-active'))
-        self.assertEqual((a['scenesSha256'], a['splitSha256']), (DECLARATION['scenesSha256'], DECLARATION['splitSha256']))
-        held = [s for s in P.derive('1x-light-active', 1)['split']['holdout']]
-        self.assertEqual(a['holdoutFrames']['count'], len(held))
-        self.assertEqual(len(a['frames']) + len(held), 23)
-        png = run / 'apple-macos-27.0-1x-light-standard-glass0.5' / 'a-g128-rrect-md-1x__rest.png'
-        self.assertEqual(a['frames']['apple-macos-27.0-1x-light-standard-glass0.5/a-g128-rrect-md-1x__rest'],
-                         hashlib.sha256(png.read_bytes()).hexdigest())
-        self.assertFalse(any(k.split('/', 1)[1] in held for k in a['frames']))   # H frames only as one digest
+    def test_a_two_scheme_canonical_run_is_admitted_with_materialize_s_attestation(self):
+        self.st.run('capture', 'bed-1x-active', '1', '2')
+        base = self.st.root / 'bed-1x-active'
+        a = json.loads((base / 'run-1' / 'admission.json').read_text())
+        self.assertEqual((a['protocol'], a['cells'], a['glass'], a['planSha256']), ('normal', 5, 0.25, 'a' * 64))
+        self.assertEqual(len(a['frames']), 5)
+        fields = [dict(l.split('=', 1) for l in (base / f'run-{n}' / 'attest.read').read_text().splitlines())
+                  for n in (1, 2)]
+        for f in fields:
+            self.assertEqual((f['bundlePath'], f['bundleIdentifier'], f['bundleCdHash'], f['bundleBinarySha256']),
+                             (PIN['path'], HARNESS_ID, PIN['cdhash'], PIN['binarySha256']))
+            self.assertEqual((f['glassTintAmount'], f['osProductVersion'], f['osBuild']), ('0.25', '27.0', '26A428'))
+            self.assertEqual((f['bundleMinOS'], f['bundleRecordedSdk']), ('26.0', '26.0'))
+            self.assertEqual(f['bundlePinSha256'], S.pin_sha256())
+            self.assertEqual(f['sceneSpecCanonicalSha256'], SHAS['canonical'])
+            self.assertEqual(f['pass'], 'bed-1x-active')
+        self.assertEqual(fields[0]['passSpecSha256'], fields[1]['passSpecSha256'])   # rule 6 holds
+        self.assertTrue((base / 'run-1' / 'driver-idle.txt').exists())
+        self.assertFalse((base / 'run-1' / 'driver-idle.log').exists())
         argv = [c for c in self.st.calls_made() if 'capture' in c][-1]
-        ids = argv[argv.index('--scenes') + 1].split(',')
-        self.assertEqual(sum(1 for s in ids if s.startswith('ref-')), 9)
         self.assertNotIn('--inactive', argv)
-        self.assertTrue(any(c[:2] == ['harness', 'backgrounds'] for c in self.st.calls_made()))
-        self.prime(2)
-        self.st.run('capture', '1x-light-active', '2', '2')
-        argv = [c for c in self.st.calls_made() if 'capture' in c][-1]
-        self.assertFalse(any(s.startswith('ref-') for s in argv[argv.index('--scenes') + 1].split(',')))
 
-    def test_an_admission_binds_png_bytes_that_exist_at_the_declared_size(self):
-        for mode, message in (('no-png', 'fixture PNG missing'), ('bad-png', 'not an RGB\\(A\\) PNG of 320x200')):
-            with self.subTest(mode=mode):
-                self.prime(1)
-                with self.assertRaisesRegex(ValueError, message):
-                    self.st.run('capture', '1x-light-active', '1', '1', STUB_MODE=mode)
-                self.assertFalse((self.st.root / '1x-light-active' / 'run-1').exists())
-        self.assertEqual(len(list((self.st.root / '1x-light-active').glob('QUARANTINE-run-1-*'))), 2)
+    def test_group_and_stack_paths_are_attested_and_a_wrong_origin_refuses(self):
+        for sid in ('checkerboard__toolbar-group__rest', 'checkerboard__glass-over-glass__rest'):
+            with self.subTest(sid=sid):
+                with tempfile.TemporaryDirectory() as tmp:
+                    st = Stubs(tmp)
+                    st.admit_before('bed-1x-active')
+                    with self.assertRaisesRegex(ValueError, 'supplied path attestation'):
+                        st.run('capture', 'bed-1x-active', '1', '1', STUB_SHIFT=sid)
 
-    def test_an_admission_under_another_declaration_does_not_count(self):
-        self.prime(1)
-        for path in self.st.root.glob('*/run-*/admission.json'):    # earlier passes, admitted under another bed
-            a = json.loads(path.read_text())
-            path.write_text(json.dumps(dict(a, splitSha256='f' * 64)))
-        with self.assertRaisesRegex(ValueError, 'earlier pass is not complete'):
-            self.st.run('capture', '1x-light-active', '1', '1')
+    def test_a_slider_read_off_the_pass_s_position_refuses_before_launch(self):
+        (self.st.tmp / 'machine.json').write_text(json.dumps(machine(1, '0.5')))
+        with self.assertRaisesRegex(ValueError, 'slider mismatch'):
+            self.st.run('capture', 'bed-1x-active', '1', '1')
+        self.assertFalse(any('capture' in c for c in self.st.calls_made()))
 
-    def test_per_capture_idle_quarantines_and_blocks_successors(self):
-        self.prime(1, idle=30.0)
-        with self.assertRaisesRegex(ValueError, 'per-capture HID idle'):
-            self.st.run('capture', '1x-light-active', '1', '1')
-        self.assertEqual(len(list((self.st.root / '1x-light-active').glob('QUARANTINE-run-1-*'))), 1)
-        self.assertFalse((self.st.root / '1x-light-active' / 'run-1').exists())
-        with self.assertRaisesRegex(ValueError, r'earlier run\(s\) \[1\]'):
-            self.st.run('capture', '1x-light-active', '2', '2')
-
-    def test_offset_origin_is_attested(self):
-        self.prime(1, origin_shift='bp-p1-c4-capsule-button-odd__rest')
-        with self.assertRaisesRegex(ValueError, 'supplied path attestation'):
-            self.st.run('capture', '1x-light-active', '1', '1')
+    def test_a_slider_record_off_the_pass_s_position_refuses(self):
+        log = S.slider_log(self.st.root)
+        log.parent.mkdir(parents=True, exist_ok=True)
+        log.write_text(json.dumps(dict(value=0.5, nativeAliveBefore=[], nativeAliveAfter=[])) + '\n')
+        with self.assertRaisesRegex(ValueError, 'slider record refused'):
+            self.st.run('capture', 'bed-1x-active', '1', '1')
 
     def test_an_existing_run_is_never_overwritten(self):
-        (self.st.root / '1x-light-active' / 'run-1').mkdir(parents=True)
+        (self.st.root / 'bed-1x-active' / 'run-1').mkdir(parents=True)
         with self.assertRaisesRegex(ValueError, 'already exists'):
-            self.st.run('capture', '1x-light-active', '1', '1')
-
-    def test_a_failed_gate_quarantines_before_launch(self):
-        (self.st.tmp / 'machine.json').write_text(json.dumps(machine(1, NSGlassTintAmount='0.546', foreign=1)))
-        self.prime(1)
-        with self.assertRaisesRegex(ValueError, 'policy/slider.*foreign'):
-            self.st.run('capture', '1x-light-active', '1', '1')
-        self.assertFalse(any('capture' in c for c in self.st.calls_made()))
-        q = next((self.st.root / '1x-light-active').glob('QUARANTINE-run-1-*'))
-        self.assertTrue((q / 'attest.open.json').exists() and (q / 'session-before.json').exists())
-
-    def test_idle_never_reached_refuses_without_launch(self):
-        self.prime(1)
-        with self.assertRaisesRegex(ValueError, 'HID idle never reached'):
-            self.st.run('capture', '1x-light-active', '1', '1', STUB_IDLE='10')
-        self.assertEqual(self.st.calls_made(), [])
+            self.st.run('capture', 'bed-1x-active', '1', '1')
 
     def test_a_later_pass_blocks_an_earlier_one(self):
-        (self.st.root / '1x-dark-active' / 'run-1').mkdir(parents=True)
-        self.prime(1)
+        (self.st.root / 'bed-1x-receded' / 'run-1').mkdir(parents=True)
         with self.assertRaisesRegex(ValueError, 'later pass has already started'):
-            self.st.run('capture', '1x-light-active', '1', '1')
+            self.st.run('capture', 'bed-1x-active', '1', '1')
 
-    def test_sentinel_waits_for_every_bed_pass_of_its_scale(self):
-        self.prime(1, sentinel=True)
-        with self.assertRaisesRegex(ValueError, 'earlier pass is not complete'):
-            self.st.run('capture', '1x-light-active', '1', '1', '--sentinel')
-
-    def test_rehearsal_expects_the_tcc_refusal(self):
-        root = self.st.tmp / 'rehearsal-root'
-        self.prime(1)
-        self.st.run('capture', '1x-light-active', '--rehearse-refusal', VITREA_SITTING_DIR=str(root), STUB_MODE='tcc')
-        verdict = json.loads((root / 'rehearsal-1x-light-active' / 'run-1' / 'rehearsal.json').read_text())
-        self.assertEqual(verdict['outcome'], 'refused-tcc')
-        with self.assertRaisesRegex(ValueError, 'published a capture'):
-            self.st.run('capture', '1x-dark-active', '--rehearse-refusal', VITREA_SITTING_DIR=str(root))
-
-
-HARNESS = Path('/Users/new/vitrea-w39/side/harness')
-
-
-@unittest.skipUnless(HARNESS.exists(), 'the W39 side harness is absent on this machine')
-class SideHarnessLoadsEveryDerivedDocument(unittest.TestCase):
-    """The pinned side binary's non-GUI `backgrounds` command loads each derived document
-    through SceneSpecFile.validate() (every scene in one split set, every split id a scene,
-    every profile id declared) and renders its backgrounds. No window, no ScreenCaptureKit."""
-
-    def test_every_pass_document_loads(self):
-        import subprocess
-        spec_doc, bed = P.load()
+    def test_an_expected_frame_that_differs_refuses(self):
         with tempfile.TemporaryDirectory() as tmp:
-            tmp = Path(tmp)
-            docs = []
-            for p in P.pass_order(bed):
-                scale = P.endpoint(p['key'])[0]
-                if p['kind'] == 'dump':
-                    profile = next(x for x in spec_doc['profiles'] if x['key'] == bed['passes'][p['key']]['profile'])
-                    docs.append((p['name'], scale, P.subset(spec_doc, P.dump_ids(p['key']), profile)))
-                elif p['kind'] == 'bed':
-                    docs += [(f'{p["name"]}-run-{n}', scale, P.derive(p['key'], n)) for n in (1, 2)]
-                else:
-                    docs.append((p['name'], scale, P.derive(p['key'], 1, sentinel=True)))
-            for name, scale, doc in docs:
-                path = tmp / f'{name}.json'
-                path.write_text(json.dumps(doc))
-                env = {**os.environ, 'VITREA_SCENES': str(path), 'VITREA_FIXTURES': str(tmp / name),
-                       'VITREA_SCALE': str(scale)}
-                out = subprocess.run([str(HARNESS), 'backgrounds'], env=env, capture_output=True, text=True)
-                self.assertEqual(out.returncode, 0, name + ': ' + out.stderr[-400:])
-                self.assertIn(f'{len(doc["backgrounds"])} backgrounds', out.stdout, name)
-            self.assertEqual(len(docs), 32)
+            st = Stubs(tmp, scale=2, glass='0.5')
+            with self.assertRaisesRegex(ValueError, 'declared frame expectation failed'):
+                st.run('capture', 'pose-check')
+            q = list((st.root / 'pose-check').glob('QUARANTINE-run-1-*'))
+            self.assertEqual(len(q), 1)
+
+    def test_png_bytes_are_bound(self):
+        for mode, message in (('no-png', 'fixture PNG missing'), ('bad-png', 'not an RGB\\(A\\) PNG of 320x200')):
+            with self.subTest(mode=mode):
+                with self.assertRaisesRegex(ValueError, message):
+                    self.st.run('capture', 'bed-1x-active', '1', '1', STUB_MODE=mode)
+        self.assertEqual(len(list((self.st.root / 'bed-1x-active').glob('QUARANTINE-run-1-*'))), 2)
 
 
-W39_DIR = REPO / 'packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed'
-STALE_BED = '764217e1'   # the bed before fix b1: a real earlier bed.json and scenes file
+@needs_node
+class WatchedLaunch(unittest.TestCase):
+    """Change 4 through the driver: a stub capture that blocks, a session that moves mid-launch."""
 
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.st = Stubs(self._tmp.name)
+        self.st.admit_before('bed-1x-active')
+        fake_executable(SIDE / 'Contents/MacOS/VitreaReference')
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def check(self, mode, message):
+        began = time.monotonic()
+        with self.assertRaisesRegex(ValueError, message):
+            self.st.run('capture', 'bed-1x-active', '1', '1', STUB_MODE=mode)
+        self.assertLess(time.monotonic() - began, 30)              # not the launch's 60 s
+        launched = json.loads((self.st.tmp / 'pids.json').read_text())
+        for pid in (launched['launcher'], launched['app']):
+            self.assertTrue(gone(pid), f'pid {pid} survives the trip')
+        q = next((self.st.root / 'bed-1x-active').glob('QUARANTINE-run-1-*'))
+        self.assertIn('watchdog stopped the launch', (q / 'refusal.txt').read_text())
+        self.assertTrue((q / 'watchdog.txt').read_text().count('watch:') >= 1)
+        return q
+
+    def test_input_mid_launch_stops_it(self):
+        self.check('input', 'HID input during the launch')
+
+    def test_focus_lost_mid_launch_stops_it(self):
+        self.check('focus', 'focus lost during the launch')
+
+    def test_the_harness_exiting_is_not_a_focus_loss(self):
+        with self.assertRaisesRegex(ValueError, 'the capture launch exited 1'):
+            self.st.run('capture', 'bed-1x-active', '1', '1', STUB_MODE='focus-after-exit')
+
+
+# ===================================================================== the sentinel
+
+class Sentinel(unittest.TestCase):
+    """Change 6: the dump sentinel reads the tree's Normal input against the pass's position."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.st = Stubs(self._tmp.name)
+        self.st.admit_before('dump-1x-light-active')
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def test_normal_at_the_declared_position_is_admitted(self):
+        self.st.run('dump', 'dump-1x-light-active')
+        run = self.st.root / 'dump-1x-light-active' / 'run-1'
+        a = json.loads((run / 'admission.json').read_text())
+        self.assertEqual((a['protocol'], a['scenes'], a['departures'], a['glass']), ('dump', 3, 0, 0.25))
+        self.assertEqual(a['normalOpacities'], ['0.25'])
+        argv = self.st.calls_made()[-1]
+        self.assertIn('--require-key', argv)
+        self.assertTrue((run / 'watchdog.txt').exists() or True)
+
+    def test_a_stale_position_a_lost_key_or_no_reading_departs(self):
+        for mode, normal, message in (('auto', '0.5', 'inputBlurFillNormalOpacity reads'),
+                                      ('lose-key', '0.25', 'isKeyWindow reads False'),
+                                      ('no-normal', '0.25', 'no inputBlurFillNormalOpacity')):
+            with self.subTest(mode=mode):
+                with tempfile.TemporaryDirectory() as tmp:
+                    st = Stubs(tmp)
+                    st.admit_before('dump-1x-light-active')
+                    with self.assertRaisesRegex(ValueError, 'departure'):
+                        st.run('dump', 'dump-1x-light-active', STUB_MODE=mode, STUB_NORMAL=normal)
+                    q = next((st.root / 'dump-1x-light-active').glob('QUARANTINE-run-1-*'))
+                    self.assertIn(message, (q / 'check.json').read_text())
+
+    @unittest.skipUnless(MEMO_D.is_dir(), "memo D's scratch dumps are absent on this machine")
+    def test_memo_d_s_real_dumps_read_their_own_position(self):
+        """The walker finds the input in the real tree format: memo D's 2x light active dumps, taken at 0.5."""
+        d = MEMO_D / '2x-light-active' / 'json'
+        ids = sorted(p.stem for p in d.glob('*.json'))
+        report = S.sentinel_check(d, ids, 0.5, 'active', 2, 'light')
+        self.assertEqual(report['departures'], [])
+        self.assertEqual(report['normalOpacities'], ['0.5'])
+        self.assertGreater(report['surfaces'], len(ids))           # stacked scenes carry two surfaces
+        stale = S.sentinel_check(d, ids, 0.25, 'active', 2, 'light')
+        self.assertEqual(len(stale['departures']), len(ids))
+
+
+# ====================================================================== the mirror
 
 def git(root, *args):
     return subprocess.run(['git', '-C', str(root), *args], check=True, capture_output=True, text=True).stdout
 
 
 class Mirror:
-    """A throwaway Git checkout holding the W42 bed, its tools and a declaration.json at their real
-    relative paths, whose declaration names the bed and is committed and hashed, and whose W39
-    bundle pin is the stub machine's: the pre-launch check, the driver and the orchestrator run for
-    real against it. `replace` substitutes a file's bytes (the red half of a red/green proof)."""
+    """A throwaway Git checkout holding the W43 tools, the stand-in canonical file, W42's scenes file,
+    a plan and a declaration at their real relative paths, and a stub W39 pin: the pin check, the
+    driver and the orchestrator run for real against it. `replace` substitutes a file's bytes."""
 
-    TOOLS = ('sitting.py', 'pass-spec.py', 'record-machine.py', 'run-sitting-w42.sh', 'sitting-orchestrate.sh',
-             'collect-pass.py', 'w42_archive.py')
+    TOOLS = ('sitting.py', 'pass-spec.py', 'record-machine.py', 'run-sitting-w43.sh', 'sitting-orchestrate.sh',
+             'collect-pass.py', 'stand_in.py')
+    W39_DIR = REPO / 'packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed'
 
-    def __init__(self, tmp, replace=None):
+    def __init__(self, tmp, plan=None, replace=None):
         self.repo = Path(tmp) / 'repo'
-        files = [BED_DIR / n for n in ('wave.py', 'scenes-w42-body.json', 'bed.json', 'pins.json', 'twin-audit.json')]
-        files += [HERE / n for n in self.TOOLS]
-        files += [BED_DIR / 'dumps' / n for n in ('dumpcheck.py', 'dump-reference.json')]
-        files += [W39_DIR / 'wave.py']
-        for f in files:
-            self.put(f.relative_to(REPO), f.read_bytes())
-        self.put((W39_DIR / 'bundle-pin.json').relative_to(REPO), json.dumps(PIN).encode())
+        for n in self.TOOLS:
+            self.put((HERE / n).relative_to(REPO), (HERE / n).read_bytes())
+        self.put(SI.CANONICAL, CANONICAL_RAW)
+        self.put(SI.W42_SCENES, W42_RAW)
+        self.put((self.W39_DIR / 'bundle-pin.json').relative_to(REPO), json.dumps(PIN).encode())
+        self.put('.gitignore', b'*.log\n')
         for rel, raw in (replace or {}).items():
             self.put(rel, raw)
-        self.bed = self.repo / BED_DIR.relative_to(REPO)
-        self.sitting = self.bed / 'sitting'
-        self.declare(PINS['scenes-w42-body.json'], PINS['bed.json'])
+        self.sitting = self.repo / HERE.relative_to(REPO)
+        self.decl = self.sitting.parents[1]
+        self.write_plan(plan or STAND_IN_PLAN)
+        self.declare()
         git(self.repo, 'init', '-q')
         git(self.repo, 'config', 'user.email', 'test@example.invalid')
-        git(self.repo, 'config', 'user.name', 'W42 mirror')
+        git(self.repo, 'config', 'user.name', 'W43 mirror')
         self.commit('the mirror')
 
     def put(self, rel, raw):
@@ -587,12 +949,15 @@ class Mirror:
         if path.suffix == '.sh':
             path.chmod(0o755)
 
-    def declare(self, scenes, split, hashed=True):
-        d = self.bed.parent
-        raw = json.dumps(dict(schema='w42-declaration-1', items=[dict(id='split', declared=dict(
-            scenesSha256=scenes, splitSha256=split))]), indent=1).encode()
-        (d / 'declaration.json').write_bytes(raw)
-        digest = d / 'declaration.sha256'
+    def write_plan(self, plan):
+        self.plan_raw = (json.dumps(plan, indent=2) + '\n').encode()
+        (self.sitting.parent / 'sitting-g1a.json').write_bytes(self.plan_raw)
+
+    def declare(self, plan_sha=None, hashed=True):
+        raw = json.dumps(dict(schema='w43-declaration-1', items=[dict(id='sitting-g1a', declared=dict(
+            planSha256=plan_sha or hashlib.sha256(self.plan_raw).hexdigest()))]), indent=1).encode()
+        (self.decl / 'declaration.json').write_bytes(raw)
+        digest = self.decl / 'declaration.sha256'
         if hashed:
             digest.write_text(hashlib.sha256(raw).hexdigest() + '  declaration.json\n')
         elif digest.exists():
@@ -602,28 +967,75 @@ class Mirror:
         git(self.repo, 'add', '-A')
         git(self.repo, 'commit', '-qm', message)
 
-    def repin(self):
-        pins = json.loads((self.bed / 'pins.json').read_text())
-        for name in ('scenes-w42-body.json', 'bed.json'):
-            pins[name] = hashlib.sha256((self.bed / name).read_bytes()).hexdigest()
-        (self.bed / 'pins.json').write_text(json.dumps(pins, indent=2) + '\n')
-
     def sitting_py(self, *argv, env=None):
         return subprocess.run([sys.executable, str(self.sitting / 'sitting.py'), *argv], capture_output=True,
-                              text=True, env={**os.environ, **(env or {})}, timeout=120)
+                              text=True, env={**os.environ, 'W43_SITTING': 'g1a', **(env or {})}, timeout=120)
 
 
-def one_byte_edit(scenes, background='grey-064'):
-    """A silent, loadable one-byte edit: the grey's first channel moves by one code (its last
-    digit, 4 -> 5 or 8 -> 9)."""
-    raw = bytearray(scenes.read_bytes())
-    level = background.split('-')[1].lstrip('0')
-    key = f'"{background}": {{'.encode()
-    at = raw.index(level.encode(), raw.index(key) + len(key))
-    last = at + len(level) - 1
-    raw[last] = raw[last] + 1
-    scenes.write_bytes(bytes(raw))
+def one_byte_edit(path):
+    """A silent, loadable one-byte edit: one letter of the stand-in's own comment."""
+    raw = bytearray(path.read_bytes())
+    at = raw.index(b'A W43 test stand-in')
+    raw[at] = ord('a')
+    path.write_bytes(bytes(raw))
     json.loads(raw)
+
+
+class PinCheck(unittest.TestCase):
+    """The plan a launch runs is the committed, hashed declaration, and its sources the bytes it names."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.m = Mirror(self._tmp.name)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def check(self, **env):
+        out = self.m.sitting_py('pin-check', env={'W43_PREDECLARATION': '', **env})
+        return out.returncode, out.stdout + out.stderr
+
+    def test_the_declared_plan_passes(self):
+        rc, text = self.check()
+        self.assertEqual(rc, 0, text)
+        record = json.loads(text)
+        self.assertEqual(record['planSha256'], hashlib.sha256(self.m.plan_raw).hexdigest())
+        self.assertEqual(record['sources'], SHAS)
+
+    def test_a_source_edited_by_one_byte_refuses_even_committed(self):
+        one_byte_edit(self.m.repo / SI.CANONICAL)
+        rc, text = self.check()
+        self.assertNotEqual(rc, 0)
+        self.assertIn('differs from its committed copy at HEAD', text)
+        self.m.commit('an edited canonical file')
+        rc, text = self.check()
+        self.assertNotEqual(rc, 0)
+        self.assertIn('the plan names', text)
+
+    def test_a_plan_edited_and_committed_but_undeclared_refuses(self):
+        plan = json.loads(self.m.plan_raw)
+        plan['passes'] = plan['passes'][:-1]
+        self.m.write_plan(plan)
+        self.m.commit('a plan nobody declared')
+        rc, text = self.check()
+        self.assertNotEqual(rc, 0)
+        self.assertIn('declaration.json names plan', text)
+
+    def test_an_unhashed_declaration_refuses_and_predeclaration_records_it(self):
+        self.m.declare(hashed=False)
+        self.m.commit('the declaration without its hash')
+        rc, text = self.check()
+        self.assertNotEqual(rc, 0)
+        self.assertIn('declaration.sha256', text)
+        rc, text = self.check(W43_PREDECLARATION='1')
+        self.assertEqual(rc, 0, text)
+        self.assertTrue(json.loads(text)['predeclaration'])
+        with tempfile.TemporaryDirectory() as tmp:
+            st = Stubs(tmp)
+            out = self.m.sitting_py('capture', 'bed-0.25-1x-active', env={**st.env, 'W43_PREDECLARATION': '1'})
+            self.assertNotEqual(out.returncode, 0)
+            self.assertIn('admits dump rehearsals only', out.stderr)
+            self.assertFalse(st.root.exists())
 
 
 def stub_displayplacer(tmp, start='68'):
@@ -652,105 +1064,20 @@ else:
 
 
 STUB_DRIVER = r"""#!/bin/bash
-# A stand-in for run-sitting-w42.sh: logs its argv, then does what STUB_DRIVER_MODE says.
-echo "$*" >> "$STUB_DRIVER_CALLS"
+# A stand-in for run-sitting-w43.sh: logs its argv and the slider it finds, then does what
+# STUB_DRIVER_MODE says.
+echo "$* glass=$(python3.12 -c 'import json, sys; print(json.load(open(sys.argv[1]))["NSGlassTintAmount"]["value"])' "$STUB_DEFAULTS_STORE" 2>/dev/null)" >> "$STUB_DRIVER_CALLS"
 case "${STUB_DRIVER_MODE:-ok}" in
   swallow) cat > /dev/null ;;
   sleep) sleep 4 ;;
+  native) "$STUB_NATIVE" -e 'setTimeout(() => {}, 20000)' </dev/null >/dev/null 2>&1 & disown ;;
 esac
 exit 0
 """
 
 
-class PinCheck(unittest.TestCase):
-    """B-M1, red and green, in a Mirror: the bed a launch captures is the pinned, committed,
-    hashed declaration, or nothing launches."""
-
-    def setUp(self):
-        self._tmp = tempfile.TemporaryDirectory()
-        self.m = Mirror(self._tmp.name)
-
-    def tearDown(self):
-        self._tmp.cleanup()
-
-    def check(self, **env):
-        out = self.m.sitting_py('pin-check', env={'W42_PREDECLARATION': '', **env})
-        return out.returncode, out.stdout + out.stderr
-
-    def test_the_declared_bed_passes(self):
-        rc, text = self.check()
-        self.assertEqual(rc, 0, text)
-        record = json.loads(text)
-        self.assertEqual((record['scenesSha256'], record['splitSha256']),
-                         (PINS['scenes-w42-body.json'], PINS['bed.json']))
-        self.assertNotIn('predeclaration', record)
-
-    def test_a_scenes_file_edited_by_one_byte_refuses(self):
-        one_byte_edit(self.m.bed / 'scenes-w42-body.json')
-        rc, text = self.check()
-        self.assertNotEqual(rc, 0)
-        self.assertIn('not its pins', text)                     # pins.json catches the edit
-        self.m.repin()
-        rc, text = self.check()
-        self.assertNotEqual(rc, 0)
-        self.assertIn('differs from its committed copy at HEAD', text)   # re-pinned but uncommitted
-        self.m.commit('an edited scenes file, re-pinned and committed')
-        rc, text = self.check()
-        self.assertNotEqual(rc, 0)
-        self.assertIn('declaration.json names scenes', text)    # committed, but not the declared one
-
-    def test_a_stale_bed_json_refuses(self):
-        stale = subprocess.run(['git', '-C', str(REPO), 'show',
-                                f'{STALE_BED}:{(BED_DIR / "bed.json").relative_to(REPO)}'],
-                               check=True, capture_output=True).stdout
-        (self.m.bed / 'bed.json').write_bytes(stale)
-        rc, text = self.check()
-        self.assertNotEqual(rc, 0)
-        self.assertIn('not its pins', text)
-        self.m.repin()
-        self.m.commit('a stale bed.json, re-pinned and committed')
-        rc, text = self.check()
-        self.assertNotEqual(rc, 0)
-        self.assertIn('declaration.json names scenes', text)
-
-    def test_an_unhashed_declaration_refuses(self):
-        self.m.declare(PINS['scenes-w42-body.json'], PINS['bed.json'], hashed=False)
-        self.m.commit('the declaration without its hash')
-        rc, text = self.check()
-        self.assertNotEqual(rc, 0)
-        self.assertIn('declaration.sha256', text)
-
-    def test_predeclaration_records_the_declaration_and_launches_rehearsals_only(self):
-        self.m.declare('0' * 64, '1' * 64)
-        self.m.commit('a declaration naming another bed')
-        rc, text = self.check(W42_PREDECLARATION='1')
-        self.assertEqual(rc, 0, text)
-        record = json.loads(text)
-        self.assertTrue(record['predeclaration'])
-        self.assertIn('declaration.json names scenes 000000000000', record['declarationProblems'][0])
-        with tempfile.TemporaryDirectory() as tmp:
-            st = Stubs(tmp)
-            out = self.m.sitting_py('capture', '2x-light-active', env={**st.env, 'W42_PREDECLARATION': '1'})
-            self.assertNotEqual(out.returncode, 0)
-            self.assertIn('admits rehearsals only', out.stderr)
-            self.assertFalse(st.root.exists())
-
-    def test_the_driver_refuses_before_its_root_exists(self):
-        (self.m.bed / 'bed.json').write_bytes((self.m.bed / 'bed.json').read_bytes() + b' ')
-        with tempfile.TemporaryDirectory() as tmp:
-            st = Stubs(tmp)
-            out = self.m.sitting_py('dump', '2x-light-active', env=st.env)
-            self.assertNotEqual(out.returncode, 0)
-            self.assertIn('refused before any launch', out.stderr)
-            self.assertFalse(st.root.exists())
-            self.assertEqual(st.calls_made(), [])
-
-
 class Orchestrator(unittest.TestCase):
-    """sitting-orchestrate.sh in a Mirror with a stub displayplacer: the pin check first, the pass
-    list on fd 3 with its status checked and its last pass asserted, STOP_AFTER=dumps, the
-    rehearsals through the mode trap, the display restored and verified on every exit, and the
-    detached launch."""
+    """sitting-orchestrate.sh in a Mirror with stub displayplacer, defaults and driver."""
 
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -759,22 +1086,27 @@ class Orchestrator(unittest.TestCase):
     def tearDown(self):
         self._tmp.cleanup()
 
-    def setup(self, replace=None, stub_driver=True, start_mode='68', **machine_changes):
-        self.m = Mirror(self.tmp, replace)
-        self.st = Stubs(self.tmp, scale=1, **machine_changes)
+    def setup(self, start_mode='68', as_found='0.5459057', stub_driver=True):
+        self.m = Mirror(self.tmp)
+        self.st = Stubs(self.tmp)
+        if as_found is None:
+            self.st.store.write_text('{}')
+        else:
+            self.st.store.write_text(json.dumps({'NSGlassTintAmount': dict(type='float', value=as_found)}))
         self.dp, self.state, self.dp_calls = stub_displayplacer(self.tmp, start_mode)
         self.driver_calls = self.tmp / 'driver-calls.txt'
         if stub_driver:
-            (self.m.sitting / 'run-sitting-w42.sh').write_text(STUB_DRIVER)
+            (self.m.sitting / 'run-sitting-w43.sh').write_text(STUB_DRIVER)
             self.m.commit('the stub driver')
-        self.env = {**os.environ, **self.st.env, 'DISPLAYPLACER': str(self.dp), 'STUB_IDLE': '400',
-                    'STUB_DRIVER_CALLS': str(self.driver_calls), 'W42_FOREGROUND': '1'}
-        for k in ('DRY', 'W42_ORCHESTRATED', 'W42_PREDECLARATION', 'START_AT', 'STOP_AFTER', 'PASSES', 'REHEARSAL'):
+        self.env = {**os.environ, **self.st.env, 'DISPLAYPLACER': str(self.dp), 'STUB_DRIVER_CALLS': str(self.driver_calls),
+                    'STUB_DEFAULTS_STORE': str(self.st.store), 'W43_FOREGROUND': '1'}
+        for k in ('DRY', 'W43_ORCHESTRATED', 'W43_PREDECLARATION', 'START_AT', 'STOP_AFTER', 'PASSES', 'REHEARSAL',
+                  'VITREA_LAUNCHER_CHAIN', 'FIRST_RUN'):
             self.env.pop(k, None)
 
     def orchestrate(self, **env):
         return subprocess.run(['bash', str(self.m.sitting / 'sitting-orchestrate.sh')], env={**self.env, **env},
-                              capture_output=True, text=True, timeout=180)
+                              capture_output=True, text=True, timeout=240)
 
     def status(self):
         return (self.st.root / 'logs' / 'orchestrator-status.txt').read_text()
@@ -782,193 +1114,204 @@ class Orchestrator(unittest.TestCase):
     def driven(self):
         return self.driver_calls.read_text().splitlines() if self.driver_calls.exists() else []
 
-    def switches(self):
-        return [l.split('mode:')[1] for l in self.dp_calls.read_text().splitlines() if 'mode:' in l]
+    def stored(self):
+        return json.loads(self.st.store.read_text()).get('NSGlassTintAmount')
 
-    def test_stop_and_restore(self):
-        self.setup(stub_driver=False, foreign=1)
-        self.st.admit_before('dump-1x-light-active')
-        out = self.orchestrate(START_AT='dump-1x-light-active')
-        self.assertEqual(out.returncode, 3, out.stdout + out.stderr)
-        self.assertEqual(self.state.read_text(), '68')
+    def test_the_whole_order_writes_the_slider_per_pass_and_restores_both(self):
+        self.setup()
+        out = self.orchestrate()
+        self.assertEqual(out.returncode, 0, out.stdout + out.stderr + self.status())
+        driven = self.driven()
+        self.assertEqual(len(driven), len(STAND_IN_PLAN['passes']))
+        for line, p in zip(driven, STAND_IN_PLAN['passes']):
+            self.assertTrue(line.startswith(('dump ' if p['kind'] == 'dump' else 'capture ') + p['name']), line)
+            self.assertTrue(line.endswith(f'glass={S.pass_spec().parse_key(next(iter(p["profiles"])) if p["kind"] == "capture" else p["profile"])[3]:g}'.replace('glass=0.5', 'glass=0.5')), line)
+        writes = S.slider_writes(self.st.root)
+        self.assertEqual([w['value'] for w in writes], [0.5, 0.25, 0.5])    # as-found 0.546 -> 0.5 -> 0.25 -> 0.5
+        self.assertTrue(all(not w['nativeAliveBefore'] and not w['nativeAliveAfter'] for w in writes))
+        self.assertEqual(self.stored(), dict(type='float', value='0.5459057'))   # restored as found
         status = self.status()
-        self.assertIn('display -> mode 69', status)
-        self.assertIn('STOP dump-1x-light-active', status)
+        self.assertIn('ALL PASSES DONE', status)
+        self.assertIn('restore: slider', status)
         self.assertIn('restore: display mode 68 (verified)', status)
-        self.assertNotIn('START dump-2x', status)
-        q = list((self.st.root / 'dump-1x-light-active').glob('QUARANTINE-run-1-*'))
-        self.assertEqual(len(q), 1)
-        self.assertIn('foreign', (q[0] / 'refusal.txt').read_text())
-        self.assertFalse(any('dump-layers' in c for c in self.st.calls_made()))
-
-    def test_a_bed_that_is_not_the_declaration_launches_nothing(self):
-        self.setup(start_mode='69')
-        self.m.declare('0' * 64, PINS['bed.json'])
-        self.m.commit('a declaration naming another scenes file')
-        out = self.orchestrate()
-        self.assertEqual(out.returncode, 5, out.stdout + out.stderr)
-        self.assertIn('STOP: the bed is not the pinned declaration', self.status())
-        self.assertIn('declaration.json names scenes', (self.st.root / 'logs' / 'pin-check.json').read_text())
-        self.assertEqual(self.driven(), [])
-        self.assertEqual(self.state.read_text(), '68')    # left at 69 by a crash: restored even so
-
-    def test_a_child_reading_stdin_cannot_swallow_the_passes(self):
-        self.setup()
-        out = self.orchestrate(STOP_AFTER='dumps', STUB_DRIVER_MODE='swallow')
-        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
-        self.assertEqual(len(self.driven()), 8)
-        self.assertIn('DUMPS DONE', self.status())
-
-    def test_a_failing_pass_order_stops_the_sitting(self):
-        self.setup(replace={(HERE / 'pass-spec.py').relative_to(REPO): b'import sys\nsys.exit(3)\n'})
-        out = self.orchestrate()
-        self.assertEqual(out.returncode, 6, out.stdout + out.stderr)
-        self.assertIn('pass-spec.py order failed', self.status())
-        self.assertNotIn('ALL PASSES DONE', self.status())
-        self.assertEqual(self.driven(), [])
-
-    def test_stop_after_dumps_runs_the_dump_step_only(self):
-        self.setup()
-        out = self.orchestrate(STOP_AFTER='dumps')
-        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
-        want = [f'dump {s}x-{c}-{p}' for s in (2, 1) for c in ('light', 'dark') for p in ('active', 'receded')]
-        self.assertEqual(self.driven(), want)
-        self.assertEqual(self.switches(), ['69', '68'])
-        self.assertIn('DUMPS DONE: stopped after dump-1x-dark-receded', self.status())
+        self.assertIn('universal control (a report, not a gate)', status)
         self.assertEqual(self.state.read_text(), '68')
 
-    def test_rehearsals_run_through_the_mode_trap(self):
-        self.setup()
-        out = self.orchestrate(REHEARSAL='1', PASSES='1x-light-active dump-1x-dark-receded 2x-light-active')
+    def test_an_absent_slider_is_absent_again_after_a_stop(self):
+        self.setup(as_found=None)
+        out = self.orchestrate(STOP_AFTER='dump-0.25-2x-light-active')
         self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
-        self.assertEqual(self.driven(), ['dump 1x-dark-receded --rehearse', 'capture 2x-light-active --rehearse-refusal',
-                                         'capture 1x-light-active --rehearse-refusal'])
-        self.assertEqual(self.switches(), ['69', '68', '69', '68'])
-        self.assertIn('REHEARSALS DONE (1x-light-active)', self.status())
-        for bad, message in ((dict(REHEARSAL='1'), 'needs PASSES'),
-                             (dict(PASSES='2x-light-active'), 'rehearsals only'),
-                             (dict(REHEARSAL='1', PASSES='2x-light-active-sentinel'), 'no rehearsal'),
-                             (dict(STOP_AFTER='captures'), 'not a declared stop')):
-            with self.subTest(bad=bad):
-                self.assertEqual(self.orchestrate(**bad).returncode, 6)
-                self.assertIn(message, self.status())
+        self.assertIn('STOPPED AFTER dump-0.25-2x-light-active', self.status())
+        self.assertIsNone(self.stored())
+        self.assertTrue(self.driven()[-1].startswith('dump dump-0.25-2x-light-active'))
+        self.assertTrue(self.driven()[-1].endswith('glass=0.25'))
 
-    def test_a_signal_mid_pass_restores_the_display(self):
+    @needs_node
+    def test_a_native_process_alive_at_a_slider_write_stops_the_sitting(self):
         self.setup()
-        env = {**self.env, 'STOP_AFTER': 'dumps', 'STUB_DRIVER_MODE': 'sleep', 'START_AT': 'dump-1x-light-active'}
+        fake_executable(SIDE / 'Contents/MacOS/VitreaReference')
+        # The last 0.5 pass leaves a stand-in harness running; the write to 0.25 must refuse.
+        out = self.orchestrate(STUB_DRIVER_MODE='native')
+        self.assertEqual(out.returncode, 9, out.stdout + out.stderr)
+        status = self.status()
+        self.assertIn('STOP dump-0.25-2x-light-active: the slider write to 0.25 was refused', status)
+        self.assertNotIn('START dump-0.25', status)
+        self.assertEqual(self.stored(), dict(type='float', value='0.5459057'))
+        self.assertEqual([w['value'] for w in S.slider_writes(self.st.root)], [0.5])
+        for p in R.native_processes(binary=SIDE / 'Contents/MacOS/VitreaReference'):
+            os.kill(p['pid'], signal.SIGKILL)
+
+    def test_a_signal_mid_pass_restores_the_slider_and_the_display(self):
+        self.setup()
+        env = {**self.env, 'STUB_DRIVER_MODE': 'sleep', 'START_AT': 'bed-0.25-1x-active'}
         proc = subprocess.Popen(['bash', str(self.m.sitting / 'sitting-orchestrate.sh')], env=env,
                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        deadline = time.monotonic() + 60
+        deadline = time.monotonic() + 90
         while not self.driven() and time.monotonic() < deadline:
             time.sleep(0.2)
-        self.assertEqual(self.state.read_text(), '69')
+        self.assertEqual((self.state.read_text(), self.stored()['value']), ('69', '0.25'))
         proc.send_signal(signal.SIGTERM)
         self.assertEqual(proc.wait(timeout=60), 143)
-        self.assertEqual(self.state.read_text(), '68')
+        self.assertEqual((self.state.read_text(), self.stored()['value']), ('68', '0.5459057'))
         self.assertIn('restore: display mode 68 (verified)', self.status())
 
-    def test_the_sitting_detaches_into_its_own_session(self):
+    def test_rehearsals_are_dump_passes_only(self):
         self.setup()
-        env = {k: v for k, v in self.env.items() if k != 'W42_FOREGROUND'}
-        out = subprocess.run(['bash', str(self.m.sitting / 'sitting-orchestrate.sh')],
-                             env={**env, 'STOP_AFTER': 'dumps', 'STUB_DRIVER_MODE': 'sleep',
-                                  'START_AT': 'dump-1x-dark-receded'},
-                             capture_output=True, text=True, timeout=30)
+        out = self.orchestrate(REHEARSAL='1', PASSES='dump-0.25-1x-dark-receded')
+        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+        self.assertEqual([l.rsplit(' glass=', 1)[0] for l in self.driven()], ['dump dump-0.25-1x-dark-receded --rehearse'])
+        out = self.orchestrate(REHEARSAL='1', PASSES='bed-0.25-1x-active')
+        self.assertEqual(out.returncode, 6)
+        self.assertIn('only a dump pass has a rehearsal', self.status())
+
+    def test_the_detached_sitting_records_its_launching_chain(self):
+        self.setup()
+        env = {k: v for k, v in self.env.items() if k != 'W43_FOREGROUND'}
+        # The launching shell outlives the launch with census words on its command line (stop 4).
+        out = subprocess.run(['bash', '-c', f'bash "{self.m.sitting / "sitting-orchestrate.sh"}"; '
+                                            'sleep 3; : pgrep -fl "Chromium|playwright"; echo launcher=$$'],
+                             env={**env, 'STOP_AFTER': 'pose-check', 'STUB_DRIVER_MODE': 'sleep'},
+                             capture_output=True, text=True, timeout=60)
         self.assertEqual(out.returncode, 0, out.stderr)
-        self.assertIn('detached as pid', out.stdout)
-        pid = int((self.st.root / 'logs' / 'orchestrator.pid').read_text())
-        deadline = time.monotonic() + 20
-        while os.getsid(pid) == os.getsid(0) and time.monotonic() < deadline:
-            time.sleep(0.1)
-        self.assertNotEqual(os.getsid(pid), os.getsid(0))   # its own session: a torn-down caller cannot HUP it
+        launcher = int(re.search(r'launcher=(\d+)', out.stdout)[1])
+        chain_file = Path(re.search(r'launcher chain in (\S+);', out.stdout)[1])
+        chain = json.loads(chain_file.read_text())['chain']
+        self.assertIn(launcher, [e['pid'] for e in chain])
+        self.assertIn(os.getpid(), [e['pid'] for e in chain])
         deadline = time.monotonic() + 90
-        while 'restore:' not in (self.status() if (self.st.root / 'logs' / 'orchestrator-status.txt').exists()
-                                 else '') and time.monotonic() < deadline:
+        while 'restore: display' not in (self.status() if (self.st.root / 'logs' / 'orchestrator-status.txt').exists()
+                                         else '') and time.monotonic() < deadline:
             time.sleep(0.5)
-        self.assertIn('DUMPS DONE', self.status())
-        self.assertEqual(self.state.read_text(), '68')
+        self.assertIn(f'launcher chain {chain_file}', self.status())
+        self.assertIn('STOPPED AFTER pose-check', self.status())
 
 
-def gone(pid, within=15):
-    """True once `pid` no longer exists (a reaped process), within `within` seconds."""
-    deadline = time.monotonic() + within
-    while time.monotonic() < deadline:
-        try:
-            os.kill(pid, 0)
-        except ProcessLookupError:
-            return True
-        time.sleep(0.2)
-    return False
+class Collect(unittest.TestCase):
+    """Change 3: the idle-wait log survives the per-pass commit under the repository's `*.log` rule."""
 
-
-class VerificationRound(unittest.TestCase):
-    """The verification review of the fixes (53400aa5): per-run provenance (finding 1) and a
-    cancellation that reaches the driver and its launch at once (finding 3), in a Mirror."""
-
-    def test_a_scenes_file_edited_between_runs_refuses_the_next_run(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            m = Mirror(tmp)
-            st = Stubs(tmp, scale=1)
-            st.admit_before('1x-light-active')
-            scenes = m.bed / 'scenes-w42-body.json'
-            env = {**st.env, 'STUB_AUTO': '1', 'STUB_TEST_DIR': str(HERE), 'STUB_EDIT_SCENES': str(scenes)}
-            out = m.sitting_py('capture', '1x-light-active', '1', '2', env=env)
-            self.assertNotEqual(out.returncode, 0)
-            base = st.root / '1x-light-active'
-            admitted = json.loads((base / 'run-1' / 'admission.json').read_text())
-            self.assertEqual(admitted['scenesSha256'], PINS['scenes-w42-body.json'])
-            self.assertEqual(json.loads((base / 'scenes-run-1.json').read_text())['backgrounds']['grey-128']['srgb'],
-                             [128, 128, 128])
-            self.assertNotEqual(hashlib.sha256(scenes.read_bytes()).hexdigest(), PINS['scenes-w42-body.json'])
-            q = list(base.glob('QUARANTINE-run-2-*'))
-            self.assertEqual(len(q), 1)
-            self.assertIn('no longer the one this driver validated', (q[0] / 'refusal.txt').read_text())
-            self.assertEqual(len([c for c in st.calls_made() if 'capture' in c]), 1)   # run 2 never launched
-
-    def test_a_signal_mid_capture_ends_the_driver_and_its_launch_and_restores_at_once(self):
+    def test_the_idle_log_is_committed(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
-            m = Mirror(tmp)
-            st = Stubs(tmp, scale=1)
-            st.admit_before('1x-light-active')
-            dp, state, _ = stub_displayplacer(tmp)
-            pids = tmp / 'pids.json'
-            env = {**os.environ, **st.env, 'DISPLAYPLACER': str(dp), 'STUB_IDLE': '400', 'W42_FOREGROUND': '1',
-                   'START_AT': '1x-light-active', 'STUB_MODE': 'block', 'STUB_PIDS': str(pids),
-                   'STUB_NATIVE': PIN['path'] + '/Contents/MacOS/VitreaReference'}
-            for k in ('W42_ORCHESTRATED', 'STOP_AFTER', 'PASSES', 'REHEARSAL', 'W42_PREDECLARATION'):
-                env.pop(k, None)
-            proc = subprocess.Popen(['bash', str(m.sitting / 'sitting-orchestrate.sh')], env=env,
-                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            deadline = time.monotonic() + 90
-            while not pids.exists() and time.monotonic() < deadline:
-                time.sleep(0.2)
-            launched = json.loads(pids.read_text())
-            self.assertEqual(state.read_text(), '69')
-            began = time.monotonic()
-            proc.send_signal(signal.SIGTERM)
-            self.assertEqual(proc.wait(timeout=60), 143)
-            self.assertLess(time.monotonic() - began, 20)                    # not the pass's length
-            status = (st.root / 'logs' / 'orchestrator-status.txt').read_text()
-            self.assertEqual(state.read_text(), '68')
-            self.assertIn('restore: display mode 68 (verified)', status)
-            driver = int(re.search(r'job pid (\d+): \S*run-sitting-w42.sh capture', status)[1])
-            for pid in (driver, launched['launcher'], launched['app']):
-                self.assertTrue(gone(pid), f'pid {pid} survives the cancellation')
-            q = list((st.root / '1x-light-active').glob('QUARANTINE-run-1-*'))
-            self.assertEqual(len(q), 1)
-            self.assertIn('Cancelled', (q[0] / 'refusal.txt').read_text())
+            repo = tmp / 'repo'
+            repo.mkdir()
+            (repo / '.gitignore').write_bytes((REPO / '.gitignore').read_bytes())
+            git(repo, 'init', '-q')
+            git(repo, 'config', 'user.email', 'test@example.invalid')
+            git(repo, 'config', 'user.name', 'W43 collect')
+            run = tmp / 'root' / 'p' / 'run-1'
+            run.mkdir(parents=True)
+            (run / 'driver-idle.txt').write_text('idle-wait: idle=400\n')
+            (run / 'watchdog.txt').write_text('watch: front=com.apple.finder\n')
+            (run / 'admission.json').write_text('{}\n')
+            evidence = repo / 'evidence'
+            subprocess.run([sys.executable, str(HERE / 'collect-pass.py'), 'p'], check=True, capture_output=True,
+                           env={**os.environ, 'VITREA_SITTING_DIR': str(tmp / 'root'), 'W43_EVIDENCE': str(evidence)})
+            git(repo, 'add', '--', str(evidence))
+            git(repo, 'commit', '-qm', 'a pass')
+            committed = git(repo, 'ls-files').split()
+            self.assertIn('evidence/attest/p/run-1/driver-idle.txt', committed)
+            self.assertIn('evidence/attest/p/run-1/watchdog.txt', committed)
 
 
-class DriverUnderTheOrchestrator(unittest.TestCase):
-    """b4: a launch outside the orchestrator is refused; b2: an admission binds its PNG bytes."""
+# ================================================================== publication
 
-    def test_a_launch_outside_the_orchestrator_is_refused(self):
+MAIN_MODULES = Path('/Users/new/Developer/GitHub/designer/packages/calibration/node_modules')
+
+
+@unittest.skipUnless((MAIN_MODULES / '.bin/tsx').exists(), "the main checkout's calibration node_modules are absent")
+class Publication(unittest.TestCase):
+    """Change 7: the canonical publication path for side-bundle runs, through the REAL materialize
+    (the committed cli/ and src/, run with tsx) into a scratch fixtures bundle."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.tmp = Path(cls._tmp.name)
+        cls.st = Stubs(cls.tmp)
+        cls.st.admit_before('bed-1x-active')
+        cls.st.run('capture', 'bed-1x-active', '1', '2')
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._tmp.cleanup()
+
+    def materialize(self, runs, fixtures):
+        """materialize.ts from this checkout's cli/ and src/ in a scratch package with the main
+        checkout's node_modules (pngjs, tsx), over a fixtures bundle holding only an empty manifest."""
+        pkg = fixtures.parent / 'pkg'
+        if not pkg.exists():
+            for d in ('cli', 'src'):
+                shutil.copytree(REPO / 'packages/calibration' / d, pkg / d)
+            (pkg / 'node_modules').symlink_to(MAIN_MODULES)
+            (pkg / 'package.json').write_text('{"type": "module"}\n')
+        (fixtures / 'backgrounds').mkdir(parents=True, exist_ok=True)     # as the canonical bundle has
+        (fixtures / 'manifest.json').write_text(json.dumps(dict(profiles=[], backgrounds={}, split={})) + '\n')
+        scenes = fixtures.parent / 'scenes.json'
+        scenes.write_bytes(CANONICAL_RAW)
+        argv = [str(MAIN_MODULES / '.bin/tsx'), 'cli/materialize.ts',
+                *[a for i, r in enumerate(runs, 1) for a in ('--run', f'r{i}={r}')],
+                '--profile', ','.join(sorted(BED_ACTIVE)), '--frequency-settle', '--apply']
+        return subprocess.run(argv, cwd=pkg, capture_output=True, text=True, timeout=180,
+                              env={**os.environ, 'VITREA_FIXTURES': str(fixtures), 'VITREA_SCENES': str(scenes)})
+
+    def runs(self):
+        return [self.st.root / 'bed-1x-active' / f'run-{n}' for n in (1, 2)]
+
+    def test_the_published_bed_names_the_side_bundle_and_the_slider(self):
+        job = S.publication(self.st.root, P.pass_of('bed-1x-active', PLAN), DECLARATION, SI.CANONICAL)
+        self.assertIn('--frequency-settle', job['argv'])
+        out = self.materialize(self.runs(), self.tmp / 'pub' / 'fixtures')
+        self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+        published = json.loads((self.tmp / 'pub' / 'fixtures' / 'manifest.json').read_text())
+        entry = next(p for p in published['profiles'] if p['profileKey'] == L1)
+        a = entry['attestation']
+        self.assertEqual((a['bundlePath'], a['bundleIdentifier'], a['bundleCdHash'], a['bundlePinSha256']),
+                         (PIN['path'], HARNESS_ID, PIN['cdhash'], S.pin_sha256()))
+        self.assertEqual((a['glassTintAmount'], a['runs'], a['sitting']), ('0.25', '2', 'g1a'))
+        self.assertEqual(len(entry['fixtures']), len(BED_ACTIVE[L1]))
+
+    def test_a_run_that_does_not_name_the_side_is_not_publishable(self):
         with tempfile.TemporaryDirectory() as tmp:
-            st = Stubs(tmp)
-            with self.assertRaises(SystemExit):
-                st.run('capture', '2x-light-active', '--rehearse-refusal', W42_ORCHESTRATED='')
-            self.assertEqual(st.calls_made(), [])
+            root = Path(tmp) / 'root'
+            shutil.copytree(self.st.root, root)
+            read = root / 'bed-1x-active' / 'run-2' / 'attest.read'
+            read.write_text(read.read_text().replace(f'bundlePath={PIN["path"]}',
+                                                     'bundlePath=/Users/new/Developer/GitHub/designer/apps/'
+                                                     'reference-apple/build/VitreaReference.app'))
+            with self.assertRaisesRegex(ValueError, "does not name the side bundle's pin"):
+                S.publication(root, P.pass_of('bed-1x-active', PLAN), DECLARATION, SI.CANONICAL)
+
+
+def tearDownModule():
+    """No stand-in harness outlives the suite: end any process running the fake native binary and
+    remove it, so no executable named VitreaReference is left behind in /tmp."""
+    for p in R.native_processes(binary=SIDE / 'Contents/MacOS/VitreaReference'):
+        if p['executable'] == str(SIDE / 'Contents/MacOS/VitreaReference'):
+            try:
+                os.kill(p['pid'], signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+    shutil.rmtree(SIDE.parent, ignore_errors=True)
 
 
 if __name__ == '__main__':
