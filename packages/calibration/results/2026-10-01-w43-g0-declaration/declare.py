@@ -13,12 +13,14 @@ then re-derives each fact the declaration states as a number or a list:
 - G0 (b)'s bridge verdicts, and that `bridge.json` names the `bridge.py` beside it;
 - the bridge cells' own generator check, their 168 and 84 captures, and the sentinels' reference
   protocol;
+- the w-test's supported regions per endpoint from `wtest/support.json`, and its prediction stated in
+  all four 2x endpoints at 0.5 (`wtest/prediction.json`);
 - both sittings' plans: their generator check, each plan's SHA-256 (the item G0 (d)'s pin-check
   reads, `sitting-<name>`), its totals and hours against its timing, and its sources' bytes;
 - that `declaration.md` carries every item in order, each pending item marked `PENDING (<what it
   waits on>)` and no declared item so marked.
 
-A pending item declares nothing yet. It names what it waits on: memo F or G0 (e)'s rehearsals. `hash` refuses while one remains. It then writes `declaration.sha256` and `closure.json` (the
+A pending item declares nothing yet and names what it waits on; none is pending now. `hash` refuses while one remains. It then writes `declaration.sha256` and `closure.json` (the
 items G1a, G1b and G2 implement from the hash) and never overwrites either. Both must be committed
 before G1a's first capture; a change after it voids the affected sitting as the bed (clause 1).
 """
@@ -173,6 +175,19 @@ def sittings(c, items):
              {k: sha((ROOT / v['path']).read_bytes()) for k, v in plan['sources'].items()})
 
 
+def wtest(c, items):
+    w = items['wTestStatistic']['declared']
+    sup = json.loads((HERE / 'wtest/support.json').read_text())['statistics']['median']['declared']
+    c.eq('wTestStatistic: supported free-side regions per endpoint',
+         {ep: sum(1 for v in cells.values() if 'free' in v) for ep, cells in sup.items()},
+         w['support']['supportedRegionsPerEndpoint'])
+    pred = json.loads((HERE / 'wtest/prediction.json').read_text())['prediction']
+    c.eq('wTestPrediction: stated in every endpoint, r_pred 0.5', {ep: (v['stated'], v['rPred']) for ep, v in pred.items()},
+         {ep: (True, 0.5) for ep in pred})
+    c.eq('wTestPrediction: the endpoints it is stated in', sorted(items['wTestPrediction']['declared']['statedIn']),
+         ['2x-dark-active', '2x-dark-receded', '2x-light-active', '2x-light-receded'])
+
+
 def check():
     c = Check()
     d = json.loads(DECLARATION.read_text())
@@ -182,6 +197,8 @@ def check():
     beds(c, items)
     bridges(c, items)
     sittings(c, items)
+    if 'declared' in items['wTestStatistic']:
+        wtest(c, items)
     return c, d, items
 
 

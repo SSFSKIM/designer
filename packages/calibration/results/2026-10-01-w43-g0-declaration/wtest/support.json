@@ -1,0 +1,1679 @@
+{
+ "constants": {
+  "cTol": 0.5,
+  "censor": [
+   5.0,
+   250.0
+  ],
+  "darkTTop": 208.0,
+  "drMax": 0.1,
+  "greyLevels": [
+   0,
+   64,
+   128,
+   160,
+   192,
+   208,
+   255
+  ],
+  "kGrid": [
+   1.4,
+   1.6,
+   1.8,
+   2.0,
+   2.2,
+   2.5
+  ],
+  "kGridLs": [
+   2.0,
+   2.1,
+   2.2,
+   2.25
+  ],
+  "minExcursion": 12.0,
+  "minPx": 12,
+  "minWContrast": 24.0,
+  "ord": 0.5,
+  "q": 0.5
+ },
+ "schema": "w43-wtest-support-1",
+ "statistics": {
+  "mean": {
+   "declared": {
+    "dark-inactive": {
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "1cc5e401530e868d44df0592acc8c6bc645871a175bc77396670ab40548d5785",
+       "level": 0.0,
+       "pixels": 12,
+       "predictedDr": 0.0814,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "1b4974e09133f9a3e1e54c1157057ba247bbc6b2128e225a34cafde0a4a37b20",
+       "level": 254.99999999999997,
+       "pixels": 12,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "5d9d01d1549368c0e43798253b497326f99cde6ec3dca733e99b7ffc9232f7f4",
+       "level": 0.0,
+       "pixels": 42,
+       "predictedDr": 0.0789,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "6c9e23e9b0ae77eb869416b7053e95e1e36012225dde4b1b309847527c0e4a8a",
+       "level": 254.99999999999997,
+       "pixels": 42,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     }
+    },
+    "dark-rest": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "e776e3c91f718ec8228a26e7b17b65f6e4ad9339ef834b90f5d673281c11906f",
+       "level": 207.99999999999997,
+       "pixels": 2604,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "6b9c2ae9e856850c5b6e4e6239e506de04edd7fe2fbfd663dc1ea7291b055f24",
+       "level": 159.99999999999997,
+       "pixels": 48,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "8fb198776ee0569e22d2200fc42201a1260986f47ccb2ea9db37b73f1dee5b81",
+       "level": 159.99999999999997,
+       "pixels": 16,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "85b83a1a535283ff415d7a7817ff04a9d72a14bdd6579e2eb91c93c34f456543",
+       "level": 111.99999999999999,
+       "pixels": 796,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "predictedDr": 0.0522,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "predictedDr": 0.0533,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "free": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "predictedDr": 0.0711,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "65c409eda66dc9190542441a44778bfacc74633005d81dd4f7525e1cb35b0578",
+       "level": 254.99999999999997,
+       "pixels": 354,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "lifted": {
+       "idxSha256": "f2e865d9227c3a040e6bf4843e2755cfd4a69354d14bb7818eb3be8bab3cce24",
+       "level": 207.99999999999997,
+       "pixels": 832,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "041a0e54bf271eaa53618381dbe12f1ba272456d17f834669967a38e284a5344",
+       "level": 207.99999999999997,
+       "pixels": 204,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "ca43b341821a0be8a952aea6c9b2baf08809bd6ef868c24eb61152bd51dbb305",
+       "level": 207.99999999999997,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "0794cd212a1484914ef73307ff44b715dcee13c6c8f112f50ec7914c04b45c95",
+       "level": 207.99999999999997,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "f7e3dc062cc4d5826582c829f8885e797bce12bcbef3806d1f286593ab61a543",
+       "level": 207.99999999999997,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "d382ba3c80bd6d8c66454b45deba54e6476f8341a5aee7be992f69fd75363f88",
+       "level": 207.99999999999997,
+       "pixels": 632,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "light-inactive": {
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "1b4974e09133f9a3e1e54c1157057ba247bbc6b2128e225a34cafde0a4a37b20",
+       "level": 254.99999999999997,
+       "pixels": 12,
+       "predictedDr": 0.0931,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "1cc5e401530e868d44df0592acc8c6bc645871a175bc77396670ab40548d5785",
+       "level": 0.0,
+       "pixels": 12,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "6c9e23e9b0ae77eb869416b7053e95e1e36012225dde4b1b309847527c0e4a8a",
+       "level": 254.99999999999997,
+       "pixels": 42,
+       "predictedDr": 0.0921,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "5d9d01d1549368c0e43798253b497326f99cde6ec3dca733e99b7ffc9232f7f4",
+       "level": 0.0,
+       "pixels": 42,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "lifted": {
+       "idxSha256": "e7882cf0f257967b57ca1649e025a25a334fede49ccf94c56845dc051318afbf",
+       "level": 0.0,
+       "pixels": 172,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     }
+    },
+    "light-rest": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "e36a9b46595b9e7a770f7194d00dacf2584098c841a82e5c0336cbebaa2bde80",
+       "level": 48.0,
+       "pixels": 2256,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "810bc342c13bf3f747d431460f7329a0dba21ab33015951cd88ffe382bb94243",
+       "level": 96.0,
+       "pixels": 16,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "49df20e0a336c5a84eab1ecfbc10195e5c04144c75fd43ac48eb2f7e539e3b65",
+       "level": 16.0,
+       "pixels": 706,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p5-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "49df20e0a336c5a84eab1ecfbc10195e5c04144c75fd43ac48eb2f7e539e3b65",
+       "level": 144.00000000000003,
+       "pixels": 706,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "predictedDr": 0.0548,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "predictedDr": 0.051,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "free": {
+       "idxSha256": "65c409eda66dc9190542441a44778bfacc74633005d81dd4f7525e1cb35b0578",
+       "level": 254.99999999999997,
+       "pixels": 354,
+       "predictedDr": 0.0664,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "free": {
+       "idxSha256": "f2e865d9227c3a040e6bf4843e2755cfd4a69354d14bb7818eb3be8bab3cce24",
+       "level": 207.99999999999997,
+       "pixels": 832,
+       "predictedDr": 0.0662,
+       "stratum": 96
+      },
+      "lifted": {
+       "idxSha256": "041a0e54bf271eaa53618381dbe12f1ba272456d17f834669967a38e284a5344",
+       "level": 48.0,
+       "pixels": 204,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "f2e865d9227c3a040e6bf4843e2755cfd4a69354d14bb7818eb3be8bab3cce24",
+       "level": 48.0,
+       "pixels": 832,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "0794cd212a1484914ef73307ff44b715dcee13c6c8f112f50ec7914c04b45c95",
+       "level": 48.0,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "ca43b341821a0be8a952aea6c9b2baf08809bd6ef868c24eb61152bd51dbb305",
+       "level": 48.0,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "d382ba3c80bd6d8c66454b45deba54e6476f8341a5aee7be992f69fd75363f88",
+       "level": 48.0,
+       "pixels": 632,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "f7e3dc062cc4d5826582c829f8885e797bce12bcbef3806d1f286593ab61a543",
+       "level": 48.0,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    }
+   },
+   "ls-span": {
+    "dark-inactive": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "b07851d598a3029fe985a6208e2b80de284fc3ed5ccd1ee1ec639fad8b2aa935",
+       "level": 207.99999999999997,
+       "pixels": 1464,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "0879b53ee1f9c0adc0b86dfee0125a82247e267c15f89ffb1423218e454eef56",
+       "level": 0.0,
+       "pixels": 114,
+       "predictedDr": 0.0744,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "0a449bea1aab07e1d8d37de4b3643fc2796c137b220a6bccbb56359641d4d55a",
+       "level": 254.99999999999997,
+       "pixels": 114,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "dc39c954a0b01e0dc0aba73c5a4599b41a0363e089dacf67fdad3fc92aea0b3d",
+       "level": 0.0,
+       "pixels": 343,
+       "predictedDr": 0.0738,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "97bdbdd44f6c7fb6fb197bb3d7248eda407b4a09bd11d050deb09e37ae5568b8",
+       "level": 254.99999999999997,
+       "pixels": 343,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "lifted": {
+       "idxSha256": "dab77aee4cf78268f02d6d63908f79af5ae656f5295a801d4a74e8a1de1d2e19",
+       "level": 254.99999999999997,
+       "pixels": 1904,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "7d0b1f7144d94efc8f4d5404607d0d7b4c34a1cacb96d3f77f8accefb25ff612",
+       "level": 207.99999999999997,
+       "pixels": 160,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "dark-rest": {
+     "b-p2-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "63946d71bb92556f3a12968a4eb143861a44565e9168c39ef216026f22eb1c8a",
+       "level": 207.99999999999997,
+       "pixels": 54,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "c55e5521c1d6029878e2b5af48dcd8dcc54a964357bb29f3f398861db5250e18",
+       "level": 207.99999999999997,
+       "pixels": 6648,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "b5536e6fefff3ed36bed018460b970af7e1a6b2a9b92c6763f357205ac9da8d9",
+       "level": 159.99999999999997,
+       "pixels": 270,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "973889ec22c50e79d74bc5c1512990c88a2874b7d778121853ffd10dce0f86be",
+       "level": 159.99999999999997,
+       "pixels": 664,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "857bf8b299895c0e20d7463bdd57a4f90f7f5239f45b20ea71152bf52ad901c2",
+       "level": 111.99999999999999,
+       "pixels": 132,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "835eeab4cb8c6adc0a7afa6b9cb5017adcf0a0a735b85c138d60546ae3957ed3",
+       "level": 111.99999999999999,
+       "pixels": 3706,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "predictedDr": 0.0522,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "predictedDr": 0.0533,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "free": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "predictedDr": 0.0711,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "02f591f622412fc2715bc9edcf9083e983663550ec80bb13c962404ff9467627",
+       "level": 254.99999999999997,
+       "pixels": 844,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "lifted": {
+       "idxSha256": "b996ebce9e03853a1507f72b4fa082c02f5b8ce6d6099faacba5568edf70289d",
+       "level": 207.99999999999997,
+       "pixels": 1080,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "3d4ed47e9fa8c4022620c3641e5d4fc9b270506b879ff646a2ec79fb89e18bc6",
+       "level": 207.99999999999997,
+       "pixels": 932,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "a25114611f1916a0e244d0464d42db8466ece224f1ebe01d02c2b1eb0d5d6bb2",
+       "level": 207.99999999999997,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "a47e5cd0f7d97489a5daf86246c68e381beab215faa7d8a34cc4e916c4c2e3e8",
+       "level": 207.99999999999997,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "b889896f8995d4d5a047ec45a3d00c1025f83b5e0024b702ea3e1d8379f56d07",
+       "level": 207.99999999999997,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "f5af9212460d152c2922be286791993555e82200fda33de9bfc48482984f7bb6",
+       "level": 207.99999999999997,
+       "pixels": 1682,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "light-inactive": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "d0e324034919e16cb135182bc9f1b83277722a33a1e90533fada50b0819c0f14",
+       "level": 48.0,
+       "pixels": 1430,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "0a449bea1aab07e1d8d37de4b3643fc2796c137b220a6bccbb56359641d4d55a",
+       "level": 254.99999999999997,
+       "pixels": 114,
+       "predictedDr": 0.0876,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "0879b53ee1f9c0adc0b86dfee0125a82247e267c15f89ffb1423218e454eef56",
+       "level": 0.0,
+       "pixels": 114,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "97bdbdd44f6c7fb6fb197bb3d7248eda407b4a09bd11d050deb09e37ae5568b8",
+       "level": 254.99999999999997,
+       "pixels": 343,
+       "predictedDr": 0.0743,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "dc39c954a0b01e0dc0aba73c5a4599b41a0363e089dacf67fdad3fc92aea0b3d",
+       "level": 0.0,
+       "pixels": 343,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "lifted": {
+       "idxSha256": "c31ecb6c95770182cf345240bea70a450b6937f2453d22849b54d7947d425d71",
+       "level": 0.0,
+       "pixels": 968,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "7d0b1f7144d94efc8f4d5404607d0d7b4c34a1cacb96d3f77f8accefb25ff612",
+       "level": 48.0,
+       "pixels": 160,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "light-rest": {
+     "b-p2-c16-rrect-md": {
+      "free": {
+       "idxSha256": "63946d71bb92556f3a12968a4eb143861a44565e9168c39ef216026f22eb1c8a",
+       "level": 207.99999999999997,
+       "pixels": 54,
+       "predictedDr": 0.0891,
+       "stratum": 96
+      },
+      "lifted": {
+       "idxSha256": "5d7b687e1b30a7b096db7e1a6077d049d02958797a8a1a546a0b9f36707cc973",
+       "level": 48.0,
+       "pixels": 54,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "411e6b91e4988b85c9368dbafa2ed57e0c045e7441b5817f127a88a363e41ce9",
+       "level": 48.0,
+       "pixels": 5092,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "482752ffb37cab6d00db3914707417f11d21061764a9a49f46778e58475d72cd",
+       "level": 96.0,
+       "pixels": 644,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "5cf4ef7b6627e9bb29db6b825aaa2f882ebc09c8ed9b7e30aecf97da22287781",
+       "level": 16.0,
+       "pixels": 132,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "870d1f358b72e4e68b6a9058226ae5be024da8796f59e9482c13ad32b5663bba",
+       "level": 16.0,
+       "pixels": 3260,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p5-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "870d1f358b72e4e68b6a9058226ae5be024da8796f59e9482c13ad32b5663bba",
+       "level": 144.00000000000003,
+       "pixels": 3260,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "predictedDr": 0.0548,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "predictedDr": 0.051,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "free": {
+       "idxSha256": "02f591f622412fc2715bc9edcf9083e983663550ec80bb13c962404ff9467627",
+       "level": 254.99999999999997,
+       "pixels": 844,
+       "predictedDr": 0.0904,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "free": {
+       "idxSha256": "b996ebce9e03853a1507f72b4fa082c02f5b8ce6d6099faacba5568edf70289d",
+       "level": 207.99999999999997,
+       "pixels": 1080,
+       "predictedDr": 0.0652,
+       "stratum": 96
+      },
+      "lifted": {
+       "idxSha256": "3d4ed47e9fa8c4022620c3641e5d4fc9b270506b879ff646a2ec79fb89e18bc6",
+       "level": 48.0,
+       "pixels": 932,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "b996ebce9e03853a1507f72b4fa082c02f5b8ce6d6099faacba5568edf70289d",
+       "level": 48.0,
+       "pixels": 1080,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "a47e5cd0f7d97489a5daf86246c68e381beab215faa7d8a34cc4e916c4c2e3e8",
+       "level": 48.0,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "a25114611f1916a0e244d0464d42db8466ece224f1ebe01d02c2b1eb0d5d6bb2",
+       "level": 48.0,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "f5af9212460d152c2922be286791993555e82200fda33de9bfc48482984f7bb6",
+       "level": 48.0,
+       "pixels": 1682,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "b889896f8995d4d5a047ec45a3d00c1025f83b5e0024b702ea3e1d8379f56d07",
+       "level": 48.0,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    }
+   }
+  },
+  "median": {
+   "declared": {
+    "dark-inactive": {
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "1cc5e401530e868d44df0592acc8c6bc645871a175bc77396670ab40548d5785",
+       "level": 0.0,
+       "pixels": 12,
+       "predictedDr": 0.0814,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "1b4974e09133f9a3e1e54c1157057ba247bbc6b2128e225a34cafde0a4a37b20",
+       "level": 254.99999999999997,
+       "pixels": 12,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "5d9d01d1549368c0e43798253b497326f99cde6ec3dca733e99b7ffc9232f7f4",
+       "level": 0.0,
+       "pixels": 42,
+       "predictedDr": 0.0836,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "6c9e23e9b0ae77eb869416b7053e95e1e36012225dde4b1b309847527c0e4a8a",
+       "level": 254.99999999999997,
+       "pixels": 42,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     }
+    },
+    "dark-rest": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "e776e3c91f718ec8228a26e7b17b65f6e4ad9339ef834b90f5d673281c11906f",
+       "level": 207.99999999999997,
+       "pixels": 2604,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "6b9c2ae9e856850c5b6e4e6239e506de04edd7fe2fbfd663dc1ea7291b055f24",
+       "level": 159.99999999999997,
+       "pixels": 48,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "8fb198776ee0569e22d2200fc42201a1260986f47ccb2ea9db37b73f1dee5b81",
+       "level": 159.99999999999997,
+       "pixels": 16,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "85b83a1a535283ff415d7a7817ff04a9d72a14bdd6579e2eb91c93c34f456543",
+       "level": 111.99999999999999,
+       "pixels": 796,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "predictedDr": 0.0564,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "predictedDr": 0.0602,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "free": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "predictedDr": 0.0806,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "65c409eda66dc9190542441a44778bfacc74633005d81dd4f7525e1cb35b0578",
+       "level": 254.99999999999997,
+       "pixels": 354,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "lifted": {
+       "idxSha256": "f2e865d9227c3a040e6bf4843e2755cfd4a69354d14bb7818eb3be8bab3cce24",
+       "level": 207.99999999999997,
+       "pixels": 832,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "041a0e54bf271eaa53618381dbe12f1ba272456d17f834669967a38e284a5344",
+       "level": 207.99999999999997,
+       "pixels": 204,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "ca43b341821a0be8a952aea6c9b2baf08809bd6ef868c24eb61152bd51dbb305",
+       "level": 207.99999999999997,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "0794cd212a1484914ef73307ff44b715dcee13c6c8f112f50ec7914c04b45c95",
+       "level": 207.99999999999997,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "f7e3dc062cc4d5826582c829f8885e797bce12bcbef3806d1f286593ab61a543",
+       "level": 207.99999999999997,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "d382ba3c80bd6d8c66454b45deba54e6476f8341a5aee7be992f69fd75363f88",
+       "level": 207.99999999999997,
+       "pixels": 632,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "light-inactive": {
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "1b4974e09133f9a3e1e54c1157057ba247bbc6b2128e225a34cafde0a4a37b20",
+       "level": 254.99999999999997,
+       "pixels": 12,
+       "predictedDr": 0.0924,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "1cc5e401530e868d44df0592acc8c6bc645871a175bc77396670ab40548d5785",
+       "level": 0.0,
+       "pixels": 12,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "6c9e23e9b0ae77eb869416b7053e95e1e36012225dde4b1b309847527c0e4a8a",
+       "level": 254.99999999999997,
+       "pixels": 42,
+       "predictedDr": 0.0924,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "5d9d01d1549368c0e43798253b497326f99cde6ec3dca733e99b7ffc9232f7f4",
+       "level": 0.0,
+       "pixels": 42,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "lifted": {
+       "idxSha256": "e7882cf0f257967b57ca1649e025a25a334fede49ccf94c56845dc051318afbf",
+       "level": 0.0,
+       "pixels": 172,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     }
+    },
+    "light-rest": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "e36a9b46595b9e7a770f7194d00dacf2584098c841a82e5c0336cbebaa2bde80",
+       "level": 48.0,
+       "pixels": 2256,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "810bc342c13bf3f747d431460f7329a0dba21ab33015951cd88ffe382bb94243",
+       "level": 96.0,
+       "pixels": 16,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "49df20e0a336c5a84eab1ecfbc10195e5c04144c75fd43ac48eb2f7e539e3b65",
+       "level": 16.0,
+       "pixels": 706,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p5-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "49df20e0a336c5a84eab1ecfbc10195e5c04144c75fd43ac48eb2f7e539e3b65",
+       "level": 144.00000000000003,
+       "pixels": 706,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "predictedDr": 0.0571,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "predictedDr": 0.0615,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "free": {
+       "idxSha256": "65c409eda66dc9190542441a44778bfacc74633005d81dd4f7525e1cb35b0578",
+       "level": 254.99999999999997,
+       "pixels": 354,
+       "predictedDr": 0.0943,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "free": {
+       "idxSha256": "f2e865d9227c3a040e6bf4843e2755cfd4a69354d14bb7818eb3be8bab3cce24",
+       "level": 207.99999999999997,
+       "pixels": 832,
+       "predictedDr": 0.08,
+       "stratum": 96
+      },
+      "lifted": {
+       "idxSha256": "041a0e54bf271eaa53618381dbe12f1ba272456d17f834669967a38e284a5344",
+       "level": 48.0,
+       "pixels": 204,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "f2e865d9227c3a040e6bf4843e2755cfd4a69354d14bb7818eb3be8bab3cce24",
+       "level": 48.0,
+       "pixels": 832,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "0794cd212a1484914ef73307ff44b715dcee13c6c8f112f50ec7914c04b45c95",
+       "level": 48.0,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "ca43b341821a0be8a952aea6c9b2baf08809bd6ef868c24eb61152bd51dbb305",
+       "level": 48.0,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "d382ba3c80bd6d8c66454b45deba54e6476f8341a5aee7be992f69fd75363f88",
+       "level": 48.0,
+       "pixels": 632,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "f7e3dc062cc4d5826582c829f8885e797bce12bcbef3806d1f286593ab61a543",
+       "level": 48.0,
+       "pixels": 614,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    }
+   },
+   "ls-span": {
+    "dark-inactive": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "b07851d598a3029fe985a6208e2b80de284fc3ed5ccd1ee1ec639fad8b2aa935",
+       "level": 207.99999999999997,
+       "pixels": 1464,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "0879b53ee1f9c0adc0b86dfee0125a82247e267c15f89ffb1423218e454eef56",
+       "level": 0.0,
+       "pixels": 114,
+       "predictedDr": 0.0793,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "0a449bea1aab07e1d8d37de4b3643fc2796c137b220a6bccbb56359641d4d55a",
+       "level": 254.99999999999997,
+       "pixels": 114,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "dc39c954a0b01e0dc0aba73c5a4599b41a0363e089dacf67fdad3fc92aea0b3d",
+       "level": 0.0,
+       "pixels": 343,
+       "predictedDr": 0.0814,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "97bdbdd44f6c7fb6fb197bb3d7248eda407b4a09bd11d050deb09e37ae5568b8",
+       "level": 254.99999999999997,
+       "pixels": 343,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "lifted": {
+       "idxSha256": "dab77aee4cf78268f02d6d63908f79af5ae656f5295a801d4a74e8a1de1d2e19",
+       "level": 254.99999999999997,
+       "pixels": 1904,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "7d0b1f7144d94efc8f4d5404607d0d7b4c34a1cacb96d3f77f8accefb25ff612",
+       "level": 207.99999999999997,
+       "pixels": 160,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "dark-rest": {
+     "b-p2-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "63946d71bb92556f3a12968a4eb143861a44565e9168c39ef216026f22eb1c8a",
+       "level": 207.99999999999997,
+       "pixels": 54,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "c55e5521c1d6029878e2b5af48dcd8dcc54a964357bb29f3f398861db5250e18",
+       "level": 207.99999999999997,
+       "pixels": 6648,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "b5536e6fefff3ed36bed018460b970af7e1a6b2a9b92c6763f357205ac9da8d9",
+       "level": 159.99999999999997,
+       "pixels": 270,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "973889ec22c50e79d74bc5c1512990c88a2874b7d778121853ffd10dce0f86be",
+       "level": 159.99999999999997,
+       "pixels": 664,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "857bf8b299895c0e20d7463bdd57a4f90f7f5239f45b20ea71152bf52ad901c2",
+       "level": 111.99999999999999,
+       "pixels": 132,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "835eeab4cb8c6adc0a7afa6b9cb5017adcf0a0a735b85c138d60546ae3957ed3",
+       "level": 111.99999999999999,
+       "pixels": 3706,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "predictedDr": 0.0564,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "predictedDr": 0.0602,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "free": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "predictedDr": 0.0806,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "02f591f622412fc2715bc9edcf9083e983663550ec80bb13c962404ff9467627",
+       "level": 254.99999999999997,
+       "pixels": 844,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "lifted": {
+       "idxSha256": "b996ebce9e03853a1507f72b4fa082c02f5b8ce6d6099faacba5568edf70289d",
+       "level": 207.99999999999997,
+       "pixels": 1080,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "3d4ed47e9fa8c4022620c3641e5d4fc9b270506b879ff646a2ec79fb89e18bc6",
+       "level": 207.99999999999997,
+       "pixels": 932,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "a25114611f1916a0e244d0464d42db8466ece224f1ebe01d02c2b1eb0d5d6bb2",
+       "level": 207.99999999999997,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "a47e5cd0f7d97489a5daf86246c68e381beab215faa7d8a34cc4e916c4c2e3e8",
+       "level": 207.99999999999997,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "b889896f8995d4d5a047ec45a3d00c1025f83b5e0024b702ea3e1d8379f56d07",
+       "level": 207.99999999999997,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "f5af9212460d152c2922be286791993555e82200fda33de9bfc48482984f7bb6",
+       "level": 207.99999999999997,
+       "pixels": 1682,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "light-inactive": {
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "d0e324034919e16cb135182bc9f1b83277722a33a1e90533fada50b0819c0f14",
+       "level": 48.0,
+       "pixels": 1430,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "0a449bea1aab07e1d8d37de4b3643fc2796c137b220a6bccbb56359641d4d55a",
+       "level": 254.99999999999997,
+       "pixels": 114,
+       "predictedDr": 0.0902,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "0879b53ee1f9c0adc0b86dfee0125a82247e267c15f89ffb1423218e454eef56",
+       "level": 0.0,
+       "pixels": 114,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "97bdbdd44f6c7fb6fb197bb3d7248eda407b4a09bd11d050deb09e37ae5568b8",
+       "level": 254.99999999999997,
+       "pixels": 343,
+       "predictedDr": 0.0924,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "dc39c954a0b01e0dc0aba73c5a4599b41a0363e089dacf67fdad3fc92aea0b3d",
+       "level": 0.0,
+       "pixels": 343,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "lifted": {
+       "idxSha256": "c31ecb6c95770182cf345240bea70a450b6937f2453d22849b54d7947d425d71",
+       "level": 0.0,
+       "pixels": 968,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "7d0b1f7144d94efc8f4d5404607d0d7b4c34a1cacb96d3f77f8accefb25ff612",
+       "level": 48.0,
+       "pixels": 160,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    },
+    "light-rest": {
+     "b-p2-c16-rrect-md": {
+      "free": {
+       "idxSha256": "63946d71bb92556f3a12968a4eb143861a44565e9168c39ef216026f22eb1c8a",
+       "level": 207.99999999999997,
+       "pixels": 54,
+       "predictedDr": 0.0891,
+       "stratum": 96
+      },
+      "lifted": {
+       "idxSha256": "5d7b687e1b30a7b096db7e1a6077d049d02958797a8a1a546a0b9f36707cc973",
+       "level": 48.0,
+       "pixels": 54,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p2-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "411e6b91e4988b85c9368dbafa2ed57e0c045e7441b5817f127a88a363e41ce9",
+       "level": 48.0,
+       "pixels": 5092,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p3-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "482752ffb37cab6d00db3914707417f11d21061764a9a49f46778e58475d72cd",
+       "level": 96.0,
+       "pixels": 644,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c16-rrect-md": {
+      "lifted": {
+       "idxSha256": "5cf4ef7b6627e9bb29db6b825aaa2f882ebc09c8ed9b7e30aecf97da22287781",
+       "level": 16.0,
+       "pixels": 132,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p4-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "870d1f358b72e4e68b6a9058226ae5be024da8796f59e9482c13ad32b5663bba",
+       "level": 16.0,
+       "pixels": 3260,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "b-p5-c64-rrect-md": {
+      "lifted": {
+       "idxSha256": "870d1f358b72e4e68b6a9058226ae5be024da8796f59e9482c13ad32b5663bba",
+       "level": 144.00000000000003,
+       "pixels": 3260,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "bp-p1-c32-capsule-button": {
+      "free": {
+       "idxSha256": "c6744b077a650064dd7b95813d0765f3cf40d42ac64d33cc036139bbf84ecd9e",
+       "level": 254.99999999999997,
+       "pixels": 221,
+       "predictedDr": 0.0571,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "57c6a513fcfc6c4790ad6baab42a0aaac232322e2a0ab400d0a7a575379f3ddd",
+       "level": 0.0,
+       "pixels": 221,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c32-rrect-64": {
+      "free": {
+       "idxSha256": "d0d995b3224b8b734c3614ffe686634743a5edded2b792fbcaefad473ad3922b",
+       "level": 254.99999999999997,
+       "pixels": 1536,
+       "predictedDr": 0.0615,
+       "stratum": 0
+      },
+      "lifted": {
+       "idxSha256": "dfff1453bb7caea440ecec20db2026f0321c5d850ecc03fcf829236f68be1d6a",
+       "level": 0.0,
+       "pixels": 1536,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "bp-p1-c64-capsule-button": {
+      "lifted": {
+       "idxSha256": "4b47e83fe350f046e31a342c27d2a0140a467fb7472f1e35e0b0f2a8a0e3b367",
+       "level": 0.0,
+       "pixels": 116,
+       "reported": "never gated",
+       "stratum": 0
+      }
+     },
+     "c-s32-hi-rrect-md": {
+      "free": {
+       "idxSha256": "b996ebce9e03853a1507f72b4fa082c02f5b8ce6d6099faacba5568edf70289d",
+       "level": 207.99999999999997,
+       "pixels": 1080,
+       "predictedDr": 0.08,
+       "stratum": 96
+      },
+      "lifted": {
+       "idxSha256": "3d4ed47e9fa8c4022620c3641e5d4fc9b270506b879ff646a2ec79fb89e18bc6",
+       "level": 48.0,
+       "pixels": 932,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "c-s32-lo-rrect-md": {
+      "lifted": {
+       "idxSha256": "b996ebce9e03853a1507f72b4fa082c02f5b8ce6d6099faacba5568edf70289d",
+       "level": 48.0,
+       "pixels": 1080,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "a47e5cd0f7d97489a5daf86246c68e381beab215faa7d8a34cc4e916c4c2e3e8",
+       "level": 48.0,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d0-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "a25114611f1916a0e244d0464d42db8466ece224f1ebe01d02c2b1eb0d5d6bb2",
+       "level": 48.0,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-hilo-rrect-md": {
+      "lifted": {
+       "idxSha256": "f5af9212460d152c2922be286791993555e82200fda33de9bfc48482984f7bb6",
+       "level": 48.0,
+       "pixels": 1682,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     },
+     "d-d32-lohi-rrect-md": {
+      "lifted": {
+       "idxSha256": "b889896f8995d4d5a047ec45a3d00c1025f83b5e0024b702ea3e1d8379f56d07",
+       "level": 48.0,
+       "pixels": 1658,
+       "reported": "never gated",
+       "stratum": 96
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -51,7 +51,7 @@ EVID = HERE.parent
 ROOT = HERE.parents[4]
 CANONICAL = 'apps/reference-apple/scenes.json'
 W42_SCENES = 'packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json'
-PROBE = f'{HERE.relative_to(ROOT).as_posix()}/scenes-w43-probe.json'
+PROBE = 'packages/calibration/results/2026-10-01-w43-g0-declaration/bed/scenes-w43-probe.json'
 POSE_CHECK = ('checkerboard__capsule-button__rest',
               ('204f21f0362d3226f7e28690be7c61ece0848931c89062e8a888f1ade22d4033',
                '6c15311b06af50a17141c54d7a71645cf63518c844b61d113b9426e15bcbf1d0'))

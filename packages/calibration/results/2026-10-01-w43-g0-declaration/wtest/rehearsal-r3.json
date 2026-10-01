@@ -1,0 +1,6571 @@
+{
+ "schema": "w43-wtest-rehearsal-3",
+ "archiveInventory": "5481795e0a77ef246f6743d2b6bbe2111a79d858ff9b7a2a4571255595940ed7",
+ "constants": {
+  "kGrid": [
+   1.4,
+   1.6,
+   1.8,
+   2.0,
+   2.2,
+   2.5
+  ],
+  "kGridLs": [
+   2.0,
+   2.1,
+   2.2,
+   2.25
+  ],
+  "cTol": 0.5,
+  "minWContrast": 24.0,
+  "minPx": 12,
+  "censor": [
+   5.0,
+   250.0
+  ],
+  "darkTTop": 208.0,
+  "q": 0.5,
+  "ord": 0.5,
+  "minExcursion": 12.0,
+  "drMax": 0.1,
+  "greyLevels": [
+   0,
+   64,
+   128,
+   160,
+   192,
+   208,
+   255
+  ]
+ },
+ "endpoints": {
+  "light-rest": {
+   "declared": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 2604,
+     "populationPixels": 10080,
+     "atLevelPixels": 8296,
+     "frameStates": 1,
+     "y50": [
+      223.0,
+      223.0,
+      223.0
+     ],
+     "median": {
+      "M50": 182.85714285714286,
+      "D": -25.14285714285711,
+      "slope": 0.4375,
+      "interp": 0.10204081632645057,
+      "predictedDr": 0.14174622598417344,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.142 > 0.1"
+     },
+     "mean": {
+      "M50": 182.00775363909005,
+      "D": -25.992246360909917,
+      "slope": 0.4375,
+      "interp": 0.10737631877543663,
+      "predictedDr": 0.10568791650034982,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.106 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 2256,
+     "populationPixels": 6660,
+     "atLevelPixels": 5026,
+     "frameStates": 1,
+     "y50": [
+      183.0,
+      183.0,
+      183.0
+     ],
+     "median": {
+      "M50": 98.0,
+      "D": 50.0,
+      "slope": 0.5,
+      "interp": 0.33203125000005684,
+      "predictedDr": 0.07308593750000568,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 98.08126477541373,
+      "D": 50.08126477541373,
+      "slope": 0.5,
+      "interp": 0.33192265479239796,
+      "predictedDr": 0.054071909210155006,
+      "distinct": 12,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 16,
+     "populationPixels": 10080,
+     "atLevelPixels": 8734,
+     "frameStates": 1,
+     "y50": [
+      206.0,
+      206.0,
+      206.0
+     ],
+     "median": {
+      "M50": 145.06666666666666,
+      "D": -14.933333333333309,
+      "slope": 0.46875,
+      "interp": 0.12444444444437863,
+      "predictedDr": 0.2359523809523676,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.236 > 0.1"
+     },
+     "mean": {
+      "M50": 145.24444444444444,
+      "D": -14.755555555555532,
+      "slope": 0.46875,
+      "interp": 0.12421296296289104,
+      "predictedDr": 0.23866967871484412,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.239 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 16,
+     "populationPixels": 6660,
+     "atLevelPixels": 5424,
+     "frameStates": 1,
+     "y50": [
+      195.0,
+      195.0,
+      195.0
+     ],
+     "median": {
+      "M50": 122.0,
+      "D": 26.0,
+      "slope": 0.5,
+      "interp": 0.11328125000005684,
+      "predictedDr": 0.1411508413461604,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.141 > 0.1"
+     },
+     "mean": {
+      "M50": 122.0,
+      "D": 26.0,
+      "slope": 0.5,
+      "interp": 0.11328125000005684,
+      "predictedDr": 0.1411508413461604,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.141 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 796,
+     "populationPixels": 10080,
+     "atLevelPixels": 8570,
+     "frameStates": 1,
+     "y50": [
+      182.0,
+      181.0,
+      182.0
+     ],
+     "median": {
+      "M50": 95.33333333333333,
+      "D": -16.666666666666657,
+      "slope": 0.5,
+      "interp": 0.3328993055556187,
+      "predictedDr": 0.23766927083334394,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.238 > 0.1"
+     },
+     "mean": {
+      "M50": 94.82914572864321,
+      "D": -17.170854271356774,
+      "slope": 0.5,
+      "interp": 0.33288580144018926,
+      "predictedDr": 0.2185351590618324,
+      "distinct": 3,
+      "supported": 0.0,
+      "reason": "predicted dr 0.219 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 706,
+     "populationPixels": 6660,
+     "atLevelPixels": 5258,
+     "frameStates": 1,
+     "y50": [
+      159.0,
+      159.0,
+      159.0
+     ],
+     "median": {
+      "M50": 50.0,
+      "D": 34.0,
+      "slope": 0.5,
+      "interp": 2.842170943040401e-14,
+      "predictedDr": 0.08823529411764956,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 50.92634560906516,
+      "D": 34.92634560906516,
+      "slope": 0.5,
+      "interp": 2.842170943040401e-14,
+      "predictedDr": 0.06959541677059157,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 240.0,
+     "stratum": 96,
+     "pixels": 796,
+     "populationPixels": 10080,
+     "atLevelPixels": 8570,
+     "frameStates": 1,
+     "y50": [
+      240.0,
+      240.0,
+      240.0
+     ],
+     "median": {
+      "M50": 222.1,
+      "D": -17.900000000000006,
+      "slope": 0.425531914893617,
+      "interp": 0.08812500000010459,
+      "predictedDr": 0.21648025987631853,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.216 > 0.1"
+     },
+     "mean": {
+      "M50": 221.9897822445561,
+      "D": -18.010217755443904,
+      "slope": 0.425531914893617,
+      "interp": 0.08772693217533363,
+      "predictedDr": 0.20134112247515618,
+      "distinct": 3,
+      "supported": 0.0,
+      "reason": "predicted dr 0.201 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 144.00000000000003,
+     "stratum": 96,
+     "pixels": 706,
+     "populationPixels": 6660,
+     "atLevelPixels": 5258,
+     "frameStates": 1,
+     "y50": [
+      221.0,
+      221.0,
+      221.0
+     ],
+     "median": {
+      "M50": 178.2857142857143,
+      "D": 34.28571428571428,
+      "slope": 0.4375,
+      "interp": 0.12244897959175205,
+      "predictedDr": 0.10522959183672542,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.105 > 0.1"
+     },
+     "mean": {
+      "M50": 179.19762579252665,
+      "D": 35.19762579252662,
+      "slope": 0.4375,
+      "interp": 0.12000738821230546,
+      "predictedDr": 0.08436242926734971,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 1,
+     "y50": [
+      226.0,
+      225.0,
+      225.0
+     ],
+     "median": {
+      "M50": 192.76190476190473,
+      "D": -62.23809523809524,
+      "slope": 0.4375,
+      "interp": 0.006802721088528567,
+      "predictedDr": 0.05707206956147339,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 193.15147597500538,
+      "D": -61.84852402499459,
+      "slope": 0.4375,
+      "interp": 0.011130568946365807,
+      "predictedDr": 0.054822655613919295,
+      "distinct": 2,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 1,
+     "y50": [
+      189.0,
+      189.0,
+      189.0
+     ],
+     "median": {
+      "M50": 115.61290322580645,
+      "D": 115.61290322580645,
+      "slope": 0.484375,
+      "interp": 0.104058272632642,
+      "predictedDr": 0.02791281867845855,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 115.25480465138908,
+      "D": 115.25480465138908,
+      "slope": 0.484375,
+      "interp": 0.10632360770357725,
+      "predictedDr": 0.023022609907225218,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      227.0,
+      227.0,
+      227.0
+     ],
+     "median": {
+      "M50": 196.57142857142858,
+      "D": -58.42857142857139,
+      "slope": 0.4375,
+      "interp": 0.034013605442112294,
+      "predictedDr": 0.061470773109558466,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 197.10119047619048,
+      "D": -57.89880952380949,
+      "slope": 0.4375,
+      "interp": 0.03619314891972181,
+      "predictedDr": 0.05097649666057921,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      187.0,
+      187.0,
+      187.0
+     ],
+     "median": {
+      "M50": 111.48387096774194,
+      "D": 111.48387096774194,
+      "slope": 0.484375,
+      "interp": 0.1276448144293738,
+      "predictedDr": 0.029389035020103833,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 110.74103942652327,
+      "D": 110.74103942652327,
+      "slope": 0.484375,
+      "interp": 0.13129896949826048,
+      "predictedDr": 0.021480259886966637,
+      "distinct": 10,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 354,
+     "populationPixels": 896,
+     "atLevelPixels": 896,
+     "frameStates": 1,
+     "y50": [
+      236.0,
+      236.0,
+      236.0
+     ],
+     "median": {
+      "M50": 216.95238095238096,
+      "D": -38.04761904761901,
+      "slope": 0.4468085106382979,
+      "interp": 0.05032753842255033,
+      "predictedDr": 0.09434120870568402,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 216.91727199354318,
+      "D": -38.08272800645679,
+      "slope": 0.4468085106382979,
+      "interp": 0.05017616696052111,
+      "predictedDr": 0.06641171188419878,
+      "distinct": 12,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 116,
+     "populationPixels": 116,
+     "atLevelPixels": 116,
+     "frameStates": 1,
+     "y50": [
+      176.0,
+      176.0,
+      176.0
+     ],
+     "median": {
+      "M50": 88.77419354838712,
+      "D": 88.77419354838712,
+      "slope": 0.484375,
+      "interp": 0.15816857440165677,
+      "predictedDr": 0.038390299439777426,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 88.57842046718572,
+      "D": 88.57842046718572,
+      "slope": 0.484375,
+      "interp": 0.15770181413892223,
+      "predictedDr": 0.028251515890580167,
+      "distinct": 10,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 832,
+     "populationPixels": 3600,
+     "atLevelPixels": 832,
+     "frameStates": 1,
+     "y50": [
+      214.0,
+      214.0,
+      214.0
+     ],
+     "median": {
+      "M50": 162.28571428571428,
+      "D": -45.714285714285694,
+      "slope": 0.4375,
+      "interp": 0.03316326530602964,
+      "predictedDr": 0.08003826530611635,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 162.10512820512818,
+      "D": -45.89487179487179,
+      "slope": 0.4375,
+      "interp": 0.030728778224585085,
+      "predictedDr": 0.06618373603786935,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 204,
+     "populationPixels": 15524,
+     "atLevelPixels": 11252,
+     "frameStates": 1,
+     "y50": [
+      171.0,
+      171.0,
+      171.0
+     ],
+     "median": {
+      "M50": 74.0,
+      "D": 26.0,
+      "slope": 0.5,
+      "interp": 0.1757812500001137,
+      "predictedDr": 0.12214543269231644,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.122 > 0.1"
+     },
+     "mean": {
+      "M50": 74.16013071895425,
+      "D": 26.16013071895425,
+      "slope": 0.5,
+      "interp": 0.1780662681655182,
+      "predictedDr": 0.11340697929352633,
+      "distinct": 3,
+      "supported": 0.0,
+      "reason": "predicted dr 0.113 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 204,
+     "populationPixels": 15524,
+     "atLevelPixels": 11252,
+     "frameStates": 1,
+     "y50": [
+      229.0,
+      228.0,
+      228.0
+     ],
+     "median": {
+      "M50": 195.04761904761904,
+      "D": -12.952380952380935,
+      "slope": 0.4375,
+      "interp": 0.007278291255734833,
+      "predictedDr": 0.2674060505661308,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.267 > 0.1"
+     },
+     "mean": {
+      "M50": 195.43977591036412,
+      "D": -12.560224089635852,
+      "slope": 0.4375,
+      "interp": 0.008202744713145194,
+      "predictedDr": 0.26250177644994777,
+      "distinct": 2,
+      "supported": 0.0,
+      "reason": "predicted dr 0.263 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 832,
+     "populationPixels": 3600,
+     "atLevelPixels": 832,
+     "frameStates": 1,
+     "y50": [
+      200.0,
+      200.0,
+      200.0
+     ],
+     "median": {
+      "M50": 132.26666666666668,
+      "D": 84.26666666666668,
+      "slope": 0.46875,
+      "interp": 0.057777777777715755,
+      "predictedDr": 0.044769251054853194,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 132.87692307692308,
+      "D": 84.87692307692308,
+      "slope": 0.46875,
+      "interp": 0.06458659924246983,
+      "predictedDr": 0.03586177670795987,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      225.0,
+      225.0,
+      225.0
+     ],
+     "median": {
+      "M50": 187.42857142857142,
+      "D": -20.571428571428555,
+      "slope": 0.4375,
+      "interp": 0.0612244897958476,
+      "predictedDr": 0.17130864503855997,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.171 > 0.1"
+     },
+     "mean": {
+      "M50": 187.0984954242283,
+      "D": -20.901504575771668,
+      "slope": 0.4375,
+      "interp": 0.06485488072080632,
+      "predictedDr": 0.13910116751463558,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.139 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      179.0,
+      178.0,
+      178.0
+     ],
+     "median": {
+      "M50": 88.66666666666667,
+      "D": 40.66666666666667,
+      "slope": 0.5,
+      "interp": 0.31553819444453285,
+      "predictedDr": 0.08566534323771281,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 89.21606948968513,
+      "D": 41.216069489685125,
+      "slope": 0.5,
+      "interp": 0.31833150712776614,
+      "predictedDr": 0.06740023479397894,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      225.0,
+      225.0,
+      225.0
+     ],
+     "median": {
+      "M50": 187.42857142857142,
+      "D": -20.571428571428555,
+      "slope": 0.4375,
+      "interp": 0.0612244897958476,
+      "predictedDr": 0.17130864503855997,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.171 > 0.1"
+     },
+     "mean": {
+      "M50": 187.0984954242283,
+      "D": -20.901504575771668,
+      "slope": 0.4375,
+      "interp": 0.06485488072080632,
+      "predictedDr": 0.13910116751463558,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.139 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      179.0,
+      178.0,
+      178.0
+     ],
+     "median": {
+      "M50": 88.66666666666667,
+      "D": 40.66666666666667,
+      "slope": 0.5,
+      "interp": 0.31553819444453285,
+      "predictedDr": 0.08566534323771281,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 89.21606948968513,
+      "D": 41.216069489685125,
+      "slope": 0.5,
+      "interp": 0.31833150712776614,
+      "predictedDr": 0.06740023479397894,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 15570,
+     "atLevelPixels": 14114,
+     "frameStates": 1,
+     "y50": [
+      225.0,
+      225.0,
+      225.0
+     ],
+     "median": {
+      "M50": 187.42857142857142,
+      "D": -20.571428571428555,
+      "slope": 0.4375,
+      "interp": 0.0612244897958476,
+      "predictedDr": 0.17130864503855997,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.171 > 0.1"
+     },
+     "mean": {
+      "M50": 187.07864122847832,
+      "D": -20.921358771521653,
+      "slope": 0.4375,
+      "interp": 0.06506881684007719,
+      "predictedDr": 0.1389798250375389,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.139 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 632,
+     "populationPixels": 4050,
+     "atLevelPixels": 2612,
+     "frameStates": 1,
+     "y50": [
+      179.0,
+      178.0,
+      178.0
+     ],
+     "median": {
+      "M50": 88.66666666666667,
+      "D": 40.66666666666667,
+      "slope": 0.5,
+      "interp": 0.31553819444453285,
+      "predictedDr": 0.08566534323771281,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 89.29535864978902,
+      "D": 41.29535864978902,
+      "slope": 0.5,
+      "interp": 0.3186808187818997,
+      "predictedDr": 0.06731351203585546,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 632,
+     "populationPixels": 4050,
+     "atLevelPixels": 2612,
+     "frameStates": 1,
+     "y50": [
+      225.0,
+      225.0,
+      225.0
+     ],
+     "median": {
+      "M50": 187.42857142857142,
+      "D": -20.571428571428555,
+      "slope": 0.4375,
+      "interp": 0.0612244897958476,
+      "predictedDr": 0.17130864503855997,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.171 > 0.1"
+     },
+     "mean": {
+      "M50": 187.05485232067508,
+      "D": -20.94514767932489,
+      "slope": 0.4375,
+      "interp": 0.06532724299854446,
+      "predictedDr": 0.13883487416972576,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.139 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 15570,
+     "atLevelPixels": 14114,
+     "frameStates": 1,
+     "y50": [
+      179.0,
+      178.0,
+      178.0
+     ],
+     "median": {
+      "M50": 88.66666666666667,
+      "D": 40.66666666666667,
+      "slope": 0.5,
+      "interp": 0.31553819444453285,
+      "predictedDr": 0.08566534323771281,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 89.21172638436481,
+      "D": 41.21172638436481,
+      "slope": 0.5,
+      "interp": 0.3183131971781184,
+      "predictedDr": 0.06740502470186553,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    }
+   ],
+   "ls-span": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 54,
+     "populationPixels": 2385,
+     "atLevelPixels": 54,
+     "frameStates": 1,
+     "y50": [
+      216.0,
+      216.0,
+      216.0
+     ],
+     "median": {
+      "M50": 166.85714285714286,
+      "D": -41.14285714285711,
+      "slope": 0.4375,
+      "interp": 0.08418367346931177,
+      "predictedDr": 0.08907312925169471,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 166.8571428571429,
+      "D": -41.14285714285708,
+      "slope": 0.4375,
+      "interp": 0.08418367346934019,
+      "predictedDr": 0.08907312925169557,
+      "distinct": 1,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 54,
+     "populationPixels": 2385,
+     "atLevelPixels": 54,
+     "frameStates": 1,
+     "y50": [
+      197.0,
+      197.0,
+      197.0
+     ],
+     "median": {
+      "M50": 126.0,
+      "D": 78.0,
+      "slope": 0.5,
+      "interp": 0.04036458333337123,
+      "predictedDr": 0.046849959935900354,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 126.0,
+      "D": 78.0,
+      "slope": 0.5,
+      "interp": 0.04036458333337123,
+      "predictedDr": 0.046849959935900354,
+      "distinct": 1,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 6648,
+     "populationPixels": 10080,
+     "atLevelPixels": 8688,
+     "frameStates": 1,
+     "y50": [
+      225.0,
+      225.0,
+      225.0
+     ],
+     "median": {
+      "M50": 187.42857142857142,
+      "D": -20.571428571428555,
+      "slope": 0.4375,
+      "interp": 0.0612244897958476,
+      "predictedDr": 0.17130864503855997,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.171 > 0.1"
+     },
+     "mean": {
+      "M50": 185.9242450289382,
+      "D": -22.07575497106177,
+      "slope": 0.4375,
+      "interp": 0.07690557350143006,
+      "predictedDr": 0.11405102520616477,
+      "distinct": 10,
+      "supported": 0.0,
+      "reason": "predicted dr 0.114 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 5092,
+     "populationPixels": 6660,
+     "atLevelPixels": 5392,
+     "frameStates": 1,
+     "y50": [
+      180.0,
+      180.0,
+      180.0
+     ],
+     "median": {
+      "M50": 92.0,
+      "D": 44.0,
+      "slope": 0.5,
+      "interp": 0.32812500000005684,
+      "predictedDr": 0.08078835227273373,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 91.79065200314217,
+      "D": 43.79065200314217,
+      "slope": 0.5,
+      "interp": 0.32756512454800674,
+      "predictedDr": 0.05614641971876714,
+      "distinct": 22,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 664,
+     "populationPixels": 10080,
+     "atLevelPixels": 9184,
+     "frameStates": 1,
+     "y50": [
+      207.0,
+      207.0,
+      207.0
+     ],
+     "median": {
+      "M50": 147.2,
+      "D": -12.799999999999983,
+      "slope": 0.46875,
+      "interp": 0.11999999999991928,
+      "predictedDr": 0.2733333333333107,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.273 > 0.1"
+     },
+     "mean": {
+      "M50": 146.976171352075,
+      "D": -13.023828647924972,
+      "slope": 0.46875,
+      "interp": 0.12067392562208094,
+      "predictedDr": 0.25686766619330986,
+      "distinct": 2,
+      "supported": 0.0,
+      "reason": "predicted dr 0.257 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 644,
+     "populationPixels": 6660,
+     "atLevelPixels": 5772,
+     "frameStates": 1,
+     "y50": [
+      194.0,
+      194.0,
+      194.0
+     ],
+     "median": {
+      "M50": 120.0,
+      "D": 24.0,
+      "slope": 0.5,
+      "interp": 0.14583333333337123,
+      "predictedDr": 0.1549479166666714,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.155 > 0.1"
+     },
+     "mean": {
+      "M50": 120.20910973084885,
+      "D": 24.20910973084885,
+      "slope": 0.5,
+      "interp": 0.1425515811732415,
+      "predictedDr": 0.13098103103336559,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.131 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 132,
+     "populationPixels": 2385,
+     "atLevelPixels": 132,
+     "frameStates": 1,
+     "y50": [
+      178.0,
+      178.0,
+      178.0
+     ],
+     "median": {
+      "M50": 88.0,
+      "D": -23.999999999999986,
+      "slope": 0.5,
+      "interp": 0.31250000000008527,
+      "predictedDr": 0.1653645833333417,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.165 > 0.1"
+     },
+     "mean": {
+      "M50": 88.0,
+      "D": -23.999999999999986,
+      "slope": 0.5,
+      "interp": 0.31250000000008527,
+      "predictedDr": 0.1653645833333417,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.165 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 132,
+     "populationPixels": 2385,
+     "atLevelPixels": 132,
+     "frameStates": 1,
+     "y50": [
+      166.0,
+      166.0,
+      166.0
+     ],
+     "median": {
+      "M50": 64.0,
+      "D": 48.0,
+      "slope": 0.5,
+      "interp": 1.4210854715202004e-13,
+      "predictedDr": 0.06250000000000415,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 64.0,
+      "D": 48.0,
+      "slope": 0.5,
+      "interp": 1.4210854715202004e-13,
+      "predictedDr": 0.06250000000000415,
+      "distinct": 1,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 3706,
+     "populationPixels": 10080,
+     "atLevelPixels": 8946,
+     "frameStates": 1,
+     "y50": [
+      183.0,
+      183.0,
+      183.0
+     ],
+     "median": {
+      "M50": 98.0,
+      "D": -13.999999999999986,
+      "slope": 0.5,
+      "interp": 0.33203125000005684,
+      "predictedDr": 0.28185453869048993,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.282 > 0.1"
+     },
+     "mean": {
+      "M50": 97.0724950530671,
+      "D": -14.927504946932885,
+      "slope": 0.5,
+      "interp": 0.33295879284041047,
+      "predictedDr": 0.22662187698627426,
+      "distinct": 5,
+      "supported": 0.0,
+      "reason": "predicted dr 0.227 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 3260,
+     "populationPixels": 6660,
+     "atLevelPixels": 5616,
+     "frameStates": 1,
+     "y50": [
+      157.0,
+      157.0,
+      157.0
+     ],
+     "median": {
+      "M50": 46.0,
+      "D": 30.0,
+      "slope": 0.5,
+      "interp": 2.842170943040401e-14,
+      "predictedDr": 0.10000000000000284,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.100 > 0.1"
+     },
+     "mean": {
+      "M50": 46.43660531697342,
+      "D": 30.43660531697342,
+      "slope": 0.5,
+      "interp": 3.789561257387201e-14,
+      "predictedDr": 0.06917090314715237,
+      "distinct": 10,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 240.0,
+     "stratum": 96,
+     "pixels": 3706,
+     "populationPixels": 10080,
+     "atLevelPixels": 8946,
+     "frameStates": 1,
+     "y50": [
+      241.0,
+      241.0,
+      241.0
+     ],
+     "median": {
+      "M50": 224.44999999999996,
+      "D": -15.55000000000004,
+      "slope": 0.425531914893617,
+      "interp": 0.09546875000009436,
+      "predictedDr": 0.249741563074209,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.250 > 0.1"
+     },
+     "mean": {
+      "M50": 224.41406727828743,
+      "D": -15.585932721712567,
+      "slope": 0.425531914893617,
+      "interp": 0.09537187950667203,
+      "predictedDr": 0.20823131174274395,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.208 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 144.00000000000003,
+     "stratum": 96,
+     "pixels": 3260,
+     "populationPixels": 6660,
+     "atLevelPixels": 5616,
+     "frameStates": 1,
+     "y50": [
+      219.0,
+      219.0,
+      219.0
+     ],
+     "median": {
+      "M50": 173.7142857142857,
+      "D": 29.714285714285666,
+      "slope": 0.4375,
+      "interp": 0.12244897959175205,
+      "predictedDr": 0.11620225013081159,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.116 > 0.1"
+     },
+     "mean": {
+      "M50": 174.48694127957933,
+      "D": 30.4869412795793,
+      "slope": 0.4375,
+      "interp": 0.12388162573349366,
+      "predictedDr": 0.08330318338439306,
+      "distinct": 8,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 1,
+     "y50": [
+      226.0,
+      225.0,
+      225.0
+     ],
+     "median": {
+      "M50": 192.76190476190473,
+      "D": -62.23809523809524,
+      "slope": 0.4375,
+      "interp": 0.006802721088528567,
+      "predictedDr": 0.05707206956147339,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 193.15147597500538,
+      "D": -61.84852402499459,
+      "slope": 0.4375,
+      "interp": 0.011130568946365807,
+      "predictedDr": 0.054822655613919295,
+      "distinct": 2,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 1,
+     "y50": [
+      189.0,
+      189.0,
+      189.0
+     ],
+     "median": {
+      "M50": 115.61290322580645,
+      "D": 115.61290322580645,
+      "slope": 0.484375,
+      "interp": 0.104058272632642,
+      "predictedDr": 0.02791281867845855,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 115.25480465138908,
+      "D": 115.25480465138908,
+      "slope": 0.484375,
+      "interp": 0.10632360770357725,
+      "predictedDr": 0.023022609907225218,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      227.0,
+      227.0,
+      227.0
+     ],
+     "median": {
+      "M50": 196.57142857142858,
+      "D": -58.42857142857139,
+      "slope": 0.4375,
+      "interp": 0.034013605442112294,
+      "predictedDr": 0.061470773109558466,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 197.10119047619048,
+      "D": -57.89880952380949,
+      "slope": 0.4375,
+      "interp": 0.03619314891972181,
+      "predictedDr": 0.05097649666057921,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      187.0,
+      187.0,
+      187.0
+     ],
+     "median": {
+      "M50": 111.48387096774194,
+      "D": 111.48387096774194,
+      "slope": 0.484375,
+      "interp": 0.1276448144293738,
+      "predictedDr": 0.029389035020103833,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 110.74103942652327,
+      "D": 110.74103942652327,
+      "slope": 0.484375,
+      "interp": 0.13129896949826048,
+      "predictedDr": 0.021480259886966637,
+      "distinct": 10,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 844,
+     "populationPixels": 896,
+     "atLevelPixels": 896,
+     "frameStates": 1,
+     "y50": [
+      242.0,
+      242.0,
+      242.0
+     ],
+     "median": {
+      "M50": 230.38095238095238,
+      "D": -24.619047619047592,
+      "slope": 0.4468085106382979,
+      "interp": 0.0814121945071804,
+      "predictedDr": 0.14580004981787126,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.146 > 0.1"
+     },
+     "mean": {
+      "M50": 227.90096291281125,
+      "D": -27.09903708718872,
+      "slope": 0.4468085106382979,
+      "interp": 0.07968298399393348,
+      "predictedDr": 0.09037103675648925,
+      "distinct": 17,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 116,
+     "populationPixels": 116,
+     "atLevelPixels": 116,
+     "frameStates": 1,
+     "y50": [
+      176.0,
+      176.0,
+      176.0
+     ],
+     "median": {
+      "M50": 88.77419354838712,
+      "D": 88.77419354838712,
+      "slope": 0.484375,
+      "interp": 0.15816857440165677,
+      "predictedDr": 0.038390299439777426,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 88.57842046718572,
+      "D": 88.57842046718572,
+      "slope": 0.484375,
+      "interp": 0.15770181413892223,
+      "predictedDr": 0.028251515890580167,
+      "distinct": 10,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1080,
+     "populationPixels": 3600,
+     "atLevelPixels": 1080,
+     "frameStates": 1,
+     "y50": [
+      214.0,
+      214.0,
+      214.0
+     ],
+     "median": {
+      "M50": 162.28571428571428,
+      "D": -45.714285714285694,
+      "slope": 0.4375,
+      "interp": 0.03316326530602964,
+      "predictedDr": 0.08003826530611635,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 161.49192239858905,
+      "D": -46.50807760141092,
+      "slope": 0.4375,
+      "interp": 0.02222445523011629,
+      "predictedDr": 0.06523308425331925,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 932,
+     "populationPixels": 15524,
+     "atLevelPixels": 11564,
+     "frameStates": 1,
+     "y50": [
+      170.0,
+      170.0,
+      170.0
+     ],
+     "median": {
+      "M50": 72.0,
+      "D": 24.0,
+      "slope": 0.5,
+      "interp": 0.14583333333342807,
+      "predictedDr": 0.13107638888889758,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.131 > 0.1"
+     },
+     "mean": {
+      "M50": 72.77038626609442,
+      "D": 24.77038626609442,
+      "slope": 0.5,
+      "interp": 0.1576772548651301,
+      "predictedDr": 0.10449537629313066,
+      "distinct": 5,
+      "supported": 0.0,
+      "reason": "predicted dr 0.104 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 932,
+     "populationPixels": 15524,
+     "atLevelPixels": 11564,
+     "frameStates": 1,
+     "y50": [
+      229.0,
+      229.0,
+      229.0
+     ],
+     "median": {
+      "M50": 196.57142857142858,
+      "D": -11.428571428571388,
+      "slope": 0.4375,
+      "interp": 0.009924942621466926,
+      "predictedDr": 0.30322560635197593,
+      "distinct": null,
+      "supported": false
+     },
+     "mean": {
+      "M50": 196.1136317187819,
+      "D": -11.886368281218068,
+      "slope": 0.4375,
+      "interp": 0.009288110113573111,
+      "predictedDr": 0.27120350904896845,
+      "distinct": 3,
+      "supported": false
+     },
+     "excludedBeforeTheRead": [
+      "|M50 - C| = 11.4 < 12"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1080,
+     "populationPixels": 3600,
+     "atLevelPixels": 1080,
+     "frameStates": 1,
+     "y50": [
+      201.0,
+      201.0,
+      201.0
+     ],
+     "median": {
+      "M50": 134.4,
+      "D": 86.4,
+      "slope": 0.46875,
+      "interp": 0.07999999999992724,
+      "predictedDr": 0.044023919753087205,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 133.89300411522638,
+      "D": 85.89300411522638,
+      "slope": 0.46875,
+      "interp": 0.07511976451754283,
+      "predictedDr": 0.03542118891356758,
+      "distinct": 7,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      226.0,
+      226.0,
+      226.0
+     ],
+     "median": {
+      "M50": 189.7142857142857,
+      "D": -18.285714285714278,
+      "slope": 0.4375,
+      "interp": 0.033163265306058065,
+      "predictedDr": 0.19106144547484571,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.191 > 0.1"
+     },
+     "mean": {
+      "M50": 189.83835946924003,
+      "D": -18.16164053075994,
+      "slope": 0.4375,
+      "interp": 0.03148955994565957,
+      "predictedDr": 0.14704998687785314,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.147 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      176.0,
+      176.0,
+      176.0
+     ],
+     "median": {
+      "M50": 84.0,
+      "D": 36.0,
+      "slope": 0.5,
+      "interp": 0.2864583333334281,
+      "predictedDr": 0.09353298611112058,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 83.77322074788903,
+      "D": 35.77322074788903,
+      "slope": 0.5,
+      "interp": 0.2846659421816942,
+      "predictedDr": 0.06730953424485239,
+      "distinct": 13,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      226.0,
+      226.0,
+      226.0
+     ],
+     "median": {
+      "M50": 189.7142857142857,
+      "D": -18.285714285714278,
+      "slope": 0.4375,
+      "interp": 0.033163265306058065,
+      "predictedDr": 0.19106144547484571,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.191 > 0.1"
+     },
+     "mean": {
+      "M50": 189.83835946924003,
+      "D": -18.16164053075994,
+      "slope": 0.4375,
+      "interp": 0.03148955994565957,
+      "predictedDr": 0.14704998687785314,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.147 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      176.0,
+      176.0,
+      176.0
+     ],
+     "median": {
+      "M50": 84.0,
+      "D": 36.0,
+      "slope": 0.5,
+      "interp": 0.2864583333334281,
+      "predictedDr": 0.09353298611112058,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 83.77322074788903,
+      "D": 35.77322074788903,
+      "slope": 0.5,
+      "interp": 0.2846659421816942,
+      "predictedDr": 0.06730953424485239,
+      "distinct": 13,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 15570,
+     "atLevelPixels": 14258,
+     "frameStates": 1,
+     "y50": [
+      226.0,
+      226.0,
+      226.0
+     ],
+     "median": {
+      "M50": 189.7142857142857,
+      "D": -18.285714285714278,
+      "slope": 0.4375,
+      "interp": 0.033163265306058065,
+      "predictedDr": 0.19106144547484571,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.191 > 0.1"
+     },
+     "mean": {
+      "M50": 189.81722097765524,
+      "D": -18.182779022344732,
+      "slope": 0.4375,
+      "interp": 0.03177493770880346,
+      "predictedDr": 0.14689642105137454,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.147 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1682,
+     "populationPixels": 4050,
+     "atLevelPixels": 2762,
+     "frameStates": 1,
+     "y50": [
+      176.0,
+      176.0,
+      176.0
+     ],
+     "median": {
+      "M50": 84.0,
+      "D": 36.0,
+      "slope": 0.5,
+      "interp": 0.2864583333334281,
+      "predictedDr": 0.09353298611112058,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 83.94768133174792,
+      "D": 35.947681331747916,
+      "slope": 0.5,
+      "interp": 0.2860448771717377,
+      "predictedDr": 0.06711623912042806,
+      "distinct": 13,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1682,
+     "populationPixels": 4050,
+     "atLevelPixels": 2762,
+     "frameStates": 1,
+     "y50": [
+      226.0,
+      226.0,
+      226.0
+     ],
+     "median": {
+      "M50": 189.7142857142857,
+      "D": -18.285714285714278,
+      "slope": 0.4375,
+      "interp": 0.033163265306058065,
+      "predictedDr": 0.19106144547484571,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.191 > 0.1"
+     },
+     "mean": {
+      "M50": 189.76864277220992,
+      "D": -18.231357227790056,
+      "slope": 0.4375,
+      "interp": 0.03242871183397256,
+      "predictedDr": 0.14654470859494395,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.147 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 15570,
+     "atLevelPixels": 14258,
+     "frameStates": 1,
+     "y50": [
+      176.0,
+      176.0,
+      176.0
+     ],
+     "median": {
+      "M50": 84.0,
+      "D": 36.0,
+      "slope": 0.5,
+      "interp": 0.2864583333334281,
+      "predictedDr": 0.09353298611112058,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 83.77161238439886,
+      "D": 35.771612384398864,
+      "slope": 0.5,
+      "interp": 0.2846532858985806,
+      "predictedDr": 0.06731132737322829,
+      "distinct": 13,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    }
+   ]
+  },
+  "light-inactive": {
+   "declared": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 2916,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 2916 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 4708,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 4708 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 3928,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 3928 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 5976,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 5976 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 3468,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 3468 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 5388,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 5388 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 240.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 3468,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 3468 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 144.00000000000003,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 5388,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 5388 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 12,
+     "populationPixels": 2893,
+     "atLevelPixels": 12,
+     "frameStates": 1,
+     "y50": [
+      221.0,
+      221.0,
+      221.0
+     ],
+     "median": {
+      "M50": 208.0,
+      "D": -46.99999999999997,
+      "slope": 0.40425531914893614,
+      "interp": 1.4210854715202004e-13,
+      "predictedDr": 0.09244465329991232,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 207.55555555555557,
+      "D": -47.4444444444444,
+      "slope": 0.3847517730496454,
+      "interp": 0.006655092592562066,
+      "predictedDr": 0.09308063960473988,
+      "distinct": 1,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 12,
+     "populationPixels": 2893,
+     "atLevelPixels": 12,
+     "frameStates": 1,
+     "y50": [
+      173.0,
+      173.0,
+      173.0
+     ],
+     "median": {
+      "M50": 92.44444444444444,
+      "D": 92.44444444444444,
+      "slope": 0.421875,
+      "interp": 0.16460905349794075,
+      "predictedDr": 0.04213631875668792,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 92.44444444444444,
+      "D": 92.44444444444444,
+      "slope": 0.421875,
+      "interp": 0.16460905349794075,
+      "predictedDr": 0.04213631875668792,
+      "distinct": 1,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 42,
+     "populationPixels": 5710,
+     "atLevelPixels": 42,
+     "frameStates": 1,
+     "y50": [
+      221.0,
+      221.0,
+      221.0
+     ],
+     "median": {
+      "M50": 208.0,
+      "D": -46.99999999999997,
+      "slope": 0.40425531914893614,
+      "interp": 1.4210854715202004e-13,
+      "predictedDr": 0.09244465329991232,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 209.41353383458645,
+      "D": -45.586466165413526,
+      "slope": 0.40425531914893614,
+      "interp": 0.02992308914053865,
+      "predictedDr": 0.09213707623594529,
+      "distinct": 2,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 42,
+     "populationPixels": 5710,
+     "atLevelPixels": 42,
+     "frameStates": 1,
+     "y50": [
+      172.0,
+      172.0,
+      172.0
+     ],
+     "median": {
+      "M50": 90.07407407407408,
+      "D": 90.07407407407408,
+      "slope": 0.421875,
+      "interp": 0.16095107453130217,
+      "predictedDr": 0.04329711452843237,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 88.38095238095237,
+      "D": 88.38095238095237,
+      "slope": 0.421875,
+      "interp": 0.15721844293272133,
+      "predictedDr": 0.037004026655850314,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 0,
+     "populationPixels": 6272,
+     "atLevelPixels": 3920,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 3920 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 172,
+     "populationPixels": 2920,
+     "atLevelPixels": 688,
+     "frameStates": 1,
+     "y50": [
+      154.0,
+      154.0,
+      154.0
+     ],
+     "median": {
+      "M50": 48.0,
+      "D": 48.0,
+      "slope": 0.4375,
+      "interp": 0.09374999999994316,
+      "predictedDr": 0.07924107142856736,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 46.883720930232556,
+      "D": 46.883720930232556,
+      "slope": 0.4375,
+      "interp": 0.09795835586800195,
+      "predictedDr": 0.07760550439285298,
+      "distinct": 2,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 23796,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 23796 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 23796,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 23796 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27270,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27270 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 12550,
+     "atLevelPixels": 6790,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 6790 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 12550,
+     "atLevelPixels": 6790,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 6790 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27270,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27270 px; |W - C| >= 24 over it too)"
+     ]
+    }
+   ],
+   "ls-span": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1464,
+     "populationPixels": 14604,
+     "atLevelPixels": 3772,
+     "frameStates": 1,
+     "y50": [
+      215.0,
+      215.0,
+      215.0
+     ],
+     "median": {
+      "M50": 192.0,
+      "D": -15.999999999999972,
+      "slope": 0.375,
+      "interp": 1.1368683772161603e-13,
+      "predictedDr": 0.25925925925925114,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.259 > 0.1"
+     },
+     "mean": {
+      "M50": 190.980463980464,
+      "D": -17.019536019535963,
+      "slope": 0.4166666666666667,
+      "interp": 0.02787586520322331,
+      "predictedDr": 0.19725075835241934,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.197 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1430,
+     "populationPixels": 17914,
+     "atLevelPixels": 5756,
+     "frameStates": 1,
+     "y50": [
+      167.0,
+      167.0,
+      167.0
+     ],
+     "median": {
+      "M50": 78.22222222222223,
+      "D": 30.22222222222223,
+      "slope": 0.421875,
+      "interp": 0.11522633744852821,
+      "predictedDr": 0.1198825337748216,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.120 > 0.1"
+     },
+     "mean": {
+      "M50": 77.66637313303981,
+      "D": 29.666373133039812,
+      "slope": 0.421875,
+      "interp": 0.11195930584112072,
+      "predictedDr": 0.09405774340160898,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 4800,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 4800 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 7040,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 7040 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 4280,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 4280 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 6392,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 6392 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 240.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 4280,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 4280 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p5-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 144.00000000000003,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 6392,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 6392 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 114,
+     "populationPixels": 2893,
+     "atLevelPixels": 114,
+     "frameStates": 1,
+     "y50": [
+      220.0,
+      220.0,
+      220.0
+     ],
+     "median": {
+      "M50": 205.33333333333334,
+      "D": -49.66666666666663,
+      "slope": 0.375,
+      "interp": 0.03086419753074665,
+      "predictedDr": 0.0902114104861854,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 207.3734995383195,
+      "D": -47.62650046168048,
+      "slope": 0.375,
+      "interp": 0.008622863325162674,
+      "predictedDr": 0.08757739260910406,
+      "distinct": 3,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 114,
+     "populationPixels": 2893,
+     "atLevelPixels": 114,
+     "frameStates": 1,
+     "y50": [
+      173.0,
+      173.0,
+      173.0
+     ],
+     "median": {
+      "M50": 92.44444444444444,
+      "D": 92.44444444444444,
+      "slope": 0.421875,
+      "interp": 0.16460905349794075,
+      "predictedDr": 0.04213631875668792,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 91.18995018410222,
+      "D": 91.18995018410222,
+      "slope": 0.421875,
+      "interp": 0.16290093175352163,
+      "predictedDr": 0.03582720569899873,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 343,
+     "populationPixels": 5710,
+     "atLevelPixels": 343,
+     "frameStates": 1,
+     "y50": [
+      221.0,
+      221.0,
+      221.0
+     ],
+     "median": {
+      "M50": 208.0,
+      "D": -46.99999999999997,
+      "slope": 0.40425531914893614,
+      "interp": 1.4210854715202004e-13,
+      "predictedDr": 0.09244465329991232,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 208.56211958467597,
+      "D": -46.437880415324,
+      "slope": 0.40425531914893614,
+      "interp": 0.012121072902270194,
+      "predictedDr": 0.07434380117736027,
+      "distinct": 7,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 343,
+     "populationPixels": 5710,
+     "atLevelPixels": 343,
+     "frameStates": 1,
+     "y50": [
+      173.0,
+      173.0,
+      173.0
+     ],
+     "median": {
+      "M50": 92.44444444444444,
+      "D": 92.44444444444444,
+      "slope": 0.421875,
+      "interp": 0.16460905349794075,
+      "predictedDr": 0.04213631875668792,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 89.17107583774252,
+      "D": 89.17107583774252,
+      "slope": 0.421875,
+      "interp": 0.15907630680624152,
+      "predictedDr": 0.03290823842985297,
+      "distinct": 9,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 1904,
+     "populationPixels": 6272,
+     "atLevelPixels": 4256,
+     "frameStates": 1,
+     "y50": [
+      232.0,
+      232.0,
+      232.0
+     ],
+     "median": {
+      "M50": 235.21052631578948,
+      "D": -19.789473684210492,
+      "slope": 0.40425531914893614,
+      "interp": 0.25005496196615695,
+      "predictedDr": 0.22443993756318342,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.224 > 0.1"
+     },
+     "mean": {
+      "M50": 235.64705882352942,
+      "D": -19.35294117647055,
+      "slope": 0.40425531914893614,
+      "interp": 0.24844246535708217,
+      "predictedDr": 0.18312265296822194,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.183 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 968,
+     "populationPixels": 2920,
+     "atLevelPixels": 968,
+     "frameStates": 1,
+     "y50": [
+      152.0,
+      152.0,
+      152.0
+     ],
+     "median": {
+      "M50": 43.42857142857142,
+      "D": 43.42857142857142,
+      "slope": 0.4375,
+      "interp": 0.10905612244891927,
+      "predictedDr": 0.08771650107410936,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 43.73711137347501,
+      "D": 43.73711137347501,
+      "slope": 0.4375,
+      "interp": 0.10818355969183813,
+      "predictedDr": 0.06558405886752909,
+      "distinct": 8,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 25204,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 25204 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 25204,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 25204 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27750,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27750 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 160,
+     "populationPixels": 12550,
+     "atLevelPixels": 7270,
+     "frameStates": 1,
+     "y50": [
+      164.0,
+      164.0,
+      164.0
+     ],
+     "median": {
+      "M50": 71.11111111111111,
+      "D": 23.111111111111114,
+      "slope": 0.421875,
+      "interp": 0.06584362139914408,
+      "predictedDr": 0.1567553352854207,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.157 > 0.1"
+     },
+     "mean": {
+      "M50": 71.1111111111111,
+      "D": 23.1111111111111,
+      "slope": 0.421875,
+      "interp": 0.06584362139914408,
+      "predictedDr": 0.15675533528542085,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.157 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 160,
+     "populationPixels": 12550,
+     "atLevelPixels": 7270,
+     "frameStates": 1,
+     "y50": [
+      216.0,
+      216.0,
+      216.0
+     ],
+     "median": {
+      "M50": 194.66666666666666,
+      "D": -13.333333333333314,
+      "slope": 0.375,
+      "interp": 0.03086419753074665,
+      "predictedDr": 0.3138888888888526,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.314 > 0.1"
+     },
+     "mean": {
+      "M50": 194.66666666666666,
+      "D": -13.333333333333314,
+      "slope": 0.375,
+      "interp": 0.030864197530756126,
+      "predictedDr": 0.3138888888888536,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.314 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27750,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27750 px; |W - C| >= 24 over it too)"
+     ]
+    }
+   ]
+  },
+  "dark-rest": {
+   "declared": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 2256,
+     "populationPixels": 6660,
+     "atLevelPixels": 5026,
+     "frameStates": 1,
+     "y50": [
+      92.0,
+      92.0,
+      92.0
+     ],
+     "median": {
+      "M50": 76.44444444444444,
+      "D": 28.444444444444443,
+      "slope": 0.5625,
+      "interp": 1.670781893004147,
+      "predictedDr": 0.13565991633667399,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.136 > 0.1"
+     },
+     "mean": {
+      "M50": 76.95429472025216,
+      "D": 28.954294720252165,
+      "slope": 0.5625,
+      "interp": 1.7220337718746208,
+      "predictedDr": 0.11315613108175422,
+      "distinct": 8,
+      "supported": 0.0,
+      "reason": "predicted dr 0.113 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 2604,
+     "populationPixels": 10080,
+     "atLevelPixels": 8296,
+     "frameStates": 1,
+     "y50": [
+      131.0,
+      131.0,
+      131.0
+     ],
+     "median": {
+      "M50": 160.0,
+      "D": -47.99999999999997,
+      "slope": 0.1875,
+      "interp": 8.526512829121202e-14,
+      "predictedDr": 0.2222222222222144,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.222 > 0.1"
+     },
+     "mean": {
+      "M50": 159.13077316948284,
+      "D": -48.869226830517135,
+      "slope": 0.3125,
+      "interp": 0.07044046354043114,
+      "predictedDr": 0.16742501406198565,
+      "distinct": 7,
+      "supported": 0.0,
+      "reason": "predicted dr 0.167 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 48,
+     "populationPixels": 2385,
+     "atLevelPixels": 48,
+     "frameStates": 1,
+     "y50": [
+      114.0,
+      114.0,
+      114.0
+     ],
+     "median": {
+      "M50": 115.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 1.6707818930041185,
+      "predictedDr": 0.4320987654321002,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.432 > 0.1"
+     },
+     "mean": {
+      "M50": 115.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 1.6707818930041185,
+      "predictedDr": 0.4320987654321002,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.432 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 48,
+     "populationPixels": 2385,
+     "atLevelPixels": 48,
+     "frameStates": 1,
+     "y50": [
+      121.0,
+      121.0,
+      121.0
+     ],
+     "median": {
+      "M50": 128.0,
+      "D": -31.99999999999997,
+      "slope": 0.3125,
+      "interp": 8.526512829121202e-14,
+      "predictedDr": 0.21666666666667297,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.217 > 0.1"
+     },
+     "mean": {
+      "M50": 128.0,
+      "D": -31.99999999999997,
+      "slope": 0.3125,
+      "interp": 8.526512829121202e-14,
+      "predictedDr": 0.21666666666667297,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.217 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 16,
+     "populationPixels": 6660,
+     "atLevelPixels": 5424,
+     "frameStates": 1,
+     "y50": [
+      112.0,
+      113.0,
+      112.0
+     ],
+     "median": {
+      "M50": 112.5925925925926,
+      "D": 16.592592592592595,
+      "slope": 0.5625,
+      "interp": 1.94787379972567,
+      "predictedDr": 0.5315255731922423,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.532 > 0.1"
+     },
+     "mean": {
+      "M50": 112.5925925925926,
+      "D": 16.592592592592595,
+      "slope": 0.5625,
+      "interp": 1.948988340192064,
+      "predictedDr": 0.5237697804043606,
+      "distinct": 2,
+      "supported": 0.0,
+      "reason": "predicted dr 0.524 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 16,
+     "populationPixels": 10080,
+     "atLevelPixels": 8734,
+     "frameStates": 1,
+     "y50": [
+      123.0,
+      123.0,
+      123.0
+     ],
+     "median": {
+      "M50": 134.4,
+      "D": -25.599999999999966,
+      "slope": 0.3125,
+      "interp": 0.42666666666669073,
+      "predictedDr": 0.2941666666666704,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.294 > 0.1"
+     },
+     "mean": {
+      "M50": 134.4,
+      "D": -25.599999999999966,
+      "slope": 0.3125,
+      "interp": 0.42666666666669073,
+      "predictedDr": 0.2941666666666704,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.294 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 2385,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 706,
+     "populationPixels": 6660,
+     "atLevelPixels": 5258,
+     "frameStates": 1,
+     "y50": [
+      62.0,
+      62.0,
+      62.0
+     ],
+     "median": {
+      "M50": 36.22641509433962,
+      "D": 20.22641509433962,
+      "slope": 0.828125,
+      "interp": 2.087931648273411,
+      "predictedDr": 0.27445082570416,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.274 > 0.1"
+     },
+     "mean": {
+      "M50": 36.89005291570902,
+      "D": 20.89005291570902,
+      "slope": 0.828125,
+      "interp": 2.075375964220664,
+      "predictedDr": 0.24937079460515021,
+      "distinct": 5,
+      "supported": 0.0,
+      "reason": "predicted dr 0.249 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 796,
+     "populationPixels": 10080,
+     "atLevelPixels": 8570,
+     "frameStates": 1,
+     "y50": [
+      94.0,
+      94.0,
+      94.0
+     ],
+     "median": {
+      "M50": 80.0,
+      "D": -31.999999999999986,
+      "slope": 0.5625,
+      "interp": 2.0000000000000284,
+      "predictedDr": 0.28703703703703976,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.287 > 0.1"
+     },
+     "mean": {
+      "M50": 80.06179043364973,
+      "D": -31.938209566350253,
+      "slope": 0.5625,
+      "interp": 2.0051352389260066,
+      "predictedDr": 0.2673160101312641,
+      "distinct": 7,
+      "supported": 0.0,
+      "reason": "predicted dr 0.267 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 2,
+     "y50": [
+      87.0,
+      87.0,
+      87.0
+     ],
+     "median": {
+      "M50": 61.754385964912274,
+      "D": 61.754385964912274,
+      "slope": 0.890625,
+      "interp": 0.20313942751613467,
+      "predictedDr": 0.056358599848904206,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 61.271731364610616,
+      "D": 61.271731364610616,
+      "slope": 0.890625,
+      "interp": 0.24487146686225003,
+      "predictedDr": 0.05219454112820586,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 2,
+     "y50": [
+      141.0,
+      141.0,
+      141.0
+     ],
+     "median": {
+      "M50": 140.93246187363835,
+      "D": -114.06753812636163,
+      "slope": 0.5416666666666666,
+      "interp": 0.4544761986130652,
+      "predictedDr": 0.03770088591282665,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 140.4110056289987,
+      "D": -114.58899437100126,
+      "slope": 0.5416666666666666,
+      "interp": 0.4480953659689533,
+      "predictedDr": 0.03179580490775189,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      85.0,
+      85.0,
+      85.0
+     ],
+     "median": {
+      "M50": 59.50877192982457,
+      "D": 59.50877192982457,
+      "slope": 0.890625,
+      "interp": 0.39150507848567884,
+      "predictedDr": 0.06015784247112307,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 58.951267056530206,
+      "D": 58.951267056530206,
+      "slope": 0.890625,
+      "interp": 0.43597993478578206,
+      "predictedDr": 0.05327349796098294,
+      "distinct": 8,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      143.0,
+      143.0,
+      143.0
+     ],
+     "median": {
+      "M50": 144.62745098039215,
+      "D": -110.37254901960782,
+      "slope": 0.5416666666666666,
+      "interp": 0.4711649365628337,
+      "predictedDr": 0.03927965867211108,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 146.02251270878722,
+      "D": -108.97748729121275,
+      "slope": 0.5416666666666666,
+      "interp": 0.464418064249666,
+      "predictedDr": 0.03005444685992275,
+      "distinct": 10,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 116,
+     "populationPixels": 116,
+     "atLevelPixels": 116,
+     "frameStates": 1,
+     "y50": [
+      75.0,
+      75.0,
+      75.0
+     ],
+     "median": {
+      "M50": 48.28070175438595,
+      "D": 48.28070175438595,
+      "slope": 0.890625,
+      "interp": 1.111726685133874,
+      "predictedDr": 0.08059009212136801,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 48.183908045977006,
+      "D": 48.183908045977006,
+      "slope": 0.890625,
+      "interp": 1.1163286682191302,
+      "predictedDr": 0.07107016086816607,
+      "distinct": 9,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 354,
+     "populationPixels": 896,
+     "atLevelPixels": 896,
+     "frameStates": 1,
+     "y50": [
+      162.0,
+      162.0,
+      162.0
+     ],
+     "median": {
+      "M50": 183.26349206349207,
+      "D": -71.7365079365079,
+      "slope": 0.4583333333333333,
+      "interp": 0.39679516250942964,
+      "predictedDr": 0.10306899802760172,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.103 > 0.1"
+     },
+     "mean": {
+      "M50": 182.92254805249158,
+      "D": -72.0774519475084,
+      "slope": 0.4583333333333333,
+      "interp": 0.4062283086092293,
+      "predictedDr": 0.07936707579382256,
+      "distinct": 20,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 204,
+     "populationPixels": 15524,
+     "atLevelPixels": 11252,
+     "frameStates": 1,
+     "y50": [
+      83.0,
+      83.0,
+      83.0
+     ],
+     "median": {
+      "M50": 61.58490566037736,
+      "D": 13.584905660377359,
+      "slope": 0.828125,
+      "interp": 0.3086507653969477,
+      "predictedDr": 0.24011288121514307,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.240 > 0.1"
+     },
+     "mean": {
+      "M50": 61.42902947342458,
+      "D": 13.429029473424578,
+      "slope": 0.828125,
+      "interp": 0.3277393712320702,
+      "predictedDr": 0.23491877385331905,
+      "distinct": 3,
+      "supported": 0.0,
+      "reason": "predicted dr 0.235 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 832,
+     "populationPixels": 3600,
+     "atLevelPixels": 832,
+     "frameStates": 1,
+     "y50": [
+      118.0,
+      118.0,
+      118.0
+     ],
+     "median": {
+      "M50": 122.66666666666667,
+      "D": -85.3333333333333,
+      "slope": 0.5625,
+      "interp": 0.8148148148148238,
+      "predictedDr": 0.10455246913579615,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.105 > 0.1"
+     },
+     "mean": {
+      "M50": 123.2022792022792,
+      "D": -84.79772079772077,
+      "slope": 0.5625,
+      "interp": 0.7396742670514177,
+      "predictedDr": 0.0932411592210456,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 832,
+     "populationPixels": 3600,
+     "atLevelPixels": 832,
+     "frameStates": 1,
+     "y50": [
+      104.0,
+      104.0,
+      104.0
+     ],
+     "median": {
+      "M50": 97.77777777777777,
+      "D": 49.77777777777777,
+      "slope": 0.5625,
+      "interp": 2.6584362139917914,
+      "predictedDr": 0.14660493827160642,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.147 > 0.1"
+     },
+     "mean": {
+      "M50": 98.07763532763533,
+      "D": 50.077635327635335,
+      "slope": 0.5625,
+      "interp": 2.6554238165997694,
+      "predictedDr": 0.13667572798228922,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.137 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 204,
+     "populationPixels": 15524,
+     "atLevelPixels": 11252,
+     "frameStates": 1,
+     "y50": [
+      136.0,
+      136.0,
+      136.0
+     ],
+     "median": {
+      "M50": 186.66666666666666,
+      "D": -21.333333333333314,
+      "slope": 0.1875,
+      "interp": 0.3703703703702672,
+      "predictedDr": 1.032407407407332,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 1.032 > 0.1"
+     },
+     "mean": {
+      "M50": 185.71677559912857,
+      "D": -22.283224400871404,
+      "slope": 0.1875,
+      "interp": 0.420174932718074,
+      "predictedDr": 0.9715634836595275,
+      "distinct": 2,
+      "supported": 0.0,
+      "reason": "predicted dr 0.972 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      89.0,
+      89.0,
+      89.0
+     ],
+     "median": {
+      "M50": 71.11111111111111,
+      "D": 23.111111111111114,
+      "slope": 0.5625,
+      "interp": 1.0534979423868691,
+      "predictedDr": 0.1599303353103166,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.160 > 0.1"
+     },
+     "mean": {
+      "M50": 71.09952949692364,
+      "D": 23.099529496923637,
+      "slope": 0.5625,
+      "interp": 1.051996272722505,
+      "predictedDr": 0.13755462299019858,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.138 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      133.0,
+      133.0,
+      133.0
+     ],
+     "median": {
+      "M50": 170.66666666666666,
+      "D": -37.333333333333314,
+      "slope": 0.1875,
+      "interp": 0.5925925925924957,
+      "predictedDr": 0.2857142857142654,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.286 > 0.1"
+     },
+     "mean": {
+      "M50": 170.71878393051034,
+      "D": -37.28121606948963,
+      "slope": 0.1875,
+      "interp": 0.5940332209045209,
+      "predictedDr": 0.24712531636266147,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.247 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      89.0,
+      89.0,
+      89.0
+     ],
+     "median": {
+      "M50": 71.11111111111111,
+      "D": 23.111111111111114,
+      "slope": 0.5625,
+      "interp": 1.0534979423868691,
+      "predictedDr": 0.1599303353103166,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.160 > 0.1"
+     },
+     "mean": {
+      "M50": 71.09952949692364,
+      "D": 23.099529496923637,
+      "slope": 0.5625,
+      "interp": 1.051996272722505,
+      "predictedDr": 0.13755462299019858,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.138 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 9810,
+     "atLevelPixels": 8354,
+     "frameStates": 1,
+     "y50": [
+      133.0,
+      133.0,
+      133.0
+     ],
+     "median": {
+      "M50": 170.66666666666666,
+      "D": -37.333333333333314,
+      "slope": 0.1875,
+      "interp": 0.5925925925924957,
+      "predictedDr": 0.2857142857142654,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.286 > 0.1"
+     },
+     "mean": {
+      "M50": 170.7187839305103,
+      "D": -37.28121606948966,
+      "slope": 0.1875,
+      "interp": 0.5940332209044925,
+      "predictedDr": 0.24712531636265914,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.247 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 632,
+     "populationPixels": 4050,
+     "atLevelPixels": 2612,
+     "frameStates": 1,
+     "y50": [
+      89.0,
+      89.0,
+      89.0
+     ],
+     "median": {
+      "M50": 71.11111111111111,
+      "D": 23.111111111111114,
+      "slope": 0.5625,
+      "interp": 1.0534979423868691,
+      "predictedDr": 0.1599303353103166,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.160 > 0.1"
+     },
+     "mean": {
+      "M50": 71.15049226441631,
+      "D": 23.150492264416314,
+      "slope": 0.5625,
+      "interp": 1.0585988679666087,
+      "predictedDr": 0.13735328270081307,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.137 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 15570,
+     "atLevelPixels": 14114,
+     "frameStates": 1,
+     "y50": [
+      133.0,
+      133.0,
+      133.0
+     ],
+     "median": {
+      "M50": 170.66666666666666,
+      "D": -37.333333333333314,
+      "slope": 0.1875,
+      "interp": 0.5925925925924957,
+      "predictedDr": 0.2857142857142654,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.286 > 0.1"
+     },
+     "mean": {
+      "M50": 170.71878393051034,
+      "D": -37.28121606948963,
+      "slope": 0.1875,
+      "interp": 0.5940332209045209,
+      "predictedDr": 0.24712531636266147,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.247 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 614,
+     "populationPixels": 15570,
+     "atLevelPixels": 14114,
+     "frameStates": 1,
+     "y50": [
+      89.0,
+      89.0,
+      89.0
+     ],
+     "median": {
+      "M50": 71.11111111111111,
+      "D": 23.111111111111114,
+      "slope": 0.5625,
+      "interp": 1.0534979423868691,
+      "predictedDr": 0.1599303353103166,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.160 > 0.1"
+     },
+     "mean": {
+      "M50": 71.1188321872361,
+      "D": 23.118832187236094,
+      "slope": 0.5625,
+      "interp": 1.0544979493584539,
+      "predictedDr": 0.1374783014517406,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.137 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 632,
+     "populationPixels": 4050,
+     "atLevelPixels": 2612,
+     "frameStates": 1,
+     "y50": [
+      133.0,
+      133.0,
+      133.0
+     ],
+     "median": {
+      "M50": 170.66666666666666,
+      "D": -37.333333333333314,
+      "slope": 0.1875,
+      "interp": 0.5925925925924957,
+      "predictedDr": 0.2857142857142654,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.286 > 0.1"
+     },
+     "mean": {
+      "M50": 170.56540084388186,
+      "D": -37.43459915611811,
+      "slope": 0.1875,
+      "interp": 0.5897529479486536,
+      "predictedDr": 0.2465659192877233,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.247 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    }
+   ],
+   "ls-span": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 54,
+     "populationPixels": 2385,
+     "atLevelPixels": 54,
+     "frameStates": 1,
+     "y50": [
+      101.0,
+      101.0,
+      101.0
+     ],
+     "median": {
+      "M50": 92.44444444444444,
+      "D": 44.44444444444444,
+      "slope": 0.5625,
+      "interp": 2.633744855967109,
+      "predictedDr": 0.15012345679012584,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.150 > 0.1"
+     },
+     "mean": {
+      "M50": 92.44444444444441,
+      "D": 44.444444444444414,
+      "slope": 0.5625,
+      "interp": 2.633744855967109,
+      "predictedDr": 0.15012345679012598,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.150 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 54,
+     "populationPixels": 2385,
+     "atLevelPixels": 54,
+     "frameStates": 1,
+     "y50": [
+      122.0,
+      122.0,
+      122.0
+     ],
+     "median": {
+      "M50": 131.2,
+      "D": -76.79999999999998,
+      "slope": 0.3125,
+      "interp": 0.2400000000000091,
+      "predictedDr": 0.13416666666666116,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.134 > 0.1"
+     },
+     "mean": {
+      "M50": 131.2,
+      "D": -76.79999999999998,
+      "slope": 0.3125,
+      "interp": 0.2400000000000091,
+      "predictedDr": 0.13416666666666116,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.134 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 5092,
+     "populationPixels": 6660,
+     "atLevelPixels": 5392,
+     "frameStates": 1,
+     "y50": [
+      90.0,
+      90.0,
+      90.0
+     ],
+     "median": {
+      "M50": 72.88888888888889,
+      "D": 24.888888888888886,
+      "slope": 0.5625,
+      "interp": 1.2757201646090834,
+      "predictedDr": 0.15143145541468564,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.151 > 0.1"
+     },
+     "mean": {
+      "M50": 73.06258731719315,
+      "D": 25.06258731719315,
+      "slope": 0.5625,
+      "interp": 1.2965483191555573,
+      "predictedDr": 0.12248600989062965,
+      "distinct": 15,
+      "supported": 0.0,
+      "reason": "predicted dr 0.122 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 6648,
+     "populationPixels": 10080,
+     "atLevelPixels": 8688,
+     "frameStates": 1,
+     "y50": [
+      133.0,
+      133.0,
+      133.0
+     ],
+     "median": {
+      "M50": 170.66666666666666,
+      "D": -37.333333333333314,
+      "slope": 0.1875,
+      "interp": 0.5925925925924957,
+      "predictedDr": 0.2857142857142654,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.286 > 0.1"
+     },
+     "mean": {
+      "M50": 167.56277577216204,
+      "D": -40.43722422783793,
+      "slope": 0.1875,
+      "interp": 0.4812435122527366,
+      "predictedDr": 0.21034105960386557,
+      "distinct": 11,
+      "supported": 0.0,
+      "reason": "predicted dr 0.210 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 270,
+     "populationPixels": 2385,
+     "atLevelPixels": 270,
+     "frameStates": 1,
+     "y50": [
+      114.0,
+      114.0,
+      114.0
+     ],
+     "median": {
+      "M50": 115.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 1.6707818930041185,
+      "predictedDr": 0.4320987654321002,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.432 > 0.1"
+     },
+     "mean": {
+      "M50": 115.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 1.6707818930041185,
+      "predictedDr": 0.4320987654321002,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.432 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 270,
+     "populationPixels": 2385,
+     "atLevelPixels": 270,
+     "frameStates": 1,
+     "y50": [
+      121.0,
+      121.0,
+      121.0
+     ],
+     "median": {
+      "M50": 128.0,
+      "D": -31.99999999999997,
+      "slope": 0.3125,
+      "interp": 8.526512829121202e-14,
+      "predictedDr": 0.21666666666667297,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.217 > 0.1"
+     },
+     "mean": {
+      "M50": 128.0,
+      "D": -31.99999999999997,
+      "slope": 0.3125,
+      "interp": 8.526512829121202e-14,
+      "predictedDr": 0.21666666666667297,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.217 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 644,
+     "populationPixels": 6660,
+     "atLevelPixels": 5772,
+     "frameStates": 1,
+     "y50": [
+      112.0,
+      112.0,
+      112.0
+     ],
+     "median": {
+      "M50": 112.0,
+      "D": 16.0,
+      "slope": 0.5625,
+      "interp": 2.000000000000014,
+      "predictedDr": 0.5555555555555579,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.556 > 0.1"
+     },
+     "mean": {
+      "M50": 112.07085346215781,
+      "D": 16.070853462157814,
+      "slope": 0.5625,
+      "interp": 1.9940770690875855,
+      "predictedDr": 0.5445147579971974,
+      "distinct": 2,
+      "supported": 0.0,
+      "reason": "predicted dr 0.545 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 664,
+     "populationPixels": 10080,
+     "atLevelPixels": 9184,
+     "frameStates": 1,
+     "y50": [
+      124.0,
+      124.0,
+      124.0
+     ],
+     "median": {
+      "M50": 137.6,
+      "D": -22.399999999999977,
+      "slope": 0.3125,
+      "interp": 0.5600000000000165,
+      "predictedDr": 0.3409523809523846,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.341 > 0.1"
+     },
+     "mean": {
+      "M50": 136.41767068273091,
+      "D": -23.582329317269057,
+      "slope": 0.3125,
+      "interp": 0.5169237996161655,
+      "predictedDr": 0.30847896848431117,
+      "distinct": 3,
+      "supported": 0.0,
+      "reason": "predicted dr 0.308 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 132,
+     "populationPixels": 2385,
+     "atLevelPixels": 132,
+     "frameStates": 1,
+     "y50": [
+      68.0,
+      68.0,
+      68.0
+     ],
+     "median": {
+      "M50": 43.471698113207545,
+      "D": 27.471698113207545,
+      "slope": 0.828125,
+      "interp": 1.8519045923816293,
+      "predictedDr": 0.19957424428544063,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.200 > 0.1"
+     },
+     "mean": {
+      "M50": 43.47169811320754,
+      "D": 27.471698113207538,
+      "slope": 0.828125,
+      "interp": 1.8519045923816293,
+      "predictedDr": 0.19957424428544068,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.200 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 132,
+     "populationPixels": 2385,
+     "atLevelPixels": 132,
+     "frameStates": 1,
+     "y50": [
+      86.0,
+      86.0,
+      86.0
+     ],
+     "median": {
+      "M50": 65.77777777777777,
+      "D": -46.222222222222214,
+      "slope": 0.5625,
+      "interp": 0.28806584362143894,
+      "predictedDr": 0.1607312440645791,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.161 > 0.1"
+     },
+     "mean": {
+      "M50": 65.77777777777776,
+      "D": -46.22222222222223,
+      "slope": 0.5625,
+      "interp": 0.28806584362143894,
+      "predictedDr": 0.16073124406457906,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.161 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 3260,
+     "populationPixels": 6660,
+     "atLevelPixels": 5616,
+     "frameStates": 1,
+     "y50": [
+      60.0,
+      60.0,
+      60.0
+     ],
+     "median": {
+      "M50": 33.81132075471698,
+      "D": 17.81132075471698,
+      "slope": 0.828125,
+      "interp": 2.11819152723389,
+      "predictedDr": 0.3104848745859255,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.310 > 0.1"
+     },
+     "mean": {
+      "M50": 34.504487402091286,
+      "D": 18.504487402091286,
+      "slope": 0.828125,
+      "interp": 2.111983307629776,
+      "predictedDr": 0.2724408726549038,
+      "distinct": 8,
+      "supported": 0.0,
+      "reason": "predicted dr 0.272 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 3706,
+     "populationPixels": 10080,
+     "atLevelPixels": 8946,
+     "frameStates": 1,
+     "y50": [
+      97.0,
+      97.0,
+      97.0
+     ],
+     "median": {
+      "M50": 85.33333333333333,
+      "D": -26.666666666666657,
+      "slope": 0.5625,
+      "interp": 2.370370370370395,
+      "predictedDr": 0.35555555555555857,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.356 > 0.1"
+     },
+     "mean": {
+      "M50": 84.98570886050649,
+      "D": -27.014291139493494,
+      "slope": 0.5625,
+      "interp": 2.350741982316734,
+      "predictedDr": 0.3208072400580764,
+      "distinct": 11,
+      "supported": 0.0,
+      "reason": "predicted dr 0.321 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 2,
+     "y50": [
+      87.0,
+      87.0,
+      87.0
+     ],
+     "median": {
+      "M50": 61.754385964912274,
+      "D": 61.754385964912274,
+      "slope": 0.890625,
+      "interp": 0.20313942751613467,
+      "predictedDr": 0.056358599848904206,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 61.271731364610616,
+      "D": 61.271731364610616,
+      "slope": 0.890625,
+      "interp": 0.24487146686225003,
+      "predictedDr": 0.05219454112820586,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 221,
+     "populationPixels": 221,
+     "atLevelPixels": 221,
+     "frameStates": 2,
+     "y50": [
+      141.0,
+      141.0,
+      141.0
+     ],
+     "median": {
+      "M50": 140.93246187363835,
+      "D": -114.06753812636163,
+      "slope": 0.5416666666666666,
+      "interp": 0.4544761986130652,
+      "predictedDr": 0.03770088591282665,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 140.4110056289987,
+      "D": -114.58899437100126,
+      "slope": 0.5416666666666666,
+      "interp": 0.4480953659689533,
+      "predictedDr": 0.03179580490775189,
+      "distinct": 5,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      85.0,
+      85.0,
+      85.0
+     ],
+     "median": {
+      "M50": 59.50877192982457,
+      "D": 59.50877192982457,
+      "slope": 0.890625,
+      "interp": 0.39150507848567884,
+      "predictedDr": 0.06015784247112307,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 58.951267056530206,
+      "D": 58.951267056530206,
+      "slope": 0.890625,
+      "interp": 0.43597993478578206,
+      "predictedDr": 0.05327349796098294,
+      "distinct": 8,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 1536,
+     "populationPixels": 1536,
+     "atLevelPixels": 1536,
+     "frameStates": 1,
+     "y50": [
+      143.0,
+      143.0,
+      143.0
+     ],
+     "median": {
+      "M50": 144.62745098039215,
+      "D": -110.37254901960782,
+      "slope": 0.5416666666666666,
+      "interp": 0.4711649365628337,
+      "predictedDr": 0.03927965867211108,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 146.02251270878722,
+      "D": -108.97748729121275,
+      "slope": 0.5416666666666666,
+      "interp": 0.464418064249666,
+      "predictedDr": 0.03005444685992275,
+      "distinct": 10,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 116,
+     "populationPixels": 116,
+     "atLevelPixels": 116,
+     "frameStates": 1,
+     "y50": [
+      75.0,
+      75.0,
+      75.0
+     ],
+     "median": {
+      "M50": 48.28070175438595,
+      "D": 48.28070175438595,
+      "slope": 0.890625,
+      "interp": 1.111726685133874,
+      "predictedDr": 0.08059009212136801,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 48.183908045977006,
+      "D": 48.183908045977006,
+      "slope": 0.890625,
+      "interp": 1.1163286682191302,
+      "predictedDr": 0.07107016086816607,
+      "distinct": 9,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 844,
+     "populationPixels": 896,
+     "atLevelPixels": 896,
+     "frameStates": 1,
+     "y50": [
+      172.0,
+      172.0,
+      172.0
+     ],
+     "median": {
+      "M50": 208.0,
+      "D": -46.99999999999997,
+      "slope": 0.2765957446808511,
+      "interp": 2.842170943040401e-14,
+      "predictedDr": 0.18173840048841336,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.182 > 0.1"
+     },
+     "mean": {
+      "M50": 204.06610863245933,
+      "D": -50.93389136754064,
+      "slope": 0.375,
+      "interp": 0.08639589929895426,
+      "predictedDr": 0.12400362638503147,
+      "distinct": 27,
+      "supported": 0.0,
+      "reason": "predicted dr 0.124 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 932,
+     "populationPixels": 15524,
+     "atLevelPixels": 11564,
+     "frameStates": 1,
+     "y50": [
+      82.0,
+      82.0,
+      82.0
+     ],
+     "median": {
+      "M50": 60.37735849056603,
+      "D": 12.377358490566031,
+      "slope": 0.828125,
+      "interp": 0.45389818440727936,
+      "predictedDr": 0.2761222095355555,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.276 > 0.1"
+     },
+     "mean": {
+      "M50": 60.7885118903015,
+      "D": 12.7885118903015,
+      "slope": 0.828125,
+      "interp": 0.40512274160051714,
+      "predictedDr": 0.23751493275985533,
+      "distinct": 4,
+      "supported": 0.0,
+      "reason": "predicted dr 0.238 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1080,
+     "populationPixels": 3600,
+     "atLevelPixels": 1080,
+     "frameStates": 1,
+     "y50": [
+      118.0,
+      118.0,
+      118.0
+     ],
+     "median": {
+      "M50": 122.66666666666667,
+      "D": -85.3333333333333,
+      "slope": 0.5625,
+      "interp": 0.8148148148148238,
+      "predictedDr": 0.10455246913579615,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.105 > 0.1"
+     },
+     "mean": {
+      "M50": 122.42030178326473,
+      "D": -85.57969821673524,
+      "slope": 0.5625,
+      "interp": 0.8488712552287249,
+      "predictedDr": 0.08793327738554585,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1080,
+     "populationPixels": 3600,
+     "atLevelPixels": 1080,
+     "frameStates": 1,
+     "y50": [
+      105.0,
+      105.0,
+      104.0
+     ],
+     "median": {
+      "M50": 98.96296296296298,
+      "D": 50.962962962962976,
+      "slope": 0.5625,
+      "interp": 2.6419753086419937,
+      "predictedDr": 0.14534883720930392,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.145 > 0.1"
+     },
+     "mean": {
+      "M50": 98.59588477366255,
+      "D": 50.59588477366255,
+      "slope": 0.5625,
+      "interp": 2.6491170350989344,
+      "predictedDr": 0.13578398520604215,
+      "distinct": 5,
+      "supported": 0.0,
+      "reason": "predicted dr 0.136 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 932,
+     "populationPixels": 15524,
+     "atLevelPixels": 11564,
+     "frameStates": 1,
+     "y50": [
+      136.0,
+      136.0,
+      136.0
+     ],
+     "median": {
+      "M50": 186.66666666666666,
+      "D": -21.333333333333314,
+      "slope": 0.1875,
+      "interp": 0.3703703703702672,
+      "predictedDr": 1.032407407407332,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 1.032 > 0.1"
+     },
+     "mean": {
+      "M50": 185.79113018597994,
+      "D": -22.208869814020034,
+      "slope": 0.1875,
+      "interp": 0.4169247447757414,
+      "predictedDr": 0.9749565939225249,
+      "distinct": 2,
+      "supported": 0.0,
+      "reason": "predicted dr 0.975 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      87.0,
+      87.0,
+      87.0
+     ],
+     "median": {
+      "M50": 67.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 0.5596707818930469,
+      "predictedDr": 0.17871168886630373,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.179 > 0.1"
+     },
+     "mean": {
+      "M50": 67.74677884749124,
+      "D": 19.746778847491242,
+      "slope": 0.5625,
+      "interp": 0.5879049336131459,
+      "predictedDr": 0.14533365442325022,
+      "distinct": 10,
+      "supported": 0.0,
+      "reason": "predicted dr 0.145 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      134.0,
+      134.0,
+      134.0
+     ],
+     "median": {
+      "M50": 176.0,
+      "D": -31.99999999999997,
+      "slope": 0.1875,
+      "interp": 0.6666666666665719,
+      "predictedDr": 0.6388888888889382,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.639 > 0.1"
+     },
+     "mean": {
+      "M50": 175.36308805790108,
+      "D": -32.63691194209889,
+      "slope": 0.1875,
+      "interp": 0.6655617655717,
+      "predictedDr": 0.24508525642720416,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.245 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      87.0,
+      87.0,
+      87.0
+     ],
+     "median": {
+      "M50": 67.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 0.5596707818930469,
+      "predictedDr": 0.17871168886630373,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.179 > 0.1"
+     },
+     "mean": {
+      "M50": 67.74677884749124,
+      "D": 19.746778847491242,
+      "slope": 0.5625,
+      "interp": 0.5879049336131459,
+      "predictedDr": 0.14533365442325022,
+      "distinct": 10,
+      "supported": 0.0,
+      "reason": "predicted dr 0.145 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 9810,
+     "atLevelPixels": 8498,
+     "frameStates": 1,
+     "y50": [
+      134.0,
+      134.0,
+      134.0
+     ],
+     "median": {
+      "M50": 176.0,
+      "D": -31.99999999999997,
+      "slope": 0.1875,
+      "interp": 0.6666666666665719,
+      "predictedDr": 0.6388888888889382,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.639 > 0.1"
+     },
+     "mean": {
+      "M50": 175.36308805790108,
+      "D": -32.63691194209889,
+      "slope": 0.1875,
+      "interp": 0.6655617655717,
+      "predictedDr": 0.24508525642720416,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.245 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1682,
+     "populationPixels": 4050,
+     "atLevelPixels": 2762,
+     "frameStates": 1,
+     "y50": [
+      87.0,
+      87.0,
+      87.0
+     ],
+     "median": {
+      "M50": 67.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 0.5596707818930469,
+      "predictedDr": 0.17871168886630373,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.179 > 0.1"
+     },
+     "mean": {
+      "M50": 67.84551684253297,
+      "D": 19.845516842532973,
+      "slope": 0.5625,
+      "interp": 0.6024090576456302,
+      "predictedDr": 0.14493732883825533,
+      "distinct": 10,
+      "supported": 0.0,
+      "reason": "predicted dr 0.145 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 15570,
+     "atLevelPixels": 14258,
+     "frameStates": 1,
+     "y50": [
+      134.0,
+      134.0,
+      134.0
+     ],
+     "median": {
+      "M50": 176.0,
+      "D": -31.99999999999997,
+      "slope": 0.1875,
+      "interp": 0.6666666666665719,
+      "predictedDr": 0.6388888888889382,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.639 > 0.1"
+     },
+     "mean": {
+      "M50": 175.36308805790108,
+      "D": -32.63691194209889,
+      "slope": 0.1875,
+      "interp": 0.6655617655717,
+      "predictedDr": 0.24508525642720416,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.245 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1658,
+     "populationPixels": 15570,
+     "atLevelPixels": 14258,
+     "frameStates": 1,
+     "y50": [
+      87.0,
+      87.0,
+      87.0
+     ],
+     "median": {
+      "M50": 67.55555555555556,
+      "D": 19.555555555555557,
+      "slope": 0.5625,
+      "interp": 0.5596707818930469,
+      "predictedDr": 0.17871168886630373,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.179 > 0.1"
+     },
+     "mean": {
+      "M50": 67.75392712966966,
+      "D": 19.753927129669663,
+      "slope": 0.5625,
+      "interp": 0.5889565874779473,
+      "predictedDr": 0.1453049206700645,
+      "distinct": 10,
+      "supported": 0.0,
+      "reason": "predicted dr 0.145 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1682,
+     "populationPixels": 4050,
+     "atLevelPixels": 2762,
+     "frameStates": 1,
+     "y50": [
+      134.0,
+      134.0,
+      134.0
+     ],
+     "median": {
+      "M50": 176.0,
+      "D": -31.99999999999997,
+      "slope": 0.1875,
+      "interp": 0.6666666666665719,
+      "predictedDr": 0.6388888888889382,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.639 > 0.1"
+     },
+     "mean": {
+      "M50": 175.21997621878714,
+      "D": -32.78002378121283,
+      "slope": 0.1875,
+      "interp": 0.6650350662135907,
+      "predictedDr": 0.24492116965468586,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.245 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    }
+   ]
+  },
+  "dark-inactive": {
+   "declared": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 4708,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 4708 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 2916,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 2916 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 5976,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 5976 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 3928,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 3928 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 5388,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 5388 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 3468,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 3468 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 12,
+     "populationPixels": 2893,
+     "atLevelPixels": 12,
+     "frameStates": 1,
+     "y50": [
+      67.0,
+      67.0,
+      67.0
+     ],
+     "median": {
+      "M50": 49.58542805100183,
+      "D": 49.58542805100183,
+      "slope": 0.9479166666666666,
+      "interp": 1.2519024032766832,
+      "predictedDr": 0.08140669795717706,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 49.58542805100183,
+      "D": 49.58542805100183,
+      "slope": 0.9479166666666666,
+      "interp": 1.2519024032766832,
+      "predictedDr": 0.08140669795717706,
+      "distinct": 1,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 12,
+     "populationPixels": 2893,
+     "atLevelPixels": 12,
+     "frameStates": 1,
+     "y50": [
+      147.0,
+      147.0,
+      147.0
+     ],
+     "median": {
+      "M50": 162.28571428571428,
+      "D": -92.7142857142857,
+      "slope": 0.4375,
+      "interp": 0.16581632653054612,
+      "predictedDr": 0.05633353480659642,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 162.28571428571425,
+      "D": -92.71428571428572,
+      "slope": 0.4375,
+      "interp": 0.16581632653054612,
+      "predictedDr": 0.0563335348065964,
+      "distinct": 1,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 42,
+     "populationPixels": 5710,
+     "atLevelPixels": 42,
+     "frameStates": 1,
+     "y50": [
+      66.0,
+      66.0,
+      66.0
+     ],
+     "median": {
+      "M50": 48.5304189435337,
+      "D": 48.5304189435337,
+      "slope": 0.9479166666666666,
+      "interp": 1.3147627081529123,
+      "predictedDr": 0.08355955177143855,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 47.885644895480965,
+      "D": 47.885644895480965,
+      "slope": 0.9479166666666666,
+      "interp": 1.3512497679769524,
+      "predictedDr": 0.07891022344605587,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 42,
+     "populationPixels": 5710,
+     "atLevelPixels": 42,
+     "frameStates": 1,
+     "y50": [
+      148.0,
+      148.0,
+      148.0
+     ],
+     "median": {
+      "M50": 164.57142857142858,
+      "D": -90.42857142857139,
+      "slope": 0.4375,
+      "interp": 0.30612244897952223,
+      "predictedDr": 0.06473211702350071,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 167.63718820861678,
+      "D": -87.3628117913832,
+      "slope": 0.4375,
+      "interp": 0.4541293558238995,
+      "predictedDr": 0.06639546265443064,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "declared",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 172,
+     "populationPixels": 2920,
+     "atLevelPixels": 688,
+     "frameStates": 1,
+     "y50": [
+      45.0,
+      45.0,
+      45.0
+     ],
+     "median": {
+      "M50": 26.3752276867031,
+      "D": 26.3752276867031,
+      "slope": 0.9479166666666666,
+      "interp": 1.7359726950142733,
+      "predictedDr": 0.14159016505412841,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.142 > 0.1"
+     },
+     "mean": {
+      "M50": 26.375227686703102,
+      "D": 26.375227686703102,
+      "slope": 0.9479166666666666,
+      "interp": 1.7359726950142733,
+      "predictedDr": 0.14159016505412841,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.142 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "declared",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 0,
+     "populationPixels": 6272,
+     "atLevelPixels": 3920,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 3920 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 23796,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 23796 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 23796,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 23796 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17030,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 12550,
+     "atLevelPixels": 6790,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 6790 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27270,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27270 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "declared",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27270,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27270 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "declared",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 12550,
+     "atLevelPixels": 6790,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 6790 px; |W - C| >= 24 over it too)"
+     ]
+    }
+   ],
+   "ls-span": [
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 1430,
+     "populationPixels": 17914,
+     "atLevelPixels": 5756,
+     "frameStates": 1,
+     "y50": [
+      77.0,
+      77.0,
+      77.0
+     ],
+     "median": {
+      "M50": 64.0,
+      "D": 16.0,
+      "slope": 0.578125,
+      "interp": 4.263256414560601e-14,
+      "predictedDr": 0.20098387861545888,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.201 > 0.1"
+     },
+     "mean": {
+      "M50": 64.4161523319418,
+      "D": 16.416152331941802,
+      "slope": 0.578125,
+      "interp": 0.06460086956910042,
+      "predictedDr": 0.1675755798809713,
+      "distinct": 6,
+      "supported": 0.0,
+      "reason": "predicted dr 0.168 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p2-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 1464,
+     "populationPixels": 14604,
+     "atLevelPixels": 3772,
+     "frameStates": 1,
+     "y50": [
+      128.0,
+      128.0,
+      128.0
+     ],
+     "median": {
+      "M50": 179.19999999999996,
+      "D": -28.80000000000001,
+      "slope": 0.15625,
+      "interp": 0.7199999999999704,
+      "predictedDr": 0.7716666666666411,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.772 > 0.1"
+     },
+     "mean": {
+      "M50": 181.04626593806924,
+      "D": -26.95373406193073,
+      "slope": 0.15625,
+      "interp": 0.6745807018722019,
+      "predictedDr": 0.8066736498517276,
+      "distinct": 3,
+      "supported": 0.0,
+      "reason": "predicted dr 0.807 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 96.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 7040,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 7040 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p3-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 159.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 4800,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 4800 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c16-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 5666,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 16.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 17914,
+     "atLevelPixels": 6392,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 6392 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "b-p4-c64-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 111.99999999999999,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 14604,
+     "atLevelPixels": 4280,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 4280 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 114,
+     "populationPixels": 2893,
+     "atLevelPixels": 114,
+     "frameStates": 1,
+     "y50": [
+      68.0,
+      68.0,
+      68.0
+     ],
+     "median": {
+      "M50": 50.64043715846994,
+      "D": 50.64043715846994,
+      "slope": 0.9479166666666666,
+      "interp": 1.1851509450864295,
+      "predictedDr": 0.07928275080593664,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 49.25840283769534,
+      "D": 49.25840283769534,
+      "slope": 0.9479166666666666,
+      "interp": 1.271791767866489,
+      "predictedDr": 0.07437666157856057,
+      "distinct": 6,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 114,
+     "populationPixels": 2893,
+     "atLevelPixels": 114,
+     "frameStates": 1,
+     "y50": [
+      147.0,
+      147.0,
+      147.0
+     ],
+     "median": {
+      "M50": 162.28571428571428,
+      "D": -92.7142857142857,
+      "slope": 0.4375,
+      "interp": 0.16581632653054612,
+      "predictedDr": 0.05633353480659642,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 163.80952380952377,
+      "D": -91.1904761904762,
+      "slope": 0.4375,
+      "interp": 0.262188208616692,
+      "predictedDr": 0.05301146558903583,
+      "distinct": 4,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "free",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 343,
+     "populationPixels": 5710,
+     "atLevelPixels": 343,
+     "frameStates": 1,
+     "y50": [
+      67.0,
+      67.0,
+      67.0
+     ],
+     "median": {
+      "M50": 49.58542805100183,
+      "D": 49.58542805100183,
+      "slope": 0.9479166666666666,
+      "interp": 1.2519024032766832,
+      "predictedDr": 0.08140669795717706,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 48.50576133654085,
+      "D": 48.50576133654085,
+      "slope": 0.9479166666666666,
+      "interp": 1.3161684085528929,
+      "predictedDr": 0.07380114514719648,
+      "distinct": 11,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c32-rrect-64",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 343,
+     "populationPixels": 5710,
+     "atLevelPixels": 343,
+     "frameStates": 1,
+     "y50": [
+      148.0,
+      148.0,
+      147.0
+     ],
+     "median": {
+      "M50": 163.80952380952382,
+      "D": -91.19047619047615,
+      "slope": 0.4375,
+      "interp": 0.2593537414965302,
+      "predictedDr": 0.06188580900325483,
+      "distinct": null,
+      "supported": true
+     },
+     "mean": {
+      "M50": 166.26826541572592,
+      "D": -88.73173458427405,
+      "slope": 0.4375,
+      "interp": 0.39375679768035826,
+      "predictedDr": 0.053466602796917964,
+      "distinct": 14,
+      "supported": 1.0
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "free",
+     "support": "ls-span",
+     "level": 0.0,
+     "stratum": 0,
+     "pixels": 968,
+     "populationPixels": 2920,
+     "atLevelPixels": 968,
+     "frameStates": 1,
+     "y50": [
+      44.0,
+      44.0,
+      44.0
+     ],
+     "median": {
+      "M50": 25.32021857923497,
+      "D": 25.32021857923497,
+      "slope": 0.9479166666666666,
+      "interp": 1.7132276269819802,
+      "predictedDr": 0.14554910717395952,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.146 > 0.1"
+     },
+     "mean": {
+      "M50": 25.06300561501754,
+      "D": 25.06300561501754,
+      "slope": 0.9479166666666666,
+      "interp": 1.7070923633863113,
+      "predictedDr": 0.12756220040528385,
+      "distinct": 11,
+      "supported": 0.0,
+      "reason": "predicted dr 0.128 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "bp-p1-c64-capsule-button",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 254.99999999999997,
+     "stratum": 0,
+     "pixels": 1904,
+     "populationPixels": 6272,
+     "atLevelPixels": 4256,
+     "frameStates": 1,
+     "y50": [
+      170.0,
+      170.0,
+      170.0
+     ],
+     "median": {
+      "M50": 218.84615384615384,
+      "D": -36.15384615384613,
+      "slope": 0.2765957446808511,
+      "interp": 1.0015145111300114,
+      "predictedDr": 0.3336109937071754,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.334 > 0.1"
+     },
+     "mean": {
+      "M50": 219.357035121741,
+      "D": -35.642964878258965,
+      "slope": 0.2765957446808511,
+      "interp": 1.0338439450048422,
+      "predictedDr": 0.29703318823247726,
+      "distinct": 9,
+      "supported": 0.0,
+      "reason": "predicted dr 0.297 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 25204,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 25204 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-hi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 3600,
+     "atLevelPixels": 0,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "c-s32-lo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 35928,
+     "atLevelPixels": 25204,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 25204 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d0-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 22790,
+     "atLevelPixels": 17510,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 160,
+     "populationPixels": 12550,
+     "atLevelPixels": 7270,
+     "frameStates": 1,
+     "y50": [
+      75.0,
+      75.0,
+      75.0
+     ],
+     "median": {
+      "M50": 61.754385964912274,
+      "D": 13.754385964912274,
+      "slope": 0.890625,
+      "interp": 0.3385657125269148,
+      "predictedDr": 0.23604358640963144,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 0.236 > 0.1"
+     },
+     "mean": {
+      "M50": 61.75438596491225,
+      "D": 13.754385964912252,
+      "slope": 0.890625,
+      "interp": 0.338565712526929,
+      "predictedDr": 0.2360435864096324,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 0.236 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    },
+    {
+     "cell": "d-d32-hilo-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27750,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27750 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "free",
+     "support": "ls-span",
+     "level": 48.0,
+     "stratum": 96,
+     "pixels": 0,
+     "populationPixels": 33030,
+     "atLevelPixels": 27750,
+     "frameStates": 1,
+     "excludedBeforeTheRead": [
+      "0 px after the model conditions (C at level over the k grid: 27750 px; |W - C| >= 24 over it too)"
+     ]
+    },
+    {
+     "cell": "d-d32-lohi-rrect-md",
+     "side": "lifted",
+     "support": "ls-span",
+     "level": 207.99999999999997,
+     "stratum": 96,
+     "pixels": 160,
+     "populationPixels": 12550,
+     "atLevelPixels": 7270,
+     "frameStates": 1,
+     "y50": [
+      129.0,
+      129.0,
+      129.0
+     ],
+     "median": {
+      "M50": 185.6,
+      "D": -22.399999999999977,
+      "slope": 0.15625,
+      "interp": 0.47999999999996135,
+      "predictedDr": 1.0007142857142497,
+      "distinct": null,
+      "supported": false,
+      "reason": "predicted dr 1.001 > 0.1"
+     },
+     "mean": {
+      "M50": 185.6,
+      "D": -22.399999999999977,
+      "slope": 0.15625,
+      "interp": 0.47999999999996135,
+      "predictedDr": 1.0007142857142497,
+      "distinct": 1,
+      "supported": 0.0,
+      "reason": "predicted dr 1.001 > 0.1"
+     },
+     "excludedBeforeTheRead": []
+    }
+   ]
+  }
+ }
+}

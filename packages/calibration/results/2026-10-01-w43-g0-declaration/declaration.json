@@ -193,11 +193,42 @@
       "title": "The w-test: statistic, support, resolution and verdict",
       "clause": "8; Design \"The w-test\"",
       "source": [
-        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a"
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/README.md",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/wtest.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/w42frames.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearse.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/support.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/prediction.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r1.txt",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r2.txt",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r3.txt",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/proposal-p2.txt"
       ],
-      "pending": {
-        "on": "G0 (e) rehearsals",
-        "note": "wtest/: the free-side ratio, its support fixed before the read, its propagated resolution and the per-endpoint verdict, rehearsed three ways"
+      "declared": {
+        "statistic": "per supported free-side region and channel, r = (T25^-1(y25) - C) / (T50^-1(y50) - C), averaged over channels; y the region median of the plurality frame (three runs at 0.25, W42's seven at 0.5); T_x native per channel and stratum through the probe's own greys at x (W42's at 0.5); C the backdrop's declared level",
+        "support": {
+          "file": "wtest/support.json, fixed at the hash",
+          "supportedRegionsPerEndpoint": {
+            "dark-inactive": 2,
+            "dark-rest": 3,
+            "light-inactive": 2,
+            "light-rest": 4
+          },
+          "rule": "W42 region populations on the free level (light the brighter, dark the darker), per pixel |C - level| <= 0.5 code and |W - C| >= 24 codes under LT's maps for every k in [1.4, 2.5]; >= 12 px; |M50 - C| >= 12 codes; predicted dr <= 0.10; X21 censoring (>= 250 or <= 5) excludes at 0.5 and makes a 0.25 statistic UNMEASURED; in dark at s >= 96 an inverted M above 208 excluded",
+          "note": "mostly t = 0 (capsule, rrect-64); the pitch-16 checkers drop out everywhere",
+          "liftedReported": "lifted-side regions are listed beside the free ones (reported, never gated)"
+        },
+        "resolution": "dr = (dM25 + |r| dM50) / |M50 - C|, dM = (0.5 median quantisation + 0.5 ordinate quantisation + the T table's interpolation error from the three nearest ordinates' curvature) / T's slope",
+        "verdict": "per endpoint: PASS iff |r - 0.5| <= dr on every supported, measured region (at least one); FAIL otherwise, with the measured r; no region measured is UNMEASURED",
+        "prediction": "wtest/prediction.json: stated in all four endpoints, r_pred = 0.5 (item wTestPrediction)",
+        "liftedSide": "r_lift = (w25 + lam25 (1 - w25)) / (w50 + lam50 (1 - w50)) and lam25, read and reported, never gated",
+        "rehearsals": {
+          "r3": "W42's 0.5 frames: supported regions 4 / 2 / 3 / 2 (light active, light receded, dark active, dark receded), every one at predicted dr <= 0.094",
+          "r1": "synthetic LT, 40 seeds a scenario: null PASS in every seed of 64 scenarios (size 0), |r - 0.5| <= 0.069, z <= 0.82 (dr honest); every seed FAILs at r = 0.7 and 1.0; the free-side r is unmoved by lam25 in all 64 checks; the per-pixel mean statistic is not honest (null pass 0.95, z 1.3) and is not declared",
+          "r2": "two-sided linear control, 40 seeds: free 0.47-0.52 and lifted 0.43-0.50 agree within dr; with the hinge the lifted reading matches its expectation and lam25 is recovered to +-0.02"
+        },
+        "addedBeforeHash": "bp-p1-c32-rrect-64 joined the probe (proposal P2) so that no receded endpoint rests on one 12-px region"
       }
     },
     {
@@ -300,7 +331,7 @@
     "apps/reference-apple/scenes.json": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
     "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a": "dc5c41d648ba3a8544a5387214c06863be1db0da121ae9f88a15f6a7c6e22156",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-probe.py": "d4ef8492f93bf1a25944373c77c49ef12bd09f757ca9e86069d6c2848ed6eff9",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-sittings.py": "2b73a0d06f3e69b68b96ae3dcf6fed6c25e2b682ee312b0bdec574e599fd0c06",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/declare-sittings.py": "e1bbbbffe48ede37f7560e27366e13461655d2b331aab5fa62df7e628de21e9e",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/pins.json": "e64e63f41e3a50dc6254d0dc3f26ef37a0b5a51ff28275678dc5a23a003072d3",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json": "2ab7de9ba5737b802e48b2cc742d90c8ca34c5867aff0c249144277522d92f5e",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/scenes-w43-probe.json": "f54e133befb61d20bdefcefd2228d66067b96bc35ecb332681498a70e39b2ba0",
@@ -323,6 +354,16 @@
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/tables.json": "d50352abab02cbd478352c7eeb70042df6a6e4e9bc654d7a6f3984b31f474bdf",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/restore.json": "fe83df7871d324f7e1e842a93a5c6d7cab819aa303d3d45b338d68347be550a2",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/run-sha256.txt": "f9bfca0ccfe790c9b801c21c943659326450eaafac6d9127070e52fb58a12b39",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/README.md": "915393d0caf4cc98f67bd3b3fcf7e232cc326592d69add26722201c344378986",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/prediction.json": "6f44606612a3d8540422641691e09ea995afa8bd43e51f152da73a66224c7adf",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/proposal-p2.txt": "ad25bbfa16dc1f96dd9c065dbd624bb7838a93f30ce4823c7ddd6cacbceacab1",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r1.txt": "8d721222ba03c4262fd6a55a3a83dbb1880ed617ce5b65b50adeccfe46670908",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r2.txt": "879b3419898db500b3edec41cb000df81c36c0a5e76ad69bd08ae8f967bf7cda",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r3.txt": "0d2cbde00b40f1fb9db0c673fa5d2cbde51457286dab0e761d67b4ae985b2a7e",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearse.py": "4c8c6f3c2415c12934f21275ee65a6ac2623ff6656528c01626fcba722e4af84",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/support.json": "790fcab778331e76236e28699379a6ef7cf68219780a20a7514ea9d70b792492",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/w42frames.py": "749710bf088214e6c28c1efcf764e31aa228c14cc8c75ab9c896749a08b036de",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/wtest.py": "a5d363efe28882ada6add9f55da57e4c488987df1c436992d4ec8204a6dbee20",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/macos27-document-projection.json": "edf6c3dd63f16f48733a1a916f90bba71d4b23b2093715a64ac83bdd02738079",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/sha256.txt": "61a55c03b71a302a81191fbd3ca2de755d781e3b1fd1f230e15f2b4af5e10a1a",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/x41.ts": "0b7171ae5e33d0a51894e67677d20b389716ed2c7c60874a81b910d1105197d5"

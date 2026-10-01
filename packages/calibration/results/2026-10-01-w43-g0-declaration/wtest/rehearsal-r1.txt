@@ -1,0 +1,452 @@
+W43 G0 (e) w-test rehearsal 1: synthetic LT at the truth k 2.138 and W42's lam50 per endpoint, 40 seeds a scenario, quantised (uniform +-0.5, then rounded), the T tables rebuilt from the synthetic greys at the seven probe levels.
+
+passRate is the share of seeds whose verdict at r_pred = 0.5 is PASS: under the null it is 1 - size, under an alternative 1 - power. z = |r - r_true| / dr per region (dr honest if z stays below 1).
+
+median declared light-rest      T native/same     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.516 |err|max 0.056 dr~ 0.072 z99 0.60 zmax 0.60
+median declared light-rest      T native/same     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.516 |err|max 0.056 dr~ 0.072 z99 0.60 zmax 0.60
+median declared light-rest      T native/same     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.516 |err|max 0.056 dr~ 0.072 z99 0.60 zmax 0.60
+median declared light-rest      T native/same     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.516 |err|max 0.056 dr~ 0.072 z99 0.60 zmax 0.60
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-rest      T native/same     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.700 |err|max 0.050 dr~ 0.079 z99 0.57 zmax 0.57
+median declared light-rest      T native/same     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.056 dr~ 0.088 z99 0.52 zmax 0.79
+median declared light-rest      T native/fill     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.508 |err|max 0.069 dr~ 0.072 z99 0.71 zmax 0.80
+median declared light-rest      T native/fill     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.508 |err|max 0.069 dr~ 0.072 z99 0.71 zmax 0.80
+median declared light-rest      T native/fill     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.508 |err|max 0.069 dr~ 0.072 z99 0.71 zmax 0.80
+median declared light-rest      T native/fill     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.508 |err|max 0.069 dr~ 0.072 z99 0.71 zmax 0.80
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-rest      T native/fill     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.708 |err|max 0.061 dr~ 0.073 z99 0.62 zmax 0.65
+median declared light-rest      T native/fill     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.003 |err|max 0.074 dr~ 0.084 z99 0.55 zmax 0.88
+median declared light-rest      T memoC /same     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.500 |err|max 0.056 dr~ 0.078 z99 0.63 zmax 0.68
+median declared light-rest      T memoC /same     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.500 |err|max 0.056 dr~ 0.078 z99 0.63 zmax 0.68
+median declared light-rest      T memoC /same     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.500 |err|max 0.056 dr~ 0.078 z99 0.63 zmax 0.68
+median declared light-rest      T memoC /same     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.500 |err|max 0.056 dr~ 0.078 z99 0.63 zmax 0.68
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-rest      T memoC /same     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.699 |err|max 0.064 dr~ 0.075 z99 0.79 zmax 0.83
+median declared light-rest      T memoC /same     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.088 dr~ 0.087 z99 0.86 zmax 1.02
+median declared light-rest      T memoC /fill     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.500 |err|max 0.060 dr~ 0.067 z99 0.68 zmax 0.73
+median declared light-rest      T memoC /fill     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.500 |err|max 0.060 dr~ 0.067 z99 0.68 zmax 0.73
+median declared light-rest      T memoC /fill     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.500 |err|max 0.060 dr~ 0.067 z99 0.68 zmax 0.73
+median declared light-rest      T memoC /fill     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.500 |err|max 0.060 dr~ 0.067 z99 0.68 zmax 0.73
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-rest      T memoC /fill     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.706 |err|max 0.064 dr~ 0.071 z99 0.73 zmax 0.89
+median declared light-rest      T memoC /fill     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.082 dr~ 0.082 z99 0.88 zmax 0.98
+median declared light-inactive  T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.473 |err|max 0.059 dr~ 0.085 z99 0.70 zmax 0.71
+median declared light-inactive  T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.473 |err|max 0.059 dr~ 0.085 z99 0.70 zmax 0.71
+median declared light-inactive  T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.473 |err|max 0.059 dr~ 0.085 z99 0.70 zmax 0.71
+median declared light-inactive  T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.473 |err|max 0.059 dr~ 0.085 z99 0.70 zmax 0.71
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-inactive  T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.673 |err|max 0.047 dr~ 0.093 z99 0.47 zmax 0.47
+median declared light-inactive  T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.054 dr~ 0.107 z99 0.49 zmax 0.49
+median declared light-inactive  T native/fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.473 |err|max 0.051 dr~ 0.076 z99 0.54 zmax 0.56
+median declared light-inactive  T native/fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.473 |err|max 0.051 dr~ 0.076 z99 0.54 zmax 0.56
+median declared light-inactive  T native/fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.473 |err|max 0.051 dr~ 0.076 z99 0.54 zmax 0.56
+median declared light-inactive  T native/fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.473 |err|max 0.051 dr~ 0.076 z99 0.54 zmax 0.56
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-inactive  T native/fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.684 |err|max 0.088 dr~ 0.086 z99 0.69 zmax 0.86
+median declared light-inactive  T native/fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.985 |err|max 0.069 dr~ 0.101 z99 0.63 zmax 0.65
+median declared light-inactive  T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.489 |err|max 0.041 dr~ 0.090 z99 0.52 zmax 0.52
+median declared light-inactive  T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.489 |err|max 0.041 dr~ 0.090 z99 0.52 zmax 0.52
+median declared light-inactive  T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.489 |err|max 0.041 dr~ 0.090 z99 0.52 zmax 0.52
+median declared light-inactive  T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.489 |err|max 0.041 dr~ 0.090 z99 0.52 zmax 0.52
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-inactive  T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.697 |err|max 0.080 dr~ 0.096 z99 0.69 zmax 0.73
+median declared light-inactive  T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.084 dr~ 0.103 z99 0.79 zmax 0.85
+median declared light-inactive  T memoC /fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.490 |err|max 0.052 dr~ 0.076 z99 0.66 zmax 0.66
+median declared light-inactive  T memoC /fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.490 |err|max 0.052 dr~ 0.076 z99 0.66 zmax 0.66
+median declared light-inactive  T memoC /fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.490 |err|max 0.052 dr~ 0.076 z99 0.66 zmax 0.66
+median declared light-inactive  T memoC /fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.490 |err|max 0.052 dr~ 0.076 z99 0.66 zmax 0.66
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared light-inactive  T memoC /fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.688 |err|max 0.063 dr~ 0.085 z99 0.79 zmax 0.86
+median declared light-inactive  T memoC /fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.985 |err|max 0.067 dr~ 0.096 z99 0.66 zmax 0.66
+median declared dark-rest       T native/same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+median declared dark-rest       T native/same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+median declared dark-rest       T native/same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+median declared dark-rest       T native/same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-rest       T native/same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.704 |err|max 0.022 dr~ 0.060 z99 0.36 zmax 0.37
+median declared dark-rest       T native/same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.000 |err|max 0.024 dr~ 0.048 z99 0.41 zmax 0.48
+median declared dark-rest       T native/compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+median declared dark-rest       T native/compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+median declared dark-rest       T native/compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+median declared dark-rest       T native/compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-rest       T native/compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.717 |err|max 0.050 dr~ 0.071 z99 0.55 zmax 0.63
+median declared dark-rest       T native/compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.007 |err|max 0.050 dr~ 0.052 z99 0.73 zmax 0.75
+median declared dark-rest       T memoC /same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+median declared dark-rest       T memoC /same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+median declared dark-rest       T memoC /same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+median declared dark-rest       T memoC /same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-rest       T memoC /same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.715 |err|max 0.031 dr~ 0.060 z99 0.48 zmax 0.48
+median declared dark-rest       T memoC /same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.000 |err|max 0.019 dr~ 0.047 z99 0.44 zmax 0.44
+median declared dark-rest       T memoC /compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+median declared dark-rest       T memoC /compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+median declared dark-rest       T memoC /compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+median declared dark-rest       T memoC /compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-rest       T memoC /compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.729 |err|max 0.063 dr~ 0.070 z99 0.81 zmax 0.97
+median declared dark-rest       T memoC /compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.009 |err|max 0.036 dr~ 0.050 z99 0.68 zmax 0.75
+median declared dark-inactive   T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.502 |err|max 0.018 dr~ 0.077 z99 0.19 zmax 0.25
+median declared dark-inactive   T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.502 |err|max 0.018 dr~ 0.077 z99 0.19 zmax 0.25
+median declared dark-inactive   T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.502 |err|max 0.018 dr~ 0.077 z99 0.19 zmax 0.25
+median declared dark-inactive   T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.502 |err|max 0.018 dr~ 0.077 z99 0.19 zmax 0.25
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-inactive   T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.701 |err|max 0.021 dr~ 0.087 z99 0.21 zmax 0.26
+median declared dark-inactive   T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.023 dr~ 0.088 z99 0.25 zmax 0.27
+median declared dark-inactive   T native/compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.519 |err|max 0.035 dr~ 0.092 z99 0.38 zmax 0.39
+median declared dark-inactive   T native/compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.519 |err|max 0.035 dr~ 0.092 z99 0.38 zmax 0.39
+median declared dark-inactive   T native/compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.519 |err|max 0.035 dr~ 0.092 z99 0.38 zmax 0.39
+median declared dark-inactive   T native/compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.519 |err|max 0.035 dr~ 0.092 z99 0.38 zmax 0.39
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-inactive   T native/compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.719 |err|max 0.041 dr~ 0.101 z99 0.38 zmax 0.40
+median declared dark-inactive   T native/compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.011 |err|max 0.041 dr~ 0.095 z99 0.42 zmax 0.44
+median declared dark-inactive   T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.520 |err|max 0.031 dr~ 0.079 z99 0.38 zmax 0.38
+median declared dark-inactive   T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.520 |err|max 0.031 dr~ 0.079 z99 0.38 zmax 0.38
+median declared dark-inactive   T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.520 |err|max 0.031 dr~ 0.079 z99 0.38 zmax 0.38
+median declared dark-inactive   T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.520 |err|max 0.031 dr~ 0.079 z99 0.38 zmax 0.38
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-inactive   T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.720 |err|max 0.040 dr~ 0.087 z99 0.43 zmax 0.46
+median declared dark-inactive   T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.020 dr~ 0.084 z99 0.24 zmax 0.24
+median declared dark-inactive   T memoC /compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.535 |err|max 0.056 dr~ 0.092 z99 0.61 zmax 0.61
+median declared dark-inactive   T memoC /compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.535 |err|max 0.056 dr~ 0.092 z99 0.61 zmax 0.61
+median declared dark-inactive   T memoC /compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.535 |err|max 0.056 dr~ 0.092 z99 0.61 zmax 0.61
+median declared dark-inactive   T memoC /compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.535 |err|max 0.056 dr~ 0.092 z99 0.61 zmax 0.61
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median declared dark-inactive   T memoC /compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.737 |err|max 0.064 dr~ 0.099 z99 0.58 zmax 0.63
+median declared dark-inactive   T memoC /compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.010 |err|max 0.048 dr~ 0.091 z99 0.41 zmax 0.51
+median ls-span  light-rest      T native/same     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.516 |err|max 0.038 dr~ 0.070 z99 0.69 zmax 0.69
+median ls-span  light-rest      T native/same     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.516 |err|max 0.038 dr~ 0.070 z99 0.69 zmax 0.69
+median ls-span  light-rest      T native/same     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.516 |err|max 0.038 dr~ 0.070 z99 0.69 zmax 0.69
+median ls-span  light-rest      T native/same     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.516 |err|max 0.038 dr~ 0.070 z99 0.69 zmax 0.69
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-rest      T native/same     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.700 |err|max 0.065 dr~ 0.076 z99 0.57 zmax 0.57
+median ls-span  light-rest      T native/same     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.059 dr~ 0.086 z99 0.50 zmax 0.50
+median ls-span  light-rest      T native/fill     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.505 |err|max 0.066 dr~ 0.073 z99 0.79 zmax 0.89
+median ls-span  light-rest      T native/fill     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.505 |err|max 0.066 dr~ 0.073 z99 0.79 zmax 0.89
+median ls-span  light-rest      T native/fill     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.505 |err|max 0.066 dr~ 0.073 z99 0.79 zmax 0.89
+median ls-span  light-rest      T native/fill     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.505 |err|max 0.066 dr~ 0.073 z99 0.79 zmax 0.89
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-rest      T native/fill     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.706 |err|max 0.072 dr~ 0.072 z99 0.62 zmax 0.70
+median ls-span  light-rest      T native/fill     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.004 |err|max 0.081 dr~ 0.084 z99 0.61 zmax 0.65
+median ls-span  light-rest      T memoC /same     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.497 |err|max 0.088 dr~ 0.078 z99 0.81 zmax 0.83
+median ls-span  light-rest      T memoC /same     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.497 |err|max 0.088 dr~ 0.078 z99 0.81 zmax 0.83
+median ls-span  light-rest      T memoC /same     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.497 |err|max 0.088 dr~ 0.078 z99 0.81 zmax 0.83
+median ls-span  light-rest      T memoC /same     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.497 |err|max 0.088 dr~ 0.078 z99 0.81 zmax 0.83
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-rest      T memoC /same     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.700 |err|max 0.067 dr~ 0.079 z99 0.70 zmax 0.79
+median ls-span  light-rest      T memoC /same     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.097 dr~ 0.086 z99 0.95 zmax 0.95
+median ls-span  light-rest      T memoC /fill     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.497 |err|max 0.067 dr~ 0.069 z99 0.74 zmax 0.91
+median ls-span  light-rest      T memoC /fill     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.497 |err|max 0.067 dr~ 0.069 z99 0.74 zmax 0.91
+median ls-span  light-rest      T memoC /fill     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.497 |err|max 0.067 dr~ 0.069 z99 0.74 zmax 0.91
+median ls-span  light-rest      T memoC /fill     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.497 |err|max 0.067 dr~ 0.069 z99 0.74 zmax 0.91
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-rest      T memoC /fill     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.704 |err|max 0.062 dr~ 0.070 z99 0.69 zmax 0.90
+median ls-span  light-rest      T memoC /fill     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.082 dr~ 0.082 z99 0.94 zmax 0.98
+median ls-span  light-inactive  T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.473 |err|max 0.043 dr~ 0.085 z99 0.45 zmax 0.53
+median ls-span  light-inactive  T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.473 |err|max 0.043 dr~ 0.085 z99 0.45 zmax 0.53
+median ls-span  light-inactive  T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.473 |err|max 0.043 dr~ 0.085 z99 0.45 zmax 0.53
+median ls-span  light-inactive  T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.473 |err|max 0.043 dr~ 0.085 z99 0.45 zmax 0.53
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-inactive  T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.678 |err|max 0.060 dr~ 0.092 z99 0.47 zmax 0.68
+median ls-span  light-inactive  T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.034 dr~ 0.107 z99 0.32 zmax 0.32
+median ls-span  light-inactive  T native/fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.470 |err|max 0.066 dr~ 0.074 z99 0.59 zmax 0.70
+median ls-span  light-inactive  T native/fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.470 |err|max 0.066 dr~ 0.074 z99 0.59 zmax 0.70
+median ls-span  light-inactive  T native/fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.470 |err|max 0.066 dr~ 0.074 z99 0.59 zmax 0.70
+median ls-span  light-inactive  T native/fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.470 |err|max 0.066 dr~ 0.074 z99 0.59 zmax 0.70
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-inactive  T native/fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.684 |err|max 0.068 dr~ 0.082 z99 0.53 zmax 0.70
+median ls-span  light-inactive  T native/fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.082 dr~ 0.100 z99 0.59 zmax 0.82
+median ls-span  light-inactive  T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.485 |err|max 0.048 dr~ 0.087 z99 0.52 zmax 0.52
+median ls-span  light-inactive  T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.485 |err|max 0.048 dr~ 0.087 z99 0.52 zmax 0.52
+median ls-span  light-inactive  T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.485 |err|max 0.048 dr~ 0.087 z99 0.52 zmax 0.52
+median ls-span  light-inactive  T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.485 |err|max 0.048 dr~ 0.087 z99 0.52 zmax 0.52
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-inactive  T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.697 |err|max 0.089 dr~ 0.093 z99 0.76 zmax 0.81
+median ls-span  light-inactive  T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.084 dr~ 0.102 z99 0.78 zmax 0.78
+median ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.490 |err|max 0.063 dr~ 0.073 z99 0.66 zmax 0.66
+median ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.490 |err|max 0.063 dr~ 0.073 z99 0.66 zmax 0.66
+median ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.490 |err|max 0.063 dr~ 0.073 z99 0.66 zmax 0.66
+median ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.490 |err|max 0.063 dr~ 0.073 z99 0.66 zmax 0.66
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  light-inactive  T memoC /fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.684 |err|max 0.066 dr~ 0.083 z99 0.74 zmax 0.74
+median ls-span  light-inactive  T memoC /fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.985 |err|max 0.084 dr~ 0.096 z99 0.80 zmax 0.80
+median ls-span  dark-rest       T native/same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+median ls-span  dark-rest       T native/same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+median ls-span  dark-rest       T native/same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+median ls-span  dark-rest       T native/same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.500 |err|max 0.023 dr~ 0.058 z99 0.32 zmax 0.32
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-rest       T native/same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.704 |err|max 0.022 dr~ 0.060 z99 0.36 zmax 0.37
+median ls-span  dark-rest       T native/same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.000 |err|max 0.024 dr~ 0.048 z99 0.41 zmax 0.48
+median ls-span  dark-rest       T native/compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+median ls-span  dark-rest       T native/compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+median ls-span  dark-rest       T native/compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+median ls-span  dark-rest       T native/compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.518 |err|max 0.046 dr~ 0.071 z99 0.55 zmax 0.56
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-rest       T native/compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.717 |err|max 0.050 dr~ 0.071 z99 0.55 zmax 0.63
+median ls-span  dark-rest       T native/compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.007 |err|max 0.050 dr~ 0.052 z99 0.73 zmax 0.75
+median ls-span  dark-rest       T memoC /same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+median ls-span  dark-rest       T memoC /same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+median ls-span  dark-rest       T memoC /same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+median ls-span  dark-rest       T memoC /same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.518 |err|max 0.040 dr~ 0.059 z99 0.63 zmax 0.67
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-rest       T memoC /same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.715 |err|max 0.031 dr~ 0.060 z99 0.48 zmax 0.48
+median ls-span  dark-rest       T memoC /same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.000 |err|max 0.019 dr~ 0.047 z99 0.44 zmax 0.44
+median ls-span  dark-rest       T memoC /compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+median ls-span  dark-rest       T memoC /compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+median ls-span  dark-rest       T memoC /compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+median ls-span  dark-rest       T memoC /compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.537 |err|max 0.058 dr~ 0.072 z99 0.72 zmax 0.82
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-rest       T memoC /compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.729 |err|max 0.063 dr~ 0.070 z99 0.81 zmax 0.97
+median ls-span  dark-rest       T memoC /compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.009 |err|max 0.036 dr~ 0.050 z99 0.68 zmax 0.75
+median ls-span  dark-inactive   T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.503 |err|max 0.017 dr~ 0.076 z99 0.22 zmax 0.22
+median ls-span  dark-inactive   T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.503 |err|max 0.017 dr~ 0.076 z99 0.22 zmax 0.22
+median ls-span  dark-inactive   T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.503 |err|max 0.017 dr~ 0.076 z99 0.22 zmax 0.22
+median ls-span  dark-inactive   T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.503 |err|max 0.017 dr~ 0.076 z99 0.22 zmax 0.22
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-inactive   T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.703 |err|max 0.018 dr~ 0.085 z99 0.20 zmax 0.21
+median ls-span  dark-inactive   T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.020 dr~ 0.083 z99 0.25 zmax 0.25
+median ls-span  dark-inactive   T native/compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.517 |err|max 0.036 dr~ 0.090 z99 0.39 zmax 0.39
+median ls-span  dark-inactive   T native/compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.517 |err|max 0.036 dr~ 0.090 z99 0.39 zmax 0.39
+median ls-span  dark-inactive   T native/compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.517 |err|max 0.036 dr~ 0.090 z99 0.39 zmax 0.39
+median ls-span  dark-inactive   T native/compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.517 |err|max 0.036 dr~ 0.090 z99 0.39 zmax 0.39
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-inactive   T native/compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.720 |err|max 0.038 dr~ 0.098 z99 0.38 zmax 0.39
+median ls-span  dark-inactive   T native/compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.010 |err|max 0.035 dr~ 0.091 z99 0.38 zmax 0.38
+median ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.516 |err|max 0.040 dr~ 0.076 z99 0.50 zmax 0.50
+median ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.516 |err|max 0.040 dr~ 0.076 z99 0.50 zmax 0.50
+median ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.516 |err|max 0.040 dr~ 0.076 z99 0.50 zmax 0.50
+median ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.516 |err|max 0.040 dr~ 0.076 z99 0.50 zmax 0.50
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-inactive   T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.725 |err|max 0.040 dr~ 0.084 z99 0.46 zmax 0.46
+median ls-span  dark-inactive   T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.020 dr~ 0.080 z99 0.24 zmax 0.24
+median ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.536 |err|max 0.056 dr~ 0.090 z99 0.61 zmax 0.61
+median ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.536 |err|max 0.056 dr~ 0.090 z99 0.61 zmax 0.61
+median ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.536 |err|max 0.056 dr~ 0.090 z99 0.61 zmax 0.61
+median ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.536 |err|max 0.056 dr~ 0.090 z99 0.61 zmax 0.61
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+median ls-span  dark-inactive   T memoC /compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.742 |err|max 0.071 dr~ 0.096 z99 0.71 zmax 0.71
+median ls-span  dark-inactive   T memoC /compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.010 |err|max 0.049 dr~ 0.088 z99 0.49 zmax 0.55
+mean   declared light-rest      T native/same     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.507 |err|max 0.054 dr~ 0.057 z99 0.67 zmax 0.79
+mean   declared light-rest      T native/same     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.507 |err|max 0.054 dr~ 0.057 z99 0.67 zmax 0.79
+mean   declared light-rest      T native/same     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.507 |err|max 0.054 dr~ 0.057 z99 0.67 zmax 0.79
+mean   declared light-rest      T native/same     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.507 |err|max 0.054 dr~ 0.057 z99 0.67 zmax 0.79
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-rest      T native/same     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.703 |err|max 0.048 dr~ 0.060 z99 0.60 zmax 0.64
+mean   declared light-rest      T native/same     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.053 dr~ 0.065 z99 0.60 zmax 0.87
+mean   declared light-rest      T native/fill     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.508 |err|max 0.065 dr~ 0.057 z99 0.74 zmax 0.78
+mean   declared light-rest      T native/fill     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.508 |err|max 0.065 dr~ 0.057 z99 0.74 zmax 0.78
+mean   declared light-rest      T native/fill     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.508 |err|max 0.065 dr~ 0.057 z99 0.74 zmax 0.78
+mean   declared light-rest      T native/fill     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.508 |err|max 0.065 dr~ 0.057 z99 0.74 zmax 0.78
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-rest      T native/fill     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.703 |err|max 0.070 dr~ 0.057 z99 0.76 zmax 1.00
+mean   declared light-rest      T native/fill     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.001 |err|max 0.070 dr~ 0.062 z99 0.83 zmax 0.90
+mean   declared light-rest      T memoC /same     null r=0.5 lam25 ratio      regions  4 pass 1.000 r~ 0.500 |err|max 0.051 dr~ 0.063 z99 0.67 zmax 0.85
+mean   declared light-rest      T memoC /same     null r=0.5 lam25 difference regions  4 pass 1.000 r~ 0.500 |err|max 0.051 dr~ 0.063 z99 0.67 zmax 0.85
+mean   declared light-rest      T memoC /same     null r=0.5 lam25 wild-low   regions  4 pass 1.000 r~ 0.500 |err|max 0.051 dr~ 0.063 z99 0.67 zmax 0.85
+mean   declared light-rest      T memoC /same     null r=0.5 lam25 wild-high  regions  4 pass 1.000 r~ 0.500 |err|max 0.051 dr~ 0.063 z99 0.67 zmax 0.85
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-rest      T memoC /same     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.701 |err|max 0.058 dr~ 0.062 z99 0.81 zmax 0.92
+mean   declared light-rest      T memoC /same     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 0.998 |err|max 0.069 dr~ 0.068 z99 1.00 zmax 1.05
+mean   declared light-rest      T memoC /fill     null r=0.5 lam25 ratio      regions  4 pass 0.975 r~ 0.501 |err|max 0.063 dr~ 0.055 z99 0.76 zmax 1.18
+mean   declared light-rest      T memoC /fill     null r=0.5 lam25 difference regions  4 pass 0.975 r~ 0.501 |err|max 0.063 dr~ 0.055 z99 0.76 zmax 1.18
+mean   declared light-rest      T memoC /fill     null r=0.5 lam25 wild-low   regions  4 pass 0.975 r~ 0.501 |err|max 0.063 dr~ 0.055 z99 0.76 zmax 1.18
+mean   declared light-rest      T memoC /fill     null r=0.5 lam25 wild-high  regions  4 pass 0.975 r~ 0.501 |err|max 0.063 dr~ 0.055 z99 0.76 zmax 1.18
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-rest      T memoC /fill     alt r=0.7  lam25 ratio      regions  4 pass 0.000 r~ 0.700 |err|max 0.059 dr~ 0.056 z99 0.74 zmax 0.93
+mean   declared light-rest      T memoC /fill     alt r=1.0  lam25 ratio      regions  4 pass 0.000 r~ 1.000 |err|max 0.065 dr~ 0.064 z99 0.87 zmax 0.99
+mean   declared light-inactive  T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.481 |err|max 0.046 dr~ 0.075 z99 0.63 zmax 0.63
+mean   declared light-inactive  T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.481 |err|max 0.046 dr~ 0.075 z99 0.63 zmax 0.63
+mean   declared light-inactive  T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.481 |err|max 0.046 dr~ 0.075 z99 0.63 zmax 0.63
+mean   declared light-inactive  T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.481 |err|max 0.046 dr~ 0.075 z99 0.63 zmax 0.63
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-inactive  T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.680 |err|max 0.048 dr~ 0.079 z99 0.65 zmax 0.65
+mean   declared light-inactive  T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.998 |err|max 0.047 dr~ 0.089 z99 0.53 zmax 0.55
+mean   declared light-inactive  T native/fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.479 |err|max 0.057 dr~ 0.065 z99 0.68 zmax 0.70
+mean   declared light-inactive  T native/fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.479 |err|max 0.057 dr~ 0.065 z99 0.68 zmax 0.70
+mean   declared light-inactive  T native/fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.479 |err|max 0.057 dr~ 0.065 z99 0.68 zmax 0.70
+mean   declared light-inactive  T native/fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.479 |err|max 0.057 dr~ 0.065 z99 0.68 zmax 0.70
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-inactive  T native/fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.680 |err|max 0.065 dr~ 0.074 z99 0.68 zmax 0.69
+mean   declared light-inactive  T native/fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.997 |err|max 0.055 dr~ 0.085 z99 0.62 zmax 0.63
+mean   declared light-inactive  T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.488 |err|max 0.049 dr~ 0.078 z99 0.66 zmax 0.70
+mean   declared light-inactive  T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.488 |err|max 0.049 dr~ 0.078 z99 0.66 zmax 0.70
+mean   declared light-inactive  T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.488 |err|max 0.049 dr~ 0.078 z99 0.66 zmax 0.70
+mean   declared light-inactive  T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.488 |err|max 0.049 dr~ 0.078 z99 0.66 zmax 0.70
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-inactive  T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.694 |err|max 0.061 dr~ 0.082 z99 0.71 zmax 0.75
+mean   declared light-inactive  T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.999 |err|max 0.071 dr~ 0.084 z99 0.73 zmax 0.78
+mean   declared light-inactive  T memoC /fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.491 |err|max 0.046 dr~ 0.064 z99 0.81 zmax 0.82
+mean   declared light-inactive  T memoC /fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.491 |err|max 0.046 dr~ 0.064 z99 0.81 zmax 0.82
+mean   declared light-inactive  T memoC /fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.491 |err|max 0.046 dr~ 0.064 z99 0.81 zmax 0.82
+mean   declared light-inactive  T memoC /fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.491 |err|max 0.046 dr~ 0.064 z99 0.81 zmax 0.82
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared light-inactive  T memoC /fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.696 |err|max 0.059 dr~ 0.072 z99 0.75 zmax 0.76
+mean   declared light-inactive  T memoC /fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.004 |err|max 0.067 dr~ 0.080 z99 0.71 zmax 0.72
+mean   declared dark-rest       T native/same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+mean   declared dark-rest       T native/same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+mean   declared dark-rest       T native/same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+mean   declared dark-rest       T native/same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-rest       T native/same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.699 |err|max 0.018 dr~ 0.052 z99 0.25 zmax 0.25
+mean   declared dark-rest       T native/same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 0.999 |err|max 0.021 dr~ 0.039 z99 0.39 zmax 0.41
+mean   declared dark-rest       T native/compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+mean   declared dark-rest       T native/compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+mean   declared dark-rest       T native/compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+mean   declared dark-rest       T native/compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-rest       T native/compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.716 |err|max 0.040 dr~ 0.063 z99 0.52 zmax 0.58
+mean   declared dark-rest       T native/compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.007 |err|max 0.042 dr~ 0.042 z99 0.68 zmax 0.76
+mean   declared dark-rest       T memoC /same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+mean   declared dark-rest       T memoC /same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+mean   declared dark-rest       T memoC /same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+mean   declared dark-rest       T memoC /same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-rest       T memoC /same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.716 |err|max 0.031 dr~ 0.051 z99 0.61 zmax 0.61
+mean   declared dark-rest       T memoC /same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 0.999 |err|max 0.021 dr~ 0.037 z99 0.41 zmax 0.42
+mean   declared dark-rest       T memoC /compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+mean   declared dark-rest       T memoC /compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+mean   declared dark-rest       T memoC /compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+mean   declared dark-rest       T memoC /compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-rest       T memoC /compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.732 |err|max 0.054 dr~ 0.061 z99 0.86 zmax 0.94
+mean   declared dark-rest       T memoC /compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.006 |err|max 0.039 dr~ 0.039 z99 0.75 zmax 0.81
+mean   declared dark-inactive   T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.501 |err|max 0.014 dr~ 0.072 z99 0.19 zmax 0.19
+mean   declared dark-inactive   T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.501 |err|max 0.014 dr~ 0.072 z99 0.19 zmax 0.19
+mean   declared dark-inactive   T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.501 |err|max 0.014 dr~ 0.072 z99 0.19 zmax 0.19
+mean   declared dark-inactive   T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.501 |err|max 0.014 dr~ 0.072 z99 0.19 zmax 0.19
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-inactive   T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.702 |err|max 0.016 dr~ 0.081 z99 0.19 zmax 0.20
+mean   declared dark-inactive   T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.001 |err|max 0.018 dr~ 0.080 z99 0.23 zmax 0.23
+mean   declared dark-inactive   T native/compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.519 |err|max 0.034 dr~ 0.087 z99 0.39 zmax 0.40
+mean   declared dark-inactive   T native/compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.519 |err|max 0.034 dr~ 0.087 z99 0.39 zmax 0.40
+mean   declared dark-inactive   T native/compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.519 |err|max 0.034 dr~ 0.087 z99 0.39 zmax 0.40
+mean   declared dark-inactive   T native/compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.519 |err|max 0.034 dr~ 0.087 z99 0.39 zmax 0.40
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-inactive   T native/compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.719 |err|max 0.037 dr~ 0.095 z99 0.39 zmax 0.40
+mean   declared dark-inactive   T native/compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.013 |err|max 0.036 dr~ 0.088 z99 0.40 zmax 0.41
+mean   declared dark-inactive   T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.517 |err|max 0.028 dr~ 0.073 z99 0.37 zmax 0.38
+mean   declared dark-inactive   T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.517 |err|max 0.028 dr~ 0.073 z99 0.37 zmax 0.38
+mean   declared dark-inactive   T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.517 |err|max 0.028 dr~ 0.073 z99 0.37 zmax 0.38
+mean   declared dark-inactive   T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.517 |err|max 0.028 dr~ 0.073 z99 0.37 zmax 0.38
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-inactive   T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.721 |err|max 0.032 dr~ 0.080 z99 0.39 zmax 0.39
+mean   declared dark-inactive   T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.001 |err|max 0.017 dr~ 0.076 z99 0.22 zmax 0.23
+mean   declared dark-inactive   T memoC /compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.535 |err|max 0.050 dr~ 0.087 z99 0.57 zmax 0.57
+mean   declared dark-inactive   T memoC /compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.535 |err|max 0.050 dr~ 0.087 z99 0.57 zmax 0.57
+mean   declared dark-inactive   T memoC /compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.535 |err|max 0.050 dr~ 0.087 z99 0.57 zmax 0.57
+mean   declared dark-inactive   T memoC /compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.535 |err|max 0.050 dr~ 0.087 z99 0.57 zmax 0.57
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   declared dark-inactive   T memoC /compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.739 |err|max 0.056 dr~ 0.093 z99 0.61 zmax 0.61
+mean   declared dark-inactive   T memoC /compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.012 |err|max 0.033 dr~ 0.084 z99 0.40 zmax 0.40
+mean   ls-span  light-rest      T native/same     null r=0.5 lam25 ratio      regions  5 pass 1.000 r~ 0.508 |err|max 0.061 dr~ 0.059 z99 0.63 zmax 0.70
+mean   ls-span  light-rest      T native/same     null r=0.5 lam25 difference regions  5 pass 1.000 r~ 0.508 |err|max 0.061 dr~ 0.059 z99 0.63 zmax 0.70
+mean   ls-span  light-rest      T native/same     null r=0.5 lam25 wild-low   regions  5 pass 1.000 r~ 0.508 |err|max 0.061 dr~ 0.059 z99 0.63 zmax 0.70
+mean   ls-span  light-rest      T native/same     null r=0.5 lam25 wild-high  regions  5 pass 1.000 r~ 0.508 |err|max 0.061 dr~ 0.059 z99 0.63 zmax 0.70
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-rest      T native/same     alt r=0.7  lam25 ratio      regions  5 pass 0.000 r~ 0.705 |err|max 0.064 dr~ 0.067 z99 0.59 zmax 0.66
+mean   ls-span  light-rest      T native/same     alt r=1.0  lam25 ratio      regions  5 pass 0.000 r~ 1.003 |err|max 0.065 dr~ 0.069 z99 0.62 zmax 0.70
+mean   ls-span  light-rest      T native/fill     null r=0.5 lam25 ratio      regions  5 pass 1.000 r~ 0.507 |err|max 0.065 dr~ 0.063 z99 0.78 zmax 0.84
+mean   ls-span  light-rest      T native/fill     null r=0.5 lam25 difference regions  5 pass 1.000 r~ 0.507 |err|max 0.065 dr~ 0.063 z99 0.78 zmax 0.84
+mean   ls-span  light-rest      T native/fill     null r=0.5 lam25 wild-low   regions  5 pass 1.000 r~ 0.507 |err|max 0.065 dr~ 0.063 z99 0.78 zmax 0.84
+mean   ls-span  light-rest      T native/fill     null r=0.5 lam25 wild-high  regions  5 pass 1.000 r~ 0.507 |err|max 0.065 dr~ 0.063 z99 0.78 zmax 0.84
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-rest      T native/fill     alt r=0.7  lam25 ratio      regions  5 pass 0.000 r~ 0.703 |err|max 0.064 dr~ 0.072 z99 0.73 zmax 0.96
+mean   ls-span  light-rest      T native/fill     alt r=1.0  lam25 ratio      regions  5 pass 0.000 r~ 1.003 |err|max 0.062 dr~ 0.066 z99 0.71 zmax 0.88
+mean   ls-span  light-rest      T memoC /same     null r=0.5 lam25 ratio      regions  5 pass 0.950 r~ 0.500 |err|max 0.074 dr~ 0.070 z99 0.97 zmax 1.12
+mean   ls-span  light-rest      T memoC /same     null r=0.5 lam25 difference regions  5 pass 0.950 r~ 0.500 |err|max 0.074 dr~ 0.070 z99 0.97 zmax 1.12
+mean   ls-span  light-rest      T memoC /same     null r=0.5 lam25 wild-low   regions  5 pass 0.950 r~ 0.500 |err|max 0.074 dr~ 0.070 z99 0.97 zmax 1.12
+mean   ls-span  light-rest      T memoC /same     null r=0.5 lam25 wild-high  regions  5 pass 0.950 r~ 0.500 |err|max 0.074 dr~ 0.070 z99 0.97 zmax 1.12
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-rest      T memoC /same     alt r=0.7  lam25 ratio      regions  5 pass 0.000 r~ 0.699 |err|max 0.081 dr~ 0.078 z99 0.92 zmax 1.30
+mean   ls-span  light-rest      T memoC /same     alt r=1.0  lam25 ratio      regions  5 pass 0.000 r~ 1.000 |err|max 0.098 dr~ 0.071 z99 1.08 zmax 1.25
+mean   ls-span  light-rest      T memoC /fill     null r=0.5 lam25 ratio      regions  5 pass 0.975 r~ 0.501 |err|max 0.068 dr~ 0.061 z99 0.85 zmax 1.30
+mean   ls-span  light-rest      T memoC /fill     null r=0.5 lam25 difference regions  5 pass 0.975 r~ 0.501 |err|max 0.068 dr~ 0.061 z99 0.85 zmax 1.30
+mean   ls-span  light-rest      T memoC /fill     null r=0.5 lam25 wild-low   regions  5 pass 0.975 r~ 0.501 |err|max 0.068 dr~ 0.061 z99 0.85 zmax 1.30
+mean   ls-span  light-rest      T memoC /fill     null r=0.5 lam25 wild-high  regions  5 pass 0.975 r~ 0.501 |err|max 0.068 dr~ 0.061 z99 0.85 zmax 1.30
+                light-rest      free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-rest      T memoC /fill     alt r=0.7  lam25 ratio      regions  5 pass 0.000 r~ 0.701 |err|max 0.076 dr~ 0.061 z99 0.82 zmax 1.12
+mean   ls-span  light-rest      T memoC /fill     alt r=1.0  lam25 ratio      regions  5 pass 0.000 r~ 1.000 |err|max 0.095 dr~ 0.067 z99 0.99 zmax 1.19
+mean   ls-span  light-inactive  T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.481 |err|max 0.043 dr~ 0.068 z99 0.65 zmax 0.67
+mean   ls-span  light-inactive  T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.481 |err|max 0.043 dr~ 0.068 z99 0.65 zmax 0.67
+mean   ls-span  light-inactive  T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.481 |err|max 0.043 dr~ 0.068 z99 0.65 zmax 0.67
+mean   ls-span  light-inactive  T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.481 |err|max 0.043 dr~ 0.068 z99 0.65 zmax 0.67
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-inactive  T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.682 |err|max 0.048 dr~ 0.072 z99 0.63 zmax 0.68
+mean   ls-span  light-inactive  T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.998 |err|max 0.045 dr~ 0.080 z99 0.54 zmax 0.54
+mean   ls-span  light-inactive  T native/fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.482 |err|max 0.054 dr~ 0.058 z99 0.70 zmax 0.74
+mean   ls-span  light-inactive  T native/fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.482 |err|max 0.054 dr~ 0.058 z99 0.70 zmax 0.74
+mean   ls-span  light-inactive  T native/fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.482 |err|max 0.054 dr~ 0.058 z99 0.70 zmax 0.74
+mean   ls-span  light-inactive  T native/fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.482 |err|max 0.054 dr~ 0.058 z99 0.70 zmax 0.74
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-inactive  T native/fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.683 |err|max 0.062 dr~ 0.063 z99 0.73 zmax 0.75
+mean   ls-span  light-inactive  T native/fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 0.996 |err|max 0.056 dr~ 0.074 z99 0.67 zmax 0.71
+mean   ls-span  light-inactive  T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.490 |err|max 0.046 dr~ 0.069 z99 0.67 zmax 0.74
+mean   ls-span  light-inactive  T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.490 |err|max 0.046 dr~ 0.069 z99 0.67 zmax 0.74
+mean   ls-span  light-inactive  T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.490 |err|max 0.046 dr~ 0.069 z99 0.67 zmax 0.74
+mean   ls-span  light-inactive  T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.490 |err|max 0.046 dr~ 0.069 z99 0.67 zmax 0.74
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-inactive  T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.693 |err|max 0.054 dr~ 0.074 z99 0.69 zmax 0.80
+mean   ls-span  light-inactive  T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.064 dr~ 0.076 z99 0.80 zmax 0.81
+mean   ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.492 |err|max 0.042 dr~ 0.057 z99 0.82 zmax 0.84
+mean   ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.492 |err|max 0.042 dr~ 0.057 z99 0.82 zmax 0.84
+mean   ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.492 |err|max 0.042 dr~ 0.057 z99 0.82 zmax 0.84
+mean   ls-span  light-inactive  T memoC /fill     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.492 |err|max 0.042 dr~ 0.057 z99 0.82 zmax 0.84
+                light-inactive  free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  light-inactive  T memoC /fill     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.696 |err|max 0.056 dr~ 0.063 z99 0.77 zmax 0.77
+mean   ls-span  light-inactive  T memoC /fill     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.005 |err|max 0.063 dr~ 0.071 z99 0.80 zmax 0.82
+mean   ls-span  dark-rest       T native/same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+mean   ls-span  dark-rest       T native/same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+mean   ls-span  dark-rest       T native/same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+mean   ls-span  dark-rest       T native/same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.499 |err|max 0.015 dr~ 0.052 z99 0.23 zmax 0.24
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-rest       T native/same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.699 |err|max 0.018 dr~ 0.052 z99 0.25 zmax 0.25
+mean   ls-span  dark-rest       T native/same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 0.999 |err|max 0.021 dr~ 0.039 z99 0.39 zmax 0.41
+mean   ls-span  dark-rest       T native/compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+mean   ls-span  dark-rest       T native/compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+mean   ls-span  dark-rest       T native/compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+mean   ls-span  dark-rest       T native/compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.517 |err|max 0.034 dr~ 0.064 z99 0.47 zmax 0.52
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-rest       T native/compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.716 |err|max 0.040 dr~ 0.063 z99 0.52 zmax 0.58
+mean   ls-span  dark-rest       T native/compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.007 |err|max 0.042 dr~ 0.042 z99 0.68 zmax 0.76
+mean   ls-span  dark-rest       T memoC /same     null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+mean   ls-span  dark-rest       T memoC /same     null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+mean   ls-span  dark-rest       T memoC /same     null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+mean   ls-span  dark-rest       T memoC /same     null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.517 |err|max 0.032 dr~ 0.051 z99 0.62 zmax 0.62
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-rest       T memoC /same     alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.716 |err|max 0.031 dr~ 0.051 z99 0.61 zmax 0.61
+mean   ls-span  dark-rest       T memoC /same     alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 0.999 |err|max 0.021 dr~ 0.037 z99 0.41 zmax 0.42
+mean   ls-span  dark-rest       T memoC /compress null r=0.5 lam25 ratio      regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+mean   ls-span  dark-rest       T memoC /compress null r=0.5 lam25 difference regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+mean   ls-span  dark-rest       T memoC /compress null r=0.5 lam25 wild-low   regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+mean   ls-span  dark-rest       T memoC /compress null r=0.5 lam25 wild-high  regions  3 pass 1.000 r~ 0.534 |err|max 0.055 dr~ 0.064 z99 0.82 zmax 0.89
+                dark-rest       free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-rest       T memoC /compress alt r=0.7  lam25 ratio      regions  3 pass 0.000 r~ 0.732 |err|max 0.054 dr~ 0.061 z99 0.86 zmax 0.94
+mean   ls-span  dark-rest       T memoC /compress alt r=1.0  lam25 ratio      regions  3 pass 0.000 r~ 1.006 |err|max 0.039 dr~ 0.039 z99 0.75 zmax 0.81
+mean   ls-span  dark-inactive   T native/same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.502 |err|max 0.013 dr~ 0.068 z99 0.18 zmax 0.19
+mean   ls-span  dark-inactive   T native/same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.502 |err|max 0.013 dr~ 0.068 z99 0.18 zmax 0.19
+mean   ls-span  dark-inactive   T native/same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.502 |err|max 0.013 dr~ 0.068 z99 0.18 zmax 0.19
+mean   ls-span  dark-inactive   T native/same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.502 |err|max 0.013 dr~ 0.068 z99 0.18 zmax 0.19
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-inactive   T native/same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.702 |err|max 0.014 dr~ 0.076 z99 0.19 zmax 0.19
+mean   ls-span  dark-inactive   T native/same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.018 dr~ 0.073 z99 0.24 zmax 0.25
+mean   ls-span  dark-inactive   T native/compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.520 |err|max 0.036 dr~ 0.082 z99 0.41 zmax 0.44
+mean   ls-span  dark-inactive   T native/compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.520 |err|max 0.036 dr~ 0.082 z99 0.41 zmax 0.44
+mean   ls-span  dark-inactive   T native/compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.520 |err|max 0.036 dr~ 0.082 z99 0.41 zmax 0.44
+mean   ls-span  dark-inactive   T native/compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.520 |err|max 0.036 dr~ 0.082 z99 0.41 zmax 0.44
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-inactive   T native/compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.719 |err|max 0.038 dr~ 0.089 z99 0.41 zmax 0.44
+mean   ls-span  dark-inactive   T native/compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.012 |err|max 0.035 dr~ 0.081 z99 0.40 zmax 0.45
+mean   ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.519 |err|max 0.029 dr~ 0.069 z99 0.42 zmax 0.42
+mean   ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.519 |err|max 0.029 dr~ 0.069 z99 0.42 zmax 0.42
+mean   ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.519 |err|max 0.029 dr~ 0.069 z99 0.42 zmax 0.42
+mean   ls-span  dark-inactive   T memoC /same     null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.519 |err|max 0.029 dr~ 0.069 z99 0.42 zmax 0.42
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-inactive   T memoC /same     alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.722 |err|max 0.034 dr~ 0.075 z99 0.45 zmax 0.45
+mean   ls-span  dark-inactive   T memoC /same     alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.000 |err|max 0.017 dr~ 0.070 z99 0.24 zmax 0.25
+mean   ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 ratio      regions  2 pass 1.000 r~ 0.536 |err|max 0.052 dr~ 0.082 z99 0.63 zmax 0.63
+mean   ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 difference regions  2 pass 1.000 r~ 0.536 |err|max 0.052 dr~ 0.082 z99 0.63 zmax 0.63
+mean   ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 wild-low   regions  2 pass 1.000 r~ 0.536 |err|max 0.052 dr~ 0.082 z99 0.63 zmax 0.63
+mean   ls-span  dark-inactive   T memoC /compress null r=0.5 lam25 wild-high  regions  2 pass 1.000 r~ 0.536 |err|max 0.052 dr~ 0.082 z99 0.63 zmax 0.63
+                dark-inactive   free-side r moves by at most 0.00e+00 across lam25 in {ratio, difference, 0.2, 1.3}
+mean   ls-span  dark-inactive   T memoC /compress alt r=0.7  lam25 ratio      regions  2 pass 0.000 r~ 0.741 |err|max 0.058 dr~ 0.088 z99 0.67 zmax 0.67
+mean   ls-span  dark-inactive   T memoC /compress alt r=1.0  lam25 ratio      regions  2 pass 0.000 r~ 1.012 |err|max 0.033 dr~ 0.077 z99 0.44 zmax 0.44

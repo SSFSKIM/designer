@@ -6,9 +6,10 @@ files that define it, and pins every one of those files by SHA-256. `declare.py 
 every count and list below from those files. `declare.py hash` refuses while any item is PENDING. It
 then writes `declaration.sha256` and `closure.json`, and never overwrites either.
 
-**Status: DRAFT. Not hashable.** Memo F's reading is folded in. One item, the w-test statistic,
-waits on its record rehearsals, marked PENDING. The hash comes after the independent review and the
-parent's word, and before G1a's first capture (clause 1). No pixel at 0.25 exists.
+**Status: COMPLETE, NOT HASHED.** Every item is declared: memo F's reading and the w-test's record
+rehearsals are folded in, and both sittings' plans are validated by G0 (d)'s final pass-spec. The hash
+waits on the independent review and the parent's word, and must come before G1a's first capture
+(clause 1). No pixel at 0.25 exists.
 
 ## The beds
 
@@ -111,9 +112,32 @@ position. A FAIL refutes the composite's slider coupling; neither verdict lands 
 
 ### wTestStatistic
 
-**PENDING (G0 (e) rehearsals).** The free-side ratio r = (T₀.₂₅⁻¹(y₀.₂₅) − C)/(T₀.₅⁻¹(y₀.₅) − C),
-its support fixed before the read, its propagated resolution, and the per-endpoint verdict. It is
-rehearsed on synthetic LT renders, on a two-sided linear control and on W42's 0.5 cells (`wtest/`).
+The statistic is computed per supported free-side region and channel, and averaged over channels:
+r = (T₀.₂₅⁻¹(y₀.₂₅) − C)/(T₀.₅⁻¹(y₀.₅) − C).
+- y is the region median of the plurality frame.
+- T is native per channel and stratum, built from the probe's own greys at each position.
+- C is the backdrop's level.
+
+The support is fixed at the hash in `wtest/support.json`. A region qualifies on the free level when,
+pixel by pixel and for every k in [1.4, 2.5]:
+- the narrow term lies within 0.5 code of the level;
+- the wide term lies 24 codes or more from it.
+
+A region also needs ≥ 12 px, |M₀.₅ − C| ≥ 12 codes and a predicted dr ≤ 0.10. Censoring follows X21.
+That leaves 4 / 2 / 3 / 2 regions in light active, light receded, dark active and dark receded, almost
+all at t = 0.
+
+The resolution dr propagates half a code of quantisation from the median and from the ordinate, plus
+the table's interpolation error, through T's slope. The verdict is per endpoint: PASS iff |r − 0.5| ≤ dr
+on every supported, measured region.
+
+The rehearsals (`wtest/`):
+- **Synthetic LT, 40 seeds a scenario.** Under the null, every seed PASSes; z ≤ 0.82, so dr is
+  honest. Every seed FAILs at r = 0.7 and at r = 1.0. The free side does not move with λ₀.₂₅.
+- **The two-sided control.** The free and lifted readings agree.
+- **W42's 0.5 frames.** These fix the support.
+
+P1 on rrect-64 joined the probe for that support (proposal P2). The lifted side is read, never gated.
 
 ### ladderReadings
 

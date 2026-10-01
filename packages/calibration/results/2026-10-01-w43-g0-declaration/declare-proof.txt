@@ -1,13 +1,15 @@
-declare.py proof: 11 of 11 cases hold
+declare.py proof: 13 of 13 cases hold
 
-PASS  green-check              rc 0  | check: consistent with its sources; 6 item(s) pending
-PASS  red-hash-while-pending   rc 2  | hash REFUSES: memoF, wTestPrediction, wTestStatistic, ladderReadings, sittingG1a, sittingG1b are pending
+PASS  green-check              rc 0  | check: consistent with its sources
+PASS  red-hash-while-pending   rc 2  | hash REFUSES: ladderReadings are pending
 PASS  red-pin                  rc 1  | check: 1 mismatch(es)
 PASS  red-verdicts             rc 1  | check: 1 mismatch(es)
 PASS  red-captures             rc 1  | check: 1 mismatch(es)
 PASS  red-cells                rc 1  | check: 1 mismatch(es)
 PASS  red-twin-order           rc 1  | check: 1 mismatch(es)
 PASS  red-unmarked-pending     rc 1  | check: 1 mismatch(es)
-PASS  red-neither              rc 1  | check: 2 mismatch(es)
-PASS  red-bed-edited           rc 1  | check: 2 mismatch(es)
-PASS  green-hash               rc 0 and a second hash refuses  | declaration.json sha256 de02b6c15dbca6b64a625b4fff7d8cc48ff8740d9cc104d752e278675152958f; closure.json sha256 52660bedc8c461087bfc89e48f17d39a80b6cc757c3c602717c0e226d8e5a54d; commit both before G1a
+PASS  red-support-count        rc 1  | check: 1 mismatch(es)
+PASS  red-plan-sha             rc 1  | check: 1 mismatch(es)
+PASS  red-neither              rc 1  | check: 1 mismatch(es)
+PASS  red-bed-edited           rc 1  | check: 3 mismatch(es)
+PASS  green-hash               rc 0 and a second hash refuses  | declaration.json sha256 68273fc1b258a8a622b4bfcf3d06dec0326bf760689863a643524fcd45772578; closure.json sha256 0588bb18ae47c5ae8f606fe29ec7866cfecd0b1033df333c918c532200874e44; commit both before G1a
