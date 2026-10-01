@@ -36,9 +36,11 @@ T. So per region r = (T25⁻¹(y25) − C) / (T50⁻¹(y50) − C) reads w(0.25)
 - **Verdict** per endpoint: PASS iff |r − r_pred| ≤ dr on every supported, measured region (at least
   one); FAIL otherwise, with the measured r. A censored 0.25 median is UNMEASURED.
 - **Lifted side**, never gated: r_lift = (w25 + λ25 (1 − w25)) / (w50 + λ50 (1 − w50)) gives λ25,
-  set beside the two scalings of the declared Lighten ramp. In light they are 0.7595 (ratio) and
-  0.7555 (difference) from λ50 0.868: **indistinguishable at any resolution the bed reaches**
-  (Δr_lift ≈ 0.003), so the lifted reading tests the ramp's size, not its form.
+  set beside the two scalings of the declared hinge ramp, Lighten in light and Darken in dark, both
+  0.9 → 0.7875 (memo F). In light active they are 0.7595 (ratio) and 0.7555 (difference) from λ50
+  0.868; in dark active 0.7446 and 0.7385 from 0.851. **They are indistinguishable at any resolution
+  the bed reaches** (Δr_lift ≈ 0.003–0.01), so the lifted reading tests the ramp's size, not its
+  form.
 
 ## Rehearsal 3: W42's 0.5 frames fix the support (`rehearsal-r3.txt`, `support.json`)
 

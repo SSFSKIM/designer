@@ -49,8 +49,8 @@ bottom (X47). Nothing is filed as a fixture; the bed is archived as `w43-archive
 
 G0 (b) read W42's family F against the canonical 0.5 fixtures (`bridge/`). The F cells were captured
 through the side bundle at 0.5 on 2026-09-30; the fixtures came from the original bundle on
-2026-09-18/19. 19 cell-passes agree by bytes and 1 by regions; 4 have no canonical twin (the dark
-impulse). Read run by run, every run of all 20 agrees. Every side-bundle state is one the original
+2026-09-18/19. Read run by run, 18 cell-passes agree by bytes and 2 by regions; 4 have no canonical twin
+(the dark impulse). Every run of all 20 agrees. Every side-bundle state is one the original
 bundle produced at W29. Nothing went to the user.
 
 ### bridgeCells

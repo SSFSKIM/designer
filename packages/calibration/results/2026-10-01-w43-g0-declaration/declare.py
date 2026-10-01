@@ -13,6 +13,8 @@ then re-derives each fact the declaration states as a number or a list:
 - G0 (b)'s bridge verdicts, and that `bridge.json` names the `bridge.py` beside it;
 - the bridge cells' own generator check, their 168 and 84 captures, and the sentinels' reference
   protocol;
+- the declared repeat counts (the canonical bed's seven, the probe and ladder's three) against every
+  plan pass that captures them, and probe-bed.json's runs;
 - the w-test's supported regions per endpoint from `wtest/support.json`, and its prediction stated in
   all four 2x endpoints at 0.5 (`wtest/prediction.json`);
 - both sittings' plans: their generator check, each plan's SHA-256 (the item G0 (d)'s pin-check
@@ -188,6 +190,22 @@ def wtest(c, items):
          ['2x-dark-active', '2x-dark-receded', '2x-light-active', '2x-light-receded'])
 
 
+def repeats(c, items):
+    """The declared repeat counts against the plans that capture them (the review of 4cd1cdc4)."""
+    g1a = json.loads((HERE / 'bed/sitting-g1a.json').read_text())['passes']
+    g1b = json.loads((HERE / 'bed/sitting-g1b.json').read_text())['passes']
+    bed = json.loads((HERE / 'bed/probe-bed.json').read_text())
+    canonical = {p['runs'] for p in g1a if p['kind'] == 'capture' and p['role'] == 'bed'}
+    probe = {p['runs'] for p in g1b if p['kind'] == 'capture' and p['role'] in ('probe', 'ladder')}
+    c.eq('canonicalBed: runs against every G1a bed pass', {items['canonicalBed']['declared']['runs']}, canonical)
+    c.eq('repeatsAndBar: canonicalRuns against every G1a bed pass', {items['repeatsAndBar']['declared']['canonicalRuns']},
+         canonical)
+    c.eq('probeBed: runs against every G1b probe and ladder pass', {items['probeBed']['declared']['runs']}, probe)
+    c.eq('repeatsAndBar: probeRuns against every G1b probe and ladder pass',
+         {items['repeatsAndBar']['declared']['probeRuns']}, probe)
+    c.eq('probeBed: runs against probe-bed.json', items['probeBed']['declared']['runs'], bed['runs'])
+
+
 def check():
     c = Check()
     d = json.loads(DECLARATION.read_text())
@@ -197,6 +215,7 @@ def check():
     beds(c, items)
     bridges(c, items)
     sittings(c, items)
+    repeats(c, items)
     if 'declared' in items['wTestStatistic']:
         wtest(c, items)
     return c, d, items

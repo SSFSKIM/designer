@@ -71,7 +71,7 @@ AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-l
     runs 7, states {'53ca86124db4': 7}, plurality 53ca86124db4; fixture 53ca86124db4; file-identical to ['53ca86124db4'], pixel-identical to ['53ca86124db4']; against the plurality 0 px differ, at most 0 codes
     W29 original-bundle runs: 7, states {'53ca86124db4': 7}; every side state among them: True; fixture is one of them: True
     mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
-AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__rest  ->  checkerboard-64__rrect-lg__rest  [probe]
+AGREE (regions)  apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__rest  ->  checkerboard-64__rrect-lg__rest  [probe]
     runs 7, states {'bb7c575d9339': 5, '1cfcad1bb0c9': 2}, plurality bb7c575d9339; fixture bb7c575d9339; file-identical to ['bb7c575d9339'], pixel-identical to ['bb7c575d9339']; against the plurality 0 px differ, at most 0 codes
     W29 original-bundle runs: 7, states {'bb7c575d9339': 6, '1cfcad1bb0c9': 1}; every side state among them: True; fixture is one of them: True
     mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
@@ -95,4 +95,4 @@ AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-photo-rrect-md__r
     mask n: 3 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
     mask w: empty deep mask
 
-verdicts: {"AGREE (bytes)": 19, "AGREE (regions)": 1, "NO TWIN": 4}
+verdicts: {"AGREE (bytes)": 18, "AGREE (regions)": 2, "NO TWIN": 4}

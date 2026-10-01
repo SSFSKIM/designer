@@ -93,7 +93,10 @@ ORD = 0.5              # codes: a grey ordinate's own quantisation
 MIN_EXCURSION = 12.0   # codes: |M50 - C| observed at 0.5; below it a region carries no ratio
 DR_MAX = 0.10          # the resolution a region must reach to separate 0.5 from the nearest alternative read,
 #                        0.7 (a weight that tracks the slider only partly), by at least twice dr
-LAM_SCALINGS = {'light': {'ratio': 0.7875 / 0.9, 'difference': 0.7875 - 0.9}}   # W29 G0: Lighten 0.9 -> 0.7875
+# The declared hinge ramps at 0.25 against 0.5: Lighten 0.9 -> 0.7875 (W29 G0; memo F) and Darken the same in dark
+# (memo F, memo-f/MEMO.md §1), each read as a ratio or as a difference.
+LAM_SCALINGS = {'light': {'ratio': 0.7875 / 0.9, 'difference': 0.7875 - 0.9},
+                'dark': {'ratio': 0.7875 / 0.9, 'difference': 0.7875 - 0.9}}
 
 
 # --- cells -------------------------------------------------------------------------------------------------
@@ -329,7 +332,7 @@ LAM50_FITTED = {'light-rest': 0.868, 'light-inactive': 0.767, 'dark-rest': 0.851
 def lifted_reading(ep, r_lift, w25=0.25, w50=0.5):
     """On the lifted side M - C = (w + lam (1 - w)) (W - C), so r_lift = (w25 + lam25 (1 - w25)) /
     (w50 + lam50 (1 - w50)). Returns lam25 implied by the reading and the two scalings the declared ramps
-    allow (light: Lighten 0.9 -> 0.7875 as a ratio, 0.875, or as a difference, -0.1125; dark waits on memo F)."""
+    allow: Lighten (light) and Darken (dark) 0.9 -> 0.7875, as a ratio, 0.875, or as a difference, -0.1125."""
     lam50 = LAM50_FITTED[ep]
     lam25 = (r_lift * (w50 + lam50 * (1 - w50)) - w25) / (1 - w25)
     scheme = ep.split('-')[0]
@@ -337,5 +340,5 @@ def lifted_reading(ep, r_lift, w25=0.25, w50=0.5):
     if scheme in LAM_SCALINGS:
         out.update(byRatio=lam50 * LAM_SCALINGS[scheme]['ratio'], byDifference=lam50 + LAM_SCALINGS[scheme]['difference'])
     else:
-        out['note'] = "dark's Darken ramp is unread before memo F"
+        out['note'] = f'no declared hinge ramp for scheme {scheme!r}'
     return out

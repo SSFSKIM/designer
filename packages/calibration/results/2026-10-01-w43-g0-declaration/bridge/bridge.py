@@ -28,9 +28,10 @@ cell. Per cell-pass:
    recomputed here from the runs and checked equal to G1's published `bar.json.gz`. A statistic
    AGREES when |fixture − plurality run| <= max(1, bar). The parent's later ruling reads every run, so
    `runByRun` also judges each distinct state the runs produced against the fixture the same way.
-3. **The verdict.** AGREE (bytes) when the fixture's pixels equal an admitted state; AGREE
-   (regions) when every region statistic agrees; DISAGREE otherwise; NO TWIN when the canonical
-   bed has no such scene for the profile. A cell with no region statistic and no byte identity
+3. **The verdict, run by run** (the parent's ruling; the review of 4cd1cdc4). AGREE (bytes) when
+   every admitted run's state is the fixture's pixels; AGREE (regions) when every run agrees, by
+   bytes or by every region statistic; DISAGREE otherwise; NO TWIN when the canonical bed has no
+   such scene for the profile. A cell with no region statistic whose runs are not all byte-identical
    is UNMEASURED, never an agreement.
 
 Descriptive, never a verdict: the differing-pixel count and the largest code difference against
@@ -198,12 +199,15 @@ def bridge_cell(wave, reader, archive, cell, roles, members, published, w29=None
                          'UNMEASURED' if not measured else 'DISAGREE') for k in states}
     row.update(runByRun=dict(byState=by_state, failingByState={k[:12]: v[:8] for k, v in state_fail.items() if v},
                              everyRunAgrees=all(by_state[r['frame'][:12]] in ('bytes', 'regions') for r in runs)))
-    if pixel_equal:
+    # The parent's ruling: the verdict reads every run. Bytes only when every run's state is the fixture's
+    # pixels; regions when every run agrees, some by region statistics; never from the plurality alone.
+    states_of_runs = {r['frame'][:12] for r in runs}
+    if all(by_state[k] == 'bytes' for k in states_of_runs):
         verdict = 'AGREE (bytes)'
+    elif row['runByRun']['everyRunAgrees']:
+        verdict = 'AGREE (regions)'
     elif measured == 0:
         verdict = 'UNMEASURED'
-    elif not failing:
-        verdict = 'AGREE (regions)'
     else:
         verdict = 'DISAGREE'
     return dict(row, verdict=verdict)

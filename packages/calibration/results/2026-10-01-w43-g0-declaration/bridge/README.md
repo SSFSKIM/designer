@@ -11,18 +11,20 @@ twin.
 
 | verdict | cell-passes | what it means |
 | --- | ---: | --- |
-| AGREE (bytes) | 19 | the fixture file is byte-identical to the side bundle's frame (18 unanimous over seven runs; 2x light active checker-64 rrect-lg is the 5-of-7 plurality, its 2-run minority a different state) |
-| AGREE (regions) | 1 | 2x dark active checker-64 rrect-lg: 84 px differ, every one by 1 code, all on the silhouette's edge rows; every one of its 66 region statistics is equal |
+| AGREE (bytes) | 18 | every one of the seven runs is byte-identical to the fixture (all 18 unanimous) |
+| AGREE (regions) | 2 | 2x dark active checker-64 rrect-lg: all seven runs read one state, 84 px from the fixture, every one by 1 code on the silhouette's edge rows, every one of its 66 region statistics equal; 2x light active checker-64 rrect-lg: five runs are the fixture's bytes and the two-run minority state agrees by every region statistic |
 | NO TWIN | 4 | the dark impulse on rrect-md, at both scales and in both poses: the canonical dark profiles carry no impulse scene |
 
-**Run by run** (the parent's later ruling for the sittings' bridges): every state the seven runs
-produced was also judged against its fixture (`runByRun` in `bridge.json`). Every run of all 20
-twinned cell-passes agrees: by bytes, or (the 2x dark active checker-64 and the two-run minority
-state of the 2x light active one) by every region statistic.
+**Run by run** (the parent's ruling, applied to this reading by the review of 4cd1cdc4): the verdict
+judges every state the seven runs produced against its fixture (`runByRun` in `bridge.json`), never
+the plurality alone. Every run of all 20 twinned cell-passes agrees. The first reading of this bridge
+(512ab147) counted 19 by bytes and 1 by regions, because it labelled a cell by bytes when any one
+state matched; the 2x light active checker-64 moves to regions under the ruling.
 
-**The one non-identical cell is not a bundle difference.** The original bundle's own seven W29 runs
-of that cell read two states, `969118c4591d` 4 times (published as the fixture) and `24b99f3931c2`
-3 times; the side bundle read `24b99f3931c2` in all seven of its runs. Across all 20 twinned
+**Neither region-only cell is a bundle difference.** The original bundle's own seven W29 runs of
+the dark cell read two states, `969118c4591d` 4 times (published as the fixture) and `24b99f3931c2`
+3 times; the side bundle read `24b99f3931c2` in all seven of its runs. The light cell's W29 runs read
+`bb7c575d9339` 6 times (the fixture) and `1cfcad1bb0c9` once; the side bundle read them 5 and 2 times. Across all 20 twinned
 cell-passes, every state the side bundle produced is one the original bundle produced at W29, and
 every fixture is one of W29's states (`w29Original` in `bridge.json`; the raw W29 tree
 `~/vitrea-w29-27-run/` is on the capture machine and not committed).

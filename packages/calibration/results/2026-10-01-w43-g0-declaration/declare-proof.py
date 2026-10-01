@@ -70,6 +70,10 @@ def main():
         captures=1000)), 'check', 1, 'mismatch')
     case('red-cells', lambda t: edit_json(t / 'declaration.json', lambda d: item(d, 'canonicalBed')['declared'].update(
         cellsPerRound=561)), 'check', 1, 'mismatch')
+    case('red-runs', lambda t: edit_json(t / 'declaration.json', lambda d: item(d, 'canonicalBed')['declared'].update(
+        runs=99)), 'check', 1, 'mismatch')
+    case('red-probe-runs', lambda t: edit_json(t / 'declaration.json', lambda d: item(d, 'repeatsAndBar')['declared'].update(
+        probeRuns=7)), 'check', 1, 'mismatch')
     case('red-twin-order', lambda t: (t / 'declaration.md').write_text((t / 'declaration.md').read_text().replace(
         '### probeBed', '### probeBedX')), 'check', 1, 'mismatch')
     case('red-unmarked-pending', lambda t: make_pending(t, marked=False), 'check', 1, 'mismatch')

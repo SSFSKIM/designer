@@ -85,11 +85,11 @@
       ],
       "declared": {
         "verdicts": {
-          "AGREE (bytes)": 19,
-          "AGREE (regions)": 1,
+          "AGREE (bytes)": 18,
+          "AGREE (regions)": 2,
           "NO TWIN": 4
         },
-        "reading": "W42 family F (side bundle, 0.5, 2026-09-30) against the canonical 0.5 fixtures (original bundle, 2026-09-18/19): every twinned cell-pass agrees; the dark impulse has no canonical twin",
+        "reading": "W42 family F (side bundle, 0.5, 2026-09-30) against the canonical 0.5 fixtures (original bundle, 2026-09-18/19), read run by run: every run of every twinned cell-pass agrees; the dark impulse has no canonical twin",
         "archive": "w42-archive asset 1e3d6e65..., inventory 5481795e..., probe role only, H never requested",
         "runByRun": "every run of all 20 twinned cell-passes agrees with its fixture, by bytes or by every region statistic (bridge.json runByRun)"
       }
@@ -339,8 +339,8 @@
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json": "8e1d70028c717368eb81b42dd4753974769982bba3c43541e414ff0f1f0becba",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json": "27c7687e60fb3c83ce2cfc6b80ee493ebb90a958222005f04011f63c33637ef3",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json": "04b176a7ec8605bbc01d98a08a4b7f3768985d95c591cdf54d89dbb0de4b3201",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py": "446957b4cca58482b6ae533ab9bbd4f9f10eeb56daaad20dee75a94228f636a4",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json": "36369636f682bdd078dc586c075f7ed9c6a996a47863b9f530e05699204e0533",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py": "ca10493f19915ab6f4bc97aa1bcc86455af3627bd874801021b1c36f3073581c",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json": "8bd264fd70fa7ec9a1310c9fe7651d755fbb33b3e81b8da7f95ccbff59d8fa2f",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py": "cbc7d2640352909aad69f9d0bf7c76e1c004a24cdfb93a096e64ba2683d87b7e",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.json": "100ca39c4bb717f4bc75c17e60978687b108c66deba2bb447231ba17cc07d86f",
@@ -354,7 +354,7 @@
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/tables.json": "d50352abab02cbd478352c7eeb70042df6a6e4e9bc654d7a6f3984b31f474bdf",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/restore.json": "fe83df7871d324f7e1e842a93a5c6d7cab819aa303d3d45b338d68347be550a2",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/run-sha256.txt": "f9bfca0ccfe790c9b801c21c943659326450eaafac6d9127070e52fb58a12b39",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/README.md": "915393d0caf4cc98f67bd3b3fcf7e232cc326592d69add26722201c344378986",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/README.md": "b4aedbed7a5fcc31aed3039374d8a29ba631c871a48e8940b526f01daccd71da",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/prediction.json": "6f44606612a3d8540422641691e09ea995afa8bd43e51f152da73a66224c7adf",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/proposal-p2.txt": "ad25bbfa16dc1f96dd9c065dbd624bb7838a93f30ce4823c7ddd6cacbceacab1",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearsal-r1.txt": "8d721222ba03c4262fd6a55a3a83dbb1880ed617ce5b65b50adeccfe46670908",
@@ -363,7 +363,7 @@
     "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/rehearse.py": "4c8c6f3c2415c12934f21275ee65a6ac2623ff6656528c01626fcba722e4af84",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/support.json": "790fcab778331e76236e28699379a6ef7cf68219780a20a7514ea9d70b792492",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/w42frames.py": "749710bf088214e6c28c1efcf764e31aa228c14cc8c75ab9c896749a08b036de",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/wtest.py": "a5d363efe28882ada6add9f55da57e4c488987df1c436992d4ec8204a6dbee20",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/wtest/wtest.py": "b789bd0203df285a45e1413cd44e6e840ad62a449ad7d88a35c55906bdc771b7",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/macos27-document-projection.json": "edf6c3dd63f16f48733a1a916f90bba71d4b23b2093715a64ac83bdd02738079",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/sha256.txt": "61a55c03b71a302a81191fbd3ca2de755d781e3b1fd1f230e15f2b4af5e10a1a",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/x41.ts": "0b7171ae5e33d0a51894e67677d20b389716ed2c7c60874a81b910d1105197d5"
