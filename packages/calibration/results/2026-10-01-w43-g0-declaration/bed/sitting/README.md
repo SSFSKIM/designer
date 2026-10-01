@@ -17,8 +17,8 @@ against the native side: no capture, no dump, no slider write, no display switch
 | `w43_archive.py` | `produce`, `verify-tree`, `pack`, `fetch`, `replay`: the archive of record |
 | `timing.py`, `dry-plan-summary.py` | the sitting's length and dry plan, derived from the declared plan |
 | `stand_in.py` | a G1a-shaped STAND-IN for the declaration (e) writes: test and rehearsal material only |
-| `test_sitting.py`, `test_archive.py`, `test_timing.py` → `test-*.txt` | the suites: 64, 11 and 7 cases, stubs only |
-| `red-green.py` → `red-green.txt` | each change red on the tools before it (W42's committed ones; W43's as accepted at `d92190b4` for the rulings 10 and 11) and green on W43's: 14 of 14 |
+| `test_sitting.py`, `test_archive.py`, `test_timing.py` → `test-*.txt` | the suites: 66, 11 and 7 cases, stubs only |
+| `red-green.py` → `red-green.txt` | each change red on the tools before it (W42's committed ones; W43's as accepted at `d92190b4` for the rulings 10 and 11; the reviewed head `d32cf72d` for the review's 1b and 12; `materialize` alone for 7c) and green on W43's: 17 of 17 |
 | `timing-stand-in.*`, `dry-plan-stand-in.*` | the deriver run on the stand-in: a rehearsal, not the sitting's numbers |
 
 ## The plan G0 (e) declares (the contract this tooling reads)
@@ -75,10 +75,17 @@ against the native side: no capture, no dump, no slider write, no display switch
      counts, and so does anything inside such a bundle (helpers, Chrome for Testing, the
      crashpad handler), a headless shell, and any `VitreaReference`.
    - Playwright and the capture scripts are node scripts, so for a node-family interpreter
-     only, the script arguments are matched, by path component or exact file name:
-     `compare.ts`, `capture-web`, `playwright*`, `@playwright`.
+     only, its ENTRY script is matched, by path component or exact file name: `compare.ts`,
+     `capture-web`, `playwright*`, `@playwright`. The entry script is the first non-option
+     argument of the kernel's exact argv (so a path with a space stays whole). The values of
+     options that take one are skipped (`--require r.js`, `--import x.mjs`), the argument after
+     `--` is the script, and `-e` / `-p` carry no script. Every later argument is the program's
+     data.
    - Red: W42 counted a `pgrep` shell, a `grep` line and a stub launch naming the harness.
-   - Green: none of those counts, and all six real executable kinds still do.
+     Before the review's P2, W43 also counted `node benign.js …/playwright-core/cli.js`, a
+     benign script handed a Playwright path as data (scenario 1b).
+   - Green: none of those counts, and all six real executable kinds still do, as do Playwright
+     as the entry and the tsx child's `--require … --import … cli/compare.ts`.
    - A `compare.ts --skip-capture` still counts, since it is the script. The bar on
      whole-package test suites during a sitting stays.
 2. **The launching chain is excluded.** Before it detaches, the orchestrator records its
@@ -98,8 +105,10 @@ against the native side: no capture, no dump, no slider write, no display switch
    - a lock, a permission prompt, or a session it cannot read.
 
    On a trip it kills the launch and the native app (by executable image) and quarantines the
-   run, naming the reading. The rules match W42 G1's 1,056-read trace: receded passes read
-   Finder throughout, active passes read the harness, and idle fell only at the two inputs.
+   run, naming the reading. In a sitting it polls every 5 s, so a run is stopped within about
+   5 s of the event, plus the kill. The 0.3 s in `red-green.txt` is the test's own poll period,
+   not a sitting's. The rules match W42 G1's 1,056-read trace: receded passes read Finder
+   throughout, active passes read the harness, and idle fell only at the two inputs.
 
    **What it cannot see:**
    - input that does not reset HIDIdleTime;
@@ -148,7 +157,11 @@ against the native side: no capture, no dump, no slider write, no display switch
      `bundle-pin.json`.
    - A published pass derives one document for every run, so `passSpecSha256` agrees (rule 6).
      W42's run 1 carried references, which is why `materialize` refuses W42 G1's own committed
-     attestations.
+     attestations (scenario 7, which fails on the differing declarations).
+   - The missing pin is a separate check, isolated in scenario 7c. The runs agree on one
+     declaration and their `attest.read` carries no bundle field. `materialize` alone, the path
+     W29 published by, writes a profile record naming no bundle; `publish` refuses the runs
+     before materialize runs.
    - `publish P [--apply]` checks first that every run is admitted under the declaration,
      names the pin, and reads the pass's slider. It then runs
      `npx tsx cli/materialize.ts --run r1=… --profile <both keys> --frequency-settle` in
@@ -193,7 +206,9 @@ The coordinator then ruled two more, after the first 11 of 11:
       can then agree only by identity.
     - **On (e)'s declared cells** (read 2026-10-01, `sitting-g1a.json` at `e94b2ed2`):
       - `hc-text__rrect-sm__rest`, in the active pose at both scales, has no region statistic
-        under either mask, so it bridges only by byte or pixel identity.
+        under either mask, so it bridges only by byte or pixel identity. (e) has since replaced
+        it with `hc-text-28__rrect-md` (`333ac8b1` on `w43-g0-decl`), and its generator now
+        refuses an opening canonical cell without a region statistic.
       - The active capsule cells and `f-impulse-rrect-md__rest` read mask `n` only, because
         the wide mask is empty at their spans.
       - Every other cell reads both masks when active, or `n` when receded.
@@ -215,6 +230,17 @@ The coordinator then ruled two more, after the first 11 of 11:
       can never be taken later, because a later pass has started.
     - **The archive.** `w43_archive.py produce --cut-after <pass>` archives a cut sitting and
       names the dropped passes. It refuses one of them that ran.
+
+The independent review of `6cb112d5..d32cf72d` found two more, both fixed (scenarios 1b and 12,
+red on the reviewed head):
+
+- **P1, the EXIT trap could be cut short.** A HUP, INT or TERM during the trap's restoration ran
+  the cancel handler, whose `exit` inside the trap ended the shell without re-running it. The
+  display was left at mode 69, unverified, with no RESTORE FAILED. The restoration now ignores
+  the three signals for its whole duration (its children inherit that), runs once, and exits
+  only after its verification lines are logged. A refused slider write is RESTORE FAILED and
+  exit 7, with the display still restored and verified.
+- **P2, a later argument counted as a node script.** Change 1 now reads the entry script only.
 
 ## Kept from W42, and dropped
 

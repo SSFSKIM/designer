@@ -323,6 +323,12 @@ elif verb == 'read-type':
     print('Type is ' + state[key]['type'])
 elif verb == 'write':
     assert sys.argv[4] == '-float'
+    if os.environ.get('STUB_SLOW_WRITE') == sys.argv[5]:          # a write the test aims a signal at
+        Path(os.environ['STUB_SLOW_MARK']).write_text('writing')
+        import time
+        time.sleep(float(os.environ.get('STUB_SLOW_SECONDS', '4')))
+    if os.environ.get('STUB_REFUSE_WRITE') == sys.argv[5]:
+        sys.exit('stub defaults: the write is refused')
     state[key] = dict(type='float', value=shown(sys.argv[5]))
     store.write_text(json.dumps(state))
 elif verb == 'delete':
@@ -531,6 +537,33 @@ class Census(unittest.TestCase):
         compare = compare.with_name('compare.ts')
         compare.symlink_to('compare.js')
         self.assertEqual(self.counted(self.start([node, compare, '--skip-capture'])), ['node script compare.ts'])
+
+    @needs_node
+    def test_only_a_node_process_s_entry_script_counts(self):
+        """The review's P2: an argument after the entry script is the program's data."""
+        node = fake_executable(self.tmp / 'entry/bin/node')
+        base = self.tmp / 'entry'
+        benign, required, imported = base / 'benign.js', base / 'r.js', base / 'i.mjs'
+        cli = base / 'lib/node_modules/playwright-core/cli.js'
+        spaced = base / 'Application Support/node_modules/playwright-core/cli.js'
+        compare = base / 'cli/compare.ts'
+        for path, text in ((benign, 'setTimeout(() => {}, 30000)\n'), (required, ''), (imported, ''),
+                           (cli, 'setTimeout(() => {}, 30000)\n'), (spaced, 'setTimeout(() => {}, 30000)\n'),
+                           (compare, 'setTimeout(() => {}, 30000)\n')):
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(text)
+        cases = [
+            ('a benign entry with a Playwright path as data', [node, benign, cli], []),
+            ('inline code with a Playwright path as data', [node, '-e', 'setTimeout(() => {}, 30000)', cli], []),
+            ('Playwright as the entry', [node, cli], ['node script in playwright-core']),
+            ('Playwright as the entry, a space in its path', [node, spaced], ['node script in playwright-core']),
+            ('compare.ts after --require and --import values (the tsx child)',
+             [node, '--require', required, '--import', imported, compare, '--skip-capture'],
+             ['node script compare.ts']),
+        ]
+        for label, argv, want in cases:
+            with self.subTest(label=label):
+                self.assertEqual(self.counted(self.start(argv)), want)
 
     @needs_node
     def test_the_launcher_chain_is_excluded_only_by_pid_and_start(self):
@@ -1092,8 +1125,8 @@ class Orchestrator(unittest.TestCase):
     def tearDown(self):
         self._tmp.cleanup()
 
-    def setup(self, start_mode='68', as_found='0.5459057', stub_driver=True):
-        self.m = Mirror(self.tmp)
+    def setup(self, start_mode='68', as_found='0.5459057', stub_driver=True, replace=None):
+        self.m = Mirror(self.tmp, replace=replace)
         self.st = Stubs(self.tmp)
         if as_found is None:
             self.st.store.write_text('{}')
@@ -1189,6 +1222,22 @@ class Orchestrator(unittest.TestCase):
         self.assertEqual((self.state.read_text(), self.stored()['value']), ('68', '0.5459057'))
         self.assertIn('restore: display mode 68 (verified)', self.status())
 
+    def test_a_signal_during_the_exit_restore_cannot_cut_it_short(self):
+        """The review's P1: a TERM while the EXIT trap restores the slider. The restore finishes,
+        verifies the display at mode 68 and exits with the sitting's own status; a refused write
+        is RESTORE FAILED and exit 7, the display still restored and verified."""
+        for refuse, want in ((False, 0), (True, 7)):
+            with self.subTest(refuse=refuse), tempfile.TemporaryDirectory() as tmp:
+                rc, mode, status, stored = exit_restore_under_signal(tmp, refuse=refuse)
+                self.assertEqual((rc, mode), (want, '68'), status)
+                self.assertIn('restore: display mode 68 (verified)', status)
+                self.assertNotIn('CANCEL', status)
+                if refuse:
+                    self.assertIn('RESTORE FAILED: slider', status)
+                else:
+                    self.assertIn('restore: slider', status)
+                    self.assertEqual(stored['value'], '0.5459057')
+
     def test_rehearsals_are_dump_passes_only(self):
         self.setup()
         out = self.orchestrate(REHEARSAL='1', PASSES='dump-0.25-1x-dark-receded')
@@ -1218,6 +1267,32 @@ class Orchestrator(unittest.TestCase):
             time.sleep(0.5)
         self.assertIn(f'launcher chain {chain_file}', self.status())
         self.assertIn('STOPPED AFTER pose-check', self.status())
+
+
+def exit_restore_under_signal(tmp, replace=None, refuse=False):
+    """The review's P1 reproduction. A dump rehearsal at mode 69 (the display starts there) exits
+    normally; while the EXIT trap's slider restore is writing the as-found value (the stub
+    `defaults` stalls on it), the orchestrator is sent TERM. `refuse` makes that write fail.
+    `replace` swaps tools (the reviewed orchestrator, for the red case). Returns (exit status,
+    the display mode left, the status log, the stored slider)."""
+    tmp = Path(tmp)
+    case = Orchestrator('test_rehearsals_are_dump_passes_only')
+    case.tmp = tmp
+    case.setup(start_mode='69', replace=replace)
+    mark = tmp / 'restoring'
+    env = {**case.env, 'REHEARSAL': '1', 'PASSES': 'dump-0.25-1x-dark-receded', 'STUB_SLOW_WRITE': '0.5459057',
+           'STUB_SLOW_MARK': str(mark), 'STUB_SLOW_SECONDS': '4'}
+    if refuse:
+        env['STUB_REFUSE_WRITE'] = '0.5459057'
+    proc = subprocess.Popen(['bash', str(case.m.sitting / 'sitting-orchestrate.sh')], env=env,
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    deadline = time.monotonic() + 120
+    while not mark.exists() and time.monotonic() < deadline and proc.poll() is None:
+        time.sleep(0.1)
+    proc.send_signal(signal.SIGTERM)
+    rc = proc.wait(timeout=90)
+    time.sleep(5)          # let an orphaned write finish, so the slider read is the settled one
+    return rc, case.state.read_text(), case.status(), case.stored()
 
 
 class Collect(unittest.TestCase):

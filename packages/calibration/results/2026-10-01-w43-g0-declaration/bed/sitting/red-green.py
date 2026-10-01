@@ -4,7 +4,9 @@
 Each scenario runs the defect on the tools before the change and the fix on W43's. Scenarios 1-9
 run it on W42's COMMITTED tools (results/2026-09-29-w42-g0-declaration/bed/sitting/, loaded from
 their files, never edited). Scenarios 10 and 11, the coordinator's rulings after the first 11 of
-11, run it on W43's own tools as accepted at d92190b4, read from Git; each RED line names which.
+11, run it on W43's own tools as accepted at d92190b4; 1b and 12, the independent review's P2 and
+P1, on the reviewed head d32cf72d (both read from Git); 7c, the missing pin isolated, on
+materialize alone. Each RED line names which.
 RED is the defect W42 G1's stops, the charter or a ruling named, observed; GREEN is W43 behaving. Nothing native is launched,
 the display is never touched, and the machine's real NSGlassTintAmount is only READ, before and
 after, to show that nothing here wrote it. The census scenarios run real processes whose command
@@ -50,7 +52,7 @@ def load(name, path):
 
 
 def record(name, red, green, red_ok, green_ok, before='W42'):
-    results.append(red_ok and green_ok)
+    results.append(bool(red_ok and green_ok))
     print(f'{name}\n  RED   ({before}): {red}  [{"defect shown" if red_ok else "NOT SHOWN"}]\n'
           f'  GREEN (W43): {green}  [{"fixed" if green_ok else "NOT FIXED"}]\n', flush=True)
 
@@ -273,8 +275,9 @@ with tempfile.TemporaryDirectory() as tmp:
     event = json.loads((tmp / 'event.json').read_text())
     q = list((st.root / 'bed-1x-active').glob('QUARANTINE-run-1-*'))
     lag = took - event['since_launch']
-green = (f'the same event {event["since_launch"]:.1f} s in; the watchdog (period 0.3 s here, 5 s in a sitting) ended '
-         f'the launch {lag:.1f} s later and quarantined the run: "{(refusal or "")[:150]}"')
+green = (f'the same event {event["since_launch"]:.1f} s in; the watchdog, polling every 0.3 s in this test, ended the '
+         f'launch {lag:.1f} s later and quarantined the run: "{(refusal or "")[:150]}". A sitting polls every '
+         f'{S.WATCH_POLL_SECONDS:g} s, so there the bound is about {S.WATCH_POLL_SECONDS:g} s from the event')
 green_ok = bool(refusal and 'watchdog stopped the launch' in refusal and q and lag < 5)
 uc = R.universal_control()
 record('4a. a watchdog on frontmost and HID idle during every launch', red, green, red_ok, green_ok)
@@ -460,11 +463,12 @@ for module in ('red_green_archive.py', 'red_green_timing.py'):
 # The pre-ruling tools are W43's own as accepted at d92190b4 (the 11 of 11 above), read from Git.
 
 ACCEPTED = 'd92190b4'
+REVIEWED = 'd32cf72d'      # the head the independent review read (6cb112d5..d32cf72d)
 
 
-def accepted_tool(name, tmp):
-    path = Path(tmp) / f'accepted-{name}'
-    path.write_bytes(subprocess.run(['git', '-C', str(HERE), 'show', f'{ACCEPTED}:./{name}'], check=True,
+def accepted_tool(name, tmp, commit=ACCEPTED):
+    path = Path(tmp) / f'{commit}-{name}'
+    path.write_bytes(subprocess.run(['git', '-C', str(HERE), 'show', f'{commit}:./{name}'], check=True,
                                     capture_output=True).stdout)
     return path
 
@@ -548,6 +552,97 @@ if E is not None:
            before=f'W43 as accepted at {ACCEPTED}')
 else:
     record("11. a cut never drops the close", "SKIPPED: (e)'s plans are absent", 'SKIPPED', False, False)
+
+# ------------------------------------------- the independent review of 6cb112d5..d32cf72d
+# Red on the reviewed head, d32cf72d, read from Git.
+
+if T.NODE is not None:
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp).resolve()
+        R0 = load('w43_record_machine_reviewed', accepted_tool('record-machine.py', tmp, REVIEWED))
+        node = T.fake_executable(tmp / 'bin/node')
+        benign, cli = tmp / 'benign.js', tmp / 'node_modules/playwright-core/cli.js'
+        for path in (benign, cli):
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('setTimeout(() => {}, 20000)\n')
+        shapes = {'node benign.js …/playwright-core/cli.js (a Playwright path as data)': [node, benign, cli],
+                  'node …/playwright-core/cli.js (Playwright as the entry)': [node, cli]}
+        procs = {label: spawn(argv) for label, argv in shapes.items()}
+        try:
+            old = {f['pid'] for f in R0.census(chain_file='')[0]}
+            new = {f['pid'] for f in R.census(chain_file='')[0]}
+        finally:
+            for p in procs.values():
+                p.kill()
+                p.wait()
+        benign_label, real_label = list(shapes)
+        record('1b. a node process counts by its entry script only (the review\'s P2)',
+               '; '.join(f'{k}: counted {procs[k].pid in old}' for k in shapes),
+               '; '.join(f'{k}: counted {procs[k].pid in new}' for k in shapes),
+               procs[benign_label].pid in old, procs[benign_label].pid not in new and procs[real_label].pid in new,
+               before=f'W43 as reviewed at {REVIEWED}')
+else:
+    record("1b. a node process counts by its entry script only", 'SKIPPED: no node', 'SKIPPED', False, False)
+
+if (T.MAIN_MODULES / '.bin/tsx').exists():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'g').mkdir()
+        st = T.Stubs(tmp / 'g')
+        st.admit_before('bed-1x-active')
+        with contextlib.redirect_stdout(io.StringIO()):
+            st.run('capture', 'bed-1x-active', '1', '2')
+        runs = [st.root / 'bed-1x-active' / f'run-{n}' for n in (1, 2)]
+        unpinned = ('bundlePath', 'bundleIdentifier', 'bundleCdHash', 'bundleBinarySha256', 'bundlePinSha256',
+                    'bundlePinPath', 'bundleMinOS', 'bundleRecordedSdk')
+        for run in runs:
+            read = run / 'attest.read'
+            read.write_text(''.join(l + '\n' for l in read.read_text().splitlines() if l.split('=')[0] not in unpinned))
+        pub = T.Publication('test_the_published_bed_names_the_side_bundle_and_the_slider')
+        pub.tmp = tmp
+        out = pub.materialize(runs, tmp / 'red' / 'fixtures')
+        entry = next(p for p in json.loads((tmp / 'red' / 'fixtures' / 'manifest.json').read_text())['profiles']
+                     if p['profileKey'] == T.L1)['attestation'] if out.returncode == 0 else {}
+        try:
+            S.publication(st.root, P.pass_of('bed-1x-active', T.PLAN), T.DECLARATION, T.SI.CANONICAL)
+            refused = None
+        except ValueError as error:
+            refused = str(error)
+    record('7c. publication refuses runs that do not name the side bundle (the missing pin, isolated)',
+           f'two runs agreeing on one declaration (passSpecSha256 equal, so rule 6 holds), their attest.read '
+           f'stripped of every bundle field: materialize alone, the path W29 published by, exits {out.returncode} '
+           f'and writes a profile record naming {[k for k in unpinned if k in entry] or "no bundle"}',
+           f'`publish` refuses them before materialize runs: "{(refused or "")[:150]}"',
+           out.returncode == 0 and not any(k in entry for k in unpinned),
+           bool(refused) and "does not name the side bundle's pin" in refused,
+           before='materialize alone')
+
+with tempfile.TemporaryDirectory() as tmp:
+    reviewed = {(T.HERE / 'sitting-orchestrate.sh').relative_to(T.REPO):
+                accepted_tool('sitting-orchestrate.sh', tmp, REVIEWED).read_bytes()}
+with tempfile.TemporaryDirectory() as tmp:
+    rc0, mode0, status0, _ = T.exit_restore_under_signal(tmp, replace=reviewed)
+with tempfile.TemporaryDirectory() as tmp:
+    rc1, mode1, status1, stored1 = T.exit_restore_under_signal(tmp)
+with tempfile.TemporaryDirectory() as tmp:
+    rc2, mode2, status2, _ = T.exit_restore_under_signal(tmp, refuse=True)
+
+
+def lines(status, *keys):
+    return [l[21:] for l in status.splitlines() if any(k in l for k in keys)]
+
+
+record('12. a signal during the EXIT trap\'s restore cannot cut it short (the review\'s P1)',
+       f'a rehearsal at mode 69 exits normally; TERM while the trap writes the as-found slider: exit {rc0}, display '
+       f'left at mode {mode0}; logged {lines(status0, "CANCEL: done", "restore:", "RESTORE FAILED")}',
+       f'the same: exit {rc1}, mode {mode1}, logged {lines(status1, "restore:", "RESTORE FAILED")}; with the write '
+       f'refused: exit {rc2}, mode {mode2}, logged {lines(status2, "restore:", "RESTORE FAILED")}',
+       rc0 == 143 and mode0 == '69' and not lines(status0, 'restore: display', 'RESTORE FAILED'),
+       rc1 == 0 and mode1 == '68' and stored1['value'] == '0.5459057' and 'CANCEL' not in status1
+       and len(lines(status1, 'restore: slider', 'restore: display mode 68 (verified)')) == 2
+       and rc2 == 7 and mode2 == '68' and lines(status2, 'RESTORE FAILED: slider')
+       and lines(status2, 'restore: display mode 68 (verified)'),
+       before=f'W43 as reviewed at {REVIEWED}')
 
 T.tearDownModule()
 SLIDER_AFTER = real_slider()
