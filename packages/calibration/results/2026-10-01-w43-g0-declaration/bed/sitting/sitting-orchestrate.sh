@@ -122,8 +122,17 @@ setglass() {
   GLASS=$1
   say "slider -> $1 (written, read back, no native process alive across it)"
 }
+RESTORE_STATE=pending
+# The EXIT trap. No signal may cut it short: a HUP, INT or TERM arriving here would run cancel(),
+# whose `exit` inside this trap ends the shell without re-running it, leaving the slider and the
+# display unrestored and unverified (the review's P1). So the three are ignored for its whole
+# duration, children included; it runs once (a second entry exits with the first's status); and
+# its only exit follows the verification lines it writes.
 restore() {
   local rc=$? now
+  trap '' HUP INT TERM
+  if [ "$RESTORE_STATE" != pending ]; then exit "${RESTORE_RC:-$rc}"; fi
+  RESTORE_STATE=running
   if [ "$SLIDER_RECORDED" = yes ]; then
     if python3.12 "$HERE/sitting.py" slider-restore > "$L/slider-restore.txt" 2>&1 </dev/null 3<&-; then
       say "restore: slider $(cat "$L/slider-restore.txt") (verified)"
@@ -135,6 +144,8 @@ restore() {
   now=$(mode)
   if [ "$now" = 68 ]; then say "restore: display mode 68 (verified)"
   else say "RESTORE FAILED: display mode ${now:-unreadable}"; rc=7; fi
+  RESTORE_RC=$rc
+  RESTORE_STATE=done
   exit $rc
 }
 trap restore EXIT

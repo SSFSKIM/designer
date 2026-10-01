@@ -14,9 +14,11 @@ census entries in tech-debt-tracker.md):
   is unreadable). A Chromium, Google Chrome (any helper, Chrome for Testing, the crashpad handler
   inside a browser bundle), headless shell or `VitreaReference` executable counts wherever it
   lives. Playwright and the calibration's capture scripts have no executable of their own: they
-  are node scripts, so for a node-family interpreter only, the SCRIPT arguments are matched, by
-  path component or exact file name (`compare.ts`, `capture-web`, a `playwright*` package or
-  CLI), never by substring.
+  are node scripts, so for a node-family interpreter only, its ENTRY script is matched, by path
+  component or exact file name (`compare.ts`, `capture-web`, a `playwright*` package or CLI),
+  never by substring. The entry script is the first non-option argument of the kernel's exact
+  argv, the values of options that take one skipped (`entry_point`); every later argument is the
+  program's data (the review's P2: `node benign.js …/playwright-core/cli.js` is not Playwright).
 - **The launching chain is excluded.** The orchestrator detaches with setsid, so the shell that
   launched it is not an ancestor of anything that reads the census (stop 4). At launch it records
   that chain (`launcher-chain`: pid and start time of the launching process and its ancestors) and
@@ -77,11 +79,34 @@ def image_path(pid):
         return None
 
 
-def process_table():
-    """Every process: pid, ppid, start (ps lstart, C locale), executable image and argv tokens.
+def process_argv(pid):
+    """The process's exact argv (sysctl KERN_PROCARGS2: argc, the exec path, then argv NUL-separated),
+    or None where the kernel will not show it (another user's process)."""
+    try:
+        libc = ctypes.CDLL('/usr/lib/libc.dylib', use_errno=True)
+        mib = (ctypes.c_int * 3)(1, 49, int(pid))           # CTL_KERN, KERN_PROCARGS2
+        size = ctypes.c_size_t(0)
+        if libc.sysctl(mib, 3, None, ctypes.byref(size), None, 0) != 0 or size.value < 4:
+            return None
+        buf = ctypes.create_string_buffer(size.value)
+        if libc.sysctl(mib, 3, buf, ctypes.byref(size), None, 0) != 0:
+            return None
+        raw = buf.raw[:size.value]
+        argc = int.from_bytes(raw[:4], 'little')
+        rest = raw[4:]
+        rest = rest[rest.index(b'\0'):].lstrip(b'\0')     # past the exec path and its padding
+        argv = [a.decode(errors='replace') for a in rest.split(b'\0')[:argc]]
+        return argv if len(argv) == argc else None
+    except (OSError, ValueError):
+        return None
 
-    argv is ps's `args` split on whitespace: a path with a space splits, which only ever turns
-    one script path into two tokens, and script matching reads path components and file names.
+
+def process_table():
+    """Every process: pid, ppid, start (ps lstart, C locale), executable image and argv.
+
+    For a node-family interpreter the argv is the kernel's own (`process_argv`), because its entry
+    script is read from it and a path may hold a space; elsewhere ps's `args` split on whitespace
+    is kept for the record only, since nothing is matched against it.
     """
     out = subprocess.run(['ps', '-axww', '-o', 'pid=,ppid=,lstart=,args='], capture_output=True, text=True,
                          env={**os.environ, 'LC_ALL': 'C'}).stdout
@@ -91,13 +116,54 @@ def process_table():
         if len(parts) < 8 or not parts[0].isdigit() or not parts[1].isdigit():
             continue
         pid, ppid, start, argv = int(parts[0]), int(parts[1]), ' '.join(parts[2:7]), parts[7:]
-        rows.append(dict(pid=pid, ppid=ppid, start=start, executable=image_path(pid) or argv[0], argv=argv))
+        exe = image_path(pid) or argv[0]
+        if INTERPRETERS.match(Path(exe).name):
+            argv = process_argv(pid) or argv
+        rows.append(dict(pid=pid, ppid=ppid, start=start, executable=exe, argv=argv))
     return rows
 
 
+# Node's options that take their value as the NEXT argument (the `--opt=value` form is one token),
+# and the ones whose value is the program itself, so no file is the entry point.
+NODE_VALUE_OPTIONS = {'-r', '--require', '--import', '--loader', '--experimental-loader', '-C', '--conditions',
+                      '--input-type', '--env-file', '--env-file-if-exists', '--title', '--inspect-port',
+                      '--debug-port', '--openssl-config', '--icu-data-dir', '--redirect-warnings', '--diagnostic-dir',
+                      '--report-dir', '--report-directory', '--report-filename', '--report-signal',
+                      '--secure-heap', '--secure-heap-min', '--disable-warning', '--watch-path', '--test-reporter',
+                      '--test-reporter-destination', '--test-name-pattern', '--test-skip-pattern',
+                      '--experimental-config-file', '--run', '--stack-trace-limit', '--max-http-header-size'}
+NODE_INLINE_OPTIONS = {'-e', '--eval', '-p', '--print'}
+RUNNER_SUBCOMMANDS = {'bun': {'run', 'x', 'test'}, 'deno': {'run', 'test', 'task'}}
+
+
+def entry_point(argv):
+    """The interpreter's entry script: its first non-option argument, the values of options that
+    take one skipped (`--require r.js`, `--import x.mjs`, ...), the argument after `--` taken as
+    the script. None for an inline program (`-e`, `-p`) or no script at all. Every later argument
+    is the program's DATA, never matched (the review's P2)."""
+    if not argv:
+        return None
+    args = list(argv[1:])
+    family = re.match(r'^[a-z]+', Path(argv[0]).name)
+    if family and args and args[0] in RUNNER_SUBCOMMANDS.get(family[0], ()):
+        args = args[1:]
+    i = 0
+    while i < len(args):
+        a = args[i]
+        if a == '--':
+            return args[i + 1] if i + 1 < len(args) else None
+        if a in NODE_INLINE_OPTIONS:
+            return None
+        if a.startswith('-') and a != '-':
+            i += 2 if a in NODE_VALUE_OPTIONS else 1
+            continue
+        return a
+    return None
+
+
 def foreign_reason(row):
-    """Why this process is a foreign capture process, or None. Executables first; a script only
-    as an argument of a node-family interpreter."""
+    """Why this process is a foreign capture process, or None. Executables first; for a node-family
+    interpreter, its entry script and nothing after it."""
     exe = row['executable'] or ''
     name = Path(exe).name
     if FOREIGN_EXECUTABLES.search(name):
@@ -108,15 +174,15 @@ def foreign_reason(row):
     if any(SCRIPT_PACKAGES.match(c) for c in Path(exe).parts):
         return f'executable under {exe}'
     if INTERPRETERS.match(name):
-        for token in row['argv'][1:]:
-            if token.startswith('-'):
-                continue
-            path = Path(token)
-            if path.name in SCRIPT_NAMES or SCRIPT_CLI.match(path.name):
-                return f'{name} script {path.name}'
-            package = next((c for c in path.parts[:-1] if SCRIPT_PACKAGES.match(c)), None)
-            if package:
-                return f'{name} script in {package}'
+        script = entry_point([exe, *row['argv'][1:]])
+        if script is None:
+            return None
+        path = Path(script)
+        if path.name in SCRIPT_NAMES or SCRIPT_CLI.match(path.name):
+            return f'{name} script {path.name}'
+        package = next((c for c in path.parts[:-1] if SCRIPT_PACKAGES.match(c)), None)
+        if package:
+            return f'{name} script in {package}'
     return None
 
 
