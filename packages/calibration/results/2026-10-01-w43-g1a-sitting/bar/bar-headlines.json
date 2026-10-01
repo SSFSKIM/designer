@@ -1,0 +1,75 @@
+{
+  "schema": "w43-repeat-bar-1",
+  "archiveInventory": "56489f87dc6ed07904cc0a57fa26178b19d4becbf656a393dbdf1774bccf6926",
+  "treeEntries": 2840,
+  "barJsonSha256": "513c99df6d63d1adb970fe8afbeacd8c7212a92fd39952b35830d3655407f799",
+  "denied": [
+    "/Users/new/vitrea-w43/g1a-run",
+    "/Users/new/vitrea-w43/g1a-archive",
+    "/Users/new/vitrea-w43/g1a-release",
+    "/Users/new/vitrea-w43/archive-copy-g1a",
+    "/Users/new/vitrea-w43/g1a-stops",
+    "/Users/new/vitrea-w43/g1a-prelaunch"
+  ],
+  "strata": {
+    "bed": {
+      "unanimous: every statistic identical, bar exactly 0.5": 562,
+      "cells": 562,
+      "captures": 3934
+    },
+    "close-w42": {
+      "unanimous: every statistic identical, bar exactly 0.5": 14,
+      "cells": 16,
+      "captures": 48,
+      "more than one state": 2
+    },
+    "open-canonical": {
+      "unanimous: every statistic identical, bar exactly 0.5": 23,
+      "cells": 24,
+      "captures": 72,
+      "more than one state": 1
+    },
+    "open-w42": {
+      "unanimous: every statistic identical, bar exactly 0.5": 15,
+      "cells": 16,
+      "captures": 48,
+      "more than one state": 1
+    },
+    "pose-check": {
+      "one run, no bar": 1,
+      "cells": 1,
+      "captures": 1
+    }
+  },
+  "cellsWithMoreThanOneState": {
+    "close-w42": {
+      "apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__rest": [
+        2,
+        1
+      ],
+      "apple-macos-27.0-1x-dark-standard-glass0.5/f-checker64-rrect-lg__rest": [
+        2,
+        1
+      ]
+    },
+    "open-canonical": {
+      "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange": [
+        2,
+        1
+      ]
+    },
+    "open-w42": {
+      "apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest": [
+        2,
+        1
+      ]
+    }
+  },
+  "largestBar": {
+    "bed": 0.5,
+    "close-w42": 0.5014690000000002,
+    "open-canonical": 0.5000155000000035,
+    "open-w42": 0.500163999999998,
+    "pose-check": null
+  }
+}
