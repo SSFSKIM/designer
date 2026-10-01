@@ -1,0 +1,24 @@
+W43 G0 (f) cross-position refusals, as test output, 2026-10-01T07:06:30Z
+ ✓ test/generation-stage.test.ts > declares all cells before runs and refuses incomplete publication and redeclaration
+ ✓ test/material-selection.test.ts > strict shipped mode > reads each shipped document's position from its own statements
+ ✓ test/material-selection.test.ts > strict shipped mode > red: refuses an ambiguous pair, two shipped documents at one position
+ ✓ test/material-selection.test.ts > strict shipped mode > selects by the pair when a second position ships beside the first
+ ✓ test/material-selection.test.ts > candidate mode, the document the page draws > red: refuses keys whose glass token differs from the declared position
+ ✓ test/material-selection.test.ts > candidate mode, the document the page draws > stamps the capture path so a document-clause parser cannot read it as shipped
+ ✓ test/material-selection.test.ts > both modes, the position a material is read against > admits profiles at the material's own position without the flag
+ ✓ test/material-selection.test.ts > both modes, the position a material is read against > red: refuses a profile at another position, or none, without --cross-position
+ ✓ test/material-selection.test.ts > both modes, the position a material is read against > admits every profile at another position under --cross-position
+ ✓ test/material-selection.test.ts > both modes, the position a material is read against > red: refuses --cross-position over any profile at the material's own position
+ ✓ test/material-selection.test.ts > both modes, the position a material is read against > stamps both modes with one clause the publisher recognises
+ ✓ test/material-selection.test.ts > candidate mode, the declaration the driver reads > red: refuses keys whose glass token differs from the declared position
+ ✓ test/material-selection.test.ts > both modes, the command lines > red: compare refuses the 0.25 candidate against 0.5 fixtures without --cross-position
+ ✓ test/generation-stage.test.ts > refuses a cross-position row at publication, whatever route brought it into the stage
+ ✓ test/material-selection.test.ts > both modes, the command lines > green: compare admits it under --cross-position, past the gate to the capture lookup
+ ✓ test/material-selection.test.ts > both modes, the command lines > red: strict mode refuses the shipped 0.5 material against fixtures at another position
+ ✓ test/material-selection.test.ts > both modes, the command lines > green: strict mode admits it under --cross-position, past the gate to the capture lookup
+ ✓ test/material-selection.test.ts > both modes, the command lines > green: strict mode at its own position needs no flag, and the flag there is refused
+ ✓ test/material-selection.test.ts > both modes, the command lines > red: --cross-position is scratch only: no stage, no canonical tree, no authoritative matrix
+ ✓ test/material-selection.test.ts > both modes, the command lines > red: --cross-position with no positioned material, on both command lines
+ ✓ test/material-selection.test.ts > both modes, the command lines > red: capture-web refuses a cross-position stamp at the material's own position
+ Test Files  2 passed (2)
+      Tests  21 passed | 38 skipped (59)

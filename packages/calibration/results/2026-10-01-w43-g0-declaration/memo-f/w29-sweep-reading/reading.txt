@@ -1,0 +1,12 @@
+memo F reading: positions [0.0, 0.25, 0.5, 1.0]
+
+== 2x-light-active
+  inputs that move with x (4): bd.scale, BlurFillLightenOpacity, BlurFillNormalOpacity, FaceColorMatrixFillColor
+    bd.scale                                 s=96       0.0:0.5 0.25:0.5 0.5:0.5 1.0:0.125  | [0, 0.5] slope +0 (resid 0); [0.5, 1] slope -0.75 (resid 0)
+    BlurFillLightenOpacity                   s=96       0.0:0.675 0.25:0.7875 0.5:0.9 1.0:0.9  | [0, 0.5] slope +0.45 (resid 0); [0.5, 1] slope +0 (resid 0)
+    BlurFillNormalOpacity                    s=96       0.0:0 0.25:0.25 0.5:0.5 1.0:1  | [0, 0.5] slope +1 (resid 0); [0.5, 1] slope +1 (resid 0)
+    FaceColorMatrixFillColor                 s=96       0.0:0 0.25:0.1 0.5:0.2 1.0:0.5  | [0, 0.5] slope +0.4 (resid 0); [0.5, 1] slope +0.6 (resid 0)
+  x=0.0: memo D departs on 3 field(s); laws among them: none
+  x=0.25: memo D departs on 3 field(s); laws among them: none
+  x=1.0: memo D departs on 3 field(s); laws among them: ['bd.scale']
+

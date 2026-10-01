@@ -9,6 +9,9 @@ import { afterAll, expect, it } from "vitest";
 
 const pkg = resolve(import.meta.dirname, "..");
 const scratch = mkdtempSync(join(tmpdir(), "w40-publisher-"));
+// Every fixture document states its glass position, which a stage now derives (W43 G0 review).
+const keyed = (fields: string, receded = false) =>
+  `{"profileKey":"apple-macos-27.0-1x-light-standard-glass0.5${receded ? "-receded" : ""}",${fields}}\n`;
 const canonical = ["matrix.json", ...["generations", "superseded"].flatMap((d) =>
   readdirSync(join(pkg, "results", d)).map((n) => `${d}/${n}`))];
 const digest = (b: Buffer | string) => createHash("sha256").update(b).digest("hex");
@@ -24,6 +27,8 @@ function repo() {
   mkdirSync(join(copy, "results/generations"), { recursive: true });
   cpSync(join(pkg, "src"), join(copy, "src"), { recursive: true });
   cpSync(join(pkg, "cli"), join(copy, "cli"), { recursive: true });
+  // compare reads candidate and material documents through the drivers' readers (W43 G0 (f)).
+  cpSync(join(pkg, "scripts"), join(copy, "scripts"), { recursive: true });
   cpSync(join(pkg, "package.json"), join(copy, "package.json"));
   symlinkSync(join(pkg, "node_modules"), join(copy, "node_modules"));
   writeFileSync(join(copy, "results/matrix.json"), '{"schemaVersion":5,"cells":[]}\n');
@@ -40,7 +45,7 @@ function repo() {
       { sceneId: "cal", fixtureSet: "calibration" }, { sceneId: "held", fixtureSet: "holdout" },
     ],
   }] }));
-  writeFileSync(join(copy, "active.json"), '{"candidate":1}\n');
+  writeFileSync(join(copy, "active.json"), keyed('"candidate":1'));
   return copy;
 }
 const profile = "apple-macos-27.0-1x-light-standard-glass0.5";
@@ -115,7 +120,7 @@ it("accepts a recorded canonical capture with unchanged active and receded docum
 it("uses an absolute capture label for a document outside the repository", () => {
   const copy = repo();
   const outside = join(scratch, "outside-profile.json");
-  writeFileSync(outside, '{"external":true}\n');
+  writeFileSync(outside, keyed('"external":true'));
   const child = run(copy, ["stage", "outside-stage", "--profile", profile,
     "--renderer", "webgpu", "--set", "calibration", "--material-profile", outside]);
   expect(child.status, child.stderr).toBe(0);
@@ -156,7 +161,7 @@ it("refuses an edited membership with equal role hashes without altering prior e
   const prior = readFileSync(priorPath);
   const index = readFileSync(join(copy, "results/generations/index.json"));
 
-  writeFileSync(join(copy, "active-next.json"), '{"candidate":2}\n');
+  writeFileSync(join(copy, "active-next.json"), keyed('"candidate":2'));
   const next = digest(readFileSync(join(copy, "active-next.json"))).slice(0, 12);
   const declaration = run(copy, ["stage", "next", "--profile", profile,
     "--renderer", "webgpu,css", "--set", "calibration,holdout",
@@ -197,7 +202,7 @@ it("publishes once, preserving row slices, and retires the previous selection wi
   const original = readFileSync(file);
   expect(published.stdout).toContain(digest(original));
   expect(run(copy, ["publish", "stage"]).status).toBe(1);
-  writeFileSync(join(copy, "active.json"), '{"candidate":2}\n');
+  writeFileSync(join(copy, "active.json"), keyed('"candidate":2'));
   declare(copy, "next"); const second = fill(copy, "next");
   const next = run(copy, ["publish", "next"]);
   expect(next.status, next.stderr).toBe(0);
@@ -227,10 +232,99 @@ it("refuses row document drift, undeclared rows, and existing authoritative keys
   expect(run(copy, ["publish", "stage"]).status).toBe(0);
   expect(run(copy, ["publish", "stage"]).stderr).toMatch(/serialized key already exists/);
 });
+it("refuses a cross-position row at publication, whatever route brought it into the stage", () => {
+  // W43 G0 (f): the stamp is the only thing separating such a row from a generation's own, since
+  // its key carries a declared document's hash over a profile at another glass position.
+  const copy = repo(); declare(copy); fill(copy);
+  const path = join(copy, "stage/matrix.json");
+  const raw = readFileSync(path, "utf8");
+  const index = readFileSync(join(copy, "results/generations/index.json"));
+  writeFileSync(path, raw.replace(/(sha256:[0-9a-f]{12})"/,
+    '$1, crossPosition=shipped-glass0.5-against-glass0.25"'));
+  const refused = run(copy, ["publish", "stage"]);
+  expect(refused.status).toBe(1);
+  expect(refused.stderr)
+    .toMatch(/stamped, crossPosition=shipped-glass0\.5-against-glass0\.25, .*the stamp is false/);
+  expect(readFileSync(join(copy, "results/generations/index.json"))).toEqual(index);
+  writeFileSync(path, raw);
+  expect(run(copy, ["publish", "stage"]).status).toBe(0);
+});
+/*
+ * W43 G0 review, finding 1: the position comes from the documents, not the stamp. A stage whose
+ * 0.5 document is declared over a 0.25 profile is the route an unstamped 0.5 capture would take
+ * into a 0.25 generation, so it is refused when declared, when read, when measured into by
+ * `diff --stage`, and when published. The scene file is the real one, for diff's geometry.
+ */
+const AT025 = "apple-macos-27.0-1x-light-standard-glass0.25";
+const SCENE = "photo__rrect-md__rest";
+function repo025() {
+  const copy = repo();
+  const reference = join(copy, "../../apps/reference-apple");
+  cpSync(resolve(pkg, "../../apps/reference-apple/scenes.json"), join(reference, "scenes.json"));
+  writeFileSync(join(reference, "fixtures/manifest.json"), JSON.stringify({ profiles: [{
+    profileKey: AT025, fixtures: [{ sceneId: SCENE, fixtureSet: "calibration" }] }] }));
+  return copy;
+}
+function crossStage(copy: string, document: string) {
+  const sha256 = digest(readFileSync(join(copy, document))).slice(0, 12);
+  mkdirSync(join(copy, "stage"));
+  writeFileSync(join(copy, "stage/membership.json"), JSON.stringify({ schemaVersion: 1,
+    profiles: [AT025], tiers: ["webgpu"], sets: ["calibration"],
+    active: { path: `packages/calibration/${document}`, sha256 },
+    cells: [{ profileKey: AT025, renderer: "webgpu", fixtureSet: "calibration", sceneId: SCENE }] }));
+  writeFileSync(join(copy, "stage/matrix.json"), JSON.stringify({ schemaVersion: 5, cells: [{
+    key: { profileKey: AT025, sceneId: SCENE, web: { engine: "chromium", engineVersion: "1",
+      renderer: "webgpu", samplingBackend: "gpu-texture", gpuAdapter: "test", colorSpace: "srgb",
+      capturePath: `materialProfile=packages/calibration/${document} sha256:${sha256}` } },
+    fixtureSet: "calibration" }] }));
+}
+it("refuses a 0.5 document's unstamped row against a 0.25 profile: declared, read, diffed, published", () => {
+  const copy = repo025();
+  const declare025 = run(copy, ["stage", "declared", "--profile", AT025, "--renderer", "webgpu",
+    "--set", "calibration", "--material-profile", "active.json"]);
+  expect(declare025.status).toBe(1);
+  expect(declare025.stderr).toMatch(/declared documents are at glass 0\.5 and .*glass0\.25 is not/);
+  crossStage(copy, "active.json");
+  const index = readFileSync(join(copy, "results/generations/index.json"));
+  for (const verb of ["status", "publish"]) {
+    const child = run(copy, [verb, "stage"]);
+    expect(child.status, verb).toBe(1);
+    expect(child.stderr, verb).toMatch(/declared documents are at glass 0\.5 and .*glass0\.25 is not/);
+  }
+  expect(readFileSync(join(copy, "results/generations/index.json"))).toEqual(index);
+  const fixture = resolve(pkg, "../../apps/reference-apple/fixtures",
+    "apple-macos-27.0-1x-light-standard-glass0.5", `${SCENE}.png`);
+  writeFileSync(join(copy, "cell.json"), JSON.stringify({ engine: "chromium", engineVersion: "1",
+    renderer: "webgpu", samplingBackend: "gpu-texture", gpuAdapter: "test", colorSpace: "srgb",
+    capturePath: "materialProfile=packages/calibration/active.json sha256:" +
+      digest(readFileSync(join(copy, "active.json"))).slice(0, 12),
+    sceneId: SCENE, pixelSize: [320, 200], deterministic: true, repeatNoise: 0 }));
+  const diff = spawnSync(process.execPath, ["--import", "tsx", "cli/diff.ts", "--stage", "stage",
+    "--native", fixture, "--web", fixture, "--web-cell", "cell.json", "--profile", AT025, "--scene", SCENE],
+  { cwd: copy, encoding: "utf8" });
+  expect(diff.status).not.toBe(0);
+  expect(diff.stderr).toMatch(/declared documents are at glass 0\.5 and .*glass0\.25 is not/);
+});
+it("admits a 0.25 document's row against a 0.25 profile", () => {
+  const copy = repo025();
+  writeFileSync(join(copy, "at025.json"), `{"profileKey":"${AT025}","candidate":3}\n`);
+  crossStage(copy, "at025.json");
+  const status = run(copy, ["status", "stage"]);
+  expect(status.status, status.stderr).toBe(0);
+  expect(JSON.parse(status.stdout).present).toBe(1);
+});
+it("refuses a document that names no glass position", () => {
+  const copy = repo();
+  writeFileSync(join(copy, "bare.json"), '{"tintChromaScale":0.5}\n');
+  const child = run(copy, ["stage", "bare", "--profile", profile, "--renderer", "webgpu",
+    "--set", "calibration", "--material-profile", "bare.json"]);
+  expect(child.status).toBe(1);
+  expect(child.stderr).toMatch(/must name their glass position, and .*bare\.json is a bare patch/);
+});
 it("qualifies a receded-only reseal and preserves every alias owner", () => {
   const copy = repo(); declare(copy); const active = fill(copy);
   expect(run(copy, ["publish", "stage"]).status).toBe(0);
-  writeFileSync(join(copy, "receded.json"), '{"receded":1}\n');
+  writeFileSync(join(copy, "receded.json"), keyed('"receded":1', true));
   const receded = digest(readFileSync(join(copy, "receded.json"))).slice(0, 12);
   expect(run(copy, ["stage", "next", "--profile", profile, "--renderer", "webgpu,css",
     "--set", "calibration,holdout", "--material-profile", "active.json",
@@ -262,7 +356,7 @@ it("refuses alias path repointing even with a new receded identity", () => {
   const copy = repo(); declare(copy); const active = fill(copy);
   expect(run(copy, ["publish", "stage"]).status).toBe(0);
   cpSync(join(copy, "active.json"), join(copy, "imposter.json"));
-  writeFileSync(join(copy, "receded.json"), '{"receded":2}\n');
+  writeFileSync(join(copy, "receded.json"), keyed('"receded":2', true));
   const receded = digest(readFileSync(join(copy, "receded.json"))).slice(0, 12);
   expect(run(copy, ["stage", "next", "--profile", profile, "--renderer", "webgpu,css",
     "--set", "calibration,holdout", "--material-profile", "imposter.json",

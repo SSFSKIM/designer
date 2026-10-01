@@ -61,6 +61,18 @@ import {
   readRecededProfileFile,
   recededProfileClause,
 } from "./material-profile-file.ts";
+import { readCandidateDocument, type CandidateDocument } from "./candidate-document.ts";
+import { withinTree } from "../src/matrix-write-guard.ts";
+import {
+  candidateMaterialLabel,
+  crossPositionClause,
+  documentPosition,
+  glassToken,
+  selectShippedDocument,
+  type CrossPositionSource,
+  type MaterialPosition,
+} from "../src/material-selection.ts";
+import { SHIPPED_MATERIAL_PROFILE_DOCUMENTS } from "@vitreajs/vitrea-web";
 import { PNG } from "pngjs";
 import { createServer, type ViteDevServer } from "vite";
 
@@ -246,6 +258,25 @@ interface Options {
    */
   readonly recededProfile: MaterialProfileFile | undefined;
   /**
+   * Candidate mode (W43 G0 (f)): a complete declared document the page builds its root from,
+   * in place of a shipped document selected by the key with a patch injected over it. It
+   * excludes both flags above, because a candidate that borrowed either half from elsewhere
+   * would be the borrowed material under the candidate's name.
+   */
+  readonly candidateDocument: CandidateDocument | undefined;
+  /**
+   * A declared cross-position reading (`--cross-position <glass|none>`, W43 G0 (f)): the
+   * material, a candidate or the shipped document a keyed `--material-profile` selects, read
+   * against fixtures at another glass position. `compare` passes the fixtures' position only
+   * under its own `--cross-position`; every output then carries the stamp, and the run is
+   * refused into the canonical capture tree.
+   */
+  readonly crossPosition: {
+    readonly source: CrossPositionSource;
+    readonly materialGlass: number | undefined;
+    readonly againstGlass: string;
+  } | undefined;
+  /**
    * Also take the declaration-conformance capture (W20 G0, claims §5.83): the
    * same scene on the same resolved tier with the page ground transparent and
    * the backdrop raster hidden, written as `<scene>__<tier>__alpha.png`.
@@ -275,6 +306,8 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   let outDir = DEFAULT_OUT;
   let materialProfile: MaterialProfileFile | undefined;
   let recededProfile: MaterialProfileFile | undefined;
+  let candidateDocument: CandidateDocument | undefined;
+  let againstGlass: string | undefined;
   let alpha = false;
   let all = false;
 
@@ -335,9 +368,60 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
         recededProfile = readRecededProfile(resolve(process.cwd(), next(index, argument)));
         index += 1;
         break;
+      case "--candidate-document":
+        candidateDocument = readCandidateDocument(resolve(process.cwd(), next(index, argument)));
+        index += 1;
+        break;
+      case "--cross-position":
+        againstGlass = next(index, argument);
+        index += 1;
+        break;
       default:
         if (argument.startsWith("--")) throw new Error(`unknown flag ${argument}`);
         ids.push(argument);
+    }
+  }
+
+  if (candidateDocument !== undefined &&
+    (materialProfile !== undefined || recededProfile !== undefined)) {
+    throw new Error(
+      "--candidate-document is a complete material and takes no --material-profile or " +
+        "--receded-profile beside it: the page builds the root from the candidate alone, never " +
+        "from a shipped document with a patch injected over it (W43 G0 (f)).",
+    );
+  }
+  let crossPosition: Options["crossPosition"];
+  if (againstGlass !== undefined) {
+    const key = materialProfile?.profileKey;
+    if (candidateDocument === undefined && key === undefined) {
+      throw new Error("--cross-position stamps a material read at another glass position, and this " +
+        "run names neither a --candidate-document nor a keyed --material-profile (W43 G0 (f)).");
+    }
+    crossPosition = candidateDocument !== undefined
+      ? { source: "candidate", materialGlass: candidateDocument.document.glassTintAmount, againstGlass }
+      : {
+          source: "shipped",
+          materialGlass: (documentPosition(
+            selectShippedDocument(key!, SHIPPED_MATERIAL_PROFILE_DOCUMENTS)) as MaterialPosition).glass,
+          againstGlass,
+        };
+    if (againstGlass === glassToken(crossPosition.materialGlass)) {
+      throw new Error(`--cross-position ${againstGlass} is the material's own glass position, so ` +
+        "the stamp would be false (W43 G0 (f)).");
+    }
+    if (withinTree(outDir, DEFAULT_OUT)) {
+      throw new Error(`--cross-position would write into the canonical capture tree ${DEFAULT_OUT}; ` +
+        "pass --out <scratch directory> (W43 G0 (f)).");
+    }
+  }
+  // A candidate's pixels stay out of the canonical capture tree, which `check-capture-tree`
+  // reads against the published rows and the sheets are copied from.
+  if (candidateDocument !== undefined) {
+    if (withinTree(outDir, DEFAULT_OUT)) {
+      throw new Error(
+        `--candidate-document would write into the canonical capture tree ${DEFAULT_OUT}; ` +
+          "pass --out <scratch directory> (W43 G0 (f)).",
+      );
     }
   }
 
@@ -373,6 +457,8 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     outDir,
     materialProfile,
     recededProfile,
+    candidateDocument,
+    crossPosition,
     alpha,
   };
 }
@@ -412,6 +498,20 @@ function readRecededProfile(path: string): MaterialProfileFile {
     patch: sections.patch as MaterialProfileFile["patch"],
     cssTierMapping: undefined,
   };
+}
+
+/**
+ * How the cell names a candidate document: the stamp, in place of the `materialProfile=`
+ * clause, so a candidate capture can never carry a shipped capture's key.
+ */
+function candidateLabel(candidate: CandidateDocument): string {
+  const shown = relative(REPO_ROOT, candidate.declarationPath);
+  return candidateMaterialLabel({
+    declaration: shown.startsWith("..") ? candidate.declarationPath : shown,
+    sha256: candidate.declarationSha256,
+    name: candidate.document.name,
+    glassTintAmount: candidate.document.glassTintAmount,
+  });
 }
 
 /** How the cell names the tunables a capture ran on. Never omitted. */
@@ -653,7 +753,13 @@ async function captureScene(
       `deviceScaleFactor=${options.scale}, colorScheme=${options.colorScheme}, ` +
       `animations=disabled, frames=${first.report.frames}, ` +
       `${accessibilityLabel(options.accessibility)}, ` +
-      materialProfileLabel(options.materialProfile) +
+      (options.candidateDocument === undefined
+        ? materialProfileLabel(options.materialProfile)
+        : candidateLabel(options.candidateDocument)) +
+      (options.crossPosition === undefined
+        ? ""
+        : crossPositionClause(options.crossPosition.source, options.crossPosition.materialGlass,
+            options.crossPosition.againstGlass)) +
       // Empty when no candidate receded document was injected, so every key
       // published before this flag existed is unchanged to the byte, and
       // non-empty otherwise — which is what makes a receded row say which
@@ -783,6 +889,18 @@ async function captureScene(
                 sha256: options.recededProfile.sha256,
                 patch: options.recededProfile.patch,
               },
+        candidateDocument:
+          options.candidateDocument === undefined
+            ? null
+            : {
+                declarationPath: options.candidateDocument.declarationPath,
+                declarationSha256: options.candidateDocument.declarationSha256,
+                endpoints: options.candidateDocument.endpoints,
+                cssTierMappingSha256: options.candidateDocument.cssTierMappingSha256,
+              },
+        crossPosition: options.crossPosition === undefined
+          ? null
+          : { ...options.crossPosition, materialGlass: glassToken(options.crossPosition.materialGlass) },
         fallback: fallback ?? null,
         problems,
         page: first.report,
@@ -885,6 +1003,35 @@ async function main(): Promise<void> {
         window.__vitreaRecededMaterialProfile = patch;
       }, receded.patch);
       say(`receded profile:${recededProfileClause(receded, REPO_ROOT)}`);
+    }
+
+    /*
+     * The candidate document, on the same init-script placement (W43 G0 (f)). The whole
+     * document travels, with the stamp the page reports back, and nothing else does: the
+     * flags that inject a patch or a receded difference were refused beside it.
+     */
+    if (options.candidateDocument !== undefined) {
+      const candidate = options.candidateDocument;
+      await context.addInitScript(
+        (injected: NonNullable<Window["__vitreaCandidateDocument"]>) => {
+          window.__vitreaCandidateDocument = injected;
+        },
+        {
+          stamp: {
+            mode: "candidate" as const,
+            declaration: relative(REPO_ROOT, candidate.declarationPath),
+            declarationSha256: candidate.declarationSha256,
+            cssTierMappingSha256: candidate.cssTierMappingSha256,
+          },
+          document: candidate.document as NonNullable<Window["__vitreaCandidateDocument"]>["document"],
+        },
+      );
+      say(`candidate document: ${candidateLabel(candidate)}`);
+    }
+    if (options.crossPosition !== undefined) {
+      say(`CROSS-POSITION: the ${options.crossPosition.source} material at glass ` +
+        `${glassToken(options.crossPosition.materialGlass)}, read against fixtures at glass ` +
+        `${options.crossPosition.againstGlass}`);
     }
 
     // Same init-script placement, same reason: the CSS tier writes its

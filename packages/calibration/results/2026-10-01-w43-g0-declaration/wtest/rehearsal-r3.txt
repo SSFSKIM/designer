@@ -1,0 +1,156 @@
+W43 G0 (e) w-test rehearsal 3: W42's 0.5 frames, every candidate region's conditioning
+
+T25 is stood in by T50 for the PREDICTED resolution (slope and interpolation at the predicted M25 = C + 0.5 (M50 - C)); the 0.25 region term at the median floor, or the per-pixel term at half the 0.5 region's distinct codes.
+
+== light-rest (declared support, k in [1.4, 1.6, 1.8, 2.0, 2.2, 2.5])
+  b-p2-c16-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p2-c64-rrect-md          free C 208.0   2604 px  median: D  -25.1 dr 0.142 | mean: D  -26.0 dr 0.106
+  b-p3-c64-rrect-md          free C 160.0     16 px  median: D  -14.9 dr 0.236 | mean: D  -14.8 dr 0.239
+  b-p4-c16-rrect-md          free C 112.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p4-c64-rrect-md          free C 112.0    796 px  median: D  -16.7 dr 0.238 | mean: D  -17.2 dr 0.219
+  b-p5-c64-rrect-md          free C 240.0    796 px  median: D  -17.9 dr 0.216 | mean: D  -18.0 dr 0.201
+  bp-p1-c32-capsule-button   free C 255.0    221 px  median: D  -62.2 dr 0.057 SUPPORTED | mean: D  -61.8 dr 0.055 SUPPORTED
+  bp-p1-c32-rrect-64         free C 255.0   1536 px  median: D  -58.4 dr 0.061 SUPPORTED | mean: D  -57.9 dr 0.051 SUPPORTED
+  bp-p1-c64-capsule-button   free C 255.0    354 px  median: D  -38.0 dr 0.094 SUPPORTED | mean: D  -38.1 dr 0.066 SUPPORTED
+  c-s32-hi-rrect-md          free C 208.0    832 px  median: D  -45.7 dr 0.080 SUPPORTED | mean: D  -45.9 dr 0.066 SUPPORTED
+  c-s32-lo-rrect-md          free C 208.0    204 px  median: D  -13.0 dr 0.267 | mean: D  -12.6 dr 0.263
+  d-d0-hilo-rrect-md         free C 208.0    614 px  median: D  -20.6 dr 0.171 | mean: D  -20.9 dr 0.139
+  d-d0-lohi-rrect-md         free C 208.0    614 px  median: D  -20.6 dr 0.171 | mean: D  -20.9 dr 0.139
+  d-d32-hilo-rrect-md        free C 208.0    614 px  median: D  -20.6 dr 0.171 | mean: D  -20.9 dr 0.139
+  d-d32-lohi-rrect-md        free C 208.0    632 px  median: D  -20.6 dr 0.171 | mean: D  -20.9 dr 0.139
+  -> median: 4 supported free-side region(s)
+  -> mean: 4 supported free-side region(s)
+
+== light-rest (ls-span support, k in [2.0, 2.1, 2.2, 2.25])
+  b-p2-c16-rrect-md          free C 208.0     54 px  median: D  -41.1 dr 0.089 SUPPORTED | mean: D  -41.1 dr 0.089 SUPPORTED
+  b-p2-c64-rrect-md          free C 208.0   6648 px  median: D  -20.6 dr 0.171 | mean: D  -22.1 dr 0.114
+  b-p3-c64-rrect-md          free C 160.0    664 px  median: D  -12.8 dr 0.273 | mean: D  -13.0 dr 0.257
+  b-p4-c16-rrect-md          free C 112.0    132 px  median: D  -24.0 dr 0.165 | mean: D  -24.0 dr 0.165
+  b-p4-c64-rrect-md          free C 112.0   3706 px  median: D  -14.0 dr 0.282 | mean: D  -14.9 dr 0.227
+  b-p5-c64-rrect-md          free C 240.0   3706 px  median: D  -15.6 dr 0.250 | mean: D  -15.6 dr 0.208
+  bp-p1-c32-capsule-button   free C 255.0    221 px  median: D  -62.2 dr 0.057 SUPPORTED | mean: D  -61.8 dr 0.055 SUPPORTED
+  bp-p1-c32-rrect-64         free C 255.0   1536 px  median: D  -58.4 dr 0.061 SUPPORTED | mean: D  -57.9 dr 0.051 SUPPORTED
+  bp-p1-c64-capsule-button   free C 255.0    844 px  median: D  -24.6 dr 0.146 | mean: D  -27.1 dr 0.090 SUPPORTED
+  c-s32-hi-rrect-md          free C 208.0   1080 px  median: D  -45.7 dr 0.080 SUPPORTED | mean: D  -46.5 dr 0.065 SUPPORTED
+  c-s32-lo-rrect-md          free C 208.0    932 px  EXCLUDED: |M50 - C| = 11.4 < 12
+  d-d0-hilo-rrect-md         free C 208.0   1658 px  median: D  -18.3 dr 0.191 | mean: D  -18.2 dr 0.147
+  d-d0-lohi-rrect-md         free C 208.0   1658 px  median: D  -18.3 dr 0.191 | mean: D  -18.2 dr 0.147
+  d-d32-hilo-rrect-md        free C 208.0   1658 px  median: D  -18.3 dr 0.191 | mean: D  -18.2 dr 0.147
+  d-d32-lohi-rrect-md        free C 208.0   1682 px  median: D  -18.3 dr 0.191 | mean: D  -18.2 dr 0.147
+  -> median: 4 supported free-side region(s)
+  -> mean: 5 supported free-side region(s)
+
+== light-inactive (declared support, k in [1.4, 1.6, 1.8, 2.0, 2.2, 2.5])
+  b-p2-c16-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p2-c64-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 2916 px; |W - C| >= 24 over it too)
+  b-p3-c64-rrect-md          free C 160.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 3928 px; |W - C| >= 24 over it too)
+  b-p4-c16-rrect-md          free C 112.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p4-c64-rrect-md          free C 112.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 3468 px; |W - C| >= 24 over it too)
+  b-p5-c64-rrect-md          free C 240.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 3468 px; |W - C| >= 24 over it too)
+  bp-p1-c32-capsule-button   free C 255.0     12 px  median: D  -47.0 dr 0.092 SUPPORTED | mean: D  -47.4 dr 0.093 SUPPORTED
+  bp-p1-c32-rrect-64         free C 255.0     42 px  median: D  -47.0 dr 0.092 SUPPORTED | mean: D  -45.6 dr 0.092 SUPPORTED
+  bp-p1-c64-capsule-button   free C 255.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 3920 px; |W - C| >= 24 over it too)
+  c-s32-hi-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  c-s32-lo-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 23796 px; |W - C| >= 24 over it too)
+  d-d0-hilo-rrect-md         free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)
+  d-d0-lohi-rrect-md         free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)
+  d-d32-hilo-rrect-md        free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 27270 px; |W - C| >= 24 over it too)
+  d-d32-lohi-rrect-md        free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 6790 px; |W - C| >= 24 over it too)
+  -> median: 2 supported free-side region(s)
+  -> mean: 2 supported free-side region(s)
+
+== light-inactive (ls-span support, k in [2.0, 2.1, 2.2, 2.25])
+  b-p2-c16-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p2-c64-rrect-md          free C 208.0   1464 px  median: D  -16.0 dr 0.259 | mean: D  -17.0 dr 0.197
+  b-p3-c64-rrect-md          free C 160.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 4800 px; |W - C| >= 24 over it too)
+  b-p4-c16-rrect-md          free C 112.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p4-c64-rrect-md          free C 112.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 4280 px; |W - C| >= 24 over it too)
+  b-p5-c64-rrect-md          free C 240.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 4280 px; |W - C| >= 24 over it too)
+  bp-p1-c32-capsule-button   free C 255.0    114 px  median: D  -49.7 dr 0.090 SUPPORTED | mean: D  -47.6 dr 0.088 SUPPORTED
+  bp-p1-c32-rrect-64         free C 255.0    343 px  median: D  -47.0 dr 0.092 SUPPORTED | mean: D  -46.4 dr 0.074 SUPPORTED
+  bp-p1-c64-capsule-button   free C 255.0   1904 px  median: D  -19.8 dr 0.224 | mean: D  -19.4 dr 0.183
+  c-s32-hi-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  c-s32-lo-rrect-md          free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 25204 px; |W - C| >= 24 over it too)
+  d-d0-hilo-rrect-md         free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)
+  d-d0-lohi-rrect-md         free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)
+  d-d32-hilo-rrect-md        free C 208.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 27750 px; |W - C| >= 24 over it too)
+  d-d32-lohi-rrect-md        free C 208.0    160 px  median: D  -13.3 dr 0.314 | mean: D  -13.3 dr 0.314
+  -> median: 2 supported free-side region(s)
+  -> mean: 2 supported free-side region(s)
+
+== dark-rest (declared support, k in [1.4, 1.6, 1.8, 2.0, 2.2, 2.5])
+  b-p2-c16-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p2-c64-rrect-md          free C  48.0   2256 px  median: D  +28.4 dr 0.136 | mean: D  +29.0 dr 0.113
+  b-p3-c16-rrect-md          free C  96.0     48 px  median: D  +19.6 dr 0.432 | mean: D  +19.6 dr 0.432
+  b-p3-c64-rrect-md          free C  96.0     16 px  median: D  +16.6 dr 0.532 | mean: D  +16.6 dr 0.524
+  b-p4-c16-rrect-md          free C  16.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p4-c64-rrect-md          free C  16.0    706 px  median: D  +20.2 dr 0.274 | mean: D  +20.9 dr 0.249
+  bp-p1-c32-capsule-button   free C   0.0    221 px  median: D  +61.8 dr 0.056 SUPPORTED | mean: D  +61.3 dr 0.052 SUPPORTED
+  bp-p1-c32-rrect-64         free C   0.0   1536 px  median: D  +59.5 dr 0.060 SUPPORTED | mean: D  +59.0 dr 0.053 SUPPORTED
+  bp-p1-c64-capsule-button   free C   0.0    116 px  median: D  +48.3 dr 0.081 SUPPORTED | mean: D  +48.2 dr 0.071 SUPPORTED
+  c-s32-hi-rrect-md          free C  48.0    204 px  median: D  +13.6 dr 0.240 | mean: D  +13.4 dr 0.235
+  c-s32-lo-rrect-md          free C  48.0    832 px  median: D  +49.8 dr 0.147 | mean: D  +50.1 dr 0.137
+  d-d0-hilo-rrect-md         free C  48.0    614 px  median: D  +23.1 dr 0.160 | mean: D  +23.1 dr 0.138
+  d-d0-lohi-rrect-md         free C  48.0    614 px  median: D  +23.1 dr 0.160 | mean: D  +23.1 dr 0.138
+  d-d32-hilo-rrect-md        free C  48.0    632 px  median: D  +23.1 dr 0.160 | mean: D  +23.2 dr 0.137
+  d-d32-lohi-rrect-md        free C  48.0    614 px  median: D  +23.1 dr 0.160 | mean: D  +23.1 dr 0.137
+  -> median: 3 supported free-side region(s)
+  -> mean: 3 supported free-side region(s)
+
+== dark-rest (ls-span support, k in [2.0, 2.1, 2.2, 2.25])
+  b-p2-c16-rrect-md          free C  48.0     54 px  median: D  +44.4 dr 0.150 | mean: D  +44.4 dr 0.150
+  b-p2-c64-rrect-md          free C  48.0   5092 px  median: D  +24.9 dr 0.151 | mean: D  +25.1 dr 0.122
+  b-p3-c16-rrect-md          free C  96.0    270 px  median: D  +19.6 dr 0.432 | mean: D  +19.6 dr 0.432
+  b-p3-c64-rrect-md          free C  96.0    644 px  median: D  +16.0 dr 0.556 | mean: D  +16.1 dr 0.545
+  b-p4-c16-rrect-md          free C  16.0    132 px  median: D  +27.5 dr 0.200 | mean: D  +27.5 dr 0.200
+  b-p4-c64-rrect-md          free C  16.0   3260 px  median: D  +17.8 dr 0.310 | mean: D  +18.5 dr 0.272
+  bp-p1-c32-capsule-button   free C   0.0    221 px  median: D  +61.8 dr 0.056 SUPPORTED | mean: D  +61.3 dr 0.052 SUPPORTED
+  bp-p1-c32-rrect-64         free C   0.0   1536 px  median: D  +59.5 dr 0.060 SUPPORTED | mean: D  +59.0 dr 0.053 SUPPORTED
+  bp-p1-c64-capsule-button   free C   0.0    116 px  median: D  +48.3 dr 0.081 SUPPORTED | mean: D  +48.2 dr 0.071 SUPPORTED
+  c-s32-hi-rrect-md          free C  48.0    932 px  median: D  +12.4 dr 0.276 | mean: D  +12.8 dr 0.238
+  c-s32-lo-rrect-md          free C  48.0   1080 px  median: D  +51.0 dr 0.145 | mean: D  +50.6 dr 0.136
+  d-d0-hilo-rrect-md         free C  48.0   1658 px  median: D  +19.6 dr 0.179 | mean: D  +19.7 dr 0.145
+  d-d0-lohi-rrect-md         free C  48.0   1658 px  median: D  +19.6 dr 0.179 | mean: D  +19.7 dr 0.145
+  d-d32-hilo-rrect-md        free C  48.0   1682 px  median: D  +19.6 dr 0.179 | mean: D  +19.8 dr 0.145
+  d-d32-lohi-rrect-md        free C  48.0   1658 px  median: D  +19.6 dr 0.179 | mean: D  +19.8 dr 0.145
+  -> median: 3 supported free-side region(s)
+  -> mean: 3 supported free-side region(s)
+
+== dark-inactive (declared support, k in [1.4, 1.6, 1.8, 2.0, 2.2, 2.5])
+  b-p2-c16-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p2-c64-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 4708 px; |W - C| >= 24 over it too)
+  b-p3-c16-rrect-md          free C  96.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p3-c64-rrect-md          free C  96.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 5976 px; |W - C| >= 24 over it too)
+  b-p4-c16-rrect-md          free C  16.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p4-c64-rrect-md          free C  16.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 5388 px; |W - C| >= 24 over it too)
+  bp-p1-c32-capsule-button   free C   0.0     12 px  median: D  +49.6 dr 0.081 SUPPORTED | mean: D  +49.6 dr 0.081 SUPPORTED
+  bp-p1-c32-rrect-64         free C   0.0     42 px  median: D  +48.5 dr 0.084 SUPPORTED | mean: D  +47.9 dr 0.079 SUPPORTED
+  bp-p1-c64-capsule-button   free C   0.0    172 px  median: D  +26.4 dr 0.142 | mean: D  +26.4 dr 0.142
+  c-s32-hi-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 23796 px; |W - C| >= 24 over it too)
+  c-s32-lo-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  d-d0-hilo-rrect-md         free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)
+  d-d0-lohi-rrect-md         free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17030 px; |W - C| >= 24 over it too)
+  d-d32-hilo-rrect-md        free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 6790 px; |W - C| >= 24 over it too)
+  d-d32-lohi-rrect-md        free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 27270 px; |W - C| >= 24 over it too)
+  -> median: 2 supported free-side region(s)
+  -> mean: 2 supported free-side region(s)
+
+== dark-inactive (ls-span support, k in [2.0, 2.1, 2.2, 2.25])
+  b-p2-c16-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p2-c64-rrect-md          free C  48.0   1430 px  median: D  +16.0 dr 0.201 | mean: D  +16.4 dr 0.168
+  b-p3-c16-rrect-md          free C  96.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p3-c64-rrect-md          free C  96.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 7040 px; |W - C| >= 24 over it too)
+  b-p4-c16-rrect-md          free C  16.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  b-p4-c64-rrect-md          free C  16.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 6392 px; |W - C| >= 24 over it too)
+  bp-p1-c32-capsule-button   free C   0.0    114 px  median: D  +50.6 dr 0.079 SUPPORTED | mean: D  +49.3 dr 0.074 SUPPORTED
+  bp-p1-c32-rrect-64         free C   0.0    343 px  median: D  +49.6 dr 0.081 SUPPORTED | mean: D  +48.5 dr 0.074 SUPPORTED
+  bp-p1-c64-capsule-button   free C   0.0    968 px  median: D  +25.3 dr 0.146 | mean: D  +25.1 dr 0.128
+  c-s32-hi-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 25204 px; |W - C| >= 24 over it too)
+  c-s32-lo-rrect-md          free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 0 px; |W - C| >= 24 over it too)
+  d-d0-hilo-rrect-md         free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)
+  d-d0-lohi-rrect-md         free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 17510 px; |W - C| >= 24 over it too)
+  d-d32-hilo-rrect-md        free C  48.0    160 px  median: D  +13.8 dr 0.236 | mean: D  +13.8 dr 0.236
+  d-d32-lohi-rrect-md        free C  48.0      0 px  EXCLUDED: 0 px after the model conditions (C at level over the k grid: 27750 px; |W - C| >= 24 over it too)
+  -> median: 2 supported free-side region(s)
+  -> mean: 2 supported free-side region(s)
+

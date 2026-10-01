@@ -99,9 +99,12 @@ then append holdout: a published file accepts no later row, even under a new sta
 
 `--renderer` is one tier per run; `--set` defaults to `calibration,validation` and holdout membership
 is read from `apps/reference-apple/scenes.json`, never named in code. `--material-profile` also
-**selects the runtime material its patch is a difference from**, by the OS token in the document's
-own `profileKey`: the web page refuses a token the runtime ships no material for, because a macOS
-26.5 patch composed over the macOS 27 base is neither material. `--receded-profile` poses the run's
+**selects the runtime material its patch is a difference from**, by the (OS, glass) pair in the
+document's own `profileKey`: the web page refuses a pair the runtime ships no material for, or
+ships twice, because a macOS 26.5 patch composed over the macOS 27 base is neither material.
+`--candidate-document` is candidate mode: a complete, hash-matched document drawn with nothing
+injected; a read against another glass position needs `--cross-position`, which stamps every
+output and is scratch only (W43 G0 (f)). `--receded-profile` poses the run's
 `__inactive` scenes with a CANDIDATE document and pins the root active; omit it and the root poses
 itself and applies the receded endpoint of the document it selected. `--out-matrix` and the
 `VITREA_WEB_CAPTURES` env redirect output to scratch; `--stage` selects that stage's
@@ -464,6 +467,38 @@ with the W39 side bundle. The original bundle's restore and positive check (`204
 next phase. LT declares w = `NSGlassTintAmount`, so a clearer-glass generation tests that constant
 with no refit. Its declaration states black handling, the span law and the aliasing cells first
 (W42 Deferred at close 1–10).
+
+**W43 G0 (§5.198, 2026-10-01) declared that second fixed generation at Apple's appearance slider
+0.25 (`-glass0.25`), without capturing it yet.** Before any other act, X41 froze the shipped 0.5
+generation by SHA-256 — fixtures, documents, generation files and a unit-by-unit projection of
+`apps/reference-apple/scenes.json` that admits only the version, its note and new `-glass0.25`
+profile entries — and `npx tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify` must read
+"intact: 911 entries" at every W43 merge, beside the 26.5 freeze's 1,818. The calibration page's
+selection seam now picks the shipped document by the (OS, glass) PAIR in its `profileKey` (refusing
+a pair the runtime ships no material for, or ships twice); `--candidate-document` draws a complete
+hash-matched document with nothing injected; a row's glass position is derived from its documents,
+never from a label, and a read against another position is admitted only under `--cross-position`,
+into scratch, stamped — a declared stage is recognised by the `membership.json` beside its matrix
+whichever flag named it, its documents must state one position that every declared profile matches
+(the frozen 26.5 documents state none, so no new 26.5 stage), and `matrix publish` refuses any
+mismatch. Memo F read Apple's layer tree at nine slider positions with no capture: `Normal = x`;
+the Lighten/Darken hinge is 0.675 + 0.45x up to 0.5 and 0.9 above; the face fill moves in both
+schemes; the dark MaxLuma cap moves at s ≥ 80 below 0.5, so the dark tone response moves with x;
+the backdrop capture scale is 0.125 on every shape at x = 1 and steps on rrect-ml/rrect-lg by x,
+scheme and pose; nothing else in the tree moves. The sitting tooling under
+`results/2026-10-01-w43-g0-declaration/bed/sitting/` carries the W42 census lessons (real process
+names, the launcher chain excluded by pid and start time, a node process counted by its entry
+script only), a per-capture idle log, the clause 3 bridge gate read on EVERY run (byte identity, or
+every region median within max(1 code, bar); an opening cell must read a region statistic), a cut
+that never drops the closing bridges (`runAfterCut`), and a restore that ignores HUP/INT/TERM for
+its whole duration. The declaration was hashed
+`4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874` on its own branch and amended
+ONCE before any pixel, because the merge put the review-extended X41 under the old pins: the
+current hash is `4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb`, the second
+line of `declaration.sha256`, with `amendments.json` naming the superseded hash, the reason and the
+two re-pinned files; `declare.py check` verifies the whole chain and `amend` refuses once a capture
+exists. Hash a declaration on the ASSEMBLED tree, never on a branch whose pins a sibling branch's
+fixes can still move. Nothing is captured until the user lifts X5′ for G1a.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

@@ -1,12 +1,14 @@
 /** A declaration precedes measurement. Presence means every named fixture, not one row per set. */
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { assertScratchDestination } from "./matrix-write-guard";
+import { assertScratchDestination, canonicalPath } from "./matrix-write-guard";
 import { documents, generationEnvelope, iterateRecordedRows, loadCurrentRows, readIndex,
   readRows, type Document, type Entry, type Index } from "./matrix-store";
 import { serializeResultCellKey, type CellResult } from "./report";
+import { carriesCrossPositionStamp, glassToken, keyPosition } from "./material-selection";
+import { capturePathPosition, crossPositionVerdict } from "./document-position";
 
 const PACKAGE = fileURLToPath(new URL("../", import.meta.url));
 const REPO_ROOT = resolve(PACKAGE, "../..");
@@ -33,6 +35,30 @@ function document(path: string): Document {
 function distinctRoles(active: Document, receded?: Document): void {
   if (receded && active.sha256 === receded.sha256) {
     fail("active and receded document hashes must be distinct");
+  }
+}
+/**
+ * A generation is drawn at one glass position, read from its documents' own profile keys, and
+ * every profile it declares is at that position (W43 G0 review, finding 1). Checked when a stage
+ * is declared and every time its membership is read, so a cross-position stage cannot be
+ * declared, measured into, reported or published, whatever wrote its membership file.
+ */
+function assertDeclaredPosition(profiles: readonly string[], active: Document, receded?: Document): void {
+  const label = `materialProfile=${active.path} sha256:${active.sha256}` +
+    (receded ? `, recededProfile=${receded.path} sha256:${receded.sha256}` : "");
+  let position;
+  try {
+    position = capturePathPosition(label, REPO_ROOT);
+  } catch (error) {
+    fail(error instanceof Error ? error.message : String(error));
+  }
+  if (position.kind === "unpositioned") {
+    fail(`a generation's documents must name their glass position, and ${position.why}`);
+  }
+  const other = profiles.filter((p) => keyPosition(p)?.glass !== position.glass);
+  if (other.length) {
+    fail(`the declared documents are at glass ${glassToken(position.glass)} and ${other.join(", ")} ` +
+      "is not; a cross-position reading never enters a stage");
   }
 }
 function unique(values: readonly string[], label: string) {
@@ -77,6 +103,7 @@ export function createStage(directory: string, options: {
   const active = document(options.active);
   const receded = options.receded ? document(options.receded) : undefined;
   distinctRoles(active, receded);
+  assertDeclaredPosition(options.profiles, active, receded);
   const membership: Membership = { schemaVersion: 1, profiles: options.profiles,
     tiers: options.tiers, sets: options.sets, active,
     ...(receded ? { receded } : {}), cells };
@@ -99,6 +126,7 @@ export function readMembership(directory: string): Membership {
       fail(`document digest differs from declaration: ${d.path}`);
     }
   }
+  assertDeclaredPosition(m.profiles, m.active, m.receded);
   return m;
 }
 const memberKey = (c: Membership["cells"][number]) => JSON.stringify([c.profileKey, c.renderer, c.fixtureSet, c.sceneId]);
@@ -116,13 +144,30 @@ export function validateStageRows(directory: string, rows: readonly CellResult[]
     const named = documents(row);
     if (JSON.stringify(named.active) !== JSON.stringify(m.active) ||
         JSON.stringify(named.receded) !== JSON.stringify(m.receded)) fail("row document digests differ from declaration");
+    // Derived again from the row's own documents: a stage is an authoritative destination.
+    const refusal = crossPositionVerdict(
+      { profileKey: row.key.profileKey, capturePath: row.key.web.capturePath },
+      { crossPosition: false, authoritative: true, repoRoot: REPO_ROOT });
+    if (refusal) fail(`${key}: ${refusal}`);
   }
   return { membership: m, declared: expected.size, present: seen.size,
     missing: [...expected].filter((k) => !seen.has(k)).length };
 }
+/**
+ * The stage a matrix destination belongs to, recognised by the declaration beside it and not
+ * by the flag that named it (W43 G0 review, second round). A `--matrix` or `--out-matrix` that
+ * points into a declared stage's directory is that stage: its position rules apply and a
+ * cross-position or candidate reading is refused, exactly as under `--stage`.
+ */
+export function stageOfDestination(path: string): string | undefined {
+  const directory = canonicalPath(dirname(resolve(path)));
+  return existsSync(join(directory, "membership.json")) ? directory : undefined;
+}
 export function stageMatrixPath(directory: string, explicit?: string): string {
   const path = join(resolve(directory), "matrix.json");
-  if (explicit && resolve(explicit) !== path) fail("--out-matrix must name the stage's matrix.json");
+  if (explicit && canonicalPath(explicit) !== canonicalPath(path)) {
+    fail("--out-matrix must name the stage's matrix.json");
+  }
   assertScratchDestination(path);
   return path;
 }
@@ -158,6 +203,14 @@ export function prepareGeneration(directory: string, results: string) {
   const rows = readRows(stageMatrixPath(directory));
   const status = validateStageRows(directory, rows);
   if (status.missing) fail(`incomplete membership: ${status.present}/${status.declared}`);
+  // A cross-position row compares two materials; its key can still look like a generation's own
+  // (a shipped document's hash over another position's profile), so the stamp is what refuses
+  // it, whatever route brought it into the stage (W43 G0 (f)).
+  const stamped = rows.filter((r) => carriesCrossPositionStamp(r.key.web.capturePath));
+  if (stamped.length) {
+    fail(`cross-position rows cannot publish: ${stamped.map((r) => `${r.key.profileKey}/${r.key.sceneId}`)
+      .join(", ")}`);
+  }
   const m = status.membership;
   if (m.profiles.some((p) => !p.startsWith("apple-macos-27."))) fail("frozen profile cannot publish");
   // Ignore reader scratch overrides: publication always checks the complete authoritative history.

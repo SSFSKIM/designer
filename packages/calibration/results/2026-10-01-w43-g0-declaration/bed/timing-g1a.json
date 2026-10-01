@@ -1,0 +1,722 @@
+{
+ "charterG1a": {
+  "atMacHours": 12.4,
+  "captures": 4103,
+  "modelledHours": 11.26,
+  "source": "charter Design, \"The two sittings\": G1a total, W42 G0's model rates"
+ },
+ "label": "g1a",
+ "priced": {
+  "boundaries": [
+   {
+    "after": "pose-check",
+    "before": "open-w42-2x-light-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-light-active",
+    "before": "open-w42-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-light-receded",
+    "before": "open-w42-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-dark-active",
+    "before": "open-w42-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-2x-dark-receded",
+    "before": "open-canonical-2x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-canonical-2x-active",
+    "before": "open-canonical-2x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-canonical-2x-receded",
+    "before": "open-w42-1x-light-active",
+    "exactSeconds": 7.74,
+    "modeSwitch": true,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-1x-light-active",
+    "before": "open-w42-1x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-1x-light-receded",
+    "before": "open-w42-1x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-1x-dark-active",
+    "before": "open-w42-1x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-w42-1x-dark-receded",
+    "before": "open-canonical-1x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-canonical-1x-active",
+    "before": "open-canonical-1x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "open-canonical-1x-receded",
+    "before": "dump-0.25-2x-light-active",
+    "exactSeconds": 8.74,
+    "modeSwitch": true,
+    "sliderWrite": true
+   },
+   {
+    "after": "dump-0.25-2x-light-active",
+    "before": "dump-0.25-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-2x-light-receded",
+    "before": "dump-0.25-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-2x-dark-active",
+    "before": "dump-0.25-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-2x-dark-receded",
+    "before": "bed-0.25-2x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "bed-0.25-2x-active",
+    "before": "bed-0.25-2x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "bed-0.25-2x-receded",
+    "before": "dump-0.25-1x-light-active",
+    "exactSeconds": 7.74,
+    "modeSwitch": true,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-1x-light-active",
+    "before": "dump-0.25-1x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-1x-light-receded",
+    "before": "dump-0.25-1x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-1x-dark-active",
+    "before": "dump-0.25-1x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "dump-0.25-1x-dark-receded",
+    "before": "bed-0.25-1x-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "bed-0.25-1x-active",
+    "before": "bed-0.25-1x-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "bed-0.25-1x-receded",
+    "before": "close-w42-1x-light-active",
+    "exactSeconds": 2.15,
+    "modeSwitch": false,
+    "sliderWrite": true
+   },
+   {
+    "after": "close-w42-1x-light-active",
+    "before": "close-w42-1x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-1x-light-receded",
+    "before": "close-w42-1x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-1x-dark-active",
+    "before": "close-w42-1x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-1x-dark-receded",
+    "before": "close-w42-2x-light-active",
+    "exactSeconds": 7.74,
+    "modeSwitch": true,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-2x-light-active",
+    "before": "close-w42-2x-light-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-2x-light-receded",
+    "before": "close-w42-2x-dark-active",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   },
+   {
+    "after": "close-w42-2x-dark-active",
+    "before": "close-w42-2x-dark-receded",
+    "exactSeconds": 1.15,
+    "modeSwitch": false,
+    "sliderWrite": false
+   }
+  ],
+  "boundarySeconds": 65.2,
+  "captureSeconds": 39892.3,
+  "dumpSeconds": 406.1,
+  "passes": [
+   {
+    "captures": 1,
+    "exactSeconds": 11.427,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "pose-check",
+    "protocol": "normal",
+    "runs": 1,
+    "seconds": 11.4
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-light-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-light-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-dark-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-w42-2x-dark-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 18,
+    "exactSeconds": 178.764,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-canonical-2x-active",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 178.8
+   },
+   {
+    "captures": 18,
+    "exactSeconds": 178.764,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "open-canonical-2x-receded",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 178.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "open-w42-1x-light-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "open-w42-1x-light-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "open-w42-1x-dark-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "open-w42-1x-dark-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 18,
+    "exactSeconds": 177.1335,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "open-canonical-1x-active",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 177.1
+   },
+   {
+    "captures": 18,
+    "exactSeconds": 177.1335,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "open-canonical-1x-receded",
+    "protocol": "normal",
+    "runs": 3,
+    "seconds": 177.1
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-light-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-light-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-dark-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "68",
+    "name": "dump-0.25-2x-dark-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "captures": 1134,
+    "exactSeconds": 10827.2784,
+    "glass": 0.25,
+    "kind": "capture",
+    "mode": "68",
+    "name": "bed-0.25-2x-active",
+    "protocol": "normal",
+    "runs": 7,
+    "seconds": 10827.3
+   },
+   {
+    "captures": 833,
+    "exactSeconds": 7958.0862,
+    "glass": 0.25,
+    "kind": "capture",
+    "mode": "68",
+    "name": "bed-0.25-2x-receded",
+    "protocol": "normal",
+    "runs": 7,
+    "seconds": 7958.1
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "69",
+    "name": "dump-0.25-1x-light-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "69",
+    "name": "dump-0.25-1x-light-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "69",
+    "name": "dump-0.25-1x-dark-active",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "exactSeconds": 50.7566,
+    "glass": 0.25,
+    "kind": "dump",
+    "mode": "69",
+    "name": "dump-0.25-1x-dark-receded",
+    "scenes": 6,
+    "seconds": 50.8
+   },
+   {
+    "captures": 1134,
+    "exactSeconds": 10824.6751,
+    "glass": 0.25,
+    "kind": "capture",
+    "mode": "69",
+    "name": "bed-0.25-1x-active",
+    "protocol": "normal",
+    "runs": 7,
+    "seconds": 10824.7
+   },
+   {
+    "captures": 833,
+    "exactSeconds": 7955.1518,
+    "glass": 0.25,
+    "kind": "capture",
+    "mode": "69",
+    "name": "bed-0.25-1x-receded",
+    "protocol": "normal",
+    "runs": 7,
+    "seconds": 7955.2
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "close-w42-1x-light-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "close-w42-1x-light-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "close-w42-1x-dark-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 99.75,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "69",
+    "name": "close-w42-1x-dark-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 99.8
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-light-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-light-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-dark-active",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   },
+   {
+    "captures": 6,
+    "exactSeconds": 100.737,
+    "glass": 0.5,
+    "kind": "capture",
+    "mode": "68",
+    "name": "close-w42-2x-dark-receded",
+    "protocol": "long",
+    "runs": 3,
+    "seconds": 100.7
+   }
+  ],
+  "totalHours": 11.21,
+  "totalSeconds": 40363.5,
+  "totals": {
+   "captureLaunches": 89,
+   "captures": 4103,
+   "dumpLaunches": 8,
+   "dumpScenes": 48,
+   "modeSwitches": 4,
+   "publishedCells": 562,
+   "sliderWrites": 2
+  },
+  "withStopLossHours": 12.33
+ },
+ "rates": {
+  "admittedRuns": 88,
+  "captureRates": {
+   "long-1x": {
+    "captures": 24,
+    "cells": [
+     2
+    ],
+    "crossCheckFit": null,
+    "intervalSeconds": 16.0,
+    "overheadSeconds": 16.75,
+    "runs": 12,
+    "wallSeconds": 394.4
+   },
+   "long-2x": {
+    "captures": 24,
+    "cells": [
+     2
+    ],
+    "crossCheckFit": null,
+    "intervalSeconds": 16.0,
+    "overheadSeconds": 17.079,
+    "runs": 12,
+    "wallSeconds": 399.9
+   },
+   "normal-1x": {
+    "captures": 458,
+    "cells": [
+     14,
+     16,
+     23,
+     26
+    ],
+    "crossCheckFit": {
+     "perCaptureSeconds": 9.4674,
+     "perRunSeconds": 2.14
+    },
+    "intervalSeconds": 9.5333,
+    "overheadSeconds": 10.878,
+    "runs": 28,
+    "wallSeconds": 4395.9
+   },
+   "normal-2x": {
+    "captures": 2935,
+    "cells": [
+     87,
+     92,
+     101,
+     107,
+     133,
+     148,
+     157,
+     175
+    ],
+    "crossCheckFit": {
+     "perCaptureSeconds": 9.4906,
+     "perRunSeconds": 7.15
+    },
+    "intervalSeconds": 9.5322,
+    "overheadSeconds": 11.427,
+    "runs": 28,
+    "wallSeconds": 28054.9
+   }
+  },
+  "dump": {
+   "elapsedFit": {
+    "perLaunchSeconds": 0.19,
+    "perSceneSeconds": 8.3306
+   },
+   "launches": 8,
+   "perLaunchSeconds": 0.77,
+   "perSceneSeconds": 8.3311,
+   "scenes": [
+    87,
+    92,
+    101,
+    107,
+    14,
+    16,
+    14,
+    16
+   ]
+  },
+  "excludedStopGaps": [
+   {
+    "after": "2x-light-receded/run-3",
+    "before": "2x-light-receded/run-4",
+    "seconds": 1137.2
+   },
+   {
+    "after": "2x-light-receded/run-6",
+    "before": "2x-light-receded/run-7",
+    "seconds": 277.5
+   }
+  ],
+  "gapBetweenPassesCount": 20,
+  "gapBetweenPassesSeconds": 1.15,
+  "gapWithinPassCount": 62,
+  "gapWithinPassSeconds": 0.75,
+  "modeSwitchSeconds": 7.74,
+  "modeSwitches": [
+   7.8,
+   7.7,
+   7.6
+  ],
+  "sliderWriteNote": "ASSUMED, not measured: W42 never wrote the slider inside a sitting",
+  "sliderWriteSeconds": 1.0,
+  "source": "packages/calibration/results/2026-09-30-w42-g1-sitting/attest"
+ },
+ "rehearsal": false,
+ "schema": "w43-sitting-timing-1",
+ "selfCheck": {
+  "differenceSeconds": -24.0,
+  "measuredSeconds": 37070.8,
+  "modelledSeconds": 37046.8
+ },
+ "sitting": "g1a",
+ "tool": {
+  "note": "run in this process, unedited",
+  "path": "bed/sitting/timing.py on w43-g0-sitting d92190b4"
+ }
+}

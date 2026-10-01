@@ -1,0 +1,48 @@
+{
+  "$comment": [
+    "W43 G0 (f): the declared sample for the candidate path's byte-identity proof, committed",
+    "before any capture is taken. A candidate whose content is the four shipped -glass0.5",
+    "documents', declared under scratch -glass0.25 keys (scratch-candidate/candidate.json), must",
+    "render byte-identical to strict shipped mode's 0.5 render on every cell below.",
+    "",
+    "Endpoints: light rest scenes draw active.light, dark rest scenes active.dark, light",
+    "inactive scenes receded.light and dark inactive scenes receded.dark. Both tiers, both",
+    "scales. Every scene is in the calibration or validation split; the proof reads no",
+    "fixture, so no split is read either way, and no holdout scene is rendered.",
+    "",
+    "Modes: 'strict-runtime-pose' is --material-profile <active 0.5 document> with inactive",
+    "scenes posed by the runtime from the selected shipped document; 'strict-recipe' adds",
+    "--receded-profile <receded 0.5 document>, the CLAUDE.md publication recipe; 'candidate'",
+    "is --candidate-document alone. The rule is byte identity of each cell's PNG between",
+    "'candidate' and 'strict-runtime-pose' (the charter's bar). 'candidate' against",
+    "'strict-recipe' is reported beside it, as the comparison with how the 0.5 bed was read.",
+    "A cell that fell back from webgpu to css, ran on a software adapter, or carries a page",
+    "problem fails the proof rather than being compared."
+  ],
+  "schemes": ["light", "dark"],
+  "tiers": ["webgpu", "css"],
+  "scales": [1, 2],
+  "modes": ["strict-runtime-pose", "strict-recipe", "candidate"],
+  "scenes": [
+    "photo__rrect-md__rest",
+    "checkerboard__capsule-button__rest-tint-blue",
+    "dark-solid__capsule-button__rest",
+    "checkerboard__toolbar-group__rest",
+    "photo__rrect-md__inactive",
+    "checkerboard__capsule-button__inactive-tint-blue",
+    "dark-solid__capsule-button__inactive",
+    "impulse__rrect-md__inactive"
+  ],
+  "documents": {
+    "light": {
+      "active": "profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+      "receded": "profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json"
+    },
+    "dark": {
+      "active": "profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+      "receded": "profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json"
+    }
+  },
+  "candidate": "results/2026-10-01-w43-g0-declaration/seam/scratch-candidate/candidate.json",
+  "rule": "every cell: sha256(candidate png) == sha256(strict-runtime-pose png)"
+}

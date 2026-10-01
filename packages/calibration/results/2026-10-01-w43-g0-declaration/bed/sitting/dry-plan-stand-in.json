@@ -1,0 +1,1087 @@
+{
+ "schema": "w43-sitting-plan-walk-1",
+ "executed": false,
+ "sitting": "g1a",
+ "note": "nothing was launched, read, written to the slider or captured; argv paths are under the placeholder root",
+ "root": "<VITREA_SITTING_DIR>",
+ "passes": [
+  {
+   "name": "pose-check",
+   "kind": "capture",
+   "role": "pose-check",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 1,
+     "protocol": "normal",
+     "label": "w43-pose-check-1",
+     "argvSha256": "318a379a263bf7baf2a057717ae58e3669d60d0abc26b6fa142f8a1f86a6d8cd"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-2x-light-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-light-active-1",
+     "argvSha256": "03906d17cf5da7ef7b5b56ec972651ee41f4632c5f9e33a7e77c4a42ce6736a3"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-light-active-2",
+     "argvSha256": "0950b030a47824fe01ab10f1507ca4df345ed2ad5e4c4e623ff17fde8bb73763"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-light-active-3",
+     "argvSha256": "9a5f77116d7a0dab30693593696d70dba003b2387f1a453e9f34f5aa4725bdc9"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-2x-light-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-light-receded-1",
+     "argvSha256": "80af3cfd0c13aa26538ecda1eaa6207fbe1b6deb86eea0e524af38dffe085b4c"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-light-receded-2",
+     "argvSha256": "df52e2759d3f3df2a656aee08198f7d1ff8b2495c9527799bcc412bc7631d213"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-light-receded-3",
+     "argvSha256": "8a74479d3cefc83687715a43bc841963aaf28ed6af9cf24354730da664835c24"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-2x-dark-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-dark-active-1",
+     "argvSha256": "2c53a9d98761d63d906fab6c6f5752c5f6c310e682d9b383f3fcd22779dd9478"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-dark-active-2",
+     "argvSha256": "b661fba8108666414304dc4640ff4bad85f0e32f259cb910808d44c907ce7856"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-dark-active-3",
+     "argvSha256": "72f8dcb2fa9066ea1a3fbacb841c38e6d19bf34f20848168b32397f47c90289d"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-2x-dark-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-dark-receded-1",
+     "argvSha256": "3523742d6f6ab7fed3b4e13f5af0a9af820c4f1a29687a1e8f4541b6b1df93b5"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-dark-receded-2",
+     "argvSha256": "fab18bd6458c7a3fd580f57a361f32a71a26d6378fc772143c116a54368ae983"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-2x-dark-receded-3",
+     "argvSha256": "0893430100ab567bb38dead999229ec8b7e77842ee557f12006efdd0337a157e"
+    }
+   ]
+  },
+  {
+   "name": "open-canonical-2x-active",
+   "kind": "capture",
+   "role": "bridge-canonical",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-2x-active-1",
+     "argvSha256": "1cf22887032467a6fa2ac0a365659864f89ae712f592248fe2c920324c44cbbc"
+    },
+    {
+     "run": 2,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-2x-active-2",
+     "argvSha256": "2b47ab47d87d17a6fe5966a80a63c456ed6188395be1ee00b961c3022aaaad68"
+    },
+    {
+     "run": 3,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-2x-active-3",
+     "argvSha256": "9840fc001c43714c86b05420d5140a82a0cb7ff92c3a1268bfef49ee77d41b32"
+    }
+   ]
+  },
+  {
+   "name": "open-canonical-2x-receded",
+   "kind": "capture",
+   "role": "bridge-canonical",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-2x-receded-1",
+     "argvSha256": "fb2443cdedcdbca794062d645cc73582e915481e87a2260dcb667c74cca099b1"
+    },
+    {
+     "run": 2,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-2x-receded-2",
+     "argvSha256": "01e881ae89061b6761de44a9012d20014ec695f3e2548ff0d0087fd47cbe6f32"
+    },
+    {
+     "run": 3,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-2x-receded-3",
+     "argvSha256": "5b004e017c9877ee4826f0bd7887084b0bf88da8d1c5259c8fa4e551403d30f8"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-1x-light-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-light-active-1",
+     "argvSha256": "0902407312804e6981eeee9f8df99521b529cbec39a29e3f4f38d3a0db82c1b9"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-light-active-2",
+     "argvSha256": "5cccce7402759b22d9a9962969f42464dfdb520d854cc41a9e672b49851a1178"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-light-active-3",
+     "argvSha256": "fff48e7e502309692bc041049aa1e95288447675f204569eb8c78dede91cde3d"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-1x-light-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-light-receded-1",
+     "argvSha256": "c138cfa689a8f867a2b55697f8e77479c7e5ccdbd432c8b7381ecd9e36002bb9"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-light-receded-2",
+     "argvSha256": "46e7e6f8c63ddeb91a529a1f688ac70914f8a196a76b7e22f36a1027910ebaf0"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-light-receded-3",
+     "argvSha256": "ef3a0f0493a98ad11d1bb592df15a9e8a581ad55bed7ba57174799c8ece3eaa1"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-1x-dark-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-dark-active-1",
+     "argvSha256": "656d3cbe1479022a4854e360933bbc52fe6a7ccef2ebd1ef32b7d7bd9733152a"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-dark-active-2",
+     "argvSha256": "1d653df89ebbc5316abdf02a00385dddfc674672b4aa78e4a75ad5056ade5060"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-dark-active-3",
+     "argvSha256": "9d4075b2f7e07182ac4762d1dd251fef45fd6f53f71b741dd0824d8b5632d610"
+    }
+   ]
+  },
+  {
+   "name": "open-w42-1x-dark-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-dark-receded-1",
+     "argvSha256": "ef915c71331f133cb578933f9b937e2a043b90900c336d2d6aa7379c224c27e3"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-dark-receded-2",
+     "argvSha256": "5ca36f27638fb7f3a4eff97e56f25d2ff6ccff297debc9200644a2e467900130"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-open-w42-1x-dark-receded-3",
+     "argvSha256": "d35e6e3af6bc736b57716c1c9f5c2f9365712aeada68e1ae73101c95c2a77f84"
+    }
+   ]
+  },
+  {
+   "name": "open-canonical-1x-active",
+   "kind": "capture",
+   "role": "bridge-canonical",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-1x-active-1",
+     "argvSha256": "4b6c5b19cf177dd5cc814123f63df72d1a24dce97896b2221cba4a63b4edb8b1"
+    },
+    {
+     "run": 2,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-1x-active-2",
+     "argvSha256": "104b48485f3cdefefd166774d8f846a2324dbaaf6213828f5b4bb7125857acbe"
+    },
+    {
+     "run": 3,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-1x-active-3",
+     "argvSha256": "dd39a25a5b3f005d7b9ac248dc27f768a2a3b6d00da6818703f41a8c663b49e2"
+    }
+   ]
+  },
+  {
+   "name": "open-canonical-1x-receded",
+   "kind": "capture",
+   "role": "bridge-canonical",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-1x-receded-1",
+     "argvSha256": "24e8929f21c99ef39b7661470f3f27169dfa4feb93c9838850f0f96d429959ff"
+    },
+    {
+     "run": 2,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-1x-receded-2",
+     "argvSha256": "7d22d4d31f0baa20a55234a9682f4f1cce8d0532d984b48caf3b503e902da4f1"
+    },
+    {
+     "run": 3,
+     "cells": 6,
+     "protocol": "normal",
+     "label": "w43-open-canonical-1x-receded-3",
+     "argvSha256": "e19b64a201b0535d29446fc6551bab6ae328a522d191f4cf0d75c13f98ed2e46"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-2x-light-active",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "9b499e79eb78ca53378aecdc64180cacb8ef87212e791855efd19ac6d49af08a"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-2x-light-receded",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "444ff313d596ce2b9c37c26df7354a7f42f158d9df1814585b02da114b888eb2"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-2x-dark-active",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "5ba588ac00dd5392f1ed334a31650711309feab87646da327a24264be9b8a78b"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-2x-dark-receded",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "72e7aa85935b110e4ed7dd803bef9c95f0edb56b224fa08a111dc0aa028b3865"
+    }
+   ]
+  },
+  {
+   "name": "bed-0.25-2x-active",
+   "kind": "capture",
+   "role": "bed",
+   "glass": 0.25,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": true,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-active-1",
+     "argvSha256": "e29aa3613ccc66d72cc7211a7f2d3899dfb468241c4907289e2d0f9107a2b2aa"
+    },
+    {
+     "run": 2,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-active-2",
+     "argvSha256": "c929ca7979e8d1a8ddcc38e6b812dd821c7046d8d975d47db284393fffbe6468"
+    },
+    {
+     "run": 3,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-active-3",
+     "argvSha256": "4293e1b653188d28b8b0ff7ac29245eccf870b914062d7a4e4390da972200e81"
+    },
+    {
+     "run": 4,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-active-4",
+     "argvSha256": "91947af73ee8e5e84be966e7d584ef538338451a475a68a32c6af8a2653bb2f0"
+    },
+    {
+     "run": 5,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-active-5",
+     "argvSha256": "939e7a42495854061410ce002dc721b8cb03fbe6db1d385cecc6bfa23f9666e2"
+    },
+    {
+     "run": 6,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-active-6",
+     "argvSha256": "b11974d4db7a680f95b94b4c6f94194fa71c23fe85875d56546339c31fa69ce8"
+    },
+    {
+     "run": 7,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-active-7",
+     "argvSha256": "231ade8d54b75f911c94f03c722a93e9c988a25c9ddc632cf01fcdf352ab822e"
+    }
+   ]
+  },
+  {
+   "name": "bed-0.25-2x-receded",
+   "kind": "capture",
+   "role": "bed",
+   "glass": 0.25,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": true,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-receded-1",
+     "argvSha256": "7a5166c42e6c4a72aa83240d70dd0a02f10db6b7f42649b851b2ab54e56585ab"
+    },
+    {
+     "run": 2,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-receded-2",
+     "argvSha256": "a86f2ccf62fb0ed05f06353de2a51c66f43ee9b598e85af04b9064d25033719d"
+    },
+    {
+     "run": 3,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-receded-3",
+     "argvSha256": "67f7e37e5c3a8a8affd40117727aef515bc0f59308816b5fef198f730da2eb6b"
+    },
+    {
+     "run": 4,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-receded-4",
+     "argvSha256": "8e2c6cdc6f98ca4a30127ecaffc0363ae662c05f936313600fec9a81cc8c6a8c"
+    },
+    {
+     "run": 5,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-receded-5",
+     "argvSha256": "577865eb01187c3c35910ade8926cbbdc08d7275945f95c26ec21a144648fea7"
+    },
+    {
+     "run": 6,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-receded-6",
+     "argvSha256": "124a571c2d07f6a8c4a266a54db8e352a6eee4144e8b7fc01daaf0a792d7c2da"
+    },
+    {
+     "run": 7,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-2x-receded-7",
+     "argvSha256": "6b14b56bdece3bcd3ea96be2829da75a29e3f3d2b86a26f184fc49958a29edb0"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-1x-light-active",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "b6c25800c13342a4ae34420e4816166b2f22408e564fe8809230377de3a43547"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-1x-light-receded",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "ee5c2bf67822d97e1fdfaf51781d894705e09227d22384b5db17a2972e621c6e"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-1x-dark-active",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "a3f8af35419215a2152e725e8987541cb2931d5b875ecd2b9850a77f80e5c8d4"
+    }
+   ]
+  },
+  {
+   "name": "dump-0.25-1x-dark-receded",
+   "kind": "dump",
+   "role": "dump-sentinel",
+   "glass": 0.25,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "scenes": 6,
+     "timeoutSeconds": 147,
+     "argvSha256": "06f0a895b46147987580bfd3bf249c16b14e8a51807cff1f2abd8d11c624f3fa"
+    }
+   ]
+  },
+  {
+   "name": "bed-0.25-1x-active",
+   "kind": "capture",
+   "role": "bed",
+   "glass": 0.25,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": true,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-active-1",
+     "argvSha256": "88eab5018d989e7a33453531649425332c91723551c8dedf348e8456796933f6"
+    },
+    {
+     "run": 2,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-active-2",
+     "argvSha256": "9940b70126f33d93e1334197862112587bde60cb07155cdbe93cac8e348290ee"
+    },
+    {
+     "run": 3,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-active-3",
+     "argvSha256": "265692926c177b122f0580c1f67bf6d81f5fcec8605ee7c23935d7aa94e7220c"
+    },
+    {
+     "run": 4,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-active-4",
+     "argvSha256": "c0c795cd1490c28cb254c6b8be8797450165db12eeb8a135ec1bf77ec751dba4"
+    },
+    {
+     "run": 5,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-active-5",
+     "argvSha256": "513010fe440853aa85642f6ad9741d7a61702cd5285adcb1811e59bb1bf7768c"
+    },
+    {
+     "run": 6,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-active-6",
+     "argvSha256": "83271dda57a18e460cc26cec913b48756573d6bc890fba87a53101b3ebdcc7f8"
+    },
+    {
+     "run": 7,
+     "cells": 162,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-active-7",
+     "argvSha256": "5a2260c64f2e59e59b429bc0c8dc0c2865ae138fab3866ef439fd14db0597c41"
+    }
+   ]
+  },
+  {
+   "name": "bed-0.25-1x-receded",
+   "kind": "capture",
+   "role": "bed",
+   "glass": 0.25,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": true,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-receded-1",
+     "argvSha256": "df392b2e74d9221fa424ce9f5a55539b1714918a50aac282d12631e4764278ab"
+    },
+    {
+     "run": 2,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-receded-2",
+     "argvSha256": "868017eb193eccdbd7e110d4b97423f4e174881d70faa5a0d0f5c6d23fe40519"
+    },
+    {
+     "run": 3,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-receded-3",
+     "argvSha256": "78fc28e77e0e89502d65f11b8b60843028a96059ad8e399da032e7d286f24716"
+    },
+    {
+     "run": 4,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-receded-4",
+     "argvSha256": "8c6be0118463f69c958ffc0f63fbbb4f22b849ab63afd49046513dff85cf78b5"
+    },
+    {
+     "run": 5,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-receded-5",
+     "argvSha256": "0e62ee5772f302b1713c2171844b9f54076a5fca4715757fe6f729d086b969f9"
+    },
+    {
+     "run": 6,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-receded-6",
+     "argvSha256": "942a6df5eda341953e116d8f2419cade9871b42b798d0d7dbbe93f6b8d1d8521"
+    },
+    {
+     "run": 7,
+     "cells": 119,
+     "protocol": "normal",
+     "label": "w43-bed-0.25-1x-receded-7",
+     "argvSha256": "89beb12d77177791abfcb6ea1239aa7d4729ce4ecf9adb566f50d52f0f418020"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-1x-light-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-light-active-1",
+     "argvSha256": "2e7666ec36b7af146605d882a22057c7fb55d7daec955000fe5f64c77bb6f629"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-light-active-2",
+     "argvSha256": "90588ce44e94a45617130f86d456bdcab213cd3c2365e7f0f2c89427b264a87e"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-light-active-3",
+     "argvSha256": "a6586db1759f769dd46c6809ef49cff7fba461ff172e8df4957de56e77581ddb"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-1x-light-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-light-receded-1",
+     "argvSha256": "544206c2ff324f2f09e49a92e128bc9b142b0365e014715c2188161c2da476a8"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-light-receded-2",
+     "argvSha256": "4ba3556a352831e5f4950d5b15fd3eeae5ea65aea0c7fa2a235e88d10b8be17a"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-light-receded-3",
+     "argvSha256": "ba3915c9664fce91ba0318020a24c788ee74c4643f882979dcf7be3480e6aaa7"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-1x-dark-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-dark-active-1",
+     "argvSha256": "ab2e2ed1ede2dd04d9df0e6f2b4c3497c97f301473c0d8946b22b9e38419db61"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-dark-active-2",
+     "argvSha256": "9eb679b9f4161c49625396f86a47bd303ee0434a84ab59c9d6da3ab363cf99ff"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-dark-active-3",
+     "argvSha256": "ce81326de6676989b03e1aab6e2aac92fc7bb23a978c979a92507c7190795885"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-1x-dark-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "69",
+   "scale": 1,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-dark-receded-1",
+     "argvSha256": "e07d410817c700f4862801bf396b3a041ab70ff27d351b0eff603e70f7e9f11e"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-dark-receded-2",
+     "argvSha256": "ec004a38fb967621689b0f532489f175092c3aa043b52988c065c0f67a32c5fd"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-1x-dark-receded-3",
+     "argvSha256": "6f4ee2068cd89b21feac9a01da8bc4ab180cfa9e5148f316330f23d36fa81701"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-2x-light-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-light-active-1",
+     "argvSha256": "dc4092eddd5cf67a267b74c425782b174bde4b5e80dec0898dd615a11c85ede4"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-light-active-2",
+     "argvSha256": "f2c48c3cb41b6bc98efb5407008eaa3ca83750d6f0383a4d41111120f4b6d710"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-light-active-3",
+     "argvSha256": "da1a15bc0aca2b28fd229ba380b404ac9c59cd0d0200cf2c44b5d76a3c7001dc"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-2x-light-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-light-receded-1",
+     "argvSha256": "bd7ca5b6821e2a3b52be1762b55f50acb55372d3e8dbc26ae51f419854432513"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-light-receded-2",
+     "argvSha256": "1caed7d5e0899e67bd7ff6118de22482de92cf508150242579f6c3b6da321759"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-light-receded-3",
+     "argvSha256": "71f9ab82d9d71035a23cb6a051938cddd84086965be3d0a2e72ca2e9775be185"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-2x-dark-active",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "active",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-dark-active-1",
+     "argvSha256": "e010dfce70a33d13e52931e92b64561a371fc17f5542529441277df01d01a78a"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-dark-active-2",
+     "argvSha256": "49f6e6d7eb11266fd54baef25035733529cb6da9d1bc46fbd19dc27e58b52592"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-dark-active-3",
+     "argvSha256": "1e7478d821f263bd209780a6a84cf65eb2be6e5f3bbf4d325dc3cad4c4768f02"
+    }
+   ]
+  },
+  {
+   "name": "close-w42-2x-dark-receded",
+   "kind": "capture",
+   "role": "bridge-w42-sentinel",
+   "glass": 0.5,
+   "mode": "68",
+   "scale": 2,
+   "pose": "receded",
+   "publish": false,
+   "runs": [
+    {
+     "run": 1,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-dark-receded-1",
+     "argvSha256": "28d261cabbd5bdd40d67ff2ee53207e48e0d4aac73041c265a0e3cdfb2691428"
+    },
+    {
+     "run": 2,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-dark-receded-2",
+     "argvSha256": "dee15996c6b8911abcb2dc98cf2efa6738d843b5754db494db16be317c472320"
+    },
+    {
+     "run": 3,
+     "cells": 2,
+     "protocol": "long",
+     "label": "w43-close-w42-2x-dark-receded-3",
+     "argvSha256": "c90e5d9dd0a2653a7fb400a0019b9c36019ff8e95f4ff79d2c88eabc59ce5c68"
+    }
+   ]
+  }
+ ],
+ "totals": {
+  "captureLaunches": 89,
+  "captures": 4103,
+  "dumpLaunches": 8,
+  "dumpScenes": 48,
+  "sliderWrites": 2,
+  "modeSwitches": 4,
+  "publishedCells": 562
+ },
+ "planSha256": "ee52836663ce6e4d51f49975ab0107a247d50cb66a2e72af4e637ec06da7ee44",
+ "rehearsal": true
+}

@@ -1,0 +1,6137 @@
+{
+ "backdrop": {
+  "x0 2x-dark-active checkerboard__rrect-md__rest": [],
+  "x0 2x-dark-active photo__rrect-md__rest": [],
+  "x0 2x-dark-receded checkerboard__rrect-md__rest": [],
+  "x0 2x-dark-receded photo__rrect-md__rest": [],
+  "x0 2x-light-active checkerboard__rrect-md__rest": [],
+  "x0 2x-light-active photo__rrect-md__rest": [],
+  "x0 2x-light-receded checkerboard__rrect-md__rest": [],
+  "x0 2x-light-receded photo__rrect-md__rest": [],
+  "x0.25 2x-dark-active checkerboard__rrect-md__rest": [],
+  "x0.25 2x-dark-active photo__rrect-md__rest": [],
+  "x0.25 2x-dark-receded checkerboard__rrect-md__rest": [],
+  "x0.25 2x-dark-receded photo__rrect-md__rest": [],
+  "x0.25 2x-light-active checkerboard__rrect-md__rest": [],
+  "x0.25 2x-light-active photo__rrect-md__rest": [],
+  "x0.25 2x-light-receded checkerboard__rrect-md__rest": [],
+  "x0.25 2x-light-receded photo__rrect-md__rest": [],
+  "x1 2x-dark-active checkerboard__rrect-md__rest": [],
+  "x1 2x-dark-active photo__rrect-md__rest": [],
+  "x1 2x-dark-receded checkerboard__rrect-md__rest": [],
+  "x1 2x-dark-receded photo__rrect-md__rest": [],
+  "x1 2x-light-active checkerboard__rrect-md__rest": [],
+  "x1 2x-light-active photo__rrect-md__rest": [],
+  "x1 2x-light-receded checkerboard__rrect-md__rest": [],
+  "x1 2x-light-receded photo__rrect-md__rest": []
+ },
+ "endpoints": {
+  "1x-dark-active": {
+   "departuresByX": {
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.0625, 0.0625, 0.0625, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     }
+    }
+   },
+   "moving": {},
+   "note": "no x = 0.5 block at this scale: moving fields are read against memo D only",
+   "ramps": {}
+  },
+  "1x-dark-receded": {
+   "departuresByX": {
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.0625, 0.0625, 0.0625, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     }
+    }
+   },
+   "moving": {},
+   "note": "no x = 0.5 block at this scale: moving fields are read against memo D only",
+   "ramps": {}
+  },
+  "1x-light-active": {
+   "departuresByX": {
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.1]"
+      ]
+     }
+    }
+   },
+   "moving": {},
+   "note": "no x = 0.5 block at this scale: moving fields are read against memo D only",
+   "ramps": {}
+  },
+  "1x-light-receded": {
+   "departuresByX": {
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.1]"
+      ]
+     }
+    }
+   },
+   "moving": {},
+   "note": "no x = 0.5 block at this scale: moving fields are read against memo D only",
+   "ramps": {}
+  },
+  "2x-dark-active": {
+   "departuresByX": {
+    "0.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.675"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[0.125, 0.125, 0.125, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.45",
+       "0.48",
+       "0.54"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.45",
+       "0.48",
+       "0.54"
+      ]
+     }
+    },
+    "0.125": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.73125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.09375, 0.09375, 0.09375, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.425",
+       "0.46",
+       "0.53"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.425",
+       "0.46",
+       "0.53"
+      ]
+     }
+    },
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[0.0625, 0.0625, 0.0625, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     }
+    },
+    "0.375": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.84375"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.375"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.03125, 0.03125, 0.03125, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.375",
+       "0.42",
+       "0.51"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.375",
+       "0.42",
+       "0.51"
+      ]
+     }
+    },
+    "0.5": {},
+    "0.625": {
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.625"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.03125, 0.03125, 0.03125, 0.125]"
+      ]
+     }
+    },
+    "0.75": {
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.75"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.0625, 0.0625, 0.0625, 0.25]"
+      ]
+     }
+    },
+    "0.875": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.875"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.09375, 0.09375, 0.09375, 0.375]"
+      ]
+     }
+    },
+    "1.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 8,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "1"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[0.125, 0.125, 0.125, 0.5]"
+      ]
+     }
+    }
+   },
+   "moving": {
+    "bd.scale": {
+     "0.0": {
+      "160": 0.5
+     },
+     "0.125": {
+      "160": 0.5
+     },
+     "0.25": {
+      "160": 0.5
+     },
+     "0.375": {
+      "160": 0.5
+     },
+     "0.875": {
+      "128": 0.25
+     },
+     "1.0": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     }
+    },
+    "glassBackground.inputBlurFillDarkenOpacity": {
+     "0.0": {
+      "128": 0.675,
+      "160": 0.675,
+      "44": 0.675,
+      "64": 0.675,
+      "80": 0.675,
+      "96": 0.675
+     },
+     "0.125": {
+      "128": 0.73125,
+      "160": 0.73125,
+      "44": 0.73125,
+      "64": 0.73125,
+      "80": 0.73125,
+      "96": 0.73125
+     },
+     "0.25": {
+      "128": 0.7875,
+      "160": 0.7875,
+      "44": 0.7875,
+      "64": 0.7875,
+      "80": 0.7875,
+      "96": 0.7875
+     },
+     "0.375": {
+      "128": 0.84375,
+      "160": 0.84375,
+      "44": 0.84375,
+      "64": 0.84375,
+      "80": 0.84375,
+      "96": 0.84375
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "0.0": {
+      "128": 0,
+      "160": 0,
+      "44": 0,
+      "64": 0,
+      "80": 0,
+      "96": 0
+     },
+     "0.125": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     },
+     "0.25": {
+      "128": 0.25,
+      "160": 0.25,
+      "44": 0.25,
+      "64": 0.25,
+      "80": 0.25,
+      "96": 0.25
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "44": 0.375,
+      "64": 0.375,
+      "80": 0.375,
+      "96": 0.375
+     },
+     "0.625": {
+      "128": 0.625,
+      "160": 0.625,
+      "44": 0.625,
+      "64": 0.625,
+      "80": 0.625,
+      "96": 0.625
+     },
+     "0.75": {
+      "128": 0.75,
+      "160": 0.75,
+      "44": 0.75,
+      "64": 0.75,
+      "80": 0.75,
+      "96": 0.75
+     },
+     "0.875": {
+      "128": 0.875,
+      "160": 0.875,
+      "44": 0.875,
+      "64": 0.875,
+      "80": 0.875,
+      "96": 0.875
+     },
+     "1.0": {
+      "128": 1,
+      "160": 1,
+      "44": 1,
+      "64": 1,
+      "80": 1,
+      "96": 1
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "0.0": {
+      "128": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "160": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "44": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "64": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "80": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "96": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ]
+     },
+     "0.125": {
+      "128": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "160": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "44": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "64": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "80": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "96": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ]
+     },
+     "0.25": {
+      "128": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "160": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "44": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "64": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "80": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "96": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ]
+     },
+     "0.375": {
+      "128": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "160": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "44": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "64": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "80": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "96": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ]
+     },
+     "0.625": {
+      "128": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "160": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "44": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "64": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "80": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "96": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ]
+     },
+     "0.75": {
+      "128": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "160": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "44": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "64": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "80": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "96": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ]
+     },
+     "0.875": {
+      "128": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "160": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "44": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "64": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "80": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "96": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ]
+     },
+     "1.0": {
+      "128": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "160": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "44": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "64": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "80": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "96": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ]
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLuma": {
+     "0.0": {
+      "128": 0.45,
+      "160": 0.45,
+      "80": 0.54,
+      "96": 0.48
+     },
+     "0.125": {
+      "128": 0.425,
+      "160": 0.425,
+      "80": 0.53,
+      "96": 0.46
+     },
+     "0.25": {
+      "128": 0.4,
+      "160": 0.4,
+      "80": 0.52,
+      "96": 0.44
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "80": 0.51,
+      "96": 0.42
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+     "0.0": {
+      "128": 0.45,
+      "160": 0.45,
+      "80": 0.54,
+      "96": 0.48
+     },
+     "0.125": {
+      "128": 0.425,
+      "160": 0.425,
+      "80": 0.53,
+      "96": 0.46
+     },
+     "0.25": {
+      "128": 0.4,
+      "160": 0.4,
+      "80": 0.52,
+      "96": 0.44
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "80": 0.51,
+      "96": 0.42
+     }
+    }
+   },
+   "ramps": {
+    "bd.scale": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.5
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.09375,
+        "points": 5,
+        "slope": -0.25
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "160": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.25,
+       "0.625": 0.25,
+       "0.75": 0.25,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "44": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      },
+      "64": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      },
+      "80": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      },
+      "96": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      }
+     }
+    },
+    "glassBackground.inputBlurFillDarkenOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "160": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "44": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "64": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "80": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "96": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      }
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLuma": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.08
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.16
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "160": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "44": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "64": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "80": {
+       "0.0": 0.54,
+       "0.125": 0.53,
+       "0.25": 0.52,
+       "0.375": 0.51,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0.48,
+       "0.125": 0.46,
+       "0.25": 0.44,
+       "0.375": 0.42,
+       "0.5": 0.4,
+       "0.625": 0.4,
+       "0.75": 0.4,
+       "0.875": 0.4,
+       "1.0": 0.4
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.08
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.16
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "160": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "44": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "64": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "80": {
+       "0.0": 0.54,
+       "0.125": 0.53,
+       "0.25": 0.52,
+       "0.375": 0.51,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0.48,
+       "0.125": 0.46,
+       "0.25": 0.44,
+       "0.375": 0.42,
+       "0.5": 0.4,
+       "0.625": 0.4,
+       "0.75": 0.4,
+       "0.875": 0.4,
+       "1.0": 0.4
+      }
+     }
+    }
+   }
+  },
+  "2x-dark-receded": {
+   "departuresByX": {
+    "0.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.675"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[0.125, 0.125, 0.125, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.45",
+       "0.48",
+       "0.54"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.45",
+       "0.48",
+       "0.54"
+      ]
+     }
+    },
+    "0.125": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.73125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.09375, 0.09375, 0.09375, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.425",
+       "0.46",
+       "0.53"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.425",
+       "0.46",
+       "0.53"
+      ]
+     }
+    },
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[0.0625, 0.0625, 0.0625, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 6,
+      "values": [
+       "0.4",
+       "0.44",
+       "0.52"
+      ]
+     }
+    },
+    "0.375": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillDarkenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.84375"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.375"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.03125, 0.03125, 0.03125, 0]"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLuma": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.375",
+       "0.42",
+       "0.51"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+      "layer": "law",
+      "scenes": 4,
+      "values": [
+       "0.375",
+       "0.42",
+       "0.51"
+      ]
+     }
+    },
+    "0.5": {},
+    "0.625": {
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.625"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.03125, 0.03125, 0.03125, 0.125]"
+      ]
+     }
+    },
+    "0.75": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.75"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.0625, 0.0625, 0.0625, 0.25]"
+      ]
+     }
+    },
+    "0.875": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 5,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.875"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[0.09375, 0.09375, 0.09375, 0.375]"
+      ]
+     }
+    },
+    "1.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 8,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "1"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[0.125, 0.125, 0.125, 0.5]"
+      ]
+     }
+    }
+   },
+   "moving": {
+    "bd.scale": {
+     "0.0": {
+      "160": 0.5
+     },
+     "0.125": {
+      "160": 0.5
+     },
+     "0.25": {
+      "160": 0.5
+     },
+     "0.375": {
+      "160": 0.5
+     },
+     "0.75": {
+      "128": 0.25
+     },
+     "0.875": {
+      "128": 0.25,
+      "44": 0.25,
+      "64": 0.25,
+      "80": 0.25,
+      "96": 0.25
+     },
+     "1.0": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     }
+    },
+    "glassBackground.inputBlurFillDarkenOpacity": {
+     "0.0": {
+      "128": 0.675,
+      "160": 0.675,
+      "44": 0.675,
+      "64": 0.675,
+      "80": 0.675,
+      "96": 0.675
+     },
+     "0.125": {
+      "128": 0.73125,
+      "160": 0.73125,
+      "44": 0.73125,
+      "64": 0.73125,
+      "80": 0.73125,
+      "96": 0.73125
+     },
+     "0.25": {
+      "128": 0.7875,
+      "160": 0.7875,
+      "44": 0.7875,
+      "64": 0.7875,
+      "80": 0.7875,
+      "96": 0.7875
+     },
+     "0.375": {
+      "128": 0.84375,
+      "160": 0.84375,
+      "44": 0.84375,
+      "64": 0.84375,
+      "80": 0.84375,
+      "96": 0.84375
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "0.0": {
+      "128": 0,
+      "160": 0,
+      "44": 0,
+      "64": 0,
+      "80": 0,
+      "96": 0
+     },
+     "0.125": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     },
+     "0.25": {
+      "128": 0.25,
+      "160": 0.25,
+      "44": 0.25,
+      "64": 0.25,
+      "80": 0.25,
+      "96": 0.25
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "44": 0.375,
+      "64": 0.375,
+      "80": 0.375,
+      "96": 0.375
+     },
+     "0.625": {
+      "128": 0.625,
+      "160": 0.625,
+      "44": 0.625,
+      "64": 0.625,
+      "80": 0.625,
+      "96": 0.625
+     },
+     "0.75": {
+      "128": 0.75,
+      "160": 0.75,
+      "44": 0.75,
+      "64": 0.75,
+      "80": 0.75,
+      "96": 0.75
+     },
+     "0.875": {
+      "128": 0.875,
+      "160": 0.875,
+      "44": 0.875,
+      "64": 0.875,
+      "80": 0.875,
+      "96": 0.875
+     },
+     "1.0": {
+      "128": 1,
+      "160": 1,
+      "44": 1,
+      "64": 1,
+      "80": 1,
+      "96": 1
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "0.0": {
+      "128": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "160": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "44": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "64": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "80": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ],
+      "96": [
+       0.125,
+       0.125,
+       0.125,
+       0
+      ]
+     },
+     "0.125": {
+      "128": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "160": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "44": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "64": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "80": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ],
+      "96": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0
+      ]
+     },
+     "0.25": {
+      "128": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "160": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "44": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "64": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "80": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ],
+      "96": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0
+      ]
+     },
+     "0.375": {
+      "128": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "160": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "44": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "64": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "80": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ],
+      "96": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0
+      ]
+     },
+     "0.625": {
+      "128": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "160": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "44": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "64": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "80": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ],
+      "96": [
+       0.03125,
+       0.03125,
+       0.03125,
+       0.125
+      ]
+     },
+     "0.75": {
+      "128": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "160": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "44": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "64": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "80": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ],
+      "96": [
+       0.0625,
+       0.0625,
+       0.0625,
+       0.25
+      ]
+     },
+     "0.875": {
+      "128": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "160": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "44": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "64": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "80": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ],
+      "96": [
+       0.09375,
+       0.09375,
+       0.09375,
+       0.375
+      ]
+     },
+     "1.0": {
+      "128": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "160": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "44": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "64": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "80": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ],
+      "96": [
+       0.125,
+       0.125,
+       0.125,
+       0.5
+      ]
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLuma": {
+     "0.0": {
+      "128": 0.45,
+      "160": 0.45,
+      "80": 0.54,
+      "96": 0.48
+     },
+     "0.125": {
+      "128": 0.425,
+      "160": 0.425,
+      "80": 0.53,
+      "96": 0.46
+     },
+     "0.25": {
+      "128": 0.4,
+      "160": 0.4,
+      "80": 0.52,
+      "96": 0.44
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "80": 0.51,
+      "96": 0.42
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+     "0.0": {
+      "128": 0.45,
+      "160": 0.45,
+      "80": 0.54,
+      "96": 0.48
+     },
+     "0.125": {
+      "128": 0.425,
+      "160": 0.425,
+      "80": 0.53,
+      "96": 0.46
+     },
+     "0.25": {
+      "128": 0.4,
+      "160": 0.4,
+      "80": 0.52,
+      "96": 0.44
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "80": 0.51,
+      "96": 0.42
+     }
+    }
+   },
+   "ramps": {
+    "bd.scale": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.09375,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.5
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.09375,
+        "points": 5,
+        "slope": -0.25
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.25,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "160": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.25,
+       "0.625": 0.25,
+       "0.75": 0.25,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "44": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "64": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "80": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "96": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      }
+     }
+    },
+    "glassBackground.inputBlurFillDarkenOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "160": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "44": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "64": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "80": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "96": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      }
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0,
+       "0.25": 0,
+       "0.375": 0,
+       "0.5": 0,
+       "0.625": 0.125,
+       "0.75": 0.25,
+       "0.875": 0.375,
+       "1.0": 0.5
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLuma": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.08
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.16
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "160": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "44": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "64": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "80": {
+       "0.0": 0.54,
+       "0.125": 0.53,
+       "0.25": 0.52,
+       "0.375": 0.51,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0.48,
+       "0.125": 0.46,
+       "0.25": 0.44,
+       "0.375": 0.42,
+       "0.5": 0.4,
+       "0.625": 0.4,
+       "0.75": 0.4,
+       "0.875": 0.4,
+       "1.0": 0.4
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixMaxLumaSDR": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.2
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.08
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": -0.16
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "160": {
+       "0.0": 0.45,
+       "0.125": 0.425,
+       "0.25": 0.4,
+       "0.375": 0.375,
+       "0.5": 0.35,
+       "0.625": 0.35,
+       "0.75": 0.35,
+       "0.875": 0.35,
+       "1.0": 0.35
+      },
+      "44": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "64": {
+       "0.0": 0.6,
+       "0.125": 0.6,
+       "0.25": 0.6,
+       "0.375": 0.6,
+       "0.5": 0.6,
+       "0.625": 0.6,
+       "0.75": 0.6,
+       "0.875": 0.6,
+       "1.0": 0.6
+      },
+      "80": {
+       "0.0": 0.54,
+       "0.125": 0.53,
+       "0.25": 0.52,
+       "0.375": 0.51,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0.48,
+       "0.125": 0.46,
+       "0.25": 0.44,
+       "0.375": 0.42,
+       "0.5": 0.4,
+       "0.625": 0.4,
+       "0.75": 0.4,
+       "0.875": 0.4,
+       "1.0": 0.4
+      }
+     }
+    }
+   }
+  },
+  "2x-light-active": {
+   "departuresByX": {
+    "0.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.675"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[1, 1, 1, 0]"
+      ]
+     }
+    },
+    "0.125": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.73125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.05]"
+      ]
+     }
+    },
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[1, 1, 1, 0.1]"
+      ]
+     }
+    },
+    "0.375": {
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.84375"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.375"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.15]"
+      ]
+     }
+    },
+    "0.5": {},
+    "0.625": {
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.625"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.275]"
+      ]
+     }
+    },
+    "0.75": {
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.75"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.35]"
+      ]
+     }
+    },
+    "0.875": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.875"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.425]"
+      ]
+     }
+    },
+    "1.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 8,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "1"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[1, 1, 1, 0.5]"
+      ]
+     }
+    }
+   },
+   "moving": {
+    "bd.scale": {
+     "0.0": {
+      "160": 0.5
+     },
+     "0.125": {
+      "160": 0.5
+     },
+     "0.25": {
+      "160": 0.5
+     },
+     "0.875": {
+      "128": 0.25
+     },
+     "1.0": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     }
+    },
+    "glassBackground.inputBlurFillLightenOpacity": {
+     "0.0": {
+      "128": 0.675,
+      "160": 0.675,
+      "44": 0.675,
+      "64": 0.675,
+      "80": 0.675,
+      "96": 0.675
+     },
+     "0.125": {
+      "128": 0.73125,
+      "160": 0.73125,
+      "44": 0.73125,
+      "64": 0.73125,
+      "80": 0.73125,
+      "96": 0.73125
+     },
+     "0.25": {
+      "128": 0.7875,
+      "160": 0.7875,
+      "44": 0.7875,
+      "64": 0.7875,
+      "80": 0.7875,
+      "96": 0.7875
+     },
+     "0.375": {
+      "128": 0.84375,
+      "160": 0.84375,
+      "44": 0.84375,
+      "64": 0.84375,
+      "80": 0.84375,
+      "96": 0.84375
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "0.0": {
+      "128": 0,
+      "160": 0,
+      "44": 0,
+      "64": 0,
+      "80": 0,
+      "96": 0
+     },
+     "0.125": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     },
+     "0.25": {
+      "128": 0.25,
+      "160": 0.25,
+      "44": 0.25,
+      "64": 0.25,
+      "80": 0.25,
+      "96": 0.25
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "44": 0.375,
+      "64": 0.375,
+      "80": 0.375,
+      "96": 0.375
+     },
+     "0.625": {
+      "128": 0.625,
+      "160": 0.625,
+      "44": 0.625,
+      "64": 0.625,
+      "80": 0.625,
+      "96": 0.625
+     },
+     "0.75": {
+      "128": 0.75,
+      "160": 0.75,
+      "44": 0.75,
+      "64": 0.75,
+      "80": 0.75,
+      "96": 0.75
+     },
+     "0.875": {
+      "128": 0.875,
+      "160": 0.875,
+      "44": 0.875,
+      "64": 0.875,
+      "80": 0.875,
+      "96": 0.875
+     },
+     "1.0": {
+      "128": 1,
+      "160": 1,
+      "44": 1,
+      "64": 1,
+      "80": 1,
+      "96": 1
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "0.0": {
+      "128": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0
+      ]
+     },
+     "0.125": {
+      "128": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.05
+      ]
+     },
+     "0.25": {
+      "128": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.1
+      ]
+     },
+     "0.375": {
+      "128": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.15
+      ]
+     },
+     "0.625": {
+      "128": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.275
+      ]
+     },
+     "0.75": {
+      "128": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.35
+      ]
+     },
+     "0.875": {
+      "128": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.425
+      ]
+     },
+     "1.0": {
+      "128": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.5
+      ]
+     }
+    }
+   },
+   "ramps": {
+    "bd.scale": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.125,
+        "points": 5,
+        "slope": -0.5
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.09375,
+        "points": 5,
+        "slope": -0.25
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.28125,
+        "points": 5,
+        "slope": -0.75
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "160": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.25,
+       "0.5": 0.25,
+       "0.625": 0.25,
+       "0.75": 0.25,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "44": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      },
+      "64": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      },
+      "80": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      },
+      "96": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.5,
+       "1.0": 0.125
+      }
+     }
+    },
+    "glassBackground.inputBlurFillLightenOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "160": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "44": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "64": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "80": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "96": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      }
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      }
+     }
+    }
+   }
+  },
+  "2x-light-receded": {
+   "departuresByX": {
+    "0.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.675"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[1, 1, 1, 0]"
+      ]
+     }
+    },
+    "0.125": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.73125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.05]"
+      ]
+     }
+    },
+    "0.25": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.5"
+      ]
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.7875"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[1, 1, 1, 0.1]"
+      ]
+     }
+    },
+    "0.375": {
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.84375"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.375"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.15]"
+      ]
+     }
+    },
+    "0.5": {},
+    "0.625": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.625"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.275]"
+      ]
+     }
+    },
+    "0.75": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 1,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.75"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.35]"
+      ]
+     }
+    },
+    "0.875": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 5,
+      "values": [
+       "0.25"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "0.875"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 6,
+      "values": [
+       "[1, 1, 1, 0.425]"
+      ]
+     }
+    },
+    "1.0": {
+     "bd.scale": {
+      "layer": "law",
+      "scenes": 8,
+      "values": [
+       "0.125"
+      ]
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "1"
+      ]
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "layer": "constant",
+      "scenes": 8,
+      "values": [
+       "[1, 1, 1, 0.5]"
+      ]
+     }
+    }
+   },
+   "moving": {
+    "bd.scale": {
+     "0.0": {
+      "160": 0.5
+     },
+     "0.125": {
+      "160": 0.5
+     },
+     "0.25": {
+      "160": 0.5
+     },
+     "0.625": {
+      "128": 0.25
+     },
+     "0.75": {
+      "128": 0.25
+     },
+     "0.875": {
+      "128": 0.25,
+      "44": 0.25,
+      "64": 0.25,
+      "80": 0.25,
+      "96": 0.25
+     },
+     "1.0": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     }
+    },
+    "glassBackground.inputBlurFillLightenOpacity": {
+     "0.0": {
+      "128": 0.675,
+      "160": 0.675,
+      "44": 0.675,
+      "64": 0.675,
+      "80": 0.675,
+      "96": 0.675
+     },
+     "0.125": {
+      "128": 0.73125,
+      "160": 0.73125,
+      "44": 0.73125,
+      "64": 0.73125,
+      "80": 0.73125,
+      "96": 0.73125
+     },
+     "0.25": {
+      "128": 0.7875,
+      "160": 0.7875,
+      "44": 0.7875,
+      "64": 0.7875,
+      "80": 0.7875,
+      "96": 0.7875
+     },
+     "0.375": {
+      "128": 0.84375,
+      "160": 0.84375,
+      "44": 0.84375,
+      "64": 0.84375,
+      "80": 0.84375,
+      "96": 0.84375
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "0.0": {
+      "128": 0,
+      "160": 0,
+      "44": 0,
+      "64": 0,
+      "80": 0,
+      "96": 0
+     },
+     "0.125": {
+      "128": 0.125,
+      "160": 0.125,
+      "44": 0.125,
+      "64": 0.125,
+      "80": 0.125,
+      "96": 0.125
+     },
+     "0.25": {
+      "128": 0.25,
+      "160": 0.25,
+      "44": 0.25,
+      "64": 0.25,
+      "80": 0.25,
+      "96": 0.25
+     },
+     "0.375": {
+      "128": 0.375,
+      "160": 0.375,
+      "44": 0.375,
+      "64": 0.375,
+      "80": 0.375,
+      "96": 0.375
+     },
+     "0.625": {
+      "128": 0.625,
+      "160": 0.625,
+      "44": 0.625,
+      "64": 0.625,
+      "80": 0.625,
+      "96": 0.625
+     },
+     "0.75": {
+      "128": 0.75,
+      "160": 0.75,
+      "44": 0.75,
+      "64": 0.75,
+      "80": 0.75,
+      "96": 0.75
+     },
+     "0.875": {
+      "128": 0.875,
+      "160": 0.875,
+      "44": 0.875,
+      "64": 0.875,
+      "80": 0.875,
+      "96": 0.875
+     },
+     "1.0": {
+      "128": 1,
+      "160": 1,
+      "44": 1,
+      "64": 1,
+      "80": 1,
+      "96": 1
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "0.0": {
+      "128": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0
+      ]
+     },
+     "0.125": {
+      "128": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.05
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.05
+      ]
+     },
+     "0.25": {
+      "128": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.1
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.1
+      ]
+     },
+     "0.375": {
+      "128": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.15
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.15
+      ]
+     },
+     "0.625": {
+      "128": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.275
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.275
+      ]
+     },
+     "0.75": {
+      "128": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.35
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.35
+      ]
+     },
+     "0.875": {
+      "128": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.425
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.425
+      ]
+     },
+     "1.0": {
+      "128": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "160": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "44": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "64": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "80": [
+       1,
+       1,
+       1,
+       0.5
+      ],
+      "96": [
+       1,
+       1,
+       1,
+       0.5
+      ]
+     }
+    }
+   },
+   "ramps": {
+    "bd.scale": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.15625,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.125,
+        "points": 5,
+        "slope": -0.5
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.09375,
+        "points": 5,
+        "slope": -0.25
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.1875,
+        "points": 5,
+        "slope": -0.75
+       }
+      }
+     },
+     "spanInvariant": false,
+     "values": {
+      "128": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.25,
+       "0.75": 0.25,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "160": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.25,
+       "0.5": 0.25,
+       "0.625": 0.25,
+       "0.75": 0.25,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "44": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "64": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "80": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      },
+      "96": {
+       "0.0": 0.5,
+       "0.125": 0.5,
+       "0.25": 0.5,
+       "0.375": 0.5,
+       "0.5": 0.5,
+       "0.625": 0.5,
+       "0.75": 0.5,
+       "0.875": 0.25,
+       "1.0": 0.125
+      }
+     }
+    },
+    "glassBackground.inputBlurFillLightenOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.45
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "160": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "44": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "64": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "80": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      },
+      "96": {
+       "0.0": 0.675,
+       "0.125": 0.73125,
+       "0.25": 0.7875,
+       "0.375": 0.84375,
+       "0.5": 0.9,
+       "0.625": 0.9,
+       "0.75": 0.9,
+       "0.875": 0.9,
+       "1.0": 0.9
+      }
+     }
+    },
+    "glassBackground.inputBlurFillNormalOpacity": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 1.0
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0.125,
+       "0.25": 0.25,
+       "0.375": 0.375,
+       "0.5": 0.5,
+       "0.625": 0.625,
+       "0.75": 0.75,
+       "0.875": 0.875,
+       "1.0": 1
+      }
+     }
+    },
+    "glassBackground.inputFaceColorMatrixFillColor": {
+     "piecewise": {
+      "128": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "160": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "44": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "64": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "80": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      },
+      "96": {
+       "[0, 0.5]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.4
+       },
+       "[0.5, 1]": {
+        "maxResidual": 0.0,
+        "points": 5,
+        "slope": 0.6
+       }
+      }
+     },
+     "spanInvariant": true,
+     "values": {
+      "128": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "160": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "44": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "64": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "80": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      },
+      "96": {
+       "0.0": 0,
+       "0.125": 0.05,
+       "0.25": 0.1,
+       "0.375": 0.15,
+       "0.5": 0.2,
+       "0.625": 0.275,
+       "0.75": 0.35,
+       "0.875": 0.425,
+       "1.0": 0.5
+      }
+     }
+    }
+   }
+  }
+ },
+ "positions": [
+  0.0,
+  0.125,
+  0.25,
+  0.375,
+  0.5,
+  0.625,
+  0.75,
+  0.875,
+  1.0
+ ],
+ "scale": {
+  "x0.25 dark-active dark-solid__capsule-button__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 dark-active dark-solid__rrect-64__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 dark-active dark-solid__rrect-80__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 dark-active dark-solid__rrect-lg__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 dark-active dark-solid__rrect-md__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 dark-active dark-solid__rrect-ml__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 dark-receded dark-solid__capsule-button__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 dark-receded dark-solid__rrect-64__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 dark-receded dark-solid__rrect-80__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 dark-receded dark-solid__rrect-lg__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 dark-receded dark-solid__rrect-md__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 dark-receded dark-solid__rrect-ml__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 light-active dark-solid__capsule-button__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 light-active dark-solid__rrect-64__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 light-active dark-solid__rrect-80__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 light-active dark-solid__rrect-lg__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 light-active dark-solid__rrect-md__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 light-active dark-solid__rrect-ml__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight"
+   ]
+  },
+  "x0.25 light-receded dark-solid__capsule-button__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 light-receded dark-solid__rrect-64__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 light-receded dark-solid__rrect-80__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 light-receded dark-solid__rrect-lg__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 light-receded dark-solid__rrect-md__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  },
+  "x0.25 light-receded dark-solid__rrect-ml__rest": {
+   "beyondMemoD": [],
+   "differing": [
+    "bd.marginWidth",
+    "glassBackground.inputKeyFillHighlightEffectOffset",
+    "glassBackground.inputKeyFillHighlightHeight",
+    "out.effect.maximum"
+   ]
+  }
+ }
+}

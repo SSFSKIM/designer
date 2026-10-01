@@ -100,8 +100,8 @@ import {
   type SceneState,
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
-import { assertScratchDestination } from "../src/matrix-write-guard";
-import { assertStageRun, stageMatrixPath, validateStageRows } from "../src/generation-stage";
+import { assertScratchDestination, withinTree } from "../src/matrix-write-guard";
+import { assertStageRun, stageMatrixPath, stageOfDestination, validateStageRows } from "../src/generation-stage";
 import {
   capturePoseRefusal,
   colourlessTintEvidence,
@@ -117,6 +117,18 @@ import {
 } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
 import { isNativeOnly } from "../src/component-region";
+import {
+  crossPositionRefusal,
+  documentPosition,
+  glassToken,
+  keyPosition,
+  selectShippedDocument,
+  type MaterialPosition,
+} from "../src/material-selection";
+import { readCandidateDocument, type CandidateDocument } from "../scripts/candidate-document";
+import { readMaterialProfileFile } from "../scripts/material-profile-file";
+import { crossPositionVerdict } from "../src/document-position";
+import { SHIPPED_MATERIAL_PROFILE_DOCUMENTS } from "@vitreajs/vitrea-web";
 import { declaredComponentOf, readSceneGeometry, type SceneGeometryMatrix } from "./scene-geometry";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -277,6 +289,22 @@ interface Options {
    * scene's declared state asks for it.
    */
   readonly recededProfile: string | undefined;
+  /**
+   * Candidate mode (W43 G0 (f)): a declaration naming a complete material document by hash,
+   * which `capture-web` reads and the page builds the root from. It takes neither flag above
+   * beside it, and it never enters a stage: a stage is a publication, and a publication reads
+   * a shipped material in strict mode. Its rows carry the candidate stamp in `capturePath`.
+   */
+  readonly candidateDocument: string | undefined;
+  /**
+   * The declared cross-position reading (W43 G0 (f)): a candidate, or the shipped material a
+   * keyed `--material-profile` selects, read against fixtures at another glass position, for
+   * the deliberate comparisons (the bridge, the w-test). Without it such a run is refused;
+   * with it every planned profile must be at another position, every capture's `capturePath`
+   * and report carry the stamp, and the run is scratch only: no stage, no canonical tree, and
+   * `matrix publish` refuses a stamped row whatever route brought it.
+   */
+  readonly crossPosition: boolean;
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
   readonly stage: string | undefined;
@@ -355,6 +383,60 @@ function parseOptions(argv: readonly string[]): Options {
 
   const materialProfile = flag("material-profile");
   const recededProfile = flag("receded-profile");
+  const candidateDocument = flag("candidate-document");
+  // An --out-matrix inside a declared stage is that stage, whichever flag named it.
+  const stage = flag("stage") ??
+    (matrix === undefined ? undefined : stageOfDestination(resolve(PACKAGE_ROOT, matrix)));
+  if (candidateDocument !== undefined) {
+    if (materialProfile !== undefined || recededProfile !== undefined) {
+      throw new Error(
+        "compare: --candidate-document is a complete material and takes no --material-profile or " +
+          "--receded-profile beside it (W43 G0 (f))",
+      );
+    }
+    if (stage !== undefined) {
+      throw new Error(
+        `compare: --candidate-document cannot measure into the stage ${stage}, named by --stage ` +
+          "or by its matrix.json. A stage is a publication, " +
+          "and a publication reads a shipped material in strict mode; measure a candidate into a " +
+          "scratch --out-matrix (W43 G0 (f))",
+      );
+    }
+    // The canonical capture tree is what the sheets and the demo fixture are copied from and
+    // what `check-capture-tree` reads against the matrix, so a candidate's pixels stay out.
+    const tree = resolve(PACKAGE_ROOT, "web-captures");
+    const target = captures === undefined ? tree : resolve(captures);
+    if (withinTree(target, tree)) {
+      throw new Error(
+        `compare: --candidate-document would write its captures into the canonical tree ${tree}; ` +
+          "set VITREA_WEB_CAPTURES to a scratch directory (W43 G0 (f))",
+      );
+    }
+  }
+  if (argv.includes("--cross-position")) {
+    if (candidateDocument === undefined && materialProfile === undefined) {
+      throw new Error(
+        "compare: --cross-position declares a material read at another glass position, and this " +
+          "run names neither a --candidate-document nor a --material-profile (W43 G0 (f))",
+      );
+    }
+    if (stage !== undefined) {
+      throw new Error(
+        `compare: --cross-position cannot measure into the stage ${stage}, named by --stage or by ` +
+          "its matrix.json. A cross-position reading is a " +
+          "comparison between two materials and never a generation's row; measure it into a " +
+          "scratch --out-matrix (W43 G0 (f))",
+      );
+    }
+    const tree = resolve(PACKAGE_ROOT, "web-captures");
+    const target = captures === undefined ? tree : resolve(captures);
+    if (withinTree(target, tree)) {
+      throw new Error(
+        `compare: --cross-position would write its captures into the canonical tree ${tree}; ` +
+          "set VITREA_WEB_CAPTURES to a scratch directory (W43 G0 (f))",
+      );
+    }
+  }
   const scenes = list("scene");
   const profileKeys = list("profile");
 
@@ -379,12 +461,14 @@ function parseOptions(argv: readonly string[]): Options {
     allowColourlessTints: argv.includes("--allow-colourless-tints"),
     materialProfile: materialProfile === undefined ? undefined : resolve(process.cwd(), materialProfile),
     recededProfile: recededProfile === undefined ? undefined : resolve(process.cwd(), recededProfile),
+    candidateDocument:
+      candidateDocument === undefined ? undefined : resolve(process.cwd(), candidateDocument),
+    crossPosition: argv.includes("--cross-position"),
     webAccessibility,
-    stage: flag("stage") === undefined ? undefined : resolve(flag("stage")!),
-    matrixPath: flag("stage") === undefined
-      ? resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json")
-      : stageMatrixPath(flag("stage")!, flag("out-matrix") === undefined
-        ? undefined : resolve(PACKAGE_ROOT, flag("out-matrix")!)),
+    stage: stage === undefined ? undefined : resolve(stage),
+    matrixPath: stage === undefined
+      ? resolve(PACKAGE_ROOT, matrix ?? "results/matrix.json")
+      : stageMatrixPath(stage, matrix === undefined ? undefined : resolve(PACKAGE_ROOT, matrix)),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
     silhouetteChromaThreshold: Number(
       flag("silhouette-chroma-threshold") ?? `${DEFAULT_SILHOUETTE_CHROMA_THRESHOLD}`,
@@ -588,6 +672,10 @@ function captureFor(planned: readonly PlannedCell[], options: Options): void {
     captureRootFor(first.profileKey, variant),
     ...(options.materialProfile === undefined ? [] : ["--material-profile", options.materialProfile]),
     ...(options.recededProfile === undefined ? [] : ["--receded-profile", options.recededProfile]),
+    ...(options.candidateDocument === undefined
+      ? [] : ["--candidate-document", options.candidateDocument]),
+    ...(options.crossPosition
+      ? ["--cross-position", glassToken(keyPosition(first.profileKey)?.glass)] : []),
     ...(options.alpha ? ["--alpha"] : []),
   ]);
 }
@@ -669,6 +757,38 @@ function main(): void {
     );
   }
 
+  /*
+   * The material's glass position against every planned profile's, before anything is
+   * captured (W43 G0 (f)), in both modes: a candidate's declared position, read through the
+   * reader `capture-web` uses; or the position of the shipped document a keyed
+   * `--material-profile` selects, through the page's own strict selection. So a `--skip-capture`
+   * re-measure is held to the same declaration as a run that captures. A bare patch file names
+   * no key, selects nothing and is read over the runtime's default, so it has no declared
+   * position to compare, and it cannot carry `--cross-position`.
+   */
+  const plannedKeys = [...new Set(planned.map((cell) => cell.profileKey))];
+  if (options.candidateDocument !== undefined) {
+    const candidate: CandidateDocument = readCandidateDocument(options.candidateDocument);
+    const refusal = crossPositionRefusal("candidate", candidate.document.glassTintAmount,
+      plannedKeys, options.crossPosition);
+    if (refusal !== undefined) throw new Error(refusal);
+  } else if (options.materialProfile !== undefined) {
+    const key = readMaterialProfileFile(options.materialProfile).profileKey;
+    if (key === undefined) {
+      if (options.crossPosition) {
+        throw new Error(
+          `--cross-position needs a material with a position, and ${options.materialProfile} is a ` +
+            "bare patch with no profileKey (W43 G0 (f))",
+        );
+      }
+    } else {
+      const position = documentPosition(selectShippedDocument(key, SHIPPED_MATERIAL_PROFILE_DOCUMENTS));
+      const refusal = crossPositionRefusal("shipped", (position as MaterialPosition).glass,
+        plannedKeys, options.crossPosition);
+      if (refusal !== undefined) throw new Error(refusal);
+    }
+  }
+
   if (options.sets.includes("holdout")) {
     process.stderr.write(
       `\n${"!".repeat(72)}\n` +
@@ -745,6 +865,22 @@ function main(): void {
         `${cell.profileKey} / ${cell.sceneId}: the ${options.renderer}-tier capture on disk predates ` +
           `this run — capture-web resolved another tier; check its FELL BACK line`,
       );
+      continue;
+    }
+
+    /*
+     * The capture's own documents decide its position, not this run's flags and not its stamp
+     * (W43 G0 review, finding 1). Under `--skip-capture` the capture on disk may come from any
+     * earlier run, so the gate above, which reads this run's options, says nothing about it.
+     */
+    const capturedPath =
+      (JSON.parse(readFileSync(webCell, "utf8")) as { capturePath: string }).capturePath;
+    const positionRefusal = crossPositionVerdict(
+      { profileKey: cell.profileKey, capturePath: capturedPath },
+      { crossPosition: options.crossPosition, authoritative: options.stage !== undefined,
+        repoRoot: REPO_ROOT });
+    if (positionRefusal !== undefined) {
+      failures.push(`${cell.profileKey} / ${cell.sceneId}: ${positionRefusal}`);
       continue;
     }
 
@@ -1088,6 +1224,12 @@ function main(): void {
   }
   if (options.materialProfile !== undefined) {
     say(`material profile applied to the web side: ${options.materialProfile}`);
+  }
+  if (options.candidateDocument !== undefined) {
+    say(`CANDIDATE material document drawn on the web side: ${options.candidateDocument}`);
+  }
+  if (options.crossPosition) {
+    say("CROSS-POSITION reading: the material sits at another glass position from these fixtures");
   }
 
   // Every profile's web-side accessibility state, printed whether or not the

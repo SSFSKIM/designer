@@ -1,0 +1,161 @@
+{
+  "declaration": "packages/calibration/results/2026-10-01-w43-g0-declaration/declaration.json",
+  "declarationSha256": "4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874",
+  "items": {
+    "bridgeCells": {
+      "afterCut": "the closing sentinel passes are the order's tail and run after any cut, the slider and mode 68 restored first (runAfterCut)",
+      "canonical": "six cells per canonical pass at 0.5, 3 runs, at the opening, against their -glass0.5 fixtures",
+      "canonicalCells": "light: dark-solid__capsule-button, photo__capsule-button tint-orange, mid-chroma-solid__rrect-md; dark: dark-solid__rrect-lg, checkerboard__capsule-button tint-orange, hc-text-28__rrect-md (text on rrect-md: an active rrect-sm has no region statistic under W42's instrument, so it could agree only by bytes)",
+      "captures": {
+        "G1a": 168,
+        "G1b": 84
+      },
+      "identityOnly": "none: every opening canonical cell carries a region statistic under W42's instrument in every pass (the parent's ruling; hc-text__rrect-sm, unanimous at W29 but no G0 (b) twin, was replaced by hc-text-28__rrect-md)",
+      "metric": "every run of every bridge cell pixel-identical to its reference, or every region statistic of that run within max(1 code, bar) of the reference (W42's instrument; W39's bar; the sentinels W42 G1's long-protocol bar); the coordinator's ruling: read run by run, never a plurality frame",
+      "sentinels": "f-impulse-rrect-md and f-checker64-rrect-lg at 0.5, long protocol, 3 runs per endpoint, at each sitting's opening and close, against W42 G1's long-protocol rows",
+      "stops": "at an opening: the sitting stops before any capture away from 0.5; at a close: nothing voided, the sitting's claims against 0.5 read as unbridged and the user rules before G3 (clause 3)",
+      "tints": "the four tinted bridge cells (photo__capsule-button and checkerboard__capsule-button, rest and inactive, tint-orange) are refereed by clause 3 against W29 fixtures the original harness tint-attested, which is stricter than the twin test; no W29-style tint pre-flight runs, because a check over 0.5 fixtures says nothing about 0.25 pixels (the parent's ruling)"
+    },
+    "canonicalBed": {
+      "accessibility": "none at 0.25 (DL 2 (b)); the 0.25 documents carry the 0.5 accessibility leaves, recorded as unmeasured",
+      "cellsPerRound": 562,
+      "keys": [
+        "apple-macos-27.0-1x-light-standard-glass0.25",
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "apple-macos-27.0-2x-light-standard-glass0.25",
+        "apple-macos-27.0-2x-dark-standard-glass0.25"
+      ],
+      "membership": "each list its -glass0.5 counterpart's verbatim; no scene, background, component, tint, split membership or existing profile moves",
+      "passes": "four, one scale and one pose each, both schemes (2x active 162, 2x receded 119, 1x the same); each derives a specification carrying the 0.25 keys alone",
+      "perScale": {
+        "dark": 117,
+        "light": 164
+      },
+      "publication": "plurality-published by materialize --frequency-settle into apps/reference-apple/fixtures/apple-macos-27.0-*-glass0.25/, the manifest's hardware block naming the side bundle; the per-profile count equal to the 0.5 count or each missing cell named",
+      "runs": 7,
+      "scenesVersion": 8
+    },
+    "ladderReadings": {
+      "T": "T(x) per endpoint, channel and stratum (capsule t = 0, rrect-md s = 96): the probe greys' deep medians at x = 0, 0.25, 1 (seven levels), 0.75 (0, 128, 208, 255) and W42's at 0.5 (plurality frames)",
+      "bodyAt0": "the free side reads C directly (M(0) - C, predicted 0); the lifted side reads C with the hinge at the declared lambda(0) = 0.675",
+      "bodyAt1": "M = W on both sides under LT: the free and lifted region medians' symmetry (memo C's mirror statistic) and the step and patch profiles, read through the 0.125 capture scale memo F declares at x = 1 on every shape",
+      "freeSide": "M_x = T_x^-1(y_x) on the w-test's supported free-side regions at x = 0, 0.25, 0.5 and 1 (and 0.75 where its two cores are supported), against the affine M(x) = C + x (W - C): M(0) - C, the slope, and the largest residual from the line through x = 0 and 1",
+      "status": "descriptive: no fit claimed, no gate reads it (clause 9); written for the next structure wave and the continuous slider's charter, with a recommendation on its form and the fewest generations it needs"
+    },
+    "probeBed": {
+      "addedBeforeHash": "bp-p1-c32-rrect-64 (P1 at pitch 32 on rrect-64, t = 0): rehearsal 3 left each receded endpoint one 12-px capsule region; this W42 calibration cell is supported in all four endpoints (wtest/proposal-p2.txt)",
+      "captures": 1180,
+      "endpoints": "2x light active, light receded, dark active, dark receded",
+      "ids": "W42's declared bed, ids, backgrounds, components and split roles verbatim (calibration and validation only); every 0.5 counterpart present in w42-archive",
+      "order": "0.25, then 1, 0, 0.75; a stop drops from the bottom: 0.75, then 0, then 1, then the probe (X47)",
+      "positions": [
+        {
+          "cellsPerEndpoint": 29,
+          "kind": "probe",
+          "x": 0.25
+        },
+        {
+          "cellsPerEndpoint": 29,
+          "kind": "ladder",
+          "x": 1
+        },
+        {
+          "cellsPerEndpoint": 29,
+          "kind": "ladder",
+          "x": 0
+        },
+        {
+          "cellsPerEndpoint": 10,
+          "kind": "ladder",
+          "x": 0.75
+        }
+      ],
+      "publication": "never filed as fixtures; archived as w43-archive-g1b by SHA-256 and bytes, the bar published from the archive",
+      "references": "one recaptured per pass in run 1 (ref-checker-64-048-208); the rest are W42's",
+      "runs": 3
+    },
+    "repeatsAndBar": {
+      "archives": "w43-archive-g1a and w43-archive-g1b, each complete, published by SHA-256 and bytes, a second owner-controlled copy, replayed identically with the raw root denied; each distinct frame stored once",
+      "bar": "per cell, region statistic and channel: 0.5 + 0.5 x the largest pairwise separation of the run medians, computed from the archive before plurality and published before G2 reads",
+      "canonicalRuns": 7,
+      "probeRuns": 3
+    },
+    "sitting-g1a": {
+      "modelledHours": 11.21,
+      "order": "0.5 at mode 68: the pose check, the opening bridges at 2x; 0.5 at mode 69: the opening bridges at 1x; 0.25: dump sentinels and the canonical passes, 2x at mode 68 then 1x at mode 69; 0.5: the closing W42 sentinels at 1x, then 2x, ending at mode 68",
+      "plan": "bed/sitting-g1a.json",
+      "planSha256": "9d0c276a9f7ff4028561bded132109a03ca866de120e5501da57967aca512339",
+      "schema": "w43-sitting-plan-1",
+      "timing": "bed/timing-g1a.txt: G0 (d)'s timing.py (w43-g0-sitting d92190b4), W42 G1's measured rates",
+      "totals": {
+        "captureLaunches": 89,
+        "captures": 4103,
+        "dumpLaunches": 8,
+        "dumpScenes": 48,
+        "modeSwitches": 4,
+        "publishedCells": 562,
+        "sliderWrites": 2
+      },
+      "validatedBy": "G0 (d)'s final pass-spec.py, w43-g0-sitting d32cf72d (file SHA-256 d739887eefb41c5c70c4eab156404788089fac18e7a042a56b1a8b8c884b7fc4): validate_plan accepts the plan, plan_counts gives the totals; timing.py is unchanged since d92190b4",
+      "withStopLossHours": 12.33
+    },
+    "sitting-g1b": {
+      "dumpScenesAgainstCharter": "96 dump scenes, six per endpoint at each of the four positions, against the 72 the charter priced",
+      "modelledHours": 3.7,
+      "order": "mode 68 throughout. 0.5: the pose check and the opening bridges; then 0.25 (the probe), 1, 0 and 0.75 (the ladder), each opening with its dump sentinels, one capture pass per pose over both schemes; 0.5: the closing sentinels. The original bundle's restore follows, by hand (clause 6)",
+      "plan": "bed/sitting-g1b.json",
+      "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+      "schema": "w43-sitting-plan-1",
+      "timing": "bed/timing-g1b.txt: G0 (d)'s timing.py (w43-g0-sitting d92190b4), W42 G1's measured rates",
+      "totals": {
+        "captureLaunches": 55,
+        "captures": 1265,
+        "dumpLaunches": 16,
+        "dumpScenes": 96,
+        "modeSwitches": 0,
+        "publishedCells": 0,
+        "sliderWrites": 5
+      },
+      "validatedBy": "G0 (d)'s final pass-spec.py, w43-g0-sitting d32cf72d (file SHA-256 d739887eefb41c5c70c4eab156404788089fac18e7a042a56b1a8b8c884b7fc4): validate_plan accepts the plan, plan_counts gives the totals; timing.py is unchanged since d92190b4",
+      "withStopLossHours": 4.08
+    },
+    "wTestPrediction": {
+      "basis": "memo F: between 0.25 and 0.5 no input that sets C or W moves on the support shapes (s = 44, 64, 96); Normal reads exactly 0.25 and 0.5; lambda (0.9 -> 0.7875) does not enter the free side; the face fill and the dark cap move and are T, inverted natively at each position from that position's greys",
+      "liftedSide": "read and reported, never gated: the declared lambda25 is 0.7875 in both schemes, against W42's fitted lambda50 scaled by 0.875 or shifted by -0.1125",
+      "prediction": "on the free side (light C >= W, dark C <= W), r = (T25^-1(y25) - C) / (T50^-1(y50) - C) = w(0.25) / w(0.5) = 0.5",
+      "refutes": "a FAIL refutes the composite's slider coupling on the free side; either verdict redirects the next structure wave and lands nothing (clause 8, Decision Log 4)",
+      "statedIn": [
+        "2x-dark-active",
+        "2x-dark-receded",
+        "2x-light-active",
+        "2x-light-receded"
+      ]
+    },
+    "wTestStatistic": {
+      "addedBeforeHash": "bp-p1-c32-rrect-64 joined the probe (proposal P2) so that no receded endpoint rests on one 12-px region",
+      "liftedSide": "r_lift = (w25 + lam25 (1 - w25)) / (w50 + lam50 (1 - w50)) and lam25, read and reported, never gated",
+      "prediction": "wtest/prediction.json: stated in all four endpoints, r_pred = 0.5 (item wTestPrediction)",
+      "rehearsals": {
+        "r1": "synthetic LT, 40 seeds a scenario: null PASS in every seed of 64 scenarios (size 0), |r - 0.5| <= 0.069, z <= 0.82 (dr honest); every seed FAILs at r = 0.7 and 1.0; the free-side r is unmoved by lam25 in all 64 checks; the per-pixel mean statistic is not honest (null pass 0.95, z 1.3) and is not declared",
+        "r2": "two-sided linear control, 40 seeds: free 0.47-0.52 and lifted 0.43-0.50 agree within dr; with the hinge the lifted reading matches its expectation and lam25 is recovered to +-0.02",
+        "r3": "W42's 0.5 frames: supported regions 4 / 2 / 3 / 2 (light active, light receded, dark active, dark receded), every one at predicted dr <= 0.094"
+      },
+      "resolution": "dr = (dM25 + |r| dM50) / |M50 - C|, dM = (0.5 median quantisation + 0.5 ordinate quantisation + the T table's interpolation error from the three nearest ordinates' curvature) / T's slope",
+      "statistic": "per supported free-side region and channel, r = (T25^-1(y25) - C) / (T50^-1(y50) - C), averaged over channels; y the region median of the plurality frame (three runs at 0.25, W42's seven at 0.5); T_x native per channel and stratum through the probe's own greys at x (W42's at 0.5); C the backdrop's declared level",
+      "support": {
+        "file": "wtest/support.json, fixed at the hash",
+        "liftedReported": "lifted-side regions are listed beside the free ones (reported, never gated)",
+        "note": "mostly t = 0 (capsule, rrect-64); the pitch-16 checkers drop out everywhere",
+        "rule": "W42 region populations on the free level (light the brighter, dark the darker), per pixel |C - level| <= 0.5 code and |W - C| >= 24 codes under LT's maps for every k in [1.4, 2.5]; >= 12 px; |M50 - C| >= 12 codes; predicted dr <= 0.10; X21 censoring (>= 250 or <= 5) excludes at 0.5 and makes a 0.25 statistic UNMEASURED; in dark at s >= 96 an inverted M above 208 excluded",
+        "supportedRegionsPerEndpoint": {
+          "dark-inactive": 2,
+          "dark-rest": 3,
+          "light-inactive": 2,
+          "light-rest": 4
+        }
+      },
+      "verdict": "per endpoint: PASS iff |r - 0.5| <= dr on every supported, measured region (at least one); FAIL otherwise, with the measured r; no region measured is UNMEASURED"
+    }
+  },
+  "schema": "w43-closure-1"
+}

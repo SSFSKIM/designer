@@ -1,0 +1,398 @@
+{
+  "schema": "w43-bridge-cells-1",
+  "charter": "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md",
+  "slider": 0.5,
+  "runs": 3,
+  "sentinels": {
+    "cells": [
+      "f-impulse-rrect-md",
+      "f-checker64-rrect-lg"
+    ],
+    "scenesFile": {
+      "path": "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json",
+      "sha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0"
+    },
+    "protocol": "long",
+    "when": "opening and close of each sitting",
+    "byEndpoint": {
+      "2x-light-active": {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__rest",
+          "f-checker64-rrect-lg__rest"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      },
+      "2x-light-receded": {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__inactive",
+          "f-checker64-rrect-lg__inactive"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      },
+      "2x-dark-active": {
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__rest",
+          "f-checker64-rrect-lg__rest"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      },
+      "2x-dark-receded": {
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__inactive",
+          "f-checker64-rrect-lg__inactive"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      },
+      "1x-light-active": {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__rest",
+          "f-checker64-rrect-lg__rest"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      },
+      "1x-light-receded": {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__inactive",
+          "f-checker64-rrect-lg__inactive"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      },
+      "1x-dark-active": {
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__rest",
+          "f-checker64-rrect-lg__rest"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      },
+      "1x-dark-receded": {
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "scenes": [
+          "f-impulse-rrect-md__inactive",
+          "f-checker64-rrect-lg__inactive"
+        ],
+        "reference": "w42-archive, W42 G1 sentinel rows (long protocol, 3 runs), probe role"
+      }
+    }
+  },
+  "canonical": {
+    "cells": {
+      "light": [
+        "dark-solid__capsule-button",
+        "photo__capsule-button@tint-orange",
+        "mid-chroma-solid__rrect-md"
+      ],
+      "dark": [
+        "dark-solid__rrect-lg",
+        "checkerboard__capsule-button@tint-orange",
+        "hc-text-28__rrect-md"
+      ]
+    },
+    "when": "opening of each sitting",
+    "byPass": {
+      "2x-active": [
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "dark-solid__capsule-button__rest",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__rest-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "mid-chroma-solid__rrect-md__rest",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "dark-solid__rrect-lg__rest",
+          "role": "probe",
+          "regionMasks": [
+            "n",
+            "w"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "checkerboard__capsule-button__rest-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "hc-text-28__rrect-md__rest",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        }
+      ],
+      "2x-receded": [
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "dark-solid__capsule-button__inactive",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__inactive-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "mid-chroma-solid__rrect-md__inactive",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "dark-solid__rrect-lg__inactive",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "checkerboard__capsule-button__inactive-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "hc-text-28__rrect-md__inactive",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        }
+      ],
+      "1x-active": [
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "dark-solid__capsule-button__rest",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__rest-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "mid-chroma-solid__rrect-md__rest",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "dark-solid__rrect-lg__rest",
+          "role": "probe",
+          "regionMasks": [
+            "n",
+            "w"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "checkerboard__capsule-button__rest-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "hc-text-28__rrect-md__rest",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        }
+      ],
+      "1x-receded": [
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "dark-solid__capsule-button__inactive",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__inactive-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "mid-chroma-solid__rrect-md__inactive",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "dark-solid__rrect-lg__inactive",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "checkerboard__capsule-button__inactive-tint-orange",
+          "role": "calibration",
+          "regionMasks": [
+            "n"
+          ]
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "hc-text-28__rrect-md__inactive",
+          "role": "probe",
+          "regionMasks": [
+            "n"
+          ]
+        }
+      ]
+    },
+    "scenesSha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+    "fixtureSha256": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange": "dc998f9a0e5ac35d2cc0fdfabaf3fc5b1e2a4155787229f47374c10be703be49",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange": "fcd54fa5ddd9255e2ffe2f78fb9389076260e8dec5b3d4e568e173ba299f5164",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": "223e3ecfd1543fbbb309956842324e8a79540ca76947935efc63022cb5dfc2a1",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "bd57bc945289319c4a42415c04e39d1f69f84aec97b8d0ed6b22483dcec6695f",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/hc-text-28__rrect-md__inactive": "044e444176081294cf0821f2d0ea5a76c3980cd1e0d27767ee72cda6a0654a8e",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/hc-text-28__rrect-md__rest": "546e9974ccc5db012ac548bbc934a76d17e9cf7e899e414c4983552d6af0e36c",
+      "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__inactive": "6fc35eab1f665b4287429db9ea85cfbf83ebf47d596a3f89a3bed97c95286327",
+      "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__rest": "c4733c8ef1cdde945c8f09b2874a4e696d2d006ff789635297ad03a438873d68",
+      "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__rrect-md__inactive": "f43fb24fb7c87e5b8b245f9cb93dabe8ba50d163b03ff526e259d4ff5b76342c",
+      "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest": "2cb69544bd5871fc28df40a60decb8b2259fca18def9226cce646aebaecbbc20",
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange": "02c3d930802f7b7fc33418ff46e89aadf1a4754ea47d2b7aec029cfbc73e6d78",
+      "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__rest-tint-orange": "baf11fdb94de86bbb95b34d13a2bd106c2a22691e2c9e57bd7d7857de86525dc",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange": "4282d91b1d8297f0742c7af278190d4706ae36c76a87d6afe159e2c413032019",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange": "4e148f0908bf39d32f20632fcff5171300a8b8854ed1891024031105bbdc1fc2",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": "81ba198a65a8c9841f3a30a65253b2765b1f87062627855222a7487d968a69cb",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "cbb451bce8c2d69d05ed422d082cbace0c8f0acf213c3dc1f67f773c2b217a7f",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text-28__rrect-md__inactive": "410e22a3f6eea576405ebd6faa0db8c8df374383dd075444ad25aaea9f6b8505",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text-28__rrect-md__rest": "d1f532bbb4f72549d9f10bbd947372167c7675678164b8c98cb5f0ab5454b9d5",
+      "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__inactive": "e11eaa67ede7c897d7540ac6b835318a8ad191797f884f685493e4f9918eb22f",
+      "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__rest": "91671b6ce0260488e99d4cabaa77abf723ab7dba717908522b8418aa50d8db84",
+      "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__inactive": "d2e44520ed5c21af9d0dccb59e975f12c3e5d597722f22521200c26c9216f742",
+      "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest": "66727424eecb744cdaab9d0e9fa9bcf2dbdf66c12b974e203827e19c89534a5e",
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange": "52af548e3cf7416b0cd528fc278e08b12046b62fe396d34fdf6f96d93346f3a9",
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest-tint-orange": "42511e1de156010edc8bfd60d42ee8a0d42427948f4a7fc9a0fadccba0a42916"
+    }
+  },
+  "coveredByG0b": [
+    "checkerboard__rrect-md (2x, all four window states)",
+    "checkerboard-64__rrect-lg (1x and 2x)",
+    "impulse__rrect-md (light, 1x and 2x)",
+    "photo__rrect-md (2x)"
+  ],
+  "metric": {
+    "agree": "EVERY run of every bridge cell agrees with its reference: pixel-identical to it, or every region statistic of that run within max(1 code, bar) of the reference (the coordinator's ruling: the gate reads every run, never a plurality frame)",
+    "bar": "0.5 + 0.5 x the largest pairwise separation of the run medians, per cell, region statistic and channel; the sentinels take W42 G1's long-protocol bar, a cell with no measured row the 0.5 floor",
+    "regions": "W42's instrument unchanged: forward.Cell at the cell's geometry, masks n and w active, n receded; regions.statistics",
+    "reader": "bridge/bridge.py (G0 (b))"
+  },
+  "stops": {
+    "before the sittings": "a disagreement goes to the user before the declaration is hashed (G0 (b): none)",
+    "at an opening": "stops that sitting before any capture away from 0.5",
+    "at a close": "voids nothing already admitted; G2 reads that sitting's claims against 0.5 as unbridged (X43) and the user rules before G3 opens"
+  },
+  "sittings": {
+    "G1a": {
+      "scales": [
+        "2x",
+        "1x"
+      ],
+      "sentinelEndpoints": [
+        "2x-light-active",
+        "2x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded",
+        "1x-light-active",
+        "1x-light-receded",
+        "1x-dark-active",
+        "1x-dark-receded"
+      ],
+      "canonicalPasses": [
+        "2x-active",
+        "2x-receded",
+        "1x-active",
+        "1x-receded"
+      ],
+      "captures": {
+        "sentinelsOpening": 48,
+        "sentinelsClose": 48,
+        "canonicalOpening": 72,
+        "total": 168
+      }
+    },
+    "G1b": {
+      "scales": [
+        "2x"
+      ],
+      "sentinelEndpoints": [
+        "2x-light-active",
+        "2x-light-receded",
+        "2x-dark-active",
+        "2x-dark-receded"
+      ],
+      "canonicalPasses": [
+        "2x-active",
+        "2x-receded"
+      ],
+      "captures": {
+        "sentinelsOpening": 24,
+        "sentinelsClose": 24,
+        "canonicalOpening": 36,
+        "total": 84
+      }
+    }
+  }
+}

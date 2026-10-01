@@ -41,6 +41,8 @@ beforeAll(() => {
   mkdirSync(mirrorSuperseded, { recursive: true });
   cpSync(join(PACKAGE_ROOT, "src"), join(mirrorPackage, "src"), { recursive: true });
   cpSync(join(PACKAGE_ROOT, "cli"), join(mirrorPackage, "cli"), { recursive: true });
+  // compare reads candidate and material documents through the drivers' readers (W43 G0 (f)).
+  cpSync(join(PACKAGE_ROOT, "scripts"), join(mirrorPackage, "scripts"), { recursive: true });
   copyFileSync(join(PACKAGE_ROOT, "package.json"), join(mirrorPackage, "package.json"));
   symlinkSync(join(PACKAGE_ROOT, "node_modules"), join(mirrorPackage, "node_modules"), "dir");
   symlinkSync(join(REFERENCE, "scenes.json"),

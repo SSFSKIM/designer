@@ -1,0 +1,59 @@
+W43 stand-in sitting length (timing.py; timing-stand-in.json has every input)
+REHEARSAL on the G1a-shaped STAND-IN (stand_in.py), not the declared plan: its bridge cells and
+dump scenes are stand_in.py's arbitrary picks. The declared plan is priced by --sitting g1a.
+
+Rates, from W42 G1's 88 admitted runs (packages/calibration/results/2026-09-30-w42-g1-sitting/attest):
+  long-1x    overhead   16.75 s + interval 16.0000 s x (n - 1)   [12 runs, n 2..2; fit unidentified]
+  long-2x    overhead   17.08 s + interval 16.0000 s x (n - 1)   [12 runs, n 2..2; fit unidentified]
+  normal-1x  overhead   10.88 s + interval 9.5333 s x (n - 1)   [28 runs, n 14..26; fit 2.14 + 9.4674 n]
+  normal-2x  overhead   11.43 s + interval 9.5322 s x (n - 1)   [28 runs, n 87..175; fit 7.15 + 9.4906 n]
+  dump       0.77 s + 8.3311 s x scenes   [8 launches, scenes [87, 92, 101, 107, 14, 16, 14, 16]]
+  gaps       0.75 s between runs of a pass, 1.15 s between passes, 7.74 s across a display switch [7.8, 7.7, 7.6]
+  slider     1.0 s a write (ASSUMED, not measured: W42 never wrote the slider inside a sitting)
+  excluded   2 stop gap(s) over 60 s: 2x-light-receded/run-3 -> 2x-light-receded/run-4 1137.2 s, 2x-light-receded/run-6 -> 2x-light-receded/run-7 277.5 s
+  self-check the model on W42 G1's own runs: 37046.8 s against a measured 37070.8 s (-24.0 s; in-sample, the medians' loss)
+
+Membership (g1a): 4,103 captures in 89 capture launches, 48 dump scenes in 8 dump launches, 2 slider writes, 4 display switches; 562 cells published
+
+  pose-check                       x=0.5   mode 68      1 captures (1 runs, normal)       11.4 s
+  open-w42-2x-light-active         x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+  open-w42-2x-light-receded        x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+  open-w42-2x-dark-active          x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+  open-w42-2x-dark-receded         x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+  open-canonical-2x-active         x=0.5   mode 68     18 captures (3 runs, normal)      178.8 s
+  open-canonical-2x-receded        x=0.5   mode 68     18 captures (3 runs, normal)      178.8 s
+  open-w42-1x-light-active         x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  open-w42-1x-light-receded        x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  open-w42-1x-dark-active          x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  open-w42-1x-dark-receded         x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  open-canonical-1x-active         x=0.5   mode 69     18 captures (3 runs, normal)      177.1 s
+  open-canonical-1x-receded        x=0.5   mode 69     18 captures (3 runs, normal)      177.1 s
+  dump-0.25-2x-light-active        x=0.25  mode 68      6 scenes                          50.8 s
+  dump-0.25-2x-light-receded       x=0.25  mode 68      6 scenes                          50.8 s
+  dump-0.25-2x-dark-active         x=0.25  mode 68      6 scenes                          50.8 s
+  dump-0.25-2x-dark-receded        x=0.25  mode 68      6 scenes                          50.8 s
+  bed-0.25-2x-active               x=0.25  mode 68   1134 captures (7 runs, normal)    10827.3 s
+  bed-0.25-2x-receded              x=0.25  mode 68    833 captures (7 runs, normal)     7958.1 s
+  dump-0.25-1x-light-active        x=0.25  mode 69      6 scenes                          50.8 s
+  dump-0.25-1x-light-receded       x=0.25  mode 69      6 scenes                          50.8 s
+  dump-0.25-1x-dark-active         x=0.25  mode 69      6 scenes                          50.8 s
+  dump-0.25-1x-dark-receded        x=0.25  mode 69      6 scenes                          50.8 s
+  bed-0.25-1x-active               x=0.25  mode 69   1134 captures (7 runs, normal)    10824.7 s
+  bed-0.25-1x-receded              x=0.25  mode 69    833 captures (7 runs, normal)     7955.2 s
+  close-w42-1x-light-active        x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  close-w42-1x-light-receded       x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  close-w42-1x-dark-active         x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  close-w42-1x-dark-receded        x=0.5   mode 69      6 captures (3 runs, long)         99.8 s
+  close-w42-2x-light-active        x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+  close-w42-2x-light-receded       x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+  close-w42-2x-dark-active         x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+  close-w42-2x-dark-receded        x=0.5   mode 68      6 captures (3 runs, long)        100.7 s
+
+captures     39892.3 s = 11.08 h
+dumps          406.1 s = 0.11 h
+boundaries      65.2 s (32: gaps, display switches, slider writes)
+TOTAL        40363.5 s = 11.21 h; 12.33 h with the charter's 10 % stop loss
+
+Charter G1a model: 4,103 captures, 11.26 h modelled, about 12.4 h at the Mac (charter Design, "The two sittings": G1a total, W42 G0's model rates). This plan: 4,103 captures, 11.21 h (-0.05 h).
+Excluded: idle waits beyond the measured gaps, quarantines, stops and their continuations, the
+orchestrator's start and restore, and any grant swap.

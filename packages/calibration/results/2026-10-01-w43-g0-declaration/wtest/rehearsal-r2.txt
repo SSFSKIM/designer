@@ -1,0 +1,18 @@
+W43 G0 (e) w-test rehearsal 2: the two-sided linear control, and the lifted-side reading
+
+median light-rest      two-sided linear (lam 0)     free r~ 0.5160784313725492 | lifted r~ 0.5 (expected 0.5000; within dr 1.0) | lam25 recovered 0.0 (true 0.0000); regions 4 / 13
+median light-rest      hinge, lam25 = 0.875 lam50   free r~ 0.5160784313725492 | lifted r~ 0.87771124417831 (expected 0.8775; within dr 1.0) | lam25 recovered 0.7597097360833887 (true 0.7595); regions 4 / 13
+median light-inactive  two-sided linear (lam 0)     free r~ 0.47267851156553753 | lifted r~ 0.5 (expected 0.5000; within dr 1.0) | lam25 recovered 0.0 (true 0.0000); regions 2 / 3
+median light-inactive  hinge, lam25 = 0.875 lam50   free r~ 0.47267851156553753 | lifted r~ 0.8461538461538463 (expected 0.8527; within dr 1.0) | lam25 recovered 0.6634358974358975 (true 0.6711); regions 2 / 3
+median dark-rest       two-sided linear (lam 0)     free r~ 0.5 | lifted r~ nan (expected 0.5000; within dr 0.9923076923076923) | lam25 recovered nan (true 0.0000); regions 3 / 13
+median dark-rest       hinge, lam25 = 0.875 lam50   free r~ 0.5 | lifted r~ 0.8750000000000003 (expected 0.8735; within dr 1.0) | lam25 recovered 0.7464166666666671 (true 0.7446); regions 3 / 13
+median dark-inactive   two-sided linear (lam 0)     free r~ 0.5024777944584032 | lifted r~ 0.4312348047349968 (expected 0.5000; within dr 1.0) | lam25 recovered -0.045843463510002125 (true 0.0000); regions 2 / 2
+median dark-inactive   hinge, lam25 = 0.875 lam50   free r~ 0.5024777944584032 | lifted r~ 0.8318437131788787 (expected 0.8506; within dr 1.0) | lam25 recovered 0.6421420609877652 (true 0.6641); regions 2 / 2
+mean   light-rest      two-sided linear (lam 0)     free r~ 0.5072038027785069 | lifted r~ 0.4997580049550202 (expected 0.5000; within dr 1.0) | lam25 recovered -0.00016133002998654683 (true 0.0000); regions 4 / 13
+mean   light-rest      hinge, lam25 = 0.875 lam50   free r~ 0.5072038027785069 | lifted r~ 0.8775316024520794 (expected 0.8775; within dr 1.0) | lam25 recovered 0.7594860222536561 (true 0.7595); regions 4 / 13
+mean   light-inactive  two-sided linear (lam 0)     free r~ 0.4808837766985544 | lifted r~ 0.49941702802614574 (expected 0.5000; within dr 1.0) | lam25 recovered -0.000388647982569527 (true 0.0000); regions 2 / 3
+mean   light-inactive  hinge, lam25 = 0.875 lam50   free r~ 0.4808837766985544 | lifted r~ 0.852483789146399 (expected 0.8527; within dr 1.0) | lam25 recovered 0.6708925702811246 (true 0.6711); regions 2 / 3
+mean   dark-rest       two-sided linear (lam 0)     free r~ 0.499109255901415 | lifted r~ 0.48896407775132245 (expected 0.5000; within dr 1.0) | lam25 recovered -0.00735728149911837 (true 0.0000); regions 3 / 13
+mean   dark-rest       hinge, lam25 = 0.875 lam50   free r~ 0.499109255901415 | lifted r~ 0.8734559959357882 (expected 0.8735; within dr 1.0) | lam25 recovered 0.7445113656514293 (true 0.7446); regions 3 / 13
+mean   dark-inactive   two-sided linear (lam 0)     free r~ 0.5014134059175912 | lifted r~ 0.4454217487147367 (expected 0.5000; within dr 1.0) | lam25 recovered -0.03638550085684221 (true 0.0000); regions 2 / 2
+mean   dark-inactive   hinge, lam25 = 0.875 lam50   free r~ 0.5014134059175912 | lifted r~ 0.8331691647112996 (expected 0.8506; within dr 1.0) | lam25 recovered 0.6436963738181174 (true 0.6641); regions 2 / 2

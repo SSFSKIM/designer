@@ -1,0 +1,402 @@
+{
+ "schema": "w43-memo-f-plan-1",
+ "charter": "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md",
+ "key": {
+  "domain": "NSGlobalDomain",
+  "name": "NSGlassTintAmount",
+  "type": "float"
+ },
+ "scenesFile": {
+  "path": "apps/reference-apple/scenes.json",
+  "commit": "6cb112d50ecc929cfdc7f59953c14bfec02c1c16",
+  "sha256": "2f45778283443a45d562befa634fc7681de9ea6e2568bca0d08d659a27393d6f"
+ },
+ "settle": 8,
+ "spans": {
+  "capsule-button": 44,
+  "rrect-64": 64,
+  "rrect-80": 80,
+  "rrect-md": 96,
+  "rrect-ml": 128,
+  "rrect-lg": 160
+ },
+ "blocks": [
+  {
+   "label": "x0.5-2x",
+   "x": 0.5,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0.5-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.5-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.5-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.5-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest"
+   ]
+  },
+  {
+   "label": "x0.25-2x",
+   "x": 0.25,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0.25-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.25-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.25-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.25-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest",
+    "photo__rrect-md__rest",
+    "checkerboard__rrect-md__rest"
+   ]
+  },
+  {
+   "label": "x1-2x",
+   "x": 1.0,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x1-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x1-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x1-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x1-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest",
+    "photo__rrect-md__rest",
+    "checkerboard__rrect-md__rest"
+   ]
+  },
+  {
+   "label": "x0-2x",
+   "x": 0.0,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest",
+    "photo__rrect-md__rest",
+    "checkerboard__rrect-md__rest"
+   ]
+  },
+  {
+   "label": "x0.75-2x",
+   "x": 0.75,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0.75-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.75-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.75-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.75-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest"
+   ]
+  },
+  {
+   "label": "x0.125-2x",
+   "x": 0.125,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0.125-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.125-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.125-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.125-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest"
+   ]
+  },
+  {
+   "label": "x0.375-2x",
+   "x": 0.375,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0.375-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.375-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.375-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.375-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest"
+   ]
+  },
+  {
+   "label": "x0.625-2x",
+   "x": 0.625,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0.625-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.625-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.625-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.625-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest"
+   ]
+  },
+  {
+   "label": "x0.875-2x",
+   "x": 0.875,
+   "scale": 2,
+   "mode": 68,
+   "launches": [
+    {
+     "label": "x0.875-2x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.875-2x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.875-2x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.875-2x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest"
+   ]
+  },
+  {
+   "label": "x0.25-1x",
+   "x": 0.25,
+   "scale": 1,
+   "mode": 69,
+   "launches": [
+    {
+     "label": "x0.25-1x-light-active",
+     "scheme": "light",
+     "pose": "active"
+    },
+    {
+     "label": "x0.25-1x-light-inactive",
+     "scheme": "light",
+     "pose": "inactive"
+    },
+    {
+     "label": "x0.25-1x-dark-active",
+     "scheme": "dark",
+     "pose": "active"
+    },
+    {
+     "label": "x0.25-1x-dark-inactive",
+     "scheme": "dark",
+     "pose": "inactive"
+    }
+   ],
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "dark-solid__rrect-64__rest",
+    "dark-solid__rrect-80__rest",
+    "dark-solid__rrect-md__rest",
+    "dark-solid__rrect-ml__rest",
+    "dark-solid__rrect-lg__rest"
+   ]
+  }
+ ],
+ "totals": {
+  "blocks": 10,
+  "launches": 40,
+  "sceneDumps": 264,
+  "displaySwitches": 2
+ },
+ "estimate": {
+  "seconds": 2581.8,
+  "minutes": 43.0,
+  "model": "8.131 s/scene + 6.23 s/launch (memo D, W42 G0 timing.txt) + 4.0 s gates/launch + 1.0 s/slider write + 8.0 s/display switch; idle waits excluded"
+ }
+}

@@ -1,0 +1,25 @@
+declare.py proof: 23 of 23 cases hold
+
+PASS  green-check              rc 0  | check: consistent with its sources
+PASS  red-hash-while-pending   rc 2  | hash REFUSES: ladderReadings are pending
+PASS  red-pin                  rc 1  | check: 3 mismatch(es)
+PASS  red-verdicts             rc 1  | check: 3 mismatch(es)
+PASS  red-captures             rc 1  | check: 3 mismatch(es)
+PASS  red-cells                rc 1  | check: 3 mismatch(es)
+PASS  red-runs                 rc 1  | check: 3 mismatch(es)
+PASS  red-probe-runs           rc 1  | check: 3 mismatch(es)
+PASS  red-twin-order           rc 1  | check: 1 mismatch(es)
+PASS  red-unmarked-pending     rc 1  | check: 3 mismatch(es)
+PASS  red-support-count        rc 1  | check: 3 mismatch(es)
+PASS  red-plan-sha             rc 1  | check: 3 mismatch(es)
+PASS  red-neither              rc 1  | check: 3 mismatch(es)
+PASS  red-bed-edited           rc 1  | check: 4 mismatch(es)
+PASS  green-hash               rc 0 and a second hash refuses  | declaration.json sha256 4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb; closure.json sha256 c2da441b04493e180e7d34acb8dc01a0b82644ce0faeccf3c7b568a1b23f0288; commit both before G1a
+PASS  green-amend              rc 0; check 0, 2 lines, the first untouched, the hash the committed one: True  | amended: declaration.json sha256 4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb supersedes 4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874 (amendment 1); the chain verifies; commit declaration.json, amendments.json and declaration.sha256
+PASS  red-amend-other-pin      rc 2  |   MISMATCH pin packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md: found 'c81a1065660dcde9f62fbac5a354adda6d026eb73e1f568e731ab092f0d47890', declared '0000000000000000000000000000000000000000000000000000000000000000'
+PASS  red-amend-unmoved-pin    rc 2  | amend REFUSES: packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md has not moved; there is nothing to re-pin
+PASS  red-amend-same-reason    rc 2  | amend REFUSES: these pins were amended before for this same reason; a second amendment needs a new one
+PASS  red-amend-capture        rc 2  | amend REFUSES: a capture or archive exists for this declaration, so the bed is fixed: packages/calibration/results/_w43-g1a-declare-proof-capture
+PASS  red-amend-unhashed       rc 2  | amend REFUSES: the declaration is not hashed; before the hash it is simply edited and re-checked
+PASS  red-chain-first-line     rc 1  | check: 3 mismatch(es)
+PASS  red-chain-from           rc 1  | check: 1 mismatch(es)

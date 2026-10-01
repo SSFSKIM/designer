@@ -1,0 +1,98 @@
+W43 G0 (b): the bridge on existing evidence; 24 family F cell-passes of w42-archive (inventory 5481795e0a77), probe role only
+
+AGREE (bytes)    apple-macos-27.0-1x-dark-standard-glass0.5/f-checker64-rrect-lg__inactive  ->  checkerboard-64__rrect-lg__inactive  [probe]
+    runs 7, states {'2a4de7aafcb6': 7}, plurality 2a4de7aafcb6; fixture 2a4de7aafcb6; file-identical to ['2a4de7aafcb6'], pixel-identical to ['2a4de7aafcb6']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'2a4de7aafcb6': 5, 'b28eec9c5275': 2}; every side state among them: True; fixture is one of them: True
+    mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-1x-dark-standard-glass0.5/f-checker64-rrect-lg__rest  ->  checkerboard-64__rrect-lg__rest  [probe]
+    runs 7, states {'069ecad73f24': 7}, plurality 069ecad73f24; fixture 069ecad73f24; file-identical to ['069ecad73f24'], pixel-identical to ['069ecad73f24']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'069ecad73f24': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 45 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: 15 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+NO TWIN          apple-macos-27.0-1x-dark-standard-glass0.5/f-impulse-rrect-md__inactive  ->  impulse__rrect-md__inactive  (the canonical bed has no impulse__rrect-md__inactive in apple-macos-27.0-1x-dark-standard-glass0.5)
+NO TWIN          apple-macos-27.0-1x-dark-standard-glass0.5/f-impulse-rrect-md__rest  ->  impulse__rrect-md__rest  (the canonical bed has no impulse__rrect-md__rest in apple-macos-27.0-1x-dark-standard-glass0.5)
+AGREE (bytes)    apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__inactive  ->  checkerboard-64__rrect-lg__inactive  [probe]
+    runs 7, states {'146819c2bc40': 7}, plurality 146819c2bc40; fixture 146819c2bc40; file-identical to ['146819c2bc40'], pixel-identical to ['146819c2bc40']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'146819c2bc40': 5, '92493f1904b7': 2}; every side state among them: True; fixture is one of them: True
+    mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest  ->  checkerboard-64__rrect-lg__rest  [probe]
+    runs 7, states {'10266071090c': 7}, plurality 10266071090c; fixture 10266071090c; file-identical to ['10266071090c'], pixel-identical to ['10266071090c']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'10266071090c': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 45 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: 15 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-1x-light-standard-glass0.5/f-impulse-rrect-md__inactive  ->  impulse__rrect-md__inactive  [validation]
+    runs 7, states {'ee54a1e948ab': 7}, plurality ee54a1e948ab; fixture ee54a1e948ab; file-identical to ['ee54a1e948ab'], pixel-identical to ['ee54a1e948ab']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'ee54a1e948ab': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 63 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-1x-light-standard-glass0.5/f-impulse-rrect-md__rest  ->  impulse__rrect-md__rest  [validation]
+    runs 7, states {'9929dfc84d45': 7}, plurality 9929dfc84d45; fixture 9929dfc84d45; file-identical to ['9929dfc84d45'], pixel-identical to ['9929dfc84d45']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'9929dfc84d45': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 21 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: empty deep mask
+AGREE (bytes)    apple-macos-27.0-2x-dark-standard-glass0.5/f-checker16-rrect-md__inactive  ->  checkerboard__rrect-md__inactive  [calibration]
+    runs 7, states {'9cb6159cfff5': 7}, plurality 9cb6159cfff5; fixture 9cb6159cfff5; file-identical to ['9cb6159cfff5'], pixel-identical to ['9cb6159cfff5']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'9cb6159cfff5': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 156 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-2x-dark-standard-glass0.5/f-checker16-rrect-md__rest  ->  checkerboard__rrect-md__rest  [calibration]
+    runs 7, states {'0a0d6f7483f5': 7}, plurality 0a0d6f7483f5; fixture 0a0d6f7483f5; file-identical to ['0a0d6f7483f5'], pixel-identical to ['0a0d6f7483f5']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'0a0d6f7483f5': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 78 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: empty deep mask
+AGREE (bytes)    apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__inactive  ->  checkerboard-64__rrect-lg__inactive  [probe]
+    runs 7, states {'1c1f08414750': 7}, plurality 1c1f08414750; fixture 1c1f08414750; file-identical to ['1c1f08414750'], pixel-identical to ['1c1f08414750']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'1c1f08414750': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (regions)  apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__rest  ->  checkerboard-64__rrect-lg__rest  [probe]
+    runs 7, states {'24b99f3931c2': 7}, plurality 24b99f3931c2; fixture 969118c4591d; file-identical to none, pixel-identical to none; against the plurality 84 px differ, at most 1 codes
+    W29 original-bundle runs: 7, states {'969118c4591d': 4, '24b99f3931c2': 3}; every side state among them: True; fixture is one of them: True
+    mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: 15 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+NO TWIN          apple-macos-27.0-2x-dark-standard-glass0.5/f-impulse-rrect-md__inactive  ->  impulse__rrect-md__inactive  (the canonical bed has no impulse__rrect-md__inactive in apple-macos-27.0-2x-dark-standard-glass0.5)
+NO TWIN          apple-macos-27.0-2x-dark-standard-glass0.5/f-impulse-rrect-md__rest  ->  impulse__rrect-md__rest  (the canonical bed has no impulse__rrect-md__rest in apple-macos-27.0-2x-dark-standard-glass0.5)
+AGREE (bytes)    apple-macos-27.0-2x-dark-standard-glass0.5/f-photo-rrect-md__inactive  ->  photo__rrect-md__inactive  [calibration]
+    runs 7, states {'0b66bd240fe2': 7}, plurality 0b66bd240fe2; fixture 0b66bd240fe2; file-identical to ['0b66bd240fe2'], pixel-identical to ['0b66bd240fe2']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'0b66bd240fe2': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 3 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-2x-dark-standard-glass0.5/f-photo-rrect-md__rest  ->  photo__rrect-md__rest  [calibration]
+    runs 7, states {'20d2d70f26d9': 7}, plurality 20d2d70f26d9; fixture 20d2d70f26d9; file-identical to ['20d2d70f26d9'], pixel-identical to ['20d2d70f26d9']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'20d2d70f26d9': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 3 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: empty deep mask
+AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-checker16-rrect-md__inactive  ->  checkerboard__rrect-md__inactive  [calibration]
+    runs 7, states {'823b5b39bf8e': 7}, plurality 823b5b39bf8e; fixture 823b5b39bf8e; file-identical to ['823b5b39bf8e'], pixel-identical to ['823b5b39bf8e']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'823b5b39bf8e': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 156 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-checker16-rrect-md__rest  ->  checkerboard__rrect-md__rest  [calibration]
+    runs 7, states {'9eba800bfee0': 7}, plurality 9eba800bfee0; fixture 9eba800bfee0; file-identical to ['9eba800bfee0'], pixel-identical to ['9eba800bfee0']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'9eba800bfee0': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 78 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: empty deep mask
+AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__inactive  ->  checkerboard-64__rrect-lg__inactive  [probe]
+    runs 7, states {'53ca86124db4': 7}, plurality 53ca86124db4; fixture 53ca86124db4; file-identical to ['53ca86124db4'], pixel-identical to ['53ca86124db4']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'53ca86124db4': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (regions)  apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__rest  ->  checkerboard-64__rrect-lg__rest  [probe]
+    runs 7, states {'bb7c575d9339': 5, '1cfcad1bb0c9': 2}, plurality bb7c575d9339; fixture bb7c575d9339; file-identical to ['bb7c575d9339'], pixel-identical to ['bb7c575d9339']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'bb7c575d9339': 6, '1cfcad1bb0c9': 1}; every side state among them: True; fixture is one of them: True
+    mask n: 51 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: 15 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__inactive  ->  impulse__rrect-md__inactive  [validation]
+    runs 7, states {'ab33a78c616e': 7}, plurality ab33a78c616e; fixture ab33a78c616e; file-identical to ['ab33a78c616e'], pixel-identical to ['ab33a78c616e']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'ab33a78c616e': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 63 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__rest  ->  impulse__rrect-md__rest  [validation]
+    runs 7, states {'0fde49b03333': 7}, plurality 0fde49b03333; fixture 0fde49b03333; file-identical to ['0fde49b03333'], pixel-identical to ['0fde49b03333']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'0fde49b03333': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 21 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: empty deep mask
+AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-photo-rrect-md__inactive  ->  photo__rrect-md__inactive  [calibration]
+    runs 7, states {'02406712de9d': 7}, plurality 02406712de9d; fixture 02406712de9d; file-identical to ['02406712de9d'], pixel-identical to ['02406712de9d']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'02406712de9d': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 3 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+AGREE (bytes)    apple-macos-27.0-2x-light-standard-glass0.5/f-photo-rrect-md__rest  ->  photo__rrect-md__rest  [calibration]
+    runs 7, states {'18e1e88191f6': 7}, plurality 18e1e88191f6; fixture 18e1e88191f6; file-identical to ['18e1e88191f6'], pixel-identical to ['18e1e88191f6']; against the plurality 0 px differ, at most 0 codes
+    W29 original-bundle runs: 7, states {'18e1e88191f6': 7}; every side state among them: True; fixture is one of them: True
+    mask n: 3 region statistics, bar [0.5] (= G1's: True), |fixture - plurality| max 0.0, 0 nonzero, 0 outside the runs' range
+    mask w: empty deep mask
+
+verdicts: {"AGREE (bytes)": 18, "AGREE (regions)": 2, "NO TWIN": 4}
