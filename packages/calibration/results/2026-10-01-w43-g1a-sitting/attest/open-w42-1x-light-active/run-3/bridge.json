@@ -1,0 +1,641 @@
+{
+ "schema": "w43-bridge-run-1",
+ "run": 3,
+ "stop": true,
+ "agrees": true,
+ "rule": "byte identity, or every region median within max(1 code, bar) of the reference (charter clause 3)",
+ "cells": [
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/f-checker64-rrect-lg__rest",
+   "frameSha256": "10266071090c0099385756defbd0f507dd421e2cc1d8b375a9aa457da7a8c72c",
+   "referenceSha256": "c1d1fa1d324a766fd1bcb0fa5825f3c894264dc7abd9d349acff77f1d0891f2c",
+   "verdict": "AGREE (regions)",
+   "agrees": true,
+   "failing": [],
+   "masks": [
+    {
+     "mask": "n",
+     "populations": 15
+    },
+    {
+     "mask": "w",
+     "populations": 5
+    }
+   ],
+   "statistics": 60,
+   "worstDelta": 0.0,
+   "pixelsDiffering": 216,
+   "maxCodes": 2.0,
+   "rows": [
+    {
+     "mask": "n",
+     "statistic": "far-cores|B",
+     "frame": 233.0,
+     "reference": 233.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "far-cores|G",
+     "frame": 233.0,
+     "reference": 233.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "far-cores|R",
+     "frame": 233.0,
+     "reference": 233.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|B",
+     "frame": 173.0,
+     "reference": 173.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|G",
+     "frame": 173.0,
+     "reference": 173.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|R",
+     "frame": 173.0,
+     "reference": 173.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq10:knee|B",
+     "frame": 192.0,
+     "reference": 192.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq10:knee|G",
+     "frame": 192.0,
+     "reference": 192.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq10:knee|R",
+     "frame": 193.0,
+     "reference": 193.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq11:far|B",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq11:far|G",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq11:far|R",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq12:knee|B",
+     "frame": 171.0,
+     "reference": 171.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq12:knee|G",
+     "frame": 171.0,
+     "reference": 171.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq12:knee|R",
+     "frame": 171.0,
+     "reference": 171.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq13:far|B",
+     "frame": 238.0,
+     "reference": 238.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq13:far|G",
+     "frame": 238.0,
+     "reference": 238.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq13:far|R",
+     "frame": 238.0,
+     "reference": 238.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq14:knee|B",
+     "frame": 171.0,
+     "reference": 171.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq14:knee|G",
+     "frame": 171.0,
+     "reference": 171.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq14:knee|R",
+     "frame": 171.0,
+     "reference": 171.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq15:far|B",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq15:far|G",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq15:far|R",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq17:far|B",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq17:far|G",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq17:far|R",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq18:knee|B",
+     "frame": 188.0,
+     "reference": 188.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq18:knee|G",
+     "frame": 188.0,
+     "reference": 188.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq18:knee|R",
+     "frame": 188.0,
+     "reference": 188.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq19:far|B",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq19:far|G",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq19:far|R",
+     "frame": 226.0,
+     "reference": 226.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq6:knee|B",
+     "frame": 193.0,
+     "reference": 193.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq6:knee|G",
+     "frame": 193.0,
+     "reference": 193.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq6:knee|R",
+     "frame": 193.0,
+     "reference": 193.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq7:far|B",
+     "frame": 232.0,
+     "reference": 232.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq7:far|G",
+     "frame": 232.0,
+     "reference": 232.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq7:far|R",
+     "frame": 232.0,
+     "reference": 232.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq8:knee|B",
+     "frame": 181.0,
+     "reference": 181.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq8:knee|G",
+     "frame": 181.0,
+     "reference": 181.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq8:knee|R",
+     "frame": 181.0,
+     "reference": 181.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq9:far|B",
+     "frame": 232.0,
+     "reference": 232.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq9:far|G",
+     "frame": 232.0,
+     "reference": 232.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq9:far|R",
+     "frame": 232.0,
+     "reference": 232.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "far-cores|B",
+     "frame": 239.0,
+     "reference": 239.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "far-cores|G",
+     "frame": 239.0,
+     "reference": 239.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "far-cores|R",
+     "frame": 239.0,
+     "reference": 239.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "knee-cores|B",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "knee-cores|G",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "knee-cores|R",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq12:knee|B",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq12:knee|G",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq12:knee|R",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq13:far|B",
+     "frame": 239.0,
+     "reference": 239.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq13:far|G",
+     "frame": 239.0,
+     "reference": 239.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq13:far|R",
+     "frame": 239.0,
+     "reference": 239.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq14:knee|B",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq14:knee|G",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq14:knee|R",
+     "frame": 167.0,
+     "reference": 167.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    }
+   ]
+  },
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/f-impulse-rrect-md__rest",
+   "frameSha256": "9929dfc84d45bf43aeca793305838f98c6b8cf6df957ba2d22f33d9fe79ff2f3",
+   "referenceSha256": "9929dfc84d45bf43aeca793305838f98c6b8cf6df957ba2d22f33d9fe79ff2f3",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  }
+ ],
+ "pass": "open-w42-1x-light-active"
+}
