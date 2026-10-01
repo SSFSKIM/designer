@@ -1,0 +1,27 @@
+bed-0.25-2x-active run 1: admitted cells=162
+bed-0.25-2x-active run 2: admitted cells=162
+bed-0.25-2x-active run 3: admitted cells=162
+REFUSED; retained at /Users/new/vitrea-w43/g1a-run/bed-0.25-2x-active/QUARANTINE-run-4-1790855842199180000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w43/g1a/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1568, in <module>
+    main()
+  File "/Users/new/vitrea-w43/g1a/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1511, in main
+    code, _ = watched(command, dog, poll=watch_poll, end_native=lambda: end_native(app))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w43/g1a/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 317, in watched
+    raise ValueError('watchdog stopped the launch: ' + reason)
+ValueError: watchdog stopped the launch: focus lost during the launch: frontmost became com.apple.UserNotificationCenter (pid 8754) while the harness (pid 16821) still ran
+REFUSED; retained at /Users/new/vitrea-w43/g1a-run/bed-0.25-2x-active/QUARANTINE-run-4-1790858024939711000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w43/g1a/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1568, in <module>
+    main()
+  File "/Users/new/vitrea-w43/g1a/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1511, in main
+    code, _ = watched(command, dog, poll=watch_poll, end_native=lambda: end_native(app))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w43/g1a/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 317, in watched
+    raise ValueError('watchdog stopped the launch: ' + reason)
+ValueError: watchdog stopped the launch: HID input during the launch: idle read 0.3 s where at least 846.3 s was due (843.3 s, 5.0 s earlier); frontmost dev.vitrea.reference-apple.w39
+bed-0.25-2x-active run 4: admitted cells=162
+bed-0.25-2x-active run 5: admitted cells=162
+bed-0.25-2x-active run 6: admitted cells=162
+bed-0.25-2x-active run 7: admitted cells=162

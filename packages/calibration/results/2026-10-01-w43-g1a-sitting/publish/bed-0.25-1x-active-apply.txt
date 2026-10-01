@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "npx",
+    "tsx",
+    "cli/materialize.ts",
+    "--run",
+    "r1=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-active/run-1",
+    "--run",
+    "r2=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-active/run-2",
+    "--run",
+    "r3=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-active/run-3",
+    "--run",
+    "r4=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-active/run-4",
+    "--run",
+    "r5=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-active/run-5",
+    "--run",
+    "r6=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-active/run-6",
+    "--run",
+    "r7=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-active/run-7",
+    "--profile",
+    "apple-macos-27.0-1x-dark-standard-glass0.25,apple-macos-27.0-1x-light-standard-glass0.25",
+    "--frequency-settle",
+    "--apply"
+  ],
+  "cwd": "/Users/new/vitrea-w43/g1a/packages/calibration",
+  "env": {
+    "VITREA_SCENES": "/Users/new/vitrea-w43/g1a/apps/reference-apple/scenes.json"
+  }
+}
+162 cell(s) over 2 profile(s) from 7 run(s): 162 unanimous, 0 voted, 0 frequency-settled, 0 refused (0 state-ambiguous)
+  profile apple-macos-27.0-1x-dark-standard-glass0.25 is new to this bed
+  profile apple-macos-27.0-1x-light-standard-glass0.25 is new to this bed
+
+bed materialised: 162 cell(s) written with their own run's manifest entry. Provenance: 7 runs, 72.2% confidence at a one-in-six minority.

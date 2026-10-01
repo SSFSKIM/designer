@@ -1,0 +1,641 @@
+{
+ "schema": "w43-bridge-run-1",
+ "run": 1,
+ "stop": false,
+ "agrees": true,
+ "rule": "byte identity, or every region median within max(1 code, bar) of the reference (charter clause 3)",
+ "cells": [
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/f-checker64-rrect-lg__rest",
+   "frameSha256": "069ecad73f24165cbb14e71be4779808ce88bea3608e1b95d293ef11fb037df6",
+   "referenceSha256": "f4ae168e4975e9ee11f98b744e480f2ea15d61d07695db96aab1aa9754bd8efc",
+   "verdict": "AGREE (regions)",
+   "agrees": true,
+   "failing": [],
+   "masks": [
+    {
+     "mask": "n",
+     "populations": 15
+    },
+    {
+     "mask": "w",
+     "populations": 5
+    }
+   ],
+   "statistics": 60,
+   "worstDelta": 0.0,
+   "pixelsDiffering": 359,
+   "maxCodes": 2.0,
+   "rows": [
+    {
+     "mask": "n",
+     "statistic": "far-cores|B",
+     "frame": 73.0,
+     "reference": 73.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "far-cores|G",
+     "frame": 73.0,
+     "reference": 73.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "far-cores|R",
+     "frame": 73.0,
+     "reference": 73.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|B",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|G",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|R",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq10:far|B",
+     "frame": 95.0,
+     "reference": 95.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq10:far|G",
+     "frame": 95.0,
+     "reference": 95.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq10:far|R",
+     "frame": 95.0,
+     "reference": 95.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq11:knee|B",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq11:knee|G",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq11:knee|R",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq12:far|B",
+     "frame": 71.0,
+     "reference": 71.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq12:far|G",
+     "frame": 71.0,
+     "reference": 71.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq12:far|R",
+     "frame": 71.0,
+     "reference": 71.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq13:knee|B",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq13:knee|G",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq13:knee|R",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq14:far|B",
+     "frame": 71.0,
+     "reference": 71.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq14:far|G",
+     "frame": 71.0,
+     "reference": 71.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq14:far|R",
+     "frame": 71.0,
+     "reference": 71.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq15:knee|B",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq15:knee|G",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq15:knee|R",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq17:knee|B",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq17:knee|G",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq17:knee|R",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq18:far|B",
+     "frame": 90.0,
+     "reference": 90.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq18:far|G",
+     "frame": 90.0,
+     "reference": 90.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq18:far|R",
+     "frame": 90.0,
+     "reference": 90.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq19:knee|B",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq19:knee|G",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq19:knee|R",
+     "frame": 124.0,
+     "reference": 124.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq6:far|B",
+     "frame": 96.0,
+     "reference": 96.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq6:far|G",
+     "frame": 96.0,
+     "reference": 96.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq6:far|R",
+     "frame": 96.0,
+     "reference": 96.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq7:knee|B",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq7:knee|G",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq7:knee|R",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq8:far|B",
+     "frame": 82.0,
+     "reference": 82.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq8:far|G",
+     "frame": 82.0,
+     "reference": 82.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq8:far|R",
+     "frame": 82.0,
+     "reference": 82.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq9:knee|B",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq9:knee|G",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq9:knee|R",
+     "frame": 126.0,
+     "reference": 126.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "far-cores|B",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "far-cores|G",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "far-cores|R",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "knee-cores|B",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "knee-cores|G",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "knee-cores|R",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq12:far|B",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq12:far|G",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq12:far|R",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq13:knee|B",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq13:knee|G",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq13:knee|R",
+     "frame": 127.0,
+     "reference": 127.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq14:far|B",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq14:far|G",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "w",
+     "statistic": "sq14:far|R",
+     "frame": 67.0,
+     "reference": 67.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    }
+   ]
+  },
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/f-impulse-rrect-md__rest",
+   "frameSha256": "f8c9754d51835fd2b07f94412c6ebf90f1161557468cc4d7f7d65e3f789af5f3",
+   "referenceSha256": "f8c9754d51835fd2b07f94412c6ebf90f1161557468cc4d7f7d65e3f789af5f3",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  }
+ ],
+ "pass": "close-w42-1x-dark-active"
+}

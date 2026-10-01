@@ -1,0 +1,29 @@
+W43 G1a phase 1: the runbook's pre-launch lines, read 2026-10-01 09:35Z on b8cec3c6 (the W43 G0
+merge). Nothing native ran: no census, no slider write, no display read or switch, no launch.
+Runbook: ../../2026-10-01-w43-g0-declaration/bed/sitting/README.md, "Runbook".
+
+S=packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting, from the worktree root.
+
+1. W43_SITTING=g1a python3.12 $S/sitting.py plan --out /tmp/w43-g1a-plan     -> plan-totals.json
+   4,103 captures in 89 capture launches, 8 dump launches holding 48 dump scenes, 562 published
+   cells, 2 slider writes, 4 display switches, 33 passes; executed false. plan.json.sha256 names
+   the plan document it wrote. order.txt is `pass-spec.py order`; timing.txt is `timing.py`
+   (11.21 h modelled, 12.33 h with the charter's 10 % stop loss).
+2. W43_SITTING=g1a python3.12 $S/sitting.py pin-check                           -> pin-check.json
+   exit 0; plan 9d0c276a…, the chain 4675ce21… then 4f90f910… (the last line, in force).
+   declare.py check (declare-check.txt): consistent with its sources, exit 0.
+3. python3.12 $S/record-machine.py universal-control                           -> universal-control.json
+   A report, not a gate: the agent runs (pid 49435), `Disable` absent, Bluetooth on, awdl0 up,
+   so the input path reads reachable, as at G0. The user's prerequisite stands.
+4. W43_SITTING=g1a python3.12 $S/sitting.py bridge-references "$(… w42_archive.py fetch
+   --asset w42-archive-1e3d6e65….tar.zst --sha256 1e3d6e65…)" --out ~/vitrea-w43/references
+                                                                                 -> bridge-references.json
+   The fetch hit the verified cache (w42-archive-fetch-verified.json: 13,611,249 bytes, 3,563
+   entries, inventory 5481795e…); the asset re-hashed to 1e3d6e65… by shasum. 16 reference
+   frames (W42's two sentinels, four endpoints, two scales), each re-hashed equal to its name
+   (references.sha256).
+
+The sitting root. The runbook names VITREA_SITTING_DIR=~/vitrea-w43/g1a/run, but this sitting's
+checkout is the worktree at ~/vitrea-w43/g1a itself, and sitting.py's outside_repository refuses
+a root inside the checkout it runs from (REPO = the worktree). The root is therefore
+~/vitrea-w43/g1a-run, outside every checkout and outside Documents, Desktop and Downloads.

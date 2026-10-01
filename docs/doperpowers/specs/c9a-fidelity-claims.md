@@ -43247,3 +43247,233 @@ case 13 shows `f8a8650a`'s pin check refusing the amended declaration, and the n
   coupling at s ≥ 80.
 - **The light lifted-side scalings are indistinguishable.** λ₀.₂₅ by ratio is 0.7595, by difference
   0.7555 (Δr_lift ≈ 0.003), so the lifted reading tests the ramp's size, not its form.
+
+## 5.199 W43 G1a: the generation sitting — 4,103 captures and 48 dump scenes admitted through three stops; the 0.25 bed unanimous over seven runs, archived, replayed and plurality-published; the bar is the floor everywhere; no read against vitrea (2026-10-01)
+
+Evidence directory: `results/2026-10-01-w43-g1a-sitting/`, on branch `w43-g1a-sitting` (the charter
+names `w43-g1a-generation`; the parent kept the worker's name). The raw runs stay on the capture
+machine under `~/vitrea-w43/g1a-run/` (248 MB). The repository holds:
+- the pre-launch reads (`prechecks/`, with `commands.txt`);
+- the attestations, admissions, bridge reports, idle and watchdog logs (`attest/`, the
+  orchestrator's 36 per-pass commits);
+- the three stops with UTC timelines (`stops/timelines.txt`);
+- the archive's inventory, release citation, second copy and replay (`archive/`);
+- the bar (`bar/`), the publication (`publish/`) and the close checks (`close/`).
+
+Charter: G1a, clauses 3–5 and 11, X5′, X6, X42, X43 and X47; the declaration in force is
+`4f90f910…` (§5.198 §6).
+
+### 1. Before the launch
+
+- **The dry plan** (`sitting.py plan`, executing nothing): 4,103 captures in 89 capture launches,
+  48 dump scenes in 8 dump launches, 562 published cells, 2 slider writes, 4 display switches,
+  33 passes. The model reads 11.21 h, and 12.33 h with the charter's 10 % stop loss.
+- **pin-check** passed against the chain's last line, and `declare.py check` read the declaration
+  consistent with its 39 sources.
+- **Universal Control** read as at G0: the agent runs, `Disable` is absent, and the input path is
+  reachable. It is a report, not a gate.
+- **The W42 sentinel references:** 16 frames, filled from the verified `w42-archive` asset
+  (`1e3d6e65…`, re-hashed) and each re-hashed equal to its name.
+- **The parent's prerequisites:** Google Chrome and the ChatGPT app quit; NSGlassTintAmount 0.5;
+  Reduce Transparency and Increase Contrast 0; the display at mode 68.
+- **The census,** in its own exited command, read 0 foreign processes.
+- **A runbook deviation.** The runbook's root `~/vitrea-w43/g1a/run` lies inside this sitting's
+  worktree (`~/vitrea-w43/g1a`). `sitting.py`'s `outside_repository` refuses a root inside the
+  checkout it runs from, so the root is `~/vitrea-w43/g1a-run`. The parent accepted this.
+
+### 2. The sitting: three stops, three continuations, one declared order
+
+The first launch was at 09:46:42Z (orchestrator 95627). `ALL PASSES DONE` came at 22:21:51Z,
+with the slider (as found 0.5) and mode 68 restored and verified at 22:21:52Z: 12 h 35 min 10 s of
+wall time. No restore failed on any exit.
+
+| # | When (Z) | Where | Cause | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | 11:57:21 | `bed-0.25-2x-active` run 4, capture 123 of 162 | **focus**: the user's launchd Notes-sync job ran `claude -p` on a newly synced note at 11:57:15. Its Claude Code binary had auto-updated to `versions/2.1.286` that morning, and TCC keys a bare executable by path, so its Documents read raised a Files-and-Folders prompt (11:57:17.375). UserNotificationCenter took the frontmost at .463 | watchdog; `stops/stop-1/unified-log-excerpt.txt` |
+| 2 | 12:33:44 | the same run 4 again, capture 41 of 162 | **HID input**: a Screen Sharing viewer connected at 12:33:40, and its pointer posted a HID event at 12:33:44.372 (idle 0.3 s where 846.3 s was due). The alert had been answered through an earlier Screen Sharing session (12:19:33–12:19:40) | watchdog; `stops/stop-2/` |
+| 3 | 20:50:39 | `bed-0.25-1x-receded` run 4, at its close, all 119 cells captured | **census**: a peer Claude session in another project started a `playwright-cli` daemon at 20:33:16, with headless Google Chrome and helpers (9 processes). The opening census at 20:31:46 had read 0 | closing machine gate; `stops/stop-3/closing-census.json` |
+
+**Every stop:**
+- quarantined its run under its own name (`QUARANTINE-run-4-1790855842199180000`,
+  `…1790858024939711000` and `…1790887840608343000`);
+- was restored by the orchestrator (slider 0.5, mode 68, both verified);
+- was retried by nothing.
+
+**Every continuation was the parent's explicit act.** Each followed a session read, the census
+(0) and pin-check, each in its own exited command, and its launch line held only the orchestrator
+call:
+1. **12:20:26**, `START_AT=bed-0.25-2x-active FIRST_RUN=4`, after the alert's window was gone.
+   The user's two launchd jobs were booted out at 12:21 for the sitting's length.
+2. **12:35:10**, the same, after the viewer had disconnected.
+3. **20:52:27**, `START_AT=bed-0.25-1x-receded FIRST_RUN=4`, after the parent ended the peer's
+   browser tree at about 20:52, on the user's standing condition.
+
+The quarantined stop-3 frames equal the admitted state byte for byte in all 119 cells. They are
+not evidence. About 56 min of capture went to the three run-4 attempts, and 26 min to the gaps
+before each continuation.
+
+**Pass times against the model:**
+- `bed-0.25-2x-receded`: 2 h 12 min 43 s, against 2 h 12 min 38 s modelled.
+- `bed-0.25-1x-active`: 3 h 0 min 25 s, exactly as modelled.
+
+### 3. Totals: every declared launch admitted
+
+Every admission names plan `9d0c276a…` under declaration `4f90f910…`, with no predeclaration:
+
+| block | launches | captures or scenes | result |
+| --- | ---: | ---: | --- |
+| pose check (2x light checkerboard capsule, 0.5) | 1 | 1 | `204f21f0…`, one of the two restore states |
+| opening bridges at 0.5 (both scales) | 36 | 168 | §4 |
+| dump sentinels at 0.25 (both scales) | 8 | 48 scenes | `inputBlurFillNormalOpacity` = 0.25 on all 48 surfaces; pose, scheme and scale as requested; **0 departures** (X42's second reading) |
+| the canonical bed at 0.25 | 28 | 3,934 | 562 cells a round × 7 runs |
+| closing bridges at 0.5 | 24 | (in the 168) | §4 |
+
+That is 4,103 captures in 89 admitted capture runs, the declared count exactly.
+
+Every capture attests:
+- `screencapturekit`, `deterministic`, `materialRendered`, `repeatNoise` 0;
+- its declared pose: 2,353 active captures presented active, and 1,750 receded captures presented
+  inactive;
+- `hidIdleSeconds` at least 98.6 (the bar is 60).
+
+Every bed run reads the slider at 0.25, and every bridge run at 0.5. Every 0.25 profile's
+attestation names the W39 side bundle by identifier, cdhash `be258cbf…`, binary `02052b17…` and
+pin `780d6f95…` (X43).
+
+### 4. The bridges (clause 3): every cell agrees, at the opening and the close
+
+The metric is clause 3's, applied run by run: byte identity, or else every region median within
+max(1 code, bar).
+
+| bridge | cell-runs | by bytes | by regions | worst region delta |
+| --- | ---: | ---: | ---: | ---: |
+| opening, W42 sentinels (long protocol, 8 endpoints) | 48 | 47 | 1 | 0.0 |
+| opening, canonical cells (6 per pass, 4 passes) | 72 | 67 | 5 | 0.0 |
+| closing, W42 sentinels | 48 | 46 | 2 | 0.0 |
+| **all** | **168** | **160** | **8** | **0.0** |
+
+The eight region agreements fall on five distinct cells, with occurrences 1, 1, 1, 2 and 3. Each
+differs from its reference by at most 2 codes on at most 359 px, with no region median moved:
+- **the 2x dark active checker-64 sentinel at the close** (run 1, 84 px at 1 code). This is the
+  same alternate state G0 (b) recorded for this cell, which the original bundle also produced at
+  W29 (§5.198 §3).
+- **the 1x dark active checker-64 sentinel at the close** (run 1, 359 px at ≤ 2 codes).
+- **the 1x light active checker-64 sentinel at the opening** (run 3, 216 px).
+- **two canonical cells.**
+  - The 2x dark `checkerboard__capsule-button__rest-tint-orange`: runs 2–3, 30 px, 24
+    statistics.
+  - The 1x light `dark-solid__capsule-button__rest`: all three runs on one frame, 22 px, 3
+    statistics.
+
+No opening bridge disagreed, so nothing away from 0.5 was held back. No closing bridge
+disagreed, so G2 reads this sitting's 0.25-against-0.5 claims as bridged (X43).
+
+### 5. The repeat bar (clause 5): exactly 0.5 everywhere on the bed, by identity
+
+`bar/report-bars.py` read the **downloaded** archive alone. Denied for the process, through the
+archive tool's own audit hook, were:
+- the raw root;
+- the producer's output;
+- the asset directory;
+- the second copy;
+- the stop evidence;
+- the pre-launch reads.
+
+**All 562 canonical cells are unanimous over their seven runs:** one frame each, by SHA-256 of
+the stored PNG. So every statistic of each cell, any region median of any instrument included,
+has a run spread of exactly 0, and the bar is **exactly 0.5 code on every cell, region statistic
+and channel**. No instrument is needed to state it, and max(1 code, bar) reads 1 code everywhere.
+`materialize` agreed independently: 162 + 119 + 162 + 119 unanimous, **0 voted, 0
+frequency-settled, 0 refused**.
+
+For comparison:
+- W29's 0.5 bed through the original bundle carried 9 frequency-settled cells (3 at 2x and 6 at
+  1x active) beside its voted ones.
+- W42's bed carried 35 two-state rows.
+
+The 0.25 bed through the side bundle carries none. The bridges hold four two-state cells, each
+split 2 runs to 1. Their instrument-free bars (per-channel frame mean, min and max) are at most
+0.5015; their region statistics are in the bridge reports, at delta 0.0.
+
+`bar.json.gz` (JSON SHA-256 `513c99df…`) and `bar-headlines.json` were committed (`3536f916`)
+before any `materialize --apply`.
+
+### 6. The archive of record
+
+- **Produced** by `w43_archive.py produce ~/vitrea-w43/g1a-run --sitting g1a`, before plurality.
+  It holds all **603 of 603 declared cells**: the 562 bed cells, 24 canonical bridge cells, 16 W42
+  sentinel cells and the pose check.
+  - **Frames:** 4,694 frame occurrences, captures and background rasters, stored as **613
+    distinct frames** once each by SHA-256.
+  - **`operational/`:** 1,568 files, every run's and every quarantine's non-pixel files and
+    `logs/` included.
+  - **`dumps/`:** 56 files.
+  - Inventory `56489f87dc6ed07904cc0a57fa26178b19d4becbf656a393dbdf1774bccf6926`, 2,840 entries.
+- **Published** as GitHub release **`w43-archive-g1a`** on `SSFSKIM/designer` ("W43 g1a archive
+  of record", `--latest=false`, target `f071dc4e`). Asset
+  **`w43-archive-g1a-f60c784a00c585646394e99812c4dd77ef55f6643b246b2d03fc45156ea28352.tar.zst`**,
+  SHA-256 **`f60c784a00c585646394e99812c4dd77ef55f6643b246b2d03fc45156ea28352`**, **19,262,719
+  bytes**. GitHub's asset digest agrees, and a second pack reproduces the digest.
+- **Round-tripped.** `fetch` verified the digest before extraction. The downloaded tree equals
+  the producer's output (`diff -r` clean). **The second owner-controlled copy** at
+  `~/vitrea-w43/archive-copy-g1a/`, taken through `fetch --source`, equals the download.
+- **Replayed** by `archive/replay-denied.py` from the download: **603 cells and 613 frames
+  recomputed identically**. A negative control shows the hook refusing opens under the raw root
+  and the producer's output.
+  - The whole of `~/vitrea-w43` could not be denied as W42 denied `~/vitrea-w42`, because this
+    worktree, and with it the tool, lives under it.
+  - The six product paths (§5's list) are denied instead.
+- **Not archived:** the pixels of the three quarantined runs, by design. They remain in the raw
+  root only. The full unified-log extracts behind §2 stay on the capture machine
+  (`~/vitrea-w43/g1a-stops/`). The repository is public, so it holds only the lines that name each
+  cause, and none of the user's own content.
+
+### 7. Publication and the close
+
+- **`sitting.py publish`,** dry and then `--apply`, for each bed pass. It ran
+  `materialize --frequency-settle` over seven admitted runs whose `attest.read` names the side
+  bundle's pin and reads slider 0.25.
+- **The fixture trees:** `apple-macos-27.0-{1x,2x}-{dark,light}-standard-glass0.25/` hold
+  117 / 164 / 117 / 164 PNGs. These are the 0.5 counts and the 0.5 scene names exactly, profile
+  by profile, and **every one is an archived frame** by SHA-256.
+- **The manifest:** `manifest.json` adds the four profiles and four provenance records, and moves
+  no existing entry. Each 0.25 profile's hardware block has the 0.5 profiles' shape (26A428; sdk
+  and Xcode `unknown`). The side bundle is named in the attestation block, as the 0.5 profiles
+  name the original.
+- **At the close:**
+  - the freeze reads **1,818** and X41 **911**;
+  - the slider reads 0.5 (float) and the display mode 68;
+  - the calibration suites that read the fixtures pass (6 files, 237 tests);
+  - the side bundle keeps its grant, and the original stays unrestored until G1b's close
+    (clause 6).
+
+### 8. Findings for the tracker
+
+1. **A Claude Code auto-update is a new TCC client.** Its bare executable is keyed by path. Any
+   `claude` process started after an update can raise a Files-and-Folders prompt that takes the
+   frontmost; here it came from a scheduled job the user owns. The watchdog caught it, and the
+   census cannot. *Prerequisite for G1b:* hold auto-updates and pause scheduled jobs that start
+   `claude` for the sitting's length.
+2. **A Screen Sharing viewer is input.** Opening a session posts pointer events through
+   ScreensharingAgent, and the user also used it to answer the stop-1 alert. *Prerequisite:* no
+   Screen Sharing during a sitting. Watching `orchestrator-status.txt` or the worker's reports
+   costs nothing.
+3. **A foreign process that starts mid-run is caught only at the run's close.** The census runs
+   at a run's open and close. Stop 3's browser ran for 17 of the run's 19 min before the closing
+   gate refused it. A census inside the watchdog's 5 s loop would stop such a run within seconds.
+   W42's stop 3 had the same cause.
+4. **The stop evidence lives outside the raw root,** so it is not in the archive. A stop-evidence
+   directory under the raw root's `logs/`, written by the worker before the archive is produced,
+   would carry it.
+
+### 9. What is not claimed
+
+- No law, fit or model comparison.
+- **Nothing was read against vitrea**: no browser, `compare` or web capture ran for G1a.
+- The w-test probe and the ladder are G1b's (Decision Log 3), and nothing here changes their cells
+  or their prediction (X47).
+- **Not read here: whether the region-only bridge states are among W29's own run states.** G2's
+  first stage reads the bridges.
+- **Not attributed: the 0.25 bed's unanimity, where the 0.5 bed through the original bundle had
+  voted and frequency-settled cells.** It may be the position, the bundle or the night. G2 states
+  the bar it reads the native delta against before the first pair.

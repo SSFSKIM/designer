@@ -1,0 +1,138 @@
+[
+  {
+    "run": "QUARANTINE-run-4-1790855842199180000",
+    "admitted": false,
+    "refusal": "ValueError: watchdog stopped the launch: focus lost during the launch: frontmost became com.apple.UserNotificationCenter (pid 8754) while the harness (pid 16821) still ran"
+  },
+  {
+    "run": "QUARANTINE-run-4-1790858024939711000",
+    "admitted": false,
+    "refusal": "ValueError: watchdog stopped the launch: HID input during the launch: idle read 0.3 s where at least 846.3 s was due (843.3 s, 5.0 s earlier); frontmost dev.vitrea.reference-apple.w39"
+  },
+  {
+    "run": "run-1",
+    "admitted": true,
+    "manifestSha256": "a1c6088de916dbc21c476a794b84b3fe77a4c484474b75e83803231bb545fb4d",
+    "fixtures": 162,
+    "firstCapture": "2026-10-01T10:16:16Z",
+    "lastCapture": "2026-10-01T10:41:50Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 23399.323723125,
+      "hidIdleSecondsAtStart": 21854.133787541,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-2x-active-1",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-2",
+    "admitted": true,
+    "manifestSha256": "997a26c1a3c2791cd3cbc97df08811b996efbb5c0812474f832f4d6a79d47513",
+    "fixtures": 162,
+    "firstCapture": "2026-10-01T10:42:02Z",
+    "lastCapture": "2026-10-01T11:07:36Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 24945.586941666,
+      "hidIdleSecondsAtStart": 23401.602201333,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-2x-active-2",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-3",
+    "admitted": true,
+    "manifestSha256": "81e345efa535d425c08772ecd9ddf0edb1e16ae5ec35d3b67e43585dcb7eb978",
+    "fixtures": 162,
+    "firstCapture": "2026-10-01T11:07:49Z",
+    "lastCapture": "2026-10-01T11:33:23Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 26492.260746166,
+      "hidIdleSecondsAtStart": 24947.574286125,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-2x-active-3",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-4",
+    "admitted": true,
+    "manifestSha256": "52f09d517382a21bb4e7a00adf8180a35e96b32d979ce869c4f2115edc0ccd90",
+    "fixtures": 162,
+    "firstCapture": "2026-10-01T12:35:23Z",
+    "lastCapture": "2026-10-01T13:00:57Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 1632.656701708,
+      "hidIdleSecondsAtStart": 87.874113708,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-2x-active-4",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-5",
+    "admitted": true,
+    "manifestSha256": "61033b58a27900e9dd63622a9a5a5665a0885007ef8fe44c889f3a8d2e713c18",
+    "fixtures": 162,
+    "firstCapture": "2026-10-01T13:01:09Z",
+    "lastCapture": "2026-10-01T13:26:44Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 3180.566092625,
+      "hidIdleSecondsAtStart": 1634.851848291,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-2x-active-5",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-6",
+    "admitted": true,
+    "manifestSha256": "721286cf7ed71def03a6fa8546bdd553d995af204cef9b8441f48f4b8a99c6be",
+    "fixtures": 162,
+    "firstCapture": "2026-10-01T13:26:57Z",
+    "lastCapture": "2026-10-01T13:52:33Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 4728.753400833,
+      "hidIdleSecondsAtStart": 3182.717681291,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-2x-active-6",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-7",
+    "admitted": true,
+    "manifestSha256": "02932b7784f3ae87675b445d0ff4252ed16279a679c1217b2b131a45c1bd32f5",
+    "fixtures": 162,
+    "firstCapture": "2026-10-01T13:52:45Z",
+    "lastCapture": "2026-10-01T14:18:20Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 6276.00976075,
+      "hidIdleSecondsAtStart": 4730.816564791,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-2x-active-7",
+      "userIsActiveAtStart": true
+    }
+  }
+]

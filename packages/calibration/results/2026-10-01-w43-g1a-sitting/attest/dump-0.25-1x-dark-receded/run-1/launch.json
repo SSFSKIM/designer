@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCALE=1",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w43/g1a-run/dump-0.25-1x-dark-receded/scenes-dump.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w43/g1a-run/dump-0.25-1x-dark-receded/run-1/no-fixtures",
+    "--stdout",
+    "/Users/new/vitrea-w43/g1a-run/dump-0.25-1x-dark-receded/run-1/dump.out",
+    "--stderr",
+    "/Users/new/vitrea-w43/g1a-run/dump-0.25-1x-dark-receded/run-1/dump.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "dump-layers",
+    "--scenes",
+    "dark-solid__capsule-button__rest,dark-solid__rrect-64__rest,dark-solid__rrect-80__rest,dark-solid__rrect-md__rest,dark-solid__rrect-ml__rest,dark-solid__rrect-lg__rest",
+    "--settle",
+    "8",
+    "--scheme",
+    "dark",
+    "--inactive",
+    "--out",
+    "/Users/new/vitrea-w43/g1a-run/dump-0.25-1x-dark-receded/run-1/json"
+  ]
+}

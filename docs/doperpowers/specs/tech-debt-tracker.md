@@ -7034,3 +7034,65 @@ by the black cells W36 sealed and by that reading. The rehearsal's `mono_black`,
 flat until the response climbs back, is one form; W42 declined it because it changed measured
 territory without a reading. The CSS tier derives the same branch (`tier-coherence.test.ts`'s W36
 case), so a fix moves both tiers.
+
+## A Claude Code auto-update re-prompts TCC for every headless caller (W43 G1a, 2026-10-01)
+
+*Found by W43 G1a's stop 1 (c9a §5.199 §2, §8).*
+
+TCC keys a bare executable by its path, and every Claude Code auto-update installs a new path
+(`~/.local/share/claude/versions/<version>`). The first process on the new binary to touch a
+protected folder therefore raises a Files-and-Folders prompt, whoever started it. In G1a it was the
+user's own launchd job, a Notes sync that runs `claude -p` on a newly synced note. Its prompt for
+Documents took the frontmost from the harness mid-run, and the watchdog quarantined the run. The
+census cannot see this, because nothing it names is involved, and the prompt stays up until someone
+answers it at the Mac. W39 G1 met the same prompt for 2.1.283 from the session's own binary.
+
+Shape of the fix: a pre-sitting check that lists the user's launchd agents whose programs start
+`claude` (or anything else that reads protected folders), and the installed Claude Code version
+against the last version TCC answered for. The sitting's prerequisites then pause those agents and
+hold auto-updates (`DISABLE_AUTOUPDATER=1`) for the sitting's length, with the reload commands
+recorded beside the pause.
+
+## A Screen Sharing viewer is HID input to the sitting (W43 G1a, 2026-10-01)
+
+*Found by W43 G1a's stop 2 (c9a §5.199 §2, §8).*
+
+Connecting to the capture Mac over Screen Sharing posts pointer events through
+`ScreensharingAgent` (`iohidpostevent` in the unified log), which reset HID idle. The watchdog
+read idle 0.3 s where 846 s was due and quarantined the run seconds after a viewer connected to
+look. The user had also answered stop 1's alert through a Screen Sharing session. Nothing in the
+sitting's prerequisites names Screen Sharing, and the census does not report `screensharingd`.
+
+Shape of the fix: state in the runbook's prerequisites that checking on a sitting means reading the
+worker's reports or `orchestrator-status.txt`, never connecting to the capture Mac. Have the
+pre-launch machine read report whether Screen Sharing (Remote Management) is enabled and whether a
+`screensharingd` viewer is connected, as the Universal Control check reports its own input path.
+
+## The census reads only at a run's open and close, so a mid-run browser costs the whole run (W43 G1a, 2026-10-01)
+
+*Found by W43 G1a's stop 3 (c9a §5.199 §2, §8); W42 G1's stop 3 had the same cause.*
+
+The machine gate takes the foreign-process census when a run opens and when it closes. In G1a, a
+peer Claude session started a `playwright-cli` daemon with headless Chrome 90 s into
+`bed-0.25-1x-receded` run 4. The run captured all 119 cells over the next 17 min, and only then did
+its closing census refuse it. The watchdog already polls the session every 5 s during every launch,
+but it reads frontmost and idle, not processes.
+
+Shape of the fix: take the census inside the watchdog's loop (by executable, with the launcher
+chain excluded, as the gate takes it) and stop the launch on the first foreign process, naming it.
+The run is then quarantined within seconds of the arrival rather than at its end.
+
+## A sitting's stop evidence lives outside its archive of record (W43 G1a, 2026-10-01)
+
+*Found while recording W43 G1a's three stops (c9a §5.199 §6, §8).*
+
+`w43_archive.py produce` archives the raw root: every run, every quarantine and `logs/`. The
+evidence a worker gathers to attribute a stop is written elsewhere, `~/vitrea-w43/g1a-stops/` in
+G1a: the unified-log extracts, the session reads after the stop, the pre-continuation census and
+pin-check. So it is in neither the archive nor, apart from the cause-naming excerpts committed
+under `results/…/stops/`, the repository. The repository is public, and the full extracts carry
+other processes' messages and the user's own content, so they should not go to git whole.
+
+Shape of the fix: give the runbook a stop-evidence directory under the raw root's `logs/` (for
+example `logs/stops/<n>/`), written by the worker before the archive is produced, and have
+`produce` carry it into `operational/` beside the orchestrator's logs.

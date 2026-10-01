@@ -1,0 +1,24 @@
+{
+ "schema": "w43-bridge-run-1",
+ "run": 3,
+ "stop": true,
+ "agrees": true,
+ "rule": "byte identity, or every region median within max(1 code, bar) of the reference (charter clause 3)",
+ "cells": [
+  {
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__inactive",
+   "frameSha256": "53ca86124db40a724e1353d8b847984f0c4bc7f7938451c882e7e8f853ff9956",
+   "referenceSha256": "53ca86124db40a724e1353d8b847984f0c4bc7f7938451c882e7e8f853ff9956",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__inactive",
+   "frameSha256": "ab33a78c616e10b84ce4dfe6ae142ad1efa2cce0c9456c1251f39c2462eef0e1",
+   "referenceSha256": "ab33a78c616e10b84ce4dfe6ae142ad1efa2cce0c9456c1251f39c2462eef0e1",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  }
+ ],
+ "pass": "open-w42-2x-light-receded"
+}

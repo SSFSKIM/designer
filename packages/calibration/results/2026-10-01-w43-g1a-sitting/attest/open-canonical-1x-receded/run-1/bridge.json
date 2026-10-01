@@ -1,0 +1,52 @@
+{
+ "schema": "w43-bridge-run-1",
+ "run": 1,
+ "stop": true,
+ "agrees": true,
+ "rule": "byte identity, or every region median within max(1 code, bar) of the reference (charter clause 3)",
+ "cells": [
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange",
+   "frameSha256": "dc998f9a0e5ac35d2cc0fdfabaf3fc5b1e2a4155787229f47374c10be703be49",
+   "referenceSha256": "dc998f9a0e5ac35d2cc0fdfabaf3fc5b1e2a4155787229f47374c10be703be49",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive",
+   "frameSha256": "223e3ecfd1543fbbb309956842324e8a79540ca76947935efc63022cb5dfc2a1",
+   "referenceSha256": "223e3ecfd1543fbbb309956842324e8a79540ca76947935efc63022cb5dfc2a1",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/hc-text-28__rrect-md__inactive",
+   "frameSha256": "044e444176081294cf0821f2d0ea5a76c3980cd1e0d27767ee72cda6a0654a8e",
+   "referenceSha256": "044e444176081294cf0821f2d0ea5a76c3980cd1e0d27767ee72cda6a0654a8e",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__inactive",
+   "frameSha256": "6fc35eab1f665b4287429db9ea85cfbf83ebf47d596a3f89a3bed97c95286327",
+   "referenceSha256": "6fc35eab1f665b4287429db9ea85cfbf83ebf47d596a3f89a3bed97c95286327",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/mid-chroma-solid__rrect-md__inactive",
+   "frameSha256": "f43fb24fb7c87e5b8b245f9cb93dabe8ba50d163b03ff526e259d4ff5b76342c",
+   "referenceSha256": "f43fb24fb7c87e5b8b245f9cb93dabe8ba50d163b03ff526e259d4ff5b76342c",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange",
+   "frameSha256": "02c3d930802f7b7fc33418ff46e89aadf1a4754ea47d2b7aec029cfbc73e6d78",
+   "referenceSha256": "02c3d930802f7b7fc33418ff46e89aadf1a4754ea47d2b7aec029cfbc73e6d78",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  }
+ ],
+ "pass": "open-canonical-1x-receded"
+}

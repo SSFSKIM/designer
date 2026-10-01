@@ -1,0 +1,79 @@
+{
+  "recordedAt": "2026-10-01T20:50:39.611934+00:00",
+  "foreignProcessCount": 9,
+  "foreignProcesses": [
+    {
+      "pid": 88275,
+      "ppid": 1,
+      "start": "Fri Oct 2 05:33:16 2026",
+      "executable": "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+      "args": "/Users/new/.nvm/versions/node/v24.18.0/bin/node /Users/new/.nvm/versions/node/v24.18.0/lib/node_modules/@playwright/cli/node_modules/playwright/cli.js run-cli-server --daemon-session=/Users/new/Library/Caches/ms-playwright/daemon/cd912897287dd5e2/default.session",
+      "why": "node script in @playwright"
+    },
+    {
+      "pid": 88278,
+      "ppid": 88275,
+      "start": "Fri Oct 2 05:33:16 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "args": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --d",
+      "why": "executable Google Chrome"
+    },
+    {
+      "pid": 88281,
+      "ppid": 1,
+      "start": "Fri Oct 2 05:33:16 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/chrome_crashpad_handler",
+      "args": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/new/Library/Application Support/Google/Chrome/Crashpad --metrics-dir=/Users/new/Library/Application Support/Google/Chrome --url=https://clients2.google.com/cr/report --annotation=channel= --an",
+      "why": "inside Google Chrome.app"
+    },
+    {
+      "pid": 88283,
+      "ppid": 88278,
+      "start": "Fri Oct 2 05:33:16 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=gpu-process --gpu-recent-crash-count=0 --disable-breakpad --headless --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/Users/new/Library/Caches/ms-playwright/daemon/cd912897287",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 88284,
+      "ppid": 88278,
+      "start": "Fri Oct 2 05:33:16 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --mute-audio --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/Users/new/Librar",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 88285,
+      "ppid": 88278,
+      "start": "Fri Oct 2 05:33:16 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=storage.mojom.StorageService --lang=ko --service-sandbox-type=service --mute-audio --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/Users/new/Librar",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 88287,
+      "ppid": 88278,
+      "start": "Fri Oct 2 05:33:16 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --top-chrome-webui --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/Users/new/Library/Caches/ms-playwright/daemon/cd912897287dd5e2/ud-default-ch",
+      "why": "executable Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 88799,
+      "ppid": 88278,
+      "start": "Fri Oct 2 05:33:32 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/Users/new/Library/Caches/ms-playwright/daemon/cd912897287dd5e2/ud-default-chrome --disable-back",
+      "why": "executable Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 91069,
+      "ppid": 88278,
+      "start": "Fri Oct 2 05:34:32 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/Users/new/Library/Caches/ms-playwright/daemon/cd912897287dd5e2/ud-default-chrome --disable-back",
+      "why": "executable Google Chrome Helper (Renderer)"
+    }
+  ],
+  "censusRule": "by executable image; node-family script arguments by path component or file name; own ancestors and the recorded launcher chain (pid and start time) excluded"
+}
