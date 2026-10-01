@@ -1,0 +1,75 @@
+[
+  {
+    "run": "QUARANTINE-run-4-1790887840608343000",
+    "admitted": false,
+    "manifestSha256": "4cee013382cf75f0a974ae7999f5cb747b6d42482a8dc9c0cf97c4366bab9023",
+    "fixtures": 119,
+    "firstCapture": "2026-10-01T20:31:57Z",
+    "lastCapture": "2026-10-01T20:50:39Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 29815.06920925,
+      "hidIdleSecondsAtStart": 28683.2015455,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-1x-receded-4",
+      "userIsActiveAtStart": true
+    },
+    "refusal": "ValueError: machine gate refused: 9 foreign capture process(es); X6 admits none"
+  },
+  {
+    "run": "run-1",
+    "admitted": true,
+    "manifestSha256": "b841dc0c1fb05cf9d8897330c240ce30812d61cb774091b8366273c6e0bdc3ac",
+    "fixtures": 119,
+    "firstCapture": "2026-10-01T19:35:12Z",
+    "lastCapture": "2026-10-01T19:53:55Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 26411.448309083,
+      "hidIdleSecondsAtStart": 25278.836245708,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-1x-receded-1",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-2",
+    "admitted": true,
+    "manifestSha256": "3f5c472287f9c41de6a409391a0918fcd2918cc5aa5e91a951d155d0fa3fb134",
+    "fixtures": 119,
+    "firstCapture": "2026-10-01T19:54:07Z",
+    "lastCapture": "2026-10-01T20:12:51Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 27546.752146,
+      "hidIdleSecondsAtStart": 26413.144144625,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-1x-receded-2",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-3",
+    "admitted": true,
+    "manifestSha256": "8133e56754fdc9a6e2a6c108a13eceb3d2d8764d20258f8c635efd1e8e15bd76",
+    "fixtures": 119,
+    "firstCapture": "2026-10-01T20:13:02Z",
+    "lastCapture": "2026-10-01T20:31:45Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 28681.233555416,
+      "hidIdleSecondsAtStart": 27548.402512875,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w43-bed-0.25-1x-receded-3",
+      "userIsActiveAtStart": true
+    }
+  }
+]
