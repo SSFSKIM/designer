@@ -31,14 +31,14 @@ function destinationPath(path: string): string {
 export function canonicalPath(path: string, hops = 0): string {
   if (hops > 40) throw new Error(`${path}: too many levels of symbolic links`);
   const absolute = resolve(path);
-  let link = false;
-  try {
-    link = lstatSync(absolute).isSymbolicLink();
-  } catch {
+  const stat = lstatSync(absolute, { throwIfNoEntry: false });
+  if (stat === undefined) {
     const parent = dirname(absolute);
     return parent === absolute ? absolute : join(canonicalPath(parent, hops), basename(absolute));
   }
-  if (link) return canonicalPath(resolve(dirname(absolute), readlinkSync(absolute)), hops + 1);
+  if (stat.isSymbolicLink()) {
+    return canonicalPath(resolve(dirname(absolute), readlinkSync(absolute)), hops + 1);
+  }
   return realpathSync.native(absolute);
 }
 
