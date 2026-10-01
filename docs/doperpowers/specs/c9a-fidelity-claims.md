@@ -42958,6 +42958,10 @@ The declaration is **`4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21f
 after an independent review of each branch closed. The freeze reads **1,818** on every branch. X41
 reads 695 on the branches that carry the first manifest and 911 on `w43-g0-declaration`.
 
+**Amended once, before any capture** (§6, "The amendment"): the hash in force is
+**`4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb`**, beneath the original in
+`declaration.sha256`. It re-pins the two X41 files that review fix `b213d4a4` moved after the hash.
+
 ### 1. (a) X41: the 0.5 generation frozen before any other act
 
 `x41/x41.ts verify`, run under tsx from `packages/calibration`, protects two kinds of thing:
@@ -43179,6 +43183,42 @@ all fixed in `60e6f136`:
 - the bridge verdict follows every run;
 - `declare.py` checks the declared repeat counts against both plans;
 - the lifted reading carries memo F's dark ramp.
+
+**The amendment** (the parent's ruling: an amendment, not a rewrite, made while no 0.25 pixel exists).
+Assembly found two pins stale. The hashed declaration pinned `x41/x41.ts` and `x41/sha256.txt` at
+their `6cb112d5` bytes (695 entries), and review fix `b213d4a4` on `w43-g0-declaration`, merged after
+the hash, moved both (911 entries, the `scenes.json` projection).
+
+`declare.py amend` was added for this. It re-pins only the named moved sources, records the
+superseded hash, the reason and the cause in `amendments.json`, and appends the amended hash beneath
+the original in `declaration.sha256`; no line is ever replaced, and `closure.json` keeps naming the
+original, since no item moved. It refuses:
+- an unhashed declaration;
+- a pin that has not moved;
+- any other moved pin;
+- the same pins again without a new reason;
+- any sign of a capture or archive (the 0.25 fixture trees, a G1a or G1b evidence directory,
+  `~/vitrea-w43/g1a` or `g1b`, a `w43-archive` tag).
+
+`check` verifies the whole chain. Each earlier declaration is rebuilt from the current one by
+putting back its amendments' `from` pins, and must hash to its recorded line.
+
+Amendment 1: **`4675ce21…` → `4f90f910…`**, cause `b213d4a4`. `x41.ts` moved `0b7171ae…` →
+`879fad08…` and `sha256.txt` moved `61a55c03…` → `fdf4fbde…`; nothing else moved.
+
+`declare-proof.txt` reads 23 of 23. Green: this exact amendment, made by the tool from the rewound
+declaration, yields the committed hash. Red:
+- a moved pin outside the amendment;
+- an unmoved named pin;
+- a repeated amendment without a new reason;
+- a capture present;
+- an unhashed declaration;
+- a tampered first line;
+- a tampered `from`.
+
+(d)'s pin check (`sitting.py`) now reads the chain's LAST line as the declaration in force. Its tests
+cover an amended chain (passes) and a chain whose last line names other bytes (refused). Red/green
+case 13 shows `f8a8650a`'s pin check refusing the amended declaration, and the new one accepting it.
 
 ### 7. Gaps, each recorded
 
