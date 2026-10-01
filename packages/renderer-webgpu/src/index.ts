@@ -368,14 +368,19 @@ export {
   bodyLawDecimatedSigma,
   bodyLawDecimationPad,
   bodyLawGaussianWeights,
+  bodyLawPackShelves,
+  bodyLawRegions,
   bodyLawSchedule,
   bodyLawSourceExtent,
   createBodyLawStage,
+  type BodyLawGrid,
+  type BodyLawRect,
   type BodyLawStage,
   type BodyLawStageArgs,
   type BodyLawStageOutput,
   type BodyLawSurfaceSchedule,
   type BodyLawWidth,
+  type BodyLawWidthRegion,
 } from "./body-law-pass";
 
 export {

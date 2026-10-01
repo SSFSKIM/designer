@@ -17,6 +17,7 @@
  * binding: any other sample type fails validation at bind-group creation.
  *
  *     W42_U7_DIR=/tmp/w42-u7 npx playwright test --grep @w42-u7
+ *     W42_U7_KNEE=2 W42_U7_DIR=/tmp/w42-u7 npx playwright test --grep @w42-u7   # result-knee2.json
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -27,6 +28,13 @@ import { expect, test } from "@playwright/test";
 import { openHarness, requireHardwareAdapter } from "../support";
 
 const DIR = process.env["W42_U7_DIR"];
+/**
+ * The knee form to render (`bodyLawKnee`, default 0, the cells' own). Every agreement cell's
+ * backdrop is grey, where the per-channel knee, the on-luma step and the on-luma knee with W's
+ * chroma are one argument, so each form is held to the same expectation: the override checks the
+ * shader's branch for that form, not the forms against each other (the mirror does that, §11.1).
+ */
+const KNEE = Number(process.env["W42_U7_KNEE"] ?? 0);
 const BUDGET_CODES = 0.15;
 /** One rgba16float ulp at the top of the range, in codes: 2^-11 · 255. */
 const HALF_FLOAT_CODES = 0.1245;
@@ -59,7 +67,8 @@ test("@w42-u7 the law ON agrees with forward.py, and a uniform backdrop is invar
   let format = "";
   for (const cell of cells) {
     const capture = await page.evaluate(([scene, patch]) =>
-      window.vitrea.renderSceneFloat(scene as never, patch as never), [cell.scene, cell.patch] as const);
+      window.vitrea.renderSceneFloat(scene as never, patch as never),
+      [cell.scene, { ...cell.patch, bodyLawKnee: KNEE }] as const);
     format = capture.format;
     const bytes = Buffer.from(capture.pixels, "base64");
     const values = new Float32Array(bytes.buffer, bytes.byteOffset, bytes.byteLength / 4);
@@ -80,7 +89,7 @@ test("@w42-u7 the law ON agrees with forward.py, and a uniform backdrop is invar
     rows.push({ id: cell.id, uniform: cell.uniform, maxCodes: errors[errors.length - 1]!,
       p99Codes: errors[Math.floor(0.99 * (errors.length - 1))]!, forwardMaxCodes: forward, rendered });
   }
-  writeFileSync(join(DIR!, "result.json"), JSON.stringify({
+  writeFileSync(join(DIR!, KNEE === 0 ? "result.json" : `result-knee${KNEE}.json`), JSON.stringify({
     adapter: `${report.vendor ?? "?"}/${report.architecture ?? "?"}`,
     gpuErrors: await page.evaluate(() => window.vitrea.errors()),
     format,

@@ -25,8 +25,8 @@ import {
   allShaderSource,
   analysisModule,
   bodyLawBlurModule,
-  bodyLawCaptureModule,
   bodyLawCompositeModule,
+  bodyLawFloorModule,
   bodyLawDecimateModule,
   importEncodedModule,
   chainModule,
@@ -56,12 +56,11 @@ const MODULES: readonly (readonly [string, string])[] = [
   ["optics", opticsModule()],
   ["highlight", highlightModule()],
   ["cross-check", crossCheckKernelModule()],
-  // W42 (G2 implementation-design §12, `wgsl/body-law.ts`).
+  // W42 (G2 implementation-design §12 and §17, `wgsl/body-law.ts`).
   ["import-encoded:sampled", importEncodedModule("sampled")],
   ["import-encoded:external", importEncodedModule("external")],
-  ["body-law:capture", bodyLawCaptureModule()],
-  ["body-law:blur:1", bodyLawBlurModule(1)],
-  ["body-law:blur:2", bodyLawBlurModule(2)],
+  ["body-law:floor", bodyLawFloorModule()],
+  ["body-law:blur", bodyLawBlurModule()],
   ["body-law:decimate", bodyLawDecimateModule()],
   ["body-law:composite", bodyLawCompositeModule()],
 ];

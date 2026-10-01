@@ -1,0 +1,206 @@
+diff --git a/packages/renderer-webgpu/e2e/fixtures/harness.ts b/packages/renderer-webgpu/e2e/fixtures/harness.ts
+index 885e9aa3..2571dc50 100644
+--- a/packages/renderer-webgpu/e2e/fixtures/harness.ts
++++ b/packages/renderer-webgpu/e2e/fixtures/harness.ts
+@@ -18,6 +18,7 @@ import {
+   createGradientProvider,
+   createWebGPURenderer,
+   createTimingCollector,
++  BODY_LAW_PROFILE,
+   linearGradientStops,
+   linearToSrgbChannel,
+   OUTPUT_TEXTURE_FORMAT,
+@@ -1061,6 +1062,7 @@ const api = {
+        * state at least as much as it measures the renderer.
+        */
+       readonly materialProfile?: MaterialProfilePatch;
++      readonly lawKnobs?: { skip?: string[]; format?: GPUTextureFormat };
+     }[];
+     readonly rounds: number;
+     readonly warmup: number;
+@@ -1111,6 +1113,8 @@ const api = {
+       for (let i = 0; i < input.warmup; i += 1) {
+         for (const entry of runs) {
+           frameId += 1;
++          BODY_LAW_PROFILE.skip = [...(entry.config.lawKnobs?.skip ?? [])];
++          BODY_LAW_PROFILE.format = entry.config.lawKnobs?.format;
+           entry.run.renderer.drawFrame({
+             frame: { id: frameId, timeMs: frameId * 16.7 },
+             optics: entry.run.optics.view,
+@@ -1124,6 +1128,10 @@ const api = {
+         for (const entry of runs) {
+           frameId += 1;
+           timing?.reset();
++          BODY_LAW_PROFILE.skip = [...(entry.config.lawKnobs?.skip ?? [])];
++          BODY_LAW_PROFILE.format = entry.config.lawKnobs?.format;
++          BODY_LAW_PROFILE.passes = 0;
++          BODY_LAW_PROFILE.pixels = 0;
+           const start = performance.now();
+           entry.run.renderer.drawFrame({
+             frame: { id: frameId, timeMs: frameId * 16.7 },
+@@ -1135,6 +1143,8 @@ const api = {
+           await gpu.queue.onSubmittedWorkDone();
+           entry.wall.push(performance.now() - start);
+           entry.cpu.push(encoded - start);
++          (entry as unknown as { passes: number }).passes = BODY_LAW_PROFILE.passes;
++          (entry as unknown as { pixels: number }).pixels = BODY_LAW_PROFILE.pixels;
+ 
+           if (timing !== undefined) {
+             const read = await timing.read();
+@@ -1171,6 +1181,8 @@ const api = {
+             gpuP95: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.95),
+             wallMsPerFrame: quantile(entry.wall, 0.5),
+             cpuMsPerFrame: quantile(entry.cpu, 0.5),
++            lawPasses: (entry as unknown as { passes: number }).passes,
++            lawPixels: (entry as unknown as { pixels: number }).pixels,
+             wallP95: quantile(entry.wall, 0.95),
+             passMs,
+             // Reported per config for want of a per-config counter; it is a
+diff --git a/packages/renderer-webgpu/src/body-law-pass.ts b/packages/renderer-webgpu/src/body-law-pass.ts
+index 1f51d984..acd3f121 100644
+--- a/packages/renderer-webgpu/src/body-law-pass.ts
++++ b/packages/renderer-webgpu/src/body-law-pass.ts
+@@ -52,6 +52,12 @@ import {
+ /** Every tile and A (§11.1, ruled §12 item 3). */
+ export const BODY_LAW_TILE_FORMAT: GPUTextureFormat = "rgba32float";
+ 
++/** TEMPORARY profiling knobs (perf wave); not committed. */
++export const BODY_LAW_PROFILE: { skip: string[]; format: GPUTextureFormat | undefined; passes: number; pixels: number } =
++  { skip: [], format: undefined, passes: 0, pixels: 0 };
++const skipped = (k: string) => BODY_LAW_PROFILE.skip.includes(k);
++const tileFormat = (): GPUTextureFormat => BODY_LAW_PROFILE.format ?? BODY_LAW_TILE_FORMAT;
++
+ /** `ndimage`'s `truncate`, the instrument's `TRUNCATE` (`forward.py:37`). */
+ const TRUNCATE = 4;
+ 
+@@ -241,7 +247,7 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
+     entryPoint: string,
+     targets: number,
+   ): GPURenderPipeline =>
+-    cache.renderPipeline(`body-law:${key}`, () => ({
++    cache.renderPipeline(`body-law:${key}:${tileFormat()}`, () => ({
+       label: `vitrea:pipeline:body-law:${key}`,
+       layout: "auto",
+       vertex: { module: cache.module(`module:body-law:${moduleKey}`, module),
+@@ -249,7 +255,7 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
+       fragment: {
+         module: cache.module(`module:body-law:${moduleKey}`, module),
+         entryPoint,
+-        targets: Array.from({ length: targets }, () => ({ format: BODY_LAW_TILE_FORMAT })),
++        targets: Array.from({ length: targets }, () => ({ format: tileFormat() })),
+       },
+       primitive: { topology: "triangle-list" },
+     }));
+@@ -316,7 +322,7 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
+         const poolKey = `body-law:${args.resourceId}:${name}`;
+         used.add(poolKey);
+         return pool.acquire(poolKey, {
+-          width, height, format: BODY_LAW_TILE_FORMAT, usage: tileUsage(),
++          width, height, format: tileFormat(), usage: tileUsage(),
+           label: `vitrea:body-law:${args.resourceId}:${name}`,
+         });
+       };
+@@ -352,6 +358,7 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
+         pipe: GPURenderPipeline,
+         bindings: readonly GPUBindGroupEntry[],
+       ): void => {
++        BODY_LAW_PROFILE.passes += 1;
+         const pass = encoder.beginRenderPass({
+           label: `vitrea:pass:body-law:${label}`,
+           ...timed(),
+@@ -425,16 +432,19 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
+         const zero = plan.edge === "normalised";
+ 
+         // 1. The capture, and 2. its floor (always clamp: `forward.py` `Cell.S`).
++        BODY_LAW_PROFILE.pixels += fw * fh;
+         const capture = texture(name("capture"), fw, fh).createView();
+-        fullPass(name("capture"), [capture], capturePipeline(), [
++        if (!skipped("capture")) fullPass(name("capture"), [capture], capturePipeline(), [
+           { binding: 0, resource: { buffer: captureUniform(name("capture"),
+             [plan.footprint.x0, plan.footprint.y0]).buffer } },
+           { binding: 1, resource: encodedView },
+         ]);
+         const scratch0 = texture(name("scratch:1:0"), fw, fh).createView();
+-        const floored = texture(name("floored"), fw, fh).createView();
+-        blurPass(name("floor:h"), [capture, capture], [scratch0], [plan.floorSigmaDevicePx], 0, false);
+-        blurPass(name("floor:v"), [scratch0, scratch0], [floored], [plan.floorSigmaDevicePx], 1, false);
++        const floored = skipped("floor") ? capture : texture(name("floored"), fw, fh).createView();
++        if (!skipped("floor")) {
++          blurPass(name("floor:h"), [capture, capture], [scratch0], [plan.floorSigmaDevicePx], 0, false);
++          blurPass(name("floor:v"), [scratch0, scratch0], [floored], [plan.floorSigmaDevicePx], 1, false);
++        }
+ 
+         // 3. Every stored width, grid by grid and pair by pair.
+         const tiles = new Map<BodyLawWidth["role"], { view: GPUTextureView; q: number; pad: number }>();
+@@ -442,6 +452,9 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
+           if (width.q === 0) tiles.set(width.role, { view: floored, q: 1, pad: 0 });
+         }
+         for (const grid of schedule.grids) {
++          if (skipped("narrow") && grid.pairs.flat().every((w) => w.role !== "wide")) continue;
++          if (skipped("wide") && grid.pairs.flat().every((w) => w.role === "wide")) continue;
++          if (skipped(`q${grid.q}`)) continue;
+           let input = floored;
+           if (grid.q > 1) {
+             input = texture(name(`decimated:${grid.q}`), grid.width, grid.height).createView();
+@@ -494,6 +507,7 @@ export function createBodyLawStage(context: GpuContext): BodyLawStage {
+       const composite = compositePipeline();
+       pass.setPipeline(composite);
+       for (const { index, schedule, floored, tiles } of built) {
++        if (skipped("composite")) continue;
+         const { plan } = schedule;
+         const x0 = Math.max(plan.footprint.x0, rectDevice.x);
+         const y0 = Math.max(plan.footprint.y0, rectDevice.y);
+diff --git a/packages/renderer-webgpu/src/index.ts b/packages/renderer-webgpu/src/index.ts
+index 949676b3..92afe56d 100644
+--- a/packages/renderer-webgpu/src/index.ts
++++ b/packages/renderer-webgpu/src/index.ts
+@@ -364,6 +364,7 @@ export {
+ } from "./body-law";
+ export {
+   BODY_LAW_MAX_LEVELS,
++  BODY_LAW_PROFILE,
+   BODY_LAW_TILE_FORMAT,
+   bodyLawDecimatedSigma,
+   bodyLawDecimationPad,
+diff --git a/packages/renderer-webgpu/e2e/bench/w42-profile.spec.ts b/packages/renderer-webgpu/e2e/bench/w42-profile.spec.ts
+new file mode 100644
+index 00000000..34242566
+--- /dev/null
++++ b/packages/renderer-webgpu/e2e/bench/w42-profile.spec.ts
+@@ -0,0 +1,36 @@
++// TEMPORARY perf-wave profiling spec (not committed).
++import { writeFileSync } from "node:fs";
++import { test } from "@playwright/test";
++import { openHarness, requireHardwareAdapter } from "../support";
++const LAW = { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1 };
++const M = { widthCss: 390, heightCss: 844, devicePixelRatio: 3 };
++const D = { widthCss: 1440, heightCss: 900, devicePixelRatio: 2 };
++const rows = JSON.parse(process.env["W42_PROFILE_ROWS"] ?? "null") ?? [
++  { label: "m base", ...M },
++  { label: "m law", ...M, materialProfile: LAW },
++  { label: "m law -narrow", ...M, materialProfile: LAW, lawKnobs: { skip: ["narrow"] } },
++  { label: "m law -wide", ...M, materialProfile: LAW, lawKnobs: { skip: ["wide"] } },
++  { label: "m law -floor", ...M, materialProfile: LAW, lawKnobs: { skip: ["floor"] } },
++  { label: "m law -composite", ...M, materialProfile: LAW, lawKnobs: { skip: ["composite"] } },
++  { label: "m law -capture", ...M, materialProfile: LAW, lawKnobs: { skip: ["capture"] } },
++  { label: "m law -q1", ...M, materialProfile: LAW, lawKnobs: { skip: ["q1"] } },
++  { label: "m law -q2", ...M, materialProfile: LAW, lawKnobs: { skip: ["q2"] } },
++  { label: "m law -q4", ...M, materialProfile: LAW, lawKnobs: { skip: ["q4"] } },
++  { label: "m law f16", ...M, materialProfile: LAW, lawKnobs: { format: "rgba16float" } },
++  { label: "m law -all", ...M, materialProfile: LAW, lawKnobs: { skip: ["narrow", "wide", "floor", "composite", "capture"] } },
++  { label: "m law-receded", ...M, materialProfile: { ...LAW, bodyLawPose: 1 } },
++  { label: "d law", ...D, materialProfile: LAW },
++  { label: "d law f16", ...D, materialProfile: LAW, lawKnobs: { format: "rgba16float" } },
++  { label: "m base control", ...M },
++];
++test("@w42-profile stage ablations", async ({ page }) => {
++  test.setTimeout(900_000);
++  requireHardwareAdapter(await openHarness(page));
++  const out = [];
++  for (let run = 0; run < Number(process.env["W42_PROFILE_RUNS"] ?? 3); run += 1) {
++    const m = await page.evaluate((configs) => window.vitrea.bench({ configs, rounds: 60, warmup: 20 }), rows);
++    out.push(m.results.map((r: any) => ({ label: r.label, wall: r.wallMsPerFrame, cpu: r.cpuMsPerFrame,
++      passes: r.lawPasses, pixels: r.lawPixels })));
++  }
++  writeFileSync(process.env["W42_PROFILE_OUT"] ?? "/tmp/w42-perf/profile.json", JSON.stringify(out, null, 1));
++});

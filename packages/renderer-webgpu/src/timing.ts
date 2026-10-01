@@ -166,6 +166,6 @@ export const PASS_LABEL = {
   field: "group-field",
   optics: "optics",
   highlight: "highlight",
-  /** W42's body-law stage, every pass of it (`body-law-pass.ts`). */
+  /** W42's body-law stage, one compute pass per frame for every group (`body-law-pass.ts`). */
   bodyLaw: "body-law",
 } as const;

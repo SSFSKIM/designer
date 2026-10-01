@@ -12,6 +12,10 @@
  * normalised mode, the composite's return coordinate and its interpolation — and compares with the
  * mirror's graph (to 1e-6 code) and with the exact per-pixel Gaussian, band-weighted, on
  * `fixtures/stage.json` (`implementation-design/u3_fixtures.py`).
+ *
+ * Since the perf wave (§17) the stage computes each width only where it is read
+ * (`bodyLawRegions`). The last block here runs the same passes over those regions alone, with every
+ * other texel a NaN, and holds each value the composite reads to the whole-footprint value.
  */
 
 import { readFileSync } from "node:fs";
@@ -29,8 +33,11 @@ import {
   bodyLawDecimatedSigma,
   bodyLawDecimationPad,
   bodyLawGaussianWeights,
+  bodyLawPackShelves,
+  bodyLawRegions,
   bodyLawSchedule,
   bodyLawSourceExtent,
+  type BodyLawRect,
 } from "../src/body-law-pass";
 import { DEFAULT_MATERIAL_PROFILE, type MaterialProfile } from "../src/material";
 
@@ -91,12 +98,19 @@ interface Tile {
 const at = (tile: Tile, x: number, y: number, c: number): number =>
   tile.data[(y * tile.w + x) * 4 + c]!;
 
-/** `fs_blur` on one target: taps clamped to the tile, or zero outside it. */
-function blur(tile: Tile, axis: 0 | 1, weights: Float64Array, zero: boolean): Tile {
+/**
+ * `cs_blur` on one job: taps clamped to the tile, or zero outside it, written over `rect` (the
+ * whole tile unless given) into `into` (zeros unless given).
+ */
+function blur(tile: Tile, axis: 0 | 1, weights: Float64Array, zero: boolean,
+  rect: BodyLawRect = { x0: 0, y0: 0, x1: tile.w, y1: tile.h },
+  into: Tile = { w: tile.w, h: tile.h, data: new Float64Array(tile.data.length) }): Tile {
   const r = (weights.length - 1) / 2;
-  const out = new Float64Array(tile.data.length);
-  for (let y = 0; y < tile.h; y++) {
-    for (let x = 0; x < tile.w; x++) {
+  const out = into.data;
+  for (let y = rect.y0; y < rect.y1; y++) {
+    for (let x = rect.x0; x < rect.x1; x++) {
+      const dst = (y * tile.w + x) * 4;
+      for (let c = 0; c < 4; c++) out[dst + c] = 0;
       for (let k = -r; k <= r; k++) {
         let tx = axis === 0 ? x + k : x;
         let ty = axis === 1 ? y + k : y;
@@ -105,15 +119,14 @@ function blur(tile: Tile, axis: 0 | 1, weights: Float64Array, zero: boolean): Ti
         ty = Math.min(tile.h - 1, Math.max(0, ty));
         const w = weights[k + r]!;
         const src = (ty * tile.w + tx) * 4;
-        const dst = (y * tile.w + x) * 4;
         for (let c = 0; c < 4; c++) out[dst + c]! += w * tile.data[src + c]!;
       }
     }
   }
-  return { w: tile.w, h: tile.h, data: out };
+  return into;
 }
 
-/** `fs_decimate`: the q × q block means of the tile padded by `pad`, edge or zero. */
+/** `cs_decimate`: the q × q block means of the tile padded by `pad`, edge or zero. */
 function decimate(tile: Tile, q: number, pad: number, zero: boolean, w: number, h: number): Tile {
   const out = new Float64Array(w * h * 4);
   for (let gy = 0; gy < h; gy++) {
@@ -192,17 +205,17 @@ function emulate(cell: StageCell) {
   for (const width of schedule.widths) {
     if (width.q === 0) tiles.set(width.role, { tile: floored, q: 1, pad: 0 });
   }
+  const inputs = new Map<number, Tile>();
   for (const grid of schedule.grids) {
     const input = grid.q === 1 ? floored : decimate(floored, grid.q, grid.pad, zero, grid.width, grid.height);
-    for (const pair of grid.pairs) {
-      for (const width of pair) {
-        const sigma = grid.q === 1 ? width.sigma : bodyLawDecimatedSigma(width.sigma, grid.q);
-        const weights = bodyLawGaussianWeights(sigma);
-        const gridZero = grid.q === 1 && zero;
-        tiles.set(width.role, {
-          tile: blur(blur(input, 0, weights, gridZero), 1, weights, gridZero), q: grid.q, pad: grid.pad,
-        });
-      }
+    inputs.set(grid.q, input);
+    for (const width of grid.members) {
+      const sigma = grid.q === 1 ? width.sigma : bodyLawDecimatedSigma(width.sigma, grid.q);
+      const weights = bodyLawGaussianWeights(sigma);
+      const gridZero = grid.q === 1 && zero;
+      tiles.set(width.role, {
+        tile: blur(blur(input, 0, weights, gridZero), 1, weights, gridZero), q: grid.q, pad: grid.pad,
+      });
     }
   }
   const s = cell.samples;
@@ -223,7 +236,7 @@ function emulate(cell: StageCell) {
     const wide = tiles.get("wide")!;
     Wv.push(tileValue(wide.tile, wide.q, wide.pad, i, j));
   });
-  return { plan, schedule, material, C, W: Wv };
+  return { plan, schedule, material, C, W: Wv, tiles, inputs, floored };
 }
 
 const smoothstep = (a: number, b: number, x: number): number => {
@@ -275,18 +288,18 @@ describe.each(doc.cells.map((cell) => [`${cell.comp} ${cell.scale}x ${cell.schem
       ).toBeCloseTo(cell.samples.sigma[n]!, 10));
     });
 
-    it("schedules every width once, in pairs, one grid per decimation factor", () => {
+    it("schedules every width once, one grid per decimation factor", () => {
       const { schedule } = run;
-      const scheduled = schedule.grids.flatMap((grid) => grid.pairs.flat());
+      const scheduled = schedule.grids.flatMap((grid) => grid.members);
       const stored = schedule.widths.filter((width) => width.q !== 0);
       expect(scheduled).toHaveLength(stored.length);
+      expect(new Set(schedule.grids.map((grid) => grid.q)).size).toBe(schedule.grids.length);
       for (const grid of schedule.grids) {
-        expect(grid.pairs.every((pair) => pair.length >= 1 && pair.length <= 2)).toBe(true);
-        expect(grid.pairs.flat().every((width) => width.q === grid.q)).toBe(true);
+        expect(grid.members.every((width) => width.q === grid.q)).toBe(true);
         if (grid.q > 1) {
           // The shared padding is the widest member's, a multiple of q, and covers every member.
           expect(grid.pad % grid.q).toBe(0);
-          for (const width of grid.pairs.flat()) {
+          for (const width of grid.members) {
             expect(grid.pad).toBeGreaterThanOrEqual(bodyLawDecimationPad(width.sigma, grid.q));
           }
         }
@@ -335,3 +348,79 @@ describe.each(doc.cells.map((cell) => [`${cell.comp} ${cell.scale}x ${cell.schem
     });
   },
 );
+
+/**
+ * The stage computes a width only where it is read (`bodyLawRegions`, §17). Run every pass over
+ * its region alone, with NaN in every texel it does not write, and read each width back at every
+ * pixel of the composite as the composite reads it: each value is the whole-footprint pass's value
+ * to the bit, and none is a NaN. That is the claim the regions make — every tap of the vertical
+ * pass lands in what the horizontal pass wrote, and every read of the composite in what the
+ * vertical pass wrote — checked rather than argued.
+ */
+describe.each(doc.cells.map((cell) => [`${cell.comp} ${cell.scale}x ${cell.scheme} ${cell.pose} unit ${cell.unit}`, cell] as const))(
+  "W42 perf wave: the stage's regions, %s",
+  (_name, cell) => {
+    const run = emulate(cell);
+    const { plan, schedule, tiles, inputs } = run;
+    const fw = plan.footprint.x1 - plan.footprint.x0;
+    const fh = plan.footprint.y1 - plan.footprint.y0;
+    const nan = (tile: Tile): Tile => ({ w: tile.w, h: tile.h, data: new Float64Array(tile.data.length).fill(NaN) });
+    const box = {
+      x0: plan.box.x0 - plan.footprint.x0, y0: plan.box.y0 - plan.footprint.y0,
+      x1: plan.box.x1 - plan.footprint.x0, y1: plan.box.y1 - plan.footprint.y0,
+    };
+    const clip = (r: BodyLawRect): BodyLawRect => ({
+      x0: Math.max(0, r.x0), y0: Math.max(0, r.y0), x1: Math.min(fw, r.x1), y1: Math.min(fh, r.y1),
+    });
+    it.each([
+      ["the whole footprint", { x0: 0, y0: 0, x1: fw, y1: fh }],
+      // A's rect cutting the footprint unevenly, as a group rect a few points past the box does.
+      ["a rect cutting the footprint", clip({ x0: box.x0 - 5, y0: box.y0 - 2, x1: box.x1 + 7, y1: box.y1 + 4 })],
+      ["a corner of it", clip({ x0: 0, y0: 0, x1: box.x0 + 9, y1: box.y0 + 6 })],
+    ] as const)("reads every width back exactly over %s", (_label, composite) => {
+      for (const region of bodyLawRegions(schedule, composite)) {
+        const input = inputs.get(region.grid.q)!;
+        const weights = bodyLawGaussianWeights(region.sigma);
+        expect(weights.length).toBe(2 * region.radius + 1);
+        const h = blur(input, 0, weights, region.zero, region.horizontal, nan(input));
+        const v = blur(h, 1, weights, region.zero, region.written, nan(input));
+        const whole = tiles.get(region.width.role)!;
+        for (let j = composite.y0; j < composite.y1; j++) {
+          for (let i = composite.x0; i < composite.x1; i++) {
+            const bounded = tileValue(v, whole.q, whole.pad, i, j);
+            const full = tileValue(whole.tile, whole.q, whole.pad, i, j);
+            for (let c = 0; c < 3; c++) {
+              if (!Object.is(bounded[c], full[c])) {
+                expect.fail(`${String(region.width.role)} at (${i}, ${j}): ${bounded[c]} against ${full[c]}`);
+              }
+            }
+          }
+        }
+      }
+    });
+  },
+);
+
+describe("W42 perf wave: the atlas packing", () => {
+  it("places every tile inside the atlas, none overlapping, and declines what cannot fit", () => {
+    const sizes: [number, number][] = [[300, 40], [120, 90], [500, 12], [64, 64], [80, 90], [1, 1]];
+    const packed = bodyLawPackShelves(sizes, 600)!;
+    expect(packed.width).toBeLessThanOrEqual(600);
+    const rects = sizes.map(([w, h], i) => {
+      const [x, y] = packed.places[i]!;
+      expect(x + w).toBeLessThanOrEqual(packed.width);
+      expect(y + h).toBeLessThanOrEqual(packed.height);
+      return { x, y, w, h };
+    });
+    for (let a = 0; a < rects.length; a++) {
+      for (let b = a + 1; b < rects.length; b++) {
+        const p = rects[a]!, q = rects[b]!;
+        const apart = p.x + p.w <= q.x || q.x + q.w <= p.x || p.y + p.h <= q.y || q.y + q.h <= p.y;
+        expect(apart, `${a} and ${b}`).toBe(true);
+      }
+    }
+    expect(bodyLawPackShelves([[601, 1]], 600)).toBeUndefined();
+    expect(bodyLawPackShelves([[400, 400], [400, 400]], 600)).toBeUndefined();
+    expect(bodyLawPackShelves([], 600)).toEqual({ places: [], width: 1, height: 1 });
+  });
+});

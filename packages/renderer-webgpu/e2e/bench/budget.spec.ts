@@ -138,11 +138,13 @@ const CONFIGS = [
     materialProfile: { sizeHeavyTapSigma: 19.5, sizeHeavyTapSigma2x: 11.3 },
   },
   /**
-   * W42's body law ON (G2 implementation-design §2.10; the bench G3 reads). The scene's backdrop
-   * is dirty every frame, so the law's stage rebuilds every frame on every surface: the worst
-   * case, a live video behind the glass. A static backdrop rebuilds nothing after its first
-   * frame (the stage's cache, `test/w42-optics-law.test.ts`). Active and receded poses, in
-   * points (LT's unit), and the desktop scene beside the mobile one.
+   * W42's body law ON (G2 implementation-design §2.10 and §17; the bench G3 reads). The scene's
+   * backdrop is dirty every frame, so the law's stage rebuilds every frame on every surface: the
+   * worst case, a live video behind the glass. A static backdrop rebuilds nothing after its first
+   * frame (the stage's cache, `test/w42-optics-law.test.ts`). Active and receded poses, in points
+   * (LT's unit), on both scenes. The stage is one compute pass per frame, so its `body-law`
+   * timestamp is its own; the other passes' timestamps absorb its queueing, as they did the
+   * render-pass stage's (§16), and the wall clock remains the frame's reading.
    */
   {
     label: "mobile-390x844@3 law-active",
@@ -165,6 +167,14 @@ const CONFIGS = [
     heightCss: 900,
     devicePixelRatio: 2,
     materialProfile: { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1 },
+  },
+  {
+    label: "desktop-1440x900@2 law-receded",
+    widthCss: 1440,
+    heightCss: 900,
+    devicePixelRatio: 2,
+    materialProfile: { bodyLawStrength: 1, bodyLawWidthUnit: 1, bodyLawEncodedAveraging: 1,
+      bodyLawPose: 1 },
   },
   // The ordering control: the first config again. Interleaved, it should land on
   // the first row's number; if it does not, nothing else in the table is

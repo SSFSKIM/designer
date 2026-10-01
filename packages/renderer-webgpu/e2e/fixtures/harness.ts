@@ -1101,9 +1101,8 @@ const api = {
     // One collector for the whole benchmark, reset before each frame. A query set
     // per frame would allocate hundreds of them and, worse, read slots that this
     // frame's passes never wrote.
-    // 1024 slots: a row with W42's law on draws its stage's passes per surface, up to fifteen
-    // each, on top of the frame's own.
-    const timing = timestamps ? createTimingCollector(gpu, 1024) : undefined;
+    // W42's law adds one slot a frame: its stage is one compute pass for every group (§17).
+    const timing = timestamps ? createTimingCollector(gpu, 256) : undefined;
 
     try {
       let frameId = 0;

@@ -11,10 +11,10 @@
 
 import { WGSL_ANALYSIS_PASS } from "./analysis";
 import {
-  bodyLawBlurSource,
-  WGSL_BODY_LAW_CAPTURE,
+  WGSL_BODY_LAW_BLUR,
   WGSL_BODY_LAW_COMPOSITE,
   WGSL_BODY_LAW_DECIMATE,
+  WGSL_BODY_LAW_FLOOR,
 } from "./body-law";
 import { WGSL_CROSS_CHECK_PASS } from "./cross-check";
 import { importPassSource, WGSL_DOWNSAMPLE_PASS, WGSL_IMPORT_ENCODED_ENTRY } from "./backdrop";
@@ -50,10 +50,9 @@ export const chainModule = (): string => withPrelude(WGSL_DOWNSAMPLE_PASS);
 
 export const analysisModule = (): string => withPrelude(WGSL_ANALYSIS_PASS);
 
-/** W42's body-law stage (`wgsl/body-law.ts`, `body-law-pass.ts`). */
-export const bodyLawCaptureModule = (): string => withPrelude(WGSL_BODY_LAW_CAPTURE);
-export const bodyLawBlurModule = (targets: 1 | 2): string =>
-  withPrelude(bodyLawBlurSource(targets));
+/** W42's body-law stage, four compute entry points (`wgsl/body-law.ts`, `body-law-pass.ts`). */
+export const bodyLawFloorModule = (): string => withPrelude(WGSL_BODY_LAW_FLOOR);
+export const bodyLawBlurModule = (): string => withPrelude(WGSL_BODY_LAW_BLUR);
 export const bodyLawDecimateModule = (): string => withPrelude(WGSL_BODY_LAW_DECIMATE);
 export const bodyLawCompositeModule = (): string => withPrelude(WGSL_BODY_LAW_COMPOSITE);
 
@@ -93,9 +92,8 @@ export function allShaderSource(): string {
     WGSL_OPTICS_PASS,
     WGSL_HIGHLIGHT_PASS,
     WGSL_IMPORT_ENCODED_ENTRY,
-    WGSL_BODY_LAW_CAPTURE,
-    bodyLawBlurSource(1),
-    bodyLawBlurSource(2),
+    WGSL_BODY_LAW_FLOOR,
+    WGSL_BODY_LAW_BLUR,
     WGSL_BODY_LAW_DECIMATE,
     WGSL_BODY_LAW_COMPOSITE,
   ].join("\n\n");

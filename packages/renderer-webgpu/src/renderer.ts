@@ -865,6 +865,22 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     return { built, unbuilt };
   }
 
+  /**
+   * One frame's submission, in the order its work depends on: the rebuilds (the pyramid, whose
+   * encoded level 0 the body law captures), then the body law's one compute pass for every group
+   * that rebuilt (`BodyLawStage.encode`), then the groups' passes, which read A.
+   */
+  function submitFrame(
+    device: GPUDevice,
+    rebuilds: GPUCommandEncoder,
+    law: GPUCommandBuffer | undefined,
+    groups: GPUCommandEncoder,
+  ): void {
+    const first = rebuilds.finish();
+    const last = groups.finish();
+    device.queue.submit(law === undefined ? [first, last] : [first, law, last]);
+  }
+
   function drawGroups(
     encoder: GPUCommandEncoder,
     resolution: SceneResolutionView | undefined,
@@ -1147,13 +1163,15 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        * that builds its argument A over the group's own surface rect. It runs only for a regular
        * group sampling a texture, under no occlusion lift, and only where the source carries
        * the encoded level 0 the law is captured from; otherwise nothing is encoded and the
-       * optics pass receives no law, which is every group on every shipped material.
+       * optics pass receives no law, which is every group on every shipped material. The stage
+       * hands A over here and encodes every group's build in one compute pass of its own
+       * command buffer, submitted between the rebuilds and this encoder (`submitFrame`, §17).
        */
       const lawStrength = bodyLawStrengthUnderPolicy(
         material.bodyLawStrength, policy, variant, pyramid !== undefined,
       );
       const lawArgument = lawStrength > 0 && pyramid !== undefined && sourceId !== undefined
-        ? bodyLaw?.draw(encoder, {
+        ? bodyLaw?.draw({
             resourceId: resourceOf(input.groupId), surfaces, pyramid,
             rectDevice: surfaceRectDevice, viewportDevice, fit: fitFor(sourceId, pyramid),
             devicePixelRatio: dpr, material,
@@ -1779,6 +1797,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const encoder = gpu.device.createCommandEncoder({
         label: `vitrea:frame:${args.frame.id}`,
       });
+      const groupsEncoder = gpu.device.createCommandEncoder({
+        label: `vitrea:frame:${args.frame.id}:groups`,
+      });
 
       let result: DrawFrameResult;
       try {
@@ -1791,10 +1812,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           if (args.highlight !== undefined) passes.clearPass(encoder, args.highlight);
         }
 
-        result = drawGroups(encoder, args.resolution, args.frame.timeMs);
+        result = drawGroups(groupsEncoder, args.resolution, args.frame.timeMs);
+        const law = bodyLaw?.encode();
 
-        args.timing?.resolve(encoder);
-        gpu.device.queue.submit([encoder.finish()]);
+        args.timing?.resolve(groupsEncoder);
+        submitFrame(gpu.device, encoder, law, groupsEncoder);
         // Success path only: starting a readback map for a copy that never
         // reached the queue is its own bug (see `requestStats`).
         pyramids.afterSubmit();
@@ -1871,13 +1893,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           const pyramids = store as PyramidStore;
 
           try {
+            const groupsEncoder = context.device.createCommandEncoder({
+              label: `vitrea:frame:${frameContext.frame.id}:groups`,
+            });
             if (targets !== undefined) {
               passes.clearPass(encoder, targets.optics);
               if (targets.highlight !== undefined) passes.clearPass(encoder, targets.highlight);
-              drawGroups(encoder, frameContext.resolution, frameContext.frame.timeMs);
+              drawGroups(groupsEncoder, frameContext.resolution, frameContext.frame.timeMs);
             }
 
-            context.device.queue.submit([encoder.finish()]);
+            submitFrame(context.device, encoder, bodyLaw?.encode(), groupsEncoder);
             pyramids.afterSubmit();
             silhouetteTone?.afterSubmit();
             bodyLaw?.afterSubmit();
