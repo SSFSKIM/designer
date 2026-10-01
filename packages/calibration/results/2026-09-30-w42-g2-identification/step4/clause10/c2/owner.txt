@@ -1,0 +1,56 @@
+[run-owner 12:31:36] worktree /private/tmp/w42-g2-step4/owner/c2/worktree at 33b00f85406b
+[run-owner 12:32:00] base: union
+[run-owner 12:32:17] base: captures
+[run-owner 12:32:18] base: chroma-cut.py
+[run-owner 12:32:25] base: exterior-cut.py
+[run-owner 12:32:30] base: l1-cut.py
+[run-owner 12:32:38] base: black-cut.py
+[run-owner 12:32:45] base: vitest
+[run-owner 12:32:50] candidate: union
+[run-owner 12:33:07] candidate: captures
+[run-owner 12:33:08] candidate: chroma-cut.py
+[run-owner 12:33:15] candidate: exterior-cut.py
+[run-owner 12:33:20] candidate: l1-cut.py
+[run-owner 12:33:28] candidate: black-cut.py
+[run-owner 12:33:35] candidate: vitest
+[run-owner 12:33:40] candidate: closures {'MISSED_27_ROWS': ['texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR'], 'L1 MISSES': ['apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange']}, 2 re-recorded reading(s); vitest at the seal's lists
+base      {'passed': 109}
+candidate {'failed': 2, 'passed': 107}
+union     base 0c56164b2edcc49c… candidate 10e4f407e8e927de…
+new                   2
+  W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS
+    AssertionError: texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.5: interiorStdDevWeb 0.009552 -> 0.035618, 272.883%, Apple 0.034352: a failure, which no entry excuses: expected 2.728830814039516 to be less than or equal to 0.02
+  W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: an M2 failure on the live cut: expected [ …(5) ] to deeply equal []
+changed               0
+unmeasuredInCandidate 0
+fixed                 0
+shared                0
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 2.56961232, bound: "≤ 0.02", native: 0.04271031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.12159824, bound: "≤ 0.02", native: 0.04960473 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.08830533, bound: "≤ 0.02", native: 0.05865452 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.35060998, bound: "≤ 0.02", native: 0.06440934 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.34500021, bound: "≤ 0.02", native: 0.07785381 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.50124350, bound: "≤ 0.02", native: 0.09152257 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.38314545, bound: "≤ 0.02", native: 0.09097633 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.08052607, bound: "≤ 0.02", native: 0.09621216 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 2.87334632, bound: "≤ 0.02", native: 0.04290656 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.03452232, bound: "≤ 0.02", native: 0.04929191 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.12866752, bound: "≤ 0.02", native: 0.05975691 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.23872732, bound: "≤ 0.02", native: 0.06529274 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.39733389, bound: "≤ 0.02", native: 0.07799072 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.51772590, bound: "≤ 0.02", native: 0.09187031 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.04333922, bound: "≤ 0.02", native: 0.03955561 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert M2 (Decision Log 5a): "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.10089423, bound: "≤ 0.02", native: 0.09314225 }, // run-owner.py: an M2 named miss (W42 Decision Log 5a), not committed
+seal edit (candidate): insert L1 growth (Decision Log 5d): "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": { measured: 0.00688886, bound: "≤ 0.005" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed
+seal edit (candidate): insert L1 growth (Decision Log 5d): "apple-macos-27.0-1x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": { measured: 0.01016208, bound: "≤ 0.005" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed
+seal edit (candidate): insert L1 growth (Decision Log 5d): "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive-tint-orange": { measured: 0.00621888, bound: "≤ 0.005" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed
+seal edit (candidate): insert L1 growth (Decision Log 5d): "apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange": { measured: 0.00944991, bound: "≤ 0.005" }, // run-owner.py: an L1 growth named miss (W42 Decision Log 5d), not committed
+seal edit (candidate): re-record MISSED_27_ROWS texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR measured: 1.53911 -> 1.41198328
+seal edit (candidate): re-record MISSED_27_ROWS texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR measured: 1.4495 -> 1.49587867
+seal edit (candidate): close MISSED_27_ROWS texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR
+seal edit (candidate): close L1 MISSES apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange
+closure (candidate, MISSED_27_ROWS): texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR (a pass; the list shrinks at the seal)
+closure (candidate, L1 MISSES): apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange (a pass; the list shrinks at the seal)
+FAIL: /private/tmp/w42-g2-step4/owner/c2/summary.json
+owner exit 1
