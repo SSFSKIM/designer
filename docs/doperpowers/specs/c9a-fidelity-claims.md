@@ -43352,8 +43352,8 @@ max(1 code, bar).
 | closing, W42 sentinels | 48 | 46 | 2 | 0.0 |
 | **all** | **168** | **160** | **8** | **0.0** |
 
-The eight region agreements are four cells. Each differs from its reference by at most 2 codes
-on at most 359 px, with no region median moved:
+The eight region agreements fall on five distinct cells, with occurrences 1, 1, 1, 2 and 3. Each
+differs from its reference by at most 2 codes on at most 359 px, with no region median moved:
 - **the 2x dark active checker-64 sentinel at the close** (run 1, 84 px at 1 code). This is the
   same alternate state G0 (b) recorded for this cell, which the original bundle also produced at
   W29 (§5.198 §3).
