@@ -20,7 +20,7 @@ from pathlib import Path
 
 KEEP = ['attest.open.json', 'attest.close.json', 'attest.read', 'attest.close', 'session-before.json',
         'session-after.json', 'launch.json', 'admission.json', 'refusal.txt', 'driver-idle.txt', 'watchdog.txt',
-        'check.json', 'timing.json', 'rehearsal.json']
+        'check.json', 'timing.json', 'rehearsal.json', 'bridge.json']
 RENAMED = {'driver-idle.log': 'driver-idle.txt'}
 
 

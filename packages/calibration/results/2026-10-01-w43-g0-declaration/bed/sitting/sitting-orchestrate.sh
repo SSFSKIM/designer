@@ -32,8 +32,13 @@
 #   start and summarised in the status log: a report for the operator, never a gate, since what it
 #   can read does not decide whether input will arrive. The watchdog sees input that does.
 # - The native app is ended by its executable image, never by a command-line pattern.
-# - STOP_AFTER=<pass> ends the sitting after that pass (a sitting cut short drops from the bottom of
-#   its own order, X47). REHEARSAL=1 PASSES="<dump pass> ..." runs dump passes as rehearsals.
+# - STOP_AFTER=<pass> ends the sitting's order after that pass (a sitting cut short drops from the
+#   bottom of its own order, X47), but A CUT NEVER DROPS THE CLOSE: the slider is restored to its
+#   as-found value and the display to mode 68, and then every `runAfterCut` pass after the cut
+#   (the closing W42 sentinel bridges) runs in order, under W43_CUT_AFTER. REHEARSAL=1
+#   PASSES="<dump pass> ..." runs dump passes as rehearsals.
+# - An opening bridge that disagrees with its references (charter clause 3) ends the driver with
+#   status 10; the sitting stops there, before any capture away from 0.5, the run admitted.
 #
 # Environment: VITREA_SITTING_DIR (required; outside every checkout), W43_SITTING (required),
 # optionally W43_EVIDENCE (a directory the attestations of each pass are copied into by
@@ -168,7 +173,7 @@ fi
 SELECTED=""
 started=${START_AT:+no}
 started=${started:-yes}
-while read -r name kind want runs glass; do
+while read -r name kind want runs glass flag; do
   if [ "${REHEARSAL:-0}" = 1 ]; then
     case " $PASSES " in *" $name "*) ;; *) continue ;; esac
     [ "$kind" = dump ] || { say "STOP: only a dump pass has a rehearsal ($name is a $kind pass)"; exit 6; }
@@ -176,7 +181,7 @@ while read -r name kind want runs glass; do
     [ "$name" = "$START_AT" ] || continue
     started=yes
   fi
-  SELECTED+="$name $kind $want $runs $glass"$'\n'
+  SELECTED+="$name $kind $want $runs $glass $flag"$'\n'
   [ "$name" = "${STOP_AFTER:-}" ] && break
 done <<< "$ORDER"
 [ "$started" = yes ] || { say "STOP: START_AT=$START_AT names no pass"; exit 4; }
@@ -201,22 +206,19 @@ SLIDER_RECORDED=yes
 GLASS=$(python3.12 -c 'import json, sys; c = json.loads(sys.argv[1])["current"]; print(repr(float(c["value"])) if c["present"] else "absent")' "$FOUND")
 say "slider: as-found $(python3.12 -c 'import json, sys; print(json.loads(sys.argv[1])["asFound"])' "$FOUND"); now $GLASS"
 
-reached=""
-first_pass=yes
-while read -r -u 3 name kind want runs glass; do
-  [ -n "$name" ] || continue
-  first=1
-  if [ "$first_pass" = yes ] && [ -n "${START_AT:-}" ]; then first=${FIRST_RUN:-1}; fi
-  first_pass=no
+# One pass: its display mode, its slider position, one driver call, its evidence collected. Any
+# failure stops the sitting here (exit), the trap restoring the slider and the display.
+run_pass() {
+  local name=$1 kind=$2 want=$3 runs=$4 glass=$5 first=$6 rc
   setmode "$want" || { say "STOP $name: display mode $want did not take"; exit 2; }
   setglass "$glass" || { say "STOP $name: the slider write to $glass was refused ($L/slider-set.txt)"; exit 9; }
   $DP list > "$L/$name-display-before.txt" 2>&1
-  D=(bash "$HERE/run-sitting-w43.sh")
+  local D=(bash "$HERE/run-sitting-w43.sh")
   if [ "${REHEARSAL:-0}" = 1 ]; then
     say "START rehearsal $name ($kind) at mode $want, slider $glass"
     D+=(dump "$name" --rehearse)
   else
-    say "START $name ($kind, runs $first..$runs) at mode $want, slider $glass"
+    say "START $name ($kind, runs $first..$runs) at mode $want, slider $glass${W43_CUT_AFTER:+, after the cut at $W43_CUT_AFTER}"
     case $kind in
       dump) D+=(dump "$name") ;;
       capture) D+=(capture "$name" "$first") ;;
@@ -230,16 +232,59 @@ while read -r -u 3 name kind want runs glass; do
     if [ -n "${W43_EVIDENCE_REPO:-}" ]; then
       git -C "$W43_EVIDENCE_REPO" add -- "$W43_EVIDENCE" && git -C "$W43_EVIDENCE_REPO" commit -q -m "W43 $W43_SITTING: $name $([ $rc = 0 ] && echo admitted || echo "STOPPED (driver exit $rc)")
 
-The pass's attestations, admissions, sentinel checks, idle-wait and watchdog logs as they stand;
-manifests, capture logs, dumps and PNGs stay under the raw root until the archive producer files
-them. Charter clause 4." -- "$W43_EVIDENCE"
+The pass's attestations, admissions, sentinel checks, bridge reports, idle-wait and watchdog logs
+as they stand; manifests, capture logs, dumps and PNGs stay under the raw root until the archive
+producer files them. Charter clause 4." -- "$W43_EVIDENCE"
     fi
+  fi
+  if [ $rc -eq 10 ]; then
+    say "STOP $name: the opening bridge DISAGREES with its references (charter clause 3; $name/run-*/bridge.json);" \
+      "nothing away from 0.5 is captured, and the run stands admitted as evidence"
+    exit 3
   fi
   if [ $rc -ne 0 ]; then say "STOP $name: driver exit $rc"; exit 3; fi
   say "DONE $name"
   reached=$name
+}
+
+reached=""
+first_pass=yes
+while read -r -u 3 name kind want runs glass flag; do
+  [ -n "$name" ] || continue
+  first=1
+  if [ "$first_pass" = yes ] && [ -n "${START_AT:-}" ]; then first=${FIRST_RUN:-1}; fi
+  first_pass=no
+  run_pass "$name" "$kind" "$want" "$runs" "$glass" "$first"
 done 3<<< "$SELECTED"
 [ "$reached" = "$LAST" ] || { say "STOP: the pass list ended at '${reached:-nothing}', not at $LAST"; exit 4; }
+
+# A cut never drops the close (the coordinator's ruling on X47). After a STOP_AFTER cut, the
+# slider goes back to its as-found value and the display to mode 68, and then every runAfterCut
+# pass after the cut (the closing W42 sentinel bridges) runs in order; the driver lets only those
+# past the passes the cut dropped, which can then never be taken later.
+AFTER=""
+if [ "${REHEARSAL:-0}" != 1 ] && [ -n "${STOP_AFTER:-}" ]; then
+  AFTER=$(awk -v cut="$LAST" 'past && $6 == "after-cut" { print } $1 == cut { past = 1 }' <<< "$ORDER")
+  DROPPED=$(awk -v cut="$LAST" 'past && $6 != "after-cut" { print $1 } $1 == cut { past = 1 }' <<< "$ORDER" | tr '\n' ' ')
+fi
+if [ -n "$AFTER" ]; then
+  say "CUT after $LAST: dropped ${DROPPED:-nothing}; the closing bridges still run (a cut never drops the close)"
+  printf 'cutAfter=%s\ndropped=%s\nafterCut=%s\nat=%s\n' "$LAST" "$DROPPED" \
+    "$(cut -d' ' -f1 <<< "$AFTER" | tr '\n' ' ')" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$L/cut-$(date +%s).txt"
+  if ! python3.12 "$HERE/sitting.py" slider-restore > "$L/slider-restore-cut.txt" 2>>"$ST" </dev/null 3<&-; then
+    say "STOP: the slider did not return to its as-found value before the closing bridges"; exit 7
+  fi
+  GLASS=$(python3.12 -c 'import json, sys; r = json.loads(sys.argv[1])["read"]; print(repr(float(r["value"])) if r["present"] else "absent")' "$(cat "$L/slider-restore-cut.txt")")
+  setmode 68 || { say "STOP: the display did not return to mode 68 before the closing bridges"; exit 2; }
+  say "restore before the close: slider $GLASS (as found, verified) and display mode 68 (verified)"
+  export W43_CUT_AFTER="$LAST"
+  while read -r -u 3 name kind want runs glass flag; do
+    [ -n "$name" ] || continue
+    run_pass "$name" "$kind" "$want" "$runs" "$glass" 1
+  done 3<<< "$AFTER"
+  unset W43_CUT_AFTER
+fi
 if [ "${REHEARSAL:-0}" = 1 ]; then say "REHEARSALS DONE ($LAST)"
+elif [ -n "$AFTER" ]; then say "STOPPED AFTER $LAST (STOP_AFTER), then the closing bridges through $reached; the dropped passes are not taken later without a new ruling (X47)"
 elif [ -n "${STOP_AFTER:-}" ]; then say "STOPPED AFTER $LAST (STOP_AFTER); continue with START_AT=<the next pass>"
 else say "ALL PASSES DONE"; fi

@@ -249,10 +249,14 @@ def declared_snapshot(sitting_name):
     return plan, sources, declaration
 
 
-def produce(raw_root, out, plan=None, sources=None, declaration=None, sitting_name=None, analyse=None):
+def produce(raw_root, out, plan=None, sources=None, declaration=None, sitting_name=None, analyse=None,
+            cut_after=None):
     """Write the archive of record from a sitting root; return its inventory.
 
     Every check runs before anything is written. Prints nothing but counts and hashes.
+    `cut_after` names the pass a STOP_AFTER cut ended the sitting's order at (X47): the passes
+    after it that do not run after a cut are DROPPED, must never have started, and are recorded
+    as dropped; every other declared run must be admitted, the closing bridges included.
     """
     analyse = analyse or default_analyse
     if plan is None:
@@ -266,8 +270,19 @@ def produce(raw_root, out, plan=None, sources=None, declaration=None, sitting_na
     raw_root = Path(raw_root)
     protocols = sitting().PROTOCOLS
     order = P.pass_order(plan)
+    dropped = []
+    if cut_after is not None:
+        at = next((q for q in order if q['name'] == cut_after), None)
+        if at is None:
+            raise ValueError(f'the cut names no declared pass ({cut_after})')
+        dropped = [q['name'] for q in order if q['rank'] > at['rank'] and q.get(P.AFTER_CUT) is not True]
+        started = [n for n in dropped if (raw_root / n).exists()]
+        if started:
+            raise ValueError(f'passes the cut dropped were started ({started}): that is not a cut sitting')
     runs, declared, sources_of = [], set(), {}
     for p in order:
+        if p['name'] in dropped:
+            continue
         if p['kind'] == 'dump':
             check_dump(raw_root / p['name'] / 'run-1', p, declaration)
             continue
@@ -320,8 +335,8 @@ def produce(raw_root, out, plan=None, sources=None, declaration=None, sitting_na
             if image.format != 'PNG':
                 raise ValueError(f'frame {digest[:12]} is not a PNG')
 
-    dump_names = [p['name'] for p in order if p['kind'] == 'dump']
-    names = [p['name'] for p in order]
+    dump_names = [p['name'] for p in order if p['kind'] == 'dump' and p['name'] not in dropped]
+    names = [p['name'] for p in order if p['name'] not in dropped]
     operational = operational_files(raw_root, names, set(dump_names))
     dumps = dump_files(raw_root, dump_names)
 
@@ -354,7 +369,7 @@ def produce(raw_root, out, plan=None, sources=None, declaration=None, sitting_na
         listed[section] = rows
     occurrences = sum(len(m) for m in cells.values()) + sum(len(r['backgrounds']) for r in run_rows)
     value = dict(schema=SCHEMA, sitting=declaration['sitting'], planSha256=declaration['planSha256'],
-                 sources=declaration.get('sources'), passes=names,
+                 sources=declaration.get('sources'), passes=names, cutAfter=cut_after, dropped=dropped,
                  declaredCells=len(declared), archivedCells=len(captured),
                  frameOccurrences=occurrences, distinctFrames=len(store),
                  producer={name: file_sha(HERE / name) for name in ('sitting.py', 'pass-spec.py', 'w43_archive.py')},
@@ -629,6 +644,7 @@ def main(argv=None):
     p.add_argument('raw_root', type=Path)
     p.add_argument('--out', type=Path, required=True)
     p.add_argument('--sitting', required=True, choices=('g1a', 'g1b'))
+    p.add_argument('--cut-after', help='the pass a STOP_AFTER cut ended the order at (logs/cut-*.txt)')
     k = sub.add_parser('pack')
     k.add_argument('archive', type=Path)
     k.add_argument('--out-dir', type=Path, required=True)
@@ -647,7 +663,7 @@ def main(argv=None):
     r.add_argument('--deny-raw-root', type=Path)
     args = ap.parse_args(argv)
     if args.action == 'produce':
-        value = produce(args.raw_root, args.out, sitting_name=args.sitting)
+        value = produce(args.raw_root, args.out, sitting_name=args.sitting, cut_after=args.cut_after)
         print(json.dumps(dict(inventory=str(args.out / 'inventory.json'),
                               inventorySha256=file_sha(args.out / 'inventory.json'),
                               declaredCells=value['declaredCells'], archivedCells=value['archivedCells'],

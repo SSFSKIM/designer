@@ -21,7 +21,14 @@ The plan (`../sitting-<sitting>.json`, schema `w43-sitting-plan-1`):
                    "profiles": {"<profile key>": [<scene id>, ...]},   # every run
                    "run1Only": {"<profile key>": [<scene id>, ...]},   # optional: run 1 only
                    "publish": true|false,                               # materialize's bed
-                   "expect": {"<profile key>/<scene id>": [<frame sha256>, ...]}}  # optional
+                   "expect": {"<profile key>/<scene id>": [<frame sha256>, ...]},  # optional
+                   "bridge": {"stop": true|false,                       # optional: clause 3
+                              "cells": {"<profile key>/<scene id>": {"reference":
+                                  {"sha256": "<hex>", "path": "<repo-relative PNG>"}
+                                  | {"sha256": "<hex>", "archive": "w42-archive"}}},
+                              "bars": {"path": "<repo-relative bar.json.gz>",
+                                       "sha256": "<hex of its JSON>", "protocol": "normal"|"long"}},
+                   "runAfterCut": true}            # required on every close-* W42 sentinel bridge, else refused
     dump pass:    {"name", "kind": "dump", "role": "<label>", "glass": x, "scale": 1|2,
                    "pose": "active"|"receded", "source": "<name>", "profile": "<profile key>",
                    "scenes": [<__rest scene id>, ...]}
@@ -29,6 +36,19 @@ The plan (`../sitting-<sitting>.json`, schema `w43-sitting-plan-1`):
 A pass's display mode is its scale's (68 for 2x, 69 for 1x); its slider position is `glass`,
 which every profile key it captures must name exactly (X6: the key names every axis that
 moved a pixel). `validate_plan` refuses a plan that breaks any of that before anything runs.
+
+A `bridge` pass is read against its references run by run (charter clause 3; sitting.py's
+`bridge_verdict`): every cell it captures names its reference frame, by repo path (a canonical 0.5
+fixture) or by the w42-archive frame's SHA-256 (W42's sentinels); `bars`, when declared, is the
+repeat-bar file whose rows give each cell's bar, and a cell with no row there reads at the 0.5
+floor. `stop` is true at a sitting's opening (one disagreement stops the sitting before any
+capture away from 0.5) and false at its close (recorded, nothing voided).
+
+A cut never drops the close. A sitting cut short (STOP_AFTER, X47) drops from the bottom of its
+order, but its closing W42 sentinel bridges still run: each declares `runAfterCut: true`
+(required on every `close-*` pass of role `bridge-w42-sentinel`, refused on any other), they are
+the tail of the order, and after a cut the orchestrator restores the slider and the display and
+then runs them in order.
 """
 import argparse
 import copy
@@ -50,6 +70,10 @@ DUMP_SETTLE = 8                       # memo D's --settle; settle 16 matched it 
 KEY = re.compile(r'^apple-macos-27\.0-(?P<scale>[12])x-(?P<scheme>light|dark)-(?P<a11y>[a-z-]+?)'
                  r'-glass(?P<glass>\d+(?:\.\d+)?)$')
 SHA = re.compile(r'^[0-9a-f]{64}$')
+# A cut never drops the close (the coordinator's ruling on X47): every closing W42 sentinel
+# bridge declares AFTER_CUT, and the orchestrator runs those passes after any STOP_AFTER cut.
+AFTER_CUT = 'runAfterCut'
+CLOSE_ROLE = 'bridge-w42-sentinel'
 DUMP_FIELDS = {'name', 'kind', 'role', 'glass', 'scale', 'pose', 'source', 'profile', 'scenes'}
 
 
@@ -99,6 +123,26 @@ def validate_plan(plan, sources):
         problems.append('pass names must be unique words ([A-Za-z0-9_.+-])')
     for p in passes:
         problems += [f'{p.get("name")}: {m}' for m in pass_problems(p, sources)]
+        closing = str(p.get('name', '')).startswith('close-') and p.get('role') == CLOSE_ROLE
+        if closing and p.get(AFTER_CUT) is not True:
+            problems.append(f'{p.get("name")}: a closing W42 sentinel bridge declares {AFTER_CUT}: true (a cut never '
+                            'drops the close)')
+        if not closing and AFTER_CUT in p:
+            problems.append(f'{p.get("name")}: only a closing W42 sentinel bridge (close-*, role {CLOSE_ROLE}) carries '
+                            f'{AFTER_CUT}')
+        # Every bridge pass carries its clause 3 verdict: an opening one stops the sitting on a
+        # disagreement, a closing one records it. A bridge without the block would read nothing.
+        if str(p.get('role', '')).startswith('bridge-') and p.get('kind') == 'capture':
+            b = p.get('bridge')
+            name = str(p.get('name', ''))
+            if not isinstance(b, dict):
+                problems.append(f'{name}: a bridge pass declares its references and verdict (`bridge`, clause 3)')
+            elif name.startswith(('open-', 'close-')) and b.get('stop') is not name.startswith('open-'):
+                problems.append(f'{name}: an opening bridge stops the sitting on a disagreement and a closing one '
+                                f'records it: `stop` is {name.startswith("open-")}')
+    flags = [p.get(AFTER_CUT) is True for p in passes]
+    if True in flags and not all(flags[flags.index(True):]):
+        problems.append(f'the {AFTER_CUT} passes are the tail of the order: nothing else follows the first of them')
     if problems:
         raise ValueError('the sitting plan is refused: ' + '; '.join(problems))
 
@@ -151,6 +195,8 @@ def pass_problems(p, sources):
                 out.append(f'expect names {cell}, which the pass does not capture')
             if not shas or not all(SHA.match(str(s)) for s in shas):
                 out.append(f'expect for {cell} needs full sha256 frame digests')
+        if p.get('bridge') is not None:
+            out += bridge_problems(p, lists, extra)
         for k, v in extra.items():
             if k in lists:
                 lists[k] = lists[k] + list(v)
@@ -183,6 +229,36 @@ def pass_problems(p, sources):
             wrong = [s for s in ids if receded_id(s) != (pose == 'receded')]
             if wrong:
                 out.append(f'{key}: {len(wrong)} scene(s) state the other pose, e.g. {wrong[0]}')
+    return out
+
+
+def bridge_problems(p, lists, extra):
+    """A bridge pass reads every cell it captures, every run, against a declared reference."""
+    b = p['bridge']
+    out = []
+    if not isinstance(b, dict) or not isinstance(b.get('stop'), bool):
+        return ['a bridge declares `stop` (true at an opening, false at a close)']
+    if p.get('publish'):
+        out.append('a bridge pass is read against its references, never published')
+    if extra:
+        out.append('a bridge pass captures the same cells every run (no run1Only)')
+    captured = {f'{k}/{s}' for k, ids in lists.items() for s in ids}
+    cells = b.get('cells') or {}
+    if set(cells) != captured:
+        out.append(f'bridge cells must be exactly the captured cells: {len(captured - set(cells))} without a '
+                   f'reference, {len(set(cells) - captured)} not captured')
+    for cell, spec in cells.items():
+        ref = (spec or {}).get('reference') or {}
+        if not SHA.match(str(ref.get('sha256'))):
+            out.append(f'{cell}: the reference needs its full sha256')
+        if ('path' in ref) == ('archive' in ref):
+            out.append(f'{cell}: the reference is a repo path or an archive frame, exactly one')
+        elif 'archive' in ref and ref['archive'] != 'w42-archive':
+            out.append(f'{cell}: the only archive a reference may name is w42-archive')
+    bars = b.get('bars')
+    if bars is not None and (not isinstance(bars, dict) or not bars.get('path') or not SHA.match(str(bars.get('sha256')))
+                             or bars.get('protocol') not in PROTOCOLS):
+        out.append('bridge bars name a repo path, the sha256 of its JSON and a protocol')
     return out
 
 
@@ -303,9 +379,10 @@ def main():
     args = ap.parse_args()
     plan, sources = load(plan_path(args.sitting))
     if args.action == 'order':
-        # One line per pass for the orchestrator: name kind mode runs glass.
+        # One line per pass for the orchestrator: name kind mode runs glass after-cut.
         for q in pass_order(plan):
-            print(q['name'], q['kind'], q['mode'], q['runs'], repr(float(q['glass'])))
+            print(q['name'], q['kind'], q['mode'], q['runs'], repr(float(q['glass'])),
+                  'after-cut' if q.get(AFTER_CUT) is True else '-')
         return
     if args.action == 'plan':
         value = plan_counts(plan, sources)

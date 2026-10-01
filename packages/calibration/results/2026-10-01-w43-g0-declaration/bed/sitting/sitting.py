@@ -65,6 +65,7 @@ DECLARATION_DIGEST = DECL_DIR / 'declaration.sha256'
 PREDECLARATION_ENV = 'W43_PREDECLARATION'      # dump rehearsals before the declaration is hashed only
 ORCHESTRATED_ENV = 'W43_ORCHESTRATED'          # set by sitting-orchestrate.sh around every launch
 SITTING_ENV = 'W43_SITTING'                    # g1a or g1b: which declared plan the sitting runs
+CUT_ENV = 'W43_CUT_AFTER'                      # the pass a STOP_AFTER cut ended at; runAfterCut passes only
 
 OS_VERSION, OS_BUILD = '27.0', '26A428'
 # The slider is not here: it is each pass's own position (`glass_problems`).
@@ -417,21 +418,30 @@ def slider_as_found(root):
     return record, current
 
 
-def slider_restore(root):
+def slider_restore(root, list_native=None):
     """Put the as-found slider back, and read it back: written as the float it was, or deleted if
-    absent; nothing is written where it already reads as found."""
+    absent; nothing is written where it already reads as found. A write is logged with the other
+    writes (value None for a deletion), so a pass after a cut's restore reads the true last write;
+    it is never refused, since the trap must restore whatever is alive."""
+    list_native = list_native or (lambda: recorder_module().native_processes())
     record = json.loads((Path(root) / 'logs' / 'slider-as-found.json').read_text())
     found = record['asFound']
     d = defaults_tool()
     current = slider_read()
     if current['present'] == found['present'] and current['value'] == found['value']:
         return dict(restored=True, asFound=found, read=current, written=False)
+    before = list_native()
     if found['present']:
         subprocess.run([*d, 'write', SLIDER_DOMAIN, SLIDER_KEY, '-float', found['value']], check=True,
                        capture_output=True)
     else:
         subprocess.run([*d, 'delete', SLIDER_DOMAIN, SLIDER_KEY], capture_output=True)
     back = slider_read()
+    entry = dict(value=float(found['value']) if found['present'] else None, read=back, at=now(), epochNs=time.time_ns(),
+                 restore=True, nativeAliveBefore=before, nativeAliveAfter=list_native())
+    slider_log(root).parent.mkdir(parents=True, exist_ok=True)
+    with slider_log(root).open('a') as f:
+        f.write(json.dumps(entry) + '\n')
     ok = back['present'] == found['present'] and (not found['present'] or back['value'] == found['value'])
     return dict(restored=ok, asFound=found, read=back, written=True)
 
@@ -603,6 +613,195 @@ def expectation_problems(p, frames):
     return out
 
 
+# --------------------------------------------------------------- the bridges
+
+W42_DIR = 'packages/calibration/results/2026-09-29-w42-g0-declaration'
+W42_INSTRUMENT = REPO / W42_DIR / 'instrument'
+BRIDGE_REFERENCES_ENV = 'W43_BRIDGE_REFERENCES'   # a store of w42-archive reference frames, <sha256>.png
+
+
+class BridgeStop(Exception):
+    """An opening bridge disagreed: the run stands admitted, and the sitting stops before any capture
+    away from 0.5 (charter clause 3)."""
+
+
+def instrument():
+    """W42's instrument, unchanged: `forward.Cell` and `regions.statistics`, the populations G0 (b)'s
+    bridge read and W42 G1's repeat bar was measured on. Imported only when a bridge pass runs."""
+    path = str(W42_INSTRUMENT)
+    if path not in sys.path:
+        sys.path.insert(0, path)
+    import forward
+    import regions
+    return forward, regions
+
+
+def decode_frame(raw):
+    """RGB codes as floats. A pixel that is not opaque is MISSING (NaN): a frame carries a region
+    only where it carries opaque pixels."""
+    import numpy as np
+    from PIL import Image
+    with Image.open(io.BytesIO(raw)) as image:
+        rgba = np.asarray(image.convert('RGBA'), dtype=np.float64)
+    rgb = rgba[..., :3].copy()
+    rgb[rgba[..., 3] < 255] = np.nan
+    return rgb
+
+
+def bridge_verdict(frame_raw, reference_raw, background, component, scale, scheme, pose, bars=None, cell=''):
+    """Charter clause 3 for ONE run of ONE bridge cell: byte identity, or every region median within
+    max(1 code, bar) of the reference's.
+
+    AGREE (bytes) when the files are identical, AGREE (pixels) when their decoded pixels are.
+    Otherwise every region statistic of W42's instrument (forward.Cell at the cell's own geometry;
+    masks n and w in the active pose, n receded; regions.statistics, a median per population and
+    channel) is compared with the reference's, against max(1, bar), where `bars` maps (mask,
+    statistic) to the cell's measured repeat bar and a statistic with none reads at the 0.5 floor.
+    DISAGREE when any statistic is outside its tolerance, when a region the reference carries is
+    missing from the frame (no opaque pixel in it, or a frame of another size), and when the cell
+    has no region statistic at all: then only identity can agree, as G0 (b) read it.
+    """
+    import warnings
+    import numpy as np
+    out = dict(cell=cell, frameSha256=sha(frame_raw), referenceSha256=sha(reference_raw))
+    if out['frameSha256'] == out['referenceSha256']:
+        return dict(out, verdict='AGREE (bytes)', agrees=True)
+    frame, ref = decode_frame(frame_raw), decode_frame(reference_raw)
+    if frame.shape != ref.shape:
+        return dict(out, verdict='DISAGREE', agrees=False,
+                    failing=[f'every region missing: the frame is {frame.shape[1]}x{frame.shape[0]}, the reference '
+                             f'{ref.shape[1]}x{ref.shape[0]}'])
+    if np.array_equal(frame, ref, equal_nan=True):
+        return dict(out, verdict='AGREE (pixels)', agrees=True)
+    F, R = instrument()
+    failing, rows, masks = [], [], []
+    for kernel in (('n', 'w') if pose == 'active' else ('n',)):
+        c = F.Cell(f'{scale}x|{cell}', background, component, scale, scheme, 'rest' if pose == 'active' else 'inactive',
+                   rgb=True, kernel=kernel)
+        if c.d.shape != frame.shape[:2]:
+            return dict(out, verdict='DISAGREE', agrees=False,
+                        failing=[f'every region missing: the frame is not the cell\'s {c.d.shape[1]}x{c.d.shape[0]}'])
+        pops = R.populations(c) if c.mask.sum() else []
+        masks.append(dict(mask=kernel, populations=len(pops)))
+        if not pops:
+            continue
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore', RuntimeWarning)       # an all-missing population's median is NaN
+            got, want = R.statistics(c, frame, pops), R.statistics(c, ref, pops)
+        for name in sorted(want):
+            bar = float((bars or {}).get((kernel, name), 0.5))
+            tolerance = max(1.0, bar)
+            g, w = got.get(name), want[name]
+            if not np.isfinite(w):
+                failing.append(f'{kernel}:{name} missing from the reference')
+                continue
+            if g is None or not np.isfinite(g):
+                failing.append(f'{kernel}:{name} missing from the frame')
+                continue
+            delta = float(g - w)
+            rows.append(dict(mask=kernel, statistic=name, frame=float(g), reference=float(w), delta=delta, bar=bar,
+                             tolerance=tolerance, agrees=abs(delta) <= tolerance + 1e-9))
+            if abs(delta) > tolerance + 1e-9:
+                failing.append(f'{kernel}:{name} {delta:+.1f} codes (tolerance {tolerance:g})')
+    if not rows and not failing:
+        failing.append('no region statistic to read (every population empty): only identity can agree')
+    diff = np.abs(np.nan_to_num(frame, nan=-1000.0) - np.nan_to_num(ref, nan=-1000.0)).max(-1)
+    return dict(out, verdict='DISAGREE' if failing else 'AGREE (regions)', agrees=not failing, failing=failing,
+                masks=masks, statistics=len(rows), worstDelta=max((abs(r['delta']) for r in rows), default=None),
+                pixelsDiffering=int((diff > 0).sum()), maxCodes=float(diff.max()), rows=rows)
+
+
+def bridge_references(p):
+    """Every reference frame of a bridge pass, its bytes checked against the declared SHA-256 BEFORE
+    any launch: a canonical fixture by its repo path, a w42-archive frame from the store named by
+    W43_BRIDGE_REFERENCES (filled by `bridge-references` from the verified archive)."""
+    refs, problems = {}, []
+    store = os.environ.get(BRIDGE_REFERENCES_ENV)
+    for cell, spec in sorted(p['bridge']['cells'].items()):
+        ref = spec['reference']
+        if 'path' in ref:
+            path = REPO / ref['path']
+        elif store:
+            path = Path(store) / f'{ref["sha256"]}.png'
+        else:
+            problems.append(f'{cell}: its reference is a w42-archive frame and {BRIDGE_REFERENCES_ENV} names no store')
+            continue
+        try:
+            raw = path.read_bytes()
+        except OSError as error:
+            problems.append(f'{cell}: {error}')
+            continue
+        if sha(raw) != ref['sha256']:
+            problems.append(f'{cell}: {path.name} is {sha(raw)[:12]}; the plan names {ref["sha256"][:12]}')
+            continue
+        refs[cell] = raw
+    if problems:
+        raise ValueError('refused before any launch: a bridge reference is not the declared frame: ' + '; '.join(problems))
+    return refs
+
+
+def bridge_bars(p):
+    """{cell: {(mask, statistic): bar}} from the declared repeat-bar file, its JSON checked by SHA-256."""
+    import gzip
+    spec = p['bridge'].get('bars')
+    if not spec:
+        return {}
+    raw = gzip.decompress((REPO / spec['path']).read_bytes())
+    if sha(raw) != spec['sha256']:
+        raise ValueError(f'refused before any launch: the bridge bars {spec["path"]} are not the declared ones')
+    out = {}
+    for row in json.loads(raw)['rows']:
+        if row.get('status') == 'measured' and row.get('protocol') == spec['protocol'] \
+                and row['cell'] in p['bridge']['cells']:
+            for name, v in row['statistics'].items():
+                out.setdefault(row['cell'], {})[(row['kernel'], name)] = v['bar']
+    return out
+
+
+def bridge_report(p, n, run, manifest, doc, refs, bars):
+    """Every cell of one bridge run, read against its reference; the run agrees only if every cell does."""
+    scenes = {s['id']: s for s in doc['scenes']}
+    rows = []
+    for profile in manifest['profiles']:
+        scheme = pass_spec().scheme_of(profile['profileKey'])
+        for f in profile['fixtures']:
+            cell = profile['profileKey'] + '/' + f['sceneId']
+            scene = scenes[f['sceneId']]
+            rows.append(bridge_verdict((run / f['file']).read_bytes(), refs[cell], doc['backgrounds'][scene['background']],
+                                       doc['components'][scene['component']], p['scale'], scheme, p['pose'],
+                                       bars.get(cell), cell))
+    return dict(schema='w43-bridge-run-1', run=n, stop=p['bridge']['stop'], agrees=all(r['agrees'] for r in rows),
+                rule='byte identity, or every region median within max(1 code, bar) of the reference (charter clause 3)',
+                cells=rows, **{'pass': p['name']})
+
+
+def extract_bridge_references(plan, archive_root, out):
+    """Copy every w42-archive reference frame a plan's bridges name into the store `out`, from the
+    verified archive through W42's guarded Reader with the probe role only; each by its SHA-256."""
+    out = outside_repository(out)
+    A = module('w42_archive_for_bridges', REPO / W42_DIR / 'bed/sitting/w42_archive.py')
+    A.verify_tree(archive_root)
+    reader = A.wave_module().default_wave().reader(archive_root, roles=('probe',))
+    wanted = {}
+    for p in plan['passes']:
+        for cell, spec in ((p.get('bridge') or {}).get('cells') or {}).items():
+            if 'archive' in spec['reference']:
+                wanted.setdefault(cell, set()).add(spec['reference']['sha256'])
+    out.mkdir(parents=True, exist_ok=True)
+    written = {}
+    for cell, shas in sorted(wanted.items()):
+        _, blobs = A.unbundle(reader.read(cell, 'states'))
+        for digest in sorted(shas):
+            if digest not in blobs:
+                raise ValueError(f'{cell}: w42-archive holds no frame {digest[:12]}')
+            target = out / f'{digest}.png'
+            if target.exists() and sha(target.read_bytes()) != digest:
+                raise ValueError(f'{target} exists with other bytes')
+            target.write_bytes(blobs[digest])
+            written[digest] = cell
+    return written
+
+
 # ------------------------------------------------------------------- the passes
 
 def started(directory):
@@ -615,18 +814,35 @@ def admitted(root, p, n, declaration):
         return False
     a = json.loads(path.read_text())
     want = 'dump' if p['kind'] == 'dump' else p['protocol']
+    # An opening bridge that disagreed stands admitted as evidence but carries nothing after it:
+    # the sitting stops there (charter clause 3), and only a new declaration resumes.
+    stopped = (a.get('bridge') or {}).get('stop') is True and (a.get('bridge') or {}).get('agrees') is False
     return (a.get('admitted') is True and a.get('pass') == p['name'] and a.get('run') == n
-            and a.get('protocol') == want and declared_by(a, declaration))
+            and a.get('protocol') == want and declared_by(a, declaration) and not stopped)
 
 
-def check_order(root, p, run, plan, declaration):
+def check_order(root, p, run, plan, declaration, cut=None):
     """Every run of every earlier pass admitted, no later pass started, and within the pass runs
-    1..run-1 admitted: the declared order is the only order."""
+    1..run-1 admitted: the declared order is the only order.
+
+    `cut` names the pass a STOP_AFTER cut ended the ordinary order at (X47). Only a `runAfterCut`
+    pass (the closing W42 sentinel bridges) runs after it, and it is allowed past the passes the
+    cut dropped; those can never be taken later, because a later pass has then started."""
     order = pass_spec().pass_order(plan)
+    dropped = set()
+    if cut is not None:
+        at = next((q for q in order if q['name'] == cut), None)
+        if at is None:
+            raise ValueError(f'{p["name"]} refused: the cut names no declared pass ({cut})')
+        if not p.get('runAfterCut'):
+            raise ValueError(f'{p["name"]} refused: after the cut at {cut} only runAfterCut passes run')
+        if at['rank'] >= p['rank']:
+            raise ValueError(f'{p["name"]} refused: it does not follow the cut at {cut}')
+        dropped = {q['name'] for q in order if at['rank'] < q['rank'] < p['rank'] and not q.get('runAfterCut')}
     later = [q['name'] for q in order if q['rank'] > p['rank'] and started(root / q['name'])]
     if later:
         raise ValueError(f'{p["name"]} refused: a later pass has already started ({later})')
-    missing = [f'{q["name"]} run {k}' for q in order if q['rank'] < p['rank']
+    missing = [f'{q["name"]} run {k}' for q in order if q['rank'] < p['rank'] and q['name'] not in dropped
                for k in range(1, q['runs'] + 1) if not admitted(root, q, k, declaration)]
     if missing:
         raise ValueError(f'{p["name"]} refused: an earlier pass is not complete; not admitted: {missing}')
@@ -1062,6 +1278,9 @@ def main(argv=None):
     pb.add_argument('--fixtures', type=Path, help='VITREA_FIXTURES for materialize (default: the canonical bundle)')
     en = sub.add_parser('end-native', help='end every running harness of APP by its executable image (the trap)')
     en.add_argument('app', type=Path)
+    br = sub.add_parser('bridge-references', help='fill the store of w42-archive reference frames a plan names')
+    br.add_argument('archive', type=Path, help='the verified w42-archive tree (w42_archive.py fetch prints it)')
+    br.add_argument('--out', type=Path, required=True, help='the store W43_BRIDGE_REFERENCES will name')
     args = ap.parse_args(argv)
     if args.action == 'end-native':
         print(json.dumps([dict(pid=t['pid'], executable=t['executable']) for t in end_native(args.app)]))
@@ -1075,6 +1294,10 @@ def main(argv=None):
     predeclaration = os.environ.get(PREDECLARATION_ENV) == '1'
     if args.action == 'pin-check':
         print(json.dumps(pinned_declaration(sitting, predeclaration), indent=2))
+        return
+    if args.action == 'bridge-references':
+        _, plan, _ = pinned_snapshot(sitting, predeclaration)
+        print(json.dumps(extract_bridge_references(plan, args.archive, args.out), indent=2))
         return
     if args.action == 'plan':
         if args.out is not None:
@@ -1117,6 +1340,7 @@ def main(argv=None):
         print(json.dumps(dict(job, argv=argv_), indent=2), flush=True)
         raise SystemExit(subprocess.run(argv_, cwd=job['cwd'], env={**os.environ, **job['env']}).returncode)
     rehearsal = args.action == 'dump' and args.rehearse
+    cut = os.environ.get(CUT_ENV) or None       # set by the orchestrator only for runAfterCut passes
     if os.environ.get(ORCHESTRATED_ENV) != '1':
         ap.error('every launch runs under sitting-orchestrate.sh, whose trap restores the display mode and the '
                  'slider on every exit, rehearsals included (REHEARSAL=1 PASSES=...)')
@@ -1158,7 +1382,9 @@ def main(argv=None):
         if any(n.startswith('rehearsal-') for n in others):
             raise ValueError('an evidence root holds no rehearsal')
         name = p['name']
-        check_order(root, p, first, plan, declaration)
+        check_order(root, p, first, plan, declaration, cut)
+    # A bridge's references are read and checked before anything launches (charter clause 3).
+    refs, bars = (bridge_references(p), bridge_bars(p)) if p.get('bridge') else ({}, {})
     passdir = root / name
     passdir.mkdir(exist_ok=True)
     source_path = plan['sources'][p['source']]['path']
@@ -1168,7 +1394,7 @@ def main(argv=None):
 
     for n in range(first, last + 1):
         if not rehearsal:
-            check_order(root, p, n, plan, declaration)
+            check_order(root, p, n, plan, declaration, cut)
         if p['kind'] == 'dump':
             scheme = P.scheme_of(p['profile'])
             ids = list(p['scenes'])
@@ -1292,10 +1518,31 @@ def main(argv=None):
             problems = expectation_problems(p, binding['frames'])
             if problems:
                 raise ValueError('a declared frame expectation failed: ' + '; '.join(problems))
+            bridge = None
+            if p.get('bridge'):
+                bridge = bridge_report(p, n, run, m, doc, refs, bars)
+                (run / 'bridge.json').write_text(json.dumps(bridge, indent=1) + '\n')
             admission = run_admission(p, n, command, m, sha(raw), cells, declaration, binding)
+            if cut is not None:
+                admission['cutAfter'] = cut
+            if bridge is not None:
+                admission['bridge'] = dict(agrees=bridge['agrees'], stop=bridge['stop'],
+                                           verdicts={r['cell']: r['verdict'] for r in bridge['cells']},
+                                           reportSha256=sha((run / 'bridge.json').read_bytes()))
             (run / 'admission.json').write_text(json.dumps(admission, indent=2) + '\n')
             print(f'{name} run {n}: admitted cells={cells}', flush=True)
+            if bridge is not None and not bridge['agrees']:
+                failing = {r['cell']: r['failing'][:3] for r in bridge['cells'] if not r['agrees']}
+                message = f'{name} run {n}: the bridge DISAGREES with its references: {failing}'
+                if p['bridge']['stop']:
+                    raise BridgeStop(message + '; the sitting stops before any capture away from 0.5 (charter clause 3)')
+                print(message + '; recorded, voiding nothing (a closing bridge; G2 reads the sitting unbridged, X43)',
+                      file=sys.stderr, flush=True)
         except BaseException as error:
+            if isinstance(error, BridgeStop):
+                # Not a refusal: the run is admitted evidence with its bridge report beside it.
+                print('STOPPED: ' + str(error), file=sys.stderr)
+                raise
             if isinstance(error, Cancelled):
                 # subprocess's child is already killed; the app itself is LaunchServices', not
                 # ours, so it is ended by its executable image as a watchdog trip ends it.
@@ -1307,7 +1554,12 @@ def main(argv=None):
             raise
 
 
+BRIDGE_STOP_EXIT = 10    # the orchestrator names an opening bridge's disagreement by this status
+
 if __name__ == '__main__':
     for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
         signal.signal(sig, _cancel)
-    main()
+    try:
+        main()
+    except BridgeStop:
+        sys.exit(BRIDGE_STOP_EXIT)

@@ -74,13 +74,22 @@ def g1a_plan(canonical_doc, canonical_sha, w42_sha, bridge_cells=6, dump_scenes=
         passes.append(dict(name=name, kind='capture', role=extra.pop('role'), glass=glass, scale=scale, pose=pose,
                            source=source, runs=n, protocol=protocol, profiles=profiles, **extra))
 
+    def bridge(phase, profiles):
+        # Placeholder references (the SHA-256 of the cell's name): well-formed for the plan's checks,
+        # never a frame. (e) declares the real ones from the fixtures and w42-archive.
+        return dict(stop=phase == 'open', cells={
+            f'{k}/{s}': dict(reference=dict(sha256=hashlib.sha256(f'{k}/{s}'.encode()).hexdigest(),
+                                            archive='w42-archive'))
+            for k, ids in profiles.items() for s in ids})
+
     def opening_or_closing(phase, scale, canonical=True):
         for scheme in ('light', 'dark'):
             for pose in ('active', 'receded'):
                 state = 'rest' if pose == 'active' else 'inactive'
-                capture(f'{phase}-w42-{scale}x-{scheme}-{pose}', 0.5, scale, pose, 'w42',
-                        {key(scale, scheme, '0.5'): sorted(f'{c}__{state}' for c in W42_SENTINELS)}, 3, 'long',
-                        role='bridge-w42-sentinel')
+                profiles = {key(scale, scheme, '0.5'): sorted(f'{c}__{state}' for c in W42_SENTINELS)}
+                extra = dict(runAfterCut=True) if phase == 'close' else {}
+                capture(f'{phase}-w42-{scale}x-{scheme}-{pose}', 0.5, scale, pose, 'w42', profiles, 3, 'long',
+                        role='bridge-w42-sentinel', bridge=bridge(phase, profiles), **extra)
         if canonical:
             for pose in ('active', 'receded'):
                 lists = pose_lists(canonical_doc, scale, '0.5', pose)
@@ -90,7 +99,7 @@ def g1a_plan(canonical_doc, canonical_sha, w42_sha, bridge_cells=6, dump_scenes=
                     picked[k] = take
                     total += len(take)
                 capture(f'{phase}-canonical-{scale}x-{pose}', 0.5, scale, pose, 'canonical', picked, 3,
-                        role='bridge-canonical')
+                        role='bridge-canonical', bridge=bridge(phase, picked))
 
     capture('pose-check', 0.5, 2, 'active', 'canonical',
             {key(2, 'light', '0.5'): ['checkerboard__capsule-button__rest']}, 1, role='pose-check',
