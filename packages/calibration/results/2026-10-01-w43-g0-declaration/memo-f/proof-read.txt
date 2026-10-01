@@ -1,0 +1,13 @@
+memo F reader proof: 11 of 11 expectations hold
+
+PASS  memo D as a run: no field moves (one position)
+PASS  memo D as a run: zero departures from its own reference in all eight endpoint-scales
+PASS  memo D as a run: 1x against 2x differs only in its four device-pixel terms, and they are found
+PASS  the stub run completes
+PASS  stub: light moves exactly Normal, Lighten and the face fill
+PASS  stub: dark moves exactly Normal
+PASS  stub: the ramps read W29's slopes, span-invariant, exactly piecewise linear
+PASS  stub: every backdrop control identical
+PASS  stub: 1x at 0.25 within memo D's device-pixel terms
+PASS  stub: no memo D law departs at any x
+PASS  W29 sweep: W29's committed table recovered (Normal, fill alpha, Lighten at 0, 0.25, 0.5, 1)

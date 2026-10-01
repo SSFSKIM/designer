@@ -1,0 +1,250 @@
+{
+ "inputs": {
+  "0.0/photo__rrect-md__rest.json": "67c9ce489c30bc396b076b5ca7180e6f808b92afdb25d138419518bfc57b437c",
+  "0.25/photo__rrect-md__rest.json": "1c6e13260996de3d4950a187d2adafb2951624cabe5bff03fb988784447b853c",
+  "0.5/photo__rrect-md__rest.json": "89a5522bb886834fd9b0495405d99a3789d82a0bac7371e4350b6f3f96011995",
+  "1.0/photo__rrect-md__rest.json": "15735e4b7d0c8add380d4bfe45893bbfda36284b0804155cf233daf9b966c2a3",
+  "DELETED/photo__rrect-md__rest.json": "346bc1f6e577fce8962506b3b88a5b2c0335b73e5e477bbb154e317a8c504ebd"
+ },
+ "reading": {
+  "backdrop": {},
+  "endpoints": {
+   "2x-light-active": {
+    "departuresByX": {
+     "0.0": {
+      "glassBackground.inputBlurFillLightenOpacity": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "0.675"
+       ]
+      },
+      "glassBackground.inputBlurFillNormalOpacity": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "0"
+       ]
+      },
+      "glassBackground.inputFaceColorMatrixFillColor": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "[1, 1, 1, 0]"
+       ]
+      }
+     },
+     "0.25": {
+      "glassBackground.inputBlurFillLightenOpacity": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "0.7875"
+       ]
+      },
+      "glassBackground.inputBlurFillNormalOpacity": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "0.25"
+       ]
+      },
+      "glassBackground.inputFaceColorMatrixFillColor": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "[1, 1, 1, 0.1]"
+       ]
+      }
+     },
+     "0.5": {},
+     "1.0": {
+      "bd.scale": {
+       "layer": "law",
+       "scenes": 1,
+       "values": [
+        "0.125"
+       ]
+      },
+      "glassBackground.inputBlurFillNormalOpacity": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "1"
+       ]
+      },
+      "glassBackground.inputFaceColorMatrixFillColor": {
+       "layer": "constant",
+       "scenes": 1,
+       "values": [
+        "[1, 1, 1, 0.5]"
+       ]
+      }
+     }
+    },
+    "moving": {
+     "bd.scale": {
+      "1.0": {
+       "96": 0.125
+      }
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "0.0": {
+       "96": 0.675
+      },
+      "0.25": {
+       "96": 0.7875
+      }
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "0.0": {
+       "96": 0
+      },
+      "0.25": {
+       "96": 0.25
+      },
+      "1.0": {
+       "96": 1
+      }
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "0.0": {
+       "96": [
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      "0.25": {
+       "96": [
+        1,
+        1,
+        1,
+        0.1
+       ]
+      },
+      "1.0": {
+       "96": [
+        1,
+        1,
+        1,
+        0.5
+       ]
+      }
+     }
+    },
+    "ramps": {
+     "bd.scale": {
+      "piecewise": {
+       "96": {
+        "[0, 0.5]": {
+         "maxResidual": 0.0,
+         "points": 3,
+         "slope": 0.0
+        },
+        "[0.5, 1]": {
+         "maxResidual": 0.0,
+         "points": 2,
+         "slope": -0.75
+        }
+       }
+      },
+      "spanInvariant": true,
+      "values": {
+       "96": {
+        "0.0": 0.5,
+        "0.25": 0.5,
+        "0.5": 0.5,
+        "1.0": 0.125
+       }
+      }
+     },
+     "glassBackground.inputBlurFillLightenOpacity": {
+      "piecewise": {
+       "96": {
+        "[0, 0.5]": {
+         "maxResidual": 0.0,
+         "points": 3,
+         "slope": 0.45
+        },
+        "[0.5, 1]": {
+         "maxResidual": 0.0,
+         "points": 2,
+         "slope": 0.0
+        }
+       }
+      },
+      "spanInvariant": true,
+      "values": {
+       "96": {
+        "0.0": 0.675,
+        "0.25": 0.7875,
+        "0.5": 0.9,
+        "1.0": 0.9
+       }
+      }
+     },
+     "glassBackground.inputBlurFillNormalOpacity": {
+      "piecewise": {
+       "96": {
+        "[0, 0.5]": {
+         "maxResidual": 0.0,
+         "points": 3,
+         "slope": 1.0
+        },
+        "[0.5, 1]": {
+         "maxResidual": 0.0,
+         "points": 2,
+         "slope": 1.0
+        }
+       }
+      },
+      "spanInvariant": true,
+      "values": {
+       "96": {
+        "0.0": 0,
+        "0.25": 0.25,
+        "0.5": 0.5,
+        "1.0": 1
+       }
+      }
+     },
+     "glassBackground.inputFaceColorMatrixFillColor": {
+      "piecewise": {
+       "96": {
+        "[0, 0.5]": {
+         "maxResidual": 0.0,
+         "points": 3,
+         "slope": 0.4
+        },
+        "[0.5, 1]": {
+         "maxResidual": 0.0,
+         "points": 2,
+         "slope": 0.6
+        }
+       }
+      },
+      "spanInvariant": true,
+      "values": {
+       "96": {
+        "0.0": 0,
+        "0.25": 0.1,
+        "0.5": 0.2,
+        "1.0": 0.5
+       }
+      }
+     }
+    }
+   }
+  },
+  "positions": [
+   0.0,
+   0.25,
+   0.5,
+   1.0
+  ],
+  "scale": {}
+ },
+ "source": "/Users/new/vitrea-w29-g0-scratch/d/dump-sweep"
+}

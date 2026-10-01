@@ -1,0 +1,86 @@
+memo F driver proof: 83 of 83 expectations hold over 30 cases
+real witness before {'slider': '0.5', 'sliderType': 'float', 'mode': 'mode 68'}, after {'slider': '0.5', 'sliderType': 'float', 'mode': 'mode 68'}
+
+PASS  green-present                exit 0, every launch admitted
+PASS  green-present                the slider is back at its as-found bytes
+PASS  green-present                restore.json verified, display at 68
+PASS  green-present                the 1x block ran at mode 69 with the slider at 0.25
+PASS  green-present                x = 0.5 reproduces memo D (zero departures)
+PASS  green-present                one write per block, then the restore
+PASS  green-present                no harness left running
+PASS  green-absent                 exit 0, every launch admitted
+PASS  green-absent                 the slider is back at its as-found bytes
+PASS  green-absent                 restore.json verified, display at 68
+PASS  green-absent                 the 1x block ran at mode 69 with the slider at 0.25
+PASS  green-absent                 x = 0.5 reproduces memo D (zero departures)
+PASS  green-absent                 one write per block, then the restore
+PASS  green-absent                 no harness left running
+PASS  green-odd                    exit 0, every launch admitted
+PASS  green-odd                    the slider is back at its as-found bytes
+PASS  green-odd                    restore.json verified, display at 68
+PASS  green-odd                    the 1x block ran at mode 69 with the slider at 0.25
+PASS  green-odd                    x = 0.5 reproduces memo D (zero departures)
+PASS  green-odd                    one write per block, then the restore
+PASS  green-odd                    no harness left running
+PASS  red-build                    refused, and no slider write at all
+PASS  red-build                    slider and display untouched
+PASS  red-a11y                     refused, and no slider write at all
+PASS  red-a11y                     slider and display untouched
+PASS  red-a11y-absent              refused, and no slider write at all
+PASS  red-a11y-absent              slider and display untouched
+PASS  red-pin                      refused, and no slider write at all
+PASS  red-pin                      slider and display untouched
+PASS  red-mode-at-start            refused, and no slider write at all
+PASS  red-mode-at-start            slider and display untouched
+PASS  red-universal-control        refused, and no slider write at all
+PASS  red-universal-control        slider and display untouched
+PASS  red-prompt                   refused, and no slider write at all
+PASS  red-prompt                   slider and display untouched
+PASS  red-locked                   refused, and no slider write at all
+PASS  red-locked                   slider and display untouched
+PASS  red-idle-cap                 refused, and no slider write at all
+PASS  red-idle-cap                 slider and display untouched
+PASS  red-harness-alive-at-start   a live harness refuses before any write
+PASS  red-string-as-found          an as-found it cannot restore exactly refuses before any write
+PASS  red-string-as-found          the string is untouched
+PASS  red-orphan                   stopped, restored and verified
+PASS  red-orphan                   slider back at 0.5, display at 68, no harness alive
+PASS  red-orphan                   the outliving harness is named, and the next write never happens
+PASS  red-stale                    stopped, restored and verified
+PASS  red-stale                    slider back at 0.5, display at 68, no harness alive
+PASS  red-stale                    a dump at the previous slider is refused by its tree reading (X42)
+PASS  red-unkey                    stopped, restored and verified
+PASS  red-unkey                    slider back at 0.5, display at 68, no harness alive
+PASS  red-unkey                    a lost focus is refused by the pose attestation
+PASS  red-depart                   stopped, restored and verified
+PASS  red-depart                   slider back at 0.5, display at 68, no harness alive
+PASS  red-depart                   at x = 0.5 a departure from memo D refuses
+PASS  red-missing                  stopped, restored and verified
+PASS  red-missing                  slider back at 0.5, display at 68, no harness alive
+PASS  red-missing                  a missing scene file refuses
+PASS  red-fail                     stopped, restored and verified
+PASS  red-fail                     slider back at 0.5, display at 68, no harness alive
+PASS  red-fail                     a nonzero open -W refuses
+PASS  red-mode-sticks              stopped, restored and verified
+PASS  red-mode-sticks              slider back at 0.5, display at 68, no harness alive
+PASS  red-mode-sticks              a display switch that does not take refuses before the 1x write
+PASS  red-restore-fails            a failed restore exits 7 and says RESTORE FAILED
+PASS  red-restore-fails            `memo_f.py restore` by hand then restores and verifies
+PASS  red-sigterm                  SIGTERM during launch 6 (x0.25-2x-light-inactive) stops the run
+PASS  red-sigterm                  the stub harness was really running when the signal came
+PASS  red-sigterm                  restored: harness ended, slider 0.5, display 68, all verified
+PASS  red-sigint-1x                SIGINT during launch 39 (x0.25-1x-dark-active) stops the run
+PASS  red-sigint-1x                the stub harness was really running when the signal came
+PASS  red-sigint-1x                restored: harness ended, slider 0.5, display 68, all verified
+PASS  red-sighup                   SIGHUP during launch 2 (x0.5-2x-light-inactive) stops the run
+PASS  red-sighup                   the stub harness was really running when the signal came
+PASS  red-sighup                   restored: harness ended, slider 0.5, display 68, all verified
+PASS  green-continue               the first run stops at launch 9 after 8 admissions
+PASS  green-continue               the continuation skips them and completes
+PASS  green-continue               the quarantine is kept under its own name
+PASS  green-continue               restored after the continuation
+PASS  green-continue               a continuation refuses when the slider is not at its recorded as-found value
+PASS  red-root-in-repo             a run root inside the checkout refuses
+PASS  red-real-tool                a stub tools directory holding a real tool refuses
+PASS  red-fast-real                the shortened waits refuse outside stub mode, before any tool runs
+PASS  witness                      the machine's real slider and display mode are unchanged
