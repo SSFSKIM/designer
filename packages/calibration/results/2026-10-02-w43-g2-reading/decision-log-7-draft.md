@@ -144,7 +144,8 @@ WebGPU cells and the 2x dark CSS tier 2.
 - The population is fixed now from the X41-frozen rows (`s1/r2-population.json`: 183 WebGPU and 125
   CSS cells on interior level, 53 %), so no candidate can choose it.
 - On the null a perfect endpoint passes on both tiers (median ratio 1.06 WebGPU, 1.05 CSS), and an
-  unmoved endpoint fails.
+  unmoved endpoint fails. That failure is measured through the masks G3 reads rows through: on
+  `interiorMean` the mask shift alone moves it on 98 of 183 WebGPU cells (§5.200 §9).
 - It reads `interiorMean` off the rows, as G3 will, and is adopted only by your ruling at the
   landing, as Decision Log 5 (c) says.
 

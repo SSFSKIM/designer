@@ -43707,9 +43707,9 @@ Both groups are UNMEASURED.
 - **The restatements, each read on the perfect-endpoint null and on an unmoved-endpoint anti-null:**
   - **R2**, over the cells where |ΔA| exceeds both its bar and |e|, keeps 53 % (183 WebGPU and 125
     CSS cells on `interiorMean`). The perfect endpoint passes with a pooled median ratio of
-    1.06 / 1.05 (`bodyLevel` 1.03 / 1.08), and the unmoved endpoint fails. Per profile it passes
-    everywhere but the 2x dark CSS tier's 2 cells. Its population is fixed now in
-    `s1/r2-population.json`.
+    1.06 / 1.05 (`bodyLevel` 1.03 / 1.08), and the unmoved endpoint fails, read through the masks
+    G3 will read it through (§9). Per profile it passes everywhere but the 2x dark CSS tier's 2
+    cells. Its population is fixed now in `s1/r2-population.json`.
   - **R1** (|e| ≤ 0.2|ΔA|) keeps 19 %, 12 of them dark on WebGPU.
 - **The restatement the map implies is R2.** S1 can only speak where the shipped 0.5 render's error
   is smaller than Apple's own change, and where it does, the perfect endpoint passes.
@@ -43761,3 +43761,37 @@ be ruled before any vitrea render at 0.25.
 - The w-test, the ladder and G1b's bridges are G2's second stage. Nothing here touches their
   declaration (X47).
 - No accessibility state at 0.25 was read (Decision Log 2 (b)).
+
+### 9. Review closure (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `41c24b45`, head `2327eef4`) returned
+changes-needed with two P2 findings, both in S1's rehearsal and both accepted. It found the
+instrument, the declaration (hash and all 23 pins match), the commit order and the per-law verdicts
+sound, and `verdicts.py` replays every recorded result. The outputs first recorded are kept as
+`s1/s1-null.v1.txt` and `.json`. `s1-null.txt` and `.json` are regenerated beside them, and
+`r2-population.json` regenerates byte-identical.
+
+1. **The unmoved endpoint was asserted, not measured.** The first cut took its change as zero. On
+   `bodyLevel`, mask-free, that is exact. On `interiorMean` it is not: a matrix row measures its web
+   image through that row's native silhouette (`cli/measure.ts`, `interior = nativeSil`), so an
+   endpoint that renders vitrea's 0.5 pixels unchanged reads, at 0.25, the 0.5 web capture through
+   Apple's 0.25 silhouette.
+   - `s1/anti-null-reader.ts` reads exactly that for all 599 non-holdout tier-cells. Its read under
+     the 0.5 silhouette equals the row's `interiorMeanWeb` with a worst difference of 0 over 599
+     reads.
+   - On R2's cells the mask shift alone moves the unmoved endpoint on 98 of 183 WebGPU cells (38 of
+     them with Apple's sign) and 58 of 125 CSS cells (19).
+   - **It still fails every restatement on both readings and tiers.** Its median ratio is 0.000 and
+     its pooled ratio −0.016 to +0.001, so R0–R3's sign and ratio clauses refuse it, and R4 refuses
+     it per cell (item 2). The verdict first written stands, now as a measurement.
+2. **R4 read the change's error, not the endpoint's.** It tested |V − ΔA| ≤ |e| + bar where the
+   0.25 endpoint's error, V + e − ΔA, was meant. Corrected to |V + e − ΔA| ≤ |e| + bar:
+   - the perfect endpoint still passes everywhere (its error is 0);
+   - the unmoved endpoint fails, passing it on 19 of 183 WebGPU and 9 of 125 CSS cells on
+     `interiorMean`, and on 26 of 181 and 8 of 124 on `bodyLevel`;
+   - those are the cells where the unmoved endpoint's 0.25 error is no larger than the shipped 0.5
+     render's error.
+   - R4 is not the recommended restatement, and its row in the table moves only in those counts.
+
+Neither correction moves R2, the recommendation, the map, the Decision Log 7 draft's item 11 beyond
+naming the masks, or any number in §§1–4.

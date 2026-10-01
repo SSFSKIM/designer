@@ -10,8 +10,18 @@ V = Apple@0.25 − vitrea@0.5 = dA − e, and its ratio to Apple's change dA = A
 1 − e/dA. Wherever that ratio is negative the sign clause fails an endpoint that matches Apple
 exactly; wherever it leaves [0.8, 1.2] the cell pulls the median away. This maps those cells.
 
-THE ANTI-NULL, beside it: a 0.25 endpoint that did not move at all (vitrea@0.25 = vitrea@0.5,
-V = 0) must FAIL any S1 worth adopting. A restatement is read on both.
+THE ANTI-NULL, beside it: a 0.25 endpoint that did not move at all, rendering exactly vitrea's 0.5
+pixels, must FAIL any S1 worth adopting. A restatement is read on both. The unmoved endpoint's change
+is read through the masks G3 will read it through (review closure, claims §5.200 §9):
+- on ``bodyLevel``, mask-free, it is exactly 0;
+- on ``interiorMean`` it is NOT 0 wherever the two native silhouettes differ, because a matrix row
+  measures its web image through that row's native silhouette (``cli/measure.ts``, ``interior =
+  nativeSil``): V = I(web@0.5 under the 0.25 native silhouette) − interiorMeanWeb(0.5 row), read by
+  ``anti-null-reader.ts`` into ``anti-null-readings.json`` (its read under the 0.5 silhouette is
+  checked equal to the row's interiorMeanWeb).
+The first cut of this script asserted the anti-null instead of computing it, and its R4 predicate
+read the change's error |V − dA| where the endpoint's error |V + e − dA| was meant; the recorded
+outputs are kept as ``s1-null.v1.txt`` / ``.json``.
 
 Two level readings, both under the declared geometry of the native delta:
 - ``interiorMean``: the mean linear luminance under each capture's OWN extracted silhouette, which
@@ -126,6 +136,9 @@ def main() -> None:
         name: (floor_of(subject_bar, name), floor_of(reference_bar, name)) for name in READINGS
     }
     scenes = json.loads((REPO / "apps" / "reference-apple" / "scenes.json").read_text())
+    anti_doc = json.loads((HERE / "anti-null-readings.json").read_text())
+    anti_of = {(a["profileKey"], a["sceneId"], a["tier"]): a for a in anti_doc["readings"]}
+    worst_anti_check = 0.0
 
     cells: list[dict] = []
     checks = Counter()
@@ -170,6 +183,13 @@ def main() -> None:
                         worst_row_check = max(worst_row_check, abs(native - a05))
                         checks["interiorMean row checked"] += 1
                         v05 = web
+                        anti_read = anti_of.get((profile, scene, tier), {})
+                        if anti_read.get("status") == "measured":
+                            worst_anti_check = max(worst_anti_check, abs(anti_read["webUnder05"] - web))
+                            checks["anti-null reader checked"] += 1
+                            anti_change = anti_read["webUnder025"] - web
+                        else:
+                            anti_change = None
                     else:
                         if box is None:
                             entry["readings"][name] = {"status": "UNMEASURED: composite, no declared box"}
@@ -184,6 +204,7 @@ def main() -> None:
                         )
                         worst_body_check = max(worst_body_check, abs(fixture_check - a05))
                         checks["bodyLevel reader checked"] += 1
+                        anti_change = 0.0
                     sub_floor, ref_floor = floors[name]
                     sb = reading_bound(sub_cells.get((profile, scene)), name, sub_floor)
                     rb = reading_bound(ref_cells.get((ref_profile, scene)), name, ref_floor)
@@ -201,6 +222,8 @@ def main() -> None:
                         "appleMoved": abs(dA) > bar,
                         "nullChange": dA - e,
                         "nullRatio": (dA - e) / dA if dA != 0 else None,
+                        "antiChange": anti_change,
+                        "antiRatio": (anti_change / dA) if (anti_change is not None and dA != 0) else None,
                     }
                 cells.append(entry)
 
@@ -214,6 +237,8 @@ def main() -> None:
     say(f"the 0.5 fixture, worst |difference| {worst_row_check:.3e} over {checks['interiorMean row checked']} row reads;")
     say(f"this script's bodyLevel on the 0.5 fixture against the native delta's, worst {worst_body_check:.3e}")
     say(f"over {checks['bodyLevel reader checked']} reads.")
+    say(f"The anti-null reader (the 0.5 web capture under the 0.5 native silhouette) against the row's")
+    say(f"interiorMeanWeb, worst |difference| {worst_anti_check:.3e} over {checks['anti-null reader checked']} reads.")
     say("")
 
     def population(tier, name, profile=None):
@@ -232,15 +257,23 @@ def main() -> None:
         wrong = [(c, r) for c, r in subset if r["nullRatio"] < 0]
         outside = [(c, r) for c, r in subset if not (0.8 <= r["nullRatio"] <= 1.2)]
         med = median(ratios)
-        anti_med = 0.0 if subset else math.nan
         passes_null = (not wrong) and (0.8 <= med <= 1.2) if subset else None
+        anti = [(c, r) for c, r in subset if r["antiChange"] is not None]
+        anti_wrong = sum(1 for _, r in anti if not r["antiChange"] * r["dA"] > 0)
+        anti_med = median([r["antiRatio"] for _, r in anti])
+        passes_anti = ((anti_wrong == 0) and (0.8 <= anti_med <= 1.2)) if anti and len(anti) == len(subset) else (
+            None if not subset else False if anti_wrong else None)
         say(
             f"  {label:<44} cells {len(subset):>4}  wrong sign {len(wrong):>4}  outside [0.8,1.2] {len(outside):>4}  "
-            f"median ratio {med:7.3f}  perfect endpoint passes S1: {passes_null}  unmoved endpoint "
-            f"(ratio 0, sign undefined) passes: {False if subset else None}"
+            f"median ratio {med:7.3f}  perfect endpoint passes S1: {passes_null}"
+        )
+        say(
+            f"  {'':<44} unmoved endpoint: read on {len(anti)}, sign not Apple's on {anti_wrong}, median ratio "
+            f"{anti_med:7.3f}, passes S1: {passes_anti}"
         )
         return {"cells": len(subset), "wrongSign": len(wrong), "outsideBand": len(outside), "medianRatio": med,
-                "perfectEndpointPasses": passes_null}
+                "perfectEndpointPasses": passes_null, "antiRead": len(anti), "antiWrongSign": anti_wrong,
+                "antiMedianRatio": anti_med, "unmovedEndpointPasses": passes_anti}
 
     record: dict = {"asChartered": {}, "restated": {}, "cells": cells}
     for name in READINGS:
@@ -303,8 +336,8 @@ def main() -> None:
     say("    median ratio clause over the same cells.")
     say("R3  as R2 for the sign; the ratio clause replaced by the pooled ratio sum(V)/sum(dA) over the population,")
     say("    in [0.8, 1.2].")
-    say("R4  as R2, but the endpoint's change is judged against Apple's change measured FROM vitrea's own 0.5")
-    say("    render: the 0.25 endpoint's error must not exceed the 0.5 endpoint's, |V − dA| <= |e| + bar, per cell.")
+    say("R4  over R2's cells, per cell: the 0.25 endpoint's error must not exceed the 0.5 endpoint's,")
+    say("    |V + e − dA| <= |e| + bar (corrected at the review closure; the first cut read |V − dA|).")
     say("")
 
     def restated(tier, name, which):
@@ -315,28 +348,43 @@ def main() -> None:
             subset = [(c, r) for c, r in subset if abs(r["dA"]) > abs(r["e"])]
         if not subset:
             return {"cells": 0}
-        v_null = [r["nullChange"] for _, r in subset]
         dAs = [r["dA"] for _, r in subset]
-        sign_null = all(v * d > 0 for v, d in zip(v_null, dAs))
-        ratio_null = median([v / d for v, d in zip(v_null, dAs)])
-        pooled_null = sum(v_null) / sum(dAs) if sum(dAs) else math.nan
-        if which == "R3":
-            passes_null = sign_null and 0.8 <= pooled_null <= 1.2
-            passes_anti = False  # V = 0: the sign clause cannot hold
-        elif which == "R4":
-            passes_null = all(abs(v - d) <= abs(r["e"]) + r["bar"] + 1e-12 for v, d, (_, r) in zip(v_null, dAs, subset))
-            # the anti-null endpoint has V = 0, so |V - dA| = |dA| > |e| on every R2 cell: it fails
-            passes_anti = all(abs(0 - d) <= abs(r["e"]) + r["bar"] for d, (_, r) in zip(dAs, subset))
-        else:
-            passes_null = sign_null and 0.8 <= ratio_null <= 1.2
-            passes_anti = False
+
+        def judge(vs):
+            """Every restatement's predicate on one endpoint's per-cell changes vs."""
+            sign = all(v * d > 0 for v, d in zip(vs, dAs))
+            ratio = median([v / d for v, d in zip(vs, dAs)])
+            pooled = sum(vs) / sum(dAs) if sum(dAs) else math.nan
+            if which == "R3":
+                passes = sign and 0.8 <= pooled <= 1.2
+            elif which == "R4":
+                passes = all(abs(v + r["e"] - d) <= abs(r["e"]) + r["bar"] + 1e-12
+                             for v, d, (_, r) in zip(vs, dAs, subset))
+            else:
+                passes = sign and 0.8 <= ratio <= 1.2
+            return sign, ratio, pooled, passes
+
+        v_null = [r["nullChange"] for _, r in subset]
+        sign_null, ratio_null, pooled_null, passes_null = judge(v_null)
+        anti_missing = sum(1 for _, r in subset if r["antiChange"] is None)
+        v_anti = [r["antiChange"] if r["antiChange"] is not None else 0.0 for _, r in subset]
+        sign_anti, ratio_anti, pooled_anti, passes_anti = judge(v_anti)
+        r4_anti_cells = None
+        if which == "R4":
+            r4_anti_cells = sum(1 for v, d, (_, r) in zip(v_anti, dAs, subset)
+                                if abs(v + r["e"] - d) <= abs(r["e"]) + r["bar"] + 1e-12)
         return {
             "cells": len(subset),
             "signHoldsOnNull": sign_null,
             "medianRatioNull": ratio_null,
             "pooledRatioNull": pooled_null,
             "perfectEndpointPasses": passes_null,
+            "antiMissing": anti_missing,
+            "signHoldsOnAnti": sign_anti,
+            "medianRatioAnti": ratio_anti,
+            "pooledRatioAnti": pooled_anti,
             "unmovedEndpointPasses": passes_anti,
+            "r4CellsTheUnmovedEndpointPasses": r4_anti_cells,
         }
 
     for name in READINGS:
@@ -352,7 +400,14 @@ def main() -> None:
                 say(
                     f"  {which}: cells {res['cells']:>4} ({res['cells'] / measured:.0%})  sign on null {res['signHoldsOnNull']}  "
                     f"median ratio {res['medianRatioNull']:.3f}  pooled {res['pooledRatioNull']:.3f}  "
-                    f"perfect endpoint passes {res['perfectEndpointPasses']}  unmoved endpoint passes {res['unmovedEndpointPasses']}"
+                    f"perfect endpoint passes {res['perfectEndpointPasses']}"
+                )
+                extra = (f"  R4 cells it passes {res['r4CellsTheUnmovedEndpointPasses']} of {res['cells']}"
+                         if which == "R4" else "")
+                missing = "" if res["antiMissing"] == 0 else f"  (unread, taken as 0: {res['antiMissing']})"
+                say(
+                    f"      unmoved endpoint: sign {res['signHoldsOnAnti']}  median ratio {res['medianRatioAnti']:.3f}  "
+                    f"pooled {res['pooledRatioAnti']:.3f}  passes {res['unmovedEndpointPasses']}{missing}{extra}"
                 )
             say("")
     say("## The charter's example, literally: cells where the shipped 0.5 render is within the bar of Apple")

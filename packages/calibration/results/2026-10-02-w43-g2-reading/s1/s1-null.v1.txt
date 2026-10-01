@@ -6,64 +6,42 @@ Reader checks: interiorMeanNative of the row against the native delta's own-silh
 the 0.5 fixture, worst |difference| 0.000e+00 over 599 row reads;
 this script's bodyLevel on the 0.5 fixture against the native delta's, worst 1.517e-12
 over 594 reads.
-The anti-null reader (the 0.5 web capture under the 0.5 native silhouette) against the row's
-interiorMeanWeb, worst |difference| 0.000e+00 over 599 reads.
 
 ## S1 as chartered, on interiorMean
 
 ### tier webgpu
-  all four profiles                            cells  346  wrong sign   78  outside [0.8,1.2]  279  median ratio   1.071  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 346, sign not Apple's on 283, median ratio  -0.000, passes S1: False
-  1x-light                                     cells  104  wrong sign   12  outside [0.8,1.2]   76  median ratio   1.071  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 104, sign not Apple's on 88, median ratio  -0.000, passes S1: False
-  2x-light                                     cells  104  wrong sign   17  outside [0.8,1.2]   77  median ratio   1.103  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 104, sign not Apple's on 89, median ratio  -0.000, passes S1: False
-  1x-dark                                      cells   69  wrong sign   23  outside [0.8,1.2]   63  median ratio   1.193  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 69, sign not Apple's on 56, median ratio   0.000, passes S1: False
-  2x-dark                                      cells   69  wrong sign   26  outside [0.8,1.2]   63  median ratio   1.000  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 69, sign not Apple's on 50, median ratio  -0.000, passes S1: False
+  all four profiles                            cells  346  wrong sign   78  outside [0.8,1.2]  279  median ratio   1.071  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-light                                     cells  104  wrong sign   12  outside [0.8,1.2]   76  median ratio   1.071  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-light                                     cells  104  wrong sign   17  outside [0.8,1.2]   77  median ratio   1.103  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-dark                                      cells   69  wrong sign   23  outside [0.8,1.2]   63  median ratio   1.193  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-dark                                      cells   69  wrong sign   26  outside [0.8,1.2]   63  median ratio   1.000  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
   not in the population: Apple's change within its bar 8; UNMEASURED: no 0.5 row on this tier 140, UNMEASURED: no Apple reading 14
 
 ### tier css
-  all four profiles                            cells  237  wrong sign   50  outside [0.8,1.2]  187  median ratio   1.075  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 237, sign not Apple's on 201, median ratio  -0.000, passes S1: False
-  1x-light                                     cells  104  wrong sign   18  outside [0.8,1.2]   76  median ratio   0.986  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 104, sign not Apple's on 87, median ratio  -0.000, passes S1: False
-  2x-light                                     cells   49  wrong sign    4  outside [0.8,1.2]   31  median ratio   1.061  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 49, sign not Apple's on 45, median ratio  -0.000, passes S1: False
-  1x-dark                                      cells   69  wrong sign   22  outside [0.8,1.2]   66  median ratio   1.678  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 69, sign not Apple's on 57, median ratio   0.000, passes S1: False
-  2x-dark                                      cells   15  wrong sign    6  outside [0.8,1.2]   14  median ratio   1.957  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 15, sign not Apple's on 12, median ratio  -0.000, passes S1: False
+  all four profiles                            cells  237  wrong sign   50  outside [0.8,1.2]  187  median ratio   1.075  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-light                                     cells  104  wrong sign   18  outside [0.8,1.2]   76  median ratio   0.986  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-light                                     cells   49  wrong sign    4  outside [0.8,1.2]   31  median ratio   1.061  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-dark                                      cells   69  wrong sign   22  outside [0.8,1.2]   66  median ratio   1.678  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-dark                                      cells   15  wrong sign    6  outside [0.8,1.2]   14  median ratio   1.957  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
   not in the population: Apple's change within its bar 8; UNMEASURED: no 0.5 row on this tier 249, UNMEASURED: no Apple reading 14
 
 
 ## S1 as chartered, on bodyLevel
 
 ### tier webgpu
-  all four profiles                            cells  340  wrong sign   63  outside [0.8,1.2]  274  median ratio   1.178  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 340, sign not Apple's on 340, median ratio  -0.000, passes S1: False
-  1x-light                                     cells  100  wrong sign    6  outside [0.8,1.2]   71  median ratio   1.164  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 100, sign not Apple's on 100, median ratio  -0.000, passes S1: False
-  2x-light                                     cells  100  wrong sign    9  outside [0.8,1.2]   76  median ratio   1.270  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 100, sign not Apple's on 100, median ratio  -0.000, passes S1: False
-  1x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   64  median ratio   1.188  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 70, sign not Apple's on 70, median ratio   0.000, passes S1: False
-  2x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   63  median ratio   1.126  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 70, sign not Apple's on 70, median ratio   0.000, passes S1: False
+  all four profiles                            cells  340  wrong sign   63  outside [0.8,1.2]  274  median ratio   1.178  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-light                                     cells  100  wrong sign    6  outside [0.8,1.2]   71  median ratio   1.164  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-light                                     cells  100  wrong sign    9  outside [0.8,1.2]   76  median ratio   1.270  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   64  median ratio   1.188  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   63  median ratio   1.126  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
   not in the population: Apple's change within its bar 12; UNMEASURED: no 0.5 row on this tier 148, UNMEASURED: no Apple reading 8
 
 ### tier css
-  all four profiles                            cells  230  wrong sign   43  outside [0.8,1.2]  187  median ratio   1.217  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 230, sign not Apple's on 230, median ratio  -0.000, passes S1: False
-  1x-light                                     cells  100  wrong sign   12  outside [0.8,1.2]   74  median ratio   1.083  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 100, sign not Apple's on 100, median ratio  -0.000, passes S1: False
-  2x-light                                     cells   45  wrong sign    2  outside [0.8,1.2]   32  median ratio   1.290  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 45, sign not Apple's on 45, median ratio  -0.000, passes S1: False
-  1x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   66  median ratio   1.439  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 70, sign not Apple's on 70, median ratio   0.000, passes S1: False
-  2x-dark                                      cells   15  wrong sign    5  outside [0.8,1.2]   15  median ratio   3.885  perfect endpoint passes S1: False
-                                               unmoved endpoint: read on 15, sign not Apple's on 15, median ratio  -0.000, passes S1: False
+  all four profiles                            cells  230  wrong sign   43  outside [0.8,1.2]  187  median ratio   1.217  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-light                                     cells  100  wrong sign   12  outside [0.8,1.2]   74  median ratio   1.083  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-light                                     cells   45  wrong sign    2  outside [0.8,1.2]   32  median ratio   1.290  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  1x-dark                                      cells   70  wrong sign   24  outside [0.8,1.2]   66  median ratio   1.439  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
+  2x-dark                                      cells   15  wrong sign    5  outside [0.8,1.2]   15  median ratio   3.885  perfect endpoint passes S1: False  unmoved endpoint (ratio 0, sign undefined) passes: False
   not in the population: Apple's change within its bar 12; UNMEASURED: no 0.5 row on this tier 258, UNMEASURED: no Apple reading 8
 
 
@@ -305,56 +283,36 @@ R2  over the cells where Apple's change exceeds the shipped 0.5 error (|dA| > |e
     median ratio clause over the same cells.
 R3  as R2 for the sign; the ratio clause replaced by the pooled ratio sum(V)/sum(dA) over the population,
     in [0.8, 1.2].
-R4  over R2's cells, per cell: the 0.25 endpoint's error must not exceed the 0.5 endpoint's,
-    |V + e − dA| <= |e| + bar (corrected at the review closure; the first cut read |V − dA|).
+R4  as R2, but the endpoint's change is judged against Apple's change measured FROM vitrea's own 0.5
+    render: the 0.25 endpoint's error must not exceed the 0.5 endpoint's, |V − dA| <= |e| + bar, per cell.
 
 ### interiorMean, tier webgpu (346 cells where Apple's change exceeds its bar)
-  R0: cells  346 (100%)  sign on null False  median ratio 1.071  pooled 1.118  perfect endpoint passes False
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.016  passes False
-  R1: cells   67 (19%)  sign on null True  median ratio 1.008  pooled 1.029  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.006  passes False
-  R2: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.013  passes False
-  R3: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.013  passes False
-  R4: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.013  passes False  R4 cells it passes 19 of 183
+  R0: cells  346 (100%)  sign on null False  median ratio 1.071  pooled 1.118  perfect endpoint passes False  unmoved endpoint passes False
+  R1: cells   67 (19%)  sign on null True  median ratio 1.008  pooled 1.029  perfect endpoint passes True  unmoved endpoint passes False
+  R2: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True  unmoved endpoint passes False
+  R3: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True  unmoved endpoint passes False
+  R4: cells  183 (53%)  sign on null True  median ratio 1.056  pooled 1.099  perfect endpoint passes True  unmoved endpoint passes False
 
 ### interiorMean, tier css (237 cells where Apple's change exceeds its bar)
-  R0: cells  237 (100%)  sign on null False  median ratio 1.075  pooled 1.056  perfect endpoint passes False
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.006  passes False
-  R1: cells   50 (21%)  sign on null True  median ratio 0.986  pooled 0.983  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled 0.001  passes False
-  R2: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.004  passes False
-  R3: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.004  passes False
-  R4: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.004  passes False  R4 cells it passes 9 of 125
+  R0: cells  237 (100%)  sign on null False  median ratio 1.075  pooled 1.056  perfect endpoint passes False  unmoved endpoint passes False
+  R1: cells   50 (21%)  sign on null True  median ratio 0.986  pooled 0.983  perfect endpoint passes True  unmoved endpoint passes False
+  R2: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True  unmoved endpoint passes False
+  R3: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True  unmoved endpoint passes False
+  R4: cells  125 (53%)  sign on null True  median ratio 1.053  pooled 1.031  perfect endpoint passes True  unmoved endpoint passes False
 
 ### bodyLevel, tier webgpu (340 cells where Apple's change exceeds its bar)
-  R0: cells  340 (100%)  sign on null False  median ratio 1.178  pooled 1.165  perfect endpoint passes False
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R1: cells   66 (19%)  sign on null True  median ratio 0.986  pooled 1.023  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R2: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R3: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R4: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False  R4 cells it passes 26 of 181
+  R0: cells  340 (100%)  sign on null False  median ratio 1.178  pooled 1.165  perfect endpoint passes False  unmoved endpoint passes False
+  R1: cells   66 (19%)  sign on null True  median ratio 0.986  pooled 1.023  perfect endpoint passes True  unmoved endpoint passes False
+  R2: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True  unmoved endpoint passes False
+  R3: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True  unmoved endpoint passes False
+  R4: cells  181 (53%)  sign on null True  median ratio 1.031  pooled 1.115  perfect endpoint passes True  unmoved endpoint passes False
 
 ### bodyLevel, tier css (230 cells where Apple's change exceeds its bar)
-  R0: cells  230 (100%)  sign on null False  median ratio 1.217  pooled 1.182  perfect endpoint passes False
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R1: cells   43 (19%)  sign on null True  median ratio 1.026  pooled 0.997  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R2: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R3: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False
-  R4: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True
-      unmoved endpoint: sign False  median ratio -0.000  pooled -0.000  passes False  R4 cells it passes 8 of 124
+  R0: cells  230 (100%)  sign on null False  median ratio 1.217  pooled 1.182  perfect endpoint passes False  unmoved endpoint passes False
+  R1: cells   43 (19%)  sign on null True  median ratio 1.026  pooled 0.997  perfect endpoint passes True  unmoved endpoint passes False
+  R2: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True  unmoved endpoint passes False
+  R3: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True  unmoved endpoint passes False
+  R4: cells  124 (54%)  sign on null True  median ratio 1.083  pooled 1.091  perfect endpoint passes True  unmoved endpoint passes False
 
 ## The charter's example, literally: cells where the shipped 0.5 render is within the bar of Apple
 
