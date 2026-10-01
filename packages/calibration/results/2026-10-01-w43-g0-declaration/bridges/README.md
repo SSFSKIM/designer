@@ -12,6 +12,10 @@ from `w42-archive` (probe role, guarded Reader, the raw W42 roots denied) into
 
 Both totals are the charter's priced 168 and 84.
 
+**The tints are refereed here, not pre-flighted.** The four tinted cells are read against W29
+fixtures that the original harness tint-attested, which is stricter than the twin test. No W29-style
+tint pre-flight runs: a check over 0.5 fixtures says nothing about 0.25 pixels (the parent's ruling).
+
 **The canonical six.** In light: `dark-solid__capsule-button`, `photo__capsule-button` with the
 orange tint, and `mid-chroma-solid__rrect-md`. In dark: `dark-solid__rrect-lg`,
 `checkerboard__capsule-button` with the orange tint, and `hc-text__rrect-sm`. Each is declared in
@@ -31,5 +35,5 @@ within max(1 code, bar) of the reference's. The region statistics are W42's inst
 (masks `n` and `w` active, `n` receded); the bar is W39's, and the sentinels take W42 G1's
 long-protocol bar (a cell with no measured row reads at the 0.5 floor, one code). The plans carry
 each cell's reference in G0 (d)'s `bridge` field (`../bed/sitting-g1a.json`, `sitting-g1b.json`).
-The reader on existing evidence is `../bridge/bridge.py`; it compared the fixture with the
-plurality frame and with every state, which on that evidence is the same verdict.
+The reader on existing evidence is `../bridge/bridge.py`. It compared each fixture with every
+state the seven runs produced, so its verdicts already hold run by run.

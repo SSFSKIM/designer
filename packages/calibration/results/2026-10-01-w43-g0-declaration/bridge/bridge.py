@@ -26,7 +26,8 @@ cell. Per cell-pass:
    on. The fixture is read with the same populations as the runs. The bar per statistic and
    channel is W39's, 0.5 + half the largest pairwise separation of the seven run medians,
    recomputed here from the runs and checked equal to G1's published `bar.json.gz`. A statistic
-   AGREES when |fixture − plurality run| <= max(1, bar).
+   AGREES when |fixture − plurality run| <= max(1, bar). The parent's later ruling reads every run, so
+   `runByRun` also judges each distinct state the runs produced against the fixture the same way.
 3. **The verdict.** AGREE (bytes) when the fixture's pixels equal an admitted state; AGREE
    (regions) when every region statistic agrees; DISAGREE otherwise; NO TWIN when the canonical
    bed has no such scene for the profile. A cell with no region statistic and no byte identity
@@ -155,6 +156,7 @@ def bridge_cell(wave, reader, archive, cell, roles, members, published, w29=None
                againstPlurality=dict(pixelsDiffering=int((diff.max(-1) > 0).sum()), maxCodes=int(diff.max())))
     kernels = ('n', 'w') if pose == 'rest' else ('n',)
     readings, worst, failing, measured = [], 0.0, [], 0
+    state_fail = {k: [] for k in states}      # run by run (the parent's ruling): each state against the fixture
     for kernel in kernels:
         c = F.Cell(f'{scale}x|{cid}', wave.scenes[sid]['background'], wave.scenes[sid]['component'], scale, scheme,
                    pose, rgb=True, kernel=kernel)
@@ -182,12 +184,20 @@ def bridge_cell(wave, reader, archive, cell, roles, members, published, w29=None
             worst = max(worst, abs(d))
             if abs(d) > tol + 1e-9:
                 failing.append(f'{kernel}:{name} {d:+.1f}')
+            for k in states:
+                dk = float(fixed[name] - per_state[k][name])
+                if abs(dk) > tol + 1e-9:
+                    state_fail[k].append(f'{kernel}:{name} {dk:+.1f}')
         measured += len(rows)
         if theirs is not None and theirs != mine:
             raise ValueError(f"{cell} {kernel}: the recomputed bars differ from G1's published bar.json")
         readings.append(dict(kernel=kernel, status='measured', statistics=len(rows),
                              barEqualsG1=theirs is not None, rows=rows))
     row.update(regions=readings, regionStatistics=measured, worstAbsDelta=round(worst, 3), failing=failing)
+    by_state = {k[:12]: ('bytes' if k[:12] in pixel_equal else 'regions' if measured and not state_fail[k] else
+                         'UNMEASURED' if not measured else 'DISAGREE') for k in states}
+    row.update(runByRun=dict(byState=by_state, failingByState={k[:12]: v[:8] for k, v in state_fail.items() if v},
+                             everyRunAgrees=all(by_state[r['frame'][:12]] in ('bytes', 'regions') for r in runs)))
     if pixel_equal:
         verdict = 'AGREE (bytes)'
     elif measured == 0:

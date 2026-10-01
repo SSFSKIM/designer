@@ -6,9 +6,9 @@ files that define it, and pins every one of those files by SHA-256. `declare.py 
 every count and list below from those files. `declare.py hash` refuses while any item is PENDING. It
 then writes `declaration.sha256` and `closure.json`, and never overwrites either.
 
-**Status: DRAFT. Not hashable.** Four items wait on memo F's reading or the w-test's rehearsals,
-each marked PENDING with what it waits on. The hash comes after memo F's reading is folded in, and
-before G1a's first capture (clause 1). No pixel at 0.25 exists.
+**Status: DRAFT. Not hashable.** Memo F's reading is folded in. One item, the w-test statistic,
+waits on its record rehearsals, marked PENDING. The hash comes after the independent review and the
+parent's word, and before G1a's first capture (clause 1). No pixel at 0.25 exists.
 
 ## The beds
 
@@ -49,7 +49,8 @@ bottom (X47). Nothing is filed as a fixture; the bed is archived as `w43-archive
 G0 (b) read W42's family F against the canonical 0.5 fixtures (`bridge/`). The F cells were captured
 through the side bundle at 0.5 on 2026-09-30; the fixtures came from the original bundle on
 2026-09-18/19. 19 cell-passes agree by bytes and 1 by regions; 4 have no canonical twin (the dark
-impulse). Every side-bundle state is one the original bundle produced at W29. Nothing went to the user.
+impulse). Read run by run, every run of all 20 agrees. Every side-bundle state is one the original
+bundle produced at W29. Nothing went to the user.
 
 ### bridgeCells
 
@@ -62,7 +63,11 @@ Each sitting captures two kinds of bridge cell at 0.5:
 G1a's bridges are 168 captures over both scales; G1b's are 84 at 2x. The verdict reads every run (the
 parent's ruling): a cell agrees only when each of its runs is pixel-identical to its reference or has
 every region statistic within max(1 code, bar). The plans carry each cell's reference. The closing
-sentinels are each order's tail and run after any cut, with the slider and display restored first. A disagreement at an opening stops that sitting before any capture away from 0.5.
+sentinels are each order's tail and run after any cut, with the slider and display restored first.
+The four tinted bridge cells (photo and checkerboard on the capsule, rest and inactive, orange) are
+refereed against W29 fixtures the original harness tint-attested, which is stricter than the twin
+test. No W29-style tint pre-flight runs, because a check over 0.5 fixtures says nothing about 0.25
+pixels (the parent's ruling). A disagreement at an opening stops that sitting before any capture away from 0.5.
 One at a close voids nothing already admitted, but that sitting's claims against 0.5 are read as
 unbridged and the user rules before G3 opens.
 
@@ -78,16 +83,31 @@ replayed identically with the raw root denied, and each distinct frame is stored
 
 ### memoF
 
-**PENDING (memo F).** Apple's declared tree at nine slider positions in all four endpoints at 2x,
-plus 0.25 at 1x (`memo-f/`, its RUNBOOK and its stub proofs). It waits for the user's go for the idle
-window, then for `memo_f_read.py`'s tables. Those tables give the inputs that move with x per endpoint,
-whether memo D's span laws hold at 0.25, and the dark ramps. Its numbers are pointers (X38).
+Memo F ran on 2026-10-01 from 07:37 to 08:15Z on the user's go (`memo-f/`: `MEMO.md`, the record
+`run/` and the reading `reading/`). It made 40 launches and 264 scene dumps, all admitted, and
+restored the slider (its as-found real 0.5, byte for byte) and display mode 68, both verified. At
+x = 0.5 every surface reproduces memo D with zero departures.
+
+What moves with x:
+- Normal = x;
+- Lighten and Darken, 0.675 + 0.45x on [0, 0.5] and 0.9 after;
+- the face fill (light: white, alpha 0.4x then 0.2 + 0.6(x − 0.5); dark: alpha 0 until 0.5, then a
+  dark grey at x − 0.5);
+- the dark MaxLuma cap at s ≥ 80 below 0.5;
+- the backdrop capture scale: 0.125 on every shape at x = 1, and steps on rrect-ml and rrect-lg that
+  depend on x, scheme and pose.
+
+Nothing else moves. Every memo D span law holds at 0.25 except the dark cap and the rrect-lg
+capture scale. The backdrop and scale controls hold. These are pointers (X38).
 
 ### wTestPrediction
 
-**PENDING (memo F).** On the free side, the pre-tone excursion scales with w: w(0.25)/w(0.5) = 0.5,
-wherever the declared inputs of C and W do not move with x. The prediction is stated in memo F's
-terms before the hash.
+On the free side, r = (T₀.₂₅⁻¹(y₀.₂₅) − C)/(T₀.₅⁻¹(y₀.₅) − C) = w(0.25)/w(0.5) = **0.5**, stated in
+all four 2x endpoints (`memo-f/reading/fold.json`). Between 0.25 and 0.5 memo F finds no input that
+sets C or W moving on the support shapes; the capture scale moves only on rrect-lg, which is not
+support. Normal reads exactly 0.25 and 0.5. λ (0.9 → 0.7875 in both schemes) enters only the lifted
+side, which is read and never gated. The face fill and the dark cap are T, inverted natively at each
+position. A FAIL refutes the composite's slider coupling; neither verdict lands anything.
 
 ### wTestStatistic
 
@@ -97,9 +117,16 @@ rehearsed on synthetic LT renders, on a two-sided linear control and on W42's 0.
 
 ### ladderReadings
 
-**PENDING (memo F).** These readings are descriptive: T(x) per endpoint and span stratum, the free
-side's pre-tone value against x, and the bodies at x = 1 and x = 0. W29 G0's existing sweep already
-points at one input that moves at an end: the backdrop layer's capture scale reads 0.125 at x = 1.
+These readings are descriptive and gated by nothing (clause 9):
+- T(x) per endpoint, channel and stratum, from the probe's greys at 0, 0.25, 0.75 and 1 and W42's
+  at 0.5;
+- the free side's pre-tone value at 0, 0.25, 0.5 and 1 against the affine M(x) = C + x(W − C):
+  M(0) − C, the slope, and the residual;
+- the x = 1 body (M = W on both sides): its free/lifted symmetry and the step and patch profiles,
+  read through the 0.125 capture scale memo F declares there;
+- the x = 0 body: the free side reads C; the lifted side reads C with λ(0) = 0.675.
+
+They are written for the next structure wave and for the continuous slider's charter.
 
 ## The sittings
 

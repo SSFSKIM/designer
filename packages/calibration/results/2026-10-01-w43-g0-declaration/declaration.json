@@ -90,7 +90,8 @@
           "NO TWIN": 4
         },
         "reading": "W42 family F (side bundle, 0.5, 2026-09-30) against the canonical 0.5 fixtures (original bundle, 2026-09-18/19): every twinned cell-pass agrees; the dark impulse has no canonical twin",
-        "archive": "w42-archive asset 1e3d6e65..., inventory 5481795e..., probe role only, H never requested"
+        "archive": "w42-archive asset 1e3d6e65..., inventory 5481795e..., probe role only, H never requested",
+        "runByRun": "every run of all 20 twinned cell-passes agrees with its fixture, by bytes or by every region statistic (bridge.json runByRun)"
       }
     },
     {
@@ -113,7 +114,8 @@
         },
         "metric": "every run of every bridge cell pixel-identical to its reference, or every region statistic of that run within max(1 code, bar) of the reference (W42's instrument; W39's bar; the sentinels W42 G1's long-protocol bar); the coordinator's ruling: read run by run, never a plurality frame",
         "stops": "at an opening: the sitting stops before any capture away from 0.5; at a close: nothing voided, the sitting's claims against 0.5 read as unbridged and the user rules before G3 (clause 3)",
-        "afterCut": "the closing sentinel passes are the order's tail and run after any cut, the slider and mode 68 restored first (runAfterCut)"
+        "afterCut": "the closing sentinel passes are the order's tail and run after any cut, the slider and mode 68 restored first (runAfterCut)",
+        "tints": "the four tinted bridge cells (photo__capsule-button and checkerboard__capsule-button, rest and inactive, tint-orange) are refereed by clause 3 against W29 fixtures the original harness tint-attested, which is stricter than the twin test; no W29-style tint pre-flight runs, because a check over 0.5 fixtures says nothing about 0.25 pixels (the parent's ruling)"
       }
     },
     {
@@ -138,11 +140,27 @@
         "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
         "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/plan.json",
         "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f.py",
-        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f_read.py"
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f_read.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/tables.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/fold.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/restore.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/run-sha256.txt"
       ],
-      "pending": {
-        "on": "memo F",
-        "note": "the user's go for the idle window; then memo_f_read.py's tables: the inputs that move with x per endpoint, memo D's laws at 0.25, the dark ramps"
+      "declared": {
+        "run": "2026-10-01 07:37-08:15Z, run root ~/vitrea-w43/memo-f/run-20261001T0737Z (scratch, manifested in run/run-sha256.txt); 40 of 40 launches, 264 scene dumps admitted; restore verified (slider back to its as-found real 0.5, display mode 68)",
+        "control": "x = 0.5 reproduces memo D with zero departures in all four endpoints",
+        "moving": {
+          "BlurFillNormalOpacity": "= x at all nine positions (w)",
+          "BlurFillLightenOpacity / BlurFillDarkenOpacity": "0.675 + 0.45x on [0, 0.5], 0.9 on [0.5, 1], both schemes (lambda)",
+          "FaceColorMatrixFillColor": "light: white, alpha 0.4x then 0.2 + 0.6(x - 0.5); dark: grey 0.25|x - 0.5|, alpha 0 on [0, 0.5] then x - 0.5 (T)",
+          "FaceColorMatrixMaxLuma = MaxLumaSDR (dark)": "at s >= 80 on [0, 0.5]: max(0.45 - 0.2x, 0.6 - (0.36 + 0.48x) t); memo D's law on [0.5, 1]; 0.6 at s <= 64 (T)",
+          "bd.scale": "0.5 at s <= 96 for x < 1 and 0.125 at x = 1 on every shape; rrect-ml and rrect-lg step to 0.25 at positions that depend on x, scheme and pose (rrect-lg 0.5 at x = 0.25 in all four endpoints) (C and W)"
+        },
+        "unmoved": "every other declared input at every position: the narrow blur radius, opacities and distances, the fill radius, the face black, white and saturation, the clamp, refraction, bleed, shadows, ring shadow, highlight, SDF output, margin and element",
+        "lawsAt025": "every memo D span law holds at 0.25 except the dark MaxLuma law (slope 0.48 against 0.6, floor 0.40 against 0.35) and the rrect-lg capture scale (0.5 against 0.25)",
+        "controls": "backdrop: rrect-md on photo and checkerboard identical to dark-solid at 0, 0.25 and 1; scale: 1x and 2x at 0.25 differ only in memo D's four one-device-pixel terms",
+        "status": "pointers to Apple's declared configuration (X38); the pixels referee them"
       }
     },
     {
@@ -150,11 +168,22 @@
       "title": "The w-test prediction, in memo F's terms",
       "clause": "2, 8; Design \"The w-test\"",
       "source": [
-        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a"
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/fold.py",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/fold.json",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md"
       ],
-      "pending": {
-        "on": "memo F",
-        "note": "w(0.25)/w(0.5) = 0.5 on the free side where C's and W's declared inputs do not move with x; stated against memo F's reading before the hash"
+      "declared": {
+        "prediction": "on the free side (light C >= W, dark C <= W), r = (T25^-1(y25) - C) / (T50^-1(y50) - C) = w(0.25) / w(0.5) = 0.5",
+        "statedIn": [
+          "2x-dark-active",
+          "2x-dark-receded",
+          "2x-light-active",
+          "2x-light-receded"
+        ],
+        "basis": "memo F: between 0.25 and 0.5 no input that sets C or W moves on the support shapes (s = 44, 64, 96); Normal reads exactly 0.25 and 0.5; lambda (0.9 -> 0.7875) does not enter the free side; the face fill and the dark cap move and are T, inverted natively at each position from that position's greys",
+        "liftedSide": "read and reported, never gated: the declared lambda25 is 0.7875 in both schemes, against W42's fitted lambda50 scaled by 0.875 or shifted by -0.1125",
+        "refutes": "a FAIL refutes the composite's slider coupling on the free side; either verdict redirects the next structure wave and lands nothing (clause 8, Decision Log 4)"
       }
     },
     {
@@ -174,11 +203,16 @@
       "title": "The ladder, described",
       "clause": "9; Design \"The slider ladder\"",
       "source": [
-        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a"
+        "docs/doperpowers/specs/2026-10-01-w43-glass-0-25-generation.md@c271521a",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md",
+        "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/probe-bed.json"
       ],
-      "pending": {
-        "on": "memo F",
-        "note": "T(x) per endpoint and stratum, the free side's pre-tone value against x, the x = 1 and x = 0 bodies; descriptive; memo F's pointers (W29's sweep reads the backdrop capture scale at 0.125 at x = 1)"
+      "declared": {
+        "T": "T(x) per endpoint, channel and stratum (capsule t = 0, rrect-md s = 96): the probe greys' deep medians at x = 0, 0.25, 1 (seven levels), 0.75 (0, 128, 208, 255) and W42's at 0.5 (plurality frames)",
+        "freeSide": "M_x = T_x^-1(y_x) on the w-test's supported free-side regions at x = 0, 0.25, 0.5 and 1 (and 0.75 where its two cores are supported), against the affine M(x) = C + x (W - C): M(0) - C, the slope, and the largest residual from the line through x = 0 and 1",
+        "bodyAt1": "M = W on both sides under LT: the free and lifted region medians' symmetry (memo C's mirror statistic) and the step and patch profiles, read through the 0.125 capture scale memo F declares at x = 1 on every shape",
+        "bodyAt0": "the free side reads C directly (M(0) - C, predicted 0); the lifted side reads C with the hinge at the declared lambda(0) = 0.675",
+        "status": "descriptive: no fit claimed, no gate reads it (clause 9); written for the next structure wave and the continuous slider's charter, with a recommendation on its form and the fewest generations it needs"
       }
     },
     {
@@ -270,15 +304,21 @@
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting-g1b.json": "45197a63e00b04992288ea9f5cc1996c5e9e0d0f0235a7393551e28e8d0fcfca",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1a.json": "8e1d70028c717368eb81b42dd4753974769982bba3c43541e414ff0f1f0becba",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/timing-g1b.json": "27c7687e60fb3c83ce2cfc6b80ee493ebb90a958222005f04011f63c33637ef3",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json": "abe8c11792e189eac4a6e16363fc41e133be415e1c921cabc631839f1c9844aa",
-    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py": "653b3facaf1acb42edde348f90522ecf697389a4b93e98f46730af0ca58ac2bf",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.json": "04b176a7ec8605bbc01d98a08a4b7f3768985d95c591cdf54d89dbb0de4b3201",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/bridge/bridge.py": "446957b4cca58482b6ae533ab9bbd4f9f10eeb56daaad20dee75a94228f636a4",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/bridge-cells.json": "f56c2e5ef08202f2d3d6248dc2d05c9d9d02e8ccbcc49aa08f3262bf9fe3e074",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/declare-bridges.py": "05b580f8fe3b058050a265dcaedd60bcf3b0b9400208d1a9ed92d7e1747ad975",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.json": "100ca39c4bb717f4bc75c17e60978687b108c66deba2bb447231ba17cc07d86f",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/bridges/sentinel-references.py": "95af5de7da92590f90a53b24f7a13e3e48ff1adc9253045d0b6a6f64add2d35c",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/MEMO.md": "c81a1065660dcde9f62fbac5a354adda6d026eb73e1f568e731ab092f0d47890",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/fold.py": "60382c85d6e25d0fbcc6baa3412fa687eff22089580663e72db8bcee4451bd77",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f.py": "62cad58bd3a2232f3266afa4a01a02b0ca3cd2bd6501daee9e5544c1e2818b0f",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/memo_f_read.py": "eff54b6ec254603cacd60199c475c66a9ecab8b10018e9126899082a63bb6f76",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/plan.json": "caeb90ad108a467a7d2486f89fde6b551dfce4e8af51aff1209af44c7ff9d0d5",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/fold.json": "ce0e070a269221ed3ed3c676cc57c4654c3c16c1330b3d0927ffbc501030e181",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/reading/tables.json": "d50352abab02cbd478352c7eeb70042df6a6e4e9bc654d7a6f3984b31f474bdf",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/restore.json": "fe83df7871d324f7e1e842a93a5c6d7cab819aa303d3d45b338d68347be550a2",
+    "packages/calibration/results/2026-10-01-w43-g0-declaration/memo-f/run/run-sha256.txt": "f9bfca0ccfe790c9b801c21c943659326450eaafac6d9127070e52fb58a12b39",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/macos27-document-projection.json": "edf6c3dd63f16f48733a1a916f90bba71d4b23b2093715a64ac83bdd02738079",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/sha256.txt": "61a55c03b71a302a81191fbd3ca2de755d781e3b1fd1f230e15f2b4af5e10a1a",
     "packages/calibration/results/2026-10-01-w43-g0-declaration/x41/x41.ts": "0b7171ae5e33d0a51894e67677d20b389716ed2c7c60874a81b910d1105197d5"

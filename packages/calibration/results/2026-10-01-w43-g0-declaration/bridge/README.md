@@ -15,6 +15,11 @@ twin.
 | AGREE (regions) | 1 | 2x dark active checker-64 rrect-lg: 84 px differ, every one by 1 code, all on the silhouette's edge rows; every one of its 66 region statistics is equal |
 | NO TWIN | 4 | the dark impulse on rrect-md, at both scales and in both poses: the canonical dark profiles carry no impulse scene |
 
+**Run by run** (the parent's later ruling for the sittings' bridges): every state the seven runs
+produced was also judged against its fixture (`runByRun` in `bridge.json`). Every run of all 20
+twinned cell-passes agrees: by bytes, or (the 2x dark active checker-64 and the two-run minority
+state of the 2x light active one) by every region statistic.
+
 **The one non-identical cell is not a bundle difference.** The original bundle's own seven W29 runs
 of that cell read two states, `969118c4591d` 4 times (published as the fixture) and `24b99f3931c2`
 3 times; the side bundle read `24b99f3931c2` in all seven of its runs. Across all 20 twinned
