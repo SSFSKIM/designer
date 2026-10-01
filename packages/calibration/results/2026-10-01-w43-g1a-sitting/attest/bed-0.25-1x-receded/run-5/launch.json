@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-receded/scenes-run-5.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-receded/run-5",
+    "--env",
+    "VITREA_SCALE=1",
+    "--stdout",
+    "/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-receded/run-5/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w43/g1a-run/bed-0.25-1x-receded/run-5/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w43-bed-0.25-1x-receded-5",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "checkerboard-32__rrect-lg__inactive,checkerboard-4__rrect-md__inactive,checkerboard-64__rrect-lg__inactive,checkerboard-64__rrect-md__inactive,checkerboard-8__rrect-lg__inactive,checkerboard-8__rrect-md__inactive,checkerboard-lc16__capsule-button__inactive,checkerboard-lc16__rrect-md__inactive,checkerboard__capsule-button__inactive,checkerboard__capsule-button__inactive-pressed,checkerboard__capsule-button__inactive-tint-blue,checkerboard__capsule-button__inactive-tint-orange,checkerboard__glass-over-glass__inactive,checkerboard__rrect-lg__inactive,checkerboard__rrect-md__inactive,checkerboard__rrect-md__inactive-pressed,checkerboard__rrect-ml__inactive,checkerboard__rrect-sm__inactive,checkerboard__toolbar-group__inactive,dark-solid__capsule-button__inactive,dark-solid__capsule-button__inactive-tint-blue,dark-solid__capsule-button__inactive-tint-orange,dark-solid__rrect-48__inactive,dark-solid__rrect-80__inactive,dark-solid__rrect-lg__inactive,dark-solid__rrect-md-clear20__inactive,dark-solid__rrect-md__inactive,dark-solid__rrect-sm__inactive,hc-text-28__rrect-md__inactive,hc-text-7__rrect-md__inactive,hc-text__capsule-button__inactive,hc-text__capsule-button__inactive-tint-orange,hc-text__rrect-lg__inactive,hc-text__rrect-md__inactive,hc-text__rrect-sm__inactive,impulse__capsule-button__inactive,impulse__capsule-button__inactive-tint-orange,impulse__rrect-lg__inactive,impulse__rrect-md__inactive,impulse__rrect-ml__inactive,light-solid__capsule-button__inactive,light-solid__capsule-button__inactive-tint-orange,light-solid__rrect-lg__inactive,light-solid__rrect-md__inactive,light-solid__rrect-ml__inactive,light-solid__rrect-sm__inactive,mid-chroma-solid__capsule-button__inactive,mid-chroma-solid__capsule-button__inactive-tint-orange,mid-chroma-solid__rrect-lg__inactive,mid-chroma-solid__rrect-md__inactive,mid-dark-solid__capsule-button__inactive,mid-dark-solid__rrect-lg__inactive,mid-dark-solid__rrect-md__inactive,mid-dark-solid__rrect-sm__inactive,mid-light-solid__capsule-button__inactive,mid-light-solid__rrect-lg__inactive,mid-light-solid__rrect-ml__inactive,mid-light-solid__rrect-sm__inactive,photo__capsule-button__inactive,photo__capsule-button__inactive-pressed,photo__capsule-button__inactive-tint-blue,photo__capsule-button__inactive-tint-orange,photo__capsule-button__inactive-tint-orange-half,photo__glass-over-glass__inactive,photo__rrect-lg__inactive,photo__rrect-lg__inactive-tint-orange,photo__rrect-md__inactive,photo__rrect-md__inactive-pressed,photo__rrect-md__inactive-tint-orange,photo__rrect-ml__inactive,photo__rrect-sm__inactive,photo__toolbar-group__inactive",
+    "--inactive"
+  ]
+}
