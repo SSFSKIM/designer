@@ -91,10 +91,12 @@ NSGlassTintAmount` if `present` is false). Then run `/opt/homebrew/bin/displaypl
    `python3.12 -B memo_f_read.py <run root> --out ../memo-f-reading`. It produces `tables.json`
    and `reading.txt`: the inputs that move with x per endpoint, memo D's laws and constants at
    each x, the ramps with their piecewise-linear reading, and the backdrop and scale controls.
-3. The record. The run root stays in scratch, as memo D's did. Commit its SHA-256 manifest, the
-   attestations (`preflight.json`, `as-found.json`, `restore.json`, every `machine-*.json`,
-   `check.json` and `admission.json`), `logs/status.txt` and the reading. The dumps themselves stay
-   behind the manifest.
+3. The record. The run root stays in scratch, as memo D's did. `python3.12 -B record.py <run root>`
+   refuses unless the restore verified and the slider reads its as-found value now. It writes the
+   run's SHA-256 manifest and copies the attestations into `run/` (`preflight.json`, `as-found.json`,
+   `restore.json`, every launch's `machine-*.json`, `check.json`, `admission.json` and session
+   trace, and `logs/`). It also runs the reading into `reading/`. Commit both; the dumps themselves
+   stay behind the manifest. Step 2 is then the same reading, already done.
 4. The memo. The numbers are pointers (X38). They state the w-test's prediction in the
    declaration before it is hashed (clause 2), and the pixels referee them.
 
