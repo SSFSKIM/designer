@@ -491,9 +491,14 @@ names, the launcher chain excluded by pid and start time, a node process counted
 script only), a per-capture idle log, the clause 3 bridge gate read on EVERY run (byte identity, or
 every region median within max(1 code, bar); an opening cell must read a region statistic), a cut
 that never drops the closing bridges (`runAfterCut`), and a restore that ignores HUP/INT/TERM for
-its whole duration. The declaration is hashed
-`4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874` (`declare.py check` reads it)
-and nothing is captured until the user lifts X5′ for G1a.
+its whole duration. The declaration was hashed
+`4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874` on its own branch and amended
+ONCE before any pixel, because the merge put the review-extended X41 under the old pins: the
+current hash is `4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb`, the second
+line of `declaration.sha256`, with `amendments.json` naming the superseded hash, the reason and the
+two re-pinned files; `declare.py check` verifies the whole chain and `amend` refuses once a capture
+exists. Hash a declaration on the ASSEMBLED tree, never on a branch whose pins a sibling branch's
+fixes can still move. Nothing is captured until the user lifts X5′ for G1a.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
