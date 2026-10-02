@@ -45,6 +45,7 @@ import {
   macos27LightMaterialProfile,
   macos27MaterialProfileDocument,
   macos27RecededMaterialProfile,
+  macos26MaterialProfileDocument,
   DEFAULT_MATERIAL_PROFILE_DOCUMENT,
 } from "@vitreajs/vitrea-web";
 import {
@@ -152,6 +153,9 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
     // this is the one assertion that states that in one place.
     expect(DEFAULT_MATERIAL_PROFILE_DOCUMENT).toBe(macos27MaterialProfileDocument);
     expect(DEFAULT_MATERIAL_PROFILE_DOCUMENT.platform).toBe("macOS 27.0");
+    // And it states the slider position it was measured at, the system default (W43
+    // Decision Log 1 (a), charter clause 12), which is the one change X41 admits to it.
+    expect(macos27MaterialProfileDocument.glassTintAmount).toBe(0.5);
   });
 
   it("names each endpoint's document and the digest its pin resolves to", () => {
@@ -316,5 +320,23 @@ describe("the shipped macOS 27 glass 0.25 material and its sealed documents (W43
     expect(DEFAULT_MATERIAL_PROFILE_DOCUMENT).toBe(macos27MaterialProfileDocument);
     expect(macos27Glass025MaterialProfileDocument.platform).toBe("macOS 27.0");
     expect(macos27Glass025MaterialProfileDocument.name).toBe("apple-macos-27.0-glass0.25");
+    expect(macos27Glass025MaterialProfileDocument.glassTintAmount).toBe(0.25);
+  });
+
+  it("states its position beside the 0.5 document's; the 26.5 document states none", () => {
+    // W43 Decision Log 1 (a), charter clause 12. The field is ABSENT on macOS 26.5 rather than
+    // defaulted, as `NativeProfile.glass` is on a 26.5 key: that material was measured on a
+    // system with no slider, so it says nothing about a position.
+    expect(SHIPPED_MATERIAL_PROFILE_DOCUMENTS.map((d) => [d.name, d.glassTintAmount])).toEqual([
+      ["apple-macos-27.0-glass0.5", 0.5],
+      ["apple-macos-27.0-glass0.25", 0.25],
+      ["apple-macos-26.5", undefined],
+    ]);
+    expect(Object.hasOwn(macos26MaterialProfileDocument, "glassTintAmount")).toBe(false);
+    // And the sealed documents the 0.25 module is generated from say the same.
+    for (const document of Object.values(SEALED)) {
+      expect((document as ProfileDocument & { glassTintAmount?: number }).glassTintAmount)
+        .toBe(macos27Glass025MaterialProfileDocument.glassTintAmount);
+    }
   });
 });

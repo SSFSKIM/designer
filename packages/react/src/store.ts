@@ -82,6 +82,7 @@ const sameMaterialDocument = (
   return (
     a.name === b.name &&
     a.platform === b.platform &&
+    a.glassTintAmount === b.glassTintAmount &&
     a.profileKey === b.profileKey &&
     a.resolvedMaterialSha256 === b.resolvedMaterialSha256 &&
     a.tuned === b.tuned
