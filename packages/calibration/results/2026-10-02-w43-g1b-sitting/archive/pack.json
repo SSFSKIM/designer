@@ -1,0 +1,49 @@
+{
+  "asset": "w43-archive-g1b-e17f7efaec0d5389953689a073e3540abe50d8deb0d3b91b0dfe225ef5f12e1d.tar.zst",
+  "path": "/Users/new/vitrea-w43/g1b-release/w43-archive-g1b-e17f7efaec0d5389953689a073e3540abe50d8deb0d3b91b0dfe225ef5f12e1d.tar.zst",
+  "sha256": "e17f7efaec0d5389953689a073e3540abe50d8deb0d3b91b0dfe225ef5f12e1d",
+  "bytes": 6539054,
+  "sitting": "g1b",
+  "tag": "w43-archive-g1b",
+  "tarMembers": 2148,
+  "zstd": "*** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***",
+  "compression": "-19 -T1 -q -c",
+  "entries": 2147,
+  "inventorySha256": "9c7fbd86576b77eb8153e07b671129f622ef3192bc2b37d294bbc57db4603038",
+  "publish": [
+    [
+      "gh",
+      "release",
+      "create",
+      "w43-archive-g1b",
+      "--repo",
+      "SSFSKIM/designer",
+      "--title",
+      "W43 g1b archive of record",
+      "--notes",
+      "W43 g1b archive of record (charter clause 5). SHA-256 e17f7efaec0d5389953689a073e3540abe50d8deb0d3b91b0dfe225ef5f12e1d, 6539054 bytes. Verify with w43_archive.py fetch before reading.",
+      "--latest=false",
+      "--target",
+      "<the sitting merge commit>"
+    ],
+    [
+      "gh",
+      "release",
+      "upload",
+      "w43-archive-g1b",
+      "/Users/new/vitrea-w43/g1b-release/w43-archive-g1b-e17f7efaec0d5389953689a073e3540abe50d8deb0d3b91b0dfe225ef5f12e1d.tar.zst",
+      "--repo",
+      "SSFSKIM/designer"
+    ],
+    [
+      "gh",
+      "release",
+      "view",
+      "w43-archive-g1b",
+      "--repo",
+      "SSFSKIM/designer",
+      "--json",
+      "assets"
+    ]
+  ]
+}

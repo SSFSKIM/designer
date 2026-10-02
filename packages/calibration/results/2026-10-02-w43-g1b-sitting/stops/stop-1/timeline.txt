@@ -1,0 +1,16 @@
+W43 G1b stop 1 (census): dump-0.25-2x-light-active, QUARANTINE-run-1-1790901201309897000. Times UTC.
+  00:32:29     slider written 0.25 and read back (no native process alive across it); the dump
+               starts; its opening census and idle wait pass (HID idle 43,125 s).
+  00:33:04-05  a peer Claude session in another project (G1a stop 3's) starts a
+               playwright-cli daemon (node 19370, daemon cd912897287dd5e2, session lec) with headless
+               Google Chrome 19394 and helpers.
+  00:33:13     a second: playwright-cli run-code 19908 -> daemon 19909 (session default) -> Chrome 19920.
+  00:33:20.7   all 6 scenes dumped; the closing census counts 19 foreign processes; the run is
+               refused and quarantined before its sentinel check.
+  00:33:21     STOP; slider 0.5 and display mode 68 restored and verified.
+  00:33:54     a third daemon (node 22240, Chrome 22245); 8 Chrome-family processes at 00:34:08.
+  HID idle rose throughout and the harness held the frontmost: no input, no focus loss.
+  The coordinator's omission, recorded by the coordinator: the peer session had been told the
+  browser hold was lifted at G1a's close (07:21 KST) and was not warned again before G1b's go.
+  The peer then confirmed its hold: daemons closed, `playwright-cli list` empty, its 13:03 KST job
+  skipped; the coordinator's census read 0 at 00:34:56.
