@@ -519,9 +519,11 @@ WebGPU tier, whose two poses are fixed endpoints rather than an interpolation.
 What Apple's recede does have is one device pixel of dark stroke at the contour,
 a rim term vitrea does not draw and which is named as an open gap.
 
-The demo site shows the macOS 27 pair only. A document is selected at
+The demo site draws macOS 27 at the default 0.5, and at 0.25 when it is loaded
+with `?glass=0.25`; each page's selector reloads it. A document is selected at
 construction — a page drawing one has surfaces measured against it — so a single
-root cannot present both beds at once, and the site has one root.
+root cannot present two materials at once, and each page has one root. The
+macOS 26.5 document is not offered there.
 
 **A backdrop hint and the colour scheme are different things.** A group's
 `backdrop: { tone, luminance }` declaration (React's `hint` prop) states the tone of what is BEHIND the surface, which
