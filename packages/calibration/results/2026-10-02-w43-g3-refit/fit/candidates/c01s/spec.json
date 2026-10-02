@@ -1,0 +1,41 @@
+{
+ "label": "c01s",
+ "note": "finite-difference probe over c01: the deep heavy share lowered (light active sizeScatterFloor 0.25 -> 0.15, sizeScatterFloor2x 1.0 -> 0.6; light receded sizeScatterFloor 0.7 -> 0.5); everything else c01",
+ "overrides": {
+  "active.light": {
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2289,
+    0.4983,
+    0.9311
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2501,
+    0.5174,
+    0.9553
+   ],
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "sizeScatterFloor": 0.15,
+   "sizeScatterFloor2x": 0.6
+  },
+  "receded.light": {
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2253,
+    0.4335,
+    0.8062
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.2263,
+    0.4286,
+    0.8088
+   ],
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeScatterFloor": 0.5
+  }
+ }
+}

@@ -1,0 +1,60 @@
+{
+ "label": "c03b",
+ "note": "c02 with tintAlpha 0.36 (c02 0.30), and: the light 1x floor back at 0.25 (c02 lowered it to 0.15; E2 failed seven 1x light checker cells), the light receded thin ramp starts lowered (1x 0.55 -> 0.35, 2x 0.7 -> 0.45) and its floor raised to 1.0 against its over-structured checkers, the dark knot2 thick steps cut to +0.004 active / +0.003 receded (c02 failed L1 growth on the dark checker rrect-md cells), and the dark scatter held at its 0.5 values (c02 and the probes c01d / c01g showed no net gain)",
+ "overrides": {
+  "active.light": {
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2201,
+    0.5336,
+    0.9366
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2338,
+    0.5159,
+    0.9401
+   ],
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "optics.regular.tintAlpha": 0.36,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterFloor2x": 0.6
+  },
+  "receded.light": {
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2045,
+    0.4217,
+    0.8117
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.231,
+    0.4288,
+    0.8086
+   ],
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeScatterFloor": 1.0,
+   "sizeScatterRampStartThin1x": 0.35,
+   "sizeScatterRampStartThin2x": 0.45
+  },
+  "active.dark": {
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ]
+  },
+  "receded.dark": {
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ]
+  }
+ }
+}

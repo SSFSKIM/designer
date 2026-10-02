@@ -1,0 +1,104 @@
+{
+  "$comment": [
+    "SCRATCH CANDIDATE j-thin3, W43 G3 (i) refit (charter clause 10, Decision Log 7 as RULED",
+    "2026-10-02). Not a sealed or shipped document; no publication stage names it.",
+    "Built from apple-macos-27.0-1x-light-standard-glass0.5-receded.json (sha256 30fbe05986ae) with these leaves moved:",
+    "backdropToneBlackThick, backdropToneBlackThin, backdropToneResponseThick, backdropToneResponseThin"
+  ],
+  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.25-receded",
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-02T07:55:51.205Z",
+  "recordedBy": "W43 G3 (i), scratch candidate j-thin3",
+  "colorSpace": "srgb",
+  "kind": "receded-endpoint",
+  "appliesOver": "apple-macos-27.0-1x-light-standard-glass0.25.json (this candidate's own active document, beside this file)",
+  "resolvedOverActiveDocument": "apple-macos-27.0-1x-light-standard-glass0.25.json",
+  "derivedFrom": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd"
+  },
+  "movedLeaves": [
+    "backdropToneBlackThick",
+    "backdropToneBlackThin",
+    "backdropToneResponseThick",
+    "backdropToneResponseThin"
+  ],
+  "resolvedMaterialSha256": "d8d44baa10486dc4",
+  "resolvedMaterialSha256Rule": 2,
+  "patch": {
+    "backdropToneAbscissa": {
+      "kind": "silhouette"
+    },
+    "tintChromaScale": 0,
+    "tintShadeCollapseRetention": 1,
+    "tintShadeStrength": 1,
+    "optics": {
+      "regular": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      },
+      "clear": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      }
+    },
+    "rimCollapsed": 0,
+    "rimCollapsedTinted": 0,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0,
+      "thinOcclusionBright": 0,
+      "thickOcclusionAt96": 0,
+      "thickOcclusionAt128": 0,
+      "thickOcclusionAt160": 0,
+      "liftAmplitude": 0,
+      "reducedTransparencyOcclusion": 0
+    },
+    "sizeScatterRampStartThick1x": 0.3,
+    "sizeScatterRampStartThick2x": 0.04,
+    "sizeScatterRampStartFar2x": 0.04,
+    "sizeHeavyTapSigma2x": 14,
+    "tintShadeDark": 0.0288,
+    "tintShadeLight": 0.76,
+    "reducedTintAdaptation": 0.88,
+    "sizeScatterFloor": 0.7,
+    "sizeScatterRampStartThin1x": 0.55,
+    "sizeScatterRampStartThin2x": 0.7,
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.425,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0.1105,
+      0.2253,
+      0.4335,
+      0.8262
+    ],
+    "backdropToneResponseThick": [
+      0.0894,
+      0.2263,
+      0.4286,
+      0.8088
+    ],
+    "refractionScale": {
+      "approximate": 0
+    },
+    "increasedOcclusionLift": 0.96,
+    "increasedOcclusionLiftByPolicy": {
+      "reduceTransparency": 0.88,
+      "increaseContrast": 0.98
+    },
+    "strongBorderRim": {
+      "rimWidth": 1,
+      "rimAlpha": -3.5
+    },
+    "bodyChromaRetention": 0.349,
+    "backdropToneBlackStrength": 1,
+    "backdropToneBlackThin": 0.180351,
+    "backdropToneBlackThick": 0.180351
+  }
+}

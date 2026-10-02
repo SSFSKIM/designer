@@ -1,0 +1,27 @@
+{
+  "$comment": "W43 G3 (i) scratch candidate c01g: finite-difference probe over c01 (dark): active.dark sizeScatterScaleGain -2 -> -4 (the dark receded inherits it); everything else c01",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w43-g3-c01g",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "58d9de159ef998877baa8c1b73a25b40097fde93518d0ef0c6d1e46f05b47ac9"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "158af7c58c245a971c3a9a687ae88987297f78c79a66aab834c37600624d0129"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "994ed716f55e875fd9a7da71d850256deebb6d94ea112e04525a9b20bd53e8c6"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "7db91e5cda1a36999bfb83bcb83aa0fabb212fc67a73ecd844e35122c8c676cc"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

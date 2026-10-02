@@ -1,0 +1,38 @@
+{
+ "label": "j-thick0",
+ "note": "Jacobian probe over c01: backdropToneResponseThick[0] +0.02 in both light documents",
+ "overrides": {
+  "active.light": {
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2289,
+    0.4983,
+    0.9311
+   ],
+   "backdropToneResponseThick": [
+    0.2071,
+    0.2501,
+    0.5174,
+    0.9553
+   ],
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804
+  },
+  "receded.light": {
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2253,
+    0.4335,
+    0.8062
+   ],
+   "backdropToneResponseThick": [
+    0.1094,
+    0.2263,
+    0.4286,
+    0.8088
+   ],
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351
+  }
+ }
+}

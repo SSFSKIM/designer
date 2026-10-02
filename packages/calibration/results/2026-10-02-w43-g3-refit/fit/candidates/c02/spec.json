@@ -1,0 +1,115 @@
+{
+ "label": "c02",
+ "note": "c02: the light tone rows solved on the calibration set under L1's clauses (solve_tone.py over the measured Jacobian, specs/j-*), the light structure step of c01x (tintAlpha 0.30, floors 0.15 / 0.6, receded floor 0.85), and the dark step (item 3): thick ordinates knot1 +0.0064 / knot2 +0.0098 active and knot2 +0.0074 receded, least squares on the dark calibration thick cells; dark scatter sizeScatterScaleGain -2 -> -3.5 (active; the receded inherits it) with the receded sizeScatterHeavyShareThick1x 0.25 -> 0.4 to hold its thick checker structure",
+ "overrides": {
+  "active.light": {
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2201,
+    0.5336,
+    0.9366
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2338,
+    0.5159,
+    0.9401
+   ],
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "optics.regular.tintAlpha": 0.3,
+   "sizeScatterFloor": 0.15,
+   "sizeScatterFloor2x": 0.6
+  },
+  "receded.light": {
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2045,
+    0.4217,
+    0.8117
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.231,
+    0.4288,
+    0.8086
+   ],
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeScatterFloor": 0.85
+  },
+  "active.dark": {
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.1788,
+    0.196
+   ],
+   "sizeScatterScaleGain": -3.5
+  },
+  "receded.dark": {
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.1714,
+    0.186
+   ],
+   "sizeScatterHeavyShareThick1x": 0.4
+  }
+ },
+ "toneSolve": {
+  "success": true,
+  "message": "Optimization terminated successfully",
+  "cells": 74,
+  "objectiveBase": 0.04984001304470586,
+  "objective": 0.03416240328048899,
+  "maxAbsBase": 0.07781029128460909,
+  "maxAbs": 0.07781029128460909,
+  "violatedWithoutMargin": [
+   [
+    [
+     "apple-macos-27.0-1x-light-standard-glass0.25",
+     "impulse__capsule-button__inactive-tint-orange"
+    ],
+    0.0776,
+    0.055
+   ],
+   [
+    [
+     "apple-macos-27.0-2x-light-standard-glass0.25",
+     "impulse__capsule-button__inactive-tint-orange"
+    ],
+    0.0778,
+    0.055
+   ]
+  ],
+  "heldColumns": [
+   "active.light thin0 (column norm 0.39)",
+   "active.light thick0 (column norm 0.02)",
+   "active.light black (column norm 0.00)",
+   "receded.light thin0 (column norm 1.01)",
+   "receded.light thick0 (column norm 0.01)",
+   "receded.light black (column norm 0.00)"
+  ],
+  "unreachableCells": [
+   "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange",
+   "apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__inactive-tint-orange",
+   "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange",
+   "apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__inactive-tint-orange"
+  ],
+  "delta": {
+   "active.light thin1": -0.00876,
+   "active.light thin2": 0.03532,
+   "active.light thin3": 0.00551,
+   "active.light thick1": -0.0163,
+   "active.light thick2": -0.00154,
+   "active.light thick3": -0.0152,
+   "receded.light thin1": -0.02082,
+   "receded.light thin2": -0.01175,
+   "receded.light thin3": 0.00553,
+   "receded.light thick1": 0.00469,
+   "receded.light thick2": 0.0002,
+   "receded.light thick3": -0.00019
+  }
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "label": "c01x",
+ "note": "c01 with the light structure step (items 1-2): tintAlpha 0.46 -> 0.30 (light active; the receded inherits it); deep heavy share lowered at 1x (sizeScatterFloor 0.25 -> 0.15) and 2x (sizeScatterFloor2x 1.0 -> 0.6); the light receded floor raised 0.7 -> 0.85 to hold its checker structure. Spec-in for the tone solve; not rendered itself.",
+ "overrides": {
+  "active.light": {
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2289,
+    0.4983,
+    0.9311
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2501,
+    0.5174,
+    0.9553
+   ],
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "optics.regular.tintAlpha": 0.3,
+   "sizeScatterFloor": 0.15,
+   "sizeScatterFloor2x": 0.6
+  },
+  "receded.light": {
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2253,
+    0.4335,
+    0.8062
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.2263,
+    0.4286,
+    0.8088
+   ],
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeScatterFloor": 0.85
+  }
+ }
+}

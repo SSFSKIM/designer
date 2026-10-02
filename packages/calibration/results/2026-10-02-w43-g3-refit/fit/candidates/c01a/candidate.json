@@ -1,0 +1,27 @@
+{
+  "$comment": "W43 G3 (i) scratch candidate c01a: finite-difference probe over c01: optics.regular.tintAlpha 0.46 -> 0.34 in the light active document (the light receded inherits it); everything else c01",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w43-g3-c01a",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "cefd551b665e9d6713bb7190af194052a00660d058c539cfdc2e2b2aa6feacb8"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "baa15b355207dc52b036254b3ead617440f71085aff4fb808fa5a3e1db800bb3"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "52384800d03695ea1248414a5b7fdbb99a4bac0395b6c20de0b5e7c6cf4ed032"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "5cdfa5c86e1ebd0851963286e21ada261550f5a95d6cabdbdaade21330ea0f79"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}
