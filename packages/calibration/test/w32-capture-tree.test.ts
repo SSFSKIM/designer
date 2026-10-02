@@ -491,6 +491,12 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
   });
 
   it("loads current macOS 27 rows through external symlink and hardlink matrix aliases", () => {
+    // Each alias runs the checker over the REAL current union and the superseded index, so
+    // this test's cost scales with the published generations: W43 G3 (ii) added the two
+    // macOS 27 glass-0.25 files (3,017 current rows, from 1,893), and the two walks then
+    // took 6.0 s on the CI runner against vitest's 5 s default (main e88995f1, CI run
+    // 37046401758). The budget below is a budget, not a target; the aliases are what is
+    // under test, and the union's size is the ledger's business.
     const source = resolve(PACKAGE_ROOT, "results/matrix.json");
     const index = JSON.parse(readFileSync(resolve(PACKAGE_ROOT,
       "results/generations/index.json"), "utf8"));
@@ -527,7 +533,7 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
-  });
+  }, 60_000);
 
   it("parses the committed matrix and superseded index, as the merge gate will", () => {
     // The two real files, through the real code path, over a tree that is present and
