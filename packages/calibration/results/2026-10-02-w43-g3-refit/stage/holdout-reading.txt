@@ -1,0 +1,24 @@
+W43 G3 (ii): the holdout's one reading (the 0.5 tables per tier, holdout cells)
+
+1x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_LIGHT, 10 holdout cells, 1 misses -> MISS
+  checkerboard__rrect-lg__rest                     ssimMean             0.8640930644846379 vs ≥ 0.88
+  level |web - native| max 0.0495, mean 0.0118
+1x-light-standard-glass0.25 css: DOM_TIER_27_LIGHT, 10 holdout cells, 2 misses -> MISS
+  checkerboard__rrect-lg__rest                     ssimMean             0.8660692894233126 vs ≥ 0.9
+  checkerboard__glass-over-glass__rest             ssimMean             0.8647059048235504 vs ≥ 0.9
+  level |web - native| max 0.0460, mean 0.0153
+2x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_LIGHT, 10 holdout cells, 0 misses -> PASS
+  level |web - native| max 0.0474, mean 0.0148
+2x-light-standard-glass0.25 css: DOM_TIER_27_2X_LIGHT, 10 holdout cells, 1 misses -> MISS
+  checkerboard__glass-over-glass__rest             ssimMean             0.9199563058098936 vs ≥ 0.92
+  level |web - native| max 0.0433, mean 0.0158
+1x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_DARK, 3 holdout cells, 0 misses -> PASS
+  level |web - native| max 0.0226, mean 0.0165
+1x-dark-standard-glass0.25 css: DOM_TIER_27_DARK, 3 holdout cells, 1 misses -> MISS
+  photo__rrect-lg__rest                            oklabDeltaEP95       0.20599816056375406 vs ≤ 0.18
+  level |web - native| max 0.0252, mean 0.0180
+2x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_DARK, 3 holdout cells, 0 misses -> PASS
+  level |web - native| max 0.0234, mean 0.0155
+2x-dark-standard-glass0.25 css: DOM_TIER_27_2X_DARK, 3 holdout cells, 1 misses -> MISS
+  photo__rrect-lg__rest                            oklabDeltaEP95       0.2007074765694366 vs ≤ 0.19
+  level |web - native| max 0.0252, mean 0.0169

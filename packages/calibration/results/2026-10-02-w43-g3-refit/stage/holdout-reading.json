@@ -1,0 +1,414 @@
+{
+ "what": "W43 G3 (ii): the holdout's one reading",
+ "bed": {
+  "kind": "sealed",
+  "matrices": [
+   {
+    "path": "/Users/new/vitrea-w43/g3-stage-light/matrix.json",
+    "sha256": "cadad647679735645a49fea6dcdefa401ef8af69459a7965c2ac4b82d72e5cf3",
+    "rows": 656
+   },
+   {
+    "path": "/Users/new/vitrea-w43/g3-stage-dark/matrix.json",
+    "sha256": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02",
+    "rows": 468
+   }
+  ],
+  "rows": 1124,
+  "pairs": {
+   "apple-macos-27.0-1x-dark-standard-glass0.25 css": 117,
+   "apple-macos-27.0-1x-dark-standard-glass0.25 webgpu": 117,
+   "apple-macos-27.0-1x-light-standard-glass0.25 css": 164,
+   "apple-macos-27.0-1x-light-standard-glass0.25 webgpu": 164,
+   "apple-macos-27.0-2x-dark-standard-glass0.25 css": 117,
+   "apple-macos-27.0-2x-dark-standard-glass0.25 webgpu": 117,
+   "apple-macos-27.0-2x-light-standard-glass0.25 css": 164,
+   "apple-macos-27.0-2x-light-standard-glass0.25 webgpu": 164
+  },
+  "missingNonHoldout": {},
+  "documents": {
+   "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json": "6d18c059eb42",
+   "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json": "4d5f23d9d312",
+   "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json": "d0219cd684bf",
+   "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json": "f0b36a71772a"
+  }
+ },
+ "ownerTest": {
+  "sha256": "36eb6d68d30959a0a7354032205d24f39512423883af0ab298bbb64f6d400a40"
+ },
+ "readings": {
+  "apple-macos-27.0-1x-light-standard-glass0.25 webgpu": {
+   "table": "TEXTURE_TIER_27_LIGHT",
+   "cells": 10,
+   "noRow": [],
+   "misses": [
+    {
+     "scene": "checkerboard__rrect-lg__rest",
+     "metric": "ssimMean",
+     "measured": 0.8640930644846379,
+     "bound": "\u2265 0.88"
+    }
+   ],
+   "verdict": "MISS",
+   "perCell": [
+    {
+     "scene": "hc-text__capsule-button__rest",
+     "levelError": -0.0055153028868175635,
+     "ssimMean": 0.9673252244041369
+    },
+    {
+     "scene": "hc-text__rrect-md__rest",
+     "levelError": -0.0029527125853354708,
+     "ssimMean": 0.9137690219154017
+    },
+    {
+     "scene": "checkerboard__rrect-lg__rest",
+     "levelError": -0.0015486983990576908,
+     "ssimMean": 0.8640930644846379
+    },
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.01386771971960954,
+     "ssimMean": 0.9810144101967218
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.00751219486765442,
+     "ssimMean": 0.9354338899378118
+    },
+    {
+     "scene": "photo__glass-over-glass__rest",
+     "levelError": 0.016604250477794347,
+     "ssimMean": 0.97667019521488
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": 0.04951573757367739,
+     "ssimMean": 0.9975532544229596
+    },
+    {
+     "scene": "hc-text__capsule-button__rest-tint-orange",
+     "levelError": -0.00020026301095088517,
+     "ssimMean": 0.9837450085171575
+    },
+    {
+     "scene": "photo__rrect-lg__rest-tint-orange",
+     "levelError": 0.007767980768857818,
+     "ssimMean": 0.9799859659198481
+    },
+    {
+     "scene": "dark-solid__capsule-button__rest-tint-blue",
+     "levelError": 0.0127772842658464,
+     "ssimMean": 0.9926979123857625
+    }
+   ]
+  },
+  "apple-macos-27.0-1x-light-standard-glass0.25 css": {
+   "table": "DOM_TIER_27_LIGHT",
+   "cells": 10,
+   "noRow": [],
+   "misses": [
+    {
+     "scene": "checkerboard__rrect-lg__rest",
+     "metric": "ssimMean",
+     "measured": 0.8660692894233126,
+     "bound": "\u2265 0.9"
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "metric": "ssimMean",
+     "measured": 0.8647059048235504,
+     "bound": "\u2265 0.9"
+    }
+   ],
+   "verdict": "MISS",
+   "perCell": [
+    {
+     "scene": "hc-text__capsule-button__rest",
+     "levelError": 0.015593916114465589,
+     "ssimMean": 0.9690157024031738
+    },
+    {
+     "scene": "hc-text__rrect-md__rest",
+     "levelError": 0.012200541292943012,
+     "ssimMean": 0.9358098677720265
+    },
+    {
+     "scene": "checkerboard__rrect-lg__rest",
+     "levelError": -0.004794396134867429,
+     "ssimMean": 0.8660692894233126
+    },
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.023985462325201046,
+     "ssimMean": 0.9179306885379963
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.008046587564879748,
+     "ssimMean": 0.8647059048235504
+    },
+    {
+     "scene": "photo__glass-over-glass__rest",
+     "levelError": 0.01165514427533465,
+     "ssimMean": 0.9103162170719747
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": 0.04600881473580837,
+     "ssimMean": 0.9748714953569734
+    },
+    {
+     "scene": "hc-text__capsule-button__rest-tint-orange",
+     "levelError": 0.021223213785039496,
+     "ssimMean": 0.9755044525072001
+    },
+    {
+     "scene": "photo__rrect-lg__rest-tint-orange",
+     "levelError": 0.005331232282703935,
+     "ssimMean": 0.9477880910279166
+    },
+    {
+     "scene": "dark-solid__capsule-button__rest-tint-blue",
+     "levelError": 0.004358441957844655,
+     "ssimMean": 0.9805385684043655
+    }
+   ]
+  },
+  "apple-macos-27.0-2x-light-standard-glass0.25 webgpu": {
+   "table": "TEXTURE_TIER_27_2X_LIGHT",
+   "cells": 10,
+   "noRow": [],
+   "misses": [],
+   "verdict": "PASS",
+   "perCell": [
+    {
+     "scene": "hc-text__capsule-button__rest",
+     "levelError": -0.012015290425260394,
+     "ssimMean": 0.9707081386973752
+    },
+    {
+     "scene": "hc-text__rrect-md__rest",
+     "levelError": -0.0017253327979099842,
+     "ssimMean": 0.9314454255862427
+    },
+    {
+     "scene": "checkerboard__rrect-lg__rest",
+     "levelError": 0.01197936568804936,
+     "ssimMean": 0.9379831273791924
+    },
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.014246393099429655,
+     "ssimMean": 0.9894185438087278
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.02368732765347714,
+     "ssimMean": 0.9522942269998126
+    },
+    {
+     "scene": "photo__glass-over-glass__rest",
+     "levelError": 0.015085795344745412,
+     "ssimMean": 0.9876923780250129
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": 0.04741083925881395,
+     "ssimMean": 0.997762574016214
+    },
+    {
+     "scene": "hc-text__capsule-button__rest-tint-orange",
+     "levelError": -0.0019425851892557189,
+     "ssimMean": 0.987329731218916
+    },
+    {
+     "scene": "photo__rrect-lg__rest-tint-orange",
+     "levelError": 0.007611315312887834,
+     "ssimMean": 0.9894357707995185
+    },
+    {
+     "scene": "dark-solid__capsule-button__rest-tint-blue",
+     "levelError": 0.011872974822434018,
+     "ssimMean": 0.9961613607575746
+    }
+   ]
+  },
+  "apple-macos-27.0-2x-light-standard-glass0.25 css": {
+   "table": "DOM_TIER_27_2X_LIGHT",
+   "cells": 10,
+   "noRow": [],
+   "misses": [
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "metric": "ssimMean",
+     "measured": 0.9199563058098936,
+     "bound": "\u2265 0.92"
+    }
+   ],
+   "verdict": "MISS",
+   "perCell": [
+    {
+     "scene": "hc-text__capsule-button__rest",
+     "levelError": 0.0038564224319170837,
+     "ssimMean": 0.9729238077713108
+    },
+    {
+     "scene": "hc-text__rrect-md__rest",
+     "levelError": 0.004370641025369659,
+     "ssimMean": 0.9469819444290133
+    },
+    {
+     "scene": "checkerboard__rrect-lg__rest",
+     "levelError": 0.016482011418738396,
+     "ssimMean": 0.9217768222466529
+    },
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.024501690466661286,
+     "ssimMean": 0.9491851488326496
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.0296664321384692,
+     "ssimMean": 0.9199563058098936
+    },
+    {
+     "scene": "photo__glass-over-glass__rest",
+     "levelError": 0.00939100253250369,
+     "ssimMean": 0.9458911110203316
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": 0.043321434702235484,
+     "ssimMean": 0.9831079878507408
+    },
+    {
+     "scene": "hc-text__capsule-button__rest-tint-orange",
+     "levelError": 0.01682327697589142,
+     "ssimMean": 0.9797833475367492
+    },
+    {
+     "scene": "photo__rrect-lg__rest-tint-orange",
+     "levelError": 0.005313128663579136,
+     "ssimMean": 0.9624413709745802
+    },
+    {
+     "scene": "dark-solid__capsule-button__rest-tint-blue",
+     "levelError": 0.003952257407073584,
+     "ssimMean": 0.9845928941426363
+    }
+   ]
+  },
+  "apple-macos-27.0-1x-dark-standard-glass0.25 webgpu": {
+   "table": "TEXTURE_TIER_27_DARK",
+   "cells": 3,
+   "noRow": [],
+   "misses": [],
+   "verdict": "PASS",
+   "perCell": [
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.02259087481756797,
+     "ssimMean": 0.9563239659433787
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.009720393974882169,
+     "ssimMean": 0.9359169748972108
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": -0.01730300226197859,
+     "ssimMean": 0.9942828060117349
+    }
+   ]
+  },
+  "apple-macos-27.0-1x-dark-standard-glass0.25 css": {
+   "table": "DOM_TIER_27_DARK",
+   "cells": 3,
+   "noRow": [],
+   "misses": [
+    {
+     "scene": "photo__rrect-lg__rest",
+     "metric": "oklabDeltaEP95",
+     "measured": 0.20599816056375406,
+     "bound": "\u2264 0.18"
+    }
+   ],
+   "verdict": "MISS",
+   "perCell": [
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.025217859464821024,
+     "ssimMean": 0.9309884298044612
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.008711039940226095,
+     "ssimMean": 0.8561763022637533
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": -0.019993681931041327,
+     "ssimMean": 0.9786143296467528
+    }
+   ]
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.25 webgpu": {
+   "table": "TEXTURE_TIER_27_2X_DARK",
+   "cells": 3,
+   "noRow": [],
+   "misses": [],
+   "verdict": "PASS",
+   "perCell": [
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.023434023659666958,
+     "ssimMean": 0.9765610590083933
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.003959438973426654,
+     "ssimMean": 0.9641974268672987
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": -0.019224448412924658,
+     "ssimMean": 0.9953640734694335
+    }
+   ]
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.25 css": {
+   "table": "DOM_TIER_27_2X_DARK",
+   "cells": 3,
+   "noRow": [],
+   "misses": [
+    {
+     "scene": "photo__rrect-lg__rest",
+     "metric": "oklabDeltaEP95",
+     "measured": 0.2007074765694366,
+     "bound": "\u2264 0.19"
+    }
+   ],
+   "verdict": "MISS",
+   "perCell": [
+    {
+     "scene": "photo__rrect-lg__rest",
+     "levelError": -0.025193654344351807,
+     "ssimMean": 0.9562662596971532
+    },
+    {
+     "scene": "checkerboard__glass-over-glass__rest",
+     "levelError": 0.004462594138985032,
+     "ssimMean": 0.9222809557223474
+    },
+    {
+     "scene": "mid-dark-solid__capsule-button__rest",
+     "levelError": -0.021155791777725058,
+     "ssimMean": 0.9857882337234231
+    }
+   ]
+  }
+ }
+}
