@@ -1050,6 +1050,24 @@ stop:
 The holdout may now be read once per tier after the publication stages reproduce these misses and
 no new one. A new miss, or a ruled one that changes character, returns to the user first.
 
+**(e) exercised at the holdout (clause 10 step 6) — RULED 2026-10-02 by the user: "All six named
+misses; publish".** The two publication stages reproduced c05's rows and cuts exactly (no new miss,
+no ruled miss changed), the holdout was then read once per tier, and six of its table rows missed.
+Every one is a permitted named miss, recorded with its numbers, and the stages publish:
+
+| tier | cell | metric | 0.25 | bound | 0.5 | note |
+| --- | --- | --- | --- | --- | --- | --- |
+| WebGPU 1x light | `checkerboard__rrect-lg__rest` | ssimMean | 0.86409 | ≥ 0.88 | 0.88527 | new at 0.25; the rrect-lg stratum, Decision Log 7 item 9's named gap |
+| CSS 1x light | `checkerboard__rrect-lg__rest` | ssimMean | 0.86607 | ≥ 0.9 | 0.88424 | already UNMET at 0.5 (`MISSED_27_ROWS`) |
+| CSS 1x light | `checkerboard__glass-over-glass__rest` | ssimMean | 0.86471 | ≥ 0.9 | 0.89539 | already UNMET at 0.5 (`MISSED_27_ROWS`) |
+| CSS 1x dark | `photo__rrect-lg__rest` | oklabDeltaEP95 | 0.20600 | ≤ 0.18 | 0.20095 | already UNMET at 0.5 (`MISSED_27_ROWS`) |
+| CSS 2x dark | `photo__rrect-lg__rest` | oklabDeltaEP95 | 0.20071 | ≤ 0.19 | 0.19474 | already UNMET at 0.5 (`MISSED_27_ROWS`) |
+| CSS 2x light | `checkerboard__glass-over-glass__rest` | ssimMean | 0.91996 | ≥ 0.92 | 0.94071 | new at 0.25; misses by 0.00004, under the resolution the seven-run bed's repeat bar gives a whole-cell SSIM |
+
+The reading is `packages/calibration/results/2026-10-02-w43-g3-refit/stage/holdout-reading.json`;
+the holdout is spent for these document bytes and is never re-read (W31 Decision Log 1 (b); the
+cross-gate ledger's read 6).
+
 *The draft, as it stood open at charter (2026-10-01):* it was put to the user with G2's Decision
 Log 7 draft, on what the native delta measured, and had to be ruled before G3 reads any 0.25
 render. The recommendation below is what was ruled.
