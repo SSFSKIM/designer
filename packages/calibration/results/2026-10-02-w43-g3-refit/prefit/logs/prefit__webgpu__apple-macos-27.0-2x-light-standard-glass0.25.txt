@@ -1,0 +1,561 @@
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-2x-light-standard-glass0.25 --renderer webgpu --material-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5.json --receded-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json --cross-position --set calibration,validation,recorded,probe --alpha --write-partial --out-matrix /Users/new/vitrea-w43/g3-scratch/prefit/matrix.json
+
+── web capture (apple-macos-27.0-2x-light-standard-glass0.25, 144 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d sections=renderer+cssTierMapping
+receded profile:, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae
+CROSS-POSITION: the shipped material at glass 0.5, read against fixtures at glass 0.25
+
+photo__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__rest/
+
+checkerboard-4__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-md__inactive/
+
+checkerboard-4__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest/
+
+light-solid__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/light-solid__capsule-button__rest-tint-orange/
+
+checkerboard-64__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest/
+
+hc-text__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-lg__rest/
+
+checkerboard-8__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange/
+
+dark-solid__rrect-48__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-48__rest/
+
+dark-solid__rrect-md-clear20__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-md-clear20__rest/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__rest/
+
+checkerboard-lc16__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-md__inactive/
+
+hc-text-7__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-lg__rest/
+
+checkerboard-4__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest/
+
+hc-text-28__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-lg__rest/
+
+checkerboard__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__inactive/
+
+dark-solid__rrect-48__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-48__inactive/
+
+hc-text-28__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-md__inactive/
+
+checkerboard-8__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest/
+
+dark-solid__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-lg__inactive/
+
+photo__rrect-ml__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-ml__inactive/
+
+checkerboard__capsule-button__rest-tint-blue
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-blue/
+
+mid-chroma-solid__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/mid-chroma-solid__rrect-lg__rest/
+
+light-solid__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-md__rest/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest/
+
+checkerboard-8__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__inactive/
+
+checkerboard__capsule-button__pressed
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__pressed/
+
+checkerboard__rrect-sm__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-sm__inactive/
+
+dark-solid__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__capsule-button__rest-tint-orange/
+
+checkerboard__rrect-ml__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-ml__inactive/
+
+photo__rrect-md__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange/
+
+checkerboard__toolbar-group__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__toolbar-group__rest/
+
+impulse__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-lg__inactive/
+
+photo__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__inactive/
+
+mid-dark-solid__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/mid-dark-solid__rrect-md__rest/
+
+checkerboard__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__inactive/
+
+hc-text__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-sm__rest/
+
+impulse__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__rest-tint-orange/
+
+checkerboard-32__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest/
+
+checkerboard-8__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-md__rest/
+
+checkerboard-lc16__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__capsule-button__inactive/
+
+photo__toolbar-group__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__toolbar-group__inactive/
+
+checkerboard-32__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest/
+
+mid-chroma-solid__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/mid-chroma-solid__capsule-button__rest-tint-orange/
+
+photo__rrect-md__inactive-pressed
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__inactive-pressed/
+
+impulse__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-md__inactive/
+
+checkerboard-4__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange/
+
+light-solid__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/light-solid__capsule-button__inactive-tint-orange/
+
+light-solid__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-md__inactive/
+
+dark-solid__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-md__rest/
+
+mid-chroma-solid__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/mid-chroma-solid__rrect-md__inactive/
+
+photo__capsule-button__rest-tint-orange-half
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest-tint-orange-half/
+
+impulse__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__rest/
+
+dark-solid__rrect-80__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-80__inactive/
+
+checkerboard-8__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-md__inactive/
+
+light-solid__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/light-solid__capsule-button__inactive/
+
+checkerboard-lc16__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest/
+
+photo__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__inactive/
+
+checkerboard-64__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest/
+
+checkerboard__toolbar-group__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__toolbar-group__inactive/
+
+photo__capsule-button__inactive-tint-blue
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__inactive-tint-blue/
+
+checkerboard-lc16__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-md__rest/
+
+checkerboard-8__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest/
+
+mid-chroma-solid__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/mid-chroma-solid__rrect-md__rest/
+
+hc-text__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-lg__inactive/
+
+light-solid__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-lg__rest/
+
+hc-text-7__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-md__rest/
+
+dark-solid__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-ml__rest/
+
+mid-dark-solid__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/mid-dark-solid__rrect-lg__rest/
+
+checkerboard__capsule-button__inactive-tint-blue
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/prefit/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__inactive-tint-blue/
+[ELIFECYCLE] Command failed with exit code 143.
