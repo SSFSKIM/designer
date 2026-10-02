@@ -10,6 +10,13 @@ and list below from those files and runs the three red-case suites; `declare.py 
 refused once any ladder render exists (`ladders/runs.jsonl` records a launch, or the ladder scratch
 holds a matrix), and each part is amended at most once.
 
+**Status: HASHED, AMENDED ONCE, before any ladder render.** The original hash `fdecebbf…` (commit
+`ad3a26e7`) covered every item. Amendment 1 (`amendments.json`) re-pins `ladders/build-candidate.ts`
+alone, whose own digest self-check refused every receded slot over a moved active document and was
+fixed (`873e4768`) before anything rendered; no candidate's bytes depend on it. The hash in force is
+`e6aaf654…`, the last line of `declaration.sha256`; `declare.py check` verifies the chain. Part 1
+can no longer be amended.
+
 ## The row
 
 ### t1

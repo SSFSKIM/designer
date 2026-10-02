@@ -1,0 +1,19 @@
+{
+  "schema": "w44-protocol-amendments-1",
+  "amendments": [
+    {
+      "n": 1,
+      "supersedes": "fdecebbfbc895005f1c3558397989b472e664d8e20a3e359ef3fda67d4664fdd",
+      "declarationSha256": "e6aaf6543c42f678f84e6ba51a2a3e45bb62d51958d543ce4d92fe20387315b6",
+      "reason": "the candidate builder's own digest self-check refused every receded slot over a moved active document; fixed before any ladder render, no candidate's bytes affected",
+      "cause": "873e4768",
+      "pins": {
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/build-candidate.ts": {
+          "from": "e26c3a293248ff8dbc6d9ac0c2e0800414df5239cb56615461458ca57690fdfe",
+          "to": "9eeba1d7fdda3c4941d4697fce086c5d23abaa2056bd2b1614630e4ba6eb88ce"
+        }
+      },
+      "renderEvidenceAtAmendment": "none (ladders/runs.jsonl, the ladder scratch)"
+    }
+  ]
+}
