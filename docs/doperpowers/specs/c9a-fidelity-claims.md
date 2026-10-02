@@ -44431,3 +44431,8 @@ It confirmed the rest by its own read-only checks:
 None of the three moves a recorded number, a document, a published byte or a verdict in
 §§11–24. The first and third tighten tools whose recorded runs were already complete and
 consistent, and the second restores a refusal the selection had silenced.
+
+A follow-up review of `48d3b744..2b06f868` returned **correct**, with all three findings closed. On
+the real 3,017-row union, the old and new owner-test selections keep the same 1,893 rows in the same
+order, with an identical legacy digest (`7df96c92…`), and defer the same 1,124. The review loop is
+closed.
