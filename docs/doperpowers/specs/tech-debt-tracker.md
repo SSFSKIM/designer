@@ -7132,3 +7132,22 @@ SDKs) does the same.
 
 Shape of the fix: add "no sign-in or OAuth flow in any session, on this Mac, until the sitting
 ends" to the runbook's prerequisites beside the browser hold, and say so to the user with the go.
+
+## The slider ladder's ends are not one-knob reads, and two of its readings are censored or coarse (W43 G2, 2026-10-02)
+
+*Found by W43 G2 stage two's ladder (c9a §5.200b §3, §5).*
+
+The ladder describes the slider at x = 0, 0.25, 0.5, 0.75 and 1 well enough to show w = x on the free
+side and a knee at 0.5. Three of its readings cannot be taken further on this bed:
+- **x = 1** is read through memo F's 0.125 backdrop capture scale on every shape (0.5 below 1), so its W
+  is not the W of the other positions. Every x = 1 ratio and every λ(0) taken through x = 1 carries
+  that.
+- **x = 0** on the light 0/255 checkers has its free side at a 255 level, which is censored (X21), so
+  M(0) = C is unread there.
+- **x = 0.75** carries four greys (0, 128, 208, 255), so its T interpolates coarsely. The dark active
+  free side at 0.75 reads 12 codes off the affine line there.
+
+Shape of the fix, if the continuous slider's charter needs it: a short 2x ladder sitting.
+- x = 1 and x = 0.875 put side by side, to separate the capture-scale step from w.
+- Free levels at or below 249 in light and above 5 in dark, so x = 0's free side is measured.
+- The seven greys at 0.75.
