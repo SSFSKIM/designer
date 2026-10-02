@@ -26,10 +26,11 @@ import {
   sourceOuterShadow,
   sourceSize,
   CSS_TIER_MAPPING,
-  DEFAULT_MATERIAL_PROFILE_DOCUMENT,
   type GlassMaterialProfileDocument,
   type RendererMaterialProfile,
 } from "@vitreajs/vitrea-web";
+
+import { PAGE_DOCUMENT } from "../glass-document";
 
 /**
  * The material half of the resolved accessibility policy, derived from the
@@ -54,25 +55,29 @@ type MaterialPolicy = Parameters<typeof outerShadowUnderPolicy>[1];
  * have printed one material's arithmetic beside another material's pixels —
  * exactly the second opinion this module's header says it is not.
  *
- * The light endpoint of the default document, because `laws/main.tsx` builds its
+ * The light endpoint of the page's document, because `laws/main.tsx` builds its
  * root with no `colorScheme` and the default is light. A scheme pin here would
  * have to move these three with it.
  */
 /**
  * The document this page's root draws, named once.
  *
- * `laws/main.tsx` builds its root with no `materialProfileDocument`, so the root
- * resolves the package default — and that is the page's own construction rather
- * than a guess about the runtime. What is NOT assumed is which ENDPOINT of it
- * drew: `endpointByDigest` below takes that from the group's own reported digest
- * and refuses to name one when the digest matches none of the four.
+ * `laws/main.tsx` builds its root with exactly this document: the macOS 27
+ * document at the glass position the page's `?glass=` query chose, 0.5 by
+ * default and 0.25 on request (`../glass-document.tsx`; W43 G3 (iii), charter
+ * clause 13, claims §5.201). That is the page's own construction rather than a
+ * guess about the runtime, and every readout below evaluates the same document
+ * the root draws. What is NOT assumed is which ENDPOINT of it drew:
+ * `endpointByDigest` below takes that from the group's own reported digest and
+ * refuses to name one when the digest matches none of the four, so a 0.25 page
+ * names a 0.25 endpoint only because the runtime reported its digest.
  */
-export const LAWS_DOCUMENT = DEFAULT_MATERIAL_PROFILE_DOCUMENT;
+export const LAWS_DOCUMENT = PAGE_DOCUMENT;
 
 const LAW_PROFILE = colorSchemeMaterialProfile("light", LAWS_DOCUMENT);
 export const LAW_OPTICS = cssTierOptics(LAW_PROFILE, {
   ...CSS_TIER_MAPPING,
-  ...DEFAULT_MATERIAL_PROFILE_DOCUMENT.cssTierMapping,
+  ...LAWS_DOCUMENT.cssTierMapping,
 });
 export const LAW_SIZE = sourceSize(LAW_PROFILE);
 export const LAW_SHADOW = sourceOuterShadow(LAW_PROFILE);

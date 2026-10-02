@@ -23,6 +23,7 @@ import {
 } from "@vitreajs/vitrea-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 
+import { GlassPositionField } from "../glass-document";
 import { DiagnosticsReadout, GroupReadout } from "../site/Readout";
 import { ChannelReadout } from "./ChannelReadout";
 // The size law's constants are the SELECTED document's since W29 G4, and
@@ -283,6 +284,14 @@ export function Laws(props: LawsProps): ReactNode {
           </nav>
           <Fields legend="Renderer">
             <RendererField requested={props.requestedRenderer} />
+          </Fields>
+          <Fields legend="Glass position">
+            <GlassPositionField
+              hint={
+                "Every readout evaluates the document the root was built with, and the shadow "
+                + "section names the endpoint the runtime reports drawing."
+              }
+            />
           </Fields>
         </header>
 

@@ -5,12 +5,15 @@
  * and the accessibility overrides are construction props, so they are wired once,
  * above the page, and the page asks for changes rather than applying them.
  *
- * Two things are read from the URL, and both are read once. `?renderer=css|webgpu`
+ * Three things are read from the URL, and all three are read once. `?renderer=css|webgpu`
  * picks the tier the root asks for (asking is not getting; the readouts say what
  * it got). `?rung=approximate` opens the page with reduce-transparency overridden
  * on, which is how the lens section reaches the `approximate` rung on a fresh
  * root when the visitor arrives from the CSS tier: the override is a construction
- * prop, so it has to be there before the first frame.
+ * prop, so it has to be there before the first frame. And `?glass=0.25` builds the
+ * root with the macOS 27 document at that glass position rather than the default
+ * 0.5 (`../glass-document.tsx`; W43 G3 (iii), claims §5.201): `law.ts` names the
+ * same document, so the readouts evaluate the material the root draws.
  */
 
 import {
@@ -24,6 +27,7 @@ import { createRoot } from "react-dom/client";
 import "../tokens.css";
 import "../site/site.css";
 import "./laws.css";
+import { LAWS_DOCUMENT } from "./law";
 import { Laws } from "./Laws";
 
 const params = new URLSearchParams(window.location.search);
@@ -49,6 +53,7 @@ function LawsRoot(): ReactNode {
   return (
     <GlassRoot
       renderer={REQUESTED_RENDERER}
+      materialProfileDocument={LAWS_DOCUMENT}
       reducedTransparency={reducedTransparency}
       windowActivation={windowActivation}
     >

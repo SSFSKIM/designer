@@ -347,6 +347,41 @@ test("the receded window casts no exterior at all, and the readout shows the zer
   ).toContainText("-receded");
 });
 
+/**
+ * The shadow stage names the endpoint at the page's glass position (W43 G3 (iii), charter clause
+ * 13 and X45; claims §5.201).
+ *
+ * `?glass=0.25` builds the root with macOS 27's clearer-glass document and `law.ts` names the
+ * same document, so the digest the group reports has to resolve to a 0.25 endpoint in both poses
+ * — and the readout's lengths have to be the ones the tier drew from it. Run at the default too,
+ * so the readout's position is pinned in both directions rather than only matched as a prefix.
+ */
+for (const position of [
+  { glass: "0.5", query: "?renderer=css" },
+  { glass: "0.25", query: "?renderer=css&glass=0.25" },
+]) {
+  test(`the shadow readout names the glass ${position.glass} endpoint the runtime drew`, async ({
+    page,
+  }) => {
+    await gotoLaws(page, position.query);
+    await expect(page.getByTestId("glass-select")).toHaveValue(position.glass);
+    await showSection(page, "shadow");
+    const key = `apple-macos-27.0-1x-light-standard-glass${position.glass}`;
+
+    await pinPose(page, "active");
+    await expect(page.getByTestId("shadow-endpoint")).toHaveText(key);
+    const drawn = await outerShadowDrawn(page, "shadow-plate");
+    if (drawn === null) throw new Error(`no outer shadow drawn at glass ${position.glass}`);
+    await expect(page.getByTestId("shadow-sigma")).toHaveText(`${(drawn.blurPx / 2).toFixed(2)} px`);
+    await expect(page.getByTestId("shadow-outset")).toHaveText(`${drawn.spreadPx.toFixed(2)} px`);
+    await expect(page.getByTestId("shadow-offset")).toHaveText(`${drawn.offsetYPx.toFixed(2)} px`);
+
+    await pinPose(page, "receded");
+    await expect(page.getByTestId("shadow-endpoint")).toHaveText(`${key}-receded`);
+    expect(await outerShadowDrawn(page, "shadow-plate")).toBeNull();
+  });
+}
+
 test("the refraction rung is a policy result, and the readout says which", async ({ page }) => {
   await gotoLaws(page);
   await showSection(page, "lens");

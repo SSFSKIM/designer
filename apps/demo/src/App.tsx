@@ -57,6 +57,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "./ActionsMenu";
 import { CapabilitiesPanel, type OverrideState } from "./CapabilitiesPanel";
+import { PAGE_DOCUMENT, PAGE_GLASS } from "./glass-document";
 import { TextureBackdrop } from "./TextureBackdrop";
 import { TintInkPlate } from "./TintInkPlate";
 
@@ -186,6 +187,10 @@ export function App(): ReactNode {
       renderer={REQUESTED_RENDERER}
       colorScheme={colorScheme}
       windowActivation={windowActivation}
+      // The macOS 27 document at the glass position `?glass=` chose, 0.5 unless it asked for
+      // 0.25 (`glass-document.tsx`; W43 G3 (iii), claims §5.201). A construction prop, like
+      // the renderer, so the panel's pin for it reloads.
+      materialProfileDocument={PAGE_DOCUMENT}
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
       increasedContrast={overrides.increasedContrast}
@@ -221,6 +226,7 @@ export function App(): ReactNode {
           onWindowActivationChange={setWindowActivation}
           colorScheme={colorScheme}
           onColorSchemeChange={setColorScheme}
+          glass={PAGE_GLASS}
           variantMixed={variantMixed}
           onVariantMixedChange={setVariantMixed}
         />

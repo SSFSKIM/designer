@@ -1041,40 +1041,71 @@ test.describe("the reference pair is a comparison", () => {
    * instead, by moving the superseded generation to
    * `packages/calibration/results/superseded/`, so the file the page reads holds
    * one generation per profile and this assertion is again about one cell.
+   *
+   * And at both glass positions since W43 G3 (iii) (charter clause 13, X45; claims
+   * §5.201). The union holds macOS 27 rows at 0.5 and 0.25, `?glass=0.25` builds
+   * the root with the clearer document, and the figures beside it have to be that
+   * position's cell, with the position printed first, while the default page must
+   * still speak with the 0.5 cell it always did. The group readout is the check
+   * that the root drew the position the figures claim.
    */
-  test("every scene's figures come from the primary cell", async ({ page }) => {
-    await gotoSite(page);
-    await showSection(page, "reference");
+  for (const position of [
+    { glass: "0.5", query: "" },
+    { glass: "0.25", query: "?glass=0.25" },
+  ]) {
+    test(`every scene's figures come from the primary cell, glass ${position.glass}`, async ({
+      page,
+    }) => {
+      await gotoSite(page, position.query);
+      await expect(page.getByTestId("glass-select")).toHaveValue(position.glass);
+      await expect(page.locator("#material").getByTestId("material-document")).toHaveText(
+        `apple-macos-27.0-1x-light-standard-glass${position.glass} (macOS 27.0)`,
+      );
+      await showSection(page, "reference");
 
-    const picker = page.getByLabel("Scene");
-    const scenes = await picker.locator("option").evaluateAll((options) =>
-      options.map((option) => (option as HTMLOptionElement).value),
-    );
-    expect(scenes.length).toBeGreaterThan(1);
+      const picker = page.getByLabel("Scene");
+      const scenes = await picker.locator("option").evaluateAll((options) =>
+        options.map((option) => (option as HTMLOptionElement).value),
+      );
+      expect(scenes.length).toBeGreaterThan(1);
 
-    // The scene the pair opens on carries every axis, so it is where the figure
-    // list itself is checked.
-    await expect(page.locator(".readout--figures")).toContainText("Silhouette IoU");
+      // The scene the pair opens on carries every axis, so it is where the figure
+      // list itself is checked.
+      await expect(page.locator(".readout--figures")).toContainText("Silhouette IoU");
 
-    for (const scene of scenes) {
-      await picker.selectOption(scene);
-      const figures = page.locator(".readout--figures");
-      // Not every scene measures every axis — over a flat backdrop of its own tone
-      // the reference is within 0.02 linear luminance of it, so those scenes have no
-      // silhouette and no shape row. An axis reported absent is a result; what must
-      // never vary is *whose* cell the figures are.
-      await expect(figures.locator(".readout__row"), scene).not.toHaveCount(1);
-      await expect(figures, scene).toContainText("apple-macos-27.0-1x-light-standard-glass0.5");
-      await expect(figures, scene).toContainText("texture tier");
-    }
+      for (const scene of scenes) {
+        await picker.selectOption(scene);
+        const figures = page.locator(".readout--figures");
+        // Not every scene measures every axis — over a flat backdrop of its own tone
+        // the reference is within 0.02 linear luminance of it, so those scenes have no
+        // silhouette and no shape row. An axis reported absent is a result; what must
+        // never vary is *whose* cell the figures are. Counted without the two rows
+        // every cell prints, where it was measured and which cell it is.
+        await expect(
+          figures.locator(".readout__row:not(.readout__row--cell):not([data-testid=measured-at])"),
+          scene,
+        ).not.toHaveCount(0);
+        await expect(figures.getByTestId("measured-at").locator("dd"), scene).toHaveText(
+          `macOS 27.0, glass ${position.glass}`,
+        );
+        await expect(figures, scene).toContainText(
+          `apple-macos-27.0-1x-light-standard-glass${position.glass} ×`,
+        );
+        await expect(figures, scene).toContainText("texture tier");
+        await expect(page.locator('.pair__cell[data-cell="native"] img'), scene).toHaveAttribute(
+          "src",
+          `fixtures/apple-macos-27.0-1x-light-standard-glass${position.glass}/${scene}.png`,
+        );
+      }
 
-    // And nothing borrows: the empty-slot branch is what a scene with no cell of
-    // its own renders instead of a neighbour's number. Every scene the pair can
-    // show is now measured, so the slot must be absent everywhere — which is a
-    // statement about coverage, and it fails the moment a scene is added to
-    // `scenes.json` without being measured.
-    await expect(page.locator(".note--slot")).toHaveCount(0);
-  });
+      // And nothing borrows: the empty-slot branch is what a scene with no cell of
+      // its own renders instead of a neighbour's number. Every scene the pair can
+      // show is now measured, so the slot must be absent everywhere — which is a
+      // statement about coverage, and it fails the moment a scene is added to
+      // `scenes.json` without being measured.
+      await expect(page.locator(".note--slot")).toHaveCount(0);
+    });
+  }
 
   /*
    * The same assertion in the dark scheme (W30 G1 review closure).
@@ -1087,38 +1118,48 @@ test.describe("the reference pair is a comparison", () => {
    * carry withdraw the pair instead of showing a figure — that branch is
    * `color-scheme.spec.ts`'s subject and is skipped rather than re-asserted here.
    */
-  test("every scene's figures come from the primary cell in the dark scheme too", async ({
-    page,
-  }) => {
-    await gotoSite(page);
-    await page.getByTestId("color-scheme-select").selectOption("dark");
-    await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "dark");
-    await showSection(page, "reference");
+  for (const position of [
+    { glass: "0.5", query: "" },
+    { glass: "0.25", query: "?glass=0.25" },
+  ]) {
+    const title = "every scene's figures come from the primary cell in the dark scheme too, "
+      + `glass ${position.glass}`;
+    test(title, async ({ page }) => {
+      await gotoSite(page, position.query);
+      await page.getByTestId("color-scheme-select").selectOption("dark");
+      await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "dark");
+      await showSection(page, "reference");
 
-    const picker = page.getByLabel("Scene");
-    const scenes = await picker.locator("option").evaluateAll((options) =>
-      options.map((option) => (option as HTMLOptionElement).value),
-    );
+      const picker = page.getByLabel("Scene");
+      const scenes = await picker.locator("option").evaluateAll((options) =>
+        options.map((option) => (option as HTMLOptionElement).value),
+      );
 
-    let measured = 0;
-    for (const scene of scenes) {
-      await picker.selectOption(scene);
-      // Either branch is a settled state; waiting for whichever arrives keeps the
-      // read off the frame between them.
-      await expect(
-        page.locator('[data-testid="no-dark-capture"], .readout--figures').first(),
-        scene,
-      ).toBeVisible();
-      if ((await page.getByTestId("no-dark-capture").count()) > 0) continue;
-      const figures = page.locator(".readout--figures");
-      await expect(figures, scene).toContainText("apple-macos-27.0-1x-dark-standard-glass0.5");
-      await expect(figures, scene).toContainText("texture tier");
-      measured += 1;
-    }
-    // The fixture: a run where the dark bed covered nothing would pass the loop
-    // without having read a figure.
-    expect(measured).toBeGreaterThan(0);
-  });
+      let measured = 0;
+      for (const scene of scenes) {
+        await picker.selectOption(scene);
+        // Either branch is a settled state; waiting for whichever arrives keeps the
+        // read off the frame between them.
+        await expect(
+          page.locator('[data-testid="no-dark-capture"], .readout--figures').first(),
+          scene,
+        ).toBeVisible();
+        if ((await page.getByTestId("no-dark-capture").count()) > 0) continue;
+        const figures = page.locator(".readout--figures");
+        await expect(figures, scene).toContainText(
+          `apple-macos-27.0-1x-dark-standard-glass${position.glass} ×`,
+        );
+        await expect(figures.getByTestId("measured-at").locator("dd"), scene).toHaveText(
+          `macOS 27.0, glass ${position.glass}`,
+        );
+        await expect(figures, scene).toContainText("texture tier");
+        measured += 1;
+      }
+      // The fixture: a run where the dark bed covered nothing would pass the loop
+      // without having read a figure.
+      expect(measured).toBeGreaterThan(0);
+    });
+  }
 });
 
 test.describe("the accessibility floor", () => {
