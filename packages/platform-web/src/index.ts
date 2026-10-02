@@ -21,6 +21,7 @@ export * from "./css-tier";
 export * from "./css-tier-shadow";
 export * from "./dark-profile";
 export * from "./macos27-profile";
+export * from "./macos27-glass025-profile";
 export * from "./material-document";
 export * from "./receded-profile";
 export * from "./diagnostics";

@@ -33,6 +33,13 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
+  MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256,
+  macos27Glass025CssTierMapping,
+  macos27Glass025DarkMaterialProfile,
+  macos27Glass025LightMaterialProfile,
+  macos27Glass025MaterialProfileDocument,
+  macos27Glass025RecededMaterialProfile,
+  SHIPPED_MATERIAL_PROFILE_DOCUMENTS,
   macos27CssTierMapping,
   macos27DarkMaterialProfile,
   macos27LightMaterialProfile,
@@ -40,10 +47,14 @@ import {
   macos27RecededMaterialProfile,
   DEFAULT_MATERIAL_PROFILE_DOCUMENT,
 } from "@vitreajs/vitrea-web";
-import type { MaterialProfilePatch } from "@vitrea/renderer-webgpu";
+import {
+  DEFAULT_MATERIAL_PROFILE,
+  withMaterialOverrides,
+  type MaterialProfilePatch,
+} from "@vitrea/renderer-webgpu";
 
 import { supersessionFor } from "./digest-supersessions";
-import { readCandidateDocument } from "../scripts/candidate-document";
+import { resolvedDigest } from "../scripts/candidate-document";
 
 interface ProfileDocument {
   readonly profileKey: string;
@@ -239,17 +250,71 @@ describe("the four sealed -glass0.25 documents (W43 G3 (ii))", () => {
     });
   }
 
-  it("reproduces every recorded digest through the driver's reader, and keeps the 0.5 crossing", () => {
-    const declaration = resolve(REPO,
-      "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json");
-    const candidate = readCandidateDocument(declaration);
-    expect(candidate.document.glassTintAmount).toBe(0.25);
-    const slots = [["active", "light"], ["active", "dark"], ["receded", "light"], ["receded", "dark"]] as const;
-    for (const [[pose, scheme], [key]] of slots.map((slot, i) => [slot, pairs[i]!] as const)) {
-      expect(candidate.document[pose][scheme].resolvedMaterialSha256, key)
-        .toBe(sealed(key).resolvedMaterialSha256);
+  it("reproduces every recorded digest from the material, and keeps the 0.5 crossing", () => {
+    // Through the same functions the driver's reader and the seal use, over the unmoved default
+    // (active) and over the scheme's sealed 0.25 active document (receded).
+    for (const scheme of ["light", "dark"] as const) {
+      const active = sealed(`apple-macos-27.0-1x-${scheme}-standard-glass0.25`);
+      const receded = sealed(`apple-macos-27.0-1x-${scheme}-standard-glass0.25-receded`);
+      const activeMaterial = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, active.patch);
+      expect(resolvedDigest(activeMaterial), active.profileKey).toBe(active.resolvedMaterialSha256);
+      expect(resolvedDigest(withMaterialOverrides(activeMaterial, receded.patch)), receded.profileKey)
+        .toBe(receded.resolvedMaterialSha256);
     }
     expect(sealed("apple-macos-27.0-1x-light-standard-glass0.25").cssTierMapping).toEqual(macos27CssTierMapping);
     expect(sealed("apple-macos-27.0-1x-dark-standard-glass0.25").cssTierMapping).toEqual(DARK.cssTierMapping);
+  });
+});
+
+/**
+ * **The shipped 0.25 material and its four sealed documents are the same numbers** (W43 G3 (ii);
+ * Decision Log 1, RULED (a), executed one step early because the generation's publication reads a
+ * shipped material in strict mode). The 0.5 cases above, repeated for the module
+ * `scripts/generate-macos27-glass025-profile.mjs` writes: each pair deep-equal in both
+ * directions, each digest the document's own, the crossing the 0.5 one, and the document
+ * selectable by its (OS, glass) pair and not the default.
+ */
+describe("the shipped macOS 27 glass 0.25 material and its sealed documents (W43 G3 (ii))", () => {
+  const SEALED = {
+    light: load("apple-macos-27.0-1x-light-standard-glass0.25"),
+    dark: load("apple-macos-27.0-1x-dark-standard-glass0.25"),
+    recededLight: load("apple-macos-27.0-1x-light-standard-glass0.25-receded"),
+    recededDark: load("apple-macos-27.0-1x-dark-standard-glass0.25-receded"),
+  };
+  const CASES_025 = [
+    ["the light active material", macos27Glass025LightMaterialProfile, SEALED.light],
+    ["the dark active material", macos27Glass025DarkMaterialProfile, SEALED.dark],
+    ["the light receded difference", macos27Glass025RecededMaterialProfile.light, SEALED.recededLight],
+    ["the dark receded difference", macos27Glass025RecededMaterialProfile.dark, SEALED.recededDark],
+  ] as const;
+  for (const [what, shipped, document] of CASES_025) {
+    it(`${what} is the same patch, leaf for leaf, in both directions`, () => {
+      expect(shipped).toEqual(document.patch);
+      expect(leaves(shipped as object).sort()).toEqual(leaves(document.patch as object).sort());
+      expect(digest(shipped)).toBe(digest(document.patch));
+    });
+  }
+
+  it("names each endpoint's sealed document and the digest it resolves to", () => {
+    const endpoints = [
+      [macos27Glass025MaterialProfileDocument.active.light, SEALED.light, "light"],
+      [macos27Glass025MaterialProfileDocument.active.dark, SEALED.dark, "dark"],
+      [macos27Glass025MaterialProfileDocument.receded.light, SEALED.recededLight, "recededLight"],
+      [macos27Glass025MaterialProfileDocument.receded.dark, SEALED.recededDark, "recededDark"],
+    ] as const;
+    for (const [endpoint, document, key] of endpoints) {
+      expect(endpoint.profileKey).toBe(document.profileKey);
+      expect(endpoint.resolvedMaterialSha256).toBe(document.resolvedMaterialSha256);
+      expect(MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256[key]).toBe(document.resolvedMaterialSha256);
+    }
+    expect(macos27Glass025CssTierMapping).toEqual(macos27CssTierMapping);
+    expect(macos27Glass025MaterialProfileDocument.cssTierMapping).toBe(macos27Glass025CssTierMapping);
+  });
+
+  it("is shipped and selectable, and is not what a root draws by default", () => {
+    expect(SHIPPED_MATERIAL_PROFILE_DOCUMENTS).toContain(macos27Glass025MaterialProfileDocument);
+    expect(DEFAULT_MATERIAL_PROFILE_DOCUMENT).toBe(macos27MaterialProfileDocument);
+    expect(macos27Glass025MaterialProfileDocument.platform).toBe("macOS 27.0");
+    expect(macos27Glass025MaterialProfileDocument.name).toBe("apple-macos-27.0-glass0.25");
   });
 });

@@ -46,6 +46,13 @@ import {
   macos27RecededMaterialProfile,
   MACOS_27_RESOLVED_MATERIAL_SHA256,
 } from "./macos27-profile";
+import {
+  MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256,
+  macos27Glass025CssTierMapping,
+  macos27Glass025DarkMaterialProfile,
+  macos27Glass025LightMaterialProfile,
+  macos27Glass025RecededMaterialProfile,
+} from "./macos27-glass025-profile";
 import type { CssTierMapping } from "./optics";
 import { recededMaterialProfile } from "./receded-profile";
 import type { RendererMaterialProfile } from "./renderer-bridge";
@@ -125,6 +132,48 @@ export const macos27MaterialProfileDocument: GlassMaterialProfileDocument = {
 };
 
 /**
+ * The macOS 27 material at the Glass appearance slider's 0.25 position (`NSGlassTintAmount` 0.25,
+ * the clearer glass) — W43, claims §5.199 to §5.201.
+ *
+ * Shipped beside the 0.5 document and NOT the default: a page opts in with
+ * `createGlassRoot({ materialProfileDocument: macos27Glass025MaterialProfileDocument })` (W43
+ * Decision Log 1, RULED (a)). Its four patches are generated from the four sealed calibration
+ * documents by `scripts/generate-macos27-glass025-profile.mjs` and pinned to them by
+ * `packages/calibration/test/macos27-profile-export.test.ts`. They name exactly the 0.5
+ * material's leaves (X44), and the CSS crossing is the 0.5 one. The position is read from the
+ * endpoint keys' glass token, as the calibration seam reads every shipped document's.
+ */
+export const macos27Glass025MaterialProfileDocument: GlassMaterialProfileDocument = {
+  name: "apple-macos-27.0-glass0.25",
+  platform: "macOS 27.0",
+  active: {
+    light: {
+      profileKey: "apple-macos-27.0-1x-light-standard-glass0.25",
+      patch: macos27Glass025LightMaterialProfile,
+      resolvedMaterialSha256: MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256.light,
+    },
+    dark: {
+      profileKey: "apple-macos-27.0-1x-dark-standard-glass0.25",
+      patch: macos27Glass025DarkMaterialProfile,
+      resolvedMaterialSha256: MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256.dark,
+    },
+  },
+  receded: {
+    light: {
+      profileKey: "apple-macos-27.0-1x-light-standard-glass0.25-receded",
+      patch: macos27Glass025RecededMaterialProfile.light,
+      resolvedMaterialSha256: MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256.recededLight,
+    },
+    dark: {
+      profileKey: "apple-macos-27.0-1x-dark-standard-glass0.25-receded",
+      patch: macos27Glass025RecededMaterialProfile.dark,
+      resolvedMaterialSha256: MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256.recededDark,
+    },
+  },
+  cssTierMapping: macos27Glass025CssTierMapping,
+};
+
+/**
  * The macOS 26.5 material — every measurement this project made before W29, and
  * what the package drew by default through 0.18.0.
  *
@@ -191,8 +240,9 @@ export const macos26MaterialProfileDocument: GlassMaterialProfileDocument = {
 export const DEFAULT_MATERIAL_PROFILE_DOCUMENT: GlassMaterialProfileDocument =
   macos27MaterialProfileDocument;
 
-/** Both shipped documents, for a readout or a picker that wants to name them. */
+/** Every shipped document, for a readout or a picker that wants to name them. */
 export const SHIPPED_MATERIAL_PROFILE_DOCUMENTS: readonly GlassMaterialProfileDocument[] = [
   macos27MaterialProfileDocument,
+  macos27Glass025MaterialProfileDocument,
   macos26MaterialProfileDocument,
 ];
