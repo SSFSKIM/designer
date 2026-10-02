@@ -1,0 +1,28 @@
+test_nothing_but_the_rulings_moves (test_amend_fit.Accepts.test_nothing_but_the_rulings_moves) ... ok
+test_the_five_rulings (test_amend_fit.Accepts.test_the_five_rulings) ... ok
+test_the_recorded_amendment_is_the_file (test_amend_fit.Accepts.test_the_recorded_amendment_is_the_file) ... ok
+test_the_reverted_body_is_the_drafts_valid_diff (test_amend_fit.Accepts.test_the_reverted_body_is_the_drafts_valid_diff) ... ok
+test_the_superseded_part_2_is_rebuilt (test_amend_fit.Accepts.test_the_superseded_part_2_is_rebuilt) ... ok
+test_not_another_file_even_recorded (test_amend_fit.PartOneRepin.test_not_another_file_even_recorded) ... ok
+test_not_from_another_hash_or_to_other_bytes (test_amend_fit.PartOneRepin.test_not_from_another_hash_or_to_other_bytes) ... ok
+test_this_file_exactly_as_recorded (test_amend_fit.PartOneRepin.test_this_file_exactly_as_recorded) ... ok
+test_a_changed_prediction (test_amend_fit.Refuses.test_a_changed_prediction) ... ok
+test_a_missing_ruling (test_amend_fit.Refuses.test_a_missing_ruling) ... ok
+test_a_path_touched_twice (test_amend_fit.Refuses.test_a_path_touched_twice) ... ok
+test_a_path_under_another_ruling (test_amend_fit.Refuses.test_a_path_under_another_ruling) ... ok
+test_a_removal (test_amend_fit.Refuses.test_a_removal) ... ok
+test_a_replace_whose_from_is_not_in_place (test_amend_fit.Refuses.test_a_replace_whose_from_is_not_in_place) ... ok
+test_a_revert_whose_to_is_not_in_place (test_amend_fit.Refuses.test_a_revert_whose_to_is_not_in_place) ... ok
+test_a_widened_grid (test_amend_fit.Refuses.test_a_widened_grid) ... ok
+test_an_add_stating_a_from (test_amend_fit.Refuses.test_an_add_stating_a_from) ... ok
+test_an_unknown_ruling (test_amend_fit.Refuses.test_an_unknown_ruling) ... ok
+test_fit_evidence_is_a_render_not_the_directory (test_amend_fit.TheVerb.test_fit_evidence_is_a_render_not_the_directory) ... ok
+test_refused_a_second_time (test_amend_fit.TheVerb.test_refused_a_second_time) ... ok
+test_refused_once_a_fit_render_exists (test_amend_fit.TheVerb.test_refused_once_a_fit_render_exists) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.008s
+
+OK
+amend-fit REFUSES: part 2 was amended once already (X50: each part amended at most once)
+amend-fit REFUSES: a fit render exists (fit/runs.jsonl); part 2 is fixed (X50)

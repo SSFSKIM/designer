@@ -1,0 +1,37 @@
+test_an_unmeasured_scope_member_is_never_a_landing (test_t1.Landing.test_an_unmeasured_scope_member_is_never_a_landing) ... ok
+test_full_close_when_every_f_cell_is_within (test_t1.Landing.test_full_close_when_every_f_cell_is_within) ... ok
+test_improvement_needs_half_the_f_aggregate_and_no_away_beyond_b (test_t1.Landing.test_improvement_needs_half_the_f_aggregate_and_no_away_beyond_b) ... ok
+test_selection_metric_is_the_plain_log_ratio (test_t1.Landing.test_selection_metric_is_the_plain_log_ratio) ... ok
+test_1_overshoot_at_B_0_01 (test_t1.PinnedExamples.test_1_overshoot_at_B_0_01) ... ok
+test_2_toward_at_B_0_03 (test_t1.PinnedExamples.test_2_toward_at_B_0_03) ... ok
+test_3_overshoot_equal_error_crossing_that_misses (test_t1.PinnedExamples.test_3_overshoot_equal_error_crossing_that_misses) ... ok
+test_4_unchanged_within_the_bar (test_t1.PinnedExamples.test_4_unchanged_within_the_bar) ... ok
+test_away_on_one_side (test_t1.Precedence.test_away_on_one_side) ... ok
+test_equal_error_crossing_that_lands_within_is_toward (test_t1.Precedence.test_equal_error_crossing_that_lands_within_is_toward) ... ok
+test_ratio_clause_guarded_at_one_code (test_t1.Precedence.test_ratio_clause_guarded_at_one_code) ... ok
+test_states_partition (test_t1.Precedence.test_states_partition) ... ok
+test_toward_on_one_side (test_t1.Precedence.test_toward_on_one_side) ... ok
+test_unchanged_precedes_overshoot (test_t1.Precedence.test_unchanged_precedes_overshoot) ... ok
+test_a_missing_clause_member_is_unmeasured (test_t1.SelectionAndMoves.test_a_missing_clause_member_is_unmeasured) ... ok
+test_move1_clause_is_F_and_pitch_16_and_not_the_photo (test_t1.SelectionAndMoves.test_move1_clause_is_F_and_pitch_16_and_not_the_photo) ... ok
+test_move2_clause_reads_every_F_C_P_cell_but_no_T (test_t1.SelectionAndMoves.test_move2_clause_reads_every_F_C_P_cell_but_no_T) ... ok
+test_move_objective_reads_the_moves_cells (test_t1.SelectionAndMoves.test_move_objective_reads_the_moves_cells) ... ok
+test_selection_metric_leaves_T_out (test_t1.SelectionAndMoves.test_selection_metric_leaves_T_out) ... ok
+test_a_T_cell_without_bands_is_unmeasured (test_t1.TextStratum.test_a_T_cell_without_bands_is_unmeasured) ... ok
+test_a_band_native_disagreement_refuses (test_t1.TextStratum.test_a_band_native_disagreement_refuses) ... ok
+test_absent_band_readings_give_none (test_t1.TextStratum.test_absent_band_readings_give_none) ... ok
+test_fine_band_overshoot_is_the_cells_overshoot (test_t1.TextStratum.test_fine_band_overshoot_is_the_cells_overshoot) ... ok
+test_full_close_does_not_require_a_T_cell_within (test_t1.TextStratum.test_full_close_does_not_require_a_T_cell_within) ... ok
+test_hc_text_7_is_T_and_not_F (test_t1.TextStratum.test_hc_text_7_is_T_and_not_F) ... ok
+test_low_band_away_beyond_B_is_the_veto (test_t1.TextStratum.test_low_band_away_beyond_B_is_the_veto) ... ok
+test_raw_t1_away_is_recorded_and_no_veto (test_t1.TextStratum.test_raw_t1_away_is_recorded_and_no_veto)
+T1 itself away far beyond B on a T cell, both bands toward: no veto (T1 is recorded). ... ok
+test_the_four_examples_on_the_fine_band (test_t1.TextStratum.test_the_four_examples_on_the_fine_band)
+G0's four pinned examples, posed on a T cell's T1-fine: its change IS T1-fine's. ... ok
+test_the_four_examples_on_the_low_band (test_t1.TextStratum.test_the_four_examples_on_the_low_band)
+The same four on T1-low: its change is computed alike, and only its away is a veto. ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.001s
+
+OK

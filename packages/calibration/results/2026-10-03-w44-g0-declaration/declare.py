@@ -12,7 +12,7 @@ Part 2, the fit declaration (`fit-declaration.json`), after the ladders and befo
 
     python3.12 -B declare.py check-fit # the validated diff against the draft (below)
     python3.12 -B declare.py hash-fit  # refuses before part 1 is hashed, on any invalid change, once hashed
-    python3.12 -B declare.py amend-fit --reason TEXT --cause COMMIT PIN [PIN ...]
+    python3.12 -B declare.py amend-fit --reason TEXT --cause COMMIT   # the one content amendment (below)
 
 `declaration.json` declares each item once, points at its source files and pins every source by
 SHA-256 (a path suffixed `@<commit>` is read at that commit: the charter). `check` re-reads every
@@ -42,6 +42,33 @@ refused unless the part is hashed, its chain verifies, every named pin moved and
 no render evidence exists for it: part 1's once ANY ladder render exists (`ladders/runs.jsonl`
 records a launch, or the ladder scratch holds a matrix), part 2's once any fit render exists
 (G1's evidence directory or its scratch).
+
+**Part 2's one amendment (W44 G1 step 0; charter v1.3, Decision Log 7, `ea487a17`).** Decision Log
+7 rules five items before any fit render, executed as ONE amendment of part 2 that changes its
+CONTENT, not only its pins, so `amend-fit` is this verb and not part 1's:
+
+    python3.12 -B declare.py amend-fit --reason TEXT --cause COMMIT
+
+It writes `fit-amendments.json` (part 2's amendment record, beside part 1's `amendments.json`) with
+the superseded hash, the reason, the cause, and the content diff: a list of operations, each an
+`add` or a `replace` at one path of part 2's body, each citing the ruling (1-5) it executes, with
+its `from` and `to`. `RULINGS` below is the only place a ruling's paths are stated, and
+`validate_ops` refuses an operation outside its ruling's paths, an unknown ruling, a removal, a
+path touched twice, and a ruling with no operation, so the diff carries exactly the five rulings
+and nothing else (`test_amend_fit.py`). The rulings' own pins (G1's T1 readers and the builder
+with their red cases) are added as `sources` entries under the ruling they implement, so
+`check-fit` verifies their bytes and runs their tests. `amend-fit` refuses once any fit render
+exists (`fit_evidence`: a launch in G1's `fit/runs.jsonl`, or a matrix or capture under the fit
+scratch; G1's evidence directory existing is not a render) and refuses a second amendment.
+
+`check-fit` then verifies the chain by reverting the operations, which must rebuild the superseded
+part 2 byte for byte, and validates that rebuilt body as the draft's diff exactly as before.
+
+This file is one of part 1's pinned sources and the amendment had to move it. Part 1 cannot be
+amended (its ladders exist), so `fit-amendments.json` records that move as `partOnePins`
+{path: {from, to}}, and part 1's `check` accepts a pin of `PART_ONE_REPINNABLE` (this file
+alone) exactly when the record names its pinned hash as `from` and its bytes as `to`. Part 1's
+declaration and its hash do not move.
 """
 import hashlib
 import json
@@ -72,6 +99,12 @@ LADDER_RUNS = HERE / "ladders" / "runs.jsonl"
 LADDER_SCRATCH = Path.home() / "vitrea-w44" / "g0-ladders"
 FIT_EVIDENCE = [ROOT / "packages/calibration/results/2026-10-03-w44-g1-refit",
                 Path.home() / "vitrea-w44" / "g1-scratch"]
+G1 = FIT_EVIDENCE[0]
+G1_REL = G1.relative_to(ROOT).as_posix()
+G1_SCRATCH = FIT_EVIDENCE[1]
+PART_ONE_REPINNABLE = (f"{REL}/declare.py",)
+AMENDMENT_TESTS = (f"{REL}/test_amend_fit.py",)
+CHARTER_PATH = "docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md"
 CHAIN_LEVEL_1 = 1.542
 LIGHT_025 = ("apple-macos-27.0-1x-light-standard-glass0.25", "apple-macos-27.0-2x-light-standard-glass0.25")
 
@@ -132,12 +165,32 @@ def structure(c, d):
             used.add(s)
     for s in d["sources"]:
         c.true(f"sources: {s} is pinned but no item points at it", s in used)
+    repins = part_one_repins()
     for key, want in d["sources"].items():
         try:
-            c.eq(f"pin {key}", sha(source_bytes(key)), want)
+            got = sha(source_bytes(key))
         except (OSError, subprocess.CalledProcessError) as err:
             c.failures.append(f"pin {key}: unreadable ({err})")
+            continue
+        if got != want and accepted_repin(key, want, got, repins):
+            continue
+        c.eq(f"pin {key}", got, want)
     return {it["id"]: it for it in items}
+
+
+def part_one_repins() -> dict:
+    """Part 1 pins part 2's amendment moved, as `fit-amendments.json` records them."""
+    out = {}
+    for a in amendments("fit"):
+        out.update(a.get("partOnePins") or {})
+    return out
+
+
+def accepted_repin(key, pinned, now, repins) -> bool:
+    """A moved part-1 pin is accepted only for `PART_ONE_REPINNABLE` and only when part 2's
+    amendment record names exactly that move, from the pinned hash to the bytes on disk."""
+    move = repins.get(key)
+    return key in PART_ONE_REPINNABLE and bool(move) and move.get("from") == pinned and move.get("to") == now
 
 
 def twin(c, items, path):
@@ -425,6 +478,11 @@ def chain(c, part, d):
         for path, move in (a.get("pins") or {}).items():
             c.eq(f"chain ({part}): amendment {i + 1} pin {path}", state["sources"].get(path), move.get("to"))
             state["sources"][path] = move.get("from")
+        if a.get("ops"):
+            try:
+                state = revert_ops(state, a["ops"])
+            except Refusal as err:
+                c.failures.append(f"chain ({part}): amendment {i + 1}'s operations do not revert: {err}")
         c.eq(f"chain ({part}): the declaration before amendment {i + 1} rebuilt", sha(serialise(state)), lines[i])
 
 
@@ -525,6 +583,216 @@ def validate_fit(draft, fit, results, protocol):
         raise Refusal(f"part 2 differs from the draft beyond its permitted changes, in: {sorted(diff)}")
 
 
+# ---------------------------------------------------------------------------------------------
+# Part 2's one amendment: Decision Log 7's five rulings as a content diff
+# ---------------------------------------------------------------------------------------------
+def _src(rel):
+    return ("sources", f"{G1_REL}/{rel}")
+
+
+RULINGS = {
+    1: dict(title="the receded light document may name sizeHeavySecondShare as a difference over its "
+                  "active document (X44 narrowed by one difference); move 3 gains it as a fifth leaf",
+            paths=[("moves", 2, "families", "receded", "leaves", "sizeHeavySecondShare"),
+                   ("moves", 2, "families", "receded", "predictionDecisionLog7"),
+                   ("moves", 2, "inherits"),
+                   _src("fit/build-candidate.ts"), _src("fit/test_build_candidate.py")]),
+    2: dict(title="the photo cells leave move 1's within clause (still in the regression budget)",
+            paths=[("moves", 0, "withinClause")]),
+    3: dict(title="hc-text-7 is a fourth stratum T, out of F, read on two bands: fidelity and change "
+                  "on T1-fine, the away veto on T1-low, T1 recorded; the full close does not require a "
+                  "T cell within",
+            paths=[("strata",), ("textStratum",),
+                   ("moves", 0, "cells"), ("moves", 1, "cells"), ("moves", 2, "cells"),
+                   ("moves", 1, "withinClause"), ("moves", 2, "withinClause"),
+                   ("landingRule", "scope"), ("landingRule", "fullClose"), ("landingRule", "improvement"),
+                   ("landingRule", "regressionBudget"),
+                   _src("cuts/t1.py"), _src("cuts/test_t1.py"), _src("cuts/readings.py")]),
+    4: dict(title="fourteen fit scenes per scale among the fine backdrops, not thirteen",
+            paths=[("fitCells",)]),
+    5: dict(title="a candidate's identity to c05 is patch-and-digest (the glass0.250 key); byte "
+                  "identity is the sealed documents'",
+            paths=[("candidateIdentity",)]),
+}
+OP_KINDS = ("add", "replace")
+
+
+def _walk(body, path):
+    node = body
+    for part in path[:-1]:
+        try:
+            node = node[part]
+        except (KeyError, IndexError, TypeError):
+            raise Refusal(f"{list(path)}: no such parent in part 2")
+    return node, path[-1]
+
+
+def _present(node, key):
+    return (key < len(node)) if isinstance(node, list) else (key in node)
+
+
+def apply_ops(body, ops):
+    """`body` with the operations applied, each checked against what it states it replaces."""
+    out = json.loads(json.dumps(body))
+    for op in ops:
+        node, key = _walk(out, tuple(op["path"]))
+        if op["kind"] == "add":
+            if _present(node, key):
+                raise Refusal(f"{op['path']}: an add over an existing value")
+        elif op["kind"] == "replace":
+            if not _present(node, key) or node[key] != op["from"]:
+                raise Refusal(f"{op['path']}: the replaced value is not the operation's `from`")
+        else:
+            raise Refusal(f"{op['path']}: {op['kind']!r} is not an add or a replace")
+        node[key] = op["to"]
+    return out
+
+
+def revert_ops(body, ops):
+    """`body` with the operations undone, in reverse; each must find its `to` in place."""
+    out = json.loads(json.dumps(body))
+    for op in reversed(ops):
+        node, key = _walk(out, tuple(op["path"]))
+        if not _present(node, key) or node[key] != op["to"]:
+            raise Refusal(f"{op['path']}: the amended value is not the operation's `to`")
+        if op["kind"] == "add":
+            del node[key]
+        elif op["kind"] == "replace":
+            node[key] = op["from"]
+        else:
+            raise Refusal(f"{op['path']}: {op['kind']!r} is not an add or a replace")
+    return out
+
+
+def validate_ops(ops):
+    """Refuse unless `ops` carries exactly the five rulings: every operation an add or a replace at
+    one of its ruling's paths, no path touched twice, and every ruling executed."""
+    if not isinstance(ops, list) or not ops:
+        raise Refusal("the amendment carries no operations")
+    seen, rulings = set(), set()
+    for op in ops:
+        r, kind, path = op.get("ruling"), op.get("kind"), tuple(op.get("path") or ())
+        if r not in RULINGS:
+            raise Refusal(f"{list(path)}: cites ruling {r!r}, not one of Decision Log 7's five")
+        if kind not in OP_KINDS:
+            raise Refusal(f"{list(path)}: {kind!r} is not an add or a replace (nothing is removed)")
+        if path not in [tuple(x) for x in RULINGS[r]["paths"]]:
+            raise Refusal(f"{list(path)}: not a path ruling {r} changes")
+        if path in seen:
+            raise Refusal(f"{list(path)}: touched twice")
+        if kind == "add" and "from" in op:
+            raise Refusal(f"{list(path)}: an add states no `from`")
+        if kind == "replace" and "from" not in op:
+            raise Refusal(f"{list(path)}: a replace states its `from`")
+        seen.add(path)
+        rulings.add(r)
+    missing = sorted(set(RULINGS) - rulings)
+    if missing:
+        raise Refusal(f"rulings {missing} carry no operation; the amendment is all five or nothing")
+
+
+def amendment_one(fit):
+    """Decision Log 7's five rulings as operations on part 2's body `fit` (G1 step 0)."""
+    moves = fit["moves"]
+    ops = []
+
+    def op(ruling, path, to):
+        node, key = _walk(fit, tuple(path))
+        entry = dict(ruling=ruling, kind="replace" if _present(node, key) else "add", path=list(path))
+        if entry["kind"] == "replace":
+            entry["from"] = node[key]
+        entry["to"] = to
+        ops.append(entry)
+
+    # 1. The receded share, a fifth leaf of move 3.
+    op(1, ("moves", 2, "families", "receded", "leaves", "sizeHeavySecondShare"), {
+        "slot": "receded.light",
+        "unit": "signed fraction, named in the receded light document as a difference over its active document "
+                "(one leaf for both scales; the 1x width is inherited at 0, so the plan declines at dpr 1)",
+        "domain": [0, 1],
+        "domainRelativeTo": "the active light document's sizeHeavySecondShare at the joint point: the receded "
+                            "share is in [0, the active share]",
+        "grid": [0, 0.25, 0.5, 0.75, 1.0],
+        "gridUnit": "fraction of the active share (0 switches the second tap off in the receded pose; 1 is the "
+                    "inherited value). When the active share is 0 the grid is the one point 0.",
+        "inherited": "sizeScatterFloor2x, sizeScatterRampReach2xPx and the second tap's widths "
+                     "(sizeHeavySecondSigma, sizeHeavySecondSigma2x) stay inherited from the active document",
+        "why": "G0's ladders: the receded document inherits the second tap's share and width and no receded leaf "
+               "can take them off; at C 0.5 x 3 CSS px the receded checkerboard-8 mid cell went 1.01 -> 2.56 and "
+               "the receded pitch-16 cells read 2.33-3.59 (claims 5.202 section 7; charter Decision Log 7 item 1)"})
+    op(1, ("moves", 2, "families", "receded", "predictionDecisionLog7"),
+       "under family C the receded share lands at or near 0 (charter v1.3, Design, move 3)")
+    op(1, ("moves", 2, "inherits"),
+       "the receded document names exactly its 0.5 twin's keys (X44) and, by Decision Log 7 item 1, "
+       "sizeHeavySecondShare as a difference over its active document; sizeScatterFloor2x, the reach and the "
+       "second tap's widths come from the active document as moves 1 and 2 leave them")
+    # 2. Move 1's within clause without the photo.
+    op(2, ("moves", 0, "withinClause"),
+       "every F cell of `cells` within, AND every pitch-16 (`checkerboard`) cell of `cells` within (T1 output 1); "
+       "the photo cells of `cells` are read, out of the clause and still in the regression budget (Decision Log "
+       "7 item 2: no family moves them, 0.62-0.70 across A, B and C on the ladders; W43's named tone gap)")
+    # 3. The text stratum.
+    op(3, ("strata",), {"F": ["checkerboard-4", "checkerboard-8"], "T": ["hc-text-7"],
+                        "C": ["checkerboard", "checkerboard-lc16", "checkerboard-32", "checkerboard-64",
+                              "hc-text", "hc-text-28", "impulse"],
+                        "P": ["photo"]})
+    op(3, ("textStratum",), {
+        "backdrops": ["hc-text-7"],
+        "bands": ["fine", "low"],
+        "reads": {"fidelity": "fine", "change": "fine", "overshoot": "fine", "away": "low"},
+        "fine": "T1-fine: the SD of L - G(L, sigma 4 device px), linear luminance, over the native silhouette "
+                "eroded 4 CSS px",
+        "low": "T1-low: the SD of G(L, sigma 4 device px) over the same support",
+        "sigmaDevicePx": 4.0,
+        "erodeCssPx": 4,
+        "outputs": "T1's three outputs per cell on each band, at the cell's own bar and code (the seven runs are "
+                   "pixel-identical, so every statistic's separation is 0 and the bar is 0.5 code)",
+        "t1": "recorded on every T cell, read by no clause",
+        "fullClose": "does not require a T cell within",
+        "selectionStrata": ["F", "C", "P"],
+        "selection": "T is outside F u C u P: the selection metric and every move objective do not read it",
+        "implementation": f"{G1_REL}/cuts/t1.py and readings.py, pinned below with test_t1.py",
+        "why": "T1 reads the hc-text-7 cells under (0.79-0.89 on c05) while the fine band reads them x1.9-8.5 "
+               "over, and every lever that removes fine structure takes T1 further under (charter Decision Log "
+               "7 item 3)"})
+    for i, m in enumerate(moves):
+        op(3, ("moves", i, "cells"), m["cells"].replace(
+            "F u C u P", "F u T u C u P (T read on its two bands and never required within; the move objective "
+                         "reads F u C u P)"))
+    for i in (1, 2):
+        op(3, ("moves", i, "withinClause"), "every F, C and P cell of `cells` within (T1 output 1); a T cell is "
+                                             "read on its bands and not required within")
+    lr = fit["landingRule"]
+    op(3, ("landingRule", "scope"), lr["scope"].replace(
+        "F u C u P less the referees", "F u T u C u P less the referees").replace(
+        "(t1.landing)", "(t1.landing); a T cell's fidelity and change on T1-fine, its away on T1-low"))
+    op(3, ("landingRule", "fullClose"), lr["fullClose"].replace(
+        "every F cell within; no cell away with g > B; no cell overshoot;",
+        "every F cell within (no T cell is required within); no cell away with g > B (a T cell's on T1-low); "
+        "no cell overshoot (a T cell's on T1-fine);"))
+    op(3, ("landingRule", "improvement"), lr["improvement"].replace(
+        "no cell away with g > B; no cell overshoot;",
+        "no cell away with g > B (a T cell's on T1-low); no cell overshoot (a T cell's on T1-fine);"))
+    op(3, ("landingRule", "regressionBudget"), lr["regressionBudget"] +
+       "; a T cell's budget reads T1-low's error growth (away with g <= B a named regression, g > B a failure)")
+    # 4. The fit set's count.
+    op(4, ("fitCells",), fit["fitCells"] +
+       "; among the fine backdrops (checkerboard-4, checkerboard-8, hc-text-7) that is 14 fit scenes per scale: "
+       "their 19 scenes per scale less the five fine referees (F 11 of 15, T 3 of 4; Decision Log 7 item 4)")
+    # 5. The candidate identity clause.
+    op(5, ("candidateIdentity",),
+       "a candidate's dark endpoints are patch- and digest-identical to c05's dark documents, and its light "
+       "endpoints are c05's on every leaf but the declared 2x leaves of the moves (and, in the receded light "
+       "document, sizeHeavySecondShare), so its 1x-reaching leaves are c05's; a candidate carries the "
+       "glass0.250 key because candidate mode refuses a shipped key, so the identity is patch-and-digest, and "
+       "byte identity is the sealed documents' at the freeze (charter clause 5; Decision Log 7 item 5)")
+    # The rulings' pinned implementations, under the ruling each implements.
+    for ruling, rel in ((1, "fit/build-candidate.ts"), (1, "fit/test_build_candidate.py"),
+                        (3, "cuts/t1.py"), (3, "cuts/test_t1.py"), (3, "cuts/readings.py")):
+        op(ruling, _src(rel), sha((G1 / rel).read_bytes()))
+    return ops
+
+
 def check_fit():
     c = Check()
     path = PARTS["fit"]["declaration"]
@@ -543,12 +811,76 @@ def check_fit():
            {f"{REL}/fit-declaration-draft.json", f"{REL}/ladders/protocol.json", f"{REL}/ladders/results.json"}
            <= set(fit.get("sources") or {}))
     c.eq("part 2: fromDraft names the draft's hash", fit.get("fromDraft"), sha(DRAFT.read_bytes()))
+    body = fit
+    record = amendments("fit")
+    if record:
+        body = check_amendment(c, fit, record)
     try:
-        validate_fit(json.loads(DRAFT.read_text()), fit, json.loads(RESULTS.read_text()),
+        validate_fit(json.loads(DRAFT.read_text()), body, json.loads(RESULTS.read_text()),
                      json.loads(PROTOCOL.read_text()))
     except (Refusal, OSError, KeyError, ValueError) as err:
         c.failures.append(f"part 2 is not a valid diff against the draft: {err}")
     return c, fit
+
+
+def check_amendment(c, fit, record):
+    """Part 2's one amendment: its operations are exactly the five rulings, the charter at its
+    cause carries Decision Log 7, its part-1 re-pins are this file's alone, its validator tests and
+    the rulings' pinned tests pass. Returns part 2's body with the operations reverted (the
+    superseded body), or `fit` unchanged when they cannot be reverted (a failure is recorded)."""
+    c.eq("amendment: part 2 is amended at most once", len(record), 1)
+    a = record[0]
+    ops = a.get("ops") or []
+    try:
+        validate_ops(ops)
+    except Refusal as err:
+        c.failures.append(f"amendment: {err}")
+    try:
+        charter = source_bytes(f"{CHARTER_PATH}@{a.get('cause')}").decode()
+        c.true(f"amendment: the charter at its cause {a.get('cause')} carries no Decision Log 7",
+               "### Decision Log 7" in charter)
+    except (subprocess.CalledProcessError, OSError) as err:
+        c.failures.append(f"amendment: the cause {a.get('cause')} is not readable ({err})")
+    for key in a.get("partOnePins") or {}:
+        c.true(f"amendment: re-pins part 1's {key}, which is not re-pinnable", key in PART_ONE_REPINNABLE)
+    for key, want in (a.get("validatorTests") or {}).items():
+        try:
+            c.eq(f"amendment: validator test {key}", sha(source_bytes(key)), want)
+        except OSError as err:
+            c.failures.append(f"amendment: validator test {key} unreadable ({err})")
+    c.eq("amendment: its validator tests", sorted(a.get("validatorTests") or {}), sorted(AMENDMENT_TESTS))
+    for name, folder, module in (("the amendment validator", HERE, "test_amend_fit"),
+                                 ("G1's T1 readers (ruling 3)", G1 / "cuts", "test_t1"),
+                                 ("G1's builder guard (ruling 1)", G1 / "fit", "test_build_candidate")):
+        rc, out = run("-m", "unittest", module, cwd=folder)
+        c.true(f"amendment: {name}' tests do not pass ({out.strip().splitlines()[-1] if out.strip() else rc})",
+               rc == 0)
+    check_text_stratum(c, fit)
+    try:
+        return revert_ops(fit, ops)
+    except Refusal as err:
+        c.failures.append(f"amendment: its operations do not revert: {err}")
+        return fit
+
+
+def check_text_stratum(c, fit):
+    """Ruling 3's declared constants against G1's pinned readers."""
+    declared = fit.get("textStratum") or {}
+    got = subprocess.run([sys.executable, "-B", "-c",
+                          "import json, t1, readings as R; print(json.dumps(dict(strata={k: list(v) for k, v in "
+                          "t1.STRATA.items()}, bands=list(t1.BANDS), reads=t1.T_READS, sigma=R.FINE_SIGMA_DEVICE, "
+                          "erode=R.ERODE_CSS, selection=list(t1.SELECTION_STRATA))))"],
+                         capture_output=True, text=True, cwd=G1 / "cuts")
+    if got.returncode:
+        c.failures.append(f"amendment: G1's t1.py does not import ({got.stderr.strip()[-300:]})")
+        return
+    impl = json.loads(got.stdout)
+    c.eq("amendment: the strata against G1's t1.py", impl["strata"], fit.get("strata"))
+    c.eq("amendment: T's bands and reads against G1's t1.py", [impl["bands"], impl["reads"]],
+         [declared.get("bands"), declared.get("reads")])
+    c.eq("amendment: T's support against G1's readings.py", [impl["sigma"], impl["erode"]],
+         [declared.get("sigmaDevicePx"), declared.get("erodeCssPx")])
+    c.eq("amendment: the selection strata against G1's t1.py", impl["selection"], declared.get("selectionStrata"))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -562,7 +894,90 @@ def ladder_evidence():
 
 
 def fit_evidence():
-    return [str(p) for p in FIT_EVIDENCE if p.exists()]
+    """Any fit RENDER (the brief's `capture_evidence` for fit renders): a launch recorded in G1's
+    `fit/runs.jsonl`, or a matrix or a capture under the fit scratch. G1's evidence directory
+    existing is not a render: step 0 writes its T1 readers and builder there before any render."""
+    found = []
+    runs = G1 / "fit" / "runs.jsonl"
+    if runs.exists() and any('"started"' in ln for ln in runs.read_text().splitlines()):
+        found.append(str(runs.relative_to(ROOT)))
+    if G1_SCRATCH.exists():
+        found += [str(p) for p in sorted(G1_SCRATCH.rglob("matrix.json"))][:3]
+        found += [str(p) for p in sorted(G1_SCRATCH.rglob("*.png"))][:1]
+    return found
+
+
+def amend_fit(argv):
+    """Part 2's one amendment (G1 step 0): Decision Log 7's five rulings as a content diff."""
+    import argparse
+    ap = argparse.ArgumentParser(prog="declare.py amend-fit")
+    ap.add_argument("--reason", required=True)
+    ap.add_argument("--cause", required=True, help="the charter commit that rules the amendment")
+    args = ap.parse_args(argv)
+    lines = digest_lines("fit")
+    if not lines:
+        print("amend-fit REFUSES: part 2 is not hashed; before the hash it is simply edited and re-checked")
+        return 2
+    evidence = fit_evidence()
+    if evidence:
+        print(f"amend-fit REFUSES: a fit render exists ({', '.join(evidence[:4])}); part 2 is fixed (X50)")
+        return 2
+    if amendments("fit"):
+        print("amend-fit REFUSES: part 2 was amended once already (X50: each part amended at most once)")
+        return 2
+    c, fit = check_fit()
+    if c.failures:
+        print("amend-fit REFUSES: check-fit fails before the amendment:")
+        for f in c.failures:
+            print("  MISMATCH", f)
+        return 2
+    c1, d1, _ = check_protocol()
+    moved = {k: sha(source_bytes(k)) for k in PART_ONE_REPINNABLE if sha(source_bytes(k)) != d1["sources"][k]}
+    other = [f for f in c1.failures if not any(f.startswith(f"pin {k}:") for k in moved)]
+    if other:
+        print("amend-fit REFUSES: part 1's check fails outside its re-pinnable sources:")
+        for f in other:
+            print("  MISMATCH", f)
+        return 2
+    try:
+        charter = source_bytes(f"{CHARTER_PATH}@{args.cause}").decode()
+    except subprocess.CalledProcessError:
+        print(f"amend-fit REFUSES: no charter at {args.cause}")
+        return 2
+    if "### Decision Log 7" not in charter:
+        print(f"amend-fit REFUSES: the charter at {args.cause} carries no Decision Log 7")
+        return 2
+    ops = amendment_one(fit)
+    try:
+        validate_ops(ops)
+        amended = apply_ops(fit, ops)
+    except Refusal as err:
+        print(f"amend-fit REFUSES: {err}")
+        return 2
+    path = PARTS["fit"]["declaration"]
+    raw = serialise(amended)
+    entry = {"n": 1, "supersedes": lines[-1], "declarationSha256": sha(raw), "reason": args.reason,
+             "cause": args.cause, "charter": f"{CHARTER_PATH}@{args.cause}",
+             "rulings": {str(k): v["title"] for k, v in RULINGS.items()}, "ops": ops, "pins": {},
+             "partOnePins": {k: {"from": d1["sources"][k], "to": v} for k, v in moved.items()},
+             "validatorTests": {k: sha(source_bytes(k)) for k in AMENDMENT_TESTS},
+             "renderEvidenceAtAmendment": "none (fit_evidence: G1's fit/runs.jsonl launches, the fit scratch's "
+                                          "matrices and captures)"}
+    PARTS["fit"]["amendments"].write_text(json.dumps({"schema": "w44-fit-amendments-1", "amendments": [entry]},
+                                                     indent=2, ensure_ascii=False) + "\n")
+    path.write_bytes(raw)
+    with PARTS["fit"]["digest"].open("a") as f:
+        f.write(f"{entry['declarationSha256']}  {path.name}\n")
+    after, _ = check_fit()
+    after1, _, _ = check_protocol()
+    for f in after.failures + after1.failures:
+        print("  MISMATCH", f)
+    if after.failures or after1.failures:
+        print("amend-fit: written, but a check fails; inspect before committing")
+        return 1
+    print(f"amended: {path.name} sha256 {entry['declarationSha256']} supersedes {lines[-1]}; check and "
+          "check-fit consistent; commit fit-declaration.json, fit-amendments.json and fit-declaration.sha256")
+    return 0
 
 
 def amend(part, argv):
@@ -635,8 +1050,10 @@ def report(c, waiting, what):
 
 def main(argv):
     verb = argv[1] if len(argv) > 1 else ""
-    if verb in ("amend", "amend-fit"):
-        return amend("protocol" if verb == "amend" else "fit", argv[2:])
+    if verb == "amend":
+        return amend("protocol", argv[2:])
+    if verb == "amend-fit":
+        return amend_fit(argv[2:])
     if verb in ("check", "hash"):
         c, d, items = check_protocol()
         waiting = [it for it in items.values() if "pending" in it]
