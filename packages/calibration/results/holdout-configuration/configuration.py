@@ -5,6 +5,16 @@ claims §5.164 §6, §5.167).
     python3 packages/calibration/results/holdout-configuration/configuration.py show
     python3 …/configuration.py record --claims "c9a §5.168"
     python3 …/configuration.py record --claims "…" --source-moved-because "<a non-fit reason>"
+    python3 …/configuration.py show|record --documents glass0.25 …    (W43 G3 (ii))
+
+**Two generations, one ledger** (W43 G3 (ii), claims §5.201; approved by the coordinator for the
+0.25 publication). `--documents` names the generation a read is OF: `glass0.5` (the default, and
+the only set before W43) or `glass0.25`, the four sealed `-glass0.25` documents. With the default
+nothing about this script's output or the log moves: a configuration is still (the document
+bytes, the sources), the refusal still compares against every record at the SAME document
+hashes, and two generations' documents can never coincide, so a 0.25 read is refused only by an
+earlier 0.25 read. A non-default read records `documentSet` beside its documents. Not a per-gate
+copy: the README's warning about copies is the reason the 0.25 reads land here.
 
 **This is the location every canonical holdout read records to, from W32 onward.** W31 G3 wrote
 this script into its own evidence directory and W31 G3c ran that copy in place, which worked and
@@ -128,6 +138,17 @@ DOCUMENTS = [
     "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
 ]
 
+DEFAULT_DOCUMENT_SET = "glass0.5"
+DOCUMENT_SETS = {
+    DEFAULT_DOCUMENT_SET: DOCUMENTS,
+    "glass0.25": [
+        "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+        "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+        "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+        "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+    ],
+}
+
 SOURCE_LIST = [
     "packages/renderer-webgpu/src/wgsl",          # every file in it
     "packages/renderer-webgpu/src/material.ts",
@@ -180,9 +201,9 @@ def source_hash() -> tuple[str, list[str]]:
     return digest.hexdigest(), names
 
 
-def document_hashes() -> dict[str, str]:
+def document_hashes(document_set: str = DEFAULT_DOCUMENT_SET) -> dict[str, str]:
     out = {}
-    for entry in DOCUMENTS:
+    for entry in DOCUMENT_SETS[document_set]:
         path = ROOT / entry
         out[Path(entry).name] = hashlib.sha256(path.read_bytes()).hexdigest()
     return out
@@ -197,8 +218,8 @@ def load_log() -> list[dict]:
     return json.loads(LOG.read_text())["reads"] if LOG.exists() else []
 
 
-def show() -> dict:
-    documents = document_hashes()
+def show(document_set: str = DEFAULT_DOCUMENT_SET) -> dict:
+    documents = document_hashes(document_set)
     sources, names = source_hash()
     print("== the frozen configuration (W31 Decision Log 1 (b)) ==")
     print(f"  head                {head()}")
@@ -212,8 +233,8 @@ def show() -> dict:
     return {"documents": documents, "sourceSha256": sources, "sourceFiles": names}
 
 
-def record(claims: str, reason: str | None) -> int:
-    state = show()
+def record(claims: str, reason: str | None, document_set: str = DEFAULT_DOCUMENT_SET) -> int:
+    state = show(document_set)
     previous = load_log()
     same_documents = [e for e in previous if e["documents"] == state["documents"]]
     if same_documents:
@@ -252,6 +273,8 @@ def record(claims: str, reason: str | None) -> int:
     }
     if reason:
         entry["sourceMovedBecause"] = reason
+    if document_set != DEFAULT_DOCUMENT_SET:
+        entry["documentSet"] = document_set
     LOG.write_text(
         json.dumps(
             {
@@ -282,8 +305,12 @@ def record(claims: str, reason: str | None) -> int:
 def main() -> int:
     argv = sys.argv[1:]
     verb = argv[0] if argv else "show"
+    document_set = argv[argv.index("--documents") + 1] if "--documents" in argv else DEFAULT_DOCUMENT_SET
+    if document_set not in DOCUMENT_SETS:
+        raise SystemExit(f"configuration: --documents {document_set!r} names no document set "
+                         f"({', '.join(DOCUMENT_SETS)})")
     if verb == "show":
-        show()
+        show(document_set)
         return 0
     if verb == "record":
         claims = argv[argv.index("--claims") + 1] if "--claims" in argv else "unstated"
@@ -292,7 +319,7 @@ def main() -> int:
             if "--source-moved-because" in argv
             else None
         )
-        return record(claims, reason)
+        return record(claims, reason, document_set)
     raise SystemExit(__doc__)
 
 
