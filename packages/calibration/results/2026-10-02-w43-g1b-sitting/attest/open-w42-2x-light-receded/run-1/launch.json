@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w43/g1b-run/open-w42-2x-light-receded/scenes-run-1.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w43/g1b-run/open-w42-2x-light-receded/run-1",
+    "--env",
+    "VITREA_SCALE=2",
+    "--stdout",
+    "/Users/new/vitrea-w43/g1b-run/open-w42-2x-light-receded/run-1/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w43/g1b-run/open-w42-2x-light-receded/run-1/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w43-open-w42-2x-light-receded-1",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--initial-settle",
+    "8",
+    "--order-seed",
+    "4242",
+    "--scenes",
+    "f-checker64-rrect-lg__inactive,f-impulse-rrect-md__inactive",
+    "--inactive"
+  ]
+}
