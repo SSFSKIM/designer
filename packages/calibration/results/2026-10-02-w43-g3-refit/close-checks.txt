@@ -1,0 +1,27 @@
+W43 G3 (i) close checks, 2026-10-02T09:39:37Z, worktree HEAD 553968f0 (clause 11)
+
+$ python3 results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1818 entries
+
+$ npx tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify
+X41 0.5 generation intact: 911 entries
+
+the six shipped documents' recorded digests (profiles/ unchanged against origin/main: yes)
+  apple-macos-27.0-1x-light-standard-glass0.5 be13dae45098fc89
+  apple-macos-27.0-1x-dark-standard-glass0.5 2a4323f33df8d799
+  apple-macos-27.0-1x-light-standard-glass0.5-receded b0d0d8dacc6a03af
+  apple-macos-27.0-1x-dark-standard-glass0.5-receded 7c454858a3cbad5b
+  apple-macos-26.5-1x-light-standard b2b570e4adcea8fb
+  apple-macos-26.5-1x-dark-standard 874be66ea501621b
+
+src/, renderer, platform-web, apps and the generation files unchanged against origin/main: yes
+
+$ pnpm --filter @vitrea/renderer-webgpu test:golden (chromium-gpu, real adapter)
+  34 passed (11.8s)
+
+$ npx vitest run test/tuned-profiles.test.ts
+      Tests  14 passed (14)
+
+$ pnpm --filter @vitrea/calibration test (whole package, after the 0.25 cases were added)
+  Test Files  62 passed (62); Tests  857 passed | 1 skipped (858)
+$ pnpm --filter @vitrea/calibration lint: exit 0
