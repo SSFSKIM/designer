@@ -3,10 +3,11 @@
  *
  * The page never states a number of its own. Every figure comes from the
  * current calibration matrix: the frozen macOS 26.5 rows in `matrix.json` and
- * the indexed current macOS 27 generations, keyed by the cell that produced
- * it. A scene without a cell renders a labelled empty slot rather than a
- * borrowed number. The §Calibration claims rule is structural: "all fidelity
- * claims cite the profile and cell, never 'pixel-identical to Apple'."
+ * the indexed current macOS 27 generations at both glass positions the runtime
+ * ships, 0.5 and 0.25, keyed by the cell that produced it. A scene without a
+ * cell renders a labelled empty slot rather than a borrowed number. The
+ * §Calibration claims rule is structural: "all fidelity claims cite the profile
+ * and cell, never 'pixel-identical to Apple'."
  *
  * **What it reads is a build-time REDUCTION of that current union, not its
  * files** (W30 G3b; charter Decision Log 5 (c), claims §5.159b; W40 G0,
@@ -15,12 +16,15 @@
  * the union in Node, where large file reads are safe, then projects the scenes
  * the picker offers, the readings at shipped document bytes and the fields
  * `figuresOf` prints. `test/matrix-reduction.test.ts` checks every displayed
- * figure against an independent direct-file union and pins the complete
- * projected output to the pre-migration baseline.
+ * figure against an independent direct-file union, pins the macOS 26.5 and
+ * glass 0.5 projection to the pre-migration baseline, and pins the glass 0.25
+ * cells with its own oracle.
  */
 
 import { CELLS, MATRIX_CELL_COUNT } from "virtual:vitrea-matrix-reduction";
 import { SHIPPED_DOCUMENT_HASHES } from "virtual:vitrea-shipped-documents";
+
+import { DEFAULT_GLASS, glassOfProfileKey, type GlassPosition } from "../glass-position";
 
 export interface Figure {
   readonly label: string;
@@ -41,6 +45,12 @@ export interface CellReport {
   readonly tier: string;
   readonly fixtureSet: string;
   readonly capturedAt: string;
+  /**
+   * Where the reading was measured, as a reader would say it: "macOS 27.0, glass 0.25", or
+   * "macOS 26.5", which has no slider. Read off the profile key's own tokens (W43 G3 (iii), X45;
+   * claims §5.201), so a figure printed beside a surface names the position it is evidence for.
+   */
+  readonly measuredAt: string;
   /**
    * Was this reading taken at the material profile documents that are on disk? See
    * `atAShippedDocument`: the index selects the current generation, while
@@ -186,11 +196,13 @@ export function figuresOf(cell: Cell): readonly Figure[] {
 /**
  * The profile and tier the page speaks for when a scene has more than one cell.
  *
- * A scene carries up to four (two colour schemes × two tiers), and the page shows
+ * A scene carries many — two colour schemes × two tiers, at two scales, on two
+ * macOS releases, and on macOS 27 at two glass positions — and the page shows
  * one. Which one is a claim rather than an implementation detail: the headline is
- * the **texture tier under the profile of the scheme the page is drawing**,
- * because that is the tier the demo defaults to, and because a figure measured in
- * one colour scheme is not evidence about a surface drawn in the other. The dom
+ * the **texture tier under the 1x profile of the scheme and glass position the
+ * page is drawing**, because that is the tier the demo defaults to, and because a
+ * figure measured in one colour scheme is not evidence about a surface drawn in
+ * the other. The dom
  * tier's figures belong to the engine's `backdrop-filter` rather than to vitrea's
  * shader math, which is why the tier half of the rule does not move.
  *
@@ -209,11 +221,22 @@ export function figuresOf(cell: Cell): readonly Figure[] {
  * macOS 27 ones and picking a macOS 26.5 one would print a number measured
  * against a material this page no longer draws, which is the same defect the
  * comment above records being fixed at W21 G3, one axis along.
+ *
+ * And keyed by the glass position since W43 G3 (iii), one axis further again
+ * (charter clause 13, X45; claims §5.201). The matrix holds macOS 27 rows at 0.5
+ * and at 0.25, the page draws the position its query chose, and a 0.5 figure
+ * beside a 0.25 surface would be that defect once more.
  */
-const PRIMARY_PROFILE_KEY_BY_SCHEME = {
-  light: "apple-macos-27.0-1x-light-standard-glass0.5",
-  dark: "apple-macos-27.0-1x-dark-standard-glass0.5",
-} as const;
+const PRIMARY_PROFILE_KEY: Readonly<Record<GlassPosition, Record<"light" | "dark", string>>> = {
+  0.5: {
+    light: "apple-macos-27.0-1x-light-standard-glass0.5",
+    dark: "apple-macos-27.0-1x-dark-standard-glass0.5",
+  },
+  0.25: {
+    light: "apple-macos-27.0-1x-light-standard-glass0.25",
+    dark: "apple-macos-27.0-1x-dark-standard-glass0.25",
+  },
+};
 const PRIMARY_TIER = "texture";
 
 /**
@@ -240,31 +263,43 @@ function atAShippedDocument(capturePath: string): boolean {
   );
 }
 
+/** "macOS 27.0, glass 0.25" from its key's tokens; "macOS 26.5" where the key names no slider. */
+function measuredAtOf(profileKey: string): string {
+  const release = /^apple-macos-([\d.]+)-/.exec(profileKey)?.[1];
+  const glass = glassOfProfileKey(profileKey);
+  const platform = release === undefined ? profileKey : `macOS ${release}`;
+  return glass === undefined ? platform : `${platform}, glass ${glass}`;
+}
+
 /**
  * Lower sorts first; see `reportsFor` for what the order means.
  *
- * Three terms, most significant first: the profile of the scheme the page is drawing,
- * then the tier the page speaks for, then the generation. The weights encode that
+ * Three terms, most significant first: the profile of the scheme and glass position the page is
+ * drawing, then the tier the page speaks for, then the generation. The weights encode that
  * precedence — a reading of the right profile on the right tier that a refit has since
  * superseded still outranks a current reading of another tier, because the tier half of
  * the rule is about *what was measured* and the generation is about *which reading of
  * it*.
  */
-export function primacy(report: CellReport, scheme: "light" | "dark"): number {
+export function primacy(
+  report: CellReport,
+  scheme: "light" | "dark",
+  glass: GlassPosition = DEFAULT_GLASS,
+): number {
   return (
-    (report.profileKey === PRIMARY_PROFILE_KEY_BY_SCHEME[scheme] ? 0 : 4) +
+    (report.profileKey === PRIMARY_PROFILE_KEY[glass][scheme] ? 0 : 4) +
     (report.tier === PRIMARY_TIER ? 0 : 2) +
     (report.atShippedDocument ? 0 : 1)
   );
 }
 
 /**
- * A scene's cells with the one that speaks for the given scheme first.
+ * A scene's cells with the one that speaks for the given scheme and glass position first.
  *
- * A cell from the other scheme's profile still sorts in, behind: the caller shows
- * the head of the list and the head is the claim. What the caller must NOT do is
- * present a cell from the wrong scheme as this scheme's evidence — which is why
- * every report carries its own `profileKey` and the page prints it.
+ * A cell from the other scheme's or the other position's profile still sorts in, behind: the
+ * caller shows the head of the list and the head is the claim. What the caller must NOT do is
+ * present a cell from the wrong scheme or position as this one's evidence — which is why every
+ * report carries its own `profileKey` and `measuredAt` and the page prints both.
  *
  * **The generation is a term in the order, not a timestamp** (W30 G1,
  * amended by its review closure). Before W40 the single matrix file could
@@ -279,10 +314,11 @@ export function primacy(report: CellReport, scheme: "light" | "dark"): number {
 export function reportsFor(
   sceneId: string,
   scheme: "light" | "dark" = "light",
+  glass: GlassPosition = DEFAULT_GLASS,
 ): readonly CellReport[] {
   const found = REPORTS_BY_SCENE.get(sceneId);
   if (found === undefined) return [];
-  return [...found].sort((a, b) => primacy(a, scheme) - primacy(b, scheme));
+  return [...found].sort((a, b) => primacy(a, scheme, glass) - primacy(b, scheme, glass));
 }
 
 /**
@@ -303,6 +339,7 @@ export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() 
       tier: cell.tier,
       fixtureSet: cell.fixtureSet,
       capturedAt: cell.capturedAt,
+      measuredAt: measuredAtOf(cell.key.profileKey),
       atShippedDocument: atAShippedDocument(cell.key.web.capturePath),
       figures: figuresOf(cell),
     };
@@ -317,8 +354,10 @@ export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() 
  * How many cells the current matrix union holds, not the reduction's count.
  *
  * The union is the frozen macOS 26.5 rows plus one indexed current generation
- * per macOS 27 profile. The reduction below it counts only what the page can
- * print; conflating the two would under-report the evidence it is built on.
+ * per macOS 27 profile, and since W43 G3 (ii) those profiles span two glass
+ * positions, 0.5 and 0.25: the count is all of it, every position (claims
+ * §5.201). The reduction below it counts only what the page can print;
+ * conflating the two would under-report the evidence it is built on.
  */
 export const MEASURED_CELL_COUNT = MATRIX_CELL_COUNT;
 

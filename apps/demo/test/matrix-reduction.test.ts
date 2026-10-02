@@ -5,20 +5,28 @@
  *
  * The frozen matrix and the index's current generation files are read here
  * directly, without the production store or its key serializer. Their rows are
- * independently key-sorted and checked against the reducer. The complete
- * reduction is also pinned to `demo-before.json`, captured from the old
- * 1,893-row monolith BEFORE migration, including the ordered projected cells
- * and every figure. A loader that skips a file or changes the output's order
- * cannot validate itself through the same mistaken read.
+ * independently key-sorted and checked against the reducer. The macOS 26.5 and
+ * glass 0.5 part of the reduction is also pinned to `demo-before.json`, captured
+ * from the old 1,893-row monolith BEFORE migration, including the ordered
+ * projected cells and every figure. A loader that skips a file or changes the
+ * output's order cannot validate itself through the same mistaken read.
+ *
+ * The glass 0.25 part entered at W43 G3 (iii) (charter clause 13, X45; claims
+ * §5.201) and has no pre-migration baseline, so it is pinned by this file's own
+ * oracle: the generation files the index names, the profile documents hashed
+ * here, the picker's scenes, and the figures `figuresOf` prints off the raw row.
+ * None of those goes through the reducer's `displayed` or `project`.
  */
 
-import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
 import {
+  atADisplayedPosition,
   displayed,
   project,
   reduceMatrix,
@@ -34,6 +42,7 @@ import {
 } from "../src/site/calibration";
 
 const RESULTS = fileURLToPath(new URL("../../../packages/calibration/results/", import.meta.url));
+const PROFILES = fileURLToPath(new URL("../../../packages/calibration/profiles/", import.meta.url));
 const BEFORE = JSON.parse(readFileSync(
   join(RESULTS, "2026-09-26-w40-g0-generations/demo-before.json"), "utf8",
 )) as {
@@ -66,13 +75,18 @@ const UNION = [
     .flatMap((name) => rowsIn(join(RESULTS, "generations", name))),
 ].sort((a, b) => key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0);
 // The page's positions (W43 X45, claims §5.201), by the key's own trailing token rather than
-// the reducer's parser: no slider token (macOS 26.5) or glass 0.5.
+// the reducer's parser: no slider token (macOS 26.5), glass 0.5 or glass 0.25.
 const glassOf = (profileKey: string): number | undefined => {
   const token = /-glass(\d+(?:\.\d+)?)$/.exec(profileKey)?.[1];
   return token === undefined ? undefined : Number(token);
 };
+const BEFORE_POSITIONS: readonly (number | undefined)[] = [undefined, 0.5];
+const atBefore = (cell: { readonly key: { readonly profileKey: string } }): boolean =>
+  BEFORE_POSITIONS.includes(glassOf(cell.key.profileKey));
+const atClearer = (cell: { readonly key: { readonly profileKey: string } }): boolean =>
+  glassOf(cell.key.profileKey) === 0.25;
 const FILE = {
-  cells: UNION.filter((cell) => [undefined, 0.5].includes(glassOf(cell.key.profileKey))),
+  cells: UNION.filter((cell) => atBefore(cell) || atClearer(cell)),
 };
 
 /** A cell's identity in the current union: the page has no other way to name one. */
@@ -84,22 +98,31 @@ describe("the reduction against the independently read current union", () => {
   const hashes = shippedDocumentHashes();
   const kept = FILE.cells.filter((cell) => displayed(cell, hashes));
 
-  it("preserves the exact pre-migration projection, order, figures and row count", () => {
+  it("preserves the exact pre-migration projection, order and figures at 26.5 and 0.5", () => {
+    // The glass 0.25 rows joined the page at W43 G3 (iii); everything the page printed before
+    // them is still printed, cell for cell and in the same order, with the same figures.
     expect(BEFORE.matrixCellCount).toBe(1893);
     expect(BEFORE.cells.length).toBe(411);
-    expect(FILE.cells.length).toBe(1893);
-    expect(reduceMatrix()).toEqual(BEFORE);
+    expect(UNION.filter(atBefore).length).toBe(BEFORE.matrixCellCount);
+    expect(reduceMatrix().cells.filter(atBefore)).toEqual(BEFORE.cells);
   });
 
-  it("names its glass position: no row at another position reaches the page or its count", () => {
-    // Not vacuous: the union carries the glass 0.25 generations (W43 G3 (ii)).
-    const elsewhere = UNION.filter((cell) => !FILE.cells.includes(cell));
-    expect(elsewhere.length).toBe(656 + 468);
-    expect(new Set(elsewhere.map((cell) => glassOf(cell.key.profileKey)))).toEqual(new Set([0.25]));
-    const { cells, matrixCellCount } = reduceMatrix();
-    expect(matrixCellCount).toBe(FILE.cells.length);
-    expect(cells.filter((cell) => ![undefined, 0.5].includes(glassOf(cell.key.profileKey))))
-      .toEqual([]);
+  it("names its glass positions: 26.5, 0.5 and 0.25 reach the page, nothing else does", () => {
+    // The union holds exactly those three today, so the allowlist is read directly as well:
+    // a later slider position, or a macOS 27 key with no glass token, must not pass it.
+    expect(new Set(UNION.map((cell) => glassOf(cell.key.profileKey))))
+      .toEqual(new Set([undefined, 0.5, 0.25]));
+    const { cells } = reduceMatrix();
+    expect(new Set(cells.map((cell) => glassOf(cell.key.profileKey))))
+      .toEqual(new Set([undefined, 0.5, 0.25]));
+    expect(atADisplayedPosition("apple-macos-27.0-1x-light-standard-glass0.25")).toBe(true);
+    expect(atADisplayedPosition("apple-macos-27.0-1x-light-standard-glass0.75")).toBe(false);
+    expect(atADisplayedPosition("apple-macos-27.0-1x-light-standard")).toBe(false);
+  });
+
+  it("counts the whole current union, every position", () => {
+    expect(UNION.length).toBe(1893 + 656 + 468);
+    expect(reduceMatrix().matrixCellCount).toBe(UNION.length);
   });
 
   it("keeps exactly the rows the page's two rules select", () => {
@@ -174,7 +197,7 @@ describe("the reduction against the independently read current union", () => {
   });
 
   it("reports the current union’s row count, not the reduction’s", () => {
-    expect(MEASURED_CELL_COUNT).toBe(FILE.cells.length);
+    expect(MEASURED_CELL_COUNT).toBe(UNION.length);
   });
 
   it("leaves a figure for every scene measured in the union and offered in the picker", () => {
@@ -188,6 +211,90 @@ describe("the reduction against the independently read current union", () => {
     expect(measured.size).toBeGreaterThan(0);
     for (const sceneId of measured) {
       expect(REPORTS_BY_SCENE.get(sceneId)?.length ?? 0, sceneId).toBeGreaterThan(0);
+    }
+  });
+});
+
+/**
+ * The glass 0.25 cells, which entered the page at W43 G3 (iii) (charter clause 13, X45; claims
+ * §5.201) and have no pre-migration baseline to be pinned to.
+ *
+ * So they are pinned by this file's own oracle, none of which goes through the reducer: the
+ * generation files `index.json` names for the four 0.25 profiles, the profile documents hashed
+ * here rather than by `shippedDocumentHashes`, the scenes the picker offers, and the figures
+ * `figuresOf` prints off the raw row rather than off `project`'s output.
+ */
+describe("the glass 0.25 cells against this file's own oracle", () => {
+  const CLEARER_ROWS_BY_PROFILE = {
+    "apple-macos-27.0-1x-dark-standard-glass0.25": 24,
+    "apple-macos-27.0-1x-light-standard-glass0.25": 64,
+    "apple-macos-27.0-2x-dark-standard-glass0.25": 24,
+    "apple-macos-27.0-2x-light-standard-glass0.25": 64,
+  };
+  const onDisk: Readonly<Record<string, string>> = Object.fromEntries(
+    readdirSync(PROFILES)
+      .filter((file) => file.endsWith(".json"))
+      .map((file) => [
+        `packages/calibration/profiles/${file}`,
+        createHash("sha256").update(readFileSync(join(PROFILES, file))).digest("hex").slice(0, 12),
+      ]),
+  );
+  const documentOf = (scheme: "light" | "dark", receded = false): string =>
+    `packages/calibration/profiles/apple-macos-27.0-1x-${scheme}-standard-glass0.25`
+    + `${receded ? "-receded" : ""}.json`;
+  const CLAUSE = /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g;
+  const KEY_FIELDS = [
+    "engine", "engineVersion", "renderer", "samplingBackend", "gpuAdapter",
+  ] as const;
+  const expected = UNION.filter(atClearer).filter((cell) => {
+    if (!REFERENCE_SCENE_IDS.has(cell.key.sceneId)) return false;
+    const named = [...(cell.key.web["capturePath"] ?? "").matchAll(CLAUSE)];
+    return named.length > 0 && named.every((clause) => onDisk[clause[1] ?? ""] === clause[2]);
+  });
+  const reduced = reduceMatrix().cells.filter(atClearer);
+
+  it("is read from the two generations the index names for the 0.25 profiles", () => {
+    // Each generation file is named by its active document's own hash, taken here.
+    const files = Object.keys(CLEARER_ROWS_BY_PROFILE).map((key) => INDEX.currentByProfile[key]);
+    expect(new Set(files)).toEqual(
+      new Set([`${onDisk[documentOf("light")]}.json`, `${onDisk[documentOf("dark")]}.json`]),
+    );
+    expect(UNION.filter(atClearer).length).toBe(656 + 468);
+  });
+
+  it("keeps the picker's scenes at the shipped 0.25 documents, in the union's order", () => {
+    expect(reduced.map(identity)).toEqual(expected.map(identity));
+    const byProfile: Record<string, number> = {};
+    for (const cell of reduced) {
+      byProfile[cell.key.profileKey] = (byProfile[cell.key.profileKey] ?? 0) + 1;
+    }
+    expect(byProfile).toEqual(CLEARER_ROWS_BY_PROFILE);
+    expect(reduced.length).toBe(176);
+  });
+
+  it("names a 0.25 document, and only 0.25 documents, on every cell", () => {
+    for (const cell of reduced) {
+      const named = [...cell.key.web.capturePath.matchAll(CLAUSE)].map((clause) => clause[1]);
+      const scheme = cell.key.profileKey.includes("-dark-") ? "dark" : "light";
+      expect(named[0], identity(cell)).toBe(documentOf(scheme));
+      for (const document of named.slice(1)) {
+        expect(document, identity(cell)).toBe(documentOf(scheme, true));
+      }
+    }
+  });
+
+  it("prints every figure the raw row carries, and the key it was measured under", () => {
+    const rows = new Map(expected.map((cell) => [identity(cell), cell]));
+    for (const cell of reduced) {
+      const row = rows.get(identity(cell));
+      if (row === undefined) throw new Error(`no raw row for ${identity(cell)}`);
+      expect(figuresOf(cell as unknown as Cell), identity(cell))
+        .toEqual(figuresOf(row as unknown as Cell));
+      expect([cell.tier, cell.fixtureSet, cell.capturedAt], identity(cell))
+        .toEqual([row.tier, row.fixtureSet, row.capturedAt]);
+      for (const field of KEY_FIELDS) {
+        expect(cell.key.web[field], `${identity(cell)} ${field}`).toBe(row.key.web[field]);
+      }
     }
   });
 });
