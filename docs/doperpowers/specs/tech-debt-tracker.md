@@ -1082,6 +1082,13 @@ record (document digest `9360d73bd071`). Shape of the fix: a script the canonica
 the spec reading the capture from `web-captures/` on the capture machine with the fixture as the
 fallback.
 
+> **Closed by a guard, W43 G3 (iii), 2026-10-02 (claims §5.201 §29).** It went stale again. The copy
+> was W29 G4's scratch capture against the 0.19.0 document (`f42ddec1cf5a`), and only the 0.02
+> tolerance kept it green through W30–W36. The landing re-copied it from the canonical tree with a
+> 0.25 sibling. `reference-panel.gpu.spec.ts` now checks, with no browser, that each committed cell
+> names its own position's document at the bytes on disk. So a seal that moves either light document
+> fails until that position's fixture pair is re-copied, instead of drifting silently.
+
 ## The appearance switch measured at the contour instrument: the dark thin cells over structured backdrops are −16 and −19 codes in body (W23 G0, 2026-09-08)
 
 *Found beside the rim read (claims §5.100 §7).* `checkerboard__capsule-button__rest` and
@@ -7264,3 +7271,47 @@ shipped documents". Since W43 G3 (ii) three documents ship and four macOS 27 act
 the 0.25 ones also move only `optics.regular` (`tintAlpha`), so the claim holds and only its count
 is stale. `css-tier.ts` is a source of the cross-gate holdout ledger, so a comment edit moves
 `sourceSha256`; reword it with the next change that touches the file ("every shipped document").
+
+## At 0.25 the 2x light body draws fine checkers sharper than Apple's, in both poses (W43 G3 (iii), 2026-10-02)
+
+*Seen on the landing's eye sheets over the whole canonical 0.25 bed (claims §5.201 landing
+section; `results/2026-10-02-w43-g3-landing/sheets/`), measured on a deep-body crop.*
+
+On `checkerboard-4__rrect-md__rest` at 2x light, Apple's 0.25 body is nearly smooth: texture SD 2.9
+codes. vitrea's shows a crisp checker with a wavy moiré band through the lens, SD 9.1. At 0.5 the
+two read 1.7 and 2.6. The receded cell reads 0.3 against 10.5, and the 2x receded photo body shows
+the backdrop's diagonal lattice where Apple's is smooth.
+
+The cause is the fitted `sizeScatterFloor2x`, 1.0 → 0.6 in the light 0.25 document (§5.201 §4's
+structure step). The fit and every gated cut read pitch-16 checkers, and these fine-period cells
+are probe and recorded cells that no cut reads, so the transfer was never refereed. §5.201's "light
+receded checkers ×2.1–2.2" does not cover them, or the active pose.
+
+The shape of the fix: a refit of the 2x floor declared against fine and coarse pitches together,
+with the fine checkers moved into a gated role. It needs a new holdout configuration and a new
+holdout read.
+
+## Dark receded bodies over dark-solid read 11–15 codes too dark, and no gated row can see it (W43 G3 (iii), 2026-10-02)
+
+*Seen on the landing's eye sheets (claims §5.201 landing section).*
+
+On the dark inactive dark-solid cells, vitrea's body reads 33–37 codes where Apple's reads 48, and
+the orange-tint capsule reads 61 against 74. That holds at both glass positions. These rows carry no
+material axis, so L1 reports them UNMEASURED (the four dark inactive dark-solid cells W36 named), and
+the sheets print "unmeasured". The shape of the fix: give the dark-solid cells a material reading
+(the fixed-native-silhouette mean is defined there), then refit the dark receded black ordinate
+against it. The related tracker entries are "Black on black" (2026-09-10) and the light dark-solid
+inactive entry (2026-09-15).
+
+## Dark small spans hide the backdrop Apple's body shows through (W43 G3 (iii), 2026-10-02)
+
+*Seen on the landing's eye sheets (claims §5.201 landing section).*
+
+On `hc-text-28__rrect-sm__rest`, dark, Apple's glass shows the black text bar clearly: body 87
+codes, SD 37. vitrea draws a near-uniform grey slab, 152 codes with SD 6. Apple read 106 at 0.5.
+On the dark impulse, vitrea's body is 50–55 codes against Apple's 32–33, and the centre impulse is
+a soft glow where Apple's is a sharp square. Both hold at both positions.
+
+The dark `tintAlpha` 0.9 transmits a tenth of the backdrop, which is the dark photo entry's cause
+seen on text. The shape of the fix is that entry's: a dark transmission refit read against
+structure.

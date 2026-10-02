@@ -31,7 +31,8 @@
  * same OS at the slider's 0.25 position, the clearer glass, selectable by name
  * and never the default (W43 Decision Log 1). `macos26MaterialProfileDocument`
  * is the previous reference, kept shipped and selectable by name so that a page
- * pinned to the material it was designed against can stay there.
+ * pinned to the material it was designed against can stay there. Which slider
+ * position drew is a readout, `root.material.glassTintAmount`, absent on 26.5.
  *
  * Neither is the renderer's `DEFAULT_MATERIAL_PROFILE`, which W29 Decision Log
  * 1 (i) holds still at the macOS 26.5 light material: every document here is a
@@ -90,6 +91,19 @@ export interface GlassMaterialProfileDocument {
   readonly name: string;
   /** Which macOS release the material was measured on, for a readout to state. */
   readonly platform: string;
+  /**
+   * The Glass appearance slider position (`NSGlassTintAmount`) the material was measured at,
+   * for a readout to state without parsing a profile key (W43 Decision Log 1 (a)). The root
+   * carries it through to `root.material` and `GlassGroupState.materialDocument` unchanged.
+   *
+   * Absent rather than defaulted on a material measured before the axis existed. macOS 26.5
+   * has no slider, so its material says nothing about a position, and a 0.5 written there
+   * would read as a measurement nobody made; the calibration package's `NativeProfile.glass`
+   * is absent on a 26.5 key for the same reason. On a shipped document it agrees with every
+   * endpoint key's glass token, and the calibration seam reads both and refuses a document
+   * whose two statements disagree.
+   */
+  readonly glassTintAmount?: number;
   readonly active: Readonly<Record<ResolvedColorScheme, GlassMaterialEndpoint>>;
   /** Applied OVER the active endpoint of the same scheme, never instead of it. */
   readonly receded: Readonly<Record<ResolvedColorScheme, GlassMaterialEndpoint>>;
@@ -107,6 +121,7 @@ export interface GlassMaterialProfileDocument {
 export const macos27MaterialProfileDocument: GlassMaterialProfileDocument = {
   name: "apple-macos-27.0-glass0.5",
   platform: "macOS 27.0",
+  glassTintAmount: 0.5,
   active: {
     light: {
       profileKey: "apple-macos-27.0-1x-light-standard-glass0.5",
@@ -143,12 +158,14 @@ export const macos27MaterialProfileDocument: GlassMaterialProfileDocument = {
  * Decision Log 1, RULED (a)). Its four patches are generated from the four sealed calibration
  * documents by `scripts/generate-macos27-glass025-profile.mjs` and pinned to them by
  * `packages/calibration/test/macos27-profile-export.test.ts`. They name exactly the 0.5
- * material's leaves (X44), and the CSS crossing is the 0.5 one. The position is read from the
- * endpoint keys' glass token, as the calibration seam reads every shipped document's.
+ * material's leaves (X44), and the CSS crossing is the 0.5 one. The position is stated twice,
+ * by `glassTintAmount` and by every endpoint key's glass token, and the calibration seam reads
+ * both and refuses a document whose two statements disagree.
  */
 export const macos27Glass025MaterialProfileDocument: GlassMaterialProfileDocument = {
   name: "apple-macos-27.0-glass0.25",
   platform: "macOS 27.0",
+  glassTintAmount: 0.25,
   active: {
     light: {
       profileKey: "apple-macos-27.0-1x-light-standard-glass0.25",
@@ -188,6 +205,9 @@ export const macos27Glass025MaterialProfileDocument: GlassMaterialProfileDocumen
  * two keys the macOS 26.5 light document records are `CSS_TIER_MAPPING`'s own
  * shipped values, so this material's crossing IS the module default and naming
  * it again would create a second place for one number to live.
+ *
+ * It carries no `glassTintAmount`, and that is a statement too: macOS 26.5 had no
+ * Glass appearance slider, so this material was measured at no position on it.
  */
 export const macos26MaterialProfileDocument: GlassMaterialProfileDocument = {
   name: "apple-macos-26.5",

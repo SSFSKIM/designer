@@ -271,12 +271,17 @@ is the macOS 26.5 light material and does not move (W29 Decision Log 1 (i)) — 
 is a patch over it, which is what keeps the frozen macOS 26.5 documents' fingerprints green. Which
 patch a root resolves is a **selection**: `packages/platform-web/src/material-document.ts` holds one
 document per measured material (four patches — active and receded, per scheme — plus the CSS
-crossing), `macos27MaterialProfileDocument` is the default from 0.19.0, `macos26MaterialProfileDocument`
-is shipped beside it, and `createGlassRoot({ materialProfileDocument })` chooses. `src/macos27-profile.ts`
-is generated from the four macOS 27 documents by `scripts/generate-macos27-profile.mjs` and pinned to
-them by `packages/calibration/test/macos27-profile-export.test.ts`, as `src/dark-profile.ts` is by its
+crossing), `macos27MaterialProfileDocument` is the default from 0.19.0 (macOS 27 at the Glass
+slider's system default, 0.5), `macos27Glass025MaterialProfileDocument` (the slider's 0.25 position,
+W43) and `macos26MaterialProfileDocument` are shipped beside it, and
+`createGlassRoot({ materialProfileDocument })` chooses. `src/macos27-profile.ts` is generated from
+the four `-glass0.5` documents by `scripts/generate-macos27-profile.mjs`, and
+`src/macos27-glass025-profile.ts` from the four `-glass0.25` ones by
+`scripts/generate-macos27-glass025-profile.mjs`; both are pinned to their documents by
+`packages/calibration/test/macos27-profile-export.test.ts`, as `src/dark-profile.ts` is by its
 own sibling pair. `root.material` and `GlassGroupState.materialDocument` report the endpoint that
-actually drew, its digest, and whether an app tuned it — the honesty core, one axis further; in
+actually drew, its digest, whether an app tuned it and, since W43, its `glassTintAmount` (0.5 or
+0.25; absent on macOS 26.5, which has no slider) — the honesty core, one axis further; in
 React the selected document itself is on `GlassRootHandle`, which is what lets `GlassToolbar`
 derive a layout number from its own material rather than from the default one. **Since 0.22.0 an
 app reaches that same handle through `useGlassRootHandle`** (W32 Decision Log 5, ruled; the README
@@ -502,6 +507,50 @@ line of `declaration.sha256`, with `amendments.json` naming the superseded hash,
 two re-pinned files; `declare.py check` verifies the whole chain and `amend` refuses once a capture
 exists. Hash a declaration on the ASSEMBLED tree, never on a branch whose pins a sibling branch's
 fixes can still move. Nothing is captured until the user lifts X5′ for G1a.
+
+**W43 G1–G3 (§5.199–§5.201, 2026-10-01/02) captured that generation, fitted it and shipped it as a
+second fixed setting, never the default.**
+- **Captures.** G1a captured the 0.25 bed: 4,103 frames over seven unanimous runs, archived as
+  GitHub release `w43-archive-g1a`. G1b captured the probe and ladder: 1,265 frames.
+- **Reading.** G2 read that Apple's slider moves the body and its first two CSS px and nothing
+  outside them, and that the composite couples w = x with a knee at 0.5.
+- **Fit and publication.** G3 fitted candidate c05 in scratch and sealed it as
+  `profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.25{,-receded}.json`. Their digests
+  are `50430fa62c1120bd` / `b074fc6913a91c66` (active light/dark) and `5d8680980b7aeb55` /
+  `280f0fddf014e0f6` (receded). G3 read two strict-mode stages that reproduce c05 byte for byte,
+  read the holdout once (the cross-gate ledger's read 6, `--documents glass0.25`) and published
+  `results/generations/6d18c059eb42.json` (light, 656 rows) and `d0219cd684bf.json` (dark, 468).
+  The current union is 3,017 rows, and the 0.25 captures are in the canonical tree.
+- **Selecting it.** A page selects it with `createGlassRoot({ materialProfileDocument:
+  macos27Glass025MaterialProfileDocument })` or the same `<GlassRoot>` prop. A switch is a new
+  root. `glassTintAmount` reports the drawn position.
+
+Facts to keep:
+- **X44.** The 0.25 documents name exactly the 0.5 leaves and add no operator. The two are
+  points in one space, so the 0.5 digests and goldens cannot move.
+- **X45.** Every consumer of the current union names the glass position it reads. A reader that
+  selects "macOS 27 standard" by prefix now mixes two materials. The owner test gates the 0.25
+  profiles in their own blocks, and its 0.5 C1/X1/L1 rows select glass 0.5 explicitly.
+- **Strict mode.** A shipped material is read in strict mode, selected by its (OS, glass) pair.
+  That is why the runtime had to ship the 0.25 document before its stages could be read
+  (§5.201 §12).
+- **Census.** A headless web render runs under a classifying census: it refuses on Reduce
+  Transparency, Increase Contrast or a real capture process, and only annotates the user's own
+  Chrome and a browserless Playwright relay. Native captures keep the all-names census (§5.201
+  §21).
+- **S1.** S1 (the slider's direction) is read and not gated (Decision Log 5 (c)).
+
+The named gaps at 0.25 (claims §5.201; tracker):
+- one tone function cannot follow Apple on both photo and thin checkers, so the light photo thin
+  body reads +0.034/+0.044 too bright;
+- the dark scheme barely follows Apple's change (S1 medians 0.31);
+- the dark photo body is flat;
+- light receded checkers are over-structured (×2.1–2.2), and 2x fine checkers are drawn sharper
+  than Apple's in both poses since `sizeScatterFloor2x` went 1.0 → 0.6;
+- the light receded tint reads +0.023 L light;
+- the black branch and the impulse anchor are unidentified on calibration;
+- 62 E2 cells moved away from Apple at the edge;
+- the holdout's WebGPU 1x light checkerboard rrect-lg ssim reads 0.864.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

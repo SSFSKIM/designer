@@ -38,9 +38,10 @@ dist/
                               WebGPU renderer chunk
   fixtures/
     backgrounds/              the six shared raster backgrounds
-    apple-macos-26.5-1x-light-standard/
+    apple-macos-27.0-1x-{light,dark}-standard-glass{0.5,0.25}/
                               the native Liquid Glass captures the reference
-                              pair compares against
+                              pair compares against, per colour scheme and
+                              glass position
 ```
 
 **Asset paths are relative** (`base: "./"` in `vite.config.ts`), so the same
@@ -59,9 +60,10 @@ a `public/` directory and it is not duplicated into this app's source tree, beca
 the whole value of those PNGs is being the ones ScreenCaptureKit produced on the
 capture machine, and a second copy is a second thing to drift. `vite.config.ts`
 holds both halves of that: a dev-server middleware that maps `/fixtures/*` onto the
-harness directory, and a `closeBundle` hook that copies the two directories the
-site references. Add a directory to that list when the site starts showing a new
-profile.
+harness directory, and a `closeBundle` hook that copies the directories the site
+references: the backgrounds and the four 1x standard macOS 27 profiles, light and
+dark at glass 0.5 and 0.25. Add a directory to that list when the site starts
+showing a new profile.
 
 ### Publishing to GitHub Pages
 
@@ -91,13 +93,21 @@ not.
 
 ## Fidelity figures
 
-Every number on the page is read from
-`packages/calibration/results/matrix.json` at build time and rendered with its
-cell: native profile, engine and version, renderer, sampling backend, GPU adapter
-class, tier and fixture set. A scene with no measured cell renders a labelled empty
-slot instead of borrowing a figure from a different cell. Fidelity tuning runs
-separately and writes into the same file, so more cells means more filled slots and
-no page change.
+Every number on the page is read at build time from the calibration matrix's
+current union (the frozen `packages/calibration/results/matrix.json` and the
+current generations indexed under `results/generations/`, reduced by
+`matrix-reduction.ts`) and rendered with its cell: where it was measured (the
+release and, on macOS 27, the glass position), native profile, engine and version,
+renderer, sampling backend, GPU adapter class, tier and fixture set. A scene with
+no measured cell renders a labelled empty slot instead of borrowing a figure from a
+different cell. A new generation published at a position the page shows reaches it
+with no page change; a new position stays off the page until the page names it
+(`DISPLAYED_POSITIONS`, W43's X45).
+
+The page draws one glass position per load: the system default, 0.5, or the clearer
+glass with `?glass=0.25` (the site's, `/laws/`'s and the playground's own control
+sets it). The root's material document, the reference pair's captures and the
+figures beside them all follow that one choice.
 
 One check is worth naming because it is unusual: `e2e/contrast.spec.ts` measures
 text contrast over the live glass on the rendered pixels, across several phases of

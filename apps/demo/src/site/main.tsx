@@ -4,13 +4,15 @@
  * `GlassRoot` is constructed here rather than inside `Site` because the renderer
  * and the accessibility overrides are its construction props: the tier is wired
  * once, and the overrides have to reach the root rather than be applied to it
- * afterwards.
+ * afterwards. The material document is one too, chosen by the page's `?glass=`
+ * query (`../glass-document.tsx`; W43 G3 (iii), claims §5.201).
  */
 
 import { GlassRoot, type GlassColorScheme } from "@vitreajs/vitrea-react";
 import { StrictMode, useEffect, useState, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 
+import { PAGE_DOCUMENT, PAGE_GLASS } from "../glass-document";
 import "../tokens.css";
 import "./site.css";
 import { Site, type Overrides } from "./Site";
@@ -81,6 +83,7 @@ function SiteRoot(): ReactNode {
     <GlassRoot
       renderer={REQUESTED_RENDERER}
       colorScheme={colorScheme}
+      materialProfileDocument={PAGE_DOCUMENT}
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
       increasedContrast={overrides.increasedContrast}
@@ -92,6 +95,7 @@ function SiteRoot(): ReactNode {
         colorScheme={colorScheme}
         resolvedColorScheme={resolved}
         onColorSchemeChange={setColorScheme}
+        glass={PAGE_GLASS}
       />
     </GlassRoot>
   );

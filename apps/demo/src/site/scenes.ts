@@ -22,6 +22,8 @@
 // import it evaluates (W30 G3b, claims §5.159b).
 import matrix from "../../../reference-apple/scenes.json" with { type: "json" };
 
+import { DEFAULT_GLASS, glassOfProfileKey, type GlassPosition } from "../glass-position.ts";
+
 export interface SceneBox {
   readonly left: number;
   readonly top: number;
@@ -39,18 +41,6 @@ export interface ReferenceScene {
   readonly pressed: boolean;
   readonly fixtureSet: "calibration" | "validation" | "holdout";
   readonly box: SceneBox;
-  /** Relative to the site root, so the build can rewrite it. */
-  readonly nativeCapture: string;
-  /**
-   * The same scene captured under the DARK profile, absent where there is none.
-   *
-   * The dark profile carries fourteen scenes where the light one carries every
-   * scene, so most of the picker's list has no dark capture at all — and a pair
-   * is only evidence when both halves are the same colour scheme. Absent here is
-   * what the reference section reads to withdraw the comparison rather than show
-   * a dark render beside a light capture (W21 G3 review).
-   */
-  readonly darkCapture?: string;
   /**
    * W3's author tint as a CSS colour, absent on an untinted scene.
    *
@@ -66,11 +56,10 @@ export interface ReferenceScene {
 export const CANVAS: { readonly width: number; readonly height: number } = matrix.canvas;
 
 /**
- * The profiles whose fixtures the pair shows, one per colour scheme. The site
+ * The profiles whose fixtures the pair shows, one per colour scheme and glass position. The site
  * states the one it is showing on the page, beside the figures.
  *
- * Both are the 1x profiles, because that is the scale this machine captured and
- * the scale the pair's rasters are.
+ * All four are 1x profiles, because the pair's rasters are 1x.
  *
  * **They moved to macOS 27 at W29 G4**, and they had to move together with the
  * runtime rather than beside it. The pair's whole claim is "this browser, now,
@@ -79,23 +68,40 @@ export const CANVAS: { readonly width: number; readonly height: number } = matri
  * fixture under a macOS 27 render would put a real, measured difference in the
  * pair and label it vitrea's error.
  *
- * The macOS 26.5 pair is **not** offered beside it, and that is a limitation of
- * this page rather than a preference. A material document is selected at
- * construction — a page drawing one has surfaces measured against it — so
- * offering both beds would mean two roots, and the site has one. The macOS 26.5
- * material stays shipped and selectable by an application
- * (`macos26MaterialProfileDocument`); what this page cannot do is show both at
- * once, which `packages/platform-web/README.md` says.
+ * **And since W43 G3 (iii) they are keyed by the glass position too** (charter clause 13, X45;
+ * claims §5.201). macOS 27's Glass appearance slider moves Apple's own pixels, and the runtime
+ * ships a document at 0.5, the default, and at 0.25. The page chooses one at construction from
+ * `?glass=` (`../glass-position.ts`), so the capture, the cell and the live surface beside them
+ * are always one position: a 0.5 capture beside a 0.25 render would be the same mislabelled
+ * difference as a 26.5 capture beside a 27 render.
+ *
+ * The macOS 26.5 pair is **not** offered. Until W43 the reason was the page's one root: a
+ * material document is selected at construction, so the page could not present two beds at
+ * once. The positions are now offered one root per load, as the renderer is, which would carry
+ * the macOS 26.5 bed just as well; offering it is a product decision this landing did not take.
+ * The macOS 26.5 material stays shipped and selectable by an application
+ * (`macos26MaterialProfileDocument`), and `packages/platform-web/README.md` says the site shows
+ * macOS 27 only.
  */
-export const NATIVE_PROFILE = "apple-macos-27.0-1x-light-standard-glass0.5";
-export const DARK_NATIVE_PROFILE = "apple-macos-27.0-1x-dark-standard-glass0.5";
+const NATIVE_PROFILES: Readonly<Record<GlassPosition, Record<"light" | "dark", string>>> = {
+  0.5: {
+    light: "apple-macos-27.0-1x-light-standard-glass0.5",
+    dark: "apple-macos-27.0-1x-dark-standard-glass0.5",
+  },
+  0.25: {
+    light: "apple-macos-27.0-1x-light-standard-glass0.25",
+    dark: "apple-macos-27.0-1x-dark-standard-glass0.25",
+  },
+};
 
-/** Which profile speaks for a resolved colour scheme. */
-export const nativeProfileFor = (scheme: "light" | "dark"): string =>
-  scheme === "dark" ? DARK_NATIVE_PROFILE : NATIVE_PROFILE;
+/** Which profile speaks for a resolved colour scheme at a glass position. */
+export const nativeProfileFor = (
+  scheme: "light" | "dark",
+  glass: GlassPosition = DEFAULT_GLASS,
+): string => NATIVE_PROFILES[glass][scheme];
 
 /**
- * What a label calls the bed the pair's native half came from — "macOS 27.0".
+ * What a label calls the bed the pair's native half came from — "macOS 27.0, glass 0.5".
  *
  * Derived from the profile key rather than written down, which is the fix for a
  * real defect and not a tidy (W30 G4; the tracker's "the reference pair labels
@@ -106,31 +112,60 @@ export const nativeProfileFor = (scheme: "light" | "dark"): string =>
  * all macOS 27 — and no test caught it, because the assertions read the caption,
  * which is derived, and not the labels, which were literals. So the labels stop
  * being literals: a later move of the bed carries all three with it, and the one
- * reading a screen reader gets cannot be the stale one.
+ * reading a screen reader gets cannot be the stale one. The glass position is
+ * read off the same key, for the same reason.
  */
-export const nativePlatformFor = (scheme: "light" | "dark"): string => {
-  const release = /^apple-macos-([\d.]+)-/.exec(nativeProfileFor(scheme))?.[1];
-  if (release === undefined) {
+export const nativePlatformFor = (
+  scheme: "light" | "dark",
+  glass: GlassPosition = DEFAULT_GLASS,
+): string => {
+  const key = nativeProfileFor(scheme, glass);
+  const release = /^apple-macos-([\d.]+)-/.exec(key)?.[1];
+  const position = glassOfProfileKey(key);
+  if (release === undefined || position === undefined) {
     throw new Error(
-      `The native profile key ${nativeProfileFor(scheme)} does not name a macOS release, so the `
+      `The native profile key ${key} does not name a macOS release and a glass position, so the `
         + "pair cannot say which bed its capture came from.",
     );
   }
-  return `macOS ${release}`;
+  return `macOS ${release}, glass ${position}`;
 };
 
 /**
- * The scene's capture under a resolved scheme, `undefined` where there is none.
+ * Which scenes a profile captured, read from `scenes.json` itself.
  *
- * The light profile captures every scene; the dark one captures fourteen. A
- * caller that gets `undefined` must withdraw the comparison rather than fall
- * back — a dark live surface beside a light capture, under a figure measured in
- * the light scheme, is not evidence of anything.
+ * The file declares a profile's membership as an explicit list or as the string `"all"`, and
+ * both arms are handled here rather than assumed. The light profiles list every scene the picker
+ * offers and the dark ones a subset, at both positions; a wave that widens a profile widens this
+ * page by re-reading the file.
+ */
+const capturedUnder = (profileKey: string, sceneId: string): boolean => {
+  const profiles = matrix.profiles as readonly {
+    readonly key: string;
+    readonly scenes: readonly string[] | string;
+  }[];
+  const found = profiles.find((profile) => profile.key === profileKey);
+  if (found === undefined) return false;
+  return found.scenes === "all" || (found.scenes as readonly string[]).includes(sceneId);
+};
+
+/**
+ * The scene's capture under a resolved scheme and glass position, relative to the site root so
+ * the build can rewrite it; `undefined` where there is none.
+ *
+ * A pair is only evidence when both halves are the same colour scheme and the same position, and
+ * the dark profiles carry a subset of the bed. A caller that gets `undefined` must withdraw the
+ * comparison rather than fall back (W21 G3 review) — a dark live surface beside a light capture,
+ * under a figure measured in the light scheme, is not evidence of anything.
  */
 export const nativeCaptureFor = (
   scene: ReferenceScene,
   scheme: "light" | "dark",
-): string | undefined => (scheme === "dark" ? scene.darkCapture : scene.nativeCapture);
+  glass: GlassPosition = DEFAULT_GLASS,
+): string | undefined => {
+  const profile = nativeProfileFor(scheme, glass);
+  return capturedUnder(profile, scene.id) ? `fixtures/${profile}/${scene.id}.png` : undefined;
+};
 
 type ShapeSpec = { readonly kind: string; readonly size?: readonly [number, number]; readonly radius?: number };
 
@@ -150,27 +185,6 @@ const tintOf = (id: string | undefined): string | undefined => {
   const [r, g, b] = spec.srgb;
   return `rgb(${r} ${g} ${b} / ${spec.alpha ?? 1})`;
 };
-
-/**
- * Which scenes the dark profile actually captured, read from the same file.
- *
- * `scenes.json` declares a profile's membership as an explicit list or as the
- * string `"all"`, and both arms are handled here rather than assumed: the light
- * profiles say `"all"` today and the dark ones name fourteen, and a wave that
- * widens the dark profile should widen this page by re-reading the file.
- */
-const darkProfileScenes: ReadonlySet<string> | "all" = (() => {
-  const profiles = matrix.profiles as readonly {
-    readonly key: string;
-    readonly scenes: readonly string[] | string;
-  }[];
-  const found = profiles.find((profile) => profile.key === DARK_NATIVE_PROFILE);
-  if (found === undefined) return new Set<string>();
-  return found.scenes === "all" ? "all" : new Set(found.scenes as readonly string[]);
-})();
-
-const capturedInDark = (id: string): boolean =>
-  darkProfileScenes === "all" || darkProfileScenes.has(id);
 
 const setOf = (id: string): ReferenceScene["fixtureSet"] =>
   split.holdout?.includes(id) === true
@@ -265,10 +279,6 @@ export const REFERENCE_SCENES: readonly ReferenceScene[] = (
         pressed: scene.state === "pressed",
         fixtureSet: setOf(scene.id),
         box,
-        nativeCapture: `fixtures/${NATIVE_PROFILE}/${scene.id}.png`,
-        ...(capturedInDark(scene.id)
-          ? { darkCapture: `fixtures/${DARK_NATIVE_PROFILE}/${scene.id}.png` }
-          : {}),
         ...(tint === undefined ? {} : { tint }),
       } satisfies ReferenceScene,
     ];

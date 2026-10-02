@@ -324,13 +324,18 @@ export interface GlassRootOptions {
    * between — the active material and the receded difference, per colour scheme
    * — and the CSS crossing that same material was measured to cost, so all of it
    * moves together. The default is `macos27MaterialProfileDocument`, which is
-   * what a Mac draws today; `macos26MaterialProfileDocument` pins the material
-   * this package drew through 0.18.0.
+   * what a Mac draws today at the Glass appearance slider's system default, 0.5;
+   * `macos27Glass025MaterialProfileDocument` is the same release measured at the
+   * slider's 0.25, the clearer glass (W43 Decision Log 1 (a)); and
+   * `macos26MaterialProfileDocument` pins the material this package drew through
+   * 0.18.0. `root.material.glassTintAmount` reports which position drew, and is
+   * absent under the macOS 26.5 document, which predates the slider.
    *
    * `materialProfile` and `cssTierMapping` still merge OVER whatever this
    * selected, so an app can pin a reference material and tune one leaf of it.
    * Selected once, at construction: a scheme and a pose move within one
-   * material, where a different document is a different material.
+   * material, where a different document is a different material, so switching
+   * documents means a new root.
    */
   readonly materialProfileDocument?: GlassMaterialProfileDocument;
   /**
@@ -1353,9 +1358,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   /**
    * Which material actually drew, for the state every consumer reads (W29 G4).
    *
-   * Recomputed per frame rather than held, because two of its four fields follow
-   * the resolved scheme and the resolved window pose, and both of those move
-   * without a call from the app.
+   * Recomputed per frame rather than held, because two of its fields follow the
+   * resolved scheme and the resolved window pose, and both of those move without
+   * a call from the app.
    */
   const resolvedMaterialDocument = (): ResolvedMaterialDocument => {
     const scheme = resolvedScheme();
@@ -1365,6 +1370,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     return {
       name: materialDocument.name,
       platform: materialDocument.platform,
+      // The document's own slider position, carried through as it states it (W43
+      // Decision Log 1 (a)): absent on a material measured before the slider
+      // existed, and never filled in here.
+      ...(materialDocument.glassTintAmount === undefined
+        ? {}
+        : { glassTintAmount: materialDocument.glassTintAmount }),
       ...(endpoint.profileKey === undefined ? {} : { profileKey: endpoint.profileKey }),
       ...(endpoint.resolvedMaterialSha256 === undefined
         ? {}

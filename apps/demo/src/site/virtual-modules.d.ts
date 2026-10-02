@@ -42,6 +42,6 @@ declare module "virtual:vitrea-matrix-reduction" {
     readonly perceptual?: Readonly<Record<string, Metric>>;
     readonly material?: Readonly<Record<string, Metric>>;
   }[];
-  /** The current union's row count, before filtering to displayable cells. */
+  /** The whole current union's row count, every glass position, before filtering. */
   export const MATRIX_CELL_COUNT: number;
 }

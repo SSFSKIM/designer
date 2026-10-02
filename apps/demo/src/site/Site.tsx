@@ -21,9 +21,16 @@ import {
 } from "@vitreajs/vitrea-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
+import { GlassPositionField } from "../glass-document";
+import type { GlassPosition } from "../glass-position";
 import { DISPLAYABLE_CELL_COUNT, MEASURED_CELL_COUNT } from "./calibration";
 import { DiagnosticsReadout, GroupReadout } from "./Readout";
-import { REFERENCE_SCENES, nativeProfileFor, type ReferenceScene } from "./scenes";
+import {
+  REFERENCE_SCENES,
+  nativePlatformFor,
+  nativeProfileFor,
+  type ReferenceScene,
+} from "./scenes";
 import {
   GROUPS_BY_MODE,
   RASTER_SOURCE_ID,
@@ -54,6 +61,11 @@ export interface SiteProps {
   readonly colorScheme: GlassColorScheme;
   readonly resolvedColorScheme: "light" | "dark";
   readonly onColorSchemeChange: (next: GlassColorScheme) => void;
+  /**
+   * The macOS 27 glass position the root was built with — owned above for the reason the
+   * renderer is, and fixed for this load: a root selects its material document once.
+   */
+  readonly glass: GlassPosition;
 }
 
 interface SectionSpec {
@@ -178,6 +190,7 @@ export function Site(props: SiteProps): ReactNode {
     mode,
     scene,
     scheme: props.resolvedColorScheme,
+    glass: props.glass,
     panel,
     onPanelChange: setPanel,
     tint,
@@ -231,6 +244,14 @@ export function Site(props: SiteProps): ReactNode {
                 the page takes its ground down to meet them.
               </span>
             </label>
+          </Fields>
+          <Fields legend="Glass position">
+            <GlassPositionField
+              hint={
+                "The reference pair’s capture and figures follow it; the numbers quoted in "
+                + "the prose were measured at the default or on macOS 26.5."
+              }
+            />
           </Fields>
           <nav className="jump" aria-label="Sections">
             <ul>
@@ -472,10 +493,12 @@ export function Site(props: SiteProps): ReactNode {
         <Section id="reference" active={active}>
           <p className="body">
             The left panel is this browser rendering the scene now. The right panel
-            is a screen capture of Apple&rsquo;s own <code>glassEffect</code> on
-            macOS 26.5, taken through ScreenCaptureKit because Liquid Glass is
-            composited by the window server and an application cannot capture its
-            own material.
+            is a screen capture of Apple&rsquo;s own <code>glassEffect</code> on{" "}
+            {nativePlatformFor(props.resolvedColorScheme, props.glass)}, taken through
+            ScreenCaptureKit because Liquid Glass is composited by the window server
+            and an application cannot capture its own material. The glass position is
+            the one this page was opened at, and the material the left panel draws is
+            the one measured there.
           </p>
           <p className="body">
             Both panels place the same shape at the same coordinates because both
@@ -506,26 +529,33 @@ export function Site(props: SiteProps): ReactNode {
           <h3 className="h3">What these numbers are, and are not</h3>
           <ul className="list">
             <li>
-              {MEASURED_CELL_COUNT} cells in the result matrix, which holds one
-              generation per profile: the rows measured at the material documents
-              the runtime currently ships. Readings taken at a document a later
-              refit superseded are kept beside it, in
-              <code> packages/calibration/results/superseded/</code>, and are not
-              counted here. This page is built with the{" "}
-              {DISPLAYABLE_CELL_COUNT} of them that belong to the scenes this
-              picker offers, projected to the figures below; the rest are in the
-              file and are the gate&rsquo;s business, not this page&rsquo;s.
+              {MEASURED_CELL_COUNT} cells in the result matrix&rsquo;s current
+              union: the frozen macOS 26.5 rows, and one current generation per
+              macOS 27 profile at both glass positions the runtime ships, 0.5 and
+              0.25. Every one of them was measured at a material document the
+              runtime currently ships. Readings taken at a document a later refit
+              superseded are kept beside them and are not counted here: in
+              <code> packages/calibration/results/superseded/</code>, and from the
+              next refit on as retired files under
+              <code> packages/calibration/results/generations/</code>. This page is
+              built with the {DISPLAYABLE_CELL_COUNT} of them that belong to the
+              scenes this picker offers, both positions included, projected to the
+              figures below; the rest are in the matrix and are the gate&rsquo;s
+              business, not this page&rsquo;s.
             </li>
             <li>
               Every figure is keyed to its cell: native profile, engine and version,
-              renderer, sampling backend, GPU adapter class, tier and fixture set.
+              renderer, sampling backend, GPU adapter class, tier and fixture set,
+              with the release and glass position it was measured at printed first.
               The claim is never &ldquo;pixel-identical to Apple&rdquo;. It is
-              reference-calibrated against {nativeProfileFor(props.resolvedColorScheme)},
-              the profile of the colour scheme this page is drawing.
+              reference-calibrated against{" "}
+              {nativeProfileFor(props.resolvedColorScheme, props.glass)}, the profile
+              of the colour scheme and glass position this page is drawing.
             </li>
             <li>
-              1x only. This machine reports a backing scale of 1.0, so the canonical
-              2x profiles are unmeasured and are not claimed.
+              1x only. The pair&rsquo;s rasters are 1x and so are the figures shown
+              beside them; the 2x profiles are measured too, and their readings are
+              not shown here.
             </li>
             <li>
               The pressed scenes are excluded from this pair on purpose: they compare

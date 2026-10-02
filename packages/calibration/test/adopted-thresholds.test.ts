@@ -155,6 +155,32 @@
  *     > WebGPU calibration/validation rows: 136 measured, four UNMEASURED and
  *     > two named 0.066 absolute misses, not an all-cell pass. Growth <= 0.005
  *     > applies to the misses too. W34's one-code tolerance is NOT adopted here.
+ *     > **2026-10-02, W43 G3 (iii) (Decision Log 5 (a)–(e) as RULED; claims §5.201):
+ *     > the glass 0.25 position takes the same rows, each read at its own position.**
+ *     > The four `-glass0.25` standard profiles carry the 0.5 tables per tier, and
+ *     > M1, C1, X1 and L1 at the 0.5 bounds on the WebGPU tier, each in a case beside
+ *     > its 0.5 one so that no statistic mixes the two materials (X45). M2 is
+ *     > directional against Apple's 0.25 texture, its reference the pre-fit render,
+ *     > re-baselined at this gate. They clear the two grounds on the 0.5 rows' own
+ *     > instrument, and the slider supplies the evidence that matters here.
+ *     > **Not below quantisation**: §5.200's native delta reads Apple's 0.25 body
+ *     > 3.3 codes darker than 0.5 active and 7.3 receded (light medians), with a
+ *     > transfer slope ×1.1–1.9. The 0.25 bed's own run-to-run spread is exactly 0
+ *     > on all 22,427 cell-metric distributions, so the 0.5 bar sets every judged bar.
+ *     > **Not unidentifiable**: the refit moved one family per scheme at a time,
+ *     > and each move is visible on the rows it is bounded by. `tintAlpha` moved
+ *     > structure ×1.18–1.22 and level under 0.001; one tone ordinate moved the
+ *     > photo and checker thin cells at a measured Jacobian of about 0.95 (§5.201
+ *     > §4). It is the narrower claim in three places, each by ruling:
+ *     >   - no accessibility profile was captured at 0.25;
+ *     >   - E2 is listed per cell and never gated;
+ *     >   - S1 is read on its fixed population and gated by nothing, because
+ *     >     Decision Log 5 (c) adopts it only by the user's ruling and none has.
+ *     > Every row the 0.25 bed misses is a named miss the user ruled under (e):
+ *     >   - one calibration CSS table row;
+ *     >   - six holdout table rows;
+ *     >   - seventeen M2 named misses.
+ *     > No floor is adopted (d).
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -206,6 +232,7 @@ import { loadCurrentRows, loadGeneration, legacyEnvelopeDigest } from "../src/ma
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, realpathSync } from "node:fs";
 import { resolve } from "node:path";
+import { gunzipSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 
 import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
@@ -1186,6 +1213,74 @@ const RULED_EQUAL_TO_26_5: Readonly<Record<string, readonly GateRow[]>> = {
   DOM_TIER_27_INCREASED_CONTRAST_COUPLED: DOM_TIER_INCREASED_CONTRAST,
 };
 
+/**
+ * The glass 0.25 tables: the 0.5 standard tables per tier, as W43 Decision Log 5 (a) rules
+ * (RULED 2026-10-02, "Adopt all eleven recommendations"; claims §5.201).
+ *
+ * Declared before G3 read any 0.25 render, on W29 Decision Log 4 (a)'s form one position along:
+ * each is an alias of the 0.5 table of the same scheme and scale, which is itself the 26.5 one.
+ * The counts are the machine's output from the published generation, transcribed as every count
+ * here is; nothing was pending, because the tables were declared and read in the same wave and
+ * landed together. No floor is adopted on any of them (Decision Log 5 (d)): the bed is at the
+ * seven-run bar. Every row they miss is in `MISSED_27_ROWS`, each RULED a named miss by the user
+ * under Decision Log 5 (e).
+ */
+const TEXTURE_TIER_27_GLASS025_LIGHT = TEXTURE_TIER_27_LIGHT;
+const DOM_TIER_27_GLASS025_LIGHT = DOM_TIER_27_LIGHT;
+const TEXTURE_TIER_27_GLASS025_2X_LIGHT = TEXTURE_TIER_27_2X_LIGHT;
+const DOM_TIER_27_GLASS025_2X_LIGHT = DOM_TIER_27_2X_LIGHT;
+const TEXTURE_TIER_27_GLASS025_DARK = TEXTURE_TIER_27_DARK;
+const DOM_TIER_27_GLASS025_DARK = DOM_TIER_27_DARK;
+const TEXTURE_TIER_27_GLASS025_2X_DARK = TEXTURE_TIER_27_2X_DARK;
+const DOM_TIER_27_GLASS025_2X_DARK = DOM_TIER_27_2X_DARK;
+
+/**
+ * The four glass 0.25 standard profiles Decision Log 5 (a) declares, and no others. No
+ * accessibility profile was captured at 0.25 (W43 Decision Log 2 (b)), so none is declared.
+ */
+const DECLARED_27_GLASS025_PROFILES: readonly GatedProfile[] = [
+  {
+    profileKey: "apple-macos-27.0-1x-light-standard-glass0.25",
+    cells: { texture: 36, dom: 36 },
+    texture: TEXTURE_TIER_27_GLASS025_LIGHT,
+    dom: DOM_TIER_27_GLASS025_LIGHT,
+    names: { texture: "TEXTURE_TIER_27_GLASS025_LIGHT", dom: "DOM_TIER_27_GLASS025_LIGHT" },
+  },
+  {
+    profileKey: "apple-macos-27.0-2x-light-standard-glass0.25",
+    cells: { texture: 36, dom: 36 },
+    texture: TEXTURE_TIER_27_GLASS025_2X_LIGHT,
+    dom: DOM_TIER_27_GLASS025_2X_LIGHT,
+    names: { texture: "TEXTURE_TIER_27_GLASS025_2X_LIGHT", dom: "DOM_TIER_27_GLASS025_2X_LIGHT" },
+  },
+  {
+    profileKey: "apple-macos-27.0-1x-dark-standard-glass0.25",
+    cells: { texture: 13, dom: 13 },
+    texture: TEXTURE_TIER_27_GLASS025_DARK,
+    dom: DOM_TIER_27_GLASS025_DARK,
+    names: { texture: "TEXTURE_TIER_27_GLASS025_DARK", dom: "DOM_TIER_27_GLASS025_DARK" },
+  },
+  {
+    profileKey: "apple-macos-27.0-2x-dark-standard-glass0.25",
+    cells: { texture: 13, dom: 13 },
+    texture: TEXTURE_TIER_27_GLASS025_2X_DARK,
+    dom: DOM_TIER_27_GLASS025_2X_DARK,
+    names: { texture: "TEXTURE_TIER_27_GLASS025_2X_DARK", dom: "DOM_TIER_27_GLASS025_2X_DARK" },
+  },
+];
+
+/** The 0.5 table each 0.25 table is ruled equal to — the pin on the alias. */
+const RULED_EQUAL_TO_GLASS05: Readonly<Record<string, readonly GateRow[]>> = {
+  TEXTURE_TIER_27_GLASS025_LIGHT: TEXTURE_TIER_27_LIGHT,
+  DOM_TIER_27_GLASS025_LIGHT: DOM_TIER_27_LIGHT,
+  TEXTURE_TIER_27_GLASS025_2X_LIGHT: TEXTURE_TIER_27_2X_LIGHT,
+  DOM_TIER_27_GLASS025_2X_LIGHT: DOM_TIER_27_2X_LIGHT,
+  TEXTURE_TIER_27_GLASS025_DARK: TEXTURE_TIER_27_DARK,
+  DOM_TIER_27_GLASS025_DARK: DOM_TIER_27_DARK,
+  TEXTURE_TIER_27_GLASS025_2X_DARK: TEXTURE_TIER_27_2X_DARK,
+  DOM_TIER_27_GLASS025_2X_DARK: DOM_TIER_27_2X_DARK,
+};
+
 const transcribed27 = (profile: Declared27Profile): profile is GatedProfile =>
   profile.cells !== PENDING_UNTIL_THE_27_READ;
 
@@ -1201,14 +1296,22 @@ const transcribed27 = (profile: Declared27Profile): profile is GatedProfile =>
 const GATED_PROFILES: readonly GatedProfile[] = [
   ...GATED_PROFILES_26_5,
   ...DECLARED_27_PROFILES.filter(transcribed27),
+  ...DECLARED_27_GLASS025_PROFILES,
+];
+
+/** Every gated macOS 27 profile, both glass positions: what the 27 owner cases walk. */
+const GATED_27_PROFILES: readonly GatedProfile[] = [
+  ...DECLARED_27_PROFILES.filter(transcribed27),
+  ...DECLARED_27_GLASS025_PROFILES,
 ];
 
 /**
  * How many profiles the gate covers, pinned so the composition above cannot
- * quietly cover fewer. It was 6 while the 27 read was pending and is 12 now
- * that the six 27 profiles carry the counts the canonical run measured.
+ * quietly cover fewer. It was 6 while the 27 read was pending and 12 once the
+ * six 27 profiles carried the counts the canonical run measured; it is 16 since
+ * W43 G3 (iii) added the four glass 0.25 standard profiles.
  */
-const GATED_PROFILE_COUNT = 12;
+const GATED_PROFILE_COUNT = 16;
 
 /**
  * The one 27 key that gets no table in this wave, named so its absence from
@@ -1295,9 +1398,14 @@ const MATRIX_PARTITION: Readonly<Record<string, number>> = {
   "apple-macos-27.0-1x-light-standard-glass0.5": 72,
   "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
   "apple-macos-27.0-2x-light-standard-glass0.5": 72,
+  // W43 G3 (iii): the published glass 0.25 generation's gated bed (claims §5.201).
+  "apple-macos-27.0-1x-dark-standard-glass0.25": 26,
+  "apple-macos-27.0-1x-light-standard-glass0.25": 72,
+  "apple-macos-27.0-2x-dark-standard-glass0.25": 26,
+  "apple-macos-27.0-2x-light-standard-glass0.25": 72,
 };
 
-const MATRIX_CELLS = 459; // 458 until W29 G3b re-read the 27 bed (§5.154); 229 until W29 G3 appended it (§5.153); 230 until W18 G2 (§5.79)
+const MATRIX_CELLS = 655; // 459 until W43 G3 (iii) gated the glass 0.25 bed (§5.201); 458 until W29 G3b re-read the 27 bed (§5.154); 229 until W29 G3 appended it (§5.153); 230 until W18 G2 (§5.79)
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
@@ -1411,6 +1519,12 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
   "apple-macos-27.0-2x-dark-standard-glass0.5": { texture: [], dom: [] },
   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": { texture: [], dom: [] },
   "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": { texture: [], dom: [] },
+  // W43 G3 (iii): the glass 0.25 bed's lists are empty too, on the same measurement — every
+  // near-tone cell of the published generation yields a contour on both tiers (claims §5.201).
+  "apple-macos-27.0-1x-light-standard-glass0.25": { texture: [], dom: [] },
+  "apple-macos-27.0-2x-light-standard-glass0.25": { texture: [], dom: [] },
+  "apple-macos-27.0-1x-dark-standard-glass0.25": { texture: [], dom: [] },
+  "apple-macos-27.0-2x-dark-standard-glass0.25": { texture: [], dom: [] },
 };
 
 /**
@@ -1894,6 +2008,43 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   // antialiased contour ring INSIDE the declared region, which would put the
   // effect where that ring is the largest fraction of the region: the thinnest
   // span, which is where it landed. The tracker carries the measurement.
+  // **W43 G3 (iii): the glass 0.25 bed's named misses, every one RULED by the user under
+  // Decision Log 5 (e)** (claims §5.201 §§6, 16). They are recorded at adoption, as M1's three
+  // and W29's tables were, and none is a floor (Decision Log 5 (d)).
+  //
+  //   - One CALIBRATION table row, the CSS 1x light `checkerboard__rrect-ml__rest` ssimMean,
+  //     which the pre-fit render already missed: "All named misses; proceed to G3 (ii)".
+  //   - Six HOLDOUT table rows, read once: "All six named misses; publish". Four are the CSS
+  //     rows the 0.5 generation records above, read again at 0.25. The WebGPU 1x light
+  //     `checkerboard__rrect-lg__rest` is new, the rrect-lg stratum's named gap (Decision Log 7
+  //     item 9). The CSS 2x light `checkerboard__glass-over-glass__rest` is new by 0.00004.
+  //   - Seventeen M2 NAMED misses on the light photo cells, each moving toward Apple's 0.25
+  //     texture and none past it, with Apple's reading beside it. Their reference is the pre-fit
+  //     render, so each is this wave's change from the 0.5 material, not a drift.
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: ssimMean": { measured: 0.87367, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: ssimMean": { measured: 0.86471, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: ssimMean": { measured: 0.91996, bound: "≥ 0.92" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: ssimMean": { measured: 0.86607, bound: "≥ 0.9" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: oklabDeltaEP95": { measured: 0.20600, bound: "≤ 0.18" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: oklabDeltaEP95": { measured: 0.20071, bound: "≤ 0.19" },
+  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.24575, bound: "≤ 0.02", native: 0.05528 },
+  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.29614, bound: "≤ 0.02", native: 0.05498 },
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.08851, bound: "≤ 0.02", native: 0.06596 },
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.11093, bound: "≤ 0.02", native: 0.06737 },
+  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.25999, bound: "≤ 0.02", native: 0.07185 },
+  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.32144, bound: "≤ 0.02", native: 0.07421 },
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.18108, bound: "≤ 0.02", native: 0.08877 },
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.22204, bound: "≤ 0.02", native: 0.08935 },
+  "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.19182, bound: "≤ 0.02", native: 0.10291 },
+  "texture / calibration / photo__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.21253, bound: "≤ 0.02", native: 0.10320 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: ssimMean": { measured: 0.86409, bound: "≥ 0.88" },
+  "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.15851, bound: "≤ 0.02", native: 0.02246 },
+  "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.02309, bound: "≤ 0.02", native: 0.03912 },
+  "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.04583, bound: "≤ 0.02", native: 0.03918 },
+  "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.06831, bound: "≤ 0.02", native: 0.10328 },
+  "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.12675, bound: "≤ 0.02", native: 0.09980 },
+  "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.08642, bound: "≤ 0.02", native: 0.10977 },
+  "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.10560, bound: "≤ 0.02", native: 0.10760 },
 };
 
 /*
@@ -1944,6 +2095,16 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
  * Its macOS 26.5 sibling one line up is unmoved and cannot move: that document is
  * frozen. The two beds reading the same scene at different conditioning is the
  * generation difference, visible.
+ *
+ * 2026-10-02, W43 G3 (iii) (claims §5.201): **ninety-five**, the glass 0.25 bed adding
+ * twenty-eight — the machine's output at the published generation, transcribed; the 0.5
+ * entries are unchanged. Every one fails on the NATIVE side, as the 0.5 bed's siblings do:
+ * Apple's own 0.25 reference is not resolvable there, never vitrea's render. Twelve are the
+ * light-solid capsule, rrect-md and rrect-ml at both scales and tiers (native area 0.67–0.92 of
+ * the region, in 8–14 bodies). The rrect-ml joins at 0.25 only, where Apple's clearer body
+ * reads 0.923 of the region against 0.998 at 0.5. The other sixteen are the dark profiles'
+ * siblings of 0.5's entries: the photo capsule, rrect-md and rrect-lg (native area 0.87–0.92,
+ * the capsule in two bodies) and the impulse capsule (0.08).
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -1953,26 +2114,40 @@ const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.25",
   "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.25",
   "dom / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.25",
   "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.25",
   "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "dom / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.25",
+  "dom / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.25",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
@@ -1989,13 +2164,23 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.25",
   "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.25",
   "texture / calibration / light-solid__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.25",
   "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.25",
   "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+  "texture / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.25",
+  "texture / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.25",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -2005,13 +2190,17 @@ const PREDICATE_EXCLUDES = [
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
   "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
   "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
 ] as const;
 
@@ -2085,42 +2274,21 @@ const MATRIX_PATH = resolve(
   process.env["VITREA_MATRIX_PATH"] ?? resolve(PACKAGE_ROOT, "results", "matrix.json"),
 );
 /**
- * The glass positions this file defers to a later gate, and nothing else (W43 X45, claims
- * §5.201).
+ * The macOS 27 glass position a row was drawn at, from its key (W43 X45, claims §5.201).
  *
- * Since W43 G3 (ii) the current union carries a second macOS 27 position: the glass 0.25
- * generations (`generations/6d18c059eb42.json`, `d0219cd684bf.json`) beside the glass 0.5
- * ones. Every bound, floor, count, partition and `PREDICATE_EXCLUDES` entry here was measured
- * at macOS 26.5 (no slider) or macOS 27 glass 0.5, so a read of the union that did not name its
- * position would gate one material's rows against another's numbers, which is X45's defect.
- * G3 (iii) states the 0.25 populations beside these, and until it does the 0.25 rows are
- * deferred here by their position.
- *
- * The list names what is deferred rather than what is gated, because only a deferral keeps the
- * file's refusals live. An allowlist of gated positions would drop a row at a position nobody
- * declared, such as a glass 0.75 key or a macOS 27 key with no glass token, before the partition
- * and the "refuses one it never declared" check could see it, so the union would look smaller
- * rather than wrong. Here a row is dropped only when its key parses to a deferred pair; every
- * other row, an unparseable key included, stays in the union for those checks to refuse. The
- * selection is by the position the key parses to, never by naming generations, so a refit at
- * the deferred position stays deferred by itself. The deferral ends when G3 (iii) adds the 0.25
- * blocks, and its entry leaves this list then.
+ * Since W43 G3 (ii) the current union carries two macOS 27 positions: the glass 0.5 generations
+ * and the glass 0.25 ones (`generations/6d18c059eb42.json`, `d0219cd684bf.json`). Every table
+ * here names its profiles, so the tables see each position under its own keys. The material rows
+ * select their beds by a rule instead (a prefix, a scheme, a role), and a rule that did not name
+ * the position would read both materials into one bed, which is X45's defect. So each of them
+ * states the position it reads through this helper, and the glass 0.25 rows W43 G3 (iii) adopts
+ * are stated beside the glass 0.5 ones rather than mixed into them. Until that landing the 0.25
+ * rows were deferred out of the union read here; the deferral ended with it.
  */
-const DEFERRED_POSITIONS: readonly { readonly osVersion: string; readonly glass: number }[] = [
-  { osVersion: "27.0", glass: 0.25 },
-];
-
-/** Does this key parse to a deferred position? A key that does not parse is never deferred. */
-function atADeferredPosition(profileKey: string): boolean {
-  const position = keyPosition(profileKey);
-  return position !== undefined && DEFERRED_POSITIONS.some(
-    (deferred) => deferred.osVersion === position.osVersion && deferred.glass === position.glass,
-  );
-}
+const glassOf = (profileKey: string): number | undefined => keyPosition(profileKey)?.glass;
 
 // W40: canonical reads union frozen and current generations; scratch remains one file.
-const CURRENT_ROWS = loadCurrentRows({ matrixPath: MATRIX_PATH })
-  .filter((row) => !atADeferredPosition(row.key.profileKey));
+const CURRENT_ROWS = loadCurrentRows({ matrixPath: MATRIX_PATH });
 const MATRIX_FILE: ResultMatrix = {
   schemaVersion: RESULT_MATRIX_SCHEMA_VERSION,
   cells: CURRENT_ROWS as unknown as readonly Cell[],
@@ -2510,7 +2678,7 @@ const CHROMA_CELL_MAX = 1.4;
  */
 const CHROMA_STRUCTURE_TOLERANCE = 0.02;
 
-const chromaKey = (cell: ChromaCutCell): string =>
+const chromaKey = (cell: Pick<ChromaCutCell, "tier" | "set" | "scene" | "profile">): string =>
   `${cell.tier} / ${cell.set} / ${cell.scene} / ${cell.profile}`;
 
 /**
@@ -2543,10 +2711,12 @@ const chromaStructureMisses = (): readonly ChromaCutCell[] =>
  * Lifted out of the M1 / M2 block at W42 G0 (Decision Log 5a), unchanged, because
  * M2's named-miss derivation below reads Apple's texture off these same rows.
  */
-const bedFromMatrix = (): Map<string, Cell> => {
+const bedFromMatrix = (
+  profiles: Readonly<Record<string, "light" | "dark">> = CHROMA_BED_PROFILES,
+): Map<string, Cell> => {
   const out = new Map<string, Cell>();
   for (const cell of MATRIX_FILE.cells) {
-    if (CHROMA_BED_PROFILES[cell.key.profileKey] === undefined) continue;
+    if (profiles[cell.key.profileKey] === undefined) continue;
     if (cell.key.web.renderer !== "webgpu") continue;
     if (cell.fixtureSet !== "calibration" && cell.fixtureSet !== "validation") continue;
     const scene = cell.key.sceneId;
@@ -2610,8 +2780,20 @@ const structureVerdict = (
     : "failure";
 };
 
+/** What M2's verdict and its record read off a cut cell, at either glass position. */
+type StructureCell = Pick<
+  ChromaCutCell,
+  | "profile"
+  | "scene"
+  | "set"
+  | "tier"
+  | "interiorStdDevWeb"
+  | "interiorStdDevWebReference"
+  | "structureDeltaFraction"
+>;
+
 interface StructureMiss {
-  readonly cell: ChromaCutCell;
+  readonly cell: StructureCell;
   readonly native: number;
   readonly verdict: Exclude<StructureVerdict, "within">;
 }
@@ -2635,6 +2817,173 @@ const chromaStructureVerdicts = (): readonly StructureMiss[] => {
 /** The M2 misses `MISSED_27_ROWS` records, and the only ones it may. */
 const chromaStructureNamedMisses = (): readonly StructureMiss[] =>
   chromaStructureVerdicts().filter((miss) => miss.verdict === "named");
+
+// ---------------------------------------------------------------------------
+// W43 G3 (iii) — the glass 0.25 rows' cut, regenerated at the landing from the published
+// generation (Decision Log 5 (a)–(e), RULED 2026-10-02; claims §5.201). The rows are in their
+// own blocks beside the 0.5 ones; what lives here is the reading the `MISSED_27_ROWS` owner
+// needs as well.
+// ---------------------------------------------------------------------------
+
+/** One M1 / M2 cell of the 0.25 cut: the 0.5 cut's reading, with Apple's texture carried. */
+interface Glass025ChromaCell extends StructureCell {
+  readonly scheme: "light" | "dark";
+  readonly scale: number;
+  readonly pose: "active" | "inactive";
+  readonly R: number;
+  readonly interiorStdDevNative: number;
+}
+
+interface Glass025Cut {
+  readonly bed: {
+    readonly kind: string;
+    readonly rows: number;
+    readonly documents: Readonly<Record<string, string>>;
+    readonly missingNonHoldout: Readonly<Record<string, readonly string[]>>;
+  };
+  readonly reference: {
+    readonly kind: string;
+    readonly stamp: string;
+    readonly matrices: readonly { readonly sha256: string; readonly rows: number }[];
+  };
+  readonly withHoldout: boolean;
+  readonly M1: { readonly webgpu: {
+    readonly beds: Readonly<Record<string, { readonly cells: number; readonly median: number }>>;
+    readonly cellMisses: readonly unknown[];
+    readonly unmeasured: readonly string[];
+    readonly noRow: readonly string[];
+  } };
+  readonly M1M2cells: { readonly webgpu: readonly Omit<Glass025ChromaCell, "tier">[] };
+  readonly C1: { readonly webgpu: {
+    readonly perBedSpan: Readonly<Record<string, { readonly cells: number; readonly statistic: number }>>;
+    readonly cells: Readonly<Record<string, { readonly bed: string; readonly span: number; readonly T: number }>>;
+    readonly noRow: readonly string[];
+  } };
+  readonly X1: { readonly webgpu: {
+    readonly cells: number;
+    readonly failing: readonly unknown[];
+    readonly noRow: readonly string[];
+    readonly perCell: readonly {
+      readonly cell: string;
+      readonly role: string;
+      readonly span: number;
+      readonly pose: string;
+      readonly background: string;
+      readonly webSha256: string;
+      readonly integer: { readonly pixels: number; readonly aboveZero: number; readonly aboveOne: number };
+      readonly analytic: { readonly pixels: number; readonly aboveZero: number; readonly aboveOne: number };
+    }[];
+  } };
+  readonly L1: { readonly webgpu: {
+    readonly population: number;
+    readonly measured: number;
+    readonly unmeasured: readonly string[];
+    readonly growthUnmeasured: readonly string[];
+    readonly noRow: readonly string[];
+    readonly absoluteMisses: readonly unknown[];
+    readonly growthMisses: readonly unknown[];
+    readonly cells: readonly {
+      readonly cell: string;
+      readonly native: number | null;
+      readonly web: number | null;
+      readonly prefitError: number | null;
+      readonly error: number | null;
+      readonly growth: number | null;
+      readonly status: string;
+    }[];
+  } };
+  readonly E2: { readonly webgpu: {
+    readonly cells: number;
+    readonly measured: number;
+    readonly unmeasured: readonly string[];
+    readonly noRow: readonly string[];
+    readonly failing: readonly { readonly cell: string }[];
+    readonly perCell: readonly { readonly cell: string; readonly verdict: string }[];
+  } };
+  readonly S1: { readonly webgpu: { readonly population: number; readonly pooledMedianRatio: number } };
+}
+
+/**
+ * The cut, run by `results/2026-10-02-w43-g3-landing/cuts/landing.py` with G3's own `cuts.py`
+ * over the published generation's 0.25 rows, read out of the union through the store. That
+ * script also holds it equal, section by section, to the reading G3 (ii) took on its publication
+ * stages (`landing.json`, verdict EQUAL), so the record the user ruled on and the one gated here
+ * are the same numbers. It is never the only copy: every figure a row below gates is re-derived
+ * from the union and from the pre-fit render it names.
+ */
+const GLASS025_CUT = readJson<Glass025Cut>(
+  resolve(PACKAGE_ROOT, "results", "2026-10-02-w43-g3-landing", "cuts", "cut-025.json"),
+);
+
+/** The beds the 0.25 M1 / M2 rows are stated over, with the scheme each reads at. */
+const GLASS025_BED_PROFILES: Readonly<Record<string, "light" | "dark">> = {
+  "apple-macos-27.0-1x-light-standard-glass0.25": "light",
+  "apple-macos-27.0-2x-light-standard-glass0.25": "light",
+  "apple-macos-27.0-1x-dark-standard-glass0.25": "dark",
+  "apple-macos-27.0-2x-dark-standard-glass0.25": "dark",
+};
+
+/**
+ * The pre-fit render: the shipped 0.5 documents drawn on the 0.25 cells, every row stamped
+ * `crossPosition=shipped-glass0.5-against-glass0.25` (§5.201 §2). It is L1's growth baseline and
+ * M2's reference (Decision Log 5 (b)), re-baselined at this gate under W32 Decision Log 4: the
+ * 0.25 rows bound THIS wave's change, from the 0.5 material to the 0.25 one. It is a scratch read
+ * and no generation, so it is named by its committed file and hash rather than by the index.
+ */
+const GLASS025_PREFIT = {
+  file: "results/2026-10-02-w43-g3-refit/prefit/matrix.json.gz",
+  sha256: "504c5348638265e6a141308d4f74d98dc6119dfbb9e12e15164fc6e028bdebbb",
+  stamp: "crossPosition=shipped-glass0.5-against-glass0.25",
+} as const;
+
+let glass025PrefitCache: Map<string, Cell> | undefined;
+
+/** The pre-fit rows, `profile renderer scene` → row, refused unless the bytes are the named ones. */
+const glass025Prefit = (): Map<string, Cell> => {
+  if (glass025PrefitCache !== undefined) return glass025PrefitCache;
+  const raw = gunzipSync(readFileSync(resolve(PACKAGE_ROOT, GLASS025_PREFIT.file)));
+  const sha = createHash("sha256").update(raw).digest("hex");
+  if (sha !== GLASS025_PREFIT.sha256) {
+    throw new Error(`${GLASS025_PREFIT.file}: decompresses to ${sha}, not ${GLASS025_PREFIT.sha256}`);
+  }
+  const out = new Map<string, Cell>();
+  for (const cell of (JSON.parse(raw.toString("utf8")) as ResultMatrix).cells) {
+    if (!cell.key.web.capturePath.includes(GLASS025_PREFIT.stamp)) {
+      throw new Error(`${name(cell)}: a pre-fit row without the cross-position stamp`);
+    }
+    out.set(`${cell.key.profileKey} ${cell.key.web.renderer} ${cell.key.sceneId}`, cell);
+  }
+  glass025PrefitCache = out;
+  return out;
+};
+
+/** The 0.25 cut's M1 / M2 cells, on the texture tier the rows are stated on. */
+const glass025ChromaCells = (): readonly Glass025ChromaCell[] =>
+  GLASS025_CUT.M1M2cells.webgpu.map((cell) => ({ ...cell, tier: "texture" as const }));
+
+/** M1's per-cell clause at 0.25: the derivation the owner and the row share. */
+const glass025PerCellMisses = (): readonly Glass025ChromaCell[] =>
+  glass025ChromaCells().filter((cell) => cell.R < CHROMA_CELL_MIN || cell.R > CHROMA_CELL_MAX);
+
+/**
+ * M2 at 0.25, directional against Apple's 0.25 texture in W42 Decision Log 5a's form: the same
+ * `structureVerdict` the 0.5 row reads, with Apple's reading taken off the published row and the
+ * reference off the pre-fit render.
+ */
+const glass025StructureVerdicts = (): readonly StructureMiss[] => {
+  const bed = bedFromMatrix(GLASS025_BED_PROFILES);
+  return glass025ChromaCells().flatMap((cell): StructureMiss[] => {
+    const row = bed.get(`${cell.profile} ${cell.scene}`);
+    if (row === undefined) throw new Error(`${chromaKey(cell)}: no published row to read Apple from`);
+    const native = reading(row, "material", "interiorStdDevNative");
+    const verdict = structureVerdict(cell, native);
+    return verdict === "within" ? [] : [{ cell, native, verdict }];
+  });
+};
+
+/** The 0.25 M2 misses `MISSED_27_ROWS` records, and the only ones it may. */
+const glass025StructureNamedMisses = (): readonly StructureMiss[] =>
+  glass025StructureVerdicts().filter((miss) => miss.verdict === "named");
 
 // ---------------------------------------------------------------------------
 
@@ -3285,7 +3634,7 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
      * floor, so there is no number here for a later run to be held to.
      */
     const missed: string[] = [];
-    for (const profile of DECLARED_27_PROFILES.filter(transcribed27)) {
+    for (const profile of GATED_27_PROFILES) {
       for (const tier of ["texture", "dom"] as const) {
         for (const [axis, metric, comparison, threshold] of profile[tier]) {
           for (const cell of cellsOf(profile.profileKey, tier)) {
@@ -3319,9 +3668,17 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
     // Since W42 G0 (Decision Log 5a) only a NAMED miss joins: a miss that moves
     // away from Apple, or past it by more than 2 %, cannot be recorded, so it is
     // left out here and fails the M2 case whether or not an entry names it.
-    const namedStructureMisses = chromaStructureNamedMisses();
+    const namedStructureMisses = [
+      ...chromaStructureNamedMisses(),
+      // W43 G3 (iii): the glass 0.25 bed's M2 named misses, the 17 Decision Log 5 (e) ruled,
+      // derived from the landing cut and the rows on the same rule (claims §5.201).
+      ...glass025StructureNamedMisses(),
+    ];
     for (const { cell } of namedStructureMisses) {
       missed.push(`${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`);
+    }
+    for (const cell of glass025PerCellMisses()) {
+      missed.push(`${chromaKey(cell)} :: ${CHROMA_METRIC}`);
     }
     expect(missed.sort(), "the 27 rows that miss their declared bound").toEqual(
       Object.keys(MISSED_27_ROWS).sort(),
@@ -3330,7 +3687,7 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
     // And each chroma miss's recorded reading is the cut's own, to five decimals,
     // on the same rule as the tabled rows below: the prose beside the list cannot
     // drift from the artifact it describes.
-    for (const cell of chromaPerCellMisses()) {
+    for (const cell of [...chromaPerCellMisses(), ...glass025PerCellMisses()]) {
       const row = MISSED_27_ROWS[`${chromaKey(cell)} :: ${CHROMA_METRIC}`];
       expect(row, `${chromaKey(cell)}: a chroma miss with no recorded reading`).toBeDefined();
       expect(cell.R, `${chromaKey(cell)} :: ${CHROMA_METRIC}`).toBeCloseTo(
@@ -3365,7 +3722,7 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
 
     // Every recorded reading is the one the sealed read took, to five decimals —
     // so the prose beside the list cannot drift from the artifact it describes.
-    for (const profile of DECLARED_27_PROFILES.filter(transcribed27)) {
+    for (const profile of GATED_27_PROFILES) {
       for (const tier of ["texture", "dom"] as const) {
         for (const [axis, metric] of profile[tier]) {
           for (const cell of cellsOf(profile.profileKey, tier)) {
@@ -3383,7 +3740,11 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
 
   it("gates every 27 row it finds, and refuses one it never declared", () => {
     const rows = MATRIX.cells.filter((cell) => cell.key.profileKey.startsWith("apple-macos-27.0-"));
-    const declared = new Set(DECLARED_27_PROFILES.map((profile) => profile.profileKey));
+    // Both glass positions' declarations (W43 G3 (iii)): a row at a position neither declares —
+    // glass 0.75, or a macOS 27 key with no glass token — is refused here by name.
+    const declared = new Set(
+      [...DECLARED_27_PROFILES, ...DECLARED_27_GLASS025_PROFILES].map((profile) => profile.profileKey),
+    );
     for (const cell of rows) {
       expect(
         declared,
@@ -3715,33 +4076,6 @@ describe("the recorded role is captured, and gated by nothing (Decision Log 19 r
       [...RECORDED_SCENES].some((sceneId) => key.includes(` / ${sceneId} / `)),
     );
     expect(floored).toEqual([]);
-  });
-});
-
-/**
- * The glass 0.25 position is deferred to G3 (iii), and no other position is (W43 X45, claims
- * §5.201).
- *
- * The deferral is the one drop made before `MATRIX_FILE`, so the guards above cannot see what it
- * removed: a predicate that dropped a glass 0.75 row would leave every count they read intact.
- * The keys are therefore passed through the filter's own predicate, and the undeclared ones must
- * come out kept, which is what lets the partition and the 27 refusal reach them.
- */
-describe("the deferred glass position, and only it, is read at a later gate (W43 X45)", () => {
-  it("defers a glass 0.25 key and keeps a glass 0.75, a token-less 27.0 and a garbled one", () => {
-    const deferred = [
-      "apple-macos-27.0-1x-light-standard-glass0.25",
-      "apple-macos-27.0-2x-dark-standard-glass0.25",
-    ];
-    const kept = [
-      "apple-macos-27.0-1x-light-standard-glass0.75",
-      "apple-macos-27.0-1x-light-standard",
-      "apple-macos-27.0-1x-light-standard-glass",
-      "apple-macos-27.0-1x-light-standard-glass0.5",
-      "apple-macos-26.5-1x-light-standard",
-    ];
-    expect(deferred.filter((key) => !atADeferredPosition(key))).toEqual([]);
-    expect(kept.filter(atADeferredPosition)).toEqual([]);
   });
 });
 
@@ -4610,6 +4944,8 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
     ).toEqual(
       Object.keys(MISSED_27_ROWS)
         .filter((key) => key.endsWith(` :: ${CHROMA_STRUCTURE_METRIC}`))
+        // This cut's position (W43 X45): the glass 0.25 bed's M2 entries are its own block's.
+        .filter((key) => glassOf(key.split(" :: ")[0]?.split(" / ")[3] ?? "") === 0.5)
         .sort(),
     );
   });
@@ -4839,7 +5175,7 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
    * The re-derivation's own selection and statistic, over any rows: the case below states
    * why it exists. Each entry keeps its source row so that a guard can seed one through it.
    */
-  const deriveClause = (cells: readonly Cell[]) => {
+  const deriveClause = (cells: readonly Cell[], glass = 0.5) => {
     const derived: {
       readonly key: string;
       readonly cell: Cell;
@@ -4849,6 +5185,9 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
     for (const cell of cells) {
       const profileKey = cell.key.profileKey;
       if (!profileKey.startsWith("apple-macos-27.0-")) continue;
+      // The position the clause is read at (W43 X45): the 0.5 cut by default, the 0.25 rows
+      // only when a case names them, so the two materials never share a bed × span statistic.
+      if (glassOf(profileKey) !== glass) continue;
       if (cell.fixtureSet === "holdout") continue;
       if (inRecordedRole(cell)) continue;
       if (!atAShippedDocument(cell)) continue;
@@ -5007,6 +5346,61 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
       });
     }
   }
+
+  /**
+   * **C1 at glass 0.25** (W43 Decision Log 5 (b), RULED 2026-10-02; claims §5.201).
+   *
+   * The same clause, tolerance, spans, band rule and statistic, over the published glass 0.25
+   * rows, read at its own position so the two materials never share a bed × span statistic.
+   * Decision Log 7 item 7 holds every `outerShadow` leaf, so the ruling expected C1 to reproduce
+   * its 0.5 readings and called a change a defect rather than a fit. The landing cut records the
+   * pre-fit render's and the shipped 0.5 generation's statistic beside each bed × span; this
+   * case re-derives the 0.25 readings from the rows in both directions and gates them.
+   */
+  const glass025C1 = () => new Map(
+    deriveClause(MATRIX_FILE.cells, 0.25).map((entry) => [entry.key, entry] as const),
+  );
+
+  it("glass 0.25: re-derives every reading of the clause from the published rows", () => {
+    const derived = glass025C1();
+    const fromCut = GLASS025_CUT.C1.webgpu.cells;
+    expect(GLASS025_CUT.C1.webgpu.noRow, "a declared C1 member with no row").toEqual([]);
+    expect(
+      Object.keys(fromCut).map((key) => key.replace("/", " ")).sort(),
+      "the 0.25 clause's cells against the published rows'",
+    ).toEqual([...derived.keys()].sort());
+    for (const [key, row] of Object.entries(fromCut)) {
+      const here = derived.get(key.replace("/", " "));
+      expect(here, `${key}: in the cut and not in the published rows`).toBeDefined();
+      if (here === undefined) continue;
+      expect(row.T, `${key}: T against the published row`).toBeCloseTo(here.T, 12);
+    }
+  });
+
+  for (const bed of Object.keys(CONTRIBUTING_CELLS)) {
+    for (const span of C1_SPANS) {
+      it(`glass 0.25, ${bed}, span ${span}: the exterior's shape is within ${C1_TOLERANCE}`, () => {
+        const readings = [...glass025C1().values()]
+          .filter((entry) => {
+            const profile = entry.cell.key.profileKey;
+            const at = `${profile.includes("-2x-") ? 2 : 1}x ${profile.includes("-dark-") ? "dark" : "light"}`;
+            return at === bed && spanOf(entry.cell.key.sceneId.split("__")[1] ?? "") === span;
+          })
+          .map((entry) => entry.T);
+        const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} span ${span}`];
+        expect(recorded, `${bed} span ${span}: the landing cut's bed × span`).toBeDefined();
+        expect(readings.length, `${bed} span ${span}: the cells read`).toBe(recorded?.cells);
+        expect(readings.length, `${bed} span ${span}: nothing to gate`).toBeGreaterThan(0);
+        const statistic = upperMiddle(readings);
+        expect(recorded?.statistic, `${bed} span ${span}: the cut's statistic`).toBeCloseTo(statistic, 12);
+        expect(
+          statistic,
+          `glass 0.25 ${bed} span ${span}: ${readings.length} cells, `
+            + `${Math.min(...readings).toFixed(5)}–${Math.max(...readings).toFixed(5)}`,
+        ).toBeLessThanOrEqual(C1_TOLERANCE);
+      });
+    }
+  }
 });
 
 /**
@@ -5079,6 +5473,7 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
     const kind = declaration.components[scene?.component ?? ""]?.kind;
     return cell.key.profileKey.startsWith("apple-macos-27.0-")
       && cell.key.profileKey.includes("-standard-")
+      && glassOf(cell.key.profileKey) === 0.5 // W43 X45: the 0.25 rows are read below, apart
       && cell.tier === "texture" && cell.key.web.renderer === "webgpu"
       && ["calibration", "validation", "probe"].includes(roles.get(cell.key.sceneId) ?? "")
       && ["rest", "inactive"].includes(scene?.state ?? "")
@@ -5117,13 +5512,68 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
     }
   });
 
+  /**
+   * One cell's exterior black-floor reading, from its pixels: the native fixture, the web capture
+   * at `webPath` and the declared backdrop, over both masks. Lifted out of the case below at W43
+   * G3 (iii), unchanged, so the glass 0.25 rows are read by the very same arithmetic.
+   */
+  const blackReading = (profile: string, id: string, webPath: string) => {
+    const fixtures = resolve(PACKAGE_ROOT, "../../apps/reference-apple/fixtures");
+    const load = (path: string): CalibrationImage => decodePng(readFileSync(path));
+    const label = key(profile, id);
+    const scene = scenes.get(id)!;
+    const component = declaration.components[scene.component]!;
+    const scale = profile.includes("-2x-") ? 2 : 1;
+    const native = load(resolve(fixtures, profile, `${id}.png`));
+    const web = load(webPath);
+    const backdrop = load(resolve(fixtures, "backgrounds", `${scene.background}@${scale}x.png`));
+    const dimensions = [declaration.canvas.width * scale, declaration.canvas.height * scale];
+    for (const image of [native, web, backdrop]) {
+      expect([image.width, image.height], label).toEqual(dimensions);
+    }
+    const [width, height] = component.size!;
+    const [dx, dy] = component.offset ?? [0, 0];
+    const x0 = ((declaration.canvas.width - width) / 2 + dx) * scale;
+    const y0 = ((declaration.canvas.height - height) / 2 + dy) * scale;
+    const x1 = x0 + width * scale, y1 = y0 + height * scale;
+    const empty = () => ({ backdropBlack: 0, nativeNonzero: 0, pixels: 0,
+      aboveZero: 0, aboveOne: 0, fraction: null as number | null });
+    const derived = { integer: empty(), analytic: empty() };
+    for (let y = 0; y < native.height; y++) {
+      for (let x = 0; x < native.width; x++) {
+        const offset = (y * native.width + x) * 4;
+        const blackAt = (image: CalibrationImage) =>
+          image.data[offset] === 0 && image.data[offset + 1] === 0 && image.data[offset + 2] === 0;
+        if (!blackAt(backdrop)) continue;
+        const masks = {
+          integer: Math.max(x0 - x, x - (x1 - 1), y0 - y, y - (y1 - 1)) >= 2 * scale,
+          analytic: Math.hypot(Math.max(x0 - (x + .5), x + .5 - x1, 0),
+            Math.max(y0 - (y + .5), y + .5 - y1, 0)) >= 2 * scale,
+        };
+        for (const mask of ["integer", "analytic"] as const) {
+          if (!masks[mask]) continue;
+          const reading = derived[mask];
+          reading.backdropBlack++;
+          if (!blackAt(native)) { reading.nativeNonzero++; continue; }
+          reading.pixels++;
+          const maximum = Math.max(web.data[offset]!, web.data[offset + 1]!, web.data[offset + 2]!);
+          if (maximum > 0) reading.aboveZero++;
+          if (maximum > 1) reading.aboveOne++;
+        }
+      }
+    }
+    for (const mask of ["integer", "analytic"] as const) {
+      const d = derived[mask];
+      d.fraction = d.pixels ? d.aboveZero / d.pixels : null;
+    }
+    return derived;
+  };
+
   it("re-derives every figure from the matrix-named captures, or reports unmeasured", ctx => {
     const captures = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
     if (!existsSync(captures)) {
       ctx.skip("UNMEASURED X1: canonical capture tree absent; no pixel assertion passed");
     }
-    const fixtures = resolve(PACKAGE_ROOT, "../../apps/reference-apple/fixtures");
-    const load = (path: string): CalibrationImage => decodePng(readFileSync(path));
     for (const cell of population) {
       const profile = cell.key.profileKey, id = cell.key.sceneId;
       const label = key(profile, id);
@@ -5131,8 +5581,7 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
       expect(row, label).toBeDefined();
       if (row === undefined) throw new Error(`${label}: absent from the cut`);
       const scene = scenes.get(id)!;
-      const component = declaration.components[scene.component]!;
-      const scale = profile.includes("-2x-") ? 2 : 1;
+      const [width, height] = declaration.components[scene.component]!.size!;
       const directory = resolve(captures, profile, id);
       const meta = readJson<{ readonly capturePath: string }>(
         resolve(directory, "cell__webgpu.json"),
@@ -5146,55 +5595,96 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
       for (const match of documents) {
         expect(SHIPPED_DOCUMENT_HASHES.get(match[1] ?? ""), label).toBe(match[2]);
       }
-      const native = load(resolve(fixtures, profile, `${id}.png`));
-      const web = load(resolve(directory, `${id}__webgpu.png`));
-      const backdrop = load(resolve(fixtures, "backgrounds", `${scene.background}@${scale}x.png`));
-      const dimensions = [declaration.canvas.width * scale, declaration.canvas.height * scale];
-      for (const image of [native, web, backdrop]) {
-        expect([image.width, image.height], label).toEqual(dimensions);
-      }
-      const [width, height] = component.size!;
-      const [dx, dy] = component.offset ?? [0, 0];
-      const x0 = ((declaration.canvas.width - width) / 2 + dx) * scale;
-      const y0 = ((declaration.canvas.height - height) / 2 + dy) * scale;
-      const x1 = x0 + width * scale, y1 = y0 + height * scale;
       expect({ role: row.role, span: row.span, pose: row.pose, background: row.background }).toEqual({
         role: roles.get(id), span: Math.min(width, height), pose: scene.state,
         background: scene.background,
       });
-      const empty = () => ({ backdropBlack: 0, nativeNonzero: 0, pixels: 0,
-        aboveZero: 0, aboveOne: 0, fraction: null as number | null });
-      const derived = { integer: empty(), analytic: empty() };
-      for (let y = 0; y < native.height; y++) {
-        for (let x = 0; x < native.width; x++) {
-          const offset = (y * native.width + x) * 4;
-          const blackAt = (image: CalibrationImage) =>
-            image.data[offset] === 0 && image.data[offset + 1] === 0 && image.data[offset + 2] === 0;
-          if (!blackAt(backdrop)) continue;
-          const masks = {
-            integer: Math.max(x0 - x, x - (x1 - 1), y0 - y, y - (y1 - 1)) >= 2 * scale,
-            analytic: Math.hypot(Math.max(x0 - (x + .5), x + .5 - x1, 0),
-              Math.max(y0 - (y + .5), y + .5 - y1, 0)) >= 2 * scale,
-          };
-          for (const mask of ["integer", "analytic"] as const) {
-            if (!masks[mask]) continue;
-            const reading = derived[mask];
-            reading.backdropBlack++;
-            if (!blackAt(native)) { reading.nativeNonzero++; continue; }
-            reading.pixels++;
-            const maximum = Math.max(web.data[offset]!, web.data[offset + 1]!, web.data[offset + 2]!);
-            if (maximum > 0) reading.aboveZero++;
-            if (maximum > 1) reading.aboveOne++;
-          }
-        }
-      }
+      const derived = blackReading(profile, id, resolve(directory, `${id}__webgpu.png`));
       for (const mask of ["integer", "analytic"] as const) {
-        const d = derived[mask];
-        d.fraction = d.pixels ? d.aboveZero / d.pixels : null;
-        expect(d, `${label}: ${mask} pixels disagree with the cut`).toEqual(row[mask]);
+        expect(derived[mask], `${label}: ${mask} pixels disagree with the cut`).toEqual(row[mask]);
       }
     }
   }, 30_000);
+
+  /**
+   * **X1 at glass 0.25** (W43 Decision Log 5 (b), RULED 2026-10-02; claims §5.201): the black
+   * branch's referee at the new position, on the same population rule, masks and zero targets.
+   * The population is larger than the 0.5 one (242 cells against 218) only because the 0.25 bed
+   * reads probe cells the 0.5 generation never read (§5.201 §2); the rule is unchanged. The
+   * landing cut records `pixels`, `aboveZero` and `aboveOne` per mask and the capture's own
+   * SHA-256, and every figure is re-derived from the pixels the published row names.
+   */
+  const population025 = MATRIX_FILE.cells.filter(cell => {
+    const scene = scenes.get(cell.key.sceneId);
+    const kind = declaration.components[scene?.component ?? ""]?.kind;
+    return cell.key.profileKey.startsWith("apple-macos-27.0-")
+      && cell.key.profileKey.includes("-standard-")
+      && glassOf(cell.key.profileKey) === 0.25
+      && cell.tier === "texture" && cell.key.web.renderer === "webgpu"
+      && ["calibration", "validation", "probe"].includes(roles.get(cell.key.sceneId) ?? "")
+      && ["rest", "inactive"].includes(scene?.state ?? "")
+      && BLACK.includes(scene?.background ?? "")
+      && (kind === "rrect" || kind === "capsule");
+  });
+  const cut025 = new Map(GLASS025_CUT.X1.webgpu.perCell.map(r => [r.cell, r] as const));
+
+  it("glass 0.25: the cut covers the bed's population, and both targets read zero", () => {
+    expect(population025.length).toBeGreaterThan(0);
+    expect([...cut025.keys()].sort()).toEqual(
+      population025.map(c => `${c.key.profileKey}/${c.key.sceneId}`).sort(),
+    );
+    expect(GLASS025_CUT.X1.webgpu.cells).toBe(population025.length);
+    expect(GLASS025_CUT.X1.webgpu.noRow).toEqual([]);
+    expect(GLASS025_CUT.X1.webgpu.failing).toEqual([]);
+    for (const r of cut025.values()) {
+      for (const mask of ["integer", "analytic"] as const) {
+        expect(r[mask].pixels, r.cell).toBeGreaterThan(0);
+        expect(r[mask].aboveZero, r.cell).toBe(0);
+        expect(r[mask].aboveOne, r.cell).toBe(0);
+      }
+    }
+  });
+
+  it("glass 0.25: re-derives every figure from the matrix-named captures, or reports unmeasured", ctx => {
+    const captures = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
+    if (!existsSync(captures)) {
+      ctx.skip("UNMEASURED X1 at glass 0.25: canonical capture tree absent; no pixel assertion passed");
+    }
+    for (const cell of population025) {
+      const profile = cell.key.profileKey, id = cell.key.sceneId;
+      const label = key(profile, id);
+      const row = cut025.get(`${profile}/${id}`);
+      expect(row, label).toBeDefined();
+      if (row === undefined) throw new Error(`${label}: absent from the cut`);
+      const scene = scenes.get(id)!;
+      const [width, height] = declaration.components[scene.component]!.size!;
+      const directory = resolve(captures, profile, id);
+      const meta = readJson<{ readonly capturePath: string }>(
+        resolve(directory, "cell__webgpu.json"),
+      );
+      expect(meta.capturePath, label).toBe(cell.key.web.capturePath);
+      const documents = [...meta.capturePath.matchAll(
+        /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
+      )];
+      expect(documents.length, label).toBe(2);
+      for (const match of documents) {
+        expect(SHIPPED_DOCUMENT_HASHES.get(match[1] ?? ""), label).toBe(match[2]);
+      }
+      const webPath = resolve(directory, `${id}__webgpu.png`);
+      expect(createHash("sha256").update(readFileSync(webPath)).digest("hex"), label)
+        .toBe(row.webSha256);
+      expect({ role: row.role, span: row.span, pose: row.pose, background: row.background }).toEqual({
+        role: roles.get(id), span: Math.min(width, height), pose: scene.state,
+        background: scene.background,
+      });
+      const derived = blackReading(profile, id, webPath);
+      for (const mask of ["integer", "analytic"] as const) {
+        const { pixels, aboveZero, aboveOne } = derived[mask];
+        expect({ pixels, aboveZero, aboveOne }, `${label}: ${mask} pixels disagree with the cut`)
+          .toEqual(row[mask]);
+      }
+    }
+  }, 60_000);
 });
 
 /**
@@ -5255,7 +5745,8 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     ...SCENE_DECLARATION.split["calibration"]!, ...SCENE_DECLARATION.split["validation"]!,
   ]);
   const selected = (c: Cell): boolean => c.key.profileKey.startsWith("apple-macos-27.0-")
-    && c.key.profileKey.includes("-standard-") && c.tier === "texture"
+    && c.key.profileKey.includes("-standard-") && glassOf(c.key.profileKey) === 0.5
+    && c.tier === "texture"
     && c.key.web.renderer === "webgpu" && allowed.has(c.key.sceneId);
   const key = (c: Cell): string => `${c.key.profileKey}/${c.key.sceneId}`;
   const population = MATRIX_FILE.cells.filter(selected);
@@ -5351,7 +5842,11 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     const canonical = realpathSync(MATRIX_PATH) === realpathSync(
       resolve(PACKAGE_ROOT, "results", "matrix.json"),
     );
-    expect(CUT.matrixSha256).toBe(canonical ? legacyEnvelopeDigest(CURRENT_ROWS)
+    // The W36 cut digests the union it was taken over. Since W43 G3 (ii) the union also holds
+    // the glass 0.25 generation, published after it, so the witness is the union without that
+    // position: the same rows, in the same order, as the cut saw (W43 X45, claims §5.201).
+    const before025 = CURRENT_ROWS.filter((row) => glassOf(row.key.profileKey) !== 0.25);
+    expect(CUT.matrixSha256).toBe(canonical ? legacyEnvelopeDigest(before025)
       : createHash("sha256").update(readFileSync(MATRIX_PATH)).digest("hex"));
     for (const c of population) {
       const baseline = old.find(b => key(b) === key(c));
@@ -5440,5 +5935,238 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
       misses.filter(m => m.verdict === "failure").map(m => m.cell),
       "an L1 growth failure on the live matrix",
     ).toEqual([]);
+  });
+
+  /**
+   * **L1 at glass 0.25** (W43 Decision Log 5 (b), RULED 2026-10-02; claims §5.201): the same
+   * fixed-native-silhouette level, the same 0.055 absolute bound and the same 0.005 growth bound,
+   * over the same declared population rule at the new position. Growth is read against the
+   * pre-fit render (the shipped 0.5 documents on the 0.25 cells), the baseline the ruling names
+   * and the one every G3 cut read; it is this gate's own re-baseline, so it bounds this wave's
+   * change from the 0.5 material. The four dark inactive dark-solid means are UNMEASURED at 0.25
+   * as at 0.5, and no cell misses either clause, so the 0.25 rows carry no named miss here.
+   */
+  const MISSING_025 = [1, 2].flatMap(scale => ["capsule-button", "rrect-md"].map(component =>
+    `apple-macos-27.0-${scale}x-dark-standard-glass0.25/dark-solid__${component}__inactive`));
+  const population025 = MATRIX_FILE.cells.filter(c =>
+    c.key.profileKey.startsWith("apple-macos-27.0-") && c.key.profileKey.includes("-standard-")
+    && glassOf(c.key.profileKey) === 0.25 && c.tier === "texture"
+    && c.key.web.renderer === "webgpu" && allowed.has(c.key.sceneId));
+  const prefit025 = (c: Cell): Cell | undefined =>
+    glass025Prefit().get(`${c.key.profileKey} webgpu ${c.key.sceneId}`);
+
+  it("glass 0.25: the population, its UNMEASURED means and the pre-fit baseline it names", () => {
+    const L1 = GLASS025_CUT.L1.webgpu;
+    expect(population025).toHaveLength(140);
+    expect(new Set(population025.map(key)).size).toBe(140);
+    expect(L1.population).toBe(140);
+    expect(L1.noRow).toEqual([]);
+    expect(L1.cells.map(r => r.cell).sort()).toEqual(population025.map(key).sort());
+    const missing = population025.filter(c => error(c) === null).map(key).sort();
+    expect(missing).toEqual(MISSING_025);
+    expect([...L1.unmeasured].sort()).toEqual(missing);
+    expect(L1.growthUnmeasured).toEqual([]);
+    expect(L1.measured).toBe(136);
+    for (const c of population025) {
+      expect(prefit025(c), `${key(c)}: no pre-fit row`).toBeDefined();
+      const documents = [...c.key.web.capturePath.matchAll(
+        /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
+      )];
+      expect(documents, key(c)).toHaveLength(2);
+      for (const match of documents) {
+        expect(SHIPPED_DOCUMENT_HASHES.get(match[1]!), key(c)).toBe(match[2]);
+      }
+    }
+  });
+
+  it("glass 0.25: re-derives every recorded mean, error and growth from the rows", () => {
+    const L1 = GLASS025_CUT.L1.webgpu;
+    const byCell = new Map(L1.cells.map(r => [r.cell, r] as const));
+    for (const c of population025) {
+      const baseline = prefit025(c)!;
+      const n = value(c, "interiorMeanNative"), w = value(c, "interiorMeanWeb");
+      expect(n, key(c)).toBe(value(baseline, "interiorMeanNative"));
+      const e = error(c), before = error(baseline);
+      // An UNMEASURED cell names which clauses it leaves unread, as G3's cut records it.
+      const unread = [...(e === null ? ["absolute"] : []),
+        ...(e === null || before === null ? ["growth"] : [])];
+      expect(byCell.get(key(c)), key(c)).toEqual({
+        cell: key(c), native: n, web: w, prefitError: before, error: e,
+        growth: e === null || before === null ? null : e - before,
+        status: e === null ? "UNMEASURED" : "MEASURED",
+        ...(unread.length > 0 ? { unmeasuredClauses: unread } : {}),
+      });
+    }
+    expect(L1.absoluteMisses).toEqual([]);
+    expect(L1.growthMisses).toEqual([]);
+  });
+
+  it("glass 0.25 L1: absolute error at most 0.055 and growth at most 0.005, on every cell", () => {
+    for (const c of population025) {
+      const e = error(c), before = error(prefit025(c)!);
+      if (e === null || before === null) {
+        expect(MISSING_025, `UNMEASURED L1 at glass 0.25: ${key(c)}`).toContain(key(c));
+        continue;
+      }
+      expect(e, `${key(c)}: absolute`).toBeLessThanOrEqual(0.055);
+      expect(e - before, `${key(c)}: growth against the pre-fit render`).toBeLessThanOrEqual(0.005);
+    }
+  });
+});
+
+/**
+ * **W43 — the glass 0.25 rows** (Decision Log 5 (a)–(e), RULED 2026-10-02 by the user, "Adopt all
+ * eleven recommendations"; charter clause 13; claims §5.201).
+ *
+ * The tables are in `DECLARED_27_GLASS025_PROFILES` and gate through the general cases above;
+ * C1, X1 and L1 at 0.25 sit in their own blocks beside the 0.5 rows; the M2 named misses and the
+ * seven table misses are in `MISSED_27_ROWS`. What is here: the declaration, the landing cut's
+ * provenance, M1 and M2 at 0.25, and the two readings that are recorded and not gated (E2 per
+ * cell, never a bound under W42 Decision Log 5e's form; S1, which Decision Log 5 (c) adopts only
+ * by the user's ruling at the landing, and which no ruling has adopted).
+ */
+describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims §5.201)", () => {
+  /** Which beds the 0.25 M1 / M2 cut carries, with how many cells: the 0.5 cut's counts. */
+  const CONTRIBUTING_CELLS: Readonly<Record<string, number>> = {
+    "light|active": 10,
+    "light|inactive": 8,
+    "dark|active": 4,
+    "dark|inactive": 4,
+  };
+
+  it("declares exactly the four glass 0.25 standard profiles, each table its 0.5 twin's", () => {
+    expect(DECLARED_27_GLASS025_PROFILES.map((profile) => profile.profileKey).sort()).toEqual([
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "apple-macos-27.0-1x-light-standard-glass0.25",
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "apple-macos-27.0-2x-light-standard-glass0.25",
+    ]);
+    for (const profile of DECLARED_27_GLASS025_PROFILES) {
+      expect(glassOf(profile.profileKey), profile.profileKey).toBe(0.25);
+      for (const tier of ["texture", "dom"] as const) {
+        const twin = RULED_EQUAL_TO_GLASS05[profile.names[tier]];
+        expect(twin, `${profile.names[tier]}: no 0.5 table named as its twin`).toBeDefined();
+        expect(profile[tier], `${profile.profileKey} / ${tier}`).toEqual(twin);
+      }
+    }
+    expect(Object.keys(RULED_EQUAL_TO_GLASS05)).toHaveLength(2 * DECLARED_27_GLASS025_PROFILES.length);
+    // Decision Log 5 (d): no floor, the bed being at the seven-run bar.
+    expect(Object.keys(REGRESSION_FLOORS).filter((key) => key.includes("-glass0.25"))).toEqual([]);
+  });
+
+  it("reads a cut regenerated at this gate from the published generation", () => {
+    // The cut's own bed is the published 0.25 rows, read through the store: the four sealed
+    // documents at their live hash, every declared non-holdout cell present, no holdout.
+    expect(GLASS025_CUT.bed.kind).toBe("sealed");
+    expect(GLASS025_CUT.withHoldout).toBe(false);
+    for (const [path, sha] of Object.entries(GLASS025_CUT.bed.documents)) {
+      expect(SHIPPED_DOCUMENT_HASHES.get(path), path).toBe(sha);
+    }
+    expect(Object.keys(GLASS025_CUT.bed.documents)).toHaveLength(4);
+    expect(GLASS025_CUT.bed.missingNonHoldout).toEqual({});
+    const published = MATRIX_FILE.cells.filter(
+      (cell) => glassOf(cell.key.profileKey) === 0.25 && cell.fixtureSet !== "holdout",
+    );
+    expect(GLASS025_CUT.bed.rows).toBe(published.length);
+    // Its reference is the pre-fit render, named by its committed file and hash.
+    expect(GLASS025_CUT.reference.kind).toBe("prefit");
+    expect(GLASS025_CUT.reference.stamp).toBe(GLASS025_PREFIT.stamp);
+    expect(GLASS025_CUT.reference.matrices.map((matrix) => matrix.sha256)).toEqual([
+      GLASS025_PREFIT.sha256,
+    ]);
+    expect(glass025Prefit().size).toBe(GLASS025_CUT.reference.matrices[0]?.rows);
+  });
+
+  it("re-derives every M1 / M2 figure from the published rows and the pre-fit render", () => {
+    const bed = bedFromMatrix(GLASS025_BED_PROFILES);
+    const cells = glass025ChromaCells();
+    expect(cells.map((cell) => `${cell.profile} ${cell.scene}`).sort()).toEqual([...bed.keys()].sort());
+    for (const cut of cells) {
+      const row = bed.get(`${cut.profile} ${cut.scene}`)!;
+      const before = glass025Prefit().get(`${cut.profile} webgpu ${cut.scene}`);
+      expect(before, `${chromaKey(cut)}: no pre-fit row`).toBeDefined();
+      if (before === undefined) continue;
+      expect(row.fixtureSet, chromaKey(cut)).toBe(cut.set);
+      const native = reading(row, "material", "chromaStructureRatioNative");
+      const web = reading(row, "material", "chromaStructureRatioWeb");
+      expect(cut.R, `${chromaKey(cut)}: R against the row`).toBeCloseTo(web / native, 12);
+      expect(cut.interiorStdDevWeb, chromaKey(cut)).toBeCloseTo(
+        reading(row, "material", "interiorStdDevWeb"), 12);
+      expect(cut.interiorStdDevNative, chromaKey(cut)).toBeCloseTo(
+        reading(row, "material", "interiorStdDevNative"), 12);
+      const reference = reading(before, "material", "interiorStdDevWeb");
+      expect(cut.interiorStdDevWebReference, chromaKey(cut)).toBeCloseTo(reference, 12);
+      expect(cut.structureDeltaFraction, chromaKey(cut)).toBeCloseTo(
+        (cut.interiorStdDevWeb - reference) / reference, 12);
+    }
+    const counted: Record<string, number> = {};
+    for (const cell of cells) counted[`${cell.scheme}|${cell.pose}`] = (counted[`${cell.scheme}|${cell.pose}`] ?? 0) + 1;
+    expect(counted).toEqual(CONTRIBUTING_CELLS);
+    expect(GLASS025_CUT.M1.webgpu.unmeasured).toEqual([]);
+    expect(GLASS025_CUT.M1.webgpu.noRow).toEqual([]);
+  });
+
+  it("M1 at glass 0.25: every bed's median R in [0.80, 1.20], every cell in [0.60, 1.40]", () => {
+    for (const bed of Object.keys(CONTRIBUTING_CELLS)) {
+      const values = glass025ChromaCells()
+        .filter((cell) => `${cell.scheme}|${cell.pose}` === bed)
+        .map((cell) => cell.R)
+        .sort((a, b) => a - b);
+      const middle = values.length / 2;
+      const median = values.length % 2 === 0
+        ? ((values[middle - 1] ?? Number.NaN) + (values[middle] ?? Number.NaN)) / 2
+        : (values[Math.floor(middle)] ?? Number.NaN);
+      expect(median, `${bed}: median R over ${values.length} cells`).toBeGreaterThanOrEqual(CHROMA_MEDIAN_MIN);
+      expect(median, `${bed}: median R over ${values.length} cells`).toBeLessThanOrEqual(CHROMA_MEDIAN_MAX);
+      expect(GLASS025_CUT.M1.webgpu.beds[bed]?.median, `${bed}: the cut's median`).toBeCloseTo(median, 12);
+    }
+    // A per-cell miss would be recorded in `MISSED_27_ROWS`, where the owner derives it; there
+    // is none at 0.25, and the cut agrees.
+    expect(glass025PerCellMisses().map(chromaKey)).toEqual([]);
+    expect(GLASS025_CUT.M1.webgpu.cellMisses).toEqual([]);
+  });
+
+  it("M2 at glass 0.25: no failure, and the named misses are exactly the ruled ones", () => {
+    const verdicts = glass025StructureVerdicts();
+    expect(
+      verdicts.filter((miss) => miss.verdict === "failure").map(({ cell }) => chromaKey(cell)),
+      "an M2 failure at glass 0.25: a move away from Apple, or past it by more than 2 %",
+    ).toEqual([]);
+    expect(
+      glass025StructureNamedMisses()
+        .map(({ cell }) => `${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`)
+        .sort(),
+      "the 0.25 named M2 misses against the 0.25 M2 entries MISSED_27_ROWS records",
+    ).toEqual(
+      Object.keys(MISSED_27_ROWS)
+        .filter((key) => key.endsWith(` :: ${CHROMA_STRUCTURE_METRIC}`))
+        .filter((key) => glassOf(key.split(" :: ")[0]?.split(" / ")[3] ?? "") === 0.25)
+        .sort(),
+    );
+    // Decision Log 5 (e) ruled seventeen; a change in the count is a change the user rules.
+    expect(glass025StructureNamedMisses()).toHaveLength(17);
+  });
+
+  it("E2 at glass 0.25 is read on every declared cell and listed, never gated", () => {
+    // W42 Decision Log 5e's per-cell reading in absolute codes against the pre-fit render. It is
+    // a list for the eye and the next wave (62 cells moved farther from Apple at the edge, 14 of
+    // them rrect-lg; Decision Log 5 (e) ruled them named), and no assertion here bounds a value:
+    // what is asserted is that the list was read on its whole population.
+    const E2 = GLASS025_CUT.E2.webgpu;
+    expect(E2.cells).toBe(288);
+    expect(E2.measured).toBe(E2.cells);
+    expect(E2.unmeasured).toEqual([]);
+    expect(E2.noRow).toEqual([]);
+    expect(E2.failing.map((cell) => cell.cell).sort()).toEqual(
+      E2.perCell.filter((cell) => cell.verdict === "FAIL").map((cell) => cell.cell).sort(),
+    );
+  });
+
+  it("S1 is read on its fixed population and adopted by no ruling, so nothing gates it", () => {
+    // Decision Log 7 item 11 fixes R2's population (183 WebGPU cells); Decision Log 5 (c) adopts
+    // S1 only by the user's ruling at the landing. Until that ruling this file records the
+    // reading's presence, and its value is the ledger's (§5.201 §6), not a bound's.
+    expect(GLASS025_CUT.S1.webgpu.population).toBe(183);
+    expect(Number.isFinite(GLASS025_CUT.S1.webgpu.pooledMedianRatio)).toBe(true);
   });
 });
