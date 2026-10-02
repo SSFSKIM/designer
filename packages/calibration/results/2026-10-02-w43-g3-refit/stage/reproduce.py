@@ -9,10 +9,16 @@ byte-identical to c05's capture of the same cell, and every stage row equal to c
 fields that name HOW it was drawn are set aside: `key.web.capturePath` (strict document clauses
 against the candidate clause) and `capturedAt`.
 
-    python3.12 -B reproduce.py [--with-holdout]   # writes reproduce.json beside this file
+    python3.12 -B reproduce.py [--with-holdout]
 
 Holdout rows are compared only with `--with-holdout`, after the holdout read; c05 never read them,
-so they have no twin and are counted apart.
+so they have no twin and are counted apart. The reading is written beside this file, to
+`reproduce.json` without the flag and `reproduce-with-holdout.json` with it, so the reading
+recorded before the holdout read is never overwritten by the one taken after it.
+
+The verdict is REPRODUCED only when nothing differs in either direction: no row or capture that
+differs, no stage row without a c05 twin, and no c05 row the stage lacks. A stage that is
+missing rows is not a reproduction, however well the rows it does carry match.
 """
 from __future__ import annotations
 
@@ -72,18 +78,21 @@ def main() -> int:
             identical_png += 1
         else:
             differs_png.append(dict(key=key, stage=a, c05=b))
+    stage_keys = {(r["key"]["profileKey"], r["key"]["web"]["renderer"], r["key"]["sceneId"])
+                  for r in stage_rows}
+    missing = [k for k in c05 if k not in stage_keys]
     result = dict(
         what="W43 G3 (ii): stage rows and captures against candidate c05's scratch read",
         stageRows=len(stage_rows), holdoutRows=holdout, c05Rows=len(c05),
         identicalRowsExceptHowDrawn=identical_rows, rowsThatDiffer=[list(k) for k in differs_row],
         identicalCaptures=identical_png, capturesThatDiffer=differs_png,
         stageRowsWithNoC05Twin=[list(k) for k in no_twin],
-        c05RowsWithNoStageRow=[list(k) for k in c05 if k not in
-                               {(r["key"]["profileKey"], r["key"]["web"]["renderer"], r["key"]["sceneId"])
-                                for r in stage_rows}],
+        c05RowsWithNoStageRow=[list(k) for k in missing],
         setAside=["key.web.capturePath", *SET_ASIDE],
-        verdict=("REPRODUCED" if not differs_row and not differs_png and not no_twin else "DIFFERS: STOP"))
-    (HERE / "reproduce.json").write_text(json.dumps(result, indent=1) + "\n")
+        verdict=("REPRODUCED" if not (differs_row or differs_png or no_twin or missing)
+                 else "DIFFERS: STOP"))
+    out = "reproduce-with-holdout.json" if with_holdout else "reproduce.json"
+    (HERE / out).write_text(json.dumps(result, indent=1) + "\n")
     print(json.dumps({k: v for k, v in result.items() if not isinstance(v, list) or len(v) < 8},
                      indent=1))
     return 0 if result["verdict"] == "REPRODUCED" else 1

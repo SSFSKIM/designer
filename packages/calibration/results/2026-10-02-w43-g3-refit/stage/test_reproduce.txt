@@ -1,0 +1,18 @@
+W43 G3 (ii) review, finding 3: reproduce.py on an incomplete stage; pre-fix 48d3b744; synthetic tree under /tmp/w43-g3-test-reproduce
+  (a) complete --with-holdout
+      fixed:    REPRODUCED     exit 0; stage 9, holdout 1, c05 8, identical rows 8, captures 8, c05 rows with no stage row []; wrote ['reproduce-with-holdout.json']
+    ok   fixed: a complete stage reads REPRODUCED, exit 0
+    ok   fixed: wrote reproduce-with-holdout.json and nothing else
+      48d3b744: REPRODUCED     exit 0; stage 9, holdout 1, c05 8, identical rows 8, captures 8, c05 rows with no stage row []; wrote ['reproduce.json']
+  (b) missing-with-holdout --with-holdout
+      fixed:    DIFFERS: STOP  exit 1; stage 8, holdout 1, c05 8, identical rows 7, captures 7, c05 rows with no stage row [['apple-macos-27.0-1x-light-standard-glass0.25', 'css', 'checkerboard__capsule-button__rest']]; wrote ['reproduce-with-holdout.json']
+    ok   fixed: the stage lacking one c05 row reads DIFFERS: STOP, exit 1, and names it
+    ok   fixed: wrote reproduce-with-holdout.json and nothing else
+      48d3b744: REPRODUCED     exit 0; stage 8, holdout 1, c05 8, identical rows 7, captures 7, c05 rows with no stage row [['apple-macos-27.0-1x-light-standard-glass0.25', 'css', 'checkerboard__capsule-button__rest']]; wrote ['reproduce.json']
+  (c) missing-no-holdout
+      fixed:    DIFFERS: STOP  exit 1; stage 7, holdout 0, c05 8, identical rows 7, captures 7, c05 rows with no stage row [['apple-macos-27.0-1x-light-standard-glass0.25', 'css', 'checkerboard__capsule-button__rest']]; wrote ['reproduce.json']
+    ok   fixed: the stage lacking one c05 row reads DIFFERS: STOP, exit 1, and names it
+    ok   fixed: wrote reproduce.json and nothing else
+      48d3b744: REPRODUCED     exit 0; stage 7, holdout 0, c05 8, identical rows 7, captures 7, c05 rows with no stage row [['apple-macos-27.0-1x-light-standard-glass0.25', 'css', 'checkerboard__capsule-button__rest']]; wrote ['reproduce.json']
+    ok   the files beside this script are unmoved: reproduce.json 9a34b1600126, reproduce-with-holdout.json 8f05b377b7f8
+PASSED: 0 failure(s)
