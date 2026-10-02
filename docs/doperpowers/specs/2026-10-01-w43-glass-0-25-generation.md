@@ -1,5 +1,15 @@
 # W43 — the clearer glass: a `-glass0.25` material generation beside `-glass0.5`, the slider's second point, and a one-knob test of the body law (2026-10-01)
 
+**Status: CLOSED 2026-10-03, on the user's word after the release. Everything chartered landed:
+G0 `b8cec3c6` (§5.198), G1a `41c24b45` (§5.199), G1b `bc3c499b` (§5.199b), G2 `e2a32591` and
+`4b8c4b02` (§5.200, §5.200b), G3 (i)–(ii) `24a323ae` and (iii) `e88995f1` (§5.201), the alias
+test's budget `dd4a85e1`, and the release `6cdb185b`, published to npm as 0.26.0 of the fixed group
+(tag `v0.26.0`), with the glass 0.25 document shipped opt-in beside the unchanged 0.5 default. The
+w-test passed in all four endpoints (clause 8); the user ruled every non-holdout and holdout miss
+named (Decision Log 5 (e), clause 10), S1 a reading (5 (c)), and the fine-checker moiré shipped and
+named (Decision Log 8). The next wave is Deferred 1, the 2x scatter-floor refit under a declared
+texture cut.** The earlier status lines follow unchanged.
+
 **Status update (2026-10-02, G3 (iii)): every child up to G3 (ii) has merged (§5.198–§5.201;
 G1b §5.199b, G2's second stage §5.200b), and the glass 0.25 generation is published. G3 (iii), the
 landing, is on `w43-g3-landing`: the owner test gates the four 0.25 profiles, the runtime reports
