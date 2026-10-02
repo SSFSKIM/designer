@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCALE=2",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w43/g1b-run/dump-0.25-2x-light-receded/scenes-dump.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w43/g1b-run/dump-0.25-2x-light-receded/run-1/no-fixtures",
+    "--stdout",
+    "/Users/new/vitrea-w43/g1b-run/dump-0.25-2x-light-receded/run-1/dump.out",
+    "--stderr",
+    "/Users/new/vitrea-w43/g1b-run/dump-0.25-2x-light-receded/run-1/dump.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "dump-layers",
+    "--scenes",
+    "a-g000-capsule-button__rest,a-g128-capsule-button__rest,a-g255-capsule-button__rest,a-g000-rrect-md__rest,a-g128-rrect-md__rest,a-g255-rrect-md__rest",
+    "--settle",
+    "8",
+    "--scheme",
+    "light",
+    "--inactive",
+    "--out",
+    "/Users/new/vitrea-w43/g1b-run/dump-0.25-2x-light-receded/run-1/json"
+  ]
+}
