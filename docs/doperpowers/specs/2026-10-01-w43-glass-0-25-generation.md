@@ -23,7 +23,7 @@ using. Main is at `4da14bd3`, 0.25.0 is published, and the freeze reads 1,818.
 
 ## Decisions
 
-The full entries are Decision Logs 1–7 at the tail.
+The full entries are Decision Logs 1–8 at the tail.
 
 | DL | question | status | what holds |
 | --- | --- | --- | --- |
@@ -31,9 +31,10 @@ The full entries are Decision Logs 1–7 at the tail.
 | 2 | the capture scope | **ADOPTED** by the parent under the user's Decision Log 3 ruling | the four standard keys in full at seven runs; no accessibility pass; the w-test probe and the ladder at 0, 0.75 and 1 at three runs; every pixel through the W39 side bundle |
 | 3 | the sittings | **RULED** by the user, 2026-10-01: "Two sittings, 12.4 h + 4 h (Recommended)" | G1a, the generation, about 12.4 h at the Mac; G1b, the probe and ladder, about 4.0 h, later |
 | 4 | W42's structure question | **RULED** by the parent, 2026-10-01 | kept separate; the probe and ladder are declared readings, never a landing; W42's H and branches untouched |
-| 5 | bounds for the 0.25 documents | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" (Decision Log 7 item 10); (e) exercised: "All named misses; proceed to G3 (ii)" | (a)–(e) as drafted: the 0.5 tables per tier; M1, C1, X1; L1 with growth against the pre-fit render; M2 directional; E2 in absolute codes; S1 as R2; no floor; every non-holdout miss ruled before the holdout |
+| 5 | bounds for the 0.25 documents | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" (Decision Log 7 item 10); (e) exercised: "All named misses; proceed to G3 (ii)"; (c) RULED 2026-10-03: "Do not adopt; keep it a reading" | (a)–(e) as drafted: the 0.5 tables per tier; M1, C1, X1; L1 with growth against the pre-fit render; M2 directional; E2 in absolute codes; S1 as R2; no floor; every non-holdout miss ruled before the holdout |
 | 6 | the charter's mechanical rulings | the parent's | ledger, branches, routing, memo F in G0 |
 | 7 | what G3 refits at 0.25 | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" | the light level and tone first, the scatter second, dark thick tone and scatter only, light chroma and receded tint only on a miss; rim, highlight, shadow held; receded documents as differences; rrect-lg its own stratum; S1 as R2 over `s1/r2-population.json` |
+| 8 | the release, given the gaps the landing's eye sheets found | **RULED** by the user, 2026-10-03: "Ship opt-in, name the gap" | the 0.25 document ships opt-in, never the default; the 2x light fine-checker texture and the two dark gaps are named misses; the changeset ships; the 2x scatter-floor refit is the next wave's first item |
 
 ## Purpose
 
@@ -838,6 +839,13 @@ G1b's cancellation.
 
 ## Deferred / Out of Scope
 
+- **The 2x scatter-floor refit at 0.25, the next wave's first item** (Decision Log 8). The light
+  0.25 document's `sizeScatterFloor2x` (0.6) draws fine checkers sharper than Apple's at 2x in
+  both poses (§5.201 §30). Its cut is declared first: a texture statistic on the fine-pitch cells
+  (checkerboard-4/-8 and the receded photo lattice), stated against Apple's and read beside the
+  pitch-16 cells the fit already reads. Those fine-pitch cells move into a gated role. Any refit
+  of the documents needs a new holdout configuration in the cross-gate ledger and a new holdout
+  read.
 - **Accessibility at 0.25** (reduced transparency, increased contrast alone or coupled; Decision
   Log 2 (b), ADOPTED). The 0.25 documents carry the 0.5 accessibility leaves, recorded as
   unmeasured.
@@ -1035,6 +1043,17 @@ specifics from the draft:
   cell in absolute codes against the same render (W42 Decision Log 5e's form);
 - **(c)** S1 as Decision Log 7 item 11 rules it (R2), read in G3 and adopted only by the user's
   ruling at the landing;
+
+  **(c) RULED 2026-10-03 by the user, at the landing: "Do not adopt; keep it a reading".** S1
+  stays read and not gated. It is the reading of the published generation, regenerated at the
+  landing gate (§5.201 §32), on R2's fixed population of 183 WebGPU and 125 CSS cells:
+  - WebGPU: pooled median ratio **0.877**, inside [0.8, 1.2], with **15** wrong-sign cells;
+  - CSS: pooled **0.874**, with **11** wrong-sign cells;
+  - per-profile WebGPU medians 0.942 / 0.992 light and 0.314 / 0.311 dark, which are reported
+    and not gated.
+
+  R2's sign clause fails on both tiers. The wrong-sign cells and the dark scheme's under-follow
+  are already named misses (Decision Log 5 (e)).
 - **(d)** no regression floor;
 - **(e)** every non-holdout miss ruled by the user, as a permitted named miss or a stop, before
   the holdout is read and before anything publishes (clause 10).
@@ -1174,6 +1193,29 @@ and E2 read against, and checks items 5–8's "hold unless" conditions on it bef
 anything. The draft also leaves undecided what this ruling does not reach: the w-test and the
 ladder (G2's second stage), any law form (X44 holds the 0.5 leaf set), and the accessibility
 leaves, which carry over unmeasured (Decision Log 2 (b)).
+
+### Decision Log 8 — RULED 2026-10-03 (the user): ship opt-in, name the gap
+
+**RULED 2026-10-03 by the user: "Ship opt-in, name the gap".** The question was put at the landing
+(G3 (iii)). The eye sheets over the whole canonical 0.25 bed (§5.201 §30) found three gaps that no
+gated row reads.
+- **The 2x light body draws fine checkers sharper than Apple's at 0.25, in both poses.** On
+  `checkerboard-4__rrect-md`, the texture SD reads 9.1 codes against Apple's 2.9 at rest and 10.5
+  against 0.3 receded. At 0.5 the rest pair read 2.6 against 1.7. The cause is the fitted
+  `sizeScatterFloor2x`, 1.0 → 0.6 (§5.201 §4). These are probe and recorded cells, which no cut
+  reads.
+- **Dark receded bodies over dark-solid read 11–15 codes too dark**, at both positions. L1 is
+  UNMEASURED on those cells.
+- **Dark small spans hide the backdrop Apple's body shows through**, at both positions.
+
+The ruling:
+- The 0.25 document ships opt-in and never as the default (Decision Log 1 (a)).
+- The three gaps are named misses in the tracker and in §5.201 §30 and §34.
+- The changeset ships as written, naming the 2x fine checkers.
+- The refit of the 2x scatter floor is the next wave's first item (Deferred).
+
+*Declined:* holding the changeset until that refit, which would have needed a new holdout
+configuration and a new holdout read for the refit documents.
 
 ## Surprises & Discoveries
 

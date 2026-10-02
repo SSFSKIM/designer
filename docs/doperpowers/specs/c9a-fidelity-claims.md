@@ -45079,6 +45079,9 @@ and the reading was put to the user on 2026-10-02.
 R2's sign clause therefore fails on both tiers. The owner test asserts only that the reading
 exists on its fixed population.
 
+**RULED 2026-10-03 by the user (Decision Log 5 (c)): "Do not adopt; keep it a reading".** S1 stays
+read and not gated, and the owner test is unchanged.
+
 ### 33. Close checks (`close/close-checks.txt`)
 
 - The freeze reads 1,818 and X41 911.
@@ -45104,6 +45107,11 @@ Three new entries are in the tracker:
 - dark small spans hiding the backdrop.
 
 The remaining by-eye readings in §30 sit under existing entries.
+
+**RULED 2026-10-03 by the user (Decision Log 8): "Ship opt-in, name the gap".** The 2x light
+fine-checker texture and the two dark gaps above are named misses, and the changeset ships. The 2x
+scatter-floor refit is the next wave's first item, with a declared texture statistic on the
+fine-pitch cells as its cut (the charter's Deferred list).
 
 `apps/demo/DESIGN.md` still says figures come from `results/matrix.json`, which has been stale
 since W40, and is left for the next change to that file. The site does not offer macOS 26.5. That
