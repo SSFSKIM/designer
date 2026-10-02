@@ -1,0 +1,196 @@
+# W43 G2 stage two (d): the ladder, described (clause 9). No fit, no gate.
+
+Positions x = 0, 0.25, 0.5 (W42), 0.75, 1, all 2x. Codes are encoded sRGB. Memo F: at x = 1 the backdrop
+capture scale is 0.125 on every shape (0.5 below 1), so W itself moves between 0.75 and 1.
+
+## 1. T(x): the greys' deep medians (mean of R, G, B; channel spread in brackets where > 1 code)
+### light-rest
+  stratum level              x=0          x=0.25           x=0.5          x=0.75             x=1
+  s0      0           102.0           117.0           132.0           155.0           178.0     
+  s0     64           141.0           153.0           164.0                    ·      198.0     
+  s0    128           180.0           187.0           195.0           206.0           217.0     
+  s0    160           199.0           204.0           210.0                    ·      227.0     
+  s0    192           217.0           221.0           225.0                    ·      236.0     
+  s0    208           226.0           229.0           232.0           236.0           241.0     
+  s0    255           253.0           253.0           253.0           253.0           254.0     
+  s96     0           103.0           118.0           134.0           157.0           181.0     
+  s96    64           143.0           155.0           166.0                    ·      201.0     
+  s96   128           183.0           190.0           198.0           209.0           220.0     
+  s96   160           202.0           207.3           213.0                    ·      229.0     
+  s96   192           220.0           224.0           227.0                    ·      238.0     
+  s96   208           229.0           232.0           234.0           238.0           242.0     
+  s96   255           253.3           253.3           254.0           254.0           254.0     
+
+### light-inactive
+  stratum level              x=0          x=0.25           x=0.5          x=0.75             x=1
+  s0      0           102.0           117.0           133.0           156.0           179.0     
+  s0     64           137.0           149.0           161.0                    ·      196.0     
+  s0    128           171.0           180.0           188.0           201.0           213.0     
+  s0    160           188.0           195.0           201.7                    ·      222.0     
+  s0    192           204.3           210.0           215.0                    ·      230.0     
+  s0    208           213.0           217.0           221.0           227.7           234.0     
+  s0    255           236.0           238.0           240.0           243.0           246.0     
+  s96     0           102.0           117.0           133.0           156.0           179.0     
+  s96    64           137.0           149.0           161.0                    ·      196.0     
+  s96   128           171.0           180.0           188.0           201.0           213.0     
+  s96   160           188.0           195.0           201.7                    ·      222.0     
+  s96   192           204.3           210.0           215.0                    ·      230.0     
+  s96   208           213.0           217.0           221.0           227.7           234.0     
+  s96   255           236.0           238.0           240.0           243.0           246.0     
+
+### dark-rest
+  stratum level              x=0          x=0.25           x=0.5          x=0.75             x=1
+  s0      0            32.0            32.0            32.0            28.0            32.0     
+  s0     64            89.0            89.0            89.0                    ·       61.0     
+  s0    128           134.0           134.0           134.0           104.3            83.0     
+  s0    160           151.3           151.3           151.3                    ·       92.0     
+  s0    192           166.0           166.0           166.0                    ·       99.0     
+  s0    208           172.0           172.0           172.0           133.0           102.0     
+  s0    255           185.0           185.0           185.0           142.0           108.0     
+  s96     0            32.0            32.0            32.0            29.0            32.0     
+  s96    64            86.0            85.0            85.0                    ·       59.0     
+  s96   128           126.0           123.0           121.0            94.0            77.0     
+  s96   160           139.0           135.0           131.0                    ·       82.0     
+  s96   192           148.0           143.0           137.0                    ·       86.0     
+  s96   208           151.0           145.0           138.0           108.0            86.0     
+  s96   255           154.0           144.0           134.0           105.0            85.0     
+
+### dark-inactive
+  stratum level              x=0          x=0.25           x=0.5          x=0.75             x=1
+  s0      0            20.0            20.0            20.0            19.0            26.0     
+  s0     64            80.7            80.7            80.7                    ·       56.0     
+  s0    128           127.0           127.0           127.0            99.0            80.0     
+  s0    160           146.0           146.0           146.0                    ·       89.0     
+  s0    192           160.0           160.0           160.0                    ·       96.0     
+  s0    208           167.0           167.0           167.0           129.0            99.0     
+  s0    255           180.0           180.0           180.0           139.0           106.0     
+  s96     0            20.0            20.0            20.0            19.0            26.0     
+  s96    64            79.0            78.0            77.0                    ·       55.0     
+  s96   128           119.0           117.0           114.0            89.0            73.0     
+  s96   160           133.0           129.0           125.0                    ·       78.0     
+  s96   192           142.3           136.0           130.0                    ·       81.0     
+  s96   208           146.0           138.3           131.0           102.7            82.0     
+  s96   255           148.0           138.0           127.0            99.0            79.0     
+
+## 2. The two sides against x: e(x) = M_x - C (codes, pre-tone), r(x) = e(x) / e(0.5), and the affine line
+   through x = 0 and 1. "*" marks a region of the w-test's support (free side). The composite predicts
+   r(x) = 2x on the free side; the lifted side carries the hinge (lam) as well.
+### light-rest
+   b-p2-c64-rrect-md          free    2604 px  e: 0:-1.8 0.25:-14.0 0.5:-25.1 0.75:-38.6 1:-48.0   r: 0:0.071 0.25:0.557 0.5:1.000 0.75:1.536 1:1.909   line e(0) -1.8 slope -46.2, worst residual -2.2 at x=0.75
+   b-p2-c64-rrect-md          lifted  2256 px  e: 0:+35.2 0.25:+43.4 0.5:+50.0 0.75:+50.5 1:+46.3   r: 0:0.704 0.25:0.869 0.5:1.000 0.75:1.009 1:0.926   line e(0) +35.2 slope +11.1, worst residual +9.2 at x=0.5
+   b-p3-c64-rrect-md          free      16 px  e: 0:+0.0 0.25:-6.1 0.5:-14.9 1:-28.4   r: 0:-0.000 0.25:0.411 0.5:1.000 1:1.905   line e(0) +0.0 slope -28.4, worst residual +1.0 at x=0.25
+   b-p3-c64-rrect-md          lifted    16 px  e: 0:+19.2 0.25:+24.7 0.5:+26.0 1:+28.6   r: 0:0.738 0.25:0.949 0.5:1.000 1:1.101   line e(0) +19.2 slope +9.4, worst residual +3.1 at x=0.25
+   b-p4-c64-rrect-md          free     796 px  e: 0:+0.0 0.25:-7.8 0.5:-16.7 1:-34.5   r: 0:-0.000 0.25:0.466 0.5:1.000 1:2.072   line e(0) +0.0 slope -34.5, worst residual +0.9 at x=0.25
+   b-p4-c64-rrect-md          lifted   706 px  e: 0:+24.0 0.25:+30.7 0.5:+34.0 1:+32.0   r: 0:0.706 0.25:0.903 0.5:1.000 1:0.941   line e(0) +24.0 slope +8.0, worst residual +6.0 at x=0.5
+   b-p5-c64-rrect-md          free     796 px  e: 0:-1.1 0.25:-10.0 0.5:-17.9 1:-32.0   r: 0:0.061 0.25:0.556 0.5:1.000 1:1.788   line e(0) -1.1 slope -30.9, worst residual -1.4 at x=0.5
+   b-p5-c64-rrect-md          lifted   706 px  e: 0:+24.9 0.25:+30.7 0.5:+34.3 1:+33.8   r: 0:0.726 0.25:0.896 0.5:1.000 1:0.985   line e(0) +24.9 slope +8.9, worst residual +5.0 at x=0.5
+  *bp-p1-c32-capsule-button   free     221 px  e: 0:+0.0! 0.25:-31.3 0.5:-62.2 1:-117.4   r: 0:-0.000 0.25:0.503 0.5:1.000 1:1.886   line e(0) +0.0 slope -117.4, worst residual -3.5 at x=0.5
+   bp-p1-c32-capsule-button   lifted   221 px  e: 0:+82.1 0.25:+101.6 0.5:+115.6 1:+121.3   r: 0:0.710 0.25:0.879 0.5:1.000 1:1.049   line e(0) +82.1 slope +39.2, worst residual +14.0 at x=0.5
+  *bp-p1-c32-rrect-64         free    1536 px  e: 0:+0.0! 0.25:-28.7 0.5:-58.4 1:-111.0   r: 0:-0.000 0.25:0.492 0.5:1.000 1:1.900   line e(0) +0.0 slope -111.0, worst residual -2.9 at x=0.5
+   bp-p1-c32-rrect-64         lifted  1536 px  e: 0:+80.4 0.25:+99.1 0.5:+111.5 1:+114.5   r: 0:0.721 0.25:0.889 0.5:1.000 1:1.027   line e(0) +80.4 slope +34.1, worst residual +14.0 at x=0.5
+  *bp-p1-c64-capsule-button   free     354 px  e: 0:+0.0! 0.25:-19.6 0.5:-38.0 1:-70.1   r: 0:-0.000 0.25:0.515 0.5:1.000 1:1.843   line e(0) +0.0 slope -70.1, worst residual -3.0 at x=0.5
+   bp-p1-c64-capsule-button   lifted   116 px  e: 0:+64.0 0.25:+79.1 0.5:+88.8 1:+90.9   r: 0:0.721 0.25:0.891 0.5:1.000 1:1.024   line e(0) +64.0 slope +26.9, worst residual +11.3 at x=0.5
+  *c-s32-hi-rrect-md          free     832 px  e: 0:-1.8 0.25:-23.7 0.5:-45.7 0.75:-66.2 1:-86.7   r: 0:0.039 0.25:0.518 0.5:1.000 0.75:1.448 1:1.897   line e(0) -1.8 slope -85.0, worst residual -1.5 at x=0.5
+   c-s32-hi-rrect-md          lifted   204 px  e: 0:+17.6 0.25:+21.5 0.5:+26.0 0.75:+28.3 1:+26.1   r: 0:0.677 0.25:0.826 0.5:1.000 0.75:1.089 1:1.004   line e(0) +17.6 slope +8.5, worst residual +4.3 at x=0.75
+   c-s32-lo-rrect-md          free     204 px  e: 0:+0.0 0.25:-8.0 0.5:-13.0 1:-26.7   r: 0:-0.000 0.25:0.618 0.5:1.000 1:2.059   line e(0) +0.0 slope -26.7, worst residual -1.3 at x=0.25
+   c-s32-lo-rrect-md          lifted   832 px  e: 0:+60.8 0.25:+76.3 0.5:+84.3 1:+87.1   r: 0:0.722 0.25:0.906 0.5:1.000 1:1.034   line e(0) +60.8 slope +26.3, worst residual +10.3 at x=0.5
+   d-d0-hilo-rrect-md         free     614 px  e: 0:-1.8 0.25:-12.0 0.5:-20.6 1:-40.9   r: 0:0.086 0.25:0.583 0.5:1.000 1:1.988   line e(0) -1.8 slope -39.1, worst residual +0.8 at x=0.5
+   d-d0-hilo-rrect-md         lifted   614 px  e: 0:+28.8 0.25:+36.1 0.5:+40.7 1:+39.6   r: 0:0.708 0.25:0.888 0.5:1.000 1:0.973   line e(0) +28.8 slope +10.8, worst residual +6.5 at x=0.5
+   d-d0-lohi-rrect-md         free     614 px  e: 0:-1.8 0.25:-12.0 0.5:-20.6 1:-40.9   r: 0:0.086 0.25:0.583 0.5:1.000 1:1.988   line e(0) -1.8 slope -39.1, worst residual +0.8 at x=0.5
+   d-d0-lohi-rrect-md         lifted   614 px  e: 0:+28.8 0.25:+36.1 0.5:+40.7 1:+39.6   r: 0:0.708 0.25:0.888 0.5:1.000 1:0.973   line e(0) +28.8 slope +10.8, worst residual +6.5 at x=0.5
+   d-d32-hilo-rrect-md        free     614 px  e: 0:-1.8 0.25:-12.0 0.5:-20.6 1:-40.9   r: 0:0.086 0.25:0.583 0.5:1.000 1:1.988   line e(0) -1.8 slope -39.1, worst residual +0.8 at x=0.5
+   d-d32-hilo-rrect-md        lifted   632 px  e: 0:+28.8 0.25:+36.1 0.5:+40.7 1:+39.6   r: 0:0.708 0.25:0.888 0.5:1.000 1:0.973   line e(0) +28.8 slope +10.8, worst residual +6.5 at x=0.5
+   d-d32-lohi-rrect-md        free     632 px  e: 0:-1.8 0.25:-12.0 0.5:-20.6 1:-40.9   r: 0:0.086 0.25:0.583 0.5:1.000 1:1.988   line e(0) -1.8 slope -39.1, worst residual +0.8 at x=0.5
+   d-d32-lohi-rrect-md        lifted   614 px  e: 0:+28.8 0.25:+36.1 0.5:+40.7 1:+39.6   r: 0:0.708 0.25:0.888 0.5:1.000 1:0.973   line e(0) +28.8 slope +10.8, worst residual +6.5 at x=0.5
+
+### light-inactive
+  *bp-p1-c32-capsule-button   free      12 px  e: 0:+0.0 0.25:-24.6 0.5:-47.0 1:-95.0   r: 0:-0.000 0.25:0.524 0.5:1.000 1:2.021   line e(0) +0.0 slope -95.0, worst residual -0.9 at x=0.25
+   bp-p1-c32-capsule-button   lifted    12 px  e: 0:+65.9 0.25:+82.6 0.5:+92.4 1:+94.1   r: 0:0.713 0.25:0.893 0.5:1.000 1:1.018   line e(0) +65.9 slope +28.2, worst residual +12.4 at x=0.5
+  *bp-p1-c32-rrect-64         free      42 px  e: 0:+0.0 0.25:-23.9 0.5:-47.0 1:-91.0   r: 0:-0.000 0.25:0.508 0.5:1.000 1:1.936   line e(0) +0.0 slope -91.0, worst residual -1.5 at x=0.5
+   bp-p1-c32-rrect-64         lifted    42 px  e: 0:+64.0 0.25:+80.5 0.5:+90.1 1:+90.4   r: 0:0.711 0.25:0.894 0.5:1.000 1:1.003   line e(0) +64.0 slope +26.4, worst residual +12.9 at x=0.5
+   bp-p1-c64-capsule-button   lifted   172 px  e: 0:+34.7 0.25:+42.0 0.5:+48.0 1:+45.2   r: 0:0.724 0.25:0.875 0.5:1.000 1:0.941   line e(0) +34.7 slope +10.4, worst residual +8.0 at x=0.5
+
+### dark-rest
+   b-p2-c64-rrect-md          free    2256 px  e: 0:+3.0 0.25:+14.8 0.5:+28.4 0.75:+50.5 1:+55.1   r: 0:0.104 0.25:0.520 0.5:1.000 0.75:1.774 1:1.938   line e(0) +3.0 slope +52.1, worst residual +8.4 at x=0.75
+   b-p2-c64-rrect-md          lifted  2604 px  e: 0:-30.2 0.25:-40.0 0.5:-48.0 0.75:-34.3 1:-48.0   r: 0:0.630 0.25:0.833 0.5:1.000 0.75:0.714 1:1.000   line e(0) -30.2 slope -17.8, worst residual +9.3 at x=0.75
+   b-p3-c16-rrect-md          free      48 px  e: 0:+3.2 0.25:+11.8 0.5:+19.6 1:+32.0   r: 0:0.164 0.25:0.603 0.5:1.000 1:1.636   line e(0) +3.2 slope +28.8, worst residual +2.0 at x=0.5
+   b-p3-c16-rrect-md          lifted    48 px  e: 0:-22.2 0.25:-26.7 0.5:-32.0 1:-32.0   r: 0:0.692 0.25:0.833 0.5:1.000 1:1.000   line e(0) -22.2 slope -9.8, worst residual -4.9 at x=0.5
+   b-p3-c64-rrect-md          free      16 px  e: 0:+3.2 0.25:+11.8 0.5:+16.6 1:+28.4   r: 0:0.193 0.25:0.711 0.5:1.000 1:1.714   line e(0) +3.2 slope +25.2, worst residual +2.3 at x=0.25
+   b-p3-c64-rrect-md          lifted    16 px  e: 0:-17.2 0.25:-21.3 0.5:-25.6 1:-25.6   r: 0:0.673 0.25:0.833 0.5:1.000 1:1.000   line e(0) -17.2 slope -8.4, worst residual -4.2 at x=0.5
+   b-p4-c64-rrect-md          free     706 px  e: 0:+3.0 0.25:+11.8 0.5:+20.2 1:+36.1   r: 0:0.146 0.25:0.582 0.5:1.000 1:1.787   line e(0) +3.0 slope +33.2, worst residual +0.7 at x=0.5
+   b-p4-c64-rrect-md          lifted   796 px  e: 0:-20.8 0.25:-26.1 0.5:-32.0 1:-33.8   r: 0:0.650 0.25:0.816 0.5:1.000 1:1.056   line e(0) -20.8 slope -13.0, worst residual -4.7 at x=0.5
+  *bp-p1-c32-capsule-button   free     221 px  e: 0:+0.0 0.25:+32.6 0.5:+61.8 1:+119.3   r: 0:0.000 0.25:0.527 0.5:1.000 1:1.931   line e(0) +0.0 slope +119.3, worst residual +2.7 at x=0.25
+   bp-p1-c32-capsule-button   lifted   221 px  e: 0:-80.5 0.25:-101.1 0.5:-114.1 1:-119.9   r: 0:0.705 0.25:0.887 0.5:1.000 1:1.051   line e(0) -80.5 slope -39.4, worst residual -13.9 at x=0.5
+  *bp-p1-c32-rrect-64         free    1536 px  e: 0:+0.0 0.25:+31.4 0.5:+59.5 1:+116.4   r: 0:0.000 0.25:0.528 0.5:1.000 1:1.955   line e(0) +0.0 slope +116.4, worst residual +2.3 at x=0.25
+   bp-p1-c32-rrect-64         lifted  1536 px  e: 0:-78.3 0.25:-97.4 0.5:-110.4 1:-112.8   r: 0:0.709 0.25:0.883 0.5:1.000 1:1.022   line e(0) -78.3 slope -34.5, worst residual -14.8 at x=0.5
+  *bp-p1-c64-capsule-button   free     116 px  e: 0:+0.0 0.25:+24.7 0.5:+48.3 1:+93.1   r: 0:0.000 0.25:0.512 0.5:1.000 1:1.928   line e(0) +0.0 slope +93.1, worst residual +1.7 at x=0.5
+   bp-p1-c64-capsule-button   lifted   354 px  e: 0:-49.7 0.25:-63.0 0.5:-71.7 1:-72.1   r: 0:0.692 0.25:0.878 0.5:1.000 1:1.006   line e(0) -49.7 slope -22.5, worst residual -10.8 at x=0.5
+   c-s32-hi-rrect-md          free     204 px  e: 0:+1.8 0.25:+8.8 0.5:+13.6 0.75:+32.7 1:+26.7   r: 0:0.131 0.25:0.644 0.5:1.000 0.75:2.410 1:1.963   line e(0) +1.8 slope +24.9, worst residual +12.3 at x=0.75
+   c-s32-hi-rrect-md          lifted   832 px  e: 0:-60.3 0.25:-74.7 0.5:-85.3 0.75:-84.6 1:-90.7   r: 0:0.707 0.25:0.875 0.5:1.000 0.75:0.991 1:1.063   line e(0) -60.3 slope -30.4, worst residual -9.8 at x=0.5
+   c-s32-lo-rrect-md          free     832 px  e: 0:+5.3 0.25:+27.8 0.5:+49.8 1:+92.8   r: 0:0.107 0.25:0.558 0.5:1.000 1:1.864   line e(0) +5.3 slope +87.5, worst residual +0.7 at x=0.5
+   c-s32-lo-rrect-md          lifted   204 px  e: 0:-16.0 0.25:-21.3 0.5:-21.3 1:-24.0   r: 0:0.750 0.25:1.000 0.5:1.000 1:1.125   line e(0) -16.0 slope -8.0, worst residual -3.3 at x=0.25
+   d-d0-hilo-rrect-md         free     614 px  e: 0:+3.0 0.25:+12.4 0.5:+23.1 1:+44.4   r: 0:0.128 0.25:0.536 0.5:1.000 1:1.923   line e(0) +3.0 slope +41.5, worst residual -1.0 at x=0.25
+   d-d0-hilo-rrect-md         lifted   614 px  e: 0:-26.7 0.25:-32.0 0.5:-37.3 1:-40.0   r: 0:0.714 0.25:0.857 0.5:1.000 1:1.071   line e(0) -26.7 slope -13.3, worst residual -4.0 at x=0.5
+   d-d0-lohi-rrect-md         free     614 px  e: 0:+3.0 0.25:+12.4 0.5:+23.1 1:+44.4   r: 0:0.128 0.25:0.536 0.5:1.000 1:1.923   line e(0) +3.0 slope +41.5, worst residual -1.0 at x=0.25
+   d-d0-lohi-rrect-md         lifted   614 px  e: 0:-26.7 0.25:-32.0 0.5:-37.3 1:-40.0   r: 0:0.714 0.25:0.857 0.5:1.000 1:1.071   line e(0) -26.7 slope -13.3, worst residual -4.0 at x=0.5
+   d-d32-hilo-rrect-md        free     632 px  e: 0:+3.0 0.25:+12.4 0.5:+23.1 1:+44.4   r: 0:0.128 0.25:0.536 0.5:1.000 1:1.923   line e(0) +3.0 slope +41.5, worst residual -1.0 at x=0.25
+   d-d32-hilo-rrect-md        lifted   614 px  e: 0:-26.7 0.25:-32.0 0.5:-37.3 1:-40.0   r: 0:0.714 0.25:0.857 0.5:1.000 1:1.071   line e(0) -26.7 slope -13.3, worst residual -4.0 at x=0.5
+   d-d32-lohi-rrect-md        free     614 px  e: 0:+3.0 0.25:+12.4 0.5:+23.1 1:+44.4   r: 0:0.128 0.25:0.536 0.5:1.000 1:1.923   line e(0) +3.0 slope +41.5, worst residual -1.0 at x=0.25
+   d-d32-lohi-rrect-md        lifted   632 px  e: 0:-26.7 0.25:-32.0 0.5:-37.3 1:-40.0   r: 0:0.714 0.25:0.857 0.5:1.000 1:1.071   line e(0) -26.7 slope -13.3, worst residual -4.0 at x=0.5
+
+### dark-inactive
+  *bp-p1-c32-capsule-button   free      12 px  e: 0:+0.0 0.25:+26.4 0.5:+49.6 1:+96.0   r: 0:0.000 0.25:0.532 0.5:1.000 1:1.936   line e(0) +0.0 slope +96.0, worst residual +2.4 at x=0.25
+   bp-p1-c32-capsule-button   lifted    12 px  e: 0:-65.3 0.25:-81.3 0.5:-92.7 1:-95.0   r: 0:0.704 0.25:0.877 0.5:1.000 1:1.025   line e(0) -65.3 slope -29.7, worst residual -12.6 at x=0.5
+  *bp-p1-c32-rrect-64         free      42 px  e: 0:+0.0 0.25:+25.3 0.5:+48.5 1:+90.7   r: 0:0.000 0.25:0.522 0.5:1.000 1:1.868   line e(0) +0.0 slope +90.7, worst residual +3.2 at x=0.5
+   bp-p1-c32-rrect-64         lifted    42 px  e: 0:-63.0 0.25:-79.0 0.5:-90.4 1:-90.4   r: 0:0.697 0.25:0.874 0.5:1.000 1:1.000   line e(0) -63.0 slope -27.4, worst residual -13.7 at x=0.5
+   bp-p1-c64-capsule-button   free     172 px  e: 0:+0.0 0.25:+13.7 0.5:+26.4 1:+46.9   r: 0:0.000 0.25:0.520 0.5:1.000 1:1.779   line e(0) +0.0 slope +46.9, worst residual +2.9 at x=0.5
+
+## 3. The mirror m = (e_free + e_lifted) / (|e_free| + |e_lifted|) per two-level cell: 0 for any two-sided
+   linear system, +-1 fully one-sided (memo C's S in region form); median over the cells per position
+  light-rest      x=0: +0.916 (n 13)  x=0.25: +0.512 (n 13)  x=0.5: +0.328 (n 13)  x=0.75: -0.134 (n 2)  x=1: -0.016 (n 13)
+  light-inactive  x=0: +1.000 (n 2)  x=0.25: +0.542 (n 2)  x=0.5: +0.320 (n 2)  x=0.75: — (n 0)  x=1: -0.004 (n 2)
+  dark-rest       x=0: -0.800 (n 13)  x=0.25: -0.442 (n 13)  x=0.5: -0.235 (n 13)  x=0.75: -0.126 (n 2)  x=1: +0.053 (n 13)
+  dark-inactive   x=0: -1.000 (n 2)  x=0.25: -0.512 (n 2)  x=0.5: -0.302 (n 2)  x=0.75: — (n 0)  x=1: +0.003 (n 2)
+
+## 3b. The lifted side at x = 0: the hinge alone. Under LT e_lifted(x) = (x + lam(x)(1 - x))(W - C), so
+   lam(0) = e(0) / e(1) if W is the same at 0 and 1 (it is not exactly: memo F's 0.125 capture scale at
+   x = 1), and lam(0) = r(0) (0.5 + 0.5 lam50) through W42's fitted lam50. Declared lam(0) = 0.675.
+  light-rest      via x = 1: median 0.728 [0.671, 0.760] (n 13);  via x = 0.5: median 0.661 [0.632, 0.690] (n 13)
+  light-inactive  via x = 1: median 0.708 [0.700, 0.769] (n 3);  via x = 0.5: median 0.630 [0.628, 0.639] (n 3)
+  dark-rest       via x = 1: median 0.667 [0.616, 0.694] (n 13);  via x = 0.5: median 0.654 [0.583, 0.694] (n 13)
+  dark-inactive   via x = 1: median 0.692 [0.687, 0.697] (n 2);  via x = 0.5: median 0.616 [0.613, 0.619] (n 2)
+
+## 3c. The free side against x, per endpoint: median r(x) over the cells whose |e(0.5)| >= 12 codes
+   (predicted 2x: 0, 0.5, 1, 1.5, 2), censored readings ("!" above) left out, and the worst |residual|
+   from the line through x = 0 and 1
+  light-rest      x=0: 0.066 (n 10)  x=0.25: 0.556 (n 13)  x=0.5: 1.000 (n 13)  x=0.75: 1.492 (n 2)  x=1: 1.909 (n 13)   worst residual 3.5 codes
+  light-inactive  x=0: -0.000 (n 2)  x=0.25: 0.516 (n 2)  x=0.5: 1.000 (n 2)  x=0.75: — (n 0)  x=1: 1.979 (n 2)   worst residual 1.5 codes
+  dark-rest       x=0: 0.128 (n 13)  x=0.25: 0.536 (n 13)  x=0.5: 1.000 (n 13)  x=0.75: 2.092 (n 2)  x=1: 1.923 (n 13)   worst residual 12.3 codes
+  dark-inactive   x=0: 0.000 (n 3)  x=0.25: 0.522 (n 3)  x=0.5: 1.000 (n 3)  x=0.75: — (n 0)  x=1: 1.868 (n 3)   worst residual 3.2 codes
+
+## 4. The step cells across the step: plateaus (codes) and the 10-90 % transition width (device px)
+  light-rest      d-d0-hilo-rrect-md     x=0: 229->135 w 37; x=0.25: 231->148 w 45; x=0.5: 233->161 w 58; x=1: 241->197 w 74
+  light-rest      d-d0-lohi-rrect-md     x=0: 135->229 w 37; x=0.25: 148->231 w 44; x=0.5: 161->233 w 58; x=1: 197->241 w 74
+  light-rest      d-d32-hilo-rrect-md    x=0: 229->143 w 24; x=0.25: 231->157 w 30; x=0.5: 234->170 w 52; x=1: 242->202 w 67
+  light-rest      d-d32-lohi-rrect-md    x=0: 133->229 w 41; x=0.25: 146->228 w 47; x=0.5: 159->229 w 55; x=1: 196->236 w 66
+  light-inactive  d-d0-hilo-rrect-md     x=0: 213->129 w 46; x=0.25: 217->142 w 56; x=0.5: 221->154 w 68; x=1: 233->192 w 77
+  light-inactive  d-d0-lohi-rrect-md     x=0: 129->213 w 46; x=0.25: 142->217 w 56; x=0.5: 154->221 w 68; x=1: 192->233 w 77
+  light-inactive  d-d32-hilo-rrect-md    x=0: 213->132 w 39; x=0.25: 217->145 w 49; x=0.5: 221->158 w 60; x=1: 234->194 w 75
+  light-inactive  d-d32-lohi-rrect-md    x=0: 128->213 w 48; x=0.25: 141->216 w 57; x=0.5: 154->219 w 63; x=1: 192->231 w 74
+  dark-rest       d-d0-hilo-rrect-md     x=0: 151->74 w 20; x=0.25: 144->75 w 38; x=0.5: 138->75 w 52; x=1: 86->55 w 61
+  dark-rest       d-d0-lohi-rrect-md     x=0: 74->151 w 20; x=0.25: 75->144 w 38; x=0.5: 75->138 w 52; x=1: 55->86 w 61
+  dark-rest       d-d32-hilo-rrect-md    x=0: 151->75 w 20; x=0.25: 144->79 w 26; x=0.5: 138->82 w 40; x=1: 86->62 w 52
+  dark-rest       d-d32-lohi-rrect-md    x=0: 74->148 w 14; x=0.25: 74->142 w 38; x=0.5: 73->136 w 54; x=1: 53->85 w 69
+  dark-inactive   d-d0-hilo-rrect-md     x=0: 145->66 w 32; x=0.25: 138->65 w 42; x=0.5: 131->65 w 55; x=1: 82->49 w 67
+  dark-inactive   d-d0-lohi-rrect-md     x=0: 66->145 w 32; x=0.25: 65->138 w 42; x=0.5: 65->131 w 55; x=1: 49->82 w 67
+  dark-inactive   d-d32-hilo-rrect-md    x=0: 146->66 w 34; x=0.25: 138->67 w 41; x=0.5: 131->69 w 46; x=1: 82->52 w 57
+  dark-inactive   d-d32-lohi-rrect-md    x=0: 66->144 w 31; x=0.25: 65->138 w 42; x=0.5: 65->131 w 55; x=1: 48->81 w 68
+
+## 5. The five two-state cells of G1b's bar (§5.199b §5), read under the bar
+- x = 0 apple-macos-27.0-2x-dark-standard-glass0/b-p3-c64-rrect-md__inactive: states ['b9c452018f8b', 'e06ced90f4c5'] ([2, 1] runs); 144 px differ, at most 1 code; deep-median difference 0.0; region-median differences none (no region); bar 0.500040999999996 (more than one state); it is a structured ladder cell; a w-test region sees it: False
+- x = 0 apple-macos-27.0-2x-light-standard-glass0/a-g128-rrect-md__inactive: states ['b50acedd36a6', '9be075b47919'] ([2, 1] runs); 36 px differ, at most 1 code; deep-median difference 0.0; region-median differences none (no region); bar 0.5000234999999975 (more than one state); it is a T ordinate at x = 0; a w-test region sees it: False
+- x = 0 apple-macos-27.0-2x-light-standard-glass0/c-s32-hi-rrect-md__inactive: states ['60033f92f4b3', '7a82c73e26df'] ([2, 1] runs); 228 px differ, at most 1 code; deep-median difference 0.0; region-median differences none (no region); bar 0.5003574999999998 (more than one state); it is a structured ladder cell; a w-test region sees it: False
+- x = 0.75 apple-macos-27.0-2x-dark-standard-glass0.75/a-g000-capsule-button__rest: states ['a995e18bd8d0', '73923945fc02'] ([2, 1] runs); 6 px differ, at most 1 code; deep-median difference 0.0; region-median differences none (no region); bar 0.5000040000000001 (more than one state); it is a T ordinate at x = 0.75; a w-test region sees it: False
+- x = 0.75 apple-macos-27.0-2x-light-standard-glass0.75/a-g128-rrect-md__inactive: states ['56e149470364', 'd141700fd5cd'] ([2, 1] runs); 34 px differ, at most 1 code; deep-median difference 0.0; region-median differences none (no region); bar 0.5000349999999969 (more than one state); it is a T ordinate at x = 0.75; a w-test region sees it: False
+
+Consistency with the w-test's reading at 0.25 on its supported regions: 11 of 11 identical (the same functions on the same frames; not a second read).
