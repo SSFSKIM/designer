@@ -1,0 +1,17 @@
+{
+ "what": "W43 G3 (ii): stage rows and captures against candidate c05's scratch read",
+ "stageRows": 1016,
+ "holdoutRows": 0,
+ "c05Rows": 1016,
+ "identicalRowsExceptHowDrawn": 1016,
+ "rowsThatDiffer": [],
+ "identicalCaptures": 1016,
+ "capturesThatDiffer": [],
+ "stageRowsWithNoC05Twin": [],
+ "c05RowsWithNoStageRow": [],
+ "setAside": [
+  "key.web.capturePath",
+  "capturedAt"
+ ],
+ "verdict": "REPRODUCED"
+}

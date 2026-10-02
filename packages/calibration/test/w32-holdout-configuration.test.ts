@@ -35,6 +35,14 @@ const DOCUMENTS = [
   "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
 ] as const;
 
+/** The 0.25 generation's four documents, the second set `--documents glass0.25` names (W43 G3 (ii)). */
+const DOCUMENTS_025 = [
+  "apple-macos-27.0-1x-light-standard-glass0.25.json",
+  "apple-macos-27.0-1x-dark-standard-glass0.25.json",
+  "apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+  "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+] as const;
+
 /** The six entries of `SOURCE_LIST`, as paths beneath the synthetic root. */
 const SOURCES = [
   "packages/renderer-webgpu/src/wgsl/optics.ts",
@@ -72,7 +80,7 @@ function synthetic(): { root: string; log: string } {
   mkdirSync(gate, { recursive: true });
   cpSync(SCRIPT, join(gate, "configuration.py"));
   mkdirSync(join(root, "packages", "calibration", "profiles"), { recursive: true });
-  for (const name of DOCUMENTS) {
+  for (const name of [...DOCUMENTS, ...DOCUMENTS_025]) {
     writeFileSync(join(root, "packages", "calibration", "profiles", name), `{"patch":{},"n":"${name}"}\n`);
   }
   for (const rel of SOURCES) {
@@ -195,6 +203,32 @@ describe("the holdout configuration artifact (W31 Decision Log 1 (b); claims §5
     const recorded = ledger(log).reads[0]?.sourceListSha256;
     expect(recorded).toMatch(/^[0-9a-f]{64}$/);
     expect(run(root, ["show"]).output).toContain(recorded ?? "");
+  });
+
+  it("pins both document sets: 0.5 by default, 0.25 by --documents, each refused only by itself", () => {
+    // W43 G3 (ii): one ledger for two generations. The default set is the 0.5 one, unchanged;
+    // a 0.25 read records its own four documents and `documentSet`, and a second 0.25 read at
+    // the same bytes and sources is refused exactly as a second 0.5 read is.
+    const { root, log } = synthetic();
+    expect(run(root, ["record", "--claims", "c9a §5.NNN"]).status).toBe(0);
+    const first025 = run(root, ["record", "--claims", "c9a §5.201", "--documents", "glass0.25"]);
+    expect(first025.status, first025.output).toBe(0);
+    expect(first025.output).not.toContain("a holdout read already exists");
+    const reads = ledger(log).reads as readonly (Ledger["reads"][number] & { documentSet?: string })[];
+    expect(reads).toHaveLength(2);
+    expect(Object.keys(reads[0]!.documents).sort()).toEqual([...DOCUMENTS].sort());
+    expect(reads[0]!.documentSet).toBeUndefined();
+    expect(Object.keys(reads[1]!.documents).sort()).toEqual([...DOCUMENTS_025].sort());
+    expect(reads[1]!.documentSet).toBe("glass0.25");
+    const again025 = run(root, ["record", "--claims", "c9a §5.201", "--documents", "glass0.25"]);
+    expect(again025.status, again025.output).toBe(1);
+    expect(again025.output).toContain("REFUSED: identical document bytes AND identical sources");
+    const again05 = run(root, ["record", "--claims", "c9a §5.NNN"]);
+    expect(again05.status, again05.output).toBe(1);
+    expect(ledger(log).reads).toHaveLength(2);
+    const unknown = run(root, ["show", "--documents", "glass0.7"]);
+    expect(unknown.status).not.toBe(0);
+    expect(unknown.output).toContain("names no document set");
   });
 
   it("carries W31 G3's and G3c's two reads across the move, unbroken", () => {

@@ -1,0 +1,57 @@
+{
+ "label": "c05",
+ "note": "c04 without its no-op override (sizeScatterFloor 0.25 named at its own 0.5 value; c04 was stopped before any row was written and is not read). That is, c03a with the light receded thin ramp starts back at their 0.5 values (1x 0.55, 2x 0.7): c03a lowered them and M2 failed on the 1x light photo rrect-sm inactive cell, moved away from Apple (-5.7 %). Carries c03a otherwise: the light tone rows solved under L1 (solve_tone.py over the measured Jacobian), tintAlpha 0.30, sizeScatterFloor 0.25 (1x, the 0.5 value) and sizeScatterFloor2x 0.6, the light receded floor 1.0, the dark thick ordinates knot1 +0.0064 / knot2 +0.004 (active) and knot2 +0.003 (receded), the dark scatter at its 0.5 values. bodyChromaRetention and tintShadeLight held: M1 passes and no tint cell misses (Decision Log 7 items 4-5).",
+ "overrides": {
+  "active.light": {
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2201,
+    0.5336,
+    0.9366
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2338,
+    0.5159,
+    0.9401
+   ],
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "optics.regular.tintAlpha": 0.3,
+   "sizeScatterFloor2x": 0.6
+  },
+  "receded.light": {
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2045,
+    0.4217,
+    0.8117
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.231,
+    0.4288,
+    0.8086
+   ],
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeScatterFloor": 1.0
+  },
+  "active.dark": {
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ]
+  },
+  "receded.dark": {
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ]
+  }
+ }
+}

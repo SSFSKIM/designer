@@ -3399,3 +3399,109 @@ it("W36's black branch derives the same target on both tiers, including its rejo
     }
   }
 });
+
+/**
+ * **The four sealed `-glass0.25` documents, on both tiers** (W43 G3 (ii), charter clause 10; Decision
+ * Log 7 as RULED 2026-10-02).
+ *
+ * The 0.25 generation is fitted on the WebGPU tier and the CSS tier is DERIVED from the same four
+ * documents, as every macOS 27 material has been (wave Decision Log 23). These cases hold the
+ * derivation over the sealed documents in `profiles/`, endpoint by endpoint: the receded documents
+ * are differences over their scheme's own 0.25 active document (item 8), so the mirror is read at
+ * the merged patch, and the first case shows that merge resolves to the material the renderer
+ * resolves.
+ */
+describe("the -glass0.25 documents derive one material on both tiers (W43 G3 (ii))", () => {
+  const PROFILE_DIR = resolve(import.meta.dirname, "..", "profiles");
+  type Patch = Record<string, unknown>;
+  const read = (slot: string): { readonly profileKey: string; readonly patch: Patch } => {
+    const [pose, scheme] = slot.split(".");
+    return JSON.parse(readFileSync(resolve(PROFILE_DIR,
+      `apple-macos-27.0-1x-${scheme}-standard-glass0.25${pose === "receded" ? "-receded" : ""}.json`),
+    "utf8")) as { profileKey: string; patch: Patch };
+  };
+  const merge = (base: Patch, over: Patch): Patch => {
+    const out: Patch = { ...base };
+    for (const [key, value] of Object.entries(over)) {
+      const prior = out[key];
+      out[key] = value !== null && typeof value === "object" && !Array.isArray(value)
+        && prior !== null && typeof prior === "object" && !Array.isArray(prior)
+        ? merge(prior as Patch, value as Patch) : value;
+    }
+    return out;
+  };
+  const endpoints = (["light", "dark"] as const).flatMap((scheme) => {
+    const active = read(`active.${scheme}`);
+    const receded = read(`receded.${scheme}`);
+    const activeProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, active.patch as never);
+    return [
+      { name: `active ${scheme}`, key: active.profileKey, patch: active.patch, profile: activeProfile },
+      {
+        name: `receded ${scheme}`, key: receded.profileKey, patch: merge(active.patch, receded.patch),
+        profile: withMaterialOverrides(activeProfile, receded.patch as never),
+      },
+    ];
+  });
+
+  it("names four 0.25 endpoints, each receded one a difference over its own scheme's active", () => {
+    expect(endpoints.map((e) => e.key)).toEqual([
+      "apple-macos-27.0-1x-light-standard-glass0.25",
+      "apple-macos-27.0-1x-light-standard-glass0.25-receded",
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "apple-macos-27.0-1x-dark-standard-glass0.25-receded",
+    ]);
+    for (const e of endpoints) {
+      expect(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, e.patch as never), e.name)
+        .toStrictEqual(e.profile);
+    }
+  });
+
+  it("derives one tone response target on both tiers, at every endpoint, black end included", () => {
+    for (const e of endpoints) {
+      const response = resolvedBackdropToneResponse(e.patch as never);
+      for (const x of [0, 0.001, 0.0029, 0.003, 0.004, 0.05, 0.11, 0.2, 0.425, 0.47, 0.5, 0.7, 0.95, 1]) {
+        for (const thickness of [0, 0.09228515625, 0.5, 1]) {
+          expect(cssBackdropToneResponseLevel(x, thickness, response), `${e.name} x ${x} t ${thickness}`)
+            .toBeCloseTo(rendererBackdropToneResponse(x, thickness, e.profile), 12);
+        }
+      }
+    }
+  });
+
+  it("resolves one span to the same scatter and σ on both tiers, at every endpoint and scale", () => {
+    for (const e of endpoints) {
+      const mirrored = sourceSize(e.patch as never);
+      for (const dpr of [1, 2]) {
+        for (const span of [32, 44, 64, 96, 128, 160, 224]) {
+          for (const fold of [0, 0.45, 1]) {
+            const label = `${e.name} span ${span} fold ${fold} dpr ${dpr}`;
+            const css = cssScatterThickness(span, fold, mirrored, dpr);
+            const gpu = rendererScatterThickness(span, fold, e.profile, dpr);
+            expect(css, label).toBeCloseTo(gpu, 12);
+            expect(cssSizeScatterSigmaAt(1.25, css, mirrored), `σ at ${label}`)
+              .toBeCloseTo(rendererSizeScatterSigmaAt(1.25, gpu, e.profile), 12);
+          }
+        }
+      }
+    }
+  });
+
+  it("mirrors the tint shade at every endpoint", () => {
+    for (const e of endpoints) {
+      const shade = resolvedTintShade(e.patch as never);
+      expect(shade.light, e.name).toBe(e.profile.tintShadeLight);
+      expect(shade.dark, e.name).toBe(e.profile.tintShadeDark);
+      expect(shade.strength, e.name).toBe(e.profile.tintShadeStrength);
+    }
+  });
+
+  it("records what the CSS tier carries of each 0.25 endpoint's chroma retention: nothing", () => {
+    // W31's decline, re-read at the new documents rather than inherited (claims §5.164 §5): the
+    // CSS tier's mirror is 0, so every 0.25 endpoint's retention is a recorded residual.
+    for (const e of endpoints) {
+      expect(e.profile.bodyChromaRetention, `${e.name}: the residual the CSS tier does not carry`)
+        .not.toBe(BODY_CHROMA_RETENTION);
+    }
+    expect(BODY_CHROMA_RETENTION).toBe(0);
+  });
+});

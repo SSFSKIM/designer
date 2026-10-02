@@ -1,0 +1,55 @@
+{
+  "what": "W43 G3 (ii): candidate c05 sealed as the four -glass0.25 profile documents",
+  "candidate": {
+    "declaration": "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json",
+    "sha256": "95388218f94db34b1c1a4bb57bb529e58618d7106c663bb90ce30cd402f2a6a4"
+  },
+  "digestRule": 2,
+  "documents": {
+    "apple-macos-27.0-1x-light-standard-glass0.25.json": {
+      "fileSha256": "6d18c059eb429e63b41bcfa5b839330f62844d3790e3f301ec7c901ac4637a38",
+      "resolvedMaterialSha256": "50430fa62c1120bd",
+      "movedLeaves": [
+        "backdropToneBlackThick",
+        "backdropToneBlackThin",
+        "backdropToneResponseThick",
+        "backdropToneResponseThin",
+        "optics.regular.tintAlpha",
+        "sizeScatterFloor2x"
+      ],
+      "twinSha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936",
+      "candidateEndpointSha256": "23ccc6959a2e4fcea8362380eaf62d06324571b407f786e26f9be78ac8afe043"
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.25.json": {
+      "fileSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+      "resolvedMaterialSha256": "b074fc6913a91c66",
+      "movedLeaves": [
+        "backdropToneResponseThick"
+      ],
+      "twinSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+      "candidateEndpointSha256": "54f94dffbe8fa11ba8ddf9b63ed8bea1fa7736ab83bb7e66465c025eb57705be"
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.25-receded.json": {
+      "fileSha256": "4d5f23d9d312ed0c9c473060e8485088ab0f40d746be90ee073d72e878b85db7",
+      "resolvedMaterialSha256": "5d8680980b7aeb55",
+      "movedLeaves": [
+        "backdropToneBlackThick",
+        "backdropToneBlackThin",
+        "backdropToneResponseThick",
+        "backdropToneResponseThin",
+        "sizeScatterFloor"
+      ],
+      "twinSha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd",
+      "candidateEndpointSha256": "d4e316d942ec255e9e876f9c2355fba86a68c1803ada803308b52db6405483be"
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json": {
+      "fileSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+      "resolvedMaterialSha256": "280f0fddf014e0f6",
+      "movedLeaves": [
+        "backdropToneResponseThick"
+      ],
+      "twinSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+      "candidateEndpointSha256": "57f5f31f866e18737610b89e253e7bc38192b4d7e0b5c69663922d7891714368"
+    }
+  }
+}

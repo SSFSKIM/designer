@@ -1,0 +1,79 @@
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-1x-light-standard-glass0.25 --renderer webgpu --candidate-document results/2026-10-02-w43-g3-refit/fit/candidates/c04/candidate.json --set calibration,validation,recorded,probe --alpha --write-partial --out-matrix /Users/new/vitrea-w43/g3-scratch/fit/c04/matrix.json
+
+── web capture (apple-macos-27.0-1x-light-standard-glass0.25, 144 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c04/candidate.json declarationSha256=ee03416b9f4f name=apple-macos-27.0-glass0.25-w43-g3-c04 glassTintAmount=0.25
+
+checkerboard-8__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest/
+
+photo__rrect-md__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange/
+
+light-solid__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-sm__rest/
+
+checkerboard-lc16__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-md__rest/
+
+mid-chroma-solid__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/mid-chroma-solid__capsule-button__inactive-tint-orange/
+
+hc-text-7__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-lg__rest/
+
+checkerboard__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange/
+
+checkerboard-8__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-md__inactive/
+
+checkerboard-lc16__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c04/web-captures/apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest/
+[ELIFECYCLE] Command failed with exit code 143.

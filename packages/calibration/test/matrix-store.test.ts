@@ -156,11 +156,21 @@ test("case aliases and a hardlink of the frozen authority still read the current
   }
 });
 
-test("a casing alias of the recorded frozen matrix reads all 1,893 current rows", () => {
+// The current union was 1,893 rows through W42. W43 G3 (ii) (claims §5.201) published the glass
+// 0.25 generations beside the glass 0.5 ones, by file: active document hash -> rows.
+const GLASS_025_GENERATIONS = { "6d18c059eb42": 656, "d0219cd684bf": 468 } as const;
+
+test("a casing alias of the recorded frozen matrix reads all 3,017 current rows", () => {
   const canonical = join(import.meta.dirname, "../results/matrix.json");
   const caseAlias = join(import.meta.dirname, "../results/MATRIX.JSON");
   if (existsSync(caseAlias)) {
-    expect(loadCurrentRows({ matrixPath: caseAlias })).toHaveLength(1893);
-    expect(loadCurrentRows({ matrixPath: canonical })).toHaveLength(1893);
+    const rows = loadCurrentRows({ matrixPath: caseAlias });
+    expect(rows).toHaveLength(1893 + 656 + 468);
+    expect(loadCurrentRows({ matrixPath: canonical })).toHaveLength(3017);
+    for (const [active, count] of Object.entries(GLASS_025_GENERATIONS)) {
+      const named = rows.filter((r) => r.key.web.capturePath.includes(`sha256:${active}`));
+      expect(named, active).toHaveLength(count);
+      expect(named.every((r) => r.key.profileKey.endsWith("-glass0.25")), active).toBe(true);
+    }
   }
 });

@@ -210,6 +210,7 @@ import { describe, expect, it } from "vitest";
 
 import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
 import { decodePng, type CalibrationImage } from "../src/image";
+import { keyPosition } from "../src/material-selection";
 
 // ---------------------------------------------------------------------------
 // §5, transcribed
@@ -2083,8 +2084,43 @@ const MATRIX_PATH = resolve(
   PACKAGE_ROOT,
   process.env["VITREA_MATRIX_PATH"] ?? resolve(PACKAGE_ROOT, "results", "matrix.json"),
 );
+/**
+ * The glass positions this file defers to a later gate, and nothing else (W43 X45, claims
+ * §5.201).
+ *
+ * Since W43 G3 (ii) the current union carries a second macOS 27 position: the glass 0.25
+ * generations (`generations/6d18c059eb42.json`, `d0219cd684bf.json`) beside the glass 0.5
+ * ones. Every bound, floor, count, partition and `PREDICATE_EXCLUDES` entry here was measured
+ * at macOS 26.5 (no slider) or macOS 27 glass 0.5, so a read of the union that did not name its
+ * position would gate one material's rows against another's numbers, which is X45's defect.
+ * G3 (iii) states the 0.25 populations beside these, and until it does the 0.25 rows are
+ * deferred here by their position.
+ *
+ * The list names what is deferred rather than what is gated, because only a deferral keeps the
+ * file's refusals live. An allowlist of gated positions would drop a row at a position nobody
+ * declared, such as a glass 0.75 key or a macOS 27 key with no glass token, before the partition
+ * and the "refuses one it never declared" check could see it, so the union would look smaller
+ * rather than wrong. Here a row is dropped only when its key parses to a deferred pair; every
+ * other row, an unparseable key included, stays in the union for those checks to refuse. The
+ * selection is by the position the key parses to, never by naming generations, so a refit at
+ * the deferred position stays deferred by itself. The deferral ends when G3 (iii) adds the 0.25
+ * blocks, and its entry leaves this list then.
+ */
+const DEFERRED_POSITIONS: readonly { readonly osVersion: string; readonly glass: number }[] = [
+  { osVersion: "27.0", glass: 0.25 },
+];
+
+/** Does this key parse to a deferred position? A key that does not parse is never deferred. */
+function atADeferredPosition(profileKey: string): boolean {
+  const position = keyPosition(profileKey);
+  return position !== undefined && DEFERRED_POSITIONS.some(
+    (deferred) => deferred.osVersion === position.osVersion && deferred.glass === position.glass,
+  );
+}
+
 // W40: canonical reads union frozen and current generations; scratch remains one file.
-const CURRENT_ROWS = loadCurrentRows({ matrixPath: MATRIX_PATH });
+const CURRENT_ROWS = loadCurrentRows({ matrixPath: MATRIX_PATH })
+  .filter((row) => !atADeferredPosition(row.key.profileKey));
 const MATRIX_FILE: ResultMatrix = {
   schemaVersion: RESULT_MATRIX_SCHEMA_VERSION,
   cells: CURRENT_ROWS as unknown as readonly Cell[],
@@ -3679,6 +3715,33 @@ describe("the recorded role is captured, and gated by nothing (Decision Log 19 r
       [...RECORDED_SCENES].some((sceneId) => key.includes(` / ${sceneId} / `)),
     );
     expect(floored).toEqual([]);
+  });
+});
+
+/**
+ * The glass 0.25 position is deferred to G3 (iii), and no other position is (W43 X45, claims
+ * §5.201).
+ *
+ * The deferral is the one drop made before `MATRIX_FILE`, so the guards above cannot see what it
+ * removed: a predicate that dropped a glass 0.75 row would leave every count they read intact.
+ * The keys are therefore passed through the filter's own predicate, and the undeclared ones must
+ * come out kept, which is what lets the partition and the 27 refusal reach them.
+ */
+describe("the deferred glass position, and only it, is read at a later gate (W43 X45)", () => {
+  it("defers a glass 0.25 key and keeps a glass 0.75, a token-less 27.0 and a garbled one", () => {
+    const deferred = [
+      "apple-macos-27.0-1x-light-standard-glass0.25",
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+    ];
+    const kept = [
+      "apple-macos-27.0-1x-light-standard-glass0.75",
+      "apple-macos-27.0-1x-light-standard",
+      "apple-macos-27.0-1x-light-standard-glass",
+      "apple-macos-27.0-1x-light-standard-glass0.5",
+      "apple-macos-26.5-1x-light-standard",
+    ];
+    expect(deferred.filter((key) => !atADeferredPosition(key))).toEqual([]);
+    expect(kept.filter(atADeferredPosition)).toEqual([]);
   });
 });
 

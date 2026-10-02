@@ -60,12 +60,19 @@ const key = (cell: SourceCell): string => [
 ].map((field) => escape(field ?? "")).join("|");
 const rowsIn = (path: string): readonly SourceCell[] =>
   (JSON.parse(readFileSync(path, "utf8")) as { cells: readonly SourceCell[] }).cells;
+const UNION = [
+  ...rowsIn(join(RESULTS, "matrix.json")),
+  ...[...new Set(Object.values(INDEX.currentByProfile))]
+    .flatMap((name) => rowsIn(join(RESULTS, "generations", name))),
+].sort((a, b) => key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0);
+// The page's positions (W43 X45, claims §5.201), by the key's own trailing token rather than
+// the reducer's parser: no slider token (macOS 26.5) or glass 0.5.
+const glassOf = (profileKey: string): number | undefined => {
+  const token = /-glass(\d+(?:\.\d+)?)$/.exec(profileKey)?.[1];
+  return token === undefined ? undefined : Number(token);
+};
 const FILE = {
-  cells: [
-    ...rowsIn(join(RESULTS, "matrix.json")),
-    ...[...new Set(Object.values(INDEX.currentByProfile))]
-      .flatMap((name) => rowsIn(join(RESULTS, "generations", name))),
-  ].sort((a, b) => key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0),
+  cells: UNION.filter((cell) => [undefined, 0.5].includes(glassOf(cell.key.profileKey))),
 };
 
 /** A cell's identity in the current union: the page has no other way to name one. */
@@ -82,6 +89,17 @@ describe("the reduction against the independently read current union", () => {
     expect(BEFORE.cells.length).toBe(411);
     expect(FILE.cells.length).toBe(1893);
     expect(reduceMatrix()).toEqual(BEFORE);
+  });
+
+  it("names its glass position: no row at another position reaches the page or its count", () => {
+    // Not vacuous: the union carries the glass 0.25 generations (W43 G3 (ii)).
+    const elsewhere = UNION.filter((cell) => !FILE.cells.includes(cell));
+    expect(elsewhere.length).toBe(656 + 468);
+    expect(new Set(elsewhere.map((cell) => glassOf(cell.key.profileKey)))).toEqual(new Set([0.25]));
+    const { cells, matrixCellCount } = reduceMatrix();
+    expect(matrixCellCount).toBe(FILE.cells.length);
+    expect(cells.filter((cell) => ![undefined, 0.5].includes(glassOf(cell.key.profileKey))))
+      .toEqual([]);
   });
 
   it("keeps exactly the rows the page's two rules select", () => {

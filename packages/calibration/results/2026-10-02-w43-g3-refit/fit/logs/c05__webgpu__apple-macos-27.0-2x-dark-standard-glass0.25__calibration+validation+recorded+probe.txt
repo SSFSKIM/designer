@@ -1,0 +1,23 @@
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-2x-dark-standard-glass0.25 --renderer webgpu --candidate-document results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json --set calibration,validation,recorded,probe --alpha --write-partial --out-matrix /Users/new/vitrea-w43/g3-scratch/fit/c05/matrix.json
+
+── web capture (apple-macos-27.0-2x-dark-standard-glass0.25, 110 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json declarationSha256=95388218f94d name=apple-macos-27.0-glass0.25-w43-g3-c05 glassTintAmount=0.25
+
+photo__capsule-button__inactive-pressed
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c05/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/photo__capsule-button__inactive-pressed/
+
+photo__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w43/g3-scratch/fit/c05/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/photo__capsule-button__inactive/
+[ELIFECYCLE] Command failed with exit code 143.

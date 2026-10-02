@@ -1,0 +1,27 @@
+{
+  "$comment": "W43 G3 (i) scratch candidate j-thin0: Jacobian probe over c01: backdropToneResponseThin[0] +0.02 in both light documents",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w43-g3-j-thin0",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "94a457690b7d95f5414379befaf4583c807c06273411b04f8588b37480df2b63"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "9dc1e5a3ad59d87efe14b3637c341fee6732977478d96b1adb33896e727c4e9c"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "c72a65b8835dbb9a07eb02d18cd5b53600e298f167af3e5423153c1d7d8ce119"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "d74be1a1ce1f28ef2c7fbae2f459ba97a48d51a78796b67d8bb2adfe6d6821c3"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

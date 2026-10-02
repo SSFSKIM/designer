@@ -44,6 +44,48 @@
       "bytes": 19788488,
       "sha256": "39ac0ba98ca200b10b194f6b45af54df8bf8b2dcbe6b98946a1c8b8aed58356e",
       "status": "current"
+    },
+    "6d18c059eb42.json": {
+      "activeDocumentSha256": "6d18c059eb42",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+          "sha256": "6d18c059eb42"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+          "sha256": "4d5f23d9d312"
+        }
+      ],
+      "bytes": 25041262,
+      "sha256": "cadad647679735645a49fea6dcdefa401ef8af69459a7965c2ac4b82d72e5cf3",
+      "rowCount": 656,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-standard-glass0.25": 328,
+        "apple-macos-27.0-2x-light-standard-glass0.25": 328
+      },
+      "status": "current"
+    },
+    "d0219cd684bf.json": {
+      "activeDocumentSha256": "d0219cd684bf",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+          "sha256": "d0219cd684bf"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+          "sha256": "f0b36a71772a"
+        }
+      ],
+      "bytes": 17484878,
+      "sha256": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02",
+      "rowCount": 468,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": 234,
+        "apple-macos-27.0-2x-dark-standard-glass0.25": 234
+      },
+      "status": "current"
     }
   },
   "byDocumentSha256": {
@@ -58,6 +100,18 @@
     ],
     "85ad7f7e3e0d": [
       "85ad7f7e3e0d.json"
+    ],
+    "6d18c059eb42": [
+      "6d18c059eb42.json"
+    ],
+    "4d5f23d9d312": [
+      "6d18c059eb42.json"
+    ],
+    "d0219cd684bf": [
+      "d0219cd684bf.json"
+    ],
+    "f0b36a71772a": [
+      "d0219cd684bf.json"
     ]
   },
   "currentByProfile": {
@@ -66,6 +120,10 @@
     "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": "85ad7f7e3e0d.json",
     "apple-macos-27.0-1x-light-standard-glass0.5": "85ad7f7e3e0d.json",
     "apple-macos-27.0-2x-dark-standard-glass0.5": "0eac5b294cc2.json",
-    "apple-macos-27.0-2x-light-standard-glass0.5": "85ad7f7e3e0d.json"
+    "apple-macos-27.0-2x-light-standard-glass0.5": "85ad7f7e3e0d.json",
+    "apple-macos-27.0-1x-light-standard-glass0.25": "6d18c059eb42.json",
+    "apple-macos-27.0-2x-light-standard-glass0.25": "6d18c059eb42.json",
+    "apple-macos-27.0-1x-dark-standard-glass0.25": "d0219cd684bf.json",
+    "apple-macos-27.0-2x-dark-standard-glass0.25": "d0219cd684bf.json"
   }
 }

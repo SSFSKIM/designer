@@ -37,12 +37,22 @@
  * and it stays the page's to apply.
  *
  * `MATRIX_CELL_COUNT` is the current union's row count (frozen plus indexed
- * current generations), not the reduction's: the sentence it appears in is
- * about the measured matrix, not just the rows this page displays.
+ * current generations) at the page's glass positions, not the reduction's: the
+ * sentence it appears in is about the measured matrix, not just the rows this
+ * page displays.
+ *
+ * **The page names its glass positions** (W43 X45, claims §5.201). Since W43
+ * G3 (ii) the union holds macOS 27 rows at two slider positions, glass 0.5 and
+ * glass 0.25, and every figure and sentence on this page describes the 0.5
+ * material. A reduction that read the union without naming a position would
+ * print 0.25 rows under the 0.5 material's description and count them in its
+ * matrix. So both the count and the reduction read only `DISPLAYED_POSITIONS`;
+ * the 0.25 material reaches the page when the page says which position it shows.
  */
 
 import type { Plugin } from "vite";
 
+import { keyPosition } from "../../packages/calibration/src/material-selection.ts";
 import { loadCurrentRows } from "../../packages/calibration/src/matrix-store.ts";
 import { shippedDocumentHashes } from "./shipped-documents.ts";
 import { REFERENCE_SCENES } from "./src/site/scenes.ts";
@@ -181,6 +191,20 @@ export function displayed(cell: SourceCell, hashes: Record<string, string>): boo
 
 export const REFERENCE_SCENE_IDS = new Set(REFERENCE_SCENES.map((scene) => scene.id));
 
+/** macOS 26.5, which has no slider, and macOS 27 at the system default, glass 0.5. */
+export const DISPLAYED_POSITIONS: readonly {
+  readonly osVersion: string;
+  readonly glass?: number;
+}[] = [{ osVersion: "26.5" }, { osVersion: "27.0", glass: 0.5 }];
+
+/** A key the profile grammar does not parse is kept, so the page's other rules decide it. */
+export function atADisplayedPosition(profileKey: string): boolean {
+  const position = keyPosition(profileKey);
+  return position === undefined || DISPLAYED_POSITIONS.some(
+    (shown) => shown.osVersion === position.osVersion && shown.glass === position.glass,
+  );
+}
+
 export function reduceMatrix(): {
   readonly cells: readonly ReducedCell[];
   readonly matrixCellCount: number;
@@ -188,7 +212,8 @@ export function reduceMatrix(): {
   const hashes = shippedDocumentHashes();
   // CellResult's complete axis types lack an index signature; SourceCell is the
   // narrower projection view over those same parsed rows.
-  const source = loadCurrentRows() as unknown as readonly SourceCell[];
+  const source = (loadCurrentRows() as unknown as readonly SourceCell[])
+    .filter((cell) => atADisplayedPosition(cell.key.profileKey));
   return {
     cells: source.filter((cell) => displayed(cell, hashes)).map(project),
     matrixCellCount: source.length,

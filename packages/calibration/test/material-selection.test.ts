@@ -20,6 +20,7 @@ import { describe, expect, it } from "vitest";
 import {
   macos26MaterialProfileDocument,
   macos27CssTierMapping,
+  macos27Glass025MaterialProfileDocument,
   macos27MaterialProfileDocument,
   SHIPPED_MATERIAL_PROFILE_DOCUMENTS,
   type GlassMaterialProfileDocument,
@@ -47,6 +48,13 @@ const PACKAGE = resolve(import.meta.dirname, "..");
 const PROFILES = resolve(PACKAGE, "profiles");
 const KEY_05 = "apple-macos-27.0-1x-light-standard-glass0.5";
 const KEY_025 = "apple-macos-27.0-1x-light-standard-glass0.25";
+/**
+ * An UNSHIPPED position for the candidate-mode cases. Through W43 G2 the scratch position was 0.25,
+ * the one no shipped document carried; W43 G3 (ii) ships the 0.25 document (Decision Log 1, RULED
+ * (a), executed one step early for the publication), so a candidate at 0.25 keys now names a
+ * shipped document and is refused by design. The cases keep their meaning at 0.75.
+ */
+const SCRATCH_GLASS = "0.75";
 
 /** The shipped 0.5 document's content under the 0.25 keys: the proof's candidate. */
 function relabel(document: GlassMaterialProfileDocument, glass: string): MaterialDocumentLike {
@@ -86,8 +94,14 @@ describe("strict shipped mode", () => {
       .toEqual({ osVersion: "26.5", glass: undefined });
   });
 
-  it("red: refuses glass 0.25, the pair the OS token alone would have answered with 0.5", () => {
-    expect(() => selectShippedDocument(KEY_025, SHIPPED_MATERIAL_PROFILE_DOCUMENTS))
+  it("selects the shipped 0.25 document by its pair, beside the 0.5 one (W43 G3 (ii))", () => {
+    expect(selectShippedDocument(KEY_025, SHIPPED_MATERIAL_PROFILE_DOCUMENTS))
+      .toBe(macos27Glass025MaterialProfileDocument);
+    expect(documentPosition(macos27Glass025MaterialProfileDocument)).toEqual({ osVersion: "27.0", glass: 0.25 });
+  });
+
+  it("red: refuses glass 0.75, a pair no shipped document carries", () => {
+    expect(() => selectShippedDocument(KEY_025.replace("0.25", SCRATCH_GLASS), SHIPPED_MATERIAL_PROFILE_DOCUMENTS))
       .toThrow(/ships no material at that pair/);
   });
 
@@ -128,11 +142,11 @@ describe("strict shipped mode", () => {
 });
 
 describe("candidate mode, the document the page draws", () => {
-  const good = relabel(macos27MaterialProfileDocument, "0.25");
+  const good = relabel(macos27MaterialProfileDocument, SCRATCH_GLASS);
   const refusals = (candidate: MaterialDocumentLike) =>
     candidateDocumentRefusals(candidate, SHIPPED_MATERIAL_PROFILE_DOCUMENTS);
 
-  it("admits the 0.5 content under the scratch 0.25 keys", () => {
+  it("admits the 0.5 content under scratch keys at an unshipped position", () => {
     expect(refusals(good)).toEqual([]);
   });
 
@@ -156,12 +170,12 @@ describe("candidate mode, the document the page draws", () => {
 
   it("red: refuses keys whose glass token differs from the declared position", () => {
     expect(refusals({ ...good, glassTintAmount: 0.5 }).join("; "))
-      .toMatch(/glass token: active\.light key .* names glass 0\.25, the candidate declares 0\.5/);
+      .toMatch(/glass token: active\.light key .* names glass 0\.75, the candidate declares 0\.5/);
     const oneOff = { ...good, receded: { ...good.receded,
-      dark: { ...good.receded.dark, profileKey: "apple-macos-27.0-1x-dark-standard-glass0.75-receded" } } };
+      dark: { ...good.receded.dark, profileKey: "apple-macos-27.0-1x-dark-standard-glass0.6-receded" } } };
     expect(refusals(oneOff)).toEqual([
-      "glass token: receded.dark key 'apple-macos-27.0-1x-dark-standard-glass0.75-receded' names " +
-        "glass 0.75, the candidate declares 0.25",
+      "glass token: receded.dark key 'apple-macos-27.0-1x-dark-standard-glass0.6-receded' names " +
+        "glass 0.6, the candidate declares 0.75",
     ]);
   });
 
@@ -314,7 +328,7 @@ function scratch(options: {
   declaration?: (declaration: Record<string, unknown>) => void;
   after?: (dir: string) => void;
 } = {}): string {
-  const glass = options.glass ?? "0.25";
+  const glass = options.glass ?? SCRATCH_GLASS;
   const dir = mkdtempSync(join(tmpdir(), "w43-candidate-"));
   const endpoints: Record<string, { path: string; sha256: string }> = {};
   let mapping: unknown;
@@ -344,10 +358,10 @@ function scratch(options: {
 }
 
 describe("candidate mode, the declaration the driver reads", () => {
-  it("assembles the 0.5 content under 0.25 keys into the shipped document's material", () => {
+  it("assembles the 0.5 content under unshipped keys into the shipped document's material", () => {
     const candidate = readCandidateDocument(scratch());
     const { document } = candidate;
-    expect(document.glassTintAmount).toBe(0.25);
+    expect(document.glassTintAmount).toBe(Number(SCRATCH_GLASS));
     expect(document.cssTierMapping).toEqual(macos27CssTierMapping);
     for (const pose of ["active", "receded"] as const) {
       for (const scheme of ["light", "dark"] as const) {
@@ -355,7 +369,7 @@ describe("candidate mode, the declaration the driver reads", () => {
         expect(document[pose][scheme].patch).toEqual(shipped.patch);
         expect(document[pose][scheme].resolvedMaterialSha256).toBe(shipped.resolvedMaterialSha256);
         expect(document[pose][scheme].profileKey)
-          .toBe(shipped.profileKey!.replace("-glass0.5", "-glass0.25"));
+          .toBe(shipped.profileKey!.replace("-glass0.5", `-glass${SCRATCH_GLASS}`));
       }
     }
   });
@@ -418,7 +432,7 @@ describe("candidate mode, the declaration the driver reads", () => {
   it("red: refuses keys whose glass token differs from the declared position", () => {
     expect(() => readCandidateDocument(scratch({
       declaration: (d) => { d["glassTintAmount"] = 0.5; },
-    }))).toThrow(/glass token: active\.light key .* names glass 0\.25, the candidate declares 0\.5/);
+    }))).toThrow(/glass token: active\.light key .* names glass 0\.75, the candidate declares 0\.5/);
   });
 
   it("red: refuses a candidate that names the shipped 0.5 document", () => {
@@ -481,10 +495,10 @@ describe("both modes, the command lines", () => {
   const asShipped05 = ["--material-profile", active];
   const KEY_265 = "apple-macos-26.5-1x-light-standard";
 
-  it("red: compare refuses the 0.25 candidate against 0.5 fixtures without --cross-position", () => {
+  it("red: compare refuses the scratch candidate against 0.5 fixtures without --cross-position", () => {
     const out = compareAgainst(asCandidate, KEY_05, []);
     expect(out.status).not.toBe(0);
-    expect(out.stderr).toMatch(/the candidate is at glass 0\.25 and is read against .*glass0\.5/);
+    expect(out.stderr).toMatch(/the candidate is at glass 0\.75 and is read against .*glass0\.5/);
   }, 60_000);
 
   it("green: compare admits it under --cross-position, past the gate to the capture lookup", () => {
@@ -595,14 +609,14 @@ describe("both modes, the command lines", () => {
    */
   const SCENE = "photo__rrect-md__rest";
   const FIXTURE05 = resolve(PACKAGE, "../../apps/reference-apple/fixtures", KEY_05, `${SCENE}.png`);
-  const CANDIDATE_REL = "packages/calibration/results/2026-10-01-w43-g0-declaration/seam/" +
-    "scratch-candidate/candidate.json";
+  // G0's committed scratch candidate sits at the 0.25 keys, which W43 G3 (ii) ships, so the
+  // stamped cell is drawn from the fresh scratch candidate at the unshipped position instead.
   const stampedCandidateCell = () => JSON.stringify({ engine: "chromium", engineVersion: "1",
     renderer: "webgpu", samplingBackend: "gpu-texture", gpuAdapter: "apple/metal-3", colorSpace: "srgb",
-    capturePath: `materialProfile=candidate candidateDocument=${CANDIDATE_REL} declarationSha256=` +
-      `${sha(readFileSync(resolve(PACKAGE, "../..", CANDIDATE_REL), "utf8")).slice(0, 12)} ` +
-      "name=apple-macos-27.0-glass0.25-w43-g0-scratch glassTintAmount=0.25, " +
-      "crossPosition=candidate-glass0.25-against-glass0.5",
+    capturePath: `materialProfile=candidate candidateDocument=${candidate} declarationSha256=` +
+      `${sha(readFileSync(candidate, "utf8")).slice(0, 12)} ` +
+      `name=apple-macos-27.0-glass${SCRATCH_GLASS} glassTintAmount=${SCRATCH_GLASS}, ` +
+      `crossPosition=candidate-glass${SCRATCH_GLASS}-against-glass0.5`,
     sceneId: SCENE, pixelSize: [320, 200], deterministic: true, repeatNoise: 0 });
   const declaredStage05 = () => {
     const stage = join(mkdtempSync(join(tmpdir(), "w43-stage-")), "stage");
@@ -631,7 +645,7 @@ describe("both modes, the command lines", () => {
     const scratchRun = diff(scratchMatrix);
     expect(scratchRun.status, scratchRun.stderr).toBe(0);
     expect(JSON.parse(readFileSync(scratchMatrix, "utf8")).cells[0].key.web.capturePath)
-      .toMatch(/, crossPosition=candidate-glass0\.25-against-glass0\.5$/);
+      .toMatch(/, crossPosition=candidate-glass0\.75-against-glass0\.5$/);
   }, 120_000);
 
   it("red/green: compare --out-matrix into a declared stage is that stage; into scratch it writes", () => {
@@ -643,7 +657,7 @@ describe("both modes, the command lines", () => {
     copyFileSync(FIXTURE05, join(dir, `${SCENE}__webgpu.png`));
     writeFileSync(join(dir, "cell__webgpu.json"), stampedCandidateCell());
     const compare = (matrix: string) => run("cli/compare.ts", ["--candidate-document",
-      resolve(PACKAGE, "../..", CANDIDATE_REL), "--cross-position", "--profile", KEY_05, "--scene", SCENE,
+      candidate, "--cross-position", "--profile", KEY_05, "--scene", SCENE,
       "--set", "calibration", "--skip-capture", "--out-matrix", matrix], { VITREA_WEB_CAPTURES: tree });
     const staged = compare(join(stage, "matrix.json"));
     expect(staged.status).not.toBe(0);
@@ -654,7 +668,7 @@ describe("both modes, the command lines", () => {
     const scratchRun = compare(scratchMatrix);
     expect(scratchRun.status, `${scratchRun.stdout}${scratchRun.stderr}`).toBe(0);
     expect(JSON.parse(readFileSync(scratchMatrix, "utf8")).cells[0].key.web.capturePath)
-      .toMatch(/, crossPosition=candidate-glass0\.25-against-glass0\.5$/);
+      .toMatch(/, crossPosition=candidate-glass0\.75-against-glass0\.5$/);
   }, 120_000);
 
   it("red: --cross-position is scratch only: no stage, no canonical tree, no authoritative matrix", () => {
@@ -695,7 +709,7 @@ describe("both modes, the command lines", () => {
   }, 120_000);
 
   it("red: capture-web refuses a cross-position stamp at the material's own position", () => {
-    for (const material of [[...asCandidate, "--cross-position", "0.25"],
+    for (const material of [[...asCandidate, "--cross-position", SCRATCH_GLASS],
       [...asShipped05, "--cross-position", "0.5"]]) {
       const out = run("scripts/capture-web.ts", ["photo__rrect-md__rest", "--out", "/tmp/w43-never",
         ...material]);

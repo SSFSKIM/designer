@@ -1,0 +1,27 @@
+{
+  "$comment": "W43 G3 (i) scratch candidate c01: Decision Log 7 item 1 only: the light tone rows and black branch moved by Apple's own 0.25-0.5 interior-level change at each knot (G2 delta, calibration+validation untinted, both scales); tintAlpha, scatter and dark held",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w43-g3-c01",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "ef8fa81a8b4b08a8810c7f6ff884f0c1cd02cdfe06db665bfa8a19e1a226435e"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "f5f3091b6adfe21309bf617d7f42fb94db8ec737aa3706732d6115e54ab3dc2c"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "9f1eb449dc54a9716cde02c34af2a6c627b0b7b18c2ee62d67a05892e581a11a"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "120c9b529bf1e30bd2ae2949faf8e240f0cce0096835424b30967768b12384c0"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

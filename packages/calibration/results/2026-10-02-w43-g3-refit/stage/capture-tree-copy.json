@@ -1,0 +1,39 @@
+{
+ "what": "W43 G3 (ii): the glass 0.25 capture trees copied additively to the canonical path (CLAUDE.md: copying the read's tree to the canonical path is part of the merge that lands the read)",
+ "at": "2026-10-02T12:15:12Z",
+ "source": "~/vitrea-w43/g3/packages/calibration/web-captures (the stage reads' tree, gitignored)",
+ "target": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures (the main checkout's canonical tree, gitignored)",
+ "permission": "the coordinator, 2026-10-02: new -glass0.25 directories only, no 0.5 file touched, nothing else in that checkout changed",
+ "directories": [
+  "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "apple-macos-27.0-1x-light-standard-glass0.25",
+  "apple-macos-27.0-2x-dark-standard-glass0.25",
+  "apple-macos-27.0-2x-light-standard-glass0.25"
+ ],
+ "method": "rsync -a --ignore-existing per directory; none of the four existed at the target beforehand",
+ "files": {
+  "total": 5620,
+  "png": 2248,
+  "json": 3372
+ },
+ "manifest": {
+  "path": "capture-tree-source.sha256",
+  "sha256": "dc00ffb288cfddb462d5eaa92fa81bee957395aa987f9ab21569d4561ce8d38f",
+  "note": "sha256 per file, relative to the tree root, LC_ALL=C order; the target's four directories hash to the identical manifest"
+ },
+ "preExistingTree": {
+  "files": 9023,
+  "manifestSha256Before": "0989e820268bdabd0ae2e042a6dc872b306557ab6ed793a8b965877486590f24",
+  "manifestSha256After": "0989e820268bdabd0ae2e042a6dc872b306557ab6ed793a8b965877486590f24",
+  "verdict": "unchanged: every pre-existing file hashes as it did before the copy"
+ },
+ "mainCheckoutGitStatus": "clean after the copy",
+ "checkCaptureTree": {
+  "output": "check-capture-tree-canonical.txt",
+  "exitCode": 0,
+  "totals": "captures 3024, match 3017, mismatch 0, misfiled 0, superseded 0, unreadable 0, no-row 7",
+  "glass025": "1,124 captures, 1,124 match, on all four profiles and both tiers",
+  "noRow": "the seven no-row captures are all in the frozen macOS 26.5 trees and predate W43 (W40 G1 recorded 1,893 / 7)"
+ },
+ "supersededMoved": "none: no generation is superseded at a new position, so nothing moves to web-captures-superseded/ (charter G3 landing)"
+}

@@ -1,0 +1,38 @@
+W43 G3 (i) step 2: the rehearsal on the pre-fit render (the unmoved endpoint)
+
+verdicts on the pre-fit render
+  tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-1x-light-standard-glass0.25 css          MISS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 css          PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 css           PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 css           PASS
+  M1 webgpu (GATED)                                                PASS
+  M1 css (descriptive)                                             PASS
+  M2 webgpu (GATED)                                                PASS
+  M2 css (descriptive)                                             PASS
+  C1 webgpu (GATED)                                                PASS
+  C1 css (descriptive)                                             MISS
+  L1 webgpu (GATED)                                                MISS
+  L1 css (descriptive)                                             MISS
+  X1 webgpu (GATED)                                                PASS
+  X1 css (descriptive)                                             MISS
+  E2 webgpu (GATED)                                                PASS
+  E2 css (descriptive)                                             PASS
+  S1 webgpu (GATED)                                                MISS
+  S1 css (GATED)                                                   MISS
+
+S1 as R2, beside G2's map
+  webgpu: population 183
+    perfect endpoint (G2, Apple's 0.25 in vitrea's place): median ratio 1.0560425803144486, sign holds True, passes True
+    unmoved endpoint, G2 offline (0.5 capture under the 0.25 silhouette): median ratio -0.0, passes False
+    unmoved endpoint, RENDERED here: median ratio -0.0, 145 of 183 wrong sign, verdict MISS
+  css: population 125
+    perfect endpoint (G2, Apple's 0.25 in vitrea's place): median ratio 1.0528062875981292, sign holds True, passes True
+    unmoved endpoint, G2 offline (0.5 capture under the 0.25 silhouette): median ratio -0.0, passes False
+    unmoved endpoint, RENDERED here: median ratio -0.0, 106 of 125 wrong sign, verdict MISS
+
+(b) pre-fit failures whose reading the ruled holds fix
+  none

@@ -1,0 +1,132 @@
+$ tsx cli/compare.ts -- --stage /Users/new/vitrea-w43/g3-stage-dark --profile apple-macos-27.0-1x-dark-standard-glass0.25 --renderer css --material-profile profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json --receded-profile profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json --set holdout --alpha --write-partial
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+THIS RUN INCLUDES HOLDOUT CELLS.
+Holdout exists to be measured once against a frozen configuration and
+reported as-is. If any constant changes after this run, these numbers are
+spent and the scenes are no longer a holdout for the new configuration.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+── web capture (apple-macos-27.0-1x-dark-standard-glass0.25, 7 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping
+receded profile:, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a
+
+checkerboard__glass-over-glass__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__glass-over-glass__rest/
+
+photo__rrect-lg__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-lg__rest/
+
+checkerboard__glass-over-glass__inactive
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__glass-over-glass__inactive/
+
+mid-dark-solid__capsule-button__inactive
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/mid-dark-solid__capsule-button__inactive/
+
+mid-dark-solid__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/mid-dark-solid__capsule-button__rest/
+
+photo__rrect-lg__inactive
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-lg__inactive/
+
+photo__glass-over-glass__inactive
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__glass-over-glass__inactive/
+
+7 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (7 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w43/g3-stage-dark/matrix.json (461 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+holdout     1x-dark-standard-glass0.25    checkerboard__glass-over-glass__rest          1.000    0.01   0.856   0.0209    0.031/ 0.014    0.1709/ 0.1796    0.0445/ 0.0124    0.0679/ 0.0186
+holdout     1x-dark-standard-glass0.25    photo__rrect-lg__rest                         0.998    0.08   0.931   0.0863    0.330/ 0.062    0.1911/ 0.1659    0.0487/ 0.0093    0.0000/ 0.0000
+holdout     1x-dark-standard-glass0.25    checkerboard__glass-over-glass__inactive      1.000    0.01   0.954   0.0072    0.005/ 0.008    0.1657/ 0.1729    0.0136/ 0.0085    0.0007/ 0.0021
+holdout     1x-dark-standard-glass0.25    mid-dark-solid__capsule-button__inactive      0.989    0.19   0.990   0.0012     —   /  —       0.0908/ 0.0844    0.0006/ 0.0001    0.0000/ 0.0000
+holdout     1x-dark-standard-glass0.25    mid-dark-solid__capsule-button__rest          0.997    0.05   0.979   0.0028     —   /  —       0.1136/ 0.0937    0.0175/ 0.0037    0.0475/ 0.0088
+holdout     1x-dark-standard-glass0.25    photo__rrect-lg__inactive                     0.988    1.95   0.944   0.0851    0.313/ 0.061    0.1808/ 0.1612    0.0464/ 0.0089    0.0000/ 0.0000
+holdout     1x-dark-standard-glass0.25    photo__glass-over-glass__inactive             0.988    1.20   0.939   0.0528    0.297/ 0.055    0.1777/ 0.1650    0.0435/ 0.0099    0.0000/ 0.0000
+
+1x-dark-standard-glass0.25    holdout     n= 7  IoU mean 0.9943 worst 0.9876   contour p95 mean 4.35 worst 16.97   SSIM mean 0.9418 worst 0.8562   dE mean 0.03660 worst 0.08627
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+1x-dark-standard-glass0.25    mid-dark-solid__capsule-button__inactive         4856         4872  0.9967         1.00         1.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard-glass0.25    checkerboard__glass-over-glass__rest            0.50  0.4319/ 0.4933   13/ 29/ 22/ 21   15/ 33/ 24/ 25      8.0/   9.0     13.4/   7.1
+1x-dark-standard-glass0.25    photo__rrect-lg__rest                           1.00  0.3641/ 0.1518    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        17.4/  21.0
+1x-dark-standard-glass0.25    checkerboard__glass-over-glass__inactive        0.50  0.7495/ 0.0400    2/  0/  2/  2    0/  0/  0/  0     -1.0/  —        —   /  —   
+1x-dark-standard-glass0.25    mid-dark-solid__capsule-button__inactive        1.00  0.4462/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    mid-dark-solid__capsule-button__rest            1.00  0.1154/ 0.0128    0/  8/  2/  2    0/ 12/  0/  0      4.0/   6.0      1.9/  26.4
+1x-dark-standard-glass0.25    photo__rrect-lg__inactive                       1.00  0.4495/ 0.0015    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    photo__glass-over-glass__inactive               1.00  0.4705/ 0.0133    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+coherence axis on 7 of 7 dom cell(s) — this tier against its texture twin, web against web.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+receded profile posed on the inactive scenes: /Users/new/vitrea-w43/g3/packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json
+material profile applied to the web side: /Users/new/vitrea-w43/g3/packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json
+web accessibility for apple-macos-27.0-1x-dark-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (17) ────────────
+  checkerboard__glass-over-glass__rest: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  photo__rrect-lg__rest: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  photo__rrect-lg__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__glass-over-glass__inactive: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  checkerboard__glass-over-glass__inactive: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  checkerboard__glass-over-glass__inactive: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  mid-dark-solid__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  mid-dark-solid__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  mid-dark-solid__capsule-button__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4768 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  mid-dark-solid__capsule-button__rest: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  mid-dark-solid__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  mid-dark-solid__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  mid-dark-solid__capsule-button__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4858 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  photo__rrect-lg__inactive: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  photo__rrect-lg__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__glass-over-glass__inactive: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  photo__glass-over-glass__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.

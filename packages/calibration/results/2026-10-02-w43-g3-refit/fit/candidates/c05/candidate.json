@@ -1,0 +1,27 @@
+{
+  "$comment": "W43 G3 (i) scratch candidate c05: c04 without its no-op override (sizeScatterFloor 0.25 named at its own 0.5 value; c04 was stopped before any row was written and is not read). That is, c03a with the light receded thin ramp starts back at their 0.5 values (1x 0.55, 2x 0.7): c03a lowered them and M2 failed on the 1x light photo rrect-sm inactive cell, moved away from Apple (-5.7 %). Carries c03a otherwise: the light tone rows solved under L1 (solve_tone.py over the measured Jacobian), tintAlpha 0.30, sizeScatterFloor 0.25 (1x, the 0.5 value) and sizeScatterFloor2x 0.6, the light receded floor 1.0, the dark thick ordinates knot1 +0.0064 / knot2 +0.004 (active) and knot2 +0.003 (receded), the dark scatter at its 0.5 values. bodyChromaRetention and tintShadeLight held: M1 passes and no tint cell misses (Decision Log 7 items 4-5).",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w43-g3-c05",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "23ccc6959a2e4fcea8362380eaf62d06324571b407f786e26f9be78ac8afe043"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "54f94dffbe8fa11ba8ddf9b63ed8bea1fa7736ab83bb7e66465c025eb57705be"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "d4e316d942ec255e9e876f9c2355fba86a68c1803ada803308b52db6405483be"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "57f5f31f866e18737610b89e253e7bc38192b4d7e0b5c69663922d7891714368"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}
