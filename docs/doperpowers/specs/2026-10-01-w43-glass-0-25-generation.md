@@ -1,5 +1,11 @@
 # W43 — the clearer glass: a `-glass0.25` material generation beside `-glass0.5`, the slider's second point, and a one-knob test of the body law (2026-10-01)
 
+**Status update (2026-10-02, G3 (iii)): every child up to G3 (ii) has merged (§5.198–§5.201;
+G1b §5.199b, G2's second stage §5.200b), and the glass 0.25 generation is published. G3 (iii), the
+landing, is on `w43-g3-landing`: the owner test gates the four 0.25 profiles, the runtime reports
+`glassTintAmount`, and the READMEs, demo, eye sheets, CLAUDE.md and changeset follow the landing
+list. W43 stays open until the user closes it.** The earlier status lines follow unchanged.
+
 **Status update (2026-10-02): G0, G1a and G2's first stage have merged (§5.198–§5.200). The
 user ruled Decision Logs 5 and 7 on 2026-10-02, "Adopt all eleven recommendations", and ruled
 G1b for tonight. G3's refit is open.** The status as drafted follows unchanged.
@@ -1193,6 +1199,16 @@ Found while drafting (2026-10-01):
 
 ## Revision Notes
 
+- 2026-10-02 (G3 (iii), the landing, on branch `w43-g3-landing`): the status gains a G3 (iii)
+  line. Nothing in the design, the clauses or the Decision Logs moves. The landing executes the
+  G3 landing list and Decision Log 1 (a):
+  - the owner test's 0.25 blocks, on cuts regenerated from the published generation;
+  - `glassTintAmount` on the documents and the resolved readout;
+  - the READMEs, the demo, the eye sheets over the whole bed, CLAUDE.md and the changeset.
+
+  Decision Log 5 (c), S1's adoption, is put to the user at the landing as it requires. The
+  landing's record is §5.201 §26 onward: the charter's §5.202 was reserved for a split at the
+  seal, and G3 did not split there.
 - 2026-10-02 (G3's first commit, on branch `w43-g3-refit`): the user's ruling of Decision Logs 5
   and 7, "Adopt all eleven recommendations", folded as RULED. Decision Log 7 is added at the tail
   with the draft's eleven recommendations as the ruling and each alternative recorded as
