@@ -20,8 +20,11 @@ And it checks, recording every reading:
   - where the moire sits in c05's fine-checker body, and which band isolates the receded 2x photo
     lattice (`readings.py` holds the reading that band defines).
 
-    python3.12 -B rehearse.py [--captures TREE] [--prefit-captures TREE]
-writes rehearsal.json and rehearsal.txt beside it (refuses to overwrite).
+    python3.12 -B rehearse.py [--captures TREE] [--prefit-captures TREE] [--run r2]
+writes rehearsal[-<run>].json and .txt beside it (refuses to overwrite). The first run (no
+`--run`) is kept as recorded; `r2` is the re-run after the review of (a)-(d) corrected the
+selection metric to the charter's plain |log(web / native)| and made an unmeasured landing-scope
+member an UNMEASURED verdict.
 """
 from __future__ import annotations
 
@@ -274,11 +277,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--captures", type=Path, default=None)
     ap.add_argument("--prefit-captures", type=Path, default=PREFIT / "web-captures")
+    ap.add_argument("--run", default=None)
     args = ap.parse_args()
     root = args.captures or canonical_tree()
     if sha(PREFIT / "matrix.json") != PREFIT_SHA:
         raise SystemExit("the pre-fit scratch matrix is not W43's recorded one")
-    out_json, out_txt = HERE / "rehearsal.json", HERE / "rehearsal.txt"
+    stem = "rehearsal" + (f"-{args.run}" if args.run else "")
+    out_json, out_txt = HERE / f"{stem}.json", HERE / f"{stem}.txt"
     if out_json.exists() or out_txt.exists():
         raise SystemExit("rehearsal outputs exist; a recorded rehearsal is never overwritten")
     manifest = plan.load_manifest()
@@ -313,7 +318,8 @@ def main() -> int:
         baseline=reproduce_baseline(on_c05),
         findings=findings(on_c05["cells"]),
         stop=stop_check(on_c05["cells"]),
-        landing=dict(c05=t1.landing(on_c05["cells"]), prefit=t1.landing(on_prefit["cells"])),
+        landing=dict(c05=t1.landing(on_c05["cells"], on_c05["missing"]),
+                     prefit=t1.landing(on_prefit["cells"], on_prefit["missing"])),
         selection=dict(c05=t1.selection_metric(on_c05["cells"]), prefit=t1.selection_metric(on_prefit["cells"]),
                        tie=t1.selection_tie(on_c05["cells"])),
         t1=dict(c05=on_c05, generation05=on_05, prefit=on_prefit),

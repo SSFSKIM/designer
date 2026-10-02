@@ -133,7 +133,7 @@ def cut(bed_rows, reference_rows, profiles, bars, held, tiers=("webgpu", "css"),
     here = {(r["key"]["profileKey"], r["key"]["web"]["renderer"], r["key"]["sceneId"]): r for r in bed_rows}
     ref = {(r["key"]["profileKey"], r["key"]["web"]["renderer"], r["key"]["sceneId"]): r
            for r in reference_rows}
-    cells, no_row, not_read, unmeasured = [], [], [], []
+    cells, no_row, not_read, unmeasured, missing = [], [], [], [], []
     for tier in tiers:
         for profile, sid in population(profiles):
             part = partition(profile, sid, held)
@@ -142,8 +142,11 @@ def cut(bed_rows, reference_rows, profiles, bars, held, tiers=("webgpu", "css"),
                 not_read.append(label)
                 continue
             row, rrow = here.get((profile, tier, sid)), ref.get((profile, tier, sid))
+            where = dict(profile=profile, tier=tier, scene=sid, partition=part, stratum=stratum(sid),
+                         scale=B.scale_of(profile), scheme=B.scheme_of(profile), pose=pose(sid))
             if row is None:
                 no_row.append(label)
+                missing.append(dict(where, reason="no row"))
                 continue
             n = B.value(row, "material", "interiorStdDevNative")
             k = B.value(row, "material", "interiorStdDevWeb")
@@ -152,6 +155,7 @@ def cut(bed_rows, reference_rows, profiles, bars, held, tiers=("webgpu", "css"),
             mean = B.value(row, "material", "interiorMeanNative")
             if None in (n, k, c, mean):
                 unmeasured.append(label)
+                missing.append(dict(where, reason="no reading" if rrow is not None else "no reference row"))
                 continue
             if nc != n:
                 raise SystemExit(f"T1: {label}: the reference row's native SD {nc} is not this row's {n}")
@@ -172,7 +176,7 @@ def cut(bed_rows, reference_rows, profiles, bars, held, tiers=("webgpu", "css"),
                 ratio=k / n if n else None, referenceRatio=c / n if n else None, bar=bar, code=code,
                 barFloorAssumed=assumed, logError=log_error(k, n, code),
                 referenceLogError=log_error(c, n, code), **out))
-    return dict(cells=cells, noRow=no_row, notRead=len(not_read), unmeasured=unmeasured,
+    return dict(cells=cells, noRow=no_row, notRead=len(not_read), unmeasured=unmeasured, missing=missing,
                 aggregates=aggregates([c for c in cells if c["partition"] == "gate"]),
                 aggregatesAllRead=aggregates(cells))
 
@@ -192,25 +196,37 @@ def aggregates(cells) -> dict:
     return out
 
 
-def landing(cells) -> dict:
+def in_landing_scope(c) -> bool:
+    return (c["tier"] == GATED_TIER and c["scale"] == 2 and c["scheme"] == "light"
+            and c["profile"] in GATED_PROFILES and c["partition"] == "gate")
+
+
+def landing(cells, missing=()) -> dict:
     """Decision Log 4's landing rule, T1's clauses only, on the cells it names: WebGPU, 2x light,
     both poses, F u C u P less the referees (the gate partition). The referee clauses read the
     exposure and "every other adopted row" reads the other cuts; both are reported as outside
-    this evaluation, never assumed."""
-    scope = [c for c in cells if c["tier"] == GATED_TIER and c["scale"] == 2 and c["scheme"] == "light"
-             and c["profile"] in GATED_PROFILES and c["partition"] == "gate"]
+    this evaluation, never assumed.
+
+    `missing` is the cut's `missing` list. A member of the scope with no row or no reading makes
+    the verdict UNMEASURED, never a landing: the full close needs every F cell and the budget
+    needs every C and P cell, and an absent reading is neither (W43's rule: no verdict passes
+    while a member is UNMEASURED; the review of W44 G0 (a)-(d))."""
+    scope = [c for c in cells if in_landing_scope(c)]
+    absent = [m for m in missing if in_landing_scope(m)]
     f = [c for c in scope if c["stratum"] == "F"]
     away_beyond = [c for c in scope if c["change"] == "away" and c["growth"] > c["B"]]
     overshoot = [c for c in scope if c["change"] == "overshoot"]
     f_agg = statistics.median(c["logError"] for c in f) if f else None
     f_ref = statistics.median(c["referenceLogError"] for c in f) if f else None
     named = lambda sel: [f"{c['scene']} {c['scale']}x" for c in sel]  # noqa: E731
-    full = bool(f) and all(c["fidelity"] == "within" for c in f) and not away_beyond and not overshoot
-    improvement = (bool(f) and f_agg <= 0.5 * f_ref and not away_beyond and not overshoot)
+    full = (not absent and bool(f) and all(c["fidelity"] == "within" for c in f)
+            and not away_beyond and not overshoot)
+    improvement = (not absent and bool(f) and f_agg <= 0.5 * f_ref and not away_beyond and not overshoot)
     c_p = [c for c in scope if c["stratum"] in ("C", "P")]
     return dict(
         scope="WebGPU, 2x light, both poses, F u C u P, gate partition (referees and holdout apart)",
         cells=len(scope), fCells=len(f),
+        unmeasuredInScope=[f"{m['scene']} {m['scale']}x ({m['reason']})" for m in absent],
         fAggregate=f_agg, fAggregateReference=f_ref,
         fNotWithin=named(c for c in f if c["fidelity"] != "within"),
         awayBeyondB=named(away_beyond), overshoot=named(overshoot),
@@ -218,23 +234,25 @@ def landing(cells) -> dict:
             namedMissUnchanged=named(c for c in c_p if c["fidelity"] == "miss" and c["change"] == "unchanged"),
             namedRegressionWithinB=named(c for c in c_p if c["change"] == "away" and c["growth"] <= c["B"])),
         fullCloseT1Clauses=full, improvementT1Clauses=improvement,
-        verdict=("FULL CLOSE (T1 clauses)" if full else
+        verdict=(f"UNMEASURED: {len(absent)} cells of the landing scope have no reading" if absent else
+                 "FULL CLOSE (T1 clauses)" if full else
                  "IMPROVEMENT LANDING (T1 clauses)" if improvement else "NEITHER: closes at the finding"),
         outside="the referees' clause (read at the exposure) and every other adopted row are not "
                 "evaluated here")
 
 
 def selection_metric(cells) -> float | None:
-    """The selection rule's metric: the median |log((k + eps) / (n + eps))| over F u C u P at 2x
-    WebGPU light, gate partition (the T1 aggregate's regularisation; declared in the draft)."""
-    sel = [c["logError"] for c in cells if c["tier"] == GATED_TIER and c["scale"] == 2
-           and c["scheme"] == "light" and c["partition"] == "gate"]
+    """The selection rule's metric, as the charter states it (Design, "The selection rule"): the
+    median |log(web / native)| over F u C u P at 2x WebGPU light, the landing scope's cells. No
+    regularisation: that is the aggregates' (output 3), not the rule's. Every T1 cell has a
+    positive native SD; a cell whose web SD is 0 has no log and is left out (none on c05)."""
+    sel = [abs(math.log(c["candidate"] / c["native"])) for c in cells
+           if in_landing_scope(c) and c["candidate"] > 0 and c["native"] > 0]
     return statistics.median(sel) if sel else None
 
 
 def selection_tie(cells) -> float | None:
-    """The tie width: the bar on the aggregate's scale, the median over the same cells of
-    log((n + bar + eps) / (n + eps))."""
-    sel = [math.log((c["native"] + c["bar"] + c["code"]) / (c["native"] + c["code"])) for c in cells
-           if c["tier"] == GATED_TIER and c["scale"] == 2 and c["scheme"] == "light" and c["partition"] == "gate"]
+    """"A tie within the bar", on the metric's own scale: the median over the same cells of
+    log(1 + bar / native), what one bar of displacement is worth in |log(web / native)|."""
+    sel = [math.log(1 + c["bar"] / c["native"]) for c in cells if in_landing_scope(c) and c["native"] > 0]
     return statistics.median(sel) if sel else None

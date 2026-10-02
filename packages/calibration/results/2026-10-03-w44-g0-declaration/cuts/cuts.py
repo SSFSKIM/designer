@@ -774,7 +774,7 @@ def cut_t1(bed: B.Bed, reference: list, captures: Path | None) -> dict:
     out["bar"] = dict(path=str(T1.BAR_PATH.relative_to(B.ROOT)),
                       sha256=hashlib.sha256(T1.BAR_PATH.read_bytes()).hexdigest())
     out["partitionsRead"] = partitions
-    out["landing"] = T1.landing(out["cells"])
+    out["landing"] = T1.landing(out["cells"], out["missing"])
     out["selectionMetric"] = T1.selection_metric(out["cells"])
     out["selectionTie"] = T1.selection_tie(out["cells"])
     if captures is not None:
@@ -795,10 +795,12 @@ def cut_t1(bed: B.Bed, reference: list, captures: Path | None) -> dict:
     else:
         out["readings"] = "UNMEASURED: no captures"
     gated = [c for c in out["cells"] if c["tier"] == T1.GATED_TIER and c["profile"] in T1.GATED_PROFILES]
+    outside = [m for m in out["missing"] if m["tier"] == T1.GATED_TIER and m["profile"] in T1.GATED_PROFILES
+               and not T1.in_landing_scope(m)]
     out["verdict"] = {
         "webgpu": ("UNMEASURED" if not gated else
-                   T1.landing(out["cells"])["verdict"] + (f", {len(out['noRow'])} UNMEASURED (no row)"
-                                                           if out["noRow"] else "")),
+                   out["landing"]["verdict"] + (f", {len(outside)} more UNMEASURED outside the landing scope"
+                                                if outside else "")),
         "css": "read (tier residual)"}
     return out
 
@@ -940,6 +942,8 @@ def report(result) -> str:
     g = t["landing"]
     lines.append(f"\nT1 (GATED on WebGPU, light 0.25; read on CSS and dark): {len(t['cells'])} cells in "
                  f"{', '.join(t['partitionsRead'])}; reference {', '.join(m['path'] for m in t['reference'])}")
+    for m in g["unmeasuredInScope"]:
+        lines.append(f"  UNMEASURED in the landing scope: {m}")
     lines.append(f"  landing (T1 clauses, 2x light WebGPU gate cells): {g['verdict']}; F aggregate "
                  f"{fmt(g['fAggregate'])} against c05's {fmt(g['fAggregateReference'])}; "
                  f"{len(g['fNotWithin'])} F not within; {len(g['awayBeyondB'])} away beyond B; "

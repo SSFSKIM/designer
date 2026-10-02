@@ -89,5 +89,45 @@ class Precedence(unittest.TestCase):
             self.assertIn(got["fidelity"], t1.FIDELITY)
 
 
+def cell(stratum, n, c, k, scene="s", bar=0.002, code=0.004):
+    """A synthetic landing-scope cell: 2x light WebGPU, gate partition."""
+    out = t1.classify(n, c, k, bar, code)
+    return dict(out, profile=t1.GATED_PROFILES[1], tier="webgpu", scale=2, scheme="light",
+                partition="gate", stratum=stratum, scene=scene, native=n, reference=c, candidate=k,
+                bar=bar, code=code, logError=t1.log_error(k, n, code),
+                referenceLogError=t1.log_error(c, n, code))
+
+
+class Landing(unittest.TestCase):
+    """The review of W44 G0 (a)-(d): an absent reading in the landing scope is never a landing,
+    and the selection metric is the charter's plain |log(web / native)|."""
+
+    def test_full_close_when_every_f_cell_is_within(self):
+        cells = [cell("F", 0.03, 0.06, 0.031), cell("C", 0.05, 0.05, 0.05), cell("P", 0.09, 0.06, 0.06)]
+        self.assertEqual(t1.landing(cells)["verdict"], "FULL CLOSE (T1 clauses)")
+
+    def test_an_unmeasured_scope_member_is_never_a_landing(self):
+        cells = [cell("F", 0.03, 0.06, 0.031), cell("C", 0.05, 0.05, 0.05)]
+        missing = [dict(profile=t1.GATED_PROFILES[1], tier="webgpu", scale=2, scheme="light",
+                        partition="gate", stratum="F", scene="gone", reason="no reading")]
+        got = t1.landing(cells, missing)
+        self.assertFalse(got["fullCloseT1Clauses"])
+        self.assertFalse(got["improvementT1Clauses"])
+        self.assertTrue(got["verdict"].startswith("UNMEASURED"))
+        # a member outside the scope (the referee partition, the 1x profile) does not hold it
+        outside = [dict(missing[0], partition="referee"), dict(missing[0], scale=1)]
+        self.assertEqual(t1.landing(cells, outside)["verdict"], "FULL CLOSE (T1 clauses)")
+
+    def test_improvement_needs_half_the_f_aggregate_and_no_away_beyond_b(self):
+        cells = [cell("F", 0.03, 0.09, 0.045, "a"), cell("F", 0.03, 0.09, 0.045, "b")]
+        self.assertEqual(t1.landing(cells)["verdict"], "IMPROVEMENT LANDING (T1 clauses)")
+        cells.append(cell("C", 0.05, 0.05, 0.08, "c"))      # away with g > B
+        self.assertEqual(t1.landing(cells)["verdict"], "NEITHER: closes at the finding")
+
+    def test_selection_metric_is_the_plain_log_ratio(self):
+        cells = [cell("F", 0.02, 0.02, 0.04), cell("C", 0.05, 0.05, 0.05), cell("P", 0.10, 0.10, 0.05)]
+        self.assertAlmostEqual(t1.selection_metric(cells), abs(__import__("math").log(2)), places=12)
+
+
 if __name__ == "__main__":
     unittest.main()
