@@ -1,0 +1,27 @@
+{
+  "$comment": "W44 G0 (f) scratch ladder candidate l1-c05-0.7: L1 rung 0.7 at base c05",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w44-g0-l1-c05-0.7",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "e2472f254e6433066a6b0cd22bee0af89cbc13f4d24f4cc640a9379efa5fee5d"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "9a76ef70515b8eb7e66e12321f0dc78aec81c3b857ee9acb5a6f7b0f87cc0a6d"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "7ea7d4fa805a6352ac3f0d09487df15fdc2b7d1a4cb42d85f780f1c02f44f3a1"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "80609f3e38a06bd8702324c69d6bccb26406ea7b918c1ea78808739301822ad3"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

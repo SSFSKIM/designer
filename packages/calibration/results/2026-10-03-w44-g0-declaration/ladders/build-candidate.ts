@@ -180,7 +180,11 @@ for (const slot of ["active.light", "active.dark", "receded.light", "receded.dar
       ? { cssTierMapping: scheme === "light" ? mapping : clone(source.doc["cssTierMapping"]) }
       : {}),
   };
-  if (moved[slot]!.length === 0 && document["resolvedMaterialSha256"] !== source.doc["resolvedMaterialSha256"]) {
+  // A slot resolved over an unmoved base with no leaf of its own moved must read c05's digest; a
+  // receded slot whose active document moved resolves over the new active and reads its own.
+  const baseMoved = pose === "receded" && moved[`active.${scheme}` as Slot]!.length > 0;
+  if (moved[slot]!.length === 0 && !baseMoved &&
+      document["resolvedMaterialSha256"] !== source.doc["resolvedMaterialSha256"]) {
     throw new Error(`${slot}: no leaf moved and the digest is not c05's`);
   }
   const file = `${slot}.json`;

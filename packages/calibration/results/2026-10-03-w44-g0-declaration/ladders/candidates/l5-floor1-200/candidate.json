@@ -1,0 +1,27 @@
+{
+  "$comment": "W44 G0 (f) scratch ladder candidate l5-floor1-200: L5 rung 200 at base floor1",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w44-g0-l5-floor1-200",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "d9a55115d2f5e8521be9707a5f0dd5aaf0a966f7dbdf9976ef91f6a79c267d75"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "8477f60d52988eb9be4baad9ba519a28791c5b595321aa6eac0f1b97fd75f374"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "13ffc75a2e20185bf057afe2737648a973389b2da5902d2e3573f6e07c0a9cc4"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "b2f6ca7fe7e94eb650f70fd6d43dbdc9720dfc1dfd971b840398e57289e6a59a"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}
