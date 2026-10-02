@@ -1,0 +1,31 @@
+{
+  "schema": "w44-referees-1",
+  "$comment": [
+    "W44's referee manifest (charter 2026-10-03-w44-texture-at-0-25.md, Design \"The referees\",",
+    "Decision Log 2, X49): the ONLY statement of the held-out texture cells. Each scene below is held",
+    "out on each profile below, six cells per scale, twelve in all. The canonical holdout has no",
+    "fine-pitch cell, so these probe cells are the fine periods' referees: a thin and a thick span,",
+    "both poses and a tint at the fine pitches, plus one coarse inactive cell.",
+    "",
+    "Four consumers read this file and nothing else: the planner (referees/plan.py: the pre-gate",
+    "probe whitelist excludes them, the exposure whitelist adds them), the fit loader (cuts/bed.py",
+    "refuses a candidate or pre-fit bed carrying one), the gate (bed.py and `plan.py check-stage`",
+    "refuse a stage holding one before the exposure) and the exposure (the planner's second list,",
+    "read once). The cross-gate holdout ledger's read records this file's SHA-256 as witness-only",
+    "metadata (`configuration.py record --referees`). Canonical membership in scenes.json is",
+    "untouched: every scene below stays a probe scene there."
+  ],
+  "charter": "docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md",
+  "profiles": [
+    "apple-macos-27.0-1x-light-standard-glass0.25",
+    "apple-macos-27.0-2x-light-standard-glass0.25"
+  ],
+  "scenes": [
+    "checkerboard-4__rrect-ml__rest",
+    "checkerboard-4__capsule-button__rest-tint-orange",
+    "checkerboard-8__rrect-lg__inactive",
+    "checkerboard-8__rrect-sm__rest",
+    "hc-text-7__rrect-md__inactive",
+    "checkerboard-32__rrect-lg__inactive"
+  ]
+}

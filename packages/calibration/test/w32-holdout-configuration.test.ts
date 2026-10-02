@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -229,6 +230,56 @@ describe("the holdout configuration artifact (W31 Decision Log 1 (b); claims §5
     const unknown = run(root, ["show", "--documents", "glass0.7"]);
     expect(unknown.status).not.toBe(0);
     expect(unknown.output).toContain("names no document set");
+  });
+
+  it("records a referee manifest as witness-only metadata and leaves the default read unchanged", () => {
+    // W44 G0 (d), charter clause 7 and X49: the exposure reads the canonical holdout and the
+    // referee cells together, and the ledger's record names which manifest it exposed. The
+    // manifest is a WITNESS: it never makes a configuration new, so a second read at the same
+    // documents and sources is refused whatever manifest it names.
+    const { root, log } = synthetic();
+    const manifest = join(root, "referees.json");
+    const body = { schema: "w44-referees-1", profiles: ["p"], scenes: ["s"] };
+    writeFileSync(manifest, `${JSON.stringify(body)}\n`);
+
+    // The default read writes exactly the entry it wrote before W44.
+    expect(run(root, ["record", "--claims", "c9a §5.NNN"]).status).toBe(0);
+    const plain = ledger(log).reads[0] as Record<string, unknown>;
+    expect(Object.keys(plain).sort()).toEqual(
+      ["at", "claims", "documents", "head", "sourceFileCount", "sourceListSha256", "sourceSha256"]);
+
+    // A first 0.25 read with the manifest records its path and hash beside the documents.
+    const witnessed = run(root, [
+      "record", "--claims", "c9a §5.203", "--documents", "glass0.25", "--referees", manifest]);
+    expect(witnessed.status, witnessed.output).toBe(0);
+    const entry = ledger(log).reads[1] as Record<string, unknown> & {
+      refereeManifest?: { path: string; sha256: string } };
+    const digest = createHash("sha256").update(readFileSync(manifest)).digest("hex");
+    expect(entry.refereeManifest).toEqual({ path: "referees.json", sha256: digest });
+    expect(entry["documentSet"]).toBe("glass0.25");
+
+    // Not a discriminator: another manifest at the same documents and sources is refused, and
+    // the refusal lists the earlier read WITH its manifest; an old-style read (no manifest) is
+    // still the configuration it was, so the default set's second read is refused as before.
+    writeFileSync(manifest, `${JSON.stringify({ ...body, scenes: ["s", "t"] })}\n`);
+    const again = run(root, [
+      "record", "--claims", "c9a §5.203", "--documents", "glass0.25", "--referees", manifest]);
+    expect(again.status, again.output).toBe(1);
+    expect(again.output).toContain("REFUSED: identical document bytes AND identical sources");
+    expect(again.output).toContain(`referees ${digest.slice(0, 12)}`);
+    const old = run(root, ["record", "--claims", "c9a §5.NNN", "--referees", manifest]);
+    expect(old.status, old.output).toBe(1);
+    expect(old.output).toContain("REFUSED: identical document bytes AND identical sources");
+    expect(ledger(log).reads).toHaveLength(2);
+
+    // Something that is not a manifest is refused before anything is written.
+    writeFileSync(manifest, "{\"schema\": \"other\"}\n");
+    writeFileSync(join(root, ...SOURCES[2].split("/")), "// renderer.ts, moved\n");
+    const notOne = run(root, [
+      "record", "--claims", "c9a §5.NNN", "--source-moved-because", "a fix", "--referees", manifest]);
+    expect(notOne.status).not.toBe(0);
+    expect(notOne.output).toContain("is not a referee manifest");
+    expect(ledger(log).reads).toHaveLength(2);
   });
 
   it("carries W31 G3's and G3c's two reads across the move, unbroken", () => {
