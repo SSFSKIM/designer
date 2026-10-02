@@ -1,0 +1,45 @@
+W43 G3 (iii) close checks, 2026-10-02T13:52:35Z, worktree HEAD 7bab8add (clause 11; the coordinator's item 8)
+
+$ python3 results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1818 entries
+
+$ npx tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify
+X41 0.5 generation intact: 911 entries
+
+the ten profile documents' recorded resolvedMaterialSha256 (every profiles/*.json unchanged against 24a323ae: yes)
+   apple-macos-26.5-1x-dark-standard.json 874be66ea501621b
+   apple-macos-26.5-1x-light-standard.json b2b570e4adcea8fb
+   apple-macos-27.0-1x-dark-standard-glass0.25-receded.json 280f0fddf014e0f6
+   apple-macos-27.0-1x-dark-standard-glass0.25.json b074fc6913a91c66
+   apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 7c454858a3cbad5b
+   apple-macos-27.0-1x-dark-standard-glass0.5.json 2a4323f33df8d799
+   apple-macos-27.0-1x-light-standard-glass0.25-receded.json 5d8680980b7aeb55
+   apple-macos-27.0-1x-light-standard-glass0.25.json 50430fa62c1120bd
+   apple-macos-27.0-1x-light-standard-glass0.5-receded.json b0d0d8dacc6a03af
+   apple-macos-27.0-1x-light-standard-glass0.5.json be13dae45098fc89
+
+generated modules macos27-profile.ts / macos27-glass025-profile.ts, renderer-webgpu, results/generations/, results/matrix.json unchanged against 24a323ae: yes
+
+$ VITREA_WEB_CAPTURES=<canonical tree> pnpm run check-capture-tree   (close/check-capture-tree-canonical.txt)
+  totals   captures 3024  match 3017  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 7
+  VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+  exit 0
+
+$ pnpm -r build: exit 0;  pnpm -r lint: exit 0
+
+$ VITREA_WEB_CAPTURES=<canonical tree> pnpm -r test   (exit 0)
+  packages/policy test:       Tests  23 passed (23)
+  packages/motion test:       Tests  164 passed (164)
+  packages/geometry test:       Tests  170 passed (170)
+  packages/renderer-webgpu test:       Tests  651 passed (651)
+  packages/core test:       Tests  304 passed (304)
+  packages/platform-web test:       Tests  656 passed (656)
+  packages/react test:       Tests  180 passed (180)
+  packages/calibration test:       Tests  904 passed (904)
+  apps/demo test:       Tests  123 passed (123)
+
+$ pnpm --filter @vitrea/renderer-webgpu test:golden (chromium-gpu, real adapter)
+  34 passed (12.2s)
+
+$ pnpm --filter demo test:e2e (chromium, chromium-gpu)
+  89 passed (9.9m)

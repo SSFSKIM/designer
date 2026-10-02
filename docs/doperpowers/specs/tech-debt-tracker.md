@@ -1082,6 +1082,13 @@ record (document digest `9360d73bd071`). Shape of the fix: a script the canonica
 the spec reading the capture from `web-captures/` on the capture machine with the fixture as the
 fallback.
 
+> **Closed by a guard, W43 G3 (iii), 2026-10-02 (claims §5.201 §29).** It went stale again. The copy
+> was W29 G4's scratch capture against the 0.19.0 document (`f42ddec1cf5a`), and only the 0.02
+> tolerance kept it green through W30–W36. The landing re-copied it from the canonical tree with a
+> 0.25 sibling. `reference-panel.gpu.spec.ts` now checks, with no browser, that each committed cell
+> names its own position's document at the bytes on disk. So a seal that moves either light document
+> fails until that position's fixture pair is re-copied, instead of drifting silently.
+
 ## The appearance switch measured at the contour instrument: the dark thin cells over structured backdrops are −16 and −19 codes in body (W23 G0, 2026-09-08)
 
 *Found beside the rim read (claims §5.100 §7).* `checkerboard__capsule-button__rest` and

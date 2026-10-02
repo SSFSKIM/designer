@@ -44235,15 +44235,16 @@ The commit bodies of `1523c47f` and `f6eb55ac` quote the first readings (light +
 1.5–3.5). They are not rewritten. This section and the regenerated outputs carry the corrected ones.
 - Decision Logs 5 and 7 (§5.200 §6) are the user's and are not touched here.
 
-## 5.201 W43 G3 (i)–(ii), the 0.25 generation: candidate c05 fitted in scratch, sealed as the four `-glass0.25` documents, read in two strict-mode stages that reproduce it byte for byte, the holdout read once, every miss ruled named, and the generation published (2026-10-02)
+## 5.201 W43 G3, the 0.25 generation: candidate c05 fitted in scratch, sealed as the four `-glass0.25` documents, read in two strict-mode stages that reproduce it byte for byte, the holdout read once, every miss ruled named, the generation published, and landed as a second fixed setting (2026-10-02)
 
 Evidence directory: `results/2026-10-02-w43-g3-refit/`, on branch `w43-g3-refit` off `e2a32591`.
 Charter: clause 10, steps 1–7; clauses 11, 13 and 14; X41, X44 and X45; Decision Logs 5 and 7 as
 RULED by the user on 2026-10-02, "Adopt all eleven recommendations", folded into the charter in the
 branch's first commit (`cfa5a95c`), and Decision Log 5 (e) exercised twice on the same day (§10,
 §16). G3 (i), the refit in scratch, is §§1–10; G3 (ii), the seal, the stages, the holdout and the
-publication, is §§11–24. The 0.25 rows of `adopted-thresholds.test.ts`, the runtime's position
-readout, the README, the changeset and the demo at 0.25 are G3 (iii)'s and are not here.
+publication, is §§11–25. G3 (iii), the landing, is §§26–35: the 0.25 rows of
+`adopted-thresholds.test.ts`, the runtime's position readout, the READMEs, the demo at 0.25, the
+eye sheets over the whole bed, CLAUDE.md and the changeset.
 
 The raw renders stay on the capture machine: the pre-fit and every candidate's matrix and PNGs
 under `~/vitrea-w43/g3-scratch/`; the two publication stages at `~/vitrea-w43/g3-stage-light/`
@@ -44875,3 +44876,248 @@ A follow-up review of `48d3b744..2b06f868` returned **correct**, with all three 
 the real 3,017-row union, the old and new owner-test selections keep the same 1,893 rows in the same
 order, with an identical legacy digest (`7df96c92…`), and defer the same 1,124. The review loop is
 closed.
+
+### 26. The landing, G3 (iii) (branch `w43-g3-landing`, off `24a323ae`)
+
+The charter reserved §5.202 for a split at the seal. G3 did not split there, so the landing is
+recorded here. It executes the G3 landing list and Decision Log 1 (a). Its evidence directory is
+`results/2026-10-02-w43-g3-landing/`: `cuts/`, `sheets/` and `close/`.
+
+### 27. The owner test gates the four 0.25 profiles (`fcc4b5d5`, `ae6417fb`)
+
+**The cuts, regenerated at this gate** (`cuts/landing.py`). They read the published generation
+files through the store, each checked against `index.json`, and the pre-fit render from the
+committed `prefit/matrix.json.gz` (decompressed sha256 `504c5348…`). They run G3's `cuts.py`
+unchanged. `cut-025.json` (`6e804757…`) equals `stage/stage-cuts.json` on every section, with the
+same bed rows and pairs. The stage's holdout reader reproduces `holdout-reading.json` exactly on the
+108 published holdout rows. `landing.json` records both as EQUAL.
+
+**What `adopted-thresholds.test.ts` gains**, each 0.25 row re-derived from the union's own rows and
+checked against the cut, as at 0.5:
+
+| row | 0.25 reading (WebGPU) |
+| --- | --- |
+| tables | the 0.5 tables per tier, row for row; 36/36 cells per light profile, 13/13 per dark |
+| M1 | medians 0.984 / 0.935 light (active / receded), 1.055 / 1.066 dark; every cell in [0.6, 1.4] |
+| M2 | directional, against the pre-fit render; 17 named misses, no failure |
+| C1 | ≤ 0.0042 on all 12 bed × span pairs |
+| X1 | zero on 242 cells, from the canonical tree's pixels (218 at 0.5: the 0.25 bed read probe cells the 0.5 one never did; the rule is the same) |
+| L1 | 140 cells: 136 measured, 4 UNMEASURED (dark inactive dark-solid); max 0.0491, growth max +0.0036 |
+| E2 | listed on 288 cells, never gated (62 failing, as ruled) |
+| S1 | read, not gated (§32) |
+
+**The named misses.** `MISSED_27_ROWS` gains 24, each with a comment citing Decision Log 5 (e) and
+none with a floor:
+- the CSS 1x light `checkerboard__rrect-ml__rest` ssimMean row, 0.87367 against ≥ 0.9;
+- the six holdout table rows of §16;
+- the 17 M2 named misses, each with Apple's reading beside it.
+
+**The counts.**
+- Gated profiles go from 12 to 16, and `MATRIX_CELLS` from 459 to 655. The partition adds 72, 72,
+  26 and 26.
+- `PREDICATE_EXCLUDES` goes from 67 to 95, matching the machine's output. Every new entry fails on
+  the native side:
+  - twelve light-solid cells (capsule, rrect-md and rrect-ml, at both scales on both tiers), where
+    Apple's clearer body covers 0.67–0.92 of the region in 8–14 pieces;
+  - sixteen dark cells that are the 0.5-excluded cells' counterparts.
+- `light-solid__rrect-ml__rest` drops out only at 0.25: native coverage is 0.923 against 0.998 at
+  0.5, below the predicate's 0.95.
+
+**The deferral removed, and X45 kept at 0.5.**
+- `DEFERRED_POSITIONS` and its guard are gone. An undeclared position (glass 0.75, or a macOS 27 key
+  with no token) is now refused by the existing "gates every 27 row it finds, and refuses one it
+  never declared" case.
+- The 0.5 C1, X1 and L1 rows had selected "macOS 27, standard" by prefix, which would now take the
+  0.25 rows too. They select glass 0.5 explicitly.
+- The 0.5 M2 case compares only its own entries.
+- W36 L1's digest check digests the union without the 0.25 rows, which is what that cut was taken
+  over.
+- X1's pixel arithmetic moved into a shared `blackReading` helper, unchanged, so both positions
+  read pixels the same way.
+- `cuts.py` still parses identical tables from the edited file.
+
+The header gains the 0.25 amendment in the W31–W36 style. The owner test reads 142 of 142 with X1
+measured against the canonical tree, and 140 plus 2 UNMEASURED skips without it.
+
+### 28. The readout and the READMEs (Decision Log 1 (a), clause 12; `29dcdcb8`, `b8e5acd7`, `7bab8add`)
+
+- **The field.** `glassTintAmount?: number` is on `GlassMaterialProfileDocument` (platform-web) and
+  on `ResolvedMaterialDocument` (`@vitreajs/vitrea`'s `state.ts`):
+  - 0.5 on `macos27MaterialProfileDocument`;
+  - 0.25 on `macos27Glass025MaterialProfileDocument`;
+  - absent, not defaulted, on the macOS 26.5 document, as `NativeProfile.glass` is.
+- **Where it is set.** `resolvedMaterialDocument()` in `root.ts`, the one construction site,
+  copies it only when present. It feeds both `root.material` and `GlassGroupState.materialDocument`.
+- **What did not change.** There is no new selection path and no root option. The generated
+  modules are unchanged.
+- **React.** React's store compares the field, as its comment promises for every field.
+- **X41.** X41 admits exactly the readout `glassTintAmount: 0.5` on the default document's
+  projection and still reads 911. A red check, setting 0.4, fails it.
+- **Pins.**
+  - The export test pins 0.5, 0.25 and absence across `SHIPPED_MATERIAL_PROFILE_DOCUMENTS`
+    (`Object.hasOwn` for 26.5).
+  - A platform-web test reads the field off `root.material` and the group's capabilities for every
+    shipped document, both schemes and both poses. Three of its cases fail if the root stops
+    copying it.
+- **The READMEs.** The root, platform-web and react READMEs say:
+  - which material a page gets by default (macOS 27 at the system-default 0.5);
+  - how a page chooses 0.25 (`createGlassRoot({ materialProfileDocument })`, or the same
+    `<GlassRoot>` prop);
+  - that two fixed points are measured and no continuous slider exists;
+  - that a switch is a new root (a keyed remount in React);
+  - that the position that drew is a readout, absent under 26.5.
+
+  The remount and readout claims were checked in a temporary React test before they were written.
+
+### 29. The demo (clause 13, X45; merged at `f8b1695f`)
+
+**Selection.** No page in the demo offered a material choice, so 0.25 is offered the way the site
+already offers its renderer: `?glass=0.25`, read once per load (`src/glass-document.tsx`), with one
+selector per page that reloads it. `/laws/` builds its root with the page's document, so its shadow
+stage's digest match resolves the 0.25 endpoints. The playground gains a glass-position pin, and
+its `materialDocument` row is the readout.
+
+**The figures.**
+- The reduction shows 587 cells: 205 at macOS 26.5, 206 at glass 0.5 and 176 at glass 0.25 (64 /
+  64 / 24 / 24 by 1x/2x light/dark). Each report names its position.
+- `MATRIX_CELL_COUNT` is the whole union, 3,017.
+- The built module is `15392e6d…`, the unfiltered value §18 recorded.
+- The 26.5 and 0.5 cells still equal `demo-before.json`, cell for cell and in order. The 0.25 cells
+  are pinned by the test's own oracle.
+- `Site.tsx`'s matrix sentence now states its real scope: the frozen 26.5 rows plus one current
+  generation per macOS 27 profile, at both positions. Two false sentences beside it were
+  corrected: a native panel said to be macOS 26.5, and a "1x only" bullet.
+
+**The harness fixtures.** The `checkerboard__capsule-button__rest` WebGPU capture and its cell
+JSON are copied from the canonical tree for 1x light 0.25: png `4adba9e6…`, json `5292497…`,
+naming `6d18c059eb42` and `4d5f23d9d312`.
+- The 0.5 pair was refreshed too: png `16cd9de4…`, json `9b5958b8…`. The committed copy had been
+  W29 G4's scratch capture against the 0.19.0 document (`f42ddec1cf5a`). It went stale when W30–W36
+  moved that document, and stayed green only inside the 0.02 tolerance. This is the tracker's W22
+  entry happening again.
+- The GPU spec now checks, with no browser, that each committed cell names its own position's
+  document at the bytes on disk.
+- The live panel reads 0.0000 from its own capture at both positions and 0.0227 from the other's,
+  on apple/metal-3. That is clause 14's demo against the harness capture.
+
+**Tests and size.** Demo unit tests pass 123 of 123 and the demo e2e 89 of 89. The embedded
+reduction grows from 573 KB to 841 KB raw (37 KB to 54 KB gzipped).
+
+### 30. The eye sheets over the whole canonical bed (clause 14; `bd1265d2`)
+
+`sheets/sheets.py` draws every one of the 1,124 published 0.25 cells, in every role, both poses
+and both tiers, from the published rows and the canonical tree. Each row shows:
+- Apple 0.25 | vitrea 0.25 | Apple 0.5 | vitrea 0.5;
+- |v0.25 − A0.25| ×4 and |v0.5 − A0.5| ×4.
+
+The 406 cells the 0.5 generation never read show a labelled empty 0.5 render.
+- **Pages.** There are 66: 58 by stratum × tier × scheme × pose, and 8 for the holdout. Gradient is
+  empty on the canonical bed.
+- **The capture check.** All 1,842 captures (1,124 at 0.25, 718 at 0.5) name the published row's
+  `capturePath` exactly, receded document included.
+- **The send.** The zip was sent by Taildrop, exit 0, on 2026-10-02T13:09Z:
+  `w43-g3-landing-sheets.zip`, 124,637,554 bytes, sha256 `d14c366b…`.
+
+**What the eye sees.** Deep-body figures are 2x WebGPU unless stated.
+- **Fine checkers at 2x light are drawn sharper than Apple's, in both poses, new at 0.25.** On
+  `checkerboard-4__rrect-md__rest`, Apple's 0.25 body is nearly smooth (texture SD 2.9 codes) and
+  vitrea's shows a crisp checker with a moiré band in the lens (9.1). At 0.5 they read 1.7 and 2.6.
+  Receded, they read 0.3 against 10.5.
+  - The cause is the fitted `sizeScatterFloor2x`, 1.0 → 0.6 (§4).
+  - These are probe and recorded cells, which no gated cut reads, so the fit's transfer to fine
+    periods was never refereed. §9's ×2.1–2.2 is the coarse receded reading and does not cover
+    them.
+- **Dark receded bodies over dark-solid are 11–15 codes too dark, at both positions.** vitrea reads
+  33–37 where Apple reads 48, and the orange-tint capsule 61 against 74. These rows carry no
+  material axis, so L1 cannot see them.
+- **Dark small spans hide the backdrop, at both positions.** On `hc-text-28__rrect-sm`, Apple's body
+  shows the text bar (87 codes, SD 37), and vitrea's is a near-uniform slab (152, SD 6). On the dark
+  impulse vitrea reads 50–55 against 32–33.
+- **The rim does not change with the slider, on either side.** Apple's top/bottom line goes +38 →
+  +41 codes and vitrea's softer ramp +15 → +19. Holding the rim leaves therefore matches the native.
+  The rim's shape, and the dark contour outside the path, remain the W35–W39 gaps.
+- **The light scheme follows Apple's 0.5 → 0.25 change on the body:**
+  - uniform −5.5 against −5.2 active, and −9.3 against −8.7 inactive;
+  - photo inactive −8.1 against −8.4;
+  - binary +5.9 against +6.1 and text +6.4 against +6.7 in see-through.
+- **It under-follows or overshoots elsewhere:**
+  - photo active −2.6 against −4.8;
+  - impulse inactive −22 against −15;
+  - receded texture is sharper than Apple's soft blobs.
+- **The dark scheme's 0.25 render is close to its 0.5 one.** Apple's checkers and text grow more
+  see-through by SD +6 to +9, and its light-solid spans 128/160 brighten by 12 codes. This is §9's
+  under-follow, seen.
+- **Already-named gaps, seen again at both positions:**
+  - the dark photo body is flat (chroma 35 against 94);
+  - the dark magenta receded slab (105,62,121 against 248,5,255);
+  - receded tinted cells grey where Apple keeps the photo's hue;
+  - the light uniform magenta active body pale (234,181,255 against 255,91,255).
+
+### 31. CLAUDE.md, the charter and the changeset (`97687171`, `8bd5aa93`)
+
+- **CLAUDE.md.** Its material-selection paragraph names the 0.25 document, its generator and the
+  readout. A W43 G1–G3 paragraph after G0's records:
+  - the captures and G2's reading;
+  - the four digests, the publication and how a page selects it;
+  - X44, X45 and strict mode;
+  - the web census;
+  - S1's status and the named gaps.
+- **The charter.** It gains a G3 (iii) status line and a Revision Note.
+- **The changeset.** `.changeset/w43-clearer-glass.md` is a `@vitreajs/vitrea-web` minor (the
+  fixed group moves all three packages). It names the new document, the unmoved default, the
+  readout, the moved leaves and the named misses, the 2x fine checkers included.
+- No version is bumped: `pnpm changeset version` and `pnpm release` are the user's.
+
+### 32. S1 at the landing (Decision Log 5 (c))
+
+S1 is read and not gated. Decision Log 5 (c) adopts it only by the user's ruling at the landing,
+and the reading was put to the user on 2026-10-02.
+- **WebGPU:** pooled median ratio 0.877, inside [0.8, 1.2]; 15 wrong-sign cells.
+- **CSS:** pooled 0.874; 11 wrong-sign cells.
+- **Per-profile medians, reported and not gated:** 0.942, 0.992, 0.314 and 0.311.
+
+R2's sign clause therefore fails on both tiers. The owner test asserts only that the reading
+exists on its fixed population.
+
+### 33. Close checks (`close/close-checks.txt`)
+
+- The freeze reads 1,818 and X41 911.
+- All ten profile documents are unchanged and read their recorded digests: the six shipped before
+  W43 and the four 0.25.
+- The generated modules, `renderer-webgpu`, the generation files and `results/matrix.json` are
+  unchanged against `24a323ae`.
+- `check-capture-tree` on the canonical tree exits 0: 3,024 captures, 3,017 match, and 7 no-row,
+  all of them the frozen 26.5 captures already recorded.
+- `pnpm -r build` and `pnpm -r lint` exit 0.
+- `pnpm -r test`, run with X1 measured against the canonical tree, exits 0:
+  - policy 23, motion 164, geometry 170, renderer-webgpu 651;
+  - core 304, platform-web 656, react 180;
+  - calibration 904, demo 123.
+- 34 of 34 goldens pass on the real adapter, and the demo e2e 89 of 89.
+
+### 34. Gaps added at the landing
+
+Three new entries are in the tracker:
+- the 2x fine checkers at 0.25 (§30), whose fix is a refit of the 2x floor declared against fine
+  and coarse pitches together, with a new holdout configuration and read;
+- dark receded bodies over dark-solid, unmeasured by L1;
+- dark small spans hiding the backdrop.
+
+The remaining by-eye readings in §30 sit under existing entries.
+
+`apps/demo/DESIGN.md` still says figures come from `results/matrix.json`, which has been stale
+since W40, and is left for the next change to that file. The site does not offer macOS 26.5. That
+is a product call, and the per-load mechanism would carry it.
+
+### 35. What is not claimed at the landing
+
+§24's first two items are superseded:
+- the 0.25 rows are now gated;
+- the readout and READMEs now say what drew.
+
+The rest stands:
+- no accessibility state at 0.25 was read;
+- the holdout is spent for these document bytes;
+- the demo's prose figures were measured at 0.5 or on 26.5 and are not re-measured at 0.25, which
+  the site's selector hint says;
+- the gallery pages draw the default document.
