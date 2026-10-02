@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w43/g1b-run/ladder-0.75-2x-receded/scenes-run-3.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w43/g1b-run/ladder-0.75-2x-receded/run-3",
+    "--env",
+    "VITREA_SCALE=2",
+    "--stdout",
+    "/Users/new/vitrea-w43/g1b-run/ladder-0.75-2x-receded/run-3/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w43/g1b-run/ladder-0.75-2x-receded/run-3/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w43-ladder-0.75-2x-receded-3",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "a-g000-capsule-button__inactive,a-g000-rrect-md__inactive,a-g128-capsule-button__inactive,a-g128-rrect-md__inactive,a-g208-capsule-button__inactive,a-g208-rrect-md__inactive,a-g255-capsule-button__inactive,a-g255-rrect-md__inactive,b-p2-c64-rrect-md__inactive,c-s32-hi-rrect-md__inactive",
+    "--inactive"
+  ]
+}

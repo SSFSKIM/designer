@@ -1,0 +1,59 @@
+{
+  "schema": "w43-run-admission-1",
+  "admitted": true,
+  "dry": false,
+  "protocol": "normal",
+  "captureProtocol": {
+    "initialSettleSeconds": 1.75,
+    "orderSeed": null,
+    "resetInterstitialSeconds": 6.0,
+    "resetCarriesGlass": false,
+    "minIdleSeconds": 60.0
+  },
+  "cells": 20,
+  "manifestSha256": "ed037e8e1f7b9ad7e1cfa0cd667e9f253b211d85a778c65a840f9a346eb30bd7",
+  "run": 3,
+  "glass": 0.75,
+  "sitting": "g1b",
+  "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+  "declaration": {
+    "sitting": "g1b",
+    "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+    "sources": {
+      "canonical": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+      "w42": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+      "probe": "f54e133befb61d20bdefcefd2228d66067b96bc35ecb332681498a70e39b2ba0"
+    },
+    "head": "abfb790a23a814ccd6b0a061715a835cf77dc8eb",
+    "declarationSha256": "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb",
+    "declarationChain": [
+      "4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874",
+      "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb"
+    ]
+  },
+  "frames": {
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g000-capsule-button__rest": "a995e18bd8d07304d3e650f885bacfd33af6011b5dcea4657a6ddb9b1663de89",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g000-rrect-md__rest": "8daecf5ad1d256024149c0a31d549d5b001835acae1d01f8506c95ffa2fdd566",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g128-capsule-button__rest": "49a6d72c1e81c2a632bd4d08de4c984bca80580f2e96c7a45f822e9d3212aab3",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g128-rrect-md__rest": "5936a4fb85c9056a8260494b54e021628dbe60c374249324bdd2c8461a3ab47a",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g208-capsule-button__rest": "340b4f168b5e383a21cb7e2ba75b80e46fd10097bd3a0b459e072295959d5246",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g208-rrect-md__rest": "53d238ad16a9f6435b04d6fd6dc62be72a47d61d803318736cff666f0aa9ae77",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g255-capsule-button__rest": "34dba5c02fdbcc219a6bfd10bdf1879b6b87dc1bfac953596fa7b9b74e173475",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/a-g255-rrect-md__rest": "b48600c2e0ab20b803d8036b597e7a9902b9f239cb6035eda81c5b67018d61cd",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/b-p2-c64-rrect-md__rest": "6329033cb2305741ed93f096f4c30f1a71e9af29e9d42248981791ac90ab8604",
+    "apple-macos-27.0-2x-dark-standard-glass0.75/c-s32-hi-rrect-md__rest": "1848ffa99a51840be9d62b4728d1fd5144e66db72bfb95aa06226be9d61bce70",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g000-capsule-button__rest": "1a6a0e9b04269ecf3f95af1c755979daef0d634eeabe4e2aa8cd6936e45a9efc",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g000-rrect-md__rest": "0d73801ebd201e9304cd61a0f1381fe964677ef15cc3e873f873a3ef682d79e5",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g128-capsule-button__rest": "7e4b13a76b67e828de9d40bdcf04e6252137ba91ca8a4733b4e37d8ebda929e8",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g128-rrect-md__rest": "3fe68ac64f3a24be853ad17c10682e49219eb89f610a0e5154f66a97eb5df10f",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g208-capsule-button__rest": "6f20b0ef719c3008de7c77dc46b61a844bd06cbf3d2ae8e7c45341365cfd9a06",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g208-rrect-md__rest": "20f934528c0f9d48e6ff4ee6d2f3626316786d05d56993348ab013d1134f8f2e",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g255-capsule-button__rest": "17facb3eb8a87cc5b2e8b06729942addeec1d8a19ebeb5d5ee0b9d03fc434ae9",
+    "apple-macos-27.0-2x-light-standard-glass0.75/a-g255-rrect-md__rest": "fa757aa0785638dc155971ba9c40aca44aaf474591a882708059abaa1b1c771d",
+    "apple-macos-27.0-2x-light-standard-glass0.75/b-p2-c64-rrect-md__rest": "c7f4a7faedcb23acea3f6bf1f77b50c858edd7b643c561990eaa2d208e0ebc35",
+    "apple-macos-27.0-2x-light-standard-glass0.75/c-s32-hi-rrect-md__rest": "40c1f47e7b4a59a72a906792438e800e719855266cb74730163c0b75b147a5cf"
+  },
+  "role": "ladder",
+  "publish": false,
+  "pass": "ladder-0.75-2x-active"
+}

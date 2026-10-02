@@ -1,0 +1,309 @@
+{
+ "schema": "w43-bridge-run-1",
+ "run": 1,
+ "stop": true,
+ "agrees": true,
+ "rule": "byte identity, or every region median within max(1 code, bar) of the reference (charter clause 3)",
+ "cells": [
+  {
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange",
+   "frameSha256": "c79a194c75b7f8d34720dfa678f46cc48e010320d47cf3f333218309cb3e8cd6",
+   "referenceSha256": "4e148f0908bf39d32f20632fcff5171300a8b8854ed1891024031105bbdc1fc2",
+   "verdict": "AGREE (regions)",
+   "agrees": true,
+   "failing": [],
+   "masks": [
+    {
+     "mask": "n",
+     "populations": 8
+    },
+    {
+     "mask": "w",
+     "populations": 0
+    }
+   ],
+   "statistics": 24,
+   "worstDelta": 0.0,
+   "pixelsDiffering": 30,
+   "maxCodes": 2.0,
+   "rows": [
+    {
+     "mask": "n",
+     "statistic": "far-cores|B",
+     "frame": 11.0,
+     "reference": 11.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "far-cores|G",
+     "frame": 152.0,
+     "reference": 152.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "far-cores|R",
+     "frame": 253.0,
+     "reference": 253.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|B",
+     "frame": 20.0,
+     "reference": 20.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|G",
+     "frame": 155.0,
+     "reference": 155.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "knee-cores|R",
+     "frame": 251.0,
+     "reference": 251.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq128:knee|B",
+     "frame": 20.0,
+     "reference": 20.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq128:knee|G",
+     "frame": 155.0,
+     "reference": 155.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq128:knee|R",
+     "frame": 251.0,
+     "reference": 251.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq129:far|B",
+     "frame": 11.0,
+     "reference": 11.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq129:far|G",
+     "frame": 152.0,
+     "reference": 152.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq129:far|R",
+     "frame": 253.0,
+     "reference": 253.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq130:knee|B",
+     "frame": 20.0,
+     "reference": 20.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq130:knee|G",
+     "frame": 155.0,
+     "reference": 155.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq130:knee|R",
+     "frame": 251.0,
+     "reference": 251.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq131:far|B",
+     "frame": 11.0,
+     "reference": 11.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq131:far|G",
+     "frame": 152.0,
+     "reference": 152.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq131:far|R",
+     "frame": 253.0,
+     "reference": 253.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq132:knee|B",
+     "frame": 20.0,
+     "reference": 20.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq132:knee|G",
+     "frame": 155.0,
+     "reference": 155.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq132:knee|R",
+     "frame": 251.0,
+     "reference": 251.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq133:far|B",
+     "frame": 11.0,
+     "reference": 11.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq133:far|G",
+     "frame": 152.0,
+     "reference": 152.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    },
+    {
+     "mask": "n",
+     "statistic": "sq133:far|R",
+     "frame": 253.0,
+     "reference": 253.0,
+     "delta": 0.0,
+     "bar": 0.5,
+     "tolerance": 1.0,
+     "agrees": true
+    }
+   ]
+  },
+  {
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest",
+   "frameSha256": "cbb451bce8c2d69d05ed422d082cbace0c8f0acf213c3dc1f67f773c2b217a7f",
+   "referenceSha256": "cbb451bce8c2d69d05ed422d082cbace0c8f0acf213c3dc1f67f773c2b217a7f",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text-28__rrect-md__rest",
+   "frameSha256": "d1f532bbb4f72549d9f10bbd947372167c7675678164b8c98cb5f0ab5454b9d5",
+   "referenceSha256": "d1f532bbb4f72549d9f10bbd947372167c7675678164b8c98cb5f0ab5454b9d5",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__rest",
+   "frameSha256": "91671b6ce0260488e99d4cabaa77abf723ab7dba717908522b8418aa50d8db84",
+   "referenceSha256": "91671b6ce0260488e99d4cabaa77abf723ab7dba717908522b8418aa50d8db84",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest",
+   "frameSha256": "66727424eecb744cdaab9d0e9fa9bcf2dbdf66c12b974e203827e19c89534a5e",
+   "referenceSha256": "66727424eecb744cdaab9d0e9fa9bcf2dbdf66c12b974e203827e19c89534a5e",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  },
+  {
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest-tint-orange",
+   "frameSha256": "42511e1de156010edc8bfd60d42ee8a0d42427948f4a7fc9a0fadccba0a42916",
+   "referenceSha256": "42511e1de156010edc8bfd60d42ee8a0d42427948f4a7fc9a0fadccba0a42916",
+   "verdict": "AGREE (bytes)",
+   "agrees": true
+  }
+ ],
+ "pass": "open-canonical-2x-active"
+}

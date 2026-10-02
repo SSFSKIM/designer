@@ -1,0 +1,13 @@
+REFUSED; retained at /Users/new/vitrea-w43/g1b-run/ladder-0-2x-receded/QUARANTINE-run-1-1790922113943599000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w43/g1b/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1568, in <module>
+    main()
+  File "/Users/new/vitrea-w43/g1b/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1511, in main
+    code, _ = watched(command, dog, poll=watch_poll, end_native=lambda: end_native(app))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w43/g1b/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 317, in watched
+    raise ValueError('watchdog stopped the launch: ' + reason)
+ValueError: watchdog stopped the launch: frontmost changed during a receded launch: com.apple.finder -> com.google.Chrome (pid 68233)
+ladder-0-2x-receded run 1: admitted cells=60
+ladder-0-2x-receded run 2: admitted cells=58
+ladder-0-2x-receded run 3: admitted cells=58

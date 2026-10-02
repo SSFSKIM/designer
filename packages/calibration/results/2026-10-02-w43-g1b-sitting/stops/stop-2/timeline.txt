@@ -1,0 +1,15 @@
+W43 G1b stop 2 (focus): ladder-0-2x-active run 3, QUARANTINE-run-3-1790909889529979000. Times UTC.
+  02:56:17     run 3 opens (HID idle 51,753 s); runs 1-2 of the pass are admitted.
+  02:58:06.74  akd (AuthKit) receives a push: "Showing alert for message", then "Asking daemon server
+               to post HSA2 login notification" (a two-factor Apple Account sign-in request); followupd
+               "Showing password change".
+  02:58:07     FollowUpUI (pid 21655) launches and becomes frontmost.
+  02:58:09     the watchdog reads com.apple.FollowUpUI frontmost while the harness (pid 17773) runs;
+               the launch is stopped and run 3 quarantined.
+  02:58:10     STOP; slider 0.5 and display mode 68 restored and verified.
+  HID idle rose throughout (51,865 s at the trip): no local input. The cause is an account push from
+  off the machine, which no sitting gate or prerequisite can prevent.
+  ~06:06       the user answered the alert at the Mac (HID idle then 2.5 s). FollowUpUI stayed frontmost
+               with no window; the coordinator activated Finder through Launch Services (`open -a
+               Finder`, not input); Finder frontmost at 06:10:32, census 0, slider 0.5.
+  The sitting stood stopped for about 3 h 12 min, waiting on the user's answer.

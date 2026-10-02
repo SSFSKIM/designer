@@ -1,0 +1,34 @@
+{
+  "bundle": "original",
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w43/g1b-restore/restore-1/scenes.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w43/g1b-restore/restore-1",
+    "--env",
+    "VITREA_SCALE=2",
+    "--stdout",
+    "/Users/new/vitrea-w43/g1b-restore/restore-1/capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w43/g1b-restore/restore-1/capture.err",
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w43-g1b-restore-1",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "checkerboard__capsule-button__rest"
+  ],
+  "loadAverageAtLaunch": [
+    3.54,
+    3.77,
+    4.39
+  ],
+  "chatgptRunningAtLaunch": false
+}

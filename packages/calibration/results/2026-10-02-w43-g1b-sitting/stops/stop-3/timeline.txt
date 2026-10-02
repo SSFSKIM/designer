@@ -1,0 +1,12 @@
+W43 G1b stop 3 (focus): ladder-0-2x-receded run 1, QUARANTINE-run-1-1790922113943599000. Times UTC.
+  06:20:36     run 1 opens (HID idle 829 s), Finder frontmost as the receded pose expects.
+  06:21:46.2   in another of the user's Claude sessions the user runs
+               `gcloud auth login` and `gcloud auth application-default login` as bash input; gcloud
+               reports "Your browser has been opened".
+  06:21:46.6   an osascript (pid 68232) asks LaunchServices to open the OAuth URL; CoreServicesUIAgent
+               opens it in Google Chrome (pid 68233, parent launchd).
+  06:21:53     the watchdog reads com.google.Chrome frontmost in a receded launch (Finder -> Chrome) and
+               quarantines run 1.
+  06:21:54     STOP; slider 0.5 and display mode 68 restored and verified.
+  06:22:23     HID idle 0.6 s: the user completes the sign-in at the Mac.
+  ~06:24       the user reports done; the coordinator quits Chrome and its helpers; census 0 at 06:24:17.

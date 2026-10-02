@@ -1,0 +1,39 @@
+W43 G1b phase 1: the runbook's pre-launch lines, read 2026-10-02 00:05-00:10Z on e2a32591 (main
+after the G1a merge 41c24b45 and G2 stage one). Nothing native ran: no census, no slider write, no
+display read or switch, no launch. Runbook: ../../2026-10-01-w43-g0-declaration/bed/sitting/README.md.
+The declaration directory, apps/reference-apple/scenes.json and the W39 bundle pin are unchanged
+between b8cec3c6 (G1a's base) and e2a32591.
+
+S=packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting, from the worktree root.
+
+1. W43_SITTING=g1b python3.12 $S/sitting.py plan --out /tmp/w43-g1b-plan     -> plan-totals.json
+   1,265 captures in 55 capture launches, 16 dump launches holding 96 dump scenes, 0 published
+   cells, 5 slider writes (0.25, 1, 0, 0.75, then 0.5 for the close), 0 display switches (every
+   pass at 2x, mode 68), 35 passes; executed false. order.txt is `pass-spec.py order`; timing.txt
+   and timing-g1b.json are `timing.py` (3.70 h modelled, 4.08 h with the charter's 10 % stop loss).
+2. W43_SITTING=g1b python3.12 $S/sitting.py pin-check                           -> pin-check.json
+   exit 0; plan ee9e1871…, sources canonical ccd3ebfe…, w42 4aa06af9…, probe f54e133b…; the chain
+   4675ce21… then 4f90f910… (the last line, in force). declare.py check (declare-check.txt):
+   consistent with its sources.
+3. python3.12 $S/record-machine.py universal-control                           -> universal-control.json
+   A report, not a gate: agent pid 49435 running, `Disable` absent, Bluetooth on, awdl0 up, so the
+   input path reads reachable, as at G0 and G1a.
+4. W43_SITTING=g1b python3.12 $S/sitting.py bridge-references "$(… w42_archive.py fetch
+   --asset w42-archive-1e3d6e65….tar.zst --sha256 1e3d6e65…)" --out ~/vitrea-w43/references-g1b
+                                                                                 -> bridge-references.json
+   8 frames (W42's two sentinels, four endpoints, 2x), each re-hashed equal to its name
+   (references.sha256). Every reference of the plan's ten bridge passes then read its declared
+   SHA-256 through sitting.bridge_references (bridge-references-checked.json): the eight W42
+   sentinel passes from the store, the two canonical 2x passes (six cells each) from the committed
+   0.5 fixtures.
+5. Nothing moved between the sittings (charter G1b; machine-vs-g1a.json): the build is 27.0
+   26A428, and the side bundle's path, identifier, cdhash be258cbf…, binary 02052b17… and pin
+   780d6f95… equal both the pin and G1a's published attestation.
+6. Clause 6's baseline, read only (original-bundle-read.json): the original bundle under the main
+   checkout's apps/reference-apple/build is dev.vitrea.reference-apple, binary bd3092e8…, cdhash
+   88cbbb5b…, the binary W39 and W42 closed on; its restore states are 204f21f0… and 6c15311b….
+
+Deviations, as at G1a: the root is ~/vitrea-w43/g1b-run, because the runbook's ~/vitrea-w43/g1b/run
+lies inside this worktree and sitting.py refuses a root inside the checkout it runs from; the
+references store is ~/vitrea-w43/references-g1b, separate from G1a's; the branch is
+w43-g1b-sitting, where the charter names w43-g1b-probe.

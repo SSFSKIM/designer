@@ -1,0 +1,160 @@
+{
+  "recordedAt": "2026-10-02T00:33:20.683595+00:00",
+  "foreignProcessCount": 19,
+  "foreignProcesses": [
+    {
+      "pid": 19370,
+      "ppid": 1,
+      "start": "Fri Oct 2 09:33:04 2026",
+      "executable": "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "node script in @playwright"
+    },
+    {
+      "pid": 19394,
+      "ppid": 19370,
+      "start": "Fri Oct 2 09:33:05 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome"
+    },
+    {
+      "pid": 19398,
+      "ppid": 1,
+      "start": "Fri Oct 2 09:33:06 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/chrome_crashpad_handler",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "inside Google Chrome.app"
+    },
+    {
+      "pid": 19402,
+      "ppid": 19394,
+      "start": "Fri Oct 2 09:33:06 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 19403,
+      "ppid": 19394,
+      "start": "Fri Oct 2 09:33:06 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 19404,
+      "ppid": 19394,
+      "start": "Fri Oct 2 09:33:06 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 19423,
+      "ppid": 19394,
+      "start": "Fri Oct 2 09:33:06 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 19426,
+      "ppid": 19394,
+      "start": "Fri Oct 2 09:33:06 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 19665,
+      "ppid": 19394,
+      "start": "Fri Oct 2 09:33:07 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 19908,
+      "ppid": 19844,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "node script playwright-cli"
+    },
+    {
+      "pid": 19909,
+      "ppid": 19908,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "node script in @playwright"
+    },
+    {
+      "pid": 19920,
+      "ppid": 19909,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome"
+    },
+    {
+      "pid": 19922,
+      "ppid": 1,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/chrome_crashpad_handler",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "inside Google Chrome.app"
+    },
+    {
+      "pid": 19924,
+      "ppid": 19920,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 19925,
+      "ppid": 19920,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 19926,
+      "ppid": 19920,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper"
+    },
+    {
+      "pid": 19928,
+      "ppid": 19920,
+      "start": "Fri Oct 2 09:33:13 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 19930,
+      "ppid": 19920,
+      "start": "Fri Oct 2 09:33:14 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 19931,
+      "ppid": 19920,
+      "start": "Fri Oct 2 09:33:14 2026",
+      "executable": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.59/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+      "args": "(redacted: a peer session's command line; the full read stays on the capture machine)",
+      "why": "executable Google Chrome Helper (Renderer)"
+    }
+  ],
+  "censusRule": "by executable image; node-family script arguments by path component or file name; own ancestors and the recorded launcher chain (pid and start time) excluded",
+  "note": "args redacted for the public repository; executables, pids, start times and reasons are the census's own"
+}

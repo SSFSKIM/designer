@@ -1,0 +1,58 @@
+{
+  "schema": "w43-run-admission-1",
+  "admitted": true,
+  "dry": false,
+  "protocol": "normal",
+  "captureProtocol": {
+    "initialSettleSeconds": 1.75,
+    "orderSeed": null,
+    "resetInterstitialSeconds": 6.0,
+    "resetCarriesGlass": false,
+    "minIdleSeconds": 60.0
+  },
+  "cells": 6,
+  "manifestSha256": "3d229f23770dc219ccf2054c758500e78366c151d6c03b7b86c9ebfb24b46ef3",
+  "run": 2,
+  "glass": 0.5,
+  "sitting": "g1b",
+  "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+  "declaration": {
+    "sitting": "g1b",
+    "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+    "sources": {
+      "canonical": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+      "w42": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+      "probe": "f54e133befb61d20bdefcefd2228d66067b96bc35ecb332681498a70e39b2ba0"
+    },
+    "head": "78124640dd5197e536eda3a55d0574c0cdadba66",
+    "declarationSha256": "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb",
+    "declarationChain": [
+      "4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874",
+      "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb"
+    ]
+  },
+  "frames": {
+    "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange": "c79a194c75b7f8d34720dfa678f46cc48e010320d47cf3f333218309cb3e8cd6",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "cbb451bce8c2d69d05ed422d082cbace0c8f0acf213c3dc1f67f773c2b217a7f",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text-28__rrect-md__rest": "d1f532bbb4f72549d9f10bbd947372167c7675678164b8c98cb5f0ab5454b9d5",
+    "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__rest": "91671b6ce0260488e99d4cabaa77abf723ab7dba717908522b8418aa50d8db84",
+    "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest": "66727424eecb744cdaab9d0e9fa9bcf2dbdf66c12b974e203827e19c89534a5e",
+    "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest-tint-orange": "42511e1de156010edc8bfd60d42ee8a0d42427948f4a7fc9a0fadccba0a42916"
+  },
+  "role": "bridge-canonical",
+  "publish": false,
+  "pass": "open-canonical-2x-active",
+  "bridge": {
+    "agrees": true,
+    "stop": true,
+    "verdicts": {
+      "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange": "AGREE (regions)",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "AGREE (bytes)",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text-28__rrect-md__rest": "AGREE (bytes)",
+      "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__rest": "AGREE (bytes)",
+      "apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest": "AGREE (bytes)",
+      "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest-tint-orange": "AGREE (bytes)"
+    },
+    "reportSha256": "17e82b1aa0ee4546a56be4fe5c9479259739c0ac946183c3f35d45d330d33de8"
+  }
+}
