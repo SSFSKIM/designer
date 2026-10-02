@@ -44010,3 +44010,227 @@ sound, and `verdicts.py` replays every recorded result. The outputs first record
 
 Neither correction moves R2, the recommendation, the map, the Decision Log 7 draft's item 11 beyond
 naming the masks, or any number in §§1–4.
+
+## 5.200b W43 G2 stage two: the w-test passes in all four endpoints; the ladder reads the composite's slider coupling, w = x, with a knee at 0.5; G1b's bridges hold as G1a's did (2026-10-02)
+
+Evidence: `results/2026-10-02-w43-g2-reading/`, beside stage one's directories: `bridges-g1b/`,
+`wtest/` and `ladder/`. Branch `w43-g2-stage-two` off `daa6bdf7`, with `origin/main` merged at
+`bc3c499b`. Charter: G2 "After G1b"; clauses 3, 8 and 9; X43, X46 and X47; Decision Log 4.
+
+**Nothing in vitrea changed and nothing lands:**
+- no source, document, fixture, generation file or instrument;
+- no render;
+- W43's holdout untouched, and W42's H never requested.
+
+The 26.5 freeze reads **1,818** and X41 **911** at the close (`close-checks-stage-two.txt`). The
+raw runs stay on the capture machine. The frames come from the archives of record, and every frame
+is named by its SHA-256.
+
+### 1. G1b's bridges, read beside G1a's (clause 3; `bridges-g1b/bridges-g1b.txt`)
+
+| bridge | G1b cell-runs | by bytes | by regions | worst region delta | G1a's 2x cell-runs | by bytes | by regions |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| opening, W42 sentinels | 24 | 24 | 0 | 0.0 | 24 | 24 | 0 |
+| opening, canonical cells | 36 | 33 | 3 | 0.0 | 36 | 34 | 2 |
+| closing, W42 sentinels | 24 | 24 | 0 | 0.0 | 24 | 23 | 1 |
+| **all** | **84** | **81** | **3** | **0.0** | **84** | **81** | **3** |
+
+- **No new state.** All 28 of G1b's bridge groups carry only frames G1a produced at the same bridge
+  point. All 16 sentinel groups sit on a W42 long-protocol state. No group carries two states.
+- **The three region-only cell-runs are one cell:** the 2x dark orange-tint checker capsule, on
+  `c79a194c…`, G1a's runs 2–3 frame. That is a side-bundle state the original never produced
+  (§5.200 §3). Stage one measured that exact frame against the 0.5 fixture under the hashed native
+  delta bar (`a8659d7e…`): it sits at the bridge null's own ceiling (`bodyLevelDelta` 2.4e-9,
+  `highlightBinDeltaMax` 1.2e-4).
+- **Under G1b's own bar** (`565b33b1…`, read from the archive), every bridge cell is unanimous, the
+  bar is 0.5 and the tolerance one code. So G1b's claims against 0.5 read as bridged (X43), and the
+  machine did not move between the sittings.
+
+### 2. (c) The w-test, read once against the prediction hashed in G0 (clause 8; `wtest/`)
+
+**Stated before the read** (`d1986c20`, `wtest/read-plan.md`). The read uses the declaration in force,
+`4f90f910…`, through its own `wtest.py`, `rehearse.py` and `w42frames.py`.
+- Every pinned file hashed as declared, and the support regenerated exactly as hashed.
+- The 0.25 frames are the plurality of G1b's three normal runs, from the verified copy of
+  `w43-archive-g1b` (inventory `9c7fbd86…`). All 116 probe cells are unanimous.
+- The 0.5 frames are the plurality of W42's seven runs, through W42's guarded Reader, each the frame
+  G0 read.
+- `check.txt` ran the plumbing on 0.5 pixels in both slots, and read r = 1 exactly; no 0.25 frame
+  was decoded.
+
+**Read once** (`7e77a330`, `wtest/reading.txt`): **PASS in all four endpoints.**
+
+| endpoint | supported regions | r per region | dr | largest \|r − 0.5\|/dr |
+| --- | ---: | --- | --- | ---: |
+| light active | 4 | 0.503, 0.492, 0.515, 0.518 | 0.053–0.088 | 0.24 |
+| light receded | 2 | 0.524, 0.508 | 0.078–0.079 | 0.30 |
+| dark active | 3 | 0.527, 0.528, 0.512 | 0.057–0.082 | 0.48 |
+| dark receded | 2 | 0.532, 0.522 | 0.084–0.085 | 0.38 |
+
+- **What the pass means.** The free side's pre-tone excursion halves between 0.5 and 0.25: w(0.25)/w(0.5)
+  reads 0.49–0.53 on every supported region, as memo F's Normal = x predicts. That holds for any k, λ
+  and T. This is evidence for LT's composite and its slider coupling on the free side.
+- **Where it applies.** The support is mostly t = 0 (§5.198 §7): every region but light active's
+  32-pt square lies on the capsule or rrect-64. The test says little about the coupling at s ≥ 80.
+- **The lifted side,** reported and never gated, implies these λ₀.₂₅ values on its best-resolved
+  regions:
+
+  | endpoint | implied λ₀.₂₅ | the declared ramp's scalings of W42's λ₀.₅ |
+  | --- | --- | --- |
+  | light active | 0.762–0.795 | 0.7595 / 0.7555 |
+  | light receded | 0.70–0.72 | 0.671 / 0.655 |
+  | dark active | 0.746–0.761 | 0.745 / 0.739 |
+  | dark receded | 0.69 | 0.664 / 0.647 |
+
+  The resolution is dλ ≈ 1.2 dr, ±0.05–0.08.
+  - **The ratio scaling** is within that resolution on every lifted region of every endpoint.
+  - **The difference scaling** is too, except on light receded's two regions, where it lies just
+    outside: the capsule and rrect-64 imply λ₀.₂₅ 0.7190 and 0.7197 against 0.6545. The gaps are
+    0.0645 and 0.0652, against dλ 0.0613 and 0.0626.
+  - These are two marginal departures on a side that is never gated. The free-side PASS is
+    unaffected. (First written: "every one is within its own resolution ... it cannot tell the two
+    scalings apart"; corrected by the review, §7.)
+- **Nothing lands from it** (Decision Log 4). It redirects the next structure wave: LT's free side
+  tracks the slider.
+
+### 3. (d) The ladder, described (clause 9; `ladder/ladder.txt`)
+
+Positions x = 0, 0.25, 0.5 (W42's), 0.75 and 1, all at 2x, read with the w-test's functions and
+frames, after the w-test. Its 0.25 values on the supported regions equal the w-test's on 11 of 11.
+- **T(x) knees at 0.5, as memo F's ramps say.**
+  - Light greys rise with x, more steeply above 0.5. On the capsule, black reads 102, 117, 132, 155,
+    178 and mid-grey 180, 187, 195, 206, 217.
+  - Dark greys at t = 0 do not move across 0–0.5 (white 185, 185, 185), then fall: 142 at 0.75 and 108
+    at 1. The dark fill turns grey at alpha x − 0.5.
+  - At s = 96 the dark cap moves T below 0.5 too (white 154, 144, 134).
+  - Light receded reads the capsule and rrect-md greys identically at every x.
+- **The free side is affine in x, w = x.** On the cells whose 0.5 excursion reaches 12 codes:
+  - the median r(x) = e(x)/e(0.5) reads 0.52–0.56 at x = 0.25, 1.49 at 0.75 (light; predicted 1.5) and
+    1.87–1.98 at 1 (predicted 2), the last through memo F's 0.125 capture scale;
+  - the worst residual from the line through x = 0 and 1 is 1.5–3.2 codes (light active 2.2), with
+    no line drawn where x = 0 or 1 is censored (§7; first written 1.5–3.5);
+  - the exception is dark active at 0.75: 12.3 codes, r 1.77 and 2.41, read through a T of four
+    ordinates at the position where the dark fill turns on.
+  - M(0) = C holds at x = 0, at e(0) = 0–5 codes. On the light 0/255 checkers it is censored, at
+    ≥ 250 (X21), so it is unread there.
+- **The lifted side carries the hinge.** The implied λ(0) reads 0.67–0.73 through x = 1 (biased by
+  the different capture scale there) and 0.62–0.66 through W42's fitted λ₀.₅, against the declared
+  0.675.
+- **The body turns from one-sided to two-sided as x rises.** The mirror is m = (e_free +
+  e_lifted)/(|e_free| + |e_lifted|).
+  - It is read only on cells admitted by a linear control: the same regions, under a plain Gaussian
+    blur of the cell's own backdrop at σ 10, 20 and 40 device px, must read |m| ≤ 0.05.
+  - The checkers on rrect-md and the c32 cells on the capsule and rrect-64 are admitted (control
+    0.000–0.004), and so are the steps (control 0.000).
+  - The 32-pt patches (c-s32-hi, -lo, |control| 0.26–0.60) and the c64 checker on the capsule
+    (+0.66 to +0.07) are not: their two regions are no complementary pair.
+  - A censored reading leaves the mirror at its x.
+
+  | endpoint (median over the admitted cells) | x = 0 | x = 0.25 | x = 0.5 | x = 1 |
+  | --- | ---: | ---: | ---: | ---: |
+  | light active (10 cells; 8 at x = 0) | +0.89 | +0.51 | +0.33 | −0.02 |
+  | light receded (2) | +1.00 | +0.54 | +0.32 | −0.00 |
+  | dark active (10) | −0.80 | −0.44 | −0.24 | +0.05 |
+  | dark receded (2) | −1.00 | −0.51 | −0.30 | +0.00 |
+
+  The first table (§7) read light active over 13 cells, at +0.92 for x = 0. Every other entry is
+  unchanged.
+
+  That is LT's M = W at x = 1, and its one-sidedness growing toward 0. **The shipped two-sided form's
+  structural miss therefore grows toward x = 0**, as the charter's Design predicted for 0.25.
+- **The steps widen with x.** The 10–90 % width runs 37, 45, 58, 74 px in light active and 20, 38,
+  52, 61 in dark active: the wide term's reach takes over as w grows.
+- **The five two-state cells** of G1b's bar (§5.199b §5):
+  - each differs by at most one code, on 6–228 px;
+  - none moves a deep median or a region median;
+  - none lies on a region of the w-test (all are at x = 0 or 0.75);
+  - three are T ordinates at x = 0 or 0.75 that do not move.
+  Read under the bar, they change no reading.
+
+### 4. Recommendation for the continuous slider's charter
+
+**A law in x, chartered after the structure wave lands LT in vitrea, needing no new full generation
+to be built and one canonical generation as its held-out referee.**
+- **Why a law in x.** The ladder shows the slider entering Apple's body through one weight, w = x,
+  on the free side, plus memo F's declared ramps: λ(x), the face fill and the dark cap, all
+  piecewise-linear with the knee at 0.5. T(x) is the only part that needs measuring per position,
+  and the ladder's greys already measure it at every knot (seven levels at 0, 0.25 and 1, W42's at
+  0.5, four at 0.75).
+- **Why not interpolated documents.** Interpolating fitted documents of the shipped two-sided form
+  carries a structural miss that grows toward x = 0 (the mirror reaches 0.89 in light active and 1.00
+  receded). It also misdraws the capture-scale steps between points:
+  - rrect-lg above 0.25 (above 0.375 in dark);
+  - rrect-ml from 0.625 to 0.875, depending on scheme and pose;
+  - every shape at 1.
+- **The referee:** one canonical generation at a position the law was not built from. 0.75 is the
+  recommended position: it lies inside the [0.5, 1] segment where the dark fill turns on, and where
+  this ladder's T is coarsest.
+- **The alternative that is sound:** interpolated documents. These need fitted generations at every
+  knot and end, 0, 0.5 and 1: two more canonical sittings of about 12 h each. They are sound if the
+  structure wave does not land LT and a continuous slider is still wanted. The capture-scale steps
+  would then be named gaps.
+
+### 5. Gaps, each recorded
+
+- **The w-test is a t = 0 reading** (§5.198 §7). At s ≥ 80 the coupling is unread except on one
+  square.
+- **The ladder's ends are not one-knob.**
+  - At x = 1 the capture scale is 0.125, so W is not the W of other positions. r(1) and λ(0)
+    through x = 1 carry that.
+  - At x = 0 the light free side over a 255 level is censored.
+  - At 0.75 there are four greys, and dark T is coarse there.
+  A tracker entry names the bed that would close these.
+- **λ(0) depends on the route** (0.62–0.66 against 0.67–0.73). Neither route is unconfounded: one
+  goes through W at a different capture scale, the other through W42's fitted λ₀.₅.
+
+### 6. What is not claimed
+
+- No law, no fit, no document, no render, no bound. The w-test redirects the next structure wave and
+  lands nothing (Decision Log 4).
+- The ladder is descriptive (clause 9). Its numbers are for the next structure wave and the
+  continuous slider's charter.
+
+### 7. Review closure (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `daa6bdf7`, head `f6eb55ac`) returned
+changes-needed with three P2 findings, all accepted. It confirmed the following:
+- the w-test uses the pinned declaration's functions and support unchanged;
+- the plan preceded the read and the read preceded the ladder;
+- check mode decoded no 0.25 frame;
+- the 11 free-side ratios satisfy the declared verdict;
+- the declaration's hash and seven pins, and the 84 bridge cell-runs, are as recorded.
+
+None of the three findings touches the w-test's PASS. The ladder's first outputs are kept as
+`ladder/ladder.v1.txt` and `.json`, and `ladder.txt` and `.json` are regenerated beside them. T(x),
+the steps and the five two-state cells (§3) are unchanged byte for byte.
+
+1. **Censoring did not propagate.** The first cut flagged the light 0/255 checkers' censored x = 0
+   free side in the display and the r(x) summary. It still let the clamped value into the mirror
+   (as exactly +1 on three cells) and into the affine lines and their worst residuals.
+   - Now a flagged reading leaves every derived statistic: no r at its x, no line where x = 0 or 1 is
+     flagged, no residual, no mirror at that x, and no λ(0) through it.
+   - Light active's worst residual becomes 2.2 codes (first 3.5, from a censored anchor), and the
+     range becomes 1.5–3.2 codes.
+   - λ(0) is unchanged (0.67–0.73 through x = 1, 0.62–0.66 through W42's λ₀.₅): no lifted reading was
+     flagged.
+2. **The mirror's null was not demonstrated per cell.** m is 0 under a two-sided linear system only
+   where the two regions are complementary. A patch's core and ring are not: the reviewer's plain
+   Gaussian at σ 40 reads m = ∓0.603 on `c-s32-hi` and `-lo`.
+   - Each cell is now read under that linear control, at σ 10, 20 and 40, on its own declared regions.
+     It enters the aggregate only if |m| ≤ 0.05 at every σ.
+   - The checkers on rrect-md, the c32 checkers on the capsule and rrect-64, and the steps pass
+     (0.000–0.004). The patches (0.26–0.60) and the c64 checker on the capsule (0.66, 0.26, 0.07) do
+     not.
+   - Light active's x = 0 median moves from +0.92 over 13 cells to +0.89 over 8 admitted cells (10 at
+     the other positions). Every other entry of the table is unchanged.
+   - **The conclusion stands:** the body is one-sided toward x = 0 and two-sided at x = 1, in all
+     four endpoints, on admitted cells alone. So does the recommendation built on it (§4), whose
+     figure becomes 0.89 in light active and 1.00 receded.
+3. **The lifted side's agreement was stated too broadly.** The ratio scaling is within resolution on
+   every lifted region. The difference scaling is not on light receded's two regions: the gaps are
+   0.0645 and 0.0652 against dλ 0.0613 and 0.0626. §2 now records them as marginal departures, and
+   the free-side PASS is unaffected.
+
+The commit bodies of `1523c47f` and `f6eb55ac` quote the first readings (light +0.92, worst residual
+1.5–3.5). They are not rewritten. This section and the regenerated outputs carry the corrected ones.
+- Decision Logs 5 and 7 (§5.200 §6) are the user's and are not touched here.

@@ -1,0 +1,73 @@
+# W43 G2 stage two: G1b's bridges read (clause 3; §5.199b §4), beside G1a's (§5.200 §3)
+
+## The 84 cell-runs, from the committed bridge.json files, beside G1a's 2x cell-runs
+
+| bridge | G1b cell-runs | by bytes | by regions | worst region delta | G1a's 2x cell-runs | by bytes | by regions |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| opening, W42 sentinels | 24 | 24 | 0 | 0.0 | 24 | 24 | 0 |
+| opening, canonical cells | 36 | 33 | 3 | 0.0 | 36 | 34 | 2 |
+| closing, W42 sentinels | 24 | 24 | 0 | 0.0 | 24 | 23 | 1 |
+| **all** | **84** | **81** | **3** | **0.0** | **84** | **81** | **3** |
+
+G1b verdicts other than the two agreements: 0.
+
+## Every G1b frame against G1a's, W29's and W42's states of the same cell
+
+cell                                                                           when  G1b states             G1a states                     in G1a in W29 W42 long/normal
+apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange open  {'4282d91b1d82': 3}    {'4282d91b1d82': 3}            Y      Y      
+apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange open  {'c79a194c75b7': 3}    {'4e148f0908bf': 1, 'c79a194c75b7': 2} Y      n      
+apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive      open  {'81ba198a65a8': 3}    {'81ba198a65a8': 3}            Y      Y      
+apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest          open  {'cbb451bce8c2': 3}    {'cbb451bce8c2': 3}            Y      Y      
+apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__inactive      close {'1c1f08414750': 3}    {'1c1f08414750': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__inactive      open  {'1c1f08414750': 3}    {'1c1f08414750': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__rest          close {'969118c4591d': 3}    {'24b99f3931c2': 1, '969118c4591d': 2} Y      Y      Y/n
+apple-macos-27.0-2x-dark-standard-glass0.5/f-checker64-rrect-lg__rest          open  {'969118c4591d': 3}    {'969118c4591d': 3}            Y      Y      Y/n
+apple-macos-27.0-2x-dark-standard-glass0.5/f-impulse-rrect-md__inactive        close {'440474b42328': 3}    {'440474b42328': 3}            Y      —      Y/Y
+apple-macos-27.0-2x-dark-standard-glass0.5/f-impulse-rrect-md__inactive        open  {'440474b42328': 3}    {'440474b42328': 3}            Y      —      Y/Y
+apple-macos-27.0-2x-dark-standard-glass0.5/f-impulse-rrect-md__rest            close {'82f780fd9b66': 3}    {'82f780fd9b66': 3}            Y      —      Y/Y
+apple-macos-27.0-2x-dark-standard-glass0.5/f-impulse-rrect-md__rest            open  {'82f780fd9b66': 3}    {'82f780fd9b66': 3}            Y      —      Y/Y
+apple-macos-27.0-2x-dark-standard-glass0.5/hc-text-28__rrect-md__inactive      open  {'410e22a3f6ee': 3}    {'410e22a3f6ee': 3}            Y      Y      
+apple-macos-27.0-2x-dark-standard-glass0.5/hc-text-28__rrect-md__rest          open  {'d1f532bbb4f7': 3}    {'d1f532bbb4f7': 3}            Y      Y      
+apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__inactive open  {'e11eaa67ede7': 3}    {'e11eaa67ede7': 3}            Y      Y      
+apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__rest   open  {'91671b6ce026': 3}    {'91671b6ce026': 3}            Y      Y      
+apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__inactive     close {'53ca86124db4': 3}    {'53ca86124db4': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__inactive     open  {'53ca86124db4': 3}    {'53ca86124db4': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__rest         close {'bb7c575d9339': 3}    {'bb7c575d9339': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__rest         open  {'bb7c575d9339': 3}    {'bb7c575d9339': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__inactive       close {'ab33a78c616e': 3}    {'ab33a78c616e': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__inactive       open  {'ab33a78c616e': 3}    {'ab33a78c616e': 3}            Y      Y      Y/Y
+apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__rest           close {'a07987b87f28': 3}    {'a07987b87f28': 3}            Y      n      Y/n
+apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__rest           open  {'a07987b87f28': 3}    {'a07987b87f28': 3}            Y      n      Y/n
+apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__inactive open  {'d2e44520ed5c': 3}    {'d2e44520ed5c': 3}            Y      Y      
+apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__rrect-md__rest   open  {'66727424eecb': 3}    {'66727424eecb': 3}            Y      Y      
+apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange open  {'52af548e3cf7': 3}    {'52af548e3cf7': 3}            Y      Y      
+apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest-tint-orange open  {'42511e1de156': 3}    {'42511e1de156': 3}            Y      Y      
+
+G1b groups whose every frame is one G1a produced at the same bridge point: 28 of 28; sentinel groups on a W42 long-protocol state: 16 of 16.
+(cell, opening/closing) groups of three runs at G1b with more than one state: 0
+
+## The region-only cell-runs, under the hashed bars
+
+- open-canonical-2x-active run 1: `apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange` frame `c79a194c75b7` against `4e148f0908bf`; 30 px at <= 2 codes; 24 region statistics, worst delta 0.0
+  the same frame as G1a's open-canonical-2x-active run 2, open-canonical-2x-active run 3
+  stage one measured that frame against the 0.5 fixture under the native-delta bar (a8659d7e...): 29 metrics read moved, at bodyLevelDelta 2.42e-09, interiorMeanDelta 3.68e-07, highlightBinDeltaMax 1.18e-04; the bridge null's own ceiling
+  W29's runs of the cell: {4e148f0908bf: 7}
+
+- open-canonical-2x-active run 2: `apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange` frame `c79a194c75b7` against `4e148f0908bf`; 30 px at <= 2 codes; 24 region statistics, worst delta 0.0
+  the same frame as G1a's open-canonical-2x-active run 2, open-canonical-2x-active run 3
+  stage one measured that frame against the 0.5 fixture under the native-delta bar (a8659d7e...): 29 metrics read moved, at bodyLevelDelta 2.42e-09, interiorMeanDelta 3.68e-07, highlightBinDeltaMax 1.18e-04; the bridge null's own ceiling
+  W29's runs of the cell: {4e148f0908bf: 7}
+
+- open-canonical-2x-active run 3: `apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest-tint-orange` frame `c79a194c75b7` against `4e148f0908bf`; 30 px at <= 2 codes; 24 region statistics, worst delta 0.0
+  the same frame as G1a's open-canonical-2x-active run 2, open-canonical-2x-active run 3
+  stage one measured that frame against the 0.5 fixture under the native-delta bar (a8659d7e...): 29 metrics read moved, at bodyLevelDelta 2.42e-09, interiorMeanDelta 3.68e-07, highlightBinDeltaMax 1.18e-04; the bridge null's own ceiling
+  W29's runs of the cell: {4e148f0908bf: 7}
+
+## G1b's own bar on its bridge strata (bar.json.gz, read from the archive; §5.199b §5)
+
+  close-w42       bar 0.5 8, unanimous 8
+  open-canonical  bar 0.5 12, unanimous 12
+  open-w42        bar 0.5 8, unanimous 8
+
+Every G1b bridge cell is unanimous over its three runs, so its bar is exactly 0.5 code and the
+clause 3 tolerance max(1 code, bar) is one code; every region agreement above sits at delta 0.0.

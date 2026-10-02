@@ -1,0 +1,8 @@
+W43 G2 stage two close checks, 2026-10-02T09:01:38Z, worktree ~/vitrea-w43/g2b
+
+$ python3 results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1818 entries
+$ npx tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify
+X41 0.5 generation intact: 911 entries
+$ git diff --stat daa6bdf7 -- packages/*/src apps/reference-apple/fixtures packages/calibration/profiles packages/calibration/results/generations packages/calibration/cli
+(empty: no vitrea source, fixture, document, generation file or instrument moved)

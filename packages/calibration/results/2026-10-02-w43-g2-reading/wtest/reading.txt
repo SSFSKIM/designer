@@ -1,0 +1,64 @@
+# W43 G2 stage two (c): the w-test, read once
+
+Declaration in force 4f90f91015f3c82c... (the chain's last line); its pins:
+  wtest/wtest.py             b789bd0203df285a... as declared
+  wtest/rehearse.py          4c8c6f3c2415c129... as declared
+  wtest/w42frames.py         749710bf088214e6... as declared
+  wtest/support.json         790fcab778331e76... as declared
+  wtest/prediction.json      6f44606612a3d854... as declared
+  bed/probe-bed.json         2ab7de9ba5737b80... as declared
+  bed/scenes-w43-probe.json  f54e133befb61d20... as declared
+w43-archive-g1b tree verified: 2147 entries, inventory 9c7fbd86576b77eb...
+w42-archive counterparts re-extracted: 116, every frame the one G0 read; 1 with more than one state (its plurality read)
+
+== light-rest: 29 probe cells at 0.25, three runs each, 0 with two states; 4 supported free-side regions, 13 lifted (never gated); prediction stated, r_pred 0.5
+  VERDICT PASS: 4 measured, 0 failing, median r 0.5091
+    free   bp-p1-c32-capsule-button:free      r 0.5034  dr 0.0527  |r - 0.5|/dr 0.07  D -62.2  channels 0.516, 0.497, 0.497  within
+    free   bp-p1-c32-rrect-64:free            r 0.4916  dr 0.0564  |r - 0.5|/dr 0.15  D -58.4  channels 0.469, 0.503, 0.503  within
+    free   bp-p1-c64-capsule-button:free      r 0.5147  dr 0.0879  |r - 0.5|/dr 0.17  D -38.0  channels 0.515, 0.515, 0.515  within
+    free   c-s32-hi-rrect-md:free             r 0.5181  dr 0.0747  |r - 0.5|/dr 0.24  D -45.7  channels 0.525, 0.515, 0.515  within
+    lifted b-p2-c64-rrect-md:lifted           r_lift 0.8686  dr 0.0918  D +50.0  lam25 0.7483 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted b-p3-c64-rrect-md:lifted           r_lift 0.9495  dr 0.1588  D +26.0  lam25 0.8490 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted b-p4-c64-rrect-md:lifted           r_lift 0.9030  dr 0.1140  D +34.0  lam25 0.7912 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted b-p5-c64-rrect-md:lifted           r_lift 0.8956  dr 0.1338  D +34.3  lam25 0.7820 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted bp-p1-c32-capsule-button:lifted    r_lift 0.8792  dr 0.0376  D +115.6  lam25 0.7616 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted bp-p1-c32-rrect-64:lifted          r_lift 0.8893  dr 0.0396  D +111.5  lam25 0.7741 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted bp-p1-c64-capsule-button:lifted    r_lift 0.8906  dr 0.0490  D +88.8  lam25 0.7757 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted c-s32-hi-rrect-md:lifted           r_lift 0.8264  dr 0.1506  D +26.0  lam25 0.6958 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted c-s32-lo-rrect-md:lifted           r_lift 0.9060  dr 0.0471  D +84.3  lam25 0.7949 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted d-d0-hilo-rrect-md:lifted          r_lift 0.8881  dr 0.1121  D +40.7  lam25 0.7726 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted d-d0-lohi-rrect-md:lifted          r_lift 0.8881  dr 0.1121  D +40.7  lam25 0.7726 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted d-d32-hilo-rrect-md:lifted         r_lift 0.8881  dr 0.1121  D +40.7  lam25 0.7726 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+    lifted d-d32-lohi-rrect-md:lifted         r_lift 0.8881  dr 0.1121  D +40.7  lam25 0.7726 (lam50 0.868; declared ramp: ratio 0.7595, difference 0.7555)
+== light-inactive: 29 probe cells at 0.25, three runs each, 0 with two states; 2 supported free-side regions, 3 lifted (never gated); prediction stated, r_pred 0.5
+  VERDICT PASS: 2 measured, 0 failing, median r 0.5159
+    free   bp-p1-c32-capsule-button:free      r 0.5238  dr 0.0791  |r - 0.5|/dr 0.30  D -47.0  channels 0.524, 0.524, 0.524  within
+    free   bp-p1-c32-rrect-64:free            r 0.5079  dr 0.0782  |r - 0.5|/dr 0.10  D -47.0  channels 0.524, 0.476, 0.524  within
+    lifted bp-p1-c32-capsule-button:lifted    r_lift 0.8933  dr 0.0521  D +92.4  lam25 0.7190 (lam50 0.767; declared ramp: ratio 0.6711, difference 0.6545)
+    lifted bp-p1-c32-rrect-64:lifted          r_lift 0.8939  dr 0.0532  D +90.1  lam25 0.7197 (lam50 0.767; declared ramp: ratio 0.6711, difference 0.6545)
+    lifted bp-p1-c64-capsule-button:lifted    r_lift 0.8750  dr 0.0919  D +48.0  lam25 0.6974 (lam50 0.767; declared ramp: ratio 0.6711, difference 0.6545)
+== dark-rest: 29 probe cells at 0.25, three runs each, 0 with two states; 3 supported free-side regions, 13 lifted (never gated); prediction stated, r_pred 0.5
+  VERDICT PASS: 3 measured, 0 failing, median r 0.5273
+    free   bp-p1-c32-capsule-button:free      r 0.5273  dr 0.0570  |r - 0.5|/dr 0.48  D +61.8  channels 0.527, 0.527, 0.527  within
+    free   bp-p1-c32-rrect-64:free            r 0.5283  dr 0.0610  |r - 0.5|/dr 0.46  D +59.5  channels 0.528, 0.528, 0.528  within
+    free   bp-p1-c64-capsule-button:free      r 0.5116  dr 0.0815  |r - 0.5|/dr 0.14  D +48.3  channels 0.512, 0.512, 0.512  within
+    lifted b-p2-c64-rrect-md:lifted           r_lift 0.8333  dr 0.2176  D -48.0  lam25 0.6950 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted b-p3-c16-rrect-md:lifted           r_lift 0.8333  dr 0.1937  D -32.0  lam25 0.6950 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted b-p3-c64-rrect-md:lifted           r_lift 0.8333  dr 0.3068  D -25.6  lam25 0.6950 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted b-p4-c64-rrect-md:lifted           r_lift 0.8158  dr 0.2992  D -32.0  lam25 0.6734 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted bp-p1-c32-capsule-button:lifted    r_lift 0.8866  dr 0.0418  D -114.1  lam25 0.7608 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted bp-p1-c32-rrect-64:lifted          r_lift 0.8828  dr 0.0407  D -110.4  lam25 0.7561 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted bp-p1-c64-capsule-button:lifted    r_lift 0.8782  dr 0.0745  D -71.7  lam25 0.7504 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted c-s32-hi-rrect-md:lifted           r_lift 0.8750  dr 0.0745  D -85.3  lam25 0.7464 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted c-s32-lo-rrect-md:lifted           r_lift 1.0000  dr 0.5978  D -21.3  lam25 0.9007 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted d-d0-hilo-rrect-md:lifted          r_lift 0.8571  dr 0.3736  D -37.3  lam25 0.7244 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted d-d0-lohi-rrect-md:lifted          r_lift 0.8571  dr 0.3736  D -37.3  lam25 0.7244 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted d-d32-hilo-rrect-md:lifted         r_lift 0.8571  dr 0.3736  D -37.3  lam25 0.7244 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+    lifted d-d32-lohi-rrect-md:lifted         r_lift 0.8571  dr 0.3736  D -37.3  lam25 0.7244 (lam50 0.851; declared ramp: ratio 0.7446, difference 0.7385)
+== dark-inactive: 29 probe cells at 0.25, three runs each, 0 with two states; 2 supported free-side regions, 2 lifted (never gated); prediction stated, r_pred 0.5
+  VERDICT PASS: 2 measured, 0 failing, median r 0.5268
+    free   bp-p1-c32-capsule-button:free      r 0.5319  dr 0.0837  |r - 0.5|/dr 0.38  D +49.6  channels 0.532, 0.532, 0.532  within
+    free   bp-p1-c32-rrect-64:free            r 0.5217  dr 0.0852  |r - 0.5|/dr 0.26  D +48.5  channels 0.522, 0.522, 0.522  within
+    lifted bp-p1-c32-capsule-button:lifted    r_lift 0.8767  dr 0.0649  D -92.7  lam25 0.6948 (lam50 0.759; declared ramp: ratio 0.6641, difference 0.6465)
+    lifted bp-p1-c32-rrect-64:lifted          r_lift 0.8736  dr 0.0699  D -90.4  lam25 0.6911 (lam50 0.759; declared ramp: ratio 0.6641, difference 0.6465)
+
