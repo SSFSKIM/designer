@@ -461,9 +461,12 @@ inherits shipped's coincidences (W42 Deferred at close 5). The code stays on `w4
 `b92bfb1f` and `w42-g2-identification` `91e56c47`, and main has the evidence only. Two facts to
 keep: Apple's dark native T FALLS above 208 at s ≥ 96, and the shipped tone solve is far from
 monotone in the first code and a half above black (a tracker entry). The holdout H is unspent and
-serves the next declaration on this archive. By the user's ruling the Screen Recording grant stays
-with the W39 side bundle. The original bundle's restore and positive check (`204f21f0…` or
-`6c15311b…`) happen at the next sitting. **The next wave is the `-glass0.25` capture**, the user's
+serves the next declaration on this archive. **The original bundle holds the Screen Recording grant
+again**, restored and positively checked at W43 G1b's close (2026-10-02, frame `204f21f0…`,
+`dev.vitrea.reference-apple` alone at auth 2; §5.199b §7). The W39 side bundle `.w39` has no row
+and is retired: never launch it without re-adding it, or it raises an unattended prompt. W42's
+side-bundle grant was Decision Log 8's deferral, closed by W43 clause 6, and is now history.
+**The next wave is the `-glass0.25` capture**, the user's
 next phase. LT declares w = `NSGlassTintAmount`, so a clearer-glass generation tests that constant
 with no refit. Its declaration states black handling, the span law and the aliasing cells first
 (W42 Deferred at close 1–10).
