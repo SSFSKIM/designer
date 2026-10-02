@@ -1,0 +1,27 @@
+{
+  "$comment": "W44 G0 (f) scratch ladder candidate l6-floor1-0.1: L6 rung 0.1 at base floor1",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w44-g0-l6-floor1-0.1",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "c7546e98c6faa7a73b53a944fe9f31e6410edc5afd13bcb15b63caddf434ae15"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "58518ee48bac95ed91f7cd2d43f0df73414dc43f6a1ba9f8980c8813689d44d8"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "210b39876da0280219b02c8fe152b2cc7c23739995f7f31ab850a101e7645d6b"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "4b0f8a6a2ed512a1b7713976d857bd8714a5cc33d302ca143a9cc9c59d1319de"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

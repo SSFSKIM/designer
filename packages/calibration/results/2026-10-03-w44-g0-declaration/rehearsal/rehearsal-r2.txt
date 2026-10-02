@@ -1,0 +1,262 @@
+baseline: 464 cells checked, 0 mismatches, 0 T1 cells not in it -> REPRODUCED
+(i)   thin rest medians 0.49-0.86: holds; thin rest cells at or above 1: {'photo__capsule-button__pressed': 1.3284}
+(ii)  F mid/thick rest median 1.79: holds; under 1: {'checkerboard-8__rrect-md__rest': 0.8487, 'hc-text-7__rrect-md__rest': 0.8906, 'hc-text-7__rrect-lg__rest': 0.7947}; lowest over: (1.607093783431502, 'checkerboard-4__rrect-lg__rest')
+(iii) inactive subset median 2.81: holds; named: {'checkerboard-64__rrect-md__inactive': 1.3596, 'checkerboard-64__rrect-lg__inactive': 1.2838, 'hc-text__rrect-lg__inactive': 0.9163}; subset cells under 2: {'checkerboard__glass-over-glass__inactive': 1.6176, 'hc-text-7__rrect-md__inactive': 1.4477}
+stop: thick fine-pitch c05 cells separated by >= 4.4 bars (PASSES)
+   checkerboard-4__rrect-ml__rest           referee  n 0.0244 c05 0.0482 bar 0.00309 -> 7.7 bars
+   checkerboard-4__rrect-lg__rest           gate     n 0.0227 c05 0.0365 bar 0.00314 -> 4.4 bars
+   checkerboard-8__rrect-ml__rest           gate     n 0.0261 c05 0.0637 bar 0.00310 -> 12.1 bars
+   checkerboard-8__rrect-lg__rest           gate     n 0.0224 c05 0.0484 bar 0.00314 -> 8.3 bars
+   hc-text-7__rrect-lg__rest                gate     n 0.1236 c05 0.0983 bar 0.00371 -> 6.8 bars
+   checkerboard-8__rrect-lg__inactive       referee  n 0.0134 c05 0.0435 bar 0.00282 -> 10.7 bars
+anchors (T1-deep on its own support; T1 beside it):
+   0.25  checkerboard-4__rrect-md__rest       sheet 2.9/9.1  T1-deep 2.87/9.08 (reproduced); T1 reads x2.07 (linear SD over the whole native silhouette, rim and lens band included: 0.0297 / 0.0614); T1-deep reads x3.16 (encoded SD on the body eroded 8 CSS px: 2.87 / 9.08 codes)
+   0.25  checkerboard-4__rrect-md__inactive   sheet 0.3/10.5  T1-deep 0.29/10.49 (reproduced); T1 reads x3.95 (linear SD over the whole native silhouette, rim and lens band included: 0.0157 / 0.0621); T1-deep reads x35.71 (encoded SD on the body eroded 8 CSS px: 0.29 / 10.49 codes)
+   0.5   checkerboard-4__rrect-md__rest       sheet 1.7/2.6  T1-deep 1.74/2.54 (not to rounding); T1 reads x0.92 (linear SD over the whole native silhouette, rim and lens band included: 0.0279 / 0.0256); T1-deep reads x1.47 (encoded SD on the body eroded 8 CSS px: 1.74 / 2.54 codes)
+landing on c05: NEITHER: closes at the finding; F aggregate 0.5689 against c05's 0.5689; 14 F cells not within; 0 away beyond B; 0 overshoot
+landing on prefit: NEITHER: closes at the finding; F aggregate 0.5691 against c05's 0.5689; 8 F cells not within; 50 away beyond B; 3 overshoot
+selection metric: c05 0.3451, prefit 0.5034, tie width 0.0406 -> c05
+T1 aggregates on c05 (light, WebGPU and CSS; gate partition):
+   C 1x light css inactive            n=21  median|log| 0.3212 (c05 0.3212) {'within': 7, 'miss': 14} {'unchanged': 21}
+   C 1x light css rest                n=37  median|log| 0.3440 (c05 0.3440) {'miss': 32, 'within': 5} {'unchanged': 37}
+   C 1x light webgpu inactive         n=21  median|log| 0.3511 (c05 0.3511) {'miss': 14, 'within': 7} {'unchanged': 21}
+   C 1x light webgpu rest             n=37  median|log| 0.0914 (c05 0.0914) {'within': 23, 'miss': 14} {'unchanged': 37}
+   C 2x light css inactive            n=21  median|log| 0.5866 (c05 0.5866) {'miss': 19, 'within': 2} {'unchanged': 21}
+   C 2x light css rest                n=37  median|log| 0.3675 (c05 0.3675) {'miss': 30, 'within': 7} {'unchanged': 37}
+   C 2x light webgpu inactive         n=21  median|log| 0.8523 (c05 0.8523) {'miss': 18, 'within': 3} {'unchanged': 21}
+   C 2x light webgpu rest             n=37  median|log| 0.1720 (c05 0.1720) {'miss': 22, 'within': 15} {'unchanged': 37}
+   F 1x light css inactive            n=2   median|log| 0.3901 (c05 0.3901) {'miss': 2} {'unchanged': 2}
+   F 1x light css rest                n=12  median|log| 1.1550 (c05 1.1550) {'miss': 12} {'unchanged': 12}
+   F 1x light webgpu inactive         n=2   median|log| 0.4281 (c05 0.4281) {'within': 1, 'miss': 1} {'unchanged': 2}
+   F 1x light webgpu rest             n=12  median|log| 0.3412 (c05 0.3412) {'miss': 11, 'within': 1} {'unchanged': 12}
+   F 2x light css inactive            n=2   median|log| 0.6069 (c05 0.6069) {'within': 1, 'miss': 1} {'unchanged': 2}
+   F 2x light css rest                n=12  median|log| 0.9935 (c05 0.9935) {'miss': 11, 'within': 1} {'unchanged': 12}
+   F 2x light webgpu inactive         n=2   median|log| 1.2903 (c05 1.2903) {'miss': 2} {'unchanged': 2}
+   F 2x light webgpu rest             n=12  median|log| 0.4700 (c05 0.4700) {'miss': 12} {'unchanged': 12}
+   P 1x light css inactive            n=11  median|log| 0.4554 (c05 0.4554) {'miss': 10, 'within': 1} {'unchanged': 11}
+   P 1x light css rest                n=11  median|log| 0.6418 (c05 0.6418) {'miss': 11} {'unchanged': 11}
+   P 1x light webgpu inactive         n=11  median|log| 0.2319 (c05 0.2319) {'miss': 11} {'unchanged': 11}
+   P 1x light webgpu rest             n=11  median|log| 0.3821 (c05 0.3821) {'miss': 11} {'unchanged': 11}
+   P 2x light css inactive            n=11  median|log| 0.2642 (c05 0.2642) {'within': 3, 'miss': 8} {'unchanged': 11}
+   P 2x light css rest                n=11  median|log| 0.5148 (c05 0.5148) {'miss': 11} {'unchanged': 11}
+   P 2x light webgpu inactive         n=11  median|log| 0.1393 (c05 0.1393) {'within': 4, 'miss': 7} {'unchanged': 11}
+   P 2x light webgpu rest             n=11  median|log| 0.4193 (c05 0.4193) {'miss': 11} {'unchanged': 11}
+T1 aggregates on prefit (light, WebGPU and CSS; gate partition):
+   C 1x light css inactive            n=21  median|log| 0.3510 (c05 0.3212) {'miss': 17, 'within': 4} {'away': 6, 'unchanged': 7, 'toward': 6, 'overshoot': 2}
+   C 1x light css rest                n=37  median|log| 0.5642 (c05 0.3440) {'miss': 37} {'away': 26, 'unchanged': 11}
+   C 1x light webgpu inactive         n=21  median|log| 0.2175 (c05 0.3511) {'miss': 16, 'within': 5} {'toward': 10, 'unchanged': 6, 'away': 4, 'overshoot': 1}
+   C 1x light webgpu rest             n=37  median|log| 0.1513 (c05 0.0914) {'miss': 26, 'within': 11} {'overshoot': 11, 'away': 12, 'toward': 6, 'unchanged': 8}
+   C 2x light css inactive            n=21  median|log| 0.4634 (c05 0.5866) {'miss': 18, 'within': 3} {'toward': 9, 'unchanged': 4, 'overshoot': 6, 'away': 2}
+   C 2x light css rest                n=37  median|log| 0.7191 (c05 0.3675) {'miss': 37} {'away': 28, 'unchanged': 7, 'overshoot': 2}
+   C 2x light webgpu inactive         n=21  median|log| 0.3893 (c05 0.8523) {'miss': 14, 'within': 7} {'toward': 17, 'overshoot': 2, 'away': 2}
+   C 2x light webgpu rest             n=37  median|log| 0.4805 (c05 0.1720) {'miss': 35, 'within': 2} {'away': 35, 'overshoot': 1, 'unchanged': 1}
+   F 1x light css inactive            n=2   median|log| 0.3924 (c05 0.3901) {'miss': 2} {'unchanged': 2}
+   F 1x light css rest                n=12  median|log| 1.3141 (c05 1.1550) {'miss': 12} {'unchanged': 7, 'away': 5}
+   F 1x light webgpu inactive         n=2   median|log| 0.4182 (c05 0.4281) {'within': 1, 'miss': 1} {'unchanged': 2}
+   F 1x light webgpu rest             n=12  median|log| 0.5188 (c05 0.3412) {'miss': 10, 'within': 2} {'away': 8, 'unchanged': 1, 'toward': 3}
+   F 2x light css inactive            n=2   median|log| 0.6259 (c05 0.6069) {'miss': 2} {'away': 1, 'overshoot': 1}
+   F 2x light css rest                n=12  median|log| 1.2204 (c05 0.9935) {'miss': 12} {'unchanged': 5, 'away': 5, 'overshoot': 2}
+   F 2x light webgpu inactive         n=2   median|log| 0.0264 (c05 1.2903) {'within': 2} {'toward': 2}
+   F 2x light webgpu rest             n=12  median|log| 0.6669 (c05 0.4700) {'miss': 8, 'within': 4} {'away': 8, 'toward': 4}
+   P 1x light css inactive            n=11  median|log| 0.6796 (c05 0.4554) {'miss': 10, 'within': 1} {'away': 5, 'unchanged': 6}
+   P 1x light css rest                n=11  median|log| 0.7170 (c05 0.6418) {'miss': 11} {'away': 5, 'unchanged': 6}
+   P 1x light webgpu inactive         n=11  median|log| 0.4055 (c05 0.2319) {'miss': 11} {'away': 9, 'unchanged': 2}
+   P 1x light webgpu rest             n=11  median|log| 0.4388 (c05 0.3821) {'miss': 11} {'away': 5, 'unchanged': 6}
+   P 2x light css inactive            n=11  median|log| 0.4453 (c05 0.2642) {'miss': 9, 'within': 2} {'away': 6, 'unchanged': 4, 'toward': 1}
+   P 2x light css rest                n=11  median|log| 0.6789 (c05 0.5148) {'miss': 11} {'away': 5, 'unchanged': 6}
+   P 2x light webgpu inactive         n=11  median|log| 0.3308 (c05 0.1393) {'miss': 11} {'away': 9, 'unchanged': 2}
+   P 2x light webgpu rest             n=11  median|log| 0.5377 (c05 0.4193) {'miss': 11} {'away': 5, 'unchanged': 6}
+T1 on the 0.5 generation (read, X41; bar floor assumed):
+   C 1x light webgpu inactive         n=19  median|log| 0.4096 {'miss': 14, 'within': 5}
+   C 1x light webgpu rest             n=30  median|log| 0.1930 {'miss': 23, 'within': 7}
+   C 2x light webgpu inactive         n=19  median|log| 0.2978 {'miss': 11, 'within': 8}
+   C 2x light webgpu rest             n=30  median|log| 0.2257 {'miss': 25, 'within': 5}
+   F 1x light webgpu inactive         n=4   median|log| 0.1432 {'within': 2, 'miss': 2}
+   F 1x light webgpu rest             n=15  median|log| 0.1792 {'miss': 10, 'within': 5}
+   F 2x light webgpu inactive         n=4   median|log| 0.0365 {'within': 3, 'miss': 1}
+   F 2x light webgpu rest             n=15  median|log| 0.3288 {'miss': 10, 'within': 5}
+   P 1x light webgpu inactive         n=9   median|log| 0.3347 {'miss': 9}
+   P 1x light webgpu rest             n=9   median|log| 0.3878 {'miss': 9}
+   P 2x light webgpu inactive         n=9   median|log| 0.2526 {'miss': 8, 'within': 1}
+   P 2x light webgpu rest             n=9   median|log| 0.4737 {'miss': 9}
+readings on c05 (medians web/native):
+   C 1x inactive          n=27  T1 x1.31  deep x1.65  fine x1.76  lattice x2.28
+   C 1x inactive mid      n=7   T1 x1.07  deep x2.08  fine x2.00  lattice x2.89
+   C 1x inactive thick    n=8   T1 x1.01  deep x1.16  fine x1.36  lattice x2.81
+   C 1x inactive thin     n=12  T1 x1.48  deep x1.67  fine x1.73  lattice x1.74
+   C 1x rest              n=42  T1 x1.04  deep x1.09  fine x1.12  lattice x1.05
+   C 1x rest mid          n=8   T1 x1.15  deep x1.24  fine x1.28  lattice x1.33
+   C 1x rest thick        n=13  T1 x1.12  deep x1.27  fine x1.37  lattice x1.36
+   C 1x rest thin         n=21  T1 x1.01  deep x1.05  fine x1.00  lattice x0.97
+   C 2x inactive          n=27  T1 x2.52  deep x2.77  fine x4.74  lattice x3.42
+   C 2x inactive mid      n=7   T1 x1.68  deep x2.62  fine x4.27  lattice x2.72
+   C 2x inactive thick    n=8   T1 x1.45  deep x2.44  fine x3.93  lattice x4.15
+   C 2x inactive thin     n=12  T1 x2.81  deep x3.24  fine x5.32  lattice x3.72
+   C 2x rest              n=42  T1 x0.83  deep x0.82  fine x0.83  lattice x0.74
+   C 2x rest mid          n=8   T1 x0.82  deep x0.76  fine x0.93  lattice x0.82
+   C 2x rest thick        n=13  T1 x0.94  deep x1.01  fine x1.48  lattice x1.12
+   C 2x rest thin         n=21  T1 x0.71  deep x0.72  fine x0.55  lattice x0.70
+   F 1x inactive          n=4   T1 x1.68  deep x3.75  fine x4.40  lattice x5.00
+   F 1x inactive mid      n=3   T1 x1.17  deep x2.04  fine x3.98  lattice x3.96
+   F 1x inactive thick    n=1   T1 x2.18  deep x6.79  fine x5.56  lattice x7.46
+   F 1x rest              n=15  T1 x0.80  deep x0.81  fine x0.70  lattice x0.74
+   F 1x rest mid          n=3   T1 x0.90  deep x0.88  fine x1.14  lattice x1.15
+   F 1x rest thick        n=5   T1 x0.89  deep x1.09  fine x3.61  lattice x3.46
+   F 1x rest thin         n=7   T1 x0.67  deep x0.64  fine x0.66  lattice x0.67
+   F 2x inactive          n=4   T1 x3.60  deep x20.50  fine x16.09  lattice x24.72
+   F 2x inactive mid      n=3   T1 x3.95  deep x15.29  fine x16.05  lattice x16.22
+   F 2x inactive thick    n=1   T1 x3.25  deep x25.71  fine x16.12  lattice x33.21
+   F 2x rest              n=15  T1 x0.79  deep x0.79  fine x0.97  lattice x0.87
+   F 2x rest mid          n=3   T1 x0.89  deep x0.91  fine x1.86  lattice x1.42
+   F 2x rest thick        n=5   T1 x1.98  deep x5.56  fine x8.50  lattice x8.34
+   F 2x rest thin         n=7   T1 x0.59  deep x0.58  fine x0.49  lattice x0.55
+   P 1x inactive          n=14  T1 x0.78  deep x0.93  fine x0.88  lattice x0.98
+   P 1x inactive mid      n=3   T1 x0.78  deep x0.92  fine x1.07  lattice x1.16
+   P 1x inactive thick    n=4   T1 x0.73  deep x0.87  fine x0.83  lattice x1.01
+   P 1x inactive thin     n=7   T1 x0.79  deep x1.00  fine x0.86  lattice x0.91
+   P 1x rest              n=14  T1 x0.65  deep x0.74  fine x1.01  lattice x0.84
+   P 1x rest mid          n=3   T1 x0.69  deep x0.69  fine x1.17  lattice x0.86
+   P 1x rest thick        n=4   T1 x0.65  deep x0.64  fine x0.84  lattice x0.85
+   P 1x rest thin         n=7   T1 x0.65  deep x0.76  fine x1.03  lattice x0.71
+   P 2x inactive          n=14  T1 x0.88  deep x1.06  fine x1.20  lattice x1.43
+   P 2x inactive mid      n=3   T1 x0.86  deep x1.01  fine x1.31  lattice x1.40
+   P 2x inactive thick    n=4   T1 x0.80  deep x0.94  fine x1.16  lattice x1.49
+   P 2x inactive thin     n=7   T1 x0.89  deep x1.15  fine x1.23  lattice x1.43
+   P 2x rest              n=14  T1 x0.64  deep x0.70  fine x0.74  lattice x0.58
+   P 2x rest mid          n=3   T1 x0.67  deep x0.68  fine x0.85  lattice x0.56
+   P 2x rest thick        n=4   T1 x0.65  deep x0.65  fine x0.74  lattice x0.70
+   P 2x rest thin         n=7   T1 x0.56  deep x0.72  fine x0.71  lattice x0.48
+readings on c05Css (medians web/native):
+   C 1x inactive          n=27  T1 x0.94  deep x1.02  fine x0.98  lattice x1.06
+   C 1x inactive mid      n=7   T1 x0.79  deep x1.63  fine x1.27  lattice x1.62
+   C 1x inactive thick    n=8   T1 x0.88  deep x1.22  fine x0.80  lattice x1.73
+   C 1x inactive thin     n=12  T1 x0.96  deep x0.90  fine x0.89  lattice x0.94
+   C 1x rest              n=42  T1 x0.69  deep x0.69  fine x0.55  lattice x0.62
+   C 1x rest mid          n=8   T1 x0.75  deep x0.76  fine x0.60  lattice x0.72
+   C 1x rest thick        n=13  T1 x0.77  deep x0.82  fine x0.75  lattice x0.82
+   C 1x rest thin         n=21  T1 x0.54  deep x0.49  fine x0.48  lattice x0.53
+   C 2x inactive          n=27  T1 x1.76  deep x2.23  fine x1.96  lattice x2.39
+   C 2x inactive mid      n=7   T1 x1.76  deep x1.89  fine x1.68  lattice x1.87
+   C 2x inactive thick    n=8   T1 x1.14  deep x1.74  fine x1.62  lattice x2.32
+   C 2x inactive thin     n=12  T1 x2.24  deep x2.55  fine x2.51  lattice x2.54
+   C 2x rest              n=42  T1 x0.66  deep x0.63  fine x0.41  lattice x0.59
+   C 2x rest mid          n=8   T1 x0.65  deep x0.61  fine x0.45  lattice x0.65
+   C 2x rest thick        n=13  T1 x0.83  deep x0.83  fine x0.70  lattice x0.85
+   C 2x rest thin         n=21  T1 x0.51  deep x0.50  fine x0.26  lattice x0.49
+   F 1x inactive          n=4   T1 x0.62  deep x0.84  fine x1.24  lattice x1.09
+   F 1x inactive mid      n=3   T1 x0.70  deep x0.74  fine x1.22  lattice x1.07
+   F 1x inactive thick    n=1   T1 x0.53  deep x1.19  fine x1.25  lattice x1.29
+   F 1x rest              n=15  T1 x0.18  deep x0.14  fine x0.16  lattice x0.11
+   F 1x rest mid          n=3   T1 x0.25  deep x0.23  fine x0.23  lattice x0.26
+   F 1x rest thick        n=5   T1 x0.43  deep x0.58  fine x0.67  lattice x0.72
+   F 1x rest thin         n=7   T1 x0.12  deep x0.03  fine x0.15  lattice x0.02
+   F 2x inactive          n=4   T1 x1.42  deep x6.35  fine x5.95  lattice x7.50
+   F 2x inactive mid      n=3   T1 x0.99  deep x4.01  fine x3.97  lattice x5.08
+   F 2x inactive thick    n=1   T1 x1.85  deep x15.23  fine x8.39  lattice x20.59
+   F 2x rest              n=15  T1 x0.31  deep x0.36  fine x0.36  lattice x0.39
+   F 2x rest mid          n=3   T1 x0.47  deep x0.47  fine x0.46  lattice x0.49
+   F 2x rest thick        n=5   T1 x0.78  deep x0.75  fine x2.34  lattice x1.35
+   F 2x rest thin         n=7   T1 x0.09  deep x0.05  fine x0.05  lattice x0.05
+   P 1x inactive          n=14  T1 x0.59  deep x0.64  fine x0.79  lattice x0.62
+   P 1x inactive mid      n=3   T1 x0.62  deep x0.70  fine x0.96  lattice x0.62
+   P 1x inactive thick    n=4   T1 x0.59  deep x0.64  fine x0.71  lattice x0.61
+   P 1x inactive thin     n=7   T1 x0.56  deep x0.62  fine x0.78  lattice x0.72
+   P 1x rest              n=14  T1 x0.48  deep x0.49  fine x0.84  lattice x0.50
+   P 1x rest mid          n=3   T1 x0.54  deep x0.52  fine x0.93  lattice x0.49
+   P 1x rest thick        n=4   T1 x0.48  deep x0.44  fine x0.74  lattice x0.50
+   P 1x rest thin         n=7   T1 x0.45  deep x0.58  fine x0.85  lattice x0.53
+   P 2x inactive          n=14  T1 x0.75  deep x0.74  fine x0.93  lattice x0.97
+   P 2x inactive mid      n=3   T1 x0.85  deep x0.84  fine x0.94  lattice x0.96
+   P 2x inactive thick    n=4   T1 x0.73  deep x0.74  fine x0.82  lattice x0.93
+   P 2x inactive thin     n=7   T1 x0.75  deep x0.68  fine x0.91  lattice x1.41
+   P 2x rest              n=14  T1 x0.56  deep x0.56  fine x0.62  lattice x0.50
+   P 2x rest mid          n=3   T1 x0.63  deep x0.59  fine x0.58  lattice x0.42
+   P 2x rest thick        n=4   T1 x0.56  deep x0.51  fine x0.74  lattice x0.51
+   P 2x rest thin         n=7   T1 x0.44  deep x0.61  fine x0.60  lattice x0.49
+readings on prefit (medians web/native):
+   C 1x inactive          n=21  T1 x1.17  deep x1.31  fine x1.55  lattice x1.90
+   C 1x inactive mid      n=6   T1 x1.54  deep x2.01  fine x1.80  lattice x2.66
+   C 1x inactive thick    n=5   T1 x0.76  deep x1.15  fine x1.31  lattice x3.65
+   C 1x inactive thin     n=10  T1 x1.21  deep x1.28  fine x1.48  lattice x1.32
+   C 1x rest              n=37  T1 x0.85  deep x0.84  fine x0.96  lattice x0.89
+   C 1x rest mid          n=7   T1 x0.90  deep x0.89  fine x1.02  lattice x0.99
+   C 1x rest thick        n=11  T1 x0.78  deep x0.76  fine x1.07  lattice x1.04
+   C 1x rest thin         n=19  T1 x0.85  deep x0.82  fine x0.77  lattice x0.75
+   C 2x inactive          n=21  T1 x1.32  deep x1.41  fine x1.61  lattice x1.55
+   C 2x inactive mid      n=6   T1 x0.87  deep x0.87  fine x1.14  lattice x0.89
+   C 2x inactive thick    n=5   T1 x0.80  deep x1.09  fine x1.09  lattice x1.32
+   C 2x inactive thin     n=10  T1 x1.95  deep x1.94  fine x3.44  lattice x2.25
+   C 2x rest              n=37  T1 x0.60  deep x0.46  fine x0.42  lattice x0.45
+   C 2x rest mid          n=7   T1 x0.50  deep x0.31  fine x0.40  lattice x0.31
+   C 2x rest thick        n=11  T1 x0.66  deep x0.58  fine x0.83  lattice x0.61
+   C 2x rest thin         n=19  T1 x0.54  deep x0.46  fine x0.36  lattice x0.43
+   F 1x inactive          n=2   T1 x1.75  deep x3.63  fine x3.26  lattice x4.14
+   F 1x inactive mid      n=2   T1 x1.75  deep x3.63  fine x3.26  lattice x4.14
+   F 1x rest              n=12  T1 x0.67  deep x0.64  fine x0.72  lattice x0.73
+   F 1x rest mid          n=3   T1 x0.71  deep x0.66  fine x0.89  lattice x0.89
+   F 1x rest thick        n=4   T1 x1.39  deep x1.79  fine x2.91  lattice x3.06
+   F 1x rest thin         n=5   T1 x0.53  deep x0.48  fine x0.51  lattice x0.51
+   F 2x inactive          n=2   T1 x1.03  deep x1.50  fine x1.74  lattice x1.99
+   F 2x inactive mid      n=2   T1 x1.03  deep x1.50  fine x1.74  lattice x1.99
+   F 2x rest              n=12  T1 x0.47  deep x0.40  fine x0.48  lattice x0.42
+   F 2x rest mid          n=3   T1 x0.46  deep x0.41  fine x0.58  lattice x0.41
+   F 2x rest thick        n=4   T1 x1.03  deep x1.85  fine x3.57  lattice x2.79
+   F 2x rest thin         n=5   T1 x0.38  deep x0.33  fine x0.29  lattice x0.32
+   P 1x inactive          n=11  T1 x0.63  deep x0.75  fine x1.04  lattice x0.76
+   P 1x inactive mid      n=3   T1 x0.62  deep x0.70  fine x1.18  lattice x0.99
+   P 1x inactive thick    n=1   T1 x0.59  deep x0.67  fine x0.93  lattice x0.89
+   P 1x inactive thin     n=7   T1 x0.63  deep x0.81  fine x1.03  lattice x0.76
+   P 1x rest              n=11  T1 x0.60  deep x0.66  fine x1.04  lattice x0.70
+   P 1x rest mid          n=3   T1 x0.61  deep x0.56  fine x1.23  lattice x0.75
+   P 1x rest thick        n=1   T1 x0.54  deep x0.54  fine x0.90  lattice x0.70
+   P 1x rest thin         n=7   T1 x0.60  deep x0.69  fine x1.04  lattice x0.65
+   P 2x inactive          n=11  T1 x0.69  deep x0.83  fine x1.05  lattice x1.00
+   P 2x inactive mid      n=3   T1 x0.65  deep x0.74  fine x0.93  lattice x0.77
+   P 2x inactive thick    n=1   T1 x0.63  deep x0.71  fine x0.89  lattice x0.82
+   P 2x inactive thin     n=7   T1 x0.69  deep x0.89  fine x1.07  lattice x1.00
+   P 2x rest              n=11  T1 x0.54  deep x0.61  fine x0.67  lattice x0.40
+   P 2x rest mid          n=3   T1 x0.58  deep x0.53  fine x0.75  lattice x0.43
+   P 2x rest thick        n=1   T1 x0.53  deep x0.53  fine x0.64  lattice x0.39
+   P 2x rest thin         n=7   T1 x0.54  deep x0.63  fine x0.67  lattice x0.40
+moire: the fine residual's SD by distance inside the contour (web / native), c05 WebGPU:
+   2x checkerboard-4__rrect-md__rest            bins of 8 px; web minimum at [24, 32] px inside, 0.69 of its deep level
+      0:0.067/0.055 8:0.054/0.017 16:0.051/0.018 24:0.037/0.018 32:0.052/0.019 40:0.055/0.016 48:0.054/0.010 56:0.054/0.005 64:0.054/0.005 72:0.054/0.009 80:0.054/0.013 88:0.054/0.014
+   2x checkerboard-4__rrect-md__inactive        bins of 8 px; web minimum at [24, 32] px inside, 0.69 of its deep level
+      0:0.070/0.040 8:0.055/0.002 16:0.051/0.001 24:0.038/0.001 32:0.052/0.002 40:0.055/0.002 48:0.054/0.002 56:0.054/0.001 64:0.054/0.001 72:0.054/0.002 80:0.054/0.002 88:0.054/0.002
+   2x checkerboard-4__rrect-lg__rest            bins of 8 px; web minimum at [24, 32] px inside, 0.85 of its deep level
+      0:0.060/0.064 8:0.035/0.004 16:0.033/0.003 24:0.025/0.002 32:0.031/0.003 40:0.032/0.003 48:0.031/0.003 56:0.030/0.003 64:0.029/0.003 72:0.029/0.003 80:0.028/0.003 88:0.027/0.003
+   2x checkerboard-8__rrect-md__rest            bins of 16 px; web minimum at [16, 32] px inside, 0.83 of its deep level
+      0:0.072/0.078 16:0.036/0.039 32:0.041/0.047 48:0.044/0.047 64:0.044/0.045 80:0.044/0.042
+   1x checkerboard-4__rrect-md__rest            bins of 4 px; web minimum at [12, 16] px inside, 0.78 of its deep level
+      0:0.059/0.089 4:0.029/0.077 8:0.028/0.045 12:0.023/0.034 16:0.029/0.076 20:0.030/0.072 24:0.030/0.068 28:0.030/0.067 32:0.030/0.063 36:0.030/0.061 40:0.030/0.059 44:0.030/0.056
+   1x checkerboard-4__rrect-md__inactive        bins of 4 px; web minimum at [40, 44] px inside, 0.92 of its deep level
+      0:0.048/0.043 4:0.014/0.006 8:0.013/0.003 12:0.010/0.002 16:0.011/0.006 20:0.010/0.006 24:0.010/0.006 28:0.009/0.006 32:0.008/0.006 36:0.007/0.006 40:0.007/0.006 44:0.007/0.006
+   1x checkerboard-4__rrect-lg__rest            bins of 4 px; web minimum at [44, 48] px inside, 0.94 of its deep level
+      0:0.059/0.066 4:0.020/0.019 8:0.020/0.021 12:0.016/0.014 16:0.018/0.022 20:0.019/0.017 24:0.018/0.016 28:0.018/0.016 32:0.017/0.015 36:0.016/0.014 40:0.016/0.013 44:0.015/0.012
+   1x checkerboard-8__rrect-md__rest            bins of 8 px; web minimum at [8, 16] px inside, 0.86 of its deep level
+      0:0.093/0.071 8:0.044/0.036 16:0.044/0.046 24:0.051/0.043 32:0.051/0.037 40:0.051/0.034
+lattice: band SD web/native (backdrop SD), c05 WebGPU; autocorrelation peaks of the css 1-4 band:
+   2x photo__rrect-md__inactive       css 0.5-1 x1.43  css 1-2 x1.51  css 2-4 x1.36  css 4-8 x1.07  css 8-16 x0.90  css 1-4 x1.40
+      native   (-32,39) 0.459 (3,56) 0.217 (35,16) 0.182
+      web      (-29,42) 0.416 (43,20) 0.281
+      backdrop (-32,40) 0.846 (42,21) 0.666
+   2x photo__rrect-md__rest           css 0.5-1 x0.70  css 1-2 x0.61  css 2-4 x0.53  css 4-8 x0.53  css 8-16 x0.60  css 1-4 x0.55
+      native   (-31,39) 0.583 (8,59) 0.343 (41,19) 0.316
+      web      (-29,42) 0.385 (10,59) 0.273 (42,20) 0.228
+      backdrop (-32,40) 0.9 (42,21) 0.723
+   2x photo__rrect-ml__inactive       css 0.5-1 x1.29  css 1-2 x1.44  css 2-4 x1.46  css 4-8 x1.19  css 8-16 x0.94  css 1-4 x1.46
+      native   (-35,38) 0.468
+      web      (-34,40) 0.539 (42,21) 0.291
+      backdrop (-32,40) 0.804 (43,22) 0.62
+   1x photo__rrect-md__inactive       css 0.5-1 x1.14  css 1-2 x1.30  css 2-4 x1.10  css 4-8 x0.79  css 8-16 x0.73  css 1-4 x1.16
+      native   (-17,19) 0.345
+      web      (-14,21) 0.249 (20,9) 0.067
+      backdrop (-16,20) 0.873 (21,11) 0.689
+   1x photo__rrect-md__rest           css 0.5-1 x0.96  css 1-2 x0.92  css 2-4 x0.83  css 4-8 x0.71  css 8-16 x0.61  css 1-4 x0.86
+      native   (-15,20) 0.547 (4,29) 0.296 (20,9) 0.256
+      web      (-14,21) 0.453 (21,10) 0.328
+      backdrop (-16,20) 0.901 (21,11) 0.721
+   1x photo__rrect-ml__inactive       css 0.5-1 x1.02  css 1-2 x1.08  css 2-4 x0.98  css 4-8 x0.80  css 8-16 x0.73  css 1-4 x1.01
+      native   (-18,18) 0.41
+      web      (-16,19) 0.329
+      backdrop (-16,20) 0.801 (21,11) 0.603

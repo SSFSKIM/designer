@@ -6,6 +6,18 @@ claims §5.164 §6, §5.167).
     python3 …/configuration.py record --claims "c9a §5.168"
     python3 …/configuration.py record --claims "…" --source-moved-because "<a non-fit reason>"
     python3 …/configuration.py show|record --documents glass0.25 …    (W43 G3 (ii))
+    python3 …/configuration.py record … --referees <manifest.json>   (W44 G0 (d))
+
+**The referee manifest is a WITNESS, never a discriminator** (W44 G0 (d), charter
+2026-10-03-w44-texture-at-0-25.md clause 7 and X49). W44 holds six probe cells per scale out
+under one manifest (`results/2026-10-03-w44-g0-declaration/referees/referees.json`) and reads them
+in the same exposure as the canonical holdout. `--referees PATH` records that manifest's path and
+SHA-256 in the read's entry as `refereeManifest`, so the record names which held-out cells the
+read exposed. It changes nothing about what a configuration IS: the refusal still compares
+documents and sources only, so a second read at the same documents and sources is refused
+whatever manifest it names, and a read without `--referees` writes exactly the entry it wrote
+before W44. Where the refusal lists earlier reads, a read that recorded a manifest is listed with
+its hash.
 
 **Two generations, one ledger** (W43 G3 (ii), claims §5.201; approved by the coordinator for the
 0.25 publication). `--documents` names the generation a read is OF: `glass0.5` (the default, and
@@ -233,15 +245,35 @@ def show(document_set: str = DEFAULT_DOCUMENT_SET) -> dict:
     return {"documents": documents, "sourceSha256": sources, "sourceFiles": names}
 
 
-def record(claims: str, reason: str | None, document_set: str = DEFAULT_DOCUMENT_SET) -> int:
+def referee_witness(path: str) -> dict:
+    """The manifest's path and SHA-256 (witness-only metadata; the module docstring)."""
+    file = Path(path).resolve()
+    raw = file.read_bytes()
+    body = json.loads(raw)
+    if not isinstance(body, dict) or not str(body.get("schema", "")).startswith("w44-referees-") \
+            or not body.get("scenes") or not body.get("profiles"):
+        raise SystemExit(f"configuration: --referees {path} is not a referee manifest")
+    try:
+        rel = str(file.relative_to(ROOT))
+    except ValueError:
+        rel = str(file)
+    return {"path": rel, "sha256": hashlib.sha256(raw).hexdigest()}
+
+
+def record(claims: str, reason: str | None, document_set: str = DEFAULT_DOCUMENT_SET,
+           referees: dict | None = None) -> int:
     state = show(document_set)
+    if referees:
+        print(f"  referee manifest    {referees['sha256']}   {referees['path']} (witness only)")
     previous = load_log()
     same_documents = [e for e in previous if e["documents"] == state["documents"]]
     if same_documents:
         print("\n-- a holdout read already exists at these document hashes --")
         for entry in same_documents:
+            witness = entry.get("refereeManifest")
             print(f"   {entry['at']}  head {entry['head']}  claims {entry['claims']}"
-                  f"  sources {entry['sourceSha256'][:12]}…")
+                  f"  sources {entry['sourceSha256'][:12]}…"
+                  + (f"  referees {witness['sha256'][:12]}… ({witness['path']})" if witness else ""))
         # Against EVERY record at these documents rather than the newest: sources that move
         # away and back land on a configuration already read, and the reads in between do
         # not make it a new one (W32 G0b review closure, NB1; claims §5.167 §8).
@@ -275,6 +307,8 @@ def record(claims: str, reason: str | None, document_set: str = DEFAULT_DOCUMENT
         entry["sourceMovedBecause"] = reason
     if document_set != DEFAULT_DOCUMENT_SET:
         entry["documentSet"] = document_set
+    if referees:
+        entry["refereeManifest"] = referees
     LOG.write_text(
         json.dumps(
             {
@@ -319,7 +353,9 @@ def main() -> int:
             if "--source-moved-because" in argv
             else None
         )
-        return record(claims, reason, document_set)
+        referees = (referee_witness(argv[argv.index("--referees") + 1])
+                    if "--referees" in argv else None)
+        return record(claims, reason, document_set, referees)
     raise SystemExit(__doc__)
 
 

@@ -7315,3 +7315,43 @@ a soft glow where Apple's is a sharp square. Both hold at both positions.
 The dark `tintAlpha` 0.9 transmits a tenth of the backdrop, which is the dark photo entry's cause
 seen on text. The shape of the fix is that entry's: a dark transmission refit read against
 structure.
+
+## W44's ladder candidates are keyed `glass0.250` because candidate mode refuses the shipped 0.25 keys (W44 G0, 2026-10-03)
+
+*Found building the ladders (claims §5.202 §6–7).*
+
+Since W43 G3 (ii) shipped the four `-glass0.25` documents, `candidateDocumentRefusals` refuses any
+candidate whose endpoint names one of their keys ("names a shipped document"), so no 0.25 refit
+candidate can be keyed like the documents it would replace. The profile grammar admits no free
+token, so W44's builder (`results/2026-10-03-w44-g0-declaration/ladders/build-candidate.ts`) keys
+every endpoint `...-glass0.250[-receded]`, which parses to the same (macOS 27.0, glass 0.25)
+position and is not a shipped key. Nothing reads an endpoint key for pixels, and a row names the
+candidate declaration, never an endpoint key; the control rung reproduced the canonical strict
+c05 captures pixel for pixel (34 of 34). It is still a spelling the refusal does not anticipate,
+and charter clause 5's "dark endpoints byte-identical to c05's documents" can hold only as
+patch- and digest-identical while a candidate cannot carry the shipped key. The shape of the fix:
+a declared scratch marker in the key grammar (or a candidate-only key field) that candidate mode
+admits and strict selection can never match, with a test that a shipped key is still refused.
+
+## `matrix status` counts a stage's missing members and names none (W44 G0, 2026-10-03)
+
+*Found wiring the referee manifest's consumers (claims §5.202 §5).*
+
+`stageStatus` returns `{declared, present, missing}` as counts. W44's referees sit among a
+pre-exposure stage's missing members, and the status shows them as a number only, so telling the
+twelve expected holes from an accidental one needs `plan.py check-stage` and the planner's lists
+beside it. The shape of the fix: `status` lists the missing member keys (or a digest of them), so
+an expected-missing set can be asserted against the manifest directly.
+
+## W44's part-2 validator accepts any subset inside a ladder's range, not the range's intersection (W44 G0, 2026-10-03)
+
+*Found by the independent review of W44 G0 (f)–(g) (claims §5.202 §9).*
+
+`declare.py`'s `narrow` change (`results/2026-10-03-w44-g0-declaration/declare.py`, `apply_changes`)
+checks that the new grid is a sorted subset of the draft grid and lies inside the ladder's non-flat
+range. It does not require the grid to be the draft grid's whole intersection with that range, so a
+narrowing to one point (L1 `[0.8]` while L1's range is the whole `[0.6, 1.0]`) would validate. The
+charter permits "a grid narrowed to the range its ladder showed not flat", which is the
+intersection. Nothing exploited it: part 2 (`443f494c…`) narrows nothing, and part 1 pins the tool,
+so it cannot change in this wave. The shape of the fix, for the next declaration that reuses the
+tool: require `grid == [x for x in draft grid if lo <= x <= hi]`, with a red case.

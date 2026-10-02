@@ -1,0 +1,123 @@
+{
+  "schema": "w44-fit-declaration-1",
+  "status": "DRAFT, hashed with part 1 before any ladder render (charter clause 1; X50). Part 2 (fit-declaration.json) is this file changed only in the ways `permittedChanges` enumerates, which declare.py validates as a diff.",
+  "charter": "docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md (Design \"The moves\", \"The landing rule\"; Decision Logs 3 and 4)",
+  "references": {
+    "c05": {"light": "6d18c059eb42", "dark": "d0219cd684bf"},
+    "why": "every regression row and T1's change output read the published c05 generation by hash (X52)"
+  },
+  "fitCells": "the gate partition of the light 0.25 profiles (every T1 cell less the canonical holdout and the referees), 2x WebGPU; the planner's pre-gate probe whitelist with the canonical calibration, validation and recorded sets; the loader refuses a referee row",
+  "searchProcedure": "within a family, each leaf's grid is swept in the order listed, the others held at their current values, keeping the grid point with the smallest move objective; at most two passes; a full factorial sweep of a family's grids is permitted and is not required. The move objective is the selection metric restricted to the move's cells.",
+  "moves": [
+    {
+      "id": "move1", "finding": "ii", "order": 1,
+      "cells": "2x WebGPU rest, spans mid and thick (96-160), fit cells, F u C u P",
+      "withinClause": "every F cell of `cells` within, AND every pitch-16 (`checkerboard`) and photo cell of `cells` within (T1 output 1)",
+      "familyOrder": ["A", "B", "C"],
+      "families": {
+        "A": {
+          "leaves": {
+            "sizeScatterFloor2x": {"slot": "active.light", "unit": "fraction", "domain": [0.6, 1.0],
+                                    "grid": [0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]}
+          },
+          "prediction": "A is not within on both ends: no floor in [0.6, 1.0] brings the F cells AND the pitch-16 and photo cells of the move within at once"
+        },
+        "B": {
+          "fixed": {"sizeScatterFloor2x": {"slot": "active.light", "value": 1.0}},
+          "leaves": {
+            "sizeHeavyTapSigma2x": {"slot": "active.light", "unit": "device px", "domain": [6, 20],
+                                     "grid": [6, 7, 8, 9, 10, 12, 14, 17, 20]}
+          },
+          "prediction": "B is within on the fine cells of the move and over (web above native, a miss) on checkerboard-64 and the photo",
+          "readEvenIfCLands": true
+        },
+        "C": {
+          "fixed": {"sizeScatterFloor2x": {"slot": "active.light", "value": 1.0},
+                    "sizeHeavySecondSigma": {"slot": "active.light", "value": 0, "unit": "CSS px",
+                                             "inert": "PENDING the L3 ladder: 1x byte identity at every rung"}},
+          "leaves": {
+            "sizeHeavySecondShare": {"slot": "active.light", "unit": "signed fraction (one leaf, both scales)",
+                                      "domain": [0, 1], "domainOpenAt": 0,
+                                      "grid": [0.25, 0.5, 0.75, 1.0]},
+            "sizeHeavySecondSigma2x": {"slot": "active.light", "unit": "CSS px (3 CSS px = 6 device px at 2x)",
+                                        "domain": [1.5, 6], "grid": [1.5, 2, 2.5, 3, 4, 5, 6]}
+          },
+          "prediction": "C is within on both: some (share, width) brings the F cells AND the pitch-16 and photo cells of the move within"
+        }
+      },
+      "ifNoFamilyIsWithin": "the move takes the point with the smallest move objective across its families' searched points, a tie (within the selection tie) going to the fewer moved leaves, and is recorded as not within"
+    },
+    {
+      "id": "move2", "finding": "i", "order": 2,
+      "cells": "2x WebGPU rest, thin spans (32-44), fit cells, F u C u P",
+      "withinClause": "every cell of `cells` within",
+      "families": {
+        "start": {
+          "leaves": {
+            "sizeScatterRampStartThin2x": {"slot": "active.light", "unit": "fraction", "domain": [0.46, 0.95],
+                                            "grid": [0.46, 0.55, 0.65, 0.75, 0.8, 0.85, 0.95]}
+          },
+          "prediction": "a start near 0.8 (in [0.7, 0.9]) brings the thin rest cells within at every pitch, because the reach already covers a thin span"
+        },
+        "reach": {
+          "onlyIf": "no start point is within",
+          "leaves": {
+            "sizeScatterRampReach2xPx": {"slot": "active.light", "unit": "device px", "domain": [50, 200],
+                                          "grid": [50, 75, 100, 125, 150, 200]}
+          },
+          "prediction": "not needed (the start alone suffices)"
+        }
+      }
+    },
+    {
+      "id": "move3", "finding": "iii", "order": 3,
+      "cells": "2x WebGPU inactive, every span, fit cells, F u C u P",
+      "withinClause": "every cell of `cells` within",
+      "inherits": "the receded document names exactly its 0.5 twin's keys (X44): sizeScatterFloor2x, the second tap and the reach come from the active document as moves 1 and 2 leave them",
+      "families": {
+        "receded": {
+          "leaves": {
+            "sizeScatterRampStartThin2x": {"slot": "receded.light", "unit": "fraction", "domain": [0.1, 0.7],
+                                            "grid": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
+            "sizeScatterRampStartThick2x+sizeScatterRampStartFar2x": {
+              "slot": "receded.light", "unit": "fraction", "tied": true, "domain": [0, 0.04],
+              "grid": [0, 0.01, 0.02, 0.03, 0.04]},
+            "sizeHeavyTapSigma2x": {"slot": "receded.light", "unit": "device px", "domain": [14, 24],
+                                     "grid": [14, 16, 18, 20, 22, 24]}
+          },
+          "prediction": "the thin start is the lever (its sweep moves the inactive cells most); the receded fine cells reach Apple's near-zero only with the inherited floor at 1"
+        }
+      }
+    }
+  ],
+  "interactions": "after the three moves the full T1 map is re-read at the joint point; a move UNDID an earlier one when a cell of the earlier move's `cells` that it left within is a miss at the joint point; the undoing move is refitted once on the union of the two moves' cells; a second undoing closes the fit at the better joint point by the selection metric",
+  "notCandidates": ["sizeScatterScaleGain (one leaf for both scales; X48)", "optics.regular.blurSigma (both scales)", "every 1x leaf", "every dark leaf"],
+  "selectionRule": {
+    "withinAMove": "the first family, in the declared order, with a searched point that passes the move's within clause lands the move, at its point with the smallest move objective",
+    "atTheJointPoint": "between candidates, the smaller selection metric lands: the median |log(web / native)| over F u C u P, 2x WebGPU light, gate partition (t1.selection_metric)",
+    "tie": "two metrics within the selection tie of each other (the median over the same cells of log(1 + bar / native), t1.selection_tie) tie, and the tie goes to the fewer moved leaves"
+  },
+  "landingRule": {
+    "scope": "the final stage, WebGPU, 2x light, both poses, F u C u P less the referees, from T1's three outputs (t1.landing)",
+    "fullClose": "every F cell within; no cell away with g > B; no cell overshoot; every other adopted row passing or its miss named; the twelve referees within at the exposure. Lands.",
+    "improvement": "the F aggregate (median |log((k + eps) / (n + eps))|) at most half of c05's; no cell away with g > B; no cell overshoot; every referee within or an unchanged miss; every other adopted row passing or its miss named. Lands as improved, every F cell not within named.",
+    "regressionBudget": "a C or P cell that is a miss on c05 and unchanged stays a named miss; one away with g <= B is a named regression inside the budget; one with g > B fails the landing; M2 keeps its own 0.02 reference-relative tolerance as a regression stop",
+    "cssTier": "a residual: its T1 outputs recorded; its tables pass or are named; a CSS row away beyond its table bound is a named tier residual",
+    "unmeasured": "a member of the scope with no reading makes the verdict UNMEASURED, never a landing",
+    "otherwise": "the wave closes at the finding: no document sealed, T1 lands in the owner test (X51)"
+  },
+  "rehearsed": {
+    "source": "rehearsal/rehearsal-r2.json",
+    "c05": {"landing": "NEITHER: closes at the finding", "fAggregate": 0.5689, "fAggregateReference": 0.5689,
+            "fNotWithin": 14, "awayBeyondB": 0, "overshoot": 0, "selectionMetric": 0.3451},
+    "prefit": {"landing": "NEITHER: closes at the finding", "fAggregate": 0.5691, "fNotWithin": 8,
+               "awayBeyondB": 50, "overshoot": 3, "selectionMetric": 0.5034},
+    "selectionTie": 0.0406,
+    "selectionBetweenThem": "c05"
+  },
+  "permittedChanges": [
+    "remove a leaf (or a family whose every leaf is struck) that its ladder struck, citing the ladder by id",
+    "replace C's `inert` PENDING with the L3 citation once L3 proves the 1x byte identity (the value stays 0), or remove family C when L3 does not",
+    "narrow a grid to the subset inside its ladder's non-flat range, citing the ladder by id"
+  ]
+}

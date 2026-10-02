@@ -45146,3 +45146,522 @@ not rerun the builds, the browser suites or X1's pixel reads; their recorded run
 One correction beside the evidence. `cuts/cut-025.txt`'s printed header reuses the sealed
 admission kind's wording, "in a publication stage". That cut was read from the published generation
 files, as `cuts/landing.json` records.
+
+## 5.202 W44 G0: T1 implemented and rehearsed, its bar from the archive, the referees held out by one manifest with four consumers, the protocol hashed, the ladders read and the fit declaration hashed as a validated diff (2026-10-03)
+
+Evidence directory: `results/2026-10-03-w44-g0-declaration/`, on branch `w44-g0-declaration` off
+`0ee27ae2` (the charter's merge). Charter `2026-10-03-w44-texture-at-0-25.md` v1.2, G0 (a)–(g):
+clauses 1–4, Decision Logs 2 and 3, X48–X50 and X52. Nothing here moves a document, the runtime or a
+published row. The ladders' renders stay on the machine at `~/vitrea-w44/g0-ladders/`; the
+repository holds every candidate's documents, the run log, the compare logs and the reading.
+
+### 1. T1, implemented beside W43's cuts (`cf16c907`, `47af8769`)
+
+`cuts/t1.py` is T1 as the charter's Design states it, and `cuts/cuts.py` reports it like the other
+rows.
+- **The statistic.** The driver's `interiorStdDev`, read off each row: linear-light luminance SD over
+  the native silhouette bounded to the declared region, rim and lens band included.
+- **One code.** The linear step of one sRGB code at the cell's native interior mean: the sRGB
+  decode's derivative there over 255. That is about 0.0035 at linear 0.2 and 0.0066 at 0.6.
+- **The population.** It is drawn from `scenes.json`, never from the bed: 116 cells per light 0.25
+  profile, in every set.
+  - Strata: F 19, C 69, P 28.
+  - Partitions: gate 94, holdout 16, referee 6.
+- **The three outputs.**
+  - Fidelity: `within` when |k − n| ≤ B = max(1 code, 2 bar), or when n ≥ 1 code and
+    |k/n − 1| ≤ 0.10.
+  - Change from c05, by precedence: `unchanged`, then `overshoot`, then `toward`, then `away`.
+    "g = 0" is read to 1e-12, because an equal-error crossing posed in decimals lands a few ulps
+    either side of zero in binary floats.
+  - The aggregates over the gate partition, and over every partition read.
+- **The rules.** `landing()` evaluates the landing rule's T1 clauses on the 2x light WebGPU gate
+  cells. `selection_metric()` is the charter's plain median |log(web/native)|; its tie is the bar
+  on that scale, the median log(1 + bar/n).
+- **Gated and read.** GATED on the WebGPU tier of the two light 0.25 profiles. READ on their CSS
+  tier and on the dark 0.25 profiles.
+- **The tests.** The charter's four change-state examples are pinned as tests, with ten more
+  around them (`cuts/test_t1.py`, 14 pass).
+
+**The review's two findings, fixed (`47af8769`).** The independent review of (a)–(d)
+(`doperpowers:reviewer-medium`) returned incorrect, with two P2 findings, both real.
+- **An absent reading could let a stage land.** `cut()` dropped a cell with no row or no metric,
+  and `landing()` judged only the survivors. The reviewer built, in memory, a FULL CLOSE from a bed
+  missing 93 readings. `cut()` now lists every absent member, and any absent member of the landing
+  scope makes the verdict UNMEASURED.
+- **The selection metric was not the charter's.** It was the aggregates' regularised log. It is now
+  the charter's plain |log(web/native)|.
+
+The first rehearsal and c05 cut stay as recorded, and the `-r2` files beside them are the re-run.
+Only the selection figures moved (c05 0.3174 → 0.3451, pre-fit 0.4319 → 0.5034), and the choice did
+not.
+
+**What the copy changes in W43's cuts.** `cuts.py` and `cuts/bed.py` are W43 G3's, copied, and
+W43's committed copies are byte-identical.
+- The copies leave the referee cells out of every other population.
+- They read a published generation with `--published`.
+- They drop W43's pre-fit render's referee rows (§5).
+
+### 2. The port and the bar (clause 4; `3182a0f6`)
+
+**The port.** `port/interior.py` ports the driver's interior statistic:
+- `componentRegion`: JavaScript's half-up rounding, pixel-centre signed distance, margin 0;
+- the luminance-delta silhouette with the chroma arm (0.02 / 0.03);
+- the native silhouette as the one mask;
+- `interiorLevel`'s one-pass mean and SD.
+
+Against the recorded `interiorStdDevNative` and `interiorMeanNative` it matches every row of every
+T1 cell: the light cells, which are gated, and the dark ones, which T1 reads. That is 386 cells and
+772 rows, on both tiers' rows of the published generations, worst |port − driver| 2.3e-10 against
+the 1e-6 tolerance (`port/proof.json`).
+
+**The bar.** `bar/t1-bar.py` verifies the on-disk copy of `w43-archive-g1a` with W43's
+`verify_tree`, inventory `56489f87…`. It then reads T1's native statistic on each of the seven
+`bed-*` runs' own frames, through the port.
+- **The runs.** Every run of every cell is the same frame, pixel-identical to the published
+  fixture, so the largest pairwise separation is exactly 0.
+- **The bar.** It is therefore **0.5 code on all 386 cells**: 0.00121–0.00419 linear on the light
+  cells, 0.00028 at the darkest dark cell. B is one code everywhere.
+- **The stop.** No cell's bar exceeds one code, so clause 4's stop names nothing.
+
+The bar file is `bar/t1-bar.json`. Nothing here renders: native frames only.
+
+### 3. The rehearsal (clause 2; `21b428fc`, `cf16c907`, `47af8769`)
+
+**The baseline was pinned first.** `rehearsal/baseline.py` reads the published light generation
+`6d18c059eb42.json` with plain `json`, apart from T1's code, and wrote `c05-baseline.json` in its own
+commit before any T1 run. It holds every structured row's web/native ratio (464 rows) and the
+structure map with the charter's grouping: span class by component short side, composites by member
+span, pressed folded into rest.
+
+**The structure map as the rows read it.** Median `interiorStdDevWeb / interiorStdDevNative`, WebGPU,
+light 0.25, c05 (n is the cell count):
+
+| 2x backdrop | thin rest | mid rest | thick rest | thin inact | mid inact | thick inact |
+| --- | --- | --- | --- | --- | --- | --- |
+| checkerboard-4 | 0.49 (3) | 2.07 (1) | 1.79 (2) | — | 3.95 (1) | — |
+| checkerboard-8 | 0.61 (3) | 0.85 (1) | 2.30 (2) | — | 5.29 (1) | 3.25 (1) |
+| hc-text-7 | 0.67 (1) | 0.89 (1) | 0.79 (1) | — | 1.45 (1) | — |
+| checkerboard-lc16 | 0.60 (2) | 0.63 (1) | 0.88 (2) | 3.16 (1) | 2.70 (1) | — |
+| checkerboard-32 | 0.86 (3) | 0.86 (1) | 0.97 (2) | — | — | 2.25 (1) |
+| checkerboard-64 | 0.83 (3) | 0.94 (1) | 0.94 (2) | — | 1.36 (1) | 1.28 (1) |
+| hc-text-28 | 0.76 (1) | 0.80 (1) | 0.93 (1) | — | 1.59 (1) | — |
+| checkerboard | 0.69 (6) | 0.85 (2) | 0.95 (3) | 2.75 (6) | 2.90 (2) | 3.05 (3) |
+| hc-text | 0.70 (3) | 0.77 (1) | 0.83 (1) | 3.47 (3) | 1.41 (1) | 0.92 (1) |
+| impulse | 0.71 (3) | 0.83 (1) | 1.04 (2) | 2.06 (2) | 1.68 (1) | 1.14 (2) |
+| photo | 0.56 (7) | 0.67 (3) | 0.65 (4) | 0.89 (7) | 0.86 (3) | 0.80 (4) |
+
+| 1x backdrop | thin rest | mid rest | thick rest | thin inact | mid inact | thick inact |
+| --- | --- | --- | --- | --- | --- | --- |
+| checkerboard-4 | 0.35 (3) | 0.50 (1) | 0.78 (2) | — | 1.17 (1) | — |
+| checkerboard-8 | 0.84 (3) | 1.37 (1) | 2.62 (2) | — | 2.40 (1) | 2.18 (1) |
+| hc-text-7 | 0.67 (1) | 0.90 (1) | 0.80 (1) | — | 0.98 (1) | — |
+| checkerboard-lc16 | 0.90 (2) | 1.13 (1) | 1.14 (2) | 1.66 (1) | 1.98 (1) | — |
+| checkerboard-32 | 1.09 (3) | 1.10 (1) | 0.95 (2) | — | — | 1.06 (1) |
+| checkerboard-64 | 0.90 (3) | 1.00 (1) | 0.89 (2) | — | 1.07 (1) | 0.95 (1) |
+| hc-text-28 | 1.09 (1) | 1.17 (1) | 1.00 (1) | — | 1.00 (1) | — |
+| checkerboard | 1.06 (6) | 1.35 (2) | 1.25 (3) | 1.46 (6) | 3.44 (2) | 2.56 (3) |
+| hc-text | 1.01 (3) | 1.20 (1) | 0.94 (1) | 1.95 (3) | 1.05 (1) | 0.83 (1) |
+| impulse | 0.88 (3) | 0.94 (1) | 1.13 (2) | 0.99 (2) | 0.95 (1) | 0.60 (2) |
+| photo | 0.65 (7) | 0.69 (3) | 0.65 (4) | 0.79 (7) | 0.78 (3) | 0.73 (4) |
+
+**One correction to the charter's Grounding, beside it.** The charter says the CSS tier is "under-structured
+at every fine pitch at both scales (medians 0.07–0.66)". At 2x `checkerboard-8` it is OVER on the
+thick rest cells (1.24) and in both receded spans (3.05 mid, 1.85 thick). The fine-pitch CSS medians
+run 0.07–3.05, and the tier is under everywhere else.
+
+**c05 reproduces the pinned baseline cell for cell**, 464 rows, no mismatch (`rehearsal-r2.txt`). The
+three findings hold on their named subsets.
+- **(i)** The 2x thin rest median is under 0.9 on every structured backdrop: 0.49–0.86.
+- **(ii)** The F stratum's mid and thick rest median is 1.79. Three cells are under 1:
+  `checkerboard-8__rrect-md__rest` 0.85, and `hc-text-7` md 0.89 and lg 0.79. The lowest cell over 1
+  is `checkerboard-4__rrect-lg__rest` at 1.61.
+- **(iii)** The inactive median over `checkerboard`, `-lc16`, `-32` and F is 2.81. Named apart, as
+  the charter names them: inactive `checkerboard-64` 1.28–1.36 and thick `hc-text` 0.92. Two cells
+  inside the subset read under 2, named here beside the charter's list:
+  `checkerboard__glass-over-glass__inactive` 1.62 and `hc-text-7__rrect-md__inactive` 1.45.
+
+**The stop does not fire.** c05's thick fine-pitch cells are 4.4–12.1 bars from Apple's:
+
+| cell | partition | bars from Apple's |
+| --- | --- | --- |
+| `checkerboard-4__rrect-lg__rest` | gate | 4.4 |
+| `checkerboard-4__rrect-ml__rest` | referee | 7.7 |
+| `checkerboard-8__rrect-ml__rest` | gate | 12.1 |
+| `checkerboard-8__rrect-lg__rest` | gate | 8.3 |
+| `hc-text-7__rrect-lg__rest` | gate | 6.8 |
+| `checkerboard-8__rrect-lg__inactive` | referee | 10.7 |
+
+**The anchors, on their own support.** W43's sheets record no crop of their own: `sheets.py` crops
+for display only, the declared box plus 24 CSS px. So T1-deep declares one: encoded Rec.709 luma SD
+over the declared region eroded 8 CSS px. On the canonical captures:
+
+| cell | sheet | T1-deep | T1 (linear, whole silhouette) |
+| --- | --- | --- | --- |
+| `checkerboard-4__rrect-md__rest`, 0.25 | 2.9 / 9.1 | 2.87 / 9.08 (×3.16) | 0.0297 / 0.0614 (×2.07) |
+| `checkerboard-4__rrect-md__inactive`, 0.25 | 0.3 / 10.5 | 0.29 / 10.49 (×35.7) | 0.0157 / 0.0621 (×3.95) |
+| `checkerboard-4__rrect-md__rest`, 0.5 | 1.7 / 2.6 | 1.74 / 2.54 (×1.47) | 0.0279 / 0.0256 (×0.92) |
+
+The 0.25 anchors reproduce to the sheet's rounding. The 0.5 pair reads 2.54 where the sheet says 2.6.
+No inset from 12 to 18 device px reproduces all six at once, and this one, 16 device px, misses only
+that 0.06.
+
+**The two statistics disagree on every anchor cell, in size and once in sign.**
+- **In size.** T1-deep reads the gap two to nine times wider than T1, because Apple's lens band
+  carries the refracted checker and T1's support includes it. Read by distance inside the contour
+  on the 0.25 rest cell, Apple's fine-band SD is 0.016–0.019 in the band 8–48 device px and
+  0.005–0.014 in the deep body, while vitrea's is 0.051–0.055 everywhere outside the moiré ring (§4).
+- **In sign, at 0.5.** T1 reads the 0.5 rest cell UNDER (×0.92) where T1-deep reads it over (×1.47).
+
+**Every reading on the c05 render.** WebGPU, medians web/native, the three readings beside T1 (`rehearsal-r2.json` holds
+every cell). The disagreements with T1 that matter for the moves:
+- **The thick F rest cells.** T1 reads ×1.98, T1-deep ×5.6 and T1-fine ×8.5.
+- **The receded F cells.** T1 reads ×3.6, T1-deep ×20.5.
+- **`hc-text-7`.** T1 reads UNDER on its rest cells (0.79–0.89) where T1-fine reads ×1.9 and ×8.5
+  over. The SD is pitch-blind on text: Apple's body keeps the text bar's low-frequency shading and
+  drops its strokes, and vitrea's does the reverse. A move that removes the fine-band excess can
+  therefore move T1 on these cells further under (§10).
+- **The charter's nine-cell T1-fine figures are not this reading.** Those figures, photo ×0.94 in
+  both poses and fine checkers ×2.2–2.7, were read on a rectangle eroded 8 device px. Under the
+  declared support, the native silhouette eroded 4 CSS px, the 2x photo reads ×0.66–0.75 at rest and
+  ×1.17–1.42 receded, and the mid and thick fine checkers ×3.5–9.4. The readings are declared; the
+  nine-cell figures are history.
+
+**At 0.5 (read, X41; the bar assumed at the floor).** Over all 15 F rest and 4 F inactive cells, the
+2x median |log| is 0.33 and 0.04, against c05's 0.50 and 1.05 on the same cells. The clearer glass's own fine-pitch gap is the
+larger.
+
+**The pre-fit render against c05** (W43's shipped-0.5-on-0.25 render; its 24 referee rows dropped,
+never read). It improves the two gate F receded cells (median |log| 0.03 against c05's 1.29) and
+worsens the twelve gate F rest cells (0.67 against 0.47). The C rest cells move away on 35 of 37.
+
+**The landing and selection rules, rehearsed** (`rehearsal-r2`):
+- **On c05 against itself:** NEITHER. The F aggregate is 0.5689, its own; 14 F cells are not within;
+  no cell is away and none overshoots. That is the charter's expected outcome.
+- **On the pre-fit against c05:** NEITHER. F aggregate 0.5691; 50 cells away beyond B; 3 overshoot.
+- **The selection metric** prefers c05: 0.3451 against 0.5034, tie width 0.0406.
+
+### 4. The moiré and the lattice, located (clause 2)
+
+**The moiré.** On `checkerboard-4__rrect-md` at 2x, the web body's fine residual is flat at 0.054
+from 32 device px inside the contour to the centre, in both poses. Its SD is taken against a σ 2 CSS
+px Gaussian normalised over the silhouette, in bins of one checker cell, so no bin selects one phase
+of the checker.
+- **The ring.** That level dips to 0.037, 0.69 of the deep level, in the ring 24–32 device px
+  (12–16 CSS px) inside the declared contour. On `rrect-lg` the ring sits at the same depth (0.85)
+  and at 1x at 12–16 device px (0.78), so it sits at a fixed CSS depth.
+- **What it is.** The ring is in the lens band: the refraction's displacement beats against the
+  checker the sharp share still passes. It is a modulation of vitrea's checker, not an excess of
+  its own.
+- **What it implies.** A move that takes the sharp share out of the deep body takes the moiré's
+  carrier with it.
+- **Apple's lens band** reads 0.016–0.019 in the same band and its deep body 0.005–0.014 at rest and
+  0.001–0.002 receded.
+- **The gap is wider in the deep body than at the edge.** Web/native reads ×4–11 in the deep body
+  at rest, against ×3 in the lens band.
+
+**The lattice.** It is the photo backdrop's own diagonal lattice of blobs. The autocorrelation of the
+σ 1–4 CSS px band peaks at about (−16, 20) and (21, 10.5) CSS px in the backdrop (0.85 / 0.67), in
+Apple's receded body (0.46) and in vitrea's (0.42 / 0.28). Band by band on `photo__rrect-md__inactive`
+at 2x, web/native reads:
+
+| σ band, CSS px | 0.5–1 | 1–2 | 2–4 | 4–8 | 8–16 |
+| --- | --- | --- | --- | --- | --- |
+| 2x | ×1.43 | ×1.51 | ×1.36 | ×1.07 | ×0.90 |
+| 1x twin | ×1.14 | ×1.30 | ×1.10 | ×0.79 | ×0.73 |
+
+T1 reads ×0.86 on that cell. The whole-body SD is dominated by the photo body's low-frequency
+gradient, which vitrea's receded body under-passes, so it cannot see the excess.
+
+**The band that isolates the lattice:**
+- **On every 2x receded single-shape photo cell,** the σ 1–4 CSS px band reads ×1.32–1.60, where T1
+  reads ×0.78–0.91. `glass-over-glass` reads ×0.96 and is set apart.
+- **At rest,** the same band reads ×0.45–0.69.
+- **At 1x receded,** it reads ×0.82–1.16.
+
+It is added before part 1 as the reading **T1-lattice** (`cuts/readings.py`): masked DoG, σ 1 to 4
+CSS px, over the native silhouette eroded 4 CSS px. It is not gated (Decision Log 2 declines a band
+as the gate).
+
+### 5. The referees and their four consumers (X49; `b6b93a48`)
+
+**The manifest.** `referees/referees.json` holds the charter's six scenes out on both light 0.25
+profiles, twelve cells:
+- `checkerboard-4__rrect-ml__rest`;
+- `checkerboard-4__capsule-button__rest-tint-orange`;
+- `checkerboard-8__rrect-lg__inactive`;
+- `checkerboard-8__rrect-sm__rest`;
+- `hc-text-7__rrect-md__inactive`;
+- `checkerboard-32__rrect-lg__inactive`.
+
+That leaves 14 fine scenes per scale for the fit, not the charter's 13: 19 F scenes less the five
+fine referees, the sixth being coarse.
+
+**The planner.** `referees/plan.py` derives two positive whitelists from the manifest and
+`scenes.json`, and adds no flag to `compare`:
+- **The pre-gate probe list** (81 scenes, list SHA-256 `5def2c7f…`): every probe scene the light
+  profiles declare, less the manifest; `--set probe --scene`.
+- **The exposure list** (26 scenes, `e8e2b4d4…`): the canonical holdout plus the manifest;
+  `--set holdout,probe --scene`, read once per tier.
+
+The red cases read the two lists through a transcription of `compare`'s selection rule (`plan()`: a
+named profile, a whitelisted scene, a role inside `--set`):
+- the first selects the probe cells less the referees exactly;
+- the second selects the holdout cells plus the referees exactly;
+- `--set holdout` alone selects no referee;
+- `scenes.json`'s bytes and membership are untouched.
+
+`matrix status` counts the referees among a declared stage's missing members, without naming them,
+and `publish` refuses the holes.
+
+**The fit loader.** `cuts/bed.py` refuses a candidate bed carrying a referee row. W43's pre-fit render
+predates the manifest and carries every probe row, so its 24 referee rows are dropped, counted and
+never read.
+
+**The gate.** `bed.py` refuses a sealed stage bed holding one before the exposure, and admits it only
+when read with the holdout, which is the exposure. `plan.py check-stage <matrix>` refuses a stage
+holding one.
+
+**The ledger's witness.** `results/holdout-configuration/configuration.py record … --referees
+<manifest>` records `refereeManifest` {path, sha256} as witness-only metadata.
+- **Never a discriminator.** A second read at the same documents and sources is refused whatever
+  manifest it names.
+- **The default unchanged.** A read without the flag writes the entry it wrote before W44.
+- **Listed with its manifest.** An earlier read appears with its manifest's hash where the refusal
+  lists reads.
+
+**The tests.**
+- `referees/test_plan.py`: 13 pass.
+- The new case in `test/w32-holdout-configuration.test.ts`: 8 of 8 pass.
+
+### 6. Part 1 and the part-2 draft, hashed; the one amendment (X50; `ad3a26e7`, `ab0a13f9`)
+
+**What part 1 holds.** `declaration.json` declares nine items and pins 29 sources:
+- the charter at `0ee27ae2`;
+- T1 and its tests, and the readings;
+- the bar and the port's proof, and the rehearsal;
+- the referees, the planner and their red cases, and the ledger witness;
+- the ladder protocol, the builder and the c05 control;
+- the regression references, `6d18c059eb42` (`cadad647…`) and `d0219cd684bf` (`6e20f04f…`);
+- the part-2 draft and its validator, `declare.py` with `test_declare.py`.
+
+**What `check` does.** `declare.py check` re-derives every number and list from the pinned files and
+runs the three red-case suites. Each item's check was confirmed to catch a perturbed declared value.
+
+**The hash.** Part 1 was hashed `fdecebbfbc895005f1c3558397989b472e664d8e20a3e359ef3fda67d4664fdd`
+on the branch, after the review of (a)–(d) closed.
+
+**The one amendment.** Part 1 was amended once, before any ladder render, to
+`e6aaf6543c42f678f84e6ba51a2a3e45bb62d51958d543ce4d92fe20387315b6`, the hash in force.
+- **The cause.** The builder's own digest self-check refused every receded slot over a moved active
+  document, so the first floor-1 rung failed after writing two files. The partial folder was
+  removed; nothing had rendered it.
+- **The fix.** `873e4768`. No candidate's bytes depend on it.
+- **What the amendment moved.** It re-pinned that one file and nothing else (`amendments.json`), and
+  the chain verifies.
+
+Part 1 can no longer be amended.
+
+**The draft.** `fit-declaration-draft.json` holds:
+- the three moves, with their domains, grids, units and predictions;
+- the fit cells;
+- a declared search procedure: leaf by leaf in the order listed, the others held, the smallest move
+  objective kept, at most two passes;
+- move 1's rule when no family is within;
+- the interactions, the selection rule and the landing rule;
+- the rehearsal's numbers, checked against `rehearsal-r2.json`.
+
+Part 2 is that body plus a `changes` list. `declare.py` applies each change only where
+`ladders/results.json` supports it and refuses any other difference. `test_declare.py` holds 15 red
+cases; a changed prediction and a widened grid are among the refusals.
+
+### 7. The ladders (clause 3; `873e4768`, `73e6a24a`)
+
+**What rendered.** All 30 candidates rendered after part 1's amendment: the c05 control, the floor-1
+base and 28 rungs (`ladders/protocol.json`). Each is a complete four-endpoint declaration built from
+the c05 documents, moved on one leaf, or on the second tap's share with its 2x width, from c05 or
+from the floor-1 rung.
+- **Where.** Candidate mode in scratch, WebGPU, on the 17 fixed cells at 2x and their 1x twins.
+- **The launches.** Sixty `compare` launches, every one exit 0. W43's classifying web census ran
+  before each: 60 passed and none refused. It annotated the user's own Chrome and nothing else.
+- **The reading.** `ladders/read.py` reads them against the hashed protocol into
+  `ladders/results.json` and `results.txt`.
+
+**The instrument and the contract.**
+- **The control.** c05-control's 34 captures are pixel- and PNG-identical to the canonical strict-mode
+  c05 captures. So candidate mode, under the `glass0.250` key, draws exactly the shipped 0.25
+  material.
+- **X48.** Every rung's 1x captures are pixel-identical to the control's 1x captures. No ladder leaf
+  reaches 1x.
+- **C's inert 1x setting.** L3 proves it: at `sizeHeavySecondSigma` 0 the plan declines at dpr 1
+  whatever the share, so C is admitted.
+- **Must not act.** No rung moved a cell its ladder must not move: the inactive cells under the active
+  leaves the receded document overrides (L2, L4), and the rest cells under the receded leaves
+  (L6–L8). The receded document's overrides shield it exactly as its key set says.
+
+**Struck: nothing.** No ladder is flat at every base it is read at, and none moved a 1x capture.
+- **L7 at c05.** L7 (the receded thick/far pair) is FLAT at c05, as the protocol predicted. There its
+  0.04 sits below every mid and thick deep sharp share and clamps to an inert term, so its rung 0 is
+  byte-identical to c05.
+- **L7 at floor 1.** It moves the coarse receded cells there: `checkerboard` md and ml inactive by
+  0.0049 and 0.0040 over 0 → 0.04, against bars of 0.0029.
+- **L7's non-flat range is none.** Each half step, 0 → 0.02 → 0.04, is inside the bar, so the
+  declared non-flat-range rule returns no range for L7, and nothing is narrowed. The rule is applied
+  as declared; its blind spot, sub-bar steps of a ladder that moves, cost nothing here, because with
+  no range there is nothing to narrow.
+- **Every other range** spans its draft grid, so no grid is narrowed either.
+
+**A correction beside the record.** `results.json`'s L3 between-rung entries were written by a
+`read.py` that sorted the (share, width) pairs lexicographically. Two of its steps moved both leaves,
+and two share-neighbour steps were missing. The review of (f)–(g) found it.
+- **What stands.** None of the decision quantities used that adjacency (flatness per base, the
+  non-flat range, struck, the 1x proof), so they stand.
+- **The fix.** `read.py` now steps within each one-leaf ladder.
+- **The corrected steps.** `ladders/l3-adjacency.json` holds the corrected L3 steps beside the
+  recorded file, which part 2 pins and which stays as it is. The share ladder at width 3 moves
+  11–13 of 17 acting cells beyond the bar at every step, the width ladder at share 0.5 moves
+  11–15, and no step is pixel-identical.
+
+**The transfer per pitch, on the renders** (T1 web/native, 2x WebGPU, the mid-span rest cells unless
+named; c is the checker's cell width in device px). It replaces the Design's attenuation estimate.
+
+| rung | cb4 (c 8) | cb8 (16) | pitch-16 (32) | cb32 (64) | cb64 (128) | photo | hc-text-7 | cb4 lg |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| c05 (floor 0.6) | 2.07 | 0.85 | 0.65 | 0.86 | 0.94 | 0.63 | 0.89 | 1.61 |
+| A floor 0.7 | 1.59 | 0.64 | 0.50 | 0.76 | 0.91 | 0.63 | 0.74 | 1.45 |
+| A floor 0.8 | 1.30 | 0.52 | 0.41 | 0.71 | 0.89 | 0.62 | 0.66 | 1.31 |
+| A floor 0.9 | 1.14 | 0.45 | 0.35 | 0.67 | 0.87 | 0.62 | 0.62 | 1.20 |
+| A floor 1.0 | 1.01 | 0.39 | 0.31 | 0.64 | 0.86 | 0.62 | 0.59 | 1.12 |
+| B σ 6 device px | 1.03 | 0.91 | 1.32 | 1.41 | 1.16 | 0.70 | 0.81 | 1.14 |
+| B σ 10 | 1.01 | 0.42 | 0.80 | 1.16 | 1.07 | 0.68 | 0.67 | 1.12 |
+| B σ 14 | 1.01 | 0.39 | 0.48 | 0.95 | 0.99 | 0.65 | 0.61 | 1.12 |
+| C share 0.5 × 1.5 CSS px | 1.87 | 1.17 | 1.01 | 1.11 | 1.03 | 0.66 | 1.00 | 2.20 |
+| C 0.5 × 3 | 1.02 | 0.64 | 0.80 | 1.02 | 1.01 | 0.66 | 0.68 | 1.13 |
+| C 0.5 × 6 | 1.01 | 0.39 | 0.45 | 0.84 | 0.94 | 0.64 | 0.61 | 1.12 |
+| C 0.25 × 3 | 1.01 | 0.51 | 0.54 | 0.83 | 0.93 | 0.63 | 0.62 | 1.12 |
+| C 1.0 × 3 | 1.03 | 0.91 | 1.32 | 1.41 | 1.16 | 0.70 | 0.81 | 1.14 |
+
+The receded cells (T1 web/native, 2x):
+
+| rung | cb4 md | cb8 md | pitch-16 sm | pitch-16 md | pitch-16 ml | cb64 md | photo md |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| c05 | 3.95 | 5.29 | 2.71 | 2.36 | 3.05 | 1.36 | 0.86 |
+| floor 0.8 (inherited) | 2.15 | 2.73 | 2.62 | 1.57 | 2.14 | 1.30 | 0.85 |
+| floor 1.0 (inherited) | 1.06 | 1.01 | 2.53 | 0.92 | 1.40 | 1.26 | 0.84 |
+| L6 thin start 0.1, at c05 | 3.95 | 5.29 | 1.85 | 2.36 | — | 1.36 | 0.86 |
+| L6 thin 0.1, at floor 1 | 1.06 | 1.01 | 0.84 | 0.92 | — | 1.26 | 0.84 |
+| L6 thin 0.4, at floor 1 | 1.06 | 1.01 | 1.67 | 0.92 | — | 1.26 | 0.84 |
+| L7 thick/far 0, at floor 1 | 1.00 | 0.91 | — | 0.83 | 1.28 | 1.26 | 0.83 |
+| L8 heavy σ 24, at c05 | 3.95 | 5.29 | 2.54 | 1.88 | 2.23 | 1.14 | 0.79 |
+| C 0.5 × 3 (inherited) | 1.06 | 2.56 | 2.91 | 2.33 | 3.59 | 1.38 | 0.87 |
+
+The thin rest cells: the thin start at c05 reads `checkerboard-4__rrect-sm` / `checkerboard__rrect-sm`
+0.49 / 0.75 at 0.46, 0.61 / 0.94 at 0.6, 0.79 / 1.21 at 0.8 and 0.92 / 1.41 at 0.95. The reach
+barely moves them at c05 (0.49–0.50, 0.73–0.76 over 50–200 device px) and moves them more at
+floor 1 (0.38–0.47, 0.58–0.71).
+
+**What the ladders say about the draft's predictions.** These are recorded and change nothing in
+part 2 (the protocol's `notDecided`).
+- **Move 1, A.** As predicted: no floor brings both ends within. The floor that closes
+  `checkerboard-4` (1.01 at 1.0) takes `checkerboard-8` to 0.39 and the pitch-16 cell to 0.31.
+- **Move 1, B.** Within on the fine `checkerboard-4` cells at every width, and over on
+  `checkerboard-64` at σ 6–10 (1.16, 1.07), as predicted. **Not over on the photo:** the photo reads
+  0.65–0.70 at every width. A single width cannot hold `checkerboard-8` (needs σ ≈ 6) and the
+  pitch-16 cell (over at 6, under at 10) at once.
+- **Move 1, C.** It brings the mid pitches nearest Apple: at share 0.5 the 1.5–3 CSS px widths
+  bracket `checkerboard-8` (1.17 → 0.64), the pitch-16 cell (1.01 → 0.80) and `-32`/`-64` (≈1.0).
+  `checkerboard-4` overshoots only at 1.5 (1.87). The photo stays 0.63–0.70 under every family, so
+  move 1's within clause, which names the photo's mid and thick rest cells, is unattainable by any of
+  A, B or C as the ladders read them. The draft's rule for that case decides the move.
+- **C reaches the receded pose; B does not.** The receded document cannot name the second tap (X44),
+  so it inherits C's share and width, and that re-adds the mid-pitch structure the floor took out of
+  the receded body: at C 0.5 × 3, `checkerboard-8__rrect-md__inactive` reads 2.56 (floor 1 alone:
+  1.01), and the pitch-16 cells 2.33–3.59. B's width is one the receded document overrides (14), so
+  B leaves the receded cells exactly where the floor puts them (L2's must-not-act check: identical).
+  Neither L6, L7 nor L8 touches the fine and mid receded cells' second-tap term. A C landing
+  therefore leaves move 3 a receded body it has no leaf to smooth (§10).
+- **Move 2.** The prediction is falsified: no single thin start brings the thin cells within at every
+  pitch. `checkerboard-4__rrect-sm` needs about 0.95 and the pitch-16 cell about 0.62.
+- **Move 3.** As predicted, the receded fine cells reach Apple's near-smooth body only with the
+  inherited floor at 1 (1.06 and 1.01). L6–L8 do not move them at c05. The thin start is the lever
+  for the thin receded cell (0.84 at 0.1, at floor 1). The receded photo reads 0.79–0.87 under every
+  lever.
+
+### 8. Part 2, the fit declaration, hashed as a validated diff (clause 1; X50; `06ed7d51`, `c716d95d`)
+
+`ladders/part2.py` derives part 2's change list mechanically from `results.json`. The list is one
+change, `{kind: inert, ladder: L3}`: family C's 1x width held at 0, proven inert. No leaf is struck
+and no grid is narrowed.
+
+`fit-declaration.json` is the draft's body with that change applied. It pins the draft (`fromDraft`,
+the draft's SHA-256), the protocol and the results. `declare.py check-fit` re-applies the change
+through the validator and the bodies agree.
+
+Hashed `443f494c94fc66d8adf41932ca0d533600676e9295c7f9f69a9785fb565685d2` on the branch, after the
+ladders and before any fit render. Part 2's amend is refused from G1's first fit render on.
+
+### 9. Review closure
+
+- **(a)–(d):** `doperpowers:reviewer-medium` on `0ee27ae2..cf16c907` returned incorrect, with two
+  P2 findings. Both were real and both are fixed (§1).
+- **(f)–(g):** `doperpowers:reviewer-medium` on `ad3a26e7..c716d95d` returned incorrect, with one P2
+  finding: the L3 adjacency above, real and fixed beside the record. It confirmed the rest
+  independently:
+  - the amendment's legitimacy: only the named pin moved, and `ab0a13f9` at 21:32:17 UTC precedes
+    the first launch at 21:32:22;
+  - all 120 candidate endpoint patches;
+  - the 34 control identities and 510 1x identities;
+  - every must-not-act identity and 458 raw T1 values;
+  - every ladder's end-trimming, L7's empty range included, as the declared rule applied faithfully;
+  - part 2 as the draft plus only the supported inert change.
+
+  It also named a limitation of the part-2 validator, pinned by part 1 and outside its range. A
+  `narrow` change is accepted for any subset inside the ladder's range, not only the draft grid's
+  intersection with it. Nothing exploits it, because part 2 narrows nothing; it is logged in the
+  tracker.
+
+### 10. Gaps, and what G0 hands G1 to rule before the fit
+
+Each item is recorded; none changes a hashed part. Items 1–5 are the parent's to rule before G1's
+first fit render, and items 6–7 are in the tracker.
+1. **C reaches the receded pose and no receded leaf can take it off** (§7). X44 keeps the second tap
+   out of the receded document's key set, and the charter's Decision Log 3 declined narrowing it
+   because "inheritance reaches the same values". On the renders it does not: C's share and width
+   re-add the receded mid-pitch structure the floor removed. If move 1 lands on C, move 3 cannot
+   bring the receded `checkerboard-8` and pitch-16 cells within with the leaves it has. B does not
+   have this coupling.
+2. **Move 1's within clause names the photo's mid and thick rest cells, and no family moves them**
+   (0.62–0.70 across A, B and C). The draft's rule for a move no family passes decides it: the point
+   with the smallest move objective, recorded as not within. The photo's under-structure is the
+   tone and transmission gap W43 named, "one tone function cannot follow Apple on both photo and thin
+   checkers", not the scatter's.
+3. **`hc-text-7` reads under on T1 while the fine bands read it over** (§3). Every move-1 lever that
+   removes fine structure takes T1 on these cells further under: 0.89 → 0.59–0.68 at A's floor 1,
+   B σ 10–14 and C 0.5 × 3. Read on the cuts, that is `away`, and the full close needs every F cell
+   within. The parent may want to rule, before the gate, how a T1 `away` on `hc-text-7` beside a
+   T1-fine `toward` is read.
+4. **Move 2's prediction is falsified** (§7): no single thin start serves both pitches. The draft
+   searches the start and then the reach, as declared.
+5. **The fit cells number 14 fine scenes per scale, not 13** (§5).
+6. **Candidate keys.** W44's candidates are keyed `glass0.250` because candidate mode refuses the
+   shipped 0.25 keys. Charter clause 5's "dark endpoints byte-identical to c05's documents" can
+   hold for a candidate only as patch- and digest-identical. A sealed document carries the real key
+   and can be byte-identical. In the tracker.
+7. **`matrix status` counts the referees among a stage's missing members and names none**, and
+   **the part-2 validator admits any subset inside a ladder's range.** Both are in the tracker.
+8. **Corrections to the charter's Grounding, not edits of it.**
+   - The CSS tier is over at 2x `checkerboard-8` thick and receded (§3).
+   - The nine-cell T1-fine figures are not the declared reading (§3).
+   - The anchors' 0.5 web value reads 2.54 on the declared crop, not 2.6.
+
+### 11. What is not claimed
+
+- No document, no runtime module, no published row and no capture tree moved. The freeze reads
+  1,818 and X41 911 at the head.
+- The ladders were read on the WebGPU tier only. The floor and the ramp reach the CSS tier through
+  `MATERIAL_SOURCE_SIZE`, and its movement is G1's gate's to price as a tier residual.
+- The ladders' T1 readings are on 17 fixed cells. They are evidence for the protocol's decisions and
+  for nothing else (X50). A fit reads the fit cells.
+- The 0.5 generation's T1 was read with the bar assumed at the floor (0.5 code), not derived from a
+  0.5 archive.
+- The rehearsal reads published rows and existing renders. It renders nothing, and no holdout or
+  referee configuration was exposed by it.
