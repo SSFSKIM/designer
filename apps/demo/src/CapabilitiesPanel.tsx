@@ -20,6 +20,14 @@ import {
 } from "@vitreajs/vitrea-react";
 import type { ReactNode } from "react";
 
+import { reloadAtGlass } from "./glass-document";
+import {
+  GLASS_LABELS,
+  GLASS_POSITIONS,
+  glassPositionFrom,
+  type GlassPosition,
+} from "./glass-position";
+
 export interface OverrideState {
   readonly reducedMotion: AccessibilityOverride;
   readonly reducedTransparency: AccessibilityOverride;
@@ -34,6 +42,8 @@ export interface CapabilitiesPanelProps {
   readonly onWindowActivationChange: (next: GlassWindowActivation) => void;
   readonly colorScheme: GlassColorScheme;
   readonly onColorSchemeChange: (next: GlassColorScheme) => void;
+  /** The glass position the root was built with; changing it reloads (`glass-document.tsx`). */
+  readonly glass: GlassPosition;
   readonly variantMixed: boolean;
   readonly onVariantMixedChange: (next: boolean) => void;
 }
@@ -63,11 +73,12 @@ function GroupState(props: { readonly id: string; readonly label: string }): Rea
           Which measured material drew, first, because every row under it is
           read against the body this one describes (W29 G4). It joined the
           resolved state when the material became a selection: a page draws
-          macOS 27's by default from 0.19.0 and can pin macOS 26.5's, so it is
-          exactly as much a resolved fact as the tier. The endpoint's key is
-          shown rather than the family's name — the colour-scheme pin and the
-          activation pin above each select a different one, and watching this
-          row follow them is the point.
+          macOS 27's at glass 0.5 by default from 0.19.0 and can pin macOS 27's
+          at glass 0.25 or macOS 26.5's, so it is exactly as much a resolved
+          fact as the tier. The endpoint's key is shown rather than the
+          family's name — the colour-scheme pin and the activation pin above
+          each select a different one, and watching this row follow them is the
+          point.
         */}
         <tr key="materialDocument">
           <th scope="row">materialDocument</th>
@@ -159,6 +170,31 @@ export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
           demotion reason, because choosing is not failing — labelling intent as fault would invert
           the whole point of these rows.
         </p>
+      </section>
+
+      <section>
+        <h2>Material document</h2>
+        <p className="panel__note">
+          macOS 27&rsquo;s Glass appearance slider moves Apple&rsquo;s own pixels, so each
+          position the runtime ships is a measured document of its own: 0.5, the system default,
+          and 0.25, the clearer glass (W43). A root selects its document once, at construction, so
+          this pin reloads the page with <code>?glass=</code>; the{" "}
+          <code>materialDocument</code> row in each group&rsquo;s table is the runtime&rsquo;s
+          answer, naming the endpoint that drew.
+        </p>
+        <label className="toggle">
+          <select
+            value={String(props.glass)}
+            onChange={(event) => reloadAtGlass(glassPositionFrom(`?glass=${event.target.value}`))}
+          >
+            {GLASS_POSITIONS.map((glass) => (
+              <option key={glass} value={String(glass)}>
+                {GLASS_LABELS[glass]}
+              </option>
+            ))}
+          </select>
+          glass position pin
+        </label>
       </section>
 
       <section>

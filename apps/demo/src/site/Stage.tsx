@@ -39,6 +39,7 @@ import {
 import { useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "../ActionsMenu";
+import type { GlassPosition } from "../glass-position";
 import { reportsFor } from "./calibration";
 import {
   DARK_GROUND,
@@ -316,6 +317,12 @@ export interface StageProps {
    * background is the page's business and vitrea does not write it.
    */
   readonly scheme: "light" | "dark";
+  /**
+   * The macOS 27 glass position the root was built with (`../glass-document.tsx`), which the
+   * reference pair's capture and figures follow. Fixed for the page's lifetime: a root selects
+   * its material document at construction, so another position is another load.
+   */
+  readonly glass: GlassPosition;
   readonly animate: boolean;
   readonly lastAction: string | null;
   readonly onAction: (key: string) => void;
@@ -326,8 +333,9 @@ export interface StageProps {
 
 export function StageGround(props: StageProps): ReactNode {
   const { mode, scene } = props;
-  const nativeCapture = nativeCaptureFor(scene, props.scheme);
-  const report = reportsFor(scene.id, props.scheme)[0];
+  const nativeCapture = nativeCaptureFor(scene, props.scheme, props.glass);
+  const report = reportsFor(scene.id, props.scheme, props.glass)[0];
+  const nativeBed = nativePlatformFor(props.scheme, props.glass);
   const ground: StageGroundPaint =
     mode === "tone"
       ? // A white grid, unlike the window's own: this ground is a grey swept from
@@ -396,16 +404,16 @@ export function StageGround(props: StageProps): ReactNode {
                     src={nativeCapture}
                     width={CANVAS.width}
                     height={CANVAS.height}
-                    alt={`Screen capture of Apple's own Liquid Glass rendering the ${scene.component} scene on the ${scene.background} background, ${nativePlatformFor(props.scheme)}, ${props.scheme} colour scheme.`}
+                    alt={`Screen capture of Apple's own Liquid Glass rendering the ${scene.component} scene on the ${scene.background} background, ${nativeBed}, ${props.scheme} colour scheme.`}
                   />
                   <figcaption className="pair__caption">
-                    <span className="pair__who">{nativePlatformFor(props.scheme)}, captured</span>
+                    <span className="pair__who">{nativeBed}, captured</span>
                     {/* The profile is named on the capture itself, not only in the
                         cell row below it: the pair is only a comparison while both
                         halves are the same colour scheme, and the reader should be
                         able to see which one they are looking at. */}
                     <span className="pair__what" data-testid="native-profile">
-                      ScreenCaptureKit, 1x, sRGB — {nativeProfileFor(props.scheme)}
+                      ScreenCaptureKit, 1x, sRGB — {nativeProfileFor(props.scheme, props.glass)}
                     </span>
                   </figcaption>
                 </figure>
@@ -424,7 +432,7 @@ export function StageGround(props: StageProps): ReactNode {
                       checked={props.panel === value}
                       onChange={() => props.onPanelChange(value)}
                     />
-                    {value === "live" ? "vitrea, live" : nativePlatformFor(props.scheme)}
+                    {value === "live" ? "vitrea, live" : nativeBed}
                   </label>
                 ))}
               </fieldset>
@@ -438,6 +446,13 @@ export function StageGround(props: StageProps): ReactNode {
                 </p>
               ) : (
                 <dl className="readout readout--figures">
+                  {/* Where the figures below were measured — the release and, on macOS 27,
+                      the glass position — read off the cell's own key, first, because a
+                      figure is evidence only about the material it was measured against. */}
+                  <div className="readout__row" data-testid="measured-at">
+                    <dt>Measured at</dt>
+                    <dd>{report.measuredAt}</dd>
+                  </div>
                   {report.figures.map((figure) => (
                     <div className="readout__row" key={figure.label}>
                       <dt>{figure.label}</dt>
@@ -553,7 +568,7 @@ export function StageGlass(props: StageProps): ReactNode {
      * picture (see this file's header) and a surface left drawing here would be a
      * plate floating over an explanatory note.
      */
-    if (nativeCaptureFor(scene, props.scheme) === undefined) return null;
+    if (nativeCaptureFor(scene, props.scheme, props.glass) === undefined) return null;
 
     return (
       <div className="stage stage--mirror" data-mode={mode} role="region" aria-label="Live vitrea render">

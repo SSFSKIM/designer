@@ -71,9 +71,12 @@ jobs:
       # broken comparison rather than a build failure.
       # Named at the profile the site's pair actually shows, which moved to macOS
       # 27 with the runtime's default material (W29 G4). A stale key here would
-      # have kept asserting that a directory nothing references was copied.
+      # have kept asserting that a directory nothing references was copied. The
+      # glass 0.25 directory is the pair's at `?glass=0.25` (W43 G3 (iii)).
       - name: the native captures made it into the artifact
-        run: test -d apps/demo/dist/fixtures/apple-macos-27.0-1x-light-standard-glass0.5
+        run: |
+          test -d apps/demo/dist/fixtures/apple-macos-27.0-1x-light-standard-glass0.5
+          test -d apps/demo/dist/fixtures/apple-macos-27.0-1x-light-standard-glass0.25
 
       - uses: actions/configure-pages@v5
 

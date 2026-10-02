@@ -27,11 +27,13 @@ const AXES = [
  *
  * It joins the readout because it joined the resolved state, and it joined the
  * resolved state because the material stopped being a constant of the build: a
- * page draws macOS 27's material by default from 0.19.0 and can pin macOS
- * 26.5's, so "what is this made of" is now exactly as much a resolved fact as
- * "what is drawing it". The endpoint's key is shown rather than the family's
- * name because the key is what a reader can go and find in the repository, and
- * because the colour scheme and the window pose each select a different one.
+ * page draws macOS 27's material at glass 0.5 by default from 0.19.0 and can
+ * pin macOS 27's at glass 0.25 or macOS 26.5's, so "what is this made of" is
+ * now exactly as much a resolved fact as "what is drawing it". This site pins
+ * the position from `?glass=`, and this row is what says which one drew. The
+ * endpoint's key is shown rather than the family's name because the key is what
+ * a reader can go and find in the repository, and because the colour scheme and
+ * the window pose each select a different one.
  *
  * `tuned` is printed when it is true and nothing at all when it is false: a
  * digest quoted beside a material an app has since patched is a readout that

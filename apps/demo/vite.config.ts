@@ -78,10 +78,16 @@ function nativeFixtures(): Plugin {
       // pair is a comparison against. The macOS 26.5 directories stay captured
       // and committed and are not copied, for the reason the list is explicit —
       // no page references them (`src/site/scenes.ts`).
+      //
+      // And the two at glass 0.25, from W43 G3 (iii) (claims §5.201): the site
+      // draws the 0.25 document when its `?glass=` query asks for it, and the
+      // pair then compares against those captures.
       for (const directory of [
         "backgrounds",
         "apple-macos-27.0-1x-light-standard-glass0.5",
         "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "apple-macos-27.0-1x-light-standard-glass0.25",
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
       ]) {
         await cp(join(fixtures, directory), join(out, directory), { recursive: true });
       }
