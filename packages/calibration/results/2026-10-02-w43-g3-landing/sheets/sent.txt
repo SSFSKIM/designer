@@ -1,0 +1,41 @@
+W43 G3 (iii) eye sheets over the whole canonical glass 0.25 bed (charter clause 14; §5.201), both
+tiers, holdout included, sent to the user's MacBook by Taildrop, 2026-10-02T13:09Z:
+  /Applications/Tailscale.app/Contents/MacOS/Tailscale file cp w43-g3-landing-sheets.zip s:
+  exit 0, first attempt.
+  w43-g3-landing-sheets.zip  124,637,554 bytes
+  sha256 d14c366ba76ec657b4283850700d5d9367ce9e93d4c00ae639f111e7a8d62855
+Built by `python3.12 -B sheets.py --out ~/vitrea-w43/g3l-scratch/sheets` (defaults: --tier
+webgpu,css, --rows 30, the main checkout's capture tree), zipped with
+`cd ~/vitrea-w43/g3l-scratch/sheets && zip -X -q -r ../w43-g3-landing-sheets.zip .`:
+66 pages (58 stratum pages: 5 strata x 2 tiers x 2 schemes x 2 poses, split into balanced parts of
+at most 30 rows; plus 8 holdout-only pages, tier x scheme x pose), with index.html, README.txt and
+checks.json. Gradient is empty on the canonical bed. The PNGs (126 MB) stay on the machine under
+~/vitrea-w43/g3l-scratch/sheets, not in git.
+
+Cells: 1,124 (562 per tier: 164 + 164 light, 117 + 117 dark, at 1x + 2x), every one drawn once on
+its stratum page; the 108 holdout cells (54 per tier) are drawn again on the holdout pages.
+  by stratum, per tier: uniform 176, binary 210, text 60, impulse 36, photo 80
+  by role, per tier:    calibration 112, validation 28, holdout 54, recorded 20, probe 348
+  by pose, per tier:    active 324 (rest 314, pressed 10), inactive 238
+
+Sources, read only:
+  0.25 rows  results/generations/6d18c059eb42.json  sha256 cadad647679735645a49fea6dcdefa401ef8af69459a7965c2ac4b82d72e5cf3
+             results/generations/d0219cd684bf.json  sha256 6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02
+             (the index's current selection for the four -glass0.25 standard keys; bytes and size
+             checked against index.json; admitted by cuts/bed.py's sealed mode with the holdout)
+  0.5 rows   results/generations/85ad7f7e3e0d.json  sha256 39ac0ba98ca200b10b194f6b45af54df8bf8b2dcbe6b98946a1c8b8aed58356e
+             results/generations/0eac5b294cc2.json  sha256 f72429653e29fd760123a7273436aaaeebc332311c4a53c677b03c004468f979
+             (the current 0.5 generation, standard keys only; every row names its scheme's two
+             shipped 0.5 documents at their live hash)
+  captures   /Users/new/Developer/GitHub/designer/packages/calibration/web-captures/ (canonical tree)
+  fixtures   apps/reference-apple/fixtures/ (0.25 and 0.5 keys)
+
+The per-capture assertion (CLAUDE.md, W31): before any pixel was read, every capture's
+cell__<tier>.json had to name its published row's capturePath, sceneId and renderer.
+  checked 1,842 captures: 1,124 at 0.25 (every published 0.25 row) + 718 at 0.5; all matched,
+  0 mismatches. The whole web key (engine, adapter, colour space, pixel size, capturePath ...) was
+  also equal on all 1,842.
+  406 of the 1,124 cells have no row in the current 0.5 generation (its recorded rows and part of
+  its probe rows were never read at 0.5: 40 per tier on light 1x, 40 / 95 webgpu / css on light
+  2x, 34 per tier on dark 1x, 34 / 89 on dark 2x); their 0.5 render and difference are a labelled
+  empty tile, the 0.5 fixture is still drawn.
