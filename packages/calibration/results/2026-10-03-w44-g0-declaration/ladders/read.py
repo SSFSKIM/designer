@@ -147,15 +147,7 @@ def main(out_dir: Path | None = None) -> int:
                 spread[sid] = dict(values=vals, spread=max(vals) - min(vals), bar=bar,
                                    flat=max(vals) - min(vals) <= bar)
             flat = all(s["flat"] for s in spread.values())
-            adjacent = []
-            order = sorted(range(len(members)), key=lambda i: _key(values_all[i]))
-            for a, b in zip(order, order[1:]):
-                ma, mb = members[a], members[b]
-                adjacent.append(dict(between=[values_all[a], values_all[b]], cells={
-                    sid: dict(pixelIdentical=bool((ma.pixels(P2, sid)[0] == mb.pixels(P2, sid)[0]).all()),
-                              deltaT1=abs(ma.t1(P2, sid) - mb.t1(P2, sid)),
-                              withinBar=abs(ma.t1(P2, sid) - mb.t1(P2, sid)) <= bars[(P2, sid)]["bar"])
-                    for sid in acting}))
+            adjacent = adjacency(lad, values_all, members, acting, bars, P2)
             entry["bases"][base] = dict(rungs=[m.label for m in members], values=values_all, flat=flat,
                                         cells=spread, adjacent=adjacent,
                                         nonFlat=_non_flat(values_all, members, acting, bars, P2, lad))
@@ -233,6 +225,23 @@ def _base_value(lad, base):
     if lad["id"] == "L3":
         return vals
     return vals[0]
+
+
+def adjacency(lad, values, members, acting, bars, profile):
+    """Adjacent rungs in value order WITHIN each one-leaf ladder the ladder holds (`_sub_ladders`):
+    for L3, the share ladder at width 3 and the width ladder at share 0.5, never a step that moves
+    both leaves (the review of (f)-(g): a lexicographic sort of the pairs did that)."""
+    out = []
+    for key, pts in _sub_ladders(lad, values):
+        pts = sorted(pts)
+        for (va, a), (vb, b) in zip(pts, pts[1:]):
+            ma, mb = members[a], members[b]
+            out.append(dict(leaf=key, between=[values[a], values[b]], cells={
+                sid: dict(pixelIdentical=bool((ma.pixels(profile, sid)[0] == mb.pixels(profile, sid)[0]).all()),
+                          deltaT1=abs(ma.t1(profile, sid) - mb.t1(profile, sid)),
+                          withinBar=abs(ma.t1(profile, sid) - mb.t1(profile, sid)) <= bars[(profile, sid)]["bar"])
+                for sid in acting}))
+    return out
 
 
 def _sub_ladders(lad, values):
