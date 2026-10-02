@@ -1,0 +1,28 @@
+$ tsx scripts/check-capture-tree.ts
+== the canonical capture tree against the working matrix (W32 G0b; claims §5.167) ==
+  tree              /Users/new/vitrea-w43/g3/packages/calibration/web-captures
+  --superseded-ok   off
+
+  apple-macos-27.0-1x-dark-standard-glass0.25
+    css     captures  117  match  117  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.25-receded.json f0b36a71772a + apple-macos-27.0-1x-dark-standard-glass0.25.json d0219cd684bf
+    webgpu  captures  117  match  117  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.25-receded.json f0b36a71772a + apple-macos-27.0-1x-dark-standard-glass0.25.json d0219cd684bf
+  apple-macos-27.0-1x-light-standard-glass0.25
+    css     captures  164  match  164  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.25-receded.json 4d5f23d9d312 + apple-macos-27.0-1x-light-standard-glass0.25.json 6d18c059eb42
+    webgpu  captures  164  match  164  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.25-receded.json 4d5f23d9d312 + apple-macos-27.0-1x-light-standard-glass0.25.json 6d18c059eb42
+  apple-macos-27.0-2x-dark-standard-glass0.25
+    css     captures  117  match  117  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.25-receded.json f0b36a71772a + apple-macos-27.0-1x-dark-standard-glass0.25.json d0219cd684bf
+    webgpu  captures  117  match  117  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.25-receded.json f0b36a71772a + apple-macos-27.0-1x-dark-standard-glass0.25.json d0219cd684bf
+  apple-macos-27.0-2x-light-standard-glass0.25
+    css     captures  164  match  164  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.25-receded.json 4d5f23d9d312 + apple-macos-27.0-1x-light-standard-glass0.25.json 6d18c059eb42
+    webgpu  captures  164  match  164  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.25-receded.json 4d5f23d9d312 + apple-macos-27.0-1x-light-standard-glass0.25.json 6d18c059eb42
+
+  totals   captures 1124  match 1124  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 0
+  VERDICT  the tree and the working matrix name the same generation everywhere they meet.
