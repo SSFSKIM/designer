@@ -25,7 +25,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | 2 | the capture scope | **ADOPTED** by the parent under the user's Decision Log 3 ruling | the four standard keys in full at seven runs; no accessibility pass; the w-test probe and the ladder at 0, 0.75 and 1 at three runs; every pixel through the W39 side bundle |
 | 3 | the sittings | **RULED** by the user, 2026-10-01: "Two sittings, 12.4 h + 4 h (Recommended)" | G1a, the generation, about 12.4 h at the Mac; G1b, the probe and ladder, about 4.0 h, later |
 | 4 | W42's structure question | **RULED** by the parent, 2026-10-01 | kept separate; the probe and ladder are declared readings, never a landing; W42's H and branches untouched |
-| 5 | bounds for the 0.25 documents | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" (Decision Log 7 item 10) | (a)–(e) as drafted: the 0.5 tables per tier; M1, C1, X1; L1 with growth against the pre-fit render; M2 directional; E2 in absolute codes; S1 as R2; no floor; every non-holdout miss ruled before the holdout |
+| 5 | bounds for the 0.25 documents | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" (Decision Log 7 item 10); (e) exercised: "All named misses; proceed to G3 (ii)" | (a)–(e) as drafted: the 0.5 tables per tier; M1, C1, X1; L1 with growth against the pre-fit render; M2 directional; E2 in absolute codes; S1 as R2; no floor; every non-holdout miss ruled before the holdout |
 | 6 | the charter's mechanical rulings | the parent's | ledger, branches, routing, memo F in G0 |
 | 7 | what G3 refits at 0.25 | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" | the light level and tone first, the scatter second, dark thick tone and scatter only, light chroma and receded tint only on a miss; rim, highlight, shadow held; receded documents as differences; rrect-lg its own stratum; S1 as R2 over `s1/r2-population.json` |
 
@@ -1034,6 +1034,21 @@ specifics from the draft:
   the holdout is read and before anything publishes (clause 10).
 
 **Declined:** (e) as "0.25 ships only if every bound holds" (the draft's alternative).
+
+**(e) exercised — RULED 2026-10-02 by the user: "All named misses; proceed to G3 (ii)".** Put to
+the user with G3 (i)'s candidate c05 (§5.201 draft), on the list of every non-holdout miss c05
+reads on the ruled rows: `packages/calibration/results/2026-10-02-w43-g3-refit/read/misses.md`,
+SHA-256 `a7c823226fd834ce765173b2d5e20f3d7c08f16aa77ca2b9fc1ade1150294f0c` (committed at
+`a878a068`). Every listed miss is a permitted named miss, recorded with its numbers, and none is a
+stop:
+- the 17 M2 named misses, each toward Apple's texture and none past it;
+- the 62 E2 cells whose edge moved farther from Apple in absolute codes (14 of them rrect-lg);
+- the one CSS table row, 1x light `checkerboard__rrect-ml__rest` ssimMean, which the pre-fit render
+  already missed;
+- S1's 15 WebGPU and 11 CSS wrong-sign cells (S1 is still adopted only at the landing).
+
+The holdout may now be read once per tier after the publication stages reproduce these misses and
+no new one. A new miss, or a ruled one that changes character, returns to the user first.
 
 *The draft, as it stood open at charter (2026-10-01):* it was put to the user with G2's Decision
 Log 7 draft, on what the native delta measured, and had to be ruled before G3 reads any 0.25

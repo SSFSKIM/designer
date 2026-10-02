@@ -261,6 +261,14 @@ The fix is `11fd47c5`. `cuts/test_missing.py` runs the red cases against the pre
 its record in `test_missing.txt`. The regenerated pre-fit and c05 readings differ only by empty
 bookkeeping: every verdict and miss list above is unchanged.
 
+A follow-up review of `11fd47c5` returned **correct**: both findings closed, and
+`read/c05-cuts.json` and `rehearsal/prefit-cuts.json` reproduced byte for byte. The review loop is
+closed.
+
+**The user's ruling on the misses** (Decision Log 5 (e), RULED 2026-10-02): "All named misses;
+proceed to G3 (ii)". Every miss in `read/misses.md` (SHA-256 `a7c82322…`) is a permitted named
+miss, and none is a stop.
+
 ### 11. What is not claimed
 
 - No document is sealed and no stage exists. The holdout was never read.
