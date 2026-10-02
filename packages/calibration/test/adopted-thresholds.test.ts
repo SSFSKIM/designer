@@ -210,6 +210,7 @@ import { describe, expect, it } from "vitest";
 
 import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
 import { decodePng, type CalibrationImage } from "../src/image";
+import { keyPosition } from "../src/material-selection";
 
 // ---------------------------------------------------------------------------
 // §5, transcribed
@@ -2083,8 +2084,33 @@ const MATRIX_PATH = resolve(
   PACKAGE_ROOT,
   process.env["VITREA_MATRIX_PATH"] ?? resolve(PACKAGE_ROOT, "results", "matrix.json"),
 );
+/**
+ * The glass positions every population in this file is stated at (W43 X45, claims §5.201).
+ *
+ * Since W43 G3 (ii) the current union carries a second macOS 27 position: the glass 0.25
+ * generations (`generations/6d18c059eb42.json`, `d0219cd684bf.json`) beside the glass 0.5
+ * ones. Every bound, floor, count, partition and `PREDICATE_EXCLUDES` entry here was measured
+ * at macOS 26.5 (no slider) or macOS 27 glass 0.5, so a read of the union that did not name its
+ * position would gate one material's rows against another's numbers — X45's defect. The
+ * selection is by the position the row's key parses to, never by naming generations, so a
+ * refit at a gated position still joins by itself. A key that does not parse is kept, so the
+ * partition below still refuses it. The 0.25 populations are G3 (iii)'s, stated beside these.
+ */
+const GATED_POSITIONS: readonly { readonly osVersion: string; readonly glass?: number }[] = [
+  { osVersion: "26.5" },
+  { osVersion: "27.0", glass: 0.5 },
+];
+
+function atAGatedPosition(profileKey: string): boolean {
+  const position = keyPosition(profileKey);
+  return position === undefined || GATED_POSITIONS.some(
+    (gated) => gated.osVersion === position.osVersion && gated.glass === position.glass,
+  );
+}
+
 // W40: canonical reads union frozen and current generations; scratch remains one file.
-const CURRENT_ROWS = loadCurrentRows({ matrixPath: MATRIX_PATH });
+const CURRENT_ROWS = loadCurrentRows({ matrixPath: MATRIX_PATH })
+  .filter((row) => atAGatedPosition(row.key.profileKey));
 const MATRIX_FILE: ResultMatrix = {
   schemaVersion: RESULT_MATRIX_SCHEMA_VERSION,
   cells: CURRENT_ROWS as unknown as readonly Cell[],
