@@ -45121,3 +45121,20 @@ The rest stands:
 - the demo's prose figures were measured at 0.5 or on 26.5 and are not re-measured at 0.25, which
   the site's selector hint says;
 - the gallery pages draw the default document.
+
+### 36. Review closure, G3 (iii) (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `24a323ae`, head `6d4643c1`) returned
+**correct**, with no material findings. It recomputed, read-only:
+- the 3,017-row union and the 655 gated cells;
+- the exact 95-entry conditioning exclusion list;
+- the 587-cell demo projection, with the prior positions' projected values unchanged;
+- the canonical fixture bytes;
+- the landing cut's and this section's figures.
+
+It also confirmed that the cut generation reads the published generations, not the stages. It did
+not rerun the builds, the browser suites or X1's pixel reads; their recorded runs are §33's.
+
+One correction beside the evidence. `cuts/cut-025.txt`'s printed header reuses the sealed
+admission kind's wording, "in a publication stage". That cut was read from the published generation
+files, as `cuts/landing.json` records.
