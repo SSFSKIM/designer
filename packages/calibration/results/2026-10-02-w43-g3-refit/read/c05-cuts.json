@@ -1,8 +1,8 @@
 {
  "what": "W43 G3 (i): the 0.25 adopted rows as RULED 2026-10-02 (Decision Log 5 (a)-(e); Decision Log 7 items 10-11), read on one bed",
  "cutsSource": {
-  "cuts.py": "7bfb74fd0cf009e0dd811ba6c9e663cff9011c9e75da8094dc86b4aa5113d93f",
-  "bed.py": "48dc4b2b1123d6905d3f4886eacc5e733410509e47fe2496e3aae80535f2abe8"
+  "cuts.py": "81e17a1e4666bbe505c344029893f3eb496c3ad9f76f117c1dc5aaa16358d526",
+  "bed.py": "5af88499ab58b912599f07c669bd81b9389208e0ca2994033b6b8601ae86a5bc"
  },
  "bed": {
   "kind": "candidate",
@@ -126,6 +126,7 @@
    "noShapeAxis": [],
    "checks": 199,
    "misses": [],
+   "noRow": [],
    "verdict": "PASS"
   },
   "apple-macos-27.0-1x-light-standard-glass0.25 css": {
@@ -149,6 +150,7 @@
      "status": "MISS"
     }
    ],
+   "noRow": [],
    "verdict": "MISS"
   },
   "apple-macos-27.0-2x-light-standard-glass0.25 webgpu": {
@@ -163,6 +165,7 @@
    "noShapeAxis": [],
    "checks": 199,
    "misses": [],
+   "noRow": [],
    "verdict": "PASS"
   },
   "apple-macos-27.0-2x-light-standard-glass0.25 css": {
@@ -177,6 +180,7 @@
    "noShapeAxis": [],
    "checks": 147,
    "misses": [],
+   "noRow": [],
    "verdict": "PASS"
   },
   "apple-macos-27.0-1x-dark-standard-glass0.25 webgpu": {
@@ -191,6 +195,7 @@
    "noShapeAxis": [],
    "checks": 71,
    "misses": [],
+   "noRow": [],
    "verdict": "PASS"
   },
   "apple-macos-27.0-1x-dark-standard-glass0.25 css": {
@@ -205,6 +210,7 @@
    "noShapeAxis": [],
    "checks": 71,
    "misses": [],
+   "noRow": [],
    "verdict": "PASS"
   },
   "apple-macos-27.0-2x-dark-standard-glass0.25 webgpu": {
@@ -219,6 +225,7 @@
    "noShapeAxis": [],
    "checks": 71,
    "misses": [],
+   "noRow": [],
    "verdict": "PASS"
   },
   "apple-macos-27.0-2x-dark-standard-glass0.25 css": {
@@ -233,6 +240,7 @@
    "noShapeAxis": [],
    "checks": 71,
    "misses": [],
+   "noRow": [],
    "verdict": "PASS"
   }
  },
@@ -270,6 +278,7 @@
    },
    "cellMisses": [],
    "unmeasured": [],
+   "noRow": [],
    "verdict": "PASS"
   },
   "css": {
@@ -305,6 +314,7 @@
    },
    "cellMisses": [],
    "unmeasured": [],
+   "noRow": [],
    "verdict": "PASS"
   }
  },
@@ -588,6 +598,7 @@
    ],
    "failures": [],
    "unmeasured": [],
+   "noRow": [],
    "worstAbsDelta": 0.3214382540194847,
    "verdict": "NAMED MISSES"
   },
@@ -887,6 +898,7 @@
     }
    ],
    "unmeasured": [],
+   "noRow": [],
    "worstAbsDelta": 0.3648748110660145,
    "verdict": "FAIL"
   }
@@ -1633,6 +1645,7 @@
      "statistic": 0.000580533333333344,
      "min": 0.0005265333333333307,
      "max": 0.0012970666666666613,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 10,
@@ -1650,6 +1663,7 @@
      "statistic": 0.0020737142857142976,
      "min": 0.00201271428571432,
      "max": 0.0030694285714285563,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 7,
@@ -1667,6 +1681,7 @@
      "statistic": 0.00035566666666671704,
      "min": 0.00018533333333329663,
      "max": 0.002718666666666684,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -1684,6 +1699,7 @@
      "statistic": 0.0006662666666666632,
      "min": 0.0006111333333333505,
      "max": 0.0013460666666666788,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 10,
@@ -1701,6 +1717,7 @@
      "statistic": 0.002120999999999992,
      "min": 0.0020895714285714523,
      "max": 0.0033300000000000074,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 7,
@@ -1718,6 +1735,7 @@
      "statistic": 0.0006419999999999945,
      "min": 0.0003586666666666923,
      "max": 0.0036246666666666094,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -1735,6 +1753,7 @@
      "statistic": 0.0012644666666666489,
      "min": 0.0010231333333333332,
      "max": 0.002196733333333345,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 9,
@@ -1752,6 +1771,7 @@
      "statistic": 0.003495285714285669,
      "min": 0.0034368571428571144,
      "max": 0.003495285714285669,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 5,
@@ -1769,6 +1789,7 @@
      "statistic": 0.0011626666666666823,
      "min": 0.0009590000000000062,
      "max": 0.0015823333333333522,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -1786,6 +1807,7 @@
      "statistic": 0.0012392666666666793,
      "min": 0.0009992,
      "max": 0.0021861333333333286,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 9,
@@ -1803,6 +1825,7 @@
      "statistic": 0.00382471428571434,
      "min": 0.0032395714285714367,
      "max": 0.003914714285714248,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 5,
@@ -1820,6 +1843,7 @@
      "statistic": 0.0010666666666666973,
      "min": 0.0008146666666666672,
      "max": 0.0019293333333333385,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -2399,6 +2423,7 @@
      "bands": "3-6/6-12/12-24"
     }
    },
+   "noRow": [],
    "verdict": "PASS"
   },
   "css": {
@@ -2408,6 +2433,7 @@
      "statistic": 0.001392666666666694,
      "min": 0.0010007999999999942,
      "max": 0.003061133333333295,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 10,
@@ -2425,6 +2451,7 @@
      "statistic": 0.003352428571428621,
      "min": 0.001206428571428529,
      "max": 0.0045049999999999335,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 7,
@@ -2442,6 +2469,7 @@
      "statistic": 0.0013336666666666774,
      "min": 0.0007176666666666905,
      "max": 0.005347333333333371,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -2459,6 +2487,7 @@
      "statistic": 0.0013134666666667183,
      "min": 0.0009911333333333383,
      "max": 0.0029454000000000385,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 10,
@@ -2476,6 +2505,7 @@
      "statistic": 0.002912142857142871,
      "min": 0.0014295714285714586,
      "max": 0.00504385714285714,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 7,
@@ -2493,6 +2523,7 @@
      "statistic": 0.0008913333333333551,
      "min": 0.000727666666666682,
      "max": 0.0038483333333333425,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -2510,6 +2541,7 @@
      "statistic": 0.0019551999999999864,
      "min": 0.0014418666666666728,
      "max": 0.00416233333333332,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 9,
@@ -2527,6 +2559,7 @@
      "statistic": 0.005434857142857154,
      "min": 0.0038034285714286004,
      "max": 0.006605428571428588,
+     "noRow": [],
      "verdict": "MISS",
      "prefit": {
       "cells": 5,
@@ -2544,6 +2577,7 @@
      "statistic": 0.001990333333333316,
      "min": 0.0012729999999999686,
      "max": 0.005447333333333286,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -2561,6 +2595,7 @@
      "statistic": 0.002201266666666668,
      "min": 0.0017186666666666461,
      "max": 0.004354933333333337,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 9,
@@ -2578,6 +2613,7 @@
      "statistic": 0.0054298571428571685,
      "min": 0.004004285714285698,
      "max": 0.006392999999999982,
+     "noRow": [],
      "verdict": "MISS",
      "prefit": {
       "cells": 5,
@@ -2595,6 +2631,7 @@
      "statistic": 0.0023296666666666743,
      "min": 0.0016090000000000455,
      "max": 0.0068239999999999785,
+     "noRow": [],
      "verdict": "PASS",
      "prefit": {
       "cells": 8,
@@ -3174,6 +3211,7 @@
      "bands": "3-6/6-12/12-24"
     }
    },
+   "noRow": [],
    "verdict": "MISS"
   }
  },
@@ -3187,6 +3225,8 @@
     "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
     "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"
    ],
+   "growthUnmeasured": [],
+   "noRow": [],
    "absoluteMisses": [],
    "growthMisses": [],
    "maxError": 0.0490942588872085,
@@ -3254,7 +3294,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive-tint-orange",
@@ -3290,7 +3334,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__rest",
@@ -3884,7 +3932,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive-tint-orange",
@@ -3920,7 +3972,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__rest",
@@ -4464,6 +4520,8 @@
     "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
     "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"
    ],
+   "growthUnmeasured": [],
+   "noRow": [],
    "absoluteMisses": [],
    "growthMisses": [
     {
@@ -4559,7 +4617,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive-tint-orange",
@@ -4595,7 +4657,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__rest",
@@ -5189,7 +5255,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive-tint-orange",
@@ -5225,7 +5295,11 @@
      "prefitError": null,
      "error": null,
      "growth": null,
-     "status": "UNMEASURED"
+     "status": "UNMEASURED",
+     "unmeasuredClauses": [
+      "absolute",
+      "growth"
+     ]
     },
     {
      "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__rest",
@@ -5777,6 +5851,7 @@
     }
    },
    "failing": [],
+   "noRow": [],
    "verdict": "PASS",
    "perCell": [
     {
@@ -12997,6 +13072,7 @@
      }
     }
    ],
+   "noRow": [],
    "verdict": "MISS",
    "perCell": [
     {
@@ -17363,6 +17439,7 @@
    "cells": 288,
    "measured": 288,
    "unmeasured": [],
+   "noRow": [],
    "failing": [
     {
      "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest",
@@ -64042,6 +64119,7 @@
    "cells": 288,
    "measured": 288,
    "unmeasured": [],
+   "noRow": [],
    "failing": [
     {
      "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest",
@@ -100052,6 +100130,7 @@
    "population": 183,
    "measured": 183,
    "unmeasured": [],
+   "noRow": [],
    "appleChangeFromRowsMaxDeviation": 0.0,
    "wrongSign": [
     {
@@ -101987,6 +102066,7 @@
    "population": 125,
    "measured": 125,
    "unmeasured": [],
+   "noRow": [],
    "appleChangeFromRowsMaxDeviation": 0.0,
    "wrongSign": [
     {

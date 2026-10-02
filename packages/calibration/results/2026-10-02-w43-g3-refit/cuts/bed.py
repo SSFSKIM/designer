@@ -20,8 +20,17 @@ them. It admits exactly two kinds of bed, and every output names which:
              what it declares. A candidate whose bytes moved after its render refuses.
 
 Refused for both: a row of any profile other than the four ``-glass0.25`` standard keys; a holdout
-row, by its label or by the declaration's split (the holdout is never read in this child); two rows
-for one (profile, tier, scene). Rows keep their raw bytes; nothing here writes a matrix.
+row, by its label or by the declaration's split (the holdout is never read in this child); a row
+of a scene its profile does not declare, or whose ``fixtureSet`` or ``state`` disagrees with
+``scenes.json`` (so a cut's population drawn from ``scenes.json`` selects exactly the rows a rule
+on the rows' own fields would); two rows for one (profile, tier, scene). Rows keep their raw
+bytes; nothing here writes a matrix.
+
+A bed may be PARTIAL: the render drivers write with ``--write-partial``, so a scene, or a whole
+(profile, tier) pair, can have no row. ``Bed.missing`` names, for every pair of the four profiles
+on both tiers (a pair with no row at all included), the declared non-holdout scenes with no row.
+The cuts do not read their populations off the bed: each draws its own from ``scenes.json`` and
+reports a declared member with no row as UNMEASURED.
 """
 from __future__ import annotations
 
@@ -164,7 +173,7 @@ class Bed:
     rows: list
     matrices: list            # [{"path", "sha256", "rows"}]
     candidate: Candidate | None = None
-    missing: dict = field(default_factory=dict)   # (profile, tier) -> [scene ids]
+    missing: dict = field(default_factory=dict)   # every (profile, tier) -> [scene ids, no row]
 
     def described(self) -> dict:
         out = dict(kind=self.kind, matrices=self.matrices,
@@ -238,6 +247,7 @@ def load(matrices: list[str], kind: str, candidate: str | None = None) -> Bed:
         raise SystemExit("a candidate bed names exactly one --candidate-document; a prefit bed none")
     declared = Candidate.read(candidate) if candidate is not None else None
     shipped = shipped_05()
+    lists = {profile: set(SCENES.declared(profile)) for profile in PROFILES}
     rows, record, seen = [], [], set()
     for given in matrices:
         file = Path(given).resolve()
@@ -256,7 +266,13 @@ def load(matrices: list[str], kind: str, candidate: str | None = None) -> Bed:
                 raise SystemExit(f"{where}: a holdout row; the holdout is never read in G3 (i)")
             if row.get("fixtureSet") not in NON_HOLDOUT:
                 raise SystemExit(f"{where}: fixtureSet {row.get('fixtureSet')!r}")
-            why = (_admit_prefit(row, shipped) if kind == "prefit"
+            if sid not in lists[profile]:
+                raise SystemExit(f"{where}: a scene scenes.json does not declare for this profile")
+            role, state = SCENES.role[sid], SCENES.by_id[sid]["state"]
+            if (row["fixtureSet"], row.get("state")) != (role, state):
+                raise SystemExit(f"{where}: fixtureSet/state {row['fixtureSet']}/{row.get('state')}"
+                                 f" where scenes.json declares {role}/{state}")
+            why =(_admit_prefit(row, shipped) if kind == "prefit"
                    else _admit_candidate(row, declared))
             if why is not None:
                 raise SystemExit(f"{where}: not admitted as a {kind} row: {why}")
@@ -269,12 +285,13 @@ def load(matrices: list[str], kind: str, candidate: str | None = None) -> Bed:
         record.append(dict(path=str(file), sha256=hashlib.sha256(raw).hexdigest(), rows=count))
     rows.sort(key=matrix_store.key)
     bed = Bed(kind, rows, record, declared)
-    for (profile, renderer) in bed.pair_counts():
-        have = {r["key"]["sceneId"] for r in rows
-                if r["key"]["profileKey"] == profile and r["key"]["web"]["renderer"] == renderer}
-        bed.missing[(profile, renderer)] = sorted(
-            sid for sid in SCENES.declared(profile)
-            if SCENES.role[sid] in NON_HOLDOUT and sid not in have)
+    for profile in PROFILES:
+        for renderer in TIERS:
+            have = {r["key"]["sceneId"] for r in rows if r["key"]["profileKey"] == profile
+                    and r["key"]["web"]["renderer"] == renderer}
+            bed.missing[(profile, renderer)] = sorted(
+                sid for sid in SCENES.declared(profile)
+                if SCENES.role[sid] in NON_HOLDOUT and sid not in have)
     return bed
 
 

@@ -1,0 +1,96 @@
+W43 G3 (i) review closure: declared populations and L1's growth clause, red cases
+pre-fix cuts.py: 9e9cfcd2; bed c05 packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json; scratch beds under /tmp/w43-g3-test-missing
+
+(0) the unmodified c05 bed against the verdicts committed at the pre-fix revision
+  tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-1x-light-standard-glass0.25 css          MISS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 css          PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 css           PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 css           PASS
+  M1 webgpu (GATED)                                                PASS
+  M1 css (descriptive)                                             PASS
+  M2 webgpu (GATED)                                                NAMED MISSES
+  M2 css (descriptive)                                             FAIL
+  C1 webgpu (GATED)                                                PASS
+  C1 css (descriptive)                                             MISS
+  L1 webgpu (GATED)                                                PASS, 4 UNMEASURED
+  L1 css (descriptive)                                             MISS
+  X1 webgpu (GATED)                                                PASS
+  X1 css (descriptive)                                             MISS
+  E2 webgpu (GATED)                                                MISS
+  E2 css (descriptive)                                             MISS
+  S1 webgpu (GATED)                                                MISS
+  S1 css (GATED)                                                   MISS
+    ok   verdicts, misses, failing and named lists and S1 numbers equal the committed ones
+    ok   a complete bed has no member without a row
+    ok   L1 WebGPU's UNMEASURED are the four reading-level dark cells, none for the growth clause alone
+
+(a) E2 WebGPU with failing cells' rows removed
+  one failing cell (1): pre-fix 'MISS' on 287 cells; fixed 'MISS', 1 no row
+    removed apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    ok   pre-fix: the removed cells vanished from E2
+    ok   fixed: every removed cell is UNMEASURED, no row
+    ok   fixed: MISS still wins
+  every failing cell (62): pre-fix 'PASS' on 226 cells; fixed 'PASS, 62 UNMEASURED (62 no row)', 62 no row
+    ok   pre-fix: the removed cells vanished from E2
+    ok   fixed: every removed cell is UNMEASURED, no row
+    ok   pre-fix: PASS with the failing cells gone
+    ok   fixed: no unqualified PASS
+
+(b) the whole (apple-macos-27.0-1x-light-standard-glass0.25, css) pair removed
+    ok   Bed.missing names all 144 declared non-holdout scenes of the pair
+  tables apple-macos-27.0-1x-light-standard-glass0.25 css: committed 'MISS'; pre-fix '(no entry)'; fixed 'UNMEASURED', 26 no row
+    ok   pre-fix: the pair's table verdict vanished
+    ok   fixed: the pair's table reads UNMEASURED, its gated cells named
+  M1 css: committed 'PASS'; pre-fix 'PASS'; fixed 'PASS, 9 UNMEASURED (9 no row)', 9 no row of 9 declared
+    ok   fixed: M1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: M1 gives no unqualified PASS
+  M2 css: committed 'FAIL'; pre-fix 'FAIL'; fixed 'FAIL', 9 no row of 9 declared
+    ok   fixed: M2 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: M2 gives no unqualified PASS
+  C1 css: committed 'MISS'; pre-fix 'MISS'; fixed 'MISS', 39 no row of 39 declared
+    ok   fixed: C1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: C1 gives no unqualified PASS
+  L1 css: committed 'MISS'; pre-fix 'MISS'; fixed 'MISS', 49 no row of 49 declared
+    ok   fixed: L1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: L1 gives no unqualified PASS
+  X1 css: committed 'MISS'; pre-fix 'MISS'; fixed 'MISS', 65 no row of 65 declared
+    ok   fixed: X1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: X1 gives no unqualified PASS
+  E2 css: committed 'MISS'; pre-fix 'MISS'; fixed 'MISS', 82 no row of 82 declared
+    ok   fixed: E2 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: E2 gives no unqualified PASS
+  S1 css: committed 'MISS'; pre-fix 'UNMEASURED'; fixed 'UNMEASURED', 72 no row of 72 declared
+    ok   fixed: S1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: S1 gives no unqualified PASS
+
+(b2) the whole (apple-macos-27.0-2x-dark-standard-glass0.25, webgpu) pair removed
+    ok   Bed.missing names all 110 declared non-holdout scenes of the pair
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu: committed 'PASS'; pre-fix '(no entry)'; fixed 'UNMEASURED', 10 no row
+    ok   pre-fix: the pair's table verdict vanished
+    ok   fixed: the pair's table reads UNMEASURED, its gated cells named
+  M1 webgpu: committed 'PASS'; pre-fix 'PASS'; fixed 'PASS, 4 UNMEASURED (4 no row)', 4 no row of 4 declared
+    ok   fixed: M1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: M1 gives no unqualified PASS
+  M2 webgpu: committed 'NAMED MISSES'; pre-fix 'NAMED MISSES'; fixed 'NAMED MISSES, 4 UNMEASURED (4 no row)', 4 no row of 4 declared
+    ok   fixed: M2 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: M2 gives no unqualified PASS
+  C1 webgpu: committed 'PASS'; pre-fix 'UNMEASURED'; fixed 'UNMEASURED', 31 no row of 31 declared
+    ok   fixed: C1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: C1 gives no unqualified PASS
+  L1 webgpu: committed 'PASS, 4 UNMEASURED'; pre-fix 'PASS, 2 UNMEASURED'; fixed 'PASS, 23 UNMEASURED (21 no row)', 21 no row of 21 declared
+    ok   fixed: L1 names every declared member of the pair UNMEASURED, no row
+    ok   fixed: L1 gives no unqualified PASS
+
+(c) one pre-fit row's interiorMeanWeb deleted for a WebGPU L1 cell
+  cell apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive (error 0.0259)
+  pre-fix: cell MEASURED, growth None; verdict 'PASS, 4 UNMEASURED'
+  fixed:   cell UNMEASURED ['growth']; verdict 'PASS, 5 UNMEASURED (1 growth clause only)'
+    ok   pre-fix: the cell read MEASURED with the growth clause unread, verdict unmoved
+    ok   fixed: the cell is UNMEASURED on the growth clause, and named
+    ok   fixed: the verdict counts it
+
+all assertions hold
