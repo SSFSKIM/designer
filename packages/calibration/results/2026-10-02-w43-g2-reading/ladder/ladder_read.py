@@ -42,6 +42,30 @@ def fmt(v, spec='+.1f'):
     return '—' if v is None or (isinstance(v, float) and math.isnan(v)) else format(v, spec)
 
 
+CONTROL_SIGMAS = (10.0, 20.0, 40.0)   # device px: the linear control's blur widths
+MIRROR_CONTROL_TOL = 0.05             # a cell's control |m| must stay within this at every sigma
+
+
+def linear_control(ep, cid, regs):
+    """The mirror a plain linear blur gives on this cell's own declared regions (review closure, §5.200b §7).
+
+    e = W - C on each side, with W the Gaussian blur of the background raster's encoded luma and C the side's
+    level, medians over the region. A cell whose two regions are a complementary pair reads 0 here at every
+    sigma; one that is not (a patch core against its ring) reads geometry as one-sidedness, so it is kept out
+    of the mirror's aggregate.
+    """
+    from scipy.ndimage import gaussian_filter
+    cl = W.cell(ep, cid, rgb=False)
+    level = W.G.luma(W.G.render_background(cl.bg_spec, 2).astype(np.float64))
+    out = {}
+    for sigma in CONTROL_SIGMAS:
+        wide = gaussian_filter(level, sigma, mode='nearest').reshape(-1)
+        e = {side: float(np.median(wide[regs[side]['idx']] - regs[side]['level'])) for side in ('free', 'lifted')}
+        den = abs(e['free']) + abs(e['lifted'])
+        out[f'{sigma:g}'] = (e['free'] + e['lifted']) / den if den > 1e-9 else None
+    return out
+
+
 class Frames:
     """Cell images at every position, by plurality; 0.5 from W42's re-extracted counterparts."""
 
@@ -182,12 +206,15 @@ def main() -> None:
                         flag = 'above 208'
                     es[x] = dict(e=inv['M'] - g['level'], y=y, flag=flag)
                 line[side] = es
-                e05 = es.get('0.5', {}).get('e')
-                r = {x: (v['e'] / e05 if e05 and abs(e05) >= 1 else None) for x, v in es.items()}
+                # A flagged reading (censored, X21; or dark T above 208 at s >= 96) is no reading of M, so it
+                # leaves every derived statistic and not only the display (review closure, §5.200b §7).
+                ok = {x: v for x, v in es.items() if not v['flag']}
+                e05 = ok.get('0.5', {}).get('e')
+                r = {x: (v['e'] / e05 if (e05 and abs(e05) >= 1 and x in ok) else None) for x, v in es.items()}
                 aff = None
-                if '0' in es and '1' in es:
-                    e0, e1 = es['0']['e'], es['1']['e']
-                    res = {x: es[x]['e'] - (e0 + float(x) * (e1 - e0)) for x in es if x not in ('0', '1')}
+                if '0' in ok and '1' in ok:
+                    e0, e1 = ok['0']['e'], ok['1']['e']
+                    res = {x: ok[x]['e'] - (e0 + float(x) * (e1 - e0)) for x in ok if x not in ('0', '1')}
                     aff = dict(intercept=e0, slope=e1 - e0, residuals=res,
                                worst=max(res.items(), key=lambda kv: abs(kv[1])) if res else None)
                 star = '*' if side == 'free' and 'free' in sup.get(cid, {}) else ' '
@@ -208,18 +235,35 @@ def main() -> None:
                 m = {}
                 for x in POSITIONS:
                     if x in line['free'] and x in line['lifted']:
+                        if line['free'][x]['flag'] or line['lifted'][x]['flag']:
+                            m[x] = None
+                            continue
                         ef, el = line['free'][x]['e'], line['lifted'][x]['e']
                         den = abs(ef) + abs(el)
                         m[x] = (ef + el) / den if den >= 2 else None
-                record['mirror'].setdefault(ep, {})[cid] = m
+                control = linear_control(ep, cid, regs)
+                admitted = all(v is not None and abs(v) <= MIRROR_CONTROL_TOL for v in control.values())
+                record['mirror'].setdefault(ep, {})[cid] = dict(m=m, control=control, admitted=admitted)
         say('')
 
-    say('## 3. The mirror m = (e_free + e_lifted) / (|e_free| + |e_lifted|) per two-level cell: 0 for any two-sided')
-    say('   linear system, +-1 fully one-sided (memo C\'s S in region form); median over the cells per position')
+    say('## 3. The mirror m = (e_free + e_lifted) / (|e_free| + |e_lifted|) per two-level cell, +-1 fully one-sided.')
+    say('   It reads 0 for a two-sided linear system only where the two regions are a complementary pair, so each')
+    say('   cell is first read under a LINEAR CONTROL: its own declared regions, e = W - C with W a plain Gaussian')
+    say('   blur of its background raster (encoded luma) at sigma ' + ', '.join(f'{v:g}' for v in CONTROL_SIGMAS)
+        + f' device px. A cell enters the aggregate only if')
+    say(f'   its control |m| <= {MIRROR_CONTROL_TOL:g} at every sigma, and a flagged reading (censored, or dark T above')
+    say('   208) leaves the mirror at its x (review closure, §5.200b §7).')
     for ep in W.ENDPOINTS:
-        per_x = {x: [v[x] for v in record['mirror'].get(ep, {}).values() if v.get(x) is not None] for x in POSITIONS}
-        say(f'  {ep:<15} ' + '  '.join(f'x={x}: {fmt(float(np.median(v)) if v else None, "+.3f")} (n {len(v)})'
-                                       for x, v in per_x.items()))
+        say(f'### {ep}')
+        cells = record['mirror'].get(ep, {})
+        for cid, v in sorted(cells.items()):
+            say(f'  {"IN " if v["admitted"] else "out"} {cid:<26} control '
+                + ' '.join(f's{sg}:{fmt(c, "+.3f")}' for sg, c in v['control'].items())
+                + '   reading ' + ' '.join(f'x={x}:{fmt(mv, "+.3f")}' for x, mv in v['m'].items()))
+        per_x = {x: [v['m'][x] for v in cells.values() if v['admitted'] and v['m'].get(x) is not None]
+                 for x in POSITIONS}
+        say('  median over the admitted cells: ' + '  '.join(
+            f'x={x}: {fmt(float(np.median(v)) if v else None, "+.3f")} (n {len(v)})' for x, v in per_x.items()))
     say('')
 
     say('## 3b. The lifted side at x = 0: the hinge alone. Under LT e_lifted(x) = (x + lam(x)(1 - x))(W - C), so')
@@ -230,12 +274,13 @@ def main() -> None:
         via1, via05 = [], []
         for cid, sides in record['sides'].get(ep, {}).items():
             lift = sides.get('lifted')
-            if not lift or '0' not in lift['e']:
+            if not lift or '0' not in lift['e'] or lift['e']['0']['flag']:
                 continue
             e0 = lift['e']['0']['e']
-            if '1' in lift['e'] and abs(lift['e']['1']['e']) >= 12:
+            if '1' in lift['e'] and not lift['e']['1']['flag'] and abs(lift['e']['1']['e']) >= 12:
                 via1.append(e0 / lift['e']['1']['e'])
-            if lift['r'].get('0') is not None and abs(lift['e']['0.5']['e']) >= 12:
+            if (lift['r'].get('0') is not None and '0.5' in lift['e'] and not lift['e']['0.5']['flag']
+                    and abs(lift['e']['0.5']['e']) >= 12):
                 via05.append(lift['r']['0'] * (0.5 + 0.5 * lam50[ep]))
         record.setdefault('lam0', {})[ep] = dict(via1=via1, via05=via05)
         say(f'  {ep:<15} via x = 1: median {fmt(float(np.median(via1)) if via1 else None, ".3f")} '
@@ -244,8 +289,8 @@ def main() -> None:
             f'[{fmt(min(via05) if via05 else None, ".3f")}, {fmt(max(via05) if via05 else None, ".3f")}] (n {len(via05)})')
     say('')
     say('## 3c. The free side against x, per endpoint: median r(x) over the cells whose |e(0.5)| >= 12 codes')
-    say('   (predicted 2x: 0, 0.5, 1, 1.5, 2), censored readings ("!" above) left out, and the worst |residual|')
-    say('   from the line through x = 0 and 1')
+    say('   (predicted 2x: 0, 0.5, 1, 1.5, 2), and the worst |residual| from the line through x = 0 and 1. A flagged')
+    say('   reading ("!" above) leaves all of it: no r at its x, no line where x = 0 or 1 is flagged, no residual.')
     for ep in W.ENDPOINTS:
         rs = {x: [] for x in POSITIONS}
         worst = []

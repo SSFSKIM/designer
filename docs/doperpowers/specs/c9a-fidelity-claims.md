@@ -44082,8 +44082,14 @@ is named by its SHA-256.
   | dark active | 0.746–0.761 | 0.745 / 0.739 |
   | dark receded | 0.69 | 0.664 / 0.647 |
 
-  Every one is within its own resolution of the declared ramp (dλ ≈ 1.2 dr, ±0.05–0.08), so the
-  lifted side agrees with the ramp's size. As §5.198 §7 said, it cannot tell the two scalings apart.
+  The resolution is dλ ≈ 1.2 dr, ±0.05–0.08.
+  - **The ratio scaling** is within that resolution on every lifted region of every endpoint.
+  - **The difference scaling** is too, except on light receded's two regions, where it lies just
+    outside: the capsule and rrect-64 imply λ₀.₂₅ 0.7190 and 0.7197 against 0.6545. The gaps are
+    0.0645 and 0.0652, against dλ 0.0613 and 0.0626.
+  - These are two marginal departures on a side that is never gated. The free-side PASS is
+    unaffected. (First written: "every one is within its own resolution ... it cannot tell the two
+    scalings apart"; corrected by the review, §7.)
 - **Nothing lands from it** (Decision Log 4). It redirects the next structure wave: LT's free side
   tracks the slider.
 
@@ -44101,7 +44107,8 @@ frames, after the w-test. Its 0.25 values on the supported regions equal the w-t
 - **The free side is affine in x, w = x.** On the cells whose 0.5 excursion reaches 12 codes:
   - the median r(x) = e(x)/e(0.5) reads 0.52–0.56 at x = 0.25, 1.49 at 0.75 (light; predicted 1.5) and
     1.87–1.98 at 1 (predicted 2), the last through memo F's 0.125 capture scale;
-  - the worst residual from the line through x = 0 and 1 is 1.5–3.5 codes;
+  - the worst residual from the line through x = 0 and 1 is 1.5–3.2 codes (light active 2.2), with
+    no line drawn where x = 0 or 1 is censored (§7; first written 1.5–3.5);
   - the exception is dark active at 0.75: 12.3 codes, r 1.77 and 2.41, read through a T of four
     ordinates at the position where the dark fill turns on.
   - M(0) = C holds at x = 0, at e(0) = 0–5 codes. On the light 0/255 checkers it is censored, at
@@ -44109,15 +44116,25 @@ frames, after the w-test. Its 0.25 values on the supported regions equal the w-t
 - **The lifted side carries the hinge.** The implied λ(0) reads 0.67–0.73 through x = 1 (biased by
   the different capture scale there) and 0.62–0.66 through W42's fitted λ₀.₅, against the declared
   0.675.
-- **The body turns from one-sided to two-sided as x rises.** The mirror m = (e_free +
-  e_lifted)/(|e_free| + |e_lifted|) runs as below:
+- **The body turns from one-sided to two-sided as x rises.** The mirror is m = (e_free +
+  e_lifted)/(|e_free| + |e_lifted|).
+  - It is read only on cells admitted by a linear control: the same regions, under a plain Gaussian
+    blur of the cell's own backdrop at σ 10, 20 and 40 device px, must read |m| ≤ 0.05.
+  - The checkers on rrect-md and the c32 cells on the capsule and rrect-64 are admitted (control
+    0.000–0.004), and so are the steps (control 0.000).
+  - The 32-pt patches (c-s32-hi, -lo, |control| 0.26–0.60) and the c64 checker on the capsule
+    (+0.66 to +0.07) are not: their two regions are no complementary pair.
+  - A censored reading leaves the mirror at its x.
 
-  | endpoint (median over the two-level cells) | x = 0 | x = 0.25 | x = 0.5 | x = 1 |
+  | endpoint (median over the admitted cells) | x = 0 | x = 0.25 | x = 0.5 | x = 1 |
   | --- | ---: | ---: | ---: | ---: |
-  | light active (13 cells) | +0.92 | +0.51 | +0.33 | −0.02 |
+  | light active (10 cells; 8 at x = 0) | +0.89 | +0.51 | +0.33 | −0.02 |
   | light receded (2) | +1.00 | +0.54 | +0.32 | −0.00 |
-  | dark active (13) | −0.80 | −0.44 | −0.24 | +0.05 |
+  | dark active (10) | −0.80 | −0.44 | −0.24 | +0.05 |
   | dark receded (2) | −1.00 | −0.51 | −0.30 | +0.00 |
+
+  The first table (§7) read light active over 13 cells, at +0.92 for x = 0. Every other entry is
+  unchanged.
 
   That is LT's M = W at x = 1, and its one-sidedness growing toward 0. **The shipped two-sided form's
   structural miss therefore grows toward x = 0**, as the charter's Design predicted for 0.25.
@@ -44140,8 +44157,8 @@ to be built and one canonical generation as its held-out referee.**
   and the ladder's greys already measure it at every knot (seven levels at 0, 0.25 and 1, W42's at
   0.5, four at 0.75).
 - **Why not interpolated documents.** Interpolating fitted documents of the shipped two-sided form
-  carries a structural miss that grows toward x = 0 (the mirror reaches 0.92). It also misdraws the
-  capture-scale steps between points:
+  carries a structural miss that grows toward x = 0 (the mirror reaches 0.89 in light active and 1.00
+  receded). It also misdraws the capture-scale steps between points:
   - rrect-lg above 0.25 (above 0.375 in dark);
   - rrect-ml from 0.625 to 0.875, depending on scheme and pose;
   - every shape at 1.
@@ -44172,4 +44189,48 @@ to be built and one canonical generation as its held-out referee.**
   lands nothing (Decision Log 4).
 - The ladder is descriptive (clause 9). Its numbers are for the next structure wave and the
   continuous slider's charter.
+
+### 7. Review closure (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `daa6bdf7`, head `f6eb55ac`) returned
+changes-needed with three P2 findings, all accepted. It confirmed the following:
+- the w-test uses the pinned declaration's functions and support unchanged;
+- the plan preceded the read and the read preceded the ladder;
+- check mode decoded no 0.25 frame;
+- the 11 free-side ratios satisfy the declared verdict;
+- the declaration's hash and seven pins, and the 84 bridge cell-runs, are as recorded.
+
+None of the three findings touches the w-test's PASS. The ladder's first outputs are kept as
+`ladder/ladder.v1.txt` and `.json`, and `ladder.txt` and `.json` are regenerated beside them. T(x),
+the steps and the five two-state cells (§3) are unchanged byte for byte.
+
+1. **Censoring did not propagate.** The first cut flagged the light 0/255 checkers' censored x = 0
+   free side in the display and the r(x) summary. It still let the clamped value into the mirror
+   (as exactly +1 on three cells) and into the affine lines and their worst residuals.
+   - Now a flagged reading leaves every derived statistic: no r at its x, no line where x = 0 or 1 is
+     flagged, no residual, no mirror at that x, and no λ(0) through it.
+   - Light active's worst residual becomes 2.2 codes (first 3.5, from a censored anchor), and the
+     range becomes 1.5–3.2 codes.
+   - λ(0) is unchanged (0.67–0.73 through x = 1, 0.62–0.66 through W42's λ₀.₅): no lifted reading was
+     flagged.
+2. **The mirror's null was not demonstrated per cell.** m is 0 under a two-sided linear system only
+   where the two regions are complementary. A patch's core and ring are not: the reviewer's plain
+   Gaussian at σ 40 reads m = ∓0.603 on `c-s32-hi` and `-lo`.
+   - Each cell is now read under that linear control, at σ 10, 20 and 40, on its own declared regions.
+     It enters the aggregate only if |m| ≤ 0.05 at every σ.
+   - The checkers on rrect-md, the c32 checkers on the capsule and rrect-64, and the steps pass
+     (0.000–0.004). The patches (0.26–0.60) and the c64 checker on the capsule (0.66, 0.26, 0.07) do
+     not.
+   - Light active's x = 0 median moves from +0.92 over 13 cells to +0.89 over 8 admitted cells (10 at
+     the other positions). Every other entry of the table is unchanged.
+   - **The conclusion stands:** the body is one-sided toward x = 0 and two-sided at x = 1, in all
+     four endpoints, on admitted cells alone. So does the recommendation built on it (§4), whose
+     figure becomes 0.89 in light active and 1.00 receded.
+3. **The lifted side's agreement was stated too broadly.** The ratio scaling is within resolution on
+   every lifted region. The difference scaling is not on light receded's two regions: the gaps are
+   0.0645 and 0.0652 against dλ 0.0613 and 0.0626. §2 now records them as marginal departures, and
+   the free-side PASS is unaffected.
+
+The commit bodies of `1523c47f` and `f6eb55ac` quote the first readings (light +0.92, worst residual
+1.5–3.5). They are not rewritten. This section and the regenerated outputs carry the corrected ones.
 - Decision Logs 5 and 7 (§5.200 §6) are the user's and are not touched here.

@@ -84,11 +84,11 @@ capture scale is 0.125 on every shape (0.5 below 1), so W itself moves between 0
    b-p4-c64-rrect-md          lifted   706 px  e: 0:+24.0 0.25:+30.7 0.5:+34.0 1:+32.0   r: 0:0.706 0.25:0.903 0.5:1.000 1:0.941   line e(0) +24.0 slope +8.0, worst residual +6.0 at x=0.5
    b-p5-c64-rrect-md          free     796 px  e: 0:-1.1 0.25:-10.0 0.5:-17.9 1:-32.0   r: 0:0.061 0.25:0.556 0.5:1.000 1:1.788   line e(0) -1.1 slope -30.9, worst residual -1.4 at x=0.5
    b-p5-c64-rrect-md          lifted   706 px  e: 0:+24.9 0.25:+30.7 0.5:+34.3 1:+33.8   r: 0:0.726 0.25:0.896 0.5:1.000 1:0.985   line e(0) +24.9 slope +8.9, worst residual +5.0 at x=0.5
-  *bp-p1-c32-capsule-button   free     221 px  e: 0:+0.0! 0.25:-31.3 0.5:-62.2 1:-117.4   r: 0:— 0.25:0.503 0.5:1.000 1:1.886
+  *bp-p1-c32-capsule-button   free     221 px  e: 0:+0.0! 0.25:-31.3 0.5:-62.2 1:-117.4   r: 0:-0.000 0.25:0.503 0.5:1.000 1:1.886   line e(0) +0.0 slope -117.4, worst residual -3.5 at x=0.5
    bp-p1-c32-capsule-button   lifted   221 px  e: 0:+82.1 0.25:+101.6 0.5:+115.6 1:+121.3   r: 0:0.710 0.25:0.879 0.5:1.000 1:1.049   line e(0) +82.1 slope +39.2, worst residual +14.0 at x=0.5
-  *bp-p1-c32-rrect-64         free    1536 px  e: 0:+0.0! 0.25:-28.7 0.5:-58.4 1:-111.0   r: 0:— 0.25:0.492 0.5:1.000 1:1.900
+  *bp-p1-c32-rrect-64         free    1536 px  e: 0:+0.0! 0.25:-28.7 0.5:-58.4 1:-111.0   r: 0:-0.000 0.25:0.492 0.5:1.000 1:1.900   line e(0) +0.0 slope -111.0, worst residual -2.9 at x=0.5
    bp-p1-c32-rrect-64         lifted  1536 px  e: 0:+80.4 0.25:+99.1 0.5:+111.5 1:+114.5   r: 0:0.721 0.25:0.889 0.5:1.000 1:1.027   line e(0) +80.4 slope +34.1, worst residual +14.0 at x=0.5
-  *bp-p1-c64-capsule-button   free     354 px  e: 0:+0.0! 0.25:-19.6 0.5:-38.0 1:-70.1   r: 0:— 0.25:0.515 0.5:1.000 1:1.843
+  *bp-p1-c64-capsule-button   free     354 px  e: 0:+0.0! 0.25:-19.6 0.5:-38.0 1:-70.1   r: 0:-0.000 0.25:0.515 0.5:1.000 1:1.843   line e(0) +0.0 slope -70.1, worst residual -3.0 at x=0.5
    bp-p1-c64-capsule-button   lifted   116 px  e: 0:+64.0 0.25:+79.1 0.5:+88.8 1:+90.9   r: 0:0.721 0.25:0.891 0.5:1.000 1:1.024   line e(0) +64.0 slope +26.9, worst residual +11.3 at x=0.5
   *c-s32-hi-rrect-md          free     832 px  e: 0:-1.8 0.25:-23.7 0.5:-45.7 0.75:-66.2 1:-86.7   r: 0:0.039 0.25:0.518 0.5:1.000 0.75:1.448 1:1.897   line e(0) -1.8 slope -85.0, worst residual -1.5 at x=0.5
    c-s32-hi-rrect-md          lifted   204 px  e: 0:+17.6 0.25:+21.5 0.5:+26.0 0.75:+28.3 1:+26.1   r: 0:0.677 0.25:0.826 0.5:1.000 0.75:1.089 1:1.004   line e(0) +17.6 slope +8.5, worst residual +4.3 at x=0.75
@@ -145,50 +145,12 @@ capture scale is 0.125 on every shape (0.5 below 1), so W itself moves between 0
    bp-p1-c32-rrect-64         lifted    42 px  e: 0:-63.0 0.25:-79.0 0.5:-90.4 1:-90.4   r: 0:0.697 0.25:0.874 0.5:1.000 1:1.000   line e(0) -63.0 slope -27.4, worst residual -13.7 at x=0.5
    bp-p1-c64-capsule-button   free     172 px  e: 0:+0.0 0.25:+13.7 0.5:+26.4 1:+46.9   r: 0:0.000 0.25:0.520 0.5:1.000 1:1.779   line e(0) +0.0 slope +46.9, worst residual +2.9 at x=0.5
 
-## 3. The mirror m = (e_free + e_lifted) / (|e_free| + |e_lifted|) per two-level cell, +-1 fully one-sided.
-   It reads 0 for a two-sided linear system only where the two regions are a complementary pair, so each
-   cell is first read under a LINEAR CONTROL: its own declared regions, e = W - C with W a plain Gaussian
-   blur of its background raster (encoded luma) at sigma 10, 20, 40 device px. A cell enters the aggregate only if
-   its control |m| <= 0.05 at every sigma, and a flagged reading (censored, or dark T above
-   208) leaves the mirror at its x (review closure, §5.200b §7).
-### light-rest
-  IN  b-p2-c64-rrect-md          control s10:+0.000 s20:+0.004 s40:+0.003   reading x=0:+0.904 x=0.25:+0.512 x=0.5:+0.331 x=0.75:+0.133 x=1:-0.018
-  IN  b-p3-c64-rrect-md          control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:+1.000 x=0.25:+0.602 x=0.5:+0.270 x=1:+0.003
-  IN  b-p4-c64-rrect-md          control s10:-0.000 s20:+0.003 s40:+0.003   reading x=0:+1.000 x=0.25:+0.596 x=0.5:+0.342 x=1:-0.038
-  IN  b-p5-c64-rrect-md          control s10:-0.000 s20:+0.003 s40:+0.003   reading x=0:+0.916 x=0.25:+0.510 x=0.5:+0.314 x=1:+0.027
-  IN  bp-p1-c32-capsule-button   control s10:+0.000 s20:+0.000 s40:-0.000   reading x=0:— x=0.25:+0.529 x=0.5:+0.300 x=1:+0.016
-  IN  bp-p1-c32-rrect-64         control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:— x=0.25:+0.551 x=0.5:+0.312 x=1:+0.016
-  out bp-p1-c64-capsule-button   control s10:+0.661 s20:+0.257 s40:+0.067   reading x=0:— x=0.25:+0.603 x=0.5:+0.400 x=1:+0.129
-  out c-s32-hi-rrect-md          control s10:+0.256 s20:-0.278 s40:-0.603   reading x=0:+0.817 x=0.25:-0.049 x=0.5:-0.275 x=0.75:-0.401 x=1:-0.537
-  out c-s32-lo-rrect-md          control s10:-0.256 s20:+0.278 s40:+0.603   reading x=0:+1.000 x=0.25:+0.810 x=0.5:+0.734 x=1:+0.531
-  IN  d-d0-hilo-rrect-md         control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:+0.884 x=0.25:+0.501 x=0.5:+0.328 x=1:-0.016
-  IN  d-d0-lohi-rrect-md         control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:+0.884 x=0.25:+0.501 x=0.5:+0.328 x=1:-0.016
-  IN  d-d32-hilo-rrect-md        control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:+0.884 x=0.25:+0.501 x=0.5:+0.328 x=1:-0.016
-  IN  d-d32-lohi-rrect-md        control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:+0.884 x=0.25:+0.501 x=0.5:+0.328 x=1:-0.016
-  median over the admitted cells: x=0: +0.894 (n 8)  x=0.25: +0.511 (n 10)  x=0.5: +0.328 (n 10)  x=0.75: +0.133 (n 1)  x=1: -0.016 (n 10)
-### light-inactive
-  IN  bp-p1-c32-capsule-button   control s10:-0.000 s20:+0.000 s40:+0.000   reading x=0:+1.000 x=0.25:+0.541 x=0.5:+0.326 x=1:-0.005
-  IN  bp-p1-c32-rrect-64         control s10:+0.000 s20:+0.000 s40:-0.000   reading x=0:+1.000 x=0.25:+0.543 x=0.5:+0.314 x=1:-0.004
-  median over the admitted cells: x=0: +1.000 (n 2)  x=0.25: +0.542 (n 2)  x=0.5: +0.320 (n 2)  x=0.75: — (n 0)  x=1: -0.004 (n 2)
-### dark-rest
-  IN  b-p2-c64-rrect-md          control s10:+0.000 s20:+0.004 s40:+0.003   reading x=0:-0.821 x=0.25:-0.460 x=0.5:-0.256 x=0.75:+0.191 x=1:+0.069
-  IN  b-p3-c16-rrect-md          control s10:-0.000 s20:+0.000 s40:+0.000   reading x=0:-0.748 x=0.25:-0.387 x=0.5:-0.241 x=1:+0.000
-  IN  b-p3-c64-rrect-md          control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:-0.687 x=0.25:-0.288 x=0.5:-0.213 x=1:+0.053
-  IN  b-p4-c64-rrect-md          control s10:-0.000 s20:+0.003 s40:+0.003   reading x=0:-0.751 x=0.25:-0.378 x=0.5:-0.225 x=1:+0.034
-  IN  bp-p1-c32-capsule-button   control s10:+0.000 s20:+0.000 s40:-0.000   reading x=0:-1.000 x=0.25:-0.513 x=0.5:-0.298 x=1:-0.003
-  IN  bp-p1-c32-rrect-64         control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:-1.000 x=0.25:-0.512 x=0.5:-0.299 x=1:+0.016
-  out bp-p1-c64-capsule-button   control s10:+0.661 s20:+0.257 s40:+0.067   reading x=0:-1.000 x=0.25:-0.437 x=0.5:-0.195 x=1:+0.127
-  out c-s32-hi-rrect-md          control s10:+0.256 s20:-0.278 s40:-0.603   reading x=0:-0.943 x=0.25:-0.790 x=0.5:-0.725 x=0.75:-0.442 x=1:-0.545
-  out c-s32-lo-rrect-md          control s10:-0.256 s20:+0.278 s40:+0.603   reading x=0:-0.500 x=0.25:+0.131 x=0.5:+0.400 x=1:+0.589
-  IN  d-d0-hilo-rrect-md         control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:-0.800 x=0.25:-0.442 x=0.5:-0.235 x=1:+0.053
-  IN  d-d0-lohi-rrect-md         control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:-0.800 x=0.25:-0.442 x=0.5:-0.235 x=1:+0.053
-  IN  d-d32-hilo-rrect-md        control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:-0.800 x=0.25:-0.442 x=0.5:-0.235 x=1:+0.053
-  IN  d-d32-lohi-rrect-md        control s10:+0.000 s20:+0.000 s40:+0.000   reading x=0:-0.800 x=0.25:-0.442 x=0.5:-0.235 x=1:+0.053
-  median over the admitted cells: x=0: -0.800 (n 10)  x=0.25: -0.442 (n 10)  x=0.5: -0.235 (n 10)  x=0.75: +0.191 (n 1)  x=1: +0.053 (n 10)
-### dark-inactive
-  IN  bp-p1-c32-capsule-button   control s10:-0.000 s20:+0.000 s40:+0.000   reading x=0:-1.000 x=0.25:-0.510 x=0.5:-0.303 x=1:+0.005
-  IN  bp-p1-c32-rrect-64         control s10:+0.000 s20:+0.000 s40:-0.000   reading x=0:-1.000 x=0.25:-0.515 x=0.5:-0.302 x=1:+0.001
-  median over the admitted cells: x=0: -1.000 (n 2)  x=0.25: -0.512 (n 2)  x=0.5: -0.302 (n 2)  x=0.75: — (n 0)  x=1: +0.003 (n 2)
+## 3. The mirror m = (e_free + e_lifted) / (|e_free| + |e_lifted|) per two-level cell: 0 for any two-sided
+   linear system, +-1 fully one-sided (memo C's S in region form); median over the cells per position
+  light-rest      x=0: +0.916 (n 13)  x=0.25: +0.512 (n 13)  x=0.5: +0.328 (n 13)  x=0.75: -0.134 (n 2)  x=1: -0.016 (n 13)
+  light-inactive  x=0: +1.000 (n 2)  x=0.25: +0.542 (n 2)  x=0.5: +0.320 (n 2)  x=0.75: — (n 0)  x=1: -0.004 (n 2)
+  dark-rest       x=0: -0.800 (n 13)  x=0.25: -0.442 (n 13)  x=0.5: -0.235 (n 13)  x=0.75: -0.126 (n 2)  x=1: +0.053 (n 13)
+  dark-inactive   x=0: -1.000 (n 2)  x=0.25: -0.512 (n 2)  x=0.5: -0.302 (n 2)  x=0.75: — (n 0)  x=1: +0.003 (n 2)
 
 ## 3b. The lifted side at x = 0: the hinge alone. Under LT e_lifted(x) = (x + lam(x)(1 - x))(W - C), so
    lam(0) = e(0) / e(1) if W is the same at 0 and 1 (it is not exactly: memo F's 0.125 capture scale at
@@ -199,9 +161,9 @@ capture scale is 0.125 on every shape (0.5 below 1), so W itself moves between 0
   dark-inactive   via x = 1: median 0.692 [0.687, 0.697] (n 2);  via x = 0.5: median 0.616 [0.613, 0.619] (n 2)
 
 ## 3c. The free side against x, per endpoint: median r(x) over the cells whose |e(0.5)| >= 12 codes
-   (predicted 2x: 0, 0.5, 1, 1.5, 2), and the worst |residual| from the line through x = 0 and 1. A flagged
-   reading ("!" above) leaves all of it: no r at its x, no line where x = 0 or 1 is flagged, no residual.
-  light-rest      x=0: 0.066 (n 10)  x=0.25: 0.556 (n 13)  x=0.5: 1.000 (n 13)  x=0.75: 1.492 (n 2)  x=1: 1.909 (n 13)   worst residual 2.2 codes
+   (predicted 2x: 0, 0.5, 1, 1.5, 2), censored readings ("!" above) left out, and the worst |residual|
+   from the line through x = 0 and 1
+  light-rest      x=0: 0.066 (n 10)  x=0.25: 0.556 (n 13)  x=0.5: 1.000 (n 13)  x=0.75: 1.492 (n 2)  x=1: 1.909 (n 13)   worst residual 3.5 codes
   light-inactive  x=0: -0.000 (n 2)  x=0.25: 0.516 (n 2)  x=0.5: 1.000 (n 2)  x=0.75: — (n 0)  x=1: 1.979 (n 2)   worst residual 1.5 codes
   dark-rest       x=0: 0.128 (n 13)  x=0.25: 0.536 (n 13)  x=0.5: 1.000 (n 13)  x=0.75: 2.092 (n 2)  x=1: 1.923 (n 13)   worst residual 12.3 codes
   dark-inactive   x=0: 0.000 (n 3)  x=0.25: 0.522 (n 3)  x=0.5: 1.000 (n 3)  x=0.75: — (n 0)  x=1: 1.868 (n 3)   worst residual 3.2 codes
