@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w43/g1b-run/probe-0.25-2x-active/scenes-run-3.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w43/g1b-run/probe-0.25-2x-active/run-3",
+    "--env",
+    "VITREA_SCALE=2",
+    "--stdout",
+    "/Users/new/vitrea-w43/g1b-run/probe-0.25-2x-active/run-3/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w43/g1b-run/probe-0.25-2x-active/run-3/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w43-probe-0.25-2x-active-3",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "a-g000-capsule-button__rest,a-g000-rrect-md__rest,a-g064-capsule-button__rest,a-g064-rrect-md__rest,a-g128-capsule-button__rest,a-g128-rrect-md__rest,a-g160-capsule-button__rest,a-g160-rrect-md__rest,a-g192-capsule-button__rest,a-g192-rrect-md__rest,a-g208-capsule-button__rest,a-g208-rrect-md__rest,a-g255-capsule-button__rest,a-g255-rrect-md__rest,b-p2-c16-rrect-md__rest,b-p2-c64-rrect-md__rest,b-p3-c16-rrect-md__rest,b-p3-c64-rrect-md__rest,b-p4-c16-rrect-md__rest,b-p4-c64-rrect-md__rest,b-p5-c64-rrect-md__rest,bp-p1-c32-capsule-button__rest,bp-p1-c32-rrect-64__rest,bp-p1-c64-capsule-button__rest,c-s32-hi-rrect-md__rest,c-s32-lo-rrect-md__rest,d-d0-hilo-rrect-md__rest,d-d0-lohi-rrect-md__rest,d-d32-hilo-rrect-md__rest,d-d32-lohi-rrect-md__rest"
+  ]
+}
