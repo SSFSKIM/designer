@@ -1,0 +1,22 @@
+# W43 G2 stage two (c): the w-test, checked, not read
+
+Declaration in force 4f90f91015f3c82c... (the chain's last line); its pins:
+  wtest/wtest.py             b789bd0203df285a... as declared
+  wtest/rehearse.py          4c8c6f3c2415c129... as declared
+  wtest/w42frames.py         749710bf088214e6... as declared
+  wtest/support.json         790fcab778331e76... as declared
+  wtest/prediction.json      6f44606612a3d854... as declared
+  bed/probe-bed.json         2ab7de9ba5737b80... as declared
+  bed/scenes-w43-probe.json  f54e133befb61d20... as declared
+w43-archive-g1b tree verified: 2147 entries, inventory 9c7fbd86576b77eb...
+w42-archive counterparts re-extracted: 116, every frame the one G0 read; 1 with more than one state (its plurality read)
+
+== light-rest: 29 probe cells at 0.25, three runs each, 0 with two states; 4 supported free-side regions, 13 lifted (never gated); prediction stated, r_pred 0.5
+  plumbing on 0.5 in both slots: 4 regions, r = 1.000000000000, 1.000000000000, 1.000000000000, 1.000000000000; verdict FAIL (by construction)
+== light-inactive: 29 probe cells at 0.25, three runs each, 0 with two states; 2 supported free-side regions, 3 lifted (never gated); prediction stated, r_pred 0.5
+  plumbing on 0.5 in both slots: 2 regions, r = 1.000000000000, 1.000000000000; verdict FAIL (by construction)
+== dark-rest: 29 probe cells at 0.25, three runs each, 0 with two states; 3 supported free-side regions, 13 lifted (never gated); prediction stated, r_pred 0.5
+  plumbing on 0.5 in both slots: 3 regions, r = 1.000000000000, 1.000000000000, 1.000000000000; verdict FAIL (by construction)
+== dark-inactive: 29 probe cells at 0.25, three runs each, 0 with two states; 2 supported free-side regions, 2 lifted (never gated); prediction stated, r_pred 0.5
+  plumbing on 0.5 in both slots: 2 regions, r = 1.000000000000, 1.000000000000; verdict FAIL (by construction)
+
