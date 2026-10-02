@@ -1,5 +1,27 @@
 #!/usr/bin/env python3.12
-"""W44 G0 (a): W43 G3 (i)'s cuts, copied and extended with T1 (W43's committed copy is untouched).
+"""W44 G1 step 1: G0's cuts (`results/2026-10-03-w44-g0-declaration/cuts/cuts.py`), copied and
+re-baselined; G0's and W43's committed copies are untouched (charter clause 6; X52).
+
+What G1 changes:
+  reference  ONE reference render for every regression row (X52): the published c05 generation,
+             `--reference` by active document hash (default `6d18c059eb42` light, `d0219cd684bf`
+             dark), loaded by `bed.load_published` and checked against `generations/index.json`.
+             M2's reference, L1's growth baseline and E2's reference are its rows and its captures
+             (`--reference-captures`, default the canonical tree, where `check-capture-tree` holds
+             c05's captures to its rows). W43's pre-fit render is no longer read. The output keeps
+             W43's field names (`prefitError`, `prefitMeanAbsCodes`, C1's `prefit` column) so the
+             owner test's 0.25 blocks read a G1 cut with the schema they read W43's; in a G1 cut
+             those fields carry the c05 reference.
+  T1         the text stratum (`t1.py`, Decision Log 7 item 3): every T1 cell of the two light 0.25
+             profiles that the cut reads carries its two bands, T1-fine and T1-low, read on the
+             bed's capture (k) and on c05's capture (c) beside the same native fixture (n), with
+             T1's outputs 1 and 2 on each; a T cell's landing reads them. The band readings are taken
+             in the partitions the bed admits for its landing (`--band-partitions`, default the gate
+             partition; the exposure adds the referees and the holdout).
+
+G0's text follows, unchanged; where it says pre-fit it is W43's, and G1 reads c05 instead.
+
+W44 G0 (a): W43 G3 (i)'s cuts, copied and extended with T1 (W43's committed copy is untouched).
 
 What W44 G0 adds (charter 2026-10-03-w44-texture-at-0-25.md):
   T1        the texture row (Design "T1", Decision Log 2; `t1.py`): the driver's interiorStdDev web
@@ -85,9 +107,15 @@ cross-position stamp) or a ``candidate`` bed (one declared candidate document). 
 names which, and a candidate output opens ``# CANDIDATE``. The reference for L1, M2 and E2 is
 always a ``prefit`` bed.
 
-    python3.12 -B cuts.py --bed M.json [--bed M2.json] --kind prefit|candidate
+    python3.12 -B cuts.py --bed M.json [--bed M2.json] --kind prefit|candidate|sealed
         [--candidate-document PATH[=SHA12]] --captures ROOT
         --prefit P.json [--prefit P2.json] --prefit-captures ROOT --out OUT.json [--text OUT.txt]
+
+W44 G1 (the form G1 runs; `--prefit` is gone):
+
+    python3.12 -B cuts.py (--bed M.json --kind candidate|sealed [--candidate-document PATH] |
+        --published SHA12 ...) --captures ROOT [--reference SHA12 ...] [--reference-captures ROOT]
+        [--band-partitions gate[,referee,holdout]] [--with-holdout] --out OUT.json [--text OUT.txt]
 """
 from __future__ import annotations
 
@@ -119,6 +147,7 @@ TEST = B.CAL / "test" / "adopted-thresholds.test.ts"
 E2_DIR = B.RESULTS / "2026-09-25-w38-g0-rim-axis-cut"
 R2_POPULATION = B.RESULTS / "2026-10-02-w43-g2-reading" / "s1" / "r2-population.json"
 FIXTURES = B.ROOT / "apps" / "reference-apple" / "fixtures"
+CANONICAL_CAPTURES = Path("/Users/new/Developer/GitHub/designer/packages/calibration/web-captures")
 
 # ---------------------------------------------------------------------------------------------
 # The declared bounds (Decision Log 5 as ruled; each the 0.5 row's own constant)
@@ -700,8 +729,15 @@ def main(argv=None) -> int:
                          f"(default {', '.join(T1_REFERENCE)}: the c05 generation, X52)")
     ap.add_argument("--candidate-document")
     ap.add_argument("--captures", type=Path, required=True)
-    ap.add_argument("--prefit", action="append", required=True)
-    ap.add_argument("--prefit-captures", type=Path, required=True)
+    ap.add_argument("--reference", action="append",
+                    help="W44 G1: the regression rows' reference, published generations by active hash "
+                         f"(default {', '.join(T1_REFERENCE)}: the c05 generation, X52)")
+    ap.add_argument("--reference-captures", type=Path, default=CANONICAL_CAPTURES,
+                    help="the reference generation's captures (default the canonical tree)")
+    ap.add_argument("--band-partitions", default="gate",
+                    help="the partitions whose T1 cells carry band readings (default gate)")
+    ap.add_argument("--with-holdout", action="store_true",
+                    help="a sealed bed read with its holdout and referees: the exposure, once")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--text", type=Path)
     ap.add_argument("--skip-captures", action="store_true",
@@ -716,8 +752,12 @@ def main(argv=None) -> int:
                     [m for b in beds for m in b.matrices])
         bed.rows.sort(key=B.matrix_store.key)
     else:
-        bed = B.load(args.bed, args.kind, args.candidate_document)
-    prefit = B.load(args.prefit, "prefit")
+        bed = B.load(args.bed, args.kind, args.candidate_document, with_holdout=args.with_holdout)
+    reference_hashes = args.reference or list(T1_REFERENCE)
+    refs = [B.load_published(g) for g in reference_hashes]
+    prefit = B.Bed("published:" + "+".join(reference_hashes), [r for b in refs for r in b.rows],
+                   [m for b in refs for m in b.matrices])
+    prefit.rows.sort(key=B.matrix_store.key)
     tables = owner_tables()
     current = B.current_05_rows()
     current_rows = list(current.values())
@@ -729,7 +769,8 @@ def main(argv=None) -> int:
         bed=bed.described(), reference=dict(label=prefit.label, **prefit.described()),
         ownerTest=dict(path=str(TEST.relative_to(B.ROOT)), sha256=tables["sha256"]),
         scenesSha256=hashlib.sha256(B.SCENES.raw).hexdigest(),
-        withHoldout=False, gatedTier=GATED_TIER,
+        withHoldout=bool(args.with_holdout), gatedTier=GATED_TIER,
+        referenceCaptures=str(args.reference_captures),
     )
     result["tables"] = cut_tables(bed, tables)
     m = {r: cut_m1_m2(bed, prefit, r) for r in B.TIERS}
@@ -744,10 +785,11 @@ def main(argv=None) -> int:
         result["X1"] = result["E2"] = "UNMEASURED: --skip-captures"
     else:
         result["X1"] = {r: cut_x1(bed, args.captures, r) for r in B.TIERS}
-        result["E2"] = {r: cut_e2(bed, args.captures, prefit, args.prefit_captures, r) for r in B.TIERS}
+        result["E2"] = {r: cut_e2(bed, args.captures, prefit, args.reference_captures, r) for r in B.TIERS}
     result["S1"] = cut_s1(bed, current)
     result["T1"] = cut_t1(bed, args.t1_reference or T1_REFERENCE,
-                          None if args.skip_captures else args.captures)
+                          None if args.skip_captures else args.captures, args.reference_captures,
+                          tuple(args.band_partitions.split(",")), args.with_holdout)
     result["summary"] = summary(result)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("x") as f:
@@ -761,39 +803,63 @@ def main(argv=None) -> int:
     return 0
 
 
-def cut_t1(bed: B.Bed, reference: list, captures: Path | None) -> dict:
+def cut_t1(bed: B.Bed, reference: list, captures: Path | None, reference_captures: Path | None = None,
+           band_partitions=("gate",), with_holdout=False) -> dict:
     """T1 on this bed against the c05 reference (W44 G0 (a)): the cells it carries in the partitions
-    its kind admits (a published bed every partition; any other bed the gate partition: the
-    holdout and the referees are read by the exposure), the landing rule's T1 clauses, the
-    selection metric, and with captures the readings beside it."""
+    its kind admits (a published bed every partition; a sealed bed read with its holdout every
+    partition, which is the exposure; any other bed the gate partition: the holdout and the referees
+    are read by the exposure), the landing rule's T1 clauses, the selection metric, and with
+    captures the readings beside it.
+
+    W44 G1: with captures, every T1 cell of the two light profiles in `band_partitions` (and in the
+    partitions read) carries its bands: T1-fine and T1-low read on the bed's capture and on the
+    c05 capture under `reference_captures` beside one native fixture (`t1.band_outputs`)."""
     refs = [B.load_published(g) for g in reference]
-    partitions = ("gate", "referee", "holdout") if bed.kind.startswith("published:") else ("gate",)
-    out = T1.cut(bed.rows, [r for b in refs for r in b.rows], T1_PROFILES, T1.load_bars(), REFEREES,
-                 partitions=partitions)
-    out["reference"] = [m for b in refs for m in b.matrices]
-    out["bar"] = dict(path=str(T1.BAR_PATH.relative_to(B.ROOT)),
-                      sha256=hashlib.sha256(T1.BAR_PATH.read_bytes()).hexdigest())
-    out["partitionsRead"] = partitions
-    out["landing"] = T1.landing(out["cells"], out["missing"])
-    out["selectionMetric"] = T1.selection_metric(out["cells"])
-    out["selectionTie"] = T1.selection_tie(out["cells"])
+    ref_rows = [r for b in refs for r in b.rows]
+    partitions = (("gate", "referee", "holdout") if bed.kind.startswith("published:") or with_holdout
+                  else ("gate",))
+    bands, reference_bands, cells = {}, {}, []
     if captures is not None:
         import readings as R
-        cells = []
+        ref_by_key = {(r["key"]["profileKey"], r["key"]["web"]["renderer"], r["key"]["sceneId"]): r
+                      for r in ref_rows}
         for r in bed.rows:
             profile, sid, tier = r["key"]["profileKey"], r["key"]["sceneId"], r["key"]["web"]["renderer"]
             if profile not in T1.GATED_PROFILES or B.SCENES.by_id[sid]["background"] not in T1.T1_BACKDROPS:
                 continue
-            if T1.partition(profile, sid, REFEREES) not in partitions:
+            part = T1.partition(profile, sid, REFEREES)
+            if part not in partitions or part not in band_partitions:
                 continue
             web, digest = capture(captures, r, tier)
-            # The partition test above is the admission: a holdout or referee fixture is read
+            # The partition tests above are the admission: a holdout or referee fixture is read
             # only when the bed's kind admits that partition (a published bed, or the exposure).
-            got = R.read(profile, sid, rgb((FIXTURES / profile / f"{sid}.png").read_bytes()), web)
+            fixture = rgb((FIXTURES / profile / f"{sid}.png").read_bytes())
+            geometry = R.cell_geometry(profile, sid, fixture)
+            got = R.read(profile, sid, fixture, web, geometry)
             cells.append(dict(cell=f"{profile} {tier} {sid}", webSha256=digest, **got))
-        out["readings"] = cells
-    else:
-        out["readings"] = "UNMEASURED: no captures"
+            key = (profile, tier, sid)
+            bands[key] = {k: dict(native=got["native"][k], web=got["web"][k]) for k in T1.BANDS}
+            rrow = ref_by_key.get(key)
+            if rrow is not None and reference_captures is not None:
+                ref_web, ref_digest = capture(reference_captures, rrow, tier)
+                ref = R.read(profile, sid, fixture, ref_web, geometry)
+                reference_bands[key] = {k: dict(native=ref["native"][k], web=ref["web"][k]) for k in T1.BANDS}
+                cells[-1]["referenceWebSha256"] = ref_digest
+                cells[-1]["referenceBands"] = {k: ref["web"][k] for k in T1.BANDS}
+    out = T1.cut(bed.rows, ref_rows, T1_PROFILES, T1.load_bars(), REFEREES, partitions=partitions,
+                 bands=bands, reference_bands=reference_bands)
+    out["reference"] = [m for b in refs for m in b.matrices]
+    out["referenceCaptures"] = None if reference_captures is None else str(reference_captures)
+    out["bar"] = dict(path=str(T1.BAR_PATH.relative_to(B.ROOT)),
+                      sha256=hashlib.sha256(T1.BAR_PATH.read_bytes()).hexdigest())
+    out["partitionsRead"] = partitions
+    out["bandPartitions"] = [p for p in band_partitions if p in partitions]
+    out["landing"] = T1.landing(out["cells"], out["missing"])
+    out["selectionMetric"] = T1.selection_metric(out["cells"])
+    out["selectionTie"] = T1.selection_tie(out["cells"])
+    out["moves"] = {m: dict(objective=T1.move_objective(out["cells"], m),
+                            within=T1.within_clause(out["cells"], m, out["missing"])) for m in T1.MOVES}
+    out["readings"] = cells if captures is not None else "UNMEASURED: no captures"
     gated = [c for c in out["cells"] if c["tier"] == T1.GATED_TIER and c["profile"] in T1.GATED_PROFILES]
     outside = [m for m in out["missing"] if m["tier"] == T1.GATED_TIER and m["profile"] in T1.GATED_PROFILES
                and not T1.in_landing_scope(m)]
@@ -855,7 +921,9 @@ def report(result) -> str:
                      "crossPosition=shipped-glass0.5-against-glass0.25 (scratch; the unmoved endpoint)")
     lines.append(f"# owner test {result['ownerTest']['path']} sha256:{result['ownerTest']['sha256'][:12]}; "
                  + ("the W43 rows read no holdout; T1 reads the partitions named below"
-                    if result["bed"]["kind"].startswith("published:") else "holdout not read"))
+                    if result["bed"]["kind"].startswith("published:") else
+                    "THE EXPOSURE: holdout and referees read" if result["withHoldout"] else "holdout not read"))
+    lines.append(f"# reference (M2, L1, E2, T1's change; X52): {result['reference']['label']}")
     lines.append("")
     lines.append("verdicts")
     for k, v in result["summary"].items():
@@ -892,7 +960,7 @@ def report(result) -> str:
             stat = "—" if e["statistic"] is None else f"{e['statistic']:.5f}"
             pre = e.get("prefit", {}).get("statistic")
             s05 = e.get("shipped05", {}).get("statistic")
-            lines.append(f"  {k:<22} n={e['cells']:<3} {stat:<9} {e['verdict']:<10} prefit "
+            lines.append(f"  {k:<22} n={e['cells']:<3} {stat:<9} {e['verdict']:<10} c05 "
                          f"{'—' if pre is None else f'{pre:.5f}'}  shipped0.5 {'—' if s05 is None else f'{s05:.5f}'}")
             lines += no_row_lines(e["noRow"], "    ")
     for r in ("webgpu", "css"):
@@ -902,7 +970,7 @@ def report(result) -> str:
                      f"{fmt(l1['maxError'])}, max growth {fmt(l1['maxGrowth'], '+.4f')}; "
                      f"{len(l1['absoluteMisses'])} absolute, {len(l1['growthMisses'])} growth misses")
         for c in l1["absoluteMisses"]:
-            lines.append(f"  absolute {c['cell']:<84} {c['error']:.4f} (prefit {c['prefitError']:.4f})")
+            lines.append(f"  absolute {c['cell']:<84} {c['error']:.4f} (c05 {c['prefitError']:.4f})")
         for c in l1["growthMisses"]:
             lines.append(f"  growth   {c['cell']:<84} {c['growth']:+.4f} (error {c['error']:.4f})")
         for c in l1["unmeasured"]:
@@ -958,6 +1026,15 @@ def report(result) -> str:
         if c["tier"] == T1.GATED_TIER and c["profile"] in T1.GATED_PROFILES and c["change"] in ("away", "overshoot"):
             lines.append(f"  {c['change']:<9} {c['scale']}x {c['scene']:<46} n {c['native']:.4f} c05 "
                          f"{c['reference']:.4f} k {c['candidate']:.4f} g {c['growth']:+.4f} B {c['B']:.4f}")
+    for tc in g["textCells"]:
+        lines.append(f"  T {tc['scale']}x {tc['scene']:<40} T1 {tc['t1']['fidelity']}/{tc['t1']['change']}  "
+                     f"fine n {tc['fine']['native']:.4f} c05 {tc['fine']['reference']:.4f} k {tc['fine']['candidate']:.4f} "
+                     f"{tc['fine']['fidelity']}/{tc['fine']['change']}  low n {tc['low']['native']:.4f} c05 "
+                     f"{tc['low']['reference']:.4f} k {tc['low']['candidate']:.4f} {tc['low']['fidelity']}/"
+                     f"{tc['low']['change']} g {tc['low']['growth']:+.4f} B {tc['low']['B']:.4f}")
+    for m, v in t["moves"].items():
+        lines.append(f"  {m}: objective {fmt(v['objective'])}; within clause {v['within']['verdict']} "
+                     f"({v['within']['members']} members, {len(v['within']['notWithin'])} not within)")
     lines += no_row_lines([x for x in t["noRow"]], "  ", " (T1)")
     if isinstance(t["readings"], list):
         lines.append(f"  readings beside T1 (never gated): {len(t['readings'])} cells; see the JSON")
