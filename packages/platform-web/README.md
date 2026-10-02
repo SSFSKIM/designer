@@ -203,7 +203,7 @@ content exactly as the app wrote it.
 | findings | `root.diagnostics`, `consoleDiagnosticSink()`, `VitreaDiagnostic` |
 | capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu`, `root.colorScheme`, `root.windowActivation` |
 | how far apart two groups must sit | `samplingPaddingFor({ members, material, profile?, cssTierMapping? })` — omit `profile` for the default document, pass it as `undefined` for an endpoint that has none |
-| which measured material draws | `materialProfileDocument`, `macos27MaterialProfileDocument`, `macos26MaterialProfileDocument`, `root.material` |
+| which measured material draws | `materialProfileDocument`, `macos27MaterialProfileDocument`, `macos27Glass025MaterialProfileDocument`, `macos26MaterialProfileDocument`, `root.material` (`.glassTintAmount` names the slider position) |
 | colour scheme | `colorScheme: "light" \| "dark" \| "auto"`, `root.setColorScheme` |
 | window activation | `windowActivation: "auto" \| "active" \| "inactive"`, `root.setWindowActivation`, `setWindowActivation(root, value)`, `recededMaterialProfile` |
 | WebGPU | `renderer: "webgpu"`, `root.ready()`, `root.replaceDevice(device)` |
@@ -246,7 +246,17 @@ Every optical number in this package is measured against Apple's own material on
 a Mac, and macOS 27 changed that material under every app — the body's level over
 a dark backdrop, the rim's amplitude and width, the outer shadow, how much of a
 backdrop's structure survives, and what a surface becomes when its window loses
-focus. **From 0.19.0 a page draws the macOS 27 material by default.**
+focus. **From 0.19.0 a page draws the macOS 27 material by default**, measured at
+the Glass appearance slider's system default, 0.5, which is what a Mac nobody has
+adjusted draws.
+
+macOS 27 also gives its user a Glass appearance slider (`NSGlassTintAmount`), and
+the material moves with it. Two positions are measured and shipped:
+`macos27MaterialProfileDocument`, the default, at 0.5, and
+`macos27Glass025MaterialProfileDocument` at 0.25, where Apple's glass is clearer.
+They are two fixed settings, not a range. There is no continuous slider and no
+document for any other position, because a position between or beyond them would
+draw numbers nobody measured.
 
 That default is a *selection*, not a rewritten constant. The renderer's own
 `DEFAULT_MATERIAL_PROFILE` still holds the macOS 26.5 light material, and every
@@ -254,14 +264,23 @@ shipped material is a patch over it, so both macOS 26.5 documents keep the
 fingerprints they were recorded with while what a page draws moves.
 
 ```ts
-import { createGlassRoot, macos26MaterialProfileDocument } from "@vitreajs/vitrea-web";
+import {
+  createGlassRoot,
+  macos26MaterialProfileDocument,
+  macos27Glass025MaterialProfileDocument,
+} from "@vitreajs/vitrea-web";
 
-createGlassRoot({ container });                                      // macOS 27
+createGlassRoot({ container });                                       // macOS 27, slider 0.5
+createGlassRoot({ container, materialProfileDocument: macos27Glass025MaterialProfileDocument });
 createGlassRoot({ container, materialProfileDocument: macos26MaterialProfileDocument });
 ```
 
 `@vitreajs/vitrea-react` takes the same value as a prop:
-`<GlassRoot materialProfileDocument={macos26MaterialProfileDocument}>`.
+`<GlassRoot materialProfileDocument={macos27Glass025MaterialProfileDocument}>`.
+
+A root reads its document once, at construction, so switching material on a
+live page means destroying the root and creating another (in React, remounting
+`<GlassRoot>`). That is how a page has always moved between macOS 26.5 and 27.
 
 **A document is one value, and it carries four patches and a mapping.** That is
 what makes the option worth having: a material lands on two tiers and in two
@@ -273,31 +292,39 @@ window poses, and the parts have to travel together.
 | the receded difference, per colour scheme | an unfocused window's material is its own measurement — its rim collapses, its tint keeps its shade and loses its chroma, and its body carries its own backdrop tone response. On **neither** generation does a receded surface cast an exterior shadow: from 0.22.0 the macOS 27 endpoints' six occlusion anchors, `liftAmplitude` and `reducedTransparencyOcclusion` are 0, as the macOS 26.5 endpoints' always were (claims §5.168 §4) |
 | `cssTierMapping` | what that same material costs as one `backdrop-filter` plus an `rgba()` overlay — macOS 27 sets `blurSigmaScale` to 2.2 against the module default of 1, which is the CSS tier's whole share of the 27 diffusion refit |
 
-The two shipped documents and the calibration documents they are generated from:
+The three shipped documents and the calibration documents they are generated from:
 
 | document | profile documents |
 | --- | --- |
 | `macos27MaterialProfileDocument` (the default) | `packages/calibration/profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.5{,-receded}.json` |
+| `macos27Glass025MaterialProfileDocument` | `…/apple-macos-27.0-1x-{light,dark}-standard-glass0.25{,-receded}.json` |
 | `macos26MaterialProfileDocument` | `…/apple-macos-26.5-1x-light-standard.json` (the identity with the renderer's own constants), `…/apple-macos-26.5-1x-dark-standard.json`, and the receded endpoints fitted into `src/receded-profile.ts` |
 
 The individual patches are exported by name as well —
 `macos27LightMaterialProfile`, `macos27DarkMaterialProfile`,
-`macos27RecededMaterialProfile`, `macos27CssTierMapping`, `darkMaterialProfile`,
-`recededMaterialProfile` — for an app composing a material of its own over one
-of them. `materialProfile` and `cssTierMapping` still take a patch each and merge
-over whatever the document selected, which is the shape to reach for when tuning
-one leaf rather than choosing a reference.
+`macos27RecededMaterialProfile`, `macos27CssTierMapping`, their
+`macos27Glass025…` counterparts, `darkMaterialProfile`, `recededMaterialProfile`
+— for an app composing a material of its own over one of them. `materialProfile`
+and `cssTierMapping` still take a patch each and merge over whatever the document
+selected, which is the shape to reach for when tuning one leaf rather than
+choosing a reference.
 
 **What drew is a readout, not an assumption.** `root.material` and every group's
-resolved state name the endpoint that actually drew — its profile key, its
-`resolvedMaterialSha256`, and whether an app merged a patch of its own over it:
+resolved state (`GlassGroupState.materialDocument`) name the endpoint that
+actually drew — its profile key, its `resolvedMaterialSha256`, the slider position
+its document was measured at, and whether an app merged a patch of its own over
+it:
 
 ```ts
 root.material;
-// { name: "apple-macos-27.0-glass0.5", platform: "macOS 27.0",
+// { name: "apple-macos-27.0-glass0.5", platform: "macOS 27.0", glassTintAmount: 0.5,
 //   profileKey: "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
 //   resolvedMaterialSha256: "7c454858a3cbad5b", tuned: false }
 ```
+
+`glassTintAmount` is 0.5 or 0.25 under the two macOS 27 documents, and absent,
+not 0.5, under `macos26MaterialProfileDocument`: macOS 26.5 had no slider, so its
+material says nothing about a position.
 
 **The four digests moved again at 0.22.0, and this time the shadow's EXTERIOR
 did** (claims §5.168). `spreadPx` — the distance the shadow's silhouette is grown
@@ -372,7 +399,10 @@ published tarball — a published package that loaded a calibration file would b
 shipping a data dependency for numbers that never move between releases — and
 `packages/platform-web/src/macos27-profile.ts` is generated from them by
 `scripts/generate-macos27-profile.mjs`, pinned leaf for leaf by
-`packages/calibration/test/macos27-profile-export.test.ts`.
+`packages/calibration/test/macos27-profile-export.test.ts`. A `-glass0.25` key is
+the same slider at 0.25; `src/macos27-glass025-profile.ts` is generated from
+those four documents by `scripts/generate-macos27-glass025-profile.mjs` and
+pinned by the same test.
 
 **Upgrading to 0.19.0 changes what your page looks like.** That is the point of
 the release, and it is the one thing to know before taking it: surfaces over dark
@@ -517,6 +547,7 @@ The receded differences the pose below selects come out of the root's material d
 colour scheme, and they are exported by name as well so an app can reach an endpoint directly — a
 preview that is never a window, a harness that captures the receded appearance.
 `macos27RecededMaterialProfile.light` and `.dark` are what a default root applies;
+`macos27Glass025RecededMaterialProfile` holds the 0.25 document's pair;
 `recededMaterialProfile.light` and `.dark` are the macOS 26.5 endpoints, which
 `macos26MaterialProfileDocument` selects. Reaching for one by hand means merging it over that
 scheme's material yourself; through the runtime it is just
