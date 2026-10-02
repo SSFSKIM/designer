@@ -185,47 +185,71 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
 });
 
 /**
- * **The `-glass0.25` candidate documents against the 0.5 documents they are refit from** (W43
- * G3 (i), charter clause 10 step 3; X44; Decision Log 7 as RULED 2026-10-02).
+ * **The four sealed `-glass0.25` documents** (W43 G3 (ii), charter clause 10; X44; Decision Logs 5
+ * and 7 as RULED 2026-10-02).
  *
- * The 0.25 module is generated at the landing (Decision Log 1), and its pin is this file's cases
- * above, repeated for it then. Until the documents are sealed, what the pin can hold is what the
- * generator will rely on: the candidate the refit names in
- * `results/2026-10-02-w43-g3-refit/fit/final.json` names EXACTLY the leaves of its 0.5 twin, in
- * both directions (X44, one leaf space: no operator added, none dropped); every endpoint's
- * recorded digest is reproduced by the driver's own reader over the unmoved default (active) and
- * over its scheme's 0.25 active (receded); and its CSS crossing is the shipped one's keys.
+ * The 0.25 generation's runtime module does not exist yet: it is generated from these documents at
+ * the landing (Decision Log 1), and its pin is this file's cases above repeated for it then. What
+ * the sealed documents can be held to now is what they claim: each names EXACTLY the leaves of its
+ * 0.5 twin, in both directions (X44, one leaf space: no operator added, none dropped); each patch
+ * is the frozen candidate c05's, leaf for leaf, and names that candidate's declaration by the
+ * SHA-256 of its bytes; each recorded digest reproduces over the unmoved default (active) or over
+ * its scheme's sealed 0.25 active document (receded); and the CSS crossing is the shipped 0.5 one,
+ * unchanged.
  */
-describe("the -glass0.25 candidate documents name the 0.5 documents' leaves (W43 G3 (i))", () => {
-  const REFIT = resolve(import.meta.dirname, "..", "results", "2026-10-02-w43-g3-refit", "fit");
-  const { label } = JSON.parse(readFileSync(resolve(REFIT, "final.json"), "utf8")) as { label: string };
-  const directory = resolve(REFIT, "candidates", label);
-  const read = (slot: string): ProfileDocument =>
-    JSON.parse(readFileSync(resolve(directory, `${slot}.json`), "utf8")) as ProfileDocument;
+describe("the four sealed -glass0.25 documents (W43 G3 (ii))", () => {
+  const sealed = (key: string): ProfileDocument & {
+    readonly derivedFromCandidate: {
+      readonly declaration: string; readonly declarationSha256: string;
+      readonly endpoint: string; readonly endpointSha256: string;
+    };
+    readonly twin: { readonly path: string; readonly sha256: string };
+    readonly glassTintAmount: number;
+  } => JSON.parse(readFileSync(resolve(import.meta.dirname, "..", "profiles", `${key}.json`), "utf8"));
   const pairs = [
-    ["active.light", LIGHT],
-    ["active.dark", DARK],
-    ["receded.light", RECEDED_LIGHT],
-    ["receded.dark", RECEDED_DARK],
+    ["apple-macos-27.0-1x-light-standard-glass0.25", LIGHT],
+    ["apple-macos-27.0-1x-dark-standard-glass0.25", DARK],
+    ["apple-macos-27.0-1x-light-standard-glass0.25-receded", RECEDED_LIGHT],
+    ["apple-macos-27.0-1x-dark-standard-glass0.25-receded", RECEDED_DARK],
   ] as const;
+  const REPO = resolve(import.meta.dirname, "..", "..", "..");
+  const sha = (path: string): string => createHash("sha256").update(readFileSync(resolve(REPO, path))).digest("hex");
 
-  for (const [slot, twin] of pairs) {
-    it(`${slot} names exactly its 0.5 twin's leaves, at the 0.25 key`, () => {
-      const candidate = read(slot);
-      expect(candidate.profileKey).toBe(twin.profileKey.replace("-glass0.5", "-glass0.25"));
-      expect(leaves(candidate.patch as object).sort()).toEqual(leaves(twin.patch as object).sort());
+  for (const [key, twin] of pairs) {
+    it(`${key} names exactly its 0.5 twin's leaves, and records the twin's bytes`, () => {
+      const document = sealed(key);
+      expect(document.profileKey).toBe(key);
+      expect(document.glassTintAmount).toBe(0.25);
+      expect(twin.profileKey).toBe(key.replace("-glass0.25", "-glass0.5"));
+      expect(leaves(document.patch as object).sort()).toEqual(leaves(twin.patch as object).sort());
+      expect(document.twin.path).toBe(`packages/calibration/profiles/${twin.profileKey}.json`);
+      expect(document.twin.sha256).toBe(sha(document.twin.path));
+    });
+
+    it(`${key} is the frozen candidate c05's patch, leaf for leaf`, () => {
+      const document = sealed(key);
+      const from = document.derivedFromCandidate;
+      expect(from.declaration).toBe(
+        "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json");
+      expect(from.declarationSha256).toBe(sha(from.declaration));
+      expect(from.endpointSha256).toBe(sha(from.endpoint));
+      const endpoint = JSON.parse(readFileSync(resolve(REPO, from.endpoint), "utf8")) as ProfileDocument;
+      expect(document.patch).toStrictEqual(endpoint.patch);
+      expect(document.resolvedMaterialSha256).toBe(endpoint.resolvedMaterialSha256);
     });
   }
 
-  it("reproduces every recorded digest through the driver's reader, and keeps one crossing", () => {
-    const candidate = readCandidateDocument(resolve(directory, "candidate.json"));
+  it("reproduces every recorded digest through the driver's reader, and keeps the 0.5 crossing", () => {
+    const declaration = resolve(REPO,
+      "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json");
+    const candidate = readCandidateDocument(declaration);
     expect(candidate.document.glassTintAmount).toBe(0.25);
-    for (const [slot] of pairs) {
-      const [pose, scheme] = slot.split(".") as ["active" | "receded", "light" | "dark"];
-      expect(candidate.document[pose][scheme].resolvedMaterialSha256, slot)
-        .toBe(read(slot).resolvedMaterialSha256);
+    const slots = [["active", "light"], ["active", "dark"], ["receded", "light"], ["receded", "dark"]] as const;
+    for (const [[pose, scheme], [key]] of slots.map((slot, i) => [slot, pairs[i]!] as const)) {
+      expect(candidate.document[pose][scheme].resolvedMaterialSha256, key)
+        .toBe(sealed(key).resolvedMaterialSha256);
     }
-    expect(Object.keys(candidate.document.cssTierMapping).sort())
-      .toEqual(Object.keys(macos27CssTierMapping).sort());
+    expect(sealed("apple-macos-27.0-1x-light-standard-glass0.25").cssTierMapping).toEqual(macos27CssTierMapping);
+    expect(sealed("apple-macos-27.0-1x-dark-standard-glass0.25").cssTierMapping).toEqual(DARK.cssTierMapping);
   });
 });

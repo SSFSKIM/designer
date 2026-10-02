@@ -12,6 +12,13 @@ from 0.19.0, with a receded document per scheme carrying the unfocused-window
 difference over its own scheme's active document. `apple-macos-26.5.seed.json` is
 not a patch document and carries no digest.
 
+**Four more are sealed and do not ship yet** (W43 G3 (ii), claims §5.201): the
+`apple-macos-27.0-*-glass0.25{,-receded}` documents, Apple's clearer glass at the appearance
+slider's 0.25 position. Each is a patch over the same unmoved default (the receded ones over their
+own scheme's 0.25 active document), names exactly the leaves of its 0.5 twin, records the twin and
+the scratch candidate it is the freeze of, and records in `entries` what moved from 0.5 and what
+held. A page draws them only once the runtime exports them (W43 Decision Log 1, the landing).
+
 **The outer shadow's three lengths, since W32 G1** (claims §5.168). `spreadPx` —
 the outset the silhouette is grown by before it is blurred — is **0.50** CSS px
 on the light document and **1.80** on the dark one; it was 3.10 in every document

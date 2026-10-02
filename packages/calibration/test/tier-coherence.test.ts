@@ -3401,25 +3401,25 @@ it("W36's black branch derives the same target on both tiers, including its rejo
 });
 
 /**
- * **The `-glass0.25` candidate documents, on both tiers** (W43 G3 (i), charter clause 10 step 3;
- * Decision Log 7 as RULED 2026-10-02).
+ * **The four sealed `-glass0.25` documents, on both tiers** (W43 G3 (ii), charter clause 10; Decision
+ * Log 7 as RULED 2026-10-02).
  *
  * The 0.25 generation is fitted on the WebGPU tier and the CSS tier is DERIVED from the same four
  * documents, as every macOS 27 material has been (wave Decision Log 23). These cases hold the
- * derivation over the candidate the refit names in `results/2026-10-02-w43-g3-refit/fit/final.json`,
- * endpoint by endpoint: the receded documents are differences over their scheme's NEW active
- * document (item 8), so the mirror is read at the merged patch, and the first case shows that
- * merge resolves to the material the renderer resolves. Scratch documents, not shipped ones: the
- * landing re-points these cases at `profiles/` when the documents are sealed.
+ * derivation over the sealed documents in `profiles/`, endpoint by endpoint: the receded documents
+ * are differences over their scheme's own 0.25 active document (item 8), so the mirror is read at
+ * the merged patch, and the first case shows that merge resolves to the material the renderer
+ * resolves.
  */
-describe("the -glass0.25 candidate documents derive one material on both tiers (W43 G3 (i))", () => {
-  const REFIT = resolve(import.meta.dirname, "..", "results", "2026-10-02-w43-g3-refit", "fit");
-  const { label } = JSON.parse(readFileSync(resolve(REFIT, "final.json"), "utf8")) as { label: string };
+describe("the -glass0.25 documents derive one material on both tiers (W43 G3 (ii))", () => {
+  const PROFILE_DIR = resolve(import.meta.dirname, "..", "profiles");
   type Patch = Record<string, unknown>;
-  const read = (slot: string): { readonly profileKey: string; readonly patch: Patch } =>
-    JSON.parse(readFileSync(resolve(REFIT, "candidates", label, `${slot}.json`), "utf8")) as {
-      profileKey: string; patch: Patch;
-    };
+  const read = (slot: string): { readonly profileKey: string; readonly patch: Patch } => {
+    const [pose, scheme] = slot.split(".");
+    return JSON.parse(readFileSync(resolve(PROFILE_DIR,
+      `apple-macos-27.0-1x-${scheme}-standard-glass0.25${pose === "receded" ? "-receded" : ""}.json`),
+    "utf8")) as { profileKey: string; patch: Patch };
+  };
   const merge = (base: Patch, over: Patch): Patch => {
     const out: Patch = { ...base };
     for (const [key, value] of Object.entries(over)) {
