@@ -1,0 +1,160 @@
+# CANDIDATE: packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05t/candidate.json sha256:2cabdc4ac436 (a declared scratch document; not a shipped cut)
+# owner test packages/calibration/test/adopted-thresholds.test.ts sha256:36eb6d68d309; holdout not read
+
+verdicts
+  tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu        PASS
+  M1 webgpu (GATED)                                                PASS
+  M1 css (descriptive)                                             UNMEASURED
+  M2 webgpu (GATED)                                                FAIL
+  M2 css (descriptive)                                             UNMEASURED
+  C1 webgpu (GATED)                                                PASS
+  C1 css (descriptive)                                             UNMEASURED
+  L1 webgpu (GATED)                                                MISS
+  L1 css (descriptive)                                             UNMEASURED
+  X1 webgpu (GATED)                                                PASS
+  X1 css (descriptive)                                             UNMEASURED
+  E2 webgpu (GATED)                                                MISS
+  E2 css (descriptive)                                             UNMEASURED
+  S1 webgpu (GATED)                                                MISS
+  S1 css (GATED)                                                   UNMEASURED
+
+tables (the 0.5 tables per tier; misses listed)
+  apple-macos-27.0-1x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_LIGHT (= TEXTURE_TIER_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_LIGHT (= TEXTURE_TIER_2X_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_DARK (= TEXTURE_TIER_DARK), 10 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_DARK (= TEXTURE_TIER_2X_DARK), 10 cells, 3 predicate-excluded, 0 misses
+
+M1 webgpu (GATED)
+  light|active     n=10  median R 1.1015  min 0.9014  max 1.2178
+  light|inactive   n=8   median R 1.0249  min 0.9027  max 1.3846
+  dark|active      n=4   median R 1.0546  min 0.8348  max 1.2037
+  dark|inactive    n=4   median R 1.0662  min 0.9659  max 1.2041
+M2 webgpu (GATED): 4 misses, 2 named, 2 failures, worst |Δsd| 12.237%
+  failure  apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-sm__inactive               r 0.01815 w 0.01593 n 0.02640 (-12.24%)
+  named    apple-macos-27.0-1x-light-standard-glass0.25/photo__toolbar-group__inactive          r 0.06526 w 0.06965 n 0.10328 (+6.72%)
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__inactive               r 0.01694 w 0.01583 n 0.02246 (-6.57%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__toolbar-group__inactive          r 0.06905 w 0.07441 n 0.09980 (+7.77%)
+
+M1 css (descriptive)
+M2 css (descriptive): 0 misses, 0 named, 0 failures, worst |Δsd| 0.000%
+
+C1 webgpu (GATED): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=10  0.00058   PASS       prefit 0.00058  shipped0.5 0.00058
+  1x light span 128      n=7   0.00207   PASS       prefit 0.00207  shipped0.5 0.00207
+  1x light span 160      n=8   0.00036   PASS       prefit 0.00036  shipped0.5 0.00025
+  2x light span 96       n=10  0.00067   PASS       prefit 0.00067  shipped0.5 0.00067
+  2x light span 128      n=7   0.00212   PASS       prefit 0.00212  shipped0.5 0.00212
+  2x light span 160      n=8   0.00064   PASS       prefit 0.00064  shipped0.5 0.00064
+  1x dark span 96        n=9   0.00126   PASS       prefit 0.00126  shipped0.5 0.00126
+  1x dark span 128       n=5   0.00350   PASS       prefit 0.00350  shipped0.5 0.00350
+  1x dark span 160       n=8   0.00116   PASS       prefit 0.00116  shipped0.5 0.00116
+  2x dark span 96        n=9   0.00124   PASS       prefit 0.00124  shipped0.5 0.00124
+  2x dark span 128       n=5   0.00382   PASS       prefit 0.00382  shipped0.5 0.00382
+  2x dark span 160       n=8   0.00107   PASS       prefit 0.00107  shipped0.5 0.00107
+
+C1 css (descriptive): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=0   —         UNMEASURED prefit —  shipped0.5 —
+  1x light span 128      n=0   —         UNMEASURED prefit —  shipped0.5 —
+  1x light span 160      n=0   —         UNMEASURED prefit —  shipped0.5 —
+  2x light span 96       n=0   —         UNMEASURED prefit —  shipped0.5 —
+  2x light span 128      n=0   —         UNMEASURED prefit —  shipped0.5 —
+  2x light span 160      n=0   —         UNMEASURED prefit —  shipped0.5 —
+  1x dark span 96        n=0   —         UNMEASURED prefit —  shipped0.5 —
+  1x dark span 128       n=0   —         UNMEASURED prefit —  shipped0.5 —
+  1x dark span 160       n=0   —         UNMEASURED prefit —  shipped0.5 —
+  2x dark span 96        n=0   —         UNMEASURED prefit —  shipped0.5 —
+  2x dark span 128       n=0   —         UNMEASURED prefit —  shipped0.5 —
+  2x dark span 160       n=0   —         UNMEASURED prefit —  shipped0.5 —
+
+L1 webgpu (GATED): 140 cells, 136 measured, max error 0.0778, max growth +0.0036; 2 absolute, 0 growth misses
+  absolute apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__inactive-tint-orange 0.0776 (prefit 0.1054)
+  absolute apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__inactive-tint-orange 0.0778 (prefit 0.1056)
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+
+L1 css (descriptive): 0 cells, 0 measured, max error —, max growth —; 0 absolute, 0 growth misses
+
+X1 webgpu (GATED): 242 cells, totals {'integer': {'pixels': 14154948, 'aboveZero': 0, 'aboveOne': 0}, 'analytic': {'pixels': 14052656, 'aboveZero': 0, 'aboveOne': 0}}, 0 failing
+
+X1 css (descriptive): 0 cells, totals {'integer': {'pixels': 0, 'aboveZero': 0, 'aboveOne': 0}, 'analytic': {'pixels': 0, 'aboveZero': 0, 'aboveOne': 0}}, 0 failing
+
+E2 webgpu (GATED): 288 cells, 288 measured, 65 failing, mean change -1.5849 codes, 1275 named-miss bins on 141 cells
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest          14.956 -> 15.702 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest          16.917 -> 17.324 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest          14.752 -> 15.268 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest     23.162 -> 23.216 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest          33.032 -> 33.971 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest          22.943 -> 23.698 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest             17.162 -> 17.198 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest               5.384 -> 5.445 codes
+  FAIL apple-macos-27.0-1x-dark-standard-glass0.25/mid-dark-solid__rrect-lg__rest           4.379 -> 5.816 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest   15.253 -> 15.310 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange 3.759 -> 3.763 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest         10.657 -> 13.720 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-md__rest         10.479 -> 12.921 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest         7.557 -> 9.694 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest    19.350 -> 19.390 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange 5.269 -> 5.297 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__capsule-button__rest   10.279 -> 10.472 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange 3.424 -> 3.482 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest         12.131 -> 14.770 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest         26.739 -> 30.691 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-sm__rest         10.539 -> 10.632 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange 6.474 -> 6.481 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__capsule-button__rest 9.295 -> 9.332 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-sm__rest       6.191 -> 6.278 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest      20.907 -> 20.924 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-blue 5.818 -> 5.823 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange 5.194 -> 5.224 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest            15.752 -> 16.092 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__toolbar-group__rest       19.420 -> 19.457 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/hc-text-28__rrect-lg__rest              7.980 -> 10.360 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/hc-text-28__rrect-md__rest              19.455 -> 20.193 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/hc-text-28__rrect-sm__rest              12.864 -> 12.871 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-lg__rest               7.770 -> 9.023 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-sm__rest               16.277 -> 16.381 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/hc-text__rrect-lg__rest                 9.682 -> 11.133 codes
+  FAIL apple-macos-27.0-1x-light-standard-glass0.25/hc-text__rrect-sm__rest                 15.043 -> 15.098 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest    35.811 -> 35.828 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest          13.339 -> 14.079 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest          17.780 -> 18.182 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest          12.744 -> 13.241 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest          31.106 -> 32.241 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest          20.434 -> 21.142 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__rest       32.383 -> 32.389 codes
+  FAIL apple-macos-27.0-2x-dark-standard-glass0.25/mid-dark-solid__rrect-lg__rest           4.383 -> 5.787 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange 4.435 -> 4.445 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest         9.737 -> 12.503 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-md__rest         12.321 -> 13.434 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest         8.411 -> 8.879 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange 6.542 -> 6.548 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__capsule-button__rest   10.740 -> 10.989 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange 3.543 -> 3.598 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest         10.476 -> 13.058 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest         27.251 -> 31.196 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-sm__rest         11.415 -> 11.485 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange 6.923 -> 6.931 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__capsule-button__rest 9.820 -> 9.849 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-sm__rest       6.836 -> 7.139 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-sm__rest            14.226 -> 14.227 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-lg__rest              7.806 -> 9.538 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-md__rest              18.034 -> 18.604 codes
+
+E2 css (descriptive): 0 cells, 0 measured, 0 failing, mean change — codes, 0 named-miss bins on 0 cells
+
+S1/R2 webgpu (GATED, adopted only at the landing by ruling): 183/183 cells, pooled median ratio 0.8139, 13 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=81   median 0.8439
+  apple-macos-27.0-2x-light-standard-glass0.25       n=71   median 0.8980
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=17   median 0.3139
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=14   median 0.3114
+
+S1/R2 css (GATED, adopted only at the landing by ruling): 0/125 cells, pooled median ratio —, 0 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=0    median —
+  apple-macos-27.0-2x-light-standard-glass0.25       n=0    median —
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=0    median —
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=0    median —

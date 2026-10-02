@@ -43,6 +43,7 @@ import {
 import type { MaterialProfilePatch } from "@vitrea/renderer-webgpu";
 
 import { supersessionFor } from "./digest-supersessions";
+import { readCandidateDocument } from "../scripts/candidate-document";
 
 interface ProfileDocument {
   readonly profileKey: string;
@@ -180,5 +181,51 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
       // exemption's indirection is the frozen pair's alone.
       expect(() => supersessionFor(document.profileKey)).toThrow();
     }
+  });
+});
+
+/**
+ * **The `-glass0.25` candidate documents against the 0.5 documents they are refit from** (W43
+ * G3 (i), charter clause 10 step 3; X44; Decision Log 7 as RULED 2026-10-02).
+ *
+ * The 0.25 module is generated at the landing (Decision Log 1), and its pin is this file's cases
+ * above, repeated for it then. Until the documents are sealed, what the pin can hold is what the
+ * generator will rely on: the candidate the refit names in
+ * `results/2026-10-02-w43-g3-refit/fit/final.json` names EXACTLY the leaves of its 0.5 twin, in
+ * both directions (X44, one leaf space: no operator added, none dropped); every endpoint's
+ * recorded digest is reproduced by the driver's own reader over the unmoved default (active) and
+ * over its scheme's 0.25 active (receded); and its CSS crossing is the shipped one's keys.
+ */
+describe("the -glass0.25 candidate documents name the 0.5 documents' leaves (W43 G3 (i))", () => {
+  const REFIT = resolve(import.meta.dirname, "..", "results", "2026-10-02-w43-g3-refit", "fit");
+  const { label } = JSON.parse(readFileSync(resolve(REFIT, "final.json"), "utf8")) as { label: string };
+  const directory = resolve(REFIT, "candidates", label);
+  const read = (slot: string): ProfileDocument =>
+    JSON.parse(readFileSync(resolve(directory, `${slot}.json`), "utf8")) as ProfileDocument;
+  const pairs = [
+    ["active.light", LIGHT],
+    ["active.dark", DARK],
+    ["receded.light", RECEDED_LIGHT],
+    ["receded.dark", RECEDED_DARK],
+  ] as const;
+
+  for (const [slot, twin] of pairs) {
+    it(`${slot} names exactly its 0.5 twin's leaves, at the 0.25 key`, () => {
+      const candidate = read(slot);
+      expect(candidate.profileKey).toBe(twin.profileKey.replace("-glass0.5", "-glass0.25"));
+      expect(leaves(candidate.patch as object).sort()).toEqual(leaves(twin.patch as object).sort());
+    });
+  }
+
+  it("reproduces every recorded digest through the driver's reader, and keeps one crossing", () => {
+    const candidate = readCandidateDocument(resolve(directory, "candidate.json"));
+    expect(candidate.document.glassTintAmount).toBe(0.25);
+    for (const [slot] of pairs) {
+      const [pose, scheme] = slot.split(".") as ["active" | "receded", "light" | "dark"];
+      expect(candidate.document[pose][scheme].resolvedMaterialSha256, slot)
+        .toBe(read(slot).resolvedMaterialSha256);
+    }
+    expect(Object.keys(candidate.document.cssTierMapping).sort())
+      .toEqual(Object.keys(macos27CssTierMapping).sort());
   });
 });

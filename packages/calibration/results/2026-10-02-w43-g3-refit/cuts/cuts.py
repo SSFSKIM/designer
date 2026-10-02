@@ -246,7 +246,7 @@ def cut_m1_m2(bed: B.Bed, prefit: B.Bed, renderer: str) -> dict:
           for c in cells if c["m2"] != "within"]
     m1_pass = (all(b["medianInWindow"] for b in beds.values()) and not cell_misses)
     m1_verdict = ("UNMEASURED" if not cells else "MISS" if not m1_pass else
-                  "UNMEASURED" if missing else "PASS")
+                  f"PASS, {len(missing)} UNMEASURED" if missing else "PASS")
     return dict(
         M1=dict(beds=beds, cellMisses=cell_misses, unmeasured=missing,
                 verdict=m1_verdict),
@@ -255,7 +255,8 @@ def cut_m1_m2(bed: B.Bed, prefit: B.Bed, renderer: str) -> dict:
                 worstAbsDelta=max((abs(c["structureDeltaFraction"]) for c in cells), default=None),
                 verdict=("UNMEASURED" if not cells else
                          "FAIL" if any(m["verdict"] == "failure" for m in m2) else
-                         "UNMEASURED" if missing else "NAMED MISSES" if m2 else "PASS")),
+                         f"{'NAMED MISSES' if m2 else 'PASS'}, {len(missing)} UNMEASURED" if missing
+                         else "NAMED MISSES" if m2 else "PASS")),
         cells=cells)
 
 
@@ -447,7 +448,7 @@ def cut_l1(bed: B.Bed, prefit: B.Bed, renderer: str) -> dict:
                 maxError=max((c["error"] for c in cells if c["error"] is not None), default=None),
                 maxGrowth=max((c["growth"] for c in cells if c["growth"] is not None), default=None),
                 verdict=("UNMEASURED" if not cells else "MISS" if absolute or growth else
-                         "UNMEASURED" if unmeasured else "PASS"), cells=cells)
+                         f"PASS, {len(unmeasured)} UNMEASURED" if unmeasured else "PASS"), cells=cells)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -529,7 +530,7 @@ def cut_e2(bed: B.Bed, root: Path, prefit: B.Bed, prefit_root: Path, renderer: s
                 namedMissCells=sorted({b["cell"] for b in named}),
                 meanChange=float(np.mean([c["change"] for c in cells if "change" in c])) if cells else None,
                 verdict=("UNMEASURED" if not cells else "MISS" if failing else
-                         "UNMEASURED" if unmeasured else "PASS"), perCell=cells)
+                         f"PASS, {len(unmeasured)} UNMEASURED" if unmeasured else "PASS"), perCell=cells)
 
 
 # ---------------------------------------------------------------------------------------------
