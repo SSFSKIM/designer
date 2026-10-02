@@ -1,0 +1,33 @@
+W43 G3 (ii) close checks, 2026-10-02T12:20:54Z, worktree HEAD b95e5b08 plus the ledger commit's working tree (clause 11)
+
+$ python3 results/2026-09-16-w29-freeze/freeze.py verify
+26.5 freeze intact: 1818 entries
+
+$ npx tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify
+X41 0.5 generation intact: 911 entries
+
+the six shipped documents' recorded digests (the 0.5 and 26.5 profile files unchanged against origin/main: yes; profiles/ adds only the four -glass0.25 documents and a README paragraph)
+   apple-macos-27.0-1x-light-standard-glass0.5 be13dae45098fc89
+   apple-macos-27.0-1x-dark-standard-glass0.5 2a4323f33df8d799
+   apple-macos-27.0-1x-light-standard-glass0.5-receded b0d0d8dacc6a03af
+   apple-macos-27.0-1x-dark-standard-glass0.5-receded 7c454858a3cbad5b
+   apple-macos-26.5-1x-light-standard b2b570e4adcea8fb
+   apple-macos-26.5-1x-dark-standard 874be66ea501621b
+   apple-macos-27.0-1x-light-standard-glass0.25 50430fa62c1120bd
+   apple-macos-27.0-1x-dark-standard-glass0.25 b074fc6913a91c66
+   apple-macos-27.0-1x-light-standard-glass0.25-receded 5d8680980b7aeb55
+   apple-macos-27.0-1x-dark-standard-glass0.25-receded 280f0fddf014e0f6
+
+packages/platform-web/src/macos27-profile.ts, packages/renderer-webgpu, results/matrix.json unchanged against origin/main: yes
+
+$ pnpm --filter @vitrea/renderer-webgpu test:golden (chromium-gpu, real adapter)
+  34 passed (12.4s)
+
+$ VITREA_WEB_CAPTURES=<canonical tree> npx vitest run   (the calibration package, whole; X1 measured, nothing skipped)
+ Test Files  62 passed (62)
+      Tests  870 passed (870)
+
+$ npx vitest run   (apps/demo, whole unit suite)
+  Test Files  8 passed (8); Tests  111 passed (111)
+
+$ pnpm --filter demo --filter @vitrea/calibration --filter @vitreajs/vitrea-web run lint: exit 0

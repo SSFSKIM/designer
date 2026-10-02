@@ -7096,3 +7096,116 @@ other processes' messages and the user's own content, so they should not go to g
 Shape of the fix: give the runbook a stop-evidence directory under the raw root's `logs/` (for
 example `logs/stops/<n>/`), written by the worker before the archive is produced, and have
 `produce` carry it into `operational/` beside the orchestrator's logs.
+
+## One tone function cannot follow Apple's 0.25 slider on both the photo and the thin checkers (W43 G3, 2026-10-02)
+
+*Found by the W43 G3 refit (claims §5.201 §4); a named miss under W43 Decision Log 5 (e).*
+
+The light thin row's anchor at encoded 0.425 governs both the photo thin cells and the pitch-16
+checkerboard thin cells (measured Jacobian ≈ 0.95 for each, `fit/specs/j-thin2.json`). Apple's 0.25
+darkens the photo thin body by 0.037–0.043 linear and leaves the thin checkers almost unmoved
+(−0.0025): its one-sided hinge lifts a checker's dark squares toward the wide term, which
+vitrea's two-sided form has no term for. L1's growth clause binds the checkers, so the sealed 0.25
+document holds that anchor 0.005 below its 0.5 value and the light photo thin rest cells read
++0.034 / +0.044 too bright; S1's photo-thin cells under-follow Apple's change. The fix is the
+structure wave's (W42 Deferred at close 1–7 with W43's ladder): a one-sided term, not a refit.
+
+## The dark 0.25 document under-follows Apple's slider change (W43 G3, 2026-10-02)
+
+*Found by the W43 G3 refit (claims §5.201 §6, §9).*
+
+S1 (R2) reads per-profile medians of 0.31 on both dark profiles: Apple's dark body brightened at
+spans 128 and 160 (memo F's MaxLuma cap relaxing below 0.5), by +0.042 linear on the dark
+light-solid inactive cells, which are PROBE cells. The calibration set carries no dark thick
+light-solid cell and no span beyond 96 in the thick row's reach, so the dark thick ordinate at the
+light-solid anchor and any span law past 96 are unidentified by a calibration-only fit. The shape
+of the fix: a dark calibration cell at spans 128/160 declared before a refit, or a span-graded
+dark ordinate (an operator, so outside X44's leaf space).
+
+## The dark body over photo carries a fifth to two fifths of Apple's structure, at both positions (W43 G3, 2026-10-02)
+
+*Seen on the W43 G3 eye sheets (photo, dark), measured by `fit/side.py` (claims §5.201 §9).*
+
+Apple's dark body over the photo backdrop shows the photo's gradient and colour through it;
+vitrea's is a near-flat grey (interiorStdDev web/native 0.20–0.38 at 0.25, 0.22–0.44 at 0.5). The
+dark `optics.regular.tintAlpha` 0.9 transmits a tenth of the backdrop and W43 Decision Log 7 item
+3 held it at 0.25. The dark scatter probes (c01d, c01g) moved checkers and not photo. The shape of
+the fix: a dark transmission refit declared against the photo and checker structure together,
+read with M2 directional, in a later wave.
+
+## The light receded 0.25 checkers are over-structured, about twice Apple's (W43 G3, 2026-10-02)
+
+*Measured by `fit/side.py` on c05 (claims §5.201 §9).*
+
+The light receded document inherits the active document's `tintAlpha` (0.30 at 0.25) and names no
+transmission leaf of its own, so the active step's extra transmission reaches the receded body:
+interiorStdDev web/native ×2.1–2.2 on the inactive checkerboards (×1.4–1.6 at the pre-fit, ×1.8–2.9
+at 0.5). Raising the receded floor (0.7 → 1.0) did not hold it, and lowering the receded thin ramp
+starts failed M2 on a photo cell (c03a). The shape of the fix: a receded transmission leaf, which
+X44 forbids in this generation, or a receded scatter law conditioned on the backdrop's scale.
+
+## The light receded 0.25 tint reads +0.023 OKLab L light on average (W43 G3, 2026-10-02)
+
+*Measured on c05's tinted inactive cells (claims §5.201 §9).*
+
+Apple's light receded tint fell 0.025 L between 0.5 and 0.25; the tone refit alone moved vitrea's
+receded tint residual from +0.053 to +0.023. `tintShadeLight` held by W43 Decision Log 7 item 5,
+because no tint cell missed a gate. The fix is a one-leaf `tintShadeLight` step in the light
+receded document, read on the tint cells, at the next refit of this generation.
+
+## The 0.25 black branch and impulse anchor are unidentified on the calibration set (W43 G3, 2026-10-02)
+
+*Found by the measured Jacobian (claims §5.201 §4).*
+
+The light black ordinates and the impulse anchor (encoded 0.004) have no calibration cell that
+reads them: the bed's untinted impulse cells are validation cells. The sealed 0.25 documents carry
+Apple's own measured 0.25 − 0.5 change at that knot (−0.0527 active, −0.0542 receded). Validation
+reads them within L1. The fix is a calibration impulse cell, declared before the next refit.
+
+## E2's per-cell absolute rule fails a cell on any increase, however small (W43 G3, 2026-10-02)
+
+*Seen in the W43 G3 cuts (claims §5.201 §6).*
+
+W42 Decision Log 5e's per-cell reading declared a zero tolerance (both renders deterministic, one
+native), so a body change that moves a cell's edge residual by +0.002 codes fails the cell as one
+that moves it by +9 does: 62 of 288 cells at 0.25, from +0.002 to +9 codes, while the mean change
+over all cells is −1.66. The shape of the fix: a declared resolution per cell (the bin residuals'
+own quantisation), decided by the user before the next gate that reads E2.
+
+## G0's committed scratch candidate now names shipped keys (W43 G3 (ii), 2026-10-02)
+
+*Found when the 0.25 document shipped (claims §5.201 §12).*
+
+`results/2026-10-01-w43-g0-declaration/seam/scratch-candidate/` carries the 0.5 documents' content
+under the `-glass0.25` keys, for G0 (f)'s byte-identity proof. Since `macos27Glass025MaterialProfileDocument`
+ships, candidate mode refuses it ("names a shipped document"), so `seam/prove.ts` cannot be
+replayed as committed. The evidence and its recorded result stand; `material-selection.test.ts`
+moved its scratch position to 0.75. The shape of the fix, if the proof is ever replayed: rebuild
+the scratch candidate at an unshipped position with `make-candidate.ts` parameterised.
+
+## The 0.25 holdout's two new table misses (W43 G3 (ii), 2026-10-02)
+
+*Read once by the W43 G3 (ii) holdout (claims §5.201 §16); RULED named misses under W43 Decision
+Log 5 (e), "All six named misses; publish".*
+
+Two holdout rows that pass at 0.5 miss at 0.25. WebGPU 1x light `checkerboard__rrect-lg__rest`
+reads ssimMean 0.86409 against ≥ 0.88 (0.5: 0.88527). It is the rrect-lg stratum's gap (W43
+Decision Log 7 item 9: the exterior edge and the capture-scale step G2 measured up to 112 codes;
+14 of the 62 E2 failures are rrect-lg). CSS 2x light `checkerboard__glass-over-glass__rest` reads
+0.91996 against ≥ 0.92 (0.5: 0.94071), by 0.00004, under the whole-cell SSIM resolution the
+seven-run repeat bar gives. The four CSS rows the 0.5 generation records UNMET in `MISSED_27_ROWS`
+miss again at 0.25 (three slightly worse); their entries stand. The shape of the fix: the rrect-lg
+edge is the next edge wave's (W37–W39's directional and contour findings); the glass-over-glass
+row needs no work of its own unless a repeat read places it outside the bar. The holdout is spent
+for these document bytes; a refit reads a new one.
+
+## `css-tier.ts`'s tint-floor comment counts two macOS 27 documents (W43 G3 (ii), 2026-10-02)
+
+*Found by G3 (ii)'s "unchanged, checked" sweep (claims §5.201 §23).*
+
+`CSS_TIER_TINT_FLOOR_ALPHA`'s doc comment says "the two macOS 27 documents patch
+`optics.regular` alone, so the clear variant's converted alpha … is the same number under both
+shipped documents". Since W43 G3 (ii) three documents ship and four macOS 27 active patches exist;
+the 0.25 ones also move only `optics.regular` (`tintAlpha`), so the claim holds and only its count
+is stale. `css-tier.ts` is a source of the cross-gate holdout ledger, so a comment edit moves
+`sourceSha256`; reword it with the next change that touches the file ("every shipped document").

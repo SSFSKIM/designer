@@ -23,12 +23,15 @@
  *
  * ## What ships, and what draws
  *
- * Two documents ship. `macos27MaterialProfileDocument` is the default — every
+ * Three documents ship. `macos27MaterialProfileDocument` is the default — every
  * Mac that took the macOS 27 update draws that material and a web page has no
  * operating system to follow, so matching the platform's current material is
- * what "no option passed" should mean. `macos26MaterialProfileDocument` is the
- * previous reference, kept shipped and selectable by name so that a page pinned
- * to the material it was designed against can stay there.
+ * what "no option passed" should mean. It is measured at the Glass appearance
+ * slider's system default, 0.5. `macos27Glass025MaterialProfileDocument` is the
+ * same OS at the slider's 0.25 position, the clearer glass, selectable by name
+ * and never the default (W43 Decision Log 1). `macos26MaterialProfileDocument`
+ * is the previous reference, kept shipped and selectable by name so that a page
+ * pinned to the material it was designed against can stay there.
  *
  * Neither is the renderer's `DEFAULT_MATERIAL_PROFILE`, which W29 Decision Log
  * 1 (i) holds still at the macOS 26.5 light material: every document here is a

@@ -43795,3 +43795,581 @@ sound, and `verdicts.py` replays every recorded result. The outputs first record
 
 Neither correction moves R2, the recommendation, the map, the Decision Log 7 draft's item 11 beyond
 naming the masks, or any number in §§1–4.
+
+## 5.201 W43 G3 (i)–(ii), the 0.25 generation: candidate c05 fitted in scratch, sealed as the four `-glass0.25` documents, read in two strict-mode stages that reproduce it byte for byte, the holdout read once, every miss ruled named, and the generation published (2026-10-02)
+
+Evidence directory: `results/2026-10-02-w43-g3-refit/`, on branch `w43-g3-refit` off `e2a32591`.
+Charter: clause 10, steps 1–7; clauses 11, 13 and 14; X41, X44 and X45; Decision Logs 5 and 7 as
+RULED by the user on 2026-10-02, "Adopt all eleven recommendations", folded into the charter in the
+branch's first commit (`cfa5a95c`), and Decision Log 5 (e) exercised twice on the same day (§10,
+§16). G3 (i), the refit in scratch, is §§1–10; G3 (ii), the seal, the stages, the holdout and the
+publication, is §§11–24. The 0.25 rows of `adopted-thresholds.test.ts`, the runtime's position
+readout, the README, the changeset and the demo at 0.25 are G3 (iii)'s and are not here.
+
+The raw renders stay on the capture machine: the pre-fit and every candidate's matrix and PNGs
+under `~/vitrea-w43/g3-scratch/`; the two publication stages at `~/vitrea-w43/g3-stage-light/`
+and `~/vitrea-w43/g3-stage-dark/`; and the stages' capture tree, now also at the canonical path
+(§19). The repository holds:
+- the cuts (`cuts/`);
+- the pre-fit render's driver, record and gzipped matrix (`prefit/`);
+- the rehearsal (`rehearsal/`);
+- the fit's tooling, every candidate's documents, specs and logs (`fit/`);
+- the chosen candidate's reading and its misses (`read/`);
+- the sheet script and its dispatch record (`sheets/`);
+- the seal (`seal/`) and the stages' driver, census, run log, reproduction, cuts, holdout reading
+  and capture-tree records (`stage/`);
+- the G3 (i) close checks (`close-checks.txt`) and the G3 (ii) ones (`stage/close-checks.txt`).
+
+G3 (i)'s sitting had three HOLDs (G1b, and twice for clause 6's positive capture), which stopped
+two render passes in flight. Each is logged as stopped and was relaunched as a new labelled pass.
+A third pass was refused by X6 on a peer session's Playwright Chrome and resumed after it exited.
+G3 (ii)'s sixteen passes ran without a stop or a refusal (§14).
+
+### 1. The cuts, implemented before any candidate (`d2dea12e`)
+
+`cuts/cuts.py` re-instantiates every ruled row over the four `-glass0.25` standard profiles. Each row
+is gated on its adopted tier and read descriptively on the other.
+
+- **The tables.** The 0.5 tables' values per tier, read out of `adopted-thresholds.test.ts` by
+  following each `*_27_*` alias to the 26.5 literal it equals, so nothing is transcribed by hand.
+  They are read on the owner test's gated bed (active, calibration and validation, no probe or
+  recorded) with its conditioning predicate on the shape rows. There is no floor.
+- **M1** as adopted. **M2** directional: `structureVerdict` transcribed, its reference the pre-fit
+  render.
+- **C1**: `deriveClause` restated, read beside the pre-fit render and the shipped 0.5 generation.
+- **X1** from the bed's own capture tree.
+- **L1**: ≤ 0.055 absolute, with growth ≤ 0.005 against the pre-fit render's error.
+- **E2** per cell in absolute codes (W42 Decision Log 5e as declared in `activeBandAndE2`), over
+  W38's bins and population rule restated for the 0.25 rows. A bin worse by more than 1 code is
+  listed and never gated.
+- **S1 as R2**, over the fixed population (183 WebGPU and 125 CSS cells on `interiorMean`): sign on
+  every cell, and the median ratio pooled over the four profiles per tier in [0.8, 1.2].
+
+`cuts/bed.py` is W42's candidate-admission mode carried to W43's two scratch beds. W43 G0 (f) made a
+candidate a complete declaration that `compare` refuses into a stage, so neither bed can be a stage.
+- **prefit:** every row stamped `crossPosition=shipped-glass0.5-against-glass0.25` and naming the two
+  shipped 0.5 documents at their live hash.
+- **candidate:** every row naming one declared candidate document at its hash, with its endpoint
+  files re-hashed.
+
+Holdout rows refuse.
+
+### 2. The pre-fit render (`f2d9fcb2`)
+
+- **The route.** The shipped 0.5 documents were drawn on all 1,016 non-holdout cells of the four
+  0.25 profiles, on both tiers, in **strict shipped mode under `--cross-position`** with the
+  canonical recipe's flags.
+  - The charter's "in candidate mode" was not available: candidate mode refuses a candidate whose
+    name or endpoint keys are a shipped document's, by design ("A shipped material is read in strict
+    mode").
+  - G0's relabelled 0.5 content under scratch 0.25 keys would draw the same pixels but erase the
+    stamp X45 requires on exactly this comparison.
+- **The runtime-base identity.** 610 of 610 comparable captures are byte-identical to the canonical
+  0.5 web tree. The 406 others are cells the 0.5 generation never read: the recorded cells and the
+  unread probe cells.
+- **The anti-null, measured.** G2's offline unmoved-endpoint reading equals the rendered
+  `interiorMeanWeb` on 599 of 599 cells, worst difference 0.0.
+
+### 3. The rehearsal: the unmoved endpoint on every cut (`f2d9fcb2`)
+
+**WebGPU:**
+- the tables, M1, M2, C1, X1 and E2 pass;
+- L1 has 27 absolute misses, all light, worst 0.1056. That is Apple's darker 0.25 body and the
+  fit's target;
+- S1/R2 fails as an unmoved endpoint must: 145 of 183 wrong sign, median ratio −0.000. G2's
+  perfect endpoint passes beside it at 1.056.
+
+**C1** reproduces the shipped 0.5 readings cell for cell. Span 160 gains one contributing cell per
+bed at 0.25, 8 against 7.
+
+**CSS, descriptive:**
+- one table row was already missed: 1x light `checkerboard__rrect-ml__rest`, ssimMean 0.8777
+  against ≥ 0.9;
+- C1 reads 0.0054 at dark span 128, as the shipped 0.5 CSS rows do;
+- X1's integer mask is missed on 158 cells (the analytic mask is clean).
+
+**No cut fails by construction.**
+- Against a perfect endpoint every row is stated relative to Apple and passes, except S1 as
+  chartered, which R2 already restates.
+- No pre-fit failure rests on a leaf the ruling holds.
+
+So there was no STOP.
+
+### 4. The fit (`950ae6d3`, `553968f0`)
+
+Fitted on the calibration set, with validation as the transfer. The path, every step rendered:
+- c01 (the light tone rows moved by Apple's own change at each knot);
+- the probes c01a (`tintAlpha`), c01s, c01d and c01g (scatter);
+- nine Jacobian probes j-* (+0.02 on one tone ordinate in both light documents);
+- c02, c03a and c03b;
+- **c05**.
+
+c04 was stopped before any row because it named one leaf at its own 0.5 value. The comparison twin
+c05t is c05 without the structure step. What the probes measured:
+
+- **`tintAlpha` moves structure, not level.** −0.12 raised the light interior spread and transfer
+  slope ×1.18–1.22 everywhere, and moved the level by under 0.001: the tone solve holds the level.
+- **One tone function cannot follow Apple on both photo and the thin checkers.** The thin row's
+  anchor at 0.425 governs both the photo and the pitch-16 checkerboard thin cells, with J ≈ 0.95 for
+  each.
+  - Apple's 0.25 darkens the photo thin body by 0.037–0.043 and leaves the thin checkers almost
+    unmoved (−0.0025).
+  - Following the photo (c01) took the thin checkers to −0.054/−0.057, an L1 absolute and growth
+    miss.
+  - The constrained solve (`fit/solve_tone.py`, L1's clauses as constraints with a 0.003 margin)
+    holds that anchor 0.005 below its 0.5 value. The photo thin rest cells stay +0.034/+0.044 too
+    bright.
+  - This is the structural miss the charter predicted (Design, "The w-test"): Apple's hinge lifts a
+    checker's dark squares toward the wide term, and vitrea's two-sided form has no such term.
+- **The impulse anchor and the black branch are not identified on calibration**, because the
+  untinted impulse cells are validation cells. They keep c01's value, Apple's own change at that
+  knot (−0.0527 / −0.0542). On validation the light impulse cells read −0.006 / +0.014 (rest) and
+  −0.012 / −0.002 (receded).
+- **The dark thick row is bounded by L1's growth clause.** c02's knot-2 step (+0.0098) failed
+  growth on three dark checkerboard rrect-md cells (+0.0086 / +0.0065 / +0.0089). c05 takes +0.004
+  active and +0.003 receded, and +0.0064 at knot 1.
+- **The dark scatter is held at its 0.5 values.** The probes and c02 found no net gain:
+  - log-structure error at rest went 0.895 → 0.883 / 0.839, and receded 0.864 → 0.875 / 0.912;
+  - c02's step raised the dark receded thick checker structure to ×1.74;
+  - c02's step failed E2 on dark checkers.
+
+  The dark photo body's flatness (×0.2–0.4 of Apple's structure) is the held `tintAlpha` 0.9, as
+  at 0.5.
+- **The structure step stays.**
+  - The step is `tintAlpha` 0.46 → 0.30, `sizeScatterFloor2x` 1.0 → 0.6 and the light receded
+    `sizeScatterFloor` 0.7 → 1.0.
+  - The 1x floor stays at 0.25: c02's 0.15 added E2 failures on 1x checkers.
+  - The receded thin ramp starts stay at 0.55 / 0.7: c03a's lower values failed M2 on the 1x photo
+    rrect-sm inactive cell, moved away from Apple.
+  - The twin c05t reads worse on every gated row: L1 2 absolute misses, M2 2 failures, E2 65
+    failing, S1 0.814.
+
+**Decision Log 7 items 4 and 5 hold.** M1 passes (WebGPU medians 0.984 / 0.935 light, 1.055 /
+1.066 dark), so `bodyChromaRetention` holds. No tint cell misses a gate, so `tintShadeLight` holds.
+The light receded tint residual falls from +0.053 to +0.023 OKLab L by the tone alone, and is named
+in §6. Every rim, highlight, outerShadow and lens leaf holds. C1 reads identically to the pre-fit on
+every cell.
+
+### 5. Candidate c05
+
+The four documents are patches over the unmoved `DEFAULT_MATERIAL_PROFILE`; each receded one is a
+difference over its scheme's new active document. Each names exactly its 0.5 twin's leaves (X44,
+pinned by the extended export test), at the `-glass0.25` keys. Declaration
+`fit/candidates/c05/candidate.json`, sha256 `95388218f94d…`.
+
+| endpoint | file sha256 | resolvedMaterialSha256 | leaves moved from the 0.5 twin |
+| --- | --- | --- | --- |
+| active light | `23ccc6959a2e…` | `50430fa62c1120bd` | `backdropToneResponseThin` [0.214, 0.2835, 0.5383, 0.937] → [0.1613, 0.2201, 0.5336, 0.9366]; `…Thick` [0.242, 0.3074, 0.5554, 0.957] → [0.1871, 0.2338, 0.5159, 0.9401]; `backdropToneBlackThin`/`Thick` 0.23074 → 0.17804; `optics.regular.tintAlpha` 0.46 → 0.30; `sizeScatterFloor2x` 1.0 → 0.6 |
+| active dark | `54f94dffbe8f…` | `b074fc6913a91c66` | `backdropToneResponseThick` [0.031, 0.035, 0.169, 0.196] → [0.031, 0.0414, 0.173, 0.196] |
+| receded light | `d4e316d942ec…` | `5d8680980b7aeb55` | `backdropToneResponseThin` [0.1647, 0.2809, 0.4775, 0.8293] → [0.1105, 0.2045, 0.4217, 0.8117]; `…Thick` [0.1442, 0.2823, 0.4695, 0.832] → [0.0894, 0.231, 0.4288, 0.8086]; black 0.23455 → 0.18035; `sizeScatterFloor` 0.7 → 1.0 |
+| receded dark | `57f5f31f866e…` | `280f0fddf014e0f6` | `backdropToneResponseThick` [0, 0.0155, 0.164, 0.186] → [0, 0.0155, 0.167, 0.186] |
+
+The CSS mapping is the 0.5 one, unchanged.
+
+### 6. Every cut on c05, both tiers (`read/c05-cuts.*`)
+
+| cut | tier | 1x light | 2x light | 1x dark | 2x dark | verdict |
+| --- | --- | --- | --- | --- | --- | --- |
+| tables | WebGPU | 0 / 26 | 0 / 26 | 0 / 10 | 0 / 10 | PASS |
+| tables | CSS | 1 / 26 | 0 / 26 | 0 / 10 | 0 / 10 | 1 miss (pre-existing) |
+| M1 | WebGPU | R 0.86–1.30 | 0.84–1.22 | 0.83–1.14 | 0.97–1.20 | PASS |
+| M2 | WebGPU | 8 named | 9 named | 0 | 0 | 17 named, 0 failures |
+| C1 | WebGPU | 0.0006 / 0.0021 / 0.0004 | 0.0007 / 0.0021 / 0.0006 | 0.0013 / 0.0035 / 0.0012 | 0.0012 / 0.0038 / 0.0011 | PASS, = pre-fit |
+| X1 | WebGPU | 0 / 65 | 0 / 65 | 0 / 56 | 0 / 56 | PASS |
+| L1 | WebGPU | max 0.0451, growth +0.0030 | 0.0439, −0.0004 | 0.0453, +0.0035 | 0.0491, +0.0036 | PASS, 4 UNMEASURED (as at 0.5) |
+| E2 | WebGPU | 28 / 82 | 17 / 82 | 9 / 62 | 8 / 62 | 62 fail; mean −1.66 codes |
+| S1 (R2) | WebGPU | 0.942, 3 wrong | 0.992, 5 wrong | 0.314, 3 wrong | 0.311, 4 wrong | pooled 0.877, 15 wrong sign |
+| S1 (R2) | CSS | 0.936, 4 wrong | 1.051, 2 wrong | 0.082, 4 wrong | 0.117, 1 wrong | pooled 0.874, 11 wrong sign |
+
+On the CSS tier the descriptive readings are as follows:
+- M1 medians are 1.18 / 1.12 light;
+- M2 has 17 named misses and 1 failure: 2x light `photo__rrect-sm__inactive`, ungated on this tier;
+- L1 has three CSS-only misses, among them a growth of +0.028 on 1x light
+  `photo__toolbar-group__inactive`;
+- X1's integer mask is missed on the same 158 cells as at the pre-fit.
+
+**The misses put to the user** (`read/misses.md`), before any freeze or holdout:
+- the CSS table row above;
+- the 17 M2 named misses, each toward Apple and none past it;
+- the 62 E2 cells, 14 of them rrect-lg. The tone change alone fails 65 (the twin), so they are the
+  body moving at the edge, not the structure step;
+- S1's 15 / 11 wrong-sign cells. S1 is adopted only at the landing.
+
+### 7. The CSS tier, derived; the pins extended
+
+The CSS tier draws c05 from the same four documents, with the 0.5 crossing unchanged; no CSS
+constant was refit.
+
+`tier-coherence.test.ts` gains a block over the candidate `fit/final.json` names (c05):
+- the merged receded patch resolves to the renderer's material;
+- one tone target on both tiers, black end included;
+- one scatter thickness and σ per span, scale and fold;
+- the tint shade mirrored;
+- each endpoint's retention a recorded CSS residual.
+
+`macos27-profile-export.test.ts` gains a block holding each candidate endpoint to exactly its 0.5
+twin's leaves at the 0.25 key, its digests reproduced by the driver's reader, and one crossing. The
+generated module's own pin lands with the module at the landing.
+
+### 8. Clause 11 (`close-checks.txt`)
+
+- The 26.5 freeze reads 1,818 and X41 reads 911.
+- The six shipped digests are unchanged: `be13dae45098fc89` / `2a4323f33df8d799` /
+  `b0d0d8dacc6a03af` / `7c454858a3cbad5b` and `b2b570e4adcea8fb` / `874be66ea501621b`.
+- 34 of 34 goldens pass on the real adapter, and `tuned-profiles.test.ts` 14 of 14.
+- The calibration package reads 857 passed and 1 skipped; lint exits 0.
+- `profiles/`, every `src/`, `apps/` and the generation files are unchanged against `origin/main`.
+
+### 9. Gaps, each recorded
+
+- **The photo thin body follows Apple's darkening only to the extent L1 allows.** The light photo
+  thin rest cells stay +0.034/+0.044 too bright, and S1's photo-thin cells under-follow. The cause is
+  one tone function for two backdrops Apple separates by a one-sided hinge (§4). That is the next
+  structure wave's.
+- **The dark scheme under-follows Apple's slider change** (S1 per-profile medians 0.31). Apple's
+  dark body brightened at spans 128 and 160, by +0.042 on the light-solid inactive cells, which are
+  probe cells. The dark thick row at the light-solid anchor and the span law beyond 96 are not
+  identified on the calibration set.
+- **The dark photo body is flat** (×0.2–0.4 of Apple's structure on both positions): `tintAlpha`
+  0.9 is held by the ruling. This is a 0.5-era gap, unmoved.
+- **The light receded checkers are over-structured**, ×2.1–2.2 of Apple's 0.25 (×1.4–1.6 at the
+  pre-fit; ×1.8–2.9 at 0.5). The receded document inherits the active `tintAlpha` and names no
+  transmission leaf of its own (X44). Lowering its thin ramp starts fails M2.
+- **The light receded tint** reads +0.023 OKLab L too light on average (+0.053 at the pre-fit).
+  `tintShadeLight` is held because no tint cell misses a gate (item 5).
+- **The black branch and the impulse anchor are unidentified on calibration** and carry Apple's
+  measured change.
+- **The rrect-lg exterior edge** (G2's up to 112 codes, the capture-scale step): 14 of the 62 E2
+  failures are rrect-lg.
+- **E2's per-cell rule has no tolerance.** A body change fails a cell by any increase, including
+  +0.002 codes on 2x dark checkers. Its bins are recorded.
+
+### 10. Review closure (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `e2a32591`, head `a878a068`) returned
+"incorrect" on two P2 findings, both in the cuts' handling of missing data, and both accepted. It
+found the rest sound and verified it against the committed JSON:
+- the table aliases and conditioning, M1, M2's native-denominator rule, C1, X1, E2's absolute
+  reduction and S1's fixed population;
+- c05's leaf sets and receded construction;
+- the strict-mode-plus-stamp deviation, and the web-only X6 refusals;
+- the protected bytes and the commit hygiene.
+
+1. **A declared member with no row vanished from its cut.** It could take a failing cell, or a
+   whole (profile, tier) pair, out of the verdict under `--write-partial`. Each cut now draws its
+   population from `scenes.json` under its own rule and names a member with no row UNMEASURED; no
+   verdict is an unqualified PASS while one is.
+2. **L1's growth clause could pass unread** when a pre-fit row lacked its web mean. The two clauses
+   are now read separately, and an unread growth clause is UNMEASURED.
+
+The fix is `11fd47c5`. `cuts/test_missing.py` runs the red cases against the pre-fix code, with
+its record in `test_missing.txt`. The regenerated pre-fit and c05 readings differ only by empty
+bookkeeping: every verdict and miss list above is unchanged.
+
+A follow-up review of `11fd47c5` returned **correct**: both findings closed, and
+`read/c05-cuts.json` and `rehearsal/prefit-cuts.json` reproduced byte for byte. The review loop is
+closed.
+
+**The user's ruling on the misses** (Decision Log 5 (e), RULED 2026-10-02): "All named misses;
+proceed to G3 (ii)". Every miss in `read/misses.md` (SHA-256 `a7c82322…`) is a permitted named
+miss, and none is a stop.
+
+
+### 11. The freeze: c05 sealed as the four `-glass0.25` documents (`593acd26`)
+
+`seal/seal.ts` writes `profiles/apple-macos-27.0-1x-{light,dark}-standard-glass0.25{,-receded}.json`
+under the 0.5 documents' conventions. Each `patch` is c05's, leaf for leaf. The seal refuses a
+document that does not name exactly its 0.5 twin's leaves (X44). Each `resolvedMaterialSha256` is
+taken under digest rule 2: an active document over the unmoved default, and a receded one over its
+scheme's sealed 0.25 active document. Each must equal c05's, and does.
+
+Each document also records:
+- its 0.5 twin and the candidate declaration (`95388218…`) by SHA-256;
+- every moved leaf with its 0.5 value, in `entries`;
+- every held family, with the ruling that held it.
+
+The CSS mapping is the 0.5 one, unchanged. `seal/sealed-manifest.json` lists the hashes.
+
+| document | file sha256 | resolvedMaterialSha256 |
+| --- | --- | --- |
+| `apple-macos-27.0-1x-light-standard-glass0.25.json` | `6d18c059eb42…` | `50430fa62c1120bd` |
+| `apple-macos-27.0-1x-dark-standard-glass0.25.json` | `d0219cd684bf…` | `b074fc6913a91c66` |
+| `apple-macos-27.0-1x-light-standard-glass0.25-receded.json` | `4d5f23d9d312…` | `5d8680980b7aeb55` |
+| `apple-macos-27.0-1x-dark-standard-glass0.25-receded.json` | `f0b36a71772a…` | `280f0fddf014e0f6` |
+
+The 0.25 pins in `macos27-profile-export.test.ts` and `tier-coherence.test.ts` moved from the
+scratch candidate to the sealed documents. They check X44 in both directions, the twin's bytes,
+the candidate patch leaf for leaf, the digests recomputed from the material, and one crossing.
+On both tiers they also hold one tone target, one scatter and one tint shade.
+
+### 12. Option A: the 0.25 material ships beside 0.5, before its publication (`a06cf7ff`)
+
+**The block.** A publication stage reads a shipped material in strict mode, selected by the
+(OS, glass) pair the profile key names. Before this change, `compare` refused the sealed documents:
+"@vitreajs/vitrea-web ships no material at that pair". A candidate cannot stand in, because a
+candidate is refused into a stage by design (W43 G0 (f)). The stages could not be read until the
+runtime carried the 0.25 material.
+
+**The approval.** The coordinator approved executing the runtime half of Decision Log 1 (RULED
+(a): a second set of documents through the existing `materialProfileDocument` option, the default
+staying 0.5) one step early, because the publication needs it. The step is ordered out of
+clause 12's sequence for that reason alone; this section and the commit body say so.
+
+The change:
+- `scripts/generate-macos27-glass025-profile.mjs` writes `src/macos27-glass025-profile.ts` from
+  the four sealed documents. It is the sibling of the 0.5 generator.
+- `macos27Glass025MaterialProfileDocument` joins `SHIPPED_MATERIAL_PROFILE_DOCUMENTS`.
+
+Within the approval's conditions:
+- `DEFAULT_MATERIAL_PROFILE_DOCUMENT` and the package README are unchanged;
+- there is no `glassTintAmount` readout field (clause 12, G3 (iii));
+- the export test deep-equals the module and the documents in both directions;
+- each endpoint's module digest equals its sealed document's;
+- the six shipped digests are unchanged, X41 reads 911 and the freeze 1,818.
+
+`material-selection.test.ts` moved its scratch position from 0.25, now shipped, to an unshipped
+0.75. Every case keeps its meaning, and strict mode now selects the shipped 0.25 document and
+refuses 0.75. The candidate-reader case in the export test now recomputes the digests from the
+material, because a candidate at the shipped 0.25 keys is refused by design (tracker).
+
+Two comments described the state before this change and were corrected with this section. The
+first was `profiles/README.md`, which said the four documents "do not ship yet". The second was
+`material-document.ts`'s header, which said "Two documents ship".
+
+### 13. The cross-gate holdout ledger takes the 0.25 set (`3eed97a3`, `ac6eabfc`)
+
+The coordinator approved extending W31 Decision Log 1 (b)'s ledger rather than making a per-gate
+copy, which the ledger's README warns would retire the rule.
+
+`configuration.py` gains `--documents`: `glass0.5` is the default, and `glass0.25` names the four
+sealed documents. A configuration is still (document bytes, sources). A non-default read records
+`documentSet` beside its documents. The 0.5 behaviour is byte-identical, shown before and after:
+- `configuration-log.json` is `d1bdec3d…` both times;
+- `show` at the default prints `39828055…` both times.
+
+`w32-holdout-configuration.test.ts` pins both sets (7/7). The 0.25 configuration was recorded as
+the ledger's read 6 (sources `6f78fc858ae3…`, head `2e27a297`) and committed before the holdout was
+read. The stage driver refuses a holdout pass unless the last *committed* record names exactly
+these documents and sources.
+
+### 14. The two publication stages, read in strict mode (`2e27a297`, `68126b78`)
+
+`stage/read.py` declares both stages by the CLAUDE.md recipe:
+- the scheme's two `-glass0.25` standard profiles and both tiers;
+- the sets calibration, validation, holdout, recorded and probe;
+- the sealed active/receded pair;
+- `membership.json` beside `matrix.json`.
+
+It reads them in strict shipped mode at (macOS 27.0, glass 0.25), with `--material-profile` and
+`--receded-profile` naming the sealed documents and no `--cross-position` anywhere.
+
+The non-holdout sets were read first with `--write-partial`, one `compare` per profile and tier,
+and a fresh census before each launch: 576 of 656 light and 440 of 468 dark cells. The missing cells
+were exactly the holdout's 80 and 28. Sixteen launches in all (eight measure, eight holdout) exited
+0. None stopped, none was refused, and none needed a repair. Both stages ended complete: 656 of 656
+and 468 of 468.
+
+The census and its stated deviation are in §21.
+
+### 15. The gate on the stages: c05 reproduced, the cuts unchanged
+
+**The reproduction** (`stage/reproduce.json`, REPRODUCED). The 1,016 stage rows equal c05's scratch
+rows, with only the two fields that name how a row was drawn set aside: `key.web.capturePath`
+(strict document clauses against the candidate clause) and `capturedAt`. All 1,016 captures are
+byte-identical to c05's. The coordinator made this a check whose difference would be a stop. It
+holds because:
+- the sealed documents carry c05's patches leaf for leaf;
+- the module carries the sealed documents';
+- G0 (f) proved that candidate and strict mode draw identical pixels for one content.
+
+**The cuts on the stages** (`stage/stage-cuts.*`, `cuts.py --kind sealed`). The new admission kind
+takes rows naming the scheme's two sealed documents at their live hash, with no stamp and no
+candidate. Every verdict, miss list, named list, bin count and S1 number equals c05's on 25 of 25
+compared keys. No new miss appeared and no ruled miss changed character, so the gate held under
+Decision Log 5 (e) and the holdout could be read. G3 (i)'s eye sheets serve these stages unchanged,
+because the captures are the same bytes (§20).
+
+### 16. The holdout, read once per tier, and ruled
+
+The holdout was read once per tier into the same stages, after the gate held and the ledger
+recorded the configuration (`68126b78`). It is never re-read. The ruled rows that state a holdout
+population are the 0.5 tables per tier, on the owner test's gated bed, with the conditioning
+predicate on the shape rows. M1, M2, C1, X1, L1, E2 and S1 are declared over non-holdout cells.
+
+There are 26 active holdout cells per tier: 10 per light profile and 3 per dark one. The stages
+hold 54 holdout rows per tier, and the other 28 are the inactive pose, which no table gates. The
+`68126b78` commit body says "32 holdout cells per tier"; that count is wrong, and the reading's own
+count is the one above.
+
+Six table rows missed (`stage/holdout-reading.*`):
+
+| tier | cell | metric | 0.25 | bound | 0.5 | note |
+| --- | --- | --- | --- | --- | --- | --- |
+| WebGPU 1x light | `checkerboard__rrect-lg__rest` | ssimMean | 0.86409 | ≥ 0.88 | 0.88527 | new at 0.25; the rrect-lg stratum |
+| CSS 1x light | `checkerboard__rrect-lg__rest` | ssimMean | 0.86607 | ≥ 0.9 | 0.88424 | UNMET at 0.5 (`MISSED_27_ROWS`) |
+| CSS 1x light | `checkerboard__glass-over-glass__rest` | ssimMean | 0.86471 | ≥ 0.9 | 0.89539 | UNMET at 0.5 |
+| CSS 1x dark | `photo__rrect-lg__rest` | oklabDeltaEP95 | 0.20600 | ≤ 0.18 | 0.20095 | UNMET at 0.5 |
+| CSS 2x dark | `photo__rrect-lg__rest` | oklabDeltaEP95 | 0.20071 | ≤ 0.19 | 0.19474 | UNMET at 0.5 |
+| CSS 2x light | `checkerboard__glass-over-glass__rest` | ssimMean | 0.91996 | ≥ 0.92 | 0.94071 | new at 0.25, by 0.00004 |
+
+Every other holdout table row passes: 2x light WebGPU and both dark WebGPU profiles read no miss.
+Beside the tables, the level error |web − native| on the holdout cells reaches at most 0.0495 on the
+light profiles (means 0.012–0.016) and 0.0252 on the dark ones (means 0.016–0.018). L1's 0.055
+bound is a non-holdout row, so this is descriptive.
+
+**Decision Log 5 (e) at the holdout, RULED 2026-10-02 by the user: "All six named misses;
+publish"** (`f9389cb0`). The charter's Decision Log 5 records the table with each row's note.
+- Four misses are the rows the 0.5 generation already records UNMET, read again at 0.25, three of
+  them slightly worse.
+- The WebGPU rrect-lg miss is new. It belongs to Decision Log 7 item 9's named gap: the rrect-lg
+  exterior edge and the capture-scale step, 14 of whose cells are among the 62 E2 failures.
+- The CSS 2x glass-over-glass miss is new by 0.00004, under the resolution the seven-run repeat bar
+  gives a whole-cell SSIM.
+
+### 17. Publication (`377da91d`)
+
+`matrix publish` was run on each stage, through W40's publisher (§5.190). The published bytes are
+the stages' bytes.
+
+| generation file | scheme | rows | active / receded | sha256 | bytes |
+| --- | --- | --- | --- | --- | --- |
+| `generations/6d18c059eb42.json` | light | 656 (328 per scale) | `6d18c059eb42` / `4d5f23d9d312` | `cadad6476797…` | 25,041,262 |
+| `generations/d0219cd684bf.json` | dark | 468 (234 per scale) | `d0219cd684bf` / `f0b36a71772a` | `6e20f04f60c4…` | 17,484,878 |
+
+`generations/index.json` went from `b834aa62…` to `dd234935…`. The publication added two files as
+current and selected four profiles. No 0.5 file, entry or selection moved, so nothing is retired.
+`results/matrix.json` is unchanged. The current union is 3,017 rows: 1,893 through W42 plus 1,124.
+
+### 18. X45 at the selection: the union's consumers name their glass position (`07360fc8`)
+
+**The defect.** Publication put a second macOS 27 position in the current union. Three consumers
+read the union without naming a position, so each mixed two materials' rows:
+- `adopted-thresholds.test.ts` gated 0.25 rows against 0.5 numbers. Nine cases failed: the
+  partition, the predicate list, the undeclared-profile refusal, C1, X1 twice and L1 three times.
+  The L1 failures came through the union's legacy digest.
+- `matrix-store.test.ts`'s count pin read 3,017 against 1,893.
+- The demo's reduction would have printed 587 cells and a count of 3,017 under the 0.5 material's
+  description.
+
+That is X45's defect: a consumer reading the union without naming a position mixes generations.
+The coordinator approved closing it at the selection now. None of the three files is named in the
+hashed declaration, so this is a selection change and not a pin. G3 (iii)'s 0.25 blocks complete it.
+
+The changes:
+- **`adopted-thresholds.test.ts`.** `GATED_POSITIONS` (macOS 26.5; macOS 27 glass 0.5) filters the
+  rows by the position each key parses to. A key that does not parse is kept, so the partition
+  still refuses it.
+  - Every bound, number and `PREDICATE_EXCLUDES` entry is unchanged, and no 0.25 block is added.
+  - The tables `cuts.py` parses out of the file are identical before and after: the file moved
+    from `36eb6d68d309` to `89543ca3b3db` with equal tables.
+  - 109 of 109 pass, X1 measured against the canonical capture tree.
+- **`matrix-store.test.ts`.** The pin moves to 3,017 = 1,893 + 656 + 468, with the two 0.25
+  generations named by their active hash and row count (16/16).
+- **`apps/demo/matrix-reduction.ts`.** `DISPLAYED_POSITIONS` selects the union before both the
+  count and the reduction. The test's oracle names the position by the key's own token. A new case
+  shows the selection is not vacuous: 1,124 rows sit at another position, all at glass 0.25, and
+  none reaches the page (8/8).
+  - The virtual module the build embeds is byte-identical to the pre-publication one: sha256
+    `cc3c5319…`, 411 cells, `MATRIX_CELL_COUNT` 1,893.
+  - Unfiltered, the same module would have been `15392e6d…` with 587 cells and 3,017.
+  - The built bundle carries 1893, and the reduction source at the pre-publication head equals
+    `main`'s.
+
+The other union readers pass unchanged: `w32-exterior-cut`, `tier-coherence`, `w32-capture-tree`,
+`split-generation-guard`, `matrix-write-guard` and `generation-stage`, 116 of 116. They were
+checked for what each claims:
+- `tier-coherence.test.ts` reads only the profiles its `RECORDED` table names.
+- W32's `exterior-cut.py` groups rows by a bed label taken from the key. The 0.25 rows print as
+  their own beds (`light-glass0.25`), never inside a 0.5 bed.
+- `check-capture-tree` names a generation per profile and tier.
+- `scripts/vibrancy.ts` records the union's legacy digest as provenance, and its next run will
+  digest the 3,017-row union, which is what the union is.
+- The demo's sentence "N cells in the result matrix … the rows measured at the material documents
+  the runtime currently ships" (`Site.tsx`) now prints the count at the page's positions. The 0.25
+  documents ship too, so the sentence's scope is stale; saying which position the page shows is
+  G3 (iii)'s demo work.
+
+### 19. The capture tree at the canonical path (`b95e5b08`)
+
+CLAUDE.md requires that copying the read's tree to the canonical path is part of the merge that
+lands the read. The coordinator gave one permission for the main checkout: the four new
+`-glass0.25` directories only, additively, no 0.5 file touched and nothing else changed. The copy
+used `rsync --ignore-existing` per directory; none of the four existed beforehand.
+- `stage/capture-tree-source.sha256` lists 5,620 files (2,248 PNG, 3,372 JSON), and the copy hashes
+  to the identical manifest (`dc00ffb2…`).
+- The 9,023 pre-existing files hash identically before and after (`0989e820…` both times), and the
+  main checkout's git status stayed clean.
+- `check-capture-tree` on the canonical tree, against the published union, exits 0: 3,024 captures,
+  3,017 match, 0 mismatch, misfiled, superseded or unreadable. The 0.25 profiles match 1,124 of
+  1,124 on both tiers. The seven no-row captures are the frozen macOS 26.5 ones W40 G1 recorded.
+- On the stage tree alone it reads 1,124 of 1,124, exit 0.
+
+No generation is superseded at a new position, so nothing moves to `web-captures-superseded/`.
+
+### 20. The sheets
+
+G3 (i)'s eye sheets for c05 cover both tiers in 20 pages: 5 strata × 2 tiers × 2 schemes, with
+gradient empty on the canonical bed. They went to the user on 2026-10-02 (`sheets/sent.txt`: zip
+`4db62208…`, 57,031,627 bytes). They are the stages' non-holdout sheets without regeneration,
+because the stage captures are c05's bytes (§15). The user ruled the misses with them in hand.
+
+No sheet was made of the holdout cells. Clause 14's sheets over the whole canonical bed, holdout
+included, are the landing's (G3 (iii)).
+
+### 21. Close notes: the census, a stated deviation
+
+Web passes in G3 (ii) used `stage/census.py` under the coordinator's census ruling rather than the
+all-names census. It reads W41's X6 observer whole and logs it.
+- **It refuses on:** Reduce Transparency or Increase Contrast; a real capture process (a
+  Playwright-launched Chromium or headless shell, a Google Chrome with automation flags, another
+  `capture-web` or `compare` run, VitreaReference); or a Playwright CLI while such a browser is up.
+- **It annotates, without refusing:** the user's own Google Chrome and its helpers, and a
+  Playwright CLI relay that owns no browser.
+
+Across the sixteen launches it annotated 33 process ids, in two kinds: the user's Chrome and its
+helpers (309 annotations), and relay daemons (99). It refused nothing.
+
+The reason, as ruled: the declared zero-foreign-process fact guards native captures, which a
+foreground browser can steal activation from. A headless Chromium render has no activation to
+lose. The pre-fit's 610 of 610 byte-identical rows against the canonical 0.5 tree were themselves
+rendered on a machine with other processes present. The reproduction in §15, 1,016 of 1,016
+captures byte-identical to c05's, is a second instance of the same fact.
+
+### 22. Clause 11 at the close (`stage/close-checks.txt`)
+
+- The freeze reads 1,818 and X41 911, after the publication and after the copy.
+- The six shipped digests are unchanged, and the four 0.25 module digests equal their sealed
+  documents' (the export test).
+- `macos27-profile.ts` (the X41-pinned 0.5 module), `renderer-webgpu` and `results/matrix.json`
+  are unchanged against `origin/main`.
+- 34 of 34 goldens pass on the real adapter.
+- The calibration package's whole suite passes 870 of 870, run against the canonical capture
+  tree so that X1 is measured and nothing is skipped.
+- The demo's unit suite passes 111 of 111.
+- Lint exits 0 for the demo, calibration and `vitrea-web`.
+
+### 23. Gaps, each recorded
+
+§9's gaps stand and are in `tech-debt-tracker.md`. G3 (ii) adds these:
+- **The holdout's two new misses.** WebGPU 1x light checkerboard rrect-lg reads ssimMean 0.864
+  against ≥ 0.88, where 0.5 read 0.885 (the rrect-lg stratum's gap). CSS 2x light glass-over-glass
+  misses by 0.00004. The four 0.5-era CSS misses are read again at 0.25, under their existing
+  `MISSED_27_ROWS` entries.
+- **`css-tier.ts`'s floor comment counts "the two macOS 27 documents"** as patching
+  `optics.regular` alone. That is still true of all four macOS 27 active documents; only the count
+  is stale. The file is a holdout-ledger source, so a comment edit would move `sourceSha256`. It
+  waits for the next change to that file.
+- **G0's committed scratch candidate now names shipped keys** and cannot be replayed as
+  committed (§12).
+
+The demo sentence's scope (§18) is chartered G3 (iii) work and is not a gap.
+
+### 24. What is not claimed
+
+- No 0.25 row is gated by `adopted-thresholds.test.ts` yet. The cuts in `cuts/` gated this
+  generation, and the owner test's 0.25 blocks are G3 (iii)'s.
+- The default document is still 0.5. The runtime does not yet report the position that drew
+  (clause 12), and nothing in the README, changeset or demo says 0.25 ships.
+- No accessibility state at 0.25 was read; the accessibility leaves carry over unmeasured.
+- The holdout's one reading is for these document bytes. A refit of any of the four documents
+  needs a new configuration in the ledger and a new holdout read.
