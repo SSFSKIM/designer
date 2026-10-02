@@ -1,5 +1,9 @@
 # W43 — the clearer glass: a `-glass0.25` material generation beside `-glass0.5`, the slider's second point, and a one-knob test of the body law (2026-10-01)
 
+**Status update (2026-10-02): G0, G1a and G2's first stage have merged (§5.198–§5.200). The
+user ruled Decision Logs 5 and 7 on 2026-10-02, "Adopt all eleven recommendations", and ruled
+G1b for tonight. G3's refit is open.** The status as drafted follows unchanged.
+
 **Status: DRAFT v1.2 (2026-10-01): the adversarial review of v1.1 folded (one P1, three P2, all
 accepted by the parent; Revision Notes). No child is dispatched.** Chartered
 on the user's ruling at W42's close, "Close W42 here (Recommended)", whose option reads "...
@@ -13,7 +17,7 @@ using. Main is at `4da14bd3`, 0.25.0 is published, and the freeze reads 1,818.
 
 ## Decisions
 
-The full entries are Decision Logs 1–6 at the tail.
+The full entries are Decision Logs 1–7 at the tail.
 
 | DL | question | status | what holds |
 | --- | --- | --- | --- |
@@ -21,8 +25,9 @@ The full entries are Decision Logs 1–6 at the tail.
 | 2 | the capture scope | **ADOPTED** by the parent under the user's Decision Log 3 ruling | the four standard keys in full at seven runs; no accessibility pass; the w-test probe and the ladder at 0, 0.75 and 1 at three runs; every pixel through the W39 side bundle |
 | 3 | the sittings | **RULED** by the user, 2026-10-01: "Two sittings, 12.4 h + 4 h (Recommended)" | G1a, the generation, about 12.4 h at the Mac; G1b, the probe and ladder, about 4.0 h, later |
 | 4 | W42's structure question | **RULED** by the parent, 2026-10-01 | kept separate; the probe and ladder are declared readings, never a landing; W42's H and branches untouched |
-| 5 | bounds for the 0.25 documents | **OPEN**, for G2's reading | the draft's recommendation stands beside it |
+| 5 | bounds for the 0.25 documents | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" (Decision Log 7 item 10) | (a)–(e) as drafted: the 0.5 tables per tier; M1, C1, X1; L1 with growth against the pre-fit render; M2 directional; E2 in absolute codes; S1 as R2; no floor; every non-holdout miss ruled before the holdout |
 | 6 | the charter's mechanical rulings | the parent's | ledger, branches, routing, memo F in G0 |
+| 7 | what G3 refits at 0.25 | **RULED** by the user, 2026-10-02: "Adopt all eleven recommendations" | the light level and tone first, the scatter second, dark thick tone and scatter only, light chroma and receded tint only on a miss; rim, highlight, shadow held; receded documents as differences; rrect-lg its own stratum; S1 as R2 over `s1/r2-population.json` |
 
 ## Purpose
 
@@ -1006,11 +1011,33 @@ on build 26A428 come together now. The w-test and the ladder ends are what a str
 most want from this position, and they are cheap. The ladder may matter more than the test: at
 x = 1 the body is the wide term alone, which is what W42's U1 and U3 could not separate.
 
-### Decision Log 5 — bounds for the 0.25 documents (OPEN; the user's; for G2's reading)
+### Decision Log 5 — RULED 2026-10-02 (the user): bounds for the 0.25 documents, (a)–(e) as drafted
 
-**Left open by the parent, 2026-10-01.** It is put to the user with G2's Decision Log 7 draft,
-on what the native delta measured, and must be ruled before G3 reads any 0.25 render. The
-recommendation below stands beside it.
+**RULED 2026-10-02 by the user: "Adopt all eleven recommendations"**, on G2's Decision Log 7
+draft (`packages/calibration/results/2026-10-02-w43-g2-reading/decision-log-7-draft.md`), whose
+item 10 put this Decision Log re-instantiated at 0.25 with the native delta's readings beside it
+(§5.200). The ruling is that item's recommendation, (a)–(e) below as written, read with these
+specifics from the draft:
+- **(a)** the four `-glass0.25` standard profiles take the 0.5 standard tables' values per tier,
+  declared before G3 reads any 0.25 render;
+- **(b)** over the four 0.25 standard profiles, WebGPU tier: M1 at median [0.8, 1.2] and cells
+  [0.6, 1.4]; C1 ≤ 0.0042 per bed × span, expected to reproduce its 0.5 readings, so a C1 change
+  at 0.25 is a defect and not a fit; X1 at zero pixels above native black, the black branch's
+  referee; L1 absolute ≤ 0.055 with growth ≤ 0.005 against the pre-fit render (the 0.5
+  documents on the 0.25 cells); M2 **directional** against Apple's 0.25 texture in W42 Decision
+  Log 5a's form, its reference that pre-fit render, re-baselined at the adopting gate; E2 per
+  cell in absolute codes against the same render (W42 Decision Log 5e's form);
+- **(c)** S1 as Decision Log 7 item 11 rules it (R2), read in G3 and adopted only by the user's
+  ruling at the landing;
+- **(d)** no regression floor;
+- **(e)** every non-holdout miss ruled by the user, as a permitted named miss or a stop, before
+  the holdout is read and before anything publishes (clause 10).
+
+**Declined:** (e) as "0.25 ships only if every bound holds" (the draft's alternative).
+
+*The draft, as it stood open at charter (2026-10-01):* it was put to the user with G2's Decision
+Log 7 draft, on what the native delta measured, and had to be ruled before G3 reads any 0.25
+render. The recommendation below is what was ruled.
 
 - **(a)** The four 0.25 standard profiles take the 0.5 standard tables' values per tier, declared
   before G3's read. This follows W29 Decision Log 4, which declared the 27 tables at the 26.5
@@ -1054,6 +1081,61 @@ matters.
 - The 0.25 documents are patches over `DEFAULT_MATERIAL_PROFILE`, as every shipped material is.
   They are not differences over the 0.5 documents, which would chain two digests.
 
+### Decision Log 7 — RULED 2026-10-02 (the user): what G3 refits at 0.25, the bounds, and S1
+
+**RULED 2026-10-02 by the user: "Adopt all eleven recommendations"**, on G2's draft
+(`packages/calibration/results/2026-10-02-w43-g2-reading/decision-log-7-draft.md`, §5.200 §6),
+written before any vitrea render at 0.25 existed. The ruling is each item's recommendation; each
+item's alternative is recorded as declined. The draft is kept as written, with a dated note
+beside it. G3's refit (clause 10; G3 steps 1–3) executes these items, in this order:
+
+1. **The light body's level and tone are refit first, in both light documents.** Leaves:
+   `backdropToneResponseThin` and `…Thick` with `backdropToneAnchorX` held,
+   `optics.regular.tintAlpha`, and the black branch's `backdropToneBlackThin` and `…Thick`; the
+   light receded document refits its own patch of the same families. *Declined:* tone only,
+   holding `tintAlpha`.
+2. **The scatter is refit second, in all four documents:** the `sizeScatter…` family (gain,
+   floor, ramp starts, heavy tap and share, `sizeScatterScaleGain`) and `blurSigma`.
+   *Declined:* hold the scatter and let M2 name the texture misses.
+3. **In the dark documents only `backdropToneResponseThick` (active and receded) and the
+   scatter move;** the thin ordinates, the black branch, `tintAlpha` and `bodyChromaRetention`
+   hold their 0.5 values. *Declined:* refit all four dark tone ordinates jointly.
+4. **`bodyChromaRetention` moves in the two light documents only, and only after items 1–2,**
+   if the first candidate misses M1. *Declined:* hold it everywhere and name the residual.
+5. **`tintShadeLight` / `…Dark` hold unless the first candidate misses** the tint cells (the
+   light receded tint is the one Apple moved, −0.025 OKLab L). *Declined:* refit
+   `tintShadeLight` in the light receded document from the start.
+6. **Every rim and highlight leaf holds.** G3 checks that the light active rim excess follows
+   Apple's −0.0037 and names the residual if it does not. *Declined:* refit `rimAlpha` /
+   `rimLevelGain` in the light active document.
+7. **Every `outerShadow` leaf holds in all four documents, the receded zeros included;** C1
+   carries over at its 0.5 values. The draft named no sound alternative for the field.
+8. **The receded 0.25 documents are each a difference over its own scheme's 0.25 active
+   document:** the light one refit (items 1, 4, 5), the dark one carrying the 0.5 receded
+   difference except where items 2–3 move it. *Declined:* carry both 0.5 receded differences
+   unchanged over the new active documents.
+9. **rrect-lg stays in the fit and the gate as its own stratum,** with its exterior edge (up to
+   112 codes on structured backdrops, the capture-scale step no leaf models under X44) a named
+   gap. *Declined:* keep rrect-lg out of the fit objective and in the gate.
+10. **Decision Log 5 re-instantiated at 0.25, (a)–(e)** as Decision Log 5 above records.
+    *Declined:* (e) as "0.25 ships only if every bound holds".
+11. **S1 restated as R2.** Over the non-holdout standard cells where Apple's change exceeds both
+    its bar and the shipped 0.5 render's own error there (|ΔA| > |e₀.₅|), vitrea's change has
+    Apple's sign on every cell, and the median ratio of vitrea's change to Apple's, pooled over
+    the four profiles per tier, lies in [0.8, 1.2]; per-profile medians are reported, not gated.
+    It reads `interiorMean` off the rows. Its population is fixed in
+    `results/2026-10-02-w43-g2-reading/s1/r2-population.json` (183 WebGPU and 125 CSS cells), so
+    no candidate can choose it, and it is adopted only by the user's ruling at the landing
+    (Decision Log 5 (c)). *Declined:* R1 (|e₀.₅| ≤ 0.2|ΔA|), and the mask-free `bodyLevel` in
+    place of `interiorMean`.
+
+Whatever was ruled, the draft put one act first: G3 renders the 0.5 documents on the 0.25 cells
+in candidate mode, in scratch (a cross-position read, stamped), as the pre-fit baseline L1, M2
+and E2 read against, and checks items 5–8's "hold unless" conditions on it before fitting
+anything. The draft also leaves undecided what this ruling does not reach: the w-test and the
+ladder (G2's second stage), any law form (X44 holds the 0.5 leaf set), and the accessibility
+leaves, which carry over unmeasured (Decision Log 2 (b)).
+
 ## Surprises & Discoveries
 
 Found while drafting (2026-10-01):
@@ -1078,6 +1160,12 @@ Found while drafting (2026-10-01):
 
 ## Revision Notes
 
+- 2026-10-02 (G3's first commit, on branch `w43-g3-refit`): the user's ruling of Decision Logs 5
+  and 7, "Adopt all eleven recommendations", folded as RULED. Decision Log 7 is added at the tail
+  with the draft's eleven recommendations as the ruling and each alternative recorded as
+  declined; Decision Log 5 is marked RULED with the draft's item 10 readings; the Decisions
+  table and the status follow. The draft itself is unchanged, with
+  `decision-log-7-RULED-2026-10-02.md` beside it. Nothing else in the charter moves.
 - 2026-10-01 (v1.2; the adversarial review of `689c3f31`, needs-attention, one P1 and three P2,
   every finding accepted by the parent and folded in place):
   - **[P1] Gate before holdout and publication.** v1.1 froze, read the holdout and published,
