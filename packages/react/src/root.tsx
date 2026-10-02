@@ -96,17 +96,22 @@ export interface GlassRootProps {
   /**
    * Which **measured material** this root draws, as one document (W29 G4).
    *
-   * Defaults to `macos27MaterialProfileDocument` — what a Mac draws today —
-   * with `macos26MaterialProfileDocument` shipped beside it for a page pinned to
-   * the material it was designed against. A document carries the active patch
-   * and the receded difference for both colour schemes plus the CSS tier's
-   * crossing, so selecting one moves every tier and both poses at once; before
-   * this prop a React app could not select a reference material at all.
+   * Defaults to `macos27MaterialProfileDocument` — what a Mac draws today, at the
+   * Glass appearance slider's system default of 0.5 — with
+   * `macos27Glass025MaterialProfileDocument` (the same release at the slider's
+   * 0.25, the clearer glass) and `macos26MaterialProfileDocument` (for a page
+   * pinned to the material it was designed against) shipped beside it. A
+   * document carries the active patch and the receded difference for both
+   * colour schemes plus the CSS tier's crossing, so selecting one moves every
+   * tier and both poses at once; before this prop a React app could not select
+   * a reference material at all.
    *
    * Read at construction, because `createGlassRoot` selects it there: a scheme
    * and a window pose move within one material, where a different document is a
    * different material and a root already drawing one has surfaces measured
-   * against it.
+   * against it. A later change to the prop is therefore not a switch: the root
+   * has already read it, and switching documents means remounting this
+   * component.
    */
   readonly materialProfileDocument?: GlassMaterialProfileDocument | undefined;
   /**

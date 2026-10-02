@@ -27,11 +27,17 @@ import {
   type ResolvedColorScheme,
 } from "../src/color-scheme";
 import { darkMaterialProfile } from "../src/dark-profile";
+import { macos27Glass025LightMaterialProfile } from "../src/macos27-glass025-profile";
 import {
   macos27DarkMaterialProfile,
   macos27LightMaterialProfile,
 } from "../src/macos27-profile";
-import { macos26MaterialProfileDocument } from "../src/material-document";
+import {
+  macos26MaterialProfileDocument,
+  macos27Glass025MaterialProfileDocument,
+  macos27MaterialProfileDocument,
+  SHIPPED_MATERIAL_PROFILE_DOCUMENTS,
+} from "../src/material-document";
 import { resolvedBackdropToneResponse } from "../src/optics";
 import type { RendererMaterialProfile } from "../src/renderer-bridge";
 import { createGlassRoot, type GlassRoot, type GlassRootOptions } from "../src/root";
@@ -453,5 +459,68 @@ describe("a root's resolved scheme", () => {
     held.frame();
     expect(held.root.colorScheme).toBe("dark");
     expect(held.tintAlpha()).toBe(asDark);
+  });
+});
+
+describe("the readout's slider position (W43 Decision Log 1 (a), charter clause 12)", () => {
+  /*
+   * `glassTintAmount` is a property of the document, so what is checked is that it reaches
+   * both readouts from the root that drew rather than from the document an app holds: in each
+   * scheme and each pose, on `root.material` and on the group's resolved state, beside the
+   * endpoint key that drew, whose glass token has to name the same position. On the macOS
+   * 26.5 document the field is ABSENT from both records, not present and undefined: a
+   * material measured before the slider existed says nothing about a position, and the root
+   * writes every optional field of this record conditionally for that reason.
+   */
+  const POSITIONS = [
+    [macos27MaterialProfileDocument, 0.5],
+    [macos27Glass025MaterialProfileDocument, 0.25],
+    [macos26MaterialProfileDocument, undefined],
+  ] as const;
+
+  it("covers every shipped document", () => {
+    expect(POSITIONS.map(([document]) => document)).toEqual(SHIPPED_MATERIAL_PROFILE_DOCUMENTS);
+  });
+
+  for (const [document, position] of POSITIONS) {
+    const says = position === undefined ? "no position" : String(position);
+    it(`${document.name} reports ${says} in both schemes and both poses`, () => {
+      const { matcher } = fakeMatcher();
+      for (const colorScheme of ["light", "dark"] as const) {
+        for (const windowActivation of ["active", "inactive"] as const) {
+          const { root } = rootWithHost({
+            matcher, colorScheme, windowActivation, materialProfileDocument: document,
+          });
+          const where = `${colorScheme} ${windowActivation}`;
+          for (const readout of [root.material, root.capabilities("g1")?.materialDocument]) {
+            if (readout === undefined) throw new Error(`${where}: the group resolved no material`);
+            expect(readout.name, where).toBe(document.name);
+            const token = readout.profileKey?.match(/-glass(\d+(?:\.\d+)?)(?:-receded)?$/)?.[1];
+            if (position === undefined) {
+              expect(Object.hasOwn(readout, "glassTintAmount"), where).toBe(false);
+              expect(token, where).toBeUndefined();
+            } else {
+              expect(readout.glassTintAmount, where).toBe(position);
+              expect(Number(token), where).toBe(position);
+            }
+          }
+        }
+      }
+    });
+  }
+
+  it("names a position the frame actually drew: 0.25 draws the 0.25 patch, not the default", () => {
+    const { matcher } = fakeMatcher();
+    const at025 = rootWithHost({
+      matcher, materialProfileDocument: macos27Glass025MaterialProfileDocument,
+    });
+    const at05 = rootWithHost({ matcher });
+    expect(at025.root.material.glassTintAmount).toBe(0.25);
+    expect(at05.root.material.glassTintAmount).toBe(0.5);
+    // The 0.25 patch names exactly the 0.5 patch's leaves (X44) and the two crossings are one,
+    // so the 0.25 patch merged over the default document is the 0.25 light material itself.
+    const patched = rootWithHost({ matcher, materialProfile: macos27Glass025LightMaterialProfile });
+    expect(at025.tintAlpha()).toBe(patched.tintAlpha());
+    expect(at025.tintAlpha()).not.toBe(at05.tintAlpha());
   });
 });

@@ -498,20 +498,51 @@ both halves moving together.
 ### Which macOS the material is measured against
 
 macOS 27 changed Apple's material under every app, and **from 0.19.0 a page draws
-the macOS 27 material by default**. The previous reference is shipped beside it
-and selectable, as one value:
+the macOS 27 material by default**, measured at the Glass appearance slider's
+system default, 0.5, which is what a Mac nobody has adjusted draws.
+
+macOS 27 also gives its user that slider (`NSGlassTintAmount`), and the material
+moves with it, so the same release is shipped measured at a second position,
+0.25, where Apple's glass is clearer. The previous reference, macOS 26.5, is
+shipped beside both. Each is selectable as one value:
 
 ```tsx
-import { macos26MaterialProfileDocument } from "@vitreajs/vitrea-web";
+import {
+  macos26MaterialProfileDocument,
+  macos27Glass025MaterialProfileDocument,
+} from "@vitreajs/vitrea-web";
 
+// The default: macOS 27 at the slider's system default, 0.5.
+<GlassRoot>…</GlassRoot>
+
+// macOS 27 at 0.25, the clearer glass.
+<GlassRoot materialProfileDocument={macos27Glass025MaterialProfileDocument}>…</GlassRoot>
+
+// macOS 26.5, the previous reference.
 <GlassRoot materialProfileDocument={macos26MaterialProfileDocument}>…</GlassRoot>
 ```
+
+The two macOS 27 documents are two fixed settings, not a range. There is no
+continuous slider and no document for any other position, because a position
+between or beyond them would draw numbers nobody measured.
 
 A document carries the active patch and the receded difference for both colour
 schemes plus what the material costs on the CSS tier, so one prop moves every
 tier and both poses together. It is read at construction: a scheme and a window
 pose move *within* one material, where a different document is a different
-material.
+material. Changing the prop on a mounted `<GlassRoot>` therefore does not switch
+the material; to switch, remount it, for instance with a `key` that names the
+document:
+
+```tsx
+<GlassRoot key={material.name} materialProfileDocument={material}>…</GlassRoot>
+```
+
+Which position drew is a readout. `useGlassCapabilities(groupId)` hands back the
+group's resolved state, whose `materialDocument.glassTintAmount` is the slider
+position the drawing document was measured at: 0.5 or 0.25 on macOS 27, and
+absent, not 0.5, on macOS 26.5, which had no slider. The runtime reports the same
+field on `root.material` (`useGlassRoot()?.material`).
 
 The document the root actually selected is on the root handle, which is what lets
 a layout ask its own material's questions:
@@ -551,7 +582,7 @@ component that has to produce a layout number on its first render can. That is h
 > import { useGlassCapabilities } from "@vitreajs/vitrea-react";
 >
 > const { materialDocument } = useGlassCapabilities("my-group") ?? {};
-> // materialDocument?.profileKey, .resolvedMaterialSha256, .tuned
+> // materialDocument?.profileKey, .resolvedMaterialSha256, .glassTintAmount, .tuned
 > ```
 >
 > What it cannot do is produce a number on the FIRST render, before a frame has

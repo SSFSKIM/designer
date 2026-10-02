@@ -151,7 +151,7 @@ export interface GlassGroupState {
  * The material a group actually drew, named so it can be checked rather than
  * assumed.
  *
- * `tuned` is the field that keeps the other three honest. A root may merge an
+ * `tuned` is the field that keeps the others honest. A root may merge an
  * app's own `materialProfile` or `cssTierMapping` over whatever the document
  * selected, and a readout that named the document without saying so would report
  * a digest over a material that is not on the screen.
@@ -161,6 +161,17 @@ export interface ResolvedMaterialDocument {
   readonly name: string;
   /** Which macOS release it was measured on. */
   readonly platform: string;
+  /**
+   * The Glass appearance slider position (`NSGlassTintAmount`) the document was
+   * measured at: 0.5, the system default, or 0.25 on macOS 27 (W43 Decision
+   * Log 1 (a)). A property of the whole document, so it does not follow the
+   * scheme or the pose.
+   *
+   * Absent rather than defaulted on a material measured before the slider
+   * existed: macOS 26.5 has no such axis, so its material says nothing about a
+   * position, and a 0.5 written here would read as a measurement nobody made.
+   */
+  readonly glassTintAmount?: number;
   /** The endpoint drawn for this group's resolved scheme and window pose. */
   readonly profileKey?: string;
   /** That endpoint's digest over the material it resolves to. */

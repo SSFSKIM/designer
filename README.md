@@ -158,6 +158,18 @@ npm install @vitreajs/vitrea-web            # plain JS, or your own adapter
   guideline: what the glass physically does, the two-layer discipline, geometry,
   colour, motion, and a cookbook mapping each decision onto this API.
 
+By default a page draws Apple's macOS 27 material as measured at the Glass
+appearance slider's system default, 0.5. Two more measured materials ship beside
+it and are chosen once, when the root is created:
+`macos27Glass025MaterialProfileDocument`, the same release at the slider's 0.25,
+where the glass is clearer, and `macos26MaterialProfileDocument`, the previous
+reference. Pass one as `createGlassRoot({ materialProfileDocument })` or as the
+`materialProfileDocument` prop on React's `<GlassRoot>`. These are two fixed
+macOS 27 settings, not a continuous slider, and `root.material.glassTintAmount`
+reports the position that drew (absent under macOS 26.5, which had no slider).
+The [`@vitreajs/vitrea-web` README](./packages/platform-web/README.md) has the
+details.
+
 The workspace is a pnpm monorepo. Seven packages under `packages/` — `core`,
 `geometry`, `motion`, `platform-web`, `renderer-webgpu`, `react`, `calibration` —
 of which exactly three are ever published, under the `@vitreajs` names above.
