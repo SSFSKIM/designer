@@ -1,0 +1,490 @@
+protocol d8061add0e30, part 1 e6aaf6543c42
+control: c05-control against the canonical strict c05 captures: 34/34 pixel-identical, 34 PNG-identical
+x48 (1x captures against c05-control's): every rung identical
+
+L1 sizeScatterFloor2x: not struck; non-flat range {'sizeScatterFloor2x': [0.6, 1.0]}; mustNotAct moved: 0
+  at c05: values [0.6, 0.7, 0.8, 0.9, 1.0] -> moves
+    checkerboard-4__rrect-sm__rest           T1 web 0.0850 0.0825 0.0801 0.0778 0.0758  spread 0.0092 bar 0.0033
+    checkerboard-4__rrect-md__rest           T1 web 0.0614 0.0473 0.0387 0.0339 0.0300  spread 0.0314 bar 0.0031
+    checkerboard-4__rrect-md__inactive       T1 web 0.0621 0.0474 0.0339 0.0220 0.0166  spread 0.0455 bar 0.0028
+    checkerboard-4__rrect-lg__rest           T1 web 0.0365 0.0329 0.0298 0.0272 0.0253  spread 0.0112 bar 0.0031
+    checkerboard-8__rrect-md__rest           T1 web 0.0841 0.0631 0.0514 0.0442 0.0385  spread 0.0455 bar 0.0032
+    checkerboard-8__rrect-md__inactive       T1 web 0.0843 0.0631 0.0435 0.0263 0.0161  spread 0.0682 bar 0.0028
+    hc-text-7__rrect-md__rest                T1 web 0.0882 0.0737 0.0656 0.0614 0.0582  spread 0.0300 bar 0.0035
+    checkerboard__rrect-sm__rest             T1 web 0.1451 0.1409 0.1366 0.1326 0.1288  spread 0.0163 bar 0.0034
+    checkerboard__rrect-sm__inactive         T1 web 0.2251 0.2215 0.2179 0.2143 0.2107  spread 0.0144 bar 0.0030
+    checkerboard__rrect-md__rest             T1 web 0.0976 0.0750 0.0609 0.0530 0.0461  spread 0.0515 bar 0.0033
+    checkerboard__rrect-md__inactive         T1 web 0.1196 0.0994 0.0796 0.0599 0.0468  spread 0.0728 bar 0.0029
+    checkerboard__rrect-ml__inactive         T1 web 0.0998 0.0850 0.0702 0.0562 0.0458  spread 0.0540 bar 0.0029
+    checkerboard-32__rrect-md__rest          T1 web 0.1556 0.1388 0.1284 0.1222 0.1162  spread 0.0394 bar 0.0034
+    checkerboard-64__rrect-md__rest          T1 web 0.2330 0.2250 0.2202 0.2173 0.2146  spread 0.0185 bar 0.0032
+    checkerboard-64__rrect-md__inactive      T1 web 0.2619 0.2565 0.2513 0.2466 0.2436  spread 0.0183 bar 0.0029
+    photo__rrect-md__rest                    T1 web 0.0567 0.0560 0.0555 0.0553 0.0551  spread 0.0016 bar 0.0030
+    photo__rrect-md__inactive                T1 web 0.0638 0.0633 0.0628 0.0624 0.0621  spread 0.0018 bar 0.0028
+
+L2 sizeHeavyTapSigma2x: not struck; non-flat range {'sizeHeavyTapSigma2x': [6, 20]}; mustNotAct moved: 0
+  at floor1: values [20, 6, 10, 14] -> moves
+    checkerboard-4__rrect-sm__rest           T1 web 0.0758 0.0761 0.0758 0.0758  spread 0.0003 bar 0.0033
+    checkerboard-4__rrect-md__rest           T1 web 0.0300 0.0306 0.0300 0.0300  spread 0.0006 bar 0.0031
+    checkerboard-4__rrect-lg__rest           T1 web 0.0253 0.0258 0.0253 0.0253  spread 0.0005 bar 0.0031
+    checkerboard-8__rrect-md__rest           T1 web 0.0385 0.0902 0.0419 0.0385  spread 0.0517 bar 0.0032
+    hc-text-7__rrect-md__rest                T1 web 0.0582 0.0806 0.0661 0.0607  spread 0.0224 bar 0.0035
+    checkerboard__rrect-sm__rest             T1 web 0.1288 0.2463 0.1860 0.1502  spread 0.1175 bar 0.0034
+    checkerboard__rrect-md__rest             T1 web 0.0461 0.1975 0.1199 0.0719  spread 0.1515 bar 0.0033
+    checkerboard-32__rrect-md__rest          T1 web 0.1162 0.2558 0.2110 0.1725  spread 0.1396 bar 0.0034
+    checkerboard-64__rrect-md__rest          T1 web 0.2146 0.2894 0.2661 0.2462  spread 0.0748 bar 0.0032
+    photo__rrect-md__rest                    T1 web 0.0551 0.0628 0.0605 0.0584  spread 0.0077 bar 0.0030
+
+L3 sizeHeavySecondShare+sizeHeavySecondSigma2x: not struck; non-flat range {'sizeHeavySecondShare': [0, 1.0], 'sizeHeavySecondSigma2x': [1.5, 6]}; mustNotAct moved: 0; C's 1x inert setting PROVEN
+  at floor1: values [[0, 0], [0.5, 1.5], [0.5, 3], [0.5, 6], [0.25, 3], [1.0, 3]] -> moves
+    checkerboard-4__rrect-sm__rest           T1 web 0.0758 0.0939 0.0760 0.0758 0.0758 0.0761  spread 0.0181 bar 0.0033
+    checkerboard-4__rrect-md__rest           T1 web 0.0300 0.0555 0.0303 0.0300 0.0302 0.0306  spread 0.0255 bar 0.0031
+    checkerboard-4__rrect-md__inactive       T1 web 0.0166 0.0407 0.0167 0.0166 0.0167 0.0168  spread 0.0241 bar 0.0028
+    checkerboard-4__rrect-lg__rest           T1 web 0.0253 0.0500 0.0256 0.0253 0.0255 0.0258  spread 0.0246 bar 0.0031
+    checkerboard-8__rrect-md__rest           T1 web 0.0385 0.1164 0.0632 0.0388 0.0504 0.0902  spread 0.0779 bar 0.0032
+    checkerboard-8__rrect-md__inactive       T1 web 0.0161 0.1009 0.0408 0.0162 0.0265 0.0716  spread 0.0848 bar 0.0028
+    hc-text-7__rrect-md__rest                T1 web 0.0582 0.0993 0.0670 0.0602 0.0618 0.0806  spread 0.0410 bar 0.0035
+    checkerboard__rrect-sm__rest             T1 web 0.1288 0.2108 0.1866 0.1465 0.1574 0.2463  spread 0.1175 bar 0.0034
+    checkerboard__rrect-sm__inactive         T1 web 0.2107 0.2584 0.2422 0.2155 0.2264 0.2740  spread 0.0633 bar 0.0030
+    checkerboard__rrect-md__rest             T1 web 0.0461 0.1516 0.1195 0.0679 0.0814 0.1975  spread 0.1515 bar 0.0033
+    checkerboard__rrect-md__inactive         T1 web 0.0468 0.1530 0.1179 0.0583 0.0820 0.1902  spread 0.1435 bar 0.0029
+    checkerboard__rrect-ml__inactive         T1 web 0.0458 0.1525 0.1175 0.0575 0.0813 0.1905  spread 0.1447 bar 0.0029
+    checkerboard-32__rrect-md__rest          T1 web 0.1162 0.2014 0.1849 0.1533 0.1501 0.2558  spread 0.1396 bar 0.0034
+    checkerboard-64__rrect-md__rest          T1 web 0.2146 0.2571 0.2497 0.2347 0.2314 0.2894  spread 0.0748 bar 0.0032
+    checkerboard-64__rrect-md__inactive      T1 web 0.2436 0.2730 0.2653 0.2487 0.2540 0.2913  spread 0.0477 bar 0.0029
+    photo__rrect-md__rest                    T1 web 0.0551 0.0591 0.0586 0.0572 0.0567 0.0628  spread 0.0077 bar 0.0030
+    photo__rrect-md__inactive                T1 web 0.0621 0.0650 0.0644 0.0626 0.0632 0.0672  spread 0.0052 bar 0.0028
+
+L4 sizeScatterRampStartThin2x: not struck; non-flat range {'sizeScatterRampStartThin2x': [0.46, 0.95]}; mustNotAct moved: 0
+  at c05: values [0.46, 0.6, 0.8, 0.95] -> moves
+    checkerboard-4__rrect-sm__rest           T1 web 0.0850 0.1057 0.1360 0.1591  spread 0.0741 bar 0.0033
+    checkerboard-4__rrect-md__rest           T1 web 0.0614 0.0614 0.0614 0.0614  spread 0.0000 bar 0.0031
+    checkerboard-8__rrect-md__rest           T1 web 0.0841 0.0841 0.0841 0.0841  spread 0.0000 bar 0.0032
+    hc-text-7__rrect-md__rest                T1 web 0.0882 0.0882 0.0882 0.0882  spread 0.0000 bar 0.0035
+    checkerboard__rrect-sm__rest             T1 web 0.1451 0.1815 0.2343 0.2740  spread 0.1288 bar 0.0034
+    checkerboard__rrect-md__rest             T1 web 0.0976 0.0976 0.0976 0.0976  spread 0.0000 bar 0.0033
+    checkerboard-32__rrect-md__rest          T1 web 0.1556 0.1556 0.1556 0.1556  spread 0.0000 bar 0.0034
+    checkerboard-64__rrect-md__rest          T1 web 0.2330 0.2330 0.2330 0.2330  spread 0.0000 bar 0.0032
+    photo__rrect-md__rest                    T1 web 0.0567 0.0567 0.0567 0.0567  spread 0.0000 bar 0.0030
+
+L5 sizeScatterRampReach2xPx: not struck; non-flat range {'sizeScatterRampReach2xPx': [50, 200]}; mustNotAct moved: 0
+  at c05: values [100, 50, 200] -> moves
+    checkerboard-4__rrect-sm__rest           T1 web 0.0850 0.0836 0.0857  spread 0.0022 bar 0.0033
+    checkerboard-4__rrect-md__rest           T1 web 0.0614 0.0614 0.0614  spread 0.0000 bar 0.0031
+    checkerboard-4__rrect-md__inactive       T1 web 0.0621 0.0621 0.0621  spread 0.0000 bar 0.0028
+    checkerboard-4__rrect-lg__rest           T1 web 0.0365 0.0349 0.0387  spread 0.0038 bar 0.0031
+    checkerboard-8__rrect-md__rest           T1 web 0.0841 0.0841 0.0841  spread 0.0000 bar 0.0032
+    checkerboard-8__rrect-md__inactive       T1 web 0.0843 0.0843 0.0843  spread 0.0000 bar 0.0028
+    hc-text-7__rrect-md__rest                T1 web 0.0882 0.0882 0.0882  spread 0.0000 bar 0.0035
+    checkerboard__rrect-sm__rest             T1 web 0.1451 0.1423 0.1467  spread 0.0043 bar 0.0034
+    checkerboard__rrect-sm__inactive         T1 web 0.2251 0.2143 0.2306  spread 0.0163 bar 0.0030
+    checkerboard__rrect-md__rest             T1 web 0.0976 0.0976 0.0976  spread 0.0000 bar 0.0033
+    checkerboard__rrect-md__inactive         T1 web 0.1196 0.1196 0.1196  spread 0.0000 bar 0.0029
+    checkerboard__rrect-ml__inactive         T1 web 0.0998 0.0998 0.0998  spread 0.0000 bar 0.0029
+    checkerboard-32__rrect-md__rest          T1 web 0.1556 0.1556 0.1556  spread 0.0000 bar 0.0034
+    checkerboard-64__rrect-md__rest          T1 web 0.2330 0.2330 0.2330  spread 0.0000 bar 0.0032
+    checkerboard-64__rrect-md__inactive      T1 web 0.2619 0.2619 0.2619  spread 0.0000 bar 0.0029
+    photo__rrect-md__rest                    T1 web 0.0567 0.0567 0.0567  spread 0.0000 bar 0.0030
+    photo__rrect-md__inactive                T1 web 0.0638 0.0638 0.0638  spread 0.0000 bar 0.0028
+  at floor1: values [100, 50, 200] -> moves
+    checkerboard-4__rrect-sm__rest           T1 web 0.0758 0.0659 0.0809  spread 0.0150 bar 0.0033
+    checkerboard-4__rrect-md__rest           T1 web 0.0300 0.0244 0.0353  spread 0.0110 bar 0.0031
+    checkerboard-4__rrect-md__inactive       T1 web 0.0166 0.0162 0.0170  spread 0.0007 bar 0.0028
+    checkerboard-4__rrect-lg__rest           T1 web 0.0253 0.0207 0.0312  spread 0.0105 bar 0.0031
+    checkerboard-8__rrect-md__rest           T1 web 0.0385 0.0300 0.0462  spread 0.0161 bar 0.0032
+    checkerboard-8__rrect-md__inactive       T1 web 0.0161 0.0154 0.0168  spread 0.0014 bar 0.0028
+    hc-text-7__rrect-md__rest                T1 web 0.0582 0.0541 0.0626  spread 0.0086 bar 0.0035
+    checkerboard__rrect-sm__rest             T1 web 0.1288 0.1116 0.1380  spread 0.0264 bar 0.0034
+    checkerboard__rrect-sm__inactive         T1 web 0.2107 0.1872 0.2233  spread 0.0361 bar 0.0030
+    checkerboard__rrect-md__rest             T1 web 0.0461 0.0357 0.0553  spread 0.0196 bar 0.0033
+    checkerboard__rrect-md__inactive         T1 web 0.0468 0.0447 0.0484  spread 0.0038 bar 0.0029
+    checkerboard__rrect-ml__inactive         T1 web 0.0458 0.0440 0.0479  spread 0.0039 bar 0.0029
+    checkerboard-32__rrect-md__rest          T1 web 0.1162 0.1061 0.1241  spread 0.0179 bar 0.0034
+    checkerboard-64__rrect-md__rest          T1 web 0.2146 0.2099 0.2182  spread 0.0083 bar 0.0032
+    checkerboard-64__rrect-md__inactive      T1 web 0.2436 0.2431 0.2440  spread 0.0010 bar 0.0029
+    photo__rrect-md__rest                    T1 web 0.0551 0.0547 0.0554  spread 0.0007 bar 0.0030
+    photo__rrect-md__inactive                T1 web 0.0621 0.0620 0.0621  spread 0.0001 bar 0.0028
+
+L6 sizeScatterRampStartThin2x: not struck; non-flat range {'sizeScatterRampStartThin2x': [0.1, 0.7]}; mustNotAct moved: 0
+  at c05: values [0.7, 0.1, 0.4, 0.55] -> moves
+    checkerboard-4__rrect-md__inactive       T1 web 0.0621 0.0621 0.0621 0.0621  spread 0.0000 bar 0.0028
+    checkerboard-8__rrect-md__inactive       T1 web 0.0843 0.0843 0.0843 0.0843  spread 0.0000 bar 0.0028
+    checkerboard__rrect-sm__inactive         T1 web 0.2251 0.1538 0.1538 0.1893  spread 0.0713 bar 0.0030
+    checkerboard__rrect-md__inactive         T1 web 0.1196 0.1196 0.1196 0.1196  spread 0.0000 bar 0.0029
+    checkerboard-64__rrect-md__inactive      T1 web 0.2619 0.2619 0.2619 0.2619  spread 0.0000 bar 0.0029
+    photo__rrect-md__inactive                T1 web 0.0638 0.0638 0.0638 0.0638  spread 0.0000 bar 0.0028
+  at floor1: values [0.7, 0.1, 0.4] -> moves
+    checkerboard-4__rrect-md__inactive       T1 web 0.0166 0.0166 0.0166  spread 0.0000 bar 0.0028
+    checkerboard-8__rrect-md__inactive       T1 web 0.0161 0.0161 0.0161  spread 0.0000 bar 0.0028
+    checkerboard__rrect-sm__inactive         T1 web 0.2107 0.0697 0.1392  spread 0.1411 bar 0.0030
+    checkerboard__rrect-md__inactive         T1 web 0.0468 0.0468 0.0468  spread 0.0000 bar 0.0029
+    checkerboard-64__rrect-md__inactive      T1 web 0.2436 0.2436 0.2436  spread 0.0000 bar 0.0029
+    photo__rrect-md__inactive                T1 web 0.0621 0.0621 0.0621  spread 0.0000 bar 0.0028
+
+L7 sizeScatterRampStartThick2x+sizeScatterRampStartFar2x: not struck; non-flat range {'sizeScatterRampStartThick2x+sizeScatterRampStartFar2x': None}; mustNotAct moved: 0
+  at c05: values [0.04, 0] -> FLAT
+    checkerboard-4__rrect-md__inactive       T1 web 0.0621 0.0621  spread 0.0000 bar 0.0028
+    checkerboard-8__rrect-md__inactive       T1 web 0.0843 0.0843  spread 0.0000 bar 0.0028
+    checkerboard__rrect-md__inactive         T1 web 0.1196 0.1196  spread 0.0000 bar 0.0029
+    checkerboard__rrect-ml__inactive         T1 web 0.0998 0.0998  spread 0.0000 bar 0.0029
+    checkerboard-64__rrect-md__inactive      T1 web 0.2619 0.2619  spread 0.0000 bar 0.0029
+    photo__rrect-md__inactive                T1 web 0.0638 0.0638  spread 0.0000 bar 0.0028
+  at floor1: values [0.04, 0, 0.02] -> moves
+    checkerboard-4__rrect-md__inactive       T1 web 0.0166 0.0158 0.0161  spread 0.0008 bar 0.0028
+    checkerboard-8__rrect-md__inactive       T1 web 0.0161 0.0146 0.0151  spread 0.0015 bar 0.0028
+    checkerboard__rrect-md__inactive         T1 web 0.0468 0.0418 0.0439  spread 0.0049 bar 0.0029
+    checkerboard__rrect-ml__inactive         T1 web 0.0458 0.0418 0.0435  spread 0.0040 bar 0.0029
+    checkerboard-64__rrect-md__inactive      T1 web 0.2436 0.2424 0.2430  spread 0.0012 bar 0.0029
+    photo__rrect-md__inactive                T1 web 0.0621 0.0619 0.0620  spread 0.0001 bar 0.0028
+
+L8 sizeHeavyTapSigma2x: not struck; non-flat range {'sizeHeavyTapSigma2x': [14, 24]}; mustNotAct moved: 0
+  at c05: values [14, 18, 24] -> moves
+    checkerboard-4__rrect-md__inactive       T1 web 0.0621 0.0621 0.0621  spread 0.0000 bar 0.0028
+    checkerboard-8__rrect-md__inactive       T1 web 0.0843 0.0843 0.0843  spread 0.0000 bar 0.0028
+    checkerboard__rrect-sm__inactive         T1 web 0.2251 0.2144 0.2114  spread 0.0137 bar 0.0030
+    checkerboard__rrect-md__inactive         T1 web 0.1196 0.1020 0.0954  spread 0.0242 bar 0.0029
+    checkerboard__rrect-ml__inactive         T1 web 0.0998 0.0799 0.0732  spread 0.0266 bar 0.0029
+    checkerboard-64__rrect-md__inactive      T1 web 0.2619 0.2435 0.2201  spread 0.0418 bar 0.0029
+    photo__rrect-md__inactive                T1 web 0.0638 0.0617 0.0588  spread 0.0050 bar 0.0028
+
+transfer (T1 web/native at the rung; attenuation = T1 web rung / base), 2x acting cells:
+  L1 c05    0.7         checkerboard-4__rrect-sm__rest           pitch 8      x0.48 (base x0.49) att 0.97  deep x0.49 fine x0.47 lattice x0.50
+  L1 c05    0.7         checkerboard-4__rrect-md__rest           pitch 8      x1.59 (base x2.07) att 0.77  deep x2.38 fine x2.63 lattice x2.75
+  L1 c05    0.7         checkerboard-4__rrect-md__inactive       pitch 8      x3.01 (base x3.95) att 0.76  deep x26.48 fine x24.30 lattice x37.06
+  L1 c05    0.7         checkerboard-4__rrect-lg__rest           pitch 8      x1.45 (base x1.61) att 0.90  deep x4.78 fine x8.11 lattice x8.26
+  L1 c05    0.7         checkerboard-8__rrect-md__rest           pitch 16     x0.64 (base x0.85) att 0.75  deep x0.64 fine x0.72 lattice x0.64
+  L1 c05    0.7         checkerboard-8__rrect-md__inactive       pitch 16     x3.96 (base x5.29) att 0.75  deep x11.24 fine x11.93 lattice x11.98
+  L1 c05    0.7         hc-text-7__rrect-md__rest                pitch text-7 x0.74 (base x0.89) att 0.84  deep x0.75 fine x1.39 lattice x1.06
+  L1 c05    0.7         checkerboard__rrect-sm__rest             pitch 32     x0.73 (base x0.75) att 0.97  deep x0.72 fine x0.54 lattice x0.70
+  L1 c05    0.7         checkerboard__rrect-sm__inactive         pitch 32     x2.66 (base x2.71) att 0.98  deep x3.31 fine x4.83 lattice x3.15
+  L1 c05    0.7         checkerboard__rrect-md__rest             pitch 32     x0.50 (base x0.65) att 0.77  deep x0.52 fine x0.68 lattice x0.54
+  L1 c05    0.7         checkerboard__rrect-md__inactive         pitch 32     x1.96 (base x2.36) att 0.83  deep x2.16 fine x2.89 lattice x2.18
+  L1 c05    0.7         checkerboard__rrect-ml__inactive         pitch 32     x2.60 (base x3.05) att 0.85  deep x2.94 fine x3.32 lattice x2.89
+  L1 c05    0.7         checkerboard-32__rrect-md__rest          pitch 64     x0.76 (base x0.86) att 0.89  deep x0.77 fine x0.66 lattice x0.68
+  L1 c05    0.7         checkerboard-64__rrect-md__rest          pitch 128    x0.91 (base x0.94) att 0.97  deep x0.89 fine x0.69 lattice x0.83
+  L1 c05    0.7         checkerboard-64__rrect-md__inactive      pitch 128    x1.33 (base x1.36) att 0.98  deep x1.38 fine x2.35 lattice x2.23
+  L1 c05    0.7         photo__rrect-md__rest                    pitch photo  x0.63 (base x0.63) att 0.99  deep x0.67 fine x0.60 lattice x0.48
+  L1 c05    0.7         photo__rrect-md__inactive                pitch photo  x0.85 (base x0.86) att 0.99  deep x1.01 fine x1.22 lattice x1.28
+  L1 c05    0.8         checkerboard-4__rrect-sm__rest           pitch 8      x0.47 (base x0.49) att 0.94  deep x0.46 fine x0.45 lattice x0.48
+  L1 c05    0.8         checkerboard-4__rrect-md__rest           pitch 8      x1.30 (base x2.07) att 0.63  deep x1.84 fine x2.05 lattice x2.17
+  L1 c05    0.8         checkerboard-4__rrect-md__inactive       pitch 8      x2.15 (base x3.95) att 0.55  deep x17.75 fine x16.32 lattice x24.83
+  L1 c05    0.8         checkerboard-4__rrect-lg__rest           pitch 8      x1.31 (base x1.61) att 0.82  deep x4.07 fine x6.98 lattice x7.22
+  L1 c05    0.8         checkerboard-8__rrect-md__rest           pitch 16     x0.52 (base x0.85) att 0.61  deep x0.50 fine x0.57 lattice x0.51
+  L1 c05    0.8         checkerboard-8__rrect-md__inactive       pitch 16     x2.73 (base x5.29) att 0.52  deep x7.51 fine x8.01 lattice x8.02
+  L1 c05    0.8         hc-text-7__rrect-md__rest                pitch text-7 x0.66 (base x0.89) att 0.74  deep x0.65 fine x1.09 lattice x0.83
+  L1 c05    0.8         checkerboard__rrect-sm__rest             pitch 32     x0.70 (base x0.75) att 0.94  deep x0.68 fine x0.51 lattice x0.67
+  L1 c05    0.8         checkerboard__rrect-sm__inactive         pitch 32     x2.62 (base x2.71) att 0.97  deep x3.20 fine x4.69 lattice x3.07
+  L1 c05    0.8         checkerboard__rrect-md__rest             pitch 32     x0.41 (base x0.65) att 0.62  deep x0.41 fine x0.54 lattice x0.43
+  L1 c05    0.8         checkerboard__rrect-md__inactive         pitch 32     x1.57 (base x2.36) att 0.67  deep x1.71 fine x2.12 lattice x1.69
+  L1 c05    0.8         checkerboard__rrect-ml__inactive         pitch 32     x2.14 (base x3.05) att 0.70  deep x2.41 fine x2.54 lattice x2.34
+  L1 c05    0.8         checkerboard-32__rrect-md__rest          pitch 64     x0.71 (base x0.86) att 0.83  deep x0.71 fine x0.55 lattice x0.59
+  L1 c05    0.8         checkerboard-64__rrect-md__rest          pitch 128    x0.89 (base x0.94) att 0.95  deep x0.87 fine x0.59 lattice x0.75
+  L1 c05    0.8         checkerboard-64__rrect-md__inactive      pitch 128    x1.30 (base x1.36) att 0.96  deep x1.35 fine x1.88 lattice x1.98
+  L1 c05    0.8         photo__rrect-md__rest                    pitch photo  x0.62 (base x0.63) att 0.98  deep x0.67 fine x0.58 lattice x0.44
+  L1 c05    0.8         photo__rrect-md__inactive                pitch photo  x0.85 (base x0.86) att 0.98  deep x1.00 fine x1.13 lattice x1.16
+  L1 c05    0.9         checkerboard-4__rrect-sm__rest           pitch 8      x0.45 (base x0.49) att 0.92  deep x0.43 fine x0.43 lattice x0.46
+  L1 c05    0.9         checkerboard-4__rrect-md__rest           pitch 8      x1.14 (base x2.07) att 0.55  deep x1.49 fine x1.69 lattice x1.81
+  L1 c05    0.9         checkerboard-4__rrect-md__inactive       pitch 8      x1.40 (base x3.95) att 0.35  deep x9.11 fine x8.40 lattice x12.69
+  L1 c05    0.9         checkerboard-4__rrect-lg__rest           pitch 8      x1.20 (base x1.61) att 0.75  deep x3.45 fine x6.00 lattice x6.31
+  L1 c05    0.9         checkerboard-8__rrect-md__rest           pitch 16     x0.45 (base x0.85) att 0.53  deep x0.40 fine x0.48 lattice x0.41
+  L1 c05    0.9         checkerboard-8__rrect-md__inactive       pitch 16     x1.65 (base x5.29) att 0.31  deep x4.02 fine x4.21 lattice x4.32
+  L1 c05    0.9         hc-text-7__rrect-md__rest                pitch text-7 x0.62 (base x0.89) att 0.70  deep x0.59 fine x0.91 lattice x0.67
+  L1 c05    0.9         checkerboard__rrect-sm__rest             pitch 32     x0.68 (base x0.75) att 0.91  deep x0.64 fine x0.49 lattice x0.64
+  L1 c05    0.9         checkerboard__rrect-sm__inactive         pitch 32     x2.58 (base x2.71) att 0.95  deep x3.09 fine x4.53 lattice x2.98
+  L1 c05    0.9         checkerboard__rrect-md__rest             pitch 32     x0.35 (base x0.65) att 0.54  deep x0.33 fine x0.46 lattice x0.35
+  L1 c05    0.9         checkerboard__rrect-md__inactive         pitch 32     x1.18 (base x2.36) att 0.50  deep x1.27 fine x1.44 lattice x1.23
+  L1 c05    0.9         checkerboard__rrect-ml__inactive         pitch 32     x1.72 (base x3.05) att 0.56  deep x1.90 fine x1.80 lattice x1.80
+  L1 c05    0.9         checkerboard-32__rrect-md__rest          pitch 64     x0.67 (base x0.86) att 0.79  deep x0.66 fine x0.49 lattice x0.54
+  L1 c05    0.9         checkerboard-64__rrect-md__rest          pitch 128    x0.87 (base x0.94) att 0.93  deep x0.86 fine x0.54 lattice x0.71
+  L1 c05    0.9         checkerboard-64__rrect-md__inactive      pitch 128    x1.28 (base x1.36) att 0.94  deep x1.33 fine x1.51 lattice x1.76
+  L1 c05    0.9         photo__rrect-md__rest                    pitch photo  x0.62 (base x0.63) att 0.98  deep x0.66 fine x0.57 lattice x0.42
+  L1 c05    0.9         photo__rrect-md__inactive                pitch photo  x0.84 (base x0.86) att 0.98  deep x0.99 fine x1.05 lattice x1.05
+  L1 c05    1.0         checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.49) att 0.89  deep x0.41 fine x0.41 lattice x0.44
+  L1 c05    1.0         checkerboard-4__rrect-md__rest           pitch 8      x1.01 (base x2.07) att 0.49  deep x1.17 fine x1.38 lattice x1.50
+  L1 c05    1.0         checkerboard-4__rrect-md__inactive       pitch 8      x1.06 (base x3.95) att 0.27  deep x2.66 fine x2.65 lattice x3.89
+  L1 c05    1.0         checkerboard-4__rrect-lg__rest           pitch 8      x1.12 (base x1.61) att 0.69  deep x2.97 fine x5.26 lattice x5.60
+  L1 c05    1.0         checkerboard-8__rrect-md__rest           pitch 16     x0.39 (base x0.85) att 0.46  deep x0.31 fine x0.41 lattice x0.33
+  L1 c05    1.0         checkerboard-8__rrect-md__inactive       pitch 16     x1.01 (base x5.29) att 0.19  deep x1.12 fine x1.43 lattice x1.22
+  L1 c05    1.0         hc-text-7__rrect-md__rest                pitch text-7 x0.59 (base x0.89) att 0.66  deep x0.54 fine x0.75 lattice x0.53
+  L1 c05    1.0         checkerboard__rrect-sm__rest             pitch 32     x0.66 (base x0.75) att 0.89  deep x0.60 fine x0.46 lattice x0.61
+  L1 c05    1.0         checkerboard__rrect-sm__inactive         pitch 32     x2.53 (base x2.71) att 0.94  deep x2.98 fine x4.38 lattice x2.90
+  L1 c05    1.0         checkerboard__rrect-md__rest             pitch 32     x0.31 (base x0.65) att 0.47  deep x0.26 fine x0.39 lattice x0.29
+  L1 c05    1.0         checkerboard__rrect-md__inactive         pitch 32     x0.92 (base x2.36) att 0.39  deep x0.94 fine x1.02 lattice x0.90
+  L1 c05    1.0         checkerboard__rrect-ml__inactive         pitch 32     x1.40 (base x3.05) att 0.46  deep x1.49 fine x1.40 lattice x1.40
+  L1 c05    1.0         checkerboard-32__rrect-md__rest          pitch 64     x0.64 (base x0.86) att 0.75  deep x0.61 fine x0.44 lattice x0.50
+  L1 c05    1.0         checkerboard-64__rrect-md__rest          pitch 128    x0.86 (base x0.94) att 0.92  deep x0.85 fine x0.50 lattice x0.68
+  L1 c05    1.0         checkerboard-64__rrect-md__inactive      pitch 128    x1.26 (base x1.36) att 0.93  deep x1.31 fine x1.37 lattice x1.65
+  L1 c05    1.0         photo__rrect-md__rest                    pitch photo  x0.62 (base x0.63) att 0.97  deep x0.66 fine x0.56 lattice x0.40
+  L1 c05    1.0         photo__rrect-md__inactive                pitch photo  x0.84 (base x0.86) att 0.97  deep x0.99 fine x1.01 lattice x0.98
+  L2 floor1 6           checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.44) att 1.00  deep x0.41 fine x0.41 lattice x0.44
+  L2 floor1 6           checkerboard-4__rrect-md__rest           pitch 8      x1.03 (base x1.01) att 1.02  deep x1.21 fine x1.42 lattice x1.54
+  L2 floor1 6           checkerboard-4__rrect-lg__rest           pitch 8      x1.14 (base x1.12) att 1.02  deep x3.06 fine x5.41 lattice x5.77
+  L2 floor1 6           checkerboard-8__rrect-md__rest           pitch 16     x0.91 (base x0.39) att 2.34  deep x0.89 fine x0.94 lattice x0.92
+  L2 floor1 6           hc-text-7__rrect-md__rest                pitch text-7 x0.81 (base x0.59) att 1.38  deep x0.76 fine x0.97 lattice x0.95
+  L2 floor1 6           checkerboard__rrect-sm__rest             pitch 32     x1.27 (base x0.66) att 1.91  deep x1.29 fine x0.67 lattice x1.12
+  L2 floor1 6           checkerboard__rrect-md__rest             pitch 32     x1.32 (base x0.31) att 4.29  deep x1.42 fine x1.18 lattice x1.28
+  L2 floor1 6           checkerboard-32__rrect-md__rest          pitch 64     x1.41 (base x0.64) att 2.20  deep x1.48 fine x1.02 lattice x1.32
+  L2 floor1 6           checkerboard-64__rrect-md__rest          pitch 128    x1.16 (base x0.86) att 1.35  deep x1.17 fine x1.06 lattice x1.46
+  L2 floor1 6           photo__rrect-md__rest                    pitch photo  x0.70 (base x0.62) att 1.14  deep x0.75 fine x1.08 lattice x1.02
+  L2 floor1 10          checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.44) att 1.00  deep x0.41 fine x0.41 lattice x0.44
+  L2 floor1 10          checkerboard-4__rrect-md__rest           pitch 8      x1.01 (base x1.01) att 1.00  deep x1.17 fine x1.38 lattice x1.50
+  L2 floor1 10          checkerboard-4__rrect-lg__rest           pitch 8      x1.12 (base x1.12) att 1.00  deep x2.97 fine x5.26 lattice x5.60
+  L2 floor1 10          checkerboard-8__rrect-md__rest           pitch 16     x0.42 (base x0.39) att 1.09  deep x0.35 fine x0.45 lattice x0.37
+  L2 floor1 10          hc-text-7__rrect-md__rest                pitch text-7 x0.67 (base x0.59) att 1.13  deep x0.62 fine x0.77 lattice x0.64
+  L2 floor1 10          checkerboard__rrect-sm__rest             pitch 32     x0.96 (base x0.66) att 1.44  deep x0.93 fine x0.54 lattice x0.84
+  L2 floor1 10          checkerboard__rrect-md__rest             pitch 32     x0.80 (base x0.31) att 2.60  deep x0.81 fine x0.73 lattice x0.75
+  L2 floor1 10          checkerboard-32__rrect-md__rest          pitch 64     x1.16 (base x0.64) att 1.82  deep x1.19 fine x0.69 lattice x0.91
+  L2 floor1 10          checkerboard-64__rrect-md__rest          pitch 128    x1.07 (base x0.86) att 1.24  deep x1.07 fine x0.73 lattice x1.05
+  L2 floor1 10          photo__rrect-md__rest                    pitch photo  x0.68 (base x0.62) att 1.10  deep x0.73 fine x0.83 lattice x0.75
+  L2 floor1 14          checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.44) att 1.00  deep x0.41 fine x0.41 lattice x0.44
+  L2 floor1 14          checkerboard-4__rrect-md__rest           pitch 8      x1.01 (base x1.01) att 1.00  deep x1.17 fine x1.38 lattice x1.50
+  L2 floor1 14          checkerboard-4__rrect-lg__rest           pitch 8      x1.12 (base x1.12) att 1.00  deep x2.97 fine x5.26 lattice x5.60
+  L2 floor1 14          checkerboard-8__rrect-md__rest           pitch 16     x0.39 (base x0.39) att 1.00  deep x0.31 fine x0.41 lattice x0.33
+  L2 floor1 14          hc-text-7__rrect-md__rest                pitch text-7 x0.61 (base x0.59) att 1.04  deep x0.57 fine x0.76 lattice x0.55
+  L2 floor1 14          checkerboard__rrect-sm__rest             pitch 32     x0.77 (base x0.66) att 1.17  deep x0.72 fine x0.49 lattice x0.70
+  L2 floor1 14          checkerboard__rrect-md__rest             pitch 32     x0.48 (base x0.31) att 1.56  deep x0.46 fine x0.51 lattice x0.46
+  L2 floor1 14          checkerboard-32__rrect-md__rest          pitch 64     x0.95 (base x0.64) att 1.48  deep x0.95 fine x0.55 lattice x0.71
+  L2 floor1 14          checkerboard-64__rrect-md__rest          pitch 128    x0.99 (base x0.86) att 1.15  deep x0.98 fine x0.61 lattice x0.87
+  L2 floor1 14          photo__rrect-md__rest                    pitch photo  x0.65 (base x0.62) att 1.06  deep x0.70 fine x0.67 lattice x0.55
+  L3 floor1 [0.5, 1.5]  checkerboard-4__rrect-sm__rest           pitch 8      x0.55 (base x0.44) att 1.24  deep x0.54 fine x0.53 lattice x0.56
+  L3 floor1 [0.5, 1.5]  checkerboard-4__rrect-md__rest           pitch 8      x1.87 (base x1.01) att 1.85  deep x2.68 fine x3.02 lattice x3.23
+  L3 floor1 [0.5, 1.5]  checkerboard-4__rrect-md__inactive       pitch 8      x2.59 (base x1.06) att 2.45  deep x21.93 fine x20.23 lattice x30.97
+  L3 floor1 [0.5, 1.5]  checkerboard-4__rrect-lg__rest           pitch 8      x2.20 (base x1.12) att 1.97  deep x7.68 fine x13.03 lattice x13.36
+  L3 floor1 [0.5, 1.5]  checkerboard-8__rrect-md__rest           pitch 16     x1.17 (base x0.39) att 3.02  deep x1.18 fine x1.24 lattice x1.21
+  L3 floor1 [0.5, 1.5]  checkerboard-8__rrect-md__inactive       pitch 16     x6.33 (base x1.01) att 6.27  deep x18.34 fine x17.46 lattice x19.92
+  L3 floor1 [0.5, 1.5]  hc-text-7__rrect-md__rest                pitch text-7 x1.00 (base x0.59) att 1.70  deep x0.99 fine x2.02 lattice x1.58
+  L3 floor1 [0.5, 1.5]  checkerboard__rrect-sm__rest             pitch 32     x1.09 (base x0.66) att 1.64  deep x1.08 fine x0.71 lattice x1.03
+  L3 floor1 [0.5, 1.5]  checkerboard__rrect-sm__inactive         pitch 32     x3.11 (base x2.53) att 1.23  deep x3.95 fine x5.38 lattice x3.66
+  L3 floor1 [0.5, 1.5]  checkerboard__rrect-md__rest             pitch 32     x1.01 (base x0.31) att 3.29  deep x1.05 fine x1.16 lattice x1.06
+  L3 floor1 [0.5, 1.5]  checkerboard__rrect-md__inactive         pitch 32     x3.02 (base x0.92) att 3.27  deep x3.38 fine x4.01 lattice x3.31
+  L3 floor1 [0.5, 1.5]  checkerboard__rrect-ml__inactive         pitch 32     x4.66 (base x1.40) att 3.33  deep x5.41 fine x5.66 lattice x5.23
+  L3 floor1 [0.5, 1.5]  checkerboard-32__rrect-md__rest          pitch 64     x1.11 (base x0.64) att 1.73  deep x1.13 fine x1.05 lattice x1.14
+  L3 floor1 [0.5, 1.5]  checkerboard-64__rrect-md__rest          pitch 128    x1.03 (base x0.86) att 1.20  deep x1.02 fine x1.10 lattice x1.31
+  L3 floor1 [0.5, 1.5]  checkerboard-64__rrect-md__inactive      pitch 128    x1.42 (base x1.26) att 1.12  deep x1.47 fine x3.01 lattice x2.88
+  L3 floor1 [0.5, 1.5]  photo__rrect-md__rest                    pitch photo  x0.66 (base x0.62) att 1.07  deep x0.71 fine x0.86 lattice x0.77
+  L3 floor1 [0.5, 1.5]  photo__rrect-md__inactive                pitch photo  x0.88 (base x0.84) att 1.05  deep x1.03 fine x1.51 lattice x1.66
+  L3 floor1 [0.5, 3]    checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.44) att 1.00  deep x0.41 fine x0.41 lattice x0.44
+  L3 floor1 [0.5, 3]    checkerboard-4__rrect-md__rest           pitch 8      x1.02 (base x1.01) att 1.01  deep x1.19 fine x1.40 lattice x1.52
+  L3 floor1 [0.5, 3]    checkerboard-4__rrect-md__inactive       pitch 8      x1.06 (base x1.06) att 1.01  deep x2.87 fine x2.84 lattice x4.20
+  L3 floor1 [0.5, 3]    checkerboard-4__rrect-lg__rest           pitch 8      x1.13 (base x1.12) att 1.01  deep x3.02 fine x5.33 lattice x5.69
+  L3 floor1 [0.5, 3]    checkerboard-8__rrect-md__rest           pitch 16     x0.64 (base x0.39) att 1.64  deep x0.59 fine x0.66 lattice x0.62
+  L3 floor1 [0.5, 3]    checkerboard-8__rrect-md__inactive       pitch 16     x2.56 (base x1.01) att 2.54  deep x6.82 fine x6.59 lattice x7.55
+  L3 floor1 [0.5, 3]    hc-text-7__rrect-md__rest                pitch text-7 x0.68 (base x0.59) att 1.15  deep x0.63 fine x0.85 lattice x0.71
+  L3 floor1 [0.5, 3]    checkerboard__rrect-sm__rest             pitch 32     x0.96 (base x0.66) att 1.45  deep x0.93 fine x0.56 lattice x0.86
+  L3 floor1 [0.5, 3]    checkerboard__rrect-sm__inactive         pitch 32     x2.91 (base x2.53) att 1.15  deep x3.61 fine x4.71 lattice x3.31
+  L3 floor1 [0.5, 3]    checkerboard__rrect-md__rest             pitch 32     x0.80 (base x0.31) att 2.60  deep x0.81 fine x0.76 lattice x0.77
+  L3 floor1 [0.5, 3]    checkerboard__rrect-md__inactive         pitch 32     x2.33 (base x0.92) att 2.52  deep x2.56 fine x2.50 lattice x2.36
+  L3 floor1 [0.5, 3]    checkerboard__rrect-ml__inactive         pitch 32     x3.59 (base x1.40) att 2.57  deep x4.11 fine x3.42 lattice x3.72
+  L3 floor1 [0.5, 3]    checkerboard-32__rrect-md__rest          pitch 64     x1.02 (base x0.64) att 1.59  deep x1.03 fine x0.70 lattice x0.89
+  L3 floor1 [0.5, 3]    checkerboard-64__rrect-md__rest          pitch 128    x1.01 (base x0.86) att 1.16  deep x0.99 fine x0.76 lattice x1.05
+  L3 floor1 [0.5, 3]    checkerboard-64__rrect-md__inactive      pitch 128    x1.38 (base x1.26) att 1.09  deep x1.43 fine x1.98 lattice x2.28
+  L3 floor1 [0.5, 3]    photo__rrect-md__rest                    pitch photo  x0.66 (base x0.62) att 1.06  deep x0.70 fine x0.79 lattice x0.69
+  L3 floor1 [0.5, 3]    photo__rrect-md__inactive                pitch photo  x0.87 (base x0.84) att 1.04  deep x1.02 fine x1.37 lattice x1.48
+  L3 floor1 [0.5, 6]    checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.44) att 1.00  deep x0.41 fine x0.41 lattice x0.44
+  L3 floor1 [0.5, 6]    checkerboard-4__rrect-md__rest           pitch 8      x1.01 (base x1.01) att 1.00  deep x1.17 fine x1.38 lattice x1.50
+  L3 floor1 [0.5, 6]    checkerboard-4__rrect-md__inactive       pitch 8      x1.06 (base x1.06) att 1.00  deep x2.66 fine x2.65 lattice x3.89
+  L3 floor1 [0.5, 6]    checkerboard-4__rrect-lg__rest           pitch 8      x1.12 (base x1.12) att 1.00  deep x2.97 fine x5.26 lattice x5.60
+  L3 floor1 [0.5, 6]    checkerboard-8__rrect-md__rest           pitch 16     x0.39 (base x0.39) att 1.01  deep x0.32 fine x0.41 lattice x0.33
+  L3 floor1 [0.5, 6]    checkerboard-8__rrect-md__inactive       pitch 16     x1.02 (base x1.01) att 1.01  deep x1.18 fine x1.47 lattice x1.28
+  L3 floor1 [0.5, 6]    hc-text-7__rrect-md__rest                pitch text-7 x0.61 (base x0.59) att 1.03  deep x0.56 fine x0.75 lattice x0.55
+  L3 floor1 [0.5, 6]    checkerboard__rrect-sm__rest             pitch 32     x0.76 (base x0.66) att 1.14  deep x0.70 fine x0.48 lattice x0.68
+  L3 floor1 [0.5, 6]    checkerboard__rrect-sm__inactive         pitch 32     x2.59 (base x2.53) att 1.02  deep x3.08 fine x4.41 lattice x2.94
+  L3 floor1 [0.5, 6]    checkerboard__rrect-md__rest             pitch 32     x0.45 (base x0.31) att 1.47  deep x0.43 fine x0.48 lattice x0.42
+  L3 floor1 [0.5, 6]    checkerboard__rrect-md__inactive         pitch 32     x1.15 (base x0.92) att 1.25  deep x1.20 fine x1.20 lattice x1.12
+  L3 floor1 [0.5, 6]    checkerboard__rrect-ml__inactive         pitch 32     x1.75 (base x1.40) att 1.25  deep x1.91 fine x1.62 lattice x1.74
+  L3 floor1 [0.5, 6]    checkerboard-32__rrect-md__rest          pitch 64     x0.84 (base x0.64) att 1.32  deep x0.83 fine x0.51 lattice x0.64
+  L3 floor1 [0.5, 6]    checkerboard-64__rrect-md__rest          pitch 128    x0.94 (base x0.86) att 1.09  deep x0.93 fine x0.57 lattice x0.81
+  L3 floor1 [0.5, 6]    checkerboard-64__rrect-md__inactive      pitch 128    x1.29 (base x1.26) att 1.02  deep x1.34 fine x1.39 lattice x1.72
+  L3 floor1 [0.5, 6]    photo__rrect-md__rest                    pitch photo  x0.64 (base x0.62) att 1.04  deep x0.69 fine x0.64 lattice x0.51
+  L3 floor1 [0.5, 6]    photo__rrect-md__inactive                pitch photo  x0.84 (base x0.84) att 1.01  deep x0.99 fine x1.06 lattice x1.07
+  L3 floor1 [0.25, 3]   checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.44) att 1.00  deep x0.41 fine x0.41 lattice x0.44
+  L3 floor1 [0.25, 3]   checkerboard-4__rrect-md__rest           pitch 8      x1.01 (base x1.01) att 1.00  deep x1.18 fine x1.39 lattice x1.51
+  L3 floor1 [0.25, 3]   checkerboard-4__rrect-md__inactive       pitch 8      x1.06 (base x1.06) att 1.00  deep x2.75 fine x2.73 lattice x4.02
+  L3 floor1 [0.25, 3]   checkerboard-4__rrect-lg__rest           pitch 8      x1.12 (base x1.12) att 1.00  deep x2.99 fine x5.29 lattice x5.64
+  L3 floor1 [0.25, 3]   checkerboard-8__rrect-md__rest           pitch 16     x0.51 (base x0.39) att 1.31  deep x0.45 fine x0.53 lattice x0.47
+  L3 floor1 [0.25, 3]   checkerboard-8__rrect-md__inactive       pitch 16     x1.66 (base x1.01) att 1.65  deep x3.89 fine x3.89 lattice x4.32
+  L3 floor1 [0.25, 3]   hc-text-7__rrect-md__rest                pitch text-7 x0.62 (base x0.59) att 1.06  deep x0.58 fine x0.80 lattice x0.61
+  L3 floor1 [0.25, 3]   checkerboard__rrect-sm__rest             pitch 32     x0.81 (base x0.66) att 1.22  deep x0.76 fine x0.51 lattice x0.73
+  L3 floor1 [0.25, 3]   checkerboard__rrect-sm__inactive         pitch 32     x2.72 (base x2.53) att 1.07  deep x3.29 fine x4.54 lattice x3.10
+  L3 floor1 [0.25, 3]   checkerboard__rrect-md__rest             pitch 32     x0.54 (base x0.31) att 1.77  deep x0.53 fine x0.56 lattice x0.52
+  L3 floor1 [0.25, 3]   checkerboard__rrect-md__inactive         pitch 32     x1.62 (base x0.92) att 1.75  deep x1.74 fine x1.76 lattice x1.63
+  L3 floor1 [0.25, 3]   checkerboard__rrect-ml__inactive         pitch 32     x2.48 (base x1.40) att 1.78  deep x2.78 fine x2.40 lattice x2.55
+  L3 floor1 [0.25, 3]   checkerboard-32__rrect-md__rest          pitch 64     x0.83 (base x0.64) att 1.29  deep x0.82 fine x0.56 lattice x0.69
+  L3 floor1 [0.25, 3]   checkerboard-64__rrect-md__rest          pitch 128    x0.93 (base x0.86) att 1.08  deep x0.92 fine x0.62 lattice x0.85
+  L3 floor1 [0.25, 3]   checkerboard-64__rrect-md__inactive      pitch 128    x1.32 (base x1.26) att 1.04  deep x1.37 fine x1.62 lattice x1.93
+  L3 floor1 [0.25, 3]   photo__rrect-md__rest                    pitch photo  x0.63 (base x0.62) att 1.03  deep x0.68 fine x0.66 lattice x0.54
+  L3 floor1 [0.25, 3]   photo__rrect-md__inactive                pitch photo  x0.85 (base x0.84) att 1.02  deep x1.00 fine x1.17 lattice x1.22
+  L3 floor1 [1.0, 3]    checkerboard-4__rrect-sm__rest           pitch 8      x0.44 (base x0.44) att 1.00  deep x0.41 fine x0.41 lattice x0.44
+  L3 floor1 [1.0, 3]    checkerboard-4__rrect-md__rest           pitch 8      x1.03 (base x1.01) att 1.02  deep x1.21 fine x1.42 lattice x1.54
+  L3 floor1 [1.0, 3]    checkerboard-4__rrect-md__inactive       pitch 8      x1.07 (base x1.06) att 1.01  deep x3.10 fine x3.03 lattice x4.53
+  L3 floor1 [1.0, 3]    checkerboard-4__rrect-lg__rest           pitch 8      x1.14 (base x1.12) att 1.02  deep x3.06 fine x5.41 lattice x5.77
+  L3 floor1 [1.0, 3]    checkerboard-8__rrect-md__rest           pitch 16     x0.91 (base x0.39) att 2.34  deep x0.89 fine x0.94 lattice x0.92
+  L3 floor1 [1.0, 3]    checkerboard-8__rrect-md__inactive       pitch 16     x4.49 (base x1.01) att 4.45  deep x12.76 fine x12.03 lattice x14.01
+  L3 floor1 [1.0, 3]    hc-text-7__rrect-md__rest                pitch text-7 x0.81 (base x0.59) att 1.38  deep x0.76 fine x0.97 lattice x0.95
+  L3 floor1 [1.0, 3]    checkerboard__rrect-sm__rest             pitch 32     x1.27 (base x0.66) att 1.91  deep x1.29 fine x0.67 lattice x1.12
+  L3 floor1 [1.0, 3]    checkerboard__rrect-sm__inactive         pitch 32     x3.29 (base x2.53) att 1.30  deep x4.30 fine x5.06 lattice x3.72
+  L3 floor1 [1.0, 3]    checkerboard__rrect-md__rest             pitch 32     x1.32 (base x0.31) att 4.29  deep x1.42 fine x1.18 lattice x1.28
+  L3 floor1 [1.0, 3]    checkerboard__rrect-md__inactive         pitch 32     x3.76 (base x0.92) att 4.07  deep x4.33 fine x4.01 lattice x3.82
+  L3 floor1 [1.0, 3]    checkerboard__rrect-ml__inactive         pitch 32     x5.82 (base x1.40) att 4.16  deep x6.99 fine x5.50 lattice x6.05
+  L3 floor1 [1.0, 3]    checkerboard-32__rrect-md__rest          pitch 64     x1.41 (base x0.64) att 2.20  deep x1.48 fine x1.02 lattice x1.32
+  L3 floor1 [1.0, 3]    checkerboard-64__rrect-md__rest          pitch 128    x1.16 (base x0.86) att 1.35  deep x1.17 fine x1.06 lattice x1.46
+  L3 floor1 [1.0, 3]    checkerboard-64__rrect-md__inactive      pitch 128    x1.51 (base x1.26) att 1.20  deep x1.59 fine x2.84 lattice x3.07
+  L3 floor1 [1.0, 3]    photo__rrect-md__rest                    pitch photo  x0.70 (base x0.62) att 1.14  deep x0.75 fine x1.08 lattice x1.02
+  L3 floor1 [1.0, 3]    photo__rrect-md__inactive                pitch photo  x0.91 (base x0.84) att 1.08  deep x1.07 fine x1.83 lattice x2.05
+  L4 c05    0.6         checkerboard-4__rrect-sm__rest           pitch 8      x0.61 (base x0.49) att 1.24  deep x0.64 fine x0.61 lattice x0.65
+  L4 c05    0.6         checkerboard-4__rrect-md__rest           pitch 8      x2.07 (base x2.07) att 1.00  deep x3.16 fine x3.50 lattice x3.66
+  L4 c05    0.6         checkerboard-8__rrect-md__rest           pitch 16     x0.85 (base x0.85) att 1.00  deep x0.87 fine x0.97 lattice x0.87
+  L4 c05    0.6         hc-text-7__rrect-md__rest                pitch text-7 x0.89 (base x0.89) att 1.00  deep x0.91 fine x1.86 lattice x1.42
+  L4 c05    0.6         checkerboard__rrect-sm__rest             pitch 32     x0.94 (base x0.75) att 1.25  deep x0.93 fine x0.70 lattice x0.91
+  L4 c05    0.6         checkerboard__rrect-md__rest             pitch 32     x0.65 (base x0.65) att 1.00  deep x0.68 fine x0.89 lattice x0.71
+  L4 c05    0.6         checkerboard-32__rrect-md__rest          pitch 64     x0.86 (base x0.86) att 1.00  deep x0.87 fine x0.85 lattice x0.82
+  L4 c05    0.6         checkerboard-64__rrect-md__rest          pitch 128    x0.94 (base x0.94) att 1.00  deep x0.93 fine x0.87 lattice x0.97
+  L4 c05    0.6         photo__rrect-md__rest                    pitch photo  x0.63 (base x0.63) att 1.00  deep x0.68 fine x0.66 lattice x0.55
+  L4 c05    0.8         checkerboard-4__rrect-sm__rest           pitch 8      x0.79 (base x0.49) att 1.60  deep x0.82 fine x0.79 lattice x0.84
+  L4 c05    0.8         checkerboard-4__rrect-md__rest           pitch 8      x2.07 (base x2.07) att 1.00  deep x3.16 fine x3.50 lattice x3.66
+  L4 c05    0.8         checkerboard-8__rrect-md__rest           pitch 16     x0.85 (base x0.85) att 1.00  deep x0.87 fine x0.97 lattice x0.87
+  L4 c05    0.8         hc-text-7__rrect-md__rest                pitch text-7 x0.89 (base x0.89) att 1.00  deep x0.91 fine x1.86 lattice x1.42
+  L4 c05    0.8         checkerboard__rrect-sm__rest             pitch 32     x1.21 (base x0.75) att 1.61  deep x1.20 fine x0.90 lattice x1.17
+  L4 c05    0.8         checkerboard__rrect-md__rest             pitch 32     x0.65 (base x0.65) att 1.00  deep x0.68 fine x0.89 lattice x0.71
+  L4 c05    0.8         checkerboard-32__rrect-md__rest          pitch 64     x0.86 (base x0.86) att 1.00  deep x0.87 fine x0.85 lattice x0.82
+  L4 c05    0.8         checkerboard-64__rrect-md__rest          pitch 128    x0.94 (base x0.94) att 1.00  deep x0.93 fine x0.87 lattice x0.97
+  L4 c05    0.8         photo__rrect-md__rest                    pitch photo  x0.63 (base x0.63) att 1.00  deep x0.68 fine x0.66 lattice x0.55
+  L4 c05    0.95        checkerboard-4__rrect-sm__rest           pitch 8      x0.92 (base x0.49) att 1.87  deep x0.96 fine x0.93 lattice x0.99
+  L4 c05    0.95        checkerboard-4__rrect-md__rest           pitch 8      x2.07 (base x2.07) att 1.00  deep x3.16 fine x3.50 lattice x3.66
+  L4 c05    0.95        checkerboard-8__rrect-md__rest           pitch 16     x0.85 (base x0.85) att 1.00  deep x0.87 fine x0.97 lattice x0.87
+  L4 c05    0.95        hc-text-7__rrect-md__rest                pitch text-7 x0.89 (base x0.89) att 1.00  deep x0.91 fine x1.86 lattice x1.42
+  L4 c05    0.95        checkerboard__rrect-sm__rest             pitch 32     x1.41 (base x0.75) att 1.89  deep x1.41 fine x1.05 lattice x1.36
+  L4 c05    0.95        checkerboard__rrect-md__rest             pitch 32     x0.65 (base x0.65) att 1.00  deep x0.68 fine x0.89 lattice x0.71
+  L4 c05    0.95        checkerboard-32__rrect-md__rest          pitch 64     x0.86 (base x0.86) att 1.00  deep x0.87 fine x0.85 lattice x0.82
+  L4 c05    0.95        checkerboard-64__rrect-md__rest          pitch 128    x0.94 (base x0.94) att 1.00  deep x0.93 fine x0.87 lattice x0.97
+  L4 c05    0.95        photo__rrect-md__rest                    pitch photo  x0.63 (base x0.63) att 1.00  deep x0.68 fine x0.66 lattice x0.55
+  L5 c05    50          checkerboard-4__rrect-sm__rest           pitch 8      x0.49 (base x0.49) att 0.98  deep x0.50 fine x0.48 lattice x0.51
+  L5 c05    50          checkerboard-4__rrect-md__rest           pitch 8      x2.07 (base x2.07) att 1.00  deep x3.16 fine x3.50 lattice x3.66
+  L5 c05    50          checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L5 c05    50          checkerboard-4__rrect-lg__rest           pitch 8      x1.54 (base x1.61) att 0.96  deep x5.22 fine x8.85 lattice x8.84
+  L5 c05    50          checkerboard-8__rrect-md__rest           pitch 16     x0.85 (base x0.85) att 1.00  deep x0.87 fine x0.97 lattice x0.87
+  L5 c05    50          checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L5 c05    50          hc-text-7__rrect-md__rest                pitch text-7 x0.89 (base x0.89) att 1.00  deep x0.91 fine x1.86 lattice x1.42
+  L5 c05    50          checkerboard__rrect-sm__rest             pitch 32     x0.73 (base x0.75) att 0.98  deep x0.73 fine x0.55 lattice x0.72
+  L5 c05    50          checkerboard__rrect-sm__inactive         pitch 32     x2.58 (base x2.71) att 0.95  deep x3.09 fine x4.53 lattice x2.98
+  L5 c05    50          checkerboard__rrect-md__rest             pitch 32     x0.65 (base x0.65) att 1.00  deep x0.68 fine x0.89 lattice x0.71
+  L5 c05    50          checkerboard__rrect-md__inactive         pitch 32     x2.36 (base x2.36) att 1.00  deep x2.62 fine x3.65 lattice x2.66
+  L5 c05    50          checkerboard__rrect-ml__inactive         pitch 32     x3.05 (base x3.05) att 1.00  deep x3.48 fine x4.16 lattice x3.48
+  L5 c05    50          checkerboard-32__rrect-md__rest          pitch 64     x0.86 (base x0.86) att 1.00  deep x0.87 fine x0.85 lattice x0.82
+  L5 c05    50          checkerboard-64__rrect-md__rest          pitch 128    x0.94 (base x0.94) att 1.00  deep x0.93 fine x0.87 lattice x0.97
+  L5 c05    50          checkerboard-64__rrect-md__inactive      pitch 128    x1.36 (base x1.36) att 1.00  deep x1.41 fine x2.86 lattice x2.50
+  L5 c05    50          photo__rrect-md__rest                    pitch photo  x0.63 (base x0.63) att 1.00  deep x0.68 fine x0.66 lattice x0.55
+  L5 c05    50          photo__rrect-md__inactive                pitch photo  x0.86 (base x0.86) att 1.00  deep x1.01 fine x1.31 lattice x1.40
+  L5 c05    200         checkerboard-4__rrect-sm__rest           pitch 8      x0.50 (base x0.49) att 1.01  deep x0.52 fine x0.50 lattice x0.53
+  L5 c05    200         checkerboard-4__rrect-md__rest           pitch 8      x2.07 (base x2.07) att 1.00  deep x3.16 fine x3.50 lattice x3.66
+  L5 c05    200         checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L5 c05    200         checkerboard-4__rrect-lg__rest           pitch 8      x1.70 (base x1.61) att 1.06  deep x6.03 fine x10.12 lattice x10.12
+  L5 c05    200         checkerboard-8__rrect-md__rest           pitch 16     x0.85 (base x0.85) att 1.00  deep x0.87 fine x0.97 lattice x0.87
+  L5 c05    200         checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L5 c05    200         hc-text-7__rrect-md__rest                pitch text-7 x0.89 (base x0.89) att 1.00  deep x0.91 fine x1.86 lattice x1.42
+  L5 c05    200         checkerboard__rrect-sm__rest             pitch 32     x0.76 (base x0.75) att 1.01  deep x0.77 fine x0.57 lattice x0.75
+  L5 c05    200         checkerboard__rrect-sm__inactive         pitch 32     x2.77 (base x2.71) att 1.02  deep x3.59 fine x5.22 lattice x3.36
+  L5 c05    200         checkerboard__rrect-md__rest             pitch 32     x0.65 (base x0.65) att 1.00  deep x0.68 fine x0.89 lattice x0.71
+  L5 c05    200         checkerboard__rrect-md__inactive         pitch 32     x2.36 (base x2.36) att 1.00  deep x2.62 fine x3.65 lattice x2.66
+  L5 c05    200         checkerboard__rrect-ml__inactive         pitch 32     x3.05 (base x3.05) att 1.00  deep x3.48 fine x4.16 lattice x3.48
+  L5 c05    200         checkerboard-32__rrect-md__rest          pitch 64     x0.86 (base x0.86) att 1.00  deep x0.87 fine x0.85 lattice x0.82
+  L5 c05    200         checkerboard-64__rrect-md__rest          pitch 128    x0.94 (base x0.94) att 1.00  deep x0.93 fine x0.87 lattice x0.97
+  L5 c05    200         checkerboard-64__rrect-md__inactive      pitch 128    x1.36 (base x1.36) att 1.00  deep x1.41 fine x2.86 lattice x2.50
+  L5 c05    200         photo__rrect-md__rest                    pitch photo  x0.63 (base x0.63) att 1.00  deep x0.68 fine x0.66 lattice x0.55
+  L5 c05    200         photo__rrect-md__inactive                pitch photo  x0.86 (base x0.86) att 1.00  deep x1.01 fine x1.31 lattice x1.40
+  L5 floor1 50          checkerboard-4__rrect-sm__rest           pitch 8      x0.38 (base x0.44) att 0.87  deep x0.29 fine x0.32 lattice x0.35
+  L5 floor1 50          checkerboard-4__rrect-md__rest           pitch 8      x0.82 (base x1.01) att 0.81  deep x0.66 fine x0.91 lattice x0.94
+  L5 floor1 50          checkerboard-4__rrect-md__inactive       pitch 8      x1.03 (base x1.06) att 0.98  deep x1.58 fine x1.81 lattice x2.53
+  L5 floor1 50          checkerboard-4__rrect-lg__rest           pitch 8      x0.91 (base x1.12) att 0.82  deep x1.63 fine x3.38 lattice x3.41
+  L5 floor1 50          checkerboard-8__rrect-md__rest           pitch 16     x0.30 (base x0.39) att 0.78  deep x0.17 fine x0.30 lattice x0.20
+  L5 floor1 50          checkerboard-8__rrect-md__inactive       pitch 16     x0.97 (base x1.01) att 0.96  deep x0.60 fine x1.10 lattice x0.76
+  L5 floor1 50          hc-text-7__rrect-md__rest                pitch text-7 x0.55 (base x0.59) att 0.93  deep x0.49 fine x0.52 lattice x0.31
+  L5 floor1 50          checkerboard__rrect-sm__rest             pitch 32     x0.58 (base x0.66) att 0.87  deep x0.43 fine x0.35 lattice x0.48
+  L5 floor1 50          checkerboard__rrect-sm__inactive         pitch 32     x2.25 (base x2.53) att 0.89  deep x2.27 fine x3.38 lattice x2.35
+  L5 floor1 50          checkerboard__rrect-md__rest             pitch 32     x0.24 (base x0.31) att 0.78  deep x0.15 fine x0.30 lattice x0.19
+  L5 floor1 50          checkerboard__rrect-md__inactive         pitch 32     x0.88 (base x0.92) att 0.95  deep x0.88 fine x0.98 lattice x0.85
+  L5 floor1 50          checkerboard__rrect-ml__inactive         pitch 32     x1.34 (base x1.40) att 0.96  deep x1.41 fine x1.34 lattice x1.32
+  L5 floor1 50          checkerboard-32__rrect-md__rest          pitch 64     x0.58 (base x0.64) att 0.91  deep x0.54 fine x0.37 lattice x0.44
+  L5 floor1 50          checkerboard-64__rrect-md__rest          pitch 128    x0.84 (base x0.86) att 0.98  deep x0.83 fine x0.43 lattice x0.62
+  L5 floor1 50          checkerboard-64__rrect-md__inactive      pitch 128    x1.26 (base x1.26) att 1.00  deep x1.31 fine x1.35 lattice x1.63
+  L5 floor1 50          photo__rrect-md__rest                    pitch photo  x0.61 (base x0.62) att 0.99  deep x0.65 fine x0.55 lattice x0.37
+  L5 floor1 50          photo__rrect-md__inactive                pitch photo  x0.84 (base x0.84) att 1.00  deep x0.98 fine x1.01 lattice x0.97
+  L5 floor1 200         checkerboard-4__rrect-sm__rest           pitch 8      x0.47 (base x0.44) att 1.07  deep x0.47 fine x0.46 lattice x0.49
+  L5 floor1 200         checkerboard-4__rrect-md__rest           pitch 8      x1.19 (base x1.01) att 1.18  deep x1.59 fine x1.80 lattice x1.92
+  L5 floor1 200         checkerboard-4__rrect-md__inactive       pitch 8      x1.08 (base x1.06) att 1.02  deep x3.53 fine x3.35 lattice x4.95
+  L5 floor1 200         checkerboard-4__rrect-lg__rest           pitch 8      x1.37 (base x1.12) att 1.23  deep x4.39 fine x7.48 lattice x7.71
+  L5 floor1 200         checkerboard-8__rrect-md__rest           pitch 16     x0.47 (base x0.39) att 1.20  deep x0.43 fine x0.51 lattice x0.44
+  L5 floor1 200         checkerboard-8__rrect-md__inactive       pitch 16     x1.05 (base x1.01) att 1.04  deep x1.50 fine x1.71 lattice x1.59
+  L5 floor1 200         hc-text-7__rrect-md__rest                pitch text-7 x0.63 (base x0.59) att 1.08  deep x0.61 fine x0.96 lattice x0.72
+  L5 floor1 200         checkerboard__rrect-sm__rest             pitch 32     x0.71 (base x0.66) att 1.07  deep x0.69 fine x0.52 lattice x0.68
+  L5 floor1 200         checkerboard__rrect-sm__inactive         pitch 32     x2.69 (base x2.53) att 1.06  deep x3.36 fine x4.91 lattice x3.19
+  L5 floor1 200         checkerboard__rrect-md__rest             pitch 32     x0.37 (base x0.31) att 1.20  deep x0.35 fine x0.48 lattice x0.38
+  L5 floor1 200         checkerboard__rrect-md__inactive         pitch 32     x0.96 (base x0.92) att 1.04  deep x0.99 fine x1.07 lattice x0.95
+  L5 floor1 200         checkerboard__rrect-ml__inactive         pitch 32     x1.46 (base x1.40) att 1.05  deep x1.58 fine x1.48 lattice x1.49
+  L5 floor1 200         checkerboard-32__rrect-md__rest          pitch 64     x0.68 (base x0.64) att 1.07  deep x0.67 fine x0.51 lattice x0.56
+  L5 floor1 200         checkerboard-64__rrect-md__rest          pitch 128    x0.88 (base x0.86) att 1.02  deep x0.86 fine x0.56 lattice x0.73
+  L5 floor1 200         checkerboard-64__rrect-md__inactive      pitch 128    x1.27 (base x1.26) att 1.00  deep x1.31 fine x1.38 lattice x1.66
+  L5 floor1 200         photo__rrect-md__rest                    pitch photo  x0.62 (base x0.62) att 1.01  deep x0.67 fine x0.57 lattice x0.43
+  L5 floor1 200         photo__rrect-md__inactive                pitch photo  x0.84 (base x0.84) att 1.00  deep x0.99 fine x1.02 lattice x0.99
+  L6 c05    0.1         checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L6 c05    0.1         checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L6 c05    0.1         checkerboard__rrect-sm__inactive         pitch 32     x1.85 (base x2.71) att 0.68  deep x2.36 fine x3.25 lattice x2.21
+  L6 c05    0.1         checkerboard__rrect-md__inactive         pitch 32     x2.36 (base x2.36) att 1.00  deep x2.62 fine x3.65 lattice x2.66
+  L6 c05    0.1         checkerboard-64__rrect-md__inactive      pitch 128    x1.36 (base x1.36) att 1.00  deep x1.41 fine x2.86 lattice x2.50
+  L6 c05    0.1         photo__rrect-md__inactive                pitch photo  x0.86 (base x0.86) att 1.00  deep x1.01 fine x1.31 lattice x1.40
+  L6 c05    0.4         checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L6 c05    0.4         checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L6 c05    0.4         checkerboard__rrect-sm__inactive         pitch 32     x1.85 (base x2.71) att 0.68  deep x2.36 fine x3.25 lattice x2.21
+  L6 c05    0.4         checkerboard__rrect-md__inactive         pitch 32     x2.36 (base x2.36) att 1.00  deep x2.62 fine x3.65 lattice x2.66
+  L6 c05    0.4         checkerboard-64__rrect-md__inactive      pitch 128    x1.36 (base x1.36) att 1.00  deep x1.41 fine x2.86 lattice x2.50
+  L6 c05    0.4         photo__rrect-md__inactive                pitch photo  x0.86 (base x0.86) att 1.00  deep x1.01 fine x1.31 lattice x1.40
+  L6 c05    0.55        checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L6 c05    0.55        checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L6 c05    0.55        checkerboard__rrect-sm__inactive         pitch 32     x2.28 (base x2.71) att 0.84  deep x2.87 fine x4.12 lattice x2.72
+  L6 c05    0.55        checkerboard__rrect-md__inactive         pitch 32     x2.36 (base x2.36) att 1.00  deep x2.62 fine x3.65 lattice x2.66
+  L6 c05    0.55        checkerboard-64__rrect-md__inactive      pitch 128    x1.36 (base x1.36) att 1.00  deep x1.41 fine x2.86 lattice x2.50
+  L6 c05    0.55        photo__rrect-md__inactive                pitch photo  x0.86 (base x0.86) att 1.00  deep x1.01 fine x1.31 lattice x1.40
+  L6 floor1 0.1         checkerboard-4__rrect-md__inactive       pitch 8      x1.06 (base x1.06) att 1.00  deep x2.66 fine x2.65 lattice x3.89
+  L6 floor1 0.1         checkerboard-8__rrect-md__inactive       pitch 16     x1.01 (base x1.01) att 1.00  deep x1.12 fine x1.43 lattice x1.22
+  L6 floor1 0.1         checkerboard__rrect-sm__inactive         pitch 32     x0.84 (base x2.53) att 0.33  deep x0.95 fine x1.00 lattice x0.87
+  L6 floor1 0.1         checkerboard__rrect-md__inactive         pitch 32     x0.92 (base x0.92) att 1.00  deep x0.94 fine x1.02 lattice x0.90
+  L6 floor1 0.1         checkerboard-64__rrect-md__inactive      pitch 128    x1.26 (base x1.26) att 1.00  deep x1.31 fine x1.37 lattice x1.65
+  L6 floor1 0.1         photo__rrect-md__inactive                pitch photo  x0.84 (base x0.84) att 1.00  deep x0.99 fine x1.01 lattice x0.98
+  L6 floor1 0.4         checkerboard-4__rrect-md__inactive       pitch 8      x1.06 (base x1.06) att 1.00  deep x2.66 fine x2.65 lattice x3.89
+  L6 floor1 0.4         checkerboard-8__rrect-md__inactive       pitch 16     x1.01 (base x1.01) att 1.00  deep x1.12 fine x1.43 lattice x1.22
+  L6 floor1 0.4         checkerboard__rrect-sm__inactive         pitch 32     x1.67 (base x2.53) att 0.66  deep x1.94 fine x2.64 lattice x1.87
+  L6 floor1 0.4         checkerboard__rrect-md__inactive         pitch 32     x0.92 (base x0.92) att 1.00  deep x0.94 fine x1.02 lattice x0.90
+  L6 floor1 0.4         checkerboard-64__rrect-md__inactive      pitch 128    x1.26 (base x1.26) att 1.00  deep x1.31 fine x1.37 lattice x1.65
+  L6 floor1 0.4         photo__rrect-md__inactive                pitch photo  x0.84 (base x0.84) att 1.00  deep x0.99 fine x1.01 lattice x0.98
+  L7 c05    0           checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L7 c05    0           checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L7 c05    0           checkerboard__rrect-md__inactive         pitch 32     x2.36 (base x2.36) att 1.00  deep x2.62 fine x3.65 lattice x2.66
+  L7 c05    0           checkerboard__rrect-ml__inactive         pitch 32     x3.05 (base x3.05) att 1.00  deep x3.48 fine x4.16 lattice x3.48
+  L7 c05    0           checkerboard-64__rrect-md__inactive      pitch 128    x1.36 (base x1.36) att 1.00  deep x1.41 fine x2.86 lattice x2.50
+  L7 c05    0           photo__rrect-md__inactive                pitch photo  x0.86 (base x0.86) att 1.00  deep x1.01 fine x1.31 lattice x1.40
+  L7 floor1 0           checkerboard-4__rrect-md__inactive       pitch 8      x1.00 (base x1.06) att 0.95  deep x0.00 fine x0.26 lattice x0.00
+  L7 floor1 0           checkerboard-8__rrect-md__inactive       pitch 16     x0.91 (base x1.01) att 0.91  deep x0.00 fine x0.34 lattice x0.00
+  L7 floor1 0           checkerboard__rrect-md__inactive         pitch 32     x0.83 (base x0.92) att 0.89  deep x0.85 fine x0.89 lattice x0.80
+  L7 floor1 0           checkerboard__rrect-ml__inactive         pitch 32     x1.28 (base x1.40) att 0.91  deep x1.37 fine x1.23 lattice x1.27
+  L7 floor1 0           checkerboard-64__rrect-md__inactive      pitch 128    x1.26 (base x1.26) att 0.99  deep x1.30 fine x1.32 lattice x1.59
+  L7 floor1 0           photo__rrect-md__inactive                pitch photo  x0.83 (base x0.84) att 1.00  deep x0.98 fine x0.99 lattice x0.95
+  L7 floor1 0.02        checkerboard-4__rrect-md__inactive       pitch 8      x1.02 (base x1.06) att 0.97  deep x1.52 fine x1.54 lattice x2.01
+  L7 floor1 0.02        checkerboard-8__rrect-md__inactive       pitch 16     x0.94 (base x1.01) att 0.94  deep x0.65 fine x0.88 lattice x0.66
+  L7 floor1 0.02        checkerboard__rrect-md__inactive         pitch 32     x0.87 (base x0.92) att 0.94  deep x0.89 fine x0.95 lattice x0.84
+  L7 floor1 0.02        checkerboard__rrect-ml__inactive         pitch 32     x1.33 (base x1.40) att 0.95  deep x1.42 fine x1.31 lattice x1.32
+  L7 floor1 0.02        checkerboard-64__rrect-md__inactive      pitch 128    x1.26 (base x1.26) att 1.00  deep x1.31 fine x1.34 lattice x1.62
+  L7 floor1 0.02        photo__rrect-md__inactive                pitch photo  x0.84 (base x0.84) att 1.00  deep x0.98 fine x1.00 lattice x0.97
+  L8 c05    18          checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L8 c05    18          checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L8 c05    18          checkerboard__rrect-sm__inactive         pitch 32     x2.58 (base x2.71) att 0.95  deep x3.23 fine x4.92 lattice x3.10
+  L8 c05    18          checkerboard__rrect-md__inactive         pitch 32     x2.01 (base x2.36) att 0.85  deep x2.22 fine x3.38 lattice x2.31
+  L8 c05    18          checkerboard__rrect-ml__inactive         pitch 32     x2.44 (base x3.05) att 0.80  deep x2.76 fine x3.75 lattice x2.85
+  L8 c05    18          checkerboard-64__rrect-md__inactive      pitch 128    x1.26 (base x1.36) att 0.93  deep x1.30 fine x2.69 lattice x2.25
+  L8 c05    18          photo__rrect-md__inactive                pitch photo  x0.83 (base x0.86) att 0.97  deep x0.98 fine x1.16 lattice x1.19
+  L8 c05    24          checkerboard-4__rrect-md__inactive       pitch 8      x3.95 (base x3.95) att 1.00  deep x35.71 fine x32.65 lattice x49.75
+  L8 c05    24          checkerboard-8__rrect-md__inactive       pitch 16     x5.29 (base x5.29) att 1.00  deep x15.29 fine x16.05 lattice x16.22
+  L8 c05    24          checkerboard__rrect-sm__inactive         pitch 32     x2.54 (base x2.71) att 0.94  deep x3.17 fine x4.89 lattice x3.06
+  L8 c05    24          checkerboard__rrect-md__inactive         pitch 32     x1.88 (base x2.36) att 0.80  deep x2.08 fine x3.30 lattice x2.19
+  L8 c05    24          checkerboard__rrect-ml__inactive         pitch 32     x2.23 (base x3.05) att 0.73  deep x2.53 fine x3.66 lattice x2.65
+  L8 c05    24          checkerboard-64__rrect-md__inactive      pitch 128    x1.14 (base x1.36) att 0.84  deep x1.17 fine x2.59 lattice x2.05
+  L8 c05    24          photo__rrect-md__inactive                pitch photo  x0.79 (base x0.86) att 0.92  deep x0.94 fine x1.08 lattice x1.06
