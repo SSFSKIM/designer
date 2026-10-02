@@ -43478,7 +43478,7 @@ before any `materialize --apply`.
   voted and frequency-settled cells.** It may be the position, the bundle or the night. G2 states
   the bar it reads the native delta against before the first pair.
 
-## 5.199b W43 G1b: the probe and ladder sitting — 1,265 captures and 96 dump scenes admitted through three stops; every bridge agrees; the bar is the floor on the probe and nearly everywhere on the ladder; the original bundle's restore [CLAUSE 6 PENDING] (2026-10-02)
+## 5.199b W43 G1b: the probe and ladder sitting — 1,265 captures and 96 dump scenes admitted through three stops; every bridge agrees; the bar is the floor on the probe and nearly everywhere on the ladder; the original bundle restored and positively checked (2026-10-02)
 
 Evidence directory: `results/2026-10-02-w43-g1b-sitting/`, on branch `w43-g1b-sitting` (the charter
 names `w43-g1b-probe`; the parent kept the worker's name, as at G1a). The raw runs stay on the
@@ -43640,13 +43640,35 @@ copy, the stop evidence, the pre-launch reads and the restore root were denied f
 
 - **At the close:** the freeze reads **1,818** and X41 **911**; the slider reads 0.5, its as-found
   value, and the display mode 68 (`close/close-checks.txt`).
-- **Clause 6, the original bundle's restore.** [PLACEHOLDER: the check has not run. The user's hand
-  in System Settings removes every VitreaReference entry and adds the original alone
-  (`apps/reference-apple/build/VitreaReference.app`, `dev.vitrea.reference-apple`, binary
-  `bd3092e8…`, cdhash `88cbbb5b…`, never rebuilt); then one run of `restore/original-positive.py`
-  (W42 G1's check, derived at `91294931`→`2d575f74`) must read `captured-active`, a frame of
-  `204f21f0…` or `6c15311b…`, and the original as the only `dev.vitrea.reference*` Screen
-  Recording row, at auth 2. The outcome, its frame and its TCC rows go here.]
+- **Clause 6: the original bundle is restored and passes its positive check.**
+  - **The restore.** The coordinator did the System Settings step on the user's behalf, through the
+    GUI helper: it removed the one VitreaReference entry and added the original alone
+    (`apps/reference-apple/build/VitreaReference.app`, `dev.vitrea.reference-apple`, binary
+    `bd3092e8…`, cdhash `88cbbb5b…`, never rebuilt). The ScreenCapture row's `last_modified` reads
+    08:27:45Z.
+  - **The first GO was refused before the census** (08:33Z). The user's background Claude daemon
+    had restarted on the auto-updated 2.1.287 binary and raised a Media Library prompt at 08:28:36Z
+    (TCC keys a bare executable by path). UserNotificationCenter held the frontmost, so nothing was
+    created or launched. The user answered it at the Mac.
+  - **The check** (`restore/original-positive.py restore-1`, W42 G1's check derived at
+    `91294931`→`2d575f74`, one attempt) ran after a session read (Finder frontmost, HID idle 656 s)
+    and the census (0), each in its own command. It waited at 08:47:18Z and launched the ORIGINAL
+    once; the capture is timed 08:47:29Z.
+  - **Its verdict is PASS** (`restore/restore-1/verdict.json`):
+    - **outcome `captured-active`**: one fixture, screencapturekit, `materialRendered`,
+      `presentedActive` and `deterministic` true, `repeatNoise` 0, backing scale 2, HID idle 678.8 s,
+      no machine or binary drift;
+    - **frame `204f21f0362d3226f7e28690be7c61ece0848931c89062e8a888f1ade22d4033`**, the cell's
+      second recorded state, 115 px at ≤ 2 codes from the committed fixture `6c15311b…`, as at
+      W39 G1's step 0, W42 G1's check 1 and both W43 pose checks;
+    - **TCC, read-only before and after:** `dev.vitrea.reference-apple` is the only
+      `dev.vitrea.reference*` Screen Recording row, at auth 2. Its Accessibility row (auth 2) and
+      `dev.vitrea.tccprobe` (auth 0) are untouched.
+  - **The side bundle is retired** with no row, as at W39's close. `dev.vitrea.reference-apple.w39`
+    must never be launched again without re-adding it, since a launch with no row raises an
+    unattended prompt.
+  - The check's non-pixel record is committed under `restore/restore-1/`; the PNG stays under
+    `~/vitrea-w43/g1b-restore/restore-1/`. W42 Decision Log 8's deferral is closed.
 
 ### 8. Findings for the tracker
 
@@ -43658,16 +43680,18 @@ copy, the stop evidence, the pre-launch reads and the restore root were denied f
    login` (and any OAuth CLI) opens the browser through LaunchServices. The prerequisites name
    browser automation and Screen Sharing; they should also name sign-in flows in any session.
 3. **The auto-updater is not held by booting out the scheduled jobs.** Claude Code updated to
-   2.1.287 mid-sitting (G1a's first tracker entry); the hold the prerequisites need is the
-   updater's own setting for the sitting's length.
+   2.1.287 mid-sitting (G1a's first tracker entry). The user's background daemon restarted on it,
+   and its first Media Library read raised a prompt at 08:28:36Z, which refused the restore check's
+   first GO (§7). The hold the prerequisites need is the updater's own setting, and the daemon's,
+   for the sitting's length and its close.
 
 ### 9. What is not claimed
 
 - No law, fit or model comparison; the w-test and the ladder are G2 stage two's (clauses 8–9).
 - **Nothing was read against vitrea.**
 - **Not read here:** whether the five two-state cells fall on the w-test's supported regions.
-- **The original bundle's restore** is clause 6's, pending (§7); until it passes, the sitting is not
-  closed.
+- **Nothing about the side bundle beyond its retirement:** clause 6 checks the original's grant and
+  capture, and the side holds no row.
 
 ## 5.200 W43 G2 stage one, the reading: Apple's slider moved the body and its first two CSS px and nothing outside them; the bar is the 0.5 side's because the 0.25 side's is zero; S1 as chartered fails Apple itself; Decision Log 7 drafted (2026-10-02)
 

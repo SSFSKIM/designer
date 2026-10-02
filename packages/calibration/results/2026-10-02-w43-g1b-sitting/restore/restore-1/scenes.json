@@ -1,0 +1,104 @@
+{
+  "version": 8,
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "backgrounds": {
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+    }
+  },
+  "components": {
+    "capsule-button": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+    }
+  },
+  "tints": {
+    "orange": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "$comment": "systemOrange. Warm, far from the material's neutral white, and the hue Apple's own tinting examples use."
+    },
+    "blue": {
+      "srgb": [
+        10,
+        132,
+        255
+      ],
+      "$comment": "systemBlue. The second hue exists to test that ONE tone curve serves every seed; a per-hue difference here refutes the model rather than retuning it."
+    },
+    "orange-half": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "alpha": 0.5,
+      "$comment": "The strength axis. vitrea reads a colour's alpha as how far the material's tint moves toward the tone, and SwiftUI's Color carries opacity the same way — so this cell checks that the two agree about what half-strength means."
+    }
+  },
+  "states": {
+    "rest": {
+      "$comment": "No interaction."
+    },
+    "pressed": {
+      "$comment": "Apple's interactive() press response. Scriptable natively by driving the view's press state; on the web by the runtime's pressed interaction state. Motion is C9's axis — this is the settled pressed pose, not a transient."
+    },
+    "inactive": {
+      "$comment": "W27c G0/G1 (claims §5.128; X3, X7): the window-recede pose, recovered from the pre-DL14 tree (973fd7e^) where the harness's borderless window could never become key. X3 rules the pose into the scene `state`, never a profile-key segment; it reads bare, per the wave's own worked example (checkerboard__rrect-md__inactive), because activation is the ONE axis 'state' carries for a recovered scene — the same reason 'rest' reads as the unmarked default everywhere else in this file. Schema 2, single run per cell, pose inferred from the DL14 post-mortem — not attested per cell (W27 Decision Log 5). A recovered scene whose source was 'pressed', not 'rest', carries that separately: see '$comment-interaction'."
+    }
+  },
+  "scenes": [
+    {
+      "id": "checkerboard__capsule-button__rest",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": [
+        "checkerboard__capsule-button__rest"
+      ],
+      "$comment": [
+        "The 26.5 2x light standard list verbatim; see the 27 1x light standard entry."
+      ]
+    }
+  ],
+  "split": {
+    "$comment": [],
+    "holdout": [],
+    "validation": [],
+    "calibration": [
+      "checkerboard__capsule-button__rest"
+    ],
+    "recorded": [],
+    "$comment-probe": [],
+    "probe": []
+  }
+}

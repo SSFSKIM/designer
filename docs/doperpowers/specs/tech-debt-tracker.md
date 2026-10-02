@@ -7054,8 +7054,10 @@ hold auto-updates (`DISABLE_AUTOUPDATER=1`) for the sitting's length, with the r
 recorded beside the pause.
 
 *W43 G1b (c9a §5.199b §2, §8):* booting out the scheduled jobs is not the updater's hold. Claude Code
-updated to 2.1.287 at 06:51:44Z mid-sitting; no prompt followed only because nothing started a
-headless `claude` before the close.
+updated to 2.1.287 at 06:51:44Z mid-sitting. The user's `claude daemon run` (a launch agent)
+restarted on the new binary a minute later, and at 08:28:36Z its Media Library read raised a TCC
+prompt, which held the frontmost when the restore check's first GO came. The daemon is a headless
+caller too: pause it with the scheduled jobs.
 
 ## A Screen Sharing viewer is HID input to the sitting (W43 G1a, 2026-10-01)
 
