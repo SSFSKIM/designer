@@ -1,0 +1,10 @@
+REFUSED; retained at /Users/new/vitrea-w43/g1b-run/dump-0.25-2x-light-active/QUARANTINE-run-1-1790901201309897000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w43/g1b/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1568, in <module>
+    main()
+  File "/Users/new/vitrea-w43/g1b/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1475, in main
+    if validate_machine(closed, scale, glass, census) != start:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w43/g1b/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 175, in validate_machine
+    raise ValueError('machine gate refused: ' + '; '.join(problems))
+ValueError: machine gate refused: 19 foreign capture process(es); X6 admits none
