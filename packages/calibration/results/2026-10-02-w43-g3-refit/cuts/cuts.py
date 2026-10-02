@@ -667,7 +667,7 @@ def cut_s1(bed: B.Bed, current: dict) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--bed", action="append", required=True)
-    ap.add_argument("--kind", choices=("prefit", "candidate"), required=True)
+    ap.add_argument("--kind", choices=("prefit", "candidate", "sealed"), required=True)
     ap.add_argument("--candidate-document")
     ap.add_argument("--captures", type=Path, required=True)
     ap.add_argument("--prefit", action="append", required=True)
@@ -757,6 +757,10 @@ def report(result) -> str:
         lines.append(f"# CANDIDATE: {result['bed']['candidateDocument']['path']} "
                      f"sha256:{result['bed']['candidateDocument']['sha256'][:12]} "
                      "(a declared scratch document; not a shipped cut)")
+    elif result["bed"]["kind"] == "sealed":
+        lines.append("# SEALED: the four -glass0.25 documents in a publication stage, strict shipped "
+                     "mode at (macOS 27.0, glass 0.25): " + ", ".join(
+                         f"{p.split('/')[-1]} sha256:{h}" for p, h in result["bed"]["documents"].items()))
     else:
         lines.append("# PREFIT: the shipped 0.5 documents on the 0.25 cells, "
                      "crossPosition=shipped-glass0.5-against-glass0.25 (scratch; the unmoved endpoint)")

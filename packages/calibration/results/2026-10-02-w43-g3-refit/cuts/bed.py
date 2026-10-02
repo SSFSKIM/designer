@@ -169,7 +169,7 @@ class Candidate:
 
 @dataclass
 class Bed:
-    kind: str                 # "prefit" | "candidate"
+    kind: str                 # "prefit" | "candidate" | "sealed"
     rows: list
     matrices: list            # [{"path", "sha256", "rows"}]
     candidate: Candidate | None = None
@@ -186,6 +186,8 @@ class Bed:
                 name=self.candidate.declaration.get("name"),
                 endpoints={slot: dict(path=str(Path(p).relative_to(ROOT)), sha256=s)
                            for slot, (p, s) in sorted(self.candidate.endpoints.items())})
+        elif self.kind == "sealed":
+            out["documents"] = sealed_025()
         else:
             out["documents"] = shipped_05()
             out["stamp"] = CROSS_STAMP
@@ -206,6 +208,8 @@ class Bed:
     def label(self) -> str:
         if self.kind == "prefit":
             return "prefit: shipped 0.5 documents on the 0.25 cells (" + CROSS_STAMP + ")"
+        if self.kind == "sealed":
+            return "sealed: the four -glass0.25 documents under profiles/, strict shipped mode (a stage read)"
         return f"candidate: {self.candidate.path} sha256:{self.candidate.sha256[:12]}"
 
 
@@ -225,6 +229,33 @@ def _admit_prefit(row: dict, shipped: dict) -> str | None:
     return None
 
 
+def sealed_025() -> dict[str, str]:
+    """The four sealed -glass0.25 documents, path as rows name it -> live sha12 (W43 G3 (ii))."""
+    out = {}
+    for scheme in ("light", "dark"):
+        for suffix in ("", "-receded"):
+            rel = f"packages/calibration/profiles/apple-macos-27.0-1x-{scheme}-standard-glass0.25{suffix}.json"
+            out[rel] = sha256(ROOT / rel)[:12]
+    return out
+
+
+def _admit_sealed(row: dict, sealed: dict) -> str | None:
+    """A stage row: strict shipped mode at the (macOS 27.0, glass 0.25) pair, naming the scheme's
+    two sealed documents at their live hash, with no cross-position stamp and no candidate."""
+    path = row["key"]["web"]["capturePath"]
+    if "crossPosition=" in path:
+        return "a stage row carries a cross-position stamp"
+    if CANDIDATE_CLAUSE.search(path):
+        return "a stage row names a candidate"
+    named = {kind: (p, s) for kind, p, s in DOC_CLAUSE.findall(path)}
+    scheme = scheme_of(row["key"]["profileKey"])
+    for kind, suffix in (("materialProfile", ""), ("recededProfile", "-receded")):
+        rel = f"packages/calibration/profiles/apple-macos-27.0-1x-{scheme}-standard-glass0.25{suffix}.json"
+        if named.get(kind) != (rel, sealed[rel]):
+            return f"{kind} is {named.get(kind)}, not {rel} at {sealed[rel]}"
+    return None
+
+
 def _admit_candidate(row: dict, candidate: Candidate) -> str | None:
     path = row["key"]["web"]["capturePath"]
     if "crossPosition=" in path:
@@ -240,13 +271,20 @@ def _admit_candidate(row: dict, candidate: Candidate) -> str | None:
     return None
 
 
-def load(matrices: list[str], kind: str, candidate: str | None = None) -> Bed:
-    if kind not in ("prefit", "candidate"):
+def load(matrices: list[str], kind: str, candidate: str | None = None,
+         with_holdout: bool = False) -> Bed:
+    """`with_holdout` admits holdout rows, for a SEALED bed only: the stage's one holdout read
+    (charter clause 10 step 6). Every cut's population is declared without the holdout except the
+    tables', so only the holdout reader asks for it."""
+    if kind not in ("prefit", "candidate", "sealed"):
         raise SystemExit(f"bed kind {kind!r}")
+    if with_holdout and kind != "sealed":
+        raise SystemExit("only a sealed stage bed reads the holdout, once, after its gate")
     if (kind == "candidate") != (candidate is not None):
         raise SystemExit("a candidate bed names exactly one --candidate-document; a prefit bed none")
     declared = Candidate.read(candidate) if candidate is not None else None
     shipped = shipped_05()
+    sealed = sealed_025() if kind == "sealed" else {}
     lists = {profile: set(SCENES.declared(profile)) for profile in PROFILES}
     rows, record, seen = [], [], set()
     for given in matrices:
@@ -262,9 +300,10 @@ def load(matrices: list[str], kind: str, candidate: str | None = None) -> Bed:
             where = f"{file.name}: {profile} {renderer} {sid}"
             if profile not in PROFILES:
                 raise SystemExit(f"{where}: not one of the four -glass0.25 standard profiles")
-            if row.get("fixtureSet") == "holdout" or sid in SCENES.holdout:
-                raise SystemExit(f"{where}: a holdout row; the holdout is never read in G3 (i)")
-            if row.get("fixtureSet") not in NON_HOLDOUT:
+            if (row.get("fixtureSet") == "holdout" or sid in SCENES.holdout) and not with_holdout:
+                raise SystemExit(f"{where}: a holdout row; the holdout is read only by the stage's "
+                                 "one holdout reader")
+            if row.get("fixtureSet") not in NON_HOLDOUT + (("holdout",) if with_holdout else ()):
                 raise SystemExit(f"{where}: fixtureSet {row.get('fixtureSet')!r}")
             if sid not in lists[profile]:
                 raise SystemExit(f"{where}: a scene scenes.json does not declare for this profile")
@@ -272,7 +311,8 @@ def load(matrices: list[str], kind: str, candidate: str | None = None) -> Bed:
             if (row["fixtureSet"], row.get("state")) != (role, state):
                 raise SystemExit(f"{where}: fixtureSet/state {row['fixtureSet']}/{row.get('state')}"
                                  f" where scenes.json declares {role}/{state}")
-            why =(_admit_prefit(row, shipped) if kind == "prefit"
+            why = (_admit_prefit(row, shipped) if kind == "prefit"
+                   else _admit_sealed(row, sealed) if kind == "sealed"
                    else _admit_candidate(row, declared))
             if why is not None:
                 raise SystemExit(f"{where}: not admitted as a {kind} row: {why}")
