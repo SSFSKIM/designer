@@ -1,0 +1,50 @@
+{
+  "schema": "w43-run-admission-1",
+  "admitted": true,
+  "dry": false,
+  "protocol": "long",
+  "captureProtocol": {
+    "initialSettleSeconds": 8.0,
+    "orderSeed": 4242,
+    "resetInterstitialSeconds": 6.0,
+    "resetCarriesGlass": false,
+    "minIdleSeconds": 60.0
+  },
+  "cells": 2,
+  "manifestSha256": "6c0a1b64fc6bb394ea7e50e81eaae19a7e241148ae469a556a7afed75c954761",
+  "run": 2,
+  "glass": 0.5,
+  "sitting": "g1b",
+  "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+  "declaration": {
+    "sitting": "g1b",
+    "planSha256": "ee9e1871605ed8c126ecfe0359438698b56740b2183f57a4ebbaadde80700bf2",
+    "sources": {
+      "canonical": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+      "w42": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+      "probe": "f54e133befb61d20bdefcefd2228d66067b96bc35ecb332681498a70e39b2ba0"
+    },
+    "head": "07ad0672d767a73b3a4cb3b4646a6c7e9fe9844e",
+    "declarationSha256": "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb",
+    "declarationChain": [
+      "4675ce216bb00c8d3d1feec81bc2fd587d8e5e41376f918b63e1ddf21fd85874",
+      "4f90f91015f3c82cdb9c73951d887a7a7a9b02e72963922c7ef72d8e6dbb79bb"
+    ]
+  },
+  "frames": {
+    "apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__rest": "bb7c575d93393365db8c916b2644670648e738d63e034aea4b97062308979767",
+    "apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__rest": "a07987b87f285d2c9c4a910a30f5856fab7ffd050981b8f3fdb5c3513abc1e5a"
+  },
+  "role": "bridge-w42-sentinel",
+  "publish": false,
+  "pass": "close-w42-2x-light-active",
+  "bridge": {
+    "agrees": true,
+    "stop": false,
+    "verdicts": {
+      "apple-macos-27.0-2x-light-standard-glass0.5/f-checker64-rrect-lg__rest": "AGREE (bytes)",
+      "apple-macos-27.0-2x-light-standard-glass0.5/f-impulse-rrect-md__rest": "AGREE (bytes)"
+    },
+    "reportSha256": "aa437e2975dc1962a4c2861f9dc5dcd6ccebebcace415e8a7fd5709149e5faab"
+  }
+}
