@@ -1,0 +1,73 @@
+W43 G3 (ii) review, finding 1: holdout preconditions, sys.flags.optimize = 0 (no -O)
+  right: every precondition holds
+    ok   fixed: refuses on nothing, got []
+      48d3b744 block: LET THROUGH; calls ['load_log', 'document_hashes(glass0.25)', 'source_hash']
+  documentSet is glass0.5
+      refusal: the ledger's last record is documentSet 'glass0.5', not 'glass0.25'
+    ok   fixed: refuses on ['documentSet'], got ['documentSet']
+      48d3b744 block: refused (AssertionError); calls ['load_log']
+    ok   48d3b744 without -O also refuses (control)
+  one document hash differs
+      refusal: the ledger's last read is not these documents
+    ok   fixed: refuses on ['documents'], got ['documents']
+      48d3b744 block: refused (AssertionError); calls ['load_log', 'document_hashes(glass0.25)']
+    ok   48d3b744 without -O also refuses (control)
+  the sources moved
+      refusal: the sources moved since the ledger's record
+    ok   fixed: refuses on ['sources'], got ['sources']
+      48d3b744 block: refused (AssertionError); calls ['load_log', 'document_hashes(glass0.25)', 'source_hash']
+    ok   48d3b744 without -O also refuses (control)
+  the record is not the one committed at HEAD
+      refusal: the ledger's record is not committed
+    ok   fixed: refuses on ['committed'], got ['committed']
+      48d3b744 block: refused (AssertionError); calls ['load_log', 'document_hashes(glass0.25)', 'source_hash']
+    ok   48d3b744 without -O also refuses (control)
+  all four wrong at once
+      refusal: the ledger's last record is documentSet 'glass0.5', not 'glass0.25'
+      refusal: the ledger's last read is not these documents
+      refusal: the sources moved since the ledger's record
+      refusal: the ledger's record is not committed
+    ok   fixed: refuses on ['committed', 'documentSet', 'documents', 'sources'], got ['committed', 'documentSet', 'documents', 'sources']
+      48d3b744 block: refused (AssertionError); calls ['load_log']
+    ok   48d3b744 without -O also refuses (control)
+  the ledger is empty
+      refusal: the holdout ledger has no record
+    ok   fixed: refuses on ['empty'], got ['empty']
+      48d3b744 block: refused (IndexError); calls ['load_log']
+    ok   48d3b744 without -O also refuses (control)
+  launches attempted: none (read.launch raises; main() is never called)
+
+W43 G3 (ii) review, finding 1: holdout preconditions, sys.flags.optimize = 1 (python3 -O)
+  right: every precondition holds
+    ok   fixed: refuses on nothing, got []
+      48d3b744 block: LET THROUGH; calls ['load_log']
+  documentSet is glass0.5
+      refusal: the ledger's last record is documentSet 'glass0.5', not 'glass0.25'
+    ok   fixed: refuses on ['documentSet'], got ['documentSet']
+      48d3b744 block: LET THROUGH; calls ['load_log']
+  one document hash differs
+      refusal: the ledger's last read is not these documents
+    ok   fixed: refuses on ['documents'], got ['documents']
+      48d3b744 block: LET THROUGH; calls ['load_log']
+  the sources moved
+      refusal: the sources moved since the ledger's record
+    ok   fixed: refuses on ['sources'], got ['sources']
+      48d3b744 block: LET THROUGH; calls ['load_log']
+  the record is not the one committed at HEAD
+      refusal: the ledger's record is not committed
+    ok   fixed: refuses on ['committed'], got ['committed']
+      48d3b744 block: LET THROUGH; calls ['load_log']
+  all four wrong at once
+      refusal: the ledger's last record is documentSet 'glass0.5', not 'glass0.25'
+      refusal: the ledger's last read is not these documents
+      refusal: the sources moved since the ledger's record
+      refusal: the ledger's record is not committed
+    ok   fixed: refuses on ['committed', 'documentSet', 'documents', 'sources'], got ['committed', 'documentSet', 'documents', 'sources']
+      48d3b744 block: LET THROUGH; calls ['load_log']
+  the ledger is empty
+      refusal: the holdout ledger has no record
+    ok   fixed: refuses on ['empty'], got ['empty']
+      48d3b744 block: refused (IndexError); calls ['load_log']
+  launches attempted: none (read.launch raises; main() is never called)
+PASSED (-O): 0 failure(s)
+PASSED (both runs): 0 failure(s)

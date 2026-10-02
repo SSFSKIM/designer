@@ -41,6 +41,8 @@ DOCS = {s: (f"profiles/apple-macos-27.0-1x-{s}-standard-glass0.25.json",
             f"profiles/apple-macos-27.0-1x-{s}-standard-glass0.25-receded.json") for s in ("light", "dark")}
 MEASURED = "calibration,validation,recorded,probe"
 CONFIG = CAL / "results/holdout-configuration/configuration.py"
+LEDGER = "packages/calibration/results/holdout-configuration/configuration-log.json"
+DOCUMENT_SET = "glass0.25"
 
 
 def now():
@@ -75,6 +77,50 @@ def launch(argv, label):
     return result.returncode
 
 
+def holdout_configuration():
+    """The cross-gate holdout ledger's module (`configuration.py`), loaded from its file."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("hc", CONFIG)
+    hc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(hc)
+    return hc
+
+
+def committed_last_read():
+    """The ledger's last record as committed at HEAD, or None when HEAD's ledger has none."""
+    committed = subprocess.check_output(["git", "show", f"HEAD:{LEDGER}"], cwd=CAL, text=True)
+    reads = json.loads(committed)["reads"]
+    return reads[-1] if reads else None
+
+
+def holdout_refusals(hc, committed_last) -> list[str]:
+    """Every reason the holdout may not be read now; an empty list is the only permission.
+
+    The holdout is read once per frozen configuration (W31 Decision Log 1 (b); charter clause
+    10 step 6), so the ledger's last record must name the 0.25 document set, the documents on
+    disk, the sources on disk, and be the record committed at HEAD. These are conditionals and
+    not `assert`s because the interpreter removes an assert, and every call inside it, under
+    `python3 -O` or PYTHONOPTIMIZE, and a precondition a flag can switch off does not guard a
+    read that cannot be taken back. Each check runs whatever the others found, so a refusal
+    names all of them.
+    """
+    reads = hc.load_log()
+    if not reads:
+        return ["the holdout ledger has no record"]
+    last = reads[-1]
+    refusals = []
+    if last.get("documentSet") != DOCUMENT_SET:
+        refusals.append(f"the ledger's last record is documentSet {last.get('documentSet')!r}, "
+                        f"not {DOCUMENT_SET!r}")
+    if last.get("documents") != hc.document_hashes(DOCUMENT_SET):
+        refusals.append("the ledger's last read is not these documents")
+    if last.get("sourceSha256") != hc.source_hash()[0]:
+        refusals.append("the sources moved since the ledger's record")
+    if committed_last != last:
+        refusals.append("the ledger's record is not committed")
+    return refusals
+
+
 def main():
     args = sys.argv[1:]
     if len(args) < 2:
@@ -96,18 +142,9 @@ def main():
     tier = args[2]
     stop_reason = args[args.index("--relaunch-after-stop") + 1] if "--relaunch-after-stop" in args else None
     if mode == "holdout":
-        import importlib.util
-        spec = importlib.util.spec_from_file_location("hc", CONFIG)
-        hc = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(hc)
-        last = hc.load_log()[-1]
-        assert last.get("documentSet") == "glass0.25", last
-        assert last["documents"] == hc.document_hashes("glass0.25"), "the ledger's last read is not these documents"
-        assert last["sourceSha256"] == hc.source_hash()[0], "the sources moved since the ledger's record"
-        committed = subprocess.check_output(
-            ["git", "show", "HEAD:packages/calibration/results/holdout-configuration/configuration-log.json"],
-            cwd=CAL, text=True)
-        assert json.loads(committed)["reads"][-1] == last, "the ledger's record is not committed"
+        refusals = holdout_refusals(holdout_configuration(), committed_last_read())
+        if refusals:
+            raise SystemExit("holdout refused before any launch: " + "; ".join(refusals))
         sets = "holdout"
     elif mode == "measure":
         sets = MEASURED
