@@ -7053,6 +7053,10 @@ against the last version TCC answered for. The sitting's prerequisites then paus
 hold auto-updates (`DISABLE_AUTOUPDATER=1`) for the sitting's length, with the reload commands
 recorded beside the pause.
 
+*W43 G1b (c9a §5.199b §2, §8):* booting out the scheduled jobs is not the updater's hold. Claude Code
+updated to 2.1.287 at 06:51:44Z mid-sitting; no prompt followed only because nothing started a
+headless `claude` before the close.
+
 ## A Screen Sharing viewer is HID input to the sitting (W43 G1a, 2026-10-01)
 
 *Found by W43 G1a's stop 2 (c9a §5.199 §2, §8).*
@@ -7096,3 +7100,33 @@ other processes' messages and the user's own content, so they should not go to g
 Shape of the fix: give the runbook a stop-evidence directory under the raw root's `logs/` (for
 example `logs/stops/<n>/`), written by the worker before the archive is produced, and have
 `produce` carry it into `operational/` beside the orchestrator's logs.
+
+## An account push can take a sitting's frontmost from off the machine (W43 G1b, 2026-10-02)
+
+*Found by W43 G1b's stop 2 (c9a §5.199b §2, §8).*
+
+An Apple Account push reached `akd` at 02:58:06.7Z and posted a two-factor sign-in notification
+(HSA2) and a password-change follow-up; FollowUpUI took the frontmost a second later and the
+watchdog quarantined the run. Nothing on the Mac caused it: HID idle had been rising for 14 hours.
+No census, idle gate or prerequisite can prevent it, and the alert waits for an answer at the Mac,
+which cost the sitting 3 h 13 min. After the answer, FollowUpUI stayed frontmost with no window
+until the parent activated Finder through Launch Services.
+
+Shape of the fix: nothing prevents it; shorten the wait. On a FollowUpUI or UserNotificationCenter
+trip, the worker reads the unified log for `akd`/`followupd` at once and names the alert, so the
+parent can reach the user. The restore check's wait now stops on either app frontmost
+(`results/2026-10-02-w43-g1b-sitting/restore/original-positive.py`); the sitting driver's wait could
+do the same before a launch.
+
+## A user's own sign-in flow in another session opens the default browser mid-sitting (W43 G1b, 2026-10-02)
+
+*Found by W43 G1b's stop 3 (c9a §5.199b §2, §8).*
+
+The user ran `gcloud auth login` in another Claude session; gcloud opened the OAuth URL through an
+`osascript` and LaunchServices, Google Chrome launched and took the frontmost, and the watchdog
+quarantined a receded run. The sitting's prerequisites name browser automation, Screen Sharing and
+chatting from the Mac, but not sign-in flows, and any OAuth CLI (gcloud, gh, npm login, cloud
+SDKs) does the same.
+
+Shape of the fix: add "no sign-in or OAuth flow in any session, on this Mac, until the sitting
+ends" to the runbook's prerequisites beside the browser hold, and say so to the user with the go.
