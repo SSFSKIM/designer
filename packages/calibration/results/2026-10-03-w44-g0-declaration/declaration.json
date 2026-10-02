@@ -1,0 +1,392 @@
+{
+  "schema": "w44-declaration-1",
+  "charter": "docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md@0ee27ae2",
+  "what": "W44 G0 part 1: the mechanism-check protocol and, pinned as one of its sources, the part-2 draft (charter clause 1; X50)",
+  "items": [
+    {
+      "id": "t1",
+      "title": "T1, the texture row, and its state machine",
+      "clause": "1, 2; Design \"T1\" (MARKED); DL 2",
+      "source": [
+        "docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md@0ee27ae2",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/t1.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/test_t1.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/cuts.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/bed.py",
+        "apps/reference-apple/scenes.json"
+      ],
+      "declared": {
+        "statistic": "the driver's interiorStdDev: luminance SD in linear light over the NATIVE silhouette bounded to the declared region (rim and lens band included), material.interiorStdDev{Native,Web}.value, web against native",
+        "oneCode": "the linear step of one encoded sRGB code at the cell's native interior mean: the sRGB decode's derivative there / 255",
+        "strata": {
+          "F": [
+            "checkerboard-4",
+            "checkerboard-8",
+            "hc-text-7"
+          ],
+          "C": [
+            "checkerboard",
+            "checkerboard-lc16",
+            "checkerboard-32",
+            "checkerboard-64",
+            "hc-text",
+            "hc-text-28",
+            "impulse"
+          ],
+          "P": [
+            "photo"
+          ]
+        },
+        "populationPerLightProfile": {
+          "cells": 116,
+          "F": 19,
+          "C": 69,
+          "P": 28,
+          "gate": 94,
+          "holdout": 16,
+          "referee": 6
+        },
+        "partitions": "holdout (canonical split), referee (referees.json), gate (the rest); a stage before the exposure carries the gate partition only",
+        "outputs": {
+          "bound": "B = max(1 code, 2 bar); e(x) = |x - n|; g = e(k) - e(c); delta = |k - c|; n native, c the c05 reading, k the candidate's",
+          "fidelity": "within if e(k) <= B, or if n >= 1 code and |k / n - 1| <= 0.10; else miss, reported with k - n",
+          "change": "by precedence: unchanged if delta <= bar; else overshoot if (k - n)(c - n) < 0 and the cell is a miss; else toward if g < 0, or |g| <= 1e-12 with a sign change; else away",
+          "aggregates": "per stratum x scale x tier x pose, the median of |log((k + eps) / (n + eps))|, eps = 1 code, and the count of each state; over the gate partition, and over every partition read"
+        },
+        "changePrecedence": [
+          "unchanged",
+          "overshoot",
+          "toward",
+          "away"
+        ],
+        "ratioClause": 0.1,
+        "equalTolerance": 1e-12,
+        "gated": {
+          "profiles": [
+            "apple-macos-27.0-1x-light-standard-glass0.25",
+            "apple-macos-27.0-2x-light-standard-glass0.25"
+          ],
+          "tier": "webgpu",
+          "read": "the same profiles' CSS tier (a tier residual), the dark 0.25 profiles, the 0.5 profiles"
+        },
+        "landingScope": "WebGPU, 2x light, both poses, F u C u P, gate partition; a member with no reading makes the verdict UNMEASURED",
+        "pinnedExamples": "the charter's four (n .10 c .14 k .075 B .01 overshoot; the same at B .03 toward; n .10 c .12 k .08 B .01 overshoot; c .14 k .139 bar .002 unchanged) and ten more, cuts/test_t1.py, all pass",
+        "otherCuts": "cuts.py reports T1 beside W43's rows and leaves the referee cells out of every other population"
+      }
+    },
+    {
+      "id": "readings",
+      "title": "The readings beside T1, never gated",
+      "clause": "2; Design \"T1\" readings",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/readings.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/rehearsal-r2.json"
+      ],
+      "declared": {
+        "deep": "T1-deep: SD of encoded Rec.709 luma (codes) over the declared region eroded 8 CSS px; a declared crop (W43's sheets record none) that reproduces the 0.25 anchors",
+        "fine": "T1-fine: SD of L - G(L, sigma 4 device px), linear, over the native silhouette eroded 4 CSS px",
+        "lattice": "T1-lattice: SD of a masked difference of Gaussians, sigma 1 to 4 CSS px, linear, over the native silhouette eroded 4 CSS px; added before part 1 because it isolates the receded 2x photo lattice",
+        "constants": [
+          8,
+          4.0,
+          4,
+          [
+            1.0,
+            4.0
+          ]
+        ],
+        "latticeIsolation": {
+          "cells": "the 2x inactive untinted single-shape photo cells on c05 (glass-over-glass apart)",
+          "latticeRange": [
+            1.32,
+            1.6
+          ],
+          "t1Range": [
+            0.78,
+            0.91
+          ]
+        }
+      }
+    },
+    {
+      "id": "bar",
+      "title": "T1's bar from the seven G1a runs, through the proven port",
+      "clause": "4",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/port/prove.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/port/proof.json"
+      ],
+      "declared": {
+        "rule": "bar = 0.5 code + half the largest pairwise separation of the seven runs' native T1 values",
+        "cells": 386,
+        "gatedCells": 232,
+        "barCodes": [
+          0.5,
+          0.5
+        ],
+        "maxSeparation": 0,
+        "readNotGated": [],
+        "archiveInventory": "56489f87dc6ed07904cc0a57fa26178b19d4becbf656a393dbdf1774bccf6926",
+        "proof": {
+          "rows": 772,
+          "tolerance": 1e-06
+        }
+      }
+    },
+    {
+      "id": "rehearsal",
+      "title": "The rehearsal on c05, the 0.5 generation and the pre-fit render",
+      "clause": "2",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/baseline.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/c05-baseline.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/rehearse.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/rehearsal-r2.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/cuts-c05/c05-cuts-r2.json"
+      ],
+      "declared": {
+        "baselineCells": 464,
+        "findings": {
+          "i": {
+            "range": [
+              0.4938,
+              0.8644
+            ]
+          },
+          "ii": {
+            "median": 1.7928,
+            "namedUnder": [
+              "checkerboard-8__rrect-md__rest",
+              "hc-text-7__rrect-lg__rest",
+              "hc-text-7__rrect-md__rest"
+            ]
+          },
+          "iii": {
+            "median": 2.8066,
+            "named": [
+              "checkerboard-64__rrect-lg__inactive",
+              "checkerboard-64__rrect-md__inactive",
+              "hc-text__rrect-lg__inactive"
+            ],
+            "subsetCellsUnder2": [
+              "checkerboard__glass-over-glass__inactive",
+              "hc-text-7__rrect-md__inactive"
+            ]
+          }
+        },
+        "stopMinimumBars": 4.4,
+        "anchors": [
+          [
+            "checkerboard-4__rrect-md__rest",
+            "0.25",
+            2.87,
+            9.08,
+            2.07
+          ],
+          [
+            "checkerboard-4__rrect-md__inactive",
+            "0.25",
+            0.29,
+            10.49,
+            3.95
+          ],
+          [
+            "checkerboard-4__rrect-md__rest",
+            "0.5",
+            1.74,
+            2.54,
+            0.92
+          ]
+        ],
+        "landing": {
+          "c05": [
+            "NEITHER: closes at the finding",
+            0.5689,
+            0.5689,
+            14,
+            0,
+            0
+          ],
+          "prefit": [
+            "NEITHER: closes at the finding",
+            0.5691,
+            0.5689,
+            8,
+            50,
+            3
+          ]
+        },
+        "selection": [
+          0.3451,
+          0.5034,
+          0.0406,
+          "c05"
+        ],
+        "moire": "a ring 12-16 CSS px inside the declared contour, in the lens band, where the web checker's fine-band amplitude falls to 0.69 of its deep level (checkerboard-4 rrect-md at 2x, both poses); Apple's own lens band carries the refracted checker at 0.016-0.019 while its deep body is near-smooth",
+        "lattice": "the backdrop's own diagonal lattice (vectors about (-16, 20) and (21, 10.5) CSS px), passed by vitrea's receded 2x body at x1.32-1.60 of Apple's in the sigma 1-4 CSS px band where the whole-body SD reads x0.78-0.91"
+      }
+    },
+    {
+      "id": "referees",
+      "title": "The referee manifest, the planner's two lists and the consumers",
+      "clause": "1, 7; Design \"The referees\"; X49",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/referees.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/plan.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/test_plan.py",
+        "apps/reference-apple/scenes.json"
+      ],
+      "declared": {
+        "profiles": [
+          "apple-macos-27.0-1x-light-standard-glass0.25",
+          "apple-macos-27.0-2x-light-standard-glass0.25"
+        ],
+        "scenes": [
+          "checkerboard-4__rrect-ml__rest",
+          "checkerboard-4__capsule-button__rest-tint-orange",
+          "checkerboard-8__rrect-lg__inactive",
+          "checkerboard-8__rrect-sm__rest",
+          "hc-text-7__rrect-md__inactive",
+          "checkerboard-32__rrect-lg__inactive"
+        ],
+        "pregateProbe": {
+          "count": 81,
+          "run": "compare --set probe --scene <list>",
+          "listSha256": "5def2c7f6a363a2189116b16d9cb69a9f81ddb9d1dff5dc68b1bc8c541a5d379"
+        },
+        "exposure": {
+          "count": 26,
+          "run": "compare --set holdout,probe --scene <list>, once per tier",
+          "listSha256": "e8e2b4d459e4c7a712d03f39b44696230be70aa55463062f558cb1ae9e776265"
+        },
+        "consumers": "the planner (both lists); the fit loader (bed.py refuses a candidate bed carrying one; W43's pre-fit render's referee rows dropped and counted, never read); the gate (bed.py refuses a sealed stage bed carrying one before the exposure; plan.py check-stage); the exposure (the second list, read once)",
+        "fitCellsFine": "14 fine scenes per scale are the fit's (19 F scenes less the five fine referees; the charter's 13 counts the coarse referee among them)"
+      }
+    },
+    {
+      "id": "ledgerWitness",
+      "title": "The cross-gate ledger's witness-only --referees",
+      "clause": "7; X49",
+      "source": [
+        "packages/calibration/results/holdout-configuration/configuration.py",
+        "packages/calibration/test/w32-holdout-configuration.test.ts"
+      ],
+      "declared": {
+        "flag": "configuration.py record ... --referees <manifest>",
+        "mentions": [
+          "refereeManifest",
+          "--referees",
+          "WITNESS, never a discriminator"
+        ],
+        "semantics": "records {path, sha256} as refereeManifest; never a configuration discriminator; the default read's entry unchanged; an earlier read listed with its manifest; tested in w32-holdout-configuration.test.ts"
+      }
+    },
+    {
+      "id": "ladders",
+      "title": "The ladders: leaves, bases, fixed cells, rungs and what they may decide",
+      "clause": "1, 3; X48, X50",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/protocol.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/build-candidate.ts",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/candidates/c05-control/candidate.json"
+      ],
+      "declared": {
+        "fixedCells": 17,
+        "ids": [
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "L6",
+          "L7",
+          "L8"
+        ],
+        "rungs": 29,
+        "bases": "c05 (c05-control: the four c05 documents unmoved, under the scratch key token glass0.250, which candidate mode admits because the shipped 0.25 keys are refused) and floor1 (L1's 1.0 rung, the fixed setting of families B and C)",
+        "decisions": [
+          "strike a flat leaf (removed from part 2, its ladder cited)",
+          "strike a leaf whose ladder moves any 1x capture (X48: a family that cannot keep the 1x rows byte-identical is struck)",
+          "fix family C's inert 1x setting (sizeHeavySecondSigma 0) when L3 proves it, or strike C when it does not",
+          "narrow a grid to its ladder's non-flat range"
+        ],
+        "renders": "candidate mode in scratch (~/vitrea-w44/g0-ladders), WebGPU, the fixed cells at 2x and their 1x twins, under the classifying web census (W43 stage/census.py), after part 1 is hashed"
+      }
+    },
+    {
+      "id": "references",
+      "title": "The regression references by generation hash",
+      "clause": "6; X52",
+      "source": [
+        "packages/calibration/results/generations/index.json"
+      ],
+      "declared": {
+        "generations": {
+          "light": {
+            "active": "6d18c059eb42",
+            "sha256": "cadad647679735645a49fea6dcdefa401ef8af69459a7965c2ac4b82d72e5cf3"
+          },
+          "dark": {
+            "active": "d0219cd684bf",
+            "sha256": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02"
+          }
+        }
+      }
+    },
+    {
+      "id": "draft",
+      "title": "The part-2 draft and the validator that holds part 2 to it",
+      "clause": "1; Design \"The moves\", \"The landing rule\"; DL 3, 4; X50",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/fit-declaration-draft.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/declare.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/test_declare.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/protocol.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/rehearsal-r2.json"
+      ],
+      "declared": {
+        "moves": [
+          "move1",
+          "move2",
+          "move3"
+        ],
+        "searchedLeaves": 9,
+        "validator": "part 2 = the draft plus a `changes` list; declare.py applies each change only where ladders/results.json supports it (strike, strikeFamily, inert, narrow) and refuses any other difference; test_declare.py's 15 cases pass"
+      }
+    }
+  ],
+  "sources": {
+    "docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md@0ee27ae2": "159f23ca5f6f9189767e4c86d1913351ebb5cef89d576b3dffa19932a1982b4e",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/t1.py": "fda11d119b8915204a8fc82efdc707759d5000c90e7ca6de6fd6864192881ab3",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/test_t1.py": "8f59967489dcce4ff7cb2b2fa596e8c34d0a40dc5e28225801496953d3b5dceb",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/cuts.py": "4344eeeaf10ea1e8cc88728f0db24c51477772d80e94cdb06fbee79fe595140e",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/bed.py": "71e58950e761788ec164a1f00238472b4679e0020a1f103d3dd7960ae6843ee4",
+    "apps/reference-apple/scenes.json": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/cuts/readings.py": "6c340a415aa52dbd6c4f931a80a6e28a4cdc1a9082a7199c68c361d23ae90e08",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/rehearsal-r2.json": "b2aa4e5cc1b98b0e454065b0f27af2bcbc3a7b00ea6224f7d2170c84a63aa159",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.py": "7fa98654ca276ec7a3464b99cc3d0659cce0890eefebe52fed5db6ae048e589f",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json": "1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/port/prove.py": "ac87726c5d3301fcbadfd6891d90a12311d709ce960c7536bb9c3dbb62d28f73",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/port/proof.json": "e80da98df271b6b2969c68b439d357c9ddb44a97cfee7493e1b66cd63c74f58b",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/baseline.py": "b8b5d9c35d098986373c2efa3648602b54c847876067bf4c31ef8e801e3abc48",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/c05-baseline.json": "d09597589f4743c0c6d73c6ad6ca2540b45f2aedd89498933471da72853c17aa",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/rehearse.py": "c9b7e519886227b1e5561da867e947d806e4431a637ddbbf6b4f8c4307be4acb",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/rehearsal/cuts-c05/c05-cuts-r2.json": "742ff6385f4d8f2493ef91db86a8ab8e256ebef47ed748a238bb7d48d617961e",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/referees.json": "b1132bd0f01f318b07e1722da3fefaba6eac96679b56efbe2b451ef13bf1b60b",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/plan.py": "f8ca80bb2153e12b7a3a4edc18b440e8f2c89a75bf0adef30e795c40c8dda8c7",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/test_plan.py": "00f1f401dea0bcbe572e03399013f57651193a8e2344f283f8d6a5854a18a8ea",
+    "packages/calibration/results/holdout-configuration/configuration.py": "10b8e41cbe8202df9242484980cd6933b6c7db8542885b8179f8bfd2e39ae63b",
+    "packages/calibration/test/w32-holdout-configuration.test.ts": "4181cfa04dda0aa3ee26bf986af730b42cea4787178ef76dd22ecbe8f05b92b3",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/protocol.json": "d8061add0e30b62ce823813531ecdf4757831c53bc5b5b9a6e0057ecd183e5a6",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/build-candidate.ts": "e26c3a293248ff8dbc6d9ac0c2e0800414df5239cb56615461458ca57690fdfe",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/candidates/c05-control/candidate.json": "d31a6f61886657ff4275d9947f5a343114633fd173795a80900e4ec916ab1009",
+    "packages/calibration/results/generations/index.json": "dd23493523f4fb0a9fabc2e48e3543c4ae79b7059dc0e0eaa1a836b1a472faa2",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/fit-declaration-draft.json": "92de3c4efec58af04fbb93f49de0addf53d4e38da97694d14388635d60c218f1",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/declare.py": "31ee5831ee0a3650a6e58c7f7b4e6f0605564ea9399278ba1107e4786d510958",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/test_declare.py": "83fb088d38913a726ad09eecc41cb450167d64be44c304c9302221a7a4e3eba4"
+  }
+}

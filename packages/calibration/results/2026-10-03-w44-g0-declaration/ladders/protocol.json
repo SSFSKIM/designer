@@ -1,0 +1,140 @@
+{
+  "schema": "w44-ladder-protocol-1",
+  "$comment": [
+    "W44 G0 part 1, the mechanism-check protocol's ladders (charter clause 3; Decision Log 3; X50).",
+    "Every rung is a complete scratch candidate built by build-candidate.ts from the published c05",
+    "documents (or from a declared base rung) moved on ONE leaf, or on the second tap's share with its",
+    "2x width, drawn in candidate mode in scratch on the fixed cells below, WebGPU tier, at 2x AND at",
+    "1x. A ladder renders nothing before part 1 is hashed. What a ladder may decide is `decisions`",
+    "and nothing else."
+  ],
+  "tier": "webgpu",
+  "profiles": [
+    "apple-macos-27.0-2x-light-standard-glass0.25",
+    "apple-macos-27.0-1x-light-standard-glass0.25"
+  ],
+  "fixedCells": {
+    "rule": "three fine pitches (checkerboard-4, -8, hc-text-7), three coarse (the pitch-16 checkerboard, -32, -64) and the photo; both poses wherever a non-referee, non-holdout pair exists; thin, mid and thick spans; each rendered at 2x and as its 1x twin. No referee and no holdout cell (the planner's lists are the check).",
+    "scenes": [
+      "checkerboard-4__rrect-sm__rest",
+      "checkerboard-4__rrect-md__rest",
+      "checkerboard-4__rrect-md__inactive",
+      "checkerboard-4__rrect-lg__rest",
+      "checkerboard-8__rrect-md__rest",
+      "checkerboard-8__rrect-md__inactive",
+      "hc-text-7__rrect-md__rest",
+      "checkerboard__rrect-sm__rest",
+      "checkerboard__rrect-sm__inactive",
+      "checkerboard__rrect-md__rest",
+      "checkerboard__rrect-md__inactive",
+      "checkerboard__rrect-ml__inactive",
+      "checkerboard-32__rrect-md__rest",
+      "checkerboard-64__rrect-md__rest",
+      "checkerboard-64__rrect-md__inactive",
+      "photo__rrect-md__rest",
+      "photo__rrect-md__inactive"
+    ],
+    "sets": "calibration,probe"
+  },
+  "bases": {
+    "c05": {
+      "label": "c05-control",
+      "overrides": {},
+      "why": "rung 0: the published c05 documents unmoved, under the scratch key token; its captures must be byte-identical to the canonical strict-mode c05 captures (the instrument's control)"
+    },
+    "floor1": {
+      "label": "l1-floor2x-1.0",
+      "overrides": {"active.light": {"sizeScatterFloor2x": 1.0}},
+      "why": "families B and C hold the floor at 1 (charter Design, move 1), and at floor 1 every 2x ramp start is above the deep sharp share, so a ramp leaf clamped at c05 is live here; it is L1's top rung"
+    }
+  },
+  "ladders": [
+    {
+      "id": "L1", "family": "A (move 1)", "slot": "active.light", "leaves": ["sizeScatterFloor2x"],
+      "unit": "fraction (the deep value's heavy share at dpr 2)", "domain": [0.6, 1.0],
+      "readAt": {"c05": [0.7, 0.8, 0.9, 1.0]},
+      "actsOn": {"scale": 2, "poses": ["rest", "inactive"], "spans": ["thin", "mid", "thick"]},
+      "mustNotAct": [{"scale": 1}],
+      "why": "the deferral's item; the receded document inherits it"
+    },
+    {
+      "id": "L2", "family": "B (move 1)", "slot": "active.light", "leaves": ["sizeHeavyTapSigma2x"],
+      "unit": "device px (heavySigmaCssFor divides by the ratio)", "domain": [6, 20],
+      "readAt": {"floor1": [6, 10, 14]},
+      "actsOn": {"scale": 2, "poses": ["rest"], "spans": ["thin", "mid", "thick"]},
+      "mustNotAct": [{"scale": 1}, {"scale": 2, "poses": ["inactive"]}],
+      "why": "one heavy width alone, at B's floor of 1; the receded document overrides this leaf (14), so the inactive cells must not move; no rung below the chain's level-1 width (1.542 texels): the mechanism has no small values"
+    },
+    {
+      "id": "L3", "family": "C (move 1)", "slot": "active.light",
+      "leaves": ["sizeHeavySecondShare", "sizeHeavySecondSigma2x"],
+      "fixed": {"sizeHeavySecondSigma": 0},
+      "unit": "share: signed fraction; sizeHeavySecondSigma2x: CSS px (heavySecondSigmaCssFor does not divide; 3 CSS px = 6 device px at 2x)",
+      "domain": {"sizeHeavySecondShare": [0, 1], "sizeHeavySecondSigma2x": [1.5, 6]},
+      "readAt": {"floor1": [[0.5, 1.5], [0.5, 3], [0.5, 6], [0.25, 3], [1.0, 3]]},
+      "rungOrder": "share then width; the width ladder is the three rungs at share 0.5, the share ladder the three at width 3",
+      "actsOn": {"scale": 2, "poses": ["rest", "inactive"], "spans": ["thin", "mid", "thick"]},
+      "mustNotAct": [{"scale": 1}],
+      "inertSetting": "sizeHeavySecondSigma 0 CSS px: at width 0 the plan declines and heavySecondEnabled is false at dpr 1; proven only if every 1x capture of every rung is byte-identical to c05-control's, otherwise C is struck (X48)",
+      "why": "the second heavy tap at a middle width, at C's floor of 1; one share leaf for both scales, so the 1x width must be the setting the renderer declines at"
+    },
+    {
+      "id": "L4", "family": "move 2", "slot": "active.light", "leaves": ["sizeScatterRampStartThin2x"],
+      "unit": "fraction (the sharp share at the contour, thin span)", "domain": [0.46, 0.95],
+      "readAt": {"c05": [0.6, 0.8, 0.95]},
+      "actsOn": {"scale": 2, "poses": ["rest"], "spans": ["thin", "mid"]},
+      "mustNotAct": [{"scale": 1}, {"scale": 2, "poses": ["inactive"]}],
+      "why": "finding (i); the receded document overrides this leaf, so the inactive cells must not move"
+    },
+    {
+      "id": "L5", "family": "move 2", "slot": "active.light", "leaves": ["sizeScatterRampReach2xPx"],
+      "unit": "device px", "domain": [50, 200],
+      "readAt": {"c05": [50, 200], "floor1": [50, 200]},
+      "actsOn": {"scale": 2, "poses": ["rest", "inactive"], "spans": ["thin", "mid", "thick"]},
+      "mustNotAct": [{"scale": 1}],
+      "why": "read as a ladder, moved only if the start alone is not within; read at both bases because at c05 the 2x thick start sits below the deep sharp share and clamps"
+    },
+    {
+      "id": "L6", "family": "move 3", "slot": "receded.light", "leaves": ["sizeScatterRampStartThin2x"],
+      "unit": "fraction", "domain": [0.1, 0.7],
+      "readAt": {"c05": [0.1, 0.4, 0.55], "floor1": [0.1, 0.4]},
+      "actsOn": {"scale": 2, "poses": ["inactive"], "spans": ["thin", "mid"]},
+      "mustNotAct": [{"scale": 1}, {"scale": 2, "poses": ["rest"]}],
+      "why": "finding (iii)'s predicted lever; at c05 a start at or below the thin deep sharp share (0.40) clamps, so it is read at floor 1 too"
+    },
+    {
+      "id": "L7", "family": "move 3", "slot": "receded.light",
+      "leaves": ["sizeScatterRampStartThick2x", "sizeScatterRampStartFar2x"],
+      "tied": "the two take one value, as they do at c05 (0.04) and at 0.5",
+      "unit": "fraction", "domain": [0, 0.04],
+      "readAt": {"c05": [0], "floor1": [0, 0.02]},
+      "actsOn": {"scale": 2, "poses": ["inactive"], "spans": ["mid", "thick"]},
+      "mustNotAct": [{"scale": 1}, {"scale": 2, "poses": ["rest"]}],
+      "why": "at c05 0.04 sits below every mid and thick deep sharp share (0.16-0.32) and clamps to an inert term: the c05 rung records the clamp; the floor-1 rungs are the reading"
+    },
+    {
+      "id": "L8", "family": "move 3", "slot": "receded.light", "leaves": ["sizeHeavyTapSigma2x"],
+      "unit": "device px", "domain": [14, 24],
+      "readAt": {"c05": [18, 24]},
+      "actsOn": {"scale": 2, "poses": ["inactive"], "spans": ["thin", "mid", "thick"]},
+      "mustNotAct": [{"scale": 1}, {"scale": 2, "poses": ["rest"]}],
+      "why": "the receded document's own heavy width"
+    }
+  ],
+  "checks": {
+    "control": "c05-control's captures, 2x and 1x, against the canonical strict-mode c05 captures of the same cells: decoded pixels equal (and the PNG SHA-256s reported)",
+    "x48": "every rung's 1x captures pixel-identical to c05-control's 1x captures",
+    "mustNotAct": "every rung's captures of a mustNotAct cell pixel-identical to its base's",
+    "betweenRungs": "for every acting cell, whether adjacent rungs are pixel-identical, and |delta T1 web| against the cell's bar",
+    "transfer": "per rung and acting cell: T1 web/native, T1-deep, T1-fine and T1-lattice web/native, and the attenuation web(rung)/web(base) by the cell's pitch (cell widths 8, 16, 32, 64, 128 device px at 2x for checkerboard-4, -8, the pitch-16 family, -32, -64)"
+  },
+  "flat": "a ladder is FLAT at a base when, on every acting cell, the T1 web values of all its rungs at that base (base included) lie within the cell's bar of each other; a leaf is FLAT when its ladder is flat at every base it is read at",
+  "nonFlatRange": "per ladder, in rung order across all its bases: drop an end rung while it and its neighbour lie within the bar on every acting cell; what remains, [lo, hi], is the range the ladder showed not flat",
+  "decisions": [
+    "strike a flat leaf (removed from part 2, its ladder cited)",
+    "strike a leaf whose ladder moves any 1x capture (X48: a family that cannot keep the 1x rows byte-identical is struck)",
+    "fix family C's inert 1x setting (sizeHeavySecondSigma 0) when L3 proves it, or strike C when it does not",
+    "narrow a grid to its ladder's non-flat range"
+  ],
+  "notDecided": "anything else a ladder shows (a transfer that contradicts a prediction, a better family, a pose that moves where it must not) is recorded as a finding and changes nothing in part 2 (charter Risks: the draft as written, the finding recorded)"
+}
