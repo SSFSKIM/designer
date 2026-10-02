@@ -239,7 +239,29 @@ generated module's own pin lands with the module at the landing.
 - **E2's per-cell rule has no tolerance.** A body change fails a cell by any increase, including
   +0.002 codes on 2x dark checkers. Its bins are recorded.
 
-### 10. What is not claimed
+### 10. Review closure (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `e2a32591`, head `a878a068`) returned
+"incorrect" on two P2 findings, both in the cuts' handling of missing data, and both accepted. It
+found the rest sound and verified it against the committed JSON:
+- the table aliases and conditioning, M1, M2's native-denominator rule, C1, X1, E2's absolute
+  reduction and S1's fixed population;
+- c05's leaf sets and receded construction;
+- the strict-mode-plus-stamp deviation, and the web-only X6 refusals;
+- the protected bytes and the commit hygiene.
+
+1. **A declared member with no row vanished from its cut.** It could take a failing cell, or a
+   whole (profile, tier) pair, out of the verdict under `--write-partial`. Each cut now draws its
+   population from `scenes.json` under its own rule and names a member with no row UNMEASURED; no
+   verdict is an unqualified PASS while one is.
+2. **L1's growth clause could pass unread** when a pre-fit row lacked its web mean. The two clauses
+   are now read separately, and an unread growth clause is UNMEASURED.
+
+The fix is `11fd47c5`. `cuts/test_missing.py` runs the red cases against the pre-fix code, with
+its record in `test_missing.txt`. The regenerated pre-fit and c05 readings differ only by empty
+bookkeeping: every verdict and miss list above is unchanged.
+
+### 11. What is not claimed
 
 - No document is sealed and no stage exists. The holdout was never read.
 - c05 is a scratch candidate. The freeze, the final stages, the gate on them and the holdout are
