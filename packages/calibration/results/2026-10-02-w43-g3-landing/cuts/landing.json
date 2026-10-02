@@ -1,0 +1,50 @@
+{
+ "what": "W43 G3 (iii): the 0.25 cuts regenerated at the landing from the published generation",
+ "published": {
+  "6d18c059eb42.json": {
+   "sha256": "cadad647679735645a49fea6dcdefa401ef8af69459a7965c2ac4b82d72e5cf3",
+   "rows": 656
+  },
+  "d0219cd684bf.json": {
+   "sha256": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02",
+   "rows": 468
+  }
+ },
+ "holdoutRows": 108,
+ "measuredRows": 1016,
+ "prefit": {
+  "path": "packages/calibration/results/2026-10-02-w43-g3-refit/prefit/matrix.json.gz",
+  "sha256": "504c5348638265e6a141308d4f74d98dc6119dfbb9e12e15164fc6e028bdebbb"
+ },
+ "captures": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+ "prefitCaptures": "/Users/new/vitrea-w43/g3-scratch/prefit/web-captures",
+ "cut": {
+  "path": "cut-025.json",
+  "sha256": "6e804757e4060135994c70a5e4d46e13e8235492994d5309148beda53203dc2f"
+ },
+ "againstStage": {
+  "sectionsCompared": [
+   "C1",
+   "E2",
+   "L1",
+   "M1",
+   "M1M2cells",
+   "M2",
+   "S1",
+   "X1",
+   "gatedTier",
+   "scenesSha256",
+   "summary",
+   "tables",
+   "withHoldout"
+  ],
+  "sectionsThatDiffer": [],
+  "bedRowsAndPairsEqual": true,
+  "referenceEqual": true
+ },
+ "againstHoldoutReading": {
+  "readingsEqual": true,
+  "holdoutRowsRead": 108
+ },
+ "verdict": "EQUAL"
+}
