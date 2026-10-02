@@ -44256,13 +44256,16 @@ The coordinator approved closing it at the selection now. None of the three file
 hashed declaration, so this is a selection change and not a pin. G3 (iii)'s 0.25 blocks complete it.
 
 The changes:
-- **`adopted-thresholds.test.ts`.** `GATED_POSITIONS` (macOS 26.5; macOS 27 glass 0.5) filters the
-  rows by the position each key parses to. A key that does not parse is kept, so the partition
-  still refuses it.
+- **`adopted-thresholds.test.ts`.** As first committed, `GATED_POSITIONS` (macOS 26.5; macOS 27
+  glass 0.5) filtered the rows by the position each key parses to. A key that did not parse was
+  kept, so the partition still refused it.
   - Every bound, number and `PREDICATE_EXCLUDES` entry is unchanged, and no 0.25 block is added.
   - The tables `cuts.py` parses out of the file are identical before and after: the file moved
     from `36eb6d68d309` to `89543ca3b3db` with equal tables.
   - 109 of 109 pass, X1 measured against the canonical capture tree.
+  - The review found that this allowlist also hid an undeclared position from the partition.
+    Since `68441687`, the file instead defers only macOS 27 glass 0.25, by `DEFERRED_POSITIONS`
+    (§25). It passes 110 of 110 with the guard added.
 - **`matrix-store.test.ts`.** The pin moves to 3,017 = 1,893 + 656 + 468, with the two 0.25
   generations named by their active hash and row count (16/16).
 - **`apps/demo/matrix-reduction.ts`.** `DISPLAYED_POSITIONS` selects the union before both the
@@ -44373,3 +44376,58 @@ The demo sentence's scope (§18) is chartered G3 (iii) work and is not a gap.
 - No accessibility state at 0.25 was read; the accessibility leaves carry over unmeasured.
 - The holdout's one reading is for these document bytes. A refit of any of the four documents
   needs a new configuration in the ledger and a new holdout read.
+
+### 25. Review closure, G3 (ii) (2026-10-02)
+
+An independent review (`doperpowers:reviewer-medium`, base `4bd4bc74`, head `48d3b744`) returned
+"incorrect" on three P2 findings, all accepted.
+
+It confirmed the rest by its own read-only checks:
+- c05's patches and leaf sets equal the sealed documents';
+- the generated 0.25 endpoints and their rule-2 digests reproduce;
+- the protected files and the default selection are unchanged;
+- the ledger's prior entries and its default output are unchanged;
+- the published files are byte-for-byte the stages' matrices, and the index entries are additive;
+- all 1,016 non-holdout rows and captures reproduce;
+- the demo projection still has 411 cells and 1,893 rows;
+- the six holdout misses and the launch totals match;
+- all 5,620 copied capture hashes match.
+
+1. **The holdout driver's preconditions were `assert` statements** (`stage/read.py`). Under
+   `python3 -O` or `PYTHONOPTIMIZE=1` all four checks vanish: the ledger record's document set,
+   its documents, its sources, and that it is committed. An unstarted pass could then launch
+   against a configuration the ledger never recorded.
+   - The fix is `2029bc3d`. `holdout_refusals` checks each condition explicitly, names every
+     reason, and refuses before any launch; an empty ledger is now a refusal too.
+   - `stage/test_read_preconditions.py` and its `.txt` run seven cases with and without `-O`.
+     Under `-O`, the old block let five mismatches through.
+   - Against the real ledger the fixed function refuses nothing, so the configuration that was
+     read is the one it admits. No holdout was launched again.
+2. **The X45 allowlist hid undeclared positions** (`adopted-thresholds.test.ts`, §18).
+   `GATED_POSITIONS` dropped every parseable position other than macOS 26.5 and macOS 27 glass
+   0.5. A glass 0.75 key, or a macOS 27 key with no glass token, therefore vanished before the
+   partition and the "refuses one it never declared" check could see it.
+   - The fix is `68441687`. `DEFERRED_POSITIONS` names only macOS 27 glass 0.25, the population
+     deferred to G3 (iii), and every other row stays for the refusals. A guard passes the
+     undeclared keys through the filter's own predicate.
+   - End to end, on a scratch union seeded with those two keys, the old file passes both checks
+     and the fixed one fails both: the partition reads 14 profiles against 12, and the refusal
+     names the glass 0.75 row.
+   - The file passes 110 of 110 against the canonical tree. `cuts.py`'s parsed tables are
+     unchanged (file `e99779d95108`).
+   - The demo reduction keeps its allowlist on purpose: a page shows only the position it
+     describes.
+3. **The reproduction's verdict ignored c05 rows missing from the stages** (`stage/reproduce.py`).
+   An incomplete `--write-partial` stage whose surviving rows matched would read REPRODUCED.
+   - The fix is `b5cd58a9`. The missing rows join the stop condition.
+   - `stage/test_reproduce.py` and its `.txt` show the old code reading REPRODUCED on a stage one
+     row short, and the fix reading DIFFERS: STOP.
+   - The recorded `stage/reproduce.json` is unchanged, and its missing-row list was already empty.
+   - The fixed gate's reading on the complete stages is beside it as
+     `stage/reproduce-with-holdout.json`. It reads REPRODUCED: 1,124 stage rows, 108 of them
+     holdout and counted apart; 1,016 of 1,016 rows and captures identical; none missing in
+     either direction.
+
+None of the three moves a recorded number, a document, a published byte or a verdict in
+§§11–24. The first and third tighten tools whose recorded runs were already complete and
+consistent, and the second restores a refusal the selection had silenced.
