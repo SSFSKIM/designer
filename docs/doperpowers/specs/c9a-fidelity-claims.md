@@ -46982,7 +46982,7 @@ So **the region G0's ladders found does not survive the full gate population**. 
 | T rest on T1-fine (bound 0.6196) | 0.2365 | 0.5251 |
 | C rest (0.1988) / C inactive (0.9024) | 0.0810 / 0.1829 | 0.1720 / 0.8523 |
 | P rest (0.4592) / P inactive (0.1848) | 0.3902 / 0.1818 | 0.4193 / 0.1393 |
-| every gated group's A within c05's A + τ | **yes, for the first time in W44–W45** | |
+| every gated group's A within c05's A + τ | **yes** (as at W44's joint point; not at §4's two points) | |
 | partition (unchanged / toward / away) | 18 / 57 / 19 | |
 | away with g > B (at most 3) | **8** | |
 | beyond 3B (none) | **4** | |
@@ -46998,8 +46998,10 @@ The budget is the only clause that fails. The cells (g in B):
 - `hc-text__rrect-lg__inactive` 1.40
 - `photo__toolbar-group__inactive` 1.02
 
-`finding.json` reads each at every point that rendered it. The two pressed cells, `checkerboard-32`
-sm and `checkerboard-64` sm are rarely within B at any searched point (10 of 51, 12 of 51, 2 of 51).
+`finding.json` reads each at every point that rendered it. Three are rarely within B at any
+searched point: `checkerboard__capsule-button__pressed` (10 of 51), `checkerboard-32__rrect-sm__rest`
+(12 of 51) and `checkerboard-64__rrect-sm__rest` (2 of 51). `checkerboard__rrect-md__pressed` is
+within B at 59 of 215.
 
 **The T cells.** None is within on T1-fine. The changes are toward Apple: lg fine 0.0212 against
 native 0.0032 (c05 0.0271); md 0.0374 against 0.0281 (c05 0.0522); sm 0.0928 against 0.1172 (c05
