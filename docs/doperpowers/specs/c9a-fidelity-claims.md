@@ -47072,3 +47072,128 @@ The continuation's close checks at `5d4252bb` are in `close-checks-continuation.
 X41 911; 10 of 10 digests; check and check-fit consistent; no diff under the profiles, platform-web
 or renderer-webgpu since `67a82a00`.
 
+
+### 13. Steps 3–6 on the converged point, on the parent's ruling of 2026-10-04: evidence for the user's decision
+
+**The ruling.** Run steps 3–6 on the branch for the converged point, as evidence for a decision that
+is now the user's: ship it as an improvement landing with the eight regressions named under a ruled
+exception to Decision Log 3's budget, or close W45 at the finding. Steps 7 and 8 are not run: the
+twelve referees and the canonical holdout stay unread.
+
+**Step 3, the freeze** (`19503ae2`; `seal/`). The pinned seal froze
+`c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1` over c05's published bytes:
+
+| document | file | resolvedMaterialSha256 | moved from c05 |
+| --- | --- | --- | --- |
+| light active | `ebc3d9105a4a…` | `3741b22934f17f4d` (from `50430fa62c1120bd`) | floor 0.6 → 1; share 0 → 0.5; second width 0 → 2 CSS px; the operator → −0.25 (added); span top 256 → 128; thin start 0.46 → 0.65 |
+| light receded | `12712d534b78…` | `c4ca0e1cd6791bde` (from `5d8680980b7aeb55`) | thin start 0.7 → 0.1; thick and far 0.04 → 0; heavy σ 14 → 18; share 0.25 and the operator −0.125 added as differences |
+
+- **Every other document is unchanged.** The dark pair is unchanged by byte. Exactly the two light
+  0.25 digests moved, and the other eight reproduce (`seal/digests-after-freeze.txt`).
+- **The export pin.** `macos27-profile-export.test.ts`'s leaf-set pin admits exactly the ruled keys
+  (the operator in the active document; the share and the operator in the receded), with the reason,
+  and reads the light pair's frozen candidate as W45's.
+
+**Step 4, the runtime first** (X53; `runtime/`). The 0.25 module was regenerated from the four
+documents and `pnpm -r build` is green. The suites pass: export (31), tier-coherence (70),
+tuned-profiles, material-selection, document-selection, capture-integrity, identity-table,
+operator-identity, color-scheme, materialize and provenance. The 34 goldens pass on the real
+adapter under the census.
+
+**Step 5, the stage** (`stage/`). `stage.py declare` declared 656 cells (both light profiles, both
+tiers, every set). `measure` read 552 of them in eight launches, all exit 0, under the census. Not
+staged: 80 holdout cells and 24 referee cells (`gate/referee-absence.json`: no referee or holdout
+row in the stage). **X48 on the stage**: 276 of 276 1x rows (both tiers) identical but for how they
+were drawn, and 552 of 552 captures byte-identical to c05.
+
+**Step 6, the gate** (`cuts/cut-025-w45.json`, `gate/gate-report.txt`). The stage was cut with the
+dark c05 non-holdout rows against c05. Its T1 reading equals the fit's to the last digit, and the
+landing rule reads **NEITHER**:
+- F 0.2190 (halved; c05 0.6462), and every gated group within c05's A + τ;
+- **8 cells away beyond B (at most 3) and 4 beyond 3B (none allowed)**. They are §11's eight.
+
+| cell | role, state, span, pitch | native | c05 | W45 | g | why the mechanism moves it |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard__rrect-md__pressed` | recorded, pressed, span 96 (mid), 16 CSS px (c = 32 device px) | 0.1501 | 0.1575 | 0.1858 | 4.27 B | farS is 0 at 96, so the tap acts at its full 0.5 share, 2 CSS px wide, on a body that is now all heavy (floor 1): the 32-device-px checker passes, and the pressed body, already over Apple at c05 (×1.05), goes to ×1.24. Its rest twin moves toward Apple |
+| `checkerboard__capsule-button__pressed` | recorded, pressed, thin span, 16 CSS px | 0.1938 | 0.1807 | 0.2358 | 4.25 B | at thin spans the tap acts at full share, and the thin start 0.46 → 0.65 adds sharp structure at the contour band: ×0.93 → ×1.22, over |
+| `checkerboard-32__rrect-sm__rest` | probe, rest, span 32 (thin), 32 CSS px (c = 64) | 0.2161 | 0.1954 | 0.2650 | 4.18 B | a 2-CSS-px tap passes a 64-device-px checker almost whole, at full share on a thin span: ×0.90 → ×1.23, over |
+| `checkerboard-32__rrect-lg__rest` | probe, rest, span 160 (thick), 32 CSS px | 0.1336 | 0.1329 | 0.1566 | 3.34 B | with the span top at 128 the far curve is already 1 at 128, so 160 keeps a tap share of 0.25 that c05's heavy-only body (×0.99, on Apple) did not have: ×1.17 |
+| `checkerboard-64__rrect-sm__rest` | probe, rest, span 32 (thin), 64 CSS px (c = 128) | 0.0680 | 0.0319 | 0.0133 | 2.22 B | the body spans about one square, so its SD is the one checker edge crossing it; floor 0.6 → 1 takes the sharp share off the thin span and blurs that edge: ×0.47 → ×0.19, further under |
+| `checkerboard-8__rrect-lg__rest` | probe, rest, span 160, 8 CSS px (c = 16) | 0.0224 | 0.0484 | 0.0581 | 1.55 B | a 4-device-px tap passes the 16-device-px checker at about 0.38, and at 160 it keeps a 0.25 share: ×2.16 → ×2.60, already over |
+| `hc-text__rrect-lg__inactive` | probe, receded, span 160, text | 0.1214 | 0.1113 | 0.1020 | 1.40 B | the receded heavy tap 14 → 18 device px and thick/far 0 smooth the receded body more: ×0.92 → ×0.84, under |
+| `photo__toolbar-group__inactive` | validation, receded, thin, photo | 0.0998 | 0.0778 | 0.0718 | 1.02 B | the same receded smoothing on the photo: ×0.78 → ×0.72, under |
+
+**The T cells** (fidelity and change on T1-fine, away on T1-low). None is within; all move toward
+Apple. Fine: lg 0.0212 against native 0.0032 (c05 0.0271); md 0.0374 against 0.0281 (c05 0.0522); sm
+0.0928 against 0.1172 (c05 0.0723). Low growth: −0.23, −0.26 and −2.33 B. At 1x the stage's six T
+entries are c05's bytes (`t1/t-bands-ebc3d9105a4a.gate.json`, G2 part (i), beside the reference's).
+
+**Every other adopted row against the c05 references** (the cut; WebGPU gated, CSS descriptive):
+- **Tables.** WebGPU pass on all four profiles. CSS: 1x light keeps its one named miss
+  (`checkerboard__rrect-ml__rest` ssim 0.87367 against ≥ 0.9, byte-identical to c05 by X48); 2x
+  light 0 misses; dark pass. **No cell on either tier newly crosses its table bound.**
+- **M1**: passes on both tiers.
+- **M2, WebGPU: FAIL, four failures**, the inactive photo cells moving away from Apple:
+  `photo__capsule-button__inactive` −7.65 %, `photo__rrect-md__inactive` −4.54 %,
+  `photo__rrect-sm__inactive` −15.04 %, `photo__toolbar-group__inactive` −7.68 %. Bound: 2 % against
+  the reference, away from Apple. The four rest photo cells are named misses, moving toward Apple
+  (+3.95 to +7.61 %). CSS (descriptive): five failures.
+- **C1**: passes on WebGPU, unchanged from c05 (no shadow leaf moved). CSS: the two dark span-128
+  misses, as at c05.
+- **L1**: passes on WebGPU (max error 0.0491, max growth +0.0026; four dark inactive cells
+  UNMEASURED, as always). CSS: two growth misses, `checkerboard__rrect-md__inactive` +0.0128 and
+  `photo__toolbar-group__inactive` +0.0068 against 0.005.
+- **X1**: passes on WebGPU (0 of 230). CSS: 152 failing, as at c05.
+- **E2**: 50 of the 2x light WebGPU cells read a larger mean edge error than c05, mean change +0.28
+  codes. The worst are checkerboard cells: `checkerboard-32__rrect-sm__rest` 9.04 → 16.22,
+  `checkerboard-8__capsule-button__rest` 32.45 → 39.02, `checkerboard__capsule-button__rest`
+  21.52 → 27.07 codes. The cut marks E2 gated; the owner test at 0.25 reads E2 and never gates it.
+  CSS: 25.
+- **S1**: UNMEASURED without the holdout (9 rows); pooled ratio 0.9232 (c05 0.8773), read only.
+
+**The CSS tier's T1 residual** (read, never gated). The floor and the span top reach the CSS tier;
+the tap and the operator do not (`optics.ts`'s decline). 1x is c05's by X48. At 2x, 22 of 94 CSS
+cells moved away beyond B, 11 beyond 3B. They are mostly the coarse checkers at the mid and thick
+spans, under Apple as the floor-1 body blurs them, with no tap to restore the structure:
+`checkerboard-64__rrect-ml__rest` 16.0 B, `checkerboard-64__rrect-lg__inactive` 13.7,
+`checkerboard-32__rrect-ml__rest` 13.7, `checkerboard-64__rrect-lg__rest` 10.4. C rest 2x A
+0.3675 → 0.5602; F rest 2x 1.0243 → 1.1930. By eye, the CSS 2x coarse-checker bodies are visibly
+washed out against Apple and c05.
+
+**The owner test's adapters** (`gate/owner/`). `adopted-thresholds.test.ts` ran with the scratch
+union (the stage's 552 light rows in place of c05's, c05's 104 holdout and referee rows kept), the
+new cut and a merged T-band fixture (the reference's 8 entries plus the candidate's 6). **133 of
+152 pass; 19 fail**, each recorded as a failure:
+- **The T1 clause (b) witness (X59), as the ruling asked.**
+  - W44's form: 5 cells away beyond B — the rrect-md pressed cell, `checkerboard-8` lg,
+    `checkerboard-64` sm, and the photo and text inactive cells. The other three are W44's
+    overshoots.
+  - The growth-only form: all 8.
+  - T1 (a): new fidelity misses, e.g. the capsule pressed cell, are not yet in `MISSED_27_ROWS`.
+- **Real misses on the stage**: M2's four failures.
+- **The holdout not yet read** (expected before the exposure):
+  - the gated bed's light counts (52 of 72);
+  - each light table's 26 of 36;
+  - the X1 cut population (230 of 242) and E2's (282 of 288);
+  - `MISSED_27_ROWS`' 27-row list (175 of 201).
+- **The references the cut re-baselined to c05 (X52)**: the L1 and M1/M2 re-derivations still read
+  W43's pre-fit render. Also the W43 block's "regenerated from the published generation"
+  provenance, and the L1 union-digest pin (a scratch union is not the published one).
+- **The environment**: X1's capture re-derivations look for the dark profiles' captures in this
+  worktree's tree; the canonical tree is elsewhere.
+- **The adapter itself**: the band fixture holds 14 entries, not 8. G2 updates the assertions for
+  two fixtures.
+
+**Also at the gate.** `tier-coherence` passes 70 of 70. The sheets over all 376 T1 cells are on the
+MacBook (`sheets/sent-gate.txt`). The capture tree for G2's copy is this worktree's
+`packages/calibration/web-captures/`.
+
+**Where it stands.** On the stage the converged point:
+- halves the fine stratum's error and holds every gated T1 aggregate;
+- regresses 8 T1 cells past B (4 past 3B);
+- fails M2 on four inactive photo cells;
+- raises the 2x edge error on 50 WebGPU cells;
+- moves the CSS 2x coarse checkers away from Apple.
+
+The user decides between an improvement landing under a ruled budget exception and the close. The
+referees and the holdout are unread.

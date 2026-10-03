@@ -533,7 +533,7 @@ path-scoped adds; merges with the freeze and X41 verified.
 | child | status | ledger |
 | --- | --- | --- |
 | G0 | MERGED `9fa2eea6`: operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…` | §5.205 |
-| G1 | AT THE FINDING on `w45-g1-refit`, awaiting the parent's ruling: part 2 amended a second and final time to `e6874e02…`; the coordinate fit read NEITHER at both final points; the ruled continuation (2026-10-04), stage 1 as the permitted factorial, converged both paths on one point that halves F (0.2190) and holds every gated aggregate and still reads NEITHER on the budget (8 away beyond B, 4 beyond 3B); nothing frozen, staged or exposed | §5.206 |
+| G1 | AT THE GATE on `w45-g1-refit`, awaiting the user's decision through the parent (ship as an improvement landing with eight regressions under a ruled budget exception, or close): part 2 `e6874e02…`; the ruled factorial converged both paths on one point, frozen on the branch as `3741b22934f17f4d` / `c4ca0e1cd6791bde`; the stage reads NEITHER on the budget (F 0.2190 halved, every gated aggregate holds, 8 away beyond B, 4 beyond 3B; M2 four inactive photo failures); the referees and the holdout unread | §5.206 |
 | G2 | NOT STARTED | §5.207 |
 
 ## Decision Log
