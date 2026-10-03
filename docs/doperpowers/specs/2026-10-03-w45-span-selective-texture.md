@@ -1,7 +1,8 @@
 # W45 — the span-graded tap: the second heavy tap's share graded on the scatter's far curve, the deep share's span top, the thin trade read, and a landing rule that measures regression as growth (2026-10-03)
 
-**Status: DRAFT v1.2 (2026-10-03): two adversarial rounds folded (v1: three P1 and three P2;
-v1.1: one P1 and four P2; all accepted by the parent; Revision Notes). v1's mechanism was wrong:
+**Status: DRAFT v1.3 (2026-10-03): three adversarial rounds folded (v1: three P1 and three P2;
+v1.1: one P1 and four P2; v1.2: one P1 and two P2, bounded repairs; all accepted by the parent;
+Revision Notes); the loop is closed and G0 opens on the merge. v1's mechanism was wrong:
 the thick lift saturates at span 96 and the second tap's share is span-flat, so no existing leaf
 can hold span 96 apart from 128–160 at one pitch; that is W28's precommit condition, and the
 wave charters the smallest operator the named structure needs, landed inert first. v1.1's
@@ -51,10 +52,12 @@ the deep one and so passes every pitch at once. The joint point's one large regr
 **The best version of this is three things:**
 1. **The smallest operator the structure needs, landed inert first.** The second tap's share
    becomes a function of span along the curve the ramp's far start already rides:
-   `tapShare(span) = clamp(share + farDelta·smoothstep(sizeSpanMax, sizeScatterSpanMax2x, span), 0, 1)`,
-   one leaf (`sizeHeavySecondShareFar2x`, identity 0, 2x-anchored), no new span statistic, no
-   new texture and no per-fragment tap (the share is already a uniform the optics pass mixes;
-   the grading is evaluated where the ramp's start is). At identity nothing moves: the shipped
+   `tapShare = share + farDelta · farS`, per pixel in the optics pass on the far-curve smoothstep
+   `farS` it already computes from each pixel's span, UNCLAMPED (the one definition is in
+   Grounding, "The operator, as the material will carry it"); one leaf
+   (`sizeHeavySecondShareFar2x`, identity 0, 2x-anchored), no new span statistic, no new texture
+   and no per-fragment tap (one multiply beside the mix the pass already does). At identity
+   nothing moves: the shipped
    digests, the goldens and every document that does not name it are byte-identical, which G0
    proves before any ladder.
 2. **A landing rule that measures regression as regression.** W44's rule vetoed a cell that
@@ -107,9 +110,15 @@ if no lever separates it, named (Decision Log 5). No re-read of anything W44 rea
    after the rehearsal. *Stop:* a synthetic case that the implementation decides against its
    declared text stops the hash.
 4. **The levers separate what they are for, on the renders (G0).** Two ladders, in candidate
-   mode, after part 1, on the three vetoing mid/thick cells, the two `checkerboard-8` thick cells
-   and `checkerboard-32__rrect-lg__rest`, both poses, with byte identity at 1x on every rung
-   (X48). **(i) The operator in isolation:** `farDelta` swept at a fixed base share and width and
+   mode, after part 1, on named `__rest` cells only — the three vetoing mid/thick cells, the two
+   `checkerboard-8` thick cells and `checkerboard-32__rrect-lg__rest` — with every ladder's
+   membership intersected with the planner's pre-gate whitelist by the loader (the inactive twins
+   of two of those cells are referees, `checkerboard-8__rrect-lg__inactive` and
+   `checkerboard-32__rrect-lg__inactive`, and are never rendered before the exposure; the joint's
+   inactive md already reads over Apple, so "md rising" is a rest-pose witness); an inactive
+   control, if one is wanted, is a named non-referee inactive cell (`checkerboard-8__rrect-md__inactive`,
+   `checkerboard__rrect-ml__inactive`); byte identity at 1x on every rung (X48). **(i) The operator
+   in isolation:** `farDelta` swept at a fixed base share and width and
    a span top of 160. *Bar:* `checkerboard-8` md unchanged within the bar on every rung (the far
    curve is zero at span 96 by construction) while the 128 and 160 cells move monotonically with
    `farDelta`; a leaf that does not move the thick cells is struck. **(ii) The joint composition:**
@@ -395,13 +404,18 @@ stops at the gate report.
 Branch `w45-g2-landing`. W44's G2 list in full (clause 9), plus the operator's paragraph in
 CLAUDE.md beside W30's spanning set and in the READMEs' material table; the changeset names the
 operator (inert in every document but the 0.25 light pair) and the moved leaves. **T1's
-re-baselining is a three-part task** (W44 G2, §5.204): (i) T1's regression clause (b) is read
-against c05 BEFORE its reference moves, and its at-most-three named regressions are recorded in
-§5.207 and in the owner test's history; only then is `T1_REFERENCE` pointed at the new generation;
-(ii) the T stratum's band fixture is re-read off the new captures to a NEW path with a new pin
-(`t-bands.json` refuses to overwrite; a T cell with no entry reads UNMEASURED and fails);
-(iii) `MISSED_27_ROWS`' T1 entries are re-derived with `derive.py` at the new generation (the owner
-case fails in both directions).
+re-baselining is a five-part task, in this order** (W44 G2, §5.204; the third review of this
+charter): the owner test's T-band fixture is one file keyed by capture path and pinned to its
+entries, and clause (b) looks up BOTH the candidate's and the reference's T cells through it, so
+a single replacement cannot witness the old reference. (i) At the gate, the candidate's T bands
+are read from the stage's captures for the gate cells into a NEW fixture keyed by generation and
+capture path, pinned beside the reference's (`t-bands.json` refuses to overwrite; the reference's
+fixture stays); (ii) at the exposure the candidate's exposed T cells are added to it; (iii) with
+both fixtures present, clause (b) and the growth-only count and ceiling are evaluated against
+c05 and every regression recorded in §5.207 as the witness; (iv) `T1_AUTHORISED_REGRESSIONS` is
+filled with the ruled cells and `MISSED_27_ROWS`' T1 entries are re-derived with `derive.py` at
+the new generation (the owner case fails in both directions); (v) only then is `T1_REFERENCE`
+pointed at the new generation, and the fixture assertions updated for two pinned fixtures.
 
 ## Cross-Child Contracts
 
@@ -450,9 +464,10 @@ path-scoped adds; merges with the freeze and X41 verified.
 - **The thick spans need a partial tap, and the budget prices the coarse cell.** W44's
   heavy-only rung shows the tap off undershoots `checkerboard-32` lg by 2.57 B; the fit searches
   `farDelta` between 0 and −share and the growth rule counts that cell like any other.
-- **The grading's evaluation site costs frame time or breaks a composite.** Mitigation: the bench
-  row read at G0 (a); the per-surface uniform preferred unless `glass-over-glass` needs the
-  per-pixel form; byte identity at identity either way.
+- **The per-pixel grading costs frame time.** It is one multiply on a value the optics pass
+  already holds (`farS`); the bench row is read before and after at G0 (a) and the cost
+  recorded. There is no per-surface alternative: a group packs one share for members of
+  different spans (Grounding).
 - **The rule is tuned to the joint point.** It fails the joint point on both the count and the
   ceiling (Design), and both are fixed with their reasons before the rehearsal (X55).
 - **The thin trade is not separable by any lever.** Decision Log 5 names it; the stratum
@@ -595,6 +610,18 @@ Found while drafting (2026-10-03; 6–8 from the second review):
 
 ## Revision Notes
 
+- 2026-10-03 (v1.3; the third, scoped round on v1.2 (`f835bb05`), needs-attention, one P1 and
+  two P2, all accepted and folded; the reviewer judged the remaining repairs bounded and the
+  design supported, so the loop closes here):
+  - **[P1] "Both poses" in clause 4 would have rendered two referees** before the exposure:
+    the ladders are on named `__rest` cells, every membership intersected with the pre-gate
+    whitelist by the loader, named non-referee inactive controls if wanted.
+  - **[P2] The old-reference witness needs both generations' T-band fixtures**: G2's
+    re-baselining is five parts in order, the candidate's fixture read at the gate and finished
+    at the exposure beside the reference's, the regressions witnessed with both present, the
+    reference moved last.
+  - **[P2] Two superseded passages still said clamp and per-surface**: the Purpose's formula and
+    the Risks entry now refer to the one operator definition (unclamped, per pixel).
 - 2026-10-03 (v1.2; the second adversarial round on v1.1 (`be062203`), needs-attention, one P1
   and four P2, every finding accepted and folded):
   - **[P1] Clause 4's separation test was impossible** (the far curve is zero at span 96, so the
