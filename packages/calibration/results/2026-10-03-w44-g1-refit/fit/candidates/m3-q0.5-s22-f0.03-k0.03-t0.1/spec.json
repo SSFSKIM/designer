@@ -1,0 +1,21 @@
+{
+  "label": "m3-q0.5-s22-f0.03-k0.03-t0.1",
+  "note": "",
+  "move": "move3",
+  "family": "receded",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 1.0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 5,
+      "sizeScatterRampStartThin2x": 0.8
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1,
+      "sizeScatterRampStartThick2x": 0.03,
+      "sizeScatterRampStartFar2x": 0.03,
+      "sizeHeavyTapSigma2x": 22,
+      "sizeHeavySecondShare": 0.5
+    }
+  }
+}

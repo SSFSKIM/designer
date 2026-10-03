@@ -1,0 +1,342 @@
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-2x-light-standard-glass0.25 --renderer webgpu --candidate-document results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s14/candidate.json --set calibration,validation,recorded,probe --scene checkerboard-32__rrect-lg__rest,checkerboard-32__rrect-md__rest,checkerboard-32__rrect-ml__rest,checkerboard-4__rrect-lg__rest,checkerboard-4__rrect-md__rest,checkerboard-64__rrect-lg__rest,checkerboard-64__rrect-md__rest,checkerboard-64__rrect-ml__rest,checkerboard-8__rrect-lg__rest,checkerboard-8__rrect-md__rest,checkerboard-8__rrect-ml__rest,checkerboard-lc16__rrect-lg__rest,checkerboard-lc16__rrect-md__rest,checkerboard-lc16__rrect-ml__rest,checkerboard__rrect-md__pressed,checkerboard__rrect-md__rest,checkerboard__rrect-ml__rest,hc-text-28__rrect-lg__rest,hc-text-28__rrect-md__rest,hc-text-7__rrect-lg__rest,hc-text-7__rrect-md__rest,hc-text__rrect-lg__rest,impulse__rrect-lg__rest,impulse__rrect-md__rest,impulse__rrect-ml__rest,photo__rrect-md__pressed,photo__rrect-md__rest,photo__rrect-md__rest-tint-orange,photo__rrect-ml__rest --write-partial --out-matrix /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/matrix.json
+
+── web capture (apple-macos-27.0-2x-light-standard-glass0.25, 29 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s14/candidate.json declarationSha256=26e544d0476b name=apple-macos-27.0-glass0.25-w44-g1-m1b-s14 glassTintAmount=0.25
+
+checkerboard-64__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest/
+
+hc-text__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-lg__rest/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__rest/
+
+hc-text-7__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-lg__rest/
+
+hc-text-28__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-lg__rest/
+
+checkerboard-8__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest/
+
+photo__rrect-md__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange/
+
+checkerboard-32__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest/
+
+checkerboard-8__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-md__rest/
+
+checkerboard-32__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest/
+
+checkerboard-lc16__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest/
+
+checkerboard-64__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest/
+
+checkerboard-lc16__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-md__rest/
+
+checkerboard-8__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest/
+
+hc-text-7__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-md__rest/
+
+checkerboard-64__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-md__rest/
+
+photo__rrect-md__pressed
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__pressed/
+
+checkerboard-lc16__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-lg__rest/
+
+impulse__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-lg__rest/
+
+checkerboard-4__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-md__rest/
+
+impulse__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-md__rest/
+
+photo__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-ml__rest/
+
+hc-text-28__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-md__rest/
+
+checkerboard__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-ml__rest/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest/
+
+checkerboard__rrect-md__pressed
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__pressed/
+
+checkerboard-32__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-md__rest/
+
+checkerboard-4__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest/
+
+impulse__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-ml__rest/
+
+29 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (29 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/matrix.json (28 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       2x-light-standard-glass0.25   checkerboard-64__rrect-ml__rest               0.998    0.15   0.960   0.0126    0.377/ 0.347    0.5914/ 0.5534    0.2276/ 0.2351    0.0223/ 0.0000
+probe       2x-light-standard-glass0.25   hc-text__rrect-lg__rest                       0.995    0.53   0.953   0.0129    0.106/ 0.090    0.7273/ 0.7293    0.1236/ 0.1009    0.0701/ 0.0551
+calibration 2x-light-standard-glass0.25   checkerboard__rrect-md__rest                  1.000    0.01   0.956   0.0099    0.150/ 0.062    0.6007/ 0.5865    0.1501/ 0.0719    0.0418/ 0.0303
+probe       2x-light-standard-glass0.25   hc-text-7__rrect-lg__rest                     0.996    0.39   0.943   0.0130    0.083/ 0.075    0.7290/ 0.7402    0.1236/ 0.0950    0.0655/ 0.0093
+probe       2x-light-standard-glass0.25   hc-text-28__rrect-lg__rest                    0.995    0.55   0.947   0.0147    0.171/ 0.189    0.7471/ 0.7167    0.1313/ 0.1435    0.1354/ 0.1859
+probe       2x-light-standard-glass0.25   checkerboard-8__rrect-lg__rest                1.000    0.01   0.933   0.0176   -0.005/ 0.020    0.5489/ 0.5952    0.0224/ 0.0315    0.0637/ 0.0302
+validation  2x-light-standard-glass0.25   photo__rrect-md__rest-tint-orange             1.000    0.01   0.994   0.0031    0.122/ 0.095    0.3259/ 0.3365    0.0224/ 0.0153    0.0579/ 0.0363
+probe       2x-light-standard-glass0.25   checkerboard-32__rrect-lg__rest               0.999    0.06   0.947   0.0215    0.158/ 0.197    0.6070/ 0.5824    0.1336/ 0.1784    0.0158/ 0.0275
+probe       2x-light-standard-glass0.25   checkerboard-8__rrect-md__rest                1.000    0.01   0.927   0.0096    0.084/ 0.022    0.5662/ 0.5946    0.0991/ 0.0385    0.0478/ 0.0282
+probe       2x-light-standard-glass0.25   checkerboard-32__rrect-ml__rest               1.000    0.01   0.966   0.0119    0.215/ 0.248    0.6041/ 0.5824    0.1556/ 0.1816    0.0413/ 0.0276
+probe       2x-light-standard-glass0.25   checkerboard-lc16__rrect-ml__rest             0.988    0.93   0.981   0.0046    0.031/ 0.040    0.7190/ 0.7350    0.0370/ 0.0300    0.0506/ 0.0374
+probe       2x-light-standard-glass0.25   checkerboard-64__rrect-lg__rest               0.998    0.17   0.961   0.0144    0.438/ 0.461    0.6022/ 0.5891    0.2446/ 0.2578    0.0548/ 0.0590
+probe       2x-light-standard-glass0.25   checkerboard-8__rrect-ml__rest                1.000    0.01   0.965   0.0142    0.007/ 0.021    0.5354/ 0.5948    0.0261/ 0.0347    0.0576/ 0.0277
+probe       2x-light-standard-glass0.25   hc-text-7__rrect-md__rest                     1.000    0.01   0.954   0.0079    0.069/ 0.035    0.6499/ 0.7021    0.0990/ 0.0607    0.0568/ 0.0666
+probe       2x-light-standard-glass0.25   checkerboard-64__rrect-md__rest               0.999    0.08   0.975   0.0095    0.376/ 0.277    0.5782/ 0.5328    0.2485/ 0.2462    0.1482/ 0.0841
+recorded    2x-light-standard-glass0.25   photo__rrect-md__pressed                      0.948    3.17   0.957   0.0177    0.741/ 0.377    0.5108/ 0.5191    0.0893/ 0.1000    0.0524/ 0.0148
+probe       2x-light-standard-glass0.25   checkerboard-lc16__rrect-lg__rest             0.990    0.99   0.976   0.0050    0.020/ 0.044    0.7366/ 0.7352    0.0322/ 0.0292    0.0349/ 0.0370
+probe       2x-light-standard-glass0.25   impulse__rrect-lg__rest                       0.999    0.06   0.993   0.0052    0.017/ 0.028    0.1901/ 0.1971    0.0135/ 0.0141    0.0450/ 0.0638
+probe       2x-light-standard-glass0.25   checkerboard-4__rrect-md__rest                1.000    0.01   0.969   0.0108    0.007/ 0.013    0.5227/ 0.6097    0.0297/ 0.0300    0.0531/ 0.0270
+validation  2x-light-standard-glass0.25   impulse__rrect-md__rest                       0.999    0.04   0.995   0.0038    0.181/ 0.058    0.1857/ 0.1991    0.0245/ 0.0181    0.0440/ 0.0660
+calibration 2x-light-standard-glass0.25   photo__rrect-ml__rest                         0.999    0.05   0.992   0.0247    0.772/ 0.526    0.5252/ 0.5233    0.1032/ 0.0686    0.0642/ 0.0543
+probe       2x-light-standard-glass0.25   hc-text-28__rrect-md__rest                    0.995    0.35   0.960   0.0075    0.226/ 0.150    0.6888/ 0.6698    0.1663/ 0.1317    0.1945/ 0.1107
+calibration 2x-light-standard-glass0.25   checkerboard__rrect-ml__rest                  1.000    0.01   0.964   0.0086    0.076/ 0.066    0.5712/ 0.5863    0.0815/ 0.0670    0.0419/ 0.0301
+calibration 2x-light-standard-glass0.25   photo__rrect-md__rest                         1.000    0.03   0.994   0.0126    0.741/ 0.467    0.5108/ 0.5215    0.0893/ 0.0584    0.0524/ 0.0353
+recorded    2x-light-standard-glass0.25   checkerboard__rrect-md__pressed               0.964    2.18   0.915   0.0190    0.150/ 0.108    0.6007/ 0.5941    0.1501/ 0.1447    0.0418/ 0.0186
+probe       2x-light-standard-glass0.25   checkerboard-32__rrect-md__rest               1.000    0.01   0.971   0.0084    0.186/ 0.131    0.6169/ 0.5827    0.1817/ 0.1725    0.0754/ 0.0321
+probe       2x-light-standard-glass0.25   checkerboard-4__rrect-lg__rest                1.000    0.01   0.935   0.0223   -0.003/ 0.011    0.5479/ 0.6098    0.0227/ 0.0253    0.0649/ 0.0271
+probe       2x-light-standard-glass0.25   impulse__rrect-ml__rest                       0.999    0.05   0.996   0.0047    0.021/ 0.017    0.1864/ 0.1963    0.0145/ 0.0147    0.0472/ 0.0679
+
+2x-light-standard-glass0.25   calibration n= 4  IoU mean 0.9997 worst 0.9995   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9765 worst 0.9559   dE mean 0.01393 worst 0.02467
+2x-light-standard-glass0.25   validation  n= 2  IoU mean 0.9996 worst 0.9994   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9945 worst 0.9940   dE mean 0.00346 worst 0.00378
+2x-light-standard-glass0.25   recorded    n= 2  IoU mean 0.9561 worst 0.9484   contour p95 mean 5.00 worst 5.00   SSIM mean 0.9362 worst 0.9154   dE mean 0.01837 worst 0.01902
+2x-light-standard-glass0.25   probe       n=20  IoU mean 0.9976 worst 0.9882   contour p95 mean 1.25 worst 7.00   SSIM mean 0.9607 worst 0.9274   dE mean 0.01141 worst 0.02230
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard-glass0.25   checkerboard-64__rrect-ml__rest                 0.44  0.3535/ 0.0807   19/ 51/ 35/ 35   22/ 54/ 38/ 38     16.0/  16.0     27.3/  29.8
+2x-light-standard-glass0.25   hc-text__rrect-lg__rest                         0.83  0.4084/ 0.1433    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        33.4/  35.7
+2x-light-standard-glass0.25   checkerboard__rrect-md__rest                    0.50  0.3664/ 0.0498    2/ 33/ 20/ 17    3/ 35/ 22/ 19     15.5/  16.0     18.8/  21.8
+2x-light-standard-glass0.25   hc-text-7__rrect-lg__rest                       0.90  0.3991/ 0.1281    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        34.4/  36.8
+2x-light-standard-glass0.25   hc-text-28__rrect-lg__rest                      0.89  0.3342/ 0.1160    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        38.0/  40.2
+2x-light-standard-glass0.25   checkerboard-8__rrect-lg__rest                  0.50  0.4826/ 0.1306    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.0/  37.3
+2x-light-standard-glass0.25   photo__rrect-md__rest-tint-orange               1.00  0.0536/ 0.0410    3/ 33/ 19/ 20    3/ 35/ 19/ 23     15.0/  16.0     18.6/  22.2
+2x-light-standard-glass0.25   checkerboard-32__rrect-lg__rest                 0.50  0.3727/ 0.1303    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.1/  37.3
+2x-light-standard-glass0.25   checkerboard-8__rrect-md__rest                  0.50  0.3792/ 0.0503    2/ 33/ 18/ 17    3/ 35/ 21/ 20     15.5/  16.0     18.7/  21.8
+2x-light-standard-glass0.25   checkerboard-32__rrect-ml__rest                 0.50  0.3558/ 0.0815   19/ 51/ 35/ 38   22/ 54/ 40/ 41     16.0/  16.0     26.6/  29.5
+2x-light-standard-glass0.25   checkerboard-lc16__rrect-ml__rest               1.00  0.3557/ 0.0785   24/ 55/ 40/ 40   36/ 60/ 49/ 50     15.5/  12.0     26.9/  31.2
+2x-light-standard-glass0.25   checkerboard-64__rrect-lg__rest                 0.41  0.4119/ 0.1283    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        36.7/  35.5
+2x-light-standard-glass0.25   checkerboard-8__rrect-ml__rest                  0.50  0.5035/ 0.0843   19/ 51/ 38/ 37   22/ 54/ 39/ 41     16.0/  16.0     26.4/  29.5
+2x-light-standard-glass0.25   hc-text-7__rrect-md__rest                       0.79  0.3389/ 0.0467    2/ 32/ 18/ 19    3/ 34/ 21/ 21     15.0/  15.5     21.2/  26.2
+2x-light-standard-glass0.25   checkerboard-64__rrect-md__rest                 0.48  0.2365/ 0.0747    2/ 33/ 19/ 19    4/ 35/ 22/ 22     15.5/  15.5     18.9/  22.3
+2x-light-standard-glass0.25   photo__rrect-md__pressed                        1.00  0.3695/ 0.0318    3/ 33/ 19/ 20    0/ 31/ 13/ 17     15.0/  15.5     18.2/  20.0
+2x-light-standard-glass0.25   checkerboard-lc16__rrect-lg__rest               1.00  0.3826/ 0.1205    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.4/  38.9
+2x-light-standard-glass0.25   impulse__rrect-lg__rest                         0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.25   checkerboard-4__rrect-md__rest                  0.50  0.4632/ 0.0505    2/ 33/ 17/ 19    3/ 35/ 21/ 20     15.5/  16.0     18.6/  21.8
+2x-light-standard-glass0.25   impulse__rrect-md__rest                         0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.25   photo__rrect-ml__rest                           1.00  0.3941/ 0.0747   21/ 54/ 39/ 37   22/ 54/ 44/ 46     16.5/  16.0     26.4/  29.7
+2x-light-standard-glass0.25   hc-text-28__rrect-md__rest                      0.79  0.2919/ 0.0457    2/ 33/ 18/ 18    3/ 35/ 21/ 21     15.5/  16.0     25.7/  32.4
+2x-light-standard-glass0.25   checkerboard__rrect-ml__rest                    0.50  0.4536/ 0.0842   19/ 51/ 35/ 38   22/ 54/ 38/ 41     16.0/  16.0     26.6/  29.5
+2x-light-standard-glass0.25   photo__rrect-md__rest                           1.00  0.3695/ 0.0410    3/ 33/ 19/ 20    3/ 35/ 19/ 23     15.0/  16.0     18.2/  22.2
+2x-light-standard-glass0.25   checkerboard__rrect-md__pressed                 0.50  0.3664/ 0.0341    2/ 33/ 20/ 17    0/ 31/ 16/ 13     15.5/  15.5     18.8/  19.5
+2x-light-standard-glass0.25   checkerboard-32__rrect-md__rest                 0.50  0.2940/ 0.0468    2/ 33/ 22/ 17    3/ 35/ 26/ 19     15.5/  16.0     18.8/  21.8
+2x-light-standard-glass0.25   checkerboard-4__rrect-lg__rest                  0.50  0.5722/ 0.1297    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.0/  37.3
+2x-light-standard-glass0.25   impulse__rrect-ml__rest                         0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 3 cell(s) across 3 scene(s): impulse__rrect-lg__rest, impulse__rrect-md__rest, impulse__rrect-ml__rest. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CANDIDATE material document drawn on the web side: /Users/new/vitrea-w44/g1/packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s14/candidate.json
+web accessibility for apple-macos-27.0-2x-light-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (15) ────────────
+  checkerboard-8__rrect-lg__rest: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  photo__rrect-md__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-8__rrect-ml__rest: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  hc-text-7__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__pressed: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-lg__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-lg__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  checkerboard-4__rrect-md__rest: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-md__rest: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__rrect-ml__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-4__rrect-lg__rest: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__rrect-ml__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-ml__rest: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+
+── 1 cell(s) COULD NOT BE MEASURED ────────────
+  apple-macos-27.0-2x-light-standard-glass0.25 / checkerboard-lc16__rrect-md__rest: contourCurvature: a 0.00px contour sampled 512 times at σ=3 carries no curvature.
+  --write-partial: /Users/new/vitrea-w44/g1-scratch/fit/m1b-s14/move1/matrix.json WAS WRITTEN and now mixes this run's cells with whatever an earlier run left under the keys above.
+[ELIFECYCLE] Command failed with exit code 1.
