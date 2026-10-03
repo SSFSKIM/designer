@@ -1,0 +1,37 @@
+W45 G1 continuation, step 1 of the parent's ruling of 2026-10-04: the factorial against part 2 as hashed.
+
+Part 2 is fit-declaration.json at sha256 e6874e02902755c8648e7fcce29568d326544398229c20d08ce7d24ddfdc5433,
+the last line of fit-declaration.sha256, and the file's bytes hash to it (checked 2026-10-04 before any
+render of the continuation). Nothing in part 2 changes: no amendment, no grid value, no rule, budget or ceiling.
+
+1. Stage 1's leaves form ONE family a full factorial may sweep. moves[0] (stage1) has familyOrder ["deep"]
+   and one family, `deep`. Its searched leaves, with their declared grids:
+     sizeScatterFloor2x       [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+     sizeScatterSpanMax2x     [112, 128, 160, 192, 256]
+     sizeHeavySecondShare     [0, 0.25, 0.5, 0.75, 1.0]
+     sizeHeavySecondSigma2x   [1.5, 2, 2.5, 3, 4, 5, 6]          (CSS px)
+     sizeHeavySecondShareFar2x [0, -0.25, -0.5, -0.75, -1]       (domainLowerIsMinus sizeHeavySecondShare)
+     sizeScatterRampStartThick2x+sizeScatterRampStartFar2x [0.05, 0.1, 0.15, 0.21] (tied)
+   plus one fixed leaf (sizeHeavySecondSigma, the 1x width, at 0). searchProcedure: "a full factorial sweep of a
+   stage's grids is permitted and is not required". The ruled sweep is a sub-grid of that factorial.
+
+2. Every point visited is on the declared grids, and that has one consequence for the ruling as written. The
+   operator's grid is ABSOLUTE: the active leaf carries domainLowerIsMinus and NO domainRelativeTo, unlike the
+   receded leaf, whose grid is fractions of the active delta. The ruled "delta in {-0.5, -0.75, -1} x share"
+   therefore names values that are not grid values: -0.125, -0.1875, -0.375 and -0.5625. They are not visited
+   ("no new grid value"). Visited are the declared grid values in [-share, 0] whose fraction of the share lies
+   in the ruled range:
+     c05 path (fractions -0.5 to -1):     share 0.25 -> {-0.25}; 0.5 -> {-0.25, -0.5}; 0.75 -> {-0.5, -0.75}
+     joint path (fractions -0.25 to -1):  share 0.5  -> {-0.25, -0.5}
+   So the c05 factorial is floor {0.5, 1} x 5 (share, delta) pairs x width {2, 3} x span top {128, 160, 192}
+   = 60 points, against the ruled 108. The joint factorial is share 0.5 x width {2, 3, 5} x delta
+   {-0.25, -0.5} x span top {128, 160, 192} = 18 points, against the ruled 36. The region G0's joint ladder
+   read as working is inside both: share 0.5, width 2, delta -0.5 (= -share), span top 160. The ladder's
+   -0.75 at share 0.5 is outside the domain [-share, 0] that Decision Log 7 item 2 ruled, and is not visited.
+
+3. Each point passes the driver's own check_overrides (the declared domains and the joint domain), and each
+   value is checked against its leaf's declared grid before any build (factorial.py `points`; plan.json lists
+   the 78 labels). Every other leaf stays at the path's current value: thick/far at c05's 0.21, the joint
+   path's floor at its own 1, the 1x width at 0. Every launch goes through the pinned fit driver: candidate
+   mode, --alpha, the GPU lock and the classifying census, the loader's refusals unchanged, the planner's
+   fit cells only (no referee or holdout cell).
