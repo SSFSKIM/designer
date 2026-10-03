@@ -46719,7 +46719,9 @@ classifying web census (0 refusals; `census.jsonl` lines 104 on), on the planner
 the loader refused no row because none was a referee or holdout. 207 exited 0. Four were partial on
 the lc16 shape axis ("a 0.00px contour … carries no curvature", W44's tracker entry), all on the
 joint path's stage 1; `recover.py` read each missing cell off its capture through the pinned port
-(worst 2.07e-11 against the 28 recorded rows) and the search resumed. 238 declared points, 36
+and the search resumed. The completed record (`fit/path/recovered.json`) proves the port against
+the driver on the 112 rows those four renders did record, worst 3.18e-11 (the first recovery's
+witness was 2.07e-11 on 28). 238 declared points, 36
 measured by content twins. Every point's cuts are under `fit/candidates/<label>/`, every rung's
 objective in `fit/path/rungs.txt`.
 
@@ -46885,3 +46887,21 @@ ruling, as W44 G1's did (W44 Decision Log 4 "Otherwise").
   two moved leaves outweigh a better metric and a better rule reading.
 - **Tool entries** (tracker): the receded label mark, `full` on an alias, and the lc16 shape-axis
   failure (four launches here).
+
+### 10. Review closure (`doperpowers:reviewer-medium` on `67a82a00..d760c063`)
+
+Verdict **correct**, one P3: §3 quoted the first recovery's port witness (28 rows) where the completed
+record holds 112 rows at 3.18e-11; corrected above. The reviewer reproduced, read-only:
+- the amendment's operations against Decision Log 7, both superseded hashes rebuilt, the draft's
+  diff, every pin and chained part-1 re-pin, and the amendment preceding the first render;
+- the joint domain, the receded inheritance, the c05-only factorial and the empty-step refusal;
+- both lineages' stage compositions and every recorded decision;
+- 6,662 scratch rows in 211 matrices with no referee or holdout row;
+- all 36 aliases' endpoint digests against their twins, and `search_g1.py` differing in label
+  spelling only;
+- both final points' rule readings, and the X56 selection (0.193994 and 0.181146 inside the tie
+  0.041203, 9 leaves against 11);
+- the stop: the budget counts 9 and 8 and ceilings 3 and 4 cannot be undone by an additive
+  116-cell budget.
+
+The close checks at the head are in `close-checks.txt`.

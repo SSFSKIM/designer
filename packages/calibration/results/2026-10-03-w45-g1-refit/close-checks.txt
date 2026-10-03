@@ -1,0 +1,6 @@
+W45 G1 close checks at d760c0639 (2026-10-03T07:44:30Z), each gated on its own exit code
+freeze.py verify: exit 0 — 26.5 freeze intact: 1818 entries
+x41.ts verify: exit 0 — X41 0.5 generation intact: 911 entries
+operator/digests.ts: exit 0 — 10 of 10 documents reproduce their recorded digest
+declare.py check: exit 0 — check: consistent
+declare.py check-fit: exit 0 — check-fit: consistent
