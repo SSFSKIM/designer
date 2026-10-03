@@ -46117,7 +46117,19 @@ CSS, 8 on each dark WebGPU tier and the 1x dark CSS, and 58 on the 2x dark CSS.
 - The freeze reads 1,818 and X41 911.
 - `PREDICATE_EXCLUDES` is unchanged at the machine's output (no row moved).
 
-### 4. What is not claimed
+### 4. Review closure
+
+`doperpowers:reviewer-medium` reviewed the test change (`1026079a`) against the charter and the
+Python referee, and returned *correct* with no material findings. Independently, it recomputed:
+- all 232 derivation cells;
+- all 169 recorded misses;
+- all eight band readings, from the native fixtures and the canonical PNGs.
+
+It confirmed four things: the port's arithmetic and precedence match `t1.py`; a missing gated
+member fails; no existing owner assertion or `PREDICATE_EXCLUDES` was weakened; and the suite
+reads 145 / 3 skipped without captures and 148 with them.
+
+### 5. What is not claimed
 
 - **T1 does not certify the shipped body.** It names 169 misses. A miss leaves the list only in a
   commit that brings its cell within.
