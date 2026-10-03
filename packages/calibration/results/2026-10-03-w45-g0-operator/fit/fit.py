@@ -28,11 +28,16 @@ under `~/vitrea-w45/g1-scratch/fit/<label>/<scope>/`.
   committed spec, admitted only when W44's committed `candidate.json` hashes to the declared
   `66bf5a01…` and W45's builder reproduces each of its four endpoint patches. Every point records
   its lineage (`start`), and a point's spec names its stage and family.
-- **The scopes are the charter's stages** (Design "The moves"): `stage1` the rest mid and thick
-  cells (span 96 and 128-160), `stage2-thin` the rest thin cells, `stage2-receded` every inactive
-  cell (W44's moves 2 and 3), `fit` all of them, `rest-of-fit` and `x48` (the 1x light T1 gate
-  cells, for X48's byte identity). Each is the gate partition of the 2x light WebGPU T1 cells: no
-  referee, no holdout, and every probe scene in the planner's pre-gate whitelist.
+- **The scopes are the charter's stages** (Design "The moves"; part 2's `moves`): `stage1` the
+  rest mid and thick cells (span 96 and 128-160); stage 2's two family scopes, `stage2-thin` the
+  rest thin cells and `stage2-receded` every inactive cell (W44's moves 2 and 3), and the stage
+  `stage2`, their union; `fit` all of them, `rest-of-fit` and `x48` (the 1x light T1 gate cells,
+  for X48's byte identity). Each is the gate partition of the 2x light WebGPU T1 cells: no referee,
+  no holdout, and every probe scene in the planner's pre-gate whitelist. A render of a scope draws
+  only the cells of it the label has not rendered, so a label's scopes never overlap and a stage
+  after one of its parts draws the rest of its union. A STAGE's objective, tie and within clause
+  are W45's cuts' `rule.stage_objective`, `stage_tie` and `stage_within` (part 2's
+  `searchProcedure`); a family scope's are the same arithmetic over its own cells.
 - **Every fit render passes `--alpha`** (clause 5: a fit row equals a stage row; W44 G1's tracker
   note), and runs through `with-gpu.sh` (the GPU lock and the classifying census, §5.201 §21).
 - **W44's evidence, scratch and stage are refused** as a place to read a render from or write to.
@@ -47,7 +52,9 @@ from __future__ import annotations
 import datetime
 import gzip
 import json
+import math
 import os
+import statistics
 import subprocess
 import sys
 from pathlib import Path
@@ -61,10 +68,15 @@ SCRATCH = W.FIT_SCRATCH
 PROFILE = W.PROFILE
 SETS = "calibration,validation,recorded,probe"
 SLOTS = ("active.light", "receded.light")
-# The charter's stages as cell scopes (Design "The moves"): pose and span classes.
+# The charter's stages as cell scopes (Design "The moves"): pose and span classes. A part-2 family is
+# searched on one of `SCOPES`; a STAGE (a part-2 move) is read on the union of its parts' cells, with
+# W45's cuts' `rule.STAGES` as the one definition of a stage's objective, tie and within clause
+# (part 2's `searchProcedure`: "cuts/rule.py stage_objective").
 SCOPES = {"stage1": dict(pose="rest", spans=("mid", "thick"), within="F+pitch16"),
           "stage2-thin": dict(pose="rest", spans=("thin",), within="FCP"),
           "stage2-receded": dict(pose="inactive", spans=None, within="FCP")}
+STAGE_PARTS = {"stage1": ("stage1",), "stage2": ("stage2-thin", "stage2-receded")}
+ALL_SCOPES = tuple(dict.fromkeys([*SCOPES, *STAGE_PARTS]))
 STARTS = ("c05", "joint")
 
 _part2 = None
@@ -137,10 +149,20 @@ def check_overrides(overrides: dict, table: dict | None = None) -> None:
                 continue
             lo, hi = spec["domain"]
             if spec.get("domainRelativeTo"):
-                active = overrides.get("active.light", {}).get(leaf, 0)
+                active = active_value(overrides, leaf)
                 lo, hi = sorted((lo * active, hi * active))
             if not lo <= value <= hi or (spec.get("domainOpenAt") is not None and value == spec["domainOpenAt"]):
                 raise W.Refusal(f"fit: {slot} {leaf} {value} is outside its declared domain [{lo}, {hi}]")
+
+
+def active_value(overrides: dict, leaf: str):
+    """The active light value of `leaf` a candidate with these overrides resolves to: the override,
+    else c05's active light document's, else the runtime default (0 for every leaf a relative domain
+    names: the second tap's share and the operator's delta)."""
+    if leaf in overrides.get("active.light", {}):
+        return overrides["active.light"][leaf]
+    c05 = json.loads((CAL / "profiles" / "apple-macos-27.0-1x-light-standard-glass0.25.json").read_text())
+    return c05["patch"].get(leaf, 0)
 
 
 def scope_of(move: dict, family: str) -> str:
@@ -154,10 +176,20 @@ def scope_of(move: dict, family: str) -> str:
 
 
 def in_scope(c, scope: str) -> bool:
+    """A landing-scope cell of a family scope, or of a stage (the union of its parts)."""
     _, t1 = cuts()
+    if scope in STAGE_PARTS and scope not in SCOPES:
+        return any(in_scope(c, part) for part in STAGE_PARTS[scope])
     s = SCOPES[scope]
     return (t1.in_landing_scope(c) and c["pose"] == s["pose"]
             and (s["spans"] is None or c["spanClass"] in s["spans"]))
+
+
+def rule():
+    """W45's cuts' `rule` (the stages' objective, tie and within clause), after `cuts()`."""
+    cuts()
+    import rule as module  # noqa: PLC0415  (W45's cuts directory is on the path)
+    return module
 
 
 def scenes_for(scope: str, scale: int = 2) -> list[str]:
@@ -167,6 +199,8 @@ def scenes_for(scope: str, scale: int = 2) -> list[str]:
     plan = W.referee_plan()
     held = plan.referee_cells(plan.load_manifest())
     pregate = set(plan.lists()["pregateProbe"]["scenes"])
+    if scope in STAGE_PARTS and scope not in SCOPES:
+        return sorted({sid for part in STAGE_PARTS[scope] for sid in scenes_for(part, scale)})
     profile = PROFILE[scale]
     out = []
     for p, sid in t1.population([profile]):
@@ -177,7 +211,7 @@ def scenes_for(scope: str, scale: int = 2) -> list[str]:
             if t1.pose(sid) != s["pose"] or (s["spans"] is not None and t1.span_class(sid) not in s["spans"]):
                 continue
         elif scope not in ("fit", "x48", "rest-of-fit"):
-            raise W.Refusal(f"scope {scope!r} is not one of {sorted(SCOPES) + ['fit', 'rest-of-fit', 'x48']}")
+            raise W.Refusal(f"scope {scope!r} is not one of {list(ALL_SCOPES) + ['fit', 'rest-of-fit', 'x48']}")
         if B.SCENES.role[sid] == "probe" and sid not in pregate:
             raise W.Refusal(f"{sid}: a probe scene outside the planner's pre-gate whitelist")
         out.append(sid)
@@ -336,12 +370,12 @@ def render(label: str, scope: str) -> int:
     if scope in have or covered(label, scope):
         return 0
     done = set().union(*[v for k, v in have.items() if k != "x48"]) if have else set()
-    if scope == "rest-of-fit":
-        scenes = [s for s in scenes_for("fit") if s not in done]
+    if scale == 1:
+        scenes = scenes_for("fit", 1)
     else:
-        scenes = scenes_for("fit" if scope in ("fit", "x48") else scope, scale)
-        if scale == 2 and done & set(scenes):
-            raise W.Refusal(f"render {label} {scope}: overlaps a rendered scope; use rest-of-fit")
+        # The cells of the scope not yet rendered for this label, so a label's scopes never overlap:
+        # a stage's scope after one of its parts renders the rest of the stage's union.
+        scenes = [s for s in scenes_for("fit" if scope in ("fit", "rest-of-fit") else scope) if s not in done]
     if not scenes:
         return 0
     out = W.refuse_w44_path(SCRATCH / label / scope, "the render's scratch")
@@ -436,6 +470,23 @@ def within_clause(cells, scope: str, missing=()) -> dict:
                 verdict="UNMEASURED" if absent or not members else "WITHIN" if not not_within else "NOT WITHIN")
 
 
+def stage_reading(cells, missing, scope: str) -> dict:
+    """A scope's objective, tie and within clause: a stage's through W45's `rule` (part 2's
+    `searchProcedure`), a family scope's on the same arithmetic over that scope's cells."""
+    _, t1 = cuts()
+    if scope in STAGE_PARTS:
+        r = rule()
+        clause = r.stage_within(cells, scope, missing)
+        return dict(objective=r.stage_objective(cells, scope), tie=r.stage_tie(cells, scope),
+                    within=clause["verdict"], notWithin=clause["notWithin"], unmeasured=len(clause["unmeasured"]))
+    clause = within_clause(cells, scope, missing)
+    sel = [math.log(1 + c["bar"] / c["native"]) for c in cells
+           if in_scope(c, scope) and c["stratum"] in t1.SELECTION_STRATA and c["native"] > 0]
+    return dict(objective=t1.selection_metric(cells, where=lambda c: in_scope(c, scope)),
+                tie=statistics.median(sel) if sel else None,
+                within=clause["verdict"], notWithin=clause["notWithin"], unmeasured=len(clause["unmeasured"]))
+
+
 def summarise(label, result, scopes) -> dict:
     _, t1 = cuts()
     t = result["T1"]
@@ -451,12 +502,7 @@ def summarise(label, result, scopes) -> dict:
                                                                 "fidelity", "change", "growth", "B")}
                               for b in t1.BANDS}
         per_cell[c["scene"]] = entry
-    stages = {}
-    for scope in SCOPES:
-        clause = within_clause(t["cells"], scope, t.get("missing", ()))
-        stages[scope] = dict(objective=t1.selection_metric(t["cells"], where=lambda c, s=scope: in_scope(c, s)),
-                             within=clause["verdict"], notWithin=clause["notWithin"],
-                             unmeasured=len(clause["unmeasured"]))
+    stages = {scope: stage_reading(t["cells"], t.get("missing", ()), scope) for scope in ALL_SCOPES}
     return dict(
         label=label, stage=spec["stage"], family=spec["family"], start=spec["start"], overrides=spec["overrides"],
         scopes={k: len(v) for k, v in scopes.items()},

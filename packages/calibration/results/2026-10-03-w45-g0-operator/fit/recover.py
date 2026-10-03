@@ -39,6 +39,15 @@ def port():
     return W.load_module("w45_port_interior", W.PORT / "interior.py")
 
 
+def capture_dir(label: str, sid: str) -> Path | None:
+    """The scratch scope directory of `label` whose captures hold `sid`, or None (never rendered)."""
+    root = W.refuse_w44_path(fit.SCRATCH / label, "the scratch render")
+    for d in sorted(root.iterdir()) if root.exists() else []:
+        if d.name != "x48" and (d / "web-captures" / PROFILE / sid / "cell__webgpu.json").exists():
+            return d
+    return None
+
+
 def web_sd(P, B, label: str, sid: str, scope_dir: Path) -> float:
     folder = scope_dir / "web-captures" / PROFILE / sid
     meta = json.loads((folder / "cell__webgpu.json").read_text())
@@ -60,23 +69,32 @@ def main() -> int:
     for f in sorted((fit.G1 / "candidates").glob("*/summary.json")):
         s = json.loads(f.read_text())
         label = s["label"]
-        for scope in fit.SCOPES:
-            if scope not in s["scopes"]:
+        proved = False
+        # Every scope the search reads, family scopes and stages (a stage's union spans the label's
+        # scope directories); a scope is recovered only where each missing member WAS rendered.
+        for scope in fit.ALL_SCOPES:
+            if s["stages"].get(scope, {}).get("objective") is None:
                 continue
             members = [m for m in fit.scenes_for(scope) if t1.stratum(m) in t1.SELECTION_STRATA]
             missing = [m for m in members if m not in s["cells"]]
-            if not missing:
+            where = {sid: capture_dir(label, sid) for sid in missing}
+            if not missing or any(d is None for d in where.values()):
                 continue
-            scope_dir = W.refuse_w44_path(fit.SCRATCH / label / scope, "the scratch render")
-            rows = {r["key"]["sceneId"]: r for r in json.loads((scope_dir / "matrix.json").read_bytes())["cells"]}
-            for sid, row in rows.items():
-                got = web_sd(P, B, label, sid, scope_dir)
-                driver = B.value(row, "material", "interiorStdDevWeb")
-                proof.append(dict(label=label, scope=scope, scene=sid, port=got, driver=driver, diff=abs(got - driver)))
+            if not proved:
+                for scope_dir in sorted({d for d in (fit.SCRATCH / label).iterdir() if d.name != "x48"
+                                         and (d / "matrix.json").exists()}):
+                    rows = json.loads((scope_dir / "matrix.json").read_bytes())["cells"]
+                    for row in rows:
+                        sid = row["key"]["sceneId"]
+                        got = web_sd(P, B, label, sid, scope_dir)
+                        driver = B.value(row, "material", "interiorStdDevWeb")
+                        proof.append(dict(label=label, scope=scope_dir.name, scene=sid, port=got, driver=driver,
+                                          diff=abs(got - driver)))
+                proved = True
             logs = {sid: abs(math.log(c["k"] / c["n"])) for sid, c in s["cells"].items() if sid in members}
             recovered = {}
             for sid in missing:
-                k = web_sd(P, B, label, sid, scope_dir)
+                k = web_sd(P, B, label, sid, where[sid])
                 n = B.value(c05[sid], "material", "interiorStdDevNative")
                 recovered[sid] = dict(native=n, web=k, ratio=k / n)
                 logs[sid] = abs(math.log(k / n))

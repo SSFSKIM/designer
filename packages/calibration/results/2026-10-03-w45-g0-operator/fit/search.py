@@ -3,41 +3,49 @@
 search.py`) ported for W45 (charter Design "The moves", Decision Log 4, X56, X58). W44's committed
 copy is untouched.
 
-    python3.12 -B search.py stage <move-id> --start c05|joint --base LABEL [--passes 2]
+    python3.12 -B search.py stage <stage> --start c05|joint --base LABEL [--passes 2]
     python3.12 -B search.py full LABEL              (the whole fit map at a point: rest-of-fit)
     python3.12 -B search.py table [SCOPE]           (every point's numbers, from the summaries)
 
-**What part 2 must say for this to run** (the interface W45's part 2 is written to): each entry
-of `moves` has an `id`, its `families` (each with `leaves`, optional `fixed`, optional `scope`,
-optional `from: "previous"`, optional `factorial: true`) and an optional `familyOrder`; a family's
-cell scope is its `scope`, else the move's `scope`, else the move id, one of `fit.SCOPES`
-(`stage1`, `stage2-thin`, `stage2-receded`). A leaf key `a+b` is a tied pair set together; a leaf
-with `domainRelativeTo` takes its grid as fractions of the current active light value of the same
-leaf (W44's receded share).
+**Part 2, as hashed** (`fit-declaration.json`): `stage1` {families: `deep`} and `stage2`
+{familyOrder [`thin`, `receded`], `thin` on scope `stage2-thin`, `receded` on `stage2-receded`}. A
+family's cell scope is its `scope`, else the stage's `scope`, else the stage id (`fit.scope_of`); a
+leaf key `a+b` is a tied pair set together; a leaf with `domainRelativeTo` takes its grid as
+fractions of the ACTIVE light value of the same leaf at the current point (the receded share and
+the receded operator delta); a family's `fixed` leaves are held at their declared values in every
+point it sweeps.
 
-**The procedure, as W44's** (part 2's `searchProcedure`): within a family each leaf's grid in the
-order listed, the others held at their current values, the smallest scope objective kept, at most
-two passes; a full factorial sweep of a family's grids is permitted (`factorial: true`). A family
-starts from the stage's base unless it says `from: "previous"` (W44's move 2 `reach` after
-`start`). **From two starting points** (X56): `--start` names the lineage, `--base` the point the
-stage starts from (`start-c05`, `start-joint`, or a previous stage's landed point of the same
-lineage); every label carries the lineage (`c-` or `j-`), and each stage's decision is written to
-G1's `fit/path/<start>/<move-id>.json`, so the two paths never share a record.
+**The procedure** (part 2's `searchProcedure`): within a stage each leaf's grid is swept in the order
+listed, the others held at their current values, keeping the grid point with the smallest objective;
+at most two passes; a full factorial sweep is permitted (`factorial: true`) and not required. A
+stage's families are SEQUENTIAL COMPONENTS of that one procedure, in `familyOrder`: each family is
+swept on its own scope from the point the previous one left (stage 2: `thin` from the stage-1 point,
+then `receded` from `thin`'s best), so the stage's point carries every component's overrides. The
+point the components compose is then rendered on the rest of the STAGE's cells (the union of its
+parts) and the stage is decided there.
 
-**The decision, as W44's** (`decide`): the first family in order with a searched point within the
-scope's clause lands, at its within point with the smallest objective; if none is within, the
-smallest objective across the families, a tie within the selection tie (the median over the
-scope's F u C u P cells of log(1 + bar / native)) going to the fewer moved leaves. A point with an
-UNMEASURED objective member is ranked only on its value recovered through W44 G0's port
-(`recover.py`), never on a partial median.
+**Candidates of one content render once** (part 2's `searchProcedure`; W44 G1's tracker note): a
+point is labelled by what it moves beyond its base — the stage's base point with the family's fixed
+leaves folded in, so a fixed value is never a label difference — and, once built, a point whose four
+resolved digests equal an already-rendered point's of the same lineage is read off that point and
+not rendered again (the alias is logged in `runs.jsonl`).
+
+**From two starting points** (X56): `--start` names the lineage, `--base` the point the stage starts
+from (`start-c05`, `start-joint`, or the previous stage's landed point of the same lineage); every
+label carries the lineage (`c-` or `j-`), and each stage's decision is written to G1's
+`fit/path/<start>/<stage>.json` with its components, so the two paths never share a record.
+
+**The decision** (part 2's `selectionRule.withinAStage` and `ifNotWithin`): among the stage's points
+read on the whole stage — every swept point of a one-family stage; the composed point of a stage of
+several components — the point with a passing within clause and the smallest stage objective lands;
+if none is within, the smallest stage objective, a tie within the stage tie (`rule.stage_tie`)
+going to the fewer moved leaves, recorded as not within. A point with an UNMEASURED objective member
+is ranked only on its value recovered through W44 G0's port (`recover.py`), never on a partial
+median.
 """
 from __future__ import annotations
 
-import gzip
-import itertools
 import json
-import math
-import statistics
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -48,29 +56,30 @@ import fit  # noqa: E402
 
 PATH = fit.G1 / "path"
 SHORT = {"sizeScatterFloor2x": "fl", "sizeScatterSpanMax2x": "top", "sizeHeavySecondShare": "q",
-         "sizeHeavySecondSigma2x": "w", "sizeHeavySecondShareFar2x": "d", "sizeScatterRampStartThin2x": "t",
-         "sizeScatterRampStartThick2x": "k", "sizeScatterRampStartFar2x": "f", "sizeScatterRampReach2xPx": "r",
-         "sizeHeavyTapSigma2x": "s"}
-MOVE_SHORT = {"stage1": "s1", "stage2-thin": "s2t", "stage2-receded": "s2r"}
+         "sizeHeavySecondSigma2x": "w", "sizeHeavySecondSigma": "w1x", "sizeHeavySecondShareFar2x": "d",
+         "sizeScatterRampStartThin2x": "t", "sizeScatterRampStartThick2x": "k", "sizeScatterRampStartFar2x": "f",
+         "sizeScatterRampReach2xPx": "r", "sizeHeavyTapSigma2x": "s"}
+STAGE_SHORT = {"stage1": "s1", "stage2": "s2"}
+SLOTS = ("active.light", "active.dark", "receded.light", "receded.dark")
 
 
 def fmt(v):
     return f"{v:g}"
 
 
-def move_of(move_id: str) -> dict:
+def move_of(stage_id: str) -> dict:
     for m in fit.part2()["moves"]:
-        if m["id"] == move_id:
+        if m["id"] == stage_id:
             return m
-    raise fit.W.Refusal(f"part 2 declares no move {move_id!r}")
+    raise fit.W.Refusal(f"part 2 declares no stage {stage_id!r}")
+
+
+def spec_of(label: str) -> dict:
+    return json.loads((fit.G1 / "specs" / f"{label}.json").read_text())
 
 
 def base_overrides(label: str) -> dict:
-    return json.loads((fit.G1 / "specs" / f"{label}.json").read_text())["overrides"]
-
-
-def lineage(label: str) -> str:
-    return json.loads((fit.G1 / "specs" / f"{label}.json").read_text())["start"]
+    return spec_of(label)["overrides"]
 
 
 def with_leaf(base: dict, slot: str, leaves: dict) -> dict:
@@ -79,16 +88,49 @@ def with_leaf(base: dict, slot: str, leaves: dict) -> dict:
     return out
 
 
-def label_of(start: str, move_id: str, overrides: dict, base: dict) -> str:
-    """A readable label from what a point moves beyond its base, prefixed by its lineage."""
+def merged(a: dict, b: dict) -> dict:
+    out = json.loads(json.dumps(a))
+    for slot, leaves in b.items():
+        out.setdefault(slot, {}).update(leaves)
+    return out
+
+
+def fixed_of(fbody: dict) -> dict:
+    """A family's fixed leaves as overrides {slot: {leaf: value}}."""
+    out = {}
+    for leaf, spec in fbody.get("fixed", {}).items():
+        out.setdefault(spec["slot"], {})[leaf] = spec["value"]
+    return out
+
+
+def label_of(start: str, stage_id: str, overrides: dict, base: dict) -> str:
+    """A readable label from what a point moves beyond `base` (the stage's base with the family's
+    fixed leaves folded in), prefixed by its lineage and stage."""
     parts = []
     for slot, leaves in sorted(overrides.items()):
         for leaf, v in sorted(leaves.items()):
             if base.get(slot, {}).get(leaf) != v:
                 parts.append(f"{'R' if slot == 'receded.light' else ''}{SHORT[leaf]}{fmt(round(v, 6))}")
-    return f"{start[0]}-{MOVE_SHORT.get(move_id, move_id)}" + ("-" + "-".join(parts) if parts else "-base")
+    return f"{start[0]}-{STAGE_SHORT.get(stage_id, stage_id)}" + ("-" + "-".join(parts) if parts else "-base")
 
 
+def grid_of(spec: dict, current: dict, leaf: str) -> list:
+    if spec.get("domainRelativeTo"):
+        active = fit.active_value(current, leaf)
+        return sorted({round(f * active, 6) for f in spec["grid"]})
+    return list(spec["grid"])
+
+
+def sweep_candidates(fbody: dict, key: str, current: dict) -> list[dict]:
+    """The points one leaf's (or tied pair's) grid gives from `current`, the others held."""
+    spec = fbody["leaves"][key]
+    grid = grid_of(spec, current, key.split("+")[0])
+    return [with_leaf(current, spec["slot"], {leaf: v for leaf in key.split("+")}) for v in grid]
+
+
+# ---------------------------------------------------------------------------------------------
+# The real runner: build, render once per content, read
+# ---------------------------------------------------------------------------------------------
 def same_point(overrides: dict, start: str) -> str | None:
     """An existing candidate of the same lineage with exactly these overrides."""
     for f in sorted((fit.G1 / "specs").glob("*.json")):
@@ -98,173 +140,192 @@ def same_point(overrides: dict, start: str) -> str | None:
     return None
 
 
-def run_points(points: list[dict]) -> dict:
-    """Render every point in order, reading each in a worker; returns label -> summary."""
-    for p in points:
-        fit.write_spec(p["label"], p["overrides"], p.get("note", ""), p["stage"], p["family"], p["start"])
-        fit.build(p["label"])
-    out, futures = {}, {}
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        for p in points:
-            summary = fit.G1 / "candidates" / p["label"] / "summary.json"
-            if summary.exists() and fit.covered(p["label"], p["scope"]):
-                out[p["label"]] = json.loads(summary.read_text())
-                continue
-            code = fit.render(p["label"], p["scope"])
-            if code == 3:
-                raise fit.W.Refusal(f"census refused before {p['label']}; nothing after it rendered")
-            if code not in (0, 1):
-                raise fit.W.Refusal(f"{p['label']}: render exit {code}")
-            futures[p["label"]] = pool.submit(fit.read, p["label"])
-        for label, fut in futures.items():
-            out[label] = fut.result()
-    return out
+def content_of(label: str) -> tuple:
+    folder = fit.G1 / "candidates" / label
+    return tuple(json.loads((folder / f"{slot}.json").read_text())["resolvedMaterialSha256"] for slot in SLOTS)
 
 
-def grid_of(spec: dict, current: dict, leaf: str) -> list:
-    if spec.get("domainRelativeTo"):
-        active = current.get("active.light", {}).get(leaf, 0)
-        return sorted({round(f * active, 6) for f in spec["grid"]})
-    return list(spec["grid"])
+def content_twin(label: str, start: str, scope: str) -> str | None:
+    """A point of the same lineage and content already rendered on `scope`, other than `label`."""
+    mine = content_of(label)
+    for f in sorted((fit.G1 / "candidates").glob("*/candidate.json")):
+        other = f.parent.name
+        if other == label or not (fit.G1 / "specs" / f"{other}.json").exists():
+            continue
+        if spec_of(other).get("start") == start and fit.covered(other, scope) and content_of(other) == mine:
+            return other
+    return None
 
 
 def summary_of(label: str) -> dict:
     return json.loads((fit.G1 / "candidates" / label / "summary.json").read_text())
 
 
-def sweep_family(move: dict, family: str, start: str, base_label: str, current: dict, passes: int) -> tuple:
-    """One family's coordinate sweeps (or its full factorial): returns (best overrides, labels)."""
+def read_current(label: str) -> bool:
+    """Whether the label's summary reads every scope it has rendered."""
+    path = fit.G1 / "candidates" / label / "summary.json"
+    if not path.exists():
+        return False
+    rendered = {k: len(v) for k, v in fit.rendered_scopes(label).items() if k != "x48"}
+    return json.loads(path.read_text())["scopes"] == rendered
+
+
+class Runner:
+    """Builds, renders (once per content) and reads points; the tests hand `compose` a runner that
+    renders nothing."""
+
+    def points(self, cands: list[dict], labels: list[str], stage_id: str, family: str, start: str,
+               scope: str) -> list[str]:
+        named = []
+        for ov, label in zip(cands, labels):
+            known = same_point(ov, start)
+            if known is None:
+                fit.write_spec(label, ov, "", stage_id, family, start)
+                fit.build(label)
+                known = label
+            if not fit.covered(known, scope):
+                twin = content_twin(known, start, scope)
+                if twin is not None:
+                    fit.log(dict(label=known, contentTwin=twin, scope=scope, at=fit.now()))
+                    known = twin
+            named.append(known)
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            futures = []
+            for name in dict.fromkeys(named):
+                if not fit.covered(name, scope):
+                    code = fit.render(name, scope)
+                    if code == 3:
+                        raise fit.W.Refusal(f"census refused before {name}; nothing after it rendered")
+                    if code not in (0, 1):
+                        raise fit.W.Refusal(f"{name}: render exit {code}")
+                if not read_current(name):
+                    futures.append(pool.submit(fit.read, name))
+            for fut in futures:
+                fut.result()
+        return named
+
+    def objective(self, label: str, scope: str) -> float:
+        return summary_of(label)["stages"][scope]["objective"]
+
+    def overrides(self, label: str) -> dict:
+        return base_overrides(label)
+
+
+# ---------------------------------------------------------------------------------------------
+# The procedure
+# ---------------------------------------------------------------------------------------------
+def sweep_family(move: dict, family: str, start: str, base: dict, current: dict, passes: int,
+                 runner: Runner) -> tuple[dict, list[str], str | None]:
+    """One component: the family's coordinate sweeps (or its full factorial) on its own scope from
+    `current`, with its fixed leaves held. Returns (the best point's overrides, every label, best)."""
     fbody = move["families"][family]
     scope = fit.scope_of(move, family)
-    fixed = {}
-    for leaf, spec in fbody.get("fixed", {}).items():
-        fixed.setdefault(spec["slot"], {})[leaf] = spec["value"]
-    for slot, leaves in fixed.items():
-        current = with_leaf(current, slot, leaves)
-    base = base_overrides(base_label)
-    labels = []
+    fixed = fixed_of(fbody)
+    current = merged(current, fixed)
+    label_base = merged(base, fixed)
+    keys = list(fbody.get("leaves", {}))
+    labels, best = [], None
 
-    def points_for(candidates: list[dict]) -> list[str]:
-        pts, names = [], []
-        for ov in candidates:
-            known = same_point(ov, start)
-            if known is not None:
-                names.append(known)
-                continue
-            name = label_of(start, move["id"], ov, base)
-            pts.append(dict(label=name, overrides=ov, stage=move["id"], family=family, start=start, scope=scope))
-            names.append(name)
-        run_points(pts)
-        for name in names:
-            if not fit.covered(name, scope):
-                code = fit.render(name, scope)
-                if code not in (0, 1):
-                    raise fit.W.Refusal(f"{name}: render exit {code}")
-                fit.read(name)
+    def run(cands: list[dict]) -> list[str]:
+        names = runner.points(cands, [label_of(start, move["id"], ov, label_base) for ov in cands],
+                              move["id"], family, start, scope)
+        labels.extend(names)
         return names
 
-    def objective(name: str) -> float:
-        return summary_of(name)["stages"][scope]["objective"]
-
-    keys = list(fbody.get("leaves", {}))
     if fbody.get("factorial"):
-        grids = [(k, fbody["leaves"][k]) for k in keys]
-        combos = itertools.product(*[grid_of(spec, current, k.split("+")[0]) for k, spec in grids])
-        cands = []
-        for values in combos:
-            ov = current
-            for (k, spec), v in zip(grids, values):
-                ov = with_leaf(ov, spec["slot"], {leaf: v for leaf in k.split("+")})
-            cands.append(ov)
-        names = points_for(cands)
-        labels += names
-        best = min(names, key=objective)
-        return base_overrides(best), labels
+        cands = [current]
+        for k in keys:
+            cands = [c for point in cands for c in sweep_candidates(fbody, k, point)]
+        names = run(cands)
+        best = min(names, key=lambda n: runner.objective(n, scope))
+        return runner.overrides(best), labels, best
     for _ in range(passes):
         before = json.dumps(current, sort_keys=True)
         for k in keys:
-            spec = fbody["leaves"][k]
-            grid = grid_of(spec, current, k.split("+")[0])
-            cands = [with_leaf(current, spec["slot"], {leaf: v for leaf in k.split("+")}) for v in grid]
-            names = points_for(cands)
-            labels += names
-            current = base_overrides(min(names, key=objective))
+            names = run(sweep_candidates(fbody, k, current))
+            best = min(names, key=lambda n: runner.objective(n, scope))
+            current = runner.overrides(best)
         if json.dumps(current, sort_keys=True) == before:
             break
-    return current, labels
+    return current, labels, best
 
 
-def stage(move_id: str, start: str, base_label: str, passes: int = 2) -> dict:
-    if lineage(base_label) != start:
-        raise fit.W.Refusal(f"stage {move_id}: base {base_label} is of lineage {lineage(base_label)}, not {start}")
-    move = move_of(move_id)
+def compose(stage_id: str, start: str, base: dict, passes: int, runner: Runner) -> dict:
+    """The stage's components in `familyOrder`, each swept on its scope from the point the previous
+    one left; `composed` is the point that carries them all."""
+    move = move_of(stage_id)
     order = move.get("familyOrder") or list(move["families"])
-    families, previous = {}, None
-    base = base_overrides(base_label)
+    current, components = base, []
     for family in order:
-        fbody = move["families"][family]
-        current = previous if fbody.get("from") == "previous" and previous is not None else base
-        previous, labels = sweep_family(move, family, start, base_label, current, passes)
-        families[family] = sorted(set(labels))
-    return decide(move, start, families, order)
+        start_point = current
+        current, labels, best = sweep_family(move, family, start, base, current, passes, runner)
+        components.append(dict(family=family, scope=fit.scope_of(move, family), from_=start_point, best=best,
+                               bestOverrides=current, points=list(dict.fromkeys(labels))))
+    return dict(stage=stage_id, start=start, components=components, composed=current)
 
 
-def scope_tie(label: str, scope: str) -> float:
-    """The selection tie on the scope's own cells: the median of log(1 + bar / native) over the
-    scope's F u C u P cells, read off a point's cut (it depends on natives and bars alone)."""
-    _, t1 = fit.cuts()
-    with gzip.open(fit.G1 / "candidates" / label / "cuts.json.gz", "rt") as f:
-        cells = json.load(f)["T1"]["cells"]
-    sel = [math.log(1 + c["bar"] / c["native"]) for c in cells
-           if fit.in_scope(c, scope) and c["stratum"] in t1.SELECTION_STRATA and c["native"] > 0]
-    return statistics.median(sel)
+def stage(stage_id: str, start: str, base_label: str, passes: int = 2, runner: Runner | None = None) -> dict:
+    runner = runner or Runner()
+    if spec_of(base_label)["start"] != start:
+        raise fit.W.Refusal(f"stage {stage_id}: base {base_label} is of lineage {spec_of(base_label)['start']}, "
+                            f"not {start}")
+    move = move_of(stage_id)
+    base = base_overrides(base_label)
+    path = compose(stage_id, start, base, passes, runner)
+    if len(path["components"]) == 1:
+        candidates = path["components"][0]["points"]
+    else:
+        # The composed point, read on the rest of the stage's union (its components each rendered one part).
+        composed_base = base
+        for c in path["components"]:
+            composed_base = merged(composed_base, fixed_of(move["families"][c["family"]]))
+        candidates = runner.points([path["composed"]], [label_of(start, stage_id, path["composed"], composed_base)],
+                                   stage_id, "composed", start, stage_id)
+    record = decide(move, start, candidates)
+    record.update(base=base_label, components=[{("from" if k == "from_" else k): v for k, v in c.items()}
+                                               for c in path["components"]], composed=path["composed"])
+    (PATH / start).mkdir(parents=True, exist_ok=True)
+    (PATH / start / f"{stage_id}.json").write_text(json.dumps(record, indent=1) + "\n")
+    return record
 
 
 def moved_leaves(summary) -> int:
     return sum(len(v) for v in summary["overrides"].values())
 
 
-def decide(move: dict, start: str, families: dict, order: list, write: bool = True) -> dict:
-    """Part 2's selection within a stage (W44's `decide`, on the family's scope)."""
+def decide(move: dict, start: str, labels: list[str]) -> dict:
+    """Part 2's selection within a stage, on the stage's own cells (`rule.stage_*`)."""
     _, t1 = fit.cuts()
+    stage_id = move["id"]
+    members = [sid for sid in fit.scenes_for(stage_id) if t1.stratum(sid) in t1.SELECTION_STRATA]
     recovered = {}
     if (PATH / "recovered.json").exists():
         recovered = json.loads((PATH / "recovered.json").read_text())["points"]
-    rows = {}
-    for fam in order:
-        scope = fit.scope_of(move, fam)
-        members = [sid for sid in fit.scenes_for(scope) if t1.stratum(sid) in t1.SELECTION_STRATA]
-        for label in families.get(fam, []):
-            s = summary_of(label)
-            objective = s["stages"][scope]["objective"]
-            if any(sid not in s["cells"] for sid in members):
-                got = recovered.get(label, {}).get(scope)
-                if got is None:
-                    raise fit.W.Refusal(f"decide {move['id']}: {label} has an UNMEASURED objective member and no "
-                                        "recovered reading (recover.py); it is not ranked on a partial median")
-                objective = got["declaredObjective"]
-            rows.setdefault(fam, []).append(dict(label=label, scope=scope, objective=objective,
-                                                 within=s["stages"][scope]["within"], leaves=moved_leaves(s),
-                                                 tie=scope_tie(label, scope)))
-    landed, how = None, None
-    for fam in order:
-        inside = [r for r in rows.get(fam, []) if r["within"] == "WITHIN"]
-        if inside:
-            landed = min(inside, key=lambda r: r["objective"])
-            how = f"family {fam} is the first with a point within; its within point with the smallest objective"
-            break
-    if landed is None:
-        every = [r for fam in order for r in rows.get(fam, [])]
-        best = min(every, key=lambda r: r["objective"])
-        ties = [r for r in every if r["objective"] - best["objective"] <= best["tie"]]
+    rows = []
+    for label in dict.fromkeys(labels):
+        s = summary_of(label)
+        reading = s["stages"][stage_id]
+        objective = reading["objective"]
+        if any(sid not in s["cells"] for sid in members):
+            got = recovered.get(label, {}).get(stage_id)
+            if got is None:
+                raise fit.W.Refusal(f"decide {stage_id}: {label} has an UNMEASURED objective member and no "
+                                    "recovered reading (recover.py); it is not ranked on a partial median")
+            objective = got["declaredObjective"]
+        rows.append(dict(label=label, objective=objective, within=reading["within"],
+                         notWithin=reading["notWithin"], leaves=moved_leaves(s), tie=reading["tie"]))
+    inside = [r for r in rows if r["within"] == "WITHIN"]
+    if inside:
+        landed = min(inside, key=lambda r: r["objective"])
+        how = "the stage's point with a passing within clause and the smallest stage objective"
+    else:
+        best = min(rows, key=lambda r: r["objective"])
+        ties = [r for r in rows if r["objective"] - best["objective"] <= best["tie"]]
         landed = min(ties, key=lambda r: (r["leaves"], r["objective"]))
-        how = ("no family has a point within: the smallest objective across the families, a tie within the "
-               f"selection tie ({best['tie']:.4f}) to the fewer moved leaves; recorded as NOT within")
-    record = dict(move=move["id"], start=start, landed=landed["label"], how=how, families=rows)
-    if write:
-        (PATH / start).mkdir(parents=True, exist_ok=True)
-        (PATH / start / f"{move['id']}.json").write_text(json.dumps(record, indent=1) + "\n")
-    return record
+        how = ("no point within: the smallest stage objective, a tie within the stage tie "
+               f"({best['tie']:.4f}) to the fewer moved leaves; recorded as NOT within")
+    return dict(stage=stage_id, start=start, landed=landed["label"], within=landed["within"], how=how,
+                points=rows)
 
 
 def table(scope: str | None = None) -> str:
@@ -286,7 +347,7 @@ def main(argv) -> int:
     opt = lambda name, default=None: argv[argv.index(name) + 1] if name in argv else default  # noqa: E731
     if verb == "stage":
         record = stage(argv[2], opt("--start"), opt("--base"), int(opt("--passes", 2)))
-        print(json.dumps(record, indent=1)[:4000])
+        print(json.dumps({k: v for k, v in record.items() if k != "points"}, indent=1)[:4000])
         return 0
     if verb == "full":
         label = argv[2]

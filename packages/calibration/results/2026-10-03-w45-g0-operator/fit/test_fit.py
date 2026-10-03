@@ -1,10 +1,14 @@
 #!/usr/bin/env python3.12
 """W45 G0 (b): the fit driver's red cases (charter clause 2, X58; clause 5).
 
-Each port refuses W44's bindings and the driver refuses what part 2 does not declare. Part 2 does not
-exist when these are written, so the cases that need one hand the driver a synthetic part 2 in a
-temporary directory (the charter's stage 1 and stage 2 leaves, the operator's key in both light
-slots) and never touch W45's own declaration files.
+Each port refuses W44's bindings and the driver refuses what part 2 does not declare. The refusal
+cases hand the driver a synthetic part 2 in a temporary directory (never W45's own declaration
+files). The search cases run against the HASHED part 2 (`fit-declaration.json`) with a runner that
+renders nothing: the first stage-1 sweep's labels from both starting points (the fixed 1x width
+held in every point and never a label difference), a whole stage-1 search, and stage 2's two
+components composed in order (`receded` swept from `thin`'s best, its relative grids read off the
+active values, the composed point decided on the stage's union and recorded with both components)
+(the review of W45 G0 (b)-(e), two P1 findings).
 
     cd packages/calibration/results/2026-10-03-w45-g0-operator/fit
     python3.12 -B -m unittest test_fit -v
@@ -216,6 +220,35 @@ class Render(unittest.TestCase):
             shutil.rmtree(tmp)
 
 
+class StageRender(unittest.TestCase):
+    """A stage's render after one of its parts draws the rest of its union, and nothing twice."""
+
+    def test_the_rest_of_stage_2_after_its_receded_part(self):
+        tmp = Path(tempfile.mkdtemp(prefix="w45-fit-render-")).resolve()
+        try:
+            (tmp / "g1" / "candidates" / "j-x").mkdir(parents=True)
+            (tmp / "g1" / "candidates" / "j-x" / "candidate.json").write_text("{}")
+            receded = set(fit.scenes_for("stage2-receded"))
+            argvs = []
+
+            def fake_run(argv, **kwargs):
+                argvs.append(argv)
+                return subprocess.CompletedProcess(argv, 0)
+
+            with mock.patch.object(fit, "G1", tmp / "g1"), mock.patch.object(fit, "SCRATCH", tmp / "scratch"), \
+                    mock.patch.object(fit, "rendered_scopes", lambda label: {"stage2-receded": receded}), \
+                    mock.patch.object(fit, "CAL", tmp), mock.patch.object(fit.subprocess, "run", fake_run):
+                self.assertEqual(fit.render("j-x", "stage2"), 0)
+                self.assertEqual(fit.render("j-x", "stage2-receded"), 0)     # already rendered: no launch
+            self.assertEqual(len(argvs), 1)
+            scenes = argvs[0][argvs[0].index("--scene") + 1].split(",")
+            self.assertEqual(sorted(scenes), fit.scenes_for("stage2-thin"))
+            self.assertIn("--alpha", argvs[0])
+            self.assertTrue(argvs[0][0].endswith("with-gpu.sh"))
+        finally:
+            shutil.rmtree(tmp)
+
+
 class Starts(unittest.TestCase):
     def test_the_joint_point_is_admitted_by_its_declaration_hash(self):
         overrides = fit.joint_overrides()
@@ -297,12 +330,11 @@ class Budget(unittest.TestCase):
 
 
 class Decide(unittest.TestCase):
-    """W44's selection within a stage, on synthetic summaries in a temporary G1 directory."""
+    """Part 2's selection within a stage, on synthetic summaries in a temporary G1 directory."""
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp(prefix="w45-fit-decide-"))
-        self.patches = [mock.patch.object(fit, "G1", self.tmp), mock.patch.object(search, "PATH", self.tmp / "path"),
-                        mock.patch.object(search, "scope_tie", lambda label, scope: 0.01)]
+        self.patches = [mock.patch.object(fit, "G1", self.tmp), mock.patch.object(search, "PATH", self.tmp / "path")]
         for p in self.patches:
             p.start()
         self.members = {sid: {} for sid in fit.scenes_for("stage1")}
@@ -318,46 +350,208 @@ class Decide(unittest.TestCase):
         folder.mkdir(parents=True)
         overrides = {"active.light": {f"leaf{i}": 0 for i in range(leaves)}}
         (folder / "summary.json").write_text(json.dumps(dict(
-            overrides=overrides, cells=cells, stages={"stage1": dict(objective=objective, within=within)})))
+            overrides=overrides, cells=cells,
+            stages={"stage1": dict(objective=objective, within=within, notWithin=[], tie=0.01)})))
 
-    MOVE = {"id": "stage1", "families": {"A": {"leaves": {}}, "B": {"leaves": {}}}}
+    MOVE = {"id": "stage1", "families": {"deep": {"leaves": {}}}}
 
-    def test_the_first_family_with_a_within_point_lands(self):
+    def test_the_within_point_with_the_smallest_objective_lands(self):
         self.point("a1", 0.10, "NOT WITHIN", 1)
         self.point("b1", 0.20, "WITHIN", 2)
         self.point("b2", 0.15, "WITHIN", 3)
-        got = search.decide(self.MOVE, "c05", {"A": ["a1"], "B": ["b1", "b2"]}, ["A", "B"], write=False)
-        self.assertEqual(got["landed"], "b2")
+        self.assertEqual(search.decide(self.MOVE, "c05", ["a1", "b1", "b2"])["landed"], "b2")
 
     def test_with_nothing_within_the_tie_goes_to_the_fewer_moved_leaves(self):
         self.point("a1", 0.100, "NOT WITHIN", 3)
         self.point("b1", 0.105, "NOT WITHIN", 1)
         self.point("b2", 0.300, "NOT WITHIN", 0)
-        got = search.decide(self.MOVE, "joint", {"A": ["a1"], "B": ["b1", "b2"]}, ["A", "B"], write=True)
-        self.assertEqual(got["landed"], "b1")
-        self.assertTrue((self.tmp / "path" / "joint" / "stage1.json").exists())
+        got = search.decide(self.MOVE, "joint", ["a1", "b1", "b2"])
+        self.assertEqual((got["landed"], got["within"]), ("b1", "NOT WITHIN"))
 
     def test_a_partial_objective_is_never_ranked(self):
         self.point("a1", 0.10, "NOT WITHIN", 1, drop=next(iter(self.members)))
         with self.assertRaisesRegex(W.Refusal, "UNMEASURED objective member"):
-            search.decide(self.MOVE, "c05", {"A": ["a1"]}, ["A"], write=False)
+            search.decide(self.MOVE, "c05", ["a1"])
 
 
-class Paths(unittest.TestCase):
-    def test_a_lineage_with_no_decision_refuses(self):
-        tmp = Path(tempfile.mkdtemp(prefix="w45-fit-path-"))
+class FakeRunner:
+    """Renders nothing: records every point the procedure asks for, refuses two points under one
+    label, checks each against the committed part 2, and scores it with a synthetic objective."""
+
+    def __init__(self, objective):
+        self.store, self.calls, self.objective_fn = {}, [], objective
+
+    def points(self, cands, labels, stage_id, family, start, scope):
+        for ov, label in zip(cands, labels):
+            fit.check_overrides(ov)
+            if label in self.store and self.store[label] != ov:
+                raise AssertionError(f"{label} names two points: {self.store[label]} and {ov}")
+            self.store[label] = ov
+        self.calls.append(dict(stage=stage_id, family=family, scope=scope, labels=list(labels),
+                               cands=json.loads(json.dumps(cands))))
+        return list(labels)
+
+    def objective(self, label, scope):
+        return self.objective_fn(self.store[label], scope)
+
+    def overrides(self, label):
+        return self.store[label]
+
+
+def distance(target: dict):
+    """A synthetic objective: how far a point's leaves are from `target` {(slot, leaf): value}."""
+    def objective(ov, scope):
+        return sum(abs(ov.get(slot, {}).get(leaf, 0) - value) for (slot, leaf), value in target.items())
+    return objective
+
+
+class CommittedPart2(unittest.TestCase):
+    """The search against the HASHED part 2 (`fit-declaration.json`), with a runner that renders nothing."""
+
+    def setUp(self):
+        fit._part2 = fit._declared = None
+        self.part2 = fit.part2()
+        self.joint = fit.joint_overrides()
+
+    def test_part_2_is_the_hashed_one_and_its_scopes_are_the_charters(self):
+        self.assertEqual(W.sha(W.PART2.read_bytes()), W.part_hash(2))
+        moves = {m["id"]: m for m in self.part2["moves"]}
+        self.assertEqual(sorted(moves), ["stage1", "stage2"])
+        self.assertEqual(fit.scope_of(moves["stage1"], "deep"), "stage1")
+        self.assertEqual(moves["stage2"]["familyOrder"], ["thin", "receded"])
+        self.assertEqual(fit.scope_of(moves["stage2"], "thin"), "stage2-thin")
+        self.assertEqual(fit.scope_of(moves["stage2"], "receded"), "stage2-receded")
+        self.assertEqual(set(fit.scenes_for("stage2")),
+                         set(fit.scenes_for("stage2-thin")) | set(fit.scenes_for("stage2-receded")))
+
+    def test_the_first_stage_1_sweep_from_both_starts(self):
+        move = search.move_of("stage1")
+        grid = move["families"]["deep"]["leaves"]["sizeScatterFloor2x"]["grid"]
+        for start, base, prefix in (("c05", {}, "c-s1"), ("joint", self.joint, "j-s1")):
+            runner = FakeRunner(distance({}))
+            search.sweep_family(move, "deep", start, base, base, 1, runner)
+            first = runner.calls[0]
+            self.assertEqual(first["scope"], "stage1")
+            expected = [f"{prefix}-base" if base.get("active.light", {}).get("sizeScatterFloor2x") == v
+                        else f"{prefix}-fl{v:g}" for v in grid]
+            self.assertEqual(first["labels"], expected, start)
+            for ov in first["cands"]:
+                # The fixed 1x width is held in every point and never a label difference.
+                self.assertEqual(ov["active.light"]["sizeHeavySecondSigma"], 0)
+            self.assertEqual(len(runner.calls), len(move["families"]["deep"]["leaves"]), start)
+
+    def test_a_whole_stage_1_search_is_labelled_and_declared_from_both_starts(self):
+        move = search.move_of("stage1")
+        target = {("active.light", "sizeScatterFloor2x"): 0.9, ("active.light", "sizeScatterSpanMax2x"): 160,
+                  ("active.light", "sizeHeavySecondShare"): 0.75, ("active.light", "sizeHeavySecondSigma2x"): 3,
+                  ("active.light", "sizeHeavySecondShareFar2x"): -0.5,
+                  ("active.light", "sizeScatterRampStartThick2x"): 0.1}
+        for start, base in (("c05", {}), ("joint", self.joint)):
+            runner = FakeRunner(distance(target))
+            best, labels, _ = search.sweep_family(move, "deep", start, base, base, 2, runner)
+            for (slot, leaf), value in target.items():
+                self.assertEqual(best[slot][leaf], value, (start, leaf))
+            self.assertEqual(best["active.light"]["sizeScatterRampStartFar2x"], 0.1)   # the tied pair
+            self.assertTrue(all(label.startswith(f"{start[0]}-s1-") for label in labels))
+
+    def test_stage_2_composes_its_components_in_order(self):
+        stage1_point = search.merged(self.joint, {"active.light": {
+            "sizeHeavySecondSigma": 0, "sizeHeavySecondShareFar2x": -0.5, "sizeScatterSpanMax2x": 160}})
+        target = {("active.light", "sizeScatterRampStartThin2x"): 0.65,
+                  ("receded.light", "sizeScatterRampStartThin2x"): 0.3,
+                  ("receded.light", "sizeHeavySecondShare"): 0.25,
+                  ("receded.light", "sizeHeavySecondShareFar2x"): -0.25}
+        runner = FakeRunner(distance(target))
+        path = search.compose("stage2", "joint", stage1_point, 2, runner)
+        thin, receded = path["components"]
+        self.assertEqual((thin["family"], thin["scope"]), ("thin", "stage2-thin"))
+        self.assertEqual((receded["family"], receded["scope"]), ("receded", "stage2-receded"))
+        self.assertEqual(thin["from_"], stage1_point)
+        self.assertEqual(thin["bestOverrides"]["active.light"]["sizeScatterRampStartThin2x"], 0.65)
+        # The receded sweep starts from the thin component's best, and every point it asks for keeps it.
+        self.assertEqual(receded["from_"], thin["bestOverrides"])
+        for call in runner.calls:
+            if call["family"] == "receded":
+                self.assertEqual(call["scope"], "stage2-receded")
+                for ov in call["cands"]:
+                    self.assertEqual(ov["active.light"]["sizeScatterRampStartThin2x"], 0.65)
+        # The relative grids read the active values the stage-1 point carries.
+        grids = {tuple(sorted({leaf for ov in c["cands"] for leaf in ov.get("receded.light", {})})): c
+                 for c in runner.calls if c["family"] == "receded"}
+        shares = sorted({ov["receded.light"].get("sizeHeavySecondShare") for c in runner.calls
+                         if c["family"] == "receded" for ov in c["cands"]} - {None})
+        self.assertEqual(shares, [0, 0.125, 0.25, 0.375, 0.5])
+        deltas = sorted({ov["receded.light"].get("sizeHeavySecondShareFar2x") for c in runner.calls
+                         if c["family"] == "receded" for ov in c["cands"]} - {None})
+        self.assertEqual(deltas, [-0.5, -0.25, 0])
+        self.assertTrue(grids)
+        # The composed point carries both components.
+        composed = path["composed"]
+        self.assertEqual(composed["active.light"]["sizeScatterRampStartThin2x"], 0.65)
+        for (slot, leaf), value in target.items():
+            self.assertEqual(composed[slot][leaf], value, leaf)
+        for leaf in ("sizeScatterFloor2x", "sizeHeavySecondShare", "sizeHeavySecondShareFar2x", "sizeScatterSpanMax2x"):
+            self.assertEqual(composed["active.light"][leaf], stage1_point["active.light"][leaf], leaf)
+
+    def test_stage_2_is_decided_on_its_union_and_records_both_components(self):
+        tmp = Path(tempfile.mkdtemp(prefix="w45-fit-stage-"))
         try:
-            with mock.patch.object(joint, "PATH", tmp), self.assertRaisesRegex(W.Refusal, "has no decision"):
-                joint.path_of("c05", ["stage1"])
+            base = search.merged(self.joint, {"active.light": {"sizeHeavySecondSigma": 0}})
+            runner = FakeRunner(distance({("active.light", "sizeScatterRampStartThin2x"): 0.55,
+                                          ("receded.light", "sizeScatterRampStartThin2x"): 0.2}))
+            seen = {}
+
+            def fake_decide(move, start, labels):
+                seen.update(stage=move["id"], labels=list(labels))
+                return dict(stage=move["id"], start=start, landed=labels[0], within="NOT WITHIN", how="test", points=[])
+
+            with mock.patch.object(search, "PATH", tmp), \
+                    mock.patch.object(search, "spec_of", lambda label: dict(start="joint", overrides=base)), \
+                    mock.patch.object(search, "decide", fake_decide):
+                record = search.stage("stage2", "joint", "j-s1-landed", 1, runner)
+            last = runner.calls[-1]
+            self.assertEqual((last["family"], last["scope"]), ("composed", "stage2"))
+            self.assertEqual(last["cands"], [record["composed"]])
+            self.assertEqual(seen, dict(stage="stage2", labels=last["labels"]))
+            written = json.loads((tmp / "joint" / "stage2.json").read_text())
+            self.assertEqual([c["family"] for c in written["components"]], ["thin", "receded"])
+            self.assertEqual(written["components"][1]["from"], written["components"][0]["bestOverrides"])
+            self.assertEqual(written["composed"]["active.light"]["sizeScatterRampStartThin2x"], 0.55)
+            self.assertEqual(written["composed"]["receded.light"]["sizeScatterRampStartThin2x"], 0.2)
+            self.assertEqual(written["base"], "j-s1-landed")
         finally:
             shutil.rmtree(tmp)
 
-    def test_labels_carry_the_lineage(self):
+
+class Paths(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="w45-fit-path-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp)
+
+    def test_a_lineage_with_no_decision_refuses(self):
+        with mock.patch.object(joint, "PATH", self.tmp), self.assertRaisesRegex(W.Refusal, "has no decision"):
+            joint.path_of("c05", ["stage1", "stage2"])
+
+    def test_stage_records_that_do_not_chain_refuse(self):
+        (self.tmp / "c05").mkdir()
+        (self.tmp / "c05" / "stage1.json").write_text(json.dumps(dict(stage="stage1", start="c05", base="start-c05",
+                                                                     landed="c-s1-fl0.9")))
+        (self.tmp / "c05" / "stage2.json").write_text(json.dumps(dict(stage="stage2", start="c05", base="c-s1-other",
+                                                                     landed="c-s2-t0.65")))
+        with mock.patch.object(joint, "PATH", self.tmp), self.assertRaisesRegex(W.Refusal, "not the previous"):
+            joint.path_of("c05", ["stage1", "stage2"])
+
+    def test_joint_reads_part_2s_two_stages_by_default(self):
+        self.assertIn('"stage1,stage2"', (HERE / "joint.py").read_text())
+
+    def test_labels_carry_the_lineage_and_the_stage(self):
         base = {"active.light": {"sizeScatterFloor2x": 1.0}}
         ov = {"active.light": {"sizeScatterFloor2x": 1.0, "sizeHeavySecondShareFar2x": -0.5},
               "receded.light": {"sizeHeavySecondShareFar2x": -0.25}}
         self.assertEqual(search.label_of("joint", "stage1", ov, base), "j-s1-d-0.5-Rd-0.25")
-        self.assertEqual(search.label_of("c05", "stage2-thin", base, base), "c-s2t-base")
+        self.assertEqual(search.label_of("c05", "stage2", base, base), "c-s2-base")
 
 
 if __name__ == "__main__":
