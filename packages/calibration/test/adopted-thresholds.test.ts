@@ -3291,6 +3291,8 @@ interface T1Cell {
   readonly fidelity: T1Outputs;
   /** Clause (b): against `T1_REFERENCE` — a T cell's on T1-low. */
   readonly regression: T1Outputs;
+  /** The same inputs' growth-only state (W45; `t1GrowthChange`). */
+  readonly growth: "unchanged" | "toward" | "away";
 }
 
 const sha256Of = (relative: string): string =>
@@ -3316,6 +3318,72 @@ function t1Classify(n: number, c: number, k: number, bar: number, code: number):
       : growth < -T1_EQUAL || (Math.abs(growth) <= T1_EQUAL && crossed) ? "toward"
         : "away";
   return { B, fidelity, change, growth, displacement, crossed };
+}
+
+/**
+ * **The growth-only partition** (W45 Decision Log 3, X54; claims §5.205), reported beside W44's
+ * classifier above and, from W45 on, the partition clause (b) gates on. Change is read by error
+ * growth alone: `unchanged` when |k − c| ≤ bar, else `toward` when g ≤ 0 (to `T1_EQUAL`), else
+ * `away`. There is no crossing state: a cell that crossed Apple with a smaller error is `toward`,
+ * and one that crossed with a larger error is `away` with its growth — which W44's precedence
+ * reads as `overshoot` and its clause (b) therefore never sees. `t1Classify` stays as the recorded
+ * form of the adopted row; this is added beside it, not over it.
+ */
+type T1Growth = "unchanged" | "toward" | "away";
+function t1GrowthChange(n: number, c: number, k: number, bar: number): T1Growth {
+  const growth = Math.abs(k - n) - Math.abs(c - n);
+  return Math.abs(k - c) <= bar ? "unchanged" : growth <= T1_EQUAL ? "toward" : "away";
+}
+
+/**
+ * **Clause (b)'s declared exception** (W45 charter Design "The adopted T1 clause (b)", Decision
+ * Log 3, X59; claims §5.205), landed EMPTY in W45 G0.
+ *
+ * An entry authorises ONE cell's growth regression against ONE reference generation, named by its
+ * documents' hashes (X52's form): the cell, the superseded reference it regressed against, its
+ * growth in B as measured there, and the ruling that authorised it. Clause (b) passes a listed
+ * cell only when it is evaluated against exactly that reference and its measured growth is not
+ * above the listed one; evaluated against any other reference, or grown further, it fails like an
+ * unlisted cell. The list is filled at a landing with the ruled cells BEFORE `T1_REFERENCE` moves,
+ * so the witness against the old reference exists first (X59); the next publication must clear the
+ * list or re-rule it.
+ */
+interface T1AuthorisedRegression {
+  readonly profile: string;
+  readonly scene: string;
+  readonly reference: { readonly active: string; readonly receded: string };
+  /** g / B as measured against `reference`, to two decimals; the cell may not grow past it. */
+  readonly growthInB: number;
+  readonly ruling: string;
+}
+const T1_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = [];
+
+/** The rounding the listed growth is recorded at: two decimals of B. */
+const T1_GROWTH_RECORDED = 0.005;
+
+/**
+ * Clause (b)'s failures over a set of cells: every cell whose regression trips — W44's form
+ * (`away` by `t1Classify` with g > B) or the growth-only form (`away` by `t1GrowthChange` with
+ * g > B) — and is not excused by an entry naming that cell, `reference` and a growth at least the
+ * measured one.
+ */
+function t1ClauseBFailures(
+  cells: readonly T1Cell[],
+  reference: { readonly active: string; readonly receded: string },
+  authorised: readonly T1AuthorisedRegression[],
+  form: "w44" | "growth",
+): readonly string[] {
+  const failures: string[] = [];
+  for (const cell of cells) {
+    const { growth, B } = cell.regression;
+    const trips = growth > B && (form === "w44" ? cell.regression.change === "away" : cell.growth === "away");
+    if (!trips) continue;
+    const excused = authorised.some((entry) => entry.profile === cell.profile && entry.scene === cell.scene
+      && entry.reference.active === reference.active && entry.reference.receded === reference.receded
+      && growth / B <= entry.growthInB + T1_GROWTH_RECORDED);
+    if (!excused) failures.push(`${cell.scene}: g ${growth.toFixed(5)} > B ${B.toFixed(5)} (${(growth / B).toFixed(2)} B)`);
+  }
+  return failures;
 }
 
 const T1_BACKGROUND = new Map(
@@ -3429,6 +3497,7 @@ function t1Cut(profile: string, renderer: "webgpu" | "css"): {
       native: n, web: k, bar, code,
       fidelity: t1Classify(n, c, k, bar, code),
       regression: t1Classify(ln, lc, lk, bar, code),
+      growth: t1GrowthChange(ln, lc, lk, bar),
     });
   }
   return { cells, unmeasured };
@@ -6738,11 +6807,106 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
     // `unchanged`; the next publication is the first thing this clause can stop.
     for (const profile of T1_GATED_PROFILES) {
       const { cells } = t1Cut(profile, "webgpu");
-      const away = cells.filter((cell) => cell.regression.change === "away" && cell.regression.growth > cell.regression.B);
-      expect(away.map((cell) => `${cell.scene}: g ${cell.regression.growth.toFixed(5)} > B ${cell.regression.B.toFixed(5)}`),
+      // W45 (claims §5.205): a cell `T1_AUTHORISED_REGRESSIONS` lists against THIS reference, at no
+      // more than its listed growth, is excused; the trip itself is W44's, unchanged.
+      expect(t1ClauseBFailures(cells, T1_REFERENCE, T1_AUTHORISED_REGRESSIONS, "w44"),
         `${profile}: T1 cells away from Apple beyond B against ${T1_REFERENCE.active}`).toEqual([]);
     }
     expect(t1Reference().size, "the reference generation's rows").toBeGreaterThan(0);
+  });
+
+  it("(b) growth-only, from W45: no cell grows its error past B unless listed against this reference", () => {
+    // W45 Decision Log 3 and X54 (claims §5.205): the same clause on the growth-only partition,
+    // which also reads a crossing whose error grew. Against the current generation every cell is
+    // `unchanged`, as under W44's form; the landing that names growth regressions lists them in
+    // `T1_AUTHORISED_REGRESSIONS` against the superseded reference before the reference moves.
+    for (const profile of T1_GATED_PROFILES) {
+      const { cells } = t1Cut(profile, "webgpu");
+      expect(t1ClauseBFailures(cells, T1_REFERENCE, T1_AUTHORISED_REGRESSIONS, "growth"),
+        `${profile}: T1 cells whose error grew beyond B against ${T1_REFERENCE.active}`).toEqual([]);
+    }
+  });
+
+  it("(b) the exception passes a listed cell only against the listed reference (red cases)", () => {
+    // Synthetic cells through the clause's own function, so the mechanism is exercised while the
+    // live list is empty. B is one code (0.004) at a bar of 0.002.
+    const cellAt = (scene: string, n: number, c: number, k: number): T1Cell => ({
+      profile: T1_GATED_PROFILES[1], scene, set: "probe", stratum: "F", partition: "gate",
+      metric: T1_METRIC, native: n, web: k, bar: 0.002, code: 0.004,
+      fidelity: t1Classify(n, c, k, 0.002, 0.004), regression: t1Classify(n, c, k, 0.002, 0.004),
+      growth: t1GrowthChange(n, c, k, 0.002),
+    });
+    const old = { active: "6d18c059eb42", receded: "4d5f23d9d312" } as const;
+    const other = { active: "000000000000", receded: "4d5f23d9d312" } as const;
+    // Away without crossing: 0.10 → 0.12 → 0.13 is g = 0.01 = 2.5 B under both forms.
+    const away = cellAt("checkerboard-8__rrect-md__rest", 0.10, 0.12, 0.13);
+    expect(away.regression.change).toBe("away");
+    expect(away.growth).toBe("away");
+    const listed: readonly T1AuthorisedRegression[] = [{
+      profile: away.profile, scene: away.scene, reference: old, growthInB: 2.5, ruling: "synthetic",
+    }];
+    for (const form of ["w44", "growth"] as const) {
+      // An unlisted `away` cell fails.
+      expect(t1ClauseBFailures([away], old, [], form), form).toHaveLength(1);
+      // Listed against the reference it is evaluated against, it passes.
+      expect(t1ClauseBFailures([away], old, listed, form), form).toEqual([]);
+      // The same listing evaluated against another reference fails.
+      expect(t1ClauseBFailures([away], other, listed, form), form).toHaveLength(1);
+      // Grown past its listed growth, it fails.
+      const further = cellAt(away.scene, 0.10, 0.12, 0.135);
+      expect(t1ClauseBFailures([further], old, listed, form), form).toHaveLength(1);
+      // A listing names a cell, not a profile's worth of them.
+      const neighbour = cellAt("checkerboard-8__rrect-lg__rest", 0.10, 0.12, 0.13);
+      expect(t1ClauseBFailures([neighbour], old, listed, form), form).toHaveLength(1);
+    }
+    // A crossing whose error grew: W44's form reads `overshoot` and lets it through; the
+    // growth-only form reads `away` and gates it — which is what W45's partition is for.
+    const crossed = cellAt("checkerboard-32__rrect-lg__rest", 0.10, 0.098, 0.13);
+    expect(crossed.regression.change).toBe("overshoot");
+    expect(crossed.growth).toBe("away");
+    expect(t1ClauseBFailures([crossed], old, [], "w44")).toEqual([]);
+    expect(t1ClauseBFailures([crossed], old, [], "growth")).toHaveLength(1);
+    // A crossing whose error shrank is `toward`, never a regression.
+    expect(t1GrowthChange(0.10, 0.14, 0.075, 0.002)).toBe("toward");
+    expect(t1GrowthChange(0.10, 0.14, 0.139, 0.002)).toBe("unchanged");
+  });
+
+  it("(b) the authorised list is well formed, and empty until a landing fills it", () => {
+    // Landed EMPTY in W45 G0 (charter Design "The adopted T1 clause (b)"). An entry names a gated
+    // profile's declared cell, a reference by its documents' hashes, a growth beyond B and a ruling.
+    for (const entry of T1_AUTHORISED_REGRESSIONS) {
+      expect(T1_GATED_PROFILES as readonly string[]).toContain(entry.profile);
+      expect(t1Population(entry.profile)).toContain(entry.scene);
+      expect(entry.reference.active).toMatch(/^[0-9a-f]{12}$/);
+      expect(entry.reference.receded).toMatch(/^[0-9a-f]{12}$/);
+      expect(entry.growthInB).toBeGreaterThan(1);
+      expect(entry.ruling.length).toBeGreaterThan(0);
+    }
+    expect(new Set(T1_AUTHORISED_REGRESSIONS.map((e) => `${e.profile} ${e.scene}`)).size)
+      .toBe(T1_AUTHORISED_REGRESSIONS.length);
+  });
+
+  it("reports the growth-only partition beside W44's, on the gated profiles", () => {
+    // Printed, as the readings below are; asserted only as a partition and as the subset relation
+    // that makes the growth-only gate the stricter of the two (W45; claims §5.205).
+    const lines: string[] = [];
+    for (const profile of T1_GATED_PROFILES) {
+      const { cells } = t1Cut(profile, "webgpu");
+      const count = (pick: (cell: T1Cell) => string): string => {
+        const tally = new Map<string, number>();
+        for (const cell of cells) tally.set(pick(cell), (tally.get(pick(cell)) ?? 0) + 1);
+        return [...tally].sort().map(([state, n]) => `${state} ${n}`).join(", ");
+      };
+      lines.push(`  ${profile}: W44 ${count((cell) => cell.regression.change)}; growth-only ${count((cell) => cell.growth)}`);
+      for (const cell of cells) {
+        expect(["unchanged", "toward", "away"]).toContain(cell.growth);
+        if (cell.regression.change === "away" && cell.regression.growth > cell.regression.B) {
+          expect(cell.growth, `${cell.scene}: W44 away beyond B, growth-only not`).toBe("away");
+        }
+      }
+    }
+    process.stdout.write(`T1 change partitions against ${T1_REFERENCE.active} (W44 / growth-only):\n${lines.join("\n")}\n`);
+    expect(lines).toHaveLength(T1_GATED_PROFILES.length);
   });
 
   it("reads a T cell's bands off the committed fixture, which names the rows' captures", ctx => {
