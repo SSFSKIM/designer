@@ -7477,3 +7477,23 @@ then took the starting point on the fewer-leaves tie. The shape of the fix, for 
 declaration:
 - sweep coupled leaves jointly (the span top with the delta), or start from a live delta;
 - break a plateau toward the incumbent value rather than the grid's first.
+
+## W45's G0 tools read the live light 0.25 documents as c05, so the declaration checks fail after a freeze (W45 G1, 2026-10-03)
+
+*Found at W45 G1's gate (claims §5.206 §13; `results/2026-10-03-w45-g1-refit/close-checks-gate.txt`).*
+
+`fit/build-candidate.ts`, `fit/fit.py` (`active_value`, `resolved_value`, `identity`) and the seal's
+tests start every candidate from the live `profiles/apple-macos-27.0-1x-light-standard-glass0.25{,-receded}.json`,
+taken to be c05's. `declare.py check` runs `test_build_candidate` (part 1's tools item), and
+`check-fit` runs `test_fit` and `test_seal` (part 2's second amendment). So once the seal replaces
+the light pair, both checks fail on those test runs. The builder refuses the sealed active document
+(it names the operator's key beyond its twin's leaves), and the fit tests read share 0.5 where they
+expect c05's 0.
+
+Every pin and hash still holds: with c05's bytes put back temporarily, both checks read consistent.
+Part 2's first amendment fixed exactly this for part 1's pins (`partOneReadAt`), not for the tests
+the checks execute. This will hold on main after a landing too.
+
+The shape of the fix, for the next wave's tools: a starting point is read by its generation's file
+hash (the index or a commit), never from the live profiles, and a declaration check that runs tool
+tests runs them against that pinned starting point.

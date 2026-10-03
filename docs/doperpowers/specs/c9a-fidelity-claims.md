@@ -47186,6 +47186,13 @@ new cut and a merged T-band fixture (the reference's 8 entries plus the candidat
 - **The adapter itself**: the band fixture holds 14 entries, not 8. G2 updates the assertions for
   two fixtures.
 
+**The declaration checks after the freeze** (`close-checks-gate.txt`). `declare.py check` and
+`check-fit` now fail on the tool tests they run. The builder, the fit driver and the seal build from
+the LIVE light documents as c05's, and the builder refuses the sealed active document because it
+names the operator's key. With c05's bytes put back temporarily, both read consistent: every pin,
+hash and chain holds (tracker). The freeze reads 1,818, X41 911, and exactly the two light 0.25
+digests moved.
+
 **Also at the gate.** `tier-coherence` passes 70 of 70. The sheets over all 376 T1 cells are on the
 MacBook (`sheets/sent-gate.txt`). The capture tree for G2's copy is this worktree's
 `packages/calibration/web-captures/`.
