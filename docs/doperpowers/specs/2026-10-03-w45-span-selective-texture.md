@@ -27,7 +27,9 @@ charter's Decision Logs and reports them.** Ledger §5.205–§5.207 are reserve
 - **The ladders.** (i) the operator moves the thick cells and cannot move span 96, but is not
   monotone past share + delta = 0; (ii) md up and lg down toward Apple against c05 and the joint
   point on three rungs; (iii) and (iv) not flat; (v) no single lever separates the thin trade.
-- **Part 2** `da85de04…`, the X48 inert setting its one change.
+- **Part 2** `da85de04…`, the X48 inert setting its one change. After reviewer-medium it was
+  amended once, before any fit render, to `77f1c392…`: the fixed G1 search and rule were
+  re-pinned, with no content change (§5.205 §13).
 G1 opens on the merge.
 
 ## Decisions
@@ -505,7 +507,7 @@ path-scoped adds; merges with the freeze and X41 verified.
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | DONE on `w45-g0-operator` (2026-10-03): operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…`; for the parent's merge | §5.205 |
+| G0 | DONE on `w45-g0-operator` (2026-10-03): operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…`; for the parent's merge | §5.205 |
 | G1 | NOT STARTED | §5.206 |
 | G2 | NOT STARTED | §5.207 |
 

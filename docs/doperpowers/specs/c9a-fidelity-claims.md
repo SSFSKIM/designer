@@ -46489,8 +46489,11 @@ the draft with one change:
 
 Part 2 names part 1's hash and the draft's, and pins the results, the protocol and the G1 tools.
 `declare.py check` and `check-fit` are consistent, and the fit driver's preflight accepts part 2.
-Part 1's `amend` now refuses (ladder renders exist). Part 2's `amend-fit` refuses once any fit
-render exists.
+Part 1's `amend` now refuses (ladder renders exist).
+
+**Part 2 was then amended once, before any fit render** (§13; `1395d9e1`):
+**`77f1c39208c14ae7131ed90183b762935ecd7d52776b67ad055fcfd542315271`** supersedes `da85de04…`. The
+amendment re-pins the fixed tools and changes no content. `amend-fit` now refuses.
 
 ### 10. Clause 8 at G0's close
 
@@ -46532,6 +46535,11 @@ render exists.
    receded width, so the fit refuses one before the seal would.
 8. **Two bench rows were added** (mobile with the second tap on, with and without a delta). The
    existing rows render share 0 and cannot price the grading.
+9. **The receded share and delta are fractions of the active value**, as W44's receded share was.
+   On a path where stage 1 leaves the active value at 0 (possible from c05), the receded grid is
+   the single point 0, a content twin of the current point read without a render. So on that path
+   neither receded leaf is searched. That follows part 2 as hashed; a search of them there would
+   need a part-2 change the parent rules.
 
 ### 12. What is not claimed
 
@@ -46542,3 +46550,47 @@ render exists.
   exists, part 2's `amend-fit` is still open, and nothing was fitted on the operator.
 - **A landing verdict on any ladder rung.** The ladders read their cells; the rule reads the gate
   population.
+
+### 13. Review closure, G0 (b)–(e) (`doperpowers:reviewer-medium` on `bb7c4865..72547416`)
+
+The verdict was "incorrect", on four findings. All four are accepted and closed before any fit
+render, through part 2's one amendment (`fit-amendments.json`). Areas it found sound: the
+gate-time growth partition, the T1-fine/T1-low wiring, the aggregate arithmetic and budget, the
+six synthetic cases, the rehearsal's complete/partial split and the joint point's failure, the
+ladder membership safeguards, the validated diff, and §8's reporting of (i) and (v).
+
+1. **[P1] Stage 1 could not start.** `fit/search.py`'s labels had no form for the fixed 1x width,
+   so the first point raised from both starting points. Fixed by the G1-tools worker (`3340ef52`):
+   fixed leaves are folded into the label base. Tests on the committed part 2 generate the first
+   stage-1 sweep from both starts. Content twins (equal resolved digests) are now read once.
+2. **[P1] Stage 2's two families were searched as alternatives**, so the landed point would have
+   carried either the active thin start or the receded overrides, never both, and `joint.py`
+   expected records `search.py` did not write. Fixed: a stage's families are sequential
+   components, as the draft's search procedure states ("each leaf's grid is swept in the order
+   listed, the others held at their current values"). The receded sweep starts from the thin
+   component's best, the stage's point carries both, and it is decided on the union with
+   `rule.stage_objective`, `stage_tie` and `stage_within`. `joint.py` and `recover.py` consume
+   that one record. 37 fit tests pass against the committed part 2, none rendering.
+3. **[P2] Part 1 pinned the live light 0.25 documents**, which G1's seal replaces by design, so
+   part 1's check would fail the moment G1 sealed and could not be amended (its ladders exist).
+   The amendment names the two as read at `c152b89b` (`partOneReadAt`), whose bytes are part 1's
+   pins, and `declare.py` reads them there. The starting point's derivation reads the same bytes.
+4. **[P2] The rule gated a group on its admitted count, not its gate cells.** At the exposure F
+   inactive's referee would have turned a reported group into a gated one (two gate cells and one
+   referee). `cuts/rule.py` now gates on gate-partition membership, and the aggregate still reads
+   every admitted cell (`4313129c`). A test pins the real two-plus-one shape (`test_rule.py`, 15
+   cases). The gate-scope rehearsal is unchanged: every verdict recomputes equal.
+
+**How the fix reached part 1.** Part 1 cannot be amended once a ladder renders. So W44's rule is
+extended, not bypassed: part 2's amendment records the moves of four part-1 sources
+(`partOnePins`: `declare.py`, `test_declare.py`, `cuts/rule.py`, `cuts/test_rule.py`), each from its
+pinned hash to its new bytes, and part 1's check accepts exactly those moves. Part 1's declaration
+and hash do not move. The check reads the synthetic cases by name with a count floor, and accepts
+the rehearsal's recorded `rule.py` hash as the one the record re-pinned from.
+
+**The amendment** (`fit-amendments.json`, `1395d9e1`) re-pins the six part-2 sources the fixes moved
+and carries the part-1 record above. Part 2 is now
+`77f1c39208c14ae7131ed90183b762935ecd7d52776b67ad055fcfd542315271`, superseding `da85de04…`;
+`declare.py check-fit` rebuilds the superseded hash from the record. `declare.py check` and
+`check-fit` are consistent, and the fit driver's preflight accepts the amended part. No fit render
+exists. `test_declare.py` holds the record's red cases (23 cases).
