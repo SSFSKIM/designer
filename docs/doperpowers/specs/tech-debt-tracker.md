@@ -7385,6 +7385,8 @@ A frozen point that triggered it would leave a hole in its publication stage tha
 refuses, with no way to fill it by re-reading. The shape of the fix: a shape-axis failure on a
 low-contrast backdrop records the shape axis as absent (with its reason) and keeps the row's other
 axes, as the blur axis already does ("NOT MEASURED … absent, not zero"), with a test on this cell.
+W45 G1 met it on four of 211 fit launches, all on the joint path's stage 1 (wide second taps and low
+thick/far starts), each recovered the same way (claims §5.206 §3).
 
 ## "The median over the same cells": the selection tie's cells decide W44's move 1 (W44 G1, 2026-10-03)
 
@@ -7435,3 +7437,43 @@ value (`m2-t0.46` states the base's thin start 0.46; `m3-f0.04-k0.04-t0.1` the r
 and 34 captures), so nothing is wrong, but seven of the 100 candidates (93 distinct contents by their
 light digests) were renders of a content already read. The shape of the fix: compare the candidates' resolved digests rather than their
 override sets.
+
+## W45's search marks a receded leaf with an upper-case `R`, which W45's builder refuses (W45 G1, 2026-10-03)
+
+*Found running W45 G1's stage 2 (claims §5.206 §6).*
+
+`search.label_of` (pinned by part 2 `e6874e02`) labels a receded-light leaf `R<short><value>`
+(`c-s2-t0.75-Rt0.1`), and `fit/build-candidate.ts` (pinned by part 1) accepts only labels in
+[a-z0-9.-]. So stage 2's receded component cannot build its first point. No test caught it: the
+search tests' runner builds nothing, and `test_fit.Paths` asserts the upper-case form. Part 2 was
+amended for the last time and the builder is a part-1 pin, so G1 ran stage 2 through
+`results/2026-10-03-w45-g1-refit/fit/search_g1.py`, which replaces the one function with an `rc`
+mark. The shape of the fix, for the next wave's ports: one label grammar, stated once and imported
+by the builder and the search, with a test that builds a label of every slot.
+
+## `search.py full` renders an alias instead of the twin that measures it (W45 G1, 2026-10-03)
+
+*Found reading W45 G1's two final points (claims §5.206 §6).*
+
+`search.py full LABEL` calls `fit.render(LABEL, "rest-of-fit")` on the label itself. When a content
+twin measures the label (`aliases.json`), the alias has no rendered scope, so all 94 fit cells
+render under the alias, while `joint.py` and `finding.py` read the twin through
+`fit.measured_label` and still find 65. G1 ran `full` on the twin. The alias's 188 captures are
+byte-identical to the twin's, so one launch was wasted and nothing was misread. The shape of the
+fix: `full` resolves `fit.measured_label` before it renders, as the runner does.
+
+## A coordinate sweep on a median objective decides a plateau by grid order (W45 G1, 2026-10-03)
+
+*Found reading W45 G1's fit (claims §5.206 §3, §9).*
+
+From W44's joint point, `sizeScatterSpanMax2x` is inert while the operator's delta is 0: the far
+curve has nothing to grade. Its five values read the same objective, and `min` kept the grid's
+first, 112. The delta was then swept only there, where farS is 1 at spans 128–160, and read worse.
+The span top was never revisited with a live delta, and the region G0's joint-composition ladder
+read as working (span top 160, delta −0.5 to −0.75) was never visited.
+
+The same plateau rule fixed the floor at 0.5 in pass 2 (inert at top 112), and the stage decision
+then took the starting point on the fewer-leaves tie. The shape of the fix, for the next search
+declaration:
+- sweep coupled leaves jointly (the span top with the delta), or start from a live delta;
+- break a plateau toward the incumbent value rather than the grid's first.

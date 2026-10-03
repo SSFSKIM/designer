@@ -46648,3 +46648,240 @@ check` reports the moved pins.
 
 **G0's own deliverables do not depend on these:** the operator, the proofs, the rule, the
 rehearsal, part 1, the ladders and part 2's content. No fit render exists.
+
+## 5.206 W45 G1: part 2's second and final amendment, the fit from both starting points, both final points NEITHER under the landing rule, and the worker stopped at the finding for the parent's ruling (2026-10-03)
+
+Evidence directory: `results/2026-10-03-w45-g1-refit/` (its `README.txt` maps it), on branch
+`w45-g1-refit` off `67a82a00` (the charter v1.4 merge). Charter
+`2026-10-03-w45-span-selective-texture.md` v1.4: G1 steps 0–2, clauses 5 and 6, Decision Logs 3,
+4 and 7, X54–X58. **Status: steps 0–2 done; both paths' final points read NEITHER on the 94 gate
+cells; nothing frozen, staged, exposed or published; the canonical holdout and the twelve referees
+are unspent; no profile document, generation, capture tree or runtime module moved.** The
+worker stopped there and handed the finding to the parent (§7).
+
+### 1. Part 2's second and final amendment (step 0; Decision Log 7; `6321b965`, `165ff070`)
+
+The side branch `w45-g0-search-fix` (`50be5c44`, `371d3f1c`) was merged with `--no-ff` as
+`6321b965`. Its tests pass there: 39 fit and 26 declare (`amendment/merge-commit-tests.txt`).
+
+Part 2 was `77f1c39208c14ae7131ed90183b762935ecd7d52776b67ad055fcfd542315271` and is now
+**`e6874e02902755c8648e7fcce29568d326544398229c20d08ce7d24ddfdc5433`**, the third line of
+`fit-declaration.sha256`. The record is amendment 2 of `fit-amendments.json`, citing the charter at
+`86c1b543` (Decision Log 7). It holds four operations and seven part-2 pins, each citing the item it
+executes:
+- **(1) the side branch's fixes**, re-pinned: `fit.py`, `search.py`, `joint.py`, `finding.py`,
+  `test_fit.py`; and part 1's `declare.py` (`5923827a…` → `b22a1ac4…`) and `test_declare.py`
+  (`fbcc5193…` → `28b1b895…`) as part-1 moves;
+- **(2) the domain**: `sizeHeavySecondShareFar2x` gains `domainLowerIsMinus:
+  sizeHeavySecondShare` in stage 1 and in the receded difference. The fit driver checks it on every
+  point whatever the point moves (`fit.joint_domain_failures`), resolving each light slot, the
+  receded one inheriting the active value of a key it does not name. A grid point outside it at the
+  others' current values is not a candidate (`search.sweep_candidates`);
+- **(3) the factorial**: the deep family gains `factorialGroups`, the share and the width swept as
+  ONE coordinate step of 35 points on the c05 lineage only (`search.steps_of`, `step_candidates`);
+- **(6) the seal**: `seal.ts` admits the receded `sizeHeavySecondSigma{,2x}`, as the builder does,
+  and part 2's stage-2 `inherits` states the receded widths inherited unless a point names them.
+  `test_seal.py` turns its old red case (a receded width) into an admission and keeps a red case
+  for a leaf the builder never admits.
+
+Decision Log 7 items 4 and 5 are charter text and change nothing in part 2.
+
+**What the checker does with two amendments.** `check-fit` reverts amendment 2's operations and
+pins, then amendment 1's pins, and rebuilds `77f1c392…` and `da85de04…` byte for byte. It validates
+the draft's diff on the body with every operation reverted. It recomputes amendment 2's operations
+from the body before it (`amendment_two`) and requires them equal, values included (W44 G1's
+lesson). It runs the fit and seal tests. A part-1 source moved by both amendments is accepted only
+along the chain the records state; a broken chain accepts nothing and is reported.
+
+`validate_two` refuses an operation or pin outside its item, an unknown item, a path touched twice,
+a removal, and an item with nothing executed. `amend-fit` accepts this amendment once, only under
+`86c1b543`, and refuses a third for ever.
+
+**After it**: 43 fit, 38 declare, 8 seal and 15 builder tests pass; `check` and `check-fit` read
+consistent; a third `amend-fit` exits 2 (`amendment/`). The amendment's commit time, 03:29:05 UTC,
+precedes the first fit launch, 03:32:49 UTC.
+
+### 2. The reference (step 1; `9612c606`)
+
+W45's cuts read the published c05 generation against itself (`references/`). Against G0's own c05
+cut, nine leaves differ and no reading does: two source hashes, and the `gateCells` field amendment
+1's rule fix added. M2, L1 and E2 are re-baselined on c05; T1's change is `unchanged` on all 94 gate
+cells. The aggregates the landing rule compares against are:
+- F 0.6462 pooled (rest 0.6334; inactive 1.2903, reported);
+- T rest 0.5251 on T1-fine;
+- C rest 0.1720 and inactive 0.8523;
+- P rest 0.4193 and inactive 0.1393.
+
+### 3. The fit (step 2; `82848cff`)
+
+**What ran.** 211 launches, every one in candidate mode with `--alpha`, under the GPU lock and the
+classifying web census (0 refusals; `census.jsonl` lines 104 on), on the planner's fit cells only;
+the loader refused no row because none was a referee or holdout. 207 exited 0. Four were partial on
+the lc16 shape axis ("a 0.00px contour … carries no curvature", W44's tracker entry), all on the
+joint path's stage 1; `recover.py` read each missing cell off its capture through the pinned port
+(worst 2.07e-11 against the 28 recorded rows) and the search resumed. 238 declared points, 36
+measured by content twins. Every point's cuts are under `fit/candidates/<label>/`, every rung's
+objective in `fit/path/rungs.txt`.
+
+| path | stage | landed | objective (stage cells) | how |
+| --- | --- | --- | --- | --- |
+| c05 | 1 | `c-s1-fl0.5`: floor 0.5 | 0.1008 (c05 0.1639) | tie (0.0332) to the fewer leaves; NOT within (7) |
+| c05 | 2 | thin start 0.75; receded thin 0.1, thick/far 0, heavy σ 24 | 0.2498 | the composed point |
+| joint | 1 | `j-s1-base`: the joint point itself | 0.1091 | tie to the fewer leaves; NOT within (4) |
+| joint | 2 | receded σ 22, thick/far 0, share at the active 0.5 | 0.1824 | the composed point |
+
+**Stage 1 from c05** (two passes, 94 points). The floor dominates: 0.5 / 0.6 / … / 1 read 0.1008 /
+0.1639 / 0.2613 / 0.3038 / 0.3257 / 0.2844. The span top at floor 0.5 reads 0.2844 at 112 and 128,
+falling to 0.1008 at 256. The share × width factorial keeps share 0 in both passes: the best tapped
+point is 0.25 × 4 CSS px at 0.1158 (pass 2: 0.1151), and every share of 0.5 or more reads 0.13–0.65.
+So the share stayed 0, and **the operator's domain was {0}: it was never read on this path**. The
+thick/far starts read 0.1008 at every grid value.
+
+**Stage 1 from the joint point** (52 points). The floor below 1 is worse (0.2002–0.1321). The span
+top reads 0.1091 at every value: at delta 0 the far curve has nothing to grade, so the top is
+inert. The sweep kept the grid's first value, 112. The share and width sweeps found nothing better
+than 0.5 × 5. **The operator was read only at span top 112**, where farS is 1 at spans 128–160:
+−0.25 reads 0.2081 and −0.5 reads 0.2593, against 0.1091. Lower thick/far starts are worse (0.05:
+0.3337; 0.1: 0.1870; 0.15: 0.1405). Pass 2 wandered the plateau: the floor is inert at top 112.
+Every point is equal to the joint point or worse.
+
+**Stage 2.**
+- **Thin start.** From c05's floor 0.5 the thin start lands 0.75 (0.3214 at 0.46 … 0.1715 at 0.75
+  … 0.2302 at 0.95). From the joint point it stays 0.8 (0.2071, as W44's move 2).
+- **Receded component, c05 path.** Thin 0.1 (flat 0.1–0.5), thick/far 0 (flat), and the heavy σ
+  14 → 24 takes the objective 0.4942 → 0.3845. The share and the delta are unsearched at an active
+  share of 0 (Decision Log 7 item 6).
+- **Receded component, joint path.** It reproduces W44's move 3: 0.1922 → 0.1752, at thin 0.1,
+  thick/far 0, σ 22, share ×1. Removing the receded share is again the worst point (0.4170, 0.4299).
+
+**Interactions.** On both paths no stage undid the other (`joint.json`).
+
+### 4. Between the paths, and the landing rule at both final points (`joint.py`, `finding.py`)
+
+The final points were read on their full fit maps (94 gate cells; the c05 path's through the twin
+that measures it, §6).
+
+| | c05 path | joint path | c05 |
+| --- | --- | --- | --- |
+| selection metric (gate population) | 0.1940 | 0.1811 | 0.3458 |
+| moved leaves | 9 | 11 | — |
+| F aggregate (pooled; half of c05's is 0.3231) | 0.4702 | **0.2455** | 0.6462 |
+| F rest / F inactive (reported) | 0.3436 / 1.4894 | 0.2703 / 0.0242 | 0.6334 / 1.2903 |
+| T rest (T1-fine), c05 + τ 0.6196 | **0.7216, over** | 0.2177 | 0.5251 |
+| C rest / C inactive | 0.0849 / 0.6300 | 0.1030 / 0.1155 | 0.1720 / 0.8523 |
+| P rest / P inactive (bound 0.1848) | 0.4039 / **0.1977, over** | 0.3926 / **0.1933, over** | 0.4193 / 0.1393 |
+| partition (unchanged / toward / away) | 27 / 43 / 24 | 19 / 53 / 22 | |
+| away with g > B (at most 3) | **9** | **8** | |
+| beyond 3B (none) | **3** | **4** | |
+| verdict | **NEITHER** | **NEITHER** | |
+
+**Selection (X56).** The two metrics are inside the selection tie (0.0412), so the fewer moved leaves
+select the c05 path's point. Both counts include the receded share and delta named at their
+inherited values; without them the order is the same (7 against 9).
+
+**The cells that spend the budget:**
+- **c05 path**: `checkerboard-8__rrect-md__inactive` 3.57 B, `checkerboard__capsule-button__pressed`
+  3.33, `checkerboard-32__rrect-sm__rest` 3.00 (just past 3B), `checkerboard-4__rrect-md__inactive`
+  2.60, `checkerboard-8__rrect-ml__rest` 2.52, `checkerboard-4__rrect-md__rest` 2.34,
+  `checkerboard__rrect-md__pressed` 2.07, `checkerboard-64__rrect-sm__rest` 1.82,
+  `photo__toolbar-group__inactive` 1.16.
+- **Joint path**: W44's six again — `checkerboard-8__rrect-md__rest` 6.87,
+  `checkerboard-32__rrect-lg__rest` 4.97, `checkerboard-32__rrect-sm__rest` 4.64,
+  `checkerboard__capsule-button__pressed` 3.55, `checkerboard__rrect-md__rest` 2.44,
+  `checkerboard-64__rrect-sm__rest` 2.40 — plus `hc-text__rrect-lg__inactive` 1.51 and
+  `photo__toolbar-group__inactive` 1.20.
+
+`finding.json` / `finding-joint-path.json` read each at every searched point that rendered it.
+
+**The T cells** (fidelity and change on T1-fine, away on T1-low):
+
+| cell | c05 path | joint path |
+| --- | --- | --- |
+| `hc-text-7` lg | fine 0.0313 against n 0.0032, away; low g −0.05 B | fine 0.0145, toward; low −0.15 B |
+| `hc-text-7` md | fine 0.0651 against 0.0281, away; low −0.78 B | fine 0.0212, **within**; low +0.94 B |
+| `hc-text-7` sm | fine 0.1129 against 0.1172, **within**; low −1.40 B | fine 0.1029, toward; low −1.51 B |
+
+**X48** at both final points: 94 of 94 1x light rows identical but for how they were drawn, and 188
+of 188 captures byte-identical to the canonical c05 tree (`x48-c05-path.json`,
+`x48-joint-path.json`).
+
+**By eye** (`sheets/sent.txt`, both final points on all 94 cells, sent to the MacBook):
+- **c05 path.** Its large fine-checker bodies (`checkerboard-4` lg, `checkerboard-8` ml and lg) carry
+  visible checker structure where Apple's body is nearly uniform. Its W45 − c05 difference is faint:
+  it looks like c05, sharper.
+- **Joint path.** It draws those bodies closer to Apple. `checkerboard-8` md is visibly smoother
+  than Apple's, which passes the 16-device-px checker heavily at span 96.
+
+### 5. The predictions, read against the renders (part 2's; recorded, never re-ruled)
+
+- **Stage 1 (i)**, a partial tap with farDelta near −0.5 × share at span top 160: **never visited.**
+  On the c05 path the share stayed 0. On the joint path the top was fixed at 112 before the delta
+  was swept.
+- **Stage 1 (ii)**, the active thick/far starts lower the fine thick residual: falsified at the
+  objective's level. They are flat on the c05 path and worse below 0.21 on the joint path.
+- **Stage 1 (iii)**, the mid cell's pass from the base share and width at span 96: no share or
+  width moved the objective below the joint point's.
+- **Stage 2, thin start below 0.8**: holds on the c05 path (0.75); falsified on the joint path
+  (0.8).
+- **Stage 2, receded share at the active**: holds on the joint path (×1); the receded delta at the
+  active's holds trivially (0).
+
+### 6. Two tool defects, handled beside the pinned files
+
+1. **`search.label_of` marks a receded leaf with an upper-case `R`, and the builder (a part-1 pin)
+   accepts only [a-z0-9.-].** c05's stage 2 stopped at its first receded point
+   (`logs/search-c05-stage2.attempt1.txt`; the refused spec is kept in `specs-refused/`); nothing
+   had rendered.
+   - **Why the tests missed it.** The search tests' runner builds nothing, and the label test
+     asserts the upper-case form.
+   - **The fix.** Part 2's amendment was its last, so `fit/search_g1.py` imports the pinned
+     `search.py` unchanged and replaces that one function with an `rc` mark. A label is a
+     candidate's name: no override, grid, domain, objective or decision moves. Both stage-2 runs
+     went through it.
+2. **`search.py full LABEL` renders the label, not the twin that measures it.** The c05 path's final
+   point is measured by a twin (it names the receded share and delta at their inherited values), so
+   `full` rendered all 94 cells under the alias and `joint.py` still read the twin's 65.
+   - **The fix.** `full` was run on the twin. The alias's 188 captures are byte-identical to the
+     twin's, a witness that equal digests draw equal pixels. One launch was wasted.
+
+### 7. Why the worker stopped here
+
+The landing rule reads the WebGPU 2x light gate population, and candidate mode draws what strict
+mode draws for one content. So each final point's full fit map is the gate's T1 reading on those
+cells. Both read NEITHER on the count and the ceiling, and the exposure only adds cells to the one
+budget, so no stage or exposure of either point can land under Decision Log 3.
+
+The freeze would replace the two shipped light documents. It would also regenerate the runtime
+module and the export pins for a point that cannot land, and the selected point is the one that
+reads worse under the rule. So steps 3–8 were not run, and the finding went to the parent for a
+ruling, as W44 G1's did (W44 Decision Log 4 "Otherwise").
+
+### 8. Clause 8 at this head
+
+- The freeze reads 1,818 entries and X41 911.
+- The ten shipped digests reproduce (`operator/digests.ts`).
+- `declare.py check` and `check-fit` read consistent.
+- `git diff 67a82a00 -- packages/calibration/profiles packages/platform-web packages/renderer-webgpu`
+  is empty.
+
+### 9. Gaps, and the shape of the next step
+
+- **The 2x fine-checker gap stays shipped**, as at W44.
+- **The declared search never read the operator where the ladders showed it working.** G0's
+  joint-composition rungs (share 0.5, width 2, delta −0.5 and −0.75 at span top 160, floor 1) brought
+  `checkerboard-8` md within with lg falling (§5.205 §8 (ii)). Neither path visits that region:
+  - from c05 the floor's large gain at 0.5 is reached before any tap, and the tap never pays at
+    that floor;
+  - from the joint point the span top is swept while it is inert and fixed at the grid's first
+    value.
+
+  A coordinate sweep on a median objective over a plateau decides by grid order. A search that
+  reads the operator needs the span top and the delta swept jointly, or a starting point with a
+  live delta.
+- **The stage objective does not carry F.** It is the median over F ∪ C ∪ P of the stage's cells:
+  5 F among 27 at stage 1. The c05 path's stage-1 point improves C and P and worsens every
+  fine-thick F cell (×1.8–3.0 over Apple), and the landing rule then fails it on F, T and P.
+- **The selection tie admits the worse point.** The tie (0.0412, 21–23 % of the two metrics) lets
+  two moved leaves outweigh a better metric and a better rule reading.
+- **Tool entries** (tracker): the receded label mark, `full` on an alias, and the lc16 shape-axis
+  failure (four launches here).
