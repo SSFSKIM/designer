@@ -64,7 +64,7 @@
         "apple-macos-27.0-1x-light-standard-glass0.25": 328,
         "apple-macos-27.0-2x-light-standard-glass0.25": 328
       },
-      "status": "current"
+      "status": "retired"
     },
     "d0219cd684bf.json": {
       "activeDocumentSha256": "d0219cd684bf",
@@ -84,6 +84,27 @@
       "rowsByProfileKey": {
         "apple-macos-27.0-1x-dark-standard-glass0.25": 234,
         "apple-macos-27.0-2x-dark-standard-glass0.25": 234
+      },
+      "status": "current"
+    },
+    "ebc3d9105a4a.json": {
+      "activeDocumentSha256": "ebc3d9105a4a",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+          "sha256": "ebc3d9105a4a"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+          "sha256": "12712d534b78"
+        }
+      ],
+      "bytes": 25041348,
+      "sha256": "6e13171051de77a2236d5545e1cc9ea1d35fd5fe566c6862dedf4b51a8a253f5",
+      "rowCount": 656,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-standard-glass0.25": 328,
+        "apple-macos-27.0-2x-light-standard-glass0.25": 328
       },
       "status": "current"
     }
@@ -112,6 +133,12 @@
     ],
     "f0b36a71772a": [
       "d0219cd684bf.json"
+    ],
+    "ebc3d9105a4a": [
+      "ebc3d9105a4a.json"
+    ],
+    "12712d534b78": [
+      "ebc3d9105a4a.json"
     ]
   },
   "currentByProfile": {
@@ -121,8 +148,8 @@
     "apple-macos-27.0-1x-light-standard-glass0.5": "85ad7f7e3e0d.json",
     "apple-macos-27.0-2x-dark-standard-glass0.5": "0eac5b294cc2.json",
     "apple-macos-27.0-2x-light-standard-glass0.5": "85ad7f7e3e0d.json",
-    "apple-macos-27.0-1x-light-standard-glass0.25": "6d18c059eb42.json",
-    "apple-macos-27.0-2x-light-standard-glass0.25": "6d18c059eb42.json",
+    "apple-macos-27.0-1x-light-standard-glass0.25": "ebc3d9105a4a.json",
+    "apple-macos-27.0-2x-light-standard-glass0.25": "ebc3d9105a4a.json",
     "apple-macos-27.0-1x-dark-standard-glass0.25": "d0219cd684bf.json",
     "apple-macos-27.0-2x-dark-standard-glass0.25": "d0219cd684bf.json"
   }
