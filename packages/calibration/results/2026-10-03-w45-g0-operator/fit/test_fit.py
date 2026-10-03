@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -352,6 +353,9 @@ class Decide(unittest.TestCase):
         (folder / "summary.json").write_text(json.dumps(dict(
             overrides=overrides, cells=cells,
             stages={"stage1": dict(objective=objective, within=within, notWithin=[], tie=0.01)})))
+        (self.tmp / "specs").mkdir(exist_ok=True)
+        (self.tmp / "specs" / f"{label}.json").write_text(json.dumps(dict(label=label, start="c05",
+                                                                          overrides=overrides)))
 
     MOVE = {"id": "stage1", "families": {"deep": {"leaves": {}}}}
 
@@ -370,7 +374,7 @@ class Decide(unittest.TestCase):
 
     def test_a_partial_objective_is_never_ranked(self):
         self.point("a1", 0.10, "NOT WITHIN", 1, drop=next(iter(self.members)))
-        with self.assertRaisesRegex(W.Refusal, "UNMEASURED objective member"):
+        with self.assertRaisesRegex(W.Refusal, "UNMEASURED stage1 objective member"):
             search.decide(self.MOVE, "c05", ["a1"])
 
 
@@ -521,6 +525,130 @@ class CommittedPart2(unittest.TestCase):
             self.assertEqual(written["base"], "j-s1-landed")
         finally:
             shutil.rmtree(tmp)
+
+
+class RenderOnce(unittest.TestCase):
+    """The real `Runner` on the committed part 2 with build, render and read replaced in memory: a
+    content twin MEASURES a point and never replaces its overrides (the review of W45 G0's closure,
+    P1). Content follows the identity table: both second-tap widths drop out while the share is 0."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="w45-fit-once-")).resolve()
+        self.g1 = self.tmp / "g1"
+        self.c05 = json.loads((W.CAL / "profiles/apple-macos-27.0-1x-light-standard-glass0.25.json").read_text())["patch"]
+        self.rendered, self.renders = {}, []
+        members = {sid: {} for sid in fit.scenes_for("fit")}
+
+        def content(label):
+            ov = search.base_overrides(label).get("active.light", {})
+            eff = {k: v for k, v in ov.items() if self.c05.get(k, 0) != v}
+            if fit.active_value(search.base_overrides(label), "sizeHeavySecondShare") == 0:
+                eff.pop("sizeHeavySecondSigma2x", None)
+                eff.pop("sizeHeavySecondSigma", None)
+            return tuple(sorted(eff.items()))
+
+        def objective(label):
+            ov = search.base_overrides(label)
+            share = fit.active_value(ov, "sizeHeavySecondShare")
+            width = fit.active_value(ov, "sizeHeavySecondSigma2x")
+            return abs(share * width - 1.5)
+
+        def read(name):
+            value = objective(name)
+            (self.g1 / "candidates" / name / "summary.json").write_text(json.dumps(dict(
+                cells=members, overrides=search.base_overrides(name),
+                stages={sc: dict(objective=value, within="NOT WITHIN", notWithin=[], tie=0.01)
+                        for sc in fit.ALL_SCOPES})))
+
+        def render(name, scope):
+            self.renders.append((name, scope))
+            self.rendered.setdefault(name, set()).add(scope)
+            return 0
+
+        self.patches = [
+            mock.patch.object(fit, "G1", self.g1), mock.patch.object(search, "PATH", self.g1 / "path"),
+            mock.patch.object(fit, "build", self.build),
+            mock.patch.object(search, "content_of", content),
+            mock.patch.object(fit, "covered", lambda name, scope: scope in self.rendered.get(name, ())),
+            mock.patch.object(fit, "render", render), mock.patch.object(fit, "read", read),
+            mock.patch.object(search, "read_current",
+                              lambda name: (self.g1 / "candidates" / name / "summary.json").exists()),
+        ]
+        for patch in self.patches:
+            patch.start()
+        fit._part2 = fit._declared = None
+
+    def build(self, label):
+        folder = self.g1 / "candidates" / label
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / "candidate.json").write_text("{}")
+
+    def tearDown(self):
+        for patch in self.patches:
+            patch.stop()
+        shutil.rmtree(self.tmp)
+
+    def test_a_zero_share_width_sweep_keeps_the_width_it_chose(self):
+        move = search.move_of("stage1")
+        best, labels, _ = search.sweep_family(move, "deep", "c05", {}, {}, 2, search.Runner())
+        # The width the zero-share sweep chose (the grid's first, 1.5, on a tie of one content)
+        # survives into the second pass, whose share sweep then leaves (0, 0).
+        self.assertEqual(best["active.light"]["sizeHeavySecondSigma2x"], 1.5)
+        self.assertEqual(best["active.light"]["sizeHeavySecondShare"], 1.0)
+        # At share 0 every width is one content: the width points are measured, not rendered, and
+        # each keeps its own width in its own spec.
+        aliases = fit.aliases()
+        width_points = list(dict.fromkeys(lab for lab in labels
+                                          if re.fullmatch(r"c-s1-q0-w[0-9.]+-fl0\.5-top112", lab)))
+        self.assertEqual(len(width_points), 7, labels)
+        self.assertTrue(all(lab in aliases for lab in width_points), width_points)
+        self.assertEqual(len({aliases[lab] for lab in width_points}), 1)
+        for lab in width_points:
+            self.assertIn("sizeHeavySecondSigma2x", search.base_overrides(lab)["active.light"])
+        self.assertLess(len(self.renders), len(set(labels)))
+        self.assertTrue(all(name not in aliases for name, _ in self.renders), "an alias was rendered")
+
+
+class PartialObjective(unittest.TestCase):
+    """A component's objective is never a partial median: refused until recovered, then ranked on the
+    recovered value, in the sweep itself (the review of W45 G0's closure, P2)."""
+
+    MOVE = {"id": "stage1", "families": {"deep": {"leaves": {
+        "sizeScatterFloor2x": {"slot": "active.light", "domain": [0.5, 1.0], "grid": [0.6, 0.7]}}}}}
+
+    class Existing(search.Runner):
+        def points(self, cands, labels, stage_id, family, start, scope):
+            return list(labels)
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="w45-fit-partial-")).resolve()
+        self.patches = [mock.patch.object(fit, "G1", self.tmp), mock.patch.object(search, "PATH", self.tmp / "path")]
+        for patch in self.patches:
+            patch.start()
+        members = fit.scenes_for("stage1")
+        for label, floor, objective, cells in (("c-s1-fl0.6", 0.6, 0.05, members[1:]),
+                                               ("c-s1-fl0.7", 0.7, 0.10, members)):
+            (self.tmp / "specs").mkdir(exist_ok=True)
+            (self.tmp / "specs" / f"{label}.json").write_text(json.dumps(dict(
+                label=label, start="c05", overrides={"active.light": {"sizeScatterFloor2x": floor}})))
+            (self.tmp / "candidates" / label).mkdir(parents=True)
+            (self.tmp / "candidates" / label / "summary.json").write_text(json.dumps(dict(
+                cells={sid: {} for sid in cells}, stages={"stage1": dict(objective=objective)})))
+
+    def tearDown(self):
+        for patch in self.patches:
+            patch.stop()
+        shutil.rmtree(self.tmp)
+
+    def test_the_partial_median_winner_is_refused_and_then_loses_after_recovery(self):
+        with self.assertRaisesRegex(W.Refusal, "UNMEASURED stage1 objective member"):
+            search.sweep_family(self.MOVE, "deep", "c05", {}, {}, 1, self.Existing())
+        (self.tmp / "path").mkdir()
+        (self.tmp / "path" / "recovered.json").write_text(json.dumps(dict(points={
+            "c-s1-fl0.6": {"stage1": {"declaredObjective": 0.20}}})))
+        best, _, chosen = search.sweep_family(self.MOVE, "deep", "c05", {}, {}, 1, self.Existing())
+        self.assertEqual(chosen, "c-s1-fl0.7")
+        self.assertEqual(best["active.light"]["sizeScatterFloor2x"], 0.7)
 
 
 class Paths(unittest.TestCase):

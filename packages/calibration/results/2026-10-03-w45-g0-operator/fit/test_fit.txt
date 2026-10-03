@@ -24,6 +24,7 @@ test_bytes_that_are_not_the_hash_refuse (test_fit.Part2.test_bytes_that_are_not_
 test_relative_grids_follow_the_active_value (test_fit.Part2.test_relative_grids_follow_the_active_value) ... ok
 test_the_operator_and_the_span_top_are_admitted_where_declared (test_fit.Part2.test_the_operator_and_the_span_top_are_admitted_where_declared) ... ok
 test_what_part_2_does_not_declare_refuses (test_fit.Part2.test_what_part_2_does_not_declare_refuses) ... ok
+test_the_partial_median_winner_is_refused_and_then_loses_after_recovery (test_fit.PartialObjective.test_the_partial_median_winner_is_refused_and_then_loses_after_recovery) ... ok
 test_a_lineage_with_no_decision_refuses (test_fit.Paths.test_a_lineage_with_no_decision_refuses) ... ok
 test_joint_reads_part_2s_two_stages_by_default (test_fit.Paths.test_joint_reads_part_2s_two_stages_by_default) ... ok
 test_labels_carry_the_lineage_and_the_stage (test_fit.Paths.test_labels_carry_the_lineage_and_the_stage) ... ok
@@ -31,6 +32,7 @@ test_stage_records_that_do_not_chain_refuse (test_fit.Paths.test_stage_records_t
 test_a_census_refusal_is_told_apart_from_a_partial_matrix (test_fit.Render.test_a_census_refusal_is_told_apart_from_a_partial_matrix) ... ok
 test_a_w44_candidate_root_refuses (test_fit.Render.test_a_w44_candidate_root_refuses) ... ok
 test_every_fit_render_passes_alpha_and_never_a_holdout_set (test_fit.Render.test_every_fit_render_passes_alpha_and_never_a_holdout_set) ... ok
+test_a_zero_share_width_sweep_keeps_the_width_it_chose (test_fit.RenderOnce.test_a_zero_share_width_sweep_keeps_the_width_it_chose) ... ok
 test_the_rest_of_stage_2_after_its_receded_part (test_fit.StageRender.test_the_rest_of_stage_2_after_its_receded_part) ... j-x/stage2 exit 0 31 cells
 ok
 test_an_undeclared_start_refuses (test_fit.Starts.test_an_undeclared_start_refuses) ... ok
@@ -38,6 +40,6 @@ test_another_declaration_hash_refuses (test_fit.Starts.test_another_declaration_
 test_the_joint_point_is_admitted_by_its_declaration_hash (test_fit.Starts.test_the_joint_point_is_admitted_by_its_declaration_hash) ... ok
 
 ----------------------------------------------------------------------
-Ran 37 tests in 1.164s
+Ran 39 tests in 1.522s
 
 OK
