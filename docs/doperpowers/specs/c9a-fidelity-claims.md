@@ -47383,3 +47383,42 @@ inactive aggregate turning over is recorded beside them.
 
 The exposure report is `exposure/exposure-report.txt`. Publication (step 8) waits for the parent's
 ruling on the three holdout misses.
+
+**Closure: the parent's ruling of 2026-10-04 (under W44 Decision Log 5 and W45 Decision Log 8).**
+The three exposed cells are **shipped-and-named**, never re-read. The P inactive aggregate failure is
+a **named miss**. The reasons:
+- **The holdout tables** are exactly c05's named misses on every tier, none new and none closed.
+- **`checkerboard__rrect-lg__rest`** (3.30 B) is the rest twin of the gate's named
+  `checkerboard__rrect-md__pressed` mechanism one span up: the 0.25 tap share at 160 passing the
+  32-device-px checker. It is the same named class.
+- **`checkerboard__glass-over-glass__rest`** (1.57 B) is inside the ceiling.
+- **The T referee's +1.60 B on T1-low** sits beside a T1-fine move toward Apple (×15.5 → ×3.1),
+  the two-reader shape W44 Decision Log 7 declared for T.
+- **The P inactive aggregate** (0.1937 against 0.1870) tips on exposed cells that are each
+  `unchanged` (growth +0.33 to +0.40 B) and under Apple. `gate/photo-lattice` shows the receded
+  photo's lattice moving toward Apple: it is the SD reader, named.
+- **The referees:** three moved toward Apple, one is now within, two are unchanged.
+
+**The authorised list for G2:**
+
+1. **Eleven T1 regressions** against `6d18c059eb42`, for `T1_AUTHORISED_REGRESSIONS`:
+
+   | cell | growth | where it was read |
+   | --- | --- | --- |
+   | `checkerboard__rrect-md__pressed` | 4.27 B | §13 |
+   | `checkerboard__capsule-button__pressed` | 4.25 B | §13 |
+   | `checkerboard-32__rrect-sm__rest` | 4.18 B | §13 |
+   | `checkerboard-32__rrect-lg__rest` | 3.34 B | §13 |
+   | `checkerboard__rrect-lg__rest` | 3.30 B | this section, holdout |
+   | `checkerboard-64__rrect-sm__rest` | 2.22 B | §13; the uniform-cell geometry, §14 |
+   | `hc-text-7__rrect-md__inactive` | +1.60 B on T1-low | this section, referee; T1-fine toward Apple |
+   | `checkerboard__glass-over-glass__rest` | 1.57 B | this section, holdout |
+   | `checkerboard-8__rrect-lg__rest` | 1.55 B | §13 |
+   | `hc-text__rrect-lg__inactive` | 1.40 B | §13 |
+   | `photo__toolbar-group__inactive` | 1.02 B | §13; `gate/photo-lattice` |
+
+   Each entry carries Decision Log 8.
+2. **M2's four receded photo cells,** as named misses with `gate/photo-lattice` beside them (§15):
+   `photo__capsule-button__inactive`, `photo__rrect-md__inactive`, `photo__rrect-sm__inactive` and
+   `photo__toolbar-group__inactive`.
+3. **The P inactive T1 aggregate** (0.1937 against 0.1870), a named miss with the same reading.

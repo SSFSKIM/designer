@@ -703,6 +703,14 @@ Ship it as an improvement landing with those twelve named, or close W45 at the f
   - the generation is published after the parent rules any holdout miss;
   - G2 lands it as 0.27.0.
 
+**At the exposure, ruled by the parent (2026-10-04, under W44 Decision Log 5 and this ruling).**
+The three exposed cells that spend the budget are SHIPPED-AND-NAMED, never re-read:
+`checkerboard__rrect-lg__rest` 3.30 B, `checkerboard__glass-over-glass__rest` 1.57 B and
+`hc-text-7__rrect-md__inactive` +1.60 B on T1-low. The P inactive aggregate failure (0.1937 against
+0.1870) is a NAMED miss. The authorised list is therefore eleven T1 regressions against
+`6d18c059eb42`, M2's four receded photo cells and the P inactive aggregate, each with its reading
+cited (claims §5.206 §16).
+
 *Reasoning.* Decision Log 3 fixed the count and the ceiling before the rehearsal as a stated
 tradeoff, with no perceptual measurement behind either number. The ruled exception is a decision
 about that tradeoff on a measured candidate. It does not move the budget, so the next publication
