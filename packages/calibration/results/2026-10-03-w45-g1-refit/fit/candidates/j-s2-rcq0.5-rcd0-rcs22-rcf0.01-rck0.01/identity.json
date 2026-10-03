@@ -1,0 +1,50 @@
+{
+  "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.01-rck0.01",
+  "holds": true,
+  "endpoints": {
+    "active.light": {
+      "moved": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondSigma2x",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin2x"
+      ],
+      "undeclared": [],
+      "digest": "fbf1047bc618a87d",
+      "c05Digest": "50430fa62c1120bd",
+      "secondTap1xWidth": 0
+    },
+    "active.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "b074fc6913a91c66",
+      "c05Digest": "b074fc6913a91c66",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    },
+    "receded.light": {
+      "moved": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavyTapSigma2x",
+        "sizeScatterRampStartFar2x",
+        "sizeScatterRampStartThick2x",
+        "sizeScatterRampStartThin2x"
+      ],
+      "undeclared": [],
+      "digest": "341d80ebcd3846e5",
+      "c05Digest": "5d8680980b7aeb55",
+      "secondTap1xWidth": 0
+    },
+    "receded.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "280f0fddf014e0f6",
+      "c05Digest": "280f0fddf014e0f6",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    }
+  }
+}

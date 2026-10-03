@@ -1,0 +1,27 @@
+{
+  "$comment": "W45 scratch candidate start-joint: the declared starting point joint (Decision Log 4, X56)",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w45-start-joint",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "1d5693e2fb18ede2bb2da189006be3b20645694b79591d1031ccf14135600ec6"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "d0720d4ded19ac491e0369103e162f4107c2658c0becfd589430c5c77934c1ad"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "b71a7acdb761e42e0db08338152262e91153a25fd9675a45a3018031898aa482"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "4eb671a915b3c379b759acd856c62cb2d9d1970187249499055e4d82ca1d69b0"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

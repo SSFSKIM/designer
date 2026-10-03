@@ -1,0 +1,12 @@
+W45 G1: bands.py's reader rehearsed on the published c05 generation and the canonical tree, against W44 G2's
+reference fixture (results/2026-10-03-w44-g2-landing/t1/t-bands.json), in memory; no fixture written.
+8 T cells read (gate, referee, holdout); 8 of 8 entries equal to the reference fixture's,
+every field but the added `partition`:
+  apple-macos-27.0-1x-light-standard-glass0.25 hc-text-7__rrect-lg__rest gate
+  apple-macos-27.0-1x-light-standard-glass0.25 hc-text-7__rrect-md__inactive referee
+  apple-macos-27.0-1x-light-standard-glass0.25 hc-text-7__rrect-md__rest gate
+  apple-macos-27.0-1x-light-standard-glass0.25 hc-text-7__rrect-sm__rest gate
+  apple-macos-27.0-2x-light-standard-glass0.25 hc-text-7__rrect-lg__rest gate
+  apple-macos-27.0-2x-light-standard-glass0.25 hc-text-7__rrect-md__inactive referee
+  apple-macos-27.0-2x-light-standard-glass0.25 hc-text-7__rrect-md__rest gate
+  apple-macos-27.0-2x-light-standard-glass0.25 hc-text-7__rrect-sm__rest gate

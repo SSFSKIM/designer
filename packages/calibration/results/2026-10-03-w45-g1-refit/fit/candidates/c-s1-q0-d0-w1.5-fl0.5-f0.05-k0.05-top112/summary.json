@@ -1,0 +1,1725 @@
+{
+ "label": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top112",
+ "stage": "stage1",
+ "family": "deep",
+ "start": "c05",
+ "overrides": {
+  "active.light": {
+   "sizeHeavySecondSigma": 0,
+   "sizeScatterFloor2x": 0.5,
+   "sizeScatterSpanMax2x": 112,
+   "sizeHeavySecondShare": 0,
+   "sizeHeavySecondSigma2x": 1.5,
+   "sizeHeavySecondShareFar2x": 0,
+   "sizeScatterRampStartThick2x": 0.05,
+   "sizeScatterRampStartFar2x": 0.05
+  }
+ },
+ "scopes": {
+  "stage1": 29
+ },
+ "declarationSha256": "71e8ca3baaee4002d3ed9de4f910b81adcb7f860d7722fc1be917bbaf355b39f",
+ "stages": {
+  "stage1": {
+   "objective": 0.42014632751317216,
+   "tie": 0.03318323538655515,
+   "within": "NOT WITHIN",
+   "notWithin": [
+    "checkerboard__rrect-md__rest",
+    "checkerboard__rrect-ml__rest",
+    "checkerboard__rrect-md__pressed",
+    "checkerboard-4__rrect-md__rest",
+    "checkerboard-4__rrect-lg__rest",
+    "checkerboard-8__rrect-md__rest",
+    "checkerboard-8__rrect-ml__rest",
+    "checkerboard-8__rrect-lg__rest"
+   ],
+   "unmeasured": 0
+  },
+  "stage2-thin": {
+   "objective": null,
+   "tie": null,
+   "within": "UNMEASURED",
+   "notWithin": [],
+   "unmeasured": 30
+  },
+  "stage2-receded": {
+   "objective": null,
+   "tie": null,
+   "within": "UNMEASURED",
+   "notWithin": [],
+   "unmeasured": 34
+  },
+  "stage2": {
+   "objective": null,
+   "tie": null,
+   "within": "UNMEASURED",
+   "notWithin": [],
+   "unmeasured": 64
+  }
+ },
+ "selectionMetric": 0.42014632751317216,
+ "selectionTie": 0.03318323538655515,
+ "rule": {
+  "scope": "webgpu, 2x light (apple-macos-27.0-2x-light-standard-glass0.25), both poses, F \u222a T \u222a C \u222a P, partitions gate; T on T1-fine (away on T1-low)",
+  "constants": {
+   "budgetCount": 3,
+   "budgetCeilingB": 3.0,
+   "gatingMinCells": 3
+  },
+  "cells": 29,
+  "read": 29,
+  "unmeasured": [
+   "checkerboard__capsule-button__rest (no row)",
+   "impulse__capsule-button__rest (no row)",
+   "photo__capsule-button__rest (no row)",
+   "checkerboard__rrect-sm__rest (no row)",
+   "photo__rrect-sm__rest (no row)",
+   "checkerboard__toolbar-group__rest (no row)",
+   "photo__toolbar-group__rest (no row)",
+   "checkerboard__capsule-button__pressed (no row)",
+   "photo__capsule-button__pressed (no row)",
+   "impulse__capsule-button__rest-tint-orange (no row)",
+   "checkerboard__capsule-button__rest-tint-orange (no row)",
+   "photo__capsule-button__rest-tint-orange (no row)",
+   "photo__capsule-button__rest-tint-blue (no row)",
+   "photo__capsule-button__rest-tint-orange-half (no row)",
+   "checkerboard__capsule-button__rest-tint-blue (no row)",
+   "checkerboard-4__rrect-sm__rest (no row)",
+   "checkerboard-4__capsule-button__rest (no row)",
+   "checkerboard-8__capsule-button__rest (no row)",
+   "checkerboard-32__rrect-sm__rest (no row)",
+   "checkerboard-32__capsule-button__rest (no row)",
+   "checkerboard-64__rrect-sm__rest (no row)",
+   "checkerboard-64__capsule-button__rest (no row)",
+   "checkerboard-lc16__rrect-sm__rest (no row)",
+   "checkerboard-lc16__capsule-button__rest (no row)",
+   "hc-text-7__rrect-sm__rest (no row)",
+   "hc-text-28__rrect-sm__rest (no row)",
+   "hc-text__rrect-sm__rest (no row)",
+   "checkerboard-8__capsule-button__rest-tint-orange (no row)",
+   "checkerboard-32__capsule-button__rest-tint-orange (no row)",
+   "checkerboard-64__capsule-button__rest-tint-orange (no row)",
+   "impulse__rrect-sm__rest (no row)",
+   "checkerboard__capsule-button__inactive (no row)",
+   "checkerboard__capsule-button__inactive-tint-blue (no row)",
+   "checkerboard__capsule-button__inactive-tint-orange (no row)",
+   "checkerboard__capsule-button__inactive-pressed (no row)",
+   "checkerboard__rrect-md__inactive (no row)",
+   "checkerboard__rrect-md__inactive-pressed (no row)",
+   "checkerboard__rrect-sm__inactive (no row)",
+   "checkerboard__toolbar-group__inactive (no row)",
+   "impulse__capsule-button__inactive (no row)",
+   "impulse__capsule-button__inactive-tint-orange (no row)",
+   "impulse__rrect-md__inactive (no row)",
+   "photo__capsule-button__inactive (no row)",
+   "photo__capsule-button__inactive-tint-blue (no row)",
+   "photo__capsule-button__inactive-tint-orange (no row)",
+   "photo__capsule-button__inactive-tint-orange-half (no row)",
+   "photo__capsule-button__inactive-pressed (no row)",
+   "photo__rrect-md__inactive (no row)",
+   "photo__rrect-md__inactive-tint-orange (no row)",
+   "photo__rrect-md__inactive-pressed (no row)",
+   "photo__rrect-sm__inactive (no row)",
+   "photo__toolbar-group__inactive (no row)",
+   "checkerboard__rrect-ml__inactive (no row)",
+   "checkerboard-4__rrect-md__inactive (no row)",
+   "checkerboard-8__rrect-md__inactive (no row)",
+   "checkerboard-64__rrect-md__inactive (no row)",
+   "checkerboard-64__rrect-lg__inactive (no row)",
+   "checkerboard-lc16__capsule-button__inactive (no row)",
+   "checkerboard-lc16__rrect-md__inactive (no row)",
+   "impulse__rrect-ml__inactive (no row)",
+   "impulse__rrect-lg__inactive (no row)",
+   "hc-text__rrect-sm__inactive (no row)",
+   "hc-text__rrect-lg__inactive (no row)",
+   "hc-text-28__rrect-md__inactive (no row)",
+   "photo__rrect-ml__inactive (no row)"
+  ],
+  "partition": {
+   "unchanged": {
+    "P": 4,
+    "C": 2,
+    "total": 6
+   },
+   "toward": {
+    "F": 4,
+    "T": 2,
+    "total": 6
+   },
+   "away": {
+    "C": 16,
+    "F": 1,
+    "total": 17
+   }
+  },
+  "groups": {
+   "F rest": {
+    "cells": 5,
+    "gateCells": 5,
+    "A": 0.3345453232489707,
+    "referenceA": 0.6333529777577637,
+    "tau": 0.09151962491496908,
+    "gated": true,
+    "holds": true
+   },
+   "T rest": {
+    "cells": 2,
+    "gateCells": 2,
+    "A": 0.4348066965073212,
+    "referenceA": 0.8525629543645733,
+    "tau": 0.19716930517772546,
+    "gated": false,
+    "holds": true
+   },
+   "C rest": {
+    "cells": 18,
+    "gateCells": 18,
+    "A": 0.3027949073569284,
+    "referenceA": 0.06894825255145584,
+    "tau": 0.025109994044103225,
+    "gated": true,
+    "holds": false
+   },
+   "P rest": {
+    "cells": 4,
+    "gateCells": 4,
+    "A": 0.3877834558347999,
+    "referenceA": 0.36598983898382076,
+    "tau": 0.03111787418519952,
+    "gated": true,
+    "holds": true
+   }
+  },
+  "gatedAggregateFailures": [
+   "C rest"
+  ],
+  "reportedAggregateOver": [],
+  "fAggregate": 0.3345453232489707,
+  "fAggregateReference": 0.6333529777577637,
+  "fHalved": false,
+  "fNotWithin": [
+   "checkerboard-4__rrect-md__rest",
+   "checkerboard-4__rrect-lg__rest",
+   "checkerboard-8__rrect-md__rest",
+   "checkerboard-8__rrect-ml__rest",
+   "checkerboard-8__rrect-lg__rest"
+  ],
+  "awayBeyondB": [
+   {
+    "scene": "checkerboard__rrect-md__rest",
+    "growthInB": 11.001794139409967
+   },
+   {
+    "scene": "checkerboard-8__rrect-md__rest",
+    "growthInB": 9.952670830145179
+   },
+   {
+    "scene": "checkerboard__rrect-ml__rest",
+    "growthInB": 8.712864723917846
+   },
+   {
+    "scene": "checkerboard-32__rrect-md__rest",
+    "growthInB": 7.988602289031421
+   },
+   {
+    "scene": "hc-text-28__rrect-md__rest",
+    "growthInB": 7.579733316487448
+   },
+   {
+    "scene": "checkerboard-32__rrect-ml__rest",
+    "growthInB": 6.199124696950236
+   },
+   {
+    "scene": "checkerboard-32__rrect-lg__rest",
+    "growthInB": 4.497186390580808
+   },
+   {
+    "scene": "checkerboard-lc16__rrect-md__rest",
+    "growthInB": 3.8636297626993508
+   },
+   {
+    "scene": "checkerboard-64__rrect-md__rest",
+    "growthInB": 3.796815948802663
+   },
+   {
+    "scene": "checkerboard-64__rrect-ml__rest",
+    "growthInB": 3.394122397023441
+   },
+   {
+    "scene": "checkerboard-lc16__rrect-ml__rest",
+    "growthInB": 2.7431898151626215
+   },
+   {
+    "scene": "hc-text-28__rrect-lg__rest",
+    "growthInB": 2.564269219236235
+   },
+   {
+    "scene": "checkerboard__rrect-md__pressed",
+    "growthInB": 2.043928932385985
+   },
+   {
+    "scene": "checkerboard-64__rrect-lg__rest",
+    "growthInB": 1.906800098444975
+   },
+   {
+    "scene": "checkerboard-lc16__rrect-lg__rest",
+    "growthInB": 1.7863118653691619
+   },
+   {
+    "scene": "hc-text-7__rrect-md__rest",
+    "growthInB": 1.6159370387334335
+   },
+   {
+    "scene": "hc-text__rrect-lg__rest",
+    "growthInB": 1.4660846137306618
+   },
+   {
+    "scene": "impulse__rrect-md__rest",
+    "growthInB": 1.1255944016203356
+   }
+  ],
+  "awayBeyondCeiling": [
+   {
+    "scene": "checkerboard__rrect-md__rest",
+    "growthInB": 11.001794139409967
+   },
+   {
+    "scene": "checkerboard-8__rrect-md__rest",
+    "growthInB": 9.952670830145179
+   },
+   {
+    "scene": "checkerboard__rrect-ml__rest",
+    "growthInB": 8.712864723917846
+   },
+   {
+    "scene": "checkerboard-32__rrect-md__rest",
+    "growthInB": 7.988602289031421
+   },
+   {
+    "scene": "hc-text-28__rrect-md__rest",
+    "growthInB": 7.579733316487448
+   },
+   {
+    "scene": "checkerboard-32__rrect-ml__rest",
+    "growthInB": 6.199124696950236
+   },
+   {
+    "scene": "checkerboard-32__rrect-lg__rest",
+    "growthInB": 4.497186390580808
+   },
+   {
+    "scene": "checkerboard-lc16__rrect-md__rest",
+    "growthInB": 3.8636297626993508
+   },
+   {
+    "scene": "checkerboard-64__rrect-md__rest",
+    "growthInB": 3.796815948802663
+   },
+   {
+    "scene": "checkerboard-64__rrect-ml__rest",
+    "growthInB": 3.394122397023441
+   }
+  ],
+  "budgetHolds": false,
+  "fullClose": false,
+  "improvement": false,
+  "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+  "why": [],
+  "perCell": [
+   {
+    "scene": "checkerboard__rrect-md__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.15005051577845693,
+    "reference": 0.09760297307439242,
+    "candidate": 0.02469502545294108,
+    "growthInB": 11.001794139409967,
+    "awayChange": "away",
+    "awayGrowthInB": 11.001794139409967,
+    "band": "T1"
+   },
+   {
+    "scene": "impulse__rrect-md__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.024488222262575205,
+    "reference": 0.020428388005728472,
+    "candidate": 0.016667293596407933,
+    "growthInB": 1.1255944016203356,
+    "awayChange": "away",
+    "awayGrowthInB": 1.1255944016203356,
+    "band": "T1"
+   },
+   {
+    "scene": "photo__rrect-md__rest",
+    "stratum": "P",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "unchanged",
+    "native": 0.08934577337251297,
+    "reference": 0.056678840937588536,
+    "candidate": 0.05440700979693987,
+    "growthInB": 0.3768146151735439,
+    "awayChange": "unchanged",
+    "awayGrowthInB": 0.3768146151735439,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard__rrect-ml__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.08152237698932381,
+    "reference": 0.07574438253543016,
+    "candidate": 0.019679808538218557,
+    "growthInB": 8.712864723917846,
+    "awayChange": "away",
+    "awayGrowthInB": 8.712864723917846,
+    "band": "T1"
+   },
+   {
+    "scene": "photo__rrect-ml__rest",
+    "stratum": "P",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "unchanged",
+    "native": 0.10320487656334631,
+    "reference": 0.06643968238825188,
+    "candidate": 0.06465723772712292,
+    "growthInB": 0.2909105128344739,
+    "awayChange": "unchanged",
+    "awayGrowthInB": 0.2909105128344739,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard__rrect-md__pressed",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.15005051577845693,
+    "reference": 0.15746019446250556,
+    "candidate": 0.12909589509167071,
+    "growthInB": 2.043928932385985,
+    "awayChange": "away",
+    "awayGrowthInB": 2.043928932385985,
+    "band": "T1"
+   },
+   {
+    "scene": "photo__rrect-md__pressed",
+    "stratum": "P",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "unchanged",
+    "native": 0.08934577337251297,
+    "reference": 0.09940056339321973,
+    "candidate": 0.09848583189332585,
+    "growthInB": -0.1517208704257896,
+    "awayChange": "unchanged",
+    "awayGrowthInB": -0.1517208704257896,
+    "band": "T1"
+   },
+   {
+    "scene": "photo__rrect-md__rest-tint-orange",
+    "stratum": "P",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "unchanged",
+    "native": 0.022423620797271435,
+    "reference": 0.014971393374753691,
+    "candidate": 0.014607751153794287,
+    "growthInB": 0.07839333549754772,
+    "awayChange": "unchanged",
+    "awayGrowthInB": 0.07839333549754772,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-4__rrect-md__rest",
+    "stratum": "F",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "toward",
+    "native": 0.029743847107709092,
+    "reference": 0.061436242381757426,
+    "candidate": 0.018536073157619844,
+    "growthInB": -3.3522785616260284,
+    "awayChange": "toward",
+    "awayGrowthInB": -3.3522785616260284,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-4__rrect-lg__rest",
+    "stratum": "F",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "toward",
+    "native": 0.022721499388684965,
+    "reference": 0.03651558041779828,
+    "candidate": 0.015387421225094542,
+    "growthInB": -1.028576269076762,
+    "awayChange": "toward",
+    "awayGrowthInB": -1.028576269076762,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-8__rrect-md__rest",
+    "stratum": "F",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.09906120513171915,
+    "reference": 0.08407239752934986,
+    "candidate": 0.020355296072891195,
+    "growthInB": 9.952670830145179,
+    "awayChange": "away",
+    "awayGrowthInB": 9.952670830145179,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-8__rrect-ml__rest",
+    "stratum": "F",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "toward",
+    "native": 0.026131340062146822,
+    "reference": 0.06370482431063501,
+    "candidate": 0.016939355946310814,
+    "growthInB": -4.5802567026176435,
+    "awayChange": "toward",
+    "awayGrowthInB": -4.5802567026176435,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-8__rrect-lg__rest",
+    "stratum": "F",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "toward",
+    "native": 0.022371398385066653,
+    "reference": 0.048400325404269286,
+    "candidate": 0.014696905444747842,
+    "growthInB": -2.9192546943014697,
+    "awayChange": "toward",
+    "awayGrowthInB": -2.9192546943014697,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-32__rrect-md__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.18168271271435463,
+    "reference": 0.15561014858174602,
+    "candidate": 0.10184191243528935,
+    "growthInB": 7.988602289031421,
+    "awayChange": "away",
+    "awayGrowthInB": 7.988602289031421,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-32__rrect-ml__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.15560451475534878,
+    "reference": 0.1465561413273066,
+    "candidate": 0.10534149934316737,
+    "growthInB": 6.199124696950236,
+    "awayChange": "away",
+    "awayGrowthInB": 6.199124696950236,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-32__rrect-lg__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.1336354916433524,
+    "reference": 0.13292365687444022,
+    "candidate": 0.10293971320385122,
+    "growthInB": 4.497186390580808,
+    "awayChange": "away",
+    "awayGrowthInB": 4.497186390580808,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-64__rrect-md__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.2484984895109067,
+    "reference": 0.2330194308553465,
+    "candidate": 0.2084122121966015,
+    "growthInB": 3.796815948802663,
+    "awayChange": "away",
+    "awayGrowthInB": 3.796815948802663,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-64__rrect-ml__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.2275686372062155,
+    "reference": 0.21175092346826294,
+    "candidate": 0.18946317913659302,
+    "growthInB": 3.394122397023441,
+    "awayChange": "away",
+    "awayGrowthInB": 3.394122397023441,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-64__rrect-lg__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.2445548731842864,
+    "reference": 0.23192160575436865,
+    "candidate": 0.21926692777497617,
+    "growthInB": 1.906800098444975,
+    "awayChange": "away",
+    "awayGrowthInB": 1.906800098444975,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-lc16__rrect-md__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.06786851207758757,
+    "reference": 0.043058934940191564,
+    "candidate": 0.014635615602302284,
+    "growthInB": 3.8636297626993508,
+    "awayChange": "away",
+    "awayGrowthInB": 3.8636297626993508,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-lc16__rrect-ml__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.03698539423557414,
+    "reference": 0.03391523134810384,
+    "candidate": 0.013727512320994352,
+    "growthInB": 2.7431898151626215,
+    "awayChange": "away",
+    "awayGrowthInB": 2.7431898151626215,
+    "band": "T1"
+   },
+   {
+    "scene": "checkerboard-lc16__rrect-lg__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.032221084410286864,
+    "reference": 0.027350448245618445,
+    "candidate": 0.014017218254995079,
+    "growthInB": 1.7863118653691619,
+    "awayChange": "away",
+    "awayGrowthInB": 1.7863118653691619,
+    "band": "T1"
+   },
+   {
+    "scene": "hc-text-7__rrect-md__rest",
+    "stratum": "T",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "toward",
+    "native": 0.028069089678105175,
+    "reference": 0.05224346299468655,
+    "candidate": 0.008667433037558292,
+    "growthInB": -0.6878889510280812,
+    "awayChange": "away",
+    "awayGrowthInB": 1.6159370387334335,
+    "band": "T1-fine (away on T1-low)"
+   },
+   {
+    "scene": "hc-text-7__rrect-lg__rest",
+    "stratum": "T",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "within",
+    "change": "toward",
+    "native": 0.0031898751656639227,
+    "reference": 0.027108103512565707,
+    "candidate": 0.003864920838874624,
+    "growthInB": -3.1330357835007763,
+    "awayChange": "unchanged",
+    "awayGrowthInB": 0.2467137140665915,
+    "band": "T1-fine (away on T1-low)"
+   },
+   {
+    "scene": "hc-text-28__rrect-md__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.16628297945682458,
+    "reference": 0.1331060571919832,
+    "candidate": 0.0787029699519141,
+    "growthInB": 7.579733316487448,
+    "awayChange": "away",
+    "awayGrowthInB": 7.579733316487448,
+    "band": "T1"
+   },
+   {
+    "scene": "hc-text-28__rrect-lg__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.1313411703026609,
+    "reference": 0.12255756599108228,
+    "candidate": 0.10325857173858713,
+    "growthInB": 2.564269219236235,
+    "awayChange": "away",
+    "awayGrowthInB": 2.564269219236235,
+    "band": "T1"
+   },
+   {
+    "scene": "hc-text__rrect-lg__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "miss",
+    "change": "away",
+    "native": 0.12363795994403433,
+    "reference": 0.10292767542337687,
+    "candidate": 0.0920653084230216,
+    "growthInB": 1.4660846137306618,
+    "awayChange": "away",
+    "awayGrowthInB": 1.4660846137306618,
+    "band": "T1"
+   },
+   {
+    "scene": "impulse__rrect-ml__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "within",
+    "change": "unchanged",
+    "native": 0.014524766571989173,
+    "reference": 0.015230037065314344,
+    "candidate": 0.014302104698365674,
+    "growthInB": -0.1441414219372144,
+    "awayChange": "unchanged",
+    "awayGrowthInB": -0.1441414219372144,
+    "band": "T1"
+   },
+   {
+    "scene": "impulse__rrect-lg__rest",
+    "stratum": "C",
+    "pose": "rest",
+    "partition": "gate",
+    "fidelity": "within",
+    "change": "unchanged",
+    "native": 0.01346015288863012,
+    "reference": 0.013954238226175177,
+    "candidate": 0.012753593152463553,
+    "growthInB": 0.06272804464402,
+    "awayChange": "unchanged",
+    "awayGrowthInB": 0.06272804464402,
+    "band": "T1"
+   }
+  ],
+  "outside": "the referees' clause (at the exposure), every other adopted row, and the exposure's holdout-miss ruling are not evaluated here"
+ },
+ "verdicts": {
+  "tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu": "UNMEASURED",
+  "tables apple-macos-27.0-1x-light-standard-glass0.25 css": "UNMEASURED",
+  "tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu": "PASS, 20 UNMEASURED (20 no row)",
+  "tables apple-macos-27.0-2x-light-standard-glass0.25 css": "UNMEASURED",
+  "tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu": "UNMEASURED",
+  "tables apple-macos-27.0-1x-dark-standard-glass0.25 css": "UNMEASURED",
+  "tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu": "UNMEASURED",
+  "tables apple-macos-27.0-2x-dark-standard-glass0.25 css": "UNMEASURED",
+  "M1 webgpu (GATED)": "PASS, 24 UNMEASURED (24 no row)",
+  "M1 css (descriptive)": "UNMEASURED",
+  "M2 webgpu (GATED)": "FAIL",
+  "M2 css (descriptive)": "UNMEASURED",
+  "C1 webgpu (GATED)": "UNMEASURED",
+  "C1 css (descriptive)": "UNMEASURED",
+  "L1 webgpu (GATED)": "PASS, 134 UNMEASURED (134 no row)",
+  "L1 css (descriptive)": "UNMEASURED",
+  "X1 webgpu (GATED)": "PASS, 209 UNMEASURED (209 no row)",
+  "X1 css (descriptive)": "UNMEASURED",
+  "E2 webgpu (GATED)": "MISS",
+  "E2 css (descriptive)": "UNMEASURED",
+  "S1 webgpu (GATED)": "UNMEASURED",
+  "S1 css (GATED)": "UNMEASURED",
+  "T1 webgpu (GATED)": "UNMEASURED: 65 cells of the landing scope have no reading, 94 more UNMEASURED outside the landing scope",
+  "T1 css (descriptive)": "read (tier residual)",
+  "W45 rule (T1, 2x light WebGPU)": "UNMEASURED: 65 member(s) of the scope have no reading"
+ },
+ "cells": {
+  "checkerboard__rrect-md__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.15005051577845693,
+   "c": 0.09760297307439242,
+   "k": 0.02469502545294108,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.07290794762145134,
+   "B": 0.006626914364838446,
+   "bands": {
+    "fine": {
+     "native": 0.034835978126480927,
+     "reference": 0.030846768436189928,
+     "candidate": 0.005808213162185895,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.025038555274004032,
+     "B": 0.006626914364838446
+    },
+    "low": {
+     "native": 0.12510291590966693,
+     "reference": 0.07774087664602794,
+     "candidate": 0.015669745103647503,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.062071131542380434,
+     "B": 0.006626914364838446
+    }
+   }
+  },
+  "impulse__rrect-md__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.024488222262575205,
+   "c": 0.020428388005728472,
+   "k": 0.016667293596407933,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.003761094409320539,
+   "B": 0.003341429562821476,
+   "bands": {
+    "fine": {
+     "native": 0.0067497607691588205,
+     "reference": 0.005875138541761279,
+     "candidate": 0.0018556632826526092,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.00401947525910867,
+     "B": 0.003341429562821476
+    },
+    "low": {
+     "native": 0.01588187139992722,
+     "reference": 0.010063450364039495,
+     "candidate": 0.005001102717217437,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.005062347646822058,
+     "B": 0.003341429562821476
+    }
+   }
+  },
+  "photo__rrect-md__rest": {
+   "stratum": "P",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.08934577337251297,
+   "c": 0.056678840937588536,
+   "k": 0.05440700979693987,
+   "fidelity": "miss",
+   "change": "unchanged",
+   "growth": 0.0022718311406486683,
+   "B": 0.006029041998815159,
+   "bands": {
+    "fine": {
+     "native": 0.003446304617236442,
+     "reference": 0.002264665258030037,
+     "candidate": 0.0017581459148592236,
+     "fidelity": "within",
+     "change": "unchanged",
+     "growth": 0.0005065193431708134,
+     "B": 0.006029041998815159
+    },
+    "low": {
+     "native": 0.0865406202970463,
+     "reference": 0.055122551008722,
+     "candidate": 0.05303349389804672,
+     "fidelity": "miss",
+     "change": "unchanged",
+     "growth": 0.0020890571106752798,
+     "B": 0.006029041998815159
+    }
+   }
+  },
+  "checkerboard__rrect-ml__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.08152237698932381,
+   "c": 0.07574438253543016,
+   "k": 0.019679808538218557,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.0560645739972116,
+   "B": 0.006434688908150691,
+   "bands": {
+    "fine": {
+     "native": 0.016666029496864597,
+     "reference": 0.023959726795380384,
+     "candidate": 0.0037811369202122138,
+     "fidelity": "miss",
+     "change": "overshoot",
+     "growth": 0.005591195278136597,
+     "B": 0.006434688908150691
+    },
+    "low": {
+     "native": 0.06622935676766634,
+     "reference": 0.059281359324315545,
+     "candidate": 0.00970330473033811,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.04957805459397743,
+     "B": 0.006434688908150691
+    }
+   }
+  },
+  "photo__rrect-ml__rest": {
+   "stratum": "P",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.10320487656334631,
+   "c": 0.06643968238825188,
+   "k": 0.06465723772712292,
+   "fidelity": "miss",
+   "change": "unchanged",
+   "growth": 0.0017824446611289513,
+   "B": 0.0061271235740564325,
+   "bands": {
+    "fine": {
+     "native": 0.002676131406365361,
+     "reference": 0.0019658650778479067,
+     "candidate": 0.0016672314471046106,
+     "fidelity": "within",
+     "change": "unchanged",
+     "growth": 0.0002986336307432961,
+     "B": 0.0061271235740564325
+    },
+    "low": {
+     "native": 0.1017065388476311,
+     "reference": 0.06432854951907879,
+     "candidate": 0.06274788640784601,
+     "fidelity": "miss",
+     "change": "unchanged",
+     "growth": 0.001580663111232783,
+     "B": 0.0061271235740564325
+    }
+   }
+  },
+  "checkerboard__rrect-md__pressed": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.15005051577845693,
+   "c": 0.15746019446250556,
+   "k": 0.12909589509167071,
+   "fidelity": "miss",
+   "change": "overshoot",
+   "growth": 0.013544942002737592,
+   "B": 0.006626914364838446,
+   "bands": {
+    "fine": {
+     "native": 0.034835978126480927,
+     "reference": 0.03719031501709836,
+     "candidate": 0.013981253265414675,
+     "fidelity": "miss",
+     "change": "overshoot",
+     "growth": 0.01850038797044882,
+     "B": 0.006626914364838446
+    },
+    "low": {
+     "native": 0.12510291590966693,
+     "reference": 0.08469495012680689,
+     "candidate": 0.04203616288476439,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.0426587872420425,
+     "B": 0.006626914364838446
+    }
+   }
+  },
+  "photo__rrect-md__pressed": {
+   "stratum": "P",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.08934577337251297,
+   "c": 0.09940056339321973,
+   "k": 0.09848583189332585,
+   "fidelity": "miss",
+   "change": "unchanged",
+   "growth": -0.0009147314998938783,
+   "B": 0.006029041998815159,
+   "bands": {
+    "fine": {
+     "native": 0.003446304617236442,
+     "reference": 0.009732130530167495,
+     "candidate": 0.009532884303448825,
+     "fidelity": "miss",
+     "change": "unchanged",
+     "growth": -0.00019924622671867002,
+     "B": 0.006029041998815159
+    },
+    "low": {
+     "native": 0.0865406202970463,
+     "reference": 0.056365265993559586,
+     "candidate": 0.05500021789850872,
+     "fidelity": "miss",
+     "change": "unchanged",
+     "growth": 0.0013650480950508637,
+     "B": 0.006029041998815159
+    }
+   }
+  },
+  "photo__rrect-md__rest-tint-orange": {
+   "stratum": "P",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.022423620797271435,
+   "c": 0.014971393374753691,
+   "k": 0.014607751153794287,
+   "fidelity": "miss",
+   "change": "unchanged",
+   "growth": 0.0003636422209594044,
+   "B": 0.004638687952890839,
+   "bands": {
+    "fine": {
+     "native": 0.0012708437147895516,
+     "reference": 0.0010759808613469827,
+     "candidate": 0.001032566378872319,
+     "fidelity": "within",
+     "change": "unchanged",
+     "growth": 4.34144824746636e-05,
+     "B": 0.004638687952890839
+    },
+    "low": {
+     "native": 0.01706106032165431,
+     "reference": 0.011532756787660841,
+     "candidate": 0.011099154835687621,
+     "fidelity": "miss",
+     "change": "unchanged",
+     "growth": 0.0004336019519732195,
+     "B": 0.004638687952890839
+    }
+   }
+  },
+  "checkerboard-4__rrect-md__rest": {
+   "stratum": "F",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.029743847107709092,
+   "c": 0.061436242381757426,
+   "k": 0.018536073157619844,
+   "fidelity": "miss",
+   "change": "overshoot",
+   "growth": -0.02048462132395909,
+   "B": 0.0061106560649372135,
+   "bands": {
+    "fine": {
+     "native": 0.01483703745224564,
+     "reference": 0.05189279109790948,
+     "candidate": 0.008506252124210417,
+     "fidelity": "miss",
+     "change": "overshoot",
+     "growth": -0.030724968317628616,
+     "B": 0.0061106560649372135
+    },
+    "low": {
+     "native": 0.007025392495917008,
+     "reference": 0.011397800674646177,
+     "candidate": 0.0021040118494219952,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.0005489724677658443,
+     "B": 0.0061106560649372135
+    }
+   }
+  },
+  "checkerboard-4__rrect-lg__rest": {
+   "stratum": "F",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.022721499388684965,
+   "c": 0.03651558041779828,
+   "k": 0.015387421225094542,
+   "fidelity": "miss",
+   "change": "overshoot",
+   "growth": -0.006460002865522892,
+   "B": 0.006280528785017873,
+   "bands": {
+    "fine": {
+     "native": 0.00313451783964045,
+     "reference": 0.0293669938425151,
+     "candidate": 0.004148172811064776,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.025218821031450324,
+     "B": 0.006280528785017873
+    },
+    "low": {
+     "native": 0.005297873961434033,
+     "reference": 0.00549264892141793,
+     "candidate": 0.0017762832581623238,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.003326815743287812,
+     "B": 0.006280528785017873
+    }
+   }
+  },
+  "checkerboard-8__rrect-md__rest": {
+   "stratum": "F",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.09906120513171915,
+   "c": 0.08407239752934986,
+   "k": 0.020355296072891195,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.06371710145645867,
+   "B": 0.006402010329073572,
+   "bands": {
+    "fine": {
+     "native": 0.04590989839333825,
+     "reference": 0.04431778828999328,
+     "candidate": 0.007376197519860156,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.03694159077013313,
+     "B": 0.006402010329073572
+    },
+    "low": {
+     "native": 0.05735777433582692,
+     "reference": 0.04600627792848271,
+     "candidate": 0.007442144664089644,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.03856413326439307,
+     "B": 0.006402010329073572
+    }
+   }
+  },
+  "checkerboard-8__rrect-ml__rest": {
+   "stratum": "F",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.026131340062146822,
+   "c": 0.06370482431063501,
+   "k": 0.016939355946310814,
+   "fidelity": "miss",
+   "change": "overshoot",
+   "growth": -0.028381500132652185,
+   "B": 0.00619648678564937,
+   "bands": {
+    "fine": {
+     "native": 0.006347238129205357,
+     "reference": 0.03346059347102423,
+     "candidate": 0.0041674902072136285,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.024933607419827145,
+     "B": 0.00619648678564937
+    },
+    "low": {
+     "native": 0.008732555191953158,
+     "reference": 0.033494186938919604,
+     "candidate": 0.004198109315532543,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.02022718587054583,
+     "B": 0.00619648678564937
+    }
+   }
+  },
+  "checkerboard-8__rrect-lg__rest": {
+   "stratum": "F",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.022371398385066653,
+   "c": 0.048400325404269286,
+   "k": 0.014696905444747842,
+   "fidelity": "miss",
+   "change": "overshoot",
+   "growth": -0.018354434078883822,
+   "B": 0.00628736989434755,
+   "bands": {
+    "fine": {
+     "native": 0.00318638857828367,
+     "reference": 0.02504538080687899,
+     "candidate": 0.0038530721667799526,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.021192308640099036,
+     "B": 0.00628736989434755
+    },
+    "low": {
+     "native": 0.005824829969862511,
+     "reference": 0.024587253376136962,
+     "candidate": 0.0038599809723748844,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.016797574408786826,
+     "B": 0.00628736989434755
+    }
+   }
+  },
+  "checkerboard-32__rrect-md__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.18168271271435463,
+   "c": 0.15561014858174602,
+   "k": 0.10184191243528935,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.05376823614645666,
+   "B": 0.006730618724164299,
+   "bands": {
+    "fine": {
+     "native": 0.026543290230338423,
+     "reference": 0.02245704019246056,
+     "candidate": 0.008067925716985242,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.014389114475475317,
+     "B": 0.006730618724164299
+    },
+    "low": {
+     "native": 0.16892828701334262,
+     "reference": 0.1437720407045017,
+     "candidate": 0.09397351578540519,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.049798524919096504,
+     "B": 0.006730618724164299
+    }
+   }
+  },
+  "checkerboard-32__rrect-ml__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.15560451475534878,
+   "c": 0.1465561413273066,
+   "k": 0.10534149934316737,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.041214641984139225,
+   "B": 0.0066484615165775685,
+   "bands": {
+    "fine": {
+     "native": 0.014055261127006967,
+     "reference": 0.018206453301472258,
+     "candidate": 0.007603814296974501,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.002300254655567175,
+     "B": 0.0066484615165775685
+    },
+    "low": {
+     "native": 0.14841541534884145,
+     "reference": 0.13838463904913675,
+     "candidate": 0.0998849636581822,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.03849967539095456,
+     "B": 0.0066484615165775685
+    }
+   }
+  },
+  "checkerboard-32__rrect-lg__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.1336354916433524,
+   "c": 0.13292365687444022,
+   "k": 0.10293971320385122,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.029983943670589,
+   "B": 0.006667267279245813,
+   "bands": {
+    "fine": {
+     "native": 0.010261765889058682,
+     "reference": 0.014030628063594603,
+     "candidate": 0.006778616812805458,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.0002857130982826979,
+     "B": 0.006667267279245813
+    },
+    "low": {
+     "native": 0.12675534671690952,
+     "reference": 0.1248410604889091,
+     "candidate": 0.09695031567613557,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.027890744812773524,
+     "B": 0.006667267279245813
+    }
+   }
+  },
+  "checkerboard-64__rrect-md__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.2484984895109067,
+   "c": 0.2330194308553465,
+   "k": 0.2084122121966015,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.02460721865874499,
+   "B": 0.006481014352698594,
+   "bands": {
+    "fine": {
+     "native": 0.021226431787734385,
+     "reference": 0.018512627685018445,
+     "candidate": 0.007535167461799748,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.010977460223218697,
+     "B": 0.006481014352698594
+    },
+    "low": {
+     "native": 0.2472520915435437,
+     "reference": 0.22659725823736246,
+     "candidate": 0.20343602811572822,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.023161230121634235,
+     "B": 0.006481014352698594
+    }
+   }
+  },
+  "checkerboard-64__rrect-ml__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.2275686372062155,
+   "c": 0.21175092346826294,
+   "k": 0.18946317913659302,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.022287744331669912,
+   "B": 0.006566570596044413,
+   "bands": {
+    "fine": {
+     "native": 0.012162269422027687,
+     "reference": 0.014961146550423715,
+     "candidate": 0.007445652268850238,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.001917740024781421,
+     "B": 0.006566570596044413
+    },
+    "low": {
+     "native": 0.22639615263616542,
+     "reference": 0.20956416475036643,
+     "candidate": 0.18855109425072072,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.02101307049964571,
+     "B": 0.006566570596044413
+    }
+   }
+  },
+  "checkerboard-64__rrect-lg__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.2445548731842864,
+   "c": 0.23192160575436865,
+   "k": 0.21926692777497617,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.012654677979392487,
+   "B": 0.00663660442943787,
+   "bands": {
+    "fine": {
+     "native": 0.007772028596162578,
+     "reference": 0.009844538558779954,
+     "candidate": 0.005192971938752037,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.000506546694793164,
+     "B": 0.00663660442943787
+    },
+    "low": {
+     "native": 0.24010630315133671,
+     "reference": 0.23039896828881706,
+     "candidate": 0.2186820017408223,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.011716966547994756,
+     "B": 0.00663660442943787
+    }
+   }
+  },
+  "checkerboard-lc16__rrect-md__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.06786851207758757,
+   "c": 0.043058934940191564,
+   "k": 0.014635615602302284,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.02842331933788928,
+   "B": 0.007356636397280246,
+   "bands": {
+    "fine": {
+     "native": 0.008756777474977263,
+     "reference": 0.010152223953007952,
+     "candidate": 0.002548146690647288,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.004813184306299285,
+     "B": 0.007356636397280246
+    },
+    "low": {
+     "native": 0.050184105343654986,
+     "reference": 0.031210220448044734,
+     "candidate": 0.006474537408529742,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.024735683039514993,
+     "B": 0.007356636397280246
+    }
+   }
+  },
+  "checkerboard-lc16__rrect-ml__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.03698539423557414,
+   "c": 0.03391523134810384,
+   "k": 0.013727512320994352,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.020187719027109488,
+   "B": 0.007359213320027845,
+   "bands": {
+    "fine": {
+     "native": 0.005103343108149142,
+     "reference": 0.009614050513098828,
+     "candidate": 0.0023265791080569163,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.00173394340485746,
+     "B": 0.007359213320027845
+    },
+    "low": {
+     "native": 0.015016405490477605,
+     "reference": 0.020139235301276218,
+     "candidate": 0.003962075958586407,
+     "fidelity": "miss",
+     "change": "overshoot",
+     "growth": 0.005931499721092585,
+     "B": 0.007359213320027845
+    }
+   }
+  },
+  "checkerboard-lc16__rrect-lg__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.032221084410286864,
+   "c": 0.027350448245618445,
+   "k": 0.014017218254995079,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.013333229990623367,
+   "B": 0.007464110970268846,
+   "bands": {
+    "fine": {
+     "native": 0.0033635272992416855,
+     "reference": 0.007675947810053109,
+     "candidate": 0.0022634058166040734,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.0032122990281738114,
+     "B": 0.007464110970268846
+    },
+    "low": {
+     "native": 0.010992635529960592,
+     "reference": 0.015428555090941069,
+     "candidate": 0.0038703858088143576,
+     "fidelity": "within",
+     "change": "away",
+     "growth": 0.0026863301601657563,
+     "B": 0.007464110970268846
+    }
+   }
+  },
+  "hc-text-7__rrect-md__rest": {
+   "stratum": "T",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.09903514274077681,
+   "c": 0.08819672130605276,
+   "k": 0.05001838884687343,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.03817833245917933,
+   "B": 0.006938208076901735,
+   "bands": {
+    "fine": {
+     "native": 0.028069089678105175,
+     "reference": 0.05224346299468655,
+     "candidate": 0.008667433037558292,
+     "fidelity": "miss",
+     "change": "overshoot",
+     "growth": -0.0047727166760344955,
+     "B": 0.006938208076901735
+    },
+    "low": {
+     "native": 0.08670459957106855,
+     "reference": 0.05764639539131559,
+     "candidate": 0.046434687977410606,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.011211707413904981,
+     "B": 0.006938208076901735
+    }
+   }
+  },
+  "hc-text-7__rrect-lg__rest": {
+   "stratum": "T",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.1236473735719478,
+   "c": 0.09826244939615225,
+   "k": 0.09060325631173717,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.007659193084415081,
+   "B": 0.007418741527337338,
+   "bands": {
+    "fine": {
+     "native": 0.0031898751656639227,
+     "reference": 0.027108103512565707,
+     "candidate": 0.003864920838874624,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.023243182673691083,
+     "B": 0.007418741527337338
+    },
+    "low": {
+     "native": 0.11696516889811355,
+     "reference": 0.08757353731517499,
+     "candidate": 0.08574323203926554,
+     "fidelity": "miss",
+     "change": "unchanged",
+     "growth": 0.0018303052759094524,
+     "B": 0.007418741527337338
+    }
+   }
+  },
+  "hc-text-28__rrect-md__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "mid",
+   "n": 0.16628297945682458,
+   "c": 0.1331060571919832,
+   "k": 0.0787029699519141,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.054403087240069106,
+   "B": 0.007177440810711826,
+   "bands": {
+    "fine": {
+     "native": 0.02195520782009703,
+     "reference": 0.024354275021536875,
+     "candidate": 0.0065827041440097754,
+     "fidelity": "miss",
+     "change": "overshoot",
+     "growth": 0.01297343647464741,
+     "B": 0.007177440810711826
+    },
+    "low": {
+     "native": 0.15454486351640062,
+     "reference": 0.12465383277746697,
+     "candidate": 0.07853197400034663,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.04612185877712034,
+     "B": 0.007177440810711826
+    }
+   }
+  },
+  "hc-text-28__rrect-lg__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.1313411703026609,
+   "c": 0.12255756599108228,
+   "k": 0.10325857173858713,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.01929899425249515,
+   "B": 0.007526118594615949,
+   "bands": {
+    "fine": {
+     "native": 0.0094232276684677,
+     "reference": 0.01397199338732843,
+     "candidate": 0.005412356173192411,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.0005378942235854398,
+     "B": 0.007526118594615949
+    },
+    "low": {
+     "native": 0.1203092507221762,
+     "reference": 0.1121348743574809,
+     "candidate": 0.09462459953316013,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.01751027482432077,
+     "B": 0.007526118594615949
+    }
+   }
+  },
+  "hc-text__rrect-lg__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.12363795994403433,
+   "c": 0.10292767542337687,
+   "k": 0.0920653084230216,
+   "fidelity": "miss",
+   "change": "away",
+   "growth": 0.01086236700035527,
+   "B": 0.0074090996512912195,
+   "bands": {
+    "fine": {
+     "native": 0.004940711616719244,
+     "reference": 0.019459943534044195,
+     "candidate": 0.003995587022606534,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.01357410732321224,
+     "B": 0.0074090996512912195
+    },
+    "low": {
+     "native": 0.11595249290219282,
+     "reference": 0.09117145053704896,
+     "candidate": 0.08574872758314683,
+     "fidelity": "miss",
+     "change": "away",
+     "growth": 0.005422722953902129,
+     "B": 0.0074090996512912195
+    }
+   }
+  },
+  "impulse__rrect-ml__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.014524766571989173,
+   "c": 0.015230037065314344,
+   "k": 0.014302104698365674,
+   "fidelity": "within",
+   "change": "unchanged",
+   "growth": -0.0004826086197016726,
+   "B": 0.003348160530231822,
+   "bands": {
+    "fine": {
+     "native": 0.0008603380689062631,
+     "reference": 0.0033152094733631204,
+     "candidate": 0.0014674900943665527,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.0018477193789965677,
+     "B": 0.003348160530231822
+    },
+    "low": {
+     "native": 0.004335268423157576,
+     "reference": 0.0050100696524439945,
+     "candidate": 0.0035126143796173647,
+     "fidelity": "within",
+     "change": "unchanged",
+     "growth": 0.00014785281425379196,
+     "B": 0.003348160530231822
+    }
+   }
+  },
+  "impulse__rrect-lg__rest": {
+   "stratum": "C",
+   "pose": "rest",
+   "span": "thick",
+   "n": 0.01346015288863012,
+   "c": 0.013954238226175177,
+   "k": 0.012753593152463553,
+   "fidelity": "within",
+   "change": "unchanged",
+   "growth": 0.0002124743986215115,
+   "B": 0.003387231338507331,
+   "bands": {
+    "fine": {
+     "native": 0.0009195343420881123,
+     "reference": 0.003386076869949191,
+     "candidate": 0.0014382207879758083,
+     "fidelity": "within",
+     "change": "toward",
+     "growth": -0.0019478560819733825,
+     "B": 0.003387231338507331
+    },
+    "low": {
+     "native": 0.004791021741205219,
+     "reference": 0.005856581564492652,
+     "candidate": 0.0043961599684745195,
+     "fidelity": "within",
+     "change": "unchanged",
+     "growth": -0.0006706980505567332,
+     "B": 0.003387231338507331
+    }
+   }
+  }
+ }
+}

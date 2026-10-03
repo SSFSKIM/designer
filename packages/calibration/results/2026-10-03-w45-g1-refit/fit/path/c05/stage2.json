@@ -1,0 +1,183 @@
+{
+ "stage": "stage2",
+ "start": "c05",
+ "landed": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1",
+ "within": "NOT WITHIN",
+ "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0426) to the fewer moved leaves; recorded as NOT within",
+ "points": [
+  {
+   "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1",
+   "measuredBy": "c-s2-t0.75-rcs24-rcf0-rck0-rct0.1",
+   "objective": 0.24983676726604864,
+   "within": "NOT WITHIN",
+   "notWithin": [
+    "impulse__capsule-button__rest",
+    "photo__capsule-button__rest",
+    "checkerboard__rrect-sm__rest",
+    "photo__rrect-sm__rest",
+    "photo__toolbar-group__rest",
+    "checkerboard__capsule-button__pressed",
+    "photo__capsule-button__pressed",
+    "impulse__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-blue",
+    "photo__capsule-button__rest-tint-orange-half",
+    "checkerboard__capsule-button__rest-tint-blue",
+    "checkerboard-4__rrect-sm__rest",
+    "checkerboard-4__capsule-button__rest",
+    "checkerboard-8__capsule-button__rest",
+    "checkerboard-32__rrect-sm__rest",
+    "checkerboard-32__capsule-button__rest",
+    "checkerboard-64__rrect-sm__rest",
+    "checkerboard-lc16__capsule-button__rest",
+    "hc-text-28__rrect-sm__rest",
+    "hc-text__rrect-sm__rest",
+    "checkerboard-8__capsule-button__rest-tint-orange",
+    "checkerboard-64__capsule-button__rest-tint-orange",
+    "impulse__rrect-sm__rest",
+    "checkerboard__capsule-button__inactive",
+    "checkerboard__capsule-button__inactive-tint-blue",
+    "checkerboard__capsule-button__inactive-tint-orange",
+    "checkerboard__capsule-button__inactive-pressed",
+    "checkerboard__rrect-md__inactive",
+    "checkerboard__rrect-md__inactive-pressed",
+    "checkerboard__rrect-sm__inactive",
+    "checkerboard__toolbar-group__inactive",
+    "impulse__capsule-button__inactive",
+    "impulse__capsule-button__inactive-tint-orange",
+    "impulse__rrect-md__inactive",
+    "photo__capsule-button__inactive",
+    "photo__capsule-button__inactive-tint-blue",
+    "photo__capsule-button__inactive-tint-orange",
+    "photo__capsule-button__inactive-tint-orange-half",
+    "photo__capsule-button__inactive-pressed",
+    "photo__rrect-md__inactive",
+    "photo__rrect-md__inactive-tint-orange",
+    "photo__rrect-md__inactive-pressed",
+    "photo__rrect-sm__inactive",
+    "photo__toolbar-group__inactive",
+    "checkerboard__rrect-ml__inactive",
+    "checkerboard-4__rrect-md__inactive",
+    "checkerboard-8__rrect-md__inactive",
+    "checkerboard-64__rrect-md__inactive",
+    "checkerboard-lc16__capsule-button__inactive",
+    "checkerboard-lc16__rrect-md__inactive",
+    "hc-text__rrect-sm__inactive",
+    "hc-text__rrect-lg__inactive",
+    "hc-text-28__rrect-md__inactive",
+    "photo__rrect-ml__inactive"
+   ],
+   "leaves": 9,
+   "tie": 0.04258893242428441
+  }
+ ],
+ "base": "c-s1-fl0.5",
+ "components": [
+  {
+   "family": "thin",
+   "scope": "stage2-thin",
+   "from": {
+    "active.light": {
+     "sizeHeavySecondSigma": 0,
+     "sizeScatterFloor2x": 0.5
+    }
+   },
+   "best": "c-s2-t0.75",
+   "bestOverrides": {
+    "active.light": {
+     "sizeHeavySecondSigma": 0,
+     "sizeScatterFloor2x": 0.5,
+     "sizeScatterRampStartThin2x": 0.75
+    }
+   },
+   "points": [
+    "c-s2-t0.46",
+    "c-s2-t0.55",
+    "c-s2-t0.65",
+    "c-s2-t0.75",
+    "c-s2-t0.8",
+    "c-s2-t0.85",
+    "c-s2-t0.95"
+   ]
+  },
+  {
+   "family": "receded",
+   "scope": "stage2-receded",
+   "from": {
+    "active.light": {
+     "sizeHeavySecondSigma": 0,
+     "sizeScatterFloor2x": 0.5,
+     "sizeScatterRampStartThin2x": 0.75
+    }
+   },
+   "best": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1",
+   "bestOverrides": {
+    "active.light": {
+     "sizeHeavySecondSigma": 0,
+     "sizeScatterFloor2x": 0.5,
+     "sizeScatterRampStartThin2x": 0.75
+    },
+    "receded.light": {
+     "sizeScatterRampStartThin2x": 0.1,
+     "sizeScatterRampStartThick2x": 0,
+     "sizeScatterRampStartFar2x": 0,
+     "sizeHeavyTapSigma2x": 24,
+     "sizeHeavySecondShare": 0,
+     "sizeHeavySecondShareFar2x": 0
+    }
+   },
+   "points": [
+    "c-s2-t0.75-rct0.1",
+    "c-s2-t0.75-rct0.2",
+    "c-s2-t0.75-rct0.3",
+    "c-s2-t0.75-rct0.4",
+    "c-s2-t0.75-rct0.5",
+    "c-s2-t0.75-rct0.6",
+    "c-s2-t0.75-rct0.7",
+    "c-s2-t0.75-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcf0.01-rck0.01-rct0.1",
+    "c-s2-t0.75-rcf0.02-rck0.02-rct0.1",
+    "c-s2-t0.75-rcf0.03-rck0.03-rct0.1",
+    "c-s2-t0.75-rcf0.04-rck0.04-rct0.1",
+    "c-s2-t0.75-rcs14-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcs16-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcs18-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcs20-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcs22-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcs24-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcq0-rcs24-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.2",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.3",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.4",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.5",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.6",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.7",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.01-rck0.01-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.02-rck0.02-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.03-rck0.03-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.04-rck0.04-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs14-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs16-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs18-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs20-rcf0-rck0-rct0.1",
+    "c-s2-t0.75-rcq0-rcd0-rcs22-rcf0-rck0-rct0.1"
+   ]
+  }
+ ],
+ "composed": {
+  "active.light": {
+   "sizeHeavySecondSigma": 0,
+   "sizeScatterFloor2x": 0.5,
+   "sizeScatterRampStartThin2x": 0.75
+  },
+  "receded.light": {
+   "sizeScatterRampStartThin2x": 0.1,
+   "sizeScatterRampStartThick2x": 0,
+   "sizeScatterRampStartFar2x": 0,
+   "sizeHeavyTapSigma2x": 24,
+   "sizeHeavySecondShare": 0,
+   "sizeHeavySecondShareFar2x": 0
+  }
+ }
+}

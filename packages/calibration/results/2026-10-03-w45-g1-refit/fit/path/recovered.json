@@ -1,0 +1,78 @@
+{
+ "what": "W45 G1: scope objectives with an UNMEASURED member, recovered through W44 G0's port",
+ "portProof": {
+  "rows": 112,
+  "worstAbsDiff": 3.1776064418620464e-11,
+  "tolerance": 1e-06
+ },
+ "points": {
+  "j-s1-d0-f0.1-k0.1-top112": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.030709201377398923,
+      "ratio": 0.45248084033862473
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.17667940370062937,
+    "declaredObjective": 0.18701198160074886
+   }
+  },
+  "j-s1-d0-fl0.5-f0.1-k0.1-top112": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.03241312485569713,
+      "ratio": 0.47758708513665826
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.16763017095662205,
+    "declaredObjective": 0.18701198160074886
+   }
+  },
+  "j-s1-d0-w6-fl0.5-f0.21-k0.21-top112": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.03307054533875839,
+      "ratio": 0.4872737640240588
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.15607738338278065,
+    "declaredObjective": 0.1604099389692046
+   }
+  },
+  "j-s1-w6-top112": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.03133878532216731,
+      "ratio": 0.4617573652762665
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.1651255679093534,
+    "declaredObjective": 0.1698411968495022
+   }
+  }
+ }
+}
