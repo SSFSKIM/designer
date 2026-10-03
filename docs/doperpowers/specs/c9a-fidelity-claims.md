@@ -47422,3 +47422,40 @@ a **named miss**. The reasons:
    `photo__capsule-button__inactive`, `photo__rrect-md__inactive`, `photo__rrect-sm__inactive` and
    `photo__toolbar-group__inactive`.
 3. **The P inactive T1 aggregate** (0.1937 against 0.1870), a named miss with the same reading.
+
+### 17. Step 8, the publication (`fe4c5301`)
+
+**`matrix publish ~/vitrea-w45/g1-stage-light`**, one act on the complete stage (656 of 656):
+- **The new generation:** `results/generations/ebc3d9105a4a.json`, 656 rows, file SHA-256
+  `6e13171051de77a2236d5545e1cc9ea1d35fd5fe566c6862dedf4b51a8a253f5`, documents `ebc3d9105a4a`
+  (light active, `resolvedMaterialSha256` `3741b22934f17f4d`) and `12712d534b78` (light receded,
+  `c4ca0e1cd6791bde`).
+- **The index.** Its `currentByProfile` now selects `ebc3d9105a4a.json` for
+  `apple-macos-27.0-{1x,2x}-light-standard-glass0.25`, with the `byDocumentSha256` aliases added.
+- **The superseded generation.** **`6d18c059eb42.json` is `retired`**: its file, rows and aliases
+  stay where they are.
+- **What did not move.** The dark generation `d0219cd684bf.json` is untouched and current, and no
+  other index entry moved. The current union is 3,017 rows.
+
+**The whole-bed eye sheets** (`sheets/sent-publication.txt`) cover all 656 light cells, both
+tiers, every set, the holdout and the referees, with the CSS hold. They are on the MacBook. By eye,
+with the hold the CSS 2x coarse-checker bodies read as c05's.
+
+**For G2** (charter G2; clause 9):
+- **The capture tree to copy** is this worktree's `packages/calibration/web-captures/` (the two
+  light profiles' captures as published). The superseded c05 captures move to
+  `web-captures-superseded/6d18c059eb42/`.
+- **The candidate's T-band fixture** is `results/2026-10-03-w45-g1-refit/t1/t-bands-ebc3d9105a4a.json`
+  (8 entries), beside the reference's `results/2026-10-03-w44-g2-landing/t1/t-bands.json`.
+- **The authorised list** is §16's closure: eleven T1 regressions against `6d18c059eb42`, M2's four
+  receded photo cells and the P inactive aggregate.
+- **The new digests:**
+  - light active `3741b22934f17f4d` (file `ebc3d9105a4a`);
+  - light receded `c4ca0e1cd6791bde` (file `12712d534b78`);
+  - the dark pair unchanged (`b074fc6913a91c66`, `280f0fddf014e0f6`).
+- **The runtime.** The regenerated `macos27-glass025-profile.ts` and the CSS hold are already on
+  the branch.
+- **`declare.py check` and `check-fit`** fail after the freeze only on the tool tests that build
+  from the live light documents (§13; tracker).
+
+The freeze reads 1,818 entries and X41 911 at this head.

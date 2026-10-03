@@ -534,7 +534,7 @@ path-scoped adds; merges with the freeze and X41 verified.
 | child | status | ledger |
 | --- | --- | --- |
 | G0 | MERGED `9fa2eea6`: operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…` | §5.205 |
-| G1 | EXPOSED on `w45-g1-refit`, awaiting the parent's ruling on three holdout misses before `matrix publish`: the user ruled the ship (Decision Log 8); read 7 recorded; the stage complete (656 of 656); the holdout tables exactly c05's; over 116 cells 11 away beyond B and 5 beyond 3B (three exposed: `checkerboard__rrect-lg__rest` 3.30 B, `hc-text-7__rrect-md__inactive` 1.60 B, `checkerboard__glass-over-glass__rest` 1.57 B) and P inactive over τ | §5.206 |
+| G1 | DONE on `w45-g1-refit`, published: the generation `ebc3d9105a4a.json` (656 rows) supersedes `6d18c059eb42` (retired); light digests `3741b22934f17f4d` / `c4ca0e1cd6791bde`, dark unchanged; shipped as an improvement landing with named exceptions (Decision Log 8): eleven T1 regressions, M2's four receded photo cells and the P inactive aggregate; the CSS tier's light 0.25 decline recorded | §5.206 |
 | G2 | NOT STARTED | §5.207 |
 
 ## Decision Log

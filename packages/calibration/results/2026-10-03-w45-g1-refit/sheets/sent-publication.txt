@@ -1,0 +1,11 @@
+W45 G1 step 8, the publication's eye sheets: native | vitrea c05 | vitrea W45 | |W45 - Apple| x4 | |c05 - Apple| x4 |
+|W45 - c05| x4 over the WHOLE light bed (656 cells: both scales, both poses, both tiers, every set, the holdout and
+the referees included after the exposure; `sheets.py --whole`), off the complete stage with the CSS tier's light
+0.25 decline and this worktree's web-captures, labelled from cuts/cut-025-w45-exposure.json. Every capture's cell
+JSON named its row's capturePath (the sealed documents ebc3d9105a4a / 12712d534b78) before any pixel was read.
+By eye: with the hold, the CSS 2x coarse-checker bodies read as c05's (the W45 - c05 column dark), where the
+gate's pre-hold sheets showed them washed out.
+Zipped as w45-g1-publication-whole-sheets.zip (51,970,913 bytes, sha256
+2c577ae6a73548c2e40b091908ddc7f3b09d90582e2bd8c3c0ce9708bbe46277) and sent to the MacBook with
+`/Applications/Tailscale.app/Contents/MacOS/Tailscale file cp w45-g1-publication-whole-sheets.zip s:` (exit 0). The
+PNGs stay under ~/vitrea-w45/g1-scratch/sheets/publication-whole/.

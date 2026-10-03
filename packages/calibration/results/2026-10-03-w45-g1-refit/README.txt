@@ -44,3 +44,13 @@ gate/        the gate report (report.py), the referee-absence check, the owner t
              scratch union (union.py, owner.py, owner/), tier-coherence.
 t1/          t-bands-ebc3d9105a4a.gate.json, the candidate's T-band fixture at the gate (G2 part (i)).
 sheets/      sent-gate.txt: the stage's sheets over every T1 cell, sent to the MacBook.
+
+After the gate (the parent's and the user's rulings of 2026-10-04; claims §5.206 §15-§17):
+css-hold/    the CSS tier's light 0.25 decline: its tests, and before-after.txt (the stage's CSS rows re-read
+             in place by stage/css_hold_reread.py; cuts/cut-025-w45-css-hold.json).
+gate/photo-lattice.*   the receded photo read through two readers.
+exposure/    step 7: the holdout's tables (holdout.py, holdout-reading.*), the exposure report, matrix status;
+             cuts/cut-025-w45-exposure.json is the rule over all 116 cells; stage/x48-with-holdout.json.
+t1/t-bands-ebc3d9105a4a.json   the candidate's T-band fixture, gate and exposed entries (G2 parts (i)-(ii)).
+sheets/sent-publication.txt    the whole-bed sheets sent to the MacBook.
+The publication is results/generations/ebc3d9105a4a.json and the index's selection of it.
