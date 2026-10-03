@@ -1,5 +1,14 @@
 # W45 — the span-graded tap: the second heavy tap's share graded on the scatter's far curve, the deep share's span top, the thin trade read, and a landing rule that measures regression as growth (2026-10-03)
 
+**Status v1.4 (2026-10-03, after G0): G0 merged as `9fa2eea6` (§5.205; the operator inert and
+proven by bytes; part 1 `5630743b…`; part 2 `da85de04…` amended once to `77f1c392…`; the
+joint-composition witness met on three rungs). Decision Log 7 rules the six items G0 handed back,
+executed as ONE second and final amendment of part 2 at G1 step 0: the side branch's three tool
+fixes re-pinned; the grading's domain narrowed to [−share, 0]; the 35-point share × width
+factorial ruled in; F inactive a reported group; clause 4's membership rule stated as the
+loader enforces it; the seal aligned to the builder. G1 opens on this revision's merge.** The
+v1.3 status follows unchanged.
+
 **Status: DRAFT v1.3 (2026-10-03): three adversarial rounds folded (v1: three P1 and three P2;
 v1.1: one P1 and four P2; v1.2: one P1 and two P2, bounded repairs; all accepted by the parent;
 Revision Notes); the loop is closed and G0 opens on the merge. v1's mechanism was wrong:
@@ -37,7 +46,7 @@ G1 opens on the merge.
 
 ## Decisions
 
-The full entries are Decision Logs 1–6 at the tail.
+The full entries are Decision Logs 1–7 at the tail.
 
 | DL | question | status | what holds |
 | --- | --- | --- | --- |
@@ -47,6 +56,7 @@ The full entries are Decision Logs 1–6 at the tail.
 | 4 | the moves | **RULED** by the parent, 2026-10-03 | one space, two stages, two declared starting points (c05 and W44's joint point); predictions per lever from the actual law |
 | 5 | the thin-span pitch trade | **RULED** by the parent, 2026-10-03 | read in G0 (a thin-span transfer ladder per lever), not pre-attributed; if no lever separates `checkerboard-4` from the pitch-16 and 32 thin cells, it is a named residual |
 | 6 | the release | **RULED** by the parent, 2026-10-03 | as W44 Decision Log 6: a `@vitreajs/vitrea-web` minor (0.27.0), the light 0.25 generation superseded, the dark one unchanged, the user's `pnpm release`; the operator ships inert in every other document |
+| 7 | G0's six items | **RULED** by the parent, 2026-10-03, after G0 | one second and final amendment of part 2 before any fit render: the side branch's tool fixes re-pinned; `sizeHeavySecondShareFar2x` ∈ [−share, 0]; the share × width factorial at stage 1; F inactive reported; clause 4's rule is the loader's refusal of a referee or holdout row; the seal admits what the builder admits |
 
 ## Purpose
 
@@ -297,7 +307,9 @@ read by no clause.
 the group's band, `ε` = 1 code; its tolerance `τ = median over the group of log(1 + bar / (n + ε))`
 (dimensionless, on A's own scale, W44's tie form). A group is **gated** when it has at least three
 gate cells and **reported** otherwise (T has three rest cells and no inactive member in the gate;
-its rest group is gated, its inactive group reported). `ε` is what keeps T's aggregate readable:
+its rest group is gated, its inactive group reported; F inactive has two gate cells and one
+referee, so it too is reported, gated on gate-partition membership and not on the admitted
+count — Decision Log 7). `ε` is what keeps T's aggregate readable:
 its native T1-fine values are tiny (0.0032 at 2x `rrect-lg`), so a raw ratio there is dominated by
 the bar and the absolute bound decides fidelity (W44 G2, §5.204); T's `A` is read, and its gate is
 the F-and-C-style bound on growth, never a ratio alone.
@@ -353,7 +365,10 @@ compared on the one gate population (the review of v1):
 - **Stage 1, the span-graded deep composition** (rest, mid and thick cells; the within clause =
   the F and pitch-16 cells of the stage): `sizeScatterFloor2x` ∈ [0.5, 1.0];
   `sizeScatterSpanMax2x` ∈ [112, 256] (grid 112, 128, 160, 192, 256); `sizeHeavySecondShare`
-  ∈ [0, 1]; `sizeHeavySecondSigma2x` ∈ [1.5, 6] CSS px; `sizeHeavySecondShareFar2x` ∈ [−1, 0]
+  ∈ [0, 1]; `sizeHeavySecondSigma2x` ∈ [1.5, 6] CSS px; `sizeHeavySecondShareFar2x` ∈ [−share, 0]
+  (Decision Log 7: the monotone range the isolation ladder showed; past −share the signed share
+  becomes an unsharp mask that adds the c = 16 structure back); the share × width grid run as one
+  35-point factorial from c05 (Decision Log 7: the two leaves gate each other at share 0)
   (grid 0, −0.25, −0.5, −0.75, −1); the active `sizeScatterRampStartThick2x` and `Far2x` ∈
   [0.05, 0.21] (2x-only leaves the document names, which W44 never moved on the active document);
   the 1x second width 0 (W44's L3). *Prediction, grounded in W44's measured endpoints:* W44's
@@ -409,7 +424,14 @@ Branch `w45-g0-operator`, evidence `packages/calibration/results/2026-10-03-w45-
 
 ### G1: The refit, the gate, the exposure and the publication (ledger §5.206)
 
-Branch `w45-g1-refit`, evidence `results/2026-10-03-w45-g1-refit/`. W44's G1 steps 1–8 with
+Branch `w45-g1-refit`, evidence `results/2026-10-03-w45-g1-refit/`. **Step 0, part 2's second
+and final amendment (Decision Log 7), before any fit render:** `w45-g0-search-fix` merged
+(`50be5c44`, `371d3f1c`: a content twin never replaces a point's overrides; the sweeps refuse a
+partial objective; both checkers validate the amendment record), its moved pins re-recorded; the
+grading's domain [−share, 0] in stage 1 and the receded difference; the share × width factorial
+as a driver option; the seal admitting the builder's receded keys; `amend-fit` accepts this
+once more under the ruling's commit and then refuses forever; the record names `77f1c392…`,
+the ruling and the diff; `check-fit` consistent after. Then W44's G1 steps 1–8 with
 W45's tools: the references; the fit in two stages from both starting points; the freeze (the
 active and receded light documents naming the operator's key, the export pin re-recorded with the
 reason); the runtime first (X53); the stage less the referees; the gate (clause 6) with a GATE
@@ -510,8 +532,8 @@ path-scoped adds; merges with the freeze and X41 verified.
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | DONE on `w45-g0-operator` (2026-10-03): operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…`; for the parent's merge | §5.205 |
-| G1 | NOT STARTED | §5.206 |
+| G0 | MERGED `9fa2eea6`: operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…` | §5.205 |
+| G1 | NOT STARTED; opens with part 2's second and final amendment (Decision Log 7) | §5.206 |
 | G2 | NOT STARTED | §5.207 |
 
 ## Decision Log
@@ -598,6 +620,52 @@ argument needed. The memory lesson: rule on a mechanism after the separating mea
 **Ruled:** as W44 Decision Log 6; the operator ships inert in every document but the 0.25 light
 pair, named in the changeset.
 
+### Decision Log 7 — RULED 2026-10-03 (the parent, after G0): six items, one second amendment
+
+G0 (§5.205 §13–§14 and its hand-back) left six items. Ruled, and executed as ONE second and
+final amendment of part 2 at G1 step 0, before any fit render, recorded with the superseded
+hash `77f1c392…` and this entry:
+
+1. **A second amendment of part 2, for tool pins and one narrowing.** *Finding:* the closure of
+   the first review's four defects spent part 2's one amendment; a scoped verification of that
+   closure found three more defects in the fit driver and the checker (a content twin replaced a
+   point's own overrides, which on the c05 path loses the chosen width; a partial objective
+   could be ranked; the amendment record was validated only when written). The fixes sit on
+   `w45-g0-search-fix`, tested (39 fit, 26 declare), and cannot land under "amended at most
+   once". *Ruling:* a second amendment, final, carrying those pins and nothing else of the
+   tools; the "once" rule was written to stop content drifting after reads, and a driver that
+   crashes or ranks a partial median is not content; the record names the superseded hash and
+   this ruling so the chain shows two amendments and why.
+2. **The grading's domain is the monotone range.** *Finding:* the isolation ladder read
+   `checkerboard-8` lg monotone in `farDelta` down to −0.75 and not at −1, where `share + δ`
+   crossed zero and the signed share became an unsharp mask that adds the c = 16 structure back.
+   *Ruling:* `sizeHeavySecondShareFar2x` ∈ [−share, 0] in stage 1 and in the receded difference,
+   a narrowing to the range the ladder showed, which is one of the decisions the protocol
+   permits; the isolation bar is read on that domain and is met (md byte-identical, the thick
+   cells monotone).
+3. **The (share, width) factorial is the permitted full factorial.** *Finding:* from c05 the
+   share and the width gate each other (at share 0 the width is unread), so a coordinate sweep
+   leaves (0, 0) only through the grid's first width. *Ruling:* stage 1 runs the 35-point
+   share × width factorial from c05 through a driver option; the charter's "a full factorial
+   permitted" meant this.
+4. **F inactive is a reported group.** It has two gate cells and one referee; the rule gates on
+   gate-partition membership at three, so it is reported, as T's inactive group is. The Design
+   named only T's; both are named now.
+5. **Clause 4's membership rule reads "no referee or holdout row", not "the probe whitelist".**
+   The ladders' calibration cells (`checkerboard__rrect-md__rest` and two others) are not probe
+   members; the loader's refusal of a referee or holdout row is the enforced rule, and it was
+   enforced.
+6. **The seal admits what the builder admits**, and part 2 declares the receded second widths
+   inherited unless a point names them; the span tops 112 and 128 stay on the grid (the tie
+   rule decides an indistinguishable pair); the receded share and δ as fractions of the active
+   value are unsearched where the active is 0, by construction.
+
+*Recorded, not ruled:* the bench row read the operator's cost below the bench's resolution; the
+thin-span ladder found no single lever separating `checkerboard-4` from the pitch-16, 32 and text
+thin cells, though the levers act on different pitches (the floor raises `checkerboard-4` most,
+the share and width move only the coarser thin cells, δ is inert at thin spans), so Decision
+Log 5's residual applies as declared and stage 2's search of the thin start stands.
+
 ## Surprises & Discoveries
 
 Found while drafting (2026-10-03; 6–8 from the second review):
@@ -627,6 +695,12 @@ Found while drafting (2026-10-03; 6–8 from the second review):
 
 ## Revision Notes
 
+- 2026-10-03 (v1.4, after G0's merge `9fa2eea6`; the parent's rulings on §5.205 §13–§14 and the
+  hand-back): Decision Log 7 added and executed as G1 step 0 (part 2's second and final
+  amendment); the grading's domain [−share, 0] and the share × width factorial in stage 1; F
+  inactive a reported group in the Design; the G1 child's step 0; the Tracking Map. Clause 4's
+  membership rule is read as the loader enforces it (no referee or holdout row), which is what
+  G0 did. The Design's other sections and Decision Logs 1–6 are unchanged.
 - 2026-10-03 (v1.3; the third, scoped round on v1.2 (`f835bb05`), needs-attention, one P1 and
   two P2, all accepted and folded; the reviewer judged the remaining repairs bounded and the
   design supported, so the loop closes here):
