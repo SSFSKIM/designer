@@ -693,6 +693,49 @@ const W36_BLACK_SCENES: readonly Scene[] = [true, false].map(measured => ({
   } : {})],
 }));
 
+/**
+ * Three members of ONE group at spans 96, 128 and 160 CSS px (W45 G0; charter clause 1,
+ * Decision Log 1; claims §5.205).
+ *
+ * `sizeHeavySecondShareFar2x` grades the second heavy tap's share per PIXEL on the far curve
+ * `smoothstep(sizeSpanMax, sizeScatterSpanMax2x, span)`, which is 0 at span 96 (the knee) and
+ * rises above it. A group packs one share for all of its members, so the only capture that can
+ * show the grading is per pixel rather than per group is one that carries members of different
+ * spans in the same group: under the default span top of 256 the curve reads 0, 0.104 and 0.352
+ * on the three, so a non-zero delta must leave the 96 member's pixels where they were and move
+ * the other two.
+ *
+ * A 2x scene and its 1x twin, because the leaf is 2x-anchored through `rampAtScale(0, delta, dpr)`
+ * and the twin is where that anchoring is proved by render rather than by argument. An 8-texel
+ * checker cover-fit to the plate is about 35 device px a cell at 2x, a pitch the first heavy tap
+ * does not erase, so a second tap at 3 CSS px reads differently from it. `measureOnly`: read back
+ * and differenced, never committed as a golden.
+ */
+const w45SpanTriple = (name: string, devicePixelRatio: number): Scene => ({
+  name,
+  widthCss: 560,
+  heightCss: 200,
+  devicePixelRatio,
+  measureOnly: true,
+  backdrop: { kind: "checkerboard", cell: 8 },
+  groups: [
+    group("g", [
+      rect("span96", [90, 100], [140, 96], {
+        shape: { center: [90, 100], size: [140, 96], radii: [20, 20, 20, 20], smoothing: 0, thickness: 10 },
+      }),
+      rect("span128", [260, 100], [150, 128], {
+        shape: { center: [260, 100], size: [150, 128], radii: [20, 20, 20, 20], smoothing: 0, thickness: 10 },
+      }),
+      rect("span160", [450, 100], [180, 160], {
+        shape: { center: [450, 100], size: [180, 160], radii: [20, 20, 20, 20], smoothing: 0, thickness: 10 },
+      }),
+    ]),
+  ],
+});
+
+export const W45_SPAN_TRIPLE_SCENE: Scene = w45SpanTriple("w45-span-triple", 2);
+export const W45_SPAN_TRIPLE_1X_SCENE: Scene = w45SpanTriple("w45-span-triple-1x", 1);
+
 export const ALL_SCENES: readonly Scene[] = [
   ...SCENES,
   LENS_DEPTH_SCENE,
@@ -704,6 +747,8 @@ export const ALL_SCENES: readonly Scene[] = [
   W30_DEEP_CASTER_COVERAGE_SCENE,
   W31_BODY_CHROMA_SCENE,
   ...W36_BLACK_SCENES,
+  W45_SPAN_TRIPLE_SCENE,
+  W45_SPAN_TRIPLE_1X_SCENE,
 ];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);
