@@ -1,0 +1,185 @@
+{
+  "capturedAt": "2026-10-03T00:10:43.090Z",
+  "requestedRenderer": "webgpu",
+  "colorScheme": "light",
+  "accessibility": null,
+  "materialProfile": null,
+  "recededProfile": null,
+  "candidateDocument": {
+    "declarationPath": "/Users/new/vitrea-w44/g1/packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/candidate.json",
+    "declarationSha256": "66bf5a0192bf",
+    "endpoints": {
+      "active.light": {
+        "path": "/Users/new/vitrea-w44/g1/packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/active.light.json",
+        "sha256": "b0ed9d6a1036d316cd171e0a36e8159bd665372a910b69ebf7f67893e0fce1ab",
+        "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250",
+        "resolvedMaterialSha256": "fbf1047bc618a87d"
+      },
+      "active.dark": {
+        "path": "/Users/new/vitrea-w44/g1/packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/active.dark.json",
+        "sha256": "1602f1f5b65c9ceaf4b677dda5b996acbd52484534e719f3c00cd325f98a8bd3",
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+        "resolvedMaterialSha256": "b074fc6913a91c66"
+      },
+      "receded.light": {
+        "path": "/Users/new/vitrea-w44/g1/packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/receded.light.json",
+        "sha256": "fb0b7d008ed372b5fac7556bf7e369aa22383a14ff443bc6c1bf206067c3af53",
+        "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+        "resolvedMaterialSha256": "aab222a6f1c6ef96"
+      },
+      "receded.dark": {
+        "path": "/Users/new/vitrea-w44/g1/packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/receded.dark.json",
+        "sha256": "9dcb06313619795536fe0e656199c92b99cb815f0d222cec86161d7b051f3e59",
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+        "resolvedMaterialSha256": "280f0fddf014e0f6"
+      }
+    },
+    "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+  },
+  "crossPosition": null,
+  "fallback": null,
+  "problems": [],
+  "page": {
+    "sceneId": "hc-text-28__rrect-sm__rest",
+    "requestedRenderer": "webgpu",
+    "requestedScale": 1,
+    "requestedBackdropMode": "texture",
+    "requestedBackdropLevel": null,
+    "devicePixelRatio": 1,
+    "frames": 8,
+    "canvas": {
+      "width": 320,
+      "height": 200
+    },
+    "pixelSize": [
+      320,
+      200
+    ],
+    "background": {
+      "id": "hc-text-28",
+      "url": "/reference-fixtures/backgrounds/hc-text-28@1x.png",
+      "naturalWidth": 320,
+      "naturalHeight": 200
+    },
+    "pressed": false,
+    "tint": null,
+    "materialProfile": null,
+    "recededMaterialProfile": null,
+    "candidateRecededMaterialProfile": null,
+    "windowActivation": "active",
+    "colorScheme": "light",
+    "material": {
+      "name": "apple-macos-27.0-glass0.25-w44-g1-m3-t0.1",
+      "platform": "macOS 27.0",
+      "glassTintAmount": 0.25,
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250",
+      "resolvedMaterialSha256": "fbf1047bc618a87d",
+      "tuned": false
+    },
+    "materialMode": "candidate",
+    "candidateDocument": {
+      "mode": "candidate",
+      "declaration": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/candidate.json",
+      "declarationSha256": "66bf5a0192bf",
+      "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+    },
+    "cssTierMapping": null,
+    "transparentPage": false,
+    "accessibilityOverrides": null,
+    "accessibilityPolicy": {
+      "reducedTransparency": false,
+      "reducedMotion": false,
+      "increasedContrast": false,
+      "forcedColors": false,
+      "material": {
+        "glass": "material",
+        "colorSource": "material",
+        "frost": "nominal",
+        "refraction": "nominal",
+        "occlusion": "nominal",
+        "border": "nominal",
+        "ambientTint": "nominal",
+        "foreground": "adaptive"
+      },
+      "motion": {
+        "overshoot": "elastic",
+        "deformation": "nominal",
+        "shimmer": "travel",
+        "morph": "elastic",
+        "crossfade": "never",
+        "positionalContinuity": true
+      }
+    },
+    "groups": [
+      {
+        "id": "component",
+        "configuredSource": "texture",
+        "state": {
+          "configuredSource": "texture",
+          "activeRenderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "refraction": "true",
+          "analysis": "exact",
+          "health": "ok",
+          "materialDocument": {
+            "name": "apple-macos-27.0-glass0.25-w44-g1-m3-t0.1",
+            "platform": "macOS 27.0",
+            "glassTintAmount": 0.25,
+            "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250",
+            "resolvedMaterialSha256": "fbf1047bc618a87d",
+            "tuned": false
+          }
+        },
+        "probeVerdict": "pass",
+        "unsampledMaterial": null,
+        "backdropTone": {
+          "level": 0.5465942649513014,
+          "linearLuminance": 0.76525,
+          "rgb": [
+            0.76525,
+            0.76525,
+            0.76525
+          ]
+        }
+      }
+    ],
+    "surfaces": [
+      {
+        "nodeId": "body",
+        "groupId": "component",
+        "plane": "base",
+        "family": "fixed-rounded-rect",
+        "radius": 8,
+        "bounds": {
+          "x": 128,
+          "y": 84,
+          "width": 64,
+          "height": 32
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      }
+    ],
+    "webgpu": {
+      "available": true,
+      "deviceHealth": "ok",
+      "ownership": "vitrea"
+    },
+    "rendererActive": true,
+    "adapter": {
+      "ok": true,
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "isFallback": false
+    },
+    "canvasColorSpace": "srgb",
+    "canvasColorSpaceNote": "read back from the configured canvas context.",
+    "diagnostics": [],
+    "problems": []
+  }
+}
