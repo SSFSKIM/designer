@@ -1,0 +1,27 @@
+{
+  "$comment": "W45 scratch candidate c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.03-rck0.03-rct0.1:",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w45-c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.03-rck0.03-rct0.1",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "42373739e0b7334f85b4642263eb1583693b5d574f600a1f757a3333791dcf45"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "f646ba8c11b46da3ad5ea7af02f13b54dbe077e3fdeda3d540486a9b56ca8990"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "8ccf5549e2aabc6238a092843b3ec46a07e6037d0e5b2ca3bf002e07d7742907"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "270bb5a158acd586960f80258ab7049d19f304d4159227456f4f712efbed82d7"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

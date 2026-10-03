@@ -169,8 +169,12 @@ def full(names: list[str]) -> int:
 
 
 def stage2(start: str) -> int:
+    """Stage 2 from the new stage-1 point. Its labels are relative to that base, so the coordinate
+    run's stage-2 labels (`c-s2-t0.46`, …) would name other overrides here and the driver refuses
+    them; the continuation's stage-2 points are marked `s2x` (a label only, as `search_g1`'s)."""
     base = json.loads((OUT / start / "stage1.json").read_text())["landed"]
     search.PATH = OUT
+    search.STAGE_SHORT = dict(search.STAGE_SHORT, stage2="s2x")
     record = search.stage("stage2", start, base)
     print(start, "stage 2 landed", record["landed"], record["within"])
     return 0
@@ -182,6 +186,53 @@ def joint() -> int:
     J.PATH = OUT
     finding.PATH = OUT
     J.main(["joint.py"])
+    return 0
+
+
+def report() -> int:
+    """The continuation's numbers for the ledger and the gate report: each path's factorial ten best
+    by stage-1 objective with the landing rule on its full fit map (cut by W45's cuts, never
+    re-derived), the final points' T cells and their moved leaves per document against c05."""
+    import gzip
+    lines, out = [], {}
+    c05 = {s: json.loads((fit.CAL / "profiles" / f"apple-macos-27.0-1x-light-standard-glass0.25{x}.json").read_text())["patch"]
+           for s, x in (("active.light", ""), ("receded.light", "-receded"))}
+    for start in RULED:
+        fac = json.loads((OUT / start / "stage1-factorial.json").read_text())
+        rows = []
+        lines.append(f"== {start}: the factorial's ten best by stage-1 objective, the landing rule on each full fit map")
+        for p in fac["points"][:10]:
+            m = fit.measured_label(p["label"])
+            r = json.loads(gzip.open(fit.G1 / "candidates" / m / "cuts.json.gz").read())["T1"]["rule"]
+            row = dict(label=p["label"], objective=p["objective"], verdict=r["verdict"], read=r["read"],
+                       fAggregate=r["fAggregate"], awayBeyondB=len(r["awayBeyondB"]),
+                       beyondCeiling=len(r["awayBeyondCeiling"]), gatedOver=r["gatedAggregateFailures"])
+            rows.append(row)
+            lines.append(f"  {p['label']:<40} {p['objective']:.4f}  {r['verdict'][:7]:<7} read {r['read']}/94 "
+                         f"F {r['fAggregate']:.4f}  away>B {len(r['awayBeyondB']):>2}  >3B {len(r['awayBeyondCeiling']):>2}  "
+                         f"gated over {r['gatedAggregateFailures'] or 'none'}")
+        out[start] = dict(best10=rows)
+    j = json.loads((OUT / "joint.json").read_text())
+    for start, p in j["paths"].items():
+        spec = json.loads((fit.G1 / "specs" / f"{p['joint']}.json").read_text())["overrides"]
+        moves = {slot: {k: [c05[slot].get(k), v] for k, v in leaves.items() if c05[slot].get(k) != v}
+                 for slot, leaves in spec.items()}
+        summ = json.loads((fit.G1 / "candidates" / fit.measured_label(p["joint"]) / "summary.json").read_text())
+        tcells = {sid: {b: {k: c["bands"][b][k] for k in ("native", "reference", "candidate", "fidelity", "change",
+                                                         "growth", "B")} for b in ("fine", "low")}
+                  for sid, c in summ["cells"].items() if c["stratum"] == "T"}
+        out[start].update(final=p["joint"], movedFromC05=moves, tCells=tcells)
+        lines.append(f"== {start} final {p['joint']}: moved from c05 (from, to)")
+        for slot, mv in moves.items():
+            lines.append(f"  {slot}: " + "; ".join(f"{k} {a} -> {b}" for k, (a, b) in sorted(mv.items())))
+        for sid, b in sorted(tcells.items()):
+            f, lo = b["fine"], b["low"]
+            lines.append(f"  {sid:<28} fine n {f['native']:.4f} c05 {f['reference']:.4f} k {f['candidate']:.4f} "
+                         f"{f['fidelity']}; low n {lo['native']:.4f} c05 {lo['reference']:.4f} k {lo['candidate']:.4f} "
+                         f"g {lo['growth'] / lo['B']:+.2f} B")
+    (OUT / "report.json").write_text(json.dumps(out, indent=1) + "\n")
+    (OUT / "report.txt").write_text("\n".join(lines) + "\n")
+    print("\n".join(lines))
     return 0
 
 
@@ -204,6 +255,8 @@ def main(argv) -> int:
         return stage2(argv[2])
     if verb == "joint":
         return joint()
+    if verb == "report":
+        return report()
     print(__doc__)
     return 64
 

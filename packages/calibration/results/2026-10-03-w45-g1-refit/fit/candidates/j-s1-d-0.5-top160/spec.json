@@ -1,0 +1,21 @@
+{
+  "label": "j-s1-d-0.5-top160",
+  "note": "",
+  "stage": "stage1",
+  "family": "factorial",
+  "start": "joint",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 1.0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 5,
+      "sizeScatterRampStartThin2x": 0.8,
+      "sizeHeavySecondSigma": 0,
+      "sizeHeavySecondShareFar2x": -0.5,
+      "sizeScatterSpanMax2x": 160
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1
+    }
+  }
+}

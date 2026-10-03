@@ -1,0 +1,17 @@
+{
+  "label": "c-s1-q0.75-d-0.75-w3-fl0.5-top160",
+  "note": "",
+  "stage": "stage1",
+  "family": "factorial",
+  "start": "c05",
+  "overrides": {
+    "active.light": {
+      "sizeHeavySecondSigma": 0,
+      "sizeHeavySecondShare": 0.75,
+      "sizeHeavySecondSigma2x": 3,
+      "sizeHeavySecondShareFar2x": -0.75,
+      "sizeScatterSpanMax2x": 160,
+      "sizeScatterFloor2x": 0.5
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "$comment": [
+    "SCRATCH CANDIDATE j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.7, W45 candidate (charter clauses 4-5). Not a sealed or",
+    "shipped document; no publication stage names it. Keyed glass0.250 because candidate mode",
+    "refuses the shipped 0.25 keys (build-candidate.ts).",
+    "Built from apple-macos-27.0-1x-light-standard-glass0.25-receded.json (sha256 4d5f23d9d312) with these leaves moved:",
+    "sizeHeavySecondShare, sizeHeavySecondShareFar2x, sizeHeavyTapSigma2x, sizeScatterRampStartFar2x, sizeScatterRampStartThick2x, sizeScatterRampStartThin2x"
+  ],
+  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+  "schemaVersion": 1,
+  "recordedBy": "W45, scratch candidate j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.7",
+  "colorSpace": "srgb",
+  "kind": "receded-endpoint",
+  "appliesOver": "active.light.json (this candidate's own active document, beside this file)",
+  "resolvedOverActiveDocument": "active.light.json",
+  "derivedFrom": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+    "sha256": "4d5f23d9d312ed0c9c473060e8485088ab0f40d746be90ee073d72e878b85db7"
+  },
+  "movedLeaves": [
+    "sizeHeavySecondShare",
+    "sizeHeavySecondShareFar2x",
+    "sizeHeavyTapSigma2x",
+    "sizeScatterRampStartFar2x",
+    "sizeScatterRampStartThick2x",
+    "sizeScatterRampStartThin2x"
+  ],
+  "addedLeaves": [
+    "sizeHeavySecondShare",
+    "sizeHeavySecondShareFar2x"
+  ],
+  "resolvedMaterialSha256": "a296b6ede71324e7",
+  "resolvedMaterialSha256Rule": 2,
+  "patch": {
+    "backdropToneAbscissa": {
+      "kind": "silhouette"
+    },
+    "tintChromaScale": 0,
+    "tintShadeCollapseRetention": 1,
+    "tintShadeStrength": 1,
+    "optics": {
+      "regular": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      },
+      "clear": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      }
+    },
+    "rimCollapsed": 0,
+    "rimCollapsedTinted": 0,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0,
+      "thinOcclusionBright": 0,
+      "thickOcclusionAt96": 0,
+      "thickOcclusionAt128": 0,
+      "thickOcclusionAt160": 0,
+      "liftAmplitude": 0,
+      "reducedTransparencyOcclusion": 0
+    },
+    "sizeScatterRampStartThick1x": 0.3,
+    "sizeScatterRampStartThick2x": 0,
+    "sizeScatterRampStartFar2x": 0,
+    "sizeHeavyTapSigma2x": 18,
+    "tintShadeDark": 0.0288,
+    "tintShadeLight": 0.76,
+    "reducedTintAdaptation": 0.88,
+    "sizeScatterFloor": 1,
+    "sizeScatterRampStartThin1x": 0.55,
+    "sizeScatterRampStartThin2x": 0.7,
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.425,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0.1105,
+      0.2045,
+      0.4217,
+      0.8117
+    ],
+    "backdropToneResponseThick": [
+      0.0894,
+      0.231,
+      0.4288,
+      0.8086
+    ],
+    "refractionScale": {
+      "approximate": 0
+    },
+    "increasedOcclusionLift": 0.96,
+    "increasedOcclusionLiftByPolicy": {
+      "reduceTransparency": 0.88,
+      "increaseContrast": 0.98
+    },
+    "strongBorderRim": {
+      "rimWidth": 1,
+      "rimAlpha": -3.5
+    },
+    "bodyChromaRetention": 0.349,
+    "backdropToneBlackStrength": 1,
+    "backdropToneBlackThin": 0.180351,
+    "backdropToneBlackThick": 0.180351,
+    "sizeHeavySecondShare": 0.25,
+    "sizeHeavySecondShareFar2x": -0.125
+  }
+}

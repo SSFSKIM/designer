@@ -46905,3 +46905,127 @@ record holds 112 rows at 3.18e-11; corrected above. The reviewer reproduced, rea
   116-cell budget.
 
 The close checks at the head are in `close-checks.txt`.
+
+### 11. The continuation the parent ruled on 2026-10-04: stage 1 as the permitted factorial, from both starting points (`4913082f` and after)
+
+**The ruling.** Not (a), (b) or (c) of §7 yet. Continue inside part 2 as hashed: its search
+procedure permits a full factorial of a stage's grids, and the coordinate order of §3 could not
+reach the region G0's joint ladder read as working, because the span top and the delta gate each
+other. Nothing in part 2 changes: no amendment, no new grid value, no change to the rule, budget or
+ceiling.
+
+**Step 1, checked before any render** (`fit/path/factorial/declaration-check.txt`). Part 2's file
+hashes to `e6874e02…`, and stage 1 is one family (`deep`) whose grids a full factorial may sweep.
+The operator's grid is ABSOLUTE: {0, −0.25, −0.5, −0.75, −1}, with `domainLowerIsMinus` and no
+`domainRelativeTo`. So the ruled deltas "{−0.5, −0.75, −1} × share" include values that are not
+grid values (−0.125, −0.1875, −0.375, −0.5625). Those were not visited. Visited were the grid values
+in [−share, 0] whose fraction of the share lies in the ruled range:
+
+| path | share × delta pairs | other leaves | points (ruled) |
+| --- | --- | --- | --- |
+| c05 | 0.25 × {−0.25}; 0.5 × {−0.25, −0.5}; 0.75 × {−0.5, −0.75} | floor {0.5, 1}, width {2, 3} CSS px, span top {128, 160, 192} | 60 (108) |
+| joint | 0.5 × {−0.25, −0.5} | width {2, 3, 5}, span top {128, 160, 192} | 18 (36) |
+
+G0's region (share 0.5, width 2, delta −0.5 = −share, span top 160) is in both. The ladder's −0.75 at
+share 0.5 lies outside the domain Decision Log 7 item 2 ruled. The other leaves held each path's
+current values: thick/far 0.21, the joint path's floor 1, the 1x width 0. A thick/far coordinate pass
+followed as the procedure's second pass.
+
+**What ran** (`fit/factorial.py`, through the pinned fit and search tools). Every launch went
+through the census (0 refusals), in candidate mode with `--alpha`, on the fit cells only, the
+loader's refusals unchanged:
+- the 78 factorial points and the two thick/far passes;
+- the full fit map on each path's ten best;
+- stage 2 from each new stage-1 point, with the `rc` receded mark (§6) and stage-2 labels marked
+  `s2x`. The base-relative stage-2 labels of §3 named other overrides, and the driver refused the
+  first one, before any render;
+- the full map, X48 and sheets at both final points.
+
+The records are under `fit/path/factorial/`. Every rung is in `fit/path/rungs.txt` after §3's,
+whose 252 lines are unchanged.
+
+**Stage 1.**
+- **The best factorial point on both paths** is share 0.5, width 2, delta −0.25 at span top 128
+  (floor 1): 0.0918, against the coordinate run's 0.1008 (c05) and 0.1091 (joint). G0's region
+  reads 0.1091 on both paths.
+- **The thick/far pass** reads 0.0741 at 0.15. That is inside the stage tie 0.0332 of 0.0918, so
+  the factorial point, with fewer leaves, lands on both paths.
+
+**The factorial's ten best per path, each read by the landing rule on its full 94-cell map**
+(`fit/path/factorial/report.txt`): **all twenty read NEITHER**.
+- **c05 path.** F 0.33–0.58, 15–24 cells away beyond B, 2–16 beyond 3B, C inactive over on eight of
+  ten. G0's region (`c-s1-q0.5-d-0.5-w2-fl1-top160`) reads F 0.3299, 22 away and 10 beyond 3B.
+- **Joint path.** F 0.2455–0.2935 (all halved), no gated group over, 6–22 away beyond B, 3–10
+  beyond 3B. G0's region (`j-s1-d-0.5-w2-top160`) reads F 0.2462, 18 away and 5 beyond 3B.
+- **Closest to the budget.** `j-s1-d-0.25-top192` (share 0.5, width 5, delta −0.25, top 192): F
+  0.2455, 6 away, 3 beyond 3B.
+
+So **the region G0's ladders found does not survive the full gate population**. It brings the two
+`checkerboard-8` cells toward Apple and moves many other cells away.
+
+**Stage 2 from the new stage-1 points.**
+- **Thin start** 0.65 on both paths: 0.2507 at 0.46 … 0.1930 at 0.65 … 0.2642 at 0.95.
+- **Receded component**: thin 0.1, thick/far 0, heavy σ 18, share ×0.5 = 0.25, delta ×0.5 =
+  −0.125. Its objective goes 0.3608 → 0.1984.
+- **Both paths converge on ONE content** (equal overrides; light digests `3741b22934f17f4d` active
+  and `c4ca0e1cd6791bde` receded, dark c05's). Its 188 2x captures are byte-identical across the two
+  separate renders. No stage undid the other. The selection metric is 0.1898 on both, and the tie
+  takes the first lineage, c05.
+
+**The landing rule at the final point** (`fit/path/factorial/joint.json`, `finding.json`):
+
+| | final point (both paths) | c05 |
+| --- | --- | --- |
+| verdict | **NEITHER** | |
+| F aggregate (pooled; half is 0.3231) | **0.2190, halved** | 0.6462 |
+| F rest (bound 0.6819) / F inactive (reported) | 0.2190 / 0.3758 | 0.6334 / 1.2903 |
+| T rest on T1-fine (bound 0.6196) | 0.2365 | 0.5251 |
+| C rest (0.1988) / C inactive (0.9024) | 0.0810 / 0.1829 | 0.1720 / 0.8523 |
+| P rest (0.4592) / P inactive (0.1848) | 0.3902 / 0.1818 | 0.4193 / 0.1393 |
+| every gated group's A within c05's A + τ | **yes, for the first time in W44–W45** | |
+| partition (unchanged / toward / away) | 18 / 57 / 19 | |
+| away with g > B (at most 3) | **8** | |
+| beyond 3B (none) | **4** | |
+| F cells not within | 8 | 11 |
+
+The budget is the only clause that fails. The cells (g in B):
+- `checkerboard__rrect-md__pressed` 4.27
+- `checkerboard__capsule-button__pressed` 4.25
+- `checkerboard-32__rrect-sm__rest` 4.18
+- `checkerboard-32__rrect-lg__rest` 3.34
+- `checkerboard-64__rrect-sm__rest` 2.22
+- `checkerboard-8__rrect-lg__rest` 1.55
+- `hc-text__rrect-lg__inactive` 1.40
+- `photo__toolbar-group__inactive` 1.02
+
+`finding.json` reads each at every point that rendered it. The two pressed cells, `checkerboard-32`
+sm and `checkerboard-64` sm are rarely within B at any searched point (10 of 51, 12 of 51, 2 of 51).
+
+**The T cells.** None is within on T1-fine. The changes are toward Apple: lg fine 0.0212 against
+native 0.0032 (c05 0.0271); md 0.0374 against 0.0281 (c05 0.0522); sm 0.0928 against 0.1172 (c05
+0.0723). On T1-low the growths are −0.23, −0.26 and −2.33 B.
+
+**The moved leaves** (dark documents unchanged):
+- active light: `sizeScatterFloor2x` 0.6 → 1, `sizeHeavySecondShare` 0 → 0.5,
+  `sizeHeavySecondSigma2x` 0 → 2 CSS px, `sizeHeavySecondShareFar2x` → −0.25, `sizeScatterSpanMax2x`
+  256 → 128, `sizeScatterRampStartThin2x` 0.46 → 0.65;
+- receded light: `sizeScatterRampStartThin2x` 0.7 → 0.1, thick and far 0.04 → 0,
+  `sizeHeavyTapSigma2x` 14 → 18, and the share 0.25 and delta −0.125 named as differences.
+
+**X48** at both final points: 94 of 94 rows and 188 of 188 captures identical to c05
+(`x48-c05-path.json`, `x48-joint-path.json` under `fit/path/factorial/`).
+
+**By eye** (`sheets/sent-continuation.txt`). The pressed checkerboard cells show the brighter
+W45 − Apple difference that their growth reports, and the coarse checker bodies read close to c05.
+
+**The verdict.** Both final points (one content) read NEITHER on the count (8) and the ceiling (4).
+By the ruling's step 5 the worker stopped after step 4: nothing frozen, staged or exposed, no
+document or runtime moved, the holdout and the twelve referees unspent.
+
+**The shape of what is left.**
+- The span-graded tap, searched over the region the ladders pointed at, buys the F aggregate
+  (0.6462 → 0.2190) and every gated aggregate.
+- It costs four cells beyond 3B: two pressed `checkerboard` cells, and two `checkerboard-32` cells
+  at the thin and thick spans.
+- No declared point clears them inside a three-cell, 3B budget. That is the tradeoff Decision Log
+  3 fixed before the rehearsal; the count and the ceiling were not moved.

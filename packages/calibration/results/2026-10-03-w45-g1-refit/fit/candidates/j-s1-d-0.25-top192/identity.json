@@ -1,0 +1,47 @@
+{
+  "label": "j-s1-d-0.25-top192",
+  "holds": true,
+  "endpoints": {
+    "active.light": {
+      "moved": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavySecondSigma2x",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterSpanMax2x"
+      ],
+      "undeclared": [],
+      "digest": "5f2e0c98828568dd",
+      "c05Digest": "50430fa62c1120bd",
+      "secondTap1xWidth": 0
+    },
+    "active.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "b074fc6913a91c66",
+      "c05Digest": "b074fc6913a91c66",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    },
+    "receded.light": {
+      "moved": [
+        "sizeScatterRampStartThin2x"
+      ],
+      "undeclared": [],
+      "digest": "dfe9ed3d593a7628",
+      "c05Digest": "5d8680980b7aeb55",
+      "secondTap1xWidth": 0
+    },
+    "receded.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "280f0fddf014e0f6",
+      "c05Digest": "280f0fddf014e0f6",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    }
+  }
+}

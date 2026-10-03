@@ -1,11 +1,79 @@
 {
  "what": "W45 G1: scope objectives with an UNMEASURED member, recovered through W44 G0's port",
  "portProof": {
-  "rows": 112,
+  "rows": 224,
   "worstAbsDiff": 3.1776064418620464e-11,
   "tolerance": 1e-06
  },
  "points": {
+  "c-s1-q0.25-d-0.25-w3-fl0.5-top128": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.04150608480068685,
+      "ratio": 0.61156615240418
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.23415301420892293,
+    "declaredObjective": 0.25039925106394956
+   }
+  },
+  "c-s1-q0.25-d-0.25-w3-fl1-top128": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.03707429271707985,
+      "ratio": 0.5462664729513499
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.25939089563334927,
+    "declaredObjective": 0.25948615247969176
+   }
+  },
+  "c-s1-q0.25-d-0.25-w3-fl1-top160": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.03707429271707985,
+      "ratio": 0.5462664729513499
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.2250376579606482,
+    "declaredObjective": 0.2592956387870068
+   }
+  },
+  "c-s1-q0.25-d-0.25-w3-fl1-top192": {
+   "stage1": {
+    "missing": [
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "recovered": {
+     "checkerboard-lc16__rrect-md__rest": {
+      "native": 0.06786851207758757,
+      "web": 0.03707429271707985,
+      "ratio": 0.5462664729513499
+     }
+    },
+    "members": 27,
+    "recordedObjective": 0.19342161185857665,
+    "declaredObjective": 0.19606354658286368
+   }
+  },
   "j-s1-d0-f0.1-k0.1-top112": {
    "stage1": {
     "missing": [

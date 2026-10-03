@@ -1,0 +1,34 @@
+== c05: the factorial's ten best by stage-1 objective, the landing rule on each full fit map
+  c-s1-q0.5-d-0.25-w2-fl1-top128           0.0918  NEITHER read 94/94 F 0.3319  away>B 19  >3B 11  gated over ['C inactive']
+  c-s1-q0.25-d-0.25-w2-fl0.5-top192        0.0998  NEITHER read 94/94 F 0.5587  away>B 19  >3B 12  gated over ['T rest', 'C inactive']
+  c-s1-q0.5-d-0.25-w2-fl0.5-top128         0.1027  NEITHER read 94/94 F 0.5333  away>B 22  >3B 16  gated over ['C inactive']
+  c-s1-q0.5-d-0.5-w3-fl0.5-top160          0.1091  NEITHER read 94/94 F 0.4291  away>B 22  >3B 12  gated over ['C inactive']
+  c-s1-q0.5-d-0.5-w2-fl1-top160            0.1091  NEITHER read 94/94 F 0.3299  away>B 22  >3B 10  gated over ['C inactive']
+  c-s1-q0.25-d-0.25-w3-fl0.5-top192        0.1132  NEITHER read 94/94 F 0.5805  away>B 17  >3B  6  gated over ['C inactive']
+  c-s1-q0.75-d-0.5-w3-fl0.5-top128         0.1135  NEITHER read 94/94 F 0.4769  away>B 24  >3B 16  gated over ['C inactive']
+  c-s1-q0.5-d-0.25-w3-fl1-top128           0.1135  NEITHER read 94/94 F 0.4769  away>B 15  >3B  2  gated over none
+  c-s1-q0.75-d-0.5-w3-fl1-top128           0.1135  NEITHER read 94/94 F 0.4314  away>B 23  >3B 12  gated over ['C inactive']
+  c-s1-q0.5-d-0.25-w3-fl1-top160           0.1147  NEITHER read 94/94 F 0.5097  away>B 17  >3B  2  gated over none
+== joint: the factorial's ten best by stage-1 objective, the landing rule on each full fit map
+  j-s1-d-0.25-w2-top128                    0.0918  NEITHER read 94/94 F 0.2462  away>B 15  >3B  6  gated over none
+  j-s1-d-0.5-w2-top160                     0.1091  NEITHER read 94/94 F 0.2462  away>B 18  >3B  5  gated over none
+  j-s1-d-0.25-w3-top128                    0.1135  NEITHER read 94/94 F 0.2935  away>B  8  >3B  3  gated over none
+  j-s1-d-0.25-w3-top160                    0.1147  NEITHER read 94/94 F 0.2935  away>B 10  >3B  3  gated over none
+  j-s1-d-0.5-w3-top192                     0.1147  NEITHER read 94/94 F 0.2935  away>B  9  >3B  3  gated over none
+  j-s1-d-0.25-w2-top160                    0.1165  NEITHER read 94/94 F 0.2462  away>B 19  >3B  7  gated over none
+  j-s1-d-0.5-w2-top192                     0.1165  NEITHER read 94/94 F 0.2462  away>B 17  >3B  6  gated over none
+  j-s1-d-0.25-top192                       0.1255  NEITHER read 94/94 F 0.2455  away>B  6  >3B  3  gated over none
+  j-s1-d-0.25-w2-top192                    0.1351  NEITHER read 94/94 F 0.2462  away>B 22  >3B 10  gated over none
+  j-s1-d-0.5-w3-top160                     0.1407  NEITHER read 94/94 F 0.2763  away>B 12  >3B  3  gated over none
+== c05 final c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1: moved from c05 (from, to)
+  active.light: sizeHeavySecondShare 0 -> 0.5; sizeHeavySecondShareFar2x None -> -0.25; sizeHeavySecondSigma2x 0 -> 2; sizeScatterFloor2x 0.6 -> 1.0; sizeScatterRampStartThin2x 0.46 -> 0.65; sizeScatterSpanMax2x 256 -> 128
+  receded.light: sizeHeavySecondShare None -> 0.25; sizeHeavySecondShareFar2x None -> -0.125; sizeHeavyTapSigma2x 14 -> 18; sizeScatterRampStartFar2x 0.04 -> 0; sizeScatterRampStartThick2x 0.04 -> 0; sizeScatterRampStartThin2x 0.7 -> 0.1
+  hc-text-7__rrect-lg__rest    fine n 0.0032 c05 0.0271 k 0.0212 miss; low n 0.1170 c05 0.0876 k 0.0893 g -0.23 B
+  hc-text-7__rrect-md__rest    fine n 0.0281 c05 0.0522 k 0.0374 miss; low n 0.0867 c05 0.0576 k 0.0594 g -0.26 B
+  hc-text-7__rrect-sm__rest    fine n 0.1172 c05 0.0723 k 0.0928 miss; low n 0.0731 c05 0.0545 k 0.0748 g -2.33 B
+== joint final j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0: moved from c05 (from, to)
+  active.light: sizeHeavySecondShare 0 -> 0.5; sizeHeavySecondShareFar2x None -> -0.25; sizeHeavySecondSigma2x 0 -> 2; sizeScatterFloor2x 0.6 -> 1.0; sizeScatterRampStartThin2x 0.46 -> 0.65; sizeScatterSpanMax2x 256 -> 128
+  receded.light: sizeHeavySecondShare None -> 0.25; sizeHeavySecondShareFar2x None -> -0.125; sizeHeavyTapSigma2x 14 -> 18; sizeScatterRampStartFar2x 0.04 -> 0; sizeScatterRampStartThick2x 0.04 -> 0; sizeScatterRampStartThin2x 0.7 -> 0.1
+  hc-text-7__rrect-lg__rest    fine n 0.0032 c05 0.0271 k 0.0212 miss; low n 0.1170 c05 0.0876 k 0.0893 g -0.23 B
+  hc-text-7__rrect-md__rest    fine n 0.0281 c05 0.0522 k 0.0374 miss; low n 0.0867 c05 0.0576 k 0.0594 g -0.26 B
+  hc-text-7__rrect-sm__rest    fine n 0.1172 c05 0.0723 k 0.0928 miss; low n 0.0731 c05 0.0545 k 0.0748 g -2.33 B

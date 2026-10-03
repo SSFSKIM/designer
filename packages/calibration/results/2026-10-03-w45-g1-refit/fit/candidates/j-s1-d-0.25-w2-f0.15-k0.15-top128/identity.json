@@ -1,0 +1,49 @@
+{
+  "label": "j-s1-d-0.25-w2-f0.15-k0.15-top128",
+  "holds": true,
+  "endpoints": {
+    "active.light": {
+      "moved": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavySecondSigma2x",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartFar2x",
+        "sizeScatterRampStartThick2x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterSpanMax2x"
+      ],
+      "undeclared": [],
+      "digest": "56b22b0fafd0cffb",
+      "c05Digest": "50430fa62c1120bd",
+      "secondTap1xWidth": 0
+    },
+    "active.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "b074fc6913a91c66",
+      "c05Digest": "b074fc6913a91c66",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    },
+    "receded.light": {
+      "moved": [
+        "sizeScatterRampStartThin2x"
+      ],
+      "undeclared": [],
+      "digest": "0e2b98ad4da042cf",
+      "c05Digest": "5d8680980b7aeb55",
+      "secondTap1xWidth": 0
+    },
+    "receded.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "280f0fddf014e0f6",
+      "c05Digest": "280f0fddf014e0f6",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    }
+  }
+}
