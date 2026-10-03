@@ -47118,7 +47118,7 @@ landing rule reads **NEITHER**:
 | `checkerboard__capsule-button__pressed` | recorded, pressed, thin span, 16 CSS px | 0.1938 | 0.1807 | 0.2358 | 4.25 B | at thin spans the tap acts at full share, and the thin start 0.46 → 0.65 adds sharp structure at the contour band: ×0.93 → ×1.22, over |
 | `checkerboard-32__rrect-sm__rest` | probe, rest, span 32 (thin), 32 CSS px (c = 64) | 0.2161 | 0.1954 | 0.2650 | 4.18 B | a 2-CSS-px tap passes a 64-device-px checker almost whole, at full share on a thin span: ×0.90 → ×1.23, over |
 | `checkerboard-32__rrect-lg__rest` | probe, rest, span 160 (thick), 32 CSS px | 0.1336 | 0.1329 | 0.1566 | 3.34 B | with the span top at 128 the far curve is already 1 at 128, so 160 keeps a tap share of 0.25 that c05's heavy-only body (×0.99, on Apple) did not have: ×1.17 |
-| `checkerboard-64__rrect-sm__rest` | probe, rest, span 32 (thin), 64 CSS px (c = 128) | 0.0680 | 0.0319 | 0.0133 | 2.22 B | the body spans about one square, so its SD is the one checker edge crossing it; floor 0.6 → 1 takes the sharp share off the thin span and blurs that edge: ×0.47 → ×0.19, further under |
+| `checkerboard-64__rrect-sm__rest` | probe, rest, span 32 (thin), 64 CSS px (c = 128) | 0.0680 | 0.0319 | 0.0133 | 2.22 B | the 64 × 32 CSS-px body sits entirely inside one uniform 64-CSS-px square (`scenes.json`), so its SD is the neighbouring squares' light reaching it through the blur, not an edge crossing it. Measured on the stage-2 thin sweep: the stage-1 change (floor 1 with the tap) takes it 0.0319 → 0.0179 at c05's thin start, and the thin start lowers it further, monotonically (0.0156 at 0.55, 0.0133 at 0.65, 0.0068 at 0.95). Floor 0.5 alone reads 0.0294. That less of the neighbours' light reaches the body is an inference; the levers' shares are measured: ×0.47 → ×0.19 |
 | `checkerboard-8__rrect-lg__rest` | probe, rest, span 160, 8 CSS px (c = 16) | 0.0224 | 0.0484 | 0.0581 | 1.55 B | a 4-device-px tap passes the 16-device-px checker at about 0.38, and at 160 it keeps a 0.25 share: ×2.16 → ×2.60, already over |
 | `hc-text__rrect-lg__inactive` | probe, receded, span 160, text | 0.1214 | 0.1113 | 0.1020 | 1.40 B | the receded heavy tap 14 → 18 device px and thick/far 0 smooth the receded body more: ×0.92 → ×0.84, under |
 | `photo__toolbar-group__inactive` | validation, receded, thin, photo | 0.0998 | 0.0778 | 0.0718 | 1.02 B | the same receded smoothing on the photo: ×0.78 → ×0.72, under |
@@ -47175,12 +47175,15 @@ new cut and a merged T-band fixture (the reference's 8 entries plus the candidat
 - **The holdout not yet read** (expected before the exposure):
   - the gated bed's light counts (52 of 72);
   - each light table's 26 of 36;
-  - the X1 cut population (230 of 242) and E2's (282 of 288);
   - `MISSED_27_ROWS`' 27-row list (175 of 201: the unread holdout, and the misses that closed or
     opened, which G2 re-derives).
+- **The referees not yet read** (expected before the exposure; the review of steps 3–6, P2):
+  - the X1 cut population, 230 of 242: the twelve withheld referee cells;
+  - E2's, 282 of 288: six of them;
+  - the W43 block's "reads a cut regenerated at this gate from the published generation", which
+    asserts `bed.missingNonHoldout` empty and finds the referee scenes.
 - **The references the cut re-baselined to c05 (X52)**: the L1 and M1/M2 re-derivations still read
-  W43's pre-fit render. Also the W43 block's "regenerated from the published generation"
-  provenance, and the L1 union-digest pin (a scratch union is not the published one).
+  W43's pre-fit render. Also the L1 union-digest pin (a scratch union is not the published one).
 - **The environment**: X1's capture re-derivations look for the dark profiles' captures in this
   worktree's tree; the canonical tree is elsewhere.
 - **The adapter itself**: the band fixture holds 14 entries, not 8. G2 updates the assertions for
@@ -47206,3 +47209,36 @@ MacBook (`sheets/sent-gate.txt`). The capture tree for G2's copy is this worktre
 
 The user decides between an improvement landing under a ruled budget exception and the close. The
 referees and the holdout are unread.
+
+### 14. Review closure of steps 3–6 (`doperpowers:reviewer-medium` on `c362aef4..e8a6257f`)
+
+Verdict **needs-attention**, on two P2 findings, both accepted and corrected in §13.
+
+1. **The `checkerboard-64__rrect-sm__rest` line named a mechanism the geometry rules out.** It said
+   a checker edge crosses the body. The body lies entirely inside one uniform 64-CSS-px square
+   (`scenes.json`; the checker starts at the canvas origin, `Backgrounds.swift`). The line now
+   gives the uniform-cell geometry and the measured lever shares from the stage-2 thin sweep, and
+   marks the physical pathway as an inference.
+2. **Three owner-test failures were filed under the holdout or the references; they are the
+   withheld referees:**
+   - the X1 population (230 of 242: twelve referee cells);
+   - E2's (282 of 288: six);
+   - the W43 provenance case, which asserts `bed.missingNonHoldout` empty and finds the referee
+     scenes.
+
+   They are expected before the exposure, and the accounting now names what clears each.
+
+What the reviewer checked and found sound:
+- the light patches equal the converged candidate's, the `supersedes` hashes are c05's, and only
+  the two documents moved;
+- the export and coherence suites pass, 101 tests;
+- the 552-row stage holds no referee or holdout row;
+- X48: 276 1x rows and 552 PNG and alpha files equal c05's;
+- the six T-band capture hashes;
+- the stage's T1 rule equals the fit's, and the 8 / 4 budget failures and the CSS 22 / 11 counts
+  reproduce;
+- every table's miss list equals c05's;
+- the M1, M2, C1, L1, X1, E2 and S1 outcomes;
+- the adapter's three substitutions;
+- the explanation of the post-freeze declaration checks.
+
