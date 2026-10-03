@@ -47125,8 +47125,9 @@ landing rule reads **NEITHER**:
 
 **The T cells** (fidelity and change on T1-fine, away on T1-low). None is within; all move toward
 Apple. Fine: lg 0.0212 against native 0.0032 (c05 0.0271); md 0.0374 against 0.0281 (c05 0.0522); sm
-0.0928 against 0.1172 (c05 0.0723). Low growth: −0.23, −0.26 and −2.33 B. At 1x the stage's six T
-entries are c05's bytes (`t1/t-bands-ebc3d9105a4a.gate.json`, G2 part (i), beside the reference's).
+0.0928 against 0.1172 (c05 0.0723). Low growth: −0.23, −0.26 and −2.33 B. The gate fixture
+(`t1/t-bands-ebc3d9105a4a.gate.json`, G2 part (i), beside the reference's) holds the six gate T
+cells; its three 1x entries read c05's values (X48).
 
 **Every other adopted row against the c05 references** (the cut; WebGPU gated, CSS descriptive):
 - **Tables.** WebGPU pass on all four profiles. CSS: 1x light keeps its one named miss
@@ -47175,7 +47176,8 @@ new cut and a merged T-band fixture (the reference's 8 entries plus the candidat
   - the gated bed's light counts (52 of 72);
   - each light table's 26 of 36;
   - the X1 cut population (230 of 242) and E2's (282 of 288);
-  - `MISSED_27_ROWS`' 27-row list (175 of 201).
+  - `MISSED_27_ROWS`' 27-row list (175 of 201: the unread holdout, and the misses that closed or
+    opened, which G2 re-derives).
 - **The references the cut re-baselined to c05 (X52)**: the L1 and M1/M2 re-derivations still read
   W43's pre-fit render. Also the W43 block's "regenerated from the published generation"
   provenance, and the L1 union-digest pin (a scratch union is not the published one).
