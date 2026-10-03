@@ -47031,3 +47031,44 @@ document or runtime moved, the holdout and the twelve referees unspent.
   at the thin and thick spans.
 - No declared point clears them inside a three-cell, 3B budget. That is the tradeoff Decision Log
   3 fixed before the rehearsal; the count and the ceiling were not moved.
+
+### 12. Review closure of the continuation (`doperpowers:reviewer-medium` on `eb54342c..5d4252bb`)
+
+Verdict **needs-attention**, on two findings, both accepted.
+
+1. **[P2] `factorial.py stage2` redirected `search.PATH`, which also redirected
+   `search.recovered_points()`** to `path/factorial/recovered.json`, while the pinned `recover.py`
+   writes `path/recovered.json`. So a partial stage-2 render could not have resumed: the chain's
+   retries would have refused it until their limit.
+   - **No effect on the record.** No stage-2 render of the continuation was partial. Its four
+     partial renders were stage-1's, and their decisions read the recovered objectives correctly.
+   - **Fixed.** The stage-2 verb now keeps the lookup at `path/recovered.json` while the stage
+     records go under `path/factorial/`. With the old line the lookup read 0 points, with the fix 8.
+2. **[P3] The c05 factorial is not only the literal ruled set intersected with the grid.**
+   `declaration-check.txt` read "{−0.5, −0.75, −1} × share" as the interval [−1, −0.5] × share, which
+   admits delta −0.5 at share 0.75 (−2/3 of the share). That is 12 points beyond the literal
+   intersection: 48 + 12, against the 60 stated.
+   - **Still inside part 2.** The 12 are on the absolute grid, inside the joint domain and inside
+     the permitted factorial, so they are an extension within part 2.
+   - **Nothing depends on them.** No literal on-grid point was omitted, and the reviewer recomputed
+     the stage-1 decision without the 12: unchanged.
+   - **Recorded beside.** `path/factorial/declaration-check-correction.txt` says so next to the
+     pre-render check, which stays as written.
+
+What the reviewer checked and found sound:
+- the unchanged part-2 hash and every source pin;
+- all 182 new specs against part 2's grids, domains and the joint domain;
+- both stage decisions and both stage-2 search replays, the interactions and the final selection;
+- all twenty best-point rule reports and the 422 rung objectives, with `rungs.txt`'s first 252
+  lines preserved;
+- 198 census-passing `--alpha` launches, no label launched more than four times, and 6,996 new
+  matrix rows confined to the gate population;
+- the four partial objectives recovered correctly;
+- the final points' equal patches and digests, and 188 byte-identical captures;
+- both X48 checks;
+- the final verdict NEITHER (F 0.2189553, 8 beyond B, 4 beyond 3B), and the stop.
+
+The continuation's close checks at `5d4252bb` are in `close-checks-continuation.txt`: freeze 1,818;
+X41 911; 10 of 10 digests; check and check-fit consistent; no diff under the profiles, platform-web
+or renderer-webgpu since `67a82a00`.
+

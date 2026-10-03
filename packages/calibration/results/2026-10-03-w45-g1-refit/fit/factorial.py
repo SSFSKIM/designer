@@ -173,6 +173,14 @@ def stage2(start: str) -> int:
     run's stage-2 labels (`c-s2-t0.46`, …) would name other overrides here and the driver refuses
     them; the continuation's stage-2 points are marked `s2x` (a label only, as `search_g1`'s)."""
     base = json.loads((OUT / start / "stage1.json").read_text())["landed"]
+    # The stage records go under path/factorial/; the recovered objectives stay where the pinned
+    # recover.py writes them (path/recovered.json). Redirecting PATH alone also redirected that
+    # lookup, so a partial stage-2 render could not have resumed (the review of the continuation,
+    # P2; no stage-2 render of the continuation was partial, so nothing recorded depended on it).
+    recovered = search.recovered_points()
+    search.recovered_points = lambda: (lambda path: json.loads(path.read_text())["points"] if path.exists() else {})(
+        fit.G1 / "path" / "recovered.json")
+    assert search.recovered_points() == recovered
     search.PATH = OUT
     search.STAGE_SHORT = dict(search.STAGE_SHORT, stage2="s2x")
     record = search.stage("stage2", start, base)
