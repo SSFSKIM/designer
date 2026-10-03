@@ -91,6 +91,29 @@ def sha(data: bytes) -> str:
     return W.sha(data)
 
 
+def aliases() -> dict:
+    """label -> the content twin it is MEASURED by (`search.py`'s render-once rule): equal resolved
+    digests draw equal pixels, so the label reads the twin's renders and keeps its own overrides."""
+    path = G1 / "aliases.json"
+    return json.loads(path.read_text()) if path.exists() else {}
+
+
+def record_alias(label: str, twin: str) -> None:
+    table = aliases()
+    if table.get(label, twin) != twin:
+        raise W.Refusal(f"{label} is measured by {table[label]} already, not {twin}")
+    if twin in table:
+        raise W.Refusal(f"{twin} is itself measured by {table[twin]}; an alias names a rendered point")
+    table[label] = twin
+    G1.mkdir(parents=True, exist_ok=True)
+    (G1 / "aliases.json").write_text(json.dumps(dict(sorted(table.items())), indent=1) + "\n")
+
+
+def measured_label(label: str) -> str:
+    """The label whose renders and cuts a point is read off: its content twin, or itself."""
+    return aliases().get(label, label)
+
+
 def log(row):
     G1.mkdir(parents=True, exist_ok=True)
     with (G1 / "runs.jsonl").open("a") as f:

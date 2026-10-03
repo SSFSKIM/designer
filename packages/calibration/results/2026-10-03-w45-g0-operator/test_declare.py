@@ -138,6 +138,32 @@ class PartOneRecord(unittest.TestCase):
             show.assert_called_once_with(key, "c152b89b")
             self.assertNotEqual(D.source_bytes(key, live=True), b"at-commit")
 
+    def record(self, entry: dict):
+        root = Path(tempfile.mkdtemp(prefix="w45-declare-"))
+        path = root / "fit-amendments.json"
+        path.write_text(json.dumps({"amendments": [entry]}))
+        parts = copy.deepcopy(D.PARTS)
+        parts["fit"]["amendments"] = path
+        return mock.patch.object(D, "PARTS", parts)
+
+    def test_a_read_at_entry_for_any_other_source_is_refused_by_the_checker(self):
+        bed = f"{D.REL}/cuts/bed.py"
+        with self.record({"partOneReadAt": {bed: "f33d3e59"}}):
+            self.assertEqual(D.part_one_record()[1], {})                 # never re-routes the read
+            self.assertTrue(any("cuts/bed.py" in f for f in D.part_one_record_failures()))
+
+    def test_a_repin_of_any_other_source_is_refused_by_the_checker(self):
+        cuts = f"{D.REL}/cuts/cuts.py"
+        with self.record({"partOnePins": {cuts: {"from": "a", "to": "b"}}}):
+            self.assertEqual(D.part_one_record()[0], {})
+            self.assertTrue(any("cuts/cuts.py" in f for f in D.part_one_record_failures()))
+
+    def test_a_read_at_commit_whose_bytes_are_not_the_pin_is_refused(self):
+        key = D.PART_ONE_READ_AT_ADMISSIBLE[0]
+        with self.record({"partOneReadAt": {key: "c152b89b"}}), \
+                mock.patch.object(D, "git_show", return_value=b"other bytes"):
+            self.assertTrue(any("not part 1's pin" in f for f in D.part_one_record_failures()))
+
     def test_the_count_floor(self):
         self.assertTrue(D.ran_at_least("...\nRan 15 tests in 0.004s\n", 14))
         self.assertFalse(D.ran_at_least("...\nRan 13 tests in 0.004s\n", 14))

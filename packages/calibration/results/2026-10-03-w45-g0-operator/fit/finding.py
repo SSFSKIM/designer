@@ -31,7 +31,8 @@ COUNT, CEILING = 3, 3.0
 
 
 def cut_of(label):
-    with gzip.open(fit.G1 / "candidates" / label / "cuts.json.gz", "rt") as f:
+    """A point's cut, read off its content twin where it is measured by one (`fit.measured_label`)."""
+    with gzip.open(fit.G1 / "candidates" / fit.measured_label(label) / "cuts.json.gz", "rt") as f:
         return json.load(f)
 
 
