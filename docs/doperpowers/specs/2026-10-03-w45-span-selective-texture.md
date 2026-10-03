@@ -30,6 +30,9 @@ charter's Decision Logs and reports them.** Ledger §5.205–§5.207 are reserve
 - **Part 2** `da85de04…`, the X48 inert setting its one change. After reviewer-medium it was
   amended once, before any fit render, to `77f1c392…`: the fixed G1 search and rule were
   re-pinned, with no content change (§5.205 §13).
+- **Open before G1** (§5.205 §14). Three defects in the G1 search and the amendment record are
+  fixed on the side branch `w45-g0-search-fix`. They need a ruled second part-2 amendment, and so
+  does a (share, width) factorial for the c05 path.
 G1 opens on the merge.
 
 ## Decisions

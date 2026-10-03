@@ -46553,8 +46553,9 @@ amendment re-pins the fixed tools and changes no content. `amend-fit` now refuse
 
 ### 13. Review closure, G0 (b)–(e) (`doperpowers:reviewer-medium` on `bb7c4865..72547416`)
 
-The verdict was "incorrect", on four findings. All four are accepted and closed before any fit
-render, through part 2's one amendment (`fit-amendments.json`). Areas it found sound: the
+The verdict was "incorrect", on four findings. All four were accepted and fixed before any fit
+render, through part 2's one amendment (`fit-amendments.json`). A verification of that closure
+found three more defects, which are OPEN (§14). Areas it found sound: the
 gate-time growth partition, the T1-fine/T1-low wiring, the aggregate arithmetic and budget, the
 six synthetic cases, the rehearsal's complete/partial split and the joint point's failure, the
 ladder membership safeguards, the validated diff, and §8's reporting of (i) and (v).
@@ -46594,3 +46595,56 @@ and carries the part-1 record above. Part 2 is now
 `declare.py check-fit` rebuilds the superseded hash from the record. `declare.py check` and
 `check-fit` are consistent, and the fit driver's preflight accepts the amended part. No fit render
 exists. `test_declare.py` holds the record's red cases (23 cases).
+
+### 14. Verification of the closure: three findings OPEN, fixes proposed for the parent's ruling
+
+A scoped `doperpowers:reviewer-medium` on `72547416..f33d3e59` found the four fixes present.
+Its verdict was "incorrect", on three defects that the earlier tests did not exercise. **Part 2's
+one amendment is spent** (`amend-fit` refuses), and every fix moves a pinned source. So none can
+land on `w45-g0-operator` without the parent ruling a second part-2 amendment before G1's first
+fit render. Each is fixed and tested on the side branch `w45-g0-search-fix` (off `7cf4bf36`,
+worktree `~/vitrea-w45/g0-fix`). That branch is a proposal: until the amendment, its `declare.py
+check` reports the moved pins.
+
+1. **[P1] A content twin replaced the search point's settings** (`fit/search.py`).
+   - **The defect.** The identity table drops both second-tap widths at share 0, so on the c05 path
+     every width candidate aliased the rendered zero-share point. The width the sweep chose was
+     then lost: the next pass raised `KeyError`.
+   - **Proposed** (`50be5c44`): a twin supplies only measurements (`aliases.json`); each point keeps
+     its own label and overrides.
+   - **The test.** The real `Runner` on the committed part 2 from c05, content following the
+     identity table: the chosen width survives into pass 2, which moves (0, 0) to share 1, width
+     1.5. The same test fails on `3340ef52`.
+2. **[P2] Stage 2's components could rank a partial objective** (`fit/search.py`).
+   - **The defect.** The sweeps read the raw summary objective, which could be a median over
+     missing members, and `recover.py`'s value arrived too late.
+   - **Proposed** (`50be5c44`): one `scope_objective` serves both the sweeps and the decision. It
+     returns the recorded value when every F ∪ C ∪ P member has a reading, else the recovered value,
+     else it refuses.
+   - **The test.** A partial-median winner is refused, then loses after recovery. Fit tests: 39.
+3. **[P2] The amendment record was validated only when written** (`declare.py`).
+   - **The defect.** A later edit to `fit-amendments.json` naming another source would have
+     re-routed both checkers' reads without moving a declaration or digest.
+   - **Proposed** (`371d3f1c`): both `check` and `check-fit` ignore and report any entry outside
+     the admissible sets, and any read-at commit whose bytes are not part 1's pin.
+   - **The test.** `test_declare.py`: 26 cases.
+
+**Also for the ruling: the share–width gate on the c05 path.**
+- **The gate.** From c05 (share 0, width 0) each gates the other. The width is unread at share 0,
+  and the share does nothing at width 0.
+- **How the sweep leaves (0, 0).** With the twin fix it does leave, but only by a tie-break: the
+  width sweep at share 0 is one content and keeps the grid's first width, 1.5. Pass 2's share sweep
+  then acts at an uninformed width.
+- **What part 2 allows.** It permits "a full factorial sweep of a stage's grids", but the hashed
+  `deep` family carries no `factorial` flag. A factorial over all six stage-1 grids is 21,000
+  points.
+- **What a (share, width) factorial would need.** As one coordinate step it is 35 points. It needs
+  a driver option, and a ruling on whether a subset factorial is the permitted one.
+
+**What the ruled amendment would carry:**
+- part 2's re-pins of `fit/fit.py`, `search.py`, `joint.py`, `finding.py` and `test_fit.py`;
+- part-1 records of `declare.py` and `test_declare.py`'s new bytes;
+- whatever the parent rules on the factorial.
+
+**G0's own deliverables do not depend on these:** the operator, the proofs, the rule, the
+rehearsal, part 1, the ladders and part 2's content. No fit render exists.
