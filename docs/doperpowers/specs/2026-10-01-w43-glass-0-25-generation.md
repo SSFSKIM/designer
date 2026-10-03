@@ -856,6 +856,10 @@ G1b's cancellation.
   pitch-16 cells the fit already reads. Those fine-pitch cells move into a gated role. Any refit
   of the documents needs a new holdout configuration in the cross-gate ledger and a new holdout
   read.
+  *2026-10-03: executed by W44 (`2026-10-03-w44-texture-at-0-25.md`, chartered that day).* The
+  texture row T1 is adopted with its misses named (§5.202, §5.204). The declared refit was read
+  and closed at the finding with nothing sealed (§5.203), so the holdout and W44's referees are
+  unspent. The refit continues as W45.
 - **Accessibility at 0.25** (reduced transparency, increased contrast alone or coupled; Decision
   Log 2 (b), ADOPTED). The 0.25 documents carry the 0.5 accessibility leaves, recorded as
   unmeasured.

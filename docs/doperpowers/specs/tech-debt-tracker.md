@@ -7272,7 +7272,7 @@ the 0.25 ones also move only `optics.regular` (`tintAlpha`), so the claim holds 
 is stale. `css-tier.ts` is a source of the cross-gate holdout ledger, so a comment edit moves
 `sourceSha256`; reword it with the next change that touches the file ("every shipped document").
 
-## At 0.25 the 2x light body draws fine checkers sharper than Apple's, in both poses (W43 G3 (iii), 2026-10-02)
+## At 0.25 the 2x light body draws fine checkers sharper than Apple's, in both poses (W43 G3 (iii), 2026-10-02) — NARROWED 2026-10-03 (W44 G2): gated by T1, its misses named; the refit is W45's
 
 *Seen on the landing's eye sheets over the whole canonical 0.25 bed (claims §5.201 landing
 section; `results/2026-10-02-w43-g3-landing/sheets/`), measured on a deep-body crop.*
@@ -7298,6 +7298,13 @@ Apple beyond B and seven overshoots, and no point in the declared space clears t
 was sealed and the shipped c05 material still draws this gap. The shape of the next step is in
 §5.203 (two unsearched span leaves, the thin-span trade, and a landing rule rehearsed on the joint
 point's renders, which are committed under `results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/`).
+
+**W44 G2 (2026-10-03), narrowed** (claims §5.204). The cells are no longer unrefereed: T1 gates
+them in `adopted-thresholds.test.ts` on the WebGPU tier of the two light 0.25 profiles, and every
+fine-pitch cell that misses is named in `MISSED_27_ROWS` with its ratio and Apple's reading. At
+2x all 15 F cells miss, and at 1x 13 of 15. A refit that brings a cell within takes its entry
+out, and one that moves a cell away from Apple beyond B against the reference generation fails
+the row's regression clause. What stays open is the refit itself, which is W45's.
 
 ## Dark receded bodies over dark-solid read 11–15 codes too dark, and no gated row can see it (W43 G3 (iii), 2026-10-02)
 

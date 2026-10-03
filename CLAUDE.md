@@ -552,6 +552,34 @@ The named gaps at 0.25 (claims §5.201; tracker):
 - 62 E2 cells moved away from Apple at the edge;
 - the holdout's WebGPU 1x light checkerboard rrect-lg ssim reads 0.864.
 
+**W44 (§5.202–§5.204, 2026-10-03) declared a texture row, read the 2x refit, and closed at the
+finding.**
+- **T1** is the driver's `interiorStdDev`, web against native in linear light over the native
+  silhouette, over every structured scene in every set. Its strata are F (`checkerboard-4`/`-8`),
+  T (`hc-text-7`), C (the coarse pitches, text and impulse) and P (photo).
+  - Its bar is 0.5 code per cell. The seven G1a runs are pixel-identical, so the run-to-run
+    separation is 0.
+  - A cell is within at max(1 code, 2 bar), or within 10 % where native is at least one code.
+  - A T cell reads its fidelity on T1-fine (the σ 4 device px residual) and its regression on
+    T1-low (the low-pass). The rows do not carry either band, so they come from
+    `results/2026-10-03-w44-g2-landing/t1/t-bands.json`.
+  - It is gated in `adopted-thresholds.test.ts` (W44 G2) on the WebGPU tier of the two light 0.25
+    profiles. The 169 of 232 cells that miss are named in `MISSED_27_ROWS`.
+  - Its regression clause is pinned to the current light generation (`6d18c059eb42`) as its
+    reference. Re-baseline it at the gate that publishes the next one.
+- **The referees.** Twelve probe cells, six per scale, are held out for the next refit by
+  `results/2026-10-03-w44-g0-declaration/referees/referees.json` and its planner. They and the
+  canonical holdout are unspent.
+- **G1's declared refit** of the 2x light scatter moved the floor, the second tap and the ramp
+  starts. Its joint point took the 2x F aggregate from 0.6462 to 0.2455, but read NEITHER under the
+  landing rule: three cells away from Apple beyond B and seven overshoots, and no declared point
+  clears them. Nothing was sealed, and the shipped c05 material still draws the fine-checker gap.
+- **W45** is the span-selective refit. It searches `sizeScatterSpanMax2x` and
+  `sizeScatterHeavyShareThick2x`, which no W44 move searched, and treats the thin-span pitch trade.
+  Its landing rule is rehearsed on W44's joint point
+  (`results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/`) before it is hashed. A per-cell veto
+  failed a better model again, as at W42.
+
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
 under `specs/`): declare what will be measured and what would stop the change **before** running
