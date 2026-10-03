@@ -1,0 +1,147 @@
+W45 G0 (d): the rehearsal (rule sha256 f7bb1ddae137; count 3, ceiling 3 B, gated at 3 cells)
+
+c05 (against itself)               NEITHER: closes at the finding
+    partition {'unchanged': 94, 'toward': 0, 'away': 0}; F aggregate 0.6462 against 0.6462 (halved False), 11 F not within
+    budget: 0 away beyond B, 0 beyond 3 B -> holds
+    F rest       n=9   A 0.6334 c05 0.6334 τ 0.0485
+    F inactive   n=2   A 1.2903 c05 1.2903 τ 0.1234
+    T rest       n=3   A 0.5251 c05 0.5251 τ 0.0945
+    C rest       n=37  A 0.1720 c05 0.1720 τ 0.0267
+    C inactive   n=21  A 0.8523 c05 0.8523 τ 0.0501
+    P rest       n=11  A 0.4193 c05 0.4193 τ 0.0398
+    P inactive   n=11  A 0.1393 c05 0.1393 τ 0.0455
+    why: full close: 11 F cell(s) not within
+    why: improvement: F aggregate 0.6462 above half of c05's 0.6462
+
+pre-fit (W43, against c05)         NEITHER: closes at the finding
+    partition {'unchanged': 9, 'toward': 27, 'away': 58}; F aggregate 0.1290 against 0.6462 (halved True), 5 F not within
+    budget: 51 away beyond B, 27 beyond 3 B -> FAILS
+      checkerboard-64__rrect-md__rest                10.37 B
+      checkerboard-32__rrect-md__rest                9.72 B
+      checkerboard-64__capsule-button__rest          9.72 B
+      checkerboard__rrect-md__rest                   9.15 B
+      checkerboard-64__rrect-ml__rest                9.02 B
+      checkerboard-64__rrect-lg__rest                8.86 B
+      hc-text-28__rrect-md__rest                     8.54 B
+      checkerboard-32__capsule-button__rest          8.33 B
+      checkerboard-8__rrect-md__rest                 8.23 B
+      checkerboard-32__rrect-ml__rest                8.04 B
+      checkerboard-32__rrect-sm__rest                7.87 B
+      checkerboard__capsule-button__rest             6.78 B
+      checkerboard__rrect-sm__rest                   6.59 B
+      checkerboard__rrect-ml__rest                   6.55 B
+      hc-text-28__rrect-sm__rest                     6.51 B
+      checkerboard-32__rrect-lg__rest                6.49 B
+      checkerboard__toolbar-group__rest              6.07 B
+      checkerboard-8__capsule-button__rest           5.71 B
+      hc-text__rrect-sm__rest                        4.92 B
+      hc-text-28__rrect-lg__rest                     4.85 B
+      hc-text__rrect-lg__inactive                    4.68 B
+      checkerboard-4__capsule-button__rest           4.14 B
+      hc-text__rrect-lg__rest                        3.95 B
+      checkerboard__capsule-button__pressed          3.83 B
+      checkerboard-4__rrect-sm__rest                 3.68 B
+      photo__rrect-ml__inactive                      3.13 B
+      checkerboard-lc16__rrect-md__rest              3.02 B
+      hc-text-7__rrect-md__rest                      2.92 B
+      hc-text-7__rrect-lg__rest                      2.84 B
+      photo__rrect-md__inactive                      2.75 B
+      checkerboard-64__capsule-button__rest-tint-orange 2.63 B
+      photo__rrect-md__inactive-tint-orange          2.48 B
+      hc-text-7__rrect-sm__rest                      2.25 B
+      checkerboard-32__capsule-button__rest-tint-orange 2.13 B
+      photo__capsule-button__inactive                2.03 B
+      photo__rrect-ml__rest                          1.90 B
+      photo__capsule-button__inactive-tint-orange-half 1.90 B
+      impulse__rrect-sm__rest                        1.89 B
+      checkerboard-lc16__rrect-ml__rest              1.89 B
+      photo__capsule-button__inactive-tint-blue      1.84 B
+      photo__capsule-button__inactive-tint-orange    1.84 B
+      photo__rrect-md__rest                          1.71 B
+      checkerboard__capsule-button__rest-tint-orange 1.52 B
+      checkerboard__rrect-md__pressed                1.49 B
+      photo__toolbar-group__inactive                 1.49 B
+      impulse__rrect-md__rest                        1.44 B
+      impulse__capsule-button__rest                  1.28 B
+      checkerboard-lc16__capsule-button__rest        1.27 B
+      checkerboard-8__capsule-button__rest-tint-orange 1.20 B
+      photo__toolbar-group__rest                     1.16 B
+      checkerboard-lc16__rrect-lg__rest              1.06 B
+    F rest       n=9   A 0.6390 c05 0.6334 τ 0.0485
+    F inactive   n=2   A 0.0264 c05 1.2903 τ 0.1234
+    T rest       n=3   A 0.5546 c05 0.5251 τ 0.0945
+    C rest       n=37  A 0.4805 c05 0.1720 τ 0.0267 WORSE BEYOND τ (gated)
+    C inactive   n=21  A 0.3893 c05 0.8523 τ 0.0501
+    P rest       n=11  A 0.5377 c05 0.4193 τ 0.0398 WORSE BEYOND τ (gated)
+    P inactive   n=11  A 0.3308 c05 0.1393 τ 0.0455 WORSE BEYOND τ (gated)
+    why: full close: 5 F cell(s) not within
+    why: aggregate: C rest A 0.4805 > 0.1720 + τ 0.0267, P rest A 0.5377 > 0.4193 + τ 0.0398, P inactive A 0.3308 > 0.1393 + τ 0.0455
+    why: budget count: 51 cells away beyond B (at most 3)
+    why: budget ceiling: 27 cell(s) beyond 3 B
+
+m1c-0.5-5                          NEITHER: closes at the finding
+    partition {'unchanged': 40, 'toward': 38, 'away': 16}; F aggregate 0.3123 against 0.6462 (halved True), 7 F not within
+    budget: 8 away beyond B, 2 beyond 3 B -> FAILS
+      checkerboard-8__rrect-md__rest                 6.87 B
+      checkerboard-32__rrect-lg__rest                4.97 B
+      checkerboard-8__capsule-button__rest           2.64 B
+      checkerboard__rrect-md__rest                   2.44 B
+      checkerboard-4__capsule-button__rest           2.07 B
+      checkerboard-4__rrect-sm__rest                 1.39 B
+      hc-text__rrect-sm__rest                        1.26 B
+      checkerboard-64__rrect-sm__rest                1.12 B
+    F rest       n=9   A 0.5349 c05 0.6334 τ 0.0485
+    F inactive   n=2   A 0.0467 c05 1.2903 τ 0.1234
+    T rest       n=3   A 0.6299 c05 0.5251 τ 0.0945 WORSE BEYOND τ (gated)
+    C rest       n=37  A 0.1566 c05 0.1720 τ 0.0267
+    C inactive   n=21  A 0.6060 c05 0.8523 τ 0.0501
+    P rest       n=11  A 0.4044 c05 0.4193 τ 0.0398
+    P inactive   n=11  A 0.1482 c05 0.1393 τ 0.0455
+    why: full close: 7 F cell(s) not within
+    why: aggregate: T rest A 0.6299 > 0.5251 + τ 0.0945
+    why: budget count: 8 cells away beyond B (at most 3)
+    why: budget ceiling: 2 cell(s) beyond 3 B
+
+m2-t0.8                            NEITHER: closes at the finding
+    partition {'unchanged': 33, 'toward': 48, 'away': 13}; F aggregate 0.2455 against 0.6462 (halved True), 7 F not within
+    budget: 6 away beyond B, 4 beyond 3 B -> FAILS
+      checkerboard-8__rrect-md__rest                 6.87 B
+      checkerboard-32__rrect-lg__rest                4.97 B
+      checkerboard-32__rrect-sm__rest                4.64 B
+      checkerboard__capsule-button__pressed          3.55 B
+      checkerboard__rrect-md__rest                   2.44 B
+      checkerboard-64__rrect-sm__rest                2.40 B
+    F rest       n=9   A 0.2703 c05 0.6334 τ 0.0485
+    F inactive   n=2   A 0.0467 c05 1.2903 τ 0.1234
+    T rest       n=3   A 0.2177 c05 0.5251 τ 0.0945
+    C rest       n=37  A 0.1030 c05 0.1720 τ 0.0267
+    C inactive   n=21  A 0.6060 c05 0.8523 τ 0.0501
+    P rest       n=11  A 0.3926 c05 0.4193 τ 0.0398
+    P inactive   n=11  A 0.1482 c05 0.1393 τ 0.0455
+    why: full close: 7 F cell(s) not within
+    why: budget count: 6 cells away beyond B (at most 3)
+    why: budget ceiling: 4 cell(s) beyond 3 B
+
+m3-t0.1 (W44's joint point)        NEITHER: closes at the finding
+    partition {'unchanged': 30, 'toward': 51, 'away': 13}; F aggregate 0.2455 against 0.6462 (halved True), 7 F not within
+    budget: 6 away beyond B, 4 beyond 3 B -> FAILS
+      checkerboard-8__rrect-md__rest                 6.87 B
+      checkerboard-32__rrect-lg__rest                4.97 B
+      checkerboard-32__rrect-sm__rest                4.64 B
+      checkerboard__capsule-button__pressed          3.55 B
+      checkerboard__rrect-md__rest                   2.44 B
+      checkerboard-64__rrect-sm__rest                2.40 B
+    F rest       n=9   A 0.2703 c05 0.6334 τ 0.0485
+    F inactive   n=2   A 0.0467 c05 1.2903 τ 0.1234
+    T rest       n=3   A 0.2177 c05 0.5251 τ 0.0945
+    C rest       n=37  A 0.1030 c05 0.1720 τ 0.0267
+    C inactive   n=21  A 0.2349 c05 0.8523 τ 0.0501
+    P rest       n=11  A 0.3926 c05 0.4193 τ 0.0398
+    P inactive   n=11  A 0.1719 c05 0.1393 τ 0.0455
+    why: full close: 7 F cell(s) not within
+    why: budget count: 6 cells away beyond B (at most 3)
+    why: budget ceiling: 4 cell(s) beyond 3 B
+
+W44's partial candidates: 97, every one UNMEASURED (move populations only; diagnostics in the JSON, never a landing verdict)
+synthetic cases (cuts/test_rule.py): OK
+the joint point: NEITHER: closes at the finding; fails on the count (6 > 3): True; on the ceiling (4 beyond 3 B): True
