@@ -12,9 +12,12 @@ shipped document is touched.
   dark documents and every other profile file byte-identical.
 - **The operator's key is admitted where Decision Log 2 admits it**: W44's joint point with the
   operator in the active light document and, as a difference, in the receded light one.
+- **The seal admits what the builder admits** (part 2's second amendment; the charter's Decision Log
+  7 item 6): a receded second-tap width, which W44's builder admits as a difference, seals.
 - **Red cases**: a second seal over sealed bytes (not c05's), a receded leaf outside the narrowed set
-  (the second tap's width), a moved leaf the candidate's spec does not declare, a moved leaf with no
-  method, and a W44 candidate or profiles directory (X58).
+  (a leaf the builder never admits, written into a built candidate's receded endpoint), a moved leaf
+  the candidate's spec does not declare, a moved leaf with no method, and a W44 candidate or profiles
+  directory (X58).
 
     cd packages/calibration/results/2026-10-03-w45-g0-operator/seal
     python3.12 -B -m unittest test_seal -v
@@ -54,7 +57,7 @@ class Seal(unittest.TestCase):
         cls.root = Path(tempfile.mkdtemp(prefix="w45-seal-"))
         cls.candidates = cls.root / "candidates"
         for label, overrides in (("c05-control", {}), ("joint-operator", JOINT_OPERATOR),
-                                 ("undeclared", JOINT_OPERATOR),
+                                 ("undeclared", JOINT_OPERATOR), ("receded-extra", {}),
                                  ("receded-width", {"receded.light": {"sizeHeavySecondSigma2x": 3}})):
             spec = cls.root / f"{label}.spec.json"
             spec.write_text(json.dumps(dict(label=label, note="test_seal", overrides=overrides)))
@@ -67,9 +70,22 @@ class Seal(unittest.TestCase):
         body = json.loads(spec.read_text())
         del body["overrides"]["receded.light"]
         spec.write_text(json.dumps(body))
+        # A receded leaf the builder never admits, written into a built candidate's receded endpoint at
+        # its runtime default (so the endpoint still resolves to its recorded digest, and the candidate
+        # reader admits it) with its declaration re-hashed to match: only the seal's own leaf-set guard
+        # stands in the way.
+        folder = cls.candidates / "receded-extra"
+        endpoint = folder / "receded.light.json"
+        doc = json.loads(endpoint.read_text())
+        doc["patch"]["sizeScatterHeavyShareThick2x"] = 0
+        endpoint.write_text(json.dumps(doc, indent=2) + "\n")
+        declaration = json.loads((folder / "candidate.json").read_text())
+        declaration["endpoints"]["receded.light"]["sha256"] = sha(endpoint)
+        (folder / "candidate.json").write_text(json.dumps(declaration, indent=2) + "\n")
         cls.method = cls.root / "method.json"
         cls.method.write_text(json.dumps({leaf: ["test_seal: a scratch rehearsal, no fit"]
-                                          for slot in JOINT_OPERATOR.values() for leaf in slot}))
+                                          for slot in JOINT_OPERATOR.values() for leaf in slot}
+                                         | {"sizeHeavySecondSigma2x": ["test_seal: a scratch rehearsal, no fit"]}))
         cls.no_method = cls.root / "no-method.json"
         cls.no_method.write_text("{}")
 
@@ -131,10 +147,22 @@ class Seal(unittest.TestCase):
         self.assertNotEqual(code, 0)
         self.assertIn("not the published c05 document", out)
 
+    def test_a_receded_width_the_builder_admits_seals(self):
+        code, out, profiles, manifest = self.seal("receded-width")
+        self.assertEqual(code, 0, out)
+        receded = json.loads(manifest.read_text())["documents"][
+            "apple-macos-27.0-1x-light-standard-glass0.25-receded.json"]
+        self.assertEqual(receded["addedToTwinLeafSet"], ["sizeHeavySecondSigma2x"])
+        self.assertEqual(receded["movedFromC05"], ["sizeHeavySecondSigma2x"])
+        endpoint = json.loads((self.candidates / "receded-width" / "receded.light.json").read_text())
+        self.assertEqual(json.loads((profiles / "apple-macos-27.0-1x-light-standard-glass0.25-receded.json")
+                                    .read_text())["resolvedMaterialSha256"], endpoint["resolvedMaterialSha256"])
+
     def test_a_receded_leaf_outside_the_narrowed_set_refuses(self):
-        code, out, profiles, _ = self.seal("receded-width")
+        code, out, profiles, _ = self.seal("receded-extra", method=self.no_method)
         self.assertNotEqual(code, 0)
         self.assertIn("X44", out)
+        self.assertIn("sizeScatterHeavyShareThick2x", out)
         self.assertEqual(sha(profiles / "apple-macos-27.0-1x-light-standard-glass0.25.json"),
                          sha(PROFILES / "apple-macos-27.0-1x-light-standard-glass0.25.json"),
                          "a refused seal writes neither document")

@@ -22,7 +22,9 @@ under `~/vitrea-w45/g1-scratch/fit/<label>/<scope>/`.
 - **The operator's key and the span top.** `check_overrides` admits exactly the (slot, leaf) pairs
   part 2 declares — `sizeHeavySecondShareFar2x` in `active.light` and in `receded.light`,
   `sizeScatterSpanMax2x` in `active.light` among them where part 2 declares them — inside their
-  domains; never a dark slot, never an undeclared leaf.
+  domains; never a dark slot, never an undeclared leaf. Since part 2's second amendment (Decision
+  Log 7 item 2) the operator's domain is joint: [−share, 0] at the point's own slot
+  (`domainLowerIsMinus`, `joint_domain_failures`), checked on every point whatever it moves.
 - **Two starting points** (Decision Log 4, X56). `start c05` builds c05 itself under the scratch key
   (`start-c05`, no override); `start joint` builds W44's joint point (`start-joint`) from W44 G1's
   committed spec, admitted only when W44's committed `candidate.json` hashes to the declared
@@ -157,7 +159,8 @@ def declared() -> dict:
 
 
 def check_overrides(overrides: dict, table: dict | None = None) -> None:
-    """Refuse an override part 2 does not declare, or a value outside its declared domain."""
+    """Refuse an override part 2 does not declare, a value outside its declared domain, or a point
+    outside a declared JOINT domain (`joint_domain_failures`)."""
     table = declared() if table is None else table
     for slot, leaves in overrides.items():
         if slot not in SLOTS:
@@ -176,6 +179,35 @@ def check_overrides(overrides: dict, table: dict | None = None) -> None:
                 lo, hi = sorted((lo * active, hi * active))
             if not lo <= value <= hi or (spec.get("domainOpenAt") is not None and value == spec["domainOpenAt"]):
                 raise W.Refusal(f"fit: {slot} {leaf} {value} is outside its declared domain [{lo}, {hi}]")
+    failures = joint_domain_failures(overrides, table)
+    if failures:
+        raise W.Refusal("fit: " + "; ".join(failures))
+
+
+# A leaf whose part-2 spec names `domainLowerIsMinus: <other>` lies in [−other, 0] at the point's own
+# slot, both resolved there (part 2's second amendment, the charter's Decision Log 7 item 2: the
+# operator's delta in [−share, 0], so the second tap's share + delta · farS is never negative). The
+# bound is checked on every point whatever it moves — a share sweep that lowers the share below −delta
+# leaves the domain as surely as a delta sweep past −share — and in each light slot the leaf is
+# declared for, the receded one resolving every key it does not name to the active value.
+JOINT_TOLERANCE = 1e-9
+
+
+def joint_domain_failures(overrides: dict, table: dict | None = None) -> list[str]:
+    table = declared() if table is None else table
+    out = []
+    for (slot, leaf), spec in sorted(table.items()):
+        other = spec.get("domainLowerIsMinus")
+        if other is None:
+            continue
+        value, bound = resolved_value(overrides, slot, leaf), resolved_value(overrides, slot, other)
+        if value < -bound - JOINT_TOLERANCE:
+            out.append(f"{slot} {leaf} {value:g} is outside its joint domain [−{other}, 0] = [{-bound:g}, 0]")
+    return out
+
+
+def in_joint_domain(overrides: dict) -> bool:
+    return not joint_domain_failures(overrides)
 
 
 def active_value(overrides: dict, leaf: str):
@@ -186,6 +218,20 @@ def active_value(overrides: dict, leaf: str):
         return overrides["active.light"][leaf]
     c05 = json.loads((CAL / "profiles" / "apple-macos-27.0-1x-light-standard-glass0.25.json").read_text())
     return c05["patch"].get(leaf, 0)
+
+
+def resolved_value(overrides: dict, slot: str, leaf: str):
+    """The value of a top-level `leaf` the candidate resolves to in `slot`: the active light slot as
+    `active_value`; the receded light slot its own override, else c05's receded light document's,
+    else the active value (the receded document is a difference over its active document)."""
+    if slot == "active.light":
+        return active_value(overrides, leaf)
+    if slot != "receded.light":
+        raise W.Refusal(f"fit: {slot} is not a slot part 2 moves")
+    if leaf in overrides.get(slot, {}):
+        return overrides[slot][leaf]
+    c05 = json.loads((CAL / "profiles" / "apple-macos-27.0-1x-light-standard-glass0.25-receded.json").read_text())
+    return c05["patch"][leaf] if leaf in c05["patch"] else active_value(overrides, leaf)
 
 
 def scope_of(move: dict, family: str) -> str:

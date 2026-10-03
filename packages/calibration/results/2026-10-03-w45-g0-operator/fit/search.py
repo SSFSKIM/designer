@@ -17,7 +17,11 @@ point it sweeps.
 
 **The procedure** (part 2's `searchProcedure`): within a stage each leaf's grid is swept in the order
 listed, the others held at their current values, keeping the grid point with the smallest objective;
-at most two passes; a full factorial sweep is permitted (`factorial: true`) and not required. A
+at most two passes; a full factorial sweep is permitted (`factorial: true`) and not required. Since
+part 2's second amendment (Decision Log 7): a family's `factorialGroups` sweep their keys' grids in
+full as ONE coordinate step on the lineages they name (`steps_of`; stage 1's share × width from c05,
+35 points), and a grid point outside a declared joint domain at the others' current values is not a
+candidate (`sweep_candidates`; the operator's delta in [−share, 0]). A
 stage's families are SEQUENTIAL COMPONENTS of that one procedure, in `familyOrder`: each family is
 swept on its own scope from the point the previous one left (stage 2: `thin` from the stage-1 point,
 then `receded` from `thin`'s best), so the stage's point carries every component's overrides. The
@@ -129,10 +133,44 @@ def grid_of(spec: dict, current: dict, leaf: str) -> list:
 
 
 def sweep_candidates(fbody: dict, key: str, current: dict) -> list[dict]:
-    """The points one leaf's (or tied pair's) grid gives from `current`, the others held."""
+    """The points one leaf's (or tied pair's) grid gives from `current`, the others held; a grid
+    point outside a declared joint domain at the others' current values is not a candidate (part
+    2's second amendment: the operator's delta in [−share, 0], Decision Log 7 item 2)."""
     spec = fbody["leaves"][key]
     grid = grid_of(spec, current, key.split("+")[0])
-    return [with_leaf(current, spec["slot"], {leaf: v for leaf in key.split("+")}) for v in grid]
+    points = [with_leaf(current, spec["slot"], {leaf: v for leaf in key.split("+")}) for v in grid]
+    return [p for p in points if fit.in_joint_domain(p)]
+
+
+def steps_of(fbody: dict, start: str) -> list[list[str]]:
+    """The coordinate steps of one pass, in the order the leaves are listed: one leaf (or tied pair)
+    per step, except that a `factorialGroups` entry naming this lineage in its `starts` sweeps its
+    keys' grids in full as ONE step, at the position of its first key (part 2's second amendment:
+    from c05 the share and the width gate each other, so their 5 × 7 grid is one step; Decision Log 7
+    item 3)."""
+    keys = list(fbody.get("leaves", {}))
+    groups = [g for g in fbody.get("factorialGroups", []) if start in g["starts"]]
+    for g in groups:
+        missing = [k for k in g["keys"] if k not in keys]
+        if missing:
+            raise fit.W.Refusal(f"a factorial group names {missing}, which the family does not search")
+    grouped = {k: g for g in groups for k in g["keys"]}
+    steps = []
+    for k in keys:
+        g = grouped.get(k)
+        if g is None:
+            steps.append([k])
+        elif k == next(x for x in keys if x in g["keys"]):
+            steps.append([x for x in keys if x in g["keys"]])
+    return steps
+
+
+def step_candidates(fbody: dict, step: list[str], current: dict) -> list[dict]:
+    """A step's points: the product of its keys' grids from `current` (one key: its sweep)."""
+    cands = [current]
+    for k in step:
+        cands = [c for point in cands for c in sweep_candidates(fbody, k, point)]
+    return cands
 
 
 # ---------------------------------------------------------------------------------------------
@@ -276,16 +314,17 @@ def sweep_family(move: dict, family: str, start: str, base: dict, current: dict,
         return names
 
     if fbody.get("factorial"):
-        cands = [current]
-        for k in keys:
-            cands = [c for point in cands for c in sweep_candidates(fbody, k, point)]
-        names = run(cands)
+        names = run(step_candidates(fbody, keys, current))
         best = min(names, key=lambda n: runner.objective(n, scope))
         return runner.overrides(best), labels, best
     for _ in range(passes):
         before = json.dumps(current, sort_keys=True)
-        for k in keys:
-            names = run(sweep_candidates(fbody, k, current))
+        for step in steps_of(fbody, start):
+            cands = step_candidates(fbody, step, current)
+            if not cands:
+                raise fit.W.Refusal(f"{move['id']}/{family}: the step {step} offers no point inside the declared "
+                                    f"domains from {json.dumps(current, sort_keys=True)}")
+            names = run(cands)
             best = min(names, key=lambda n: runner.objective(n, scope))
             current = runner.overrides(best)
         if json.dumps(current, sort_keys=True) == before:
