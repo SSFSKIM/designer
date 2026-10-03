@@ -7291,6 +7291,14 @@ The shape of the fix: a refit of the 2x floor declared against fine and coarse p
 with the fine checkers moved into a gated role. It needs a new holdout configuration and a new
 holdout read.
 
+**W44 G1 (2026-10-03), still open: the declared refit was read and closed at the finding** (claims
+§5.203). The fit's joint point takes the 2x F aggregate from 0.6462 to 0.2455 and brings both
+receded fine checkers within (×3.95 / ×5.29 → ×1.06 / ×1.07), but carries three cells away from
+Apple beyond B and seven overshoots, and no point in the declared space clears them, so nothing
+was sealed and the shipped c05 material still draws this gap. The shape of the next step is in
+§5.203 (two unsearched span leaves, the thin-span trade, and a landing rule rehearsed on the joint
+point's renders, which are committed under `results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/`).
+
 ## Dark receded bodies over dark-solid read 11–15 codes too dark, and no gated row can see it (W43 G3 (iii), 2026-10-02)
 
 *Seen on the landing's eye sheets (claims §5.201 landing section).*
@@ -7355,3 +7363,68 @@ charter permits "a grid narrowed to the range its ladder showed not flat", which
 intersection. Nothing exploited it: part 2 (`443f494c…`) narrows nothing, and part 1 pins the tool,
 so it cannot change in this wave. The shape of the fix, for the next declaration that reuses the
 tool: require `grid == [x for x in draft grid if lo <= x <= hi]`, with a red case.
+
+## The driver cannot measure `checkerboard-lc16__rrect-md__rest` on some renders: a 0-px contour (W44 G1, 2026-10-03)
+
+*Found in W44 G1's fit (claims §5.203).*
+
+On four of 103 fit renders (`m1b-s14`, `m1c-0.25-3`, `m1c-0.25-4`, `m1c-0.5-6`, 2x light WebGPU)
+`compare` wrote the capture of `checkerboard-lc16__rrect-md__rest` and then failed the cell: "a
+0.00px contour sampled 512 times at σ=3 carries no curvature" (the shape axis's
+`contourCurvature`). The run exits 1 under `--write-partial` and the row is absent, so every
+row-reading cut, T1 included, has that member UNMEASURED. The interior statistic does not depend
+on the contour (G1's `recover.py` reads it off the capture through G0's port, proven to 2.2e-11).
+A frozen point that triggered it would leave a hole in its publication stage that `matrix publish`
+refuses, with no way to fill it by re-reading. The shape of the fix: a shape-axis failure on a
+low-contrast backdrop records the shape axis as absent (with its reason) and keeps the row's other
+axes, as the blur axis already does ("NOT MEASURED … absent, not zero"), with a test on this cell.
+
+## "The median over the same cells": the selection tie's cells decide W44's move 1 (W44 G1, 2026-10-03)
+
+*Found re-deciding W44's moves after the review of G1 steps 0-2 (claims §5.203).*
+
+Part 2's selection rule (`results/2026-10-03-w44-g0-declaration/fit-declaration.json`,
+`selectionRule.tie`) defines the tie as "the median over the same cells of log(1 + bar / native)".
+G1 read "the same cells" as the move objective's own cells (move 1 0.0332, move 2 0.0363, move 3
+0.0511; `fit/search.py`'s `move_tie`). Read over the whole fit map the tie is 0.0412, and move 1's
+fewer-leaves tie then lands `m1b-s12` (B at σ 12 device px, objective 0.1441) instead of
+`m1c-0.5-5` (C at 0.5 × 5 CSS px, 0.1091). The joint verdict is NEITHER either way, so nothing
+turned on it in W44. Until the review, `decide` took each point's recorded `selectionTie`, which
+covered whatever cells that point had rendered, so the reading could change after the fact. The
+shape of the fix, for the next declaration: state the tie's cell set explicitly (the move's cells,
+or the landing scope) and pin it with a red case where the two differ.
+
+## W44's part-2 amendment validator checks paths, and its value check sits beside `declare.py` (W44 G1, 2026-10-03)
+
+*Found by the review of W44 G1 steps 0-2 (claims §5.203).*
+
+`declare.py`'s `validate_ops` refuses an operation outside its ruling's paths, but any value at an
+authorized path passed (e.g. `landingRule.fullClose` → "all regressions permitted"). The recorded
+amendment is exactly the five rulings' transformation, and `verify_amendment.py` beside it asserts
+that, values included, with a red case. It cannot run inside `check-fit`: the amendment records
+`declare.py`'s bytes as part 1's one accepted re-pin, so the tool is frozen. The shape of the fix,
+for the next declaration tool: an amendment is validated as equal to its declared transformation
+inside the check itself, and the tool is not one of the declaration's own pins (or its re-pin is
+part of the transformation).
+
+## W44 G1's fit renders run without `--alpha` (W44 G1, 2026-10-03)
+
+*Found checking X48 at W44's joint point (claims §5.203).*
+
+`fit/fit.py` launches `compare` without `--alpha`, so its rows lack the four shape fields only an
+alpha capture measures (`declaredContourMaxWeb`, `declaredContourP95Web`, `declaredIoUWeb`,
+`drawnAreaWeb`), which every published row carries. A row-for-row comparison of a fit render with
+a published row (X48) must set them aside, and the fit's cuts cannot read the table rows that use
+them. Nothing T1 reads depends on them. The shape of the fix: the fit driver passes `--alpha`, as
+the stage driver does, so a fit row and a stage row of one content are equal.
+
+## Two labels for one content render twice in W44's fit (W44 G1, 2026-10-03)
+
+*Found reading W44 G1's fit (claims §5.203).*
+
+`fit/search.py`'s `same_point` compares override sets, so a point stating a leaf at its inherited
+value (`m2-t0.46` states the base's thin start 0.46; `m3-f0.04-k0.04-t0.1` the receded thick/far
+0.04) is a new label and is rendered again. The renders are byte-identical to their twins (31, 34
+and 34 captures), so nothing is wrong, but seven of the 100 candidates (93 distinct contents by their
+light digests) were renders of a content already read. The shape of the fix: compare the candidates' resolved digests rather than their
+override sets.

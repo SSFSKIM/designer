@@ -1,0 +1,27 @@
+{
+  "$comment": "W44 G1 scratch fit candidate m1-c05: c05 itself under the scratch key: the fit's control (A's 0.6 point)",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w44-g1-m1-c05",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "9a50393aba098d932cefb4862d3967bf8c6e38d1e66db58c14122e7209534732"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "b915e7cd5adf3eb79fa0f3808995f9d5f02c9e83b67d87f8154d7b22cbc51d73"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "5fff0018a142b558c7f045e1eee61456b66eae63a77d1d8c1d9cd5b08fd1b202"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "85ab9d52ff9aebda58d2e02dce4949035427f059952e631b8e623a06081df7fe"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

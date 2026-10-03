@@ -1,0 +1,1254 @@
+{
+  "key": {
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.25",
+    "web": {
+      "engine": "chromium",
+      "engineVersion": "151.0.7922.34",
+      "renderer": "webgpu",
+      "samplingBackend": "gpu-texture",
+      "gpuAdapter": "apple/metal-3",
+      "colorSpace": "srgb",
+      "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/candidate.json declarationSha256=66bf5a0192bf name=apple-macos-27.0-glass0.25-w44-g1-m3-t0.1 glassTintAmount=0.25",
+      "sceneId": "checkerboard-64__rrect-lg__inactive",
+      "pixelSize": [
+        320,
+        200
+      ],
+      "deterministic": true,
+      "repeatNoise": 0
+    },
+    "sceneId": "checkerboard-64__rrect-lg__inactive"
+  },
+  "fixtureSet": "probe",
+  "state": "inactive",
+  "tier": "texture",
+  "capturedAt": "2026-10-03T00:11:54.236Z",
+  "perceptual": {
+    "axis": "perceptual",
+    "edgeWeightedMean": {
+      "value": 0.030691840946042593,
+      "units": "luminance"
+    },
+    "edgeWeightedP95": {
+      "value": 0.08902743064593642,
+      "units": "luminance"
+    },
+    "unweightedMean": {
+      "value": 0.026324152201619988,
+      "units": "luminance"
+    },
+    "ssimMean": {
+      "value": 0.9398920728103918,
+      "units": "ratio"
+    },
+    "ssimMin": {
+      "value": -0.14067059329436396,
+      "units": "ratio"
+    },
+    "ssimBand": {
+      "value": 0.8998992244409171,
+      "units": "ratio"
+    },
+    "ssimBandWindows": {
+      "value": 18540,
+      "units": "count"
+    },
+    "ssimInterior": {
+      "value": 0.9725828638437258,
+      "units": "ratio"
+    },
+    "ssimInteriorWindows": {
+      "value": 25242,
+      "units": "count"
+    },
+    "ssimOutside": {
+      "value": 0.9317545604630866,
+      "units": "ratio"
+    },
+    "ssimOutsideWindows": {
+      "value": 14542,
+      "units": "count"
+    },
+    "oklabDeltaEMean": {
+      "value": 0.014874699171018788,
+      "units": "oklab"
+    },
+    "oklabDeltaEP95": {
+      "value": 0.050797921504139455,
+      "units": "oklab"
+    },
+    "oklabDeltaEMax": {
+      "value": 0.5323983114741323,
+      "units": "oklab"
+    }
+  },
+  "shape": {
+    "axis": "shape",
+    "silhouetteAreaNative": {
+      "value": 43782,
+      "units": "px^2"
+    },
+    "silhouetteAreaWeb": {
+      "value": 43808,
+      "units": "px^2"
+    },
+    "componentRegionArea": {
+      "value": 43816,
+      "units": "px^2"
+    },
+    "componentRegionMargin": {
+      "value": 0,
+      "units": "px"
+    },
+    "silhouetteHolesNative": {
+      "value": 0,
+      "units": "count"
+    },
+    "silhouetteHolesWeb": {
+      "value": 0,
+      "units": "count"
+    },
+    "silhouetteBodiesNative": {
+      "value": 1,
+      "units": "count"
+    },
+    "silhouetteBodiesWeb": {
+      "value": 1,
+      "units": "count"
+    },
+    "componentRegionBodies": {
+      "value": 1,
+      "units": "count"
+    },
+    "silhouetteIoU": {
+      "value": 0.9994065010956903,
+      "units": "ratio"
+    },
+    "contourDistanceMax": {
+      "value": 1,
+      "units": "px"
+    },
+    "contourDistanceP95": {
+      "value": 0,
+      "units": "px"
+    },
+    "contourDistanceMean": {
+      "value": 0.0325,
+      "units": "px"
+    },
+    "contourDistanceRms": {
+      "value": 0.18027756377319948,
+      "units": "px"
+    },
+    "cornerCurvatureMaxDelta": {
+      "value": 0.032188095531546695,
+      "units": "1/px"
+    },
+    "cornerCurvatureP95Delta": {
+      "value": 0.025049856460415215,
+      "units": "1/px"
+    },
+    "cornerCurvatureNative": {
+      "value": 0.03420096770362793,
+      "units": "1/px"
+    },
+    "cornerCurvatureWeb": {
+      "value": 0.032932843432629325,
+      "units": "1/px"
+    }
+  },
+  "material": {
+    "axis": "material",
+    "blurSigmaNative": {
+      "value": 6.947804536158177,
+      "units": "px"
+    },
+    "blurFitResidualNative": {
+      "value": 0.25006042177495375,
+      "units": "ratio"
+    },
+    "blurSigmaWeb": {
+      "value": 8.857196566190991,
+      "units": "px"
+    },
+    "blurFitResidualWeb": {
+      "value": 0.27989325672771487,
+      "units": "ratio"
+    },
+    "luminanceSlopeNative": {
+      "value": 0.35613429171133343,
+      "units": "ratio"
+    },
+    "luminanceSlopeWeb": {
+      "value": 0.3363917598612363,
+      "units": "ratio"
+    },
+    "luminanceOffsetNative": {
+      "value": 0.3243526598199243,
+      "units": "luminance"
+    },
+    "luminanceOffsetWeb": {
+      "value": 0.32246359698413096,
+      "units": "luminance"
+    },
+    "luminanceR2Native": {
+      "value": 0.762205046367765,
+      "units": "ratio"
+    },
+    "luminanceR2Web": {
+      "value": 0.7552521306724688,
+      "units": "ratio"
+    },
+    "interiorMeanNative": {
+      "value": 0.5034365885193148,
+      "units": "luminance"
+    },
+    "interiorMeanWeb": {
+      "value": 0.4916198937523229,
+      "units": "luminance"
+    },
+    "interiorMeanBackdrop": {
+      "value": 0.5028550545886438,
+      "units": "luminance"
+    },
+    "interiorStdDevNative": {
+      "value": 0.20395802951712447,
+      "units": "luminance"
+    },
+    "interiorStdDevWeb": {
+      "value": 0.19353623734244135,
+      "units": "luminance"
+    },
+    "interiorStdDevBackdrop": {
+      "value": 0.49999184859685053,
+      "units": "luminance"
+    },
+    "tintDeltaLNative": {
+      "value": 0.00030380333354607103,
+      "units": "oklab"
+    },
+    "tintDeltaLWeb": {
+      "value": -0.005967041625920766,
+      "units": "oklab"
+    },
+    "tintDeltaANative": {
+      "value": -0.00001647883408595341,
+      "units": "oklab"
+    },
+    "tintDeltaAWeb": {
+      "value": -4.828915045607118e-13,
+      "units": "oklab"
+    },
+    "tintDeltaBNative": {
+      "value": 0.00004117291758776176,
+      "units": "oklab"
+    },
+    "tintDeltaBWeb": {
+      "value": -2.2241497532604626e-10,
+      "units": "oklab"
+    },
+    "tintChromaDeltaNative": {
+      "value": 0.00004434603569582155,
+      "units": "oklab"
+    },
+    "tintChromaDeltaWeb": {
+      "value": -2.2241549953514306e-10,
+      "units": "oklab"
+    },
+    "tintHueShiftNative": {
+      "value": 21.923144534825383,
+      "units": "degrees"
+    },
+    "tintHueShiftWeb": {
+      "value": -3.0459405309102294e-7,
+      "units": "degrees"
+    },
+    "rimPeakLuminanceNative": {
+      "value": 0,
+      "units": "luminance"
+    },
+    "rimPeakLuminanceWeb": {
+      "value": 0.027759134719502088,
+      "units": "luminance"
+    },
+    "rimPeakDistanceNative": {
+      "value": 12,
+      "units": "px"
+    },
+    "rimPeakDistanceWeb": {
+      "value": 2,
+      "units": "px"
+    },
+    "rimFwhmNative": {
+      "value": 0,
+      "units": "px"
+    },
+    "rimFwhmWeb": {
+      "value": 1.7831563036254356,
+      "units": "px"
+    },
+    "shadowPeakDarkeningNative": {
+      "value": 0.18763101412142524,
+      "units": "luminance"
+    },
+    "shadowPeakDarkeningWeb": {
+      "value": 0,
+      "units": "luminance"
+    },
+    "shadowPeakDistanceNative": {
+      "value": 1,
+      "units": "px"
+    },
+    "shadowPeakDistanceWeb": {
+      "value": 2,
+      "units": "px"
+    },
+    "shadowDecayLengthNative": {
+      "value": 0.6321205588285577,
+      "units": "px"
+    },
+    "shadowDecayLengthWeb": {
+      "value": 0,
+      "units": "px"
+    },
+    "tintInteriorChromaNative": {
+      "value": 0.00004437567628887348,
+      "units": "oklab"
+    },
+    "tintInteriorChromaWeb": {
+      "value": 2.9418177552400705e-8,
+      "units": "oklab"
+    },
+    "tintBackdropChroma": {
+      "value": 2.9640593051935848e-8,
+      "units": "oklab"
+    },
+    "interiorChromaMeanNative": {
+      "value": 0.00006593349730384889,
+      "units": "oklab"
+    },
+    "interiorChromaMeanWeb": {
+      "value": 2.884384942135769e-8,
+      "units": "oklab"
+    },
+    "interiorChromaMeanBackdrop": {
+      "value": 1.8743417059581315e-8,
+      "units": "oklab"
+    },
+    "interiorChromaSdANative": {
+      "value": 0.00023513208870765376,
+      "units": "oklab"
+    },
+    "interiorChromaSdAWeb": {
+      "value": 9.006360360250856e-12,
+      "units": "oklab"
+    },
+    "interiorChromaSdABackdrop": {
+      "value": 4.047576788568013e-11,
+      "units": "oklab"
+    },
+    "interiorChromaSdBNative": {
+      "value": 0.0002019376814210854,
+      "units": "oklab"
+    },
+    "interiorChromaSdBWeb": {
+      "value": 4.146880549180242e-9,
+      "units": "oklab"
+    },
+    "interiorChromaSdBBackdrop": {
+      "value": 1.8636649978890656e-8,
+      "units": "oklab"
+    },
+    "chromaStructureRatioNative": {
+      "value": 0.0015196510689449915,
+      "units": "ratio"
+    },
+    "chromaStructureRatioWeb": {
+      "value": 2.1426945084280665e-8,
+      "units": "ratio"
+    },
+    "chromaStructureRatioBackdrop": {
+      "value": 3.727399553518128e-8,
+      "units": "ratio"
+    },
+    "interiorOklabLSdDevNative": {
+      "value": 0.11132412922672179,
+      "units": "oklab"
+    },
+    "interiorOklabLSdDevWeb": {
+      "value": 0.11125424680011609,
+      "units": "oklab"
+    },
+    "interiorOklabLSdDevBackdrop": {
+      "value": 0.49999184533364305,
+      "units": "oklab"
+    },
+    "rawChromaRatioNative": {
+      "value": 3517.6882152416715,
+      "units": "ratio"
+    },
+    "rawChromaRatioWeb": {
+      "value": 1.5388789210456801,
+      "units": "ratio"
+    }
+  },
+  "shadow": {
+    "axis": "shadow",
+    "exteriorArea": {
+      "value": 20184,
+      "units": "px^2"
+    },
+    "backdropMeanLuminance": {
+      "value": 0.4058660325009909,
+      "units": "luminance"
+    },
+    "backdropSupport": {
+      "value": 0.4058660325009909,
+      "units": "ratio"
+    },
+    "clearanceAbove": {
+      "value": 19.5,
+      "units": "px"
+    },
+    "clearanceBelow": {
+      "value": 19.5,
+      "units": "px"
+    },
+    "clearanceLeft": {
+      "value": 19.5,
+      "units": "px"
+    },
+    "clearanceRight": {
+      "value": 19.5,
+      "units": "px"
+    },
+    "meanDepartureNative": {
+      "value": 0.008231431274559855,
+      "units": "luminance"
+    },
+    "meanDepartureWeb": {
+      "value": -0.0001100351111116429,
+      "units": "luminance"
+    },
+    "strengthPeakNative": {
+      "value": 0.43771266573491513,
+      "units": "ratio"
+    },
+    "strengthPeakDistanceNative": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentAboveNative": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentBelowNative": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentLeftNative": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentRightNative": {
+      "value": 0,
+      "units": "px"
+    },
+    "strengthPeakWeb": {
+      "value": 0,
+      "units": "ratio"
+    },
+    "strengthPeakDistanceWeb": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentAboveWeb": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentBelowWeb": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentLeftWeb": {
+      "value": 0,
+      "units": "px"
+    },
+    "extentRightWeb": {
+      "value": 0,
+      "units": "px"
+    },
+    "affineNative": [
+      {
+        "direction": "all",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 2488,
+        "backdropMeanLinear": 0.463023,
+        "backdropStdDevLinear": 0.498631,
+        "renderedLevelLinear": 0.396245,
+        "slopeALinear": 0.852645,
+        "interceptCLinear": 0.001451,
+        "rSquared": 0.892565
+      },
+      {
+        "direction": "all",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 2544,
+        "backdropMeanLinear": 0.45283,
+        "backdropStdDevLinear": 0.49777,
+        "renderedLevelLinear": 0.45283,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 5292,
+        "backdropMeanLinear": 0.435374,
+        "backdropStdDevLinear": 0.495806,
+        "renderedLevelLinear": 0.435374,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 8312,
+        "backdropMeanLinear": 0.383301,
+        "backdropStdDevLinear": 0.486191,
+        "renderedLevelLinear": 0.383301,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 1548,
+        "backdropMeanLinear": 0.257106,
+        "backdropStdDevLinear": 0.437038,
+        "renderedLevelLinear": 0.257106,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 5032,
+        "backdropMeanLinear": 0.45787,
+        "backdropStdDevLinear": 0.498222,
+        "renderedLevelLinear": 0.424852,
+        "slopeALinear": 0.926337,
+        "interceptCLinear": 0.000711,
+        "rSquared": 0.941668
+      },
+      {
+        "direction": "above",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 780,
+        "backdropMeanLinear": 0.492308,
+        "backdropStdDevLinear": 0.499941,
+        "renderedLevelLinear": 0.429333,
+        "slopeALinear": 0.870337,
+        "interceptCLinear": 0.000859,
+        "rSquared": 0.915308
+      },
+      {
+        "direction": "above",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 800,
+        "backdropMeanLinear": 0.48,
+        "backdropStdDevLinear": 0.4996,
+        "renderedLevelLinear": 0.48,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 1666,
+        "backdropMeanLinear": 0.460984,
+        "backdropStdDevLinear": 0.498475,
+        "renderedLevelLinear": 0.460984,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 2584,
+        "backdropMeanLinear": 0.440402,
+        "backdropStdDevLinear": 0.496435,
+        "renderedLevelLinear": 0.440402,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 532,
+        "backdropMeanLinear": 0.74812,
+        "backdropStdDevLinear": 0.434093,
+        "renderedLevelLinear": 0.74812,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 1580,
+        "backdropMeanLinear": 0.486076,
+        "backdropStdDevLinear": 0.499806,
+        "renderedLevelLinear": 0.454987,
+        "slopeALinear": 0.935179,
+        "interceptCLinear": 0.000419,
+        "rSquared": 0.953459
+      },
+      {
+        "direction": "below",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 780,
+        "backdropMeanLinear": 0.492308,
+        "backdropStdDevLinear": 0.499941,
+        "renderedLevelLinear": 0.429316,
+        "slopeALinear": 0.870397,
+        "interceptCLinear": 0.000813,
+        "rSquared": 0.915349
+      },
+      {
+        "direction": "below",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 800,
+        "backdropMeanLinear": 0.48,
+        "backdropStdDevLinear": 0.4996,
+        "renderedLevelLinear": 0.48,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "below",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 1666,
+        "backdropMeanLinear": 0.460984,
+        "backdropStdDevLinear": 0.498475,
+        "renderedLevelLinear": 0.460984,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "below",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 2584,
+        "backdropMeanLinear": 0.396285,
+        "backdropStdDevLinear": 0.489125,
+        "renderedLevelLinear": 0.396285,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "below",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 532,
+        "backdropMeanLinear": 0,
+        "backdropStdDevLinear": 0,
+        "renderedLevelLinear": 0,
+        "unidentifiableReason": "flat-backdrop"
+      },
+      {
+        "direction": "below",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 1580,
+        "backdropMeanLinear": 0.486076,
+        "backdropStdDevLinear": 0.499806,
+        "renderedLevelLinear": 0.454979,
+        "slopeALinear": 0.935208,
+        "interceptCLinear": 0.000397,
+        "rSquared": 0.953477
+      },
+      {
+        "direction": "left",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 464,
+        "backdropMeanLinear": 0.413793,
+        "backdropStdDevLinear": 0.492512,
+        "renderedLevelLinear": 0.340636,
+        "slopeALinear": 0.817535,
+        "interceptCLinear": 0.002346,
+        "rSquared": 0.852005
+      },
+      {
+        "direction": "left",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 472,
+        "backdropMeanLinear": 0.40678,
+        "backdropStdDevLinear": 0.491233,
+        "renderedLevelLinear": 0.40678,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "left",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 980,
+        "backdropMeanLinear": 0.391837,
+        "backdropStdDevLinear": 0.488161,
+        "renderedLevelLinear": 0.391837,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "left",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 1572,
+        "backdropMeanLinear": 0.3257,
+        "backdropStdDevLinear": 0.468636,
+        "renderedLevelLinear": 0.3257,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "left",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 242,
+        "backdropMeanLinear": 0,
+        "backdropStdDevLinear": 0,
+        "renderedLevelLinear": 0,
+        "unidentifiableReason": "flat-backdrop"
+      },
+      {
+        "direction": "left",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 936,
+        "backdropMeanLinear": 0.410256,
+        "backdropStdDevLinear": 0.49188,
+        "renderedLevelLinear": 0.37399,
+        "slopeALinear": 0.908784,
+        "interceptCLinear": 0.001156,
+        "rSquared": 0.920369
+      },
+      {
+        "direction": "right",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 464,
+        "backdropMeanLinear": 0.413793,
+        "backdropStdDevLinear": 0.492512,
+        "renderedLevelLinear": 0.340636,
+        "slopeALinear": 0.817535,
+        "interceptCLinear": 0.002346,
+        "rSquared": 0.852005
+      },
+      {
+        "direction": "right",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 472,
+        "backdropMeanLinear": 0.40678,
+        "backdropStdDevLinear": 0.491233,
+        "renderedLevelLinear": 0.40678,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "right",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 980,
+        "backdropMeanLinear": 0.391837,
+        "backdropStdDevLinear": 0.488161,
+        "renderedLevelLinear": 0.391837,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "right",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 1572,
+        "backdropMeanLinear": 0.3257,
+        "backdropStdDevLinear": 0.468636,
+        "renderedLevelLinear": 0.3257,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "right",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 242,
+        "backdropMeanLinear": 0,
+        "backdropStdDevLinear": 0,
+        "renderedLevelLinear": 0,
+        "unidentifiableReason": "flat-backdrop"
+      },
+      {
+        "direction": "right",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 936,
+        "backdropMeanLinear": 0.410256,
+        "backdropStdDevLinear": 0.49188,
+        "renderedLevelLinear": 0.37399,
+        "slopeALinear": 0.908784,
+        "interceptCLinear": 0.001156,
+        "rSquared": 0.920369
+      }
+    ],
+    "affineWeb": [
+      {
+        "direction": "all",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 2488,
+        "backdropMeanLinear": 0.463023,
+        "backdropStdDevLinear": 0.498631,
+        "renderedLevelLinear": 0.463915,
+        "slopeALinear": 0.998338,
+        "interceptCLinear": 0.001662,
+        "rSquared": 0.999703
+      },
+      {
+        "direction": "all",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 2544,
+        "backdropMeanLinear": 0.45283,
+        "backdropStdDevLinear": 0.49777,
+        "renderedLevelLinear": 0.45283,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 5292,
+        "backdropMeanLinear": 0.435374,
+        "backdropStdDevLinear": 0.495806,
+        "renderedLevelLinear": 0.435374,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 8312,
+        "backdropMeanLinear": 0.383301,
+        "backdropStdDevLinear": 0.486191,
+        "renderedLevelLinear": 0.383301,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 1548,
+        "backdropMeanLinear": 0.257106,
+        "backdropStdDevLinear": 0.437038,
+        "renderedLevelLinear": 0.257106,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "all",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 5032,
+        "backdropMeanLinear": 0.45787,
+        "backdropStdDevLinear": 0.498222,
+        "renderedLevelLinear": 0.458311,
+        "slopeALinear": 0.999186,
+        "interceptCLinear": 0.000814,
+        "rSquared": 0.999852
+      },
+      {
+        "direction": "above",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 780,
+        "backdropMeanLinear": 0.492308,
+        "backdropStdDevLinear": 0.499941,
+        "renderedLevelLinear": 0.492476,
+        "slopeALinear": 0.999668,
+        "interceptCLinear": 0.000332,
+        "rSquared": 0.999989
+      },
+      {
+        "direction": "above",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 800,
+        "backdropMeanLinear": 0.48,
+        "backdropStdDevLinear": 0.4996,
+        "renderedLevelLinear": 0.48,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 1666,
+        "backdropMeanLinear": 0.460984,
+        "backdropStdDevLinear": 0.498475,
+        "renderedLevelLinear": 0.460984,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 2584,
+        "backdropMeanLinear": 0.440402,
+        "backdropStdDevLinear": 0.496435,
+        "renderedLevelLinear": 0.440402,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 532,
+        "backdropMeanLinear": 0.74812,
+        "backdropStdDevLinear": 0.434093,
+        "renderedLevelLinear": 0.74812,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "above",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 1580,
+        "backdropMeanLinear": 0.486076,
+        "backdropStdDevLinear": 0.499806,
+        "renderedLevelLinear": 0.486159,
+        "slopeALinear": 0.999838,
+        "interceptCLinear": 0.000162,
+        "rSquared": 0.999994
+      },
+      {
+        "direction": "below",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 780,
+        "backdropMeanLinear": 0.492308,
+        "backdropStdDevLinear": 0.499941,
+        "renderedLevelLinear": 0.492519,
+        "slopeALinear": 0.999584,
+        "interceptCLinear": 0.000416,
+        "rSquared": 0.999982
+      },
+      {
+        "direction": "below",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 800,
+        "backdropMeanLinear": 0.48,
+        "backdropStdDevLinear": 0.4996,
+        "renderedLevelLinear": 0.48,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "below",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 1666,
+        "backdropMeanLinear": 0.460984,
+        "backdropStdDevLinear": 0.498475,
+        "renderedLevelLinear": 0.460984,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "below",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 2584,
+        "backdropMeanLinear": 0.396285,
+        "backdropStdDevLinear": 0.489125,
+        "renderedLevelLinear": 0.396285,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "below",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 532,
+        "backdropMeanLinear": 0,
+        "backdropStdDevLinear": 0,
+        "renderedLevelLinear": 0,
+        "unidentifiableReason": "flat-backdrop"
+      },
+      {
+        "direction": "below",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 1580,
+        "backdropMeanLinear": 0.486076,
+        "backdropStdDevLinear": 0.499806,
+        "renderedLevelLinear": 0.48618,
+        "slopeALinear": 0.999797,
+        "interceptCLinear": 0.000203,
+        "rSquared": 0.999991
+      },
+      {
+        "direction": "left",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 464,
+        "backdropMeanLinear": 0.413793,
+        "backdropStdDevLinear": 0.492512,
+        "renderedLevelLinear": 0.415867,
+        "slopeALinear": 0.996462,
+        "interceptCLinear": 0.003538,
+        "rSquared": 0.999222
+      },
+      {
+        "direction": "left",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 472,
+        "backdropMeanLinear": 0.40678,
+        "backdropStdDevLinear": 0.491233,
+        "renderedLevelLinear": 0.40678,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "left",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 980,
+        "backdropMeanLinear": 0.391837,
+        "backdropStdDevLinear": 0.488161,
+        "renderedLevelLinear": 0.391837,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "left",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 1572,
+        "backdropMeanLinear": 0.3257,
+        "backdropStdDevLinear": 0.468636,
+        "renderedLevelLinear": 0.3257,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "left",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 242,
+        "backdropMeanLinear": 0,
+        "backdropStdDevLinear": 0,
+        "renderedLevelLinear": 0,
+        "unidentifiableReason": "flat-backdrop"
+      },
+      {
+        "direction": "left",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 936,
+        "backdropMeanLinear": 0.410256,
+        "backdropStdDevLinear": 0.49188,
+        "renderedLevelLinear": 0.411285,
+        "slopeALinear": 0.998257,
+        "interceptCLinear": 0.001743,
+        "rSquared": 0.999607
+      },
+      {
+        "direction": "right",
+        "ringLabel": "0-3",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 3,
+        "sampleCount": 464,
+        "backdropMeanLinear": 0.413793,
+        "backdropStdDevLinear": 0.492512,
+        "renderedLevelLinear": 0.415867,
+        "slopeALinear": 0.996462,
+        "interceptCLinear": 0.003538,
+        "rSquared": 0.999222
+      },
+      {
+        "direction": "right",
+        "ringLabel": "3-6",
+        "innerDistanceCssPx": 3,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 472,
+        "backdropMeanLinear": 0.40678,
+        "backdropStdDevLinear": 0.491233,
+        "renderedLevelLinear": 0.40678,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "right",
+        "ringLabel": "6-12",
+        "innerDistanceCssPx": 6,
+        "outerDistanceCssPx": 12,
+        "sampleCount": 980,
+        "backdropMeanLinear": 0.391837,
+        "backdropStdDevLinear": 0.488161,
+        "renderedLevelLinear": 0.391837,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "right",
+        "ringLabel": "12-24",
+        "innerDistanceCssPx": 12,
+        "outerDistanceCssPx": 24,
+        "sampleCount": 1572,
+        "backdropMeanLinear": 0.3257,
+        "backdropStdDevLinear": 0.468636,
+        "renderedLevelLinear": 0.3257,
+        "slopeALinear": 1,
+        "interceptCLinear": 0,
+        "rSquared": 1
+      },
+      {
+        "direction": "right",
+        "ringLabel": "24-48",
+        "innerDistanceCssPx": 24,
+        "outerDistanceCssPx": 48,
+        "sampleCount": 242,
+        "backdropMeanLinear": 0,
+        "backdropStdDevLinear": 0,
+        "renderedLevelLinear": 0,
+        "unidentifiableReason": "flat-backdrop"
+      },
+      {
+        "direction": "right",
+        "ringLabel": "0-6",
+        "innerDistanceCssPx": 0,
+        "outerDistanceCssPx": 6,
+        "sampleCount": 936,
+        "backdropMeanLinear": 0.410256,
+        "backdropStdDevLinear": 0.49188,
+        "renderedLevelLinear": 0.411285,
+        "slopeALinear": 0.998257,
+        "interceptCLinear": 0.001743,
+        "rSquared": 0.999607
+      }
+    ]
+  }
+}

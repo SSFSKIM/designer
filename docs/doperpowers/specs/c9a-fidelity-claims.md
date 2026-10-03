@@ -45665,3 +45665,339 @@ first fit render, and items 6–7 are in the tracker.
   0.5 archive.
 - The rehearsal reads published rows and existing renders. It renders nothing, and no holdout or
   referee configuration was exposed by it.
+
+## 5.203 W44 G1: the fit declaration amended once, the refit searched move by move in scratch, its joint point read NEITHER under the landing rule, and the wave closed at the finding with nothing sealed (2026-10-03)
+
+Evidence directory: `results/2026-10-03-w44-g1-refit/` (its `README.txt` maps it), on branch
+`w44-g1-refit` off `08994111` (the charter v1.3 merge), and G0's directory for the amendment.
+Charter `2026-10-03-w44-texture-at-0-25.md` v1.3: G1 steps 0–2, clauses 1 and 5, Decision Logs 4
+and 7, X48–X52. **The parent ruled on 2026-10-03, option (a): G1 closes at the finding under
+Decision Log 4's "Otherwise".** There was no freeze, stage, exposure or publication. The shipped c05
+material is unchanged, and the canonical holdout and the twelve referees stay unspent. The scratch
+renders stay on the machine under `~/vitrea-w44/g1-scratch/fit/`, except the joint point's, which
+are committed (§5).
+
+### 1. Part 2's one amendment, before any fit render (`80a898c1`)
+
+Decision Log 7's five rulings were executed as ONE amendment of part 2. Part 2 was
+`443f494c94fc66d8adf41932ca0d533600676e9295c7f9f69a9785fb565685d2` and is now
+**`c04227e9240a0f1e890aef5c6529db412783864305b7ddbc125a00923c771175`** (the second line of
+`fit-declaration.sha256`). The amendment commit's time, 22:26:24 UTC, precedes the first fit launch
+at 22:34:11.
+
+**The record.** `declare.py amend-fit` now writes a CONTENT diff to `fit-amendments.json`, part 2's
+own record (`amendments.json` is part 1's, and writing there would break part 1's chain). The diff
+is 22 operations, 10 adds and 12 replaces, each at one path of part 2's body and citing the ruling
+it executes, with its `from` and `to`. The reason cites the charter's Decision Log 7 and the cause
+is its commit, `ea487a17`. By ruling:
+1. **The receded share** (5 operations): move 3's fifth leaf, `sizeHeavySecondShare` on
+   `receded.light`, in [0, the active share] on the grid active × {0, 0.25, 0.5, 0.75, 1}, with the
+   floor, the reach and both widths inherited. It also adds the charter's added prediction ("under
+   C the receded share lands at or near 0"), restates move 3's `inherits`, and pins G1's builder
+   and its red cases.
+2. **Move 1's within clause** (1 operation): the F and pitch-16 cells only; the photo cells stay in
+   the regression budget.
+3. **The text stratum** (14 operations): `strata` with T = `hc-text-7`; `textStratum` (the two bands,
+   their reads, σ 4 device px over the silhouette eroded 4 CSS px, the selection strata F ∪ C ∪ P);
+   the three moves' `cells`, moves 2–3's within clauses, the landing rule's scope, full close,
+   improvement and regression budget; and pins on G1's `cuts/t1.py`, `readings.py` and `test_t1.py`.
+4. **The count** (1 operation): 14 fit scenes per scale (F 11 of 15, T 3 of 4).
+5. **The candidate identity** (1 operation): patch-and-digest under the `glass0.250` key.
+
+**What `check-fit` verifies.** It reverts the operations and rebuilds 443f494c byte for byte, then
+validates the rebuilt body as the draft's diff, as before. `validate_ops` refuses an operation
+outside its ruling's paths, an unknown ruling, a removal, a path touched twice and a missing
+ruling (`test_amend_fit.py`, 21 cases). The verb refuses once a fit render exists and a second
+time.
+
+**Two choices in the tool, stated:**
+- **`declare.py` is one of part 1's pins**, and part 1 cannot be amended (its ladders exist). The
+  amendment records that one move, `31ee5831…` → `903a5618…`, as `partOnePins`. Part 1's `check`
+  accepts exactly that move, for that file alone; part 1's declaration and hash do not move.
+- **`fit_evidence` was narrowed** from "G1's evidence directory exists" to "a fit render exists": a
+  launch in `fit/runs.jsonl`, or a matrix or capture under the fit scratch. Step 0 had to write
+  the T readers and the builder into that directory before any render.
+
+**The implementations the amendment pins** (G1's copies; G0's, which part 1 pins, are untouched):
+- `cuts/t1.py`: four strata. A T cell's fidelity, change and overshoot are T1-fine's and its away
+  veto is T1-low's; T1 is recorded. Also the moves' cells and within clauses.
+- `readings.py`: T1-low, the SD of G(L, σ 4 device px) over T1-fine's support.
+- `test_t1.py`: G0's four pinned examples, extended to both bands (29 pass).
+- `fit/build-candidate.ts`: its `receded.light` guard admits exactly the three second-tap keys
+  (`test_build_candidate.py`, 8 pass).
+
+**A correction beside the tool (§7).** `validate_ops` checked paths, not values.
+`verify_amendment.py` now asserts the recorded operations ARE `amendment_one` on the rebuilt body,
+values included, and they are.
+
+### 2. One reference render, and every cut rehearsed on it (`784838c6`)
+
+G1's `cuts/cuts.py` (G0's copy) reads the published c05 generation by hash (`6d18c059eb42` light,
+`d0219cd684bf` dark) as the one reference for M2, L1, E2 and T1's change (X52). E2's and T1's band
+references are the canonical tree's c05 captures, which `check-capture-tree` holds to those rows.
+W43's pre-fit render is no longer read. W43's field names (`prefitError`, C1's `prefit` column)
+are kept, so a G1 cut has the schema the owner test reads.
+
+c05 read against itself (`references/c05-cuts.*`) holds every row within or at its named miss:
+
+| row | reading |
+| --- | --- |
+| tables, WebGPU | pass on all four profiles |
+| tables, CSS | one miss, 1x light `checkerboard__rrect-ml__rest` ssim 0.87367 (in `MISSED_27_ROWS`) |
+| M1 | passes |
+| M2 | 0 misses |
+| C1, WebGPU | passes (the CSS dark span-128 cells descriptive, as at W43) |
+| L1 | passes, with its four dark inactive cells UNMEASURED |
+| X1, WebGPU | 0 of 230 failing |
+| E2 | 0 failing, mean change 0 |
+
+With `hc-text-7` out of F, c05's own T1 reads an F aggregate of 0.6462, a selection metric of
+0.3458 and a tie of 0.0412 over the whole map.
+
+### 3. The fit, move by move (`0bababfc`, `def946c9`, `9e3f290c`)
+
+There were 104 launches: 103 on the 2x light WebGPU fit cells and one at 1x (§4). Each was in
+candidate mode, under the classifying web census, with a positive `--scene` whitelist of the T1
+gate cells, never a referee or a holdout scene. There were 100 candidates, 93 distinct contents.
+Every candidate is a complete four-endpoint declaration built from c05, moved only on declared
+leaves at declared values. Its `identity.json` holds part 2's patch-and-digest identity: dark
+endpoints c05's, and the second tap's 1x width at 0. The c05 control (`m1-c05`) reproduces the
+canonical c05 captures, 29 of 29 PNGs.
+
+**How the objectives are read.** Each is T1's selection metric, median |log(web/native)|, over the
+move's F ∪ C ∪ P cells; the full table is `fit/path/rungs.txt`. The selection tie is "the median
+over the same cells of log(1 + bar / native)", read on the move's own cells: 0.0332 for move 1,
+0.0363 for move 2 and 0.0511 for move 3.
+
+**Move 1, rest mid and thick spans, 27 members.** No family has a point within, so part 2's
+`ifNoFamilyIsWithin` lands the point with the smallest objective, a tie going to the fewer moved
+leaves.
+- **A, the floor**, 0.6 (c05) … 1.0: 0.1639, 0.2118, 0.2613, 0.3109, 0.3038, 0.3150, 0.3257,
+  0.3347, 0.2844.
+- **B, the floor at 1 and the heavy width**, 6 … 17 device px: 0.3403, 0.3444, 0.2630, 0.1989,
+  0.2270, 0.1441, 0.1958*, 0.2545. Its width 20 is A's floor 1.
+- **C, the floor at 1 and the second tap.** It was swept full factorial: its leaves start at c05's
+  share 0 and width 0, where the tap is off and a share sweep is flat by construction. Share ×
+  width, the widths in CSS px:
+
+  | share | 1.5 | 2 | 2.5 | 3 | 4 | 5 | 6 |
+  | --- | --- | --- | --- | --- | --- | --- | --- |
+  | 0.25 | 0.1721 | 0.1417 | 0.1342 | 0.1135* | 0.2003* | 0.2310 | 0.2887 |
+  | 0.5 | 0.2752 | 0.2266 | 0.1764 | 0.2082 | 0.1469 | **0.1091** | 0.1698* |
+  | 0.75 | 0.4399 | 0.3554 | 0.2670 | 0.2423 | 0.1753 | 0.1696 | 0.1228 |
+  | 1 | 0.6255 | 0.4663 | 0.3730 | 0.3403 | 0.2630 | 0.2270 | 0.1441 |
+
+  The starred values are recovered (§7). C at share 1 and width w is B at σ 2w device px, pixel for
+  pixel (`m1c-1-6` = `m1b-s12` on 29 of 29).
+- **Landed: `m1c-0.5-5`** (floor 1, share 0.5, second σ 5 CSS px), 0.1091. Not within:
+  `checkerboard__rrect-md__rest` and `checkerboard-8` md, ml and lg.
+- **The tie choice decides this move.** Read over the whole fit map (0.0412), the tie window would
+  admit `m1b-s12` (0.1441, two leaves), and move 1 would land there. It has vetoes of its own on
+  move 1's cells (§6), so the joint verdict is NEITHER either way.
+
+**Move 2, rest thin spans, 30 members, over move 1's point.** No point within.
+- **The start**, 0.46 … 0.95: 0.3802, 0.3297, 0.2775, 0.2265, **0.2071**, 0.2208, 0.2241.
+- **The reach** at start 0.8, 50 … 200 device px: 0.2921, 0.2300, 0.2071, 0.2004, 0.2114, 0.2308.
+- **Landed: `m2-t0.8`** (thin start 0.8), 0.2071. Reach 125 reads 0.2004, inside the tie with one
+  more leaf.
+
+**Move 3, the inactive cells, 34 members, over move 2's point.** Two coordinate passes, no point
+within. The share column is in fractions of the active share 0.5.
+
+| pass | thin start 0.1 … 0.7 | thick/far 0 … 0.04 | heavy σ 14 … 24 device px | share ×0 … ×1 |
+| --- | --- | --- | --- | --- |
+| 1 | **0.1922**, .2540, .2675, .2643, .2607, .2689, .2689 | .1935, .1932, .1923, **.1922**, .1922 | .1922, .1872, .1840, .1847, **.1802**, .1823 | .4170, .3680, .2643, .2196, **.1802** |
+| 2 | **.1802**, .1959, .2141, .2278, .2220, .2278, .2278 | **.1752**, .1771, .1805, .1802, .1795 | .1935, .1789, .1849, .1770, **.1752**, .1837 | .4299, .3771, .2664, .2205, **.1752** |
+
+The best point is 0.1752: receded thin start 0.1, thick/far 0, heavy σ 22, share at the active
+value. **Landed: `m3-t0.1`** (receded thin start 0.1 alone), 0.1922, on the fewer-leaves tie
+(0.0511).
+
+**Interactions.** At the joint point no move undid an earlier one (`fit/path/joint.txt`).
+
+**The predictions, read against the renders** (part 2's, recorded, never re-ruled):
+- **Move 1, A** ("not within on both ends"): holds.
+- **Move 1, B** ("within on the fine cells, over on `checkerboard-64` and the photo"): only partly.
+  The `checkerboard-4` cells come within, `checkerboard-8` does not, and the photo is never over.
+- **Move 1, C** ("within on both"): falsified. No C point brings `checkerboard-8` md and the
+  pitch-16 md cell within.
+- **Move 2:** falsified, as G0 recorded. The best start, 0.8, leaves 23 of 30 cells outside.
+- **Move 3** ("the thin start is the lever"): holds.
+- **The receded share** ("lands at or near 0"): **falsified**. Removing the receded share is the
+  worst point on both passes (0.4170, 0.4299). The objective is lowest with the share at the
+  active value. The landed point names no receded share at all.
+
+### 4. X48 at the joint point (`98e06895`)
+
+The joint point was rendered on the 94 1x light WebGPU T1 gate cells. All 94 captures are
+byte-identical to the canonical c05 tree. All 94 rows equal the published c05 rows once three
+things are set aside: `capturePath`, `capturedAt`, and the four shape fields only an `--alpha`
+capture measures, which a fit render (run without `--alpha`) does not write (`fit/path/x48-joint.txt`).
+
+### 5. The joint point, `m3-t0.1`
+
+Declaration `fit/candidates/m3-t0.1/candidate.json`, sha256
+`66bf5a0192bf7f670c8a12472fa4b2f6bdbe63cc4bfb8305828e3ec1a32087e3`
+(`apple-macos-27.0-glass0.25-w44-g1-m3-t0.1`). Its scratch matrices (gzipped) and its 188 captures
+are committed under `fit/candidates/m3-t0.1/scratch/` with a `manifest.json`, as the next wave's
+rehearsal material.
+
+| endpoint | file | resolvedMaterialSha256 | moved from c05 |
+| --- | --- | --- | --- |
+| active light | `b0ed9d6a1036…` | `fbf1047bc618a87d` | `sizeScatterFloor2x` 0.6 → 1; `sizeHeavySecondShare` 0 → 0.5; `sizeHeavySecondSigma2x` 0 → 5 CSS px; `sizeScatterRampStartThin2x` 0.46 → 0.8 |
+| receded light | `fb0b7d008ed3…` | `aab222a6f1c6ef96` | `sizeScatterRampStartThin2x` 0.7 → 0.1 |
+| active dark | `1602f1f5b65c…` | `b074fc6913a91c66` (c05's) | none |
+| receded dark | `9dcb06313619…` | `280f0fddf014e0f6` (c05's) | none |
+
+### 6. The finding: NEITHER (`fit/path/joint.*`, `finding.*`)
+
+The landing rule's T1 clauses were read on the joint point's full map, the 94 2x light WebGPU fit
+cells, against c05. Candidate mode draws what strict mode draws for one content, so this is the
+stage's reading on these cells.
+
+**The aggregates.** Median |log((k + ε)/(n + ε))| per stratum and pose:
+
+| 2x light WebGPU | c05 | joint |
+| --- | --- | --- |
+| F rest (9) | 0.6334 | 0.2703 |
+| F inactive (2) | 1.2903 | 0.0467 |
+| C rest (37) | 0.1720 | 0.1030 |
+| C inactive (21) | 0.8523 | 0.2349 |
+| P rest (11) | 0.4193 | 0.3926 |
+| P inactive (11) | 0.1393 | 0.1719 (every cell unchanged) |
+| T rest (3), T1 | 0.2153 | 0.2392 |
+| T rest, T1-fine | 0.5251 | 0.2177 |
+| T rest, T1-low | 0.2696 | 0.2579 |
+| **F aggregate (the landing's)** | **0.6462** | **0.2455** (under half) |
+| selection metric (plain, F ∪ C ∪ P) | 0.3458 | 0.1876 |
+
+**Where it improves.** Both receded fine checkers come within (×3.95 / ×5.29 → ×1.06 / ×1.07), as
+do the active `checkerboard-4` md and lg (×2.07 / ×1.61 → ×1.01 / ×1.12). The receded pitch-16
+cells fall from ×2.36–3.43 to ×1.17–1.47, except `rrect-ml` (×3.05 → ×2.25) and the two pressed
+cells (×3.31 / ×3.43 → ×2.25 / ×2.93).
+
+**F cells not within (7):**
+- `checkerboard-4` sm and capsule (×0.74, ×0.64);
+- `checkerboard-8` capsule, plain and tint-orange (×0.82, ×0.76);
+- `checkerboard-8` md (×0.40), ml (×1.38) and lg (×1.47).
+
+**The vetoes, each a cell the improvement landing forbids** (n native, c05's and the joint's
+web/native):
+
+| cell | veto | n | c05 | joint | B |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard__rrect-md__rest` | away, g > B | 0.1501 | ×0.65 | ×0.54 | 0.0066 |
+| `checkerboard-8__rrect-md__rest` | away, g > B | 0.0991 | ×0.85 | ×0.40 | 0.0064 |
+| `checkerboard-64__rrect-sm__rest` | away, g > B | 0.0680 | ×0.47 | ×0.17 | 0.0084 |
+| `checkerboard__rrect-sm__rest` | overshoot | 0.1940 | ×0.75 | ×1.20 | 0.0068 |
+| `checkerboard__capsule-button__pressed` | overshoot | 0.1938 | ×0.93 | ×1.19 | 0.0068 |
+| `checkerboard-32__rrect-sm__rest` | overshoot | 0.2161 | ×0.90 | ×1.24 | 0.0068 |
+| `checkerboard-32__capsule-button__rest` | overshoot | 0.2195 | ×0.86 | ×1.15 | 0.0068 |
+| `checkerboard-32__rrect-lg__rest` | overshoot | 0.1336 | ×0.99 | ×1.25 | 0.0067 |
+| `hc-text-28__rrect-sm__rest` | overshoot | 0.1891 | ×0.76 | ×1.20 | 0.0070 |
+| `hc-text__rrect-sm__rest` | overshoot | 0.1595 | ×0.78 | ×1.17 | 0.0075 |
+
+**No point in the declared space clears them.** `finding.py` read each vetoing cell at every
+searched point that rendered it:
+- `checkerboard-64__rrect-sm__rest` is away beyond B at all 15 points that read it.
+- `checkerboard-8__rrect-md__rest`, the map's named exception at ×0.85, is clear at only four of
+  47 (`m1b-s6`, `m1c-0.5-2`, `m1c-0.75-2.5`, `m1c-1-3`: ×0.91–0.99). Those are the narrowest
+  second widths, and each carries overshoots elsewhere. The four points with the smallest objectives
+  read it at ×0.39–0.58, and the narrowest widths carry it over native (×1.17–2.01).
+- The six thin overshoots come from move 2's start 0.8. `checkerboard-32__rrect-lg__rest` sits on
+  native at c05, and any mid-band second tap carries it over.
+
+The landing's other clauses: no T cell is required within, and none is a veto.
+
+**The T cells, both bands** (n / c05 / joint):
+
+| cell | T1 | T1-fine | T1-low |
+| --- | --- | --- | --- |
+| sm rest | within / toward (×0.67 → ×1.01) | miss / toward, 0.1172 / 0.0723 / 0.1029 | miss / overshoot, 0.0731 / 0.0545 / 0.0807 |
+| md rest | miss / away (×0.89 → ×0.62) | **within** / toward, 0.0281 / 0.0522 / 0.0212 | miss / away, 0.0867 / 0.0576 / 0.0511 |
+| lg rest | miss / unchanged | miss / toward, 0.0032 / 0.0271 / 0.0145 | miss / unchanged, 0.1170 / 0.0876 / 0.0887 |
+
+The sm cell's T1-low overshoot is read by no clause: a T cell's change, overshoot included, is
+T1-fine's. The md cell's T1-low away has g = +0.0066 ≤ B 0.0069, a named regression inside the
+budget.
+
+**The regression budget, for the record.**
+- Named misses unchanged (24): 20 photo cells, `impulse` capsule tint-orange, `hc-text-28` md
+  rest, `hc-text` lg rest and `checkerboard-64` lg inactive.
+- Named regressions within B: `impulse` md rest and ml inactive, `checkerboard-32` ml rest,
+  `checkerboard-lc16` md rest, `hc-text-28` lg rest, `hc-text` lg inactive.
+
+### 7. Review closure
+
+`doperpowers:reviewer-medium` reviewed steps 0–2 and returned *incorrect* with two P2 findings,
+both real and both fixed beside the record (`9e3f290c`). It confirmed independently:
+- the NEITHER verdict: three away cells, seven overshoots and the F aggregate;
+- that the amendment precedes the first render;
+- all 100 candidate identities and domains;
+- no referee or holdout row in any of the 104 scratch matrices;
+- the declaration chains and pins, and the 29 T1 tests.
+
+1. **Four move-1 points were ranked on a partial median.** On `m1b-s14`, `m1c-0.25-3`, `m1c-0.25-4`
+   and `m1c-0.5-6`, the driver wrote `checkerboard-lc16__rrect-md__rest`'s capture and then failed
+   its shape axis ("a 0.00px contour … carries no curvature"). The row is absent and the objective
+   was a 26-cell median. `fit/recover.py` reads the missing web SD off each capture through G0's
+   port, proven on the 112 rows those renders did record (worst 2.2e-11). The objectives become
+   0.1753 → 0.1958, 0.1102 → 0.1135, 0.1547 → 0.2003 and 0.1651 → 0.1698. Move 1 still lands
+   `m1c-0.5-5` (`fit/path/recovered.json`, `move1-recovered.json` beside `move1.json`).
+   `search.decide` now refuses to rank a partial objective that has not been recovered.
+2. **The amendment validator checked paths, not values** (§1). Fixed by `verify_amendment.py`,
+   with a red case (an unauthorized value at an authorized path).
+
+**Found while re-deciding.** `decide` had taken each point's recorded `selectionTie`. That covered
+the move's own cells when each move was decided, and the whole map once the landed points' maps
+were completed. `move_tie` now computes the tie on the move's cells, and all three recorded
+decisions reproduce. Duplicate-content points render byte for byte alike (`m2-t0.46` =
+`m1c-0.5-5`, `m3-t0.7` = `m2-t0.8`, `m3-f0.04-k0.04-t0.1` = `m3-t0.1`).
+
+No second review round: the fixes are checks that run, and they leave no decision to re-read.
+
+### 8. Gaps, and the shape of the next step
+
+- **The 2x fine-checker gap stays named, and shipped.** The c05 material draws it unchanged (the
+  W43 tracker entry, now annotated).
+- **The driver's lc16 shape-axis failure** (tracker). A frozen point that triggered it would leave a
+  hole in its publication stage, which `publish` refuses.
+- **The tie's cell set** (tracker): read on the move's cells or the whole map, move 1's landing
+  differs.
+- **The census refused one launch.** A peer session's Playwright-launched Chrome refused `m3-t0.1`'s
+  1x render; it is logged, was not read, and was relaunched after the browser left.
+- **Smaller tracker entries:** the fit runs without `--alpha`; duplicate contents render twice; the
+  amendment's value check sits beside `declare.py`.
+
+**The shape of the next step**, a new declaration on the same archive and the same unspent referees:
+- **Two leaves the Design lists but no move searched**, `sizeScatterSpanMax2x` and
+  `sizeScatterHeavyShareThick2x`. Every vetoing mid/thick cell sits on a span boundary the declared
+  families cannot separate. `checkerboard-8` md (span 96) needs MORE structure at the same time ml
+  and lg (128, 160) need less. `checkerboard-32` lg is on native at c05 and must not take the mid
+  band the fine thick cells want. A span-selective deep share and a thick-span taper are the
+  existing leaves for that.
+- **The thin-span trade.** No thin start serves `checkerboard-4` sm (×0.74 at 0.8, about 0.95 needed)
+  and the pitch-16, `-32` and text thin cells (over at 0.8) at once. `checkerboard-64` sm moves
+  away under every declared lever. The thin span needs a pitch-aware term, not a start.
+- **The next landing rule must be rehearsed on THIS joint point's renders before it is hashed.**
+  They are committed (§5). The W42 lesson holds again: a per-cell veto fails a better model. This
+  joint point is better than c05 by every aggregate the wave declared, and still lands nothing.
+  The next declaration states, before any render, whether and how a cell that is better in
+  aggregate but crosses native or drifts in one pitch blocks a landing, and rehearses that rule
+  here.
+
+### 9. What is not claimed
+
+- **Nothing was sealed and nothing shipped.** No profile document, generated module, generation
+  file or capture tree moved (`git diff 08994111 -- packages/calibration/profiles
+  packages/platform-web` is empty). The 1x light rows and every dark row are unmoved.
+- **No holdout and no referee cell was rendered or read** in G1. The cross-gate ledger holds no
+  read 7.
+- **The tooling for steps 3–8 is committed but never ran**: `seal/seal.ts`, `stage/stage.py`,
+  `stage/x48.py`, `sheets/sheets.py` (README.txt). It is untested and is the next wave's to reuse.
+- **The CSS tier was not rendered.** It renders only at a final stage. Its residual at this point
+  is unread.
+- **No eye sheets were made.** The gate that would have drawn them was not reached. The joint
+  point's captures are committed for that.
+- The freeze reads 1,818 and X41 911 at the head; `declare.py check` and `check-fit` read
+  consistent, and `verify_amendment.py` exits 0.

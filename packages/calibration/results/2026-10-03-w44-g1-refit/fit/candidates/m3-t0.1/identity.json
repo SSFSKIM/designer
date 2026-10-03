@@ -1,0 +1,45 @@
+{
+  "label": "m3-t0.1",
+  "holds": true,
+  "endpoints": {
+    "active.light": {
+      "moved": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondSigma2x",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin2x"
+      ],
+      "undeclared": [],
+      "digest": "fbf1047bc618a87d",
+      "c05Digest": "50430fa62c1120bd",
+      "secondTap1xWidth": 0
+    },
+    "active.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "b074fc6913a91c66",
+      "c05Digest": "b074fc6913a91c66",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    },
+    "receded.light": {
+      "moved": [
+        "sizeScatterRampStartThin2x"
+      ],
+      "undeclared": [],
+      "digest": "aab222a6f1c6ef96",
+      "c05Digest": "5d8680980b7aeb55",
+      "secondTap1xWidth": 0
+    },
+    "receded.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "280f0fddf014e0f6",
+      "c05Digest": "280f0fddf014e0f6",
+      "patchIdentical": true,
+      "digestIdentical": true,
+      "secondTap1xWidth": 0
+    }
+  }
+}

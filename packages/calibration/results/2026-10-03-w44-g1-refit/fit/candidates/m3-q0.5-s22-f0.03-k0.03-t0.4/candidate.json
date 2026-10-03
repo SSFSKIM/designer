@@ -1,0 +1,27 @@
+{
+  "$comment": "W44 G1 scratch fit candidate m3-q0.5-s22-f0.03-k0.03-t0.4:",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w44-g1-m3-q0.5-s22-f0.03-k0.03-t0.4",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "217bed3780b02eb7de5083f0d2715ac4a199e47e7684a907f6f3a89e5b5f7ad1"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "2792384d1b28cee3c9367e046838ff527c205f5fd8e411227137d6628c6239cc"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "dc7580670eaec7ada71e2b251c5b99998d09cdb22ca3f2ee038f9d7563fbc94d"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "67093b8aa5e9e0ab4e95c939e0e09876fd4591f4b1371e1f9f78b9e90a3d41b3"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

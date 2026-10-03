@@ -12,7 +12,12 @@
   "sources": {
     "packages/calibration/results/2026-10-03-w44-g0-declaration/fit-declaration-draft.json": "92de3c4efec58af04fbb93f49de0addf53d4e38da97694d14388635d60c218f1",
     "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/protocol.json": "d8061add0e30b62ce823813531ecdf4757831c53bc5b5b9a6e0057ecd183e5a6",
-    "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/results.json": "5d5bb485efbaaf5f5e1bef9c33b540ca993a30d4e2dad5e04eb571adfc029cec"
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/ladders/results.json": "5d5bb485efbaaf5f5e1bef9c33b540ca993a30d4e2dad5e04eb571adfc029cec",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/fit/build-candidate.ts": "71422f1dd11b86c9699f1d8e910b7444a8878dfc05e731addfc1d1c6fc0bb33b",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/fit/test_build_candidate.py": "0a6f484a6c04f146e28373c461487c0e47f813cad291b0406b598da44893ae6c",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/test_t1.py": "8e89a511de7c3035b0844d32c0a46d3c42a3e08b50215c31faf002e9307b235a",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f"
   },
   "charter": "docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md (Design \"The moves\", \"The landing rule\"; Decision Logs 3 and 4)",
   "references": {
@@ -22,15 +27,15 @@
     },
     "why": "every regression row and T1's change output read the published c05 generation by hash (X52)"
   },
-  "fitCells": "the gate partition of the light 0.25 profiles (every T1 cell less the canonical holdout and the referees), 2x WebGPU; the planner's pre-gate probe whitelist with the canonical calibration, validation and recorded sets; the loader refuses a referee row",
+  "fitCells": "the gate partition of the light 0.25 profiles (every T1 cell less the canonical holdout and the referees), 2x WebGPU; the planner's pre-gate probe whitelist with the canonical calibration, validation and recorded sets; the loader refuses a referee row; among the fine backdrops (checkerboard-4, checkerboard-8, hc-text-7) that is 14 fit scenes per scale: their 19 scenes per scale less the five fine referees (F 11 of 15, T 3 of 4; Decision Log 7 item 4)",
   "searchProcedure": "within a family, each leaf's grid is swept in the order listed, the others held at their current values, keeping the grid point with the smallest move objective; at most two passes; a full factorial sweep of a family's grids is permitted and is not required. The move objective is the selection metric restricted to the move's cells.",
   "moves": [
     {
       "id": "move1",
       "finding": "ii",
       "order": 1,
-      "cells": "2x WebGPU rest, spans mid and thick (96-160), fit cells, F u C u P",
-      "withinClause": "every F cell of `cells` within, AND every pitch-16 (`checkerboard`) and photo cell of `cells` within (T1 output 1)",
+      "cells": "2x WebGPU rest, spans mid and thick (96-160), fit cells, F u T u C u P (T read on its two bands and never required within; the move objective reads F u C u P)",
+      "withinClause": "every F cell of `cells` within, AND every pitch-16 (`checkerboard`) cell of `cells` within (T1 output 1); the photo cells of `cells` are read, out of the clause and still in the regression budget (Decision Log 7 item 2: no family moves them, 0.62-0.70 across A, B and C on the ladders; W43's named tone gap)",
       "familyOrder": [
         "A",
         "B",
@@ -148,8 +153,8 @@
       "id": "move2",
       "finding": "i",
       "order": 2,
-      "cells": "2x WebGPU rest, thin spans (32-44), fit cells, F u C u P",
-      "withinClause": "every cell of `cells` within",
+      "cells": "2x WebGPU rest, thin spans (32-44), fit cells, F u T u C u P (T read on its two bands and never required within; the move objective reads F u C u P)",
+      "withinClause": "every F, C and P cell of `cells` within (T1 output 1); a T cell is read on its bands and not required within",
       "families": {
         "start": {
           "leaves": {
@@ -201,9 +206,9 @@
       "id": "move3",
       "finding": "iii",
       "order": 3,
-      "cells": "2x WebGPU inactive, every span, fit cells, F u C u P",
-      "withinClause": "every cell of `cells` within",
-      "inherits": "the receded document names exactly its 0.5 twin's keys (X44): sizeScatterFloor2x, the second tap and the reach come from the active document as moves 1 and 2 leave them",
+      "cells": "2x WebGPU inactive, every span, fit cells, F u T u C u P (T read on its two bands and never required within; the move objective reads F u C u P)",
+      "withinClause": "every F, C and P cell of `cells` within (T1 output 1); a T cell is read on its bands and not required within",
+      "inherits": "the receded document names exactly its 0.5 twin's keys (X44) and, by Decision Log 7 item 1, sizeHeavySecondShare as a difference over its active document; sizeScatterFloor2x, the reach and the second tap's widths come from the active document as moves 1 and 2 leave them",
       "families": {
         "receded": {
           "leaves": {
@@ -255,9 +260,29 @@
                 22,
                 24
               ]
+            },
+            "sizeHeavySecondShare": {
+              "slot": "receded.light",
+              "unit": "signed fraction, named in the receded light document as a difference over its active document (one leaf for both scales; the 1x width is inherited at 0, so the plan declines at dpr 1)",
+              "domain": [
+                0,
+                1
+              ],
+              "domainRelativeTo": "the active light document's sizeHeavySecondShare at the joint point: the receded share is in [0, the active share]",
+              "grid": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1.0
+              ],
+              "gridUnit": "fraction of the active share (0 switches the second tap off in the receded pose; 1 is the inherited value). When the active share is 0 the grid is the one point 0.",
+              "inherited": "sizeScatterFloor2x, sizeScatterRampReach2xPx and the second tap's widths (sizeHeavySecondSigma, sizeHeavySecondSigma2x) stay inherited from the active document",
+              "why": "G0's ladders: the receded document inherits the second tap's share and width and no receded leaf can take them off; at C 0.5 x 3 CSS px the receded checkerboard-8 mid cell went 1.01 -> 2.56 and the receded pitch-16 cells read 2.33-3.59 (claims 5.202 section 7; charter Decision Log 7 item 1)"
             }
           },
-          "prediction": "the thin start is the lever (its sweep moves the inactive cells most); the receded fine cells reach Apple's near-zero only with the inherited floor at 1"
+          "prediction": "the thin start is the lever (its sweep moves the inactive cells most); the receded fine cells reach Apple's near-zero only with the inherited floor at 1",
+          "predictionDecisionLog7": "under family C the receded share lands at or near 0 (charter v1.3, Design, move 3)"
         }
       }
     }
@@ -275,10 +300,10 @@
     "tie": "two metrics within the selection tie of each other (the median over the same cells of log(1 + bar / native), t1.selection_tie) tie, and the tie goes to the fewer moved leaves"
   },
   "landingRule": {
-    "scope": "the final stage, WebGPU, 2x light, both poses, F u C u P less the referees, from T1's three outputs (t1.landing)",
-    "fullClose": "every F cell within; no cell away with g > B; no cell overshoot; every other adopted row passing or its miss named; the twelve referees within at the exposure. Lands.",
-    "improvement": "the F aggregate (median |log((k + eps) / (n + eps))|) at most half of c05's; no cell away with g > B; no cell overshoot; every referee within or an unchanged miss; every other adopted row passing or its miss named. Lands as improved, every F cell not within named.",
-    "regressionBudget": "a C or P cell that is a miss on c05 and unchanged stays a named miss; one away with g <= B is a named regression inside the budget; one with g > B fails the landing; M2 keeps its own 0.02 reference-relative tolerance as a regression stop",
+    "scope": "the final stage, WebGPU, 2x light, both poses, F u T u C u P less the referees, from T1's three outputs (t1.landing); a T cell's fidelity and change on T1-fine, its away on T1-low",
+    "fullClose": "every F cell within (no T cell is required within); no cell away with g > B (a T cell's on T1-low); no cell overshoot (a T cell's on T1-fine); every other adopted row passing or its miss named; the twelve referees within at the exposure. Lands.",
+    "improvement": "the F aggregate (median |log((k + eps) / (n + eps))|) at most half of c05's; no cell away with g > B (a T cell's on T1-low); no cell overshoot (a T cell's on T1-fine); every referee within or an unchanged miss; every other adopted row passing or its miss named. Lands as improved, every F cell not within named.",
+    "regressionBudget": "a C or P cell that is a miss on c05 and unchanged stays a named miss; one away with g <= B is a named regression inside the budget; one with g > B fails the landing; M2 keeps its own 0.02 reference-relative tolerance as a regression stop; a T cell's budget reads T1-low's error growth (away with g <= B a named regression, g > B a failure)",
     "cssTier": "a residual: its T1 outputs recorded; its tables pass or are named; a CSS row away beyond its table bound is a named tier residual",
     "unmeasured": "a member of the scope with no reading makes the verdict UNMEASURED, never a landing",
     "otherwise": "the wave closes at the finding: no document sealed, T1 lands in the owner test (X51)"
@@ -309,5 +334,57 @@
     "remove a leaf (or a family whose every leaf is struck) that its ladder struck, citing the ladder by id",
     "replace C's `inert` PENDING with the L3 citation once L3 proves the 1x byte identity (the value stays 0), or remove family C when L3 does not",
     "narrow a grid to the subset inside its ladder's non-flat range, citing the ladder by id"
-  ]
+  ],
+  "strata": {
+    "F": [
+      "checkerboard-4",
+      "checkerboard-8"
+    ],
+    "T": [
+      "hc-text-7"
+    ],
+    "C": [
+      "checkerboard",
+      "checkerboard-lc16",
+      "checkerboard-32",
+      "checkerboard-64",
+      "hc-text",
+      "hc-text-28",
+      "impulse"
+    ],
+    "P": [
+      "photo"
+    ]
+  },
+  "textStratum": {
+    "backdrops": [
+      "hc-text-7"
+    ],
+    "bands": [
+      "fine",
+      "low"
+    ],
+    "reads": {
+      "fidelity": "fine",
+      "change": "fine",
+      "overshoot": "fine",
+      "away": "low"
+    },
+    "fine": "T1-fine: the SD of L - G(L, sigma 4 device px), linear luminance, over the native silhouette eroded 4 CSS px",
+    "low": "T1-low: the SD of G(L, sigma 4 device px) over the same support",
+    "sigmaDevicePx": 4.0,
+    "erodeCssPx": 4,
+    "outputs": "T1's three outputs per cell on each band, at the cell's own bar and code (the seven runs are pixel-identical, so every statistic's separation is 0 and the bar is 0.5 code)",
+    "t1": "recorded on every T cell, read by no clause",
+    "fullClose": "does not require a T cell within",
+    "selectionStrata": [
+      "F",
+      "C",
+      "P"
+    ],
+    "selection": "T is outside F u C u P: the selection metric and every move objective do not read it",
+    "implementation": "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py and readings.py, pinned below with test_t1.py",
+    "why": "T1 reads the hc-text-7 cells under (0.79-0.89 on c05) while the fine band reads them x1.9-8.5 over, and every lever that removes fine structure takes T1 further under (charter Decision Log 7 item 3)"
+  },
+  "candidateIdentity": "a candidate's dark endpoints are patch- and digest-identical to c05's dark documents, and its light endpoints are c05's on every leaf but the declared 2x leaves of the moves (and, in the receded light document, sizeHeavySecondShare), so its 1x-reaching leaves are c05's; a candidate carries the glass0.250 key because candidate mode refuses a shipped key, so the identity is patch-and-digest, and byte identity is the sealed documents' at the freeze (charter clause 5; Decision Log 7 item 5)"
 }
