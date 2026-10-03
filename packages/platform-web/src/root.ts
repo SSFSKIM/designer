@@ -173,6 +173,7 @@ import {
   resolvedTintShade,
   rimAmplitude,
   proxySamplingSigma,
+  cssTierSourceSize,
   sourceInteriorLight,
   sourceOptics,
   sourceOuterShadow,
@@ -3063,7 +3064,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // average over the surface and a 320×44 strip carries a different one
           // from a 44×44 square (W13 G1).
           extentsCssPx: [bounds.width, bounds.height],
-          size: sizeConstants,
+          // This tier's size constants: the document's, less the leaves it declines at the
+          // light 0.25 position (`cssTierSourceSize`, W45 G1). The GPU tier, the proxy's
+          // sampling floor and the diagnostics read `sizeConstants` itself.
+          size: cssTierSourceSize(sizeConstants, materialDocument.glassTintAmount, resolvedScheme(), hostProfile,
+            materialDocument.active.light.patch),
           outerShadow: outerShadowConstants,
           // The live ratio, since W16 G1: the tier's two widths are device-pixel
           // quantities and its mask is the renderer's own ramp, so the scale

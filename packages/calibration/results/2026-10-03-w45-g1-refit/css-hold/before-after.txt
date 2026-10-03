@@ -1,0 +1,30 @@
+W45 G1: the CSS tier's light 0.25 decline of sizeScatterFloor2x and sizeScatterSpanMax2x (the parent's ruling
+of 2026-10-04; claims §5.206 §15), re-read on the stage's CSS rows in place (stage/css_hold_reread.py).
+
+The re-reads (stage/runs.jsonl, stage/logs/):
+- css-hold/...: the first cut of the decline let an app's value of either leaf through, and the calibration
+  harness hands the shipped document's patch to the root as the app's patch too (scripts/capture-web.ts sets
+  window.__vitreaMaterialProfile), so all 552 rows and 552 CSS captures re-read byte-identical to the first
+  measure (a determinism witness, and no measurement of the hold).
+- css-hold-2/...: the decline treats the document's own value as no tune (cssTierSourceSize's documentPatch).
+  Against the first measure: 2x CSS 119 rows and 119 captures changed, 19 rows unchanged; 1x CSS 138 rows and
+  276 captures byte-identical (the X48-style witness: both leaves are 2x-anchored); every WebGPU row identical.
+
+2x light CSS T1, the 94 gate cells, against c05 (cuts/cut-025-w45.json without, cuts/cut-025-w45-css-hold.json with):
+                               without the hold        with the hold          c05
+  partition (unch/toward/away) 37 / 27 / 30            72 / 19 / 3
+  away beyond B                22                      1                      -
+  away beyond 3B               11                      1 (checkerboard-32__rrect-sm__rest, 3.34 B)
+  C rest A                     0.5602                  0.2722                 0.3675
+  C inactive A                 0.4797                  0.4844                 0.5866
+  F rest A                     1.1930                  0.9627                 1.0243
+  F inactive A                 0.6573                  0.6069                 0.6069
+  T rest A                     0.5153                  0.4309                 0.4309
+  P rest A                     0.5957                  0.5148                 0.5148
+  P inactive A                 0.3241                  0.2782                 0.2642
+CSS tables: 1x light keeps its one named miss (checkerboard__rrect-ml__rest ssim 0.87367, as c05), 2x light 0
+misses, with and without: no CSS cell is worse than c05 beyond its table bound.
+L1 CSS: two growth misses without (checkerboard__rrect-md__inactive +0.0128, photo__toolbar-group__inactive
++0.0068), none with ("PASS, 4 UNMEASURED"). M2 CSS failures 5 -> 3; E2 CSS failing cells 25 -> 16; X1 CSS 152,
+C1 CSS light all pass, both unchanged. The WebGPU tier's reading (the landing rule, every WebGPU row) is
+identical with and without (gate/gate-report-css-hold.txt).

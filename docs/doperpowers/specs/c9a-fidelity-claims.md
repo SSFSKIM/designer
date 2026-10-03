@@ -47242,3 +47242,64 @@ What the reviewer checked and found sound:
 - the adapter's three substitutions;
 - the explanation of the post-freeze declaration checks.
 
+
+### 15. The parent's two rulings of 2026-10-04 before the user's: the receded photo read through two readers, and the CSS tier's light 0.25 decline
+
+**The receded photo** (`gate/photo-lattice.json`, `.txt`). M2's four receded photo failures are
+the pitch-blind SD reader. On all four inactive photo cells (2x light WebGPU), W44 G1's two band
+readers move toward Apple:
+- the lattice band (σ 1–4 CSS px), which c05 drew ×1.32–1.44 over Apple, reads ×0.78–1.02;
+- T1-fine goes from ×1.23–1.42 to ×0.96–1.03.
+
+T1's SD, which M2 reads and which the photo's low frequencies dominate, goes from ×0.78–0.91 to
+×0.72–0.84, further under. So the smoothing M2 penalises is mostly the lattice W43's eye saw coming
+off; on the toolbar group it slightly overshoots (lattice ×0.78). On the four rest photo cells all
+three readers move toward Apple. **If the user ships, those four are named misses with this reading
+beside them.**
+
+**The CSS tier's decline** (`platform-web/src/optics.ts` `cssTierSourceSize`,
+`CSS_DECLINED_SIZE_GLASS025_LIGHT`; `root.ts` at the CSS host's `size`; `tier-coherence.test.ts`,
+74 of 74).
+- **What it does.** For a document at `glassTintAmount` 0.25 in the light scheme, the CSS tier draws
+  `sizeScatterFloor2x` 0.6 and `sizeScatterSpanMax2x` 256, the values the published c05 generation
+  was read with, which the sealed documents record as `previous`. The WebGPU tier draws 1 and 128.
+  It sits beside the tap's and the operator's declines, with its measurement in the doc comment.
+- **What it leaves alone.** It is keyed on the glass position and the scheme, never a file hash, so
+  the dark 0.25, 0.5 and 26.5 materials are untouched. An app's patch value other than the
+  document's is a tune and reaches the tier; the document's own value is not a tune (the harness
+  hands every shipped patch to the root as the app's patch).
+- **The tests.** The coherence test pins:
+  - the held values against the sealed `entries`;
+  - the identity elsewhere;
+  - the tune rule;
+  - the 2x-only reach.
+
+  `pnpm -r build` is green, and the platform-web files that read the size constants pass: css-tier
+  69, proxy-geometry 49, author-tint-fold 8, w30-css-declaration-identity 7, color-scheme 20.
+
+**The re-read** (`stage/css_hold_reread.py`, the stage tool's own passes and launch, under the
+census, no referee or holdout).
+- **The first re-read (`css-hold/…`) re-drew every row byte-identical.** The first cut of the decline
+  let the harness's patch through as a tune. That makes it a determinism witness only.
+- **After the correction (`css-hold-2/…`)**, 119 of the 2x CSS rows changed, 19 stayed the same, and
+  the 1x CSS rows (138) and captures (276) re-read byte-identical. Every WebGPU row is unchanged.
+
+| 2x light CSS, 94 T1 gate cells, against c05 | without the hold | with it | c05 |
+| --- | --- | --- | --- |
+| away beyond B / beyond 3B | 22 / 11 | **1 / 1** (`checkerboard-32__rrect-sm__rest` 3.34 B, the thin start at a thin span) | — |
+| partition (unchanged / toward / away) | 37 / 27 / 30 | 72 / 19 / 3 | |
+| C rest A | 0.5602 | **0.2722** | 0.3675 |
+| F rest A | 1.1930 | 0.9627 | 1.0243 |
+| P inactive A | 0.3241 | 0.2782 | 0.2642 |
+
+- **The CSS tables are unchanged:** 1x keeps its one named miss, 2x has none, so **no CSS cell is
+  worse than c05 beyond its table bound**.
+- **L1's two CSS growth misses are gone** ("PASS, 4 UNMEASURED").
+- **The other CSS rows:** M2 failures 5 → 3; E2 failing cells 25 → 16; X1 and C1 unchanged.
+- **WebGPU is identical:** the landing rule and every WebGPU row read the same with and without the
+  hold (`gate/gate-report-css-hold.txt`).
+- **The record:** `css-hold/before-after.txt` and `cuts/cut-025-w45-css-hold.json`.
+- **The sheets** on the MacBook predate the hold.
+
+The holdout ledger hashes `optics.ts` among its sources, so the hold lands before read 7 by
+construction.

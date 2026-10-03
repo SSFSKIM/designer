@@ -1,0 +1,98 @@
+LANDING RULE (webgpu, 2x light (apple-macos-27.0-2x-light-standard-glass0.25), both poses, F ∪ T ∪ C ∪ P, partitions gate; T on T1-fine (away on T1-low))
+  verdict: NEITHER: closes at the finding
+    why: full close: 8 F cell(s) not within
+    why: budget count: 8 cells away beyond B (at most 3)
+    why: budget ceiling: 4 cell(s) beyond 3 B
+  94 of 94 cells read; unmeasured 0; partition {'unchanged': 18, 'toward': 57, 'away': 19}
+  F aggregate 0.219 against c05's 0.6462 (half 0.3231; halved True); F not within: 8 ['checkerboard-4__rrect-sm__rest', 'checkerboard-4__capsule-button__rest', 'checkerboard-4__rrect-md__rest', 'checkerboard-8__capsule-button__rest', 'checkerboard-8__rrect-ml__rest', 'checkerboard-8__rrect-lg__rest', 'checkerboard-8__capsule-button__rest-tint-orange', 'checkerboard-8__rrect-md__inactive']
+  groups (A against c05's A + tau):
+    F rest       n=9   gate=9   A 0.219 c05 0.6334 + tau 0.0485 = 0.6819  GATED holds
+    F inactive   n=2   gate=2   A 0.3758 c05 1.2903 + tau 0.1234 = 1.4137  reported holds
+    T rest       n=3   gate=3   A 0.2365 c05 0.5251 + tau 0.0945 = 0.6195  GATED holds
+    C rest       n=37  gate=37  A 0.081 c05 0.172 + tau 0.0267 = 0.1988  GATED holds
+    C inactive   n=21  gate=21  A 0.1829 c05 0.8523 + tau 0.0501 = 0.9024  GATED holds
+    P rest       n=11  gate=11  A 0.3902 c05 0.4193 + tau 0.0398 = 0.4592  GATED holds
+    P inactive   n=11  gate=11  A 0.1818 c05 0.1393 + tau 0.0455 = 0.1848  GATED holds
+  away with g > B: 8 (at most 3); beyond 3B: 4; budget FAILS
+    checkerboard__rrect-md__pressed              4.274 B
+    checkerboard__capsule-button__pressed        4.253 B
+    checkerboard-32__rrect-sm__rest              4.179 B
+    checkerboard-32__rrect-lg__rest              3.338 B
+    checkerboard-64__rrect-sm__rest              2.222 B
+    checkerboard-8__rrect-lg__rest               1.55 B
+    hc-text__rrect-lg__inactive                  1.398 B
+    photo__toolbar-group__inactive               1.016 B
+T CELLS (fidelity and change on T1-fine; away on T1-low)
+  1x hc-text-7__rrect-lg__rest    gate     fine n 0.0094 c05 0.034 k 0.034 miss/unchanged; low n 0.1165 c05 0.0877 k 0.0877 unchanged g 0.0 B
+  1x hc-text-7__rrect-md__rest    gate     fine n 0.0527 c05 0.0602 k 0.0602 miss/unchanged; low n 0.0736 c05 0.0527 k 0.0527 unchanged g 0.0 B
+  1x hc-text-7__rrect-sm__rest    gate     fine n 0.1187 c05 0.0789 k 0.0789 miss/unchanged; low n 0.0411 c05 0.0358 k 0.0358 unchanged g 0.0 B
+  2x hc-text-7__rrect-lg__rest    gate     fine n 0.0032 c05 0.0271 k 0.0212 miss/toward; low n 0.117 c05 0.0876 k 0.0893 unchanged g -0.226 B
+  2x hc-text-7__rrect-md__rest    gate     fine n 0.0281 c05 0.0522 k 0.0374 miss/toward; low n 0.0867 c05 0.0576 k 0.0594 unchanged g -0.257 B
+  2x hc-text-7__rrect-sm__rest    gate     fine n 0.1172 c05 0.0723 k 0.0928 miss/toward; low n 0.0731 c05 0.0545 k 0.0748 toward g -2.326 B
+CSS T1 RESIDUAL (light; read, never gated)
+  C 1x inactive      n=21  A 0.3212 c05 0.3212; within 7; away > B 0 []
+  C 1x rest          n=37  A 0.344 c05 0.344; within 5; away > B 0 []
+  C 2x inactive      n=21  A 0.4844 c05 0.5866; within 2; away > B 0 []
+  C 2x rest          n=37  A 0.2722 c05 0.3675; within 7; away > B 1 [('checkerboard-32__rrect-sm__rest', 3.34)]
+  F 1x inactive      n=2   A 0.3901 c05 0.3901; within 0; away > B 0 []
+  F 1x rest          n=9   A 1.5439 c05 1.5439; within 0; away > B 0 []
+  F 2x inactive      n=2   A 0.6069 c05 0.6069; within 1; away > B 0 []
+  F 2x rest          n=9   A 0.9627 c05 1.0243; within 1; away > B 0 []
+  P 1x inactive      n=11  A 0.4554 c05 0.4554; within 1; away > B 0 []
+  P 1x rest          n=11  A 0.6418 c05 0.6418; within 0; away > B 0 []
+  P 2x inactive      n=11  A 0.2782 c05 0.2642; within 2; away > B 0 []
+  P 2x rest          n=11  A 0.5148 c05 0.5148; within 0; away > B 0 []
+  T 1x rest          n=3   A 0.516 c05 0.516; within 0; away > B 0 []
+  T 2x rest          n=3   A 0.4309 c05 0.4309; within 0; away > B 0 []
+OTHER ADOPTED ROWS
+  tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu     PASS
+  tables apple-macos-27.0-1x-light-standard-glass0.25 css        MISS
+      misses: [{"cell": "calibration checkerboard__rrect-ml__rest", "metric": "ssimMean", "value": 0.8736691495519673, "bound": "\u2265 0.9", "status": "MISS"}]
+  tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu     PASS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 css        PASS
+  M1 webgpu                                                      PASS
+      beds: {"light|active": {"cells": 10, "median": 0.9733932685999964, "min": 0.8496267674374708, "max": 1.265868331545742, "medianInWindow": true}, "light|inactive": {"cells": 8, "median": 0.9531326133455895, "min": 0.8577352538333246, "max": 1.3022098661167054, "medianInWindow": true}, "dark|active": {"cells": 4, "median": 1.0545724462647292, "min": 0.8347873657076668, "max": 1.203674974639683, "medianInWindow": true}, "dark|inactive": {"cells": 4, "median": 1.0661799050453316, "min": 0.9659281358650861, "max": 1.2040959766929824, "medianInWindow": true}}
+  M1 css                                                         PASS
+      beds: {"light|active": {"cells": 10, "median": 1.1832728820559413, "min": 1.0536650744379974, "max": 1.344500356005789, "medianInWindow": true}, "light|inactive": {"cells": 8, "median": 1.123347170990297, "min": 1.0038667498143525, "max": 1.3464034871356985, "medianInWindow": true}, "dark|active": {"cells": 4, "median": 1.025952286423832, "min": 1.0047331838879825, "max": 1.092396476743052, "medianInWindow": true}, "dark|inactive": {"cells": 4, "median": 1.0818760386241209, "min": 1.009841560141242, "max": 1.0927859688862902, "medianInWindow": true}}
+  M2 webgpu                                                      FAIL
+      failures: [{"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__inactive", "reference": 0.05019887756714063, "web": 0.04636103777560503, "native": 0.05498300113457246, "delta": -0.07645270128604996, "verdict": "failure"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__inactive", "reference": 0.06382843909457397, "web": 0.060932940040475315, "native": 0.07421198006170468, "delta": -0.04536377663581004, "verdict": "failure"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__inactive", "reference": 0.019622755239470227, "web": 0.01667…
+      named: [{"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest", "reference": 0.04096553500058422, "web": 0.04368077610486766, "native": 0.06737362355566053, "delta": 0.0662811093336074, "verdict": "named"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest", "reference": 0.056678840937588536, "web": 0.05891879654847335, "native": 0.08934577337251297, "delta": 0.03952013791798118, "verdict": "named"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__rest", "reference": 0.020615756437531125, "web": 0.022184806417930882, "nat…
+      worstAbsDelta: 0.15035204920017117
+  M2 css                                                         FAIL
+      failures: [{"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__inactive", "reference": 0.05057554616171231, "web": 0.048854164485113864, "native": 0.05498300113457246, "delta": -0.03403584948137642, "verdict": "failure"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__inactive", "reference": 0.0230076451344995, "web": 0.018677724057862152, "native": 0.022464175111166745, "delta": -0.18819488267161757, "verdict": "failure"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__toolbar-group__inactive", "reference": 0.07525912572324721, "web": 0.…
+      named: [{"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest", "reference": 0.04216187164830325, "web": 0.04336461808954829, "native": 0.06737362355566053, "delta": 0.028526874975519454, "verdict": "named"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__rest", "reference": 0.01727594063330174, "web": 0.01960019007829826, "native": 0.03918362117638051, "delta": 0.13453678119941037, "verdict": "named"}]
+      worstAbsDelta: 0.18819488267161757
+  C1 webgpu                                                      PASS
+      perBedSpan: {"1x light span 96": {"statistic": 0.0006, "verdict": "PASS", "c05": 0.0006}, "1x light span 128": {"statistic": 0.0021, "verdict": "PASS", "c05": 0.0021}, "1x light span 160": {"statistic": 0.0004, "verdict": "PASS", "c05": 0.0004}, "2x light span 96": {"statistic": 0.0007, "verdict": "PASS", "c05": 0.0007}, "2x light span 128": {"statistic": 0.0021, "verdict": "PASS", "c05": 0.0021}, "2x light span 160": {"statistic": 0.0006, "verdict": "PASS", "c05": 0.0006}}
+  C1 css                                                         MISS
+      perBedSpan: {"1x light span 96": {"statistic": 0.0014, "verdict": "PASS", "c05": 0.0014}, "1x light span 128": {"statistic": 0.0034, "verdict": "PASS", "c05": 0.0034}, "1x light span 160": {"statistic": 0.0013, "verdict": "PASS", "c05": 0.0013}, "2x light span 96": {"statistic": 0.0013, "verdict": "PASS", "c05": 0.0013}, "2x light span 128": {"statistic": 0.0029, "verdict": "PASS", "c05": 0.0029}, "2x light span 160": {"statistic": 0.0009, "verdict": "PASS", "c05": 0.0009}}
+  L1 webgpu                                                      PASS, 4 UNMEASURED
+      maxError: 0.0490942588872085
+      maxGrowth: 0.0026303115767542518
+      unmeasured: ["apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive", "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive", "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive", "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"]
+  L1 css                                                         PASS, 4 UNMEASURED
+      maxError: 0.047494585858388116
+      maxGrowth: 0.003294387130084897
+      unmeasured: ["apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive", "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive", "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive", "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"]
+  X1 webgpu                                                      PASS
+      cells: 230
+  X1 css                                                         MISS
+      failing: [{"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange", "role": "probe", "span": 44, "pose": "rest", "background": "checkerboard-32", "webSha256": "64af08a6f66dc4f85b29ff7bd418e87628793d994512530a2f1e31d2514fd247", "integer": {"pixels": 29194, "aboveZero": 52, "aboveOne": 52}, "analytic": {"pixels": 29026, "aboveZero": 0, "aboveOne": 0}}, {"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest", "role": "probe", "span": 44, "pose": "rest", "background": "checkerboard-32", "webSha256": "42fd05c428a5f3f1513d…
+      cells: 230
+  E2 webgpu                                                      MISS
+      failing: [{"cell": "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest", "status": "measured", "bins": 24, "meanAbsCodes": 19.47666666666667, "prefitMeanAbsCodes": 14.960694444444446, "change": 4.515972222222224, "worstBinDelta": 13.25, "verdict": "FAIL"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange", "status": "measured", "bins": 24, "meanAbsCodes": 3.8118055555555554, "prefitMeanAbsCodes": 3.5856944444444445, "change": 0.22611111111111093, "worstBinDelta": 3.460000000000001, "verdict": "FAIL"}, {"cell": "appl…
+      meanChange: 0.27742046126694797
+      namedMissCells: ["apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-md__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-sm__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest", "apple-mac…
+  E2 css                                                         MISS
+      failing: [{"cell": "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest", "status": "measured", "bins": 24, "meanAbsCodes": 12.93388888888889, "prefitMeanAbsCodes": 11.046805555555556, "change": 1.887083333333333, "worstBinDelta": 3.3100000000000023, "verdict": "FAIL"}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-sm__rest", "status": "measured", "bins": 48, "meanAbsCodes": 10.308723196881093, "prefitMeanAbsCodes": 8.991593567251464, "change": 1.3171296296296298, "worstBinDelta": 4.083333333333336, "verdict": "FAIL"}, {"cell": "apple-macos…
+      meanChange: 0.02048217526016509
+      namedMissCells: ["apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-sm__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-sm__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__capsule-button__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__capsule-button__rest", "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-sm__rest", "apple-macos-27.0-2…
+  S1 webgpu                                                      UNMEASURED
+      pooledMedianRatio: 0.9232210362640774
+      wrongSign: [{"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange", "V": 0.003047467515812363, "dA": -0.002935422614253058}, {"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__capsule-button__rest", "V": 0.0246675214537877, "dA": -0.006117084070276668}, {"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-sm__rest", "V": 0.005458041197066721, "dA": -0.018231262073563848}, {"cell": "apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest", "V": 0.006477038419899772, "dA": -0.00963…
+      perProfileMedian: {"apple-macos-27.0-1x-light-standard-glass0.25": {"cells": 76, "median": 0.9844349352184213}, "apple-macos-27.0-2x-light-standard-glass0.25": {"cells": 67, "median": 0.9846820834187646}, "apple-macos-27.0-1x-dark-standard-glass0.25": {"cells": 17, "median": 0.313877328850127}, "apple-macos-27.0-2x-dark-standard-glass0.25": {"cells": 14, "median": 0.31141114802551345}}
+  S1 css                                                         UNMEASURED
+      pooledMedianRatio: 0.9085157933557757
+      wrongSign: [{"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest", "V": 0.0001417504368412814, "dA": -0.019650278275864963}, {"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest", "V": 0.006254124707809394, "dA": -0.01971141497731821}, {"cell": "apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-sm__rest", "V": 0.0036779510942478444, "dA": -0.018231262073563848}, {"cell": "apple-macos-27.0-1x-light-standard-glass0.25/light-solid__capsule-button__rest", "V": 0.0006252133390372006, "dA": -0.005741724483934285}, {"cel…
+      perProfileMedian: {"apple-macos-27.0-1x-light-standard-glass0.25": {"cells": 67, "median": 0.9481182063696167}, "apple-macos-27.0-2x-light-standard-glass0.25": {"cells": 35, "median": 1.042581982827608}, "apple-macos-27.0-1x-dark-standard-glass0.25": {"cells": 16, "median": 0.08195477212005807}, "apple-macos-27.0-2x-dark-standard-glass0.25": {"cells": 2, "median": 0.11687160300004473}}
+X48: {'verdict': 'IDENTICAL'}
