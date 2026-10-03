@@ -1,0 +1,38 @@
+identical  2x/default                   identity (delta absent or 0)  d0d9a098749c6766 → d0d9a098749c6766
+identical  2x/share-0.3                 identity (delta absent or 0)  0648e845c560fb94 → 0648e845c560fb94
+identical  2x/share+0.5                 identity (delta absent or 0)  ce6815f2dfcea2bc → ce6815f2dfcea2bc
+identical  2x/share-0.3/far0            identity (delta absent or 0)  0648e845c560fb94 → 0648e845c560fb94
+identical  2x/share+0.5/far0            identity (delta absent or 0)  ce6815f2dfcea2bc → ce6815f2dfcea2bc
+identical  2x/share0/far-1              share 0: delta unread  d0d9a098749c6766 → d0d9a098749c6766
+identical  2x/share0/far0               identity (delta absent or 0)  d0d9a098749c6766 → d0d9a098749c6766
+identical  2x/share0/far+1              share 0: delta unread  d0d9a098749c6766 → d0d9a098749c6766
+MOVED      2x/share+0.5/far-0.5         ON (2x, live share, delta ≠ 0): may move  ce6815f2dfcea2bc → 75c345f1fb485fdb
+MOVED      2x/share+0.5/far-1           ON (2x, live share, delta ≠ 0): may move  ce6815f2dfcea2bc → 7ddce9d71e2bc32b
+MOVED      2x/share+0.5/far+1           ON (2x, live share, delta ≠ 0): may move  ce6815f2dfcea2bc → b196dd40b3041e9a
+MOVED      2x/share-0.3/far-1           ON (2x, live share, delta ≠ 0): may move  0648e845c560fb94 → d13b159a82f9ba0f
+identical  1x/default                   identity (delta absent or 0)  43fba40ae7f9c108 → 43fba40ae7f9c108
+identical  1x/share+0.5                 identity (delta absent or 0)  43fba40ae7f9c108 → 43fba40ae7f9c108
+identical  1x/share+0.5/far-1           dpr 1: delta resolves to 0  43fba40ae7f9c108 → 43fba40ae7f9c108
+identical  1x/share+0.5/far+1           dpr 1: delta resolves to 0  43fba40ae7f9c108 → 43fba40ae7f9c108
+identical  1x/live-0.3                  identity (delta absent or 0)  2b5b687bd4ccd1b4 → 2b5b687bd4ccd1b4
+identical  1x/live+0.5                  identity (delta absent or 0)  4353df5ed06a56ef → 4353df5ed06a56ef
+identical  1x/live+0.5/far-1            dpr 1: delta resolves to 0  4353df5ed06a56ef → 4353df5ed06a56ef
+identical  1x/live+0.5/far0             identity (delta absent or 0)  4353df5ed06a56ef → 4353df5ed06a56ef
+identical  1x/live+0.5/far+1            dpr 1: delta resolves to 0  4353df5ed06a56ef → 4353df5ed06a56ef
+identical  1x/live-0.3/far-1            dpr 1: delta resolves to 0  2b5b687bd4ccd1b4 → 2b5b687bd4ccd1b4
+identical  golden/field-mask            identity (delta absent or 0)  d072e5b2ec3031f8 → d072e5b2ec3031f8
+identical  golden/refraction-checkerboard identity (delta absent or 0)  76ce109bca09c06e → 76ce109bca09c06e
+identical  golden/body-ramp-1x          identity (delta absent or 0)  6972446f6b5a927a → 6972446f6b5a927a
+identical  golden/placed-checkerboard   identity (delta absent or 0)  b72eb9c574c27ef5 → b72eb9c574c27ef5
+identical  golden/lens-size-scaling     identity (delta absent or 0)  b8e5e1913a2a8f5b → b8e5e1913a2a8f5b
+identical  golden/tint-adaptation-light identity (delta absent or 0)  a78f25eaf9c2e05f → a78f25eaf9c2e05f
+identical  golden/tint-adaptation-dark  identity (delta absent or 0)  0bb46247f8c8c87f → 0bb46247f8c8c87f
+identical  golden/rim-two-references    identity (delta absent or 0)  8ebb1e803752a64b → 8ebb1e803752a64b
+identical  golden/concentric-nesting    identity (delta absent or 0)  cc62565964f76d0c → cc62565964f76d0c
+identical  golden/union-pair            identity (delta absent or 0)  706cd6638dbb064f → 706cd6638dbb064f
+identical  golden/collapsed-tone        identity (delta absent or 0)  521a11284491edd2 → 521a11284491edd2
+identical  golden/collapsed-tone-textured identity (delta absent or 0)  85d4b67f1581ede2 → 85d4b67f1581ede2
+identical  golden/highlight-press-glow  identity (delta absent or 0)  0b9dc460a6616c5a → 0b9dc460a6616c5a
+
+identity cases byte-identical: 31 of 31
+failures: none

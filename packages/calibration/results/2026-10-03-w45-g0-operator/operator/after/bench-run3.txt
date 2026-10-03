@@ -1,0 +1,10 @@
+adapter: apple/metal-3 (fallback: false, timestamp-query: true)
+method: timestamp-query, 60 interleaved rounds per config
+mobile-390x844@3: gpu(median)=2.316ms gpu(p95)=2.869ms wall(median)=1.900ms wall(p95)=3.100ms budget=116% anomalies=0 | optics=0.792 highlight=0.790 group-field=0.556 blur-chain=0.079 body-blur=0.066 analysis=0.036 backdrop-import=0.017
+desktop-1440x900@2: gpu(median)=3.065ms gpu(p95)=3.463ms wall(median)=2.100ms wall(p95)=3.000ms budget=153% anomalies=0 | optics=1.038 highlight=1.032 group-field=0.685 body-blur=0.075 blur-chain=0.074 analysis=0.037 backdrop-import=0.015
+mobile-390x844@3 family-C: gpu(median)=1.912ms gpu(p95)=2.614ms wall(median)=1.900ms wall(p95)=2.300ms budget=96% anomalies=0 | optics=0.660 highlight=0.608 group-field=0.416 blur-chain=0.068 body-blur=0.063 analysis=0.035 backdrop-import=0.016
+mobile-390x844@3 shadow-off: gpu(median)=0.754ms gpu(p95)=1.185ms wall(median)=1.800ms wall(p95)=2.100ms budget=38% anomalies=0 | optics=0.230 highlight=0.210 group-field=0.176 blur-chain=0.073 body-blur=0.066 analysis=0.033 backdrop-import=0.015
+mobile-390x844@3 heavy-tap: gpu(median)=2.424ms gpu(p95)=3.080ms wall(median)=2.000ms wall(p95)=2.900ms budget=121% anomalies=0 | optics=0.847 highlight=0.824 group-field=0.570 blur-chain=0.079 body-blur=0.065 analysis=0.038 backdrop-import=0.018
+mobile-390x844@3 second-tap: gpu(median)=2.508ms gpu(p95)=3.212ms wall(median)=2.100ms wall(p95)=3.700ms budget=125% anomalies=0 | optics=0.909 highlight=0.854 group-field=0.598 body-blur=0.094 blur-chain=0.080 analysis=0.035 backdrop-import=0.020
+mobile-390x844@3 second-tap graded: gpu(median)=2.646ms gpu(p95)=3.132ms wall(median)=2.000ms wall(p95)=2.400ms budget=132% anomalies=0 | optics=0.902 highlight=0.867 group-field=0.602 body-blur=0.094 blur-chain=0.080 analysis=0.035 backdrop-import=0.019
+mobile-390x844@3 control: gpu(median)=2.404ms gpu(p95)=3.228ms wall(median)=2.000ms wall(p95)=2.400ms budget=120% anomalies=0 | optics=0.823 highlight=0.819 group-field=0.565 blur-chain=0.074 body-blur=0.068 analysis=0.036 backdrop-import=0.016

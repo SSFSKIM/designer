@@ -164,7 +164,7 @@ const CONFIGS = [
       sizeHeavySecondSigma: 5,
       sizeHeavySecondSigma2x: 5,
       sizeHeavySecondShareFar2x: -0.5,
-    } as Record<string, number>,
+    },
   },
   // The ordering control: the first config again. Interleaved, it should land on
   // the first row's number; if it does not, nothing else in the table is

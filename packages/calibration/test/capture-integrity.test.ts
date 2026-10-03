@@ -233,6 +233,14 @@ describe("the material profile document's key admission", () => {
     ).toThrow(/MaterialOuterShadow does not have: sigmaKneePx\b/);
   });
 
+  it("admits W45's far-curve grading of the second tap's share (claims §5.205)", () => {
+    // The ladders and the fit hand in candidate documents naming this leaf; a key missing here
+    // would make the driver refuse exactly the rung that reads it.
+    expect(MATERIAL_PATCH_KEYS.has("sizeHeavySecondShareFar2x")).toBe(true);
+    const patch = { sizeHeavySecondShare: 0.5, sizeHeavySecondSigma2x: 3, sizeHeavySecondShareFar2x: -0.5 };
+    expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
+  });
+
   it("still refuses a key the renderer does not have, naming it", () => {
     const path = write({ patch: { tintChromaScale: 0, tintChroma: 0.4 } });
     expect(() => readMaterialProfileFile(path)).toThrow(/does not have: tintChroma\b/);

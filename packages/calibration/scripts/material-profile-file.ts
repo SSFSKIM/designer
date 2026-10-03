@@ -95,6 +95,10 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "sizeHeavySecondSigma",
   "sizeHeavySecondSigma2x",
   "sizeHeavySecondShare",
+  // W45's grading of that share on the scatter's far curve (claims §5.205; charter Decision Log
+  // 1), 2x-anchored with an implicit 1x zero. A candidate document naming it is what the W45
+  // ladders hand in, and this set refusing it would refuse the very rung that reads the leaf.
+  "sizeHeavySecondShareFar2x",
   "sizeScatterScaleGain",
   "sizeScatterScaleRef",
   // The lens (W12 G2): the gain on the reference's amount law, the height and

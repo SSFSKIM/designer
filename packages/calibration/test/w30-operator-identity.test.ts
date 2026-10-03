@@ -120,9 +120,13 @@ const W36_OPERATOR_LEAVES = [
 /** W41's encoded body replacement is one gate-group; tuples are whole leaves (§5.192). */
 const W41_OPERATOR_LEAVES = ["bodyE3Strength", "bodyE3Gains", "bodyE3Neutral"] as const;
 
+/** W45's far-curve grading of the second tap's share, a plain value drop at 0 (§5.205). */
+const W45_OPERATOR_LEAVES = ["sizeHeavySecondShareFar2x"] as const;
+
 /** Every later wave's additions, beside rather than rewriting either original list. */
 const OPERATOR_LEAVES: readonly string[] = [
   ...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES, ...W36_OPERATOR_LEAVES, ...W41_OPERATOR_LEAVES,
+  ...W45_OPERATOR_LEAVES,
 ];
 
 const HERE = import.meta.dirname;
@@ -201,7 +205,7 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
       expect(
         without(resolved, OPERATOR_LEAVES),
         `${key}: the resolved material differs from the pre-wave evidence outside ` +
-          `the named W30/W31/W36/W41 operator leaves — an operator wave may add its own ` +
+          `the named W30/W31/W36/W41/W45 operator leaves — an operator wave may add its own ` +
           `leaves and nothing else`,
       ).toStrictEqual(without(preWave, OPERATOR_LEAVES));
     });
