@@ -57,6 +57,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | 5 | the thin-span pitch trade | **RULED** by the parent, 2026-10-03 | read in G0 (a thin-span transfer ladder per lever), not pre-attributed; if no lever separates `checkerboard-4` from the pitch-16 and 32 thin cells, it is a named residual |
 | 6 | the release | **RULED** by the parent, 2026-10-03 | as W44 Decision Log 6: a `@vitreajs/vitrea-web` minor (0.27.0), the light 0.25 generation superseded, the dark one unchanged, the user's `pnpm release`; the operator ships inert in every other document |
 | 7 | G0's six items | **RULED** by the parent, 2026-10-03, after G0 | one second and final amendment of part 2 before any fit render: the side branch's tool fixes re-pinned; `sizeHeavySecondShareFar2x` ∈ [−share, 0]; the share × width factorial at stage 1; F inactive reported; clause 4's rule is the loader's refusal of a referee or holdout row; the seal admits what the builder admits |
+| 8 | ship or close at G1's gate | **RULED** by the user, 2026-10-04 | ship as an improvement landing with twelve named exceptions: the eight T1 regressions enter `T1_AUTHORISED_REGRESSIONS` against `6d18c059eb42`; M2's four receded photo cells are named misses with `gate/photo-lattice` beside them; the CSS hold stands as the tier's recorded decline; the exposure read once; the generation published; G2 lands it as 0.27.0 |
 
 ## Purpose
 
@@ -665,6 +666,47 @@ thin-span ladder found no single lever separating `checkerboard-4` from the pitc
 thin cells, though the levers act on different pitches (the floor raises `checkerboard-4` most,
 the share and width move only the coarser thin cells, δ is inert at thin spans), so Decision
 Log 5's residual applies as declared and stage 2's search of the thin start stands.
+
+
+### Decision Log 8 — RULED 2026-10-04 (the user): ship as an improvement landing with named exceptions
+
+**The question as put to the user.** The material is W45 G1's converged point, frozen on the branch
+as `3741b22934f17f4d` / `c4ca0e1cd6791bde` and read on the stage less the referees (claims §5.206
+§11–§15).
+- **It halves the fine-pitch error:** F 0.6462 → 0.2190.
+- **It holds every gated T1 aggregate** within c05's A + τ.
+- **It passes both tiers' tables**, with the CSS hold (the CSS tier declines the floor and span top
+  at the light 0.25 position: 2x CSS cells away beyond B 22 → 1).
+- **It keeps the 1x rows and the dark documents byte-identical.**
+- **It fails Decision Log 3's per-cell budget:** eight cells away beyond B (at most three allowed),
+  four of them beyond 3B (none allowed).
+- **It fails M2 on four receded photo cells.** The lattice band shows the smoothing M2 penalises is
+  the lattice coming off (`gate/photo-lattice`).
+
+Ship it as an improvement landing with those twelve named, or close W45 at the finding?
+
+**The user's words:** "Ship it (Recommended)".
+
+**Ruled:**
+- **The eight T1 regressions** enter `T1_AUTHORISED_REGRESSIONS` against the superseded generation
+  `6d18c059eb42`, each with its growth and this ruling: `checkerboard__rrect-md__pressed` 4.27 B,
+  `checkerboard__capsule-button__pressed` 4.25, `checkerboard-32__rrect-sm__rest` 4.18,
+  `checkerboard-32__rrect-lg__rest` 3.34, `checkerboard-64__rrect-sm__rest` 2.22,
+  `checkerboard-8__rrect-lg__rest` 1.55, `hc-text__rrect-lg__inactive` 1.40 and
+  `photo__toolbar-group__inactive` 1.02.
+- **M2's four receded photo cells** are named misses with `gate/photo-lattice` beside them:
+  `photo__capsule-button__inactive`, `photo__rrect-md__inactive`, `photo__rrect-sm__inactive` and
+  `photo__toolbar-group__inactive`.
+- **The CSS hold stands** as the tier's recorded decline (`optics.ts`, `tier-coherence.test.ts`).
+- **What follows:**
+  - the exposure is read once (clause 7);
+  - the generation is published after the parent rules any holdout miss;
+  - G2 lands it as 0.27.0.
+
+*Reasoning.* Decision Log 3 fixed the count and the ceiling before the rehearsal as a stated
+tradeoff, with no perceptual measurement behind either number. The ruled exception is a decision
+about that tradeoff on a measured candidate. It does not move the budget, so the next publication
+must clear the listed cells or re-rule them (X59).
 
 ## Surprises & Discoveries
 
