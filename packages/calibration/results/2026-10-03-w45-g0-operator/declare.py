@@ -134,12 +134,32 @@ def git_show(path: str, commit: str) -> bytes:
 
 
 def part_one_record() -> tuple[dict, dict]:
-    """(partOnePins, partOneReadAt) as part 2's amendment records them."""
+    """(partOnePins, partOneReadAt) as part 2's amendment records them, each restricted to the
+    sources it may name: an entry outside PART_ONE_REPINNABLE or PART_ONE_READ_AT_ADMISSIBLE never
+    re-routes a read or accepts a pin (`part_one_record_failures` reports it)."""
     pins, read_at = {}, {}
     for a in amendments("fit"):
-        pins.update(a.get("partOnePins") or {})
-        read_at.update(a.get("partOneReadAt") or {})
+        pins.update({k: v for k, v in (a.get("partOnePins") or {}).items() if k in PART_ONE_REPINNABLE})
+        read_at.update({k: v for k, v in (a.get("partOneReadAt") or {}).items()
+                        if k in PART_ONE_READ_AT_ADMISSIBLE})
     return pins, read_at
+
+
+def part_one_record_failures() -> list[str]:
+    """The record's entries a checker must refuse: a key outside its admissible set, or a read-at
+    commit whose bytes are not the part-1 pin."""
+    out = []
+    part1 = json.loads(PARTS["protocol"]["declaration"].read_text())["sources"]
+    for a in amendments("fit"):
+        for key in a.get("partOnePins") or {}:
+            if key not in PART_ONE_REPINNABLE:
+                out.append(f"part 2's amendment re-pins {key}, which no amendment may re-pin")
+        for key, commit in (a.get("partOneReadAt") or {}).items():
+            if key not in PART_ONE_READ_AT_ADMISSIBLE:
+                out.append(f"part 2's amendment reads {key} at {commit}, and only the light 0.25 documents may be")
+            elif key not in part1 or sha(git_show(key, commit)) != part1[key]:
+                out.append(f"part 2's amendment reads {key} at {commit}, whose bytes are not part 1's pin")
+    return out
 
 
 def source_bytes(key: str, live: bool = False) -> bytes:
@@ -563,6 +583,7 @@ def check_protocol():
     c.eq("schema", d.get("schema"), PARTS["protocol"]["schema"])
     c.eq("charter", d.get("charter"), CHARTER_PIN)
     chain(c, "protocol", d)
+    c.failures += part_one_record_failures()
     items = structure(c, d)
     twin(c, items, PARTS["protocol"]["twin"])
     for iid, it in items.items():
@@ -666,6 +687,7 @@ def check_fit():
     c.eq("fit: names part 1's hash", (fit.get("fromDraft") or {}).get("partOneSha256"), part1[0] if part1 else None)
     c.eq("fit: names the draft's hash", (fit.get("fromDraft") or {}).get("draftSha256"), sha(DRAFT.read_bytes()))
     chain(c, "fit", fit)
+    c.failures += part_one_record_failures()
     for key, want in (fit.get("sources") or {}).items():
         try:
             c.eq(f"pin {key}", sha(source_bytes(key)), want)
