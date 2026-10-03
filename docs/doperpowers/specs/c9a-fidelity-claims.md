@@ -46139,3 +46139,406 @@ reads 145 / 3 skipped without captures and 148 with them.
 - **No referee or holdout cell was rendered in G2.** The rows and the T cells' published captures
   read here are c05's, already read at G0, and nothing exposes a new configuration to them.
 - **Nothing changed in the runtime, the documents, the generations, the capture tree or the demo.**
+
+## 5.205 W45 G0: the span-graded tap landed inert and proven by bytes, W45's tools ported, the landing rule rehearsed, part 1 hashed, the ladders read, part 2 hashed (2026-10-03)
+
+Evidence directory: `results/2026-10-03-w45-g0-operator/`, on branch `w45-g0-operator` off
+`c152b89b` (the charter v1.3 merge). Charter `2026-10-03-w45-span-selective-texture.md`:
+clauses 1–4, Decision Logs 1–5, X54–X59. No referee or holdout cell was rendered, and no profile
+document, generation, capture tree or runtime module moved.
+
+### 1. The operator, landed inert (clause 1; Decision Log 1; `8065249d`)
+
+One leaf, `sizeHeavySecondShareFar2x`: the second heavy tap's share graded on the scatter's far
+curve.
+
+```
+farS(span)   = smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+tapShare(px) = sizeHeavySecondShare + rampAtScale(0, delta, dpr) · farS(span(px))
+deep         = heavy + tapShare(px) · (heavy2 − heavy)
+```
+
+- **Where it lives.** `MaterialProfile` beside W30's spanning set, with its doc comment;
+  `DEFAULT_MATERIAL_PROFILE` at 0; the patch key and its resolve line; `heavySecondShareFarAtScale`
+  (`rampAtScale(0, delta, dpr)`: 0 at dpr ≤ 1, half at 1.5, all of it from 2), exported.
+- **The shader.** The DPR-resolved delta travels in `scatterHeavy2.z` (`passes.ts` d[130], that
+  vec4's own spare lane, beside the share it grades). The optics pass evaluates
+  `tapShare = scatterHeavy2.x + scatterHeavy2.z · farS` inside the branch the share's texture
+  opens, on the `farS` it already computes from the pixel's own span. Unclamped.
+- **The identity table.** An appended entry, a plain value drop at 0. It is not a member of the
+  share's W30 gate-group: at a non-zero share a non-zero delta draws, so the delta has an identity
+  of its own. At share 0 it is also unread, which is the share's gate working.
+- **The CSS tier** declines it with the tap (`platform-web/src/optics.ts`), and
+  `tier-coherence.test.ts`'s `CSS_COUNTERPART` records the decline.
+- **The lists that name leaves**: `MATERIAL_PATCH_KEYS` admits the key (a capture-integrity case),
+  `w30-operator-identity.test.ts` lists it beside W30/W31/W36/W41's leaves, and
+  `w31-identity-table.test.ts` pins its identity as a literal.
+- **Unit cases.** `w31-gate-groups.test.ts` ("W45 — sizeHeavySecondShareFar2x is a plain value
+  drop at 0"): the default at 0 at every ratio; the share returned exactly at delta 0 for signed
+  shares in f64 and f32; the 2x anchoring; dropped from the digest at 0 and carried off it; no
+  second texture asked for at share 0 whatever the delta. `w30-inert-laws.test.ts`: the
+  shipped-value half over every span.
+
+### 2. The proofs, by bytes (`operator/`)
+
+The recorder (`e2e/gpu/w45-share-far.spec.ts`, with the scenes `w45-span-triple`: three members of
+ONE group at spans 96, 128 and 160, at 2x and as a 1x twin) was committed first (`8dfa304a`) and
+run on a tree whose renderer source was `c152b89b`'s. Before the leaf existed, a patch naming it was
+ignored, so one case list runs on both sides. Every launch ran under the classifying web census
+(`census-gate.py` reading W43 G3 (ii)'s `census.py`; `census.jsonl`), on apple/metal-3.
+
+| proof | result |
+| --- | --- |
+| determinism | the before recorder run twice: 35 of 35 rasters identical |
+| identity cases (`compare.txt`) | **31 of 31 byte-identical** before and after: the charter's share −0.3 and +0.5 at σ2x 3 on a live second texture, absent and explicitly 0; the share-0 ladder at −1, 0, +1; the 1x twin at every delta, with the 1x tap live and off; the 13 golden scenes' raw bytes |
+| PNGs (`png-sha256.json`) | the identity cases' PNG files byte-identical |
+| the ON path | at share +0.5 the deltas −0.5, −1 and +1, and −1 at share −0.3, move the 2x render; the span-96 member's column is byte-identical at every delta and the 128/160 columns move; interior SD on the 160 member 2.41 → 2.06 → 1.79 at delta 0 / −0.5 / −1, 3.07 at +1 |
+| digests (`digests.txt`) | **10 of 10** shipped documents reproduce their recorded `resolvedMaterialSha256` (the 26.5 pair, the four 0.5, the four 0.25), the leaf at 0 and dropped in each |
+| goldens | **34 of 34** before and after on the real adapter, the isolation spec's pinned hashes among them |
+| the named unit suites | tuned-profiles, macos27-profile-export, macos26-document-selection, material-selection, digest-supersessions, w30-operator-identity, w31-identity-table, tier-coherence, capture-integrity, w41-body-e3-scratch (218), w41-body-e3 (79), color-scheme (20); renderer, calibration and vitrea-web lint |
+
+**The bench** (`bench.txt`; three launches each side). The existing rows render share 0, where the
+mix is never reached, so two mobile rows were added with the tap on (share 0.5 at 5 CSS px), one
+naming a delta. Medians, as a ratio to the same launch's control:
+
+| row | optics pass before | after |
+| --- | --- | --- |
+| mobile, share 0 | ×0.962 | ×0.995 |
+| mobile, second tap | ×1.074 | ×1.104 |
+| mobile, second tap graded | ×1.076 | ×1.096 |
+
+The absolute optics times moved 1.27 → 0.84 ms on the control alone between the two sets of
+launches (the GPU's clock state). So the grading's cost is below the bench's resolution of about 3 %
+of the optics pass.
+
+### 3. The owner test's exception mechanism, landed empty (Design "The adopted T1 clause (b)"; X59; `bb7c4865`)
+
+The T1 block gains three things:
+- **The growth-only partition** (`t1GrowthChange`): `unchanged` / `toward` / `away`, no crossing
+  state. It is carried on every `T1Cell` from the regression inputs (a T cell's T1-low) and
+  reported beside W44's classifier. W44's away-beyond-B is asserted a subset of the growth-only one.
+- **`T1_AUTHORISED_REGRESSIONS`, empty.** An entry names a cell, the superseded reference by its
+  documents' hashes, its growth in B and the ruling. `t1ClauseBFailures` passes a listed cell only
+  against exactly that reference, at no more than the listed growth.
+- **Clause (b) in both forms.** W44's clause keeps its trip and consults the list. A sibling gates
+  on the growth-only partition with the same list.
+
+Red cases pin it: an unlisted away cell fails; a listed cell passes only against its reference,
+and fails against another or grown further; a listing is per cell; a crossing whose error grew is
+let through by W44's form and gated by the growth-only one. The owner test passes 152 of 152
+against the canonical capture tree (`operator/owner-test.txt`). Against the current generation
+every cell is `unchanged` under both partitions.
+
+**Review.** `doperpowers:reviewer-high` on `c152b89b..bb7c4865`: no material findings, all five
+areas sound (identity and lane; the plain drop beside the gate-group; leaf coverage; the proofs;
+the owner-test mechanism). It reproduced the ten digests and the per-column result independently.
+Its caveat is recorded under §12.
+
+### 4. W45's tools (clause 2; X58)
+
+Each is a parameterised port under the evidence root, refusing W44's charter, part hashes,
+evidence directories and scratch, with a red case per binding:
+- **`declare.py`** (`check`, `hash`, `amend`, `check-fit`, `hash-fit`, `amend-fit`;
+  `test_declare.py`, 19 cases). Part 2 is a validated diff whose every change must be a decision
+  the cited ladder may make (the protocol's `decides`) and its results support.
+- **The cuts** (`cuts/cuts.py`, `cuts/bed.py`; `test_cuts_refusals.py`, 6 cases). `t1.py` and
+  `readings.py` stay W44 G1's, imported from its directory. They are pinned byte for byte with the
+  manifest, its planner, the bar and W44 G0's `port/interior.py` (`bed.SHARED_PINS`, checked at
+  import).
+- **The candidate builder** (`fit/build-candidate.ts`; 15 cases). It admits the operator's key in
+  the light active document and, as a difference, the light receded one, and nothing else new.
+  Its output root is explicit and never W44's.
+- **The census gate and the GPU lock** (`census-gate.py`, `with-gpu.sh`). Two W45 workers shared
+  the adapter, and the census refuses while another Playwright Chromium is up.
+- **The ladder driver and reader** (`ladders/ladder.py`, `read.py`).
+- **G1's tools**, ported by a second worker (`7f281395`, `6d68869f`): `fit/fit.py`, `search.py`,
+  `joint.py`, `finding.py`, `recover.py` with `fit/bindings.py` (29 cases); `stage/stage.py`,
+  `x48.py` (10); `seal/seal.ts` (7); `sheets/sheets.py` (3).
+
+**Each port tested on c05 before use:**
+- **The cuts port.** It cut the published c05 generation against itself on the canonical tree
+  (`rehearsal/c05-cuts.json.gz`). `port-proof.py` holds that cut to W44 G1's own c05 cut: 61,439
+  leaves equal. The one other difference is the owner test's file hash, which moved since W44 G1
+  (W44 G2 and W45 (a)); the rows the cuts parse from it compare equal. `bed.py` gained the interior
+  pin afterwards; a re-cut with the final `bed.py` differs only in that file's own hash
+  (`rehearsal/bed-pin-recut.txt`).
+- **The seal.** c05's own candidate, sealed into a scratch copy of `profiles/`, reproduces
+  `50430fa62c1120bd` / `5d8680980b7aeb55`. Every other profile file is byte-identical and the real
+  `profiles/` are untouched (`seal/test_seal.txt`).
+- **The stage.** A strict-mode rehearsal stage of the shipped documents on the 94 T1 gate cells per
+  light profile (`stage/rehearsal/`, four launches) reproduces the published `6d18c059eb42` rows.
+  188 of 188 rows are equal but for `capturedAt`, T1's three inputs are equal on all of them, and
+  376 of 376 captures are byte-identical to the canonical tree. No referee or holdout row was
+  rendered. X48 on that stage reads 94 of 94 1x rows IDENTICAL.
+
+### 5. The landing rule and its synthetic cases (clause 3; Decision Log 3; X54, X55)
+
+`cuts/rule.py` reads `t1.cut`'s cells:
+- **Change.** The growth-only partition.
+- **The bands.** F, C and P on T1; T on T1-fine, its `away` on T1-low.
+- **The aggregate.** Per stratum × pose, `A = median |log((k + ε)/(n + ε))|` with ε one code,
+  c05's `A` the same median, and τ = `median log(1 + bar/(n + ε))`. A group is gated at three cells
+  or more.
+- **The budget.** One over the scope: at most three cells away beyond B, none beyond 3B.
+- **The verdicts.** Full close, improvement, UNMEASURED, neither.
+
+The constants were fixed before the rehearsal and are not moved by it.
+
+`cuts/test_rule.py` holds clause 3's six cases exactly as listed, on one synthetic map whose c05 F
+stratum misses, and all pass:
+- (a) a map halving F with three cells at 2B passes (improvement landing);
+- (b) four cells at 2B fails (the count alone);
+- (c) one cell at 3.1B fails (the ceiling);
+- (d) a stratum aggregate worse by more than its tolerance fails (P rest, every cell under B);
+- (e) every cell `unchanged` is neither;
+- (f) a two-cell T stratum is reported, not gated (and the same push on three T cells is gated and
+  fails).
+
+It also holds eight boundaries: no crossing state; exactly three cells and exactly 3B pass; a
+crossing whose error grew spends the budget; a T cell spends it on T1-low only; full close; an
+absent member is UNMEASURED; the gate scope reads no referee or holdout cell; the constants are the
+charter's. 14 of 14 pass.
+
+### 6. The rehearsal (`rehearsal/rehearsal.json`, `.txt`; nothing rendered)
+
+At the gate scope (2x light WebGPU, both poses, F ∪ T ∪ C ∪ P less the referees, 94 cells):
+
+| map | verdict | partition (unchanged / toward / away) | F aggregate (c05 0.6462) | away beyond B | beyond 3B | gated aggregates worse beyond τ |
+| --- | --- | --- | --- | --- | --- | --- |
+| c05 against itself | neither | 94 / 0 / 0 | 0.6462 | 0 | 0 | none |
+| W43's pre-fit render | neither | 9 / 27 / 58 | 0.1290 (halved) | 51 | 27 | C rest, P rest, P inactive |
+| `m1c-0.5-5` | neither | 40 / 38 / 16 | 0.3123 (halved) | 8 | 2 | T rest |
+| `m2-t0.8` | neither | 33 / 48 / 13 | 0.2455 (halved) | 6 | 4 | none |
+| **`m3-t0.1`, the joint point** | **neither** | 30 / 51 / 13 | 0.2455 (halved) | **6** | **4** | none |
+
+**The joint point fails on both the count (six beyond B) and the ceiling (four beyond 3B), with
+every gated aggregate holding.** That is the test the charter says it should fail. The six are the
+Grounding table's cells:
+- `checkerboard-8__rrect-md__rest` 6.87 B;
+- `checkerboard-32__rrect-lg__rest` 4.97 B;
+- `checkerboard-32__rrect-sm__rest` 4.64 B;
+- `checkerboard__capsule-button__pressed` 3.55 B;
+- `checkerboard__rrect-md__rest` 2.44 B;
+- `checkerboard-64__rrect-sm__rest` 2.40 B.
+
+W44's 97 partial candidates read UNMEASURED, every one (diagnostics only). The synthetic cases read
+OK. The count and the ceiling were not moved.
+
+**Found: at the gate the F inactive group holds two cells, so it is REPORTED, not gated.** The
+others are referees. The F aggregate (both poses pooled) still reads it.
+
+### 7. Part 1 and the part-2 draft, hashed (`b2e3fee5`)
+
+`declaration.json` sha256 **`5630743b7416aedd1910394d4fe7c5eedbaf0ef611516edd1c90043718746e5d`**.
+Ten items over 50 pinned sources (twin `declaration.md`):
+- **the operator**, its proofs read at their commits;
+- **T1 as adopted**, the owner test at W44 G2's merge `3115bf17` with the shared arithmetic and
+  `test_t1`;
+- **the bar**; **the manifest** and the planner's two lists (81 / 26);
+- **the rule**, its 14 cases and its rehearsal, the verdicts recomputed by the check;
+- **the tools** and their red cases;
+- **the ladders' protocol**;
+- **the two starting points by hash**: c05's light documents, and W44's joint point
+  `66bf5a01…`;
+- **the regression references** `6d18c059eb42` / `d0219cd684bf` by file hash;
+- **the draft**.
+
+The draft (`fit-declaration-draft.json`) states the stages in the fit driver's `moves`/`families`
+shape:
+- **Stage 1** (the deep composition on the rest mid and thick cells; within: every F and pitch-16
+  cell):
+  - `sizeScatterFloor2x` [0.5, 1] (0.5, 0.6, 0.7, 0.8, 0.9, 1);
+  - `sizeScatterSpanMax2x` (112, 128, 160, 192, 256);
+  - `sizeHeavySecondShare` (0, 0.25, 0.5, 0.75, 1);
+  - `sizeHeavySecondSigma2x` (1.5–6 CSS px);
+  - the operator (0, −0.25, −0.5, −0.75, −1);
+  - the active thick/far starts tied (0.05, 0.1, 0.15, 0.21);
+  - the 1x second width held at 0, its inert setting PENDING X48.
+- **Stage 2**:
+  - the active thin start (0.46–0.95) on the rest thin cells;
+  - the receded overrides on every inactive cell: the thin start, the tied thick/far starts, the
+    heavy width, and the share and the operator's key as fractions of the active value.
+- **Around them:** both starting points, W44's search procedure, the selection rule and tie on the
+  stage's cells, and the landing rule by `cuts/rule.py`.
+
+The worker's fit driver reads that shape and its scopes (`stage1`, `stage2-thin`,
+`stage2-receded`).
+
+### 8. The ladders (clause 4; `26fa02be`; `ladders/results.json`, `.txt`)
+
+**What was rendered.** 47 rungs, 41 contents (rungs of one content render once). Each was drawn in
+candidate mode on the WebGPU tier, at 2x and as its 1x twin, with `--alpha`, on sixteen named
+`__rest` cells. The loader's intersection held: every probe cell is in the planner's pre-gate
+whitelist, every calibration cell carries no referee, and nothing else is admitted. That is 82
+launches under the GPU lock and the census, all exit 0. No referee, holdout or inactive cell was
+rendered.
+
+**The instrument.**
+- **The control.** c05-control's 32 captures (16 cells, 2x and 1x) are pixel-identical to the
+  canonical strict-mode c05 captures, and its T1 equals the published rows on all 32.
+- **The joint point, rebuilt.** It carries W44's four endpoint digests. Its 2x T1 equals W44's
+  committed `m3-t0.1` cut on 16 of 16 cells.
+- **X48.** Every render's 1x captures are pixel-identical to c05-control's: 41 of 41. That
+  includes every rung naming the operator at −0.25 to −1 and every share and width change, with
+  the 1x second width at 0.
+
+**(i) The operator in isolation** (base: floor 1, share 0.5, width 3 CSS px, span top 160).
+T1 web at delta 0 / −0.25 / −0.5 / −0.75 / −1:
+
+| cell | span | native | T1 web across the rungs | reading |
+| --- | --- | --- | --- | --- |
+| `checkerboard-8__rrect-md__rest` | 96 | 0.0991 | 0.0632 at every rung | byte-identical on every rung |
+| `checkerboard__rrect-md__rest` | 96 | 0.1501 | 0.1195 at every rung | byte-identical |
+| `checkerboard-64__rrect-sm__rest` | 32 | 0.0680 | 0.0181 at every rung | byte-identical |
+| `checkerboard-8__rrect-ml__rest` | 128 | 0.0261 | 0.0586 0.0521 0.0459 0.0400 0.0347 | monotone, 7.7 bars |
+| `checkerboard-8__rrect-lg__rest` | 160 | 0.0224 | 0.0554 0.0425 0.0315 0.0251 **0.0267** | moves 9.1 bars; **not monotone** at −1 |
+| `checkerboard-32__rrect-lg__rest` | 160 | 0.1336 | 0.1893 0.1521 0.1158 0.0828 0.0583 | monotone, 39.3 bars |
+
+- **The operator is not struck.** It moves the thick cells and cannot move a span ≤ 96 pixel,
+  exactly as constructed.
+- **The isolation bar as declared is NOT met.** `checkerboard-8__rrect-lg__rest` turns back at
+  −1. At span 160 under a span top of 160, farS is 1, so the tap's share is 0.5 + delta: 0 at −0.5,
+  −0.25 at −0.75, −0.5 at −1. Past about −0.25 the negative share is an unsharp mask, and it
+  re-adds the c = 16 structure it had removed. The reversal is the signed share crossing zero, not
+  a defect of the grading.
+- **What it means for the fit.** The charter's "monotone in farDelta" holds only while
+  share + delta ≥ 0 at the cell's span. So deltas below −share are a different regime (an unsharp
+  mask), which the fit may visit (the domain is [−1, 0] at any share).
+
+**(ii) The joint composition** (share × width × delta at span top 160, floor 1; md =
+`checkerboard-8__rrect-md__rest`, native 0.0991, c05 0.0841, joint 0.0401; lg =
+`checkerboard-8__rrect-lg__rest`, native 0.0224, c05 0.0484, joint 0.0329). **The bar is met on
+three rungs**: md rises and lg falls, both toward Apple, against c05 AND against the joint point.
+
+| rung (share / width CSS px / delta) | md | lg | md g vs c05 / joint | lg g vs c05 / joint |
+| --- | --- | --- | --- | --- |
+| 0.5 / 2 / −0.5 | 0.0953 (within) | 0.0315 | −0.0113 / −0.0552 | −0.0169 / −0.0014 |
+| 0.5 / 2 / −0.75 | 0.0953 (within) | 0.0280 (within) | −0.0113 / −0.0552 | −0.0204 / −0.0049 |
+| 1 / 3 / −1 | 0.0902 (within) | 0.0315 | −0.0061 / −0.0501 | −0.0169 / −0.0014 |
+
+- **On 0.5 / 2 / −0.75**, `checkerboard__rrect-md__rest` is within too (0.94, from 0.65 on c05).
+- **`checkerboard-8__rrect-ml__rest` stays over** at ×1.80–2.34: Apple's ×4.4 drop between 96 and
+  128 does not close, as the charter predicted.
+- **`checkerboard-32__rrect-lg__rest`** reads ×0.87 at delta −0.5 and ×0.61 at −0.75 (c05 ×0.99).
+  The thick c = 64 cell wants a delta between −0.25 and −0.5 at that width.
+- **No stop.** The operator separates md from lg on the renders, which is what it exists for (X57).
+
+**(iii) The span top** at 112 / 128 / 160 / 192 (base i with delta −0.5). Not flat, not struck;
+the non-flat hull is 112–192.
+- **At floor 1** it moves only the 128 and 160 cells, through the far curve: ×1.33 → 1.99 on
+  `checkerboard-8` ml, ×1.41 → 1.65 on lg, ×0.87 → 1.01 on `checkerboard-32` lg.
+- **At floor 0.7** it also moves the mid cells (`checkerboard-8` md ×0.66 → 0.80) through `kDeep`'s
+  sharp share.
+- **112 and 128 read identically** on every rendered cell at floor 1: no gate span lies between
+  96 and 128.
+- **No thin cell moves** at either floor.
+
+**(iv) The active thick and far starts**, tied, at 0.05 / 0.1 / 0.21. They move the fine thick
+cells strongly and are not struck:
+- `checkerboard-4__rrect-lg__rest` ×0.68 / 0.77 / 1.12;
+- `checkerboard-8__rrect-ml__rest` ×1.03 / 1.24 / 1.76;
+- `checkerboard-8__rrect-lg__rest` ×0.66 / 0.84 / 1.41.
+
+This holds the charter's stage-1 prediction (ii): the fine thick residual is the ramp band's sharp
+term, and these two leaves lower it.
+
+**(v) The thin-span transfer per lever** (base: W44's joint point). At the base the thin cells read:
+- `checkerboard-4` sm ×0.74 and capsule ×0.64;
+- pitch-16 sm ×1.20 and capsule ×1.02;
+- pitch-32 sm ×1.24 and capsule ×1.15;
+- `hc-text` sm ×1.17, `hc-text-28` sm ×1.20 and `hc-text-7` sm ×1.01.
+
+The transfer (web over the rung's reference, −1) on the two `checkerboard-4` cells against the
+others:
+
+| lever (against) | `checkerboard-4` sm / capsule | pitch-16, 32 and text thin cells | separates? |
+| --- | --- | --- | --- |
+| floor 0.7 | +0.06 / +0.09, toward | +0.03 to +0.07, away (`hc-text-7` +0.10, toward on T1-fine) | no |
+| floor 0.85 | +0.03 / +0.05, toward | +0.01 to +0.03, away (`hc-text-7` +0.05, toward) | no |
+| span top 160, at floor 1 and at floor 0.7 | 0.00 | 0.00 (within a bar) | no: flat at thin spans |
+| thin start 0.46 | −0.40 / −0.40, away | −0.17 to −0.43, toward on four of seven | no |
+| thin start 0.6 | −0.24 / −0.23, away | −0.10 to −0.25, toward on five of seven | no |
+| share 0 | 0.00 / 0.00 | −0.02 to −0.09, toward on five of seven | no |
+| share 1 | 0.00 / 0.00 | +0.02 to +0.09, away | no |
+| width 3 (from 5) | 0.00 / 0.00 | +0.04 to +0.09, away (`hc-text-7` +0.01) | no |
+| delta −1 | byte-identical | byte-identical | (farS is 0 at thin spans) |
+
+**No single lever separates `checkerboard-4` from the pitch-16, 32 and text thin cells**, as the
+protocol declares separation. That is Decision Log 5's named residual. The reading underneath it
+matters for G1:
+- **The share and the width act on the pitch-16, 32 and text thin cells and leave
+  `checkerboard-4` exactly where it was.** A 5 CSS px tap does not pass a 4 CSS px pitch.
+- **The floor raises `checkerboard-4` more than the others.**
+
+So a two-lever composition, the floor down with the share down, moves the two groups toward Apple
+together, which no single-lever rung could show. The fit searches the floor and the share jointly
+in stage 1 on the mid and thick cells, and the rule's budget reads the thin cells whatever stage
+moves them.
+
+### 9. Part 2, hashed (`4a59912f`)
+
+`fit-declaration.json` sha256
+**`da85de04fa1a3c2daff18369742056121ec2b40b2b01b6a40edae28885f7c770`**, a validated diff against
+the draft with one change:
+- **`inert`, citing X48.** The 1x second width's PENDING setting is replaced by "every render's 1x
+  captures pixel-identical to c05-control's", and the value stays 0.
+- **Nothing struck.** No leaf read flat.
+- **Nothing narrowed.** The span top's ladder read 112–192 and the draft also holds 256, c05's own
+  value and the c05 path's starting point. A narrowing must stay inside the non-flat range, so it
+  would have removed a value no ladder read (`ladders/part2.py`).
+
+Part 2 names part 1's hash and the draft's, and pins the results, the protocol and the G1 tools.
+`declare.py check` and `check-fit` are consistent, and the fit driver's preflight accepts part 2.
+Part 1's `amend` now refuses (ladder renders exist). Part 2's `amend-fit` refuses once any fit
+render exists.
+
+### 10. Clause 8 at G0's close
+
+- **The freezes.** `freeze.py verify` reads 1,818 entries and X41 911.
+- **The digests and goldens, re-run at the head.** The ten shipped digests hold
+  (`operator/digests.ts`) and 34 of 34 goldens pass on the real adapter.
+- **What did not move.** W44's evidence, hashes and the adopted T1 block's recorded form are
+  unedited. W45 adds beside them: its own evidence root, its own tool copies, and the exception
+  mechanism.
+- **The census log** (`census.jsonl`) records every browser launch of the branch with its census,
+  both workers' included.
+
+### 11. Found, and what should change in the charter before G1
+
+1. **The F inactive group at the gate holds two cells** (the other F inactive cells are referees),
+   so the rule REPORTS it rather than gating it. The Design names T's inactive group as the
+   reported one and does not mention F's. The F aggregate (both poses pooled) still reads both
+   cells.
+2. **"Intersected with the planner's pre-gate whitelist" needs its reading.** That whitelist is the
+   probe pass's positive list. Clause 4's own cells include calibration scenes
+   (`checkerboard__rrect-md__rest`, `checkerboard__rrect-sm__rest`,
+   `checkerboard__capsule-button__rest`), which no probe list holds and which carry no referee by
+   the planner's refusal. The loader admits a calibration cell by its role and a probe cell by the
+   whitelist; the charter's wording should say so.
+3. **The operator's monotonicity holds only while share + delta ≥ 0** at the cell's span. Past it,
+   the negative share is an unsharp mask and reverses the c = 16 cell (§8 (i)). The prediction
+   "farDelta near −0.5 × share" sits inside the monotone regime; the domain [−1, 0] at a share
+   below 1 does not.
+4. **The thin trade reads as two single-lever groups**, not as no lever (§8 (v)). The share and
+   width move only the pitch-16/32/text thin cells, and the floor moves `checkerboard-4` most.
+   Decision Log 5's residual is named as declared. A joint (floor, share) reading is the fit's.
+5. **The span top's 112 and 128 are indistinguishable** on the gate population at floor 1: no gate
+   span lies between 96 and 128.
+6. **Part 2 is stated in the fit driver's `moves`/`families` shape** (stage 1 as one family; stage
+   2 as the active thin start and the receded family, scopes `stage2-thin` and `stage2-receded`).
+   The receded share and the receded operator key are fractions of the active value.
+7. **The builder admits W44's receded second-tap widths; the seal does not.** The ported seal
+   admits only the share and the operator's key in the receded document. Part 2 declares no
+   receded width, so the fit refuses one before the seal would.
+8. **Two bench rows were added** (mobile with the second tap on, with and without a delta). The
+   existing rows render share 0 and cannot price the grading.
+
+### 12. What is not claimed
+
+- **Identity on every GPU backend's compiler.** The bytes are the adapter's (apple/metal-3); the
+  WGSL is `x + 0 · farS` (the reviewer's caveat).
+- **A cost for the grading.** It is below the bench's resolution, not measured as zero.
+- **The fit, the gate, the exposure, any seal or publication.** None is G0's. No fit render
+  exists, part 2's `amend-fit` is still open, and nothing was fitted on the operator.
+- **A landing verdict on any ladder rung.** The ladders read their cells; the rule reads the gate
+  population.
