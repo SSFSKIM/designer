@@ -202,18 +202,46 @@ def moved_leaves(summary) -> int:
     return sum(len(v) for v in summary["overrides"].values())
 
 
-def decide(move: str, got: dict, families: dict, order: list) -> dict:
+def move_tie(label: str, move: str) -> float:
+    """Part 2's selection tie on the move objective's own cells ("the median over the same cells of
+    log(1 + bar / native)"): the move's F u C u P cells, read off a point's cut. It depends on the
+    cells' natives and bars alone, so every point of the move gives the same value. (Until the
+    review of G1 steps 0-2 the decision read each summary's `selectionTie`, which is over every
+    cell the point had rendered: the move's cells when the move was decided, the whole fit map once
+    the landed point's map was completed afterwards.)"""
+    import gzip
+    import math
+    import statistics
+    with gzip.open(HERE / "candidates" / label / "cuts.json.gz", "rt") as f:
+        cells = json.load(f)["T1"]["cells"]
+    sel = [math.log(1 + c["bar"] / c["native"]) for c in cells
+           if fit.t1.in_move(c, move) and c["stratum"] in fit.t1.SELECTION_STRATA and c["native"] > 0]
+    return statistics.median(sel)
+
+
+def decide(move: str, got: dict, families: dict, order: list, write: bool = True) -> dict:
     """Part 2's selection within a move: the first family in order with a searched point that passes
     the move's within clause lands, at its within point with the smallest move objective; if none
     is within, the point with the smallest objective across the families, a tie (within the
     selection tie) to the fewer moved leaves, recorded as not within."""
     rows = {}
+    members = [sid for sid in fit.scenes_for(move) if fit.t1.stratum(sid) in fit.t1.SELECTION_STRATA]
+    recovered = json.loads((PATH / "recovered.json").read_text())["points"] if (PATH / "recovered.json").exists() else {}
     for fam in order:
         for label in families.get(fam, []):
             s = got.get(label) or json.loads((HERE / "candidates" / label / "summary.json").read_text())
-            rows.setdefault(fam, []).append(dict(label=label, objective=s["moves"][move]["objective"],
+            objective = s["moves"][move]["objective"]
+            # The review of G1 steps 0-2 (P2): an objective is the declared statistic only over ALL of
+            # the move's F u C u P cells. A point with an UNMEASURED member is ranked on its value
+            # recovered through G0's port (recover.py) or not at all.
+            if any(sid not in s["cells"] for sid in members):
+                if label not in recovered:
+                    raise SystemExit(f"decide {move}: {label} has an UNMEASURED objective member and no "
+                                     "recovered reading (recover.py); it is not ranked on a partial median")
+                objective = recovered[label]["declaredObjective"]
+            rows.setdefault(fam, []).append(dict(label=label, objective=objective,
                                                  within=s["moves"][move]["within"], leaves=moved_leaves(s),
-                                                 tie=s["selectionTie"]))
+                                                 tie=move_tie(label, move)))
     landed, how = None, None
     for fam in order:
         inside = [r for r in rows.get(fam, []) if r["within"] == "WITHIN"]
@@ -229,8 +257,9 @@ def decide(move: str, got: dict, families: dict, order: list) -> dict:
         how = ("no family has a point within: the smallest move objective across the families, a tie "
                f"within the selection tie ({best['tie']:.4f}) to the fewer moved leaves; recorded as NOT within")
     record = dict(move=move, landed=landed["label"], how=how, families=rows)
-    PATH.mkdir(exist_ok=True)
-    (PATH / f"{move}.json").write_text(json.dumps(record, indent=1) + "\n")
+    if write:
+        PATH.mkdir(exist_ok=True)
+        (PATH / f"{move}.json").write_text(json.dumps(record, indent=1) + "\n")
     return record
 
 

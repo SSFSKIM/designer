@@ -1,0 +1,73 @@
+{
+ "what": "W44 G1 step 2: the four move-1 objectives with an UNMEASURED member, recovered through G0's port",
+ "portProof": {
+  "rows": 112,
+  "worstAbsDiff": 2.242406954566789e-11,
+  "tolerance": 1e-06
+ },
+ "points": {
+  "m1b-s14": {
+   "missing": [
+    "checkerboard-lc16__rrect-md__rest"
+   ],
+   "recovered": {
+    "checkerboard-lc16__rrect-md__rest": {
+     "native": 0.06786851207758757,
+     "web": 0.03300840532992584,
+     "ratio": 0.4863581699299742
+    }
+   },
+   "members": 27,
+   "recordedObjective": 0.17526590536085346,
+   "declaredObjective": 0.19578084707923551
+  },
+  "m1c-0.25-3": {
+   "missing": [
+    "checkerboard-lc16__rrect-md__rest"
+   ],
+   "recovered": {
+    "checkerboard-lc16__rrect-md__rest": {
+     "native": 0.06786851207758757,
+     "web": 0.03707429271707985,
+     "ratio": 0.5462664729513499
+    }
+   },
+   "members": 27,
+   "recordedObjective": 0.11020134721234048,
+   "declaredObjective": 0.11349787599845848
+  },
+  "m1c-0.25-4": {
+   "missing": [
+    "checkerboard-lc16__rrect-md__rest"
+   ],
+   "recovered": {
+    "checkerboard-lc16__rrect-md__rest": {
+     "native": 0.06786851207758757,
+     "web": 0.03277659670823227,
+     "ratio": 0.48294261513736925
+    }
+   },
+   "members": 27,
+   "recordedObjective": 0.15468491427496378,
+   "declaredObjective": 0.2002972419673895
+  },
+  "m1c-0.5-6": {
+   "missing": [
+    "checkerboard-lc16__rrect-md__rest"
+   ],
+   "recovered": {
+    "checkerboard-lc16__rrect-md__rest": {
+     "native": 0.06786851207758757,
+     "web": 0.03133878532216731,
+     "ratio": 0.4617573652762665
+    }
+   },
+   "members": 27,
+   "recordedObjective": 0.1651255679093534,
+   "declaredObjective": 0.1698411968495022
+  }
+ },
+ "landedBefore": "m1c-0.5-5",
+ "landedAfter": "m1c-0.5-5",
+ "decisionUnchanged": true
+}
