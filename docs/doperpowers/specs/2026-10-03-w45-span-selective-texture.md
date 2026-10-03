@@ -1,10 +1,14 @@
 # W45 — the span-graded tap: the second heavy tap's share graded on the scatter's far curve, the deep share's span top, the thin trade read, and a landing rule that measures regression as growth (2026-10-03)
 
-**Status: DRAFT v1.1 (2026-10-03): the adversarial review of v1 folded (three P1, three P2, all
-accepted by the parent; Revision Notes). v1's mechanism was wrong: the thick lift saturates at
-span 96 and the second tap's share is span-flat, so no existing leaf can hold span 96 apart from
-128–160 at one pitch. That is W28's precommit condition, and this draft charters the smallest
-operator the named structure needs, landed inert first.** Chartered from W44's close at the
+**Status: DRAFT v1.2 (2026-10-03): two adversarial rounds folded (v1: three P1 and three P2;
+v1.1: one P1 and four P2; all accepted by the parent; Revision Notes). v1's mechanism was wrong:
+the thick lift saturates at span 96 and the second tap's share is span-flat, so no existing leaf
+can hold span 96 apart from 128–160 at one pitch; that is W28's precommit condition, and the
+wave charters the smallest operator the named structure needs, landed inert first. v1.1's
+separation test was impossible as written (the far curve is zero at span 96, so the new leaf
+alone cannot raise the mid cell) and its thick-span prediction was contradicted by W44's own
+heavy-only rung; v1.2 grounds both in measured endpoints, fixes the grading per pixel and
+unclamped, and declares the adopted-clause exception before part 1.** Chartered from W44's close at the
 finding (claims §5.203 §8; W44 charter Decision Log 4 "Otherwise", RULED by the parent
 2026-10-03): the fit's joint point cut the fine stratum's error by 62 % and brought the receded
 fine checkers within Apple's, and failed the landing rule on ten cells, with no point in the
@@ -73,11 +77,15 @@ if no lever separates it, named (Decision Log 5). No re-read of anything W44 rea
    `MaterialProfile` and `DEFAULT_MATERIAL_PROFILE` at 0; an append-only identity-table entry
    (a plain value drop); the grading evaluated where the ramp's far decline is; the CSS tier's
    decline recorded in `optics.ts` and pinned by `tier-coherence.test.ts`; the W31 identity and
-   gate-group tests extended. *Bar:* every shipped document's `resolvedMaterialSha256` unchanged
+   gate-group tests extended; the owner test's T1 clause (b) given its W45 exception mechanism,
+   empty (Decision Log 3). *Bar:* every shipped document's `resolvedMaterialSha256` unchanged
    (the six pre-W43, the four 0.25, the two 26.5); the 34 goldens byte-identical; the 1x rows
-   byte-identical under any value of the leaf (`rampAtScale` holds a 2x anchor at its 1x twin
-   below dpr 1, and the 1x twin does not exist, so the leaf is read at dpr 2 only — G0 proves it
-   by render, not by argument); the isolation spec's hashes unmoved. *Stop:* a digest or golden
+   byte-identical under any value of the leaf (`rampAtScale(0, delta, dpr)` holds 0 at dpr ≤ 1,
+   half the delta at 1.5 and the full delta at ≥ 2, so the leaf cannot reach a 1x row — G0 proves
+   it by render, not by argument); the shader's mix at `farDelta` 0 bit-identical to the current
+   one on a LIVE second texture with a signed share (identity cases at share −0.3 and +0.5, not
+   only the share-0 gate ladder), because the existing share is signed and must stay unclamped;
+   the isolation spec's hashes unmoved. *Stop:* a digest, golden or signed-share identity case
    that moves stops the merge; the operator is not fitted on.
 2. **Declared before fitted, in W44's two parts, with W45's own tools (G0).** *Metric:* W45-owned
    copies of `declare.py`, the cuts, the fit driver, the stage, X48 and the seal tools,
@@ -98,16 +106,23 @@ if no lever separates it, named (Decision Log 5). No re-read of anything W44 rea
    committed; the joint point's verdict recorded whatever it is; the count and ceiling not moved
    after the rehearsal. *Stop:* a synthetic case that the implementation decides against its
    declared text stops the hash.
-4. **The levers separate what they are for, on the renders (G0).** *Metric:* ladders in candidate
-   mode, after part 1: the operator's `farDelta` at a fixed share and width on the three vetoing
-   mid/thick cells, the two `checkerboard-8` thick cells and `checkerboard-32__rrect-lg__rest`;
-   `sizeScatterSpanMax2x` at a floor below 1 on the same cells; a thin-span transfer ladder per
-   lever (floor, span top, thin start, share, width) on `checkerboard-4`, the pitch-16, 32 and
-   text thin cells (Decision Log 5); byte identity at 1x on every rung (X48). *Bar:* the operator
-   moves `checkerboard-8` md and lg in OPPOSITE directions of T1 on at least one rung (the
-   separation it exists for); a leaf flat on its cells is struck. *Stop:* an operator that cannot
-   separate 96 from 160 on the renders closes the wave at G0 with the finding, and the operator
-   stays landed inert.
+4. **The levers separate what they are for, on the renders (G0).** Two ladders, in candidate
+   mode, after part 1, on the three vetoing mid/thick cells, the two `checkerboard-8` thick cells
+   and `checkerboard-32__rrect-lg__rest`, both poses, with byte identity at 1x on every rung
+   (X48). **(i) The operator in isolation:** `farDelta` swept at a fixed base share and width and
+   a span top of 160. *Bar:* `checkerboard-8` md unchanged within the bar on every rung (the far
+   curve is zero at span 96 by construction) while the 128 and 160 cells move monotonically with
+   `farDelta`; a leaf that does not move the thick cells is struck. **(ii) The joint composition:**
+   the base share and width raised with `farDelta` lowered, against the named common reference
+   (c05 and W44's joint point). *Bar:* on at least one rung `checkerboard-8` md rises toward
+   Apple while `checkerboard-8` lg falls toward Apple, measured as T1 error growth against the
+   reference on each; a `sizeScatterSpanMax2x` ladder at a floor below 1 on the same cells; a
+   thin-span transfer ladder per lever (floor, span top, thin start, share, width) on
+   `checkerboard-4`, the pitch-16, 32 and text thin cells (Decision Log 5). The span top's grid
+   starts at 112, not 96: the shader's `farS` uses an epsilon denominator and reads 0 at the
+   knee where the CPU `smoothstep` reads 1 at equal edges, and the shader's convention is the
+   law. *Stop:* a joint composition that cannot move md and lg in opposite directions on the
+   renders closes the wave at G0 with the finding, and the operator stays landed inert.
 5. **Measured before moved (G1).** As W44 clause 5, with the candidate identity patch-and-digest,
    and every fit render passing `--alpha` so a fit row equals a stage row (W44 G1's tracker note).
 6. **The gate, before the exposure, on the shipped bytes (G1).** As W44 clause 6: the runtime
@@ -180,27 +195,30 @@ which W26 made one per source for cost); the share is a uniform the optics pass 
 and grading it is one multiply by a curve the ramp's start already evaluates.
 
 **The operator, as the material will carry it** (Decision Log 1). `sizeHeavySecondShareFar2x`,
-signed, identity 0, read at dpr 2 through `rampAtScale` against an implicit 1x twin of 0 so the
-1x rows cannot move:
+signed, identity 0, resolved through `rampAtScale(0, farDelta, dpr)` — 0 at dpr ≤ 1, half at
+1.5, full at ≥ 2 — so no 1x row can see it:
 
 ```
-tapShare(span) = clamp(sizeHeavySecondShare
-                       + sizeHeavySecondShareFar2x · smoothstep(sizeSpanMax, sizeScatterSpanMax2x, span), 0, 1)
-deep           = heavy + tapShare(span) · (heavy2 − heavy)
+tapShare(px)   = sizeHeavySecondShare + farDeltaAtScale · farS(px)
+deep           = heavy + tapShare(px) · (heavy2 − heavy)
 ```
 
-The curve is `scatterRampStart`'s `decline` (`material.ts`), "the same curve the deep value rises
-along, so the two are one span statistic read twice" — now three times. At `farDelta` 0 the term
-is a multiplied zero, exact in f32: every document that does not name it resolves to 0, rule 2
-drops it from the digest as a plain value drop (W31; `MATERIAL_IDENTITY_TABLE` gains an entry
-with no gated leaves), and the goldens, which render explicit patches over the default, are
-byte-identical. The gate on the second texture stays `sizeHeavySecondShare`: at share 0 no
-texture exists and `farDelta` is unread, which the gate-group test proves. The CSS tier declines
-the tap (`optics.ts`) and therefore its grading; the decline is recorded beside the tap's. Where
-the grading is evaluated (per surface on the CPU into the existing uniform, or per pixel in the
-optics pass beside the ramp's `decline`) is G0's to decide by the cost on the mobile bench row
-and by the composite scenes (`glass-over-glass`'s 130 and 56 px members in one group), with the
-reason recorded; byte identity at identity is the proof either way.
+**Per pixel, in the optics pass, unclamped.** `farS` is the far-curve smoothstep the optics
+shader already computes from each pixel's span in the field pass's aux target (`aux.z`), the
+same curve `scatterRampStart` evaluates on the CPU for the CSS tier ("one span statistic read
+twice" — now three times); the delta reaches the pass as one DPR-resolved uniform beside the
+share. It cannot be a per-group CPU value: `passes.ts` packs one share for the group, and a
+group's members have different spans (`glass-over-glass` 130 and 56 px), which is why the
+renderer sends span-law anchors rather than per-surface results (`renderer.ts`). The expression
+is NOT clamped: the existing share is signed by design (a negative share is an unsharp mask,
+`material.ts`'s doc), so the identity must be the old expression exactly, which `share +
+0·farS` is in f32. Every document that does not name the leaf resolves it to 0; rule 2 drops a
+resolved default-zero key from the digest as a plain value drop (W31; `MATERIAL_IDENTITY_TABLE`
+gains an entry with no gated leaves); the regular goldens render the renderer default and the
+isolation renders explicit patches, neither supplying the leaf, so both keep 0. The gate on the
+second texture stays `sizeHeavySecondShare`: at share 0 no texture exists and `farDelta` is
+unread, which the gate-group test proves. The CSS tier declines the tap (`optics.ts`) and
+therefore its grading; the decline is recorded beside the tap's with a `CSS_COUNTERPART` row.
 
 **The leaf set and the documents.** The active 0.25 light document names `sizeScatterSpanMax2x`
 (256) and does not name `sizeScatterHeavyShareThick2x` or the new leaf; its 0.5 twin names the
@@ -258,15 +276,36 @@ its native T1-fine values are tiny (0.0032 at 2x `rrect-lg`), so a raw ratio the
 the bar and the absolute bound decides fidelity (W44 G2, §5.204); T's `A` is read, and its gate is
 the F-and-C-style bound on growth, never a ratio alone.
 
-On the final stage, WebGPU, 2x light, both poses, over F ∪ T ∪ C ∪ P less the referees:
+On the final stage, WebGPU, 2x light, both poses, over F ∪ T ∪ C ∪ P less the referees at the
+gate, and over the referees and the canonical holdout's structured cells at the exposure — **one
+budget over all 116 cells per profile**, the gate cells counted before the exposure and the
+exposed cells added at it:
 - **Full close:** every F cell within; every gated group's `A` at most c05's `A` + `τ`; at most
-  **three** cells `away` with `g > B`, none with `g > 3B`, each named; every other adopted row
-  passing or its miss named; the twelve referees within at the exposure. Lands.
+  **three** cells `away` with `g > B` over the whole population, none with `g > 3B`, each named;
+  every other adopted row passing or its miss named; the twelve referees within at the exposure.
+  Lands.
 - **Improvement landing:** the F aggregate (both poses pooled) at most half of c05's; every gated
-  group's `A` at most c05's `A` + `τ`; at most three cells `away` with `g > B`, none with
-  `g > 3B`, each named; every referee within or an unchanged miss; every other adopted row
-  passing or its miss named. Lands as improved, every F cell not within named.
+  group's `A` at most c05's `A` + `τ`; at most three cells `away` with `g > B` over the whole
+  population, none with `g > 3B`, each named; every referee within or an unchanged miss; every
+  other adopted row passing or its miss named. Lands as improved, every F cell not within named.
+- **An exposed cell that takes the count past three, or any cell past 3B at the exposure,** is a
+  holdout miss: recorded, never re-read, and ruled by the parent as shipped-and-named or not
+  shipped (W44 Decision Log 5).
 - **Otherwise** the wave closes at the finding.
+
+**The adopted T1 clause (b), and the declared exception.** `adopted-thresholds.test.ts`'s T1
+block (W44 G2) requires the list of cells `away` with `g > B` against the current generation to
+be EMPTY, with W44's classifier (which still reads a crossing miss as `overshoot`). A W45 landing
+that names up to three growth regressions would fail it, and moving `T1_REFERENCE` afterward
+would make it trivially green without a witness. So, declared before part 1 and landed inert in
+G0 (a): the block gains (1) the growth-only partition reported beside W44's, (2) a
+`T1_AUTHORISED_REGRESSIONS` list, empty, whose entries name a cell, its superseded reference
+generation, its growth in B and the ruling that authorised it, and (3) the rule that clause (b)
+passes a listed cell only against the listed reference. At W45's gate the growth-only count and
+ceiling are evaluated against c05 and the old clause's failures are recorded as failures in
+§5.206 before anything moves; at the landing the list is filled with the ruled cells, the
+reference moves, and the next publication must clear the list or re-rule it. W44's classifier
+stays in the file as the recorded form; the growth-only partition is the gate's from W45 on.
 
 *The count and the ceiling are a tradeoff, stated as one.* With the bar at 0.5 code, `B` is one
 code and `3B` three codes of linear-light SD at the cell's native level. Three cells is the
@@ -287,14 +326,23 @@ compared on the one gate population (the review of v1):
 
 - **Stage 1, the span-graded deep composition** (rest, mid and thick cells; the within clause =
   the F and pitch-16 cells of the stage): `sizeScatterFloor2x` ∈ [0.5, 1.0];
-  `sizeScatterSpanMax2x` ∈ [96, 256] (grid 96, 112, 128, 160, 192, 256); `sizeHeavySecondShare`
+  `sizeScatterSpanMax2x` ∈ [112, 256] (grid 112, 128, 160, 192, 256); `sizeHeavySecondShare`
   ∈ [0, 1]; `sizeHeavySecondSigma2x` ∈ [1.5, 6] CSS px; `sizeHeavySecondShareFar2x` ∈ [−1, 0]
-  (grid 0, −0.25, −0.5, −0.75, −1); the 1x second width 0 (W44's L3). *Prediction, from the
-  law:* with the tap at 2–3 CSS px and share 0.5–0.75 at span 96 (c = 16 passes 0.38 at 4
-  device px, c = 32 at 0.79), `farDelta` near −share with the span top at 160 takes the tap off
-  at 160 and halves it at 128, so `checkerboard-8` md rises toward Apple while ml and lg fall,
-  and `checkerboard-32` lg returns to Apple; the floor stays near 1 and the span top's role is
-  the far curve's end, not the sharp taper.
+  (grid 0, −0.25, −0.5, −0.75, −1); the active `sizeScatterRampStartThick2x` and `Far2x` ∈
+  [0.05, 0.21] (2x-only leaves the document names, which W44 never moved on the active document);
+  the 1x second width 0 (W44's L3). *Prediction, grounded in W44's measured endpoints:* W44's
+  heavy-only rung `m1a-f1` (floor 1, tap off) reads `checkerboard-32__rrect-lg__rest` at 0.1158
+  against Apple's 0.1336 (c05 0.1329, a growth of 2.57 B), and `checkerboard-8` md / ml / lg at
+  0.0385 / 0.0347 / 0.0315 against 0.0991 / 0.0261 / 0.0224. So (i) the tap OFF at 160 undershoots
+  the c = 64 cell and the tap at 0.5 overshoots it (×1.25 at the joint): the thick spans want a
+  partial tap, and `farDelta` near −0.5 × share with the span top at 160 is the predicted
+  neighbourhood, not "off"; (ii) the fine thick cells at ×1.33–1.41 over with the tap off are the
+  ramp band's sharp term, which only the active thick and far starts lower, so those two leaves
+  are in the stage; (iii) the mid cell's c = 16 pass (0.040 → 0.099 wanted) comes from the base
+  share and width at span 96 where `farS` is 0 (a 2–3 CSS px tap passes c = 16 at about 0.38 at 4
+  device px); the floor stays near 1 and the span top's role is the far curve's end, not the
+  sharp taper. The ×4.4 drop Apple shows between 96 and 128 is not predicted to close: halving
+  the tap at 128 halves one contribution, and the rest is named if it stays.
 - **Stage 2, the thin start and the receded overrides** (as W44's moves 2 and 3, the receded
   document's five leaves plus the operator's key as a difference; the span top inherited).
   *Prediction:* the thin start lands below 0.8 under the growth rule; the receded share lands at
@@ -316,11 +364,14 @@ compared on the one gate population (the review of v1):
 
 Branch `w45-g0-operator`, evidence `packages/calibration/results/2026-10-03-w45-g0-operator/`.
 - (a) **The operator** (clause 1): the leaf, its doc comment in `material.ts` beside W30's spanning
-  set, the identity-table entry, the grading's evaluation site with the cost read on the bench
-  row, the CSS decline in `optics.ts` with its reason, the W31 identity and gate-group tests
+  set, the identity-table entry, the per-pixel grading in the optics pass on the existing `farS`
+  with a DPR-resolved delta uniform (unclamped), the cost read on the bench row, the CSS decline
+  in `optics.ts` with its reason and `CSS_COUNTERPART` row, the W31 identity and gate-group tests
   extended, the export test's leaf-set pins unchanged (no document names it yet); every shipped
-  digest reproduced; 34 goldens byte-identical; the isolation spec's hashes unmoved; a ladder of
-  the leaf at share 0 proving it unread.
+  digest reproduced; 34 goldens byte-identical; the isolation spec's hashes unmoved; identity
+  cases on a live second texture at signed shares; a ladder of the leaf at share 0 proving it
+  unread; the owner test's T1 exception mechanism landed empty (Design "The adopted T1 clause
+  (b)").
 - (b) **W45's tools**: ports of W44's `declare.py`, cuts, fit driver, stage, X48 and seal,
   parameterised and refusing W44's bindings; the shared inputs pinned byte-identical.
 - (c) **The partition and the rule** in the cuts; the synthetic cases as tests.
@@ -367,8 +418,13 @@ path-scoped adds; merges with the freeze and X41 verified.
 - **X56 — two starting points, one space.** c05 and W44's joint point by hash; both paths
   recorded; the landed point the better by the selection metric on the gate population.
 - **X57 — the operator lands inert, and is proven so by bytes.** Every shipped digest, every
-  golden and every 1x row byte-identical at its landing; the leaf fitted only after clause 4's
-  ladder shows the separation it exists for.
+  golden, every 1x row and the shader's mix on a live second texture at a signed share
+  byte-identical at its landing; the leaf fitted only after clause 4's joint ladder shows the
+  separation it exists for.
+- **X59 — the adopted clause is reconciled by a witnessed exception, never by moving the
+  reference first.** The growth-only count and ceiling against c05 and the old clause's failures
+  are recorded before the exposure; the authorised regressions are listed by cell, reference
+  and ruling; the reference moves last.
 - **X58 — wave-owned tools.** Every declaration, fit, stage, seal and cut tool W45 runs is its
   own parameterised copy refusing W44's hash, directory and stage; only immutable inputs are
   shared by path.
@@ -385,11 +441,15 @@ path-scoped adds; merges with the freeze and X41 verified.
 
 ## Risks & Mitigations
 
-- **The operator cannot separate 96 from 160 on the renders** (the far curve's start is the
-  thickness knee at 96, so span 96 sits at `decline` 0 and 128 at 0.5 only if the span top is
-  160; a different Apple law could need the grading to start below 96). Mitigation: clause 4's
-  ladder before any fit, with the span top swept; if flat, the wave closes at G0 with the
-  operator inert and the finding written.
+- **The joint composition cannot move md and lg apart on the renders** (the far curve's start is
+  the thickness knee at 96, so span 96 sits at `farS` 0 and 128 at 0.5 only if the span top is
+  160; a different Apple law could need the grading to start below 96; and the fine thick
+  residual with the tap off is the ramp's, not the tap's). Mitigation: clause 4's two ladders
+  before any fit, with the span top and the active thick start swept; if no rung separates, the
+  wave closes at G0 with the operator inert and the finding written.
+- **The thick spans need a partial tap, and the budget prices the coarse cell.** W44's
+  heavy-only rung shows the tap off undershoots `checkerboard-32` lg by 2.57 B; the fit searches
+  `farDelta` between 0 and −share and the growth rule counts that cell like any other.
 - **The grading's evaluation site costs frame time or breaks a composite.** Mitigation: the bench
   row read at G0 (a); the per-surface uniform preferred unless `glass-over-glass` needs the
   per-pixel form; byte identity at identity either way.
@@ -462,7 +522,11 @@ resolve the leaf at its identity, so X41 and the 0.5 digests are untouched.
 
 **Ruled:** as the Design states: growth-only change; the band per stratum declared; the aggregate
 and its tolerance on A's own scale, gated at three cells; count three, ceiling 3B, a stated
-tradeoff; rehearsed on the three complete W44 maps, c05, the pre-fit and the synthetic cases.
+tradeoff, one budget over all 116 cells with the exposed cells added at the exposure; rehearsed
+on the three complete W44 maps, c05, the pre-fit and the synthetic cases; the adopted T1 clause
+(b) reconciled by a declared exception mechanism landed empty in G0 and filled at the landing
+with the ruled cells, the growth-only count against c05 and the old clause's failures witnessed
+before the exposure, the reference moved last (X59).
 
 *Reasoning.* W44's crossing veto rejected four cells whose error shrank; its per-cell veto had no
 count. The review of v1 showed the aggregate clause was not executable (W44's aggregate is
@@ -504,7 +568,18 @@ pair, named in the changeset.
 
 ## Surprises & Discoveries
 
-Found while drafting (2026-10-03):
+Found while drafting (2026-10-03; 6–8 from the second review):
+
+6. **W44 already measured the heavy-only thick span** (`m1a-f1`): with the tap off,
+   `checkerboard-32__rrect-lg__rest` reads 0.1158 against Apple's 0.1336, so "tap off at 160"
+   undershoots; the thick spans want a partial tap, and the fine thick residual there
+   (×1.33–1.41) is the ramp band's sharp term, which only the active thick and far starts lower.
+7. **The second tap's share is signed by design** (a negative share is an unsharp mask), so the
+   grading cannot be clamped without breaking the identity of a tuned configuration no shipped
+   digest would catch.
+8. **The optics pass already has each pixel's span and the far curve** (`aux.z`, `farS`); the
+   grading costs one multiply there, and a per-group CPU value would give `glass-over-glass`'s
+   two members one wrong share.
 
 1. **Four of W44's seven overshoots shrank their error**, which a regression clause must never
    reject; read on growth, the joint point has six regressions over B, four of them over 3B.
@@ -520,6 +595,26 @@ Found while drafting (2026-10-03):
 
 ## Revision Notes
 
+- 2026-10-03 (v1.2; the second adversarial round on v1.1 (`be062203`), needs-attention, one P1
+  and four P2, every finding accepted and folded):
+  - **[P1] Clause 4's separation test was impossible** (the far curve is zero at span 96, so the
+    new leaf alone cannot raise the mid cell): split into an isolation ladder (md unchanged, the
+    thick cells monotone in `farDelta`) and a joint-composition ladder (base share and width up,
+    `farDelta` down, md rising and lg falling against a named reference); the span top's grid
+    starts at 112 and the shader's `farS` convention is the law.
+  - **[P2] The thick-span prediction contradicted W44's `m1a-f1`**: the prediction is rewritten
+    on the measured heavy-only endpoint (a partial tap at 160; the fine thick residual is the
+    ramp's), and the active thick and far ramp starts join stage 1.
+  - **[P2] A per-group uniform cannot carry per-surface grading**: per pixel in the optics pass
+    on the existing `farS` and span, with a DPR-resolved delta uniform; the CPU option removed.
+  - **[P2] Clamping broke the signed share's identity**: unclamped; identity cases on a live
+    second texture at signed shares (clause 1, X57).
+  - **[P2] The adopted T1 clause (b) was not reconciled**: a declared exception mechanism landed
+    empty in G0, the growth-only count against c05 and the old clause's failures witnessed before
+    the exposure, the list filled at the landing, the reference moved last; one budget over all
+    116 cells with the exposed cells added at the exposure (Design; X59).
+  - Corrections: `rampAtScale` interpolates between dpr 1 and 2 (half at 1.5), so "read at dpr 2
+    only" was wrong and 1x inertness stands.
 - 2026-10-03 (v1.1; the adversarial review of v1 (`d21a6626`), needs-attention, three P1 and
   three P2, every finding accepted by the parent and folded):
   - **[P1] `sizeScatterHeavyShareThick2x` is forbidden by X44** (not in the document's leaf set):
