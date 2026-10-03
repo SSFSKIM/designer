@@ -46001,3 +46001,129 @@ No second review round: the fixes are checks that run, and they leave no decisio
   point's captures are committed for that.
 - The freeze reads 1,818 and X41 911 at the head; `declare.py check` and `check-fit` read
   consistent, and `verify_amendment.py` exits 0.
+
+## 5.204 W44 G2: T1 adopted in the owner test for the light 0.25 profiles, 169 of its 232 cells named misses, and W44 closed at the finding with no changeset (2026-10-03)
+
+Evidence directory: `results/2026-10-03-w44-g2-landing/`, on branch `w44-g2-landing` off
+`ad93ff9b` (G1's merge). Charter `2026-10-03-w44-texture-at-0-25.md`: X51, Decision Logs 2, 6 and 7.
+G1 closed at the finding (§5.203), so G2 is T1's adoption only:
+- no runtime change, generation, capture-tree move, demo change or changeset;
+- Decision Log 6 executed in its "no changeset" branch.
+
+### 1. What the row reads, and where it is gated
+
+**The statistic.** `T1` in `packages/calibration/test/adopted-thresholds.test.ts` is the driver's
+`interiorStdDev`: the luminance SD in linear light over the native silhouette, web against native
+on the same cell.
+
+**The population and strata.** Every scene a light 0.25 profile declares whose `scenes.json`
+backdrop is structured, in every set (116 per profile). The strata:
+
+| stratum | backdrops | cells per profile |
+| --- | --- | --- |
+| F | `checkerboard-4`, `-8` | 15 |
+| T | `hc-text-7` | 4 |
+| C | the pitch-16 family, `-32`, `-64`, `hc-text`, `hc-text-28`, `impulse` | 69 |
+| P | photo | 28 |
+
+**The rows.** They are read from the current union through `matrix-store`.
+
+**The partition labels.** Each cell is labelled with its partition (gate, holdout, or referee by
+G0's manifest, pinned by hash). The label never selects. The rows read are the published c05
+generation's, which W44 G0's rehearsal had already read in every partition. The holdout and the
+referees are the next configuration's to spend.
+
+**The arithmetic** is W44 G1's `cuts/t1.py`, ported line for line (`t1Classify`, `t1CodeStep`).
+- One code is the linear step of one sRGB code at the cell's native interior mean.
+- The bar is 0.5 code, from G0's `bar/t1-bar.json`. The test pins that file by hash and checks
+  each cell's code against its row's native mean to 1e-12.
+- A cell is within at |Δ| ≤ max(1 code, 2 bar), or within 10 % where native is at least one code.
+- The charter's four change-state examples and the precedence around them are a unit case.
+
+**The fine text reads two bands** (Decision Log 7 item 3): a T cell's fidelity on T1-fine, its
+regression on T1-low.
+- The rows do not carry the bands. So `t1/bands.py` read them once off the canonical capture
+  tree, through G1's pinned readers, into `t1/t-bands.json` (8 WebGPU cells).
+- Each entry names its row's `capturePath` and its PNG's SHA-256. The test holds the fixture to
+  the rows always, and to the bytes when a capture tree is on disk.
+- `t1/derive.py` is the Python referee that agrees with the port: `t1-derivation.json` and the
+  169 entries in `missed-27-rows.ts.txt`.
+
+**GATED** on the WebGPU tier of the two light 0.25 profiles, by two clauses:
+- **(a) Fidelity.** Every cell is within, or named in `MISSED_27_ROWS` with three things: its
+  web/native ratio, its bound (`|Δ| ≤ B or 10 %`) and Apple's reading. The `MISSED_27_ROWS` owner
+  derives T1's misses on the same rule, in both directions, and holds each recorded value to five
+  decimals. A declared member with no row or no reading is UNMEASURED and fails.
+- **(b) Regression.** No cell moves away from Apple with error growth g > B against the reference
+  generation, named by its documents: `6d18c059eb42` / `4d5f23d9d312`. It is re-baselined at each
+  gate that adopts a material change (M2's standing rule). Today it is the current generation, so
+  every cell reads `unchanged`; the next publication is the first thing it can stop.
+
+**READ, printed and never asserted:** the CSS tier of the light profiles, the dark 0.25 profiles,
+and the four 0.5 standard profiles (both tiers). A profile the row only reads is read against
+itself, and its T cells on T1 itself.
+
+**The header's MATERIAL-axis argument** gains T1's amendment paragraph. Not below quantisation:
+the bar is 0.5 code from pixel-identical runs, and c05's thick fine cells sit 4.4–12.1 bars out.
+Not unidentifiable: G1's declared leaves moved the 2x F aggregate 0.6462 → 0.2455 on these rows.
+
+### 2. The named misses, at adoption
+
+169 of 232 cells miss and are named. Ratio is web/native over the named misses:
+
+| profile | stratum | named / members | ratio range | median |
+| --- | --- | --- | --- | --- |
+| 1x light 0.25 | F | 13 / 15 | ×0.34–×2.72 | ×0.84 |
+| 1x light 0.25 | T (T1-fine) | 4 / 4 | ×0.66–×3.98 | ×2.37 |
+| 1x light 0.25 | C | 35 / 69 | ×0.25–×4.77 | ×1.28 |
+| 1x light 0.25 | P | 27 / 28 | ×0.58–×1.46 | ×0.72 |
+| 2x light 0.25 | F | 15 / 15 | ×0.46–×5.29 | ×1.61 |
+| 2x light 0.25 | T (T1-fine) | 4 / 4 | ×0.62–×15.61 | ×5.18 |
+| 2x light 0.25 | C | 49 / 69 | ×0.47–×4.21 | ×0.86 |
+| 2x light 0.25 | P | 22 / 28 | ×0.51–×1.47 | ×0.74 |
+
+By partition: 1x gate 62 of 94, holdout 12 of 16, referee 5 of 6; 2x gate 72 of 94, holdout 12 of
+16, referee 6 of 6. By set: probe 73, calibration 39, holdout 24, validation 19, recorded 14.
+
+**Why so many.** The row is adopted to keep the fine pitches gated (X51), not because the shipped
+body meets it. Every 2x fine cell misses, which is the gap W43's sheets found and W44 G1 could not
+close inside its declared space (§5.203). The photo's misses are W43's named tone gap.
+
+**What makes a T cell's ratio large.** Its native T1-fine is small: 2x lg 0.0032 against c05's
+0.0271, the ×8.5 G0 recorded, and the md inactive referee 0.0034 against 0.0526, ×15.6.
+
+**The readings beside it** (fraction within / members, the medians of |log| regularised at one
+code, from the test's printout):
+
+| profile and tier | F | T | C | P |
+| --- | --- | --- | --- | --- |
+| light 0.25 CSS, 1x | 0/15 (1.51) | 0/4 (0.40) | 14/69 (0.35) | 2/28 (0.54) |
+| light 0.25 CSS, 2x | 2/15 (0.96) | 1/4 (0.33) | 11/69 (0.46) | 5/28 (0.43) |
+| dark 0.25 WebGPU, 1x | 3/15 | 2/4 | 6/46 | 0/12 |
+| dark 0.25 WebGPU, 2x | 3/15 | 2/4 | 6/46 | 0/12 |
+
+The CSS medians are the tier residual the charter names. The dark photo is W43's flat-body gap.
+The 0.5 generation never read some of its recorded and probe rows, so those cells have no row and
+print UNMEASURED: 14 on each 0.5 light profile's WebGPU tier (and the 1x CSS), 64 on the 2x light
+CSS, 8 on each dark WebGPU tier and the 1x dark CSS, and 58 on the 2x dark CSS.
+
+### 3. The checks
+
+- `pnpm --filter @vitrea/calibration exec vitest run test/adopted-thresholds.test.ts`: 145 pass,
+  3 skip (the X1 and T1 capture-byte cases skip without a capture tree). With
+  `VITREA_WEB_CAPTURES` at the canonical tree, 148 pass.
+- `test/macos27-profile-export.test.ts` and `test/tier-coherence.test.ts`: unchanged, 101 pass.
+- `pnpm -r lint`: exit 0.
+- The freeze reads 1,818 and X41 911.
+- `PREDICATE_EXCLUDES` is unchanged at the machine's output (no row moved).
+
+### 4. What is not claimed
+
+- **T1 does not certify the shipped body.** It names 169 misses. A miss leaves the list only in a
+  commit that brings its cell within.
+- **Clause (b) has not yet stopped anything.** Its reference is the current generation.
+- **The T band fixture is a reading of one generation's captures.** The next publication that
+  moves a T cell re-reads it, through the same readers, at its landing.
+- **No referee or holdout cell was rendered in G2.** The rows and the T cells' published captures
+  read here are c05's, already read at G0, and nothing exposes a new configuration to them.
+- **Nothing changed in the runtime, the documents, the generations, the capture tree or the demo.**
