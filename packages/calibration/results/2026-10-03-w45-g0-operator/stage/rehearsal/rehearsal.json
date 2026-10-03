@@ -1,0 +1,28 @@
+{
+ "what": "W45 G0 (b): the stage port's rehearsal on the shipped c05 documents, against the published rows",
+ "stage": "/Users/new/vitrea-w45/g0-stage-rehearsal",
+ "documents": {
+  "profiles/apple-macos-27.0-1x-light-standard-glass0.25.json": {
+   "sha": "6d18c059eb429e63b41bcfa5b839330f62844d3790e3f301ec7c901ac4637a38",
+   "c05": true,
+   "recordedBy": "W43 G3 (ii)"
+  },
+  "profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json": {
+   "sha": "4d5f23d9d312ed0c9c473060e8485088ab0f40d746be90ee073d72e878b85db7",
+   "c05": true,
+   "recordedBy": "W43 G3 (ii)"
+  }
+ },
+ "cellsWanted": 188,
+ "rows": 188,
+ "t1InputsEqual": 188,
+ "t1InputsDiffer": [],
+ "rowsEqualButCapturedAt": 188,
+ "rowsDiffer": [],
+ "capturesIdentical": 376,
+ "capturesDiffer": [],
+ "rowsWithNoPublishedTwin": [],
+ "wantedCellsMissing": [],
+ "refereeOrHoldoutRowsRead": [],
+ "verdict": "REPRODUCED"
+}
