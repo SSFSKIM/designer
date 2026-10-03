@@ -1,0 +1,55 @@
+{
+  "what": "W45 G1 step 3: candidate c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1 sealed as the two light -glass0.25 documents; the dark two untouched",
+  "charter": "docs/doperpowers/specs/2026-10-03-w45-span-selective-texture.md",
+  "candidate": {
+    "declaration": "packages/calibration/results/2026-10-03-w45-g1-refit/fit/candidates/c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1/candidate.json",
+    "sha256": "44fda03afb995f58c3975d9b38a9f9ae1db721ba71c9925fe9b42857bfb116fe"
+  },
+  "profiles": "packages/calibration/profiles",
+  "digestRule": 2,
+  "documents": {
+    "apple-macos-27.0-1x-light-standard-glass0.25.json": {
+      "fileSha256": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
+      "resolvedMaterialSha256": "3741b22934f17f4d",
+      "c05ResolvedMaterialSha256": "50430fa62c1120bd",
+      "movedFromC05": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavySecondSigma2x",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterSpanMax2x"
+      ],
+      "addedToTwinLeafSet": [
+        "sizeHeavySecondShareFar2x"
+      ],
+      "supersedes": "6d18c059eb429e63b41bcfa5b839330f62844d3790e3f301ec7c901ac4637a38",
+      "twinSha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936",
+      "candidateEndpointSha256": "2f60a5c5efa5620ae9c2ef0c8b038e32f6a9b1190855ba39ebaec7f14a34b90a"
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.25-receded.json": {
+      "fileSha256": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+      "resolvedMaterialSha256": "c4ca0e1cd6791bde",
+      "c05ResolvedMaterialSha256": "5d8680980b7aeb55",
+      "movedFromC05": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavyTapSigma2x",
+        "sizeScatterRampStartFar2x",
+        "sizeScatterRampStartThick2x",
+        "sizeScatterRampStartThin2x"
+      ],
+      "addedToTwinLeafSet": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x"
+      ],
+      "supersedes": "4d5f23d9d312ed0c9c473060e8485088ab0f40d746be90ee073d72e878b85db7",
+      "twinSha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd",
+      "candidateEndpointSha256": "83e5c3b3342172dc8fa6e47fd36a0034bda78436f49e9701c93c6d589cff68cc"
+    }
+  },
+  "darkUnchanged": {
+    "apple-macos-27.0-1x-dark-standard-glass0.25.json": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+    "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+  }
+}

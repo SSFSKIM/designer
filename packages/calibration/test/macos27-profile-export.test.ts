@@ -211,8 +211,32 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
  * SHA-256 of its bytes; each recorded digest reproduces over the unmoved default (active) or over
  * its scheme's sealed 0.25 active document (receded); and the CSS crossing is the shipped 0.5 one,
  * unchanged.
+ *
+ * **W45 G1 re-sealed the two LIGHT documents** (claims §5.206; charter
+ * `2026-10-03-w45-span-selective-texture.md` Decision Logs 1 and 2; X44 as narrowed there). The
+ * leaf-set pin admits exactly the ruled keys beyond the twin's leaves and nothing else: the light
+ * active document adds the span-graded tap's operator `sizeHeavySecondShareFar2x`, and the light
+ * receded document adds it and `sizeHeavySecondShare`, each as a difference over its active document
+ * (W44 Decision Log 7 item 1 for the share). The dark pair names exactly its twins' leaves, as
+ * before. The light pair's patches are W45's frozen candidate's; the dark pair's are still c05's.
  */
-describe("the four sealed -glass0.25 documents (W43 G3 (ii))", () => {
+const RULED_EXTRA_LEAVES: Readonly<Record<string, readonly string[]>> = {
+  "apple-macos-27.0-1x-light-standard-glass0.25": ["sizeHeavySecondShareFar2x"],
+  "apple-macos-27.0-1x-light-standard-glass0.25-receded": ["sizeHeavySecondShare", "sizeHeavySecondShareFar2x"],
+  "apple-macos-27.0-1x-dark-standard-glass0.25": [],
+  "apple-macos-27.0-1x-dark-standard-glass0.25-receded": [],
+};
+const FROZEN_CANDIDATE: Readonly<Record<string, string>> = {
+  "apple-macos-27.0-1x-light-standard-glass0.25":
+    "packages/calibration/results/2026-10-03-w45-g1-refit/fit/candidates/c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1/candidate.json",
+  "apple-macos-27.0-1x-light-standard-glass0.25-receded":
+    "packages/calibration/results/2026-10-03-w45-g1-refit/fit/candidates/c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1/candidate.json",
+  "apple-macos-27.0-1x-dark-standard-glass0.25":
+    "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json",
+  "apple-macos-27.0-1x-dark-standard-glass0.25-receded":
+    "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json",
+};
+describe("the four sealed -glass0.25 documents (W43 G3 (ii); the light pair re-sealed by W45 G1)", () => {
   const sealed = (key: string): ProfileDocument & {
     readonly derivedFromCandidate: {
       readonly declaration: string; readonly declarationSha256: string;
@@ -231,21 +255,21 @@ describe("the four sealed -glass0.25 documents (W43 G3 (ii))", () => {
   const sha = (path: string): string => createHash("sha256").update(readFileSync(resolve(REPO, path))).digest("hex");
 
   for (const [key, twin] of pairs) {
-    it(`${key} names exactly its 0.5 twin's leaves, and records the twin's bytes`, () => {
+    it(`${key} names exactly its 0.5 twin's leaves and the ruled keys, and records the twin's bytes`, () => {
       const document = sealed(key);
       expect(document.profileKey).toBe(key);
       expect(document.glassTintAmount).toBe(0.25);
       expect(twin.profileKey).toBe(key.replace("-glass0.25", "-glass0.5"));
-      expect(leaves(document.patch as object).sort()).toEqual(leaves(twin.patch as object).sort());
+      expect(leaves(document.patch as object).sort())
+        .toEqual([...leaves(twin.patch as object), ...RULED_EXTRA_LEAVES[key]!].sort());
       expect(document.twin.path).toBe(`packages/calibration/profiles/${twin.profileKey}.json`);
       expect(document.twin.sha256).toBe(sha(document.twin.path));
     });
 
-    it(`${key} is the frozen candidate c05's patch, leaf for leaf`, () => {
+    it(`${key} is its frozen candidate's patch, leaf for leaf`, () => {
       const document = sealed(key);
       const from = document.derivedFromCandidate;
-      expect(from.declaration).toBe(
-        "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json");
+      expect(from.declaration).toBe(FROZEN_CANDIDATE[key]);
       expect(from.declarationSha256).toBe(sha(from.declaration));
       expect(from.endpointSha256).toBe(sha(from.endpoint));
       const endpoint = JSON.parse(readFileSync(resolve(REPO, from.endpoint), "utf8")) as ProfileDocument;
