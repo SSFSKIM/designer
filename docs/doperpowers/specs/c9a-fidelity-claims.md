@@ -47303,3 +47303,83 @@ census, no referee or holdout).
 
 The holdout ledger hashes `optics.ts` among its sources, so the hold lands before read 7 by
 construction.
+
+### 16. Step 7, the exposure, read once, on the user's ruling (charter Decision Log 8, `31169854`)
+
+**The order.** Read 7 was recorded first and committed (`c5d61b66`):
+- the documents `ebc3d9105a4a` / `12712d534b78` with the dark pair;
+- source SHA-256 `68cb7662…`, carrying the CSS tier's light 0.25 decline;
+- the referee manifest `b1132bd0…` as the read's witness.
+
+`stage.py exposure` refuses until the ledger's last COMMITTED record names these documents, sources
+and manifest, so the record precedes the launches.
+
+**The launches.** `stage.py exposure webgpu`, then `css`: per light profile,
+`--set holdout,probe --scene <the planner's exposure list>`, with `--alpha`, under the census, all
+four exit 0. **`matrix status`: 656 declared, 656 present, 0 missing.** **X48 with the holdout:**
+328 of 328 1x rows identical, 656 of 656 captures byte-identical to c05.
+
+**The band fixture.** The candidate's exposed T cells are added: `t1/t-bands-ebc3d9105a4a.json`, 8
+entries, the 6 gate entries equal to the gate file's, and 2 exposed.
+
+**The holdout's tables** (`exposure/holdout-reading.txt`; W43 G3 (ii)'s reader on W45's cuts).
+**Every table reads exactly c05's named misses: none new, none closed.**
+
+| profile and tier | holdout cells | misses (as at c05) |
+| --- | --- | --- |
+| 1x light WebGPU | 10 | `checkerboard__rrect-lg__rest` ssim 0.86409 against ≥ 0.88 |
+| 1x light CSS | 10 | the same cell's ssim 0.86607 against ≥ 0.9; `checkerboard__glass-over-glass__rest` 0.86471 |
+| 2x light WebGPU | 10 | none |
+| 2x light CSS | 10 | `checkerboard__glass-over-glass__rest` ssim 0.91994 against ≥ 0.92 |
+| dark, all four | 3 each | the dark CSS `photo__rrect-lg__rest` ΔE p95 0.206 and 0.201 misses; WebGPU none |
+
+**The twelve referees** (T1; a T cell's fidelity and change on T1-fine, its away on T1-low):
+- **1x, all six unchanged** (X48), so their states are c05's: `checkerboard-32__rrect-lg__inactive`
+  within; the other five misses.
+- **2x, on WebGPU:**
+
+| referee | native | c05 | W45 | state | g |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard-8__rrect-sm__rest` (F) | 0.1876 | 0.1236 | 0.1850 | **within** (from ×0.66), toward | −9.09 B |
+| `checkerboard-32__rrect-lg__inactive` (C) | 0.0837 | 0.1880 | 0.1388 | miss, toward (×2.25 → ×1.66) | −8.38 B |
+| `checkerboard-8__rrect-lg__inactive` (F) | 0.0134 | 0.0435 | 0.0231 | miss, toward (×3.25 → ×1.73) | −3.61 B |
+| `checkerboard-4__rrect-ml__rest` (F) | 0.0244 | 0.0482 | 0.0314 | miss, toward (×1.98 → ×1.29) | −2.73 B |
+| `checkerboard-4__capsule-button__rest-tint-orange` (F) | 0.0421 | 0.0221 | 0.0242 | miss, unchanged | −0.42 B |
+| `hc-text-7__rrect-md__inactive` (T) | fine 0.0034 | 0.0526 | 0.0105 | miss, toward on T1-fine | **T1-low +1.60 B, away** |
+
+- **On CSS:** the 2x `checkerboard-8__rrect-sm__rest` moves toward (−3.64 B); the other eleven are
+  unchanged.
+- **The improvement clause reads "every referee within or an unchanged miss".** One referee is
+  within, one is an unchanged miss, and **three are misses that moved toward Apple**. One T cell
+  moves away on its low band past B.
+
+**The budget over all 116 cells** (`cuts/cut-025-w45-exposure.json`, the rule with the gate,
+referee and holdout partitions): **NEITHER**.
+- F 0.2190 against c05's 0.6334 at this scope: halved.
+- **11 cells away beyond B (at most 3), 5 beyond 3B (none allowed).** These are the gate's eight
+  plus three exposed:
+  - **`checkerboard__rrect-lg__rest`** (holdout, C rest, span 160, 16 CSS px) **3.30 B — past 3B**:
+    n 0.0610, c05 0.0581, W45 0.0851;
+  - `hc-text-7__rrect-md__inactive` (referee) 1.60 B on T1-low;
+  - `checkerboard__glass-over-glass__rest` (holdout) 1.57 B: n 0.1087, c05 0.1164, W45 0.1269.
+- **One gated aggregate turns over with the exposed members: P inactive** A 0.1937 against c05's
+  0.1511 + τ 0.0359 = 0.1870. At the gate it held, 0.1818 against 0.1848. Every other gated group
+  holds.
+
+By Decision Log 3, an exposed cell that takes the count past three, or any cell past 3B at the
+exposure, is a holdout miss. All three exposed cells are therefore **holdout misses: recorded, never
+re-read, and ruled by the parent as shipped-and-named or not shipped before `matrix publish`**. The P
+inactive aggregate turning over is recorded beside them.
+
+**Every other adopted row on the complete stage** reads as at the gate (§13), with the CSS hold
+(§15):
+- M2 WebGPU: four failures, the receded photo cells;
+- E2 WebGPU: 50 cells;
+- M1, C1, L1 and X1 pass on WebGPU;
+- the CSS tier: 1 of the 2x T1 cells away beyond B, as with the hold.
+
+**S1** is now measured: WebGPU pooled median ratio **0.8733**, 14 of 183 wrong sign (c05 0.8773,
+15); CSS 0.8743, 11 of 125 (c05 0.8743, 11). It is a reading only, adopted by no ruling.
+
+The exposure report is `exposure/exposure-report.txt`. Publication (step 8) waits for the parent's
+ruling on the three holdout misses.

@@ -1,0 +1,177 @@
+{
+ "what": "W45 G1 (exposure): T1-fine and T1-low of every T cell of the candidate, light 0.25, WebGPU, read off the stage's captures; the gate entries are the gate fixture's, the exposed ones added (claims \u00a75.206; G2 parts (i) and (ii))",
+ "generation": "ebc3d9105a4a",
+ "readers": {
+  "readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+  "t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc"
+ },
+ "definition": {
+  "fine": "SD of L - G(L, sigma 4 device px), linear luminance, native silhouette eroded 4 CSS px",
+  "low": "SD of G(L, sigma 4 device px) over the same support",
+  "sigmaDevicePx": 4.0,
+  "erodeCssPx": 4
+ },
+ "reference": "results/2026-10-03-w44-g2-landing/t1/t-bands.json (generation 6d18c059eb42), unchanged",
+ "entries": [
+  {
+   "profile": "apple-macos-27.0-1x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-lg__rest",
+   "set": "probe",
+   "partition": "gate",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "891e181b4a556cc8743bc0db1069db115a1e8ccaa157ff805244bb329270f11c",
+   "bands": {
+    "fine": {
+     "native": 0.009438297192365677,
+     "web": 0.034031143302473775
+    },
+    "low": {
+     "native": 0.11646374454553866,
+     "web": 0.08773436969490876
+    }
+   },
+   "erodedPixels": 38968
+  },
+  {
+   "profile": "apple-macos-27.0-1x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__inactive",
+   "set": "probe",
+   "partition": "referee",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "e39aef3fad75e4667e9d43e30938c1ea9a3235a58ec0628724ddc9d0ea958956",
+   "bands": {
+    "fine": {
+     "native": 0.005771190327910738,
+     "web": 0.022978567286250643
+    },
+    "low": {
+     "native": 0.05349427333307274,
+     "web": 0.046300689828097735
+    }
+   },
+   "erodedPixels": 13184
+  },
+  {
+   "profile": "apple-macos-27.0-1x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__rest",
+   "set": "probe",
+   "partition": "gate",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "d3ae54b11b59b78e221180fab346abdc166a341c04cb73f4a86578a75d82b1ae",
+   "bands": {
+    "fine": {
+     "native": 0.05273238505772077,
+     "web": 0.06019888970569014
+    },
+    "low": {
+     "native": 0.07363541038775119,
+     "web": 0.052667897653752266
+    }
+   },
+   "erodedPixels": 13184
+  },
+  {
+   "profile": "apple-macos-27.0-1x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-sm__rest",
+   "set": "probe",
+   "partition": "gate",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "5ec57ca19ef9561fd8c947cddcbe37d0eb2244b544c5c17979d605fb30944036",
+   "bands": {
+    "fine": {
+     "native": 0.1187361550810201,
+     "web": 0.07893265492013761
+    },
+    "low": {
+     "native": 0.041083734997140235,
+     "web": 0.035812717397345505
+    }
+   },
+   "erodedPixels": 1340
+  },
+  {
+   "profile": "apple-macos-27.0-2x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-lg__rest",
+   "set": "probe",
+   "partition": "gate",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "460994039d936ff7871c17ea5f92be7bb695308d5d242ea39739990f098be12c",
+   "bands": {
+    "fine": {
+     "native": 0.0031898751656639227,
+     "web": 0.021245175814593446
+    },
+    "low": {
+     "native": 0.11696516889811355,
+     "web": 0.08925140998278565
+    }
+   },
+   "erodedPixels": 155905
+  },
+  {
+   "profile": "apple-macos-27.0-2x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__inactive",
+   "set": "probe",
+   "partition": "referee",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "ddd5c9615341542abb654f5ee5f4a2b4e19eeaf60b02799ac0dc800dd23aae2d",
+   "bands": {
+    "fine": {
+     "native": 0.0033682754958250156,
+     "web": 0.010538307026801608
+    },
+    "low": {
+     "native": 0.05963833819673117,
+     "web": 0.04905953770300053
+    }
+   },
+   "erodedPixels": 52663
+  },
+  {
+   "profile": "apple-macos-27.0-2x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__rest",
+   "set": "probe",
+   "partition": "gate",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "06b5e2524a3e3f8c7ba62b6382250719bca2c41fa6e2c2187887c537c65083b8",
+   "bands": {
+    "fine": {
+     "native": 0.028069089678105175,
+     "web": 0.037409377847825824
+    },
+    "low": {
+     "native": 0.08670459957106855,
+     "web": 0.059430468033691605
+    }
+   },
+   "erodedPixels": 52655
+  },
+  {
+   "profile": "apple-macos-27.0-2x-light-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-sm__rest",
+   "set": "probe",
+   "partition": "gate",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=light, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78",
+   "webSha256": "f026fb4aee5f663fe98178f5aaf3fdea2ba05e36176a5fe16784f394d7c6c180",
+   "bands": {
+    "fine": {
+     "native": 0.11723262660353206,
+     "web": 0.09276576890686519
+    },
+    "low": {
+     "native": 0.0730758936893529,
+     "web": 0.074817461276915
+    }
+   },
+   "erodedPixels": 5336
+  }
+ ]
+}

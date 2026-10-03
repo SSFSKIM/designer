@@ -534,7 +534,7 @@ path-scoped adds; merges with the freeze and X41 verified.
 | child | status | ledger |
 | --- | --- | --- |
 | G0 | MERGED `9fa2eea6`: operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…` | §5.205 |
-| G1 | AT THE GATE on `w45-g1-refit`, awaiting the user's decision through the parent (ship as an improvement landing with eight regressions under a ruled budget exception, or close): part 2 `e6874e02…`; the ruled factorial converged both paths on one point, frozen on the branch as `3741b22934f17f4d` / `c4ca0e1cd6791bde`; the stage reads NEITHER on the budget (F 0.2190 halved, every gated aggregate holds, 8 away beyond B, 4 beyond 3B; M2 four inactive photo failures); the referees and the holdout unread | §5.206 |
+| G1 | EXPOSED on `w45-g1-refit`, awaiting the parent's ruling on three holdout misses before `matrix publish`: the user ruled the ship (Decision Log 8); read 7 recorded; the stage complete (656 of 656); the holdout tables exactly c05's; over 116 cells 11 away beyond B and 5 beyond 3B (three exposed: `checkerboard__rrect-lg__rest` 3.30 B, `hc-text-7__rrect-md__inactive` 1.60 B, `checkerboard__glass-over-glass__rest` 1.57 B) and P inactive over τ | §5.206 |
 | G2 | NOT STARTED | §5.207 |
 
 ## Decision Log
