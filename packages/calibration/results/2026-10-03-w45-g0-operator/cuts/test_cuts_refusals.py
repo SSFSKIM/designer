@@ -49,6 +49,7 @@ class SharedInputs(unittest.TestCase):
     def test_pinned_byte_for_byte(self):
         names = sorted(p.relative_to(B.RESULTS).as_posix() for p in B.SHARED_PINS)
         self.assertEqual(names, ["2026-10-03-w44-g0-declaration/bar/t1-bar.json",
+                                 "2026-10-03-w44-g0-declaration/port/interior.py",
                                  "2026-10-03-w44-g0-declaration/referees/plan.py",
                                  "2026-10-03-w44-g0-declaration/referees/referees.json",
                                  "2026-10-03-w44-g1-refit/cuts/readings.py",

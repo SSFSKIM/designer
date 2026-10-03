@@ -3,7 +3,8 @@
 
 What the port changes, and nothing else:
   - **The shared inputs are read by path and pinned.** The referee manifest and its planner, the
-    bar, and W44 G1's `t1.py` and `readings.py` (which W45's cuts import from W44 G1's directory)
+    bar, W44 G1's `t1.py` and `readings.py` (which W45's cuts import from W44 G1's directory) and
+    W44 G0's `port/interior.py` (which `readings.py` reads images through)
     stay where W44 committed them — X49's one manifest stays one file — and each must hash to
     `SHARED_PINS` below, checked at import: a moved shared input stops every W45 tool before it
     reads a row. `G0` still names W44 G0's directory because `t1.py` reads the bar through it.
@@ -98,6 +99,8 @@ SHARED_PINS = {
     G0 / "bar" / "t1-bar.json": "1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f",
     W44_G1 / "cuts" / "t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc",
     W44_G1 / "cuts" / "readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+    # readings.py reads its images and silhouettes through W44 G0's proven port.
+    G0 / "port" / "interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
 }
 for _path, _want in SHARED_PINS.items():
     _got = hashlib.sha256(_path.read_bytes()).hexdigest()

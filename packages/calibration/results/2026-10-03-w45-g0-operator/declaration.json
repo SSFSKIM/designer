@@ -1,0 +1,439 @@
+{
+  "schema": "w45-declaration-1",
+  "charter": "docs/doperpowers/specs/2026-10-03-w45-span-selective-texture.md@c152b89b",
+  "what": "W45 G0 part 1: the operator's inert landing, T1 as adopted, the bar, the manifest, the landing rule with its rehearsal, W45's tools, the ladders' protocol, the two starting points and the regression references, with the part-2 draft; hashed before any ladder render (charter clause 2)",
+  "items": [
+    {
+      "id": "operator",
+      "title": "The operator, landed inert, and the owner test's exception landed empty",
+      "clause": "charter clause 1; Decision Logs 1 and 3; X57, X59",
+      "source": [
+        "docs/doperpowers/specs/2026-10-03-w45-span-selective-texture.md@c152b89b",
+        "packages/renderer-webgpu/src/material.ts@8065249d",
+        "packages/renderer-webgpu/src/wgsl/optics.ts@8065249d",
+        "packages/calibration/test/adopted-thresholds.test.ts@bb7c4865",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/operator/compare.txt",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/operator/digests.txt",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/operator/after/goldens.txt",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/operator/bench.txt",
+        "packages/renderer-webgpu/e2e/gpu/w45-share-far.spec.ts"
+      ],
+      "declared": {
+        "leaf": "sizeHeavySecondShareFar2x",
+        "identity": 0,
+        "anchoring": "rampAtScale(0, delta, dpr): 0 at dpr <= 1, half at 1.5, all from 2",
+        "commits": [
+          "8dfa304a",
+          "8065249d",
+          "bb7c4865"
+        ],
+        "material": "packages/renderer-webgpu/src/material.ts@8065249d",
+        "shader": "packages/renderer-webgpu/src/wgsl/optics.ts@8065249d",
+        "ownerTest": "packages/calibration/test/adopted-thresholds.test.ts@bb7c4865",
+        "shaderExpression": "let tapShare = ou.scatterHeavy2.x + ou.scatterHeavy2.z * farS;",
+        "identityCases": 31,
+        "documents": 10,
+        "goldens": 34,
+        "review": "doperpowers:reviewer-high on c152b89b..bb7c4865: no material findings (all five areas sound)",
+        "notClaimed": "identity on the recorded adapter (apple/metal-3), not on every GPU backend's compiler"
+      }
+    },
+    {
+      "id": "t1",
+      "title": "T1 as adopted, by hash, and its shared arithmetic",
+      "clause": "charter clause 2 (T1 as adopted); Decision Log 2; X58",
+      "source": [
+        "packages/calibration/test/adopted-thresholds.test.ts@3115bf17",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/test_t1.py",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/readings.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py",
+        "apps/reference-apple/scenes.json"
+      ],
+      "declared": {
+        "adoptedOwnerTest": "packages/calibration/test/adopted-thresholds.test.ts@3115bf17",
+        "adoptedNeedles": [
+          "const T1_REFERENCE = { active: \"6d18c059eb42\", receded: \"4d5f23d9d312\" } as const;",
+          "sha256: \"1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f\"",
+          "sha256: \"b1132bd0f01f318b07e1722da3fefaba6eac96679b56efbe2b451ef13bf1b60b\"",
+          "sha256: \"09745ed1a1af92d52bfaf2be4c99ba9d3ea629dfa963c6185f2eeaeb11933eab\""
+        ],
+        "populationPerLightProfile": {
+          "cells": 116,
+          "F": 15,
+          "T": 4,
+          "C": 69,
+          "P": 28,
+          "gate": 94,
+          "holdout": 16,
+          "referee": 6
+        },
+        "strata": {
+          "F": [
+            "checkerboard-4",
+            "checkerboard-8"
+          ],
+          "T": [
+            "hc-text-7"
+          ],
+          "C": [
+            "checkerboard",
+            "checkerboard-lc16",
+            "checkerboard-32",
+            "checkerboard-64",
+            "hc-text",
+            "hc-text-28",
+            "impulse"
+          ],
+          "P": [
+            "photo"
+          ]
+        },
+        "ratioClause": 0.1,
+        "equalTolerance": 1e-12,
+        "gatedProfiles": [
+          "apple-macos-27.0-1x-light-standard-glass0.25",
+          "apple-macos-27.0-2x-light-standard-glass0.25"
+        ]
+      }
+    },
+    {
+      "id": "bar",
+      "title": "T1's bar, 0.5 code on every cell, shared by path",
+      "clause": "charter Grounding \"What W44 left ready\"; X58",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json"
+      ],
+      "declared": {
+        "cells": 386,
+        "gatedCells": 232,
+        "maxSeparation": 0.0
+      }
+    },
+    {
+      "id": "manifest",
+      "title": "The referee manifest and the planner's two lists, shared by path",
+      "clause": "charter clause 2; X49, X58",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/referees.json",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/plan.py",
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/test_plan.py"
+      ],
+      "declared": {
+        "scenes": [
+          "checkerboard-4__rrect-ml__rest",
+          "checkerboard-4__capsule-button__rest-tint-orange",
+          "checkerboard-8__rrect-lg__inactive",
+          "checkerboard-8__rrect-sm__rest",
+          "hc-text-7__rrect-md__inactive",
+          "checkerboard-32__rrect-lg__inactive"
+        ],
+        "profiles": [
+          "apple-macos-27.0-1x-light-standard-glass0.25",
+          "apple-macos-27.0-2x-light-standard-glass0.25"
+        ],
+        "pregateProbe": {
+          "count": 81,
+          "listSha256": "5def2c7f6a363a2189116b16d9cb69a9f81ddb9d1dff5dc68b1bc8c541a5d379"
+        },
+        "exposure": {
+          "count": 26,
+          "listSha256": "e8e2b4d459e4c7a712d03f39b44696230be70aa55463062f558cb1ae9e776265"
+        }
+      }
+    },
+    {
+      "id": "rule",
+      "title": "The landing rule, its synthetic cases and its rehearsal record",
+      "clause": "charter clause 3; Decision Log 3; X54, X55",
+      "source": [
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/rule.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/test_rule.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/rehearse.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/rehearsal.json",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/c05-cuts.json.gz",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/prefit-cuts.json.gz",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-5/cuts.json.gz",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.8/cuts.json.gz",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/cuts.json.gz"
+      ],
+      "declared": {
+        "constants": {
+          "budgetCount": 3,
+          "budgetCeilingB": 3.0,
+          "gatingMinCells": 3
+        },
+        "syntheticCases": 14,
+        "rehearsal": {
+          "c05 (against itself)": [
+            "NEITHER: closes at the finding",
+            0,
+            0,
+            []
+          ],
+          "pre-fit (W43, against c05)": [
+            "NEITHER: closes at the finding",
+            51,
+            27,
+            [
+              "C rest",
+              "P inactive",
+              "P rest"
+            ]
+          ],
+          "m1c-0.5-5": [
+            "NEITHER: closes at the finding",
+            8,
+            2,
+            [
+              "T rest"
+            ]
+          ],
+          "m2-t0.8": [
+            "NEITHER: closes at the finding",
+            6,
+            4,
+            []
+          ],
+          "m3-t0.1 (W44's joint point)": [
+            "NEITHER: closes at the finding",
+            6,
+            4,
+            []
+          ]
+        },
+        "partialUnmeasured": 97,
+        "jointPoint": "fails on the count (6 beyond B) and the ceiling (4 beyond 3B), every aggregate holding"
+      }
+    },
+    {
+      "id": "tools",
+      "title": "W45's tools: parameterised ports refusing W44's bindings",
+      "clause": "charter clause 2; X58",
+      "source": [
+        "packages/calibration/results/2026-10-03-w45-g0-operator/declare.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/test_declare.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/cuts.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/bed.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/test_cuts_refusals.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit/build-candidate.ts",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit/test_build_candidate.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/census-gate.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/with-gpu.sh",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/ladder.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/read.py",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/port-proof.py"
+      ],
+      "declared": {
+        "tests": [
+          [
+            "test_declare",
+            ".",
+            19
+          ],
+          [
+            "test_rule",
+            "cuts",
+            14
+          ],
+          [
+            "test_cuts_refusals",
+            "cuts",
+            6
+          ],
+          [
+            "test_build_candidate",
+            "fit",
+            15
+          ]
+        ],
+        "portProof": "W45's cuts reproduce W44 G1's c05 cut on every common leaf (61,439)",
+        "g1Tools": "fit.py, search.py, joint.py, finding.py, recover.py, stage.py, x48.py, seal.ts, sheets.py: pinned by part 2"
+      }
+    },
+    {
+      "id": "ladders",
+      "title": "The ladders: fixed cells, bases, rungs and what they may decide",
+      "clause": "charter clause 4; Decision Logs 1, 4 and 5; X57",
+      "source": [
+        "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/protocol.json",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/candidates/c05-control/candidate.json",
+        "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/candidates/base-joint/candidate.json"
+      ],
+      "declared": {
+        "fixedCells": 16,
+        "rungs": 44,
+        "ids": [
+          "i",
+          "ii",
+          "iii",
+          "iv",
+          "v"
+        ],
+        "decisions": [
+          "inert",
+          "narrow",
+          "stop",
+          "strike"
+        ],
+        "controlDigests": {
+          "active.light": "50430fa62c1120bd",
+          "active.dark": "b074fc6913a91c66",
+          "receded.light": "5d8680980b7aeb55",
+          "receded.dark": "280f0fddf014e0f6"
+        },
+        "jointDigests": {
+          "active.light": "fbf1047bc618a87d",
+          "active.dark": "b074fc6913a91c66",
+          "receded.light": "aab222a6f1c6ef96",
+          "receded.dark": "280f0fddf014e0f6"
+        }
+      }
+    },
+    {
+      "id": "startingPoints",
+      "title": "The two starting points, by hash",
+      "clause": "charter Decision Log 4; X56",
+      "source": [
+        "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+        "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/candidate.json",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/spec.json"
+      ],
+      "declared": {
+        "c05": {
+          "documents": {
+            "active.light": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+            "receded.light": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json"
+          },
+          "digests": {
+            "active.light": "50430fa62c1120bd",
+            "receded.light": "5d8680980b7aeb55"
+          }
+        },
+        "joint": {
+          "candidate": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/candidate.json",
+          "declarationSha256": "66bf5a0192bf7f670c8a12472fa4b2f6bdbe63cc4bfb8305828e3ec1a32087e3",
+          "overrides": {
+            "active.light": {
+              "sizeScatterFloor2x": 1.0,
+              "sizeHeavySecondShare": 0.5,
+              "sizeHeavySecondSigma2x": 5,
+              "sizeScatterRampStartThin2x": 0.8
+            },
+            "receded.light": {
+              "sizeScatterRampStartThin2x": 0.1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "references",
+      "title": "The regression references by generation hash",
+      "clause": "charter Referees \"Unchanged\"; X52",
+      "source": [
+        "packages/calibration/results/generations/6d18c059eb42.json",
+        "packages/calibration/results/generations/d0219cd684bf.json"
+      ],
+      "declared": {
+        "generations": {
+          "light": {
+            "active": "6d18c059eb42",
+            "sha256": "cadad647679735645a49fea6dcdefa401ef8af69459a7965c2ac4b82d72e5cf3"
+          },
+          "dark": {
+            "active": "d0219cd684bf",
+            "sha256": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02"
+          }
+        }
+      }
+    },
+    {
+      "id": "draft",
+      "title": "The part-2 draft and the validator that holds part 2 to it",
+      "clause": "charter clause 2; Design \"The moves\"; Decision Log 4",
+      "source": [
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit-declaration-draft.json"
+      ],
+      "declared": {
+        "stages": [
+          "stage1",
+          "stage2"
+        ],
+        "searchedLeaves": 12,
+        "operatorGrid": [
+          0,
+          -0.25,
+          -0.5,
+          -0.75,
+          -1
+        ],
+        "spanTopGrid": [
+          112,
+          128,
+          160,
+          192,
+          256
+        ],
+        "scopes": {
+          "stage1/deep": "stage1",
+          "stage2/thin": "stage2-thin",
+          "stage2/receded": "stage2-receded"
+        }
+      }
+    }
+  ],
+  "sources": {
+    "docs/doperpowers/specs/2026-10-03-w45-span-selective-texture.md@c152b89b": "1127e7c7ea32c7c515cd3f90476d95c4529fe8d025723ec8dedce0b48dab6d89",
+    "packages/renderer-webgpu/src/material.ts@8065249d": "545a3b404c0fd3c964cba73d4856c9c0c552de054f27b71333cfa114ed519d2d",
+    "packages/renderer-webgpu/src/wgsl/optics.ts@8065249d": "fee5e46a67d344570a160b94f24a617ee4fca62edeb87d32cbcd96a2d50d8443",
+    "packages/calibration/test/adopted-thresholds.test.ts@bb7c4865": "d74a468cdcde995667df34e489f06c5a16dc0acac30f0864e4c1246f73afe510",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/operator/compare.txt": "06b1cf4422eb830fcfae2485b628e6fc88cef19e199677cff010255c21344754",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/operator/digests.txt": "d8576e529a12e4372713c92f4af6e817aabe0646424666518fc9a3b887e1cbfb",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/operator/after/goldens.txt": "cee36a01702f0fe6732a7b123a4c5df2ff172f1ad769d578df91583bef0e3099",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/operator/bench.txt": "69bb0e5bfb4ad046c57cb1b0bb6eba58f988d59d74fb5e92496c43fe7d1f9537",
+    "packages/renderer-webgpu/e2e/gpu/w45-share-far.spec.ts": "7881c04a86d7308bdb754460bace164197eb2b1265741f76a79199354f8b696f",
+    "packages/calibration/test/adopted-thresholds.test.ts@3115bf17": "e298c4418b82c3da40e657978eae9c5877ad23ed16f0c30d66004bbe57818874",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/test_t1.py": "8e89a511de7c3035b0844d32c0a46d3c42a3e08b50215c31faf002e9307b235a",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+    "apps/reference-apple/scenes.json": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json": "1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/referees.json": "b1132bd0f01f318b07e1722da3fefaba6eac96679b56efbe2b451ef13bf1b60b",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/plan.py": "f8ca80bb2153e12b7a3a4edc18b440e8f2c89a75bf0adef30e795c40c8dda8c7",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/referees/test_plan.py": "00f1f401dea0bcbe572e03399013f57651193a8e2344f283f8d6a5854a18a8ea",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/rule.py": "f7bb1ddae1372e97cec13f525659eaf00c45dc37d62a506b3830856181381bfe",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/test_rule.py": "87be56e0e458e13a9f55f5a2740bfeabfdb601e6942edee8144e7f5bd1727b04",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/rehearse.py": "f75d4df9656ee6d6464990f89a331f5dfc940abcc369e33ca3b94732a60c1b5f",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/rehearsal.json": "6fd8bc1474bf87dafcc0e67ceddcb8d118fd59317998f0bf46da86836fd33967",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/c05-cuts.json.gz": "df8d37914870349eb24e85e1a594f2f7eece9c70b210962400317a393d838167",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/prefit-cuts.json.gz": "81bbfb00ca0db4fc2a86a07f31babb067ffd71faec10dde50312c97f571b9b92",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-5/cuts.json.gz": "e38f7262c0c38786db34f1d3713da0522397b9fc02fa9bd017dd6174dc23f066",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.8/cuts.json.gz": "79a0de48970347f21be4b3929d51fd7b4646b68fa79fa81b5c3e511e61bd2a15",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/cuts.json.gz": "70f0844f594b55d3f7f4ef0d1126e43cd61d4a7ba50a8809f0b8ec4783f81f23",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/declare.py": "7f09ef6c16184e77d9844971313b27e7d229aa2de7345d8c4e95f5c31aac3e50",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/test_declare.py": "4d29e3f6e22229e6b8e69b559f3e566c5768c7b3e9511eaaf6362fe1dd3809fd",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/cuts.py": "56cc29fbd3c19a47265ec0ef903043d2b984f89241b0696b6f4b2829b9e7965f",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/bed.py": "e406bda5891702f70b6021bae8028462c340febe996e7842e1775ad62ac96eb8",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/test_cuts_refusals.py": "cca32f591a788ab9b691730c4869cf6ad72431ecce06de72e7633d65bb2f3619",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/build-candidate.ts": "0f67c7f219c673abb7da3258669a95ded6ba278a5e3d7b6bc7bb8b9412da6a62",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/test_build_candidate.py": "b5d988f87c9e355b989f53b7a439c271381cb778fd931fbeaa8a6dd0604f4647",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/census-gate.py": "52abd62030acae5a29d024aee54cf42eecc7346457146267ee43db950ff56ac4",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/with-gpu.sh": "266610547a7d588aa521f82288cae76efbf6cccb3c8c1fab56c6ef77a7548168",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/ladder.py": "0e8d42b08481b8626c2fbc9c94bacb49d8b5b38043da6d9f033823d2ddc7bf08",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/read.py": "e4b49b2d622569d135a1433ff18faae38e2ab5dc582261a1029d5a9fece1319b",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/port-proof.py": "13d8febe5f093084a5f0b7274c08822630c17ff281f4cbdc0762855e5eff9f17",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/protocol.json": "90da1cf71e12ef3d887ba33502d9d97d530b40adb7adcf014547daf0fc8a373b",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/candidates/c05-control/candidate.json": "21522f6c8f08996956491014a8d3db31e1b625c38d9e1c9d99c5a1ef03c811d7",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/candidates/base-joint/candidate.json": "622e21551672c169e64664aeae358ca8fe09f69b588ee254daf07701ef053cee",
+    "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json": "6d18c059eb429e63b41bcfa5b839330f62844d3790e3f301ec7c901ac4637a38",
+    "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json": "4d5f23d9d312ed0c9c473060e8485088ab0f40d746be90ee073d72e878b85db7",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/candidate.json": "66bf5a0192bf7f670c8a12472fa4b2f6bdbe63cc4bfb8305828e3ec1a32087e3",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/spec.json": "d0fc8e111d41d43113734370550f3fef790d306937eddf4d7cfa4f02695f7f47",
+    "packages/calibration/results/generations/6d18c059eb42.json": "cadad647679735645a49fea6dcdefa401ef8af69459a7965c2ac4b82d72e5cf3",
+    "packages/calibration/results/generations/d0219cd684bf.json": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit-declaration-draft.json": "4ef6f7268f39aaaf5a1ff8f2c6ed5124a61168b5014f2e3976a6346c0cd4a91b"
+  }
+}

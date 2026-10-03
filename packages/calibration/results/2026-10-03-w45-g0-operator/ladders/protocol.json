@@ -1,0 +1,378 @@
+{
+  "schema": "w45-ladder-protocol-1",
+  "$comment": [
+    "W45 G0 part 1, the ladders' protocol (charter clause 4; Decision Logs 1, 4 and 5; X57).",
+    "Every rung is a complete scratch candidate built by fit/build-candidate.ts from the published c05",
+    "documents moved on the leaves its base and its ladder name, drawn in candidate mode in scratch on",
+    "the fixed cells below, WebGPU tier, at 2x AND as each cell's 1x twin (X48). Rungs of one content",
+    "render once (the overrides compared as content, W44 G1's tracker note). A ladder renders nothing",
+    "before part 1 is hashed; what a ladder may decide is `decisions` and nothing else."
+  ],
+  "tier": "webgpu",
+  "profiles": [
+    "apple-macos-27.0-2x-light-standard-glass0.25",
+    "apple-macos-27.0-1x-light-standard-glass0.25"
+  ],
+  "fixedCells": {
+    "rule": "named __rest cells only: the six of clause 4's two ladders (the three vetoing mid/thick cells, the two checkerboard-8 thick cells and checkerboard-32__rrect-lg__rest), the fine thick cells of ladder (iv), and the thin cells of ladder (v); each declared by both light 0.25 profiles; none a referee or a holdout scene. A probe scene must be in the planner's pre-gate whitelist (referees/plan.py `pregateProbe`); a calibration scene carries no referee by the planner's own refusal (every referee is a probe scene). The inactive twins of checkerboard-8__rrect-lg__rest and checkerboard-32__rrect-lg__rest are referees and are never rendered before the exposure; no inactive control is rendered.",
+    "scenes": [
+      "checkerboard-8__rrect-md__rest",
+      "checkerboard-8__rrect-ml__rest",
+      "checkerboard-8__rrect-lg__rest",
+      "checkerboard__rrect-md__rest",
+      "checkerboard-32__rrect-lg__rest",
+      "checkerboard-64__rrect-sm__rest",
+      "checkerboard-4__rrect-lg__rest",
+      "checkerboard-4__rrect-sm__rest",
+      "checkerboard-4__capsule-button__rest",
+      "checkerboard__rrect-sm__rest",
+      "checkerboard__capsule-button__rest",
+      "checkerboard-32__rrect-sm__rest",
+      "checkerboard-32__capsule-button__rest",
+      "hc-text__rrect-sm__rest",
+      "hc-text-28__rrect-sm__rest",
+      "hc-text-7__rrect-sm__rest"
+    ],
+    "sets": "calibration,probe",
+    "alpha": true
+  },
+  "bases": {
+    "control": {
+      "label": "c05-control",
+      "overrides": {},
+      "why": "c05 unmoved under the scratch key token: its four endpoint digests must be c05's, its 2x and 1x captures pixel-identical to the canonical strict-mode c05 captures of the same cells (the instrument's control), and its 1x captures X48's reference"
+    },
+    "I": {
+      "label": "base-i",
+      "overrides": {
+        "active.light": {
+          "sizeScatterFloor2x": 1.0,
+          "sizeHeavySecondShare": 0.5,
+          "sizeHeavySecondSigma2x": 3,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "why": "clause 4 (i)'s fixed point: floor 1, the second tap at share 0.5 and 3 CSS px, the span top at 160 (so 128 sits at farS 0.156 and 160 at 1, while 96 sits at the knee, 0); the operator at its identity"
+    },
+    "J": {
+      "label": "base-joint",
+      "overrides": {
+        "active.light": {
+          "sizeScatterFloor2x": 1.0,
+          "sizeHeavySecondShare": 0.5,
+          "sizeHeavySecondSigma2x": 5,
+          "sizeScatterRampStartThin2x": 0.8
+        },
+        "receded.light": {
+          "sizeScatterRampStartThin2x": 0.1
+        }
+      },
+      "identity": {
+        "declarationSha256": "66bf5a0192bf7f670c8a12472fa4b2f6bdbe63cc4bfb8305828e3ec1a32087e3",
+        "endpointDigests": {
+          "active.light": "fbf1047bc618a87d",
+          "active.dark": "b074fc6913a91c66",
+          "receded.light": "aab222a6f1c6ef96",
+          "receded.dark": "280f0fddf014e0f6"
+        }
+      },
+      "why": "W44's joint point m3-t0.1 (declaration 66bf5a01…), rebuilt through W45's builder: its four endpoint digests must equal W44's (patch-and-digest identity); ladder (v)'s base, where the thin trade was read (thin start 0.8)"
+    }
+  },
+  "ladders": [
+    {
+      "id": "i",
+      "name": "the operator in isolation",
+      "slot": "active.light",
+      "base": "I",
+      "leaves": [
+        "sizeHeavySecondShareFar2x"
+      ],
+      "unit": "signed fraction of the deep mix, graded on farS",
+      "domain": [
+        -1,
+        0
+      ],
+      "values": [
+        0,
+        -0.25,
+        -0.5,
+        -0.75,
+        -1
+      ],
+      "reads": {
+        "unchanged": [
+          "checkerboard-8__rrect-md__rest",
+          "checkerboard__rrect-md__rest",
+          "checkerboard-64__rrect-sm__rest"
+        ],
+        "monotone": [
+          "checkerboard-8__rrect-ml__rest",
+          "checkerboard-8__rrect-lg__rest",
+          "checkerboard-32__rrect-lg__rest"
+        ]
+      },
+      "bar": "every `unchanged` cell (span <= 96, where farS is 0) within its T1 bar of the rung at 0 on every rung, and byte-identical; every `monotone` cell's T1 monotone in the delta across the five rungs. The leaf is struck if no `monotone` cell moves by more than its bar between 0 and -1.",
+      "decides": [
+        "strike"
+      ]
+    },
+    {
+      "id": "ii",
+      "name": "the joint composition",
+      "slot": "active.light",
+      "base": "I",
+      "leaves": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShareFar2x"
+      ],
+      "units": {
+        "sizeHeavySecondShare": "signed fraction",
+        "sizeHeavySecondSigma2x": "CSS px",
+        "sizeHeavySecondShareFar2x": "signed fraction"
+      },
+      "domain": {
+        "sizeHeavySecondShare": [
+          0,
+          1
+        ],
+        "sizeHeavySecondSigma2x": [
+          1.5,
+          6
+        ],
+        "sizeHeavySecondShareFar2x": [
+          -1,
+          0
+        ]
+      },
+      "grid": {
+        "sizeHeavySecondShare": [
+          0.5,
+          0.75,
+          1
+        ],
+        "sizeHeavySecondSigma2x": [
+          2,
+          3
+        ],
+        "sizeHeavySecondShareFar2x": [
+          -0.5,
+          -0.75,
+          -1
+        ]
+      },
+      "reads": {
+        "md": "checkerboard-8__rrect-md__rest",
+        "lg": "checkerboard-8__rrect-lg__rest"
+      },
+      "references": {
+        "c05": "the published c05 generation's rows (6d18c059eb42)",
+        "joint": "W44's joint point's committed T1 cells (m3-t0.1, declaration 66bf5a01…)"
+      },
+      "bar": "on at least one rung, measured as T1 error growth g against EACH reference: md's g < 0 with its T1 above the reference's (rising toward Apple) AND lg's g < 0 with its T1 below the reference's (falling toward Apple), against c05 and against the joint point.",
+      "stop": "no rung meets the bar: the wave closes at G0 with the finding, and the operator stays landed inert",
+      "decides": [
+        "stop"
+      ]
+    },
+    {
+      "id": "iii",
+      "name": "the span top at a floor below 1 and at 1",
+      "slot": "active.light",
+      "base": "I",
+      "fixed": {
+        "sizeHeavySecondShareFar2x": -0.5
+      },
+      "leaves": [
+        "sizeScatterSpanMax2x"
+      ],
+      "unit": "CSS px",
+      "domain": [
+        112,
+        256
+      ],
+      "values": [
+        112,
+        128,
+        160,
+        192
+      ],
+      "at": {
+        "sizeScatterFloor2x": [
+          0.7,
+          1.0
+        ]
+      },
+      "reads": {
+        "cells": [
+          "checkerboard-8__rrect-md__rest",
+          "checkerboard-8__rrect-ml__rest",
+          "checkerboard-8__rrect-lg__rest",
+          "checkerboard__rrect-md__rest",
+          "checkerboard-32__rrect-lg__rest",
+          "checkerboard-64__rrect-sm__rest",
+          "checkerboard-4__rrect-lg__rest",
+          "checkerboard-4__rrect-sm__rest",
+          "checkerboard-4__capsule-button__rest",
+          "checkerboard__rrect-sm__rest",
+          "checkerboard__capsule-button__rest",
+          "checkerboard-32__rrect-sm__rest",
+          "checkerboard-32__capsule-button__rest",
+          "hc-text__rrect-sm__rest",
+          "hc-text-28__rrect-sm__rest",
+          "hc-text-7__rrect-sm__rest"
+        ]
+      },
+      "bar": "the transfer per cell and pitch; the leaf is flat at a floor when no cell moves by more than its bar across the grid; its non-flat range the span tops between which some cell moves.",
+      "decides": [
+        "strike",
+        "narrow"
+      ]
+    },
+    {
+      "id": "iv",
+      "name": "the active thick and far ramp starts",
+      "slot": "active.light",
+      "base": "I",
+      "fixed": {
+        "sizeHeavySecondShareFar2x": -0.5
+      },
+      "leaves": [
+        "sizeScatterRampStartThick2x",
+        "sizeScatterRampStartFar2x"
+      ],
+      "tied": true,
+      "unit": "fraction (the ramp's sharp share at the contour)",
+      "domain": [
+        0.05,
+        0.21
+      ],
+      "values": [
+        0.05,
+        0.1,
+        0.21
+      ],
+      "reads": {
+        "cells": [
+          "checkerboard-4__rrect-lg__rest",
+          "checkerboard-8__rrect-ml__rest",
+          "checkerboard-8__rrect-lg__rest"
+        ]
+      },
+      "bar": "the pair is flat when no fine thick cell moves by more than its bar across the three rungs",
+      "decides": [
+        "strike",
+        "narrow"
+      ]
+    },
+    {
+      "id": "v",
+      "name": "the thin-span transfer per lever",
+      "slot": "active.light",
+      "base": "J",
+      "levers": [
+        {
+          "lever": "floor",
+          "set": {
+            "sizeScatterFloor2x": 0.7
+          }
+        },
+        {
+          "lever": "floor",
+          "set": {
+            "sizeScatterFloor2x": 0.85
+          }
+        },
+        {
+          "lever": "span top",
+          "set": {
+            "sizeScatterSpanMax2x": 160
+          }
+        },
+        {
+          "lever": "span top at floor 0.7",
+          "set": {
+            "sizeScatterFloor2x": 0.7,
+            "sizeScatterSpanMax2x": 160
+          },
+          "against": {
+            "sizeScatterFloor2x": 0.7
+          }
+        },
+        {
+          "lever": "thin start",
+          "set": {
+            "sizeScatterRampStartThin2x": 0.46
+          }
+        },
+        {
+          "lever": "thin start",
+          "set": {
+            "sizeScatterRampStartThin2x": 0.6
+          }
+        },
+        {
+          "lever": "share",
+          "set": {
+            "sizeHeavySecondShare": 0
+          }
+        },
+        {
+          "lever": "share",
+          "set": {
+            "sizeHeavySecondShare": 1
+          }
+        },
+        {
+          "lever": "width",
+          "set": {
+            "sizeHeavySecondSigma2x": 3
+          }
+        },
+        {
+          "lever": "farDelta",
+          "set": {
+            "sizeHeavySecondShareFar2x": -1
+          }
+        }
+      ],
+      "reads": {
+        "cb4": [
+          "checkerboard-4__rrect-sm__rest",
+          "checkerboard-4__capsule-button__rest"
+        ],
+        "others": [
+          "checkerboard__rrect-sm__rest",
+          "checkerboard__capsule-button__rest",
+          "checkerboard-32__rrect-sm__rest",
+          "checkerboard-32__capsule-button__rest",
+          "hc-text__rrect-sm__rest",
+          "hc-text-28__rrect-sm__rest",
+          "hc-text-7__rrect-sm__rest"
+        ]
+      },
+      "bar": "the transfer per thin cell and pitch, T1 web against the rung's own reference (base J, or `against`); a lever SEPARATES when one of its rungs moves every cb4 cell toward Apple (g < 0) and every `others` cell toward Apple. A T cell is read on T1-fine and T1-low. farDelta at thin spans, where farS is 0, must leave every thin cell byte-identical.",
+      "decides": [
+        "reading"
+      ]
+    }
+  ],
+  "checks": {
+    "control": "c05-control's four endpoint digests are c05's; its 2x and 1x captures pixel-identical to the canonical strict-mode c05 captures of the same cells (PNG SHA-256s reported)",
+    "joint": "base-joint's four endpoint digests are W44's m3-t0.1's",
+    "x48": "every rung's 1x captures pixel-identical to c05-control's 1x captures",
+    "loader": "every rendered and read row is a fixed cell's: no referee, no holdout, no inactive row (cuts/bed.py's refusals and the fixed list)"
+  },
+  "decisions": {
+    "strike": "remove a draft leaf whose ladder reads it flat (for the operator: ladder (i) with no monotone cell moving by more than its bar)",
+    "narrow": "replace a draft grid by a non-empty subset of itself inside its ladder's non-flat range",
+    "inert": "replace a draft PENDING inert setting by the ladder evidence that proves it; the value does not change",
+    "stop": "ladder (ii) with no rung meeting its bar closes the wave at G0; part 2 is then not hashed"
+  },
+  "notDecided": [
+    "no value is chosen by a ladder: the fit chooses, inside the hashed part 2",
+    "ladder (v) decides nothing in part 2: it is Decision Log 5's reading, and a non-separating result names the thin trade as a residual",
+    "no grid is widened or shifted and no leaf is added after part 1"
+  ]
+}

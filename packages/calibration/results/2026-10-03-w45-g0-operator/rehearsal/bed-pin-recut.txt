@@ -1,0 +1,10 @@
+W45 G0: cuts/bed.py gained one shared pin (W44 G0's port/interior.py, which readings.py reads images
+through) after rehearsal/c05-cuts.json.gz and prefit-cuts.json.gz were written. To show the change
+reads nothing differently, c05 was cut again with the final bed.py, into scratch:
+
+  python3.12 -B cuts/cuts.py --published 6d18c059eb42 --published d0219cd684bf \
+    --captures /Users/new/Developer/GitHub/designer/packages/calibration/web-captures \
+    --out /tmp/w45-c05-cuts-r2.json --text /tmp/w45-c05-cuts-r2.txt          (exit 0)
+
+and compared leaf for leaf with the committed c05-cuts.json.gz: the one difference is
+cutsSource["bed.py"] (the file's own hash). Every reading, T1 cell and rule output is equal.

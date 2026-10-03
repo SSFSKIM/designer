@@ -1,0 +1,27 @@
+{
+  "$comment": "W45 scratch candidate base-joint: W45 ladder base rung None",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w45-base-joint",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "a9aae4020eda66514e8361054dcb51d418ccdbba2eebce4aaaf949d9c9fd2dff"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "8cc7c54a83f09ef6e69a352dc8f2202ca6814a2e840370651b70cec89385fe50"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "d7c99a723f17251bac3fbc364462bba445296c4906ac8f65f06fa38b8ead2a9f"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "cb2bd302cdf3ff554be222ec419e24cbc5c547ad71888336f20ca43a684d4b1b"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}
