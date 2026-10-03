@@ -88,6 +88,20 @@ FIT_SCRATCH = Path.home() / "vitrea-w45" / "g1-scratch"
 LIGHT_025 = ("apple-macos-27.0-1x-light-standard-glass0.25", "apple-macos-27.0-2x-light-standard-glass0.25")
 OPERATOR = "sizeHeavySecondShareFar2x"
 CHAIN_LEVEL_1 = 1.542
+# Part 1 cannot be amended once a ladder renders (it has). W44's rule, extended: part 2's one
+# amendment may record moves of THESE part-1 sources (`partOnePins`, from the pinned hash to the
+# bytes on disk), and may name part-1 sources that are to be read at a commit rather than live
+# (`partOneReadAt`) — the light 0.25 documents, which G1's seal replaces by design. Part 1's
+# declaration and its hash do not move; its check accepts exactly what the record names.
+PART_ONE_REPINNABLE = tuple(f"{REL}/{p}" for p in ("declare.py", "test_declare.py", "cuts/rule.py",
+                                                   "cuts/test_rule.py"))
+PART_ONE_READ_AT_ADMISSIBLE = (
+    "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+    "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+)
+CLAUSE_THREE = ("test_a_halving_f_with_three_cells_at_2b_passes", "test_b_four_cells_at_2b_fails",
+                "test_c_one_cell_at_3_1b_fails", "test_d_a_stratum_aggregate_worse_beyond_its_tolerance_fails",
+                "test_e_every_cell_unchanged_is_neither", "test_f_a_t_stratum_of_two_cells_is_reported_not_gated")
 
 sha = lambda data: hashlib.sha256(data).hexdigest()  # noqa: E731
 
@@ -114,12 +128,43 @@ def bindings() -> None:
                     raise Refusal(f"{part['digest'].name} carries W44's part hash {ln.split()[0][:12]} (X58)")
 
 
-def source_bytes(key: str) -> bytes:
+def git_show(path: str, commit: str) -> bytes:
+    return subprocess.run(["git", "-C", str(ROOT), "show", f"{commit}:{path}"], check=True,
+                          capture_output=True).stdout
+
+
+def part_one_record() -> tuple[dict, dict]:
+    """(partOnePins, partOneReadAt) as part 2's amendment records them."""
+    pins, read_at = {}, {}
+    for a in amendments("fit"):
+        pins.update(a.get("partOnePins") or {})
+        read_at.update(a.get("partOneReadAt") or {})
+    return pins, read_at
+
+
+def source_bytes(key: str, live: bool = False) -> bytes:
+    """A pinned source's bytes: `path@commit` at that commit; a part-1 source part 2's amendment
+    names in `partOneReadAt` at the recorded commit (unless `live`); anything else on disk."""
     if "@" in key:
         path, commit = key.rsplit("@", 1)
-        return subprocess.run(["git", "-C", str(ROOT), "show", f"{commit}:{path}"], check=True,
-                              capture_output=True).stdout
+        return git_show(path, commit)
+    if not live:
+        commit = part_one_record()[1].get(key)
+        if commit is not None:
+            return git_show(key, commit)
     return (ROOT / key).read_bytes()
+
+
+def accepted_repin(key: str, pinned: str, now: str) -> bool:
+    """A moved part-1 pin is accepted only for `PART_ONE_REPINNABLE` and only when part 2's
+    amendment names exactly that move, from the pinned hash to the bytes on disk."""
+    move = part_one_record()[0].get(key)
+    return key in PART_ONE_REPINNABLE and bool(move) and move.get("from") == pinned and move.get("to") == now
+
+
+def ran_at_least(out: str, count: int) -> bool:
+    m = re.search(r"^Ran (\d+) tests?", out, flags=re.M)
+    return m is not None and int(m.group(1)) >= count
 
 
 class Check:
@@ -193,6 +238,8 @@ def structure(c, d):
             got = sha(source_bytes(key))
         except (OSError, subprocess.CalledProcessError) as err:
             c.failures.append(f"pin {key}: unreadable ({err})")
+            continue
+        if got != want and accepted_repin(key, want, got):
             continue
         c.eq(f"pin {key}", got, want)
     return {it["id"]: it for it in items}
@@ -293,12 +340,16 @@ def check_rule(c, it):
     d = it["declared"]
     c.eq("rule: constants", dict(budgetCount=rule.BUDGET_COUNT, budgetCeilingB=rule.BUDGET_CEILING_B,
                                  gatingMinCells=rule.GATING_MIN_CELLS), d["constants"])
-    rc, out = run("-m", "unittest", "test_rule", cwd=HERE / "cuts")
+    rc, out = run("-m", "unittest", "-v", "test_rule", cwd=HERE / "cuts")
     c.true(f"rule: test_rule does not pass ({last_line(out) or rc})", rc == 0)
-    c.true(f"rule: test_rule does not run {d['syntheticCases']} cases",
-           f"Ran {d['syntheticCases']} tests" in out)
+    c.true(f"rule: test_rule runs fewer than {d['syntheticCases']} cases", ran_at_least(out, d["syntheticCases"]))
+    for name in CLAUSE_THREE:
+        c.true(f"rule: clause 3's case {name} does not run and pass", re.search(rf"^{name} .* ok$", out, re.M) is not None)
     reh = json.loads(ev("rehearsal/rehearsal.json").read_text())
-    c.eq("rule: the rehearsal's rule file", reh["rule"]["sha256"], sha(ev("cuts/rule.py").read_bytes()))
+    rule_now = sha(ev("cuts/rule.py").read_bytes())
+    rule_from = (part_one_record()[0].get(f"{REL}/cuts/rule.py") or {}).get("from")
+    c.true("rule: the rehearsal's rule file is neither the current rule.py nor the one part 2's amendment "
+           "re-pinned it from", reh["rule"]["sha256"] in (rule_now, rule_from))
     got = {}
     for x in reh["rows"]:
         src = ROOT / x["source"]
@@ -321,7 +372,7 @@ def check_tools(c, it):
     for test, cwd, count in d["tests"]:
         rc, out = run("-m", "unittest", test, cwd=HERE / cwd)
         c.true(f"tools: {cwd}/{test} does not pass ({last_line(out) or rc})", rc == 0)
-        c.true(f"tools: {cwd}/{test} does not run {count} cases", f"Ran {count} tests" in out)
+        c.true(f"tools: {cwd}/{test} runs fewer than {count} cases", ran_at_least(out, count))
     rc, out = run(ev("rehearsal/port-proof.py"))
     c.true(f"tools: the cuts port does not reproduce W44 G1's c05 cut ({last_line(out) or rc})", rc == 0)
 
@@ -406,7 +457,7 @@ def check_ladders(c, it):
 def check_starting_points(c, it):
     d = it["declared"]
     for slot, path in d["c05"]["documents"].items():
-        doc = json.loads((ROOT / path).read_text())
+        doc = json.loads(source_bytes(path))
         c.eq(f"startingPoints: c05 {slot} digest", doc["resolvedMaterialSha256"], d["c05"]["digests"][slot])
     c.eq("startingPoints: the joint point's declaration hash", sha((ROOT / d["joint"]["candidate"]).read_bytes()),
          d["joint"]["declarationSha256"])
@@ -659,6 +710,11 @@ def amend(part, argv):
     ap.add_argument("--reason", required=True)
     ap.add_argument("--cause", required=True)
     ap.add_argument("pins", nargs="+")
+    if part == "fit":
+        ap.add_argument("--part-one-pin", action="append", default=[],
+                        help="a moved part-1 source in PART_ONE_REPINNABLE, recorded from its pin to its bytes")
+        ap.add_argument("--part-one-read-at", action="append", default=[],
+                        help="KEY=COMMIT: a part-1 source to be read at COMMIT, whose bytes there are its pin")
     args = ap.parse_args(argv)
     lines = digest_lines(part)
     if not lines:
@@ -699,11 +755,45 @@ def amend(part, argv):
              "cause": args.cause, "pins": moves,
              "renderEvidenceAtAmendment": "none (" + ("ladders/runs.jsonl, the ladder scratch" if part == "protocol"
                                                        else "G1's fit runs and scratch") + ")"}
-    PARTS[part]["amendments"].write_text(json.dumps({"schema": f"{WAVE}-{part}-amendments-1",
-                                                     "amendments": [entry]}, indent=2) + "\n")
+    if part == "fit" and (args.part_one_pin or args.part_one_read_at):
+        part1 = json.loads(PARTS["protocol"]["declaration"].read_text())["sources"]
+        one_pins, read_at = {}, {}
+        for key in args.part_one_pin:
+            if key not in PART_ONE_REPINNABLE:
+                print(f"amend-fit REFUSES: {key} is not a part-1 source part 2's amendment may re-pin")
+                return 2
+            now = sha(source_bytes(key, live=True))
+            if now == part1[key]:
+                print(f"amend-fit REFUSES: part-1 source {key} has not moved")
+                return 2
+            one_pins[key] = {"from": part1[key], "to": now}
+        for spec in args.part_one_read_at:
+            key, _, commit = spec.rpartition("=")
+            if key not in PART_ONE_READ_AT_ADMISSIBLE or key not in part1:
+                print(f"amend-fit REFUSES: {key} is not a part-1 source that may be read at a commit")
+                return 2
+            if sha(git_show(key, commit)) != part1[key]:
+                print(f"amend-fit REFUSES: {key} at {commit} is not the bytes part 1 pinned")
+                return 2
+            read_at[key] = commit
+        entry["partOnePins"], entry["partOneReadAt"] = one_pins, read_at
+    record = PARTS[part]["amendments"]
+    old_raw, old_digest = path.read_bytes(), PARTS[part]["digest"].read_text()
+    record.write_text(json.dumps({"schema": f"{WAVE}-{part}-amendments-1", "amendments": [entry]}, indent=2) + "\n")
     path.write_bytes(raw)
     with PARTS[part]["digest"].open("a") as f:
         f.write(f"{entry['declarationSha256']}  {path.name}\n")
+    if part == "fit":
+        # The record must leave part 1's check whole, or nothing is written.
+        c1 = check_protocol()[0]
+        if c1.failures:
+            record.unlink()
+            path.write_bytes(old_raw)
+            PARTS[part]["digest"].write_text(old_digest)
+            print("amend-fit REFUSES: part 1's check fails with this record:")
+            for f in c1.failures:
+                print("  MISMATCH", f)
+            return 2
     print(f"amended: {path.name} sha256 {entry['declarationSha256']} supersedes {lines[-1]}")
     return 0
 

@@ -114,6 +114,36 @@ class Evidence(unittest.TestCase):
             self.assertEqual(D.amend("fit", ["--reason", "r", "--cause", "c", "x"]), 2)
 
 
+class PartOneRecord(unittest.TestCase):
+    """Part 2's one amendment may re-pin a few part-1 sources and read the light 0.25 documents at a
+    commit; part 1's check accepts exactly what the record names (the review of G0 (b)-(e))."""
+    KEY = f"{D.REL}/cuts/rule.py"
+
+    def test_a_recorded_move_of_a_repinnable_source_is_accepted(self):
+        with mock.patch.object(D, "part_one_record", return_value=({self.KEY: {"from": "a", "to": "b"}}, {})):
+            self.assertTrue(D.accepted_repin(self.KEY, "a", "b"))
+            self.assertFalse(D.accepted_repin(self.KEY, "a", "c"))      # moved again since the record
+            self.assertFalse(D.accepted_repin(self.KEY, "z", "b"))      # not from the pinned bytes
+
+    def test_a_source_outside_the_repinnable_set_is_never_accepted(self):
+        other = f"{D.REL}/cuts/cuts.py"
+        with mock.patch.object(D, "part_one_record", return_value=({other: {"from": "a", "to": "b"}}, {})):
+            self.assertFalse(D.accepted_repin(other, "a", "b"))
+
+    def test_a_read_at_source_is_read_at_its_commit(self):
+        key = D.PART_ONE_READ_AT_ADMISSIBLE[0]
+        with mock.patch.object(D, "part_one_record", return_value=({}, {key: "c152b89b"})), \
+                mock.patch.object(D, "git_show", return_value=b"at-commit") as show:
+            self.assertEqual(D.source_bytes(key), b"at-commit")
+            show.assert_called_once_with(key, "c152b89b")
+            self.assertNotEqual(D.source_bytes(key, live=True), b"at-commit")
+
+    def test_the_count_floor(self):
+        self.assertTrue(D.ran_at_least("...\nRan 15 tests in 0.004s\n", 14))
+        self.assertFalse(D.ran_at_least("...\nRan 13 tests in 0.004s\n", 14))
+        self.assertFalse(D.ran_at_least("no summary", 1))
+
+
 class ValidatedDiff(unittest.TestCase):
     def refused(self, fit, res=None, needle=""):
         with self.assertRaisesRegex(D.Refusal, needle):

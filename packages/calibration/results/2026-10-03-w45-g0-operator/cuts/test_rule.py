@@ -243,6 +243,30 @@ class Boundaries(unittest.TestCase):
         exposed = rule.evaluate(cells, partitions=("gate", "referee", "holdout"))
         self.assertEqual(sorted(a["scene"] for a in exposed["awayBeyondB"]), ["C-holdout", "C-referee"])
 
+    def test_the_exposure_does_not_gate_a_group_the_gate_reports(self):
+        # The real shape at 2x light: F inactive holds two gate cells and one referee. At the
+        # exposure the referee enters F inactive's aggregate, and the group stays REPORTED, because
+        # the charter gates "at least three gate cells" (the review of G0 (b)-(e), finding 4).
+        cells = [c for c in base_map() if not (c["stratum"] == "F" and c["pose"] == "inactive")]
+        for c in cells:
+            if c["stratum"] == "F":
+                c["candidate"] = c["native"]
+        for i in range(2):                    # worse than c05 beyond tau on every member
+            cells.append(cell(f"F-inactive-{i}", "F", "inactive", 0.10, 0.06, k=0.02))
+        cells.append(cell("F-inactive-referee", "F", "inactive", 0.10, 0.06, k=0.20, partition="referee"))
+        exposed = rule.evaluate(cells, partitions=("gate", "referee", "holdout"))
+        g = exposed["groups"]["F inactive"]
+        self.assertEqual((g["cells"], g["gateCells"]), (3, 2))
+        self.assertFalse(g["gated"])
+        self.assertFalse(g["holds"])
+        self.assertEqual(exposed["gatedAggregateFailures"], [])
+        self.assertEqual(exposed["reportedAggregateOver"], ["F inactive"])
+        # The same group with a third GATE cell is gated, and its aggregate decides.
+        cells.append(cell("F-inactive-2", "F", "inactive", 0.10, 0.06, k=0.02))
+        third = rule.evaluate(cells, partitions=("gate", "referee", "holdout"))
+        self.assertTrue(third["groups"]["F inactive"]["gated"])
+        self.assertEqual(third["gatedAggregateFailures"], ["F inactive"])
+
     def test_the_constants_are_the_charters(self):
         self.assertEqual((rule.BUDGET_COUNT, rule.BUDGET_CEILING_B, rule.GATING_MIN_CELLS), (3, 3.0, 3))
 

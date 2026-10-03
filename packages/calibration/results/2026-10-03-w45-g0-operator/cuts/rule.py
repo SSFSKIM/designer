@@ -16,8 +16,9 @@ read by no clause.
 
 **The aggregate per stratum × pose**: `A = median |log((k + ε) / (n + ε))|` over the group on the
 group's band, `ε` = the cell's own code; c05's `A` the same median with `c` for `k`; the tolerance
-`τ = median log(1 + bar / (n + ε))`. A group with at least `GATING_MIN_CELLS` cells is GATED (its
-`A` at most c05's `A + τ`), otherwise REPORTED.
+`τ = median log(1 + bar / (n + ε))`. A group with at least `GATING_MIN_CELLS` GATE cells is GATED
+(its `A` at most c05's `A + τ`), otherwise REPORTED; at the exposure the referee and holdout members
+enter the aggregate and never the count that gates it.
 
 **The budget**, one over the whole population in scope: at most `BUDGET_COUNT` cells `away` with
 `g > B` (a T cell's on T1-low), none with `g > BUDGET_CEILING_B · B`, each named. Fixed before the
@@ -94,13 +95,16 @@ def log_error(x: float, n: float, eps: float) -> float:
     return abs(math.log((x + eps) / (n + eps)))
 
 
-def group_aggregate(reads_of: list[dict]) -> dict:
-    """A, c05's A and τ over one group's change bands (each with its own ε = code)."""
+def group_aggregate(reads_of: list[dict], gate_cells: int) -> dict:
+    """A, c05's A and τ over one group's change bands (each with its own ε = code), over every
+    member the read admits. Whether the group is GATED is the charter's "at least three gate
+    cells" — its gate-partition members, counted apart from any referee or holdout member the
+    exposure adds, so the exposure cannot turn a reported group into a gated one."""
     a = statistics.median(log_error(r["k"], r["n"], r["code"]) for r in reads_of)
     a_ref = statistics.median(log_error(r["c"], r["n"], r["code"]) for r in reads_of)
     tau = statistics.median(math.log(1 + r["bar"] / (r["n"] + r["code"])) for r in reads_of)
-    return dict(cells=len(reads_of), A=a, referenceA=a_ref, tau=tau,
-                gated=len(reads_of) >= GATING_MIN_CELLS,
+    return dict(cells=len(reads_of), gateCells=gate_cells, A=a, referenceA=a_ref, tau=tau,
+                gated=gate_cells >= GATING_MIN_CELLS,
                 holds=a <= a_ref + tau)
 
 
@@ -130,9 +134,10 @@ def evaluate(cells: list, missing=(), partitions=("gate",)) -> dict:
     groups = {}
     for s in STRATA:
         for p in POSES:
-            members = [got[id(c)]["change"] for c in read if c["stratum"] == s and c["pose"] == p]
-            if members:
-                groups[f"{s} {p}"] = group_aggregate(members)
+            cells_of = [c for c in read if c["stratum"] == s and c["pose"] == p]
+            if cells_of:
+                groups[f"{s} {p}"] = group_aggregate([got[id(c)]["change"] for c in cells_of],
+                                                     sum(1 for c in cells_of if c["partition"] == "gate"))
     gated_fail = [k for k, g in groups.items() if g["gated"] and not g["holds"]]
     reported_over = [k for k, g in groups.items() if not g["gated"] and not g["holds"]]
 
