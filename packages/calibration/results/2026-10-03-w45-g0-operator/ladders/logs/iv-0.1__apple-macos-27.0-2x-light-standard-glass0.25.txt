@@ -1,0 +1,232 @@
+census ladder iv-0.1/apple-macos-27.0-2x-light-standard-glass0.25: passes (7 annotated, refusals [])
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-2x-light-standard-glass0.25 --renderer webgpu --candidate-document results/2026-10-03-w45-g0-operator/ladders/candidates/iv-0.1/candidate.json --set calibration,probe --scene checkerboard-8__rrect-md__rest,checkerboard-8__rrect-ml__rest,checkerboard-8__rrect-lg__rest,checkerboard__rrect-md__rest,checkerboard-32__rrect-lg__rest,checkerboard-64__rrect-sm__rest,checkerboard-4__rrect-lg__rest,checkerboard-4__rrect-sm__rest,checkerboard-4__capsule-button__rest,checkerboard__rrect-sm__rest,checkerboard__capsule-button__rest,checkerboard-32__rrect-sm__rest,checkerboard-32__capsule-button__rest,hc-text__rrect-sm__rest,hc-text-28__rrect-sm__rest,hc-text-7__rrect-sm__rest --alpha --write-partial --out-matrix /Users/new/vitrea-w45/g0-ladders/iv-0.1/matrix.json
+
+── web capture (apple-macos-27.0-2x-light-standard-glass0.25, 16 scene(s)) ─────────────────────────────
+(node:34062) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-03-w45-g0-operator/ladders/candidates/iv-0.1/candidate.json declarationSha256=dc83cbc4c514 name=apple-macos-27.0-glass0.25-w45-iv-0.1 glassTintAmount=0.25
+
+checkerboard-4__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__rest/
+
+checkerboard-4__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest/
+
+checkerboard-8__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest/
+
+hc-text__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-sm__rest/
+
+checkerboard-32__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest/
+
+checkerboard-8__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-md__rest/
+
+checkerboard-8__rrect-ml__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest/
+
+checkerboard-64__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-sm__rest/
+
+checkerboard__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-sm__rest/
+
+checkerboard-32__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest/
+
+hc-text-28__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-sm__rest/
+
+checkerboard-32__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-sm__rest/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest/
+
+hc-text-7__rrect-sm__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-sm__rest/
+
+checkerboard-4__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w45/g0-ladders/iv-0.1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest/
+
+16 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (16 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w45/g0-ladders/iv-0.1/matrix.json (16 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       2x-light-standard-glass0.25   checkerboard-4__rrect-sm__rest                1.000    0.00   0.983   0.0022    0.183/ 0.094    0.6025/ 0.6317    0.1721/ 0.0760    0.0491/ 0.0216
+calibration 2x-light-standard-glass0.25   checkerboard__rrect-md__rest                  1.000    0.01   0.959   0.0079    0.150/ 0.103    0.6007/ 0.5867    0.1501/ 0.1071    0.0418/ 0.0295
+probe       2x-light-standard-glass0.25   checkerboard-4__capsule-button__rest          0.999    0.02   0.957   0.0051    0.168/ 0.063    0.6046/ 0.6302    0.1727/ 0.0650    0.0679/ 0.0193
+probe       2x-light-standard-glass0.25   checkerboard-8__rrect-lg__rest                1.000    0.01   0.968   0.0169   -0.005/ 0.010    0.5489/ 0.5952    0.0224/ 0.0189    0.0637/ 0.0303
+probe       2x-light-standard-glass0.25   hc-text__rrect-sm__rest                       1.000    0.00   0.991   0.0010    0.160/ 0.168    0.7485/ 0.7264    0.1595/ 0.1411    0.0544/ 0.0379
+probe       2x-light-standard-glass0.25   checkerboard-32__rrect-lg__rest               0.999    0.06   0.964   0.0145    0.158/ 0.113    0.6070/ 0.5825    0.1336/ 0.1067    0.0158/ 0.0281
+probe       2x-light-standard-glass0.25   checkerboard-8__rrect-md__rest                1.000    0.01   0.938   0.0086    0.084/ 0.039    0.5662/ 0.5946    0.0991/ 0.0484    0.0478/ 0.0283
+probe       2x-light-standard-glass0.25   checkerboard-8__rrect-ml__rest                1.000    0.01   0.972   0.0141    0.007/ 0.028    0.5354/ 0.5945    0.0261/ 0.0323    0.0576/ 0.0281
+probe       2x-light-standard-glass0.25   checkerboard-64__rrect-sm__rest               0.977    0.52   0.995   0.0005     —   /  —       0.8990/ 0.9235    0.0680/ 0.0181    0.0000/ 0.0069
+calibration 2x-light-standard-glass0.25   checkerboard__rrect-sm__rest                  1.000    0.00   0.994   0.0010    0.281/ 0.230    0.6286/ 0.6080    0.1940/ 0.1866    0.0471/ 0.0239
+probe       2x-light-standard-glass0.25   checkerboard-32__capsule-button__rest         0.998    0.08   0.986   0.0027    0.421/ 0.391    0.6238/ 0.6026    0.2195/ 0.2268    0.0576/ 0.0350
+probe       2x-light-standard-glass0.25   hc-text-28__rrect-sm__rest                    1.000    0.00   0.991   0.0013    0.344/ 0.268    0.6646/ 0.6103    0.1891/ 0.1846    0.0123/ 0.0033
+probe       2x-light-standard-glass0.25   checkerboard-32__rrect-sm__rest               1.000    0.00   0.993   0.0012    0.415/ 0.417    0.6215/ 0.6045    0.2161/ 0.2347    0.0432/ 0.0518
+calibration 2x-light-standard-glass0.25   checkerboard__capsule-button__rest            0.999    0.02   0.978   0.0035    0.276/ 0.191    0.6270/ 0.6064    0.1938/ 0.1648    0.0671/ 0.0236
+probe       2x-light-standard-glass0.25   hc-text-7__rrect-sm__rest                     1.000    0.00   0.988   0.0015    0.211/ 0.103    0.6957/ 0.7039    0.1653/ 0.1045    0.1470/ 0.0780
+probe       2x-light-standard-glass0.25   checkerboard-4__rrect-lg__rest                1.000    0.01   0.972   0.0223   -0.003/ 0.005    0.5479/ 0.6098    0.0227/ 0.0176    0.0649/ 0.0273
+
+2x-light-standard-glass0.25   calibration n= 3  IoU mean 0.9998 worst 0.9995   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9769 worst 0.9588   dE mean 0.00412 worst 0.00790
+2x-light-standard-glass0.25   probe       n=13  IoU mean 0.9980 worst 0.9772   contour p95 mean 0.31 worst 2.00   SSIM mean 0.9767 worst 0.9377   dE mean 0.00707 worst 0.02229
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+2x-light-standard-glass0.25   checkerboard-4__rrect-sm__rest                   7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.25   checkerboard__rrect-md__rest                    60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.25   checkerboard-4__capsule-button__rest            19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.25   checkerboard-8__rrect-lg__rest                 175072       175240  0.9989         1.00         1.00
+2x-light-standard-glass0.25   hc-text__rrect-sm__rest                          7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.25   checkerboard-32__rrect-lg__rest                175072       175240  0.9989         1.00         1.00
+2x-light-standard-glass0.25   checkerboard-8__rrect-md__rest                  60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.25   checkerboard-8__rrect-ml__rest                 112084       112200  0.9989         1.00         1.00
+2x-light-standard-glass0.25   checkerboard-64__rrect-sm__rest                  7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.25   checkerboard__rrect-sm__rest                     7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.25   checkerboard-32__capsule-button__rest           19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.25   hc-text-28__rrect-sm__rest                       7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.25   checkerboard-32__rrect-sm__rest                  7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.25   checkerboard__capsule-button__rest              19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.25   hc-text-7__rrect-sm__rest                        7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.25   checkerboard-4__rrect-lg__rest                 175072       175240  0.9989         1.00         1.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard-glass0.25   checkerboard-4__rrect-sm__rest                  0.50  0.4406/ 0.0181    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0      3.7/  26.7
+2x-light-standard-glass0.25   checkerboard__rrect-md__rest                    0.50  0.3664/ 0.0498    2/ 33/ 20/ 17    3/ 35/ 22/ 19     15.5/  16.0     18.8/  21.8
+2x-light-standard-glass0.25   checkerboard-4__capsule-button__rest            0.50  0.2787/ 0.0316    0/ 16/  2/  2    0/ 17/  2/  5      8.0/   8.5      6.1/  34.5
+2x-light-standard-glass0.25   checkerboard-8__rrect-lg__rest                  0.50  0.4826/ 0.1306    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.0/  37.3
+2x-light-standard-glass0.25   hc-text__rrect-sm__rest                         0.75  0.3555/ 0.0105    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0     —   /  —   
+2x-light-standard-glass0.25   checkerboard-32__rrect-lg__rest                 0.50  0.3727/ 0.1305    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.1/  37.3
+2x-light-standard-glass0.25   checkerboard-8__rrect-md__rest                  0.50  0.3792/ 0.0502    2/ 33/ 18/ 17    3/ 35/ 21/ 20     15.5/  16.0     18.7/  21.8
+2x-light-standard-glass0.25   checkerboard-8__rrect-ml__rest                  0.50  0.5035/ 0.0843   19/ 51/ 38/ 37   22/ 54/ 39/ 41     16.0/  16.0     26.4/  29.5
+2x-light-standard-glass0.25   checkerboard-64__rrect-sm__rest                 0.46  0.2171/ 0.0140    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0     19.0/ 196.2
+2x-light-standard-glass0.25   checkerboard__rrect-sm__rest                    0.50  0.3336/ 0.0201    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0      4.2/  26.7
+2x-light-standard-glass0.25   checkerboard-32__capsule-button__rest           0.50  0.2222/ 0.0348    0/ 16/  8/  2    0/ 17/  8/  0      8.0/   8.5      8.1/  34.5
+2x-light-standard-glass0.25   hc-text-28__rrect-sm__rest                      0.77  0.2244/ 0.0232    0/ 11/  2/  2    0/ 11/  0/  0      5.5/   5.5      7.6/  28.1
+2x-light-standard-glass0.25   checkerboard-32__rrect-sm__rest                 0.50  0.3312/ 0.0171    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0      4.2/  26.7
+2x-light-standard-glass0.25   checkerboard__capsule-button__rest              0.50  0.2250/ 0.0285    0/ 16/  5/  2    0/ 17/  5/  0      8.0/   8.5      7.8/  34.5
+2x-light-standard-glass0.25   hc-text-7__rrect-sm__rest                       0.75  0.2676/ 0.0155    0/ 13/  2/  2    0/ 13/  0/  0      6.5/   6.5     75.6/  51.8
+2x-light-standard-glass0.25   checkerboard-4__rrect-lg__rest                  0.50  0.5722/ 0.1298    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.0/  37.3
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CANDIDATE material document drawn on the web side: /Users/new/vitrea-w45/g0/packages/calibration/results/2026-10-03-w45-g0-operator/ladders/candidates/iv-0.1/candidate.json
+web accessibility for apple-macos-27.0-2x-light-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (17) ────────────
+  checkerboard-4__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard-4__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard-8__rrect-lg__rest: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  hc-text__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text__rrect-sm__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-64__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard-64__rrect-sm__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-64__rrect-sm__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 7720 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard-32__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text-28__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text-28__rrect-sm__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-32__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text-7__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text-7__rrect-sm__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-4__rrect-lg__rest: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+(node:33992) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

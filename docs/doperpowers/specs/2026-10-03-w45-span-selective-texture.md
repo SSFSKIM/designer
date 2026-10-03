@@ -18,6 +18,23 @@ test with its 169 misses named (§5.204, merged as `3115bf17`). The holdout and 
 documents. **Under the user's 2026-10-03 mandate (W44 Decision Log 0) the parent rules this
 charter's Decision Logs and reports them.** Ledger §5.205–§5.207 are reserved.
 
+**G0 (2026-10-03; §5.205): done on `w45-g0-operator`, for the parent's merge.**
+- **The operator landed inert.** Ten shipped digests, 34 goldens and 31 signed-share, share-0 and
+  1x-twin identity cases are byte-identical; reviewer-high found nothing material.
+- **The tools.** W45's tools are ported and tested on c05.
+- **The rule.** Its rehearsal fails the joint point on the count (6) and the ceiling (4).
+- **Part 1** `5630743b…`.
+- **The ladders.** (i) the operator moves the thick cells and cannot move span 96, but is not
+  monotone past share + delta = 0; (ii) md up and lg down toward Apple against c05 and the joint
+  point on three rungs; (iii) and (iv) not flat; (v) no single lever separates the thin trade.
+- **Part 2** `da85de04…`, the X48 inert setting its one change. After reviewer-medium it was
+  amended once, before any fit render, to `77f1c392…`: the fixed G1 search and rule were
+  re-pinned, with no content change (§5.205 §13).
+- **Open before G1** (§5.205 §14). Three defects in the G1 search and the amendment record are
+  fixed on the side branch `w45-g0-search-fix`. They need a ruled second part-2 amendment, and so
+  does a (share, width) factorial for the c05 path.
+G1 opens on the merge.
+
 ## Decisions
 
 The full entries are Decision Logs 1–6 at the tail.
@@ -493,7 +510,7 @@ path-scoped adds; merges with the freeze and X41 verified.
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | NOT STARTED; waits on this draft's review | §5.205 |
+| G0 | DONE on `w45-g0-operator` (2026-10-03): operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…`; for the parent's merge | §5.205 |
 | G1 | NOT STARTED | §5.206 |
 | G2 | NOT STARTED | §5.207 |
 

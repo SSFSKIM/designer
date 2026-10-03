@@ -32,6 +32,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   DEFAULT_MATERIAL_PROFILE,
+  heavySecondShareFarAtScale,
   heavySecondTapSigmaAtScale,
   heavyTapSigmaAtScale,
   outerShadowReachPx,
@@ -234,6 +235,34 @@ describe("W30's scatter leaves are inert at the shipped values (claims §5.156 �
       expect(gain * (stat - ref), `edge density ${String(stat)}`).toBe(0);
       for (const kScatter of [0, 0.25, 0.4, 0.6, 1]) {
         expect(Math.min(1, Math.max(0, kScatter + gain * (stat - ref)))).toBe(kScatter);
+      }
+    }
+  });
+});
+
+describe("W45's far-curve grading is inert at the shipped value (claims §5.205)", () => {
+  /*
+   * The shipped-value half of the W45 identity-table entry, on this file's pattern: the leaf
+   * read off `DEFAULT_MATERIAL_PROFILE`, the law evaluated against the expression it replaced over
+   * a sweep no runtime argument escapes, with `toBe`. The optics pass's share before W45 was the
+   * uniform `x`; after it, `x + z · farS` with `z` the resolved delta — so at the shipped leaf
+   * the resolved delta is 0 at every ratio and the share is `x` at every pixel.
+   */
+  it("ships the leaf at 0 and resolves it to 0 at every device ratio", () => {
+    expect(DEFAULT_MATERIAL_PROFILE.sizeHeavySecondShareFar2x).toBe(0);
+    for (const dpr of RATIOS) {
+      expect(heavySecondShareFarAtScale(DEFAULT_MATERIAL_PROFILE, dpr), `dpr ${String(dpr)}`).toBe(0);
+    }
+  });
+
+  it("leaves the pre-W45 share at every span the far curve can read", () => {
+    const z = heavySecondShareFarAtScale(DEFAULT_MATERIAL_PROFILE, 2);
+    for (const x of [-0.3, 0, 0.5]) {
+      for (const span of SPANS) {
+        // `farS` is the shader's smoothstep(96, 256, span) on the default's anchors.
+        const t = Math.min(1, Math.max(0, (span - 96) / (256 - 96)));
+        const farS = t * t * (3 - 2 * t);
+        expect(x + z * farS, `share ${String(x)} span ${String(span)}`).toBe(x);
       }
     }
   });

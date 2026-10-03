@@ -1,0 +1,16 @@
+{
+  "label": "v-scatterspanmax2x-160",
+  "note": "W45 ladder v rung {'sizeScatterSpanMax2x': 160}",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 1.0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 5,
+      "sizeScatterRampStartThin2x": 0.8,
+      "sizeScatterSpanMax2x": 160
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1
+    }
+  }
+}

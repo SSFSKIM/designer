@@ -1,0 +1,61 @@
+{
+  "schema": "w45-fit-amendments-1",
+  "amendments": [
+    {
+      "n": 1,
+      "supersedes": "da85de04fa1a3c2daff18369742056121ec2b40b2b01b6a40edae28885f7c770",
+      "declarationSha256": "77f1c39208c14ae7131ed90183b762935ecd7d52776b67ad055fcfd542315271",
+      "reason": "The reviewer-medium on G0 (b)-(e), before any fit render: (1) stage 1 could not start, the search's labels had no form for the fixed 1x width; (2) stage 2's thin and receded families were searched as alternatives, not as the sequential components the draft's search procedure states; (3) part 1 pinned the live light 0.25 documents G1's seal replaces by design; (4) the rule gated a group on its admitted count, not its gate cells (charter Design, the landing rule). The G1 tools and the rule are fixed; part 2's pins follow them, and the record lets part 1's check follow the four part-1 sources the fixes moved and read the two documents at c152b89b. No content of either part changes.",
+      "cause": "3340ef52, 4313129c",
+      "pins": {
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit/fit.py": {
+          "from": "56dbccba20bd377c9abd158fedc4c1f505c04b46ffcf1a94be434c6311704f23",
+          "to": "08dc33ce289bbe3b089ab46275a9db816c36bba0a6ee0779cf0790139c2a4276"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit/search.py": {
+          "from": "1cf6ee7e6dc09533b2ec15a0f7b997530465260e4915bf81e247e362c9256b6d",
+          "to": "b1d74c307512949fa42a90a576e1772299c498678fbedf02bc3ce8b8518928a2"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit/joint.py": {
+          "from": "ca5adf057ea63d8164c202d26fe37dd0bb13ba7a336033faa8c2fd12931e84c4",
+          "to": "79cd3c5238261f32874c784a09ebfbd5a40fc790ee39be80b2af73764a8f0687"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit/recover.py": {
+          "from": "4adea90f4e59bac407c6e1b9754864e329948187235a470d0920995ab728b4fb",
+          "to": "ccb5be5635e5b7426cc39c172bd123da041f0cd9073f1a098f971c659aef4baa"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/fit/test_fit.py": {
+          "from": "cf25b8e6f85d833f01d97dafda1f9938706d51391d6f02f1f4876b5bf8613da5",
+          "to": "719b042a41fd715941a40628c00229564c7f71fc44a38c1460cb4a41ad4eefed"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/rule.py": {
+          "from": "f7bb1ddae1372e97cec13f525659eaf00c45dc37d62a506b3830856181381bfe",
+          "to": "3988a9a9b9a6e23f55a045f7ddb16c10c6ddeddcdba732d50a14a4ee01234b5b"
+        }
+      },
+      "renderEvidenceAtAmendment": "none (G1's fit runs and scratch)",
+      "partOnePins": {
+        "packages/calibration/results/2026-10-03-w45-g0-operator/declare.py": {
+          "from": "7f09ef6c16184e77d9844971313b27e7d229aa2de7345d8c4e95f5c31aac3e50",
+          "to": "5923827a38d8a4b3b16cf411610beab4dc573d6e67e6eba4cefd464e55c497e9"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/test_declare.py": {
+          "from": "4d29e3f6e22229e6b8e69b559f3e566c5768c7b3e9511eaaf6362fe1dd3809fd",
+          "to": "fbcc51932ba68ce0dead1043118c1cf3ef747ff645fcc9e9bffea775131c1ea8"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/rule.py": {
+          "from": "f7bb1ddae1372e97cec13f525659eaf00c45dc37d62a506b3830856181381bfe",
+          "to": "3988a9a9b9a6e23f55a045f7ddb16c10c6ddeddcdba732d50a14a4ee01234b5b"
+        },
+        "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/test_rule.py": {
+          "from": "87be56e0e458e13a9f55f5a2740bfeabfdb601e6942edee8144e7f5bd1727b04",
+          "to": "7cb9dfedcb78df0b30a83b284019687d7d02de4ff56fa22f4c90706fa937ca42"
+        }
+      },
+      "partOneReadAt": {
+        "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json": "c152b89b",
+        "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json": "c152b89b"
+      }
+    }
+  ]
+}

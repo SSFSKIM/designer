@@ -245,7 +245,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// pyramid built one, 0 where the share declined it. A vec4 of its own rather
   /// than two lanes in the layout above, on 'heavyTap's precedent: a width's
   /// switch living in another facet's spare lane is a layout nobody could read
-  /// back. (z) and (w) free.
+  /// back. (z) is W45's far-curve delta on that share (claims 5.205), already resolved at the
+  /// group's device ratio and 0 at dpr 1: the share at a pixel is x + z * farS, per pixel and
+  /// unclamped, because a group's members have different spans and x is one number for all of
+  /// them. 0 on every shipped material. (w) free.
   scatterHeavy2 : vec4f,
   /// W31's body chroma retention (claims 5.161 section 5, 5.164): how much of
   /// the blurred backdrop's CHROMATICITY the body restores, at the luma the
@@ -1104,7 +1107,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     if (ou.scatterHeavy2.y > 0.5) {
       let second = textureSampleLevel(backdropHeavy2, backdropSampler, refractedUv, 0.0);
       let secondColour = second.rgb / max(second.a, 1e-6);
-      scatterColour = scatterColour + ou.scatterHeavy2.x * (secondColour - scatterColour);
+      /*
+       * W45 (claims 5.205; charter Decision Log 1): the share graded on the far curve 'farS'
+       * this pass already computed from the pixel's own span for the ramp's far start - one
+       * multiply-add on values in hand. Not clamped: the share is signed by design, and at the
+       * shipped delta of 0 this is 'x + 0 * farS', which is 'x' exactly, so the mix below is
+       * the expression W30 left. 'farS' is 0 at and below the thickness knee, so no delta can
+       * move a span-96 pixel.
+       */
+      let tapShare = ou.scatterHeavy2.x + ou.scatterHeavy2.z * farS;
+      scatterColour = scatterColour + tapShare * (secondColour - scatterColour);
     }
     backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
     /*

@@ -94,6 +94,7 @@ import {
   scatterGainAtScale,
   scatterGainFarAtScale,
   heavySecondTapSigmaAtScale,
+  heavySecondShareFarAtScale,
   heavyTapSigmaAtScale,
   scatterHeavyShareThickAtScale,
   scatterRampReachDevicePx,
@@ -1278,6 +1279,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           adapt?.observed === true ? adapt.edgeDensity : material.sizeScatterScaleRef,
         sizeHeavySecondShare: material.sizeHeavySecondShare,
         heavySecondEnabled: pyramid?.heavy2 !== undefined,
+        // W45's grading of that share on the far curve (claims §5.205): resolved at this group's
+        // ratio here, beside the share, and multiplied by the shader's own per-pixel `farS` —
+        // never by a per-group span, because a group's members have different ones.
+        sizeHeavySecondShareFar: heavySecondShareFarAtScale(material, dpr),
         // W31's body chroma retention (claims §5.164): a material constant, per
         // group, with no source-side half — the chromaticity it restores toward
         // is the blurred backdrop the optics pass already sampled per pixel.

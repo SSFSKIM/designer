@@ -1,0 +1,27 @@
+{
+  "$comment": "W45 scratch candidate v-scatterfloor2x-0.85: W45 ladder v rung {'sizeScatterFloor2x': 0.85}",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w45-v-scatterfloor2x-0.85",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "6cd87e9516e3b826fa5b5566917ab7ded1171d639eaeb20441a997fbad79ff0c"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "94301874e0daa62c172ac24329635a4d2d6c40bf21dd0fd3665894d2b1200b36"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "c054b9c2b5340019d91dd281952ecb3c260b56a61dc24f8fb203145a3a1b49fd"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "37d867da96289b6ad610fec6db5914735d327eeae6fd1addf74c1ed672e539f7"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

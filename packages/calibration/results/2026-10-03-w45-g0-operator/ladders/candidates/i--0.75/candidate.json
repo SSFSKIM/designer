@@ -1,0 +1,27 @@
+{
+  "$comment": "W45 scratch candidate i--0.75: W45 ladder i rung -0.75",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w45-i--0.75",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "0f1add941d2021645e448abb061c4900fb8960b00e73532533682e33f6f7e676"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "fe3f56021ba461838c8de780a19fda36ee1342620d8c257b55801f578e2a32ea"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "f09a9afc596c8d86b20f526a655fd55b77cdf0a412b1e581ac1c39b278fff7d0"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "a311060b1ec598ac98f31ff1eac6e45d1133bd072465ae3dff329c44d022d5f3"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

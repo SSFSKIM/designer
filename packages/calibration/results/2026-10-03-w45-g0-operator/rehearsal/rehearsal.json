@@ -1,0 +1,3578 @@
+{
+ "schema": "w45-rehearsal-1",
+ "what": "W45 G0 (d): the landing rule (Decision Log 3) on W44's three complete maps, c05, the pre-fit render and W44's partial candidates; nothing rendered",
+ "rule": {
+  "path": "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/rule.py",
+  "sha256": "f7bb1ddae1372e97cec13f525659eaf00c45dc37d62a506b3830856181381bfe",
+  "constants": {
+   "budgetCount": 3,
+   "budgetCeilingB": 3.0,
+   "gatingMinCells": 3
+  }
+ },
+ "rows": [
+  {
+   "label": "c05 (against itself)",
+   "kind": "render",
+   "source": "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/c05-cuts.json.gz",
+   "sourceSha256": "df8d37914870349eb24e85e1a594f2f7eece9c70b210962400317a393d838167",
+   "verdict": "NEITHER: closes at the finding",
+   "read": 94,
+   "cells": 94,
+   "unmeasured": 0,
+   "partition": {
+    "unchanged": 94,
+    "toward": 0,
+    "away": 0
+   },
+   "fAggregate": 0.6461792908015043,
+   "fAggregateReference": 0.6461792908015043,
+   "fHalved": false,
+   "fNotWithin": 11,
+   "groups": {
+    "F rest": {
+     "A": 0.6333529777577637,
+     "referenceA": 0.6333529777577637,
+     "tau": 0.04850404719145669,
+     "gated": true,
+     "holds": true,
+     "cells": 9
+    },
+    "F inactive": {
+     "A": 1.290260067547067,
+     "referenceA": 1.290260067547067,
+     "tau": 0.12342155515215827,
+     "gated": false,
+     "holds": true,
+     "cells": 2
+    },
+    "T rest": {
+     "A": 0.5250553366328756,
+     "referenceA": 0.5250553366328756,
+     "tau": 0.0944885658985879,
+     "gated": true,
+     "holds": true,
+     "cells": 3
+    },
+    "C rest": {
+     "A": 0.1720192119916773,
+     "referenceA": 0.1720192119916773,
+     "tau": 0.026737584849981264,
+     "gated": true,
+     "holds": true,
+     "cells": 37
+    },
+    "C inactive": {
+     "A": 0.8522886753047472,
+     "referenceA": 0.8522886753047472,
+     "tau": 0.05012099437091554,
+     "gated": true,
+     "holds": true,
+     "cells": 21
+    },
+    "P rest": {
+     "A": 0.4193273893847038,
+     "referenceA": 0.4193273893847038,
+     "tau": 0.03982395945923926,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    },
+    "P inactive": {
+     "A": 0.1392725447409356,
+     "referenceA": 0.1392725447409356,
+     "tau": 0.04549318750806986,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    }
+   },
+   "gatedAggregateFailures": [],
+   "reportedAggregateOver": [],
+   "awayBeyondB": [],
+   "awayBeyondCeiling": [],
+   "budgetHolds": true,
+   "why": [
+    "full close: 11 F cell(s) not within",
+    "improvement: F aggregate 0.6462 above half of c05's 0.6462"
+   ]
+  },
+  {
+   "label": "pre-fit (W43, against c05)",
+   "kind": "render",
+   "source": "packages/calibration/results/2026-10-03-w45-g0-operator/rehearsal/prefit-cuts.json.gz",
+   "sourceSha256": "81bbfb00ca0db4fc2a86a07f31babb067ffd71faec10dde50312c97f571b9b92",
+   "verdict": "NEITHER: closes at the finding",
+   "read": 94,
+   "cells": 94,
+   "unmeasured": 0,
+   "partition": {
+    "unchanged": 9,
+    "toward": 27,
+    "away": 58
+   },
+   "fAggregate": 0.12902156752766564,
+   "fAggregateReference": 0.6461792908015043,
+   "fHalved": true,
+   "fNotWithin": 5,
+   "groups": {
+    "F rest": {
+     "A": 0.6389750752115497,
+     "referenceA": 0.6333529777577637,
+     "tau": 0.04850404719145669,
+     "gated": true,
+     "holds": true,
+     "cells": 9
+    },
+    "F inactive": {
+     "A": 0.02641660910869114,
+     "referenceA": 1.290260067547067,
+     "tau": 0.12342155515215827,
+     "gated": false,
+     "holds": true,
+     "cells": 2
+    },
+    "T rest": {
+     "A": 0.5546241067947314,
+     "referenceA": 0.5250553366328756,
+     "tau": 0.0944885658985879,
+     "gated": true,
+     "holds": true,
+     "cells": 3
+    },
+    "C rest": {
+     "A": 0.4804848658692909,
+     "referenceA": 0.1720192119916773,
+     "tau": 0.026737584849981264,
+     "gated": true,
+     "holds": false,
+     "cells": 37
+    },
+    "C inactive": {
+     "A": 0.38931909650325447,
+     "referenceA": 0.8522886753047472,
+     "tau": 0.05012099437091554,
+     "gated": true,
+     "holds": true,
+     "cells": 21
+    },
+    "P rest": {
+     "A": 0.537675891078438,
+     "referenceA": 0.4193273893847038,
+     "tau": 0.03982395945923926,
+     "gated": true,
+     "holds": false,
+     "cells": 11
+    },
+    "P inactive": {
+     "A": 0.33081157458534755,
+     "referenceA": 0.1392725447409356,
+     "tau": 0.04549318750806986,
+     "gated": true,
+     "holds": false,
+     "cells": 11
+    }
+   },
+   "gatedAggregateFailures": [
+    "C rest",
+    "P rest",
+    "P inactive"
+   ],
+   "reportedAggregateOver": [],
+   "awayBeyondB": [
+    {
+     "scene": "checkerboard-64__rrect-md__rest",
+     "growthInB": 10.369155938779402
+    },
+    {
+     "scene": "checkerboard-32__rrect-md__rest",
+     "growthInB": 9.724598621919831
+    },
+    {
+     "scene": "checkerboard-64__capsule-button__rest",
+     "growthInB": 9.72368774591109
+    },
+    {
+     "scene": "checkerboard__rrect-md__rest",
+     "growthInB": 9.145640796714764
+    },
+    {
+     "scene": "checkerboard-64__rrect-ml__rest",
+     "growthInB": 9.017784419314927
+    },
+    {
+     "scene": "checkerboard-64__rrect-lg__rest",
+     "growthInB": 8.858001764644493
+    },
+    {
+     "scene": "hc-text-28__rrect-md__rest",
+     "growthInB": 8.541929781986257
+    },
+    {
+     "scene": "checkerboard-32__capsule-button__rest",
+     "growthInB": 8.327043384766196
+    },
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 8.234246659087173
+    },
+    {
+     "scene": "checkerboard-32__rrect-ml__rest",
+     "growthInB": 8.041695527639927
+    },
+    {
+     "scene": "checkerboard-32__rrect-sm__rest",
+     "growthInB": 7.868943390857351
+    },
+    {
+     "scene": "checkerboard__capsule-button__rest",
+     "growthInB": 6.7767200075183
+    },
+    {
+     "scene": "checkerboard__rrect-sm__rest",
+     "growthInB": 6.587413853592167
+    },
+    {
+     "scene": "checkerboard__rrect-ml__rest",
+     "growthInB": 6.5499075122613295
+    },
+    {
+     "scene": "hc-text-28__rrect-sm__rest",
+     "growthInB": 6.513356837120974
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 6.487762926559545
+    },
+    {
+     "scene": "checkerboard__toolbar-group__rest",
+     "growthInB": 6.066645339965716
+    },
+    {
+     "scene": "checkerboard-8__capsule-button__rest",
+     "growthInB": 5.708927635954907
+    },
+    {
+     "scene": "hc-text__rrect-sm__rest",
+     "growthInB": 4.917709557755303
+    },
+    {
+     "scene": "hc-text-28__rrect-lg__rest",
+     "growthInB": 4.848614243412926
+    },
+    {
+     "scene": "hc-text__rrect-lg__inactive",
+     "growthInB": 4.680861668751936
+    },
+    {
+     "scene": "checkerboard-4__capsule-button__rest",
+     "growthInB": 4.142144146481126
+    },
+    {
+     "scene": "hc-text__rrect-lg__rest",
+     "growthInB": 3.95275277014537
+    },
+    {
+     "scene": "checkerboard__capsule-button__pressed",
+     "growthInB": 3.8344420278108027
+    },
+    {
+     "scene": "checkerboard-4__rrect-sm__rest",
+     "growthInB": 3.6787448633423536
+    },
+    {
+     "scene": "photo__rrect-ml__inactive",
+     "growthInB": 3.1259321140615204
+    },
+    {
+     "scene": "checkerboard-lc16__rrect-md__rest",
+     "growthInB": 3.024694255448636
+    },
+    {
+     "scene": "hc-text-7__rrect-md__rest",
+     "growthInB": 2.9168911963713504
+    },
+    {
+     "scene": "hc-text-7__rrect-lg__rest",
+     "growthInB": 2.8393549581729016
+    },
+    {
+     "scene": "photo__rrect-md__inactive",
+     "growthInB": 2.745174499576906
+    },
+    {
+     "scene": "checkerboard-64__capsule-button__rest-tint-orange",
+     "growthInB": 2.6258387001319035
+    },
+    {
+     "scene": "photo__rrect-md__inactive-tint-orange",
+     "growthInB": 2.48477855423445
+    },
+    {
+     "scene": "hc-text-7__rrect-sm__rest",
+     "growthInB": 2.250371785148685
+    },
+    {
+     "scene": "checkerboard-32__capsule-button__rest-tint-orange",
+     "growthInB": 2.1289662821917332
+    },
+    {
+     "scene": "photo__capsule-button__inactive",
+     "growthInB": 2.0322979050752967
+    },
+    {
+     "scene": "photo__rrect-ml__rest",
+     "growthInB": 1.9006633400043342
+    },
+    {
+     "scene": "photo__capsule-button__inactive-tint-orange-half",
+     "growthInB": 1.895503741141199
+    },
+    {
+     "scene": "impulse__rrect-sm__rest",
+     "growthInB": 1.8942184109827038
+    },
+    {
+     "scene": "checkerboard-lc16__rrect-ml__rest",
+     "growthInB": 1.888647042330101
+    },
+    {
+     "scene": "photo__capsule-button__inactive-tint-blue",
+     "growthInB": 1.8425801544251257
+    },
+    {
+     "scene": "photo__capsule-button__inactive-tint-orange",
+     "growthInB": 1.8425801544251257
+    },
+    {
+     "scene": "photo__rrect-md__rest",
+     "growthInB": 1.7081382956031568
+    },
+    {
+     "scene": "checkerboard__capsule-button__rest-tint-orange",
+     "growthInB": 1.5169899784924863
+    },
+    {
+     "scene": "checkerboard__rrect-md__pressed",
+     "growthInB": 1.4934003375832376
+    },
+    {
+     "scene": "photo__toolbar-group__inactive",
+     "growthInB": 1.4885454808771406
+    },
+    {
+     "scene": "impulse__rrect-md__rest",
+     "growthInB": 1.440984861428814
+    },
+    {
+     "scene": "impulse__capsule-button__rest",
+     "growthInB": 1.2845079701465032
+    },
+    {
+     "scene": "checkerboard-lc16__capsule-button__rest",
+     "growthInB": 1.2653109228301822
+    },
+    {
+     "scene": "checkerboard-8__capsule-button__rest-tint-orange",
+     "growthInB": 1.1972423245677446
+    },
+    {
+     "scene": "photo__toolbar-group__rest",
+     "growthInB": 1.1640922388644621
+    },
+    {
+     "scene": "checkerboard-lc16__rrect-lg__rest",
+     "growthInB": 1.0640560775965846
+    }
+   ],
+   "awayBeyondCeiling": [
+    {
+     "scene": "checkerboard-64__rrect-md__rest",
+     "growthInB": 10.369155938779402
+    },
+    {
+     "scene": "checkerboard-32__rrect-md__rest",
+     "growthInB": 9.724598621919831
+    },
+    {
+     "scene": "checkerboard-64__capsule-button__rest",
+     "growthInB": 9.72368774591109
+    },
+    {
+     "scene": "checkerboard__rrect-md__rest",
+     "growthInB": 9.145640796714764
+    },
+    {
+     "scene": "checkerboard-64__rrect-ml__rest",
+     "growthInB": 9.017784419314927
+    },
+    {
+     "scene": "checkerboard-64__rrect-lg__rest",
+     "growthInB": 8.858001764644493
+    },
+    {
+     "scene": "hc-text-28__rrect-md__rest",
+     "growthInB": 8.541929781986257
+    },
+    {
+     "scene": "checkerboard-32__capsule-button__rest",
+     "growthInB": 8.327043384766196
+    },
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 8.234246659087173
+    },
+    {
+     "scene": "checkerboard-32__rrect-ml__rest",
+     "growthInB": 8.041695527639927
+    },
+    {
+     "scene": "checkerboard-32__rrect-sm__rest",
+     "growthInB": 7.868943390857351
+    },
+    {
+     "scene": "checkerboard__capsule-button__rest",
+     "growthInB": 6.7767200075183
+    },
+    {
+     "scene": "checkerboard__rrect-sm__rest",
+     "growthInB": 6.587413853592167
+    },
+    {
+     "scene": "checkerboard__rrect-ml__rest",
+     "growthInB": 6.5499075122613295
+    },
+    {
+     "scene": "hc-text-28__rrect-sm__rest",
+     "growthInB": 6.513356837120974
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 6.487762926559545
+    },
+    {
+     "scene": "checkerboard__toolbar-group__rest",
+     "growthInB": 6.066645339965716
+    },
+    {
+     "scene": "checkerboard-8__capsule-button__rest",
+     "growthInB": 5.708927635954907
+    },
+    {
+     "scene": "hc-text__rrect-sm__rest",
+     "growthInB": 4.917709557755303
+    },
+    {
+     "scene": "hc-text-28__rrect-lg__rest",
+     "growthInB": 4.848614243412926
+    },
+    {
+     "scene": "hc-text__rrect-lg__inactive",
+     "growthInB": 4.680861668751936
+    },
+    {
+     "scene": "checkerboard-4__capsule-button__rest",
+     "growthInB": 4.142144146481126
+    },
+    {
+     "scene": "hc-text__rrect-lg__rest",
+     "growthInB": 3.95275277014537
+    },
+    {
+     "scene": "checkerboard__capsule-button__pressed",
+     "growthInB": 3.8344420278108027
+    },
+    {
+     "scene": "checkerboard-4__rrect-sm__rest",
+     "growthInB": 3.6787448633423536
+    },
+    {
+     "scene": "photo__rrect-ml__inactive",
+     "growthInB": 3.1259321140615204
+    },
+    {
+     "scene": "checkerboard-lc16__rrect-md__rest",
+     "growthInB": 3.024694255448636
+    }
+   ],
+   "budgetHolds": false,
+   "why": [
+    "full close: 5 F cell(s) not within",
+    "aggregate: C rest A 0.4805 > 0.1720 + \u03c4 0.0267, P rest A 0.5377 > 0.4193 + \u03c4 0.0398, P inactive A 0.3308 > 0.1393 + \u03c4 0.0455",
+    "budget count: 51 cells away beyond B (at most 3)",
+    "budget ceiling: 27 cell(s) beyond 3 B"
+   ]
+  },
+  {
+   "label": "m1c-0.5-5",
+   "kind": "complete W44 map",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-5/cuts.json.gz",
+   "sourceSha256": "e38f7262c0c38786db34f1d3713da0522397b9fc02fa9bd017dd6174dc23f066",
+   "verdict": "NEITHER: closes at the finding",
+   "read": 94,
+   "cells": 94,
+   "unmeasured": 0,
+   "partition": {
+    "unchanged": 40,
+    "toward": 38,
+    "away": 16
+   },
+   "fAggregate": 0.3123126654100036,
+   "fAggregateReference": 0.6461792908015043,
+   "fHalved": true,
+   "fNotWithin": 7,
+   "groups": {
+    "F rest": {
+     "A": 0.5349242432189921,
+     "referenceA": 0.6333529777577637,
+     "tau": 0.04850404719145669,
+     "gated": true,
+     "holds": true,
+     "cells": 9
+    },
+    "F inactive": {
+     "A": 0.046661178426581525,
+     "referenceA": 1.290260067547067,
+     "tau": 0.12342155515215827,
+     "gated": false,
+     "holds": true,
+     "cells": 2
+    },
+    "T rest": {
+     "A": 0.6299317287231014,
+     "referenceA": 0.5250553366328756,
+     "tau": 0.0944885658985879,
+     "gated": true,
+     "holds": false,
+     "cells": 3
+    },
+    "C rest": {
+     "A": 0.15655910349471114,
+     "referenceA": 0.1720192119916773,
+     "tau": 0.026737584849981264,
+     "gated": true,
+     "holds": true,
+     "cells": 37
+    },
+    "C inactive": {
+     "A": 0.6060355436494586,
+     "referenceA": 0.8522886753047472,
+     "tau": 0.05012099437091554,
+     "gated": true,
+     "holds": true,
+     "cells": 21
+    },
+    "P rest": {
+     "A": 0.4044198912912189,
+     "referenceA": 0.4193273893847038,
+     "tau": 0.03982395945923926,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    },
+    "P inactive": {
+     "A": 0.1482477735091732,
+     "referenceA": 0.1392725447409356,
+     "tau": 0.04549318750806986,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    }
+   },
+   "gatedAggregateFailures": [
+    "T rest"
+   ],
+   "reportedAggregateOver": [],
+   "awayBeyondB": [
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 6.866220902649451
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 4.96923655047572
+    },
+    {
+     "scene": "checkerboard-8__capsule-button__rest",
+     "growthInB": 2.639615100366555
+    },
+    {
+     "scene": "checkerboard__rrect-md__rest",
+     "growthInB": 2.438531427969623
+    },
+    {
+     "scene": "checkerboard-4__capsule-button__rest",
+     "growthInB": 2.074079964743892
+    },
+    {
+     "scene": "checkerboard-4__rrect-sm__rest",
+     "growthInB": 1.3855671400824252
+    },
+    {
+     "scene": "hc-text__rrect-sm__rest",
+     "growthInB": 1.2581998426156236
+    },
+    {
+     "scene": "checkerboard-64__rrect-sm__rest",
+     "growthInB": 1.11549160939179
+    }
+   ],
+   "awayBeyondCeiling": [
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 6.866220902649451
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 4.96923655047572
+    }
+   ],
+   "budgetHolds": false,
+   "why": [
+    "full close: 7 F cell(s) not within",
+    "aggregate: T rest A 0.6299 > 0.5251 + \u03c4 0.0945",
+    "budget count: 8 cells away beyond B (at most 3)",
+    "budget ceiling: 2 cell(s) beyond 3 B"
+   ]
+  },
+  {
+   "label": "m2-t0.8",
+   "kind": "complete W44 map",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.8/cuts.json.gz",
+   "sourceSha256": "79a0de48970347f21be4b3929d51fd7b4646b68fa79fa81b5c3e511e61bd2a15",
+   "verdict": "NEITHER: closes at the finding",
+   "read": 94,
+   "cells": 94,
+   "unmeasured": 0,
+   "partition": {
+    "unchanged": 33,
+    "toward": 48,
+    "away": 13
+   },
+   "fAggregate": 0.24545070857767962,
+   "fAggregateReference": 0.6461792908015043,
+   "fHalved": true,
+   "fNotWithin": 7,
+   "groups": {
+    "F rest": {
+     "A": 0.2702542733643888,
+     "referenceA": 0.6333529777577637,
+     "tau": 0.04850404719145669,
+     "gated": true,
+     "holds": true,
+     "cells": 9
+    },
+    "F inactive": {
+     "A": 0.046661178426581525,
+     "referenceA": 1.290260067547067,
+     "tau": 0.12342155515215827,
+     "gated": false,
+     "holds": true,
+     "cells": 2
+    },
+    "T rest": {
+     "A": 0.21773596821957664,
+     "referenceA": 0.5250553366328756,
+     "tau": 0.0944885658985879,
+     "gated": true,
+     "holds": true,
+     "cells": 3
+    },
+    "C rest": {
+     "A": 0.10297035794254278,
+     "referenceA": 0.1720192119916773,
+     "tau": 0.026737584849981264,
+     "gated": true,
+     "holds": true,
+     "cells": 37
+    },
+    "C inactive": {
+     "A": 0.6060355436494586,
+     "referenceA": 0.8522886753047472,
+     "tau": 0.05012099437091554,
+     "gated": true,
+     "holds": true,
+     "cells": 21
+    },
+    "P rest": {
+     "A": 0.39264187964087105,
+     "referenceA": 0.4193273893847038,
+     "tau": 0.03982395945923926,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    },
+    "P inactive": {
+     "A": 0.1482477735091732,
+     "referenceA": 0.1392725447409356,
+     "tau": 0.04549318750806986,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    }
+   },
+   "gatedAggregateFailures": [],
+   "reportedAggregateOver": [],
+   "awayBeyondB": [
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 6.866220902649451
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 4.96923655047572
+    },
+    {
+     "scene": "checkerboard-32__rrect-sm__rest",
+     "growthInB": 4.640437542943079
+    },
+    {
+     "scene": "checkerboard__capsule-button__pressed",
+     "growthInB": 3.548047791975549
+    },
+    {
+     "scene": "checkerboard__rrect-md__rest",
+     "growthInB": 2.438531427969623
+    },
+    {
+     "scene": "checkerboard-64__rrect-sm__rest",
+     "growthInB": 2.3986829506485257
+    }
+   ],
+   "awayBeyondCeiling": [
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 6.866220902649451
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 4.96923655047572
+    },
+    {
+     "scene": "checkerboard-32__rrect-sm__rest",
+     "growthInB": 4.640437542943079
+    },
+    {
+     "scene": "checkerboard__capsule-button__pressed",
+     "growthInB": 3.548047791975549
+    }
+   ],
+   "budgetHolds": false,
+   "why": [
+    "full close: 7 F cell(s) not within",
+    "budget count: 6 cells away beyond B (at most 3)",
+    "budget ceiling: 4 cell(s) beyond 3 B"
+   ]
+  },
+  {
+   "label": "m3-t0.1 (W44's joint point)",
+   "kind": "complete W44 map",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/cuts.json.gz",
+   "sourceSha256": "70f0844f594b55d3f7f4ef0d1126e43cd61d4a7ba50a8809f0b8ec4783f81f23",
+   "verdict": "NEITHER: closes at the finding",
+   "read": 94,
+   "cells": 94,
+   "unmeasured": 0,
+   "partition": {
+    "unchanged": 30,
+    "toward": 51,
+    "away": 13
+   },
+   "fAggregate": 0.24545070857767962,
+   "fAggregateReference": 0.6461792908015043,
+   "fHalved": true,
+   "fNotWithin": 7,
+   "groups": {
+    "F rest": {
+     "A": 0.2702542733643888,
+     "referenceA": 0.6333529777577637,
+     "tau": 0.04850404719145669,
+     "gated": true,
+     "holds": true,
+     "cells": 9
+    },
+    "F inactive": {
+     "A": 0.046661178426581525,
+     "referenceA": 1.290260067547067,
+     "tau": 0.12342155515215827,
+     "gated": false,
+     "holds": true,
+     "cells": 2
+    },
+    "T rest": {
+     "A": 0.21773596821957664,
+     "referenceA": 0.5250553366328756,
+     "tau": 0.0944885658985879,
+     "gated": true,
+     "holds": true,
+     "cells": 3
+    },
+    "C rest": {
+     "A": 0.10297035794254278,
+     "referenceA": 0.1720192119916773,
+     "tau": 0.026737584849981264,
+     "gated": true,
+     "holds": true,
+     "cells": 37
+    },
+    "C inactive": {
+     "A": 0.2348724390173642,
+     "referenceA": 0.8522886753047472,
+     "tau": 0.05012099437091554,
+     "gated": true,
+     "holds": true,
+     "cells": 21
+    },
+    "P rest": {
+     "A": 0.39264187964087105,
+     "referenceA": 0.4193273893847038,
+     "tau": 0.03982395945923926,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    },
+    "P inactive": {
+     "A": 0.1719002372502213,
+     "referenceA": 0.1392725447409356,
+     "tau": 0.04549318750806986,
+     "gated": true,
+     "holds": true,
+     "cells": 11
+    }
+   },
+   "gatedAggregateFailures": [],
+   "reportedAggregateOver": [],
+   "awayBeyondB": [
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 6.866220902649451
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 4.96923655047572
+    },
+    {
+     "scene": "checkerboard-32__rrect-sm__rest",
+     "growthInB": 4.640437542943079
+    },
+    {
+     "scene": "checkerboard__capsule-button__pressed",
+     "growthInB": 3.548047791975549
+    },
+    {
+     "scene": "checkerboard__rrect-md__rest",
+     "growthInB": 2.438531427969623
+    },
+    {
+     "scene": "checkerboard-64__rrect-sm__rest",
+     "growthInB": 2.3986829506485257
+    }
+   ],
+   "awayBeyondCeiling": [
+    {
+     "scene": "checkerboard-8__rrect-md__rest",
+     "growthInB": 6.866220902649451
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 4.96923655047572
+    },
+    {
+     "scene": "checkerboard-32__rrect-sm__rest",
+     "growthInB": 4.640437542943079
+    },
+    {
+     "scene": "checkerboard__capsule-button__pressed",
+     "growthInB": 3.548047791975549
+    }
+   ],
+   "budgetHolds": false,
+   "why": [
+    "full close: 7 F cell(s) not within",
+    "budget count: 6 cells away beyond B (at most 3)",
+    "budget ceiling: 4 cell(s) beyond 3 B"
+   ]
+  }
+ ],
+ "partial": [
+  {
+   "label": "m1-c05",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1-c05/cuts.json.gz",
+   "sourceSha256": "4cda3d879825a62e1c745f29444ba854caf3cf175ce578e0db14296d2d0679f2",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 29,
+     "toward": 0,
+     "away": 0
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m1a-f0.65",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f0.65/cuts.json.gz",
+   "sourceSha256": "f04a5bdbb14eb38820f4c3fa6ed015e3fc599120f8702f314c208e8cb56eaa5a",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 16,
+     "toward": 4,
+     "away": 9
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m1a-f0.7",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f0.7/cuts.json.gz",
+   "sourceSha256": "6f8ac20bc26637a21eb784d12c9d6b896556b8ed495a952e2f305a2558a79501",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 11,
+     "toward": 7,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1a-f0.75",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f0.75/cuts.json.gz",
+   "sourceSha256": "407113efe2c35e8ba975031ef7fe1289083edda3cdfadc0760aa18ea941ed653",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 8,
+     "toward": 6,
+     "away": 15
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1a-f0.8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f0.8/cuts.json.gz",
+   "sourceSha256": "d69bb4e7d634ffef61d1881123ba40c88141c5ef3b305a4f8b3858a67dfc7abc",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 6,
+     "away": 17
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-7__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1a-f0.85",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f0.85/cuts.json.gz",
+   "sourceSha256": "cf09d5bdb4c90446e61d58676f5f18840448844ee0edb5f89cdc14f03c914d52",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 6,
+     "away": 17
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-7__rrect-md__rest",
+     "hc-text-28__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1a-f0.9",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f0.9/cuts.json.gz",
+   "sourceSha256": "cb84215241881372a2509afa4f6adfe47d5be70eccdd4ece44e0d2db9f3bbdf2",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 6,
+     "away": 17
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "hc-text-7__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1a-f0.95",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f0.95/cuts.json.gz",
+   "sourceSha256": "51653a58e4b1e546009d0bc50fdb582cdf6083fb349ec110822dd2cc225d0c8d",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 6,
+     "away": 17
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "hc-text-7__rrect-md__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-64__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1a-f1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1a-f1/cuts.json.gz",
+   "sourceSha256": "82b0aac5de6714bdf82df0bf6b7933d0573958450425200dc110d7b8397ac73e",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 6,
+     "away": 17
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "hc-text-7__rrect-md__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-64__rrect-lg__rest",
+     "hc-text__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s10",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s10/cuts.json.gz",
+   "sourceSha256": "012bf6e578c1233a0641edc893c17720fc3c91100eb046494b563794913856ff",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 5,
+     "toward": 12,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s12",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s12/cuts.json.gz",
+   "sourceSha256": "e31035ec5e8e2d30c02734977ecc38614c21e7ad988e16f91f505a3f748a8ea6",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 9,
+     "toward": 10,
+     "away": 10
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s14",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s14/cuts.json.gz",
+   "sourceSha256": "832ee2ae2600a48d1f10fea9e9ef2a8b63d443ff91c4745dc94096fa5f495797",
+   "verdict": "UNMEASURED: 66 member(s) of the scope have no reading",
+   "read": 28,
+   "unmeasured": 66,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 9,
+     "toward": 10,
+     "away": 9
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s17",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s17/cuts.json.gz",
+   "sourceSha256": "8049452f7bb0982e1f440ac5c3f7ee9048142bf7377b7db6461a7c1c3557ec0d",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 9,
+     "toward": 7,
+     "away": 13
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "hc-text-7__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s6",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s6/cuts.json.gz",
+   "sourceSha256": "a6cde5d882f62d8401fd70825cc0b7a8f1ab1c3f9180202b6c0e2714d74aa52c",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 3,
+     "toward": 10,
+     "away": 16
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "hc-text__rrect-lg__rest",
+     "impulse__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-8__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s7",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s7/cuts.json.gz",
+   "sourceSha256": "9cc1edf0c3d237823b86c9137c05200b496fb8cd6aad4f3691e3b6463720884f",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 4,
+     "toward": 10,
+     "away": 15
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "impulse__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s8/cuts.json.gz",
+   "sourceSha256": "c870ac90e12748713126082a258cd82505858dd681b8183aad5669ccc399bf2d",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 5,
+     "toward": 10,
+     "away": 14
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1b-s9",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1b-s9/cuts.json.gz",
+   "sourceSha256": "0075e142e17070937299692047405fd56c784482de83f7bf4ebb4424beb3be13",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 4,
+     "toward": 11,
+     "away": 14
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.25-1.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.25-1.5/cuts.json.gz",
+   "sourceSha256": "81259a4a73fa829c0d6cc2b01fc5a59075ffb44a1de6e32d992af894c3a4f4e4",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 15,
+     "toward": 6,
+     "away": 8
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.25-2",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.25-2/cuts.json.gz",
+   "sourceSha256": "ae337c92846b66b42abd46e5a1b104630c9518b10896c37fb54141ba85990b0f",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 10,
+     "away": 6
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-8__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.25-2.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.25-2.5/cuts.json.gz",
+   "sourceSha256": "25583d5ded780ae04a740d40cc1b8b99218559c5df0a352edab5c5d0129ec2d7",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 13,
+     "away": 6
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.25-3",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.25-3/cuts.json.gz",
+   "sourceSha256": "72e2a3a48e8e09d235bb6edd5023d8b8c53268b7e1aa8bec472ca9c3f74ed617",
+   "verdict": "UNMEASURED: 66 member(s) of the scope have no reading",
+   "read": 28,
+   "unmeasured": 66,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 12,
+     "away": 6
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.25-4",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.25-4/cuts.json.gz",
+   "sourceSha256": "3e984d26929ce2a81f3440b5866df20bb0dac775481cac118a50a8771cc2b4f2",
+   "verdict": "UNMEASURED: 66 member(s) of the scope have no reading",
+   "read": 28,
+   "unmeasured": 66,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 9,
+     "away": 9
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-7__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.25-5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.25-5/cuts.json.gz",
+   "sourceSha256": "3c169248f5a0a4121f31650fb4f7051f5754259d8ed68654dbd458f79af2cab9",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 7,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "hc-text-7__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.25-6",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.25-6/cuts.json.gz",
+   "sourceSha256": "7d6d7ab93c34a9ea7223a4274d2818e506fc844bfb958517aa86be38fc3ac2b8",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 11,
+     "toward": 6,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-7__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.5-1.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-1.5/cuts.json.gz",
+   "sourceSha256": "d2369bbfdb1c14061a9ed7686b5fff573511a114cb3397dbaa5ad96282019cfa",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 4,
+     "toward": 8,
+     "away": 17
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-4__rrect-lg__rest",
+     "impulse__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.5-2",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-2/cuts.json.gz",
+   "sourceSha256": "34950a8cbc783b14cd11a25bf38290d720c142fd7a19b28f28258b38b245b156",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 10,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard__rrect-md__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.5-2.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-2.5/cuts.json.gz",
+   "sourceSha256": "39d7c3f9b0acf24f1106e690a96eda76d036a49034a2286e1e0f92d9f26488b8",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 11,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.5-3",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-3/cuts.json.gz",
+   "sourceSha256": "d195acab580e15b45a243175aa60b8471a24f05e7cb66c5f9c3bec8b5278cfa1",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 12,
+     "away": 10
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.5-4",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-4/cuts.json.gz",
+   "sourceSha256": "9e572474414ccb4401d554a68f4525aae1fa80d7e500eefd2cb7bd51311ecfa8",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 12,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.5-6",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.5-6/cuts.json.gz",
+   "sourceSha256": "2a5eb0b545845ff24e8ba08ac1be256e35e4a3091cf4a0a4d3e9110595633d7b",
+   "verdict": "UNMEASURED: 66 member(s) of the scope have no reading",
+   "read": 28,
+   "unmeasured": 66,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 11,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "hc-text-7__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.75-1.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.75-1.5/cuts.json.gz",
+   "sourceSha256": "5990664d191c80c83e4e840b7b375cb70d6f84efd9eacd346023d77e56a09f77",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 4,
+     "away": 23
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-4__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest",
+     "impulse__rrect-lg__rest",
+     "checkerboard-4__rrect-md__rest",
+     "impulse__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-4__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.75-2",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.75-2/cuts.json.gz",
+   "sourceSha256": "1a669bc4a97849f805b1dc685bfac6cd2d3e1af24f0bf761dfb31b7c9d2c3e89",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 3,
+     "toward": 7,
+     "away": 19
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-8__rrect-md__rest",
+     "impulse__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "hc-text__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.75-2.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.75-2.5/cuts.json.gz",
+   "sourceSha256": "5405cb7cb5d20f6a651bad5c7875fcc53f2b52f8260e2603b385c90944fe059c",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 4,
+     "toward": 9,
+     "away": 16
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "impulse__rrect-lg__rest",
+     "hc-text__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.75-3",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.75-3/cuts.json.gz",
+   "sourceSha256": "63dfa779c6674b7535cf142c9304d3fc505a5895564da6c9dd6b48e9270bb89e",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 4,
+     "toward": 9,
+     "away": 16
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.75-4",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.75-4/cuts.json.gz",
+   "sourceSha256": "75f1115cb5a05f344076f66468c4785b01d6bd2bbf81ac495ae68c97a3f0e08e",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 5,
+     "toward": 14,
+     "away": 10
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard__rrect-md__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.75-5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.75-5/cuts.json.gz",
+   "sourceSha256": "cde129d084cbdfdee8603612b451e89b6fdcf41028417967d4dee5371774bb6c",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 10,
+     "away": 9
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-0.75-6",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-0.75-6/cuts.json.gz",
+   "sourceSha256": "b65481372e788bb17b9017f0736e0e38bed016c57470850b6c3c5803c93d553b",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 9,
+     "toward": 13,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-1-1.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-1-1.5/cuts.json.gz",
+   "sourceSha256": "7178bb987e27310246a955f2e4055dc8d4dd7c5312d498735bbf6459072bac9f",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 1,
+     "toward": 2,
+     "away": 26
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-4__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest",
+     "impulse__rrect-lg__rest",
+     "checkerboard-4__rrect-md__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "impulse__rrect-ml__rest",
+     "impulse__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-4__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest",
+     "impulse__rrect-lg__rest",
+     "checkerboard-4__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-1-2",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-1-2/cuts.json.gz",
+   "sourceSha256": "dc37dfbb52e0b537fb0812dbbb72b82db2f1b1556d55132a88c5e0ed67100498",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 3,
+     "toward": 3,
+     "away": 23
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "impulse__rrect-lg__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "impulse__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-1-2.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-1-2.5/cuts.json.gz",
+   "sourceSha256": "753bf9d2ff924073a5d7c6fa112123fde19847788da3e911d7aaa1cfaa2bc7c3",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 6,
+     "away": 21
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard__rrect-md__rest",
+     "impulse__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-1-3",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-1-3/cuts.json.gz",
+   "sourceSha256": "8106d045bed8a8148c5bf52f4837eb7756833ba0ed43b92c975fc1dd14f49f3f",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 3,
+     "toward": 10,
+     "away": 16
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-8__rrect-ml__rest",
+     "hc-text__rrect-lg__rest",
+     "impulse__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-32__rrect-md__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-8__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-1-4",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-1-4/cuts.json.gz",
+   "sourceSha256": "63f3877f2ac83a8d7637e5d4f5faa2481f52326b60412603a57f2384827de782",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 5,
+     "toward": 10,
+     "away": 14
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "hc-text-28__rrect-md__rest",
+     "checkerboard-64__rrect-md__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-1-5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-1-5/cuts.json.gz",
+   "sourceSha256": "53336cb6b1b1f5dffaaa75af47119fdb40e701ac548b9bd044cc1eb9d01edc36",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 5,
+     "toward": 12,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard__rrect-md__pressed",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-ml__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "checkerboard-8__rrect-md__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard__rrect-ml__rest",
+     "checkerboard-64__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m1c-1-6",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m1c-1-6/cuts.json.gz",
+   "sourceSha256": "2fbf074896c92d444d2b4f465bd56029b8b7d7f65919800fa2bfd1783187aa73",
+   "verdict": "UNMEASURED: 65 member(s) of the scope have no reading",
+   "read": 29,
+   "unmeasured": 65,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 9,
+     "toward": 10,
+     "away": 10
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-32__rrect-ml__rest",
+     "hc-text-28__rrect-lg__rest"
+    ]
+   }
+  },
+  {
+   "label": "m2-r100-t0.8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-r100-t0.8/cuts.json.gz",
+   "sourceSha256": "a67e3deabbb058e3c2dc774aee7e1cb77b013d80cf9c1204fe9a37b5ef81e1c2",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 20,
+     "away": 4
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "checkerboard-64__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m2-r125-t0.8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-r125-t0.8/cuts.json.gz",
+   "sourceSha256": "335597675b830f35c5bf74eacc932ab071faea364fb01d51176bff4c83896042",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 20,
+     "away": 4
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-32__capsule-button__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m2-r150-t0.8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-r150-t0.8/cuts.json.gz",
+   "sourceSha256": "2af13f5da9e5165f8489d3b5bbb0608e7350296b5e1890f7f50ced379b2dc910",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 18,
+     "away": 6
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-32__capsule-button__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m2-r200-t0.8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-r200-t0.8/cuts.json.gz",
+   "sourceSha256": "73d95bb24b741e2a5f96d9be1fd8042128e2bd4c4f976ee6fab57ec2c20eb6fc",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 18,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-32__capsule-button__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m2-r50-t0.8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-r50-t0.8/cuts.json.gz",
+   "sourceSha256": "61d2b6e7b6c04f8783302f659acac71e493591a5b675f9636958a756ba5288e4",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 18,
+     "away": 3
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-32__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m2-r75-t0.8",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-r75-t0.8/cuts.json.gz",
+   "sourceSha256": "e8cfa1416ca05b55e13d84f11f84ab904f2a5c0f8946191624c53021fa233a52",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 21,
+     "away": 3
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "checkerboard-64__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest"
+    ]
+   }
+  },
+  {
+   "label": "m2-t0.46",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.46/cuts.json.gz",
+   "sourceSha256": "247efe533f99bb898286a07035ff9191b480966f27c385d7e4c4e1c49eea0eb7",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 14,
+     "toward": 10,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-8__capsule-button__rest",
+     "checkerboard-4__capsule-button__rest",
+     "checkerboard-4__rrect-sm__rest",
+     "hc-text__rrect-sm__rest",
+     "checkerboard-64__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m2-t0.55",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.55/cuts.json.gz",
+   "sourceSha256": "2fb26d92bc91ae85f03c8a54c18132e504babf326197e85fef8dcc302e4fb234",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 15,
+     "toward": 15,
+     "away": 1
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-64__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m2-t0.65",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.65/cuts.json.gz",
+   "sourceSha256": "79dcf9de00ef75b60fd0427432c0867a5ff5dc2046168a114e9086a4bf39e3cb",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 18,
+     "away": 3
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-32__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m2-t0.75",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.75/cuts.json.gz",
+   "sourceSha256": "e6798d38a61a71f64d9b63241418b2b0b9a398790637fae49132d68443b4c1ed",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 21,
+     "away": 3
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "checkerboard-64__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest"
+    ]
+   }
+  },
+  {
+   "label": "m2-t0.85",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.85/cuts.json.gz",
+   "sourceSha256": "a0a52da13be4115042033dada8c338cfd9757331041e8f40ca58e0c5803f4222",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 17,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-32__capsule-button__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed"
+    ]
+   }
+  },
+  {
+   "label": "m2-t0.95",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m2-t0.95/cuts.json.gz",
+   "sourceSha256": "e83c9770334464c157e42eb308c6b8db8526912411845ba35494f484ab5eb5cf",
+   "verdict": "UNMEASURED: 63 member(s) of the scope have no reading",
+   "read": 31,
+   "unmeasured": 63,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 18,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "hc-text-28__rrect-sm__rest",
+     "checkerboard__rrect-sm__rest",
+     "checkerboard-32__capsule-button__rest",
+     "hc-text__rrect-sm__rest",
+     "checkerboard-64__rrect-sm__rest"
+    ],
+    "awayBeyondCeilingAmongRead": [
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard__capsule-button__pressed",
+     "hc-text-28__rrect-sm__rest",
+     "checkerboard__rrect-sm__rest",
+     "checkerboard-32__capsule-button__rest",
+     "hc-text__rrect-sm__rest"
+    ]
+   }
+  },
+  {
+   "label": "m3-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "e30fd40bca9e69a5d55cc3d79facdb53ff0887f0f7a077816345a9b84c3e7f47",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-f0.01-k0.01-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-f0.01-k0.01-t0.1/cuts.json.gz",
+   "sourceSha256": "b9672013525166c807b1af35efdb23e7b99a4c2f78b39d1e4be57ee964965cf0",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-f0.02-k0.02-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-f0.02-k0.02-t0.1/cuts.json.gz",
+   "sourceSha256": "226491a5aebdd0c239c03bcded25a1107af96fa54f2902d872a9bd89ef6fcd15",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "35157b75edb51e3912a990dad923ba1e69b6e27063753ac274b9866f2f527542",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-f0.04-k0.04-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-f0.04-k0.04-t0.1/cuts.json.gz",
+   "sourceSha256": "bdc22939f1b6fb75dd1dbae0d56ee005bbc286faeb618b925b9cde567e183869",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0-s22-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0-s22-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "924068f2839b7018ce8b4ea8e1328aeaeddb93a583ced3ed155c2329b291fa96",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 1,
+     "toward": 21,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive",
+     "photo__rrect-md__inactive",
+     "photo__capsule-button__inactive",
+     "photo__rrect-md__inactive-tint-orange",
+     "photo__capsule-button__inactive-tint-orange-half",
+     "photo__rrect-ml__inactive",
+     "photo__capsule-button__inactive-tint-blue",
+     "photo__capsule-button__inactive-tint-orange",
+     "impulse__rrect-ml__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0-s22-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0-s22-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "9873626324dcbbda1ed6ee7ea4ebae90c8c2a348e2021de6bc5212d34a45628d",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 1,
+     "toward": 21,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive",
+     "photo__rrect-md__inactive",
+     "photo__capsule-button__inactive",
+     "photo__rrect-md__inactive-tint-orange",
+     "photo__capsule-button__inactive-tint-orange-half",
+     "photo__rrect-ml__inactive",
+     "photo__capsule-button__inactive-tint-blue",
+     "photo__capsule-button__inactive-tint-orange",
+     "impulse__rrect-ml__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.125-s22-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.125-s22-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "7193b7243a4e51515c25fc0ce570e854dbbc5683a2b89553380eebf231eb881f",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 1,
+     "toward": 21,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive",
+     "photo__rrect-md__inactive",
+     "photo__capsule-button__inactive",
+     "photo__capsule-button__inactive-tint-orange-half",
+     "photo__rrect-md__inactive-tint-orange",
+     "photo__capsule-button__inactive-tint-blue",
+     "photo__capsule-button__inactive-tint-orange",
+     "photo__rrect-ml__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.125-s22-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.125-s22-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "ec9627211239a80e3e2e4788954d49d4a1c0d6f96f319d3e5d8ee2f2fb7de2c9",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 1,
+     "toward": 21,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive",
+     "photo__capsule-button__inactive",
+     "photo__rrect-md__inactive",
+     "photo__capsule-button__inactive-tint-orange-half",
+     "photo__capsule-button__inactive-tint-blue",
+     "photo__capsule-button__inactive-tint-orange",
+     "photo__rrect-md__inactive-tint-orange"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.25-s22-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.25-s22-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "dcec771481d6e402f23b3fd960e8c4bd9458d2fb76f8d2a7c009c5883e5f92c6",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 20,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive",
+     "photo__capsule-button__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.25-s22-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.25-s22-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "a200f4b757fa4f8b23f8b6d218f61f8fd3587c85c361461e35edc72144aba6c3",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 20,
+     "away": 12
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive",
+     "photo__capsule-button__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.375-s22-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.375-s22-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "d12076e30d363f37d7ad5ea73c26f73bc79d4290a980d1382bd5f58b795c2eb7",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.375-s22-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.375-s22-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "9fadffb0133573d781cedb2460d931927ac1cd04142935a1ee9f7d62a91fd02c",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s14-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s14-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "fada126f75e80936bbf5e13563ff18f5da3395a3897fc8b37cecfe5e773e438f",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s16-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s16-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "1b2a9f211ade27371da601e421f385b2525e59451469dc59baa4c1391d11e311",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 20,
+     "away": 4
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s18-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s18-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "2939c5d8caccc048dceb32e46ee9d9b4a82a4deee8a88b5da31b10c6165ed100",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 21,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s20-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s20-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "5522612741bd087c2d379ce3e5f571248506e10b66951f9c1f33b62f81167627",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 4,
+     "toward": 21,
+     "away": 9
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "236a66ed6d0ae144d00ea77cc65337351fb10ec262ef007ea7bd6b29237fff1c",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.01-k0.01-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.01-k0.01-t0.1/cuts.json.gz",
+   "sourceSha256": "65f5ce3fed8dfbe44d2422ed3dfd6a4ee0ae0fdd9137f869a915a0e4fdcc3689",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.02-k0.02-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.02-k0.02-t0.1/cuts.json.gz",
+   "sourceSha256": "81830af7fa561612d63f4113b1512a850db59476aec8ee9be64fc64dfd15be26",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "7419370a74c1a6ec0c4d6633bf8f664005cd6eb351d0f3889ac8d383b7c9bd9c",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.03-k0.03-t0.2",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.03-k0.03-t0.2/cuts.json.gz",
+   "sourceSha256": "e49deac0966939061691815c4b17032c5c6e8be1edbdf5a757f08af8f841ca1e",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.03-k0.03-t0.3",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.03-k0.03-t0.3/cuts.json.gz",
+   "sourceSha256": "08073ef8bbec8ec22fbe7a695ba3bddb261ecc69bd62e61441954375473da62a",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 3,
+     "toward": 21,
+     "away": 10
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.03-k0.03-t0.4",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.03-k0.03-t0.4/cuts.json.gz",
+   "sourceSha256": "23b720e4e155721f900de6a7c5039a7fae2ea4c90c60f04d67e020a532b5b678",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 21,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.03-k0.03-t0.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.03-k0.03-t0.5/cuts.json.gz",
+   "sourceSha256": "97cf2d58f07d7967429b69ea0809f173645bb3b4bc10d16f175082a31158ae1f",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 7,
+     "toward": 21,
+     "away": 6
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.03-k0.03-t0.6",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.03-k0.03-t0.6/cuts.json.gz",
+   "sourceSha256": "d2a5bc0a41e8a1544a60e33835929f90dfd1ea5375c60acde63bc81cb13f2e1e",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 8,
+     "toward": 21,
+     "away": 5
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.03-k0.03-t0.7",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.03-k0.03-t0.7/cuts.json.gz",
+   "sourceSha256": "7e4576a611c95e4b6df9b43018268b575f118f15f0021812bddba52f35f936a4",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 8,
+     "toward": 21,
+     "away": 5
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s22-f0.04-k0.04-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s22-f0.04-k0.04-t0.1/cuts.json.gz",
+   "sourceSha256": "b017640b87db2919f4e08ef3d440688363cf4a6167ba4f27bf4f1bf4989c9ad6",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-q0.5-s24-f0-k0-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-q0.5-s24-f0-k0-t0.1/cuts.json.gz",
+   "sourceSha256": "6ecd4a145fffc010db1bc599a2eadaa92a495466470eab7022f0b55eaaeca949",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-s14-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-s14-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "ed8ad9351714a8524db995bb5b620ae32b4006e783e0122209ec961c4f5e3a69",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-s16-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-s16-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "40caca29ba5caee4e5c86ebaa367dca36a5e2ac2f8fc8ec0296478ea3b8d2f54",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 10,
+     "toward": 20,
+     "away": 4
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-s18-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-s18-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "2b266df6c1f9de311948fbcc493b7029e7c629a21e029756707a61d892517e74",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 6,
+     "toward": 21,
+     "away": 7
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-s20-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-s20-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "62d58ed8f971a82817e22ca6e3e05e5c1cbff7c63af426d7d22b2f9905172cbb",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 4,
+     "toward": 21,
+     "away": 9
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-s22-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-s22-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "962a0b8420d693a320184e979ad15d1793a4d548edf7fb9dab2f735aecee3e09",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-s24-f0.03-k0.03-t0.1",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-s24-f0.03-k0.03-t0.1/cuts.json.gz",
+   "sourceSha256": "8259ac7e7e7c9c9a2a08f05976d97c35a8d014f2653b8d12ef2dd0ee4ae70029",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 2,
+     "toward": 21,
+     "away": 11
+    },
+    "awayBeyondBAmongRead": [
+     "hc-text__rrect-lg__inactive",
+     "photo__toolbar-group__inactive"
+    ],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-t0.2",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.2/cuts.json.gz",
+   "sourceSha256": "98d22306c9bc03595195cf88b2fc03f0289ed860f888c6a9bb43d782f671896e",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-t0.3",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.3/cuts.json.gz",
+   "sourceSha256": "ba0dabb9f3c362d0e542ebd7f2c1c41b2f3ac794d8e01b6197fa8f821a084232",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-t0.4",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.4/cuts.json.gz",
+   "sourceSha256": "97592b6b828ab95db25d45efa5583414ba78d845d3418b74322c1bcbcf547ead",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-t0.5",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.5/cuts.json.gz",
+   "sourceSha256": "40503f6d3116d8eaaf775bd55b9ebc1fdfe933491480caf41c89a604b94f2e9a",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-t0.6",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.6/cuts.json.gz",
+   "sourceSha256": "209312a10597f8bd92e6a2e9f1b3bc787fb958cabe11c43fe808855050171945",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 13,
+     "toward": 19,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  },
+  {
+   "label": "m3-t0.7",
+   "source": "packages/calibration/results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.7/cuts.json.gz",
+   "sourceSha256": "df946e64242f47acd6774a57c9eb805f59a954538dc2259230222038acab57e5",
+   "verdict": "UNMEASURED: 60 member(s) of the scope have no reading",
+   "read": 34,
+   "unmeasured": 60,
+   "diagnostics": {
+    "partition": {
+     "unchanged": 16,
+     "toward": 16,
+     "away": 2
+    },
+    "awayBeyondBAmongRead": [],
+    "awayBeyondCeilingAmongRead": []
+   }
+  }
+ ],
+ "partialCount": 97,
+ "synthetic": {
+  "path": "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/test_rule.txt",
+  "result": "OK"
+ },
+ "joint": {
+  "verdict": "NEITHER: closes at the finding",
+  "awayBeyondB": 6,
+  "awayBeyondCeiling": 4,
+  "failsOnCount": true,
+  "failsOnCeiling": true
+ }
+}

@@ -137,6 +137,35 @@ const CONFIGS = [
     devicePixelRatio: 3,
     materialProfile: { sizeHeavyTapSigma: 19.5, sizeHeavyTapSigma2x: 11.3 },
   },
+  /*
+   * W30's second heavy tap ON, and W45's grading of its share on the far curve (claims §5.205).
+   *
+   * The rows above all render share 0, where the second texture does not exist and the optics
+   * pass never reaches the mix W45 grades, so they cannot price the grading at all. These two
+   * switch the tap on at the W44 joint point's width and share; the second also names a far delta.
+   * Before W45 the leaf was unknown and the two rows were the same work; after it, the grading
+   * (one multiply-add per covered pixel on a value the pass already holds) runs in both, because
+   * the expression is unconditional on the delta. The before/after reading is in §5.205.
+   */
+  {
+    label: "mobile-390x844@3 second-tap",
+    widthCss: 390,
+    heightCss: 844,
+    devicePixelRatio: 3,
+    materialProfile: { sizeHeavySecondShare: 0.5, sizeHeavySecondSigma: 5, sizeHeavySecondSigma2x: 5 },
+  },
+  {
+    label: "mobile-390x844@3 second-tap graded",
+    widthCss: 390,
+    heightCss: 844,
+    devicePixelRatio: 3,
+    materialProfile: {
+      sizeHeavySecondShare: 0.5,
+      sizeHeavySecondSigma: 5,
+      sizeHeavySecondSigma2x: 5,
+      sizeHeavySecondShareFar2x: -0.5,
+    },
+  },
   // The ordering control: the first config again. Interleaved, it should land on
   // the first row's number; if it does not, nothing else in the table is
   // comparable either.

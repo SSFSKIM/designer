@@ -1,0 +1,27 @@
+{
+  "$comment": "W45 scratch candidate c05-control: W45 ladder base rung None",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w45-c05-control",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "f6f12a58bc766aeea523bc6711f861c87ac532c2fd82decb107b7e6b6206a4dc"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "ba83bb6e591c3a3cd0faea73febef77ccd9c2bbff0e47d771f5c52d8897455dc"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "80842a978b7896cf43dbf13a79ace0e77dd34df2055ef6879777b74a1a1c9693"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "2a102d5967f610e8a099e590c6f7f7c7352a9804062cd3ed27736b1af4de7b34"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

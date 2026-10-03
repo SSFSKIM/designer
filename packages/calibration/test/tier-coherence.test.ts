@@ -3110,6 +3110,11 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   sizeHeavySecondSigma: "cssTierHeavyStepSigmaCssPx",
   sizeHeavySecondSigma2x: "cssTierHeavyStepSigmaCssPx",
   sizeHeavySecondShare: "cssTierHeavyShareAt",
+  // W45's grading of that share on the far curve (claims §5.205): declined with the tap.
+  sizeHeavySecondShareFar2x:
+    "none: the CSS tier draws no second heavy tap, so it has no share to grade on the far curve; " +
+    "declined with the tap in `platform-web/src/optics.ts` (W45 charter Decision Log 1), and the " +
+    "span top it rides reaches this tier through `MATERIAL_SOURCE_SIZE` uncompensated.",
   // W30's scale-selective scatter reaches this tier through the same share.
   sizeScatterScaleGain: "cssTierHeavyShareAt",
   sizeScatterScaleRef: "cssTierHeavyShareAt",

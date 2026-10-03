@@ -245,6 +245,15 @@ export interface OpticsPassArgs {
   readonly sizeHeavySecondShare: number;
   readonly heavySecondEnabled: boolean;
   /**
+   * W45's grading of that share on the scatter's far curve (claims §5.205; charter Decision Log
+   * 1): `MaterialProfile.sizeHeavySecondShareFar2x` already resolved at this group's device ratio
+   * by `heavySecondShareFarAtScale` — 0 at dpr ≤ 1, so a 1x frame packs 0 whatever the material
+   * says. The shader multiplies it by its own per-pixel `farS`, which is why this is a delta and
+   * not a share: a group's members have different spans, and one packed share cannot grade them.
+   * 0 on every shipped material.
+   */
+  readonly sizeHeavySecondShareFar: number;
+  /**
    * W31's body chroma retention (claims §5.161 §5, §5.164) — how much of the
    * blurred backdrop's chromaticity the body restores, at the luma the tone
    * solve produced. 0 on the runtime default, where the composite is the one
@@ -985,7 +994,11 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[127] = 0;
       d[128] = args.sizeHeavySecondShare;
       d[129] = args.heavySecondEnabled ? 1 : 0;
-      d[130] = 0;
+      // W45 (claims §5.205): the far-curve delta on that share, in `scatterHeavy2.z` — this vec4's
+      // own spare lane, beside the share it grades, so no neighbour's lane changes owner. 0 on
+      // every shipped material and at every 1x frame, so the bytes this pass writes there are
+      // the ones W30 left.
+      d[130] = args.sizeHeavySecondShareFar;
       d[131] = 0;
       // W31's body chroma retention, in a vec4 of its own on the same rule as
       // W30's three above: 132 is the next vec4 boundary and an operator packed

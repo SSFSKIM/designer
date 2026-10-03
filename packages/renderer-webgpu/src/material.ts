@@ -1394,6 +1394,48 @@ export interface MaterialProfile {
    */
   readonly sizeHeavySecondShare: number;
   /**
+   * **The second tap's share, graded on the scatter's far curve** (W45; charter Decision Log 1,
+   * clause 1; claims §5.205) — how far the share above moves between the thickness knee and the
+   * top of the scatter span curve, at dpr 2. A SIGNED fraction of the deep mix, identity 0.
+   *
+   * ```
+   * farS(span)    = smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+   * tapShare(px)  = sizeHeavySecondShare + farDeltaAtScale · farS(span(px))
+   * deep          = heavy + tapShare(px) · (heavy2 − heavy)
+   * ```
+   *
+   * `farS` is the curve the ramp's far start already declines on (`scatterRampStart`) and the 2x
+   * heavy gain already rises on (`sizeScatterGainFar2x`): one span statistic, now read a fourth
+   * time, and evaluated where those are — per PIXEL in the optics pass, from each pixel's span in
+   * the field pass's aux target. It cannot be a per-group value: a group packs one share for
+   * members of different spans (`glass-over-glass` carries 130 and 56). The curve is exactly 0 at
+   * and below the knee (span 96 on every shipped material), so the leaf cannot move a span-96
+   * surface whatever it holds; that is what lets the deep composition separate span 96 from
+   * 128–160, which no existing leaf could (`kDeep` grades the SHARP component, and the thick
+   * lift saturates at the knee).
+   *
+   * **Unclamped**, because the share it grades is signed by design: a clamp would change a tuned
+   * negative-share configuration that no shipped digest covers, and the identity has to be the
+   * old expression exactly — `share + 0 · farS` is `share` in f32.
+   *
+   * **2x-anchored**, resolved by `heavySecondShareFarAtScale` as `rampAtScale(0, this, dpr)`: 0 at
+   * dpr ≤ 1, half at 1.5, all of it at ≥ 2. The 1x anchor is an implicit 0 rather than a leaf, so
+   * no 1x row can see this whatever it says (W15's binding rule, discharged by construction and
+   * proved by render in `e2e/gpu/w45-share-far.spec.ts`).
+   *
+   * **Read only where the second texture exists.** The share above is still the gate: at share 0
+   * nothing is allocated and the branch that evaluates this is not taken, so a delta beside a
+   * zero share is unread. It is not a gate-group member for that reason — a plain value drop in
+   * `MATERIAL_IDENTITY_TABLE`, because at a NON-zero share a non-zero delta draws.
+   *
+   * **The CSS tier declines it with the tap** (`platform-web/src/optics.ts`): it draws no second
+   * tap, so it has no share to grade.
+   *
+   * **Ships at 0**, landed inert before anything was fitted on it (X57): every shipped digest,
+   * every golden and the signed-share mix on a live second texture byte-identical.
+   */
+  readonly sizeHeavySecondShareFar2x: number;
+  /**
    * The gain on `kScatter` per unit of the source's measured scale statistic
    * about `sizeScatterScaleRef` — candidate (ii)'s scheme-conditioned leaf, a
    * fraction per unit of statistic, signed.
@@ -2752,6 +2794,9 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeHeavySecondSigma: 0,
   sizeHeavySecondSigma2x: 0,
   sizeHeavySecondShare: 0,
+  // W45's grading of that share on the far curve (claims §5.205; charter Decision Log 1): 0 is
+  // its identity, `share + 0 · farS`, and the table below drops it from every digest at 0.
+  sizeHeavySecondShareFar2x: 0,
   sizeScatterScaleGain: 0,
   sizeScatterScaleRef: 0,
   sizeOcclusionGain: 0.05,
@@ -3387,6 +3432,31 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
     whyGated: "At strength 0 neither tuple reaches the replacement branch's pixels.",
     claims: "c9a §5.192; W41 clause 11, partial-endpoint ruling",
   },
+  {
+    wave: "W45",
+    /*
+     * A plain value drop, injective for free, and NOT a member of the W30 second-tap gate-group
+     * above: that group's gate is the share, and at a non-zero share a non-zero delta draws, so
+     * the delta has an identity of its own (0) and is dropped at it like any plain leaf. At
+     * share 0 it is also unread — no second texture exists — but that is the share's gate
+     * working, proved by render, and nothing the digest relies on.
+     */
+    gate: { sizeHeavySecondShareFar2x: 0 },
+    gated: [],
+    law: "tapShare = sizeHeavySecondShare + rampAtScale(0, sizeHeavySecondShareFar2x, dpr)·" +
+      "smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span), per pixel and unclamped; " +
+      "deep = heavy + tapShare·(heavy2 − heavy)",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "W45 — sizeHeavySecondShareFar2x ' +
+      'is a plain value drop at 0"; the drawn half in ' +
+      'packages/renderer-webgpu/e2e/gpu/w45-share-far.spec.ts — "is the identity at 0, unread at ' +
+      'share 0 and at dpr 1, and per pixel above the knee", with the before/after bytes in ' +
+      "packages/calibration/results/2026-10-03-w45-g0-operator/operator/",
+    whyGated:
+      "Not gated — a plain value drop. At 0 the grading term is 0·farS, so the tap's share is " +
+      "the old uniform exactly and the mix is the expression W30 left.",
+    claims: "c9a §5.205; W45 Decision Log 1, clause 1, X57",
+  },
 ];
 
 /**
@@ -3545,6 +3615,7 @@ export interface MaterialProfilePatch {
   readonly sizeHeavySecondSigma?: number;
   readonly sizeHeavySecondSigma2x?: number;
   readonly sizeHeavySecondShare?: number;
+  readonly sizeHeavySecondShareFar2x?: number;
   readonly sizeScatterScaleGain?: number;
   readonly sizeScatterScaleRef?: number;
   readonly sizeOcclusionGain?: number;
@@ -3791,6 +3862,8 @@ export function withMaterialOverrides(
     sizeHeavySecondSigma: patch.sizeHeavySecondSigma ?? base.sizeHeavySecondSigma,
     sizeHeavySecondSigma2x: patch.sizeHeavySecondSigma2x ?? base.sizeHeavySecondSigma2x,
     sizeHeavySecondShare: patch.sizeHeavySecondShare ?? base.sizeHeavySecondShare,
+    // W45 (claims §5.205): the share's far-curve grading, on the same one-line-per-leaf rule.
+    sizeHeavySecondShareFar2x: patch.sizeHeavySecondShareFar2x ?? base.sizeHeavySecondShareFar2x,
     sizeScatterScaleGain: patch.sizeScatterScaleGain ?? base.sizeScatterScaleGain,
     sizeScatterScaleRef: patch.sizeScatterScaleRef ?? base.sizeScatterScaleRef,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
@@ -4906,6 +4979,24 @@ export function heavySecondTapSigmaAtScale(
     profile.sizeHeavySecondSigma2x,
     devicePixelRatio,
   );
+}
+
+/**
+ * **The second tap's far-curve delta at a device scale** (W45; claims §5.205) — the value of
+ * `MaterialProfile.sizeHeavySecondShareFar2x` the optics pass multiplies by `farS`, resolved as
+ * `rampAtScale(0, delta, dpr)`: 0 at dpr ≤ 1, half at 1.5 and the whole delta from dpr 2 up.
+ *
+ * The 1x anchor is a literal 0 rather than a leaf, so a 1x render cannot see the delta whatever a
+ * document names (charter clause 1). Not gated on the share here, unlike the width above: the
+ * shader reads the delta only inside the branch the share's texture opens, so a delta beside a
+ * zero share is unread without a second off condition — and the uniform carries the resolved
+ * number either way, which keeps one place where the value is decided.
+ */
+export function heavySecondShareFarAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(0, profile.sizeHeavySecondShareFar2x, devicePixelRatio);
 }
 
 /**

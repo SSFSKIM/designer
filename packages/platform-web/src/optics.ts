@@ -1316,6 +1316,16 @@ export interface MaterialSourceSize {
    * `blurSigmaScale` and records the residual. The σ law above is the other
    * half of that rule and mirrors in FULL, because a `box-shadow` per surface
    * can draw it exactly.
+   *
+   * **W45's grading of the second tap's share is declined with the tap** (claims
+   * §5.205; W45 charter Decision Log 1). `sizeHeavySecondShareFar2x` moves that
+   * share along the scatter's far curve, per pixel, and this tier draws no second
+   * tap — so there is no share here for it to grade, and nothing on this tier
+   * reads it. The leaf the tier DOES carry from the same deep composition, the span
+   * top `sizeScatterSpanMax2x`, still reaches it through `MATERIAL_SOURCE_SIZE`
+   * above, uncompensated by the grading; a document that moves the two together
+   * moves this tier's rows by the span top alone, which the wave prices at its
+   * gate as a tier residual rather than mirroring here.
    */
   /**
    * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp

@@ -39,8 +39,10 @@ import { describe, expect, it } from "vitest";
 import {
   DEFAULT_MATERIAL_PROFILE,
   backdropToneResponse, backdropToneSolveWeight, materialDigestInput,
+  heavySecondShareFarAtScale,
   heavySecondTapSigmaAtScale,
   heavyTapSigmaAtScale,
+  materialDigestDroppedLeaves,
   outerShadowReachPx,
   outerShadowSigmaPx,
   withMaterialOverrides,
@@ -283,5 +285,73 @@ describe("gate-group 4 — black strength 0 gates both black ordinates", () => {
     const on = withMaterialOverrides(old, { backdropToneBlackStrength: 1, backdropToneBlackThin: 0.2 });
     expect(materialDigestInput(on)).not.toEqual(materialDigestInput(old));
     expect(backdropToneResponse(0, 0, on)).not.toBe(backdropToneResponse(0, 0, old));
+  });
+});
+
+describe("W45 — sizeHeavySecondShareFar2x is a plain value drop at 0", () => {
+  /*
+   * W45 (claims §5.205; charter Decision Log 1, clause 1, X57). The leaf grades the second tap's
+   * share on the scatter's far curve, per pixel in the optics pass:
+   * `tapShare = scatterHeavy2.x + scatterHeavy2.z · farS`, unclamped. It is a PLAIN value drop —
+   * not a member of gate-group 2 — because at a non-zero share a non-zero delta draws. What the
+   * drop rests on is that 0 is its identity: the term is a multiplied zero at every share and
+   * every `farS` the shader can compute, in f32 as in f64, and the share it is added to is
+   * returned exactly, including the signed shares a tuned material carries.
+   */
+  const SHARES = [-1, -0.3, -0.25, -1e-6, 0, 1e-6, 0.25, 0.5, 1, 1.5] as const;
+  const FAR_S = [0, 1e-7, 0.104, 0.352, 0.5, 0.999999, 1] as const;
+  const DELTAS = [-1, -0.75, -0.5, -0.25, -1e-6, 1e-6, 0.25, 1, 1e6] as const;
+
+  it("holds the leaf at its identity on the shipped material, at every ratio", () => {
+    expect(DEFAULT_MATERIAL_PROFILE.sizeHeavySecondShareFar2x).toBe(0);
+    for (const dpr of [...RATIOS, 0.5, 1.25, 4]) {
+      expect(heavySecondShareFarAtScale(DEFAULT_MATERIAL_PROFILE, dpr)).toBe(0);
+    }
+  });
+
+  it("returns the share exactly at delta 0, signed shares included, in f64 and f32", () => {
+    for (const share of SHARES) {
+      for (const farS of FAR_S) {
+        expect(share + 0 * farS, `share ${String(share)} farS ${String(farS)}`).toBe(share);
+        const f32 = Math.fround(Math.fround(share) + Math.fround(Math.fround(0) * Math.fround(farS)));
+        expect(f32).toBe(Math.fround(share));
+      }
+    }
+  });
+
+  it("is 2x-anchored: 0 at dpr ≤ 1 whatever it holds, half at 1.5, the whole delta from 2", () => {
+    for (const delta of DELTAS) {
+      const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+        sizeHeavySecondShare: 0.5, sizeHeavySecondShareFar2x: delta,
+      });
+      for (const dpr of [0.5, 1]) expect(heavySecondShareFarAtScale(profile, dpr)).toBe(0);
+      expect(heavySecondShareFarAtScale(profile, 1.5)).toBe(delta * 0.5);
+      for (const dpr of [2, 3]) expect(heavySecondShareFarAtScale(profile, dpr)).toBe(delta);
+    }
+  });
+
+  it("is dropped from the digest at 0 and carried off it, with nothing gated beside it", () => {
+    expect(materialDigestDroppedLeaves(DEFAULT_MATERIAL_PROFILE)).toContain("sizeHeavySecondShareFar2x");
+    for (const delta of DELTAS) {
+      const off = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { sizeHeavySecondShareFar2x: delta });
+      expect(materialDigestDroppedLeaves(off)).not.toContain("sizeHeavySecondShareFar2x");
+      expect(materialDigestInput(off)).not.toEqual(materialDigestInput(DEFAULT_MATERIAL_PROFILE));
+      // The share's gate-group is unaffected: the delta is not one of its members.
+      expect(materialDigestDroppedLeaves(off)).toContain("sizeHeavySecondSigma");
+    }
+    const named = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { sizeHeavySecondShareFar2x: 0 });
+    expect(materialDigestInput(named)).toEqual(materialDigestInput(DEFAULT_MATERIAL_PROFILE));
+  });
+
+  it("is unread at share 0: no second texture is asked for, whatever the delta and widths say", () => {
+    // The share stays the single gate on the texture (charter Grounding, "The operator"). The
+    // drawn half — the bytes at −1, 0 and +1 — is in e2e/gpu/w45-share-far.spec.ts.
+    for (const delta of DELTAS) {
+      const gated = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+        sizeHeavySecondShare: 0, sizeHeavySecondSigma: 3, sizeHeavySecondSigma2x: 3,
+        sizeHeavySecondShareFar2x: delta,
+      });
+      for (const dpr of RATIOS) expect(heavySecondTapSigmaAtScale(gated, dpr)).toBe(0);
+    }
   });
 });

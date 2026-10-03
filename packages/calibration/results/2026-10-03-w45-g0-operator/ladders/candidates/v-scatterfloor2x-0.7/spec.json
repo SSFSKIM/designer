@@ -1,0 +1,15 @@
+{
+  "label": "v-scatterfloor2x-0.7",
+  "note": "W45 ladder v rung {'sizeScatterFloor2x': 0.7}",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 0.7,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 5,
+      "sizeScatterRampStartThin2x": 0.8
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1
+    }
+  }
+}
