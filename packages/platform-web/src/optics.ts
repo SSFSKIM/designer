@@ -1321,11 +1321,14 @@ export interface MaterialSourceSize {
    * §5.205; W45 charter Decision Log 1). `sizeHeavySecondShareFar2x` moves that
    * share along the scatter's far curve, per pixel, and this tier draws no second
    * tap — so there is no share here for it to grade, and nothing on this tier
-   * reads it. The leaf the tier DOES carry from the same deep composition, the span
-   * top `sizeScatterSpanMax2x`, still reaches it through `MATERIAL_SOURCE_SIZE`
-   * above, uncompensated by the grading; a document that moves the two together
-   * moves this tier's rows by the span top alone, which the wave prices at its
-   * gate as a tier residual rather than mirroring here.
+   * reads it. The leaf the tier carries from the same deep composition, the span
+   * top `sizeScatterSpanMax2x`, reaches it through `MATERIAL_SOURCE_SIZE` above,
+   * uncompensated by the grading — EXCEPT for the light 0.25 documents, which
+   * moved it with the tap: there `cssTierSourceSize` holds it and the 2x floor at
+   * c05's values, because W45's gate measured the span top alone washing out this
+   * tier's coarse checkers (`CSS_DECLINED_SIZE_GLASS025_LIGHT` below; claims
+   * §5.206 §15). Any other document that moves the span top moves this tier's rows
+   * by it alone, a tier residual its wave prices at its gate.
    */
   /**
    * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp

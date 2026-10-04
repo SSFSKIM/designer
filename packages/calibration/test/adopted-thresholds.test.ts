@@ -7016,8 +7016,9 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
   });
 
   it("(b) the exception passes a listed cell only against the listed reference (red cases)", () => {
-    // Synthetic cells through the clause's own function, so the mechanism is exercised while the
-    // live list is empty. B is one code (0.004) at a bar of 0.002.
+    // Synthetic cells through the clause's own function, so each refusal the exception makes is
+    // exercised on its own, whatever the live list holds (the witness case below reads the live
+    // list against the rows). B is one code (0.004) at a bar of 0.002.
     const cellAt = (scene: string, n: number, c: number, k: number): T1Cell => ({
       profile: T1_GATED_PROFILES[1], scene, set: "probe", stratum: "F", partition: "gate",
       metric: T1_METRIC, native: n, web: k, bar: 0.002, code: 0.004,
