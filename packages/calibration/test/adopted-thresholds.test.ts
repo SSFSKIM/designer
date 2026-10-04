@@ -248,7 +248,6 @@ import { loadCurrentRows, loadGeneration, legacyEnvelopeDigest } from "../src/ma
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, realpathSync } from "node:fs";
 import { resolve } from "node:path";
-import { gunzipSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 
 import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
@@ -3038,8 +3037,13 @@ interface Glass025Cut {
   };
   readonly reference: {
     readonly kind: string;
-    readonly stamp: string;
-    readonly matrices: readonly { readonly sha256: string; readonly rows: number }[];
+    readonly rows: number;
+    readonly matrices: readonly {
+      readonly path: string;
+      readonly sha256: string;
+      readonly rows: number;
+      readonly documents: Readonly<Record<string, string>>;
+    }[];
   };
   readonly withHoldout: boolean;
   readonly M1: { readonly webgpu: {
@@ -3099,16 +3103,25 @@ interface Glass025Cut {
 }
 
 /**
- * The cut, run by `results/2026-10-02-w43-g3-landing/cuts/landing.py` with G3's own `cuts.py`
- * over the published generation's 0.25 rows, read out of the union through the store. That
- * script also holds it equal, section by section, to the reading G3 (ii) took on its publication
- * stages (`landing.json`, verdict EQUAL), so the record the user ruled on and the one gated here
- * are the same numbers. It is never the only copy: every figure a row below gates is re-derived
- * from the union and from the pre-fit render it names.
+ * The cut, regenerated at W45 G2's landing (claims §5.207) by
+ * `results/2026-10-03-w45-g2-landing/cuts/landing.py` with W45's own `cuts.py`, over the published
+ * 0.25 generations' rows read out of the union through the store, every set: the holdout and the
+ * twelve referees were read once at W45 G1's exposure (the cross-gate ledger's read 7), so the
+ * landing reads recorded rows and renders nothing. The referees are ordinary members of the rows
+ * they belong to here (X1 242 cells, E2 288, C1 with `checkerboard-4__rrect-ml__rest`), which is the
+ * script's one named change to the pre-exposure cuts. It holds the cut equal to G1's exposure cut on
+ * every other section, and on C1, X1 and E2 equal but for exactly the referee cells (`landing.json`,
+ * verdict EQUAL), so the reading the user and the parent ruled on and the one gated here are the
+ * same numbers. Pinned by its bytes: a regenerated cut is a new file, never this one rewritten.
+ * W43's cut (`results/2026-10-02-w43-g3-landing/cuts/cut-025.json`) is history and is not read.
+ * It is never the only copy: every figure a row below gates is re-derived from the union and from
+ * the reference generations it names.
  */
-const GLASS025_CUT = readJson<Glass025Cut>(
-  resolve(PACKAGE_ROOT, "results", "2026-10-02-w43-g3-landing", "cuts", "cut-025.json"),
-);
+const GLASS025_CUT_FILE = {
+  path: "results/2026-10-03-w45-g2-landing/cuts/cut-025-w45-landing.json",
+  sha256: "e5e082a238405b8d555c159a290bb0b36ce3689d3f33e8a8485bfa4dc0cf2e65",
+} as const;
+const GLASS025_CUT = readJson<Glass025Cut>(resolve(PACKAGE_ROOT, GLASS025_CUT_FILE.path));
 
 /** The beds the 0.25 M1 / M2 rows are stated over, with the scheme each reads at. */
 const GLASS025_BED_PROFILES: Readonly<Record<string, "light" | "dark">> = {
@@ -3119,36 +3132,32 @@ const GLASS025_BED_PROFILES: Readonly<Record<string, "light" | "dark">> = {
 };
 
 /**
- * The pre-fit render: the shipped 0.5 documents drawn on the 0.25 cells, every row stamped
- * `crossPosition=shipped-glass0.5-against-glass0.25` (§5.201 §2). It is L1's growth baseline and
- * M2's reference (Decision Log 5 (b)), re-baselined at this gate under W32 Decision Log 4: the
- * 0.25 rows bound THIS wave's change, from the 0.5 material to the 0.25 one. It is a scratch read
- * and no generation, so it is named by its committed file and hash rather than by the index.
+ * The 0.25 reference generations, selected explicitly by their documents' hashes (X52's form): L1's
+ * growth baseline, M2's reference and E2's, re-baselined under W32 Decision Log 4 at the gate that
+ * adopts a material change. Until W45 G2 that was W43's pre-fit render (the shipped 0.5 documents
+ * on the 0.25 cells, `results/2026-10-02-w43-g3-refit/prefit/matrix.json.gz`), which bounded W43's
+ * change from the 0.5 material. W45 G1's gate and exposure read the published c05 generation
+ * instead, and the landing does too (claims §5.206 §2, §5.207): the light rows bound W45's change
+ * from c05 (`6d18c059eb42`, retired at W45's publication and still loadable by its hashes), and the
+ * dark generation W45 did not move is its own reference, so every dark cell reads unchanged.
  */
-const GLASS025_PREFIT = {
-  file: "results/2026-10-02-w43-g3-refit/prefit/matrix.json.gz",
-  sha256: "504c5348638265e6a141308d4f74d98dc6119dfbb9e12e15164fc6e028bdebbb",
-  stamp: "crossPosition=shipped-glass0.5-against-glass0.25",
-} as const;
+const GLASS025_REFERENCE = [
+  { active: "6d18c059eb42", receded: "4d5f23d9d312" },
+  { active: "d0219cd684bf", receded: "f0b36a71772a" },
+] as const;
 
-let glass025PrefitCache: Map<string, Cell> | undefined;
+let glass025ReferenceCache: Map<string, Cell> | undefined;
 
-/** The pre-fit rows, `profile renderer scene` → row, refused unless the bytes are the named ones. */
-const glass025Prefit = (): Map<string, Cell> => {
-  if (glass025PrefitCache !== undefined) return glass025PrefitCache;
-  const raw = gunzipSync(readFileSync(resolve(PACKAGE_ROOT, GLASS025_PREFIT.file)));
-  const sha = createHash("sha256").update(raw).digest("hex");
-  if (sha !== GLASS025_PREFIT.sha256) {
-    throw new Error(`${GLASS025_PREFIT.file}: decompresses to ${sha}, not ${GLASS025_PREFIT.sha256}`);
-  }
+/** The reference generations' rows, `profile renderer scene` → row (`matrix-store`, by hashes). */
+const glass025Reference = (): Map<string, Cell> => {
+  if (glass025ReferenceCache !== undefined) return glass025ReferenceCache;
   const out = new Map<string, Cell>();
-  for (const cell of (JSON.parse(raw.toString("utf8")) as ResultMatrix).cells) {
-    if (!cell.key.web.capturePath.includes(GLASS025_PREFIT.stamp)) {
-      throw new Error(`${name(cell)}: a pre-fit row without the cross-position stamp`);
+  for (const generation of GLASS025_REFERENCE) {
+    for (const cell of loadGeneration(generation.active, generation.receded) as unknown as readonly Cell[]) {
+      out.set(`${cell.key.profileKey} ${cell.key.web.renderer} ${cell.key.sceneId}`, cell);
     }
-    out.set(`${cell.key.profileKey} ${cell.key.web.renderer} ${cell.key.sceneId}`, cell);
   }
-  glass025PrefitCache = out;
+  glass025ReferenceCache = out;
   return out;
 };
 
@@ -3163,7 +3172,8 @@ const glass025PerCellMisses = (): readonly Glass025ChromaCell[] =>
 /**
  * M2 at 0.25, directional against Apple's 0.25 texture in W42 Decision Log 5a's form: the same
  * `structureVerdict` the 0.5 row reads, with Apple's reading taken off the published row and the
- * reference off the pre-fit render.
+ * reference off the cut's reference generation (`GLASS025_REFERENCE`: the pre-fit render until W45
+ * G2, the published c05 generation since).
  */
 const glass025StructureVerdicts = (): readonly StructureMiss[] => {
   const bed = bedFromMatrix(GLASS025_BED_PROFILES);
@@ -3212,9 +3222,10 @@ const glass025StructureNamedMisses = (): readonly StructureMiss[] =>
  *   text bar while its glyph edges over-pass, so a T cell's fidelity is read on **T1-fine** (the
  *   SD of L − G(L, σ 4 device px) over the native silhouette eroded 4 CSS px) and its regression
  *   on **T1-low** (the SD of G(L, 4) over the same support), at the cell's own bar and code. The
- *   rows do not carry them, so they come from a committed fixture read off the canonical capture
- *   tree (`T1_BANDS_FILE`, by W44 G1's pinned readers), each entry naming its row's
- *   `capturePath` and its PNG's SHA-256; where the tree is on disk, the bytes are checked too.
+ *   rows do not carry them, so they come from committed fixtures read off each generation's
+ *   captures (`T1_BANDS_FILES`, one per generation, by W44 G1's pinned readers), each entry naming
+ *   its row's `capturePath` and its PNG's SHA-256; where the tree is on disk, the bytes are
+ *   checked too.
  *
  * GATED on the WebGPU tier of the two light 0.25 profiles, by two clauses: (a) every cell within,
  * or named in `MISSED_27_ROWS` with its web/native ratio, its bound and Apple's reading; (b) no
@@ -3259,10 +3270,27 @@ const T1_REFEREES_FILE = {
   path: "results/2026-10-03-w44-g0-declaration/referees/referees.json",
   sha256: "b1132bd0f01f318b07e1722da3fefaba6eac96679b56efbe2b451ef13bf1b60b",
 } as const;
-const T1_BANDS_FILE = {
-  path: "results/2026-10-03-w44-g2-landing/t1/t-bands.json",
-  sha256: "09745ed1a1af92d52bfaf2be4c99ba9d3ea629dfa963c6185f2eeaeb11933eab",
-} as const;
+/**
+ * The T cells' band fixtures, ONE PER GENERATION the block reads (W45 G2, charter G2 part (i);
+ * claims §5.207). Clause (b) looks up both the current row's and the reference row's T cells
+ * through them, so a landing pins the new generation's fixture BESIDE the old one rather than
+ * replacing it: the reference generation's bands are what witness a regression against it. Each
+ * entry is keyed by its row's capture path, which names its generation's documents, and must name
+ * its own fixture's generation. The current generation's is W45 G1's, read off its stage's captures
+ * (gate entries at the gate, the exposed ones added at the exposure); c05's is W44 G2's, unchanged.
+ */
+const T1_BANDS_FILES = [
+  {
+    generation: "ebc3d9105a4a",
+    path: "results/2026-10-03-w45-g1-refit/t1/t-bands-ebc3d9105a4a.json",
+    sha256: "453b2f5f3ccb6e79f930f2c524b31aa6c48fff33ee659162c865a80cafa6a9aa",
+  },
+  {
+    generation: "6d18c059eb42",
+    path: "results/2026-10-03-w44-g2-landing/t1/t-bands.json",
+    sha256: "09745ed1a1af92d52bfaf2be4c99ba9d3ea629dfa963c6185f2eeaeb11933eab",
+  },
+] as const;
 
 interface T1Bands {
   readonly fine: { readonly native: number; readonly web: number };
@@ -3421,12 +3449,32 @@ const t1BandKey = (profile: string, renderer: string, scene: string, capturePath
   `${profile} ${renderer} ${scene} ${capturePath}`;
 const t1BandOf = (row: Cell) =>
   T1_BANDS.get(t1BandKey(row.key.profileKey, row.key.web.renderer, row.key.sceneId, row.key.web.capturePath));
-const T1_BANDS = new Map(
-  readJson<{ readonly entries: readonly { readonly profile: string; readonly renderer: string;
-    readonly scene: string; readonly capturePath: string; readonly webSha256: string;
-    readonly bands: T1Bands }[] }>(resolve(PACKAGE_ROOT, T1_BANDS_FILE.path))
-    .entries.map((entry) => [t1BandKey(entry.profile, entry.renderer, entry.scene, entry.capturePath), entry] as const),
-);
+interface T1BandEntry {
+  readonly generation: string;
+  readonly profile: string;
+  readonly renderer: string;
+  readonly scene: string;
+  readonly capturePath: string;
+  readonly webSha256: string;
+  readonly bands: T1Bands;
+}
+const T1_BANDS = (() => {
+  const out = new Map<string, T1BandEntry>();
+  for (const file of T1_BANDS_FILES) {
+    const body = readJson<{ readonly generation: string; readonly entries: readonly Omit<T1BandEntry, "generation">[] }>(
+      resolve(PACKAGE_ROOT, file.path));
+    if (body.generation !== file.generation) throw new Error(`${file.path}: names generation ${body.generation}`);
+    for (const entry of body.entries) {
+      const key = t1BandKey(entry.profile, entry.renderer, entry.scene, entry.capturePath);
+      // A capture path names its generation's documents, so two fixtures can never key one entry.
+      if (out.has(key) || !entry.capturePath.includes(`sha256:${file.generation}`)) {
+        throw new Error(`${file.path}: ${entry.scene} is keyed twice or names another generation`);
+      }
+      out.set(key, { ...entry, generation: file.generation });
+    }
+  }
+  return out;
+})();
 
 let t1ReferenceCache: Map<string, Cell> | undefined;
 /** The reference generation's rows, `profile renderer scene` → row (`matrix-store`, by hashes). */
@@ -5899,8 +5947,11 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
    * rows, read at its own position so the two materials never share a bed × span statistic.
    * Decision Log 7 item 7 holds every `outerShadow` leaf, so the ruling expected C1 to reproduce
    * its 0.5 readings and called a change a defect rather than a fit. The landing cut records the
-   * pre-fit render's and the shipped 0.5 generation's statistic beside each bed × span; this
-   * case re-derives the 0.25 readings from the rows in both directions and gates them.
+   * reference generation's (its `prefit` column, W43's field name; c05's since W45 G2) and the
+   * shipped 0.5 generation's statistic beside each bed × span; this case re-derives the 0.25
+   * readings from the rows in both directions and gates them. W45 moved no shadow leaf, and C1 at
+   * its landing reads as at c05 but for the referee `checkerboard-4__rrect-ml__rest`, a span-128
+   * member the pre-exposure cuts left out (claims §5.207).
    */
   const glass025C1 = () => new Map(
     deriveClause(MATRIX_FILE.cells, 0.25).map((entry) => [entry.key, entry] as const),
@@ -6486,10 +6537,11 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
    * **L1 at glass 0.25** (W43 Decision Log 5 (b), RULED 2026-10-02; claims §5.201): the same
    * fixed-native-silhouette level, the same 0.055 absolute bound and the same 0.005 growth bound,
    * over the same declared population rule at the new position. Growth is read against the
-   * pre-fit render (the shipped 0.5 documents on the 0.25 cells), the baseline the ruling names
-   * and the one every G3 cut read; it is this gate's own re-baseline, so it bounds this wave's
-   * change from the 0.5 material. The four dark inactive dark-solid means are UNMEASURED at 0.25
-   * as at 0.5, and no cell misses either clause, so the 0.25 rows carry no named miss here.
+   * reference generations (`GLASS025_REFERENCE`): until W45 G2 the pre-fit render, the baseline W43's
+   * ruling named; since W45 G2 the published c05 generation by its hashes, re-baselined at the gate
+   * that adopted W45's material change (W32 Decision Log 4), so it bounds W45's change from c05 and
+   * reads every dark cell against itself. The four dark inactive dark-solid means are UNMEASURED at
+   * 0.25 as at 0.5, and no cell misses either clause, so the 0.25 rows carry no named miss here.
    */
   const MISSING_025 = [1, 2].flatMap(scale => ["capsule-button", "rrect-md"].map(component =>
     `apple-macos-27.0-${scale}x-dark-standard-glass0.25/dark-solid__${component}__inactive`));
@@ -6497,10 +6549,10 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     c.key.profileKey.startsWith("apple-macos-27.0-") && c.key.profileKey.includes("-standard-")
     && glassOf(c.key.profileKey) === 0.25 && c.tier === "texture"
     && c.key.web.renderer === "webgpu" && allowed.has(c.key.sceneId));
-  const prefit025 = (c: Cell): Cell | undefined =>
-    glass025Prefit().get(`${c.key.profileKey} webgpu ${c.key.sceneId}`);
+  const reference025 = (c: Cell): Cell | undefined =>
+    glass025Reference().get(`${c.key.profileKey} webgpu ${c.key.sceneId}`);
 
-  it("glass 0.25: the population, its UNMEASURED means and the pre-fit baseline it names", () => {
+  it("glass 0.25: the population, its UNMEASURED means and the reference baseline it names", () => {
     const L1 = GLASS025_CUT.L1.webgpu;
     expect(population025).toHaveLength(140);
     expect(new Set(population025.map(key)).size).toBe(140);
@@ -6513,7 +6565,7 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     expect(L1.growthUnmeasured).toEqual([]);
     expect(L1.measured).toBe(136);
     for (const c of population025) {
-      expect(prefit025(c), `${key(c)}: no pre-fit row`).toBeDefined();
+      expect(reference025(c), `${key(c)}: no reference row`).toBeDefined();
       const documents = [...c.key.web.capturePath.matchAll(
         /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
       )];
@@ -6528,11 +6580,12 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     const L1 = GLASS025_CUT.L1.webgpu;
     const byCell = new Map(L1.cells.map(r => [r.cell, r] as const));
     for (const c of population025) {
-      const baseline = prefit025(c)!;
+      const baseline = reference025(c)!;
       const n = value(c, "interiorMeanNative"), w = value(c, "interiorMeanWeb");
       expect(n, key(c)).toBe(value(baseline, "interiorMeanNative"));
       const e = error(c), before = error(baseline);
-      // An UNMEASURED cell names which clauses it leaves unread, as G3's cut records it.
+      // An UNMEASURED cell names which clauses it leaves unread, as the cut records it (its
+      // `prefitError` field carries the reference's error: W44 G1 kept W43's field names).
       const unread = [...(e === null ? ["absolute"] : []),
         ...(e === null || before === null ? ["growth"] : [])];
       expect(byCell.get(key(c)), key(c)).toEqual({
@@ -6548,13 +6601,13 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
 
   it("glass 0.25 L1: absolute error at most 0.055 and growth at most 0.005, on every cell", () => {
     for (const c of population025) {
-      const e = error(c), before = error(prefit025(c)!);
+      const e = error(c), before = error(reference025(c)!);
       if (e === null || before === null) {
         expect(MISSING_025, `UNMEASURED L1 at glass 0.25: ${key(c)}`).toContain(key(c));
         continue;
       }
       expect(e, `${key(c)}: absolute`).toBeLessThanOrEqual(0.055);
-      expect(e - before, `${key(c)}: growth against the pre-fit render`).toBeLessThanOrEqual(0.005);
+      expect(e - before, `${key(c)}: growth against the reference generation`).toBeLessThanOrEqual(0.005);
     }
   });
 });
@@ -6600,36 +6653,41 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
   });
 
   it("reads a cut regenerated at this gate from the published generation", () => {
-    // The cut's own bed is the published 0.25 rows, read through the store: the four sealed
-    // documents at their live hash, every declared non-holdout cell present, no holdout.
+    // Since W45 G2 (claims §5.207): the landing's cut, pinned by its bytes. Its own bed is the
+    // published 0.25 rows read through the store in EVERY set, the holdout and the referees
+    // included (read once at W45 G1's exposure; recorded rows here): the four sealed documents at
+    // their live hash, every declared non-holdout cell present. W43's cut read the non-holdout rows
+    // only, because its holdout was read by a separate reader; W45's cuts read S1 off the holdout.
+    expect(sha256Of(GLASS025_CUT_FILE.path), GLASS025_CUT_FILE.path).toBe(GLASS025_CUT_FILE.sha256);
     expect(GLASS025_CUT.bed.kind).toBe("sealed");
-    expect(GLASS025_CUT.withHoldout).toBe(false);
+    expect(GLASS025_CUT.withHoldout).toBe(true);
     for (const [path, sha] of Object.entries(GLASS025_CUT.bed.documents)) {
       expect(SHIPPED_DOCUMENT_HASHES.get(path), path).toBe(sha);
     }
     expect(Object.keys(GLASS025_CUT.bed.documents)).toHaveLength(4);
     expect(GLASS025_CUT.bed.missingNonHoldout).toEqual({});
-    const published = MATRIX_FILE.cells.filter(
-      (cell) => glassOf(cell.key.profileKey) === 0.25 && cell.fixtureSet !== "holdout",
-    );
+    const published = MATRIX_FILE.cells.filter((cell) => glassOf(cell.key.profileKey) === 0.25);
     expect(GLASS025_CUT.bed.rows).toBe(published.length);
-    // Its reference is the pre-fit render, named by its committed file and hash.
-    expect(GLASS025_CUT.reference.kind).toBe("prefit");
-    expect(GLASS025_CUT.reference.stamp).toBe(GLASS025_PREFIT.stamp);
-    expect(GLASS025_CUT.reference.matrices.map((matrix) => matrix.sha256)).toEqual([
-      GLASS025_PREFIT.sha256,
-    ]);
-    expect(glass025Prefit().size).toBe(GLASS025_CUT.reference.matrices[0]?.rows);
+    // Its references are the generations `GLASS025_REFERENCE` selects, each named by its file and
+    // the file's SHA-256 in the generation index, and its documents' hashes.
+    const index = readJson<{ readonly files: Readonly<Record<string, { readonly sha256: string }>> }>(
+      resolve(PACKAGE_ROOT, "results", "generations", "index.json"));
+    expect(GLASS025_CUT.reference.kind).toBe(`published:${GLASS025_REFERENCE.map((g) => g.active).join("+")}`);
+    expect(GLASS025_CUT.reference.matrices.map((matrix) =>
+      [matrix.path, matrix.sha256, Object.values(matrix.documents).sort()])).toEqual(
+      GLASS025_REFERENCE.map((g) => [`packages/calibration/results/generations/${g.active}.json`,
+        index.files[`${g.active}.json`]?.sha256, [g.active, g.receded].sort()]));
+    expect(GLASS025_CUT.reference.rows).toBe(glass025Reference().size);
   });
 
-  it("re-derives every M1 / M2 figure from the published rows and the pre-fit render", () => {
+  it("re-derives every M1 / M2 figure from the published rows and the reference generations", () => {
     const bed = bedFromMatrix(GLASS025_BED_PROFILES);
     const cells = glass025ChromaCells();
     expect(cells.map((cell) => `${cell.profile} ${cell.scene}`).sort()).toEqual([...bed.keys()].sort());
     for (const cut of cells) {
       const row = bed.get(`${cut.profile} ${cut.scene}`)!;
-      const before = glass025Prefit().get(`${cut.profile} webgpu ${cut.scene}`);
-      expect(before, `${chromaKey(cut)}: no pre-fit row`).toBeDefined();
+      const before = glass025Reference().get(`${cut.profile} webgpu ${cut.scene}`);
+      expect(before, `${chromaKey(cut)}: no reference row`).toBeDefined();
       if (before === undefined) continue;
       expect(row.fixtureSet, chromaKey(cut)).toBe(cut.set);
       const native = reading(row, "material", "chromaStructureRatioNative");
@@ -6693,10 +6751,13 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
   });
 
   it("E2 at glass 0.25 is read on every declared cell and listed, never gated", () => {
-    // W42 Decision Log 5e's per-cell reading in absolute codes against the pre-fit render. It is
-    // a list for the eye and the next wave (62 cells moved farther from Apple at the edge, 14 of
-    // them rrect-lg; Decision Log 5 (e) ruled them named), and no assertion here bounds a value:
-    // what is asserted is that the list was read on its whole population.
+    // W42 Decision Log 5e's per-cell reading in absolute codes against the cut's reference. It is
+    // a list for the eye and the next wave, and no assertion here bounds a value: what is asserted
+    // is that the list was read on its whole population. At W43 the reference was the pre-fit
+    // render and 62 cells moved farther from Apple at the edge (14 of them rrect-lg; Decision Log 5
+    // (e) ruled them named); since W45 G2 it is c05, and 52 of the 288 read a larger mean edge
+    // error than c05's, every one a 2x light cell and the checkerboard cells worst (the gate's 50
+    // and two referees; claims §5.206 §13, §5.207).
     const E2 = GLASS025_CUT.E2.webgpu;
     expect(E2.cells).toBe(288);
     expect(E2.measured).toBe(E2.cells);
@@ -6759,7 +6820,7 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
   it("reads its pinned inputs: the bar, the referee manifest and the band fixture", () => {
     expect(sha256Of(T1_BAR_FILE.path), T1_BAR_FILE.path).toBe(T1_BAR_FILE.sha256);
     expect(sha256Of(T1_REFEREES_FILE.path), T1_REFEREES_FILE.path).toBe(T1_REFEREES_FILE.sha256);
-    expect(sha256Of(T1_BANDS_FILE.path), T1_BANDS_FILE.path).toBe(T1_BANDS_FILE.sha256);
+    for (const file of T1_BANDS_FILES) expect(sha256Of(file.path), file.path).toBe(file.sha256);
     expect(T1_REFEREE_CELLS.size).toBe(12);
     for (const profile of T1_GATED_PROFILES) {
       const population = t1Population(profile);
@@ -6909,28 +6970,46 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
     expect(lines).toHaveLength(T1_GATED_PROFILES.length);
   });
 
-  it("reads a T cell's bands off the committed fixture, which names the rows' captures", ctx => {
+  it("reads a T cell's bands off the committed fixtures, which name each generation's captures", ctx => {
+    // W45 G2 (charter G2 part (i)): two fixtures, one per generation, each holding exactly its
+    // generation's T rows on the gated profiles — the current one's and the superseded reference's
+    // that the authorised list is witnessed against — and each entry naming its row's capture.
+    const captures = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
+    const tree = existsSync(captures);
+    expect(T1_BANDS.size).toBe(8 * T1_BANDS_FILES.length);
+    for (const file of T1_BANDS_FILES) {
+      const rows = (loadGeneration(file.generation) as unknown as readonly Cell[]).filter((cell) =>
+        (T1_GATED_PROFILES as readonly string[]).includes(cell.key.profileKey)
+        && cell.key.web.renderer === "webgpu" && t1StratumOf(cell.key.sceneId) === "T");
+      expect(rows, file.path).toHaveLength(8);
+      const named = [...T1_BANDS.values()].filter((entry) => entry.generation === file.generation);
+      expect(named.map((entry) => `${entry.profile} ${entry.scene}`).sort(), file.path)
+        .toEqual(rows.map((row) => `${row.key.profileKey} ${row.key.sceneId}`).sort());
+      for (const row of rows) {
+        expect(t1BandOf(row), `${name(row)}: no band reading names this capture`).toBeDefined();
+      }
+      // Its PNGs, where the tree holding that generation's captures is on disk: the current
+      // generation's in the canonical tree, a superseded one's moved beside it under its active
+      // document's hash (CLAUDE.md, the capture-tree rules).
+      const current = MATRIX_FILE.cells.some((cell) => cell.key.web.capturePath.includes(`sha256:${file.generation}`));
+      const root = current ? captures : resolve(captures, "..", "web-captures-superseded", file.generation);
+      if (!tree || !existsSync(root)) continue;
+      for (const row of rows) {
+        const entry = t1BandOf(row)!;
+        const directory = resolve(root, row.key.profileKey, row.key.sceneId);
+        const meta = readJson<{ readonly capturePath: string }>(resolve(directory, "cell__webgpu.json"));
+        expect(meta.capturePath, name(row)).toBe(row.key.web.capturePath);
+        const png = readFileSync(resolve(directory, `${row.key.sceneId}__webgpu.png`));
+        expect(createHash("sha256").update(png).digest("hex"), `${name(row)}: the fixture's PNG`)
+          .toBe(entry.webSha256);
+      }
+    }
+    // The current generation's rows are the ones clause (a) reads.
     const tRows = T1_GATED_PROFILES.flatMap((profile) => MATRIX_FILE.cells.filter((cell) =>
       cell.key.profileKey === profile && cell.key.web.renderer === "webgpu" && t1StratumOf(cell.key.sceneId) === "T"));
     expect(tRows).toHaveLength(8);
-    expect(T1_BANDS.size).toBe(8);
-    for (const row of tRows) {
-      expect(t1BandOf(row), `${name(row)}: no band reading names this capture`)
-        .toBeDefined();
-    }
-    const captures = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
-    if (!existsSync(captures)) {
-      ctx.skip("UNMEASURED T1 band bytes: capture tree absent; the fixture's rows are checked, not its PNGs");
-    }
-    for (const row of tRows) {
-      const entry = t1BandOf(row)!;
-      const directory = resolve(captures, row.key.profileKey, row.key.sceneId);
-      const meta = readJson<{ readonly capturePath: string }>(resolve(directory, "cell__webgpu.json"));
-      expect(meta.capturePath, name(row)).toBe(row.key.web.capturePath);
-      const png = readFileSync(resolve(directory, `${row.key.sceneId}__webgpu.png`));
-      expect(createHash("sha256").update(png).digest("hex"), `${name(row)}: the fixture's PNG`)
-        .toBe(entry.webSha256);
-    }
+    for (const row of tRows) expect(t1BandOf(row), name(row)).toBeDefined();
+    if (!tree) ctx.skip("UNMEASURED T1 band bytes: capture tree absent; the fixtures' rows are checked, not their PNGs");
   });
 
   it("reads the CSS tier, the dark 0.25 profiles and the 0.5 profiles, and gates none of them", () => {
