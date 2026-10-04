@@ -197,6 +197,16 @@
  *     > clause that is a stop against a named reference generation, re-baselined at each gate that
  *     > adopts a material change, not a fidelity bound. 169 of its 232 cells miss and are named in
  *     > `MISSED_27_ROWS` at adoption; the row exists so that the fine pitches keep a gated role.
+ *     > **2026-10-04, W45 G2 (charter Decision Log 8; claims §5.207): the first material change
+ *     > the 0.25 rows gate, landed as an improvement with its exceptions named.** The light 0.25
+ *     > generation moved from c05 to `ebc3d9105a4a` (the span-graded tap). Every 0.25 block reads a
+ *     > cut regenerated at the landing, and M2, L1 and E2 read c05 by its hashes in place of W43's
+ *     > pre-fit render. T1 re-baselined in the five-part order its charter fixed: two band fixtures,
+ *     > the regressions witnessed against c05, eleven of them authorised by name, the misses
+ *     > re-derived (157 of 232), the reference moved last. M2's four receded photo failures and the
+ *     > P inactive T1 aggregate are named by the same ruling. Neither ground of the argument moved:
+ *     > the bar is the same, and the move itself (the 2x fine aggregate 0.6462 → 0.2190 on the
+ *     > gate's cells, §5.206 §13) is what the rows identify.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
