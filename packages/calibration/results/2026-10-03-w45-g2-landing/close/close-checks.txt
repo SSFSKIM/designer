@@ -1,0 +1,78 @@
+W45 G2 close checks: the c9d chain at e1e2fa023083a46cc46b1df9ffe9ec2c0c71cf51 (chain.sh; one log per step), each gated on its own exit code
+invocations: 1 (invocation 2026-10-04T00:27:30Z at e1e2fa023083a46cc46b1df9ffe9ec2c0c71cf51)
+
+freeze-open: exit 0
+    26.5 freeze intact: 1818 entries
+x41-open: exit 0
+    X41 0.5 generation intact: 911 entries
+capture-tree: exit 0
+    totals   captures 3024  match 3017  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 7
+    VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+build: exit 0
+digests: exit 0
+    all ten digests at their expected values
+lint: exit 0
+eslint-root: exit 0
+units: exit 0
+    packages/policy test:       Tests  23 passed (23)
+    packages/motion test:       Tests  164 passed (164)
+    packages/geometry test:       Tests  170 passed (170)
+    packages/renderer-webgpu test:       Tests  658 passed (658)
+    packages/core test:       Tests  304 passed (304)
+    packages/platform-web test:       Tests  656 passed (656)
+    packages/react test:       Tests  180 passed (180)
+    packages/calibration test:       Tests  922 passed (922)
+    apps/demo test:       Tests  123 passed (123)
+goldens: exit 0
+    34 passed (12.7s)
+gpu: exit 0
+    51 passed (23.7s)
+platform-web: exit 0
+    411 passed (54.3s)
+react-e2e: exit 0
+    3 skipped
+    174 passed (54.0s)
+demo-e2e: exit 0
+    89 passed (9.9m)
+declare-check: exit 1
+    MISMATCH tools: fit/test_build_candidate does not pass (FAILED (failures=6))
+    check: 1 mismatch(es)
+declare-check-fit: exit 1
+    check-fit: 2 mismatch(es)
+capture-tree-close: exit 0
+    totals   captures 3024  match 3017  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 7
+    VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+x41-close: exit 0
+    X41 0.5 generation intact: 911 entries
+freeze-close: exit 0
+    26.5 freeze intact: 1818 entries
+
+git status at the summary: M ../../2026-10-03-w45-g0-operator/census.jsonl
+?? chain-build.txt
+?? chain-capture-tree-close.txt
+?? chain-capture-tree.txt
+?? chain-declare-check-fit.txt
+?? chain-declare-check.txt
+?? chain-demo-e2e.port.txt
+?? chain-demo-e2e.txt
+?? chain-digests.txt
+?? chain-eslint-root.txt
+?? chain-freeze-close.txt
+?? chain-freeze-open.txt
+?? chain-goldens.port.txt
+?? chain-goldens.txt
+?? chain-gpu.port.txt
+?? chain-gpu.txt
+?? chain-invocations.txt
+?? chain-lint.txt
+?? chain-platform-web.port.txt
+?? chain-platform-web.txt
+?? chain-react-e2e.port.txt
+?? chain-react-e2e.txt
+?? chain-status.txt
+?? chain-units.txt
+?? chain-x41-close.txt
+?? chain-x41-open.txt
+?? declaration-witness-check-fit.txt
+?? declaration-witness-check.txt
+?? declaration-witness.txt

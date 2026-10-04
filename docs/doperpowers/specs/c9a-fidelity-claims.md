@@ -47669,7 +47669,8 @@ thin-span trade.
   - the light 0.25 pair at G1's sealed `3741b22934f17f4d` / `c4ca0e1cd6791bde`.
 - **The suites.** `tier-coherence` (the CSS hold's cases), `w31-identity-table` and
   `w30-operator-identity` pass in the unit run, and the 34 goldens on the real adapter (§10).
-- **G2 changes no rendered byte.** Its one runtime edit is a comment in `optics.ts` (§11).
+- **G2 changes no rendered byte.** Its one runtime edit is a comment in `optics.ts` (§11). Its one
+  other test edit is `matrix-store.test.ts`'s generation pin (§10).
 
 ### 7. The demo
 
@@ -47727,7 +47728,44 @@ By eye, 2x WebGPU:
 
 ### 10. The c9d chain (`close/`)
 
-CHAIN-PLACEHOLDER
+`close/chain.sh` is the 0.25.0 chain (`results/2026-09-29-release-0.25.0/`) with X41, the ten
+digests and W45's two declaration checks added. Each browser launch went under W45's GPU lock and
+classifying census, five census lines all passing, and each suite's port was checked free first.
+
+**The first run** (`close/chain-run-1/`, kept whole) halted at `units`. `matrix-store.test.ts` still
+pinned W43's glass 0.25 generations by file, and found no current row naming c05. The case now pins
+`ebc3d9105a4a` and asserts that the retired c05 names no row of the union (`3e8fb19e`). Every
+step before the halt was green.
+
+**The second run, from the first step**, at `e1e2fa02` (`close/close-checks.txt`, one log per step):
+
+| step | exit | reading |
+| --- | --- | --- |
+| freeze (open / close) | 0 / 0 | 26.5 freeze intact: 1,818 entries |
+| X41 (open / close) | 0 / 0 | intact: 911 entries |
+| `check-capture-tree` (open / close) | 0 / 0 | 3,024 captures, 3,017 match, 0 mismatch, 7 no-row |
+| `pnpm -r build` | 0 | |
+| ten digests | 0 | all ten at their expected values |
+| `pnpm -r lint`, root `eslint .` | 0, 0 | |
+| `pnpm -r test` (tree at the canonical path) | 0 | policy 23, motion 164, geometry 170, renderer-webgpu 658, core 304, platform-web 656, react 180, calibration 922, demo 123 |
+| goldens (`test:golden`, real adapter) | 0 | 34 passed |
+| renderer `test:gpu` | 0 | 51 passed |
+| platform-web Playwright (four projects) | 0 | 411 passed |
+| react Playwright (three engines) | 0 | 174 passed, 3 skipped |
+| demo Playwright | 0 | 89 passed, the reference panel at both positions included |
+| `declare.py check` | 1 | `test_build_candidate` fails (6) |
+| `declare.py check-fit` | 1 | `test_fit` and `test_seal` fail |
+
+**Which declaration check reads what** (`close/declaration-witness.sh`; G1's witness repeated).
+- `check` verifies part 1's pins, hash and amendment chain, and runs `test_build_candidate`.
+- `check-fit` verifies part 2's validated diff and both amendments, and runs `test_fit` and
+  `test_seal`.
+- Those tool tests start from the live light 0.25 documents, taken to be c05's. With c05's bytes
+  put back temporarily, both checks exit 0 ("consistent"). The sealed bytes were restored and
+  verified (`ebc3d9105a4a` / `12712d534b78`), with nothing committed in between.
+
+Every pin, hash and chain therefore holds. The two failures are the tracker's W45 live-document
+entry, which now holds on main.
 
 ### 11. Review closure (`doperpowers:reviewer-medium`)
 
