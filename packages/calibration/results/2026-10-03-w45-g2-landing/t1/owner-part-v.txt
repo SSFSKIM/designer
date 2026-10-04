@@ -1,0 +1,73 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w45/g2/packages/calibration
+
+T1 change partitions against ebc3d9105a4a (W44 / growth-only):
+  apple-macos-27.0-1x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+  apple-macos-27.0-2x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+T1 readings (not gated; W44 G2, claims §5.204):
+  apple-macos-27.0-1x-light-standard-glass0.25 css F: 0 of 15 within, median |log| 1.5069
+  apple-macos-27.0-1x-light-standard-glass0.25 css T: 0 of 4 within, median |log| 0.3973
+  apple-macos-27.0-1x-light-standard-glass0.25 css C: 14 of 69 within, median |log| 0.3522
+  apple-macos-27.0-1x-light-standard-glass0.25 css P: 2 of 28 within, median |log| 0.5377
+  apple-macos-27.0-2x-light-standard-glass0.25 css F: 2 of 15 within, median |log| 0.9216
+  apple-macos-27.0-2x-light-standard-glass0.25 css T: 1 of 4 within, median |log| 0.3314
+  apple-macos-27.0-2x-light-standard-glass0.25 css C: 11 of 69 within, median |log| 0.3953
+  apple-macos-27.0-2x-light-standard-glass0.25 css P: 4 of 28 within, median |log| 0.4196
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu F: 3 of 15 within, median |log| 0.5170
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu T: 2 of 4 within, median |log| 0.2353
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu C: 6 of 46 within, median |log| 0.4526
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu P: 0 of 12 within, median |log| 1.1005
+  apple-macos-27.0-1x-dark-standard-glass0.25 css F: 3 of 15 within, median |log| 1.1481
+  apple-macos-27.0-1x-dark-standard-glass0.25 css T: 0 of 4 within, median |log| 0.7936
+  apple-macos-27.0-1x-dark-standard-glass0.25 css C: 3 of 46 within, median |log| 1.1692
+  apple-macos-27.0-1x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 1.3315
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu F: 3 of 15 within, median |log| 0.4860
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu T: 2 of 4 within, median |log| 0.2359
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu C: 6 of 46 within, median |log| 0.4968
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu P: 0 of 12 within, median |log| 1.1195
+  apple-macos-27.0-2x-dark-standard-glass0.25 css F: 2 of 15 within, median |log| 0.7649
+  apple-macos-27.0-2x-dark-standard-glass0.25 css T: 2 of 4 within, median |log| 0.4879
+  apple-macos-27.0-2x-dark-standard-glass0.25 css C: 4 of 46 within, median |log| 1.0287
+  apple-macos-27.0-2x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 1.1733
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu F: 5 of 15 within, median |log| 0.1815
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1267
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2494
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu P: 1 of 24 within, median |log| 0.3468
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 css F: 0 of 15 within, median |log| 1.2147
+  apple-macos-27.0-1x-light-standard-glass0.5 css T: 0 of 4 within, median |log| 0.4455
+  apple-macos-27.0-1x-light-standard-glass0.5 css C: 12 of 59 within, median |log| 0.2830
+  apple-macos-27.0-1x-light-standard-glass0.5 css P: 1 of 24 within, median |log| 0.7047
+  apple-macos-27.0-1x-light-standard-glass0.5 css: 14 UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu F: 8 of 15 within, median |log| 0.1427
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu T: 0 of 4 within, median |log| 0.3259
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2525
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu P: 3 of 24 within, median |log| 0.3307
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 css C: 3 of 29 within, median |log| 0.7233
+  apple-macos-27.0-2x-light-standard-glass0.5 css P: 3 of 23 within, median |log| 0.6099
+  apple-macos-27.0-2x-light-standard-glass0.5 css: 64 UNMEASURED
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4075
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1575
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu C: 7 of 40 within, median |log| 0.3566
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 1.0533
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+  apple-macos-27.0-1x-dark-standard-glass0.5 css F: 2 of 15 within, median |log| 1.0690
+  apple-macos-27.0-1x-dark-standard-glass0.5 css T: 1 of 4 within, median |log| 0.5555
+  apple-macos-27.0-1x-dark-standard-glass0.5 css C: 7 of 40 within, median |log| 0.8928
+  apple-macos-27.0-1x-dark-standard-glass0.5 css P: 0 of 10 within, median |log| 1.2375
+  apple-macos-27.0-1x-dark-standard-glass0.5 css: 8 UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4703
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu T: 1 of 4 within, median |log| 0.1833
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu C: 5 of 40 within, median |log| 0.4340
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 0.9904
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5 css C: 3 of 10 within, median |log| 1.0015
+  apple-macos-27.0-2x-dark-standard-glass0.5 css P: 0 of 9 within, median |log| 1.1279
+  apple-macos-27.0-2x-dark-standard-glass0.5 css: 58 UNMEASURED
+
+ Test Files  1 passed (1)
+      Tests  154 passed (154)
+   Start at  09:06:27
+   Duration  8.12s (transform 143ms, setup 0ms, import 966ms, tests 7.08s, environment 0ms)
+

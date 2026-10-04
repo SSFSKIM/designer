@@ -3275,7 +3275,9 @@ const glass025StructureRuledFailures = (): readonly StructureMiss[] =>
  * or named in `MISSED_27_ROWS` with its web/native ratio, its bound and Apple's reading; (b) no
  * cell `away` from Apple with error growth g > B against `T1_REFERENCE`, which is re-baselined at
  * each gate that adopts a material change (M2's standing rule) and today is the current
- * generation itself, so (b) bites the next publication. READ, printed and not asserted: the CSS
+ * generation itself (W45's since its landing; the regressions W45 named against c05 stand in
+ * `T1_AUTHORISED_REGRESSIONS`, witnessed against c05), so (b) bites the next publication. READ,
+ * printed and not asserted: the CSS
  * tier, the dark 0.25 profiles and the 0.5 standard profiles. The arithmetic is W44 G1's
  * `cuts/t1.py` (`classify`, `code_step`), ported line for line; its pinned examples are below.
  */
@@ -3304,8 +3306,12 @@ const T1_RATIO_CLAUSE = 0.1;
 const T1_EQUAL = 1e-12;
 const T1_METRIC = "t1InteriorStdDev";
 const T1_FINE_METRIC = "t1FineStdDev";
-/** The reference generation of clause (b), by its documents' hashes (X52's form). */
-const T1_REFERENCE = { active: "6d18c059eb42", receded: "4d5f23d9d312" } as const;
+/**
+ * The reference generation of clause (b), by its documents' hashes (X52's form). c05 from W44 G2's
+ * adoption; moved LAST at W45 G2 (charter G2 part (v); X59) to the generation W45 published, after
+ * the regressions against c05 were witnessed and listed in `T1_AUTHORISED_REGRESSIONS`.
+ */
+const T1_REFERENCE = { active: "ebc3d9105a4a", receded: "12712d534b78" } as const;
 const T1_BAR_FILE = {
   path: "results/2026-10-03-w44-g0-declaration/bar/t1-bar.json",
   sha256: "1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f",
@@ -6974,8 +6980,8 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
 
   it("(b) regression: no cell moves away from Apple by more than B against the reference generation", () => {
     // The reference is named by its documents' hashes and re-baselined at each gate that adopts a
-    // material change (M2's rule). Today it is the current generation, so every cell reads
-    // `unchanged`; the next publication is the first thing this clause can stop.
+    // material change (M2's rule). Today it is the current generation (W45's, since its landing),
+    // so every cell reads `unchanged`; the next publication is the next thing this clause can stop.
     for (const profile of T1_GATED_PROFILES) {
       const { cells } = t1Cut(profile, "webgpu");
       // W45 (claims §5.205): a cell `T1_AUTHORISED_REGRESSIONS` lists against THIS reference, at no
@@ -6990,7 +6996,8 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
     // W45 Decision Log 3 and X54 (claims §5.205): the same clause on the growth-only partition,
     // which also reads a crossing whose error grew. Against the current generation every cell is
     // `unchanged`, as under W44's form; the landing that names growth regressions lists them in
-    // `T1_AUTHORISED_REGRESSIONS` against the superseded reference before the reference moves.
+    // `T1_AUTHORISED_REGRESSIONS` against the superseded reference before the reference moves, as
+    // W45 G2 did (the witness case below reads them there).
     for (const profile of T1_GATED_PROFILES) {
       const { cells } = t1Cut(profile, "webgpu");
       expect(t1ClauseBFailures(cells, T1_REFERENCE, T1_AUTHORISED_REGRESSIONS, "growth"),
