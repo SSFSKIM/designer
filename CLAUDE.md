@@ -345,7 +345,13 @@ widest member as a BOUND. And the scatter is conditioned on the backdrop's measu
 adopted on the dark document and declined on the light one with both declines recorded as
 measurements. A leaf that is a law rather than a value has to be mirrored on both tiers and pinned
 by `tier-coherence.test.ts`; `w30-inert-laws.test.ts` holds each law's identity and the reach's
-monotonicity.
+monotonicity. **Since W45 the second heavy tap's share is a span law too, at 2x** (claims
+§5.205–§5.207): `sizeHeavySecondShareFar2x` grades `sizeHeavySecondShare` per pixel on the far
+curve the ramp's start already rides, `share + rampAtScale(0, δ, dpr) · smoothstep(sizeSpanMax,
+sizeScatterSpanMax(dpr), span)`, unclamped because the share is signed. Its identity 0 is a plain
+value drop in `MATERIAL_IDENTITY_TABLE`, it is 0 at dpr ≤ 1 by construction, and it is read only
+where the share opens the second texture. It is the one leaf of W30's spanning set that the CSS
+tier declines with the tap, rather than mirrors; only the light 0.25 pair names it.
 
 **The shadow's other two lengths are fitted values, and what bounds them is a SHAPE** (W32, claims
 §5.168, §5.169). Beside that σ law the outer shadow has an outset and an offset, and until W32 both
@@ -546,7 +552,8 @@ The named gaps at 0.25 (claims §5.201; tracker):
 - the dark scheme barely follows Apple's change (S1 medians 0.31);
 - the dark photo body is flat;
 - light receded checkers are over-structured (×2.1–2.2), and 2x fine checkers are drawn sharper
-  than Apple's in both poses since `sizeScatterFloor2x` went 1.0 → 0.6;
+  than Apple's in both poses since `sizeScatterFloor2x` went 1.0 → 0.6 (narrowed by W45, below:
+  the floor is 1 again on the WebGPU tier and four fine cells are within);
 - the light receded tint reads +0.023 L light;
 - the black branch and the impulse anchor are unidentified on calibration;
 - 62 E2 cells moved away from Apple at the edge;
@@ -565,8 +572,8 @@ finding.**
     `results/2026-10-03-w44-g2-landing/t1/t-bands.json`.
   - It is gated in `adopted-thresholds.test.ts` (W44 G2) on the WebGPU tier of the two light 0.25
     profiles. The 169 of 232 cells that miss are named in `MISSED_27_ROWS`.
-  - Its regression clause is pinned to the current light generation (`6d18c059eb42`) as its
-    reference. Re-baseline it at the gate that publishes the next one.
+  - Its regression clause reads a reference generation named by hash, re-baselined at the gate
+    that publishes the next one: c05 (`6d18c059eb42`) until W45 G2 moved it, last, to W45's.
 - **The referees.** Twelve probe cells, six per scale, are held out for the next refit by
   `results/2026-10-03-w44-g0-declaration/referees/referees.json` and its planner. They and the
   canonical holdout are unspent.
@@ -574,11 +581,56 @@ finding.**
   starts. Its joint point took the 2x F aggregate from 0.6462 to 0.2455, but read NEITHER under the
   landing rule: three cells away from Apple beyond B and seven overshoots, and no declared point
   clears them. Nothing was sealed, and the shipped c05 material still draws the fine-checker gap.
-- **W45** is the span-selective refit. It searches `sizeScatterSpanMax2x` and
-  `sizeScatterHeavyShareThick2x`, which no W44 move searched, and treats the thin-span pitch trade.
-  Its landing rule is rehearsed on W44's joint point
-  (`results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/`) before it is hashed. A per-cell veto
-  failed a better model again, as at W42.
+- **W45** (below) chartered the operator W44's leaves lacked and a landing rule that reads
+  regression as error growth, rehearsed on W44's joint point
+  (`results/2026-10-03-w44-g1-refit/fit/candidates/m3-t0.1/`) before it was hashed. A per-cell veto
+  had failed a better model again, as at W42.
+
+**W45 (§5.205–§5.207, 2026-10-03/04) grades the second heavy tap by span at 2x and shipped the light
+0.25 refit as an improvement landing with its exceptions named** (charter
+`2026-10-03-w45-span-selective-texture.md`, Decision Log 8, ruled by the user).
+- **Why the operator.** Apple passes a 16-device-px checker heavily at span 96 (T1 0.099) and barely
+  at 128 and 160 (0.026, 0.022), where vitrea's tap had one share per source. No existing
+  leaf separates 96 from 128: `kDeep` grades the sharp component and the thick lift saturates at
+  the knee. G0 landed `sizeHeavySecondShareFar2x` inert and proved it by bytes (ten digests, 34
+  goldens, signed-share identity cases, 1x by render).
+- **The landed point** (one content reached from both starting points; part 2 `e6874e02…`, its
+  second and final amendment ruled by Decision Log 7). Active light: floor 1, share 0.5 at 2 CSS
+  px, δ −0.25, span top 128, thin start 0.65. Receded light: thin start 0.1, thick/far 0, heavy σ
+  18, share 0.25 and δ −0.125. Digests `3741b22934f17f4d` / `c4ca0e1cd6791bde`; every other
+  document, the 1x rows and the dark pair are byte-identical. Published as
+  `results/generations/ebc3d9105a4a.json` (656 rows), superseding `6d18c059eb42` (retired, still
+  loadable by hash); the union is 3,017 rows, and the canonical tree holds its captures with c05's
+  under `web-captures-superseded/6d18c059eb42/`.
+- **What it buys** on the 94 gate cells, 2x light WebGPU: F 0.6462 → 0.2190, C rest 0.1720 →
+  0.0810, C inactive 0.8523 → 0.1829, T rest 0.5251 → 0.2365, P rest 0.4193 → 0.3902.
+  `checkerboard-8__rrect-md__rest` and three other fine cells come within.
+- **What it costs, every item named under Decision Log 8** (the "twelve" at the gate, four more at
+  the exposure): eleven T1 cells whose error grew beyond B against c05, five beyond 3B (the pressed
+  checkerboards, `checkerboard-32` thin and thick, `checkerboard__rrect-lg__rest`); M2's four
+  receded photo cells, failures that `gate/photo-lattice` reads as the lattice coming off; and the
+  P inactive T1 aggregate. The exposure was read once (the cross-gate ledger's read 7).
+- **The CSS tier declines the floor and the span top at the light 0.25 position**
+  (`CSS_DECLINED_SIZE_GLASS025_LIGHT` in `optics.ts`, keyed on `glassTintAmount` and the scheme,
+  pinned by `tier-coherence.test.ts`). It draws no second tap, so taking those two leaves alone
+  washed its 2x coarse checkers out. With the hold, one 2x CSS cell grows beyond B
+  (`checkerboard-32__rrect-sm__rest`, 3.34 B), a recorded tier residual.
+- **The owner test** re-baselined T1 in the five-part order (X59): two band fixtures, one per
+  generation; the regressions witnessed against c05; `T1_AUTHORISED_REGRESSIONS` filled with the
+  eleven; `MISSED_27_ROWS` re-derived (157 of 232 miss); `T1_REFERENCE` moved last. A standing case
+  reads each listed entry against its own reference on the current union, so the next publication
+  must clear the list or re-rule it. Its 0.25 blocks read `cut-025-w45-landing.json`, and M2, L1
+  and E2 read c05 by hash (`GLASS025_REFERENCE`), no longer W43's pre-fit render.
+- **Gaps** (claims §5.206–§5.207; tracker):
+  - the fine thick cells stay over Apple (`checkerboard-8__rrect-lg__rest` ×2.6), because Apple's
+    narrow term widens with the span and a share cannot; a per-span tap width is the next operator;
+  - the thin-span pitch trade has no separating lever (Decision Log 5);
+  - the eleven regressions;
+  - 52 2x E2 cells read a larger edge error than c05;
+  - `declare.py check` and `check-fit` fail after the freeze on tool tests that build from the live
+    light documents;
+  - the demo's reference pair is held to the harness at 1x only, where W45 changed nothing, and the
+    site offers no fine-checker scene.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

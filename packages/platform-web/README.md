@@ -363,6 +363,18 @@ mean linear level error ≤ 0.055 and growth ≤ 0.005 against W33 on 140 standa
 calibration/validation rows: 136 measured, four UNMEASURED, two named 0.066 misses.
 That is not a deep-body or an all-cell-pass claim (claims §5.180).
 
+**0.27.0 refits the clearer glass's light body at Retina scale** (claims §5.205–§5.207). The two
+light `-glass0.25` documents now read `3741b22934f17f4d` (active, from `50430fa62c1120bd`) and
+`c4ca0e1cd6791bde` (receded, from `5d8680980b7aeb55`). The 0.25 dark pair (`b074fc6913a91c66` /
+`280f0fddf014e0f6`), the four 0.5 digests and both macOS 26.5 digests are unchanged, and so is
+every 1x surface. The WebGPU tier now grades the second heavy blur tap's share by the surface's span
+(`sizeHeavySecondShareFar2x`, 0 in every other document), and moves the 2x floor and span top
+with it. Against Apple's 2x render, the fine-checker texture error falls from 0.6462 to 0.2190.
+Eleven cells whose error grew, and the receded photo's structure, ship named rather than gated.
+**The CSS tier keeps that document's 2x floor and span top at 0.26.0's values** (0.6 and 256;
+`CSS_DECLINED_SIZE_GLASS025_LIGHT`). It draws no second tap, so the two leaves alone would wash its
+coarse checkers out; an app's own value for either leaf still reaches both tiers.
+
 
 **0.23.0 carries that declaration, not a new rim model** (claims §5.173).
 `liftAmplitude` is 0 on all four macOS 27 endpoints; the frozen 26.5 active

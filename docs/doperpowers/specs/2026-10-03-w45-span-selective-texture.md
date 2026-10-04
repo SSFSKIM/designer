@@ -1,5 +1,18 @@
 # W45 — the span-graded tap: the second heavy tap's share graded on the scatter's far curve, the deep share's span top, the thin trade read, and a landing rule that measures regression as growth (2026-10-03)
 
+**Status (2026-10-04, after G2): LANDED as an improvement under Decision Log 8, for the parent's merge
+of G1 and G2 together and the user's `pnpm release` of 0.27.0** (ledger §5.207). G1 published the
+light 0.25 generation `ebc3d9105a4a` (digests `3741b22934f17f4d` / `c4ca0e1cd6791bde`, dark
+unchanged). G2 landed it:
+- the capture tree copied, and c05's moved to `web-captures-superseded/6d18c059eb42/`
+  (`check-capture-tree` 0);
+- T1 re-baselined in the five parts: eleven regressions authorised against c05, 157 of 232 named,
+  the reference moved last;
+- the owner test's 0.25 blocks re-pinned on a landing cut, with c05 by hash as M2's, L1's and E2's
+  reference;
+- the demo, the docs, the changeset `.changeset/w45-span-graded-tap.md`, and the c9d chain
+  (`results/2026-10-03-w45-g2-landing/close/`).
+
 **Status v1.4 (2026-10-03, after G0): G0 merged as `9fa2eea6` (§5.205; the operator inert and
 proven by bytes; part 1 `5630743b…`; part 2 `da85de04…` amended once to `77f1c392…`; the
 joint-composition witness met on three rungs). Decision Log 7 rules the six items G0 handed back,
@@ -535,7 +548,7 @@ path-scoped adds; merges with the freeze and X41 verified.
 | --- | --- | --- |
 | G0 | MERGED `9fa2eea6`: operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…` | §5.205 |
 | G1 | DONE on `w45-g1-refit`, published: the generation `ebc3d9105a4a.json` (656 rows) supersedes `6d18c059eb42` (retired); light digests `3741b22934f17f4d` / `c4ca0e1cd6791bde`, dark unchanged; shipped as an improvement landing with named exceptions (Decision Log 8): eleven T1 regressions, M2's four receded photo cells and the P inactive aggregate; the CSS tier's light 0.25 decline recorded | §5.206 |
-| G2 | NOT STARTED | §5.207 |
+| G2 | DONE on `w45-g2-landing` (off G1's head `8f836c80`; G1 and G2 merge together): tree copied and c05's superseded (`check-capture-tree` 0); T1's five parts in order (witness: growth-only 11 / 5 beyond 3B against c05, W44's form 6); owner test 154 of 154 with the tree; demo re-copied; CLAUDE.md, READMEs, tracker, changeset; c9d chain | §5.207 |
 
 ## Decision Log
 
@@ -745,6 +758,8 @@ Found while drafting (2026-10-03; 6–8 from the second review):
 
 ## Revision Notes
 
+- 2026-10-04 (G2's landing, §5.207): the status line and the Tracking Map's G2 row. No design text,
+  Decision Log or contract changed.
 - 2026-10-03 (v1.4, after G0's merge `9fa2eea6`; the parent's rulings on §5.205 §13–§14 and the
   hand-back): Decision Log 7 added and executed as G1 step 0 (part 2's second and final
   amendment); the grading's domain [−share, 0] and the share × width factorial in stage 1; F

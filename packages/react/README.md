@@ -634,7 +634,10 @@ keeps a +1/+2-code active boundary residual. Its receded black is exact.
 The selected document and the digest route above remain the API. The four macOS 27
 digests are now `be13dae45098fc89` / `2a4323f33df8d799` (light/dark active) and
 `b0d0d8dacc6a03af` / `7c454858a3cbad5b` (light/dark receded); the selectable macOS 26.5
-material and its two fingerprints do not change. No React binding or activation
+material and its two fingerprints do not change. At the slider's 0.25 the light pair reads
+`3741b22934f17f4d` / `c4ca0e1cd6791bde` (active/receded) from 0.27.0, its Retina refit, and
+the dark pair `b074fc6913a91c66` / `280f0fddf014e0f6` as before (the `@vitreajs/vitrea-web`
+README says what moved). No React binding or activation
 semantics changed in this release; the material's scope and the newly adopted L1
 level row are documented in fidelity claims §5.179–§5.180.
 
