@@ -1,0 +1,20 @@
+W45 G2, the landing's eye sheets (charter clause 10; claims §5.207): native | vitrea c05 | vitrea W45 |
+|W45 - Apple| x4 | |c05 - Apple| x4 | |W45 - c05| x4 over the WHOLE light bed (656 cells: both scales, both
+poses, both tiers, every set, the holdout and the referees), drawn by landing_sheets.py with W45 G0's
+sheets.py unchanged from the trees the landing left: W45's captures from the canonical
+packages/calibration/web-captures/ (the published rows of ebc3d9105a4a, read through the store), c05's from
+packages/calibration/web-captures-superseded/6d18c059eb42/, labelled from cuts/cut-025-w45-landing.json. The
+tool's per-cell assertion passed on all 1,312 captures before any pixel was read (52 pages; run log in
+~/vitrea-w45/g2-scratch/sheets/run.log).
+
+Zipped as w45-g2-landing-whole-sheets.zip (51,970,481 bytes, sha256
+e40e2d04f9aca1ac7ca25f6ec758748453bed570648d7ad4d6efac8d377d7086) and sent to the MacBook with
+`/Applications/Tailscale.app/Contents/MacOS/Tailscale file cp w45-g2-landing-whole-sheets.zip s:` (exit 0,
+2026-10-04T00:08Z). The PNGs stay under ~/vitrea-w45/g2-scratch/sheets/landing-whole/.
+
+By eye (2x WebGPU, centre crops beside the fixture): checkerboard-8__rrect-md__rest carries more of Apple's
+16-device-px checker than c05 did (the cell the operator exists for, toward Apple); checkerboard-4__rrect-md__rest
+is softer than c05's crisp checker, toward Apple's faint one; checkerboard-8__rrect-lg__rest still shows a checker
+where Apple's body is nearly uniform (an authorised regression, 1.55 B); checkerboard__rrect-md__pressed reads
+brighter-contrast squares than c05 against Apple's (4.27 B, authorised); checkerboard-32__rrect-sm__rest draws
+its two squares crisper than Apple's (4.18 B, authorised). The CSS 2x coarse checkers read as c05's (the hold).
