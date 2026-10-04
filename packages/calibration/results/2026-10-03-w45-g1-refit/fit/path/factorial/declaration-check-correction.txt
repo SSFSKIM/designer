@@ -1,0 +1,14 @@
+W45 G1 continuation: a correction beside declaration-check.txt (written before any render, kept as it is),
+from the review of the continuation (P3; claims §5.206 §12).
+
+declaration-check.txt says the ruled deltas were taken as "the declared grid values in [-share, 0] whose
+fraction of the share lies in the ruled range". That reads the ruling's discrete set {-0.5, -0.75, -1} x share
+as an INTERVAL [-1, -0.5] x share, which admits one value the literal set does not: at share 0.75, delta -0.5
+is -2/3 of the share. So the c05 factorial's 60 points are the literal ruled products intersected with the
+declared grid (48 points: 0.25 x {-0.25}, 0.5 x {-0.25, -0.5}, 0.75 x {-0.75}) PLUS 12 points at share 0.75,
+delta -0.5 (floor {0.5, 1} x width {2, 3} x span top {128, 160, 192}). Those 12 are on part 2's absolute grid,
+inside the joint domain and inside the stage's permitted full factorial, so they are an extension within part 2
+rather than a new grid value; but they are an extension of the ruled set, not a consequence of dropping the
+off-grid products. The joint path's 18 points are exactly the literal intersection. No literal on-grid point was
+omitted. The reviewer recomputed the stage-1 decision without the 12 and it is unchanged (the landed point is
+share 0.5, width 2, delta -0.25, span top 128, floor 1, at 0.0918), so nothing downstream depends on them.

@@ -1,0 +1,684 @@
+# CANDIDATE: packages/calibration/results/2026-10-03-w45-g1-refit/fit/candidates/c-s1-q0.25-d-0.25-w3-fl0.5-top192/candidate.json sha256:1ec396e2f6c2 (a declared scratch document; not a shipped cut)
+# owner test packages/calibration/test/adopted-thresholds.test.ts sha256:d74a468cdcde; holdout not read
+# reference (M2, L1, E2, T1's change; X52): published generation 6d18c059eb42+d0219cd684bf (recorded rows; renders nothing)
+
+verdicts
+  tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu       UNMEASURED
+  tables apple-macos-27.0-1x-light-standard-glass0.25 css          UNMEASURED
+  tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu       PASS, 7 UNMEASURED (7 no row)
+  tables apple-macos-27.0-2x-light-standard-glass0.25 css          UNMEASURED
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu        UNMEASURED
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 css           UNMEASURED
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu        UNMEASURED
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 css           UNMEASURED
+  M1 webgpu (GATED)                                                PASS, 17 UNMEASURED (17 no row)
+  M1 css (descriptive)                                             UNMEASURED
+  M2 webgpu (GATED)                                                NAMED MISSES, 17 UNMEASURED (17 no row)
+  M2 css (descriptive)                                             UNMEASURED
+  C1 webgpu (GATED)                                                UNMEASURED
+  C1 css (descriptive)                                             UNMEASURED
+  L1 webgpu (GATED)                                                PASS, 104 UNMEASURED (104 no row)
+  L1 css (descriptive)                                             UNMEASURED
+  X1 webgpu (GATED)                                                PASS, 171 UNMEASURED (171 no row)
+  X1 css (descriptive)                                             UNMEASURED
+  E2 webgpu (GATED)                                                MISS
+  E2 css (descriptive)                                             UNMEASURED
+  S1 webgpu (GATED)                                                UNMEASURED
+  S1 css (GATED)                                                   UNMEASURED
+  T1 webgpu (GATED)                                                NEITHER: closes at the finding, 94 more UNMEASURED outside the landing scope
+  T1 css (descriptive)                                             read (tier residual)
+  W45 rule (T1, 2x light WebGPU)                                   NEITHER: closes at the finding
+
+tables (the 0.5 tables per tier; misses listed)
+  apple-macos-27.0-1x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_LIGHT (= TEXTURE_TIER_LIGHT), 0 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row light-solid__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row checkerboard__capsule-button__rest
+    UNMEASURED, no row impulse__capsule-button__rest
+    UNMEASURED, no row photo__capsule-button__rest
+    UNMEASURED, no row light-solid__rrect-md__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row checkerboard__rrect-md__rest
+    UNMEASURED, no row impulse__rrect-md__rest
+    UNMEASURED, no row photo__rrect-md__rest
+    UNMEASURED, no row light-solid__rrect-ml__rest
+    UNMEASURED, no row checkerboard__rrect-ml__rest
+    ... and 14 more with no row
+  apple-macos-27.0-1x-light-standard-glass0.25 css: DOM_TIER_27_LIGHT (= DOM_TIER_LIGHT), 0 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row light-solid__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row checkerboard__capsule-button__rest
+    UNMEASURED, no row impulse__capsule-button__rest
+    UNMEASURED, no row photo__capsule-button__rest
+    UNMEASURED, no row light-solid__rrect-md__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row checkerboard__rrect-md__rest
+    UNMEASURED, no row impulse__rrect-md__rest
+    UNMEASURED, no row photo__rrect-md__rest
+    UNMEASURED, no row light-solid__rrect-ml__rest
+    UNMEASURED, no row checkerboard__rrect-ml__rest
+    ... and 14 more with no row
+  apple-macos-27.0-2x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_LIGHT (= TEXTURE_TIER_2X_LIGHT), 19 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row light-solid__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row light-solid__rrect-md__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row light-solid__rrect-ml__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest-tint-orange
+    UNMEASURED, no row light-solid__capsule-button__rest-tint-orange
+  apple-macos-27.0-2x-light-standard-glass0.25 css: DOM_TIER_27_2X_LIGHT (= DOM_TIER_2X_LIGHT), 0 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row light-solid__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row checkerboard__capsule-button__rest
+    UNMEASURED, no row impulse__capsule-button__rest
+    UNMEASURED, no row photo__capsule-button__rest
+    UNMEASURED, no row light-solid__rrect-md__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row checkerboard__rrect-md__rest
+    UNMEASURED, no row impulse__rrect-md__rest
+    UNMEASURED, no row photo__rrect-md__rest
+    UNMEASURED, no row light-solid__rrect-ml__rest
+    UNMEASURED, no row checkerboard__rrect-ml__rest
+    ... and 14 more with no row
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_DARK (= TEXTURE_TIER_DARK), 0 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row checkerboard__capsule-button__rest
+    UNMEASURED, no row photo__capsule-button__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row checkerboard__rrect-md__rest
+    UNMEASURED, no row photo__rrect-md__rest
+    UNMEASURED, no row impulse__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest-tint-orange
+    UNMEASURED, no row checkerboard__capsule-button__rest-tint-orange
+    UNMEASURED, no row photo__capsule-button__rest-tint-orange
+  apple-macos-27.0-1x-dark-standard-glass0.25 css: DOM_TIER_27_DARK (= DOM_TIER_DARK), 0 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row checkerboard__capsule-button__rest
+    UNMEASURED, no row photo__capsule-button__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row checkerboard__rrect-md__rest
+    UNMEASURED, no row photo__rrect-md__rest
+    UNMEASURED, no row impulse__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest-tint-orange
+    UNMEASURED, no row checkerboard__capsule-button__rest-tint-orange
+    UNMEASURED, no row photo__capsule-button__rest-tint-orange
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_DARK (= TEXTURE_TIER_2X_DARK), 0 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row checkerboard__capsule-button__rest
+    UNMEASURED, no row photo__capsule-button__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row checkerboard__rrect-md__rest
+    UNMEASURED, no row photo__rrect-md__rest
+    UNMEASURED, no row impulse__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest-tint-orange
+    UNMEASURED, no row checkerboard__capsule-button__rest-tint-orange
+    UNMEASURED, no row photo__capsule-button__rest-tint-orange
+  apple-macos-27.0-2x-dark-standard-glass0.25 css: DOM_TIER_27_2X_DARK (= DOM_TIER_2X_DARK), 0 cells, 0 predicate-excluded, 0 misses
+    UNMEASURED, no row dark-solid__capsule-button__rest
+    UNMEASURED, no row checkerboard__capsule-button__rest
+    UNMEASURED, no row photo__capsule-button__rest
+    UNMEASURED, no row dark-solid__rrect-md__rest
+    UNMEASURED, no row checkerboard__rrect-md__rest
+    UNMEASURED, no row photo__rrect-md__rest
+    UNMEASURED, no row impulse__capsule-button__rest
+    UNMEASURED, no row dark-solid__capsule-button__rest-tint-orange
+    UNMEASURED, no row checkerboard__capsule-button__rest-tint-orange
+    UNMEASURED, no row photo__capsule-button__rest-tint-orange
+
+M1 webgpu (GATED)
+  light|active     n=5   median R 0.9753  min 0.8538  max 1.2431
+  light|inactive   n=4   median R 0.9045  min 0.8326  max 1.1524
+M2 webgpu (GATED): 5 misses, 5 named, 0 failures, worst |Δsd| 3.535%
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest             r 0.04097 w 0.04241 n 0.06737 (+3.54%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest                   r 0.05668 w 0.05818 n 0.08935 (+2.64%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__inactive               r 0.01962 w 0.02008 n 0.02246 (+2.32%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__rest                   r 0.02062 w 0.02132 n 0.03918 (+3.40%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__toolbar-group__rest              r 0.07505 w 0.07715 n 0.10760 (+2.79%)
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-ml__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-sm__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__toolbar-group__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-sm__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__toolbar-group__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-dark-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-dark-standard-glass0.25/photo__capsule-button__inactive
+  ... and 5 more with no row
+
+M1 css (descriptive)
+M2 css (descriptive): 0 misses, 0 named, 0 failures, worst |Δsd| 0.000%
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-ml__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-sm__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__toolbar-group__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-sm__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-1x-light-standard-glass0.25/photo__toolbar-group__inactive
+  UNMEASURED (M1, M2), no row apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED (M1, M2), no row apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-ml__rest
+  ... and 14 more with no row
+
+C1 webgpu (GATED): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-md__rest
+    ... and 4 more with no row
+  1x light span 128      n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-ml__rest
+  1x light span 160      n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text-28__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-lg__rest
+    ... and 1 more with no row
+  2x light span 96       n=10  0.00067   PASS, 5 UNMEASURED (5 no row) c05 0.00067  shipped0.5 0.00067
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/mid-dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-md-clear20__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/mid-chroma-solid__rrect-md__rest
+  2x light span 128      n=6   0.00212   PASS, 2 UNMEASURED (2 no row) c05 0.00212  shipped0.5 0.00212
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-ml__rest
+  2x light span 160      n=8   0.00064   PASS, 4 UNMEASURED (4 no row) c05 0.00064  shipped0.5 0.00064
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/mid-chroma-solid__rrect-lg__rest
+  1x dark span 96        n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/mid-dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md-clear20__rest
+  1x dark span 128       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-ml__rest
+  1x dark span 160       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest
+  2x dark span 96        n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-7__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/mid-dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md-clear20__rest
+  2x dark span 128       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-ml__rest
+  2x dark span 160       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-7__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest
+
+C1 css (descriptive): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-md__rest
+    ... and 4 more with no row
+  1x light span 128      n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-ml__rest
+  1x light span 160      n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-lc16__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text-28__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/hc-text__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-lg__rest
+    ... and 1 more with no row
+  2x light span 96       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-md__rest
+    ... and 4 more with no row
+  2x light span 128      n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-ml__rest
+  2x light span 160      n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-lg__rest
+    ... and 1 more with no row
+  1x dark span 96        n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/mid-dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md-clear20__rest
+  1x dark span 128       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-ml__rest
+  1x dark span 160       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/hc-text__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest
+  2x dark span 96        n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-7__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/mid-dark-solid__rrect-md__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md-clear20__rest
+  2x dark span 128       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-ml__rest
+  2x dark span 160       n=0   —         UNMEASURED c05 —  shipped0.5 —
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-7__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/hc-text__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/mid-dark-solid__rrect-lg__rest
+    UNMEASURED, no row apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest
+
+L1 webgpu (GATED): 140 cells, 36 measured, max error 0.0440, max growth +0.0010; 0 absolute, 0 growth misses
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+  ... and 92 more with no row
+
+L1 css (descriptive): 140 cells, 0 measured, max error —, max growth —; 0 absolute, 0 growth misses
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+  ... and 128 more with no row
+
+X1 webgpu (GATED): 59 cells, totals {'integer': {'pixels': 5932263, 'aboveZero': 0, 'aboveOne': 0}, 'analytic': {'pixels': 5898706, 'aboveZero': 0, 'aboveOne': 0}}, 0 failing
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-sm__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest-tint-orange
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-blue
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__rest
+  ... and 159 more with no row
+
+X1 css (descriptive): 0 cells, totals {'integer': {'pixels': 0, 'aboveZero': 0, 'aboveOne': 0}, 'analytic': {'pixels': 0, 'aboveZero': 0, 'aboveOne': 0}}, 0 failing
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-sm__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest-tint-orange
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-blue
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__rest
+  ... and 218 more with no row
+
+E2 webgpu (GATED): 56 cells, 56 measured, 34 failing, mean change +0.1929 codes, 829 named-miss bins on 38 cells
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest   14.961 -> 16.033 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest         13.972 -> 14.450 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-md__rest         14.028 -> 15.594 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest         9.550 -> 10.251 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-sm__rest         9.039 -> 10.547 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest    27.176 -> 27.778 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-md__rest          15.029 -> 15.040 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest          25.628 -> 25.766 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange 2.064 -> 2.065 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-md__rest         10.221 -> 10.522 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest         36.390 -> 36.962 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-sm__rest         6.332 -> 7.095 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__capsule-button__rest    32.451 -> 34.583 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange 7.296 -> 7.577 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest          10.356 -> 10.448 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-md__rest          17.848 -> 18.850 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest          11.564 -> 11.596 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-lg__rest       4.261 -> 4.300 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest       4.722 -> 4.779 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest      21.520 -> 23.103 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__rest            17.070 -> 17.562 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-ml__rest            8.142 -> 8.274 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__toolbar-group__rest       20.472 -> 20.929 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-lg__rest              10.298 -> 10.384 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-md__rest              20.771 -> 23.069 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-md__rest               13.319 -> 13.543 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-lg__rest                 9.921 -> 10.157 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__rest           5.191 -> 5.378 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-sm__rest                 6.891 -> 6.981 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest             11.206 -> 11.329 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest-tint-orange-half 6.801 -> 6.899 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest                   25.195 -> 25.286 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange       3.045 -> 3.064 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-ml__rest                   27.347 -> 27.350 codes
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+  ... and 214 more with no row
+
+E2 css (descriptive): 0 cells, 0 measured, 0 failing, mean change — codes, 0 named-miss bins on 0 cells
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/dark-solid__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/impulse__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/photo__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/light-solid__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard__rrect-ml__rest
+  ... and 270 more with no row
+
+S1/R2 webgpu (GATED, adopted only at the landing by ruling): 53/183 cells, pooled median ratio 0.9917, 4 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=0    median —
+  apple-macos-27.0-2x-light-standard-glass0.25       n=53   median 0.9917
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=0    median —
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=0    median —
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__inactive
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__inactive
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange
+  ... and 118 more with no row
+
+S1/R2 css (GATED, adopted only at the landing by ruling): 0/125 cells, pooled median ratio —, 0 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=0    median —
+  apple-macos-27.0-2x-light-standard-glass0.25       n=0    median —
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=0    median —
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=0    median —
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__inactive
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__inactive
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-md__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-lg__inactive
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-lg__rest
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-md__inactive
+  UNMEASURED, no row apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-64__rrect-md__rest
+  ... and 113 more with no row
+
+T1 (GATED on WebGPU, light 0.25; read on CSS and dark): 94 cells in gate; reference packages/calibration/results/generations/6d18c059eb42.json, packages/calibration/results/generations/d0219cd684bf.json
+  landing (T1 clauses, 2x light WebGPU gate cells): NEITHER: closes at the finding; F aggregate 0.5805 against c05's 0.6462; 9 F not within; 17 away beyond B; 0 overshoot; selection metric 0.2382 (tie 0.0412)
+  C 2x light webgpu inactive           n=21  median|log| 0.9667 (c05 0.8523) {'miss': 19, 'within': 2} {'away': 18, 'toward': 1, 'unchanged': 2}
+  C 2x light webgpu rest               n=37  median|log| 0.0665 (c05 0.1720) {'miss': 14, 'within': 23} {'toward': 24, 'unchanged': 10, 'away': 3}
+  F 2x light webgpu inactive           n=2   median|log| 1.3576 (c05 1.2903) {'miss': 2} {'unchanged': 1, 'away': 1}
+  F 2x light webgpu rest               n=9   median|log| 0.4469 (c05 0.6334) {'miss': 7, 'within': 2} {'toward': 7, 'unchanged': 2}
+  P 2x light webgpu inactive           n=11  median|log| 0.1261 (c05 0.1393) {'within': 5, 'miss': 6} {'unchanged': 11}
+  P 2x light webgpu rest               n=11  median|log| 0.3997 (c05 0.4193) {'miss': 11} {'unchanged': 11}
+  T 2x light webgpu rest               n=3   median|log| 0.2471 (c05 0.2153) {'miss': 2, 'within': 1} {'toward': 2, 'unchanged': 1}
+  away      2x checkerboard__capsule-button__pressed          n 0.1938 c05 0.1807 k 0.2076 g +0.0007 B 0.0068
+  away      2x checkerboard__rrect-md__pressed                n 0.1501 c05 0.1575 k 0.1774 g +0.0199 B 0.0066
+  away      2x checkerboard-64__rrect-sm__rest                n 0.0680 c05 0.0319 k 0.0226 g +0.0093 B 0.0084
+  away      2x checkerboard__capsule-button__inactive         n 0.0695 c05 0.1943 k 0.2134 g +0.0192 B 0.0059
+  away      2x checkerboard__capsule-button__inactive-tint-blue n 0.0565 c05 0.1423 k 0.1564 g +0.0141 B 0.0048
+  away      2x checkerboard__capsule-button__inactive-tint-orange n 0.0565 c05 0.1423 k 0.1564 g +0.0141 B 0.0048
+  away      2x checkerboard__capsule-button__inactive-pressed n 0.0695 c05 0.2300 k 0.2444 g +0.0145 B 0.0059
+  away      2x checkerboard__rrect-md__inactive               n 0.0506 c05 0.1196 k 0.1450 g +0.0254 B 0.0058
+  away      2x checkerboard__rrect-md__inactive-pressed       n 0.0506 c05 0.1736 k 0.1918 g +0.0182 B 0.0058
+  away      2x checkerboard__rrect-sm__inactive               n 0.0832 c05 0.2251 k 0.2418 g +0.0167 B 0.0059
+  away      2x checkerboard__toolbar-group__inactive          n 0.0717 c05 0.2022 k 0.2198 g +0.0177 B 0.0058
+  away      2x impulse__capsule-button__inactive              n 0.0134 c05 0.0231 k 0.0248 g +0.0017 B 0.0033
+  away      2x impulse__capsule-button__inactive-tint-orange  n 0.0069 c05 0.0165 k 0.0177 g +0.0013 B 0.0024
+  away      2x impulse__rrect-md__inactive                    n 0.0088 c05 0.0148 k 0.0165 g +0.0018 B 0.0033
+  away      2x checkerboard__rrect-ml__inactive               n 0.0328 c05 0.0998 k 0.1056 g +0.0058 B 0.0057
+  away      2x checkerboard-8__rrect-md__inactive             n 0.0159 c05 0.0843 k 0.0958 g +0.0115 B 0.0056
+  away      2x checkerboard-64__rrect-md__inactive            n 0.1926 c05 0.2619 k 0.2705 g +0.0086 B 0.0058
+  away      2x checkerboard-lc16__capsule-button__inactive    n 0.0348 c05 0.1100 k 0.1210 g +0.0109 B 0.0067
+  away      2x checkerboard-lc16__rrect-md__inactive          n 0.0254 c05 0.0685 k 0.0822 g +0.0137 B 0.0067
+  away      2x hc-text__rrect-sm__inactive                    n 0.0458 c05 0.1812 k 0.1947 g +0.0135 B 0.0060
+  away      2x hc-text__rrect-lg__inactive                    n 0.1214 c05 0.1113 k 0.1057 g +0.0056 B 0.0067
+  away      2x hc-text-28__rrect-md__inactive                 n 0.1060 c05 0.1688 k 0.1920 g +0.0232 B 0.0066
+  T 2x hc-text-7__rrect-sm__rest                T1 miss/toward  fine n 0.1172 c05 0.0723 k 0.0813 miss/toward  low n 0.0731 c05 0.0545 k 0.0616 miss/toward g -0.0071 B 0.0072
+  T 2x hc-text-7__rrect-md__rest                T1 within/toward  fine n 0.0281 c05 0.0522 k 0.0538 miss/unchanged  low n 0.0867 c05 0.0576 k 0.0608 miss/unchanged g -0.0031 B 0.0069
+  T 2x hc-text-7__rrect-lg__rest                T1 miss/unchanged  fine n 0.0032 c05 0.0271 k 0.0178 miss/toward  low n 0.1170 c05 0.0876 k 0.0873 miss/unchanged g +0.0003 B 0.0074
+  move1: objective 0.1132; within clause NOT WITHIN (8 members, 5 not within)
+  move2: objective 0.2747; within clause NOT WITHIN (30 members, 21 not within)
+  move3: objective 0.6057; within clause NOT WITHIN (34 members, 27 not within)
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu checkerboard__capsule-button__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu impulse__capsule-button__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu photo__capsule-button__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu checkerboard__rrect-md__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu impulse__rrect-md__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu photo__rrect-md__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu checkerboard__rrect-ml__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu photo__rrect-ml__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu checkerboard__rrect-sm__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu photo__rrect-sm__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu checkerboard__toolbar-group__rest
+  UNMEASURED (T1), no row apple-macos-27.0-1x-light-standard-glass0.25 webgpu photo__toolbar-group__rest
+  ... and 558 more with no row
+  readings beside T1 (never gated): 94 cells; see the JSON
+
+W45 RULE (Decision Log 3; T1, webgpu, 2x light (apple-macos-27.0-2x-light-standard-glass0.25), both poses, F ∪ T ∪ C ∪ P, partitions gate; T on T1-fine (away on T1-low)): NEITHER: closes at the finding
+  94 of 94 cells read; partition unchanged 38; toward 34; away 22
+  F aggregate 0.5805 against c05's 0.6462 (halved: False); 9 F not within
+  F rest       n=9   A 0.4469 c05 0.6334 τ 0.0485 GATED holds
+  F inactive   n=2   A 1.3576 c05 1.2903 τ 0.1234 reported holds
+  T rest       n=3   A 0.5512 c05 0.5251 τ 0.0945 GATED holds
+  C rest       n=37  A 0.0665 c05 0.1720 τ 0.0267 GATED holds
+  C inactive   n=21  A 0.9667 c05 0.8523 τ 0.0501 GATED WORSE BEYOND τ
+  P rest       n=11  A 0.3997 c05 0.4193 τ 0.0398 GATED holds
+  P inactive   n=11  A 0.1261 c05 0.1393 τ 0.0455 GATED holds
+  budget: 17 away beyond B (at most 3), 6 beyond 3 B: FAILS
+    away checkerboard__rrect-md__inactive               g 4.38 B
+    away hc-text-28__rrect-md__inactive                 g 3.51 B
+    away checkerboard__capsule-button__inactive         g 3.28 B
+    away checkerboard__rrect-md__inactive-pressed       g 3.14 B
+    away checkerboard__toolbar-group__inactive          g 3.02 B
+    away checkerboard__rrect-md__pressed                g 3.00 B
+    away checkerboard__capsule-button__inactive-tint-blue g 2.92 B
+    away checkerboard__capsule-button__inactive-tint-orange g 2.92 B
+    away checkerboard__rrect-sm__inactive               g 2.83 B
+    away checkerboard__capsule-button__inactive-pressed g 2.47 B
+    away hc-text__rrect-sm__inactive                    g 2.27 B
+    away checkerboard-lc16__rrect-md__inactive          g 2.05 B
+    away checkerboard-8__rrect-md__inactive             g 2.05 B
+    away checkerboard-lc16__capsule-button__inactive    g 1.63 B
+    away checkerboard-64__rrect-md__inactive            g 1.48 B
+    away checkerboard-64__rrect-sm__rest                g 1.11 B
+    away checkerboard__rrect-ml__inactive               g 1.01 B
+  why: full close: 9 F cell(s) not within
+  why: improvement: F aggregate 0.5805 above half of c05's 0.6462
+  why: aggregate: C inactive A 0.9667 > 0.8523 + τ 0.0501
+  why: budget count: 17 cells away beyond B (at most 3)
+  why: budget ceiling: 6 cell(s) beyond 3 B
+  stage1: objective 0.1132 (tie 0.0332); within NOT WITHIN (8 members, 5 not within)
+  stage2: objective 0.3036 (tie 0.0426); within NOT WITHIN (64 members, 48 not within)
+  outside: the referees' clause (at the exposure), every other adopted row, and the exposure's holdout-miss ruling are not evaluated here

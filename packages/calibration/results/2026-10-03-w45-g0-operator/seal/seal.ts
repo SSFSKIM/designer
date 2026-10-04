@@ -16,9 +16,12 @@
  * What W45 changes from W44's seal, each a refusal rather than a convention:
  * - **The operator's key** (Decision Log 2; X44 narrowed). The active light document names exactly
  *   its 0.5 twin's leaves and MAY add `sizeHeavySecondShareFar2x`; the receded light document names
- *   exactly its 0.5 twin's leaves and MAY add `sizeHeavySecondShare` (W44 Decision Log 7 item 1,
- *   kept) and `sizeHeavySecondShareFar2x`, each as a difference over its active document. Any other
- *   extra leaf, in either document, refuses.
+ *   exactly its 0.5 twin's leaves and MAY add the second tap's keys `sizeHeavySecondShare`,
+ *   `sizeHeavySecondSigma` and `sizeHeavySecondSigma2x` (W44 Decision Log 7 item 1, kept) and
+ *   `sizeHeavySecondShareFar2x`, each as a difference over its active document — exactly what W45's
+ *   builder admits (part 2's second amendment, the charter's Decision Log 7 item 6: the port had
+ *   admitted the receded share and the operator's key and not W44's receded widths). Any other extra
+ *   leaf, in either document, refuses.
  * - **W45's bindings, never W44's** (X58): a candidate, a profiles directory or a manifest inside a W44
  *   evidence directory or W44's scratch refuses; the spec read is the candidate folder's own
  *   `spec.json` (what W45's builder wrote); the record names W45's charter and G1.
@@ -57,7 +60,7 @@ const CHARTER = "docs/doperpowers/specs/2026-10-03-w45-span-selective-texture.md
 const OPERATOR_KEY = "sizeHeavySecondShareFar2x";
 const MAY_ADD: Readonly<Record<"active" | "receded", readonly string[]>> = {
   active: [OPERATOR_KEY],
-  receded: ["sizeHeavySecondShare", OPERATOR_KEY],
+  receded: ["sizeHeavySecondShare", "sizeHeavySecondSigma", "sizeHeavySecondSigma2x", OPERATOR_KEY],
 };
 const C05_FILE_SHA: Readonly<Record<string, string>> = {
   "apple-macos-27.0-1x-light-standard-glass0.25": "6d18c059eb42",
@@ -72,6 +75,8 @@ const leaves = (patch: Json, prefix = ""): Record<string, Json> =>
     value !== null && typeof value === "object" && !Array.isArray(value)
       ? Object.entries(leaves(value, `${prefix}${key}.`))
       : [[`${prefix}${key}`, value]]));
+const listed = (keys: readonly string[]): string =>
+  keys.length < 2 ? keys.join("") : `${keys.slice(0, -1).join(", ")} and ${keys[keys.length - 1]!}`;
 const keyOf = (pose: "active" | "receded", scheme: "light" | "dark", glass: "0.5" | "0.25"): string =>
   `apple-macos-27.0-1x-${scheme}-standard-glass${glass}${pose === "receded" ? "-receded" : ""}`;
 
@@ -193,7 +198,7 @@ for (const pose of ["active", "receded"] as const) {
       "2x-anchored leaves moved, so the 1x light rows are W43's byte for byte (X48). It supersedes the",
       "c05 document named in `supersedes`; `entries` keeps W43's record for every leaf W45 left where",
       "c05 put it and records each leaf W45 moved with its c05 and 0.5 values. By Decision Log 2 it",
-      `may name ${MAY_ADD[pose].join(" and ")} beside its 0.5 twin's leaves (X44 narrowed).`,
+      `may name ${listed(MAY_ADD[pose])} beside its 0.5 twin's leaves (X44 narrowed).`,
     ],
     profileKey: key,
     schemaVersion: (c05["schemaVersion"] as number | undefined) ?? 1,

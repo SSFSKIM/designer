@@ -1,0 +1,242 @@
+# PUBLISHED: published:6d18c059eb42+d0219cd684bf (recorded rows read as the bed; renders nothing): packages/calibration/results/generations/6d18c059eb42.json, packages/calibration/results/generations/d0219cd684bf.json
+# owner test packages/calibration/test/adopted-thresholds.test.ts sha256:d74a468cdcde; the W43 rows read no holdout; T1 reads the partitions named below
+# reference (M2, L1, E2, T1's change; X52): published generation 6d18c059eb42+d0219cd684bf (recorded rows; renders nothing)
+
+verdicts
+  tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-1x-light-standard-glass0.25 css          MISS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 css          PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 css           PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 css           PASS
+  M1 webgpu (GATED)                                                PASS
+  M1 css (descriptive)                                             PASS
+  M2 webgpu (GATED)                                                PASS
+  M2 css (descriptive)                                             PASS
+  C1 webgpu (GATED)                                                PASS
+  C1 css (descriptive)                                             MISS
+  L1 webgpu (GATED)                                                PASS, 4 UNMEASURED
+  L1 css (descriptive)                                             PASS, 4 UNMEASURED
+  X1 webgpu (GATED)                                                PASS
+  X1 css (descriptive)                                             MISS
+  E2 webgpu (GATED)                                                PASS
+  E2 css (descriptive)                                             PASS
+  S1 webgpu (GATED)                                                MISS
+  S1 css (GATED)                                                   MISS
+  T1 webgpu (GATED)                                                NEITHER: closes at the finding
+  T1 css (descriptive)                                             read (tier residual)
+  W45 rule (T1, 2x light WebGPU)                                   NEITHER: closes at the finding
+
+tables (the 0.5 tables per tier; misses listed)
+  apple-macos-27.0-1x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_LIGHT (= TEXTURE_TIER_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-1x-light-standard-glass0.25 css: DOM_TIER_27_LIGHT (= DOM_TIER_LIGHT), 26 cells, 3 predicate-excluded, 1 misses
+    calibration checkerboard__rrect-ml__rest                     ssimMean             0.87367 vs ≥ 0.9
+  apple-macos-27.0-2x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_LIGHT (= TEXTURE_TIER_2X_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-light-standard-glass0.25 css: DOM_TIER_27_2X_LIGHT (= DOM_TIER_2X_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_DARK (= TEXTURE_TIER_DARK), 10 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-1x-dark-standard-glass0.25 css: DOM_TIER_27_DARK (= DOM_TIER_DARK), 10 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_DARK (= TEXTURE_TIER_2X_DARK), 10 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-dark-standard-glass0.25 css: DOM_TIER_27_2X_DARK (= DOM_TIER_2X_DARK), 10 cells, 3 predicate-excluded, 0 misses
+
+M1 webgpu (GATED)
+  light|active     n=10  median R 0.9839  min 0.8608  max 1.2223
+  light|inactive   n=8   median R 0.9346  min 0.8350  max 1.3022
+  dark|active      n=4   median R 1.0546  min 0.8348  max 1.2037
+  dark|inactive    n=4   median R 1.0662  min 0.9659  max 1.2041
+M2 webgpu (GATED): 0 misses, 0 named, 0 failures, worst |Δsd| 0.000%
+
+M1 css (descriptive)
+  light|active     n=10  median R 1.1833  min 1.0537  max 1.3445
+  light|inactive   n=8   median R 1.1233  min 0.9731  max 1.3464
+  dark|active      n=4   median R 1.0260  min 1.0047  max 1.0924
+  dark|inactive    n=4   median R 1.0819  min 1.0098  max 1.0928
+M2 css (descriptive): 0 misses, 0 named, 0 failures, worst |Δsd| 0.000%
+
+C1 webgpu (GATED): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=10  0.00058   PASS       c05 0.00058  shipped0.5 0.00058
+  1x light span 128      n=6   0.00208   PASS       c05 0.00208  shipped0.5 0.00208
+  1x light span 160      n=8   0.00036   PASS       c05 0.00036  shipped0.5 0.00025
+  2x light span 96       n=10  0.00067   PASS       c05 0.00067  shipped0.5 0.00067
+  2x light span 128      n=6   0.00212   PASS       c05 0.00212  shipped0.5 0.00212
+  2x light span 160      n=8   0.00064   PASS       c05 0.00064  shipped0.5 0.00064
+  1x dark span 96        n=9   0.00126   PASS       c05 0.00126  shipped0.5 0.00126
+  1x dark span 128       n=5   0.00350   PASS       c05 0.00350  shipped0.5 0.00350
+  1x dark span 160       n=8   0.00116   PASS       c05 0.00116  shipped0.5 0.00116
+  2x dark span 96        n=9   0.00124   PASS       c05 0.00124  shipped0.5 0.00124
+  2x dark span 128       n=5   0.00382   PASS       c05 0.00382  shipped0.5 0.00382
+  2x dark span 160       n=8   0.00107   PASS       c05 0.00107  shipped0.5 0.00107
+
+C1 css (descriptive): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=10  0.00139   PASS       c05 0.00139  shipped0.5 0.00139
+  1x light span 128      n=6   0.00337   PASS       c05 0.00337  shipped0.5 0.00337
+  1x light span 160      n=8   0.00133   PASS       c05 0.00133  shipped0.5 0.00125
+  2x light span 96       n=10  0.00131   PASS       c05 0.00131  shipped0.5 0.00295
+  2x light span 128      n=6   0.00294   PASS       c05 0.00294  shipped0.5 0.00504
+  2x light span 160      n=8   0.00089   PASS       c05 0.00089  shipped0.5 —
+  1x dark span 96        n=9   0.00196   PASS       c05 0.00196  shipped0.5 0.00196
+  1x dark span 128       n=5   0.00543   MISS       c05 0.00543  shipped0.5 0.00543
+  1x dark span 160       n=8   0.00199   PASS       c05 0.00199  shipped0.5 0.00199
+  2x dark span 96        n=9   0.00220   PASS       c05 0.00220  shipped0.5 0.00435
+  2x dark span 128       n=5   0.00543   MISS       c05 0.00543  shipped0.5 —
+  2x dark span 160       n=8   0.00233   PASS       c05 0.00233  shipped0.5 —
+
+L1 webgpu (GATED): 140 cells, 136 measured, max error 0.0491, max growth +0.0000; 0 absolute, 0 growth misses
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+
+L1 css (descriptive): 140 cells, 136 measured, max error 0.0475, max growth +0.0000; 0 absolute, 0 growth misses
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+
+X1 webgpu (GATED): 230 cells, totals {'integer': {'pixels': 13629818, 'aboveZero': 0, 'aboveOne': 0}, 'analytic': {'pixels': 13532242, 'aboveZero': 0, 'aboveOne': 0}}, 0 failing
+
+X1 css (descriptive): 230 cells, totals {'integer': {'pixels': 13629818, 'aboveZero': 21730, 'aboveOne': 21726}, 'analytic': {'pixels': 13532242, 'aboveZero': 0, 'aboveOne': 0}}, 152 failing
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest    integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest          integer {'pixels': 9158, 'aboveZero': 168, 'aboveOne': 168} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest          integer {'pixels': 24062, 'aboveZero': 100, 'aboveOne': 100} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest          integer {'pixels': 17310, 'aboveZero': 142, 'aboveOne': 142} analytic {'pixels': 16954, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-sm__rest          integer {'pixels': 30878, 'aboveZero': 38, 'aboveOne': 38} analytic {'pixels': 30778, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest     integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-lg__rest           integer {'pixels': 9158, 'aboveZero': 172, 'aboveOne': 172} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest           integer {'pixels': 24062, 'aboveZero': 104, 'aboveOne': 104} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-ml__rest           integer {'pixels': 17310, 'aboveZero': 136, 'aboveOne': 136} analytic {'pixels': 16954, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-sm__rest           integer {'pixels': 30878, 'aboveZero': 40, 'aboveOne': 40} analytic {'pixels': 30778, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange integer {'pixels': 31124, 'aboveZero': 44, 'aboveOne': 44} analytic {'pixels': 30916, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__capsule-button__rest    integer {'pixels': 31124, 'aboveZero': 44, 'aboveOne': 44} analytic {'pixels': 30916, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest          integer {'pixels': 10508, 'aboveZero': 148, 'aboveOne': 148} analytic {'pixels': 10004, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest          integer {'pixels': 25344, 'aboveZero': 128, 'aboveOne': 128} analytic {'pixels': 25088, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest          integer {'pixels': 19132, 'aboveZero': 90, 'aboveOne': 90} analytic {'pixels': 18804, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-sm__rest          integer {'pixels': 33724, 'aboveZero': 26, 'aboveOne': 26} analytic {'pixels': 33652, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__capsule-button__rest     integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__rest           integer {'pixels': 9158, 'aboveZero': 170, 'aboveOne': 170} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest           integer {'pixels': 24062, 'aboveZero': 106, 'aboveOne': 106} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-ml__rest           integer {'pixels': 17310, 'aboveZero': 134, 'aboveOne': 134} analytic {'pixels': 16954, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-sm__rest           integer {'pixels': 30878, 'aboveZero': 38, 'aboveOne': 38} analytic {'pixels': 30778, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest       integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest             integer {'pixels': 24062, 'aboveZero': 98, 'aboveOne': 98} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest               integer {'pixels': 1848, 'aboveZero': 165, 'aboveOne': 165} analytic {'pixels': 1591, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-md__rest               integer {'pixels': 9960, 'aboveZero': 93, 'aboveOne': 93} analytic {'pixels': 9815, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-sm__rest               integer {'pixels': 14232, 'aboveZero': 12, 'aboveOne': 12} analytic {'pixels': 14208, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-md__rest                integer {'pixels': 9966, 'aboveZero': 12, 'aboveOne': 12} analytic {'pixels': 9906, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-sm__rest                integer {'pixels': 15120, 'aboveZero': 64, 'aboveOne': 64} analytic {'pixels': 14966, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text__rrect-sm__rest                  integer {'pixels': 15516, 'aboveZero': 68, 'aboveOne': 68} analytic {'pixels': 15416, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest            integer {'pixels': 58164, 'aboveZero': 108, 'aboveOne': 108} analytic {'pixels': 57828, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest                  integer {'pixels': 18316, 'aboveZero': 340, 'aboveOne': 340} analytic {'pixels': 17428, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest                  integer {'pixels': 34476, 'aboveZero': 276, 'aboveOne': 276} analytic {'pixels': 33764, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest                  integer {'pixels': 61532, 'aboveZero': 84, 'aboveOne': 84} analytic {'pixels': 61332, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest   integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest         integer {'pixels': 9158, 'aboveZero': 168, 'aboveOne': 168} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+
+E2 webgpu (GATED): 282 cells, 282 measured, 0 failing, mean change +0.0000 codes, 0 named-miss bins on 0 cells
+
+E2 css (descriptive): 282 cells, 282 measured, 0 failing, mean change +0.0000 codes, 0 named-miss bins on 0 cells
+
+S1/R2 webgpu (GATED, adopted only at the landing by ruling): 183/183 cells, pooled median ratio 0.8773, 15 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=81   median 0.9416
+  apple-macos-27.0-2x-light-standard-glass0.25       n=71   median 0.9918
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=17   median 0.3139
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=14   median 0.3114
+
+S1/R2 css (GATED, adopted only at the landing by ruling): 125/125 cells, pooled median ratio 0.8743, 11 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=72   median 0.9360
+  apple-macos-27.0-2x-light-standard-glass0.25       n=35   median 1.0511
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=16   median 0.0820
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=2    median 0.1169
+
+T1 (GATED on WebGPU, light 0.25; read on CSS and dark): 772 cells in gate, referee, holdout; reference packages/calibration/results/generations/6d18c059eb42.json, packages/calibration/results/generations/d0219cd684bf.json
+  landing (T1 clauses, 2x light WebGPU gate cells): NEITHER: closes at the finding; F aggregate 0.6462 against c05's 0.6462; 11 F not within; 0 away beyond B; 0 overshoot; selection metric 0.3458 (tie 0.0412)
+  C 1x dark css inactive               n=15  median|log| 0.6325 (c05 0.6325) {'miss': 12, 'within': 3} {'unchanged': 15}
+  C 1x dark css rest                   n=29  median|log| 1.2672 (c05 1.2672) {'miss': 29} {'unchanged': 29}
+  C 1x dark webgpu inactive            n=15  median|log| 0.5381 (c05 0.5381) {'miss': 14, 'within': 1} {'unchanged': 15}
+  C 1x dark webgpu rest                n=29  median|log| 0.4230 (c05 0.4230) {'miss': 24, 'within': 5} {'unchanged': 29}
+  C 1x light css inactive              n=21  median|log| 0.3212 (c05 0.3212) {'within': 7, 'miss': 14} {'unchanged': 21}
+  C 1x light css rest                  n=37  median|log| 0.3440 (c05 0.3440) {'miss': 32, 'within': 5} {'unchanged': 37}
+  C 1x light webgpu inactive           n=21  median|log| 0.3511 (c05 0.3511) {'miss': 14, 'within': 7} {'unchanged': 21}
+  C 1x light webgpu rest               n=37  median|log| 0.0914 (c05 0.0914) {'within': 23, 'miss': 14} {'unchanged': 37}
+  C 2x dark css inactive               n=15  median|log| 0.4733 (c05 0.4733) {'miss': 12, 'within': 3} {'unchanged': 15}
+  C 2x dark css rest                   n=29  median|log| 1.2169 (c05 1.2169) {'miss': 28, 'within': 1} {'unchanged': 29}
+  C 2x dark webgpu inactive            n=15  median|log| 0.4899 (c05 0.4899) {'within': 3, 'miss': 12} {'unchanged': 15}
+  C 2x dark webgpu rest                n=29  median|log| 0.5143 (c05 0.5143) {'miss': 26, 'within': 3} {'unchanged': 29}
+  C 2x light css inactive              n=21  median|log| 0.5866 (c05 0.5866) {'miss': 19, 'within': 2} {'unchanged': 21}
+  C 2x light css rest                  n=37  median|log| 0.3675 (c05 0.3675) {'miss': 30, 'within': 7} {'unchanged': 37}
+  C 2x light webgpu inactive           n=21  median|log| 0.8523 (c05 0.8523) {'miss': 18, 'within': 3} {'unchanged': 21}
+  C 2x light webgpu rest               n=37  median|log| 0.1720 (c05 0.1720) {'miss': 22, 'within': 15} {'unchanged': 37}
+  F 1x dark css inactive               n=3   median|log| 0.2193 (c05 0.2193) {'within': 3} {'unchanged': 3}
+  F 1x dark css rest                   n=12  median|log| 1.3960 (c05 1.3960) {'miss': 12} {'unchanged': 12}
+  F 1x dark webgpu inactive            n=3   median|log| 0.8684 (c05 0.8684) {'miss': 3} {'unchanged': 3}
+  F 1x dark webgpu rest                n=12  median|log| 0.4726 (c05 0.4726) {'miss': 9, 'within': 3} {'unchanged': 12}
+  F 1x light css inactive              n=2   median|log| 0.3901 (c05 0.3901) {'miss': 2} {'unchanged': 2}
+  F 1x light css rest                  n=9   median|log| 1.5439 (c05 1.5439) {'miss': 9} {'unchanged': 9}
+  F 1x light webgpu inactive           n=2   median|log| 0.4281 (c05 0.4281) {'within': 1, 'miss': 1} {'unchanged': 2}
+  F 1x light webgpu rest               n=9   median|log| 0.6241 (c05 0.6241) {'miss': 8, 'within': 1} {'unchanged': 9}
+  F 2x dark css inactive               n=3   median|log| 0.2233 (c05 0.2233) {'within': 2, 'miss': 1} {'unchanged': 3}
+  F 2x dark css rest                   n=12  median|log| 1.2542 (c05 1.2542) {'miss': 12} {'unchanged': 12}
+  F 2x dark webgpu inactive            n=3   median|log| 0.9423 (c05 0.9423) {'miss': 3} {'unchanged': 3}
+  F 2x dark webgpu rest                n=12  median|log| 0.4410 (c05 0.4410) {'miss': 9, 'within': 3} {'unchanged': 12}
+  F 2x light css inactive              n=2   median|log| 0.6069 (c05 0.6069) {'within': 1, 'miss': 1} {'unchanged': 2}
+  F 2x light css rest                  n=9   median|log| 1.0243 (c05 1.0243) {'miss': 8, 'within': 1} {'unchanged': 9}
+  F 2x light webgpu inactive           n=2   median|log| 1.2903 (c05 1.2903) {'miss': 2} {'unchanged': 2}
+  F 2x light webgpu rest               n=9   median|log| 0.6334 (c05 0.6334) {'miss': 9} {'unchanged': 9}
+  P 1x dark css inactive               n=5   median|log| 1.3270 (c05 1.3270) {'miss': 5} {'unchanged': 5}
+  P 1x dark css rest                   n=4   median|log| 1.0363 (c05 1.0363) {'miss': 4} {'unchanged': 4}
+  P 1x dark webgpu inactive            n=5   median|log| 1.1926 (c05 1.1926) {'miss': 5} {'unchanged': 5}
+  P 1x dark webgpu rest                n=4   median|log| 0.6021 (c05 0.6021) {'miss': 4} {'unchanged': 4}
+  P 1x light css inactive              n=11  median|log| 0.4554 (c05 0.4554) {'miss': 10, 'within': 1} {'unchanged': 11}
+  P 1x light css rest                  n=11  median|log| 0.6418 (c05 0.6418) {'miss': 11} {'unchanged': 11}
+  P 1x light webgpu inactive           n=11  median|log| 0.2319 (c05 0.2319) {'miss': 11} {'unchanged': 11}
+  P 1x light webgpu rest               n=11  median|log| 0.3821 (c05 0.3821) {'miss': 11} {'unchanged': 11}
+  P 2x dark css inactive               n=5   median|log| 1.1695 (c05 1.1695) {'miss': 5} {'unchanged': 5}
+  P 2x dark css rest                   n=4   median|log| 1.0788 (c05 1.0788) {'miss': 4} {'unchanged': 4}
+  P 2x dark webgpu inactive            n=5   median|log| 1.1443 (c05 1.1443) {'miss': 5} {'unchanged': 5}
+  P 2x dark webgpu rest                n=4   median|log| 0.7997 (c05 0.7997) {'miss': 4} {'unchanged': 4}
+  P 2x light css inactive              n=11  median|log| 0.2642 (c05 0.2642) {'within': 3, 'miss': 8} {'unchanged': 11}
+  P 2x light css rest                  n=11  median|log| 0.5148 (c05 0.5148) {'miss': 11} {'unchanged': 11}
+  P 2x light webgpu inactive           n=11  median|log| 0.1393 (c05 0.1393) {'within': 4, 'miss': 7} {'unchanged': 11}
+  P 2x light webgpu rest               n=11  median|log| 0.4193 (c05 0.4193) {'miss': 11} {'unchanged': 11}
+  T 1x dark css inactive               n=1   median|log| 0.4590 (c05 0.4590) {'miss': 1} {'unchanged': 1}
+  T 1x dark css rest                   n=3   median|log| 1.1282 (c05 1.1282) {'miss': 3} {'unchanged': 3}
+  T 1x dark webgpu inactive            n=1   median|log| 0.0730 (c05 0.0730) {'within': 1} {'unchanged': 1}
+  T 1x dark webgpu rest                n=3   median|log| 0.3976 (c05 0.3976) {'miss': 2, 'within': 1} {'unchanged': 3}
+  T 1x light css rest                  n=3   median|log| 0.5160 (c05 0.5160) {'miss': 3} {'unchanged': 3}
+  T 1x light webgpu rest               n=3   median|log| 0.2046 (c05 0.2046) {'miss': 3} {'unchanged': 3}
+  T 2x dark css inactive               n=1   median|log| 0.1082 (c05 0.1082) {'within': 1} {'unchanged': 1}
+  T 2x dark css rest                   n=3   median|log| 0.8677 (c05 0.8677) {'miss': 2, 'within': 1} {'unchanged': 3}
+  T 2x dark webgpu inactive            n=1   median|log| 0.0460 (c05 0.0460) {'within': 1} {'unchanged': 1}
+  T 2x dark webgpu rest                n=3   median|log| 0.4257 (c05 0.4257) {'miss': 2, 'within': 1} {'unchanged': 3}
+  T 2x light css rest                  n=3   median|log| 0.4309 (c05 0.4309) {'miss': 3} {'unchanged': 3}
+  T 2x light webgpu rest               n=3   median|log| 0.2153 (c05 0.2153) {'miss': 3} {'unchanged': 3}
+  T 2x hc-text-7__rrect-sm__rest                T1 miss/unchanged  fine n 0.1172 c05 0.0723 k 0.0723 miss/unchanged  low n 0.0731 c05 0.0545 k 0.0545 miss/unchanged g +0.0000 B 0.0072
+  T 2x hc-text-7__rrect-md__rest                T1 miss/unchanged  fine n 0.0281 c05 0.0522 k 0.0522 miss/unchanged  low n 0.0867 c05 0.0576 k 0.0576 miss/unchanged g +0.0000 B 0.0069
+  T 2x hc-text-7__rrect-lg__rest                T1 miss/unchanged  fine n 0.0032 c05 0.0271 k 0.0271 miss/unchanged  low n 0.1170 c05 0.0876 k 0.0876 miss/unchanged g +0.0000 B 0.0074
+  move1: objective 0.1639; within clause NOT WITHIN (8 members, 6 not within)
+  move2: objective 0.3980; within clause NOT WITHIN (30 members, 27 not within)
+  move3: objective 0.4931; within clause NOT WITHIN (34 members, 27 not within)
+  readings beside T1 (never gated): 376 cells; see the JSON
+
+W45 RULE (Decision Log 3; T1, webgpu, 2x light (apple-macos-27.0-2x-light-standard-glass0.25), both poses, F ∪ T ∪ C ∪ P, partitions gate; T on T1-fine (away on T1-low)): NEITHER: closes at the finding
+  94 of 94 cells read; partition unchanged 94; toward 0; away 0
+  F aggregate 0.6462 against c05's 0.6462 (halved: False); 11 F not within
+  F rest       n=9   A 0.6334 c05 0.6334 τ 0.0485 GATED holds
+  F inactive   n=2   A 1.2903 c05 1.2903 τ 0.1234 reported holds
+  T rest       n=3   A 0.5251 c05 0.5251 τ 0.0945 GATED holds
+  C rest       n=37  A 0.1720 c05 0.1720 τ 0.0267 GATED holds
+  C inactive   n=21  A 0.8523 c05 0.8523 τ 0.0501 GATED holds
+  P rest       n=11  A 0.4193 c05 0.4193 τ 0.0398 GATED holds
+  P inactive   n=11  A 0.1393 c05 0.1393 τ 0.0455 GATED holds
+  budget: 0 away beyond B (at most 3), 0 beyond 3 B: holds
+  why: full close: 11 F cell(s) not within
+  why: improvement: F aggregate 0.6462 above half of c05's 0.6462
+  stage1: objective 0.1639 (tie 0.0332); within NOT WITHIN (8 members, 6 not within)
+  stage2: objective 0.4062 (tie 0.0426); within NOT WITHIN (64 members, 54 not within)
+  outside: the referees' clause (at the exposure), every other adopted row, and the exposure's holdout-miss ruling are not evaluated here

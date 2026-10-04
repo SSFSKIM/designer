@@ -1321,11 +1321,14 @@ export interface MaterialSourceSize {
    * §5.205; W45 charter Decision Log 1). `sizeHeavySecondShareFar2x` moves that
    * share along the scatter's far curve, per pixel, and this tier draws no second
    * tap — so there is no share here for it to grade, and nothing on this tier
-   * reads it. The leaf the tier DOES carry from the same deep composition, the span
-   * top `sizeScatterSpanMax2x`, still reaches it through `MATERIAL_SOURCE_SIZE`
-   * above, uncompensated by the grading; a document that moves the two together
-   * moves this tier's rows by the span top alone, which the wave prices at its
-   * gate as a tier residual rather than mirroring here.
+   * reads it. The leaf the tier carries from the same deep composition, the span
+   * top `sizeScatterSpanMax2x`, reaches it through `MATERIAL_SOURCE_SIZE` above,
+   * uncompensated by the grading — EXCEPT for the light 0.25 documents, which
+   * moved it with the tap: there `cssTierSourceSize` holds it and the 2x floor at
+   * c05's values, because W45's gate measured the span top alone washing out this
+   * tier's coarse checkers (`CSS_DECLINED_SIZE_GLASS025_LIGHT` below; claims
+   * §5.206 §15). Any other document that moves the span top moves this tier's rows
+   * by it alone, a tier residual its wave prices at its gate.
    */
   /**
    * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp
@@ -2020,6 +2023,59 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
     refractionScale: sourceRefractionScale(patch),
   };
+}
+
+/**
+ * **The CSS tier declines W45's movement of the deep composition's floor and span top for the
+ * light 0.25 documents** (claims §5.206; W45 G1, the parent's ruling of 2026-10-04). The same
+ * decline as the second tap's and its grading above, now with the two leaves the tap's refit moved
+ * alongside it, and recorded rather than chartered (the standing rule: a CSS-only residual is a
+ * measurement, not a wave).
+ *
+ * W45 refitted the 2x light `-glass0.25` deep composition on the WebGPU tier as ONE move: the floor
+ * `sizeScatterFloor2x` 0.6 → 1 and the span top `sizeScatterSpanMax2x` 256 → 128 TOGETHER WITH the
+ * span-graded second heavy tap (share 0.5 at 2 CSS px, graded −0.25 on the far curve), which puts
+ * back the mid-pitch structure the all-heavy body removes. This tier draws no second tap, so taking
+ * the floor and the span top alone takes the removal without the restoration: on W45 G1's stage
+ * the 2x CSS coarse checkers at the mid and thick spans went far under Apple. So for a document at
+ * the Glass slider's 0.25 position in the light scheme this tier keeps the two leaves at the values
+ * the published c05 generation was read with, 0.6 and 256 — keyed on the document's
+ * `glassTintAmount` and the scheme, never on a file hash, so the 0.5 and the macOS 26.5 materials
+ * (and X41's frozen rows) are untouched and a later 0.25 refit inherits the decline until it
+ * measures otherwise. An app that tunes either leaf on the root to a value other than the
+ * document's gets its own value on both tiers.
+ * The 1x rows cannot see it: both leaves are 2x-anchored (`rampAtScale`).
+ *
+ * Measured on W45 G1's stage (2x light 0.25, CSS tier, the 94 T1 gate cells, against c05): without
+ * the hold 22 of 94 cells away from Apple beyond B, 11 beyond 3B, C rest A 0.3675 → 0.5602; with
+ * it 1 of 94 away beyond B and beyond 3B (`checkerboard-32__rrect-sm__rest`, 3.34 B, which the thin
+ * start moves at a thin span), C rest A 0.2722 (c05's 0.3675), no new table miss, and L1's two CSS
+ * growth misses gone. The 1x CSS rows re-read byte-identical (claims §5.206 §15).
+ */
+export const CSS_DECLINED_SIZE_GLASS025_LIGHT = {
+  sizeScatterFloor2x: 0.6,
+  sizeScatterSpanMax2x: 256,
+} as const satisfies Partial<MaterialSourceSize>;
+
+/**
+ * The size constants the CSS tier draws with: `size`, with the light 0.25 decline above applied.
+ * A leaf the app's own patch sets to a value OTHER than the document's is a tune and reaches this
+ * tier as the app set it; the same value the document states is not a tune (the calibration harness
+ * hands every shipped document's patch to the root as the app's patch as well).
+ */
+export function cssTierSourceSize(
+  size: MaterialSourceSize,
+  glassTintAmount: number | undefined,
+  scheme: "light" | "dark",
+  hostProfile?: RendererMaterialProfile,
+  documentPatch?: RendererMaterialProfile,
+): MaterialSourceSize {
+  if (glassTintAmount !== 0.25 || scheme !== "light") return size;
+  const held = (leaf: keyof typeof CSS_DECLINED_SIZE_GLASS025_LIGHT): number => {
+    const tuned = hostProfile?.[leaf];
+    return tuned !== undefined && tuned !== documentPatch?.[leaf] ? size[leaf] : CSS_DECLINED_SIZE_GLASS025_LIGHT[leaf];
+  };
+  return { ...size, sizeScatterFloor2x: held("sizeScatterFloor2x"), sizeScatterSpanMax2x: held("sizeScatterSpanMax2x") };
 }
 
 

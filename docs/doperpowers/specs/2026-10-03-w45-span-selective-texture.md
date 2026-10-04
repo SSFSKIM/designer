@@ -1,5 +1,18 @@
 # W45 — the span-graded tap: the second heavy tap's share graded on the scatter's far curve, the deep share's span top, the thin trade read, and a landing rule that measures regression as growth (2026-10-03)
 
+**Status (2026-10-04, after G2): LANDED as an improvement under Decision Log 8, for the parent's merge
+of G1 and G2 together and the user's `pnpm release` of 0.27.0** (ledger §5.207). G1 published the
+light 0.25 generation `ebc3d9105a4a` (digests `3741b22934f17f4d` / `c4ca0e1cd6791bde`, dark
+unchanged). G2 landed it:
+- the capture tree copied, and c05's moved to `web-captures-superseded/6d18c059eb42/`
+  (`check-capture-tree` 0);
+- T1 re-baselined in the five parts: eleven regressions authorised against c05, 157 of 232 named,
+  the reference moved last;
+- the owner test's 0.25 blocks re-pinned on a landing cut, with c05 by hash as M2's, L1's and E2's
+  reference;
+- the demo, the docs, the changeset `.changeset/w45-span-graded-tap.md`, and the c9d chain
+  (`results/2026-10-03-w45-g2-landing/close/`).
+
 **Status v1.4 (2026-10-03, after G0): G0 merged as `9fa2eea6` (§5.205; the operator inert and
 proven by bytes; part 1 `5630743b…`; part 2 `da85de04…` amended once to `77f1c392…`; the
 joint-composition witness met on three rungs). Decision Log 7 rules the six items G0 handed back,
@@ -57,6 +70,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | 5 | the thin-span pitch trade | **RULED** by the parent, 2026-10-03 | read in G0 (a thin-span transfer ladder per lever), not pre-attributed; if no lever separates `checkerboard-4` from the pitch-16 and 32 thin cells, it is a named residual |
 | 6 | the release | **RULED** by the parent, 2026-10-03 | as W44 Decision Log 6: a `@vitreajs/vitrea-web` minor (0.27.0), the light 0.25 generation superseded, the dark one unchanged, the user's `pnpm release`; the operator ships inert in every other document |
 | 7 | G0's six items | **RULED** by the parent, 2026-10-03, after G0 | one second and final amendment of part 2 before any fit render: the side branch's tool fixes re-pinned; `sizeHeavySecondShareFar2x` ∈ [−share, 0]; the share × width factorial at stage 1; F inactive reported; clause 4's rule is the loader's refusal of a referee or holdout row; the seal admits what the builder admits |
+| 8 | ship or close at G1's gate | **RULED** by the user, 2026-10-04 | ship as an improvement landing with twelve named exceptions: the eight T1 regressions enter `T1_AUTHORISED_REGRESSIONS` against `6d18c059eb42`; M2's four receded photo cells are named misses with `gate/photo-lattice` beside them; the CSS hold stands as the tier's recorded decline; the exposure read once; the generation published; G2 lands it as 0.27.0 |
 
 ## Purpose
 
@@ -533,8 +547,8 @@ path-scoped adds; merges with the freeze and X41 verified.
 | child | status | ledger |
 | --- | --- | --- |
 | G0 | MERGED `9fa2eea6`: operator inert, tools ported, rule rehearsed, part 1 `5630743b…`, ladders read, part 2 `da85de04…` amended once to `77f1c392…` | §5.205 |
-| G1 | NOT STARTED; opens with part 2's second and final amendment (Decision Log 7) | §5.206 |
-| G2 | NOT STARTED | §5.207 |
+| G1 | DONE on `w45-g1-refit`, published: the generation `ebc3d9105a4a.json` (656 rows) supersedes `6d18c059eb42` (retired); light digests `3741b22934f17f4d` / `c4ca0e1cd6791bde`, dark unchanged; shipped as an improvement landing with named exceptions (Decision Log 8): eleven T1 regressions, M2's four receded photo cells and the P inactive aggregate; the CSS tier's light 0.25 decline recorded | §5.206 |
+| G2 | DONE on `w45-g2-landing` (off G1's head `8f836c80`; G1 and G2 merge together): tree copied and c05's superseded (`check-capture-tree` 0); T1's five parts in order (witness: growth-only 11 / 5 beyond 3B against c05, W44's form 6); owner test 154 of 154 with the tree; demo re-copied; CLAUDE.md, READMEs, tracker, changeset; c9d chain | §5.207 |
 
 ## Decision Log
 
@@ -666,6 +680,55 @@ thin cells, though the levers act on different pitches (the floor raises `checke
 the share and width move only the coarser thin cells, δ is inert at thin spans), so Decision
 Log 5's residual applies as declared and stage 2's search of the thin start stands.
 
+
+### Decision Log 8 — RULED 2026-10-04 (the user): ship as an improvement landing with named exceptions
+
+**The question as put to the user.** The material is W45 G1's converged point, frozen on the branch
+as `3741b22934f17f4d` / `c4ca0e1cd6791bde` and read on the stage less the referees (claims §5.206
+§11–§15).
+- **It halves the fine-pitch error:** F 0.6462 → 0.2190.
+- **It holds every gated T1 aggregate** within c05's A + τ.
+- **It passes both tiers' tables**, with the CSS hold (the CSS tier declines the floor and span top
+  at the light 0.25 position: 2x CSS cells away beyond B 22 → 1).
+- **It keeps the 1x rows and the dark documents byte-identical.**
+- **It fails Decision Log 3's per-cell budget:** eight cells away beyond B (at most three allowed),
+  four of them beyond 3B (none allowed).
+- **It fails M2 on four receded photo cells.** The lattice band shows the smoothing M2 penalises is
+  the lattice coming off (`gate/photo-lattice`).
+
+Ship it as an improvement landing with those twelve named, or close W45 at the finding?
+
+**The user's words:** "Ship it (Recommended)".
+
+**Ruled:**
+- **The eight T1 regressions** enter `T1_AUTHORISED_REGRESSIONS` against the superseded generation
+  `6d18c059eb42`, each with its growth and this ruling: `checkerboard__rrect-md__pressed` 4.27 B,
+  `checkerboard__capsule-button__pressed` 4.25, `checkerboard-32__rrect-sm__rest` 4.18,
+  `checkerboard-32__rrect-lg__rest` 3.34, `checkerboard-64__rrect-sm__rest` 2.22,
+  `checkerboard-8__rrect-lg__rest` 1.55, `hc-text__rrect-lg__inactive` 1.40 and
+  `photo__toolbar-group__inactive` 1.02.
+- **M2's four receded photo cells** are named misses with `gate/photo-lattice` beside them:
+  `photo__capsule-button__inactive`, `photo__rrect-md__inactive`, `photo__rrect-sm__inactive` and
+  `photo__toolbar-group__inactive`.
+- **The CSS hold stands** as the tier's recorded decline (`optics.ts`, `tier-coherence.test.ts`).
+- **What follows:**
+  - the exposure is read once (clause 7);
+  - the generation is published after the parent rules any holdout miss;
+  - G2 lands it as 0.27.0.
+
+**At the exposure, ruled by the parent (2026-10-04, under W44 Decision Log 5 and this ruling).**
+The three exposed cells that spend the budget are SHIPPED-AND-NAMED, never re-read:
+`checkerboard__rrect-lg__rest` 3.30 B, `checkerboard__glass-over-glass__rest` 1.57 B and
+`hc-text-7__rrect-md__inactive` +1.60 B on T1-low. The P inactive aggregate failure (0.1937 against
+0.1870) is a NAMED miss. The authorised list is therefore eleven T1 regressions against
+`6d18c059eb42`, M2's four receded photo cells and the P inactive aggregate, each with its reading
+cited (claims §5.206 §16).
+
+*Reasoning.* Decision Log 3 fixed the count and the ceiling before the rehearsal as a stated
+tradeoff, with no perceptual measurement behind either number. The ruled exception is a decision
+about that tradeoff on a measured candidate. It does not move the budget, so the next publication
+must clear the listed cells or re-rule them (X59).
+
 ## Surprises & Discoveries
 
 Found while drafting (2026-10-03; 6–8 from the second review):
@@ -695,6 +758,8 @@ Found while drafting (2026-10-03; 6–8 from the second review):
 
 ## Revision Notes
 
+- 2026-10-04 (G2's landing, §5.207): the status line and the Tracking Map's G2 row. No design text,
+  Decision Log or contract changed.
 - 2026-10-03 (v1.4, after G0's merge `9fa2eea6`; the parent's rulings on §5.205 §13–§14 and the
   hand-back): Decision Log 7 added and executed as G1 step 0 (part 2's second and final
   amendment); the grading's domain [−share, 0] and the share × width factorial in stage 1; F

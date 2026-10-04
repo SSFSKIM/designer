@@ -1,0 +1,106 @@
+point c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1: 9 cells past B (count 3), 3 past 3B (ceiling); budget BROKEN
+  past 3B  checkerboard__capsule-button__pressed          g 3.33 B; n 0.1938 c05 0.1807 point 0.2295; within B at 6 of 17 points read
+  past B   checkerboard__rrect-md__pressed                g 2.07 B; n 0.1501 c05 0.1575 point 0.1711; within B at 45 of 129 points read
+  past B   checkerboard-4__rrect-md__rest                 g 2.34 B; n 0.0297 c05 0.0614 point 0.0757; within B at 66 of 129 points read
+  past B   checkerboard-8__rrect-ml__rest                 g 2.52 B; n 0.0261 c05 0.0637 point 0.0793; within B at 60 of 129 points read
+  past 3B  checkerboard-32__rrect-sm__rest                g 3.00 B; n 0.2161 c05 0.1954 point 0.2571; within B at 5 of 17 points read
+  past B   checkerboard-64__rrect-sm__rest                g 1.82 B; n 0.0680 c05 0.0319 point 0.0166; within B at 2 of 17 points read
+  past B   photo__toolbar-group__inactive                 g 1.16 B; n 0.0998 c05 0.0778 point 0.0710; within B at 36 of 65 points read
+  past B   checkerboard-4__rrect-md__inactive             g 2.60 B; n 0.0157 c05 0.0621 point 0.0768; within B at 38 of 65 points read
+  past 3B  checkerboard-8__rrect-md__inactive             g 3.57 B; n 0.0159 c05 0.0843 point 0.1044; within B at 38 of 65 points read
+
+scene                                            str pose     span        n     c05   point    g/B
+checkerboard-64__rrect-md__inactive              C   inactive mid    0.1926  0.2619  0.2305  -5.40  miss
+checkerboard-lc16__rrect-md__inactive            C   inactive mid    0.0254  0.0685  0.0689   0.07  miss
+checkerboard__rrect-md__inactive                 C   inactive mid    0.0506  0.1196  0.1191  -0.08  miss
+checkerboard__rrect-md__inactive-pressed         C   inactive mid    0.0506  0.1736  0.1733  -0.05  miss
+hc-text-28__rrect-md__inactive                   C   inactive mid    0.1060  0.1688  0.1451  -3.59  miss
+impulse__rrect-md__inactive                      C   inactive mid    0.0088  0.0148  0.0160   0.38  miss
+checkerboard-64__rrect-lg__inactive              C   inactive thick  0.2052  0.2634  0.2153  -8.02  within
+checkerboard__rrect-ml__inactive                 C   inactive thick  0.0328  0.0998  0.0928  -1.22  miss
+hc-text__rrect-lg__inactive                      C   inactive thick  0.1214  0.1113  0.1081   0.47  miss
+impulse__rrect-lg__inactive                      C   inactive thick  0.0065  0.0081  0.0069  -0.35  within
+impulse__rrect-ml__inactive                      C   inactive thick  0.0071  0.0074  0.0074   0.00  within
+checkerboard-lc16__capsule-button__inactive      C   inactive thin   0.0348  0.1100  0.0852  -3.70  miss
+checkerboard__capsule-button__inactive           C   inactive thin   0.0695  0.1943  0.1523  -7.17  miss
+checkerboard__capsule-button__inactive-pressed   C   inactive thin   0.0695  0.2300  0.1958  -5.84  miss
+checkerboard__capsule-button__inactive-tint-blue C   inactive thin   0.0565  0.1423  0.1103  -6.62  miss
+checkerboard__capsule-button__inactive-tint-orange C   inactive thin   0.0565  0.1423  0.1103  -6.62  miss
+checkerboard__rrect-sm__inactive                 C   inactive thin   0.0832  0.2251  0.1605 -10.94  miss
+checkerboard__toolbar-group__inactive            C   inactive thin   0.0717  0.2022  0.1555  -7.99  miss
+hc-text__rrect-sm__inactive                      C   inactive thin   0.0458  0.1812  0.1410  -6.72  miss
+impulse__capsule-button__inactive                C   inactive thin   0.0134  0.0231  0.0196  -1.04  miss
+impulse__capsule-button__inactive-tint-orange    C   inactive thin   0.0069  0.0165  0.0139  -1.06  miss
+checkerboard-32__rrect-md__rest                  C   rest     mid    0.1817  0.1556  0.1730  -2.58  within
+checkerboard-64__rrect-md__rest                  C   rest     mid    0.2485  0.2330  0.2415  -1.31  within
+checkerboard-lc16__rrect-md__rest                C   rest     mid    0.0679  0.0431  0.0526  -1.29  miss
+checkerboard__rrect-md__pressed                  C   rest     mid    0.1501  0.1575  0.1711   2.07  miss  past B
+checkerboard__rrect-md__rest                     C   rest     mid    0.1501  0.0976  0.1201  -3.39  miss
+hc-text-28__rrect-md__rest                       C   rest     mid    0.1663  0.1331  0.1522  -2.65  within
+impulse__rrect-md__rest                          C   rest     mid    0.0245  0.0204  0.0222  -0.54  within
+checkerboard-32__rrect-lg__rest                  C   rest     thick  0.1336  0.1329  0.1376   0.49  within
+checkerboard-32__rrect-ml__rest                  C   rest     thick  0.1556  0.1466  0.1590  -0.85  within
+checkerboard-64__rrect-lg__rest                  C   rest     thick  0.2446  0.2319  0.2341  -0.32  within
+checkerboard-64__rrect-ml__rest                  C   rest     thick  0.2276  0.2118  0.2188  -1.08  within
+checkerboard-lc16__rrect-lg__rest                C   rest     thick  0.0322  0.0274  0.0302  -0.38  within
+checkerboard-lc16__rrect-ml__rest                C   rest     thick  0.0370  0.0339  0.0409   0.12  within
+checkerboard__rrect-ml__rest                     C   rest     thick  0.0815  0.0757  0.0933   0.93  miss
+hc-text-28__rrect-lg__rest                       C   rest     thick  0.1313  0.1226  0.1262  -0.49  within
+hc-text__rrect-lg__rest                          C   rest     thick  0.1236  0.1029  0.1058  -0.39  miss
+impulse__rrect-lg__rest                          C   rest     thick  0.0135  0.0140  0.0142   0.08  within
+impulse__rrect-ml__rest                          C   rest     thick  0.0145  0.0152  0.0157   0.14  within
+checkerboard-32__capsule-button__rest            C   rest     thin   0.2195  0.1897  0.2433  -0.88  miss
+checkerboard-32__capsule-button__rest-tint-orange C   rest     thin   0.0506  0.0411  0.0511  -1.85  within
+checkerboard-32__rrect-sm__rest                  C   rest     thin   0.2161  0.1954  0.2571   3.00  miss  past 3B
+checkerboard-64__capsule-button__rest            C   rest     thin   0.2979  0.2745  0.2975  -3.31  within
+checkerboard-64__capsule-button__rest-tint-orange C   rest     thin   0.0691  0.0573  0.0616  -0.88  miss
+checkerboard-64__rrect-sm__rest                  C   rest     thin   0.0680  0.0319  0.0166   1.82  miss  past B
+checkerboard-lc16__capsule-button__rest          C   rest     thin   0.0918  0.0549  0.0809  -3.55  miss
+checkerboard-lc16__rrect-sm__rest                C   rest     thin   0.0947  0.0565  0.0868  -4.16  within
+checkerboard__capsule-button__pressed            C   rest     thin   0.1938  0.1807  0.2295   3.33  miss  past 3B
+checkerboard__capsule-button__rest               C   rest     thin   0.1938  0.1312  0.1977  -8.65  within
+checkerboard__capsule-button__rest-tint-blue     C   rest     thin   0.0314  0.0204  0.0257  -1.51  miss
+checkerboard__capsule-button__rest-tint-orange   C   rest     thin   0.0457  0.0305  0.0425  -2.45  within
+checkerboard__rrect-sm__rest                     C   rest     thin   0.1940  0.1451  0.2251  -2.59  miss
+checkerboard__toolbar-group__rest                C   rest     thin   0.1933  0.1370  0.2053  -6.58  within
+hc-text-28__rrect-sm__rest                       C   rest     thin   0.1891  0.1444  0.2190  -2.11  miss
+hc-text__rrect-sm__rest                          C   rest     thin   0.1595  0.1237  0.1921  -0.43  miss
+impulse__capsule-button__rest                    C   rest     thin   0.0377  0.0267  0.0319  -1.55  miss
+impulse__capsule-button__rest-tint-orange        C   rest     thin   0.0288  0.0226  0.0228  -0.06  miss
+impulse__rrect-sm__rest                          C   rest     thin   0.0535  0.0356  0.0462  -3.13  miss
+checkerboard-4__rrect-md__inactive               F   inactive mid    0.0157  0.0621  0.0768   2.60  miss  past B
+checkerboard-8__rrect-md__inactive               F   inactive mid    0.0159  0.0843  0.1044   3.57  miss  past 3B
+checkerboard-4__rrect-md__rest                   F   rest     mid    0.0297  0.0614  0.0757   2.34  miss  past B
+checkerboard-8__rrect-md__rest                   F   rest     mid    0.0991  0.0841  0.1042  -1.53  within
+checkerboard-4__rrect-lg__rest                   F   rest     thick  0.0227  0.0365  0.0401   0.58  miss
+checkerboard-8__rrect-lg__rest                   F   rest     thick  0.0224  0.0484  0.0539   0.87  miss
+checkerboard-8__rrect-ml__rest                   F   rest     thick  0.0261  0.0637  0.0793   2.52  miss  past B
+checkerboard-4__capsule-button__rest             F   rest     thin   0.1727  0.0801  0.1205  -6.07  miss
+checkerboard-4__rrect-sm__rest                   F   rest     thin   0.1721  0.0850  0.1310  -6.94  miss
+checkerboard-8__capsule-button__rest             F   rest     thin   0.1855  0.1093  0.1660  -8.42  miss
+checkerboard-8__capsule-button__rest-tint-orange F   rest     thin   0.0443  0.0269  0.0366  -1.99  miss
+photo__rrect-md__inactive                        P   inactive mid    0.0742  0.0638  0.0599   0.70  miss
+photo__rrect-md__inactive-pressed                P   inactive mid    0.0742  0.0908  0.0890  -0.31  miss
+photo__rrect-md__inactive-tint-orange            P   inactive mid    0.0559  0.0468  0.0439   0.64  miss
+photo__rrect-ml__inactive                        P   inactive thick  0.0906  0.0745  0.0700   0.78  miss
+photo__capsule-button__inactive                  P   inactive thin   0.0550  0.0502  0.0464   0.67  miss
+photo__capsule-button__inactive-pressed          P   inactive thin   0.0550  0.0809  0.0807  -0.04  miss
+photo__capsule-button__inactive-tint-blue        P   inactive thin   0.0411  0.0367  0.0339   0.61  miss
+photo__capsule-button__inactive-tint-orange      P   inactive thin   0.0411  0.0367  0.0339   0.61  miss
+photo__capsule-button__inactive-tint-orange-half P   inactive thin   0.0476  0.0424  0.0392   0.63  miss
+photo__rrect-sm__inactive                        P   inactive thin   0.0225  0.0196  0.0168   0.52  miss
+photo__toolbar-group__inactive                   P   inactive thin   0.0998  0.0778  0.0710   1.16  miss  past B
+photo__rrect-md__pressed                         P   rest     mid    0.0893  0.0994  0.0997   0.06  miss
+photo__rrect-md__rest                            P   rest     mid    0.0893  0.0567  0.0575  -0.13  miss
+photo__rrect-md__rest-tint-orange                P   rest     mid    0.0224  0.0150  0.0151  -0.03  miss
+photo__rrect-ml__rest                            P   rest     thick  0.1032  0.0664  0.0670  -0.09  miss
+photo__capsule-button__pressed                   P   rest     thin   0.0674  0.0895  0.0898   0.05  miss
+photo__capsule-button__rest                      P   rest     thin   0.0674  0.0410  0.0430  -0.34  miss
+photo__capsule-button__rest-tint-blue            P   rest     thin   0.0225  0.0124  0.0125  -0.03  miss
+photo__capsule-button__rest-tint-orange          P   rest     thin   0.0266  0.0137  0.0138  -0.04  miss
+photo__capsule-button__rest-tint-orange-half     P   rest     thin   0.0371  0.0209  0.0219  -0.21  miss
+photo__rrect-sm__rest                            P   rest     thin   0.0392  0.0206  0.0219  -0.22  miss
+photo__toolbar-group__rest                       P   rest     thin   0.1076  0.0751  0.0779  -0.47  miss
+hc-text-7__rrect-md__rest                        T   rest     mid    0.0990  0.0882  0.1037  -0.78  within
+hc-text-7__rrect-lg__rest                        T   rest     thick  0.1236  0.0983  0.1004  -0.05  miss
+hc-text-7__rrect-sm__rest                        T   rest     thin   0.1653  0.1110  0.1712  -1.40  within

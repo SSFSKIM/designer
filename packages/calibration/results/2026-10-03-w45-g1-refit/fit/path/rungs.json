@@ -1,0 +1,2704 @@
+{
+ "c05/stage1": {
+  "base": "start-c05",
+  "components": [
+   {
+    "family": "deep",
+    "scope": "stage1",
+    "best": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+    "rows": [
+     {
+      "label": "c-s1-fl0.5",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5"
+     },
+     {
+      "label": "c-s1-fl0.6",
+      "objective": 0.16388811564575326,
+      "measuredBy": "c-s1-fl0.6",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.6"
+     },
+     {
+      "label": "c-s1-fl0.7",
+      "objective": 0.26134262888853355,
+      "measuredBy": "c-s1-fl0.7",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.7"
+     },
+     {
+      "label": "c-s1-fl0.8",
+      "objective": 0.30382631162426343,
+      "measuredBy": "c-s1-fl0.8",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.8"
+     },
+     {
+      "label": "c-s1-fl0.9",
+      "objective": 0.32566297412363643,
+      "measuredBy": "c-s1-fl0.9",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.9"
+     },
+     {
+      "label": "c-s1-fl1",
+      "objective": 0.28442767277609043,
+      "measuredBy": "c-s1-fl1",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=1"
+     },
+     {
+      "label": "c-s1-fl0.5-top112",
+      "objective": 0.28442767277609043,
+      "measuredBy": "c-s1-fl0.5-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "c-s1-fl0.5-top128",
+      "objective": 0.28442767277609043,
+      "measuredBy": "c-s1-fl0.5-top128",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-fl0.5-top160",
+      "objective": 0.2592956387870068,
+      "measuredBy": "c-s1-fl0.5-top160",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-fl0.5-top192",
+      "objective": 0.20613478488326994,
+      "measuredBy": "c-s1-fl0.5-top192",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-w1.5-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-w2-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-w2.5-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-w3-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-w4-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-w5-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-w6-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-w1.5-fl0.5-top256",
+      "objective": 0.2155366964820051,
+      "measuredBy": "c-s1-q0.25-w1.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-w2-fl0.5-top256",
+      "objective": 0.20430947914668068,
+      "measuredBy": "c-s1-q0.25-w2-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-w2.5-fl0.5-top256",
+      "objective": 0.17564152052392673,
+      "measuredBy": "c-s1-q0.25-w2.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-w3-fl0.5-top256",
+      "objective": 0.1516916068277566,
+      "measuredBy": "c-s1-q0.25-w3-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-w4-fl0.5-top256",
+      "objective": 0.11577259637976377,
+      "measuredBy": "c-s1-q0.25-w4-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-w5-fl0.5-top256",
+      "objective": 0.12214739470309208,
+      "measuredBy": "c-s1-q0.25-w5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-w6-fl0.5-top256",
+      "objective": 0.13540898798782802,
+      "measuredBy": "c-s1-q0.25-w6-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-w1.5-fl0.5-top256",
+      "objective": 0.38166356140889546,
+      "measuredBy": "c-s1-q0.5-w1.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-w2-fl0.5-top256",
+      "objective": 0.3626885291790148,
+      "measuredBy": "c-s1-q0.5-w2-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-w2.5-fl0.5-top256",
+      "objective": 0.34337573528801013,
+      "measuredBy": "c-s1-q0.5-w2.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-w3-fl0.5-top256",
+      "objective": 0.3247843790979023,
+      "measuredBy": "c-s1-q0.5-w3-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-w4-fl0.5-top256",
+      "objective": 0.26707890936356854,
+      "measuredBy": "c-s1-q0.5-w4-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-w5-fl0.5-top256",
+      "objective": 0.2002383868978331,
+      "measuredBy": "c-s1-q0.5-w5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-w6-fl0.5-top256",
+      "objective": 0.13882430551679265,
+      "measuredBy": "c-s1-q0.5-w6-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-w1.5-fl0.5-top256",
+      "objective": 0.4918000541886642,
+      "measuredBy": "c-s1-q0.75-w1.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-w2-fl0.5-top256",
+      "objective": 0.4173495307404254,
+      "measuredBy": "c-s1-q0.75-w2-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-w2.5-fl0.5-top256",
+      "objective": 0.36602943797936366,
+      "measuredBy": "c-s1-q0.75-w2.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-w3-fl0.5-top256",
+      "objective": 0.35497117597724553,
+      "measuredBy": "c-s1-q0.75-w3-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-w4-fl0.5-top256",
+      "objective": 0.3509887493483003,
+      "measuredBy": "c-s1-q0.75-w4-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-w5-fl0.5-top256",
+      "objective": 0.2819763313436191,
+      "measuredBy": "c-s1-q0.75-w5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-w6-fl0.5-top256",
+      "objective": 0.22545053789867792,
+      "measuredBy": "c-s1-q0.75-w6-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-w1.5-fl0.5-top256",
+      "objective": 0.6496649685378274,
+      "measuredBy": "c-s1-q1-w1.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-w2-fl0.5-top256",
+      "objective": 0.5523772085627735,
+      "measuredBy": "c-s1-q1-w2-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-w2.5-fl0.5-top256",
+      "objective": 0.4747451580480317,
+      "measuredBy": "c-s1-q1-w2.5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-w3-fl0.5-top256",
+      "objective": 0.39783019503446976,
+      "measuredBy": "c-s1-q1-w3-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-w4-fl0.5-top256",
+      "objective": 0.34928566391136806,
+      "measuredBy": "c-s1-q1-w4-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-w5-fl0.5-top256",
+      "objective": 0.33146973849001266,
+      "measuredBy": "c-s1-q1-w5-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-w6-fl0.5-top256",
+      "objective": 0.2592985451042417,
+      "measuredBy": "c-s1-q1-w6-fl0.5-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.1-k0.1-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.1-k0.1-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.1, sizeScatterRampStartThick2x=0.1, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.15-k0.15-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.15-k0.15-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.15, sizeScatterRampStartThick2x=0.15, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.21-k0.21-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.6-f0.05-k0.05-top256",
+      "objective": 0.1640595897691939,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.6-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.6, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.7-f0.05-k0.05-top256",
+      "objective": 0.269101936713914,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.7-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.7, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.8-f0.05-k0.05-top256",
+      "objective": 0.271651172976959,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.8-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.8, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.9-f0.05-k0.05-top256",
+      "objective": 0.3131228749528608,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.9-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.9, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl1-f0.05-k0.05-top256",
+      "objective": 0.42014632751317216,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl1-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=1, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top112",
+      "objective": 0.42014632751317216,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top112",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top128",
+      "objective": 0.3901101791368833,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top128",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top160",
+      "objective": 0.30240303296678417,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top160",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top192",
+      "objective": 0.21349665555427372,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top192",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.10078976013454158,
+      "measuredBy": "c-s1-q0-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.2155366964820051,
+      "measuredBy": "c-s1-q0.25-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.20430947914668068,
+      "measuredBy": "c-s1-q0.25-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.17564152052392673,
+      "measuredBy": "c-s1-q0.25-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.14609526361143588,
+      "measuredBy": "c-s1-q0.25-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.1150898964831086,
+      "measuredBy": "c-s1-q0.25-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.12539828941371053,
+      "measuredBy": "c-s1-q0.25-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.25-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.1421894922092261,
+      "measuredBy": "c-s1-q0.25-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.3781397664209641,
+      "measuredBy": "c-s1-q0.5-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.3626885291790148,
+      "measuredBy": "c-s1-q0.5-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.34337573528801013,
+      "measuredBy": "c-s1-q0.5-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.3247843790979023,
+      "measuredBy": "c-s1-q0.5-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.2627728743084403,
+      "measuredBy": "c-s1-q0.5-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.19559922084969789,
+      "measuredBy": "c-s1-q0.5-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.5-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.1332395876771822,
+      "measuredBy": "c-s1-q0.5-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.49022600452762477,
+      "measuredBy": "c-s1-q0.75-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.4173495307404254,
+      "measuredBy": "c-s1-q0.75-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.36602943797936366,
+      "measuredBy": "c-s1-q0.75-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.35497117597724553,
+      "measuredBy": "c-s1-q0.75-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.3509887493483003,
+      "measuredBy": "c-s1-q0.75-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.2819763313436191,
+      "measuredBy": "c-s1-q0.75-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q0.75-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.2207465559268139,
+      "measuredBy": "c-s1-q0.75-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.6496649685378274,
+      "measuredBy": "c-s1-q1-d0-w1.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.5514066867002433,
+      "measuredBy": "c-s1-q1-d0-w2-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.47205105633080396,
+      "measuredBy": "c-s1-q1-d0-w2.5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.3961520982214436,
+      "measuredBy": "c-s1-q1-d0-w3-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.34928566391136806,
+      "measuredBy": "c-s1-q1-d0-w4-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.33146973849001266,
+      "measuredBy": "c-s1-q1-d0-w5-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "c-s1-q1-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "objective": 0.2592985451042417,
+      "measuredBy": "c-s1-q1-d0-w6-fl0.5-f0.05-k0.05-top256",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=256"
+     }
+    ]
+   }
+  ],
+  "landed": "c-s1-fl0.5",
+  "objective": 0.10078976013454158,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0332) to the fewer moved leaves; recorded as NOT within"
+ },
+ "c05/stage2": {
+  "base": "c-s1-fl0.5",
+  "components": [
+   {
+    "family": "thin",
+    "scope": "stage2-thin",
+    "best": "c-s2-t0.75",
+    "rows": [
+     {
+      "label": "c-s2-t0.46",
+      "objective": 0.3213510282542468,
+      "measuredBy": "c-s1-fl0.5",
+      "moves": "sizeScatterRampStartThin2x=0.46"
+     },
+     {
+      "label": "c-s2-t0.55",
+      "objective": 0.2969833472452554,
+      "measuredBy": "c-s2-t0.55",
+      "moves": "sizeScatterRampStartThin2x=0.55"
+     },
+     {
+      "label": "c-s2-t0.65",
+      "objective": 0.22443401346257158,
+      "measuredBy": "c-s2-t0.65",
+      "moves": "sizeScatterRampStartThin2x=0.65"
+     },
+     {
+      "label": "c-s2-t0.75",
+      "objective": 0.1714896704003559,
+      "measuredBy": "c-s2-t0.75",
+      "moves": "sizeScatterRampStartThin2x=0.75"
+     },
+     {
+      "label": "c-s2-t0.8",
+      "objective": 0.202699996039433,
+      "measuredBy": "c-s2-t0.8",
+      "moves": "sizeScatterRampStartThin2x=0.8"
+     },
+     {
+      "label": "c-s2-t0.85",
+      "objective": 0.2002111658834428,
+      "measuredBy": "c-s2-t0.85",
+      "moves": "sizeScatterRampStartThin2x=0.85"
+     },
+     {
+      "label": "c-s2-t0.95",
+      "objective": 0.2301869897505987,
+      "measuredBy": "c-s2-t0.95",
+      "moves": "sizeScatterRampStartThin2x=0.95"
+     }
+    ]
+   },
+   {
+    "family": "receded",
+    "scope": "stage2-receded",
+    "best": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1",
+    "rows": [
+     {
+      "label": "c-s2-t0.75-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rct0.1",
+      "moves": "receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rct0.2",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rct0.2",
+      "moves": "receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "c-s2-t0.75-rct0.3",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rct0.3",
+      "moves": "receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "c-s2-t0.75-rct0.4",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rct0.4",
+      "moves": "receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "c-s2-t0.75-rct0.5",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rct0.5",
+      "moves": "receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "c-s2-t0.75-rct0.6",
+      "objective": 0.521426813890562,
+      "measuredBy": "c-s2-t0.75-rct0.6",
+      "moves": "receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "c-s2-t0.75-rct0.7",
+      "objective": 0.5675137284400719,
+      "measuredBy": "c-s2-t0.75",
+      "moves": "receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "c-s2-t0.75-rcf0-rck0-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rcf0-rck0-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcf0.01-rck0.01-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rcf0.01-rck0.01-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcf0.02-rck0.02-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rcf0.02-rck0.02-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcf0.03-rck0.03-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rcf0.03-rck0.03-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcf0.04-rck0.04-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcs14-rcf0-rck0-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcs16-rcf0-rck0-rct0.1",
+      "objective": 0.44532135349757573,
+      "measuredBy": "c-s2-t0.75-rcs16-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.40877925636562196,
+      "measuredBy": "c-s2-t0.75-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcs20-rcf0-rck0-rct0.1",
+      "objective": 0.38774993201451335,
+      "measuredBy": "c-s2-t0.75-rcs20-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcs22-rcf0-rck0-rct0.1",
+      "objective": 0.3847313981340499,
+      "measuredBy": "c-s2-t0.75-rcs22-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcs24-rcf0-rck0-rct0.1",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcs24-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcs24-rcf0-rck0-rct0.1",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcs24-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcs24-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.2",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.2",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.3",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.3",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.4",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.4",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.5",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.5",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.6",
+      "objective": 0.4149834453896182,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.6",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.7",
+      "objective": 0.4671669646482943,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.7",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.01-rck0.01-rct0.1",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.01-rck0.01-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.02-rck0.02-rct0.1",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.02-rck0.02-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.03-rck0.03-rct0.1",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.03-rck0.03-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.04-rck0.04-rct0.1",
+      "objective": 0.38454408945449803,
+      "measuredBy": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0.04-rck0.04-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs14-rcf0-rck0-rct0.1",
+      "objective": 0.49415239280086876,
+      "measuredBy": "c-s2-t0.75-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs16-rcf0-rck0-rct0.1",
+      "objective": 0.44532135349757573,
+      "measuredBy": "c-s2-t0.75-rcs16-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.40877925636562196,
+      "measuredBy": "c-s2-t0.75-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs20-rcf0-rck0-rct0.1",
+      "objective": 0.38774993201451335,
+      "measuredBy": "c-s2-t0.75-rcs20-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2-t0.75-rcq0-rcd0-rcs22-rcf0-rck0-rct0.1",
+      "objective": 0.3847313981340499,
+      "measuredBy": "c-s2-t0.75-rcs22-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     }
+    ]
+   }
+  ],
+  "landed": "c-s2-t0.75-rcq0-rcd0-rcs24-rcf0-rck0-rct0.1",
+  "objective": 0.24983676726604864,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0426) to the fewer moved leaves; recorded as NOT within"
+ },
+ "joint/stage1": {
+  "base": "start-joint",
+  "components": [
+   {
+    "family": "deep",
+    "scope": "stage1",
+    "best": "j-s1-d0-fl0.5-f0.21-k0.21-top112",
+    "rows": [
+     {
+      "label": "j-s1-fl0.5",
+      "objective": 0.2002383868978331,
+      "measuredBy": "j-s1-fl0.5",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5"
+     },
+     {
+      "label": "j-s1-fl0.6",
+      "objective": 0.17758188153639784,
+      "measuredBy": "j-s1-fl0.6",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.6"
+     },
+     {
+      "label": "j-s1-fl0.7",
+      "objective": 0.17397312885688226,
+      "measuredBy": "j-s1-fl0.7",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.7"
+     },
+     {
+      "label": "j-s1-fl0.8",
+      "objective": 0.13600651257270985,
+      "measuredBy": "j-s1-fl0.8",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.8"
+     },
+     {
+      "label": "j-s1-fl0.9",
+      "objective": 0.13214906467332427,
+      "measuredBy": "j-s1-fl0.9",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterFloor2x=0.9"
+     },
+     {
+      "label": "j-s1-base",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-base",
+      "moves": "sizeHeavySecondSigma=0"
+     },
+     {
+      "label": "j-s1-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-top128",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-top128",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "j-s1-top160",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-top160",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-top192",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-top192",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-top256",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-base",
+      "moves": "sizeHeavySecondSigma=0, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "j-s1-q0-top112",
+      "objective": 0.28442767277609043,
+      "measuredBy": "j-s1-q0-top112",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-q0.25-top112",
+      "objective": 0.23102996746239368,
+      "measuredBy": "j-s1-q0.25-top112",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-q0.75-top112",
+      "objective": 0.16960845418108278,
+      "measuredBy": "j-s1-q0.75-top112",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-q1-top112",
+      "objective": 0.2269950790749029,
+      "measuredBy": "j-s1-q1-top112",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-w1.5-top112",
+      "objective": 0.27520198510072,
+      "measuredBy": "j-s1-w1.5-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-w2-top112",
+      "objective": 0.22661403591464757,
+      "measuredBy": "j-s1-w2-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-w2.5-top112",
+      "objective": 0.17725969528101107,
+      "measuredBy": "j-s1-w2.5-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-w3-top112",
+      "objective": 0.20815678949273173,
+      "measuredBy": "j-s1-w3-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-w4-top112",
+      "objective": 0.1469459200873011,
+      "measuredBy": "j-s1-w4-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-w6-top112",
+      "objective": 0.1698411968495022,
+      "measuredBy": "j-s1-w6-top112",
+      "moves": "sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d-0.25-top112",
+      "objective": 0.20812494317033042,
+      "measuredBy": "j-s1-d-0.25-top112",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d-0.5-top112",
+      "objective": 0.2592956387870068,
+      "measuredBy": "j-s1-d-0.5-top112",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-f0.05-k0.05-top112",
+      "objective": 0.33373794967130155,
+      "measuredBy": "j-s1-d0-f0.05-k0.05-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-f0.1-k0.1-top112",
+      "objective": 0.18701198160074886,
+      "measuredBy": "j-s1-d0-f0.1-k0.1-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterRampStartFar2x=0.1, sizeScatterRampStartThick2x=0.1, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-f0.15-k0.15-top112",
+      "objective": 0.1405428669809153,
+      "measuredBy": "j-s1-d0-f0.15-k0.15-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterRampStartFar2x=0.15, sizeScatterRampStartThick2x=0.15, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-f0.21-k0.21-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-d0-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.6-f0.21-k0.21-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-d0-fl0.6-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.6, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.7-f0.21-k0.21-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-d0-fl0.7-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.7, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.8-f0.21-k0.21-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-d0-fl0.8-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.8, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.9-f0.21-k0.21-top112",
+      "objective": 0.10907091589340323,
+      "measuredBy": "j-s1-d0-fl0.9-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.9, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.21-k0.21-top128",
+      "objective": 0.11154628028541204,
+      "measuredBy": "j-s1-d0-fl0.5-f0.21-k0.21-top128",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.21-k0.21-top160",
+      "objective": 0.11380765918580697,
+      "measuredBy": "j-s1-d0-fl0.5-f0.21-k0.21-top160",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.21-k0.21-top192",
+      "objective": 0.1581118492355327,
+      "measuredBy": "j-s1-d0-fl0.5-f0.21-k0.21-top192",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.21-k0.21-top256",
+      "objective": 0.2002383868978331,
+      "measuredBy": "j-s1-fl0.5",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=256"
+     },
+     {
+      "label": "j-s1-q0-d0-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.28442767277609043,
+      "measuredBy": "j-s1-q0-d0-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShare=0, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-q0.25-d0-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.23102996746239368,
+      "measuredBy": "j-s1-q0.25-d0-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-q0.75-d0-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.16960845418108278,
+      "measuredBy": "j-s1-q0.75-d0-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-q1-d0-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.20103363541483354,
+      "measuredBy": "j-s1-q1-d0-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShare=1, sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-w1.5-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.27520198510072,
+      "measuredBy": "j-s1-d0-w1.5-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=1.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-w2-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.236545271716272,
+      "measuredBy": "j-s1-d0-w2-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-w2.5-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.18099989457851806,
+      "measuredBy": "j-s1-d0-w2.5-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2.5, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-w3-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.19754114280489113,
+      "measuredBy": "j-s1-d0-w3-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-w4-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.1469459200873011,
+      "measuredBy": "j-s1-d0-w4-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=4, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-w6-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.1604099389692046,
+      "measuredBy": "j-s1-d0-w6-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=6, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d-0.25-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.18332358889181458,
+      "measuredBy": "j-s1-d-0.25-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d-0.5-fl0.5-f0.21-k0.21-top112",
+      "objective": 0.2592956387870068,
+      "measuredBy": "j-s1-d-0.5-fl0.5-f0.21-k0.21-top112",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.05-k0.05-top112",
+      "objective": 0.3116955156654692,
+      "measuredBy": "j-s1-d0-fl0.5-f0.05-k0.05-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.1-k0.1-top112",
+      "objective": 0.18701198160074886,
+      "measuredBy": "j-s1-d0-fl0.5-f0.1-k0.1-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.1, sizeScatterRampStartThick2x=0.1, sizeScatterSpanMax2x=112"
+     },
+     {
+      "label": "j-s1-d0-fl0.5-f0.15-k0.15-top112",
+      "objective": 0.12178606950414439,
+      "measuredBy": "j-s1-d0-fl0.5-f0.15-k0.15-top112",
+      "moves": "sizeHeavySecondShareFar2x=0, sizeHeavySecondSigma=0, sizeScatterFloor2x=0.5, sizeScatterRampStartFar2x=0.15, sizeScatterRampStartThick2x=0.15, sizeScatterSpanMax2x=112"
+     }
+    ]
+   }
+  ],
+  "landed": "j-s1-base",
+  "objective": 0.10907091589340323,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0332) to the fewer moved leaves; recorded as NOT within"
+ },
+ "joint/stage2": {
+  "base": "j-s1-base",
+  "components": [
+   {
+    "family": "thin",
+    "scope": "stage2-thin",
+    "best": "j-s1-base",
+    "rows": [
+     {
+      "label": "j-s2-t0.46",
+      "objective": 0.3802252848177061,
+      "measuredBy": "j-s2-t0.46",
+      "moves": "sizeScatterRampStartThin2x=0.46"
+     },
+     {
+      "label": "j-s2-t0.55",
+      "objective": 0.32965833712850917,
+      "measuredBy": "j-s2-t0.55",
+      "moves": "sizeScatterRampStartThin2x=0.55"
+     },
+     {
+      "label": "j-s2-t0.65",
+      "objective": 0.2774818866475248,
+      "measuredBy": "j-s2-t0.65",
+      "moves": "sizeScatterRampStartThin2x=0.65"
+     },
+     {
+      "label": "j-s2-t0.75",
+      "objective": 0.2265374512273833,
+      "measuredBy": "j-s2-t0.75",
+      "moves": "sizeScatterRampStartThin2x=0.75"
+     },
+     {
+      "label": "j-s1-base",
+      "objective": 0.20706399190470048,
+      "measuredBy": "j-s1-base",
+      "moves": "(the starting point)"
+     },
+     {
+      "label": "j-s2-t0.85",
+      "objective": 0.2207659557711366,
+      "measuredBy": "j-s2-t0.85",
+      "moves": "sizeScatterRampStartThin2x=0.85"
+     },
+     {
+      "label": "j-s2-t0.95",
+      "objective": 0.2241204209006736,
+      "measuredBy": "j-s2-t0.95",
+      "moves": "sizeScatterRampStartThin2x=0.95"
+     }
+    ]
+   },
+   {
+    "family": "receded",
+    "scope": "stage2-receded",
+    "best": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+    "rows": [
+     {
+      "label": "j-s1-base",
+      "objective": 0.19216359437356245,
+      "measuredBy": "j-s1-base",
+      "moves": "(the starting point)"
+     },
+     {
+      "label": "j-s2-rct0.2",
+      "objective": 0.25403047093903075,
+      "measuredBy": "j-s2-rct0.2",
+      "moves": "receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "j-s2-rct0.3",
+      "objective": 0.2675266610442486,
+      "measuredBy": "j-s2-rct0.3",
+      "moves": "receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "j-s2-rct0.4",
+      "objective": 0.26427323834076955,
+      "measuredBy": "j-s2-rct0.4",
+      "moves": "receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "j-s2-rct0.5",
+      "objective": 0.26072336401945595,
+      "measuredBy": "j-s2-rct0.5",
+      "moves": "receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "j-s2-rct0.6",
+      "objective": 0.26885815450473854,
+      "measuredBy": "j-s2-rct0.6",
+      "moves": "receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "j-s2-rct0.7",
+      "objective": 0.26885815450473854,
+      "measuredBy": "j-s2-rct0.7",
+      "moves": "receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "j-s2-rcf0-rck0",
+      "objective": 0.19349501333140362,
+      "measuredBy": "j-s2-rcf0-rck0",
+      "moves": "receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcf0.01-rck0.01",
+      "objective": 0.1932488733288431,
+      "measuredBy": "j-s2-rcf0.01-rck0.01",
+      "moves": "receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01"
+     },
+     {
+      "label": "j-s2-rcf0.02-rck0.02",
+      "objective": 0.19234955678210613,
+      "measuredBy": "j-s2-rcf0.02-rck0.02",
+      "moves": "receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02"
+     },
+     {
+      "label": "j-s2-rcf0.03-rck0.03",
+      "objective": 0.19215363392455043,
+      "measuredBy": "j-s2-rcf0.03-rck0.03",
+      "moves": "receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcf0.04-rck0.04",
+      "objective": 0.19216359437356245,
+      "measuredBy": "j-s1-base",
+      "moves": "receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04"
+     },
+     {
+      "label": "j-s2-rcs14-rcf0.03-rck0.03",
+      "objective": 0.19215363392455043,
+      "measuredBy": "j-s2-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcs16-rcf0.03-rck0.03",
+      "objective": 0.18721766743940432,
+      "measuredBy": "j-s2-rcs16-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcs18-rcf0.03-rck0.03",
+      "objective": 0.1840300798193461,
+      "measuredBy": "j-s2-rcs18-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcs20-rcf0.03-rck0.03",
+      "objective": 0.18468314286039167,
+      "measuredBy": "j-s2-rcs20-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcs22-rcf0.03-rck0.03",
+      "objective": 0.18016444953922836,
+      "measuredBy": "j-s2-rcs22-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcs24-rcf0.03-rck0.03",
+      "objective": 0.18234124886274816,
+      "measuredBy": "j-s2-rcs24-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcq0-rcs22-rcf0.03-rck0.03",
+      "objective": 0.41703941145682444,
+      "measuredBy": "j-s2-rcq0-rcs22-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcq0.125-rcs22-rcf0.03-rck0.03",
+      "objective": 0.36796190496434755,
+      "measuredBy": "j-s2-rcq0.125-rcs22-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavySecondShare=0.125, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcq0.25-rcs22-rcf0.03-rck0.03",
+      "objective": 0.2642631697926393,
+      "measuredBy": "j-s2-rcq0.25-rcs22-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcq0.375-rcs22-rcf0.03-rck0.03",
+      "objective": 0.21961124678312466,
+      "measuredBy": "j-s2-rcq0.375-rcs22-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavySecondShare=0.375, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcs22-rcf0.03-rck0.03",
+      "objective": 0.18016444953922836,
+      "measuredBy": "j-s2-rcs22-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03",
+      "objective": 0.18016444953922836,
+      "measuredBy": "j-s2-rcs22-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.2",
+      "objective": 0.19594376019017398,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.2",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.3",
+      "objective": 0.21411953790898589,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.3",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.4",
+      "objective": 0.2277873035971509,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.4",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.5",
+      "objective": 0.22196612917922193,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.5",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.6",
+      "objective": 0.2277873035971509,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.6",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.7",
+      "objective": 0.2277873035971509,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.7",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+      "objective": 0.17520086879628555,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.01-rck0.01",
+      "objective": 0.17712818433527283,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.01-rck0.01",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.02-rck0.02",
+      "objective": 0.18052397901227848,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.02-rck0.02",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0.04-rck0.04",
+      "objective": 0.1794786667199174,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0.04-rck0.04",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs14-rcf0-rck0",
+      "objective": 0.19349501333140362,
+      "measuredBy": "j-s2-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs16-rcf0-rck0",
+      "objective": 0.17890055466802246,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs16-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs18-rcf0-rck0",
+      "objective": 0.18492533232060349,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs20-rcf0-rck0",
+      "objective": 0.17699191760899308,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs20-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.5-rcd0-rcs24-rcf0-rck0",
+      "objective": 0.18366031416307532,
+      "measuredBy": "j-s2-rcq0.5-rcd0-rcs24-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0-rcd0-rcs22-rcf0-rck0",
+      "objective": 0.429880559764548,
+      "measuredBy": "j-s2-rcq0-rcd0-rcs22-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.125-rcd0-rcs22-rcf0-rck0",
+      "objective": 0.37707532868544436,
+      "measuredBy": "j-s2-rcq0.125-rcd0-rcs22-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.125, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.25-rcd0-rcs22-rcf0-rck0",
+      "objective": 0.2664396464949259,
+      "measuredBy": "j-s2-rcq0.25-rcd0-rcs22-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2-rcq0.375-rcd0-rcs22-rcf0-rck0",
+      "objective": 0.22054578658224014,
+      "measuredBy": "j-s2-rcq0.375-rcd0-rcs22-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.375, receded sizeHeavySecondShareFar2x=0, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     }
+    ]
+   }
+  ],
+  "landed": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+  "objective": 0.18235695192466056,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0426) to the fewer moved leaves; recorded as NOT within"
+ },
+ "continuation c05/stage1": {
+  "base": "start-c05",
+  "components": [
+   {
+    "family": "deep",
+    "scope": "stage1",
+    "best": "c-s1-q0.5-d-0.25-w2-fl1-top128",
+    "rows": [
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl1-top128",
+      "objective": 0.09184637374549869,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w2-fl0.5-top192",
+      "objective": 0.09975384354789706,
+      "measuredBy": "c-s1-q0.25-d-0.25-w2-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl0.5-top128",
+      "objective": 0.10268222030878273,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w3-fl0.5-top160",
+      "objective": 0.10907498496409632,
+      "measuredBy": "c-s1-q0.5-d-0.5-w3-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w2-fl1-top160",
+      "objective": 0.10907498496409632,
+      "measuredBy": "c-s1-q0.5-d-0.5-w2-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w3-fl0.5-top192",
+      "objective": 0.1132041145290395,
+      "measuredBy": "c-s1-q0.25-d-0.25-w3-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w3-fl0.5-top128",
+      "objective": 0.11349787599845848,
+      "measuredBy": "c-s1-q0.75-d-0.5-w3-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w3-fl1-top128",
+      "objective": 0.11349787599845848,
+      "measuredBy": "c-s1-q0.5-d-0.25-w3-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w3-fl1-top128",
+      "objective": 0.11349787599845848,
+      "measuredBy": "c-s1-q0.75-d-0.5-w3-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w3-fl1-top160",
+      "objective": 0.11468332862490557,
+      "measuredBy": "c-s1-q0.5-d-0.25-w3-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w3-fl1-top192",
+      "objective": 0.11468332862490557,
+      "measuredBy": "c-s1-q0.5-d-0.5-w3-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w3-fl0.5-top128",
+      "objective": 0.11594643351223165,
+      "measuredBy": "c-s1-q0.5-d-0.25-w3-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl1-top160",
+      "objective": 0.11650946686356949,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w2-fl1-top192",
+      "objective": 0.11650946686356949,
+      "measuredBy": "c-s1-q0.5-d-0.5-w2-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w3-fl0.5-top160",
+      "objective": 0.11751935001679492,
+      "measuredBy": "c-s1-q0.5-d-0.25-w3-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w3-fl1-top192",
+      "objective": 0.12376348451579189,
+      "measuredBy": "c-s1-q0.75-d-0.75-w3-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w3-fl1-top160",
+      "objective": 0.12924782920697186,
+      "measuredBy": "c-s1-q0.75-d-0.5-w3-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl1-top192",
+      "objective": 0.13513647846021967,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w2-fl1-top192",
+      "objective": 0.13704446705908427,
+      "measuredBy": "c-s1-q0.25-d-0.25-w2-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w3-fl1-top160",
+      "objective": 0.1398275964588037,
+      "measuredBy": "c-s1-q0.5-d-0.5-w3-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w3-fl1-top192",
+      "objective": 0.1398275964588037,
+      "measuredBy": "c-s1-q0.5-d-0.25-w3-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w2-fl0.5-top160",
+      "objective": 0.14290685464643943,
+      "measuredBy": "c-s1-q0.25-d-0.25-w2-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w2-fl0.5-top128",
+      "objective": 0.14328727006263967,
+      "measuredBy": "c-s1-q0.5-d-0.5-w2-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w2-fl1-top128",
+      "objective": 0.14328727006263967,
+      "measuredBy": "c-s1-q0.5-d-0.5-w2-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w3-fl1-top160",
+      "objective": 0.14328727006263967,
+      "measuredBy": "c-s1-q0.75-d-0.75-w3-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w3-fl0.5-top192",
+      "objective": 0.14783777472891196,
+      "measuredBy": "c-s1-q0.5-d-0.5-w3-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w2-fl0.5-top160",
+      "objective": 0.1485895297099421,
+      "measuredBy": "c-s1-q0.5-d-0.5-w2-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w3-fl0.5-top160",
+      "objective": 0.15733912387765614,
+      "measuredBy": "c-s1-q0.75-d-0.5-w3-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl0.5-top160",
+      "objective": 0.15859191391094885,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w2-fl0.5-top128",
+      "objective": 0.15859191391094885,
+      "measuredBy": "c-s1-q0.75-d-0.5-w2-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w2-fl1-top128",
+      "objective": 0.15859191391094885,
+      "measuredBy": "c-s1-q0.75-d-0.5-w2-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w3-fl0.5-top192",
+      "objective": 0.1633089129039165,
+      "measuredBy": "c-s1-q0.5-d-0.25-w3-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w3-fl0.5-top160",
+      "objective": 0.16592185449744828,
+      "measuredBy": "c-s1-q0.75-d-0.75-w3-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w3-fl0.5-top128",
+      "objective": 0.17422609113362716,
+      "measuredBy": "c-s1-q0.5-d-0.5-w3-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w3-fl0.5-top160",
+      "objective": 0.1882115838529031,
+      "measuredBy": "c-s1-q0.25-d-0.25-w3-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w2-fl0.5-top192",
+      "objective": 0.1905285181273122,
+      "measuredBy": "c-s1-q0.5-d-0.5-w2-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w3-fl1-top128",
+      "objective": 0.19256343071737714,
+      "measuredBy": "c-s1-q0.75-d-0.75-w3-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w3-fl1-top192",
+      "objective": 0.19256343071737714,
+      "measuredBy": "c-s1-q0.75-d-0.5-w3-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w3-fl1-top192",
+      "objective": 0.19606354658286368,
+      "measuredBy": "c-s1-q0.25-d-0.25-w3-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.5-w3-fl1-top128",
+      "objective": 0.20815678949273173,
+      "measuredBy": "c-s1-q0.5-d-0.5-w3-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w3-fl0.5-top192",
+      "objective": 0.2113767736920135,
+      "measuredBy": "c-s1-q0.75-d-0.75-w3-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w3-fl0.5-top128",
+      "objective": 0.21326866505864195,
+      "measuredBy": "c-s1-q0.75-d-0.75-w3-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w2-fl1-top160",
+      "objective": 0.2286476147783161,
+      "measuredBy": "c-s1-q0.25-d-0.25-w2-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w2-fl1-top160",
+      "objective": 0.23445534896840908,
+      "measuredBy": "c-s1-q0.75-d-0.5-w2-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w2-fl1-top192",
+      "objective": 0.23445534896840908,
+      "measuredBy": "c-s1-q0.75-d-0.75-w2-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w2-fl1-top160",
+      "objective": 0.23804261675234142,
+      "measuredBy": "c-s1-q0.75-d-0.75-w2-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w2-fl1-top128",
+      "objective": 0.24201889361353687,
+      "measuredBy": "c-s1-q0.25-d-0.25-w2-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w3-fl0.5-top128",
+      "objective": 0.25039925106394956,
+      "measuredBy": "c-s1-q0.25-d-0.25-w3-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl0.5-top192",
+      "objective": 0.2520152644510707,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.5, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w2-fl0.5-top128",
+      "objective": 0.2592956387870068,
+      "measuredBy": "c-s1-q0.25-d-0.25-w2-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w3-fl1-top160",
+      "objective": 0.2592956387870068,
+      "measuredBy": "c-s1-q0.25-d-0.25-w3-fl1-top160",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w2-fl1-top128",
+      "objective": 0.2592956387870068,
+      "measuredBy": "c-s1-q0.75-d-0.75-w2-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.25-d-0.25-w3-fl1-top128",
+      "objective": 0.25948615247969176,
+      "measuredBy": "c-s1-q0.25-d-0.25-w3-fl1-top128",
+      "moves": "sizeHeavySecondShare=0.25, sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=1, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w2-fl0.5-top128",
+      "objective": 0.262593092426675,
+      "measuredBy": "c-s1-q0.75-d-0.75-w2-fl0.5-top128",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w3-fl0.5-top192",
+      "objective": 0.2707770686226663,
+      "measuredBy": "c-s1-q0.75-d-0.5-w3-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w2-fl0.5-top160",
+      "objective": 0.2748048170274999,
+      "measuredBy": "c-s1-q0.75-d-0.5-w2-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w2-fl1-top192",
+      "objective": 0.28300860148192303,
+      "measuredBy": "c-s1-q0.75-d-0.5-w2-fl1-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=1, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w2-fl0.5-top160",
+      "objective": 0.3026536344354216,
+      "measuredBy": "c-s1-q0.75-d-0.75-w2-fl0.5-top160",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.75-w2-fl0.5-top192",
+      "objective": 0.32784376663106496,
+      "measuredBy": "c-s1-q0.75-d-0.75-w2-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.75, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "c-s1-q0.75-d-0.5-w2-fl0.5-top192",
+      "objective": 0.3476103447633261,
+      "measuredBy": "c-s1-q0.75-d-0.5-w2-fl0.5-top192",
+      "moves": "sizeHeavySecondShare=0.75, sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterFloor2x=0.5, sizeScatterSpanMax2x=192"
+     }
+    ]
+   },
+   {
+    "family": "deep",
+    "scope": "stage1",
+    "best": "c-s1-q0.5-d-0.25-w2-fl1-f0.15-k0.15-top128",
+    "rows": [
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl1-f0.05-k0.05-top128",
+      "objective": 0.16662957411532214,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-f0.05-k0.05-top128",
+      "moves": "sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl1-f0.1-k0.1-top128",
+      "objective": 0.11457827462195042,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-f0.1-k0.1-top128",
+      "moves": "sizeScatterRampStartFar2x=0.1, sizeScatterRampStartThick2x=0.1"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl1-f0.15-k0.15-top128",
+      "objective": 0.07409294827320552,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-f0.15-k0.15-top128",
+      "moves": "sizeScatterRampStartFar2x=0.15, sizeScatterRampStartThick2x=0.15"
+     },
+     {
+      "label": "c-s1-q0.5-d-0.25-w2-fl1-f0.21-k0.21-top128",
+      "objective": 0.09184637374549869,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-top128",
+      "moves": "sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21"
+     }
+    ]
+   }
+  ],
+  "landed": "c-s1-q0.5-d-0.25-w2-fl1-top128",
+  "objective": 0.09184637374549869,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0332) to the fewer moved leaves; recorded as NOT within"
+ },
+ "continuation c05/stage2": {
+  "base": "c-s1-q0.5-d-0.25-w2-fl1-top128",
+  "components": [
+   {
+    "family": "thin",
+    "scope": "stage2-thin",
+    "best": "c-s2x-t0.65",
+    "rows": [
+     {
+      "label": "c-s2x-t0.46",
+      "objective": 0.2506557869811755,
+      "measuredBy": "c-s1-q0.5-d-0.25-w2-fl1-top128",
+      "moves": "sizeScatterRampStartThin2x=0.46"
+     },
+     {
+      "label": "c-s2x-t0.55",
+      "objective": 0.2294622358274741,
+      "measuredBy": "c-s2x-t0.55",
+      "moves": "sizeScatterRampStartThin2x=0.55"
+     },
+     {
+      "label": "c-s2x-t0.65",
+      "objective": 0.19299855914690606,
+      "measuredBy": "c-s2x-t0.65",
+      "moves": "sizeScatterRampStartThin2x=0.65"
+     },
+     {
+      "label": "c-s2x-t0.75",
+      "objective": 0.23578728159581136,
+      "measuredBy": "c-s2x-t0.75",
+      "moves": "sizeScatterRampStartThin2x=0.75"
+     },
+     {
+      "label": "c-s2x-t0.8",
+      "objective": 0.24643838725814332,
+      "measuredBy": "c-s2x-t0.8",
+      "moves": "sizeScatterRampStartThin2x=0.8"
+     },
+     {
+      "label": "c-s2x-t0.85",
+      "objective": 0.23025893924398846,
+      "measuredBy": "c-s2x-t0.85",
+      "moves": "sizeScatterRampStartThin2x=0.85"
+     },
+     {
+      "label": "c-s2x-t0.95",
+      "objective": 0.26419939877437204,
+      "measuredBy": "c-s2x-t0.95",
+      "moves": "sizeScatterRampStartThin2x=0.95"
+     }
+    ]
+   },
+   {
+    "family": "receded",
+    "scope": "stage2-receded",
+    "best": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+    "rows": [
+     {
+      "label": "c-s2x-t0.65-rct0.1",
+      "objective": 0.360765100773925,
+      "measuredBy": "c-s2x-t0.65-rct0.1",
+      "moves": "receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rct0.2",
+      "objective": 0.3613778949834361,
+      "measuredBy": "c-s2x-t0.65-rct0.2",
+      "moves": "receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "c-s2x-t0.65-rct0.3",
+      "objective": 0.3621136791776204,
+      "measuredBy": "c-s2x-t0.65-rct0.3",
+      "moves": "receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "c-s2x-t0.65-rct0.4",
+      "objective": 0.39116056806043886,
+      "measuredBy": "c-s2x-t0.65-rct0.4",
+      "moves": "receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "c-s2x-t0.65-rct0.5",
+      "objective": 0.4273531161674709,
+      "measuredBy": "c-s2x-t0.65-rct0.5",
+      "moves": "receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "c-s2x-t0.65-rct0.6",
+      "objective": 0.4514664022315614,
+      "measuredBy": "c-s2x-t0.65-rct0.6",
+      "moves": "receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "c-s2x-t0.65-rct0.7",
+      "objective": 0.45225986859010125,
+      "measuredBy": "c-s2x-t0.65",
+      "moves": "receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "c-s2x-t0.65-rcf0-rck0-rct0.1",
+      "objective": 0.3589567071386238,
+      "measuredBy": "c-s2x-t0.65-rcf0-rck0-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcf0.01-rck0.01-rct0.1",
+      "objective": 0.3593682516375686,
+      "measuredBy": "c-s2x-t0.65-rcf0.01-rck0.01-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcf0.02-rck0.02-rct0.1",
+      "objective": 0.35985739071331435,
+      "measuredBy": "c-s2x-t0.65-rcf0.02-rck0.02-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcf0.03-rck0.03-rct0.1",
+      "objective": 0.36030800586248335,
+      "measuredBy": "c-s2x-t0.65-rcf0.03-rck0.03-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcf0.04-rck0.04-rct0.1",
+      "objective": 0.360765100773925,
+      "measuredBy": "c-s2x-t0.65-rct0.1",
+      "moves": "receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcs14-rcf0-rck0-rct0.1",
+      "objective": 0.3589567071386238,
+      "measuredBy": "c-s2x-t0.65-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcs16-rcf0-rck0-rct0.1",
+      "objective": 0.3449989861021754,
+      "measuredBy": "c-s2x-t0.65-rcs16-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.33622778423470057,
+      "measuredBy": "c-s2x-t0.65-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcs20-rcf0-rck0-rct0.1",
+      "objective": 0.3489582899164587,
+      "measuredBy": "c-s2x-t0.65-rcs20-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcs22-rcf0-rck0-rct0.1",
+      "objective": 0.3665504601858033,
+      "measuredBy": "c-s2x-t0.65-rcs22-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcs24-rcf0-rck0-rct0.1",
+      "objective": 0.37783215085896493,
+      "measuredBy": "c-s2x-t0.65-rcs24-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.21081096397611104,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.375-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.261333214766731,
+      "measuredBy": "c-s2x-t0.65-rcq0.375-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.375, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.5-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.33622778423470057,
+      "measuredBy": "c-s2x-t0.65-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.25-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.21081096397611104,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.25, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.19843617047609624,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.19843617047609624,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.2",
+      "objective": 0.23284464309725988,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.2",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.3",
+      "objective": 0.24962096128449016,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.3",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.4",
+      "objective": 0.2383721549846494,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.4",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.5",
+      "objective": 0.26196405307305903,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.5",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.6",
+      "objective": 0.25927126211052365,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.6",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.7",
+      "objective": 0.2537276162861839,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.7",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.01-rck0.01-rct0.1",
+      "objective": 0.1989598879413344,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.01-rck0.01-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.02-rck0.02-rct0.1",
+      "objective": 0.19950914126391853,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.02-rck0.02-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.03-rck0.03-rct0.1",
+      "objective": 0.1999377067906704,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.03-rck0.03-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.04-rck0.04-rct0.1",
+      "objective": 0.20061840314859192,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.04-rck0.04-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs14-rcf0-rck0-rct0.1",
+      "objective": 0.2788662645074159,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs14-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs16-rcf0-rck0-rct0.1",
+      "objective": 0.2184191955880201,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs16-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs20-rcf0-rck0-rct0.1",
+      "objective": 0.20935519942163014,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs20-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs22-rcf0-rck0-rct0.1",
+      "objective": 0.21812333111049168,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs22-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs24-rcf0-rck0-rct0.1",
+      "objective": 0.23405751487394405,
+      "measuredBy": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs24-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.125-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.2092051618768594,
+      "measuredBy": "c-s2x-t0.65-rcq0.125-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.125, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.375-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.27286146765784625,
+      "measuredBy": "c-s2x-t0.65-rcq0.375-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.375, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     },
+     {
+      "label": "c-s2x-t0.65-rcq0.5-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "objective": 0.33622778423470057,
+      "measuredBy": "c-s2x-t0.65-rcq0.5-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.1"
+     }
+    ]
+   }
+  ],
+  "landed": "c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1",
+  "objective": 0.19667044723358168,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0426) to the fewer moved leaves; recorded as NOT within"
+ },
+ "continuation joint/stage1": {
+  "base": "start-joint",
+  "components": [
+   {
+    "family": "deep",
+    "scope": "stage1",
+    "best": "j-s1-d-0.25-w2-top128",
+    "rows": [
+     {
+      "label": "j-s1-d-0.25-w2-top128",
+      "objective": 0.09184637374549869,
+      "measuredBy": "j-s1-d-0.25-w2-top128",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "j-s1-d-0.5-w2-top160",
+      "objective": 0.10907498496409632,
+      "measuredBy": "j-s1-d-0.5-w2-top160",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-d-0.25-w3-top128",
+      "objective": 0.11349787599845848,
+      "measuredBy": "j-s1-d-0.25-w3-top128",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "j-s1-d-0.25-w3-top160",
+      "objective": 0.11473650292269115,
+      "measuredBy": "j-s1-d-0.25-w3-top160",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-d-0.5-w3-top192",
+      "objective": 0.11473650292269115,
+      "measuredBy": "j-s1-d-0.5-w3-top192",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-d-0.25-w2-top160",
+      "objective": 0.11654635897863982,
+      "measuredBy": "j-s1-d-0.25-w2-top160",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-d-0.5-w2-top192",
+      "objective": 0.11654635897863982,
+      "measuredBy": "j-s1-d-0.5-w2-top192",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-d-0.25-top192",
+      "objective": 0.12552065037578095,
+      "measuredBy": "j-s1-d-0.25-top192",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-d-0.25-w2-top192",
+      "objective": 0.13513647846021967,
+      "measuredBy": "j-s1-d-0.25-w2-top192",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-d-0.5-w3-top160",
+      "objective": 0.14070595815293635,
+      "measuredBy": "j-s1-d-0.5-w3-top160",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-d-0.25-w3-top192",
+      "objective": 0.14070595815293635,
+      "measuredBy": "j-s1-d-0.25-w3-top192",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-d-0.5-w2-top128",
+      "objective": 0.14328727006263967,
+      "measuredBy": "j-s1-d-0.5-w2-top128",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=2, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "j-s1-d-0.25-top160",
+      "objective": 0.19115413265008688,
+      "measuredBy": "j-s1-d-0.25-top160",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-d-0.5-top192",
+      "objective": 0.1968267067334261,
+      "measuredBy": "j-s1-d-0.5-top192",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=192"
+     },
+     {
+      "label": "j-s1-d-0.25-top128",
+      "objective": 0.20812494317033042,
+      "measuredBy": "j-s1-d-0.25-top128",
+      "moves": "sizeHeavySecondShareFar2x=-0.25, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "j-s1-d-0.5-top160",
+      "objective": 0.20812494317033042,
+      "measuredBy": "j-s1-d-0.5-top160",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=160"
+     },
+     {
+      "label": "j-s1-d-0.5-w3-top128",
+      "objective": 0.20815678949273173,
+      "measuredBy": "j-s1-d-0.5-w3-top128",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeHeavySecondSigma2x=3, sizeScatterSpanMax2x=128"
+     },
+     {
+      "label": "j-s1-d-0.5-top128",
+      "objective": 0.2592956387870068,
+      "measuredBy": "j-s1-d-0.5-top128",
+      "moves": "sizeHeavySecondShareFar2x=-0.5, sizeHeavySecondSigma=0, sizeScatterSpanMax2x=128"
+     }
+    ]
+   },
+   {
+    "family": "deep",
+    "scope": "stage1",
+    "best": "j-s1-d-0.25-w2-f0.15-k0.15-top128",
+    "rows": [
+     {
+      "label": "j-s1-d-0.25-w2-f0.05-k0.05-top128",
+      "objective": 0.16662957411532214,
+      "measuredBy": "j-s1-d-0.25-w2-f0.05-k0.05-top128",
+      "moves": "sizeScatterRampStartFar2x=0.05, sizeScatterRampStartThick2x=0.05"
+     },
+     {
+      "label": "j-s1-d-0.25-w2-f0.1-k0.1-top128",
+      "objective": 0.11457035323319448,
+      "measuredBy": "j-s1-d-0.25-w2-f0.1-k0.1-top128",
+      "moves": "sizeScatterRampStartFar2x=0.1, sizeScatterRampStartThick2x=0.1"
+     },
+     {
+      "label": "j-s1-d-0.25-w2-f0.15-k0.15-top128",
+      "objective": 0.07409294827320552,
+      "measuredBy": "j-s1-d-0.25-w2-f0.15-k0.15-top128",
+      "moves": "sizeScatterRampStartFar2x=0.15, sizeScatterRampStartThick2x=0.15"
+     },
+     {
+      "label": "j-s1-d-0.25-w2-f0.21-k0.21-top128",
+      "objective": 0.09184637374549869,
+      "measuredBy": "j-s1-d-0.25-w2-top128",
+      "moves": "sizeScatterRampStartFar2x=0.21, sizeScatterRampStartThick2x=0.21"
+     }
+    ]
+   }
+  ],
+  "landed": "j-s1-d-0.25-w2-top128",
+  "objective": 0.09184637374549869,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0332) to the fewer moved leaves; recorded as NOT within"
+ },
+ "continuation joint/stage2": {
+  "base": "j-s1-d-0.25-w2-top128",
+  "components": [
+   {
+    "family": "thin",
+    "scope": "stage2-thin",
+    "best": "j-s2x-t0.65",
+    "rows": [
+     {
+      "label": "j-s2x-t0.46",
+      "objective": 0.2506557869811755,
+      "measuredBy": "j-s2x-t0.46",
+      "moves": "sizeScatterRampStartThin2x=0.46"
+     },
+     {
+      "label": "j-s2x-t0.55",
+      "objective": 0.2294622358274741,
+      "measuredBy": "j-s2x-t0.55",
+      "moves": "sizeScatterRampStartThin2x=0.55"
+     },
+     {
+      "label": "j-s2x-t0.65",
+      "objective": 0.19299855914690606,
+      "measuredBy": "j-s2x-t0.65",
+      "moves": "sizeScatterRampStartThin2x=0.65"
+     },
+     {
+      "label": "j-s2x-t0.75",
+      "objective": 0.23578728159581136,
+      "measuredBy": "j-s2x-t0.75",
+      "moves": "sizeScatterRampStartThin2x=0.75"
+     },
+     {
+      "label": "j-s1-d-0.25-w2-top128",
+      "objective": 0.24643838725814332,
+      "measuredBy": "j-s1-d-0.25-w2-top128",
+      "moves": "(the starting point)"
+     },
+     {
+      "label": "j-s2x-t0.85",
+      "objective": 0.23025893924398846,
+      "measuredBy": "j-s2x-t0.85",
+      "moves": "sizeScatterRampStartThin2x=0.85"
+     },
+     {
+      "label": "j-s2x-t0.95",
+      "objective": 0.26419939877437204,
+      "measuredBy": "j-s2x-t0.95",
+      "moves": "sizeScatterRampStartThin2x=0.95"
+     }
+    ]
+   },
+   {
+    "family": "receded",
+    "scope": "stage2-receded",
+    "best": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0",
+    "rows": [
+     {
+      "label": "j-s2x-t0.65",
+      "objective": 0.360765100773925,
+      "measuredBy": "j-s2x-t0.65",
+      "moves": "(the starting point)"
+     },
+     {
+      "label": "j-s2x-t0.65-rct0.2",
+      "objective": 0.3613778949834361,
+      "measuredBy": "j-s2x-t0.65-rct0.2",
+      "moves": "receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "j-s2x-t0.65-rct0.3",
+      "objective": 0.3621136791776204,
+      "measuredBy": "j-s2x-t0.65-rct0.3",
+      "moves": "receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "j-s2x-t0.65-rct0.4",
+      "objective": 0.39116056806043886,
+      "measuredBy": "j-s2x-t0.65-rct0.4",
+      "moves": "receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "j-s2x-t0.65-rct0.5",
+      "objective": 0.4273531161674709,
+      "measuredBy": "j-s2x-t0.65-rct0.5",
+      "moves": "receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "j-s2x-t0.65-rct0.6",
+      "objective": 0.4514664022315614,
+      "measuredBy": "j-s2x-t0.65-rct0.6",
+      "moves": "receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "j-s2x-t0.65-rct0.7",
+      "objective": 0.45225986859010125,
+      "measuredBy": "j-s2x-t0.65-rct0.7",
+      "moves": "receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "j-s2x-t0.65-rcf0-rck0",
+      "objective": 0.3589567071386238,
+      "measuredBy": "j-s2x-t0.65-rcf0-rck0",
+      "moves": "receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcf0.01-rck0.01",
+      "objective": 0.3593682516375686,
+      "measuredBy": "j-s2x-t0.65-rcf0.01-rck0.01",
+      "moves": "receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01"
+     },
+     {
+      "label": "j-s2x-t0.65-rcf0.02-rck0.02",
+      "objective": 0.35985739071331435,
+      "measuredBy": "j-s2x-t0.65-rcf0.02-rck0.02",
+      "moves": "receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02"
+     },
+     {
+      "label": "j-s2x-t0.65-rcf0.03-rck0.03",
+      "objective": 0.36030800586248335,
+      "measuredBy": "j-s2x-t0.65-rcf0.03-rck0.03",
+      "moves": "receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2x-t0.65-rcf0.04-rck0.04",
+      "objective": 0.360765100773925,
+      "measuredBy": "j-s2x-t0.65",
+      "moves": "receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04"
+     },
+     {
+      "label": "j-s2x-t0.65-rcs14-rcf0-rck0",
+      "objective": 0.3589567071386238,
+      "measuredBy": "j-s2x-t0.65-rcf0-rck0",
+      "moves": "receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcs16-rcf0-rck0",
+      "objective": 0.3449989861021754,
+      "measuredBy": "j-s2x-t0.65-rcs16-rcf0-rck0",
+      "moves": "receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcs18-rcf0-rck0",
+      "objective": 0.33622778423470057,
+      "measuredBy": "j-s2x-t0.65-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcs20-rcf0-rck0",
+      "objective": 0.3489582899164587,
+      "measuredBy": "j-s2x-t0.65-rcs20-rcf0-rck0",
+      "moves": "receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcs22-rcf0-rck0",
+      "objective": 0.3665504601858033,
+      "measuredBy": "j-s2x-t0.65-rcs22-rcf0-rck0",
+      "moves": "receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcs24-rcf0-rck0",
+      "objective": 0.37783215085896493,
+      "measuredBy": "j-s2x-t0.65-rcs24-rcf0-rck0",
+      "moves": "receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcs18-rcf0-rck0",
+      "objective": 0.21081096397611104,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.375-rcs18-rcf0-rck0",
+      "objective": 0.261333214766731,
+      "measuredBy": "j-s2x-t0.65-rcq0.375-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.375, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.5-rcs18-rcf0-rck0",
+      "objective": 0.33622778423470057,
+      "measuredBy": "j-s2x-t0.65-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.25-rcs18-rcf0-rck0",
+      "objective": 0.21081096397611104,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.25, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0",
+      "objective": 0.19843617047609624,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0-rcs18-rcf0-rck0",
+      "objective": 0.19843617047609624,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.2",
+      "objective": 0.23284464309725988,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.2",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.2"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.3",
+      "objective": 0.24962096128449016,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.3",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.3"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.4",
+      "objective": 0.2383721549846494,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.4",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.4"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.5",
+      "objective": 0.26196405307305903,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.5",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.5"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.6",
+      "objective": 0.25927126211052365,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.6",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.6"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.7",
+      "objective": 0.2537276162861839,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.7",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0, receded sizeScatterRampStartThin2x=0.7"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.01-rck0.01",
+      "objective": 0.1989598879413344,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.01-rck0.01",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.01, receded sizeScatterRampStartThick2x=0.01"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.02-rck0.02",
+      "objective": 0.19950914126391853,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.02-rck0.02",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.02, receded sizeScatterRampStartThick2x=0.02"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.03-rck0.03",
+      "objective": 0.1999377067906704,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.03-rck0.03",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.03, receded sizeScatterRampStartThick2x=0.03"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.04-rck0.04",
+      "objective": 0.20061840314859192,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0.04-rck0.04",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0.04, receded sizeScatterRampStartThick2x=0.04"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs14-rcf0-rck0",
+      "objective": 0.2788662645074159,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs14-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=14, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs16-rcf0-rck0",
+      "objective": 0.2184191955880201,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs16-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=16, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs20-rcf0-rck0",
+      "objective": 0.20935519942163014,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs20-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=20, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs22-rcf0-rck0",
+      "objective": 0.21812333111049168,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs22-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=22, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs24-rcf0-rck0",
+      "objective": 0.23405751487394405,
+      "measuredBy": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs24-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.25, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=24, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.125-rcd-0.125-rcs18-rcf0-rck0",
+      "objective": 0.2092051618768594,
+      "measuredBy": "j-s2x-t0.65-rcq0.125-rcd-0.125-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.125, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.375-rcd-0.125-rcs18-rcf0-rck0",
+      "objective": 0.27286146765784625,
+      "measuredBy": "j-s2x-t0.65-rcq0.375-rcd-0.125-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.375, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     },
+     {
+      "label": "j-s2x-t0.65-rcq0.5-rcd-0.125-rcs18-rcf0-rck0",
+      "objective": 0.33622778423470057,
+      "measuredBy": "j-s2x-t0.65-rcq0.5-rcd-0.125-rcs18-rcf0-rck0",
+      "moves": "receded sizeHeavySecondShare=0.5, receded sizeHeavySecondShareFar2x=-0.125, receded sizeHeavyTapSigma2x=18, receded sizeScatterRampStartFar2x=0, receded sizeScatterRampStartThick2x=0"
+     }
+    ]
+   }
+  ],
+  "landed": "j-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0",
+  "objective": 0.19667044723358168,
+  "within": "NOT WITHIN",
+  "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0426) to the fewer moved leaves; recorded as NOT within"
+ }
+}

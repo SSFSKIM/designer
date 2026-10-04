@@ -17,19 +17,19 @@
     "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/protocol.json": "90da1cf71e12ef3d887ba33502d9d97d530b40adb7adcf014547daf0fc8a373b",
     "packages/calibration/results/2026-10-03-w45-g0-operator/ladders/results.json": "3c9c6755abdb28078a7749c43eba4cddce945b13507ec415fb41ac397cf0f3aa",
     "packages/calibration/results/2026-10-03-w45-g0-operator/fit/bindings.py": "e16e4c0c49f74c27454ac23dea313a7508dea72813f4a0a1fd941a68198dfbe5",
-    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/fit.py": "08dc33ce289bbe3b089ab46275a9db816c36bba0a6ee0779cf0790139c2a4276",
-    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/search.py": "b1d74c307512949fa42a90a576e1772299c498678fbedf02bc3ce8b8518928a2",
-    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/joint.py": "79cd3c5238261f32874c784a09ebfbd5a40fc790ee39be80b2af73764a8f0687",
-    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/finding.py": "81b4c00d5cf715294e62171066d3c454fc57742164636ee7433685ccd6e23965",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/fit.py": "11d1bdaa06d66552074e02ab7863bb2c61d010e053a2c1cd5aa16d200833b0b1",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/search.py": "fc23ddf1c0a9e14b9b67eb77a1891c15b36bfece69ba68b248895d1aacf85b95",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/joint.py": "20f4a110c327427fd7806216aac287baf5ec767a8293c6abb7d06765adaeef44",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/finding.py": "16731a5414c2c45ff4c9ed9824951c7188be80062d8fc6fc972e2daa1c640533",
     "packages/calibration/results/2026-10-03-w45-g0-operator/fit/recover.py": "ccb5be5635e5b7426cc39c172bd123da041f0cd9073f1a098f971c659aef4baa",
-    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/test_fit.py": "719b042a41fd715941a40628c00229564c7f71fc44a38c1460cb4a41ad4eefed",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/fit/test_fit.py": "ba11527575be07c7a44a543f8e4a217773e53db636dfa64ef92d5c01d61893a1",
     "packages/calibration/results/2026-10-03-w45-g0-operator/fit/build-candidate.ts": "0f67c7f219c673abb7da3258669a95ded6ba278a5e3d7b6bc7bb8b9412da6a62",
     "packages/calibration/results/2026-10-03-w45-g0-operator/fit/test_build_candidate.py": "b5d988f87c9e355b989f53b7a439c271381cb778fd931fbeaa8a6dd0604f4647",
     "packages/calibration/results/2026-10-03-w45-g0-operator/stage/stage.py": "89279a6d9089576c3bfa1964243478eed7629eeb9bfee74c6e414b210180361f",
     "packages/calibration/results/2026-10-03-w45-g0-operator/stage/x48.py": "8d3e7de18b23db9ebebf60854d3da9bb757403ea6d117518e33836ac887f095b",
     "packages/calibration/results/2026-10-03-w45-g0-operator/stage/test_stage.py": "0c59f9ba960d5a95de20ed73c143a1442db820a570c38e35c261e482c3f0d0be",
-    "packages/calibration/results/2026-10-03-w45-g0-operator/seal/seal.ts": "b053d108d2ba1759c6e9bfd887b06217f89157a6a610c278efef2541e6a4271a",
-    "packages/calibration/results/2026-10-03-w45-g0-operator/seal/test_seal.py": "a191b24a85371c9249f83d9b1dfe571b0096075d08bdd3031cc28efc1eb46aea",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/seal/seal.ts": "9c47ccfec3131b85c4016a0cfd427f11a40270f3750e2cbc65c88e4ff09d6bfa",
+    "packages/calibration/results/2026-10-03-w45-g0-operator/seal/test_seal.py": "279d2b634ccc9ae7196f7a09fa2fc7ecd7a44d8f6e35b0a89f08791fd53814a4",
     "packages/calibration/results/2026-10-03-w45-g0-operator/sheets/sheets.py": "3518b622d419d98bf2f9b41b8e7781bf55e2226a4f7e1e92495c3d7b605129b6",
     "packages/calibration/results/2026-10-03-w45-g0-operator/sheets/test_sheets.py": "e3c1f42aa37618661a6a7c12a7bde760e5ac25bbd1c4fa4914e604b89d3dc197",
     "packages/calibration/results/2026-10-03-w45-g0-operator/cuts/cuts.py": "56cc29fbd3c19a47265ec0ef903043d2b984f89241b0696b6f4b2829b9e7965f",
@@ -168,7 +168,10 @@
                 -0.75,
                 -1
               ],
-              "ladder": "i"
+              "ladder": "i",
+              "domainLowerIsMinus": "sizeHeavySecondShare",
+              "jointDomain": "sizeHeavySecondShareFar2x in [-share, 0], share the point's resolved active sizeHeavySecondShare, so the graded share + delta * farS is never negative at any span; [-1, 0] is the box the grid spans. Checked on every point whatever it moves (fit.joint_domain_failures): a grid point outside it at the others' current values is not a candidate, of a delta sweep or of a share sweep holding the delta",
+              "why": "Decision Log 7 item 2, a narrowing to the monotone range: the isolation ladder (i) read checkerboard-8__rrect-lg__rest monotone in the delta down to -0.75 at share 0.5 and reversed at -1, where share + delta crossed zero and the signed share became an unsharp mask that adds the c = 16 structure back (claims 5.205 section 8 (i)); the isolation bar is met on this domain (md byte-identical, the thick cells monotone)"
             },
             "sizeScatterRampStartThick2x+sizeScatterRampStartFar2x": {
               "slot": "active.light",
@@ -195,7 +198,21 @@
               "inert": "proven by the ladders: every rung's 1x captures pixel-identical to c05-control's (ladders/results.json, X48)"
             }
           },
-          "prediction": "from W44's measured endpoints (Design \"The moves\", stage 1): (i) the tap OFF at 160 undershoots checkerboard-32__rrect-lg__rest (m1a-f1: 0.1158 against Apple's 0.1336) and the tap at 0.5 overshoots it (x1.25 at the joint), so the thick spans want a partial tap: farDelta near -0.5 x share with the span top at 160 is the predicted neighbourhood, not off; (ii) the fine thick cells at x1.33-1.41 over with the tap off are the ramp band's sharp term, which only the active thick and far starts lower; (iii) the mid cell's c = 16 pass (0.040 -> 0.099 wanted) comes from the base share and width at span 96, where farS is 0; the floor stays near 1 and the span top's role is the far curve's end. Apple's x4.4 drop between 96 and 128 is not predicted to close; the rest is named if it stays."
+          "prediction": "from W44's measured endpoints (Design \"The moves\", stage 1): (i) the tap OFF at 160 undershoots checkerboard-32__rrect-lg__rest (m1a-f1: 0.1158 against Apple's 0.1336) and the tap at 0.5 overshoots it (x1.25 at the joint), so the thick spans want a partial tap: farDelta near -0.5 x share with the span top at 160 is the predicted neighbourhood, not off; (ii) the fine thick cells at x1.33-1.41 over with the tap off are the ramp band's sharp term, which only the active thick and far starts lower; (iii) the mid cell's c = 16 pass (0.040 -> 0.099 wanted) comes from the base share and width at span 96, where farS is 0; the floor stays near 1 and the span top's role is the far curve's end. Apple's x4.4 drop between 96 and 128 is not predicted to close; the rest is named if it stays.",
+          "factorialGroups": [
+            {
+              "keys": [
+                "sizeHeavySecondShare",
+                "sizeHeavySecondSigma2x"
+              ],
+              "starts": [
+                "c05"
+              ],
+              "points": 35,
+              "rule": "on the c05 lineage the share and the width are swept as ONE coordinate step: their 5 x 7 grid in full, at the position of the share in the listed order, in place of their two single-leaf sweeps, in each pass (search.steps_of); a point outside the joint domain is not a candidate; content twins render once and every point keeps its own overrides. From the joint point the coordinate sweep is as before",
+              "why": "Decision Log 7 item 3: from c05 (share 0, width 0) the share and the width gate each other (at share 0 the width is unread, at width 0 the share does nothing), so a coordinate sweep leaves (0, 0) only through the grid's first width; this is the 'full factorial permitted' of searchProcedure"
+            }
+          ]
         }
       },
       "ifNotWithin": "the stage takes the point with the smallest stage objective, a tie (within the stage tie) going to the fewer moved leaves, and is recorded as not within"
@@ -206,7 +223,7 @@
       "order": 2,
       "cells": "2x WebGPU rest thin spans (32-44) and every inactive cell, fit cells, F u T u C u P (T read on its bands; the objective reads F u C u P)",
       "withinClause": "every F, C and P cell of `cells` within (T1 output 1); a T cell is read on its bands and not required within",
-      "inherits": "the span top, the floor, the reach and the second tap's widths come from the active light document as stage 1 leaves them; the receded light document names its 0.5 twin's keys (X44), sizeHeavySecondShare as a difference (W44 Decision Log 7 item 1) and the operator's key as a difference (W45 Decision Log 2)",
+      "inherits": "the span top, the floor, the reach and the second tap's widths come from the active light document as stage 1 leaves them; the receded light document names its 0.5 twin's keys (X44), sizeHeavySecondShare as a difference (W44 Decision Log 7 item 1) and the operator's key as a difference (W45 Decision Log 2); the receded second-tap widths (sizeHeavySecondSigma, sizeHeavySecondSigma2x) are inherited from the active document unless a point names them, and no point of this part 2 names them (no receded width is a declared leaf); the seal admits what the builder admits: the receded share, both receded widths and the operator's key, each as a difference over the active document (Decision Log 7 item 6)",
       "familyOrder": [
         "thin",
         "receded"
@@ -317,7 +334,10 @@
                 0.5,
                 1.0
               ],
-              "gridUnit": "fraction of the active delta (1 is the inherited value; 0 switches the grading off in the receded pose)"
+              "gridUnit": "fraction of the active delta (1 is the inherited value; 0 switches the grading off in the receded pose)",
+              "domainLowerIsMinus": "sizeHeavySecondShare",
+              "jointDomain": "the receded delta, resolved, in [-share, 0], share the receded document's resolved sizeHeavySecondShare (its own difference where the point names one, else the active value); each key the receded document does not name resolves to the active value, so a receded share below the inherited delta's magnitude is not a candidate until the receded delta is narrowed with it",
+              "why": "Decision Log 7 item 2: the receded difference on the same monotone range as stage 1"
             }
           },
           "prediction": "the receded share lands at the active share as in W44, and the receded farDelta at the active's"

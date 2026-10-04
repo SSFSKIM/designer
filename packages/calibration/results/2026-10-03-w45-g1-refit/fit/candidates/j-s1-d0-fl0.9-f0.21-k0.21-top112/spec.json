@@ -1,0 +1,23 @@
+{
+  "label": "j-s1-d0-fl0.9-f0.21-k0.21-top112",
+  "note": "",
+  "stage": "stage1",
+  "family": "deep",
+  "start": "joint",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 0.9,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 5,
+      "sizeScatterRampStartThin2x": 0.8,
+      "sizeHeavySecondSigma": 0,
+      "sizeScatterSpanMax2x": 112,
+      "sizeHeavySecondShareFar2x": 0,
+      "sizeScatterRampStartThick2x": 0.21,
+      "sizeScatterRampStartFar2x": 0.21
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1
+    }
+  }
+}

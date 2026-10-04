@@ -1,0 +1,19 @@
+{
+  "label": "c-s1-q0-d0-w1.5-fl0.6-f0.05-k0.05-top256",
+  "note": "",
+  "stage": "stage1",
+  "family": "deep",
+  "start": "c05",
+  "overrides": {
+    "active.light": {
+      "sizeHeavySecondSigma": 0,
+      "sizeScatterFloor2x": 0.6,
+      "sizeScatterSpanMax2x": 256,
+      "sizeHeavySecondShare": 0,
+      "sizeHeavySecondSigma2x": 1.5,
+      "sizeHeavySecondShareFar2x": 0,
+      "sizeScatterRampStartThick2x": 0.05,
+      "sizeScatterRampStartFar2x": 0.05
+    }
+  }
+}

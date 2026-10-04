@@ -1,0 +1,23 @@
+{
+  "label": "j-s2-rcq0.25-rcs22-rcf0.03-rck0.03",
+  "note": "",
+  "stage": "stage2",
+  "family": "receded",
+  "start": "joint",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 1.0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 5,
+      "sizeScatterRampStartThin2x": 0.8,
+      "sizeHeavySecondSigma": 0
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1,
+      "sizeScatterRampStartThick2x": 0.03,
+      "sizeScatterRampStartFar2x": 0.03,
+      "sizeHeavyTapSigma2x": 22,
+      "sizeHeavySecondShare": 0.25
+    }
+  }
+}

@@ -7272,7 +7272,7 @@ the 0.25 ones also move only `optics.regular` (`tintAlpha`), so the claim holds 
 is stale. `css-tier.ts` is a source of the cross-gate holdout ledger, so a comment edit moves
 `sourceSha256`; reword it with the next change that touches the file ("every shipped document").
 
-## At 0.25 the 2x light body draws fine checkers sharper than Apple's, in both poses (W43 G3 (iii), 2026-10-02) — NARROWED 2026-10-03 (W44 G2): gated by T1, its misses named; the refit is W45's
+## At 0.25 the 2x light body draws fine checkers sharper than Apple's, in both poses (W43 G3 (iii), 2026-10-02) — NARROWED 2026-10-03 (W44 G2): gated by T1, its misses named; NARROWED AGAIN 2026-10-04 (W45 G2): the refit landed, two shapes remain
 
 *Seen on the landing's eye sheets over the whole canonical 0.25 bed (claims §5.201 landing
 section; `results/2026-10-02-w43-g3-landing/sheets/`), measured on a deep-body crop.*
@@ -7305,6 +7305,21 @@ fine-pitch cell that misses is named in `MISSED_27_ROWS` with its ratio and Appl
 2x all 15 F cells miss, and at 1x 13 of 15. A refit that brings a cell within takes its entry
 out, and one that moves a cell away from Apple beyond B against the reference generation fails
 the row's regression clause. What stays open is the refit itself, which is W45's.
+
+**W45 G2 (2026-10-04), narrowed again: the refit landed** (claims §5.206, §5.207). On the WebGPU tier
+the light 0.25 document's 2x floor is 1 again, with the span-graded second tap (share 0.5 at 2 CSS
+px, graded −0.25 on the far curve) and the span top at 128. The 2x F aggregate falls from 0.6462 to
+0.2190. Four 2x F cells come within: `checkerboard-4` lg rest and md inactive, and `checkerboard-8`
+md and sm rest. Eleven of 15 still miss, in two shapes, both named:
+- **The 8-device-px checker at thick spans still passes more than Apple's**: `checkerboard-8`
+  ml and lg rest ×2.34 and ×2.60, md inactive ×2.43, lg inactive ×1.73. Apple's narrow term
+  widens with the span, which a share cannot follow. The shape of the fix is the operator W45
+  deferred, a per-span tap WIDTH (W45 charter Deferred).
+- **The thin fine cells now draw less than Apple's**: `checkerboard-4` sm and capsule ×0.63 and
+  ×0.55, `checkerboard-8` capsule ×0.84, and the orange-tinted capsules ×0.57 and ×0.78. This is
+  the thin-span pitch trade W45 Decision Log 5 named, for which no single lever separates the
+  pitches.
+The CSS tier keeps c05's 2x floor (W45's hold), so its 2x fine checkers draw as at 0.26.0.
 
 ## Dark receded bodies over dark-solid read 11–15 codes too dark, and no gated row can see it (W43 G3 (iii), 2026-10-02)
 
@@ -7385,6 +7400,12 @@ A frozen point that triggered it would leave a hole in its publication stage tha
 refuses, with no way to fill it by re-reading. The shape of the fix: a shape-axis failure on a
 low-contrast backdrop records the shape axis as absent (with its reason) and keeps the row's other
 axes, as the blur axis already does ("NOT MEASURED … absent, not zero"), with a test on this cell.
+W45 G1 met it on four of 211 fit launches, all on the joint path's stage 1 (wide second taps and low
+thick/far starts), each recovered the same way (claims §5.206 §3).
+**Still open at W45 G2 (2026-10-04).** The factorial continuation met it on four more stage-1 renders
+(§5.206 §12). The frozen point did not trigger it: the stage and the published generation hold all
+656 rows, the lc16 cells included. A future frozen point that does would still leave a hole that
+`matrix publish` refuses.
 
 ## "The median over the same cells": the selection tie's cells decide W44's move 1 (W44 G1, 2026-10-03)
 
@@ -7435,3 +7456,145 @@ value (`m2-t0.46` states the base's thin start 0.46; `m3-f0.04-k0.04-t0.1` the r
 and 34 captures), so nothing is wrong, but seven of the 100 candidates (93 distinct contents by their
 light digests) were renders of a content already read. The shape of the fix: compare the candidates' resolved digests rather than their
 override sets.
+
+## W45's search marks a receded leaf with an upper-case `R`, which W45's builder refuses (W45 G1, 2026-10-03)
+
+*Found running W45 G1's stage 2 (claims §5.206 §6).*
+
+`search.label_of` (pinned by part 2 `e6874e02`) labels a receded-light leaf `R<short><value>`
+(`c-s2-t0.75-Rt0.1`), and `fit/build-candidate.ts` (pinned by part 1) accepts only labels in
+[a-z0-9.-]. So stage 2's receded component cannot build its first point. No test caught it: the
+search tests' runner builds nothing, and `test_fit.Paths` asserts the upper-case form. Part 2 was
+amended for the last time and the builder is a part-1 pin, so G1 ran stage 2 through
+`results/2026-10-03-w45-g1-refit/fit/search_g1.py`, which replaces the one function with an `rc`
+mark. The shape of the fix, for the next wave's ports: one label grammar, stated once and imported
+by the builder and the search, with a test that builds a label of every slot.
+
+## `search.py full` renders an alias instead of the twin that measures it (W45 G1, 2026-10-03)
+
+*Found reading W45 G1's two final points (claims §5.206 §6).*
+
+`search.py full LABEL` calls `fit.render(LABEL, "rest-of-fit")` on the label itself. When a content
+twin measures the label (`aliases.json`), the alias has no rendered scope, so all 94 fit cells
+render under the alias, while `joint.py` and `finding.py` read the twin through
+`fit.measured_label` and still find 65. G1 ran `full` on the twin. The alias's 188 captures are
+byte-identical to the twin's, so one launch was wasted and nothing was misread. The shape of the
+fix: `full` resolves `fit.measured_label` before it renders, as the runner does.
+
+## A coordinate sweep on a median objective decides a plateau by grid order (W45 G1, 2026-10-03)
+
+*Found reading W45 G1's fit (claims §5.206 §3, §9).*
+
+From W44's joint point, `sizeScatterSpanMax2x` is inert while the operator's delta is 0: the far
+curve has nothing to grade. Its five values read the same objective, and `min` kept the grid's
+first, 112. The delta was then swept only there, where farS is 1 at spans 128–160, and read worse.
+The span top was never revisited with a live delta, and the region G0's joint-composition ladder
+read as working (span top 160, delta −0.5 to −0.75) was never visited.
+
+The same plateau rule fixed the floor at 0.5 in pass 2 (inert at top 112), and the stage decision
+then took the starting point on the fewer-leaves tie. The shape of the fix, for the next search
+declaration:
+- sweep coupled leaves jointly (the span top with the delta), or start from a live delta;
+- break a plateau toward the incumbent value rather than the grid's first.
+
+**Worked around, not fixed, at W45 G1 (2026-10-04; §5.206 §11).** The parent ruled stage 1 run as
+the full factorial part 2 permits. Over the span top, delta, share and width it found the point that
+landed, from both starting points: share 0.5, width 2, delta −0.25, top 128. The coordinate run had
+read 0.1008 and 0.1091; the factorial point read 0.0918, then 0.0741 after the thick/far pass. The
+tools are unchanged, and the next declared search still decides a plateau by grid order unless it
+declares the joint sweep.
+
+## W45's G0 tools read the live light 0.25 documents as c05, so the declaration checks fail after a freeze (W45 G1, 2026-10-03)
+
+*Found at W45 G1's gate (claims §5.206 §13; `results/2026-10-03-w45-g1-refit/close-checks-gate.txt`).*
+
+`fit/build-candidate.ts`, `fit/fit.py` (`active_value`, `resolved_value`, `identity`) and the seal's
+tests start every candidate from the live `profiles/apple-macos-27.0-1x-light-standard-glass0.25{,-receded}.json`,
+taken to be c05's. `declare.py check` runs `test_build_candidate` (part 1's tools item), and
+`check-fit` runs `test_fit` and `test_seal` (part 2's second amendment). So once the seal replaces
+the light pair, both checks fail on those test runs. The builder refuses the sealed active document
+(it names the operator's key beyond its twin's leaves), and the fit tests read share 0.5 where they
+expect c05's 0.
+
+Every pin and hash still holds: with c05's bytes put back temporarily, both checks read consistent.
+Part 2's first amendment fixed exactly this for part 1's pins (`partOneReadAt`), not for the tests
+the checks execute. This will hold on main after a landing too.
+
+The shape of the fix, for the next wave's tools: a starting point is read by its generation's file
+hash (the index or a commit), never from the live profiles, and a declaration check that runs tool
+tests runs them against that pinned starting point.
+
+**Read at W45 G2's landing (2026-10-04; claims §5.207, `results/2026-10-03-w45-g2-landing/close/`).**
+On the landing's head both checks still verify every pin, hash and amendment chain. They exit
+non-zero only on the tool tests they execute: `declare.py check` on `test_build_candidate`,
+`check-fit` on `test_fit` and `test_seal`. This now holds on main for as long as the light 0.25
+documents are W45's, and every later wave that ports these tools inherits it until the fix
+above lands.
+
+## W45 ships eleven texture regressions against c05, by ruling (W45 G2, 2026-10-04)
+
+*Ruled at W45's gate and exposure (charter Decision Log 8; claims §5.206 §13, §16), authorised in the
+owner test at the landing (§5.207).*
+
+The light 0.25 refit grew T1's error by more than B (one code) on eleven 2x WebGPU cells against
+c05, five of them by more than 3B. `T1_AUTHORISED_REGRESSIONS` lists each against `6d18c059eb42`,
+with its growth. The cells fall into three shapes, each with its mechanism (§5.206 §13's table):
+- **The tap at full share where the far curve is 0.**
+  - The pressed checkerboards: rrect-md 4.27 B and capsule 4.25 B, both over Apple. The pressed
+    rrect-md cell is span 96. Its rest twin moves toward Apple.
+  - `checkerboard-32__rrect-sm__rest` 4.18 B and `checkerboard-64__rrect-sm__rest` 2.22 B, both
+    thin spans. The 64-px cell's body sits inside one uniform square.
+- **A 0.25 share kept at span 160, because the span top is 128**: `checkerboard-32__rrect-lg__rest`
+  3.34 B, `checkerboard__rrect-lg__rest` 3.30 B (holdout), `checkerboard-8__rrect-lg__rest` 1.55 B
+  and `checkerboard__glass-over-glass__rest` 1.57 B (holdout). Each passes more checker than
+  Apple's at a thick span.
+- **The receded body's wider heavy tap (14 → 18 device px)**: `hc-text__rrect-lg__inactive` 1.40 B
+  and `photo__toolbar-group__inactive` 1.02 B, both smoother than Apple's. Also
+  `hc-text-7__rrect-md__inactive`, +1.60 B on T1-low, whose T1-fine moves toward Apple (×15.5 →
+  ×3.1).
+
+The shape of the fix: a per-span tap width (the charter's Deferred operator), which lets the thick
+spans pass less at c = 16 without the 0.25 share, and a thin-span share separate from the mid one.
+The next publication must clear these cells or re-rule them: the owner test's witness case reads
+each one against c05 on the current union and fails once the rows move.
+
+## The CSS tier's light 0.25 hold leaves one 2x cell beyond B (W45 G2, 2026-10-04)
+
+*Recorded with the hold (claims §5.206 §15; `platform-web/src/optics.ts` `CSS_DECLINED_SIZE_GLASS025_LIGHT`).*
+
+The CSS tier keeps the light 0.25 document's 2x floor and span top at c05's 0.6 and 256, because it
+draws no second tap. The other leaves W45 moved still reach it, the 2x thin start 0.46 → 0.65 among
+them. On the 94 gate cells, 2x light CSS, one cell grows beyond B against c05:
+`checkerboard-32__rrect-sm__rest`, 3.34 B, at a thin span (WebGPU reads 4.18 B on the same cell,
+authorised). Every CSS table, L1 and X1 reads as at c05. The shape of the fix: measure the hold
+extended to the thin start on this cell before adopting it. Moving that leaf on the CSS tier alone
+trades the other thin cells, which the hold's re-read did not measure.
+
+## M2 reads the receded photo's lattice coming off as a structure failure (W45 G2, 2026-10-04)
+
+*Ruled at W45's gate (charter Decision Log 8; `results/2026-10-03-w45-g1-refit/gate/photo-lattice`).*
+
+M2 is a pitch-blind interior SD, dominated by the photo's low frequencies. On the four 2x receded
+photo cells (capsule, rrect-md, rrect-sm, toolbar group), it reads W45's smoothing as a move away
+from Apple (−4.5 % to −15.0 % against c05). Read through W44 G1's band readers, the same four move
+toward Apple: the lattice band goes from ×1.32–1.44 over Apple to ×0.78–1.02, and T1-fine from
+×1.23–1.42 to ×0.96–1.03. The owner test names the four as ruled failures
+(`GLASS025_M2_RULED_FAILURES`), and the P inactive T1 aggregate (0.1937 against 0.1871) as a ruled
+miss (`T1_NAMED_AGGREGATE_MISSES`), for the same reason. The shape of the fix: an M2 that reads
+structure on a declared band (T1-low and the lattice band, with T1-fine beside them), adopted
+before a refit is judged by it, so that a lattice correction is not scored as a texture loss.
+
+## The demo cannot show what W45 changed (W45 G2, 2026-10-04)
+
+*Found at W45 G2's landing (claims §5.207).*
+
+W45 moved only 2x leaves of the light 0.25 document. The demo's reference pair is held to the
+harness capture at 1x (`apps/demo/e2e/reference-panel.gpu.spec.ts`), where W45 changed no pixel
+(X48). The figures the site prints read the 1x profile too (`calibration.ts`'s
+`PRIMARY_PROFILE_KEY`), so they did not move either. The site's scenes leave out the probe set, so
+it offers no fine-checker scene. Nothing therefore checks the demo's 2x drawing against the
+harness. A visitor on a Retina display does see
+W45's material at `?glass=0.25`, and the eye sheets show it beside Apple's; neither is a check of
+the demo itself. The shape of the fix: a 2x reference pair, with the @2x backdrop raster and the
+2x harness capture, and one fine-checker scene allowed onto the picker for it.
+

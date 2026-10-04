@@ -139,6 +139,35 @@ layout, so the second heavy texture's slot exists at every draw and takes the
 same placeholder view the first one already takes when a material declines it.
 What the share gates is every resource and every pass behind that slot.
 
+**The span-graded tap (W45, 0.27.0).** `sizeHeavySecondShareFar2x` makes the
+second tap's share a function of the surface's span. The optics pass grades it
+per pixel on the far curve the scatter's ramp start already rides:
+
+```
+tapShare(px) = sizeHeavySecondShare
+             + rampAtScale(0, sizeHeavySecondShareFar2x, dpr)
+               · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span(px))
+```
+
+The grading is unclamped, because the share is signed, and 2x-anchored, so it is
+0 at dpr ≤ 1 by construction. It is read only where the share opens the second
+texture, and the CSS tier declines it with the tap. Apple's material passes a
+16-device-pixel checker heavily at span 96 and barely at 128–160. No other leaf
+can separate those spans: `kDeep` grades the sharp component, and the thick lift
+saturates at the knee (claims §5.205). Where the shipped documents set the
+spanning set:
+
+| leaf | identity | macOS 27 at 0.5 | macOS 27 at 0.25 |
+| --- | --- | --- | --- |
+| `sizeHeavySecondSigma` / `sizeHeavySecondSigma2x` | 0 | declined | declined / 2 CSS px, light only |
+| `sizeHeavySecondShare` (the gate) | 0 | declined | 0.5 light (0.25 receded); dark declined |
+| `sizeHeavySecondShareFar2x` | 0 | 0 | −0.25 light (−0.125 receded); dark 0 |
+| `sizeScatterScaleGain` / `sizeScatterScaleRef` | 0 / 0 | −2 about 0.03, dark only | as at 0.5 |
+
+The light 0.25 pair also moves the deep composition the tap mixes into: the 2x floor
+0.6 → 1 and span top 256 → 128 (claims §5.206). Every other document resolves the
+new leaf to 0, which rule 2 drops before hashing, so no other fingerprint moved.
+
 `packages/renderer-webgpu/test/w30-inert-laws.test.ts` states each identity over
 a span sweep and both scales, and `e2e/gpu/w30-heavy-second-tap.spec.ts` opens
 the gate on a test profile so the ON path is proved to exist and not only to be

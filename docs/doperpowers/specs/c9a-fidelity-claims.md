@@ -46648,3 +46648,1171 @@ check` reports the moved pins.
 
 **G0's own deliverables do not depend on these:** the operator, the proofs, the rule, the
 rehearsal, part 1, the ladders and part 2's content. No fit render exists.
+
+## 5.206 W45 G1: part 2's second and final amendment, the fit from both starting points, both final points NEITHER under the landing rule, and the worker stopped at the finding for the parent's ruling (2026-10-03)
+
+Evidence directory: `results/2026-10-03-w45-g1-refit/` (its `README.txt` maps it), on branch
+`w45-g1-refit` off `67a82a00` (the charter v1.4 merge). Charter
+`2026-10-03-w45-span-selective-texture.md` v1.4: G1 steps 0–2, clauses 5 and 6, Decision Logs 3,
+4 and 7, X54–X58. **Status: steps 0–2 done; both paths' final points read NEITHER on the 94 gate
+cells; nothing frozen, staged, exposed or published; the canonical holdout and the twelve referees
+are unspent; no profile document, generation, capture tree or runtime module moved.** The
+worker stopped there and handed the finding to the parent (§7).
+
+### 1. Part 2's second and final amendment (step 0; Decision Log 7; `6321b965`, `165ff070`)
+
+The side branch `w45-g0-search-fix` (`50be5c44`, `371d3f1c`) was merged with `--no-ff` as
+`6321b965`. Its tests pass there: 39 fit and 26 declare (`amendment/merge-commit-tests.txt`).
+
+Part 2 was `77f1c39208c14ae7131ed90183b762935ecd7d52776b67ad055fcfd542315271` and is now
+**`e6874e02902755c8648e7fcce29568d326544398229c20d08ce7d24ddfdc5433`**, the third line of
+`fit-declaration.sha256`. The record is amendment 2 of `fit-amendments.json`, citing the charter at
+`86c1b543` (Decision Log 7). It holds four operations and seven part-2 pins, each citing the item it
+executes:
+- **(1) the side branch's fixes**, re-pinned: `fit.py`, `search.py`, `joint.py`, `finding.py`,
+  `test_fit.py`; and part 1's `declare.py` (`5923827a…` → `b22a1ac4…`) and `test_declare.py`
+  (`fbcc5193…` → `28b1b895…`) as part-1 moves;
+- **(2) the domain**: `sizeHeavySecondShareFar2x` gains `domainLowerIsMinus:
+  sizeHeavySecondShare` in stage 1 and in the receded difference. The fit driver checks it on every
+  point whatever the point moves (`fit.joint_domain_failures`), resolving each light slot, the
+  receded one inheriting the active value of a key it does not name. A grid point outside it at the
+  others' current values is not a candidate (`search.sweep_candidates`);
+- **(3) the factorial**: the deep family gains `factorialGroups`, the share and the width swept as
+  ONE coordinate step of 35 points on the c05 lineage only (`search.steps_of`, `step_candidates`);
+- **(6) the seal**: `seal.ts` admits the receded `sizeHeavySecondSigma{,2x}`, as the builder does,
+  and part 2's stage-2 `inherits` states the receded widths inherited unless a point names them.
+  `test_seal.py` turns its old red case (a receded width) into an admission and keeps a red case
+  for a leaf the builder never admits.
+
+Decision Log 7 items 4 and 5 are charter text and change nothing in part 2.
+
+**What the checker does with two amendments.** `check-fit` reverts amendment 2's operations and
+pins, then amendment 1's pins, and rebuilds `77f1c392…` and `da85de04…` byte for byte. It validates
+the draft's diff on the body with every operation reverted. It recomputes amendment 2's operations
+from the body before it (`amendment_two`) and requires them equal, values included (W44 G1's
+lesson). It runs the fit and seal tests. A part-1 source moved by both amendments is accepted only
+along the chain the records state; a broken chain accepts nothing and is reported.
+
+`validate_two` refuses an operation or pin outside its item, an unknown item, a path touched twice,
+a removal, and an item with nothing executed. `amend-fit` accepts this amendment once, only under
+`86c1b543`, and refuses a third for ever.
+
+**After it**: 43 fit, 38 declare, 8 seal and 15 builder tests pass; `check` and `check-fit` read
+consistent; a third `amend-fit` exits 2 (`amendment/`). The amendment's commit time, 03:29:05 UTC,
+precedes the first fit launch, 03:32:49 UTC.
+
+### 2. The reference (step 1; `9612c606`)
+
+W45's cuts read the published c05 generation against itself (`references/`). Against G0's own c05
+cut, nine leaves differ and no reading does: two source hashes, and the `gateCells` field amendment
+1's rule fix added. M2, L1 and E2 are re-baselined on c05; T1's change is `unchanged` on all 94 gate
+cells. The aggregates the landing rule compares against are:
+- F 0.6462 pooled (rest 0.6334; inactive 1.2903, reported);
+- T rest 0.5251 on T1-fine;
+- C rest 0.1720 and inactive 0.8523;
+- P rest 0.4193 and inactive 0.1393.
+
+### 3. The fit (step 2; `82848cff`)
+
+**What ran.** 211 launches, every one in candidate mode with `--alpha`, under the GPU lock and the
+classifying web census (0 refusals; `census.jsonl` lines 104 on), on the planner's fit cells only;
+the loader refused no row because none was a referee or holdout. 207 exited 0. Four were partial on
+the lc16 shape axis ("a 0.00px contour … carries no curvature", W44's tracker entry), all on the
+joint path's stage 1; `recover.py` read each missing cell off its capture through the pinned port
+and the search resumed. The completed record (`fit/path/recovered.json`) proves the port against
+the driver on the 112 rows those four renders did record, worst 3.18e-11 (the first recovery's
+witness was 2.07e-11 on 28). 238 declared points, 36
+measured by content twins. Every point's cuts are under `fit/candidates/<label>/`, every rung's
+objective in `fit/path/rungs.txt`.
+
+| path | stage | landed | objective (stage cells) | how |
+| --- | --- | --- | --- | --- |
+| c05 | 1 | `c-s1-fl0.5`: floor 0.5 | 0.1008 (c05 0.1639) | tie (0.0332) to the fewer leaves; NOT within (7) |
+| c05 | 2 | thin start 0.75; receded thin 0.1, thick/far 0, heavy σ 24 | 0.2498 | the composed point |
+| joint | 1 | `j-s1-base`: the joint point itself | 0.1091 | tie to the fewer leaves; NOT within (4) |
+| joint | 2 | receded σ 22, thick/far 0, share at the active 0.5 | 0.1824 | the composed point |
+
+**Stage 1 from c05** (two passes, 94 points). The floor dominates: 0.5 / 0.6 / … / 1 read 0.1008 /
+0.1639 / 0.2613 / 0.3038 / 0.3257 / 0.2844. The span top at floor 0.5 reads 0.2844 at 112 and 128,
+falling to 0.1008 at 256. The share × width factorial keeps share 0 in both passes: the best tapped
+point is 0.25 × 4 CSS px at 0.1158 (pass 2: 0.1151), and every share of 0.5 or more reads 0.13–0.65.
+So the share stayed 0, and **the operator's domain was {0}: it was never read on this path**. The
+thick/far starts read 0.1008 at every grid value.
+
+**Stage 1 from the joint point** (52 points). The floor below 1 is worse (0.2002–0.1321). The span
+top reads 0.1091 at every value: at delta 0 the far curve has nothing to grade, so the top is
+inert. The sweep kept the grid's first value, 112. The share and width sweeps found nothing better
+than 0.5 × 5. **The operator was read only at span top 112**, where farS is 1 at spans 128–160:
+−0.25 reads 0.2081 and −0.5 reads 0.2593, against 0.1091. Lower thick/far starts are worse (0.05:
+0.3337; 0.1: 0.1870; 0.15: 0.1405). Pass 2 wandered the plateau: the floor is inert at top 112.
+Every point is equal to the joint point or worse.
+
+**Stage 2.**
+- **Thin start.** From c05's floor 0.5 the thin start lands 0.75 (0.3214 at 0.46 … 0.1715 at 0.75
+  … 0.2302 at 0.95). From the joint point it stays 0.8 (0.2071, as W44's move 2).
+- **Receded component, c05 path.** Thin 0.1 (flat 0.1–0.5), thick/far 0 (flat), and the heavy σ
+  14 → 24 takes the objective 0.4942 → 0.3845. The share and the delta are unsearched at an active
+  share of 0 (Decision Log 7 item 6).
+- **Receded component, joint path.** It reproduces W44's move 3: 0.1922 → 0.1752, at thin 0.1,
+  thick/far 0, σ 22, share ×1. Removing the receded share is again the worst point (0.4170, 0.4299).
+
+**Interactions.** On both paths no stage undid the other (`joint.json`).
+
+### 4. Between the paths, and the landing rule at both final points (`joint.py`, `finding.py`)
+
+The final points were read on their full fit maps (94 gate cells; the c05 path's through the twin
+that measures it, §6).
+
+| | c05 path | joint path | c05 |
+| --- | --- | --- | --- |
+| selection metric (gate population) | 0.1940 | 0.1811 | 0.3458 |
+| moved leaves | 9 | 11 | — |
+| F aggregate (pooled; half of c05's is 0.3231) | 0.4702 | **0.2455** | 0.6462 |
+| F rest / F inactive (reported) | 0.3436 / 1.4894 | 0.2703 / 0.0242 | 0.6334 / 1.2903 |
+| T rest (T1-fine), c05 + τ 0.6196 | **0.7216, over** | 0.2177 | 0.5251 |
+| C rest / C inactive | 0.0849 / 0.6300 | 0.1030 / 0.1155 | 0.1720 / 0.8523 |
+| P rest / P inactive (bound 0.1848) | 0.4039 / **0.1977, over** | 0.3926 / **0.1933, over** | 0.4193 / 0.1393 |
+| partition (unchanged / toward / away) | 27 / 43 / 24 | 19 / 53 / 22 | |
+| away with g > B (at most 3) | **9** | **8** | |
+| beyond 3B (none) | **3** | **4** | |
+| verdict | **NEITHER** | **NEITHER** | |
+
+**Selection (X56).** The two metrics are inside the selection tie (0.0412), so the fewer moved leaves
+select the c05 path's point. Both counts include the receded share and delta named at their
+inherited values; without them the order is the same (7 against 9).
+
+**The cells that spend the budget:**
+- **c05 path**: `checkerboard-8__rrect-md__inactive` 3.57 B, `checkerboard__capsule-button__pressed`
+  3.33, `checkerboard-32__rrect-sm__rest` 3.00 (just past 3B), `checkerboard-4__rrect-md__inactive`
+  2.60, `checkerboard-8__rrect-ml__rest` 2.52, `checkerboard-4__rrect-md__rest` 2.34,
+  `checkerboard__rrect-md__pressed` 2.07, `checkerboard-64__rrect-sm__rest` 1.82,
+  `photo__toolbar-group__inactive` 1.16.
+- **Joint path**: W44's six again — `checkerboard-8__rrect-md__rest` 6.87,
+  `checkerboard-32__rrect-lg__rest` 4.97, `checkerboard-32__rrect-sm__rest` 4.64,
+  `checkerboard__capsule-button__pressed` 3.55, `checkerboard__rrect-md__rest` 2.44,
+  `checkerboard-64__rrect-sm__rest` 2.40 — plus `hc-text__rrect-lg__inactive` 1.51 and
+  `photo__toolbar-group__inactive` 1.20.
+
+`finding.json` / `finding-joint-path.json` read each at every searched point that rendered it.
+
+**The T cells** (fidelity and change on T1-fine, away on T1-low):
+
+| cell | c05 path | joint path |
+| --- | --- | --- |
+| `hc-text-7` lg | fine 0.0313 against n 0.0032, away; low g −0.05 B | fine 0.0145, toward; low −0.15 B |
+| `hc-text-7` md | fine 0.0651 against 0.0281, away; low −0.78 B | fine 0.0212, **within**; low +0.94 B |
+| `hc-text-7` sm | fine 0.1129 against 0.1172, **within**; low −1.40 B | fine 0.1029, toward; low −1.51 B |
+
+**X48** at both final points: 94 of 94 1x light rows identical but for how they were drawn, and 188
+of 188 captures byte-identical to the canonical c05 tree (`x48-c05-path.json`,
+`x48-joint-path.json`).
+
+**By eye** (`sheets/sent.txt`, both final points on all 94 cells, sent to the MacBook):
+- **c05 path.** Its large fine-checker bodies (`checkerboard-4` lg, `checkerboard-8` ml and lg) carry
+  visible checker structure where Apple's body is nearly uniform. Its W45 − c05 difference is faint:
+  it looks like c05, sharper.
+- **Joint path.** It draws those bodies closer to Apple. `checkerboard-8` md is visibly smoother
+  than Apple's, which passes the 16-device-px checker heavily at span 96.
+
+### 5. The predictions, read against the renders (part 2's; recorded, never re-ruled)
+
+- **Stage 1 (i)**, a partial tap with farDelta near −0.5 × share at span top 160: **never visited.**
+  On the c05 path the share stayed 0. On the joint path the top was fixed at 112 before the delta
+  was swept.
+- **Stage 1 (ii)**, the active thick/far starts lower the fine thick residual: falsified at the
+  objective's level. They are flat on the c05 path and worse below 0.21 on the joint path.
+- **Stage 1 (iii)**, the mid cell's pass from the base share and width at span 96: no share or
+  width moved the objective below the joint point's.
+- **Stage 2, thin start below 0.8**: holds on the c05 path (0.75); falsified on the joint path
+  (0.8).
+- **Stage 2, receded share at the active**: holds on the joint path (×1); the receded delta at the
+  active's holds trivially (0).
+
+### 6. Two tool defects, handled beside the pinned files
+
+1. **`search.label_of` marks a receded leaf with an upper-case `R`, and the builder (a part-1 pin)
+   accepts only [a-z0-9.-].** c05's stage 2 stopped at its first receded point
+   (`logs/search-c05-stage2.attempt1.txt`; the refused spec is kept in `specs-refused/`); nothing
+   had rendered.
+   - **Why the tests missed it.** The search tests' runner builds nothing, and the label test
+     asserts the upper-case form.
+   - **The fix.** Part 2's amendment was its last, so `fit/search_g1.py` imports the pinned
+     `search.py` unchanged and replaces that one function with an `rc` mark. A label is a
+     candidate's name: no override, grid, domain, objective or decision moves. Both stage-2 runs
+     went through it.
+2. **`search.py full LABEL` renders the label, not the twin that measures it.** The c05 path's final
+   point is measured by a twin (it names the receded share and delta at their inherited values), so
+   `full` rendered all 94 cells under the alias and `joint.py` still read the twin's 65.
+   - **The fix.** `full` was run on the twin. The alias's 188 captures are byte-identical to the
+     twin's, a witness that equal digests draw equal pixels. One launch was wasted.
+
+### 7. Why the worker stopped here
+
+The landing rule reads the WebGPU 2x light gate population, and candidate mode draws what strict
+mode draws for one content. So each final point's full fit map is the gate's T1 reading on those
+cells. Both read NEITHER on the count and the ceiling, and the exposure only adds cells to the one
+budget, so no stage or exposure of either point can land under Decision Log 3.
+
+The freeze would replace the two shipped light documents. It would also regenerate the runtime
+module and the export pins for a point that cannot land, and the selected point is the one that
+reads worse under the rule. So steps 3–8 were not run, and the finding went to the parent for a
+ruling, as W44 G1's did (W44 Decision Log 4 "Otherwise").
+
+### 8. Clause 8 at this head
+
+- The freeze reads 1,818 entries and X41 911.
+- The ten shipped digests reproduce (`operator/digests.ts`).
+- `declare.py check` and `check-fit` read consistent.
+- `git diff 67a82a00 -- packages/calibration/profiles packages/platform-web packages/renderer-webgpu`
+  is empty.
+
+### 9. Gaps, and the shape of the next step
+
+- **The 2x fine-checker gap stays shipped**, as at W44.
+- **The declared search never read the operator where the ladders showed it working.** G0's
+  joint-composition rungs (share 0.5, width 2, delta −0.5 and −0.75 at span top 160, floor 1) brought
+  `checkerboard-8` md within with lg falling (§5.205 §8 (ii)). Neither path visits that region:
+  - from c05 the floor's large gain at 0.5 is reached before any tap, and the tap never pays at
+    that floor;
+  - from the joint point the span top is swept while it is inert and fixed at the grid's first
+    value.
+
+  A coordinate sweep on a median objective over a plateau decides by grid order. A search that
+  reads the operator needs the span top and the delta swept jointly, or a starting point with a
+  live delta.
+- **The stage objective does not carry F.** It is the median over F ∪ C ∪ P of the stage's cells:
+  5 F among 27 at stage 1. The c05 path's stage-1 point improves C and P and worsens every
+  fine-thick F cell (×1.8–3.0 over Apple), and the landing rule then fails it on F, T and P.
+- **The selection tie admits the worse point.** The tie (0.0412, 21–23 % of the two metrics) lets
+  two moved leaves outweigh a better metric and a better rule reading.
+- **Tool entries** (tracker): the receded label mark, `full` on an alias, and the lc16 shape-axis
+  failure (four launches here).
+
+### 10. Review closure (`doperpowers:reviewer-medium` on `67a82a00..d760c063`)
+
+Verdict **correct**, one P3: §3 quoted the first recovery's port witness (28 rows) where the completed
+record holds 112 rows at 3.18e-11; corrected above. The reviewer reproduced, read-only:
+- the amendment's operations against Decision Log 7, both superseded hashes rebuilt, the draft's
+  diff, every pin and chained part-1 re-pin, and the amendment preceding the first render;
+- the joint domain, the receded inheritance, the c05-only factorial and the empty-step refusal;
+- both lineages' stage compositions and every recorded decision;
+- 6,662 scratch rows in 211 matrices with no referee or holdout row;
+- all 36 aliases' endpoint digests against their twins, and `search_g1.py` differing in label
+  spelling only;
+- both final points' rule readings, and the X56 selection (0.193994 and 0.181146 inside the tie
+  0.041203, 9 leaves against 11);
+- the stop: the budget counts 9 and 8 and ceilings 3 and 4 cannot be undone by an additive
+  116-cell budget.
+
+The close checks at the head are in `close-checks.txt`.
+
+### 11. The continuation the parent ruled on 2026-10-04: stage 1 as the permitted factorial, from both starting points (`4913082f` and after)
+
+**The ruling.** Not (a), (b) or (c) of §7 yet. Continue inside part 2 as hashed: its search
+procedure permits a full factorial of a stage's grids, and the coordinate order of §3 could not
+reach the region G0's joint ladder read as working, because the span top and the delta gate each
+other. Nothing in part 2 changes: no amendment, no new grid value, no change to the rule, budget or
+ceiling.
+
+**Step 1, checked before any render** (`fit/path/factorial/declaration-check.txt`). Part 2's file
+hashes to `e6874e02…`, and stage 1 is one family (`deep`) whose grids a full factorial may sweep.
+The operator's grid is ABSOLUTE: {0, −0.25, −0.5, −0.75, −1}, with `domainLowerIsMinus` and no
+`domainRelativeTo`. So the ruled deltas "{−0.5, −0.75, −1} × share" include values that are not
+grid values (−0.125, −0.1875, −0.375, −0.5625). Those were not visited. Visited were the grid values
+in [−share, 0] whose fraction of the share lies in the ruled range:
+
+| path | share × delta pairs | other leaves | points (ruled) |
+| --- | --- | --- | --- |
+| c05 | 0.25 × {−0.25}; 0.5 × {−0.25, −0.5}; 0.75 × {−0.5, −0.75} | floor {0.5, 1}, width {2, 3} CSS px, span top {128, 160, 192} | 60 (108) |
+| joint | 0.5 × {−0.25, −0.5} | width {2, 3, 5}, span top {128, 160, 192} | 18 (36) |
+
+G0's region (share 0.5, width 2, delta −0.5 = −share, span top 160) is in both. The ladder's −0.75 at
+share 0.5 lies outside the domain Decision Log 7 item 2 ruled. The other leaves held each path's
+current values: thick/far 0.21, the joint path's floor 1, the 1x width 0. A thick/far coordinate pass
+followed as the procedure's second pass.
+
+**What ran** (`fit/factorial.py`, through the pinned fit and search tools). Every launch went
+through the census (0 refusals), in candidate mode with `--alpha`, on the fit cells only, the
+loader's refusals unchanged:
+- the 78 factorial points and the two thick/far passes;
+- the full fit map on each path's ten best;
+- stage 2 from each new stage-1 point, with the `rc` receded mark (§6) and stage-2 labels marked
+  `s2x`. The base-relative stage-2 labels of §3 named other overrides, and the driver refused the
+  first one, before any render;
+- the full map, X48 and sheets at both final points.
+
+The records are under `fit/path/factorial/`. Every rung is in `fit/path/rungs.txt` after §3's,
+whose 252 lines are unchanged.
+
+**Stage 1.**
+- **The best factorial point on both paths** is share 0.5, width 2, delta −0.25 at span top 128
+  (floor 1): 0.0918, against the coordinate run's 0.1008 (c05) and 0.1091 (joint). G0's region
+  reads 0.1091 on both paths.
+- **The thick/far pass** reads 0.0741 at 0.15. That is inside the stage tie 0.0332 of 0.0918, so
+  the factorial point, with fewer leaves, lands on both paths.
+
+**The factorial's ten best per path, each read by the landing rule on its full 94-cell map**
+(`fit/path/factorial/report.txt`): **all twenty read NEITHER**.
+- **c05 path.** F 0.33–0.58, 15–24 cells away beyond B, 2–16 beyond 3B, C inactive over on eight of
+  ten. G0's region (`c-s1-q0.5-d-0.5-w2-fl1-top160`) reads F 0.3299, 22 away and 10 beyond 3B.
+- **Joint path.** F 0.2455–0.2935 (all halved), no gated group over, 6–22 away beyond B, 3–10
+  beyond 3B. G0's region (`j-s1-d-0.5-w2-top160`) reads F 0.2462, 18 away and 5 beyond 3B.
+- **Closest to the budget.** `j-s1-d-0.25-top192` (share 0.5, width 5, delta −0.25, top 192): F
+  0.2455, 6 away, 3 beyond 3B.
+
+So **the region G0's ladders found does not survive the full gate population**. It brings the two
+`checkerboard-8` cells toward Apple and moves many other cells away.
+
+**Stage 2 from the new stage-1 points.**
+- **Thin start** 0.65 on both paths: 0.2507 at 0.46 … 0.1930 at 0.65 … 0.2642 at 0.95.
+- **Receded component**: thin 0.1, thick/far 0, heavy σ 18, share ×0.5 = 0.25, delta ×0.5 =
+  −0.125. Its objective goes 0.3608 → 0.1984.
+- **Both paths converge on ONE content** (equal overrides; light digests `3741b22934f17f4d` active
+  and `c4ca0e1cd6791bde` receded, dark c05's). Its 188 2x captures are byte-identical across the two
+  separate renders. No stage undid the other. The selection metric is 0.1898 on both, and the tie
+  takes the first lineage, c05.
+
+**The landing rule at the final point** (`fit/path/factorial/joint.json`, `finding.json`):
+
+| | final point (both paths) | c05 |
+| --- | --- | --- |
+| verdict | **NEITHER** | |
+| F aggregate (pooled; half is 0.3231) | **0.2190, halved** | 0.6462 |
+| F rest (bound 0.6819) / F inactive (reported) | 0.2190 / 0.3758 | 0.6334 / 1.2903 |
+| T rest on T1-fine (bound 0.6196) | 0.2365 | 0.5251 |
+| C rest (0.1988) / C inactive (0.9024) | 0.0810 / 0.1829 | 0.1720 / 0.8523 |
+| P rest (0.4592) / P inactive (0.1848) | 0.3902 / 0.1818 | 0.4193 / 0.1393 |
+| every gated group's A within c05's A + τ | **yes** (as at W44's joint point; not at §4's two points) | |
+| partition (unchanged / toward / away) | 18 / 57 / 19 | |
+| away with g > B (at most 3) | **8** | |
+| beyond 3B (none) | **4** | |
+| F cells not within | 8 | 11 |
+
+The budget is the only clause that fails. The cells (g in B):
+- `checkerboard__rrect-md__pressed` 4.27
+- `checkerboard__capsule-button__pressed` 4.25
+- `checkerboard-32__rrect-sm__rest` 4.18
+- `checkerboard-32__rrect-lg__rest` 3.34
+- `checkerboard-64__rrect-sm__rest` 2.22
+- `checkerboard-8__rrect-lg__rest` 1.55
+- `hc-text__rrect-lg__inactive` 1.40
+- `photo__toolbar-group__inactive` 1.02
+
+`finding.json` reads each at every point that rendered it. Three are rarely within B at any
+searched point: `checkerboard__capsule-button__pressed` (10 of 51), `checkerboard-32__rrect-sm__rest`
+(12 of 51) and `checkerboard-64__rrect-sm__rest` (2 of 51). `checkerboard__rrect-md__pressed` is
+within B at 59 of 215.
+
+**The T cells.** None is within on T1-fine. The changes are toward Apple: lg fine 0.0212 against
+native 0.0032 (c05 0.0271); md 0.0374 against 0.0281 (c05 0.0522); sm 0.0928 against 0.1172 (c05
+0.0723). On T1-low the growths are −0.23, −0.26 and −2.33 B.
+
+**The moved leaves** (dark documents unchanged):
+- active light: `sizeScatterFloor2x` 0.6 → 1, `sizeHeavySecondShare` 0 → 0.5,
+  `sizeHeavySecondSigma2x` 0 → 2 CSS px, `sizeHeavySecondShareFar2x` → −0.25, `sizeScatterSpanMax2x`
+  256 → 128, `sizeScatterRampStartThin2x` 0.46 → 0.65;
+- receded light: `sizeScatterRampStartThin2x` 0.7 → 0.1, thick and far 0.04 → 0,
+  `sizeHeavyTapSigma2x` 14 → 18, and the share 0.25 and delta −0.125 named as differences.
+
+**X48** at both final points: 94 of 94 rows and 188 of 188 captures identical to c05
+(`x48-c05-path.json`, `x48-joint-path.json` under `fit/path/factorial/`).
+
+**By eye** (`sheets/sent-continuation.txt`). The pressed checkerboard cells show the brighter
+W45 − Apple difference that their growth reports, and the coarse checker bodies read close to c05.
+
+**The verdict.** Both final points (one content) read NEITHER on the count (8) and the ceiling (4).
+By the ruling's step 5 the worker stopped after step 4: nothing frozen, staged or exposed, no
+document or runtime moved, the holdout and the twelve referees unspent.
+
+**The shape of what is left.**
+- The span-graded tap, searched over the region the ladders pointed at, buys the F aggregate
+  (0.6462 → 0.2190) and every gated aggregate.
+- It costs four cells beyond 3B: two pressed `checkerboard` cells, and two `checkerboard-32` cells
+  at the thin and thick spans.
+- No declared point clears them inside a three-cell, 3B budget. That is the tradeoff Decision Log
+  3 fixed before the rehearsal; the count and the ceiling were not moved.
+
+### 12. Review closure of the continuation (`doperpowers:reviewer-medium` on `eb54342c..5d4252bb`)
+
+Verdict **needs-attention**, on two findings, both accepted.
+
+1. **[P2] `factorial.py stage2` redirected `search.PATH`, which also redirected
+   `search.recovered_points()`** to `path/factorial/recovered.json`, while the pinned `recover.py`
+   writes `path/recovered.json`. So a partial stage-2 render could not have resumed: the chain's
+   retries would have refused it until their limit.
+   - **No effect on the record.** No stage-2 render of the continuation was partial. Its four
+     partial renders were stage-1's, and their decisions read the recovered objectives correctly.
+   - **Fixed.** The stage-2 verb now keeps the lookup at `path/recovered.json` while the stage
+     records go under `path/factorial/`. With the old line the lookup read 0 points, with the fix 8.
+2. **[P3] The c05 factorial is not only the literal ruled set intersected with the grid.**
+   `declaration-check.txt` read "{−0.5, −0.75, −1} × share" as the interval [−1, −0.5] × share, which
+   admits delta −0.5 at share 0.75 (−2/3 of the share). That is 12 points beyond the literal
+   intersection: 48 + 12, against the 60 stated.
+   - **Still inside part 2.** The 12 are on the absolute grid, inside the joint domain and inside
+     the permitted factorial, so they are an extension within part 2.
+   - **Nothing depends on them.** No literal on-grid point was omitted, and the reviewer recomputed
+     the stage-1 decision without the 12: unchanged.
+   - **Recorded beside.** `path/factorial/declaration-check-correction.txt` says so next to the
+     pre-render check, which stays as written.
+
+What the reviewer checked and found sound:
+- the unchanged part-2 hash and every source pin;
+- all 182 new specs against part 2's grids, domains and the joint domain;
+- both stage decisions and both stage-2 search replays, the interactions and the final selection;
+- all twenty best-point rule reports and the 422 rung objectives, with `rungs.txt`'s first 252
+  lines preserved;
+- 198 census-passing `--alpha` launches, no label launched more than four times, and 6,996 new
+  matrix rows confined to the gate population;
+- the four partial objectives recovered correctly;
+- the final points' equal patches and digests, and 188 byte-identical captures;
+- both X48 checks;
+- the final verdict NEITHER (F 0.2189553, 8 beyond B, 4 beyond 3B), and the stop.
+
+The continuation's close checks at `5d4252bb` are in `close-checks-continuation.txt`: freeze 1,818;
+X41 911; 10 of 10 digests; check and check-fit consistent; no diff under the profiles, platform-web
+or renderer-webgpu since `67a82a00`.
+
+
+### 13. Steps 3–6 on the converged point, on the parent's ruling of 2026-10-04: evidence for the user's decision
+
+**The ruling.** Run steps 3–6 on the branch for the converged point, as evidence for a decision that
+is now the user's: ship it as an improvement landing with the eight regressions named under a ruled
+exception to Decision Log 3's budget, or close W45 at the finding. Steps 7 and 8 are not run: the
+twelve referees and the canonical holdout stay unread.
+
+**Step 3, the freeze** (`19503ae2`; `seal/`). The pinned seal froze
+`c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1` over c05's published bytes:
+
+| document | file | resolvedMaterialSha256 | moved from c05 |
+| --- | --- | --- | --- |
+| light active | `ebc3d9105a4a…` | `3741b22934f17f4d` (from `50430fa62c1120bd`) | floor 0.6 → 1; share 0 → 0.5; second width 0 → 2 CSS px; the operator → −0.25 (added); span top 256 → 128; thin start 0.46 → 0.65 |
+| light receded | `12712d534b78…` | `c4ca0e1cd6791bde` (from `5d8680980b7aeb55`) | thin start 0.7 → 0.1; thick and far 0.04 → 0; heavy σ 14 → 18; share 0.25 and the operator −0.125 added as differences |
+
+- **Every other document is unchanged.** The dark pair is unchanged by byte. Exactly the two light
+  0.25 digests moved, and the other eight reproduce (`seal/digests-after-freeze.txt`).
+- **The export pin.** `macos27-profile-export.test.ts`'s leaf-set pin admits exactly the ruled keys
+  (the operator in the active document; the share and the operator in the receded), with the reason,
+  and reads the light pair's frozen candidate as W45's.
+
+**Step 4, the runtime first** (X53; `runtime/`). The 0.25 module was regenerated from the four
+documents and `pnpm -r build` is green. The suites pass: export (31), tier-coherence (70),
+tuned-profiles, material-selection, document-selection, capture-integrity, identity-table,
+operator-identity, color-scheme, materialize and provenance. The 34 goldens pass on the real
+adapter under the census.
+
+**Step 5, the stage** (`stage/`). `stage.py declare` declared 656 cells (both light profiles, both
+tiers, every set). `measure` read 552 of them in eight launches, all exit 0, under the census. Not
+staged: 80 holdout cells and 24 referee cells (`gate/referee-absence.json`: no referee or holdout
+row in the stage). **X48 on the stage**: 276 of 276 1x rows (both tiers) identical but for how they
+were drawn, and 552 of 552 captures byte-identical to c05.
+
+**Step 6, the gate** (`cuts/cut-025-w45.json`, `gate/gate-report.txt`). The stage was cut with the
+dark c05 non-holdout rows against c05. Its T1 reading equals the fit's to the last digit, and the
+landing rule reads **NEITHER**:
+- F 0.2190 (halved; c05 0.6462), and every gated group within c05's A + τ;
+- **8 cells away beyond B (at most 3) and 4 beyond 3B (none allowed)**. They are §11's eight.
+
+| cell | role, state, span, pitch | native | c05 | W45 | g | why the mechanism moves it |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard__rrect-md__pressed` | recorded, pressed, span 96 (mid), 16 CSS px (c = 32 device px) | 0.1501 | 0.1575 | 0.1858 | 4.27 B | farS is 0 at 96, so the tap acts at its full 0.5 share, 2 CSS px wide, on a body that is now all heavy (floor 1): the 32-device-px checker passes, and the pressed body, already over Apple at c05 (×1.05), goes to ×1.24. Its rest twin moves toward Apple |
+| `checkerboard__capsule-button__pressed` | recorded, pressed, thin span, 16 CSS px | 0.1938 | 0.1807 | 0.2358 | 4.25 B | at thin spans the tap acts at full share, and the thin start 0.46 → 0.65 adds sharp structure at the contour band: ×0.93 → ×1.22, over |
+| `checkerboard-32__rrect-sm__rest` | probe, rest, span 32 (thin), 32 CSS px (c = 64) | 0.2161 | 0.1954 | 0.2650 | 4.18 B | a 2-CSS-px tap passes a 64-device-px checker almost whole, at full share on a thin span: ×0.90 → ×1.23, over |
+| `checkerboard-32__rrect-lg__rest` | probe, rest, span 160 (thick), 32 CSS px | 0.1336 | 0.1329 | 0.1566 | 3.34 B | with the span top at 128 the far curve is already 1 at 128, so 160 keeps a tap share of 0.25 that c05's heavy-only body (×0.99, on Apple) did not have: ×1.17 |
+| `checkerboard-64__rrect-sm__rest` | probe, rest, span 32 (thin), 64 CSS px (c = 128) | 0.0680 | 0.0319 | 0.0133 | 2.22 B | the 64 × 32 CSS-px body sits entirely inside one uniform 64-CSS-px square (`scenes.json`), so its SD is the neighbouring squares' light reaching it through the blur, not an edge crossing it. Measured on the stage-2 thin sweep: the stage-1 change (floor 1 with the tap) takes it 0.0319 → 0.0179 at c05's thin start, and the thin start lowers it further, monotonically (0.0156 at 0.55, 0.0133 at 0.65, 0.0068 at 0.95). Floor 0.5 alone reads 0.0294. That less of the neighbours' light reaches the body is an inference; the levers' shares are measured: ×0.47 → ×0.19 |
+| `checkerboard-8__rrect-lg__rest` | probe, rest, span 160, 8 CSS px (c = 16) | 0.0224 | 0.0484 | 0.0581 | 1.55 B | a 4-device-px tap passes the 16-device-px checker at about 0.38, and at 160 it keeps a 0.25 share: ×2.16 → ×2.60, already over |
+| `hc-text__rrect-lg__inactive` | probe, receded, span 160, text | 0.1214 | 0.1113 | 0.1020 | 1.40 B | the receded heavy tap 14 → 18 device px and thick/far 0 smooth the receded body more: ×0.92 → ×0.84, under |
+| `photo__toolbar-group__inactive` | validation, receded, thin, photo | 0.0998 | 0.0778 | 0.0718 | 1.02 B | the same receded smoothing on the photo: ×0.78 → ×0.72, under |
+
+**The T cells** (fidelity and change on T1-fine, away on T1-low). None is within; all move toward
+Apple. Fine: lg 0.0212 against native 0.0032 (c05 0.0271); md 0.0374 against 0.0281 (c05 0.0522); sm
+0.0928 against 0.1172 (c05 0.0723). Low growth: −0.23, −0.26 and −2.33 B. The gate fixture
+(`t1/t-bands-ebc3d9105a4a.gate.json`, G2 part (i), beside the reference's) holds the six gate T
+cells; its three 1x entries read c05's values (X48).
+
+**Every other adopted row against the c05 references** (the cut; WebGPU gated, CSS descriptive):
+- **Tables.** WebGPU pass on all four profiles. CSS: 1x light keeps its one named miss
+  (`checkerboard__rrect-ml__rest` ssim 0.87367 against ≥ 0.9, byte-identical to c05 by X48); 2x
+  light 0 misses; dark pass. **No cell on either tier newly crosses its table bound.**
+- **M1**: passes on both tiers.
+- **M2, WebGPU: FAIL, four failures**, the inactive photo cells moving away from Apple:
+  `photo__capsule-button__inactive` −7.65 %, `photo__rrect-md__inactive` −4.54 %,
+  `photo__rrect-sm__inactive` −15.04 %, `photo__toolbar-group__inactive` −7.68 %. Bound: 2 % against
+  the reference, away from Apple. The four rest photo cells are named misses, moving toward Apple
+  (+3.95 to +7.61 %). CSS (descriptive): five failures.
+- **C1**: passes on WebGPU, unchanged from c05 (no shadow leaf moved). CSS: the two dark span-128
+  misses, as at c05.
+- **L1**: passes on WebGPU (max error 0.0491, max growth +0.0026; four dark inactive cells
+  UNMEASURED, as always). CSS: two growth misses, `checkerboard__rrect-md__inactive` +0.0128 and
+  `photo__toolbar-group__inactive` +0.0068 against 0.005.
+- **X1**: passes on WebGPU (0 of 230). CSS: 152 failing, as at c05.
+- **E2**: 50 of the 2x light WebGPU cells read a larger mean edge error than c05, mean change +0.28
+  codes. The worst are checkerboard cells: `checkerboard-32__rrect-sm__rest` 9.04 → 16.22,
+  `checkerboard-8__capsule-button__rest` 32.45 → 39.02, `checkerboard__capsule-button__rest`
+  21.52 → 27.07 codes. The cut marks E2 gated; the owner test at 0.25 reads E2 and never gates it.
+  CSS: 25.
+- **S1**: UNMEASURED without the holdout (9 rows); pooled ratio 0.9232 (c05 0.8773), read only.
+
+**The CSS tier's T1 residual** (read, never gated). The floor and the span top reach the CSS tier;
+the tap and the operator do not (`optics.ts`'s decline). 1x is c05's by X48. At 2x, 22 of 94 CSS
+cells moved away beyond B, 11 beyond 3B. They are mostly the coarse checkers at the mid and thick
+spans, under Apple as the floor-1 body blurs them, with no tap to restore the structure:
+`checkerboard-64__rrect-ml__rest` 16.0 B, `checkerboard-64__rrect-lg__inactive` 13.7,
+`checkerboard-32__rrect-ml__rest` 13.7, `checkerboard-64__rrect-lg__rest` 10.4. C rest 2x A
+0.3675 → 0.5602; F rest 2x 1.0243 → 1.1930. By eye, the CSS 2x coarse-checker bodies are visibly
+washed out against Apple and c05.
+
+**The owner test's adapters** (`gate/owner/`). `adopted-thresholds.test.ts` ran with the scratch
+union (the stage's 552 light rows in place of c05's, c05's 104 holdout and referee rows kept), the
+new cut and a merged T-band fixture (the reference's 8 entries plus the candidate's 6). **133 of
+152 pass; 19 fail**, each recorded as a failure:
+- **The T1 clause (b) witness (X59), as the ruling asked.**
+  - W44's form: 5 cells away beyond B — the rrect-md pressed cell, `checkerboard-8` lg,
+    `checkerboard-64` sm, and the photo and text inactive cells. The other three are W44's
+    overshoots.
+  - The growth-only form: all 8.
+  - T1 (a): new fidelity misses, e.g. the capsule pressed cell, are not yet in `MISSED_27_ROWS`.
+- **Real misses on the stage**: M2's four failures.
+- **The holdout not yet read** (expected before the exposure):
+  - the gated bed's light counts (52 of 72);
+  - each light table's 26 of 36;
+  - `MISSED_27_ROWS`' 27-row list (175 of 201: the unread holdout, and the misses that closed or
+    opened, which G2 re-derives).
+- **The referees not yet read** (expected before the exposure; the review of steps 3–6, P2):
+  - the X1 cut population, 230 of 242: the twelve withheld referee cells;
+  - E2's, 282 of 288: six of them;
+  - the W43 block's "reads a cut regenerated at this gate from the published generation", which
+    asserts `bed.missingNonHoldout` empty and finds the referee scenes.
+- **The references the cut re-baselined to c05 (X52)**: the L1 and M1/M2 re-derivations still read
+  W43's pre-fit render. Also the L1 union-digest pin (a scratch union is not the published one).
+- **The environment**: X1's capture re-derivations look for the dark profiles' captures in this
+  worktree's tree; the canonical tree is elsewhere.
+- **The adapter itself**: the band fixture holds 14 entries, not 8. G2 updates the assertions for
+  two fixtures.
+
+**The declaration checks after the freeze** (`close-checks-gate.txt`). `declare.py check` and
+`check-fit` now fail on the tool tests they run. The builder, the fit driver and the seal build from
+the LIVE light documents as c05's, and the builder refuses the sealed active document because it
+names the operator's key. With c05's bytes put back temporarily, both read consistent: every pin,
+hash and chain holds (tracker). The freeze reads 1,818, X41 911, and exactly the two light 0.25
+digests moved.
+
+**Also at the gate.** `tier-coherence` passes 70 of 70. The sheets over all 376 T1 cells are on the
+MacBook (`sheets/sent-gate.txt`). The capture tree for G2's copy is this worktree's
+`packages/calibration/web-captures/`.
+
+**Where it stands.** On the stage the converged point:
+- halves the fine stratum's error and holds every gated T1 aggregate;
+- regresses 8 T1 cells past B (4 past 3B);
+- fails M2 on four inactive photo cells;
+- raises the 2x edge error on 50 WebGPU cells;
+- moves the CSS 2x coarse checkers away from Apple.
+
+The user decides between an improvement landing under a ruled budget exception and the close. The
+referees and the holdout are unread.
+
+### 14. Review closure of steps 3–6 (`doperpowers:reviewer-medium` on `c362aef4..e8a6257f`)
+
+Verdict **needs-attention**, on two P2 findings, both accepted and corrected in §13.
+
+1. **The `checkerboard-64__rrect-sm__rest` line named a mechanism the geometry rules out.** It said
+   a checker edge crosses the body. The body lies entirely inside one uniform 64-CSS-px square
+   (`scenes.json`; the checker starts at the canvas origin, `Backgrounds.swift`). The line now
+   gives the uniform-cell geometry and the measured lever shares from the stage-2 thin sweep, and
+   marks the physical pathway as an inference.
+2. **Three owner-test failures were filed under the holdout or the references; they are the
+   withheld referees:**
+   - the X1 population (230 of 242: twelve referee cells);
+   - E2's (282 of 288: six);
+   - the W43 provenance case, which asserts `bed.missingNonHoldout` empty and finds the referee
+     scenes.
+
+   They are expected before the exposure, and the accounting now names what clears each.
+
+What the reviewer checked and found sound:
+- the light patches equal the converged candidate's, the `supersedes` hashes are c05's, and only
+  the two documents moved;
+- the export and coherence suites pass, 101 tests;
+- the 552-row stage holds no referee or holdout row;
+- X48: 276 1x rows and 552 PNG and alpha files equal c05's;
+- the six T-band capture hashes;
+- the stage's T1 rule equals the fit's, and the 8 / 4 budget failures and the CSS 22 / 11 counts
+  reproduce;
+- every table's miss list equals c05's;
+- the M1, M2, C1, L1, X1, E2 and S1 outcomes;
+- the adapter's three substitutions;
+- the explanation of the post-freeze declaration checks.
+
+
+### 15. The parent's two rulings of 2026-10-04 before the user's: the receded photo read through two readers, and the CSS tier's light 0.25 decline
+
+**The receded photo** (`gate/photo-lattice.json`, `.txt`). M2's four receded photo failures are
+the pitch-blind SD reader. On all four inactive photo cells (2x light WebGPU), W44 G1's two band
+readers move toward Apple:
+- the lattice band (σ 1–4 CSS px), which c05 drew ×1.32–1.44 over Apple, reads ×0.78–1.02;
+- T1-fine goes from ×1.23–1.42 to ×0.96–1.03.
+
+T1's SD, which M2 reads and which the photo's low frequencies dominate, goes from ×0.78–0.91 to
+×0.72–0.84, further under. So the smoothing M2 penalises is mostly the lattice W43's eye saw coming
+off; on the toolbar group it slightly overshoots (lattice ×0.78). On the four rest photo cells all
+three readers move toward Apple. **If the user ships, those four are named misses with this reading
+beside them.**
+
+**The CSS tier's decline** (`platform-web/src/optics.ts` `cssTierSourceSize`,
+`CSS_DECLINED_SIZE_GLASS025_LIGHT`; `root.ts` at the CSS host's `size`; `tier-coherence.test.ts`,
+74 of 74).
+- **What it does.** For a document at `glassTintAmount` 0.25 in the light scheme, the CSS tier draws
+  `sizeScatterFloor2x` 0.6 and `sizeScatterSpanMax2x` 256, the values the published c05 generation
+  was read with, which the sealed documents record as `previous`. The WebGPU tier draws 1 and 128.
+  It sits beside the tap's and the operator's declines, with its measurement in the doc comment.
+- **What it leaves alone.** It is keyed on the glass position and the scheme, never a file hash, so
+  the dark 0.25, 0.5 and 26.5 materials are untouched. An app's patch value other than the
+  document's is a tune and reaches the tier; the document's own value is not a tune (the harness
+  hands every shipped patch to the root as the app's patch).
+- **The tests.** The coherence test pins:
+  - the held values against the sealed `entries`;
+  - the identity elsewhere;
+  - the tune rule;
+  - the 2x-only reach.
+
+  `pnpm -r build` is green, and the platform-web files that read the size constants pass: css-tier
+  69, proxy-geometry 49, author-tint-fold 8, w30-css-declaration-identity 7, color-scheme 20.
+
+**The re-read** (`stage/css_hold_reread.py`, the stage tool's own passes and launch, under the
+census, no referee or holdout).
+- **The first re-read (`css-hold/…`) re-drew every row byte-identical.** The first cut of the decline
+  let the harness's patch through as a tune. That makes it a determinism witness only.
+- **After the correction (`css-hold-2/…`)**, 119 of the 2x CSS rows changed, 19 stayed the same, and
+  the 1x CSS rows (138) and captures (276) re-read byte-identical. Every WebGPU row is unchanged.
+
+| 2x light CSS, 94 T1 gate cells, against c05 | without the hold | with it | c05 |
+| --- | --- | --- | --- |
+| away beyond B / beyond 3B | 22 / 11 | **1 / 1** (`checkerboard-32__rrect-sm__rest` 3.34 B, the thin start at a thin span) | — |
+| partition (unchanged / toward / away) | 37 / 27 / 30 | 72 / 19 / 3 | |
+| C rest A | 0.5602 | **0.2722** | 0.3675 |
+| F rest A | 1.1930 | 0.9627 | 1.0243 |
+| P inactive A | 0.3241 | 0.2782 | 0.2642 |
+
+- **The CSS tables are unchanged:** 1x keeps its one named miss, 2x has none, so **no CSS cell is
+  worse than c05 beyond its table bound**.
+- **L1's two CSS growth misses are gone** ("PASS, 4 UNMEASURED").
+- **The other CSS rows:** M2 failures 5 → 3; E2 failing cells 25 → 16; X1 and C1 unchanged.
+- **WebGPU is identical:** the landing rule and every WebGPU row read the same with and without the
+  hold (`gate/gate-report-css-hold.txt`).
+- **The record:** `css-hold/before-after.txt` and `cuts/cut-025-w45-css-hold.json`.
+- **The sheets** on the MacBook predate the hold.
+
+The holdout ledger hashes `optics.ts` among its sources, so the hold lands before read 7 by
+construction.
+
+### 16. Step 7, the exposure, read once, on the user's ruling (charter Decision Log 8, `31169854`)
+
+**The order.** Read 7 was recorded first and committed (`c5d61b66`):
+- the documents `ebc3d9105a4a` / `12712d534b78` with the dark pair;
+- source SHA-256 `68cb7662…`, carrying the CSS tier's light 0.25 decline;
+- the referee manifest `b1132bd0…` as the read's witness.
+
+`stage.py exposure` refuses until the ledger's last COMMITTED record names these documents, sources
+and manifest, so the record precedes the launches.
+
+**The launches.** `stage.py exposure webgpu`, then `css`: per light profile,
+`--set holdout,probe --scene <the planner's exposure list>`, with `--alpha`, under the census, all
+four exit 0. **`matrix status`: 656 declared, 656 present, 0 missing.** **X48 with the holdout:**
+328 of 328 1x rows identical, 656 of 656 captures byte-identical to c05.
+
+**The band fixture.** The candidate's exposed T cells are added: `t1/t-bands-ebc3d9105a4a.json`, 8
+entries, the 6 gate entries equal to the gate file's, and 2 exposed.
+
+**The holdout's tables** (`exposure/holdout-reading.txt`; W43 G3 (ii)'s reader on W45's cuts).
+**Every table reads exactly c05's named misses: none new, none closed.**
+
+| profile and tier | holdout cells | misses (as at c05) |
+| --- | --- | --- |
+| 1x light WebGPU | 10 | `checkerboard__rrect-lg__rest` ssim 0.86409 against ≥ 0.88 |
+| 1x light CSS | 10 | the same cell's ssim 0.86607 against ≥ 0.9; `checkerboard__glass-over-glass__rest` 0.86471 |
+| 2x light WebGPU | 10 | none |
+| 2x light CSS | 10 | `checkerboard__glass-over-glass__rest` ssim 0.91994 against ≥ 0.92 |
+| dark, all four | 3 each | the dark CSS `photo__rrect-lg__rest` ΔE p95 0.206 and 0.201 misses; WebGPU none |
+
+**The twelve referees** (T1; a T cell's fidelity and change on T1-fine, its away on T1-low):
+- **1x, all six unchanged** (X48), so their states are c05's: `checkerboard-32__rrect-lg__inactive`
+  within; the other five misses.
+- **2x, on WebGPU:**
+
+| referee | native | c05 | W45 | state | g |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard-8__rrect-sm__rest` (F) | 0.1876 | 0.1236 | 0.1850 | **within** (from ×0.66), toward | −9.09 B |
+| `checkerboard-32__rrect-lg__inactive` (C) | 0.0837 | 0.1880 | 0.1388 | miss, toward (×2.25 → ×1.66) | −8.38 B |
+| `checkerboard-8__rrect-lg__inactive` (F) | 0.0134 | 0.0435 | 0.0231 | miss, toward (×3.25 → ×1.73) | −3.61 B |
+| `checkerboard-4__rrect-ml__rest` (F) | 0.0244 | 0.0482 | 0.0314 | miss, toward (×1.98 → ×1.29) | −2.73 B |
+| `checkerboard-4__capsule-button__rest-tint-orange` (F) | 0.0421 | 0.0221 | 0.0242 | miss, unchanged | −0.42 B |
+| `hc-text-7__rrect-md__inactive` (T) | fine 0.0034 | 0.0526 | 0.0105 | miss, toward on T1-fine | **T1-low +1.60 B, away** |
+
+- **On CSS:** the 2x `checkerboard-8__rrect-sm__rest` moves toward (−3.64 B); the other eleven are
+  unchanged.
+- **The improvement clause reads "every referee within or an unchanged miss".** One referee is
+  within, one is an unchanged miss, and **three are misses that moved toward Apple**. One T cell
+  moves away on its low band past B.
+
+**The budget over all 116 cells** (`cuts/cut-025-w45-exposure.json`, the rule with the gate,
+referee and holdout partitions): **NEITHER**.
+- F 0.2190 against c05's 0.6334 at this scope: halved.
+- **11 cells away beyond B (at most 3), 5 beyond 3B (none allowed).** These are the gate's eight
+  plus three exposed:
+  - **`checkerboard__rrect-lg__rest`** (holdout, C rest, span 160, 16 CSS px) **3.30 B — past 3B**:
+    n 0.0610, c05 0.0581, W45 0.0851;
+  - `hc-text-7__rrect-md__inactive` (referee) 1.60 B on T1-low;
+  - `checkerboard__glass-over-glass__rest` (holdout) 1.57 B: n 0.1087, c05 0.1164, W45 0.1269.
+- **One gated aggregate turns over with the exposed members: P inactive** A 0.1937 against c05's
+  0.1511 + τ 0.0359 = 0.1870. At the gate it held, 0.1818 against 0.1848. Every other gated group
+  holds.
+
+By Decision Log 3, an exposed cell that takes the count past three, or any cell past 3B at the
+exposure, is a holdout miss. All three exposed cells are therefore **holdout misses: recorded, never
+re-read, and ruled by the parent as shipped-and-named or not shipped before `matrix publish`**. The P
+inactive aggregate turning over is recorded beside them.
+
+**Every other adopted row on the complete stage** reads as at the gate (§13), with the CSS hold
+(§15):
+- M2 WebGPU: four failures, the receded photo cells;
+- E2 WebGPU: 50 cells;
+- M1, C1, L1 and X1 pass on WebGPU;
+- the CSS tier: 1 of the 2x T1 cells away beyond B, as with the hold.
+
+**S1** is now measured: WebGPU pooled median ratio **0.8733**, 14 of 183 wrong sign (c05 0.8773,
+15); CSS 0.8743, 11 of 125 (c05 0.8743, 11). It is a reading only, adopted by no ruling.
+
+The exposure report is `exposure/exposure-report.txt`. Publication (step 8) waits for the parent's
+ruling on the three holdout misses.
+
+**Closure: the parent's ruling of 2026-10-04 (under W44 Decision Log 5 and W45 Decision Log 8).**
+The three exposed cells are **shipped-and-named**, never re-read. The P inactive aggregate failure is
+a **named miss**. The reasons:
+- **The holdout tables** are exactly c05's named misses on every tier, none new and none closed.
+- **`checkerboard__rrect-lg__rest`** (3.30 B) is the rest twin of the gate's named
+  `checkerboard__rrect-md__pressed` mechanism one span up: the 0.25 tap share at 160 passing the
+  32-device-px checker. It is the same named class.
+- **`checkerboard__glass-over-glass__rest`** (1.57 B) is inside the ceiling.
+- **The T referee's +1.60 B on T1-low** sits beside a T1-fine move toward Apple (×15.5 → ×3.1),
+  the two-reader shape W44 Decision Log 7 declared for T.
+- **The P inactive aggregate** (0.1937 against 0.1870) tips on exposed cells that are each
+  `unchanged` (growth +0.33 to +0.40 B) and under Apple. `gate/photo-lattice` shows the receded
+  photo's lattice moving toward Apple: it is the SD reader, named.
+- **The referees:** three moved toward Apple, one is now within, two are unchanged.
+
+**The authorised list for G2:**
+
+1. **Eleven T1 regressions** against `6d18c059eb42`, for `T1_AUTHORISED_REGRESSIONS`:
+
+   | cell | growth | where it was read |
+   | --- | --- | --- |
+   | `checkerboard__rrect-md__pressed` | 4.27 B | §13 |
+   | `checkerboard__capsule-button__pressed` | 4.25 B | §13 |
+   | `checkerboard-32__rrect-sm__rest` | 4.18 B | §13 |
+   | `checkerboard-32__rrect-lg__rest` | 3.34 B | §13 |
+   | `checkerboard__rrect-lg__rest` | 3.30 B | this section, holdout |
+   | `checkerboard-64__rrect-sm__rest` | 2.22 B | §13; the uniform-cell geometry, §14 |
+   | `hc-text-7__rrect-md__inactive` | +1.60 B on T1-low | this section, referee; T1-fine toward Apple |
+   | `checkerboard__glass-over-glass__rest` | 1.57 B | this section, holdout |
+   | `checkerboard-8__rrect-lg__rest` | 1.55 B | §13 |
+   | `hc-text__rrect-lg__inactive` | 1.40 B | §13 |
+   | `photo__toolbar-group__inactive` | 1.02 B | §13; `gate/photo-lattice` |
+
+   Each entry carries Decision Log 8.
+2. **M2's four receded photo cells,** as named misses with `gate/photo-lattice` beside them (§15):
+   `photo__capsule-button__inactive`, `photo__rrect-md__inactive`, `photo__rrect-sm__inactive` and
+   `photo__toolbar-group__inactive`.
+3. **The P inactive T1 aggregate** (0.1937 against 0.1870), a named miss with the same reading.
+
+### 17. Step 8, the publication (`fe4c5301`)
+
+**`matrix publish ~/vitrea-w45/g1-stage-light`**, one act on the complete stage (656 of 656):
+- **The new generation:** `results/generations/ebc3d9105a4a.json`, 656 rows, file SHA-256
+  `6e13171051de77a2236d5545e1cc9ea1d35fd5fe566c6862dedf4b51a8a253f5`, documents `ebc3d9105a4a`
+  (light active, `resolvedMaterialSha256` `3741b22934f17f4d`) and `12712d534b78` (light receded,
+  `c4ca0e1cd6791bde`).
+- **The index.** Its `currentByProfile` now selects `ebc3d9105a4a.json` for
+  `apple-macos-27.0-{1x,2x}-light-standard-glass0.25`, with the `byDocumentSha256` aliases added.
+- **The superseded generation.** **`6d18c059eb42.json` is `retired`**: its file, rows and aliases
+  stay where they are.
+- **What did not move.** The dark generation `d0219cd684bf.json` is untouched and current, and no
+  other index entry moved. The current union is 3,017 rows.
+
+**The whole-bed eye sheets** (`sheets/sent-publication.txt`) cover all 656 light cells, both
+tiers, every set, the holdout and the referees, with the CSS hold. They are on the MacBook. By eye,
+with the hold the CSS 2x coarse-checker bodies read as c05's.
+
+**For G2** (charter G2; clause 9):
+- **The capture tree to copy** is this worktree's `packages/calibration/web-captures/` (the two
+  light profiles' captures as published). The superseded c05 captures move to
+  `web-captures-superseded/6d18c059eb42/`.
+- **The candidate's T-band fixture** is `results/2026-10-03-w45-g1-refit/t1/t-bands-ebc3d9105a4a.json`
+  (8 entries), beside the reference's `results/2026-10-03-w44-g2-landing/t1/t-bands.json`.
+- **The authorised list** is §16's closure: eleven T1 regressions against `6d18c059eb42`, M2's four
+  receded photo cells and the P inactive aggregate.
+- **The new digests:**
+  - light active `3741b22934f17f4d` (file `ebc3d9105a4a`);
+  - light receded `c4ca0e1cd6791bde` (file `12712d534b78`);
+  - the dark pair unchanged (`b074fc6913a91c66`, `280f0fddf014e0f6`).
+- **The runtime.** The regenerated `macos27-glass025-profile.ts` and the CSS hold are already on
+  the branch.
+- **`declare.py check` and `check-fit`** fail after the freeze only on the tool tests that build
+  from the live light documents (§13; tracker).
+
+The freeze reads 1,818 entries and X41 911 at this head.
+
+## 5.207 W45 G2: the landing — the capture tree copied, T1 re-baselined in its five parts with eleven regressions authorised against c05, the 0.25 blocks on a landing cut, and 0.27.0 prepared (2026-10-04)
+
+Evidence directory: `results/2026-10-03-w45-g2-landing/` (`tree/`, `cuts/`, `t1/`, `demo/`,
+`sheets/`, `close/`), on branch `w45-g2-landing` off `w45-g1-refit`'s head `8f836c80`. G1 is not
+on main: its owner test is red by design until this re-baseline, so G1 and G2 merge together.
+Charter `2026-10-03-w45-span-selective-texture.md` v1.4: clause 9, the G2 child, Decision Logs 6
+and 8, X59. It executes the parent's authorised list (§5.206 §16's closure):
+- eleven T1 regressions against `6d18c059eb42`;
+- M2's four receded photo cells, with `gate/photo-lattice` cited;
+- the P inactive T1 aggregate.
+
+### 1. The capture tree (`tree/`)
+
+**Before anything moved**, `witness.py` held G1's tree to the published generation cell by cell.
+For all 656 rows of `generations/ebc3d9105a4a.json` (file sha256 `6e131710…`):
+- the capture's `cell__<renderer>.json` equals the row's `key.web`;
+- the row the compare launch wrote beside the capture (`report.cell__<renderer>.json`) equals the
+  published row in full, `capturedAt` and every metric included;
+- the capture's own report precedes that `capturedAt`.
+
+A document-hash compare cannot tell a re-capture at unmoved bytes apart; this can. The canonical
+light 0.25 profiles were witnessed the same way against c05's `6d18c059eb42.json` (656 rows, 0
+failures) before they moved.
+
+**The two acts**, the only writes outside the worktree:
+- **Moved:** `web-captures/apple-macos-27.0-{1x,2x}-light-standard-glass0.25/` (c05's captures,
+  3,280 files) went to `web-captures-superseded/6d18c059eb42/`, named by the superseded active
+  document as the generation file is.
+- **Copied:** G1's two profile directories (`/Users/new/vitrea-w45/g1/packages/calibration/
+  web-captures/`) went into the canonical tree, 3,280 files, each byte-identical to its source
+  (`witness-copy.json`). After the copy the canonical tree witnesses clean against `ebc3d9105a4a`
+  and the superseded directory against `6d18c059eb42`.
+
+**`check-capture-tree`** on the canonical tree, run from this branch (whose index selects
+`ebc3d9105a4a`):
+
+| | captures | match | superseded | no-row | exit |
+| --- | --- | --- | --- | --- | --- |
+| before (`check-before.txt`) | 3,024 | 2,361 | 656 | 7 | 1 |
+| after (`check-after.txt`) | 3,024 | 3,017 | 0 | 7 | **0** |
+
+The seven no-row captures are the frozen 26.5 ones already recorded.
+
+### 2. The landing cut (`cuts/`)
+
+The owner test's 0.25 blocks read a cut regenerated at the gate that adopts it (claims §5.162 §9),
+never G1's stage cuts. `landing.py` builds it:
+- **The bed** is the four 0.25 profiles' rows of the current union, read through the store, every
+  set (1,124 rows). Each generation file is checked against `index.json`: its SHA-256, `current`,
+  and the union's selection per profile.
+- **The references are selected by hash**: c05 light and `d0219cd684bf` dark, exactly as G1's gate
+  and exposure cuts read them.
+- **c05's captures** are read from a scratch copy of the superseded tree. The cuts refuse a capture
+  root that resolves outside itself, and their `capture()` holds every reference capture to its
+  row as it reads it.
+- **W45's cuts run unchanged but for one named rebinding.** `cuts.declared` leaves the twelve
+  referees out of every population (X49). They were spent at read 7, so the landing counts them as
+  ordinary members of the rows they belong to, as W43's adoption declared those populations. T1's
+  partition labels still come from the manifest.
+
+The cut is `cut-025-w45-landing.json`, sha256 `e5e082a2…`, pinned in the owner test.
+- **Against G1's exposure cut** (`landing.json`, verdict EQUAL): equal on the bed, the reference,
+  the tables, M1, M2, L1, S1 and T1 (T1 differing only in the capture root it names). On C1, X1 and
+  E2 it is equal on every exposure entry and adds exactly the referee cells: C1
+  `checkerboard-4__rrect-ml__rest` on both light profiles and tiers, X1 230 → 242 and E2 282 → 288.
+- **The aggregates that move with those cells:** the light span-128 C1 statistic (WebGPU 1x
+  0.0020786 → 0.0020737; CSS 1x 0.0033740 → 0.0033524, 2x 0.0029409 → 0.0029121), X1's pixel
+  totals (no pixel above zero on WebGPU), and E2's mean change (WebGPU 0.2774 → 0.2764).
+
+**What the cut reads, WebGPU gated and CSS described:**
+- tables: every WebGPU table passes; the CSS 1x light keeps its one named miss;
+- M1: passes (bed medians 0.973 / 0.953 light active / receded, 1.055 / 1.066 dark);
+- M2: four failures, the receded photo cells (§3 (iv)), and four named misses;
+- C1: passes on WebGPU;
+- L1: passes on 140 cells, 136 measured (max error 0.0491, growth max +0.0026 against c05);
+- X1: 0 of 242;
+- E2: 52 of 288 cells read a larger mean edge error than c05's, all 2x light;
+- S1: 0.8733, 14 wrong-sign (CSS 0.8743, 11);
+- T1 and the W45 rule: §3.
+
+The cut's printed header says "a publication stage": that is the sealed admission kind's wording,
+as at W43's landing. The cut was read from the published generation files, as `landing.json`
+records.
+
+### 3. T1, re-baselined in the five parts, in order (charter G2; X59)
+
+**(i) Two fixtures, one per generation** (`4f0584eb`). `T1_BANDS_FILES` pins both by bytes:
+- G1's `t1/t-bands-ebc3d9105a4a.json` (`453b2f5f…`; the gate's six entries plus the two exposed);
+- W44 G2's `t1/t-bands.json` (`09745ed1…`, c05's).
+
+Both are keyed by capture path, which names the generation, so no key can come from both. The
+fixture case holds each fixture to exactly its generation's eight T rows. Where the trees are on
+disk it also checks the PNGs: the current generation's in the canonical tree, c05's in
+`web-captures-superseded/6d18c059eb42/`. Clause (b) looks up the current and the reference T cell
+through the same map.
+
+**(ii)** Nothing more to read: G1 finished the exposed T cells.
+
+**(iii) The witness, with both fixtures present, `T1_REFERENCE` at c05 and
+`T1_AUTHORISED_REGRESSIONS` empty** (`4f0584eb`; `t1/witness-iii.txt`, the TypeScript run
+`t1/witness-iii-owner.txt`). Every 1x cell is unchanged on both forms (116 of 116). On the 2x
+profile clause (b) fails on:
+
+| cell | partition | n | c05 | W45 | g / B | W44 form / growth-only |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard__rrect-md__pressed` | gate | 0.1501 | 0.1575 | 0.1858 | 4.2740 | away / away |
+| `checkerboard__capsule-button__pressed` | gate | 0.1938 | 0.1807 | 0.2358 | 4.2526 | overshoot / away |
+| `checkerboard-32__rrect-sm__rest` | gate | 0.2161 | 0.1954 | 0.2650 | 4.1792 | overshoot / away |
+| `checkerboard-32__rrect-lg__rest` | gate | 0.1336 | 0.1329 | 0.1566 | 3.3379 | overshoot / away |
+| `checkerboard__rrect-lg__rest` | holdout | 0.0610 | 0.0581 | 0.0851 | 3.2994 | overshoot / away |
+| `checkerboard-64__rrect-sm__rest` | gate | 0.0680 | 0.0319 | 0.0133 | 2.2223 | away / away |
+| `hc-text-7__rrect-md__inactive` (T1-low) | referee | 0.0596 | 0.0602 | 0.0491 | 1.5990 | overshoot / away |
+| `checkerboard__glass-over-glass__rest` | holdout | 0.1087 | 0.1164 | 0.1269 | 1.5653 | away / away |
+| `checkerboard-8__rrect-lg__rest` | gate | 0.0224 | 0.0484 | 0.0581 | 1.5497 | away / away |
+| `hc-text__rrect-lg__inactive` | gate | 0.1214 | 0.1113 | 0.1020 | 1.3983 | away / away |
+| `photo__toolbar-group__inactive` | gate | 0.0998 | 0.0778 | 0.0718 | 1.0161 | away / away |
+
+- **Growth-only form: 11 cells away beyond B, 5 beyond 3B.** These are exactly the authorised
+  eleven at their ruled growths. W44's form trips on six of them, the other five being its
+  `overshoot`.
+- **The 2x partition against c05:** W44 away 16 / overshoot 10 / toward 63 / unchanged 27;
+  growth-only away 22 / toward 67 / unchanged 27.
+- **Two independent readings agree.** The Python referee (`t1/derive.py`: W44 G1's `t1.py`, W45's
+  `rule.py`) and the owner test's port read the same eleven and six, to four decimals. The landing
+  cut's own rule over all 116 cells reads the same eleven, and one gated aggregate failure: P
+  inactive, A 0.1937 against c05's A + τ = 0.1511 + 0.0359 = 0.18706.
+
+**(iv) The list, the aggregate and the misses** (`38542e33`):
+- **`T1_AUTHORISED_REGRESSIONS`** holds the eleven 2x cells against `6d18c059eb42` / `4d5f23d9d312`,
+  each at its growth to two decimals, under "W45 Decision Log 8 and the parent's exposure ruling,
+  §5.206 §16". Both clause (b) forms pass with it.
+- **A standing witness case** reads every reference the list names on the CURRENT union. The
+  growth-only form must trip on exactly the listed cells, at their listed growth. So the list cannot
+  outlive the generation it witnesses: the next publication moves these rows, the case fails, and
+  that landing must clear the list or re-rule it.
+- **A cross-check** holds the landing cut's rule to the same eleven. It names the P inactive
+  aggregate in `T1_NAMED_AGGREGATE_MISSES` (A 0.1937, bound 0.1871, with `gate/photo-lattice.txt`
+  as the reading).
+- **`MISSED_27_ROWS`' T1 entries are re-derived** by `t1/derive.py` at `ebc3d9105a4a`, both
+  directions: **157 of 232** (W44's 169). Twenty-three 2x entries left:
+  - four F cells: `checkerboard-4` lg rest and md inactive, `checkerboard-8` md and sm rest (the
+    last a referee);
+  - nineteen coarse checker, text and impulse cells.
+
+  Eleven entered: the seven authorised coarse and text cells, and four receded photo cells now
+  under Apple (`photo__capsule-button__inactive` and its two tints, `photo__rrect-sm__inactive`).
+- **M2 at 0.25 reads c05** (`GLASS025_REFERENCE`). W43's seventeen named misses, against the pre-fit
+  render, retire; their readings stay in §5.201 §6.
+  - Against c05 the 2x rest photo cells are four named misses, moving toward Apple: capsule
+    +6.63 %, rrect-md +3.95 %, rrect-sm +7.61 %, toolbar group +5.14 %.
+  - The four receded photo cells are FAILURES, which no entry excuses under W42 Decision Log 5a's
+    form: capsule −7.65 %, rrect-md −4.54 %, rrect-sm −15.04 %, toolbar group −7.68 %. Decision
+    Log 8 named them, so `GLASS025_M2_RULED_FAILURES` lists them by name. The M2 case requires the
+    failures to equal that list exactly, and the `MISSED_27_ROWS` owner derives them beside the
+    named misses with Apple's reading.
+- **One table reading moved:** the CSS 2x light glass-over-glass holdout row, 0.91996 → 0.91994
+  (§5.206 §16's table). It is still missed, with its bound unchanged.
+
+**(v) The reference, moved last** (`8797b2ff`): `T1_REFERENCE` = `ebc3d9105a4a` / `12712d534b78`.
+Against it every cell of both profiles is unchanged on both forms (116 and 116). The eleven stay
+witnessed against c05 by the standing case.
+
+### 4. The rest of the owner test
+
+- **The 0.25 blocks read the landing cut**, pinned by sha256. The W43 provenance case now asserts:
+  - the cut's bed is every published 0.25 row (`withHoldout` true, 1,124 rows);
+  - its references are the generation files `GLASS025_REFERENCE` names, at the index's file hashes
+    and their documents' hashes.
+- **L1 at 0.25 reads its growth against c05**, with the 0.055 and 0.005 bounds unmoved. M1/M2's
+  re-derivation reads its reference rows by hash. W43's pre-fit loader and its `gunzip` import are
+  gone, since nothing reads that render now.
+- **C1 and E2's comments** state the reference they now read and what moved.
+- **The header's MATERIAL-axis argument** gains W45 G2's amendment (`577db632`).
+- **`PREDICATE_EXCLUDES`** is unchanged and at the machine's output; no conditioning reading moved.
+- **The pass line:** `adopted-thresholds.test.ts` reads **154 of 154** with `VITREA_WEB_CAPTURES` at
+  the canonical tree (`t1/owner-part-v.txt`), and 151 plus 3 UNMEASURED skips without one (X1's two
+  pixel cases and the band PNGs).
+
+### 5. The named T1 misses at the landing (web / native over the named misses)
+
+| profile | stratum | named / members | ratio range | median | at W44 G2 (§5.204) |
+| --- | --- | --- | --- | --- | --- |
+| 1x light 0.25 | F | 13 / 15 | ×0.34–×2.72 | ×0.84 | unchanged (X48) |
+| 1x light 0.25 | T (T1-fine) | 4 / 4 | ×0.66–×3.98 | ×2.37 | unchanged |
+| 1x light 0.25 | C | 35 / 69 | ×0.25–×4.77 | ×1.28 | unchanged |
+| 1x light 0.25 | P | 27 / 28 | ×0.58–×1.46 | ×0.72 | unchanged |
+| 2x light 0.25 | F | **11 / 15** | ×0.55–×2.60 | ×1.25 | 15 / 15, ×0.46–×5.29 |
+| 2x light 0.25 | T (T1-fine) | 4 / 4 | ×0.79–×6.66 | ×2.23 | ×0.62–×15.61 |
+| 2x light 0.25 | C | **37 / 69** | ×0.19–×2.84 | ×1.20 | 49 / 69, ×0.47–×4.21 |
+| 2x light 0.25 | P | 26 / 28 | ×0.52–×1.46 | ×0.75 | 22 / 28 |
+
+- **By partition:** 1x gate 62, holdout 12, referee 5; 2x gate 63, holdout 10, referee 5.
+- **By set:** probe 64, calibration 38, holdout 22, validation 17, recorded 16.
+
+The 2x F misses take two shapes. The 8-px checker at thick spans still passes more than Apple's
+(×1.73–×2.60). The thin fine cells draw less than Apple's (×0.55–×0.84), which is Decision Log 5's
+thin-span trade.
+
+### 6. The runtime, verified on this branch's bytes
+
+- **The generated module.** `macos27-glass025-profile.ts` equals the published documents:
+  `macos27-profile-export.test.ts` passes in the unit run (§10).
+- **The ten shipped digests** (`close/digests.ts` on the built packages; `digests.txt`). Each
+  live fingerprint equals the document's recorded field and the runtime's shipped endpoint:
+  - eight unchanged: the four 0.5, the two 26.5, and the 0.25 dark pair `b074fc6913a91c66` /
+    `280f0fddf014e0f6`;
+  - the light 0.25 pair at G1's sealed `3741b22934f17f4d` / `c4ca0e1cd6791bde`.
+- **The suites.** `tier-coherence` (the CSS hold's cases), `w31-identity-table` and
+  `w30-operator-identity` pass in the unit run, and the 34 goldens on the real adapter (§10).
+- **G2 changes no rendered byte.** Its one runtime edit is a comment in `optics.ts` (§11). Its one
+  other test edit is `matrix-store.test.ts`'s generation pin (§10).
+
+### 7. The demo
+
+- **The reduction** the build embeds (`demo/reduction.ts`) shows 587 cells: 205 at 26.5, 206 at
+  0.5 and 176 at 0.25. `MATRIX_CELL_COUNT` is 3,017, and the module is sha256 `95ea0403…` (841,262
+  bytes). W43's module, `15392e6d…`, carried c05's 0.25 rows. The counts are unchanged and the 0.25
+  rows are W45's. The figures the site prints read the 1x profile (`calibration.ts`'s
+  `PRIMARY_PROFILE_KEY`), which W45 left byte-identical, so every printed 0.25 value is c05's
+  value under W45's document names.
+- **The harness fixture.** The 0.25 cell (1x light `checkerboard__capsule-button__rest`, WebGPU) is
+  re-copied from the canonical tree and names `ebc3d9105a4a` / `12712d534b78` (`64eefdc5…`). Its png
+  is byte-identical to c05's (X48), so `4adba9e6…` stays. The 0.5 pair equals the canonical tree's.
+  The GPU spec's provenance case holds each committed cell to the documents on disk, so the old
+  cell (naming `6d18c059eb42`) could not have passed it after G1's seal.
+- **The tests.** Demo unit tests pass 123 of 123; the e2e is in §10. The playground's API is
+  unchanged.
+- **Not done: the demo at 0.25 beside the harness capture on a fine checker.** The site's scenes
+  leave out the probe set, so it offers no fine-checker scene. Its reference pair is held to the
+  harness at 1x, where W45 moved no pixel. A Retina visitor at `?glass=0.25` draws W45's material,
+  but nothing compares that drawing with the harness. The eye sheets (§8) put W45's 2x fine
+  checkers beside Apple's. The tracker carries the gap ("The demo cannot show what W45 changed").
+
+### 8. The eye sheets (`sheets/`)
+
+`landing_sheets.py` runs W45 G0's `sheets.py` unchanged over the whole light bed: 656 cells, 52
+pages. Each row is native | c05 | W45 | the three differences. W45's captures come from the
+canonical tree and c05's from the superseded directory, and every one of the 1,312 captures was
+asserted against its row before a pixel was read. The zip, `w45-g2-landing-whole-sheets.zip`
+(51,970,481 bytes, sha256 `e40e2d04…`), went to the MacBook by Taildrop, exit 0.
+
+By eye, 2x WebGPU:
+- `checkerboard-8__rrect-md__rest` carries more of Apple's 16-device-px checker than c05 did;
+- `checkerboard-4__rrect-md__rest` is softer than c05's crisp checker, toward Apple's faint one;
+- `checkerboard-8__rrect-lg__rest` still shows a checker where Apple's body is nearly uniform;
+- the pressed rrect-md squares read brighter-contrast than Apple's;
+- `checkerboard-32__rrect-sm__rest` draws its two squares crisper than Apple's;
+- the CSS 2x coarse checkers read as c05's.
+
+### 9. Docs and the changeset
+
+- **CLAUDE.md** gains the W45 paragraph after W44's, and a line beside W30's spanning set naming
+  `sizeHeavySecondShareFar2x`.
+- **The READMEs:** renderer-webgpu gains the operator and a table of the spanning set per shipped
+  document; platform-web and react carry the 0.27.0 light 0.25 digests and the CSS hold.
+- **The charters:** W44's and W45's status lines and Tracking Maps record G2.
+- **The tracker:**
+  - the W43 2x fine-checker entry is narrowed again, to its two remaining shapes;
+  - the lc16, plateau and live-document entries are read at the landing;
+  - four new entries: the eleven regressions' shapes, the CSS hold's one-cell residual, M2's
+    pitch-blind reading of the receded photo, and the demo's 1x-only pair.
+- **`.changeset/w45-span-graded-tap.md`**, a `@vitreajs/vitrea-web` minor (the fixed group moves
+  all three to 0.27.0). It names the operator (0 in every document but the light 0.25 pair), the
+  moved leaves per document, the CSS hold, the gains and every exception. No version is bumped:
+  `pnpm changeset version` and `pnpm release` are the user's.
+
+### 10. The c9d chain (`close/`)
+
+`close/chain.sh` is the 0.25.0 chain (`results/2026-09-29-release-0.25.0/`) with X41, the ten
+digests and W45's two declaration checks added. Each browser launch went under W45's GPU lock and
+classifying census, five census lines all passing, and each suite's port was checked free first.
+
+**The first run** (`close/chain-run-1/`, kept whole) halted at `units`. `matrix-store.test.ts` still
+pinned W43's glass 0.25 generations by file, and found no current row naming c05. The case now pins
+`ebc3d9105a4a` and asserts that the retired c05 names no row of the union (`3e8fb19e`). Every
+step before the halt was green.
+
+**The second run, from the first step**, at `e1e2fa02` (`close/close-checks.txt`, one log per step):
+
+| step | exit | reading |
+| --- | --- | --- |
+| freeze (open / close) | 0 / 0 | 26.5 freeze intact: 1,818 entries |
+| X41 (open / close) | 0 / 0 | intact: 911 entries |
+| `check-capture-tree` (open / close) | 0 / 0 | 3,024 captures, 3,017 match, 0 mismatch, 7 no-row |
+| `pnpm -r build` | 0 | |
+| ten digests | 0 | all ten at their expected values |
+| `pnpm -r lint`, root `eslint .` | 0, 0 | |
+| `pnpm -r test` (tree at the canonical path) | 0 | policy 23, motion 164, geometry 170, renderer-webgpu 658, core 304, platform-web 656, react 180, calibration 922, demo 123 |
+| goldens (`test:golden`, real adapter) | 0 | 34 passed |
+| renderer `test:gpu` | 0 | 51 passed |
+| platform-web Playwright (four projects) | 0 | 411 passed |
+| react Playwright (three engines) | 0 | 174 passed, 3 skipped |
+| demo Playwright | 0 | 89 passed, the reference panel at both positions included |
+| `declare.py check` | 1 | `test_build_candidate` fails (6) |
+| `declare.py check-fit` | 1 | `test_fit` and `test_seal` fail |
+
+**Which declaration check reads what** (`close/declaration-witness.sh`; G1's witness repeated).
+- `check` verifies part 1's pins, hash and amendment chain, and runs `test_build_candidate`.
+- `check-fit` verifies part 2's validated diff and both amendments, and runs `test_fit` and
+  `test_seal`.
+- Those tool tests start from the live light 0.25 documents, taken to be c05's. With c05's bytes
+  put back temporarily, both checks exit 0 ("consistent"). The sealed bytes were restored and
+  verified (`ebc3d9105a4a` / `12712d534b78`), with nothing committed in between.
+
+Every pin, hash and chain therefore holds. The two failures are the tracker's W45 live-document
+entry, which now holds on main.
+
+### 11. Review closure (`doperpowers:reviewer-medium`)
+
+The review covered the owner test (`8f836c80..577db632`) and G1's runtime changes since main
+(`optics.ts`, `root.ts`, the generated 0.25 module, the export and coherence tests). Verdict
+**correct**, two P3 findings, both accepted and fixed (`2024c109`):
+1. **`optics.ts`'s W45 note** still said the span top reaches the CSS tier and that a document
+   moving it moves this tier's rows by it alone. For the light 0.25 documents the hold stops
+   that, and the note now names the exception.
+2. **The clause (b) red-case comment** still said it ran "while the live list is empty".
+
+Comment-only. The `optics.ts` edit moves the cross-gate holdout ledger's source digest against
+read 7's (`68cb7662…`); that matters only to a later read at these documents.
+
+The reviewer independently recomputed and confirmed:
+- the 232 T1 cells, 157 misses, eleven regressions and five beyond 3B, from the generation files
+  and both fixtures;
+- `landing.py`'s comparison, in memory;
+- the cut's pin, the exception mechanism, the witness case and the fixtures' identities;
+- the M2 ruled-failure path in both directions, and the c05 references;
+- the CSS hold's tune rule and its scope: light 0.25 only, the dark scheme returning first, and
+  the receded patch naming neither held leaf;
+- the three suites, 259 tests, with the capture tree.
+
+### 12. What is not claimed
+
+- **T1 does not certify the body.** 157 of 232 cells miss and are named. The eleven authorised
+  regressions are a ruled tradeoff, not a measurement that they are invisible.
+- **The demo's 2x drawing is not compared with anything** (§7).
+- **No browser render was taken for the landing** except the chain's suites (§10). No referee or
+  holdout cell was rendered: their rows and captures are G1's, read once at read 7.
+- **The declaration checks verify pins, hashes and chains.** They do not verify the tool tests
+  that build from the live documents (§10; tracker).
+
+### 13. For the release and W45's close
+
+- **Merge G1 and G2 together:** G1's head `8f836c80`, then this branch. Run the freeze (1,818), X41
+  (911) and `check-capture-tree` (exit 0) on main after the merge. The canonical tree already holds
+  `ebc3d9105a4a`'s captures and needs no further copy.
+- **The changeset makes 0.27.0.** Run `pnpm changeset version`, commit, then `pnpm release` (the
+  user's, npm 2FA), and tag `v0.27.0`.
+- **W45's close** carries forward:
+  - the per-span tap width (Deferred);
+  - the thin-span pitch trade (Decision Log 5);
+  - the eleven regressions (the next publication must clear or re-rule them);
+  - an M2 on a declared band;
+  - the demo's 2x pair;
+  - the tools' live-document starting point.
+
+  The 0.25 holdout and W44's twelve referees are spent for these document bytes.

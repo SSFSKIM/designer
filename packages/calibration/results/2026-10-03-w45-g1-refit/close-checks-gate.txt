@@ -1,0 +1,23 @@
+W45 G1 gate close checks at ae0e0c792 + the ledger wording fix (2026-10-03T12:57:04Z), each gated on its own exit code
+freeze.py verify: exit 0 — 26.5 freeze intact: 1818 entries
+x41.ts verify: exit 0 — X41 0.5 generation intact: 911 entries
+operator/digests.ts: exit 1 — 8 of 10 documents reproduce their recorded digest [MOVED: 2 — apple-macos-27.0-1x-light-standard-glass0.25-receded.json apple-macos-27.0-1x-light-standard-glass0.25.json ]
+declare.py check: exit 1 — check: 1 mismatch(es)
+declare.py check-fit: exit 1 — check-fit: 2 mismatch(es)
+
+Why check and check-fit read 1 and 2 mismatches after the freeze, and only those:
+- check: "tools: fit/test_build_candidate does not pass (failures=6)";
+- check-fit: "amendment 2: the fit driver's tests do not pass" and "the seal's tests do not pass".
+W45's builder, fit driver and seal start every candidate from the LIVE light 0.25 documents, taken
+to be c05's. After the freeze those files are W45's sealed documents, and the active one names the
+operator's key beyond its twin's leaves, so the builder refuses ("the 0.25 document does not name
+exactly its 0.5 twin's leaves (X44)") and the tests that build from c05 fail. Part 1 reads its two
+pinned light documents at c152b89b (`partOneReadAt`, part 2's first amendment), but the tool tests
+the two checks RUN read the live files.
+
+The witness: with the two light documents temporarily replaced by c05's bytes
+(`git show 67a82a00:<path>`) in this worktree, `declare.py check` exits 0 ("check: consistent") and
+`check-fit` exits 0 ("check-fit: consistent"). The sealed bytes were then restored (`git checkout`;
+the active file hashes to ebc3d9105a4a again), and nothing was committed in between. Every pin,
+hash and chain therefore holds, and the failures are exactly the pre-freeze tools' dependence on
+the shipped documents being c05's (tracker; claims §5.206 §13).

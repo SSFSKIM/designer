@@ -1,0 +1,17 @@
+{
+  "label": "c-s2-t0.75-rct0.3",
+  "note": "",
+  "stage": "stage2",
+  "family": "receded",
+  "start": "c05",
+  "overrides": {
+    "active.light": {
+      "sizeHeavySecondSigma": 0,
+      "sizeScatterFloor2x": 0.5,
+      "sizeScatterRampStartThin2x": 0.75
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.3
+    }
+  }
+}

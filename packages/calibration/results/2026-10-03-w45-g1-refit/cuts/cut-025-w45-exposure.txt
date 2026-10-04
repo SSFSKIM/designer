@@ -1,0 +1,362 @@
+# SEALED: the four -glass0.25 documents in a publication stage, strict shipped mode at (macOS 27.0, glass 0.25): apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a, apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78, apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf, apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a
+# owner test packages/calibration/test/adopted-thresholds.test.ts sha256:d74a468cdcde; THE EXPOSURE: holdout and referees read
+# reference (M2, L1, E2, T1's change; X52): published generation 6d18c059eb42+d0219cd684bf (recorded rows; renders nothing)
+
+verdicts
+  tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-1x-light-standard-glass0.25 css          MISS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu       PASS
+  tables apple-macos-27.0-2x-light-standard-glass0.25 css          PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-1x-dark-standard-glass0.25 css           PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu        PASS
+  tables apple-macos-27.0-2x-dark-standard-glass0.25 css           PASS
+  M1 webgpu (GATED)                                                PASS
+  M1 css (descriptive)                                             PASS
+  M2 webgpu (GATED)                                                FAIL
+  M2 css (descriptive)                                             FAIL
+  C1 webgpu (GATED)                                                PASS
+  C1 css (descriptive)                                             MISS
+  L1 webgpu (GATED)                                                PASS, 4 UNMEASURED
+  L1 css (descriptive)                                             PASS, 4 UNMEASURED
+  X1 webgpu (GATED)                                                PASS
+  X1 css (descriptive)                                             MISS
+  E2 webgpu (GATED)                                                MISS
+  E2 css (descriptive)                                             MISS
+  S1 webgpu (GATED)                                                MISS
+  S1 css (GATED)                                                   MISS
+  T1 webgpu (GATED)                                                NEITHER: closes at the finding
+  T1 css (descriptive)                                             read (tier residual)
+  W45 rule (T1, 2x light WebGPU)                                   NEITHER: closes at the finding
+
+tables (the 0.5 tables per tier; misses listed)
+  apple-macos-27.0-1x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_LIGHT (= TEXTURE_TIER_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-1x-light-standard-glass0.25 css: DOM_TIER_27_LIGHT (= DOM_TIER_LIGHT), 26 cells, 3 predicate-excluded, 1 misses
+    calibration checkerboard__rrect-ml__rest                     ssimMean             0.87367 vs ≥ 0.9
+  apple-macos-27.0-2x-light-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_LIGHT (= TEXTURE_TIER_2X_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-light-standard-glass0.25 css: DOM_TIER_27_2X_LIGHT (= DOM_TIER_2X_LIGHT), 26 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-1x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_DARK (= TEXTURE_TIER_DARK), 10 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-1x-dark-standard-glass0.25 css: DOM_TIER_27_DARK (= DOM_TIER_DARK), 10 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-dark-standard-glass0.25 webgpu: TEXTURE_TIER_27_2X_DARK (= TEXTURE_TIER_2X_DARK), 10 cells, 3 predicate-excluded, 0 misses
+  apple-macos-27.0-2x-dark-standard-glass0.25 css: DOM_TIER_27_2X_DARK (= DOM_TIER_2X_DARK), 10 cells, 3 predicate-excluded, 0 misses
+
+M1 webgpu (GATED)
+  light|active     n=10  median R 0.9734  min 0.8496  max 1.2659
+  light|inactive   n=8   median R 0.9531  min 0.8577  max 1.3022
+  dark|active      n=4   median R 1.0546  min 0.8348  max 1.2037
+  dark|inactive    n=4   median R 1.0662  min 0.9659  max 1.2041
+M2 webgpu (GATED): 8 misses, 4 named, 4 failures, worst |Δsd| 15.035%
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__inactive         r 0.05020 w 0.04636 n 0.05498 (-7.65%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest             r 0.04097 w 0.04368 n 0.06737 (+6.63%)
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__inactive               r 0.06383 w 0.06093 n 0.07421 (-4.54%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest                   r 0.05668 w 0.05892 n 0.08935 (+3.95%)
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__inactive               r 0.01962 w 0.01667 n 0.02246 (-15.04%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__rest                   r 0.02062 w 0.02218 n 0.03918 (+7.61%)
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__toolbar-group__inactive          r 0.07780 w 0.07183 n 0.09980 (-7.68%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__toolbar-group__rest              r 0.07505 w 0.07892 n 0.10760 (+5.14%)
+
+M1 css (descriptive)
+  light|active     n=10  median R 1.1833  min 1.0537  max 1.3445
+  light|inactive   n=8   median R 1.1233  min 1.0039  max 1.3464
+  dark|active      n=4   median R 1.0260  min 1.0047  max 1.0924
+  dark|inactive    n=4   median R 1.0819  min 1.0098  max 1.0928
+M2 css (descriptive): 5 misses, 2 named, 3 failures, worst |Δsd| 18.819%
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__inactive         r 0.05058 w 0.04885 n 0.05498 (-3.40%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest             r 0.04216 w 0.04336 n 0.06737 (+2.85%)
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__inactive               r 0.02301 w 0.01868 n 0.02246 (-18.82%)
+  named    apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__rest                   r 0.01728 w 0.01960 n 0.03918 (+13.45%)
+  failure  apple-macos-27.0-2x-light-standard-glass0.25/photo__toolbar-group__inactive          r 0.07526 w 0.07350 n 0.09980 (-2.34%)
+
+C1 webgpu (GATED): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=10  0.00058   PASS       c05 0.00058  shipped0.5 0.00058
+  1x light span 128      n=6   0.00208   PASS       c05 0.00208  shipped0.5 0.00208
+  1x light span 160      n=8   0.00036   PASS       c05 0.00036  shipped0.5 0.00025
+  2x light span 96       n=10  0.00067   PASS       c05 0.00067  shipped0.5 0.00067
+  2x light span 128      n=6   0.00212   PASS       c05 0.00212  shipped0.5 0.00212
+  2x light span 160      n=8   0.00064   PASS       c05 0.00064  shipped0.5 0.00064
+  1x dark span 96        n=9   0.00126   PASS       c05 0.00126  shipped0.5 0.00126
+  1x dark span 128       n=5   0.00350   PASS       c05 0.00350  shipped0.5 0.00350
+  1x dark span 160       n=8   0.00116   PASS       c05 0.00116  shipped0.5 0.00116
+  2x dark span 96        n=9   0.00124   PASS       c05 0.00124  shipped0.5 0.00124
+  2x dark span 128       n=5   0.00382   PASS       c05 0.00382  shipped0.5 0.00382
+  2x dark span 160       n=8   0.00107   PASS       c05 0.00107  shipped0.5 0.00107
+
+C1 css (descriptive): upper middle per bed x span, bound 0.0042
+  1x light span 96       n=10  0.00139   PASS       c05 0.00139  shipped0.5 0.00139
+  1x light span 128      n=6   0.00337   PASS       c05 0.00337  shipped0.5 0.00337
+  1x light span 160      n=8   0.00133   PASS       c05 0.00133  shipped0.5 0.00125
+  2x light span 96       n=10  0.00131   PASS       c05 0.00131  shipped0.5 0.00295
+  2x light span 128      n=6   0.00294   PASS       c05 0.00294  shipped0.5 0.00504
+  2x light span 160      n=8   0.00089   PASS       c05 0.00089  shipped0.5 —
+  1x dark span 96        n=9   0.00196   PASS       c05 0.00196  shipped0.5 0.00196
+  1x dark span 128       n=5   0.00543   MISS       c05 0.00543  shipped0.5 0.00543
+  1x dark span 160       n=8   0.00199   PASS       c05 0.00199  shipped0.5 0.00199
+  2x dark span 96        n=9   0.00220   PASS       c05 0.00220  shipped0.5 0.00435
+  2x dark span 128       n=5   0.00543   MISS       c05 0.00543  shipped0.5 —
+  2x dark span 160       n=8   0.00233   PASS       c05 0.00233  shipped0.5 —
+
+L1 webgpu (GATED): 140 cells, 136 measured, max error 0.0491, max growth +0.0026; 0 absolute, 0 growth misses
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+
+L1 css (descriptive): 140 cells, 136 measured, max error 0.0475, max growth +0.0033; 0 absolute, 0 growth misses
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive
+  UNMEASURED apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive
+
+X1 webgpu (GATED): 230 cells, totals {'integer': {'pixels': 13629818, 'aboveZero': 0, 'aboveOne': 0}, 'analytic': {'pixels': 13532242, 'aboveZero': 0, 'aboveOne': 0}}, 0 failing
+
+X1 css (descriptive): 230 cells, totals {'integer': {'pixels': 13629818, 'aboveZero': 21730, 'aboveOne': 21726}, 'analytic': {'pixels': 13532242, 'aboveZero': 0, 'aboveOne': 0}}, 152 failing
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest    integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest          integer {'pixels': 9158, 'aboveZero': 168, 'aboveOne': 168} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest          integer {'pixels': 24062, 'aboveZero': 100, 'aboveOne': 100} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-ml__rest          integer {'pixels': 17310, 'aboveZero': 142, 'aboveOne': 142} analytic {'pixels': 16954, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-sm__rest          integer {'pixels': 30878, 'aboveZero': 38, 'aboveOne': 38} analytic {'pixels': 30778, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest     integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-lg__rest           integer {'pixels': 9158, 'aboveZero': 172, 'aboveOne': 172} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest           integer {'pixels': 24062, 'aboveZero': 104, 'aboveOne': 104} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-ml__rest           integer {'pixels': 17310, 'aboveZero': 136, 'aboveOne': 136} analytic {'pixels': 16954, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-sm__rest           integer {'pixels': 30878, 'aboveZero': 40, 'aboveOne': 40} analytic {'pixels': 30778, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange integer {'pixels': 31124, 'aboveZero': 44, 'aboveOne': 44} analytic {'pixels': 30916, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__capsule-button__rest    integer {'pixels': 31124, 'aboveZero': 44, 'aboveOne': 44} analytic {'pixels': 30916, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest          integer {'pixels': 10508, 'aboveZero': 148, 'aboveOne': 148} analytic {'pixels': 10004, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__rest          integer {'pixels': 25344, 'aboveZero': 128, 'aboveOne': 128} analytic {'pixels': 25088, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-ml__rest          integer {'pixels': 19132, 'aboveZero': 90, 'aboveOne': 90} analytic {'pixels': 18804, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-sm__rest          integer {'pixels': 33724, 'aboveZero': 26, 'aboveOne': 26} analytic {'pixels': 33652, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__capsule-button__rest     integer {'pixels': 29194, 'aboveZero': 55, 'aboveOne': 55} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__rest           integer {'pixels': 9158, 'aboveZero': 170, 'aboveOne': 170} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest           integer {'pixels': 24062, 'aboveZero': 106, 'aboveOne': 106} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-ml__rest           integer {'pixels': 17310, 'aboveZero': 134, 'aboveOne': 134} analytic {'pixels': 16954, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-sm__rest           integer {'pixels': 30878, 'aboveZero': 38, 'aboveOne': 38} analytic {'pixels': 30778, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest       integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest             integer {'pixels': 24062, 'aboveZero': 98, 'aboveOne': 98} analytic {'pixels': 23802, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest               integer {'pixels': 1848, 'aboveZero': 165, 'aboveOne': 165} analytic {'pixels': 1591, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-md__rest               integer {'pixels': 9960, 'aboveZero': 93, 'aboveOne': 93} analytic {'pixels': 9815, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-sm__rest               integer {'pixels': 14232, 'aboveZero': 12, 'aboveOne': 12} analytic {'pixels': 14208, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-md__rest                integer {'pixels': 9966, 'aboveZero': 12, 'aboveOne': 12} analytic {'pixels': 9906, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-sm__rest                integer {'pixels': 15120, 'aboveZero': 64, 'aboveOne': 64} analytic {'pixels': 14966, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/hc-text__rrect-sm__rest                  integer {'pixels': 15516, 'aboveZero': 68, 'aboveOne': 68} analytic {'pixels': 15416, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest            integer {'pixels': 58164, 'aboveZero': 108, 'aboveOne': 108} analytic {'pixels': 57828, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest                  integer {'pixels': 18316, 'aboveZero': 340, 'aboveOne': 340} analytic {'pixels': 17428, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest                  integer {'pixels': 34476, 'aboveZero': 276, 'aboveOne': 276} analytic {'pixels': 33764, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest                  integer {'pixels': 61532, 'aboveZero': 84, 'aboveOne': 84} analytic {'pixels': 61332, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__capsule-button__rest   integer {'pixels': 29194, 'aboveZero': 52, 'aboveOne': 52} analytic {'pixels': 29026, 'aboveZero': 0, 'aboveOne': 0}
+  apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest         integer {'pixels': 9158, 'aboveZero': 168, 'aboveOne': 168} analytic {'pixels': 8714, 'aboveZero': 0, 'aboveOne': 0}
+
+E2 webgpu (GATED): 282 cells, 282 measured, 50 failing, mean change +0.2774 codes, 1606 named-miss bins on 47 cells
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest   14.961 -> 19.477 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange 3.586 -> 3.812 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__rest         13.972 -> 17.046 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-md__rest         14.028 -> 17.472 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-ml__rest         9.550 -> 11.152 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-sm__rest         9.039 -> 16.220 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest    27.176 -> 28.753 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-lg__rest          10.998 -> 11.047 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-sm__rest          25.628 -> 26.689 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__capsule-button__rest-tint-orange 2.064 -> 2.105 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-md__rest         10.221 -> 10.922 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-ml__rest         36.390 -> 37.242 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-sm__rest         6.332 -> 8.360 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__capsule-button__rest    32.451 -> 39.021 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange 7.296 -> 8.197 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__rest          10.356 -> 12.859 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-md__rest          17.848 -> 20.191 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-ml__rest          11.564 -> 12.778 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__capsule-button__rest 9.719 -> 10.348 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-lg__rest       4.261 -> 5.324 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-md__rest       7.875 -> 8.247 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__rrect-ml__rest       4.722 -> 5.112 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest      21.520 -> 27.065 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-blue 6.282 -> 6.480 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange 5.553 -> 6.012 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-md__rest            17.070 -> 19.555 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-ml__rest            8.142 -> 9.562 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-sm__rest            9.489 -> 13.602 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__toolbar-group__rest       20.472 -> 25.902 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-48__rest              5.421 -> 5.421 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-80__rest              5.600 -> 5.601 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-md-clear20__rest      5.304 -> 5.304 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-md__rest              5.304 -> 5.304 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-ml__rest              5.053 -> 5.053 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-lg__rest              10.298 -> 11.205 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-md__rest              20.771 -> 25.968 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-sm__rest              12.904 -> 18.867 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-lg__rest               8.609 -> 9.034 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-sm__rest               14.927 -> 15.387 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-lg__rest                 9.921 -> 12.150 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-sm__rest                 13.035 -> 15.272 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__rest           5.191 -> 5.646 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__rest-tint-orange 5.758 -> 5.759 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-sm__rest                 6.891 -> 7.137 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/mid-dark-solid__rrect-md__rest          9.235 -> 9.237 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest             11.206 -> 11.670 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest-tint-orange-half 6.801 -> 7.085 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest                   25.195 -> 25.425 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-md__rest-tint-orange       3.045 -> 3.076 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-ml__rest                   27.347 -> 27.369 codes
+
+E2 css (descriptive): 282 cells, 282 measured, 16 failing, mean change +0.0205 codes, 790 named-miss bins on 16 cells
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__capsule-button__rest   11.047 -> 12.934 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-sm__rest         8.992 -> 10.309 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest    23.484 -> 23.666 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-64__rrect-sm__rest         7.415 -> 7.515 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-lc16__capsule-button__rest 10.068 -> 10.257 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__capsule-button__rest      23.465 -> 24.576 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__rrect-sm__rest            15.425 -> 16.155 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/checkerboard__toolbar-group__rest       22.353 -> 23.446 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/dark-solid__rrect-48__rest              4.855 -> 4.867 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text-28__rrect-sm__rest              10.065 -> 10.193 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/hc-text__rrect-sm__rest                 26.954 -> 27.493 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/impulse__capsule-button__rest           8.927 -> 9.180 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-sm__rest                 4.417 -> 4.584 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest             13.861 -> 14.004 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__capsule-button__rest-tint-orange-half 8.781 -> 8.828 codes
+  FAIL apple-macos-27.0-2x-light-standard-glass0.25/photo__rrect-sm__rest                   12.697 -> 12.981 codes
+
+S1/R2 webgpu (GATED, adopted only at the landing by ruling): 183/183 cells, pooled median ratio 0.8733, 14 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=81   median 0.9416
+  apple-macos-27.0-2x-light-standard-glass0.25       n=71   median 0.9810
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=17   median 0.3139
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=14   median 0.3114
+
+S1/R2 css (GATED, adopted only at the landing by ruling): 125/125 cells, pooled median ratio 0.8743, 11 wrong sign; dA from rows max deviation 0.00e+00
+  apple-macos-27.0-1x-light-standard-glass0.25       n=72   median 0.9360
+  apple-macos-27.0-2x-light-standard-glass0.25       n=35   median 1.0426
+  apple-macos-27.0-1x-dark-standard-glass0.25        n=16   median 0.0820
+  apple-macos-27.0-2x-dark-standard-glass0.25        n=2    median 0.1169
+
+T1 (GATED on WebGPU, light 0.25; read on CSS and dark): 772 cells in gate, referee, holdout; reference packages/calibration/results/generations/6d18c059eb42.json, packages/calibration/results/generations/d0219cd684bf.json
+  landing (T1 clauses, 2x light WebGPU gate cells): NEITHER: closes at the finding; F aggregate 0.2190 against c05's 0.6462; 8 F not within; 5 away beyond B; 8 overshoot; selection metric 0.1898 (tie 0.0412)
+  C 1x dark css inactive               n=15  median|log| 0.6325 (c05 0.6325) {'miss': 12, 'within': 3} {'unchanged': 15}
+  C 1x dark css rest                   n=29  median|log| 1.2672 (c05 1.2672) {'miss': 29} {'unchanged': 29}
+  C 1x dark webgpu inactive            n=15  median|log| 0.5381 (c05 0.5381) {'miss': 14, 'within': 1} {'unchanged': 15}
+  C 1x dark webgpu rest                n=29  median|log| 0.4230 (c05 0.4230) {'miss': 24, 'within': 5} {'unchanged': 29}
+  C 1x light css inactive              n=21  median|log| 0.3212 (c05 0.3212) {'within': 7, 'miss': 14} {'unchanged': 21}
+  C 1x light css rest                  n=37  median|log| 0.3440 (c05 0.3440) {'miss': 32, 'within': 5} {'unchanged': 37}
+  C 1x light webgpu inactive           n=21  median|log| 0.3511 (c05 0.3511) {'miss': 14, 'within': 7} {'unchanged': 21}
+  C 1x light webgpu rest               n=37  median|log| 0.0914 (c05 0.0914) {'within': 23, 'miss': 14} {'unchanged': 37}
+  C 2x dark css inactive               n=15  median|log| 0.4733 (c05 0.4733) {'miss': 12, 'within': 3} {'unchanged': 15}
+  C 2x dark css rest                   n=29  median|log| 1.2169 (c05 1.2169) {'miss': 28, 'within': 1} {'unchanged': 29}
+  C 2x dark webgpu inactive            n=15  median|log| 0.4899 (c05 0.4899) {'within': 3, 'miss': 12} {'unchanged': 15}
+  C 2x dark webgpu rest                n=29  median|log| 0.5143 (c05 0.5143) {'miss': 26, 'within': 3} {'unchanged': 29}
+  C 2x light css inactive              n=21  median|log| 0.4844 (c05 0.5866) {'miss': 19, 'within': 2} {'toward': 6, 'unchanged': 15}
+  C 2x light css rest                  n=37  median|log| 0.2722 (c05 0.3675) {'miss': 30, 'within': 7} {'toward': 10, 'unchanged': 25, 'overshoot': 1, 'away': 1}
+  C 2x light webgpu inactive           n=21  median|log| 0.1829 (c05 0.8523) {'miss': 16, 'within': 5} {'toward': 19, 'away': 2}
+  C 2x light webgpu rest               n=37  median|log| 0.0810 (c05 0.1720) {'within': 23, 'miss': 14} {'toward': 21, 'unchanged': 4, 'overshoot': 8, 'away': 4}
+  F 1x dark css inactive               n=3   median|log| 0.2193 (c05 0.2193) {'within': 3} {'unchanged': 3}
+  F 1x dark css rest                   n=12  median|log| 1.3960 (c05 1.3960) {'miss': 12} {'unchanged': 12}
+  F 1x dark webgpu inactive            n=3   median|log| 0.8684 (c05 0.8684) {'miss': 3} {'unchanged': 3}
+  F 1x dark webgpu rest                n=12  median|log| 0.4726 (c05 0.4726) {'miss': 9, 'within': 3} {'unchanged': 12}
+  F 1x light css inactive              n=2   median|log| 0.3901 (c05 0.3901) {'miss': 2} {'unchanged': 2}
+  F 1x light css rest                  n=9   median|log| 1.5439 (c05 1.5439) {'miss': 9} {'unchanged': 9}
+  F 1x light webgpu inactive           n=2   median|log| 0.4281 (c05 0.4281) {'within': 1, 'miss': 1} {'unchanged': 2}
+  F 1x light webgpu rest               n=9   median|log| 0.6241 (c05 0.6241) {'miss': 8, 'within': 1} {'unchanged': 9}
+  F 2x dark css inactive               n=3   median|log| 0.2233 (c05 0.2233) {'within': 2, 'miss': 1} {'unchanged': 3}
+  F 2x dark css rest                   n=12  median|log| 1.2542 (c05 1.2542) {'miss': 12} {'unchanged': 12}
+  F 2x dark webgpu inactive            n=3   median|log| 0.9423 (c05 0.9423) {'miss': 3} {'unchanged': 3}
+  F 2x dark webgpu rest                n=12  median|log| 0.4410 (c05 0.4410) {'miss': 9, 'within': 3} {'unchanged': 12}
+  F 2x light css inactive              n=2   median|log| 0.6069 (c05 0.6069) {'within': 1, 'miss': 1} {'unchanged': 2}
+  F 2x light css rest                  n=9   median|log| 0.9627 (c05 1.0243) {'miss': 8, 'within': 1} {'toward': 2, 'unchanged': 7}
+  F 2x light webgpu inactive           n=2   median|log| 0.3758 (c05 1.2903) {'within': 1, 'miss': 1} {'toward': 2}
+  F 2x light webgpu rest               n=9   median|log| 0.2190 (c05 0.6334) {'miss': 7, 'within': 2} {'toward': 7, 'unchanged': 1, 'away': 1}
+  P 1x dark css inactive               n=5   median|log| 1.3270 (c05 1.3270) {'miss': 5} {'unchanged': 5}
+  P 1x dark css rest                   n=4   median|log| 1.0363 (c05 1.0363) {'miss': 4} {'unchanged': 4}
+  P 1x dark webgpu inactive            n=5   median|log| 1.1926 (c05 1.1926) {'miss': 5} {'unchanged': 5}
+  P 1x dark webgpu rest                n=4   median|log| 0.6021 (c05 0.6021) {'miss': 4} {'unchanged': 4}
+  P 1x light css inactive              n=11  median|log| 0.4554 (c05 0.4554) {'miss': 10, 'within': 1} {'unchanged': 11}
+  P 1x light css rest                  n=11  median|log| 0.6418 (c05 0.6418) {'miss': 11} {'unchanged': 11}
+  P 1x light webgpu inactive           n=11  median|log| 0.2319 (c05 0.2319) {'miss': 11} {'unchanged': 11}
+  P 1x light webgpu rest               n=11  median|log| 0.3821 (c05 0.3821) {'miss': 11} {'unchanged': 11}
+  P 2x dark css inactive               n=5   median|log| 1.1695 (c05 1.1695) {'miss': 5} {'unchanged': 5}
+  P 2x dark css rest                   n=4   median|log| 1.0788 (c05 1.0788) {'miss': 4} {'unchanged': 4}
+  P 2x dark webgpu inactive            n=5   median|log| 1.1443 (c05 1.1443) {'miss': 5} {'unchanged': 5}
+  P 2x dark webgpu rest                n=4   median|log| 0.7997 (c05 0.7997) {'miss': 4} {'unchanged': 4}
+  P 2x light css inactive              n=11  median|log| 0.2782 (c05 0.2642) {'miss': 9, 'within': 2} {'unchanged': 10, 'away': 1}
+  P 2x light css rest                  n=11  median|log| 0.5148 (c05 0.5148) {'miss': 11} {'unchanged': 11}
+  P 2x light webgpu inactive           n=11  median|log| 0.1818 (c05 0.1393) {'miss': 11} {'away': 8, 'unchanged': 3}
+  P 2x light webgpu rest               n=11  median|log| 0.3902 (c05 0.4193) {'miss': 11} {'unchanged': 10, 'toward': 1}
+  T 1x dark css inactive               n=1   median|log| 0.4590 (c05 0.4590) {'miss': 1} {'unchanged': 1}
+  T 1x dark css rest                   n=3   median|log| 1.1282 (c05 1.1282) {'miss': 3} {'unchanged': 3}
+  T 1x dark webgpu inactive            n=1   median|log| 0.0730 (c05 0.0730) {'within': 1} {'unchanged': 1}
+  T 1x dark webgpu rest                n=3   median|log| 0.3976 (c05 0.3976) {'miss': 2, 'within': 1} {'unchanged': 3}
+  T 1x light css rest                  n=3   median|log| 0.5160 (c05 0.5160) {'miss': 3} {'unchanged': 3}
+  T 1x light webgpu rest               n=3   median|log| 0.2046 (c05 0.2046) {'miss': 3} {'unchanged': 3}
+  T 2x dark css inactive               n=1   median|log| 0.1082 (c05 0.1082) {'within': 1} {'unchanged': 1}
+  T 2x dark css rest                   n=3   median|log| 0.8677 (c05 0.8677) {'miss': 2, 'within': 1} {'unchanged': 3}
+  T 2x dark webgpu inactive            n=1   median|log| 0.0460 (c05 0.0460) {'within': 1} {'unchanged': 1}
+  T 2x dark webgpu rest                n=3   median|log| 0.4257 (c05 0.4257) {'miss': 2, 'within': 1} {'unchanged': 3}
+  T 2x light css rest                  n=3   median|log| 0.4309 (c05 0.4309) {'miss': 3} {'toward': 1, 'unchanged': 2}
+  T 2x light webgpu rest               n=3   median|log| 0.1951 (c05 0.2153) {'within': 1, 'miss': 2} {'toward': 1, 'away': 1, 'unchanged': 1}
+  overshoot 2x checkerboard__rrect-sm__rest                   n 0.1940 c05 0.1451 k 0.2322 g -0.0106 B 0.0068
+  overshoot 2x checkerboard__rrect-lg__rest                   n 0.0610 c05 0.0581 k 0.0851 g +0.0213 B 0.0065
+  overshoot 2x checkerboard__toolbar-group__rest              n 0.1933 c05 0.1370 k 0.2159 g -0.0337 B 0.0067
+  away      2x checkerboard__glass-over-glass__rest           n 0.1087 c05 0.1164 k 0.1269 g +0.0105 B 0.0067
+  overshoot 2x checkerboard__capsule-button__pressed          n 0.1938 c05 0.1807 k 0.2358 g +0.0289 B 0.0068
+  away      2x checkerboard__rrect-md__pressed                n 0.1501 c05 0.1575 k 0.1858 g +0.0283 B 0.0066
+  away      2x checkerboard-8__rrect-lg__rest                 n 0.0224 c05 0.0484 k 0.0581 g +0.0097 B 0.0063
+  overshoot 2x checkerboard-32__rrect-sm__rest                n 0.2161 c05 0.1954 k 0.2650 g +0.0282 B 0.0068
+  overshoot 2x checkerboard-32__capsule-button__rest          n 0.2195 c05 0.1897 k 0.2550 g +0.0058 B 0.0068
+  overshoot 2x checkerboard-32__rrect-lg__rest                n 0.1336 c05 0.1329 k 0.1566 g +0.0223 B 0.0067
+  away      2x checkerboard-64__rrect-sm__rest                n 0.0680 c05 0.0319 k 0.0133 g +0.0186 B 0.0084
+  away      2x checkerboard-lc16__rrect-lg__rest              n 0.0322 c05 0.0274 k 0.0371 g +0.0000 B 0.0075
+  away      2x hc-text-7__rrect-md__rest                      n 0.0990 c05 0.0882 k 0.0803 g +0.0079 B 0.0069
+  overshoot 2x hc-text-28__rrect-sm__rest                     n 0.1891 c05 0.1444 k 0.2253 g -0.0086 B 0.0070
+  away      2x hc-text-28__rrect-lg__rest                     n 0.1313 c05 0.1226 k 0.1408 g +0.0006 B 0.0075
+  overshoot 2x hc-text__rrect-sm__rest                        n 0.1595 c05 0.1237 k 0.1906 g -0.0047 B 0.0075
+  away      2x photo__capsule-button__inactive                n 0.0550 c05 0.0502 k 0.0464 g +0.0038 B 0.0056
+  away      2x photo__capsule-button__inactive-tint-blue      n 0.0411 c05 0.0367 k 0.0339 g +0.0027 B 0.0046
+  away      2x photo__capsule-button__inactive-tint-orange    n 0.0411 c05 0.0367 k 0.0339 g +0.0027 B 0.0046
+  away      2x photo__capsule-button__inactive-tint-orange-half n 0.0476 c05 0.0424 k 0.0391 g +0.0033 B 0.0051
+  away      2x photo__rrect-md__inactive                      n 0.0742 c05 0.0638 k 0.0609 g +0.0029 B 0.0057
+  away      2x photo__rrect-sm__inactive                      n 0.0225 c05 0.0196 k 0.0167 g +0.0030 B 0.0054
+  away      2x photo__toolbar-group__inactive                 n 0.0998 c05 0.0778 k 0.0718 g +0.0060 B 0.0059
+  away      2x impulse__rrect-ml__inactive                    n 0.0071 c05 0.0074 k 0.0045 g +0.0023 B 0.0033
+  away      2x hc-text__rrect-lg__inactive                    n 0.1214 c05 0.1113 k 0.1020 g +0.0093 B 0.0067
+  overshoot 2x hc-text-7__rrect-md__inactive                  n 0.0629 c05 0.0911 k 0.0544 g -0.0196 B 0.0063
+  away      2x photo__rrect-ml__inactive                      n 0.0906 c05 0.0745 k 0.0712 g +0.0033 B 0.0057
+  T 2x hc-text-7__rrect-sm__rest                T1 within/toward  fine n 0.1172 c05 0.0723 k 0.0928 miss/toward  low n 0.0731 c05 0.0545 k 0.0748 within/toward g -0.0168 B 0.0072
+  T 2x hc-text-7__rrect-md__rest                T1 miss/away  fine n 0.0281 c05 0.0522 k 0.0374 miss/toward  low n 0.0867 c05 0.0576 k 0.0594 miss/unchanged g -0.0018 B 0.0069
+  T 2x hc-text-7__rrect-lg__rest                T1 miss/unchanged  fine n 0.0032 c05 0.0271 k 0.0212 miss/toward  low n 0.1170 c05 0.0876 k 0.0893 miss/unchanged g -0.0017 B 0.0074
+  move1: objective 0.0918; within clause NOT WITHIN (8 members, 4 not within)
+  move2: objective 0.1930; within clause NOT WITHIN (30 members, 23 not within)
+  move3: objective 0.1984; within clause NOT WITHIN (34 members, 28 not within)
+  readings beside T1 (never gated): 464 cells; see the JSON
+
+W45 RULE (Decision Log 3; T1, webgpu, 2x light (apple-macos-27.0-2x-light-standard-glass0.25), both poses, F ∪ T ∪ C ∪ P, partitions gate, referee, holdout; T on T1-fine (away on T1-low)): NEITHER: closes at the finding
+  116 of 116 cells read; partition unchanged 25; toward 70; away 21
+  F aggregate 0.2190 against c05's 0.6334 (halved: True); 11 F not within
+  F rest       n=12  A 0.2127 c05 0.5657 τ 0.0495 GATED holds
+  F inactive   n=3   A 0.4122 c05 1.1537 τ 0.1239 reported holds
+  T rest       n=3   A 0.2365 c05 0.5251 τ 0.0945 GATED holds
+  T inactive   n=1   A 0.5570 c05 1.8106 τ 0.2814 reported holds
+  C rest       n=42  A 0.0802 c05 0.1732 τ 0.0273 GATED holds
+  C inactive   n=27  A 0.1944 c05 0.8523 τ 0.0501 GATED holds
+  P rest       n=14  A 0.3872 c05 0.4146 τ 0.0398 GATED holds
+  P inactive   n=14  A 0.1937 c05 0.1511 τ 0.0359 GATED WORSE BEYOND τ
+  budget: 11 away beyond B (at most 3), 5 beyond 3 B: FAILS
+    away checkerboard__rrect-md__pressed                g 4.27 B
+    away checkerboard__capsule-button__pressed          g 4.25 B
+    away checkerboard-32__rrect-sm__rest                g 4.18 B
+    away checkerboard-32__rrect-lg__rest                g 3.34 B
+    away checkerboard__rrect-lg__rest                   g 3.30 B
+    away checkerboard-64__rrect-sm__rest                g 2.22 B
+    away hc-text-7__rrect-md__inactive                  g 1.60 B
+    away checkerboard__glass-over-glass__rest           g 1.57 B
+    away checkerboard-8__rrect-lg__rest                 g 1.55 B
+    away hc-text__rrect-lg__inactive                    g 1.40 B
+    away photo__toolbar-group__inactive                 g 1.02 B
+  why: full close: 11 F cell(s) not within
+  why: aggregate: P inactive A 0.1937 > 0.1511 + τ 0.0359
+  why: budget count: 11 cells away beyond B (at most 3)
+  why: budget ceiling: 5 cell(s) beyond 3 B
+  stage1: objective 0.0918 (tie 0.0332); within NOT WITHIN (8 members, 4 not within)
+  stage2: objective 0.1967 (tie 0.0426); within NOT WITHIN (64 members, 51 not within)
+  outside: the referees' clause (at the exposure), every other adopted row, and the exposure's holdout-miss ruling are not evaluated here

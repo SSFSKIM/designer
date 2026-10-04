@@ -1,0 +1,197 @@
+{
+ "stage": "stage2",
+ "start": "joint",
+ "landed": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+ "within": "NOT WITHIN",
+ "how": "no point within: the smallest stage objective, a tie within the stage tie (0.0426) to the fewer moved leaves; recorded as NOT within",
+ "points": [
+  {
+   "label": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+   "measuredBy": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+   "objective": 0.18235695192466056,
+   "within": "NOT WITHIN",
+   "notWithin": [
+    "impulse__capsule-button__rest",
+    "photo__capsule-button__rest",
+    "checkerboard__rrect-sm__rest",
+    "photo__rrect-sm__rest",
+    "photo__toolbar-group__rest",
+    "checkerboard__capsule-button__pressed",
+    "photo__capsule-button__pressed",
+    "impulse__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-blue",
+    "photo__capsule-button__rest-tint-orange-half",
+    "checkerboard__capsule-button__rest-tint-blue",
+    "checkerboard-4__rrect-sm__rest",
+    "checkerboard-4__capsule-button__rest",
+    "checkerboard-8__capsule-button__rest",
+    "checkerboard-32__rrect-sm__rest",
+    "checkerboard-32__capsule-button__rest",
+    "checkerboard-64__rrect-sm__rest",
+    "checkerboard-lc16__capsule-button__rest",
+    "hc-text-28__rrect-sm__rest",
+    "hc-text__rrect-sm__rest",
+    "checkerboard-8__capsule-button__rest-tint-orange",
+    "impulse__rrect-sm__rest",
+    "checkerboard__capsule-button__inactive-pressed",
+    "checkerboard__rrect-md__inactive-pressed",
+    "impulse__capsule-button__inactive",
+    "photo__capsule-button__inactive",
+    "photo__capsule-button__inactive-tint-blue",
+    "photo__capsule-button__inactive-tint-orange",
+    "photo__capsule-button__inactive-tint-orange-half",
+    "photo__capsule-button__inactive-pressed",
+    "photo__rrect-md__inactive",
+    "photo__rrect-md__inactive-tint-orange",
+    "photo__rrect-md__inactive-pressed",
+    "photo__rrect-sm__inactive",
+    "photo__toolbar-group__inactive",
+    "checkerboard__rrect-ml__inactive",
+    "checkerboard-64__rrect-md__inactive",
+    "checkerboard-64__rrect-lg__inactive",
+    "hc-text__rrect-lg__inactive",
+    "photo__rrect-ml__inactive"
+   ],
+   "leaves": 11,
+   "tie": 0.04258893242428441
+  }
+ ],
+ "base": "j-s1-base",
+ "components": [
+  {
+   "family": "thin",
+   "scope": "stage2-thin",
+   "from": {
+    "active.light": {
+     "sizeScatterFloor2x": 1.0,
+     "sizeHeavySecondShare": 0.5,
+     "sizeHeavySecondSigma2x": 5,
+     "sizeScatterRampStartThin2x": 0.8,
+     "sizeHeavySecondSigma": 0
+    },
+    "receded.light": {
+     "sizeScatterRampStartThin2x": 0.1
+    }
+   },
+   "best": "j-s1-base",
+   "bestOverrides": {
+    "active.light": {
+     "sizeScatterFloor2x": 1.0,
+     "sizeHeavySecondShare": 0.5,
+     "sizeHeavySecondSigma2x": 5,
+     "sizeScatterRampStartThin2x": 0.8,
+     "sizeHeavySecondSigma": 0
+    },
+    "receded.light": {
+     "sizeScatterRampStartThin2x": 0.1
+    }
+   },
+   "points": [
+    "j-s2-t0.46",
+    "j-s2-t0.55",
+    "j-s2-t0.65",
+    "j-s2-t0.75",
+    "j-s1-base",
+    "j-s2-t0.85",
+    "j-s2-t0.95"
+   ]
+  },
+  {
+   "family": "receded",
+   "scope": "stage2-receded",
+   "from": {
+    "active.light": {
+     "sizeScatterFloor2x": 1.0,
+     "sizeHeavySecondShare": 0.5,
+     "sizeHeavySecondSigma2x": 5,
+     "sizeScatterRampStartThin2x": 0.8,
+     "sizeHeavySecondSigma": 0
+    },
+    "receded.light": {
+     "sizeScatterRampStartThin2x": 0.1
+    }
+   },
+   "best": "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+   "bestOverrides": {
+    "active.light": {
+     "sizeScatterFloor2x": 1.0,
+     "sizeHeavySecondShare": 0.5,
+     "sizeHeavySecondSigma2x": 5,
+     "sizeScatterRampStartThin2x": 0.8,
+     "sizeHeavySecondSigma": 0
+    },
+    "receded.light": {
+     "sizeScatterRampStartThin2x": 0.1,
+     "sizeScatterRampStartThick2x": 0,
+     "sizeScatterRampStartFar2x": 0,
+     "sizeHeavyTapSigma2x": 22,
+     "sizeHeavySecondShare": 0.5,
+     "sizeHeavySecondShareFar2x": 0
+    }
+   },
+   "points": [
+    "j-s1-base",
+    "j-s2-rct0.2",
+    "j-s2-rct0.3",
+    "j-s2-rct0.4",
+    "j-s2-rct0.5",
+    "j-s2-rct0.6",
+    "j-s2-rct0.7",
+    "j-s2-rcf0-rck0",
+    "j-s2-rcf0.01-rck0.01",
+    "j-s2-rcf0.02-rck0.02",
+    "j-s2-rcf0.03-rck0.03",
+    "j-s2-rcf0.04-rck0.04",
+    "j-s2-rcs14-rcf0.03-rck0.03",
+    "j-s2-rcs16-rcf0.03-rck0.03",
+    "j-s2-rcs18-rcf0.03-rck0.03",
+    "j-s2-rcs20-rcf0.03-rck0.03",
+    "j-s2-rcs22-rcf0.03-rck0.03",
+    "j-s2-rcs24-rcf0.03-rck0.03",
+    "j-s2-rcq0-rcs22-rcf0.03-rck0.03",
+    "j-s2-rcq0.125-rcs22-rcf0.03-rck0.03",
+    "j-s2-rcq0.25-rcs22-rcf0.03-rck0.03",
+    "j-s2-rcq0.375-rcs22-rcf0.03-rck0.03",
+    "j-s2-rcq0.5-rcs22-rcf0.03-rck0.03",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.2",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.3",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.4",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.5",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.6",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.03-rck0.03-rct0.7",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0-rck0",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.01-rck0.01",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.02-rck0.02",
+    "j-s2-rcq0.5-rcd0-rcs22-rcf0.04-rck0.04",
+    "j-s2-rcq0.5-rcd0-rcs14-rcf0-rck0",
+    "j-s2-rcq0.5-rcd0-rcs16-rcf0-rck0",
+    "j-s2-rcq0.5-rcd0-rcs18-rcf0-rck0",
+    "j-s2-rcq0.5-rcd0-rcs20-rcf0-rck0",
+    "j-s2-rcq0.5-rcd0-rcs24-rcf0-rck0",
+    "j-s2-rcq0-rcd0-rcs22-rcf0-rck0",
+    "j-s2-rcq0.125-rcd0-rcs22-rcf0-rck0",
+    "j-s2-rcq0.25-rcd0-rcs22-rcf0-rck0",
+    "j-s2-rcq0.375-rcd0-rcs22-rcf0-rck0"
+   ]
+  }
+ ],
+ "composed": {
+  "active.light": {
+   "sizeScatterFloor2x": 1.0,
+   "sizeHeavySecondShare": 0.5,
+   "sizeHeavySecondSigma2x": 5,
+   "sizeScatterRampStartThin2x": 0.8,
+   "sizeHeavySecondSigma": 0
+  },
+  "receded.light": {
+   "sizeScatterRampStartThin2x": 0.1,
+   "sizeScatterRampStartThick2x": 0,
+   "sizeScatterRampStartFar2x": 0,
+   "sizeHeavyTapSigma2x": 22,
+   "sizeHeavySecondShare": 0.5,
+   "sizeHeavySecondShareFar2x": 0
+  }
+ }
+}

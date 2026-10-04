@@ -7,8 +7,11 @@ test_w45s_own_bindings_pass (test_declare.Bindings.test_w45s_own_bindings_pass) 
 test_amend_fit_refuses_once_a_fit_render_exists (test_declare.Evidence.test_amend_fit_refuses_once_a_fit_render_exists) ... ok
 test_amend_refuses_before_the_hash (test_declare.Evidence.test_amend_refuses_before_the_hash) ... ok
 test_amend_refuses_once_a_ladder_render_exists (test_declare.Evidence.test_amend_refuses_once_a_ladder_render_exists) ... ok
+test_a_read_at_commit_whose_bytes_are_not_the_pin_is_refused (test_declare.PartOneRecord.test_a_read_at_commit_whose_bytes_are_not_the_pin_is_refused) ... ok
+test_a_read_at_entry_for_any_other_source_is_refused_by_the_checker (test_declare.PartOneRecord.test_a_read_at_entry_for_any_other_source_is_refused_by_the_checker) ... ok
 test_a_read_at_source_is_read_at_its_commit (test_declare.PartOneRecord.test_a_read_at_source_is_read_at_its_commit) ... ok
 test_a_recorded_move_of_a_repinnable_source_is_accepted (test_declare.PartOneRecord.test_a_recorded_move_of_a_repinnable_source_is_accepted) ... ok
+test_a_repin_of_any_other_source_is_refused_by_the_checker (test_declare.PartOneRecord.test_a_repin_of_any_other_source_is_refused_by_the_checker) ... ok
 test_a_source_outside_the_repinnable_set_is_never_accepted (test_declare.PartOneRecord.test_a_source_outside_the_repinnable_set_is_never_accepted) ... ok
 test_the_count_floor (test_declare.PartOneRecord.test_the_count_floor) ... ok
 test_a_change_of_no_declared_kind (test_declare.ValidatedDiff.test_a_change_of_no_declared_kind) ... ok
@@ -23,9 +26,9 @@ test_an_inert_setting_without_x48 (test_declare.ValidatedDiff.test_an_inert_sett
 test_the_draft_unchanged_validates (test_declare.ValidatedDiff.test_the_draft_unchanged_validates) ... ok
 
 ----------------------------------------------------------------------
-Ran 23 tests in 0.252s
+Ran 26 tests in 0.309s
 
 OK
-amend REFUSES: render evidence exists for this part (/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w45-declare-o0s0s0ih/runs.jsonl); a render after the hash fixes it
+amend REFUSES: render evidence exists for this part (/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w45-declare-rnq2jq42/runs.jsonl); a render after the hash fixes it
 amend REFUSES: the part is not hashed; before the hash it is simply edited and re-checked
-amend REFUSES: render evidence exists for this part (/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w45-declare-84lsy3q8/runs.jsonl, /Users/new/vitrea-w45/g0-ladders/base-i/matrix.json, /Users/new/vitrea-w45/g0-ladders/base-joint/matrix.json, /Users/new/vitrea-w45/g0-ladders/c05-control/matrix.json); a render after the hash fixes it
+amend REFUSES: render evidence exists for this part (/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w45-declare-xmibmy_g/runs.jsonl, /Users/new/vitrea-w45/g0-ladders/base-i/matrix.json, /Users/new/vitrea-w45/g0-ladders/base-joint/matrix.json, /Users/new/vitrea-w45/g0-ladders/c05-control/matrix.json); a render after the hash fixes it

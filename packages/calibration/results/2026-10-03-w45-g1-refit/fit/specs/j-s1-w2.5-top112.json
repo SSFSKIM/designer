@@ -1,0 +1,20 @@
+{
+  "label": "j-s1-w2.5-top112",
+  "note": "",
+  "stage": "stage1",
+  "family": "deep",
+  "start": "joint",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 1.0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 2.5,
+      "sizeScatterRampStartThin2x": 0.8,
+      "sizeHeavySecondSigma": 0,
+      "sizeScatterSpanMax2x": 112
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1
+    }
+  }
+}

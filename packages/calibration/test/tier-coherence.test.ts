@@ -108,6 +108,8 @@ import {
   sourceOptics,
   materialAtBackdrop,
   sourceSize,
+  cssTierSourceSize,
+  CSS_DECLINED_SIZE_GLASS025_LIGHT,
   cssTierCompositeLevel,
   cssTierFloorAlpha,
   cssTierTintTable,
@@ -3084,6 +3086,8 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   sizeScatterFloor: "MATERIAL_SOURCE_SIZE",
   sizeScatterSpanMax: "MATERIAL_SOURCE_SIZE",
   sizeScatterGainMax2x: "MATERIAL_SOURCE_SIZE",
+  // Both mirrored as the renderer resolves them, and DECLINED by the CSS tier at the light 0.25
+  // position (W45 G1: `cssTierSourceSize`, the block "the CSS tier declines …" below).
   sizeScatterFloor2x: "MATERIAL_SOURCE_SIZE",
   sizeScatterSpanMax2x: "MATERIAL_SOURCE_SIZE",
   sizeScatterGainFar2x: "MATERIAL_SOURCE_SIZE",
@@ -3510,3 +3514,71 @@ describe("the -glass0.25 documents derive one material on both tiers (W43 G3 (ii
     expect(BODY_CHROMA_RETENTION).toBe(0);
   });
 });
+
+/**
+ * **The CSS tier declines W45's floor and span top at the light 0.25 position** (claims §5.206;
+ * W45 G1, the parent's ruling of 2026-10-04; `cssTierSourceSize` in `platform-web/src/optics.ts`).
+ *
+ * The WebGPU tier draws the sealed light 0.25 documents' `sizeScatterFloor2x` 1 and
+ * `sizeScatterSpanMax2x` 128, which W45 fitted together with the second heavy tap this tier
+ * declines. Taken alone they removed the coarse checkers' structure on this tier (the doc comment
+ * records the stage's measurement), so this tier keeps the values the published c05 generation was
+ * read with — the sealed documents' own `entries` record them as `previous` — for a document at
+ * glass 0.25 in the light scheme, and nowhere else. The mirror itself (`sourceSize`) is unchanged
+ * and still resolves what the renderer resolves; the decline is a separate, recorded step.
+ */
+describe("the CSS tier declines the floor and span top at the light 0.25 position (W45 G1)", () => {
+  const PROFILE_DIR = resolve(import.meta.dirname, "..", "profiles");
+  const doc = (name: string) => JSON.parse(readFileSync(resolve(PROFILE_DIR, `${name}.json`), "utf8")) as {
+    readonly patch: Record<string, unknown>;
+    readonly entries: Record<string, { readonly previous?: unknown }>;
+    readonly glassTintAmount?: number;
+  };
+  const LIGHT = doc("apple-macos-27.0-1x-light-standard-glass0.25");
+  const RECEDED = doc("apple-macos-27.0-1x-light-standard-glass0.25-receded");
+  const DECLINED = ["sizeScatterFloor2x", "sizeScatterSpanMax2x"] as const;
+
+  it("holds the two leaves at the values the c05 generation was read with, and nothing else", () => {
+    for (const leaf of DECLINED) {
+      expect(CSS_DECLINED_SIZE_GLASS025_LIGHT[leaf], leaf).toBe(LIGHT.entries[leaf]!.previous);
+    }
+    expect(LIGHT.glassTintAmount).toBe(0.25);
+    for (const patch of [LIGHT.patch, { ...LIGHT.patch, ...RECEDED.patch }]) {
+      const mirrored = sourceSize(patch as never);
+      expect(mirrored.sizeScatterFloor2x).toBe(1);
+      expect(mirrored.sizeScatterSpanMax2x).toBe(128);
+      const drawn = cssTierSourceSize(mirrored, 0.25, "light");
+      expect(drawn).toStrictEqual({ ...mirrored, ...CSS_DECLINED_SIZE_GLASS025_LIGHT });
+    }
+  });
+
+  it("leaves the dark scheme, the 0.5 position and macOS 26.5 exactly as the mirror resolves them", () => {
+    const mirrored = sourceSize(LIGHT.patch as never);
+    expect(cssTierSourceSize(mirrored, 0.25, "dark")).toBe(mirrored);
+    expect(cssTierSourceSize(mirrored, 0.5, "light")).toBe(mirrored);
+    expect(cssTierSourceSize(mirrored, undefined, "light")).toBe(mirrored);
+  });
+
+  it("lets an app's own tune of either leaf reach this tier, and not the document's own value", () => {
+    const tunedPatch = { ...LIGHT.patch, sizeScatterFloor2x: 0.8 };
+    const tuned = cssTierSourceSize(sourceSize(tunedPatch as never), 0.25, "light", tunedPatch as never,
+      LIGHT.patch as never);
+    expect(tuned.sizeScatterFloor2x).toBe(0.8);
+    expect(tuned.sizeScatterSpanMax2x).toBe(256);
+    // The calibration harness hands the shipped document's patch to the root as the app's patch too:
+    // the document's own values are not a tune, and the decline holds.
+    const same = cssTierSourceSize(sourceSize(LIGHT.patch as never), 0.25, "light", LIGHT.patch as never,
+      LIGHT.patch as never);
+    expect(same.sizeScatterFloor2x).toBe(0.6);
+    expect(same.sizeScatterSpanMax2x).toBe(256);
+  });
+
+  it("cannot reach a 1x row: both leaves are 2x-anchored", () => {
+    const mirrored = sourceSize(LIGHT.patch as never);
+    const drawn = cssTierSourceSize(mirrored, 0.25, "light");
+    expect(cssScatterFloorAtScale(drawn, 1)).toBe(cssScatterFloorAtScale(mirrored, 1));
+    expect(cssScatterSpanMaxAtScale(drawn, 1)).toBe(cssScatterSpanMaxAtScale(mirrored, 1));
+    expect(cssScatterFloorAtScale(drawn, 2)).not.toBe(cssScatterFloorAtScale(mirrored, 2));
+  });
+});
+

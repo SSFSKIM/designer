@@ -157,8 +157,11 @@ test("case aliases and a hardlink of the frozen authority still read the current
 });
 
 // The current union was 1,893 rows through W42. W43 G3 (ii) (claims §5.201) published the glass
-// 0.25 generations beside the glass 0.5 ones, by file: active document hash -> rows.
-const GLASS_025_GENERATIONS = { "6d18c059eb42": 656, "d0219cd684bf": 468 } as const;
+// 0.25 generations beside the glass 0.5 ones, by file: active document hash -> rows. W45 G1
+// (claims §5.206 §17) published the light one again as `ebc3d9105a4a`, 656 rows, and retired c05
+// (`6d18c059eb42`), which stays loadable by its hashes and is no longer in the union (§5.207).
+const GLASS_025_GENERATIONS = { "ebc3d9105a4a": 656, "d0219cd684bf": 468 } as const;
+const GLASS_025_RETIRED = ["6d18c059eb42"] as const;
 
 test("a casing alias of the recorded frozen matrix reads all 3,017 current rows", () => {
   const canonical = join(import.meta.dirname, "../results/matrix.json");
@@ -171,6 +174,9 @@ test("a casing alias of the recorded frozen matrix reads all 3,017 current rows"
       const named = rows.filter((r) => r.key.web.capturePath.includes(`sha256:${active}`));
       expect(named, active).toHaveLength(count);
       expect(named.every((r) => r.key.profileKey.endsWith("-glass0.25")), active).toBe(true);
+    }
+    for (const active of GLASS_025_RETIRED) {
+      expect(rows.filter((r) => r.key.web.capturePath.includes(`sha256:${active}`)), active).toEqual([]);
     }
   }
 });

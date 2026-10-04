@@ -17,7 +17,11 @@ point it sweeps.
 
 **The procedure** (part 2's `searchProcedure`): within a stage each leaf's grid is swept in the order
 listed, the others held at their current values, keeping the grid point with the smallest objective;
-at most two passes; a full factorial sweep is permitted (`factorial: true`) and not required. A
+at most two passes; a full factorial sweep is permitted (`factorial: true`) and not required. Since
+part 2's second amendment (Decision Log 7): a family's `factorialGroups` sweep their keys' grids in
+full as ONE coordinate step on the lineages they name (`steps_of`; stage 1's share × width from c05,
+35 points), and a grid point outside a declared joint domain at the others' current values is not a
+candidate (`sweep_candidates`; the operator's delta in [−share, 0]). A
 stage's families are SEQUENTIAL COMPONENTS of that one procedure, in `familyOrder`: each family is
 swept on its own scope from the point the previous one left (stage 2: `thin` from the stage-1 point,
 then `receded` from `thin`'s best), so the stage's point carries every component's overrides. The
@@ -27,8 +31,15 @@ parts) and the stage is decided there.
 **Candidates of one content render once** (part 2's `searchProcedure`; W44 G1's tracker note): a
 point is labelled by what it moves beyond its base — the stage's base point with the family's fixed
 leaves folded in, so a fixed value is never a label difference — and, once built, a point whose four
-resolved digests equal an already-rendered point's of the same lineage is read off that point and
-not rendered again (the alias is logged in `runs.jsonl`).
+resolved digests equal an already-rendered (or earlier same-batch) point's of the same lineage is
+MEASURED by that twin and not rendered again (`fit.record_alias`; logged in `runs.jsonl`). It keeps
+its own label and overrides: equal digests are not equal search states (the identity table drops
+both second-tap widths while the share is 0), so a sweep that chooses a point carries THAT point's
+overrides forward, and readers follow `fit.measured_label` to its measurements.
+
+**A partial objective is never ranked** (`scope_objective`), in a sweep or in a decision: a point
+whose scope lacks an F u C u P member's reading is ranked on the value `recover.py` recovered for
+it, or the search refuses until it is recovered.
 
 **From two starting points** (X56): `--start` names the lineage, `--base` the point the stage starts
 from (`start-c05`, `start-joint`, or the previous stage's landed point of the same lineage); every
@@ -122,10 +133,44 @@ def grid_of(spec: dict, current: dict, leaf: str) -> list:
 
 
 def sweep_candidates(fbody: dict, key: str, current: dict) -> list[dict]:
-    """The points one leaf's (or tied pair's) grid gives from `current`, the others held."""
+    """The points one leaf's (or tied pair's) grid gives from `current`, the others held; a grid
+    point outside a declared joint domain at the others' current values is not a candidate (part
+    2's second amendment: the operator's delta in [−share, 0], Decision Log 7 item 2)."""
     spec = fbody["leaves"][key]
     grid = grid_of(spec, current, key.split("+")[0])
-    return [with_leaf(current, spec["slot"], {leaf: v for leaf in key.split("+")}) for v in grid]
+    points = [with_leaf(current, spec["slot"], {leaf: v for leaf in key.split("+")}) for v in grid]
+    return [p for p in points if fit.in_joint_domain(p)]
+
+
+def steps_of(fbody: dict, start: str) -> list[list[str]]:
+    """The coordinate steps of one pass, in the order the leaves are listed: one leaf (or tied pair)
+    per step, except that a `factorialGroups` entry naming this lineage in its `starts` sweeps its
+    keys' grids in full as ONE step, at the position of its first key (part 2's second amendment:
+    from c05 the share and the width gate each other, so their 5 × 7 grid is one step; Decision Log 7
+    item 3)."""
+    keys = list(fbody.get("leaves", {}))
+    groups = [g for g in fbody.get("factorialGroups", []) if start in g["starts"]]
+    for g in groups:
+        missing = [k for k in g["keys"] if k not in keys]
+        if missing:
+            raise fit.W.Refusal(f"a factorial group names {missing}, which the family does not search")
+    grouped = {k: g for g in groups for k in g["keys"]}
+    steps = []
+    for k in keys:
+        g = grouped.get(k)
+        if g is None:
+            steps.append([k])
+        elif k == next(x for x in keys if x in g["keys"]):
+            steps.append([x for x in keys if x in g["keys"]])
+    return steps
+
+
+def step_candidates(fbody: dict, step: list[str], current: dict) -> list[dict]:
+    """A step's points: the product of its keys' grids from `current` (one key: its sweep)."""
+    cands = [current]
+    for k in step:
+        cands = [c for point in cands for c in sweep_candidates(fbody, k, point)]
+    return cands
 
 
 # ---------------------------------------------------------------------------------------------
@@ -145,16 +190,20 @@ def content_of(label: str) -> tuple:
     return tuple(json.loads((folder / f"{slot}.json").read_text())["resolvedMaterialSha256"] for slot in SLOTS)
 
 
-def content_twin(label: str, start: str, scope: str) -> str | None:
-    """A point of the same lineage and content already rendered on `scope`, other than `label`."""
+def content_twin(label: str, start: str, pending: dict) -> str | None:
+    """A point of the same lineage and content that is (or is about to be) rendered, other than
+    `label`: a rendered point first, else one named earlier in the same batch (`pending`,
+    content -> label). Aliases are never twins of each other: a twin is a point that renders."""
     mine = content_of(label)
-    for f in sorted((fit.G1 / "candidates").glob("*/candidate.json")):
+    table = fit.aliases()
+    for f in sorted((fit.G1 / "candidates").glob("*/summary.json")):
         other = f.parent.name
-        if other == label or not (fit.G1 / "specs" / f"{other}.json").exists():
+        if other == label or other in table or not (fit.G1 / "specs" / f"{other}.json").exists():
             continue
-        if spec_of(other).get("start") == start and fit.covered(other, scope) and content_of(other) == mine:
+        if spec_of(other).get("start") == start and content_of(other) == mine:
             return other
-    return None
+    twin = pending.get(mine)
+    return twin if twin != label else None
 
 
 def summary_of(label: str) -> dict:
@@ -170,28 +219,60 @@ def read_current(label: str) -> bool:
     return json.loads(path.read_text())["scopes"] == rendered
 
 
+def recovered_points() -> dict:
+    path = PATH / "recovered.json"
+    return json.loads(path.read_text())["points"] if path.exists() else {}
+
+
+def scope_objective(label: str, scope: str) -> float:
+    """A point's objective on `scope`, read off the label that measures it: the recorded value when
+    every F u C u P member of the scope has a reading, else the value `recover.py` recovered for it,
+    else a refusal — a partial median is never ranked, in a sweep or in a decision."""
+    _, t1 = fit.cuts()
+    measured = fit.measured_label(label)
+    s = summary_of(measured)
+    members = [sid for sid in fit.scenes_for(scope) if t1.stratum(sid) in t1.SELECTION_STRATA]
+    if all(sid in s["cells"] for sid in members):
+        return s["stages"][scope]["objective"]
+    got = recovered_points().get(measured, {}).get(scope)
+    if got is None:
+        raise fit.W.Refusal(f"{label} (measured by {measured}) has an UNMEASURED {scope} objective member and no "
+                            "recovered reading: run recover.py, then the search again; a partial median is "
+                            "never ranked")
+    return got["declaredObjective"]
+
+
 class Runner:
     """Builds, renders (once per content) and reads points; the tests hand `compose` a runner that
-    renders nothing."""
+    renders nothing.
+
+    A point keeps its OWN label and overrides whatever measures it. Equal resolved digests draw
+    equal pixels, so a point whose content an already-rendered (or earlier, same-batch) point of its
+    lineage has is MEASURED by that twin (`fit.record_alias`) rather than rendered again — but equal
+    digests are not equal search states: the identity table drops both second-tap widths while the
+    share is 0, so every width of a zero-share sweep shares one content, and the width the sweep
+    chooses must survive into the next sweep (the review of W45 G0's closure, P1)."""
 
     def points(self, cands: list[dict], labels: list[str], stage_id: str, family: str, start: str,
                scope: str) -> list[str]:
-        named = []
+        named, pending = [], {}
         for ov, label in zip(cands, labels):
             known = same_point(ov, start)
             if known is None:
                 fit.write_spec(label, ov, "", stage_id, family, start)
                 fit.build(label)
                 known = label
-            if not fit.covered(known, scope):
-                twin = content_twin(known, start, scope)
+            if known not in fit.aliases() and not (fit.G1 / "candidates" / known / "summary.json").exists():
+                twin = content_twin(known, start, pending)
                 if twin is not None:
-                    fit.log(dict(label=known, contentTwin=twin, scope=scope, at=fit.now()))
-                    known = twin
+                    fit.record_alias(known, twin)
+                    fit.log(dict(label=known, measuredBy=twin, scope=scope, at=fit.now()))
+                else:
+                    pending.setdefault(content_of(known), known)
             named.append(known)
         with ThreadPoolExecutor(max_workers=2) as pool:
             futures = []
-            for name in dict.fromkeys(named):
+            for name in dict.fromkeys(fit.measured_label(n) for n in named):
                 if not fit.covered(name, scope):
                     code = fit.render(name, scope)
                     if code == 3:
@@ -205,7 +286,7 @@ class Runner:
         return named
 
     def objective(self, label: str, scope: str) -> float:
-        return summary_of(label)["stages"][scope]["objective"]
+        return scope_objective(label, scope)
 
     def overrides(self, label: str) -> dict:
         return base_overrides(label)
@@ -233,16 +314,17 @@ def sweep_family(move: dict, family: str, start: str, base: dict, current: dict,
         return names
 
     if fbody.get("factorial"):
-        cands = [current]
-        for k in keys:
-            cands = [c for point in cands for c in sweep_candidates(fbody, k, point)]
-        names = run(cands)
+        names = run(step_candidates(fbody, keys, current))
         best = min(names, key=lambda n: runner.objective(n, scope))
         return runner.overrides(best), labels, best
     for _ in range(passes):
         before = json.dumps(current, sort_keys=True)
-        for k in keys:
-            names = run(sweep_candidates(fbody, k, current))
+        for step in steps_of(fbody, start):
+            cands = step_candidates(fbody, step, current)
+            if not cands:
+                raise fit.W.Refusal(f"{move['id']}/{family}: the step {step} offers no point inside the declared "
+                                    f"domains from {json.dumps(current, sort_keys=True)}")
+            names = run(cands)
             best = min(names, key=lambda n: runner.objective(n, scope))
             current = runner.overrides(best)
         if json.dumps(current, sort_keys=True) == before:
@@ -295,25 +377,18 @@ def moved_leaves(summary) -> int:
 
 def decide(move: dict, start: str, labels: list[str]) -> dict:
     """Part 2's selection within a stage, on the stage's own cells (`rule.stage_*`)."""
-    _, t1 = fit.cuts()
     stage_id = move["id"]
-    members = [sid for sid in fit.scenes_for(stage_id) if t1.stratum(sid) in t1.SELECTION_STRATA]
-    recovered = {}
-    if (PATH / "recovered.json").exists():
-        recovered = json.loads((PATH / "recovered.json").read_text())["points"]
     rows = []
     for label in dict.fromkeys(labels):
-        s = summary_of(label)
-        reading = s["stages"][stage_id]
-        objective = reading["objective"]
-        if any(sid not in s["cells"] for sid in members):
-            got = recovered.get(label, {}).get(stage_id)
-            if got is None:
-                raise fit.W.Refusal(f"decide {stage_id}: {label} has an UNMEASURED objective member and no "
-                                    "recovered reading (recover.py); it is not ranked on a partial median")
-            objective = got["declaredObjective"]
-        rows.append(dict(label=label, objective=objective, within=reading["within"],
-                         notWithin=reading["notWithin"], leaves=moved_leaves(s), tie=reading["tie"]))
+        measured = fit.measured_label(label)
+        reading = summary_of(measured)["stages"][stage_id]
+        try:
+            objective = scope_objective(label, stage_id)
+        except fit.W.Refusal as err:
+            raise fit.W.Refusal(f"decide {stage_id}: {err}") from None
+        rows.append(dict(label=label, measuredBy=measured, objective=objective, within=reading["within"],
+                         notWithin=reading["notWithin"], leaves=moved_leaves(dict(overrides=base_overrides(label))),
+                         tie=reading["tie"]))
     inside = [r for r in rows if r["within"] == "WITHIN"]
     if inside:
         landed = min(inside, key=lambda r: r["objective"])

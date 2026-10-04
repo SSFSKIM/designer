@@ -8,7 +8,9 @@ renders nothing: the first stage-1 sweep's labels from both starting points (the
 held in every point and never a label difference), a whole stage-1 search, and stage 2's two
 components composed in order (`receded` swept from `thin`'s best, its relative grids read off the
 active values, the composed point decided on the stage's union and recorded with both components)
-(the review of W45 G0 (b)-(e), two P1 findings).
+(the review of W45 G0 (b)-(e), two P1 findings). Part 2's second amendment (the charter's Decision
+Log 7, G1 step 0) adds the operator's joint domain [−share, 0] in both light slots and the share ×
+width factorial from c05 as one coordinate step; their cases run against the amended part 2.
 
     cd packages/calibration/results/2026-10-03-w45-g0-operator/fit
     python3.12 -B -m unittest test_fit -v
@@ -17,6 +19,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -40,7 +43,8 @@ SYNTHETIC_PART2 = {
             "sizeScatterSpanMax2x": {"slot": "active.light", "domain": [112, 256], "grid": [112, 128, 160, 192, 256]},
             "sizeHeavySecondShare": {"slot": "active.light", "domain": [0, 1], "grid": [0, 0.5, 1]},
             "sizeHeavySecondSigma2x": {"slot": "active.light", "domain": [1.5, 6], "grid": [2, 3]},
-            "sizeHeavySecondShareFar2x": {"slot": "active.light", "domain": [-1, 0], "grid": [0, -0.5, -1]},
+            "sizeHeavySecondShareFar2x": {"slot": "active.light", "domain": [-1, 0], "grid": [0, -0.5, -1],
+                                          "domainLowerIsMinus": "sizeHeavySecondShare"},
             "sizeScatterRampStartThick2x+sizeScatterRampStartFar2x": {
                 "slot": "active.light", "tied": True, "domain": [0.05, 0.21], "grid": [0.05, 0.1, 0.21]}},
             "fixed": {"sizeHeavySecondSigma": {"slot": "active.light", "value": 0}}}}},
@@ -51,7 +55,8 @@ SYNTHETIC_PART2 = {
                 "sizeScatterRampStartThin2x": {"slot": "receded.light", "domain": [0.1, 0.7], "grid": [0.1, 0.4]},
                 "sizeHeavySecondShare": {"slot": "receded.light", "domain": [0, 1], "domainRelativeTo": "active",
                                          "grid": [0, 0.5, 1]},
-                "sizeHeavySecondShareFar2x": {"slot": "receded.light", "domain": [-1, 0], "grid": [0, -0.5]}}}}},
+                "sizeHeavySecondShareFar2x": {"slot": "receded.light", "domain": [-1, 0], "grid": [0, -0.5],
+                                              "domainLowerIsMinus": "sizeHeavySecondShare"}}}}},
     ],
 }
 
@@ -134,6 +139,10 @@ class Part2(unittest.TestCase):
                                               "sizeScatterRampStartThick2x": 0.1, "sizeScatterRampStartFar2x": 0.1,
                                               "sizeHeavySecondSigma": 0},
                              "receded.light": {"sizeHeavySecondShareFar2x": -0.25}})
+        # The joint domain's boundary is inside it: delta = -share, in either slot.
+        fit.check_overrides({"active.light": {"sizeHeavySecondShare": 0.5, "sizeHeavySecondShareFar2x": -0.5}})
+        fit.check_overrides({"active.light": {"sizeHeavySecondShare": 0.5, "sizeHeavySecondShareFar2x": -0.5},
+                             "receded.light": {"sizeHeavySecondShare": 0.25, "sizeHeavySecondShareFar2x": -0.25}})
         # The receded share's domain is relative to the active share.
         fit.check_overrides({"active.light": {"sizeHeavySecondShare": 0.5},
                              "receded.light": {"sizeHeavySecondShare": 0.25}})
@@ -150,6 +159,18 @@ class Part2(unittest.TestCase):
             ({"active.light": {"sizeHeavySecondSigma": 3}}, "held at 0"),
             ({"active.light": {"sizeHeavySecondShare": 0.5}, "receded.light": {"sizeHeavySecondShare": 0.75}},
              "outside its declared domain"),
+            # The joint domain [-share, 0] (Decision Log 7 item 2): a delta past -share, a share lowered
+            # below an active delta's magnitude, a receded share below the delta the receded document
+            # inherits, and a receded delta past the receded share.
+            ({"active.light": {"sizeHeavySecondShare": 0.25, "sizeHeavySecondShareFar2x": -0.5}},
+             "active.light sizeHeavySecondShareFar2x -0.5 is outside its joint domain"),
+            ({"active.light": {"sizeHeavySecondShareFar2x": -0.25}}, "outside its joint domain"),
+            ({"active.light": {"sizeHeavySecondShare": 0.5, "sizeHeavySecondShareFar2x": -0.5},
+              "receded.light": {"sizeHeavySecondShare": 0.25}},
+             "receded.light sizeHeavySecondShareFar2x -0.5 is outside its joint domain"),
+            ({"active.light": {"sizeHeavySecondShare": 1, "sizeHeavySecondShareFar2x": -0.5},
+              "receded.light": {"sizeHeavySecondShare": 0, "sizeHeavySecondShareFar2x": -0.5}},
+             "receded.light sizeHeavySecondShareFar2x -0.5 is outside its joint domain"),
         ]
         for overrides, needle in cases:
             with self.assertRaisesRegex(W.Refusal, needle, msg=json.dumps(overrides)):
@@ -352,6 +373,9 @@ class Decide(unittest.TestCase):
         (folder / "summary.json").write_text(json.dumps(dict(
             overrides=overrides, cells=cells,
             stages={"stage1": dict(objective=objective, within=within, notWithin=[], tie=0.01)})))
+        (self.tmp / "specs").mkdir(exist_ok=True)
+        (self.tmp / "specs" / f"{label}.json").write_text(json.dumps(dict(label=label, start="c05",
+                                                                          overrides=overrides)))
 
     MOVE = {"id": "stage1", "families": {"deep": {"leaves": {}}}}
 
@@ -370,7 +394,7 @@ class Decide(unittest.TestCase):
 
     def test_a_partial_objective_is_never_ranked(self):
         self.point("a1", 0.10, "NOT WITHIN", 1, drop=next(iter(self.members)))
-        with self.assertRaisesRegex(W.Refusal, "UNMEASURED objective member"):
+        with self.assertRaisesRegex(W.Refusal, "UNMEASURED stage1 objective member"):
             search.decide(self.MOVE, "c05", ["a1"])
 
 
@@ -413,6 +437,63 @@ class CommittedPart2(unittest.TestCase):
         self.part2 = fit.part2()
         self.joint = fit.joint_overrides()
 
+    def test_the_second_amendment_is_in_the_hashed_part_2(self):
+        deep = self.part2["moves"][0]["families"]["deep"]
+        receded = self.part2["moves"][1]["families"]["receded"]
+        for spec in (deep["leaves"]["sizeHeavySecondShareFar2x"], receded["leaves"]["sizeHeavySecondShareFar2x"]):
+            self.assertEqual(spec["domainLowerIsMinus"], "sizeHeavySecondShare")
+        self.assertEqual(deep["factorialGroups"], [dict(deep["factorialGroups"][0],
+                                                        keys=["sizeHeavySecondShare", "sizeHeavySecondSigma2x"],
+                                                        starts=["c05"], points=35)])
+        self.assertIn("unless a point names them", self.part2["moves"][1]["inherits"])
+
+    def test_the_share_and_width_factorial_is_one_step_from_c05_and_not_from_the_joint(self):
+        move = search.move_of("stage1")
+        deep = move["families"]["deep"]
+        keys = list(deep["leaves"])
+        self.assertEqual(search.steps_of(deep, "joint"), [[k] for k in keys])
+        steps = search.steps_of(deep, "c05")
+        self.assertEqual(len(steps), len(keys) - 1)
+        pair = ["sizeHeavySecondShare", "sizeHeavySecondSigma2x"]
+        self.assertIn(pair, steps)
+        self.assertEqual(steps.index(pair), keys.index("sizeHeavySecondShare"))
+        runner = FakeRunner(distance({}))
+        search.sweep_family(move, "deep", "c05", {}, {}, 1, runner)
+        factorial = next(c for c in runner.calls if any("sizeHeavySecondSigma2x" in ov["active.light"]
+                                                         for ov in c["cands"]))
+        grid = {(ov["active.light"]["sizeHeavySecondShare"], ov["active.light"]["sizeHeavySecondSigma2x"])
+                for ov in factorial["cands"]}
+        self.assertEqual(len(factorial["cands"]), 35)
+        self.assertEqual(grid, {(q, w) for q in deep["leaves"]["sizeHeavySecondShare"]["grid"]
+                                for w in deep["leaves"]["sizeHeavySecondSigma2x"]["grid"]})
+        self.assertEqual(len(set(factorial["labels"])), 35)
+        # From the joint point the share and the width are two single-leaf sweeps: every call varies one
+        # leaf (or the tied pair) of the active document.
+        runner = FakeRunner(distance({}))
+        search.sweep_family(move, "deep", "joint", self.joint, self.joint, 1, runner)
+        self.assertEqual(len(runner.calls), len(keys))
+        for call, key in zip(runner.calls, keys):
+            varied = {leaf for leaf in {k for ov in call["cands"] for k in ov["active.light"]}
+                      if len({ov["active.light"].get(leaf) for ov in call["cands"]}) > 1}
+            self.assertLessEqual(varied, set(key.split("+")), key)
+
+    def test_the_operators_sweep_stays_inside_minus_share(self):
+        move = search.move_of("stage1")
+        deep = move["families"]["deep"]
+        for share, offered in ((0, [0]), (0.25, [0, -0.25]), (0.5, [0, -0.25, -0.5]),
+                               (1, [0, -0.25, -0.5, -0.75, -1])):
+            current = {"active.light": {"sizeHeavySecondShare": share, "sizeHeavySecondSigma2x": 3,
+                                        "sizeHeavySecondSigma": 0}}
+            got = [ov["active.light"]["sizeHeavySecondShareFar2x"]
+                   for ov in search.sweep_candidates(deep, "sizeHeavySecondShareFar2x", current)]
+            self.assertEqual(got, offered, share)
+        # A share sweep holding a delta of -0.5 offers no share below 0.5.
+        current = {"active.light": {"sizeHeavySecondShare": 0.5, "sizeHeavySecondShareFar2x": -0.5,
+                                    "sizeHeavySecondSigma2x": 3, "sizeHeavySecondSigma": 0}}
+        got = [ov["active.light"]["sizeHeavySecondShare"]
+               for ov in search.sweep_candidates(deep, "sizeHeavySecondShare", current)]
+        self.assertEqual(got, [0.5, 0.75, 1.0])
+
     def test_part_2_is_the_hashed_one_and_its_scopes_are_the_charters(self):
         self.assertEqual(W.sha(W.PART2.read_bytes()), W.part_hash(2))
         moves = {m["id"]: m for m in self.part2["moves"]}
@@ -438,7 +519,8 @@ class CommittedPart2(unittest.TestCase):
             for ov in first["cands"]:
                 # The fixed 1x width is held in every point and never a label difference.
                 self.assertEqual(ov["active.light"]["sizeHeavySecondSigma"], 0)
-            self.assertEqual(len(runner.calls), len(move["families"]["deep"]["leaves"]), start)
+            # One step per leaf; from c05 the share and the width are one (the factorial).
+            self.assertEqual(len(runner.calls), len(move["families"]["deep"]["leaves"]) - (start == "c05"), start)
 
     def test_a_whole_stage_1_search_is_labelled_and_declared_from_both_starts(self):
         move = search.move_of("stage1")
@@ -461,6 +543,9 @@ class CommittedPart2(unittest.TestCase):
                   ("receded.light", "sizeScatterRampStartThin2x"): 0.3,
                   ("receded.light", "sizeHeavySecondShare"): 0.25,
                   ("receded.light", "sizeHeavySecondShareFar2x"): -0.25}
+        # Every point the procedure asks for is inside the joint domain (FakeRunner checks each), so the
+        # receded share cannot fall below the delta it holds: pass 1 holds the inherited -0.5 and offers
+        # the share 0.5 alone, the delta sweep then narrows to -0.25, and pass 2's share sweep reaches 0.25.
         runner = FakeRunner(distance(target))
         path = search.compose("stage2", "joint", stage1_point, 2, runner)
         thin, receded = path["components"]
@@ -480,7 +565,7 @@ class CommittedPart2(unittest.TestCase):
                  for c in runner.calls if c["family"] == "receded"}
         shares = sorted({ov["receded.light"].get("sizeHeavySecondShare") for c in runner.calls
                          if c["family"] == "receded" for ov in c["cands"]} - {None})
-        self.assertEqual(shares, [0, 0.125, 0.25, 0.375, 0.5])
+        self.assertEqual(shares, [0.25, 0.375, 0.5])
         deltas = sorted({ov["receded.light"].get("sizeHeavySecondShareFar2x") for c in runner.calls
                          if c["family"] == "receded" for ov in c["cands"]} - {None})
         self.assertEqual(deltas, [-0.5, -0.25, 0])
@@ -521,6 +606,150 @@ class CommittedPart2(unittest.TestCase):
             self.assertEqual(written["base"], "j-s1-landed")
         finally:
             shutil.rmtree(tmp)
+
+
+class RenderOnce(unittest.TestCase):
+    """The real `Runner` on the committed part 2 with build, render and read replaced in memory: a
+    content twin MEASURES a point and never replaces its overrides (the review of W45 G0's closure,
+    P1). Content follows the identity table: both second-tap widths drop out while the share is 0."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="w45-fit-once-")).resolve()
+        self.g1 = self.tmp / "g1"
+        self.c05 = json.loads((W.CAL / "profiles/apple-macos-27.0-1x-light-standard-glass0.25.json").read_text())["patch"]
+        self.rendered, self.renders = {}, []
+        members = {sid: {} for sid in fit.scenes_for("fit")}
+
+        def content(label):
+            ov = search.base_overrides(label).get("active.light", {})
+            eff = {k: v for k, v in ov.items() if self.c05.get(k, 0) != v}
+            if fit.active_value(search.base_overrides(label), "sizeHeavySecondShare") == 0:
+                eff.pop("sizeHeavySecondSigma2x", None)
+                eff.pop("sizeHeavySecondSigma", None)
+            return tuple(sorted(eff.items()))
+
+        def objective(label):
+            ov = search.base_overrides(label)
+            share = fit.active_value(ov, "sizeHeavySecondShare")
+            width = fit.active_value(ov, "sizeHeavySecondSigma2x")
+            return abs(share * width - 1.5)
+
+        def read(name):
+            value = objective(name)
+            (self.g1 / "candidates" / name / "summary.json").write_text(json.dumps(dict(
+                cells=members, overrides=search.base_overrides(name),
+                stages={sc: dict(objective=value, within="NOT WITHIN", notWithin=[], tie=0.01)
+                        for sc in fit.ALL_SCOPES})))
+
+        def render(name, scope):
+            self.renders.append((name, scope))
+            self.rendered.setdefault(name, set()).add(scope)
+            return 0
+
+        self.patches = [
+            mock.patch.object(fit, "G1", self.g1), mock.patch.object(search, "PATH", self.g1 / "path"),
+            mock.patch.object(fit, "build", self.build),
+            mock.patch.object(search, "content_of", content),
+            mock.patch.object(fit, "covered", lambda name, scope: scope in self.rendered.get(name, ())),
+            mock.patch.object(fit, "render", render), mock.patch.object(fit, "read", read),
+            mock.patch.object(search, "read_current",
+                              lambda name: (self.g1 / "candidates" / name / "summary.json").exists()),
+        ]
+        for patch in self.patches:
+            patch.start()
+        fit._part2 = fit._declared = None
+
+    def build(self, label):
+        folder = self.g1 / "candidates" / label
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / "candidate.json").write_text("{}")
+
+    def tearDown(self):
+        for patch in self.patches:
+            patch.stop()
+        shutil.rmtree(self.tmp)
+
+    def test_a_zero_share_width_sweep_keeps_the_width_it_chose(self):
+        # The coordinate form (the factorial group set aside): what a lineage without the group sweeps.
+        move = json.loads(json.dumps(search.move_of("stage1")))
+        del move["families"]["deep"]["factorialGroups"]
+        best, labels, _ = search.sweep_family(move, "deep", "c05", {}, {}, 2, search.Runner())
+        # The width the zero-share sweep chose (the grid's first, 1.5, on a tie of one content)
+        # survives into the second pass, whose share sweep then leaves (0, 0).
+        self.assertEqual(best["active.light"]["sizeHeavySecondSigma2x"], 1.5)
+        self.assertEqual(best["active.light"]["sizeHeavySecondShare"], 1.0)
+        # At share 0 every width is one content: the width points are measured, not rendered, and
+        # each keeps its own width in its own spec.
+        aliases = fit.aliases()
+        width_points = list(dict.fromkeys(lab for lab in labels
+                                          if re.fullmatch(r"c-s1-q0-w[0-9.]+-fl0\.5-top112", lab)))
+        self.assertEqual(len(width_points), 7, labels)
+        self.assertTrue(all(lab in aliases for lab in width_points), width_points)
+        self.assertEqual(len({aliases[lab] for lab in width_points}), 1)
+        for lab in width_points:
+            self.assertIn("sizeHeavySecondSigma2x", search.base_overrides(lab)["active.light"])
+        self.assertLess(len(self.renders), len(set(labels)))
+        self.assertTrue(all(name not in aliases for name, _ in self.renders), "an alias was rendered")
+
+    def test_the_factorial_from_c05_measures_the_zero_share_widths_once_and_keeps_each(self):
+        move = search.move_of("stage1")
+        best, labels, _ = search.sweep_family(move, "deep", "c05", {}, {}, 1, search.Runner())
+        # |share x width - 1.5| is 0 first at (0.25, 6) in the grid's order (share outer, width inner).
+        self.assertEqual((best["active.light"]["sizeHeavySecondShare"], best["active.light"]["sizeHeavySecondSigma2x"]),
+                         (0.25, 6))
+        aliases = fit.aliases()
+        zero = list(dict.fromkeys(lab for lab in labels if re.fullmatch(r"c-s1-q0-w[0-9.]+-fl0\.5-top112", lab)))
+        self.assertEqual(len(zero), 7, labels)
+        # One content: every zero-share width is measured by one rendered twin (the span-top sweep's
+        # point at floor 0.5 and top 112 already draws it), and each keeps its own width.
+        twins = {aliases.get(lab, lab) for lab in zero}
+        self.assertEqual(len(twins), 1)
+        self.assertIn(next(iter(twins)), {name for name, _ in self.renders})
+        self.assertEqual({search.base_overrides(lab)["active.light"]["sizeHeavySecondSigma2x"] for lab in zero},
+                         {1.5, 2, 2.5, 3, 4, 5, 6})
+        self.assertTrue(all(name not in aliases for name, _ in self.renders), "an alias was rendered")
+
+
+class PartialObjective(unittest.TestCase):
+    """A component's objective is never a partial median: refused until recovered, then ranked on the
+    recovered value, in the sweep itself (the review of W45 G0's closure, P2)."""
+
+    MOVE = {"id": "stage1", "families": {"deep": {"leaves": {
+        "sizeScatterFloor2x": {"slot": "active.light", "domain": [0.5, 1.0], "grid": [0.6, 0.7]}}}}}
+
+    class Existing(search.Runner):
+        def points(self, cands, labels, stage_id, family, start, scope):
+            return list(labels)
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="w45-fit-partial-")).resolve()
+        self.patches = [mock.patch.object(fit, "G1", self.tmp), mock.patch.object(search, "PATH", self.tmp / "path")]
+        for patch in self.patches:
+            patch.start()
+        members = fit.scenes_for("stage1")
+        for label, floor, objective, cells in (("c-s1-fl0.6", 0.6, 0.05, members[1:]),
+                                               ("c-s1-fl0.7", 0.7, 0.10, members)):
+            (self.tmp / "specs").mkdir(exist_ok=True)
+            (self.tmp / "specs" / f"{label}.json").write_text(json.dumps(dict(
+                label=label, start="c05", overrides={"active.light": {"sizeScatterFloor2x": floor}})))
+            (self.tmp / "candidates" / label).mkdir(parents=True)
+            (self.tmp / "candidates" / label / "summary.json").write_text(json.dumps(dict(
+                cells={sid: {} for sid in cells}, stages={"stage1": dict(objective=objective)})))
+
+    def tearDown(self):
+        for patch in self.patches:
+            patch.stop()
+        shutil.rmtree(self.tmp)
+
+    def test_the_partial_median_winner_is_refused_and_then_loses_after_recovery(self):
+        with self.assertRaisesRegex(W.Refusal, "UNMEASURED stage1 objective member"):
+            search.sweep_family(self.MOVE, "deep", "c05", {}, {}, 1, self.Existing())
+        (self.tmp / "path").mkdir()
+        (self.tmp / "path" / "recovered.json").write_text(json.dumps(dict(points={
+            "c-s1-fl0.6": {"stage1": {"declaredObjective": 0.20}}})))
+        best, _, chosen = search.sweep_family(self.MOVE, "deep", "c05", {}, {}, 1, self.Existing())
+        self.assertEqual(chosen, "c-s1-fl0.7")
+        self.assertEqual(best["active.light"]["sizeScatterFloor2x"], 0.7)
 
 
 class Paths(unittest.TestCase):

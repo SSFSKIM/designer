@@ -1,0 +1,50 @@
+test_a_declaration_in_w44s_schema (test_declare.Bindings.test_a_declaration_in_w44s_schema) ... ok
+test_a_declaration_naming_w44s_charter (test_declare.Bindings.test_a_declaration_naming_w44s_charter) ... ok
+test_a_digest_carrying_w44s_part_hash (test_declare.Bindings.test_a_digest_carrying_w44s_part_hash) ... ok
+test_w44s_evidence_as_the_fit_directory (test_declare.Bindings.test_w44s_evidence_as_the_fit_directory) ... ok
+test_w44s_scratch_as_the_ladder_scratch (test_declare.Bindings.test_w44s_scratch_as_the_ladder_scratch) ... ok
+test_w45s_own_bindings_pass (test_declare.Bindings.test_w45s_own_bindings_pass) ... ok
+test_amend_fit_refuses_once_a_fit_render_exists (test_declare.Evidence.test_amend_fit_refuses_once_a_fit_render_exists) ... ok
+test_amend_refuses_before_the_hash (test_declare.Evidence.test_amend_refuses_before_the_hash) ... ok
+test_amend_refuses_once_a_ladder_render_exists (test_declare.Evidence.test_amend_refuses_once_a_ladder_render_exists) ... ok
+test_a_read_at_commit_whose_bytes_are_not_the_pin_is_refused (test_declare.PartOneRecord.test_a_read_at_commit_whose_bytes_are_not_the_pin_is_refused) ... ok
+test_a_read_at_entry_for_any_other_source_is_refused_by_the_checker (test_declare.PartOneRecord.test_a_read_at_entry_for_any_other_source_is_refused_by_the_checker) ... ok
+test_a_read_at_source_is_read_at_its_commit (test_declare.PartOneRecord.test_a_read_at_source_is_read_at_its_commit) ... ok
+test_a_recorded_move_of_a_repinnable_source_is_accepted (test_declare.PartOneRecord.test_a_recorded_move_of_a_repinnable_source_is_accepted) ... ok
+test_a_repin_of_any_other_source_is_refused_by_the_checker (test_declare.PartOneRecord.test_a_repin_of_any_other_source_is_refused_by_the_checker) ... ok
+test_a_source_outside_the_repinnable_set_is_never_accepted (test_declare.PartOneRecord.test_a_source_outside_the_repinnable_set_is_never_accepted) ... ok
+test_the_count_floor (test_declare.PartOneRecord.test_the_count_floor) ... ok
+test_a_part_one_pin_moved_twice_is_accepted_only_along_its_chain (test_declare.SecondAmendment.test_a_part_one_pin_moved_twice_is_accepted_only_along_its_chain) ... ok
+test_a_path_touched_twice_and_a_removal (test_declare.SecondAmendment.test_a_path_touched_twice_and_a_removal) ... ok
+test_a_pin_no_ruling_moves (test_declare.SecondAmendment.test_a_pin_no_ruling_moves) ... ok
+test_a_ruling_with_nothing_executed (test_declare.SecondAmendment.test_a_ruling_with_nothing_executed) ... ok
+test_a_third_amendment_is_refused_for_ever (test_declare.SecondAmendment.test_a_third_amendment_is_refused_for_ever) ... ok
+test_an_authorised_path_with_another_value_fails_the_value_check (test_declare.SecondAmendment.test_an_authorised_path_with_another_value_fails_the_value_check) ... ok
+test_an_op_at_a_path_its_ruling_does_not_change (test_declare.SecondAmendment.test_an_op_at_a_path_its_ruling_does_not_change) ... ok
+test_an_unknown_ruling (test_declare.SecondAmendment.test_an_unknown_ruling) ... ok
+test_another_cause_fails_the_check (test_declare.SecondAmendment.test_another_cause_fails_the_check) ... ok
+test_the_ruled_entry_validates (test_declare.SecondAmendment.test_the_ruled_entry_validates) ... ok
+test_the_second_amendment_only_under_the_ruling_commit (test_declare.SecondAmendment.test_the_second_amendment_only_under_the_ruling_commit) ... ok
+test_the_second_amendment_refuses_once_a_fit_render_exists (test_declare.SecondAmendment.test_the_second_amendment_refuses_once_a_fit_render_exists) ... ok
+test_a_change_of_no_declared_kind (test_declare.ValidatedDiff.test_a_change_of_no_declared_kind) ... ok
+test_a_changed_prediction (test_declare.ValidatedDiff.test_a_changed_prediction) ... ok
+test_a_narrowing_outside_the_non_flat_range (test_declare.ValidatedDiff.test_a_narrowing_outside_the_non_flat_range) ... ok
+test_a_new_leaf (test_declare.ValidatedDiff.test_a_new_leaf) ... ok
+test_a_strike_from_a_ladder_that_decides_no_strike (test_declare.ValidatedDiff.test_a_strike_from_a_ladder_that_decides_no_strike) ... ok
+test_a_strike_the_ladder_did_not_make (test_declare.ValidatedDiff.test_a_strike_the_ladder_did_not_make) ... ok
+test_a_supported_strike_validates (test_declare.ValidatedDiff.test_a_supported_strike_validates) ... ok
+test_a_widened_grid (test_declare.ValidatedDiff.test_a_widened_grid) ... ok
+test_an_inert_setting_without_x48 (test_declare.ValidatedDiff.test_an_inert_setting_without_x48) ... ok
+test_the_draft_unchanged_validates (test_declare.ValidatedDiff.test_the_draft_unchanged_validates) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 0.306s
+
+OK
+amend REFUSES: render evidence exists for this part (/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w45-declare-b_hmqsgf/runs.jsonl); a render after the hash fixes it
+amend REFUSES: the part is not hashed; before the hash it is simply edited and re-checked
+amend REFUSES: render evidence exists for this part (/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w45-declare-qg5mzezw/runs.jsonl, /Users/new/vitrea-w45/g0-ladders/base-i/matrix.json, /Users/new/vitrea-w45/g0-ladders/base-joint/matrix.json, /Users/new/vitrea-w45/g0-ladders/c05-control/matrix.json); a render after the hash fixes it
+amend-fit REFUSES: part 2 was amended twice, the second time finally (the charter's Decision Log 7); it is never amended again
+amend-fit REFUSES: the second amendment is ruled at 86c1b543, not c152b89b
+amend-fit REFUSES: a fit render exists (fit/runs.jsonl); part 2 is fixed
+exit 0

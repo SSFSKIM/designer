@@ -58,6 +58,13 @@
  * position's capture than the other position's: the two captures sit only 0.023
  * apart over this box, barely past the tolerance, so passing the tolerance alone
  * would not say which material drew.
+ *
+ * **W45 G2 re-copied the 0.25 cell** (claims §5.207): the light 0.25 documents
+ * moved to `sha256:ebc3d9105a4a` / `12712d534b78` (the span-graded tap, 2x leaves
+ * only), so the first case below failed on the old cell as it is meant to. The
+ * capture is this 1x scene's, which W45 left byte-identical (X48), so the png is
+ * still `4adba9e6…`; the cell, copied from the canonical tree the landing filled,
+ * is `64eefdc5…`.
  */
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";

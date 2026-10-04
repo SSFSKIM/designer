@@ -38,7 +38,8 @@ PATH = fit.G1 / "path"
 
 
 def cut_of(label: str) -> dict:
-    with gzip.open(fit.G1 / "candidates" / label / "cuts.json.gz", "rt") as f:
+    """A point's cut, read off its content twin where it is measured by one (`fit.measured_label`)."""
+    with gzip.open(fit.G1 / "candidates" / fit.measured_label(label) / "cuts.json.gz", "rt") as f:
         return json.load(f)
 
 

@@ -1,0 +1,18 @@
+{
+  "label": "c-s2x-t0.95",
+  "note": "",
+  "stage": "stage2",
+  "family": "thin",
+  "start": "c05",
+  "overrides": {
+    "active.light": {
+      "sizeHeavySecondSigma": 0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 2,
+      "sizeHeavySecondShareFar2x": -0.25,
+      "sizeScatterSpanMax2x": 128,
+      "sizeScatterFloor2x": 1.0,
+      "sizeScatterRampStartThin2x": 0.95
+    }
+  }
+}

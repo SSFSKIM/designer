@@ -1,0 +1,26 @@
+{
+  "label": "c-s2x-t0.65-rcq0.25-rcd-0-rcs18-rcf0-rck0-rct0.1",
+  "note": "",
+  "stage": "stage2",
+  "family": "receded",
+  "start": "c05",
+  "overrides": {
+    "active.light": {
+      "sizeHeavySecondSigma": 0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 2,
+      "sizeHeavySecondShareFar2x": -0.25,
+      "sizeScatterSpanMax2x": 128,
+      "sizeScatterFloor2x": 1.0,
+      "sizeScatterRampStartThin2x": 0.65
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1,
+      "sizeScatterRampStartThick2x": 0,
+      "sizeScatterRampStartFar2x": 0,
+      "sizeHeavyTapSigma2x": 18,
+      "sizeHeavySecondShare": 0.25,
+      "sizeHeavySecondShareFar2x": -0.0
+    }
+  }
+}

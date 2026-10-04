@@ -1,0 +1,30 @@
+W45 G2 part (iii): T1 clause (b) against the superseded reference c05 (6d18c059eb42 /
+4d5f23d9d312) on the published generation ebc3d9105a4a / 12712d534b78, with BOTH band
+fixtures present and T1_AUTHORISED_REGRESSIONS empty (claims §5.207; X59). A T cell's
+regression reads T1-low. g / B is error growth over B = max(1 code, 2 bar).
+
+apple-macos-27.0-1x-light-standard-glass0.25, W44 form: 0 away beyond B, 0 beyond 3 B
+apple-macos-27.0-1x-light-standard-glass0.25, growth-only: 0 away beyond B, 0 beyond 3 B
+  partition: W44 {'unchanged': 116}; growth-only {'unchanged': 116}
+
+apple-macos-27.0-2x-light-standard-glass0.25, W44 form: 6 away beyond B, 1 beyond 3 B
+  checkerboard__rrect-md__pressed                gate     n 0.1501 c05 0.1575 W45 0.1858  g 4.2740 B (away / away)
+  checkerboard-64__rrect-sm__rest                gate     n 0.0680 c05 0.0319 W45 0.0133  g 2.2223 B (away / away)
+  checkerboard__glass-over-glass__rest           holdout  n 0.1087 c05 0.1164 W45 0.1269  g 1.5653 B (away / away)
+  checkerboard-8__rrect-lg__rest                 gate     n 0.0224 c05 0.0484 W45 0.0581  g 1.5497 B (away / away)
+  hc-text__rrect-lg__inactive                    gate     n 0.1214 c05 0.1113 W45 0.1020  g 1.3983 B (away / away)
+  photo__toolbar-group__inactive                 gate     n 0.0998 c05 0.0778 W45 0.0718  g 1.0161 B (away / away)
+apple-macos-27.0-2x-light-standard-glass0.25, growth-only: 11 away beyond B, 5 beyond 3 B
+  checkerboard__rrect-md__pressed                gate     n 0.1501 c05 0.1575 W45 0.1858  g 4.2740 B (away / away)
+  checkerboard__capsule-button__pressed          gate     n 0.1938 c05 0.1807 W45 0.2358  g 4.2526 B (overshoot / away)
+  checkerboard-32__rrect-sm__rest                gate     n 0.2161 c05 0.1954 W45 0.2650  g 4.1792 B (overshoot / away)
+  checkerboard-32__rrect-lg__rest                gate     n 0.1336 c05 0.1329 W45 0.1566  g 3.3379 B (overshoot / away)
+  checkerboard__rrect-lg__rest                   holdout  n 0.0610 c05 0.0581 W45 0.0851  g 3.2994 B (overshoot / away)
+  checkerboard-64__rrect-sm__rest                gate     n 0.0680 c05 0.0319 W45 0.0133  g 2.2223 B (away / away)
+  hc-text-7__rrect-md__inactive                  referee  n 0.0596 c05 0.0602 W45 0.0491  g 1.5990 B (overshoot / away)
+  checkerboard__glass-over-glass__rest           holdout  n 0.1087 c05 0.1164 W45 0.1269  g 1.5653 B (away / away)
+  checkerboard-8__rrect-lg__rest                 gate     n 0.0224 c05 0.0484 W45 0.0581  g 1.5497 B (away / away)
+  hc-text__rrect-lg__inactive                    gate     n 0.1214 c05 0.1113 W45 0.1020  g 1.3983 B (away / away)
+  photo__toolbar-group__inactive                 gate     n 0.0998 c05 0.0778 W45 0.0718  g 1.0161 B (away / away)
+  partition: W44 {'away': 16, 'overshoot': 10, 'toward': 63, 'unchanged': 27}; growth-only {'away': 22, 'toward': 67, 'unchanged': 27}
+

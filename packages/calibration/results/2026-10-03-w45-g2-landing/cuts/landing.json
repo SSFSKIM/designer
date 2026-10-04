@@ -1,0 +1,362 @@
+{
+ "what": "W45 G2: the 0.25 cuts regenerated at the landing from the published generation (claims \u00a75.207)",
+ "published": {
+  "ebc3d9105a4a.json": {
+   "sha256": "6e13171051de77a2236d5545e1cc9ea1d35fd5fe566c6862dedf4b51a8a253f5",
+   "rows": 656
+  },
+  "d0219cd684bf.json": {
+   "sha256": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02",
+   "rows": 468
+  }
+ },
+ "rows": 1124,
+ "bedMatrix": {
+  "path": "/Users/new/vitrea-w45/g2-scratch/landing-cut/published-025.json",
+  "sha256": "0bd85f1ee30677200eaceabf492b3c79f13469f5969a4f3ced4e96d77270036e"
+ },
+ "references": {
+  "generations": [
+   "6d18c059eb42",
+   "d0219cd684bf"
+  ],
+  "t1": [
+   "6d18c059eb42",
+   "d0219cd684bf"
+  ],
+  "captures": "/Users/new/vitrea-w45/g2-scratch/landing-cut/reference-captures",
+  "copiedFrom": {
+   "light": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/6d18c059eb42",
+   "dark": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures"
+  }
+ },
+ "captures": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+ "declaredAtLanding": "cuts.declared without the referee exclusion (the referees spent at read 7)",
+ "cut": {
+  "path": "cut-025-w45-landing.json",
+  "sha256": "e5e082a238405b8d555c159a290bb0b36ce3689d3f33e8a8485bfa4dc0cf2e65"
+ },
+ "againstExposure": {
+  "path": "results/2026-10-03-w45-g1-refit/cuts/cut-025-w45-exposure.json",
+  "sha256": "986cf8b6859eacdebc381495c59fbf87e38bf882aff1620eedef3f543e5b6d62",
+  "bedEqual": true,
+  "referenceEqual": true,
+  "sectionsCompared": [
+   "C1",
+   "E2",
+   "L1",
+   "M1",
+   "M1M2cells",
+   "M2",
+   "S1",
+   "T1",
+   "X1",
+   "gatedTier",
+   "scenesSha256",
+   "summary",
+   "tables",
+   "withHoldout"
+  ],
+  "equal": [
+   "L1",
+   "M1",
+   "M1M2cells",
+   "M2",
+   "S1",
+   "T1",
+   "gatedTier",
+   "scenesSha256",
+   "summary",
+   "tables",
+   "withHoldout"
+  ],
+  "addedRefereeCells": {
+   "C1": [
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest"
+   ],
+   "E2": [
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest"
+   ],
+   "X1": [
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__inactive",
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-lg__inactive",
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest",
+    "webgpu apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-md__inactive",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__inactive",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__inactive",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest",
+    "webgpu apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-md__inactive",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-32__rrect-lg__inactive",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-lg__inactive",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest",
+    "css apple-macos-27.0-1x-light-standard-glass0.25/hc-text-7__rrect-md__inactive",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-32__rrect-lg__inactive",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-lg__inactive",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/checkerboard-8__rrect-sm__rest",
+    "css apple-macos-27.0-2x-light-standard-glass0.25/hc-text-7__rrect-md__inactive"
+   ]
+  },
+  "aggregatesMovedWithTheAddedCells": {
+   "C1 webgpu 1x light span 128": {
+    "landing": {
+     "cells": 7,
+     "statistic": 0.0020737142857142976,
+     "min": 0.00201271428571432,
+     "max": 0.0030694285714285563,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 7,
+      "statistic": 0.0020737142857142976,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 7,
+      "statistic": 0.0020737142857142976,
+      "maxAbsCellChange": 0.0
+     }
+    },
+    "exposure": {
+     "cells": 6,
+     "statistic": 0.0020785714285714374,
+     "min": 0.00201271428571432,
+     "max": 0.0030694285714285563,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 6,
+      "statistic": 0.0020785714285714374,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 6,
+      "statistic": 0.0020785714285714374,
+      "maxAbsCellChange": 0.0
+     }
+    }
+   },
+   "C1 webgpu 2x light span 128": {
+    "landing": {
+     "cells": 7,
+     "statistic": 0.002120999999999992,
+     "min": 0.0020895714285714523,
+     "max": 0.0033300000000000074,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 7,
+      "statistic": 0.002120999999999992,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 7,
+      "statistic": 0.002120999999999992,
+      "maxAbsCellChange": 0.0
+     }
+    },
+    "exposure": {
+     "cells": 6,
+     "statistic": 0.002120999999999992,
+     "min": 0.0020895714285714523,
+     "max": 0.0033300000000000074,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 6,
+      "statistic": 0.002120999999999992,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 6,
+      "statistic": 0.002120999999999992,
+      "maxAbsCellChange": 0.0
+     }
+    }
+   },
+   "C1 css 1x light span 128": {
+    "landing": {
+     "cells": 7,
+     "statistic": 0.003352428571428621,
+     "min": 0.001206428571428529,
+     "max": 0.0045049999999999335,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 7,
+      "statistic": 0.003352428571428621,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 7,
+      "statistic": 0.003350142857142905,
+      "maxAbsCellChange": 7.42857142856275e-06
+     }
+    },
+    "exposure": {
+     "cells": 6,
+     "statistic": 0.0033740000000000514,
+     "min": 0.001206428571428529,
+     "max": 0.0045049999999999335,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 6,
+      "statistic": 0.0033740000000000514,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 6,
+      "statistic": 0.0033732857142857614,
+      "maxAbsCellChange": 7.42857142856275e-06
+     }
+    }
+   },
+   "C1 css 2x light span 128": {
+    "landing": {
+     "cells": 7,
+     "statistic": 0.002912142857142871,
+     "min": 0.0014295714285714586,
+     "max": 0.00504385714285714,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 7,
+      "statistic": 0.002912142857142871,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 2,
+      "statistic": 0.0050441428571428625,
+      "maxAbsCellChange": 2.8571428572262553e-07
+     }
+    },
+    "exposure": {
+     "cells": 6,
+     "statistic": 0.002940857142857126,
+     "min": 0.0014295714285714586,
+     "max": 0.00504385714285714,
+     "noRow": [],
+     "verdict": "PASS",
+     "prefit": {
+      "cells": 6,
+      "statistic": 0.002940857142857126,
+      "maxAbsCellChange": 0.0
+     },
+     "shipped05": {
+      "cells": 2,
+      "statistic": 0.0050441428571428625,
+      "maxAbsCellChange": 2.8571428572262553e-07
+     }
+    }
+   },
+   "E2 webgpu meanChange": {
+    "landing": 0.2764131642813813,
+    "exposure": 0.27742046126694797
+   },
+   "E2 webgpu measured": {
+    "landing": 288,
+    "exposure": 282
+   },
+   "E2 webgpu namedMissBins": {
+    "landing": 1632,
+    "exposure": 1606
+   },
+   "E2 webgpu namedMissCells": {
+    "landing": 49,
+    "exposure": 47
+   },
+   "E2 css meanChange": {
+    "landing": 0.017941164217748568,
+    "exposure": 0.02048217526016509
+   },
+   "E2 css measured": {
+    "landing": 288,
+    "exposure": 282
+   },
+   "E2 css namedMissBins": {
+    "landing": 808,
+    "exposure": 790
+   },
+   "E2 css namedMissCells": {
+    "landing": 17,
+    "exposure": 16
+   },
+   "X1 webgpu totals": {
+    "landing": {
+     "integer": {
+      "pixels": 14154948,
+      "aboveZero": 0,
+      "aboveOne": 0
+     },
+     "analytic": {
+      "pixels": 14052656,
+      "aboveZero": 0,
+      "aboveOne": 0
+     }
+    },
+    "exposure": {
+     "integer": {
+      "pixels": 13629818,
+      "aboveZero": 0,
+      "aboveOne": 0
+     },
+     "analytic": {
+      "pixels": 13532242,
+      "aboveZero": 0,
+      "aboveOne": 0
+     }
+    }
+   },
+   "X1 css totals": {
+    "landing": {
+     "integer": {
+      "pixels": 14154948,
+      "aboveZero": 22402,
+      "aboveOne": 22398
+     },
+     "analytic": {
+      "pixels": 14052656,
+      "aboveZero": 0,
+      "aboveOne": 0
+     }
+    },
+    "exposure": {
+     "integer": {
+      "pixels": 13629818,
+      "aboveZero": 21730,
+      "aboveOne": 21726
+     },
+     "analytic": {
+      "pixels": 13532242,
+      "aboveZero": 0,
+      "aboveOne": 0
+     }
+    }
+   }
+  },
+  "differ": []
+ },
+ "verdict": "EQUAL"
+}

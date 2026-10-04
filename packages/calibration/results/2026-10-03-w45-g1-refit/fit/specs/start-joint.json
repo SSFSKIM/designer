@@ -1,0 +1,18 @@
+{
+  "label": "start-joint",
+  "note": "the declared starting point joint (Decision Log 4, X56)",
+  "stage": "start",
+  "family": "start",
+  "start": "joint",
+  "overrides": {
+    "active.light": {
+      "sizeScatterFloor2x": 1.0,
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 5,
+      "sizeScatterRampStartThin2x": 0.8
+    },
+    "receded.light": {
+      "sizeScatterRampStartThin2x": 0.1
+    }
+  }
+}
