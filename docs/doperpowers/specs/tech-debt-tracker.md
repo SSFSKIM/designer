@@ -7590,8 +7590,10 @@ before a refit is judged by it, so that a lattice correction is not scored as a 
 
 W45 moved only 2x leaves of the light 0.25 document. The demo's reference pair is held to the
 harness capture at 1x (`apps/demo/e2e/reference-panel.gpu.spec.ts`), where W45 changed no pixel
-(X48). The site's scenes leave out the probe set, so it offers no fine-checker scene. Nothing
-therefore checks the demo's 2x drawing against the harness. A visitor on a Retina display does see
+(X48). The figures the site prints read the 1x profile too (`calibration.ts`'s
+`PRIMARY_PROFILE_KEY`), so they did not move either. The site's scenes leave out the probe set, so
+it offers no fine-checker scene. Nothing therefore checks the demo's 2x drawing against the
+harness. A visitor on a Retina display does see
 W45's material at `?glass=0.25`, and the eye sheets show it beside Apple's; neither is a check of
 the demo itself. The shape of the fix: a 2x reference pair, with the @2x backdrop raster and the
 2x harness capture, and one fine-checker scene allowed onto the picker for it.
