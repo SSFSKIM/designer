@@ -48443,3 +48443,26 @@ count). Ratio is web/native over the named misses:
 - **A reading of the dark 0.25 holdout or referees at new bytes.** The holdout rows named here are the
   published generation's, already read at W43 G3's exposure (read 6). The adoption reads them, as
   W44's light adoption read c05's.
+
+## 5.211 W47 G0: the depth-split diagnostic chose the body form, both operators landed inert and proven by bytes, W46's tools re-bound, the rule rehearsed, part 1 hashed, the ladders read, part 2 hashed (2026-10-06)
+
+Evidence directory: `results/2026-10-06-w47-g0-operators/`, on branch `w47-g0-operators` off
+`c1f9bf84c` (the charter v1.2 merge). Charter `2026-10-06-w47-span-graded-dark-transmission.md`:
+clauses 1–5, the G0 child (a)–(g), Decision Logs 1–7, X60–X70. No referee or holdout cell was
+rendered, and no profile document, generation or capture tree moved.
+
+### 1. The snapshots and the bindings (X62; clause 2)
+
+The four 0.25 document bodies were copied from `c1f9bf84c` to `documents/<sha12>.json`
+(`d0219cd684bf`, `f0b36a71772a` dark; `ebc3d9105a4a`, `12712d534b78` light). Each is verified against
+its full SHA-256 and its bytes at that commit (`bindings.verify_documents`). These are W46's snapshot
+bytes, since no 0.25 document moved between `b36c9990` and the charter's merge; W47 keeps its own
+copies so that no W47 tool starts from a W46 directory. `bindings.py` is W46's, ported by copy, and it
+is the one place W47 is bound:
+- the charter pin, scratch `~/vitrea-w47` and the GPU lock `/tmp/w47-gpu.lock`;
+- X64 carried, and X67's keys with their resolved values. `ADMITTED` is their union per dark slot,
+  and the builder admits that and nothing else. X68's declared domains (`DOMAINS`) are sets where the
+  charter states sets, intervals where it states intervals.
+- X69's frozen inputs, pinned in `SHARED`: `w46-referees-1` (`0eb8ef77…`), W46's planner adapter,
+  W46's frozen ladder list and W46 G2's dark T-band fixture;
+- the refusals, extended to W46's evidence directories, scratch, part hashes and charter.
