@@ -1,0 +1,13 @@
+Scope: 9 of 10 workspace projects
+packages/geometry build$ tsc -p tsconfig.build.json
+packages/motion build$ tsc -p tsconfig.build.json
+packages/policy build$ tsc -p tsconfig.build.json
+packages/policy build: Done
+packages/motion build: Done
+packages/geometry build: Done
+packages/renderer-webgpu build$ tsc -p tsconfig.build.json
+packages/renderer-webgpu build: src/renderer.ts(99,3): error TS2459: Module '"./material"' declares 'rampAtScale' locally, but it is not exported.
+packages/renderer-webgpu build: Failed
+/Users/new/vitrea-w47/g0-diag/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/renderer-webgpu@0.0.0 build: `tsc -p tsconfig.build.json`
+Exit status 2

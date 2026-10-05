@@ -1,0 +1,26 @@
+{
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-diagnostic-weights",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "5016536f0753608c363b35f07d8211bd4fb529a06f3118f83af90e37a055e110"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "ed561c0a38a63c95733608bb65d67f0fc5ba8998dd31ce8291c035e049900f2a"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "2aed85618b92c1b1302dfac01c85a2237fdaae19e779ebd3753229d1a7142c74"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "dbbbb7fc6db1c2364ab78ec7e6616ac707d051de0fc419cdd4a67991379ed8ac"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

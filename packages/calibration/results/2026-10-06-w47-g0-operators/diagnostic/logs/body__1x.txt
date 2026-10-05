@@ -1,0 +1,62 @@
+census diagnostic body/1x: passes (22 annotated, refusals [])
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-1x-dark-standard-glass0.25 --renderer webgpu --candidate-document /Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/body/candidate.json --set probe --scene checkerboard-8__rrect-md__inactive,checkerboard-8__rrect-lg__inactive --alpha --write-partial --out-matrix /Users/new/vitrea-w47/diag/body/1x/matrix.json
+
+── web capture (apple-macos-27.0-1x-dark-standard-glass0.25, 2 scene(s)) ─────────────────────────────
+(node:90010) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/body/candidate.json declarationSha256=658ae440be79 name=apple-macos-27.0-glass0.25-w47-diagnostic-body glassTintAmount=0.25
+
+checkerboard-8__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/diag/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/
+
+checkerboard-8__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/diag/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/
+
+2 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (2 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w47/diag/body/1x/matrix.json (2 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       1x-dark-standard-glass0.25    checkerboard-8__rrect-md__inactive            1.000    0.00   0.982   0.0044   -0.002/ 0.002    0.1740/ 0.1686    0.0090/ 0.0134    0.0010/ 0.0098
+probe       1x-dark-standard-glass0.25    checkerboard-8__rrect-lg__inactive            1.000    0.01   0.973   0.0063   -0.002/ 0.001    0.1663/ 0.1686    0.0071/ 0.0146    0.0011/ 0.0156
+
+1x-dark-standard-glass0.25    probe       n= 2  IoU mean 0.9999 worst 0.9997   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9777 worst 0.9729   dE mean 0.00533 worst 0.00627
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+1x-dark-standard-glass0.25    checkerboard-8__rrect-md__inactive              15008        15024  0.9989         0.00         1.00
+1x-dark-standard-glass0.25    checkerboard-8__rrect-lg__inactive              43776        43816  0.9987         1.00         1.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard-glass0.25    checkerboard-8__rrect-md__inactive              0.50  0.7667/ 0.0169    2/  2/  2/  0    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    checkerboard-8__rrect-lg__inactive              0.50  0.7532/ 0.0196    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CANDIDATE material document drawn on the web side: /Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/body/candidate.json
+web accessibility for apple-macos-27.0-1x-dark-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (2) ────────────
+  checkerboard-8__rrect-md__inactive: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  checkerboard-8__rrect-lg__inactive: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+(node:89945) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

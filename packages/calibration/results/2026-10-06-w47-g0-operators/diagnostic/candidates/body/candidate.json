@@ -1,0 +1,26 @@
+{
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-diagnostic-body",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "671d914638a5dff591afa049fe79d681727ef6671a4bdc7629f1f97131fa41f4"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "bd2f3c43a03f5a12567da8c22406ceedfb2d413f6c7358dbfd3aa723d48b4f85"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "c6347194b9c74b84cf835e7cddf7dda46150c22cc6ce73ea6e5bedd5a1f8a5ca"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "666609420e1526d5cf60289faefda1dbb488088097d61a3a03026fbd9f5ae3a8"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

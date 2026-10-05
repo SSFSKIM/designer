@@ -1,0 +1,473 @@
+{
+  "capturedAt": "2026-10-05T19:31:43.202Z",
+  "requestedRenderer": "webgpu",
+  "colorScheme": "dark",
+  "accessibility": null,
+  "materialProfile": null,
+  "recededProfile": null,
+  "candidateDocument": {
+    "declarationPath": "/Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/zero-share/candidate.json",
+    "declarationSha256": "34853abf1b55",
+    "endpoints": {
+      "active.light": {
+        "path": "/Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/zero-share/active.light.json",
+        "sha256": "e46357cfbf745695fee3a523447a94e7f41a58d4dbf55a0f50919f586c17b4c4",
+        "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250",
+        "resolvedMaterialSha256": "3741b22934f17f4d"
+      },
+      "active.dark": {
+        "path": "/Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/zero-share/active.dark.json",
+        "sha256": "c0f396636f12938f9551cdd527d862f1419e1da6316bc05a4bde8f66e7e0ad39",
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+        "resolvedMaterialSha256": "b074fc6913a91c66"
+      },
+      "receded.light": {
+        "path": "/Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/zero-share/receded.light.json",
+        "sha256": "8dad1a2bdb668acb536547a1337748709d31b00fdf412d352cafbaf630ec6dd9",
+        "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+        "resolvedMaterialSha256": "c4ca0e1cd6791bde"
+      },
+      "receded.dark": {
+        "path": "/Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/zero-share/receded.dark.json",
+        "sha256": "17238b459f3197043c54d1f541f1f9a3e39c49a20f579e042b323db133133705",
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+        "resolvedMaterialSha256": "b75886a01ff1e34b"
+      }
+    },
+    "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+  },
+  "crossPosition": null,
+  "fallback": null,
+  "problems": [],
+  "page": {
+    "sceneId": "checkerboard-8__rrect-md__inactive",
+    "requestedRenderer": "webgpu",
+    "requestedScale": 2,
+    "requestedBackdropMode": "texture",
+    "requestedBackdropLevel": null,
+    "devicePixelRatio": 2,
+    "frames": 8,
+    "canvas": {
+      "width": 320,
+      "height": 200
+    },
+    "pixelSize": [
+      640,
+      400
+    ],
+    "background": {
+      "id": "checkerboard-8",
+      "url": "/reference-fixtures/backgrounds/checkerboard-8@2x.png",
+      "naturalWidth": 640,
+      "naturalHeight": 400
+    },
+    "pressed": false,
+    "tint": null,
+    "materialProfile": null,
+    "recededMaterialProfile": {
+      "backdropToneAbscissa": {
+        "kind": "silhouette"
+      },
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeStrength": 1,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0,
+          "tintAlpha": 0.89
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "tintShadeDark": 0.0202,
+      "tintShadeLight": 1.46,
+      "sizeScatterRampStartThin1x": 1,
+      "sizeScatterRampStartThin2x": 1,
+      "sizeScatterHeavyShareThick1x": 0.25,
+      "backdropToneAnchorX": [
+        0.004,
+        0.11,
+        0.47,
+        0.95
+      ],
+      "backdropToneResponseThin": [
+        0,
+        0.0187,
+        0.192,
+        0.448
+      ],
+      "backdropToneResponseThick": [
+        0,
+        0.0155,
+        0.167,
+        0.186
+      ],
+      "bodyChromaRetention": 0.142,
+      "backdropToneBlackStrength": 1,
+      "backdropToneBlackThin": 0.006995410187265387,
+      "backdropToneBlackThick": 0.006995410187265387,
+      "sizeFineTapShare": 0,
+      "sizeFineTapSigma": 6,
+      "sizeFineTapSigma2x": 6,
+      "sizeFineTapFormScratch": 1
+    },
+    "candidateRecededMaterialProfile": null,
+    "windowActivation": "inactive",
+    "colorScheme": "dark",
+    "material": {
+      "name": "apple-macos-27.0-glass0.25-w47-diagnostic-zero-share",
+      "platform": "macOS 27.0",
+      "glassTintAmount": 0.25,
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+      "resolvedMaterialSha256": "b75886a01ff1e34b",
+      "tuned": false
+    },
+    "materialMode": "candidate",
+    "candidateDocument": {
+      "mode": "candidate",
+      "declaration": "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/zero-share/candidate.json",
+      "declarationSha256": "34853abf1b55",
+      "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+    },
+    "cssTierMapping": null,
+    "transparentPage": false,
+    "accessibilityOverrides": null,
+    "accessibilityPolicy": {
+      "reducedTransparency": false,
+      "reducedMotion": false,
+      "increasedContrast": false,
+      "forcedColors": false,
+      "material": {
+        "glass": "material",
+        "colorSource": "material",
+        "frost": "nominal",
+        "refraction": "nominal",
+        "occlusion": "nominal",
+        "border": "nominal",
+        "ambientTint": "nominal",
+        "foreground": "adaptive"
+      },
+      "motion": {
+        "overshoot": "elastic",
+        "deformation": "nominal",
+        "shimmer": "travel",
+        "morph": "elastic",
+        "crossfade": "never",
+        "positionalContinuity": true
+      }
+    },
+    "groups": [
+      {
+        "id": "component",
+        "configuredSource": "texture",
+        "state": {
+          "configuredSource": "texture",
+          "activeRenderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "refraction": "true",
+          "analysis": "exact",
+          "health": "ok",
+          "materialDocument": {
+            "name": "apple-macos-27.0-glass0.25-w47-diagnostic-zero-share",
+            "platform": "macOS 27.0",
+            "glassTintAmount": 0.25,
+            "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+            "resolvedMaterialSha256": "b75886a01ff1e34b",
+            "tuned": false
+          },
+          "backdropToneAbscissae": [
+            {
+              "surfaceId": "body",
+              "sourceWidth": 640,
+              "sourceHeight": 400,
+              "sampledWidth": 640,
+              "sampledHeight": 400,
+              "kind": "silhouette",
+              "level": 0,
+              "color": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "luminance": 0.214041069149971,
+              "encodedLuminance": 0.4999999403953552,
+              "linearLuminance": 0.5,
+              "sampleCount": 60064
+            }
+          ]
+        },
+        "probeVerdict": "pass",
+        "unsampledMaterial": null,
+        "backdropTone": {
+          "level": 0.21382143697182815,
+          "linearLuminance": 0.4759235376674938,
+          "rgb": [
+            0.4759235376674938,
+            0.4759235376674938,
+            0.4759235376674938
+          ]
+        }
+      }
+    ],
+    "surfaces": [
+      {
+        "nodeId": "body",
+        "groupId": "component",
+        "plane": "base",
+        "family": "fixed-rounded-rect",
+        "radius": 20,
+        "bounds": {
+          "x": 80,
+          "y": 52,
+          "width": 160,
+          "height": 96
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      }
+    ],
+    "webgpu": {
+      "available": true,
+      "deviceHealth": "ok",
+      "ownership": "vitrea"
+    },
+    "rendererActive": true,
+    "adapter": {
+      "ok": true,
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "isFallback": false
+    },
+    "canvasColorSpace": "srgb",
+    "canvasColorSpaceNote": "read back from the configured canvas context.",
+    "diagnostics": [],
+    "problems": [],
+    "w47DiagnosticScratch": {
+      "weights": {
+        "statistic": 0.2480931282043457,
+        "uniform": [
+          640,
+          400,
+          0.5,
+          0.5,
+          1,
+          1,
+          0,
+          0,
+          1,
+          0.7450000047683716,
+          2.5999999046325684,
+          5,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.8899999856948853,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          1,
+          0.05000000074505806,
+          0.05000000074505806,
+          0.05000000074505806,
+          1,
+          0.02019999921321869,
+          1.4600000381469727,
+          1,
+          1,
+          1.350000023841858,
+          0,
+          0,
+          1,
+          -0.37139999866485596,
+          -0.9284999966621399,
+          0.3499999940395355,
+          0,
+          1,
+          340,
+          212,
+          0,
+          4.800000190734863,
+          0.05000000074505806,
+          1,
+          1.0588936805725098,
+          0,
+          0.00009999999747378752,
+          0.05000000074505806,
+          1,
+          0.4759235382080078,
+          0.4759235382080078,
+          0.4759235382080078,
+          0.2138214409351349,
+          0,
+          9.039999961853027,
+          1.7999999523162842,
+          0.07500000298023224,
+          0,
+          106,
+          0.03999999910593033,
+          9.899999618530273,
+          0.004000000189989805,
+          0.10999999940395355,
+          0.4699999988079071,
+          0.4759235382080078,
+          0,
+          0.018699999898672104,
+          0.19200000166893005,
+          1,
+          0,
+          0.01549999974668026,
+          0.16699999570846558,
+          0.07000000029802322,
+          1,
+          1,
+          32,
+          96,
+          0.25,
+          20,
+          0.800000011920929,
+          60,
+          1.3370000123977661,
+          3.690000057220459,
+          0.800000011920929,
+          8,
+          64,
+          72,
+          50,
+          256,
+          0,
+          0,
+          0,
+          0.03999999910593033,
+          0,
+          64,
+          118,
+          5,
+          0,
+          0,
+          0,
+          1,
+          -0.707099974155426,
+          -0.707099974155426,
+          0.8500000238418579,
+          0.10000000149011612,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0.949999988079071,
+          0.4480000138282776,
+          0.1860000044107437,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0.12150000035762787,
+          96,
+          -6.317999839782715,
+          0,
+          -2,
+          0.029999999329447746,
+          0.2480931282043457,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.1420000046491623,
+          0,
+          0,
+          1,
+          1,
+          0.006995410192757845,
+          0.006995410192757845,
+          0,
+          0,
+          1,
+          1,
+          1,
+          40,
+          56,
+          72,
+          88,
+          104,
+          128,
+          150,
+          0
+        ]
+      },
+      "plan": {
+        "sourceId": "component.raster",
+        "density": 2,
+        "deepLod": 3.3219280948873626,
+        "chainSigma": 4.695980955875167,
+        "deepSigma": 7,
+        "fineSigma": 7,
+        "plan": {
+          "width": 640,
+          "height": 400,
+          "levelCount": 6,
+          "maxLod": 5,
+          "analysisLevel": 2,
+          "levels": [
+            {
+              "width": 640,
+              "height": 400
+            },
+            {
+              "width": 320,
+              "height": 200
+            },
+            {
+              "width": 160,
+              "height": 100
+            },
+            {
+              "width": 80,
+              "height": 50
+            },
+            {
+              "width": 40,
+              "height": 25
+            },
+            {
+              "width": 20,
+              "height": 12
+            }
+          ]
+        },
+        "bodySigmaTexels": 1.25
+      }
+    }
+  }
+}
