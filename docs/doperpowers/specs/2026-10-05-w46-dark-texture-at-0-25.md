@@ -1,8 +1,8 @@
 # W46 — the dark texture at 0.25: the flat photo body, the under-structured rest checkers and the over-structured receded fine checkers of the dark `-glass0.25` documents, declared from the grounding read and fitted on the existing bed (2026-10-05)
 
-**Status: DRAFT v1.1 (2026-10-05), chartered by the parent from the W46 grounding read
+**Status: DRAFT v1.2 (2026-10-05), chartered by the parent from the W46 grounding read
 (`packages/calibration/results/2026-10-05-w46-grounding/memo.md`, merged as `b36c9990`) under
-`/kairos`; one adversarial round folded (three P1, two P2), scoped second round pending.**
+`/kairos`; two adversarial rounds folded (v1: three P1, two P2; v1.1 scoped: one P2), the loop closed.**
 Decision Logs 1–7 are the parent's rulings of 2026-10-05; Decision Logs 2 and 4 carry v1.1
 amendments. Nothing is captured, no holdout is read and no document moves until G0's two hashes
 are on main.
@@ -370,7 +370,12 @@ names any of its cells.
   whose twelve photo and checker calibration cells carry T1; `photo__rrect-ml__inactive`; and,
   for level only, every non-withheld solid probe (`dark-solid`, `mid-dark-solid`,
   `mid-light-solid`, `light-solid`, `mid-chroma-solid`) and the impulse probes. The shipped rungs
-  reproduce `d0219cd684bf`'s rows and captures byte for byte on every listed cell.
+  reproduce `d0219cd684bf` on every listed cell as **pixel identity and measurement identity**:
+  the candidate capture's PNG and alpha bytes equal the canonical capture's, and every measured
+  row field equals the published row's under an explicit equality projection; the row's
+  provenance (`key.web.capturePath`, the capture timestamp) is candidate-mode's by design
+  (`scripts/capture-web.ts` stamps a candidate differently from a shipped render even at
+  identical pixels), is validated as such and retained, and is NOT part of the identity.
 - **(ii) the rest scatter.** Levers, each alone from the snapshot's value: `sizeScatterFloor`,
   `sizeScatterFloor2x`, `sizeScatterRampStartThin1x`, `sizeScatterRampStartThin2x`, the heavy
   tap (`sizeHeavyTapSigma` / `…2x` from 0). Cells, at rest: F —
@@ -529,8 +534,9 @@ Branch `w46-g0-declaration`, evidence `packages/calibration/results/2026-10-05-w
   L1's absolute and growth clauses against `d0219cd684bf` on L1's population and the interior
   level change on the solid and impulse probes, and attributes each excess to the stand-down the
   shader's arithmetic predicts for that cell (clamp, authority, collapse) or names it
-  unexplained; tested so that the shipped rung (0.9 active, 0.89 receded) is byte-identical to
-  the published generation on every ladder cell and reads no change.
+  unexplained; tested so that the shipped rung (0.9 active, 0.89 receded) reproduces the
+  published generation on every ladder cell as pixel identity and measurement identity (the
+  ladders' definition; candidate provenance excluded) and reads no change.
 - (e) **Part 1 and the part-2 draft hashed**; the three ladders (clause 4); part 2 as a validated
   diff, hashed; a struck lever or an unfitted target recorded with its ladder cited.
 - Acceptance: clauses 1–4; independent review (`doperpowers:reviewer-medium`; the level check
@@ -787,6 +793,11 @@ generation superseded, the light and 0.5 generations unchanged, the user's `pnpm
 
 - 2026-10-05 (v1): drafted by the parent's fork from the grounding memo; Decision Logs 1–7 as
   ruled; adversarial review pending.
+- 2026-10-05 (v1.2; the scoped second round on v1.1 `191686a5`, one P2, accepted; the reviewer
+  found no further material finding, so the loop closes here): the shipped rungs' identity in
+  "The ladders" and G0 (d) is defined over pixels and measured fields, not raw rows, because
+  candidate mode stamps a capture's provenance differently from a shipped render even at identical
+  pixels (`scripts/capture-web.ts`); the provenance is validated separately and retained.
 - 2026-10-05 (v1.1): one adversarial round folded with the parent's ruling on each finding.
   - **P1-1, X61's transmission solve was wrong.** The ordinates are composite-level targets the
     shader's W9 solve already reaches at any `tintAlpha`, so the closed-form re-solve
