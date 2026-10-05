@@ -1,0 +1,126 @@
+{
+  "$comment": [
+    "SCRATCH CANDIDATE d-s2-rta0.89-rq0.25-rw15-rw25-rs18-rs214-rh10.25-re20.04-rk10.3-rk20.04-rn11-rn21-rg0, W46 candidate (charter clauses 4-5). Not a sealed or",
+    "shipped document; no publication stage names it. Keyed glass0.250 because candidate mode",
+    "refuses the shipped 0.25 keys (build-candidate.ts).",
+    "Built from the snapshot packages/calibration/results/2026-10-05-w46-g0-declaration/documents/f0b36a71772a.json (X62) with these leaves moved:",
+    "optics.regular.tintAlpha, sizeHeavySecondShare, sizeHeavySecondShareFar2x, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeHeavyTapSigma, sizeHeavyTapSigma2x, sizeScatterFloor, sizeScatterFloor2x, sizeScatterHeavyShareThick1x, sizeScatterRampStartFar1x, sizeScatterRampStartFar2x, sizeScatterRampStartThick1x, sizeScatterRampStartThick2x, sizeScatterRampStartThin1x, sizeScatterRampStartThin2x, sizeScatterScaleGain"
+  ],
+  "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+  "schemaVersion": 1,
+  "recordedBy": "W46, scratch candidate d-s2-rta0.89-rq0.25-rw15-rw25-rs18-rs214-rh10.25-re20.04-rk10.3-rk20.04-rn11-rn21-rg0",
+  "colorSpace": "srgb",
+  "kind": "receded-endpoint",
+  "appliesOver": "active.dark.json (this candidate's own active document, beside this file)",
+  "resolvedOverActiveDocument": "active.dark.json",
+  "derivedFrom": {
+    "path": "packages/calibration/results/2026-10-05-w46-g0-declaration/documents/f0b36a71772a.json",
+    "sha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+    "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25-receded"
+  },
+  "movedLeaves": [
+    "optics.regular.tintAlpha",
+    "sizeHeavySecondShare",
+    "sizeHeavySecondShareFar2x",
+    "sizeHeavySecondSigma",
+    "sizeHeavySecondSigma2x",
+    "sizeHeavyTapSigma",
+    "sizeHeavyTapSigma2x",
+    "sizeScatterFloor",
+    "sizeScatterFloor2x",
+    "sizeScatterHeavyShareThick1x",
+    "sizeScatterRampStartFar1x",
+    "sizeScatterRampStartFar2x",
+    "sizeScatterRampStartThick1x",
+    "sizeScatterRampStartThick2x",
+    "sizeScatterRampStartThin1x",
+    "sizeScatterRampStartThin2x",
+    "sizeScatterScaleGain"
+  ],
+  "addedLeaves": [
+    "sizeHeavySecondShare",
+    "sizeHeavySecondShareFar2x",
+    "sizeHeavySecondSigma",
+    "sizeHeavySecondSigma2x",
+    "sizeHeavyTapSigma",
+    "sizeScatterFloor",
+    "sizeScatterFloor2x",
+    "sizeScatterRampStartFar1x",
+    "sizeScatterScaleGain"
+  ],
+  "resolvedMaterialSha256": "7620b9c550221718",
+  "resolvedMaterialSha256Rule": 2,
+  "patch": {
+    "backdropToneAbscissa": {
+      "kind": "silhouette"
+    },
+    "tintChromaScale": 0,
+    "tintShadeCollapseRetention": 1,
+    "tintShadeStrength": 1,
+    "optics": {
+      "regular": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0,
+        "tintAlpha": 0.89
+      },
+      "clear": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      }
+    },
+    "rimCollapsed": 0,
+    "rimCollapsedTinted": 0,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0,
+      "thinOcclusionBright": 0,
+      "thickOcclusionAt96": 0,
+      "thickOcclusionAt128": 0,
+      "thickOcclusionAt160": 0,
+      "liftAmplitude": 0,
+      "reducedTransparencyOcclusion": 0
+    },
+    "sizeScatterRampStartThick1x": 0.3,
+    "sizeScatterRampStartThick2x": 0.04,
+    "sizeScatterRampStartFar2x": 0.04,
+    "sizeHeavyTapSigma2x": 14,
+    "tintShadeDark": 0.0202,
+    "tintShadeLight": 1.46,
+    "sizeScatterRampStartThin1x": 1,
+    "sizeScatterRampStartThin2x": 1,
+    "sizeScatterHeavyShareThick1x": 0.25,
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.47,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0,
+      0.0187,
+      0.192,
+      0.448
+    ],
+    "backdropToneResponseThick": [
+      0,
+      0.0155,
+      0.167,
+      0.186
+    ],
+    "bodyChromaRetention": 0.142,
+    "backdropToneBlackStrength": 1,
+    "backdropToneBlackThin": 0.006995410187265387,
+    "backdropToneBlackThick": 0.006995410187265387,
+    "sizeScatterRampStartFar1x": 0.2,
+    "sizeScatterFloor": 0.34,
+    "sizeScatterFloor2x": 1,
+    "sizeHeavyTapSigma": 8,
+    "sizeHeavySecondShare": 0.25,
+    "sizeHeavySecondShareFar2x": 0,
+    "sizeHeavySecondSigma": 5,
+    "sizeHeavySecondSigma2x": 5,
+    "sizeScatterScaleGain": 0
+  }
+}

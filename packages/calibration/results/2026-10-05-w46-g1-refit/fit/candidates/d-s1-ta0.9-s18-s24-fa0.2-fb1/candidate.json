@@ -1,0 +1,27 @@
+{
+  "$comment": "W46 scratch candidate d-s1-ta0.9-s18-s24-fa0.2-fb1:",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w46-d-s1-ta0.9-s18-s24-fa0.2-fb1",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "e6505e671d6e11ad71acfdb9d7f6fa6bd9cc5bdf5abcf76cd25f8e3b9e659acd"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "9f0116607ee0214ba7667fb3ba0c428bc3cefb252b6dee6fdecbdaf31e33630e"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "e47e101a6c999ad35892c293f4b5204373ee24aed11cb4bfbb2e3495bed1ed52"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "24dfb47943d1bdc69bbe299ff24c82fdbe11950a6a8ee4c1090f5b0daa658a6e"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

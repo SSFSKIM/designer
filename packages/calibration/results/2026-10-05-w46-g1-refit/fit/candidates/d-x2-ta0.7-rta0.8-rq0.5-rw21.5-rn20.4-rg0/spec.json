@@ -1,0 +1,20 @@
+{
+  "label": "d-x2-ta0.7-rta0.8-rq0.5-rw21.5-rn20.4-rg0",
+  "note": "the 2x scale twin",
+  "stage": "scale-twin",
+  "family": "2x",
+  "start": "d0219",
+  "scale": 2,
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.7
+    },
+    "receded.dark": {
+      "sizeHeavySecondShare": 0.5,
+      "sizeHeavySecondSigma2x": 1.5,
+      "sizeScatterScaleGain": 0,
+      "optics.regular.tintAlpha": 0.8,
+      "sizeScatterRampStartThin2x": 0.4
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "label": "d-s1-ta0.9-s18-s20-fa0.7-fb1",
+  "note": "",
+  "stage": "stage1",
+  "family": "transmission-scatter",
+  "start": "d0219",
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.9,
+      "sizeScatterFloor": 0.7,
+      "sizeScatterFloor2x": 1,
+      "sizeHeavyTapSigma": 8,
+      "sizeHeavyTapSigma2x": 0
+    }
+  }
+}
