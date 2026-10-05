@@ -698,6 +698,18 @@ def draft_failures(draft: dict, protocol: dict, targets) -> list[str]:
             for g in body.get("factorialGroups", []):
                 if not set(g["keys"]) <= set(body["leaves"]):
                     out.append(f"draft: {m['id']}/{fam} factorial group names a leaf it does not search")
+    # W46's `materialiseX64` check, generalised to X64 ∪ X67 (the parent's ruling on W47 G0's reading 10):
+    # stage 2 is the receded document's, sealed as a difference over the stage-1 active (Design "The
+    # moves"), so it starts from a base that states every admitted receded key (X64 and X67) at its
+    # inherited value (`materialise: receded.dark`, `fit.materialise`), and stage 1 materialises nothing.
+    stages = {m["id"]: m for m in draft["moves"]}
+    if set(stages) != {"stage1", "stage2"}:
+        out.append(f"draft: the moves are {sorted(stages)}, not stage1 and stage2")
+    else:
+        if stages["stage2"].get("materialise") != "receded.dark" or stages["stage2"].get("materialiseX64") is not None:
+            out.append("draft: stage 2 does not materialise the receded X64 ∪ X67 keys (materialise: receded.dark)")
+        if stages["stage1"].get("materialise") is not None or stages["stage1"].get("materialiseX64") is not None:
+            out.append("draft: stage 1 materialises a slot; only stage 2's base is materialised")
     if draft.get("notFitted") != []:
         out.append("draft: a target or operator is named not fitted before the ladders")
     if draft.get("namedGaps", []) != []:

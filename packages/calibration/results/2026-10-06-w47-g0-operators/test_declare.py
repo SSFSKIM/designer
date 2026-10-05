@@ -642,6 +642,25 @@ class CommittedProtocolAndDraft(unittest.TestCase):
         self.assertTrue(any("tintAlphaFar2x grid [0, 0.7] outside" in f for f in got))
         self.assertTrue(any("cites rung iii-b2, which does not move it" in f for f in got))
 
+    def test_stage_2_materialises_the_receded_x64_and_x67_keys(self):
+        """W46's `materialiseX64` check, generalised to X64 ∪ X67 (the parent's ruling on reading 10)."""
+        draft = json.loads(D.DRAFT.read_text())
+        protocol = json.loads(D.PROTOCOL.read_text())
+        targets = ["P", "C rest", "F inactive"]
+        self.assertEqual(D.draft_failures(draft, protocol, targets), [])
+        for change in ({"materialise": None}, {"materialise": "active.dark"},
+                       {"materialise": None, "materialiseX64": "receded.dark"},
+                       {"materialise": "receded.dark", "materialiseX64": "receded.dark"}):
+            bad = copy.deepcopy(draft)
+            bad["moves"][1].update(change)
+            bad["moves"][1] = {k: v for k, v in bad["moves"][1].items() if v is not None}
+            got = D.draft_failures(bad, protocol, targets)
+            self.assertTrue(any("stage 2 does not materialise the receded X64 ∪ X67 keys" in f for f in got), change)
+        bad = copy.deepcopy(draft)
+        bad["moves"][0]["materialise"] = "active.dark"
+        self.assertTrue(any("stage 1 materialises a slot" in f
+                            for f in D.draft_failures(bad, protocol, targets)))
+
 
 if __name__ == "__main__":
     unittest.main()

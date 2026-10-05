@@ -298,7 +298,8 @@
         "ii-w14-d0.3-t128",
         "ii-w14-d0.6-t128"
        ],
-       "conditional": "ii"
+       "conditional": "ii",
+       "domainWidened": "deliberate widening (the parent's ruling on W47 G0's reading 9): W46's draft declared [0, 8] CSS px for the second tap's width; ladder (ii)'s grid {6, 10, 14} (charter Design \"The ladders\" (ii)) cannot sit inside it, so the active 2x width's domain is [0, 24]"
       },
       "sizeHeavySecondShareFar2x": {
        "slot": "active.dark",
@@ -327,7 +328,8 @@
         "ii-w14-d0.3-t128",
         "ii-w14-d0.6-t128"
        ],
-       "conditional": "ii"
+       "conditional": "ii",
+       "domainWidened": "deliberate widening (the parent's ruling on W47 G0's reading 9): W46's draft declared [-1, 0] (the far share only lowering the share, as the light 0.25 landing reads it); ladder (ii)'s grid {0.3, 0.6} is positive (the share grows with the span toward the thick cells), so the active far share's domain is [0, 1]"
       }
      },
      "fixed": {

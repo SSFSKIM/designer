@@ -13,6 +13,8 @@ test_amend_refuses_after_a_render (test_declare.Chain.test_amend_refuses_after_a
 test_one_amendment_per_part_final (test_declare.Chain.test_one_amendment_per_part_final) ... ok
 test_the_content_form_names_its_three_arguments_together (test_declare.Chain.test_the_content_form_names_its_three_arguments_together) ... ok
 test_a_draft_leaf_outside_its_x68_domain_or_citing_a_wrong_rung_refuses (test_declare.CommittedProtocolAndDraft.test_a_draft_leaf_outside_its_x68_domain_or_citing_a_wrong_rung_refuses) ... ok
+test_stage_2_materialises_the_receded_x64_and_x67_keys (test_declare.CommittedProtocolAndDraft.test_stage_2_materialises_the_receded_x64_and_x67_keys)
+W46's `materialiseX64` check, generalised to X64 ∪ X67 (the parent's ruling on reading 10). ... ok
 test_the_draft_check_reads_the_committed_draft_clean (test_declare.CommittedProtocolAndDraft.test_the_draft_check_reads_the_committed_draft_clean) ... ok
 test_the_ladders_check_reads_the_committed_protocol_clean (test_declare.CommittedProtocolAndDraft.test_the_ladders_check_reads_the_committed_protocol_clean) ... ok
 test_another_waves_charter_no_ops_and_the_frame (test_declare.ContentForm.test_another_waves_charter_no_ops_and_the_frame) ... ok
@@ -40,7 +42,7 @@ test_strike_only_flat_rungs_or_ladder_ii_unmet (test_declare.ValidatedDiff.test_
 test_validate_fit_refuses_a_body_beyond_its_changes_and_reads_the_reverted_body (test_declare.ValidatedDiff.test_validate_fit_refuses_a_body_beyond_its_changes_and_reads_the_reverted_body) ... ok
 
 ----------------------------------------------------------------------
-Ran 38 tests in 0.269s
+Ran 39 tests in 0.313s
 
 OK
 amend REFUSES: render evidence exists for this part (ladders/runs.jsonl)
