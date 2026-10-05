@@ -99,6 +99,11 @@ export const MATERIAL_PATCH_KEYS = new Set([
   // 1), 2x-anchored with an implicit 1x zero. A candidate document naming it is what the W45
   // ladders hand in, and this set refusing it would refuse the very rung that reads the leaf.
   "sizeHeavySecondShareFar2x",
+  // W47 G0 (b): one body fine tap, share-gated and resolved in CSS px (X66).
+  "sizeFineTapShare",
+  "sizeFineTapSigma",
+  "sizeFineTapSigma2x",
+
   "sizeScatterScaleGain",
   "sizeScatterScaleRef",
   // The lens (W12 G2): the gain on the reference's amount law, the height and

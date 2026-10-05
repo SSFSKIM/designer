@@ -41,6 +41,7 @@ import {
   backdropToneResponse, backdropToneSolveWeight, materialDigestInput,
   heavySecondShareFarAtScale,
   heavySecondTapSigmaAtScale,
+  fineTapSigmaAtScale,
   heavyTapSigmaAtScale,
   materialDigestDroppedLeaves,
   outerShadowReachPx,
@@ -353,5 +354,57 @@ describe("W45 — sizeHeavySecondShareFar2x is a plain value drop at 0", () => {
       });
       for (const dpr of RATIOS) expect(heavySecondTapSigmaAtScale(gated, dpr)).toBe(0);
     }
+  });
+});
+
+
+describe("W47 — {sizeFineTapShare 0} gates the two fine-body widths", () => {
+  const keys = ["sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x"] as const;
+  const widths = [0, 1e-7, 1.5, 2, 6, 40, 1e6];
+
+  it("drops the whole closed group and requests no texture while either width moves", () => {
+    const reference = materialDigestInput(DEFAULT_MATERIAL_PROFILE);
+    for (const sizeFineTapSigma of widths) {
+      for (const sizeFineTapSigma2x of widths) {
+        const material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+          sizeFineTapShare: 0, sizeFineTapSigma, sizeFineTapSigma2x,
+        });
+        expect(materialDigestInput(material)).toEqual(reference);
+        for (const key of keys) expect(materialDigestDroppedLeaves(material)).toContain(key);
+        for (const dpr of [0.5, ...RATIOS]) expect(fineTapSigmaAtScale(material, dpr)).toBe(0);
+      }
+    }
+  });
+
+  it("carries the entire open group and resolves CSS-pixel anchors without dividing by DPR", () => {
+    const material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      sizeFineTapShare: 0.5, sizeFineTapSigma: 2, sizeFineTapSigma2x: 6,
+    });
+    for (const key of keys) expect(materialDigestDroppedLeaves(material)).not.toContain(key);
+    const digest = materialDigestInput(material);
+    expect(digest).toMatchObject({ sizeFineTapShare: 0.5, sizeFineTapSigma: 2, sizeFineTapSigma2x: 6 });
+    for (const [dpr, sigma] of [[0.5, 2], [1, 2], [1.5, 4], [2, 6], [3, 6]]) {
+      expect(fineTapSigmaAtScale(material, dpr)).toBe(sigma);
+    }
+    expect(materialDigestInput(withMaterialOverrides(material, { sizeFineTapSigma: 3 })))
+      .not.toEqual(digest);
+    expect(materialDigestInput(withMaterialOverrides(material, { sizeFineTapSigma2x: 5 })))
+      .not.toEqual(digest);
+  });
+
+  it("stands down at width 0 at one scale, as the second heavy tap does", () => {
+    const material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      sizeFineTapShare: 1, sizeFineTapSigma: 0, sizeFineTapSigma2x: 6,
+    });
+    expect(fineTapSigmaAtScale(material, 1)).toBe(0);
+    expect(fineTapSigmaAtScale(material, 2)).toBe(6);
+  });
+
+  it("reads neither width at the share's identity", () => {
+    const material = { ...DEFAULT_MATERIAL_PROFILE, sizeFineTapShare: 0,
+      get sizeFineTapSigma(): number { throw new Error("closed gate read 1x width"); },
+      get sizeFineTapSigma2x(): number { throw new Error("closed gate read 2x width"); },
+    };
+    for (const dpr of RATIOS) expect(fineTapSigmaAtScale(material, dpr)).toBe(0);
   });
 });

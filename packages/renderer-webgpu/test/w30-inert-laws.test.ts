@@ -34,6 +34,7 @@ import {
   DEFAULT_MATERIAL_PROFILE,
   heavySecondShareFarAtScale,
   heavySecondTapSigmaAtScale,
+  fineTapSigmaAtScale,
   heavyTapSigmaAtScale,
   outerShadowReachPx,
   outerShadowSigmaPx,
@@ -265,5 +266,15 @@ describe("W45's far-curve grading is inert at the shipped value (claims §5.205)
         expect(x + z * farS, `share ${String(x)} span ${String(span)}`).toBe(x);
       }
     }
+  });
+});
+
+
+describe("W47 fine-body tap at the shipped identity (G0 (b), X66)", () => {
+  it("ships at zero and requests no fine texture at any scale", () => {
+    expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapShare).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapSigma).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapSigma2x).toBe(0);
+    for (const dpr of RATIOS) expect(fineTapSigmaAtScale(DEFAULT_MATERIAL_PROFILE, dpr)).toBe(0);
   });
 });

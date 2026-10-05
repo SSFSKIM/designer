@@ -244,6 +244,9 @@ export interface OpticsPassArgs {
   readonly backdropScaleStatistic: number;
   readonly sizeHeavySecondShare: number;
   readonly heavySecondEnabled: boolean;
+  /** W47's body fine tap: a share, and whether this source actually carries its texture. */
+  readonly fineTapShare: number;
+  readonly fineTapEnabled: boolean;
   /**
    * W45's grading of that share on the scatter's far curve (claims §5.205; charter Decision Log
    * 1): `MaterialProfile.sizeHeavySecondShareFar2x` already resolved at this group's device ratio
@@ -439,6 +442,7 @@ export interface OpticsPassArgs {
          * until §5.159 turns it on.
          */
         readonly heavy2: GPUTextureView | undefined;
+        readonly fine: GPUTextureView | undefined;
       }
     | undefined;
 }
@@ -1006,8 +1010,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // default, so the bytes this pass writes are the 0.20.0 bed's with one
       // zeroed vec4 appended.
       d[132] = args.bodyChromaRetention;
-      d[133] = 0;
-      d[134] = 0;
+      // W47 G0 (b): the fine-body share and texture-presence gate take this block's spare
+      // lanes, beside the body's chroma retention. No form selector survives the diagnostic.
+      d[133] = args.fineTapShare;
+      d[134] = args.fineTapEnabled ? 1 : 0;
       d[135] = 0;
       // W36 has its own vec4: no neighbour's spare lane changes ownership.
       d[136] = args.backdropToneBlackStrength;
@@ -1032,6 +1038,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // always filled, and the enable above is what keeps the shader from
       // reading the placeholder.
       const heavy2 = args.backdrop?.heavy2 ?? placeholderView;
+      const fine = args.backdrop?.fine ?? placeholderView;
 
       const pipeline = opticsPipeline(args.targetFormat);
       const pass = encoder.beginRenderPass({
@@ -1060,6 +1067,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 9, resource: args.fields.presence.createView() },
             { binding: 10, resource: args.localTone ?? placeholderView },
             { binding: 11, resource: heavy2 },
+            { binding: 12, resource: fine },
           ],
         }),
       );

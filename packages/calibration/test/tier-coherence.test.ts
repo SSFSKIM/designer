@@ -3119,6 +3119,16 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
     "none: the CSS tier draws no second heavy tap, so it has no share to grade on the far curve; " +
     "declined with the tap in `platform-web/src/optics.ts` (W45 charter Decision Log 1), and the " +
     "span top it rides reaches this tier through `MATERIAL_SOURCE_SIZE` uncompensated.",
+  // W47 G0 (b), X66: the independent fine-body texture is declined with the taps.
+  sizeFineTapShare:
+    "none: the CSS tier has no independently sampled fine-body texture to mix before kScatter; " +
+    "declined in platform-web/src/optics.ts (W47 Decision Log 3).",
+  sizeFineTapSigma:
+    "none: the CSS tier has no pyramid to build the independent fine-body width; " +
+    "declined with sizeFineTapShare in platform-web/src/optics.ts (W47 Decision Log 3).",
+  sizeFineTapSigma2x:
+    "none: the CSS tier has no second-scale fine-body texture; declined with sizeFineTapShare " +
+    "in platform-web/src/optics.ts (W47 Decision Log 3).",
   // W30's scale-selective scatter reaches this tier through the same share.
   sizeScatterScaleGain: "cssTierHeavyShareAt",
   sizeScatterScaleRef: "cssTierHeavyShareAt",

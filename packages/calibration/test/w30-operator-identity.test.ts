@@ -123,10 +123,13 @@ const W41_OPERATOR_LEAVES = ["bodyE3Strength", "bodyE3Gains", "bodyE3Neutral"] a
 /** W45's far-curve grading of the second tap's share, a plain value drop at 0 (§5.205). */
 const W45_OPERATOR_LEAVES = ["sizeHeavySecondShareFar2x"] as const;
 
+/** W47 G0 (b): one share-gated pair of fine-body widths, landed inert (X66). */
+const W47_FINE_OPERATOR_LEAVES = ["sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x"] as const;
+
 /** Every later wave's additions, beside rather than rewriting either original list. */
 const OPERATOR_LEAVES: readonly string[] = [
   ...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES, ...W36_OPERATOR_LEAVES, ...W41_OPERATOR_LEAVES,
-  ...W45_OPERATOR_LEAVES,
+  ...W45_OPERATOR_LEAVES, ...W47_FINE_OPERATOR_LEAVES,
 ];
 
 const HERE = import.meta.dirname;

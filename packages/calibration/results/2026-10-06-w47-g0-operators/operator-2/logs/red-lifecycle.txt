@@ -1,0 +1,42 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w47/g0-op2/packages/renderer-webgpu
+
+ ❯ test/frame-composition.test.ts (23 tests | 2 failed | 21 skipped) 12ms
+     × allocates only at a positive resolved width, rebuilds on width change and releases at zero 7ms
+     × does not bind a fine handle the pool dropped and releases both allocations on forget 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/frame-composition.test.ts > W47 fine texture lifecycle > allocates only at a positive resolved width, rebuilds on width change and releases at zero
+TypeError: poolKey.backdropFine is not a function
+ ❯ test/frame-composition.test.ts:679:38
+    677|     };
+    678|     expect(build(1, 0).status).toBe("built");
+    679|     expect(context.pool.peek(poolKey.backdropFine("bg"))).toBeUndefine…
+       |                                      ^
+    680|     expect(context.pool.peek(poolKey.backdropFineScratch("bg"))).toBeU…
+    681|     expect(build(2, 2).status).toBe("built");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/frame-composition.test.ts > W47 fine texture lifecycle > does not bind a fine handle the pool dropped and releases both allocations on forget
+TypeError: poolKey.backdropFine is not a function
+ ❯ test/frame-composition.test.ts:705:34
+    703|     store.build(request, provider, gpu.device.createCommandEncoder());
+    704|     store.releaseAcquired();
+    705|     context.pool.release(poolKey.backdropFine("bg"));
+       |                                  ^
+    706|     expect(store.resources("bg")).toBeUndefined();
+    707|     store.beginFrame(2);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 21 skipped (23)
+   Start at  04:47:14
+   Duration  346ms (transform 211ms, setup 13ms, import 240ms, tests 12ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w47/g0-op2/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/frame-composition.test.ts -t 'W47 fine texture'

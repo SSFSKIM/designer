@@ -1317,6 +1317,13 @@ export interface MaterialSourceSize {
    * half of that rule and mirrors in FULL, because a `box-shadow` per surface
    * can draw it exactly.
    *
+   * **W47's fine-body tap is declined with the taps** (G0 (b), Decision Log 3, X66).
+   * `sizeFineTapShare` mixes an independent texture into the body before `kScatter`, at the
+   * CSS-pixel width `sizeFineTapSigma` / `sizeFineTapSigma2x`. This tier has one in-place
+   * backdrop-filter, not two independently sampled body textures, so it carries none of the
+   * three leaves. All ship at 0, landed inert; no scoped hold or changed scalar projection is
+   * claimed here. The fine-body residual remains a WebGPU-only lever for W47's fit to price.
+   *
    * **W45's grading of the second tap's share is declined with the tap** (claims
    * §5.205; W45 charter Decision Log 1). `sizeHeavySecondShareFar2x` moves that
    * share along the scatter's far curve, per pixel, and this tier draws no second
