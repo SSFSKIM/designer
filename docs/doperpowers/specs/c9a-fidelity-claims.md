@@ -47826,3 +47826,314 @@ The merge of G1 and G2 landed on main as `16885c0c` (freeze 1,818, X41 911, `che
 `latest`, the three tarballs served), and `vitrea-web`'s tarball names the light 0.25 digests
 `3741b22934f17f4d` / `c4ca0e1cd6791bde` and `sizeHeavySecondShareFar2x`, with its dependency on
 the core rewritten from the workspace range to `^0.27.0`. W45 is CLOSED in its charter.
+
+## 5.208 W46 G0: the dark 0.25 tools ported from four snapshots, the referees derived by rule, the rule rehearsed, the level check proved on the shipped rung, part 1 hashed, the ladders read, part 2 hashed (2026-10-05)
+
+Evidence directory: `results/2026-10-05-w46-g0-declaration/`, on branch `w46-g0-declaration` off
+`b711762a` (the charter v1.2 merge). Charter `2026-10-05-w46-dark-texture-at-0-25.md`: clauses 1–4,
+the G0 child, Decision Logs 1–7, X60–X64. No referee or holdout cell was rendered, and no profile
+document, generation, capture tree or runtime module moved.
+
+### 1. The snapshots and the bindings (X62; clause 1)
+
+The four 0.25 document bodies are copied to `documents/<sha12>.json` (`d0219cd684bf`,
+`f0b36a71772a` dark; `ebc3d9105a4a`, `12712d534b78` light), each verified against its full SHA-256
+and against its bytes at `b36c9990` (`bindings.verify_documents`, `test_bindings.py`). Every W46 tool
+builds from them; `refuse_live_profile` refuses `profiles/` as a start. The 0.5 twins X44's base
+check reads are hash-checked at their X41-frozen values. `bindings.py` is the one place W46 is
+bound (charter pin, scratch, references by hash, X64's key lists and values, the shared pins) and
+refuses W44's and W45's evidence directories, scratch and eight part hashes. The W45 tracker entry
+("W45's G0 tools read the live light 0.25 documents as c05") is closed for W46: the builder, the
+fit driver, the seal's rehearsal and the stage tests read the snapshots, and the review's P1 below
+proved the seal rehearsal holds with the live dark pair already sealed.
+
+### 2. The referees, by rule (clause 3; Decision Log 2 v1.1)
+
+`referees/plan.py` is a W46 adapter (schema `w46-referees-1`, the two dark 0.25 profiles); W44's
+planner is pinned unmoved and not imported. It derives the six scenes from `scenes.json` and
+`ladders/cells.json` (per slot: probe scenes of the stratum, pose, span class and backdrop both
+dark profiles declare, untinted, on no ladder; first under span ascending, pitch descending, scene
+id), wrote `referees.json` (sha256 `0eb8ef77…`) and refuses any manifest the rule does not produce,
+a ladder cell, a light profile or W44's schema. The six are the charter's table exactly:
+`checkerboard-8__rrect-sm__rest`, `checkerboard-8__rrect-ml__rest`,
+`checkerboard-4__rrect-md__inactive`, `checkerboard-32__rrect-ml__rest`,
+`checkerboard-32__rrect-lg__inactive`, `hc-text-7__rrect-md__inactive`. Whitelists: pre-gate probe
+81 scenes, exposure 13 (the seven dark holdout scenes and the six referees). Fit-member counts per
+scale equal the charter's: P rest 4, P inactive 5, C rest 28, F inactive 2; beside them F rest 10,
+T rest 3, C inactive 14, T inactive 0; 66 of 72.
+
+The bed refuses, for good, every LIGHT withheld row (the 20 holdout scenes and W44's six referees
+per light scale, spent at read 7), the exposure included; the dark referee and holdout rows only a
+sealed bed `with_holdout` admits.
+
+### 3. The tools (clause 1)
+
+Each a port with W45's text kept beneath what W46 changes; tests run on every check:
+
+| tool | what W46 changes | tests |
+| --- | --- | --- |
+| `cuts/bed.py`, `cuts.py` | W46's bindings and manifest; light withheld refused; dark T cells carry T1-fine and T1-low; W44's light landing not computed | `test_cuts_refusals` 11 |
+| `cuts/rule.py` | W45's growth-only rule bound to the dark profiles, per profile; three targets | `test_rule` 19 |
+| `fit/build-candidate.ts` | from the snapshots; dark slots only (X60); exactly X64's keys added; one label grammar (`labels.json`) | `test_build_candidate` 11 |
+| `fit/fit.py`, `search.py`, `joint.py`, `finding.py`, `recover.py` | one start `start-d0219`; both scales; the declared tie rule; the step's start always a candidate; scale-separable rendering; `full` renders the twin that measures it | `test_fit` 35 |
+| `seal/seal.ts` | seals the dark pair over the snapshot bytes; leaf set the 0.5 twin's plus X64 | `test_seal` 10 |
+| `stage/stage.py`, `x60.py` | the dark stage; X60 in X48's place (`render`, `evidence`) | `test_stage` 7, `test_x60` 11 |
+| `sheets/sheets.py` | dark difference panels gain-lifted ×16, printed; populations per phase | `test_sheets` 7 |
+| `declare.py` | W46's items; the amendment record validated on read; part 2's required outcomes | `test_declare` 19 |
+
+The three W45 tool defects the tracker names are closed in the port: the receded label is
+lower-case and one grammar is read by the builder and the search (a test builds a label of every
+slot and leaf through the real builder); `full` resolves the measuring twin first; and the tie
+rule is declared — within the stage tie of a step's minimum, the point nearest the step's start
+wins (normalised distance), then fewer moved leaves, then grid order, with the tie computed once
+on the stage's declared cells from the reference's own cut (0.0365 stage 1, 0.0544 stage 2).
+
+**Scale-separable rendering** (added for the draft's stage-1 factorial). A point's render at one
+scale is its scale twin's — the overrides restricted to the leaves acting at that scale
+(`labels.json` `scales`) — and points whose scale twins share resolved digests share the render.
+The draft's five-leaf factorial is about 2,000 points and about 200 scale renders. It rests on the
+scale anchoring the ladders read (§7): every 1x lever's 2x captures, and every 2x lever's 1x
+captures, byte-identical to the control's.
+
+**Tested on `d0219cd684bf`:**
+- *The cuts port* cut the published dark generation against itself (`rehearsal/d0219-cuts.json.gz`);
+  `port-proof.py` holds it to W45's landing cut: 676 dark row-cut entries and 3,080 dark T1 fields
+  equal, outside W46's six referee scenes, which W46 withholds and W45 did not.
+- *The stage*: a strict-mode rehearsal of the shipped dark documents on the 66 dark T1 gate cells
+  per scale, four launches: 132 of 132 rows equal to the published rows but `capturedAt`, T1's
+  three inputs equal on all, 264 of 264 captures byte-identical to the canonical tree, every row
+  on the pinned Chromium (`stage/rehearsal/`).
+- *The seal*: the snapshots sealed into a scratch copy of `profiles/` reproduce `b074fc6913a91c66` /
+  `280f0fddf014e0f6`, and so does a seal with every X64 key materialised at its inherited value
+  (each recorded `materialised`, every other profile file byte-identical): X64's digest neutrality
+  proven by test. The builder reproduces the same digests and the light snapshots' `3741b229…` /
+  `c4ca0e1c…`.
+- *X60 by evidence*: the live light documents are the snapshots', both 0.5 generations and the
+  frozen 26.5 file unchanged, every candidate's light endpoints patch- and digest-identical to the
+  light snapshots, no withheld capture in any W46 tree: IDENTICAL.
+
+**The browser pin.** `census-gate.py` adds to W43's classifying census a pin: `@playwright/test`
+1.62.1 driving Chromium revision 1234 (151.0.7922.34, the `engineVersion` of every `d0219cd684bf`
+row), installed, no `PLAYWRIGHT_BROWSERS_PATH`; every reader re-checks each row's engine. Every
+launch of the branch passed both (`census.jsonl`).
+
+### 4. The rule and its rehearsal (clause 2; Decision Log 3)
+
+`cuts/rule.py` keeps W45's arithmetic and constants (three cells beyond B, none past 3B, gated at
+three gate cells) and binds them: reference `d0219cd684bf`; scope the WebGPU tier of the two dark
+0.25 profiles, each evaluated alone, the verdict the weaker profile's; targets P (rest and
+inactive pooled), C rest and F inactive, each its own aggregate; FULL CLOSE every target cell
+within, IMPROVEMENT LANDING every target's aggregate at most half of the reference's; both with
+every gated group's `A ≤ A_ref + τ` and the budget. The pooled-over-scales targets are reported and
+decide nothing. *A reading for the parent to confirm:* the charter states the budget "per profile"
+and the group counts per scale but not whether a target's halving is per scale or pooled; the
+port reads it per scale (each profile must halve each target).
+
+`test_rule.py` (19) carries W45's six clause-3 cases to W46's targets on a synthetic map with the
+real gate shape, its boundaries, and W46's own (the budget per profile, a target halved at one
+scale only is NEITHER, the dark WebGPU scope, the stage clauses' declared cells).
+
+The rehearsal (`rehearsal/rehearsal.json`, `.txt`; nothing rendered):
+
+| map | verdict | 1x: unchanged / away beyond B | 2x |
+| --- | --- | --- | --- |
+| `d0219cd684bf` against itself | NEITHER | 66 / 0 | 66 / 0 |
+| W43 G3's pre-fit render (`504c5348…`) | NEITHER | 66 / 0 | 66 / 0 |
+| W43's c02 | UNMEASURED (partial: its dark map is the 21 calibration and validation scenes) | 12 of 14 read unchanged; 1 away at 2.27 B | 10 of 14 |
+
+The pre-fit render reads every cell unchanged because the dark 0.5 documents differ from the 0.25
+ones in two tone ordinates only, which move level and not T1 beyond its bar. The gated and
+reported groups per scale equal the charter's (F rest 10, T rest 3, C rest 28, C inactive 14,
+P rest 4, P inactive 5 gated; F inactive 2 reported; T inactive has no gate cell).
+
+### 5. The level check (X61; G0 (d))
+
+`level/level.py` is a check, not a solver. On a candidate's render it reads L1 through the cuts'
+own `cut_l1` (absolute 0.055, growth 0.005 against `d0219cd684bf`), the interior-mean change on
+every rendered cell, and attributes each excess to the stand-down the shader's arithmetic predicts
+— `clamp`, `authority`, `collapse` — or names it `unexplained`. The arithmetic (`level/arith.ts`)
+is the W9 solve evaluated through the runtime's own exported functions (`sizeThickness`,
+`sizeOcclusionAlphaAt`, `backdropToneAdaptation`, `backdropToneSolveWeight`, `backdropToneResponse`)
+on the backdrop's encoded and linear means from the fixture (the whole source; the silhouette's for
+the receded document, whose abscissa is `silhouette`), the one-sided lightward opacity lift applied.
+It reproduces the charter's Grounding: the 0/255 checker at span ≥ 96 clamps below 0.63 active /
+0.64 receded (+0.0146 / +0.0209 at 0.6, +0.0621 / +0.0684 at 0.5), `light-solid` below 0.76 / 0.78
+(+0.0579 / +0.0679 at 0.7).
+
+**The rendered test.** The shipped rung (the snapshots, no override: `tintAlpha` 0.9 / 0.89, every
+ordinate held) rendered in candidate mode on every ladder (i) cell at both scales: 116 of 116 rows
+pixel-identical (PNG and alpha) to the canonical captures and measurement-identical to the published
+rows under the explicit projection (every field but `capturedAt` and `key.web.capturePath`); the
+provenance validated (the driver prefix the published row's, the document clause this candidate's,
+the pinned engine, `capturedAt` an ISO-8601 capture time) and retained; the level check reads no
+change (no excess; L1 max error 0.0491, max growth 0). This render is the instrument's control, made
+before part 1's hash as the brief orders; it is not a ladder rung.
+
+### 6. The predictions and part 1
+
+`targets/predict.py` writes the per-cell predictions part 1 hashes, each labelled a prediction:
+- **The transmission's structure share** at held scatter, `web(a) = web·(1 − α(a))/(1 − α(0.9))`:
+  target P's aggregate halves near a = 0.7 at both scales (1x 0.879 → 0.364, 2x 0.965 → 0.302);
+  C rest moves toward Apple at 0.8 (1x 0.390 → 0.318, 2x 0.538 → 0.282) and past it below; F inactive
+  only moves away (the transmission adds structure). The receded photo reaches ×1 near a′ 0.51–0.60,
+  below the receded checker's clamp (≈ 0.64): P inactive is predicted not closable by the
+  transmission at held ordinates, as the charter said.
+- **The level**: the clamp boundaries and excesses above, on L1's population and the level probes;
+  partial authority on the impulse cells (0.957 rest, 0.71–0.80 receded).
+- **S1**: the dark medians (0.314 / 0.311) are predicted unmoved down to a = 0.8, 0.382 / 0.338 at
+  0.7, and far above 1 below it (2.5 / 1.8 at 0.6), through the clamped thick cells; S1 is read and
+  not gated, and after a dark 0.25 refit with dark 0.5 frozen it reads the refit's change plus the
+  slider's.
+
+**Part 1**, `declaration.json` sha256 **`bc82562eaf1ab70a1a40ac55e00213cc4229aa3843e1659b7ad416e77f40a3aa`**
+(`696cc51b`), thirteen items over 81 pinned sources, hashed on the assembled tree after every tool
+and test it pins was committed and before any ladder render: the snapshots, T1 and its dark
+population, the bar, the manifest, the rule and its rehearsal, the tools, the level check, the
+targets and predictions, the ladders' protocol, the starting point and references by hash, S1, and
+the part-2 draft (two stages, 29 searched leaves: stage 1 one factorial over `tintAlpha`, the 1x and
+2x floors and the 1x and 2x heavy tap, then the thin starts and the gain, then the second tap;
+stage 2 the receded `tintAlpha`, then the receded scatter with X64's keys materialised at the
+stage-1 active's values).
+
+### 7. The ladders (clause 4)
+
+All 44 rungs (the control and one-leaf moves of the snapshots) rendered in candidate mode on the
+WebGPU tier at both scales with `--alpha`, 88 launches under the GPU lock, the census and the pin,
+every one exit 0 (`ladders/runs.jsonl`, `logs/`), on exactly the cells of `ladders/cells.json`. The
+reader admits a rung only when its rows are exactly its declared cells at both scales. No referee or
+holdout cell rendered.
+
+**The instrument.** The control reads IDENTICAL to `d0219cd684bf` on all 144 ladder rows (pixels and
+measured fields). Every lever is scale-anchored: a 1x lever's 2x captures, and a 2x lever's 1x
+captures, byte-identical to the control's on every cell — the fact scale-separable rendering rests
+on. X60 by evidence: IDENTICAL over the 44 candidates.
+
+**(i) The transmission** (the photo median ratio; L1 on the arm's L1 cells; each excess attributed):
+
+| rung | active: photo median | L1 | receded: photo median | L1 |
+| --- | --- | --- | --- | --- |
+| shipped (0.9 / 0.89) | ×0.383 | passes | ×0.253 | passes |
+| 0.8 | ×0.494 | passes (max growth +0.0021) | ×0.444 | FAILS: `impulse__capsule-button__inactive` +0.033 (unexplained) |
+| 0.7 | ×0.557 | passes (+0.0045) | ×0.659 | FAILS: impulse +0.070 |
+| 0.6 | ×0.667 | FAILS: `checkerboard__rrect-md__rest` +0.0147 / +0.0134 (clamp, predicted +0.0146) | ×0.873 | FAILS: impulse +0.107, checker clamp +0.0205 |
+| 0.5 | ×0.789 | FAILS: checker clamps +0.036 / +0.062 | ×1.089 | FAILS |
+
+- Both arms raise every photo cell monotonically. The active arm's passing rungs are 0.9, 0.8 and
+  0.7: the transmission's domain in stage 1. **The receded arm has no passing rung below its shipped
+  0.89.**
+- The clamp predictions held to a few 1e-4 on every clamped cell: the 0/255 checkers, `light-solid`
+  thick (+0.0594 at 0.7, predicted +0.0579; +0.143 at 0.6; +0.229 at 0.5), `mid-chroma-solid`
+  receded. Every one is attributed `clamp`.
+- **The unexplained excesses are the impulse cells**, rising where the arithmetic predicts a small
+  fall: active `impulse__rrect-sm__rest` +0.008 at 0.7 (a probe, outside L1) and
+  `impulse__capsule-button__rest` +0.0067 / +0.0051 at 0.6; receded `impulse__capsule-button__inactive`
+  +0.033 at 0.8 and +0.07 at 0.7, the L1 validation cell that blocks the receded arm. The W9 solve
+  targets the tone of a group or silhouette mean (encoded 0.0033–0.0038 on the impulse grid); a
+  capsule whose interior holds a bright dot transmits more of it as `1 − α` grows, which a solve on
+  that mean does not see. Named, not attributed: the check's arithmetic does not model it.
+
+**(ii) The rest scatter** (at the scale each lever acts at; Δ in bars against the control):
+
+| lever | rungs | thin median Δ | mid Δ | F inactive bar cells | meets the bar |
+| --- | --- | --- | --- | --- | --- |
+| 1x floor (0.34) | 0.1 / 0.2 / 0.5 | +0.15 / +0.11 / −0.09 | +2.5 / +1.4 / −0.5 | rrect-md +2.9 at 0.1 | no |
+| 2x floor (1) | 0.85 / 0.7 / 0.5 | +0.19 / +0.39 / +1.01 | up to +2.2 | rrect-md +4.8 / +8.3 | no |
+| 1x thin start (0.72) | 0.6 / 0.85 / 1.0 | −0.23 / +0.10 / +0.15 | 0 | 0 | no |
+| 2x thin start (0.46) | 0.6 / 0.75 / 0.9 | +0.91 / +2.00 / +3.08 | 0 | 0 | **0.75, 0.9** |
+| 1x heavy tap (0) | 4 / 8 / 13 | 0 | +1.6 / +0.2 / 0 | +0.6 at 4 | no |
+| 2x heavy tap (0) | 4 / 8 / 13 | +1.41 / +0.16 / −0.62 | +3.5 / +0.5 / −1.8 | 0 | **4** |
+
+- The bar is met: C rest has levers, **at 2x only**. No 1x lever moves the 1x thin rest cells by
+  as much as a bar; their structure at 1x is the transmission's to move (predicted ×3 at 0.7).
+- Nothing read flat, so nothing in stage 1 is struck. The floors reach the inactive fine cells
+  through inheritance (the receded does not name them), as the charter's Interactions say.
+
+**(iii) The receded scatter** (the two fine inactive cells' error growth in bars; photo):
+
+| lever | rungs | `checkerboard-8` md / lg | photo inactive | reading |
+| --- | --- | --- | --- | --- |
+| thin start 1x / 2x (1) | 0.7 / 0.4 / 0.1 | 0 / 0 | 0 | FLAT (the fine cells' spans are 96 and 160) |
+| thick start 1x (0.3) | 0.15 / 0 | −0.20 / −0.86, −0.20 / −1.71 | 0 | md moves under a bar |
+| thick start 2x (0.04) | 0 / 0.2 | −0.81 / −0.48, +2.02 / +0.84 | 0 | under a bar toward Apple |
+| far start 1x / 2x | 0.1, 0 / 0, 0.2 | at most −0.66 | 0 | FLAT |
+| heavy width 2x (14) | 9 / 18 / 24 | +0.33 / +0.58, 0, 0 | +0.26, −0.25, −0.61 | no |
+
+The fine inactive cells sit about ten bars over Apple (web 0.023–0.026 against native
+0.007–0.009); no receded lever moves both toward Apple by a bar. **Target F inactive has no lever**
+(X63).
+
+### 8. Part 2, hashed (`51003a9a`)
+
+`fit-declaration.json` sha256 **`5dca38e09a68f28ac7c016718a06553b9375e978b014191374cb0b5fa4c75301`**,
+naming part 1 and the draft, a validated diff with exactly the three changes the ladders require
+(`declare.py check-fit`, which since the review also reads the required outcomes on the body):
+- the active `tintAlpha` grid narrowed to its passing rungs 0.7, 0.8, 0.9;
+- the receded `tintAlpha` grid narrowed to 0.89 alone;
+- **target F inactive named not fitted**, its receded scatter family removed, with the operator's
+  shape: a receded-only fine-pitch term that lowers the receded body's 4–8 px structure at spans
+  96–160 by about ten bars while its coarse and photo structure hold or rise — the receded starts
+  and heavy width move the two fine cells by at most 1.7 bars — to be landed inert, with byte
+  identity and its own separating ladder, if the parent rules it in.
+No stage-1 leaf is struck or narrowed (W45's call: a narrowing would remove declared values no
+ladder read). Thirteen leaves remain to search, all in stage 1. The fit driver's preflight accepts
+part 2. Part 2 is amendable once, by the parent's ruling, before any fit render.
+
+### 9. Review closure (`doperpowers:reviewer-high` on the builder's X64 admission and the seal; `doperpowers:reviewer-medium` on the tools and the level check)
+
+Both ran before part 1's hash, so every fix landed in part 1's pins without an amendment.
+- **[P1, high] The seal rehearsal read the live profiles** and would have failed once G1's seal moved
+  the dark pair. Its scratch now seeds the four 0.25 files from the snapshots, with a case that seals
+  over an already-sealed live pair; the stage tests' two live-state cases state the shipped state
+  instead (`73f4a0ce`). The reviewer found the X64 lists, nested-path refusals, snapshot and twin
+  checks, light invariance, label grammar, stage-2 inheritance and seal digest recomputation sound,
+  and the neutrality pin real (it rejected both a wrong inherited floor and a wrong gated width).
+- **[P1, medium] Part 2 could omit a required change**: `validate_fit` now refuses a body whose
+  `tintAlpha` grid leaves the passing rungs, which keeps a flat lever's leaf, or which leaves a
+  leverless target unnamed, and refuses part 2 when no target has a lever.
+- **[P1, medium] The reader accepted partial rungs**: a rung must hold exactly its declared cells at
+  both scales, no duplicate, every T1 cell with its reading.
+- **[P2, medium] The level arithmetic computed the opacity lift and did not apply it**; it now does
+  (a case on the impulse input at 0.5), and the predictions were regenerated (fourth-place moves).
+- **[P2, medium] `capturedAt` was retained but not validated**; it is now an ISO-8601 capture time
+  before the provenance reads valid. The control's identity re-read: 116 of 116, every provenance
+  valid. All in `90d6be34`. The medium reviewer found the per-profile rule, gate-cell counting, the
+  referee rule and whitelists, the bindings, the cuts port, the embargo checks and the amendment
+  chain sound, and re-checked the control's identity, the stage rehearsal and the port proof.
+
+### 10. Clause 8 at G0's close
+
+`freeze.py verify` reads 1,818 entries and X41 911. Nothing outside the evidence directory moved
+(`git diff b711762a` over the rest of the tree is empty), so no digest, golden or generation could;
+the goldens were not re-run. W44's and W45's evidence is unedited.
+
+### 11. For the parent, before G1
+
+1. **Target P cannot meet the improvement landing as declared.** The receded transmission passes
+   L1 at no rung below 0.89, so P inactive (5 of 9 cells per scale) stays at ×0.25, and the pooled P
+   aggregate cannot halve however far P rest moves. What blocks it is
+   `impulse__capsule-button__inactive`'s level (+0.033 at 0.8, an L1 validation cell), which the solve
+   does not predict. Options the parent may rule: (a) read target P's halving on P rest and name P
+   inactive not fitted (X63) with the shape "a transmission whose level the solve holds on sparse
+   backdrops"; (b) admit the impulse inactive cell's L1 growth as a named miss and amend part 2 to a
+   receded grid down to 0.8 or 0.7 (the checker clamps below 0.64 remain); (c) defer.
+2. **Target F inactive is named not fitted** with the operator's shape above (X63): rule it in by
+   amendment (landed inert, its own separating ladder) or defer.
+3. **C rest's levers act at 2x only.** At 1x the thin rest cells move only with the transmission.
+4. **The target halving reads per scale.** The rule evaluates each target per profile (each must
+   halve); the charter fixes the budget per profile and does not say. Confirm or rule pooled.
+5. **Read 8 cannot be recorded as the ledger stands**: `holdout-configuration/configuration.py`'s
+   referee witness accepts only `w44-referees-` schemas, so G1's exposure needs a ruled extension for
+   `w46-referees-1`.
+6. **X60 by render needs a light strict-mode stage** G1 declares beside the dark one; `stage.py`
+   stages the dark pair only, and `x60.py render` reads whichever stage holds the light rows.
+7. **The seal record's `cuts` path** must name the scale-separable layout (a point's composed
+   `summary.json` and its scale twins' `cuts-<s>x.json.gz`), not a single `cuts.json.gz`.
+
+### 12. What is not claimed
+
+- **Any fit, gate, exposure, seal or publication.** No fit render exists; part 2's amendment is
+  unspent.
+- **A mechanism for the impulse excesses.** The level check names them unexplained; the transmitted
+  dot is the likely reading, not a measured one.
+- **A landing verdict on any ladder rung.** The ladders read levers; the rule reads the gate
+  population.
