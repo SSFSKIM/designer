@@ -272,7 +272,8 @@ def build(given: dict) -> tuple[dict, str]:
                            cellsPerLadder={k: [len(v["rest"]), len(v["inactive"])] for k, v in cells["ladders"].items()}),
              statement="Four ladders in candidate mode from the snapshots, both scales, the listed cells only, X69 "
                        "disjoint from the referees and X70's three-way check at every rung; the bars of clause 5 and "
-                       "the decisions strike, narrow, name-target, name-operator and name-gap."),
+                       "the decisions name-unfitted, name-target, body-width-first, narrow, strike and name-1x-gap "
+                       "(and the outcomes fit and stop), as protocol.json names them."),
         dict(id="startingPoint", title="the starting point, by hash", clause="Design \"The moves\"; X62",
              source=[f"{SHARED_R}/generations/index.json"],
              declared=dict(generation="d0219cd684bf", generationFileSha12=d0219["sha256"][:12],

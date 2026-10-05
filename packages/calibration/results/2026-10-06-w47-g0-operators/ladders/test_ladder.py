@@ -272,17 +272,28 @@ class Part2(unittest.TestCase):
         self.assertEqual(self.kinds(got), [("narrow", "optics.regular.tintAlpha")])
         self.assertEqual(got[0]["grid"], [0.9, 0.7])
 
-    def test_operator_1_unfitted_and_struck_and_the_1x_gap(self):
+    def test_operator_1_unfitted_and_the_1x_gap(self):
+        """The name-unfitted change itself removes operator 1's leaves (declare.py `apply_changes`), so no
+        separate strike is listed for them."""
         got = P2.changes_from(self.DRAFT, self.results(op1=False, ii=True), {})
         self.assertIn(("name-unfitted", "operator 1"), self.kinds(got))
-        self.assertIn(("strike", "tintAlphaFar1x"), self.kinds(got))
+        self.assertNotIn(("strike", "tintAlphaFar1x"), self.kinds(got))
         self.assertIn(("name-1x-gap", ""), self.kinds(got))
+        self.assertEqual(next(c for c in got if c["kind"] == "name-1x-gap")["ladder"], "ii")
 
     def test_body_width_first(self):
         got = P2.changes_from(self.DRAFT, self.results(op2=True, body=True), {})
-        self.assertIn(("body-width-first", ""), self.kinds(got))
-        self.assertIn(("strike", "sizeFineTapSigma"), self.kinds(got))
+        self.assertIn(("body-width-first", "operator 2"), self.kinds(got))
+        self.assertNotIn(("strike", "sizeFineTapSigma"), self.kinds(got))
         self.assertNotIn(("strike", "optics.regular.blurSigma"), self.kinds(got))
+
+    def test_a_ladder_ii_conditional_leaf_is_struck_when_ladder_ii_did_not_meet_its_bar(self):
+        draft = {"moves": [{"id": "stage1", "families": {"tap": {"leaves": {
+            "sizeHeavySecondShareFar2x": {"grid": [0.3, 0.6], "ladder": "ii", "conditional": "ii"}}}}}]}
+        got = P2.changes_from(draft, self.results(ii=False), {})
+        self.assertEqual([(c["kind"], c["leaf"], c["ladder"]) for c in got],
+                         [("strike", "sizeHeavySecondShareFar2x", "ii")])
+        self.assertEqual(P2.changes_from(draft, self.results(ii=True), {})[0]["kind"], "name-1x-gap")
 
     def test_stop_incomplete_and_one_scale(self):
         with self.assertRaisesRegex(SystemExit, "neither operator separates"):

@@ -16,9 +16,14 @@ that depends on an earlier reading); the real ones are part 1's and are checked 
   starting at part 1's pin — each refused; ops apply and revert byte for byte.
 - **The chain**: a content amendment rebuilds the superseded hash; a tampered op breaks it; one
   amendment per part, final (a second `amend` refuses); partial content arguments refuse.
-- **The validated diff and clause 5's outcomes**: W46's strike / narrow / name-target, and W47's
-  name-operator (only an operator the ladders read as not separating, or whose body width met the bar;
-  its leaves removed) and name-gap; required: an inert operator named, neither separating stops part 2.
+- **The validated diff and clause 5's outcomes**, in `ladders/protocol.json`'s words and on
+  `ladders/read.py`'s results shape: name-unfitted (only an operator the ladders read as not separating;
+  its leaves removed), body-width-first, name-target, name-1x-gap (only where ladder (ii) met its bar),
+  strike (flat rungs, or a ladder-(ii)-conditional leaf when it did not meet its bar), narrow (the
+  active transmission to its passing rungs); required: each of these where the ladders demand it, a
+  one-scale separation ruled first, neither separating stops part 2; `ladders/part2.py` derives exactly
+  the changes `validate_fit` accepts.
+- **The committed protocol and draft** pass declare's ladders and draft checks.
 - **Pins**: a moved source is a mismatch; a pending item and a ladder render stop the hash.
 - **assemble.py**: refuses while `declaration-inputs.json` holds a TO FILL (the committed template
   does), and once part 1 is hashed.
@@ -43,8 +48,9 @@ CHARTER_AT = "c1f9bf84c"
 W46_PART1 = "bc82562eaf1ab70a1a40ac55e00213cc4229aa3843e1659b7ad416e77f40a3aa"
 
 
-def leaf(slot, grid, domain, target, ladder, unit="u"):
-    return dict(slot=slot, grid=grid, domain=domain, unit=unit, target=target, ladder=ladder)
+def leaf(slot, grid, domain, target, ladder, rungs=(), unit="u", **extra):
+    return dict(slot=slot, grid=grid, domain=domain, unit=unit, target=target, ladder=ladder, rungs=list(rungs),
+                **extra)
 
 
 DRAFT = {
@@ -53,47 +59,60 @@ DRAFT = {
     "moves": [
         {"id": "stage1", "slot": "active.dark", "familyOrder": ["span-law", "second-tap"], "families": {
             "span-law": {"why": "w", "leaves": {
-                "optics.regular.tintAlpha": leaf("active.dark", [0.7, 0.8, 0.9], [0.7, 0.9], "P", "i-a"),
-                "tintAlphaFar1x": leaf("active.dark", [0, 0.2, 0.45], [0, 0.6], "C rest", "i-f1"),
-                "sizeOcclusionGain": leaf("active.dark", [0.05, 0.2, 0.4], [0.05, 0.6], "C rest", "i-g")},
+                "optics.regular.tintAlpha": leaf("active.dark", [0.7, 0.8, 0.9], [0.7, 0.9], "P", "i",
+                                                 ["i-a0.7", "i-a0.8", "i-a0.7-f0.2"]),
+                "tintAlphaFar1x": leaf("active.dark", [0, 0.2, 0.45], [0, 0.6], "P", "i", ["i-a0.7-f0.2"],
+                                       operator="operator 1"),
+                "sizeOcclusionGain": leaf("active.dark", [0.05, 0.2, 0.4], [0.05, 0.6], "P", "i", ["i-a0.7-g0.2"])},
                 "factorialGroups": [{"keys": ["optics.regular.tintAlpha", "tintAlphaFar1x", "sizeOcclusionGain"]}]},
             "second-tap": {"why": "w", "leaves": {
-                "sizeHeavySecondShareFar2x": leaf("active.dark", [0, 0.3, 0.6], [0, 1], "C rest", "ii-d")}}}},
+                "sizeHeavySecondShareFar2x": leaf("active.dark", [0.3, 0.6], [0, 1], "C rest", "ii", ["ii-w6-d0.3"],
+                                                  conditional="ii")}}}},
         {"id": "stage2", "slot": "receded.dark", "familyOrder": ["fine", "transmission"], "families": {
             "fine": {"why": "w", "leaves": {
-                "sizeFineTapSigma": leaf("receded.dark", [1.5, 2, 3], [0, 6], "F inactive", "iii-w"),
-                "sizeFineTapShare": leaf("receded.dark", [0.5, 1], [0, 1], "F inactive", "iii-s")}},
+                "sizeFineTapSigma": leaf("receded.dark", [1.5, 2, 3], [0, 6], "F inactive", "iii", ["iii-s2"],
+                                         operator="operator 2"),
+                "sizeFineTapShare": leaf("receded.dark", [0.5, 1], [0, 1], "F inactive", "iii", ["iii-s2", "iii-q0.5"],
+                                         operator="operator 2"),
+                "optics.regular.blurSigma": leaf("receded.dark", [1.25, 2], [1.25, 4], "F inactive", "iii", ["iii-b2"])}},
             "transmission": {"why": "w", "leaves": {
                 "optics.regular.tintAlpha": leaf("receded.dark", [0.8, 0.89], [0.8, 0.89], "P", None)}}}},
     ],
 }
-ALL = ["strike", "narrow", "name-target", "name-operator", "name-gap"]
-PROTOCOL = {"ladders": [
-    {"id": "i", "decides": ALL, "levers": [
-        {"id": "i-a", "slot": "active.dark", "leaf": "optics.regular.tintAlpha", "values": [0.8, 0.7], "shipped": 0.9},
-        {"id": "i-f1", "slot": "active.dark", "leaf": "tintAlphaFar1x", "values": [0.2, 0.45], "shipped": 0},
-        {"id": "i-g", "slot": "active.dark", "leaf": "sizeOcclusionGain", "values": [0.2, 0.4, 0.6], "shipped": 0.05}]},
-    {"id": "ii", "decides": ["strike", "narrow", "name-gap"], "levers": [
-        {"id": "ii-d", "rungs": [{"id": "ii-d-1", "overrides": {"active.dark": {
-            "sizeHeavySecondShare": 0.05, "sizeHeavySecondShareFar2x": 0.3}}}]}]},
-    {"id": "iii", "decides": ["strike", "narrow", "name-target", "name-operator"], "levers": [
-        {"id": "iii-w", "slot": "receded.dark", "leaf": "sizeFineTapSigma", "values": [1.5, 2, 3], "shipped": 0},
-        {"id": "iii-s", "rungs": [{"id": "iii-s-0.5", "overrides": {"receded.dark": {
-            "sizeFineTapShare": 0.5, "sizeFineTapSigma": {"dependsOn": "iii-w"}}}}]}]},
+PROTOCOL = {"decisions": {k: "text" for k in D.CHANGE_KINDS + D.OUTCOMES}, "ladders": [
+    {"id": "i", "decides": ["name-unfitted", "name-target", "narrow", "strike"], "rungs": [
+        {"label": "i-a0.7", "overrides": {"active.dark": {"optics.regular.tintAlpha": 0.7}}},
+        {"label": "i-a0.8", "overrides": {"active.dark": {"optics.regular.tintAlpha": 0.8}}},
+        {"label": "i-a0.7-f0.2", "overrides": {"active.dark": {"optics.regular.tintAlpha": 0.7, "tintAlphaFar1x": 0.2}}},
+        {"label": "i-a0.7-g0.2", "overrides": {"active.dark": {"optics.regular.tintAlpha": 0.7,
+                                                                "sizeOcclusionGain": 0.2}}}]},
+    {"id": "ii", "decides": ["name-1x-gap", "strike"], "rungs": [
+        {"label": "ii-w6-d0.3", "overrides": {"active.dark": {
+            "sizeHeavySecondShare": 0.05, "sizeHeavySecondSigma2x": 6, "sizeHeavySecondShareFar2x": 0.3}}}]},
+    {"id": "iii", "decides": ["name-unfitted", "body-width-first", "name-target", "strike"], "rungs": [
+        {"label": "iii-b2", "overrides": {"receded.dark": {"optics.regular.blurSigma": 2}}},
+        {"label": "iii-s2", "overrides": {"receded.dark": {"sizeFineTapShare": 1, "sizeFineTapSigma": 2,
+                                                            "sizeFineTapSigma2x": 2}}},
+        {"label": "iii-q0.5", "overrides": {"receded.dark": {"sizeFineTapShare": 0.5,
+                                                              "sizeFineTapSigma": {"select": "iii-width-1x"}}}}]},
+    {"id": "iv", "decides": ["name-target"], "rungs": []},
 ]}
+RUNG_LADDER = {r["label"]: lad["id"] for lad in PROTOCOL["ladders"] for r in lad["rungs"]}
 
 
-def results(**over):
-    ladders = {"i": {"i-a": dict(flat=False, nonFlatRange=[0.7, 0.9], passingRungs=[0.9, 0.8, 0.7]),
-                     "i-f1": dict(flat=False, nonFlatRange=[0, 0.45]),
-                     "i-g": dict(flat=False, nonFlatRange=[0.05, 0.6])},
-               "ii": {"ii-d": dict(flat=False, nonFlatRange=[0, 0.6])},
-               "iii": {"iii-w": dict(flat=False, nonFlatRange=[1.5, 3]),
-                       "iii-s": dict(flat=False, nonFlatRange=[0.5, 1])}}
-    out = dict(control=dict(verdict="IDENTICAL"), ladders=ladders,
-               targets={"P": dict(lever=["i-a"]), "C rest": dict(lever=["i-f1"]), "F inactive": dict(lever=["iii-w"])},
-               operators={"operator 1": dict(separates=True, ladder="i"),
-                          "operator 2": dict(separates=True, ladder="iii")})
+def results(moved=(), **over):
+    """`ladders/read.py`'s results.json shape: every rung read, a cell moved on every rung unless the rung
+    is listed flat by `moved` (a set of rungs whose cells read flat)."""
+    rungs = {lab: dict(ladder=lad, cells={"1x/x": dict(moved=lab not in moved)}) for lab, lad in RUNG_LADDER.items()}
+    ladders = {lad["id"]: dict(complete=True, read=[r["label"] for r in lad["rungs"]], notRead=[],
+                               meets=[], meetsAtOneScaleOnly=[], passingL1=None) for lad in PROTOCOL["ladders"]}
+    ladders["i"].update(meets=["i-a0.7-f0.2"], passingL1=["i-a0.7", "i-a0.8", "i-a0.7-f0.2"])
+    out = dict(control=dict(verdict="IDENTICAL"), rungs=rungs, ladders=ladders,
+               operators={"operator 1": dict(separates=True, complete=True, rungs=["i-a0.7-f0.2"], oneScaleOnly=[]),
+                          "2x width": dict(meets=True, complete=True, rungs=["ii-w6-d0.3"]),
+                          "operator 2": dict(separates=True, bodyWidthMeets=False, complete=True, rungs=["iii-s2"],
+                                             bodyRungs=[], oneScaleOnly=[]),
+                          "joint": dict(meets=True, complete=True)})
     for path, value in over.items():
         node = out
         keys = path.split("/")
@@ -101,6 +120,9 @@ def results(**over):
             node = node[k]
         node[keys[-1]] = value
     return out
+
+
+GAP = dict(kind="name-1x-gap", ladder="ii", operatorShape="sizeHeavySecondShareFar1x, identity 0, a plain value drop")
 
 
 def scratch_case(cls):
@@ -298,6 +320,8 @@ class Chain(unittest.TestCase):
 
 
 class ValidatedDiff(unittest.TestCase):
+    """Clause 5's decisions in the protocol's words, on `ladders/read.py`'s results shape."""
+
     def apply(self, changes, res=None):
         return D.apply_changes(DRAFT, changes, res or results(), PROTOCOL)
 
@@ -309,81 +333,128 @@ class ValidatedDiff(unittest.TestCase):
         body.pop("status", None)
         return dict(body, changes=changes)
 
-    def test_no_change_is_the_draft(self):
+    def test_no_change_is_the_draft_and_the_gap_is_required(self):
         self.assertEqual(self.apply([]), DRAFT)
-        D.validate_fit(DRAFT, self.fit([]), results(), PROTOCOL)
+        with self.assertRaisesRegex(D.Refusal, "1x per-span width gap is not named"):
+            D.validate_fit(DRAFT, self.fit([]), results(), PROTOCOL)
+        D.validate_fit(DRAFT, self.fit([GAP]), results(), PROTOCOL)
 
-    def test_strike_only_a_flat_lever(self):
-        ch = dict(kind="strike", move="stage1", family="span-law", leaf="sizeOcclusionGain", lever="i-g")
+    def test_strike_only_flat_rungs_or_ladder_ii_unmet(self):
+        ch = dict(kind="strike", move="stage1", family="span-law", leaf="sizeOcclusionGain", ladder="i")
         with self.assertRaisesRegex(D.Refusal, "did not read flat"):
             self.apply([ch])
-        body = self.apply([ch], results(**{"ladders/i/i-g/flat": True}))
+        body = self.apply([ch], results(moved={"i-a0.7-g0.2"}))
         self.assertIsNone(self.leaf(body, "stage1", "span-law", "sizeOcclusionGain"))
         self.assertEqual(body["moves"][0]["families"]["span-law"]["factorialGroups"][0]["keys"],
                          ["optics.regular.tintAlpha", "tintAlphaFar1x"])
+        with self.assertRaisesRegex(D.Refusal, "read on ladder"):
+            self.apply([dict(ch, ladder="iii")], results(moved={"i-a0.7-g0.2"}))
+        cond = dict(kind="strike", move="stage1", family="second-tap", leaf="sizeHeavySecondShareFar2x", ladder="ii")
+        with self.assertRaisesRegex(D.Refusal, "met its bar"):
+            self.apply([cond])
+        unmet = results(**{"operators/2x width/meets": False})
+        self.assertNotIn("second-tap", self.apply([cond], unmet)["moves"][0]["families"])
+        with self.assertRaisesRegex(D.Refusal, "crossed into stage 1 only"):
+            D.validate_fit(DRAFT, self.fit([], unmet), unmet, PROTOCOL)
+        D.validate_fit(DRAFT, self.fit([cond], unmet), unmet, PROTOCOL)
 
-    def test_narrow_inside_the_range_and_the_passing_rungs(self):
-        ch = dict(kind="narrow", move="stage1", family="span-law", leaf="tintAlphaFar1x", lever="i-f1", grid=[0, 0.2])
-        self.assertEqual(self.leaf(self.apply([ch]), "stage1", "span-law", "tintAlphaFar1x")["grid"], [0, 0.2])
-        with self.assertRaisesRegex(D.Refusal, "non-flat range"):
-            self.apply([dict(ch, grid=[0.45])], results(**{"ladders/i/i-f1/nonFlatRange": [0, 0.3]}))
+    def test_narrow_only_the_transmission_inside_its_passing_rungs(self):
+        ch = dict(kind="narrow", move="stage1", family="span-law", leaf="optics.regular.tintAlpha", ladder="i",
+                  grid=[0.8, 0.9])
+        self.assertEqual(self.leaf(self.apply([ch]), "stage1", "span-law", "optics.regular.tintAlpha")["grid"],
+                         [0.8, 0.9])
+        res = results(**{"ladders/i/passingL1": ["i-a0.8"]})
         with self.assertRaisesRegex(D.Refusal, "passing rungs"):
-            self.apply([dict(kind="narrow", move="stage1", family="span-law", leaf="optics.regular.tintAlpha",
-                             lever="i-a", grid=[0.7])], results(**{"ladders/i/i-a/passingRungs": [0.9, 0.8]}))
+            self.apply([dict(ch, grid=[0.7, 0.9])], res)
+        with self.assertRaisesRegex(D.Refusal, "leaves the transmission's passing rungs"):
+            D.validate_fit(DRAFT, self.fit([GAP], res), res, PROTOCOL)
+        D.validate_fit(DRAFT, self.fit([GAP, ch], res), res, PROTOCOL)
+        with self.assertRaisesRegex(D.Refusal, "narrows only the active transmission"):
+            self.apply([dict(kind="narrow", move="stage1", family="span-law", leaf="tintAlphaFar1x", ladder="i",
+                             grid=[0, 0.2])])
 
     def test_a_decision_its_ladder_may_not_make(self):
         with self.assertRaisesRegex(D.Refusal, "lets decide it"):
-            self.apply([dict(kind="name-operator", operator="operator 1", ladder="ii", reading="flat")],
+            self.apply([dict(kind="name-unfitted", operator="operator 1", ladder="ii", reading="flat")],
                        results(**{"operators/operator 1/separates": False}))
+        with self.assertRaisesRegex(D.Refusal, "lets decide it"):
+            self.apply([dict(GAP, ladder="i")])
 
-    def test_name_operator_only_without_separation(self):
-        ch = dict(kind="name-operator", operator="operator 2", ladder="iii",
+    def test_name_unfitted_only_without_separation(self):
+        ch = dict(kind="name-unfitted", operator="operator 2", ladder="iii",
                   reading="ladder (iii): no rung lowered the fine inactive cells by 3 B")
         with self.assertRaisesRegex(D.Refusal, "as separating"):
             self.apply([ch])
-        body = self.apply([ch], results(**{"operators/operator 2/separates": False}))
-        self.assertNotIn("fine", body["moves"][1]["families"])
+        res = results(**{"operators/operator 2/separates": False})
+        body = self.apply([ch], res)
+        fine = body["moves"][1]["families"]["fine"]["leaves"]
+        self.assertEqual(list(fine), ["optics.regular.blurSigma"])
         self.assertEqual(body["notFitted"], [dict(operator="operator 2", ladder="iii", reading=ch["reading"])])
-        body = self.apply([ch], results(**{"operators/operator 2/bodyWidthMeetsBar": True}))
-        self.assertNotIn("fine", body["moves"][1]["families"])
         with self.assertRaisesRegex(D.Refusal, "reading"):
-            self.apply([dict(ch, reading="")], results(**{"operators/operator 2/separates": False}))
+            self.apply([dict(ch, reading="")], res)
+        with self.assertRaisesRegex(D.Refusal, "incomplete"):
+            self.apply([ch], results(**{"operators/operator 2/separates": False,
+                                        "operators/operator 2/complete": False}))
 
-    def test_name_gap_cites_its_ladder(self):
-        ch = dict(kind="name-gap", gap="the 1x per-span width", ladder="ii",
-                  shape="sizeHeavySecondShareFar1x, identity 0, a plain value drop")
-        body = self.apply([ch])
-        self.assertEqual(body["namedGaps"], [dict(gap=ch["gap"], ladder="ii", shape=ch["shape"])])
+    def test_body_width_first(self):
+        ch = dict(kind="body-width-first", operator="operator 2", ladder="iii", reading="iii-b3 met the bar")
+        with self.assertRaisesRegex(D.Refusal, "no receded optics.regular.blurSigma rung"):
+            self.apply([ch])
+        res = results(**{"operators/operator 2/bodyWidthMeets": True, "operators/operator 2/bodyRungs": ["iii-b2"]})
+        body = self.apply([ch], res)
+        self.assertEqual(list(body["moves"][1]["families"]["fine"]["leaves"]), ["optics.regular.blurSigma"])
+        self.assertEqual(body["notFitted"][0]["decision"], "body-width-first")
+        with self.assertRaisesRegex(D.Refusal, "body-width-first, not name-unfitted"):
+            self.apply([dict(ch, kind="name-unfitted")], results(**{"operators/operator 2/bodyWidthMeets": True,
+                                                                      "operators/operator 2/separates": False}))
+        with self.assertRaisesRegex(D.Refusal, "is not named in notFitted"):
+            D.validate_fit(DRAFT, self.fit([GAP], res), res, PROTOCOL)
+        D.validate_fit(DRAFT, self.fit([GAP, ch], res), res, PROTOCOL)
+
+    def test_name_1x_gap_only_where_ladder_ii_met_its_bar(self):
+        body = self.apply([GAP])
+        self.assertEqual(body["namedGaps"], [dict(gap="the 1x per-span width", ladder="ii", shape=GAP["operatorShape"],
+                                                  rungs=["ii-w6-d0.3"])])
         self.assertEqual(body["moves"], DRAFT["moves"])
-        with self.assertRaisesRegex(D.Refusal, "states the gap"):
-            self.apply([dict(ch, shape="")])
+        with self.assertRaisesRegex(D.Refusal, "did not meet its bar"):
+            self.apply([GAP], results(**{"operators/2x width/meets": False}))
+        with self.assertRaisesRegex(D.Refusal, "operator's shape"):
+            self.apply([dict(GAP, operatorShape="")])
 
     def test_name_target_only_without_a_lever(self):
         ch = dict(kind="name-target", target="F inactive", ladder="iii", operatorShape="a receded fine term")
         with self.assertRaisesRegex(D.Refusal, "read a lever"):
-            self.apply([ch])
-        body = self.apply([ch], results(**{"targets/F inactive/lever": []}))
+            self.apply([ch], results(**{"targets": {"F inactive": {"lever": True}}}))
+        body = self.apply([ch])
         self.assertNotIn("fine", body["moves"][1]["families"])
+        self.assertEqual(body["notFitted"], [dict(target="F inactive", ladder="iii", operatorShape=ch["operatorShape"])])
 
     def test_nothing_without_an_identical_control_and_no_other_kind(self):
         with self.assertRaisesRegex(D.Refusal, "control"):
             self.apply([], results(**{"control/verdict": "DIFFERS"}))
         with self.assertRaisesRegex(D.Refusal, "decisions"):
-            self.apply([dict(kind="inert", move="stage1")])
+            self.apply([dict(kind="name-operator", move="stage1", ladder="i")])
+        with self.assertRaisesRegex(D.Refusal, "decisions"):
+            self.apply([dict(kind="fit", ladder="i")])
 
     def test_clause_5s_required_outcomes(self):
         res = results(**{"operators/operator 2/separates": False})
         with self.assertRaisesRegex(D.Refusal, "operator 2 shows no separation"):
-            D.validate_fit(DRAFT, self.fit([]), res, PROTOCOL)
-        named = [dict(kind="name-operator", operator="operator 2", ladder="iii", reading="flat")]
+            D.validate_fit(DRAFT, self.fit([GAP], res), res, PROTOCOL)
+        named = [GAP, dict(kind="name-unfitted", operator="operator 2", ladder="iii", reading="flat")]
         D.validate_fit(DRAFT, self.fit(named, res), res, PROTOCOL)
         both = results(**{"operators/operator 1/separates": False, "operators/operator 2/separates": False})
-        self.assertTrue(any("neither operator separates" in f for f in D.mandatory_failures(DRAFT, both)))
-        self.assertTrue(any("closes at G0" in f for f in D.mandatory_failures(DRAFT, results(**{
-            "targets/P/lever": [], "targets/C rest/lever": [], "targets/F inactive/lever": []}))))
+        self.assertTrue(any("neither operator separates" in f and "closes at G0" in f
+                            for f in D.mandatory_failures(DRAFT, both)))
+        one = results(**{"operators/operator 1/oneScaleOnly": ["i-a0.7-f0.2"]})
+        self.assertTrue(any("one scale only" in f for f in D.mandatory_failures(DRAFT, one)))
+        incomplete = results(**{"ladders/iii/complete": False})
+        self.assertTrue(any("ladder (iii) is incomplete" in f for f in D.mandatory_failures(DRAFT, incomplete)))
+        flat = results(moved={"i-a0.7-g0.2"})
+        self.assertTrue(any("read flat and the leaf is retained" in f for f in D.mandatory_failures(DRAFT, flat)))
 
     def test_validate_fit_refuses_a_body_beyond_its_changes_and_reads_the_reverted_body(self):
-        fit = self.fit([])
+        fit = self.fit([GAP])
         bad = copy.deepcopy(fit)
         bad["moves"][0]["families"]["span-law"]["leaves"]["tintAlphaFar1x"]["grid"] = [0.6]
         with self.assertRaisesRegex(D.Refusal, "beyond its permitted changes"):
@@ -393,6 +464,28 @@ class ValidatedDiff(unittest.TestCase):
         D.validate_fit(DRAFT, amended, results(), PROTOCOL, [dict(ops=ops)])
         with self.assertRaisesRegex(D.Refusal, "beyond its permitted changes"):
             D.validate_fit(DRAFT, amended, results(), PROTOCOL, [])
+
+    def test_part2_derives_exactly_the_changes_declare_validates(self):
+        """`ladders/part2.py`'s derivation, through `apply_changes` and `validate_fit`, on four synthetic
+        readings: both separate (the gap named); operator 2 inert; the body width first; ladder (ii) unmet
+        with the transmission narrowed. Neither separating stops it."""
+        sys.path.insert(0, str(HERE / "ladders"))
+        import part2 as P
+        cases = [results(),
+                 results(**{"operators/operator 2/separates": False}),
+                 results(**{"operators/operator 2/bodyWidthMeets": True, "operators/operator 2/bodyRungs": ["iii-b2"]}),
+                 results(**{"operators/2x width/meets": False, "ladders/i/passingL1": ["i-a0.8"]})]
+        for res in cases:
+            changes = P.changes_from(DRAFT, res, {})
+            D.validate_fit(DRAFT, self.fit(changes, res), res, PROTOCOL)
+        kinds = [sorted(c["kind"] for c in P.changes_from(DRAFT, r, {})) for r in cases]
+        self.assertEqual(kinds, [["name-1x-gap"], ["name-1x-gap", "name-unfitted"], ["body-width-first", "name-1x-gap"],
+                                 ["narrow", "strike"]])
+        named = P.changes_from(DRAFT, results(), {"F inactive": "a receded fine term"})
+        D.validate_fit(DRAFT, self.fit(named), results(), PROTOCOL)
+        with self.assertRaisesRegex(SystemExit, "neither operator separates"):
+            P.changes_from(DRAFT, results(**{"operators/operator 1/separates": False,
+                                             "operators/operator 2/separates": False}), {})
 
 
 @scratch_case
@@ -484,11 +577,16 @@ class Shapes(unittest.TestCase):
         self.assertEqual(D.diagnostic_choice([cell(0.6, 0.1), cell(0.1, 0.7, 2)]), "parent")    # split by scale
         self.assertEqual(D.diagnostic_choice([cell(0.4, 0.1), cell(0.45, 0.2, 2)]), "parent")   # neither half
 
-    def test_the_protocols_two_rung_forms(self):
+    def test_the_protocols_rung_forms(self):
         ids = [r["id"] for lad in PROTOCOL["ladders"] for r in D.protocol_rungs(lad)]
-        self.assertEqual(ids, ["i-a-0.8", "i-a-0.7", "i-f1-0.2", "i-f1-0.45", "i-g-0.2", "i-g-0.4", "i-g-0.6",
-                               "ii-d-1", "iii-w-1.5", "iii-w-2", "iii-w-3", "iii-s-0.5"])
-        self.assertEqual(D.lever_ids(PROTOCOL), ["i-a", "i-f1", "i-g", "ii-d", "iii-w", "iii-s"])
+        self.assertEqual(ids, ["i-a0.7", "i-a0.8", "i-a0.7-f0.2", "i-a0.7-g0.2", "ii-w6-d0.3", "iii-b2", "iii-s2",
+                               "iii-q0.5"])
+        self.assertEqual(D.lever_ids(PROTOCOL), ids)
+        w46 = {"id": "x", "levers": [{"id": "x-a", "slot": "active.dark", "leaf": "optics.regular.tintAlpha",
+                                      "values": [0.8, 0.7]}]}
+        self.assertEqual([r["id"] for r in D.protocol_rungs(w46)], ["x-a-0.8", "x-a-0.7"])
+        self.assertEqual(D.rung_leaves(PROTOCOL)["iii-q0.5"],
+                         {("sizeFineTapShare", "receded.dark"), ("sizeFineTapSigma", "receded.dark")})
 
     def test_x67_admission_and_x68_domains(self):
         self.assertTrue(D.admitted_leaf("receded.dark", "optics.regular.blurSigma"))
@@ -499,6 +597,50 @@ class Shapes(unittest.TestCase):
         self.assertFalse(D.admitted_leaf("receded.dark", "sizeHeavyTapSigma2xx"))
         self.assertEqual(D.domains_json(D.W.DOMAINS["receded.dark"]["sizeFineTapSigma"]),
                          [["set", [0]], ["interval", 1.5, 6]])
+
+
+class CommittedProtocolAndDraft(unittest.TestCase):
+    """The committed `ladders/protocol.json` and `fit-declaration-draft.json` pass declare.py's own ladders
+    and draft checks (the part-1 items' declared readings computed as `assemble.py` computes them), so the
+    three ports agree on one vocabulary and one shape before part 1 is assembled."""
+
+    def test_the_ladders_check_reads_the_committed_protocol_clean(self):
+        protocol = json.loads(D.PROTOCOL.read_text())
+        cells = json.loads(D.W.LADDER_CELLS.read_text())
+        declared = dict(rungs=1 + sum(len(D.protocol_rungs(lad)) for lad in protocol["ladders"]),
+                        levers=D.lever_ids(protocol),
+                        cellsPerLadder={k: [len(v["rest"]), len(v["inactive"])] for k, v in cells["ladders"].items()})
+        c = D.Check()
+        D.check_ladders(c, dict(declared=declared))
+        self.assertEqual(c.failures, [])
+        self.assertEqual(declared["rungs"], 41)
+        self.assertEqual({lad["id"]: lad["decides"] for lad in protocol["ladders"]},
+                         {"i": ["name-unfitted", "name-target", "narrow", "strike"], "ii": ["name-1x-gap", "strike"],
+                          "iii": ["name-unfitted", "body-width-first", "name-target", "strike"], "iv": ["name-target"]})
+
+    def test_the_draft_check_reads_the_committed_draft_clean(self):
+        draft = json.loads(D.DRAFT.read_text())
+        c = D.Check()
+        D.check_draft(c, dict(declared=dict(stages=["stage1", "stage2"], targets=["P", "C rest", "F inactive"],
+                                            searchedLeaves=sum(len(f["leaves"]) for m in draft["moves"]
+                                                               for f in m["families"].values()))))
+        self.assertEqual(c.failures, [])
+        operator = {k: s.get("operator") for m in draft["moves"] for f in m["families"].values()
+                    for k, s in f["leaves"].items() if s.get("operator")}
+        self.assertEqual(operator, {"tintAlphaFar1x": "operator 1", "tintAlphaFar2x": "operator 1",
+                                    "sizeFineTapSigma": "operator 2", "sizeFineTapSigma2x": "operator 2",
+                                    "sizeFineTapShare": "operator 2"})
+
+    def test_a_draft_leaf_outside_its_x68_domain_or_citing_a_wrong_rung_refuses(self):
+        draft = json.loads(D.DRAFT.read_text())
+        protocol = json.loads(D.PROTOCOL.read_text())
+        bad = copy.deepcopy(draft)
+        span = bad["moves"][0]["families"]["span-law"]["leaves"]
+        span["tintAlphaFar2x"]["grid"] = [0, 0.7]
+        span["sizeOcclusionGain"]["rungs"] = ["iii-b2"]
+        got = D.draft_failures(bad, protocol, ["P", "C rest", "F inactive"])
+        self.assertTrue(any("tintAlphaFar2x grid [0, 0.7] outside" in f for f in got))
+        self.assertTrue(any("cites rung iii-b2, which does not move it" in f for f in got))
 
 
 if __name__ == "__main__":

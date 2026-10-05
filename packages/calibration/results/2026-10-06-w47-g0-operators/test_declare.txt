@@ -12,6 +12,9 @@ test_a_content_amendment_rebuilds_the_superseded_hash_and_a_tampered_op_does_not
 test_amend_refuses_after_a_render (test_declare.Chain.test_amend_refuses_after_a_render) ... ok
 test_one_amendment_per_part_final (test_declare.Chain.test_one_amendment_per_part_final) ... ok
 test_the_content_form_names_its_three_arguments_together (test_declare.Chain.test_the_content_form_names_its_three_arguments_together) ... ok
+test_a_draft_leaf_outside_its_x68_domain_or_citing_a_wrong_rung_refuses (test_declare.CommittedProtocolAndDraft.test_a_draft_leaf_outside_its_x68_domain_or_citing_a_wrong_rung_refuses) ... ok
+test_the_draft_check_reads_the_committed_draft_clean (test_declare.CommittedProtocolAndDraft.test_the_draft_check_reads_the_committed_draft_clean) ... ok
+test_the_ladders_check_reads_the_committed_protocol_clean (test_declare.CommittedProtocolAndDraft.test_the_ladders_check_reads_the_committed_protocol_clean) ... ok
 test_another_waves_charter_no_ops_and_the_frame (test_declare.ContentForm.test_another_waves_charter_no_ops_and_the_frame) ... ok
 test_ops_apply_and_revert_byte_for_byte (test_declare.ContentForm.test_ops_apply_and_revert_byte_for_byte) ... ok
 test_part_one_pins_ride_part_2_only_and_only_the_repinnable (test_declare.ContentForm.test_part_one_pins_ride_part_2_only_and_only_the_repinnable) ... ok
@@ -20,21 +23,24 @@ test_a_moved_source_is_a_mismatch (test_declare.Pins.test_a_moved_source_is_a_mi
 test_a_part_one_pin_is_accepted_only_along_the_recorded_move (test_declare.Pins.test_a_part_one_pin_is_accepted_only_along_the_recorded_move) ... ok
 test_hash_refuses_after_a_ladder_render_and_while_pending (test_declare.Pins.test_hash_refuses_after_a_ladder_render_and_while_pending) ... ok
 test_the_diagnostics_criterion (test_declare.Shapes.test_the_diagnostics_criterion) ... ok
-test_the_protocols_two_rung_forms (test_declare.Shapes.test_the_protocols_two_rung_forms) ... ok
+test_the_protocols_rung_forms (test_declare.Shapes.test_the_protocols_rung_forms) ... ok
 test_x67_admission_and_x68_domains (test_declare.Shapes.test_x67_admission_and_x68_domains) ... ok
 test_a_decision_its_ladder_may_not_make (test_declare.ValidatedDiff.test_a_decision_its_ladder_may_not_make) ... ok
+test_body_width_first (test_declare.ValidatedDiff.test_body_width_first) ... ok
 test_clause_5s_required_outcomes (test_declare.ValidatedDiff.test_clause_5s_required_outcomes) ... ok
-test_name_gap_cites_its_ladder (test_declare.ValidatedDiff.test_name_gap_cites_its_ladder) ... ok
-test_name_operator_only_without_separation (test_declare.ValidatedDiff.test_name_operator_only_without_separation) ... ok
+test_name_1x_gap_only_where_ladder_ii_met_its_bar (test_declare.ValidatedDiff.test_name_1x_gap_only_where_ladder_ii_met_its_bar) ... ok
 test_name_target_only_without_a_lever (test_declare.ValidatedDiff.test_name_target_only_without_a_lever) ... ok
-test_narrow_inside_the_range_and_the_passing_rungs (test_declare.ValidatedDiff.test_narrow_inside_the_range_and_the_passing_rungs) ... ok
-test_no_change_is_the_draft (test_declare.ValidatedDiff.test_no_change_is_the_draft) ... ok
+test_name_unfitted_only_without_separation (test_declare.ValidatedDiff.test_name_unfitted_only_without_separation) ... ok
+test_narrow_only_the_transmission_inside_its_passing_rungs (test_declare.ValidatedDiff.test_narrow_only_the_transmission_inside_its_passing_rungs) ... ok
+test_no_change_is_the_draft_and_the_gap_is_required (test_declare.ValidatedDiff.test_no_change_is_the_draft_and_the_gap_is_required) ... ok
 test_nothing_without_an_identical_control_and_no_other_kind (test_declare.ValidatedDiff.test_nothing_without_an_identical_control_and_no_other_kind) ... ok
-test_strike_only_a_flat_lever (test_declare.ValidatedDiff.test_strike_only_a_flat_lever) ... ok
+test_part2_derives_exactly_the_changes_declare_validates (test_declare.ValidatedDiff.test_part2_derives_exactly_the_changes_declare_validates)
+`ladders/part2.py`'s derivation, through `apply_changes` and `validate_fit`, on four synthetic ... ok
+test_strike_only_flat_rungs_or_ladder_ii_unmet (test_declare.ValidatedDiff.test_strike_only_flat_rungs_or_ladder_ii_unmet) ... ok
 test_validate_fit_refuses_a_body_beyond_its_changes_and_reads_the_reverted_body (test_declare.ValidatedDiff.test_validate_fit_refuses_a_body_beyond_its_changes_and_reads_the_reverted_body) ... ok
 
 ----------------------------------------------------------------------
-Ran 33 tests in 0.713s
+Ran 38 tests in 0.269s
 
 OK
 amend REFUSES: render evidence exists for this part (ladders/runs.jsonl)

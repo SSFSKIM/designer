@@ -81,6 +81,7 @@
  "decisions": {
   "fit": "an operator whose ladder separates (meets its clause 5 bar at some rung) is fitted in part 2 on its declared grids",
   "name-unfitted": "an operator whose ladder shows no separation is NOT fitted: part 2 names it with the reading (X63) and the wave continues on the other",
+  "name-target": "a target no lever moves is named, not fitted (X63; Decision Log 4): part 2 records it in notFitted with its ladder and the operator's shape, and every draft leaf carrying that target leaves the draft",
   "body-width-first": "if a receded optics.regular.blurSigma rung of ladder (iii) meets clause 5 (iii)'s bar on its own, part 2 fits the body width and names the tap unfitted (X63); the tap stays landed inert (Decision Log 3)",
   "narrow": "replace a declared grid by a non-empty subset of itself inside the lever's non-flat range (for tintAlpha: rungs at which L1 passes)",
   "strike": "remove a family leaf whose rungs read flat (no cell beyond its bar at the scale it acts at)",
@@ -109,6 +110,12 @@
     "level": "level.py check on every rung: L1 (absolute and growth against d0219cd684bf) on its declared population, every excess attributed"
    },
    "bar": "a rung at which the five thick rest cells read within 1 B of the reference (|k - c| <= B at each scale) while the thin rest cells keep at least half of point A's gain (per scale, the summed error reduction |c - n| - |k - n| over the thin cells is at least half of point A's summed reduction on the same cells, read from point A's committed cut), with L1 passing on its population",
+   "decides": [
+    "name-unfitted",
+    "name-target",
+    "narrow",
+    "strike"
+   ],
    "rungs": [
     {
      "label": "i-a0.7",
@@ -377,6 +384,10 @@
     ]
    },
    "bar": "a rung at which, at 2x, checkerboard-8__rrect-lg__rest and hc-text__rrect-lg__rest fall toward Apple (the rule's partition: |k - c| > bar and the error not grown) while checkerboard-64__rrect-lg__rest does not fall below the reference beyond its bar (k >= c - bar), with every 1x capture byte-identical to the control's",
+   "decides": [
+    "name-1x-gap",
+    "strike"
+   ],
    "rungs": [
     {
      "label": "ii-w6-d0.3-t256",
@@ -582,6 +593,12 @@
     ]
    },
    "bar": "a rung that lowers both fine cells by at least 3 B toward Apple (g <= -3 B at each scale) while neither guard cell falls below the reference by more than 1 B (k >= c - B)",
+   "decides": [
+    "name-unfitted",
+    "body-width-first",
+    "name-target",
+    "strike"
+   ],
    "selections": {
     "iii-width-1x": "sizeFineTapSigma: among the five width rungs, read at 1x, those whose guard cells hold (k >= c - B), the width with the largest mean fall of the two fine cells (mean of -g / B); ties within 0.1 B to the smaller width. None admissible: the share rungs are not built and the tap reads no separation at that scale",
     "iii-width-2x": "sizeFineTapSigma2x: the same, read at 2x",
@@ -792,6 +809,9 @@
    "poses": "inactive",
    "baseline": "point A's committed cut (its receded material is the snapshot's receded with recededScatter, the active differing only in a tintAlpha the receded overrides) supplies the composition without operator 2; no separate rung renders",
    "bar": "the two fine cells within 2 B of Apple (|k - n| <= 2 B at each scale) at a rung where photo__rrect-md__inactive reads at least point A's ratio on that cell at that scale (x0.417 at 1x, x0.460 at 2x; the charter's x0.42)",
+   "decides": [
+    "name-target"
+   ],
    "rungs": [
     {
      "label": "iv-joint",
@@ -821,5 +841,20 @@
     }
    ]
   }
- ]
+ ],
+ "decisionKinds": {
+  "changes": [
+   "name-unfitted",
+   "name-target",
+   "body-width-first",
+   "narrow",
+   "strike",
+   "name-1x-gap"
+  ],
+  "outcomes": [
+   "fit",
+   "stop"
+  ],
+  "note": "a change is an entry of part 2's `changes` (declare.py check-fit re-validates each against results.json); an outcome changes nothing in the draft (`fit`) or writes no part 2 (`stop`)"
+ }
 }

@@ -28,13 +28,21 @@ and W44's committed copies are untouched and are never run by W47.
   `startingPoint`; `references`; `s1` (the predicted direction); `draft`. The values the parent
   supplies (the predictions, S1's direction, the diagnostic's chosen form) come through
   `declaration-inputs.json`, which `assemble.py` refuses to read while a `TO FILL` remains.
-- **Part 2's decisions are clause 5's.** W46's `strike`, `narrow` and `name-target`, and W47's
-  `name-operator` (an operator whose ladder shows no separation is NOT fitted: its leaves leave the
-  body and it is named in `notFitted` with its ladder and its reading, X63) and `name-gap` (a named
-  gap, the 1x per-span width among them, recorded in `namedGaps` with its ladder cited; no leaf
-  moves). The REQUIRED outcomes add: every operator the ladders read as not separating is named and
-  none of its leaves retained, and no part 2 at all when neither operator separates (the wave closes
-  at G0 with the finding).
+- **Part 2's decisions are clause 5's, in the protocol's words** (`ladders/protocol.json` `decisions`,
+  each ladder's `decides`). The CHANGES: `name-unfitted` (an operator whose ladder shows no separation
+  is NOT fitted: its leaves leave the body and it is named in `notFitted` with its ladder and its
+  reading, X63); `body-width-first` (a receded `optics.regular.blurSigma` rung of ladder (iii) met the bar
+  on its own: the tap is named unfitted, its leaves leave, the body width is fitted; Decision Log 3);
+  `name-target` (W46's, X63); `name-1x-gap` (ladder (ii) met its bar: the 1x per-span width is named in
+  `namedGaps` with its shape; Decision Log 2's declined item; nothing is added); `strike` (a leaf whose
+  protocol rungs read flat, or a stage-1 leaf `conditional` on ladder (ii) when ladder (ii) did not meet
+  its bar: Design "The moves"); `narrow` (the active transmission to the shipped value and the ladder
+  (i) base rungs at which L1 passes). The OUTCOMES, which change nothing: `fit` and `stop`. A draft
+  leaf names its `ladder` and the protocol `rungs` that move it; the results are `ladders/read.py`'s
+  (`operators`, `ladders`, `rungs`). The REQUIRED outcomes add: every operator the ladders read as not
+  separating named and none of its leaves retained, the body width first where it met the bar, the 1x
+  gap named exactly when ladder (ii) met its bar, a separation at one scale only ruled by the parent
+  first, and no part 2 at all when neither operator separates (the wave closes at G0 with the finding).
 - **Every leaf is X67's and X68's.** A draft or protocol leaf is one its dark slot's snapshot names or
   `bindings.ADMITTED` admits (X64 ∪ X67), and every grid value and every numeric rung is inside
   `bindings.DOMAINS` where X68 declares one.
@@ -170,7 +178,12 @@ PART_ONE_REPINNABLE = tuple(f"{REL}/{p}" for p in (
 CLAUSE_THREE = ("test_a_halving_every_target_with_three_cells_at_2b_passes", "test_b_four_cells_at_2b_fails",
                 "test_c_one_cell_at_3_1b_fails", "test_d_a_gated_aggregate_worse_beyond_its_tolerance_fails",
                 "test_e_every_cell_unchanged_is_neither", "test_f_a_group_of_two_gate_cells_is_reported_not_gated")
-DECISIONS = ("strike", "narrow", "name-target", "name-operator", "name-gap")
+# Clause 5's decisions, as `ladders/protocol.json` names them: the CHANGES part 2 may list against the draft
+# (each re-validated by `check-fit`), and the two OUTCOMES that change nothing (`fit`) or write no part 2
+# (`stop`).
+CHANGE_KINDS = ("name-unfitted", "name-target", "body-width-first", "narrow", "strike", "name-1x-gap")
+OUTCOMES = ("fit", "stop")
+DECISIONS = CHANGE_KINDS
 OPERATORS = {"operator 1": W.OPERATOR_1, "operator 2": W.OPERATOR_2}
 FORMS = ("body", "deep")
 
@@ -535,25 +548,35 @@ def admitted_leaf(slot: str, leaf: str) -> bool:
 
 
 def protocol_rungs(lad: dict) -> list[dict]:
-    """A ladder's rungs as (id, lever, overrides {slot: {leaf: value}}), from either form the protocol
-    may use: W46's one-leaf lever (`arms`/`levers`, each `values` with its `slot` and `leaf`), or an
-    explicit `rungs` list (a lever moving more than one leaf, a joint composition). A value that depends
-    on an earlier ladder's reading is `{"dependsOn": ...}` and is checked when part 2 reads it."""
+    """A ladder's rungs as (id, lever, ladder, overrides {slot: {leaf: value}}). W47's protocol lists
+    each rung explicitly (`rungs[]`, each with its `label`): a rung may move several leaves (ladder (i)'s
+    base and far delta, ladder (ii)'s share, width and far share), and its lever is the rung itself. W46's
+    one-leaf form (`arms`/`levers`, each `values` with its `slot` and `leaf`) is still read. A value that
+    depends on an earlier ladder's reading is `{"select": NAME}` (`ladder.py`), checked when it is
+    resolved, never fixed here."""
     out = []
     for lev in lad.get("arms", []) + lad.get("levers", []):
         if "rungs" in lev:
-            out += [dict(id=r["id"], lever=lev["id"], overrides=r["overrides"]) for r in lev["rungs"]]
+            out += [dict(id=r["id"], lever=lev["id"], ladder=lad["id"], overrides=r["overrides"]) for r in lev["rungs"]]
         else:
-            out += [dict(id=f"{lev['id']}-{v}", lever=lev["id"], overrides={lev["slot"]: {lev["leaf"]: v}},
+            out += [dict(id=f"{lev['id']}-{v}", lever=lev["id"], ladder=lad["id"], overrides={lev["slot"]: {lev["leaf"]: v}},
                          domain=lev.get("domain"), shipped=lev.get("shipped"))
                     for v in lev["values"]]
-    out += [dict(id=r["id"], lever=r.get("lever", r["id"]), overrides=r["overrides"]) for r in lad.get("rungs", [])]
+    for r in lad.get("rungs", []):
+        rid = r.get("label", r.get("id"))
+        out.append(dict(id=rid, lever=r.get("lever", rid), ladder=lad["id"], overrides=r["overrides"]))
     return out
 
 
 def lever_ids(protocol: dict) -> list[str]:
-    return [lv["id"] for lad in protocol["ladders"] for lv in lad.get("arms", []) + lad.get("levers", [])] + \
-        [r.get("lever", r["id"]) for lad in protocol["ladders"] for r in lad.get("rungs", [])]
+    """Every lever the protocol declares, in order: W47's rungs are their own levers (their labels)."""
+    return list(dict.fromkeys(r["lever"] for lad in protocol["ladders"] for r in protocol_rungs(lad)))
+
+
+def rung_leaves(protocol: dict) -> dict[str, set]:
+    """rung label -> {(leaf, slot)} it moves (a `{"select": ...}` value moves its leaf too)."""
+    return {r["id"]: {(leaf, slot) for slot, leaves in r["overrides"].items() for leaf in leaves}
+            for lad in protocol["ladders"] for r in protocol_rungs(lad)}
 
 
 def check_ladders(c, it):
@@ -561,6 +584,10 @@ def check_ladders(c, it):
     d = it["declared"]
     p = json.loads(PROTOCOL.read_text())
     c.eq("ladders: the protocol pins cells.json", p["cells"]["sha256"], sha(W.LADDER_CELLS.read_bytes()))
+    c.eq("ladders: the protocol's decisions are clause 5's", sorted(p.get("decisions", {})),
+         sorted(CHANGE_KINDS + OUTCOMES))
+    c.eq("ladders: the protocol's change kinds", (p.get("decisionKinds") or {}).get("changes"), list(CHANGE_KINDS))
+    c.eq("ladders: the protocol's outcomes", (p.get("decisionKinds") or {}).get("outcomes"), list(OUTCOMES))
     cells = json.loads(W.LADDER_CELLS.read_text())
     union = set(cells["union"])
     try:
@@ -572,6 +599,7 @@ def check_ladders(c, it):
         for prof in W.DARK_025:
             c.true(f"ladders: {prof} does not declare {sid} (X70)", sid in B.SCENES.declared(prof))
         c.true(f"ladders: {sid} is in no set the ladders render", B.SCENES.role[sid] in p["sets"].split(","))
+    c.eq("ladders: the protocol's ladders are cells.json's", [lad["id"] for lad in p["ladders"]], list(cells["ladders"]))
     rungs = 1
     for lad in p["ladders"]:
         for r in protocol_rungs(lad):
@@ -581,8 +609,8 @@ def check_ladders(c, it):
                     c.true(f"ladders: {r['id']} {slot} {leaf} is not a leaf the builder admits (X64, X67)",
                            slot in W.MOVING_SLOTS and admitted_leaf(slot, leaf))
                     if isinstance(v, dict):
-                        c.true(f"ladders: {r['id']} {leaf} is neither a value nor a declared dependence",
-                               bool(v.get("dependsOn")))
+                        c.true(f"ladders: {r['id']} {leaf} is neither a value nor a declared selection",
+                               bool(v.get("select") or v.get("dependsOn")))
                         continue
                     c.true(f"ladders: {r['id']} {slot} {leaf}={v} outside its X68 domain", W.in_domain(slot, leaf, v))
                     if r.get("domain"):
@@ -590,7 +618,8 @@ def check_ladders(c, it):
                         c.true(f"ladders: {r['id']} value outside {r['domain']}", lo <= v <= hi)
                     if r.get("shipped") is not None:
                         c.true(f"ladders: {r['id']} repeats its shipped value", v != r["shipped"])
-        c.true(f"ladders: {lad['id']} decides outside the protocol's decisions", set(lad["decides"]) <= set(DECISIONS))
+        c.true(f"ladders: {lad['id']} decides outside the protocol's change kinds",
+               set(lad.get("decides", ())) <= set(CHANGE_KINDS))
     c.eq("ladders: rungs (the control included)", rungs, d["rungs"])
     c.eq("ladders: lever ids", lever_ids(p), d["levers"])
     c.eq("ladders: cells per ladder", {k: [len(v["rest"]), len(v["inactive"])] for k, v in cells["ladders"].items()},
@@ -617,46 +646,76 @@ def check_references(c, it):
             c.eq(f"references: {name} file sha256", sha((CAL / "results/generations" / f"{name}.json").read_bytes()), want)
 
 
+def draft_failures(draft: dict, protocol: dict, targets) -> list[str]:
+    """The draft's shape (clause 2; Design "The moves"): every searched leaf a dark slot's, admitted by
+    X64 ∪ X67 or named by its snapshot, its grid sorted, distinct and inside both its declared domain and
+    its X68 domain, a unit and one of the rule's targets; its `ladder` one of the protocol's ladders (or
+    none: a leaf no W47 ladder reads), and its `rungs` the protocol rungs that move it in its slot, at
+    least one on its ladder; `conditional` only on ladder (ii) (Design "The moves": the second tap is
+    crossed into stage 1 only where ladder (ii) meets its bar); a family's `fixed` values admitted and
+    inside X68; every factorial group of keys the family searches."""
+    out = []
+    ladders = {lad["id"] for lad in protocol["ladders"]}
+    by_rung = rung_leaves(protocol)
+    rung_ladder = {r["id"]: lad["id"] for lad in protocol["ladders"] for r in protocol_rungs(lad)}
+    for m in draft["moves"]:
+        if m.get("materialise") is not None and m["materialise"] not in W.MOVING_SLOTS:
+            out.append(f"draft: {m['id']} materialises {m['materialise']!r}, not a dark slot (X67)")
+        for fam, body in m["families"].items():
+            for key, spec in body["leaves"].items():
+                sid = f"{m['id']}/{fam}/{key}"
+                if spec["slot"] not in W.MOVING_SLOTS:
+                    out.append(f"draft: {sid} is in a slot that does not move")
+                    continue
+                if not admitted_leaf(spec["slot"], key):
+                    out.append(f"draft: {sid} is not a leaf its slot may name (X64, X67)")
+                grid, dom = spec["grid"], spec["domain"]
+                if grid != sorted(set(grid)):
+                    out.append(f"draft: {sid} grid not sorted and distinct")
+                if not all(dom[0] <= x <= dom[1] for x in grid):
+                    out.append(f"draft: {sid} grid {grid} outside {dom}")
+                if not all(W.in_domain(spec["slot"], key, x) for x in grid):
+                    out.append(f"draft: {sid} grid {grid} outside its X68 domain")
+                if not (spec.get("unit") and spec.get("target") in targets):
+                    out.append(f"draft: {sid} has no unit or target")
+                lad, rungs = spec.get("ladder"), spec.get("rungs", [])
+                if lad is not None and lad not in ladders:
+                    out.append(f"draft: {sid} names a ladder the protocol does not declare ({lad})")
+                for r in rungs:
+                    if (key, spec["slot"]) not in by_rung.get(r, set()):
+                        out.append(f"draft: {sid} cites rung {r}, which does not move it in {spec['slot']}")
+                if lad is not None and not any(rung_ladder.get(r) == lad for r in rungs):
+                    out.append(f"draft: {sid} names ladder ({lad}) and none of its rungs")
+                if spec.get("conditional") not in (None, "ii"):
+                    out.append(f"draft: {sid} is conditional on {spec['conditional']!r}; only ladder (ii) gates a leaf")
+                if spec.get("operator") is not None and key not in OPERATORS.get(spec["operator"], ()):
+                    out.append(f"draft: {sid} is tagged {spec['operator']} and is not one of its leaves")
+            for leaf, fx in body.get("fixed", {}).items():
+                if fx["slot"] not in W.MOVING_SLOTS or not admitted_leaf(fx["slot"], leaf):
+                    out.append(f"draft: {m['id']}/{fam} fixes {fx['slot']} {leaf}, not a leaf it may name")
+                elif not W.in_domain(fx["slot"], leaf, fx["value"]):
+                    out.append(f"draft: {m['id']}/{fam} fixes {leaf}={fx['value']} outside its X68 domain")
+            for g in body.get("factorialGroups", []):
+                if not set(g["keys"]) <= set(body["leaves"]):
+                    out.append(f"draft: {m['id']}/{fam} factorial group names a leaf it does not search")
+    if draft.get("notFitted") != []:
+        out.append("draft: a target or operator is named not fitted before the ladders")
+    if draft.get("namedGaps", []) != []:
+        out.append("draft: a gap is named before the ladders")
+    return out
+
+
 def check_draft(c, it):
     d = it["declared"]
     draft = json.loads(DRAFT.read_text())
     protocol = json.loads(PROTOCOL.read_text())
-    levers = set(lever_ids(protocol))
-    lever_leaf = {}
-    for lad in protocol["ladders"]:
-        for r in protocol_rungs(lad):
-            for slot, leaves in r["overrides"].items():
-                for leaf in leaves:
-                    lever_leaf.setdefault(r["lever"], set()).add((leaf, slot))
     c.eq("draft: schema", draft["schema"], PARTS["fit"]["schema"])
     c.eq("draft: stages", [m["id"] for m in draft["moves"]], d["stages"])
     c.eq("draft: references", {k: draft["references"][k] for k in ("dark", "light")}, W.REFERENCE)
     c.eq("draft: the landing rule's implementation", draft["landingRule"]["implementation"], "cuts/rule.py (pinned by part 1)")
-    count = 0
-    for m in draft["moves"]:
-        for fam, body in m["families"].items():
-            for key, spec in body["leaves"].items():
-                count += 1
-                sid = f"{m['id']}/{fam}/{key}"
-                c.true(f"draft: {sid} is in a slot that does not move", spec["slot"] in W.MOVING_SLOTS)
-                c.true(f"draft: {sid} is not a leaf its slot may name (X64, X67)", admitted_leaf(spec["slot"], key))
-                grid, dom = spec["grid"], spec["domain"]
-                c.true(f"draft: {sid} grid not sorted and distinct", grid == sorted(set(grid)))
-                c.true(f"draft: {sid} grid {grid} outside {dom}", all(dom[0] <= x <= dom[1] for x in grid))
-                c.true(f"draft: {sid} grid {grid} outside its X68 domain",
-                       all(W.in_domain(spec["slot"], key, x) for x in grid))
-                c.true(f"draft: {sid} has no unit or target", bool(spec.get("unit")) and spec.get("target") in d["targets"])
-                lad = spec.get("ladder")
-                c.true(f"draft: {sid} names a lever the protocol does not declare", lad is None or lad in levers)
-                if lad is not None and lad in levers:
-                    c.true(f"draft: {sid} is not among its lever's leaves and slots",
-                           (key, spec["slot"]) in lever_leaf.get(lad, set()))
-            for g in body.get("factorialGroups", []):
-                c.true(f"draft: {m['id']}/{fam} factorial group names a leaf it does not search",
-                       set(g["keys"]) <= set(body["leaves"]))
+    c.failures += draft_failures(draft, protocol, d["targets"])
+    count = sum(len(f["leaves"]) for m in draft["moves"] for f in m["families"].values())
     c.eq("draft: searched leaves", count, d["searchedLeaves"])
-    c.eq("draft: no target is named not fitted before the ladders", draft["notFitted"], [])
-    c.eq("draft: no gap is named before the ladders", draft.get("namedGaps", []), [])
 
 
 CHECKS = {"documents": check_documents, "t1": check_t1, "bar": check_bar, "manifest": check_manifest,
@@ -885,147 +944,188 @@ def drop_leaf(move, family, key):
         move["familyOrder"].remove(family)
 
 
-def lever_result(results, lever_id):
-    for lad in results.get("ladders", {}).values():
-        if lever_id in lad:
-            return lad[lever_id]
-    return None
-
-
 def operator_leaves(body, op):
     """Every (move, family, key) of the body that is one of `op`'s leaves, in any slot."""
     return [(m, f, k) for m in body["moves"] for f, fb in m["families"].items() for k in fb["leaves"]
             if k in OPERATORS[op]]
 
 
+def all_leaves(body):
+    return [(m, f, k, spec) for m in body["moves"] for f, fb in m["families"].items()
+            for k, spec in fb["leaves"].items()]
+
+
+def rungs_flat(results, rungs) -> bool:
+    """A leaf's rungs read flat: every one read and no cell of any moved beyond its bar."""
+    got = results.get("rungs") or {}
+    return bool(rungs) and all(r in got for r in rungs) and not any(
+        cell.get("moved") for r in rungs for cell in got[r]["cells"].values())
+
+
+def passing_alphas(results, shipped: float) -> set:
+    """The transmission's passing rungs: the shipped value and every ladder (i) base rung (`i-a<value>`)
+    at which L1 passes (`ladders.i.passingL1`)."""
+    out = {shipped}
+    for lab in (results.get("ladders", {}).get("i", {}).get("passingL1") or []):
+        m = re.fullmatch(r"i-a([0-9.]+)", lab)
+        if m:
+            out.add(float(m.group(1)))
+    return out
+
+
+def shipped_alpha(slot: str) -> float:
+    return W.document(slot)["patch"]["optics"]["regular"]["tintAlpha"]
+
+
 def apply_changes(draft, changes, results, protocol):
-    """The draft with `changes` applied, each only where the ladder results support it and the protocol
-    lets the cited ladder make that kind of decision."""
+    """The draft with `changes` applied, each only where the ladder results (`ladders/read.py`'s
+    `results.json`) support it and the protocol lets the cited ladder make that kind of decision (each
+    ladder's `decides`; `protocol.json` `decisions`)."""
     body = json.loads(json.dumps(draft))
     body.setdefault("namedGaps", [])
-    decides = {lad["id"]: set(lad["decides"]) for lad in protocol["ladders"]}
-    lever_ladder = {lv: lad["id"] for lad in protocol["ladders"] for lv in lever_ids(dict(ladders=[lad]))}
+    decides = {lad["id"]: set(lad.get("decides", ())) for lad in protocol["ladders"]}
+    ops = results.get("operators") or {}
     if results.get("control", {}).get("verdict") != "IDENTICAL":
         raise Refusal("the ladders' control is not IDENTICAL: no decision is supported")
     for ch in changes:
         kind = ch.get("kind")
-        if kind not in DECISIONS:
-            raise Refusal(f"{ch}: not one of the protocol's decisions {DECISIONS}")
-        if kind in ("name-target", "name-operator", "name-gap"):
-            if ch.get("ladder") not in decides or kind not in decides[ch["ladder"]]:
-                raise Refusal(f"{ch}: a {kind} cites a ladder the protocol lets decide it")
+        if kind not in CHANGE_KINDS:
+            raise Refusal(f"{ch}: not one of the protocol's decisions {CHANGE_KINDS}")
+        lad = ch.get("ladder")
+        if lad not in decides or kind not in decides[lad]:
+            raise Refusal(f"{ch}: a {kind} cites a ladder the protocol lets decide it ({lad})")
         if kind == "name-target":
             target = ch.get("target")
-            got = (results.get("targets") or {}).get(target)
-            if got is None or got["lever"]:
-                raise Refusal(f"{ch}: the ladders read a lever for {target} (or none read it)")
+            if (results.get("targets") or {}).get(target, {}).get("lever"):
+                raise Refusal(f"{ch}: the ladders read a lever for {target}")
             if not ch.get("operatorShape"):
                 raise Refusal(f"{ch}: a named target cites its ladder and states the operator's shape (X63)")
-            for move in body["moves"]:
-                for fam in list(move["families"]):
-                    for key in list(move["families"][fam]["leaves"]):
-                        if move["families"][fam]["leaves"][key]["target"] == target:
-                            drop_leaf(move, fam, key)
-            body["notFitted"].append(dict(target=target, ladder=ch["ladder"], operatorShape=ch["operatorShape"]))
+            for move, fam, key, spec in all_leaves(body):
+                if spec["target"] == target:
+                    drop_leaf(move, fam, key)
+            body["notFitted"].append(dict(target=target, ladder=lad, operatorShape=ch["operatorShape"]))
             continue
-        if kind == "name-operator":
-            op = ch.get("operator")
-            got = (results.get("operators") or {}).get(op)
-            if got is None:
+        if kind in ("name-unfitted", "body-width-first"):
+            op = ch.get("operator", "operator 2" if kind == "body-width-first" else None)
+            got = ops.get(op)
+            if op not in OPERATORS or got is None:
                 raise Refusal(f"{ch}: the ladders carry no reading of {op}")
-            if got["separates"] and not got.get("bodyWidthMeetsBar"):
-                raise Refusal(f"{ch}: the ladders read {op} as separating; it is fitted, not named")
+            if not got.get("complete"):
+                raise Refusal(f"{ch}: ladder ({lad}) is incomplete; an unread rung decides nothing")
             if not ch.get("reading"):
                 raise Refusal(f"{ch}: a named operator states its ladder's reading (X63)")
+            if kind == "name-unfitted":
+                if got["separates"]:
+                    raise Refusal(f"{ch}: the ladders read {op} as separating; it is fitted, not named")
+                if got.get("bodyWidthMeets"):
+                    raise Refusal(f"{ch}: the receded body width met the bar: body-width-first, not name-unfitted")
+                entry = dict(operator=op, ladder=lad, reading=ch["reading"])
+            else:
+                if op != "operator 2" or not got.get("bodyWidthMeets"):
+                    raise Refusal(f"{ch}: no receded optics.regular.blurSigma rung met clause 5 (iii)'s bar on its own")
+                entry = dict(operator=op, ladder=lad, reading=ch["reading"], decision=kind,
+                             rungs=list(got.get("bodyRungs") or []))
             for move, fam, key in operator_leaves(body, op):
                 drop_leaf(move, fam, key)
-            body["notFitted"].append(dict(operator=op, ladder=ch["ladder"], reading=ch["reading"]))
+            body["notFitted"].append(entry)
             continue
-        if kind == "name-gap":
-            if ch["ladder"] not in (results.get("ladders") or {}):
-                raise Refusal(f"{ch}: the results carry no reading of ladder ({ch['ladder']})")
-            if not ch.get("gap") or not ch.get("shape"):
-                raise Refusal(f"{ch}: a named gap states the gap and the operator's shape (X63)")
-            body["namedGaps"].append(dict(gap=ch["gap"], ladder=ch["ladder"], shape=ch["shape"]))
+        if kind == "name-1x-gap":
+            got = ops.get("2x width") or {}
+            if not got.get("meets"):
+                raise Refusal(f"{ch}: ladder (ii) did not meet its bar; no 1x gap is named from it")
+            if not ch.get("operatorShape"):
+                raise Refusal(f"{ch}: a named gap states the operator's shape (X63)")
+            body["namedGaps"].append(dict(gap="the 1x per-span width", ladder=lad, shape=ch["operatorShape"],
+                                          rungs=list(got.get("rungs") or [])))
             continue
         move, fam, spec = find_leaf(body, ch.get("move"), ch.get("family"), ch.get("leaf"))
         if spec is None:
             raise Refusal(f"{ch}: names no leaf of the draft")
-        lever = spec.get("ladder")
-        if lever is None or lever != ch.get("lever"):
-            raise Refusal(f"{ch}: {ch.get('leaf')} is read by lever {lever}, not {ch.get('lever')}")
-        if kind not in decides[lever_ladder[lever]]:
-            raise Refusal(f"{ch}: the protocol does not let ladder ({lever_ladder[lever]}) decide a {kind}")
-        res = lever_result(results, lever)
-        if res is None:
-            raise Refusal(f"{ch}: the results carry no reading of lever {lever}")
         if kind == "strike":
-            if not res["flat"]:
-                raise Refusal(f"{ch}: lever {lever} did not read flat")
+            conditional = spec.get("conditional") == "ii" and lad == "ii"
+            if conditional:
+                got = ops.get("2x width") or {}
+                if got.get("meets") or not got.get("complete"):
+                    raise Refusal(f"{ch}: ladder (ii) met its bar (or is incomplete); its leaf is searched")
+            elif lad != spec.get("ladder"):
+                raise Refusal(f"{ch}: {ch.get('leaf')} is read on ladder ({spec.get('ladder')}), not ({lad})")
+            elif not rungs_flat(results, spec.get("rungs")):
+                raise Refusal(f"{ch}: its rungs {spec.get('rungs')} did not read flat")
             drop_leaf(move, ch["family"], ch["leaf"])
-        else:
-            grid = ch.get("grid")
-            if not grid or not isinstance(grid, list) or len(set(grid)) != len(grid) or not set(grid) <= set(spec["grid"]):
-                raise Refusal(f"{ch}: {grid} is not a non-empty subset of the draft grid {spec['grid']}")
-            if "passingRungs" in res:
-                allowed = set(res["passingRungs"])
-                if not set(grid) <= allowed:
-                    raise Refusal(f"{ch}: {grid} leaves the transmission's passing rungs {sorted(allowed)}")
-            else:
-                lo, hi = res["nonFlatRange"]
-                if not all(lo <= x <= hi for x in grid):
-                    raise Refusal(f"{ch}: {grid} leaves lever {lever}'s non-flat range {[lo, hi]}")
-            spec["grid"] = [x for x in spec["grid"] if x in grid]
+            continue
+        # narrow: the transmission on ladder (i) only (W46's narrowing; the other grids are the fit's)
+        if ch["leaf"] != "optics.regular.tintAlpha" or spec.get("ladder") != "i" or lad != "i":
+            raise Refusal(f"{ch}: the protocol narrows only the active transmission, on ladder (i)")
+        grid = ch.get("grid")
+        if not grid or not isinstance(grid, list) or len(set(grid)) != len(grid) or not set(grid) <= set(spec["grid"]):
+            raise Refusal(f"{ch}: {grid} is not a non-empty subset of the draft grid {spec['grid']}")
+        allowed = passing_alphas(results, shipped_alpha(spec["slot"]))
+        if not set(grid) <= allowed:
+            raise Refusal(f"{ch}: {grid} leaves the transmission's passing rungs {sorted(allowed)}")
+        spec["grid"] = [x for x in spec["grid"] if x in grid]
     return body
 
 
 def mandatory_failures(body, results) -> list[str]:
-    """What the ladders REQUIRE of part 2, read on the resulting body whatever its `changes` say: W46's
-    (every retained tintAlpha grid inside its passing rungs; no retained leaf whose lever read flat;
-    every leverless target named in `notFitted` and none of its leaves retained; a target with a lever)
-    and clause 5's (every operator the ladders read as not separating named in `notFitted` with none of
-    its leaves retained, X63; and no part 2 at all when neither operator separates: the wave closes at
-    G0 with the finding)."""
+    """What the ladders REQUIRE of part 2 (clause 5), read on the resulting body whatever its `changes`
+    say: no separation at one scale only left unruled; every operator the ladders read as not separating
+    named in `notFitted` with none of its leaves retained (X63), the body width first where its rung met
+    the bar on its own (Decision Log 3); no part 2 at all when neither operator separates (`stop`: the
+    wave closes at G0 with the finding); ladder (ii)'s conditional leaves gone unless it met its bar, and
+    the 1x gap named when it did (Decision Log 2); the active transmission inside its passing rungs; no
+    retained leaf whose rungs read flat; no leaf of a target named not fitted."""
     out = []
-    levers = {lev_id: e for lad in results.get("ladders", {}).values() for lev_id, e in lad.items()}
-    targets = results.get("targets") or {}
-    leverless = {t for t, v in targets.items() if not v["lever"]}
-    named = {x["target"] for x in body.get("notFitted", []) if "target" in x}
-    if targets and not set(targets) - leverless:
-        out.append("no target has a lever: the wave closes at G0 with the finding and part 2 is not hashed (stop)")
-    for t in sorted(leverless - named):
-        out.append(f"target {t} has no lever and is not named in notFitted (X63)")
-    for t in sorted(named - leverless):
-        out.append(f"target {t} is named not fitted, and the ladders read a lever for it")
-    operators = results.get("operators") or {}
-    inert = {op for op, v in operators.items() if not v["separates"]}
-    named_ops = {x["operator"] for x in body.get("notFitted", []) if "operator" in x}
-    if operators and not set(operators) - inert:
+    ops = results.get("operators") or {}
+    lads = results.get("ladders") or {}
+    if not ops:
+        return ["the ladders' results carry no operator reading"]
+    for name in ("operator 1", "operator 2"):
+        if ops.get(name, {}).get("oneScaleOnly"):
+            out.append(f"{name} meets its bar at one scale only ({ops[name]['oneScaleOnly']}): the parent rules "
+                       "before part 2")
+    for lad in ("i", "iii"):
+        if not lads.get(lad, {}).get("complete"):
+            out.append(f"ladder ({lad}) is incomplete: an unread rung decides nothing")
+    op1 = bool(ops.get("operator 1", {}).get("separates"))
+    op2 = ops.get("operator 2", {})
+    if not op1 and not (op2.get("separates") or op2.get("bodyWidthMeets")):
         out.append("neither operator separates: the wave closes at G0 with the finding and part 2 is not "
                    "hashed (clause 5's stop)")
-    for op in sorted(inert - named_ops):
-        out.append(f"{op} shows no separation on its ladder and is not named in notFitted (clause 5; X63)")
-    for op in sorted(inert | named_ops):
+    named = {x["operator"]: x for x in body.get("notFitted", []) if "operator" in x}
+    want = set()
+    if not op1:
+        want.add("operator 1")
+    if op2.get("bodyWidthMeets") or not op2.get("separates"):
+        want.add("operator 2")
+    for op in sorted(want - set(named)):
+        out.append(f"{op} shows no separation on its ladder (or its body width met the bar) and is not named in "
+                   "notFitted (clause 5; X63)")
+    for op in sorted(set(named) - want):
+        out.append(f"{op} is named not fitted, and the ladders read it as separating")
+    if op2.get("bodyWidthMeets") and named.get("operator 2", {}).get("decision") != "body-width-first":
+        out.append("operator 2: the body width met the bar on its own, and part 2 does not record body-width-first")
+    for op in sorted(want | set(named)):
         for move, fam, key in operator_leaves(body, op):
             out.append(f"{move['id']}/{fam}/{key}: a leaf of {op}, which is not fitted")
-    for move in body["moves"]:
-        for fam, fbody in move["families"].items():
-            for key, spec in fbody["leaves"].items():
-                where = f"{move['id']}/{fam}/{key}"
-                if spec["target"] in leverless:
-                    out.append(f"{where}: a leaf of target {spec['target']}, which has no lever (X63)")
-                lever = spec.get("ladder")
-                if lever is None:
-                    continue
-                e = levers.get(lever)
-                if e is None:
-                    out.append(f"{where}: the results carry no reading of its lever {lever}")
-                    continue
-                if e["flat"]:
-                    out.append(f"{where}: its lever {lever} read flat and the leaf is retained")
-                if "passingRungs" in e and not set(spec["grid"]) <= set(e["passingRungs"]):
-                    out.append(f"{where}: grid {spec['grid']} leaves the transmission's passing rungs "
-                               f"{sorted(e['passingRungs'])}")
+    width = ops.get("2x width") or {}
+    gaps = [g for g in body.get("namedGaps", []) if g.get("ladder") == "ii"]
+    if width.get("meets") and not gaps:
+        out.append("ladder (ii) met its bar and the 1x per-span width gap is not named (Decision Log 2; X63)")
+    if not width.get("meets") and gaps:
+        out.append("a 1x gap is named and ladder (ii) did not meet its bar")
+    named_targets = {x["target"] for x in body.get("notFitted", []) if "target" in x}
+    for move, fam, key, spec in all_leaves(body):
+        where = f"{move['id']}/{fam}/{key}"
+        if spec.get("conditional") == "ii" and not width.get("meets"):
+            out.append(f"{where}: crossed into stage 1 only where ladder (ii) meets its bar, which it did not")
+        if spec["target"] in named_targets:
+            out.append(f"{where}: a leaf of target {spec['target']}, which is named not fitted (X63)")
+        if rungs_flat(results, spec.get("rungs")) and spec.get("ladder") is not None:
+            out.append(f"{where}: its rungs {spec['rungs']} read flat and the leaf is retained")
+        if key == "optics.regular.tintAlpha" and spec.get("ladder") == "i":
+            allowed = passing_alphas(results, shipped_alpha(spec["slot"]))
+            if not set(spec["grid"]) <= allowed:
+                out.append(f"{where}: grid {spec['grid']} leaves the transmission's passing rungs {sorted(allowed)}")
     return out
 
 

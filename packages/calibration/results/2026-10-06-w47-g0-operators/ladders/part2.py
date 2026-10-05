@@ -6,15 +6,17 @@ untouched. The changes are derived from `ladders/results.json` (`operators`, `la
 rules, and `declare.py check-fit` re-validates every one:
 
 - **name-unfitted** each operator whose ladder shows no separation (no rung meets its clause 5 bar at
-  both scales): it is NOT fitted, part 2 names it with the reading (X63), and the draft leaves that carry
-  it (`"operator": "operator 1" | "operator 2"`) leave the draft; the wave continues on the other;
+  both scales): it is NOT fitted, part 2 names it with the reading (X63), and its leaves
+  (`bindings.OPERATOR_1` / `OPERATOR_2`) leave the draft; the wave continues on the other;
+- **name-target** a target the parent rules has no lever (`--name-target`; X63), on its ladder;
 - **body-width-first** when a receded `optics.regular.blurSigma` rung of ladder (iii) meets its bar on its
   own: the body width is fitted, the tap is named unfitted and its leaves leave the draft (Decision Log 3);
 - **name-1x-gap** when ladder (ii) meets its bar: the 1x per-span width gap is named with
   `sizeHeavySecondShareFar1x`'s shape (X63; Decision Log 2's declined item); nothing is added;
 - **narrow** each `tintAlpha` grid the draft ties to ladder (i) to the draft values among the shipped
   value and the base rungs at which L1 passes;
-- **strike** a draft leaf whose ladder read no rung moving any cell beyond its bar;
+- **strike** a draft leaf whose protocol rungs (`rungs`) read flat (no cell beyond its bar), and each
+  stage-1 leaf `conditional` on ladder (ii) when ladder (ii) did not meet its bar (Design "The moves");
 - **stop**: neither operator separates, so the wave closes at G0 with the finding and part 2 is not
   written. A separation at one scale only is not decided here: it goes to the parent.
 Rungs that were not read (an operator not yet in the runtime, a selection not recorded) decide nothing:
@@ -47,7 +49,21 @@ def _draft_leaves(draft: dict):
                 yield move["id"], family, key, spec
 
 
+# The ladder a named target is decided on (Design "The targets"): P and C rest on ladder (i), F inactive on
+# ladder (iii). A target is named only on the parent's ruling (`--name-target`), never inferred here.
+TARGET_LADDER = {"P": "i", "C rest": "i", "F inactive": "iii"}
+OPERATOR_LEAVES = {"operator 1": set(W.OPERATOR_1), "operator 2": set(W.OPERATOR_2)}
+
+
+def _flat(results: dict, rungs) -> bool:
+    got = results.get("rungs") or {}
+    return bool(rungs) and all(r in got for r in rungs) and not any(
+        c.get("moved") for r in rungs for c in got[r]["cells"].values())
+
+
 def changes_from(draft: dict, results: dict, named: dict) -> list[dict]:
+    """The changes clause 5 requires of the draft, in `protocol.json`'s words; `declare.py`'s
+    `apply_changes` and `mandatory_failures` re-validate every one."""
     ops, lads = results["operators"], results["ladders"]
     for lad in ("i", "iii"):
         if not lads[lad]["complete"]:
@@ -61,28 +77,32 @@ def changes_from(draft: dict, results: dict, named: dict) -> list[dict]:
         raise SystemExit("part2 STOPS: neither operator separates; the wave closes at G0 with the finding (clause 5)")
     out, dropped = [], set()
     for target, shape in named.items():
-        out.append(dict(kind="name-target", target=target, operatorShape=shape))
+        out.append(dict(kind="name-target", target=target, ladder=TARGET_LADDER[target], operatorShape=shape))
     if not op1:
-        dropped.add("operator 1")
+        dropped |= OPERATOR_LEAVES["operator 1"]
         out.append(dict(kind="name-unfitted", operator="operator 1", ladder="i",
                         reading=f"no ladder (i) rung meets clause 5 (i)'s bar at both scales (read {lads['i']['read']})"))
     if ops["operator 2"]["bodyWidthMeets"]:
-        dropped.add("operator 2")
-        out.append(dict(kind="body-width-first", ladder="iii", rungs=ops["operator 2"]["bodyRungs"],
+        dropped |= OPERATOR_LEAVES["operator 2"]
+        out.append(dict(kind="body-width-first", operator="operator 2", ladder="iii",
                         reading="a receded optics.regular.blurSigma rung meets clause 5 (iii)'s bar on its own: the body "
                                 "width is fitted and the tap is named unfitted (Decision Log 3); it stays landed inert"))
     elif not ops["operator 2"]["separates"]:
-        dropped.add("operator 2")
+        dropped |= OPERATOR_LEAVES["operator 2"]
         out.append(dict(kind="name-unfitted", operator="operator 2", ladder="iii",
                         reading=f"no ladder (iii) rung meets clause 5 (iii)'s bar at both scales (read {lads['iii']['read']})"))
-    if ops["2x width"]["meets"]:
-        out.append(dict(kind="name-1x-gap", ladder="ii", rungs=ops["2x width"]["rungs"], operatorShape=GAP_1X))
+    width = ops["2x width"]
+    if width["meets"]:
+        out.append(dict(kind="name-1x-gap", ladder="ii", operatorShape=GAP_1X))
     passing = set(lads["i"]["passingL1"] or [])
-    base = {0.9} | {float(lab.split("-a")[1]) for lab in passing if lab.count("-") == 1 and lab.startswith("i-a")}
+    shipped = W.document("active.dark")["patch"]["optics"]["regular"]["tintAlpha"]
+    base = {shipped} | {float(lab[3:]) for lab in passing if lab.startswith("i-a") and lab.count("-") == 1}
     for move, family, key, spec in _draft_leaves(draft):
-        if spec.get("operator") in dropped or spec.get("target") in named:
-            out.append(dict(kind="strike", move=move, family=family, leaf=key,
-                            why=f"{spec.get('operator') or spec.get('target')} is not fitted (X63)"))
+        if key in dropped or spec.get("target") in named:
+            continue                       # the name-unfitted / name-target change removes it
+        if spec.get("conditional") == "ii" and not width["meets"]:
+            out.append(dict(kind="strike", move=move, family=family, leaf=key, ladder="ii",
+                            why="crossed into stage 1 only where ladder (ii) meets its bar, which it did not"))
             continue
         if key == "optics.regular.tintAlpha" and spec.get("ladder") == "i":
             grid = [x for x in spec["grid"] if x in base]
@@ -90,11 +110,9 @@ def changes_from(draft: dict, results: dict, named: dict) -> list[dict]:
                 out.append(dict(kind="narrow", move=move, family=family, leaf=key, ladder="i", grid=grid,
                                 why=f"the transmission's domain is the shipped value and the base rungs at which L1 "
                                     f"passes {sorted(base)}"))
-        rung_labels = spec.get("rungs")
-        if rung_labels and all(lab in results["rungs"] for lab in rung_labels) and not any(
-                any(c.get("moved") for c in results["rungs"][lab]["cells"].values()) for lab in rung_labels):
-            out.append(dict(kind="strike", move=move, family=family, leaf=key,
-                            why=f"its rungs {rung_labels} read flat (no cell beyond its bar)"))
+        if spec.get("ladder") is not None and _flat(results, spec.get("rungs")):
+            out.append(dict(kind="strike", move=move, family=family, leaf=key, ladder=spec["ladder"],
+                            why=f"its rungs {spec['rungs']} read flat (no cell beyond its bar)"))
     return out
 
 
