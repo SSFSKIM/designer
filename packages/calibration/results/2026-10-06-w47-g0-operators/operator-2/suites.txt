@@ -1,0 +1,18 @@
+W47 G0 (b), assembled operator tree 8f55ea1ed: full named package suites and lint.
+Before tree cf36cdd13 is 0ee278968 plus only recorder commits 742af1ee7 and 1e405d2da.
+
+pnpm -r build: exit 0 on both trees.
+pnpm --filter @vitrea/renderer-webgpu --filter @vitreajs/vitrea-web --filter @vitreajs/vitrea-react
+  --filter @vitrea/calibration --fail-if-no-match test: exit 0.
+  renderer-webgpu: 37 files, 673 tests passed.
+  platform-web: 48 files, 656 tests passed.
+  react: 19 files, 180 tests passed.
+  calibration: 62 files, 931 passed, 4 skipped.
+
+The four calibration skips are pixel-dependent cases whose worktree capture tree is absent;
+they are not pixel passes. The strict identity proof separately reads the canonical tree; its result belongs in identity.txt.
+
+The same four-package selection, lint: exit 0 (ESLint plus ordinary, browser and script typechecks).
+Ten sealed documents reproduce recorded digests with all five operator leaves zero and dropped.
+W29 26.5 freeze: intact, 1818 entries. X41 glass0.5 generation: intact, 911 entries.
+Raw logs and machine-readable assembly metadata are preserved under proofs/.
