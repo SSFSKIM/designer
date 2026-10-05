@@ -1,9 +1,10 @@
 # W47 — the span-graded dark transmission and the receded fine term: the two operators W46 deferred, landed inert and fitted on the same dark `-glass0.25` bed (2026-10-06)
 
-**Status: DRAFT v1 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
-ledger §5.209 §7) under `/kairos`; adversarial review pending.** Decision Logs 1–7 are the parent's
-rulings of 2026-10-06. Nothing is captured, no holdout is read and no document moves until G0's two
-hashes are on main.
+**Status: DRAFT v1.1 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
+ledger §5.209 §7) under `/kairos`; one adversarial round folded (one P1, four P2), scoped second
+round pending.** Decision Logs 1–7 are the parent's rulings of 2026-10-06; Decision Logs 1 and 3
+carry the parent's v1.1 amendments from that round. Nothing is captured, no holdout is read and no
+document moves until G0's two hashes are on main.
 
 ## Decisions
 
@@ -11,9 +12,9 @@ The full entries are Decision Logs 1–7 at the tail.
 
 | DL | question | status | what holds |
 | --- | --- | --- | --- |
-| 1 | the scope, the bed, the rule | **RULED** by the parent, 2026-10-06 | the dark `-glass0.25` pair only (`d0219cd684bf` / `f0b36a71772a`); dark 0.5 frozen under X41 (the user's need-input stands; if lifted, ONE amendment, Design "If the user lifts X41"); X60 carried: the light 0.25 pair, every light row, both 0.5 generations and the 26.5 rows byte-identical at every merge; no native capture; W46's referee manifest `w46-referees-1` reused unchanged; the canonical dark 0.25 holdout read once at the new bytes as read 8; W45's growth-only rule unchanged at bar 0.5; T1 is GATED on dark 0.25 since W46 G2 against `d0219cd684bf`, so G2 re-baselines in W45's five-part order with a dark authorised list |
+| 1 | the scope, the bed, the rule | **RULED** by the parent, 2026-10-06 | the dark `-glass0.25` pair only (`d0219cd684bf` / `f0b36a71772a`); dark 0.5 frozen under X41 (the user's need-input stands; if lifted, ONE amendment, Design "If the user lifts X41"); X60 carried: the light 0.25 pair, every light row, both 0.5 generations and the 26.5 rows byte-identical at every merge; no native capture; W46's referee manifest `w46-referees-1` reused unchanged, loaded by hash and never re-derived from W47's ladders (v1.1, X69); the canonical dark 0.25 holdout read once at the new bytes as read 8; W45's growth-only rule unchanged at bar 0.5; T1 is GATED on dark 0.25 since W46 G2 against `d0219cd684bf`, so G2 re-baselines in W45's five-part order with a SEPARATE dark authorised list and its own standing witness (v1.1) |
 | 2 | operator 1, the span-graded transmission | **RULED** by the parent, 2026-10-06 | `tintAlpha` graded per pixel on the scatter's far curve: `tintAlphaFar1x` / `tintAlphaFar2x`, identity 0, plain value drops, resolved by `rampAtScale`, clamped into [0, 1], read before the occlusion term so the W9 solve holds the level at each pixel's alpha; landed inert in G0 with every digest and golden byte-identical; the CSS tier MIRRORS it per surface; the existing `sizeOcclusionGain` (the `sizeK` term, 32 → 96) is the law's middle knot and is materialised under X67 |
-| 3 | operator 2, the receded fine term | **RULED** by the parent, 2026-10-06 | a receded-only narrow pre-blur of the BODY sample at its own width and share: `sizeFineTapShare` (gate, identity 0) with `sizeFineTapSigma` / `…2x` (gated), one gate-group in `MATERIAL_IDENTITY_TABLE`, built by the pyramid's existing plan, mixed into the sharp component before `kScatter`; landed inert in G0; the CSS tier declines it with the taps; fitted only after its isolation ladder on the F inactive cells and its joint ladder with operator 1; the existing receded body width (`optics.regular.blurSigma`) is read on the same ladder first |
+| 3 | operator 2, the receded fine term | **RULED** by the parent, 2026-10-06 | a receded-only narrow pre-blur of the BODY sample at its own width and share: `sizeFineTapShare` (gate, identity 0) with `sizeFineTapSigma` / `…2x` (gated), one gate-group in `MATERIAL_IDENTITY_TABLE`, built by the pyramid's existing plan, mixed into the sharp component before `kScatter`; landed inert in G0; the CSS tier declines it with the taps; fitted only after its isolation ladder on the F inactive cells and its joint ladder with operator 1; the existing receded body width (`optics.regular.blurSigma`) is read on the same ladder first; its insertion point, the body sample or the deep sample, chosen by G0's depth-split diagnostic before it lands inert (v1.1) |
 | 4 | the targets and the halving | **RULED** by the parent, 2026-10-06 | P both poses, C rest, F inactive (now fittable), each a stratum × pose aggregate halved per profile; X63 carried (a target no lever moves is named, not fitted); predictions per target from W46's point A and its ladders, hashed in part 1 |
 | 5 | the declaration and the tools | **RULED** by the parent, 2026-10-06 | W46's `declare.py` with its content-amendment form (one amendment, final); W46's tools inherited by path and re-bound; snapshots (X62) of the four 0.25 documents at the charter's merge; the two operators' identity-table entries pinned by test; the tools' three tracker defects stay closed |
 | 6 | the landing | **RULED** by the parent, 2026-10-06 | G1 as W46 planned it, with two STOP points (the gate report; the exposure report) and the ship-or-close call to the user on NEITHER; G2 the landing with 0.28.0 if shipped |
@@ -57,8 +58,11 @@ coarse `checkerboard-64__rrect-md__inactive` stayed under (×0.63), and the phot
 under (×0.32–0.48). Apple's receded body therefore transmits more of the coarse and the photo
 structure than vitrea's and less of the fine, the impulse and the text: a wider blur at a lower
 alpha. The leaves that moved F inactive at A are the ones that set the BODY sample's share in the
-depth ramp, which is where a 4–8 px structure survives a render whose deep component is already a
-σ 14 CSS px texture at 2x. Operator 2 is a narrow blur of that sample, receded-only by document.
+depth ramp, and the deep component at 2x is already a σ 14 CSS px texture, so the charter's
+hypothesis is that the body sample carries the 4–8 px structure the receded render keeps. Position
+cannot test that (Grounding, the last paragraph), so G0 tests it by re-render before operator 2
+lands (Design "The ladders", the depth-split diagnostic). Operator 2 is a narrow blur of the
+component that diagnostic names, receded-only by document.
 
 **The best version of this is three things.**
 1. **Two operators landed inert and proven by bytes before anything is fitted** (W45's X57 form):
@@ -69,9 +73,10 @@ depth ramp, which is where a 4–8 px structure survives a render whose deep com
    pixel at `sizedAlpha` (W46 X61), so a span-graded alpha holds the level wherever that solve is
    unclamped at full authority; the law is shaped so the mid and thick alphas sit above W46's
    measured clamps, and L1 measures the rest.
-3. **The same bed, the same referees, the same rule, one read.** W46's manifest, W45's rule at bar
-   0.5, the canonical dark holdout read once at the new bytes (read 8), and T1's dark gate
-   re-baselined in the five-part order with every regression witnessed against `d0219cd684bf`.
+3. **The same bed, the same referees, the same rule, one read.** W46's manifest by hash, W45's
+   rule at bar 0.5, the canonical dark holdout read once at the new bytes (read 8), and T1's dark
+   gate re-baselined in the five-part order with every regression witnessed against
+   `d0219cd684bf`.
 
 **What the wave does not do.** No native capture. No light change and no 0.5 change (X60, X41). No
 change to T1's statistic, bar or arithmetic. No third operator: a 1x twin of the second tap's far
@@ -115,8 +120,13 @@ share is named, not landed (Decision Log 2). No re-read of any holdout at the cu
    `checkerboard-4__rrect-md__inactive`, `checkerboard-32__rrect-ml__rest`,
    `checkerboard-32__rrect-lg__inactive`, `hc-text-7__rrect-md__inactive`) and the seven holdout
    scenes per scale withheld from every ladder, fit, stage, gate read and sheet (Design "The
-   populations per phase"); the loader's refusal tested. *Stop:* a referee or holdout row in any
-   read before the exposure voids the read.
+   populations per phase"); the loader's refusal tested. The manifest is loaded by hash and is NOT
+   re-derived from W47's ladders: W46's rule takes the first eligible scene after excluding the
+   ladder list it is given, so W47's list would move the coarse-rest pick from
+   `checkerboard-32__rrect-ml__rest` to `checkerboard-32__rrect-sm__rest` and W46's loader would
+   refuse the frozen file. Its derivation is re-checked only against W46's own frozen ladder list;
+   W47's own checks are membership, disjointness and withholding (X69). *Stop:* a referee or
+   holdout row in any read before the exposure voids the read.
 5. **The operators separate what they are for, on the renders (G0, after part 1).** Four ladders in
    candidate mode on non-withheld cells, X60 at every rung: **(i) operator 1 alone** — the far
    delta on its grid at base `tintAlpha` 0.7 and 0.8, the span top on its grid, the occlusion gain
@@ -125,9 +135,11 @@ share is named, not landed (Decision Log 2). No re-read of any holdout at the cu
    `checkerboard-64__rrect-lg`) read within 1 B of the reference while the thin rest cells keep at
    least half of point A's gain, with L1 passing on its population; **(ii) the thick width at 2x**
    — the second tap (`sizeHeavySecondSigma2x` with a small positive share and the far delta
-   positive) alone from the snapshot; *bar:* a rung at which `checkerboard-8__rrect-lg__rest` and
-   `hc-text__rrect-lg__rest` fall toward Apple while `checkerboard-64__rrect-lg__rest` does not fall
-   below the reference; **(iii) operator 2 alone, in the receded document** — the width on its
+   positive) alone from the snapshot, the 1x width `sizeHeavySecondSigma` held at 0; *bar:* a rung
+   at which `checkerboard-8__rrect-lg__rest` and `hc-text__rrect-lg__rest` fall toward Apple while
+   `checkerboard-64__rrect-lg__rest` does not fall below the reference, with every 1x capture
+   byte-identical to the snapshot rung's; **(iii) operator 2 alone, in the receded document, in the
+   form G0's depth-split diagnostic chose** — the width on its
    grid at share 1, then the share at the best width; and before it, the existing receded body
    width `optics.regular.blurSigma` on its grid; *bar:* a rung that lowers
    `checkerboard-8__rrect-md__inactive` and `…lg__inactive` by at least 3 B toward Apple while
@@ -153,12 +165,14 @@ share is named, not landed (Decision Log 2). No re-read of any holdout at the cu
    publication only on the parent's go, completing the stage to 234 rows per profile.
 9. **Nothing frozen moves (G0–G2).** `freeze.py verify` 1,818; X41 911; the 34 goldens; every light
    digest, the 0.5 digests and the 26.5 pair; W44's, W45's and W46's evidence and hashes; W45's
-   `T1_AUTHORISED_REGRESSIONS` untouched.
+   `T1_AUTHORISED_REGRESSIONS`, its eleven entries and the cases that read it untouched;
+   `w46-referees-1` byte-identical.
 10. **The landing (G2).** One publication superseding `d0219cd684bf`, the tree copied and the
     superseded move to `web-captures-superseded/d0219cd684bf/`, T1's dark gate re-baselined in
     the five-part order (the dark T-band fixture for the new generation beside W46's; the
-    regressions witnessed against `d0219cd684bf`; the dark authorised list filled with the ruled
-    cells; `MISSED_27_ROWS` re-derived; the dark `T1_REFERENCE` moved last), the generated 0.25
+    regressions witnessed against `d0219cd684bf`; the SEPARATE dark list
+    `T1_DARK_AUTHORISED_REGRESSIONS` filled with the ruled cells, with its own standing witness;
+    `MISSED_27_ROWS` re-derived; `T1_DARK_REFERENCE` moved last), the generated 0.25
     module re-pinned, the demo refreshed, CLAUDE.md, the READMEs, the changeset, the c9d chain,
     the sheets. **By eye, and the ledger (every child):** native | `d0219cd684bf` | candidate |
     difference, both tiers, both poses, both scales, gain-lifted with the gain printed, over the
@@ -239,11 +253,21 @@ scatterColour, kScatter)`: `bodySample` is the source blurred at the body width
 (`optics.regular.blurSigma`, a device-px quantity, one per source), `scatterColour` the deep
 sample (the chain level `scatterLod`, or the heavy texture where `sizeHeavyTapSigma` is named, with
 W30's second tap mixed in by the share W45 grades), and `kScatter` the deep share graded by the span
-(`kDeep`) and ramped in depth from the edge by the ramp starts. At 2x the receded document's deep is
-the σ 14 CSS px heavy texture and `sizeScatterFloor2x` is 1, so a 4–8 px structure survives only
-where the body sample is shown: the depth ramp. At 1x the floor is 0.34 (0.5 at point A), the heavy
-tap is off and the chain's last level is about σ 13 device px, so the body sample carries the fine
-structure in the interior too. The pyramid builds a blurred texture of any width through
+(`kDeep`) and ramped in depth from the edge by the ramp starts. The body's weight is `1 − kScatter`,
+and the shader keeps `sDeep = 1 − kDeep` at every depth, the ramp only raising it toward its start
+(`wgsl/optics.ts`, `sharpShare`), before W30's conditioning term lowers `kScatter` by
+2·(stat − 0.03) on a source whose edge-density statistic exceeds 0.03 (the dark gain −2, which the
+receded difference inherits). At 2x the receded document's deep is the σ 14 CSS px heavy texture
+and `sizeScatterFloor2x` is 1, so `sDeep` is 0 and the body is shown only by the ramp (its start at
+span 96 is 0.04) and by the conditioning term. At 1x the floor is 0.34 (0.5 at point A), the
+receded thick share adds 0.25 and the heavy tap is off, so on a span-96 surface `kDeep` is 0.72 and
+the body keeps `sDeep` 0.28 at every depth (the ramp start there is 0.30, so the ramp adds at most
+0.02), before the conditioning term; at span 160 `sDeep` is 0.01. The ramp's reach is 80 CSS px at
+1x and 50 at 2x (`sizeScatterRampReach1xPx` / `…2xPx`, 80 / 100 device px) against a half-span of
+48 on `rrect-md` and 80 on `rrect-lg`, so the span-96 cell has no interior beyond the ramp at either
+scale and the span-160 cell has one only at 2x. Where the receded render's 4–8 px structure comes
+from is therefore not readable from position; G0 reads it by re-render (Design "The ladders", the
+depth-split diagnostic). The pyramid builds a blurred texture of any width through
 `heavyTapPlan` (the deepest chain level at or below the width, plus a residual separable Gaussian),
 so a narrow tap at 2–4 CSS px is level 0 and a residual: no new pass shape, one more texture where
 the share is non-zero.
@@ -305,19 +329,31 @@ sizedAlpha    = alphaBase + sizeOcclusionGain · sizeK(px) · (1 − alphaBase) 
 
 ### Operator 2 — the receded fine term (MARKED; Decision Log 3)
 
-A narrow pre-blur of the BODY sample, mixed in by a share, receded-only by document:
+A narrow pre-blur of ONE component of the interior, mixed in by a share, receded-only by document.
+The family has two forms, both declared in part 1; G0's depth-split diagnostic (Design "The
+ladders") chooses one before the operator lands inert, and only the chosen form is built:
 
 ```
-fineSample(px) = the source blurred at sizeFineTapSigma(dpr) CSS px, sampled at refractedUv
-bodySample'    = bodySample + sizeFineTapShare · (fineSample − bodySample)
-interior       = mix(bodySample', scatterColour, kScatter)                     // existing
+body form:  fineSample     = the source blurred at sizeFineTapSigma(dpr) CSS px, at refractedUv
+            bodySample'    = bodySample + sizeFineTapShare · (fineSample − bodySample)
+            interior       = mix(bodySample', scatterColour, kScatter)
+deep form:  deepFine       = the deep sample's source blurred at √(σdeep² + sizeFineTapSigma(dpr)²)
+            scatterColour' = scatterColour + sizeFineTapShare · (deepFine − scatterColour)
+            interior       = mix(bodySample, scatterColour', kScatter)
 ```
 
-- **Why the body sample.** It is the component that carries the 4–8 px structure in the receded
-  render at both scales (Grounding, the last paragraph), and the leaves that moved F inactive 43 %
-  at point A are the ones that set its share in the depth ramp. The deep component at 2x is already
-  the σ 14 CSS px heavy texture and cannot pass an 8 px pitch; widening the deep further is what
-  W46's ladder (iii) tried (`sizeHeavyTapSigma2x`, the thick and far starts) and read flat.
+`σdeep` is the deep sample's own width as the pyramid built it (the heavy tap's where one is named,
+the chain level `scatterLod`'s otherwise), and W30's second tap, where its share is non-zero, is
+mixed in before the deep form's term.
+
+- **Why the body form is the hypothesis.** The leaves that moved F inactive 43 % at point A are the
+  ones that set the body's share in the depth ramp, and the deep component at 2x is already the
+  σ 14 CSS px heavy texture; widening the deep further is what W46's ladder (iii) tried
+  (`sizeHeavyTapSigma2x`, the thick and far starts) and read flat. But the body keeps
+  `sDeep` 0.28 at every depth of a receded span-96 surface at 1x, the ramp reaches the centre of
+  that surface at both scales, and the conditioning term moves the weights with the backdrop
+  (Grounding, the last paragraph), so neither the hypothesis nor its negation is readable from
+  where the structure sits. The diagnostic decides it by removing each component's structure.
 - **Why a tap with its own width and share rather than the body width itself.**
   `optics.regular.blurSigma` is the body's own width at every span and both poses of a source,
   the band and the interior are one body, the edge's E2 reads it, and the CSS tier maps it through
@@ -334,11 +370,12 @@ interior       = mix(bodySample', scatterColour, kScatter)                     /
   texture keyed on the root's pose is the mechanism the harness and an app both have. The active
   document names the share's identity 0; only the receded difference names a value.
 - **The identity.** One gate-group in `MATERIAL_IDENTITY_TABLE`: gate `{ sizeFineTapShare: 0 }`,
-  gated `["sizeFineTapSigma", "sizeFineTapSigma2x"]`, in the second tap's form: at share 0 no
-  texture is built, no pass runs, the branch is not taken, and the widths have no identity of their
-  own. The pyramid builds the texture where the share is non-zero through `heavyTapPlan` (level 0
-  and a residual Gaussian at these widths), on the heavy textures' pattern, with its own binding and
-  a gate flag in a free uniform slot (`d[133]`–`d[135]`).
+  gated `["sizeFineTapSigma", "sizeFineTapSigma2x"]`, in the second tap's form, the same in both
+  forms: at share 0 no texture is built, no pass runs, the branch is not taken, and the widths have
+  no identity of their own. The pyramid builds the texture where the share is non-zero through
+  `heavyTapPlan` (in the body form level 0 and a residual Gaussian at these widths; in the deep form
+  the plan at the composed width), on the heavy textures' pattern, with its own binding and a gate
+  flag in a free uniform slot (`d[133]`–`d[135]`).
 - **The CSS tier declines it** with the heavy and second taps (`platform-web/src/optics.ts`): one
   `backdrop-filter` blur cannot blur one component of a mix. Recorded under Decision Log 23; a
   scoped hold as W45's and W46's is permitted on the measurement (Decision Log 6 there, carried).
@@ -380,7 +417,8 @@ profile.
   width and share in the receded difference; the receded body width read first), the receded
   `tintAlpha` {0.8, 0.89}, point A's receded scatter (the thin starts, the floors, the thick 1x
   start, the gain) as the start, and the rest of W46's X64 receded list. *Prediction:* from point
-  A's ×1.72–2.38 on the two gate cells, a 2–3 CSS px tap at share 0.75–1 attenuates the body
+  A's ×1.72–2.38 on the two gate cells, a 2–3 CSS px tap at share 0.75–1 (in the body form; the
+  deep form's prediction is stated in part 1 if the diagnostic chooses it) attenuates the body
   sample's 8 px pitch by about 70–95 % where the body is shown, so the cells are predicted within 2 B of
   Apple at the joint rung; `checkerboard-64__rrect-md__inactive` (×0.63) and the photo inactive
   cells are predicted to move by under 1 B. The impulse inactive cells (×6.6–8.8 at point A, the
@@ -402,7 +440,8 @@ final point compared on the gate population.
   far delta × the span top × the occlusion gain as one factorial (the leaves gate each other: the
   far delta is unread at a top of 256 on a span-128 cell as much as at 0, and the gain sets what
   the far delta starts from), crossed with the second tap's (share, σ2x, far delta) at 2x where
-  ladder (ii) met its bar; the rest scatter leaves by coordinate sweep after. Read on P rest, C
+  ladder (ii) met its bar, the 1x width `sizeHeavySecondSigma` held at 0 as on that ladder; the
+  rest scatter leaves by coordinate sweep after. Read on P rest, C
   rest, F rest, T rest and the uniform cells; L1 and the level check at every rung.
 - **Stage 2, the receded document: the transmission, point A's scatter, operator 2.** The receded
   `tintAlpha` {0.8, 0.89} with point A's receded scatter as the start; then operator 2's width and
@@ -418,37 +457,70 @@ final point compared on the gate population.
 
 Every ladder runs in candidate mode from the snapshots, on the WebGPU tier at both scales, renders
 only the cells listed here and holds every leaf but the one it moves; the list is committed in
-part 1 as `ladders/cells.json` and W46's planner adapter is run against it to show no referee is
-listed. The shipped rungs reproduce `d0219cd684bf` on every listed cell as pixel identity and
-measurement identity (W46's definition; candidate provenance excluded).
+part 1 as `ladders/cells.json`, X69's disjointness check shows it names no referee (W46's adapter
+is never given it as its ladder input, X69), and X70's three-way check holds at every rung. The
+shipped rungs reproduce `d0219cd684bf` on every listed cell as pixel identity and measurement
+identity (W46's definition; candidate provenance excluded).
 
 - **(i) operator 1.** Rungs: at base `tintAlpha` 0.7 and 0.8 (the receded at 0.89), the far delta
   {0, 0.2, 0.45} at the top 256, then the top {128, 160} at the far delta 0.2, then the gain
   {0.2, 0.4, 0.6} at the far delta 0. Cells: L1's declared population (the 19 calibration and 2
   validation scenes per scale); at rest `checkerboard__capsule-button`, `checkerboard__rrect-md`,
   `checkerboard-8__capsule-button`, `checkerboard-8__rrect-md`, `checkerboard-8__rrect-lg`,
-  `checkerboard-32__rrect-lg`, `checkerboard-64__rrect-lg`, `hc-text__rrect-md`,
+  `checkerboard-32__rrect-lg`, `checkerboard-64__rrect-lg`, `hc-text-28__rrect-md`,
   `hc-text__rrect-lg`, `hc-text-7__rrect-lg`, `photo__rrect-md`; for level only, the solid and
-  impulse probes W46 listed.
+  impulse probes W46 listed. (`hc-text-28__rrect-md` replaces v1's `hc-text__rrect-md`, which no
+  dark profile declares: in `scenes.json` it is a holdout scene of the light profiles only. Of the
+  dark rest text cells at span 96, `hc-text-28__rrect-md` is the one in the same T1 stratum as the
+  cell it replaces, C, and is a non-withheld probe on both dark profiles; `hc-text-7__rrect-md` is
+  stratum F and its thick cell is already listed.)
 - **(ii) the thick width at 2x.** Rungs: `sizeHeavySecondShare` 0.05 with `sizeHeavySecondSigma2x`
-  {6, 10, 14} CSS px and `sizeHeavySecondShareFar2x` {0.3, 0.6}, at the top {256, 128}, with
-  `sizeHeavySecondSigma` set equal to the 2x width at every rung (the share is not scale-gated,
-  and a 1x width of 0 beside a non-zero share would mix the unblurred source into the 1x deep
-  sample). Cells: ladder (i)'s rest cells.
-- **(iii) operator 2, receded.** Rungs: `optics.regular.blurSigma` {2, 3, 4} in the receded
-  difference; then `sizeFineTapSigma` / `…2x` {1.5, 2, 3, 4, 6} at share 1; then the share {0.25,
+  {6, 10, 14} CSS px and `sizeHeavySecondShareFar2x` {0.3, 0.6}, at the top {256, 128}, with the
+  1x width `sizeHeavySecondSigma` held at 0 at every rung. The share is not scale-gated, but at
+  dpr 1 the width resolves to 0 (`heavySecondTapSigmaAtScale`, `material.ts`), the pyramid builds
+  no second texture at width 0 (`pyramid.ts`) and the shader does not enter the second tap's mix
+  without one (`wgsl/optics.ts`), so no rung reaches a 1x pixel: every rung's 1x captures are
+  byte-identical to the snapshot rung's, and a 1x capture that moves voids the rung. A 1x width
+  move would be a separate existing-leaf move with its own prediction; it is not in this wave
+  (the 1x twin is Decision Log 2's declined item). Cells: ladder (i)'s rest cells.
+- **(iii) operator 2, receded, in the form the diagnostic chose.** Rungs: `optics.regular.blurSigma`
+  {2, 3, 4} in the receded difference; then `sizeFineTapSigma` / `…2x` {1.5, 2, 3, 4, 6} at share
+  1; then the share {0.25,
   0.5, 0.75} at the best width. Cells, inactive: `checkerboard-8__rrect-md`,
   `checkerboard-8__rrect-lg`, `checkerboard-64__rrect-md`, `checkerboard__rrect-ml`,
   `checkerboard__capsule-button`, `hc-text__rrect-sm`, `impulse__capsule-button`,
   `impulse__rrect-lg`, `photo__rrect-md`, `photo__rrect-ml`.
 - **(iv) the joint composition.** Operator 2's best rung with the receded `tintAlpha` 0.8 and point
   A's receded scatter. Cells: ladder (iii)'s.
-- **Before any render, from the captures in the canonical tree:** a depth-split reading of the
-  F inactive and impulse inactive cells at `d0219cd684bf` (T1 over the depth ramp's zone against
-  T1 over the interior beyond it, the zone taken from the receded ramp starts), committed with part
-  1, so the claim that the fine structure sits where the body sample is shown is read before it is
-  relied on. If it is false, operator 2's insertion point moves to the deep sample by G0's own
-  reading and the parent is told before part 1 is hashed.
+- **The depth-split diagnostic, before operator 2 lands (MARKED; Decision Log 3 as amended).** It
+  chooses operator 2's form, and it is defined here so that it is declared before it is run.
+  - *Population.* The non-withheld F inactive cells, `checkerboard-8__rrect-md__inactive` (span
+    96) and `checkerboard-8__rrect-lg__inactive` (span 160), on both dark scales, WebGPU, at
+    `d0219cd684bf` / `f0b36a71772a`. The referee `checkerboard-4__rrect-md__inactive` is excluded
+    and never rendered.
+  - *Masks.* Per cell and scale, computed from the resolved receded material and the shader's own
+    expressions (the pixel's span and inward depth from the field pass, `kDeep`, `sharpShare` and
+    `kScatter` with the conditioning term at the analysis pass's statistic for the source): the
+    ramp band (inward depth below the reach, 80 CSS px at 1x and 50 at 2x) and the interior beyond
+    it, which exists only on the span-160 cell at 2x. Each mask reports its mean body weight
+    `1 − kScatter` and deep weight `kScatter` beside the residual, as the shader applies them per
+    scale; no weight is taken from the ramp starts alone. The masks and weights explain the
+    reading; they never choose the form.
+  - *The renders.* Two scratch candidates, built on a scratch branch that is never merged: the body
+    form and the deep form at share 1 and width 6 CSS px at both scales (the grid's top, where the
+    fundamental of an 8 px checker is passed below 1 %), every other leaf at the shipped receded
+    document's values.
+  - *The criterion.* On each cell and scale, `E` is the reference's fine residual over the native
+    one (T1-fine, W44's σ 4 device px band, linear light, native silhouette), and `R` is the share
+    of `E` a form removes, `(T1_ref − T1_form) / E`. The body form is chosen when it removes at
+    least half of `E` on every cell and scale and more of it than the deep form does on the pooled
+    mean; the deep form on the same terms with the roles exchanged. The renders carry the actual
+    body and deep weights at each scale, so the reading is per scale: a split by scale (one form
+    at 1x, the other at 2x) or neither form clearing half goes to the parent before part 1 is
+    hashed, and operator 2 lands in no form until ruled. Location alone never changes the
+    insertion point.
+  - Committed with part 1: the masks, the weights, both forms' `R` per cell and scale, and the
+    chosen form.
 
 ### The populations per phase (MARKED; Decision Log 1)
 
@@ -469,11 +541,23 @@ landing (each target's aggregate at most half the reference's per profile), an e
 the budget a holdout miss, a NEITHER to the user with the aggregates and the named cells, otherwise
 the wave closes at the finding.
 
-**T1's dark gate at G2** is re-baselined in W45's five-part order (X59): the new generation's dark
-T-band fixture beside `t-bands-d0219cd684bf.json`; the growth-only count and ceiling against
-`d0219cd684bf` witnessed in the ledger; the dark `T1_AUTHORISED_REGRESSIONS` filled with the ruled
-cells; `MISSED_27_ROWS`' dark entries re-derived; the dark `T1_REFERENCE` moved last. W45's light
-list and reference are not touched.
+**T1's dark gate at G2** is re-baselined in W45's five-part order (X59), applied to the dark block:
+the new generation's dark T-band fixture beside `t-bands-d0219cd684bf.json`; the growth-only count
+and ceiling against `d0219cd684bf` witnessed in the ledger; the dark authorised list filled with the
+ruled cells; `MISSED_27_ROWS`' dark entries re-derived; `T1_DARK_REFERENCE` moved last.
+
+The dark list is a SEPARATE constant, `T1_DARK_AUTHORISED_REGRESSIONS`, in the owner test's dark
+block beside `T1_DARK_REFERENCE` and `T1_DARK_BANDS_FILES` (that block's `T1_DARK_*` naming), with
+W45's `T1AuthorisedRegression` entry shape, each entry naming `d0219cd684bf` / `f0b36a71772a` as its
+reference. It has its own cases, written on W45's pattern: a well-formedness case (every entry on a
+dark gated profile, in its T1 population, growth above 1 B, a ruling, no cell twice); a standing
+witness that reads `d0219cd684bf` on the current union after the reference moves and requires the
+growth-only form to trip on exactly the listed dark cells, each at its recorded growth to two
+decimals, with both forms passing with the list; and the dark (b) case reading the dark list
+against the new `T1_DARK_REFERENCE`. A shared list cannot carry them: W45's well-formedness case
+admits light gated profiles only, its standing witness iterates the light profiles, and its landing
+case compares the WHOLE list with the landing rule's eleven, so a dark entry would fail all three.
+W45's `T1_AUTHORISED_REGRESSIONS`, its data and those three cases are not touched (clause 9).
 
 ### The other rows (MARKED; Decision Log 1)
 
@@ -508,20 +592,27 @@ Branch `w47-g0-operators`, evidence `packages/calibration/results/2026-10-06-w47
   surrounding form (the law, the identity, the clamp, the scales, the CSS mirror), the identity
   entries, the uniform (`d[131]`), the shader's `alphaBase`, the CSS mirror and its
   `tier-coherence` pin, the by-render proof; every reader of `ou.tint.w` listed with its reading.
-- (b) **Operator 2 inert** (clause 1): the three leaves and their gate-group, the pyramid's fine
-  texture on the heavy textures' pattern (built where the share is non-zero), its binding and gate
-  slot, the body-sample mix, the CSS decline recorded, the by-render proof at a live fine texture
-  and at identity.
+- (b) **Operator 2 inert** (clause 1), in the form (f) chose and only after (f) is committed: the
+  three leaves and their gate-group, the pyramid's fine texture on the heavy textures' pattern
+  (built where the share is non-zero), its binding and gate slot, the mix at the chosen insertion
+  point, the CSS decline recorded, the by-render proof at a live fine texture and at identity.
 - (c) **The snapshots and the tools** (clause 2): X62's four snapshots at the charter's merge;
   W46's tools re-bound to W47 (the builder admitting exactly X67's keys per document, the operators'
   keys included), refusing W44–W46's bindings; each tested on `d0219cd684bf` (a seal with every X67
   key materialised at its resolved value reproduces `b074fc6913a91c66` / `280f0fddf014e0f6`; a stage
-  of the shipped documents reproduces the published rows; W46's manifest re-derived by the adapter
-  and refused against `ladders/cells.json`).
+  of the shipped documents reproduces the published rows). The referee manifest under X69:
+  `w46-referees-1` loaded by its hash; its derivation re-checked only against W46's frozen ladder
+  list (`results/2026-10-05-w46-g0-declaration/ladders/cells.json`, pinned in W46's declaration),
+  as a pin that W46's tools still reproduce it; W47's membership, disjointness and withholding
+  checks, each with a red case (a manifest scene one dark profile does not declare; a W47 ladder
+  naming a referee; a referee row in a stage). The ladder runner under X70, with a test whose red
+  cases are a requested cell no dark profile declares (v1's `hc-text__rrect-md__rest`), a cell
+  `compare` would not plan, and a rung matrix missing one declared row.
 - (d) **The rule's rehearsal** (clause 3), committed as a table, point A's verdict reproduced.
 - (e) **The level check** (W46 G0 (d)) re-bound, the shipped rung's identity re-proven.
-- (f) **The depth-split reading** (Design "The ladders", the last item), from the canonical
-  captures, before part 1.
+- (f) **The depth-split diagnostic** (Design "The ladders", the last item), before (b) lands and
+  before part 1: the masks and weights, the two scratch forms rendered on its population, the
+  criterion read, the chosen form committed (or the parent told, and (b) held).
 - (g) **Part 1 and the part-2 draft hashed** on the assembled tree after (a)–(f) are committed; the
   four ladders (clause 5); part 2 as a validated diff, hashed; a struck lever, an unfitted operator
   or a named 1x gap recorded with its ladder cited.
@@ -544,7 +635,8 @@ the exposure once (clause 8, read 8) with an EXPOSURE REPORT and STOP; publicati
 
 Branch `w47-g2-landing`. Clause 10 for the dark generation: the tree copied and `d0219cd684bf`'s
 captures moved to `web-captures-superseded/d0219cd684bf/`; T1's dark gate re-baselined in the
-five-part order; the owner test's dark 0.25 blocks re-pinned on a new landing cut with
+five-part order with the separate dark list and its witness (Design "The landing rule"); the owner
+test's dark 0.25 blocks re-pinned on a new landing cut with
 `d0219cd684bf` by hash as M2's, L1's and E2's reference; the generated 0.25 module re-pinned; the
 demo's union and figures; CLAUDE.md (a W47 paragraph after W46's; the two operators in the
 Architecture section beside W30's spanning set and W45's share); the READMEs; the changeset (a
@@ -568,8 +660,8 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
 - **X66 — operator 2 is receded-only by document and read only where the share is non-zero.** The
   active dark document names `sizeFineTapShare` at 0 or not at all; the receded difference alone
   names a share; the pyramid builds the fine texture only where the resolved share is non-zero,
-  and at share 0 the shader's body sample is W26's expression exactly. The identity table's
-  gate-group is the statement of it.
+  and at share 0 the shader's body and deep samples are their existing expressions exactly,
+  whichever form the diagnostic chose. The identity table's gate-group is the statement of it.
 - **X67 — the inherited leaves this wave's families read may be materialised (a W47 narrowing of
   X44, beside X64).** In addition to X64's lists, the dark 0.25 active patch MAY name
   `sizeOcclusionGain` 0.05, `sizeScatterSpanMax` 256, `sizeScatterSpanMax2x` 256, and the
@@ -582,13 +674,28 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
 - **X68 — the operators' domains are the declaration's, not the shader's.** The shader clamps
   operator 1's alpha and gates operator 2's texture; it does not bound the far delta, the widths
   or the share. Part 1 states the domains and grids, and the builder refuses a value outside them.
+- **X69 — the referee manifest is frozen, not re-derived.** `w46-referees-1` is loaded by its
+  SHA-256 (`0eb8ef77…`, pinned in the owner test) and stays byte-identical. W46's rule excludes the
+  ladder list it is given, so it is re-run only against W46's frozen ladder list (pinned in W46's
+  declaration), as a pin that W46's tools still reproduce the file; W46's loader is never given
+  W47's ladders. W47 adds three checks of its own: membership (every referee scene declared by
+  both dark 0.25 profiles), disjointness (no W47 ladder cell is a referee; a W47 ladder that names
+  one has that cell replaced, never the manifest) and withholding (the loader refuses a referee
+  row in any read before the exposure).
+- **X70 — a ladder renders exactly the cells it declares.** `compare` plans from each profile's
+  fixtures and silently skips a requested scene the profile does not declare. The ladder runner
+  therefore compares three sets per rung and scale: the cells `ladders/cells.json` requests, the
+  cells `compare` will plan for them (W46's transcription of its selection, `compare_selects`)
+  and the rows measured. It refuses before rendering when the planned set differs from the
+  requested one, and refuses the rung at read when the measured set differs. This extends W46's
+  `admitted` (before render) and `admit` (at read) checks, which the re-bound runner keeps.
 
 ## Ordering & Dependency Map
 
 1. This draft's adversarial review; the parent merges the charter.
-2. G0: the operators inert (clause 1) and reviewed; the snapshots and tools; the rehearsal; the
-   level check; the depth-split reading; part 1 hashed; the ladders; part 2 hashed; review; merge;
-   both hashes checked on main.
+2. G0: the depth-split diagnostic, which chooses operator 2's form; the operators inert (clause 1)
+   and reviewed; the snapshots and tools; the rehearsal; the level check; part 1 hashed; the
+   ladders; part 2 hashed; review; merge; both hashes checked on main.
 3. G1: the fit; the gate report; the parent's ruling (or the user's, on NEITHER); the freeze; the
    runtime; the stage; the gate on the shipped bytes; the exposure; publication; review; merge
    with the tree copied.
@@ -609,9 +716,11 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
   attenuates a 64 px pitch by 2–7 % but a photo's fine detail by more. Mitigation: ladder
   (iii) reads `checkerboard-64__rrect-md__inactive` and the photo inactive cells beside the fine
   cells; the rule prices every cell.
-- **The fine structure may not sit in the depth ramp.** Mitigation: the depth-split reading before
-  part 1; if it sits in the interior, G0 moves operator 2's insertion point to the deep sample and
-  tells the parent before hashing.
+- **Operator 2's insertion point may be wrong.** The body keeps a share at every depth at 1x and the
+  ramp covers the span-96 cell at both scales, so where the structure sits cannot say which
+  component carries it. Mitigation: the depth-split diagnostic removes each component's structure
+  by re-render and chooses the form before operator 2 lands; an ambiguous reading goes to the
+  parent and operator 2 is held.
 - **The receded impulse cells are far over at point A** (×6.6–8.8) and `impulse__capsule-button__inactive` is
   an L1 validation cell. Mitigation: both ladders (iii) and (iv) read it; W46's receded scatter at
   point A keeps L1 passing at receded 0.8.
@@ -665,6 +774,14 @@ re-baselines in W45's five-part order with a dark authorised-regression list. *D
 manifest (the cells are unspent and the rule that chose them has not changed); a native dark
 capture; re-tuning the budget to the population.
 
+*Amended v1.1 (the parent, 2026-10-06, on the adversarial round's P1 and fifth P2):* "reused
+unchanged" means loaded by hash and never re-derived. W46's rule depends on the ladder list it
+excludes, so re-deriving it from W47's ladders produces a different manifest; its derivation is
+re-checked only against W46's frozen ladder list, and W47 checks membership, disjointness and
+withholding itself (X69). The dark authorised-regression list is a separate constant with its own
+standing witness against `d0219cd684bf`; W45's list, data and witness are untouched (Design "The
+landing rule").
+
 ### Decision Log 2 — RULED 2026-10-06 (the parent): operator 1, the span-graded transmission
 
 **Ruled:** `tintAlpha` graded per pixel on the span, landed inert in G0 with every digest and golden
@@ -701,6 +818,14 @@ existing receded body width `optics.regular.blurSigma` is read on the same ladde
 tap unfitted. *Declined:* widening the deep (W46's ladder (iii) read it flat); a pose leaf inside
 the material (the receded difference is the pose); a share graded on the span (no evidence yet that
 the fine over-structure is span-graded within 96–160).
+
+*Amended v1.1 (the parent, 2026-10-06, on the adversarial round's first P2):* the body sample is
+the hypothesis, not a reading. At 1x the receded body keeps `sDeep` 0.28 at every depth of a
+span-96 surface, so interior structure does not identify the deep sample. The family has two forms,
+a pre-blur of the body sample and a further blur of the deep sample, both declared in part 1. G0's
+depth-split diagnostic chooses one before the operator lands inert, by re-render on the
+non-withheld F inactive cells with the actual body and deep weights per scale (Design "The
+ladders"). Spatial location alone never moves the insertion point.
 
 ### Decision Log 4 — RULED 2026-10-06 (the parent): the targets and the halving
 
@@ -746,3 +871,35 @@ defined them; the classifying census on every web render.
 - 2026-10-06 (v1): drafted by the parent's fork from W46's close (its Deferred 1 and 2, §5.209 §7,
   point A's per-cell readings in `results/2026-10-05-w46-g1-refit/gate/`); Decision Logs 1–7 as
   ruled; adversarial review pending.
+- 2026-10-06 (v1.1): one adversarial round folded with the parent's rulings; each finding was
+  checked against the repository before it was folded.
+  - **[P1] Re-deriving the frozen referee manifest from W47's ladders fails.** Verified: run
+    against W47's ladder cells, W46's `referees/plan.py` picks `checkerboard-32__rrect-sm__rest`
+    for the coarse-rest slot and `load_manifest` refuses `w46-referees-1`. Folded: clause 4, G0
+    (c), Design "The ladders", Decision Log 1's amendment and the new X69 (loaded by hash;
+    derivation re-checked against W46's frozen ladder list only; W47's membership, disjointness
+    and withholding checks).
+  - **[P2] Interior structure does not identify the deep sample at 1x.** Verified: `kDeep` on the
+    shipped receded span-96 surface at 1x is 0.72, so `sDeep` 0.28 remains at every depth, and
+    the ramp reaches the centre of `rrect-md` at both scales. Folded: the Grounding paragraph
+    corrected; operator 2 declared as a family with two forms; the depth-split diagnostic
+    defined (population, masks, re-render criterion) and run before operator 2 lands; G0 (b)
+    and (f), the Ordering map, the Risks and Decision Log 3's amendment.
+  - **[P2] The 2x width ladder needlessly enabled the tap at 1x.** Verified: the 1x width resolves
+    to 0, the pyramid builds no second texture at width 0, and the shader's mix is not entered
+    without one. Folded: the false sentence deleted; ladder (ii), clause 5 (ii) and Design "The
+    moves" hold the 1x width at 0 with 1x byte identity at every rung; a 1x width move is out of
+    this wave.
+  - **[P2] A named ladder cell has no dark fixture.** Verified: `hc-text__rrect-md__rest` is a
+    holdout scene of the light profiles only, and `compare` skips a requested scene a profile
+    does not declare. Folded: replaced by `hc-text-28__rrect-md__rest` (same stratum C, span 96,
+    rest, a non-withheld probe on both dark profiles); the new X70 and a G0 test check requested,
+    planned and measured cells. W46's `admitted` would have refused the cell as a holdout scene
+    before render; X70 adds the planned-set comparison that `compare`'s silent skip needs.
+  - **[P2] Dark authorisations have no standing witness.** Verified: the owner test's one
+    `T1_AUTHORISED_REGRESSIONS` is validated for light gated profiles only, its witness iterates
+    the light profiles, and the W45 case compares the whole list with the eleven. Folded: a
+    separate `T1_DARK_AUTHORISED_REGRESSIONS` with its own well-formedness case and standing
+    witness against `d0219cd684bf` (Design "The landing rule", clauses 9 and 10, G2, Decision
+    Log 1's amendment). In passing, "the dark `T1_REFERENCE`" now reads `T1_DARK_REFERENCE`,
+    the constant's actual name.
