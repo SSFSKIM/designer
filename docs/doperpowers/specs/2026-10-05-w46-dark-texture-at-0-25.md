@@ -1,5 +1,16 @@
 # W46 — the dark texture at 0.25: the flat photo body, the under-structured rest checkers and the over-structured receded fine checkers of the dark `-glass0.25` documents, declared from the grounding read and fitted on the existing bed (2026-10-05)
 
+**Status: CLOSED AT THE FINDING, T1 LANDED ON DARK (2026-10-06).** The charter `b711762a` and its
+v1.3 `8881e9c2`, G0 `c011c8fb` (§5.208), and G1 and G2 together `3cce2579` (§5.209, §5.210). G0
+declared the three targets and read the ladders; G1 fitted inside the amended declaration and read
+NEITHER at both points (Decision Log 10, the user's "Close at the finding"); G2 adopted T1 for the
+two dark 0.25 profiles with its 134 misses named against `d0219cd684bf` by hash. Nothing was sealed,
+exposed, published or released, and no changeset was written. The dark 0.25 holdout and the six
+referees per scale are unspent for these bytes. The finding is structural: one uniform dark
+transmission cannot open the thin body without over-opening the thick one. The next wave charters
+Deferred 2 (a span-graded dark transmission) with Deferred 1 (the receded fine term), on this bed,
+with the same referees. The earlier status lines follow unchanged.
+
 **Status v1.5: G1 CLOSED AT THE FINDING (2026-10-06).** The user ruled "Close at the finding" on G1's gate
 report (Decision Log 10). Both of Decision Log 9's points read NEITHER: the budget fails five times
 over, at 16 and 17 cells against three. Nothing was sealed, exposed or published. The dark 0.25 holdout
@@ -936,6 +947,8 @@ happen).
 
 ## Revision Notes
 
+- 2026-10-06 (close, after the merge `3cce2579`): the CLOSED status line and this note. No design text,
+  Decision Log or contract changed.
 - 2026-10-06 (v1.5, G1 closed): Decision Log 10 (the user's ruling verbatim, the parent's reasoning);
   status line; Deferred 2 with its identifying numbers; two Surprises; the tracking map. No design
   text or contract changed.
