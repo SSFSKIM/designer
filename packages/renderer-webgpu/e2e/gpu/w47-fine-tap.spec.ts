@@ -43,8 +43,14 @@ const patchOf = (file: string): MaterialProfilePatch =>
 const endpoints: Record<string, MaterialProfilePatch> = {};
 for (const [name, [active, receded]] of Object.entries(PAIRS)) {
   const base = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patchOf(active!));
-  endpoints[`${name}/active`] = base;
-  endpoints[`${name}/receded`] = withMaterialOverrides(base, patchOf(receded!));
+  for (const [pose, material] of [["active", base],
+    ["receded", withMaterialOverrides(base, patchOf(receded!))]] as const) {
+    // The baseline patch truly omits the new leaves on BOTH trees, even after the default
+    // gains them. Explicit-zero cases below are therefore not compared with another explicit 0.
+    const patch: MaterialProfilePatch & Record<string, unknown> = { ...material };
+    for (const key of ["sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x"]) delete patch[key];
+    endpoints[`${name}/${pose}`] = patch;
+  }
 }
 
 const sceneAt = (dpr: number): Scene => ({
@@ -73,6 +79,10 @@ for (const dpr of [1, 2]) {
         patch: { ...base, sizeFineTapShare: 0, sizeFineTapSigma: width, sizeFineTapSigma2x: width } });
     }
   }
+  // Width 0 is the per-scale stand-down, not a source-copy sharpening (the second tap's rule).
+  CASES.push({ label: `${String(dpr)}x/2x-only`, scene: sceneAt(dpr), identity: dpr === 1,
+    patch: { ...endpoints["025/dark/receded"], sizeFineTapShare: 1,
+      sizeFineTapSigma: 0, sizeFineTapSigma2x: 6 } });
   for (const share of [0.5, 1]) {
     for (const width of [2, 6]) {
       CASES.push({ label: `${String(dpr)}x/live-${String(share)}-${String(width)}`,
@@ -123,6 +133,8 @@ test.describe("@gpu W47 fine body tap (G0 (b), Decision Log 3, X66)", () => {
           expect(hashes.get(`${label}/zero-${String(width)}`)).toBe(hashes.get(label));
         }
       }
+      expect(hashes.get(`${String(dpr)}x/2x-only`)).toBe(hashes.get(dpr === 1
+        ? "1x/025/dark/receded" : "2x/live-1-6"));
       for (const share of [0.5, 1]) {
         for (const width of [2, 6]) {
           expect(hashes.get(`${String(dpr)}x/live-${String(share)}-${String(width)}`))
