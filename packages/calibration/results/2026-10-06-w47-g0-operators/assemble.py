@@ -91,6 +91,16 @@ class Refused(SystemExit):
     pass
 
 
+# The parent's rulings of 2026-10-06 (ladders/protocol.json `rulings`), each copied into the item it governs;
+# declare.py check holds every copy to the protocol's text.
+RULINGS = {k: v for k, v in json.loads((HERE / "ladders" / "protocol.json").read_text())["rulings"].items()
+           if not k.startswith("$")}
+
+
+def rulings(*ids):
+    return {i: RULINGS[i] for i in ids}
+
+
 def ev(*names):
     return [f"{R}/{n}" for n in names]
 
@@ -234,10 +244,12 @@ def build(given: dict) -> tuple[dict, str]:
              declared=dict(constants=dict(budgetCount=RULE.BUDGET_COUNT, budgetCeilingB=RULE.BUDGET_CEILING_B,
                                           gatingMinCells=RULE.GATING_MIN_CELLS),
                            targets={t: [f"{s} {p}" for s, p in g] for t, g in RULE.TARGETS.items()},
-                           reference=RULE.REFERENCE, syntheticCases=19, rehearsal=rehearsal),
+                           reference=RULE.REFERENCE, syntheticCases=19, rehearsal=rehearsal,
+                           parentRulings=rulings("target-p-pooled")),
              statement="W45's growth-only rule as W46 bound it, verbatim: d0219cd684bf, bar 0.5, per dark profile, the "
                        "verdict the weaker profile's. Rehearsed on d0219cd684bf against itself and on W46's point A by "
-                       "its committed gate cut (§5.209 §4's verdict reproduced); the gated groups per scale the charter's."),
+                       "its committed gate cut (§5.209 §4's verdict reproduced); the gated groups per scale the charter's. "
+                       "The parent's ruling: " + RULINGS["target-p-pooled"]),
         dict(id="tools", title="W47's tools, their red cases and their tests on d0219cd684bf", clause="clause 2",
              source=sorted({str(p.relative_to(W.ROOT)) for p in files} | {f"{R}/census-gate.py", f"{R}/with-gpu.sh"}),
              declared=dict(tests=tests(), stageRehearsal=[stage_reh["verdict"], stage_reh["rows"],
@@ -271,11 +283,13 @@ def build(given: dict) -> tuple[dict, str]:
         dict(id="ladders", title="the ladders' protocol, cells and decisions", clause="clause 5; Design \"The ladders\"; X69, X70",
              source=sorted(str(p.relative_to(W.ROOT)) for p in files if p.relative_to(HERE).parts[0] == "ladders"),
              declared=dict(rungs=rungs, levers=D.lever_ids(protocol),
-                           cellsPerLadder={k: [len(v["rest"]), len(v["inactive"])] for k, v in cells["ladders"].items()}),
+                           cellsPerLadder={k: [len(v["rest"]), len(v["inactive"])] for k, v in cells["ladders"].items()},
+                           parentRulings=rulings("separation-both-scales")),
              statement="Four ladders in candidate mode from the snapshots, both scales, the listed cells only, X69 "
                        "disjoint from the referees and X70's three-way check at every rung; the bars of clause 5 and "
                        "the decisions name-unfitted, name-target, body-width-first, narrow, strike and name-1x-gap "
-                       "(and the outcomes fit and stop), as protocol.json names them."),
+                       "(and the outcomes fit and stop), as protocol.json names them. The parent's ruling: "
+                       + RULINGS["separation-both-scales"]),
         dict(id="startingPoint", title="the starting point, by hash", clause="Design \"The moves\"; X62",
              source=[f"{SHARED_R}/generations/index.json"],
              declared=dict(generation="d0219cd684bf", generationFileSha12=d0219["sha256"][:12],
@@ -296,9 +310,12 @@ def build(given: dict) -> tuple[dict, str]:
              source=ev("fit-declaration-draft.json"),
              declared=dict(stages=[mv["id"] for mv in draft["moves"]],
                            searchedLeaves=sum(len(f["leaves"]) for mv in draft["moves"] for f in mv["families"].values()),
-                           targets=list(RULE.TARGETS)),
+                           targets=list(RULE.TARGETS),
+                           parentRulings=rulings("widened-second-tap-domains", "stage-1-crossed-factorial")),
              statement="Two stages in the fit driver's shape, the tie rule, scale-separable rendering, the selection rule "
-                       "and the landing rule; part 2 is this body changed only by the ladders' decisions."),
+                       "and the landing rule; part 2 is this body changed only by the ladders' decisions. The parent's "
+                       "rulings: " + RULINGS["widened-second-tap-domains"] + " "
+                       + RULINGS["stage-1-crossed-factorial"]),
     ]
     sources = {}
     for it in items:

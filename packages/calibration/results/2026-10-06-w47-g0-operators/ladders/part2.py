@@ -71,7 +71,9 @@ def changes_from(draft: dict, results: dict, named: dict) -> list[dict]:
                              "an unread rung decides nothing")
     one = [f"{k}: {v['oneScaleOnly']}" for k, v in ops.items() if v.get("oneScaleOnly")]
     if one:
-        raise SystemExit(f"part2 REFUSES: a separation at one scale only goes to the parent first ({'; '.join(one)})")
+        raise SystemExit(f"part2 REFUSES: a separation at one scale only goes to the parent first ({'; '.join(one)}); "
+                         "the operator is neither struck nor admitted until ruled (the parent's ruling of 2026-10-06, "
+                         "protocol.json `rulings` separation-both-scales)")
     op1, op2 = ops["operator 1"]["separates"], ops["operator 2"]["separates"] or ops["operator 2"]["bodyWidthMeets"]
     if not op1 and not op2:
         raise SystemExit("part2 STOPS: neither operator separates; the wave closes at G0 with the finding (clause 5)")

@@ -12,7 +12,7 @@ The name-unfitted change itself removes operator 1's leaves (declare.py `apply_c
 test_stop_incomplete_and_one_scale (test_ladder.Part2.test_stop_incomplete_and_one_scale) ... ok
 test_a_dependent_rung_waits_for_its_selection (test_ladder.Phases.test_a_dependent_rung_waits_for_its_selection) ... ok
 test_operator_rungs_wait_for_the_runtime (test_ladder.Phases.test_operator_rungs_wait_for_the_runtime) ... 
-  WAITING on this runtime: 9 rungs: iii-q0.25, iii-q0.5, iii-q0.75, iii-s1.5, iii-s2, iii-s3, iii-s4, iii-s6, iv-joint
+  WAITING on this runtime: 0 rungs: 
 ok
 test_every_override_is_admitted_and_inside_its_domain (test_ladder.Protocol.test_every_override_is_admitted_and_inside_its_domain) ... ok
 test_ladder_ii_holds_the_1x_width_and_the_1x_top (test_ladder.Protocol.test_ladder_ii_holds_the_1x_width_and_the_1x_top) ... ok
@@ -25,6 +25,6 @@ test_red_a_rung_matrix_missing_one_declared_row (test_ladder.X70.test_red_a_rung
 test_x69_no_rung_names_a_withheld_cell (test_ladder.X70.test_x69_no_rung_names_a_withheld_cell) ... ok
 
 ----------------------------------------------------------------------
-Ran 22 tests in 0.170s
+Ran 22 tests in 0.180s
 
 OK

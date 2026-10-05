@@ -660,6 +660,23 @@ class CommittedProtocolAndDraft(unittest.TestCase):
         got = D.draft_failures(bad, protocol, targets)
         self.assertEqual(len([f for f in got if "not crossed into the span law's factorial" in f]), 3, got)
 
+    def test_the_parents_rulings_are_stated_by_the_items_they_govern(self):
+        """The parent's rulings of 2026-10-06 (protocol.json `rulings`): each stated, verbatim, by its item."""
+        protocol = json.loads(D.PROTOCOL.read_text())
+        r = {k: v for k, v in protocol["rulings"].items() if not k.startswith("$")}
+        items = {"rule": dict(declared=dict(parentRulings={"target-p-pooled": r["target-p-pooled"]})),
+                 "ladders": dict(declared=dict(parentRulings={"separation-both-scales": r["separation-both-scales"]})),
+                 "draft": dict(declared=dict(parentRulings={k: r[k] for k in ("widened-second-tap-domains",
+                                                                              "stage-1-crossed-factorial")}))}
+        self.assertEqual(D.ruling_failures(items, protocol), [])
+        bad = copy.deepcopy(items)
+        bad["ladders"]["declared"]["parentRulings"]["separation-both-scales"] = "a separation at either scale"
+        self.assertTrue(any("does not state the parent's ruling 'separation-both-scales'" in f
+                            for f in D.ruling_failures(bad, protocol)))
+        bad = copy.deepcopy(items)
+        del bad["draft"]["declared"]["parentRulings"]["stage-1-crossed-factorial"]
+        self.assertTrue(any("'stage-1-crossed-factorial'" in f for f in D.ruling_failures(bad, protocol)))
+
     def test_stage_2_materialises_the_receded_x64_and_x67_keys(self):
         """W46's `materialiseX64` check, generalised to X64 ∪ X67 (the parent's ruling on reading 10)."""
         draft = json.loads(D.DRAFT.read_text())

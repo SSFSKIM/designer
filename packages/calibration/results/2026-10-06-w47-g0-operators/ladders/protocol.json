@@ -34,7 +34,7 @@
  },
  "pointA": {
   "label": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
-  "what": "W46 G1's point A (claims \u00a75.209 \u00a73), never shipped; its receded scatter is ladder (iv)'s start and its gate cut supplies ladder (i)'s and (iv)'s point-A readings",
+  "what": "W46 G1's point A (claims §5.209 §3), never shipped; its receded scatter is ladder (iv)'s start and its gate cut supplies ladder (i)'s and (iv)'s point-A readings",
   "activeDigest": "ba1ab4ef73bfe228",
   "recededDigest": "1a2c804a11e632ba",
   "candidate": {
@@ -79,7 +79,7 @@
   }
  },
  "decisions": {
-  "fit": "an operator whose ladder separates (meets its clause 5 bar at some rung) is fitted in part 2 on its declared grids",
+  "fit": "an operator whose ladder separates — meets its clause 5 bar at BOTH scales at some rung (the parent's ruling 2 of 2026-10-06) — is fitted in part 2 on its declared grids",
   "name-unfitted": "an operator whose ladder shows no separation is NOT fitted: part 2 names it with the reading (X63) and the wave continues on the other",
   "name-target": "a target no lever moves is named, not fitted (X63; Decision Log 4): part 2 records it in notFitted with its ladder and the operator's shape, and every draft leaf carrying that target leaves the draft",
   "body-width-first": "if a receded optics.regular.blurSigma rung of ladder (iii) meets clause 5 (iii)'s bar on its own, part 2 fits the body width and names the tap unfitted (X63); the tap stays landed inert (Decision Log 3)",
@@ -856,5 +856,12 @@
    "stop"
   ],
   "note": "a change is an entry of part 2's `changes` (declare.py check-fit re-validates each against results.json); an outcome changes nothing in the draft (`fit`) or writes no part 2 (`stop`)"
+ },
+ "rulings": {
+  "$comment": "The parent's rulings of 2026-10-06 on W47 G0's readings, recorded here and in part 1 where the declaration states them (assemble.py copies each into the item it governs; declare.py check holds the copies to this block).",
+  "target-p-pooled": "Target P is read pooled over both poses, as declared (cuts/rule.py TARGETS), with P rest and P inactive reported beside it at every gate reading (cuts.py `rule.pBeside`); they decide nothing.",
+  "separation-both-scales": "An operator separates only if it meets its bar at both scales. A one-scale result STOPS for the parent with the numbers, and the operator is neither struck nor admitted until ruled; part2.py refuses until then.",
+  "widened-second-tap-domains": "The draft's widened second-tap domains (the active 2x width [0, 24], the active far share [0, 1]) are declaration choices; no amendment is spent.",
+  "stage-1-crossed-factorial": "Stage 1 at 48,384 points (288 renders at 1x, 2,016 at 2x) is accepted, with no pruning beyond what is declared."
  }
 }

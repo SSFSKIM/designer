@@ -924,6 +924,24 @@ def chain(c, part, d):
         c.eq(f"chain ({part}): the declaration before amendment {i + 1} rebuilt", sha(serialise(state)), lines[i])
 
 
+def ruling_failures(items: dict, protocol: dict) -> list[str]:
+    """The parent's rulings (2026-10-06) that part 1 states: each item's `parentRulings` is the protocol's
+    `rulings` text exactly, and each of the four rulings is stated by the item it governs."""
+    out, rulings = [], protocol.get("rulings") or {}
+    governs = {"target-p-pooled": "rule", "separation-both-scales": "ladders",
+               "widened-second-tap-domains": "draft", "stage-1-crossed-factorial": "draft"}
+    for rid, iid in governs.items():
+        if rid not in rulings:
+            out.append(f"rulings: protocol.json does not record {rid!r}")
+        elif (items.get(iid, {}).get("declared") or {}).get("parentRulings", {}).get(rid) != rulings[rid]:
+            out.append(f"rulings: item {iid} does not state the parent's ruling {rid!r} as protocol.json records it")
+    for iid, it in items.items():
+        for rid, text in ((it.get("declared") or {}).get("parentRulings") or {}).items():
+            if rulings.get(rid) != text:
+                out.append(f"rulings: item {iid}'s {rid!r} is not protocol.json's text")
+    return out
+
+
 def check_protocol():
     c = Check()
     d = json.loads(PARTS["protocol"]["declaration"].read_text())
@@ -940,6 +958,7 @@ def check_protocol():
                 c.failures.append(f"{iid}: the check raised {type(err).__name__}: {err}")
     missing = sorted(set(CHECKS) - set(items))
     c.true(f"items: the declaration lacks {missing}", not missing)
+    c.failures += ruling_failures(items, json.loads(PROTOCOL.read_text()))
     c.true("draft: fit-declaration-draft.json is not one of part 1's pinned sources",
            f"{REL}/fit-declaration-draft.json" in d["sources"])
     return c, d, items

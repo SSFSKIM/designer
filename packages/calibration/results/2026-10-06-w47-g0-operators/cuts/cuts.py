@@ -929,6 +929,14 @@ def cut_t1(bed: B.Bed, reference: list, captures: Path | None, reference_capture
     # recorded referee and holdout rows are read by T1 above and never enter the rule's scope.
     rule_partitions = ("gate", "referee", "holdout") if with_holdout else ("gate",)
     out["rule"] = RULE.evaluate(out["cells"], out["missing"], rule_partitions)
+    # The parent's ruling of 2026-10-06 (ladders/protocol.json `rulings` target-p-pooled): target P is read
+    # pooled over both poses, as the rule declares it, with P rest and P inactive reported beside it at every
+    # gate reading, each halved or not against its own reference aggregate. They decide nothing.
+    out["rule"]["pBeside"] = {
+        prof: {g: dict(A=r["groups"][g]["A"], referenceA=r["groups"][g]["referenceA"], cells=r["groups"][g]["cells"],
+                       halved=r["groups"][g]["A"] <= 0.5 * r["groups"][g]["referenceA"])
+               for g in ("P rest", "P inactive") if g in r["groups"]}
+        for prof, r in out["rule"]["profiles"].items()}
     out["stages"] = {s: dict(objective=RULE.stage_objective(out["cells"], s),
                              tie=RULE.stage_tie(out["cells"], s),
                              within=RULE.stage_within(out["cells"], s, out["missing"]))
@@ -1120,6 +1128,10 @@ def rule_lines(r: dict, stages: dict) -> list[str]:
             lines.append(f"      away {a['scene']:<46} g {a['growthInB']:.2f} B")
         for w in p["why"]:
             lines.append(f"    why: {w}")
+    for prof, beside in (r.get("pBeside") or {}).items():
+        for g, a in beside.items():
+            lines.append(f"  beside target P (decides nothing), {prof.split('-')[3]}: {g:<10} n={a['cells']:<3} "
+                         f"A {a['A']:.4f} ref {a['referenceA']:.4f} (halved: {a['halved']})")
     for t, a in r["pooledTargets"].items():
         if a is not None:
             lines.append(f"  pooled over both scales (decides nothing): {t:<11} n={a['cells']:<3} A {a['A']:.4f} "
