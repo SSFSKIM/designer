@@ -316,9 +316,12 @@ WebGPU tier, both scales, the dark 0.25 profiles, less the referees.
 - **Target F inactive, the receded fine body (C inactive read beside).** Family: the receded
   document's own scatter leaves — `sizeScatterRampStartThin1x/2x`, `…Thick1x/2x`, `…Far1x/2x`
   (`Far1x` materialised under X64), `sizeHeavyTapSigma2x` (14), `sizeScatterHeavyShareThick1x`
-  (0.25), and the receded `tintAlpha` (target P's receded arm, ordinates held). The receded
-  document names no floor and does not acquire one: it inherits the active's, which target C
-  moves, and stage 2 reads that inheritance. *Prediction:* the
+  (0.25), the receded `tintAlpha` (target P's receded arm, ordinates held), and the leaves it
+  inherits from the active today, each of which it may now name (X64): `sizeScatterFloor2x`, the
+  1x heavy tap `sizeHeavyTapSigma`, the second tap's `sizeHeavySecondShare` and
+  `sizeHeavySecondShareFar2x`, and `sizeScatterScaleGain`. Stage 2 starts them at the stage-1
+  active's resolved values, the material inheritance gives, and holds or moves each on its own.
+  *Prediction:* the
   light receded recipe's direction (thin start down, thick and far to 0, heavy σ up) lowers the
   fine inactive cells from ×2.9–3.6 toward 1 while C inactive (×1.1–2.0) follows; the photo
   inactive cell must RISE at the same time (×0.25), which only the receded transmission does — so
@@ -347,9 +350,12 @@ the move's cells, the final point compared on the gate population.
 - **Stage 2, the receded document.** The receded `tintAlpha` (ordinates held), then the receded
   scatter leaves, read on P inactive, F inactive, C inactive. The receded difference is sealed as
   a difference over the stage-1 active document.
-- **Interactions.** The receded document names no floor, no 1x heavy tap, no second tap and no
-  conditioning gain, so stage 1's moves of those reach the inactive cells by inheritance; stage 2
-  reads them there. The joint point is re-read on the whole gate population at the end; a stage
+- **Interactions.** The receded document does not name the 2x floor, the 1x heavy tap, the
+  second tap's share or the conditioning gain at the start, so stage 1's moves of those reach the
+  inactive cells by inheritance and are read there. Stage 2 decides: it materialises them in the
+  receded difference at the stage-1 active's resolved values (an unchanged start) and holds or
+  moves them independently of the active (X64). The receded 1x floor `sizeScatterFloor` stays
+  inherited. The joint point is re-read on the whole gate population at the end; a stage
   that undid the other is refitted once on the union.
 
 ### The ladders (MARKED; Decision Log 4)
@@ -586,7 +592,14 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
   target-P leaf it already names): `sizeScatterFloor2x` 1, `sizeScatterRampStartThin1x` 0.72,
   `…Thick1x` 0.52, `…Far1x` 0.2, `…Thin2x` 0.46, `…Thick2x` 0.21, `…Far2x` 0.21,
   `sizeHeavySecondShareFar2x` 0. Receded (target F inactive; every other leaf of its family it
-  already names): `sizeScatterRampStartFar1x` 0.2. Materialisation is digest-neutral by
+  already names): `sizeScatterRampStartFar1x` 0.2, and, so that stage 2 can hold or move them
+  independently of the active, `sizeScatterFloor2x` 1, `sizeHeavyTapSigma` 0 (the 1x heavy tap;
+  its σ is its own gate, since a σ of 0 builds no heavy texture, and its thick-end share
+  `sizeScatterHeavyShareThick1x` and 2x width the receded already names),
+  `sizeHeavySecondShare` 0, `sizeHeavySecondShareFar2x` 0 and `sizeScatterScaleGain` −2, the
+  values it inherits from the shipped active. The second tap's widths
+  (`sizeHeavySecondSigma`/`2x`) stay inherited; the share gates them. In stage 2 these receded
+  keys start at the stage-1 active's resolved values. Materialisation is digest-neutral by
   construction: `withMaterialOverrides` resolves each leaf as `patch ?? base`, and
   `materialDigestInput` hashes the resolved material, dropping identity-table leaves by their
   RESOLVED values (W31 Rule 2, `material.ts`), so a leaf named at its resolved value moves
@@ -732,6 +745,20 @@ the dark documents inherit rather than name, which X44 and W45's `build-candidat
 narrows X44 to admit exactly those leaves, materialised first at their resolved values with the
 digests reproduced.
 
+**v1.1 note (the parent, 2026-10-05): the receded difference may name its inherited scatter
+leaves from the start.** X64 admits, in the receded difference, `sizeScatterFloor2x`, the 1x heavy
+tap `sizeHeavyTapSigma`, `sizeHeavySecondShare`, `sizeHeavySecondShareFar2x` and
+`sizeScatterScaleGain`. They are materialised at the active's resolved values first, so stage 2
+can hold or move them independently of the active, and the seal pin reproduces
+`280f0fddf014e0f6` with them materialised at the inherited values. Why: W44 Decision Log 3
+declined letting the receded document name the 2x floor or the second tap, on the argument that
+inheritance reaches the same values. W44 G0's ladder refuted that: at the second tap 0.5 × 3 CSS
+px the receded `checkerboard-8` mid cell went 1.01 → 2.56. W44 Decision Log 7 item 1 then
+reversed the decline by amendment, for the second tap's share alone, and W45 carried that
+narrowing into its candidate builder. This declaration permits the receded search from the start
+rather than spending an amendment on it. Stage 1's moves still reach the inactive cells through
+inheritance and are read there; stage 2 decides.
+
 ### Decision Log 5 — RULED 2026-10-05 (the parent): the other rows and S1
 
 **Ruled:** L1, M1, C1, X1 and the gated tables as they stand; M2 re-baselined to `d0219cd684bf`
@@ -778,8 +805,11 @@ generation superseded, the light and 0.5 generations unchanged, the user's `pnpm
     the six ramp starts and `sizeHeavySecondShareFar2x`; the receded inherits `…Far1x`. Folded:
     X64 lists the keys each document may materialise at its resolved value, argues the
     materialisation digest-neutral from `withMaterialOverrides` and `materialDigestInput`, and
-    G0 pins it by a seal that reproduces both digests; the receded floor left out of target F
-    inactive's family, its inheritance stated.
+    G0 pins it by a seal that reproduces both digests. On the parent's further ruling, the
+    receded difference may also name its inherited `sizeScatterFloor2x`, `sizeHeavyTapSigma`,
+    second-tap share and far delta, and `sizeScatterScaleGain`, starting at the active's resolved
+    values, so that stage 2 can hold or move them independently of the active (Decision Log 4's
+    v1.1 note, citing W44 Decision Logs 3 and 7).
   - **P2-1, X62's generation hash did not supply document bytes.** Folded: G0 snapshots the four
     0.25 documents under the declaration, verified against their twelve-hex hashes and commit
     `b36c9990`; the tools build from the snapshots; the generation supplies reference rows only.
