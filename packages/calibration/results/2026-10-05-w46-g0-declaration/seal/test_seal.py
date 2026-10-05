@@ -9,6 +9,9 @@ touched.
   `materialised`, with every other profile file byte-identical; the snapshot candidate with no
   override seals to the same digests with the snapshot's patch.
 - **A real move seals** (the active `tintAlpha` and a receded X64 key moved), with its methods.
+- **The record names the scale-separable reading** (W46 G1, Decision Log 8 item 4): a candidate with
+  a composed `summary.json` records it and each scale renderer's `cuts-<s>x.json.gz` with their
+  hashes; one without records null; a summary naming a renderer with no cut refuses.
 - **Red cases**: a second seal over sealed bytes; a receded leaf outside X64 written into a built
   candidate's endpoint; an undeclared moved leaf; a moved leaf with no method; a W44 or W45 candidate
   or profiles directory; a candidate whose spec moves the light material.
@@ -58,7 +61,8 @@ class Seal(unittest.TestCase):
         cls.root = Path(tempfile.mkdtemp(prefix="w46-seal-"))
         cls.candidates = cls.root / "candidates"
         for label, overrides in (("snapshot", {}), ("x64", W.X64), ("move", MOVE), ("undeclared", MOVE),
-                                 ("receded-extra", {}), ("light-spec", {})):
+                                 ("receded-extra", {}), ("light-spec", {}), ("read", MOVE),
+                                 ("read-no-cut", MOVE)):
             got = build(cls.root, label, overrides)
             assert got.returncode == 0, got.stdout + got.stderr
         # The candidate's own spec, edited to drop a declared override: the seal must catch the move.
@@ -80,6 +84,14 @@ class Seal(unittest.TestCase):
         declaration = json.loads((folder / "candidate.json").read_text())
         declaration["endpoints"]["receded.dark"]["sha256"] = sha(endpoint)
         (folder / "candidate.json").write_text(json.dumps(declaration, indent=2) + "\n")
+        # Composed readings in the fit driver's layout: `read` names two scale renderers whose cuts
+        # exist; `read-no-cut` names one whose 2x cut is absent.
+        for label, renderers in (("read", ("twin-a", "twin-b")), ("read-no-cut", ("twin-a", "twin-c"))):
+            (cls.candidates / label / "summary.json").write_text(json.dumps(dict(
+                label=label, renderers={"1x": dict(label=renderers[0]), "2x": dict(label=renderers[1])})))
+        for twin, scale in (("twin-a", "1x"), ("twin-b", "2x")):
+            (cls.candidates / twin).mkdir()
+            (cls.candidates / twin / f"cuts-{scale}.json.gz").write_bytes(f"{twin} {scale}".encode())
         cls.method = cls.root / "method.json"
         cls.method.write_text(json.dumps({leaf: ["test_seal: a scratch rehearsal, no fit"]
                                           for slot in MOVE.values() for leaf in slot}))
@@ -167,6 +179,28 @@ class Seal(unittest.TestCase):
             self.assertNotEqual(endpoint["resolvedMaterialSha256"], digest)
             self.assertEqual(json.loads((profiles / name).read_text())["resolvedMaterialSha256"],
                              endpoint["resolvedMaterialSha256"])
+
+    def test_the_record_names_the_scale_separable_reading(self):
+        code, out, profiles, _ = self.seal("read")
+        self.assertEqual(code, 0, out)
+        for name in DARK:
+            cuts = json.loads((profiles / name).read_text())["measurement"]["cuts"]
+            self.assertEqual(cuts["summary"]["sha256"], sha(self.candidates / "read" / "summary.json"))
+            for twin, scale in (("twin-a", "1x"), ("twin-b", "2x")):
+                path = self.candidates / twin / f"cuts-{scale}.json.gz"
+                self.assertEqual(cuts["perScale"][scale], dict(renderer=twin, path=os.path.relpath(path, W.ROOT),
+                                                               sha256=sha(path)))
+        code, out, profiles, _ = self.seal("move")
+        self.assertEqual(code, 0, out)
+        for name in DARK:
+            self.assertIsNone(json.loads((profiles / name).read_text())["measurement"]["cuts"])
+
+    def test_a_reading_whose_renderer_has_no_cut_refuses(self):
+        code, out, profiles, _ = self.seal("read-no-cut")
+        self.assertNotEqual(code, 0)
+        self.assertIn("carries no cuts-2x.json.gz", out)
+        for name in DARK:
+            self.assertEqual(sha(profiles / name), sha(W.document_path(DARK[name][0])))
 
     def test_a_second_seal_over_sealed_bytes_refuses(self):
         code, out, profiles, _ = self.seal("move")

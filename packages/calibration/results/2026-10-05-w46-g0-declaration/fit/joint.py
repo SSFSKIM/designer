@@ -17,6 +17,10 @@ stage UNDID another when a cell of the other stage's cells that its landed point
 miss at the final point (T1's fidelity; a T cell's on T1-fine); the undoing stage is refitted once on
 the union of the two stages' cells (recorded here as the verdict; the refit is `search.py`'s). A path
 whose stage records do not chain refuses.
+
+**Two points (part 2's amendment, charter Decision Log 9).** When the last stage's record carries
+`points`, the path closes twice — point A (no exception) and point B (the named exception) — and
+`joint.json` records both; neither is selected here.
 """
 from __future__ import annotations
 
@@ -46,7 +50,14 @@ def moved(label: str) -> int:
     return sum(len(v) for v in spec["overrides"].values())
 
 
-def path_of(start: str, stages: list[str]) -> dict:
+def two_point(record: dict) -> bool:
+    """A stage record of Decision Log 9's protocol: its `points` is the A/B map. An ordinary `decide`
+    record also carries `points`, as its list of candidate rows, so presence alone is not the test."""
+    pts = record.get("points")
+    return isinstance(pts, dict) and set(pts) == {"A", "B"}
+
+
+def path_of(start: str, stages: list[str], point: str = "A") -> dict:
     r = fit.rule()
     landed, components = {}, {}
     for s in stages:
@@ -59,7 +70,9 @@ def path_of(start: str, stages: list[str]) -> dict:
         if landed and record.get("base") != landed[stages[stages.index(s) - 1]]:
             raise fit.W.Refusal(f"joint: {start} {s} starts from {record.get('base')}, not the previous stage's "
                                 f"landed {landed[stages[stages.index(s) - 1]]}")
-        landed[s] = record["landed"]
+        landed[s] = record["points"][point]["landed"] if two_point(record) else record["landed"]
+        if landed[s] is None:
+            raise fit.W.Refusal(f"joint: {start} {s} landed no point {point} (Decision Log 9)")
         components[s] = record.get("components", [])
     joint = landed[stages[-1]]
     whole = summary_of(joint)
@@ -84,6 +97,9 @@ def path_of(start: str, stages: list[str]) -> dict:
 
 def main(argv) -> int:
     stages = (argv[argv.index("--stages") + 1] if "--stages" in argv else "stage1,stage2").split(",")
+    last = json.loads((PATH / fit.STARTS[0] / f"{stages[-1]}.json").read_text())
+    if two_point(last):
+        return two_points(stages, last)
     p = path_of(fit.STARTS[0], stages)
     result = dict(what="W46 G1: the joint point of the one lineage and the interactions rule", stages=stages,
                   path=p, landed=None if p["unmeasured"] else p["joint"],
@@ -94,6 +110,31 @@ def main(argv) -> int:
     lines = [f"landed: {result['landed']}: {result['how']}",
              f"{p['start']}: joint {p['joint']} via {p['landed']}; {p['cellsInScope']} cells; {p['interactions']}; "
              f"rule {p['rule']} {p['ruleProfiles']}; L1 {p['L1']}"]
+    (PATH / "joint.txt").write_text("\n".join(lines) + "\n")
+    print("\n".join(lines))
+    return 0
+
+
+def two_points(stages: list[str], last: dict) -> int:
+    """Decision Log 9: the last stage reports two points, so the path closes twice, A (no exception)
+    and B (the named exception), each read as one joint point; neither is selected here (the parent
+    names the point the freeze seals after the gate report)."""
+    out, lines = {}, []
+    for point in ("A", "B"):
+        if last["points"][point]["landed"] is None:
+            out[point] = dict(landed=None, how=f"stage {stages[-1]} landed no point {point}")
+            lines.append(f"{point}: no point")
+            continue
+        p = path_of(fit.STARTS[0], stages, point)
+        out[point] = dict(path=p, landed=None if p["unmeasured"] else p["joint"],
+                          exception=last["points"][point].get("exception", []))
+        lines.append(f"{point}: joint {p['joint']} via {p['landed']}; {p['cellsInScope']} cells; {p['interactions']}; "
+                     f"rule {p['rule']} {p['ruleProfiles']}; L1 {p['L1']}")
+    result = dict(what="W46 G1: the two joint points of Decision Log 9 and the interactions rule", stages=stages,
+                  points=out, how="both carried to the freeze-free gate reading; the freeze seals the one the "
+                                  "parent names after the gate report")
+    PATH.mkdir(parents=True, exist_ok=True)
+    (PATH / "joint.json").write_text(json.dumps(result, indent=1) + "\n")
     (PATH / "joint.txt").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
     return 0

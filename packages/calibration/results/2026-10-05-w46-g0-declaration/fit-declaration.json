@@ -321,7 +321,8 @@
       "materialiseX64": "receded.dark",
       "what": "the receded document: its own transmission, then its scatter leaves, read on P, F and C inactive; sealed as a difference over the stage-1 active (Design \"The moves\")",
       "familyOrder": [
-        "transmission"
+        "transmission",
+        "scatter"
       ],
       "families": {
         "transmission": {
@@ -334,6 +335,7 @@
                 0.89
               ],
               "grid": [
+                0.8,
                 0.89
               ],
               "unit": "alpha",
@@ -342,7 +344,313 @@
               "held": "every tone ordinate and bodyChromaRetention held (X61)"
             }
           }
+        },
+        "scatter": {
+          "why": "Decision Log 9: the receded scatter searched on each branch of the two-point protocol, from the materialised stage base, for point A (a dilution of the impulse dot that lets L1 pass at 0.8, or the best point at 0.89) and point B (the best point at 0.8 under the named exception); F inactive stays named not fitted. the receded document's own scatter leaves and the inherited ones X64 lets it name, each held or moved on its own from the stage-1 active's resolved values (materialiseX64)",
+          "leaves": {
+            "sizeScatterRampStartThin1x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.1,
+                0.4,
+                0.7,
+                1
+              ],
+              "unit": "sharp share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": "iii-rn1"
+            },
+            "sizeScatterRampStartThin2x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.1,
+                0.4,
+                0.7,
+                1
+              ],
+              "unit": "sharp share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": "iii-rn2"
+            },
+            "sizeScatterRampStartThick1x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0,
+                0.15,
+                0.3
+              ],
+              "unit": "sharp share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": "iii-rk1"
+            },
+            "sizeScatterRampStartThick2x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0,
+                0.04,
+                0.2
+              ],
+              "unit": "sharp share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": "iii-rk2"
+            },
+            "sizeScatterRampStartFar1x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0,
+                0.1,
+                0.2
+              ],
+              "unit": "sharp share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": "iii-re1",
+              "x64": true
+            },
+            "sizeScatterRampStartFar2x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0,
+                0.04,
+                0.2
+              ],
+              "unit": "sharp share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": "iii-re2"
+            },
+            "sizeHeavyTapSigma2x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                32
+              ],
+              "grid": [
+                9,
+                14,
+                18,
+                24
+              ],
+              "unit": "CSS px",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": "iii-rs2"
+            },
+            "sizeScatterHeavyShareThick1x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0,
+                0.25,
+                0.5
+              ],
+              "unit": "heavy share at the thick end",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null
+            },
+            "sizeScatterFloor": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.1,
+                0.2,
+                0.34,
+                0.5,
+                0.7
+              ],
+              "unit": "deep share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true
+            },
+            "sizeScatterFloor2x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.5,
+                0.7,
+                0.85,
+                1
+              ],
+              "unit": "deep share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true
+            },
+            "sizeHeavyTapSigma": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                24
+              ],
+              "grid": [
+                0,
+                4,
+                8,
+                13,
+                18
+              ],
+              "unit": "CSS px",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true
+            },
+            "sizeScatterScaleGain": {
+              "slot": "receded.dark",
+              "domain": [
+                -2,
+                0
+              ],
+              "grid": [
+                -2,
+                -1,
+                0
+              ],
+              "unit": "per unit edge density",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true
+            },
+            "sizeHeavySecondShare": {
+              "slot": "receded.dark",
+              "domain": [
+                -1,
+                1
+              ],
+              "grid": [
+                0,
+                0.25,
+                0.5
+              ],
+              "unit": "signed share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true
+            },
+            "sizeHeavySecondSigma": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                8
+              ],
+              "grid": [
+                0,
+                1.5,
+                3,
+                5
+              ],
+              "unit": "CSS px",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true
+            },
+            "sizeHeavySecondSigma2x": {
+              "slot": "receded.dark",
+              "domain": [
+                0,
+                8
+              ],
+              "grid": [
+                0,
+                1.5,
+                3,
+                5
+              ],
+              "unit": "CSS px",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true
+            },
+            "sizeHeavySecondShareFar2x": {
+              "slot": "receded.dark",
+              "domain": [
+                -1,
+                0
+              ],
+              "grid": [
+                -0.5,
+                -0.25,
+                0
+              ],
+              "unit": "signed share",
+              "target": "Decision Log 9 (points A and B)",
+              "ladder": null,
+              "x64": true,
+              "domainLowerIsMinus": "sizeHeavySecondShare"
+            }
+          },
+          "factorialGroups": [
+            {
+              "keys": [
+                "sizeHeavySecondShare",
+                "sizeHeavySecondSigma",
+                "sizeHeavySecondSigma2x"
+              ],
+              "starts": [
+                "d0219"
+              ]
+            }
+          ]
         }
+      },
+      "points": {
+        "ruling": "Decision Log 9",
+        "branchesOf": "optics.regular.tintAlpha",
+        "family": "scatter",
+        "branches": [
+          {
+            "id": "A89",
+            "point": "A",
+            "value": 0.89
+          },
+          {
+            "id": "A80",
+            "point": "A",
+            "value": 0.8
+          },
+          {
+            "id": "B",
+            "point": "B",
+            "value": 0.8,
+            "exempt": [
+              "impulse__capsule-button__inactive"
+            ]
+          }
+        ],
+        "admissible": "a point is admissible on a branch when no measured L1 cell of the stage's pose (the inactive calibration and validation scenes, both scales) is past either clause (absolute 0.055, growth 0.005 against d0219cd684bf), the branch's exempt scenes excepted; an unmeasured cell is not a miss",
+        "steering": "a coordinate step with no admissible point takes its point of least summed L1 excess (both clauses, both scales), the tie rule deciding equal excesses; an admissible point always beats an inadmissible one",
+        "landing": "each branch lands by the stage's selection rule among its admissible points (none: the branch lands nothing); A is the better of A89's and A80's landed points under the tie rule from the stage base; B is the B branch's, with the exception cell's L1 error and growth at both scales recorded beside it",
+        "gate": "the joint closes both points (joint.py); both are carried through the freeze-free gate reading (step 5); the freeze seals only the point the parent names after the gate report"
       }
     }
   ],
@@ -396,14 +704,21 @@
     "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/part2.py": "6c243f865881f2565821a5b2368c266a7012eb17ff3189ff1343ce5b7a81b91d",
     "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/runs.jsonl": "cca171a0eee94d9b67ebdf8fb45719d6ad726128fb278b9e81a33cb57b311a43",
     "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/x60-evidence.json": "28efdd5308ca7b7543890983fc0abeba8ab2285dfcd06c7dcc32b86c4d475b85",
-    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/fit.py": "e5cdeabb44e95ec265a58fd82877f3f44372676e50ba00381b4388c5ad898957",
-    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/search.py": "295479fae9700d6340c05181834e2f5f4749b69b1c7b66719232d485488d4204",
-    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/joint.py": "5279e23120ddf6ece3b16b31fd8f4911c6679d09480e788822ec600eb580c340",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/fit.py": "50144aaaa06ea8a7c9cc03cc290aab06b05e808d24d7ca4128444bc0c270d73b",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/search.py": "50d970892de14d15940d83b26c3142dc289bdd01fd1be35b6afb463399c278ac",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/joint.py": "87a6435f043372f7b3b2e99ffe96e67400abee3d377402e2470b1df94ef92375",
     "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/finding.py": "10139ee12c09b76ab4eb234a6aadc1a4668c539ab6d5eaf1351abec61350569d",
     "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/recover.py": "2c6cc0c8dc9fcb1b62fba93dcb4b8157831c76f2e34623c06d40bea617a65f31",
     "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/labels.json": "a0363496c5c2aaa8690c4d8d5fca8cf4e4f258a5e0c5c6dea251767a4e617130",
     "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/build-candidate.ts": "bdbb334765fbbf066c73172a93e946a8499f7bb6668158688cf18f44a359efbc",
-    "packages/calibration/results/2026-10-05-w46-g0-declaration/seal/seal.ts": "37a7fc5110fccc2a930f1dfd611ece3308fba63d70b857372d4306ade9ad7a44",
-    "packages/calibration/results/2026-10-05-w46-g0-declaration/cuts/rule.py": "4186d80fc967f7cfdb9a8097e7339f74b9718a0f8fe983ca818551af7820551b"
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/seal/seal.ts": "425bf4f5afe10b7f303a2e80edb5a5bb83f228913cd806deefc885c1212b9635",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/cuts/rule.py": "4186d80fc967f7cfdb9a8097e7339f74b9718a0f8fe983ca818551af7820551b",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/declare.py": "f0756d091143c5ae5803f318e2735868555726922a57f3d547eaf75696dfbb86",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/test_declare.py": "4d9706af46e07109e57849ba6e8f34e01844d41133fe36db5188d2e55fbea340",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/test_declare.txt": "d6c86345ed8770211ea9840972f3593a44115b6acd264b93c21cba3b1f1f28e4",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/test_fit.py": "cc38ac477c20e4d42e59da5dd0ea6f640bbad94a9615122b0999bd9f348c0118",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/test_fit.txt": "53b7291de7e22af939857ea295535b571fd9442fb4e1180c312a65006e0fef59",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/seal/test_seal.py": "5cc82549bd2628132a678da60dd6f0bfa751d4a0a5d9c7e7c276c0c098ce9472",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/seal/test_seal.txt": "2b645762403ee4ec02be3b7cec4d3a7967ba8addfde2b15c1d6f9b3e13ba0f7f"
   }
 }

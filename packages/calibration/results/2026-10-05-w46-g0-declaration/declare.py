@@ -43,10 +43,31 @@ inside its passing rungs, no flat lever's leaf retained, every leverless target 
 at all when no target has a lever.
 
 **Amendments** (W43's and W44's rule): an amendment re-pins named moved sources and changes nothing
-else; each part is amended at most once; `amend` refuses once ANY ladder render exists, `amend-fit` once
+else, with ONE exception below; each part is amended at most once; `amend` refuses once ANY ladder render exists, `amend-fit` once
 any fit render exists. **The amendment record is validated on READ** (W45's review closure, §5.205 §14
 item 3): `check` and `check-fit` refuse a record entry with any field outside the pins-only form, a pin
 outside the part's sources, or a chain that does not rebuild the superseded hash.
+
+**Part 2's one amendment is Decision Log 9's, a CONTENT amendment** (W46 G1; the form W44 G1 step 0
+and W45 G0 used). The parent ruled on G1's step-0 diagnosis: widen the receded `tintAlpha` grid to
+{0.8, 0.89} and have stage 2 report two points, A with no exception and B with
+`impulse__capsule-button__inactive`'s L1 miss named. Its record carries, beside the pins:
+- `ruling`, the charter's Decision Log 9 verbatim, and `charter`, the charter at the commit that
+  records it.
+- `ops`, the content diff, each an `add` or a `replace` at one path of part 2's body with its `from`
+  and `to`. `check-fit` recomputes them from the body with the ops reverted (`ruling_nine_ops`) and
+  requires the recorded ones equal, values included. The ladders' validated diff and their required
+  outcomes are read on that reverted body, which is the hashed part 2 the ruling amends.
+- `partOnePins`, moves of the part-1 sources the amendment's tools changed. Part 1 cannot be amended
+  once a ladder renders, so, as in W45, part 1's check accepts a moved pin only for
+  `PART_ONE_REPINNABLE`, only along the move this record names, and only at the bytes the AMENDED
+  part 2 pins in its own `sources` (each part-1 move is added there, inside part 2's hash chain, so
+  `check-fit` re-hashes it). Part 1's declaration and hash do not move.
+The ops re-add stage 2's receded scatter family, which the F inactive `name-target` change had
+removed. Point A's clause, "any point where the receded scatter leaves ... dilute the dot enough for
+L1 to pass at 0.8", is a search over those leaves. F inactive stays named not fitted, and the leaves
+carry the ruling as their target. They add `points`, the two-point protocol `search.py` runs
+(`stage_points`).
 """
 from __future__ import annotations
 
@@ -78,6 +99,54 @@ RESULTS = W.LADDERS / "results.json"
 LADDER_RUNS = W.LADDERS / "runs.jsonl"
 FIT_RUNS = W.G1_FIT / "runs.jsonl"
 AMENDMENT_FIELDS = {"n", "supersedes", "declarationSha256", "reason", "cause", "pins", "renderEvidenceAtAmendment"}
+# Part 2's content amendment (Decision Log 9): the pins-only form plus the ruling, its charter, the
+# content diff and the part-1 moves its tools made.
+FIT_AMENDMENT_FIELDS = AMENDMENT_FIELDS | {"charter", "ruling", "ops", "partOnePins"}
+PART_ONE_REPINNABLE = tuple(f"{REL}/{p}" for p in (
+    "declare.py", "test_declare.py", "test_declare.txt", "fit/fit.py", "fit/search.py", "fit/joint.py",
+    "fit/test_fit.py", "fit/test_fit.txt", "seal/seal.ts", "seal/test_seal.py", "seal/test_seal.txt"))
+NINE_CHARTER = f"{W.CHARTER_PATH}@"
+RULING_NINE = (
+    "Decision Log 9 (the parent, 2026-10-05, on G1's step-0 diagnosis), verbatim: "
+    'AMEND part 2, once and finally, widening the receded `tintAlpha` grid to {0.8, 0.89}. Record the '
+    'ruling verbatim in the charter as Decision Log 9 and in the amendment record, with this reasoning: '
+    "the rise is predictable from the shader's arithmetic per pixel (within 2 codes, p99 1.2) but it is "
+    'the transmission passing the scattered impulse dot (0.39 of it at span 44) rather than a stand-down,'
+    " so it is neither of Decision Log 8 item 1's two cases; it is the same shape as Deferred 1 (vitrea's"
+    " receded body passes isolated fine structure that Apple's nearly blocks), and the one cell is a "
+    "candidate named exception for the user's ship ruling at the gate, in W45 Decision Log 8's form. Add "
+    "this to the fit's protocol under the amendment: stage 2 reports TWO points, (A) the best point that "
+    'passes every row with no exception (the receded at 0.89, or any point where the receded scatter '
+    'leaves now admitted by X64 dilute the dot enough for L1 to pass at 0.8), and (B) the best point '
+    "under the exception (receded 0.8 with `impulse__capsule-button__inactive`'s L1 growth and absolute "
+    'miss named, both scales, with the numbers). Both are carried through the freeze-free gate reading '
+    '(step 5) so the gate report shows both; the freeze (step 3) seals only the point the parent names '
+    'after the gate report. If the receded scatter search finds a joint point that passes L1 at 0.8, say '
+    'so prominently: that would close the question without an exception. Then do the item 4 tooling, and '
+    'proceed through steps 1–6 to the GATE REPORT stop.'
+)
+EXCEPTION_CELL = "impulse__capsule-button__inactive"
+TWO_POINTS = {
+    "ruling": "Decision Log 9",
+    "branchesOf": "optics.regular.tintAlpha",
+    "family": "scatter",
+    "branches": [
+        {"id": "A89", "point": "A", "value": 0.89},
+        {"id": "A80", "point": "A", "value": 0.8},
+        {"id": "B", "point": "B", "value": 0.8, "exempt": [EXCEPTION_CELL]},
+    ],
+    "admissible": "a point is admissible on a branch when no measured L1 cell of the stage's pose (the inactive "
+                  "calibration and validation scenes, both scales) is past either clause (absolute 0.055, growth "
+                  "0.005 against d0219cd684bf), the branch's exempt scenes excepted; an unmeasured cell is not a miss",
+    "steering": "a coordinate step with no admissible point takes its point of least summed L1 excess (both "
+                "clauses, both scales), the tie rule deciding equal excesses; an admissible point always beats an "
+                "inadmissible one",
+    "landing": "each branch lands by the stage's selection rule among its admissible points (none: the branch lands "
+               "nothing); A is the better of A89's and A80's landed points under the tie rule from the stage base; "
+               "B is the B branch's, with the exception cell's L1 error and growth at both scales recorded beside it",
+    "gate": "the joint closes both points (joint.py); both are carried through the freeze-free gate reading (step 5); "
+            "the freeze seals only the point the parent names after the gate report",
+}
 CLAUSE_THREE = ("test_a_halving_every_target_with_three_cells_at_2b_passes", "test_b_four_cells_at_2b_fails",
                 "test_c_one_cell_at_3_1b_fails", "test_d_a_gated_aggregate_worse_beyond_its_tolerance_fails",
                 "test_e_every_cell_unchanged_is_neither", "test_f_a_group_of_two_gate_cells_is_reported_not_gated")
@@ -185,6 +254,8 @@ def structure(c, d):
             got = sha(source_bytes(key))
         except (OSError, subprocess.CalledProcessError) as err:
             c.failures.append(f"pin {key}: unreadable ({err})")
+            continue
+        if got != want and accepted_repin(key, want, got):
             continue
         c.eq(f"pin {key}", got, want)
     return {it["id"]: it for it in items}
@@ -468,8 +539,9 @@ def amendment_failures(part, d) -> list[str]:
     record = body.get("amendments", [])
     if len(record) > 1:
         out.append(f"{path.name}: {len(record)} amendments; each part is amended at most once")
+    allowed = FIT_AMENDMENT_FIELDS if part == "fit" else AMENDMENT_FIELDS
     for i, a in enumerate(record):
-        extra = sorted(set(a) - AMENDMENT_FIELDS)
+        extra = sorted(set(a) - allowed)
         if extra:
             out.append(f"{path.name}: amendment {i + 1} carries fields outside the pins-only form: {extra}")
         for key, move in (a.get("pins") or {}).items():
@@ -477,7 +549,108 @@ def amendment_failures(part, d) -> list[str]:
                 out.append(f"{path.name}: amendment {i + 1} re-pins {key}, not a working-tree source of the part")
             if set(move) != {"from", "to"}:
                 out.append(f"{path.name}: amendment {i + 1} pin {key} is not a from/to move")
+        if part == "fit" and (a.get("ops") or a.get("partOnePins") or a.get("ruling")):
+            if a.get("ruling") != RULING_NINE or not str(a.get("charter", "")).startswith(NINE_CHARTER):
+                out.append(f"{path.name}: amendment {i + 1} carries content but not Decision Log 9's ruling and charter")
+            part1 = json.loads(PARTS["protocol"]["declaration"].read_text())["sources"]
+            for key, move in (a.get("partOnePins") or {}).items():
+                if key not in PART_ONE_REPINNABLE or key not in part1:
+                    out.append(f"{path.name}: amendment {i + 1} re-pins part-1 source {key}, which no amendment may")
+                elif set(move) != {"from", "to"} or move["from"] != part1[key]:
+                    out.append(f"{path.name}: amendment {i + 1} part-1 pin {key} does not start at part 1's pin")
     return out
+
+
+# ---------------------------------------------------------------------------------------------
+# Part 2's content amendment (Decision Log 9)
+# ---------------------------------------------------------------------------------------------
+def node_at(body, path, create=False):
+    node = body
+    for k in path[:-1]:
+        node = node[k]
+    return node
+
+
+def apply_ops(body, ops):
+    out = json.loads(json.dumps(body))
+    for op in ops:
+        parent, key = node_at(out, op["path"]), op["path"][-1]
+        if op["op"] == "add":
+            if key in parent:
+                raise Refusal(f"add at {op['path']}: the path exists")
+            parent[key] = json.loads(json.dumps(op["to"]))
+        elif op["op"] == "replace":
+            if parent.get(key) != op["from"]:
+                raise Refusal(f"replace at {op['path']}: the body does not hold its `from`")
+            parent[key] = json.loads(json.dumps(op["to"]))
+        else:
+            raise Refusal(f"{op['op']}: an amendment op is an add or a replace")
+    return out
+
+
+def revert_ops(body, ops):
+    out = json.loads(json.dumps(body))
+    for op in reversed(ops):
+        parent, key = node_at(out, op["path"]), op["path"][-1]
+        if parent.get(key) != op["to"]:
+            raise Refusal(f"revert at {op['path']}: the body does not hold the op's `to`")
+        if op["op"] == "add":
+            del parent[key]
+        else:
+            parent[key] = json.loads(json.dumps(op["from"]))
+    return out
+
+
+def ruling_nine_ops(pre: dict) -> list[dict]:
+    """Decision Log 9's content diff, computed from the hashed part 2 (`pre`) and the draft: the receded
+    tintAlpha grid to {0.8, 0.89}; the draft's receded scatter family re-added to stage 2 as the two-point
+    protocol's family (each leaf's target the ruling; F inactive stays named not fitted); the family order;
+    the protocol (`TWO_POINTS`)."""
+    i = next(n for n, m in enumerate(pre["moves"]) if m["id"] == "stage2")
+    move = pre["moves"][i]
+    draft_move = next(m for m in json.loads(DRAFT.read_text())["moves"] if m["id"] == "stage2")
+    if "scatter" in move["families"] or "points" in move:
+        raise Refusal("Decision Log 9 amends the hashed part 2, whose stage 2 has no scatter family and no points")
+    scatter = json.loads(json.dumps(draft_move["families"]["scatter"]))
+    scatter["why"] = ("Decision Log 9: the receded scatter searched on each branch of the two-point protocol, from "
+                      "the materialised stage base, for point A (a dilution of the impulse dot that lets L1 pass at "
+                      "0.8, or the best point at 0.89) and point B (the best point at 0.8 under the named exception); "
+                      "F inactive stays named not fitted. " + scatter["why"])
+    for spec in scatter["leaves"].values():
+        spec["target"] = "Decision Log 9 (points A and B)"
+    ta = ["moves", i, "families", "transmission", "leaves", "optics.regular.tintAlpha", "grid"]
+    return [
+        dict(op="replace", path=ta, **{"from": node_at(pre, ta)[ta[-1]], "to": [0.8, 0.89]}),
+        dict(op="add", path=["moves", i, "families", "scatter"], to=scatter),
+        dict(op="replace", path=["moves", i, "familyOrder"], **{"from": move["familyOrder"],
+                                                               "to": ["transmission", "scatter"]}),
+        dict(op="add", path=["moves", i, "points"], to=TWO_POINTS),
+    ]
+
+
+def part_one_moves() -> dict:
+    """{part-1 source: move} as part 2's amendment records it (only the re-pinnable sources)."""
+    out = {}
+    for a in amendments("fit"):
+        for key, move in (a.get("partOnePins") or {}).items():
+            if key in PART_ONE_REPINNABLE:
+                out[key] = move
+    return out
+
+
+def amended_sources() -> dict:
+    """The amended part 2's own `sources`: the hashed record of every part-1 move (the review's P1)."""
+    path = PARTS["fit"]["declaration"]
+    return json.loads(path.read_text()).get("sources", {}) if path.exists() and amendments("fit") else {}
+
+
+def accepted_repin(key: str, pinned: str, now: str) -> bool:
+    """A moved part-1 pin is accepted only along the move part 2's amendment records AND only at the
+    bytes the AMENDED part 2 pins in its own `sources` (inside its hash chain), so editing a tool and
+    the unhashed record together still fails `check-fit`'s pin of that tool."""
+    move = part_one_moves().get(key)
+    return (bool(move) and move.get("from") == pinned and move.get("to") == now
+            and amended_sources().get(key) == now)
 
 
 def chain(c, part, d):
@@ -498,6 +671,17 @@ def chain(c, part, d):
         for path, move in (a.get("pins") or {}).items():
             c.eq(f"chain ({part}): amendment {i + 1} pin {path}", state["sources"].get(path), move.get("to"))
             state["sources"][path] = move.get("from")
+        for path, move in (a.get("partOnePins") or {}).items():
+            if path in (a.get("pins") or {}):
+                continue
+            c.eq(f"chain ({part}): amendment {i + 1} part-1 pin {path} in part 2's sources",
+                 state["sources"].get(path), move.get("to"))
+            state["sources"].pop(path, None)
+        if a.get("ops"):
+            try:
+                state = revert_ops(state, a["ops"])
+            except Refusal as err:
+                c.failures.append(f"chain ({part}): amendment {i + 1}: {err}")
         c.eq(f"chain ({part}): the declaration before amendment {i + 1} rebuilt", sha(serialise(state)), lines[i])
 
 
@@ -648,7 +832,17 @@ def mandatory_failures(body, results) -> list[str]:
     return out
 
 
-def validate_fit(draft, fit, results, protocol):
+def validate_fit(draft, fit, results, protocol, record=None):
+    """The ladders' validated diff and required outcomes on part 2 with its amendment's ops reverted
+    (the hashed part 2), then the recorded ops recomputed from that body (Decision Log 9)."""
+    record = record or []
+    ops = [op for a in record for op in (a.get("ops") or [])]
+    if ops:
+        pre = revert_ops(fit, ops)
+        want = ruling_nine_ops(pre)
+        if ops != want:
+            raise Refusal("part 2's amendment ops are not Decision Log 9's, recomputed from the hashed body")
+        fit = pre
     if fit.get("schema") != draft["schema"]:
         raise Refusal("part 2's schema is not the draft's")
     changes = fit.get("changes")
@@ -688,7 +882,8 @@ def check_fit():
     c.true("fit: ladders/results.json is not one of part 2's pinned sources",
            f"{REL}/ladders/results.json" in (fit.get("sources") or {}))
     try:
-        validate_fit(json.loads(DRAFT.read_text()), fit, json.loads(RESULTS.read_text()), json.loads(PROTOCOL.read_text()))
+        validate_fit(json.loads(DRAFT.read_text()), fit, json.loads(RESULTS.read_text()), json.loads(PROTOCOL.read_text()),
+                     amendments("fit"))
     except Refusal as err:
         c.failures.append(f"fit: {err}")
     return c, fit
@@ -723,6 +918,9 @@ def amend(part, argv):
     ap.add_argument("--reason", required=True)
     ap.add_argument("--cause", required=True)
     ap.add_argument("pins", nargs="+")
+    if part == "fit":
+        ap.add_argument("--part-one", nargs="*", default=[], help="part-1 sources the amendment's tools moved")
+        ap.add_argument("--charter-commit", required=True, help="the commit whose charter records Decision Log 9")
     args = ap.parse_args(argv)
     lines = digest_lines(part)
     if not lines:
@@ -757,9 +955,37 @@ def amend(part, argv):
             return 2
         moves[p] = {"from": d["sources"][p], "to": now}
         d["sources"][p] = now
+    content = {}
+    if part == "fit":
+        part1 = json.loads(PARTS["protocol"]["declaration"].read_text())["sources"]
+        one = {}
+        for key in args.part_one:
+            if key not in PART_ONE_REPINNABLE or key not in part1:
+                print(f"amend REFUSES: {key} is not a part-1 source the amendment may re-pin")
+                return 2
+            now = sha(source_bytes(key))
+            if now == part1[key]:
+                print(f"amend REFUSES: part-1 source {key} has not moved")
+                return 2
+            one[key] = {"from": part1[key], "to": now}
+        charter = git_show(W.CHARTER_PATH, args.charter_commit).decode()
+        if "### Decision Log 9" not in charter:
+            print(f"amend REFUSES: the charter at {args.charter_commit} records no Decision Log 9")
+            return 2
+        ops = ruling_nine_ops(d)
+        d = apply_ops(d, ops)
+        # Every part-1 move is pinned in the amended part 2 too, inside its hash (the review's P1): a
+        # source part 2 already pins moved with `pins`; the others are added to its `sources`.
+        for key, move in one.items():
+            if key in d["sources"] and key not in moves:
+                print(f"amend REFUSES: {key} is a part-2 source and must be named as a pin")
+                return 2
+            d["sources"][key] = move["to"]
+        content = {"charter": f"{W.CHARTER_PATH}@{args.charter_commit}", "ruling": RULING_NINE, "ops": ops,
+                   "partOnePins": one}
     raw = serialise(d)
     entry = {"n": 1, "supersedes": lines[-1], "declarationSha256": sha(raw), "reason": args.reason,
-             "cause": args.cause, "pins": moves,
+             "cause": args.cause, **content, "pins": moves,
              "renderEvidenceAtAmendment": "none (" + ("ladders/runs.jsonl, the ladder scratch" if part == "protocol"
                                                        else "G1's fit runs and scratch") + ")"}
     PARTS[part]["amendments"].write_text(json.dumps({"schema": f"{WAVE}-{part}-amendments-1",

@@ -1,0 +1,27 @@
+{
+  "$comment": "W46 scratch candidate d-x2-ta0.7-rfb0.7: the 2x scale twin",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w46-d-x2-ta0.7-rfb0.7",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "a4c101f276a25444ab5f07cab310a14f3a929e7cdafbb90c3976521a8d2f54cb"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "04664341609a9efb9083bccaf02a31e6e2c6e6ccb5dff69277e9f47051b44e1f"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "204b35e81670ced817cdef96196f2b7419082cf04b2e147f2c5b64dabfc58d5e"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "9b18652887f4985935cf2955fa4302b51c936caab35f72f107ab81b435d149ae"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

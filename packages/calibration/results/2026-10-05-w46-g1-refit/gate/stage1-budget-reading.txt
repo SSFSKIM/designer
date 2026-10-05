@@ -1,0 +1,17 @@
+stage-1 points read: 1347  key = (ta, floor, floor2x, sigma, sigma2x)
+ta 0.9: 400 points; fewest away>B: (0, {1: [0, 0], 2: [0, 0]}, 0.5431, (0.9, 0.1, 1, 4, 0))
+   points within the budget at both scales (rest cells only): 280 (3, {1: [0, 0], 2: [3, 0]}, 0.5084, (0.9, 0.2, 0.7, 8, 4))
+   min objective: (3, {1: [0, 0], 2: [3, 0]}, 0.5084, (0.9, 0.2, 0.7, 8, 4))
+ta 0.8: 400 points; fewest away>B: (9, {1: [6, 3], 2: [3, 2]}, 0.3409, (0.8, 0.7, 1, 13, 13))
+   points within the budget at both scales (rest cells only): 0 None
+   min objective: (14, {1: [7, 4], 2: [7, 3]}, 0.3185, (0.8, 0.1, 1, 8, 8))
+ta 0.7: 547 points; fewest away>B: (14, {1: [7, 2], 2: [7, 3]}, 0.284, (0.7, 0.34, 1, 0, 0))
+   points within the budget at both scales (rest cells only): 0 None
+   min objective: (19, {1: [9, 5], 2: [10, 7]}, 0.2685, (0.7, 0.34, 1, 0, 0))
+ta 0.9 points inside the rest budget, best five by objective: (objective, (floor, floor2x, sigma, sigma2x), {scale: {group: (A, ref A)}})
+0.5084 (0.2, 0.7, 8, 4) {1: {'C rest': (0.3548, 0.39), 'P rest': (0.5996, 0.6021)}, 2: {'C rest': (0.4829, 0.5377), 'P rest': (0.7951, 0.7997)}}
+0.5084 (0.34, 0.7, 4, 4) {1: {'C rest': (0.3219, 0.39), 'P rest': (0.5986, 0.6021)}, 2: {'C rest': (0.4829, 0.5377), 'P rest': (0.7951, 0.7997)}}
+0.5084 (0.1, 0.7, 8, 4) {1: {'C rest': (0.3383, 0.39), 'P rest': (0.5985, 0.6021)}, 2: {'C rest': (0.4829, 0.5377), 'P rest': (0.7951, 0.7997)}}
+0.5084 (0.2, 0.7, 4, 4) {1: {'C rest': (0.3208, 0.39), 'P rest': (0.5982, 0.6021)}, 2: {'C rest': (0.4829, 0.5377), 'P rest': (0.7951, 0.7997)}}
+0.5084 (0.34, 0.7, 8, 4) {1: {'C rest': (0.3726, 0.39), 'P rest': (0.6002, 0.6021)}, 2: {'C rest': (0.4829, 0.5377), 'P rest': (0.7951, 0.7997)}}
+any halving C rest at both scales: False

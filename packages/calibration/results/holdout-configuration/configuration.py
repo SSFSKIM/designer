@@ -6,7 +6,7 @@ claims §5.164 §6, §5.167).
     python3 …/configuration.py record --claims "c9a §5.168"
     python3 …/configuration.py record --claims "…" --source-moved-because "<a non-fit reason>"
     python3 …/configuration.py show|record --documents glass0.25 …    (W43 G3 (ii))
-    python3 …/configuration.py record … --referees <manifest.json>   (W44 G0 (d))
+    python3 …/configuration.py record … --referees <manifest.json>   (W44 G0 (d); W46 G1)
 
 **The referee manifest is a WITNESS, never a discriminator** (W44 G0 (d), charter
 2026-10-03-w44-texture-at-0-25.md clause 7 and X49). W44 holds six probe cells per scale out
@@ -17,7 +17,9 @@ read exposed. It changes nothing about what a configuration IS: the refusal stil
 documents and sources only, so a second read at the same documents and sources is refused
 whatever manifest it names, and a read without `--referees` writes exactly the entry it wrote
 before W44. Where the refusal lists earlier reads, a read that recorded a manifest is listed with
-its hash.
+its hash. W46 G1 (charter Decision Log 8 item 4) admits its own adapter's schema, `w46-referees-1`,
+beside W44's: the witness, the refusal and every recorded entry are otherwise unchanged
+(`test_configuration.py`).
 
 **Two generations, one ledger** (W43 G3 (ii), claims §5.201; approved by the coordinator for the
 0.25 publication). `--documents` names the generation a read is OF: `glass0.5` (the default, and
@@ -245,12 +247,24 @@ def show(document_set: str = DEFAULT_DOCUMENT_SET) -> dict:
     return {"documents": documents, "sourceSha256": sources, "sourceFiles": names}
 
 
+# The manifests a read may witness. W44's family (`w44-referees-*`, W44 G0 (d)) and, added beside it
+# without changing it, W46's adapter schema exactly (W46 charter Decision Log 8 item 4: the dark 0.25
+# referees, `results/2026-10-05-w46-g0-declaration/referees/referees.json`). Still a witness only.
+REFEREE_SCHEMA_PREFIXES = ("w44-referees-",)
+REFEREE_SCHEMAS = ("w46-referees-1",)
+
+
+def referee_schema(schema) -> bool:
+    schema = str(schema or "")
+    return schema.startswith(REFEREE_SCHEMA_PREFIXES) or schema in REFEREE_SCHEMAS
+
+
 def referee_witness(path: str) -> dict:
     """The manifest's path and SHA-256 (witness-only metadata; the module docstring)."""
     file = Path(path).resolve()
     raw = file.read_bytes()
     body = json.loads(raw)
-    if not isinstance(body, dict) or not str(body.get("schema", "")).startswith("w44-referees-") \
+    if not isinstance(body, dict) or not referee_schema(body.get("schema")) \
             or not body.get("scenes") or not body.get("profiles"):
         raise SystemExit(f"configuration: --referees {path} is not a referee manifest")
     try:

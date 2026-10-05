@@ -1,0 +1,18 @@
+{
+  "label": "d-x1-ta0.7-rs18-rfa0.2-rg0",
+  "note": "the 1x scale twin",
+  "stage": "scale-twin",
+  "family": "1x",
+  "start": "d0219",
+  "scale": 1,
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.7
+    },
+    "receded.dark": {
+      "sizeScatterFloor": 0.2,
+      "sizeHeavyTapSigma": 8,
+      "sizeScatterScaleGain": 0
+    }
+  }
+}

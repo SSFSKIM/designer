@@ -1,0 +1,102 @@
+{
+  "$comment": [
+    "SCRATCH CANDIDATE d-x1-ta0.8-s18-fa0.1, W46 candidate (charter clauses 4-5). Not a sealed or",
+    "shipped document; no publication stage names it. Keyed glass0.250 because candidate mode",
+    "refuses the shipped 0.25 keys (build-candidate.ts).",
+    "Built from the snapshot packages/calibration/results/2026-10-05-w46-g0-declaration/documents/12712d534b78.json (X62) with these leaves moved:",
+    "(none)"
+  ],
+  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+  "schemaVersion": 1,
+  "recordedBy": "W46, scratch candidate d-x1-ta0.8-s18-fa0.1",
+  "colorSpace": "srgb",
+  "kind": "receded-endpoint",
+  "appliesOver": "active.light.json (this candidate's own active document, beside this file)",
+  "resolvedOverActiveDocument": "active.light.json",
+  "derivedFrom": {
+    "path": "packages/calibration/results/2026-10-05-w46-g0-declaration/documents/12712d534b78.json",
+    "sha256": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.25-receded"
+  },
+  "movedLeaves": [],
+  "resolvedMaterialSha256": "c4ca0e1cd6791bde",
+  "resolvedMaterialSha256Rule": 2,
+  "patch": {
+    "backdropToneAbscissa": {
+      "kind": "silhouette"
+    },
+    "tintChromaScale": 0,
+    "tintShadeCollapseRetention": 1,
+    "tintShadeStrength": 1,
+    "optics": {
+      "regular": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      },
+      "clear": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      }
+    },
+    "rimCollapsed": 0,
+    "rimCollapsedTinted": 0,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0,
+      "thinOcclusionBright": 0,
+      "thickOcclusionAt96": 0,
+      "thickOcclusionAt128": 0,
+      "thickOcclusionAt160": 0,
+      "liftAmplitude": 0,
+      "reducedTransparencyOcclusion": 0
+    },
+    "sizeScatterRampStartThick1x": 0.3,
+    "sizeScatterRampStartThick2x": 0,
+    "sizeScatterRampStartFar2x": 0,
+    "sizeHeavyTapSigma2x": 18,
+    "tintShadeDark": 0.0288,
+    "tintShadeLight": 0.76,
+    "reducedTintAdaptation": 0.88,
+    "sizeScatterFloor": 1,
+    "sizeScatterRampStartThin1x": 0.55,
+    "sizeScatterRampStartThin2x": 0.1,
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.425,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0.1105,
+      0.2045,
+      0.4217,
+      0.8117
+    ],
+    "backdropToneResponseThick": [
+      0.0894,
+      0.231,
+      0.4288,
+      0.8086
+    ],
+    "refractionScale": {
+      "approximate": 0
+    },
+    "increasedOcclusionLift": 0.96,
+    "increasedOcclusionLiftByPolicy": {
+      "reduceTransparency": 0.88,
+      "increaseContrast": 0.98
+    },
+    "strongBorderRim": {
+      "rimWidth": 1,
+      "rimAlpha": -3.5
+    },
+    "bodyChromaRetention": 0.349,
+    "backdropToneBlackStrength": 1,
+    "backdropToneBlackThin": 0.180351,
+    "backdropToneBlackThick": 0.180351,
+    "sizeHeavySecondShare": 0.25,
+    "sizeHeavySecondShareFar2x": -0.125
+  }
+}

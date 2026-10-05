@@ -1,5 +1,11 @@
 # W46 — the dark texture at 0.25: the flat photo body, the under-structured rest checkers and the over-structured receded fine checkers of the dark `-glass0.25` documents, declared from the grounding read and fitted on the existing bed (2026-10-05)
 
+**Status v1.5: G1 CLOSED AT THE FINDING (2026-10-06).** The user ruled "Close at the finding" on G1's gate
+report (Decision Log 10). Both of Decision Log 9's points read NEITHER: the budget fails five times
+over, at 16 and 17 cells against three. Nothing was sealed, exposed or published. The dark 0.25 holdout
+and the six referees per scale stay unspent for these bytes. G2 lands T1's adoption on the dark 0.25
+profiles and the record, and ships nothing (§5.209, §5.210). The v1.3 status follows unchanged.
+
 **Status v1.3 (2026-10-05, after G0): G0 merged as `c011c8fb7` (§5.208; part 1 `bc82562e…`, part 2 `5dca38e0…`, its one amendment unspent). Decision Log 8 rules the four items G0 handed back: P read on P rest with a step-0 diagnosis of the receded block before any amendment; target F inactive's operator deferred to its own wave (Deferred 1); halving per profile as hashed; G1's three tooling items. G1 opens on this revision's merge.** The v1.2 status follows unchanged.
 
 **Status: DRAFT v1.2 (2026-10-05), chartered by the parent from the W46 grounding read
@@ -22,6 +28,9 @@ The full entries are Decision Logs 1–7 at the tail.
 | 5 | the other rows | **RULED** by the parent, 2026-10-05 | every row that passes on dark 0.25 today is regression-gated as it stands (L1 0 of 38, M1, C1, X1, the gated tables); M2 re-baselined to `d0219cd684bf` by hash at the gate; S1 dark read beside, not gated, its direction predicted |
 | 6 | the CSS tier | **RULED** by the parent, 2026-10-05 | derives what its two layers carry in the same wave; a residual is recorded under Decision Log 23; a scoped hold like W45's is permitted on the measurement |
 | 7 | the release | **RULED** by the parent, 2026-10-05 | a `@vitreajs/vitrea-web` minor (0.28.0) superseding the dark 0.25 generation only; the user's `pnpm release` |
+| 8 | G0's four handed-back items | **RULED** by the parent, 2026-10-05 | P read on P rest with a step-0 diagnosis; F inactive's operator deferred; halving per profile; G1's tooling |
+| 9 | the step-0 diagnosis | **RULED** by the parent, 2026-10-05 | part 2 amended once and finally: the receded `tintAlpha` grid {0.8, 0.89}; stage 2 reports point A (no exception) and point B (`impulse__capsule-button__inactive`'s L1 miss named), both carried to the gate |
+| 10 | the gate | **RULED** by the user, 2026-10-06 | close at the finding: nothing sealed, exposed or published; a span-graded dark transmission deferred (Deferred 2) |
 
 ## Purpose
 
@@ -669,6 +678,26 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
   lever for the receded fine cells (about 10 bars over Apple at spans 96–160; best −1.7 / −0.2 bars):
   a receded-only fine-pitch term that lowers the 4–8 px structure while coarse and photo structure
   hold, to be landed inert in its own wave's G0 with its own separating ladder, as W45 did.
+- **Deferred 2 (Decision Log 10): a span-graded dark transmission.** `optics.regular.tintAlpha` graded on
+  the span, as W45 graded the second tap's share (`sizeHeavySecondShareFar2x`). It would land inert in its
+  own G0 with its own separating ladder. The numbers that identify it come from G1's point A (active 0.7)
+  against `d0219cd684bf` (0.9), as the median T1 web/native ratio on the WebGPU rest gate cells:
+
+  | spans | stratum | 1x: d0219 → A | 2x: d0219 → A |
+  | --- | --- | --- | --- |
+  | thin (≤ 44) | C | ×0.66 → ×0.94 | ×0.51 → ×0.85 |
+  | thin (≤ 44) | F | ×0.39 → ×0.83 | ×0.33 → ×0.60 |
+  | thin (≤ 44) | P | ×0.54 → ×0.58 | ×0.40 → ×0.53 |
+  | thick (128–160) | C | ×0.90 → ×1.26 | ×0.77 → ×1.66 |
+  | thick (128–160) | F | ×1.12 → ×1.35 | ×1.17 → ×1.67 |
+  | thick (128–160) | T | ×1.08 → ×2.16 | ×1.02 → ×2.04 |
+
+  At 0.7 the thin cells still sit under Apple. The thick cells were already at or over Apple at 0.9
+  and overshoot by 10–12 B at 0.7 (`checkerboard-8__rrect-lg__rest`, `hc-text__rrect-lg__rest`).
+  So the thin spans want a transmission below 0.7, while the thick spans want 0.9 or above. Every
+  stage-1 point at 0.8 or 0.7 broke the budget on the rest cells alone (the fewest: 9 and 14 cells
+  beyond B). The in-budget points at 0.9 halve nothing (`results/2026-10-05-w46-g1-refit/gate/
+  stage1-budget-reading.txt`).
 - **The dark 0.5 pair** (X41; Decision Log 1's amendment if lifted).
 - **The dark middle and chroma** (`mid-chroma-solid` −0.19 to −0.21; W36/W39), the impulse
   inactive ssim, the `checkerboard-64` contours, the edge (E2 read, not gated).
@@ -682,8 +711,8 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
 | child | status | ledger |
 | --- | --- | --- |
 | G0 | done on `w46-g0-declaration`: part 1 `bc82562e…`, part 2 `5dca38e0…` hashed; three items for the parent's ruling (§5.208 §11) | §5.208 |
-| G1 | not started | §5.209 |
-| G2 | not started | §5.210 |
+| G1 | CLOSED AT THE FINDING on `w46-g1-refit` (Decision Log 10): part 2 amended (`ac642fea…`), the fit, the freeze-free gate on points A and B, both NEITHER; nothing sealed | §5.209 |
+| G2 | done on `w46-g2-landing`: T1 adopted for the dark 0.25 profiles at `d0219cd684bf` (134 of 154 named), CLAUDE.md's W46 paragraph; no changeset | §5.210 |
 
 ## Decision Log
 
@@ -826,8 +855,74 @@ generation superseded, the light and 0.5 generations unchanged, the user's `pnpm
 the predicted checker clamp, +0.0147 against +0.0146 predicted); the rest scatter's levers are 2x
 only (thin start 0.75 / 0.9, heavy tap 4 CSS px); no 1x lever reaches a bar and none reads flat.
 
+### Decision Log 9 — RULED 2026-10-05 (the parent, on G1's step-0 diagnosis): part 2 amended, two points
+
+**Ruled, verbatim** (the parent's message to G1):
+
+> AMEND part 2, once and finally, widening the receded `tintAlpha` grid to {0.8, 0.89}. Record the ruling
+> verbatim in the charter as Decision Log 9 and in the amendment record, with this reasoning: the rise is
+> predictable from the shader's arithmetic per pixel (within 2 codes, p99 1.2) but it is the transmission
+> passing the scattered impulse dot (0.39 of it at span 44) rather than a stand-down, so it is neither of
+> Decision Log 8 item 1's two cases; it is the same shape as Deferred 1 (vitrea's receded body passes
+> isolated fine structure that Apple's nearly blocks), and the one cell is a candidate named exception for
+> the user's ship ruling at the gate, in W45 Decision Log 8's form. Add this to the fit's protocol under
+> the amendment: stage 2 reports TWO points, (A) the best point that passes every row with no exception
+> (the receded at 0.89, or any point where the receded scatter leaves now admitted by X64 dilute the dot
+> enough for L1 to pass at 0.8), and (B) the best point under the exception (receded 0.8 with
+> `impulse__capsule-button__inactive`'s L1 growth and absolute miss named, both scales, with the numbers).
+> Both are carried through the freeze-free gate reading (step 5) so the gate report shows both; the freeze
+> (step 3) seals only the point the parent names after the gate report. If the receded scatter search
+> finds a joint point that passes L1 at 0.8, say so prominently: that would close the question without an
+> exception. Then do the item 4 tooling, and proceed through steps 1–6 to the GATE REPORT stop.
+
+*The diagnosis it rules on* (G1 step 0, `results/2026-10-05-w46-g1-refit/diagnosis/`, §5.209): the cell's
+L1 mask is the native silhouette, which over the impulse grid's black field is only the white dot under the
+capsule (16 px at 1x, 64 at 2x). None of the four stand-downs acts there: the silhouette abscissa reads
+encoded 0.00328, above the black branch's 0.003 join; `toneAdapt` is 0; the neutral is not clamped; the
+authority (0.707) only scales the solve term, which is uniform over the surface (−0.0015 at 0.8). The
+rise is the transmission term Δ(1 − α′)·b_px over the dot (b ≈ 0.39): +0.0346 of the measured +0.0331 at
+0.8 and 1x.
+
+*Executed as* (part 2's amendment, `fit-amendments.json`; `declare.py` `ruling_nine_ops`): the receded
+grid replaced by [0.8, 0.89]. Stage 2's receded scatter family is re-added from part 1's draft, because
+point A's clause is a search over those leaves. The F inactive `name-target` change had removed them, and
+F inactive stays named not fitted. The protocol (`points`) is three branches: A89 and A80 admit only
+points with no L1 miss; B at 0.8 exempts the one cell. A branch whose start is inadmissible is steered
+toward the least L1 excess. A is the better of A89 and A80. The fit tools (`search.py` `stage_points`,
+`joint.py`, `fit.py`'s L1 numbers and G1's census log) and G1's seal record moved, and are re-pinned in
+part 2 and, through `partOnePins`, in part 1's check.
+
+### Decision Log 10 — RULED 2026-10-06 (the user, on G1's gate report): close at the finding
+
+**Ruled, verbatim** (the user, by AskUserQuestion, 2026-10-06): "Close at the finding (Recommended)".
+
+*The parent's reasoning, as put to the user:*
+- The budget miss is five times the rule's three: 16 and 17 cells away beyond B at 1x and 2x, 8 and
+  10 of them beyond 3B.
+- The overshoots are 10–12 B on thick fine and text rest cells. That is a visible over-texturing of
+  large panels over fine detail and text.
+- The cause is structural: one uniform transmission cannot open the photo body without over-opening
+  the thick spans.
+- The in-budget points at tintAlpha 0.9 halve nothing.
+
+Nothing is sealed, exposed or published. The dark 0.25 holdout and the six referees per scale stay
+unspent for these bytes. The parent confirmed G1's execution of Decision Log 9: the receded scatter
+family re-added to stage 2 with the ruling as its target, and `declare.py`'s content-amendment form,
+reviewed before the amendment was spent. The operator the finding identifies is Deferred 2. G2 lands
+the record and T1's adoption on the dark profiles, and no changeset (Decision Log 7's release does not
+happen).
+
 ## Surprises & Discoveries
 
+- 2026-10-06 (G1, §5.209): **the receded scatter closed the impulse cell's L1 question without an
+  exception.** Decision Log 9's steered branch A80 found admissible points at receded 0.8. Thin starts
+  0.4, 1x floor 0.5, thick 1x start 0.15 and gain 0 dilute the scattered impulse dot.
+  `impulse__capsule-button__inactive` reads error 0.043 / 0.039 and growth +0.0017 / −0.0053, so L1
+  passes at both scales. Point B, under the exception, was worse on the objective (0.74 against 0.54).
+- 2026-10-06 (G1, §5.209): **F inactive moved about 43 % without an operator.** At point A its
+  aggregate falls 0.917 → 0.520 (1x) and 0.982 → 0.581 (2x). That is a joint move of the receded scatter
+  leaves no single-leaf ladder rung found (ladder (iii): at most 1.7 bars). Deferred 1's operator is
+  still the route to Apple's fine receded structure: the two cells stay not within.
 - 2026-10-05 (G0, §5.208 §7): **the receded transmission passes L1 at no rung below 0.89.** At 0.8 the
   validation cell `impulse__capsule-button__inactive`'s level rises +0.033 at both scales, which the
   W9 solve's group-mean arithmetic does not predict (the level check names it unexplained; a capsule
@@ -840,6 +935,14 @@ only (thin start 0.75 / 0.9, heavy tap 4 CSS px); no 1x lever reaches a bar and 
   tap at 4 CSS px); at 1x the thin rest cells move only with the transmission.
 
 ## Revision Notes
+
+- 2026-10-06 (v1.5, G1 closed): Decision Log 10 (the user's ruling verbatim, the parent's reasoning);
+  status line; Deferred 2 with its identifying numbers; two Surprises; the tracking map. No design
+  text or contract changed.
+
+- 2026-10-05 (v1.4, G1): Decision Log 9 recorded verbatim (the parent's ruling on G1's step-0 diagnosis),
+  with its diagnosis and how part 2's one amendment executes it; the decisions table carries Decision
+  Logs 8 and 9; the tracking map's G1 row. No design text or contract changed.
 
 - 2026-10-05 (v1.3, after G0's merge `c011c8fb7`; the parent's rulings on §5.208 §11): Decision Log 8
   added; Deferred 1 (the receded-only fine-pitch term, named not fitted by the ladders); the status line.

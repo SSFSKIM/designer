@@ -1,0 +1,306 @@
+{
+ "1x": {
+  "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "maskPixels": 16,
+  "regionPixels": 4872,
+  "backgroundUnderMask": {
+   "mean": 1.0,
+   "min": 1.0
+  },
+  "nativeUnderMask": 0.013898928214916274,
+  "rungs": {
+   "control": {
+    "recededTintAlpha": 0.89,
+    "abscissa": {
+     "kind": "silhouette",
+     "encoded": 0.0032840780913829803,
+     "linear": 0.0032840785570442677,
+     "samples": 4872
+    },
+    "interiorMeanWebRow": 0.05503559869123545,
+    "interiorMeanNativeRow": 0.013898928214916272,
+    "interiorMeanWebFromMask": 0.055035598691235456,
+    "arithmetic": {
+     "sizeK": 0.09228515625,
+     "sizedAlpha": 0.8905075683593751,
+     "alphaLift": 0,
+     "drawnAlpha": 0.8905075683593751,
+     "blackWeight": 0,
+     "authority": 0.7073272673342467,
+     "toneAdapt": 0,
+     "collapsed": false,
+     "clamped": false,
+     "response": 0,
+     "neutral": 0.05,
+     "solvedNeutral": 0.014348022020383891,
+     "solveTerm": 0.012777022200138826,
+     "transmission": 0.10949243164062494,
+     "groupMeanComposite": 0.013136603947048438
+    }
+   },
+   "i-r-0.8": {
+    "recededTintAlpha": 0.8,
+    "abscissa": {
+     "kind": "silhouette",
+     "encoded": 0.0032840780913829803,
+     "linear": 0.0032840785570442677,
+     "samples": 4872
+    },
+    "interiorMeanWebRow": 0.08814931408528819,
+    "interiorMeanNativeRow": 0.013898928214916272,
+    "interiorMeanWebFromMask": 0.08814931408528819,
+    "arithmetic": {
+     "sizeK": 0.09228515625,
+     "sizedAlpha": 0.8009228515625001,
+     "alphaLift": 0,
+     "drawnAlpha": 0.8009228515625001,
+     "blackWeight": 0,
+     "authority": 0.7073272673342467,
+     "toneAdapt": 0,
+     "collapsed": false,
+     "clamped": false,
+     "response": 0,
+     "neutral": 0.05,
+     "solvedNeutral": 0.014056252740947017,
+     "solveTerm": 0.011257974027562493,
+     "transmission": 0.1990771484374999,
+     "groupMeanComposite": 0.011911759021943604
+    },
+    "perPixel": {
+     "residualCodesOverMask": {
+      "maxAbs": 0.728708124628904,
+      "meanAbs": 0.4119472481984749
+     },
+     "residualCodesOverInterior": {
+      "maxAbs": 1.1073652592597385,
+      "p99Abs": 0.6368709228331061,
+      "meanAbs": 0.04524774530520475
+     },
+     "overMask": {
+      "measuredDelta": 0.03311371539405274,
+      "solveTerm": -0.0015190481725763337,
+      "transmissionTerm": 0.03457519894726088,
+      "predictedDelta": 0.033056150774684545
+     },
+     "overBodyAwayFromDots": {
+      "measuredDelta": -0.0013707871624291258,
+      "solveTerm": -0.0015190481725763337,
+      "transmissionTerm": 0.00016855375257342353
+     },
+     "rowDelta": 0.03311371539405274
+    }
+   },
+   "i-r-0.7": {
+    "recededTintAlpha": 0.7,
+    "abscissa": {
+     "kind": "silhouette",
+     "encoded": 0.0032840780913829803,
+     "linear": 0.0032840785570442677,
+     "samples": 4872
+    },
+    "interiorMeanWebRow": 0.12526854312212687,
+    "interiorMeanNativeRow": 0.013898928214916272,
+    "interiorMeanWebFromMask": 0.12526854312212687,
+    "arithmetic": {
+     "sizeK": 0.09228515625,
+     "sizedAlpha": 0.70138427734375,
+     "alphaLift": 0,
+     "drawnAlpha": 0.70138427734375,
+     "blackWeight": 0,
+     "authority": 0.7073272673342467,
+     "toneAdapt": 0,
+     "collapsed": false,
+     "clamped": false,
+     "response": 0,
+     "neutral": 0.05,
+     "solvedNeutral": 0.013644649636207283,
+     "solveTerm": 0.009570142724699906,
+     "transmission": 0.29861572265625,
+     "groupMeanComposite": 0.010550820216271576
+    },
+    "perPixel": {
+     "residualCodesOverMask": {
+      "maxAbs": 0.6185873557775643,
+      "meanAbs": 0.428074037577851
+     },
+     "residualCodesOverInterior": {
+      "maxAbs": 1.7164285264619412,
+      "p99Abs": 0.7033787366559542,
+      "meanAbs": 0.6424021098622424
+     },
+     "overMask": {
+      "measuredDelta": 0.07023294443089144,
+      "solveTerm": -0.00320687947543892,
+      "transmissionTerm": 0.07299208666643969,
+      "predictedDelta": 0.06978520719100077
+     },
+     "overBodyAwayFromDots": {
+      "measuredDelta": -0.0032618150219351615,
+      "solveTerm": -0.00320687947543892,
+      "transmissionTerm": 0.00035583569987722777
+     },
+     "rowDelta": 0.07023294443089143
+    }
+   }
+  },
+  "interiorPixels": 4780,
+  "maskInsideInterior": true,
+  "recoveredBackdrop": {
+   "underMask": 0.3859497488355847,
+   "bodyAwayFromDots": 0.0018815012046709209,
+   "interiorMean": 0.005745376637481218
+  }
+ },
+ "2x": {
+  "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+  "maskPixels": 64,
+  "regionPixels": 19468,
+  "backgroundUnderMask": {
+   "mean": 1.0,
+   "min": 1.0
+  },
+  "nativeUnderMask": 0.011612245179743883,
+  "rungs": {
+   "control": {
+    "recededTintAlpha": 0.89,
+    "abscissa": {
+     "kind": "silhouette",
+     "encoded": 0.0032874271273612976,
+     "linear": 0.0032874273601919413,
+     "samples": 19468
+    },
+    "interiorMeanWebRow": 0.05625594490903588,
+    "interiorMeanNativeRow": 0.011612245179743899,
+    "interiorMeanWebFromMask": 0.056255944909035877,
+    "arithmetic": {
+     "sizeK": 0.09228515625,
+     "sizedAlpha": 0.8905075683593751,
+     "alphaLift": 0,
+     "drawnAlpha": 0.8905075683593751,
+     "blackWeight": 0,
+     "authority": 0.7096339439415423,
+     "toneAdapt": 0,
+     "collapsed": false,
+     "clamped": false,
+     "response": 0,
+     "neutral": 0.05,
+     "solvedNeutral": 0.014231464574041806,
+     "solveTerm": 0.01267322691202256,
+     "transmission": 0.10949243164062494,
+     "groupMeanComposite": 0.013033175327531895
+    }
+   },
+   "i-r-0.8": {
+    "recededTintAlpha": 0.8,
+    "abscissa": {
+     "kind": "silhouette",
+     "encoded": 0.0032874271273612976,
+     "linear": 0.0032874273601919413,
+     "samples": 19468
+    },
+    "interiorMeanWebRow": 0.0904518033899229,
+    "interiorMeanNativeRow": 0.011612245179743899,
+    "interiorMeanWebFromMask": 0.09045180338992295,
+    "arithmetic": {
+     "sizeK": 0.09228515625,
+     "sizedAlpha": 0.8009228515625001,
+     "alphaLift": 0,
+     "drawnAlpha": 0.8009228515625001,
+     "blackWeight": 0,
+     "authority": 0.7096339439415423,
+     "toneAdapt": 0,
+     "collapsed": false,
+     "clamped": false,
+     "response": 0,
+     "neutral": 0.05,
+     "solvedNeutral": 0.013938445311110145,
+     "solveTerm": 0.011163619364922297,
+     "transmission": 0.1990771484374999,
+     "groupMeanComposite": 0.011818071029484727
+    },
+    "perPixel": {
+     "residualCodesOverMask": {
+      "maxAbs": 0.8630023330325121,
+      "meanAbs": 0.3646465096813546
+     },
+     "residualCodesOverInterior": {
+      "maxAbs": 1.1811656707753766,
+      "p99Abs": 1.1723987177473714,
+      "meanAbs": 0.8588410960539771
+     },
+     "overMask": {
+      "measuredDelta": 0.03419585848088708,
+      "solveTerm": -0.0015096075471002623,
+      "transmissionTerm": 0.03565858745210181,
+      "predictedDelta": 0.03414897990500155
+     },
+     "overBodyAwayFromDots": {
+      "measuredDelta": -0.002022938335684765,
+      "solveTerm": -0.0015096075471002623,
+      "transmissionTerm": 0.0002534771701230967
+     },
+     "rowDelta": 0.03419585848088701
+    }
+   },
+   "i-r-0.7": {
+    "recededTintAlpha": 0.7,
+    "abscissa": {
+     "kind": "silhouette",
+     "encoded": 0.0032874271273612976,
+     "linear": 0.0032874273601919413,
+     "samples": 19468
+    },
+    "interiorMeanWebRow": 0.12821013555738106,
+    "interiorMeanNativeRow": 0.011612245179743899,
+    "interiorMeanWebFromMask": 0.1282101355573811,
+    "arithmetic": {
+     "sizeK": 0.09228515625,
+     "sizedAlpha": 0.70138427734375,
+     "alphaLift": 0,
+     "drawnAlpha": 0.70138427734375,
+     "blackWeight": 0,
+     "authority": 0.7096339439415423,
+     "toneAdapt": 0,
+     "collapsed": false,
+     "clamped": false,
+     "response": 0,
+     "neutral": 0.05,
+     "solvedNeutral": 0.013525078836736953,
+     "solveTerm": 0.009486277645921994,
+     "transmission": 0.29861572265625,
+     "groupMeanComposite": 0.010467955142765639
+    },
+    "perPixel": {
+     "residualCodesOverMask": {
+      "maxAbs": 0.9786373167684639,
+      "meanAbs": 0.4582828070866197
+     },
+     "residualCodesOverInterior": {
+      "maxAbs": 2.0084040323962022,
+      "p99Abs": 1.008404032396206,
+      "meanAbs": 0.9013524371640264
+     },
+     "overMask": {
+      "measuredDelta": 0.07195419064834521,
+      "solveTerm": -0.003186949266100565,
+      "transmissionTerm": 0.07527924017665945,
+      "predictedDelta": 0.07209229091055888
+     },
+     "overBodyAwayFromDots": {
+      "measuredDelta": -0.0032618150219351615,
+      "solveTerm": -0.003186949266100565,
+      "transmissionTerm": 0.0005351184702598713
+     },
+     "rowDelta": 0.07195419064834518
+    }
+   }
+  },
+  "interiorPixels": 19300,
+  "maskInsideInterior": true,
+  "recoveredBackdrop": {
+   "underMask": 0.3980432011964089,
+   "bodyAwayFromDots": 0.0028294689003463915,
+   "interiorMean": 0.006680643463991782
+  }
+ }
+}

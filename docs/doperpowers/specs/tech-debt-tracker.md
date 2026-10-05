@@ -7195,6 +7195,11 @@ dark `optics.regular.tintAlpha` 0.9 transmits a tenth of the backdrop and W43 De
 the fix: a dark transmission refit declared against the photo and checker structure together,
 read with M2 directional, in a later wave.
 
+*W46 (claims §5.209) ran that refit and closed at the finding.* At active `tintAlpha` 0.7, P rest
+moves 0.602 → 0.411 (1x) and 0.800 → 0.461 (2x), not halved. The transmission over-opens the thick
+spans before the thin ones reach Apple. See "One uniform dark transmission cannot open the thin body
+without over-opening the thick one" below.
+
 ## The light receded 0.25 checkers are over-structured, about twice Apple's (W43 G3, 2026-10-02)
 
 *Measured by `fit/side.py` on c05 (claims §5.201 §9).*
@@ -7344,7 +7349,7 @@ a soft glow where Apple's is a sharp square. Both hold at both positions.
 
 The dark `tintAlpha` 0.9 transmits a tenth of the backdrop, which is the dark photo entry's cause
 seen on text. The shape of the fix is that entry's: a dark transmission refit read against
-structure.
+structure. W46 tried it and closed at the finding (§5.209); the entry below gives the narrower shape.
 
 ## W44's ladder candidates are keyed `glass0.250` because candidate mode refuses the shipped 0.25 keys (W44 G0, 2026-10-03)
 
@@ -7598,3 +7603,37 @@ W45's material at `?glass=0.25`, and the eye sheets show it beside Apple's; neit
 the demo itself. The shape of the fix: a 2x reference pair, with the @2x backdrop raster and the
 2x harness capture, and one fine-checker scene allowed onto the picker for it.
 
+## One uniform dark transmission cannot open the thin body without over-opening the thick one (W46 G1, 2026-10-06)
+
+*Closed at the finding by the user's ruling (W46 charter Decision Log 10; claims §5.209 §4; Deferred 2).*
+
+W46 refit the dark 0.25 transmission and scatter on the existing bed. The fit landed on active
+`tintAlpha` 0.7. It halved C rest (0.390 → 0.171 at 1x, 0.538 → 0.238 at 2x), but it broke the
+landing rule's budget: 16 and 17 cells away beyond B, 8 and 10 beyond 3B. The overshoots lead with
+thick fine and text rest cells (`checkerboard-8__rrect-lg__rest` 12.3 B, `hc-text__rrect-lg__rest`
+10.4 B), a visible over-texturing of large panels over fine detail and text. E2 fails on 61 rest
+cells, `checkerboard-8` rest up to +12.9 codes.
+
+The median T1 ratio on the WebGPU rest gate cells shows why:
+- At 0.7 the thin spans are still under Apple: C ×0.94 / ×0.85, P ×0.58 / ×0.53.
+- The thick spans were at or over Apple already at 0.9 (C ×0.90 / ×0.77) and overshoot at 0.7
+  (C ×1.26 / ×1.66, T ×2.16 / ×2.04).
+
+No stage-1 point at 0.8 or 0.7, among 1,347, keeps even the rest cells inside the budget. The 280
+in-budget points at 0.9 halve nothing.
+
+The shape of the fix: `optics.regular.tintAlpha` graded on the span, as W45 graded the second tap's
+share. It would sit below 0.7 at the thin spans and at 0.9 or above at 128–160, and land inert with
+its own separating ladder on the thin and thick rest cells. The dark 0.25 holdout and W46's referees
+are unspent for this purpose. G1's point A is a measured starting point for the receded side: its
+scatter dilutes the impulse dot so that L1 passes at receded 0.8.
+
+## W46's `declare.py` carries a content-amendment form beside the pins-only one (W46 G1, 2026-10-05)
+
+*A note, not debt (claims §5.209 §2).*
+
+W46 G0's `declare.py` was ported pins-only: an amendment could re-pin moved sources and change
+nothing else. Decision Log 9 needed a content change, so G1 added W44 G1's and W45 G0's form to
+part 2. The form has ops recomputed from the hashed body, the ruling verbatim, and part-1 tool moves
+bound into part 2's own `sources` and hash chain. The next wave's port should start from this form
+rather than rediscover it. The pins-only form remains the only one part 1 accepts.

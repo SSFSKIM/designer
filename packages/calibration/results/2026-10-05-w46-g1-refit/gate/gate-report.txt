@@ -1,0 +1,217 @@
+== point A: d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0
+hashed rule: NEITHER: closes at the finding
+  1x: NEITHER: closes at the finding; budget FAILS (16 away > B, 8 > 3B); partition {'unchanged': 10, 'toward': 39, 'away': 17}
+    hashed target P          A 0.4951 ref 0.8792 halved False (9 cells)
+    hashed target C rest     A 0.1712 ref 0.39 halved True (28 cells)
+    hashed target F inactive A 0.5196 ref 0.9169 halved False (2 cells)
+    DL8 P rest                             A 0.4112 ref 0.6021 halved False (4)
+    DL8 C rest                             A 0.1712 ref 0.39 halved True (28)
+    DL8 F inactive (reported, not gated)   A 0.5196 ref 0.9169 halved False (2)
+    group F rest       A 0.3131 ≤ 0.4068 (ref 0.358 + τ 0.0488) gated holds
+    group F inactive   A 0.5196 ≤ 1.05 (ref 0.9169 + τ 0.1331) reported holds
+    group T rest       A 0.6434 ≤ 0.4016 (ref 0.3491 + τ 0.0525) gated FAILS
+    group C rest       A 0.1712 ≤ 0.4197 (ref 0.39 + τ 0.0297) gated holds
+    group C inactive   A 0.3903 ≤ 0.6625 (ref 0.5849 + τ 0.0776) gated holds
+    group P rest       A 0.4112 ≤ 0.6373 (ref 0.6021 + τ 0.0353) gated holds
+    group P inactive   A 0.7725 ≤ 1.2279 (ref 1.1926 + τ 0.0353) gated holds
+    away beyond B: checkerboard-8__rrect-lg__rest 12.27 B
+    away beyond B: hc-text__rrect-lg__rest 10.38 B
+    away beyond B: checkerboard-8__rrect-md__rest 10.26 B
+    away beyond B: hc-text-7__rrect-lg__rest 6.46 B
+    away beyond B: checkerboard-lc16__rrect-md__rest 4.57 B
+    away beyond B: checkerboard-lc16__rrect-ml__rest 3.55 B
+    away beyond B: checkerboard__rrect-md__rest 3.22 B
+    away beyond B: hc-text-28__rrect-lg__rest 3.05 B
+    away beyond B: impulse__rrect-lg__inactive 2.9 B
+    away beyond B: checkerboard-lc16__rrect-lg__rest 2.8 B
+    away beyond B: checkerboard__capsule-button__inactive-tint-orange 1.87 B
+    away beyond B: hc-text__rrect-lg__inactive 1.7 B
+    away beyond B: checkerboard__capsule-button__inactive 1.57 B
+    away beyond B: impulse__capsule-button__rest 1.47 B
+    away beyond B: impulse__rrect-ml__inactive 1.44 B
+    away beyond B: checkerboard-4__rrect-lg__rest 1.07 B
+  2x: NEITHER: closes at the finding; budget FAILS (17 away > B, 10 > 3B); partition {'unchanged': 9, 'toward': 39, 'away': 18}
+    hashed target P          A 0.6479 ref 0.9652 halved False (9 cells)
+    hashed target C rest     A 0.2384 ref 0.5377 halved True (28 cells)
+    hashed target F inactive A 0.5808 ref 0.9824 halved False (2 cells)
+    DL8 P rest                             A 0.4613 ref 0.7997 halved False (4)
+    DL8 C rest                             A 0.2384 ref 0.5377 halved True (28)
+    DL8 F inactive (reported, not gated)   A 0.5808 ref 0.9824 halved False (2)
+    group F rest       A 0.4103 ≤ 0.5086 (ref 0.4323 + τ 0.0763) gated holds
+    group F inactive   A 0.5808 ≤ 1.1282 (ref 0.9824 + τ 0.1458) reported holds
+    group T rest       A 0.8594 ≤ 0.877 (ref 0.7897 + τ 0.0874) gated holds
+    group C rest       A 0.2384 ≤ 0.5639 (ref 0.5377 + τ 0.0262) gated holds
+    group C inactive   A 0.334 ≤ 0.6336 (ref 0.5573 + τ 0.0763) gated holds
+    group P rest       A 0.4613 ≤ 0.8342 (ref 0.7997 + τ 0.0345) gated holds
+    group P inactive   A 0.6918 ≤ 1.1798 (ref 1.1443 + τ 0.0354) gated holds
+    away beyond B: checkerboard-8__rrect-lg__rest 11.16 B
+    away beyond B: hc-text__rrect-lg__rest 9.05 B
+    away beyond B: hc-text-28__rrect-lg__rest 7.76 B
+    away beyond B: hc-text-7__rrect-lg__rest 6.17 B
+    away beyond B: checkerboard-32__rrect-lg__rest 5.12 B
+    away beyond B: checkerboard-lc16__rrect-md__rest 3.77 B
+    away beyond B: checkerboard-lc16__rrect-ml__rest 3.75 B
+    away beyond B: checkerboard__capsule-button__inactive 3.59 B
+    away beyond B: impulse__rrect-ml__inactive 3.56 B
+    away beyond B: impulse__rrect-lg__inactive 3.55 B
+    away beyond B: checkerboard__capsule-button__inactive-tint-orange 2.87 B
+    away beyond B: checkerboard-lc16__rrect-lg__rest 2.79 B
+    away beyond B: checkerboard-4__rrect-ml__rest 2.29 B
+    away beyond B: hc-text__rrect-lg__inactive 2.27 B
+    away beyond B: checkerboard-4__rrect-lg__rest 2.18 B
+    away beyond B: checkerboard-4__rrect-md__rest 2.05 B
+    away beyond B: checkerboard__rrect-md__inactive 1.49 B
+  rows:
+    tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu      PASS
+    tables apple-macos-27.0-1x-dark-standard-glass0.25 css         PASS
+    tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu      PASS
+    tables apple-macos-27.0-2x-dark-standard-glass0.25 css         PASS
+    tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu     PASS
+    tables apple-macos-27.0-1x-light-standard-glass0.25 css        MISS
+    tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu     PASS
+    tables apple-macos-27.0-2x-light-standard-glass0.25 css        PASS
+    M1 webgpu (GATED)                                              PASS
+    M1 css (descriptive)                                           MISS
+    M2 webgpu (GATED)                                              NAMED MISSES
+    M2 css (descriptive)                                           FAIL
+    C1 webgpu (GATED)                                              PASS
+    C1 css (descriptive)                                           MISS
+    L1 webgpu (GATED)                                              PASS, 4 UNMEASURED
+    L1 css (descriptive)                                           MISS
+    X1 webgpu (GATED)                                              PASS
+    X1 css (descriptive)                                           MISS
+    E2 webgpu (GATED)                                              MISS
+    E2 css (descriptive)                                           MISS
+    S1 webgpu (GATED)                                              UNMEASURED
+    S1 css (GATED)                                                 UNMEASURED
+    T1 webgpu (GATED)                                              NEITHER: closes at the finding
+    T1 css (descriptive)                                           read (tier residual)
+    W46 rule (T1, dark 0.25 WebGPU, per profile)                   NEITHER: closes at the finding
+    L1 max {'error': 0.0505, 'growth': 0.0045}; misses []
+    S1 medians {'apple-macos-27.0-1x-dark-standard-glass0.25': {'cells': 15, 'median': 0.36719826137215356}, 'apple-macos-27.0-2x-dark-standard-glass0.25': {'cells': 12, 'median': 0.32133920533194316}, 'apple-macos-27.0-1x-light-standard-glass0.25': {'cells': 76, 'median': 0.9844349352184213}, 'apple-macos-27.0-2x-light-standard-glass0.25': {'cells': 67, 'median': 0.9846820834187646}}
+  CSS T1 (gate cells, median web/native; reference's beside):
+    1x C inactive        n=14  ×0.611 (d0219 ×0.5613) away 2 toward 4
+    1x C rest            n=28  ×0.6136 (d0219 ×0.2432) away 0 toward 22
+    1x F inactive        n=2   ×0.797 (d0219 ×0.8385) away 0 toward 0
+    1x F rest            n=10  ×0.181 (d0219 ×0.1551) away 0 toward 2
+    1x P inactive        n=5   ×0.3322 (d0219 ×0.213) away 0 toward 3
+    1x P rest            n=4   ×0.4643 (d0219 ×0.2702) away 0 toward 3
+    1x T rest            n=3   ×0.5598 (d0219 ×0.2615) away 0 toward 2
+    2x C inactive        n=14  ×0.6899 (d0219 ×0.6284) away 2 toward 5
+    2x C rest            n=28  ×0.5299 (d0219 ×0.252) away 0 toward 19
+    2x F inactive        n=2   ×1.229 (d0219 ×1.4177) away 0 toward 0
+    2x F rest            n=10  ×0.2264 (d0219 ×0.1795) away 0 toward 2
+    2x P inactive        n=5   ×0.4465 (d0219 ×0.2595) away 0 toward 4
+    2x P rest            n=4   ×0.9216 (d0219 ×0.2409) away 0 toward 2
+    2x T rest            n=3   ×0.6648 (d0219 ×0.3608) away 0 toward 2
+== point B: d-s2-rta0.8-rs214-rh10.25-re20.04-rk10.3-rk20.04-rn11-rn21-rg0
+hashed rule: NEITHER: closes at the finding
+  1x: NEITHER: closes at the finding; budget FAILS (18 away > B, 13 > 3B); partition {'unchanged': 8, 'toward': 40, 'away': 18}
+    hashed target P          A 0.4951 ref 0.8792 halved False (9 cells)
+    hashed target C rest     A 0.1712 ref 0.39 halved True (28 cells)
+    hashed target F inactive A 0.6808 ref 0.9169 halved False (2 cells)
+    DL8 P rest                             A 0.4112 ref 0.6021 halved False (4)
+    DL8 C rest                             A 0.1712 ref 0.39 halved True (28)
+    DL8 F inactive (reported, not gated)   A 0.6808 ref 0.9169 halved False (2)
+    group F rest       A 0.3131 ≤ 0.4068 (ref 0.358 + τ 0.0488) gated holds
+    group F inactive   A 0.6808 ≤ 1.05 (ref 0.9169 + τ 0.1331) reported holds
+    group T rest       A 0.6434 ≤ 0.4016 (ref 0.3491 + τ 0.0525) gated FAILS
+    group C rest       A 0.1712 ≤ 0.4197 (ref 0.39 + τ 0.0297) gated holds
+    group C inactive   A 0.5544 ≤ 0.6625 (ref 0.5849 + τ 0.0776) gated holds
+    group P rest       A 0.4112 ≤ 0.6373 (ref 0.6021 + τ 0.0353) gated holds
+    group P inactive   A 0.7309 ≤ 1.2279 (ref 1.1926 + τ 0.0353) gated holds
+    away beyond B: checkerboard-8__rrect-lg__rest 12.27 B
+    away beyond B: impulse__rrect-ml__inactive 10.45 B
+    away beyond B: hc-text__rrect-lg__rest 10.38 B
+    away beyond B: checkerboard-8__rrect-md__rest 10.26 B
+    away beyond B: impulse__rrect-lg__inactive 7.6 B
+    away beyond B: impulse__capsule-button__inactive 7.46 B
+    away beyond B: hc-text__rrect-sm__inactive 6.91 B
+    away beyond B: hc-text-7__rrect-lg__rest 6.46 B
+    away beyond B: checkerboard-lc16__rrect-md__rest 4.57 B
+    away beyond B: checkerboard-lc16__rrect-ml__rest 3.55 B
+    away beyond B: checkerboard__rrect-md__rest 3.22 B
+    away beyond B: hc-text-28__rrect-lg__rest 3.05 B
+    away beyond B: checkerboard-lc16__capsule-button__inactive 3.05 B
+    away beyond B: checkerboard-lc16__rrect-lg__rest 2.8 B
+    away beyond B: hc-text__rrect-lg__inactive 1.98 B
+    away beyond B: checkerboard__capsule-button__inactive-tint-orange 1.7 B
+    away beyond B: impulse__capsule-button__rest 1.47 B
+    away beyond B: checkerboard-4__rrect-lg__rest 1.07 B
+  2x: NEITHER: closes at the finding; budget FAILS (20 away > B, 13 > 3B); partition {'unchanged': 9, 'toward': 36, 'away': 21}
+    hashed target P          A 0.6479 ref 0.9652 halved False (9 cells)
+    hashed target C rest     A 0.2384 ref 0.5377 halved True (28 cells)
+    hashed target F inactive A 0.5808 ref 0.9824 halved False (2 cells)
+    DL8 P rest                             A 0.4613 ref 0.7997 halved False (4)
+    DL8 C rest                             A 0.2384 ref 0.5377 halved True (28)
+    DL8 F inactive (reported, not gated)   A 0.5808 ref 0.9824 halved False (2)
+    group F rest       A 0.4103 ≤ 0.5086 (ref 0.4323 + τ 0.0763) gated holds
+    group F inactive   A 0.5808 ≤ 1.1282 (ref 0.9824 + τ 0.1458) reported holds
+    group T rest       A 0.8594 ≤ 0.877 (ref 0.7897 + τ 0.0874) gated holds
+    group C rest       A 0.2384 ≤ 0.5639 (ref 0.5377 + τ 0.0262) gated holds
+    group C inactive   A 0.4298 ≤ 0.6336 (ref 0.5573 + τ 0.0763) gated holds
+    group P rest       A 0.4613 ≤ 0.8342 (ref 0.7997 + τ 0.0345) gated holds
+    group P inactive   A 0.6918 ≤ 1.1798 (ref 1.1443 + τ 0.0354) gated holds
+    away beyond B: impulse__capsule-button__inactive 15.09 B
+    away beyond B: checkerboard-8__rrect-lg__rest 11.16 B
+    away beyond B: hc-text__rrect-lg__rest 9.05 B
+    away beyond B: hc-text-28__rrect-lg__rest 7.76 B
+    away beyond B: checkerboard__capsule-button__inactive-tint-orange 6.71 B
+    away beyond B: hc-text__rrect-sm__inactive 6.51 B
+    away beyond B: hc-text-7__rrect-lg__rest 6.17 B
+    away beyond B: checkerboard-32__rrect-lg__rest 5.12 B
+    away beyond B: checkerboard__capsule-button__inactive 4.49 B
+    away beyond B: checkerboard-lc16__rrect-md__rest 3.77 B
+    away beyond B: checkerboard-lc16__rrect-ml__rest 3.75 B
+    away beyond B: impulse__rrect-ml__inactive 3.56 B
+    away beyond B: impulse__rrect-lg__inactive 3.55 B
+    away beyond B: checkerboard-lc16__capsule-button__inactive 2.88 B
+    away beyond B: checkerboard-lc16__rrect-lg__rest 2.79 B
+    away beyond B: checkerboard-4__rrect-ml__rest 2.29 B
+    away beyond B: hc-text__rrect-lg__inactive 2.27 B
+    away beyond B: checkerboard-4__rrect-lg__rest 2.18 B
+    away beyond B: checkerboard-4__rrect-md__rest 2.05 B
+    away beyond B: checkerboard__rrect-md__inactive 1.49 B
+  rows:
+    tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu      PASS
+    tables apple-macos-27.0-1x-dark-standard-glass0.25 css         PASS
+    tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu      PASS
+    tables apple-macos-27.0-2x-dark-standard-glass0.25 css         PASS
+    tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu     PASS
+    tables apple-macos-27.0-1x-light-standard-glass0.25 css        MISS
+    tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu     PASS
+    tables apple-macos-27.0-2x-light-standard-glass0.25 css        PASS
+    M1 webgpu (GATED)                                              PASS
+    M1 css (descriptive)                                           MISS
+    M2 webgpu (GATED)                                              NAMED MISSES
+    M2 css (descriptive)                                           FAIL
+    C1 webgpu (GATED)                                              PASS
+    C1 css (descriptive)                                           MISS
+    L1 webgpu (GATED)                                              MISS
+    L1 css (descriptive)                                           MISS
+    X1 webgpu (GATED)                                              PASS
+    X1 css (descriptive)                                           MISS
+    E2 webgpu (GATED)                                              MISS
+    E2 css (descriptive)                                           MISS
+    S1 webgpu (GATED)                                              UNMEASURED
+    S1 css (GATED)                                                 UNMEASURED
+    T1 webgpu (GATED)                                              NEITHER: closes at the finding
+    T1 css (descriptive)                                           read (tier residual)
+    W46 rule (T1, dark 0.25 WebGPU, per profile)                   NEITHER: closes at the finding
+    L1 max {'error': 0.0859, 'growth': 0.0412}; misses [{'cell': 'apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive', 'error': 0.0795, 'growth': 0.0384}, {'cell': 'apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive', 'error': 0.0859, 'growth': 0.0412}, {'cell': 'apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive', 'error': 0.0795, 'growth': 0.0384}, {'cell': 'apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive', 'error': 0.0859, 'growth': 0.0412}]
+    S1 medians {'apple-macos-27.0-1x-dark-standard-glass0.25': {'cells': 15, 'median': 0.36719826137215356}, 'apple-macos-27.0-2x-dark-standard-glass0.25': {'cells': 12, 'median': 0.32133920533194316}, 'apple-macos-27.0-1x-light-standard-glass0.25': {'cells': 76, 'median': 0.9844349352184213}, 'apple-macos-27.0-2x-light-standard-glass0.25': {'cells': 67, 'median': 0.9846820834187646}}
+  CSS T1 (gate cells, median web/native; reference's beside):
+    1x C inactive        n=14  ×0.9048 (d0219 ×0.5613) away 2 toward 7
+    1x C rest            n=28  ×0.6136 (d0219 ×0.2432) away 0 toward 22
+    1x F inactive        n=2   ×0.8339 (d0219 ×0.8385) away 0 toward 0
+    1x F rest            n=10  ×0.181 (d0219 ×0.1551) away 0 toward 2
+    1x P inactive        n=5   ×0.3526 (d0219 ×0.213) away 0 toward 4
+    1x P rest            n=4   ×0.4643 (d0219 ×0.2702) away 0 toward 3
+    1x T rest            n=3   ×0.5598 (d0219 ×0.2615) away 0 toward 2
+    2x C inactive        n=14  ×0.7552 (d0219 ×0.6284) away 2 toward 5
+    2x C rest            n=28  ×0.5299 (d0219 ×0.252) away 0 toward 19
+    2x F inactive        n=2   ×1.229 (d0219 ×1.4177) away 0 toward 0
+    2x F rest            n=10  ×0.2264 (d0219 ×0.1795) away 0 toward 2
+    2x P inactive        n=5   ×0.4279 (d0219 ×0.2595) away 0 toward 4
+    2x P rest            n=4   ×0.9216 (d0219 ×0.2409) away 0 toward 2
+    2x T rest            n=3   ×0.6648 (d0219 ×0.3608) away 0 toward 2

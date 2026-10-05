@@ -48137,3 +48137,309 @@ the goldens were not re-run. W44's and W45's evidence is unedited.
   dot is the likely reading, not a measured one.
 - **A landing verdict on any ladder rung.** The ladders read levers; the rule reads the gate
   population.
+
+## 5.209 W46 G1: the step-0 diagnosis, part 2 amended once (Decision Log 9), the fit on two paths, the freeze-free gate on points A and B, closed at the finding (2026-10-05/06)
+
+Evidence directory: `results/2026-10-05-w46-g1-refit/` (its `README.txt` maps every file), on branch
+`w46-g1-refit` off `8881e9c24` (the charter v1.3 merge). Charter `2026-10-05-w46-dark-texture-at-0-25.md`
+v1.5: G1, Decision Logs 8–10, Deferred 1–2. **The user ruled "Close at the finding" on the gate report
+(Decision Log 10).** Nothing is sealed, staged in strict mode on dark bytes, exposed or published; no
+profile document, generation, runtime module or golden moved. The dark 0.25 holdout (seven scenes per
+scale) and W46's six referees per scale stay unspent for these bytes.
+
+### 1. Step 0: the receded impulse capsule's level rise is the transmission (Decision Log 8 item 1)
+
+G0's ladder (i) read `impulse__capsule-button__inactive`'s L1 level rising +0.0331 at receded 0.8 and
++0.0702 at 0.7 (1x), which G0's level check named `unexplained` (§5.208 §7). G1 rendered that one
+validation cell at 0.89, 0.8 and 0.7 on both dark profiles, in candidate mode from G0's committed
+candidates. The renders are byte-identical to G0's, and the shipped rung to the canonical tree. G1
+then attributed the change per pixel (`diagnosis/`).
+- **The cell's L1 mask is the dot.** The native silhouette over the impulse grid's black field is
+  only the white dot under the capsule: 16 px at 1x, 64 at 2x, backdrop 1.000 under it. Apple's
+  receded body is within the extractor's 0.02 of black everywhere else. The row recomputes from that
+  mask exactly. Apple passes the dot at 0.0139 / 0.0116; the shipped body passes it at 0.055 / 0.056.
+- **No stand-down acts.**
+  - The silhouette abscissa the renderer reports is encoded 0.003284 / 0.003287, above the black
+    branch's 0.003 join, so its weight is 0.
+  - `toneAdapt` is 0, and the solved neutral (0.0144 → 0.0136) is not clamped.
+  - The authority is 0.707 / 0.710 at every rung and only scales the solve term, which is uniform
+    over the surface: −0.0015 at 0.8, −0.0032 at 0.7.
+- **The rise is Δ(1 − α′)·b_px over the dot.** b ≈ 0.386 / 0.398, the dot after vitrea's scatter.
+  The transmission term is +0.0346 / +0.0357 at 0.8 against measured +0.0331 / +0.0342. Recovering
+  b_px from the shipped render predicts both moved rungs within 2.0 codes everywhere in the drawn
+  interior (p99 1.2). The effect is linear, about +0.367 per unit of (0.89 − a) at 1x, which also
+  predicts G0's 0.6 and 0.5 rungs to 4e-4.
+
+The parent ruled on it as Decision Log 9: part 2 amended once and finally, the receded grid {0.8,
+0.89}, and stage 2 reporting point A (no exception) and point B (the cell's miss named).
+
+### 2. G1's tooling (Decision Log 8 item 4) and part 2's amendment (Decision Log 9)
+
+- `holdout-configuration/configuration.py`'s referee witness admits `w46-referees-1` beside W44's
+  `w44-referees-*`, with its refusal and records unchanged (`test_configuration.py`, 5 cases).
+  Unused, since read 8 did not happen.
+- `stage/x60-light.py` declares the light strict-mode stage that proves X60 by render (§7).
+- `seal.ts` records the scale-separable reading: the point's `summary.json` and each scale
+  renderer's `cuts-<s>x.json.gz` by hash (`test_seal` 12).
+- **The content amendment.** W46's `declare.py` knew only pins-only amendments, so Decision Log 9 is
+  carried in W44 G1's and W45 G0's content form.
+  - The record carries the ruling verbatim and the charter at `d00d9de6c`.
+  - Its four `ops` are recomputed by `check-fit` from the hashed body: the receded grid [0.8, 0.89];
+    the draft's receded scatter family re-added to stage 2 with the ruling as its target (F inactive
+    stays named not fitted); the family order; and the two-point protocol.
+  - The four part-2 pins it moves are fit.py, search.py, joint.py and seal.ts.
+  - It records eleven part-1 moves. Part 1's check accepts a moved part-1 pin only along the
+    recorded move AND at the bytes the amended part 2 pins in its own `sources`, inside its hash chain.
+- **The protocol** (`search.py` `stage_points`). There are three branches. A89 and A80 admit only
+  points with no measured L1 miss in the stage's pose. B at 0.8 exempts the one cell. A step with no
+  admissible point is steered to the least summed L1 excess. A is the better landed A branch, and
+  B is recorded with the cell's numbers. `joint.py` closes both points.
+- **Review before the amendment.** `doperpowers:reviewer-medium` read the tools first and found two
+  P1s, both fixed before the amendment was spent: joint.py mistook a `decide` record's `points` list
+  for the A/B map, and part-1 tool moves were not bound into a hash.
+- **The amendment.** Part 2 is now `ac642fea4637995c8901aa0f096769516b629273cca187b01b3754385043df55`,
+  superseding `5dca38e0…`. The chain rebuilds the superseded hash, `check` and `check-fit` are
+  consistent, and a further `amend-fit` refuses (`amendment/`). The parent confirmed this execution
+  at Decision Log 10.
+
+### 3. The search (step 2)
+
+**Step 1.** `d0219cd684bf` (with `ebc3d9105a4a`) was cut by W46's tools. The cut is identical to
+G0's rehearsal cut (`references/`). The rule reads `d0219cd684bf` alone, so W43's pre-fit render was
+not needed.
+
+**Stage 1** (the active document). The points read were:
+- **1,347 points**: the factorial of tintAlpha {0.7, 0.8, 0.9} × 1x floor (5) × 2x floor (4) × 1x
+  heavy tap (4) × 2x heavy tap (5), 1,200 points, rendered scale-separably;
+- then 19 points for the thin starts and the gain;
+- then 128 for the second tap's share × 1x and 2x widths, with its far delta.
+
+It landed on **active tintAlpha 0.7 with every scatter leaf at the snapshot's value**, moving the stage
+objective 0.572 → 0.292. L1 at rest passes, at max error 0.0505 and growth +0.0045.
+
+**Stage 2** (the receded, from the materialised stage base). 395 distinct points over the three branches:
+
+| branch | receded tintAlpha | visited (admissible) | landed | objective |
+| --- | --- | --- | --- | --- |
+| A89 | 0.89 | 117 (92) | 1x heavy tap 8, gain 0 | 0.656 |
+| A80 | 0.8, steered | 166 (81) | thin starts 0.4 / 0.4, 1x floor 0.5, thick 1x 0.15, gain 0 | 0.544 |
+| B | 0.8, the cell exempt | 117 (117) | gain 0, the rest at the start | 0.741 |
+
+**Point A is A80's landed point. It passes L1 at receded 0.8 with no exception**: the receded scatter
+dilutes the scattered dot. At A, `impulse__capsule-button__inactive` reads error 0.043 / 0.039 and
+growth +0.0017 / −0.0053. At B it reads error 0.080 / 0.086 against 0.055 and growth +0.038 /
++0.041 against 0.005, and B is worse on the objective. B's sweep, unsteered, stayed near its start; A80's
+steering found the region a coordinate sweep from 0.89 or from B's start did not. `joint.py` reads no
+stage undoing the other for either point.
+
+Launches: 407 fit launches, 406 exit 0. The one exit 3 was the census refusing while another
+session drove the user's Chrome through Playwright for about 75 minutes. That is working as
+intended: `fit/drive.py` reran the pinned search after the census cleared and kept the refused log.
+2,170 builds; G1's own census log 439 observations, 3 refusals.
+
+**The points** (candidate digests, never shipped; the light endpoints are the snapshots `3741b229…` /
+`c4ca0e1c…`):
+- A: active `ba1ab4ef73bfe228`, receded `1a2c804a11e632ba`
+  (`d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0`);
+- B: active `ba1ab4ef73bfe228`, receded `db8096ee8321caad`
+  (`d-s2-rta0.8-rs214-rh10.25-re20.04-rk10.3-rk20.04-rn11-rn21-rg0`).
+
+### 4. The gate, freeze-free (step 5; Decision Log 9)
+
+Decision Log 9 puts the freeze after the gate report, so the gate is read in candidate mode
+(`gate/gate.py`). For each point it rendered the 104 non-withheld dark scenes per scale and the light
+profiles' 138, both tiers, one capture tree per scale so the CSS rows read their WebGPU twin. It then
+cut them against `d0219cd684bf`. The control, the shipped point rendered the same way, reproduces
+the published rows and captures byte for byte on both tiers. So candidate mode reads what a
+strict-mode stage would. No withheld cell was rendered.
+
+**The rule** (WebGPU, per profile, gate partition; A, with B's differences after):
+
+| group | 1x A (d0219) | 2x A (d0219) |
+| --- | --- | --- |
+| C rest (target) | **0.171** (0.390), halved | **0.238** (0.538), halved |
+| P rest (target, DL8 item 1) | 0.411 (0.602), not halved | 0.461 (0.800), not halved |
+| P pooled (hashed target) | 0.495 (0.879), not halved | 0.648 (0.965), not halved |
+| F inactive (reported, DL8 item 2) | 0.520 (0.917) | 0.581 (0.982) |
+| F rest | 0.313 (0.358), holds | 0.410 (0.432), holds |
+| T rest | 0.643 (0.349), **fails** (bound 0.402) | 0.859 (0.790), holds |
+| C inactive | 0.390 (0.585), holds | 0.334 (0.557), holds |
+| P inactive | 0.773 (1.193), holds | 0.692 (1.144), holds |
+| away beyond B / beyond 3B | **16 / 8** | **17 / 10** |
+| partition unchanged / toward / away | 10 / 39 / 17 | 9 / 39 / 18 |
+
+- **The cells away beyond B lead with the thick fine and text rest cells.** At 1x / 2x:
+  `checkerboard-8__rrect-lg__rest` 12.3 / 11.2 B, `hc-text__rrect-lg__rest` 10.4 / 9.1,
+  `checkerboard-8__rrect-md__rest` 10.3, `hc-text-7__rrect-lg__rest` 6.5 / 6.2,
+  `hc-text-28__rrect-lg__rest` 3.1 / 7.8, `checkerboard-32__rrect-lg__rest` 5.1 (2x), and the
+  `checkerboard-lc16` rest cells 2.8–4.6. Beside them are the inactive impulse cells 1.4–3.6.
+- **B.** At rest B is A. Inactive it adds `impulse__capsule-button__inactive` (7.5 / 15.1 B) and
+  `hc-text__rrect-sm__inactive` (6.9 / 6.5); its C inactive is 0.554 / 0.430.
+- **Verdict.** Both points read NEITHER under the hashed rule and under Decision Log 8's reading.
+
+**Why no declared point lands** (`gate/stage1-budget-reading.txt`, the budget read over every stage-1
+point's rest cells):
+- No point at tintAlpha 0.8 or 0.7 is inside it on the rest cells alone. The fewest away beyond B is
+  9 at 0.8 (5 beyond 3B) and 14 at 0.7.
+- 280 points at 0.9 are inside it. The best objective among them is 0.508, and none halves C rest
+  (1x 0.32–0.35 against 0.39; 2x 0.48 against 0.54) or moves P rest.
+- The median T1 ratios name the cause. At 0.7 the thin cells are still under Apple: C ×0.94 / ×0.85,
+  P ×0.58 / ×0.53. The thick cells were at or over Apple already at 0.9 (C ×0.90 / ×0.77, F ×1.12 /
+  ×1.17) and overshoot at 0.7 (C ×1.26 / ×1.66, T ×2.16 / ×2.04).
+- One uniform transmission cannot open the thin body without over-opening the thick one (Deferred 2).
+
+**The other rows at A:**
+- **L1:** passes (max error 0.0505, growth 0.0045; the four dark inactive dark-solid cells UNMEASURED
+  as before). B misses on the one cell.
+- **M1, C1, X1:** pass. C1's dark rows are unchanged and X1 has 0 failing.
+- **Tables:** the dark tables pass on both tiers. The light rows are identical to `ebc3d9105a4a` and
+  read as they did.
+- **M2:** eight NAMED misses, every one a photo cell moving toward native, +36 % to +108 % (2x
+  `photo__rrect-md__rest` 0.0151 → 0.0313 against native 0.0451).
+- **E2:** **MISS**, 61 rest cells failing against 0 at the reference. The mean change over all 276
+  cells is −0.30 codes, but `checkerboard-8` rest rises up to +12.9 codes and 32 failing cells
+  exceed one code.
+- **S1 dark** (read, not gated): medians 0.367 / 0.321 on the gate population, against 0.224 / 0.293
+  for the control on the same cells. That is the predicted direction. It reads the refit plus the
+  slider.
+- **The CSS tier** (descriptive) moves toward Apple on every stratum: C rest ×0.24 → ×0.61 at 1x,
+  2x P rest ×0.24 → ×0.92. Nothing washes out, so no CSS hold was needed. It has three descriptive L1
+  growth misses (light-solid capsule inactive +0.007 / +0.0066, 2x `photo__rrect-md__rest` +0.010)
+  and two M1 cell misses.
+
+**Sheets.** Native | d0219 | W46 | three differences ×16, over the 416 non-withheld dark cells per
+point. The pages are `~/vitrea-w46/g1-scratch/sheets/gate-{A,B}/` on the capture machine; they were
+sent to the MacBook as `w46-g1-gate-sheets.zip`.
+
+### 5. X60, and clause 8
+
+**X60 by render.** The light strict-mode stage (`~/vitrea-w46/g1-stage-x60-light`, the light
+profiles' 138 non-withheld scenes per scale, both tiers) reads IDENTICAL: 552 rows equal to
+`ebc3d9105a4a` but `capturedAt`, and 1,104 captures byte-identical. Every candidate's light endpoints
+are the snapshots.
+
+**Clause 8 at G1's close.** `freeze.py verify` reads 1,818 entries and X41 911. `declare.py check` and
+`check-fit` are consistent.
+
+### 6. What is not claimed
+
+- **Any landing, seal or publication.** Both points read NEITHER and the user closed the wave's fit
+  at the finding.
+- **Any holdout or referee reading.** Read 8 did not happen. The digests in §3 name candidates that
+  never shipped.
+- **That the receded scatter's dilution matches Apple's mechanism.** It closes the L1 cell, and F
+  inactive moves 43 % beside it. F inactive's two cells stay not within, and Deferred 1's operator is
+  still the route to them.
+- **That a span-graded transmission would land.** Deferred 2 is identified by the numbers above, not
+  tested.
+
+### 7. For the next wave
+
+- **What stays unspent.** The dark 0.25 holdout (seven scenes per scale) and W46's six referees per
+  scale are unspent for the bytes `d0219cd684bf` carries, so a W47 refit may read them once at its
+  own bytes.
+- **The operator's shape** (Deferred 2). `tintAlpha` graded on the span, as W45 graded the second
+  tap's share: below 0.7 at the thin spans, which want more transmission, and 0.9 or above at 128–160,
+  which overshoot at 0.7. It would land inert, with its own separating ladder on the thin and thick
+  rest cells. Point A's receded scatter is a measured starting point for the receded side.
+- **Tools.** W46's tools carry the content-amendment form, the two-point protocol and the
+  freeze-free gate. Their part hashes and bindings are W46's.
+
+## 5.210 W46 G2: T1 adopted in the owner test for the dark 0.25 profiles, 134 of their 154 cells named misses; W46 closes with no changeset (2026-10-06)
+
+Evidence directory: `results/2026-10-05-w46-g2-landing/`, on branch `w46-g2-landing` off G1's close
+(`fbf724b10`); the two branches merge together. Charter v1.5, Decision Logs 3 and 10. G1 closed at the
+finding (§5.209), so G2 is the record and T1's adoption on the dark scheme. Nothing ships:
+- no runtime change, generation, capture-tree move, demo change or changeset;
+- Decision Log 7's release does not happen.
+
+### 1. What is adopted
+
+The block repeats W44 G2's light adoption (§5.204) for the dark scheme, in its own `describe` in
+`packages/calibration/test/adopted-thresholds.test.ts`. The statistic, the strata, the arithmetic
+(`t1Classify`, `t1CodeStep`) and the bar file are the light block's.
+
+**What is dark's own** (declared beside `T1_DARK_GATED_PROFILES`):
+- **The population.** Every structured scene the two dark 0.25 profiles declare, in every set: 77
+  per profile, F 15, T 4, C 46, P 12.
+- **The reference.** Clause (b) reads `d0219cd684bf` / `f0b36a71772a` by hash. It is the current
+  dark generation, because G1 published nothing, so every cell reads `unchanged`. No regression is
+  authorised against it, and the next dark publication is the first thing the clause can stop.
+- **The partition labels.** W46's referee manifest (`w46-referees-1`), pinned by hash; it labels and
+  never selects.
+- **The T-band fixture.** `t1/t-bands-d0219cd684bf.json`, the 8 dark T cells' T1-fine and T1-low,
+  read off the canonical captures through W44 G1's pinned readers (`t1/bands.py`). It agrees with the
+  bands the gate's cut carries to 1e-12.
+- **The Python referee.** `t1/derive.py` (`t1-derivation.json`, `missed-27-rows.ts.txt`), and, inside
+  the test, G1's gate cut of `d0219cd684bf` by W46's cuts (pinned by hash). The port agrees with the
+  cut cell for cell (native, web and fidelity; a gate T cell on T1-fine), and the cut's W46 rule
+  reads 66 of 66 unchanged per profile.
+
+**Shared code edited:** `t1Cut` chooses the reference by scheme; the referee labels and the band
+fixtures are the union of both schemes' files; `t1GatedMisses` reads both schemes; the light
+block's two count assertions read their own entries. The dark profiles leave `T1_READ_PROFILES`.
+
+**The header's MATERIAL-axis argument** gains a paragraph:
+- *Not below quantisation*: the bar is 0.5 code from pixel-identical runs, and the dark fine
+  inactive cells sit about ten bars out.
+- *Not unidentifiable*: W46 G1's declared leaves moved dark C rest 0.390 → 0.171 and 0.538 → 0.238
+  on these rows.
+
+### 2. The named misses, at adoption
+
+134 of 154 cells miss and are named, 124 of the 144 outside the holdout (the grounding read's
+count). Ratio is web/native over the named misses:
+
+| profile | stratum | named / members | ratio range | median |
+| --- | --- | --- | --- | --- |
+| 1x dark 0.25 | F | 12 / 15 | ×0.33–×3.35 | ×0.80 |
+| 1x dark 0.25 | T (T1-fine) | 4 / 4 | ×0.24–×1.92 | ×1.08 |
+| 1x dark 0.25 | C | 40 / 46 | ×0.25–×7.20 | ×0.70 |
+| 1x dark 0.25 | P | 12 / 12 | ×0.22–×1.71 | ×0.28 |
+| 2x dark 0.25 | F | 12 / 15 | ×0.23–×3.60 | ×0.61 |
+| 2x dark 0.25 | T (T1-fine) | 2 / 4 | ×0.13–×0.33 | ×0.23 |
+| 2x dark 0.25 | C | 40 / 46 | ×0.26–×2.78, and one at ∞ | ×0.57 |
+| 2x dark 0.25 | P | 12 / 12 | ×0.21–×1.71 | ×0.28 |
+
+- **The one infinite ratio.** The 2x `impulse__capsule-button__inactive` entry reads `Infinity`. Its
+  measurement mask is the impulse dot (§5.209 §1), uniform in Apple's capture, so the native SD is
+  exactly 0. It misses on its absolute bound.
+- **By partition:** 1x gate 57 of 66, referee 6 of 6, holdout 5 of 5; 2x gate 56 of 66, referee 5 of
+  6, holdout 5 of 5.
+- **By set:** probe 95, calibration 21, holdout 10, validation 4, recorded 4.
+- **Why so many.** The row is adopted so that the dark fine pitches and photo keep a gated role, as
+  W44 did for light. The dark material misses them, and W46 G1's refit could not close them inside
+  its declared space (§5.209).
+
+**The dark CSS tier** is printed, not gated. Within / members, with the median |log|:
+- 1x: F 3/15 (1.15), T 0/4 (0.79), C 3/46 (1.17), P 0/12 (1.33);
+- 2x: F 2/15 (0.76), T 2/4 (0.49), C 4/46 (1.03), P 0/12 (1.17).
+
+### 3. The checks
+
+- The owner test, with `VITREA_WEB_CAPTURES` at the canonical tree: 160 pass of 160.
+- `pnpm --filter @vitrea/calibration test`: 62 files, 928 tests pass.
+- `pnpm -r build` and `pnpm -r lint`: exit 0.
+- `PREDICATE_EXCLUDES` is unchanged at the machine's output (no row moved).
+- The freeze reads 1,818 and X41 911.
+
+### 4. Review closure
+
+`doperpowers:reviewer-medium` reviewed the owner-test change (`5154df7c5`) and found one P2, fixed.
+- **What was wrong.** The cross-check against the gate's cut ran the port on the CURRENT union, so
+  it would have frozen every dark T1 value to `d0219cd684bf`'s within 1e-12. It rejected a 1e-8
+  move toward Apple that both clauses admit. It now runs the port on the reference generation's own
+  rows (`t1Cut`'s optional rows), and the current rows are governed by clauses (a) and (b) alone.
+- **What it confirmed.** By scratch red cases the block rejects an unnamed miss, a wrong recorded
+  value (`Infinity` included), a regression against the reference and a missing band entry. The
+  derivation and the eight band entries replay byte-identically, and the light block's T1 outputs
+  are byte-identical before and after.
+- **After the fix:** the owner test 160 of 160, @vitrea/calibration 928 of 928, lint 0, freeze
+  1,818, X41 911, and `declare.py check` and `check-fit` consistent.
+
+### 5. What is not claimed
+
+- **A change to any dark material.** The adopted rows are `d0219cd684bf`'s as published at W43 G3.
+- **A reading of the dark 0.25 holdout or referees at new bytes.** The holdout rows named here are the
+  published generation's, already read at W43 G3's exposure (read 6). The adoption reads them, as
+  W44's light adoption read c05's.

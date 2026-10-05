@@ -1,0 +1,54 @@
+census diagnosis i-r-0.8/2x: passes (10 annotated, refusals [])
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-2x-dark-standard-glass0.25 --renderer webgpu --candidate-document results/2026-10-05-w46-g0-declaration/ladders/candidates/i-r-0.8/candidate.json --set validation --scene impulse__capsule-button__inactive --alpha --write-partial --out-matrix /Users/new/vitrea-w46/g1-scratch/diagnosis/i-r-0.8/2x/matrix.json
+
+── web capture (apple-macos-27.0-2x-dark-standard-glass0.25, 1 scene(s)) ─────────────────────────────
+(node:10261) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/candidates/i-r-0.8/candidate.json declarationSha256=05ec30841de6 name=apple-macos-27.0-glass0.25-w46-i-r-0.8 glassTintAmount=0.25
+
+impulse__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w46/g1-scratch/diagnosis/i-r-0.8/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive/
+
+1 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (1 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w46/g1-scratch/diagnosis/i-r-0.8/2x/matrix.json (1 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+validation  2x-dark-standard-glass0.25    impulse__capsule-button__inactive             0.281   15.02   0.994   0.0025     —   /  —       0.0116/ 0.0905    0.0000/ 0.0183    0.0000/ 0.0000
+
+2x-dark-standard-glass0.25    validation  n= 1  IoU mean 0.2807 worst 0.2807   contour p95 mean 48.01 worst 48.01   SSIM mean 0.9942 worst 0.9942   dE mean 0.00245 worst 0.00245
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+2x-dark-standard-glass0.25    impulse__capsule-button__inactive               19468        19468  1.0000         0.00         0.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-dark-standard-glass0.25    impulse__capsule-button__inactive               0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 1 cell(s) across 1 scene(s): impulse__capsule-button__inactive. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CANDIDATE material document drawn on the web side: /Users/new/vitrea-w46/g1/packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/candidates/i-r-0.8/candidate.json
+web accessibility for apple-macos-27.0-2x-dark-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (4) ────────────
+  impulse__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__capsule-button__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 64 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  impulse__capsule-button__inactive: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+(node:10215) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

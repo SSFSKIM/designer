@@ -37,7 +37,7 @@
  */
 
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -126,6 +126,29 @@ const candidateSha = sha256(readFileSync(CANDIDATE));
 const spec = JSON.parse(readFileSync(join(FOLDER, "spec.json"), "utf8")) as {
   overrides?: Record<string, Record<string, Json>>;
 };
+
+/**
+ * The candidate's reading as the fit driver lays it out (W46 G1, charter Decision Log 8 item 4): a
+ * point is read SCALE-SEPARABLY (`fit/fit.py`), so its record is its composed `summary.json` and, per
+ * scale, the `cuts-<s>x.json.gz` of the scale twin that rendered that scale (named in the summary's
+ * `renderers`), never one `cuts.json.gz` beside the point. Each is recorded with its SHA-256. A
+ * candidate with no composed summary (G0's scratch rehearsals) records null; a summary naming a
+ * renderer whose cut is absent refuses.
+ */
+const reading = ((): Json => {
+  const summary = join(FOLDER, "summary.json");
+  if (!existsSync(summary)) return null;
+  const body = JSON.parse(readFileSync(summary, "utf8")) as { renderers?: Record<string, { label?: string }> };
+  const perScale: Record<string, Json> = {};
+  for (const scale of ["1x", "2x"]) {
+    const renderer = body.renderers?.[scale]?.label;
+    if (renderer === undefined) throw new Error(`${label}: its summary names no ${scale} renderer`);
+    const cut = join(ours(join(CANDIDATES, renderer), "the renderer"), `cuts-${scale}.json.gz`);
+    if (!existsSync(cut)) throw new Error(`${label}: its ${scale} renderer ${renderer} carries no cuts-${scale}.json.gz`);
+    perScale[scale] = { renderer, path: rel(cut), sha256: sha256(readFileSync(cut)) };
+  }
+  return { summary: { path: rel(summary), sha256: sha256(readFileSync(summary)) }, perScale };
+})();
 
 // The light endpoints: patch- and digest-identical to the light snapshots, files untouched (X60).
 for (const pose of ["active", "receded"] as const) {
@@ -258,7 +281,7 @@ for (const pose of ["active", "receded"] as const) {
       webCell: "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
       objective: "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its " +
         "search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-05-w46-g1-refit/fit/path/)",
-      cuts: `results/2026-10-05-w46-g1-refit/fit/candidates/${label}/cuts.json.gz`,
+      cuts: reading,
     },
     entries,
     patch,

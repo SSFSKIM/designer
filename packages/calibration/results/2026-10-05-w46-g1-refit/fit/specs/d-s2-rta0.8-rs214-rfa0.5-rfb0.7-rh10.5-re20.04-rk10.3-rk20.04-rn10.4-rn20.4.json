@@ -1,0 +1,42 @@
+{
+  "label": "d-s2-rta0.8-rs214-rfa0.5-rfb0.7-rh10.5-re20.04-rk10.3-rk20.04-rn10.4-rn20.4",
+  "note": "",
+  "stage": "stage2",
+  "family": "scatter",
+  "start": "d0219",
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.7,
+      "sizeScatterFloor": 0.34,
+      "sizeScatterFloor2x": 1,
+      "sizeHeavyTapSigma": 0,
+      "sizeHeavyTapSigma2x": 0,
+      "sizeScatterRampStartThin1x": 0.72,
+      "sizeScatterRampStartThin2x": 0.46,
+      "sizeScatterScaleGain": -2,
+      "sizeHeavySecondShare": 0,
+      "sizeHeavySecondSigma": 0,
+      "sizeHeavySecondSigma2x": 0,
+      "sizeHeavySecondShareFar2x": 0
+    },
+    "receded.dark": {
+      "sizeScatterRampStartFar1x": 0.2,
+      "sizeScatterFloor": 0.5,
+      "sizeScatterFloor2x": 0.7,
+      "sizeHeavyTapSigma": 0,
+      "sizeHeavySecondShare": 0,
+      "sizeHeavySecondShareFar2x": 0,
+      "sizeHeavySecondSigma": 0,
+      "sizeHeavySecondSigma2x": 0,
+      "sizeScatterScaleGain": -2,
+      "optics.regular.tintAlpha": 0.8,
+      "sizeScatterRampStartThin1x": 0.4,
+      "sizeScatterRampStartThin2x": 0.4,
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "sizeScatterHeavyShareThick1x": 0.5
+    }
+  }
+}

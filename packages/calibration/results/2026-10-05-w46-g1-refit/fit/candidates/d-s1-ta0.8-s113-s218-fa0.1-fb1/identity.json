@@ -1,0 +1,44 @@
+{
+  "label": "d-s1-ta0.8-s113-s218-fa0.1-fb1",
+  "holds": true,
+  "endpoints": {
+    "active.light": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "3741b22934f17f4d",
+      "snapshotDigest": "3741b22934f17f4d",
+      "snapshot": "ebc3d9105a4a.json",
+      "patchIdentical": true,
+      "digestIdentical": true
+    },
+    "active.dark": {
+      "moved": [
+        "optics.regular.tintAlpha",
+        "sizeHeavyTapSigma",
+        "sizeHeavyTapSigma2x",
+        "sizeScatterFloor",
+        "sizeScatterFloor2x"
+      ],
+      "undeclared": [],
+      "digest": "c4b81d66e13440cf",
+      "snapshotDigest": "b074fc6913a91c66",
+      "snapshot": "d0219cd684bf.json"
+    },
+    "receded.light": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "c4ca0e1cd6791bde",
+      "snapshotDigest": "c4ca0e1cd6791bde",
+      "snapshot": "12712d534b78.json",
+      "patchIdentical": true,
+      "digestIdentical": true
+    },
+    "receded.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "a9233225be8e7396",
+      "snapshotDigest": "280f0fddf014e0f6",
+      "snapshot": "f0b36a71772a.json"
+    }
+  }
+}

@@ -550,7 +550,7 @@ The named gaps at 0.25 (claims §5.201; tracker):
 - one tone function cannot follow Apple on both photo and thin checkers, so the light photo thin
   body reads +0.034/+0.044 too bright;
 - the dark scheme barely follows Apple's change (S1 medians 0.31);
-- the dark photo body is flat;
+- the dark photo body is flat (W46 refit the dark transmission and closed at the finding; below);
 - light receded checkers are over-structured (×2.1–2.2), and 2x fine checkers are drawn sharper
   than Apple's in both poses since `sizeScatterFloor2x` went 1.0 → 0.6 (narrowed by W45, below:
   the floor is 1 again on the WebGPU tier and four fine cells are within);
@@ -571,7 +571,8 @@ finding.**
     T1-low (the low-pass). The rows do not carry either band, so they come from
     `results/2026-10-03-w44-g2-landing/t1/t-bands.json`.
   - It is gated in `adopted-thresholds.test.ts` (W44 G2) on the WebGPU tier of the two light 0.25
-    profiles. The 169 of 232 cells that miss are named in `MISSED_27_ROWS`.
+    profiles. The 169 of 232 cells that miss are named in `MISSED_27_ROWS`. Since W46 G2 it is
+    also gated on the two dark 0.25 profiles, in their own block (below).
   - Its regression clause reads a reference generation named by hash, re-baselined at the gate
     that publishes the next one: c05 (`6d18c059eb42`) until W45 G2 moved it, last, to W45's.
 - **The referees.** Twelve probe cells, six per scale, are held out for the next refit by
@@ -631,6 +632,40 @@ finding.**
     light documents;
   - the demo's reference pair is held to the harness at 1x only, where W45 changed nothing, and the
     site offers no fine-checker scene.
+
+**W46 (§5.208–§5.210, 2026-10-05/06) refit the dark `-glass0.25` texture on the existing bed and
+closed at the finding; nothing shipped** (charter `2026-10-05-w46-dark-texture-at-0-25.md`, Decision
+Logs 9 and 10).
+- **Targets.** The flat photo body (P ×0.25–0.48), the under-structured rest checkers (C rest
+  ×0.54–0.76) and the over-structured receded fine cells (F inactive ×2.9–3.6). The grounding read
+  counted 124 of 144 non-holdout dark T1 cells missing.
+- **G0.** Declared the families: the transmission (`tintAlpha` with every tone ordinate held, since
+  the W9 solve already targets those composite levels), the rest scatter and the receded scatter.
+  The ladders found no lever for F inactive (Deferred 1, a receded-only fine-pitch term).
+- **G1 step 0.** The receded impulse capsule's L1 rise at receded 0.8 is the transmission of the
+  scattered impulse dot over that cell's 16 px L1 mask, not a solve stand-down. The parent amended
+  part 2 once (`ac642fea…`, a content amendment: the receded grid {0.8, 0.89}, the receded scatter
+  re-added, two points A and B).
+- **The fit.** Stage 1 (1,347 points) landed on active `tintAlpha` 0.7. Point A's receded scatter
+  diluted the dot, so L1 passes at receded 0.8 with no exception.
+- **The gate.** Read in candidate mode, freeze-free. Both points read NEITHER. C rest halves (0.390
+  → 0.171, 0.538 → 0.238), P rest does not (0.602 → 0.411, 0.800 → 0.461), and the budget fails at
+  16 / 17 cells beyond B (8 / 10 beyond 3B), led by the thick fine and text rest cells at 10–12 B.
+  E2 fails on 61 rest cells.
+- **Why nothing lands.** No stage-1 point at 0.8 or 0.7 keeps even the rest cells inside the budget,
+  and the in-budget 0.9 points halve nothing. One uniform transmission cannot open the thin body
+  without over-opening the thick one. **Deferred 2 is a span-graded dark transmission**, below 0.7
+  thin and 0.9 or above at 128–160, landed inert with its own ladder as W45's tap share was. The
+  user ruled "Close at the finding".
+- **Unspent.** The dark 0.25 holdout and W46's six referees per scale are unspent for any new dark
+  bytes.
+- **G2.** Adopted T1 for the two dark 0.25 profiles in their own block of the owner test, against
+  `d0219cd684bf` (the current dark generation, so nothing is authorised). Its inputs: W46's referee
+  manifest, a dark T-band fixture (`results/2026-10-05-w46-g2-landing/t1/`), and G1's gate cut as
+  the Python referee. 134 of 154 cells are named in `MISSED_27_ROWS`: 1x F 12/15, T 4/4, C 40/46,
+  P 12/12; 2x F 12/15, T 2/4, C 40/46, P 12/12.
+- **Tools.** W46's `declare.py` carries the content-amendment form, and its tools the two-point
+  protocol and the freeze-free candidate-mode gate (`results/2026-10-05-w46-g1-refit/gate/gate.py`).
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
