@@ -326,6 +326,56 @@ def select_best(tap: dict, body: dict) -> dict:
     return dict(label=None, overrides=None, why="no ladder (iii) rung holds the guards at both scales")
 
 
+def summarise(protocol: dict, rungs: list, per: dict, inapplicable: dict) -> tuple[dict, dict, dict]:
+    """(ladders, selections, operators) from the rungs read (`per`, label -> entry with its `bar`) and the
+    rungs a completed reading made inapplicable (label -> why). A ladder is COMPLETE when every rung is read
+    or inapplicable: when ladder (iii)'s width reading found no admissible width at a scale, the share rungs
+    that would sit at that width cannot be built, and the ladder is resolved without them, so `iii-best`
+    (operator 2's best rung, else the body width's, else none) and the declared decisions proceed —
+    body-width-first, or the tap named unfitted (reviewer-medium, W47 G0). A rung merely not yet read keeps
+    its ladder incomplete."""
+    ladders = {}
+    for lad in protocol["ladders"]:
+        labels = [x["label"] for x in lad["rungs"]]
+        read_ = [lab for lab in labels if lab in per]
+        ladders[lad["id"]] = dict(
+            complete=all(lab in per or lab in inapplicable for lab in labels), read=read_,
+            inapplicable=[lab for lab in labels if lab in inapplicable],
+            notRead=[lab for lab in labels if lab not in per and lab not in inapplicable],
+            meets=[lab for lab in read_ if per[lab]["bar"]["meets"]],
+            meetsAtOneScaleOnly=[lab for lab in read_ if per[lab]["bar"].get("meetsAt") and not per[lab]["bar"]["meets"]],
+            passingL1=[lab for lab in read_ if per[lab].get("level", {}).get("L1passes")] if lad["id"] == "i" else None)
+
+    chosen = {}
+    width = {r["label"]: r for r in rungs if r.get("ladder") == "iii" and r["label"].startswith("iii-s")}
+    if width and all(lab in per for lab in width):
+        by_w = {r["overrides"]["receded.dark"]["sizeFineTapSigma"]: per[lab]["bar"] for lab, r in width.items()}
+        chosen["iii-width-1x"] = select_width(by_w, 1)
+        chosen["iii-width-2x"] = select_width(by_w, 2)
+    iii_all = [r for r in rungs if r.get("ladder") == "iii"]
+    if iii_all and all(r["label"] in per or r["label"] in inapplicable for r in iii_all):
+        tap = {r["label"]: (r["overrides"]["receded.dark"], per[r["label"]]["bar"]) for r in iii_all
+               if "sizeFineTapShare" in r["overrides"].get("receded.dark", {}) and r["label"] in per}
+        body = {r["label"]: (r["overrides"]["receded.dark"], per[r["label"]]["bar"]) for r in iii_all
+                if "optics.regular.blurSigma" in r["overrides"].get("receded.dark", {}) and r["label"] in per}
+        chosen["iii-best"] = select_best(tap, body)
+
+    body_meets = [lab for lab in ladders.get("iii", {}).get("meets", []) if lab.startswith("iii-b")]
+    tap_meets = [lab for lab in ladders.get("iii", {}).get("meets", []) if not lab.startswith("iii-b")]
+    operators = {
+        "operator 1": dict(separates=bool(ladders["i"]["meets"]), complete=ladders["i"]["complete"],
+                           rungs=ladders["i"]["meets"], oneScaleOnly=ladders["i"]["meetsAtOneScaleOnly"]),
+        "2x width": dict(meets=bool(ladders["ii"]["meets"]), complete=ladders["ii"]["complete"],
+                         rungs=ladders["ii"]["meets"]),
+        "operator 2": dict(separates=bool(tap_meets), bodyWidthMeets=bool(body_meets),
+                           complete=ladders["iii"]["complete"], rungs=tap_meets, bodyRungs=body_meets,
+                           oneScaleOnly=ladders["iii"]["meetsAtOneScaleOnly"],
+                           inapplicable=ladders["iii"]["inapplicable"]),
+        "joint": dict(meets=bool(ladders["iv"]["meets"]), complete=ladders["iv"]["complete"]),
+    }
+    return ladders, chosen, operators
+
+
 # ---------------------------------------------------------------------------------------------------
 def main(scratch: Path | None = None, candidates: Path | None = None, rungs: list | None = None,
          out: Path | None = None, protocol: dict | None = None, x60: bool = True) -> int:
@@ -366,8 +416,11 @@ def main(scratch: Path | None = None, candidates: Path | None = None, rungs: lis
     rest_i = json.loads(W.LADDER_CELLS.read_text())["ladders"]["i"]["rest"]
     thick, thin = lad_i["reads"]["thick"], thin_cells(rest_i, pa)
 
-    per = {}
+    per, inapplicable = {}, {}
     for r in rungs[1:]:
+        if r.get("inapplicable") and not LADDER.waiting(r):
+            inapplicable[r["label"]] = r["inapplicable"]
+            continue
         why = LADDER.waiting(r) or r.get("unresolved")
         if why or not rendered(r["label"]):
             result["notRead"][r["label"]] = why or "not rendered"
@@ -391,47 +444,12 @@ def main(scratch: Path | None = None, candidates: Path | None = None, rungs: lis
             entry["bar"] = bar_iv(cells, pa)
         per[r["label"]] = entry
     result["rungs"] = per
-
-    for lad in protocol["ladders"]:
-        labels = [x["label"] for x in lad["rungs"]]
-        read_ = [lab for lab in labels if lab in per]
-        result["ladders"][lad["id"]] = dict(
-            complete=len(read_) == len(labels), read=read_, notRead=[lab for lab in labels if lab not in per],
-            meets=[lab for lab in read_ if per[lab]["bar"]["meets"]],
-            meetsAtOneScaleOnly=[lab for lab in read_ if per[lab]["bar"].get("meetsAt") and not per[lab]["bar"]["meets"]],
-            passingL1=[lab for lab in read_ if per[lab].get("level", {}).get("L1passes")] if lad["id"] == "i" else None)
-
-    chosen = {}
-    width = {r["label"]: r for r in rungs if r.get("ladder") == "iii" and r["label"].startswith("iii-s")}
-    if width and all(lab in per for lab in width):
-        by_w = {r["overrides"]["receded.dark"]["sizeFineTapSigma"]: per[lab]["bar"] for lab, r in width.items()}
-        chosen["iii-width-1x"] = select_width(by_w, 1)
-        chosen["iii-width-2x"] = select_width(by_w, 2)
-    iii_all = [r for r in rungs if r.get("ladder") == "iii"]
-    if iii_all and all(r["label"] in per or r.get("unresolved") for r in iii_all) and \
-            all(r["label"] in per for r in iii_all if not r["label"].startswith("iii-q")):
-        tap = {r["label"]: (r["overrides"]["receded.dark"], per[r["label"]]["bar"]) for r in iii_all
-               if "sizeFineTapShare" in r["overrides"].get("receded.dark", {}) and r["label"] in per}
-        body = {r["label"]: (r["overrides"]["receded.dark"], per[r["label"]]["bar"]) for r in iii_all
-                if "optics.regular.blurSigma" in r["overrides"].get("receded.dark", {})}
-        if all(r["label"] in per for r in iii_all):
-            chosen["iii-best"] = select_best(tap, body)
+    result["inapplicable"] = inapplicable
+    result["ladders"], chosen, result["operators"] = summarise(protocol, rungs, per, inapplicable)
     if chosen:
         (out / "selections.json").write_text(json.dumps(dict(
             schema="w47-ladder-selections-1", protocolSha256=result["protocolSha256"], selections=chosen), indent=1) + "\n")
     result["selections"] = chosen
-
-    lads = result["ladders"]
-    body_meets = [lab for lab in lads.get("iii", {}).get("meets", []) if lab.startswith("iii-b")]
-    tap_meets = [lab for lab in lads.get("iii", {}).get("meets", []) if not lab.startswith("iii-b")]
-    result["operators"] = {
-        "operator 1": dict(separates=bool(lads["i"]["meets"]), complete=lads["i"]["complete"], rungs=lads["i"]["meets"],
-                           oneScaleOnly=lads["i"]["meetsAtOneScaleOnly"]),
-        "2x width": dict(meets=bool(lads["ii"]["meets"]), complete=lads["ii"]["complete"], rungs=lads["ii"]["meets"]),
-        "operator 2": dict(separates=bool(tap_meets), bodyWidthMeets=bool(body_meets), complete=lads["iii"]["complete"],
-                           rungs=tap_meets, bodyRungs=body_meets, oneScaleOnly=lads["iii"]["meetsAtOneScaleOnly"]),
-        "joint": dict(meets=bool(lads["iv"]["meets"]), complete=lads["iv"]["complete"]),
-    }
     if x60:
         got = subprocess.run([sys.executable, "-B", str(EVIDENCE / "stage" / "x60.py"), "evidence",
                               "--out", str(out / "x60-evidence.json")], cwd=EVIDENCE / "stage", capture_output=True,
@@ -455,9 +473,12 @@ def report(r: dict) -> str:
                      + (f"; L1 {'passes' if e['level']['L1passes'] else 'FAILS'}" if "level" in e else ""))
     for lab, why in r["notRead"].items():
         lines.append(f"  not read {lab}: {why}")
+    for lab, why in r.get("inapplicable", {}).items():
+        lines.append(f"  inapplicable {lab}: {why}")
     lines.append("")
     for lad, v in r["ladders"].items():
-        lines.append(f"ladder ({lad}): {'complete' if v['complete'] else 'INCOMPLETE'}; meets {v['meets']}")
+        lines.append(f"ladder ({lad}): {'complete' if v['complete'] else 'INCOMPLETE'}; meets {v['meets']}"
+                     + (f"; inapplicable {v['inapplicable']}" if v.get("inapplicable") else ""))
     for name, v in r["operators"].items():
         lines.append(f"{name}: {json.dumps(v)}")
     for name, v in r.get("selections", {}).items():

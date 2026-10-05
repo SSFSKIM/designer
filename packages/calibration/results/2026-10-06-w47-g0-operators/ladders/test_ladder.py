@@ -169,7 +169,8 @@ class Phases(unittest.TestCase):
         self.assertEqual(rs["iv-joint"]["overrides"]["receded.dark"]["optics.regular.tintAlpha"], 0.8)
         none = {"iii-width-1x": {"value": None, "why": "no width rung holds the guards at 1x"}, "iii-width-2x": {"value": 2}}
         rs = {r["label"]: r for r in L.rungs(PROTO, chosen=none, resolve=True)}
-        self.assertIn("found no admissible value", rs["iii-q0.5"]["unresolved"])
+        self.assertIn("found no admissible value", rs["iii-q0.5"]["inapplicable"])     # read, and nothing admissible
+        self.assertNotIn("unresolved", rs["iii-q0.5"])
 
     def test_operator_rungs_wait_for_the_runtime(self):
         rs = {r["label"]: r for r in L.rungs(PROTO)}
@@ -246,6 +247,80 @@ class Bars(unittest.TestCase):
         b = R.bar_iv(cells, pa)
         self.assertEqual(b["meetsAt"], [1])                               # 0.44 >= 0.417 at 1x, < 0.460 at 2x
         self.assertTrue(R.point_a(PROTO)[(1, "photo__rrect-md__inactive")]["ratio"] > 0.41)
+
+
+class NoAdmissibleWidth(unittest.TestCase):
+    """The reviewer's scenario (reviewer-medium, W47 G0): every tap-width rung of ladder (iii) fails a guard
+    at 2x, so `iii-width-2x` is read with no admissible value and the share rungs cannot be built. They are
+    INAPPLICABLE, not pending: ladder (iii) completes without them, `iii-best` falls to the body width (or to
+    none), ladder (iv) resolves from it, and part 2's declared decision proceeds — body-width-first where a
+    body-width rung met its bar, the tap named unfitted where none did."""
+
+    @staticmethod
+    def cells(fall_codes, guard_drop_2x=0.0, guard_drop_1x=0.0):
+        out = {}
+        for s, drop in ((1, guard_drop_1x), (2, guard_drop_2x)):
+            for sid in R.FINE:
+                out[(s, sid)] = rd(0.01, 0.03, 0.03 - fall_codes / 255, s)
+            out[(s, R.GUARD[0])] = rd(0.10, 0.05, 0.05 - drop / 255, s)
+            out[(s, R.GUARD[1])] = rd(0.10, 0.04, 0.04, s)
+        return out
+
+    def read(self, body_meets, op1):
+        flat = dict(meets=False, meetsAt=[])
+        per = {}
+
+        def entry(r, bar, **extra):
+            per[r["label"]] = dict(ladder=r["ladder"], overrides=r["overrides"], cells={}, bar=bar, **extra)
+
+        rungs = L.rungs(PROTO, chosen={}, resolve=True)
+        for r in rungs[1:]:
+            if r["ladder"] == "i":
+                entry(r, dict(meets=op1, meetsAt=[1, 2] if op1 else []), level=dict(L1passes=True))
+            elif r["ladder"] == "ii":
+                entry(r, flat)
+            elif r["label"].startswith("iii-s"):                     # every width breaks a 2x guard (and,
+                entry(r, R.bar_iii(self.cells(1, guard_drop_2x=2)))  # under 3 B at 1x, meets at no scale)
+            elif r["label"].startswith("iii-b"):
+                entry(r, R.bar_iii(self.cells(3.5 if body_meets and r["label"] == "iii-b3" else 1)))
+        ladders, chosen, ops = R.summarise(PROTO, rungs, per, {})
+        self.assertIsNone(chosen["iii-width-2x"]["value"])
+        self.assertIsNotNone(chosen["iii-width-1x"]["value"])
+        self.assertFalse(ladders["iii"]["complete"])                 # the share rungs are not yet resolved
+
+        rungs = L.rungs(PROTO, chosen=chosen, resolve=True)
+        inapplicable = {r["label"]: r["inapplicable"] for r in rungs if r.get("inapplicable")}
+        self.assertEqual(sorted(inapplicable), ["iii-q0.25", "iii-q0.5", "iii-q0.75"])
+        ladders, chosen2, ops = R.summarise(PROTO, rungs, per, inapplicable)
+        self.assertTrue(ladders["iii"]["complete"])
+        self.assertEqual(ladders["iii"]["inapplicable"], ["iii-q0.25", "iii-q0.5", "iii-q0.75"])
+        best = chosen2["iii-best"]
+        self.assertTrue(best["label"].startswith("iii-b"), best)       # no tap rung holds both scales' guards
+        self.assertIn("body width", best["form"])
+
+        rungs = L.rungs(PROTO, chosen={**chosen, **chosen2}, resolve=True)
+        joint = next(r for r in rungs if r["label"] == "iv-joint")
+        self.assertNotIn("unresolved", joint)
+        self.assertEqual(joint["overrides"]["receded.dark"]["optics.regular.blurSigma"],
+                         best["overrides"]["receded.dark"]["optics.regular.blurSigma"])
+        entry(joint, flat)
+        ladders, _, ops = R.summarise(PROTO, rungs, per, inapplicable)
+        self.assertTrue(all(v["complete"] for v in ladders.values()), ladders)
+        return dict(rungs=per, ladders={k: dict(v, passingL1=v.get("passingL1")) for k, v in ladders.items()},
+                    operators=ops)
+
+    def test_body_width_first_proceeds(self):
+        results = self.read(body_meets=True, op1=False)
+        self.assertEqual(results["operators"]["operator 2"]["bodyRungs"], ["iii-b3"])
+        got = P2.changes_from(Part2.DRAFT, results, {})
+        self.assertIn(("body-width-first", "operator 2"), Part2.kinds(None, got))
+
+    def test_the_tap_is_named_unfitted(self):
+        results = self.read(body_meets=False, op1=True)
+        self.assertFalse(results["operators"]["operator 2"]["separates"])
+        self.assertFalse(results["operators"]["operator 2"]["bodyWidthMeets"])
+        got = P2.changes_from(Part2.DRAFT, results, {})
+        self.assertIn(("name-unfitted", "operator 2"), Part2.kinds(None, got))
 
 
 class Part2(unittest.TestCase):

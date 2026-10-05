@@ -5,7 +5,7 @@ test_ii_a_moved_1x_capture_voids_the_rung (test_read.Reader.test_ii_a_moved_1x_c
 test_the_control_is_identical (test_read.Reader.test_the_control_is_identical) ... ok
 
 ----------------------------------------------------------------------
-Ran 5 tests in 6.187s
+Ran 5 tests in 5.565s
 
 OK
 W47 G0 (g): the ladders read (protocol sha256 820059bd4086)
@@ -21,7 +21,7 @@ ladder (iii): INCOMPLETE; meets []
 ladder (iv): INCOMPLETE; meets []
 operator 1: {"separates": false, "complete": false, "rungs": [], "oneScaleOnly": []}
 2x width: {"meets": false, "complete": false, "rungs": []}
-operator 2: {"separates": false, "bodyWidthMeets": false, "complete": false, "rungs": [], "bodyRungs": [], "oneScaleOnly": []}
+operator 2: {"separates": false, "bodyWidthMeets": false, "complete": false, "rungs": [], "bodyRungs": [], "oneScaleOnly": [], "inapplicable": []}
 joint: {"meets": false, "complete": false}
 X60 by evidence: exit None
 

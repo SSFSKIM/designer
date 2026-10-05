@@ -2,6 +2,8 @@ test_i (test_ladder.Bars.test_i) ... ok
 test_ii (test_ladder.Bars.test_ii) ... ok
 test_iii_and_the_selections (test_ladder.Bars.test_iii_and_the_selections) ... ok
 test_iv (test_ladder.Bars.test_iv) ... ok
+test_body_width_first_proceeds (test_ladder.NoAdmissibleWidth.test_body_width_first_proceeds) ... ok
+test_the_tap_is_named_unfitted (test_ladder.NoAdmissibleWidth.test_the_tap_is_named_unfitted) ... ok
 test_a_ladder_ii_conditional_leaf_is_struck_when_ladder_ii_did_not_meet_its_bar (test_ladder.Part2.test_a_ladder_ii_conditional_leaf_is_struck_when_ladder_ii_did_not_meet_its_bar) ... ok
 test_body_width_first (test_ladder.Part2.test_body_width_first) ... ok
 test_both_separate_narrows_tintalpha_only (test_ladder.Part2.test_both_separate_narrows_tintalpha_only) ... ok
@@ -10,7 +12,7 @@ The name-unfitted change itself removes operator 1's leaves (declare.py `apply_c
 test_stop_incomplete_and_one_scale (test_ladder.Part2.test_stop_incomplete_and_one_scale) ... ok
 test_a_dependent_rung_waits_for_its_selection (test_ladder.Phases.test_a_dependent_rung_waits_for_its_selection) ... ok
 test_operator_rungs_wait_for_the_runtime (test_ladder.Phases.test_operator_rungs_wait_for_the_runtime) ... 
-  WAITING on this runtime: 17 rungs: i-a0.7-f0.2, i-a0.7-f0.2-t128, i-a0.7-f0.2-t160, i-a0.7-f0.45, i-a0.8-f0.2, i-a0.8-f0.2-t128, i-a0.8-f0.2-t160, i-a0.8-f0.45, iii-q0.25, iii-q0.5, iii-q0.75, iii-s1.5, iii-s2, iii-s3, iii-s4, iii-s6, iv-joint
+  WAITING on this runtime: 9 rungs: iii-q0.25, iii-q0.5, iii-q0.75, iii-s1.5, iii-s2, iii-s3, iii-s4, iii-s6, iv-joint
 ok
 test_every_override_is_admitted_and_inside_its_domain (test_ladder.Protocol.test_every_override_is_admitted_and_inside_its_domain) ... ok
 test_ladder_ii_holds_the_1x_width_and_the_1x_top (test_ladder.Protocol.test_ladder_ii_holds_the_1x_width_and_the_1x_top) ... ok
@@ -23,6 +25,6 @@ test_red_a_rung_matrix_missing_one_declared_row (test_ladder.X70.test_red_a_rung
 test_x69_no_rung_names_a_withheld_cell (test_ladder.X70.test_x69_no_rung_names_a_withheld_cell) ... ok
 
 ----------------------------------------------------------------------
-Ran 20 tests in 0.139s
+Ran 22 tests in 0.170s
 
 OK

@@ -124,6 +124,12 @@ def selections(path: Path = SELECTIONS) -> dict:
     return json.loads(path.read_text())["selections"] if path.exists() else {}
 
 
+class Inapplicable(W.Refusal):
+    """A dependent rung whose selection was READ and found nothing admissible (e.g. ladder (iii)'s width at a
+    scale where every width rung fails a guard): the rung cannot be built, and its ladder is resolved without
+    it (`read.py`), unlike a rung whose selection is not yet recorded, which is pending."""
+
+
 def resolve_overrides(rung: dict, chosen: dict) -> dict:
     """The rung's overrides with every `{"select": NAME}` value and its `select` merge filled from the
     recorded selections; a selection not yet recorded refuses (the value is never guessed)."""
@@ -136,14 +142,14 @@ def resolve_overrides(rung: dict, chosen: dict) -> dict:
                     raise W.Refusal(f"{rung['label']}: {leaf} depends on the reading {name!r}, not yet recorded in "
                                     "selections.json (read the earlier rungs first)")
                 if chosen[name]["value"] is None:
-                    raise W.Refusal(f"{rung['label']}: the reading {name!r} found no admissible value "
+                    raise Inapplicable(f"{rung['label']}: the reading {name!r} found no admissible value "
                                     f"({chosen[name].get('why')}); the rung is not built")
                 leaves[leaf] = chosen[name]["value"]
     for slot, name in rung.get("select", {}).items():
         if name not in chosen:
             raise W.Refusal(f"{rung['label']}: depends on the reading {name!r}, not yet recorded in selections.json")
         if chosen[name]["overrides"] is None:
-            raise W.Refusal(f"{rung['label']}: the reading {name!r} found no admissible rung ({chosen[name].get('why')})")
+            raise Inapplicable(f"{rung['label']}: the reading {name!r} found no admissible rung ({chosen[name].get('why')})")
         out.setdefault(slot, {}).update(chosen[name]["overrides"].get(slot, {}))
     return out
 
@@ -191,6 +197,8 @@ def rungs(p: dict | None = None, chosen: dict | None = None, resolve: bool = Fal
                     try:
                         entry["overrides"] = resolve_overrides(r, chosen)
                         check_overrides(r["label"], entry["overrides"])
+                    except Inapplicable as refusal:
+                        entry["inapplicable"] = str(refusal)
                     except W.Refusal as refusal:
                         entry["unresolved"] = str(refusal)
             out.append(entry)
