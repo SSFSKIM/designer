@@ -1,0 +1,34 @@
+{
+ "schema": "w46-labels-1",
+ "$comment": [
+  "W46 G0: the ONE label grammar of W46's candidates, read by build-candidate.ts (the pattern a label must",
+  "match) and by search.py (how a point is named). The tracker's W45 entry: search.py marked a receded leaf",
+  "with an upper-case R, which the builder's [a-z0-9.-] refused, so stage 2 could not build its first point.",
+  "Here the marks and the pattern are stated once, both are lower-case, and test_fit.py builds a label of",
+  "every slot and leaf through the real builder. No short name begins with the receded mark and none is a prefix of another, so a",
+  "label part reads back to one (slot, leaf)."
+ ],
+ "pattern": "^[a-z0-9][a-z0-9.-]*$",
+ "slotMark": {"active.dark": "", "receded.dark": "r"},
+ "lineage": {"d0219": "d"},
+ "stage": {"start": "start", "stage1": "s1", "stage2": "s2"},
+ "short": {
+  "optics.regular.tintAlpha": "ta",
+  "sizeScatterFloor": "fa",
+  "sizeScatterFloor2x": "fb",
+  "sizeScatterRampStartThin1x": "n1",
+  "sizeScatterRampStartThin2x": "n2",
+  "sizeScatterRampStartThick1x": "k1",
+  "sizeScatterRampStartThick2x": "k2",
+  "sizeScatterRampStartFar1x": "e1",
+  "sizeScatterRampStartFar2x": "e2",
+  "sizeHeavyTapSigma": "s1",
+  "sizeHeavyTapSigma2x": "s2",
+  "sizeScatterHeavyShareThick1x": "h1",
+  "sizeHeavySecondShare": "q",
+  "sizeHeavySecondSigma": "w1",
+  "sizeHeavySecondSigma2x": "w2",
+  "sizeHeavySecondShareFar2x": "d",
+  "sizeScatterScaleGain": "g"
+ }
+}
