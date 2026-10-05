@@ -1,10 +1,10 @@
 test_an_existing_leaf_moves_at_its_shape (test_build_candidate.Admits.test_an_existing_leaf_moves_at_its_shape) ... ok
 test_each_known_x67_key_alone_inside_its_domain (test_build_candidate.Admits.test_each_known_x67_key_alone_inside_its_domain) ... ok
-test_each_operator_key_admitted_inside_its_domain (test_build_candidate.Admits.test_each_operator_key_admitted_inside_its_domain) ... skipped 'WAITING for operator 1 and 2 runtime: DEFAULT_MATERIAL_PROFILE on this branch has no tintAlphaFar1x, tintAlphaFar2x, sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x (G0 (a), (b) not merged)'
+test_each_operator_key_admitted_inside_its_domain (test_build_candidate.Admits.test_each_operator_key_admitted_inside_its_domain) ... skipped 'WAITING for operator 2 runtime: DEFAULT_MATERIAL_PROFILE on this branch has no sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x (G0 (a), (b) not merged)'
 test_each_x64_key_alone (test_build_candidate.Admits.test_each_x64_key_alone) ... ok
 test_every_admitted_key_the_runtime_knows_together_is_digest_neutral (test_build_candidate.Admits.test_every_admitted_key_the_runtime_knows_together_is_digest_neutral)
 X64 with X67's sizeOcclusionGain, the span tops and the receded body width: runs now. ... ok
-test_every_admitted_key_together_is_digest_neutral (test_build_candidate.Admits.test_every_admitted_key_together_is_digest_neutral) ... skipped 'WAITING for operator 1 and 2 runtime: DEFAULT_MATERIAL_PROFILE on this branch has no tintAlphaFar1x, tintAlphaFar2x, sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x (G0 (a), (b) not merged)'
+test_every_admitted_key_together_is_digest_neutral (test_build_candidate.Admits.test_every_admitted_key_together_is_digest_neutral) ... skipped 'WAITING for operator 2 runtime: DEFAULT_MATERIAL_PROFILE on this branch has no sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x (G0 (a), (b) not merged)'
 test_every_x64_key_together_is_digest_neutral (test_build_candidate.Admits.test_every_x64_key_together_is_digest_neutral) ... ok
 test_a_label_outside_the_grammar (test_build_candidate.Refuses.test_a_label_outside_the_grammar) ... ok
 test_a_light_override (test_build_candidate.Refuses.test_a_light_override) ... ok
@@ -22,6 +22,6 @@ test_values_outside_the_declared_domains (test_build_candidate.Refuses.test_valu
 test_the_builders_tables_are_the_bindings (test_build_candidate.Tables.test_the_builders_tables_are_the_bindings) ... ok
 
 ----------------------------------------------------------------------
-Ran 21 tests in 29.146s
+Ran 21 tests in 21.507s
 
 OK (skipped=2)

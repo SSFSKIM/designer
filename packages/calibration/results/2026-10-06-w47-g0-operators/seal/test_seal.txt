@@ -7,7 +7,7 @@ test_a_receded_leaf_outside_x64_refuses (test_seal.Seal.test_a_receded_leaf_outs
 test_a_second_seal_over_sealed_bytes_refuses (test_seal.Seal.test_a_second_seal_over_sealed_bytes_refuses) ... ok
 test_an_undeclared_move_refuses (test_seal.Seal.test_an_undeclared_move_refuses) ... ok
 test_every_x64_and_x67_key_materialised_reproduces_both_digests (test_seal.Seal.test_every_x64_and_x67_key_materialised_reproduces_both_digests)
-G0 (c)'s pin with every admitted key named, the operators' leaves included. ... skipped 'WAITING for operator 1 and 2 runtime: DEFAULT_MATERIAL_PROFILE on this branch has no tintAlphaFar1x, tintAlphaFar2x, sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x (G0 (a), (b) not merged)'
+G0 (c)'s pin with every admitted key named, the operators' leaves included. ... skipped 'WAITING for operator 2 runtime: DEFAULT_MATERIAL_PROFILE on this branch has no sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x (G0 (a), (b) not merged)'
 test_the_record_names_the_scale_separable_reading (test_seal.Seal.test_the_record_names_the_scale_separable_reading) ... ok
 test_the_rehearsal_holds_after_the_live_dark_pair_is_sealed (test_seal.Seal.test_the_rehearsal_holds_after_the_live_dark_pair_is_sealed) ... ok
 test_the_seals_list_is_the_bindings (test_seal.Seal.test_the_seals_list_is_the_bindings) ... ok
@@ -18,6 +18,6 @@ Runs now: X64, sizeOcclusionGain, the span tops and the receded optics.regular.b
 test_x64_materialised_reproduces_both_digests (test_seal.Seal.test_x64_materialised_reproduces_both_digests) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 19.215s
+Ran 16 tests in 16.089s
 
 OK (skipped=1)

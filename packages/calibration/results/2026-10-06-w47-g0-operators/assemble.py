@@ -173,7 +173,9 @@ def build(given: dict) -> tuple[dict, str]:
     stage_reh = json.loads((HERE / "stage/rehearsal/rehearsal.json").read_text())
     bar = json.loads(W.BAR_PATH.read_text())
     diag = given["diagnostic"]
-    record_path = HERE / diag["record"]
+    # The record path is read either repository-relative (as part 1 declares it and `declare.py` reads it)
+    # or relative to this evidence root.
+    record_path = (W.ROOT / diag["record"]) if (W.ROOT / diag["record"]).is_file() else HERE / diag["record"]
     record = json.loads(record_path.read_text())
     operators = {}
     for name, leaves in D.OPERATORS.items():

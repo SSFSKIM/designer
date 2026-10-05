@@ -9,10 +9,10 @@ test_the_twins_are_checked_frozen (test_bindings.Snapshots.test_the_twins_are_ch
 test_the_inherited_values_are_the_resolved_ones (test_bindings.X64.test_the_inherited_values_are_the_resolved_ones)
 Every X64 key is absent from its snapshot and stated at the value the material resolves to: ... ok
 test_admitted_is_x64_and_x67_and_nothing_else (test_bindings.X67.test_admitted_is_x64_and_x67_and_nothing_else) ... ok
-test_the_x67_values_are_the_resolved_ones (test_bindings.X67.test_the_x67_values_are_the_resolved_ones) ... skipped "WAITING for the operators' runtime (G0 (a), (b)): material.ts has no default for sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x, tintAlphaFar1x, tintAlphaFar2x; every other X67 value checked"
+test_the_x67_values_are_the_resolved_ones (test_bindings.X67.test_the_x67_values_are_the_resolved_ones) ... skipped "WAITING for the operators' runtime (G0 (a), (b)): material.ts has no default for sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x; every other X67 value checked"
 test_the_domains_hold_the_start_and_their_bounds (test_bindings.X68.test_the_domains_hold_the_start_and_their_bounds) ... ok
 
 ----------------------------------------------------------------------
-Ran 12 tests in 0.035s
+Ran 12 tests in 0.042s
 
 OK (skipped=1)

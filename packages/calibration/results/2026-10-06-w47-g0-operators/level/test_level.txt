@@ -9,10 +9,10 @@ test_one_changed_capture_byte_differs (test_level.Identity.test_one_changed_capt
 test_published_rows_under_candidate_provenance_read_identical (test_level.Identity.test_published_rows_under_candidate_provenance_read_identical) ... ok
 test_the_check_reads_no_change_on_the_published_rows (test_level.Identity.test_the_check_reads_no_change_on_the_published_rows) ... ok
 test_the_projection_removes_exactly_the_provenance (test_level.Identity.test_the_projection_removes_exactly_the_provenance) ... ok
-test_a_far_delta_grades_the_alpha (test_level.OperatorOne.test_a_far_delta_grades_the_alpha) ... skipped "WAITING for operator 1's runtime (G0 (a)): @vitrea/renderer-webgpu exports no tintAlphaFarAtScale on this branch, so a non-zero far delta is refused, not evaluated"
+test_a_far_delta_grades_the_alpha (test_level.OperatorOne.test_a_far_delta_grades_the_alpha) ... ok
 test_at_identity_alpha_base_is_tint_alpha (test_level.OperatorOne.test_at_identity_alpha_base_is_tint_alpha) ... ok
 
 ----------------------------------------------------------------------
-Ran 13 tests in 5.522s
+Ran 13 tests in 5.835s
 
-OK (skipped=1)
+OK
