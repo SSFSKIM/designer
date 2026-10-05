@@ -17,7 +17,10 @@ a runner that renders nothing.
              from the stage base; the tie is computed once from the reference rows
   labels     one grammar: every slot and leaf labels inside the builder's pattern, reads back to one
              (slot, leaf), and builds through the real builder (the tracker's upper-case R entry)
-  full       resolves the twin that measures a point before it renders (the tracker's entry)
+  full       renders a point on the renderers that measure it, then reads it (the tracker's entry)
+  scales     scale-separable rendering: a 1x lever × 2x lever factorial renders (#1x) + (#2x) scale
+             contents, not their product; a `both` leaf splits both scales; a point reads, per scale,
+             exactly its renderer's cells; a leaf with no scale refuses
   stage 2    `materialiseX64` starts the receded keys at the stage-1 active's resolved values, never a
              label difference; a partial objective is never ranked
 
@@ -191,14 +194,15 @@ class Render(unittest.TestCase):
             log.write_text("census w46-fit x: passes (0 annotated, refusals [])\nwrote a partial matrix\n")
             self.assertFalse(fit.census_refused(log))
 
-    def test_an_alias_is_never_rendered(self):
+    def test_a_point_renders_only_through_its_scale_twins(self):
         with tempfile.TemporaryDirectory() as tmp:
             g1 = Path(tmp)
             (g1 / "candidates" / "a").mkdir(parents=True)
             (g1 / "candidates" / "a" / "candidate.json").write_text("{}")
-            (g1 / "aliases.json").write_text(json.dumps({"a": "b"}))
-            with mock.patch.object(fit, "G1", g1), self.assertRaisesRegex(W.Refusal, "render the twin"):
-                fit.render("a", "stage1")
+            (g1 / "specs").mkdir()
+            (g1 / "specs" / "a.json").write_text(json.dumps(dict(label="a", stage="stage1", start="d0219", overrides={})))
+            with mock.patch.object(fit, "G1", g1), self.assertRaisesRegex(W.Refusal, "scale twin"):
+                fit.render_scale("a", "stage1", 1)
 
 
 class Identity(unittest.TestCase):
@@ -303,15 +307,12 @@ class Labels(unittest.TestCase):
 
 
 class Full(unittest.TestCase):
-    def test_full_renders_and_reads_the_twin(self):
+    def test_full_renders_the_point_through_its_renderers_and_reads_it(self):
         calls = []
-        with tempfile.TemporaryDirectory() as tmp:
-            (Path(tmp) / "aliases.json").write_text(json.dumps({"alias": "twin"}))
-            with mock.patch.object(fit, "G1", Path(tmp)), \
-                    mock.patch.object(fit, "render", lambda name, scope: calls.append(("render", name, scope)) or 0), \
-                    mock.patch.object(fit, "read", lambda name: calls.append(("read", name)) or {}):
-                search.full("alias")
-        self.assertEqual(calls, [("render", "twin", "rest-of-fit"), ("read", "twin")])
+        with mock.patch.object(fit, "render", lambda name, scope: calls.append(("render", name, scope)) or 0), \
+                mock.patch.object(fit, "read", lambda name: calls.append(("read", name)) or {}):
+            search.full("point")
+        self.assertEqual(calls, [("render", "point", "rest-of-fit"), ("read", "point")])
 
 
 class FakeRunner:
@@ -392,6 +393,147 @@ class Stages(unittest.TestCase):
                     overrides={}, cells={}, stages={"stage1": dict(objective=0.1, within="NOT WITHIN", notWithin=[])})))
                 with self.assertRaisesRegex(W.Refusal, "UNMEASURED stage1 objective member"):
                     search.decide(move, "d0219", ["a", "b", "c"], {}, runner)
+
+
+def separable_part2(with_tint: bool) -> dict:
+    leaves = {"sizeScatterFloor": {"slot": "active.dark", "domain": [0.2, 1], "grid": [0.34, 0.5, 0.6]},
+              "sizeScatterFloor2x": {"slot": "active.dark", "domain": [0.4, 1], "grid": [1, 0.8, 0.6]}}
+    if with_tint:
+        leaves = {TA: {"slot": "active.dark", "domain": [0.5, 0.9], "grid": [0.9, 0.7]}, **leaves}
+    return dict(SYNTHETIC_PART2, moves=[{"id": "stage1", "families": {"f": {"factorial": True, "leaves": leaves}}},
+                                        SYNTHETIC_PART2["moves"][1]])
+
+
+class ScaleSeparable(unittest.TestCase):
+    """The real Runner and `compose`, with build, the per-scale render and the per-scale read replaced
+    in memory: content is each candidate's moves (non-moves dropped), a render marks its scale's
+    cells rendered, and a read writes synthetic T1 cells whose web SD follows the renderer's leaves."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="w46-fit-scales-")).resolve()
+        self.g1, self.scratch = self.tmp / "g1", self.tmp / "scratch"
+        self.renders, self.inert = [], set()
+        B, t1, r = fit.cuts()
+        self.B, self.t1 = B, t1
+        self.patches = [mock.patch.object(fit, "G1", self.g1), mock.patch.object(fit, "SCRATCH", self.scratch),
+                        mock.patch.object(search, "PATH", self.g1 / "path"),
+                        mock.patch.object(fit, "build", self.build),
+                        mock.patch.object(fit, "render_scale", self.render_scale),
+                        mock.patch.object(fit, "read_scale", self.read_scale)]
+        for patch in self.patches:
+            patch.start()
+
+    def tearDown(self):
+        for patch in self.patches:
+            patch.stop()
+        shutil.rmtree(self.tmp)
+
+    def spec(self, label):
+        return json.loads((self.g1 / "specs" / f"{label}.json").read_text())
+
+    def build(self, label):
+        folder = self.g1 / "candidates" / label
+        if (folder / "candidate.json").exists():
+            return
+        folder.mkdir(parents=True, exist_ok=True)
+        moves = {slot: {k: v for k, v in leaves.items() if fit.resolved_value({}, slot, k) != v
+                        and k not in self.inert}
+                 for slot, leaves in self.spec(label)["overrides"].items()}
+        digest = W.sha(json.dumps({k: v for k, v in moves.items() if v}, sort_keys=True).encode())[:16]
+        for slot in W.SLOTS:
+            (folder / f"{slot}.json").write_text(json.dumps(dict(resolvedMaterialSha256=digest)))
+        (folder / "candidate.json").write_text("{}")
+
+    def render_scale(self, renderer, scope, scale):
+        if set(fit.wanted(scope, scale)) <= fit.rendered(renderer)[scale]:
+            return 0
+        self.assertEqual(self.spec(renderer)["stage"], "scale-twin")
+        self.renders.append((renderer, scale))
+        out = self.scratch / renderer / f"{scope}-{scale}x"
+        out.mkdir(parents=True)
+        (out / "matrix.json").write_text(json.dumps(dict(cells=[{"key": {"sceneId": s}} for s in fit.wanted(scope, scale)])))
+        return 0
+
+    def read_scale(self, renderer, scale):
+        ov = self.spec(renderer)["overrides"]
+        f = (1 + abs(fit.resolved_value(ov, "active.dark", "sizeScatterFloor") - 0.6) if scale == 1 else
+             1 + abs(fit.resolved_value(ov, "active.dark", "sizeScatterFloor2x") - 0.8))
+        f *= 1 + abs(fit.resolved_value(ov, "active.dark", TA) - 0.7)
+        cells = []
+        for key in fit.selection_members("stage1"):
+            sc, sid = key.split("x ", 1)
+            if int(sc) != scale:
+                continue
+            cells.append(dict(profile=fit.PROFILE[scale], tier="webgpu", scene=sid, partition="gate",
+                              stratum=self.t1.stratum(sid), pose="rest", spanClass=self.t1.span_class(sid), scale=scale,
+                              scheme="dark", native=0.1, reference=0.1, candidate=0.1 * f, bar=0.001, code=0.002,
+                              fidelity="miss", change="away", growth=0.0, B=0.002))
+        body = dict(renderer=renderer, scale=scale, scopes={k: len(v) for k, v in fit.rendered_scopes(renderer, scale).items()},
+                    cells=cells, missing=[], L1=dict(absoluteMisses=[], growthMisses=[], unmeasured=[]), verdicts={})
+        fit.scale_summary_path(renderer, scale).write_text(json.dumps(body))
+        return body
+
+    def run_stage1(self, with_tint):
+        with SyntheticPart2(separable_part2(with_tint)):
+            path = search.compose("stage1", "d0219", {}, 1, search.Runner())
+        return path
+
+    def test_a_1x_lever_by_a_2x_lever_renders_their_sum_not_their_product(self):
+        path = self.run_stage1(with_tint=False)
+        points = path["components"][0]["points"]
+        self.assertEqual(len(points), 9)
+        self.assertEqual(sorted(s for _, s in self.renders), [1, 1, 1, 2, 2, 2])
+        self.assertEqual(len(set(self.renders)), 6)
+        self.assertEqual(path["composed"]["active.dark"], {"sizeScatterFloor": 0.6, "sizeScatterFloor2x": 0.8})
+
+    def test_a_both_leaf_splits_both_scales(self):
+        path = self.run_stage1(with_tint=True)
+        self.assertEqual(len(path["components"][0]["points"]), 18)
+        self.assertEqual(sum(1 for _, s in self.renders if s == 1), 6)     # tintAlpha 2 × floor 3
+        self.assertEqual(sum(1 for _, s in self.renders if s == 2), 6)     # tintAlpha 2 × floor2x 3
+        self.assertEqual(path["composed"]["active.dark"][TA], 0.7)
+
+    def test_a_point_reads_its_renderers_cells_per_scale(self):
+        path = self.run_stage1(with_tint=False)
+        aliases = fit.scale_aliases()
+        for label in path["components"][0]["points"]:
+            summary = json.loads((self.g1 / "candidates" / label / "summary.json").read_text())
+            for scale in fit.SCALES:
+                renderer = summary["renderers"][f"{scale}x"]["label"]
+                twin = fit.twin_label("d0219", scale, fit.scale_overrides(self.spec(label)["overrides"], scale))
+                self.assertEqual(renderer, aliases.get(f"{twin} {scale}x", twin))
+                theirs = json.loads(fit.scale_summary_path(renderer, scale).read_text())["cells"]
+                mine = [c for c in summary["t1Cells"] if c["scale"] == scale]
+                self.assertEqual(mine, theirs)
+                self.assertEqual({k for k in summary["cells"] if k.startswith(f"{scale}x ")},
+                                 {f"{scale}x {c['scene']}" for c in theirs})
+
+    def test_twins_of_one_content_render_once(self):
+        # A leaf the digest drops (as the identity table drops the second tap's widths at share 0)
+        # makes every 2x twin one content: the 2x scale renders once and every other twin is measured.
+        self.inert = {"sizeScatterFloor2x"}
+        self.run_stage1(with_tint=False)
+        self.assertEqual(sum(1 for _, s in self.renders if s == 1), 3)
+        self.assertEqual(sum(1 for _, s in self.renders if s == 2), 1)
+        aliases = fit.scale_aliases()
+        self.assertEqual(len([k for k in aliases if k.endswith(" 2x")]), 2)
+        self.assertTrue(all(v == self.renders[[s for _, s in self.renders].index(2)][0]
+                            for k, v in aliases.items() if k.endswith(" 2x")))
+
+    def test_a_leaf_with_no_scale_refuses(self):
+        with self.assertRaisesRegex(W.Refusal, "no scale"):
+            fit.leaf_scale("sizeScatterSpanMax2x")
+        with self.assertRaisesRegex(W.Refusal, "no scale"):
+            fit.scale_overrides({"active.dark": {"sizeScatterSpanMax2x": 160}}, 2)
+        self.assertEqual(set(fit.LABELS["scales"]), set(fit.LABELS["short"]))
+
+    def test_the_scale_twins_drop_non_moves_and_the_other_scales_leaves(self):
+        ov = {"active.dark": {TA: 0.7, "sizeScatterFloor": 0.6, "sizeScatterFloor2x": 1},
+              "receded.dark": dict(W.X64["receded.dark"])}
+        one, two = fit.scale_overrides(ov, 1), fit.scale_overrides(ov, 2)
+        self.assertEqual(one["active.dark"], {TA: 0.7, "sizeScatterFloor": 0.6})
+        self.assertEqual(two, {"active.dark": {TA: 0.7}})                 # floor2x 1 is the inherited default
+        self.assertNotIn("receded.dark", two)                              # every receded X64 key at its default
 
 
 if __name__ == "__main__":

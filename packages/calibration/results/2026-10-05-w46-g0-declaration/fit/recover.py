@@ -7,7 +7,9 @@ summaries stay as recorded.
     python3.12 -B recover.py
 
 **What W46 changes.** Both dark profiles: a member is `<scale>x <scene>`, read off that scale's scope
-directory (`<scope>-<scale>x`) through W44 G0's port at that scale; the native SD is the published
+directory (`<scope>-<scale>x`) of the RENDERER that measures the point at that scale (scale-separable
+rendering, `fit.py`) through W44 G0's port at that scale; the capture must name that renderer's
+declaration; the native SD is the published
 `d0219cd684bf` row's (the reference the cut reads).
 
 W45's text, unchanged: a render can write a cell's capture and then fail the cell on an axis T1 does
@@ -68,36 +70,40 @@ def main() -> int:
     P = port()
     ref = {(r["key"]["profileKey"], r["key"]["sceneId"]): r for r in B.load_published(W.REFERENCE["dark"]).rows
            if r["key"]["web"]["renderer"] == "webgpu"}
-    out, proof = {}, []
+    out, proof, proved = {}, [], set()
     for f in sorted((fit.G1 / "candidates").glob("*/summary.json")):
         s = json.loads(f.read_text())
         label = s["label"]
-        proved = False
         for scope in fit.ALL_SCOPES:
             if s["stages"].get(scope, {}).get("objective") is None:
                 continue
             members = fit.selection_members(scope)
             missing = [m for m in members if m not in s["cells"]]
-            where = {m: capture_dir(label, int(m.split("x ")[0]), m.split("x ", 1)[1]) for m in missing}
+            # Since scale-separable rendering each scale of a point is read off its renderer.
+            renderer = {int(k.rstrip("x")): v["label"] for k, v in s["renderers"].items()}
+            where = {m: capture_dir(renderer[int(m.split("x ")[0])], int(m.split("x ")[0]), m.split("x ", 1)[1])
+                     for m in missing}
             if not missing or any(d is None for d in where.values()):
                 continue
-            if not proved:
-                for scope_dir in sorted(d for d in (fit.SCRATCH / label).iterdir() if (d / "matrix.json").exists()):
-                    scale = int(scope_dir.name.rsplit("-", 1)[1].rstrip("x"))
+            for scale in sorted({int(m.split("x ")[0]) for m in missing}):
+                if (renderer[scale], scale) in proved:
+                    continue
+                for scope_dir in sorted(d for d in (fit.SCRATCH / renderer[scale]).iterdir()
+                                        if d.name.endswith(f"-{scale}x") and (d / "matrix.json").exists()):
                     for row in json.loads((scope_dir / "matrix.json").read_bytes())["cells"]:
                         sid = row["key"]["sceneId"]
-                        got = web_sd(P, B, label, scale, sid, scope_dir)
+                        got = web_sd(P, B, renderer[scale], scale, sid, scope_dir)
                         driver = B.value(row, "material", "interiorStdDevWeb")
-                        proof.append(dict(label=label, scope=scope_dir.name, scene=sid, port=got, driver=driver,
-                                          diff=abs(got - driver)))
-                proved = True
+                        proof.append(dict(label=renderer[scale], scope=scope_dir.name, scene=sid, port=got,
+                                          driver=driver, diff=abs(got - driver)))
+                proved.add((renderer[scale], scale))
             logs = {k: abs(math.log(c["k"] / c["n"])) for k, c in s["cells"].items() if k in members}
             recovered = {}
             for m in missing:
                 scale, sid = int(m.split("x ")[0]), m.split("x ", 1)[1]
-                k = web_sd(P, B, label, scale, sid, where[m])
+                k = web_sd(P, B, renderer[scale], scale, sid, where[m])
                 n = B.value(ref[(fit.PROFILE[scale], sid)], "material", "interiorStdDevNative")
-                recovered[m] = dict(native=n, web=k, ratio=k / n)
+                recovered[m] = dict(native=n, web=k, ratio=k / n, renderer=renderer[scale])
                 logs[m] = abs(math.log(k / n))
             out.setdefault(label, {})[scope] = dict(
                 missing=missing, recovered=recovered, members=len(logs),

@@ -6,12 +6,27 @@
   "with an upper-case R, which the builder's [a-z0-9.-] refused, so stage 2 could not build its first point.",
   "Here the marks and the pattern are stated once, both are lower-case, and test_fit.py builds a label of",
   "every slot and leaf through the real builder. No short name begins with the receded mark and none is a prefix of another, so a",
-  "label part reads back to one (slot, leaf)."
+  "label part reads back to one (slot, leaf).",
+  "",
+  "`scales`: the scale each leaf acts at (`rampAtScale` anchors every 1x/2x pair and the 2x-only leaves),",
+  "read by fit.py's scale-separable rendering: a point renders each scale through its scale twin, the",
+  "candidate of its overrides restricted to the leaves acting there. A leaf with no entry refuses. Exact",
+  "only under the anchoring, which the ladders verify (every lever rendered at both scales, the scale it",
+  "does not act at byte-identical to the control's)."
  ],
  "pattern": "^[a-z0-9][a-z0-9.-]*$",
- "slotMark": {"active.dark": "", "receded.dark": "r"},
- "lineage": {"d0219": "d"},
- "stage": {"start": "start", "stage1": "s1", "stage2": "s2"},
+ "slotMark": {
+  "active.dark": "",
+  "receded.dark": "r"
+ },
+ "lineage": {
+  "d0219": "d"
+ },
+ "stage": {
+  "start": "start",
+  "stage1": "s1",
+  "stage2": "s2"
+ },
  "short": {
   "optics.regular.tintAlpha": "ta",
   "sizeScatterFloor": "fa",
@@ -30,5 +45,24 @@
   "sizeHeavySecondSigma2x": "w2",
   "sizeHeavySecondShareFar2x": "d",
   "sizeScatterScaleGain": "g"
+ },
+ "scales": {
+  "optics.regular.tintAlpha": "both",
+  "sizeScatterFloor": "1x",
+  "sizeScatterFloor2x": "2x",
+  "sizeScatterRampStartThin1x": "1x",
+  "sizeScatterRampStartThin2x": "2x",
+  "sizeScatterRampStartThick1x": "1x",
+  "sizeScatterRampStartThick2x": "2x",
+  "sizeScatterRampStartFar1x": "1x",
+  "sizeScatterRampStartFar2x": "2x",
+  "sizeHeavyTapSigma": "1x",
+  "sizeHeavyTapSigma2x": "2x",
+  "sizeScatterHeavyShareThick1x": "1x",
+  "sizeHeavySecondShare": "both",
+  "sizeHeavySecondSigma": "1x",
+  "sizeHeavySecondSigma2x": "2x",
+  "sizeHeavySecondShareFar2x": "2x",
+  "sizeScatterScaleGain": "both"
  }
 }

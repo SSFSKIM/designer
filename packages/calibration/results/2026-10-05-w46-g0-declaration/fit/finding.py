@@ -19,7 +19,6 @@ full per-cell T1 table beside the reference's.
 """
 from __future__ import annotations
 
-import gzip
 import json
 import sys
 from pathlib import Path
@@ -32,14 +31,13 @@ PATH = fit.G1 / "path"
 COUNT, CEILING = 3, 3.0
 
 
-def cut_of(label):
-    with gzip.open(fit.G1 / "candidates" / fit.measured_label(label) / "cuts.json.gz", "rt") as f:
-        return json.load(f)
+def summary_of(label):
+    """A point's composed summary (its scales' cells read off the renderers that measure it)."""
+    return json.loads((fit.G1 / "candidates" / label / "summary.json").read_text())
 
 
 def cells_of(label):
-    r = fit.rule()
-    return {fit.cell_key(c): c for c in cut_of(label)["T1"]["cells"] if r.in_scope(c)}
+    return {fit.cell_key(c): c for c in summary_of(label)["t1Cells"]}
 
 
 def growth(c) -> tuple[float, float] | None:
@@ -64,7 +62,7 @@ def main(argv) -> int:
     if label is None:
         raise fit.W.Refusal("finding: joint.py landed nothing; name a point")
     J = cells_of(label)
-    labels = sorted(p.parent.name for p in (fit.G1 / "candidates").glob("*/cuts.json.gz"))
+    labels = sorted(p.parent.name for p in (fit.G1 / "candidates").glob("*/summary.json"))
     every = {lab: cells_of(lab) for lab in labels}
     spending = {k: spend(c) for k, c in J.items() if spend(c)}
     per_cell = {}
@@ -94,10 +92,10 @@ def main(argv) -> int:
         table.append(dict(cell=k, stratum=c["stratum"], pose=c["pose"], span=c["spanClass"], native=c["native"],
                           reference=c["reference"], point=c["candidate"], fidelity=c["fidelity"],
                           growthInB=None if gb is None else gb[0] / gb[1], spends=spend(c)))
-    rule = cut_of(label)["T1"].get("rule", {})
+    whole = summary_of(label)
     result = dict(what="W46 G1: the point's T1 map and the growth budget per profile across the search",
                   point=label, budget=dict(count=COUNT, ceilingInB=CEILING, perScale=budget),
-                  rule=rule.get("verdict"), ruleProfiles={p: v["verdict"] for p, v in rule.get("profiles", {}).items()},
+                  rule=whole["rule"], ruleProfiles=whole["ruleProfiles"],
                   cells=per_cell, table=table)
     PATH.mkdir(parents=True, exist_ok=True)
     (PATH / "finding.json").write_text(json.dumps(result, indent=1) + "\n")

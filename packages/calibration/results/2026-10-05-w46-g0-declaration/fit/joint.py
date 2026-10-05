@@ -8,7 +8,8 @@ untouched. Reads only; writes G1's `fit/path/joint.json` and `joint.txt`.
 **What W46 changes.** One lineage (`d0219`, Design "The moves": one starting point), so there is no
 selection between paths: the joint point is the last stage's landed point. Cells are read at both
 scales (keyed `<scale>x <scene>`), and the landing reading is W46's rule as the point's cut records it
-(per profile), quoted, never re-derived here.
+(per profile) as the point's composed summary records it (each scale read off the renderer that
+measures it; `fit.compose`), quoted, never re-derived here.
 
 W45's text, unchanged where it applies: the path is part 2's stages' landed points in order, read
 from the records `search.py stage` writes, each stage's base the previous stage's landed point; a
@@ -19,7 +20,6 @@ whose stage records do not chain refuses.
 """
 from __future__ import annotations
 
-import gzip
 import json
 import sys
 from pathlib import Path
@@ -31,9 +31,10 @@ import fit  # noqa: E402
 PATH = fit.G1 / "path"
 
 
-def cut_of(label: str) -> dict:
-    with gzip.open(fit.G1 / "candidates" / fit.measured_label(label) / "cuts.json.gz", "rt") as f:
-        return json.load(f)
+def summary_of(label: str) -> dict:
+    """A point's composed summary (since scale-separable rendering a point has no single cut: its
+    scales' cuts live with the renderers that measure it, `fit.compose`)."""
+    return json.loads((fit.G1 / "candidates" / label / "summary.json").read_text())
 
 
 def fidelity(c) -> str:
@@ -61,16 +62,15 @@ def path_of(start: str, stages: list[str]) -> dict:
         landed[s] = record["landed"]
         components[s] = record.get("components", [])
     joint = landed[stages[-1]]
-    whole = cut_of(joint)
-    cut = whole["T1"]
-    scope = {fit.cell_key(c): c for c in cut["cells"] if r.in_scope(c)}
-    missing = [fit.cell_key(m) for m in cut.get("missing", []) if r.in_scope(m)]
+    whole = summary_of(joint)
+    scope = {fit.cell_key(c): c for c in whole["t1Cells"]}
+    missing = [fit.cell_key(m) for m in whole["t1Missing"]]
     gate = {f"{sc}x {sid}" for sc in fit.SCALES for sid in fit.scenes_for("fit", sc)
             if fit.cuts()[0].SCENES.by_id[sid]["background"] in fit.cuts()[1].T1_BACKDROPS}
     absent = sorted((gate - set(scope)) | set(missing))
     undone = {}
     for i, s in enumerate(stages[:-1]):
-        at_landing = {fit.cell_key(c): c for c in cut_of(landed[s])["T1"]["cells"] if fit.in_scope(c, s)}
+        at_landing = {fit.cell_key(c): c for c in summary_of(landed[s])["t1Cells"] if fit.in_scope(c, s)}
         undone[s] = dict(by=stages[i + 1:], cells=[k for k, c in at_landing.items() if fidelity(c) == "within"
                                                    and k in scope and fidelity(scope[k]) != "within"])
     return dict(start=start, landed=landed, components={s: [dict(family=c["family"], best=c["best"]) for c in v]
@@ -78,10 +78,8 @@ def path_of(start: str, stages: list[str]) -> dict:
                 joint=joint, cellsInScope=len(scope), unmeasured=absent, undone=undone,
                 interactions=("no stage undid an earlier one" if not any(v["cells"] for v in undone.values())
                               else "a stage undid an earlier one: refit once on the union of their cells"),
-                selectionMetric=None if absent else r.selection_metric(cut["cells"]), movedLeaves=moved(joint),
-                rule=cut.get("rule", {}).get("verdict"),
-                ruleProfiles={p: v["verdict"] for p, v in cut.get("rule", {}).get("profiles", {}).items()},
-                L1=whole.get("summary", {}).get("L1 webgpu (GATED)"))
+                selectionMetric=None if absent else r.selection_metric(whole["t1Cells"]), movedLeaves=moved(joint),
+                rule=whole["rule"], ruleProfiles=whole["ruleProfiles"], L1=whole["L1"])
 
 
 def main(argv) -> int:

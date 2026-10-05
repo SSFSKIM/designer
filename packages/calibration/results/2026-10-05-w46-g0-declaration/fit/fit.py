@@ -5,7 +5,7 @@ untouched. G1 runs it; G0 commits it, tested, before part 2 exists.
 
     python3.12 -B fit.py start                     build the declared starting point (`start-d0219`)
     python3.12 -B fit.py point <label> --stage S --family F [--scope S] [--note N] leaf@slot=value ...
-    python3.12 -B fit.py render <label> --scope S  (one more scope of a built candidate)
+    python3.12 -B fit.py render <label> --scope S  (one more scope of a built point, on its renderers)
     python3.12 -B fit.py read <label>
 
 **What W46 changes from W45's driver, each a refusal rather than a convention:**
@@ -17,12 +17,23 @@ untouched. G1 runs it; G0 commits it, tested, before part 2 exists.
   materialises the receded keys at the stage-1 active's resolved values, an unchanged start).
 - **One starting point** (Design "The moves": `d0219cd684bf` by hash): `start-d0219`, the snapshots
   with no override, lineage `d0219`. W45's second (W44's joint point) has no W46 counterpart.
-- **Both scales, every point.** The targets are read at 1x and 2x (Decision Log 3, per profile), so
-  every render is two compare launches, one per dark profile, `--alpha --write-partial`, through
-  `../with-gpu.sh` (the GPU lock, the classifying census and the browser pin), into
-  `~/vitrea-w46/g1-scratch/fit/<label>/<scope>-<scale>x/`. W45's `x48` scope is gone: X60 is read by
-  evidence on every candidate (`identity`: the light endpoints patch- and digest-identical to the
-  light snapshots) and by render at the gate, which is G1's stage, not the fit's.
+- **Both scales, every point, rendered SCALE-SEPARABLY** (the parent's ruling for stage 1's factorial
+  over 1x and 2x leaves). The targets are read at 1x and 2x (Decision Log 3, per profile), but a leaf
+  acts at one scale or both (`labels.json` "scales"; `rampAtScale` anchors every 1x/2x pair), so a
+  point's render at scale s is the render of its SCALE TWIN — the candidate of its overrides
+  restricted to the leaves acting at s, non-moves dropped — and twins of one lineage whose four
+  resolved digests are equal share that scale's render (`scale-aliases.json`, keyed `<twin> <s>x`).
+  Each renderer is read at its scale (`read_scale`: W46's cuts on its own matrices, its own candidate
+  document), and a point's summary is COMPOSED from its two scales' readings, wherever they were
+  rendered (`compose`): its stages, objective and W46's rule are evaluated on the union. A 1x lever ×
+  2x lever factorial thus renders (#1x values) + (#2x values) scale contents, not their product. The
+  decision is exact only under the scale anchoring, which W46's ladders verify by rendering every
+  lever at both scales (the scale a lever does not act at byte-identical to the control's). Every
+  launch is one dark profile, `--alpha --write-partial`, through `../with-gpu.sh` (the GPU lock, the
+  classifying census and the browser pin), into `~/vitrea-w46/g1-scratch/fit/<renderer>/<scope>-<s>x/`.
+  W45's label-level content aliasing (`aliases.json`) is replaced by the per-scale one; W45's `x48`
+  scope is gone: X60 is read by evidence on every candidate (`identity`: the light endpoints patch-
+  and digest-identical to the light snapshots) and by render at the gate, which is G1's stage.
 - **The scopes are the stages** (`cuts/rule.py STAGES`): `stage1` the rest cells, `stage2` the
   inactive cells; `fit` both, `rest-of-fit` what a label has not rendered. A scope's cells are the
   dark T1 gate cells of its pose (no referee, no holdout, every probe scene inside the planner's
@@ -41,9 +52,9 @@ W45's text follows, unchanged in substance where it still applies: build a candi
 the fit cells, read T1 and every cut against the reference (W46's `cuts/cuts.py`); every candidate's
 documents, identity check and cuts are committed under G1's `fit/candidates/<label>/`; every launch
 is logged in G1's `fit/runs.jsonl` with its compare log under `fit/logs/`; matrices and PNGs stay on
-the machine. A content twin (`aliases.json`) MEASURES a point and never replaces its overrides; a
-render of a scope draws only the cells the label has not rendered; a census refusal is told apart
-from a partial matrix (exit 3).
+the machine. A renderer MEASURES a point's scale and never replaces its overrides; a render of a
+scope draws only the cells the renderer has not rendered; a census refusal is told apart from a
+partial matrix (exit 3).
 """
 from __future__ import annotations
 
@@ -85,26 +96,144 @@ def sha(data: bytes) -> str:
     return W.sha(data)
 
 
-def aliases() -> dict:
-    path = G1 / "aliases.json"
+def measured_label(label: str) -> str:
+    """Kept for the readers' interface: since scale-separable rendering every point has its own
+    summary, composed from the renders that measure it per scale (`renderer_of`)."""
+    return label
+
+
+# ---------------------------------------------------------------------------------------------
+# Scale-separable rendering (the parent's ruling for W46's stage-1 factorial)
+# ---------------------------------------------------------------------------------------------
+# A leaf acts at 1x, at 2x or at both (`labels.json` "scales"): the renderer's `rampAtScale`
+# anchors every `…1x`/`…2x` pair and every 2x-only leaf (`sizeScatterFloor2x`, `sizeHeavyTapSigma2x`,
+# `sizeHeavySecondShareFar2x`, …) to its scale, so a 1x-anchored leaf moves no 2x pixel and a
+# 2x-anchored leaf no 1x pixel (W45's X48: every W45 rung's 1x captures pixel-identical to its
+# control's). A point's render at scale s is therefore the render of its SCALE TWIN, the candidate
+# built from the point's overrides restricted to the leaves acting at s (a leaf at the snapshot's
+# resolved value, an X64 key at its inherited value included, is not a move and is dropped). Scale
+# twins of one lineage whose four resolved digests are equal draw equal pixels at that scale and
+# share one render (`scale-aliases.json`, keyed `<twin> <s>x`). The decision is exact only under the
+# scale anchoring, which W46's ladders verify by rendering every lever at both scales: the scale a
+# lever does not act at must be byte-identical to the control's. A factorial of a 1x lever by a 2x
+# lever then renders (#1x values) + (#2x values) scale contents, not their product.
+def scales_of() -> dict:
+    return LABELS["scales"]
+
+
+def leaf_scale(leaf: str) -> str:
+    got = scales_of().get(leaf)
+    if got not in ("1x", "2x", "both"):
+        raise W.Refusal(f"labels.json states no scale for {leaf}; a leaf with no scale is never rendered "
+                        "scale-separably (and never searched)")
+    return got
+
+
+def acts_at(leaf: str, scale: int) -> bool:
+    return leaf_scale(leaf) in ("both", f"{scale}x")
+
+
+def scale_overrides(overrides: dict, scale: int) -> dict:
+    """The point's overrides restricted to the leaves acting at `scale`, non-moves dropped."""
+    out = {}
+    for slot, leaves in overrides.items():
+        for leaf, value in leaves.items():
+            if not acts_at(leaf, scale) or resolved_value({}, slot, leaf) == value:
+                continue
+            out.setdefault(slot, {})[leaf] = value
+    return out
+
+
+def label_parts(overrides: dict, base: dict) -> list[str]:
+    """The label grammar's parts (`labels.json`) for what `overrides` moves beyond `base`."""
+    parts = []
+    for slot, leaves in sorted(overrides.items()):
+        for leaf, v in sorted(leaves.items()):
+            if base.get(slot, {}).get(leaf) != v:
+                if leaf not in LABELS["short"]:
+                    raise W.Refusal(f"labels.json has no short name for {leaf}")
+                parts.append(f"{LABELS['slotMark'][slot]}{LABELS['short'][leaf]}{round(v, 6):g}")
+    return parts
+
+
+def twin_label(start: str, scale: int, twin: dict) -> str:
+    label = f"{LABELS['lineage'][start]}-x{scale}-" + ("-".join(label_parts(twin, {})) or "base")
+    if not __import__("re").fullmatch(LABELS["pattern"], label):
+        raise W.Refusal(f"scale twin label {label!r} is outside labels.json's pattern")
+    return label
+
+
+def scale_aliases() -> dict:
+    path = G1 / "scale-aliases.json"
     return json.loads(path.read_text()) if path.exists() else {}
 
 
-def record_alias(label: str, twin: str) -> None:
-    table = aliases()
-    if table.get(label, twin) != twin:
-        raise W.Refusal(f"{label} is measured by {table[label]} already, not {twin}")
-    if twin in table:
-        raise W.Refusal(f"{twin} is itself measured by {table[twin]}; an alias names a rendered point")
-    table[label] = twin
+def record_scale_alias(twin: str, scale: int, renderer: str) -> None:
+    table = scale_aliases()
+    key = f"{twin} {scale}x"
+    if table.get(key, renderer) != renderer:
+        raise W.Refusal(f"{key} is rendered by {table[key]} already, not {renderer}")
+    if f"{renderer} {scale}x" in table:
+        raise W.Refusal(f"{renderer} is itself rendered by another at {scale}x; an alias names a renderer")
+    table[key] = renderer
     G1.mkdir(parents=True, exist_ok=True)
-    (G1 / "aliases.json").write_text(json.dumps(dict(sorted(table.items())), indent=1) + "\n")
+    (G1 / "scale-aliases.json").write_text(json.dumps(dict(sorted(table.items())), indent=1) + "\n")
 
 
-def measured_label(label: str) -> str:
-    """The label whose renders and cuts a point is read off: its content twin, or itself."""
-    return aliases().get(label, label)
+def content_of(label: str) -> tuple:
+    folder = G1 / "candidates" / label
+    return tuple(json.loads((folder / f"{slot}.json").read_text())["resolvedMaterialSha256"] for slot in W.SLOTS)
 
+
+def is_renderer(label: str, scale: int) -> bool:
+    """A scale twin that renders its own scale (it has a scale directory, or a scale summary)."""
+    return ((SCRATCH / label).exists() and any((SCRATCH / label).glob(f"*-{scale}x/matrix.json"))) or \
+        (G1 / "candidates" / label / f"scale-{scale}x.json").exists()
+
+
+def scale_twin(label: str, scale: int, pending: dict | None = None) -> str:
+    """The scale twin of a point, written and built (cheap), and the renderer that measures it at
+    `scale`: itself, or an earlier twin of the lineage with equal resolved digests (rendered, or
+    named earlier in the same batch through `pending`, scale content -> renderer)."""
+    spec = json.loads((G1 / "specs" / f"{label}.json").read_text())
+    twin = scale_overrides(spec["overrides"], scale)
+    name = twin_label(spec["start"], scale, twin)
+    path = G1 / "specs" / f"{name}.json"
+    if path.exists():
+        if json.loads(path.read_text())["overrides"] != twin:
+            raise W.Refusal(f"scale twin {name} exists with other overrides")
+    else:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(dict(label=name, note=f"the {scale}x scale twin", stage="scale-twin",
+                                        family=f"{scale}x", start=spec["start"], scale=scale, overrides=twin),
+                                   indent=2) + "\n")
+    build(name)
+    table = scale_aliases()
+    key = f"{name} {scale}x"
+    if key in table:
+        return table[key]
+    if is_renderer(name, scale):
+        return name
+    mine = content_of(name)
+    for other in sorted((G1 / "specs").glob("*.json")):
+        o = json.loads(other.read_text())
+        if (o.get("stage") == "scale-twin" and o.get("scale") == scale and o["start"] == spec["start"]
+                and o["label"] != name and is_renderer(o["label"], scale) and content_of(o["label"]) == mine):
+            record_scale_alias(name, scale, o["label"])
+            log(dict(label=name, scale=scale, renderedBy=o["label"], at=now()))
+            return o["label"]
+    if pending is not None:
+        first = pending.setdefault((scale, mine), name)
+        if first != name:
+            record_scale_alias(name, scale, first)
+            log(dict(label=name, scale=scale, renderedBy=first, at=now()))
+            return first
+    return name
+
+
+def renderer_of(label: str, scale: int) -> str:
+    """The renderer of a point's `scale`: its scale twin's renderer (built on demand)."""
+    return scale_twin(label, scale)
 
 def log(row):
     G1.mkdir(parents=True, exist_ok=True)
@@ -435,10 +564,10 @@ def start(which: str = "d0219") -> str:
 
 
 # ---------------------------------------------------------------------------------------------
-# Render
+# Render (per scale, on the renderer that measures a point's scale)
 # ---------------------------------------------------------------------------------------------
 def rendered(label: str) -> dict:
-    """scale -> the scenes the label's scratch renders hold, over every scope directory."""
+    """scale -> the scenes a RENDERER's scratch holds at that scale, over every scope directory."""
     out = {s: set() for s in SCALES}
     root = SCRATCH / label
     for d in sorted(root.glob("*/matrix.json")) if root.exists() else []:
@@ -447,11 +576,12 @@ def rendered(label: str) -> dict:
     return out
 
 
-def rendered_scopes(label: str) -> dict:
-    """scope directory name -> its scenes (the summaries' record of what was read)."""
+def rendered_scopes(label: str, scale: int | None = None) -> dict:
+    """A renderer's scope directory name -> its scenes (at `scale`, or every scale)."""
     root = SCRATCH / label
     return {d.parent.name: sorted(r["key"]["sceneId"] for r in json.loads(d.read_bytes())["cells"])
-            for d in sorted(root.glob("*/matrix.json"))} if root.exists() else {}
+            for d in sorted(root.glob("*/matrix.json"))
+            if scale is None or d.parent.name.endswith(f"-{scale}x")} if root.exists() else {}
 
 
 def wanted(scope: str, scale: int) -> list[str]:
@@ -459,8 +589,8 @@ def wanted(scope: str, scale: int) -> list[str]:
 
 
 def covered(label: str, scope: str) -> bool:
-    have = rendered(label)
-    return all(set(wanted(scope, s)) <= have[s] for s in SCALES)
+    """Whether every scale of a POINT holds the scope's cells, on whichever renders measure it."""
+    return all(set(wanted(scope, s)) <= rendered(renderer_of(label, s))[s] for s in SCALES)
 
 
 def compare_argv(candidate: Path, scale: int, scenes: list[str], out: Path) -> list[str]:
@@ -469,41 +599,49 @@ def compare_argv(candidate: Path, scale: int, scenes: list[str], out: Path) -> l
             "--scene", ",".join(scenes), "--alpha", "--write-partial", "--out-matrix", str(out / "matrix.json")]
 
 
-def render(label: str, scope: str) -> int:
-    """Both scales of `scope` the label has not rendered, one launch per scale. Exit 0 (complete),
-    1 (a partial matrix), 3 (the census or the pin refused before a launch), else the launch's."""
-    candidate = W.refuse_other_wave_path(G1 / "candidates" / label / "candidate.json", "the candidate")
+def render_scale(renderer: str, scope: str, scale: int) -> int:
+    """One launch at `scale` of the scope's cells the renderer has not rendered. Exit 0 (complete or
+    nothing to do), 1 (a partial matrix), 3 (the census or the pin refused before the launch)."""
+    candidate = W.refuse_other_wave_path(G1 / "candidates" / renderer / "candidate.json", "the candidate")
     if not candidate.exists():
-        raise W.Refusal(f"render: {label} is not built")
-    if label in aliases():
-        raise W.Refusal(f"render: {label} is measured by {aliases()[label]}; render the twin")
-    have = rendered(label)
+        raise W.Refusal(f"render: {renderer} is not built")
+    spec = json.loads((G1 / "specs" / f"{renderer}.json").read_text())
+    if spec.get("stage") != "scale-twin" or spec.get("scale") != scale:
+        raise W.Refusal(f"render: {renderer} is not a {scale}x scale twin; a point renders through its twins")
+    if f"{renderer} {scale}x" in scale_aliases():
+        raise W.Refusal(f"render: {renderer} is rendered by {scale_aliases()[f'{renderer} {scale}x']} at {scale}x")
+    scenes = [s for s in wanted(scope, scale) if s not in rendered(renderer)[scale]]
+    if not scenes:
+        return 0
+    out = W.refuse_other_wave_path(SCRATCH / renderer / f"{scope}-{scale}x", "the render's scratch")
+    if (out / "matrix.json").exists():
+        raise W.Refusal(f"render: {out} holds a matrix already; a scope directory is written once")
+    out.mkdir(parents=True, exist_ok=True)
+    run_label = f"{renderer}/{scope}-{scale}x"
+    argv = compare_argv(candidate, scale, scenes, out)
+    env = {k: v for k, v in os.environ.items() if not k.startswith("VITREA_")}
+    env.update(VITREA_WEB_CAPTURES=str(out / "web-captures"))
+    started = now()
+    log(dict(label=run_label, started=started, scenes=len(scenes),
+             argv=[a if a != ",".join(scenes) else f"<{len(scenes)} scenes: {scope}>" for a in argv]))
+    (G1 / "logs").mkdir(parents=True, exist_ok=True)
+    log_path = G1 / "logs" / f"{renderer}__{scope}-{scale}x.txt"
+    with log_path.open("x") as f:
+        result = subprocess.run([str(W.WITH_GPU), f"w46-fit {run_label}", *argv], cwd=CAL, env=env,
+                                stdout=f, stderr=subprocess.STDOUT)
+    code = result.returncode
+    if code == 1 and census_refused(log_path):
+        code = 3
+    log(dict(label=run_label, started=started, completed=now(), exitCode=code))
+    print(run_label, "exit", code, len(scenes), "cells", flush=True)
+    return code
+
+
+def render(label: str, scope: str) -> int:
+    """Both scales of a POINT, each on the renderer that measures it at that scale."""
     worst = 0
     for scale in SCALES:
-        scenes = [s for s in wanted(scope, scale) if s not in have[scale]]
-        if not scenes:
-            continue
-        out = W.refuse_other_wave_path(SCRATCH / label / f"{scope}-{scale}x", "the render's scratch")
-        if (out / "matrix.json").exists():
-            raise W.Refusal(f"render: {out} holds a matrix already; a scope directory is written once")
-        out.mkdir(parents=True, exist_ok=True)
-        run_label = f"{label}/{scope}-{scale}x"
-        argv = compare_argv(candidate, scale, scenes, out)
-        env = {k: v for k, v in os.environ.items() if not k.startswith("VITREA_")}
-        env.update(VITREA_WEB_CAPTURES=str(out / "web-captures"))
-        started = now()
-        log(dict(label=run_label, started=started, scenes=len(scenes),
-                 argv=[a if a != ",".join(scenes) else f"<{len(scenes)} scenes: {scope}>" for a in argv]))
-        (G1 / "logs").mkdir(parents=True, exist_ok=True)
-        log_path = G1 / "logs" / f"{label}__{scope}-{scale}x.txt"
-        with log_path.open("x") as f:
-            result = subprocess.run([str(W.WITH_GPU), f"w46-fit {run_label}", *argv], cwd=CAL, env=env,
-                                    stdout=f, stderr=subprocess.STDOUT)
-        code = result.returncode
-        if code == 1 and census_refused(log_path):
-            code = 3
-        log(dict(label=run_label, started=started, completed=now(), exitCode=code))
-        print(run_label, "exit", code, len(scenes), "cells", flush=True)
+        code = render_scale(renderer_of(label, scale), scope, scale)
         if code not in (0, 1):
             return code
         worst = max(worst, code)
@@ -516,19 +654,30 @@ def census_refused(log_path: Path) -> bool:
 
 
 # ---------------------------------------------------------------------------------------------
-# Read
+# Read (per scale on the renderer, then composed per point)
 # ---------------------------------------------------------------------------------------------
-def read(label: str) -> dict:
-    """W46's cuts.py on every scope directory the label has, against the reference; writes cuts.txt,
-    cuts.json.gz and summary.json under candidates/<label>/ (a re-read replaces them)."""
-    folder = G1 / "candidates" / label
-    scopes = rendered_scopes(label)
+def scale_summary_path(renderer: str, scale: int) -> Path:
+    return G1 / "candidates" / renderer / f"scale-{scale}x.json"
+
+
+def scale_current(renderer: str, scale: int) -> bool:
+    path = scale_summary_path(renderer, scale)
+    return path.exists() and json.loads(path.read_text())["scopes"] == {
+        k: len(v) for k, v in rendered_scopes(renderer, scale).items()}
+
+
+def read_scale(renderer: str, scale: int) -> dict:
+    """W46's cuts.py on a renderer's matrices at `scale` (its own candidate document), against the
+    reference; keeps that scale's rule-scope T1 cells, their missing members and its L1 rows, and
+    writes `cuts-<s>x.json.gz`, `cuts-<s>x.txt` and `scale-<s>x.json` under candidates/<renderer>/."""
+    folder = G1 / "candidates" / renderer
+    scopes = rendered_scopes(renderer, scale)
     if not scopes:
-        raise W.Refusal(f"read {label}: nothing rendered")
-    merged = SCRATCH / label / "merged-captures"
+        raise W.Refusal(f"read {renderer} {scale}x: nothing rendered")
+    merged = SCRATCH / renderer / f"merged-captures-{scale}x"
     merged.mkdir(exist_ok=True)
     for name in scopes:
-        tree = SCRATCH / label / name / "web-captures"
+        tree = SCRATCH / renderer / name / "web-captures"
         for prof in tree.iterdir() if tree.exists() else []:
             for cell in prof.iterdir():
                 (merged / prof.name / cell.name).mkdir(parents=True, exist_ok=True)
@@ -536,24 +685,36 @@ def read(label: str) -> dict:
                     link = merged / prof.name / cell.name / f.name
                     if not link.exists():
                         os.link(f, link)
-    out_json, out_txt = SCRATCH / label / "cuts.json", SCRATCH / label / "cuts.txt"
+    out_json, out_txt = SCRATCH / renderer / f"cuts-{scale}x.json", SCRATCH / renderer / f"cuts-{scale}x.txt"
     for f in (out_json, out_txt):
         f.unlink(missing_ok=True)
     argv = [sys.executable, "-B", str(W.CUTS / "cuts.py"), "--kind", "candidate",
             "--candidate-document", str((folder / "candidate.json").relative_to(ROOT))]
     for name in scopes:
-        argv += ["--bed", str(SCRATCH / label / name / "matrix.json")]
+        argv += ["--bed", str(SCRATCH / renderer / name / "matrix.json")]
     argv += ["--captures", str(merged), "--out", str(out_json), "--text", str(out_txt)]
     got = subprocess.run(argv, capture_output=True, text=True, cwd=W.CUTS)
     if got.returncode:
-        raise W.Refusal(f"read {label}: cuts.py exit {got.returncode}: {got.stderr[-1500:]}")
+        raise W.Refusal(f"read {renderer} {scale}x: cuts.py exit {got.returncode}: {got.stderr[-1500:]}")
     result = json.loads(out_json.read_bytes())
-    (folder / "cuts.txt").write_text(out_txt.read_text())
-    with gzip.open(folder / "cuts.json.gz", "wt") as f:
+    (folder / f"cuts-{scale}x.txt").write_text(out_txt.read_text())
+    with gzip.open(folder / f"cuts-{scale}x.json.gz", "wt") as f:
         json.dump(result, f)
-    summary = summarise(label, result, scopes)
-    (folder / "summary.json").write_text(json.dumps(summary, indent=1) + "\n")
-    return summary
+    profile = PROFILE[scale]
+    r = rule()
+    t = result["T1"]
+    l1 = result.get("L1", {}).get("webgpu", {})
+    mine = lambda c: c["cell"].startswith(profile + "/") or c["cell"].startswith(profile + " ")  # noqa: E731
+    body = dict(renderer=renderer, scale=scale, profile=profile, scopes={k: len(v) for k, v in scopes.items()},
+                declarationSha256=sha((folder / "candidate.json").read_bytes()),
+                cells=[c for c in t["cells"] if r.in_scope(c) and c["profile"] == profile],
+                missing=[m for m in t.get("missing", ()) if r.in_scope(m) and m["profile"] == profile],
+                L1=dict(absoluteMisses=[c["cell"] for c in l1.get("absoluteMisses", []) if mine(c)],
+                        growthMisses=[c["cell"] for c in l1.get("growthMisses", []) if mine(c)],
+                        unmeasured=[c for c in l1.get("unmeasured", []) if c.startswith(profile)]),
+                verdicts={k: v for k, v in result["summary"].items()})
+    scale_summary_path(renderer, scale).write_text(json.dumps(body, indent=1) + "\n")
+    return body
 
 
 def stage_reading(cells, missing, scope: str) -> dict:
@@ -564,11 +725,20 @@ def stage_reading(cells, missing, scope: str) -> dict:
                 within=clause["verdict"], notWithin=clause["notWithin"], unmeasured=len(clause["unmeasured"]))
 
 
-def summarise(label, result, scopes) -> dict:
+def compose(label: str) -> dict:
+    """A point's summary from its two scales' readings, wherever they were rendered: the T1 cells of
+    each scale off that scale's renderer, the stages and W46's rule evaluated on their union."""
     r = rule()
-    t = result["T1"]
-    cells = [c for c in t["cells"] if r.in_scope(c)]
     spec = json.loads((G1 / "specs" / f"{label}.json").read_text())
+    per = {}
+    for scale in SCALES:
+        renderer = renderer_of(label, scale)
+        path = scale_summary_path(renderer, scale)
+        if not path.exists():
+            raise W.Refusal(f"compose {label}: {renderer} has no {scale}x reading")
+        per[scale] = dict(renderer=renderer, body=json.loads(path.read_text()), sha=sha(path.read_bytes()))
+    cells = [c for s in SCALES for c in per[s]["body"]["cells"]]
+    missing = [m for s in SCALES for m in per[s]["body"]["missing"]]
     per_cell = {}
     for c in cells:
         entry = dict(stratum=c["stratum"], pose=c["pose"], span=c["spanClass"], scale=c["scale"], n=c["native"],
@@ -579,35 +749,57 @@ def summarise(label, result, scopes) -> dict:
                                                                 "fidelity", "change", "growth", "B")}
                               for b in ("fine", "low")}
         per_cell[cell_key(c)] = entry
-    stages = {scope: stage_reading(t["cells"], [m for m in t.get("missing", ()) if r.in_scope(m)], scope)
-              for scope in ALL_SCOPES}
-    l1 = result.get("L1", {}).get("webgpu", {})
+    ruled = r.evaluate(cells, missing)
     return dict(
         label=label, stage=spec["stage"], family=spec["family"], start=spec["start"], overrides=spec["overrides"],
-        scopes={k: len(v) for k, v in scopes.items()},
+        renderers={f"{s}x": dict(label=per[s]["renderer"], scaleSummarySha256=per[s]["sha"],
+                                 scopes=per[s]["body"]["scopes"]) for s in SCALES},
         declarationSha256=sha((G1 / "candidates" / label / "candidate.json").read_bytes()),
-        stages=stages, selectionMetric=t["selectionMetric"], rule=t.get("rule", {}).get("verdict"),
-        ruleProfiles={p: v["verdict"] for p, v in t.get("rule", {}).get("profiles", {}).items()},
-        L1=dict(verdict=l1.get("verdict"), maxError=l1.get("maxError"), maxGrowth=l1.get("maxGrowth"),
-                absoluteMisses=[c["cell"] for c in l1.get("absoluteMisses", [])],
-                growthMisses=[c["cell"] for c in l1.get("growthMisses", [])]),
-        verdicts=result["summary"], cells=per_cell)
+        stages={scope: stage_reading(cells, missing, scope) for scope in ALL_SCOPES},
+        selectionMetric=r.selection_metric(cells), rule=ruled["verdict"],
+        ruleProfiles={p: v["verdict"] for p, v in ruled["profiles"].items()},
+        L1={f"{s}x": per[s]["body"]["L1"] for s in SCALES},
+        verdicts={f"{s}x": per[s]["body"]["verdicts"] for s in SCALES},
+        cells=per_cell, t1Cells=cells, t1Missing=missing)
+
+
+def summary_current(label: str) -> bool:
+    path = G1 / "candidates" / label / "summary.json"
+    if not path.exists():
+        return False
+    s = json.loads(path.read_text())
+    for scale in SCALES:
+        renderer = renderer_of(label, scale)
+        got = s.get("renderers", {}).get(f"{scale}x", {})
+        p = scale_summary_path(renderer, scale)
+        if got.get("label") != renderer or not scale_current(renderer, scale) or \
+                got.get("scaleSummarySha256") != sha(p.read_bytes()):
+            return False
+    return True
+
+
+def read(label: str) -> dict:
+    """A point's reading: each scale's renderer read if its reading is stale, then composed."""
+    for scale in SCALES:
+        renderer = renderer_of(label, scale)
+        if not scale_current(renderer, scale):
+            read_scale(renderer, scale)
+    summary = compose(label)
+    (G1 / "candidates" / label / "summary.json").write_text(json.dumps(summary, indent=1) + "\n")
+    return summary
 
 
 def point(label, overrides, stage, family, start_, scope, note="") -> dict:
-    """Spec, build, render the scope and read: memoized by label."""
+    """Spec, build, render the scope on each scale's renderer, and read: memoized by label."""
     write_spec(label, overrides, note, stage, family, start_)
     build(label)
-    name = measured_label(label)
-    code = render(name, scope)
+    code = render(label, scope)
     if code not in (0, 1):
-        raise W.Refusal(f"{name}/{scope}: render exit {code}")
-    summary = G1 / "candidates" / name / "summary.json"
-    if summary.exists():
-        s = json.loads(summary.read_text())
-        if s["scopes"] == {k: len(v) for k, v in rendered_scopes(name).items()}:
-            return s
-    return read(name)
+        raise W.Refusal(f"{label}/{scope}: render exit {code}")
+    if summary_current(label):
+        return json.loads((G1 / "candidates" / label / "summary.json").read_text())
+    return read(label)
+
 
 
 def parse_overrides(items) -> dict:
@@ -634,9 +826,9 @@ def main(argv) -> int:
         print(json.dumps({k: s[k] for k in ("label", "stages", "selectionMetric", "rule", "L1")}, indent=1))
         return 0
     if verb == "render":
-        return render(measured_label(argv[2]), opt("--scope"))
+        return render(argv[2], opt("--scope"))
     if verb == "read":
-        s = read(measured_label(argv[2]))
+        s = read(argv[2])
         print(json.dumps({k: s[k] for k in ("label", "stages", "selectionMetric", "rule", "L1")}, indent=1))
         return 0
     print(__doc__)

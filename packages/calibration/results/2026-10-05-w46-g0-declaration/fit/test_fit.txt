@@ -1,7 +1,7 @@
 test_an_unknown_scope_refuses (test_fit.Cells.test_an_unknown_scope_refuses) ... ok
 test_the_scopes_per_scale (test_fit.Cells.test_the_scopes_per_scale) ... ok
 test_the_stage_tie_is_the_reference_rows_once (test_fit.Cells.test_the_stage_tie_is_the_reference_rows_once) ... ok
-test_full_renders_and_reads_the_twin (test_fit.Full.test_full_renders_and_reads_the_twin) ... ok
+test_full_renders_the_point_through_its_renderers_and_reads_it (test_fit.Full.test_full_renders_the_point_through_its_renderers_and_reads_it) ... ok
 test_an_undeclared_or_light_move_refuses (test_fit.Identity.test_an_undeclared_or_light_move_refuses) ... ok
 test_the_snapshot_start_holds (test_fit.Identity.test_the_snapshot_start_holds) ... ok
 test_a_leaf_with_no_short_name_refuses (test_fit.Labels.test_a_leaf_with_no_short_name_refuses) ... ok
@@ -15,8 +15,14 @@ test_check_overrides (test_fit.Part2.test_check_overrides) ... ok
 test_other_waves_part_hashes_refuse (test_fit.Part2.test_other_waves_part_hashes_refuse) ... ok
 test_preflight_refuses_without_part_2 (test_fit.Part2.test_preflight_refuses_without_part_2) ... ok
 test_a_census_refusal_is_told_apart (test_fit.Render.test_a_census_refusal_is_told_apart) ... ok
-test_an_alias_is_never_rendered (test_fit.Render.test_an_alias_is_never_rendered) ... ok
+test_a_point_renders_only_through_its_scale_twins (test_fit.Render.test_a_point_renders_only_through_its_scale_twins) ... ok
 test_every_fit_launch_passes_alpha_one_profile_and_no_holdout_set (test_fit.Render.test_every_fit_launch_passes_alpha_one_profile_and_no_holdout_set) ... ok
+test_a_1x_lever_by_a_2x_lever_renders_their_sum_not_their_product (test_fit.ScaleSeparable.test_a_1x_lever_by_a_2x_lever_renders_their_sum_not_their_product) ... ok
+test_a_both_leaf_splits_both_scales (test_fit.ScaleSeparable.test_a_both_leaf_splits_both_scales) ... ok
+test_a_leaf_with_no_scale_refuses (test_fit.ScaleSeparable.test_a_leaf_with_no_scale_refuses) ... ok
+test_a_point_reads_its_renderers_cells_per_scale (test_fit.ScaleSeparable.test_a_point_reads_its_renderers_cells_per_scale) ... ok
+test_the_scale_twins_drop_non_moves_and_the_other_scales_leaves (test_fit.ScaleSeparable.test_the_scale_twins_drop_non_moves_and_the_other_scales_leaves) ... ok
+test_twins_of_one_content_render_once (test_fit.ScaleSeparable.test_twins_of_one_content_render_once) ... ok
 test_decide_applies_the_tie_rule_from_the_stage_base (test_fit.Stages.test_decide_applies_the_tie_rule_from_the_stage_base) ... ok
 test_stage_1_is_a_factorial_then_coordinate_sweeps (test_fit.Stages.test_stage_1_is_a_factorial_then_coordinate_sweeps) ... ok
 test_stage_2_materialises_x64_at_the_stage_1_active_values (test_fit.Stages.test_stage_2_materialises_x64_at_the_stage_1_active_values) ... ok
@@ -25,6 +31,6 @@ test_a_plateau_goes_to_the_point_nearest_the_start_not_to_grid_order (test_fit.T
 test_then_the_fewer_moved_leaves_then_grid_order (test_fit.TieRule.test_then_the_fewer_moved_leaves_then_grid_order) ... ok
 
 ----------------------------------------------------------------------
-Ran 25 tests in 5.131s
+Ran 31 tests in 5.733s
 
 OK

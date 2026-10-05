@@ -20,8 +20,12 @@ is untouched.
 - **One label grammar** (`labels.json`): a receded leaf is marked lower-case `r`, which the builder's
   pattern admits (the tracker's "upper-case R" entry), and `label_of` refuses to name a point whose
   label the builder would refuse.
-- **`full` renders the twin that measures a point** (the tracker's "`search.py full` renders an
-  alias" entry): it resolves `fit.measured_label` first, as the runner does.
+- **`full` renders what measures a point** (the tracker's "`search.py full` renders an alias"
+  entry): each scale on the renderer of the point's scale twin, as the runner does.
+- **Scale-separable rendering** (the parent's ruling, for stage 1's factorial over 1x and 2x leaves):
+  a point renders each scale through its SCALE TWIN, and scale twins of one content render once, so a
+  1x lever × 2x lever factorial renders (#1x values) + (#2x values) scale contents, not the product
+  (`fit.py`, "Scale-separable rendering"; exact under the scale anchoring the ladders verify).
 - **X64 in stage 2.** A move whose part-2 body names `materialiseX64: <slot>` starts from its base
   with every X64 key of that slot stated at its inherited value (for the receded document, the
   stage-1 active's resolved values): an unchanged start (digest-neutral), from which each is held or
@@ -35,8 +39,8 @@ point outside a declared joint domain is not a candidate; a leaf key `a+b` is a 
 `domainRelativeTo` takes its grid as fractions of the active value; a family's `fixed` leaves are
 held. A stage's families are sequential components in `familyOrder`, each on its own scope from the
 point the previous left; the composed point is read on the stage and the stage is decided there.
-Candidates of one content render once (a twin MEASURES a point and never replaces its overrides). A
-partial objective is never ranked: it is the recovered value (`recover.py`) or a refusal.
+Candidates of one content render once, now per scale (a renderer MEASURES a point's scale and never
+replaces its overrides). A partial objective is never ranked: it is the recovered value (`recover.py`) or a refusal.
 """
 from __future__ import annotations
 
@@ -97,14 +101,9 @@ def fixed_of(fbody: dict) -> dict:
 
 def label_of(start: str, stage_id: str, overrides: dict, base: dict) -> str:
     """A readable label from what a point moves beyond `base`, prefixed by its lineage and stage, in
-    `labels.json`'s grammar; a label the builder's pattern would refuse is refused here first."""
-    parts = []
-    for slot, leaves in sorted(overrides.items()):
-        for leaf, v in sorted(leaves.items()):
-            if base.get(slot, {}).get(leaf) != v:
-                if leaf not in SHORT:
-                    raise fit.W.Refusal(f"labels.json has no short name for {leaf}")
-                parts.append(f"{LABELS['slotMark'][slot]}{SHORT[leaf]}{fmt(round(v, 6))}")
+    `labels.json`'s grammar (`fit.label_parts`); a label the builder's pattern would refuse is refused
+    here first."""
+    parts = fit.label_parts(overrides, base)
     label = f"{LABELS['lineage'][start]}-{LABELS['stage'].get(stage_id, stage_id)}" + (
         "-" + "-".join(parts) if parts else "-base")
     if not re.fullmatch(LABELS["pattern"], label):
@@ -191,29 +190,12 @@ def choose(names: list[str], objective, tie: float, origin: dict, keys, override
 # The real runner
 # ---------------------------------------------------------------------------------------------
 def same_point(overrides: dict, start: str) -> str | None:
+    """An existing POINT (never a scale twin) of the lineage with exactly these overrides."""
     for f in sorted((fit.G1 / "specs").glob("*.json")) if (fit.G1 / "specs").exists() else []:
         spec = json.loads(f.read_text())
-        if spec["overrides"] == overrides and spec.get("start") == start:
+        if spec.get("stage") != "scale-twin" and spec["overrides"] == overrides and spec.get("start") == start:
             return f.stem
     return None
-
-
-def content_of(label: str) -> tuple:
-    folder = fit.G1 / "candidates" / label
-    return tuple(json.loads((folder / f"{slot}.json").read_text())["resolvedMaterialSha256"] for slot in SLOTS)
-
-
-def content_twin(label: str, start: str, pending: dict) -> str | None:
-    mine = content_of(label)
-    table = fit.aliases()
-    for f in sorted((fit.G1 / "candidates").glob("*/summary.json")):
-        other = f.parent.name
-        if other == label or other in table or not (fit.G1 / "specs" / f"{other}.json").exists():
-            continue
-        if spec_of(other).get("start") == start and content_of(other) == mine:
-            return other
-    twin = pending.get(mine)
-    return twin if twin != label else None
 
 
 def summary_of(label: str) -> dict:
@@ -221,10 +203,7 @@ def summary_of(label: str) -> dict:
 
 
 def read_current(label: str) -> bool:
-    path = fit.G1 / "candidates" / label / "summary.json"
-    if not path.exists():
-        return False
-    return json.loads(path.read_text())["scopes"] == {k: len(v) for k, v in fit.rendered_scopes(label).items()}
+    return fit.summary_current(label)
 
 
 def recovered_points() -> dict:
@@ -236,21 +215,25 @@ def scope_objective(label: str, scope: str) -> float:
     """A point's objective on `scope` (both scales), read off the label that measures it: the
     recorded value when every F u C u P member has a reading, else the value `recover.py` recovered,
     else a refusal."""
-    measured = fit.measured_label(label)
-    s = summary_of(measured)
+    s = summary_of(label)
     if all(key in s["cells"] for key in fit.selection_members(scope)):
         return s["stages"][scope]["objective"]
-    got = recovered_points().get(measured, {}).get(scope)
+    got = recovered_points().get(label, {}).get(scope)
     if got is None:
-        raise fit.W.Refusal(f"{label} (measured by {measured}) has an UNMEASURED {scope} objective member and no "
+        raise fit.W.Refusal(f"{label} has an UNMEASURED {scope} objective member and no "
                             "recovered reading: run recover.py, then the search again; a partial median is "
                             "never ranked")
     return got["declaredObjective"]
 
 
 class Runner:
-    """Builds, renders (once per content) and reads points; the tests hand `compose` a runner that
-    renders nothing. A point keeps its OWN label and overrides whatever measures it."""
+    """Builds, renders and reads points; the tests hand `compose` a runner that renders nothing.
+
+    Rendering is SCALE-SEPARABLE (`fit.py`, "Scale-separable rendering"): every point's scale twins
+    are written and built, twins of one scale content render once (the first of the batch, or an
+    earlier rendered twin, measures the rest), each renderer is read at its scale, and each point's
+    summary is composed from the two scale readings that measure it. A point keeps its OWN label and
+    overrides whatever renders measure it."""
 
     def points(self, cands: list[dict], labels: list[str], stage_id: str, family: str, start: str,
                scope: str) -> list[str]:
@@ -261,27 +244,23 @@ class Runner:
                 fit.write_spec(label, ov, "", stage_id, family, start)
                 fit.build(label)
                 known = label
-            if known not in fit.aliases() and not (fit.G1 / "candidates" / known / "summary.json").exists():
-                twin = content_twin(known, start, pending)
-                if twin is not None:
-                    fit.record_alias(known, twin)
-                    fit.log(dict(label=known, measuredBy=twin, scope=scope, at=fit.now()))
-                else:
-                    pending.setdefault(content_of(known), known)
             named.append(known)
+        renderers = {}
+        for name in dict.fromkeys(named):
+            for scale in fit.SCALES:
+                renderers.setdefault((fit.scale_twin(name, scale, pending), scale), None)
+        for renderer, scale in renderers:
+            code = fit.render_scale(renderer, scope, scale)
+            if code == 3:
+                raise fit.W.Refusal(f"census refused before {renderer} {scale}x; nothing after it rendered")
+            if code not in (0, 1):
+                raise fit.W.Refusal(f"{renderer} {scale}x: render exit {code}")
         with ThreadPoolExecutor(max_workers=2) as pool:
-            futures = []
-            for name in dict.fromkeys(fit.measured_label(n) for n in named):
-                if not fit.covered(name, scope):
-                    code = fit.render(name, scope)
-                    if code == 3:
-                        raise fit.W.Refusal(f"census refused before {name}; nothing after it rendered")
-                    if code not in (0, 1):
-                        raise fit.W.Refusal(f"{name}: render exit {code}")
-                if not read_current(name):
-                    futures.append(pool.submit(fit.read, name))
-            for fut in futures:
+            for fut in [pool.submit(fit.read_scale, r, s) for r, s in renderers if not fit.scale_current(r, s)]:
                 fut.result()
+        for name in dict.fromkeys(named):
+            if not fit.summary_current(name):
+                fit.read(name)
         return named
 
     def objective(self, label: str, scope: str) -> float:
@@ -412,8 +391,8 @@ def decide(move: dict, start: str, labels: list[str], origin: dict | None = None
     tie = runner.tie(scope)
     rows = []
     for label in dict.fromkeys(labels):
-        measured = fit.measured_label(label)
-        reading = summary_of(measured)["stages"][scope]
+        measured = label
+        reading = summary_of(label)["stages"][scope]
         try:
             objective = scope_objective(label, scope)
         except fit.W.Refusal as err:
@@ -436,22 +415,25 @@ def table(scope: str | None = None) -> str:
     lines = []
     for f in sorted((fit.G1 / "candidates").glob("*/summary.json")):
         s = json.loads(f.read_text())
+        if s.get("stage") == "scale-twin":
+            continue
         ov = "; ".join(f"{slot.split('.')[0]} {k}={v:g}" for slot, kv in s["overrides"].items() for k, v in kv.items())
         objs = " ".join(f"{m}={v['objective']:.4f}{'*' if v['within'] == 'WITHIN' else ''}"
                         if v["objective"] is not None else f"{m}=—" for m, v in s["stages"].items()
                         if scope is None or m == scope)
         lines.append(f"{s['label']:<28} {s['stage']}/{s['family']:<8} {objs}  "
-                     f"sel={s['selectionMetric'] or 0:.4f}  L1 {s['L1']['verdict']}  [{ov}]")
+                     f"sel={s['selectionMetric'] or 0:.4f}  L1 misses "
+                     f"{sum(len(v['absoluteMisses']) + len(v['growthMisses']) for v in s['L1'].values())}  [{ov}]")
     return "\n".join(lines) + "\n"
 
 
 def full(label: str) -> dict:
-    """The whole fit map at a point, rendered on the twin that measures it (the tracker's entry)."""
-    name = fit.measured_label(label)
-    code = fit.render(name, "rest-of-fit")
+    """The whole fit map at a point: each scale rendered on the renderer that measures the point
+    there, then the point read (the tracker's "`full` renders an alias" entry, closed per scale)."""
+    code = fit.render(label, "rest-of-fit")
     if code not in (0, 1):
-        raise fit.W.Refusal(f"full {label}: render exit {code} on {name}")
-    return fit.read(name)
+        raise fit.W.Refusal(f"full {label}: render exit {code}")
+    return fit.read(label)
 
 
 def main(argv) -> int:
