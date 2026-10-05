@@ -1,0 +1,97 @@
+#!/usr/bin/env python3.12
+"""W46 G0 (a): the stage port's red cases (charter clauses 1, 6 and 7; Design "The populations per
+phase"; X62). Nothing here launches a browser or declares a stage.
+
+    cd packages/calibration/results/2026-10-05-w46-g0-declaration/stage
+    python3.12 -B -m unittest test_stage -v
+"""
+from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+from unittest import mock
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import stage  # noqa: E402
+
+W = stage.W
+
+
+class Stage(unittest.TestCase):
+    def test_the_stages_are_w46s_and_dark(self):
+        for mode in stage.MODES.values():
+            W.refuse_other_wave_path(mode["stage"], "stage")
+            W.refuse_other_wave_path(mode["out"], "evidence")
+            self.assertIn("vitrea-w46", str(mode["stage"]))
+        self.assertEqual(stage.PROFILES, list(W.DARK_025))
+        self.assertIn("-dark-", stage.ACTIVE)
+        self.assertIn("-dark-", stage.RECEDED)
+
+    def test_a_w44_or_w45_stage_refuses(self):
+        for other in (Path.home() / "vitrea-w45" / "g1-stage-light", Path.home() / "vitrea-w44" / "g1-stage-light"):
+            with mock.patch.dict(stage.MODES["g1"], stage=other), self.assertRaisesRegex(W.Refusal, "clause 1"):
+                stage.declare("g1")
+
+    def test_g1_refuses_the_shipped_documents_and_unhashed_parts(self):
+        # Today the dark documents on disk ARE the snapshots and W46's parts are unhashed.
+        with self.assertRaises(W.Refusal):
+            stage.require_sealed()
+        with mock.patch.object(W, "require_part", lambda part: "x"), \
+                self.assertRaisesRegex(W.Refusal, "not sealed by W46 G1"):
+            stage.require_sealed()
+        sealed = {k: dict(v, snapshot=False, recordedBy="W46 G1") for k, v in stage.documents_state().items()}
+        with mock.patch.object(W, "require_part", lambda part: "x"), \
+                mock.patch.object(stage, "documents_state", lambda: sealed):
+            stage.require_sealed()
+        wrong = {k: dict(v, snapshot=False, recordedBy="W45 G1") for k, v in stage.documents_state().items()}
+        with mock.patch.object(W, "require_part", lambda part: "x"), \
+                mock.patch.object(stage, "documents_state", lambda: wrong), \
+                self.assertRaisesRegex(W.Refusal, "not sealed by W46 G1"):
+            stage.require_sealed()
+
+    def test_the_rehearsal_stages_only_the_snapshot_bytes(self):
+        stage.require_snapshot()
+        state = {k: dict(v, snapshot=False) for k, v in stage.documents_state().items()}
+        with mock.patch.object(stage, "documents_state", lambda: state), \
+                self.assertRaisesRegex(W.Refusal, "not the snapshot"):
+            stage.require_snapshot()
+
+    def test_the_rehearsal_renders_dark_t1_gate_cells_only(self):
+        B, t1, _ = W.load_cuts()
+        plan = W.referee_plan()
+        held = plan.referee_cells(plan.load_manifest())
+        pregate = set(plan.lists()["pregateProbe"]["scenes"])
+        for profile in W.DARK_025:
+            lists = stage.gate_t1_scenes(profile)
+            self.assertEqual(len(lists["cvr"]) + len(lists["probe"]), 66, profile)
+            for sid in lists["cvr"] + lists["probe"]:
+                self.assertNotIn((profile, sid), held)
+                self.assertNotEqual(B.SCENES.role[sid], "holdout")
+                self.assertIn(B.SCENES.by_id[sid]["background"], t1.T1_BACKDROPS)
+            self.assertTrue(set(lists["probe"]) <= pregate)
+            for sid in plan.load_manifest()["scenes"]:
+                self.assertNotIn(sid, lists["cvr"] + lists["probe"])
+            passes = stage.passes("rehearse-measure", profile)
+            self.assertEqual([p[1] for p in passes], ["calibration,validation,recorded", "probe"])
+
+    def test_measure_never_names_the_withheld_and_the_exposure_is_the_thirteen(self):
+        plan = W.referee_plan()
+        held = set(plan.load_manifest()["scenes"])
+        for profile in W.DARK_025:
+            for _, sets, scenes in stage.passes("measure", profile):
+                self.assertNotIn("holdout", sets)
+                self.assertFalse(set(scenes or ()) & held)
+            [(_, sets, scenes)] = stage.passes("exposure", profile)
+            self.assertEqual(sets, "holdout,probe")
+            self.assertEqual(len(scenes), 13)
+            self.assertTrue(held <= set(scenes))
+
+    def test_the_exposure_waits_on_the_ledger(self):
+        refusals = stage.exposure_refusals(stage.holdout_configuration(), stage.committed_last_read())
+        self.assertTrue(any("W46's referee manifest" in r for r in refusals), refusals)
+
+
+if __name__ == "__main__":
+    unittest.main()
