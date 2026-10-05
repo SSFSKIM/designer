@@ -48466,3 +48466,141 @@ is the one place W47 is bound:
 - X69's frozen inputs, pinned in `SHARED`: `w46-referees-1` (`0eb8ef77…`), W46's planner adapter,
   W46's frozen ladder list and W46 G2's dark T-band fixture;
 - the refusals, extended to W46's evidence directories, scratch, part hashes and charter.
+
+### 2. The depth-split diagnostic chose the body form (G0 (f); Decision Log 3 as amended)
+
+Run before operator 2 landed and before part 1, on a scratch branch never merged
+(`w47-g0-diag-scratch`; the forms rendered are on record as `diagnostic/scratch-renderer.patch`). The
+population was the two non-withheld F inactive cells, `checkerboard-8__rrect-md__inactive` (span 96) and
+`checkerboard-8__rrect-lg__inactive` (span 160), on both dark 0.25 scales, WebGPU, at
+`d0219cd684bf` / `f0b36a71772a`. Both forms ran at share 1 and width 6 CSS px, every other leaf the
+shipped receded document's. The referee `checkerboard-4__rrect-md__inactive` was never rendered. The
+control and an explicit share-0 render are byte-identical to the canonical tree on all four cells.
+
+T1-fine is W44 G1's `read()`: the SD of L − G(L, σ 4 device px), linear luminance, native silhouette
+eroded 4 CSS px. `E` is reference minus native, and `R` the share of `E` a form removes:
+
+| scale / span | native | reference | body | E | R body | R deep |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1x / 96 | 0.007247 | 0.022552 | 0.011237 | 0.015305 | 0.739 | 0 |
+| 1x / 160 | 0.005410 | 0.018606 | 0.008458 | 0.013196 | 0.769 | 0 |
+| 2x / 96 | 0.001659 | 0.010236 | 0.001282 | 0.008577 | 1.044 | 0 |
+| 2x / 160 | 0.001125 | 0.010000 | 0.001027 | 0.008875 | 1.011 | 0 |
+
+The pooled mean R is 0.891 for the body form and 0 for the deep form. **Under the declared criterion
+the body form is chosen**: it clears half of `E` on every cell and scale and removes more on the
+pooled mean. There is no split by scale and no STOP. At 2x the body form crosses below native (R above
+1); that is recorded, not clamped.
+
+**The deep form's zero is the physics, not a dead branch.** Its PNGs are byte-identical to the
+control. A positive control (`diagnostic/positive-control/`) shows the branch executes:
+- the deep form at σ 6 on `checkerboard-64__rrect-md__inactive` moves 2,459 pixels (max 1 code) at 1x
+  and 51,734 (max 5) at 2x;
+- at σ 40 on the span-160 cell it moves 113 pixels at 1x and 971 at 2x;
+- the fine texture is allocated and bound in every deep render (`texture-trace.json`).
+
+So the 8 px structure is already absent from the deep sample at its own width. `doperpowers:reviewer-high`
+on the scratch code found no material finding. An independent CPU replay of the downsample chain found
+the level-4 checker interior flat at linear 0.5 before either form's blur.
+
+**The masks and weights** (they explain the reading and never chose it). The scratch shader wrote its
+fully conditioned `kScatter` (W30's term at the analysis pass's measured edge density, 0.266 at 1x and
+0.248 at 2x) and the field's ramp classification, read on the T1-fine support:
+
+| scale / span / mask | pixels | body weight `1 − kScatter` | deep weight `kScatter` |
+| --- | --- | --- | --- |
+| 1x / 96 / ramp | 13,184 | 0.766 | 0.234 |
+| 1x / 160 / ramp | 40,624 | 0.624 | 0.376 |
+| 2x / 96 / ramp | 52,648 | 0.459 | 0.541 |
+| 2x / 160 / ramp | 118,794 | 0.456 | 0.544 |
+| 2x / 160 / beyond the reach | 43,524 | 0.436 | 0.564 |
+
+The other beyond-reach masks are empty. W30's conditioning keeps substantial body weight beyond the 2x
+ramp. That is why the ramp starts alone would have mis-stated the weights, which the charter
+forbade.
+
+**Two charter sentences were wrong, and are corrected in its Surprises beside the originals:**
+- `sizeHeavyTapSigma2x` 14 is device px, so the receded 2x deep sample is σ 7 CSS px. The deep form
+  ran at √(7² + 6²) = 9.22 CSS px, and at 1x at √(13.42² + 6²) = 14.70 CSS px from the clamped
+  chain level.
+- `heavyTapPlan` puts the grid's widths 2 / 3 / 4 CSS px on chain levels 1 / 1 / 2 at 1x and 2 / 2 / 3
+  at 2x, not level 0. It and `runSeparableBlur` still carry the fine texture with no new pass shape,
+  so operator 2's pyramid reading needed no STOP.
+
+### 3. Operator 1, landed inert (clause 1; Decision Log 2; X65)
+
+`tintAlphaFar1x` and `tintAlphaFar2x`, identity 0, resolved by `tintAlphaFarAtScale` =
+`rampAtScale(far1x, far2x, dpr)`. They are read per pixel in the optics pass at the one site that
+computes `sizedAlpha`, as `alphaBase = clamp(tintAlpha + farAtScale · farS, 0, 1)` before the occlusion
+term and the W9 solve. The uniform rides `d[131]` (`scatterHeavy2.w`). Two plain value drops are
+appended to `MATERIAL_IDENTITY_TABLE`.
+- **Bits at identity.** At delta 0, `0 · farS` is +0 (`farS` is a clamped cubic in [0, 1]), so `a + 0`
+  and `fma(0, farS, a)` both return `a`, and the clamp leaves an alpha in [0, 1] unchanged. This is
+  unit-tested in f32 and fused f32.
+- **The CSS tier mirrors it.** `spanGradedTintAlpha` runs once per surface inside
+  `materialAtBackdrop`, after the policy lift and before `sizeOcclusionAlphaAt`, as the shader orders
+  it, on the document's own span top. `tier-coherence.test.ts` pins the two evaluations to each other
+  on the ten shipped documents and on five synthetic ones with non-zero deltas, a moved top and the
+  clamp, over 14 spans and six ratios (X65).
+- **Readers** (`operator-1/readers.txt`). In the shader, `ou.tint.w`'s only reader was the `sizedAlpha`
+  line, so everything downstream reads the graded alpha by derivation: the solve, `solvedAlpha`,
+  `adaptedAlpha`, `presentAlpha`, the DOM secant and the rim's luma. Three readers stay on the ungraded
+  alpha, with reasons recorded:
+  - `opticsUnderPolicy` (upstream by design);
+  - the renderer's `sizeOcclusionAlpha` / `At` (the occlusion term only, no runtime caller);
+  - the spanless CSS paths.
+- **Ruled by the parent** with the reviewer's agreement: the delta composes after the accessibility
+  lift on both tiers, the only order the shader admits, since `ou.tint.w` arrives lifted. Operator 1
+  under Reduce Transparency or opaque occlusion is unmeasured.
+
+**The proofs** (`operator-1/`; recorder `e2e/gpu/w47-alpha-far.spec.ts` with the scene
+`w47-span-quad`, spans 56/96/128/160, plain and with a declared tone, at 1x and 2x). The recorder was
+committed first (`2d0016af2`) and run twice on a clean checkout of it, then on the implementation
+(`b1b16a3f3`):
+
+| proof | result |
+| --- | --- |
+| identity cases (`compare.txt`) | **67 of 67 byte-identical**: every shipped endpoint, both leaves explicit 0, a 2x-only delta at 1x, a 1x-only delta at 2x, the 13 golden scenes |
+| the ON path | 14 of 14 non-zero cases move the span-128 and span-160 members only; the span-56 and span-96 members and every pixel outside them byte-identical; up to 25 codes without a tone, 1–5 with one (the solve holds the level) |
+| goldens | **34 of 34** before and after on apple/metal-3 |
+| digests (`digests.txt`) | **10 of 10** shipped documents reproduce their recorded digest |
+| dark 0.25 calibration and validation, both tiers, both scales (`identity.txt`) | **168 of 168** captures byte-identical to the canonical tree; **84 of 84** rows measurement-identical to `d0219cd684bf` |
+| suites | renderer 666, platform-web 656, react 180, calibration 929 (4 pre-existing skips); lint 0 |
+| X60 (`x60.txt`) | no profile, generation, matrix, capture, golden or W44–W46 evidence file moved |
+
+`doperpowers:reviewer-high` on the implementation and the recorder found no material finding.
+
+### 4. Operator 2, landed inert in the body form (clause 1; Decision Log 3; X66)
+
+`sizeFineTapShare` (gate, identity 0) with `sizeFineTapSigma` / `sizeFineTapSigma2x` (CSS px,
+`rampAtScale`, gated) form one gate-group in `MATERIAL_IDENTITY_TABLE`. The texture is built through
+`heavyTapPlan` and `runSeparableBlur`, under its own pool keys, only where the share is non-zero and
+the resolved width at the group's ratio is positive. The second tap's rule holds: a width of 0 at a
+scale means no tap at that scale and is never an unblurred source mix (parent's ruling; a unit case
+holds share 1, σ1x 0, σ2x 6 off at 1x and on at 2x).
+- Share and gate ride `d[133]` / `d[134]` and binding 12. The gate is set from the texture's actual
+  presence, and the stood-down binding takes the existing placeholder.
+- The mix is `body' = body + share · (fine − body)`, at the refracted UV, before `kScatter`. No form
+  selector remains.
+- The CSS tier declines it with the taps (`CSS_COUNTERPART`).
+- Readers are in `operator-2/readers.txt`; the leaf audit is in `operator-2/leaf-audit.json`.
+
+`doperpowers:reviewer-high` on the implementation and its recorder (`e2e/gpu/w47-fine-tap.spec.ts`)
+found no material finding. The proofs were recorded on the ASSEMBLED tree (operator 1 merged beneath),
+with "before" being that tree plus only the recorder:
+
+| proof | result |
+| --- | --- |
+| determinism | 71 of 71 repeat hashes equal on each tree |
+| identity cases (`compare.txt`) | **62 of 62 byte-identical**: every 0.25 and 0.5 endpoint at identity, share 0 with widths 1.5 and 6 named, the 2x-only width at 1x |
+| the ON path | 9 of 9 live cases move (at 1x, share 0.5–1, widths 2–6: 4,609–13,818 pixels, up to 6 codes) |
+| goldens | **34 of 34** before and after |
+| operator 1 replayed on the merged tree | **81 of 81** hashes equal to operator 1's committed after-hashes |
+| digests | **10 of 10** with all five operator leaves at identity |
+| dark 0.25 calibration and validation, both tiers, both scales (`identity.txt`) | **168 of 168** captures byte-identical; **84 of 84** rows measurement-identical to `d0219cd684bf` |
+| suites | renderer 673, platform-web 656, react 180, calibration 931 (+4 skips); lint 0 |
+| X60 (`x60.txt`) | no frozen path differs from `af8cf7e5f` |
+
+The census refused 89 launches between about 20:20 and 22:00 UTC, while another session's Playwright
+CLI daemon and its automation-flagged Chrome were up. They were retried with backoff and logged,
+never bypassed.
