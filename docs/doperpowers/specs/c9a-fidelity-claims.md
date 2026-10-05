@@ -48604,3 +48604,124 @@ with "before" being that tree plus only the recorder:
 The census refused 89 launches between about 20:20 and 22:00 UTC, while another session's Playwright
 CLI daemon and its automation-flagged Chrome were up. They were retried with backoff and logged,
 never bypassed.
+
+### 5. The tools, re-bound (clause 2; G0 (c); X64, X67–X70)
+
+W46's tools, ported by copy with W46's text kept beneath what W47 changes, under the evidence root.
+Each test was run on the assembled tree and its transcript is committed beside it:
+
+| tool | what W47 changes | tests |
+| --- | --- | --- |
+| `bindings.py` | W47's pins; X67 and `ADMITTED`; X68's `DOMAINS`; X69's frozen inputs; refusals extended to W46 | `test_bindings` 12 |
+| `declare.py`, `assemble.py` | W47's fifteen items, incl. `operators` (pinning clause 1's evidence by name) and `diagnostic`; the content-amendment form in a general check; the parent's rulings held verbatim per item | `test_declare` 42 |
+| `referees/` | X69: `w46-referees-1` loaded by hash, W46's adapter given only W46's frozen ladder list; membership, disjointness, withholding | `test_referees` 11 |
+| `cuts/` | dark 0.25, reference `d0219cd684bf`, W45's rule unchanged; P rest and P inactive written beside the pooled target P | `test_rule` 19, `test_cuts_refusals` 11 |
+| `fit/build-candidate.ts` | exactly `ADMITTED` per dark slot; X68's domains; refuses a key the runtime does not know | `test_build_candidate` 21 |
+| `fit/` driver | the span-law factorial crossed with the second tap (conditional on ladder (ii)); gates collapse tap-off points; inherited starts admitted apart from move domains | `test_fit` 47 |
+| `seal/seal.ts` | leaf set the 0.5 twin's plus X64 plus X67 | `test_seal` 16 |
+| `stage/`, `sheets/` | the dark stage with X60; populations per phase | `test_stage` 8, `test_x60` 11, `test_sheets` 7 |
+| `level/` | operator 1's `alphaBase` composed before the occlusion term and the solve, through the runtime's own exports | `test_level` 13 |
+| `ladders/` | X70: requested, planned and measured compared per rung and scale; dependent rungs resolved or inapplicable | `test_ladder` 22, `test_read` 5 |
+
+The two skips are the unknown-leaf refusals. They now read as skipped because the runtime knows
+every leaf.
+
+**The silent-drop hazard, closed in the port.** `withMaterialOverrides` drops a patch key the runtime
+does not know. So in W46's form, a seal or candidate naming an operator leaf at 0 before the operator
+existed would "reproduce" the digest and prove nothing. The builder and the seal now refuse an
+unknown key, nested paths included.
+
+**Tested on `d0219cd684bf`:**
+- *The seal* (X67's pin): the snapshots sealed with every X64 and X67 key materialised at its
+  resolved value, both operators' leaves included, reproduce `b074fc6913a91c66` / `280f0fddf014e0f6`.
+  The builder reproduces the same digests and the light snapshots' `3741b229…` / `c4ca0e1c…`.
+- *The cuts port*: equal to W46 G0's committed cut on 56,289 leaf values; only provenance differs.
+- *The stage*: a strict-mode rehearsal of the shipped dark documents on the 66 T1 gate cells per
+  scale. 132 of 132 rows equal the published rows but for `capturedAt`, and 264 of 264 captures are
+  byte-identical to the canonical tree, all on the pinned engine.
+- *X60 by evidence*: IDENTICAL, scanning every capture tree under `~/vitrea-w47`.
+- *X69*: W46's adapter still reproduces `w46-referees-1` from W46's frozen ladder list. Given W47's
+  ladders it would pick `checkerboard-32__rrect-sm__rest` and refuse the frozen file (the charter's
+  v1.1 P1, reproduced as a test).
+- *X70*: the three red cases are held: `hc-text__rrect-md__rest`, a cell `compare` would not plan, and
+  a rung matrix missing a row.
+
+**Review.** `doperpowers:reviewer-high` reviewed the builder's X67 admission and the seal;
+`doperpowers:reviewer-medium` reviewed the rest. They found five P2s. All were fixed before part 1's
+hash, so they landed in its pins:
+- the receded `optics.regular.blurSigma` domain was the interval [1.25, 4]; it is now the declared set
+  {1.25, 2, 3, 4} in both the builder and the bindings, with 1.75 refused;
+- stage 2 refused a permitted stage-1 second-tap start inherited into the receded document;
+- the second tap was a family after the span law instead of crossed into its factorial, as Design
+  "The moves" says;
+- ladder (iii) could not complete, nor take its body-width fallback, when no tap width was admissible;
+- W46's stage-2 materialisation check was dropped in the port, and is re-added over X64 ∪ X67.
+
+### 6. The rule rehearsed, and the level check (clause 3; G0 (d), (e))
+
+The rehearsal (`rehearsal/`; nothing rendered):
+
+| map | scale | verdict | unchanged / toward / away | away > B | > 3B | P A / ref | C rest A / ref | F inactive A / ref |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `d0219cd684bf` against itself | 1x | NEITHER | 66 / 0 / 0 | 0 | 0 | .879 / .879 | .390 / .390 | .917 / .917 |
+| `d0219cd684bf` against itself | 2x | NEITHER | 66 / 0 / 0 | 0 | 0 | .965 / .965 | .538 / .538 | .982 / .982 |
+| W46's point A (its committed gate cut) | 1x | NEITHER | 10 / 39 / 17 | **16** | **8** | .495 / .879 | .171 / .390 (halved) | .520 / .917 |
+| W46's point A | 2x | NEITHER | 9 / 39 / 18 | **17** | **10** | .648 / .965 | .238 / .538 (halved) | .581 / .982 |
+
+It reproduces §5.209 §4 exactly. W45's 19 synthetic cases pass. The gated and reported groups per scale
+are the charter's: F rest 10, C rest 28, C inactive 14, P rest 4, P inactive 5 and T rest 3 gated;
+F inactive reported with two gate cells; T inactive none. The constants were not moved.
+
+**The level check on the shipped rung** (the snapshots, no override, candidate mode) covered every
+ladder (i) cell at both scales. 130 of 130 rows are pixel- and measurement-identical to the canonical
+captures and published rows, with the provenance valid. The check reads no change: no excess, L1
+maximum error 0.0491, growth 0, and the four dark-solid inactive means UNMEASURED, as they are
+published.
+
+### 7. Part 1, hashed (`97333a0b6`)
+
+`declaration.json` sha256 **`2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579`**:
+fifteen items over 289 pinned sources. It was assembled and checked (`declare.py check`: consistent)
+on the assembled tree, after both operators, their proofs, the tools, the rehearsal, the level check
+and the diagnostic were committed, and before any ladder render. The items:
+- the snapshots;
+- T1 as gated;
+- the bar;
+- W46's manifest by hash;
+- the rule and its rehearsal;
+- the tools;
+- the level check;
+- the two operators, with their laws, identities, domains, grids, units and clause 1's evidence
+  pinned by name;
+- the diagnostic (body);
+- the three targets, with their families and predictions;
+- the ladders' protocol and cells;
+- the starting point and references by hash;
+- S1's predicted direction;
+- the part-2 draft.
+
+**The predictions** (`targets/`; labelled as predictions the ladders replace) come from W46's point A
+cut, scaling each cell's web SD by `(1 − α_L)/(1 − α_A)` at held scatter. The control point
+reproduces point A's verdict. Operator 1 alone, at `tintAlpha` 0.7, gain 0.4 and far delta 0.38 at top
+256:
+- C rest halves at both scales; at top 128 with far delta 0.13 it does not;
+- P (pooled) does not halve: 0.759 / 0.740 against 0.879 / 0.965;
+- F inactive halves through the receded's inheritance of the gain and far delta;
+- the budget fails, with 9–13 cells away beyond B;
+- thick rest cells fall to ×0.48–0.66, under Apple.
+
+The span law therefore trades the thick overshoot for under-structure unless ladder (ii) finds the 2x
+width, as the charter said. Operator 2's attenuation table is applied to the F inactive gate cells
+as an upper bound beside the diagnostic's measured R. S1 is predicted to move away from 0.31, toward
+the refit's level change at 128 and 160.
+
+**The parent's rulings, recorded in the protocol and in the items they govern:**
+1. Target P is read pooled over both poses, with P rest and P inactive reported beside it at every
+   reading.
+2. An operator separates only if it meets its bar at both scales; a one-scale result STOPS for the
+   parent.
+3. The draft's second-tap domains, widened to [0, 24] CSS px (width) and [0, 1] (far share) to hold
+   ladder (ii)'s grid, are declaration choices.
+4. Stage 1 at 48,384 points (288 renders at 1x, 2,016 at 2x, with the second tap crossed in) is
+   accepted, with no pruning beyond the declaration's. The second-tap share's grid is {0, 0.05}, so
+   every span-law point is also offered with the tap off.
