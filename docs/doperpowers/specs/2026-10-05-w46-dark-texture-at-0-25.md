@@ -1,5 +1,7 @@
 # W46 — the dark texture at 0.25: the flat photo body, the under-structured rest checkers and the over-structured receded fine checkers of the dark `-glass0.25` documents, declared from the grounding read and fitted on the existing bed (2026-10-05)
 
+**Status v1.3 (2026-10-05, after G0): G0 merged as `c011c8fb7` (§5.208; part 1 `bc82562e…`, part 2 `5dca38e0…`, its one amendment unspent). Decision Log 8 rules the four items G0 handed back: P read on P rest with a step-0 diagnosis of the receded block before any amendment; target F inactive's operator deferred to its own wave (Deferred 1); halving per profile as hashed; G1's three tooling items. G1 opens on this revision's merge.** The v1.2 status follows unchanged.
+
 **Status: DRAFT v1.2 (2026-10-05), chartered by the parent from the W46 grounding read
 (`packages/calibration/results/2026-10-05-w46-grounding/memo.md`, merged as `b36c9990`) under
 `/kairos`; two adversarial rounds folded (v1: three P1, two P2; v1.1 scoped: one P2), the loop closed.**
@@ -663,6 +665,10 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
 
 ## Deferred / Out of Scope
 
+- **Deferred 1 (Decision Log 8 item 2): target F inactive's operator.** The ladders found no existing
+  lever for the receded fine cells (about 10 bars over Apple at spans 96–160; best −1.7 / −0.2 bars):
+  a receded-only fine-pitch term that lowers the 4–8 px structure while coarse and photo structure
+  hold, to be landed inert in its own wave's G0 with its own separating ladder, as W45 did.
 - **The dark 0.5 pair** (X41; Decision Log 1's amendment if lifted).
 - **The dark middle and chroma** (`mid-chroma-solid` −0.19 to −0.21; W36/W39), the impulse
   inactive ssim, the `checkerboard-64` contours, the edge (E2 read, not gated).
@@ -785,6 +791,41 @@ measurement, pinned by `tier-coherence.test.ts`. *Declined:* a CSS-only wave.
 **Ruled:** as W45 Decision Log 6: a `@vitreajs/vitrea-web` minor (0.28.0), the dark 0.25
 generation superseded, the light and 0.5 generations unchanged, the user's `pnpm release`.
 
+### Decision Log 8 — RULED 2026-10-05 (the parent, after G0): the four items of §5.208 §11
+
+1. **Target P is read on P rest; P inactive is named not fitted unless G1's step 0 explains the
+   block.** *Finding:* every receded `tintAlpha` rung below 0.89 fails L1 on
+   `impulse__capsule-button__inactive` (+0.033 at 0.8, +0.07 at 0.7, both scales), a rise the level
+   check's arithmetic does not predict (it predicts a small fall), while the receded photo median
+   would rise ×0.253 → ×0.444 at 0.8. *Ruling:* part 2 stands (receded 0.89 only); P's halving is read
+   on P rest. G1 step 0 renders that one non-withheld validation cell at receded 0.8 and 0.7 with a
+   per-pixel attribution of the level change (the black branch below encoded 0.003, the authority
+   fade, the clamp at 0, the collapse) and reports before any fit. If the rise is a predictable
+   stand-down of the shader's own arithmetic, the parent spends part 2's one amendment to widen the
+   receded grid to {0.8, 0.89}, with that cell's L1 growth recorded as a candidate named exception
+   for the user's ship ruling at the gate (W45 Decision Log 8's form). If it is unexplained, the
+   ruling above stands, the amendment stays unspent, and P inactive is named with the mechanism
+   question (a rule on a mechanism comes only after the separating measurement).
+2. **Target F inactive's operator is DEFERRED to its own wave**, not amended in. *Finding:* no
+   existing lever moves the receded fine cells (about 10 bars over Apple; best −1.7 / −0.2 bars),
+   so the separating measurement Decision Log 4 asked for has been taken and the shape is known: a
+   receded-only fine-pitch term lowering the 4–8 px structure at spans 96–160 while coarse and photo
+   structure hold. *Ruling:* a new operator lands inert in its own G0 with its own separating ladder,
+   review and byte proofs, as W45 did for the span-graded tap; W46 lands P rest and C rest. Recorded
+   as W46 Deferred 1 with the shape and size.
+3. **Halving is read per profile, as hashed.** Each target halves on each of the two dark 0.25
+   profiles. Where a profile's target reached no bar on any ladder lever (1x C rest), the gate reports
+   that target for that profile and the parent rules at the gate report; no amendment.
+4. **G1's tooling.** `holdout-configuration/configuration.py`'s referee witness is extended
+   additively to accept `w46-referees-1` beside `w44-referees-`, with a test, no existing record
+   changed; the light strict-mode stage that proves X60 by render is declared in G1 with its cells
+   (non-withheld light rows only before the exposure); the seal record's `cuts` path follows the
+   scale-separable layout.
+
+*Recorded, not ruled:* the active transmission's passing rungs are 0.9, 0.8 and 0.7 (0.6 fails on
+the predicted checker clamp, +0.0147 against +0.0146 predicted); the rest scatter's levers are 2x
+only (thin start 0.75 / 0.9, heavy tap 4 CSS px); no 1x lever reaches a bar and none reads flat.
+
 ## Surprises & Discoveries
 
 - 2026-10-05 (G0, §5.208 §7): **the receded transmission passes L1 at no rung below 0.89.** At 0.8 the
@@ -800,6 +841,9 @@ generation superseded, the light and 0.5 generations unchanged, the user's `pnpm
 
 ## Revision Notes
 
+- 2026-10-05 (v1.3, after G0's merge `c011c8fb7`; the parent's rulings on §5.208 §11): Decision Log 8
+  added; Deferred 1 (the receded-only fine-pitch term, named not fitted by the ladders); the status line.
+  No design text, contract or earlier Decision Log changed.
 - 2026-10-05 (v1): drafted by the parent's fork from the grounding memo; Decision Logs 1–7 as
   ruled; adversarial review pending.
 - 2026-10-05 (v1.2; the scoped second round on v1.1 `191686a5`, one P2, accepted; the reviewer
