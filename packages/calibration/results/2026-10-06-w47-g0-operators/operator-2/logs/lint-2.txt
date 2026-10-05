@@ -1,0 +1,7 @@
+Scope: 3 of 10 workspace projects
+packages/renderer-webgpu lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/renderer-webgpu lint: Done
+packages/platform-web lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/platform-web lint: Done
+packages/calibration lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+packages/calibration lint: Done

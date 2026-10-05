@@ -258,7 +258,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// the blurred backdrop's CHROMATICITY the body restores, at the luma the
   /// tone solve produced (x). A vec4 of its own on W30's rule — 132 is the next
   /// vec4 boundary and an operator packed into the block above would read two
-  /// of its neighbour's lanes. (y), (z) and (w) free. At the shipped 0 the mix
+  /// of its neighbour's lanes. W47's fine-body tap uses (y) for its share and (z)
+  /// for its texture-presence gate; (w) stays free. At the shipped 0 the chroma mix
   /// below is multiplied by zero and the composite is bit-identical to the one
   /// W30 left, which is why the 34 goldens do not move.
   bodyChroma : vec4f,
@@ -301,6 +302,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// which is where the price of this mechanism actually is (W26 Decision Log
 /// 2 (b)).
 @group(0) @binding(11) var backdropHeavy2 : texture_2d<f32>;
+
+/// W47's fine BODY texture, built by the same plan and separable passes as the heavy taps.
+/// Bound at every draw, sampled only where 'bodyChroma.z' records a live texture.
+@group(0) @binding(12) var backdropFine : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -1122,7 +1127,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
       let tapShare = ou.scatterHeavy2.x + ou.scatterHeavy2.z * farS;
       scatterColour = scatterColour + tapShare * (secondColour - scatterColour);
     }
-    backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
+    // W47 G0 (b), Decision Log 3: G0 (f) chose the BODY insertion point by its four-cell
+    // half-excess test, not by depth. At identity no fine sample is taken; the original body's
+    // division and the scatter mix below are unchanged. Both samples use the refracted UV.
+    var bodyColour = bodySample.rgb / max(bodySample.a, 1e-6);
+    if (ou.bodyChroma.y != 0.0 && ou.bodyChroma.z > 0.5) {
+      let fine = textureSampleLevel(backdropFine, backdropSampler, refractedUv, 0.0);
+      let fineColour = fine.rgb / max(fine.a, 1e-6);
+      bodyColour = bodyColour + ou.bodyChroma.y * (fineColour - bodyColour);
+    }
+    backdrop = mix(bodyColour, scatterColour, kScatter);
     /*
      * The body's own half of the presence (W27d): a material at half presence
      * shows half the BLUR, not half the surface. What a surface at presence 0

@@ -1,0 +1,64 @@
+{
+  "scope": "W47 G0(b), BODY form, inert only; no material fit, capture or publication",
+  "base": "bea41c782dc3d60128a9b31445ba33ce0669ce4c",
+  "recorderFirstCommit": "742af1ee7",
+  "beforeOperatorCommit": "1e405d2da",
+  "builds": {
+    "before": 0,
+    "after": 0
+  },
+  "redTests": {
+    "gateAndResolver": {
+      "exit": 1,
+      "failed": 5,
+      "reason": "missing leaves, gate-group and resolver"
+    },
+    "lifecycle": {
+      "exit": 1,
+      "failed": 2,
+      "reason": "fine texture pool keys and resource path absent"
+    }
+  },
+  "unitSuites": {
+    "renderer-webgpu": {
+      "passed": 665,
+      "files": 37,
+      "exit": 0
+    },
+    "platform-web": {
+      "passed": 656,
+      "files": 48,
+      "exit": 0
+    },
+    "calibration": {
+      "passed": 926,
+      "skipped": 4,
+      "files": 62,
+      "exit": 0
+    }
+  },
+  "lint": {
+    "initialExit": 2,
+    "reason": "test indexed unknown materialDigestInput result; replaced with toMatchObject assertion",
+    "allTouchedPackagesExit": 0,
+    "finalRecorderAndRendererExit": 0
+  },
+  "finalTargetedUnits": {
+    "passed": 60,
+    "files": 3,
+    "exit": 0
+  },
+  "digests": {
+    "matched": 10,
+    "total": 10,
+    "exit": 0
+  },
+  "diffCheck": 0,
+  "pending": [
+    "Independent correctness review by orchestrator",
+    "By-render recorder BEFORE/AFTER on merged operator tree",
+    "Golden byte/isolation proofs on merged operator tree"
+  ],
+  "noBrowserLaunched": true,
+  "calibrationLimit": "Four pixel-dependent cases skipped with absent worktree capture tree; canonical pixel-tree verification remains with assembled-tree proofs. Frozen rows/document tests ran."
+}

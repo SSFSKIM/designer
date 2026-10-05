@@ -1,0 +1,96 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w47/g0-op2/packages/renderer-webgpu
+
+ ❯ test/w30-inert-laws.test.ts (15 tests | 1 failed | 14 skipped) 4ms
+     × ships at zero and requests no fine texture at any scale 3ms
+ ❯ test/w31-gate-groups.test.ts (22 tests | 4 failed | 18 skipped) 7ms
+     × drops the whole closed group and requests no texture while either width moves 4ms
+     × carries the entire open group and resolves CSS-pixel anchors without dividing by DPR 1ms
+     × stands down at width 0 at one scale, as the second heavy tap does 0ms
+     × reads neither width at the share's identity 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/w30-inert-laws.test.ts > W47 fine-body tap at the shipped identity (G0 (b), X66) > ships at zero and requests no fine texture at any scale
+AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+undefined
+
+ ❯ test/w30-inert-laws.test.ts:275:55
+    273| describe("W47 fine-body tap at the shipped identity (G0 (b), X66)", ()…
+    274|   it("ships at zero and requests no fine texture at any scale", () => {
+    275|     expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapShare).toBe(0);
+       |                                                       ^
+    276|     expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapSigma).toBe(0);
+    277|     expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapSigma2x).toBe(0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  test/w31-gate-groups.test.ts > W47 — {sizeFineTapShare 0} gates the two fine-body widths > drops the whole closed group and requests no texture while either width moves
+AssertionError: expected [ 'backdropToneBlackStrength', …(15) ] to include 'sizeFineTapShare'
+ ❯ test/w31-gate-groups.test.ts:373:79
+    371|         });
+    372|         expect(materialDigestInput(material)).toEqual(reference);
+    373|         for (const key of keys) expect(materialDigestDroppedLeaves(mat…
+       |                                                                               ^
+    374|         for (const dpr of [0.5, ...RATIOS]) expect(fineTapSigmaAtScale…
+    375|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  test/w31-gate-groups.test.ts > W47 — {sizeFineTapShare 0} gates the two fine-body widths > carries the entire open group and resolves CSS-pixel anchors without dividing by DPR
+AssertionError: expected undefined to be 0.5 // Object.is equality
+
+- Expected:
+0.5
+
++ Received:
+undefined
+
+ ❯ test/w31-gate-groups.test.ts:385:40
+    383|     for (const key of keys) expect(materialDigestDroppedLeaves(materia…
+    384|     const digest = materialDigestInput(material);
+    385|     expect(digest["sizeFineTapShare"]).toBe(0.5);
+       |                                        ^
+    386|     expect(digest["sizeFineTapSigma"]).toBe(2);
+    387|     expect(digest["sizeFineTapSigma2x"]).toBe(6);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  test/w31-gate-groups.test.ts > W47 — {sizeFineTapShare 0} gates the two fine-body widths > stands down at width 0 at one scale, as the second heavy tap does
+TypeError: fineTapSigmaAtScale is not a function
+ ❯ test/w31-gate-groups.test.ts:401:12
+    399|       sizeFineTapShare: 1, sizeFineTapSigma: 0, sizeFineTapSigma2x: 6,
+    400|     });
+    401|     expect(fineTapSigmaAtScale(material, 1)).toBe(0);
+       |            ^
+    402|     expect(fineTapSigmaAtScale(material, 2)).toBe(6);
+    403|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  test/w31-gate-groups.test.ts > W47 — {sizeFineTapShare 0} gates the two fine-body widths > reads neither width at the share's identity
+TypeError: fineTapSigmaAtScale is not a function
+ ❯ test/w31-gate-groups.test.ts:410:38
+    408|       get sizeFineTapSigma2x(): number { throw new Error("closed gate …
+    409|     };
+    410|     for (const dpr of RATIOS) expect(fineTapSigmaAtScale(material, dpr…
+       |                                      ^
+    411|   });
+    412| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  5 failed | 32 skipped (37)
+   Start at  04:46:13
+   Duration  185ms (transform 145ms, setup 23ms, import 152ms, tests 10ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w47/g0-op2/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/w31-gate-groups.test.ts test/w30-inert-laws.test.ts -t W47

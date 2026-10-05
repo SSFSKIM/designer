@@ -132,6 +132,8 @@ describe("the material identity table (claims §5.161 §7b, §5.164)", () => {
       // delta, one plain value drop per anchor.
       tintAlphaFar1x: 0,
       tintAlphaFar2x: 0,
+      // W47 G0 (b): the body fine tap is one share-gated pair of widths (X66).
+      sizeFineTapShare: 0,
     };
     const gates = MATERIAL_IDENTITY_TABLE.flatMap((entry) => Object.entries(entry.gate));
     for (const [path, identity] of gates) {
@@ -146,6 +148,12 @@ describe("the material identity table (claims §5.161 §7b, §5.164)", () => {
         `${path}: pinned here and no longer a gate in the table — an entry was removed`,
       ).toContain(path);
     }
+  });
+
+  it("pins W47's fine tap as one gate-group, never three plain drops", () => {
+    const entry = MATERIAL_IDENTITY_TABLE.find(e => "sizeFineTapShare" in e.gate);
+    expect(entry?.gate).toEqual({ sizeFineTapShare: 0 });
+    expect(entry?.gated).toEqual(["sizeFineTapSigma", "sizeFineTapSigma2x"]);
   });
 
   it("names a committed case for every entry, W31's included", () => {

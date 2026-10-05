@@ -93,6 +93,12 @@ export interface PyramidResources {
    * material that names it and by nothing else.
    */
   readonly heavy2: GPUTexture | undefined;
+  /**
+   * W47's fine BODY blur (G0 (b), X66), through `heavyTapPlan` and the existing separable pair.
+   * Undefined at share 0 or width 0 at this scale. Like the second heavy tap, its presence is
+   * also the optics pass's gate; a placeholder binding never opens a sample.
+   */
+  readonly fine: GPUTexture | undefined;
   readonly stats: GPUBuffer;
   /** Source size epoch this allocation was made for. */
   readonly sizeEpoch: number;
@@ -143,6 +149,8 @@ export interface PyramidResources {
    * on `heavySigmaCss`'s own rule and for the same staleness reason.
    */
   readonly heavy2SigmaCss: number;
+  /** W47's fine width in CSS px, already gated by the share; 0 allocates and draws nothing. */
+  readonly fineSigmaCss: number;
 }
 
 export interface PyramidInstrumentation {
@@ -188,6 +196,8 @@ export interface PyramidBuildRequest {
    * rather than being re-decided here.
    */
   readonly heavy2SigmaCss: number;
+  /** W47's fine width in CSS px, already gated by the share; 0 allocates and draws nothing. */
+  readonly fineSigmaCss: number;
   readonly viewportCss: readonly [number, number];
   /**
    * Where the source sits on the plane, in CSS px relative to the viewport, if
@@ -315,7 +325,9 @@ const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boo
   // And the second heavy blur on the identical rule (W30 G2): its ON/OFF state
   // exactly, then the tolerance, because 0 and a tiny positive width differ in
   // kind and not in degree.
-  && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss);
+  && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss)
+  // W47's fine tap has the same on/off distinction and density/width staleness law.
+  && sameHeavySigma(request.fineSigmaCss, existing.fineSigmaCss);
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -419,6 +431,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     ) {
       return undefined;
     }
+    if (target.fine !== undefined && pool.peek(poolKey.backdropFine(sourceId)) !== target.fine) {
+      return undefined;
+    }
     return target;
   };
 
@@ -438,6 +453,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     heavySigmaCss: number,
     heavy2Level: number | undefined,
     heavy2SigmaCss: number,
+    fineLevel: number | undefined,
+    fineSigmaCss: number,
   ): PyramidResources {
     const existing = resources.get(sourceId);
     const levelSize = (level: number): { width: number; height: number } =>
@@ -506,6 +523,22 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       });
     }
 
+    // W47: the body's fine tap is a third independently gated width. Release both textures
+    // when it stands down so an inactive-to-active change does not strand the allocation.
+    let fine: GPUTexture | undefined;
+    if (fineLevel === undefined) {
+      pool.release(poolKey.backdropFine(sourceId));
+      pool.release(poolKey.backdropFineScratch(sourceId));
+    } else {
+      fine = pool.acquire(poolKey.backdropFine(sourceId), {
+        width: levelSize(fineLevel).width,
+        height: levelSize(fineLevel).height,
+        format: WORKING_TEXTURE_FORMAT,
+        usage: chainUsage(),
+        label: `vitrea:pyramid:${sourceId}:fine`,
+      });
+    }
+
     let stats = existing?.stats;
     if (stats === undefined) {
       stats = device.createBuffer({
@@ -520,7 +553,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       existing.chain !== chain ||
       existing.body !== body ||
       existing.heavy !== heavy ||
-      existing.heavy2 !== heavy2
+      existing.heavy2 !== heavy2 ||
+      existing.fine !== fine
     ) {
       reallocations += 1;
     }
@@ -532,6 +566,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       body,
       heavy,
       heavy2,
+      fine,
       stats,
       sizeEpoch,
       builtEpoch,
@@ -542,6 +577,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       bodySigmaCss,
       heavySigmaCss,
       heavy2SigmaCss,
+      fineSigmaCss,
     };
     resources.set(sourceId, next);
     return next;
@@ -659,7 +695,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
   function runSeparableBlur(
     encoder: GPUCommandEncoder,
     sourceId: string,
-    kind: "body" | "heavy" | "heavy2",
+    kind: "body" | "heavy" | "heavy2" | "fine",
     plan: PyramidPlan,
     chain: GPUTexture,
     target: GPUTexture,
@@ -673,7 +709,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         ? poolKey.backdropBodyScratch(sourceId)
         : kind === "heavy"
           ? poolKey.backdropHeavyScratch(sourceId)
-          : poolKey.backdropHeavy2Scratch(sourceId);
+          : kind === "heavy2"
+            ? poolKey.backdropHeavy2Scratch(sourceId)
+            : poolKey.backdropFineScratch(sourceId);
     const scratch = pool.acquire(scratchKey, {
       width: size.width,
       height: size.height,
@@ -864,6 +902,12 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         request.heavy2SigmaCss > 0
           ? heavyTapPlan(request.heavy2SigmaCss * texelsPerCss * planScale, plan)
           : undefined;
+      // W47: one more measured chain-plus-residual plan, in the fine tap's own texture.
+      // The renderer has already applied the share gate. Width 0 also stands down at this
+      // scale, just as for the second tap; no source-copy sharpening is in this family.
+      const finePlan = request.fineSigmaCss > 0
+        ? heavyTapPlan(request.fineSigmaCss * texelsPerCss * planScale, plan)
+        : undefined;
       const target = allocate(
         request.sourceId,
         plan,
@@ -877,6 +921,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         request.heavySigmaCss,
         heavy2Plan?.level,
         request.heavy2SigmaCss,
+        finePlan?.level,
+        request.fineSigmaCss,
       );
 
       runImport(encoder, request.sourceId, frame, target.chain);
@@ -913,6 +959,18 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
           target.heavy2,
           heavy2Plan.level,
           heavy2Plan.residualSigmaTexels,
+        );
+      }
+      if (finePlan !== undefined && target.fine !== undefined) {
+        runSeparableBlur(
+          encoder,
+          request.sourceId,
+          "fine",
+          plan,
+          target.chain,
+          target.fine,
+          finePlan.level,
+          finePlan.residualSigmaTexels,
         );
       }
       runAnalysis(encoder, request.sourceId, plan, target.chain, target.stats);
@@ -1020,6 +1078,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       pool.release(poolKey.backdropBodyScratch(sourceId));
       pool.release(poolKey.backdropHeavy(sourceId));
       pool.release(poolKey.backdropHeavyScratch(sourceId));
+      pool.release(poolKey.backdropFine(sourceId));
+      pool.release(poolKey.backdropFineScratch(sourceId));
       resources.get(sourceId)?.stats.destroy();
       resources.delete(sourceId);
       readbacks.get(sourceId)?.staging.destroy();

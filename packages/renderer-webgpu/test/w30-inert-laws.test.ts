@@ -37,6 +37,7 @@ import {
   spanGradedTintAlpha,
   tintAlphaFarAtScale,
   heavySecondTapSigmaAtScale,
+  fineTapSigmaAtScale,
   heavyTapSigmaAtScale,
   outerShadowReachPx,
   outerShadowSigmaPx,
@@ -302,5 +303,14 @@ describe("W47's far-curve transmission is inert at the shipped values (claims §
         }
       }
     }
+  });
+});
+
+describe("W47 fine-body tap at the shipped identity (G0 (b), X66)", () => {
+  it("ships at zero and requests no fine texture at any scale", () => {
+    expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapShare).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapSigma).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.sizeFineTapSigma2x).toBe(0);
+    for (const dpr of RATIOS) expect(fineTapSigmaAtScale(DEFAULT_MATERIAL_PROFILE, dpr)).toBe(0);
   });
 });

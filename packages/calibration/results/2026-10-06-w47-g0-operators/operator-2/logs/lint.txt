@@ -1,0 +1,9 @@
+Scope: 3 of 10 workspace projects
+packages/renderer-webgpu lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/renderer-webgpu lint: test/w31-gate-groups.test.ts(385,12): error TS18046: 'digest' is of type 'unknown'.
+packages/renderer-webgpu lint: test/w31-gate-groups.test.ts(386,12): error TS18046: 'digest' is of type 'unknown'.
+packages/renderer-webgpu lint: test/w31-gate-groups.test.ts(387,12): error TS18046: 'digest' is of type 'unknown'.
+packages/renderer-webgpu lint: Failed
+/Users/new/vitrea-w47/g0-op2/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/renderer-webgpu@0.0.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json`
+Exit status 2

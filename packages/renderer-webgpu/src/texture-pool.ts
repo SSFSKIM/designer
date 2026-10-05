@@ -173,6 +173,9 @@ export const poolKey = {
    * width along, acquired only where `sizeHeavySecondShare` is non-zero. */
   backdropHeavy2: (sourceId: string): string => `backdrop:${sourceId}:heavy2`,
   backdropHeavy2Scratch: (sourceId: string): string => `backdrop:${sourceId}:heavy2-scratch`,
+  /** W47's fine-body texture and its separable scratch, only while the tap is live. */
+  backdropFine: (sourceId: string): string => `backdrop:${sourceId}:fine`,
+  backdropFineScratch: (sourceId: string): string => `backdrop:${sourceId}:fine-scratch`,
   backdropUpload: (sourceId: string): string => `backdrop:${sourceId}:upload`,
   /*
    * The four field targets. Their key is a group's RESOURCE identity — the id
