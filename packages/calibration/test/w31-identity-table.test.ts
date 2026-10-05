@@ -128,6 +128,10 @@ describe("the material identity table (claims §5.161 §7b, §5.164)", () => {
       // W45 (claims §5.205; charter Decision Log 1): the second tap's far-curve delta, appended
       // as a plain value drop. The share's own gate above is unchanged.
       sizeHeavySecondShareFar2x: 0,
+      // W47 operator 1 (claims §5.211; charter Decision Log 2): the transmission's far-curve
+      // delta, one plain value drop per anchor.
+      tintAlphaFar1x: 0,
+      tintAlphaFar2x: 0,
     };
     const gates = MATERIAL_IDENTITY_TABLE.flatMap((entry) => Object.entries(entry.gate));
     for (const [path, identity] of gates) {

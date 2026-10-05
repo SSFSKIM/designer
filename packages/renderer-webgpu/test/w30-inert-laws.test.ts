@@ -33,6 +33,9 @@ import { describe, expect, it } from "vitest";
 import {
   DEFAULT_MATERIAL_PROFILE,
   heavySecondShareFarAtScale,
+  scatterSpanMaxAtScale,
+  spanGradedTintAlpha,
+  tintAlphaFarAtScale,
   heavySecondTapSigmaAtScale,
   heavyTapSigmaAtScale,
   outerShadowReachPx,
@@ -263,6 +266,40 @@ describe("W45's far-curve grading is inert at the shipped value (claims §5.205)
         const t = Math.min(1, Math.max(0, (span - 96) / (256 - 96)));
         const farS = t * t * (3 - 2 * t);
         expect(x + z * farS, `share ${String(x)} span ${String(span)}`).toBe(x);
+      }
+    }
+  });
+});
+
+describe("W47's far-curve transmission is inert at the shipped values (claims §5.211)", () => {
+  /*
+   * The shipped-value half of W47's two identity-table entries, on this file's pattern: the leaves
+   * read off `DEFAULT_MATERIAL_PROFILE`, the law evaluated against the expression it replaced over
+   * a sweep no runtime argument escapes, with `toBe`. The optics pass's base alpha before W47 was
+   * the uniform `tint.w`; after it, `clamp(tint.w + z · farS, 0, 1)` with `z` the resolved delta —
+   * so at the shipped leaves the resolved delta is 0 at every ratio and the base alpha is `tint.w`
+   * at every pixel.
+   */
+  it("ships both anchors at 0 and resolves them to 0 at every device ratio", () => {
+    expect(DEFAULT_MATERIAL_PROFILE.tintAlphaFar1x).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.tintAlphaFar2x).toBe(0);
+    for (const dpr of RATIOS) {
+      expect(tintAlphaFarAtScale(DEFAULT_MATERIAL_PROFILE, dpr), `dpr ${String(dpr)}`).toBe(0);
+    }
+  });
+
+  it("leaves the pre-W47 alpha at every span the far curve can read", () => {
+    for (const dpr of RATIOS) {
+      const top = scatterSpanMaxAtScale(DEFAULT_MATERIAL_PROFILE, dpr);
+      const z = tintAlphaFarAtScale(DEFAULT_MATERIAL_PROFILE, dpr);
+      for (const alpha of [0, 0.1, 0.46, 0.9, 1]) {
+        for (const span of SPANS) {
+          const t = Math.min(1, Math.max(0, (span - 96) / (top - 96)));
+          const farS = t * t * (3 - 2 * t);
+          const label = `alpha ${String(alpha)} span ${String(span)} dpr ${String(dpr)}`;
+          expect(Math.min(1, Math.max(0, alpha + z * farS)), label).toBe(alpha);
+          expect(spanGradedTintAlpha(alpha, span, DEFAULT_MATERIAL_PROFILE, dpr), label).toBe(alpha);
+        }
       }
     }
   });
