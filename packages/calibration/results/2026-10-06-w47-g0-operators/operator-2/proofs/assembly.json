@@ -1,0 +1,43 @@
+{
+  "afterTree": "8f55ea1ed49745e9fa506632dca75fc32c98d5aa",
+  "beforeTree": "cf36cdd13",
+  "beforeBase": "0ee27896862a2224fc75aa0436fe6cf917e1f40d",
+  "beforeOnlyAdditions": [
+    "742af1ee7",
+    "1e405d2da"
+  ],
+  "mergeResolution": "Both operator1 plain drops precede operator2 gate-group. Shared guards, leaf lists, CSS classifications and test literals carry all five leaves. Census is a line union sorted by at.",
+  "buildExit": 0,
+  "lintExit": 0,
+  "suites": {
+    "renderer": {
+      "passed": 673,
+      "files": 37
+    },
+    "platformWeb": {
+      "passed": 656,
+      "files": 48
+    },
+    "react": {
+      "passed": 180,
+      "files": 19
+    },
+    "calibration": {
+      "passed": 931,
+      "skipped": 4,
+      "files": 62
+    }
+  },
+  "skipped": "Pixel-dependent tests without the worktree capture tree; independent identity captures are a separate proof.",
+  "digests": {
+    "matched": 10,
+    "total": 10,
+    "allFiveOperatorLeavesZeroAndDropped": true
+  },
+  "freezes": {
+    "macos26_5": 1818,
+    "glass05": 911
+  },
+  "X60": "No changed frozen evidence path against af8cf7e5f",
+  "sourceDiffWhitespaceCheck": "passed; imported raw log whitespace is preserved verbatim rather than reformatted"
+}

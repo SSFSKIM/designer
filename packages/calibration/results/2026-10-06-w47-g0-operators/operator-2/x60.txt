@@ -1,0 +1,26 @@
+W47 G0 (b), assembled operator tree: X60 diff against af8cf7e5f.
+No frozen evidence path differs. Canonical trees are read-only inputs; archived scratch renders
+under this wave are not canonical paths. The executable path audit is proofs/x60.py.
+
+{
+  "base": "af8cf7e5f",
+  "checkedFrozenPrefixes": [
+    "packages/calibration/profiles/",
+    "packages/calibration/results/generations/",
+    "packages/calibration/web-captures/",
+    "packages/calibration/web-captures-superseded/",
+    "packages/renderer-webgpu/e2e/golden/",
+    "packages/renderer-webgpu/e2e/goldens/",
+    "apps/reference-apple/fixtures/"
+  ],
+  "checkedHistoricalPrefixes": [
+    "packages/calibration/results/2026-10-03-w44",
+    "packages/calibration/results/2026-10-03-w45",
+    "packages/calibration/results/2026-10-04-w45",
+    "packages/calibration/results/2026-10-05-w46"
+  ],
+  "changedFrozenPaths": [],
+  "note": "New diagnostic/renders/.../web-captures paths are archived scratch inputs, not the canonical capture tree."
+}
+
+Additional freeze checks: 26.5 intact1818 entries; X41 glass0.5 intact911 entries.

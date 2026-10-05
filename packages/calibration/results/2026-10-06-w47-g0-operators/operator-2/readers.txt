@@ -1,0 +1,95 @@
+W47 G0 (b), operator 2 — readers of the body sample and the independent fine texture.
+Charter Decision Log 3 v1.1, G0 (f)'s BODY verdict and X66. Assembled runtime 8f55ea1ed.
+
+The sampled-body law, at the existing refracted UV:
+  body'    = body + sizeFineTapShare * (fine - body)
+  backdrop = mix(body', scatterColour, kScatter)
+
+The share is zero on every shipped material. A resolved width of zero also stands down at that
+scale, following the second heavy tap: no texture and no mix, not a source-copy sharpening.
+The two CSS-pixel widths form one identity-table group behind the share, never three plain drops.
+
+Reader                                                   Reading
+-------------------------------------------------------  -------------------------------------------------------
+material.ts: fineTapSigmaAtScale                         Checks the share first; returns 0 without reading either
+                                                         width at the identity. Otherwise interpolates the CSS-pixel
+                                                         anchors by rampAtScale; no device-pixel division.
+renderer.ts: fineSigmaCssFor                             Takes the resolver's width when the source has a body;
+                                                         a no-body source asks for no fine component either.
+renderer.ts: clean-source invalidation                   Compares the next resolved width with fineSigmaCss through
+                                                         sameHeavySigma, including exact on/off distinction. A DPR,
+                                                         width or gate change cannot keep a stale fine texture.
+pyramid.ts: build                                       Converts CSS px with the actual placed density and plan
+                                                         downscale. A positive width uses heavyTapPlan and the
+                                                         existing runSeparableBlur pair, with no new pass shape.
+pyramid.ts: allocate/liveResources/forget                Own fine and fine-scratch keys; release both at stand-down
+                                                         and forget. Reject a recorded fine handle evicted by the
+                                                         pool before a pass can bind a destroyed resource.
+pyramid.ts: analysis                                    Still reads the chain, never the fine texture. The source
+                                                         statistic and W30's conditioning are not recomputed from a
+                                                         blurred body; the fine operator does not feed its weights.
+renderer.ts: draw arguments                             Share comes from the resolved material; enabled comes from
+                                                         pyramid.fine's actual presence, not the requested share.
+passes.ts: d[133], d[134], binding 12                     Carry share, actual texture-presence gate and the fine view.
+                                                         At stand-down the binding gets the existing placeholder and
+                                                         its gate is closed. d[135] remains 0; op1 owns d[131].
+wgsl/optics.ts: bodySample/bodyColour                    The existing body sample is still read at refractedUv and
+                                                         un-premultiplied exactly once. The optional fine sample is
+                                                         read at that same UV, un-premultiplied and mixed into body.
+wgsl/optics.ts: backdropFine/fineColour                  One sampling site, behind nonzero share AND presence gate.
+                                                         No form selector, no deep replacement and no source-copy
+                                                         path at width zero remain from the scratch diagnostic.
+wgsl/optics.ts: scatterColour                           Unchanged. The chain/first-heavy choice and W30/W45's second
+                                                         tap composition are evaluated before the body mix. Operator
+                                                         2 changes neither a deep sample nor its signed share.
+wgsl/optics.ts: kScatter                                Unchanged field-span/depth law plus W30 measured-statistic
+                                                         conditioning. The new body is mixed under its actual
+                                                         1-kScatter weight, never a ramp-start approximation.
+wgsl/optics.ts: presence fold                           Reads the newly composed backdrop, then blends it toward
+                                                         chain level 0 when presence < 1. The tap is one component
+                                                         of the body and inherits the body's presence exactly once.
+wgsl/optics.ts: tone response and solve                 Source/group tone, measured silhouette tone and alpha
+                                                         inputs remain the established inputs. The existing thick
+                                                         tone-target mix that explicitly reads backdrop sees the
+                                                         composed fine-body/deep result; no alternate body is used.
+wgsl/optics.ts: mix(backdrop, adapted, presentAlpha)     Reads the composed backdrop, including the fine-body term.
+                                                         Operator 1's graded alpha remains the alpha used here.
+wgsl/optics.ts: body_chroma_retention/body_e3_composite  Read the same composed backdrop and colour downstream.
+                                                         No raw-body shortcut bypasses the fine mix. E3 remains at
+                                                         its shipped identity; this adds no new tone operator.
+wgsl/optics.ts: tint, inner shadow, rim and final output Read the existing colour derived from that composition.
+                                                         A live body tap may consequently change their level inputs;
+                                                         no edge/contour/rim leaf or light direction changes here.
+wgsl/optics.ts: unsampled DOM/layer paths                Never sample fine without a registered sampled backdrop.
+                                                         Their established fabricated-backdrop/layer behavior holds.
+platform-web/src/optics.ts                              CSS DECLINE. One backdrop-filter cannot build and sample an
+                                                         independent body texture at its own width, then mix it before
+                                                         a separate deep component. All three leaves are declined;
+                                                         no scoped hold or replacement scalar is claimed.
+calibration/test/tier-coherence.test.ts: CSS_COUNTERPART Records that decline separately for share and both widths;
+                                                         its exhaustive keyof MaterialProfile coverage carries both
+                                                         operators rather than silently omitting the new leaves.
+materialDigestInput / materialDigestDroppedLeaves       Drop share and widths as one group only at share 0. At live
+                                                         share, all three are carried even if one scale's width is 0.
+calibration/scripts/material-profile-file.ts            Admits all three candidate keys; capture-integrity exercises
+                                                         a live share and distinct anchors through the real guard.
+material-document selection / generated endpoint files Unchanged, checked. They claim the sealed selected endpoints,
+                                                         not a new fitted material; no shipped document names a live
+                                                         fine share, and every recorded digest still reproduces.
+
+Digest witness
+--------------
+operator-2/digests.txt was committed with the isolated operator. The assembled five-leaf check in
+proofs/digests.ts reproduces exactly those same bytes (cmp exit 0), while additionally requiring
+both operator-1 anchors and all three operator-2 leaves to be zero and dropped. The old witness
+is kept, not rewritten; proofs/digests.txt and proofs/identity-table.json carry the assembled check.
+
+By-render readers
+-----------------
+e2e/gpu/w47-fine-tap.spec.ts records truly absent baseline patches, explicit share-0 widths,
+a 2x-only width and live shares/widths on a placed fine checker, with no native fixture read.
+proofs/compare.py checks repeated raw-raster hashes, cross-tree identity and live differences;
+it also reads every non-golden archived PNG back into the hash it claims.
+identity.py reads dark 0.25 calibration+validation only, both tiers and scales. One capture tree
+per scale allows CSS coherence to read its WebGPU twin, as the published rows did.
+No fitting, referee or holdout exposure is part of these proofs.

@@ -1,0 +1,32 @@
+{
+  "tail": [
+    {
+      "gate": {
+        "tintAlphaFar1x": 0
+      },
+      "gated": []
+    },
+    {
+      "gate": {
+        "tintAlphaFar2x": 0
+      },
+      "gated": []
+    },
+    {
+      "gate": {
+        "sizeFineTapShare": 0
+      },
+      "gated": [
+        "sizeFineTapSigma",
+        "sizeFineTapSigma2x"
+      ]
+    }
+  ],
+  "defaults": {
+    "tintAlphaFar1x": 0,
+    "tintAlphaFar2x": 0,
+    "sizeFineTapShare": 0,
+    "sizeFineTapSigma": 0,
+    "sizeFineTapSigma2x": 0
+  }
+}
