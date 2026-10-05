@@ -3807,11 +3807,13 @@ const t1Value = (cell: Cell, metric: string): number | null => {
  * members with no row or no reading (UNMEASURED, never a pass). A T cell on the WebGPU tier of a
  * gated profile reads its bands; anywhere else T1 itself.
  */
-function t1Cut(profile: string, renderer: "webgpu" | "css", referenceOverride?: T1Generation): {
+function t1Cut(profile: string, renderer: "webgpu" | "css", referenceOverride?: T1Generation,
+  rowsOverride?: readonly Cell[]): {
   readonly cells: readonly T1Cell[];
   readonly unmeasured: readonly string[];
 } {
-  const rows = new Map(MATRIX_FILE.cells
+  // The current union, unless a caller reads a fixed generation's rows (the dark block's referee).
+  const rows = new Map((rowsOverride ?? MATRIX_FILE.cells)
     .filter((cell) => cell.key.profileKey === profile && cell.key.web.renderer === renderer)
     .map((cell) => [cell.key.sceneId, cell] as const));
   // Since W46 G2 a dark 0.25 profile is gated too, against its own reference generation.
@@ -7495,8 +7497,10 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
   it("agrees cell for cell with the gate's cut of d0219cd684bf (W46's Python cuts, the referee)", () => {
     // The cut W46 G1 regenerated at its gate from the published dark generation by hash: its T1
     // cells on the dark WebGPU tier carry native, web and fidelity by W44 G1's `t1.py` (a gate T cell
-    // on its T1-fine band). Every one is this file's port's, to 1e-12 and by state; its W46 rule
-    // reads the generation against itself as unchanged on every gate cell.
+    // on its T1-fine band). This file's port, run on THAT generation's rows (never the current
+    // union, which clauses (a) and (b) govern), agrees with every one to 1e-12 and by state; its W46
+    // rule reads the generation against itself as unchanged on every gate cell. A check of the
+    // arithmetic, so it holds whatever the next dark publication draws (the review of W46 G2, P2).
     const cut = JSON.parse(gunzipSync(readFileSync(resolve(PACKAGE_ROOT, T1_DARK_REFERENCE_CUT.path))).toString()) as {
       readonly T1: {
         readonly cells: readonly { readonly profile: string; readonly tier: string; readonly scene: string;
@@ -7508,9 +7512,11 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
           readonly partition: Readonly<Record<string, { readonly total: number }>> }>> };
       };
     };
+    const referenceRows = loadGeneration(T1_DARK_REFERENCE.active, T1_DARK_REFERENCE.receded) as unknown as readonly Cell[];
     let compared = 0;
     for (const profile of T1_DARK_GATED_PROFILES) {
-      const port = new Map(t1Cut(profile, "webgpu").cells.map((cell) => [cell.scene, cell] as const));
+      const port = new Map(t1Cut(profile, "webgpu", T1_DARK_REFERENCE, referenceRows).cells
+        .map((cell) => [cell.scene, cell] as const));
       for (const theirs of cut.T1.cells.filter((c) => c.profile === profile && c.tier === "webgpu")) {
         const mine = port.get(theirs.scene);
         expect(mine, `${profile} ${theirs.scene}: in the cut, not in the port`).toBeDefined();

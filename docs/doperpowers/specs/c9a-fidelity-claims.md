@@ -48423,7 +48423,21 @@ count). Ratio is web/native over the named misses:
 - `PREDICATE_EXCLUDES` is unchanged at the machine's output (no row moved).
 - The freeze reads 1,818 and X41 911.
 
-### 4. What is not claimed
+### 4. Review closure
+
+`doperpowers:reviewer-medium` reviewed the owner-test change (`5154df7c5`) and found one P2, fixed.
+- **What was wrong.** The cross-check against the gate's cut ran the port on the CURRENT union, so
+  it would have frozen every dark T1 value to `d0219cd684bf`'s within 1e-12. It rejected a 1e-8
+  move toward Apple that both clauses admit. It now runs the port on the reference generation's own
+  rows (`t1Cut`'s optional rows), and the current rows are governed by clauses (a) and (b) alone.
+- **What it confirmed.** By scratch red cases the block rejects an unnamed miss, a wrong recorded
+  value (`Infinity` included), a regression against the reference and a missing band entry. The
+  derivation and the eight band entries replay byte-identically, and the light block's T1 outputs
+  are byte-identical before and after.
+- **After the fix:** the owner test 160 of 160, @vitrea/calibration 928 of 928, lint 0, freeze
+  1,818, X41 911, and `declare.py check` and `check-fit` consistent.
+
+### 5. What is not claimed
 
 - **A change to any dark material.** The adopted rows are `d0219cd684bf`'s as published at W43 G3.
 - **A reading of the dark 0.25 holdout or referees at new bytes.** The holdout rows named here are the
