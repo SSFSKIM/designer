@@ -1,0 +1,129 @@
+W47 G0 (d): the rehearsal (rule sha256 ad8de5a62629; count 3, ceiling 3 B, gated at 3 gate cells; per dark profile; bar 0.5 code, reference d0219cd684bf)
+
+| map | profile | verdict | unchanged / toward / away | away > B | > 3B | P | C rest | F inactive |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| d0219cd684bf vs itself | 1x | NEITHER | 66 / 0 / 0 | 0 | 0 | 0.879 / 0.879 | 0.390 / 0.390 | 0.917 / 0.917 |
+| d0219cd684bf vs itself | 2x | NEITHER | 66 / 0 / 0 | 0 | 0 | 0.965 / 0.965 | 0.538 / 0.538 | 0.982 / 0.982 |
+| W46 point A | 1x | NEITHER | 10 / 39 / 17 | 16 | 8 | 0.495 / 0.879 | 0.171 / 0.390 (halved) | 0.520 / 0.917 |
+| W46 point A | 2x | NEITHER | 9 / 39 / 18 | 17 | 10 | 0.648 / 0.965 | 0.238 / 0.538 (halved) | 0.581 / 0.982 |
+
+published d0219cd684bf against itself (W47's cuts, canonical captures): NEITHER: closes at the finding  [complete map]
+  apple-macos-27.0-1x-dark-standard-glass0.25: NEITHER: closes at the finding; 66 of 66 read; partition {'unchanged': 66, 'toward': 0, 'away': 0}
+    target P           n=9   A 0.8792 ref 0.8792 halved False; 9 not within
+    target C rest      n=28  A 0.3900 ref 0.3900 halved False; 23 not within
+    target F inactive  n=2   A 0.9169 ref 0.9169 halved False; 2 not within
+    F rest       gate 10  read 10  GATED A 0.3580 ref 0.3580 τ 0.0488
+    F inactive   gate 2   read 2   reported A 0.9169 ref 0.9169 τ 0.1331
+    T rest       gate 3   read 3   GATED A 0.3491 ref 0.3491 τ 0.0525
+    C rest       gate 28  read 28  GATED A 0.3900 ref 0.3900 τ 0.0297
+    C inactive   gate 14  read 14  GATED A 0.5849 ref 0.5849 τ 0.0776
+    P rest       gate 4   read 4   GATED A 0.6021 ref 0.6021 τ 0.0353
+    P inactive   gate 5   read 5   GATED A 1.1926 ref 1.1926 τ 0.0353
+    budget: 0 away beyond B, 0 beyond 3 B -> holds
+    why: full close: target P: 9 cell(s) not within
+    why: improvement: target P aggregate 0.8792 above half of the reference's 0.8792
+    why: full close: target C rest: 23 cell(s) not within
+    why: improvement: target C rest aggregate 0.3900 above half of the reference's 0.3900
+    why: full close: target F inactive: 2 cell(s) not within
+    why: improvement: target F inactive aggregate 0.9169 above half of the reference's 0.9169
+  apple-macos-27.0-2x-dark-standard-glass0.25: NEITHER: closes at the finding; 66 of 66 read; partition {'unchanged': 66, 'toward': 0, 'away': 0}
+    target P           n=9   A 0.9652 ref 0.9652 halved False; 9 not within
+    target C rest      n=28  A 0.5377 ref 0.5377 halved False; 25 not within
+    target F inactive  n=2   A 0.9824 ref 0.9824 halved False; 2 not within
+    F rest       gate 10  read 10  GATED A 0.4323 ref 0.4323 τ 0.0763
+    F inactive   gate 2   read 2   reported A 0.9824 ref 0.9824 τ 0.1458
+    T rest       gate 3   read 3   GATED A 0.7897 ref 0.7897 τ 0.0874
+    C rest       gate 28  read 28  GATED A 0.5377 ref 0.5377 τ 0.0262
+    C inactive   gate 14  read 14  GATED A 0.5573 ref 0.5573 τ 0.0763
+    P rest       gate 4   read 4   GATED A 0.7997 ref 0.7997 τ 0.0345
+    P inactive   gate 5   read 5   GATED A 1.1443 ref 1.1443 τ 0.0354
+    budget: 0 away beyond B, 0 beyond 3 B -> holds
+    why: full close: target P: 9 cell(s) not within
+    why: improvement: target P aggregate 0.9652 above half of the reference's 0.9652
+    why: full close: target C rest: 25 cell(s) not within
+    why: improvement: target C rest aggregate 0.5377 above half of the reference's 0.5377
+    why: full close: target F inactive: 2 cell(s) not within
+    why: improvement: target F inactive aggregate 0.9824 above half of the reference's 0.9824
+
+W46's point A (d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0) against d0219cd684bf, W46 G1's committed gate cut read by W47's rule: NEITHER: closes at the finding  [complete map]
+  apple-macos-27.0-1x-dark-standard-glass0.25: NEITHER: closes at the finding; 66 of 66 read; partition {'unchanged': 10, 'toward': 39, 'away': 17}
+    target P           n=9   A 0.4951 ref 0.8792 halved False; 9 not within
+    target C rest      n=28  A 0.1712 ref 0.3900 halved True; 19 not within
+    target F inactive  n=2   A 0.5196 ref 0.9169 halved False; 2 not within
+    F rest       gate 10  read 10  GATED A 0.3131 ref 0.3580 τ 0.0488
+    F inactive   gate 2   read 2   reported A 0.5196 ref 0.9169 τ 0.1331
+    T rest       gate 3   read 3   GATED A 0.6434 ref 0.3491 τ 0.0525 WORSE BEYOND τ (gated)
+    C rest       gate 28  read 28  GATED A 0.1712 ref 0.3900 τ 0.0297
+    C inactive   gate 14  read 14  GATED A 0.3903 ref 0.5849 τ 0.0776
+    P rest       gate 4   read 4   GATED A 0.4112 ref 0.6021 τ 0.0353
+    P inactive   gate 5   read 5   GATED A 0.7725 ref 1.1926 τ 0.0353
+    budget: 16 away beyond B, 8 beyond 3 B -> FAILS
+      checkerboard-8__rrect-lg__rest                     12.27 B
+      hc-text__rrect-lg__rest                            10.38 B
+      checkerboard-8__rrect-md__rest                     10.26 B
+      hc-text-7__rrect-lg__rest                          6.46 B
+      checkerboard-lc16__rrect-md__rest                  4.57 B
+      checkerboard-lc16__rrect-ml__rest                  3.55 B
+      checkerboard__rrect-md__rest                       3.22 B
+      hc-text-28__rrect-lg__rest                         3.05 B
+      impulse__rrect-lg__inactive                        2.90 B
+      checkerboard-lc16__rrect-lg__rest                  2.80 B
+      checkerboard__capsule-button__inactive-tint-orange 1.87 B
+      hc-text__rrect-lg__inactive                        1.70 B
+      checkerboard__capsule-button__inactive             1.57 B
+      impulse__capsule-button__rest                      1.47 B
+      impulse__rrect-ml__inactive                        1.44 B
+      checkerboard-4__rrect-lg__rest                     1.07 B
+    why: full close: target P: 9 cell(s) not within
+    why: improvement: target P aggregate 0.4951 above half of the reference's 0.8792
+    why: full close: target C rest: 19 cell(s) not within
+    why: full close: target F inactive: 2 cell(s) not within
+    why: improvement: target F inactive aggregate 0.5196 above half of the reference's 0.9169
+    why: aggregate: T rest A 0.6434 > 0.3491 + τ 0.0525
+    why: budget count: 16 cells away beyond B (at most 3)
+    why: budget ceiling: 8 cell(s) beyond 3 B
+  apple-macos-27.0-2x-dark-standard-glass0.25: NEITHER: closes at the finding; 66 of 66 read; partition {'unchanged': 9, 'toward': 39, 'away': 18}
+    target P           n=9   A 0.6479 ref 0.9652 halved False; 9 not within
+    target C rest      n=28  A 0.2384 ref 0.5377 halved True; 21 not within
+    target F inactive  n=2   A 0.5808 ref 0.9824 halved False; 2 not within
+    F rest       gate 10  read 10  GATED A 0.4103 ref 0.4323 τ 0.0763
+    F inactive   gate 2   read 2   reported A 0.5808 ref 0.9824 τ 0.1458
+    T rest       gate 3   read 3   GATED A 0.8594 ref 0.7897 τ 0.0874
+    C rest       gate 28  read 28  GATED A 0.2384 ref 0.5377 τ 0.0262
+    C inactive   gate 14  read 14  GATED A 0.3340 ref 0.5573 τ 0.0763
+    P rest       gate 4   read 4   GATED A 0.4613 ref 0.7997 τ 0.0345
+    P inactive   gate 5   read 5   GATED A 0.6918 ref 1.1443 τ 0.0354
+    budget: 17 away beyond B, 10 beyond 3 B -> FAILS
+      checkerboard-8__rrect-lg__rest                     11.16 B
+      hc-text__rrect-lg__rest                            9.05 B
+      hc-text-28__rrect-lg__rest                         7.76 B
+      hc-text-7__rrect-lg__rest                          6.17 B
+      checkerboard-32__rrect-lg__rest                    5.12 B
+      checkerboard-lc16__rrect-md__rest                  3.77 B
+      checkerboard-lc16__rrect-ml__rest                  3.75 B
+      checkerboard__capsule-button__inactive             3.59 B
+      impulse__rrect-ml__inactive                        3.56 B
+      impulse__rrect-lg__inactive                        3.55 B
+      checkerboard__capsule-button__inactive-tint-orange 2.87 B
+      checkerboard-lc16__rrect-lg__rest                  2.79 B
+      checkerboard-4__rrect-ml__rest                     2.29 B
+      hc-text__rrect-lg__inactive                        2.27 B
+      checkerboard-4__rrect-lg__rest                     2.18 B
+      checkerboard-4__rrect-md__rest                     2.05 B
+      checkerboard__rrect-md__inactive                   1.49 B
+    why: full close: target P: 9 cell(s) not within
+    why: improvement: target P aggregate 0.6479 above half of the reference's 0.9652
+    why: full close: target C rest: 21 cell(s) not within
+    why: full close: target F inactive: 2 cell(s) not within
+    why: improvement: target F inactive aggregate 0.5808 above half of the reference's 0.9824
+    why: budget count: 17 cells away beyond B (at most 3)
+    why: budget ceiling: 10 cell(s) beyond 3 B
+
+gated/reported groups at the gate, apple-macos-27.0-1x-dark-standard-glass0.25: EQUAL to the charter (F rest 10 gated, F inactive 2 reported, T rest 3 gated, C rest 28 gated, C inactive 14 gated, P rest 4 gated, P inactive 5 gated; T inactive has no gate cell)
+gated/reported groups at the gate, apple-macos-27.0-2x-dark-standard-glass0.25: EQUAL to the charter (F rest 10 gated, F inactive 2 reported, T rest 3 gated, C rest 28 gated, C inactive 14 gated, P rest 4 gated, P inactive 5 gated; T inactive has no gate cell)
+synthetic cases (cuts/test_rule.py): Ran 19 tests in 0.027s OK
+
+CHECK PASS: d0219 every gate cell unchanged
+CHECK PASS: point A reproduces §5.209 §4 (16/8 at 1x, 17/10 at 2x, NEITHER)
+CHECK PASS: gated and reported groups equal the charter's per scale
+CHECK PASS: W45's synthetic cases pass

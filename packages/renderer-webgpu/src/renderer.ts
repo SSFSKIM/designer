@@ -96,6 +96,7 @@ import {
   heavySecondTapSigmaAtScale,
   fineTapSigmaAtScale,
   heavySecondShareFarAtScale,
+  tintAlphaFarAtScale,
   heavyTapSigmaAtScale,
   scatterHeavyShareThickAtScale,
   scatterRampReachDevicePx,
@@ -1300,6 +1301,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // ratio here, beside the share, and multiplied by the shader's own per-pixel `farS` —
         // never by a per-group span, because a group's members have different ones.
         sizeHeavySecondShareFar: heavySecondShareFarAtScale(material, dpr),
+        // W47 operator 1 (claims §5.211): the transmission's far-curve delta, resolved at this
+        // group's ratio and multiplied by the shader's own per-pixel `farS` — never by a
+        // per-group span, for the same reason as the share's above.
+        tintAlphaFar: tintAlphaFarAtScale(material, dpr),
         // W31's body chroma retention (claims §5.164): a material constant, per
         // group, with no source-side half — the chromaticity it restores toward
         // is the blurred backdrop the optics pass already sampled per pixel.

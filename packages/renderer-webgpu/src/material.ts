@@ -1534,6 +1534,55 @@ export interface MaterialProfile {
    * there is none left to have).
    */
   readonly sizeOcclusionGain: number;
+  /**
+   * **The transmission, graded on the scatter's far curve** (W47 operator 1; charter Decision
+   * Log 2, clause 1, X65; claims §5.211) — how far the material's base alpha rises between the
+   * thickness knee and the top of the scatter span curve, at dpr 1. An additive fraction of
+   * opacity, identity 0; `tintAlphaFar2x` is its dpr-2 anchor.
+   *
+   * ```
+   * farS(span)      = smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+   * alphaBase(px)   = clamp(tintAlpha + tintAlphaFarAtScale(dpr) · farS(span(px)), 0, 1)
+   * sizedAlpha(px)  = alphaBase + sizeOcclusionGain · sizeK(px) · (1 − alphaBase)
+   * ```
+   *
+   * Three knots on the span, and two of them existed: `tintAlpha` is the thin value, the
+   * occlusion gain above lifts it toward the knee on `sizeK` (which saturates at `sizeSpanMax`,
+   * so it cannot separate 96 from 128–160), and this delta lifts it from the knee to the top on
+   * `farS` — the curve the ramp's far start, the 2x heavy gain and W45's tap share already read,
+   * and exactly 0 at and below the knee (span 96 on every shipped material). Evaluated per PIXEL
+   * in the optics pass from each pixel's span in the field pass's aux target, never per group: a
+   * group packs one `tintAlpha` for members of different spans (`glass-over-glass` carries 130
+   * and 56). Read before the occlusion term and so before the W9 solve, which runs at
+   * `sizedAlpha` per pixel and therefore holds the level at each pixel's graded alpha wherever it
+   * is unclamped at full authority (W46 X61).
+   *
+   * **Clamped into [0, 1]**, because the alpha is a mixing weight and the solve divides by it.
+   * At identity the sum is `tintAlpha + 0 · farS`, which is `tintAlpha` exactly in f32, and the
+   * clamp is the identity on an alpha already in [0, 1] — so the inert leaf changes no raster.
+   * The delta itself is not bounded here: its domain is the declaration's (X68).
+   *
+   * **Two scales**, resolved by `tintAlphaFarAtScale` as `rampAtScale(far1x, far2x, dpr)`: the
+   * 1x value at dpr ≤ 1, half-way at 1.5, the 2x value from dpr 2 — as every scale-anchored
+   * span leaf of W30's set is, because the scales' thick overshoots differ and the far curve's
+   * top is per scale. Applied after the accessibility fold, on the alpha
+   * `occlusionAlphaUnderPolicy` has already lifted, as the occlusion gain is; `farS` itself is
+   * unfolded, like the ramp's far decline it shares.
+   *
+   * **The CSS tier MIRRORS it** (`platform-web/src/optics.ts`, `materialAtBackdrop`): its
+   * `rgba()` alpha is one number per surface and so is the surface's span, so it evaluates the
+   * same law once per surface before its own occlusion term — the first of W30's spanning set
+   * the CSS tier mirrors rather than declines since the σ law. `tier-coherence.test.ts` pins the
+   * two evaluations to each other.
+   *
+   * **Ships at 0** on both anchors, landed inert before anything was fitted on it (X57): every
+   * shipped digest, every golden and every shipped endpoint's raster byte-identical, proved by
+   * render in `e2e/gpu/w47-alpha-far.spec.ts`. Two plain value drops in
+   * `MATERIAL_IDENTITY_TABLE`, not a gate-group: the expression is read at every alpha.
+   */
+  readonly tintAlphaFar1x: number;
+  /** The dpr-2 anchor of `tintAlphaFar1x`'s far delta, on the same law; identity 0 (W47). */
+  readonly tintAlphaFar2x: number;
 
   /**
    * The inner shadow's gain — "casts deeper, richer shadows". A multiplier on
@@ -2852,6 +2901,11 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterScaleGain: 0,
   sizeScatterScaleRef: 0,
   sizeOcclusionGain: 0.05,
+  // W47's transmission graded on the far curve (claims §5.211; charter Decision Log 2): 0 is
+  // each anchor's identity, `tintAlpha + 0 · farS`, and the table below drops both from every
+  // digest at 0.
+  tintAlphaFar1x: 0,
+  tintAlphaFar2x: 0,
   sizeShadowGainMax: 1,
 
   /*
@@ -3305,6 +3359,24 @@ export interface MaterialIdentityEntry {
  */
 export const MATERIAL_DIGEST_RULE_VERSION = 2;
 
+/** The prose W47's two plain value drops share, one entry per far-delta anchor (claims §5.211). */
+const W47_TINT_ALPHA_FAR_ENTRY = {
+  gated: [],
+  law: "alphaBase = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dpr)·" +
+    "smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span), 0, 1), per pixel; " +
+    "sizedAlpha = alphaBase + sizeOcclusionGain·sizeK·(1 − alphaBase)",
+  inertLawCase:
+    'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "W47 — tintAlphaFar1x and ' +
+    'tintAlphaFar2x are plain value drops at 0"; the drawn half in ' +
+    'packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts — "is the identity at 0, held to ' +
+    'its own scale, and per pixel above the knee", with the before/after bytes in ' +
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/",
+  whyGated:
+    "Not gated — a plain value drop. At 0 the far term is 0·farS, so the base alpha is " +
+    "tintAlpha exactly and the clamp is the identity on it.",
+  claims: "c9a §5.211; W47 Decision Log 2, clause 1, X57, X65",
+} as const satisfies Omit<MaterialIdentityEntry, "wave" | "gate">;
+
 /**
  * **The inert-identity table the material's fingerprint is taken under** — a
  * committed, tested, APPEND-ONLY constant (W31 Decision Log 1 (a); claims
@@ -3511,6 +3583,18 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
   },
   {
     wave: "W47",
+    /*
+     * Two plain value drops, injective for free, one entry per anchor so each leaf is dropped at
+     * its own identity whatever the other holds. Not a gate-group: there is no gate leaf, because
+     * the expression is read on every body pixel at every alpha, and at 0 it is the old alpha
+     * exactly. The two entries share their prose (`W47_TINT_ALPHA_FAR_ENTRY`).
+     */
+    gate: { tintAlphaFar1x: 0 },
+    ...W47_TINT_ALPHA_FAR_ENTRY,
+  },
+  { wave: "W47", gate: { tintAlphaFar2x: 0 }, ...W47_TINT_ALPHA_FAR_ENTRY },
+  {
+    wave: "W47",
     gate: { sizeFineTapShare: 0 },
     gated: ["sizeFineTapSigma", "sizeFineTapSigma2x"],
     law: "body' = body + sizeFineTapShare·(fine − body), fine at sizeFineTapSigma(dpr) CSS px; " +
@@ -3690,6 +3774,8 @@ export interface MaterialProfilePatch {
   readonly sizeScatterScaleGain?: number;
   readonly sizeScatterScaleRef?: number;
   readonly sizeOcclusionGain?: number;
+  readonly tintAlphaFar1x?: number;
+  readonly tintAlphaFar2x?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
   readonly lensHeightPerSpan?: number;
@@ -3942,6 +4028,9 @@ export function withMaterialOverrides(
     sizeScatterScaleGain: patch.sizeScatterScaleGain ?? base.sizeScatterScaleGain,
     sizeScatterScaleRef: patch.sizeScatterScaleRef ?? base.sizeScatterScaleRef,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
+    // W47 (claims §5.211): the transmission's far-curve delta, one line per anchor.
+    tintAlphaFar1x: patch.tintAlphaFar1x ?? base.tintAlphaFar1x,
+    tintAlphaFar2x: patch.tintAlphaFar2x ?? base.tintAlphaFar2x,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
     lensHeightPerSpan: patch.lensHeightPerSpan ?? base.lensHeightPerSpan,
@@ -5086,6 +5175,42 @@ export function heavySecondShareFarAtScale(
   devicePixelRatio = 1,
 ): number {
   return rampAtScale(0, profile.sizeHeavySecondShareFar2x, devicePixelRatio);
+}
+
+/**
+ * **The transmission's far-curve delta at a device scale** (W47 operator 1; claims §5.211) — the
+ * value of `MaterialProfile.tintAlphaFar1x` / `tintAlphaFar2x` the optics pass multiplies by its
+ * per-pixel `farS`, resolved as `rampAtScale(far1x, far2x, dpr)`: the 1x anchor at dpr ≤ 1, half
+ * of each at 1.5 and the 2x anchor from dpr 2 up. Both anchors are leaves, unlike W45's share
+ * delta above, because both scales' thick cells overshoot (charter Decision Log 2).
+ */
+export function tintAlphaFarAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.tintAlphaFar1x, profile.tintAlphaFar2x, devicePixelRatio);
+}
+
+/**
+ * **The base alpha a pixel of this span carries** (W47 operator 1; claims §5.211), before the size
+ * law's occlusion term — the CPU statement of the optics pass's `alphaBase`, for the tier-coherence
+ * pin and for any CPU reading that needs the graded transmission:
+ * `clamp(alpha + tintAlphaFarAtScale(dpr) · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span),
+ * 0, 1)`. `alpha` is the material's `tintAlpha` after the accessibility fold, as the shader reads
+ * it. The smoothstep is written out with the shader's own guarded denominator, so a profile that
+ * collapses the band degrades to a step there as here.
+ */
+export function spanGradedTintAlpha(
+  alpha: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  const t = clampUnit(
+    (spanPx - profile.sizeSpanMax)
+      / Math.max(scatterSpanMaxAtScale(profile, devicePixelRatio) - profile.sizeSpanMax, 1e-6),
+  );
+  return clampUnit(alpha + tintAlphaFarAtScale(profile, devicePixelRatio) * (t * t * (3 - 2 * t)));
 }
 
 /**

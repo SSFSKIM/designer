@@ -1,0 +1,50 @@
+W47 G0 (g): PREDICTIONS from W46's point A (packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz, sha256 7f1d3b5fb84c); the ladders replace them.
+
+operator 1 at A (uniform 0.7, the control): {"tintAlpha": 0.7, "gain": 0.05, "far": 0.0, "top": 256}
+  apple-macos-27.0-1x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 16, >3B 8; gated groups failing: T rest; P 0.495 vs 0.879; C rest 0.171 vs 0.390 (halved); F inactive 0.520 vs 0.917
+  apple-macos-27.0-2x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 17, >3B 10; gated groups failing: none; P 0.648 vs 0.965; C rest 0.238 vs 0.538 (halved); F inactive 0.581 vs 0.982
+    1x rest thin: alpha 0.701, ratio median x0.90 (n 23)
+    1x rest mid: alpha 0.715, ratio median x1.15 (n 9)
+    1x rest thick: alpha 0.715, ratio median x1.35 (n 13)
+    2x rest thin: alpha 0.701, ratio median x0.75 (n 23)
+    2x rest mid: alpha 0.715, ratio median x1.24 (n 9)
+    2x rest thick: alpha 0.715, ratio median x1.66 (n 13)
+operator 1 at L256 (0.7, gain 0.4, far 0.38, top 256): {"tintAlpha": 0.7, "gain": 0.4, "far": 0.38, "top": 256}
+  apple-macos-27.0-1x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 12, >3B 3; gated groups failing: F rest; P 0.759 vs 0.879; C rest 0.193 vs 0.390 (halved); F inactive 0.263 vs 0.917 (halved)
+  apple-macos-27.0-2x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 9, >3B 6; gated groups failing: none; P 0.740 vs 0.965; C rest 0.264 vs 0.538 (halved); F inactive 0.281 vs 0.982 (halved)
+    1x rest thin: alpha 0.711, ratio median x0.87 (n 23)
+    1x rest mid: alpha 0.820, ratio median x0.73 (n 9)
+    1x rest thick: alpha 0.844, ratio median x0.55 (n 13)
+    2x rest thin: alpha 0.711, ratio median x0.72 (n 23)
+    2x rest mid: alpha 0.820, ratio median x0.78 (n 9)
+    2x rest thick: alpha 0.844, ratio median x0.66 (n 13)
+operator 1 at L128 (0.7, gain 0.4, far 0.13, top 128): {"tintAlpha": 0.7, "gain": 0.4, "far": 0.13, "top": 128}
+  apple-macos-27.0-1x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 12, >3B 4; gated groups failing: F rest; P 0.759 vs 0.879; C rest 0.218 vs 0.390; F inactive 0.249 vs 0.917 (halved)
+  apple-macos-27.0-2x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 13, >3B 6; gated groups failing: none; P 0.740 vs 0.965; C rest 0.305 vs 0.538; F inactive 0.267 vs 0.982 (halved)
+    1x rest thin: alpha 0.711, ratio median x0.87 (n 23)
+    1x rest mid: alpha 0.820, ratio median x0.73 (n 9)
+    1x rest thick: alpha 0.898, ratio median x0.48 (n 13)
+    2x rest thin: alpha 0.711, ratio median x0.72 (n 23)
+    2x rest mid: alpha 0.820, ratio median x0.78 (n 9)
+    2x rest thick: alpha 0.898, ratio median x0.60 (n 13)
+operator 1 at K (0.8, gain 0.05, far 0.1, top 256): {"tintAlpha": 0.8, "gain": 0.05, "far": 0.1, "top": 256}
+  apple-macos-27.0-1x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 19, >3B 2; gated groups failing: F rest, P rest; P 0.773 vs 0.879; C rest 0.363 vs 0.390; F inactive 0.440 vs 0.917 (halved)
+  apple-macos-27.0-2x-dark-standard-glass0.25: NEITHER: closes at the finding; away>B 12, >3B 4; gated groups failing: F rest; P 0.715 vs 0.965; C rest 0.344 vs 0.538; F inactive 0.501 vs 0.982
+    1x rest thin: alpha 0.801, ratio median x0.60 (n 23)
+    1x rest mid: alpha 0.810, ratio median x0.77 (n 9)
+    1x rest thick: alpha 0.820, ratio median x0.74 (n 13)
+    2x rest thin: alpha 0.801, ratio median x0.50 (n 23)
+    2x rest mid: alpha 0.810, ratio median x0.83 (n 9)
+    2x rest thick: alpha 0.820, ratio median x0.91 (n 13)
+
+operator 2 (body form): g = exp(-pi^2 sigma^2 / c^2), a = 1 - share + share*g
+  sigma 1.5: 8 px passed 0.707; 64 px passed 0.995
+  sigma 2: 8 px passed 0.540; 64 px passed 0.990
+  sigma 3: 8 px passed 0.250; 64 px passed 0.979
+  sigma 4: 8 px passed 0.085; 64 px passed 0.962
+  sigma 6: 8 px passed 0.004; 64 px passed 0.917
+  1x checkerboard-8__rrect-md__inactive: point A x1.72 -> s2/q1 x0.93, s3/q0.5 x1.08, s3/q0.75 x0.75, s4/q0.5 x0.93, s6/q1 x0.01
+  1x checkerboard-8__rrect-lg__inactive: point A x2.22 -> s2/q1 x1.20, s3/q0.5 x1.39, s3/q0.75 x0.97, s4/q0.5 x1.20, s6/q1 x0.01
+  2x checkerboard-8__rrect-md__inactive: point A x1.93 -> s2/q1 x1.04, s3/q0.5 x1.21, s3/q0.75 x0.85, s4/q0.5 x1.05, s6/q1 x0.01
+  2x checkerboard-8__rrect-lg__inactive: point A x2.38 -> s2/q1 x1.28, s3/q0.5 x1.49, s3/q0.75 x1.04, s4/q0.5 x1.29, s6/q1 x0.01
+  diagnostic (sigma 6, share 1, from the reference): checkerboard-8__rrect-md__inactive 1x R 0.74, checkerboard-8__rrect-lg__inactive 1x R 0.77, checkerboard-8__rrect-md__inactive 2x R 1.04, checkerboard-8__rrect-lg__inactive 2x R 1.01

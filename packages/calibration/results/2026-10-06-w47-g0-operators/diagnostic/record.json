@@ -1,0 +1,132 @@
+{
+ "what": "W47 G0 (f): the depth-split diagnostic's record (charter Design \"The ladders\", the last item; Decision Log 3 as amended), projected from reading.json",
+ "reading": {
+  "path": "reading.json",
+  "sha256": "11eef32e1f568e86893365fd8cd5eaf66ad158c2def4f95f4017d053084fa51b"
+ },
+ "criterion": "R=(reference-form)/(reference-native); >=0.5 on every cell and scale and larger pooled mean R",
+ "definition": "SD(L-G(L,4 device px)), linear luminance, native silhouette eroded4 CSS px; W44 G1 read()",
+ "chosenForm": "body",
+ "pooledMeanR": {
+  "body": 0.8908451805928824,
+  "deep": 0.0
+ },
+ "cells": [
+  {
+   "cell": "checkerboard-8__rrect-md__inactive",
+   "scale": 1,
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+   "spanCss": 96,
+   "E": 0.015304637359621022,
+   "fine": {
+    "native": 0.007246941701628215,
+    "control": 0.022551579061249237,
+    "body": 0.011236583918384429,
+    "deep": 0.022551579061249237
+   },
+   "R": {
+    "body": 0.7393180822903859,
+    "deep": 0.0
+   },
+   "weights": {
+    "ramp": {
+     "pixels": 13184,
+     "body": 0.7662251480717707,
+     "deep": 0.2337748519282293
+    },
+    "beyond": {
+     "pixels": 0,
+     "body": null,
+     "deep": null
+    }
+   }
+  },
+  {
+   "cell": "checkerboard-8__rrect-lg__inactive",
+   "scale": 1,
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+   "spanCss": 160,
+   "E": 0.013195862522230296,
+   "fine": {
+    "native": 0.0054101349418409425,
+    "control": 0.01860599746407124,
+    "body": 0.008457692902314363,
+    "deep": 0.01860599746407124
+   },
+   "R": {
+    "body": 0.7690520073743282,
+    "deep": 0.0
+   },
+   "weights": {
+    "ramp": {
+     "pixels": 40624,
+     "body": 0.6240602934347773,
+     "deep": 0.3759397065652227
+    },
+    "beyond": {
+     "pixels": 0,
+     "body": null,
+     "deep": null
+    }
+   }
+  },
+  {
+   "cell": "checkerboard-8__rrect-md__inactive",
+   "scale": 2,
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+   "spanCss": 96,
+   "E": 0.0085767707716703,
+   "fine": {
+    "native": 0.0016587562587920546,
+    "control": 0.010235527030462354,
+    "body": 0.0012818309376626121,
+    "deep": 0.010235527030462354
+   },
+   "R": {
+    "body": 1.0439472303928716,
+    "deep": 0.0
+   },
+   "weights": {
+    "ramp": {
+     "pixels": 52648,
+     "body": 0.4585861227624135,
+     "deep": 0.5414138772375865
+    },
+    "beyond": {
+     "pixels": 0,
+     "body": null,
+     "deep": null
+    }
+   }
+  },
+  {
+   "cell": "checkerboard-8__rrect-lg__inactive",
+   "scale": 2,
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+   "spanCss": 160,
+   "E": 0.008874648705073788,
+   "fine": {
+    "native": 0.0011253484774021597,
+    "control": 0.009999997182475948,
+    "body": 0.001027164668383006,
+    "deep": 0.009999997182475948
+   },
+   "R": {
+    "body": 1.011063402313944,
+    "deep": 0.0
+   },
+   "weights": {
+    "ramp": {
+     "pixels": 118794,
+     "body": 0.45604901511660884,
+     "deep": 0.5439509848833912
+    },
+    "beyond": {
+     "pixels": 43524,
+     "body": 0.43617914091706733,
+     "deep": 0.5638208590829327
+    }
+   }
+  }
+ ]
+}

@@ -40,6 +40,9 @@ import {
   DEFAULT_MATERIAL_PROFILE,
   backdropToneResponse, backdropToneSolveWeight, materialDigestInput,
   heavySecondShareFarAtScale,
+  scatterSpanMaxAtScale,
+  spanGradedTintAlpha,
+  tintAlphaFarAtScale,
   heavySecondTapSigmaAtScale,
   fineTapSigmaAtScale,
   heavyTapSigmaAtScale,
@@ -357,6 +360,129 @@ describe("W45 — sizeHeavySecondShareFar2x is a plain value drop at 0", () => {
   });
 });
 
+describe("W47 — tintAlphaFar1x and tintAlphaFar2x are plain value drops at 0", () => {
+  /*
+   * W47 operator 1 (claims §5.211; charter Decision Log 2, clause 1, X57, X65). The two leaves
+   * grade the material's base alpha on the scatter's far curve, per pixel in the optics pass:
+   * `alphaBase = clamp(tint.w + scatterHeavy2.w · farS, 0, 1)`, before the size law's occlusion
+   * term. Two PLAIN value drops — no gate leaf — because the expression is read on every body
+   * pixel at every alpha. What the drops rest on is that 0 is each anchor's identity: the resolved
+   * delta is 0 at every ratio when both anchors are, the far term is then a multiplied zero at
+   * every `farS` the shader can compute, the sum returns the alpha exactly in f32 as in f64, and
+   * the clamp is the identity on an alpha in [0, 1].
+   */
+  const ALPHAS = [0, 1e-7, 0.05, 0.1, 0.3, 0.46, 0.62, 0.7, 0.89, 0.9, 0.999999, 1] as const;
+  const FAR_S = [0, 1e-7, 0.104, 0.352, 0.5, 0.999999, 1] as const;
+  const DELTAS = [-5, -1, -0.45, -0.1, -1e-6, 1e-6, 0.1, 0.13, 0.38, 0.45, 0.6, 1, 5, 1e6] as const;
+  const clamp = (x: number): number => Math.min(1, Math.max(0, x));
+  /** The shader's line in f32: every operand and every result rounded, as WGSL computes it. */
+  const f32 = (alpha: number, delta: number, farS: number): number => {
+    const f = Math.fround;
+    return f(Math.min(f(1), Math.max(f(0), f(f(alpha) + f(f(delta) * f(farS))))));
+  };
+  /** The same line with the multiply-add fused, which a compiler may choose. */
+  const f32Fused = (alpha: number, delta: number, farS: number): number => {
+    const f = Math.fround;
+    return f(Math.min(f(1), Math.max(f(0), f(f(alpha) + f(delta) * f(farS)))));
+  };
+
+  it("holds both anchors at their identity on the shipped material, at every ratio", () => {
+    expect(DEFAULT_MATERIAL_PROFILE.tintAlphaFar1x).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.tintAlphaFar2x).toBe(0);
+    for (const dpr of [...RATIOS, 0.5, 1.25, 4]) {
+      expect(tintAlphaFarAtScale(DEFAULT_MATERIAL_PROFILE, dpr)).toBe(0);
+    }
+  });
+
+  it("returns the alpha exactly at delta 0, in f64 and in f32, fused or not", () => {
+    for (const alpha of ALPHAS) {
+      for (const farS of FAR_S) {
+        const label = `alpha ${String(alpha)} farS ${String(farS)}`;
+        expect(clamp(alpha + 0 * farS), label).toBe(alpha);
+        expect(f32(alpha, 0, farS), label).toBe(Math.fround(alpha));
+        expect(f32Fused(alpha, 0, farS), label).toBe(Math.fround(alpha));
+        // And at a span the far curve reads 0 on (at or below the knee), whatever the delta.
+        for (const delta of DELTAS) {
+          expect(f32(alpha, delta, 0), `${label} delta ${String(delta)} at farS 0`).toBe(Math.fround(alpha));
+        }
+      }
+    }
+  });
+
+  it("clamps the sum into [0, 1] at large signed deltas, and is linear inside", () => {
+    for (const alpha of ALPHAS) {
+      for (const farS of FAR_S) {
+        for (const delta of DELTAS) {
+          const graded = clamp(alpha + delta * farS);
+          expect(graded).toBeGreaterThanOrEqual(0);
+          expect(graded).toBeLessThanOrEqual(1);
+          // f32 rounds each operand off the identity, so only closeness is the law's here.
+          expect(f32(alpha, delta, farS)).toBeCloseTo(graded, 6);
+        }
+      }
+    }
+    expect(clamp(0.9 + 1 * 0.352)).toBe(1);
+    expect(clamp(0.3 - 5 * 0.104)).toBe(0);
+    expect(clamp(0.7 + 0.45 * 0.352)).toBeCloseTo(0.8584, 12);
+  });
+
+  it("resolves the pair by rampAtScale: 1x at dpr ≤ 1, half-way at 1.5, 2x from 2", () => {
+    for (const far1x of DELTAS) {
+      for (const far2x of [0, 0.2, 0.45, -0.3]) {
+        const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+          tintAlphaFar1x: far1x, tintAlphaFar2x: far2x,
+        });
+        for (const dpr of [0.5, 1]) expect(tintAlphaFarAtScale(profile, dpr)).toBe(far1x);
+        expect(tintAlphaFarAtScale(profile, 1.5)).toBe(far1x + (far2x - far1x) * 0.5);
+        for (const dpr of [2, 3]) expect(tintAlphaFarAtScale(profile, dpr)).toBe(far2x);
+      }
+    }
+    // A 2x-only delta reaches no 1x pixel, and a 1x-only delta no 2x pixel.
+    const twoOnly = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { tintAlphaFar2x: 0.45 });
+    const oneOnly = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { tintAlphaFar1x: 0.3 });
+    for (const span of SPANS) {
+      expect(spanGradedTintAlpha(0.7, span, twoOnly, 1)).toBe(0.7);
+      expect(spanGradedTintAlpha(0.7, span, oneOnly, 2)).toBe(0.7);
+    }
+  });
+
+  it("states the shader's line on the CPU: 0 at and below the knee, the far curve above it", () => {
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      tintAlphaFar1x: 0.3, tintAlphaFar2x: 0.45,
+    });
+    for (const dpr of RATIOS) {
+      const top = scatterSpanMaxAtScale(profile, dpr);
+      const far = tintAlphaFarAtScale(profile, dpr);
+      for (const span of SPANS) {
+        const t = clamp((span - profile.sizeSpanMax) / Math.max(top - profile.sizeSpanMax, 1e-6));
+        expect(spanGradedTintAlpha(0.5, span, profile, dpr), `span ${String(span)} dpr ${String(dpr)}`)
+          .toBe(clamp(0.5 + far * (t * t * (3 - 2 * t))));
+        if (span <= profile.sizeSpanMax) expect(spanGradedTintAlpha(0.5, span, profile, dpr)).toBe(0.5);
+      }
+    }
+    // At the inherited top 256 the curve reads 0.104 at 128 and 0.352 at 160 (charter Grounding).
+    expect(spanGradedTintAlpha(0.5, 128, profile, 2)).toBeCloseTo(0.5 + 0.45 * 0.104, 12);
+    expect(spanGradedTintAlpha(0.5, 160, profile, 2)).toBeCloseTo(0.5 + 0.45 * 0.352, 12);
+  });
+
+  it("is dropped from the digest at 0 and carried off it, each anchor on its own", () => {
+    const dropped = materialDigestDroppedLeaves(DEFAULT_MATERIAL_PROFILE);
+    expect(dropped).toContain("tintAlphaFar1x");
+    expect(dropped).toContain("tintAlphaFar2x");
+    for (const delta of DELTAS) {
+      for (const leaf of ["tintAlphaFar1x", "tintAlphaFar2x"] as const) {
+        const other = leaf === "tintAlphaFar1x" ? "tintAlphaFar2x" : "tintAlphaFar1x";
+        const off = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { [leaf]: delta });
+        expect(materialDigestDroppedLeaves(off)).not.toContain(leaf);
+        // The other anchor, at its identity, is still dropped: two plain drops, not one group.
+        expect(materialDigestDroppedLeaves(off)).toContain(other);
+        expect(materialDigestInput(off)).not.toEqual(materialDigestInput(DEFAULT_MATERIAL_PROFILE));
+      }
+    }
+    const named = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { tintAlphaFar1x: 0, tintAlphaFar2x: 0 });
+    expect(materialDigestInput(named)).toEqual(materialDigestInput(DEFAULT_MATERIAL_PROFILE));
+  });
+});
 
 describe("W47 — {sizeFineTapShare 0} gates the two fine-body widths", () => {
   const keys = ["sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x"] as const;

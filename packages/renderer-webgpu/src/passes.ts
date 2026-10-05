@@ -257,6 +257,15 @@ export interface OpticsPassArgs {
    */
   readonly sizeHeavySecondShareFar: number;
   /**
+   * W47's transmission graded on the scatter's far curve (operator 1; claims §5.211; charter
+   * Decision Log 2): `MaterialProfile.tintAlphaFar1x` / `tintAlphaFar2x` already resolved at this
+   * group's device ratio by `tintAlphaFarAtScale`. The shader multiplies it by its own per-pixel
+   * `farS` and adds it to `tintAlpha` before the size law's occlusion term, which is why this is
+   * a delta and not an alpha: a group's members have different spans, and one packed alpha cannot
+   * grade them. 0 on every shipped material.
+   */
+  readonly tintAlphaFar: number;
+  /**
    * W31's body chroma retention (claims §5.161 §5, §5.164) — how much of the
    * blurred backdrop's chromaticity the body restores, at the luma the tone
    * solve produced. 0 on the runtime default, where the composite is the one
@@ -1003,7 +1012,11 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // every shipped material and at every 1x frame, so the bytes this pass writes there are
       // the ones W30 left.
       d[130] = args.sizeHeavySecondShareFar;
-      d[131] = 0;
+      // W47 operator 1 (claims §5.211): the transmission's far-curve delta, in `scatterHeavy2.w` —
+      // the last spare lane of that vec4, so no neighbour's lane changes owner. It is not about
+      // the second tap; the lane is free, and the struct comment names the tenant. 0 on every
+      // shipped material, so the bytes this pass writes there are the ones W45 left.
+      d[131] = args.tintAlphaFar;
       // W31's body chroma retention, in a vec4 of its own on the same rule as
       // W30's three above: 132 is the next vec4 boundary and an operator packed
       // into 130 would read two of its neighbour's lanes. 0 on the landed

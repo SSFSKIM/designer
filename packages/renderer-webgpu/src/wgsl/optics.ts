@@ -248,7 +248,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// back. (z) is W45's far-curve delta on that share (claims 5.205), already resolved at the
   /// group's device ratio and 0 at dpr 1: the share at a pixel is x + z * farS, per pixel and
   /// unclamped, because a group's members have different spans and x is one number for all of
-  /// them. 0 on every shipped material. (w) free.
+  /// them. 0 on every shipped material. (w) is W47's far-curve delta on the TRANSMISSION
+  /// (operator 1, claims 5.211), not on this tap: the lane was the last free one in this vec4.
+  /// Already resolved at the group's device ratio by rampAtScale(far1x, far2x, dpr); the base
+  /// alpha at a pixel is clamp(tint.w + w * farS, 0, 1), read before the size law's occlusion
+  /// term. 0 on every shipped material.
   scatterHeavy2 : vec4f,
   /// W31's body chroma retention (claims 5.161 section 5, 5.164): how much of
   /// the blurred backdrop's CHROMATICITY the body restores, at the luma the
@@ -1210,7 +1214,33 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * the reference's flat body over the impulse grid is. See 'adaptedTintColour'
    * and 'adaptedTintAlpha' in material.ts.
    */
-  let sizedAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
+  /*
+   * W47 operator 1, the span-graded transmission (claims 5.211; charter Decision Log 2, X65):
+   * the base alpha rises on the far curve 'farS' this pass already computed from the pixel's own
+   * span, by the delta 'scatterHeavy2.w' resolved at the group's ratio, and is clamped into
+   * [0, 1] because it is a mixing weight and the solve below divides by it. 'farS' is 0 at and
+   * below the thickness knee, so no delta can move a span-96 pixel; the occlusion term then
+   * lifts from THIS alpha, which is what makes the law three knots on the span (thin
+   * 'tint.w', the knee through 'sizeK', the top through 'farS').
+   *
+   * Exact at identity under any contraction the compiler may choose: at the shipped delta of 0,
+   * '0 * farS' is +0 for every 'farS' in [0, 1] (a cubic of a clamped ramp, never NaN or
+   * negative), 'tint.w + 0' and 'fma(0, farS, tint.w)' both return 'tint.w' exactly, and the
+   * clamp is the identity on an alpha already in [0, 1] — so 'sizedAlpha' is the expression the
+   * size law left, on the same bits (proved by render, e2e/gpu/w47-alpha-far.spec.ts).
+   *
+   * Who reads which alpha. Everything downstream of 'sizedAlpha' reads the GRADED alpha because
+   * it is derived from it: the W9 solve ('nominal', its divisor, 'achieved', 'alphaTarget' and
+   * 'solvedAlpha'), the collapse's 'adaptedAlpha' and its un-premultiplied colour, the presence's
+   * 'presentAlpha' (the composite, the chroma retention's '1 - presentAlpha', the layer alpha on
+   * the unsampled path) and the DOM secant's input. That is the design: the solve holds the level
+   * at each pixel's own alpha (W46 X61). Nothing else in this pass, the highlight pass or the
+   * field pass reads 'tint.w': this line was its only reader, so no reader is left on the
+   * ungraded alpha. The CPU side's readings, and the CSS tier's mirror, are listed with their
+   * reasons in results/2026-10-06-w47-g0-operators/operator-1/readers.txt.
+   */
+  let alphaBase = clamp(ou.tint.w + ou.scatterHeavy2.w * farS, 0.0, 1.0);
+  let sizedAlpha = alphaBase + ou.size.y * sizeK * (1.0 - alphaBase);
 
   /*
    * The backdrop tone response solve (W9) — the law that owns the interior
