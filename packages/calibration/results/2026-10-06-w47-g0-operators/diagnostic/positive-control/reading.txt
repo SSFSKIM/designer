@@ -1,0 +1,15 @@
+W47 G0(f) positive control
+scale scene extraWidthCSS differingPixels maxCodeDifference
+1x checkerboard-64__rrect-md__inactive 6 2459 1
+1x checkerboard-8__rrect-md__inactive 40 0 0
+  eroded body: {"differentPixels": 0, "pixels": 13184, "maxCodeDifference": 0}
+1x checkerboard-8__rrect-lg__inactive 40 113 1
+  eroded body: {"differentPixels": 105, "pixels": 40624, "maxCodeDifference": 1}
+2x checkerboard-64__rrect-md__inactive 6 51734 5
+2x checkerboard-8__rrect-md__inactive 40 0 0
+  eroded body: {"differentPixels": 0, "pixels": 52648, "maxCodeDifference": 0}
+2x checkerboard-8__rrect-lg__inactive 40 971 1
+  eroded body: {"differentPixels": 937, "pixels": 162318, "maxCodeDifference": 1}
+Deep branch executes: broad checker structure moves at width6 on both scales. The original pitch8 sigma6 zero change is consistent with the deep component already suppressing fine structure, not a dead gate or unbound texture; the small sigma40 changes caution against claiming the entire deep texture is exactly flat. Width40 changes, if any, are tabled rather than presumed.
+No operator choice, refit, holdout or referee exposure. Primary BODY verdict remains the declared four-cell sigma6 reading.
+Original deep sigma6 texture present and enabled on all4 diagnostic captures (trace archived).
