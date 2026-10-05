@@ -169,12 +169,29 @@ def acts_at(leaf: str, scale: int) -> bool:
     return leaf_scale(leaf) in ("both", f"{scale}x")
 
 
+def unread_at(overrides: dict, slot: str, leaf: str, scale: int) -> bool:
+    """`labels.json` "gates": a tap's share draws nothing at a scale where its width there resolves to 0
+    (W30's rule), and the leaves a share gates are unread where it resolves to 0 (no texture exists).
+    Exact under the same anchoring as `acts_at`; ladder (ii) verifies the share's 1x case by requiring
+    every 1x capture byte-identical to the snapshot rung's."""
+    for share, gate in LABELS.get("gates", {}).items():
+        if leaf == share and resolved_value(overrides, slot, gate["widthAtScale"][str(scale)]) == 0:
+            return True
+        if leaf in gate["unreadAtZero"] and resolved_value(overrides, slot, share) == 0:
+            return True
+    return False
+
+
 def scale_overrides(overrides: dict, scale: int) -> dict:
-    """The point's overrides restricted to the leaves acting at `scale`, non-moves dropped."""
+    """The point's overrides restricted to the leaves acting at `scale`, non-moves dropped, and the
+    leaves a tap's gates leave unread at `scale` dropped (W47: stage 1 crosses the 2x second tap into
+    the span law's factorial, so its share, with the 1x width held at 0, moves no 1x pixel and the 1x
+    renders stay the span law's)."""
     out = {}
     for slot, leaves in overrides.items():
         for leaf, value in leaves.items():
-            if not acts_at(leaf, scale) or resolved_value({}, slot, leaf) == value:
+            if (not acts_at(leaf, scale) or resolved_value({}, slot, leaf) == value
+                    or unread_at(overrides, slot, leaf, scale)):
                 continue
             out.setdefault(slot, {})[leaf] = value
     return out

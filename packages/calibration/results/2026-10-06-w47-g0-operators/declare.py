@@ -710,6 +710,18 @@ def draft_failures(draft: dict, protocol: dict, targets) -> list[str]:
             out.append("draft: stage 2 does not materialise the receded X64 ∪ X67 keys (materialise: receded.dark)")
         if stages["stage1"].get("materialise") is not None or stages["stage1"].get("materialiseX64") is not None:
             out.append("draft: stage 1 materialises a slot; only stage 2's base is materialised")
+        # Design "The moves" (MARKED): stage 1's span law is ONE factorial, crossed WITH the 2x second
+        # tap where ladder (ii) met its bar, so every ladder-(ii)-conditional leaf is a member of the
+        # factorial group that holds the span law's knots, never a family swept after it.
+        knots = {"optics.regular.tintAlpha", "tintAlphaFar1x", "tintAlphaFar2x", "sizeOcclusionGain",
+                 "sizeScatterSpanMax", "sizeScatterSpanMax2x"}
+        crossed = [set(g["keys"]) for fb in stages["stage1"]["families"].values()
+                   for g in fb.get("factorialGroups", []) if knots & set(g["keys"])]
+        for fam, fb in stages["stage1"]["families"].items():
+            for key, spec in fb["leaves"].items():
+                if spec.get("conditional") == "ii" and not any(key in g for g in crossed):
+                    out.append(f"draft: stage1/{fam}/{key} is conditional on ladder (ii) and not crossed into "
+                               "the span law's factorial (Design \"The moves\")")
     if draft.get("notFitted") != []:
         out.append("draft: a target or operator is named not fitted before the ladders")
     if draft.get("namedGaps", []) != []:

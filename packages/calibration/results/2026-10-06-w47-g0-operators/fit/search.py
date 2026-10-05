@@ -174,6 +174,30 @@ def steps_of(fbody: dict, start: str) -> list[list[str]]:
     return steps
 
 
+def collapse_gated(cands: list[dict], current: dict) -> list[dict]:
+    """W47: where a candidate puts a tap's share at 0 (`labels.json` "gates"), the leaves it gates are
+    unread, so they are held at `current`'s value and equal points are offered once. A crossed factorial
+    of the span law with the 2x second tap (Design "The moves", stage 1) then offers each span-law point
+    once with the tap off and once per (width, far share) with it on."""
+    out, seen = [], set()
+    for c in cands:
+        c = json.loads(json.dumps(c))
+        for share, gate in fit.LABELS.get("gates", {}).items():
+            for slot in list(c):
+                if fit.resolved_value(c, slot, share) != 0:
+                    continue
+                for leaf in gate["unreadAtZero"]:
+                    if leaf in current.get(slot, {}):
+                        c[slot][leaf] = current[slot][leaf]
+                    else:
+                        c[slot].pop(leaf, None)
+        key = json.dumps(c, sort_keys=True)
+        if key not in seen:
+            seen.add(key)
+            out.append(c)
+    return out
+
+
 def step_candidates(fbody: dict, step: list[str], current: dict) -> list[dict]:
     """A step's points: the product of its keys' grids from `current`, and `current` itself first
     unless a grid point already resolves to it on every swept key (the start is always a candidate,
@@ -181,6 +205,7 @@ def step_candidates(fbody: dict, step: list[str], current: dict) -> list[dict]:
     cands = [current]
     for k in step:
         cands = [c for point in cands for c in sweep_candidates(fbody, k, point)]
+    cands = collapse_gated(cands, current)
     swept = [(fbody["leaves"][k]["slot"], leaf) for k in step for leaf in k.split("+")]
     at_start = lambda c: all(fit.resolved_value(c, slot, leaf) == fit.resolved_value(current, slot, leaf)  # noqa: E731
                              for slot, leaf in swept)

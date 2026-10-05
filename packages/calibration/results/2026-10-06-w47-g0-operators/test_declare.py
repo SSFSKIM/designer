@@ -642,6 +642,24 @@ class CommittedProtocolAndDraft(unittest.TestCase):
         self.assertTrue(any("tintAlphaFar2x grid [0, 0.7] outside" in f for f in got))
         self.assertTrue(any("cites rung iii-b2, which does not move it" in f for f in got))
 
+    def test_the_second_tap_is_crossed_into_the_span_law(self):
+        """Design "The moves": the 2x second tap is crossed WITH the span law's factorial (reviewer-medium,
+        W47 G0); the tap as a family swept after it refuses."""
+        draft = json.loads(D.DRAFT.read_text())
+        protocol = json.loads(D.PROTOCOL.read_text())
+        targets = ["P", "C rest", "F inactive"]
+        self.assertEqual(D.draft_failures(draft, protocol, targets), [])
+        bad = copy.deepcopy(draft)
+        stage1 = bad["moves"][0]
+        span = stage1["families"]["span-law"]
+        tap = {k: span["leaves"].pop(k) for k in ("sizeHeavySecondShare", "sizeHeavySecondSigma2x",
+                                                   "sizeHeavySecondShareFar2x")}
+        span["factorialGroups"][0]["keys"] = [k for k in span["factorialGroups"][0]["keys"] if k not in tap]
+        stage1["families"]["second-tap-2x"] = dict(leaves=tap, factorialGroups=[dict(keys=list(tap), starts=["d0219"])])
+        stage1["familyOrder"].insert(1, "second-tap-2x")
+        got = D.draft_failures(bad, protocol, targets)
+        self.assertEqual(len([f for f in got if "not crossed into the span law's factorial" in f]), 3, got)
+
     def test_stage_2_materialises_the_receded_x64_and_x67_keys(self):
         """W46's `materialiseX64` check, generalised to X64 ∪ X67 (the parent's ruling on reading 10)."""
         draft = json.loads(D.DRAFT.read_text())

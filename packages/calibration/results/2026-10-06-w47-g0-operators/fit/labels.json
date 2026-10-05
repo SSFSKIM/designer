@@ -20,7 +20,16 @@
   "read by fit.py's scale-separable rendering: a point renders each scale through its scale twin, the",
   "candidate of its overrides restricted to the leaves acting there. A leaf with no entry refuses. Exact",
   "only under the anchoring, which the ladders verify (every lever rendered at both scales, the scale it",
-  "does not act at byte-identical to the control's)."
+  "does not act at byte-identical to the control's).",
+  "",
+  "`gates`: a tap's share and what it gates (W47 G0, the review of stage 1's crossed factorial). At share 0 no",
+  "second (or fine) texture exists, so the tap's widths and W45's far share are unread (the identity table's",
+  "gate-group for the widths; W45's far share 'unread at share 0', proved by render in w45-share-far.spec.ts):",
+  "search.py holds them at their start there, so a crossed factorial does not offer a tap-off point twice. And",
+  "a tap whose width resolves to 0 at a scale draws nothing at that scale (W30's rule: the pyramid builds no",
+  "texture at width 0 and the shader does not enter the mix), so fit.py's scale twin drops the share at that",
+  "scale and the unread leaves at a scale where the share resolves 0. Ladder (ii) verifies the first by",
+  "requiring every 1x capture byte-identical to the snapshot rung's."
  ],
  "pattern": "^[a-z0-9][a-z0-9.-]*$",
  "slotMark": {
@@ -90,5 +99,28 @@
   "sizeFineTapShare": "both",
   "sizeFineTapSigma": "1x",
   "sizeFineTapSigma2x": "2x"
+ },
+ "gates": {
+  "sizeHeavySecondShare": {
+   "unreadAtZero": [
+    "sizeHeavySecondSigma",
+    "sizeHeavySecondSigma2x",
+    "sizeHeavySecondShareFar2x"
+   ],
+   "widthAtScale": {
+    "1": "sizeHeavySecondSigma",
+    "2": "sizeHeavySecondSigma2x"
+   }
+  },
+  "sizeFineTapShare": {
+   "unreadAtZero": [
+    "sizeFineTapSigma",
+    "sizeFineTapSigma2x"
+   ],
+   "widthAtScale": {
+    "1": "sizeFineTapSigma",
+    "2": "sizeFineTapSigma2x"
+   }
+  }
  }
 }

@@ -31,12 +31,11 @@
    "what": "the active document: the span law and the thick width together (Design \"The moves\", stage 1)",
    "familyOrder": [
     "span-law",
-    "second-tap-2x",
     "rest-scatter"
    ],
    "families": {
     "span-law": {
-     "why": "operator 1's law as one factorial: tintAlpha the thin knot, sizeOcclusionGain the knee knot on sizeK, the far delta the thick knot on farS, the span top moving farS (and with it the ramp's far start, the 2x heavy gain and W45's share); the leaves gate each other (the far delta is unread at the top 256 on a span-128 cell as much as at 0, and the gain sets what the far delta starts from). Scale-separable: 288 renders per scale.",
+     "why": "operator 1's law crossed with the 2x second tap as ONE factorial (Design \"The moves\", MARKED: \"tintAlpha \u00d7 the far delta \u00d7 the span top \u00d7 the occlusion gain as one factorial ..., crossed with the second tap's (share, \u03c32x, far delta) at 2x where ladder (ii) met its bar, the 1x width sizeHeavySecondSigma held at 0\"). The span law: tintAlpha the thin knot, sizeOcclusionGain the knee knot on sizeK, the far delta the thick knot on farS, the span top moving farS (and with it the ramp's far start, the 2x heavy gain and W45's share); the leaves gate each other. The tap's three leaves are conditional members (`conditional: ii`): part 2 strikes them, and the crossing with them, unless ladder (ii) met its bar. Points: 3 \u00d7 6 \u00d7 6 \u00d7 4 \u00d7 4 \u00d7 4 = 6,912 span-law points \u00d7 7 tap options (off, or share 0.05 \u00d7 \u03c32x {6, 10, 14} \u00d7 far share {0.3, 0.6}) = 48,384 points with the tap, 6,912 without. Scale-separable renders: 1x 3 \u00d7 6 \u00d7 4 \u00d7 4 = 288 either way (the tap acts at 2x only: its 1x width is held at 0, so its share is unread at 1x); 2x 288 \u00d7 7 = 2,016 with the tap, 288 without.",
      "leaves": {
       "optics.regular.tintAlpha": {
        "slot": "active.dark",
@@ -221,27 +220,7 @@
        "alsoServes": [
         "C rest"
        ]
-      }
-     },
-     "factorialGroups": [
-      {
-       "keys": [
-        "optics.regular.tintAlpha",
-        "tintAlphaFar1x",
-        "tintAlphaFar2x",
-        "sizeScatterSpanMax",
-        "sizeScatterSpanMax2x",
-        "sizeOcclusionGain"
-       ],
-       "starts": [
-        "d0219"
-       ]
-      }
-     ]
-    },
-    "second-tap-2x": {
-     "why": "the thick width at 2x (W45's second tap graded on the far curve), crossed into stage 1 only where ladder (ii) meets its bar (`conditional`; else struck by part 2); its share, width and far share gate each other, so they are one factorial step; the 1x width sizeHeavySecondSigma held at 0 as on ladder (ii)",
-     "leaves": {
+      },
       "sizeHeavySecondShare": {
        "slot": "active.dark",
        "domain": [
@@ -249,6 +228,7 @@
         1
        ],
        "grid": [
+        0,
         0.05
        ],
        "unit": "signed share",
@@ -268,7 +248,8 @@
         "ii-w14-d0.3-t128",
         "ii-w14-d0.6-t128"
        ],
-       "conditional": "ii"
+       "conditional": "ii",
+       "gridNote": "0 is the snapshot's own share (the tap off), so the crossed factorial keeps every span-law point without the tap beside ladder (ii)'s 0.05; at 0 the width and the far share are unread and held at their start (labels.json `gates`, search.collapse_gated)"
       },
       "sizeHeavySecondSigma2x": {
        "slot": "active.dark",
@@ -332,15 +313,15 @@
        "domainWidened": "deliberate widening (the parent's ruling on W47 G0's reading 9): W46's draft declared [-1, 0] (the far share only lowering the share, as the light 0.25 landing reads it); ladder (ii)'s grid {0.3, 0.6} is positive (the share grows with the span toward the thick cells), so the active far share's domain is [0, 1]"
       }
      },
-     "fixed": {
-      "sizeHeavySecondSigma": {
-       "slot": "active.dark",
-       "value": 0
-      }
-     },
      "factorialGroups": [
       {
        "keys": [
+        "optics.regular.tintAlpha",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "sizeOcclusionGain",
         "sizeHeavySecondShare",
         "sizeHeavySecondSigma2x",
         "sizeHeavySecondShareFar2x"
@@ -349,7 +330,13 @@
         "d0219"
        ]
       }
-     ]
+     ],
+     "fixed": {
+      "sizeHeavySecondSigma": {
+       "slot": "active.dark",
+       "value": 0
+      }
+     }
     },
     "rest-scatter": {
      "why": "W46's rest scatter leaves (the floors, the thin starts, the 1x heavy tap, the conditioning gain) at their X64 start, by coordinate sweep after (Design \"The moves\"); W46's grids; no W47 ladder reads them",

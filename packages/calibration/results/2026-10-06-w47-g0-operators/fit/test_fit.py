@@ -67,6 +67,10 @@ HERE = Path(__file__).resolve().parent
 import fit  # noqa: E402
 import search  # noqa: E402
 
+import sys  # noqa: E402
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+import declare  # noqa: E402
+
 W = fit.W
 TA = "optics.regular.tintAlpha"
 
@@ -628,6 +632,70 @@ def separable_part2(with_tint: bool) -> dict:
         leaves = {TA: {"slot": "active.dark", "domain": [0.5, 0.9], "grid": [0.9, 0.7]}, **leaves}
     return dict(SYNTHETIC_PART2, moves=[{"id": "stage1", "families": {"f": {"factorial": True, "leaves": leaves}}},
                                         SYNTHETIC_PART2["moves"][1]])
+
+
+class CrossedFactorial(unittest.TestCase):
+    """Design "The moves" (MARKED): stage 1 crosses the span law's factorial WITH the 2x second tap's
+    (share, σ2x, far share) where ladder (ii) met its bar, the 1x width held at 0 (reviewer-medium,
+    W47 G0). In the committed draft the tap's leaves are conditional members of the span law's one
+    factorial group; a tap-off point is offered once (its width and far share are unread at share 0);
+    the 1x scale twins drop the share (its 1x width resolves 0), so the 1x renders stay the span law's.
+    The full counts (48,384 points; 288 1x and 2,016 2x scale contents; 6,912 / 288 / 288 with the tap
+    struck) are the draft's statement and are checked here on a reduced grid with the same structure."""
+
+    TAP = ("sizeHeavySecondShare", "sizeHeavySecondSigma2x", "sizeHeavySecondShareFar2x")
+
+    def test_the_tap_is_crossed_into_the_span_law(self):
+        draft = json.loads(W.DRAFT.read_text())
+        stage1 = draft["moves"][0]
+        self.assertEqual(stage1["familyOrder"], ["span-law", "rest-scatter"])
+        span = stage1["families"]["span-law"]
+        self.assertEqual(len(span["factorialGroups"]), 1)
+        self.assertTrue(set(self.TAP) <= set(span["factorialGroups"][0]["keys"]))
+        self.assertEqual({k: span["leaves"][k].get("conditional") for k in self.TAP}, dict.fromkeys(self.TAP, "ii"))
+        self.assertEqual(span["fixed"], {"sizeHeavySecondSigma": {"slot": "active.dark", "value": 0}})
+        self.assertEqual(search.steps_of(span, "d0219"), [list(span["leaves"])])
+
+    def reduced(self, body, tap=True):
+        span = body["moves"][0]["families"]["span-law"]["leaves"]
+        for key, grid in (("optics.regular.tintAlpha", [0.9]), ("tintAlphaFar1x", [0, 0.2]),
+                          ("tintAlphaFar2x", [0, 0.3]), ("sizeScatterSpanMax", [256]),
+                          ("sizeScatterSpanMax2x", [128, 256]), ("sizeOcclusionGain", [0.05])):
+            span[key]["grid"] = grid
+        if not tap:
+            for key in self.TAP:
+                declare.drop_leaf(body["moves"][0], "span-law", key)
+        return body
+
+    def count(self, body):
+        with SyntheticPart2(body):
+            fam = body["moves"][0]["families"]["span-law"]
+            cands = search.step_candidates(fam, search.steps_of(fam, "d0219")[0], {})
+            return len(cands), [len({json.dumps(fit.scale_overrides(c, s), sort_keys=True) for c in cands})
+                                for s in (1, 2)]
+
+    def test_points_and_renders_per_scale(self):
+        draft = json.loads(W.DRAFT.read_text())
+        span = 1 * 2 * 2 * 1 * 2 * 1                    # the reduced span-law points
+        options = 1 + 1 * 3 * 2                         # the tap off, or share 0.05 × σ2x × far share
+        self.assertEqual(self.count(self.reduced(json.loads(json.dumps(draft)))),
+                         (span * options, [1 * 2 * 1 * 1, 2 * 2 * options]))
+        self.assertEqual(self.count(self.reduced(json.loads(json.dumps(draft)), tap=False)),
+                         (span, [1 * 2 * 1 * 1, 2 * 2]))
+
+    def test_the_gates_drop_unread_leaves_from_the_scale_twins(self):
+        on = {"active.dark": {"sizeHeavySecondShare": 0.05, "sizeHeavySecondSigma2x": 10,
+                              "sizeHeavySecondShareFar2x": 0.3, "tintAlphaFar1x": 0.2}}
+        self.assertEqual(fit.scale_overrides(on, 1), {"active.dark": {"tintAlphaFar1x": 0.2}})
+        self.assertEqual(fit.scale_overrides(on, 2)["active.dark"],
+                         {"sizeHeavySecondShare": 0.05, "sizeHeavySecondSigma2x": 10, "sizeHeavySecondShareFar2x": 0.3})
+        wide = {"active.dark": dict(on["active.dark"], sizeHeavySecondSigma=4)}      # a 1x width: read at 1x
+        self.assertIn("sizeHeavySecondShare", fit.scale_overrides(wide, 1)["active.dark"])
+        off = {"active.dark": {"sizeHeavySecondShare": 0, "sizeHeavySecondSigma2x": 10,
+                               "sizeHeavySecondShareFar2x": 0.3}}
+        self.assertEqual(fit.scale_overrides(off, 2), {})
+        self.assertEqual(search.collapse_gated([off, {"active.dark": {"sizeHeavySecondShare": 0}}], {}),
+                         [{"active.dark": {"sizeHeavySecondShare": 0}}])
 
 
 class ScaleSeparable(unittest.TestCase):

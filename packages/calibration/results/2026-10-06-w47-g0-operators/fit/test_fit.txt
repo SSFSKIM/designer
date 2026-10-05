@@ -1,6 +1,9 @@
 test_an_unknown_scope_refuses (test_fit.Cells.test_an_unknown_scope_refuses) ... ok
 test_the_scopes_per_scale (test_fit.Cells.test_the_scopes_per_scale) ... ok
 test_the_stage_tie_is_the_reference_rows_once (test_fit.Cells.test_the_stage_tie_is_the_reference_rows_once) ... ok
+test_points_and_renders_per_scale (test_fit.CrossedFactorial.test_points_and_renders_per_scale) ... ok
+test_the_gates_drop_unread_leaves_from_the_scale_twins (test_fit.CrossedFactorial.test_the_gates_drop_unread_leaves_from_the_scale_twins) ... ok
+test_the_tap_is_crossed_into_the_span_law (test_fit.CrossedFactorial.test_the_tap_is_crossed_into_the_span_law) ... ok
 test_full_renders_the_point_through_its_renderers_and_reads_it (test_fit.Full.test_full_renders_the_point_through_its_renderers_and_reads_it) ... ok
 test_an_undeclared_or_light_move_refuses (test_fit.Identity.test_an_undeclared_or_light_move_refuses) ... ok
 test_the_snapshot_start_holds (test_fit.Identity.test_the_snapshot_start_holds) ... ok
@@ -45,6 +48,6 @@ test_l1_excess_sums_both_clauses_over_the_poses_measured_cells (test_fit.TwoPoin
 test_no_admissible_point_at_0_8_leaves_point_a_at_0_89 (test_fit.TwoPoints.test_no_admissible_point_at_0_8_leaves_point_a_at_0_89) ... ok
 
 ----------------------------------------------------------------------
-Ran 44 tests in 6.282s
+Ran 47 tests in 6.236s
 
 OK
