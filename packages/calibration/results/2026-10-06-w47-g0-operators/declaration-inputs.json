@@ -1,0 +1,33 @@
+{
+ "schema": "w47-declaration-inputs-1",
+ "$comment": [
+  "W47 G0 (g): the readings part 1 declares that the PARENT supplies, not a tool (charter clause 2;",
+  "Decision Log 4): the three targets' predictions, S1's predicted direction and the depth-split",
+  "diagnostic's chosen form. assemble.py refuses to write part 1 while any value below holds TO FILL;",
+  "declare.py check compares each item's declared reading with this file, which part 1 pins. Every path",
+  "in a `sources` list (relative to the repository root) is pinned beside it.",
+  "targets: per target (P, C rest, F inactive) its family as the charter states it and its prediction",
+  "  (Design \"The targets and their families\"), e.g. {\"P\": {\"family\": ..., \"prediction\": ...}, ...};",
+  "  the families are also recomputed from the draft by declare.py.",
+  "s1: the predicted direction (Design \"The other rows\": away from 0.31 toward the refit's level change at",
+  "  128 and 160) and the sentence that it reads the refit plus the slider.",
+  "diagnostic: `record`, the committed record of G0 (f) relative to this directory, carrying `chosenForm`",
+  "  and `cells` [{cell, scale, R: {body, deep}, ...}]; `chosenForm` body | deep."
+ ],
+ "targets": {
+  "predictions": "TO FILL",
+  "statement": "TO FILL",
+  "sources": []
+ },
+ "s1": {
+  "predictedDirection": "TO FILL",
+  "sentence": "TO FILL",
+  "sources": []
+ },
+ "diagnostic": {
+  "record": "TO FILL",
+  "chosenForm": "TO FILL",
+  "statement": "TO FILL",
+  "sources": []
+ }
+}
