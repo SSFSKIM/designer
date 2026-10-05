@@ -1,0 +1,24 @@
+S 117.95  miss 236/300 non-holdout (referee 0); holdout 34/42 miss, S with holdout 136.27  median ratio of misses x0.76  worst dark 0.5 2x webgpu impulse__capsule-button__inactive (native 0)
+   (d) the 0.5 generation, light and dark, WebGPU, every stratum, both scales
+S  96.05  miss  81/ 90 non-holdout (referee 8); holdout 0/0 miss, S with holdout 96.05  median ratio of misses x0.20  worst light 0.25 1x css checkerboard-4__capsule-button__rest x0.08
+   (e) CSS tier F (fine pitches), every generation, both poses
+S  85.85  miss 124/144 non-holdout (referee 0); holdout 10/10 miss, S with holdout 94.07  median ratio of misses x0.59  worst dark 0.25 2x webgpu impulse__capsule-button__inactive (native 0)
+   (b) dark 0.25 WebGPU, every stratum, both scales
+S  26.65  miss  67/100 non-holdout (referee 6); holdout 12/16 miss, S with holdout 31.01  median ratio of misses x0.88  worst light 0.25 1x webgpu checkerboard__rrect-md__inactive-pressed x4.77
+   (c) 1x light 0.25 WebGPU, every stratum
+S   6.11  miss  16/ 29 non-holdout (referee 3); holdout 4/4 miss, S with holdout 7.32  median ratio of misses x1.31  worst light 0.25 2x webgpu checkerboard__rrect-md__inactive-pressed x2.84
+   (a) per-span tap WIDTH: 2x light 0.25 WebGPU, F u C at mid/thick spans with web > native
+S   3.85  miss   9/  9 non-holdout (referee 1); holdout 2/2 miss, S with holdout 4.30  median ratio of misses x1.22  worst light 0.25 2x webgpu checkerboard-64__rrect-sm__rest x0.19
+   (f) the eleven W45 authorised regressions, 2x light 0.25 WebGPU
+-- (g) light 0.25 photo thin rest level (WebGPU), and receded tint L
+   photo thin rest: 6 cells, web - native mean +0.032 to +0.045 linear (L1 bound 0.055: all within); receded tint: 20 inactive tinted cells, mean dL +0.0234 OKLab L (no adopted bound); both identical to c05 (W45 moved neither)
+S  50.82  miss 130/172 non-holdout (referee 0); holdout 26/32 miss, S with holdout 62.01  median ratio of misses x0.79  worst light 0.5 1x webgpu checkerboard-64__rrect-sm__rest x0.19
+   [ctx] (d) light half: light 0.5 WebGPU
+S  67.13  miss 106/128 non-holdout (referee 0); holdout 8/10 miss, S with holdout 74.25  median ratio of misses x0.65  worst dark 0.5 2x webgpu impulse__capsule-button__inactive (native 0)
+   [ctx] (d) dark half: dark 0.5 WebGPU
+S 152.98  miss 230/272 non-holdout (referee 0); holdout 18/20 miss, S with holdout 168.33  median ratio of misses x0.62  worst dark 0.5 2x webgpu impulse__capsule-button__inactive (native 0)
+   [ctx] the dark scheme at both positions: (b) + (d) dark half
+S  55.22  miss 101/151 non-holdout (referee 5); holdout 20/23 miss, S with holdout 62.60  median ratio of misses x1.73  worst dark 0.5 1x webgpu impulse__rrect-ml__inactive x14.60
+   [ctx] (a)'s shape on every generation and scale (F u C mid/thick, web > native, WebGPU)
+S 429.60  miss 473/544 non-holdout (referee 12); holdout 70/84 miss, S with holdout 490.14  median ratio of misses x0.35  worst dark 0.25 2x css hc-text-7__rrect-sm__rest x0.05
+   [ctx] (e) widened: the CSS tier, every stratum, every generation
