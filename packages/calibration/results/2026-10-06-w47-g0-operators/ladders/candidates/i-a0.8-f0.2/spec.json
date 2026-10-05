@@ -1,0 +1,11 @@
+{
+  "label": "i-a0.8-f0.2",
+  "note": "W47 ladder i base tintAlpha 0.8; tintAlphaFar1x and tintAlphaFar2x 0 -> 0.2 at the top 256",
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.8,
+      "tintAlphaFar1x": 0.2,
+      "tintAlphaFar2x": 0.2
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$comment": "W47 scratch candidate iii-b4: W47 ladder iii receded optics.regular.blurSigma 1.25 -> 4 device px",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-iii-b4",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "28c485e5bb0aef3a32b5f479645e4532176b86fc0df35fa24417599873c061d9"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "181604edef06a35d23b6b6eab1a23d01b902554fc5c3d629ef5c02e5d8ce81c4"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "72786eaffb0049f290a27e8188a6608e3b2d5b78cbe11609a2e8f3509bc24077"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "b594b7f1ca9a687afaeed43251199ad1acaddfd1cca40f8af914889b5b68b02d"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

@@ -1,0 +1,27 @@
+{
+  "$comment": "W47 scratch candidate i-a0.7-f0.2: W47 ladder i base tintAlpha 0.7; tintAlphaFar1x and tintAlphaFar2x 0 -> 0.2 at the top 256",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-i-a0.7-f0.2",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "7e9686439178eab0dc64420662f029dd993e5238d83dbff35ffb995f6837b679"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "0e279fdc448d081b3df8f78cb218441f00d651febb7ca5a875a269bf2ef9567c"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "593006bcb39458da421cae113c849828725e0c13155715e75550f3419df4bb8f"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "20081ac623830c89753128542cf9b13ecdb374a22ab8c174aa80a78bface34dc"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}
