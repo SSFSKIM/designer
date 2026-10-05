@@ -11,6 +11,12 @@ validated on read"). Nothing here writes a part file: every case works on copies
   its ladder and the operator's shape, removing every draft leaf of that target; nothing when the control
   is not IDENTICAL; no other kind.
 - **Pins**: a moved source is a mismatch; a pending item stops the hash; a ladder render stops the hash.
+- **Decision Log 9's content amendment** (W46 G1): its ops recomputed from the hashed part 2 (four:
+  the receded grid {0.8, 0.89}, the draft's receded scatter re-added with the ruling as its target, the
+  family order, the two-point protocol), applied and reverted byte for byte; a tampered op refused; the
+  ladders' diff read on the reverted body; a content entry without the ruling, a part-1 pin outside the
+  re-pinnable list or not starting at part 1's pin refused; part 1's pin accepted only along the
+  recorded move; part 1's own record still pins-only.
 
     python3.12 -B -m unittest test_declare -v      (from this directory)
 """
@@ -224,6 +230,81 @@ class ValidatedDiff(unittest.TestCase):
         fit["moves"][0]["families"]["transmission-scatter"]["leaves"]["sizeScatterFloor"]["grid"] = [0.1]
         with self.assertRaisesRegex(D.Refusal, "beyond its permitted changes"):
             D.validate_fit(DRAFT, fit, results(), PROTOCOL)
+
+
+HASHED_PART2 = json.loads(D.git_show(f"{D.REL}/fit-declaration.json", "8881e9c24"))
+
+
+class RulingNine(unittest.TestCase):
+    def setUp(self):
+        SCRATCH.mkdir(exist_ok=True)
+
+    def tearDown(self):
+        shutil.rmtree(SCRATCH, ignore_errors=True)
+
+    def test_the_ops_are_computed_from_the_hashed_part_2_and_round_trip(self):
+        ops = D.ruling_nine_ops(HASHED_PART2)
+        self.assertEqual([(o["op"], o["path"][-1]) for o in ops],
+                         [("replace", "grid"), ("add", "scatter"), ("replace", "familyOrder"), ("add", "points")])
+        self.assertEqual((ops[0]["from"], ops[0]["to"]), ([0.89], [0.8, 0.89]))
+        draft_scatter = next(m for m in DRAFT["moves"] if m["id"] == "stage2")["families"]["scatter"]["leaves"]
+        self.assertEqual(set(ops[1]["to"]["leaves"]), set(draft_scatter))
+        self.assertTrue(all(x["target"] == "Decision Log 9 (points A and B)" for x in ops[1]["to"]["leaves"].values()))
+        self.assertEqual(sorted(b["value"] for b in ops[3]["to"]["branches"]), [0.8, 0.8, 0.89])
+        amended = D.apply_ops(HASHED_PART2, ops)
+        self.assertEqual(D.serialise(D.revert_ops(amended, ops)), D.serialise(HASHED_PART2))
+        with self.assertRaises(D.Refusal):
+            D.ruling_nine_ops(amended)
+
+    def test_validate_fit_reads_the_ladders_diff_on_the_reverted_body(self):
+        res = json.loads(D.RESULTS.read_text())
+        ops = D.ruling_nine_ops(HASHED_PART2)
+        amended = D.apply_ops(HASHED_PART2, ops)
+        D.validate_fit(DRAFT, amended, res, PROTOCOL, [dict(ops=ops)])
+        with self.assertRaisesRegex(D.Refusal, "beyond its permitted changes"):
+            D.validate_fit(DRAFT, amended, res, PROTOCOL, [])
+        bad = copy.deepcopy(ops)
+        bad[0]["to"] = [0.7, 0.89]
+        with self.assertRaisesRegex(D.Refusal, "not Decision Log 9's"):
+            D.validate_fit(DRAFT, D.apply_ops(HASHED_PART2, bad), res, PROTOCOL, [dict(ops=bad)])
+
+    def failures(self, entry, part="fit"):
+        path = SCRATCH / "fit-amendments.json"
+        path.write_text(json.dumps({"schema": f"w46-{part}-amendments-1", "amendments": [entry]}))
+        parts = copy.deepcopy(D.PARTS)
+        parts[part]["amendments"] = path
+        with mock.patch.object(D, "PARTS", parts):
+            return D.amendment_failures(part, {"sources": {}})
+
+    def entry(self, **over):
+        key = f"{D.REL}/fit/search.py"
+        part1 = json.loads(D.PARTS["protocol"]["declaration"].read_text())["sources"]
+        body = dict(n=1, supersedes="x", declarationSha256="y", reason="r", cause="c", pins={},
+                    charter=f"{D.W.CHARTER_PATH}@abc", ruling=D.RULING_NINE, ops=[],
+                    partOnePins={key: {"from": part1[key], "to": "1" * 64}})
+        body.update(over)
+        return body
+
+    def test_the_content_record_is_validated_on_read(self):
+        self.assertEqual(self.failures(self.entry()), [])
+        self.assertTrue(any("Decision Log 9's ruling" in f for f in self.failures(self.entry(ruling="another"))))
+        part1 = json.loads(D.PARTS["protocol"]["declaration"].read_text())["sources"]
+        other = f"{D.REL}/cuts/rule.py"
+        got = self.failures(self.entry(partOnePins={other: {"from": part1[other], "to": "1" * 64}}))
+        self.assertTrue(any("which no amendment may" in f for f in got))
+        key = f"{D.REL}/fit/search.py"
+        got = self.failures(self.entry(partOnePins={key: {"from": "0" * 64, "to": "1" * 64}}))
+        self.assertTrue(any("does not start at part 1's pin" in f for f in got))
+        got = self.failures(dict(n=1, supersedes="x", declarationSha256="y", reason="r", cause="c", pins={}, ops=[]),
+                            part="protocol")
+        self.assertTrue(any("outside the pins-only form" in f for f in got))
+
+    def test_a_part_one_pin_is_accepted_only_along_the_recorded_move(self):
+        key = f"{D.REL}/fit/search.py"
+        with mock.patch.object(D, "part_one_moves", lambda: {key: {"from": "a", "to": "b"}}):
+            self.assertTrue(D.accepted_repin(key, "a", "b"))
+            self.assertFalse(D.accepted_repin(key, "a", "c"))
+            self.assertFalse(D.accepted_repin(f"{D.REL}/cuts/rule.py", "a", "b"))
 
 
 class Pins(unittest.TestCase):

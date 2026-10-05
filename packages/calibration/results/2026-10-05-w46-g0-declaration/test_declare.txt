@@ -5,6 +5,10 @@ test_another_waves_charter_or_schema (test_declare.Bindings.test_another_waves_c
 test_another_waves_part_hash (test_declare.Bindings.test_another_waves_part_hash) ... ok
 test_a_moved_source_is_a_mismatch (test_declare.Pins.test_a_moved_source_is_a_mismatch) ... ok
 test_hash_refuses_after_a_ladder_render_and_while_pending (test_declare.Pins.test_hash_refuses_after_a_ladder_render_and_while_pending) ... ok
+test_a_part_one_pin_is_accepted_only_along_the_recorded_move (test_declare.RulingNine.test_a_part_one_pin_is_accepted_only_along_the_recorded_move) ... ok
+test_the_content_record_is_validated_on_read (test_declare.RulingNine.test_the_content_record_is_validated_on_read) ... ok
+test_the_ops_are_computed_from_the_hashed_part_2_and_round_trip (test_declare.RulingNine.test_the_ops_are_computed_from_the_hashed_part_2_and_round_trip) ... ok
+test_validate_fit_reads_the_ladders_diff_on_the_reverted_body (test_declare.RulingNine.test_validate_fit_reads_the_ladders_diff_on_the_reverted_body) ... ok
 test_a_lever_that_is_not_the_leafs (test_declare.ValidatedDiff.test_a_lever_that_is_not_the_leafs) ... ok
 test_name_target_only_without_a_lever (test_declare.ValidatedDiff.test_name_target_only_without_a_lever) ... ok
 test_narrow_inside_the_range_only (test_declare.ValidatedDiff.test_narrow_inside_the_range_only) ... ok
@@ -19,7 +23,7 @@ test_strike_prunes_a_factorial_group (test_declare.ValidatedDiff.test_strike_pru
 test_validate_fit_refuses_a_body_beyond_its_changes (test_declare.ValidatedDiff.test_validate_fit_refuses_a_body_beyond_its_changes) ... ok
 
 ----------------------------------------------------------------------
-Ran 19 tests in 0.011s
+Ran 23 tests in 0.021s
 
 OK
 W46 G0 part 1: 0 items, 0 pinned sources

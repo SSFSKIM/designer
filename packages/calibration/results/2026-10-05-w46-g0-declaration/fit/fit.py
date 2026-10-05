@@ -43,6 +43,10 @@ untouched. G1 runs it; G0 commits it, tested, before part 2 exists.
 - **The identity** is the snapshots', not the live profiles' (X62): dark endpoints the snapshot's on
   every leaf but the declared overrides; light endpoints patch- and digest-identical to the light
   snapshots (X60).
+- **G1's launcher and the L1 numbers** (W46 G1, part 2's amendment, Decision Log 9): every launch
+  runs through G1's `with-gpu.sh` (G0's lock, census and pin, G1's census log), and a scale reading
+  keeps each L1 cell's error and growth (`L1cells`) beside the miss lists, which the two-point
+  protocol's admissibility and steering read (`search.py`).
 - **The objective and the within clause** are W46's rule's (`rule.stage_objective`, `stage_within`,
   both scales pooled); the stage tie is computed ONCE from the published reference rows
   (`stage_tie_of`): `native` and `bar` are the cell's, so the tie's cell set is the stage's declared
@@ -79,6 +83,11 @@ SLOTS = W.MOVING_SLOTS
 # The cell scopes (Design "The moves"): a stage is read on its pose's cells. Part 2's families name
 # one of these as their scope (default: the stage's id).
 SCOPES = {"stage1": dict(pose="rest"), "stage2": dict(pose="inactive")}
+# G1's launcher (W46 G1, part 2's amendment): G0's `with-gpu.sh` with G1's own census log, so a fit
+# render never appends to G0's committed census record. The lock, the census and the pin are G0's.
+WITH_GPU = W.G1 / "with-gpu.sh"
+# L1's two clauses (the cuts' constants, `cuts.py`), read by the two-point protocol's admissibility.
+L1_ABSOLUTE, L1_GROWTH = 0.055, 0.005
 ALL_SCOPES = tuple(SCOPES)
 STARTS = ("d0219",)
 LABELS = json.loads((HERE / "labels.json").read_text())
@@ -627,7 +636,7 @@ def render_scale(renderer: str, scope: str, scale: int) -> int:
     (G1 / "logs").mkdir(parents=True, exist_ok=True)
     log_path = G1 / "logs" / f"{renderer}__{scope}-{scale}x.txt"
     with log_path.open("x") as f:
-        result = subprocess.run([str(W.WITH_GPU), f"w46-fit {run_label}", *argv], cwd=CAL, env=env,
+        result = subprocess.run([str(WITH_GPU), f"w46-fit {run_label}", *argv], cwd=CAL, env=env,
                                 stdout=f, stderr=subprocess.STDOUT)
     code = result.returncode
     if code == 1 and census_refused(log_path):
@@ -712,6 +721,10 @@ def read_scale(renderer: str, scale: int) -> dict:
                 L1=dict(absoluteMisses=[c["cell"] for c in l1.get("absoluteMisses", []) if mine(c)],
                         growthMisses=[c["cell"] for c in l1.get("growthMisses", []) if mine(c)],
                         unmeasured=[c for c in l1.get("unmeasured", []) if c.startswith(profile)]),
+                # Each L1 cell's numbers, which the two-point protocol (Decision Log 9) reads: its
+                # admissibility is no measured cell past either clause, its steering the summed excess.
+                L1cells=[dict(cell=c["cell"], error=c["error"], growth=c["growth"], status=c["status"])
+                         for c in l1.get("cells", []) if mine(c)],
                 verdicts={k: v for k, v in result["summary"].items()})
     scale_summary_path(renderer, scale).write_text(json.dumps(body, indent=1) + "\n")
     return body
@@ -759,6 +772,7 @@ def compose(label: str) -> dict:
         selectionMetric=r.selection_metric(cells), rule=ruled["verdict"],
         ruleProfiles={p: v["verdict"] for p, v in ruled["profiles"].items()},
         L1={f"{s}x": per[s]["body"]["L1"] for s in SCALES},
+        L1cells={f"{s}x": per[s]["body"].get("L1cells", []) for s in SCALES},
         verdicts={f"{s}x": per[s]["body"]["verdicts"] for s in SCALES},
         cells=per_cell, t1Cells=cells, t1Missing=missing)
 

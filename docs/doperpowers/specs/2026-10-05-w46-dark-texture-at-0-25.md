@@ -22,6 +22,8 @@ The full entries are Decision Logs 1–7 at the tail.
 | 5 | the other rows | **RULED** by the parent, 2026-10-05 | every row that passes on dark 0.25 today is regression-gated as it stands (L1 0 of 38, M1, C1, X1, the gated tables); M2 re-baselined to `d0219cd684bf` by hash at the gate; S1 dark read beside, not gated, its direction predicted |
 | 6 | the CSS tier | **RULED** by the parent, 2026-10-05 | derives what its two layers carry in the same wave; a residual is recorded under Decision Log 23; a scoped hold like W45's is permitted on the measurement |
 | 7 | the release | **RULED** by the parent, 2026-10-05 | a `@vitreajs/vitrea-web` minor (0.28.0) superseding the dark 0.25 generation only; the user's `pnpm release` |
+| 8 | G0's four handed-back items | **RULED** by the parent, 2026-10-05 | P read on P rest with a step-0 diagnosis; F inactive's operator deferred; halving per profile; G1's tooling |
+| 9 | the step-0 diagnosis | **RULED** by the parent, 2026-10-05 | part 2 amended once and finally: the receded `tintAlpha` grid {0.8, 0.89}; stage 2 reports point A (no exception) and point B (`impulse__capsule-button__inactive`'s L1 miss named), both carried to the gate |
 
 ## Purpose
 
@@ -682,7 +684,7 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
 | child | status | ledger |
 | --- | --- | --- |
 | G0 | done on `w46-g0-declaration`: part 1 `bc82562e…`, part 2 `5dca38e0…` hashed; three items for the parent's ruling (§5.208 §11) | §5.208 |
-| G1 | not started | §5.209 |
+| G1 | in progress on `w46-g1-refit`: step 0's diagnosis (Decision Log 9), G1's tooling, part 2's amendment | §5.209 |
 | G2 | not started | §5.210 |
 
 ## Decision Log
@@ -826,6 +828,43 @@ generation superseded, the light and 0.5 generations unchanged, the user's `pnpm
 the predicted checker clamp, +0.0147 against +0.0146 predicted); the rest scatter's levers are 2x
 only (thin start 0.75 / 0.9, heavy tap 4 CSS px); no 1x lever reaches a bar and none reads flat.
 
+### Decision Log 9 — RULED 2026-10-05 (the parent, on G1's step-0 diagnosis): part 2 amended, two points
+
+**Ruled, verbatim** (the parent's message to G1):
+
+> AMEND part 2, once and finally, widening the receded `tintAlpha` grid to {0.8, 0.89}. Record the ruling
+> verbatim in the charter as Decision Log 9 and in the amendment record, with this reasoning: the rise is
+> predictable from the shader's arithmetic per pixel (within 2 codes, p99 1.2) but it is the transmission
+> passing the scattered impulse dot (0.39 of it at span 44) rather than a stand-down, so it is neither of
+> Decision Log 8 item 1's two cases; it is the same shape as Deferred 1 (vitrea's receded body passes
+> isolated fine structure that Apple's nearly blocks), and the one cell is a candidate named exception for
+> the user's ship ruling at the gate, in W45 Decision Log 8's form. Add this to the fit's protocol under
+> the amendment: stage 2 reports TWO points, (A) the best point that passes every row with no exception
+> (the receded at 0.89, or any point where the receded scatter leaves now admitted by X64 dilute the dot
+> enough for L1 to pass at 0.8), and (B) the best point under the exception (receded 0.8 with
+> `impulse__capsule-button__inactive`'s L1 growth and absolute miss named, both scales, with the numbers).
+> Both are carried through the freeze-free gate reading (step 5) so the gate report shows both; the freeze
+> (step 3) seals only the point the parent names after the gate report. If the receded scatter search
+> finds a joint point that passes L1 at 0.8, say so prominently: that would close the question without an
+> exception. Then do the item 4 tooling, and proceed through steps 1–6 to the GATE REPORT stop.
+
+*The diagnosis it rules on* (G1 step 0, `results/2026-10-05-w46-g1-refit/diagnosis/`, §5.209): the cell's
+L1 mask is the native silhouette, which over the impulse grid's black field is only the white dot under the
+capsule (16 px at 1x, 64 at 2x). None of the four stand-downs acts there: the silhouette abscissa reads
+encoded 0.00328, above the black branch's 0.003 join; `toneAdapt` is 0; the neutral is not clamped; the
+authority (0.707) only scales the solve term, which is uniform over the surface (−0.0015 at 0.8). The
+rise is the transmission term Δ(1 − α′)·b_px over the dot (b ≈ 0.39): +0.0346 of the measured +0.0331 at
+0.8 and 1x.
+
+*Executed as* (part 2's amendment, `fit-amendments.json`; `declare.py` `ruling_nine_ops`): the receded
+grid replaced by [0.8, 0.89]. Stage 2's receded scatter family is re-added from part 1's draft, because
+point A's clause is a search over those leaves. The F inactive `name-target` change had removed them, and
+F inactive stays named not fitted. The protocol (`points`) is three branches: A89 and A80 admit only
+points with no L1 miss; B at 0.8 exempts the one cell. A branch whose start is inadmissible is steered
+toward the least L1 excess. A is the better of A89 and A80. The fit tools (`search.py` `stage_points`,
+`joint.py`, `fit.py`'s L1 numbers and G1's census log) and G1's seal record moved, and are re-pinned in
+part 2 and, through `partOnePins`, in part 1's check.
+
 ## Surprises & Discoveries
 
 - 2026-10-05 (G0, §5.208 §7): **the receded transmission passes L1 at no rung below 0.89.** At 0.8 the
@@ -840,6 +879,10 @@ only (thin start 0.75 / 0.9, heavy tap 4 CSS px); no 1x lever reaches a bar and 
   tap at 4 CSS px); at 1x the thin rest cells move only with the transmission.
 
 ## Revision Notes
+
+- 2026-10-05 (v1.4, G1): Decision Log 9 recorded verbatim (the parent's ruling on G1's step-0 diagnosis),
+  with its diagnosis and how part 2's one amendment executes it; the decisions table carries Decision
+  Logs 8 and 9; the tracking map's G1 row. No design text or contract changed.
 
 - 2026-10-05 (v1.3, after G0's merge `c011c8fb7`; the parent's rulings on §5.208 §11): Decision Log 8
   added; Deferred 1 (the receded-only fine-pitch term, named not fitted by the ladders); the status line.

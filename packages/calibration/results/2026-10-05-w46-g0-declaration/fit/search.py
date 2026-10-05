@@ -38,6 +38,18 @@ is untouched.
   moved on its own (Design "The moves", Interactions).
 - **One lineage** (`d0219`), so W45's two-path machinery has one path; labels carry `d-`.
 
+**The two-point protocol (part 2's amendment, charter Decision Log 9).** A stage whose part-2 body
+carries `points` is not decided as one point. Each of its BRANCHES fixes the branching leaf (stage 2's
+receded `tintAlpha`) at one value of its grid, sweeps the protocol's family (the receded scatter) by
+the procedure above from the materialised stage base, and admits a point only when no L1 cell of the
+stage's pose is past either clause at either scale, the branch's named exception excepted
+(`l1_excess`). A step with no admissible point is STEERED: its point with the smallest summed L1
+excess wins (then the tie rule), so a branch whose start is inadmissible moves toward admissibility
+rather than toward the objective. Each branch lands by `decide` among its admissible points. Point
+A is the better (the tie rule from the stage base) of the no-exception branches' landed points;
+point B is the exception branch's, its exception cell's L1 numbers recorded beside it. The stage's
+record names both (`landed` is A); the joint closes both (`joint.py`).
+
 W45's procedure is otherwise unchanged: a family's coordinate sweeps in the order its leaves are
 listed, at most two passes; `factorial: true` sweeps the family's whole grid product as one step and
 `factorialGroups` sweep their keys' product as ONE coordinate step on the lineages they name; a grid
@@ -284,12 +296,18 @@ class Runner:
     def tie(self, scope: str) -> float:
         return fit.stage_tie_of(scope)
 
+    def excess(self, label: str, pose: str, exempt=()) -> float:
+        return l1_excess(label, pose, exempt)
+
+    def exception(self, label: str, exempt) -> list[dict]:
+        return exception_reading(label, exempt)
+
 
 # ---------------------------------------------------------------------------------------------
 # The procedure
 # ---------------------------------------------------------------------------------------------
 def sweep_family(move: dict, family: str, start: str, base: dict, current: dict, passes: int,
-                 runner: Runner) -> tuple[dict, list[str], str | None]:
+                 runner: Runner, chooser=None) -> tuple[dict, list[str], str | None]:
     fbody = move["families"][family]
     scope = fit.scope_of(move, family)
     fixed = fixed_of(fbody)
@@ -307,7 +325,7 @@ def sweep_family(move: dict, family: str, start: str, base: dict, current: dict,
 
     if fbody.get("factorial"):
         names = run(step_candidates(fbody, keys, current))
-        best = choose(names, lambda n: runner.objective(n, scope), tie, current,
+        best = (chooser or choose)(names, lambda n: runner.objective(n, scope), tie, current,
                       step_keys(fbody, keys, current), runner.overrides)
         return runner.overrides(best), labels, best
     for _ in range(passes):
@@ -318,8 +336,9 @@ def sweep_family(move: dict, family: str, start: str, base: dict, current: dict,
                 raise fit.W.Refusal(f"{move['id']}/{family}: the step {step} offers no point inside the declared "
                                     f"domains from {json.dumps(current, sort_keys=True)}")
             names = run(cands)
-            best = choose(names, lambda n: runner.objective(n, scope), tie, current,
-                          step_keys(fbody, step, current), runner.overrides)
+            pick = chooser or choose
+            best = pick(names, lambda n: runner.objective(n, scope), tie, current,
+                        step_keys(fbody, step, current), runner.overrides)
             current = runner.overrides(best)
         if json.dumps(current, sort_keys=True) == before:
             break
@@ -361,6 +380,8 @@ def compose(stage_id: str, start: str, base: dict, passes: int, runner: Runner) 
 def stage(stage_id: str, base_label: str, passes: int = 2, runner: Runner | None = None,
           start: str = "d0219") -> dict:
     runner = runner or Runner()
+    if move_of(stage_id).get("points"):
+        return stage_points(stage_id, base_label, passes, runner, start)
     if spec_of(base_label)["start"] != start:
         raise fit.W.Refusal(f"stage {stage_id}: base {base_label} is of lineage {spec_of(base_label)['start']}, "
                             f"not {start}")
@@ -393,7 +414,8 @@ def declared_keys(origin: dict) -> list:
     return out
 
 
-def decide(move: dict, start: str, labels: list[str], origin: dict | None = None, runner: Runner | None = None) -> dict:
+def decide(move: dict, start: str, labels: list[str], origin: dict | None = None, runner: Runner | None = None,
+           admissible=None) -> dict:
     """Part 2's selection within a stage: among the points with a passing within clause (else all),
     the declared tie rule on the stage objective, the distance from the stage's base."""
     runner = runner or Runner()
@@ -411,6 +433,11 @@ def decide(move: dict, start: str, labels: list[str], origin: dict | None = None
             raise fit.W.Refusal(f"decide {stage_id}: {err}") from None
         rows.append(dict(label=label, measuredBy=measured, objective=objective, within=reading["within"],
                          notWithin=reading["notWithin"], leaves=moved_count(base_overrides(label), origin)))
+    if admissible is not None:
+        rows = [r for r in rows if admissible(r["label"])]
+        if not rows:
+            return dict(stage=stage_id, start=start, landed=None, within=None, tie=tie, points=[],
+                        how="no admissible point (Decision Log 9): nothing lands on this branch")
     inside = [r for r in rows if r["within"] == "WITHIN"]
     pool = inside or rows
     by = {r["label"]: r for r in pool}
@@ -421,6 +448,101 @@ def decide(move: dict, start: str, labels: list[str], origin: dict | None = None
              "then the fewer moved leaves")
     return dict(stage=stage_id, start=start, landed=landed["label"], within=landed["within"], how=how,
                 tie=tie, points=rows)
+
+
+# ---------------------------------------------------------------------------------------------
+# The two-point protocol (part 2's amendment, charter Decision Log 9)
+# ---------------------------------------------------------------------------------------------
+def l1_cells(label: str) -> list[dict]:
+    """A point's L1 cells, both scales, each with its scene and pose (`fit.compose`'s `L1cells`)."""
+    _, t1, _ = fit.cuts()
+    out = []
+    for cells in summary_of(label).get("L1cells", {}).values():
+        for c in cells:
+            scene = c["cell"].split("/", 1)[1]
+            out.append(dict(c, scene=scene, pose=t1.pose(scene)))
+    return out
+
+
+def l1_excess(label: str, pose: str, exempt=()) -> float:
+    """The summed L1 excess of a point's cells of `pose`, past each clause (absolute 0.055, growth
+    0.005), its `exempt` scenes left out; 0 exactly when no measured cell misses (an unmeasured cell
+    is not a miss: it is the owner test's `MISSING_025`)."""
+    total = 0.0
+    for c in l1_cells(label):
+        if c["pose"] != pose or c["scene"] in exempt or c["error"] is None:
+            continue
+        total += max(0.0, c["error"] - fit.L1_ABSOLUTE)
+        if c["growth"] is not None:
+            total += max(0.0, c["growth"] - fit.L1_GROWTH)
+    return total
+
+
+def admissible_chooser(excess):
+    """`choose` restricted to the admissible points (excess 0); a step with none is steered to its
+    smallest excess, the tie rule deciding among equal excesses."""
+    def pick(names, objective, tie, origin, keys, overrides):
+        names = list(dict.fromkeys(names))
+        ok = [n for n in names if excess(n) == 0]
+        if ok:
+            return choose(ok, objective, tie, origin, keys, overrides)
+        least = min(excess(n) for n in names)
+        return choose([n for n in names if excess(n) <= least], objective, tie, origin, keys, overrides)
+    return pick
+
+
+def exception_reading(label: str, scenes) -> list[dict]:
+    return [dict(cell=c["cell"], error=c["error"], growth=c["growth"],
+                 absoluteMiss=c["error"] is not None and c["error"] > fit.L1_ABSOLUTE,
+                 growthMiss=c["growth"] is not None and c["growth"] > fit.L1_GROWTH)
+            for c in l1_cells(label) if c["scene"] in scenes]
+
+
+def stage_points(stage_id: str, base_label: str, passes: int, runner: Runner, start: str = "d0219") -> dict:
+    move = move_of(stage_id)
+    proto = move["points"]
+    if spec_of(base_label)["start"] != start:
+        raise fit.W.Refusal(f"stage {stage_id}: base {base_label} is not of lineage {start}")
+    leaf, family = proto["branchesOf"], proto["family"]
+    spec = next((f["leaves"][leaf] for f in move["families"].values() if leaf in f.get("leaves", {})), None)
+    if spec is None or family not in move["families"]:
+        raise fit.W.Refusal(f"part 2 {stage_id}: the protocol's leaf {leaf} or family {family} is not declared")
+    if sorted({b["value"] for b in proto["branches"]}) != sorted(spec["grid"]):
+        raise fit.W.Refusal(f"part 2 {stage_id}: the branches {proto['branches']} are not {leaf}'s grid {spec['grid']}")
+    scope = stage_scope(move)
+    pose = fit.SCOPES[scope]["pose"]
+    base = stage_base(move, base_overrides(base_label))
+    branches = {}
+    for b in proto["branches"]:
+        exempt = tuple(b.get("exempt", ()))
+        excess = (lambda e: (lambda n: runner.excess(n, pose, e)))(exempt)
+        fixed = with_leaf(base, spec["slot"], {leaf: b["value"]})
+        first = runner.points([fixed], [label_of(start, stage_id, fixed, base)], stage_id, f"{family}-{b['id']}",
+                              start, scope)
+        current, labels, best = sweep_family(move, family, start, base, fixed, passes, runner,
+                                             chooser=admissible_chooser(excess))
+        points = list(dict.fromkeys(first + labels))
+        record = decide(move, start, points, base, runner, admissible=lambda n, f=excess: f(n) == 0)
+        branches[b["id"]] = dict(point=b["point"], value=b["value"], exempt=list(exempt), landed=record["landed"],
+                                 how=record["how"], within=record["within"], swept=current, points=record["points"],
+                                 visited=[dict(label=n, excess=excess(n)) for n in points],
+                                 exceptionReading=runner.exception(record["landed"] or points[-1], exempt)
+                                 if exempt else [])
+    tie = runner.tie(scope)
+    a = [x["landed"] for x in branches.values() if x["point"] == "A" and x["landed"] is not None]
+    a_landed = choose(a, lambda n: runner.objective(n, scope), tie, base, declared_keys(base),
+                      base_overrides) if a else None
+    b_landed = [x["landed"] for x in branches.values() if x["point"] == "B"]
+    record = dict(stage=stage_id, start=start, base=base_label, baseOverrides=base, protocol=proto["ruling"],
+                  branches=branches, landed=a_landed,
+                  points=dict(A=dict(landed=a_landed, fromBranches=[k for k, x in branches.items() if x["landed"] == a_landed],
+                                     how="the no-exception branches' landed points, the tie rule from the stage base"),
+                              B=dict(landed=b_landed[0] if b_landed else None,
+                                     exception=next((x["exceptionReading"] for x in branches.values()
+                                                     if x["point"] == "B"), []))))
+    (PATH / start).mkdir(parents=True, exist_ok=True)
+    (PATH / start / f"{stage_id}.json").write_text(json.dumps(record, indent=1) + "\n")
+    return record
 
 
 def table(scope: str | None = None) -> str:

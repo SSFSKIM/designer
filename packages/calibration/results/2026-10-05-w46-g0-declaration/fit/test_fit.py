@@ -23,6 +23,11 @@ a runner that renders nothing.
              exactly its renderer's cells; a leaf with no scale refuses
   stage 2    `materialiseX64` starts the receded keys at the stage-1 active's resolved values, never a
              label difference; a partial objective is never ranked
+  two points part 2's amendment (Decision Log 9): each branch fixes the receded tintAlpha, sweeps the
+             receded scatter and admits only points with no L1 excess (its exception excepted); a step
+             with no admissible point is steered to the least excess; A is the better no-exception
+             branch, B the exception branch with its cell's numbers; branches off the grid refuse;
+             an L1 excess sums both clauses over the pose's measured cells, the exempt left out
 
     cd packages/calibration/results/2026-10-05-w46-g0-declaration/fit
     python3.12 -B -m unittest test_fit -v
@@ -393,6 +398,115 @@ class Stages(unittest.TestCase):
                     overrides={}, cells={}, stages={"stage1": dict(objective=0.1, within="NOT WITHIN", notWithin=[])})))
                 with self.assertRaisesRegex(W.Refusal, "UNMEASURED stage1 objective member"):
                     search.decide(move, "d0219", ["a", "b", "c"], {}, runner)
+
+
+IMPULSE = "impulse__capsule-button__inactive"
+
+
+def two_point_part2(grid=(0.8, 0.89)) -> dict:
+    body = json.loads(json.dumps(SYNTHETIC_PART2))
+    stage2 = body["moves"][1]
+    stage2["families"]["transmission"]["leaves"][TA]["grid"] = list(grid)
+    stage2["families"]["scatter"]["leaves"] = {
+        "sizeScatterRampStartThin1x": {"slot": "receded.dark", "domain": [0, 1], "grid": [1, 0.4, 0.1]},
+        "sizeScatterFloor": {"slot": "receded.dark", "domain": [0, 1], "grid": [0.34, 0.1]}}
+    stage2["points"] = {"ruling": "Decision Log 9", "branchesOf": TA, "family": "scatter", "branches": [
+        {"id": "A89", "point": "A", "value": 0.89}, {"id": "A80", "point": "A", "value": 0.8},
+        {"id": "B", "point": "B", "value": 0.8, "exempt": [IMPULSE]}]}
+    return body
+
+
+class TwoPointRunner(FakeRunner):
+    """A runner that writes each point's spec and summary (so `decide` reads them) and reads an L1
+    excess from a function of the point's overrides."""
+
+    def __init__(self, g1, objective, excess):
+        super().__init__(objective)
+        self.g1, self.excess_fn = g1, excess
+        self.members = {k: {} for k in fit.selection_members("stage2")}
+
+    def points(self, cands, labels, stage_id, family, start, scope):
+        named = super().points(cands, labels, stage_id, family, start, scope)
+        for ov, label in zip(cands, labels):
+            (self.g1 / "specs").mkdir(parents=True, exist_ok=True)
+            (self.g1 / "specs" / f"{label}.json").write_text(json.dumps(dict(label=label, start=start, overrides=ov)))
+            (self.g1 / "candidates" / label).mkdir(parents=True, exist_ok=True)
+            (self.g1 / "candidates" / label / "summary.json").write_text(json.dumps(dict(
+                overrides=ov, cells=self.members,
+                stages={"stage2": dict(objective=self.objective_fn(ov, scope), within="NOT WITHIN", notWithin=[])})))
+        return named
+
+    def excess(self, label, pose, exempt=()):
+        return 0.0 if IMPULSE in exempt else self.excess_fn(self.store[label])
+
+    def exception(self, label, exempt):
+        return [dict(cell=f"x/{IMPULSE}", error=0.074, growth=0.033, absoluteMiss=True, growthMiss=True)]
+
+
+class TwoPoints(unittest.TestCase):
+    def run_stage(self, objective, excess, grid=(0.8, 0.89)):
+        with SyntheticPart2(two_point_part2(grid)), tempfile.TemporaryDirectory() as tmp:
+            g1 = Path(tmp)
+            with mock.patch.object(fit, "G1", g1), mock.patch.object(search, "PATH", g1 / "path"):
+                runner = TwoPointRunner(g1, objective, excess)
+                base = {"active.dark": {TA: 0.8}}
+                (g1 / "specs").mkdir()
+                (g1 / "specs" / "s1.json").write_text(json.dumps(dict(label="s1", start="d0219", overrides=base)))
+                record = search.stage("stage2", "s1", 2, runner)
+                return record, runner, json.loads((g1 / "path" / "d0219" / "stage2.json").read_text())
+
+    @staticmethod
+    def ta(ov):
+        return fit.resolved_value(ov, "receded.dark", TA)
+
+    @staticmethod
+    def thin(ov):
+        return fit.resolved_value(ov, "receded.dark", "sizeScatterRampStartThin1x")
+
+    def test_a_dilution_that_passes_at_0_8_is_point_a(self):
+        # The objective prefers 0.8 and a thin start of 0.4; L1 passes at 0.8 only at a thin start of 0.1,
+        # which still beats every 0.89 point (0.3 against 0.5).
+        objective = lambda ov, scope: (0.0 if self.ta(ov) == 0.8 else 0.5) + abs(self.thin(ov) - 0.4)  # noqa: E731
+        excess = lambda ov: 0.0 if self.ta(ov) == 0.89 or self.thin(ov) == 0.1 else 0.03  # noqa: E731
+        record, runner, written = self.run_stage(objective, excess)
+        a80 = record["branches"]["A80"]["landed"]
+        self.assertEqual((self.ta(runner.store[a80]), self.thin(runner.store[a80])), (0.8, 0.1))
+        self.assertEqual(record["points"]["A"]["landed"], a80)
+        self.assertEqual(record["landed"], a80)
+        b = record["points"]["B"]["landed"]
+        self.assertEqual((self.ta(runner.store[b]), self.thin(runner.store[b])), (0.8, 0.4))
+        self.assertEqual(record["points"]["B"]["exception"][0]["growth"], 0.033)
+        self.assertEqual(written, record)
+
+    def test_no_admissible_point_at_0_8_leaves_point_a_at_0_89(self):
+        objective = lambda ov, scope: (0.1 if self.ta(ov) == 0.8 else 0.3) + abs(self.thin(ov) - 0.4)  # noqa: E731
+        excess = lambda ov: 0.0 if self.ta(ov) == 0.89 else 0.01 + self.thin(ov) / 10  # noqa: E731
+        record, runner, _ = self.run_stage(objective, excess)
+        self.assertIsNone(record["branches"]["A80"]["landed"])
+        a = record["points"]["A"]["landed"]
+        self.assertEqual((self.ta(runner.store[a]), self.thin(runner.store[a])), (0.89, 0.4))
+        # Steered: A80's sweep moved to the least excess (thin 0.1) against the objective's 0.4.
+        self.assertEqual(self.thin(record["branches"]["A80"]["swept"]), 0.1)
+        b = record["points"]["B"]["landed"]
+        self.assertEqual(self.ta(runner.store[b]), 0.8)
+
+    def test_branches_off_the_grid_refuse(self):
+        with self.assertRaisesRegex(W.Refusal, "not .*grid"):
+            self.run_stage(lambda ov, scope: 0, lambda ov: 0, grid=(0.7, 0.89))
+
+    def test_l1_excess_sums_both_clauses_over_the_poses_measured_cells(self):
+        cells = {"1x": [dict(cell=f"p1/{IMPULSE}", error=0.074, growth=0.033, status="MEASURED"),
+                        dict(cell="p1/photo__capsule-button__inactive", error=0.05, growth=0.006, status="MEASURED"),
+                        dict(cell="p1/photo__capsule-button__rest", error=0.09, growth=0.0, status="MEASURED"),
+                        dict(cell="p1/dark-solid__capsule-button__inactive", error=None, growth=None,
+                             status="UNMEASURED")],
+                 "2x": [dict(cell=f"p2/{IMPULSE}", error=0.05, growth=0.004, status="MEASURED")]}
+        with mock.patch.object(search, "summary_of", lambda label: dict(L1cells=cells)):
+            self.assertAlmostEqual(search.l1_excess("x", "inactive"), 0.019 + 0.028 + 0.001)
+            self.assertAlmostEqual(search.l1_excess("x", "inactive", (IMPULSE,)), 0.001)
+            self.assertAlmostEqual(search.l1_excess("x", "rest"), 0.035)
+            got = search.exception_reading("x", (IMPULSE,))
+            self.assertEqual([(g["absoluteMiss"], g["growthMiss"]) for g in got], [(True, True), (False, False)])
 
 
 def separable_part2(with_tint: bool) -> dict:
