@@ -47816,3 +47816,13 @@ The reviewer independently recomputed and confirmed:
   - the tools' live-document starting point.
 
   The 0.25 holdout and W44's twelve referees are spent for these document bytes.
+
+### 14. Released (recorded 2026-10-05, beside §13)
+
+The merge of G1 and G2 landed on main as `16885c0c` (freeze 1,818, X41 911, `check-capture-tree`
+3,017 match and 7 no-row, the chain green; CI green). The user ran `pnpm changeset version` and
+`pnpm release` as `505ba743` ("Release 0.27.0", tag `v0.27.0`, CI green). The registry reads
+0.27.0 for `@vitreajs/vitrea`, `@vitreajs/vitrea-web` and `@vitreajs/vitrea-react` (dist-tag
+`latest`, the three tarballs served), and `vitrea-web`'s tarball names the light 0.25 digests
+`3741b22934f17f4d` / `c4ca0e1cd6791bde` and `sizeHeavySecondShareFar2x`, with its dependency on
+the core rewritten from the workspace range to `^0.27.0`. W45 is CLOSED in its charter.

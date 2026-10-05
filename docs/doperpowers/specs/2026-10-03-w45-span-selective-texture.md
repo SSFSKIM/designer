@@ -1,5 +1,20 @@
 # W45 — the span-graded tap: the second heavy tap's share graded on the scatter's far curve, the deep share's span top, the thin trade read, and a landing rule that measures regression as growth (2026-10-03)
 
+**Status: CLOSED 2026-10-05, on the user's word after the release. Everything chartered landed:
+the charter `c152b89b` and its v1.4 `67a82a00` (Decision Log 7), G0 `9fa2eea6` (§5.205), G1 and
+G2 together `16885c0c` (§5.206, §5.207), and the release `505ba743`, published to npm as 0.27.0 of
+the fixed group (tag `v0.27.0`; the three packuments and tarballs read 0.27.0, `vitrea-web`'s
+tarball carrying the light 0.25 digests `3741b22934f17f4d` / `c4ca0e1cd6791bde` and the operator;
+CI green on the release commit). The landing is an improvement landing under Decision Log 8 (the
+user's "Ship it"), with every exception named: the eleven T1 regressions authorised against c05
+in `T1_AUTHORISED_REGRESSIONS`, M2's four receded photo cells (`GLASS025_M2_RULED_FAILURES`,
+`gate/photo-lattice` beside them), the P inactive T1 aggregate, and the CSS tier's recorded
+decline with its one-cell residual. The 0.25 holdout and W44's twelve referees are spent for these
+document bytes (the cross-gate ledger's read 7). Carried forward (§5.207 §13; Deferred below): the
+per-span tap width, the thin-span pitch trade (Decision Log 5), the eleven regressions the next
+publication must clear or re-rule, an M2 on a declared band, the demo's 2x reference pair, and the
+tools' live-document starting point.** The earlier status lines follow unchanged.
+
 **Status (2026-10-04, after G2): LANDED as an improvement under Decision Log 8, for the parent's merge
 of G1 and G2 together and the user's `pnpm release` of 0.27.0** (ledger §5.207). G1 published the
 light 0.25 generation `ebc3d9105a4a` (digests `3741b22934f17f4d` / `c4ca0e1cd6791bde`, dark
@@ -758,6 +773,8 @@ Found while drafting (2026-10-03; 6–8 from the second review):
 
 ## Revision Notes
 
+- 2026-10-05 (close, after the release `505ba743` / `v0.27.0`): the CLOSED status line and this
+  note. No design text, Decision Log or contract changed.
 - 2026-10-04 (G2's landing, §5.207): the status line and the Tracking Map's G2 row. No design text,
   Decision Log or contract changed.
 - 2026-10-03 (v1.4, after G0's merge `9fa2eea6`; the parent's rulings on §5.205 §13–§14 and the
