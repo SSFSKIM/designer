@@ -26,11 +26,15 @@ test_twins_of_one_content_render_once (test_fit.ScaleSeparable.test_twins_of_one
 test_decide_applies_the_tie_rule_from_the_stage_base (test_fit.Stages.test_decide_applies_the_tie_rule_from_the_stage_base) ... ok
 test_stage_1_is_a_factorial_then_coordinate_sweeps (test_fit.Stages.test_stage_1_is_a_factorial_then_coordinate_sweeps) ... ok
 test_stage_2_materialises_x64_at_the_stage_1_active_values (test_fit.Stages.test_stage_2_materialises_x64_at_the_stage_1_active_values) ... ok
+test_a_factorial_step_includes_its_start (test_fit.StartIsACandidate.test_a_factorial_step_includes_its_start) ... ok
+test_an_off_grid_start_is_kept_when_it_is_best (test_fit.StartIsACandidate.test_an_off_grid_start_is_kept_when_it_is_best) ... ok
+test_an_off_grid_start_wins_a_plateau_within_the_tie (test_fit.StartIsACandidate.test_an_off_grid_start_wins_a_plateau_within_the_tie) ... ok
+test_an_on_grid_start_is_not_duplicated (test_fit.StartIsACandidate.test_an_on_grid_start_is_not_duplicated) ... ok
 test_a_distinguishable_minimum_wins_whatever_its_distance (test_fit.TieRule.test_a_distinguishable_minimum_wins_whatever_its_distance) ... ok
 test_a_plateau_goes_to_the_point_nearest_the_start_not_to_grid_order (test_fit.TieRule.test_a_plateau_goes_to_the_point_nearest_the_start_not_to_grid_order) ... ok
 test_then_the_fewer_moved_leaves_then_grid_order (test_fit.TieRule.test_then_the_fewer_moved_leaves_then_grid_order) ... ok
 
 ----------------------------------------------------------------------
-Ran 31 tests in 5.733s
+Ran 35 tests in 5.768s
 
 OK

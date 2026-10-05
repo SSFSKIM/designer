@@ -536,5 +536,46 @@ class ScaleSeparable(unittest.TestCase):
         self.assertNotIn("receded.dark", two)                              # every receded X64 key at its default
 
 
+class StartIsACandidate(unittest.TestCase):
+    """Every step offers its start, on the grid or off it (the parent's ruling under the tie rule)."""
+
+    def sweep(self, start_ta, objective, tie):
+        with SyntheticPart2():
+            runner = FakeRunner(objective)
+            runner.tie = lambda scope: tie
+            move = search.move_of("stage2")
+            base = {"receded.dark": {TA: start_ta}}
+            best, labels, _ = search.sweep_family(move, "transmission", "d0219", base, base, 1, runner)
+        return best, runner.calls[0]
+
+    def test_an_off_grid_start_is_kept_when_it_is_best(self):
+        best, call = self.sweep(0.8, lambda ov, scope: abs(fit.resolved_value(ov, "receded.dark", TA) - 0.8), 0.0)
+        self.assertEqual(len(call["cands"]), 4)                       # the grid's three and the start
+        self.assertEqual(call["cands"][0], {"receded.dark": {TA: 0.8}})
+        self.assertEqual(best["receded.dark"][TA], 0.8)
+
+    def test_an_off_grid_start_wins_a_plateau_within_the_tie(self):
+        objective = lambda ov, scope: {0.8: 0.305, 0.89: 0.300, 0.7: 0.301, 0.5: 0.500}[  # noqa: E731
+            fit.resolved_value(ov, "receded.dark", TA)]
+        best, _ = self.sweep(0.8, objective, 0.01)
+        self.assertEqual(best["receded.dark"][TA], 0.8)
+        best, _ = self.sweep(0.8, objective, 0.001)                    # distinguishable: the minimum moves it
+        self.assertEqual(best["receded.dark"][TA], 0.89)
+
+    def test_an_on_grid_start_is_not_duplicated(self):
+        _, call = self.sweep(0.7, lambda ov, scope: 0.3, 0.0)
+        self.assertEqual(len(call["cands"]), 3)
+
+    def test_a_factorial_step_includes_its_start(self):
+        with SyntheticPart2():
+            fbody = search.move_of("stage1")["families"]["transmission-scatter"]
+            start = {"active.dark": {TA: 0.75}}
+            cands = search.step_candidates(fbody, list(fbody["leaves"]), start)
+            self.assertEqual(cands[0], start)
+            self.assertEqual(len(cands), 1 + 3 * 2)
+            on_grid = search.step_candidates(fbody, list(fbody["leaves"]), {"active.dark": {TA: 0.8}})
+            self.assertEqual(len(on_grid), 6)                          # floor 0.34 is the snapshot's: on the grid
+
+
 if __name__ == "__main__":
     unittest.main()

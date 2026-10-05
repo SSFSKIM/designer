@@ -15,7 +15,13 @@ is untouched.
   them the point nearest the step's start wins — distance the sum, over the step's keys, of
   |v − v0| / (domain hi − lo) — then the fewer moved leaves, then grid order. `decide` applies the
   same rule to the stage's points, the distance measured from the stage's base over every declared
-  leaf a point moves. The tie is `rule.stage_tie` over the stage's DECLARED cells, computed once from
+  leaf a point moves. **The step's start is always a candidate**: every coordinate step and every
+  factorial step includes the current point itself (already measured, so free) even when its value
+  of a swept key is off the declared grid — so a sweep never forces a move off the incumbent, and
+  with the tie rule the start (distance 0) wins any plateau it is part of. This matters for stage 2,
+  whose X64 receded keys start at the stage-1 active's resolved values, which may lie off the
+  receded grids. A grid point that resolves to the start on every swept key is the start, never a
+  duplicate. The tie is `rule.stage_tie` over the stage's DECLARED cells, computed once from
   the published reference rows (`fit.stage_tie_of`), never from what a point rendered.
 - **One label grammar** (`labels.json`): a receded leaf is marked lower-case `r`, which the builder's
   pattern admits (the tracker's "upper-case R" entry), and `label_of` refuses to name a point whose
@@ -144,10 +150,16 @@ def steps_of(fbody: dict, start: str) -> list[list[str]]:
 
 
 def step_candidates(fbody: dict, step: list[str], current: dict) -> list[dict]:
+    """A step's points: the product of its keys' grids from `current`, and `current` itself first
+    unless a grid point already resolves to it on every swept key (the start is always a candidate,
+    on the grid or not: a sweep never forces a move off the incumbent)."""
     cands = [current]
     for k in step:
         cands = [c for point in cands for c in sweep_candidates(fbody, k, point)]
-    return cands
+    swept = [(fbody["leaves"][k]["slot"], leaf) for k in step for leaf in k.split("+")]
+    at_start = lambda c: all(fit.resolved_value(c, slot, leaf) == fit.resolved_value(current, slot, leaf)  # noqa: E731
+                             for slot, leaf in swept)
+    return cands if any(at_start(c) for c in cands) else [current] + cands
 
 
 # ---------------------------------------------------------------------------------------------
