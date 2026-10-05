@@ -199,6 +199,31 @@ class Part2(unittest.TestCase):
             with self.assertRaisesRegex(W.Refusal, "not a leaf part 2 declares"):
                 fit.check_overrides({"active.dark": {"sizeScatterFloor": 0.6}, "receded.dark": {"sizeScatterFloor": 0.34}})
 
+    def test_stage_2_admits_the_receded_start_a_stage_1_point_leaves(self):
+        """The reviewer's point (W47 G0, reviewer-medium): a permitted stage-1 point moves the active 2x
+        second tap (share 0.05, width 10, far share 0.3, ladder (ii)'s grid); stage 2 materialises the
+        receded document over it, so the receded states width 10 and far share 0.3 as inherited, outside
+        the receded family's move domains ([0, 8], [-1, 0]). That start is admitted; a MOVE of the
+        receded leaf is still held to its domain."""
+        draft = json.loads(W.DRAFT.read_text())
+        with SyntheticPart2(draft):
+            stage1 = {"active.dark": {"sizeHeavySecondShare": 0.05, "sizeHeavySecondSigma2x": 10,
+                                      "sizeHeavySecondShareFar2x": 0.3}}
+            start = fit.materialise(stage1, "receded.dark")
+            self.assertEqual({k: start["receded.dark"][k] for k in stage1["active.dark"]}, stage1["active.dark"])
+            fit.check_overrides(start)
+            moved = json.loads(json.dumps(start))
+            moved["receded.dark"]["sizeHeavySecondShareFar2x"] = -0.05
+            fit.check_overrides(moved)                     # a move inside the receded domain and its joint
+            moved["receded.dark"]["sizeHeavySecondShareFar2x"] = -0.25
+            with self.assertRaisesRegex(W.Refusal, "joint domain"):   # [−share, 0] at the inherited 0.05
+                fit.check_overrides(moved)
+            for leaf, value in (("sizeHeavySecondShareFar2x", 0.6), ("sizeHeavySecondSigma2x", 12)):
+                bad = json.loads(json.dumps(start))
+                bad["receded.dark"][leaf] = value          # a move outside it
+                with self.assertRaisesRegex(W.Refusal, "outside its declared domain", msg=leaf):
+                    fit.check_overrides(bad)
+
     def test_preflight_refuses_without_part_2(self):
         with mock.patch.object(W, "PART2_DIGEST", W.G0 / "no-such-digest"), self.assertRaises(W.Refusal):
             fit.preflight()

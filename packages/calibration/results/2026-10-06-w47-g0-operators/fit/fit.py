@@ -391,8 +391,9 @@ def materialise(overrides: dict, slot: str) -> dict:
 
 def check_overrides(overrides: dict, table: dict | None = None) -> None:
     """Refuse an override part 2 does not declare, a value outside its declared domain, or a point
-    outside a declared JOINT domain. An admitted key (X64, X67) at its inherited value is never a move;
-    a value outside the charter's declared domain (X68) refuses whatever part 2 says."""
+    outside a declared JOINT domain. An admitted key (X64, X67) at its inherited value is never a move,
+    so neither part 2's leaf list nor its move domain reads it; a value outside the charter's declared
+    domain (X68) refuses whatever part 2 says."""
     table = declared() if table is None else table
     for slot, leaves in overrides.items():
         if slot not in SLOTS:
@@ -401,10 +402,17 @@ def check_overrides(overrides: dict, table: dict | None = None) -> None:
             if not W.in_domain(slot, leaf, value):
                 raise W.Refusal(f"fit: {slot} {leaf} {value} is outside the charter's declared domain "
                                 f"{W.DOMAINS[slot][leaf]} (X68)")
+            # An admitted key stated at its inherited value is not a move, whether or not part 2 searches
+            # the leaf in this slot: a part-2 domain bounds the MOVES a stage makes, never the start it
+            # inherits. Stage 2 materialises the receded document over the stage-1 active, so a receded
+            # leaf can start where stage 1 put the active (the second tap's 2x width 10 and far share
+            # 0.3) outside the receded family's own move domain (W46's [0, 8] and [-1, 0]); that start is
+            # admitted unchanged, and only a value it moves to is held to the domain (reviewer-medium,
+            # W47 G0). The charter's X68 domains, above, bound every value, inherited or moved.
+            if inherited(overrides, slot, leaf) == value:
+                continue
             spec = table.get((slot, leaf))
             if spec is None:
-                if inherited(overrides, slot, leaf) == value:
-                    continue
                 raise W.Refusal(f"fit: {slot} {leaf} is not a leaf part 2 declares (clause 5)")
             if spec.get("fixedOnly"):
                 if value != spec["value"]:

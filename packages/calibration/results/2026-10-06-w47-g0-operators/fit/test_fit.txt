@@ -15,6 +15,8 @@ test_bytes_that_are_not_the_hash_refuse (test_fit.Part2.test_bytes_that_are_not_
 test_check_overrides (test_fit.Part2.test_check_overrides) ... ok
 test_other_waves_part_hashes_refuse (test_fit.Part2.test_other_waves_part_hashes_refuse) ... ok
 test_preflight_refuses_without_part_2 (test_fit.Part2.test_preflight_refuses_without_part_2) ... ok
+test_stage_2_admits_the_receded_start_a_stage_1_point_leaves (test_fit.Part2.test_stage_2_admits_the_receded_start_a_stage_1_point_leaves)
+The reviewer's point (W47 G0, reviewer-medium): a permitted stage-1 point moves the active 2x ... ok
 test_x68_refuses_what_part_2_would_admit (test_fit.Part2.test_x68_refuses_what_part_2_would_admit) ... ok
 test_a_census_refusal_is_told_apart (test_fit.Render.test_a_census_refusal_is_told_apart) ... ok
 test_a_point_renders_only_through_its_scale_twins (test_fit.Render.test_a_point_renders_only_through_its_scale_twins) ... ok
@@ -43,6 +45,6 @@ test_l1_excess_sums_both_clauses_over_the_poses_measured_cells (test_fit.TwoPoin
 test_no_admissible_point_at_0_8_leaves_point_a_at_0_89 (test_fit.TwoPoints.test_no_admissible_point_at_0_8_leaves_point_a_at_0_89) ... ok
 
 ----------------------------------------------------------------------
-Ran 43 tests in 11.013s
+Ran 44 tests in 6.282s
 
 OK
