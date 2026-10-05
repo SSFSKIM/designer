@@ -431,3 +431,10 @@ def referees():
     if "w47_referees" not in sys.modules:
         load_module("w47_referees", REFEREES / "referees.py")
     return sys.modules["w47_referees"]
+
+
+# W47 G0 (c), (e): the tools worker's renders (the stage rehearsal, the level identity) land under one
+# scratch root, `~/vitrea-w47/g0-tools-scratch`, kept apart from the other W47 G0 workers' scratch.
+TOOLS_SCRATCH = SCRATCH / "g0-tools-scratch"
+REHEARSAL_STAGE = TOOLS_SCRATCH / "stage-rehearsal"
+LEVEL_SCRATCH = TOOLS_SCRATCH / "level"
