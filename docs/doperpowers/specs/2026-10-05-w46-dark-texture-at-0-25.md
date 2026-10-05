@@ -712,7 +712,7 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
 | --- | --- | --- |
 | G0 | done on `w46-g0-declaration`: part 1 `bc82562e…`, part 2 `5dca38e0…` hashed; three items for the parent's ruling (§5.208 §11) | §5.208 |
 | G1 | CLOSED AT THE FINDING on `w46-g1-refit` (Decision Log 10): part 2 amended (`ac642fea…`), the fit, the freeze-free gate on points A and B, both NEITHER; nothing sealed | §5.209 |
-| G2 | the record: T1 adopted for the dark 0.25 profiles at `d0219cd684bf`, CLAUDE.md, on `w46-g2-landing`; no changeset | §5.210 |
+| G2 | done on `w46-g2-landing`: T1 adopted for the dark 0.25 profiles at `d0219cd684bf` (134 of 154 named), CLAUDE.md's W46 paragraph; no changeset | §5.210 |
 
 ## Decision Log
 

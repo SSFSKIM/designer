@@ -48344,3 +48344,88 @@ are the snapshots.
   rest cells. Point A's receded scatter is a measured starting point for the receded side.
 - **Tools.** W46's tools carry the content-amendment form, the two-point protocol and the
   freeze-free gate. Their part hashes and bindings are W46's.
+
+## 5.210 W46 G2: T1 adopted in the owner test for the dark 0.25 profiles, 134 of their 154 cells named misses; W46 closes with no changeset (2026-10-06)
+
+Evidence directory: `results/2026-10-05-w46-g2-landing/`, on branch `w46-g2-landing` off G1's close
+(`fbf724b10`); the two branches merge together. Charter v1.5, Decision Logs 3 and 10. G1 closed at the
+finding (§5.209), so G2 is the record and T1's adoption on the dark scheme. Nothing ships:
+- no runtime change, generation, capture-tree move, demo change or changeset;
+- Decision Log 7's release does not happen.
+
+### 1. What is adopted
+
+The block repeats W44 G2's light adoption (§5.204) for the dark scheme, in its own `describe` in
+`packages/calibration/test/adopted-thresholds.test.ts`. The statistic, the strata, the arithmetic
+(`t1Classify`, `t1CodeStep`) and the bar file are the light block's.
+
+**What is dark's own** (declared beside `T1_DARK_GATED_PROFILES`):
+- **The population.** Every structured scene the two dark 0.25 profiles declare, in every set: 77
+  per profile, F 15, T 4, C 46, P 12.
+- **The reference.** Clause (b) reads `d0219cd684bf` / `f0b36a71772a` by hash. It is the current
+  dark generation, because G1 published nothing, so every cell reads `unchanged`. No regression is
+  authorised against it, and the next dark publication is the first thing the clause can stop.
+- **The partition labels.** W46's referee manifest (`w46-referees-1`), pinned by hash; it labels and
+  never selects.
+- **The T-band fixture.** `t1/t-bands-d0219cd684bf.json`, the 8 dark T cells' T1-fine and T1-low,
+  read off the canonical captures through W44 G1's pinned readers (`t1/bands.py`). It agrees with the
+  bands the gate's cut carries to 1e-12.
+- **The Python referee.** `t1/derive.py` (`t1-derivation.json`, `missed-27-rows.ts.txt`), and, inside
+  the test, G1's gate cut of `d0219cd684bf` by W46's cuts (pinned by hash). The port agrees with the
+  cut cell for cell (native, web and fidelity; a gate T cell on T1-fine), and the cut's W46 rule
+  reads 66 of 66 unchanged per profile.
+
+**Shared code edited:** `t1Cut` chooses the reference by scheme; the referee labels and the band
+fixtures are the union of both schemes' files; `t1GatedMisses` reads both schemes; the light
+block's two count assertions read their own entries. The dark profiles leave `T1_READ_PROFILES`.
+
+**The header's MATERIAL-axis argument** gains a paragraph:
+- *Not below quantisation*: the bar is 0.5 code from pixel-identical runs, and the dark fine
+  inactive cells sit about ten bars out.
+- *Not unidentifiable*: W46 G1's declared leaves moved dark C rest 0.390 → 0.171 and 0.538 → 0.238
+  on these rows.
+
+### 2. The named misses, at adoption
+
+134 of 154 cells miss and are named, 124 of the 144 outside the holdout (the grounding read's
+count). Ratio is web/native over the named misses:
+
+| profile | stratum | named / members | ratio range | median |
+| --- | --- | --- | --- | --- |
+| 1x dark 0.25 | F | 12 / 15 | ×0.33–×3.35 | ×0.80 |
+| 1x dark 0.25 | T (T1-fine) | 4 / 4 | ×0.24–×1.92 | ×1.08 |
+| 1x dark 0.25 | C | 40 / 46 | ×0.25–×7.20 | ×0.70 |
+| 1x dark 0.25 | P | 12 / 12 | ×0.22–×1.71 | ×0.28 |
+| 2x dark 0.25 | F | 12 / 15 | ×0.23–×3.60 | ×0.61 |
+| 2x dark 0.25 | T (T1-fine) | 2 / 4 | ×0.13–×0.33 | ×0.23 |
+| 2x dark 0.25 | C | 40 / 46 | ×0.26–×2.78, and one at ∞ | ×0.57 |
+| 2x dark 0.25 | P | 12 / 12 | ×0.21–×1.71 | ×0.28 |
+
+- **The one infinite ratio.** The 2x `impulse__capsule-button__inactive` entry reads `Infinity`. Its
+  measurement mask is the impulse dot (§5.209 §1), uniform in Apple's capture, so the native SD is
+  exactly 0. It misses on its absolute bound.
+- **By partition:** 1x gate 57 of 66, referee 6 of 6, holdout 5 of 5; 2x gate 56 of 66, referee 5 of
+  6, holdout 5 of 5.
+- **By set:** probe 95, calibration 21, holdout 10, validation 4, recorded 4.
+- **Why so many.** The row is adopted so that the dark fine pitches and photo keep a gated role, as
+  W44 did for light. The dark material misses them, and W46 G1's refit could not close them inside
+  its declared space (§5.209).
+
+**The dark CSS tier** is printed, not gated. Within / members, with the median |log|:
+- 1x: F 3/15 (1.15), T 0/4 (0.79), C 3/46 (1.17), P 0/12 (1.33);
+- 2x: F 2/15 (0.76), T 2/4 (0.49), C 4/46 (1.03), P 0/12 (1.17).
+
+### 3. The checks
+
+- The owner test, with `VITREA_WEB_CAPTURES` at the canonical tree: 160 pass of 160.
+- `pnpm --filter @vitrea/calibration test`: 62 files, 928 tests pass.
+- `pnpm -r build` and `pnpm -r lint`: exit 0.
+- `PREDICATE_EXCLUDES` is unchanged at the machine's output (no row moved).
+- The freeze reads 1,818 and X41 911.
+
+### 4. What is not claimed
+
+- **A change to any dark material.** The adopted rows are `d0219cd684bf`'s as published at W43 G3.
+- **A reading of the dark 0.25 holdout or referees at new bytes.** The holdout rows named here are the
+  published generation's, already read at W43 G3's exposure (read 6). The adoption reads them, as
+  W44's light adoption read c05's.
