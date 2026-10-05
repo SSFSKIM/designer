@@ -149,5 +149,38 @@ class X67(unittest.TestCase):
                           + ", ".join(sorted(set(waiting))) + "; every other X67 value checked")
 
 
+class X68(unittest.TestCase):
+    """X68: every declared domain names an admitted or a snapshot leaf of its slot, the starting point
+    (the snapshot or its resolved value) is inside it, and the boundaries are the charter's."""
+
+    def test_the_domains_hold_the_start_and_their_bounds(self):
+        for slot, domains in W.DOMAINS.items():
+            snapshot = W.document(slot)["patch"]
+            for key, parts in domains.items():
+                if key in W.ADMITTED[slot]:
+                    start = W.ADMITTED[slot][key]
+                else:
+                    node = snapshot
+                    for part in key.split("."):
+                        node = node[part]
+                    start = node
+                self.assertTrue(W.in_domain(slot, key, start), (slot, key, start))
+        self.assertFalse(set(W.OPERATOR_2) & set(W.DOMAINS["active.dark"]))
+        cases = [("active.dark", "tintAlphaFar2x", 0.6, True), ("active.dark", "tintAlphaFar2x", 0.61, False),
+                 ("active.dark", "tintAlphaFar1x", -0.1, False), ("active.dark", "sizeOcclusionGain", 0.04, False),
+                 ("active.dark", "sizeScatterSpanMax2x", 128, True), ("active.dark", "sizeScatterSpanMax2x", 130, False),
+                 ("active.dark", "optics.regular.tintAlpha", 0.6, False),
+                 ("receded.dark", "optics.regular.tintAlpha", 0.8, True),
+                 ("receded.dark", "optics.regular.tintAlpha", 0.7, False),
+                 ("receded.dark", "optics.regular.blurSigma", 4, True),
+                 ("receded.dark", "optics.regular.blurSigma", 5, False),
+                 ("receded.dark", "sizeFineTapShare", 1, True), ("receded.dark", "sizeFineTapShare", 1.1, False),
+                 ("receded.dark", "sizeFineTapSigma2x", 0, True), ("receded.dark", "sizeFineTapSigma2x", 1, False),
+                 ("receded.dark", "sizeFineTapSigma", 6, True), ("receded.dark", "sizeFineTapSigma", 7, False),
+                 ("active.dark", "sizeScatterFloor", 0.1, True)]          # no declared domain: W46's admission
+        for slot, key, value, inside in cases:
+            self.assertEqual(W.in_domain(slot, key, value), inside, (slot, key, value))
+
+
 if __name__ == "__main__":
     unittest.main()

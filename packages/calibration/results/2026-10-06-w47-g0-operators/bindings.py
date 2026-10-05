@@ -65,6 +65,8 @@ BUILDER = FIT / "build-candidate.ts"
 REFEREES = G0 / "referees"
 LADDERS = G0 / "ladders"
 LADDER_CELLS = LADDERS / "cells.json"
+LADDER_PROTOCOL = LADDERS / "protocol.json"
+REHEARSAL = G0 / "rehearsal"
 WITH_GPU = G0 / "with-gpu.sh"
 
 G1 = RESULTS / "2026-10-06-w47-g1-refit"
@@ -151,6 +153,42 @@ X67 = {
 ADMITTED = {slot: {**X64[slot], **X67[slot]} for slot in MOVING_SLOTS}
 OPERATOR_1 = ("tintAlphaFar1x", "tintAlphaFar2x")
 OPERATOR_2 = ("sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x")
+
+# X68: the operators' domains are the declaration's, not the shader's (the shader clamps operator 1's
+# alpha and gates operator 2's texture; it bounds neither the deltas, the widths nor the share). The
+# builder refuses a value outside them. Charter Design "Operator 1" and "Operator 2", "Domain and
+# grid", and Design "The targets" (the transmission's rungs); every other admitted or snapshot leaf
+# keeps W46's admission (a finite number at its own shape) and has no declared domain here. A domain is
+# a list of parts, each `("set", values)` or `("interval", lo, hi)` (closed); a value is inside when
+# some part holds it. Operator 2 is receded-only (X66): the active admits none of its leaves at all.
+_SPAN_TOPS = [("set", (128, 160, 192, 256))]
+_FAR = [("interval", 0, 0.6)]
+_GAIN = [("interval", 0.05, 0.6)]
+DOMAINS = {
+    "active.dark": {"optics.regular.tintAlpha": [("set", (0.7, 0.8, 0.9))],
+                    "tintAlphaFar1x": _FAR, "tintAlphaFar2x": _FAR, "sizeOcclusionGain": _GAIN,
+                    "sizeScatterSpanMax": _SPAN_TOPS, "sizeScatterSpanMax2x": _SPAN_TOPS},
+    "receded.dark": {"optics.regular.tintAlpha": [("set", (0.8, 0.89))],
+                     "optics.regular.blurSigma": [("interval", 1.25, 4)],
+                     "tintAlphaFar1x": _FAR, "tintAlphaFar2x": _FAR, "sizeOcclusionGain": _GAIN,
+                     "sizeScatterSpanMax": _SPAN_TOPS, "sizeScatterSpanMax2x": _SPAN_TOPS,
+                     "sizeFineTapShare": [("interval", 0, 1)],
+                     "sizeFineTapSigma": [("set", (0,)), ("interval", 1.5, 6)],
+                     "sizeFineTapSigma2x": [("set", (0,)), ("interval", 1.5, 6)]},
+}
+
+
+def in_domain(slot: str, key: str, value) -> bool:
+    """X68: True when `value` is inside the declared domain of `key` on `slot`, or `key` has none."""
+    parts = DOMAINS.get(slot, {}).get(key)
+    if parts is None:
+        return True
+    for part in parts:
+        if part[0] == "set" and any(value == v for v in part[1]):
+            return True
+        if part[0] == "interval" and part[1] <= value <= part[2]:
+            return True
+    return False
 
 # ---------------------------------------------------------------------------------------------
 # Shared by path, pinned byte-identical
