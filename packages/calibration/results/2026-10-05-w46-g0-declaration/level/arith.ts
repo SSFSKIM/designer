@@ -23,11 +23,12 @@
  *   preCollapse = (response − toneAdapt·linear)/(1 − toneAdapt)
  *   shift       = (preCollapse − ((1 − α)·linear + α·neutral))/α · authority
  *   solved      = clamp(neutral + shift, 0, 1)            — `clamped` when the lower clamp bites
- *   achieved    = (1 − α)·linear + α·solved               — the composite mean the solve reaches
+ *   achieved    = (1 − α′)·linear + α′·solved             — the composite mean the solve reaches, α′ the
+ *                                                          sizedAlpha after the one-sided opacity lift
  *   excess      = achieved − response                     (> 0 where the clamp or the authority
  *                                                          leaves the composite above its target)
- * The one-sided lightward opacity solve is evaluated too (`alphaLift`); it never acts below the
- * target. This is a PREDICTION from group means: the rendered interior also carries the scatter,
+ * The one-sided lightward opacity solve is applied as the shader applies it (`alphaLift`, α′ = α + alphaLift);
+ * it never acts below the target. This is a PREDICTION from group means: the rendered interior also carries the scatter,
  * the rim, the tint shade and the chroma retention, which the check reads off the rows instead.
  */
 
@@ -91,8 +92,12 @@ function solve(profile: MaterialProfile, cell: Cell) {
     clamped = raw < 0;
     achieved = (1 - alpha) * cell.linear + alpha * solved;
     if (pre > achieved + 1e-4 && solved > cell.linear + 1e-3) {
+      // The shader's one-sided lightward opacity solve: solvedAlpha = mix(sizedAlpha, target,
+      // authority · strength), and the composite is drawn at solvedAlpha (the review of G0's level
+      // check, P2: the lift was computed and not applied).
       const target = Math.min(1, Math.max(alpha, (pre - cell.linear) / (solved - cell.linear)));
       alphaLift = (target - alpha) * authority;
+      achieved = (1 - (alpha + alphaLift)) * cell.linear + (alpha + alphaLift) * solved;
     }
   }
   return {

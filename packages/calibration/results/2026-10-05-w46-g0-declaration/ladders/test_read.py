@@ -130,8 +130,11 @@ class Reader(unittest.TestCase):
         # iii: lower the "fine" inactive cells toward Apple — the synthetic bed has no checkerboard-8 cell,
         # so the reader's fine selection is exercised on its absence (no fine cell: never MEETS)
         write_rung("iii-rn2-0.4", cls.inactive)
-        rungs = [dict(label="control", actsAt="both")] + [
-            dict(label=k, ladder=v[0], lever=v[1], slot=v[2], leaf=v[3], value=v[4], actsAt=v[5]) for k, v in RUNGS.items()]
+        scenes = {"i-a-0.7": cls.rest, "i-a-0.5": cls.rest, "iii-rn2-0.4": cls.inactive}
+        rungs = [dict(label="control", actsAt="both", cells=sorted(cells))] + [
+            dict(label=k, ladder=v[0], lever=v[1], slot=v[2], leaf=v[3], value=v[4], actsAt=v[5],
+                 cells=sorted(scenes.get(k, cls.rest + ["checkerboard__rrect-md__inactive"]))) for k, v in RUNGS.items()]
+        cls.rungs = rungs
         cls.out = SCRATCH / "out"
         cls.out.mkdir()
         rc = R.main(scratch=SCRATCH / "scratch", candidates=SCRATCH / "candidates", rungs=rungs, out=cls.out,
@@ -171,6 +174,28 @@ class Reader(unittest.TestCase):
 
     def test_iii_without_fine_cells_never_meets(self):
         self.assertEqual(self.result["ladders"]["iii"]["iii-rn2"]["meetsBar"], [])
+
+    def test_a_partial_or_duplicated_rung_refuses(self):
+        R.CONF.update(scratch=SCRATCH / "scratch", candidates=SCRATCH / "candidates")
+        rows = R.rows_of("i-a-0.7")
+        with self.assertRaisesRegex(W.Refusal, "missing"):
+            R.admit("i-a-0.7", dict(list(rows.items())[1:]), self.rungs[1]["cells"])
+        with self.assertRaisesRegex(W.Refusal, "extra"):
+            R.admit("i-a-0.7", rows, self.rungs[1]["cells"][1:])
+        key, row = next((k, v) for k, v in rows.items() if "/checkerboard__" in f"/{k[1]}" or k[1].startswith("photo"))
+        broken = dict(rows)
+        broken[key] = json.loads(json.dumps(row))
+        broken[key]["material"]["interiorStdDevWeb"] = None
+        with self.assertRaisesRegex(W.Refusal, "no structure reading"):
+            R.admit("i-a-0.7", broken, self.rungs[1]["cells"])
+        path = SCRATCH / "scratch" / "i-a-0.7" / "1x" / "matrix.json"
+        body = json.loads(path.read_text())
+        path.write_text(json.dumps(dict(body, cells=body["cells"] + body["cells"][:1])))
+        try:
+            with self.assertRaisesRegex(W.Refusal, "two rows"):
+                R.rows_of("i-a-0.7")
+        finally:
+            path.write_text(json.dumps(body))
 
     def test_the_targets(self):
         t = self.result["targets"]

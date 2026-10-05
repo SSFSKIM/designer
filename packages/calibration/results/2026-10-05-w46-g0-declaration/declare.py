@@ -37,7 +37,10 @@ support it and the protocol lets the cited ladder make that decision, and the re
 body exactly. The decisions (`ladders/protocol.json`): `strike` (a leaf its lever read flat), `narrow` (a
 grid to a subset inside the lever's non-flat range; for `tintAlpha`, the shipped value and the passing
 rungs), `name-target` (a target with no lever, recorded in `notFitted` with the operator's shape, and
-every draft leaf of that target removed: X63).
+every draft leaf of that target removed: X63). The changes are also REQUIRED where the ladders require
+them (`mandatory_failures`, read on the resulting body whatever `changes` lists): each tintAlpha grid
+inside its passing rungs, no flat lever's leaf retained, every leverless target named, and no part 2
+at all when no target has a lever.
 
 **Amendments** (W43's and W44's rule): an amendment re-pins named moved sources and changes nothing
 else; each part is amended at most once; `amend` refuses once ANY ladder render exists, `amend-fit` once
@@ -606,6 +609,45 @@ def apply_changes(draft, changes, results, protocol):
     return body
 
 
+def mandatory_failures(body, results) -> list[str]:
+    """What the ladders REQUIRE of part 2, read on the resulting body whatever its `changes` list says
+    (the review of G0's tools, P1): every retained tintAlpha grid inside its arm's passing rungs (clause
+    4 (i): "the passing rungs are the transmission's domain in the fit"); no retained leaf whose lever
+    read flat; every target the ladders show no lever for named in `notFitted` and none of its leaves
+    retained (X63); and at least one target with a lever (else the wave closes at G0: the protocol's
+    `stop`, and part 2 is not hashed)."""
+    out = []
+    levers = {lev_id: e for lad in results.get("ladders", {}).values() for lev_id, e in lad.items()}
+    targets = results.get("targets") or {}
+    leverless = {t for t, v in targets.items() if not v["lever"]}
+    named = {x["target"] for x in body.get("notFitted", [])}
+    if targets and not set(targets) - leverless:
+        out.append("no target has a lever: the wave closes at G0 with the finding and part 2 is not hashed (stop)")
+    for t in sorted(leverless - named):
+        out.append(f"target {t} has no lever and is not named in notFitted (X63)")
+    for t in sorted(named - leverless):
+        out.append(f"target {t} is named not fitted, and the ladders read a lever for it")
+    for move in body["moves"]:
+        for fam, fbody in move["families"].items():
+            for key, spec in fbody["leaves"].items():
+                where = f"{move['id']}/{fam}/{key}"
+                if spec["target"] in leverless:
+                    out.append(f"{where}: a leaf of target {spec['target']}, which has no lever (X63)")
+                lever = spec.get("ladder")
+                if lever is None:
+                    continue
+                e = levers.get(lever)
+                if e is None:
+                    out.append(f"{where}: the results carry no reading of its lever {lever}")
+                    continue
+                if e["flat"]:
+                    out.append(f"{where}: its lever {lever} read flat and the leaf is retained")
+                if "passingRungs" in e and not set(spec["grid"]) <= set(e["passingRungs"]):
+                    out.append(f"{where}: grid {spec['grid']} leaves the transmission's passing rungs "
+                               f"{sorted(e['passingRungs'])}")
+    return out
+
+
 def validate_fit(draft, fit, results, protocol):
     if fit.get("schema") != draft["schema"]:
         raise Refusal("part 2's schema is not the draft's")
@@ -618,6 +660,9 @@ def validate_fit(draft, fit, results, protocol):
     if json.dumps(got, sort_keys=True) != json.dumps(expected, sort_keys=True):
         diff = [k for k in set(got) | set(expected) if got.get(k) != expected.get(k)]
         raise Refusal(f"part 2 differs from the draft beyond its permitted changes, in: {sorted(diff)}")
+    required = mandatory_failures(expected, results)
+    if required:
+        raise Refusal("part 2 omits what the ladders require: " + "; ".join(required))
 
 
 def check_fit():

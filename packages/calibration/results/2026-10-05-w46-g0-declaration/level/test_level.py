@@ -123,6 +123,14 @@ class Identity(unittest.TestCase):
             self.assertEqual(got["verdict"], "DIFFERS")
             self.assertIn(needle, " ".join(got["failures"][0]["fail"]))
             self.assertFalse(got["failures"][0]["provenance"]["valid"])
+        for stamp in (None, 42, "not a timestamp", "2026-13-45T00:00:00.000Z"):
+            rows = candidate_rows(self.candidate, self.published)
+            rows[0]["capturedAt"] = stamp
+            if stamp is None:
+                del rows[0]["capturedAt"]
+            got = L.identity(rows, W.CANONICAL_CAPTURES, self.candidate, self.published)
+            self.assertEqual(got["verdict"], "DIFFERS", stamp)
+            self.assertIn("capturedAt", " ".join(got["failures"][0]["fail"]))
         rows = candidate_rows(self.candidate, self.published)
         rows[2]["key"]["web"]["engineVersion"] = "153.0.8010.12"
         got = L.identity(rows, W.CANONICAL_CAPTURES, self.candidate, self.published)
@@ -165,6 +173,18 @@ class Arithmetic(unittest.TestCase):
         self.assertAlmostEqual(got["light-solid-rest-96"]["excess"], 0.227, delta=0.002)
         self.assertFalse(got["dark-solid-rest-96"]["clamped"])
         self.assertEqual(L.mechanism(got["checker-rest-96"]), "clamp")
+
+    def test_the_opacity_lift_is_applied(self):
+        # Partial authority and a nonzero lightward lift: the impulse rrect-sm input at tintAlpha 0.5
+        # (the review's case: the shader's lifted composite 0.0359831524 at both scales).
+        c = fake_candidate(SCRATCH / "lift", tint={"active.dark": 0.5, "receded.dark": 0.5})
+        cell = [dict(id="impulse-sm", pose="rest", span=32, encoded=0.00375, linear=0.00375)]
+        got = L.predict(L.candidate_endpoints(c), cell)["impulse-sm"]
+        self.assertGreater(got["alphaLift"], 0)
+        self.assertLess(got["authority"], 1)
+        lifted = got["sizedAlpha"] + got["alphaLift"]
+        self.assertAlmostEqual(got["achieved"], (1 - lifted) * 0.00375 + lifted * got["solved"], places=15)
+        self.assertAlmostEqual(got["achieved"], 0.0359831524, delta=2e-6)
 
     def test_the_attribution(self):
         rung = dict(collapsed=False, toneAdapt=0, clamped=True, authority=1, achieved=0.20, excess=0.02,

@@ -2,8 +2,9 @@
 """W46 G0 (e): the ladders' reader (charter clause 4; `protocol.json`). Reads only; writes `results.json`
 and `results.txt` beside it. W45's `ladders/read.py` is the pattern; the readings are W46's protocol's.
 
-Every rung's rows are admitted first: each names its candidate at its hash (candidate mode), the
-pinned Chromium, a dark 0.25 profile, WebGPU, and no withheld cell. Then:
+Every rung's rows are admitted first: EXACTLY its declared cells at both dark scales (one row each, a T1
+cell with its structure reading; a partial rung decides nothing), each naming its candidate at its hash
+(candidate mode), the pinned Chromium, WebGPU, and no withheld cell. Then:
 
 - **The instrument.** `level.py identity` on the control's rows: pixel identity and measurement
   identity to `d0219cd684bf` on every ladder cell, at both scales. Anything else stops the read.
@@ -60,11 +61,26 @@ def rows_of(label: str) -> dict:
         if not path.exists():
             raise W.Refusal(f"{label}: no {scale}x render")
         for r in json.loads(path.read_bytes())["cells"]:
-            out[(r["key"]["profileKey"], r["key"]["sceneId"])] = r
+            key = (r["key"]["profileKey"], r["key"]["sceneId"])
+            if key in out:
+                raise W.Refusal(f"{label}: two rows for {key}")
+            out[key] = r
     return out
 
 
-def admit(label: str, rows: dict) -> B.Candidate:
+def admit(label: str, rows: dict, scenes) -> B.Candidate:
+    """The rung's rows, refused unless they are EXACTLY its declared cells at both dark scales (the driver
+    writes with --write-partial, so a failed capture would otherwise vanish from a bar's `all(...)`: the
+    review of G0's tools, P1), each with its structure reading where it is a T1 cell."""
+    want = {(p, s) for p in W.DARK_025 for s in scenes}
+    if set(rows) != want:
+        missing, extra = sorted(want - set(rows)), sorted(set(rows) - want)
+        raise W.Refusal(f"{label}: the rows are not its declared cells: {len(missing)} missing {missing[:4]}, "
+                        f"{len(extra)} extra {extra[:4]}; a partial rung decides nothing")
+    for (profile, sid), r in rows.items():
+        if B.SCENES.by_id[sid]["background"] in T1.T1_BACKDROPS and None in (
+                B.value(r, "material", "interiorStdDevWeb"), B.value(r, "material", "interiorStdDevNative")):
+            raise W.Refusal(f"{label} {profile} {sid}: a T1 cell with no structure reading")
     candidate = B.Candidate.read(str((CONF["candidates"] / label / "candidate.json").relative_to(W.ROOT)))
     held = B.referee_plan.referee_cells(B.referee_plan.load_manifest())
     for (profile, sid), r in rows.items():
@@ -121,7 +137,7 @@ def main(scratch: Path | None = None, candidates: Path | None = None, rungs: lis
     protocol = protocol or LADDER.protocol()
     rungs = rungs if rungs is not None else LADDER.rungs()
     control_rows = rows_of("control")
-    control = admit("control", control_rows)
+    control = admit("control", control_rows, rungs[0]["cells"])
     reference_bed = B.load_published(W.REFERENCE["dark"])
     reference = {(r["key"]["profileKey"], r["key"]["web"]["renderer"], r["key"]["sceneId"]): r for r in reference_bed.rows}
     merged = CONF["scratch"] / "control" / "merged-captures"
@@ -149,7 +165,7 @@ def main(scratch: Path | None = None, candidates: Path | None = None, rungs: lis
     per = {}
     for r in rungs[1:]:
         rows = rows_of(r["label"])
-        candidate = admit(r["label"], rows)
+        candidate = admit(r["label"], rows, r["cells"])
         cells = {}
         for key, row in rows.items():
             cells[f"{key[0]}/{key[1]}"] = dict(scale=B.scale_of(key[0]), pose=LEVEL.T1.pose(key[1]),

@@ -25,7 +25,8 @@ provenance fields: `capturedAt`, and `key.web.capturePath`, which candidate mode
 candidate document (`scripts/capture-web.ts`) even at identical pixels. The provenance is VALIDATED
 and retained: the path's driver prefix (browser, viewport, scale, scheme, frames) must equal the
 published row's, its document clause must name this candidate's declaration at its hash, and the
-engine must be the pinned Chromium (`census-gate.pinned_engine`).
+engine must be the pinned Chromium (`census-gate.pinned_engine`), and `capturedAt` must be present as an
+ISO-8601 UTC capture time.
 
     python3.12 -B level.py identity --candidate DIR --matrix M.json [--matrix M2.json] --captures ROOT [--out F]
     python3.12 -B level.py check --candidate DIR --matrix M.json [...] --captures ROOT [--pose rest|inactive] [--out F]
@@ -33,6 +34,7 @@ engine must be the pinned Chromium (`census-gate.pinned_engine`).
 from __future__ import annotations
 
 import argparse
+import datetime
 import hashlib
 import json
 import re
@@ -60,6 +62,7 @@ PROVENANCE = ("capturedAt", "key.web.capturePath")
 SOLIDS = ("dark-solid", "mid-dark-solid", "mid-light-solid", "light-solid", "mid-chroma-solid")
 LEVEL_TOLERANCE = C.L1_GROWTH         # a level change is an excess past L1's own growth bound
 DRIVER_PREFIX = re.compile(r"^(.*?)(materialProfile=.*)$")
+CAPTURED_AT = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,6})?Z$")
 
 
 def sha(path: Path) -> str | None:
@@ -99,6 +102,14 @@ def provenance(row: dict, published: dict, candidate: B.Candidate) -> list[str]:
         why.append(f"the document clause does not name {candidate.path} sha256:{candidate.sha256[:12]}")
     if "crossPosition=" in path:
         why.append("a cross-position stamp")
+    stamp = row.get("capturedAt")
+    if not isinstance(stamp, str) or not CAPTURED_AT.match(stamp):
+        why.append(f"capturedAt {stamp!r} is not an ISO-8601 UTC capture time")
+    else:
+        try:
+            datetime.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+        except ValueError:
+            why.append(f"capturedAt {stamp!r} is not a real time")
     why += [f"engine: {x}" for x in CENSUS.pinned_engine([row])]
     return why
 

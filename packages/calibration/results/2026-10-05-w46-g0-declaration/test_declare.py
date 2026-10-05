@@ -190,10 +190,37 @@ class ValidatedDiff(unittest.TestCase):
         with self.assertRaisesRegex(D.Refusal, "decisions"):
             self.apply([dict(kind="inert", move="stage1")])
 
+    def required(self):
+        """The changes the synthetic results REQUIRE: both tintAlpha grids to the passing rungs and
+        F inactive (no lever) named."""
+        return [dict(kind="narrow", move="stage1", family="transmission-scatter", leaf="optics.regular.tintAlpha",
+                     lever="i-a", grid=[0.7, 0.8, 0.9]),
+                dict(kind="narrow", move="stage2", family="transmission", leaf="optics.regular.tintAlpha",
+                     lever="i-r", grid=[0.7, 0.8, 0.89]),
+                dict(kind="name-target", target="F inactive", ladder="iii", operatorShape="a receded-only fine term")]
+
+    def fit(self, changes):
+        body = D.apply_changes(DRAFT, changes, results(), PROTOCOL)
+        body.pop("status", None)
+        return dict(body, changes=changes)
+
+    def test_omitting_a_required_change_is_refused(self):
+        D.validate_fit(DRAFT, self.fit(self.required()), results(), PROTOCOL)
+        for drop, needle in ((0, "passing rungs"), (1, "passing rungs"), (2, "no lever")):
+            changes = [c for i, c in enumerate(self.required()) if i != drop]
+            with self.assertRaisesRegex(D.Refusal, needle):
+                D.validate_fit(DRAFT, self.fit(changes), results(), PROTOCOL)
+        with self.assertRaisesRegex(D.Refusal, "read flat"):
+            D.validate_fit(DRAFT, self.fit(self.required()), results(**{"ladders/ii/ii-fa/flat": True}), PROTOCOL)
+
+    def test_no_target_with_a_lever_stops_part_2(self):
+        res = results(**{"targets/P/lever": [], "targets/C rest/lever": []})
+        self.assertTrue(any("closes at G0" in f for f in D.mandatory_failures(DRAFT, res)))
+
     def test_validate_fit_refuses_a_body_beyond_its_changes(self):
-        fit = copy.deepcopy(DRAFT)
-        fit["changes"] = []
+        fit = self.fit(self.required())
         D.validate_fit(DRAFT, fit, results(), PROTOCOL)
+        fit = copy.deepcopy(fit)
         fit["moves"][0]["families"]["transmission-scatter"]["leaves"]["sizeScatterFloor"]["grid"] = [0.1]
         with self.assertRaisesRegex(D.Refusal, "beyond its permitted changes"):
             D.validate_fit(DRAFT, fit, results(), PROTOCOL)

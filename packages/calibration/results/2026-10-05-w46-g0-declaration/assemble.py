@@ -24,7 +24,7 @@ OWNER = f"packages/calibration/test/adopted-thresholds.test.ts@{W.CHARTER_COMMIT
 CHARTER = f"{W.CHARTER_PATH}@{W.CHARTER_COMMIT}"
 TESTS = [("test_bindings", ".", 9), ("test_cuts_refusals", "cuts", 11), ("test_build_candidate", "fit", 11),
          ("test_fit", "fit", 35), ("test_seal", "seal", 10), ("test_stage", "stage", 7), ("test_x60", "stage", 11),
-         ("test_sheets", "sheets", 7), ("test_declare", ".", 17)]
+         ("test_sheets", "sheets", 7), ("test_declare", ".", 19)]
 
 
 def ev(*names):
@@ -131,7 +131,7 @@ def main() -> int:
         dict(id="level", title="the level check (X61) and its rendered test", clause="X61; G0 (d)",
              source=ev("level/arith.ts", "level/level.py", "level/test_level.py", "level/test_level.txt",
                        "level/identity.py", "level/identity/identity.json", "level/candidates/control/candidate.json"),
-             declared=dict(tests=10, identity=[ident["verdict"], ident["cells"], ident["pixelAndMeasurementIdentical"],
+             declared=dict(tests=11, identity=[ident["verdict"], ident["cells"], ident["pixelAndMeasurementIdentical"],
                                                ident["readsNoChange"]], projection=ident["projection"]),
              statement="A check, not a solver: L1 through the cuts' own cut_l1, the level rows, every excess attributed to "
                        "the stand-down the runtime's own arithmetic predicts. The shipped rung reproduces d0219cd684bf on "
