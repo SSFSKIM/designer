@@ -1,0 +1,137 @@
+W46 G0 (e): per-cell predictions (PREDICTIONS; the ladders and the level check replace them)
+
+1. The transmission's structure share, scatter held (web(a) = web · (1 − α(a))/(1 − α(shipped))):
+  apple-macos-27.0-1x-dark-standard-glass0.25 P              n=9   A 0.879 0.703 0.364 0.367 0.580   (rungs rest 0.9/0.8/0.7/0.6/0.5, inactive 0.89/0.8/0.7/0.6/0.5); halved at ['rung 2', 'rung 3']
+  apple-macos-27.0-1x-dark-standard-glass0.25 C rest         n=28  A 0.390 0.318 0.632 0.909 1.126   (rungs rest 0.9/0.8/0.7/0.6/0.5, inactive 0.89/0.8/0.7/0.6/0.5); halved at no rung
+  apple-macos-27.0-1x-dark-standard-glass0.25 F inactive     n=2   A 0.917 1.462 1.846 2.122 2.338   (rungs rest 0.9/0.8/0.7/0.6/0.5, inactive 0.89/0.8/0.7/0.6/0.5); halved at no rung
+  apple-macos-27.0-2x-dark-standard-glass0.25 P              n=9   A 0.965 0.658 0.302 0.270 0.483   (rungs rest 0.9/0.8/0.7/0.6/0.5, inactive 0.89/0.8/0.7/0.6/0.5); halved at ['rung 2', 'rung 3', 'rung 4']
+  apple-macos-27.0-2x-dark-standard-glass0.25 C rest         n=28  A 0.538 0.282 0.434 0.697 0.904   (rungs rest 0.9/0.8/0.7/0.6/0.5, inactive 0.89/0.8/0.7/0.6/0.5); halved at no rung
+  apple-macos-27.0-2x-dark-standard-glass0.25 F inactive     n=2   A 0.982 1.526 1.908 2.184 2.400   (rungs rest 0.9/0.8/0.7/0.6/0.5, inactive 0.89/0.8/0.7/0.6/0.5); halved at no rung
+  per target cell: the a at which the predicted ratio reaches 1 (None: not on [0.5, 0.9])
+    1x checkerboard__capsule-button__rest             ×0.43 -> ×1 at 0.76
+    1x photo__capsule-button__rest                    ×0.43 -> ×1 at 0.76
+    1x checkerboard__rrect-md__rest                   ×0.61 -> ×1 at 0.83
+    1x photo__rrect-md__rest                          ×0.37 -> ×1 at 0.72
+    1x impulse__capsule-button__rest                  ×0.87 -> ×1 at 0.88
+    1x photo__capsule-button__pressed                 ×1.58 -> ×1 at over
+    1x checkerboard__capsule-button__rest-tint-orange ×0.90 -> ×1 at 0.88
+    1x photo__capsule-button__rest-tint-orange        ×0.54 -> ×1 at 0.81
+    1x checkerboard-32__rrect-sm__rest                ×0.42 -> ×1 at 0.76
+    1x checkerboard-32__capsule-button__rest          ×0.35 -> ×1 at 0.71
+    1x checkerboard-32__rrect-md__rest                ×0.46 -> ×1 at 0.78
+    1x checkerboard-32__rrect-lg__rest                ×0.50 -> ×1 at 0.8
+    1x checkerboard-64__rrect-sm__rest                ×0.70 -> ×1 at 0.85
+    1x checkerboard-64__capsule-button__rest          ×0.25 -> ×1 at 0.6
+    1x checkerboard-64__rrect-md__rest                ×0.41 -> ×1 at 0.75
+    1x checkerboard-64__rrect-ml__rest                ×0.40 -> ×1 at 0.75
+    1x checkerboard-64__rrect-lg__rest                ×0.39 -> ×1 at 0.74
+    1x checkerboard-lc16__rrect-sm__rest              ×0.71 -> ×1 at 0.85
+    1x checkerboard-lc16__capsule-button__rest        ×0.63 -> ×1 at 0.84
+    1x checkerboard-lc16__rrect-md__rest              ×1.11 -> ×1 at over
+    1x checkerboard-lc16__rrect-ml__rest              ×1.12 -> ×1 at over
+    1x checkerboard-lc16__rrect-lg__rest              ×1.16 -> ×1 at over
+    1x hc-text-28__rrect-sm__rest                     ×0.42 -> ×1 at 0.76
+    1x hc-text-28__rrect-md__rest                     ×0.42 -> ×1 at 0.76
+    1x hc-text-28__rrect-lg__rest                     ×0.68 -> ×1 at 0.85
+    1x hc-text__rrect-sm__rest                        ×0.45 -> ×1 at 0.77
+    1x hc-text__rrect-lg__rest                        ×1.22 -> ×1 at over
+    1x checkerboard-32__capsule-button__rest-tint-orange ×0.84 -> ×1 at 0.88
+    1x checkerboard-64__capsule-button__rest-tint-orange ×0.75 -> ×1 at 0.86
+    1x impulse__rrect-sm__rest                        ×0.73 -> ×1 at 0.86
+    1x impulse__rrect-ml__rest                        ×0.90 -> ×1 at 0.88
+    1x impulse__rrect-lg__rest                        ×0.90 -> ×1 at 0.88
+    1x photo__capsule-button__inactive-pressed        ×1.71 -> ×1 at over
+    1x photo__capsule-button__inactive-tint-orange    ×0.26 -> ×1 at 0.57
+    1x photo__capsule-button__inactive                ×0.22 -> ×1 at 0.51
+    1x photo__rrect-md__inactive                      ×0.25 -> ×1 at 0.55
+    1x checkerboard-8__rrect-md__inactive             ×2.88 -> ×1 at over
+    1x checkerboard-8__rrect-lg__inactive             ×3.35 -> ×1 at over
+    1x photo__rrect-ml__inactive                      ×0.25 -> ×1 at 0.56
+    2x checkerboard__capsule-button__rest             ×0.35 -> ×1 at 0.71
+    2x photo__capsule-button__rest                    ×0.34 -> ×1 at 0.7
+    2x checkerboard__rrect-md__rest                   ×0.48 -> ×1 at 0.79
+    2x photo__rrect-md__rest                          ×0.33 -> ×1 at 0.7
+    2x impulse__capsule-button__rest                  ×0.77 -> ×1 at 0.87
+    2x photo__capsule-button__pressed                 ×1.55 -> ×1 at over
+    2x checkerboard__capsule-button__rest-tint-orange ×0.60 -> ×1 at 0.83
+    2x photo__capsule-button__rest-tint-orange        ×0.40 -> ×1 at 0.74
+    2x checkerboard-32__rrect-sm__rest                ×0.38 -> ×1 at 0.73
+    2x checkerboard-32__capsule-button__rest          ×0.33 -> ×1 at 0.69
+    2x checkerboard-32__rrect-md__rest                ×0.47 -> ×1 at 0.78
+    2x checkerboard-32__rrect-lg__rest                ×0.62 -> ×1 at 0.83
+    2x checkerboard-64__rrect-sm__rest                ×0.54 -> ×1 at 0.81
+    2x checkerboard-64__capsule-button__rest          ×0.26 -> ×1 at 0.61
+    2x checkerboard-64__rrect-md__rest                ×0.43 -> ×1 at 0.76
+    2x checkerboard-64__rrect-ml__rest                ×0.48 -> ×1 at 0.79
+    2x checkerboard-64__rrect-lg__rest                ×0.47 -> ×1 at 0.78
+    2x checkerboard-lc16__rrect-sm__rest              ×0.57 -> ×1 at 0.82
+    2x checkerboard-lc16__capsule-button__rest        ×0.49 -> ×1 at 0.79
+    2x checkerboard-lc16__rrect-md__rest              ×0.92 -> ×1 at 0.89
+    2x checkerboard-lc16__rrect-ml__rest              ×1.05 -> ×1 at over
+    2x checkerboard-lc16__rrect-lg__rest              ×1.03 -> ×1 at over
+    2x hc-text-28__rrect-sm__rest                     ×0.36 -> ×1 at 0.72
+    2x hc-text-28__rrect-md__rest                     ×0.40 -> ×1 at 0.74
+    2x hc-text-28__rrect-lg__rest                     ×0.77 -> ×1 at 0.87
+    2x hc-text__rrect-sm__rest                        ×0.37 -> ×1 at 0.72
+    2x hc-text__rrect-lg__rest                        ×1.15 -> ×1 at over
+    2x checkerboard-32__capsule-button__rest-tint-orange ×0.56 -> ×1 at 0.82
+    2x checkerboard-64__capsule-button__rest-tint-orange ×0.54 -> ×1 at 0.81
+    2x impulse__rrect-sm__rest                        ×0.71 -> ×1 at 0.85
+    2x impulse__rrect-ml__rest                        ×0.81 -> ×1 at 0.87
+    2x impulse__rrect-lg__rest                        ×0.77 -> ×1 at 0.87
+    2x photo__capsule-button__inactive-pressed        ×1.71 -> ×1 at over
+    2x photo__capsule-button__inactive-tint-orange    ×0.25 -> ×1 at 0.56
+    2x photo__capsule-button__inactive                ×0.21 -> ×1 at None
+    2x photo__rrect-md__inactive                      ×0.26 -> ×1 at 0.58
+    2x checkerboard-8__rrect-md__inactive             ×3.28 -> ×1 at over
+    2x checkerboard-8__rrect-lg__inactive             ×3.60 -> ×1 at over
+    2x photo__rrect-ml__inactive                      ×0.28 -> ×1 at 0.6
+
+2. The level (W9 solve; clamp boundary = the largest a, 0.01 grid, at which the neutral clamps):
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive   clamp below 0.58; excess 0.5 +0.0424
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange clamp below 0.58; excess 0.5 +0.0424
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest       clamp below 0.57; excess 0.5 +0.0358
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange clamp below 0.57; excess 0.5 +0.0358
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__inactive         clamp below 0.64; excess 0.5 +0.0684, 0.6 +0.0209
+  apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest             clamp below 0.63; excess 0.5 +0.0621, 0.6 +0.0146
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive        clamp below None; excess ; authority 0.707
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest            clamp below None; excess ; authority 0.957
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive              clamp below 0.9; excess 0.5 +0.0024, 0.6 +0.0019, 0.7 +0.0013, 0.8 +0.0008, 0.89 +0.0004, 0.9 +0.0003
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest                  clamp below None; excess ; authority 0.957
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__inactive              clamp below None; excess ; authority 0.798
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest                  clamp below None; excess ; authority 0.957
+  apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest                  clamp below None; excess ; authority 0.957
+  apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__capsule-button__inactive    clamp below 0.5; excess 0.5 +0.0017
+  apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__inactive          clamp below 0.78; excess 0.5 +0.2372, 0.6 +0.1526, 0.7 +0.0679
+  apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__rest              clamp below 0.76; excess 0.5 +0.2272, 0.6 +0.1426, 0.7 +0.0579
+  apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-ml__inactive          clamp below 0.78; excess 0.5 +0.2372, 0.6 +0.1526, 0.7 +0.0679
+  apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive clamp below 0.64; excess 0.5 +0.0304, 0.6 +0.0090
+  apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive-tint-orange clamp below 0.64; excess 0.5 +0.0304, 0.6 +0.0090
+  apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__rrect-lg__inactive     clamp below 0.61; excess 0.5 +0.0233, 0.6 +0.0030
+  apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__rrect-md__inactive     clamp below 0.61; excess 0.5 +0.0233, 0.6 +0.0030
+  apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive   clamp below 0.58; excess 0.5 +0.0424
+  apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange clamp below 0.58; excess 0.5 +0.0424
+  apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__rest       clamp below 0.57; excess 0.5 +0.0358
+  apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange clamp below 0.57; excess 0.5 +0.0358
+  apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__inactive         clamp below 0.64; excess 0.5 +0.0684, 0.6 +0.0209
+  apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest             clamp below 0.63; excess 0.5 +0.0621, 0.6 +0.0146
+  apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive        clamp below None; excess ; authority 0.710
+  apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest            clamp below None; excess ; authority 0.957
+  apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive              clamp below 0.9; excess 0.5 +0.0024, 0.6 +0.0019, 0.7 +0.0013, 0.8 +0.0008, 0.89 +0.0004, 0.9 +0.0003
+  apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest                  clamp below None; excess ; authority 0.957
+  apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__inactive              clamp below None; excess ; authority 0.798
+  apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest                  clamp below None; excess ; authority 0.957
+  apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest                  clamp below None; excess ; authority 0.957
+  apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__capsule-button__inactive    clamp below 0.5; excess 0.5 +0.0017
+  apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__inactive          clamp below 0.78; excess 0.5 +0.2372, 0.6 +0.1526, 0.7 +0.0679
+  apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__rest              clamp below 0.76; excess 0.5 +0.2272, 0.6 +0.1426, 0.7 +0.0579
+  apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-ml__inactive          clamp below 0.78; excess 0.5 +0.2372, 0.6 +0.1526, 0.7 +0.0679
+  apple-macos-27.0-2x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive clamp below 0.64; excess 0.5 +0.0304, 0.6 +0.0090
+  apple-macos-27.0-2x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive-tint-orange clamp below 0.64; excess 0.5 +0.0304, 0.6 +0.0090
+  apple-macos-27.0-2x-dark-standard-glass0.25/mid-chroma-solid__rrect-lg__inactive     clamp below 0.61; excess 0.5 +0.0233, 0.6 +0.0030
+  apple-macos-27.0-2x-dark-standard-glass0.25/mid-chroma-solid__rrect-md__inactive     clamp below 0.61; excess 0.5 +0.0233, 0.6 +0.0030
+
+3. S1's dark medians, predicted (rest/inactive rung):
+  apple-macos-27.0-1x-dark-standard-glass0.25: 0.9/0.89 median 0.314 (0 thick cells moved); 0.8/0.8 median 0.314 (0 thick cells moved); 0.7/0.7 median 0.382 (4 thick cells moved); 0.6/0.6 median 2.547 (9 thick cells moved); 0.5/0.5 median 6.586 (9 thick cells moved)
+  apple-macos-27.0-2x-dark-standard-glass0.25: 0.9/0.89 median 0.311 (0 thick cells moved); 0.8/0.8 median 0.311 (0 thick cells moved); 0.7/0.7 median 0.338 (3 thick cells moved); 0.6/0.6 median 1.786 (8 thick cells moved); 0.5/0.5 median 5.911 (8 thick cells moved)
+  after a dark 0.25 refit with dark 0.5 frozen, S1's dark reading is the refit's change plus the slider's, and says nothing about Apple's slider until dark 0.5 is refit under the same families (Decision Log 1)

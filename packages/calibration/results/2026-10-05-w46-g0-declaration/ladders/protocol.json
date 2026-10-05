@@ -1,0 +1,376 @@
+{
+ "schema": "w46-ladder-protocol-1",
+ "$comment": [
+  "W46 G0: the three ladders' protocol (charter Design \"The ladders\", MARKED; clause 4; X60, X61, X63), hashed in",
+  "part 1 before any ladder render. Every rung is a candidate built by fit/build-candidate.ts from the snapshots",
+  "with ONE leaf moved from its snapshot value (X64 keys first at their resolved value, which the builder admits),",
+  "rendered in candidate mode on the WebGPU tier at BOTH scales with --alpha, on exactly the ladder's cells in",
+  "ladders/cells.json and nothing else, through with-gpu.sh (the GPU lock, the classifying census, the browser pin).",
+  "The shipped rung of every ladder is `control` (the snapshots, no override), rendered on the union of the ladders'",
+  "cells; level.py identity must read it IDENTICAL to d0219cd684bf (pixels and measured fields) or the ladders stop.",
+  "No referee or holdout row renders (the planner adapter keeps the manifest off every ladder cell; the reader",
+  "refuses one). X60 at every rung by evidence: stage/x60.py evidence over ladders/candidates/."
+ ],
+ "tier": "webgpu",
+ "profiles": [
+  "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "apple-macos-27.0-2x-dark-standard-glass0.25"
+ ],
+ "cells": {
+  "path": "ladders/cells.json",
+  "sha256": "93a1fb4fd36c58c1c08bdc152fdee9cf033fbe22b324f7714b3a85538db13b15"
+ },
+ "sets": "calibration,validation,probe",
+ "control": {
+  "label": "control",
+  "overrides": {},
+  "renders": "the union of the three ladders' cells, both poses",
+  "must": "level.py identity IDENTICAL on every row (pixel identity and measurement identity to d0219cd684bf; provenance validated and retained), else the ladders stop as an instrument failure"
+ },
+ "ladders": [
+  {
+   "id": "i",
+   "name": "the transmission (target P; X61)",
+   "arms": [
+    {
+     "id": "i-a",
+     "slot": "active.dark",
+     "leaf": "optics.regular.tintAlpha",
+     "values": [
+      0.8,
+      0.7,
+      0.6,
+      0.5
+     ],
+     "shipped": 0.9,
+     "domain": [
+      0.5,
+      0.9
+     ],
+     "unit": "alpha",
+     "actsAt": "both",
+     "why": "each document's tintAlpha alone, the other held; every tone ordinate HELD"
+    },
+    {
+     "id": "i-r",
+     "slot": "receded.dark",
+     "leaf": "optics.regular.tintAlpha",
+     "values": [
+      0.8,
+      0.7,
+      0.6,
+      0.5
+     ],
+     "shipped": 0.89,
+     "domain": [
+      0.5,
+      0.89
+     ],
+     "unit": "alpha",
+     "actsAt": "both",
+     "why": "the receded document's own tintAlpha alone; every tone ordinate HELD"
+    }
+   ],
+   "cellsByArm": {
+    "i-a": "rest",
+    "i-r": "inactive"
+   },
+   "reads": {
+    "T1": "the twelve photo and checker calibration cells per scale (the six of the arm's pose), and photo__rrect-ml__inactive on the receded arm",
+    "level": "level.py check on every rung: L1 (absolute and growth against d0219cd684bf) on its declared population, the level rows on every rendered cell, each excess attributed (clamp, authority, collapse, unexplained)"
+   },
+   "bar": "the photo T1 ratio rises monotonically toward 1 along each arm (every photo cell's web SD non-decreasing rung on rung beyond its bar, the photo median ratio moving toward 1); every rung at which L1's growth clause fails is named with the stand-down the check attributes it to",
+   "decides": [
+    "narrow",
+    "strike",
+    "name-target"
+   ],
+   "decision": "narrow: the stage's tintAlpha grid becomes the shipped value and the rungs at which L1's growth and absolute clauses pass (the passing rungs are the transmission's domain in the fit); strike: an arm whose photo cells move by no more than their bar on any rung; name-target: target P named not fitted (X63) if no passing rung raises the photo ratio of its pose"
+  },
+  {
+   "id": "ii",
+   "name": "the rest scatter (target C rest)",
+   "levers": [
+    {
+     "id": "ii-fa",
+     "slot": "active.dark",
+     "leaf": "sizeScatterFloor",
+     "values": [
+      0.1,
+      0.2,
+      0.5
+     ],
+     "shipped": 0.34,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "1x",
+     "why": "the 1x floor: rrect-sm's deep share is the floor (W30's third form)"
+    },
+    {
+     "id": "ii-fb",
+     "slot": "active.dark",
+     "leaf": "sizeScatterFloor2x",
+     "values": [
+      0.85,
+      0.7,
+      0.5
+     ],
+     "shipped": 1,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "2x",
+     "why": "the 2x floor (X64, from its resolved 1)"
+    },
+    {
+     "id": "ii-n1",
+     "slot": "active.dark",
+     "leaf": "sizeScatterRampStartThin1x",
+     "values": [
+      0.6,
+      0.85,
+      1.0
+     ],
+     "shipped": 0.72,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "1x",
+     "why": "the 1x thin ramp start (X64, from 0.72)"
+    },
+    {
+     "id": "ii-n2",
+     "slot": "active.dark",
+     "leaf": "sizeScatterRampStartThin2x",
+     "values": [
+      0.6,
+      0.75,
+      0.9
+     ],
+     "shipped": 0.46,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "2x",
+     "why": "the 2x thin ramp start (X64, from 0.46)"
+    },
+    {
+     "id": "ii-s1",
+     "slot": "active.dark",
+     "leaf": "sizeHeavyTapSigma",
+     "values": [
+      4,
+      8,
+      13
+     ],
+     "shipped": 0,
+     "domain": [
+      0,
+      24
+     ],
+     "unit": "CSS px",
+     "actsAt": "1x",
+     "why": "the 1x heavy tap's width, from 0 (off: the chain level)"
+    },
+    {
+     "id": "ii-s2",
+     "slot": "active.dark",
+     "leaf": "sizeHeavyTapSigma2x",
+     "values": [
+      4,
+      8,
+      13
+     ],
+     "shipped": 0,
+     "domain": [
+      0,
+      24
+     ],
+     "unit": "CSS px",
+     "actsAt": "2x",
+     "why": "the 2x heavy tap's width, from 0 (off: the chain level)"
+    }
+   ],
+   "cellsByArm": {
+    "*": "rest+inactive"
+   },
+   "reads": {
+    "thin": "the thin rest cells (span <= 44): checkerboard-4 rrect-sm and capsule, checkerboard-8 capsule, checkerboard capsule, checkerboard-32 and -64 rrect-sm and capsule",
+    "mid": "the mid rest cells (span 96): checkerboard-4 and -8 rrect-md, checkerboard rrect-md, checkerboard-32 and -64 rrect-md",
+    "bar cells": "the two fit-member F inactive cells: checkerboard-8 rrect-md and rrect-lg inactive",
+    "otherScale": "the scale the lever does not act at is byte-identical to the control's (the scale anchoring the fit's scale-separable rendering rests on)"
+   },
+   "bar": "at least one lever has a rung that raises the thin cells' structure (the median over the thin cells of T1 web minus the control's above 0.5 code, no thin cell lowered beyond its bar) without raising either F inactive bar cell beyond its bar",
+   "decides": [
+    "strike",
+    "narrow",
+    "name-target"
+   ],
+   "decision": "strike: a lever whose every rung moves every one of its cells by no more than its bar at the scale it acts at; narrow: a grid to the subset inside the lever's non-flat range; name-target: target C rest named not fitted with the operator's shape (X63) if no lever meets the bar"
+  },
+  {
+   "id": "iii",
+   "name": "the receded scatter (target F inactive)",
+   "levers": [
+    {
+     "id": "iii-rn1",
+     "slot": "receded.dark",
+     "leaf": "sizeScatterRampStartThin1x",
+     "values": [
+      0.7,
+      0.4,
+      0.1
+     ],
+     "shipped": 1,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "1x",
+     "why": "the receded thin start, 1x"
+    },
+    {
+     "id": "iii-rn2",
+     "slot": "receded.dark",
+     "leaf": "sizeScatterRampStartThin2x",
+     "values": [
+      0.7,
+      0.4,
+      0.1
+     ],
+     "shipped": 1,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "2x",
+     "why": "the receded thin start, 2x"
+    },
+    {
+     "id": "iii-rk1",
+     "slot": "receded.dark",
+     "leaf": "sizeScatterRampStartThick1x",
+     "values": [
+      0.15,
+      0
+     ],
+     "shipped": 0.3,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "1x",
+     "why": "the receded thick start, 1x"
+    },
+    {
+     "id": "iii-rk2",
+     "slot": "receded.dark",
+     "leaf": "sizeScatterRampStartThick2x",
+     "values": [
+      0,
+      0.2
+     ],
+     "shipped": 0.04,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "2x",
+     "why": "the receded thick start, 2x"
+    },
+    {
+     "id": "iii-re1",
+     "slot": "receded.dark",
+     "leaf": "sizeScatterRampStartFar1x",
+     "values": [
+      0.1,
+      0
+     ],
+     "shipped": 0.2,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "1x",
+     "why": "the receded far start, 1x (X64, from its resolved 0.2)"
+    },
+    {
+     "id": "iii-re2",
+     "slot": "receded.dark",
+     "leaf": "sizeScatterRampStartFar2x",
+     "values": [
+      0,
+      0.2
+     ],
+     "shipped": 0.04,
+     "domain": [
+      0,
+      1
+     ],
+     "unit": "share",
+     "actsAt": "2x",
+     "why": "the receded far start, 2x"
+    },
+    {
+     "id": "iii-rs2",
+     "slot": "receded.dark",
+     "leaf": "sizeHeavyTapSigma2x",
+     "values": [
+      9,
+      18,
+      24
+     ],
+     "shipped": 14,
+     "domain": [
+      0,
+      32
+     ],
+     "unit": "CSS px",
+     "actsAt": "2x",
+     "why": "the receded heavy tap's width, 2x"
+    }
+   ],
+   "cellsByArm": {
+    "*": "inactive"
+   },
+   "reads": {
+    "fine": "checkerboard-8__rrect-md__inactive and checkerboard-8__rrect-lg__inactive",
+    "coarse": "checkerboard__rrect-ml__inactive",
+    "photo": "photo__rrect-md__inactive",
+    "otherScale": "the scale the lever does not act at is byte-identical to the control's"
+   },
+   "bar": "a rung that lowers both fine inactive cells toward Apple (each cell's |T1 web - native| smaller than the control's by more than its bar) without lowering the photo inactive cell's ratio below its present x0.25 (its web SD not lower than the control's beyond its bar)",
+   "decides": [
+    "strike",
+    "narrow",
+    "name-target"
+   ],
+   "decision": "strike, narrow as (ii); name-target: target F inactive named not fitted with the operator's shape (X63; the memo's candidate: a receded-only fine term) if no lever meets the bar, in particular if the levers move the coarse and fine inactive cells together"
+  }
+ ],
+ "decisions": {
+  "strike": "remove a draft leaf whose ladder read it flat",
+  "narrow": "replace a draft grid by a non-empty subset of itself inside its ladder's non-flat range (for tintAlpha: the shipped value and the passing rungs)",
+  "name-target": "a target whose ladders show no lever is NOT fitted: part 2 names it with the operator's shape for the parent's ruling (X63; Decision Log 4) and its family's leaves leave the draft",
+  "stop": "if no target has a lever, the wave closes at G0 with the finding and part 2 is not hashed"
+ },
+ "notDecided": [
+  "any value: the ladders read levers, the fit decides values",
+  "any operator: one is added only by the parent's ruling and an inert landing (X63)",
+  "a landing verdict on any rung: the rule reads the gate population"
+ ]
+}
