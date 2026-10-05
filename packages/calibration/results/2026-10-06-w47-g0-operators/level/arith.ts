@@ -116,11 +116,19 @@ function requireOperator1(patches: Record<string, MaterialProfilePatch>): void {
 /** farS: the far curve the optics pass reads per pixel, `smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)`. */
 const farCurve = (span: number, profile: MaterialProfile, dpr: number): number =>
   smooth(profile.sizeSpanMax, scatterSpanMaxAtScale(profile, dpr), span);
-/** alphaBase = clamp(tintAlpha + tintAlphaFarAtScale · farS, 0, 1), before the occlusion term. */
+/** alphaBase = clamp(tintAlpha + tintAlphaFarAtScale · farS, 0, 1), before the occlusion term. Where the
+ *  runtime exports its CPU statement of the law (`spanGradedTintAlpha`, the expression the CSS tier's
+ *  `materialAtBackdrop` applies before `sizeOcclusionAlphaAt`), alphaBase is taken from it, so the check
+ *  composes the operator exactly as the runtime does; the local expression is the identity-only path. */
+type SpanGraded = (alpha: number, spanPx: number, profile: MaterialProfile, devicePixelRatio: number) => number;
+const spanGradedTintAlpha = (runtime as unknown as { spanGradedTintAlpha?: SpanGraded }).spanGradedTintAlpha;
 const alphaBaseAt = (profile: MaterialProfile, span: number, dpr: number) => {
   const farS = farCurve(span, profile, dpr);
   const delta = farDelta(profile, dpr);
-  return { farS, farDelta: delta, alphaBase: Math.min(1, Math.max(0, profile.optics.regular.tintAlpha + delta * farS)) };
+  const alpha = profile.optics.regular.tintAlpha;
+  const alphaBase = spanGradedTintAlpha !== undefined ? spanGradedTintAlpha(alpha, span, profile, dpr)
+    : Math.min(1, Math.max(0, alpha + delta * farS));
+  return { farS, farDelta: delta, alphaBase };
 };
 
 function solve(profile: MaterialProfile, cell: Cell) {
