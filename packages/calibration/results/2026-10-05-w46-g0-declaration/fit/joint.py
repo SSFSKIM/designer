@@ -50,6 +50,13 @@ def moved(label: str) -> int:
     return sum(len(v) for v in spec["overrides"].values())
 
 
+def two_point(record: dict) -> bool:
+    """A stage record of Decision Log 9's protocol: its `points` is the A/B map. An ordinary `decide`
+    record also carries `points`, as its list of candidate rows, so presence alone is not the test."""
+    pts = record.get("points")
+    return isinstance(pts, dict) and set(pts) == {"A", "B"}
+
+
 def path_of(start: str, stages: list[str], point: str = "A") -> dict:
     r = fit.rule()
     landed, components = {}, {}
@@ -63,7 +70,7 @@ def path_of(start: str, stages: list[str], point: str = "A") -> dict:
         if landed and record.get("base") != landed[stages[stages.index(s) - 1]]:
             raise fit.W.Refusal(f"joint: {start} {s} starts from {record.get('base')}, not the previous stage's "
                                 f"landed {landed[stages[stages.index(s) - 1]]}")
-        landed[s] = record["landed"] if point == "A" or "points" not in record else record["points"][point]["landed"]
+        landed[s] = record["points"][point]["landed"] if two_point(record) else record["landed"]
         if landed[s] is None:
             raise fit.W.Refusal(f"joint: {start} {s} landed no point {point} (Decision Log 9)")
         components[s] = record.get("components", [])
@@ -91,7 +98,7 @@ def path_of(start: str, stages: list[str], point: str = "A") -> dict:
 def main(argv) -> int:
     stages = (argv[argv.index("--stages") + 1] if "--stages" in argv else "stage1,stage2").split(",")
     last = json.loads((PATH / fit.STARTS[0] / f"{stages[-1]}.json").read_text())
-    if "points" in last:
+    if two_point(last):
         return two_points(stages, last)
     p = path_of(fit.STARTS[0], stages)
     result = dict(what="W46 G1: the joint point of the one lineage and the interactions rule", stages=stages,

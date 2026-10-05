@@ -494,6 +494,11 @@ class TwoPoints(unittest.TestCase):
         with self.assertRaisesRegex(W.Refusal, "not .*grid"):
             self.run_stage(lambda ov, scope: 0, lambda ov: 0, grid=(0.7, 0.89))
 
+    def test_joint_tells_the_a_b_map_from_a_decide_record(self):
+        import joint
+        self.assertFalse(joint.two_point(dict(landed="x", points=[dict(label="x")])))   # stage 1's rows
+        self.assertTrue(joint.two_point(dict(landed="a", points=dict(A=dict(landed="a"), B=dict(landed="b")))))
+
     def test_l1_excess_sums_both_clauses_over_the_poses_measured_cells(self):
         cells = {"1x": [dict(cell=f"p1/{IMPULSE}", error=0.074, growth=0.033, status="MEASURED"),
                         dict(cell="p1/photo__capsule-button__inactive", error=0.05, growth=0.006, status="MEASURED"),

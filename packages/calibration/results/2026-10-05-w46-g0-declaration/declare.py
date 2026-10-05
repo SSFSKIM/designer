@@ -60,8 +60,9 @@ and W45 G0 used). The parent ruled on G1's step-0 diagnosis: widen the receded `
   outcomes are read on that reverted body, which is the hashed part 2 the ruling amends.
 - `partOnePins`, moves of the part-1 sources the amendment's tools changed. Part 1 cannot be amended
   once a ladder renders, so, as in W45, part 1's check accepts a moved pin only for
-  `PART_ONE_REPINNABLE` and only along the move this record names, from the pinned hash to the bytes
-  on disk. Part 1's declaration and hash do not move.
+  `PART_ONE_REPINNABLE`, only along the move this record names, and only at the bytes the AMENDED
+  part 2 pins in its own `sources` (each part-1 move is added there, inside part 2's hash chain, so
+  `check-fit` re-hashes it). Part 1's declaration and hash do not move.
 The ops re-add stage 2's receded scatter family, which the F inactive `name-target` change had
 removed. Point A's clause, "any point where the receded scatter leaves ... dilute the dot enough for
 L1 to pass at 0.8", is a search over those leaves. F inactive stays named not fitted, and the leaves
@@ -637,9 +638,19 @@ def part_one_moves() -> dict:
     return out
 
 
+def amended_sources() -> dict:
+    """The amended part 2's own `sources`: the hashed record of every part-1 move (the review's P1)."""
+    path = PARTS["fit"]["declaration"]
+    return json.loads(path.read_text()).get("sources", {}) if path.exists() and amendments("fit") else {}
+
+
 def accepted_repin(key: str, pinned: str, now: str) -> bool:
+    """A moved part-1 pin is accepted only along the move part 2's amendment records AND only at the
+    bytes the AMENDED part 2 pins in its own `sources` (inside its hash chain), so editing a tool and
+    the unhashed record together still fails `check-fit`'s pin of that tool."""
     move = part_one_moves().get(key)
-    return bool(move) and move.get("from") == pinned and move.get("to") == now
+    return (bool(move) and move.get("from") == pinned and move.get("to") == now
+            and amended_sources().get(key) == now)
 
 
 def chain(c, part, d):
@@ -660,6 +671,12 @@ def chain(c, part, d):
         for path, move in (a.get("pins") or {}).items():
             c.eq(f"chain ({part}): amendment {i + 1} pin {path}", state["sources"].get(path), move.get("to"))
             state["sources"][path] = move.get("from")
+        for path, move in (a.get("partOnePins") or {}).items():
+            if path in (a.get("pins") or {}):
+                continue
+            c.eq(f"chain ({part}): amendment {i + 1} part-1 pin {path} in part 2's sources",
+                 state["sources"].get(path), move.get("to"))
+            state["sources"].pop(path, None)
         if a.get("ops"):
             try:
                 state = revert_ops(state, a["ops"])
@@ -957,6 +974,13 @@ def amend(part, argv):
             return 2
         ops = ruling_nine_ops(d)
         d = apply_ops(d, ops)
+        # Every part-1 move is pinned in the amended part 2 too, inside its hash (the review's P1): a
+        # source part 2 already pins moved with `pins`; the others are added to its `sources`.
+        for key, move in one.items():
+            if key in d["sources"] and key not in moves:
+                print(f"amend REFUSES: {key} is a part-2 source and must be named as a pin")
+                return 2
+            d["sources"][key] = move["to"]
         content = {"charter": f"{W.CHARTER_PATH}@{args.charter_commit}", "ruling": RULING_NINE, "ops": ops,
                    "partOnePins": one}
     raw = serialise(d)

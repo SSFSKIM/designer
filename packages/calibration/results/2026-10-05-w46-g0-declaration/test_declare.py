@@ -301,10 +301,16 @@ class RulingNine(unittest.TestCase):
 
     def test_a_part_one_pin_is_accepted_only_along_the_recorded_move(self):
         key = f"{D.REL}/fit/search.py"
-        with mock.patch.object(D, "part_one_moves", lambda: {key: {"from": "a", "to": "b"}}):
+        with mock.patch.object(D, "part_one_moves", lambda: {key: {"from": "a", "to": "b"}}), \
+                mock.patch.object(D, "amended_sources", lambda: {key: "b"}):
             self.assertTrue(D.accepted_repin(key, "a", "b"))
             self.assertFalse(D.accepted_repin(key, "a", "c"))
             self.assertFalse(D.accepted_repin(f"{D.REL}/cuts/rule.py", "a", "b"))
+        # The review's P1: a tool edited AND its unhashed record moved with it is still refused, because
+        # the amended part 2 pins the move's bytes inside its own hash chain.
+        with mock.patch.object(D, "part_one_moves", lambda: {key: {"from": "a", "to": "c"}}), \
+                mock.patch.object(D, "amended_sources", lambda: {key: "b"}):
+            self.assertFalse(D.accepted_repin(key, "a", "c"))
 
 
 class Pins(unittest.TestCase):
