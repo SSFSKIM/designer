@@ -361,8 +361,23 @@ mixed in before the deep form's term.
   and ladder (iii) reads it FIRST on its grid (1.25, 2, 3, 4 device px). The tap is the form that
   reaches the fine pitch without moving the thin inactive cells that are under Apple
   (`checkerboard__capsule-button__inactive` ×0.67 at point A), because its share is a leaf the
-  receded difference can set while the active holds 0, and because a Gaussian of 2–3 CSS px
-  attenuates an 8 px pitch to between a third and a sixteenth and a 64 px pitch by 2–4 %. If the body width's
+  receded difference can set while the active holds 0, and because its grid separates the two
+  pitches. A checkerboard of cell c has an axial period 2c and its lowest mode on the diagonal at
+  (1/2c, 1/2c) (W44 Grounding), so |f| = √2/2c, √2/16 cycles per CSS px for the 8 px cell, and a
+  Gaussian of σ CSS px passes that mode by exp(−π²σ²/c²):
+
+  | σ (CSS px) | 8 px cell passed | 64 px cell passed (lost) |
+  | --- | --- | --- |
+  | 1.5 | 0.71 | 0.995 (0.5 %) |
+  | 2 | 0.54 | 0.990 (1.0 %) |
+  | 3 | 0.25 | 0.979 (2.1 %) |
+  | 4 | 0.085 | 0.962 (3.8 %) |
+  | 6 | 0.004 | 0.917 (8.3 %) |
+
+  So σ 2–4 removes half to nine tenths of the 8 px mode while the 64 px mode keeps 96–99 %; σ 6
+  removes the 8 px mode entirely and costs the 64 px mode 8 %, which is why it is the grid's
+  bound, and why it is the diagnostic's width (that reading needs one component's 8 px structure
+  removed and reads no coarse cell). A share below 1 scales both losses. If the body width's
   rung meets clause 5 (iii)'s bar on its own, part 2 fits the body width and names the tap unfitted
   (X63); the tap still lands inert in G0 (Decision Log 3).
 - **Why receded-only by document, not by a pose leaf.** The receded difference is the unfocused
@@ -417,11 +432,18 @@ profile.
   width and share in the receded difference; the receded body width read first), the receded
   `tintAlpha` {0.8, 0.89}, point A's receded scatter (the thin starts, the floors, the thick 1x
   start, the gain) as the start, and the rest of W46's X64 receded list. *Prediction:* from point
-  A's ×1.72–2.38 on the two gate cells, a 2–3 CSS px tap at share 0.75–1 (in the body form; the
-  deep form's prediction is stated in part 1 if the diagnostic chooses it) attenuates the body
-  sample's 8 px pitch by about 70–95 % where the body is shown, so the cells are predicted within 2 B of
-  Apple at the joint rung; `checkerboard-64__rrect-md__inactive` (×0.63) and the photo inactive
-  cells are predicted to move by under 1 B. The impulse inactive cells (×6.6–8.8 at point A, the
+  A's ×1.72–2.38 on the two gate cells, in the body form (the deep form's prediction is stated
+  in part 1 if the diagnostic chooses it), the tap scales the body sample's 8 px mode by
+  `a = 1 − share + share · g`, with g from the table in Design "Operator 2". If the body carries
+  all of the web's structure on these cells (the hypothesis at its strongest, so this is an upper
+  bound on the effect) the ratio scales by a: ×0.93–1.28 at σ 2 and share 1; ×0.75–1.04 at σ 3,
+  share 0.75; ×1.07–1.49 at σ 3, share 0.5; ×0.93–1.29 at σ 4, share 0.5; and under Apple
+  (×0.54–0.75 or lower) at σ ≥ 4 with share ≥ 0.75. The predicted rung is therefore σ 2–3 at
+  share 0.5–1, or σ 4 at share 0.5. Where the body carries less of the structure, the same rung
+  moves the cells less. This is a prediction, and ladder (iii) replaces it: whether a ratio near
+  ×1 is within 2 B is read there in codes. `checkerboard-64__rrect-md__inactive` (×0.63, under
+  Apple) loses 1–4 % of its mode at σ 2–4 and share 1, so it is predicted to fall by under 1 B,
+  and the photo inactive cells likewise. The impulse inactive cells (×6.6–8.8 at point A, the
   dot passing the capsule) are predicted to fall with the tap, which is why ladder (iii) lists
   `impulse__capsule-button__inactive` beside the fine cells.
 - **No third operator.** The 1x twin of the second tap's far-graded share
@@ -507,9 +529,9 @@ identity (W46's definition; candidate provenance excluded).
     scale; no weight is taken from the ramp starts alone. The masks and weights explain the
     reading; they never choose the form.
   - *The renders.* Two scratch candidates, built on a scratch branch that is never merged: the body
-    form and the deep form at share 1 and width 6 CSS px at both scales (the grid's top, where the
-    fundamental of an 8 px checker is passed below 1 %), every other leaf at the shipped receded
-    document's values.
+    form and the deep form at share 1 and width 6 CSS px at both scales (the grid's top, where
+    the 8 px checker's lowest mode is passed at 0.004; Design "Operator 2", the table), every
+    other leaf at the shipped receded document's values.
   - *The criterion.* On each cell and scale, `E` is the reference's fine residual over the native
     one (T1-fine, W44's σ 4 device px band, linear light, native silhouette), and `R` is the share
     of `E` a form removes, `(T1_ref − T1_form) / E`. The body form is chosen when it removes at
@@ -713,7 +735,8 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
   start, the 2x heavy gain, W45's share and operator 1 together. Mitigation: the top is crossed
   with the far delta as one factorial; the light documents are untouched (X60).
 - **Operator 2 may blur what the receded photo and the coarse checkers need.** A 2–4 CSS px width
-  attenuates a 64 px pitch by 2–7 % but a photo's fine detail by more. Mitigation: ladder
+  takes 1.0–3.8 % of the 64 px checker's lowest mode at share 1 (8.3 % at σ 6), and more of a
+  photo's fine detail. Mitigation: ladder
   (iii) reads `checkerboard-64__rrect-md__inactive` and the photo inactive cells beside the fine
   cells; the rule prices every cell.
 - **Operator 2's insertion point may be wrong.** The body keeps a share at every depth at 1x and the
@@ -903,3 +926,13 @@ defined them; the classifying census on every web render.
     witness against `d0219cd684bf` (Design "The landing rule", clauses 9 and 10, G2, Decision
     Log 1's amendment). In passing, "the dark `T1_REFERENCE`" now reads `T1_DARK_REFERENCE`,
     the constant's actual name.
+  - **[fork's own finding, folded on the parent's instruction] The attenuation arithmetic used the
+    cell as the period.** v1 said 2–3 CSS px passes the 8 px checker at a third to a sixteenth,
+    which is the axial arithmetic for an 8 px period. A cell of c has the period 2c and its lowest
+    mode on the diagonal at √2/2c (W44 Grounding), which gives 0.54 at σ 2 and 0.25 at σ 3. Folded:
+    a per-σ table of both pitches in Design "Operator 2"; target F inactive's prediction
+    re-derived per σ and share (it was "70–95 %, within 2 B"; now σ 2–3 at share 0.5–1, an upper
+    bound that ladder (iii) replaces); the Risks' 64 px figure (it was 2–7 %; now 1.0–3.8 % at σ
+    2–4). The diagnostic's 6 CSS px and the grid {1.5, 2, 3, 4, 6} stand: the predicted rung is
+    inside the grid, and σ 6 is the bound and the diagnostic's width, with its 8 % coarse cost
+    stated.
