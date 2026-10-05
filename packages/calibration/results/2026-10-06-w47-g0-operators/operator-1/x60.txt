@@ -1,0 +1,40 @@
+W47 G0 (a), operator 1: X60 by evidence, the simple form (git diff af8cf7e5f --stat over the staged proof tree).
+Frozen paths checked: packages/calibration/profiles/, packages/calibration/results/generations/,
+packages/calibration/results/matrix.json, any web-captures/ tree, packages/renderer-webgpu/e2e/golden goldens, W44-W46 evidence.
+
+files under a frozen path that differ from af8cf7e5f:
+  none
+
+git diff af8cf7e5f --stat (every file the operator's three commits touch; this file excluded):
+ .../2026-10-06-w47-g0-operators/census.jsonl       |   15 +
+ .../operator-1/after/cases.json                    | 6665 ++++++++++++++++++++
+ .../operator-1/after/goldens.txt                   |   41 +
+ .../operator-1/before/cases.json                   | 6665 ++++++++++++++++++++
+ .../operator-1/before/goldens.txt                  |   41 +
+ .../operator-1/compare.py                          |   94 +
+ .../operator-1/compare.txt                         |   85 +
+ .../operator-1/digests.ts                          |   76 +
+ .../operator-1/digests.txt                         |   12 +
+ .../operator-1/identity.py                         |  164 +
+ .../operator-1/identity.txt                        |   88 +
+ .../operator-1/png-sha256.json                     |  410 ++
+ .../operator-1/readers.txt                         |   99 +
+ .../operator-1/suites.txt                          |   27 +
+ .../calibration/scripts/material-profile-file.ts   |    5 +
+ .../calibration/test/capture-integrity.test.ts     |    9 +
+ packages/calibration/test/tier-coherence.test.ts   |  149 +
+ .../calibration/test/w30-operator-identity.test.ts |    7 +-
+ .../calibration/test/w31-identity-table.test.ts    |    4 +
+ packages/platform-web/src/optics.ts                |   60 +-
+ packages/platform-web/test/css-tier.test.ts        |    3 +
+ packages/renderer-webgpu/e2e/fixtures/scenes.ts    |   59 +
+ .../renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts  |  264 +
+ packages/renderer-webgpu/src/index.ts              |    3 +
+ packages/renderer-webgpu/src/material.ts           |  125 +
+ packages/renderer-webgpu/src/passes.ts             |   15 +-
+ packages/renderer-webgpu/src/renderer.ts           |    5 +
+ packages/renderer-webgpu/src/wgsl/optics.ts        |   34 +-
+ .../renderer-webgpu/test/w30-inert-laws.test.ts    |   37 +
+ .../renderer-webgpu/test/w31-gate-groups.test.ts   |  127 +
+ 98 files changed, 15381 insertions(+), 7 deletions(-)
+  (+ 68 PNGs under operator-1/after/png/)

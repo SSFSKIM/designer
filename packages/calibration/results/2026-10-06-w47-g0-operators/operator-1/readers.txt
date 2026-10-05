@@ -42,9 +42,13 @@ opticsUnderPolicy            UNGRADED, and upstream of the grading by design: it
   (material.ts; renderer.ts  accessibility occlusion lift to `tintAlpha`, and the result is what
   packs it into d[15])       is packed into `ou.tint.w`. The shader grades AFTER the lift, so the
                              far delta adds to the lifted alpha and is clamped (the occlusion gain
-                             composes the same way). Under Reduce Transparency the lifted alpha is
-                             already near 1 and the clamp takes most of the delta; that
-                             combination is unmeasured, as every accessibility leaf at 0.25 is.
+                             composes the same way); it is the only order the shader admits,
+                             because `ou.tint.w` arrives already lifted. Ruled by the orchestrator
+                             after review (2026-10-06): the same order on both tiers.
+                             OPERATOR 1 UNDER REDUCE TRANSPARENCY / OPAQUE OCCLUSION IS UNMEASURED:
+                             the lifted alpha is already near 1 there and the clamp takes most of
+                             the delta, and no bed has read that combination (as no accessibility
+                             leaf at 0.25 has been read).
 tintAlphaFarAtScale,         new; the resolver (rampAtScale(far1x, far2x, dpr)) and the CPU
   spanGradedTintAlpha        statement of the shader's `alphaBase`, used by tier-coherence's pin.
 sizeOcclusionAlpha,          UNGRADED, deliberately. Their contract is the occlusion term alone on
