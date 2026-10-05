@@ -157,7 +157,8 @@ OPERATOR_2 = ("sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x")
 # X68: the operators' domains are the declaration's, not the shader's (the shader clamps operator 1's
 # alpha and gates operator 2's texture; it bounds neither the deltas, the widths nor the share). The
 # builder refuses a value outside them. Charter Design "Operator 1" and "Operator 2", "Domain and
-# grid", and Design "The targets" (the transmission's rungs); every other admitted or snapshot leaf
+# grid", and Design "The targets" (the transmission's rungs): an interval where the charter states the
+# domain as one (`∈ [a, b]`), a set where it states only the values; every other admitted or snapshot leaf
 # keeps W46's admission (a finite number at its own shape) and has no declared domain here. A domain is
 # a list of parts, each `("set", values)` or `("interval", lo, hi)` (closed); a value is inside when
 # some part holds it. Operator 2 is receded-only (X66): the active admits none of its leaves at all.
@@ -169,7 +170,10 @@ DOMAINS = {
                     "tintAlphaFar1x": _FAR, "tintAlphaFar2x": _FAR, "sizeOcclusionGain": _GAIN,
                     "sizeScatterSpanMax": _SPAN_TOPS, "sizeScatterSpanMax2x": _SPAN_TOPS},
     "receded.dark": {"optics.regular.tintAlpha": [("set", (0.8, 0.89))],
-                     "optics.regular.blurSigma": [("interval", 1.25, 4)],
+                     # A SET: the charter states this domain only as {1.25 (inherited), 2, 3, 4} device
+                     # px (Design "Operator 2", "Domain and grid"), where it states the operators' own
+                     # domains as intervals; 1.75 is outside it.
+                     "optics.regular.blurSigma": [("set", (1.25, 2, 3, 4))],
                      "tintAlphaFar1x": _FAR, "tintAlphaFar2x": _FAR, "sizeOcclusionGain": _GAIN,
                      "sizeScatterSpanMax": _SPAN_TOPS, "sizeScatterSpanMax2x": _SPAN_TOPS,
                      "sizeFineTapShare": [("interval", 0, 1)],

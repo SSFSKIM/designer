@@ -174,6 +174,8 @@ class X68(unittest.TestCase):
                  ("receded.dark", "optics.regular.tintAlpha", 0.7, False),
                  ("receded.dark", "optics.regular.blurSigma", 4, True),
                  ("receded.dark", "optics.regular.blurSigma", 5, False),
+                 ("receded.dark", "optics.regular.blurSigma", 1.75, False),   # interior non-member: a set
+                 ("receded.dark", "optics.regular.blurSigma", 2.5, False),
                  ("receded.dark", "sizeFineTapShare", 1, True), ("receded.dark", "sizeFineTapShare", 1.1, False),
                  ("receded.dark", "sizeFineTapSigma2x", 0, True), ("receded.dark", "sizeFineTapSigma2x", 1, False),
                  ("receded.dark", "sizeFineTapSigma", 6, True), ("receded.dark", "sizeFineTapSigma", 7, False),

@@ -214,7 +214,8 @@ class Refuses(unittest.TestCase):
                  ("receded.dark", "optics.regular.tintAlpha", 0.7), ("receded.dark", "optics.regular.tintAlpha", 0.9),
                  ("active.dark", "sizeOcclusionGain", 0.04), ("receded.dark", "sizeOcclusionGain", 0.61),
                  ("active.dark", "sizeScatterSpanMax", 150), ("receded.dark", "sizeScatterSpanMax2x", 512),
-                 ("receded.dark", "optics.regular.blurSigma", 1.0), ("receded.dark", "optics.regular.blurSigma", 5)]
+                 ("receded.dark", "optics.regular.blurSigma", 1.0), ("receded.dark", "optics.regular.blurSigma", 5),
+                 ("receded.dark", "optics.regular.blurSigma", 1.75)]      # inside [1.25, 4], outside the set
         for slot, key, value in cases:
             self.refused({slot: {key: value}}, "X68")
 

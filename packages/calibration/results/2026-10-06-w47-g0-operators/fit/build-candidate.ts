@@ -25,7 +25,7 @@
  * - **X68: the declared domains.** A dark override outside its declared domain (`DOMAINS`,
  *   `bindings.DOMAINS`: the far deltas [0, 0.6], `sizeOcclusionGain` [0.05, 0.6], the span tops
  *   {128, 160, 192, 256}, the fine widths {0} ∪ [1.5, 6], the share [0, 1], the receded body width
- *   [1.25, 4], `tintAlpha` {0.7, 0.8, 0.9} active and {0.8, 0.89} receded) refuses. The shader
+ *   the set {1.25, 2, 3, 4} device px, `tintAlpha` {0.7, 0.8, 0.9} active and {0.8, 0.89} receded) refuses. The shader
  *   clamps operator 1's alpha and gates operator 2's texture; it bounds neither, so the declaration
  *   does. A leaf with no declared domain keeps W46's admission (finite, at its own shape).
  * - **W47's root, never W44's, W45's or W46's** (`W47_CANDIDATE_ROOT`).
@@ -173,7 +173,7 @@ const DOMAINS: Readonly<Record<"active.dark" | "receded.dark", Readonly<Record<s
   },
   "receded.dark": {
     "optics.regular.tintAlpha": [["set", [0.8, 0.89]]],
-    "optics.regular.blurSigma": [["interval", 1.25, 4]],
+    "optics.regular.blurSigma": [["set", [1.25, 2, 3, 4]]],
     tintAlphaFar1x: FAR, tintAlphaFar2x: FAR, sizeOcclusionGain: GAIN,
     sizeScatterSpanMax: SPAN_TOPS, sizeScatterSpanMax2x: SPAN_TOPS,
     sizeFineTapShare: [["interval", 0, 1]], sizeFineTapSigma: WIDTH, sizeFineTapSigma2x: WIDTH,
