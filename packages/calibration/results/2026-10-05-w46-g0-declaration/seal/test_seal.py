@@ -90,11 +90,16 @@ class Seal(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.root)
 
-    def seal(self, label, method=None, candidates=None, profiles=None):
+    def seal(self, label, method=None, candidates=None, profiles=None, live=None):
+        """Seal into a scratch profiles directory: a copy of `live` (the live profiles by default) whose
+        four 0.25 files are then the verified SNAPSHOTS' bytes (X62), so the rehearsal holds after G1's
+        seal has moved the live dark pair (the review of G0's builder and seal, P1)."""
         if profiles is None:
             profiles = Path(tempfile.mkdtemp(prefix="profiles-", dir=self.root))
             shutil.rmtree(profiles)
-            shutil.copytree(PROFILES, profiles)
+            shutil.copytree(live or PROFILES, profiles)
+            for slot in W.SLOTS:
+                (profiles / f"{W.DOCUMENT_KEY[slot]}.json").write_bytes(W.document_path(slot).read_bytes())
         manifest = profiles / "sealed-manifest.json"
         got = subprocess.run(["pnpm", "exec", "tsx", str(SEAL), label, str(method or self.method),
                               "--candidates", str(candidates or self.candidates), "--profiles", str(profiles),
@@ -127,6 +132,22 @@ class Seal(unittest.TestCase):
             if p.name not in DARK and p.name != "sealed-manifest.json":
                 self.assertEqual(sha(p), before[p.name], p.name)
         self.assertEqual({p.name: sha(p) for p in PROFILES.glob("*.json")}, before)
+
+    def test_the_rehearsal_holds_after_the_live_dark_pair_is_sealed(self):
+        # The live dark pair as G1 leaves it: sealed bytes, not the snapshots'. The rehearsal seeds its
+        # scratch from the snapshots, so the snapshot seal still reproduces both digests.
+        code, out, sealed, _ = self.seal("move")
+        self.assertEqual(code, 0, out)
+        live = Path(tempfile.mkdtemp(prefix="live-", dir=self.root))
+        shutil.rmtree(live)
+        shutil.copytree(PROFILES, live)
+        for name in DARK:
+            (live / name).write_bytes((sealed / name).read_bytes())
+            self.assertNotEqual(sha(live / name), W.DOCUMENT_SHA[DARK[name][0]])
+        code, out, profiles, _ = self.seal("snapshot", method=self.no_method, live=live)
+        self.assertEqual(code, 0, out)
+        for name, (slot, digest) in DARK.items():
+            self.assertEqual(json.loads((profiles / name).read_text())["resolvedMaterialSha256"], digest)
 
     def test_x64_materialised_reproduces_both_digests(self):
         self.assert_reproduces("x64", materialised=True)

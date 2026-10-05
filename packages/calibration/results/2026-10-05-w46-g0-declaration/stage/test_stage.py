@@ -35,10 +35,16 @@ class Stage(unittest.TestCase):
                 stage.declare("g1")
 
     def test_g1_refuses_the_shipped_documents_and_unhashed_parts(self):
-        # Today the dark documents on disk ARE the snapshots and W46's parts are unhashed.
-        with self.assertRaises(W.Refusal):
+        # The shipped state (the dark documents the snapshots' bytes), stated rather than read off the
+        # live files, so the case holds after G1's seal moves them (the review of G0's tools: X62).
+        shipped = {k: dict(v, snapshot=True, recordedBy="W43 G3") for k, v in stage.documents_state().items()}
+
+        def unhashed(part):
+            raise W.Refusal("unhashed")
+        with mock.patch.object(W, "require_part", unhashed), self.assertRaises(W.Refusal):
             stage.require_sealed()
         with mock.patch.object(W, "require_part", lambda part: "x"), \
+                mock.patch.object(stage, "documents_state", lambda: shipped), \
                 self.assertRaisesRegex(W.Refusal, "not sealed by W46 G1"):
             stage.require_sealed()
         sealed = {k: dict(v, snapshot=False, recordedBy="W46 G1") for k, v in stage.documents_state().items()}
@@ -52,7 +58,9 @@ class Stage(unittest.TestCase):
             stage.require_sealed()
 
     def test_the_rehearsal_stages_only_the_snapshot_bytes(self):
-        stage.require_snapshot()
+        shipped = {k: dict(v, snapshot=True) for k, v in stage.documents_state().items()}
+        with mock.patch.object(stage, "documents_state", lambda: shipped):
+            stage.require_snapshot()
         state = {k: dict(v, snapshot=False) for k, v in stage.documents_state().items()}
         with mock.patch.object(stage, "documents_state", lambda: state), \
                 self.assertRaisesRegex(W.Refusal, "not the snapshot"):
