@@ -887,7 +887,23 @@ defined them; the classifying census on every web render.
 
 ## Surprises & Discoveries
 
-- (none yet)
+- **2026-10-06 (G0 (f), the depth-split diagnostic): the deep sample's width at 2x is 7 CSS px, not
+  14.** The Grounding and Design "Operator 2" sentences that read "the deep component at 2x is
+  already a σ 14 CSS px texture" (and the Purpose's "σ 14 CSS px heavy texture") stand as written;
+  they are wrong in the unit. `sizeHeavyTapSigma2x` 14 is a DEVICE-px width (the renderer's
+  `heavySigmaCssFor` divides it by the device ratio), so the receded 2x deep sample is σ 7 CSS px,
+  and the diagnostic's deep form at width 6 CSS px blurred it to √(7² + 6²) = 9.22 CSS px, not to
+  √(14² + 6²). At 1x the deep sample is the chain level `scatterLod` clamped at 4, which the pyramid
+  measured at 13.42 CSS px on this source, so the 1x deep form ran at √(13.42² + 6²) = 14.70 CSS px
+  (from the actual clamped chain, not from a nominal width). The verdict does not turn on it: the
+  deep form removed 0 of the excess on every cell and scale (claims §5.211).
+- **2026-10-06 (G0 (f)): the fine texture is not "level 0 and a residual" at these widths.** The
+  Grounding sentence "a narrow tap at 2–4 CSS px is level 0 and a residual: no new pass shape, one
+  more texture where the share is non-zero" stands as written; its level is wrong on this source
+  density. `heavyTapPlan` puts the grid's widths 2 / 3 / 4 CSS px on chain levels 1 / 1 / 2 at 1x
+  and 2 / 2 / 3 at 2x, and 6 CSS px on level 2 at 1x and 3 at 2x, each plus a residual separable
+  Gaussian (`runSeparableBlur`). Its half that matters holds: the plan and the existing blur carry
+  the fine texture with no new pass shape, one more texture where the share is non-zero.
 
 ## Revision Notes
 
