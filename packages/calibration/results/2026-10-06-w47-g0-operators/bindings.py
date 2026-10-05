@@ -383,3 +383,13 @@ def referee_plan():
 def census():
     """W43 G3 (ii)'s classifying census, by path (§5.201 §21)."""
     return load_module("w43_census", CENSUS)
+
+
+def referees():
+    """W47's referee loader under X69 (`referees/referees.py`): `w46-referees-1` by hash, the derivation
+    pin against W46's frozen ladder list, and W47's membership, disjointness and withholding checks.
+    Every W47 consumer of the manifest (the bed, the cuts, the ladders, the stage) reads it here, in
+    W46's adapter's interface."""
+    if "w47_referees" not in sys.modules:
+        load_module("w47_referees", REFEREES / "referees.py")
+    return sys.modules["w47_referees"]
