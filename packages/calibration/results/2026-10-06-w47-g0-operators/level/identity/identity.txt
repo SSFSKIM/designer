@@ -1,0 +1,42 @@
+{
+ "cells": 130,
+ "pixelAndMeasurementIdentical": 130,
+ "failures": [],
+ "verdict": "IDENTICAL",
+ "projection": "every field but capturedAt, key.web.capturePath",
+ "readsNoChange": true,
+ "levelCheck": {
+  "candidate": {
+   "path": "packages/calibration/results/2026-10-06-w47-g0-operators/level/candidates/control/candidate.json",
+   "sha256": "b6f0eea6bcd17c13e168369f2e65e65f8d777571d5065753b22f2cf611ea14b7",
+   "tintAlpha": {
+    "active": 0.9,
+    "receded": 0.89
+   },
+   "operator1": {
+    "active": {},
+    "receded": {}
+   }
+  },
+  "L1": {
+   "cells": 42,
+   "notRenderedAtThisRung": [],
+   "absoluteMisses": [],
+   "growthMisses": [],
+   "maxError": 0.0490942588872085,
+   "maxGrowth": 0.0,
+   "unmeasured": [
+    "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"
+   ],
+   "growthClausePasses": true,
+   "absoluteClausePasses": true
+  },
+  "excesses": [],
+  "unexplained": [],
+  "tolerance": 0.005,
+  "note": "the attribution is the shader's arithmetic on group means (arith.ts): a prediction the rows test, not a measurement"
+ }
+}

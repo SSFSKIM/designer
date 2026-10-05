@@ -88,10 +88,13 @@ def render() -> int:
                 "--scene", ",".join(cells()), "--alpha", "--write-partial", "--out-matrix", str(out / "matrix.json")]
         env = {k: v for k, v in os.environ.items() if not k.startswith("VITREA_")}
         env["VITREA_WEB_CAPTURES"] = str(out / "web-captures")
-        label = f"level-identity {LABEL}/{scale}x"
+        # A launch the census refused (exit 3 from with-gpu.sh: nothing launched, no matrix) is retried
+        # as a new attempt with its own log; every attempt stays in runs.jsonl.
+        attempt = sum(1 for p in (OUT / "logs").glob(f"{LABEL}__{scale}x*.txt"))
+        label = f"level-identity {LABEL}/{scale}x" + (f"/attempt-{attempt + 1}" if attempt else "")
         with (OUT / "runs.jsonl").open("a") as f:
             f.write(json.dumps(dict(label=label, started=now(), scenes=len(cells())), sort_keys=True) + "\n")
-        with (OUT / "logs" / f"{LABEL}__{scale}x.txt").open("x") as log:
+        with (OUT / "logs" / f"{LABEL}__{scale}x{f'__attempt-{attempt + 1}' if attempt else ''}.txt").open("x") as log:
             code = subprocess.run([str(W.WITH_GPU), label, *argv], cwd=W.CAL, env=env, stdout=log,
                                   stderr=subprocess.STDOUT).returncode
         with (OUT / "runs.jsonl").open("a") as f:
