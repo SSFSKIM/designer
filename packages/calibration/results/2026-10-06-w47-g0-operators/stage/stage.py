@@ -137,9 +137,13 @@ def log(out: Path, row):
 
 
 def done(out: Path, label):
+    """Whether `label` completed. W47: a census refusal (exit 3: `with-gpu.sh` refused before any
+    launch, its log's first line "REFUSES") launched nothing and is NOT a completion, so the pass
+    stays a started pass without completion, relaunched only under `--relaunch-after-stop` as a new
+    labelled pass (W46's `done` counted any exit code, which skipped a refused pass on the rerun)."""
     rows = [json.loads(l) for l in (out / "runs.jsonl").read_text().splitlines()] \
         if (out / "runs.jsonl").exists() else []
-    return any(r.get("label") == label and "exitCode" in r for r in rows), rows
+    return any(r.get("label") == label and "exitCode" in r and r["exitCode"] != 3 for r in rows), rows
 
 
 def documents_state() -> dict:

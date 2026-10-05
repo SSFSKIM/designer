@@ -99,6 +99,18 @@ class Stage(unittest.TestCase):
             self.assertEqual(len(scenes), 13)
             self.assertTrue(held <= set(scenes))
 
+    def test_a_census_refusal_is_not_a_completion(self):
+        import json
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            stage.log(out, dict(label="p", started="t", argv=[]))
+            stage.log(out, dict(label="p", started="t", completed="t", exitCode=3))
+            self.assertFalse(stage.done(out, "p")[0])
+            stage.log(out, dict(label="p/relaunch-1", started="t", completed="t", exitCode=0))
+            self.assertTrue(stage.done(out, "p/relaunch-1")[0])
+            self.assertEqual(len([json.loads(x) for x in (out / "runs.jsonl").read_text().splitlines()]), 3)
+
     def test_the_exposure_waits_on_the_ledger(self):
         refusals = stage.exposure_refusals(stage.holdout_configuration(), stage.committed_last_read())
         self.assertTrue(any("w46-referees-1" in r for r in refusals), refusals)
