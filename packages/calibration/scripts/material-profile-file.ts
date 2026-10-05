@@ -43,6 +43,11 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "lensSizeGainMax",
   "sizeScatterGainMax",
   "sizeOcclusionGain",
+  // W47 operator 1, the transmission graded on the scatter's far curve (claims §5.211; charter
+  // Decision Log 2): a 1x/2x pair. The ladders and the fit hand in candidate documents naming
+  // them, and this set refusing them would refuse the very rung that reads the operator.
+  "tintAlphaFar1x",
+  "tintAlphaFar2x",
   "sizeShadowGainMax",
   // The scatter facet's frost and span curve (W11c) and the body's depth ramp
   // (W13 G1, claims 5.61): the span curve supplies the ramp's deep value and the

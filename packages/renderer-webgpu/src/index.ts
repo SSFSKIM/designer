@@ -281,6 +281,9 @@ export {
   heavySecondTapSigmaAtScale,
   // W45's far-curve delta on that tap's share, 2x-anchored (claims §5.205).
   heavySecondShareFarAtScale,
+  // W47's far-curve delta on the transmission, and the base alpha it grades (claims §5.211).
+  tintAlphaFarAtScale,
+  spanGradedTintAlpha,
   scatterRampAreaMean,
   scatterRampReachDevicePx,
   scatterRampStart,

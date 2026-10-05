@@ -736,6 +736,64 @@ const w45SpanTriple = (name: string, devicePixelRatio: number): Scene => ({
 export const W45_SPAN_TRIPLE_SCENE: Scene = w45SpanTriple("w45-span-triple", 2);
 export const W45_SPAN_TRIPLE_1X_SCENE: Scene = w45SpanTriple("w45-span-triple-1x", 1);
 
+/**
+ * Four members of ONE group at spans 56, 96, 128 and 160 CSS px (W47 G0 (a); charter clause 1,
+ * Decision Log 2, X57, X65).
+ *
+ * Operator 1 grades the transmission per PIXEL: `alphaBase = clamp(tintAlpha +
+ * tintAlphaFarAtScale · farS, 0, 1)`, with `farS = smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr),
+ * span)` the far curve the optics pass already reads. The curve is exactly 0 at and below the knee
+ * (96), so a non-zero far delta must leave the span-56 and span-96 members' pixels where they were
+ * and move the 128 and 160 members — W45's triple with a member below the knee added, because the
+ * alpha (unlike W45's share) is read at every span and the thin cells are where W46 found the alpha
+ * it wants to keep.
+ *
+ * Two forms of each. The plain one declares no backdrop tone, so the W9 solve stands down and the
+ * graded alpha reaches only the composite. The `-toned` one declares the checker's own measured
+ * tone (the linear mean of 235/20 encoded, 0.41888, and the encoded mean 127.5 decoded, 0.21404),
+ * so the solve runs at each pixel's alpha — the path the operator is designed around (charter
+ * Grounding, "The transmission, as the renderer computes it"). A 2x scene and its 1x twin, because
+ * the leaves are a 1x/2x pair resolved by `rampAtScale`. `measureOnly`: read back and differenced,
+ * never committed as a golden.
+ */
+const W47_CHECKER_TONE = {
+  backdropTone: [0.41888264, 0.41888264, 0.41888264],
+  backdropToneLevel: 0.21404114,
+  backdropToneLinearLuminance: 0.41888264,
+} as const satisfies GroupOver;
+
+const w47SpanQuad = (name: string, devicePixelRatio: number, toned: boolean): Scene => ({
+  name,
+  widthCss: 700,
+  heightCss: 200,
+  devicePixelRatio,
+  measureOnly: true,
+  backdrop: { kind: "checkerboard", cell: 8 },
+  groups: [
+    group("g", [
+      rect("span56", [65, 100], [90, 56], {
+        shape: { center: [65, 100], size: [90, 56], radii: [20, 20, 20, 20], smoothing: 0, thickness: 10 },
+      }),
+      rect("span96", [205, 100], [140, 96], {
+        shape: { center: [205, 100], size: [140, 96], radii: [20, 20, 20, 20], smoothing: 0, thickness: 10 },
+      }),
+      rect("span128", [380, 100], [150, 128], {
+        shape: { center: [380, 100], size: [150, 128], radii: [20, 20, 20, 20], smoothing: 0, thickness: 10 },
+      }),
+      rect("span160", [580, 100], [180, 160], {
+        shape: { center: [580, 100], size: [180, 160], radii: [20, 20, 20, 20], smoothing: 0, thickness: 10 },
+      }),
+    ], toned ? W47_CHECKER_TONE : {}),
+  ],
+});
+
+export const W47_SPAN_QUAD_SCENES: readonly Scene[] = [
+  w47SpanQuad("w47-span-quad", 2, false),
+  w47SpanQuad("w47-span-quad-1x", 1, false),
+  w47SpanQuad("w47-span-quad-toned", 2, true),
+  w47SpanQuad("w47-span-quad-toned-1x", 1, true),
+];
+
 export const ALL_SCENES: readonly Scene[] = [
   ...SCENES,
   LENS_DEPTH_SCENE,
@@ -749,6 +807,7 @@ export const ALL_SCENES: readonly Scene[] = [
   ...W36_BLACK_SCENES,
   W45_SPAN_TRIPLE_SCENE,
   W45_SPAN_TRIPLE_1X_SCENE,
+  ...W47_SPAN_QUAD_SCENES,
 ];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);
