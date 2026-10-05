@@ -83,9 +83,9 @@ share is named, not landed (Decision Log 2). No re-read of any holdout at the cu
    `tintAlphaFar2x`) and operator 2 (`sizeFineTapShare`, `sizeFineTapSigma`, `sizeFineTapSigma2x`)
    in `DEFAULT_MATERIAL_PROFILE` at their identities, in `MATERIAL_IDENTITY_TABLE` (two plain value
    drops; one gate-group), carried to the optics pass, read by the shader, mirrored (operator 1)
-   or declined (operator 2) by the CSS tier; `w31-identity-table.test.ts` re-pinned with the
-   entries, `w31-gate-groups.test.ts` sweeping the gated widths off their values with the share
-   held; the ten shipped digests, the 34 goldens, `tier-coherence.test.ts` and the platform-web and
+   or declined (operator 2) by the CSS tier; `packages/calibration/test/w31-identity-table.test.ts` re-pinned with the
+   entries, `packages/renderer-webgpu/test/w31-gate-groups.test.ts` sweeping the gated widths off
+   their values with the share held; the ten shipped digests, the 34 goldens, `tier-coherence.test.ts` and the platform-web and
    react suites byte-identical or green; a by-render proof on a real adapter in W45's form
    (`e2e/gpu/w45-share-far.spec.ts`): operator 1 at a non-zero far delta with the dark document
    and at identity on every light document, operator 2 at a live fine texture and at identity, the
