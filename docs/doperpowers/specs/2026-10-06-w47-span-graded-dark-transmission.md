@@ -1,8 +1,8 @@
 # W47 — the span-graded dark transmission and the receded fine term: the two operators W46 deferred, landed inert and fitted on the same dark `-glass0.25` bed (2026-10-06)
 
-**Status: DRAFT v1.1 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
-ledger §5.209 §7) under `/kairos`; one adversarial round folded (one P1, four P2), scoped second
-round pending.** Decision Logs 1–7 are the parent's rulings of 2026-10-06; Decision Logs 1 and 3
+**Status: DRAFT v1.2 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
+ledger §5.209 §7) under `/kairos`; two adversarial rounds folded (v1: one P1, four P2; v1.1
+scoped: approved, no material finding), the loop closed.** Decision Logs 1–7 are the parent's rulings of 2026-10-06; Decision Logs 1 and 3
 carry the parent's v1.1 amendments from that round. Nothing is captured, no holdout is read and no
 document moves until G0's two hashes are on main.
 
@@ -891,6 +891,10 @@ defined them; the classifying census on every web render.
 
 ## Revision Notes
 
+- 2026-10-06 (v1.2; the scoped second round on v1.1 `e7d4f29e` approved with no material finding: the
+  frozen planner reproduces the manifest byte for byte, the diagnostic cells are non-withheld and T1-fine is
+  executable on them, the attenuation arithmetic reproduces; residual body-only wording in the summary is
+  qualified by Decision Log 3's amendment): the status line only. The loop closes here.
 - 2026-10-06 (v1): drafted by the parent's fork from W46's close (its Deferred 1 and 2, §5.209 §7,
   point A's per-cell readings in `results/2026-10-05-w46-g1-refit/gate/`); Decision Logs 1–7 as
   ruled; adversarial review pending.
