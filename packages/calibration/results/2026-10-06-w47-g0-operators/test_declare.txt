@@ -1,6 +1,8 @@
 test_a_clean_record_reads_clean (test_declare.AmendmentRecord.test_a_clean_record_reads_clean) ... ok
 test_a_field_outside_both_forms (test_declare.AmendmentRecord.test_a_field_outside_both_forms) ... ok
 test_a_pin_of_a_non_source_and_a_second_amendment_and_a_schema (test_declare.AmendmentRecord.test_a_pin_of_a_non_source_and_a_second_amendment_and_a_schema) ... ok
+test_clause_1_evidence_is_pinned_and_required (test_declare.Assemble.test_clause_1_evidence_is_pinned_and_required)
+The parent's ruling of 2026-10-06: part 1's `operators` item pins clause 1's evidence by name (both ... ok
 test_placeholders_are_found_at_any_depth (test_declare.Assemble.test_placeholders_are_found_at_any_depth) ... ok
 test_refuses_once_part_1_is_hashed (test_declare.Assemble.test_refuses_once_part_1_is_hashed) ... ok
 test_refuses_with_an_unfilled_placeholder (test_declare.Assemble.test_refuses_with_an_unfilled_placeholder)
@@ -46,7 +48,7 @@ test_strike_only_flat_rungs_or_ladder_ii_unmet (test_declare.ValidatedDiff.test_
 test_validate_fit_refuses_a_body_beyond_its_changes_and_reads_the_reverted_body (test_declare.ValidatedDiff.test_validate_fit_refuses_a_body_beyond_its_changes_and_reads_the_reverted_body) ... ok
 
 ----------------------------------------------------------------------
-Ran 41 tests in 0.277s
+Ran 42 tests in 0.258s
 
 OK
 amend REFUSES: render evidence exists for this part (ladders/runs.jsonl)

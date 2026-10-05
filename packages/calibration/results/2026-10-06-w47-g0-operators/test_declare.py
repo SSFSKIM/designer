@@ -563,6 +563,37 @@ class Assemble(unittest.TestCase):
         with mock.patch.object(A.W, "PART1_DIGEST", hashed), self.assertRaisesRegex(SystemExit, "hashed"):
             A.main()
 
+    def test_clause_1_evidence_is_pinned_and_required(self):
+        """The parent's ruling of 2026-10-06: part 1's `operators` item pins clause 1's evidence by name (both
+        recorder specs, their scene fixture, each operator's seven proof records), assemble refuses while any
+        is absent, and `check` refuses a declaration that drops one or pins other bytes. Holds whether or not
+        operator 2's records have landed: the red cases use a path that never exists."""
+        import assemble as A
+        self.assertEqual(len(D.CLAUSE1_EVIDENCE), 3 + 2 * len(D.PROOF_RECORDS))
+        self.assertTrue({f"{D.REL}/operator-2/{f}" for f in D.PROOF_RECORDS} <= set(D.CLAUSE1_EVIDENCE))
+        absent = f"{D.REL}/operator-2/no-such-record.txt"
+        self.assertEqual(D.clause1_missing(D.CLAUSE1_EVIDENCE[:3] + (absent,)), [absent])
+        with mock.patch.object(D, "CLAUSE1_EVIDENCE", D.CLAUSE1_EVIDENCE + (absent,)), \
+                self.assertRaisesRegex(SystemExit, "clause 1's evidence is absent.*no-such-record"):
+            A.operators_declared()          # what `build` declares the `operators` item from
+        present = tuple(p for p in D.CLAUSE1_EVIDENCE if (D.ROOT / p).is_file())
+        with mock.patch.object(D, "CLAUSE1_EVIDENCE", present):
+            item = dict(id="operators", declared=A.operators_declared())
+            self.assertEqual(sorted(item["declared"]["clause1Evidence"]), sorted(present))
+            c = D.Check()
+            D.check_operators(c, item)
+            self.assertFalse([f for f in c.failures if "clause 1" in f or "pinned bytes" in f], c.failures)
+            dropped = copy.deepcopy(item)
+            dropped["declared"]["clause1Evidence"].pop(present[0])
+            c = D.Check()
+            D.check_operators(c, dropped)
+            self.assertTrue(any("clause 1's evidence pinned" in f for f in c.failures))
+            other = copy.deepcopy(item)
+            other["declared"]["clause1Evidence"][present[0]] = "0" * 64
+            c = D.Check()
+            D.check_operators(c, other)
+            self.assertTrue(any(f"{present[0]} is the pinned bytes" in f for f in c.failures))
+
     def test_placeholders_are_found_at_any_depth(self):
         self.assertEqual(D.placeholders({"a": [1, {"b": "TO FILL (x)"}], "c": "ok"}), ["/a/1/b"])
         self.assertEqual(D.placeholders({"a": 1}), [])

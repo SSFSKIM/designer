@@ -152,6 +152,25 @@ def uncommitted(paths: list[str]) -> list[str]:
     return [ln[3:] for ln in out.splitlines() if ln.strip()]
 
 
+def operators_declared() -> dict:
+    """The `operators` item's declaration: each operator's leaves, slots, X68 domains and the charter's text,
+    and clause 1's evidence by name and hash (`declare.CLAUSE1_EVIDENCE`: the recorder specs, their scene
+    fixture, both operators' proof records). Refuses while any of that evidence is absent."""
+    missing = D.clause1_missing()
+    if missing:
+        raise Refused("assemble REFUSES: clause 1's evidence is absent (the operators' by-render proofs must be on "
+                      "the tree before part 1 pins them): " + ", ".join(missing))
+    operators = {}
+    for name, leaves in D.OPERATORS.items():
+        slots = [s for s in W.MOVING_SLOTS if all(k in W.ADMITTED[s] for k in leaves)]
+        operators[name] = dict(leaves=list(leaves), slots=slots,
+                               domains={s: {k: D.domains_json(W.DOMAINS[s][k]) for k in leaves if k in W.DOMAINS[s]}
+                                        for s in W.MOVING_SLOTS},
+                               **OPERATOR_TEXT[name])
+    operators["clause1Evidence"] = {p: D.sha((W.ROOT / p).read_bytes()) for p in D.CLAUSE1_EVIDENCE}
+    return operators
+
+
 def build(given: dict) -> tuple[dict, str]:
     B, T1, RULE, REF = D.cuts()
     m = REF.load_manifest()
@@ -187,13 +206,7 @@ def build(given: dict) -> tuple[dict, str]:
     # or relative to this evidence root.
     record_path = (W.ROOT / diag["record"]) if (W.ROOT / diag["record"]).is_file() else HERE / diag["record"]
     record = json.loads(record_path.read_text())
-    operators = {}
-    for name, leaves in D.OPERATORS.items():
-        slots = [s for s in W.MOVING_SLOTS if all(k in W.ADMITTED[s] for k in leaves)]
-        operators[name] = dict(leaves=list(leaves), slots=slots,
-                               domains={s: {k: D.domains_json(W.DOMAINS[s][k]) for k in leaves if k in W.DOMAINS[s]}
-                                        for s in W.MOVING_SLOTS},
-                               **OPERATOR_TEXT[name])
+    operators = operators_declared()
     files = tool_files()
     extra = lambda key: list(given[key].get("sources") or [])  # noqa: E731
 
@@ -266,11 +279,13 @@ def build(given: dict) -> tuple[dict, str]:
                        "d0219cd684bf on every ladder (i) cell as pixel and measurement identity and reads no change."),
         dict(id="operators", title="the two operators: laws, identities, grids, units, X68 domains",
              clause="clause 1; Design \"Operator 1\", \"Operator 2\"; X65, X66, X68; Decision Logs 2, 3",
-             source=list(RUNTIME) + ev("bindings.py"),
+             source=list(RUNTIME) + ev("bindings.py") + list(D.CLAUSE1_EVIDENCE),
              declared=operators,
              statement="Operator 1 grades tintAlpha per pixel on the far curve (two plain value drops, mirrored by the "
                        "CSS tier); operator 2 is the receded fine term in the form the diagnostic chose (one gate-group, "
-                       "declined by the CSS tier). Their domains are the declaration's (X68), refused by the builder."),
+                       "declined by the CSS tier). Their domains are the declaration's (X68), refused by the builder. "
+                       "Clause 1's evidence is pinned here by name: the two recorder specs, their scene fixture and "
+                       "each operator's proof records."),
         dict(id="diagnostic", title="the depth-split diagnostic and operator 2's form", clause="G0 (f); Decision Log 3 (v1.1)",
              source=sorted({str(record_path.relative_to(W.ROOT))} | set(extra("diagnostic")) | {f"{R}/{D.INPUTS.name}"}),
              declared=dict(record=str(record_path.relative_to(W.ROOT)), chosenForm=diag["chosenForm"],

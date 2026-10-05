@@ -186,6 +186,21 @@ OUTCOMES = ("fit", "stop")
 DECISIONS = CHANGE_KINDS
 OPERATORS = {"operator 1": W.OPERATOR_1, "operator 2": W.OPERATOR_2}
 FORMS = ("body", "deep")
+# Clause 1's evidence, pinned explicitly by part 1's `operators` item (the parent's ruling of 2026-10-06), not
+# only through the tools glob: the two by-render recorder specs, the scene fixture they added scenes to (the
+# W47 span quadruple and the fine-tap scenes in `e2e/fixtures/scenes.ts`), and each operator's proof records.
+# Operator 2's records carry operator 1's names; part 1 refuses to assemble while any file is absent.
+PROOF_RECORDS = ("compare.txt", "png-sha256.json", "digests.txt", "suites.txt", "identity.txt", "x60.txt",
+                 "readers.txt")
+CLAUSE1_EVIDENCE = (("packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts",
+                     "packages/renderer-webgpu/e2e/gpu/w47-fine-tap.spec.ts",
+                     "packages/renderer-webgpu/e2e/fixtures/scenes.ts")
+                    + tuple(f"{REL}/operator-{n}/{f}" for n in (1, 2) for f in PROOF_RECORDS))
+
+
+def clause1_missing(paths=None) -> list[str]:
+    """The clause-1 evidence files that are not on the tree."""
+    return [p for p in (CLAUSE1_EVIDENCE if paths is None else paths) if not (ROOT / p).is_file()]
 
 sha = lambda data: hashlib.sha256(data).hexdigest()  # noqa: E731
 
@@ -484,6 +499,14 @@ def check_operators(c, it):
            "sizeFineTapSigma" in gate_test)
     c.true("operators: X66 — the active admits an operator-2 leaf",
            not set(W.OPERATOR_2) & set(W.ADMITTED["active.dark"]))
+    evidence = d.get("clause1Evidence") or {}
+    c.eq("operators: clause 1's evidence pinned (the recorder specs, their scene fixture, both operators' "
+         "proof records)", sorted(evidence), sorted(CLAUSE1_EVIDENCE))
+    for path in clause1_missing():
+        c.failures.append(f"operators: clause 1's evidence {path} is absent")
+    for path, want in evidence.items():
+        if (ROOT / path).is_file():
+            c.eq(f"operators: {path} is the pinned bytes", sha((ROOT / path).read_bytes()), want)
 
 
 def diagnostic_choice(cells: list[dict]) -> str:
