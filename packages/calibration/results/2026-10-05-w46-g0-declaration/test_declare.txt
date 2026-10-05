@@ -1,0 +1,31 @@
+test_a_clean_record_reads_clean (test_declare.AmendmentRecord.test_a_clean_record_reads_clean) ... ok
+test_a_field_outside_the_pins_only_form (test_declare.AmendmentRecord.test_a_field_outside_the_pins_only_form) ... ok
+test_a_pin_of_a_non_source_and_a_second_amendment_and_a_schema (test_declare.AmendmentRecord.test_a_pin_of_a_non_source_and_a_second_amendment_and_a_schema) ... ok
+test_another_waves_charter_or_schema (test_declare.Bindings.test_another_waves_charter_or_schema) ... ok
+test_another_waves_part_hash (test_declare.Bindings.test_another_waves_part_hash) ... ok
+test_a_moved_source_is_a_mismatch (test_declare.Pins.test_a_moved_source_is_a_mismatch) ... ok
+test_hash_refuses_after_a_ladder_render_and_while_pending (test_declare.Pins.test_hash_refuses_after_a_ladder_render_and_while_pending) ... ok
+test_a_lever_that_is_not_the_leafs (test_declare.ValidatedDiff.test_a_lever_that_is_not_the_leafs) ... ok
+test_name_target_only_without_a_lever (test_declare.ValidatedDiff.test_name_target_only_without_a_lever) ... ok
+test_narrow_inside_the_range_only (test_declare.ValidatedDiff.test_narrow_inside_the_range_only) ... ok
+test_narrow_the_transmission_to_its_passing_rungs (test_declare.ValidatedDiff.test_narrow_the_transmission_to_its_passing_rungs) ... ok
+test_no_change_is_the_draft (test_declare.ValidatedDiff.test_no_change_is_the_draft) ... ok
+test_no_other_kind (test_declare.ValidatedDiff.test_no_other_kind) ... ok
+test_no_target_with_a_lever_stops_part_2 (test_declare.ValidatedDiff.test_no_target_with_a_lever_stops_part_2) ... ok
+test_nothing_without_an_identical_control (test_declare.ValidatedDiff.test_nothing_without_an_identical_control) ... ok
+test_omitting_a_required_change_is_refused (test_declare.ValidatedDiff.test_omitting_a_required_change_is_refused) ... ok
+test_strike_only_a_flat_lever (test_declare.ValidatedDiff.test_strike_only_a_flat_lever) ... ok
+test_strike_prunes_a_factorial_group (test_declare.ValidatedDiff.test_strike_prunes_a_factorial_group) ... ok
+test_validate_fit_refuses_a_body_beyond_its_changes (test_declare.ValidatedDiff.test_validate_fit_refuses_a_body_beyond_its_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.011s
+
+OK
+W46 G0 part 1: 0 items, 0 pinned sources
+check: consistent
+hash REFUSES: a ladder render exists; part 1 is hashed before any
+W46 G0 part 1: 1 items, 0 pinned sources
+  PENDING (a render) x: 
+check: consistent; 1 item(s) pending
+hash REFUSES: x pending

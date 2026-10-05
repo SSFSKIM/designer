@@ -1,0 +1,81 @@
+{
+ "schema": "w46-referees-1",
+ "$comment": [
+  "W46's referee manifest (charter 2026-10-05-w46-dark-texture-at-0-25.md, Design \"The",
+  "referees\", Decision Log 2 as amended v1.1): the ONLY statement of the held-out dark texture",
+  "cells, each scene held out on both dark 0.25 profiles, six per scale, twelve in all. It is",
+  "the output of the rule in referees/plan.py over scenes.json and ladders/cells.json, written",
+  "by `plan.py write`; the adapter refuses any other content. Consumers: the planner's two",
+  "whitelists, the fit loader and the gate (cuts/bed.py), `plan.py check-stage`, and the",
+  "exposure (read 8). Canonical membership in scenes.json is untouched: every scene below",
+  "stays a probe scene there."
+ ],
+ "charter": "docs/doperpowers/specs/2026-10-05-w46-dark-texture-at-0-25.md",
+ "rule": "per slot: the probe scenes of its stratum, pose, span class and backdrop that both dark profiles declare, untinted and on no ladder; the first under (span ascending, pitch descending, scene id)",
+ "slots": [
+  {
+   "slot": "thin fine rest",
+   "referee": "checkerboard-8__rrect-sm__rest",
+   "span": 32,
+   "candidates": [
+    "checkerboard-8__rrect-sm__rest"
+   ]
+  },
+  {
+   "slot": "thick fine rest",
+   "referee": "checkerboard-8__rrect-ml__rest",
+   "span": 128,
+   "candidates": [
+    "checkerboard-8__rrect-ml__rest",
+    "checkerboard-4__rrect-ml__rest",
+    "checkerboard-8__rrect-lg__rest",
+    "checkerboard-4__rrect-lg__rest"
+   ]
+  },
+  {
+   "slot": "fine inactive",
+   "referee": "checkerboard-4__rrect-md__inactive",
+   "span": 96,
+   "candidates": [
+    "checkerboard-4__rrect-md__inactive"
+   ]
+  },
+  {
+   "slot": "coarse rest",
+   "referee": "checkerboard-32__rrect-ml__rest",
+   "span": 128,
+   "candidates": [
+    "checkerboard-32__rrect-ml__rest",
+    "checkerboard-32__rrect-lg__rest"
+   ]
+  },
+  {
+   "slot": "coarse inactive",
+   "referee": "checkerboard-32__rrect-lg__inactive",
+   "span": 160,
+   "candidates": [
+    "checkerboard-32__rrect-lg__inactive"
+   ]
+  },
+  {
+   "slot": "text",
+   "referee": "hc-text-7__rrect-md__inactive",
+   "span": 96,
+   "candidates": [
+    "hc-text-7__rrect-md__inactive"
+   ]
+  }
+ ],
+ "profiles": [
+  "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "apple-macos-27.0-2x-dark-standard-glass0.25"
+ ],
+ "scenes": [
+  "checkerboard-8__rrect-sm__rest",
+  "checkerboard-8__rrect-ml__rest",
+  "checkerboard-4__rrect-md__inactive",
+  "checkerboard-32__rrect-ml__rest",
+  "checkerboard-32__rrect-lg__inactive",
+  "hc-text-7__rrect-md__inactive"
+ ]
+}

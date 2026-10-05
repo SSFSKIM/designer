@@ -1,0 +1,29 @@
+{
+ "what": "W46 G0 (a): the stage port's rehearsal on the shipped dark 0.25 documents (the snapshots' bytes), against the published d0219cd684bf rows",
+ "stage": "/Users/new/vitrea-w46/g0-stage-rehearsal",
+ "documents": {
+  "profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json": {
+   "sha": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+   "snapshot": true,
+   "recordedBy": "W43 G3 (ii)"
+  },
+  "profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json": {
+   "sha": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+   "snapshot": true,
+   "recordedBy": "W43 G3 (ii)"
+  }
+ },
+ "cellsWanted": 132,
+ "rows": 132,
+ "t1InputsEqual": 132,
+ "t1InputsDiffer": [],
+ "rowsEqualButCapturedAt": 132,
+ "rowsDiffer": [],
+ "capturesIdentical": 264,
+ "capturesDiffer": [],
+ "rowsWithNoPublishedTwin": [],
+ "wantedCellsMissing": [],
+ "refereeOrHoldoutRowsRead": [],
+ "rowsNotOnThePinnedEngine": [],
+ "verdict": "REPRODUCED"
+}

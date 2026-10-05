@@ -1,0 +1,343 @@
+"""W46 G0 (a): what binds W46's ported tools to W46, and what refuses W44's and W45's bindings
+(charter `2026-10-05-w46-dark-texture-at-0-25.md`, Parent-Level Acceptance clause 1; X60, X62, X64).
+
+W45 kept this module as `fit/bindings.py`; W46 keeps it at the evidence root, because every W46 tool
+(cuts, referees, fit, stage, seal's tests, sheets, the level check, the ladders, `declare.py`)
+imports it before it reads anything, so the parameterisation is one file:
+
+- **W46's bindings**: the charter pin, this evidence root, the two parts' files, G1's evidence
+  directory, W46's scratch and stages (`~/vitrea-w46/...`), the GPU lock.
+- **The starting point is four document snapshots (X62).** `documents/<sha12>.json` hold the dark
+  and light 0.25 document bodies as they were at `b36c9990`; `verify_documents` re-hashes each against
+  its twelve-hex name and against its bytes at that commit, and every W46 tool builds from them. The
+  live `profiles/` is never a start: G1's seal replaces the dark pair there by design, and W45's
+  tools, which read the live light pair as c05, failed their own declaration checks after their
+  freeze (the tracker's W45 entry, closed here). `refuse_live_profile` refuses a start path inside
+  `profiles/`.
+- **The reference is one generation, by hash.** `d0219cd684bf` supplies the measured dark rows
+  (the regression reference, X52's form); `ebc3d9105a4a` the light ones X60 reads. A generation
+  holds rows, never document bytes.
+- **The 0.5 twins are read live and checked frozen.** X44's base check ("a 0.25 document names
+  exactly its 0.5 twin's leaves") reads the four 0.5 documents under `profiles/`, which X41 freezes;
+  `twin_path` refuses one whose bytes are not the frozen hash.
+- **The immutable inputs shared by path, pinned byte-identical** (`SHARED`): W44 G0's bar and interior
+  port, W44 G1's T1 arithmetic and band readings, W40's `matrix_store`, W43 G3's census and sheet
+  helpers, and W44 G0's referee planner and manifest, which W46 does NOT read (its own adapter under
+  `referees/` does) but pins as unmoved (charter clause 3: "W44's planner byte-identical and not
+  reused").
+- **The refusals** (clause 1): a path inside W44's or W45's evidence directories
+  (`results/2026-10-03-w4[45]-*`) or scratch (`~/vitrea-w44`, `~/vitrea-w45`) as a place a W46 tool
+  reads a render from or writes to; W44's and W45's part hashes wherever a W46 part hash is
+  expected; a declaration naming their charters. Reading their COMMITTED evidence as an input is not
+  refused where the charter names it (the shared files above; the tools W46 ports by copy).
+"""
+from __future__ import annotations
+
+import hashlib
+import importlib.util
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+G0 = Path(__file__).resolve().parent                # results/2026-10-05-w46-g0-declaration
+CAL = G0.parents[1]                                  # packages/calibration
+ROOT = CAL.parent.parent
+RESULTS = CAL / "results"
+PROFILES_DIR = CAL / "profiles"
+WAVE = "W46"
+CHARTER_PATH = "docs/doperpowers/specs/2026-10-05-w46-dark-texture-at-0-25.md"
+CHARTER_COMMIT = "b711762a"
+CHARTER_PIN = f"{CHARTER_PATH}@{CHARTER_COMMIT}"
+
+PART1 = G0 / "declaration.json"
+PART1_DIGEST = G0 / "declaration.sha256"
+PART2 = G0 / "fit-declaration.json"
+PART2_DIGEST = G0 / "fit-declaration.sha256"
+DRAFT = G0 / "fit-declaration-draft.json"
+DECLARE = G0 / "declare.py"
+CUTS = G0 / "cuts"
+FIT = G0 / "fit"
+BUILDER = FIT / "build-candidate.ts"
+REFEREES = G0 / "referees"
+LADDERS = G0 / "ladders"
+LADDER_CELLS = LADDERS / "cells.json"
+WITH_GPU = G0 / "with-gpu.sh"
+
+G1 = RESULTS / "2026-10-05-w46-g1-refit"
+G1_FIT = G1 / "fit"
+G1_STAGE = G1 / "stage"
+G1_SEAL = G1 / "seal"
+SCRATCH = Path.home() / "vitrea-w46"
+FIT_SCRATCH = SCRATCH / "g1-scratch" / "fit"
+STAGE = SCRATCH / "g1-stage-dark"
+REHEARSAL_STAGE = SCRATCH / "g0-stage-rehearsal"
+LADDER_SCRATCH = SCRATCH / "g0-ladders"
+LEVEL_SCRATCH = SCRATCH / "g0-level"
+CANONICAL_CAPTURES = Path("/Users/new/Developer/GitHub/designer/packages/calibration/web-captures")
+GPU_LOCK = Path("/tmp/w46-gpu.lock")
+
+# ---------------------------------------------------------------------------------------------
+# The documents (X62) and the references
+# ---------------------------------------------------------------------------------------------
+SNAPSHOT_COMMIT = "b36c9990"
+DOCUMENTS = G0 / "documents"
+DOCUMENT_KEY = {
+    "active.dark": "apple-macos-27.0-1x-dark-standard-glass0.25",
+    "receded.dark": "apple-macos-27.0-1x-dark-standard-glass0.25-receded",
+    "active.light": "apple-macos-27.0-1x-light-standard-glass0.25",
+    "receded.light": "apple-macos-27.0-1x-light-standard-glass0.25-receded",
+}
+DOCUMENT_SHA = {
+    "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+    "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+    "active.light": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
+    "receded.light": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+}
+# The resolved digests the snapshots record (and X64's seal pin reproduces for the dark pair).
+DOCUMENT_DIGEST = {"active.dark": "b074fc6913a91c66", "receded.dark": "280f0fddf014e0f6",
+                   "active.light": "3741b22934f17f4d", "receded.light": "c4ca0e1cd6791bde"}
+SLOTS = ("active.light", "active.dark", "receded.light", "receded.dark")
+MOVING_SLOTS = ("active.dark", "receded.dark")      # X60: the dark 0.25 material alone moves
+
+REFERENCE = {"dark": "d0219cd684bf", "light": "ebc3d9105a4a"}
+REFERENCE_FILE_SHA = {"d0219cd684bf": "6e20f04f60c4", "ebc3d9105a4a": "6e13171051de"}
+# Both 0.5 generations and the frozen 26.5 file are byte-identical at every rung (X60, X41).
+FROZEN_05_GENERATIONS = {"85ad7f7e3e0d": "39ac0ba98ca2", "0eac5b294cc2": "f72429653e29"}
+# X41's freeze of the 0.5 documents: X44's twins, read live and checked here.
+TWIN_05 = {
+    "apple-macos-27.0-1x-dark-standard-glass0.5": "0eac5b294cc2",
+    "apple-macos-27.0-1x-dark-standard-glass0.5-receded": "5cec8c961201",
+    "apple-macos-27.0-1x-light-standard-glass0.5": "85ad7f7e3e0d",
+    "apple-macos-27.0-1x-light-standard-glass0.5-receded": "30fbe05986ae",
+}
+
+DARK_025 = ("apple-macos-27.0-1x-dark-standard-glass0.25", "apple-macos-27.0-2x-dark-standard-glass0.25")
+LIGHT_025 = ("apple-macos-27.0-1x-light-standard-glass0.25", "apple-macos-27.0-2x-light-standard-glass0.25")
+PROFILE = {1: DARK_025[0], 2: DARK_025[1]}
+
+# X64: the inherited leaves each dark document MAY name, first at its resolved value (the runtime
+# default for every leaf the snapshot does not name; for the receded the shipped active's value).
+X64 = {
+    "active.dark": {"sizeScatterFloor2x": 1, "sizeScatterRampStartThin1x": 0.72,
+                    "sizeScatterRampStartThick1x": 0.52, "sizeScatterRampStartFar1x": 0.2,
+                    "sizeScatterRampStartThin2x": 0.46, "sizeScatterRampStartThick2x": 0.21,
+                    "sizeScatterRampStartFar2x": 0.21, "sizeHeavySecondShareFar2x": 0},
+    "receded.dark": {"sizeScatterRampStartFar1x": 0.2, "sizeScatterFloor": 0.34, "sizeScatterFloor2x": 1,
+                     "sizeHeavyTapSigma": 0, "sizeHeavySecondShare": 0, "sizeHeavySecondShareFar2x": 0,
+                     "sizeHeavySecondSigma": 0, "sizeHeavySecondSigma2x": 0, "sizeScatterScaleGain": -2},
+}
+
+# ---------------------------------------------------------------------------------------------
+# Shared by path, pinned byte-identical
+# ---------------------------------------------------------------------------------------------
+W44_G0 = RESULTS / "2026-10-03-w44-g0-declaration"
+W44_G1 = RESULTS / "2026-10-03-w44-g1-refit"
+W45_G0 = RESULTS / "2026-10-03-w45-g0-operator"
+W43_G3 = RESULTS / "2026-10-02-w43-g3-refit"
+BAR_PATH = W44_G0 / "bar/t1-bar.json"
+T1_PATH = W44_G1 / "cuts/t1.py"
+READINGS_PATH = W44_G1 / "cuts/readings.py"
+PORT = W44_G0 / "port"
+CENSUS = W43_G3 / "stage/census.py"
+W43_SHEETS = W43_G3 / "sheets/sheets.py"
+MATRIX_STORE = RESULTS / "2026-09-26-w40-g0-generations/matrix_store.py"
+SHARED = {
+    BAR_PATH: "1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f",
+    T1_PATH: "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc",
+    READINGS_PATH: "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+    PORT / "interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+    MATRIX_STORE: "3644a8c3a6d5d8d49f26ede02cd379085843a2e338cc577f8c063a2958d82992",
+    CENSUS: "2f2f2dd23727269742fc0a06909c2ca5eb97e1715eed935c4cd38279da071e0a",
+    W43_SHEETS: "f93887375859ad5ec232b15284fe0d1e120ad59e9628fabb423993d4478bca7a",
+    # Pinned unmoved, never read by W46 (clause 3: W44's planner byte-identical and not reused).
+    W44_G0 / "referees/plan.py": "f8ca80bb2153e12b7a3a4edc18b440e8f2c89a75bf0adef30e795c40c8dda8c7",
+    W44_G0 / "referees/referees.json": "b1132bd0f01f318b07e1722da3fefaba6eac96679b56efbe2b451ef13bf1b60b",
+}
+
+# ---------------------------------------------------------------------------------------------
+# The refusals of W44's and W45's bindings
+# ---------------------------------------------------------------------------------------------
+_OTHER_WAVE_DIR = re.compile(r"(^|/)2026-10-03-w4[45]-[^/]*(/|$)")
+_OTHER_WAVE_SCRATCH = re.compile(r"(^|/)vitrea-w4[45](/|$)")
+OTHER_CHARTERS = ("docs/doperpowers/specs/2026-10-03-w44-texture-at-0-25.md",
+                  "docs/doperpowers/specs/2026-10-03-w45-span-selective-texture.md")
+
+
+def _part_hashes(*files: Path) -> frozenset:
+    return frozenset(ln.split()[0] for f in files for ln in f.read_text().splitlines() if ln.strip())
+
+
+OTHER_PART_HASHES = _part_hashes(W44_G0 / "declaration.sha256", W44_G0 / "fit-declaration.sha256",
+                                 W45_G0 / "declaration.sha256", W45_G0 / "fit-declaration.sha256")
+
+
+class Refusal(SystemExit):
+    """A refusal: the red cases assert on these."""
+
+
+def sha(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def file_sha(path: Path) -> str:
+    return sha(Path(path).read_bytes())
+
+
+def resolve(path) -> Path:
+    p = Path(path).expanduser()
+    return p.resolve() if p.exists() or p.is_absolute() else (Path.cwd() / p).resolve()
+
+
+def refuse_other_wave_path(path, what: str) -> Path:
+    """`path`, resolved, unless it is inside W44's or W45's evidence, scratch or stage."""
+    p = resolve(path)
+    text = p.as_posix()
+    if _OTHER_WAVE_DIR.search(text) or _OTHER_WAVE_SCRATCH.search(text):
+        raise Refusal(f"{what}: {text} is W44's or W45's evidence, scratch or stage; W46 reads and writes "
+                      "its own (clause 1)")
+    return p
+
+
+def refuse_other_wave_hash(digest: str | None, what: str) -> str | None:
+    if digest is not None and digest in OTHER_PART_HASHES:
+        raise Refusal(f"{what}: {digest[:12]}… is a W44 or W45 part hash, not W46's (clause 1)")
+    return digest
+
+
+def refuse_other_wave_text(text: str, what: str) -> str:
+    """Refuse a declaration body that names W44's or W45's charter and not W46's."""
+    if any(c in text for c in OTHER_CHARTERS) and CHARTER_PATH not in text:
+        raise Refusal(f"{what}: names W44's or W45's charter and not W46's (clause 1)")
+    return text
+
+
+def refuse_live_profile(path, what: str) -> Path:
+    """X62: a starting point is a snapshot, never the live `profiles/` directory."""
+    p = resolve(path)
+    if p == PROFILES_DIR.resolve() or PROFILES_DIR.resolve() in p.parents:
+        raise Refusal(f"{what}: {p} is a live profile document; W46 builds from its snapshots "
+                      "(documents/<sha12>.json, X62)")
+    return p
+
+
+# ---------------------------------------------------------------------------------------------
+# Checks every tool runs before it reads
+# ---------------------------------------------------------------------------------------------
+def git_show(path: str, commit: str) -> bytes:
+    return subprocess.run(["git", "-C", str(ROOT), "show", f"{commit}:{path}"], check=True,
+                          capture_output=True).stdout
+
+
+def document_path(slot: str) -> Path:
+    return DOCUMENTS / f"{DOCUMENT_SHA[slot][:12]}.json"
+
+
+def verify_documents(at_commit: bool = True) -> list[str]:
+    """X62: each snapshot's bytes hash to its name and equal the document's bytes at `b36c9990`."""
+    out = []
+    for slot, want in DOCUMENT_SHA.items():
+        path = document_path(slot)
+        if not path.exists():
+            out.append(f"{slot}: {path.relative_to(ROOT)} is absent")
+            continue
+        raw = path.read_bytes()
+        if sha(raw) != want:
+            out.append(f"{slot}: {path.name} hashes to {sha(raw)[:12]}, not {want[:12]}")
+        doc = json.loads(raw)
+        if doc.get("profileKey") != DOCUMENT_KEY[slot]:
+            out.append(f"{slot}: {path.name} is {doc.get('profileKey')}, not {DOCUMENT_KEY[slot]}")
+        if doc.get("resolvedMaterialSha256") != DOCUMENT_DIGEST[slot]:
+            out.append(f"{slot}: {path.name} records digest {doc.get('resolvedMaterialSha256')}")
+        if at_commit:
+            rel = f"packages/calibration/profiles/{DOCUMENT_KEY[slot]}.json"
+            if git_show(rel, SNAPSHOT_COMMIT) != raw:
+                out.append(f"{slot}: {path.name} is not {rel} at {SNAPSHOT_COMMIT}")
+    return out
+
+
+def document(slot: str) -> dict:
+    """A snapshot's body, verified (hash only; `verify_documents` adds the commit check)."""
+    raw = document_path(slot).read_bytes()
+    if sha(raw) != DOCUMENT_SHA[slot]:
+        raise Refusal(f"{slot}: the snapshot {document_path(slot).name} does not hash to its name (X62)")
+    return json.loads(raw)
+
+
+def twin_path(key_05: str) -> Path:
+    """A 0.5 document under `profiles/`, checked at its X41-frozen hash before it is read."""
+    path = PROFILES_DIR / f"{key_05}.json"
+    got = file_sha(path)[:12]
+    if got != TWIN_05[key_05]:
+        raise Refusal(f"{path.relative_to(ROOT)} hashes to {got}, not its frozen {TWIN_05[key_05]} (X41)")
+    return path
+
+
+def verify_shared() -> list[str]:
+    moved = []
+    for path, want in SHARED.items():
+        got = file_sha(path) if path.exists() else None
+        if got != want:
+            moved.append(f"{path.relative_to(ROOT)}: {got and got[:12]} is not the pinned {want[:12]}")
+    return moved
+
+
+def require_shared() -> None:
+    moved = verify_shared()
+    if moved:
+        raise Refusal("a shared input moved (clause 1: shared by path, pinned byte-identical):\n  "
+                      + "\n  ".join(moved))
+
+
+def part_hash(part: int) -> str | None:
+    """The CURRENT hash of W46's part 1 or 2 (the digest file's last line), or None if unhashed."""
+    path = PART1_DIGEST if part == 1 else PART2_DIGEST
+    if not path.exists():
+        return None
+    lines = [ln.split()[0] for ln in path.read_text().splitlines() if ln.strip()]
+    return refuse_other_wave_hash(lines[-1], f"part {part}") if lines else None
+
+
+def require_part(part: int) -> str:
+    digest = part_hash(part)
+    declaration = PART1 if part == 1 else PART2
+    if digest is None:
+        raise Refusal(f"W46 part {part} is not hashed; nothing that reads it runs before its hash")
+    if not declaration.exists() or file_sha(declaration) != digest:
+        raise Refusal(f"W46 part {part}: {declaration.name} is not the hashed {digest[:12]}")
+    refuse_other_wave_text(declaration.read_text(), f"W46 part {part}")
+    return digest
+
+
+def load_module(name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_cuts():
+    """(bed, t1, rule): W46's bed and rule from `cuts/`, T1's arithmetic shared by path from W44 G1
+    (its `import bed` binds to W46's, which is first on the path)."""
+    require_shared()
+    if str(CUTS) not in sys.path:
+        sys.path.insert(0, str(CUTS))
+    import bed  # noqa: PLC0415
+    if "t1" not in sys.modules:
+        load_module("t1", T1_PATH)
+    import rule  # noqa: PLC0415
+    return bed, sys.modules["t1"], rule
+
+
+def referee_plan():
+    """W46's planner adapter (`referees/plan.py`), never W44's."""
+    if "w46_plan" not in sys.modules:
+        load_module("w46_plan", REFEREES / "plan.py")
+    return sys.modules["w46_plan"]
+
+
+def census():
+    """W43 G3 (ii)'s classifying census, by path (§5.201 §21)."""
+    return load_module("w43_census", CENSUS)

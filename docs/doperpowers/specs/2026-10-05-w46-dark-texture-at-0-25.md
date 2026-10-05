@@ -675,7 +675,7 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | not started | §5.208 |
+| G0 | done on `w46-g0-declaration`: part 1 `bc82562e…`, part 2 `5dca38e0…` hashed; three items for the parent's ruling (§5.208 §11) | §5.208 |
 | G1 | not started | §5.209 |
 | G2 | not started | §5.210 |
 
@@ -787,7 +787,16 @@ generation superseded, the light and 0.5 generations unchanged, the user's `pnpm
 
 ## Surprises & Discoveries
 
-(none yet)
+- 2026-10-05 (G0, §5.208 §7): **the receded transmission passes L1 at no rung below 0.89.** At 0.8 the
+  validation cell `impulse__capsule-button__inactive`'s level rises +0.033 at both scales, which the
+  W9 solve's group-mean arithmetic does not predict (the level check names it unexplained; a capsule
+  transmitting a bright dot of the sparse grid is the likely reading). The charter predicted the
+  receded arm to fail only below the checker's clamp (≈ 0.64). So P inactive stays at ×0.25 and the
+  pooled target P cannot halve as declared (§5.208 §11 item 1, for the parent).
+- 2026-10-05 (G0, §5.208 §7): **target F inactive has no lever**: no receded start or heavy width moves
+  the two fine inactive cells by a bar toward Apple (they sit about ten bars over); named not fitted
+  with the operator's shape (X63). **C rest's levers act at 2x only** (the 2x thin start, the 2x heavy
+  tap at 4 CSS px); at 1x the thin rest cells move only with the transmission.
 
 ## Revision Notes
 

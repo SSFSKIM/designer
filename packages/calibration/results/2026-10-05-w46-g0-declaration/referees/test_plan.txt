@@ -1,0 +1,21 @@
+test_the_charters_counts (test_plan.FitMembers.test_the_charters_counts) ... ok
+test_check_stage (test_plan.Lists.test_check_stage) ... ok
+test_counts (test_plan.Lists.test_counts) ... ok
+test_exposure_is_the_dark_holdout_and_the_referees_exactly (test_plan.Lists.test_exposure_is_the_dark_holdout_and_the_referees_exactly) ... ok
+test_pregate_excludes_every_referee (test_plan.Lists.test_pregate_excludes_every_referee) ... ok
+test_a_ladder_cell (test_plan.Refusals.test_a_ladder_cell) ... ok
+test_a_light_profile (test_plan.Refusals.test_a_light_profile) ... ok
+test_a_manifest_the_rule_does_not_produce (test_plan.Refusals.test_a_manifest_the_rule_does_not_produce) ... ok
+test_a_non_probe_scene (test_plan.Refusals.test_a_non_probe_scene) ... ok
+test_w44s_schema (test_plan.Refusals.test_w44s_schema) ... ok
+test_no_referee_is_a_ladder_cell_and_without_the_ladders_the_rule_differs (test_plan.Rule.test_no_referee_is_a_ladder_cell_and_without_the_ladders_the_rule_differs) ... ok
+test_the_rule_produces_the_charters_six (test_plan.Rule.test_the_rule_produces_the_charters_six) ... ok
+test_the_slots_candidates (test_plan.Rule.test_the_slots_candidates) ... ok
+test_tinted_scenes_are_never_candidates (test_plan.Rule.test_tinted_scenes_are_never_candidates) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.019s
+
+OK
+check-stage REFUSES: /var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmpbxw8nwc0/m.json: holds 1 referee cell(s) before the exposure (referees.json sha256 0eb8ef7712ad): apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-sm__rest
+check-stage: 0 rows, no referee cell (referees.json sha256 0eb8ef7712ad)

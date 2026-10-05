@@ -1,0 +1,154 @@
+W46 G0 (e): the ladders read (protocol sha256 4e4e18f31332)
+control: IDENTICAL (144 of 144 rows pixel- and measurement-identical to d0219cd684bf)
+
+ladder (i)
+  i-a active.dark optics.regular.tintAlpha (shipped 0.9, acts at both): non-flat [0.5, 0.9]; scale-anchored True; passing rungs [0.9, 0.8, 0.7]; photo monotone True; raises photo True
+    0.8   photo median ×0.494 (control ×0.383); L1 max error 0.0498, max growth +0.0021, passes; 0 excess(es), 0 unexplained
+    0.7   photo median ×0.557 (control ×0.383); L1 max error 0.0505, max growth +0.0045, passes; 4 excess(es), 2 unexplained
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest: level +0.0083 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__rest: level +0.0594 -> clamp (predicted +0.0579)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest: level +0.0074 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__rest: level +0.0593 -> clamp (predicted +0.0579)
+    0.6   photo median ×0.667 (control ×0.383); L1 max error 0.0511, max growth +0.0147, FAILS; 8 excess(es), 4 unexplained
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest +0.0147
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest +0.0067
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest +0.0134
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest +0.0051
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest: L1 growth +0.0147, level +0.0147 -> clamp (predicted +0.0146)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest: L1 growth +0.0067, level +0.0067 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest: level +0.0127 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__rest: level +0.1432 -> clamp (predicted +0.1426)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest: L1 growth +0.0134, level +0.0134 -> clamp (predicted +0.0146)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest: L1 growth +0.0051, level +0.0051 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest: level +0.0112 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__rest: level +0.1429 -> clamp (predicted +0.1426)
+    0.5   photo median ×0.789 (control ×0.383); L1 max error 0.0800, max growth +0.0624, FAILS; 11 excess(es), 5 unexplained
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest +0.0361
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest +0.0624
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest +0.0092
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__rest +0.0348
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest +0.0609
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest +0.0071
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest: L1 growth +0.0361, L1 absolute 0.0747, level +0.0361 -> clamp (predicted +0.0358)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest: L1 growth +0.0624, L1 absolute 0.0783, level +0.0624 -> clamp (predicted +0.0621)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest: L1 growth +0.0092, level +0.0092 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest: level +0.0169 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__rest: level +0.2292 -> clamp (predicted +0.2272)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__rest: L1 growth +0.0348, L1 absolute 0.0757, level +0.0348 -> clamp (predicted +0.0358)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest: L1 growth +0.0609, L1 absolute 0.0800, level +0.0609 -> clamp (predicted +0.0621)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest: L1 growth +0.0071, level +0.0071 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest: level +0.0151 -> unexplained (predicted -0.0004)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__rest: level +0.2287 -> clamp (predicted +0.2272)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-md__rest: level +0.0061 -> unexplained (predicted +0.0000)
+  i-r receded.dark optics.regular.tintAlpha (shipped 0.89, acts at both): non-flat [0.5, 0.89]; scale-anchored True; passing rungs [0.89]; photo monotone True; raises photo False
+    0.8   photo median ×0.444 (control ×0.253); L1 max error 0.0788, max growth +0.0342, FAILS; 2 excess(es), 2 unexplained
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.0331
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.0342
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive: L1 growth +0.0331, L1 absolute 0.0743, level +0.0331 -> unexplained (predicted -0.0012)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive: L1 growth +0.0342, L1 absolute 0.0788, level +0.0342 -> unexplained (predicted -0.0012)
+    0.7   photo median ×0.659 (control ×0.253); L1 max error 0.1166, max growth +0.0720, FAILS; 8 excess(es), 3 unexplained
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.0702
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.0720
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive: L1 growth +0.0702, L1 absolute 0.1114, level +0.0702 -> unexplained (predicted -0.0026)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__inactive: level +0.0051 -> unexplained (predicted -0.0017)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__inactive: level +0.0700 -> clamp (predicted +0.0679)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-ml__inactive: level +0.0700 -> clamp (predicted +0.0679)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive: L1 growth +0.0720, L1 absolute 0.1166, level +0.0720 -> unexplained (predicted -0.0026)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive: level +0.0058 -> clamp (predicted +0.0010)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__inactive: level +0.0700 -> clamp (predicted +0.0679)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-ml__inactive: level +0.0700 -> clamp (predicted +0.0679)
+    0.6   photo median ×0.873 (control ×0.253); L1 max error 0.1548, max growth +0.1102, FAILS; 15 excess(es), 3 unexplained
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__inactive +0.0205
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.1069
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__inactive +0.0207
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.1102
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__inactive: L1 growth +0.0205, level +0.0205 -> clamp (predicted +0.0209)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive: L1 growth +0.1069, L1 absolute 0.1481, level +0.1069 -> unexplained (predicted -0.0039)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive: level +0.0065 -> clamp (predicted +0.0015)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__inactive: level +0.0078 -> unexplained (predicted -0.0026)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__inactive: level +0.1531 -> clamp (predicted +0.1526)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-ml__inactive: level +0.1531 -> clamp (predicted +0.1526)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive: level +0.0094 -> clamp (predicted +0.0090)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive-tint-orange: level +0.0140 -> clamp (predicted +0.0090)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__inactive: L1 growth +0.0207, level +0.0207 -> clamp (predicted +0.0209)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive: L1 growth +0.1102, L1 absolute 0.1548, level +0.1102 -> unexplained (predicted -0.0039)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive: level +0.0087 -> clamp (predicted +0.0015)
+      excess apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__inactive: level +0.1531 -> clamp (predicted +0.1526)
+    0.5   photo median ×1.089 (control ×0.253); L1 max error 0.1928, max growth +0.1482, FAILS; 24 excess(es), 4 unexplained
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive +0.0415
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange +0.0611
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__inactive +0.0678
+      L1 growth apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.1435
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive +0.0417
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange +0.0609
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__inactive +0.0682
+      L1 growth apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__inactive +0.1482
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive: L1 growth +0.0415, L1 absolute 0.0674, level +0.0415 -> clamp (predicted +0.0424)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange: L1 growth +0.0611, L1 absolute 0.1037, level +0.0611 -> clamp (predicted +0.0424)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__inactive: L1 growth +0.0678, L1 absolute 0.0684, level +0.0678 -> clamp (predicted +0.0684)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive: L1 growth +0.1435, L1 absolute 0.1846, level +0.1435 -> unexplained (predicted -0.0053)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive: level +0.0087 -> clamp (predicted +0.0020)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__inactive: level +0.0104 -> unexplained (predicted -0.0035)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-lg__inactive: level +0.2393 -> clamp (predicted +0.2372)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/light-solid__rrect-ml__inactive: level +0.2393 -> clamp (predicted +0.2372)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive: level +0.0307 -> clamp (predicted +0.0304)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__capsule-button__inactive-tint-orange: level +0.0444 -> clamp (predicted +0.0304)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__rrect-lg__inactive: level +0.0229 -> clamp (predicted +0.0233)
+      excess apple-macos-27.0-1x-dark-standard-glass0.25/mid-chroma-solid__rrect-md__inactive: level +0.0229 -> clamp (predicted +0.0233)
+
+ladder (ii)
+  ii-fa active.dark sizeScatterFloor (shipped 0.34, acts at 1x): non-flat [0.1, 0.34]; scale-anchored True; meets the bar at []
+    0.1   thin median Δ +0.15 bars (lowest -0.01), thin median ×0.395 (control ×0.392); mid +2.49; F inactive rrect-lg +0.54, rrect-md +2.90; no; moved 7/15
+    0.2   thin median Δ +0.11 bars (lowest -0.02), thin median ×0.392 (control ×0.392); mid +1.43; F inactive rrect-lg +0.31, rrect-md +1.56; no; moved 6/15
+    0.5   thin median Δ -0.09 bars (lowest -0.42), thin median ×0.391 (control ×0.392); mid -0.48; F inactive rrect-lg -0.06, rrect-md -0.51; no; moved 0/15
+  ii-fb active.dark sizeScatterFloor2x (shipped 1, acts at 2x): non-flat [0.5, 1]; scale-anchored True; meets the bar at []
+    0.85  thin median Δ +0.19 bars (lowest -0.00), thin median ×0.336 (control ×0.331); mid +0.34; F inactive rrect-lg +0.64, rrect-md +1.75; no; moved 1/15
+    0.7   thin median Δ +0.39 bars (lowest -0.00), thin median ×0.341 (control ×0.331); mid +0.86; F inactive rrect-lg +1.94, rrect-md +4.82; no; moved 5/15
+    0.5   thin median Δ +1.01 bars (lowest -0.00), thin median ×0.356 (control ×0.331); mid +2.20; F inactive rrect-lg +3.77, rrect-md +8.32; no; moved 11/15
+  ii-n1 active.dark sizeScatterRampStartThin1x (shipped 0.72, acts at 1x): non-flat [0.72, 1.0]; scale-anchored True; meets the bar at []
+    0.6   thin median Δ -0.23 bars (lowest -0.93), thin median ×0.391 (control ×0.392); mid +0.00; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 0/15
+    0.85  thin median Δ +0.10 bars (lowest +0.00), thin median ×0.392 (control ×0.392); mid +0.00; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 2/15
+    1.0   thin median Δ +0.15 bars (lowest -0.11), thin median ×0.395 (control ×0.392); mid +0.00; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 3/15
+  ii-n2 active.dark sizeScatterRampStartThin2x (shipped 0.46, acts at 2x): non-flat [0.46, 0.9]; scale-anchored True; meets the bar at [0.75, 0.9]
+    0.6   thin median Δ +0.91 bars (lowest +0.00), thin median ×0.349 (control ×0.331); mid +0.00; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 2/15
+    0.75  thin median Δ +2.00 bars (lowest +0.00), thin median ×0.362 (control ×0.331); mid +0.00; F inactive rrect-lg +0.00, rrect-md +0.00; MEETS; moved 6/15
+    0.9   thin median Δ +3.08 bars (lowest +0.00), thin median ×0.373 (control ×0.331); mid +0.00; F inactive rrect-lg +0.00, rrect-md +0.00; MEETS; moved 6/15
+  ii-s1 active.dark sizeHeavyTapSigma (shipped 0, acts at 1x): non-flat [0, 8]; scale-anchored True; meets the bar at []
+    4     thin median Δ +0.00 bars (lowest -0.09), thin median ×0.392 (control ×0.392); mid +1.58; F inactive rrect-lg +0.60, rrect-md +0.32; no; moved 6/15
+    8     thin median Δ +0.00 bars (lowest +0.00), thin median ×0.392 (control ×0.392); mid +0.19; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 4/15
+    13    thin median Δ +0.01 bars (lowest +0.00), thin median ×0.392 (control ×0.392); mid +0.00; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 0/15
+  ii-s2 active.dark sizeHeavyTapSigma2x (shipped 0, acts at 2x): non-flat [0, 13]; scale-anchored True; meets the bar at [4]
+    4     thin median Δ +1.41 bars (lowest -0.03), thin median ×0.360 (control ×0.331); mid +3.47; F inactive rrect-lg +0.00, rrect-md +0.00; MEETS; moved 9/15
+    8     thin median Δ +0.16 bars (lowest -0.12), thin median ×0.333 (control ×0.331); mid +0.52; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 0/15
+    13    thin median Δ -0.62 bars (lowest -2.07), thin median ×0.313 (control ×0.331); mid -1.76; F inactive rrect-lg +0.00, rrect-md +0.00; no; moved 6/15
+
+ladder (iii)
+  iii-rn1 receded.dark sizeScatterRampStartThin1x (shipped 1, acts at 1x): FLAT; scale-anchored True; meets the bar at []
+    0.7   fine g rrect-lg +0.00, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.245); no; moved 0/4
+    0.4   fine g rrect-lg +0.00, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.245); no; moved 0/4
+    0.1   fine g rrect-lg +0.00, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.245); no; moved 0/4
+  iii-rn2 receded.dark sizeScatterRampStartThin2x (shipped 1, acts at 2x): FLAT; scale-anchored True; meets the bar at []
+    0.7   fine g rrect-lg +0.00, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.263); no; moved 0/4
+    0.4   fine g rrect-lg +0.00, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.263); no; moved 0/4
+    0.1   fine g rrect-lg +0.00, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.263); no; moved 0/4
+  iii-rk1 receded.dark sizeScatterRampStartThick1x (shipped 0.3, acts at 1x): non-flat [0, 0.3]; scale-anchored True; meets the bar at []
+    0.15  fine g rrect-lg -0.86, rrect-md -0.20 bars; photo Δ -0.02 bars (×0.245); no; moved 1/4
+    0     fine g rrect-lg -1.71, rrect-md -0.20 bars; photo Δ -0.02 bars (×0.245); no; moved 2/4
+  iii-rk2 receded.dark sizeScatterRampStartThick2x (shipped 0.04, acts at 2x): non-flat [0.04, 0.2]; scale-anchored True; meets the bar at []
+    0     fine g rrect-lg -0.48, rrect-md -0.81 bars; photo Δ -0.00 bars (×0.263); no; moved 0/4
+    0.2   fine g rrect-lg +0.84, rrect-md +2.02 bars; photo Δ +0.03 bars (×0.265); no; moved 2/4
+  iii-re1 receded.dark sizeScatterRampStartFar1x (shipped 0.2, acts at 1x): FLAT; scale-anchored True; meets the bar at []
+    0.1   fine g rrect-lg -0.32, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.245); no; moved 0/4
+    0     fine g rrect-lg -0.66, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.245); no; moved 0/4
+  iii-re2 receded.dark sizeScatterRampStartFar2x (shipped 0.04, acts at 2x): FLAT; scale-anchored True; meets the bar at []
+    0     fine g rrect-lg -0.23, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.263); no; moved 0/4
+    0.2   fine g rrect-lg +0.44, rrect-md +0.00 bars; photo Δ +0.00 bars (×0.263); no; moved 0/4
+  iii-rs2 receded.dark sizeHeavyTapSigma2x (shipped 14, acts at 2x): non-flat [9, 24]; scale-anchored True; meets the bar at []
+    9     fine g rrect-lg +0.58, rrect-md +0.33 bars; photo Δ +0.26 bars (×0.274); no; moved 1/4
+    18    fine g rrect-lg +0.00, rrect-md +0.00 bars; photo Δ -0.25 bars (×0.253); no; moved 1/4
+    24    fine g rrect-lg -0.00, rrect-md +0.00 bars; photo Δ -0.61 bars (×0.239); no; moved 1/4
+
+target P: levers i-a
+target C rest: levers ii-n2, ii-s2
+target F inactive: NO LEVER (X63: named, not fitted)
+X60 by evidence: exit 0

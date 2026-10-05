@@ -1,0 +1,409 @@
+{
+  "schema": "w46-fit-declaration-1",
+  "status": "PART 2: the draft changed only by the ladders' permitted decisions (declare.py check-fit)",
+  "fromDraft": {
+    "partOneSha256": "bc82562eaf1ab70a1a40ac55e00213cc4229aa3843e1659b7ad416e77f40a3aa",
+    "draftSha256": "60b91379cf4ab530f58f1af0a1145f8401c03710f465f1f163a75edbd22b9729"
+  },
+  "changes": [
+    {
+      "kind": "name-target",
+      "target": "F inactive",
+      "ladder": "iii",
+      "operatorShape": "a receded-only fine-pitch term: the receded body's 4-8 px structure at spans 96-160 must fall by about ten bars (x2.9-3.6 to x1; checkerboard-8 rrect-md and rrect-lg inactive, both scales) while its coarse (16-64 px) and photo structure hold or rise; the receded thin, thick and far ramp starts and the receded heavy width move the two fine cells by at most 1.7 bars (ladder (iii)), so the shape acts on the fine pitches of the receded deep and sharp mix alone (for example a receded per-span narrow-component width), to be landed inert with byte identity and its own separating ladder if the parent rules it in (X63; Decision Log 4)"
+    },
+    {
+      "kind": "narrow",
+      "move": "stage1",
+      "family": "transmission-scatter",
+      "leaf": "optics.regular.tintAlpha",
+      "lever": "i-a",
+      "grid": [
+        0.7,
+        0.8,
+        0.9
+      ],
+      "why": "the transmission's domain is its passing rungs [0.7, 0.8, 0.9]"
+    },
+    {
+      "kind": "narrow",
+      "move": "stage2",
+      "family": "transmission",
+      "leaf": "optics.regular.tintAlpha",
+      "lever": "i-r",
+      "grid": [
+        0.89
+      ],
+      "why": "the transmission's domain is its passing rungs [0.89]"
+    }
+  ],
+  "charter": "docs/doperpowers/specs/2026-10-05-w46-dark-texture-at-0-25.md@b711762a",
+  "startingPoint": {
+    "lineage": "d0219",
+    "label": "start-d0219",
+    "generation": "d0219cd684bf",
+    "documents": {
+      "active.dark": "d0219cd684bf",
+      "receded.dark": "f0b36a71772a",
+      "active.light": "ebc3d9105a4a",
+      "receded.light": "12712d534b78"
+    },
+    "digests": {
+      "active.dark": "b074fc6913a91c66",
+      "receded.dark": "280f0fddf014e0f6"
+    },
+    "how": "the four snapshots under documents/, no override (X62); one lineage"
+  },
+  "references": {
+    "dark": "d0219cd684bf",
+    "light": "ebc3d9105a4a",
+    "why": "the dark generation is every regression row's reference and T1's (Decision Logs 3, 5); the light one is what X60 holds the light rows to"
+  },
+  "moves": [
+    {
+      "id": "stage1",
+      "slot": "active.dark",
+      "scope": "stage1",
+      "what": "the active document: the transmission and the rest scatter together (Design \"The moves\")",
+      "familyOrder": [
+        "transmission-scatter",
+        "thin-and-conditioning",
+        "second-tap"
+      ],
+      "families": {
+        "transmission-scatter": {
+          "why": "the transmission grid crossed with the floor and the heavy-tap family as one factorial: the leaves gate each other (at a = 0.9 the scatter's pass is a tenth of itself)",
+          "leaves": {
+            "optics.regular.tintAlpha": {
+              "slot": "active.dark",
+              "domain": [
+                0.5,
+                0.9
+              ],
+              "grid": [
+                0.7,
+                0.8,
+                0.9
+              ],
+              "unit": "alpha (the material's own)",
+              "target": "P",
+              "ladder": "i-a",
+              "held": "every tone ordinate and bodyChromaRetention held (X61; Decision Log 4)"
+            },
+            "sizeScatterFloor": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.1,
+                0.2,
+                0.34,
+                0.5,
+                0.7
+              ],
+              "unit": "deep share",
+              "target": "C rest",
+              "ladder": "ii-fa"
+            },
+            "sizeScatterFloor2x": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.5,
+                0.7,
+                0.85,
+                1
+              ],
+              "unit": "deep share",
+              "target": "C rest",
+              "ladder": "ii-fb",
+              "x64": true
+            },
+            "sizeHeavyTapSigma": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                24
+              ],
+              "grid": [
+                0,
+                4,
+                8,
+                13
+              ],
+              "unit": "CSS px (0: the chain level)",
+              "target": "C rest",
+              "ladder": "ii-s1"
+            },
+            "sizeHeavyTapSigma2x": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                24
+              ],
+              "grid": [
+                0,
+                4,
+                8,
+                13,
+                18
+              ],
+              "unit": "CSS px (0: the chain level)",
+              "target": "C rest",
+              "ladder": "ii-s2"
+            }
+          },
+          "factorialGroups": [
+            {
+              "keys": [
+                "optics.regular.tintAlpha",
+                "sizeScatterFloor",
+                "sizeScatterFloor2x",
+                "sizeHeavyTapSigma",
+                "sizeHeavyTapSigma2x"
+              ],
+              "starts": [
+                "d0219"
+              ]
+            }
+          ]
+        },
+        "thin-and-conditioning": {
+          "why": "the thin starts and the conditioning gain by coordinate sweep after the factorial (Design \"The moves\")",
+          "leaves": {
+            "sizeScatterRampStartThin1x": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.6,
+                0.72,
+                0.85,
+                1.0
+              ],
+              "unit": "sharp share at the contour",
+              "target": "C rest",
+              "ladder": "ii-n1",
+              "x64": true
+            },
+            "sizeScatterRampStartThin2x": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                1
+              ],
+              "grid": [
+                0.46,
+                0.6,
+                0.75,
+                0.9
+              ],
+              "unit": "sharp share at the contour",
+              "target": "C rest",
+              "ladder": "ii-n2",
+              "x64": true
+            },
+            "sizeScatterScaleGain": {
+              "slot": "active.dark",
+              "domain": [
+                -2,
+                0
+              ],
+              "grid": [
+                -2,
+                -1.5,
+                -1,
+                -0.5,
+                0
+              ],
+              "unit": "per unit of the source's edge density",
+              "target": "C rest",
+              "ladder": null,
+              "note": "predicted to move toward 0 once the transmission opens (Design, target C); no ladder reads it, so no ladder strikes it"
+            }
+          }
+        },
+        "second-tap": {
+          "why": "the second heavy tap (W30): a positive share adds structure at the middle pitch, the dark scheme's sign; its share and widths gate each other (W45's finding), so the three are one factorial step",
+          "leaves": {
+            "sizeHeavySecondShare": {
+              "slot": "active.dark",
+              "domain": [
+                -1,
+                1
+              ],
+              "grid": [
+                0,
+                0.25,
+                0.5,
+                0.75
+              ],
+              "unit": "signed share",
+              "target": "C rest",
+              "ladder": null
+            },
+            "sizeHeavySecondSigma": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                8
+              ],
+              "grid": [
+                0,
+                1.5,
+                3,
+                5
+              ],
+              "unit": "CSS px",
+              "target": "C rest",
+              "ladder": null
+            },
+            "sizeHeavySecondSigma2x": {
+              "slot": "active.dark",
+              "domain": [
+                0,
+                8
+              ],
+              "grid": [
+                0,
+                1.5,
+                3,
+                5
+              ],
+              "unit": "CSS px",
+              "target": "C rest",
+              "ladder": null
+            },
+            "sizeHeavySecondShareFar2x": {
+              "slot": "active.dark",
+              "domain": [
+                -1,
+                0
+              ],
+              "grid": [
+                -0.5,
+                -0.25,
+                0
+              ],
+              "unit": "signed share, graded on farS",
+              "target": "C rest",
+              "ladder": null,
+              "x64": true,
+              "domainLowerIsMinus": "sizeHeavySecondShare"
+            }
+          },
+          "factorialGroups": [
+            {
+              "keys": [
+                "sizeHeavySecondShare",
+                "sizeHeavySecondSigma",
+                "sizeHeavySecondSigma2x"
+              ],
+              "starts": [
+                "d0219"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stage2",
+      "slot": "receded.dark",
+      "scope": "stage2",
+      "materialiseX64": "receded.dark",
+      "what": "the receded document: its own transmission, then its scatter leaves, read on P, F and C inactive; sealed as a difference over the stage-1 active (Design \"The moves\")",
+      "familyOrder": [
+        "transmission"
+      ],
+      "families": {
+        "transmission": {
+          "why": "the receded tintAlpha alone, ordinates held (target P's receded arm)",
+          "leaves": {
+            "optics.regular.tintAlpha": {
+              "slot": "receded.dark",
+              "domain": [
+                0.5,
+                0.89
+              ],
+              "grid": [
+                0.89
+              ],
+              "unit": "alpha",
+              "target": "P",
+              "ladder": "i-r",
+              "held": "every tone ordinate and bodyChromaRetention held (X61)"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "searchProcedure": {
+    "implementation": "fit/search.py (pinned by part 1), fit/fit.py",
+    "text": "W45's procedure: within a stage, its families are sequential components in familyOrder, each swept on the stage's scope from the point the previous left; within a family each leaf's grid is swept in the order listed, the others held at their current values, at most two passes; a factorialGroups entry sweeps its keys' grid product as ONE coordinate step; a grid point outside a declared joint domain (domainLowerIsMinus) is not a candidate; every step's candidates include the step's start (already measured), so a sweep never forces a move off the incumbent.",
+    "tieRule": "points whose objective lies within the stage tie of the step's minimum are indistinguishable; among them the point nearest the step's start wins (the sum over the step's keys of |v - v0| / (domain hi - lo)), then fewer moved leaves, then grid order; the stage decision applies the same rule measured from the stage base. The tie is rule.stage_tie computed once on the stage's declared cells from the reference's own cut (stage 1 0.0365, stage 2 0.0544), never from a point's partial render (the W44 and W45 tracker entries).",
+    "objective": "rule.stage_objective: W44's selection metric (median |log(web/native)| over F, C and P) on the stage's cells, both dark scales pooled, the gate partition; a partial objective is never ranked (recover.py, or refusal)",
+    "scaleSeparableRendering": "a point's render at one scale is its scale twin's: the point's overrides restricted to the leaves acting at that scale (fit/labels.json `scales`); points whose scale twins have equal resolved digests share that scale's render. Exact under the scale anchoring, which ladders (ii) and (iii) read on every lever (its other scale byte-identical to the control's).",
+    "renders": "every fit render in candidate mode on the WebGPU tier with --alpha, through with-gpu.sh; each scope's cells are the dark T1 gate cells of its pose plus L1's declared population of that pose"
+  },
+  "selectionRule": {
+    "withinAStage": "the stage's point with a passing within clause (rule.stage_within: every target cell of the stage within) and the smallest stage objective lands",
+    "ifNotWithin": "else the smallest stage objective, an indistinguishable plateau decided by the tie rule from the stage base; recorded as NOT within"
+  },
+  "interactions": "stage 1's moves of the floors, the 1x heavy tap, the second tap and the gain reach the inactive cells by inheritance and are read there; stage 2 materialises them at the stage-1 active's resolved values (materialiseX64) and holds or moves them independently. The joint point is re-read on the whole gate population (search.py full on the landed point); a stage that undid the other (a cell of the other stage's within clause that its landed point left within is a miss at the final point) is refitted once on the union.",
+  "level": "the transmission's domain is ladder (i)'s passing rungs (part 2 narrows each tintAlpha grid to them); every fit scope carries L1's declared population, read at every point, and the gate reads L1 and every other adopted row on the shipped bytes (X61)",
+  "landingRule": {
+    "implementation": "cuts/rule.py (pinned by part 1)",
+    "reference": "d0219cd684bf",
+    "scope": "WebGPU, the two dark 0.25 profiles, each alone, F, T, C and P, the gate partition before the exposure",
+    "targets": {
+      "P": [
+        "P rest",
+        "P inactive"
+      ],
+      "C rest": [
+        "C rest"
+      ],
+      "F inactive": [
+        "F inactive"
+      ]
+    },
+    "verdicts": "FULL CLOSE, IMPROVEMENT LANDING, UNMEASURED, NEITHER (Design \"The landing rule\")"
+  },
+  "notFitted": [
+    {
+      "target": "F inactive",
+      "ladder": "iii",
+      "operatorShape": "a receded-only fine-pitch term: the receded body's 4-8 px structure at spans 96-160 must fall by about ten bars (x2.9-3.6 to x1; checkerboard-8 rrect-md and rrect-lg inactive, both scales) while its coarse (16-64 px) and photo structure hold or rise; the receded thin, thick and far ramp starts and the receded heavy width move the two fine cells by at most 1.7 bars (ladder (iii)), so the shape acts on the fine pitches of the receded deep and sharp mix alone (for example a receded per-span narrow-component width), to be landed inert with byte identity and its own separating ladder if the parent rules it in (X63; Decision Log 4)"
+    }
+  ],
+  "x60": "every fit candidate's light endpoints patch- and digest-identical to the light snapshots (the builder refuses a light override; stage/x60.py evidence reads it)",
+  "held": "every tone ordinate (backdropToneResponseThin/Thick, backdropToneBlackThin/Thick), bodyChromaRetention, the tint, every rim, shadow and lens leaf, and every light, 0.5 and 26.5 document",
+  "sources": {
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/results.json": "ee157899607405eaccf186c8b71eabfeb548b6ff6f40e331353b861398e9b125",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/results.txt": "1f9fa285377b43aa2e13e02ab0967cd9f098c05f72dde0d9087a88ea2c6dc450",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/protocol.json": "4e4e18f313323c953f34d13bc0fef3603cf732122039b4f2461711cf2cdab07a",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/read.py": "41f6f358258ca00df90bd20016691c03dcdf9a14754be93d9be115add6c0c293",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/ladder.py": "e28c3a1423422ab3c38f10c9bf5668b4875e77c948ddf9386b2b91465fad525c",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/part2.py": "6c243f865881f2565821a5b2368c266a7012eb17ff3189ff1343ce5b7a81b91d",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/runs.jsonl": "cca171a0eee94d9b67ebdf8fb45719d6ad726128fb278b9e81a33cb57b311a43",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/x60-evidence.json": "28efdd5308ca7b7543890983fc0abeba8ab2285dfcd06c7dcc32b86c4d475b85",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/fit.py": "e5cdeabb44e95ec265a58fd82877f3f44372676e50ba00381b4388c5ad898957",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/search.py": "295479fae9700d6340c05181834e2f5f4749b69b1c7b66719232d485488d4204",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/joint.py": "5279e23120ddf6ece3b16b31fd8f4911c6679d09480e788822ec600eb580c340",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/finding.py": "10139ee12c09b76ab4eb234a6aadc1a4668c539ab6d5eaf1351abec61350569d",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/recover.py": "2c6cc0c8dc9fcb1b62fba93dcb4b8157831c76f2e34623c06d40bea617a65f31",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/labels.json": "a0363496c5c2aaa8690c4d8d5fca8cf4e4f258a5e0c5c6dea251767a4e617130",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/fit/build-candidate.ts": "bdbb334765fbbf066c73172a93e946a8499f7bb6668158688cf18f44a359efbc",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/seal/seal.ts": "37a7fc5110fccc2a930f1dfd611ece3308fba63d70b857372d4306ade9ad7a44",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/cuts/rule.py": "4186d80fc967f7cfdb9a8097e7339f74b9718a0f8fe983ca818551af7820551b"
+  }
+}

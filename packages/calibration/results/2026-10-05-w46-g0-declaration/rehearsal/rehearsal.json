@@ -1,0 +1,851 @@
+{
+ "schema": "w46-rehearsal-1",
+ "what": "W46 G0 (c): W45's landing rule bound to the dark 0.25 profiles, on d0219cd684bf against itself, W43 G3's pre-fit render and W43's c02 (partial); nothing rendered",
+ "rule": {
+  "path": "packages/calibration/results/2026-10-05-w46-g0-declaration/cuts/rule.py",
+  "sha256": "4186d80fc967f7cfdb9a8097e7339f74b9718a0f8fe983ca818551af7820551b",
+  "constants": {
+   "budgetCount": 3,
+   "budgetCeilingB": 3.0,
+   "gatingMinCells": 3
+  }
+ },
+ "rows": [
+  {
+   "label": "published d0219cd684bf against itself",
+   "kind": "complete render",
+   "source": "packages/calibration/results/2026-10-05-w46-g0-declaration/rehearsal/d0219-cuts.json.gz",
+   "sourceSha256": "e46fd0fbefc1f14b9abb1e02d352054358b07b64ef3965a33f67fdd48255ce56",
+   "verdict": "NEITHER: closes at the finding",
+   "complete": true,
+   "profiles": {
+    "apple-macos-27.0-1x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 66,
+      "toward": 0,
+      "away": 0
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.8791783438247661,
+       "referenceA": 0.8791783438247661,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.39000789236583844,
+       "referenceA": 0.39000789236583844,
+       "halved": false
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.9168898193476456,
+       "referenceA": 0.9168898193476456,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 23,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.3579867250475921,
+       "referenceA": 0.3579867250475921,
+       "tau": 0.04879348916174976,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.9168898193476456,
+       "referenceA": 0.9168898193476456,
+       "tau": 0.13312882520764546,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.34907264703527935,
+       "referenceA": 0.34907264703527935,
+       "tau": 0.052531228378024965,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.39000789236583844,
+       "referenceA": 0.39000789236583844,
+       "tau": 0.029716952899392322,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.5848612180013124,
+       "referenceA": 0.5848612180013124,
+       "tau": 0.07760670427169164,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.6020762017017587,
+       "referenceA": 0.6020762017017587,
+       "tau": 0.035259114651827475,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 1.1925608060409847,
+       "referenceA": 1.1925608060409847,
+       "tau": 0.035345871066986626,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.8792 above half of the reference's 0.8792",
+      "full close: target C rest: 23 cell(s) not within",
+      "improvement: target C rest aggregate 0.3900 above half of the reference's 0.3900",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.9169 above half of the reference's 0.9169"
+     ]
+    },
+    "apple-macos-27.0-2x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 66,
+      "toward": 0,
+      "away": 0
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.9651537453062131,
+       "referenceA": 0.9651537453062131,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.5377208764861756,
+       "referenceA": 0.5377208764861756,
+       "halved": false
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.9824372032291502,
+       "referenceA": 0.9824372032291502,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 25,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.43227205835173965,
+       "referenceA": 0.43227205835173965,
+       "tau": 0.07632127778961525,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.9824372032291502,
+       "referenceA": 0.9824372032291502,
+       "tau": 0.14578116924507029,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.7896598257025865,
+       "referenceA": 0.7896598257025865,
+       "tau": 0.08736786097963681,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.5377208764861756,
+       "referenceA": 0.5377208764861756,
+       "tau": 0.02622208772215592,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.5572785918269356,
+       "referenceA": 0.5572785918269356,
+       "tau": 0.07632378803089943,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.7996916517732098,
+       "referenceA": 0.7996916517732098,
+       "tau": 0.03448124273607571,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 1.1443246876015263,
+       "referenceA": 1.1443246876015263,
+       "tau": 0.035445554444186914,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.9652 above half of the reference's 0.9652",
+      "full close: target C rest: 25 cell(s) not within",
+      "improvement: target C rest aggregate 0.5377 above half of the reference's 0.5377",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.9824 above half of the reference's 0.9824"
+     ]
+    }
+   },
+   "pooledTargets": {
+    "P": {
+     "cells": 18,
+     "A": 0.9600976542906277,
+     "referenceA": 0.9600976542906277,
+     "halved": false
+    },
+    "C rest": {
+     "cells": 56,
+     "A": 0.47963839064150526,
+     "referenceA": 0.47963839064150526,
+     "halved": false
+    },
+    "F inactive": {
+     "cells": 4,
+     "A": 0.953814617237472,
+     "referenceA": 0.953814617237472,
+     "halved": false
+    }
+   }
+  },
+  {
+   "label": "W43 G3's pre-fit render (504c5348\u2026) against d0219cd684bf",
+   "kind": "complete render",
+   "source": "packages/calibration/results/2026-10-05-w46-g0-declaration/rehearsal/prefit-cuts.json.gz",
+   "sourceSha256": "26ae705f9896b1f385b48144cc33a981b3dc5f6e91d6743fdff19a6976c45f57",
+   "verdict": "NEITHER: closes at the finding",
+   "matrixSha256": "504c5348638265e6a141308d4f74d98dc6119dfbb9e12e15164fc6e028bdebbb",
+   "matrix": "/Users/new/vitrea-w43/g3-scratch/prefit/matrix.json",
+   "complete": true,
+   "profiles": {
+    "apple-macos-27.0-1x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 66,
+      "toward": 0,
+      "away": 0
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.8864211579843586,
+       "referenceA": 0.8791783438247661,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.3918733118950759,
+       "referenceA": 0.39000789236583844,
+       "halved": false
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.9147824939534799,
+       "referenceA": 0.9168898193476456,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 23,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.36170597676315674,
+       "referenceA": 0.3579867250475921,
+       "tau": 0.04879348916174976,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.9147824939534799,
+       "referenceA": 0.9168898193476456,
+       "tau": 0.13312882520764546,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.3429286980064232,
+       "referenceA": 0.34907264703527935,
+       "tau": 0.052531228378024965,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.3918733118950759,
+       "referenceA": 0.39000789236583844,
+       "tau": 0.029716952899392322,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.5893447798135885,
+       "referenceA": 0.5848612180013124,
+       "tau": 0.07760670427169164,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.6024047806730404,
+       "referenceA": 0.6020762017017587,
+       "tau": 0.035259114651827475,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 1.1919017085745762,
+       "referenceA": 1.1925608060409847,
+       "tau": 0.035345871066986626,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.8864 above half of the reference's 0.8792",
+      "full close: target C rest: 23 cell(s) not within",
+      "improvement: target C rest aggregate 0.3919 above half of the reference's 0.3900",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.9148 above half of the reference's 0.9169"
+     ]
+    },
+    "apple-macos-27.0-2x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 66,
+      "toward": 0,
+      "away": 0
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.9697009647708791,
+       "referenceA": 0.9651537453062131,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.5377208764861756,
+       "referenceA": 0.5377208764861756,
+       "halved": false
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.9827234945378787,
+       "referenceA": 0.9824372032291502,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 25,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.4307734624785914,
+       "referenceA": 0.43227205835173965,
+       "tau": 0.07632127778961525,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.9827234945378787,
+       "referenceA": 0.9824372032291502,
+       "tau": 0.14578116924507029,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.7909854677263309,
+       "referenceA": 0.7896598257025865,
+       "tau": 0.08736786097963681,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.5377208764861756,
+       "referenceA": 0.5377208764861756,
+       "tau": 0.02622208772215592,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.5548690215701442,
+       "referenceA": 0.5572785918269356,
+       "tau": 0.07632378803089943,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.79970139909009,
+       "referenceA": 0.7996916517732098,
+       "tau": 0.03448124273607571,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 1.1438509547524773,
+       "referenceA": 1.1443246876015263,
+       "tau": 0.035445554444186914,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.9697 above half of the reference's 0.9652",
+      "full close: target C rest: 25 cell(s) not within",
+      "improvement: target C rest aggregate 0.5377 above half of the reference's 0.5377",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.9827 above half of the reference's 0.9824"
+     ]
+    }
+   },
+   "pooledTargets": {
+    "P": {
+     "cells": 18,
+     "A": 0.9623924103786083,
+     "referenceA": 0.9600976542906277,
+     "halved": false
+    },
+    "C rest": {
+     "cells": 56,
+     "A": 0.48126590080242393,
+     "referenceA": 0.47963839064150526,
+     "halved": false
+    },
+    "F inactive": {
+     "cells": 4,
+     "A": 0.9537809340741341,
+     "referenceA": 0.953814617237472,
+     "halved": false
+    }
+   }
+  },
+  {
+   "label": "W43's dark probe c02 against d0219cd684bf",
+   "kind": "PARTIAL render (diagnostics only)",
+   "source": "packages/calibration/results/2026-10-05-w46-g0-declaration/rehearsal/c02-cuts.json.gz",
+   "sourceSha256": "398587072757e66819f1ae481bb500263ed9afe0f96a8b5f7dab6931039f12e9",
+   "verdict": "UNMEASURED: 1x UNMEASURED: 52 member(s) of the scope have no reading; 2x UNMEASURED: 52 member(s) of the scope have no reading",
+   "matrixSha256": "14e305096bdcda01c65d89ec9be081d76e706bd3a33968e91ffdb0721308467b",
+   "matrix": "/Users/new/vitrea-w43/g3-scratch/fit/c02/matrix.json",
+   "candidate": "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c02/candidate.json",
+   "candidateSha256": "552839115dd94c45bc1d4940c0913cad9288a84d7b18877d77a4d1ec5e3e9a7e",
+   "complete": false,
+   "profiles": {
+    "apple-macos-27.0-1x-dark-standard-glass0.25": {
+     "verdict": "UNMEASURED: 52 member(s) of the scope have no reading",
+     "read": 14,
+     "cells": 14,
+     "unmeasured": 52,
+     "partition": {
+      "unchanged": 12,
+      "toward": 1,
+      "away": 1
+     },
+     "targets": {
+      "P": {
+       "cells": 6,
+       "A": 1.0025890847841934,
+       "referenceA": 1.0048507555129491,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 4,
+       "A": 0.24076392324234602,
+       "referenceA": 0.29556198036299797,
+       "halved": false
+      },
+      "F inactive": null
+     },
+     "targetNotWithin": {
+      "P": 6,
+      "C rest": 3,
+      "F inactive": 0
+     },
+     "groups": {
+      "C rest": {
+       "A": 0.24076392324234602,
+       "referenceA": 0.29556198036299797,
+       "tau": 0.027472536295608585,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "C inactive": {
+       "A": 0.5035257864695544,
+       "referenceA": 0.39966672970183564,
+       "tau": 0.05474406878799611,
+       "gated": true,
+       "holds": false,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P rest": {
+       "A": 0.7620260343040306,
+       "referenceA": 0.7615265785186747,
+       "tau": 0.03556198559764676,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "P inactive": {
+       "A": 1.2035471049150166,
+       "referenceA": 1.1925608060409847,
+       "tau": 0.03768659860408725,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      }
+     },
+     "gatedAggregateFailures": [
+      "C inactive"
+     ],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [
+      {
+       "scene": "checkerboard__rrect-md__inactive",
+       "growthInB": 2.2707159020513132
+      }
+     ],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": []
+    },
+    "apple-macos-27.0-2x-dark-standard-glass0.25": {
+     "verdict": "UNMEASURED: 52 member(s) of the scope have no reading",
+     "read": 14,
+     "cells": 14,
+     "unmeasured": 52,
+     "partition": {
+      "unchanged": 10,
+      "toward": 4,
+      "away": 0
+     },
+     "targets": {
+      "P": {
+       "cells": 6,
+       "A": 1.0520006704573488,
+       "referenceA": 1.0547392164538696,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 4,
+       "A": 0.4795867654378897,
+       "referenceA": 0.5424716919945345,
+       "halved": false
+      },
+      "F inactive": null
+     },
+     "targetNotWithin": {
+      "P": 6,
+      "C rest": 4,
+      "F inactive": 0
+     },
+     "groups": {
+      "C rest": {
+       "A": 0.4795867654378897,
+       "referenceA": 0.5424716919945345,
+       "tau": 0.023803337540856367,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "C inactive": {
+       "A": 0.09004843711334079,
+       "referenceA": 0.09954277268680603,
+       "tau": 0.04005620081449967,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P rest": {
+       "A": 0.9544353371626488,
+       "referenceA": 0.9550415632750423,
+       "tau": 0.03494344189216927,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "P inactive": {
+       "A": 1.1565938620497485,
+       "referenceA": 1.1548103937533527,
+       "tau": 0.03666639270132745,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": []
+    }
+   },
+   "pooledTargets": {
+    "P": {
+     "cells": 12,
+     "A": 1.046152370851754,
+     "referenceA": 1.0478384562536727,
+     "halved": false
+    },
+    "C rest": {
+     "cells": 8,
+     "A": 0.3732829858929771,
+     "referenceA": 0.4320798016329832,
+     "halved": false
+    },
+    "F inactive": null
+   }
+  }
+ ],
+ "groupsAgainstCharter": {
+  "apple-macos-27.0-1x-dark-standard-glass0.25": {
+   "got": {
+    "F rest": [
+     10,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ]
+   },
+   "charter": {
+    "F rest": [
+     10,
+     true
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ]
+   },
+   "equal": true
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.25": {
+   "got": {
+    "F rest": [
+     10,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ]
+   },
+   "charter": {
+    "F rest": [
+     10,
+     true
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ]
+   },
+   "equal": true
+  }
+ },
+ "synthetic": {
+  "path": "packages/calibration/results/2026-10-05-w46-g0-declaration/cuts/test_rule.txt",
+  "result": "OK"
+ }
+}
