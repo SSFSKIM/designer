@@ -1,0 +1,168 @@
+{
+ "what": "W46 G2: T1-fine and T1-low of every T cell of the dark 0.25 profiles, WebGPU, read off the canonical capture tree through W44 G1's cuts/readings.py (claims \u00a75.210)",
+ "generation": "d0219cd684bf",
+ "readers": {
+  "readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+  "t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc"
+ },
+ "definition": {
+  "fine": "SD of L - G(L, sigma 4 device px), linear luminance, native silhouette eroded 4 CSS px",
+  "low": "SD of G(L, sigma 4 device px) over the same support",
+  "sigmaDevicePx": 4.0,
+  "erodeCssPx": 4
+ },
+ "entries": [
+  {
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-lg__rest",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "091f0c004c123b3b8d235bb42d6b62e517af8c8c55fdf4dd8a07aecd9bf85735",
+   "bands": {
+    "fine": {
+     "native": 0.00951109279444036,
+     "web": 0.014138850332521023
+    },
+    "low": {
+     "native": 0.019837169307352454,
+     "web": 0.01975324545708373
+    }
+   },
+   "erodedPixels": 40620
+  },
+  {
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__inactive",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "32c48573670bea6cab3ec4fb1d0dac9b774d77d39847c6b45b2dc6e959ee4935",
+   "bands": {
+    "fine": {
+     "native": 0.009882494589916952,
+     "web": 0.01898008577150123
+    },
+    "low": {
+     "native": 0.019582374846693503,
+     "web": 0.020004065701254087
+    }
+   },
+   "erodedPixels": 13184
+  },
+  {
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__rest",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "f64518fc6696ba47052dba795aea7a4eb9f2f97a8f2b1dd11a7810b408a46d13",
+   "bands": {
+    "fine": {
+     "native": 0.030566809442059677,
+     "web": 0.020471007312195973
+    },
+    "low": {
+     "native": 0.025310957410275788,
+     "web": 0.02013913433964725
+    }
+   },
+   "erodedPixels": 13184
+  },
+  {
+   "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-sm__rest",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "60232fb3429077abfdf21412bc0dd0cad3efaf5cb727c3cbe35d8c379740ac25",
+   "bands": {
+    "fine": {
+     "native": 0.07932131691655833,
+     "web": 0.019127401657178196
+    },
+    "low": {
+     "native": 0.036144953310844406,
+     "web": 0.0186522758938622
+    }
+   },
+   "erodedPixels": 1340
+  },
+  {
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-lg__rest",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "3763e8f4796ef2f25428c791ef5e64dbad8bca22a3367de3d27602b5336081f7",
+   "bands": {
+    "fine": {
+     "native": 0.0014035017334172336,
+     "web": 0.004288915255104905
+    },
+    "low": {
+     "native": 0.016468048663024055,
+     "web": 0.014053036629716235
+    }
+   },
+   "erodedPixels": 162343
+  },
+  {
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__inactive",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "e5be87c4c2305b5ab9f71bc7aa23314c6102fe8fc437da9b36f916fb4a594ce6",
+   "bands": {
+    "fine": {
+     "native": 0.0015092029529288472,
+     "web": 0.003704162535827827
+    },
+    "low": {
+     "native": 0.01640136135331364,
+     "web": 0.008215362463416953
+    }
+   },
+   "erodedPixels": 52660
+  },
+  {
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-md__rest",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "4a886c184fa2ed86b78f383052e76cde0c2929b032bf64868c60c81862575b1e",
+   "bands": {
+    "fine": {
+     "native": 0.016692312047564405,
+     "web": 0.0055423583444159895
+    },
+    "low": {
+     "native": 0.022709520420471318,
+     "web": 0.009044607382891081
+    }
+   },
+   "erodedPixels": 52651
+  },
+  {
+   "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+   "renderer": "webgpu",
+   "scene": "hc-text-7__rrect-sm__rest",
+   "set": "probe",
+   "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+   "webSha256": "9f22cb236f1586a6ee234f603e24277b7197bad56550f97e930f3b09a641df08",
+   "bands": {
+    "fine": {
+     "native": 0.08119628822521037,
+     "web": 0.010919239523385088
+    },
+    "low": {
+     "native": 0.060400145232906696,
+     "web": 0.010096316009674295
+    }
+   },
+   "erodedPixels": 5335
+  }
+ ]
+}
