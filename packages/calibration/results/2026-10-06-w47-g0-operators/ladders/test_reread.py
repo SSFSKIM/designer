@@ -8,6 +8,7 @@ reader (`cuts/rule.py` `reads`) so the partition is the rule's, not a copy of it
 - Operator 2's fine halving: R exactly at the minimum passes, below it fails, a cell with no excess fails;
   the guards' floor is inclusive.
 - The outcome: a rung meeting at both scales separates; one scale only is named, never separating.
+- A capture whose sidecar names another render than its matrix row is refused before its bands are read.
 
     python3.12 -B -m unittest test_reread -v      (from this directory)
 """
@@ -73,6 +74,19 @@ class Outcome(unittest.TestCase):
     def test_both_scales_or_named(self):
         got = RR.outcome({"r1": {1: True, 2: True}, "r2": {1: True, 2: False}, "r3": {1: False, 2: False}})
         self.assertEqual(got, dict(meetsBoth=["r1"], meetsOneScaleOnly=["r2"]))
+
+
+class Provenance(unittest.TestCase):
+    def test_a_capture_from_another_render_is_refused(self):
+        import json
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            cap = RR.Captures(Path(tmp))
+            png = cap.png("r", 1, "s")
+            png.parent.mkdir(parents=True)
+            (png.parent / "cell__webgpu.json").write_text(json.dumps({"capturePath": "other"}))
+            with self.assertRaisesRegex(RR.W.Refusal, "another render"):
+                cap.bands("r", 1, "s", {"key": {"web": {"capturePath": "mine"}}})
 
 
 if __name__ == "__main__":

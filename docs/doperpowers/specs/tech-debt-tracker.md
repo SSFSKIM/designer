@@ -7637,3 +7637,20 @@ nothing else. Decision Log 9 needed a content change, so G1 added W44 G1's and W
 part 2. The form has ops recomputed from the hashed body, the ruling verbatim, and part-1 tool moves
 bound into part 2's own `sources` and hash chain. The next wave's port should start from this form
 rather than rediscover it. The pins-only form remains the only one part 1 accepts.
+
+## W47's `declare.py amend` accepts an empty ops list and spends the final amendment on nothing (W47 G0, 2026-10-06)
+
+*Small; found by the review of Decision Log 8's amendment (claims §5.211).*
+
+`amend` takes a content amendment's ops from a file and only checks that each op is an add or a
+replace. A file holding `[]` passes, so `amend` writes the record and appends a digest line with
+exit 0 although nothing changed. After a ladder render, the read-time validation then refuses that
+record, because the post-render form requires non-empty ops, and a second `amend` refuses because
+the one amendment is spent. Before a render, the record is accepted and the amendment is wasted.
+Part 1's amendment under Decision Log 8 carries two add ops and is unaffected; part 1 cannot be
+amended again, so the defect can only reach part 2's `amend-fit`.
+
+`declare.py` is a pinned part-1 source, and a pin moves only through an amendment, so the fix was
+not made in place. The fix is one refusal before anything is written: an empty ops list is not a
+content amendment. It belongs in the next wave's port, or in a part-2 amendment, whose
+`partOnePins` may re-pin `declare.py`.

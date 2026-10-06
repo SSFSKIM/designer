@@ -72,6 +72,14 @@ def declared_bars() -> tuple[dict, dict, dict]:
     """(ladders' decisionLog8, level's decisionLog8, the amendment record), refusing unless the declaration
     on disk is the chain's last hash and its one amendment is Decision Log 8's."""
     raw = W.PART1.read_bytes()
+    # The whole chain and the record's read-time validation first (declare.py's own `chain`, which runs
+    # `amendment_failures`: the verbatim ruling, the post-render additive form, the superseded hash).
+    sys.path.insert(0, str(EVIDENCE))
+    import declare as D  # noqa: PLC0415
+    c = D.Check()
+    D.chain(c, "protocol", json.loads(raw))
+    if c.failures:
+        raise W.Refusal(f"part 1's amendment chain does not validate: {c.failures[:3]}")
     lines = [ln.split()[0] for ln in W.PART1_DIGEST.read_text().splitlines() if ln.strip()]
     if sha(raw) != lines[-1]:
         raise W.Refusal("declaration.json is not the last hash of declaration.sha256")
@@ -143,11 +151,16 @@ class Captures:
         prof = W.PROFILE[scale]
         return self.scratch / label / f"{scale}x" / "web-captures" / prof / sid / f"{sid}__webgpu.png"
 
-    def bands(self, label: str, scale: int, sid: str) -> dict:
-        """{native: {fine, low}, web: {fine, low}, webSha256} for the rung's capture of one cell."""
+    def bands(self, label: str, scale: int, sid: str, row: dict) -> dict:
+        """{native: {fine, low}, web: {fine, low}, webSha256} for the rung's capture of one cell, admitted
+        first against its matrix row: the capture's sidecar must name the row's capturePath (which carries
+        the candidate's documents), so a capture copied in from another rung is refused."""
         key = (label, scale, sid)
         if key not in self.cache:
             prof = W.PROFILE[scale]
+            meta = json.loads((self.png(label, scale, sid).parent / "cell__webgpu.json").read_text())
+            if meta.get("capturePath") != row["key"]["web"]["capturePath"]:
+                raise W.Refusal(f"{label} {scale}x {sid}: the capture names another render than its row")
             if (scale, sid) not in self.geometry:
                 self.native_img[(scale, sid)] = self.rgb(FIXTURES / prof / f"{sid}.png")
                 self.geometry[(scale, sid)] = FINE.cell_geometry(prof, sid, self.native_img[(scale, sid)])
@@ -159,14 +172,15 @@ class Captures:
         return self.cache[key]
 
 
-def rule_cell(scale: int, sid: str, reading: dict, cap: Captures, label: str) -> dict:
+def rule_cell(scale: int, sid: str, reading: dict, cap: Captures, label: str, rows: dict, control: dict) -> dict:
     """The landing rule's cell for one thick or fine cell: whole-band T1, and a T cell's two bands."""
     prof = W.PROFILE[scale]
     entry = READ.BARS[(prof, sid)]
     cell = dict(scene=sid, stratum=T1.stratum(sid), native=reading["native"], reference=reading["control"],
                 candidate=reading["web"], bar=entry["bar"], code=entry["code"])
     if cell["stratum"] == "T":
-        k, c = cap.bands(label, scale, sid), cap.bands("control", scale, sid)
+        key = (prof, sid)
+        k, c = cap.bands(label, scale, sid, rows[key]), cap.bands("control", scale, sid, control[key])
         cell["bands"] = {b: dict(native=k["native"][b], reference=c["web"][b], candidate=k["web"][b])
                          for b in ("fine", "low")}
     return cell
@@ -200,7 +214,7 @@ def main() -> int:
     diag = {(c["scale"], c["scene"]): c for c in json.loads((EVIDENCE / "diagnostic/reading.json").read_text())["rows"]}
     checks = []
     for (s, sid), row in sorted(diag.items()):
-        got = cap.bands("control", s, sid)
+        got = cap.bands("control", s, sid, control_rows[(W.PROFILE[s], sid)])
         checks.append(dict(what=f"control T1-fine {s}x {sid} against diagnostic/reading.json",
                            equal=got["web"]["fine"] == row["fine"]["control"]
                            and got["native"]["fine"] == row["fine"]["native"]))
@@ -208,7 +222,7 @@ def main() -> int:
     for e in tb["entries"]:
         if e["scene"] in thick:
             s = B.scale_of(e["profile"])
-            got = cap.bands("control", s, e["scene"])
+            got = cap.bands("control", s, e["scene"], control_rows[(e["profile"], e["scene"])])
             checks.append(dict(what=f"control bands {s}x {e['scene']} against W46 G2's d0219cd684bf T-band fixture",
                                equal=all(got["web"][b] == e["bands"][b]["web"] and got["native"][b] == e["bands"][b]["native"]
                                          for b in ("fine", "low"))))
@@ -235,7 +249,7 @@ def main() -> int:
         entry = dict(ladder=res["ladder"], overrides=res["overrides"], perScale={})
         for s in (1, 2):
             if res["ladder"] == "i":
-                reads = {sid: RULE.reads(rule_cell(s, sid, cells[(s, sid)], cap, label)) for sid in thick}
+                reads = {sid: RULE.reads(rule_cell(s, sid, cells[(s, sid)], cap, label, rows, control_rows)) for sid in thick}
                 part = partition(reads, op1["awayCeilingB"], op1["awayBeyondBMax"])
                 old = READ.bar_i(cells, thick, thin, pa, res["level"]["L1passes"])["perScale"][s]
                 l1 = res["level"]["L1passes"]
@@ -252,7 +266,8 @@ def main() -> int:
             else:
                 fine = {}
                 for sid in FINE_CELLS:
-                    k, c = cap.bands(label, s, sid), cap.bands("control", s, sid)
+                    k = cap.bands(label, s, sid, rows[(W.PROFILE[s], sid)])
+                    c = cap.bands("control", s, sid, control_rows[(W.PROFILE[s], sid)])
                     fine[sid] = dict(native=k["native"]["fine"], reference=c["web"]["fine"], rung=k["web"]["fine"])
                 halving = fine_halving(fine, op2["fineExcessRemovedMin"] if res["ladder"] == "iii"
                                        else joint["fineExcessRemovedMin"])
@@ -262,7 +277,8 @@ def main() -> int:
                                                  wholeControlRatio=cells[(s, sid)]["controlRatio"])
                 beside = {}
                 for sid in sorted({sid for (sc, sid) in cells if sc == s} - set(FINE_CELLS)):
-                    k, c = cap.bands(label, s, sid), cap.bands("control", s, sid)
+                    k = cap.bands(label, s, sid, rows[(W.PROFILE[s], sid)])
+                    c = cap.bands("control", s, sid, control_rows[(W.PROFILE[s], sid)])
                     r = cells[(s, sid)]
                     beside[sid] = dict(wholeGInB=None if r["g"] is None else r["g"] / r["B"], wholeRatio=r["ratio"],
                                        fine=dict(native=k["native"]["fine"], reference=c["web"]["fine"],
@@ -272,7 +288,7 @@ def main() -> int:
                     entry["perScale"][s] = dict(fine=halving, guards=g, beside=beside,
                                                 meets=halving["holds"] and g["holds"])
                 else:
-                    reads = {sid: RULE.reads(rule_cell(s, sid, cells[(s, sid)], cap, label)) for sid in FINE_CELLS}
+                    reads = {sid: RULE.reads(rule_cell(s, sid, cells[(s, sid)], cap, label, rows, control_rows)) for sid in FINE_CELLS}
                     photo = cells[(s, PHOTO)]
                     floor = pa[(s, PHOTO)]["ratio"]
                     entry["perScale"][s] = dict(
