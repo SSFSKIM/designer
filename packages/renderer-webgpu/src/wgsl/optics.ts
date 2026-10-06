@@ -248,11 +248,13 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// back. (z) is W45's far-curve delta on that share (claims 5.205), already resolved at the
   /// group's device ratio and 0 at dpr 1: the share at a pixel is x + z * farS, per pixel and
   /// unclamped, because a group's members have different spans and x is one number for all of
-  /// them. 0 on every shipped material. (w) is W47's far-curve delta on the TRANSMISSION
+  /// them. 0 on every shipped material but the light 0.25 pair (W45). (w) is W47's far-curve
+  /// delta on the TRANSMISSION
   /// (operator 1, claims 5.211), not on this tap: the lane was the last free one in this vec4.
   /// Already resolved at the group's device ratio by rampAtScale(far1x, far2x, dpr); the base
   /// alpha at a pixel is clamp(tint.w + w * farS, 0, 1), read before the size law's occlusion
-  /// term. 0 on every shipped material.
+  /// term. 0 on every shipped material but the dark 0.25 pair, which names 0.2 / 0.2 since W48
+  /// (claims 5.213).
   scatterHeavy2 : vec4f,
   /// W31's body chroma retention (claims 5.161 section 5, 5.164): how much of
   /// the blurred backdrop's CHROMATICITY the body restores, at the luma the

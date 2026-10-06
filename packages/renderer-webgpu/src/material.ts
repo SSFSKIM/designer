@@ -1431,8 +1431,9 @@ export interface MaterialProfile {
    * **The CSS tier declines it with the tap** (`platform-web/src/optics.ts`): it draws no second
    * tap, so it has no share to grade.
    *
-   * **Ships at 0**, landed inert before anything was fitted on it (X57): every shipped digest,
-   * every golden and the signed-share mix on a live second texture byte-identical.
+   * **Landed at 0**, inert before anything was fitted on it (X57): every shipped digest, every
+   * golden and the signed-share mix on a live second texture byte-identical. Since W45 the light
+   * 0.25 pair names it (−0.25 / −0.125; claims §5.206); every other shipped document holds 0.
    */
   readonly sizeHeavySecondShareFar2x: number;
   /**
@@ -1575,10 +1576,12 @@ export interface MaterialProfile {
    * the CSS tier mirrors rather than declines since the σ law. `tier-coherence.test.ts` pins the
    * two evaluations to each other.
    *
-   * **Ships at 0** on both anchors, landed inert before anything was fitted on it (X57): every
+   * **Landed at 0** on both anchors, inert before anything was fitted on it (X57): every
    * shipped digest, every golden and every shipped endpoint's raster byte-identical, proved by
    * render in `e2e/gpu/w47-alpha-far.spec.ts`. Two plain value drops in
-   * `MATERIAL_IDENTITY_TABLE`, not a gate-group: the expression is read at every alpha.
+   * `MATERIAL_IDENTITY_TABLE`, not a gate-group: the expression is read at every alpha. **Since
+   * W48 the dark 0.25 pair names 0.2 / 0.2** (with `tintAlpha` 0.7 and the span tops at 160;
+   * claims §5.213); every other shipped document holds the identity.
    */
   readonly tintAlphaFar1x: number;
   /** The dpr-2 anchor of `tintAlphaFar1x`'s far delta, on the same law; identity 0 (W47). */

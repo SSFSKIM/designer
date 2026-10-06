@@ -1322,7 +1322,8 @@ export interface MaterialSourceSize {
    * CSS-pixel width `sizeFineTapSigma` / `sizeFineTapSigma2x`. This tier has one in-place
    * backdrop-filter, not two independently sampled body textures, so it carries none of the
    * three leaves. All ship at 0, landed inert; no scoped hold or changed scalar projection is
-   * claimed here. The fine-body residual remains a WebGPU-only lever for W47's fit to price.
+   * claimed here. W48's fit named the fine-body tap and did not fit it, so it still ships at 0
+   * everywhere (claims §5.213 §3).
    *
    * **W45's grading of the second tap's share is declined with the tap** (claims
    * §5.205; W45 charter Decision Log 1). `sizeHeavySecondShareFar2x` moves that
@@ -1382,7 +1383,8 @@ export interface MaterialSourceSize {
    * Decision Log 2, X65) — the 1x and 2x anchors of `@vitrea/renderer-webgpu`'s
    * `MaterialProfile.tintAlphaFar1x` / `tintAlphaFar2x`, where the reasons are. Applied per
    * surface by `spanGradedTintAlpha` before the occlusion term above, on the same far curve the
-   * shader evaluates per pixel. 0 on both anchors on every shipped material.
+   * shader evaluates per pixel. 0 on both anchors on every shipped material but the dark 0.25
+   * pair, which names 0.2 / 0.2 since W48 (claims §5.213).
    */
   readonly tintAlphaFar1x: number;
   readonly tintAlphaFar2x: number;
@@ -2965,8 +2967,9 @@ export function sizeOcclusionAlphaAt(
  * `tint.w` is; the far curve is unfolded on both tiers. Read off the DOCUMENT's span top (the
  * `size` `materialAtBackdrop` resolves), not off the light 0.25 hold `cssTierSourceSize` applies
  * to this tier's scatter, so a light 0.25 document that ever names the delta grades the alpha on
- * the WebGPU tier's own curve. At the shipped 0 the sum is `alpha` exactly and the clamp is the
- * identity on an alpha in [0, 1], so no shipped CSS output moves.
+ * the WebGPU tier's own curve. At 0 the sum is `alpha` exactly and the clamp is the identity on
+ * an alpha in [0, 1], so a document at the identity moves no CSS output; the dark 0.25 pair names
+ * 0.2 / 0.2 since W48, and its CSS rows draw the graded alpha (claims §5.213).
  */
 export function spanGradedTintAlpha(
   alpha: number,
