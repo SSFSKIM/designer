@@ -1,0 +1,69 @@
+W48 G0 (d): the verdicts (part 1 87ec90d48155; reader 4c4499b31eae; reread 7d08536397ec; results 8d46082eccb9)
+
+(a) operator 1, per rung and scale: each thick cell's change-band growth in B, its state (O/U = over/under Apple at the reference); away beyond B / beyond 3B / over-Apple away; thin gain; L1
+  i-a0.7             1x  O+12.27 awa | O+10.38 awa | O+2.24 awa | U-4.61 tow | U-13.63 tow  -> >B 3, >3B 3, over-away 3; thin 0.1072/0.1072 keeps; L1 ok  no
+  i-a0.7             2x  O+11.16 awa | O+9.05 awa | O+2.03 awa | U+5.12 awa | U-4.75 tow  -> >B 4, >3B 4, over-away 3; thin 0.1384/0.1384 keeps; L1 ok  no
+  i-a0.7-f0.2        1x  O+7.73 awa | O+6.48 awa | O+1.37 awa | U-9.38 tow | U-13.60 tow  -> >B 3, >3B 3, over-away 3; thin 0.1072/0.1072 keeps; L1 ok  no
+  i-a0.7-f0.2        2x  O+7.04 awa | O+5.67 awa | O+1.32 awa | U-1.81 tow | U-13.71 tow  -> >B 3, >3B 3, over-away 3; thin 0.1384/0.1384 keeps; L1 ok  no
+  i-a0.7-f0.45       1x  O+2.32 awa | O+1.91 awa | O+0.37 unc | U-2.86 tow | U-4.32 tow  -> >B 3, >3B 0, over-away 2; thin 0.1072/0.1072 keeps; L1 ok  no
+  i-a0.7-f0.45       2x  O+2.14 awa | O+1.68 awa | O+0.41 unc | U-3.81 tow | U-5.22 tow  -> >B 2, >3B 0, over-away 2; thin 0.1384/0.1384 keeps; L1 ok  no
+  i-a0.7-f0.2-t128   1x  O-1.36 tow | O-0.89 tow | O-0.30 unc | U+2.13 awa | U+1.37 awa  -> >B 2, >3B 0, over-away 0; thin 0.1074/0.1072 keeps; L1 ok  MEETS
+  i-a0.7-f0.2-t128   2x  O-0.10 unc | O-0.27 unc | O+0.00 unc | U+1.98 awa | U+1.59 awa  -> >B 2, >3B 0, over-away 0; thin 0.1384/0.1384 keeps; L1 ok  MEETS
+  i-a0.7-f0.2-t160   1x  O-1.36 tow | O-0.89 tow | O-0.30 unc | U+2.13 awa | U+1.37 awa  -> >B 2, >3B 0, over-away 0; thin 0.1073/0.1072 keeps; L1 ok  MEETS
+  i-a0.7-f0.2-t160   2x  O-0.10 unc | O-0.27 unc | O+0.00 unc | U+1.98 awa | U+1.59 awa  -> >B 2, >3B 0, over-away 0; thin 0.1384/0.1384 keeps; L1 ok  MEETS
+  i-a0.7-g0.2        1x  O+9.23 awa | O+7.75 awa | O+1.67 awa | U-8.25 tow | U-16.04 tow  -> >B 3, >3B 3, over-away 3; thin 0.1078/0.1072 keeps; L1 ok  no
+  i-a0.7-g0.2        2x  O+8.35 awa | O+6.75 awa | O+1.56 awa | U+0.47 awa | U-10.77 tow  -> >B 3, >3B 3, over-away 3; thin 0.1358/0.1384 keeps; L1 ok  no
+  i-a0.7-g0.4        1x  O+5.23 awa | O+4.35 awa | O+0.87 awa | U-6.36 tow | U-9.34 tow  -> >B 3, >3B 2, over-away 3; thin 0.1086/0.1072 keeps; L1 ok  no
+  i-a0.7-g0.4        2x  O+4.75 awa | O+3.76 awa | O+0.88 awa | U-5.68 tow | U-11.28 tow  -> >B 3, >3B 2, over-away 3; thin 0.1322/0.1384 keeps; L1 ok  no
+  i-a0.7-g0.6        1x  O+1.45 awa | O+1.17 awa | O+0.22 unc | U-1.79 tow | U-2.73 tow  -> >B 2, >3B 0, over-away 2; thin 0.1091/0.1072 keeps; L1 ok  no
+  i-a0.7-g0.6        2x  O+1.33 awa | O+1.04 awa | O+0.26 unc | U-2.40 tow | U-3.28 tow  -> >B 2, >3B 0, over-away 2; thin 0.1286/0.1384 keeps; L1 ok  no
+  i-a0.8             1x  O+5.88 awa | O+4.89 awa | O+1.00 awa | U-7.16 tow | U-10.47 tow  -> >B 3, >3B 3, over-away 3; thin 0.0644/0.1072 keeps; L1 ok  no
+  i-a0.8             2x  O+5.37 awa | O+4.28 awa | O+1.00 awa | U-4.67 tow | U-12.61 tow  -> >B 3, >3B 2, over-away 3; thin 0.0701/0.1384 keeps; L1 ok  no
+  i-a0.8-f0.2        1x  O+1.64 awa | O+1.33 awa | O+0.25 unc | U-2.01 tow | U-3.07 tow  -> >B 2, >3B 0, over-away 2; thin 0.0644/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.2        2x  O+1.50 awa | O+1.15 awa | O+0.29 unc | U-2.70 tow | U-3.73 tow  -> >B 2, >3B 0, over-away 2; thin 0.0701/0.1384 keeps; L1 ok  no
+  i-a0.8-f0.45       1x  O-2.58 tow | O-0.99 tow | O-0.33 unc | U+3.27 awa | U+5.69 awa  -> >B 3, >3B 2, over-away 0; thin 0.0644/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.45       2x  O-2.32 tow | O-0.30 tow | O-0.54 tow | U+4.60 awa | U+7.17 awa  -> >B 3, >3B 2, over-away 0; thin 0.0701/0.1384 keeps; L1 ok  no
+  i-a0.8-f0.2-t128   1x  O-3.26 tow | O-0.47 tow | O-0.46 unc | U+4.23 awa | U+8.10 awa  -> >B 3, >3B 2, over-away 0; thin 0.0643/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.2-t128   2x  O-2.92 tow | O+0.17 awa | O-0.74 tow | U+6.10 awa | U+10.58 awa  -> >B 3, >3B 3, over-away 1; thin 0.0701/0.1384 keeps; L1 ok  no
+  i-a0.8-f0.2-t160   1x  O-3.26 tow | O-0.47 tow | O-0.46 unc | U+4.23 awa | U+8.10 awa  -> >B 3, >3B 2, over-away 0; thin 0.0643/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.2-t160   2x  O-2.92 tow | O+0.17 awa | O-0.74 tow | U+6.10 awa | U+10.58 awa  -> >B 3, >3B 3, over-away 1; thin 0.0701/0.1384 keeps; L1 ok  no
+  i-a0.8-g0.2        1x  O+3.93 awa | O+3.24 awa | O+0.64 awa | U-4.80 tow | U-7.14 tow  -> >B 3, >3B 2, over-away 3; thin 0.0622/0.1072 keeps; L1 ok  no
+  i-a0.8-g0.2        2x  O+3.59 awa | O+2.84 awa | O+0.69 awa | U-6.36 tow | U-8.64 tow  -> >B 3, >3B 1, over-away 3; thin 0.0681/0.1384 LOSES; L1 ok  no
+  i-a0.8-g0.4        1x  O+1.45 awa | O+1.17 awa | O+0.22 unc | U-1.79 tow | U-2.73 tow  -> >B 2, >3B 0, over-away 2; thin 0.0602/0.1072 keeps; L1 ok  no
+  i-a0.8-g0.4        2x  O+1.33 awa | O+1.04 awa | O+0.26 unc | U-2.40 tow | U-3.28 tow  -> >B 2, >3B 0, over-away 2; thin 0.0655/0.1384 LOSES; L1 ok  no
+  i-a0.8-g0.6        1x  O-0.82 tow | O-0.64 tow | O-0.11 unc | U+1.01 awa | U+1.61 awa  -> >B 2, >3B 0, over-away 0; thin 0.0577/0.1072 keeps; L1 ok  MEETS
+  i-a0.8-g0.6        2x  O-0.71 tow | O-0.54 tow | O-0.16 unc | U+1.39 awa | U+1.96 awa  -> >B 2, >3B 0, over-away 0; thin 0.0629/0.1384 LOSES; L1 ok  no
+
+(b) operator 2, per rung and scale: R on T1-fine per fine cell (bar >= 0.5), the whole-band fall -g/B beside; guards' whole-band delta in B (floor -1)
+  iii-b2     1x  R 0.340 whole +1.82B | R 0.347 whole +1.42B  guards -0.11 / -0.00  no
+  iii-b2     2x  R 0.211 whole +0.60B | R 0.197 whole +0.53B  guards -0.01 / -0.00  no
+  iii-b3     1x  R 0.705 whole +3.72B | R 0.733 whole +2.79B  guards -0.39 / -0.01  MEETS
+  iii-b3     2x  R 0.529 whole +1.70B | R 0.504 whole +1.53B  guards -0.02 / -0.00  MEETS
+  iii-b4     1x  R 0.736 whole +3.87B | R 0.763 whole +2.88B  guards -0.56 / -0.02  MEETS
+  iii-b4     2x  R 0.693 whole +2.26B | R 0.656 whole +2.02B  guards -0.04 / -0.00  MEETS
+  iii-s1.5   1x  R -0.043 whole -0.21B | R -0.051 whole -0.19B  guards +0.00 / -0.00  no
+  iii-s1.5   2x  R 0.395 whole +1.23B | R 0.373 whole +1.08B  guards -0.01 / -0.00  no
+  iii-s2     1x  R 0.233 whole +1.25B | R 0.237 whole +0.98B  guards -0.08 / -0.00  no
+  iii-s2     2x  R 0.591 whole +1.92B | R 0.561 whole +1.72B  guards -0.03 / -0.00  MEETS
+  iii-s3     1x  R 0.606 whole +3.22B | R 0.623 whole +2.43B  guards -0.26 / -0.01  MEETS
+  iii-s3     2x  R 0.871 whole +2.75B | R 0.832 whole +2.46B  guards -0.06 / -0.00  MEETS
+  iii-s4     1x  R 0.728 whole +3.83B | R 0.753 whole +2.85B  guards -0.45 / -0.01  MEETS
+  iii-s4     2x  R 1.005 whole +2.98B | R 0.967 whole +2.66B  guards -0.10 / -0.00  MEETS
+  iii-s6     1x  R 0.739 whole +3.89B | R 0.769 whole +2.89B  guards -0.83 / -0.03  MEETS
+  iii-s6     2x  R 1.044 whole +2.99B | R 1.011 whole +2.68B  guards -0.18 / -0.00  MEETS
+  iii-q0.25  1x  R 0.245 whole +1.31B | R 0.241 whole +1.00B  guards -0.13 / -0.00  no
+  iii-q0.25  2x  R 0.274 whole +1.05B | R 0.247 whole +0.90B  guards -0.03 / -0.00  no
+  iii-q0.5   1x  R 0.455 whole +2.43B | R 0.462 whole +1.85B  guards -0.24 / -0.01  no
+  iii-q0.5   2x  R 0.553 whole +2.02B | R 0.511 whole +1.79B  guards -0.05 / -0.00  MEETS
+  iii-q0.75  1x  R 0.629 whole +3.34B | R 0.642 whole +2.49B  guards -0.35 / -0.01  MEETS
+  iii-q0.75  2x  R 0.792 whole +2.63B | R 0.753 whole +2.35B  guards -0.07 / -0.00  MEETS
+
+(c) the joint (iv-joint): partition holds (>B [], >3B [], over-away []); halving 1x holds (R 0.736 / 0.767), 2x holds (R 1.044 / 1.011); photo 1x x0.4163 vs point A x0.4171 (-0.02 bar), 2x x0.4601 vs point A x0.4604 (-0.01 bar)  MEETS (decides name-target only)
+
+operator 1: separates True at ['i-a0.7-f0.2-t128', 'i-a0.7-f0.2-t160']; one scale only ['i-a0.8-g0.6']
+operator 2: the tap separates True at ['iii-s3', 'iii-s4', 'iii-s6', 'iii-q0.75']; the body width meets True at ['iii-b3', 'iii-b4']; members ['the tap', 'the body width']; one scale only ['iii-s2', 'iii-q0.5']
+ladder (ii) (not re-read): meets False
+one scale only: ['i-a0.8-g0.6', 'iii-s2', 'iii-q0.5'] (ruled off the grid ['iii-q0.5', 'iii-s2']; unruled ['i-a0.8-g0.6'])
+
+against the charter: as predicted
+OUTCOME: STOP for the parent: rungs meeting at one scale only that no ruling put off the grid: ['i-a0.8-g0.6']
