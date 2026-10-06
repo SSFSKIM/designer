@@ -1,0 +1,43 @@
+{
+  "label": "d-x2-ta0.7-n20.9-m2160-t20.2",
+  "holds": true,
+  "endpoints": {
+    "active.light": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "3741b22934f17f4d",
+      "snapshotDigest": "3741b22934f17f4d",
+      "snapshot": "ebc3d9105a4a.json",
+      "patchIdentical": true,
+      "digestIdentical": true
+    },
+    "active.dark": {
+      "moved": [
+        "optics.regular.tintAlpha",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar2x"
+      ],
+      "undeclared": [],
+      "digest": "fc1338d55c8e9a98",
+      "snapshotDigest": "b074fc6913a91c66",
+      "snapshot": "d0219cd684bf.json"
+    },
+    "receded.light": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "c4ca0e1cd6791bde",
+      "snapshotDigest": "c4ca0e1cd6791bde",
+      "snapshot": "12712d534b78.json",
+      "patchIdentical": true,
+      "digestIdentical": true
+    },
+    "receded.dark": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "9234ac4ab7243fa2",
+      "snapshotDigest": "280f0fddf014e0f6",
+      "snapshot": "f0b36a71772a.json"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$comment": "W48 scratch candidate d-s1-ta0.8-o0.05-m1128-m2160-t10.45-t20.3:",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w48-d-s1-ta0.8-o0.05-m1128-m2160-t10.45-t20.3",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "f2d0f8d024d92e89a9cef38d6bcbc5a1e13a85df7eef5596a80d70269c7f36bc"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "03117a6a1953bc7164bc5797e09c2c4dddea98e080e88ebe041b712f801a6055"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "9473b7f92ae78e1871e6c7da8847e4cb8e71abd276cd8393a479e747e0f126c6"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "1dcf4170b5e195e722d56fd97438fe20b932512742a5fc6a680bbdd03d50f79b"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

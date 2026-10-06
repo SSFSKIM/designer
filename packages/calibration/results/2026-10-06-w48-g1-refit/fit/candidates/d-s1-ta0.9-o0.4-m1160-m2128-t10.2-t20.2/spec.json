@@ -1,0 +1,17 @@
+{
+  "label": "d-s1-ta0.9-o0.4-m1160-m2128-t10.2-t20.2",
+  "note": "",
+  "stage": "stage1",
+  "family": "span-law",
+  "start": "d0219",
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.9,
+      "tintAlphaFar1x": 0.2,
+      "tintAlphaFar2x": 0.2,
+      "sizeScatterSpanMax": 160,
+      "sizeScatterSpanMax2x": 128,
+      "sizeOcclusionGain": 0.4
+    }
+  }
+}
