@@ -22,6 +22,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | 7 | the standing rules | **RULED** by the parent, 2026-10-06 | no attribution; path-scoped adds; no file over 50 MB; evidence never rewritten; freeze 1,818 and X41 911 at every merge; nothing withheld renders before the exposure |
 | 8 | the one-scale rung `i-a0.8-g0.6` | **RULED** by the parent, 2026-10-06 | recorded under Design (f), its point on no W48 grid, grids unchanged; part 1's one amendment, additive, re-pins `declare.py` and its tests so `check-fit` records such a rung; the verdicts re-read under the amended hash |
 | 9 | the gate read NEITHER; ship, tie-broken by the budget | **RULED** by the user, 2026-10-07 | part 2 amended once after the gate: inside the objective's tie, fewest cells away beyond B, then fewest past 3 B, then the hashed tie rule; the selected point is the landed active with rest-scatter scale gain −0.5 over the landed receded; an improvement landing with every exception named |
+| 10 | the exposure | **RULED** by the parent, 2026-10-07 | the ship ruling stands; every exposure exception an authorised regression against `d0219cd684bf` at G2; P (both scales) and F inactive at 2x named misses; `photo__rrect-lg__inactive` also under the dark photo body gap; the CSS holdout cells the tier's residual |
 
 ## Purpose
 
@@ -689,6 +690,30 @@ inactive cells with the selected stage-1 point's rest cells.
   | C rest | halved, 0.1724 / 0.2007 | the same |
   | P | 0.4922 / 0.648, not halved | the same |
   | F inactive | 0.4691 / 0.5795, not halved | 0.4661 / 0.5783, not halved |
+
+### Decision Log 10 — RULED 2026-10-07 (the parent, under Decision Log 9): the exposure
+
+**The reading (G1 step 7, head `1d9ba205e`; read 8 of the cross-gate ledger).** On the pair
+`791cde91d97acbc7` / `be472bc8e42b618d` the exposure's 77 T1 cells per profile read NEITHER on both
+profiles, as the gate did: C rest halved at both scales (0.1934 / 0.2007 against 0.39 / 0.5065),
+F inactive halved at 1x only (0.3846 against 0.8684; 2x 0.535 against 0.9423), P not halved
+(0.7644 / 0.7188 against 1.1005 / 1.1195); 8 / 9 cells away beyond B, 2 / 2 past 3 B; every group
+holds, T inactive included. Two cells are away for the first time at the exposure:
+`checkerboard-32__rrect-lg__inactive` (a referee; 3.20 / 6.04 B, past 3 B) and
+`photo__rrect-lg__inactive` (a holdout cell; 2.64 / 2.90 B; web 0.0022 against native 0.046). The
+gate's cells read as at the gate. L1, M1, C1, X1 and the dark tables pass; M2's eight photo cells
+move toward native; E2's 52 cells are read; S1 dark 0.304 / 0.300 against 0.314 / 0.311; X60
+IDENTICAL after the exposure; the CSS tier moves toward Apple on every gate stratum but F rest
+(flat), toward on the referees and slightly away on the holdout (two cells per scale).
+
+**Ruled.** The ship ruling stands; nothing in the exposure changes its shape. Both new cells are
+the receded scatter's cost on thick inactive spans, the shape Decision Log 9 §7 defers, now with a
+holdout and a referee witness. Every cell in the exposure report's exception table is an authorised
+regression against `d0219cd684bf` and goes into `T1_DARK_AUTHORISED_REGRESSIONS` at G2 with its
+growth in B and "W48 Decision Logs 9 and 10, §5.213"; the P target (both scales) and the F inactive
+target at 2x are named misses; `photo__rrect-lg__inactive` is also named under the dark photo
+body gap (claims §5.201) as the inactive pose's reading of it; the CSS holdout cells away are the
+tier's recorded residual. G1 publishes (step 8), writes §5.213 and hands back; G2 lands 0.28.0.
 
 ## Surprises & Discoveries
 
